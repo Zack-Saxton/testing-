@@ -5,7 +5,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Textfield from "../FormsUI/Textfield";
 import TextfieldwithIcon from "../FormsUI/TextfieldWithIcon";
 import Logo from "../../assets/images/MarinerLogo.png";
-import styles from "../../assets/styles/styles.css";
 import "../App/app.css";
 
 //Styling Part
