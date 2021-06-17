@@ -17,7 +17,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 
 //Initializing component
-const PasswordWrapper = ({ name, ...otherProps }) => {
+const PasswordWrapper = ({ name, id, ...otherProps }) => {
   const [field, mata] = useField(name);
   const [values, setValues] = React.useState({
     password: "",
@@ -43,30 +43,26 @@ const PasswordWrapper = ({ name, ...otherProps }) => {
   //Basic field configurations
   const configTextfield = {
     name: name,
-    id: "standard-adornment-password",
     ...otherProps,
   };
 
-  if (mata && mata.touched && mata.error) {
-    configTextfield.error = true;
-    configTextfield.helperText = mata.error;
-  }
-
+  configTextfield.error = (mata && mata.touched && mata.error) ? true :  configTextfield.error ?? false;
+  configTextfield.helperText = (mata && mata.touched && mata.error) ? mata.error : configTextfield.helperText ?? '';
   //Validation part
   let check = passwordValidation(field.value);
-  if (mata.touched && check) {
-    configTextfield.error = true;
-    configTextfield.helperText = check;
-  }
 
+  configTextfield.error = (mata.touched && check) ? true :  configTextfield.error ?? false;
+  configTextfield.helperText = (mata.touched && check) ? check : configTextfield.helperText ?? '';
+  
   return (
     // <TextField {...configTextfield} />
     <FormControl fullWidth={true}>
-      <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+      <InputLabel htmlFor={id}>Password</InputLabel>
       <Input
-        id="standard-adornment-password"
+        id= {id}
         type={values.showPassword ? "text" : "password"}
-        value={values.password}
+        value={values?.password}
+        autoComplete="password"
         onChange={handleChange("password")}
         onCut={handleEdit}
         onCopy={handleEdit}

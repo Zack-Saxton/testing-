@@ -18,16 +18,15 @@ const BankRoutingNumberWrapper = ({ name, ...otherProps }) => {
 
   const onHandleBRNumberChange = (event) => {
     const reg = /^[0-9\b]+$/;
-    let acc = event.target.value;
-
-    if (acc === "" || reg.test(acc)) {
-      setBRNum(event.target.value);
-      helpers.setValue(acc);
-    }
+    let val = (event.target.value === "" || reg.test(event.target.value)) ? event.target.value : BRNum;
+    setBRNum(val);
+    helpers.setValue(val);
   };
 
+  
+
   //Configuring the field with properties
-  const configTextfield = {
+  const config = {
     name: name,
     type: "text",
     fullWidth: true,
@@ -36,24 +35,22 @@ const BankRoutingNumberWrapper = ({ name, ...otherProps }) => {
   };
 
   //Validation part
-  var isValid = /^[0-9\b]+$/.test(field.value);
+  var isValid = /(^\d{9}$)/.test(field.value);
 
   // check validity
-  if (mata && mata.touched && mata.error) {
-    configTextfield.error = true;
-    configTextfield.helperText = mata.error;
-  }
 
-  //Validate - Digit count
-  if (!isValid && field.value && mata.touched) {
-    configTextfield.error = true;
-    configTextfield.helperText = "Should be 9 digit";
-  }
+  // Validation
+
+  config.error = (!isValid && field.value && mata.touched) ? true :  config.error ?? false;
+  config.helperText = (!isValid && field.value && mata.touched) ? "Should be 9 digit" : config.helperText ?? '';
+  config.error = (mata && mata.touched && mata.error) ? true :  config.error ?? false;
+  config.helperText = (mata && mata.touched && mata.error) ? mata.error : config.helperText ?? '';
+
 
   //return the view block
   return (
     <TextBox
-      {...configTextfield}
+      {...config}
       materialProps={{ maxLength: "9" }}
       value={BRNum}
       onChange={onHandleBRNumberChange}

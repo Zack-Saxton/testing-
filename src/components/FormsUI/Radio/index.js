@@ -25,7 +25,7 @@ const RadioButtonWrapper = ({
 }) => {
   //To return all formik state
   const { setFieldValue } = useFormikContext();
-  const [field, meta] = useField(value);
+  const [field, meta] = useField(name);
   const handleChange = (evt) => {
     const { checked } = evt.target;
     setFieldValue(value, checked);
@@ -35,28 +35,20 @@ const RadioButtonWrapper = ({
   const configRadioButton = {
     name,
     row: row,
+    required: required,
     ...field,
     ...otherProps,
     onChange: handleChange,
   };
 
   //Validation
-  const configFormControl = {};
-  if (meta && meta.touched && meta.error) {
-    configFormControl.error = true;
-  }
-
-  if (required && !field.value && meta.touched) {
-    configRadioButton.error = true;
-    configRadioButton.helperText = "required";
-  }
 
   //parsing data using json
   let radiolabelMF = JSON.parse(radiolabel);
 
   //View Part
   return (
-    <FormControl {...configFormControl}>
+    <FormControl >
       <FormLabel>{labelforform}</FormLabel>
       <RadioGroup {...configRadioButton}>
         {radiolabelMF.map((radio) => (

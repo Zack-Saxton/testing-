@@ -86,18 +86,18 @@ const TextfieldWrapper = ({
   };
 
   //Configuring the field with properties
-  const configTextfield = {
+  const config = {
     name: name,
     ...field,
     ...otherProps,
     className: classes.sliderWrap,
     value: typeof value === "number" ? value : 0,
     onChange: handleSliderChange,
-    defaultValue: 12500,
+    defaultValue: defaultValue ?? 12500,
     getAriaValueText: valuetext,
-    step: 500,
-    min: 1000,
-    max: 25000,
+    step: difference ?? 500,
+    min: min ?? 1000,
+    max: max ?? 25000,
     marks: marks,
     track: false,
   };
@@ -114,7 +114,7 @@ const TextfieldWrapper = ({
             {label}
           </Typography>
         </div>
-        <Slider {...configTextfield} {...otherProps} />
+        <Slider {...config} {...otherProps} />
       </FormControl>
       <div className={classes.center}>
         <Typography id="discrete-slider-always" className={classes.OutputText}>

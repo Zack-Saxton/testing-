@@ -40,15 +40,12 @@ const PasswordWithIconWrapper = ({
   };
 
   //Validation part
-  if (mata && mata.touched && mata.error) {
-    configTextfield.error = true;
-    configTextfield.helperText = mata.error;
-  }
+  configTextfield.error = (mata && mata.touched && mata.error) ? true :  configTextfield.error ?? false;
+  configTextfield.helperText = (mata && mata.touched && mata.error) ? mata.error : configTextfield.helperText ?? '';
 
-  if (!field.value && mata.touched) {
-    configTextfield.error = true;
-    configTextfield.helperText = "required";
-  }
+  configTextfield.error = (!field.value && mata.touched) ? true :  configTextfield.error ?? false;
+  configTextfield.helperText = (field.value && mata.touched) ? "required" : configTextfield.helperText ?? '';
+  
 
   //View part
   return (

@@ -21,7 +21,7 @@ import { Phone } from "@material-ui/icons";
 const theme = createMuiTheme();
 const PhoneNumberWrapper = ({ name, ...otherProps }) => {
   //Set Formik field
-  const [field, mata] = useField({ name });
+  const [field, mata] = useField(name);
 
   //Configuring the field with properties
   const configTextfield = {
@@ -32,10 +32,9 @@ const PhoneNumberWrapper = ({ name, ...otherProps }) => {
   };
 
   //Validation part
-  if (mata && mata.touched && mata.error) {
-    configTextfield.error = true;
-    configTextfield.helperText = mata.error;
-  }
+  configTextfield.error = (mata && mata.touched && mata.error) ? true :  configTextfield.error ?? false;
+  configTextfield.helperText = (mata && mata.touched && mata.error) ? mata.error : configTextfield.helperText ?? '';
+
 
   return (
     <FormControl fullWidth={true}>

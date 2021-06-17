@@ -18,13 +18,11 @@ const AccountNumberWrapper = ({ name, ...otherProps }) => {
 
   //Account Number field onChange handle
   const onHandleAccountChange = (event) => {
-    const reg = /^[0-9\b]+$/;
-    let acc = event.target.value;
 
-    if (acc === "" || reg.test(acc)) {
-      setAccNum(event.target.value);
-      helpers.setValue(acc);
-    }
+    const reg = /^[0-9\b]+$/;
+    let val = (event.target.value === "" || reg.test(event.target.value)) ? event.target.value : accNum;
+    setAccNum(val);
+    helpers.setValue(val);
   };
 
   //Configuring the field with properties
@@ -40,17 +38,12 @@ const AccountNumberWrapper = ({ name, ...otherProps }) => {
   var isValid = /(^\d{6,17}$)/.test(field.value);
 
   // check validity
-  if (mata && mata.touched && mata.error) {
-    configTextfield.error = true;
-    configTextfield.helperText = mata.error;
-  }
 
-  //Check account number
-  if (!isValid && field.value && mata.touched) {
-    configTextfield.error = true;
-    configTextfield.helperText =
-      "Account number should be between 6 to 17 digits";
-  }
+  configTextfield.error = (!isValid && field.value && mata.touched) ? true :  configTextfield.error ?? false;
+  configTextfield.helperText = (!isValid && field.value && mata.touched) ? "Account number should be between 6 to 17 digits" : configTextfield.helperText ?? '';
+  
+  configTextfield.error = (mata && mata.touched && mata.error) ? true :  configTextfield.error ?? false;
+  configTextfield.helperText = (mata && mata.touched && mata.error) ? mata.error : configTextfield.helperText ?? '';
 
   //return the view block
   return (

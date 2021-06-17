@@ -33,10 +33,6 @@ const MobileNumberWrapper = ({ name, ...otherProps }) => {
   //Validation
 
   // Check validity
-  if (mata && mata.touched && mata.error) {
-    configTextfield.error = true;
-    configTextfield.helperText = mata.error;
-  }
 
   return (
     <FormControl fullWidth={true}>

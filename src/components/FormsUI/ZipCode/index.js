@@ -14,17 +14,16 @@ import TextBox from "../Textfield";
 const ZipCodeWrapper = ({ name, ...otherProps }) => {
   const [zip, setZip] = useState("");
   const [field, mata, helpers] = useField(name);
-  const onHandleTelephoneChange = (event) => {
-    let reg = /^[0-9\b]+$/;
-    let tempVal = event.target.value;
 
-    if (tempVal === "" || reg.test(tempVal)) {
-      setZip(event.target.value);
-      helpers.setValue(tempVal);
-    }
+  //Handle on change 
+  const onHandleTelephoneChange = (event) => {
+    const reg = /^[0-9\b]+$/;
+    let val = (event.target.value === "" || reg.test(event.target.value)) ? event.target.value : zip;
+    setZip(val);
+    helpers.setValue(val);
   };
   //Configuring the field with properties
-  const configTextfield = {
+  const config = {
     name: name,
     type: "text",
     fullWidth: true,
@@ -33,23 +32,22 @@ const ZipCodeWrapper = ({ name, ...otherProps }) => {
   };
 
   //Validation part
-  var isValid = /^[0-5\b]+$/.test(field.value);
+  var isValid = /(^\d{5}$)/.test(field.value);
 
   // check validity
-  if (mata && mata.touched && mata.error) {
-    configTextfield.error = true;
-    configTextfield.helperText = mata.error;
-  }
 
-  if (!isValid && field.value && mata.touched) {
-    configTextfield.error = true;
-    configTextfield.helperText = "Should be 5 digit";
-  }
+  config.error = (mata && mata.touched && mata.error) ? true :  config.error ?? false;
+  config.helperText = (mata && mata.touched && mata.error) ? mata.error : config.helperText ?? '';
+
+  config.error = (!isValid && field.value && mata.touched) ? true :  config.error ?? false;
+  config.helperText = (!isValid && field.value && mata.touched) ? "Should be 5 digit" : config.helperText ?? '';
+  
+
 
   //return the view block
   return (
     <TextBox
-      {...configTextfield}
+      {...config}
       materialProps={{ maxLength: "5" }}
       value={zip}
       onChange={onHandleTelephoneChange}

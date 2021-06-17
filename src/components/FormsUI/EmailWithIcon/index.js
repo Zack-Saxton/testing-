@@ -39,15 +39,12 @@ const EmailWithIconWrapper = ({
   };
 
   //Validation part
-  if (mata && mata.touched && mata.error) {
-    configTextfield.error = true;
-    configTextfield.helperText = mata.error;
-  }
 
-  if (!field.value && mata.touched) {
-    configTextfield.error = true;
-    configTextfield.helperText = "required";
-  }
+  configTextfield.error = (!field.value && mata.touched) ? true :  configTextfield.error ?? false;
+  configTextfield.helperText = (field.value && mata.touched) ? "required" : configTextfield.helperText ?? '';
+  
+  configTextfield.error = (mata && mata.touched && mata.error) ? true :  configTextfield.error ?? false;
+  configTextfield.helperText = (mata && mata.touched && mata.error) ? mata.error : configTextfield.helperText ?? '';
 
   //View part
   return (

@@ -44,7 +44,7 @@ const TextAreaWrapper = ({
   const classes = useStyles();
 
   //Configuring the field with properties
-  const configTextArea = {
+  const config = {
     name: name,
     placeholder: placeholder,
     label: label,
@@ -59,24 +59,22 @@ const TextAreaWrapper = ({
   };
 
   //Validation
-  if (meta && meta.touched && meta.error) {
-    configTextArea.error = true;
-    configTextArea.helperText = meta.error;
-  }
 
-  if (required && !values.name && meta.touched) {
-    configTextArea.error = true;
-    configTextArea.helperText = "required";
-  }
+  config.error = (meta && meta.touched && meta.error) ? true :  config.error ?? false;
+  config.helperText = (meta && meta.touched && meta.error) ? meta.error : config.helperText ?? '';
+
+  config.error = (required && field.value && meta.touched) ? true :  config.error ?? false;
+  config.helperText = (required && field.value && meta.touched) ? "required" : config.helperText ?? '';
+  
 
   //View Part
   return (
     <TextField
-      {...configTextArea}
+      {...config}
       className={classes.textarea}
       multiline
       inputProps={{
-        maxLength: CHARACTER_LIMIT,
+        maxLength: CHARACTER_LIMIT ?? 20,
       }}
       value={values.name}
       helperText={`${values.name.length}/${CHARACTER_LIMIT}`}

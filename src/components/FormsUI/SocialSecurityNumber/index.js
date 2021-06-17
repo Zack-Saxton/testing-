@@ -26,7 +26,7 @@ const SSNWrapper = ({ name, ...otherProps }) => {
   };
 
   //Configuring the field with properties
-  const configTextfield = {
+  const config = {
     name: name,
     ...field,
     ...otherProps,
@@ -35,10 +35,11 @@ const SSNWrapper = ({ name, ...otherProps }) => {
 
   //Validation part
   // check validity
-  if (mata && mata.touched && mata.error) {
-    configTextfield.error = true;
-    configTextfield.helperText = mata.error;
-  }
+
+  config.error = (mata && mata.touched && mata.error) ? true :  config.error ?? false;
+  config.helperText = (mata && mata.touched && mata.error) ? mata.error : config.helperText ?? '';
+
+ 
 
   return (
     <FormControl fullWidth={true}>

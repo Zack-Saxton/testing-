@@ -85,16 +85,12 @@ const TextfieldWrapper = ({
   };
 
   //Validation part
-  if (mata && mata.touched && mata.error) {
-    configTextfield.error = true;
-    configTextfield.helperText = mata.error;
-  }
 
-  //Check for required
-  if (required && !field.value && mata.touched) {
-    configTextfield.error = true;
-    configTextfield.helperText = "required";
-  }
+  configTextfield.error = (required && !field.value && mata.touched) ? true :  configTextfield.error ?? false;
+  configTextfield.helperText = (required && !field.value && mata.touched) ? "required" : configTextfield.helperText ?? '';
+  
+  configTextfield.error = (mata && mata.touched && mata.error) ? true :  configTextfield.error ?? false;
+  configTextfield.helperText = (mata && mata.touched && mata.error) ? mata.error : configTextfield.helperText ?? '';
 
   //return the Materil UI component with configuration
   return <TextField {...configTextfield} inputProps={materialProps} />;

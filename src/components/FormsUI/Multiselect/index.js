@@ -27,7 +27,7 @@ const MultiSelectWrapper = ({
   ...otherProps
 }) => {
   //To return all formik state
-  const [field, meta] = useField(value);
+  const [field, meta] = useField(name);
   const [setmultiselect, setMultiSelect] = React.useState([]);
   const handleChange = (event) => {
     setMultiSelect(event.target.value);
@@ -50,9 +50,6 @@ const MultiSelectWrapper = ({
     noLabel: {
       marginTop: theme.spacing(3),
     },
-    formlabel: {
-      position: "unset!important",
-    },
     check: {
       color: checkboxcolor,
     },
@@ -68,9 +65,18 @@ const MultiSelectWrapper = ({
     PaperProps: {
       style: {
         maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-        width: 250,
+        width: 150,
       },
     },
+      anchorOrigin: {
+      vertical: "bottom",
+      horizontal: "left"
+      },
+      transformOrigin: {
+      vertical: "top",
+      horizontal: "left"
+      },
+      getContentAnchorEl: null
   };
 
   //Configuring Field with Properties
@@ -88,15 +94,6 @@ const MultiSelectWrapper = ({
     className: classes.formControl,
     required: true,
   };
-
-  if (meta && meta.touched && meta.error) {
-    configFormControl.error = true;
-  }
-
-  if (required && !field.value && meta.touched) {
-    configFormControl.error = true;
-    configFormControl.helpertext = "required";
-  }
 
   //Parsing json data
   let multiselect1 = JSON.parse(multiselect);
