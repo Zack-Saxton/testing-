@@ -11,3 +11,16 @@ export  function passwordValidation(x) {
   return '';
 }
 
+export function checkRequired(value, touched){
+
+  if(!value && touched){
+    return(true, "Required");
+  }
+  else{
+    return(false, "");
+  }
+}
+
+export function checkEmail(value, touched){
+  
+}

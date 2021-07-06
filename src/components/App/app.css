@@ -6,7 +6,33 @@
   margin: 30px;
 }
 
-.form
-{
+
+
+
+.sample{
+  top: 0px !important;
+  height: 250px !important;
+  z-index: -1;
+  top: 64px;
+  left: 0;
   width: 100%;
+  height: 185px;
+  -webkit-transition: .3s ease all;
+  transition: .3s ease all;
+
+background: linear-gradient(
+85deg
+, #264266, #0F4EB3) !important;
+
+}
+
+#main{
+  transition: 0.5s;
+}
+
+#body{
+  
+ padding-bottom: 10%;
+  background: #B0CFE1;
+  place-items: center;
 }

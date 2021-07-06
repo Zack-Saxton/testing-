@@ -2,7 +2,7 @@
 
 File Name           :    Zipcode/index.js
 Component Name      :    Zipcode
-Functionality       :    To use this component to validate and get the Zip code in the correct format from the user.
+Functionality       :    To use this component to validate and get the zipcode in the correct format from the user.
 
 #################################################################################################################*/
 
@@ -10,49 +10,47 @@ import React, { useState } from "react";
 import { useField } from "formik";
 import PropTypes from "prop-types";
 import TextBox from "../Textfield";
+import { TextField } from '@material-ui/core';
+import { set } from "date-fns";
 
 const ZipCodeWrapper = ({ name, ...otherProps }) => {
-  const [zip, setZip] = useState("");
-  const [field, mata, helpers] = useField(name);
-  const onHandleTelephoneChange = (event) => {
-    let reg = /^[0-9\b]+$/;
-    let tempVal = event.target.value;
+  //Set Formik field
+  const [zipCode, setZipCode] = useState("");
+  const [isError, setIsError] = useState(false);
+  const [helpertext, setHelpertext] = useState("");
 
-    if (tempVal === "" || reg.test(tempVal)) {
-      setZip(event.target.value);
-      helpers.setValue(tempVal);
+  //Account Number field onChange handle
+  const onHandleZipcodeChange = (event) => {
+    const reg = /^[0-9\b]+$/;
+    let acc = event.target.value;
+
+    if (acc === "" || reg.test(acc)) {
+      setZipCode(event.target.value);
     }
+    var isValid = /(^\d{5}$)/.test(event.target.value);
+    (!isValid && event.target.value) ? setIsError(true) : setIsError(false) ;
+    (!isValid && event.target.value) ? setHelpertext("Zipcode should 5 digits") : setHelpertext("") ;
+
   };
+
+  
   //Configuring the field with properties
   const configTextfield = {
     name: name,
     type: "text",
     fullWidth: true,
-    ...field,
+    setError: isError,
+    setHelperText: helpertext,
     ...otherProps,
   };
-
-  //Validation part
-  var isValid = /^[0-5\b]+$/.test(field.value);
-
-  // check validity
-  if (mata && mata.touched && mata.error) {
-    configTextfield.error = true;
-    configTextfield.helperText = mata.error;
-  }
-
-  if (!isValid && field.value && mata.touched) {
-    configTextfield.error = true;
-    configTextfield.helperText = "Should be 5 digit";
-  }
 
   //return the view block
   return (
     <TextBox
       {...configTextfield}
-      materialProps={{ maxLength: "5" }}
-      value={zip}
-      onChange={onHandleTelephoneChange}
+      materialProps={{ maxLength: "5", "data-testid": "test"}}
+      value={zipCode}
+      onChange={onHandleZipcodeChange}
       required={true}
     />
   );

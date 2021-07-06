@@ -10,11 +10,14 @@ import React, { useState } from "react";
 import { useField } from "formik";
 import PropTypes from "prop-types";
 import TextBox from "../Textfield";
+import { TextField } from '@material-ui/core';
+import { set } from "date-fns";
 
 const AccountNumberWrapper = ({ name, ...otherProps }) => {
   //Set Formik field
   const [accNum, setAccNum] = useState("");
-  const [field, mata, helpers] = useField(name);
+  const [isError, setIsError] = useState(false);
+  const [helpertext, setHelpertext] = useState("");
 
   //Account Number field onChange handle
   const onHandleAccountChange = (event) => {
@@ -23,40 +26,29 @@ const AccountNumberWrapper = ({ name, ...otherProps }) => {
 
     if (acc === "" || reg.test(acc)) {
       setAccNum(event.target.value);
-      helpers.setValue(acc);
     }
+    var isValid = /(^\d{6,17}$)/.test(event.target.value);
+    (!isValid && event.target.value) ? setIsError(true) : setIsError(false) ;
+    (!isValid && event.target.value) ? setHelpertext("Account number should be between 6 to 17 digits") : setHelpertext("") ;
+
   };
 
+  
   //Configuring the field with properties
   const configTextfield = {
     name: name,
     type: "text",
     fullWidth: true,
-    ...field,
+    setError: isError,
+    setHelperText: helpertext,
     ...otherProps,
   };
-
-  //Validation part
-  var isValid = /(^\d{6,17}$)/.test(field.value);
-
-  // check validity
-  if (mata && mata.touched && mata.error) {
-    configTextfield.error = true;
-    configTextfield.helperText = mata.error;
-  }
-
-  //Check account number
-  if (!isValid && field.value && mata.touched) {
-    configTextfield.error = true;
-    configTextfield.helperText =
-      "Account number should be between 6 to 17 digits";
-  }
 
   //return the view block
   return (
     <TextBox
       {...configTextfield}
-      materialProps={{ maxLength: "17", minLength: "6" }}
+      materialProps={{ maxLength: "17", minLength: "6", "data-testid": "accountNum"}}
       value={accNum}
       onChange={onHandleAccountChange}
       required={true}

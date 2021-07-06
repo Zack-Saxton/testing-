@@ -7,56 +7,49 @@ Functionality       :    To use this component to validate and get the Bank rout
 #################################################################################################################*/
 
 import React, { useState } from "react";
-import { useField } from "formik";
 import PropTypes from "prop-types";
 import TextBox from "../Textfield";
+import { TextField } from '@material-ui/core';
+
 
 const BankRoutingNumberWrapper = ({ name, ...otherProps }) => {
   //Set Formik field
   const [BRNum, setBRNum] = useState("");
-  const [field, mata, helpers] = useField(name);
+  const [isError, setIsError] = useState(false);
+  const [helpertext, setHelpertext] = useState("");
 
-  const onHandleBRNumberChange = (event) => {
+  //Account Number field onChange handle
+  const onHandleBRNChange = (event) => {
     const reg = /^[0-9\b]+$/;
     let acc = event.target.value;
 
     if (acc === "" || reg.test(acc)) {
       setBRNum(event.target.value);
-      helpers.setValue(acc);
     }
+    var isValid = /(^\d{9}$)/.test(event.target.value);
+    (!isValid && event.target.value) ? setIsError(true) : setIsError(false) ;
+    (!isValid && event.target.value) ? setHelpertext("Bank Routing number should be 9 digits") : setHelpertext("") ;
+
   };
 
+  
   //Configuring the field with properties
   const configTextfield = {
     name: name,
     type: "text",
     fullWidth: true,
-    ...field,
+    setError: isError,
+    setHelperText: helpertext,
     ...otherProps,
   };
-
-  //Validation part
-  var isValid = /^[0-9\b]+$/.test(field.value);
-
-  // check validity
-  if (mata && mata.touched && mata.error) {
-    configTextfield.error = true;
-    configTextfield.helperText = mata.error;
-  }
-
-  //Validate - Digit count
-  if (!isValid && field.value && mata.touched) {
-    configTextfield.error = true;
-    configTextfield.helperText = "Should be 9 digit";
-  }
 
   //return the view block
   return (
     <TextBox
       {...configTextfield}
-      materialProps={{ maxLength: "9" }}
+      materialProps={{ maxLength: "9", "data-testid": "BRN"}}
       value={BRNum}
-      onChange={onHandleBRNumberChange}
+      onChange={onHandleBRNChange}
       required={true}
     />
   );

@@ -15,6 +15,7 @@ const ButtonWrapper = ({
   children,
   stylebutton,
   background,
+  onClick,
   ...otherProps
 }) => {
   //Styling Part
@@ -37,11 +38,11 @@ const ButtonWrapper = ({
   };
 
   //parsing data using json
-  let stylebutton1 = JSON.parse(stylebutton);
+  let stylebuttonMF = JSON.parse(stylebutton);
 
   //View Part
   return (
-    <Button {...configButton} style={{ stylebutton1 }}>
+    <Button {...configButton}  onClick={onClick} style={ stylebuttonMF }>
       {children}
     </Button>
   );

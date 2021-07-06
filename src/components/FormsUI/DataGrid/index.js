@@ -18,7 +18,7 @@ const DataGrdiWrapper = ({
 }) => {
   return (
     <div
-      style={{ height: height ? height : "300", width: width ? width : "100%" }}
+      style={{ height: height ?? "300", width: width ?? "100%" }}
     >
       <DataGrid rows={rows} columns={columns} pageSize={15} {...otherProps} />
     </div>

@@ -6,32 +6,32 @@ import Grid from "@material-ui/core/Grid";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Logo from "../../assets/images/MarinerLogo.png";
-import { TextField, DataGrid, 
-		TextFieldWithIcon, 
-		Button, 
-		ButtonWithIcon,
-		PasswordWithIcon,
-		EmailWithIcon,
-		EmailTextField,
-		PasswordField,
-		SocialSecurityNumber,
-		Slider,
-		Checkbox,
-		Select,
-		Radio,
-		Multiselect,
-		DatePicker,
-		TextArea,
-		Zipcode,
-		PhoneNumber,
-		AccountNumber,
-		BankRoutingNumber,
-		AutoComplete,
-		AutoCompleteMultiple,
-		ButtonSwitch
-	
-	} from "../FormsUI";
-import Month from "../../assets/data/month.json";
+import {
+	TextField,
+	DataGrid,
+	TextFieldWithIcon,
+	Button,
+	ButtonWithIcon,
+	PasswordWithIcon,
+	EmailWithIcon,
+	EmailTextField, 
+	PasswordField,
+	SocialSecurityNumber,
+	Slider,
+	Checkbox,
+	Select,
+	Radio,
+	Multiselect,
+	DatePicker,
+	TextArea,
+	Zipcode,
+	PhoneNumber,
+	AccountNumber,
+	BankRoutingNumber,
+	AutoComplete,
+	AutoCompleteMultiple,
+	ButtonSwitch,
+} from "../FormsUI";
 import "../App/app.css";
 import RadioButtonBox from "../FormsUI/RadioButtonBox";
 
@@ -64,24 +64,21 @@ const INITIAL_FORM_STATE = {
 export default function OutlinedCard() {
 	const classes = useStyles();
 	const columns = [
-        { field: "id", headerName: "ID", width: 70 },
-        { field: "firstName", headerName: "First name", width: 150 },
-        { field: "lastName", headerName: "Last name", width: 150 },
-        {field: "age", headerName: "Age", type: "number", width: 150 },
-      ];
+		{ field: "id", headerName: "ID", width: 70 },
+		{ field: "firstName", headerName: "First name", width: 150 },
+		{ field: "lastName", headerName: "Last name", width: 150 },
+		{ field: "age", headerName: "Age", type: "number", width: 150 },
+	];
 
-      const rows = [
-        { id: 1, "lastName": "Snow", "firstName": "Jon", "age": 35 },
-        { id: 2, "lastName": "Lannister", "firstName": "Cersei", "age": 42 },
-        { id: 3, "lastName": "Lannister", "firstName": "Jaime", "age": 45 },
-      ];
+	const rows = [
+		{ id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
+		{ id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
+		{ id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 },
+	];
 
 	return (
 		<div>
 			<Grid>
-				<Grid item xs={4}>
-					<img className={classes.logoFormat} src={Logo} alt="MF logo" />
-				</Grid>
 				<Grid item xs={4}>
 					<Typography
 						className={classes.title}
@@ -98,7 +95,6 @@ export default function OutlinedCard() {
 				initialValues={{
 					...INITIAL_FORM_STATE,
 				}}
-			
 			>
 				<Form className="form">
 					<Grid container spacing={2}>
@@ -136,11 +132,12 @@ export default function OutlinedCard() {
 										TextField with Icon
 									</Typography>
 									<TextFieldWithIcon
-										name="userName"
+										name="userName1"
 										label="Enter Username"
 										icon="cloud"
 										iconColor="#595E6E"
 										iconPosition="right"
+										required={true}
 
 										// customClass='fa fa-plus-circle'
 									/>
@@ -160,7 +157,6 @@ export default function OutlinedCard() {
 									<Button
 										stylebutton='{"background": "", "color":"" }'
 										background="0F4EB3"
-									
 									>
 										Sign IN
 									</Button>
@@ -201,7 +197,6 @@ export default function OutlinedCard() {
 									<EmailTextField
 										name="email"
 										label="Email"
-										suffix="@marinerfinance.com"
 									/>
 								</CardContent>
 							</Card>
@@ -240,6 +235,7 @@ export default function OutlinedCard() {
 										name="password"
 										label="password"
 										type="password"
+										data-testid= "pass"
 									/>
 								</CardContent>
 							</Card>
@@ -274,9 +270,7 @@ export default function OutlinedCard() {
 									>
 										Social Security Number
 									</Typography>
-									<SocialSecurityNumber
-										name="ssn"
-									/>
+									<SocialSecurityNumber name="ssn" />
 								</CardContent>
 							</Card>
 						</Grid>
@@ -313,12 +307,11 @@ export default function OutlinedCard() {
 										Select Box
 									</Typography>
 									<Select
-										name="Month"
-										label="Month"
-										variant="outlined"
-										required={true}
-										options={Month}
-									/>
+                                        name="select"
+                                        labelform="Language Known"
+                                        required={true}
+                                        select='[{"value":"Tamil"}, {"value":"Eng"}]'
+                                    />
 								</CardContent>
 							</Card>
 						</Grid>
@@ -357,7 +350,6 @@ export default function OutlinedCard() {
 									<Multiselect
 										name="multiselect"
 										labelform="Language Known"
-										value='["Tamil","English"]'
 										multiselect='[{"value":"Tamil"}, {"value":"Eng"}]'
 										checkboxcolor="red"
 									/>
@@ -374,16 +366,16 @@ export default function OutlinedCard() {
 									>
 										Text Area
 									</Typography>
-									<TextArea placeholder="Enter here..." 
-									 row="4"
-									 label="TextArea"
-									 variant="outlined"
-									  required={true}
-									 character_limit="20"
-									 name="TextArea"
-									 value="TextArea"
-									 
-									 />
+									<TextArea
+										placeholder="Enter here..."
+										row="4"
+										label="TextArea"
+										variant="outlined"
+										required={true}
+										character_limit="20"
+										name="TextArea"
+										value="TextArea"
+									/>
 								</CardContent>
 							</Card>
 						</Grid>
@@ -397,10 +389,8 @@ export default function OutlinedCard() {
 									>
 										Slider
 									</Typography>
-									<Slider
-										name="slider"
-										label="Select Loan Amount"
-									/>
+									<Slider name="slider" label="Select Loan Amount" 
+								/>
 								</CardContent>
 							</Card>
 						</Grid>
@@ -414,7 +404,7 @@ export default function OutlinedCard() {
 									>
 										Date Picker
 									</Typography>
-									<DatePicker name="date" />
+									<DatePicker name="date" defaultDate={new Date("2021-06-29T21:11:54")}/>
 								</CardContent>
 							</Card>
 						</Grid>
@@ -428,7 +418,7 @@ export default function OutlinedCard() {
 									>
 										Zipcode
 									</Typography>
-									<Zipcode name="zipcode" label="Enter Zip Code"/>
+									<Zipcode name="zipcode" label="Enter Zip Code" />
 								</CardContent>
 							</Card>
 						</Grid>
@@ -456,7 +446,11 @@ export default function OutlinedCard() {
 									>
 										Account Number
 									</Typography>
-									<AccountNumber name="acc" label="Enter Account number" required = {true}/>
+									<AccountNumber
+										name="acc"
+										label="Enter Account number"
+										required={true}
+									/>
 								</CardContent>
 							</Card>
 						</Grid>
@@ -470,7 +464,10 @@ export default function OutlinedCard() {
 									>
 										Bank Routing Number
 									</Typography>
-									<BankRoutingNumber name="brn" label="Enter Bank Routing number"/>
+									<BankRoutingNumber
+										name="brn"
+										label="Enter Bank Routing number"
+									/>
 								</CardContent>
 							</Card>
 						</Grid>
@@ -489,7 +486,7 @@ export default function OutlinedCard() {
 										variant="outlined"
 										jsonInput='[{"value":"India"}, {"value":"USA"}]'
 										placeholder="Choose Country"
-
+										styleAutocomplete='{"width":"300px"}'
 									/>
 								</CardContent>
 							</Card>
@@ -505,10 +502,13 @@ export default function OutlinedCard() {
 										Autocomplete Multiple
 									</Typography>
 									<AutoCompleteMultiple
-										textfieldlabel="AutoComplete"
+										name="autoCompleteMultiple"
+										label="AutoComplete"
 										variant="outlined"
 										jsonInput='[{"value":"India"}, {"value":"USA"}]'
 										placeholder="Choose Country"
+										stylecheckbox='{ "color":""}'
+										//styleAutocomplete='{​​​​​​​​"width":"300px"}​​​​​​​​'
 
 									/>
 								</CardContent>
@@ -525,9 +525,9 @@ export default function OutlinedCard() {
 										Toggle Button
 									</Typography>
 									<ButtonSwitch
-									value="switch"
-									label="Auto pay is"
-									labelPlacement="end"
+										value="switch"
+										label="Auto pay is"
+										labelPlacement="end"
 									/>
 								</CardContent>
 							</Card>
@@ -546,7 +546,6 @@ export default function OutlinedCard() {
 										stylebutton='{"background": "", "color":"" }'
 										type="radio"
 										id="radiobox"
-									
 									>
 										U.S Citizen
 									</RadioButtonBox>
@@ -563,7 +562,12 @@ export default function OutlinedCard() {
 									>
 										Data grid
 									</Typography>
-									<DataGrid rows={rows} columns={columns} height="300px" width="100%"/>
+									<DataGrid
+										rows={rows}
+										columns={columns}
+										height="300px"
+										width="100%"
+									/>
 								</CardContent>
 							</Card>
 						</Grid>

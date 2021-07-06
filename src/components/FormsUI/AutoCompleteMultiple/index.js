@@ -16,6 +16,7 @@ import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
+import Content from '../../../assets/Content/content';
 
 const AutoCompleteMultipleWrapper = ({
   name,
@@ -23,15 +24,17 @@ const AutoCompleteMultipleWrapper = ({
   id,
   jsonInput,
   optionlabel,
-  textfieldlabel,
+  label,
   variant,
   placeholder,
   required,
+  stylecheckbox,
+  //styleAutocomplete,
   ...otherProps
 }) => {
   //To return all formik state
   const { setFieldValue } = useFormikContext();
-  const [field, meta] = useField(value);
+  const [field, meta] = useField(name);
 
   const handleChange = (evt) => {
     const { checked } = evt.target;
@@ -50,13 +53,14 @@ const AutoCompleteMultipleWrapper = ({
   };
 
   //Validation
-  if (required && !field.value && meta.touched) {
-    configAutocomplete.error = true;
-    configAutocomplete.helperText = "required";
-  }
 
+  configAutocomplete.error = (required && !field.value && meta.touched) ? true :  configAutocomplete.error ?? false;
+  configAutocomplete.helperText = (required && !field.value && meta.touched) ? Content.required : configAutocomplete.helperText ?? '';
+  
   //parsing data using json
   let jsonData = JSON.parse(jsonInput);
+  let stylecheckboxMF = JSON.parse(stylecheckbox)
+ //let styleAutocompleteMF = JSON.parse(styleAutocomplete)
 
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -74,17 +78,17 @@ const AutoCompleteMultipleWrapper = ({
           <Checkbox
             icon={icon}
             checkedIcon={checkedIcon}
-            style={{ marginRight: 8 }}
+            style={stylecheckboxMF}
             checked={selected}
           />
           {option.value}
         </React.Fragment>
       )}
-      style={{ width: 300 }}
+     // style={styleAutocompleteMF}
       renderInput={(params) => (
         <TextField
           {...params}
-          label={textfieldlabel}
+          label={label}
           variant={variant}
           placeholder={placeholder}
         />

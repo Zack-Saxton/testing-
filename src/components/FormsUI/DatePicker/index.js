@@ -12,45 +12,49 @@ import Grid from "@material-ui/core/Grid";
 import DateFnsUtils from "@date-io/date-fns";
 import PropTypes from "prop-types";
 import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
+	MuiPickersUtilsProvider,
+	KeyboardDatePicker,
 } from "@material-ui/pickers";
 
-const DatePickerWrapper = ({ name, ...otherProps }) => {
-  // The first commit of Material-UI
-  const [selectedDate, setSelectedDate] = React.useState(
-    new Date("2021-06-15T21:11:54")
-  );
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-  };
+const DatePickerWrapper = ({ name, format, defaultDate, ...otherProps }) => {
 
-  return (
-    <MuiPickersUtilsProvider utils={DateFnsUtils} fullWidth={true}>
-      <Grid container justify="space-around">
-        <KeyboardDatePicker
-          margin="normal"
-          id="date-picker-dialog"
-          label="Date picker dialog"
-          format="MM/dd/yyyy"
-          value={selectedDate}
-          onChange={handleDateChange}
-          maxDate={new Date("2021-06-15T21:11:54")}
-          fullWidth={true}
-          // maxDate= {Date(1900-01-01)}
-          KeyboardButtonProps={{
-            "aria-label": "change date",
-          }}
-          orientation="landscape"
-          {...otherProps}
-        />
-      </Grid>
-    </MuiPickersUtilsProvider>
-  );
+	// The first commit of Material-UI
+	const currentDate = new Date();
+	const [selectedDate, setSelectedDate] = React.useState( defaultDate ?? currentDate);
+	const handleDateChange = (date) => {
+		setSelectedDate(date);
+	};
+
+	var myDate = new Date();
+	myDate.setDate(myDate.getDate() + 3);
+
+	return (
+		<MuiPickersUtilsProvider utils={DateFnsUtils} fullWidth={true}>
+			<Grid container justify="space-around">
+				<KeyboardDatePicker
+					margin="normal"
+					id="date-picker-dialog"
+					label="Date picker dialog"
+					format= { format ?? 'MM/dd/yyyy'}
+					value={selectedDate}
+					onChange={handleDateChange}
+					fullWidth={true}	
+					// maxDate= { new Date("2021-06-29T21:11:54")}
+					maxDate= { myDate }
+					KeyboardButtonProps={{
+						"aria-label": "change date",
+					}}
+					orientation="landscape"
+					inputProps={{"data-testid":"datePicker"}}
+					{...otherProps}
+				/>
+			</Grid>
+		</MuiPickersUtilsProvider>
+	);
 };
 
 DatePickerWrapper.propTypes = {
-  name: PropTypes.string.isRequired,
+	name: PropTypes.string.isRequired,
 };
 
 export default DatePickerWrapper;

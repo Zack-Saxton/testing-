@@ -18,27 +18,30 @@ import PropTypes from "prop-types";
 
 const theme = createMuiTheme();
 const SSNWrapper = ({ name, ...otherProps }) => {
-  const [field, mata] = useField(name);
   const [mobile, setSSN] = React.useState("");
+  const[unMaskedVal, setUnMaskedVal] = React.useState('');
 
   const handleChange = (event) => {
     setSSN(event.target.value);
+    const value =
+    event.target.value
+      .replace(/-/g, "")
+      .replace(/ /g, "") || "";
+  // setFieldValue("ssn", value);
+  setUnMaskedVal(value);
   };
 
   //Configuring the field with properties
-  const configTextfield = {
+  const config = {
     name: name,
-    ...field,
     ...otherProps,
     fullWidth: true,
   };
 
   //Validation part
   // check validity
-  if (mata && mata.touched && mata.error) {
-    configTextfield.error = true;
-    configTextfield.helperText = mata.error;
-  }
+
+ 
 
   return (
     <FormControl fullWidth={true}>
@@ -46,15 +49,14 @@ const SSNWrapper = ({ name, ...otherProps }) => {
         <InputMask
           fullWidth={true}
           mask="999 - 99 - 9999"
-          value={mobile}
+          value={unMaskedVal}
           name={name}
           onChange={handleChange}
           disabled={false}
           maskChar=" "
           {...otherProps}
-          {...field}
         >
-          {() => <TextField label="Enter Social Security Number" />}
+          {() => <TextField label="Enter Social Security Number" name={name} inputProps={{"data-testid": "ssn", "unmaskedval": unMaskedVal}}/>}
         </InputMask>
       </MuiThemeProvider>
     </FormControl>

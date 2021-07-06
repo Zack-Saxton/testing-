@@ -18,6 +18,7 @@ import {
 import { useField, useFormikContext } from "formik";
 
 const CheckboxWrapper = ({
+  name,
   value,
   label,
   formlabel,
@@ -29,7 +30,7 @@ const CheckboxWrapper = ({
 }) => {
   //To return all formik state
   const { setFieldValue } = useFormikContext();
-  const [field, meta] = useField(value);
+  const [field, meta] = useField(name);
 
   const handleChange = (evt) => {
     const { checked } = evt.target;
@@ -45,10 +46,8 @@ const CheckboxWrapper = ({
   };
 
   //Validation
-  if (required && !field.value && meta.touched) {
-    configCheckbox.error = true;
-    configCheckbox.helpertext = "required";
-  }
+
+  
 
   //parsing data using json
   let stylecheckboxMF = JSON.parse(stylecheckbox);

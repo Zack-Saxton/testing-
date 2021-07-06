@@ -7,7 +7,6 @@ Functionality       :    To use this component to have icon with password Field
 #################################################################################################################*/
 import React from "react";
 import { Grid } from "@material-ui/core";
-import { useField } from "formik";
 import { makeStyles } from "@material-ui/core/styles";
 import Password from "../Password";
 import Icon from "@material-ui/core/Icon";
@@ -22,7 +21,6 @@ const PasswordWithIconWrapper = ({
   customClass, //get dynamic icon name
   ...otherProps
 }) => {
-  const [field, mata] = useField(name);
 
   //Styling part
   const useStyles = makeStyles((theme) => ({
@@ -35,20 +33,11 @@ const PasswordWithIconWrapper = ({
   const classes = useStyles();
   //Configuring the field properties
   const configTextfield = {
-    ...field,
     ...otherProps,
   };
 
   //Validation part
-  if (mata && mata.touched && mata.error) {
-    configTextfield.error = true;
-    configTextfield.helperText = mata.error;
-  }
-
-  if (!field.value && mata.touched) {
-    configTextfield.error = true;
-    configTextfield.helperText = "required";
-  }
+  
 
   //View part
   return (
@@ -56,7 +45,7 @@ const PasswordWithIconWrapper = ({
       <Grid container spacing={3}>
         {iconPosition === "left" || !iconPosition ? (
           <Grid item xs={1}>
-            <Icon className={classNames(customClass, classes.cssIcon)}>
+            <Icon className={classNames(customClass, classes.cssIcon)} data-testid= "icon">
               {" "}
               {icon}
             </Icon>
@@ -70,7 +59,7 @@ const PasswordWithIconWrapper = ({
         </Grid>
         {iconPosition === "right" ? (
           <Grid item xs={1}>
-            <Icon className={classes.cssIcon}>{icon}</Icon>
+            <Icon className={classes.cssIcon} data-testid= "icon">{icon}</Icon>
           </Grid>
         ) : (
           ""

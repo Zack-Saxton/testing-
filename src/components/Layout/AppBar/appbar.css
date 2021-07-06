@@ -1,0 +1,56 @@
+header{
+    box-shadow: 0 0;
+    background: transparent!important;
+ } 
+
+
+#close1{
+    display: none;
+}
+#sidemenuradio{
+    display:block!important;
+}
+
+@media (max-width:960px){
+#close1{
+    display: block;
+}
+#sidemenuradio{
+    display: none!important;
+
+}
+.makeStyles-menuButton-4{
+    margin-right: 0px!important;
+
+    vertical-align: bottom!important;
+} 
+
+}
+
+ @media (max-width:480px){
+    #toolbar {
+        display: block!important;
+      
+
+        
+    }
+
+    #toolbarlist{
+        font-size: 3vw!important;
+    }
+}  
+
+@media (max-width:355px){
+    #toolbar {
+       
+        padding-left: 0px!important;
+        padding-right: 0px!important;
+
+        
+    }
+
+   
+}  
+
+
+

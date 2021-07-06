@@ -6,7 +6,7 @@ Functionality       :    To use this component for having Phone Number
 
 #################################################################################################################*/
 
-import React from "react";
+import React, { useState } from "react";
 import { useField } from "formik";
 import {
   ThemeProvider as MuiThemeProvider,
@@ -21,36 +21,48 @@ import { Phone } from "@material-ui/icons";
 const theme = createMuiTheme();
 const PhoneNumberWrapper = ({ name, ...otherProps }) => {
   //Set Formik field
-  const [field, mata] = useField({ name });
+  // const [field, mata] = useField(name);
+  const[unMaskedVal, setUnMaskedVal] = useState('');
 
   //Configuring the field with properties
   const configTextfield = {
     name: name,
-    ...field,
     ...otherProps,
     fullWidth: true,
   };
 
-  //Validation part
-  if (mata && mata.touched && mata.error) {
-    configTextfield.error = true;
-    configTextfield.helperText = mata.error;
+  const handleChange = (e) => {
+    const value =
+    e.target.value
+      .replace(/-/g, "")
+      .replace(/\)/g, "")
+      .replace(/\(/g, "")
+      .replace(/ /g, "") || "";
+  // setFieldValue("ssn", value);
+  setUnMaskedVal(value);
   }
+
+  //Validation part
+  // configTextfield.error = (mata && mata.touched && mata.error) ? true :  configTextfield.error ?? false;
+  // configTextfield.helperText = (mata && mata.touched && mata.error) ? mata.error : configTextfield.helperText ?? '';
+
 
   return (
     <FormControl fullWidth={true}>
       <MuiThemeProvider theme={theme}>
         <InputMask
           fullWidth={true}
-          mask="1 - (999)  999  9999"
-          value={Phone}
+          mask="1 - (999) 999 9999"
+          value={unMaskedVal}
           name={name}
           disabled={false}
           maskChar=" "
+          onChange={handleChange}
+          data-testid="phone"
           {...otherProps}
-          {...field}
+          // {...field}
         >
-          {() => <TextField label="Enter Phone Number" name={name} />}
+          {() => <TextField label="Enter Phone Number" value={unMaskedVal} name={name} inputProps={{"data-testid": "phone", "unmaskedval": unMaskedVal}}/>}
         </InputMask>
       </MuiThemeProvider>
     </FormControl>

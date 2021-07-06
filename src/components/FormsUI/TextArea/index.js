@@ -25,7 +25,7 @@ const TextAreaWrapper = ({
   ...otherProps
 }) => {
   //To return all formik state
-  const [field, meta] = useField(name);
+  // const [field, meta] = useField(name);
 
   const CHARACTER_LIMIT = character_limit;
   const [values, setValues] = React.useState({
@@ -44,7 +44,7 @@ const TextAreaWrapper = ({
   const classes = useStyles();
 
   //Configuring the field with properties
-  const configTextArea = {
+  const config = {
     name: name,
     placeholder: placeholder,
     label: label,
@@ -52,31 +52,28 @@ const TextAreaWrapper = ({
     required: required,
     rows: row,
     ...otherProps,
-    fullWidth: true,
-    ...field,
     onChange: handleChange("name"),
     className: classes.textarea,
   };
 
   //Validation
-  if (meta && meta.touched && meta.error) {
-    configTextArea.error = true;
-    configTextArea.helperText = meta.error;
-  }
 
-  if (required && !values.name && meta.touched) {
-    configTextArea.error = true;
-    configTextArea.helperText = "required";
-  }
+  // config.error = (meta && meta.touched && meta.error) ? true :  config.error ?? false;
+  // config.helperText = (meta && meta.touched && meta.error) ? meta.error : config.helperText ?? '';
+
+  // config.error = (required && field.value && meta.touched) ? true :  config.error ?? false;
+  // config.helperText = (required && field.value && meta.touched) ? "required" : config.helperText ?? '';
+  
 
   //View Part
   return (
     <TextField
-      {...configTextArea}
+      {...config}
       className={classes.textarea}
       multiline
       inputProps={{
-        maxLength: CHARACTER_LIMIT,
+        maxLength: CHARACTER_LIMIT ?? 20,
+        "data-testid": "textarea"
       }}
       value={values.name}
       helperText={`${values.name.length}/${CHARACTER_LIMIT}`}
