@@ -349,11 +349,11 @@ export default function Sidenav() {
             Branch Locator
           </Typography>
          
-          {/* <Typography variant="" className={classes.headeralign}>
+          <Typography variant="" className={classes.headeralign}>
           <NavLink to='/components' className = "MuiAppBar-colorPrimary"style={{'textDecoration':'none'}} >
             Components
           </NavLink>
-          </Typography> */}
+          </Typography>
           
 
           <IconButton className={classes.customBadge}>
