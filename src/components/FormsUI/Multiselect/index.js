@@ -27,7 +27,7 @@ const MultiSelectWrapper = ({
   ...otherProps
 }) => {
   //To return all formik state
-  const [field, meta] = useField(name);
+  // const [field, meta] = useField(name);
   const [setmultiselect, setMultiSelect] = React.useState([]);
   const handleChange = (event) => {
     setMultiSelect(event.target.value);
@@ -85,7 +85,6 @@ const MultiSelectWrapper = ({
     variant: variant,
     fullWidth: true,
     className: classes.menu,
-    ...field,
     onChange: handleChange,
   };
 
@@ -106,11 +105,15 @@ const MultiSelectWrapper = ({
         value={setmultiselect}
         multiple
         MenuProps={MenuProps}
+        data-testid= "multiSelectBox"
+        inputProps={{"data-testid": "multiSelectInput"}}
         renderValue={(selected) => selected.join(", ")}
+        
       >
         {multiselect1.map((nam) => (
           <MenuItem key={nam.value} value={nam.value}>
             <Checkbox
+              refvalue={nam.value}
               checked={setmultiselect.indexOf(nam.value) > -1}
               className={classes.check}
             />

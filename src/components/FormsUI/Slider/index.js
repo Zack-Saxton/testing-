@@ -39,11 +39,11 @@ const TextfieldWrapper = ({
   max,
   difference,
   defaultValue,
+  customMarks,
   ...otherProps
 }) => {
   //Set Formik field
 
-  const [field, mata, helpers] = useField(name);
 
   // Styling part
   const useStyles = makeStyles((theme) => ({
@@ -68,9 +68,9 @@ const TextfieldWrapper = ({
       paddingRight: "20px",
     },
     OutputText: {
-      fontSize: "1.3rem",
+      fontSize: "1rem",
       color: "#134ca7",
-      fontWeight: "700",
+      fontWeight: "500",
     },
     center: {
       textAlign: "center",
@@ -79,16 +79,14 @@ const TextfieldWrapper = ({
   }));
 
   const classes = useStyles();
-  const [value, setValue] = useState(12500);
+  const [value, setValue] = useState(defaultValue ?? 12500);
   const handleSliderChange = (event, newValue) => {
     setValue(newValue);
-    helpers.setValue(newValue);
   };
 
   //Configuring the field with properties
   const config = {
     name: name,
-    ...field,
     ...otherProps,
     className: classes.sliderWrap,
     value: typeof value === "number" ? value : 0,
@@ -98,7 +96,7 @@ const TextfieldWrapper = ({
     step: difference ?? 500,
     min: min ?? 1000,
     max: max ?? 25000,
-    marks: marks,
+    marks: customMarks ?? marks ,
     track: false,
   };
 
@@ -114,10 +112,11 @@ const TextfieldWrapper = ({
             {label}
           </Typography>
         </div>
-        <Slider {...config} {...otherProps} />
+        <Slider {...config} {...otherProps} name={name} 
+/>
       </FormControl>
       <div className={classes.center}>
-        <Typography id="discrete-slider-always" className={classes.OutputText}>
+        <Typography id="discrete-slider-always" variant='h6'  className={classes.OutputText}>
           $ {value}
         </Typography>
       </div>

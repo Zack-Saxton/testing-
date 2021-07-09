@@ -1,0 +1,26 @@
+
+/* @media only screen and (max-width: 360px) {
+    .iconlogin {
+      position: relative;
+      left: -10px;
+    }
+  } */
+
+#rememberme {
+  padding-left: 12px;
+}
+  @media (max-width:400px){
+   #email-label{
+       font-size: 4vw;
+
+   }
+   #password-label{
+    font-size: 4vw;
+ 
+}
+#rememberme span{
+  font-size: 4vw;
+  
+
+}
+}

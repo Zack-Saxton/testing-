@@ -16,6 +16,7 @@ import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
+import Content from '../../../assets/Content/content';
 
 const AutoCompleteMultipleWrapper = ({
   name,
@@ -54,7 +55,7 @@ const AutoCompleteMultipleWrapper = ({
   //Validation
 
   configAutocomplete.error = (required && !field.value && meta.touched) ? true :  configAutocomplete.error ?? false;
-  configAutocomplete.helperText = (required && !field.value && meta.touched) ? "required" : configAutocomplete.helperText ?? '';
+  configAutocomplete.helperText = (required && !field.value && meta.touched) ? Content.required : configAutocomplete.helperText ?? '';
   
   //parsing data using json
   let jsonData = JSON.parse(jsonInput);

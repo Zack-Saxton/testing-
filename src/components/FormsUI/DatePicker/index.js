@@ -16,15 +16,16 @@ import {
 	KeyboardDatePicker,
 } from "@material-ui/pickers";
 
-const DatePickerWrapper = ({ name, format, ...otherProps }) => {
+const DatePickerWrapper = ({ name, format, defaultDate,label, maxdate, ...otherProps }) => {
 
 	// The first commit of Material-UI
-	const [selectedDate, setSelectedDate] = React.useState(
-		new Date()
-	);
+	//const currentDate = new Date();
+	const [selectedDate, setSelectedDate] = React.useState( defaultDate ?? "");
 	const handleDateChange = (date) => {
 		setSelectedDate(date);
 	};
+
+	
 
 	return (
 		<MuiPickersUtilsProvider utils={DateFnsUtils} fullWidth={true}>
@@ -32,16 +33,21 @@ const DatePickerWrapper = ({ name, format, ...otherProps }) => {
 				<KeyboardDatePicker
 					margin="normal"
 					id="date-picker-dialog"
-					label="Date picker dialog"
-					format= { format ?? 'MM/dd/yyyy'}
+					label={label}   
+					format= { format ?? 'dd-MM-yyyy'}
 					value={selectedDate}
+					//type=""
 					onChange={handleDateChange}
-					fullWidth={true}
-					// maxDate= {Date(1900-01-01)}
+					fullWidth={true}	
+					placeholder={"Date of Birth"}
+					// maxDate= { new Date("2021-06-29T21:11:54")}
+					maxDate= { maxdate }
 					KeyboardButtonProps={{
 						"aria-label": "change date",
 					}}
+					
 					orientation="landscape"
+					inputProps={{"data-testid":"datePicker"}}
 					{...otherProps}
 				/>
 			</Grid>

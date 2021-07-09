@@ -14,7 +14,7 @@ import {
 	ButtonWithIcon,
 	PasswordWithIcon,
 	EmailWithIcon,
-	EmailTextField,
+	EmailTextField, 
 	PasswordField,
 	SocialSecurityNumber,
 	Slider,
@@ -80,9 +80,6 @@ export default function OutlinedCard() {
 		<div>
 			<Grid>
 				<Grid item xs={4}>
-					<img className={classes.logoFormat} src={Logo} alt="MF logo" />
-				</Grid>
-				<Grid item xs={4}>
 					<Typography
 						className={classes.title}
 						color="textSecondary"
@@ -135,11 +132,12 @@ export default function OutlinedCard() {
 										TextField with Icon
 									</Typography>
 									<TextFieldWithIcon
-										name="userName"
+										name="userName1"
 										label="Enter Username"
 										icon="cloud"
 										iconColor="#595E6E"
 										iconPosition="right"
+										required={true}
 
 										// customClass='fa fa-plus-circle'
 									/>
@@ -199,7 +197,6 @@ export default function OutlinedCard() {
 									<EmailTextField
 										name="email"
 										label="Email"
-										suffix="@marinerfinance.com"
 									/>
 								</CardContent>
 							</Card>
@@ -238,6 +235,7 @@ export default function OutlinedCard() {
 										name="password"
 										label="password"
 										type="password"
+										data-testid= "pass"
 									/>
 								</CardContent>
 							</Card>
@@ -298,7 +296,7 @@ export default function OutlinedCard() {
 								</CardContent>
 							</Card>
 						</Grid>
-					{/*<Grid item xs={4}>
+						<Grid item xs={4}>
 							<Card className={classes.root} variant="outlined">
 								<CardContent>
 									<Typography
@@ -316,7 +314,7 @@ export default function OutlinedCard() {
                                     />
 								</CardContent>
 							</Card>
-									</Grid> */}
+						</Grid>
 						<Grid item xs={4}>
 							<Card className={classes.root} variant="outlined">
 								<CardContent>
@@ -391,7 +389,8 @@ export default function OutlinedCard() {
 									>
 										Slider
 									</Typography>
-									<Slider name="slider" label="Select Loan Amount" />
+									<Slider name="slider" label="Select Loan Amount" 
+								/>
 								</CardContent>
 							</Card>
 						</Grid>
@@ -405,7 +404,7 @@ export default function OutlinedCard() {
 									>
 										Date Picker
 									</Typography>
-									<DatePicker name="date" />
+									<DatePicker name="date" defaultDate={new Date("2021-06-29T21:11:54")}/>
 								</CardContent>
 							</Card>
 						</Grid>

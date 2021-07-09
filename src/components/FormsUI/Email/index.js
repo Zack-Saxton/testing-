@@ -13,7 +13,6 @@ import TextField from "@material-ui/core/TextField";
 
 //Initializing EmailWrapper component
 const EmailWrapper = ({ name, suffix, lable, id, ...otherProps }) => {
-  const [field, mata, helpers] = useField(name);
 
   //Basic Configuration for Email field
   const configTextfield = {
@@ -35,7 +34,7 @@ const EmailWrapper = ({ name, suffix, lable, id, ...otherProps }) => {
   const [value, setValues] = useState("");
   const handleChange = (event) => {
     setValues(event.target.value + suffix);
-    helpers.setValue(event.target.value + suffix);
+    // helpers.setValue(event.target.value + suffix);
   };
 
   //Validation part
@@ -47,15 +46,15 @@ const EmailWrapper = ({ name, suffix, lable, id, ...otherProps }) => {
     valid ? setEmailCheck(true) : setEmailCheck(false);
   });
 
-  configTextfield.error = (!emailCheck) ? true :  configTextfield.error ?? false;
-  configTextfield.helperText = (!emailCheck) ? "Invalid Email" : configTextfield.helperText ?? '';
-
+  // configTextfield.error = (!emailCheck) ? true :  configTextfield.error ?? false;
+  // configTextfield.helperText = (!emailCheck) ? "Invalid Email" : configTextfield.helperText ?? '';
   //view part
   return (
     <TextField
       id={id}
       lable="email"
       type="email"
+      // value= {value}
       onChange={handleChange}
       {...configTextfield}
     />

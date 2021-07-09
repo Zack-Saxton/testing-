@@ -25,12 +25,11 @@ const SelectWrapper = ({
 	...otherProps
 }) => {
 	//To return all formik state
-	const [field] = useField(name);
-
-	const [setselect, setSelect] = React.useState([]);
+	
+	const [selectVal, setSelectVal] = React.useState('');
 
 	const handleChange = (event) => {
-		setSelect(event.target.value);
+		setSelectVal(event.target.value);
 	};
 
 	const useStyles = makeStyles((theme) => ({
@@ -67,7 +66,6 @@ const SelectWrapper = ({
 
 	//Configuring Field with Properties
 	const configSelect = {
-		...field,
 		...otherProps,
 		fullWidth: true,
 		variant: variant,
@@ -88,11 +86,12 @@ const SelectWrapper = ({
 	return (
 		<FormControl {...configFormControl}>
 			<InputLabel>{labelform}</InputLabel>
-			<Select {...configSelect} value={setselect} MenuProps={MenuProps}>
+			<Select {...configSelect} value={selectVal} MenuProps={MenuProps} data-testid= "selectBox" inputProps={{"data-testid": "selectInput"}}>
 				{selectMF.map((nam) => (
 					<MenuItem key={nam.value} value={nam.value}>
-						{nam.value}
+						<option value={nam.value}>{nam.value}</option>
 					</MenuItem>
+					// <option value={nam.value}>{nam.value}</option>
 				))}
 			</Select>
 		</FormControl>

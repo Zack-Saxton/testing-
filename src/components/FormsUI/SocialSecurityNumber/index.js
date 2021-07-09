@@ -5,58 +5,77 @@ Component Name      :    SocialSecurityNumber
 Functionality       :    To use this component to validate and get the SSN in the correct format from the user.
 
 #################################################################################################################*/
-import React from "react";
+import React,{useState} from "react";
 import { useField } from "formik";
 import {
   ThemeProvider as MuiThemeProvider,
   createMuiTheme,
 } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
 import InputMask from "react-input-mask";
 import FormControl from "@material-ui/core/FormControl";
 import PropTypes from "prop-types";
+import Textfield from "../Textfield/index"
+import { TextField, FormLabel,FormControlLabel } from "@material-ui/core";
+import Content from '../../../assets/Content/content';
 
 const theme = createMuiTheme();
-const SSNWrapper = ({ name, ...otherProps }) => {
-  const [field, mata] = useField(name);
-  const [mobile, setSSN] = React.useState("");
+const SSNWrapper = ({ name,label, error,  required,
+
+  onChange,
+   helperText,
+  setError,
+  setHelperText, ...otherProps }) => {
+  // const [mobile, setSSN] = React.useState("");
+  const[unMaskedVal, setUnMaskedVal] = useState('');
+  // const [isError, setIsError] = useState(false);
+  // const [helpertext, setHelpertext] = useState("");
 
   const handleChange = (event) => {
-    setSSN(event.target.value);
+    setUnMaskedVal(event.target.value
+    
+      .replace(/-/g, "")
+      .replace(/ /g, "") || "" );
+  // setFieldValue("ssn", value);
+  // setUnMaskedVal(value);
+  // setIsError((required && !event.target.value) ? true :  false);
+  //   setHelpertext((required && !event.target.value) ? Content.required : '');
+  if(onChange){  
+  onChange(event);
+  }
   };
 
-  //Configuring the field with properties
-  const config = {
-    name: name,
-    ...field,
-    ...otherProps,
-    fullWidth: true,
-  };
-
+  //  setError = error ?? setError;
+  // setHelperText = helperText ?? setHelperText; 
+  // //Basic field configurations
+  // const config = {
+  //   name: name,
+   
+  //   error: setError ? setError : isError,
+  //   helperText: setError ? setHelperText : helpertext,
+  //   ...otherProps,
+  // };
   //Validation part
   // check validity
-
-  config.error = (mata && mata.touched && mata.error) ? true :  config.error ?? false;
-  config.helperText = (mata && mata.touched && mata.error) ? mata.error : config.helperText ?? '';
 
  
 
   return (
     <FormControl fullWidth={true}>
       <MuiThemeProvider theme={theme}>
+        {/* <FormLabel label={label} name={name} {...config} > */}
         <InputMask
           fullWidth={true}
           mask="999 - 99 - 9999"
-          value={mobile}
+          value={unMaskedVal}
           name={name}
           onChange={handleChange}
           disabled={false}
           maskChar=" "
           {...otherProps}
-          {...field}
         >
-          {() => <TextField label="Enter Social Security Number" />}
+          {() => <TextField label={label} name={name}   inputProps={{"data-testid": "ssn", "unmaskedval": unMaskedVal}}/>}
         </InputMask>
+        {/* </FormLabel> */}
       </MuiThemeProvider>
     </FormControl>
   );

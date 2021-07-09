@@ -34,7 +34,8 @@ const ButtonSwitchWrapper = ({
           <Switch
             checked={state}
             onChange={handleChange}
-            value={value}
+            value={state}
+            inputProps={{"data-testid": "switch"}}
             color="primary"
           />
         }

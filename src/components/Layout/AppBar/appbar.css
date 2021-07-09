@@ -1,0 +1,29 @@
+header{
+    box-shadow: 0 0;
+    background: transparent!important;
+    /* padding-left: 73px!important; */
+}
+
+@media (max-width:960px){
+#close1{
+    display: block;
+}
+#sidemenuradio{
+    display: none!important;
+
+}
+.makeStyles-menuButton-4{
+    margin-right: 0px!important;
+
+    vertical-align: bottom!important;
+} 
+
+}
+
+@media all and (max-width:550px){
+    #hai {
+        display: block!important;
+        flex-direction: column;
+    }
+} 
+
