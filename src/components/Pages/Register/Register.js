@@ -8,7 +8,6 @@ import Typography from "@material-ui/core/Typography";
 import * as yup from "yup";
 import Box from "@material-ui/core/Box";
 import FormHelperText from '@material-ui/core/FormHelperText';
-import moment from "moment";
 
 import {
   Button,
@@ -99,15 +98,6 @@ const validationSchema = yup.object({
     .email("Email should be as (you@example.com)")
     .required("Email is required"),
 
-    date: yup
-    .string("Enter your Date of Birth") 
-   
-    
-    .nullable()
-    .required("Date of birth is required"),
-    // .test('Date of Birth', 'Should be greather than 18', function(value) {
-    //   return moment().diff(moment(value), 'years') >= 18; }),
-
   password: yup.string("Enter your password")
   .matches(
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,30}$/,
@@ -138,9 +128,6 @@ const validationSchema = yup.object({
   })
 });
 
-var myDate = new Date();
-	myDate.setDate(myDate.getDate() - 6570);
-
 export default function Register() {
   const classes = useStyles();
 
@@ -149,7 +136,6 @@ export default function Register() {
       firstname: "",
       lastname: "",
       email: "",
-      date:"",
       password: '',
       confirmpassword:"",
       zip: "",
@@ -295,23 +281,13 @@ export default function Register() {
         </Grid>
 
         <Grid item xs={12}  direction="row" style={{display:"inline-flex"}}>
-         <Grid   style={{paddingTop:"30px" , paddingRight:"10px"}}> 
+         <Grid   style={{paddingTop:"20px" , paddingRight:"10px"}}> 
             <Icon >cakeIcon</Icon>
           </Grid>
         <DatePicker
                 name="date"
                 label="Date of Birth"
                 id="date"
-               
-                maxdate={myDate}
-                // value={formik.values.date}
-                //  onChange={formik.handleChange}
-                // onChange={(values) => {
-                //   formik.setFieldValue("date", values);
-                // }}
-                 onBlur={formik.handleBlur}
-                error={formik.touched.date && Boolean(formik.errors.date)}
-                helperText={formik.touched.date && formik.errors.date}
                
               />
         </Grid>
@@ -369,7 +345,7 @@ export default function Register() {
                 stylebutton='{"background": "", "color":"" }'
                 background="0F4EB3!important"
               >
-                Sign IN
+                Sign In
               </Button>
 </Grid>
 

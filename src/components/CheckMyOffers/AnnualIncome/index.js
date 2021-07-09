@@ -1,22 +1,15 @@
-import Header from "../../Layout/NormalHeader/NormalHeader";
-import Footer from "../../Layout/NormalFooter/NormalFooter";
-import "./annulaIncome.css";
-import Box from "@material-ui/core/Box";
-import Card from "@material-ui/core/Card";
-import Grid from "@material-ui/core/Grid";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
-import { Slider, TextField, Button } from "../../FormsUI";
-// import Button from '@material-ui/core/Button';
-import Paper from "@material-ui/core/Paper";
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { useHistory, Link } from "react-router-dom";
+import Box from "@material-ui/core/Box";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import { TextField, Button } from "../../FormsUI";
+import Paper from "@material-ui/core/Paper";
 import AnnualIncomeLogo from "../../../assets/icon/I-Annual-Income.png";
-import { PasswordField } from "../../FormsUI";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { CheckMyOffers } from "../../../contexts/CheckMyOffers";
-import IconButton from '@material-ui/core/IconButton'
+import "./annulaIncome.css";
 
 const validationSchema = yup.object({
 	personalIncome: yup
@@ -29,16 +22,8 @@ const validationSchema = yup.object({
 
 function NewUser() {
 	const { data } = useContext(CheckMyOffers);
-	const [citizenship, setCitizenship] = useState("");
-	// data[0].zip = citizenship;
 	const history = useHistory();
-	console.log(data);
-	const handSub = () => {
-		console.log("data submited");
-	};
-	const handleRoute = (val) => {
-		history.push("/personal-info");
-	};
+
 
 
 
@@ -64,10 +49,7 @@ function NewUser() {
 			formik.handleChange(event);
 		}
 	  };
-	// formik.values.zip = '34';
-	// formik.setFieldValue('hello');
-
-	// console.log("formik data",formik.values);
+	
 
 	return (
 		<div>
@@ -102,7 +84,7 @@ function NewUser() {
 									</Link>
 								</Grid>
 								<Grid className="liftImage">
-									<img src={AnnualIncomeLogo} className="spinAnimation" />
+									<img alt="AnnualIncome" src={AnnualIncomeLogo} className="spinAnimation" />
 								</Grid>
 							
 

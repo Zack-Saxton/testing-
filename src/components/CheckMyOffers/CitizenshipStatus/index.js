@@ -1,18 +1,13 @@
-import Header from '../../Layout/NormalHeader/NormalHeader';
-import Footer from '../../Layout/NormalFooter/NormalFooter';
-import './citizenshipStatus.css';
 import Box from '@material-ui/core/Box';
-import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
-import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import { Slider, TextField, Button } from '../../FormsUI';
+import { Button } from '../../FormsUI';
 import Paper from "@material-ui/core/Paper";
 import React, {useState, useContext} from 'react';
 import { useHistory, Link } from "react-router-dom";
 import CitizenshipStatusLogo from '../../../assets/icon/I-Citizenship-status.png';
 import { CheckMyOffers } from '../../../contexts/CheckMyOffers';
-
+import './citizenshipStatus.css';
 function CitizenshipStatus() {
     const { data } = useContext(CheckMyOffers);
     const [citizenship, setCitizenship] = useState(data.citizenship ? data.citizenship : "");
@@ -38,7 +33,7 @@ function CitizenshipStatus() {
                                       <Link to="/loan-purpose"><i class="material-icons dp48 yellowText  ">arrow_back</i></Link>
                                     </Grid>
                                 <Grid>
-                                    <img src={CitizenshipStatusLogo}  className="spinAnimation"/>
+                                    <img alt="Citizenship" src={CitizenshipStatusLogo}  className="spinAnimation"/>
                                 </Grid>
                             
                                 <Typography variant="h6" align="center" justify="center" alignItems="center" className='borrowCSS'>

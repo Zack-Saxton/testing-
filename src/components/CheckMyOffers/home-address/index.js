@@ -1,22 +1,15 @@
-import Header from "../../Layout/NormalHeader/NormalHeader";
-import Footer from "../../Layout/NormalFooter/NormalFooter";
-import "../checkMyOffer.css";
-import Box from "@material-ui/core/Box";
-import Card from "@material-ui/core/Card";
-import Grid from "@material-ui/core/Grid";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
-import { Slider, TextField, Button } from "../../FormsUI";
-// import Button from '@material-ui/core/Button';
-import Paper from "@material-ui/core/Paper";
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { useHistory, Link } from "react-router-dom";
+import Box from "@material-ui/core/Box";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import { TextField, Button } from "../../FormsUI";
+import Paper from "@material-ui/core/Paper";
 import AddressLogo from "../../../assets/icon/I-Address.png";
-import { Zipcode as ZipcodeField } from "../../FormsUI";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { CheckMyOffers } from '../../../contexts/CheckMyOffers';
-
+import "../checkMyOffer.css";
 
 
 const validationSchema = yup.object({
@@ -36,16 +29,10 @@ const validationSchema = yup.object({
  
 function HomeAddress() {
 	const { data } = useContext(CheckMyOffers);
-	const [citizenship, setCitizenship] = useState( '');
-	// data[0].zip = citizenship;
+
 	const history = useHistory();
 	console.log(data);
-    const handSub = () => {
-		console.log("data submited");
-	}
-	const handleRoute = (val) => {
-		history.push("/personal-info");
-	};
+
 
 	const formik = useFormik({
 		initialValues: {
@@ -62,10 +49,7 @@ function HomeAddress() {
 			history.push("/living-place");
 		},
 	});
-    // formik.values.zip = '34';
-	// formik.setFieldValue('hello');
-	
-	// console.log("formik data",formik.values);
+ 
 
 
 	return (
@@ -101,7 +85,7 @@ function HomeAddress() {
 									</Link>
 								</Grid>
 								<Grid className="liftImage">
-									<img src={AddressLogo} className="spinAnimation" />
+									<img alt="Address" src={AddressLogo} className="spinAnimation" />
 								</Grid>
 
 								<Typography

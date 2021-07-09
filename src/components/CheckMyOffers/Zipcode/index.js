@@ -1,22 +1,15 @@
-import Header from "../../Layout/NormalHeader/NormalHeader";
-import Footer from "../../Layout/NormalFooter/NormalFooter";
-import "./zipcode.css";
-import Box from "@material-ui/core/Box";
-import Card from "@material-ui/core/Card";
-import Grid from "@material-ui/core/Grid";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
-import { Slider, TextField1, Button } from "../../FormsUI";
-// import Button from '@material-ui/core/Button';
-import Paper from "@material-ui/core/Paper";
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { useHistory, Link } from "react-router-dom";
+import Box from "@material-ui/core/Box";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import Paper from "@material-ui/core/Paper";
 import ZipcodeLogo from "../../../assets/icon/I-Zip-Code.png";
-import { Zipcode as ZipcodeField } from "../../FormsUI";
+import { Zipcode as ZipcodeField, Button } from "../../FormsUI";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { TextField } from "@material-ui/core";
 import { CheckMyOffers } from '../../../contexts/CheckMyOffers';
+import "./zipcode.css";
 
 
 
@@ -31,12 +24,7 @@ function Zipcode() {
 	const { data } = useContext(CheckMyOffers);
 	const history = useHistory();
 	console.log(data);
-    const handSub = () => {
-		console.log("data submited");
-	}
-	const handleRoute = (val) => {
-		history.push("/personal-info");
-	};
+
 
 	const formik = useFormik({
 		initialValues: {
@@ -48,10 +36,7 @@ function Zipcode() {
 			history.push("/personal-info");
 		},
 	});
-    // formik.values.zip = '34';
-	// formik.setFieldValue('hello');
-	
-	// console.log("formik data",formik.values);
+
 
 
 	return (
@@ -87,7 +72,7 @@ function Zipcode() {
 									</Link>
 								</Grid>
 								<Grid className="liftImage">
-									<img src={ZipcodeLogo} className="spinAnimation" />
+									<img alt="Zipcode" src={ZipcodeLogo} className="spinAnimation" />
 								</Grid>
 
 								<Typography
@@ -136,7 +121,7 @@ function Zipcode() {
 											lg={8}
 											md={8}
 											xs={12}
-											className="textBlock"
+											className="alignButton"
 										>
 											<Button
 												type="submit"

@@ -1,10 +1,7 @@
-import Header from '../../Layout/NormalHeader/NormalHeader';
-import Footer from '../../Layout/NormalFooter/NormalFooter';
-import './employmentStatus.css';
+
+
 import Box from '@material-ui/core/Box';
-import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
-import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { TextField, Button } from '../../FormsUI';
 import Paper from "@material-ui/core/Paper";
@@ -12,6 +9,7 @@ import React, {useState, useContext} from 'react';
 import { useHistory, Link } from "react-router-dom";
 import EmploymenyStatus from '../../../assets/icon/I-Employment-Status.png';
 import { CheckMyOffers } from '../../../contexts/CheckMyOffers';
+import './employmentStatus.css';
 
 function CitizenshipStatus() {
     const { data } = useContext(CheckMyOffers);
@@ -38,7 +36,7 @@ function CitizenshipStatus() {
                                       <Link to="/existing-user"><i class="material-icons dp48 yellowText  ">arrow_back</i></Link>
                                     </Grid>
                                 <Grid>
-                                    <img src={EmploymenyStatus}  className="spinAnimation"/>
+                                    <img alt="Employment" src={EmploymenyStatus}  className="spinAnimation"/>
                                 </Grid>
                             
                                 <Typography variant="h5" align="center" justify="center" alignItems="center" className='borrowCSS'>

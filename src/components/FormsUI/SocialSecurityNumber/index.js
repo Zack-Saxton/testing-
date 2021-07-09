@@ -19,25 +19,29 @@ import { TextField, FormLabel,FormControlLabel } from "@material-ui/core";
 import Content from '../../../assets/Content/content';
 
 const theme = createMuiTheme();
-const SSNWrapper = ({ name, ...otherProps }) => {
-  const [mobile, setSSN] = React.useState("");
-  const[unMaskedVal, setUnMaskedVal] = React.useState('');
+const SSNWrapper = ({ name,label, error,  required,
+
+  onChange,
+   helperText,
+  setError,
+  setHelperText, ...otherProps }) => {
+  // const [mobile, setSSN] = React.useState("");
+  const[unMaskedVal, setUnMaskedVal] = useState('');
+  // const [isError, setIsError] = useState(false);
+  // const [helpertext, setHelpertext] = useState("");
 
   const handleChange = (event) => {
-    setSSN(event.target.value);
-    const value =
-    event.target.value
+    setUnMaskedVal(event.target.value
+    
       .replace(/-/g, "")
-      .replace(/ /g, "") || "";
+      .replace(/ /g, "") || "" );
   // setFieldValue("ssn", value);
-  setUnMaskedVal(value);
-  };
-
-  //Configuring the field with properties
-  const config = {
-    name: name,
-    ...otherProps,
-    fullWidth: true,
+  // setUnMaskedVal(value);
+  // setIsError((required && !event.target.value) ? true :  false);
+  //   setHelpertext((required && !event.target.value) ? Content.required : '');
+  if(onChange){  
+  onChange(event);
+  }
   };
 
   //  setError = error ?? setError;

@@ -4,47 +4,45 @@ exports[`should match the snapshot 1`] = `
 <DocumentFragment>
   <div>
     <div
-      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3"
+      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+      style="display: inline-flex;"
     >
       <div
-        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11"
+        class="MuiFormControl-root MuiTextField-root makeStyles-dynamic-15 MuiFormControl-fullWidth"
       >
-        <div
-          class="MuiFormControl-root MuiTextField-root makeStyles-dynamic-15 MuiFormControl-fullWidth"
+        <label
+          class="MuiFormLabel-root MuiInputLabel-root makeStyles-cssLabel-14 MuiInputLabel-formControl MuiInputLabel-animated Mui-required Mui-required"
+          data-shrink="false"
         >
-          <label
-            class="MuiFormLabel-root MuiInputLabel-root makeStyles-cssLabel-14 MuiInputLabel-formControl MuiInputLabel-animated Mui-required Mui-required"
-            data-shrink="false"
+          Enter Username
+          <span
+            aria-hidden="true"
+            class="MuiFormLabel-asterisk MuiInputLabel-asterisk"
           >
-            Enter Username
-            <span
-              aria-hidden="true"
-              class="MuiFormLabel-asterisk MuiInputLabel-asterisk"
-            >
-               *
-            </span>
-          </label>
-          <div
-            class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
-          >
-            <input
-              aria-invalid="false"
-              class="MuiInputBase-input MuiInput-input"
-              data-testid="test"
-              name="userName1"
-              required=""
-              type="text"
-              value=""
-            />
-          </div>
+             *
+          </span>
+        </label>
+        <div
+          class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+        >
+          <input
+            aria-invalid="false"
+            class="MuiInputBase-input MuiInput-input"
+            data-testid="test"
+            name="userName1"
+            required=""
+            type="text"
+            value=""
+          />
         </div>
       </div>
       <div
-        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1"
+        class="MuiGrid-root"
+        style="padding-top: 20px; padding-left: 10px;"
       >
         <span
           aria-hidden="true"
-          class="material-icons MuiIcon-root makeStyles-cssIcon-13"
+          class="material-icons MuiIcon-root"
           data-testid="icon"
         >
           cloud

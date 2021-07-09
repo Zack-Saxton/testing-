@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 import { BrowserRouter, Route, Switch, Redirect} from 'react-router-dom'
-import { Grid } from "@material-ui/core";
 import "./app.css";
-import Head from "../Layout/NormalHeader/NormalHeader";
-import Foot from "../Layout/NormalFooter/NormalFooter";
-import Appbar from "../Layout/AppBar/AppBar"
-import Footer from "../Layout/Footer/Footer"
 import AccountOverview from "../Pages/AccountOverview/AccountOverview"
 import ApplyLoan from "../Pages/ApplyLoan/ApplyLoan"
 import LoanHistory  from "../Pages/LoanHistory/LoanHistory"
@@ -18,7 +13,6 @@ import LoanDocument from "../Pages/LoanDocument/LoanDocument"
 import CustomComponents from "../CustomComponent";
 import GeneralUser from '../Layout/General';
 import PostLogin from '../Layout/Post';
-
 import Loginpage from '../Pages/Login/Login'
 import Registerpage from '../Pages/Register/Register'
 import SelectAmount from '../CheckMyOffers/SelectAmount';
@@ -28,7 +22,6 @@ import Zipcode from '../CheckMyOffers/Zipcode';
 import PersonalInfo from '../CheckMyOffers/PersonalInfo';
 import NewUser from '../CheckMyOffers/NewUser';
 import ExistingUser from "../CheckMyOffers/ExistingUser";
-// import CheckMyOffersContextProvider from './../../contexts/CheckMyOffersContext';
 import CheckMyOffers from '../../contexts/CheckMyOffers';
 import EnploymentStatus from '../CheckMyOffers/EnploymentStatus';
 import AnnualIncome from '../CheckMyOffers/AnnualIncome';
@@ -39,8 +32,6 @@ import MarriedStatus from "../CheckMyOffers/MarriedStatus";
 import SSN from "../CheckMyOffers/SSN";
 
 function App() {
-  //authentication token
-  const [token] = useState(false);
 
   //check for authentication token
 
@@ -52,33 +43,16 @@ function App() {
 
 
       <div className="App" id="main">
-<<<<<<< HEAD
-         <BrowserRouter>
-
-         <Route path='/:path?' exact>
-          <GeneralUser >
-            <Switch>
-<<<<<<< HEAD
-              <Route path='/' exact > <Redirect to="/customer/accountoverview" /> </Route>
-              <Route path='/components' exact component={CustomComponents} />
-=======
-              <Route path='/' exact > <Redirect to="/login" /> </Route>
-              <Route path='/components' exact component={CustomComponents} />
-              <Route path='/login' exact component={Loginpage} />
-              <Route path='/register'  component={Registerpage} />
-
-
-
->>>>>>> feature/login-register-ui
-=======
         
          <BrowserRouter>
          <CheckMyOffers>
          <Route path='/:path?' exact>
           <GeneralUser >
             <Switch>
-              <Route path='/' exact > <Redirect to="/customer/accountoverview" /> </Route>
+              <Route path='/' exact > <Redirect to="/login" /> </Route>
               <Route path='/components' exact component={CustomComponents} />
+              <Route path='/login' exact component={Loginpage} />
+              <Route path='/register'  component={Registerpage} />
               <Route path='/select-amount' exact component={SelectAmount} />
               <Route path='/loan-purpose' exact component={LoanPurpose} />
               <Route path='/citizenship-status' exact component={CitizenshipStatus} />
@@ -102,7 +76,6 @@ function App() {
                   <PersonalInfo />  
                 {/* </CheckMyOffers> */}
               </Route>
->>>>>>> feature/check-my-offers
             </Switch>
           </GeneralUser>
 
@@ -128,13 +101,9 @@ function App() {
                 <Route path='/main'> <Main /> </Route>
                 <Route path='/check'> <Home /> </Route>
             </Switch> */}
-<<<<<<< HEAD
-         </BrowserRouter>
-=======
             </CheckMyOffers>
          </BrowserRouter>
          
->>>>>>> feature/check-my-offers
        </div>
     )
 }

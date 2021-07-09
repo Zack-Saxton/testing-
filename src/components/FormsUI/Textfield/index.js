@@ -81,6 +81,7 @@ const TextfieldWrapper = ({
     fullWidth: true,
     // error: setError ? setError : errorTF,
     // helperText: setError ? setHelperText : helpertextTF,
+
     error: setError ? setError : errorTF,
     helperText: setError ? setHelperText : helpertextTF,
     classes: {
@@ -110,19 +111,9 @@ let err, msg;
       onChange(e);
     }
     
-    // configTextfield.error = (required && !e.target.value) ? true :  configTextfield.error ?? false;
-    // configTextfield.helperText = (required && !e.target.value) ? "required" : configTextfield.helperText ?? '';
 
 }
 
-
-  // configTextfield.error = (required && !field.value && mata.touched) ? true :  configTextfield.error ?? false;
-  // configTextfield.helperText = (required && !field.value && mata.touched) ? "required" : configTextfield.helperText ?? '';
-  
-  // configTextfield.error = (mata && mata.touched && mata.error) ? true :  configTextfield.error ?? false;
-  // configTextfield.helperText = (mata && mata.touched && mata.error) ? mata.error : configTextfield.helperText ?? '';
-
-  //return the Materil UI component with configuration
 
 
   return <TextField {...configTextfield} onChange={handleOnchange} inputProps={materialProps} />;

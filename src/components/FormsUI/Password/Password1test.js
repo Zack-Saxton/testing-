@@ -11,9 +11,11 @@ import '@testing-library/jest-dom';
 										label="password"
 										type="password"
                     data-testid= "pass"
+                    id="password"
 									/>);
  
-   const input = container.getByTestId('pass');
+  //  const input = container.getByTestId('passProps');
+   const input = document.querySelector('#password')
    expect(input).toBeTruthy();
    /* Assertion */
    expect(input).toHaveAttribute('type', 'password');
@@ -26,9 +28,10 @@ import '@testing-library/jest-dom';
       label="password"
       type="password"
       data-testid= "pass"
+      id="password"
     />);
-  const input = container.getByTestId('pass');
-  const button = container.getByTestId('passButton');
+    const input = document.querySelector('#password')
+    const button = container.getByTestId('passButton');
   /* Expects password to be hidden */
   expect(input).toHaveAttribute('type', 'password');
 

@@ -1,4 +1,4 @@
-import react, { useState, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import Header from '../../Layout/NormalHeader/NormalHeader';
 import Footer from '../../Layout/NormalFooter/NormalFooter';
 import './loadPurpose.css';

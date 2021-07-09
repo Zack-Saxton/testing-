@@ -15,7 +15,6 @@ import {
   FormGroup,
   FormLabel,
 } from "@material-ui/core";
-import { useField, useFormikContext } from "formik";
 
 const CheckboxWrapper = ({
   name,
@@ -30,14 +29,6 @@ const CheckboxWrapper = ({
   required,
   ...otherProps
 }) => {
-  //To return all formik state
-  // const { setFieldValue } = useFormikContext(value);
-  // const [field, meta] = useField();
-
-  // const handleChange = (evt) => {
-  //   const { checked } = evt.target.value;
-  //   // setFieldValue(checked);
-  // };
 
   //Configuring Field with Properties
   const configCheckbox = {

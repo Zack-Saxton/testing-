@@ -1,15 +1,15 @@
-import '../checkMyOffer.css';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { useFormik } from 'formik';
 import { Select, Button } from '../../FormsUI';
 import Paper from "@material-ui/core/Paper";
-import React, {useState, useContext} from 'react';
+import React, { useContext} from 'react';
 import { useHistory, Link } from "react-router-dom";
 import * as yup from "yup";
 import ActiveDutyLogo from '../../../assets/icon/active-duty.png';
 import { CheckMyOffers } from '../../../contexts/CheckMyOffers';
+import '../checkMyOffer.css';
 
 const validationSchema = yup.object({
 	activeDuty: yup
@@ -19,12 +19,8 @@ const validationSchema = yup.object({
 
 function ActiveDuty() {
     const { data } = useContext(CheckMyOffers);
-    const [livingPlace, setLivingPlace] = useState(data.citizenship ? data.citizenship : "");
     const history = useHistory();
-    const handleRoute = () =>{ 
-        data.citizenship = livingPlace;
-        history.push("/marital-status");
-      }
+  
     const formik = useFormik({
     initialValues: {
         activeDuty: data.activeDuty ? data.activeDuty : '',
@@ -54,7 +50,7 @@ function ActiveDuty() {
                                       <Link to="/living-place"><i class="material-icons dp48 yellowText  ">arrow_back</i></Link>
                                     </Grid>
                                 <Grid>
-                                    <img src={ActiveDutyLogo}  className="spinAnimation"/>
+                                    <img alt="Active Duty" src={ActiveDutyLogo}  className="spinAnimation"/>
                                 </Grid>
                             
                                 <Typography variant="h5" align="center" justify="center" alignItems="center" className='borrowCSS'>

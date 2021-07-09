@@ -90,11 +90,7 @@ const SelectWrapper = ({
 	return (
 		<FormControl {...configFormControl}>
 			<InputLabel>{labelform}</InputLabel>
-<<<<<<< HEAD
-			<Select {...configSelect} value={selectVal} MenuProps={MenuProps} data-testid= "selectBox" inputProps={{"data-testid": "selectInput"}}>
-=======
 			<Select {...configSelect} name={name} value={value} MenuProps={MenuProps} data-testid= "selectBox" inputProps={{"data-testid": "selectInput"}}>
->>>>>>> feature/check-my-offers
 				{selectMF.map((nam) => (
 					<MenuItem key={nam.value} value={nam.value}>
 						<option value={nam.value}>{nam.value}</option>

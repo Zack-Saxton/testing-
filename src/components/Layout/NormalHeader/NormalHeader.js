@@ -94,7 +94,16 @@ const handleMobileMenuOpen = (event) => {
             Components
           </Typography>
           </NavLink>
-          
+          <NavLink to='/select-amount'style={{'textDecoration':'none'}} >
+          <Typography className={classes.subtitle} >
+            Check My Offers
+          </Typography>
+          </NavLink>
+          <NavLink to='/login'style={{'textDecoration':'none'}} >
+          <Typography className={classes.subtitle} >
+            Login
+          </Typography>
+          </NavLink>
           </div>
           <div className={classes.sectionMobile}>
             <IconButton
