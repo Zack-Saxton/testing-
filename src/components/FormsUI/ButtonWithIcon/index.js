@@ -49,9 +49,9 @@ const ButtonWithIcon = ({
   //View Part
   return (
     <Button {...configButton} style={stylebuttonMF}>
-      {iconposition === "left" ? <Icon style={styleiconMF}>{icon}</Icon> : ""}
+      {iconposition === "left" ? <Icon style={styleiconMF} data-testid= "icon">{icon}</Icon> : ""}
       {children}
-      {iconposition === "right" ? <Icon style={styleiconMF}>{icon}</Icon> : ""}
+      {iconposition === "right" ? <Icon style={styleiconMF} data-testid= "icon">{icon}</Icon> : ""}
     </Button>
   );
 };

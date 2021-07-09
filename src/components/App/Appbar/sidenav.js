@@ -245,7 +245,7 @@ export default function Sidenav() {
         </div>
         <Divider />
         <List>
-          <NavLink to="/account">
+          <NavLink to="/customer/accountoverview">
             <ListItem>
               <ListItemIcon>
                 {" "}

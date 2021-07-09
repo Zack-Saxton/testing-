@@ -1,0 +1,16 @@
+header{
+    box-shadow: 0 0;
+    background: transparent!important;
+    /* padding-left: 73px!important; */
+}
+.MuiAppBar-root{
+    box-sizing: inherit!important;
+  }
+
+
+@media all and (min-width:550px){
+    .makeStyles-sectionDesktop-16 {
+        display: block!important;
+        flex-direction: column;
+    }
+}

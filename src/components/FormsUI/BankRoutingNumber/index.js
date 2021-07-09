@@ -7,53 +7,49 @@ Functionality       :    To use this component to validate and get the Bank rout
 #################################################################################################################*/
 
 import React, { useState } from "react";
-import { useField } from "formik";
 import PropTypes from "prop-types";
 import TextBox from "../Textfield";
+import { TextField } from '@material-ui/core';
+
 
 const BankRoutingNumberWrapper = ({ name, ...otherProps }) => {
   //Set Formik field
   const [BRNum, setBRNum] = useState("");
-  const [field, mata, helpers] = useField(name);
+  const [isError, setIsError] = useState(false);
+  const [helpertext, setHelpertext] = useState("");
 
-  const onHandleBRNumberChange = (event) => {
+  //Account Number field onChange handle
+  const onHandleBRNChange = (event) => {
     const reg = /^[0-9\b]+$/;
-    let val = (event.target.value === "" || reg.test(event.target.value)) ? event.target.value : BRNum;
-    setBRNum(val);
-    helpers.setValue(val);
+    let acc = event.target.value;
+
+    if (acc === "" || reg.test(acc)) {
+      setBRNum(event.target.value);
+    }
+    var isValid = /(^\d{9}$)/.test(event.target.value);
+    (!isValid && event.target.value) ? setIsError(true) : setIsError(false) ;
+    (!isValid && event.target.value) ? setHelpertext("Bank Routing number should be 9 digits") : setHelpertext("") ;
+
   };
 
   
-
   //Configuring the field with properties
-  const config = {
+  const configTextfield = {
     name: name,
     type: "text",
     fullWidth: true,
-    ...field,
+    setError: isError,
+    setHelperText: helpertext,
     ...otherProps,
   };
-
-  //Validation part
-  var isValid = /(^\d{9}$)/.test(field.value);
-
-  // check validity
-
-  // Validation
-
-  config.error = (!isValid && field.value && mata.touched) ? true :  config.error ?? false;
-  config.helperText = (!isValid && field.value && mata.touched) ? "Should be 9 digit" : config.helperText ?? '';
-  config.error = (mata && mata.touched && mata.error) ? true :  config.error ?? false;
-  config.helperText = (mata && mata.touched && mata.error) ? mata.error : config.helperText ?? '';
-
 
   //return the view block
   return (
     <TextBox
-      {...config}
-      materialProps={{ maxLength: "9" }}
+      {...configTextfield}
+      materialProps={{ maxLength: "9", "data-testid": "BRN"}}
       value={BRNum}
-      onChange={onHandleBRNumberChange}
+      onChange={onHandleBRNChange}
       required={true}
     />
   );

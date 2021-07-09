@@ -12,6 +12,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Email from "../Email";
 import Icon from "@material-ui/core/Icon";
 import classNames from "classnames";
+import Content from '../../../assets/Content/content';
 
 const EmailWithIconWrapper = ({
   name,
@@ -26,7 +27,7 @@ const EmailWithIconWrapper = ({
   //Styling
   const useStyles = makeStyles((theme) => ({
     cssIcon: {
-      paddingTop: "20px",
+      paddingTop: "100%",
       color: iconColor,
     },
   }));
@@ -41,7 +42,7 @@ const EmailWithIconWrapper = ({
   //Validation part
 
   configTextfield.error = (!field.value && mata.touched) ? true :  configTextfield.error ?? false;
-  configTextfield.helperText = (field.value && mata.touched) ? "required" : configTextfield.helperText ?? '';
+  configTextfield.helperText = (field.value && mata.touched) ? Content.required : configTextfield.helperText ?? '';
   
   configTextfield.error = (mata && mata.touched && mata.error) ? true :  configTextfield.error ?? false;
   configTextfield.helperText = (mata && mata.touched && mata.error) ? mata.error : configTextfield.helperText ?? '';

@@ -10,7 +10,7 @@ Functionality       :    To use this Select Box as a default component for UI pu
  */
 
 import React from "react";
-import { FormControl, makeStyles, MenuItem, Select } from "@material-ui/core";
+import { FormControl, makeStyles, MenuItem, Select, FormHelperText } from "@material-ui/core";
 import { useField } from "formik";
 import InputLabel from "@material-ui/core/InputLabel";
 
@@ -19,28 +19,30 @@ const SelectWrapper = ({
 	options,
 	variant,
 	required,
-	select,
+	select, 
 	labelform,
-
+	value,
+	helperText,
 	...otherProps
 }) => {
 	//To return all formik state
-	const [field] = useField(name);
-
-	const [setselect, setSelect] = React.useState([]);
+	
+	const [selectVal, setSelectVal] = React.useState('');
 
 	const handleChange = (event) => {
-		setSelect(event.target.value);
+		setSelectVal(event.target.value);
+		value = event.target.value;
+		console.log("inside component", event.target.value);
+		// onChange(event);
 	};
 
 	const useStyles = makeStyles((theme) => ({
 		formControl: {
 			margin: theme.spacing(1),
-			minWidth: 120,
-			maxWidth: 300,
+			
 		},
 		menu: {
-			width: 200,
+			
 		},
 	}));
 
@@ -67,17 +69,17 @@ const SelectWrapper = ({
 
 	//Configuring Field with Properties
 	const configSelect = {
-		...field,
 		...otherProps,
 		fullWidth: true,
 		variant: variant,
 		className: classes.menu,
 
-		onChange: handleChange,
+		// onChange: handleChange,
 	};
 	const configFormControl = {
 		className: classes.formControl,
-		required: true,
+		// required: true,
+		fullWidth: true,
 	};
 
 	//Validation Part
@@ -88,13 +90,15 @@ const SelectWrapper = ({
 	return (
 		<FormControl {...configFormControl}>
 			<InputLabel>{labelform}</InputLabel>
-			<Select {...configSelect} value={setselect} MenuProps={MenuProps}>
+			<Select {...configSelect} name={name} value={value} MenuProps={MenuProps} data-testid= "selectBox" inputProps={{"data-testid": "selectInput"}}>
 				{selectMF.map((nam) => (
 					<MenuItem key={nam.value} value={nam.value}>
-						{nam.value}
+						<option value={nam.value}>{nam.value}</option>
 					</MenuItem>
+					// <option value={nam.value}>{nam.value}</option>
 				))}
 			</Select>
+			<FormHelperText error={true}>{helperText}</FormHelperText>
 		</FormControl>
 	);
 };

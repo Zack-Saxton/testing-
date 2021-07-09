@@ -29,20 +29,20 @@ const CheckboxWrapper = ({
   ...otherProps
 }) => {
   //To return all formik state
-  const { setFieldValue } = useFormikContext();
-  const [field, meta] = useField(name);
+  // const { setFieldValue } = useFormikContext();
+  // const [field, meta] = useField(name);
 
-  const handleChange = (evt) => {
-    const { checked } = evt.target;
-    setFieldValue(checked);
-  };
+  // const handleChange = (evt) => {
+  //   const { checked } = evt.target;
+  //   setFieldValue(checked);
+  // };
 
   //Configuring Field with Properties
   const configCheckbox = {
     required,
-    ...field,
+    // ...field,
     ...otherProps,
-    onChange: handleChange,
+    // onChange: handleChange,
   };
 
   //Validation

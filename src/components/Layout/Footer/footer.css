@@ -1,0 +1,43 @@
+
+.section-top{
+    background:#d7e6ed;
+    display: flex; 
+    justify-content: center; 
+    padding: 20px 0;
+    }
+    .section-bottom{
+        background: linear-gradient(
+            85deg
+            , #264266, #0F4EB3) !important;
+         text-align: center;
+         padding: 15px 0;
+       }
+ 
+       .col{
+        margin: 0 15px;
+        width: 25%;
+        word-wrap: break-word;
+      }
+      .footer-content{
+       padding-bottom: 5px;
+       word-wrap: break-word;
+   
+      }
+   .hreftag{
+    text-decoration: none;
+    color: black;
+
+    
+
+   }
+   @media all and (max-width: 600px){ 
+   .section-top{
+       flex-direction: column;
+   }    
+   .col{
+     text-align: center;
+     width: 100%;
+     margin: 0
+   }
+ }
+

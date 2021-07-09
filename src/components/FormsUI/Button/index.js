@@ -15,6 +15,7 @@ const ButtonWrapper = ({
   children,
   stylebutton,
   background,
+  onClick,
   ...otherProps
 }) => {
   //Styling Part
@@ -34,6 +35,7 @@ const ButtonWrapper = ({
     variant: "contained",
     fullWidth: true,
     className: classes.buttoncolor,
+    ...otherProps
   };
 
   //parsing data using json
@@ -41,7 +43,7 @@ const ButtonWrapper = ({
 
   //View Part
   return (
-    <Button {...configButton} style={ stylebuttonMF }>
+    <Button {...configButton}  onClick={onClick} style={ stylebuttonMF }>
       {children}
     </Button>
   );
