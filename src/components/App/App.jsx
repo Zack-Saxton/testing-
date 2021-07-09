@@ -19,6 +19,8 @@ import CustomComponents from "../CustomComponent";
 import GeneralUser from '../Layout/General';
 import PostLogin from '../Layout/Post';
 
+import Loginpage from '../Pages/Login/Login'
+import Registerpage from '../Pages/Register/Register'
 
 function App() {
   //authentication token
@@ -39,8 +41,18 @@ function App() {
          <Route path='/:path?' exact>
           <GeneralUser >
             <Switch>
+<<<<<<< HEAD
               <Route path='/' exact > <Redirect to="/customer/accountoverview" /> </Route>
               <Route path='/components' exact component={CustomComponents} />
+=======
+              <Route path='/' exact > <Redirect to="/login" /> </Route>
+              <Route path='/components' exact component={CustomComponents} />
+              <Route path='/login' exact component={Loginpage} />
+              <Route path='/register'  component={Registerpage} />
+
+
+
+>>>>>>> feature/login-register-ui
             </Switch>
           </GeneralUser>
 

@@ -46,8 +46,8 @@ const EmailWrapper = ({ name, suffix, lable, id, ...otherProps }) => {
     valid ? setEmailCheck(true) : setEmailCheck(false);
   });
 
-  configTextfield.error = (!emailCheck) ? true :  configTextfield.error ?? false;
-  configTextfield.helperText = (!emailCheck) ? "Invalid Email" : configTextfield.helperText ?? '';
+  // configTextfield.error = (!emailCheck) ? true :  configTextfield.error ?? false;
+  // configTextfield.helperText = (!emailCheck) ? "Invalid Email" : configTextfield.helperText ?? '';
   //view part
   return (
     <TextField

@@ -6,18 +6,20 @@ Functionality       :    To use this component to validate and get the zipcode i
 
 #################################################################################################################*/
 
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useField } from "formik";
 import PropTypes from "prop-types";
 import TextBox from "../Textfield";
 import { TextField } from '@material-ui/core';
 import { set } from "date-fns";
 
-const ZipCodeWrapper = ({ name, ...otherProps }) => {
+
+const ZipCodeWrapper = ({ name, error, helperText, value, onChange, ...otherProps }) => {
   //Set Formik field
-  const [zipCode, setZipCode] = useState("");
+  const [zipCode, setZipCode] = useState(value ? value : "");
   const [isError, setIsError] = useState(false);
   const [helpertext, setHelpertext] = useState("");
+  
 
   //Account Number field onChange handle
   const onHandleZipcodeChange = (event) => {
@@ -30,7 +32,7 @@ const ZipCodeWrapper = ({ name, ...otherProps }) => {
     var isValid = /(^\d{5}$)/.test(event.target.value);
     (!isValid && event.target.value) ? setIsError(true) : setIsError(false) ;
     (!isValid && event.target.value) ? setHelpertext("Zipcode should 5 digits") : setHelpertext("") ;
-
+   if(onChange){ onChange(event);}
   };
 
   
@@ -39,8 +41,8 @@ const ZipCodeWrapper = ({ name, ...otherProps }) => {
     name: name,
     type: "text",
     fullWidth: true,
-    setError: isError,
-    setHelperText: helpertext,
+    setError: error ? error : isError,
+    setHelperText: helperText ? helperText : helpertext ,
     ...otherProps,
   };
 
@@ -51,7 +53,6 @@ const ZipCodeWrapper = ({ name, ...otherProps }) => {
       materialProps={{ maxLength: "5", "data-testid": "test"}}
       value={zipCode}
       onChange={onHandleZipcodeChange}
-      required={true}
     />
   );
 };

@@ -141,7 +141,7 @@ const useStyles = makeStyles((theme) => ({
       margin: '12px'
   },
   // sectionDesktop: {
-  //   // display: 'none',
+  //   display: 'none',
   //   [theme.breakpoints.up('md')]: {
   //     display: 'flex',
   //   },
@@ -334,8 +334,8 @@ export default function Sidenav() {
           
           
           <div className={classes.grow} />
-          <div id="toolbarlist" style={{overflow: "hidden", textOverflow: "ellipsis"}}> 
-           {/* <div className={classes.sectionDesktop} id="hai"> */}
+          {/* <div  style={{overflow: "hidden", textOverflow: "ellipsis", margin:"10px"}}>  */}
+           <div className={classes.sectionDesktop} id="hai">
           <Typography variant="" className={classes.headeralign}>
             Blog
           </Typography>

@@ -1,0 +1,46 @@
+/* .form {
+box-sizing: content-box;
+  }
+  *, *:before, *:after {
+    box-sizing: unset!important;
+  } */
+
+  .textBlock{
+    margin: 20px 0px !important;
+}
+
+/* .mainDiv{
+    background-color: #124CA8;
+    background-image: linear-gradient(to right, #26436A , #104DB0);
+    min-height: 500px !important;
+} */
+
+.MuiInput-underline:before{
+    border-bottom: 2px solid #0F4EB3 !important;
+}
+
+.cardWOPadding{
+    padding-bottom: 1%;
+    text-align: center;
+}
+
+.cardWrapper{
+    margin-top: 5%;
+    margin-bottom: 2%;
+}
+
+
+
+
+@media (max-width:400px){
+    #email-label, #password-label, #cpass-label, #firstname-label, #lastname-label, #zip-label{
+        font-size: 4vw;
+ 
+    }
+}
+@media (max-width:400px){
+#subtitle{
+    font-size: 3vw;
+
+}
+}

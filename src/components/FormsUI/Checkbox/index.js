@@ -21,6 +21,8 @@ const CheckboxWrapper = ({
   name,
   value,
   label,
+  id,
+  labelid,
   formlabel,
   stylecheckbox,
   stylecheckboxlabel,
@@ -29,24 +31,25 @@ const CheckboxWrapper = ({
   ...otherProps
 }) => {
   //To return all formik state
-  const { setFieldValue } = useFormikContext();
-  const [field, meta] = useField(name);
+  // const { setFieldValue } = useFormikContext(value);
+  // const [field, meta] = useField();
 
-  const handleChange = (evt) => {
-    const { checked } = evt.target;
-    setFieldValue(checked);
-  };
+  // const handleChange = (evt) => {
+  //   const { checked } = evt.target.value;
+  //   // setFieldValue(checked);
+  // };
 
   //Configuring Field with Properties
   const configCheckbox = {
     required,
-    ...field,
+    id:id,
+   
     ...otherProps,
-    onChange: handleChange,
+   
   };
 
   //Validation
-
+ 
   
 
   //parsing data using json
@@ -57,12 +60,16 @@ const CheckboxWrapper = ({
   //view Part
   return (
     <FormControl>
-      <FormLabel style={stylelabelformMF}>{formlabel}</FormLabel>
-      <FormGroup>
+      <FormLabel  style={stylelabelformMF}>{formlabel}</FormLabel>
+      <FormGroup >
         <FormControlLabel
-          control={<Checkbox {...configCheckbox} style={stylecheckboxMF} />}
+          control={<Checkbox id={id} {...configCheckbox} style={stylecheckboxMF} /> }
+         
           label={label}
           style={stylecheckboxlabelMF}
+          id={labelid}
+         
+         
         />
       </FormGroup>
     </FormControl>

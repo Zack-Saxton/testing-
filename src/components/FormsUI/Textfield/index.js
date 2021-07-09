@@ -15,7 +15,6 @@ import { red } from "@material-ui/core/colors";
 import PropTypes from "prop-types";
 
 
-
 //Main textfield wrapper
 const TextfieldWrapper = ({
   name,
@@ -32,6 +31,8 @@ const TextfieldWrapper = ({
   setError,
   setHelperText,
   onChange,
+  error, 
+  helperText,
   ...otherProps
 }) => {
 
@@ -69,6 +70,8 @@ const TextfieldWrapper = ({
   }));
 
   const classes = useStyles();
+  setError = error ?? setError;
+  setHelperText = helperText ?? setHelperText;
 
   //Configuring the textfield with properties
   const configTextfield = {
@@ -107,6 +110,7 @@ let err, msg;
       onChange(e);
     }
     
+<<<<<<< HEAD
     // configTextfield.error = (required && !e.target.value) ? true :  configTextfield.error ?? false;
     // configTextfield.helperText = (required && !e.target.value) ? "required" : configTextfield.helperText ?? '';
 
@@ -120,6 +124,13 @@ let err, msg;
   // configTextfield.helperText = (mata && mata.touched && mata.error) ? mata.error : configTextfield.helperText ?? '';
 
   //return the Materil UI component with configuration
+=======
+
+}
+
+
+
+>>>>>>> feature/login-register-ui
   return <TextField {...configTextfield} onChange={handleOnchange} inputProps={materialProps} />;
 };
  

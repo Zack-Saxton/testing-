@@ -10,12 +10,12 @@ import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Password from "../Password";
 import Icon from "@material-ui/core/Icon";
-import classNames from "classnames";
 
 //Initializing component
 const PasswordWithIconWrapper = ({
   name,
   icon,
+  id,
   iconPosition,
   iconColor,
   customClass, //get dynamic icon name
@@ -25,27 +25,35 @@ const PasswordWithIconWrapper = ({
   //Styling part
   const useStyles = makeStyles((theme) => ({
     cssIcon: {
-      paddingTop: "20px",
       color: iconColor,
+      paddingTop: "20px",
+      
     },
   }));
 
   const classes = useStyles();
   //Configuring the field properties
   const configTextfield = {
+    name,
+    id:id,
     ...otherProps,
   };
 
   //Validation part
+
+  // <Grid item xs={12}  direction="row" style={{display:"inline-flex"}}>
+  // <Grid   style={{paddingTop:"20px" , paddingRight:"10px"}}> 
+  //    <Icon >lock</Icon>
+  //  </Grid>
   
 
   //View part
   return (
     <div>
-      <Grid container spacing={3}>
-        {iconPosition === "left" || !iconPosition ? (
-          <Grid item xs={1}>
-            <Icon className={classNames(customClass, classes.cssIcon)} data-testid= "icon">
+    <Grid item xs={12}  direction="row" style={{display:"inline-flex", width: "-webkit-fill-available"}}>
+              {iconPosition === "left" || !iconPosition ? (
+          <Grid  style={{paddingTop:"20px" , paddingRight:"10px"}}>
+            <Icon data-testid= "icon">
               {" "}
               {icon}
             </Icon>
@@ -54,12 +62,12 @@ const PasswordWithIconWrapper = ({
           ""
         )}
 
-        <Grid item xs={11}>
+       
           <Password startIcon {...configTextfield} />
-        </Grid>
+       
         {iconPosition === "right" ? (
-          <Grid item xs={1}>
-            <Icon className={classes.cssIcon} data-testid= "icon">{icon}</Icon>
+          <Grid  style={{paddingTop:"20px" , paddingLeft:"10px"}}>
+          <Icon data-testid= "icon">{icon}</Icon>
           </Grid>
         ) : (
           ""

@@ -5,16 +5,18 @@ Component Name      :    SocialSecurityNumber
 Functionality       :    To use this component to validate and get the SSN in the correct format from the user.
 
 #################################################################################################################*/
-import React from "react";
+import React,{useState} from "react";
 import { useField } from "formik";
 import {
   ThemeProvider as MuiThemeProvider,
   createMuiTheme,
 } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
 import InputMask from "react-input-mask";
 import FormControl from "@material-ui/core/FormControl";
 import PropTypes from "prop-types";
+import Textfield from "../Textfield/index"
+import { TextField, FormLabel,FormControlLabel } from "@material-ui/core";
+import Content from '../../../assets/Content/content';
 
 const theme = createMuiTheme();
 const SSNWrapper = ({ name, ...otherProps }) => {
@@ -38,6 +40,16 @@ const SSNWrapper = ({ name, ...otherProps }) => {
     fullWidth: true,
   };
 
+  //  setError = error ?? setError;
+  // setHelperText = helperText ?? setHelperText; 
+  // //Basic field configurations
+  // const config = {
+  //   name: name,
+   
+  //   error: setError ? setError : isError,
+  //   helperText: setError ? setHelperText : helpertext,
+  //   ...otherProps,
+  // };
   //Validation part
   // check validity
 
@@ -46,6 +58,7 @@ const SSNWrapper = ({ name, ...otherProps }) => {
   return (
     <FormControl fullWidth={true}>
       <MuiThemeProvider theme={theme}>
+        {/* <FormLabel label={label} name={name} {...config} > */}
         <InputMask
           fullWidth={true}
           mask="999 - 99 - 9999"
@@ -56,8 +69,9 @@ const SSNWrapper = ({ name, ...otherProps }) => {
           maskChar=" "
           {...otherProps}
         >
-          {() => <TextField label="Enter Social Security Number" name={name} inputProps={{"data-testid": "ssn", "unmaskedval": unMaskedVal}}/>}
+          {() => <TextField label={label} name={name}   inputProps={{"data-testid": "ssn", "unmaskedval": unMaskedVal}}/>}
         </InputMask>
+        {/* </FormLabel> */}
       </MuiThemeProvider>
     </FormControl>
   );

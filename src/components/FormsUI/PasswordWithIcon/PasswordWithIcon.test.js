@@ -27,7 +27,7 @@ import PasswordWithIcon from './index.js'
             iconColor="#595E6E"
             iconPosition="left"
         />);
-        const input = container.getByTestId('pass');
+        const input = container.getByTestId('passProps');
         expect(input).toBeTruthy();
         });
 

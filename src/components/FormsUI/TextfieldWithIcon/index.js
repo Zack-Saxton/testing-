@@ -45,10 +45,10 @@ const TextfieldWithIconWrapper = ({
   //View part
   return (
     <div>
-      <Grid container spacing={3}>
-        {iconPosition === "left" || !iconPosition ? (
-          <Grid item xs={1}>
-            <Icon className={classNames(customClass, classes.cssIcon)} data-testid= "icon" >
+       <Grid item xs={12}  direction="row" style={{display:"inline-flex", width: "-webkit-fill-available"}}>
+              {iconPosition === "left" || !iconPosition ? (
+          <Grid  style={{paddingTop:"20px" , paddingRight:"10px"}}>
+            <Icon data-testid= "icon" >
               {" "}
               {icon}
             </Icon>
@@ -56,13 +56,10 @@ const TextfieldWithIconWrapper = ({
         ) : (
           ""
         )}
-
-        <Grid item xs={11}>
           <TextField {...configTextfield} />
-        </Grid>
         {iconPosition === "right" ? (
-          <Grid item xs={1}>
-            <Icon className={classes.cssIcon} data-testid= "icon" >{icon}</Icon>
+          <Grid  style={{paddingTop:"20px" , paddingLeft:"10px"}}>
+          <Icon data-testid= "icon" >{icon}</Icon>
           </Grid>
         ) : (
           ""

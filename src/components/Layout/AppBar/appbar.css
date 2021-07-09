@@ -53,4 +53,10 @@ header{
 }  
 
 
+@media all and (max-width:550px){
+    #hai {
+        display: block!important;
+        flex-direction: column;
+    }
+} 
 

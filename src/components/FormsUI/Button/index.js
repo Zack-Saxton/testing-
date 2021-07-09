@@ -35,6 +35,7 @@ const ButtonWrapper = ({
     variant: "contained",
     fullWidth: true,
     className: classes.buttoncolor,
+    ...otherProps,
   };
 
   //parsing data using json
