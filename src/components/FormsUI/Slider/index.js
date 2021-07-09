@@ -36,7 +36,9 @@ const TextfieldWrapper = ({
   name,
   label,
   min,
+  setSelect,
   max,
+  select,
   difference,
   defaultValue,
   customMarks,
@@ -82,6 +84,7 @@ const TextfieldWrapper = ({
   const [value, setValue] = useState(defaultValue ?? 12500);
   const handleSliderChange = (event, newValue) => {
     setValue(newValue);
+    setSelect(newValue);
   };
 
   //Configuring the field with properties

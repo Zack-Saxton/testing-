@@ -21,6 +21,22 @@ import PostLogin from '../Layout/Post';
 
 import Loginpage from '../Pages/Login/Login'
 import Registerpage from '../Pages/Register/Register'
+import SelectAmount from '../CheckMyOffers/SelectAmount';
+import LoanPurpose from '../CheckMyOffers/LoanPurpose';
+import CitizenshipStatus from '../CheckMyOffers/CitizenshipStatus';
+import Zipcode from '../CheckMyOffers/Zipcode';
+import PersonalInfo from '../CheckMyOffers/PersonalInfo';
+import NewUser from '../CheckMyOffers/NewUser';
+import ExistingUser from "../CheckMyOffers/ExistingUser";
+// import CheckMyOffersContextProvider from './../../contexts/CheckMyOffersContext';
+import CheckMyOffers from '../../contexts/CheckMyOffers';
+import EnploymentStatus from '../CheckMyOffers/EnploymentStatus';
+import AnnualIncome from '../CheckMyOffers/AnnualIncome';
+import HomeAddress from "../CheckMyOffers/home-address";
+import LivingPlace from "../CheckMyOffers/LivingPlace";
+import ActiveDuty from "../CheckMyOffers/ActiveDuty";
+import MarriedStatus from "../CheckMyOffers/MarriedStatus";
+import SSN from "../CheckMyOffers/SSN";
 
 function App() {
   //authentication token
@@ -36,6 +52,7 @@ function App() {
 
 
       <div className="App" id="main">
+<<<<<<< HEAD
          <BrowserRouter>
 
          <Route path='/:path?' exact>
@@ -53,6 +70,39 @@ function App() {
 
 
 >>>>>>> feature/login-register-ui
+=======
+        
+         <BrowserRouter>
+         <CheckMyOffers>
+         <Route path='/:path?' exact>
+          <GeneralUser >
+            <Switch>
+              <Route path='/' exact > <Redirect to="/customer/accountoverview" /> </Route>
+              <Route path='/components' exact component={CustomComponents} />
+              <Route path='/select-amount' exact component={SelectAmount} />
+              <Route path='/loan-purpose' exact component={LoanPurpose} />
+              <Route path='/citizenship-status' exact component={CitizenshipStatus} />
+              <Route path='/new-user' exact component={NewUser} />
+              <Route path='/existing-user' exact component={ExistingUser} />
+              <Route path='/employment-status' exact component={EnploymentStatus} />
+              <Route path='/annual-income' exact component={AnnualIncome} />   
+              <Route path='/home-address' exact component={HomeAddress} />     
+              <Route path='/living-place' exact component={LivingPlace} /> 
+              <Route path='/active-duty' exact component={ActiveDuty} />       
+              <Route path='/marital-status' exact component={MarriedStatus} /> 
+              <Route path='/ssn' exact component={SSN} />  
+              <Route path='/zipcode' exact >
+                {/* <CheckMyOffers> */}
+                  <Zipcode />  
+                {/* </CheckMyOffers> */}
+              </Route>
+              {/* <Route path='/personal-info' exact component={PersonalInfo} /> */}
+              <Route path='/personal-info' exact >
+                {/* <CheckMyOffers> */}
+                  <PersonalInfo />  
+                {/* </CheckMyOffers> */}
+              </Route>
+>>>>>>> feature/check-my-offers
             </Switch>
           </GeneralUser>
 
@@ -78,7 +128,13 @@ function App() {
                 <Route path='/main'> <Main /> </Route>
                 <Route path='/check'> <Home /> </Route>
             </Switch> */}
+<<<<<<< HEAD
          </BrowserRouter>
+=======
+            </CheckMyOffers>
+         </BrowserRouter>
+         
+>>>>>>> feature/check-my-offers
        </div>
     )
 }

@@ -110,7 +110,6 @@ let err, msg;
       onChange(e);
     }
     
-<<<<<<< HEAD
     // configTextfield.error = (required && !e.target.value) ? true :  configTextfield.error ?? false;
     // configTextfield.helperText = (required && !e.target.value) ? "required" : configTextfield.helperText ?? '';
 
@@ -124,13 +123,8 @@ let err, msg;
   // configTextfield.helperText = (mata && mata.touched && mata.error) ? mata.error : configTextfield.helperText ?? '';
 
   //return the Materil UI component with configuration
-=======
-
-}
 
 
-
->>>>>>> feature/login-register-ui
   return <TextField {...configTextfield} onChange={handleOnchange} inputProps={materialProps} />;
 };
  
