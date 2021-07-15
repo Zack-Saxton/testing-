@@ -16,7 +16,7 @@ expect(input).toBeTruthy();
 })
 
 
-test('Checking Onclick', () => {
+test('Checking Onclick', () => { 
     const handleClick = jest.fn();
     const container = render(<Button
       onClick={handleClick}

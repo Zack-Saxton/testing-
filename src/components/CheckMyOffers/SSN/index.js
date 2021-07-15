@@ -30,8 +30,8 @@ function SSN() {
 		  },
 		// validationSchema: validationSchema,
 		onSubmit: (values) => {
-			data.zip = values.zip;
-			history.push("/marital-status");
+			// data.zip = values.zip;
+			history.push("/no-offers-available");
 		},
 	});
   
@@ -128,10 +128,10 @@ function SSN() {
 										name="termsOfService"
 										labelform="Terms & Service"
 										label={<p className="agreeText">By clicking this box you acknowledge that you have received, reviewed and agree to the 
-											<a href={'https://loans.marinerfinance.com/application/form'}> E-Signature Disclosure and Consent, </a>
-											<a href={'https://loans.marinerfinance.com/application/form'}>Credit and Contact Authorization, </a>
-											<a href={'https://loans.marinerfinance.com/application/form'}>Website Terms of Use, </a>
-											<a href={'https://loans.marinerfinance.com/application/form'}>Website Privacy Statement.</a>
+											<a className="formatURL" href={'https://loans.marinerfinance.com/application/form'}> E-Signature Disclosure and Consent, </a>
+											<a className="formatURL" href={'https://loans.marinerfinance.com/application/form'}>Credit and Contact Authorization, </a>
+											<a className="formatURL" href={'https://loans.marinerfinance.com/application/form'}>Website Terms of Use, </a>
+											<a className="formatURL" href={'https://loans.marinerfinance.com/application/form'}>Website Privacy Statement.</a>
 											</p>}
 										required={true}
 										stylelabelform='{ "color":"" }'
@@ -147,7 +147,7 @@ function SSN() {
 											lg={8}
 											md={8}
 											xs={12}
-											className="textBlockWithLessMargin"
+											className="textBlockWithLessMargin alignButtonExtra"
 										>
 											<Button
 												type="submit"

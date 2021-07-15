@@ -75,7 +75,7 @@ function ActiveDuty() {
                                     </Grid>
                                     
                                     <Grid item lg={8} md={8} xs={12} className="alignButton" >
-                                        <Button type='submit'  stylebutton='{"background": "#0F4EB3", "height": "inherit", "color": "white"}' >
+                                        <Button type='submit' data-testid="contButton" stylebutton='{"background": "#0F4EB3", "height": "inherit", "color": "white"}' >
                                         <Typography  align="center" className="textCSS whiteText" >  
                                               Continue
                                             </Typography>

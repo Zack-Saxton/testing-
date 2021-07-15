@@ -12,10 +12,10 @@ import Zipcode from './index.js';
     type="text"
     name="text"
     label="test"
-    materialProps={{"data-testid": "test"}}
+    materialProps={{"data-testid": "zipcode"}}
   />); 
  
-   const input = container.getByTestId('test');
+   const input = container.getByTestId('zipcode');
    expect(input).toBeTruthy();
    expect(input.value).toBe('');
    expect(input.hasAttribute('name')).toBe(true);
@@ -29,10 +29,10 @@ import Zipcode from './index.js';
     type="text"
     name="text"
     label="test"
-    materialProps={{"data-testid": "test"}}
+    materialProps={{"data-testid": "zipcode"}}
   />); 
  
-   const input = container.getByTestId('test');
+   const input = container.getByTestId('zipcode');
    fireEvent.change(input, { target: { value: "123" } });
    expect(input.value).toBe('123');
  });
@@ -44,10 +44,10 @@ import Zipcode from './index.js';
     type="text"
     name="text"
     label="test"
-    materialProps={{"data-testid": "test", maxLength: 10}}
+    materialProps={{"data-testid": "zipcode", maxLength: 10}}
   />); 
  
-   const input = container.getByTestId('test');
+   const input = container.getByTestId('zipcode');
    fireEvent.change(input, { target: { value: "abc" } });
    expect(input.value).toBe('');
    fireEvent.change(input, { target: { value: "123" } });
@@ -59,9 +59,9 @@ import Zipcode from './index.js';
     type="text"
     name="text"
     label="test"
-    materialProps={{"data-testid": "test"}}
+    materialProps={{"data-testid": "zipcode"}}
   />);
-  const input = wrapper.getByTestId('test');
+  const input = wrapper.getByTestId('zipcode');
   expect(input.maxLength).toBe(5);
 });
 
@@ -72,6 +72,6 @@ test('should match the snapshot', () => {
     type="text"
     name="text"
     label="test"
-    materialProps={{"data-testid": "test"}}
+    materialProps={{"data-testid": "zipcode"}}
   />)).toMatchSnapshot()
  });

@@ -14,7 +14,7 @@ function CitizenshipStatus() {
     const history = useHistory();
     const handleRoute = () =>{ 
         data.citizenship = citizenship;
-        history.push("/zipcode");
+        history.push("/home-address");
       }
     return(
         <div>
@@ -48,7 +48,7 @@ function CitizenshipStatus() {
                                         md={8}
                                         xs={12}
                                     >
-                                        <Paper elevation={3}  className= { citizenship === 'USCitizen' ? 'activeBorder radioBlock '  : 'radioBlock ' } onClick={ () => { setCitizenship('USCitizen') }} >
+                                        <Paper elevation={3} data-testid="usCitizen" className= { citizenship === 'USCitizen' ? 'activeBorder radioBlock '  : 'radioBlock ' } onClick={ () => { setCitizenship('USCitizen') }} >
                                         U.S Citizen
                                         </Paper>
                                     </Grid>
@@ -58,7 +58,7 @@ function CitizenshipStatus() {
                                         md={8}
                                         xs={12}
                                     >
-                                        <Paper elevation={3}    className= { citizenship === 'PermanentResident' ? 'activeBorder radioBlock '  : 'radioBlock ' } onClick={ () => { setCitizenship('PermanentResident') }}  >
+                                        <Paper elevation={3}  data-testid="permanentResident"  className= { citizenship === 'PermanentResident' ? 'activeBorder radioBlock '  : 'radioBlock ' } onClick={ () => { setCitizenship('PermanentResident') }}  >
                                         Permanent Resident
                                         </Paper>
                                     </Grid>
@@ -68,7 +68,7 @@ function CitizenshipStatus() {
                                         md={8}
                                         xs={12}
                                     >
-                                        <Paper elevation={3}    className= { citizenship === 'ForeignResident' ? 'activeBorder radioBlock '  : 'radioBlock ' } onClick={ () => { setCitizenship('ForeignResident') }}  >
+                                        <Paper elevation={3}  data-testid="foreignResident"  className= { citizenship === 'ForeignResident' ? 'activeBorder radioBlock '  : 'radioBlock ' } onClick={ () => { setCitizenship('ForeignResident') }}  >
                                         Foreign Resident
                                         </Paper>
                                     </Grid>
@@ -82,7 +82,7 @@ function CitizenshipStatus() {
                                         xs={12}
                                         className="alignButton"
                                     >
-                                        <Button onClick={handleRoute} disabled={ citizenship === '' || citizenship === 'ForeignResident' ? true : false } stylebutton='{"background": "#0F4EB3", "height": "inherit", "color": "white"}' >
+                                        <Button onClick={handleRoute} data-testid="citizenshipContButton" disabled={ citizenship === '' || citizenship === 'ForeignResident' ? true : false } stylebutton='{"background": "#0F4EB3", "height": "inherit", "color": "white"}' >
                                         <Typography  align="center" className="textCSS whiteText" >  
                                               Continue
                                             </Typography>

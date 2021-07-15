@@ -152,9 +152,7 @@ export default function Login() {
 								<Paper className={classes.paper}>
 									
   
-    <Typography className={classes.title} color="textSecondary">
-                Sign In
-               </Typography>
+    <Typography className={classes.title} data-testid="title" color="textSecondary">Sign In</Typography>
                
 									
 								<form onSubmit={formik.handleSubmit}>
@@ -177,6 +175,9 @@ export default function Login() {
                 
                 id="email"
                 name="email"
+				type="email"
+				testid="email-input"
+				
                 label=" Enter Your Email"
 				icon="emailIcon"
 				iconColor="#595E6E"
@@ -215,6 +216,7 @@ export default function Login() {
 								name="rememberme"
 								label="Remember Me"
 								labelid="rememberme"
+								testid="checkbox"
 								 stylelabelform='{ "color":"" }'
 								 stylecheckbox='{ "color":"blue","paddingRight":"15px" }'
 								stylecheckboxlabel='{ "color":"" }'
@@ -228,10 +230,12 @@ export default function Login() {
         <Grid item xs={12} >
       <Button
                 type="submit"
+				data-testid="submit"
                 stylebutton='{"background": "", "color":"" }'
                 background="0F4EB3!important"
+				
               >
-                Sign IN
+                Sign In
               </Button>
 </Grid>
 

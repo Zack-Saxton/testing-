@@ -92,7 +92,7 @@ function LoanPurpose(props) {
                                         xs={6}
                                         className={`${classes.masonryItemFirst}`}
                                     >
-                                        <Paper elevation={3} className= { purpose === 'home' ? 'activeCard block ' + classes.paper : 'block ' + classes.paper }  onClick={ () => { setPurpose('home') }}>
+                                        <Paper data-testid="home" elevation={3} className= { purpose === 'home' ? 'activeCard block ' + classes.paper : 'block ' + classes.paper }  onClick={ () => { setPurpose('home') }}>
                                           <img src={HomeImprovenentIcon} className="icon"/>
                                             <Typography  align="center" className='borrowCSS textCSS'>  
                                                 Home Improvment
@@ -106,7 +106,7 @@ function LoanPurpose(props) {
                                         xs={6}
                                         className={`${classes.masonryItemFirst}`}
                                     >
-                                        <Paper elevation={3} className={ purpose === 'autoExpence' ? 'activeCard block ' + classes.paper : 'block ' + classes.paper }  onClick={ () => { setPurpose('autoExpence') }}>
+                                        <Paper data-testid="autoExpense" elevation={3} className={ purpose === 'autoExpence' ? 'activeCard block ' + classes.paper : 'block ' + classes.paper }  onClick={ () => { setPurpose('autoExpence') }}>
                                           <img src={AutoExpenceIcon} className="icon"/>
                                             <Typography  align="center" className='borrowCSS textCSS'>  
                                             Auto Expense / Repair
@@ -120,7 +120,7 @@ function LoanPurpose(props) {
                                         xs={6}
                                         className={`${classes.masonryItemFirst}`}
                                     >
-                                        <Paper elevation={3} className={ purpose === 'vacation' ? 'activeCard block ' + classes.paper : 'block ' + classes.paper }  onClick={ () => { setPurpose('vacation') }}>
+                                        <Paper data-testid="vacation" elevation={3} className={ purpose === 'vacation' ? 'activeCard block ' + classes.paper : 'block ' + classes.paper }  onClick={ () => { setPurpose('vacation') }}>
                                           <img src={VacationIcon} className="icon"/>
                                             <Typography  align="center" className='borrowCSS textCSS'>  
                                             Vacation
@@ -134,7 +134,7 @@ function LoanPurpose(props) {
                                         xs={6}
                                         className={`${classes.masonryItemFirst}`}
                                     >
-                                        <Paper elevation={3} className={ purpose === 'holidaySpending' ? 'activeCard block ' + classes.paper : 'block ' + classes.paper }  onClick={ () => { setPurpose('holidaySpending') }}>
+                                        <Paper data-testid="holiday" elevation={3} className={ purpose === 'holidaySpending' ? 'activeCard block ' + classes.paper : 'block ' + classes.paper }  onClick={ () => { setPurpose('holidaySpending') }}>
                                           <img src={HolidayIcon} className="icon"/>
                                             <Typography  align="center" className='borrowCSS textCSS'>  
                                             Holiday Spending
@@ -148,7 +148,7 @@ function LoanPurpose(props) {
                                         xs={6}
                                         className={`${classes.masonryItemFirst}`}
                                     >
-                                        <Paper elevation={3} className={ purpose === 'medical' ? 'activeCard block ' + classes.paper : 'block ' + classes.paper }  onClick={ () => { setPurpose('medical') }}>
+                                        <Paper data-testid="medical" elevation={3} className={ purpose === 'medical' ? 'activeCard block ' + classes.paper : 'block ' + classes.paper }  onClick={ () => { setPurpose('medical') }}>
                                           <img src={MedicalIcon} className="icon"/>
                                             <Typography  align="center" className='borrowCSS textCSS'>  
                                             Medical / Dental
@@ -162,7 +162,7 @@ function LoanPurpose(props) {
                                         xs={6}
                                         className={`${classes.masonryItemFirst}`}
                                     >
-                                        <Paper elevation={3} className={ purpose === 'deptConsolidation' ? 'activeCard block ' + classes.paper : 'block ' + classes.paper }  onClick={ () => { setPurpose('deptConsolidation') }}>
+                                        <Paper data-testid="deptConsolidation" elevation={3} className={ purpose === 'deptConsolidation' ? 'activeCard block ' + classes.paper : 'block ' + classes.paper }  onClick={ () => { setPurpose('deptConsolidation') }}>
                                           <img src={DeptIcon} className="icon"/>
                                             <Typography  align="center" className='borrowCSS textCSS'>  
                                             Dept Consolidation
@@ -176,7 +176,7 @@ function LoanPurpose(props) {
                                         xs={6}
                                         className={`${classes.masonryItemFirst}`}
                                     >
-                                        <Paper elevation={3} className={ purpose === 'lifeEvent' ? 'activeCard block ' + classes.paper : 'block ' + classes.paper }  onClick={ () => { setPurpose('lifeEvent') }}>
+                                        <Paper data-testid="lifeEvent" elevation={3} className={ purpose === 'lifeEvent' ? 'activeCard block ' + classes.paper : 'block ' + classes.paper }  onClick={ () => { setPurpose('lifeEvent') }}>
                                           <img src={LifeEventIcon} className="icon"/>
                                             <Typography  align="center" className='borrowCSS textCSS'>  
                                             Life Event (wedding, graduation, etc)
@@ -190,7 +190,7 @@ function LoanPurpose(props) {
                                         xs={6}
                                         className={`${classes.masonryItemFirst}`}
                                     >
-                                        <Paper elevation={3} className={ purpose === 'unexpectedBills' ? 'activeCard block ' + classes.paper : 'block ' + classes.paper }  onClick={ () => { setPurpose('unexpectedBills') }}>
+                                        <Paper data-testid="unexpectedBills" elevation={3} className={ purpose === 'unexpectedBills' ? 'activeCard block ' + classes.paper : 'block ' + classes.paper }  onClick={ () => { setPurpose('unexpectedBills') }}>
                                           <img src={UnexpectedExpenceIcon} className="icon"/>
                                             <Typography  align="center" className='borrowCSS textCSS'>  
                                             Unexpected Bills / Expenses
@@ -204,7 +204,7 @@ function LoanPurpose(props) {
                                         xs={6}
                                         className={`${classes.masonryItemFirst}`}
                                     >
-                                        <Paper elevation={3} className={ purpose === 'majorPurchase' ? 'activeCard block ' + classes.paper : 'block ' + classes.paper }  onClick={ () => { setPurpose('majorPurchase') }}>
+                                        <Paper data-testid="majorPurchase" elevation={3} className={ purpose === 'majorPurchase' ? 'activeCard block ' + classes.paper : 'block ' + classes.paper }  onClick={ () => { setPurpose('majorPurchase') }}>
                                           <img src={MajorPurchaseIcon} className="icon"/>
                                             <Typography  align="center" className='borrowCSS textCSS'>  
                                             Major Purchase
@@ -218,7 +218,7 @@ function LoanPurpose(props) {
                                         xs={12}
                                         className={`${classes.masonryItemFirst}`}
                                     >
-                                        <Paper elevation={3} className={ purpose === 'others' ? 'activeCard othersBlock ' : 'othersBlock ' }  onClick={ () => { setPurpose('others') }}>
+                                        <Paper data-testid="others" elevation={3} className={ purpose === 'others' ? 'activeCard othersBlock ' : 'othersBlock ' }  onClick={ () => { setPurpose('others') }}>
                                       
                                             <Typography  align="center" className="textCSS">  
                                               Others
@@ -226,7 +226,7 @@ function LoanPurpose(props) {
                                         </Paper>
                                     </Grid>
                                     <Grid className="ContinueButton" lg={9} md={9} sm={12} xs={12}>
-                                        <Button onClick={handleRoute} disabled={ purpose === '' ? true : false } stylebutton='{"background": "#0F4EB3", "height": "inherit", "color": "white"}' >
+                                        <Button data-testid="contButton" onClick={handleRoute} disabled={ purpose === '' ? true : false } stylebutton='{"background": "#0F4EB3", "height": "inherit", "color": "white"}' >
                                         <Typography  align="center" className="textCSS whiteText">  
                                               Continue
                                             </Typography>

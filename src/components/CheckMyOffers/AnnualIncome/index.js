@@ -13,10 +13,11 @@ import "./annulaIncome.css";
 
 const validationSchema = yup.object({
 	personalIncome: yup
-	.string("Enter your Personal Income")
+	.number()
 	.required("Personal Income is required"),
 	householdIncome: yup
-	.string("Enter your Household Income")
+	.number()
+	.moreThan(yup.ref("personalIncome"),"Should be greater or equal to Personal income")
 	.required("Household Income is required"),
 });
 
@@ -38,7 +39,7 @@ function NewUser() {
 			data.personalIncome = values.personalIncome;
 			data.householdIncome = values.householdIncome;
 			console.log(data);
-			history.push("/home-address");
+			history.push("/living-place");
 		},
 	});
 	const onHandleChange = (event) => {
@@ -118,6 +119,7 @@ function NewUser() {
 											<TextField name="personalIncome" label="Annual Personal Income" 
 											value={formik.values.personalIncome}
 											onChange={onHandleChange}
+											materialProps={{"data-testid": "personalIncome"}}
 											onBlur={formik.handleBlur}
 											error={formik.touched.personalIncome && Boolean(formik.errors.personalIncome)}
 											helperText={formik.touched.personalIncome && formik.errors.personalIncome}/>
@@ -126,6 +128,7 @@ function NewUser() {
 											</p>
 											<TextField name="householdIncome" label="Annual Household Income" 
 											value={formik.values.householdIncome}
+											materialProps={{"data-testid": "annualIncome"}}
 											onChange={onHandleChange}
 											onBlur={formik.handleBlur}
 											error={formik.touched.householdIncome && Boolean(formik.errors.householdIncome)}
@@ -141,6 +144,7 @@ function NewUser() {
 											className="textBlock"
 										>
 											<Button
+												data-testid="contButton"
 												type="submit"
 												stylebutton='{"background": "#0F4EB3", "height": "inherit", "color": "white"}'
 											>

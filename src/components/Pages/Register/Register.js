@@ -98,6 +98,13 @@ const validationSchema = yup.object({
     .email("Email should be as (you@example.com)")
     .required("Email is required"),
 
+    date: yup
+    .string("Enter your Date of Birth")     
+    .nullable()
+    .required("Date of birth is required"),
+    // .test('Date of Birth', 'Should be greather than 18', function(value) {
+    //   return moment().diff(moment(value), 'years') >= 18; }),
+
   password: yup.string("Enter your password")
   .matches(
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,30}$/,
@@ -127,6 +134,10 @@ const validationSchema = yup.object({
       .required('Social Security Number is Required')
   })
 });
+
+
+var myDate = new Date();
+	myDate.setDate(myDate.getDate() - 6570);
 
 export default function Register() {
   const classes = useStyles();
@@ -285,9 +296,19 @@ export default function Register() {
             <Icon >cakeIcon</Icon>
           </Grid>
         <DatePicker
-                name="date"
-                label="Date of Birth"
-                id="date"
+                 name="date"
+                 label="Date of Birth"
+                 id="date"
+                
+                 maxdate={myDate}
+                 // value={formik.values.date}
+                 //  onChange={formik.handleChange}
+                 // onChange={(values) => {
+                 //   formik.setFieldValue("date", values);
+                 // }}
+                  onBlur={formik.handleBlur}
+                 error={formik.touched.date && Boolean(formik.errors.date)}
+                 helperText={formik.touched.date && formik.errors.date}
                
               />
         </Grid>

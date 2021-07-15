@@ -1,25 +1,23 @@
-import Header from '../../Layout/NormalHeader/NormalHeader';
-import Footer from '../../Layout/NormalFooter/NormalFooter';
-import '../checkMyOffer.css';
+
+
 import Box from '@material-ui/core/Box';
-import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
-import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import { Slider, TextField, Button } from '../../FormsUI';
+import { TextField, Button } from '../../FormsUI';
 import Paper from "@material-ui/core/Paper";
 import React, {useState, useContext} from 'react';
 import { useHistory, Link } from "react-router-dom";
-import CitizenshipStatusLogo from '../../../assets/icon/I-Citizenship-status.png';
+import EmploymenyStatus from '../../../assets/icon/I-Employment-Status.png';
 import { CheckMyOffers } from '../../../contexts/CheckMyOffers';
+import './employmentStatus.css';
 
-function LivingPlace() {
+function CitizenshipStatus() {
     const { data } = useContext(CheckMyOffers);
-    const [livingPlace, setLivingPlace] = useState(data.livingPlace ? data.livingPlace : "");
+    const [employmentStatus, setEmploymentStatus] = useState(data.employmentStatus ? data.employmentStatus : "");
     const history = useHistory();
     const handleRoute = () =>{ 
-        data.livingPlace = livingPlace;
-        history.push("/active-duty");
+        data.employmentStatus = employmentStatus;
+        history.push("/annual-income");
       }
     return(
         <div>
@@ -30,19 +28,19 @@ function LivingPlace() {
                             
                             <Paper className='cardWOPadding' justify="center" alignItems="center">
                             <div className="progress mt-0">
-                                <div id="determinate" className="det75 determinate slantDiv">
+                                <div id="determinate" className="det6 determinate slantDiv">
                                 </div>
-                                <span class="floatLeft detNum75">75%</span>
+                                <span class="floatLeft detNum6">50%</span>
                             </div>
                                     <Grid className="floatLeft">
-                                      <Link to="/annual-income"><i class="material-icons dp48 yellowText  ">arrow_back</i></Link>
+                                      <Link to="/existing-user"><i class="material-icons dp48 yellowText  ">arrow_back</i></Link>
                                     </Grid>
                                 <Grid>
-                                    <img src={CitizenshipStatusLogo}  className="spinAnimation"/>
+                                    <img alt="Employment" src={EmploymenyStatus}  className="spinAnimation"/>
                                 </Grid>
                             
                                 <Typography variant="h5" align="center" justify="center" alignItems="center" className='borrowCSS'>
-                                Do you own or rent?
+                                Tell us about your employment status
                                 </Typography>
                                 <Grid md={12} className="blockDiv" container justify="center" alignItems="center">
                                     <Grid
@@ -53,8 +51,8 @@ function LivingPlace() {
                                         md={8}
                                         xs={12}
                                     >
-                                        <Paper elevation={3} data-testid="Renting" className= { livingPlace === 'Renting' ? 'activeBorder radioBlock '  : 'radioBlock ' } onClick={ () => { setLivingPlace('Renting') }} >
-                                        Renting
+                                        <Paper elevation={3} data-testid="Hourly" className= { employmentStatus === 'Hourly' ? 'activeBorder radioBlock '  : 'radioBlock ' } onClick={ () => { setEmploymentStatus('Hourly') }} >
+                                        Employed - Hourly
                                         </Paper>
                                     </Grid>
                                     <Grid
@@ -63,8 +61,8 @@ function LivingPlace() {
                                         md={8}
                                         xs={12}
                                     >
-                                        <Paper elevation={3} data-testid="HomeWithMortage"   className= { livingPlace === 'HomeWithMortage' ? 'activeBorder radioBlock '  : 'radioBlock ' } onClick={ () => { setLivingPlace('HomeWithMortage') }}  >
-                                        Own a Home with Mortgage
+                                        <Paper elevation={3} data-testid="Salary"   className= { employmentStatus === 'Salary' ? 'activeBorder radioBlock '  : 'radioBlock ' } onClick={ () => { setEmploymentStatus('Salary') }}  >
+                                        Employed - Salaried
                                         </Paper>
                                     </Grid>
                                     <Grid
@@ -73,8 +71,8 @@ function LivingPlace() {
                                         md={8}
                                         xs={12}
                                     >
-                                        <Paper elevation={3} data-testid="HomeWithNoMortage"   className= { livingPlace === 'HomeWithNoMortage' ? 'activeBorder radioBlock '  : 'radioBlock ' } onClick={ () => { setLivingPlace('HomeWithNoMortage') }}  >
-                                        Own a Home with No Mortgage
+                                        <Paper elevation={3}  data-testid="selfEmployed"  className= { employmentStatus === 'selfEmployed' ? 'activeBorder radioBlock '  : 'radioBlock ' } onClick={ () => { setEmploymentStatus('selfEmployed') }}  >
+                                        Self Employed / 1099
                                         </Paper>
                                     </Grid>
                                     <Grid
@@ -83,8 +81,8 @@ function LivingPlace() {
                                         md={8}
                                         xs={12}
                                     >
-                                        <Paper elevation={3} data-testid="MobileHome"   className= { livingPlace === 'MobileHome' ? 'activeBorder radioBlock '  : 'radioBlock ' } onClick={ () => { setLivingPlace('MobileHome') }}  >
-                                        Own a Mobile Home
+                                        <Paper elevation={3}  data-testid="Unemployed"  className= { employmentStatus === 'Unemployed' ? 'activeBorder radioBlock '  : 'radioBlock ' } onClick={ () => { setEmploymentStatus('Unemployed') }}  >
+                                        Unemployed
                                         </Paper>
                                     </Grid>
                                     <Grid
@@ -93,19 +91,20 @@ function LivingPlace() {
                                         md={8}
                                         xs={12}
                                     >
-                                        <Paper elevation={3} data-testid="LivingWithRelatives"   className= { livingPlace === 'LivingWithRelatives' ? 'activeBorder radioBlock '  : 'radioBlock ' } onClick={ () => { setLivingPlace('LivingWithRelatives') }}  >
-                                        Living with Relatives
+                                        <Paper elevation={3}  data-testid="Retired"  className= { employmentStatus === 'Retired' ? 'activeBorder radioBlock '  : 'radioBlock ' } onClick={ () => { setEmploymentStatus('Retired') }}  >
+                                        Retired
                                         </Paper>
+                                    </Grid>
+                                    <Grid
+                                        item
+                                        lg={8}
+                                        md={8}
+                                        xs={12}
+                                    >
+                                        <TextField className={employmentStatus === 'Hourly' || employmentStatus === 'Salary' || employmentStatus === 'selfEmployed' ? "showMsg" : "hideMsg"} name="yearsAtEmployer" label="Years at employer" />
                                     </Grid>
                                   
-                                    <Grid
-                                        item
-                                        lg={8}
-                                        md={8}
-                                        xs={12}
-                                    >
-                                        <TextField className={livingPlace === 'HomeWithMortage' || livingPlace === 'HomeWithMortage' ? "showMsg" : "hideMsg"} name="RentOrMortageAmount" label="Monthly Rent / Mortgage Amount" />
-                                    </Grid>
+                                       
  
                                     <Grid
                                         item
@@ -114,7 +113,7 @@ function LivingPlace() {
                                         xs={12}
                                         className="alignButton"
                                     >
-                                        <Button onClick={handleRoute} data-testid="cntButton" disabled={ livingPlace === '' ? true : false } stylebutton='{"background": "#0F4EB3", "height": "inherit", "color": "white"}' >
+                                        <Button onClick={handleRoute} data-testid="cntButton" disabled={ employmentStatus === '' ? true : false } stylebutton='{"background": "#0F4EB3", "height": "inherit", "color": "white"}' >
                                         <Typography  align="center" className="textCSS whiteText" >  
                                               Continue
                                             </Typography>
@@ -134,4 +133,4 @@ function LivingPlace() {
     );
 }
 
-export default LivingPlace;
+export default CitizenshipStatus;

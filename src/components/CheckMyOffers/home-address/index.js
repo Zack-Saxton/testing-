@@ -3,7 +3,7 @@ import { useHistory, Link } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import { TextField, Button } from "../../FormsUI";
+import { TextField, Button, ZipcodeField } from "../../FormsUI";
 import Paper from "@material-ui/core/Paper";
 import AddressLogo from "../../../assets/icon/I-Address.png";
 import { useFormik } from "formik";
@@ -25,6 +25,10 @@ const validationSchema = yup.object({
 		.string("Enter State")
 		.max(30, "Should be less than 30 characters")
 		.required("State is required"),
+	zip: yup
+		.string("Enter your Zip")
+		.min(5, "Zipcode should be of minimum 5 characters length")
+		.required("Zipcode is required"),
 });
  
 function HomeAddress() {
@@ -39,14 +43,17 @@ function HomeAddress() {
 			// streetAddress: data.zip ? data.zip : '',
 			streetAddress: data.streetAddress ? data.streetAddress : '',
 			city: data.city ? data.city : '',
-			state: data.state ? data.state : ''
+			state: data.state ? data.state : '',
+			zip: data.zip ? data.zip : '',
+
 		  },
 		validationSchema: validationSchema,
 		onSubmit: (values) => {
 			data.streetAddress = values.streetAddress;
 			data.city = values.city;
 			data.state = values.state;
-			history.push("/living-place");
+			data.zip = values.zip;
+			history.push("/personal-info");
 		},
 	});
  
@@ -75,9 +82,9 @@ function HomeAddress() {
 								<div className="progress mt-0">
 									<div
 										id="determinate"
-										className="det67  determinate slantDiv"
+										className="det25  determinate slantDiv"
 									></div>
-									<span class="floatLeft detNum67">67%</span>
+									<span class="floatLeft detNum25">25%</span>
 								</div>
 								<Grid className="floatLeft">
 									<Link to="/annual-income">
@@ -120,11 +127,34 @@ function HomeAddress() {
 												id="streetAddress"
 												name="streetAddress"
 												label="Street Address"
+												materialProps={{"data-testid": "streetAddress"}}
 												value={formik.values.streetAddress}
 												onChange={formik.handleChange}
 												onBlur={formik.handleBlur}
 												error={formik.touched.streetAddress && Boolean(formik.errors.streetAddress)}
 												helperText={formik.touched.streetAddress && formik.errors.streetAddress}
+											/>
+										</Grid>
+										<Grid
+											justify="center"
+											alignItems="center"
+											item
+											lg={8}
+											md={8}
+											xs={12}
+											className="textBlock"
+										>
+											<TextField
+												fullWidth
+												id="zip"
+												name="zip"
+												label="zip"
+												materialProps={{"data-testid": "zipcode"}}
+												value={formik.values.zip}
+												onChange={formik.handleChange}
+												onBlur={formik.handleBlur}
+												error={formik.touched.zip && Boolean(formik.errors.zip)}
+												helperText={formik.touched.zip && formik.errors.zip}
 											/>
 										</Grid>
 										<Grid justify="center" alignItems="center" container  md={8} lg={8} xs={12} className="textBlock">
@@ -134,6 +164,7 @@ function HomeAddress() {
 												id="city"
 												name="city"
 												label="City"
+												materialProps={{"data-testid": "city"}}
 												value={formik.values.city}
 												onChange={formik.handleChange}
 												onBlur={formik.handleBlur}
@@ -147,6 +178,7 @@ function HomeAddress() {
 												id="state"
 												name="state"
 												label="State"
+												materialProps={{"data-testid": "state"}}
 												value={formik.values.state}
 												onChange={formik.handleChange}
 												onBlur={formik.handleBlur}

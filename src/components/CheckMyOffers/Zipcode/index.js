@@ -107,6 +107,7 @@ function Zipcode() {
 												id="zip"
 												name="zip"
 												label="zip"
+												materialProps={{"data-testid": "zipcode"}}
 												value={formik.values.zip}
 												onChange={formik.handleChange}
 												onBlur={formik.handleBlur}
@@ -123,9 +124,11 @@ function Zipcode() {
 											xs={12}
 											className="alignButton"
 										>
-											<Button
+						 					<Button
 												type="submit"
+												data-testid="zipcodeCntuButton"
 												stylebutton='{"background": "#0F4EB3", "height": "inherit", "color": "white"}'
+												disabled = { Boolean(formik.errors.zip) || formik.values.zip === '' }
 											>
 												<Typography
 													align="center"

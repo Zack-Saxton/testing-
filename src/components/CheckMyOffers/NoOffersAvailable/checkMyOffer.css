@@ -1,0 +1,65 @@
+.mainDiv{
+    background-color: #124CA8;
+    background-image: linear-gradient(to right, #26436A , #104DB0);
+    min-height: 500px !important;
+}
+.card{
+    padding: 5%;
+    padding-bottom: 1%;
+}
+.cardWrapper{
+    margin-top: 5%;
+    margin-bottom: 2%;
+}
+.borrowCSS{
+    margin-top: 4% !important;
+    margin-bottom: 4% !important;
+}
+.setSlider{
+    margin-bottom: 0% !important;
+}
+
+.alignSlider{
+    margin-bottom: 7% !important;
+    text-align: center;
+}
+.setGreenColor{
+    color: green ;
+}
+.alignButton{
+    margin-top: 5%;
+    margin-bottom: 4%;
+}
+
+.smallText{
+    font-size: .8rem;
+    color: #fff;
+    font-family: 'Muli', sans-serif;
+    font-weight: 300;
+}
+
+.alignSmallText{
+    margin-bottom: 3%;
+}
+.alignText{
+    color: #595959;
+    font-size: 0.9rem;
+    margin-top: 2%;
+}
+
+.alignTextInsideCard{
+    padding-top: 2%;
+    text-align: justify !important;
+}
+
+.open{
+    height: 50px;
+    transition: 0.5s;
+}
+
+.close{
+    height: 0px;
+    transition: 0.5s;
+    overflow: hidden;
+    
+}

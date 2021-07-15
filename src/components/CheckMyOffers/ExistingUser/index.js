@@ -133,7 +133,7 @@ function ExistingUser() {
 												name="password"
 												label="Password"
 												type="password"
-												data-testid="pass"
+												data-testid="password"
 												value={formik.values.password}
 												onChange={formik.handleChange}
 												onBlur={formik.handleBlur}
@@ -160,6 +160,7 @@ function ExistingUser() {
 										>
 											<Button
 												type="submit"
+												data-testid="contButton"
 												stylebutton='{"background": "#0F4EB3", "height": "inherit", "color": "white"}'
 											>
 												<Typography

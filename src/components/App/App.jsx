@@ -23,13 +23,16 @@ import PersonalInfo from '../CheckMyOffers/PersonalInfo';
 import NewUser from '../CheckMyOffers/NewUser';
 import ExistingUser from "../CheckMyOffers/ExistingUser";
 import CheckMyOffers from '../../contexts/CheckMyOffers';
-import EnploymentStatus from '../CheckMyOffers/EnploymentStatus';
+import EmploymentStatus from '../CheckMyOffers/EmploymentStatus';
 import AnnualIncome from '../CheckMyOffers/AnnualIncome';
 import HomeAddress from "../CheckMyOffers/home-address";
 import LivingPlace from "../CheckMyOffers/LivingPlace";
 import ActiveDuty from "../CheckMyOffers/ActiveDuty";
 import MarriedStatus from "../CheckMyOffers/MarriedStatus";
 import SSN from "../CheckMyOffers/SSN";
+import NoOffersAvailable from "../CheckMyOffers/NoOffersAvailable";
+import RefferedToBranch from "../CheckMyOffers/RefferedToBranch";
+import EligibleForOffers from "../CheckMyOffers/EligibleForOffer";
 
 function App() {
 
@@ -58,13 +61,16 @@ function App() {
               <Route path='/citizenship-status' exact component={CitizenshipStatus} />
               <Route path='/new-user' exact component={NewUser} />
               <Route path='/existing-user' exact component={ExistingUser} />
-              <Route path='/employment-status' exact component={EnploymentStatus} />
+              <Route path='/employment-status' exact component={EmploymentStatus} />
               <Route path='/annual-income' exact component={AnnualIncome} />   
               <Route path='/home-address' exact component={HomeAddress} />     
               <Route path='/living-place' exact component={LivingPlace} /> 
               <Route path='/active-duty' exact component={ActiveDuty} />       
               <Route path='/marital-status' exact component={MarriedStatus} /> 
-              <Route path='/ssn' exact component={SSN} />  
+              <Route path='/ssn' exact component={SSN} /> 
+              <Route path='/no-offers-available' exact component={NoOffersAvailable} />  
+              <Route path='/reffered-to-branch' exact component={RefferedToBranch} />  
+              <Route path='/eligible-for-offers' exact component={EligibleForOffers} />  
               <Route path='/zipcode' exact >
                 {/* <CheckMyOffers> */}
                   <Zipcode />  

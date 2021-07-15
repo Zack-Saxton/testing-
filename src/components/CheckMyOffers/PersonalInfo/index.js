@@ -97,7 +97,7 @@ const validationSchema = yup.object({
 										<span class="floatLeft detNum4">33%</span>
 									</div>
 									<Grid className="floatLeft">
-										<Link to="/zipcode"><i class="material-icons dp48 yellowText  ">arrow_back</i></Link>
+										<Link to="/home-address"><i class="material-icons dp48 yellowText  ">arrow_back</i></Link>
 									</Grid>
 									<Grid>
 										<img src={PersonLogo} className="spinAnimation" />

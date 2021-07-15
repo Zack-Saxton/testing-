@@ -31,6 +31,11 @@
     margin-bottom: 4%;
 }
 
+.alignButtonExtra{
+    margin-top: 6% !important;
+    margin-bottom: 5% !important;
+}
+
 .smallText{
     font-size: .8rem;
     color: #fff;
@@ -213,6 +218,16 @@
     color: #134ca8;
 }
 
+.det25{
+    width:25%;
+}
+
+.detNum25{
+    padding-left:25%;
+    font-weight: 600;
+    color: #134ca8;
+}
+
 .det75{
     width:75%;
 }
@@ -303,7 +318,7 @@
 }
 
 .agreeText{
-    text-align: left;
+    text-align: justify;
     font-size: 1rem;
     line-height: 25px;
     position: relative;
@@ -331,4 +346,57 @@
     font-size: .8rem;
     color: #595959;
     margin-top: 10px !important;
+}
+.textWhite{
+    color: white;
+}
+.bottomSpace{
+    margin-bottom: 5% !important;
+}
+
+.paddingButton{
+    padding: 10px;
+}
+.minText{   
+    text-align: justify;
+    font-size: medium !important;
+    font-weight: 400 !important;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif !important;
+}
+.listFormat{
+    text-align: left;
+    font-size: medium !important;
+    font-weight: 400 !important;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif !important;
+}
+
+.buttonWithMargin{
+    margin-top: 7%;
+    margin-bottom: 7%;
+}
+
+.Mui-focused{
+    background-color: white;
+    color: white;
+}
+
+.MuiSelect-selectMenu:focus {
+    background-color: white !important;
+}
+
+.MuiSelect-selectMenu {
+text-align: left;
+}
+.justifyText{
+    text-align: justify !important;
+}
+
+.space{
+    margin-top: 8px !important;
+    margin-bottom: 8px !important;
+}
+
+.formatURL{
+    color: blue;
+    text-align: justify;
 }

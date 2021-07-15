@@ -50,7 +50,7 @@ const ZipCodeWrapper = ({ name, error, helperText, value, onChange, ...otherProp
   return (
     <TextBox
       {...configTextfield}
-      materialProps={{ maxLength: "5", "data-testid": "test"}}
+      materialProps={{ maxLength: "5", "data-testid": "zipcode"}}
       value={zipCode}
       onChange={onHandleZipcodeChange}
     />

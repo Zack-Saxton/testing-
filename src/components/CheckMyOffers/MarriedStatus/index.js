@@ -34,10 +34,10 @@ const validationSchema = yup.object({
 			}),
 	spouseState: yup.string().when("martialStatus", {
 		is: 'Married',
-		then: yup.string().required("State is required")
+		then: yup.string().required("City is required")
 		}).when("martialStatus", {
 			is: 'Separated, under decree of legal separation',
-			then: yup.string().required("State is required")
+			then: yup.string().required("City is required")
 			}),
 	spouseSelectState: yup.string().when("martialStatus", {
 		is: 'Married',
@@ -139,7 +139,7 @@ console.log(formik.values);
 										<Select
                                        fullWidth= {true}
                                             name="martialStatus"
-                                            labelform="Active Duty"
+                                            labelform="Marital Status"
                                             select='[{"value":"Married"}, {"value":"Unmarried"}, {"value":"Separated, under decree of legal separation"}]'
                                             value={formik.values.martialStatus}
 											onChange={formik.handleChange}
@@ -156,7 +156,7 @@ console.log(formik.values);
 										lg={8}
 										md={8}
 										xs={12}
-										className={formik.values.martialStatus === 'Married' || formik.values.martialStatus === 'Separated, under decree of legal separation' ? "showMsg" : "hideMsg"}
+										className={formik.values.martialStatus === 'Married' || formik.values.martialStatus === 'Separated, under decree of legal separation' ? "showMsg space" : "hideMsg space"}
 									>
 										<TextField
 											name="add"
@@ -175,7 +175,7 @@ console.log(formik.values);
 										lg={8}
 										md={8}
 										xs={12}
-										className={formik.values.martialStatus === 'Married' || formik.values.martialStatus === 'Separated, under decree of legal separation' ? "showMsg" : "hideMsg"}
+										className={formik.values.martialStatus === 'Married' || formik.values.martialStatus === 'Separated, under decree of legal separation' ? "showMsg " : "hideMsg "}
 									>
 										<p class="left-align">
 											<b>Location</b>
@@ -188,7 +188,7 @@ console.log(formik.values);
 										lg={8}
 										md={8}
 										xs={12}
-										className={formik.values.martialStatus === 'Married' || formik.values.martialStatus === 'Separated, under decree of legal separation' ? "showMsg" : "hideMsg"}
+										className={formik.values.martialStatus === 'Married' || formik.values.martialStatus === 'Separated, under decree of legal separation' ? "showMsg space" : "hideMsg space"}
 									>
 										<Zipcode fullWidth id="zip" name="spouseZipcode" label="Zipcode" 
 											value={formik.values.spouseZipcode}
@@ -204,11 +204,11 @@ console.log(formik.values);
 										lg={8}
 										md={8}
 										xs={12}
-										className={formik.values.martialStatus === 'Married' || formik.values.martialStatus === 'Separated, under decree of legal separation' ? "showMsg" : "hideMsg"}
+										className={formik.values.martialStatus === 'Married' || formik.values.martialStatus === 'Separated, under decree of legal separation' ? "showMsg space" : "hideMsg space"}
 									>
 										<TextField
 											name="spouseState"
-											label="State"
+											label="City"
 											value={formik.values.spouseState}
 											onChange={formik.handleChange}
 											onBlur={formik.handleBlur}
@@ -223,7 +223,7 @@ console.log(formik.values);
 										lg={8}
 										md={8}
 										xs={12}
-										className={formik.values.martialStatus === 'Married' || formik.values.martialStatus === 'Separated, under decree of legal separation' ? "showMsg" : "hideMsg"}
+										className={formik.values.martialStatus === 'Married' || formik.values.martialStatus === 'Separated, under decree of legal separation' ? "showMsg space" : "hideMsg space"}
 									>
 										<Select
 											fullWidth={true}

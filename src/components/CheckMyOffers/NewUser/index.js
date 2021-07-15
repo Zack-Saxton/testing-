@@ -22,7 +22,7 @@ const validationSchema = yup.object({
 	newPassword: yup.string("Enter your password")
 	.matches(
 	  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,30}$/,
-	  "Must Contain 8 to 30 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
+	  "Invalid Password"
 	)
 	.required("Password is required"),
 	
@@ -143,7 +143,7 @@ function NewUser() {
 												name="newPassword"
 												label="Create Password"
 												type="password"
-												data-testid="pass"
+												data-testid="password"
 												value={formik.values.newPassword}
 												onChange={formik.handleChange}
 												onBlur={formik.handleBlur}
@@ -167,7 +167,7 @@ function NewUser() {
 												name="confirmPassword"
 												label="Confirm Password"
 												type="confirmPassword"
-												data-testid="pass"
+												data-testid="confirmpassword"
 												value={formik.values.confirmPassword}
 												onChange={formik.handleChange}
 												onBlur={formik.handleBlur}
@@ -193,6 +193,7 @@ function NewUser() {
 										>
 											<Button
 												type="submit"
+												data-testid="contButton"
 												stylebutton='{"background": "#0F4EB3", "height": "inherit", "color": "white"}'
 											>
 												<Typography
