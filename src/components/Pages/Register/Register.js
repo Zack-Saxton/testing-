@@ -106,18 +106,20 @@ const validationSchema = yup.object({
   firstname: yup
     .string("Enter your firstname")
     .max(30, "Firstname can be upto 30 characters length")
-    .matches(/^[a-zA-Z]/,"Name should be in alphabets")
+    .matches(/^[a-zA-Z]+$/,"Name should be in alphabets")
     .required("Firstname is required"),
 
   lastname: yup.string("Enter your Lastname")
   .max(30, "Lastname can be upto 30 characters length")
-  .matches(/^[a-zA-Z]/,"Name should be in alphabets")
+  .matches(/^[a-zA-Z]+$/,"Name should be in alphabets")
   .required("Lastname is required"),
 
   email: yup
     .string("Enter your email")
     .email("Email should be as (you@example.com)")
-    .matches( /^[a-zA-Z][a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/, "Enter a valid mail id")
+    //.matches( /^[a-zA-Z][a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/, "Enter a valid mail id")
+    //.matches( /^[a-zA-Z][a-zA-Z0-9+_.-]+@[a-zA-Z.-]+$/, "Enter a valid mail id")
+    .matches(/^[a-zA-Z](([^<>()|?{}=/+'[\]\\.,;:#!$%^&*_-\s@\"]+(\.[^<>()|?{}=/+'[\]\\.,;:#!$%^&*_-\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,"Invalid Email")
     .required("Email is required"),
 
     date: yup
@@ -228,7 +230,7 @@ export default function Register() {
                     <TextFieldWithIcon
                   name="firstname"
                   id="firstname"
-                  label="Firstname"
+                  label="Firstname *"
                   placeholder="Enter your firstname"
                   icon="perm_identity"
                   iconColor="#595E6E" 
@@ -251,7 +253,7 @@ export default function Register() {
                     <TextFieldWithIcon
                               name="lastname"
                               id="lastname"
-                              label="Lastname"
+                              label="Lastname *"
                               placeholder="Enter your lastname"
                               icon="perm_identity"
                               iconColor="#595E6E"
@@ -276,11 +278,12 @@ export default function Register() {
                               
                               id="email"
                               name="email"
-                              label="Email"
+                              label="Email *"
                               placeholder="Enter your email address"
                                 icon="emailIcon"
                                 iconColor="#595E6E"
                                 iconPosition="left"
+
                               value={formik.values.email}
                               onChange={formik.handleChange}
                               onBlur={formik.handleBlur}
@@ -318,7 +321,7 @@ export default function Register() {
           </FormControl> */}
          <SocialSecurityNumber
                     name="ssn"
-                    label="Social Security Number"
+                    label="Social Security Number *"
                     placeholder="Enter your Social Security Number"
                     id="ssn"
                     type="ssn"
@@ -346,7 +349,7 @@ export default function Register() {
                     fullWidth
                     id="zip"
                     name="zip"
-                    label="Zipcode"
+                    label="Zipcode *"
                     placeholder="Enter your zipcode"
                     value={formik.values.zip}
                     onChange={formik.handleChange}
@@ -367,7 +370,7 @@ export default function Register() {
           </Grid>
         <DatePicker
                  name="date"
-                 label="Date of Birth" 
+                 label="Date of Birth *" 
                  id="date"
                  placeholder="DD-MM-YYYY"
                 
@@ -390,7 +393,7 @@ export default function Register() {
         <Grid item xs={12} fullWidth={true} direction="row" >
 				 <PasswordWithIcon
 										name="password"
-										label="Confirm Password"
+										label="Confirm Password *"
                     placeholder="Enter your password"
 										icon="lock"
 										iconColor="#595E6E"
@@ -418,7 +421,7 @@ export default function Register() {
         <Grid item xs={12} fullWidth={true} direction="row" >
 				 <PasswordWithIcon
 										name="confirmpassword"
-										label="Re-enter your Password"
+										label="Re-enter your Password *"
                     placeholder="Enter your confirm password"
 										icon="lock_openIcon"
 										iconColor="#595E6E"

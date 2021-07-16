@@ -64,7 +64,7 @@ function ActiveDuty() {
                                        <Select
                                        fullWidth= {true}
                                             name="activeDuty"
-                                            labelform="Active Duty"
+                                            labelform="Active Duty *"
                                             select='[{"value":"Yes"}, {"value":"No"}]'
                                             value={formik.values.activeDuty}
 											onChange={formik.handleChange}

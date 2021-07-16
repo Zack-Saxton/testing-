@@ -136,7 +136,7 @@ function MarriedStatus() {
 									alignItems="center"
 									className="borrowCSS"
 								>
-									Are you married?
+									Are you married?*
 								</Typography>
 								<form onSubmit={formik.handleSubmit}>
 								<Grid
@@ -158,7 +158,7 @@ function MarriedStatus() {
 										<Select
                                        fullWidth= {true}
                                             name="martialStatus"
-                                            labelform="Marital Status"
+                                            labelform="Marital Status *"
                                             select='[{"value":"Married"}, {"value":"Unmarried"}, {"value":"Separated, under decree of legal separation"}]'
                                             value={formik.values.martialStatus}
 											onChange={formik.handleChange}
@@ -179,7 +179,7 @@ function MarriedStatus() {
 									>
 										<TextField
 											name="add"
-											label="Spouse's Address (if different)"
+											label="Spouse's Address (if different) *"
 											value={formik.values.add}
 											onChange={formik.handleChange}
 											onBlur={formik.handleBlur}
@@ -209,7 +209,7 @@ function MarriedStatus() {
 										xs={12}
 										className={formik.values.martialStatus === 'Married' || formik.values.martialStatus === 'Separated, under decree of legal separation' ? "showMsg space" : "hideMsg space"}
 									>
-										<Zipcode fullWidth id="zip" name="spouseZipcode" label="Zipcode" 
+										<Zipcode fullWidth id="zip" name="spouseZipcode" label="Zipcode *" 
 											value={formik.values.spouseZipcode}
 											onChange={fetchAddress}
 											onBlur={formik.handleBlur}

@@ -108,7 +108,7 @@ function HomeAddress() {
 									<span class="floatLeft detNum25">25%</span>
 								</div>
 								<Grid className="floatLeft">
-									<Link to="/annual-income">
+									<Link to="/citizenship-status">
 										<i class="material-icons dp48 yellowText  ">arrow_back</i>
 									</Link>
 								</Grid>
@@ -147,7 +147,7 @@ function HomeAddress() {
 												fullWidth
 												id="streetAddress"
 												name="streetAddress"
-												label="Street Address"
+												label="Street Address *"
 												materialProps={{"data-testid": "streetAddress"}}
 												value={formik.values.streetAddress}
 												onChange={formik.handleChange}
@@ -169,7 +169,7 @@ function HomeAddress() {
 												fullWidth
 												id="zip"
 												name="zip"
-												label="zip"
+												label="Zipcode *"
 												materialProps={{"data-testid": "zipcode"}}
 												value={formik.values.zip}
 												onChange={fetchAddress}

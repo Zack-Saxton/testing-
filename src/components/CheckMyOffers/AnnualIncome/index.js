@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { TextField, Button } from "../../FormsUI";
 import Paper from "@material-ui/core/Paper";
+import {InputAdornment} from "@material-ui/core";
 import AnnualIncomeLogo from "../../../assets/icon/I-Annual-Income.png";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -49,7 +50,7 @@ function NewUser() {
 		if (acc === "" || reg.test(acc)) {
 			formik.handleChange(event);
 		}
-	  };
+	  }; 
 	
 
 	return (
@@ -116,22 +117,21 @@ function NewUser() {
 											xs={12}
 											className="textBlock"
 										>
-											<TextField name="personalIncome" label="Annual Personal Income" 
+											<TextField name="personalIncome" label="Annual Personal Income *" 
 											value={formik.values.personalIncome}
 											onChange={onHandleChange}
-											materialProps={{"data-testid": "personalIncome"}}
+											materialProps={{"data-testid": "personalIncome", "maxLength": "7"}}
 											onBlur={formik.handleBlur}
-											required={true}
 											error={formik.touched.personalIncome && Boolean(formik.errors.personalIncome)}
 											helperText={formik.touched.personalIncome && formik.errors.personalIncome}/>
 											<p className="subText" >
 											Do not include income from others in your household. Stated income will be verified on every application. Your personal income must be verifiable via pay stubs, bank statements, or other records. Alimony, child support, or separate maintenance income need not be revealed if you do not wish to have it considered as a basis for repaying this loan.
 											</p>
-											<TextField name="householdIncome" label="Annual Household Income" 
+											<TextField name="householdIncome" label="Annual Household Income *" 
 											value={formik.values.householdIncome}
-											materialProps={{"data-testid": "annualIncome"}}
+											// startAdornment={<InputAdornment position="start">$</InputAdornment>}
+											materialProps={{"data-testid": "annualIncome", "maxLength": "7"}}	
 											onChange={onHandleChange}
-											required={true}
 											onBlur={formik.handleBlur}
 											error={formik.touched.householdIncome && Boolean(formik.errors.householdIncome)}
 											helperText={formik.touched.householdIncome && formik.errors.householdIncome}/>

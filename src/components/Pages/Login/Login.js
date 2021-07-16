@@ -62,19 +62,7 @@ const useStyles = makeStyles((theme) => ({
 		justify: "center"
 		
 	},
-	// content: {
-	// 	flexGrow: 1, 
-	// 	padding: theme.spacing(3),
-	// 	justify: "center"
-	//   },
-	//   email:{
-	// 	padding: "10px",
-	// 	textAlign: "initial"
-	//   },
-	//   password:{
-	// 	padding: "10px",
-	// 	textAlign: "initial"
-	//   },
+	
 	  checkbox:{
 		
 		textAlign: "initial"
@@ -106,8 +94,9 @@ const validationSchema = yup.object(
 		email: yup
 		.string("Enter your email")
 		.email("Email should be as (you@example.com)")
-		.matches( /^[a-zA-Z][a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/, "Enter a valid mail id")
+		.matches(/^[a-zA-Z](([^<>()|?{}=/+'[\]\\.,;:#!$%^&*_-\s@\"]+(\.[^<>()|?{}=/+'[\]\\.,;:#!$%^&*_-\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,"Invalid Email")
 		.required("Email is required"),
+	
 	
 
 	  password: yup
@@ -183,7 +172,7 @@ export default function Login() {
 				type="email"
 				testid="email-input"
 				placeholder="Enter your email address"
-                label="Email"
+                label="Email *"
 				icon="emailIcon"
 				iconColor="#595E6E"
 				iconPosition="left"
@@ -200,7 +189,7 @@ export default function Login() {
 				 <Grid item xs={12} fullWidth={true} direction="row" >
 				 <PasswordWithIcon
 										name="password"
-										label="Password"
+										label="Password *"
 										placeholder="Enter your password"
 										icon="lock"
 										iconColor="#595E6E"

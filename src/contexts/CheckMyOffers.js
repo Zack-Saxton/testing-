@@ -7,6 +7,7 @@ export const CheckMyOffers = createContext();
 const CheckMyOffersContext = (props) => {
   const [data, setData] = useState(
     {select: '',
+    offerCode: '',
     citizenship: '',
     zip: '',
     purpose: '',
@@ -16,13 +17,16 @@ const CheckMyOffersContext = (props) => {
     email: '',
     dob: '',
     employmentStatus: '',
+    yearsAtEmployers: '',
     householdIncome: '',
     personalIncome: '',
     streetAddress: '',
     city: '',
     state: '',
     livingPlace: '',
-    activeDuty: ''
+    rentMortageAmount: '',
+    activeDuty: '',
+
   },
   );
   const formikField = useFormik({
@@ -35,7 +39,7 @@ const CheckMyOffersContext = (props) => {
 		// },
 	});
   return (
-    <CheckMyOffers.Provider value={{data: data}}>
+    <CheckMyOffers.Provider value={{data: data, setData: setData}}>
       {props.children}
     </CheckMyOffers.Provider>
   )

@@ -1,10 +1,10 @@
 /*#################################################################################################################
-
+ 
 File Name           :    DatePicker/index.js
 Component Name      :    DatePicker
 Functionality       :    To use this component to get the date with restrictions to select particular dates like 
                          restrict future, past dates, select between given range of dates like that.
-
+ 
 #################################################################################################################*/
 import "date-fns";
 import React from "react";
@@ -12,10 +12,10 @@ import Grid from "@material-ui/core/Grid";
 import DateFnsUtils from "@date-io/date-fns";
 import PropTypes from "prop-types";
 import {
-	MuiPickersUtilsProvider,
-	KeyboardDatePicker,
+    MuiPickersUtilsProvider,
+    KeyboardDatePicker,
 } from "@material-ui/pickers";
-
+ 
 const DatePickerWrapper = ({ name, format, defaultDate,label, placeholder,maxdate, ...otherProps }) => {
 
 	// The first commit of Material-UI
@@ -53,9 +53,9 @@ const DatePickerWrapper = ({ name, format, defaultDate,label, placeholder,maxdat
 		</MuiPickersUtilsProvider>
 	);
 };
-
+ 
 DatePickerWrapper.propTypes = {
-	name: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
 };
-
+ 
 export default DatePickerWrapper;

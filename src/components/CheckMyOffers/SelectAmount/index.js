@@ -14,7 +14,7 @@ import { useHistory } from "react-router-dom";
 import { CheckMyOffers as Check } from '../../../contexts/CheckMyOffers';
 
 function CheckMyOffers() {
-    const { data } = useContext(Check);
+    const { data, setData } = useContext(Check);
     const [hasOffercode, setOffercode] = useState();
     const [select, setSelect] = useState(data.select ? data.select : '');
     const history = useHistory();
@@ -43,15 +43,19 @@ function CheckMyOffers() {
                                     </Grid>
                                     <Grid xs={12} className="alignSlider" container justify="center" alignItems="center">
                                         <Grid xs={11} sm={10} md={8} lg={8} xl={8} justify="center" alignItems="center">
-                                            <Typography data-testid="offerCodeTriggerText" variant="p" className="setGreenColor" align="center" onClick ={ (e) => { setOffercode(hasOffercode ? false : true ) }}>
+                                            <Typography data-testid="offerCodeTriggerText" variant="p" className="setGreenColor cursorPointer" align="center" onClick ={ (e) => { setOffercode(hasOffercode ? false : true ) }}>
                                             I have an offer code
                                             </Typography>
-                                            <div className={hasOffercode ? "open" : "close" }><TextField
+                                            <div className={hasOffercode ? "open" : "close" }>
+                                                <TextField
                                                 name="firstName"
                                                 form={true}
+                                                value={data.offerCode}
+                                                onChange= { (event) => {setData({ ...data, ['offerCode']: event.target.value })}}
                                                 label="Enter Offer Code"
-                                                materialProps={{ "data-testid": "offer"}}
-                                            /></div> 
+                                                materialProps={{ "data-testid": "offer", "maxLength": "10"}}
+                                                />
+                                            </div> 
                                             
                                             <Grid className="alignButton">
                                                 <Button data-testid="contButton" stylebutton='{"background": "#0F4EB3", "color":""}' onClick={handleRoute}>

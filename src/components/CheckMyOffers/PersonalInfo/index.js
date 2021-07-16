@@ -27,27 +27,27 @@ import * as yup from "yup";
 
 
 const validationSchema = yup.object({
-	firstname: yup
+	firstName: yup
     .string("Enter your firstname")
     .max(30, "Firstname can be upto 30 characters length")
-    .matches(/^[a-zA-Z]/,"Name should be in alphabets")
-    .required("Firstname is required"),
+    .matches(/^[a-zA-Z]+$/,"Name should be in alphabets")
+    .required("First name is required"),
  
-	lastname: yup.string("Enter your Lastname")
+	lastName: yup.string("Enter your Lastname")
 	.max(30, "Lastname can be upto 30 characters length")
-	.matches(/^[a-zA-Z]/,"Name should be in alphabets")
+	.matches(/^[a-zA-Z]+$/,"Name should be in alphabets")
 	.required("Lastname is required"),
 	
 	email: yup
 	.string("Enter your email")
 	.email("Email should be as (you@example.com)")
-	.matches( /^[a-zA-Z][a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/, "Enter a valid mail id")
-	.required("Email is required"),
+	.matches(/^[a-zA-Z](([^<>()|?{}=/+'[\]\\.,;:#!$%^&*_-\s@\"]+(\.[^<>()|?{}=/+'[\]\\.,;:#!$%^&*_-\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,"Invalid Email")
+    .required("Email is required"),
 
-	phone: yup
-	.string("Enter your Phone Number")
-	// .max(10, "Phone Number should be of minimum 10 digits")
-	.required("Phone Number is required"),
+	// phone: yup
+	// .string("Enter your Phone Number")
+	// // .max(10, "Phone Number should be of minimum 10 digits")
+	// .required("Phone Number is required"),
 
 	date: yup
     .date("Please enter valid date")
@@ -63,7 +63,7 @@ const validationSchema = yup.object({
 			initialValues: {
 				firstName: data.firstName ? data.firstName : "",
 				lastName: data.lastName ? data.lastName : "",
-				dob: data.dob ? data.dob : "",
+				date: null,
 				email: data.email ? data.email : "",
 				// phone: data.phone ? data.phone : "",
 			},
@@ -73,12 +73,13 @@ const validationSchema = yup.object({
 				data.lastName = values.lastName;
 				data.email = values.email;
 				data.phone = values.phone;
-				data.dob = values.date;
+				data.date = values.date;
 				console.log("data");
 				history.push("/employment-status");
 			},
 		});
-		
+		var myDate = new Date();
+		myDate.setDate(myDate.getDate() - 6570);
 
 		return (
 			<div>
@@ -136,8 +137,7 @@ const validationSchema = yup.object({
 												fullWidth
 												id="firstName"
 												name="firstName"
-												label="First Name"
-												required={true}
+												label="First Name *"
 												materialProps={{"maxlength": "30"}}
 												value={formik.values.firstName}
 												onChange={formik.handleChange}
@@ -166,8 +166,7 @@ const validationSchema = yup.object({
 												fullWidth
 												id="lastName"
 												name="lastName"
-												label="Last Name"
-												required={true}
+												label="Last Name *"
 												materialProps={{"maxlength": "30"}}
 												value={formik.values.lastName}
 												onChange={formik.handleChange}
@@ -192,30 +191,36 @@ const validationSchema = yup.object({
 											// helperText={formik.touched.dob && formik.errors.dob} 
 											// defaultDate={new Date("2021-06-29T21:11:54")}
 											/> */}
-											<DatePicker
-												name="date"
-												label="Date of Birth" 
-												id="date"
-												placeholder="DD-MM-YYYY"
-												
-												// maxdate={myDate}
-												value={formik.values.date}
-												onChange={(values) => {
-												formik.setFieldValue("date", values);
-												}}
-												onBlur={formik.handleBlur}
-												error={formik.touched.date && Boolean(formik.errors.date)}
-												helperText={formik.touched.date && formik.errors.date}
-											
-											/>
+											         <DatePicker
+														name="date"
+														label="Date of Birth *" 
+														id="date"
+														placeholder="DD-MM-YYYY"
+														
+														maxdate={myDate}
+														value={formik.values.date}
+														onChange={(values) => {
+														formik.setFieldValue("date", values);
+														}}
+														onBlur={formik.handleBlur}
+														error={formik.touched.date && Boolean(formik.errors.date)}
+														helperText={formik.touched.date && formik.errors.date}
+													
+									
+													/>
+													<div className="MuiTypography-alignLeft">
+													<Typography className="smallTextLeft" variant="p" align="left">
+													Please ensure your DOB meets the following criteria: Your age must be greater 
+													than or equal to 18 years.										
+													</Typography>
+													</div>
 										</Grid>
                                         <Grid justify="center" alignItems="center" item lg={8} md={8} xs={12} className="textBlock" >
 											<EmailTextField
 												fullWidth
 												id="email"
 												name="email"
-												required={true}
-												label="Email"
+												label="Email *"
 												value={formik.values.email}
 												onChange={formik.handleChange}
 												onBlur={formik.handleBlur}
@@ -230,7 +235,6 @@ const validationSchema = yup.object({
 											<PhoneNumber
 												fullWidth
 												id="phone"
-												required={true}
 												name="phone"
 
 												// label="Phone Number"

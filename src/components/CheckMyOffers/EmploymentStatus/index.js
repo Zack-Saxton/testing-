@@ -12,13 +12,47 @@ import { CheckMyOffers } from '../../../contexts/CheckMyOffers';
 import './employmentStatus.css';
 
 function CitizenshipStatus() {
-    const { data } = useContext(CheckMyOffers);
+    const { data, setData } = useContext(CheckMyOffers);
+    const [error, setError] = useState();
+    const [helperText, setHelperText] = useState();
     const [employmentStatus, setEmploymentStatus] = useState(data.employmentStatus ? data.employmentStatus : "");
     const history = useHistory();
     const handleRoute = () =>{ 
-        data.employmentStatus = employmentStatus;
-        history.push("/annual-income");
-      }
+        if(employmentStatus === "Hourly" || employmentStatus === "Salary" || employmentStatus === "selfEmployed")
+        {
+            if(data.yearsAtEmployers !== '')
+            {
+                // alert("nil value");
+                setError(false);
+                setHelperText("");
+                data.employmentStatus = employmentStatus;
+                history.push("/annual-income");
+            }
+            else{
+                // alert("Enter Anual income");
+                setError(true);
+                setHelperText("Enter Years at employer");
+            }
+        }
+        else{
+            setError(false);
+            setHelperText("");
+            // alert(employmentStatus);
+            data.employmentStatus = employmentStatus;
+                history.push("/annual-income");
+            }
+        }
+       
+      
+
+      const onHandleChange = (event) => {
+		const reg = /^[0-9\b]+$/;
+		let acc = event.target.value;
+	 
+		if (acc === "" || reg.test(acc)) {
+			setData({ ...data, ['yearsAtEmployers']: event.target.value });
+		}
+	  };
     return(
         <div>
             <div className = "mainDiv">
@@ -101,7 +135,24 @@ function CitizenshipStatus() {
                                         md={8}
                                         xs={12}
                                     >
-                                        <TextField className={employmentStatus === 'Hourly' || employmentStatus === 'Salary' || employmentStatus === 'selfEmployed' ? "showMsg" : "hideMsg"} name="yearsAtEmployer" label="Years at employer" />
+                                        <TextField
+                                                name="yearsAtEmployers"
+                                                className={employmentStatus === 'Hourly' || employmentStatus === 'Salary' || employmentStatus === 'selfEmployed' ? "showMsg" : "hideMsg"} name="yearsAtEmployer" label="Years at employer" 
+                                                label="Years at Employer"
+                                                form={true}
+                                                error={error}
+                                                helperText={helperText}
+                                                value={data.yearsAtEmployers}
+                                                // onChange= { (event) => {setData({ ...data, ['yearsAtEmployers']: event.target.value })}}
+                                                onChange= {onHandleChange}
+                                                materialProps={{ "data-testid": "yearsAtEmployee", "maxLength": "5"}}
+                                                />
+                                        {/* <TextField
+                                         className={employmentStatus === 'Hourly' || employmentStatus === 'Salary' || employmentStatus === 'selfEmployed' ? "showMsg" : "hideMsg"} name="yearsAtEmployer" label="Years at employer" 
+                                        //  value= {data.yearsAtEmployers}
+                                        //  onChanle={onHandleChange}
+                                         materialProps={{"maxLength": "10"}}
+                                         /> */}
                                     </Grid>
                                   
                                        

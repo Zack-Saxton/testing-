@@ -14,13 +14,50 @@ import CitizenshipStatusLogo from '../../../assets/icon/I-Citizenship-status.png
 import { CheckMyOffers } from '../../../contexts/CheckMyOffers';
 
 function LivingPlace() {
-    const { data } = useContext(CheckMyOffers);
+    const { data, setData } = useContext(CheckMyOffers);
+    const [error, setError] = useState();
+    const [helperText, setHelperText] = useState();
     const [livingPlace, setLivingPlace] = useState(data.livingPlace ? data.livingPlace : "");
     const history = useHistory();
-    const handleRoute = () =>{ 
-        data.livingPlace = livingPlace;
-        history.push("/active-duty");
-      }
+    // const handleRoute = () =>{ 
+    //     data.livingPlace = livingPlace;
+    //     history.push("/active-duty");
+    //   }
+
+      const handleRoute = () =>{ 
+        if(livingPlace === "Renting" || livingPlace === "HomeWithMortage" )
+        {
+            if(data.rentMortageAmount !== '')
+            {
+                // alert("nil value");
+                setError(false);
+                setHelperText("");
+                data.livingPlace = livingPlace;
+                history.push("/active-duty");
+            }
+            else{
+                // alert("Enter Anual income");
+                setError(true);
+                setHelperText("Enter Years at employer");
+            }
+        }
+        else{
+            setError(false);
+            setHelperText("");
+            // alert(employmentStatus);
+            data.livingPlace = livingPlace;
+                history.push("/active-duty");
+            }
+        }
+
+        const onHandleChange = (event) => {
+            const reg = /^[0-9\b]+$/;
+            let acc = event.target.value;
+         
+            if (acc === "" || reg.test(acc)) {
+                setData({ ...data, ['rentMortageAmount']: event.target.value });
+            }
+          };
     return(
         <div>
             <div className = "mainDiv">
@@ -64,7 +101,7 @@ function LivingPlace() {
                                         xs={12}
                                     >
                                         <Paper elevation={3} data-testid="HomeWithMortage"   className= { livingPlace === 'HomeWithMortage' ? 'activeBorder radioBlock '  : 'radioBlock ' } onClick={ () => { setLivingPlace('HomeWithMortage') }}  >
-                                        Own a Home with Mortgage
+                                        Own a home with mortgage
                                         </Paper>
                                     </Grid>
                                     <Grid
@@ -74,7 +111,7 @@ function LivingPlace() {
                                         xs={12}
                                     >
                                         <Paper elevation={3} data-testid="HomeWithNoMortage"   className= { livingPlace === 'HomeWithNoMortage' ? 'activeBorder radioBlock '  : 'radioBlock ' } onClick={ () => { setLivingPlace('HomeWithNoMortage') }}  >
-                                        Own a Home with No Mortgage
+                                        Own a home with no mortgage
                                         </Paper>
                                     </Grid>
                                     <Grid
@@ -84,7 +121,7 @@ function LivingPlace() {
                                         xs={12}
                                     >
                                         <Paper elevation={3} data-testid="MobileHome"   className= { livingPlace === 'MobileHome' ? 'activeBorder radioBlock '  : 'radioBlock ' } onClick={ () => { setLivingPlace('MobileHome') }}  >
-                                        Own a Mobile Home
+                                        Own a mobile home
                                         </Paper>
                                     </Grid>
                                     <Grid
@@ -94,7 +131,7 @@ function LivingPlace() {
                                         xs={12}
                                     >
                                         <Paper elevation={3} data-testid="LivingWithRelatives"   className= { livingPlace === 'LivingWithRelatives' ? 'activeBorder radioBlock '  : 'radioBlock ' } onClick={ () => { setLivingPlace('LivingWithRelatives') }}  >
-                                        Living with Relatives
+                                        Living with relatives
                                         </Paper>
                                     </Grid>
                                   
@@ -104,7 +141,21 @@ function LivingPlace() {
                                         md={8}
                                         xs={12}
                                     >
-                                        <TextField className={livingPlace === 'HomeWithMortage' || livingPlace === 'HomeWithMortage' ? "showMsg" : "hideMsg"} name="RentOrMortageAmount" label="Monthly Rent / Mortgage Amount" />
+                                        {/* <TextField className={livingPlace === 'HomeWithMortage' || livingPlace === 'HomeWithMortage' ? "showMsg" : "hideMsg"} name="RentOrMortageAmount" label="Monthly Rent / Mortgage Amount" /> */}
+                                        <TextField
+                                                className={livingPlace === 'Renting' || livingPlace === 'HomeWithMortage' ? "showMsg" : "hideMsg"} 
+                                                name="RentOrMortageAmount" 
+                                                label="Monthly Rent / Mortgage Amount" 
+                                               
+                                                label="Monthly rent/mortage amount"   
+                                                form={true}
+                                                error={error}
+                                                helperText={helperText}
+                                                value={data.rentMortageAmount}
+                                                // onChange= { (event) => {setData({ ...data, ['yearsAtEmployers']: event.target.value })}}
+                                                onChange= {onHandleChange}
+                                                materialProps={{ "data-testid": "rentMortageAmount", "maxLength": "5"}}
+                                                />
                                     </Grid>
  
                                     <Grid
