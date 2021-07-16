@@ -20,28 +20,39 @@ import {
 	PhoneNumber,
 	DatePicker,
 	Button,
+	SocialSecurityNumber,
 } from "../../FormsUI";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
 
 const validationSchema = yup.object({
-	firstName: yup
-		.string("Enter your First Name")
-		.max(30, "First Name should be of minimum 30 characters")
-		.required("First Name is required"),
-        lastName: yup
-		.string("Enter your Last Name")
-		.max(30, "Last Name should be of minimum 30 characters")
-		.required("Last Name is required"),
-        email: yup
-		.string("Enter your Email Address")
-		.email("Invalid Email")
-		.required("Email Address is required"),
-		// 	phone: yup
-		// 	.string("Enter your Phone Number")
-		// 	.max(10, "Phone Number should be of minimum 10 digits")
-		// 	.required("Phone Number is required"),
+	firstname: yup
+    .string("Enter your firstname")
+    .max(30, "Firstname can be upto 30 characters length")
+    .matches(/^[a-zA-Z]/,"Name should be in alphabets")
+    .required("Firstname is required"),
+ 
+	lastname: yup.string("Enter your Lastname")
+	.max(30, "Lastname can be upto 30 characters length")
+	.matches(/^[a-zA-Z]/,"Name should be in alphabets")
+	.required("Lastname is required"),
+	
+	email: yup
+	.string("Enter your email")
+	.email("Email should be as (you@example.com)")
+	.matches( /^[a-zA-Z][a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/, "Enter a valid mail id")
+	.required("Email is required"),
+
+	phone: yup
+	.string("Enter your Phone Number")
+	// .max(10, "Phone Number should be of minimum 10 digits")
+	.required("Phone Number is required"),
+
+	date: yup
+    .date("Please enter valid date")
+    .nullable()
+    .required("Date of birth is required"),
 		
 	});
 
@@ -62,9 +73,9 @@ const validationSchema = yup.object({
 				data.lastName = values.lastName;
 				data.email = values.email;
 				data.phone = values.phone;
-				data.dob = values.dob;
+				data.dob = values.date;
 				console.log("data");
-				history.push("/new-user");
+				history.push("/employment-status");
 			},
 		});
 		
@@ -126,6 +137,8 @@ const validationSchema = yup.object({
 												id="firstName"
 												name="firstName"
 												label="First Name"
+												required={true}
+												materialProps={{"maxlength": "30"}}
 												value={formik.values.firstName}
 												onChange={formik.handleChange}
 												onBlur={formik.handleBlur}
@@ -154,6 +167,8 @@ const validationSchema = yup.object({
 												id="lastName"
 												name="lastName"
 												label="Last Name"
+												required={true}
+												materialProps={{"maxlength": "30"}}
 												value={formik.values.lastName}
 												onChange={formik.handleChange}
 												onBlur={formik.handleBlur}
@@ -169,13 +184,29 @@ const validationSchema = yup.object({
 										</Grid>
 										<Grid justify="center" alignItems="center" item lg={8} md={8} xs={12} className="textBlock" >
 											{/* Date Picker */}
-											<DatePicker name="dob" label="Date of Birth"
+											{/* <DatePicker name="dob" label="Date of Birth" required={true}
 											// value={formik.values.dob}
 											// onChange={formik.handleChange}
 											// onBlur={formik.handleBlur}
 											// error={formik.touched.dob && Boolean(formik.errors.dob)}
 											// helperText={formik.touched.dob && formik.errors.dob} 
 											// defaultDate={new Date("2021-06-29T21:11:54")}
+											/> */}
+											<DatePicker
+												name="date"
+												label="Date of Birth" 
+												id="date"
+												placeholder="DD-MM-YYYY"
+												
+												// maxdate={myDate}
+												value={formik.values.date}
+												onChange={(values) => {
+												formik.setFieldValue("date", values);
+												}}
+												onBlur={formik.handleBlur}
+												error={formik.touched.date && Boolean(formik.errors.date)}
+												helperText={formik.touched.date && formik.errors.date}
+											
 											/>
 										</Grid>
                                         <Grid justify="center" alignItems="center" item lg={8} md={8} xs={12} className="textBlock" >
@@ -183,6 +214,7 @@ const validationSchema = yup.object({
 												fullWidth
 												id="email"
 												name="email"
+												required={true}
 												label="Email"
 												value={formik.values.email}
 												onChange={formik.handleChange}
@@ -191,10 +223,14 @@ const validationSchema = yup.object({
 												helperText={formik.touched.email && formik.errors.email}
 											/>
 										</Grid>
+										<Grid justify="center" alignItems="center" item lg={8} md={8} xs={12} className="textBlock" >
+											<SocialSecurityNumber name="ssn" label="Social security number *" required={true}/>
+										</Grid>
                                         <Grid justify="center" alignItems="center" item lg={8} md={8} xs={12} className="textBlock" >
 											<PhoneNumber
 												fullWidth
 												id="phone"
+												required={true}
 												name="phone"
 
 												// label="Phone Number"

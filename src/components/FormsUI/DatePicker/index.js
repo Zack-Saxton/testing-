@@ -16,7 +16,7 @@ import {
 	KeyboardDatePicker,
 } from "@material-ui/pickers";
 
-const DatePickerWrapper = ({ name, format, defaultDate,label, maxdate, ...otherProps }) => {
+const DatePickerWrapper = ({ name, format, defaultDate,label, placeholder,maxdate, ...otherProps }) => {
 
 	// The first commit of Material-UI
 	//const currentDate = new Date();
@@ -36,15 +36,14 @@ const DatePickerWrapper = ({ name, format, defaultDate,label, maxdate, ...otherP
 					label={label}   
 					format= { format ?? 'dd-MM-yyyy'}
 					value={selectedDate}
-					//type=""
 					onChange={handleDateChange}
 					fullWidth={true}	
-					placeholder={"Date of Birth"}
-					// maxDate= { new Date("2021-06-29T21:11:54")}
+					placeholder={placeholder}
 					maxDate= { maxdate }
 					KeyboardButtonProps={{
 						"aria-label": "change date",
 					}}
+					onKeyDown={(e) => e.preventDefault()}
 					
 					orientation="landscape"
 					inputProps={{"data-testid":"datePicker"}}

@@ -69,11 +69,30 @@ function MarriedStatus() {
 		validationSchema: validationSchema,
 		onSubmit: (values) => {
 			console.log(data)
-			// data.activeDuty = values.martialStatus;
+			// data.activeDuty = values.martialStatus; 
 			history.push("/ssn");
 		},
 		});
-console.log(formik.values);
+		
+		const fetchAddress = (e) => {
+			fetch("https://api.zippopotam.us/us/" + e.target.value)
+			.then(res => res.json())
+			.then(
+			  (result) => {
+				  if(result.places)
+				  {
+					console.log("result", result.places[0]['place name']);
+					formik.setFieldValue('spouseState', result.places[0]['place name']);
+					formik.setFieldValue('spouseSelectState', result.places[0]['state']);
+				  }
+			  },
+			  (error) => {
+			   console.log("error:", error);
+			  }
+			)
+			formik.handleChange(e);
+		}
+
 	return (
 		<div>
 			<div className="mainDiv">
@@ -177,7 +196,7 @@ console.log(formik.values);
 										xs={12}
 										className={formik.values.martialStatus === 'Married' || formik.values.martialStatus === 'Separated, under decree of legal separation' ? "showMsg " : "hideMsg "}
 									>
-										<p class="left-align">
+										<p class="left-align MarginUpDown10">
 											<b>Location</b>
 										</p>
 									</Grid>
@@ -192,7 +211,7 @@ console.log(formik.values);
 									>
 										<Zipcode fullWidth id="zip" name="spouseZipcode" label="Zipcode" 
 											value={formik.values.spouseZipcode}
-											onChange={formik.handleChange}
+											onChange={fetchAddress}
 											onBlur={formik.handleBlur}
 											error={formik.touched.spouseZipcode && Boolean(formik.errors.spouseZipcode)}
 											helperText={formik.touched.spouseZipcode && formik.errors.spouseZipcode}/>
@@ -212,6 +231,7 @@ console.log(formik.values);
 											value={formik.values.spouseState}
 											onChange={formik.handleChange}
 											onBlur={formik.handleBlur}
+											disabled={true}
 											error={formik.touched.spouseState && Boolean(formik.errors.spouseState)}
 											helperText={formik.touched.spouseState && formik.errors.spouseState}
 										/>
@@ -225,7 +245,17 @@ console.log(formik.values);
 										xs={12}
 										className={formik.values.martialStatus === 'Married' || formik.values.martialStatus === 'Separated, under decree of legal separation' ? "showMsg space" : "hideMsg space"}
 									>
-										<Select
+										<TextField
+											name="spouseSelectState"
+											label="State"
+											value={formik.values.spouseSelectState}
+											onChange={formik.handleChange}
+											onBlur={formik.handleBlur}
+											disabled={true}
+											error={formik.touched.spouseSelectState && Boolean(formik.errors.spouseSelectState)}
+											helperText={formik.touched.spouseSelectState && formik.errors.spouseSelectState}
+										/>
+										{/* <Select
 											fullWidth={true}
 											name="spouseSelectState"
 											labelform="State"
@@ -235,7 +265,7 @@ console.log(formik.values);
 											onBlur={formik.handleBlur}
 											error={formik.touched.spouseSelectState && Boolean(formik.errors.spouseSelectState)}
 											helperText={formik.touched.spouseSelectState && formik.errors.spouseSelectState}
-										/>
+										/> */}
 										{/* <TextField name="yearsAtEmployer" label="Years at employer" /> */}
 									</Grid>
 									{/* <p class="left-align"><b>Location</b></p> */}

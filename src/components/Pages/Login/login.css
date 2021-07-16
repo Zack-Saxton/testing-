@@ -5,6 +5,20 @@
       left: -10px;
     }
   } */
+#main{
+  min-height: 500px;
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+  #maincontent{
+    margin-top: 2% !important;
+    margin-bottom: 5% !important;
+    height: auto !important;
+  }
 
 #rememberme {
   padding-left: 12px;

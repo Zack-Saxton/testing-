@@ -14,7 +14,8 @@ import {
 import InputMask from "react-input-mask";
 import FormControl from "@material-ui/core/FormControl";
 import PropTypes from "prop-types";
-import Textfield from "../Textfield/index"
+ import Textfield from "../Textfield/index"
+
 import { TextField, FormLabel,FormControlLabel } from "@material-ui/core";
 import Content from '../../../assets/Content/content';
 
@@ -62,10 +63,9 @@ const SSNWrapper = ({ name,label, error,  required,
   return (
     <FormControl fullWidth={true}>
       <MuiThemeProvider theme={theme}>
-        {/* <FormLabel label={label} name={name} {...config} > */}
         <InputMask
           fullWidth={true}
-          mask="999 - 99 - 9999"
+          mask="999-99-999"
           value={unMaskedVal}
           name={name}
           onChange={handleChange}
@@ -73,10 +73,28 @@ const SSNWrapper = ({ name,label, error,  required,
           maskChar=" "
           {...otherProps}
         >
-          {() => <TextField label={label} name={name}   inputProps={{"data-testid": "ssn", "unmaskedval": unMaskedVal}}/>}
+          {() => <TextField label={label} 
+          name={name} 
+         
+          error={error} 
+          helperText={helperText}
+           inputProps={{"data-testid": "ssn", "unmaskedval": unMaskedVal}}/>}
         </InputMask>
-        {/* </FormLabel> */}
-      </MuiThemeProvider>
+      </MuiThemeProvider> 
+
+{/* <MuiThemeProvider>
+        
+            <TextField
+            label={label} 
+            name={name} 
+           >
+             
+             <InputMask mask="999-99-99" maskChar=" " />
+            </TextField>
+              
+      </MuiThemeProvider> */}
+
+
     </FormControl>
   );
 };

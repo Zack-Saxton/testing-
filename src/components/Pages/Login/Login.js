@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
 	main:{
 		
 			backgroundImage: 'url(' + Logo + ')'
+			
 		
 	},
 
@@ -88,6 +89,8 @@ const useStyles = makeStyles((theme) => ({
 	  },
 	  register:{
 		  fontSize: "12px",
+		  textDecoration: "none",
+		  color: "blue"
 		  
 	  },
 	  maingrid:{
@@ -100,10 +103,12 @@ const useStyles = makeStyles((theme) => ({
 
 const validationSchema = yup.object(
 	{
-    email: yup
-      .string('Enter your email')
-      .email( 'Email should be as (you@example.com)')
-      .required('Email is required'),
+		email: yup
+		.string("Enter your email")
+		.email("Email should be as (you@example.com)")
+		.matches( /^[a-zA-Z][a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/, "Enter a valid mail id")
+		.required("Email is required"),
+	
 
 	  password: yup
 	.string('Enter your password')
@@ -136,16 +141,16 @@ export default function Login() {
 	
 
 	<div>
-				<div className={classes.main}>
+				<div className={classes.main} id="main">
 					<Box>
 						<Grid xs={12} container justify="center" alignItems="center">
 							<Grid
-								xs={11}
-								sm={10}
-								md={8}
-								lg={6}
-								xl={7}
-								className="cardWrapper"
+								xs={10}
+								sm={7}
+								md={5}
+								lg={4}
+								xl={5}
+								id="maincontent"
 								justify="center"
 								alignItems="center"
 							>
@@ -177,8 +182,8 @@ export default function Login() {
                 name="email"
 				type="email"
 				testid="email-input"
-				
-                label=" Enter Your Email"
+				placeholder="Enter your email address"
+                label="Email"
 				icon="emailIcon"
 				iconColor="#595E6E"
 				iconPosition="left"
@@ -189,13 +194,14 @@ export default function Login() {
                 helperText={formik.touched.email && formik.errors.email}
               />
         </Grid>
-		<br></br><br></br><br></br>
+		<br></br><br></br><br></br>	<br></br>
 		
   
 				 <Grid item xs={12} fullWidth={true} direction="row" >
 				 <PasswordWithIcon
 										name="password"
-										label="Enter your Password"
+										label="Password"
+										placeholder="Enter your password"
 										icon="lock"
 										iconColor="#595E6E"
 										iconPosition="left"
@@ -210,7 +216,7 @@ export default function Login() {
 									/>
 									</Grid>
 
-				 <br></br><br></br><br></br><br></br>
+									<br></br><br></br><br></br>	<br></br>
 				 <Grid className={classes.checkbox}>   
 				 <Checkbox
 								name="rememberme"
@@ -225,7 +231,7 @@ export default function Login() {
 
 
              
-      <br></br><br></br>
+							<br></br><br></br><br></br>	
 
         <Grid item xs={12} >
       <Button

@@ -38,13 +38,13 @@ const EmailWrapper = ({ name, suffix, lable, id, ...otherProps }) => {
   };
 
   //Validation part
-  let schema = yup.object().shape({
-    email: yup.string().email(),
-  });
+  // let schema = yup.object().shape({
+  //   email: yup.string().email(),
+  // });
 
-  schema.isValid({ email: value }).then(function (valid) {
-    valid ? setEmailCheck(true) : setEmailCheck(false);
-  });
+  // schema.isValid({ email: value }).then(function (valid) {
+  //   valid ? setEmailCheck(true) : setEmailCheck(false);
+  // });
 
   // configTextfield.error = (!emailCheck) ? true :  configTextfield.error ?? false;
   // configTextfield.helperText = (!emailCheck) ? "Invalid Email" : configTextfield.helperText ?? '';

@@ -33,7 +33,7 @@ function CitizenshipStatus() {
                                 <span class="floatLeft detNum6">50%</span>
                             </div>
                                     <Grid className="floatLeft">
-                                      <Link to="/existing-user"><i class="material-icons dp48 yellowText  ">arrow_back</i></Link>
+                                      <Link to="/personal-info"><i class="material-icons dp48 yellowText  ">arrow_back</i></Link>
                                     </Grid>
                                 <Grid>
                                     <img alt="Employment" src={EmploymenyStatus}  className="spinAnimation"/>

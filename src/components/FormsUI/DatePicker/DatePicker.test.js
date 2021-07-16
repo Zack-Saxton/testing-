@@ -12,7 +12,7 @@ import { format } from "date-fns";
    const input = container.getByTestId('datePicker');
    expect(input).toBeTruthy();
    var date = new Date();
-   var formattedDate = format(date, "MM/dd/yyyy");
+   var formattedDate = format(date, "dd-MM-yyyy");
    expect(input.value).toBe(formattedDate);
  });
 
@@ -23,7 +23,7 @@ import { format } from "date-fns";
 
   const input = container.getByTestId('datePicker');
   var date = new Date();
-  var formattedDate = format(date, "MM/dd/yyyy");
+  var formattedDate = format(date, "dd-MM-yyyy");
   expect(input.value).toBe(formattedDate);
 });
 

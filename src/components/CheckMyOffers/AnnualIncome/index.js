@@ -121,6 +121,7 @@ function NewUser() {
 											onChange={onHandleChange}
 											materialProps={{"data-testid": "personalIncome"}}
 											onBlur={formik.handleBlur}
+											required={true}
 											error={formik.touched.personalIncome && Boolean(formik.errors.personalIncome)}
 											helperText={formik.touched.personalIncome && formik.errors.personalIncome}/>
 											<p className="subText" >
@@ -130,6 +131,7 @@ function NewUser() {
 											value={formik.values.householdIncome}
 											materialProps={{"data-testid": "annualIncome"}}
 											onChange={onHandleChange}
+											required={true}
 											onBlur={formik.handleBlur}
 											error={formik.touched.householdIncome && Boolean(formik.errors.householdIncome)}
 											helperText={formik.touched.householdIncome && formik.errors.householdIncome}/>

@@ -28,7 +28,8 @@ const useStyles = makeStyles((theme) => ({
     subtitle:{
       float: "right!important",
       padding: 15,
-      color: "#171717"
+      color: "#171717",
+      fontSize: 14,
     },
     appBar: {
           zIndex: theme.zIndex.drawer + 1,
@@ -47,8 +48,10 @@ const useStyles = makeStyles((theme) => ({
         },
         sectionDesktop: {
               display: 'none',
+             
               [theme.breakpoints.up('md')]: {
                 display: 'flex',
+                
               },
             },
             sectionMobile: {

@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import { TextField, Button, ZipcodeField } from "../../FormsUI";
+import { TextField, Button, ZipcodeField, Zipcode } from "../../FormsUI";
 import Paper from "@material-ui/core/Paper";
 import AddressLogo from "../../../assets/icon/I-Address.png";
 import { useFormik } from "formik";
@@ -32,10 +32,12 @@ const validationSchema = yup.object({
 });
  
 function HomeAddress() {
-	const { data } = useContext(CheckMyOffers);
+	const { data, setData } = useContext(CheckMyOffers);
 
 	const history = useHistory();
-	console.log(data);
+	// console.log(data);
+
+
 
 
 	const formik = useFormik({
@@ -57,7 +59,26 @@ function HomeAddress() {
 		},
 	});
  
+	const fetchAddress = (e) => {
+		fetch("https://api.zippopotam.us/us/" + e.target.value)
+		.then(res => res.json())
+		.then(
+		  (result) => {
+			  if(result.places)
+			  {
+				console.log("result", result.places[0]['place name']);
+				formik.setFieldValue('city', result.places[0]['place name']);
+				formik.setFieldValue('state', result.places[0]['state']);
+			  }
+		  },
+		  (error) => {
+		   console.log("error:", error);
+		  }
+		)
+		formik.handleChange(e);
+	}
 
+	console.log("city value:",formik.values.city);
 
 	return (
 		<div>
@@ -120,7 +141,7 @@ function HomeAddress() {
 											lg={8}
 											md={8}
 											xs={12}
-											className="textBlock"
+											className="textBlockShort"
 										>
 											<TextField
 												fullWidth
@@ -142,28 +163,31 @@ function HomeAddress() {
 											lg={8}
 											md={8}
 											xs={12}
-											className="textBlock"
+											className="textBlockShort"
 										>
-											<TextField
+											<Zipcode
 												fullWidth
 												id="zip"
 												name="zip"
 												label="zip"
 												materialProps={{"data-testid": "zipcode"}}
 												value={formik.values.zip}
-												onChange={formik.handleChange}
+												onChange={fetchAddress}
 												onBlur={formik.handleBlur}
 												error={formik.touched.zip && Boolean(formik.errors.zip)}
+												// helperText={formik.touched.zip && formik.errors.zip}
 												helperText={formik.touched.zip && formik.errors.zip}
+
 											/>
 										</Grid>
-										<Grid justify="center" alignItems="center" container  md={8} lg={8} xs={12} className="textBlock">
-										<Grid justify="center" alignItems="center" item lg={6} md={6} xs={6}className="textBlock padding-right-1">
+										<Grid justify="center" alignItems="center" container  md={8} lg={8} xs={12} className="textBlockShort">
+										<Grid justify="center" alignItems="center" item lg={6} md={6} xs={6}className=" padding-right-1">
 											<TextField
 												fullWidth
 												id="city"
 												name="city"
 												label="City"
+												disabled={true}
 												materialProps={{"data-testid": "city"}}
 												value={formik.values.city}
 												onChange={formik.handleChange}
@@ -172,12 +196,13 @@ function HomeAddress() {
 												helperText={formik.touched.city && formik.errors.city}
 											/>
 										</Grid>
-										<Grid justify="center" alignItems="center" item lg={6} md={6} xs={6}className="textBlock padding-left-1">
+										<Grid justify="center" alignItems="center" item lg={6} md={6} xs={6}className=" padding-left-1">
 											<TextField
 												fullWidth
 												id="state"
 												name="state"
 												label="State"
+												disabled={true}
 												materialProps={{"data-testid": "state"}}
 												value={formik.values.state}
 												onChange={formik.handleChange}

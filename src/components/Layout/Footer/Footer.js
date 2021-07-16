@@ -12,13 +12,13 @@ export default function Footer() {
       <footer style={{ "width": "100%"  }}>
         <section class="section-top">
         <div class="col">
-            <div class="footer-content"><a href="#" class="hreftag">Community Guidelines</a></div>
-            <div class="footer-content"><a href="#" class="hreftag">Privacy Statement</a></div>
-            <div class="footer-content"><a href="#" class="hreftag">Terms of Use</a></div>
-            <div class="footer-content"><a href="#" class="hreftag">Liscence & disclosures</a></div>
-            <div class="footer-content"><a href="#" class="hreftag">Testing Terms of Use</a></div>
-            <div class="footer-content"><a href="#" class="hreftag">Website Accessibility Statement</a></div>
-            <div class="footer-content"><a href="#" class="hreftag">
+            <div class="main-footer-content"><a href="#" class="hreftag">Community Guidelines</a></div>
+            <div class="main-footer-content"><a href="#" class="hreftag">Privacy Statement</a></div>
+            <div class="main-footer-content"><a href="#" class="hreftag">Terms of Use</a></div>
+            <div class="main-footer-content"><a href="#" class="hreftag">Liscence & disclosures</a></div>
+            <div class="main-footer-content"><a href="#" class="hreftag">Testing Terms of Use</a></div>
+            <div class="main-footer-content"><a href="#" class="hreftag">Website Accessibility Statement</a></div>
+            <div class="main-footer-content"><a href="#" class="hreftag">
               CAC Terms Of Use For California Residents Do Not Sell My personal
               Information
               </a></div>

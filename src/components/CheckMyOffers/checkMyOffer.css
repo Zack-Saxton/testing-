@@ -400,3 +400,19 @@ text-align: left;
     color: blue;
     text-align: justify;
 }
+
+.textBlockShort{
+    margin: 15px 0px !important;
+}
+
+.MuiInput-input.Mui-disabled {
+    color: black !important;
+}
+
+.MuiInputLabel-formControl.Mui-disabled{
+    color: black !important;
+}
+
+.MarginUpDown10{
+    margin: 10px 0px;
+}

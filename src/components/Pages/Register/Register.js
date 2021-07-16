@@ -1,13 +1,16 @@
 import React from "react";
 import { Formik, Form, useFormik, ErrorMessage  } from "formik";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles} from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import Grid from "@material-ui/core/Grid";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import * as yup from "yup";
 import Box from "@material-ui/core/Box";
-import FormHelperText from '@material-ui/core/FormHelperText';
+import {FormInput, TextField} from '@material-ui/core';
+import MuiTheme from 'material-ui/styles/MuiThemeProvider'
+import Text from 'material-ui/TextField'
+import InputMask from "react-input-mask";
 
 import {
   Button,
@@ -24,7 +27,7 @@ import {
   DatePicker,
   TextArea,
   Zipcode,
-  TextField,
+  
   PasswordField,
 } from "../../FormsUI";
 // import "../App/app.css";
@@ -59,11 +62,20 @@ const useStyles = makeStyles((theme) => ({
   title: {
     fontSize: "20px",
     textAlign: "initial",
-    fontWeight: 400
+    fontWeight: 400,
+    color: "black"
   },
-  subtitle:{
+  passwordtitle:{
     fontSize: "12px",
-    textAlign: "justify"
+    textAlign: "justify",
+    marginLeft: "40px"
+
+},
+dobtitle:{
+  fontSize: "12px",
+  textAlign: "justify",
+  
+
 },
 paper: {
   // marginTop: theme.spacing(8),
@@ -87,28 +99,46 @@ submit: {
 },
 }));
 
+
+
+
 const validationSchema = yup.object({
   firstname: yup
     .string("Enter your firstname")
+    .max(30, "Firstname can be upto 30 characters length")
+    .matches(/^[a-zA-Z]/,"Name should be in alphabets")
     .required("Firstname is required"),
-  lastname: yup.string("Enter your Lastname").required("Lastname is required"),
+
+  lastname: yup.string("Enter your Lastname")
+  .max(30, "Lastname can be upto 30 characters length")
+  .matches(/^[a-zA-Z]/,"Name should be in alphabets")
+  .required("Lastname is required"),
 
   email: yup
     .string("Enter your email")
     .email("Email should be as (you@example.com)")
+    .matches( /^[a-zA-Z][a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/, "Enter a valid mail id")
     .required("Email is required"),
 
     date: yup
-    .string("Enter your Date of Birth")     
+    .date("Please enter valid date")
     .nullable()
     .required("Date of birth is required"),
+    // .morethan(myDate,"check"),
+
+
+
+    // date: yup
+    // .string("Enter your Date of Birth")     
+    // .nullable()
+    // .required("Date of birth is required"),
     // .test('Date of Birth', 'Should be greather than 18', function(value) {
     //   return moment().diff(moment(value), 'years') >= 18; }),
 
   password: yup.string("Enter your password")
   .matches(
-    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,30}$/,
-    "Must Contain 8 to 30 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
+    /^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{5,30}$/,
+    "Your password doesn't meet the criteria"
   )
   .required("Password is required"),
   
@@ -126,21 +156,20 @@ const validationSchema = yup.object({
     .min(5, "Zipcode should be of minimum 5 characters length")
     .required("Zipcode is required"),
 
-  ssn:yup.string().when('identifyType',
-  {
-      is: 'ssn',
-      then: yup.string()
-      .min(9, 'Social Security Number must be up to 9 digits without dashes')
-      .required('Social Security Number is Required')
-  })
+   ssn:yup.string()
+   .min(9, 'Social Security Number must be up to 9 digits')
+       .required('Social Security Number is Required'),
+ 
 });
 
 
-var myDate = new Date();
-	myDate.setDate(myDate.getDate() - 6570);
+
 
 export default function Register() {
+
   const classes = useStyles();
+  var myDate = new Date();
+	myDate.setDate(myDate.getDate() - 6570);
 
   const formik = useFormik({
     initialValues: {
@@ -151,7 +180,8 @@ export default function Register() {
       confirmpassword:"",
       zip: "",
       ssn: "",
-      identifyType: 'ssn' || '',
+      
+      date:null
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -162,7 +192,7 @@ export default function Register() {
   
   return (
 <div>
-				<div className={classes.main}>
+				<div className={classes.main} id="main">
 					<Box>
 						<Grid xs={12} container justify="center" alignItems="center">
 							<Grid
@@ -178,11 +208,11 @@ export default function Register() {
 								<Paper className={classes.paper}>
 									
   
-    <Typography className={classes.title} color="textSecondary">
+    <Typography className={classes.title} data-testid="title" color="textSecondary">
                 Sign In help / Register
                </Typography>
-                <p className={classes.subtitle}> Let us help you get signed in another way</p>
-									
+                <p className={classes.subtitle} data-testid="subtitle"> Let us help you get signed in another way</p>
+               
 								<form onSubmit={formik.handleSubmit}>
 									<Grid
 										
@@ -198,10 +228,12 @@ export default function Register() {
                     <TextFieldWithIcon
                   name="firstname"
                   id="firstname"
-                  label="Enter Firstname"
+                  label="Firstname"
+                  placeholder="Enter your firstname"
                   icon="perm_identity"
                   iconColor="#595E6E" 
                   iconPosition="left"
+                  data-testid="textbox"
                   // required={true}
                   value={formik.values.firstname}
                   onChange={formik.handleChange}
@@ -219,7 +251,8 @@ export default function Register() {
                     <TextFieldWithIcon
                               name="lastname"
                               id="lastname"
-                              label="Enter Lastname"
+                              label="Lastname"
+                              placeholder="Enter your lastname"
                               icon="perm_identity"
                               iconColor="#595E6E"
                               iconPosition="left"
@@ -236,14 +269,15 @@ export default function Register() {
                              
                             />
                 </Grid>
-
+                <br></br><br></br><br></br>	
                 <Grid item xs={12} fullWidth={true} direction="row" >
 											
                       <EmailWithIcon
                               
                               id="email"
                               name="email"
-                              label=" Enter Your Email"
+                              label="Email"
+                              placeholder="Enter your email address"
                                 icon="emailIcon"
                                 iconColor="#595E6E"
                                 iconPosition="left"
@@ -254,24 +288,56 @@ export default function Register() {
                               helperText={formik.touched.email && formik.errors.email}
                             />
                       </Grid>
-
+                      <br></br><br></br><br></br>	<br></br>
                       
         <Grid item xs={12} sm={6} direction="row" style={{display:"inline-flex"}}>
          <Grid  style={{paddingTop:"20px", paddingRight:"10px"}}> 
             <Icon >securityIcon</Icon>
           </Grid>
-        <SocialSecurityNumber
+          {/* <FormControl fullWidth={true}>
+          <MuiTheme>
+        
+        <Text
+        label="Social" 
+        name="ssn" 
+        value={formik.values.ssn}
+        onChange={formik.handleChange}
+        
+        onBlur={formik.handleBlur}
+        error={formik.touched.ssn && Boolean(formik.errors.ssn)}
+        helperText={formik.touched.ssn && formik.errors.ssn}
+       >
+         
+         <InputMask mask="999-99-99" maskChar=" " />
+        </Text>
+          
+  </MuiTheme>
+
+
+
+          </FormControl> */}
+         <SocialSecurityNumber
                     name="ssn"
                     label="Social Security Number"
+                    placeholder="Enter your Social Security Number"
                     id="ssn"
                     type="ssn"
                     value={formik.values.ssn}
                     onChange={formik.handleChange}
+                    // onChange={(values) => {
+                    //   console.log(formik.values.ssn)
+                    //  // formik.setFieldValue(event.target.value);
+                    // }}
+                    // onChange={(values) => {
+                    //   formik.setFieldValue("ssn", values);
+                    // }}
                     onBlur={formik.handleBlur}
                     error={formik.touched.ssn && Boolean(formik.errors.ssn)}
                     helperText={formik.touched.ssn && formik.errors.ssn}
-                  />
+                  /> 
+                 
         </Grid>
+
         <Grid item xs={12} sm={6} direction="row" style={{display:"inline-flex"}}>
          <Grid   style={{paddingTop:"20px" , paddingRight:"10px"}}> 
             <Icon >mapIcon</Icon>
@@ -281,8 +347,10 @@ export default function Register() {
                     id="zip"
                     name="zip"
                     label="Zipcode"
+                    placeholder="Enter your zipcode"
                     value={formik.values.zip}
                     onChange={formik.handleChange}
+                    
                     onBlur={formik.handleBlur}
                     error={formik.touched.zip && Boolean(formik.errors.zip)}
                     helperText={formik.touched.zip && formik.errors.zip}
@@ -291,32 +359,39 @@ export default function Register() {
 
         </Grid>
 
+        <br></br><br></br><br></br>	<br></br>
+
         <Grid item xs={12}  direction="row" style={{display:"inline-flex"}}>
          <Grid   style={{paddingTop:"20px" , paddingRight:"10px"}}> 
             <Icon >cakeIcon</Icon>
           </Grid>
         <DatePicker
                  name="date"
-                 label="Date of Birth"
+                 label="Date of Birth" 
                  id="date"
+                 placeholder="DD-MM-YYYY"
                 
                  maxdate={myDate}
-                 // value={formik.values.date}
-                 //  onChange={formik.handleChange}
-                 // onChange={(values) => {
-                 //   formik.setFieldValue("date", values);
-                 // }}
+                  value={formik.values.date}
+                 onChange={(values) => {
+                   formik.setFieldValue("date", values);
+                 }}
                   onBlur={formik.handleBlur}
                  error={formik.touched.date && Boolean(formik.errors.date)}
-                 helperText={formik.touched.date && formik.errors.date}
+                  helperText={formik.touched.date && formik.errors.date}
                
               />
         </Grid>
+        <p id="subtitle" className={classes.dobtitle}>
+                Please ensure your DOB meets the following criteria: Your age must be greater 
+                than or equal to 18 years.               
+                 </p>
 
         <Grid item xs={12} fullWidth={true} direction="row" >
 				 <PasswordWithIcon
 										name="password"
 										label="Confirm Password"
+                    placeholder="Enter your password"
 										icon="lock"
 										iconColor="#595E6E"
 										iconPosition="left"
@@ -331,9 +406,9 @@ export default function Register() {
 									/>
 									</Grid>
 
-              <p id="subtitle" className={classes.subtitle}>
+              <p id="subtitle" className={classes.passwordtitle}>
                 Please ensure your password meets the following criteria: between 8 and 30 characters in length,
-                 at least 1 uppercase letter, at least 1 lowercase letter, and at least 1 number.
+                 at least 1 uppercase letter, at least 1 lowercase letter, at least 1 symbol and at least 1 number.
                  </p>
 
       
@@ -344,6 +419,7 @@ export default function Register() {
 				 <PasswordWithIcon
 										name="confirmpassword"
 										label="Re-enter your Password"
+                    placeholder="Enter your confirm password"
 										icon="lock_openIcon"
 										iconColor="#595E6E"
 										iconPosition="left"
@@ -363,6 +439,7 @@ export default function Register() {
         <Grid item xs={12} >
       <Button
                 type="submit"
+                data-testid="submit"
                 stylebutton='{"background": "", "color":"" }'
                 background="0F4EB3!important"
               >
