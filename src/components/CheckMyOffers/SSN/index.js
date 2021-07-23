@@ -31,7 +31,7 @@ function SSN() {
 		onSubmit: (values) => {
 			// data.zip = values.zip;
 			console.log("finalData:", data);
-			console.log(testing(data));
+			console.log(checkMyOfferSubmit(data));
 			// history.push("/no-offers-available");
 		},
 	});
@@ -180,7 +180,7 @@ function SSN() {
 													? "showMsg space"
 													: "hideMsg space"
 											}>
-												<Checkbox 
+												{/* <Checkbox 
 													name="termsOfService"
 													labelform="Terms & Service"
 													label={
@@ -204,7 +204,7 @@ function SSN() {
 													stylelabelform='{ "color":"" }'
 													stylecheckbox='{ "color":"blue" }'
 													stylecheckboxlabel='{ "color":"" }'
-												/>
+												/> */}
 												</div>
 											</Grid>
 
