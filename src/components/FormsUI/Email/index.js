@@ -12,7 +12,7 @@ import * as yup from "yup";
 import TextField from "@material-ui/core/TextField";
 
 //Initializing EmailWrapper component
-const EmailWrapper = ({ name, suffix, lable, id, ...otherProps }) => {
+const EmailWrapper = ({ name, suffix, lable,materialProps, id, ...otherProps }) => {
 
   //Basic Configuration for Email field
   const configTextfield = {
@@ -55,6 +55,7 @@ const EmailWrapper = ({ name, suffix, lable, id, ...otherProps }) => {
       lable="email"
       type="email"
       // value= {value}
+      InputProps={materialProps}
       onChange={handleChange}
       {...configTextfield}
     />

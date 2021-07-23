@@ -8,10 +8,8 @@ import ZipcodeLogo from "../../../assets/icon/I-Zip-Code.png";
 import { Zipcode as ZipcodeField, Button } from "../../FormsUI";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { CheckMyOffers } from '../../../contexts/CheckMyOffers';
+import { CheckMyOffers } from "../../../contexts/CheckMyOffers";
 import "./zipcode.css";
-
-
 
 const validationSchema = yup.object({
 	zip: yup
@@ -19,25 +17,22 @@ const validationSchema = yup.object({
 		.min(5, "Zipcode should be of minimum 5 characters length")
 		.required("Zipcode is required"),
 });
- 
+
 function Zipcode() {
 	const { data } = useContext(CheckMyOffers);
 	const history = useHistory();
 	console.log(data);
 
-
 	const formik = useFormik({
 		initialValues: {
-			zip: data.zip ? data.zip : '',
-		  },
+			zip: data.zip ? data.zip : "",
+		},
 		validationSchema: validationSchema,
 		onSubmit: (values) => {
 			data.zip = values.zip;
 			history.push("/personal-info");
 		},
 	});
-
-
 
 	return (
 		<div>
@@ -72,7 +67,11 @@ function Zipcode() {
 									</Link>
 								</Grid>
 								<Grid className="liftImage">
-									<img alt="Zipcode" src={ZipcodeLogo} className="spinAnimation" />
+									<img
+										alt="Zipcode"
+										src={ZipcodeLogo}
+										className="spinAnimation"
+									/>
 								</Grid>
 
 								<Typography
@@ -107,7 +106,7 @@ function Zipcode() {
 												id="zip"
 												name="zip"
 												label="zip"
-												materialProps={{"data-testid": "zipcode"}}
+												materialProps={{ "data-testid": "zipcode" }}
 												value={formik.values.zip}
 												onChange={formik.handleChange}
 												onBlur={formik.handleBlur}
@@ -124,16 +123,15 @@ function Zipcode() {
 											xs={12}
 											className="alignButton"
 										>
-						 					<Button
+											<Button
 												type="submit"
 												data-testid="zipcodeCntuButton"
-												stylebutton='{"background": "#0F4EB3", "height": "inherit", "color": "white"}'
-												disabled = { Boolean(formik.errors.zip) || formik.values.zip === '' }
+												stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black"}'
+												disabled={
+													Boolean(formik.errors.zip) || formik.values.zip === ""
+												}
 											>
-												<Typography
-													align="center"
-													className="textCSS whiteText"
-												>
+												<Typography align="center" className="textCSS ">
 													Continue
 												</Typography>
 											</Button>

@@ -13,7 +13,7 @@ import { TextField, InputAdornment, IconButton } from "@material-ui/core";
 
 
 //Initializing component
-const PasswordWrapper = ({ name, label, id, ...otherProps }) => {
+const PasswordWrapper = ({ name, label,materialProps, id, ...otherProps }) => {
   const [showPassword, setShowPassword] = useState({
     password: "",
 });
@@ -34,6 +34,7 @@ const handleClickShowPassword = () => setShowPassword(!showPassword);
 onCut={handleEdit}
 onCopy={handleEdit}
 onPaste={handleEdit}
+InputProps={materialProps}
   InputProps={{ 
     "data-testid": "passProps",
     endAdornment: (

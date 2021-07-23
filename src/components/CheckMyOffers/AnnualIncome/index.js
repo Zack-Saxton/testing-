@@ -5,7 +5,6 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { TextField, Button } from "../../FormsUI";
 import Paper from "@material-ui/core/Paper";
-import {InputAdornment} from "@material-ui/core";
 import AnnualIncomeLogo from "../../../assets/icon/I-Annual-Income.png";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -13,45 +12,40 @@ import { CheckMyOffers } from "../../../contexts/CheckMyOffers";
 import "./annulaIncome.css";
 
 const validationSchema = yup.object({
-	personalIncome: yup
-	.number()
-	.required("Personal Income is required"),
+	personalIncome: yup.number().required("Personal Income is required"),
 	householdIncome: yup
-	.number()
-	.moreThan(yup.ref("personalIncome"),"Should be greater or equal to Personal income")
-	.required("Household Income is required"),
+		.number()
+		.moreThan(
+			yup.ref("personalIncome"),
+			"Should be greater or equal to Personal income"
+		)
+		.required("Household Income is required"),
 });
 
 function NewUser() {
 	const { data } = useContext(CheckMyOffers);
 	const history = useHistory();
 
-
-
-
 	const formik = useFormik({
 		initialValues: {
-			personalIncome: data.personalIncome ? data.personalIncome : '',
-			householdIncome: data.householdIncome ? data.householdIncome : ''
-			// newPassword: data.zip ? data.zip : '',
+			personalIncome: data.annualIncome ?? "",
+			householdIncome: data.householdAnnualIncome ?? "",
 		},
 		validationSchema: validationSchema,
 		onSubmit: (values) => {
-			data.personalIncome = values.personalIncome;
-			data.householdIncome = values.householdIncome;
-			console.log(data);
+			data.annualIncome = parseInt( values.personalIncome ?  values.personalIncome : '0');
+			data.householdAnnualIncome = parseInt( values.householdIncome ?  values.householdIncome : '0') ;
 			history.push("/living-place");
 		},
 	});
 	const onHandleChange = (event) => {
 		const reg = /^[0-9\b]+$/;
 		let acc = event.target.value;
-	 
+
 		if (acc === "" || reg.test(acc)) {
 			formik.handleChange(event);
 		}
-	  }; 
-	
+	};
 
 	return (
 		<div>
@@ -76,9 +70,9 @@ function NewUser() {
 								<div className="progress mt-0">
 									<div
 										id="determinate"
-										className="det58  determinate slantDiv"
+										className="det50  determinate slantDiv"
 									></div>
-									<span class="floatLeft detNum58">58%</span>
+									<span class="floatLeft detNum50">50%</span>
 								</div>
 								<Grid className="floatLeft">
 									<Link to="/employment-status">
@@ -86,9 +80,12 @@ function NewUser() {
 									</Link>
 								</Grid>
 								<Grid className="liftImage">
-									<img alt="AnnualIncome" src={AnnualIncomeLogo} className="spinAnimation" />
+									<img
+										alt="AnnualIncome"
+										src={AnnualIncomeLogo}
+										className="spinAnimation"
+									/>
 								</Grid>
-							
 
 								<Typography
 									variant="h4"
@@ -117,24 +114,56 @@ function NewUser() {
 											xs={12}
 											className="textBlock"
 										>
-											<TextField name="personalIncome" label="Annual Personal Income *" 
-											value={formik.values.personalIncome}
-											onChange={onHandleChange}
-											materialProps={{"data-testid": "personalIncome", "maxLength": "7"}}
-											onBlur={formik.handleBlur}
-											error={formik.touched.personalIncome && Boolean(formik.errors.personalIncome)}
-											helperText={formik.touched.personalIncome && formik.errors.personalIncome}/>
-											<p className="subText" >
-											Do not include income from others in your household. Stated income will be verified on every application. Your personal income must be verifiable via pay stubs, bank statements, or other records. Alimony, child support, or separate maintenance income need not be revealed if you do not wish to have it considered as a basis for repaying this loan.
+											<TextField
+												name="personalIncome"
+												label="Annual Personal Income"
+												value={formik.values.personalIncome}
+												onChange={onHandleChange}
+												materialProps={{
+													"data-testid": "personalIncome",
+													maxLength: "7",
+												}}
+												onBlur={formik.handleBlur}
+												required={true}
+												error={
+													formik.touched.personalIncome &&
+													Boolean(formik.errors.personalIncome)
+												}
+												helperText={
+													formik.touched.personalIncome &&
+													formik.errors.personalIncome
+												}
+											/>
+											<p className="subText">
+												Do not include income from others in your household.
+												Stated income will be verified on every application.
+												Your personal income must be verifiable via pay stubs,
+												bank statements, or other records. Alimony, child
+												support, or separate maintenance income need not be
+												revealed if you do not wish to have it considered as a
+												basis for repaying this loan.
 											</p>
-											<TextField name="householdIncome" label="Annual Household Income *" 
-											value={formik.values.householdIncome}
-											// startAdornment={<InputAdornment position="start">$</InputAdornment>}
-											materialProps={{"data-testid": "annualIncome", "maxLength": "7"}}	
-											onChange={onHandleChange}
-											onBlur={formik.handleBlur}
-											error={formik.touched.householdIncome && Boolean(formik.errors.householdIncome)}
-											helperText={formik.touched.householdIncome && formik.errors.householdIncome}/>
+											<TextField
+												name="householdIncome"
+												label="Annual Household Income"
+												value={formik.values.householdIncome}
+												// startAdornment={<InputAdornment position="start">$</InputAdornment>}
+												materialProps={{
+													"data-testid": "annualIncome",
+													maxLength: "7",
+												}}
+												onChange={onHandleChange}
+												required={true}
+												onBlur={formik.handleBlur}
+												error={
+													formik.touched.householdIncome &&
+													Boolean(formik.errors.householdIncome)
+												}
+												helperText={
+													formik.touched.householdIncome &&
+													formik.errors.householdIncome
+												}
+											/>
 										</Grid>
 										<Grid
 											justify="center"
@@ -148,12 +177,9 @@ function NewUser() {
 											<Button
 												data-testid="contButton"
 												type="submit"
-												stylebutton='{"background": "#0F4EB3", "height": "inherit", "color": "white"}'
+												stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black"}'
 											>
-												<Typography
-													align="center"
-													className="textCSS whiteText"
-												>
+												<Typography align="center" className="textCSS ">
 													Continue
 												</Typography>
 											</Button>

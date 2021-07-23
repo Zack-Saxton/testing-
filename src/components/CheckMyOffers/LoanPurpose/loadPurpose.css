@@ -1,164 +1,164 @@
-.mainDiv{
-    background-color: #124CA8;
-    background-image: linear-gradient(to right, #26436A , #104DB0);
-    min-height: 500px !important;
+.mainDiv {
+	background-color: #124ca8;
+	background-image: linear-gradient(to right, #26436a, #104db0);
+	min-height: 500px !important;
 }
-.cardWOPadding{
-    padding-bottom: 1%;
+.cardWOPadding {
+	padding-bottom: 1%;
 }
-.cardWrapper{
-    margin-top: 5%;
-    margin-bottom: 2%;
+.cardWrapper {
+	margin-top: 5%;
+	margin-bottom: 2%;
 }
-.borrowCSS{
-    margin-top: 4% !important;
-    margin-bottom: 4% !important;
+.borrowCSS {
+	margin-top: 4% !important;
+	margin-bottom: 4% !important;
 }
-.setSlider{
-    margin-bottom: 0% !important;
-}
-
-.alignSlider{
-    margin-bottom: 7% !important;
-    text-align: center;
-}
-.setGreenColor{
-    color: green ;
-}
-.alignButton{
-    margin-top: 5%;
-    margin-bottom: 4%;
+.setSlider {
+	margin-bottom: 0% !important;
 }
 
-.smallText{
-    font-size: .8rem;
-    color: #fff;
-    font-family: 'Muli', sans-serif;
-    font-weight: 300;
+.alignSlider {
+	margin-bottom: 7% !important;
+	text-align: center;
+}
+.setGreenColor {
+	color: green;
+}
+.alignButton {
+	margin-top: 5%;
+	margin-bottom: 4%;
 }
 
-.alignSmallText{
-    margin-bottom: 3%;
-}
-.alignText{
-    color: #595959;
-    font-size: 0.9rem;
-    margin-top: 2%;
+.smallText {
+	font-size: 0.8rem;
+	color: #fff;
+	font-family: "Muli", sans-serif;
+	font-weight: 300;
 }
 
-.alignTextInsideCard{
-    padding-top: 2%;
+.alignSmallText {
+	margin-bottom: 3%;
+}
+.alignText {
+	color: #595959;
+	font-size: 0.9rem;
+	margin-top: 2%;
 }
 
-.slantDiv{
-    transform: skewX(-20deg);
-    margin-left: -3px;
+.alignTextInsideCard {
+	padding-top: 2%;
+}
+
+.slantDiv {
+	transform: skewX(-20deg);
+	margin-left: -3px;
 }
 
 .progress .determinate {
-    background-color: #ffbc25;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    -webkit-transition: width .3s linear;
-    transition: width .3s linear;
+	background-color: #ffbc25;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	-webkit-transition: width 0.3s linear;
+	transition: width 0.3s linear;
 }
 
 .progress {
-    position: relative;
-    display: block;
-    overflow: hidden;
-    width: 100%;
-    height: 4px;
-    margin: .5rem 0 1rem 0;
-    border-radius: 2px;
-    background-color: white;
-    height: 20px;
+	position: relative;
+	display: block;
+	overflow: hidden;
+	width: 100%;
+	height: 4px;
+	margin: 0.5rem 0 1rem 0;
+	border-radius: 2px;
+	background-color: white;
+	height: 20px;
 }
 
 .mt-0 {
-    margin-top: 0 !important;
+	margin-top: 0 !important;
 }
 
-.det1{
-    width:8.333333333333334%;
+.det1 {
+	width: 8.333333333333334%;
 }
 
-.detNum1{
-    padding-left:8.333333333333334%;
-    font-weight: 600;
-    color: #134ca8;
+.detNum1 {
+	padding-left: 8.333333333333334%;
+	font-weight: 600;
+	color: #134ca8;
 }
 
-.activeCard{
-    border: 1px solid #134ba2 !important;
-    box-shadow: 1px 0px 2px #144ba1 !important;
+.activeCard {
+	/* border: 1px solid #134ba2 !important;
+    box-shadow: 1px 0px 2px #144ba1 !important; */
+	background-color: #134ca5 !important;
+	color: white !important;
 }
 
-.block{
-    height: inherit;
-    text-align: center;
-    position: relative;
-    -webkit-transition: box-shadow .25s;
-    transition: box-shadow .25s;
-    border-radius: 2px;
-    background-color: #fff;
-    cursor: pointer;
-    /* box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%) */
+.block {
+	height: inherit;
+	text-align: center;
+	position: relative;
+	-webkit-transition: box-shadow 0.25s;
+	transition: box-shadow 0.25s;
+	border-radius: 2px;
+	background-color: #fff;
+	cursor: pointer;
+	/* box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%) */
 }
 
-.insideBlock{
-    padding: 10%;
-   
+.insideBlock {
+	padding: 10%;
 }
 
-.icon{
-    height: 50px;
-    width: 50px;
+.icon {
+	height: 50px;
+	width: 50px;
 }
 
-.outerblock{
-    padding: 10px;
-    
+.outerblock {
+	padding: 10px;
 }
 
-.blockDiv{
-    padding: 0% 5%;
-    
-    align-items: stretch;
+.blockDiv {
+	padding: 0% 5%;
+
+	align-items: stretch;
 }
 
-.othersBlock{
-    padding: 10px;
+.othersBlock {
+	padding: 10px;
 }
 
-.textCSS{
-    color: #171717;
-    font-size: 1.15rem !important;
-    line-height: 110% !important;
-    margin: .575rem 0 .46rem 0 !important;
-    font-family: 'Muli', sans-serif !important;
-    font-weight: 400 !important;
+.textCSS {
+	color: #171717;
+	font-size: 1.15rem !important;
+	line-height: 110% !important;
+	margin: 0.575rem 0 0.46rem 0 !important;
+	font-family: "Muli", sans-serif !important;
+	font-weight: 400 !important;
 }
 
-.whiteText{
-    color: white !important;
+.whiteText {
+	color: white !important;
 }
 
-.yellowText{
-    color: #ffbc23 !important;
-    margin-left: 10px;
-    font-size: x-large;
-    text-align: left;
+.yellowText {
+	color: #ffbc23 !important;
+	margin-left: 10px;
+	font-size: x-large;
+	text-align: left;
 }
 
-.ContinueButton{
-    margin-top: 2%;
-    margin-bottom: 2%;
-    height: 40px;
+.ContinueButton {
+	margin-top: 2%;
+	margin-bottom: 2%;
+	height: 40px;
 }
 
-.floatLeft{
-    text-align: left;
+.floatLeft {
+	text-align: left;
 }

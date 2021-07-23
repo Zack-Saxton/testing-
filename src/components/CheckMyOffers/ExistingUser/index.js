@@ -16,15 +16,16 @@ import { PasswordField } from "../../FormsUI";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { CheckMyOffers } from "../../../contexts/CheckMyOffers";
-import IconButton from '@material-ui/core/IconButton'
+import IconButton from "@material-ui/core/IconButton";
 
 const validationSchema = yup.object({
-	password: yup.string("Enter your password")
-	// .matches(
-	//   /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,30}$/,
-	//   "Must Contain 8 to 30 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
-	// )
-	.required("Password is required"),
+	password: yup
+		.string("Enter your password")
+		// .matches(
+		//   /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,30}$/,
+		//   "Must Contain 8 to 30 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
+		// )
+		.required("Password is required"),
 });
 
 function ExistingUser() {
@@ -43,7 +44,7 @@ function ExistingUser() {
 	const formik = useFormik({
 		initialValues: {
 			password: "",
-			
+
 			// newPassword: data.zip ? data.zip : '',
 		},
 		validationSchema: validationSchema,
@@ -142,12 +143,10 @@ function ExistingUser() {
 													Boolean(formik.errors.password)
 												}
 												helperText={
-													formik.touched.password &&
-													formik.errors.password
+													formik.touched.password && formik.errors.password
 												}
 												required={true}
 											/>
-								
 										</Grid>
 										<Grid
 											justify="center"
@@ -161,16 +160,12 @@ function ExistingUser() {
 											<Button
 												type="submit"
 												data-testid="contButton"
-												stylebutton='{"background": "#0F4EB3", "height": "inherit", "color": "white"}'
+												stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black"}'
 											>
-												<Typography
-													align="center"
-													className="textCSS whiteText"
-												>
+												<Typography align="center" className="textCSS ">
 													Sign In
 												</Typography>
 											</Button>
-											
 										</Grid>
 										<Grid
 											justify="left"

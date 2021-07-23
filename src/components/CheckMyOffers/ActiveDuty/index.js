@@ -23,12 +23,12 @@ function ActiveDuty() {
   
     const formik = useFormik({
     initialValues: {
-        activeDuty: data.activeDuty ? data.activeDuty : '',
+        activeDuty: data.militaryActiveDuty ?? '',
         },
     validationSchema: validationSchema,
     onSubmit: (values) => {
         console.log("im working")
-        data.activeDuty = values.activeDuty;
+        data.militaryActiveDuty = values.activeDuty;
         history.push("/marital-status");
     },
 	});
@@ -75,8 +75,8 @@ function ActiveDuty() {
                                     </Grid>
                                     
                                     <Grid item lg={8} md={8} xs={12} className="alignButton" >
-                                        <Button type='submit' data-testid="contButton" stylebutton='{"background": "#0F4EB3", "height": "inherit", "color": "white"}' >
-                                        <Typography  align="center" className="textCSS whiteText" >  
+                                        <Button type='submit' data-testid="contButton" stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black"}' >
+                                        <Typography  align="center" className="textCSS " >  
                                               Continue
                                             </Typography>
                                         </Button>

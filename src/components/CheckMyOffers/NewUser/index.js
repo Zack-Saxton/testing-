@@ -16,27 +16,28 @@ import { PasswordField } from "../../FormsUI";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { CheckMyOffers } from "../../../contexts/CheckMyOffers";
-import IconButton from '@material-ui/core/IconButton'
+import IconButton from "@material-ui/core/IconButton";
 
 const validationSchema = yup.object({
-	newPassword: yup.string("Enter your password")
-	.matches(
-	  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,30}$/,
-	  "Invalid Password"
-	)
-	.required("Password is required"),
-	
-   
+	newPassword: yup
+		.string("Enter your password")
+		.matches(
+			/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,30}$/,
+			"Invalid Password"
+		)
+		.required("Password is required"),
+
 	confirmPassword: yup
-	.string()
-	.required("Please confirm your password")
-	.when("newPassword", {
-	  is: newPassword => (newPassword && newPassword.length > 0 ? true : false),
-	  then: yup.string().oneOf([yup.ref("newPassword")], "Password doesn't match")
-	}),
+		.string()
+		.required("Please confirm your password")
+		.when("newPassword", {
+			is: (newPassword) =>
+				newPassword && newPassword.length > 0 ? true : false,
+			then: yup
+				.string()
+				.oneOf([yup.ref("newPassword")], "Password doesn't match"),
+		}),
 });
-
-
 
 function NewUser() {
 	const { data } = useContext(CheckMyOffers);
@@ -54,7 +55,7 @@ function NewUser() {
 	const formik = useFormik({
 		initialValues: {
 			newPassword: "",
-			confirmPassword: ""
+			confirmPassword: "",
 			// newPassword: data.zip ? data.zip : '',
 		},
 		validationSchema: validationSchema,
@@ -157,7 +158,7 @@ function NewUser() {
 												}
 												required={true}
 											/>
-											<p className="subText" >
+											<p className="subText">
 												Please ensure your password meets the following
 												criteria: between 8 and 30 characters in length, at
 												least 1 uppercase letter, at least 1 lowercase letter,
@@ -194,12 +195,9 @@ function NewUser() {
 											<Button
 												type="submit"
 												data-testid="contButton"
-												stylebutton='{"background": "#0F4EB3", "height": "inherit", "color": "white"}'
+												stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black"}'
 											>
-												<Typography
-													align="center"
-													className="textCSS whiteText"
-												>
+												<Typography align="center" className="textCSS ">
 													Sign In
 												</Typography>
 											</Button>

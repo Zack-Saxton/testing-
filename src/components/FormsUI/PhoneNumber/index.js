@@ -7,7 +7,6 @@ Functionality       :    To use this component for having Phone Number
 #################################################################################################################*/
 
 import React, { useState } from "react";
-import { useField } from "formik";
 import {
   ThemeProvider as MuiThemeProvider,
   createMuiTheme,
@@ -16,55 +15,52 @@ import TextField from "@material-ui/core/TextField";
 import InputMask from "react-input-mask";
 import FormControl from "@material-ui/core/FormControl";
 import PropTypes from "prop-types";
-import { Phone } from "@material-ui/icons";
 
 const theme = createMuiTheme();
-const PhoneNumberWrapper = ({ name, ...otherProps }) => {
+const PhoneNumberWrapper = ({ name, onChange, value, label, error, helperText, ...otherProps }) => {
   //Set Formik field
   // const [field, mata] = useField(name);
-  const[unMaskedVal, setUnMaskedVal] = useState('');
+  const[unMaskedVal, setUnMaskedVal] = useState(value);
+  console.log("phonenumber:", value);
 
-  //Configuring the field with properties
-  const configTextfield = {
-    name: name,
-    ...otherProps,
-    fullWidth: true,
-  };
 
   const handleChange = (e) => {
-    const value =
+    onChange(e);
+    const tempVal =
     e.target.value
       .replace(/-/g, "")
       .replace(/\)/g, "")
       .replace(/\(/g, "")
       .replace(/ /g, "") || "";
-  // setFieldValue("ssn", value);
-  setUnMaskedVal(value);
+  setUnMaskedVal(tempVal);
+ 
   }
-
-  //Validation part
-  // configTextfield.error = (mata && mata.touched && mata.error) ? true :  configTextfield.error ?? false;
-  // configTextfield.helperText = (mata && mata.touched && mata.error) ? mata.error : configTextfield.helperText ?? '';
 
 
   return (
     <FormControl fullWidth={true}>
-      <MuiThemeProvider theme={theme}>
-        <InputMask
-          fullWidth={true}
-          mask="1 - (999) 999 9999"
-          value={unMaskedVal}
-          name={name}
-          disabled={false}
-          maskChar=" "
-          onChange={handleChange}
-          data-testid="phone"
-          {...otherProps}
-          // {...field}
-        >
-          {() => <TextField label="Enter Phone Number" value={unMaskedVal} name={name} inputProps={{"data-testid": "phone", "unmaskedval": unMaskedVal}}/>}
-        </InputMask>
-      </MuiThemeProvider>
+      
+    <MuiThemeProvider theme={theme}>
+      <InputMask
+        fullWidth={true}
+        mask="1 - (999) 999 9999"
+        value={value}
+        name={name}
+        onChange={handleChange}
+        data-testid="phone"
+        disabled={false}
+        maskChar=" "
+        {...otherProps}
+      >
+        {() => <TextField label={label} 
+        name={name} 
+       
+        error={error} 
+        placeholder="Enter Phone Number"
+        helperText={helperText}
+         inputProps={{"data-testid": "phone", "unmaskedval": unMaskedVal}}/>}
+      </InputMask>
+    </MuiThemeProvider> 
     </FormControl>
   );
 };
