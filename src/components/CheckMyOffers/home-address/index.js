@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
@@ -32,6 +32,7 @@ const validationSchema = yup.object({
 
 function HomeAddress() {
 	const { data, setData } = useContext(CheckMyOffers);
+	const [stateShort, setStateShort] = useState('');
 
 	const history = useHistory();
 	// console.log(data);
@@ -48,7 +49,7 @@ function HomeAddress() {
 		onSubmit: (values) => {
 			data.streetAddress = values.streetAddress;
 			data.city = values.city;
-			data.state = values.state;
+			data.state = stateShort;
 			data.zip = values.zip;
 			history.push("/personal-info");
 		},
@@ -63,11 +64,13 @@ function HomeAddress() {
 						console.log("result", result.places[0]["place name"]);
 						formik.setFieldValue("city", result.places[0]["place name"]);
 						formik.setFieldValue("state", result.places[0]["state"]);
+						setStateShort(result.places[0]['state abbreviation']);
 					}
 					else
 					{
 						formik.setFieldValue("city", '');
 						formik.setFieldValue("state", '');
+						setStateShort('');
 					}
 				},
 				(error) => {

@@ -31,7 +31,15 @@ function LivingPlace() {
 				setError(false);
 				setHelperText("");
 				data.homeOwnership = livingPlace;
-				history.push("/active-duty");
+				if (data.state === 'NC'){
+					history.push("/active-duty")
+				}
+				else if (data.state === 'WI'){
+					history.push("/marital-status")
+				}
+				else{
+					history.push("/ssn")
+				}
 			} else {
 				// alert("Enter Anual income");
 				setError(true);
@@ -42,11 +50,11 @@ function LivingPlace() {
 			setHelperText("");
 			// alert(employmentStatus);
 			data.homeOwnership = livingPlace;
-			data.state === 'North Carolina' ? history.push("/active-duty") : history.push("/marital-status");
-			if (data.state === 'North Carolina'){
+			// data.state === 'North Carolina' ? history.push("/active-duty") : history.push("/marital-status");
+			if (data.state === 'NC'){
 				history.push("/active-duty")
 			}
-			else if (data.state === 'Wisconsin'){
+			else if (data.state === 'WI'){
 				history.push("/marital-status")
 			}
 			else{

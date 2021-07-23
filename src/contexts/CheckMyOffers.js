@@ -37,6 +37,7 @@ const CheckMyOffersContext = (props) => {
 		consent_electronic_communication: "",
 		consent_privacy_policy: "",
 		consent_terms_of_use: "",
+		militaryActiveDutyRank: ""
 	});
 	const formikField = useFormik({
 		initialValues: {

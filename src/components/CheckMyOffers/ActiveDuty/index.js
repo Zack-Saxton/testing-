@@ -15,6 +15,13 @@ const validationSchema = yup.object({
 	activeDuty: yup
 		.string("Enter your Zip")
 		.required("Select Active duty status"),
+    activeDutyRank: yup
+		.string()
+		.when("activeDuty", {
+			is: "Yes",
+			then: yup.string().required("Active duty rank is required"),
+		})
+
 });
 
 function ActiveDuty() {
@@ -24,12 +31,14 @@ function ActiveDuty() {
     const formik = useFormik({
     initialValues: {
         activeDuty: data.militaryActiveDuty ?? '',
+        activeDutyRank: data.militaryActiveDutyRank ?? '',
         },
     validationSchema: validationSchema,
     onSubmit: (values) => {
         console.log("im working")
         data.militaryActiveDuty = values.activeDuty;
-        history.push("/marital-status");
+        data.militaryActiveDutyRank = values.activeDutyRank;
+        history.push("/ssn");
     },
 	});
     console.log("formik value", formik.values.activeDuty);
@@ -71,6 +80,20 @@ function ActiveDuty() {
 											onBlur={formik.handleBlur}
 											error={formik.touched.activeDuty && Boolean(formik.errors.activeDuty)}
 											helperText={formik.touched.activeDuty && formik.errors.activeDuty}
+                                        />
+                                    </Grid>
+                                    <Grid justify="center" className={formik.values.activeDuty === 'Yes' ? "showMsg space" : "hideMsg space"} alignItems="center" item lg={8} md={8} xs={12} >
+                                       {/* Code Here */}
+                                       <Select
+                                       fullWidth= {true}
+                                            name="activeDutyRank"
+                                            labelform="Active duty rank *"
+                                            select='[{"value":"E4 and below"}, {"value":"E5 and above"}]'
+                                            value={formik.values.activeDutyRank}
+											onChange={formik.handleChange}
+											onBlur={formik.handleBlur}
+											error={formik.touched.activeDutyRank && Boolean(formik.errors.activeDutyRank)}
+											helperText={formik.touched.activeDutyRank && formik.errors.activeDutyRank}
                                         />
                                     </Grid>
                                     

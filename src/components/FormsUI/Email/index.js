@@ -55,7 +55,7 @@ const EmailWrapper = ({ name, suffix, lable,materialProps, id, ...otherProps }) 
       lable="email"
       type="email"
       // value= {value}
-      InputProps={materialProps}
+      inputProps={materialProps}
       onChange={handleChange}
       {...configTextfield}
     />
