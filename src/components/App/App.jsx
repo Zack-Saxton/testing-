@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { BrowserRouter, Route, Switch, Redirect} from 'react-router-dom'
 import "./app.css";
 import AccountOverview from "../Pages/AccountOverview/AccountOverview"
+import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory"
 import ApplyLoan from "../Pages/ApplyLoan/ApplyLoan"
 import LoanHistory  from "../Pages/LoanHistory/LoanHistory"
 import MakePayment from "../Pages/MakePayment/MakePayment"
@@ -91,6 +92,7 @@ function App() {
           <PostLogin>
             <Switch>
               <Route path='/customer/accountoverview' exact component={AccountOverview} />
+              <Route path='/customer/paymenthistory' component={PaymentHistory} />
               <Route path='/customer/applyloan' component={ApplyLoan} />
               <Route path='/customer/loandocument' component={LoanDocument} />
               <Route path='/customer/loanhistory' component={LoanHistory} />
