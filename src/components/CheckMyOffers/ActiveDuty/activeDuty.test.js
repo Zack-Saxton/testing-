@@ -20,7 +20,7 @@ import '@testing-library/jest-dom';
       							
     ); 
  
-    const input = container.getByTestId('selectBox');
+    const input = container.getByTestId('ADselect');
     expect(input).toBeTruthy();
     const button = container.getByTestId('contButton');
     expect(button).toBeTruthy();
@@ -67,7 +67,7 @@ import '@testing-library/jest-dom';
  
      fireEvent.click(listbox.getByText(/Yes/i));
  
-     const input = container.getByTestId('selectInput');
+     const input = container.getByTestId('ADinput');
      expect(input.value).toBe("Yes");
  
   });

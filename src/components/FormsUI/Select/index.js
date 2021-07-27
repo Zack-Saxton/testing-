@@ -21,7 +21,10 @@ const SelectWrapper = ({
 	required,
 	select, 
 	labelform,
+	selectTestID,
+	inputTestID,
 	value,
+	onChange,
 	helperText,
 	...otherProps
 }) => {
@@ -90,7 +93,7 @@ const SelectWrapper = ({
 	return (
 		<FormControl {...configFormControl}>
 			<InputLabel>{labelform}</InputLabel>
-			<Select {...configSelect} name={name} value={value} MenuProps={MenuProps} data-testid= "selectBox" inputProps={{"data-testid": "selectInput"}}>
+			<Select {...configSelect} name={name} value={value} onChange={onChange} MenuProps={MenuProps} data-testid= { selectTestID ?? "selectBox" } inputProps={{"data-testid": inputTestID ?? "selectInput"}}>
 				{selectMF.map((nam) => (
 					<MenuItem key={nam.value} value={nam.value}>
 						<option value={nam.value}>{nam.value}</option>

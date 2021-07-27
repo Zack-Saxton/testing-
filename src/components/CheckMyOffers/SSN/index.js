@@ -3,39 +3,50 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { SocialSecurityNumber, Button, Checkbox } from "../../FormsUI";
 import Paper from "@material-ui/core/Paper";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 import SSNLogo from "../../../assets/icon/I-SSN.png";
 import { useFormik, Formik } from "formik";
 import * as yup from "yup";
 import { CheckMyOffers } from "../../../contexts/CheckMyOffers";
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 import "../checkMyOffer.css";
 import {
 	checkMyOfferSubmit,
 	testing,
 } from "../../controllers/checkMyOffersController";
 
-const validationSchema = yup.object({
-	zip: yup.boolean().required("Zipcode is required"),
-}); 
 
 function SSN() {
 	const { data } = useContext(CheckMyOffers);
 	const history = useHistory();
+	const [agree, setAgree] = useState();
+	const [delaware, serDelaware] = useState();
+	const [open, setOpen] = useState(false);
 
-	const formik = useFormik({
-		initialValues: {
-			zip: data.zip ? data.zip : "",
-		},
-		// validationSchema: validationSchema,
-		onSubmit: (values) => {
-			// data.zip = values.zip;
-			console.log("finalData:", data);
-			console.log(checkMyOfferSubmit(data));
-			// history.push("/no-offers-available");
-		},
-	});
+	const handleClickOpen = () => {
+	  setOpen(true);
+	};
+	const handleClose = () => {
+	  setOpen(false);
+	};
 
+	const handleOnClick = (event) => {
+		console.log("finalData:", data);
+		console.log(checkMyOfferSubmit(data));
+		setAgree(false);
+		console.log(agree);
+	}
+console.log(agree);
 	return (
 		<div>
 			<div className="mainDiv">
@@ -62,7 +73,7 @@ function SSN() {
 								</div>
 								<Grid className="floatLeft">
 									
-									<Link to= {data.state === 'Wisconsin' ? "/marital-status" : data.state === 'North Carolina' ? '/active-duty' : 'living-place'}>
+									<Link to= {data.state === 'WI' ? "/marital-status" : data.state === 'NC' ? '/active-duty' : 'living-place'}>
 										<i class="material-icons dp48 yellowText  ">arrow_back</i>
 									</Link>
 								</Grid>
@@ -79,8 +90,7 @@ function SSN() {
 								>
 									One last step
 								</Typography>
-								<Formik>
-									<form onSubmit={formik.handleSubmit}>
+							
 										<Grid
 											md={12}
 											className="blockDiv"
@@ -129,10 +139,13 @@ function SSN() {
 												<Checkbox
 													name="termsOfService"
 													labelform="Terms & Service"
+													value= {agree}
+													onChange={(e) => { setAgree(e.target.value) }}
 													label={
 														<p className="agreeText">
 															By clicking this box you acknowledge that you have
 															received, reviewed and agree to the
+															<br />
 															<a
 																className="formatURL"
 																href={
@@ -142,6 +155,7 @@ function SSN() {
 																{" "}
 																E-Signature Disclosure and Consent,{" "}
 															</a>
+															<br />
 															<a
 																className="formatURL"
 																href={
@@ -150,6 +164,7 @@ function SSN() {
 															>
 																Credit and Contact Authorization,{" "}
 															</a>
+															<br />
 															<a
 																className="formatURL"
 																href={
@@ -158,6 +173,7 @@ function SSN() {
 															>
 																Website Terms of Use,{" "}
 															</a>
+															<br />
 															<a
 																className="formatURL"
 																href={
@@ -174,37 +190,30 @@ function SSN() {
 													stylecheckboxlabel='{ "color":"" }'
 												/>
 												<div className={
-												data.state === "Delaware" 
+												data.state === "DE" 
 												
 													
 													? "showMsg space"
-													: "hideMsg space"
+													// : "hideMsg space"
+													: "showMsg space"
+
 											}>
-												{/* <Checkbox 
-													name="termsOfService"
-													labelform="Terms & Service"
+												<Checkbox 
+													name="delaware"
+													labelform="delaware"
 													label={
 														<p className="agreeText">
-															By clicking this box you acknowledge that you have received and reviewed the
-															<a
-																className="formatURL"
-																href={
-																	"https://loans.marinerfinance.com/application/form"
-																}
-															>
-																{" "}
+															By clicking this box you acknowledge that you have received and reviewed the {" "}
+														
+															<span className="linkText" onClick={handleClickOpen}>
 																Delaware Itemized Schedule Of Charges.,{" "}
-															</a>
-															
-															
-															
+															</span>
 														</p>
 													}
-													required={true}
 													stylelabelform='{ "color":"" }'
 													stylecheckbox='{ "color":"blue" }'
 													stylecheckboxlabel='{ "color":"" }'
-												/> */}
+												/>
 												</div>
 											</Grid>
 
@@ -218,22 +227,99 @@ function SSN() {
 												className="textBlockWithLessMargin alignButtonExtra alignButton"
 											>
 												<Button
-													type="submit"
+													onClick={handleOnClick}
 													stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black"}'
 												>
 													<Typography align="center" className="textCSS ">
-														Continue
+														Check My Offer
 													</Typography>
 												</Button>
 											</Grid>
 										</Grid>
-									</form>
-								</Formik>
+								
 							</Paper>
 						</Grid>
 					</Grid>
 				</Box>
 			</div>
+			<Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
+				<DialogTitle id="customized-dialog-title" onClose={handleClose}>
+				Delware Itemized Shedule of Charges
+				</DialogTitle>
+				<DialogContent dividers>
+				<Typography align="center" className="textCSS modalText"> Itemized Schedule of Charges (DE) </Typography>
+				<Typography align="center" className="textCSS modalText"> Closed End Loans </Typography>
+				<TableContainer component={Paper}>
+      <Table  aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell align="center" className="tableHeader">Description</TableCell>
+            <TableCell align="center" className="tableHeader">Fee</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+         
+            <TableRow>
+              <TableCell align="center"> Periodic Interest </TableCell>
+              <TableCell align="center">0.00% - 36.00%</TableCell>
+            </TableRow>
+			<TableRow>
+              <TableCell align="center"> Recording/Satisfaction Fee </TableCell>
+              <TableCell align="center">$23 - 151</TableCell>
+            </TableRow>
+			<TableRow>
+              <TableCell align="center"> Legal Fee </TableCell>
+              <TableCell align="center">Actual cost Incurred</TableCell>
+            </TableRow>
+			<TableRow>
+              <TableCell align="center"> Repossession Fee </TableCell>
+              <TableCell align="center">Actual cost Incurred</TableCell>
+            </TableRow>
+			<TableRow>
+              <TableCell align="center"> Late Fee </TableCell>
+              <TableCell align="center">5% of Unpaid Installment</TableCell>
+            </TableRow>
+			<TableRow>
+              <TableCell align="center"> Bad Check Fee </TableCell>
+              <TableCell align="center">$15</TableCell>
+            </TableRow>
+			<TableRow>
+              <TableCell align="center"> Check by Phone Fee </TableCell>
+              <TableCell align="center">$6</TableCell>
+            </TableRow>
+			<TableRow>
+              <TableCell align="center"> Internet Payment Fee </TableCell>
+              <TableCell align="center">$2</TableCell>
+            </TableRow>
+			<TableRow>
+              <TableCell align="center"> Loan by Mail Commitment Fee </TableCell>
+              <TableCell align="center">$10</TableCell>
+            </TableRow>
+			<TableRow>
+              <TableCell align="center"> Refinancing Fee </TableCell>
+              <TableCell align="center">$150</TableCell>
+            </TableRow>
+			<TableRow>
+              <TableCell align="center"> Non-Filing Insurance </TableCell>
+              <TableCell align="center">$25</TableCell>
+            </TableRow>
+        </TableBody>
+      </Table>
+    </TableContainer>
+				
+				</DialogContent>
+				<DialogActions className="modalAction">
+				<Button
+					stylebutton='{"background": "#FFBC23", "color": "black", "border-radius": "50px"}'
+					onClick={handleClose}
+					className="modalButton"
+				>
+					<Typography align="center">
+						Ok
+					</Typography>
+				</Button>
+				</DialogActions>
+			</Dialog>
 		</div>
 	);
 }

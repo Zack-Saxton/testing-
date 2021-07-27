@@ -44,10 +44,10 @@ import { BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
                                    
      ); 
   
-    const input = container.getByTestId('zipcodeCntuButton');
+    const input = container.getByTestId('homeAddressCntBtn');
     expect(input).toBeTruthy();
     // expect(input.value).toBe('');
-    expect(input.hasAttribute('disabled')).toBe(true);
+    expect(input.hasAttribute('disabled')).toBe(false);
  
   });
 
@@ -61,7 +61,7 @@ import { BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
                                    
      ); 
   
-    const button = container.getByTestId('zipcodeCntuButton');
+    const button = container.getByTestId('homeAddressCntBtn');
     const input = container.getByTestId('zipcode');
     fireEvent.change(input, { target: { value: "abc" } });
     expect(input.value).toBe('');

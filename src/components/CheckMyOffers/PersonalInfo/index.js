@@ -12,6 +12,7 @@ import React, { useState, useContext } from "react";
 import PersonLogo from "../../../assets/icon/I-Personal-Info.png";
 import { useHistory, Link } from "react-router-dom";
 import TextField1 from "@material-ui/core/TextField";
+import { format } from "date-fns";
 import { CheckMyOffers } from "../../../contexts/CheckMyOffers";
 import {
 	TextField,
@@ -42,7 +43,7 @@ const validationSchema = yup.object({
 		.string("Enter your email")
 		.email("Email should be as (you@example.com)")
 		.matches(
-			/^[a-zA-Z](([^<>()|?{}=/+'[\]\\.,;:#!$%^&*_-\s@\"]+(\.[^<>()|?{}=/+'[\]\\.,;:#!$%^&*_-\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+			/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
 			"Invalid Email"
 		)
 		.required("Email is required"),
@@ -92,9 +93,10 @@ function PersonalInfo() {
 			data.lastName = values.lastName;
 			data.email = values.email;
 			data.phone = values.phone;
-			data.date = values.date;
+			data.date = format(values.date, "dd-MM-yyyy"); 
 			data.ssn = values.ssn.replace(/-/g, "").replace(/ /g, "") || "";
-			data.phone = values.phone.replace(/-/g, "").replace(/\)/g, "").replace(/\(/g, "").replace(/ /g, "") || "";
+			var phone = values.phone.replace(/-/g, "").replace(/\)/g, "").replace(/\(/g, "").replace(/ /g, "") || "";
+			data.phone = phone.slice(1);
 			data.dob = values.date;
 			console.log(data);
 
@@ -103,6 +105,16 @@ function PersonalInfo() {
 	});
 	var myDate = new Date();
 	myDate.setDate(myDate.getDate() - 6570);
+
+	const onNameChange = (event) => {
+		// const reg = /[a-zA-Z]+[ ]{0,1}[']{0,1}/;
+		const reg = /^[a-zA-Z\b]+$/;
+		let acc = event.target.value;
+	   
+		if (acc === "" || reg.test(acc)) {
+		  formik.handleChange(event);
+		}
+		};
 	return (
 		<div>
 			<div className="mainDiv">
@@ -171,9 +183,9 @@ function PersonalInfo() {
 												name="firstName"
 												label="First Name"
 												required={true}
-												materialProps={{ maxlength: "30" }}
+												materialProps={{ "maxlength": "30" }}
 												value={formik.values.firstName}
-												onChange={formik.handleChange}
+												onChange={onNameChange}
 												onBlur={formik.handleBlur}
 												error={
 													formik.touched.firstName &&
@@ -214,9 +226,9 @@ function PersonalInfo() {
 												name="lastName"
 												label="Last Name"
 												required={true}
-												materialProps={{ maxlength: "30" }}
+												materialProps={{ "maxlength": "30" }}
 												value={formik.values.lastName}
-												onChange={formik.handleChange}
+												onChange={onNameChange}
 												onBlur={formik.handleBlur}
 												error={
 													formik.touched.lastName &&
@@ -297,6 +309,7 @@ function PersonalInfo() {
 												required={true}
 												label="Email"
 												value={formik.values.email}
+												materialProps={{"maxLength": "100"}}
 												onChange={formik.handleChange}
 												onBlur={formik.handleBlur}
 												error={

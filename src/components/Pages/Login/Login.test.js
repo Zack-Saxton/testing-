@@ -56,7 +56,7 @@ import { BrowserRouter } from 'react-router-dom';
           <Login />
         </Router>
       )
-  const inputEl = screen.getByLabelText("Enter Your Email");
+  const inputEl = screen.getByLabelText("Email *");
   expect(inputEl).toBeTruthy();
   expect(inputEl.hasAttribute('name')).toBe(true);
 
@@ -72,11 +72,11 @@ test('pass valid email to test email input field', () => {
         </Router>
       )
  
-      const inputEl = screen.getByLabelText("Enter Your Email");
+      const inputEl = screen.getByLabelText("Email *");
       //userEvent.type(inputEl, "test@mail.com");
       fireEvent.change(inputEl, { target: { value: "test@mail.com" } });
       expect(inputEl.value).toBe('test@mail.com');
-    expect(screen.getByLabelText("Enter Your Email")).toHaveValue("test@mail.com");
+    expect(screen.getByLabelText("Email *")).toHaveValue("test@mail.com");
     expect(screen.queryByLabelText("error-msg")).not.toBeInTheDocument();
   });
   
@@ -90,7 +90,7 @@ test('pass valid email to test email input field', () => {
         </Router>
       )
 
-      const inputEl = screen.getByLabelText("Enter your Password");
+      const inputEl = screen.getByLabelText("Password *");
       expect(inputEl).toBeTruthy();
       expect(inputEl.hasAttribute('name')).toBe(true);
  

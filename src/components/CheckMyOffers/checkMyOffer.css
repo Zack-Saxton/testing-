@@ -165,6 +165,18 @@
     display: none;
 }
 
+.showError{
+    display: block;
+    color: red;
+    text-align: left;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.hideError{
+    display: none;
+
+}
 
 .slantDiv{
     transform: skewX(-20deg);
@@ -399,6 +411,7 @@ text-align: left;
 .formatURL{
     color: blue;
     text-align: justify;
+    text-decoration: none;
 }
 
 .textBlockShort{
@@ -418,4 +431,34 @@ text-align: left;
 }
 .cursorPointer{
     cursor: pointer;
+}
+
+.modalAction{
+    text-align: right;
+}
+
+.modalButton{
+    width: 10% !important;
+    border-radius: 10%;
+}
+
+.linkText{
+    color:blue;
+    font-weight: 500;
+}
+
+.tableHeader{
+    background-color: #154BA1;
+    color: #FFBC25 !important;
+    font-weight: 700 !important;
+}
+
+.MuiTableCell-root{
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+
+.modalText{
+    margin-bottom: 7px !important;
+    margin-top: 7px !important;
 }

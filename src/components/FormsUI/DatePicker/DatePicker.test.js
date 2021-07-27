@@ -13,19 +13,11 @@ import { format } from "date-fns";
    expect(input).toBeTruthy();
    var date = new Date();
    var formattedDate = format(date, "dd-MM-yyyy");
-   expect(input.value).toBe(formattedDate);
+   expect(input.value).toBe('');
  });
 
 
- test('Check Change input', () => {
-  const container = render(										
-   <DatePicker name="date" defaultDate={new Date()}/>);
 
-  const input = container.getByTestId('datePicker');
-  var date = new Date();
-  var formattedDate = format(date, "dd-MM-yyyy");
-  expect(input.value).toBe(formattedDate);
-});
 
 test('should match the snapshot', () => {
   const { asFragment } = render(<DatePicker name="date" defaultDate={new Date()}/>)

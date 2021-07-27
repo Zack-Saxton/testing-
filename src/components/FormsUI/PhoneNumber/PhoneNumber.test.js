@@ -29,10 +29,10 @@ test('Accept only 10 digits as phone number', () => {
   const container = render(										
  <PhoneNumber name="mobile" />);
 
-  const input = container.getByTestId('phone');
+ const input = container.getByTestId('phone');
 
-  fireEvent.change(input, { target: { value: "1234567800124334234232" } });
-  expect(input).toHaveAttribute('unmaskedval', '12345678001');
+ fireEvent.change(input, { target: { value: "1234567800111" } });
+ expect(input).toHaveAttribute('unmaskedval', '12345678001');
 });
 
 test('should match the snapshot', () => {

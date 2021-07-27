@@ -1,9 +1,4 @@
-
-export function testing(formData) {
-  return formData;
-} 
-
-export async function checkMyOfferSubmit(formData) {
+export const submitApplication = async (formData) => {
     //result - to store the result from api call, token - auth token, leggedIn
     let result, token, loggedIn;
     //response - get the required data from result
@@ -70,7 +65,7 @@ export async function checkMyOfferSubmit(formData) {
             'employer_phone_number': formData?.employmentPhoneNumber,
             'tenure_at_employer': formData.yearsAtEmployers,
             "military_active_duty": formData.militaryActiveDuty,
-            "active_duty_rank": formData.militaryActiveDutyRank,
+            // "active_duty_rank": req.body.application.activeDutyRank,
             'marital_status': formData.maritalStatus,
             'spouse_address_city': formData.spouse_address_city,
             'spouse_address_postal_code': formData.spouse_address_postal_code,
@@ -188,7 +183,7 @@ export async function checkMyOfferSubmit(formData) {
 				},
 			});
       result = await result.json();
-      console.log("Request", body);
+
       console.log("API Result: ", result);
 
       if (result && result.data && result.data.applicantStatus) {
@@ -209,4 +204,40 @@ export async function checkMyOfferSubmit(formData) {
     return response;
   };
 
+  const data = {
+    loanAmount: 1500,
+    term: 5,
+    offerCode: 'OFF50',
+    citizenship: 'USA Citizen',
+    zip: '60193',
+    loanPurpose: 'Vacation',
+    firstName: 'Vicky',
+    lastName: 'KG',
+    fullName: 'Vicky KG',
+    phone: '987654321',
+    email: 'vignesh.kg@zucisystems.com',
+    dob: '01/01/1998',
+    employmentStatus: 'Employed Salaried',
+    yearsAtEmployers: 4,
+    householdAnnualIncome: 2000,
+    annualIncome: 1000,
+    maritalStatus: 'Unmarried',
+    spouse_address_street: '', 
+    spouse_address_city: '',
+    spouse_address_postal_code: '',
+    spouse_address_state: '',
+    streetAddress: '40 Stanley Avenue',
+    city: 'Schaumburg',
+    state: 'Illinois',
+    ssn: '778-62-8144',
+    homeOwnership: 'Own a Home with no Mortgage',
+    rentMortageAmount: 400,
+    militaryActiveDuty: 'No',
+    consent_credit_contact_auth: true,
+    consent_electronic_communication: true,
+    consent_privacy_policy: true,
+    consent_terms_of_use: true
+
+  };
+  submitApplication(data);
 

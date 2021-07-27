@@ -80,6 +80,8 @@ function ActiveDuty() {
 											onBlur={formik.handleBlur}
 											error={formik.touched.activeDuty && Boolean(formik.errors.activeDuty)}
 											helperText={formik.touched.activeDuty && formik.errors.activeDuty}
+                                            inputTestID = "ADinput"
+                                            selectTestID = "ADselect"
                                         />
                                     </Grid>
                                     <Grid justify="center" className={formik.values.activeDuty === 'Yes' ? "showMsg space" : "hideMsg space"} alignItems="center" item lg={8} md={8} xs={12} >

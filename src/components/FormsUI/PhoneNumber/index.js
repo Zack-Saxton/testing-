@@ -25,7 +25,10 @@ const PhoneNumberWrapper = ({ name, onChange, value, label, error, helperText, .
 
 
   const handleChange = (e) => {
-    onChange(e);
+    if(onChange){
+      onChange(e);
+    }
+    
     const tempVal =
     e.target.value
       .replace(/-/g, "")

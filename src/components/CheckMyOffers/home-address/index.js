@@ -9,6 +9,10 @@ import AddressLogo from "../../../assets/icon/I-Address.png";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { CheckMyOffers } from "../../../contexts/CheckMyOffers";
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
 import "../checkMyOffer.css";
 
 const validationSchema = yup.object({
@@ -33,9 +37,26 @@ const validationSchema = yup.object({
 function HomeAddress() {
 	const { data, setData } = useContext(CheckMyOffers);
 	const [stateShort, setStateShort] = useState('');
+	const [validZip, setValidZip] = useState(true);
+	const [open, setOpen] = React.useState(false);
+	const [openOhio, setOpenOhio] = React.useState(false);
+
+	const handleClickOpen = () => {
+	  setOpen(true);
+	};
+	const handleClose = () => {
+	  setOpen(false);
+	};
+
+	const handleClickOpenOhio = () => {
+		setOpenOhio(true);
+	  };
+	  const handleCloseOhio = () => {
+		setOpenOhio(false);
+	  };
 
 	const history = useHistory();
-	// console.log(data);
+
 
 	const formik = useFormik({
 		initialValues: {
@@ -65,12 +86,23 @@ function HomeAddress() {
 						formik.setFieldValue("city", result.places[0]["place name"]);
 						formik.setFieldValue("state", result.places[0]["state"]);
 						setStateShort(result.places[0]['state abbreviation']);
+						setValidZip(true);
+						if(result.places[0]["state"] === 'California')
+						{
+							handleClickOpen()
+						}
+						if(result.places[0]["state"] === 'Ohio')
+						{
+							handleClickOpenOhio()
+						}
 					}
 					else
 					{
 						formik.setFieldValue("city", '');
 						formik.setFieldValue("state", '');
 						setStateShort('');
+						// formik.setErrors("zip", " zip not working");
+						setValidZip(false);
 					}
 				},
 				(error) => {
@@ -80,7 +112,7 @@ function HomeAddress() {
 		formik.handleChange(e);
 	};
 
-	console.log("city value:", formik.values.city);
+	console.log("Formik values:", formik);
 
 	return (
 		<div>
@@ -154,7 +186,7 @@ function HomeAddress() {
 												id="streetAddress"
 												name="streetAddress"
 												label="Street Address *"
-												materialProps={{ "data-testid": "streetAddress" }}
+												materialProps={{ "data-testid": "streetAddress", "maxLength": "100" }}
 												value={formik.values.streetAddress}
 												onChange={formik.handleChange}
 												onBlur={formik.handleBlur}
@@ -188,8 +220,11 @@ function HomeAddress() {
 												onBlur={formik.handleBlur}
 												error={formik.touched.zip && Boolean(formik.errors.zip)}
 												// helperText={formik.touched.zip && formik.errors.zip}
-												helperText={formik.touched.zip && formik.errors.zip}
+												helperText={formik.touched.zip && formik.errors.zip }
 											/>
+											<p className={validZip ? "hideError" : "showError"}>Invalid Zipcode</p>
+
+											
 										</Grid>
 										<Grid
 											justify="center"
@@ -266,6 +301,7 @@ function HomeAddress() {
 											<Button
 												type="submit"
 												stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black"}'
+												disabled={validZip ? false : true}
 											>
 												<Typography align="center" className="textCSS ">
 													Continue
@@ -279,6 +315,54 @@ function HomeAddress() {
 					</Grid>
 				</Box>
 			</div>
+			<Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
+				<DialogTitle id="customized-dialog-title" onClose={handleClose}>
+				Notice to CA Residents
+				</DialogTitle>
+				<DialogContent dividers>
+				<Typography gutterBottom>
+					If you are married, you may apply for a seperate account.
+				</Typography>
+				
+				</DialogContent>
+				<DialogActions className="modalAction">
+				<Button
+					stylebutton='{"background": "#FFBC23", "color": "black", "border-radius": "50px"}'
+					onClick={handleClose}
+					className="modalButton"
+				>
+					<Typography align="center">
+						Ok
+					</Typography>
+				</Button>
+				</DialogActions>
+			</Dialog>
+
+
+			{/* Pop up for Ohio */}
+
+			<Dialog onClose={handleCloseOhio} aria-labelledby="customized-dialog-title" open={openOhio}>
+				<DialogTitle id="customized-dialog-title" onClose={handleCloseOhio}>
+				Notice to OH Residents
+				</DialogTitle>
+				<DialogContent dividers>
+				<Typography gutterBottom>
+					The Ohio laws against discrimination require that all creditors make credit equally available to all credit worthy customers, and that credit reporting agencies maintain seperate credit histories on each individual upon request. The Ohio civil rights commission administers compliance with this law. 
+				</Typography>
+				
+				</DialogContent>
+				<DialogActions className="modalAction">
+				<Button
+					stylebutton='{"background": "#FFBC23", "color": "black", "border-radius": "50px"}'
+					onClick={handleCloseOhio}
+					className="modalButton"
+				>
+					<Typography align="center">
+						Ok
+					</Typography>
+				</Button>
+				</DialogActions>
+			</Dialog>
 		</div>
 	);
 }

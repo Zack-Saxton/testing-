@@ -45,7 +45,7 @@ import { format } from "date-fns";
           <Register />
         </Router>
       )
-    const input = screen.getByLabelText("Firstname");
+    const input = screen.getByLabelText("Firstname *");
     expect(input).toBeTruthy();
     expect(input.hasAttribute('name')).toBe(true);
   });
@@ -58,12 +58,12 @@ import { format } from "date-fns";
           <Register />
         </Router>
       )
-    const input = screen.getByLabelText("Firstname");
+    const input = screen.getByLabelText("Firstname *");
     fireEvent.change(input, { target: { value: "123" } }); 
     fireEvent.change(input, { target: { value: "" } });
     fireEvent.change(input, { target: { value: "test123" } });
    
-    expect(screen.getByLabelText("Firstname")).not.toBe(true);
+    expect(screen.getByLabelText("Firstname *")).not.toBe(true);
   });
 
 
@@ -75,7 +75,7 @@ import { format } from "date-fns";
           <Register />
         </Router>
       )
-    const input = screen.getByLabelText("Lastname");
+    const input = screen.getByLabelText("Lastname *");
     expect(input).toBeTruthy();
     expect(input.hasAttribute('name')).toBe(true);
   });
@@ -88,12 +88,12 @@ import { format } from "date-fns";
           <Register />
         </Router>
       )
-    const input = screen.getByLabelText("Lastname");
+    const input = screen.getByLabelText("Lastname *");
     fireEvent.change(input, { target: { value: "123" } }); 
     fireEvent.change(input, { target: { value: "" } });
     fireEvent.change(input, { target: { value: "test123" } });
    
-    expect(screen.getByLabelText("Lastname")).not.toBe(true);
+    expect(screen.getByLabelText("Lastname *")).not.toBe(true);
   });
 
 
@@ -106,7 +106,7 @@ import { format } from "date-fns";
           <Register />
         </Router>
       )
-  const inputEl = screen.getByLabelText("Email");
+  const inputEl = screen.getByLabelText("Email *");
   expect(inputEl).toBeTruthy();
   expect(inputEl.hasAttribute('name')).toBe(true);
 
@@ -122,11 +122,11 @@ test('pass valid email to test email input field', () => {
         </Router>
       )
  
-      const inputEl = screen.getByLabelText("Email");
+      const inputEl = screen.getByLabelText("Email *");
       fireEvent.change(inputEl, { target: { value: "test@mail.com" } });
       expect(inputEl.value).toBe('test@mail.com');
       
-    expect(screen.getByLabelText("Email")).toHaveValue("test@mail.com");
+    expect(screen.getByLabelText("Email *")).toHaveValue("test@mail.com");
     expect(screen.queryByLabelText("error-msg")).not.toBeInTheDocument();
   });
 
@@ -140,13 +140,13 @@ test('pass valid email to test email input field', () => {
         </Router>
       )
  
-    const inputEl = screen.getByLabelText("Email");
+    const inputEl = screen.getByLabelText("Email *");
     fireEvent.change(inputEl, { target: { value: "test" } }); 
     fireEvent.change(inputEl, { target: { value: "test@" } });
     fireEvent.change(inputEl, { target: { value: "test@gmail" } });
     fireEvent.change(inputEl, { target: { value: "123" } });
     fireEvent.change(inputEl, { target: { value: "@test" } });
-    expect(screen.getByLabelText("Email")).not.toBe(true);
+    expect(screen.getByLabelText("Email *")).not.toBe(true);
 
    
   });
@@ -205,7 +205,7 @@ test('pass valid email to test email input field', () => {
           <Register />
         </Router>
       )
-    const input = screen.getByLabelText("Zipcode");
+    const input = screen.getByLabelText("Zipcode *");
     expect(input).toBeTruthy();
     expect(input.value).toBe('');
     expect(input.hasAttribute('name')).toBe(true);
@@ -222,7 +222,7 @@ test('pass valid email to test email input field', () => {
           <Register />
         </Router>
       )
-    const input =  screen.getByLabelText("Zipcode");
+    const input =  screen.getByLabelText("Zipcode *");
     fireEvent.change(input, { target: { value: "123" } });
     expect(input.value).toBe('123');
   });
@@ -236,7 +236,7 @@ test('pass valid email to test email input field', () => {
           <Register />
         </Router>
       )
-    const input =  screen.getByLabelText("Zipcode");
+    const input =  screen.getByLabelText("Zipcode *");
     fireEvent.change(input, { target: { value: "abc" } });
     expect(input.value).toBe('');
     fireEvent.change(input, { target: { value: "123" } });
@@ -251,7 +251,7 @@ test('pass valid email to test email input field', () => {
           <Register />
         </Router>
       )
-    const input =  screen.getByLabelText("Zipcode");
+    const input =  screen.getByLabelText("Zipcode *");
    expect(input.maxLength).toBe(5);
  });
 
@@ -287,7 +287,7 @@ test('pass valid email to test email input field', () => {
         </Router>
       )
 
-      const inputEl = screen.getByLabelText("Confirm Password");
+      const inputEl = screen.getByLabelText("Confirm Password *");
       expect(inputEl).toBeTruthy();
       expect(inputEl.hasAttribute('name')).toBe(true);
       fireEvent.change(inputEl, { target: { value: "Test@123" } });
@@ -324,7 +324,7 @@ test('Render confirm  password', () => {
         </Router>
       )
 
-      const inputEl = screen.getByLabelText("Re-enter your Password");
+      const inputEl = screen.getByLabelText("Re-enter your Password *");
       expect(inputEl).toBeTruthy();
       expect(inputEl.hasAttribute('name')).toBe(true);
  
