@@ -146,6 +146,7 @@ console.log(agree);
 															By clicking this box you acknowledge that you have
 															received, reviewed and agree to the
 															<br />
+															<br />
 															<a
 																className="formatURL"
 																href={
@@ -194,8 +195,8 @@ console.log(agree);
 												
 													
 													? "showMsg space"
-													// : "hideMsg space"
-													: "showMsg space"
+													: "hideMsg space"
+													// : "showMsg space"
 
 											}>
 												<Checkbox 

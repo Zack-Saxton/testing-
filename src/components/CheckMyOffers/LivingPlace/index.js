@@ -26,7 +26,7 @@ function LivingPlace() {
 
 	const handleRoute = () => {
 		if (livingPlace === "Renting" || livingPlace === "HomeWithMortage") {
-			if (data.rentMortageAmount !== "") {
+			if (data.rentMortageAmount !== "" && data.rentMortageAmount !== 0) {
 				// alert("nil value");
 				setError(false);
 				setHelperText("");
@@ -43,7 +43,7 @@ function LivingPlace() {
 			} else {
 				// alert("Enter Anual income");
 				setError(true);
-				setHelperText("Enter Years at employer");
+				setHelperText("Enter valid rent/Mortgage amount");
 			}
 		} else {
 			setError(false);

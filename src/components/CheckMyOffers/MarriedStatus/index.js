@@ -61,6 +61,10 @@ const validationSchema = yup.object({
 function MarriedStatus() {
 	const { data, setData } = useContext(CheckMyOffers);
 	const [livingPlace, setLivingPlace] = useState(data.maritalStatus ?? "");
+	const [stateShort, setStateShort] = useState('');
+	const [validZip, setValidZip] = useState(true);
+	const [open, setOpen] = useState(false);
+	const [openOhio, setOpenOhio] = useState(false);
 	const history = useHistory();
 	const handleRoute = () => {
 		data.maritalStatus = livingPlace;
@@ -91,21 +95,32 @@ function MarriedStatus() {
 	});
 
 	const fetchAddress = (e) => {
+		console.log("im calling");
 		fetch("https://api.zippopotam.us/us/" + e.target.value)
 			.then((res) => res.json())
 			.then(
 				(result) => {
 					if (result.places) {
-						console.log("result", result.places[0]["place name"]);
-						formik.setFieldValue("spouseState", result.places[0]["place name"]);
-						formik.setFieldValue(
-							"spouseSelectState",
-							result.places[0]["state"]
-						);
+						// console.log("result", result.places[0]["place name"]);
+						formik.setFieldValue("spouseSelectState", result.places[0]["place name"]);
+						formik.setFieldValue("spouseState", result.places[0]["state"]);
+						setStateShort(result.places[0]['state abbreviation']);
+						setValidZip(true);
+					}
+					else
+					{
+						formik.setFieldValue("spouseSelectState", '');
+						formik.setFieldValue("spouseState", '');
+						setStateShort('');
+						setValidZip(false);
 					}
 				},
 				(error) => {
 					console.log("error:", error);
+					formik.setFieldValue("spouseSelectState", '');
+					formik.setFieldValue("spouseState", '');
+					setStateShort('');
+					setValidZip(false);
 				}
 			);
 		formik.handleChange(e);
@@ -231,6 +246,7 @@ function MarriedStatus() {
 													: "hideMsg "
 											}
 										>
+											
 											<p class="left-align MarginUpDown10">
 												<b>Location</b>
 											</p>
@@ -259,12 +275,12 @@ function MarriedStatus() {
 												onChange={fetchAddress}
 												onBlur={formik.handleBlur}
 												error={
-													formik.touched.spouseZipcode &&
-													Boolean(formik.errors.spouseZipcode)
+													(formik.touched.spouseZipcode &&
+													Boolean(formik.errors.spouseZipcode)) || !validZip
 												}
-												helperText={
-													formik.touched.spouseZipcode &&
-													formik.errors.spouseZipcode
+												helperText={ validZip ? 
+													(formik.touched.spouseZipcode &&
+													formik.errors.spouseZipcode) : "Invalid Zipcode"
 												}
 											/>
 										</Grid>
@@ -350,7 +366,7 @@ function MarriedStatus() {
 											<Button
 												// onClick={handleRoute}
 												type="submit"
-												// disabled={livingPlace === "" ? true : false}
+												disabled={validZip ? false : true}
 												stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black"}'
 											>
 												<Typography align="center" className="textCSS ">

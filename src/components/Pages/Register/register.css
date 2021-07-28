@@ -54,3 +54,20 @@ box-sizing: content-box;
 
 }
 }
+
+label + .MuiInput-formControl{
+    background: transparent;
+}
+
+.showError{
+    display: block;
+    color: red;
+    text-align: left;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+ 
+.hideError{
+    display: none;
+ 
+}

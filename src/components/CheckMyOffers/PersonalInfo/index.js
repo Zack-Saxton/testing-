@@ -28,55 +28,53 @@ import * as yup from "yup";
 
 const validationSchema = yup.object({
 	firstName: yup
-		.string("Enter your firstname")
-		.max(30, "Firstname can be upto 30 characters length")
-		.matches(/^[a-zA-Z]+$/, "Name should be in alphabets")
-		.required("First name is required"),
+	.string("Enter your firstname")
+    .max(30, "Firstname can be upto 30 characters length")
+    .min(2,"Firstname should be minimum of 2 letters")
+    .required("Firstname is required"),
 
 	lastName: yup
-		.string("Enter your Lastname")
-		.max(30, "Lastname can be upto 30 characters length")
-		.matches(/^[a-zA-Z]+$/, "Name should be in alphabets")
-		.required("Lastname is required"),
+	.string("Enter your Lastname")
+	.max(30, "Lastname can be upto 30 characters length")
+	.min(2,"Lastname should be minimum of 2 letters")
+	.required("Lastname is required"),
 
 	email: yup
 		.string("Enter your email")
 		.email("Email should be as (you@example.com)")
 		.matches(
-			/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+			/^(([^<>()[\]\\.,;:@\"]+(\.[^<>()[\]\\.,;:@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
 			"Invalid Email"
 		)
 		.required("Email is required"),
-
-	// phone: yup
-	// .string("Enter your Phone Number")
-	// // .max(10, "Phone Number should be of minimum 10 digits")
-	// .required("Phone Number is required"),
 	ssn: yup
 		.string("Enter a SSN")
 		.required("SSN is required")
-		.transform((value) => value.replace(/[^\d]/g, ""))
-		.min(9, "Name must contain at least 9 digits"),
+		// .transform((value) => value.replace(/[^\d]/g, ""))
+		.min(11, "Name must contain at least 9 digits"),
 
 	phone: yup
 		.string("Enter a name")
 		.required("Phone number is required")
+		.transform((value) => value.replace(/[^\d]/g, ""))
 		.matches(	
 			/^1[1-9]{1}[0-9]{2}[0-9]{3}[0-9]{4}$/,
 			"Invalid Phone"
 		)
-		.transform((value) => value.replace(/[^\d]/g, ""))
+		
 		
 		.min(11, "Name must contain at least 10 digits"),
 
 	date: yup
-		.date("Please enter valid date")
-		.nullable()
-		.required("Date of birth is required"),
+	.date("Please enter valid date")
+    .nullable()
+    .required("Date of birth is required")
+    .max(new Date(Date.now() - 567648000000), "You must be at least 18 years"),
 });
 
 function PersonalInfo() {
 	const { data, setData } = useContext(CheckMyOffers);
+	const [tempDate, setTempDate] = useState(null);
 	const history = useHistory();
 	const formik = useFormik({
 		initialValues: {
@@ -84,8 +82,8 @@ function PersonalInfo() {
 			lastName: data.lastName ? data.lastName : "",
 			email: data.email ?? "",
 			ssn: data.ssn ?? "",
-			phone: data.phone ?? "",
-			date: data.dob ?? ""
+			phone: data.phone ? '1' + data.phone : '',
+			date: data.dob ?? null
 		},
 		validationSchema: validationSchema,
 		onSubmit: (values) => {
@@ -103,18 +101,27 @@ function PersonalInfo() {
 			history.push("/employment-status");
 		},
 	});
+	
 	var myDate = new Date();
 	myDate.setDate(myDate.getDate() - 6570);
 
 	const onNameChange = (event) => {
 		// const reg = /[a-zA-Z]+[ ]{0,1}[']{0,1}/;
-		const reg = /^[a-zA-Z\b]+$/;
+		const reg = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
 		let acc = event.target.value;
 	   
 		if (acc === "" || reg.test(acc)) {
 		  formik.handleChange(event);
 		}
 		};
+		const preventSpace = (event) => {
+			// const reg = /[a-zA-Z]+[ ]{0,1}[']{0,1}/;
+			if (event.keyCode === 32) {
+				event.preventDefault();
+			}
+			};
+
+			console.log(formik.values);
 	return (
 		<div>
 			<div className="mainDiv">
@@ -177,12 +184,12 @@ function PersonalInfo() {
 											xs={12}
 											className="textBlock"
 										>
+											
 											<TextField
 												fullWidth
 												id="firstName"
 												name="firstName"
-												label="First Name"
-												required={true}
+												label="First Name *"
 												materialProps={{ "maxlength": "30" }}
 												value={formik.values.firstName}
 												onChange={onNameChange}
@@ -195,21 +202,7 @@ function PersonalInfo() {
 													formik.touched.firstName && formik.errors.firstName
 												}
 											/>
-											{/* <TextFieldWithIcon
-										name="firstName"
-										label="Enter Username"
-										icon="cloud"
-										iconColor="#595E6E"
-										iconPosition="left"
-										required={true}
-										value={formik.values.firstName}
-										onChange={formik.handleChange}
-										onBlur={formik.handleBlur}
-										error={formik.touched.firstName && Boolean(formik.errors.firstName)}
-										helperText={formik.touched.firstName && formik.errors.firstName}
-
-										// customClass='fa fa-plus-circle'
-									/> */}
+										
 										</Grid>
 										<Grid
 											justify="center"
@@ -224,8 +217,7 @@ function PersonalInfo() {
 												fullWidth
 												id="lastName"
 												name="lastName"
-												label="Last Name"
-												required={true}
+												label="Last Name *"
 												materialProps={{ "maxlength": "30" }}
 												value={formik.values.lastName}
 												onChange={onNameChange}
@@ -257,20 +249,13 @@ function PersonalInfo() {
 											xs={12}
 											className="textBlock"
 										>
-											{/* Date Picker */}
-											{/* <DatePicker name="dob" label="Date of Birth" required={true}
-											// value={formik.values.dob}
-											// onChange={formik.handleChange}
-											// onBlur={formik.handleBlur}
-											// error={formik.touched.dob && Boolean(formik.errors.dob)}
-											// helperText={formik.touched.dob && formik.errors.dob} 
-											// defaultDate={new Date("2021-06-29T21:11:54")}
-											/> */}
+											
 											<DatePicker
 												name="date"
-												label="Date of Birth"
+												label="Date of Birth *"
 												id="date"
-												placeholder="DD-MM-YYYY"
+												placeholder="MM-DD-YYYY"
+												format="MM-dd-yyyy"
 												maxdate={myDate}
 												value={formik.values.date}
 												onChange={(values) => {
@@ -282,6 +267,7 @@ function PersonalInfo() {
 												}
 												helperText={formik.touched.date && formik.errors.date}
 											/>
+
 											<div className="MuiTypography-alignLeft">
 												<Typography
 													className="smallTextLeft"
@@ -306,8 +292,8 @@ function PersonalInfo() {
 												fullWidth
 												id="email"
 												name="email"
-												required={true}
-												label="Email"
+												label="Email *"
+												onKeyDown={preventSpace}
 												value={formik.values.email}
 												materialProps={{"maxLength": "100"}}
 												onChange={formik.handleChange}
@@ -365,6 +351,7 @@ function PersonalInfo() {
 												placeholder="Enter your phone number"
 												id="phone"
 												type="text"
+												onKeyDown={preventSpace}
 												value={formik.values.phone}
 												// onChange={onSSNhandleChange}
 												onChange={formik.handleChange}

@@ -34,7 +34,7 @@ const DatePickerWrapper = ({ name, format, defaultDate,label, placeholder,maxdat
 					margin="normal"
 					id="date-picker-dialog"
 					label={label}   
-					format= { format ?? 'dd-MM-yyyy'}
+					format= { format ?? 'MM-dd-yyyy'}
 					value={selectedDate}
 					onChange={handleDateChange}
 					fullWidth={true}	
@@ -43,7 +43,6 @@ const DatePickerWrapper = ({ name, format, defaultDate,label, placeholder,maxdat
 					KeyboardButtonProps={{
 						"aria-label": "change date",
 					}}
-					onKeyDown={(e) => e.preventDefault()}
 					
 					orientation="landscape"
 					inputProps={{"data-testid":"datePicker"}}

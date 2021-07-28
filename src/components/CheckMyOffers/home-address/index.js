@@ -38,8 +38,8 @@ function HomeAddress() {
 	const { data, setData } = useContext(CheckMyOffers);
 	const [stateShort, setStateShort] = useState('');
 	const [validZip, setValidZip] = useState(true);
-	const [open, setOpen] = React.useState(false);
-	const [openOhio, setOpenOhio] = React.useState(false);
+	const [open, setOpen] = useState(false);
+	const [openOhio, setOpenOhio] = useState(false);
 
 	const handleClickOpen = () => {
 	  setOpen(true);
@@ -54,6 +54,13 @@ function HomeAddress() {
 	  const handleCloseOhio = () => {
 		setOpenOhio(false);
 	  };
+
+	  const preventSpace = (event) => {
+		// const reg = /[a-zA-Z]+[ ]{0,1}[']{0,1}/;
+		if (event.keyCode === 32) {
+			event.preventDefault();
+		}
+		};
 
 	const history = useHistory();
 
@@ -77,12 +84,13 @@ function HomeAddress() {
 	});
 
 	const fetchAddress = (e) => {
+		console.log("im calling");
 		fetch("https://api.zippopotam.us/us/" + e.target.value)
 			.then((res) => res.json())
 			.then(
 				(result) => {
 					if (result.places) {
-						console.log("result", result.places[0]["place name"]);
+						// console.log("result", result.places[0]["place name"]);
 						formik.setFieldValue("city", result.places[0]["place name"]);
 						formik.setFieldValue("state", result.places[0]["state"]);
 						setStateShort(result.places[0]['state abbreviation']);
@@ -107,12 +115,17 @@ function HomeAddress() {
 				},
 				(error) => {
 					console.log("error:", error);
+					formik.setFieldValue("city", '');
+					formik.setFieldValue("state", '');
+					setStateShort('');
+					// formik.setErrors("zip", " zip not working");
+					setValidZip(false);
 				}
 			);
 		formik.handleChange(e);
 	};
 
-	console.log("Formik values:", formik);
+	// console.log("Formik values:", formik);
 
 	return (
 		<div>
@@ -187,6 +200,7 @@ function HomeAddress() {
 												name="streetAddress"
 												label="Street Address *"
 												materialProps={{ "data-testid": "streetAddress", "maxLength": "100" }}
+												onKeyDown={preventSpace}
 												value={formik.values.streetAddress}
 												onChange={formik.handleChange}
 												onBlur={formik.handleBlur}
@@ -218,12 +232,19 @@ function HomeAddress() {
 												value={formik.values.zip}
 												onChange={fetchAddress}
 												onBlur={formik.handleBlur}
-												error={formik.touched.zip && Boolean(formik.errors.zip)}
+												// error={formik.touched.zip && Boolean(formik.errors.zip)}
 												// helperText={formik.touched.zip && formik.errors.zip}
-												helperText={formik.touched.zip && formik.errors.zip }
+												// helperText={formik.touched.zip && formik.errors.zip }
+												error={
+													(formik.touched.zip &&
+													Boolean(formik.errors.zip)) || !validZip
+												}
+												helperText={ validZip ? 
+													(formik.touched.zip &&
+													formik.errors.zip) : "Invalid Zipcode"
+												}
 											/>
-											<p className={validZip ? "hideError" : "showError"}>Invalid Zipcode</p>
-
+											
 											
 										</Grid>
 										<Grid
@@ -302,6 +323,7 @@ function HomeAddress() {
 												type="submit"
 												stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black"}'
 												disabled={validZip ? false : true}
+												data-testid="homeAddressCntBtn"
 											>
 												<Typography align="center" className="textCSS ">
 													Continue
@@ -320,7 +342,7 @@ function HomeAddress() {
 				Notice to CA Residents
 				</DialogTitle>
 				<DialogContent dividers>
-				<Typography gutterBottom>
+				<Typography align="justify" gutterBottom>
 					If you are married, you may apply for a seperate account.
 				</Typography>
 				
@@ -346,7 +368,7 @@ function HomeAddress() {
 				Notice to OH Residents
 				</DialogTitle>
 				<DialogContent dividers>
-				<Typography gutterBottom>
+				<Typography align="justify" gutterBottom>
 					The Ohio laws against discrimination require that all creditors make credit equally available to all credit worthy customers, and that credit reporting agencies maintain seperate credit histories on each individual upon request. The Ohio civil rights commission administers compliance with this law. 
 				</Typography>
 				

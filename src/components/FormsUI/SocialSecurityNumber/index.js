@@ -40,28 +40,13 @@ const SSNWrapper = ({
 		setUnMaskedVal(
 			event.target.value.replace(/-/g, "").replace(/ /g, "") || ""
 		);
-		// setFieldValue("ssn", value);
-		// setUnMaskedVal(value);
-		// setIsError((required && !event.target.value) ? true :  false);
-		//   setHelpertext((required && !event.target.value) ? Content.required : '');
+
 
 		if (onChange) {
 			onChange(event);
 		}
 	};
 
-	//  setError = error ?? setError;
-	// setHelperText = helperText ?? setHelperText;
-	// //Basic field configurations
-	// const config = {
-	//   name: name,
-
-	//   error: setError ? setError : isError,
-	//   helperText: setError ? setHelperText : helpertext,
-	//   ...otherProps,
-	// };
-	//Validation part
-	// check validity
 
 	return (
 		<FormControl fullWidth={true}>
@@ -73,7 +58,7 @@ const SSNWrapper = ({
 					name={name}
 					onChange={handleChange}
 					disabled={false}
-					maskChar=" "
+					maskChar=""
 					{...otherProps}
 				>
 					{() => (

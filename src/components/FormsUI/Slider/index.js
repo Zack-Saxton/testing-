@@ -83,8 +83,19 @@ const TextfieldWrapper = ({
   const classes = useStyles();
   const [value, setValue] = useState(defaultValue ?? 12500);
   const handleSliderChange = (event, newValue) => {
-    setValue(newValue);
-    setSelect(newValue);
+    if(newValue > 5000)
+    {
+      if(newValue % 500 === 0)
+      {
+        setValue(newValue);
+        setSelect(newValue);
+      }
+    }
+    else{
+      setValue(newValue);
+      setSelect(newValue);
+    }
+   
   };
 
   //Configuring the field with properties
@@ -96,7 +107,7 @@ const TextfieldWrapper = ({
     onChange: handleSliderChange,
     defaultValue: defaultValue ?? 12500,
     getAriaValueText: valuetext,
-    step: difference ?? 500,
+    step: difference ?? 250,
     min: min ?? 1000,
     max: max ?? 25000,
     marks: customMarks ?? marks ,

@@ -45,7 +45,7 @@ import { format } from "date-fns";
           <Register />
         </Router>
       )
-    const input = screen.getByLabelText("Firstname *");
+    const input = screen.getByLabelText("First Name *");
     expect(input).toBeTruthy();
     expect(input.hasAttribute('name')).toBe(true);
   });
@@ -58,12 +58,12 @@ import { format } from "date-fns";
           <Register />
         </Router>
       )
-    const input = screen.getByLabelText("Firstname *");
+    const input = screen.getByLabelText("First Name *");
     fireEvent.change(input, { target: { value: "123" } }); 
     fireEvent.change(input, { target: { value: "" } });
     fireEvent.change(input, { target: { value: "test123" } });
    
-    expect(screen.getByLabelText("Firstname *")).not.toBe(true);
+    expect(screen.getByLabelText("First Name *")).not.toBe(true);
   });
 
 
@@ -75,7 +75,7 @@ import { format } from "date-fns";
           <Register />
         </Router>
       )
-    const input = screen.getByLabelText("Lastname *");
+    const input = screen.getByLabelText("Last Name *");
     expect(input).toBeTruthy();
     expect(input.hasAttribute('name')).toBe(true);
   });
@@ -88,12 +88,12 @@ import { format } from "date-fns";
           <Register />
         </Router>
       )
-    const input = screen.getByLabelText("Lastname *");
+    const input = screen.getByLabelText("Last Name *");
     fireEvent.change(input, { target: { value: "123" } }); 
     fireEvent.change(input, { target: { value: "" } });
     fireEvent.change(input, { target: { value: "test123" } });
    
-    expect(screen.getByLabelText("Lastname *")).not.toBe(true);
+    expect(screen.getByLabelText("Last Name *")).not.toBe(true);
   });
 
 
@@ -287,7 +287,7 @@ test('pass valid email to test email input field', () => {
         </Router>
       )
 
-      const inputEl = screen.getByLabelText("Confirm Password *");
+      const inputEl = screen.getByLabelText("Create new password *");
       expect(inputEl).toBeTruthy();
       expect(inputEl.hasAttribute('name')).toBe(true);
       fireEvent.change(inputEl, { target: { value: "Test@123" } });
@@ -324,7 +324,7 @@ test('Render confirm  password', () => {
         </Router>
       )
 
-      const inputEl = screen.getByLabelText("Re-enter your Password *");
+      const inputEl = screen.getByLabelText("Re-enter your password *");
       expect(inputEl).toBeTruthy();
       expect(inputEl.hasAttribute('name')).toBe(true);
  

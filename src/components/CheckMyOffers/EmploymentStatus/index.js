@@ -31,7 +31,7 @@ function CitizenshipStatus() {
 			employmentStatus === "Salary" || 
 			employmentStatus === "selfEmployed"
 		) {
-			if (data.yearsAtEmployers !== "") {
+			if (data.yearsAtEmployers !== "" && data.yearsAtEmployers !== 0) {
 				// alert("nil value");
 				setError(false);
 				setHelperText("");

@@ -28,27 +28,27 @@ const handleClickShowPassword = () => setShowPassword(!showPassword);
       // <FormControl fullWidth={true} >
        <TextField
        fullWidth={true}
-  	label={label}
-  	id={id} name={name} {...otherProps}
-   	type={!showPassword ? "text" : "password"} 
-	onCut={handleEdit}
-	onCopy={handleEdit}
-	onPaste={handleEdit}
-	inputProps={materialProps}
-	  InputProps={{ 
-	    "data-testid": "passProps",
-	    endAdornment: (
-	      <InputAdornment position="end">
-	        <IconButton
-	          aria-label="toggle password visibility"
-	          onClick={handleClickShowPassword}
-	          data-testid= "passButton"
-	        >
-	          {!showPassword ? <Visibility /> : <VisibilityOff />}
-	        </IconButton>
-	      </InputAdornment>
-	    )
-	  }}
+  label={label}
+  id={id} name={name} {...otherProps}
+   type={!showPassword ? "text" : "password"} 
+onCut={handleEdit}
+onCopy={handleEdit}
+onPaste={handleEdit}
+inputProps={materialProps}
+  InputProps={{ 
+    "data-testid": "passProps",
+    endAdornment: (
+      <InputAdornment position="end">
+        <IconButton
+          aria-label="toggle password visibility"
+          onClick={handleClickShowPassword}
+          data-testid= "passButton"
+        >
+          {!showPassword ? <Visibility /> : <VisibilityOff />}
+        </IconButton>
+      </InputAdornment>
+    )
+  }}
 />
       // </FormControl>
     );

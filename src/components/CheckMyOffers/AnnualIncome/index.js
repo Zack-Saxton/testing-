@@ -12,13 +12,18 @@ import { CheckMyOffers } from "../../../contexts/CheckMyOffers";
 import "./annulaIncome.css";
 
 const validationSchema = yup.object({
-	personalIncome: yup.number().required("Personal Income is required"),
+	personalIncome: yup.number().required("Personal Income is required")
+								.moreThan(0, "Please enter a valid amount")
+								.min(1000, "Annual income should be minimum 4 digit"),
 	householdIncome: yup
 		.number()
-		.moreThan(
-			yup.ref("personalIncome"),
-			"Should be greater or equal to Personal income"
-		)
+		.moreThan(0, "Please enter a valid amount")
+		.min(yup.ref("personalIncome"), "Should be greater or equal to Personal income")
+		
+		// .moreThan(
+		// 	yup.ref("personalIncome"),
+		// 	"Should be greater or equal to Personal income"
+		// )
 		.required("Household Income is required"),
 });
 

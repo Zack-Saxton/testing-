@@ -52,7 +52,7 @@ const PhoneNumberWrapper = ({ name, onChange, value, label, error, helperText, .
         onChange={handleChange}
         data-testid="phone"
         disabled={false}
-        maskChar=" "
+        maskChar=""
         {...otherProps}
       >
         {() => <TextField label={label} 
