@@ -20,17 +20,20 @@ import {
 import ad_banner from '../../../assets/images/adbanner.jpg';
 import mortage_banner from '../../../assets/images/Mortgage-Banner.jpg'
 import { Link , NavLink } from 'react-router-dom';
-import {
-  Chart,
-  PieSeries,
-  Title,
-  Tooltip,
-} from '@devexpress/dx-react-chart-material-ui';
+// import {
+//   Chart,
+//   PieSeries,
+//   Title,
+//   Tooltip,
+// } from '@devexpress/dx-react-chart-material-ui';
+import Chartist from "react-chartist";
+import fillDonut from "chartist-plugin-fill-donut";
+import "./accountoverview.css"
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-  },
+  }, 
   paper: {
     padding: theme.spacing(3),
     display: "flex",
@@ -133,18 +136,41 @@ const rows = [
   ),
 ];
 
-export const databar = [{
-  Time: 'Late',
-  LatePayment:'10'
-}, {
-  Time: 'On Time',
-  Payment:'25'
-  
-}, ];
+const  LoanAmount=10000
+const RepaidAmount=6000
+var intro='Loan Amount $'+LoanAmount+' : '+'Repaid Amount $'+RepaidAmount; 
+
+const donutChart = {
+  labels: [1, 2],
+  series: [
+    { className:"stroke-blue", meta: intro, value: 60 },
+    { className:"stroke",meta: "", value: 40 }
+  ],
+};
+
 
 
 export default function AccountOverview() {
   const classes = useStyles();
+
+  const donutOptions = {
+    showLabel: false,
+   ignoreEmptyValues: false,
+   donut: true,
+  donutWidth: 8,
+  donutSolid: true,
+ 
+
+  plugins: [ 
+  fillDonut({ items: [
+    {
+      content:
+        '<h5 class="centerheading">$ 6,000</h5>'
+    }
+  ]}), 
+          ]
+    // plugins: [ChartistTooltip({ appendToBody: true })]
+  };
 
   return (
     <div>
@@ -164,7 +190,7 @@ export default function AccountOverview() {
           style={{ padding: "5px" }}
         >
           {/* <img src={NoOffersAvailableLogo} alt="NoOffersAvailable" /> */}
-          <Paper className={classes.paper}>
+          <Paper className={classes.paper}  style={{ height: "85%" }}>
             <img src={ad_banner} alt="ad_banner" />
           </Paper>
         </Grid>
@@ -320,7 +346,7 @@ export default function AccountOverview() {
           direction="row"
           style={{ padding: "5px" }}
         >
-          <Paper className={classes.paper}>
+          <Paper className={classes.paper} style={{ height: "85%" }}>
             <Grid item xs={10}>
             <Typography >
                   <h4 >Overview</h4>
@@ -416,7 +442,7 @@ export default function AccountOverview() {
           direction="row"
           style={{ padding: "5px" }}
         >
-          <Paper className={classes.paper}>
+          <Paper className={classes.paper} style={{ height: "80%" }}>
             <Grid item xs={10}>
             <Typography>
                   <h4 >Overview</h4>
@@ -442,12 +468,12 @@ export default function AccountOverview() {
         <Grid
           item
           xs={10}
-          sm={4}
+          sm={3}
           fullWidth={true}
           direction="row"
-          style={{ padding: "5px" }}
+          style={{ padding: "5px", paddingTop:"20px"}}
         >
-          <Paper className={classes.paper}>
+          <Paper className={classes.paper} style={{ height: "85%" }}>
           <Grid container spacing={3}>
               <Grid item xs={10} xs={6}>
                 <Typography>
@@ -465,22 +491,22 @@ export default function AccountOverview() {
               </Grid>
             </Grid>
 
-            <Chart
+            {/* <Chart
           id="chart"
       data={databar}
       // rotated
       // style={{ "height": "200px!important" }}
-    >
+    > */}
       {/* <ArgumentAxis />
       <ValueAxis  />  */}
       
-      <PieSeries
+      {/* <PieSeries
            
             valueField="LatePayment"
             argumentField="Time"
             innerRadius={0.8}
             color="red"
-          />
+          /> */}
      {/* <BarSeries
            valueField="Payment"
            argumentField="Time"
@@ -488,8 +514,8 @@ export default function AccountOverview() {
             color="green"
           />  */}
           
-     
-    </Chart> 
+          <Chartist data={donutChart} options={donutOptions} type={"Pie"} />
+    {/* </Chart>  */}
           </Paper>
         </Grid>
 
@@ -498,10 +524,10 @@ export default function AccountOverview() {
         <Grid
           item
           xs={10}
-          sm={6}
+          sm={7}
           fullWidth={true}
           direction="row"
-          style={{ padding: "5px" }}
+          style={{ padding: "5px" , paddingTop:"20px"}}
         >
           <Paper className={classes.paper}>
           <Grid container spacing={3}>
@@ -562,6 +588,7 @@ export default function AccountOverview() {
               </Grid>
           </Paper>
         </Grid>
+        
       </Grid>
     </div>
   );

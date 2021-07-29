@@ -40,7 +40,7 @@ function CitizenshipStatus() {
 			} else {
 				// alert("Enter Anual income");
 				setError(true);
-				setHelperText("Enter Years at employer");
+				setHelperText( data.yearsAtEmployers === 0 ? "Tenure at employer should not be zero" :"Your tenure at employer is required.");
 			}
 		} else {
 			setError(false);
@@ -58,6 +58,17 @@ function CitizenshipStatus() {
 		if (acc === "" || reg.test(acc) ) {
 		
 			setData({ ...data, ["yearsAtEmployers"]: parseInt(event.target.value ? event.target.value : '0') });
+		}
+		console.log(event.target.value);
+		if (event.target.value !== '' && event.target.value > 0)
+		{
+			setError(false);
+			setHelperText("");
+		}
+		
+		else if (event.target.value === ''){
+			setError(true);
+			setHelperText("Tenure at employer should not be zero");
 		}
 	};
 	return (

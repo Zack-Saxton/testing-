@@ -1,4 +1,28 @@
-export async function checkMyOfferSubmit(formData) {
+export async function testing() {
+	try {
+		    let data = '';
+			let result = await fetch("https://psa-qa.marinerfinance.io/api/v2/psa_digifi", 
+			{
+				method: "POST",
+				headers: {
+					"Content-type": "application/json; charset=UTF-8",
+					
+				},
+				body: data,
+				
+			}
+			);
+			result = await result.json();
+			console.log("API Result: ");
+
+		
+	} catch (error) {
+		console.log(error);
+	}
+}
+
+
+export async function checkMyOfferSubmit(customer) {
 	//result - to store the result from api call, token - auth token, loggedIn
 	let result, token, loggedIn;
 	//response - get the required data from result
@@ -13,185 +37,186 @@ export async function checkMyOfferSubmit(formData) {
 
 	//Data to be send to api 
 	let body = {
-		zip_code: formData?.zip ?? null,
-		user: {
-			terms_agreement: "on",
-			create_account_get_rate_button: "Get Your Rate",
-			Consent_Credit_Contact_Authorization_Version__c:
-				formData.consent_credit_contact_auth,
-			Consent_Electronic_Communication_Policy_Version__c:
-				formData.consent_electronic_communication,
-			Consent_Privacy_Policy_Version__c: formData.consent_privacy_policy,
-			Consent_Terms_Of_Use_Version__c: formData.consent_terms_of_use,
+		"user": {
+			"password": "Mariner1",
+			"confirm_password": "Mariner1",
+			"terms_agreement": "on",
+			"create_account_get_rate_button": "Get Your Rate",
+			"Consent_Credit_Contact_Authorization_Version__c": "12",
+			"Consent_Electronic_Communication_Policy_Version__c": "14",
+			"Consent_Privacy_Policy_Version__c": "9",
+			"Consent_Terms_Of_Use_Version__c": "7"
 		},
-		isAuthenticated: true,
-		formData: {
-			application: {
-				requested_product_details: {
-					requested_loan_amount_raw:
-						Number(formData.loanAmount) > 1500 ? formData.loanAmount : 1500,
-					requested_loan_amount:
-						Number(formData.loanAmount) > 1500 ? formData.loanAmount : 1500,
-					requested_loan_term: formData.term,
-					offer_code: formData.offerCode || null,
-					offer_credit_score: "undefined",
-					offer_amount: "undefined",
+		"isAuthenticated": true,
+		"formData": {
+			"application": {
+				"requested_product_details": {
+					"requested_loan_amount_raw": 5000,
+					"requested_loan_amount": 5000,
+					"requested_loan_term": 36,
+					"offer_code": null
 				},
-				contact: {
-					first_name: formData.firstName,
+				"contact": {
+					"address_city": customer.city,
+					"address_postal_code": customer.zip ,
+					"address_state": customer.state ,
+					"address_street": customer.streetAddress|| "366 EHRHARDT RD",
+					"email": customer.email,
+					"phone_number_primary":customer.phone,
+					"phone_type": "Cell",
+					"first_name": customer.firstName,
+					"full_name": `${customer.firstName} ${customer.lastName}`,
+					"last_name": customer.lastName,
 				},
-				processing: {},
+				"processing": {
+					"tokens": {
+						"utm_source": null,
+						"utm_campaign": null,
+						"utm_medium": null
+					}
+				},
 				"processing.tokens": {
-					utm_source: null,
-					utm_campaign: null,
-					utm_medium: null,
-				},
+					"utm_source": null,
+					"utm_campaign": null,
+					"utm_medium": null
+				}
 			},
-			applicant: {
-				contact: {
-					address_city: formData.city,
-					address_postal_code: formData?.zip ?? null,
-					address_state: formData?.state,
-					address_street: formData?.streetAddress,
-					email: formData.email,
-					phone_number_primary: formData.phone,
-					phone_type: "Cell",
-					first_name: formData.firstName,
-					full_name: formData.fullName,
-					last_name: formData.lastName,
+			"applicant": {
+				"contact": {
+					"address_city": customer.city,
+					"address_postal_code": customer.zip,
+					"address_state": customer.streetAddress ,
+					"address_street":  customer.streetAddress|| "366 EHRHARDT RD",
+					"email":  customer.email,
+					"phone_number_primary":customer.phone,
+					"phone_type": "Cell",
+					"first_name": customer.firstName,
+					"full_name": `${customer.firstName} ${customer.lastName}`,
+					"last_name": customer.lastName
 				},
-				self_reported: {
-					annual_income: formData.annualIncome,
-					household_annual_income: formData.householdAnnualIncome,
-					employer_name: formData?.employerName,
-					position_at_employer: formData?.jobTitle,
-					employment_status: formData.employmentStatus,
-					employer_phone_number: formData?.employmentPhoneNumber,
-					tenure_at_employer: formData.yearsAtEmployers,
-					military_active_duty: formData.militaryActiveDuty,
-					active_duty_rank: formData.militaryActiveDutyRank,
-					marital_status: formData.maritalStatus,
-					spouse_address_city: formData.spouse_address_city,
-					spouse_address_postal_code: formData.spouse_address_postal_code,
-					spouse_address_state: formData.spouse_address_state,
-					spouse_address_street: formData.spouse_address_street,
-					loan_purpose: formData.loanPurpose,
-					citizenship: formData.citizenship,
-					home_ownership: formData.homeOwnership,
-					mortgage_or_rental_payment: formData.rentMortageAmount,
+				"self_reported": {
+					"annual_income": "8976890",
+					"household_annual_income": "9876543",
+					"employment_status":customer.employmentStatus,
+					"employer_phone_number": null,
+					"loan_purpose":customer.loanPurpose,
+					"tenure_at_employer": 10,
+					"marital_status": (customer.state.toLowerCase() === 'wi') ? "Unmarried" : null,
+					"spouse_address_city": customer.spouse_address_city || null,
+					"spouse_address_postal_code": customer.spouse_address_postal_code || null,
+					"spouse_address_state": customer.spouse_address_state || null,
+					"spouse_address_street": customer.spouse_address_street|| "366 EHRHARDT RD",
+					"citizenship": customer.citizenship,
+					"home_ownership": customer.homeOwnership,
+					"mortgage_or_rental_payment": 0,
+					"military_status": customer.state === "NC"? "Not Active Military": null
 				},
-				applicant_type: "primary",
+				"applicant_type": "primary"
 			},
-			coborrower_token: null,
-			cosigner_token: null,
-			customer: {
-				identification: {
-					citizenship: formData.citizenship,
-					date_of_birth: formData.dob,
-					age: formData.age,
-					social_security_number_backup: formData.ssn,
-					social_security_number: formData.ssn,
-					first_name: formData.firstName,
-					full_name: formData.fullName,
-					last_name: formData.lastName,
+			"coborrower_token": null,
+			"cosigner_token": null,
+			"customer": {
+				"identification": {
+					"citizenship": customer.citizenship,
+					"date_of_birth":  customer.dob,
+					"age": 39,
+					"social_security_number_backup": customer.ssn,
+					"social_security_number": customer.ssn,
+					"first_name": customer.firstName,
+					"full_name": `${customer.firstName} ${customer.lastName}`,
+					"last_name": customer.lastName
 				},
-				latest_contact: {
-					address_city: formData.city,
-					address_postal_code: formData?.zip ?? null,
-					address_state: formData?.state,
-					address_street: formData?.streetAddress,
-					email: formData.email,
-					phone_number_primary: formData.phone,
-					phone_type: "Cell",
-				},
+				"latest_contact": {
+					"address_city": customer.city,
+					"address_postal_code": customer.zip ,
+					"address_state": customer.state ,
+					"address_street": customer.streetAddress|| "366 EHRHARDT RD",
+					"email": customer.email,
+					"phone_number_primary": customer.phone,
+					"phone_type": "Cell"
+				}
 			},
-			submission_id: null,
-			submission_type: "Mobile",
-			submission_paramter: null,
-			ip_address: formData.userIP ?? "127.0.0.1",
+			"submission_id": null,
+			"submission_type": "CIS",
+			"submission_paramter": null,
+			"ip_address": "65.158.22.67",
 		},
-		gclid: null,
-		//   'requested_product': req.body.application.requested_product,
-		geoip: formData.userIP ?? "127.0.0.1",
-		update_sor_applicant_consents: {
-			consents: {
-				credit_contact_authorization: {
-					consent: true,
-					version: "12",
+		"gclid": null,
+		"requested_product": "unsecured-individual-loan",
+		"geoip": "::ffff:127.0.0.1",
+		"sourceTracking": [{
+			"referer": "https://cis-qa.marinerfinance.io/application/form",
+			"date": 1599165637950,
+			"utm_source": null,
+			"utm_medium": null,
+			"utm_campaign": null
+		}],
+		"update_sor_applicant_consents": {
+			"consents": {
+				"credit_contact_authorization": {
+					"consent": true,
+					"version": "12"
 				},
-				electronic_communications: {
-					consent: true,
-					version: "14",
+				"electronic_communications": {
+					"consent": true,
+					"version": "14"
 				},
-				privacy_policy: {
-					consent: true,
-					version: "9",
+				"privacy_policy": {
+					"consent": true,
+					"version": "9"
 				},
-				terms_of_use: {
-					consent: true,
-					version: "7",
+				"terms_of_use": {
+					"consent": true,
+					"version": "7"
 				},
-				delaware_itemized_schedule_of_charges: {
-					consent: false,
-					version: "1.0",
+				"delaware_itemized_schedule_of_charges": {
+					"consent": (customer.state.toLowerCase() === 'de') ? true : false,
+					"version": "1.0"
 				},
-				california_credit_education_program: {
-					consent: false,
-					version: "1.0",
-				},
+				"california_credit_education_program": {
+					"consent": (customer.state.toLowerCase() === 'ca') ? true : false,
+					"version": "1.0"
+				}
 			},
-			esigns: {
-				credit_contact_authorization: {
-					date: "2020-04-21T20:24:57.644Z",
-					useragent:
-						"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36",
-					ipaddress: formData.userIP ?? "127.0.0.1",
+			"esigns": {
+				"credit_contact_authorization": {
+					"date": "2020-09-03T20:40:37.950Z",
+					"useragent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36",
+					"ipaddress": "127.0.0.1"
 				},
-				electronic_communications: {
-					date: "2020-04-21T20:24:57.644Z",
-					useragent:
-						"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36",
-					ipaddress: formData.userIP ?? "127.0.0.1",
+				"electronic_communications": {
+					"date": "2020-09-03T20:40:37.950Z",
+					"useragent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36",
+					"ipaddress": "127.0.0.1"
 				},
-				privacy_policy: {
-					date: "2020-04-21T20:24:57.644Z",
-					useragent:
-						"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36",
-					ipaddress: formData.userIP ?? "127.0.0.1",
+				"privacy_policy": {
+					"date": "2020-09-03T20:40:37.950Z",
+					"useragent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36",
+					"ipaddress": "127.0.0.1"
 				},
-				terms_of_use: {
-					date: "2020-04-21T20:24:57.644Z",
-					useragent:
-						"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36",
-					ipaddress: formData.userIP ?? "127.0.0.1",
+				"terms_of_use": {
+					"date": "2020-09-03T20:40:37.950Z",
+					"useragent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36",
+					"ipaddress": "127.0.0.1"
 				},
-				delaware_itemized_schedule_of_charges: null,
-				california_credit_education_program: null,
-			},
+				"delaware_itemized_schedule_of_charges": (customer.state.toLowerCase() === 'de') ? true : null,
+				"california_credit_education_program": (customer.state.toLowerCase() === 'ca') ? true : null
+			}
 		},
-		sourceTracking: [
-			{
-				originalUrl: "http://localhost:4000",
-				referer: "http://localhost:4000/psa/submit_application",
-				date: Date.now(),
-				utm_source: null,
-				utm_medium: null,
-				utm_campaign: null,
-			},
-		],
-		headersHost: "localhost:4000",
+		"headersHost": "cis-qa.marinerfinance.io"
 	};
-  console.log("Request", body);
 	try {
 		if (!loggedIn && !token) {
-			result = await fetch("/api/v2/psa_digifi", {
+			result = await fetch("https://psa-qa.marinerfinance.io/api/v2/psa_digifi", {
 				method: "POST",
 				body: body,
+				mode: "no-cors",
 				headers: {
 					"Content-type": "application/json; charset=UTF-8",
 				},
+				
 			});
-			result = await result.json();
+			// result = await result.json();
 			console.log("Request", body);
 			console.log("API Result: ", result);
 
@@ -212,6 +237,7 @@ export async function checkMyOfferSubmit(formData) {
 		}
 	} catch (error) {
 		response.errors = error;
+		console.log(error);
 	}
 
 	response.appSubmissionResult = result;

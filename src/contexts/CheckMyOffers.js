@@ -29,6 +29,7 @@ const CheckMyOffersContext = (props) => {
 		streetAddress: "",
 		city: "",
 		state: "",
+		stateFullform: "",
 		ssn: "",
 		homeOwnership: "",
 		rentMortageAmount: "",

@@ -14,6 +14,7 @@
     "@material-ui/lab": "^4.0.0-alpha.58",
     "@material-ui/pickers": "^3.3.10",
     "@testing-library/react": "^11.2.7",
+    "chartist": "^0.11.4",
     "chartist-plugin-fill-donut": "^0.1.4",
     "classnames": "^2.3.1",
     "date-fns": "^2.22.1",

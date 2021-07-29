@@ -88,18 +88,21 @@ const validationSchema = yup.object({
   email: yup
     .string("Enter your email")
     .email("Email should be as (you@example.com)")
+    .matches(/^[a-zA-Z\b](([^<>()|?{}=/+'[\]\\.,;:#!$%^&*_-\s@\"]+(\.[^<>()|?{}=/+'[\]\\.,;:#!$%^&*_-\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,4}))$/,"Invalid Email")
+    .required("Email is required"),
 
-    .matches(
-      /^[a-zA-Z](([^<>()|?{}=/+'[\]\\.,;:#!$%^&*_-\s@\"]+(\.[^<>()|?{}=/+'[\]\\.,;:#!$%^&*_-\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,4}))$/,
-      "Invalid Email"
-    )
-    .required("Your email address is required"),
+    // .matches(
+    //   /^[a-zA-Z](([^<>()|?{}=/+'[\]\\.,;:#!$%^&*_-\s@\"]+(\.[^<>()|?{}=/+'[\]\\.,;:#!$%^&*_-\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,4}))$/,
+    //   "Invalid Email"
+    // )
+    // .required("Your email address is required"),
 
   date: yup
     .date("Please enter valid date")
     .nullable()
     .required("Your date of birth is required")
-    .max(new Date(Date.now() - 567648000000), "You must be at least 18 years"),
+    .max(new Date(Date.now() - 567648000000), "You must be at least 18 years")
+    .typeError('Please enter a valid date'),
 
   password: yup
     .string("Enter your password")
@@ -173,7 +176,6 @@ export default function Register() {
   };
 
   const fetchAddress = (e) => {
-    console.log("im calling");
     fetch("https://api.zippopotam.us/us/" + e.target.value)
       .then((res) => res.json())
       .then(
@@ -411,6 +413,7 @@ export default function Register() {
                         iconPosition="left"
                         id="password"
                         type="password"
+                        onKeyDown={preventSpace}
                         materialProps={{ maxLength: "30" }}
                         value={formik.values.password}
                         onChange={formik.handleChange}
@@ -440,6 +443,7 @@ export default function Register() {
                         iconPosition="left"
                         id="cpass"
                         type="password"
+                        onKeyDown={preventSpace}
                         materialProps={{ maxLength: "30" }}
                         value={formik.values.confirmpassword}
                         onChange={formik.handleChange}

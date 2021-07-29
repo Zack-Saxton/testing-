@@ -178,6 +178,7 @@ export default function Login() {
                         iconPosition="left"
                         id="password"
                         type="password"
+                        onKeyDown={preventSpace}
                         materialProps={{ maxLength: "30" }}
                         value={formik.values.password}
                         onChange={formik.handleChange}

@@ -121,6 +121,7 @@ function NewUser() {
 										>
 											<TextField
 												name="personalIncome"
+												autoFocus
 												label="Annual Personal Income"
 												value={formik.values.personalIncome}
 												onChange={onHandleChange}
@@ -129,7 +130,6 @@ function NewUser() {
 													maxLength: "7",
 												}}
 												onBlur={formik.handleBlur}
-												required={true}
 												error={
 													formik.touched.personalIncome &&
 													Boolean(formik.errors.personalIncome)
@@ -158,7 +158,6 @@ function NewUser() {
 													maxLength: "7",
 												}}
 												onChange={onHandleChange}
-												required={true}
 												onBlur={formik.handleBlur}
 												error={
 													formik.touched.householdIncome &&

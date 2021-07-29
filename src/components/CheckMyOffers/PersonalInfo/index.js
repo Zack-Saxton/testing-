@@ -31,13 +31,13 @@ const validationSchema = yup.object({
 	.string("Enter your firstname")
     .max(30, "Firstname can be upto 30 characters length")
     .min(2,"Firstname should be minimum of 2 letters")
-    .required("Firstname is required"),
+    .required("Your first name is required"),
 
 	lastName: yup
 	.string("Enter your Lastname")
 	.max(30, "Lastname can be upto 30 characters length")
 	.min(2,"Lastname should be minimum of 2 letters")
-	.required("Lastname is required"),
+	.required("Your last name is required"),
 
 	email: yup
 		.string("Enter your email")
@@ -46,16 +46,16 @@ const validationSchema = yup.object({
 			/^(([^<>()[\]\\.,;:@\"]+(\.[^<>()[\]\\.,;:@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
 			"Invalid Email"
 		)
-		.required("Email is required"),
+		.required("Your email address is required"),
 	ssn: yup
 		.string("Enter a SSN")
-		.required("SSN is required")
-		// .transform((value) => value.replace(/[^\d]/g, ""))
-		.min(11, "Name must contain at least 9 digits"),
+		.required("Your SSN is required")
+		.transform((value) => value.replace(/[^\d]/g, ""))
+		.min(9, "Name must contain at least 9 digits"),
 
 	phone: yup
 		.string("Enter a name")
-		.required("Phone number is required")
+		.required("Your Phone number is required")
 		.transform((value) => value.replace(/[^\d]/g, ""))
 		.matches(	
 			/^1[1-9]{1}[0-9]{2}[0-9]{3}[0-9]{4}$/,
@@ -68,8 +68,9 @@ const validationSchema = yup.object({
 	date: yup
 	.date("Please enter valid date")
     .nullable()
-    .required("Date of birth is required")
-    .max(new Date(Date.now() - 567648000000), "You must be at least 18 years"),
+    .required("Your date of birth is required")
+    .max(new Date(Date.now() - 567648000000), "You must be at least 18 years")
+	.typeError('Please enter a valid date'),
 });
 
 function PersonalInfo() {
@@ -103,7 +104,7 @@ function PersonalInfo() {
 	});
 	
 	var myDate = new Date();
-	myDate.setDate(myDate.getDate() - 6570);
+	myDate.setDate(myDate.getDate() - 6571);
 
 	const onNameChange = (event) => {
 		// const reg = /[a-zA-Z]+[ ]{0,1}[']{0,1}/;
@@ -187,6 +188,7 @@ function PersonalInfo() {
 											
 											<TextField
 												fullWidth
+												autoFocus 
 												id="firstName"
 												name="firstName"
 												label="First Name *"

@@ -246,7 +246,9 @@ export default function Sidenav() {
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <NavLink to='/login' style={{'textDecoration':'none'}} >
       <MenuItem onClick={handleMenuClose}>Log Out</MenuItem>
+      </NavLink>
     </Menu>
   );
 

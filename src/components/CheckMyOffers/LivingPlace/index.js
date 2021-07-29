@@ -71,6 +71,16 @@ function LivingPlace() {
 		if (acc === "" || reg.test(acc)) {
 			setData({ ...data, ["rentMortageAmount"]: parseInt(event.target.value ? event.target.value : '0')  });
 		}
+		if (event.target.value !== '' && event.target.value > 0)
+		{
+			setError(false);
+			setHelperText("");
+		}
+		
+		else if (event.target.value === ''){
+			setError(true);
+			setHelperText("Rent/Motgage amount should not be zero");
+		}
 	};
 	return (
 		<div>

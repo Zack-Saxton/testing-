@@ -19,6 +19,7 @@ const validationSchema = yup.object({
 	streetAddress: yup
 		.string("Enter Street Address")
 		.max(100, "Should be less than 100 characters")
+		.matches(/^(?!\s+$).*/g, '* This field cannot contain only blankspaces')
 		.required("Street Address is required"),
 	city: yup
 		.string("Enter City")
@@ -36,10 +37,11 @@ const validationSchema = yup.object({
 
 function HomeAddress() {
 	const { data, setData } = useContext(CheckMyOffers);
-	const [stateShort, setStateShort] = useState('');
+	const [stateShort, setStateShort] = useState(data.state ?? '');
 	const [validZip, setValidZip] = useState(true);
 	const [open, setOpen] = useState(false);
 	const [openOhio, setOpenOhio] = useState(false);
+	const [errorMsg, setErrorMsg] = useState('');
 
 	const handleClickOpen = () => {
 	  setOpen(true);
@@ -55,12 +57,11 @@ function HomeAddress() {
 		setOpenOhio(false);
 	  };
 
-	  const preventSpace = (event) => {
-		// const reg = /[a-zA-Z]+[ ]{0,1}[']{0,1}/;
-		if (event.keyCode === 32) {
-			event.preventDefault();
-		}
-		};
+
+		const address = (event) => {
+			// const reg = /[a-zA-Z]+[ ]{0,1}[']{0,1}/;
+				formik.handleBlur()
+			};
 
 	const history = useHistory();
 
@@ -70,7 +71,7 @@ function HomeAddress() {
 			// streetAddress: data.zip ? data.zip : '',
 			streetAddress: data.streetAddress ? data.streetAddress : "",
 			city: data.city ? data.city : "",
-			state: data.state ? data.state : "",
+			state: data.stateFullform ? data.stateFullform : "",
 			zip: data.zip ? data.zip : "",
 		},
 		validationSchema: validationSchema,
@@ -79,13 +80,26 @@ function HomeAddress() {
 			data.city = values.city;
 			data.state = stateShort;
 			data.zip = values.zip;
+			data.stateFullform = values.state;
 			history.push("/personal-info");
 		},
 	});
+console.log(data);
+
+
+const preventSpace = (event) => {
+	// const reg = /[a-zA-Z]+[ ]{0,1}[']{0,1}/;
+	if (event.keyCode === 32 && formik.values.streetAddress === '') {
+		event.preventDefault();
+	}
+	};
 
 	const fetchAddress = (e) => {
 		console.log("im calling");
-		fetch("https://api.zippopotam.us/us/" + e.target.value)
+		setErrorMsg(e.target.value === '' ? "Please enter zipcode" : setErrorMsg);
+		if(e.target.value !== '' && e.target.value.length === 5)
+		{
+			fetch("https://api.zippopotam.us/us/" + e.target.value)
 			.then((res) => res.json())
 			.then(
 				(result) => {
@@ -111,6 +125,7 @@ function HomeAddress() {
 						setStateShort('');
 						// formik.setErrors("zip", " zip not working");
 						setValidZip(false);
+						setErrorMsg("Please enter valid Zipcode");
 					}
 				},
 				(error) => {
@@ -120,10 +135,20 @@ function HomeAddress() {
 					setStateShort('');
 					// formik.setErrors("zip", " zip not working");
 					setValidZip(false);
+					setErrorMsg("Please enter valid Zipcode");
 				}
 			);
+		}
+		else{
+			formik.setFieldValue("city", '');
+			formik.setFieldValue("state", '');
+			setStateShort('');
+		}
+
 		formik.handleChange(e);
 	};
+
+
 
 	// console.log("Formik values:", formik);
 
@@ -196,6 +221,7 @@ function HomeAddress() {
 										>
 											<TextField
 												fullWidth
+												autoFocus
 												id="streetAddress"
 												name="streetAddress"
 												label="Street Address *"

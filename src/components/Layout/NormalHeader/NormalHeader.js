@@ -89,6 +89,11 @@ const handleMobileMenuOpen = (event) => {
           <Typography className={classes.subtitle} >
             Branch Locator
           </Typography>
+          <NavLink to='/customer/accountoverview'style={{'textDecoration':'none'}} >
+          <Typography className={classes.subtitle} >
+            Main UI
+          </Typography>
+          </NavLink>
           <NavLink to='/components'style={{'textDecoration':'none'}} >
           <Typography className={classes.subtitle} >
             Components

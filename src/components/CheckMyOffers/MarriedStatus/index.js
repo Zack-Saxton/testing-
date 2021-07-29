@@ -94,9 +94,18 @@ function MarriedStatus() {
 		},
 	});
 
+
+	const preventSpace = (event) => {
+		// const reg = /[a-zA-Z]+[ ]{0,1}[']{0,1}/;
+		if (event.keyCode === 32 && formik.values.streetAddress === '') {
+			event.preventDefault();
+		}
+		};
 	const fetchAddress = (e) => {
 		console.log("im calling");
-		fetch("https://api.zippopotam.us/us/" + e.target.value)
+		if(e.target.value !== '' && e.target.value.length === 5)
+		{
+			fetch("https://api.zippopotam.us/us/" + e.target.value)
 			.then((res) => res.json())
 			.then(
 				(result) => {
@@ -123,6 +132,13 @@ function MarriedStatus() {
 					setValidZip(false);
 				}
 			);
+		}
+		else{
+			formik.setFieldValue("spouseSelectState", '');
+			formik.setFieldValue("spouseState", '');
+			setStateShort('');
+		}
+
 		formik.handleChange(e);
 	};
 
@@ -225,6 +241,7 @@ function MarriedStatus() {
 												name="add"
 												label="Spouse's Address (if different) *"
 												value={formik.values.add}
+												onKeyDown={preventSpace}
 												onChange={formik.handleChange}
 												onBlur={formik.handleBlur}
 												error={formik.touched.add && Boolean(formik.errors.add)}

@@ -41,10 +41,13 @@ function SSN() {
 	};
 
 	const handleOnClick = (event) => {
-		console.log("finalData:", data);
-		console.log(checkMyOfferSubmit(data));
-		setAgree(false);
-		console.log(agree);
+		checkMyOfferSubmit(data);
+		// console.log("finalData:", data);
+		// console.log(checkMyOfferSubmit(data));
+
+		// setAgree(false);
+		// console.log(agree);
+		// testing();
 	}
 console.log(agree);
 	return (

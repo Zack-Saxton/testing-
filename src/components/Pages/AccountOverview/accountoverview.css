@@ -1,0 +1,19 @@
+.stroke-blue {
+    stroke: rgb(30, 32, 109);
+   }
+  
+   .stroke {
+    stroke: rgb(220, 220, 224);
+   }
+  
+   .centerheading{
+     color: blue;
+     font-size: 20px
+   }
+
+
+   /* .ct-series .ct-slice-donut {
+    stroke: blue;
+    stroke-width: 15px !important;
+    stroke-linecap: round;
+  } */
