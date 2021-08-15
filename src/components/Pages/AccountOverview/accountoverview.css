@@ -1,5 +1,6 @@
 .stroke-blue {
-    stroke: rgb(30, 32, 109);
+    stroke: #274367;
+   
    }
   
    .stroke {
@@ -7,13 +8,38 @@
    }
   
    .centerheading{
-     color: blue;
-     font-size: 20px
+     color: #181818;
+     font-size: 24px;
+     font-family: 'Muli', sans-serif;
+    font-weight: 400;
    }
 
+   
 
    /* .ct-series .ct-slice-donut {
     stroke: blue;
     stroke-width: 15px !important;
     stroke-linecap: round;
   } */
+
+  .donutchart{
+    height: 170px;
+
+    -webkit-filter: drop-shadow(0px 10px 4px rgba(133, 3, 168, .2));
+            filter: drop-shadow(0px 10px 4px rgba(133, 3, 168, .2));
+  }
+
+
+  /* @media (max-width:400px){
+    #activloangrid{
+        font-size: 3vw;
+    
+    }
+    } */
+
+    @media (max-width: 598px) {
+      /* For mobile phones: */
+      #activeloangrid{
+        height: unset!important;
+      }
+    }

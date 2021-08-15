@@ -9,31 +9,20 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import {
-  ButtonWithIcon,
-  ButtonSwitch,
-  DatePicker,
-  Button,
-  TextField,
-  Select,
-} from "../../FormsUI";
-import ad_banner from '../../../assets/images/adbanner.jpg';
-import mortage_banner from '../../../assets/images/Mortgage-Banner.jpg'
-import { Link , NavLink } from 'react-router-dom';
-// import {
-//   Chart,
-//   PieSeries,
-//   Title,
-//   Tooltip,
-// } from '@devexpress/dx-react-chart-material-ui';
+import { ButtonWithIcon } from "../../FormsUI";
+import ad_banner from "../../../assets/images/adbanner.jpg";
+import mortage_banner from "../../../assets/images/Mortgage-Banner.jpg";
+import { NavLink } from "react-router-dom";
 import Chartist from "react-chartist";
 import fillDonut from "chartist-plugin-fill-donut";
+import tooltip from 'chartist-plugin-tooltips-updated';
 import "./accountoverview.css"
 
+//Styling
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-  }, 
+  },
   paper: {
     padding: theme.spacing(3),
     display: "flex",
@@ -44,33 +33,35 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
     fontWeight: "normal",
   },
-  subheading:{
+  subheading: {
     color: "#171717",
     fontWeight: "normal",
   },
   table: {
     minWidth: 650,
   },
-  brandColor:{
+  brandColor: {
     margin: "auto",
     color: "#0f4eb3",
     fontSize: 25,
     fontWeight: 400,
   },
-  enablecolor:{
+  enablecolor: {
     margin: "auto",
     color: "#a5ce3b",
     fontSize: 25,
     fontWeight: 400,
   },
-  disablecolor:{
+  disablecolor: {
     margin: "auto",
     color: "#171717",
     fontSize: 25,
     fontWeight: 400,
-  }
+  },
 }));
 
+
+//Table data for Active loan
 function createData(
   appliedon,
   producttype,
@@ -89,13 +80,9 @@ function createData(
   };
 }
 
-function createPaymentData(
-  date,
-  description,
-  totalamount,
-  balance,
- 
-) {
+
+//Table data for Payment
+function createPaymentData(date, description, totalamount, balance) {
   return {
     date,
     description,
@@ -105,24 +92,9 @@ function createPaymentData(
 }
 
 const rowPayHistory = [
-  createPaymentData(
-    "02/05/2021",
-    "Regular Payment",
-    "$921.50",
-    "$9,000",    
-  ),
-  createPaymentData(
-    "02/05/2021",
-    "Regular Payment",
-    "$921.50",
-    "$9,000",    
-  ),
-  createPaymentData(
-    "02/05/2021",
-    "Regular Payment",
-    "$921.50",
-    "$9,000",    
-  ),
+  createPaymentData("02/05/2021", "Regular Payment", "$921.50", "$9,000"),
+  createPaymentData("02/05/2021", "Regular Payment", "$921.50", "$9,000"),
+  createPaymentData("02/05/2021", "Regular Payment", "$921.50", "$9,000"),
 ];
 
 const rows = [
@@ -136,50 +108,57 @@ const rows = [
   ),
 ];
 
-const  LoanAmount=10000
-const RepaidAmount=6000
-var intro='Loan Amount $'+LoanAmount+' : '+'Repaid Amount $'+RepaidAmount; 
+
+//Data for Chart
+const LoanAmount = 10000;
+const RepaidAmount = 6000;
+var intro =  "Loan Amount $" + LoanAmount + " : Repaid Amount $" + RepaidAmount;
 
 const donutChart = {
   labels: [1, 2],
   series: [
-    { className:"stroke-blue", meta: intro, value: 60 },
-    { className:"stroke",meta: "", value: 40 }
+    { className: "stroke-blue", meta: intro, value: 60 },
+    { className: "stroke", meta: "", value: 40 },
   ],
+  
 };
 
 
-
+//Begin: Login page
 export default function AccountOverview() {
   const classes = useStyles();
 
   const donutOptions = {
+    donut: true,
+    donutWidth: 8,
     showLabel: false,
-   ignoreEmptyValues: false,
-   donut: true,
-  donutWidth: 8,
-  donutSolid: true,
- 
-
-  plugins: [ 
-  fillDonut({ items: [
-    {
-      content:
-        '<h5 class="centerheading">$ 6,000</h5>'
-    }
-  ]}), 
-          ]
-    // plugins: [ChartistTooltip({ appendToBody: true })]
+    // appendToBody: false,
+    showValue: true,
+    plugins: [
+      fillDonut({
+        items: [
+          {
+            content: '<h5 class="centerheading">$ 6,000</h5>',
+          },
+        ], 
+      }),
+      tooltip(
+        { appendToBody: true}
+      ),
+    ],
   };
 
+  //View Part
   return (
     <div>
       <Grid container justify={"center"} style={{ marginTop: "-150px" }}>
         <Grid item xs={10} fullWidth={true} direction="row">
           <Typography>
-            <h3 className={classes.heading}>Account Overview</h3>
+            <h3 className={classes.heading} data-testid="title">Account Overview</h3>
           </Typography>
-        </Grid>
+        </Grid> 
+
+        {/******************************Image part********************************* */}
 
         <Grid
           item
@@ -189,14 +168,15 @@ export default function AccountOverview() {
           direction="row"
           style={{ padding: "5px" }}
         >
-          {/* <img src={NoOffersAvailableLogo} alt="NoOffersAvailable" /> */}
-          <Paper className={classes.paper}  style={{ height: "85%" }}>
-            <img src={ad_banner} alt="ad_banner" />
+          <Paper className={classes.paper} style={{ height: "85%" }}>
+            <img
+              src={ad_banner}
+              style={{ paddingTop: "35px" }}
+              data-testid="background"
+              alt="ad_banner"
+            />
           </Paper>
         </Grid>
-
-        {/* ************************************************************** */}
-
         <Grid
           item
           xs={10}
@@ -206,14 +186,17 @@ export default function AccountOverview() {
           style={{ padding: "5px" }}
         >
           <Paper className={classes.paper}>
-          <img src={mortage_banner} alt="mortage_banner" />
+          <img src={mortage_banner} data-testid="background" alt="mortage_banner" />
 
           </Paper>
         </Grid>
 
+                {/******************************Active Application with table********************************* */}
+
+
         <Grid item xs={10} fullWidth={true} direction="row">
           <Typography>
-            <h3 className={classes.subheading}>Active Application</h3>
+            <h3 className={classes.subheading} data-testid="subtitle">Active Application</h3>
           </Typography>
         </Grid>
 
@@ -274,7 +257,7 @@ export default function AccountOverview() {
 
         <Grid item xs={10} fullWidth={true} direction="row">
           <Typography>
-            <h3 className={classes.subheading}>Active Loan</h3>
+            <h3 className={classes.subheading} data-testid="subtitle">Active Loan</h3>
           </Typography>
         </Grid>
 
@@ -286,14 +269,14 @@ export default function AccountOverview() {
           direction="row"
           style={{ padding: "5px" }}
         >
-          <Paper className={classes.paper}>
+          <Paper className={classes.paper}  id="activeloangrid" style={{ height: "80%" }}>
             <Grid container spacing={3}>
-              <Grid item xs={10} xs={6}>
+              <Grid item xs={10} sm={6}>
                 <Typography>
                   <h4 style={{ margin: "auto" }}>Next Payment Details</h4>
                 </Typography>
               </Grid>
-              <Grid item xs={10} xs={6}>
+              <Grid item xs={10} sm={6}>
                 <ButtonWithIcon
                   icon="account_balance_walletIcon"
                   iconposition="right"
@@ -305,34 +288,33 @@ export default function AccountOverview() {
               </Grid>
             </Grid>
 
-           
-
-            <Grid container spacing={3}>
+            <Grid  container spacing={3}>
               <Grid item xs={10} sm={3} s>
-              <p >Auto Pay</p>
-            <h5 className={classes.enablecolor} >ENABLED </h5>
-            <p class="" >On due date of every month</p>
-              </Grid>
-              
-              <Grid item xs={10} sm={3}>
-              <p >Regular Amount</p>
-       <h5  className={classes.brandColor}>$<span class="addCommaAmount">921.50</span></h5>
-            <p class="">Amount may not include all fees</p>
-              </Grid>
-            
-              <Grid item xs={10} sm={3}>
-              <p>Due Date</p>
-                  <h5 className={classes.brandColor}>03/05/2020</h5>
-                     <p class="">Due in 28 days</p>
-              </Grid>
-             
-              <Grid item xs={10} sm={3}>
-              <p>Scheduled Payment</p>
-                <h5 className={classes.brandColor}>NONE</h5>
-            <p class="">No future payment is scheduled</p>
-              </Grid>
+                <p>Auto Pay</p>
+                <h5 className={classes.enablecolor}>ENABLED </h5>
+                <p class="">On due date of every month</p>
               </Grid>
 
+              <Grid item xs={10} sm={3}>
+                <p>Regular Amount</p>
+                <h5 className={classes.brandColor}>
+                  $<span class="addCommaAmount">921.50</span>
+                </h5>
+                <p class="">Amount may not include all fees</p>
+              </Grid>
+
+              <Grid item xs={10} sm={3}>
+                <p>Due Date</p>
+                <h5 className={classes.brandColor}>03/05/2020</h5>
+                <p class="">Due in 28 days</p>
+              </Grid>
+
+              <Grid item xs={10} sm={3}>
+                <p>Scheduled Payment</p>
+                <h5 className={classes.brandColor}>NONE</h5>
+                <p class="">No future payment is scheduled</p>
+              </Grid>
+            </Grid>
           </Paper>
         </Grid>
 
@@ -346,11 +328,11 @@ export default function AccountOverview() {
           direction="row"
           style={{ padding: "5px" }}
         >
-          <Paper className={classes.paper} style={{ height: "85%" }}>
+          <Paper className={classes.paper}  style={{ height: "80%" }}>
             <Grid item xs={10}>
-            <Typography >
-                  <h4 >Overview</h4>
-                </Typography>
+              <Typography>
+                <h4>Overview</h4>
+              </Typography>
               <p style={{ margin: "auto" }}>Account Number</p>
               <p style={{ margin: "auto" }}>
                 <b>1222-052502-22</b>
@@ -371,7 +353,7 @@ export default function AccountOverview() {
 
         <Grid item xs={10} fullWidth={true} direction="row">
           <Typography>
-            <h3 className={classes.subheading}>Active Loan</h3>
+            <h3 className={classes.subheading} data-testid="subtitle">Active Loan</h3>
           </Typography>
         </Grid>
 
@@ -383,14 +365,14 @@ export default function AccountOverview() {
           direction="row"
           style={{ padding: "5px" }}
         >
-          <Paper className={classes.paper}>
+          <Paper className={classes.paper} id="activeloangrid" style={{ height: "80%" }}>
             <Grid container spacing={3}>
-              <Grid item xs={10} xs={6}>
+              <Grid item xs={10} sm={6}>
                 <Typography>
                   <h4 style={{ margin: "auto" }}>Next Payment Details</h4>
                 </Typography>
               </Grid>
-              <Grid item xs={10} xs={6}>
+              <Grid item xs={10} sm={6}>
                 <ButtonWithIcon
                   icon="account_balance_walletIcon"
                   iconposition="right"
@@ -402,34 +384,33 @@ export default function AccountOverview() {
               </Grid>
             </Grid>
 
-           
-
             <Grid container spacing={3}>
               <Grid item xs={10} sm={3} s>
-              <p >Auto Pay</p>
-            <h5 className={classes.disablecolor} >DISABLED </h5>
-            <p class="" >On due date of every month</p>
-              </Grid>
-              
-              <Grid item xs={10} sm={3}>
-              <p >Regular Amount</p>
-       <h5  className={classes.brandColor}>$<span class="addCommaAmount">921.50</span></h5>
-            <p class="">Amount may not include all fees</p>
-              </Grid>
-            
-              <Grid item xs={10} sm={3}>
-              <p>Due Date</p>
-                  <h5 className={classes.brandColor}>03/05/2020</h5>
-                     <p class="">Due in 28 days</p>
-              </Grid>
-             
-              <Grid item xs={10} sm={3}>
-              <p>Scheduled Payment</p>
-                <h5 className={classes.brandColor}>NONE</h5>
-            <p class="">No future payment is scheduled</p>
-              </Grid>
+                <p>Auto Pay</p>
+                <h5 className={classes.disablecolor}>DISABLED </h5>
+                <p class="">On due date of every month</p>
               </Grid>
 
+              <Grid item xs={10} sm={3}>
+                <p>Regular Amount</p>
+                <h5 className={classes.brandColor}>
+                  $<span class="addCommaAmount">921.50</span>
+                </h5>
+                <p class="">Amount may not include all fees</p>
+              </Grid>
+
+              <Grid item xs={10} sm={3}>
+                <p>Due Date</p>
+                <h5 className={classes.brandColor}>03/05/2020</h5>
+                <p class="">Due in 28 days</p>
+              </Grid>
+
+              <Grid item xs={10} sm={3}>
+                <p>Scheduled Payment</p>
+                <h5 className={classes.brandColor}>NONE</h5>
+                <p class="">No future payment is scheduled</p>
+              </Grid>
+            </Grid>
           </Paper>
         </Grid>
         {/* ************************************************************** */}
@@ -444,9 +425,9 @@ export default function AccountOverview() {
         >
           <Paper className={classes.paper} style={{ height: "80%" }}>
             <Grid item xs={10}>
-            <Typography>
-                  <h4 >Overview</h4>
-                </Typography>
+              <Typography>
+                <h4>Overview</h4>
+              </Typography>
               <p style={{ margin: "auto" }}>Account Number</p>
               <p style={{ margin: "auto" }}>
                 <b>1222-052502-22</b>
@@ -471,18 +452,17 @@ export default function AccountOverview() {
           sm={3}
           fullWidth={true}
           direction="row"
-          style={{ padding: "5px", paddingTop:"20px"}}
+          style={{ padding: "5px", paddingTop: "20px", paddingBottom: "25px" }}
         >
           <Paper className={classes.paper} style={{ height: "85%" }}>
-          <Grid container spacing={3}>
-              <Grid item xs={10} xs={6}>
+            <Grid container spacing={3}>
+              <Grid item xs={10} sm={6}>
                 <Typography>
                   <h4 style={{ margin: "auto" }}>Available Cash</h4>
                 </Typography>
               </Grid>
-              <Grid item xs={10} xs={6}>
+              <Grid item xs={10} sm={6}>
                 <ButtonWithIcon
-                 
                   stylebutton='{"float": "right", "color":"" }'
                   styleicon='{ "color":"" }'
                 >
@@ -491,31 +471,13 @@ export default function AccountOverview() {
               </Grid>
             </Grid>
 
-            {/* <Chart
-          id="chart"
-      data={databar}
-      // rotated
-      // style={{ "height": "200px!important" }}
-    > */}
-      {/* <ArgumentAxis />
-      <ValueAxis  />  */}
-      
-      {/* <PieSeries
            
-            valueField="LatePayment"
-            argumentField="Time"
-            innerRadius={0.8}
-            color="red"
-          /> */}
-     {/* <BarSeries
-           valueField="Payment"
-           argumentField="Time"
-           
-            color="green"
-          />  */}
-          
-          <Chartist data={donutChart} options={donutOptions} type={"Pie"} />
-    {/* </Chart>  */}
+          <Grid item xs={12} >
+          <Chartist data={donutChart} options={donutOptions} type={"Pie"} className="donutchart" />
+        
+           <p style={{ textAlign: "center" }}>As of 02/22/2021</p>
+          </Grid>
+   
           </Paper>
         </Grid>
 
@@ -527,68 +489,67 @@ export default function AccountOverview() {
           sm={7}
           fullWidth={true}
           direction="row"
-          style={{ padding: "5px" , paddingTop:"20px"}}
+          style={{ padding: "5px", paddingTop: "20px",paddingBottom: "25px" }}
         >
-          <Paper className={classes.paper}>
-          <Grid container spacing={3}>
-              <Grid item xs={10} xs={6}>
+          <Paper className={classes.paper} style={{ height: "85%" }}>
+            <Grid container spacing={3}>
+              <Grid item xs={10} sm={6}>
                 <Typography>
                   <h4 style={{ margin: "auto" }}>Recent Payments</h4>
                 </Typography>
               </Grid>
-              <Grid item xs={10} xs={6}>
-              <NavLink to='/customer/paymenthistory' style={{'textDecoration':'none'}} >
-                <ButtonWithIcon
-                  icon="visibilityIcon"
-                  iconposition="right"
-                  stylebutton='{"float": "right", "color":"" }'
-                  styleicon='{ "color":"" }'
+              <Grid item xs={10} sm={6}>
+                <NavLink
+                  to="/customer/paymenthistory"
+                  style={{ textDecoration: "none" }}
                 >
-                  Payment History
-                </ButtonWithIcon>
+                  <ButtonWithIcon
+                    icon="visibilityIcon"
+                    iconposition="right"
+                    stylebutton='{"float": "right", "color":"" }'
+                    styleicon='{ "color":"" }'
+                  >
+                    Payment History
+                  </ButtonWithIcon>
                 </NavLink>
               </Grid>
             </Grid>
 
             <Grid item xs={12} style={{ paddingBottom: "10px" }}>
-          <TableContainer >
-            <Table aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell style={{ fontWeight: "600" }} align="center">
-                   Date
-                  </TableCell>
-                  <TableCell style={{ fontWeight: "600" }} align="center">
-                   Description
-                  </TableCell>
-                  <TableCell style={{ fontWeight: "600" }} align="center">
-                    Total Amount
-                  </TableCell>
-                  <TableCell style={{ fontWeight: "600" }} align="center">
-                    Balance
-                  </TableCell>                 
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rowPayHistory.map((row) => (
-                  <TableRow key={row.name}>
-                    {/* <TableCell component="th" scope="row">
-                      {row.date}
-                    </TableCell> */}
-                    <TableCell align="center">{row.date}</TableCell>
-                    <TableCell align="center">{row.description}</TableCell>
-                    <TableCell align="center">{row.totalamount}</TableCell>
-                    <TableCell align="center">{row.balance}</TableCell>
-                   
-                  </TableRow>
-                ))}
-              </TableBody>
-              </Table>
+              <TableContainer>
+                <Table aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell style={{ fontWeight: "600" }} align="center">
+                        Date
+                      </TableCell>
+                      <TableCell style={{ fontWeight: "600" }} align="center">
+                        Description
+                      </TableCell>
+                      <TableCell style={{ fontWeight: "600" }} align="center">
+                        Total Amount
+                      </TableCell>
+                      <TableCell style={{ fontWeight: "600" }} align="center">
+                        Balance
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {rowPayHistory.map((row) => (
+                      <TableRow key={row.name}>
+                      
+                        <TableCell align="center">{row.date}</TableCell>
+                        <TableCell align="center">{row.description}</TableCell>
+                        <TableCell align="center">{row.totalamount}</TableCell>
+                        <TableCell align="center">{row.balance}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
               </TableContainer>
-              </Grid>
+            </Grid>
           </Paper>
         </Grid>
-        
       </Grid>
     </div>
   );

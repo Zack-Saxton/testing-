@@ -1,0 +1,26 @@
+@media (max-width: 600px) {
+    #makepayment-cancelbutton-grid{
+      padding: 0!important;
+     
+      padding-top: 10px!important;
+     
+    }
+  }
+
+  @media (max-width: 600px) {
+    #makepayment-schedulebutton, #makepayment-cancelbutton,#makepayment-submitbutton {
+      padding: 0!important;
+     
+     height: 32px;
+      width: 120%!important;
+    }
+  }  
+
+  @media (max-width: 600px) {
+  #makepayment-submitbutton {
+      padding: 0!important;
+     
+     height: 32px;
+      width: 100%!important;
+    }
+  } 

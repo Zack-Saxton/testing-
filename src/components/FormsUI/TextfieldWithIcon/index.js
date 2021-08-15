@@ -7,10 +7,8 @@ Functionality       :    To use this component to add Iconwith textfield
 #################################################################################################################*/
 import React from "react";
 import { Grid } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
 import TextField from "../Textfield";
 import Icon from "@material-ui/core/Icon";
-import classNames from "classnames";
 
 const TextfieldWithIconWrapper = ({
   icon,
@@ -22,15 +20,7 @@ const TextfieldWithIconWrapper = ({
 }) => {
   // const [field, mata] = useField(name);
 
-  //Styling part
-  const useStyles = makeStyles((theme) => ({
-    cssIcon: {
-      paddingTop: "20px",
-      color: iconColor,
-    },
-  }));
 
-  const classes = useStyles();
   //Configuring the field properties
   const configTextfield = { 
     ...otherProps,
@@ -45,7 +35,7 @@ const TextfieldWithIconWrapper = ({
   //View part
   return (
     <div>
-       <Grid item xs={12}  direction="row" style={{display:"inline-flex", width: "-webkit-fill-available"}}>
+       <Grid item xs={12}  direction="row" style={{display:"inline-flex", width: "100%"}}>
               {iconPosition === "left" || !iconPosition ? (
           <Grid  style={{paddingTop:"20px" , paddingRight:"10px"}}>
             <Icon data-testid= "icon" >

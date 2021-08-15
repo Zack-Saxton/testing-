@@ -1,3 +1,17 @@
-#chart{
-    height: 200px!important;
+
+
+.ontimepayment {
+    stroke: #31CA70;
+   
+   }
+  
+   .latepayment {
+    stroke: #FF4141;
+   
+   }
+
+   .ct-bar {
+    fill: none;
+    stroke-width: 40;
+   
 }

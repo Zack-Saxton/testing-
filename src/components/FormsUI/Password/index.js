@@ -8,7 +8,6 @@ Functionality       :    To use this component to validate and get the Password 
 import React,{useState} from "react";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import FormControl from "@material-ui/core/FormControl";
 import { TextField, InputAdornment, IconButton } from "@material-ui/core";
 
 

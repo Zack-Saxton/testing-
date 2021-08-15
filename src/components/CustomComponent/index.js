@@ -5,7 +5,6 @@ import Card from "@material-ui/core/Card";
 import Grid from "@material-ui/core/Grid";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import Logo from "../../assets/images/MarinerLogo.png";
 import {
 	TextField,
 	DataGrid,

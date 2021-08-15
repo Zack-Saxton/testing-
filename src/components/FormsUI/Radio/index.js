@@ -11,7 +11,6 @@ import React from "react";
 import { FormControl, FormControlLabel, FormLabel } from "@material-ui/core";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
-import { useField, useFormikContext } from "formik";
 
 const RadioButtonWrapper = ({
   name,
@@ -20,26 +19,37 @@ const RadioButtonWrapper = ({
   value,
   row,
   required,
+  onClick,
   labelplacement,
   ...otherProps
 }) => {
   //To return all formik state
-  const { setFieldValue } = useFormikContext();
-  const [field, meta] = useField(name);
-  const handleChange = (evt) => {
-    const { checked } = evt.target;
-    setFieldValue(value, checked);
-  };
+  // const { setFieldValue } = useFormikContext();
+  // const [field, meta] = useField(name);
+  // const handleChange = (evt) => {
+  //   const { checked } = evt.target;
+  //   setFieldValue(value, checked);
+  // };
 
+  const [radiovalue, setradioValue] = React.useState("");
+
+  function handleRadioClick(event) {
+    if (event.target.value === radiovalue) {
+      setradioValue("");
+    } else {
+      setradioValue(event.target.value);
+    }
+  }
   //Configuring the field with properties
   const configRadioButton = {
     name,
     row: row,
     required: required,
-    ...field,
+    
     ...otherProps,
-    onChange: handleChange,
+   
   };
+
 
   //Validation
 
@@ -49,15 +59,16 @@ const RadioButtonWrapper = ({
   //View Part
   return (
     <FormControl >
-      <FormLabel>{labelforform}</FormLabel>
-      <RadioGroup {...configRadioButton}>
+      <FormLabel style={{fontFamily: "system-ui",fontWeight: "normal",}}>{labelforform}</FormLabel>
+      <RadioGroup  value={radiovalue} {...configRadioButton}>
         {radiolabelMF.map((radio) => (
-          <FormControlLabel
+          <FormControlLabel 
             labelPlacement={labelplacement}
             value={radio.value}
             key={radio.value}
             label={radio.label}
-            control={<Radio />}
+           
+            control={<Radio onClick={handleRadioClick} />}
           />
         ))}
       </RadioGroup>

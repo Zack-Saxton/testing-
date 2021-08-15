@@ -6,12 +6,9 @@ Functionality       :    To use this component to validate and get the zipcode i
 
 #################################################################################################################*/
 
-import React, { useState, useContext } from "react";
-import { useField } from "formik";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import TextBox from "../Textfield";
-import { TextField } from '@material-ui/core';
-import { set } from "date-fns";
 
 
 const ZipCodeWrapper = ({ name, error, helperText, value, onChange, ...otherProps }) => {

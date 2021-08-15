@@ -1,37 +1,69 @@
 import React from "react";
 import "./normalfooter.css";
 import badge from "../../../assets/images/badge.png";
-import logoimage from "../../../assets/images/Normallogo.png";
 import Logo from "../../../assets/images/MarinerLogo.png";
-
-
 
 export default function NormalFooter() {
   //View Part
   return (
     <div>
-      <footer style={{ "width": "100%"  }}>
+      <footer style={{ width: "100%" }}>
         <section class="section-top">
-        <div class="col">
-            <div class="footer-content"><a href="#" class="hreftag">Community Guidelines</a></div>
-            <div class="footer-content"><a href="#" class="hreftag">Privacy Statement</a></div>
-            <div class="footer-content"><a href="#" class="hreftag">Terms of Use</a></div>
-            <div class="footer-content"><a href="#" class="hreftag">Liscence & disclosures</a></div>
-            <div class="footer-content"><a href="#" class="hreftag">Testing Terms of Use</a></div>
-            <div class="footer-content"><a href="#" class="hreftag">Website Accessibility Statement</a></div>
-            <div class="footer-content"><a href="#" class="hreftag">
-              CAC Terms Of Use For California Residents Do Not Sell My personal
-              Information
-              </a></div>
+          <div class="col">
+            <div class="footer-content">
+              <a href="/#" class="hreftag">
+                Community Guidelines
+              </a>
+            </div>
+            <div class="footer-content">
+              <a href="/#" class="hreftag">
+                Privacy Statement
+              </a>
+            </div>
+            <div class="footer-content">
+              <a href="/#" class="hreftag">
+                Terms of Use
+              </a>
+            </div>
+            <div class="footer-content">
+              <a href="/#" class="hreftag">
+                Liscence & disclosures
+              </a>
+            </div>
+            <div class="footer-content">
+              <a href="/#" class="hreftag">
+                Testing Terms of Use
+              </a>
+            </div>
+            <div class="footer-content">
+              <a href="/#" class="hreftag">
+                Website Accessibility Statement
+              </a>
+            </div>
+            <div class="footer-content">
+              <a href="/#" class="hreftag">
+                CAC Terms Of Use For California Residents Do Not Sell My
+                personal Information
+              </a>
+            </div>
           </div>
 
           <div class="col">
             <div>
-              <img src={badge} alt="badge" id= "badge" style={{ height: "90px" }} />
+              <img
+                src={badge}
+                alt="badge"
+                id="badge"
+                style={{ height: "90px" }}
+              />
             </div>
             <div>
-              
-              <img src={Logo} alt="logoimage" id="logoimage" style={{ height: "60px" }} />
+              <img
+                src={Logo}
+                alt="logoimage"
+                id="logoimage"
+                style={{ height: "60px" }}
+              />
             </div>
           </div>
 
@@ -40,11 +72,7 @@ export default function NormalFooter() {
               <p class="leftalign">
                 Mariner Finance, LLC, NMLS No. 166564
                 <br />
-                <a
-                  href="https://www.nmlsconsumeraccess.org/"
-                  target="_blank"
-                  class=" hreftag"
-                >
+                <a href="https://www.nmlsconsumeraccess.org/" class=" hreftag">
                   (www.nmlsconsumeraccess.com)
                 </a>
                 <br />
@@ -58,8 +86,6 @@ export default function NormalFooter() {
             </div>
           </div>
         </section>
-
-       
       </footer>
     </div>
   );

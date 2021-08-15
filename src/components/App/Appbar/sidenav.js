@@ -26,6 +26,7 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import logo from "../../../assets/images/MarinerLogo.png";
 import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
 import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import MonetizationOnRoundedIcon from "@material-ui/icons/MonetizationOnRounded";
 import DescriptionOutlinedIcon from "@material-ui/icons/DescriptionOutlined";
 import AssignmentTurnedInOutlinedIcon from "@material-ui/icons/AssignmentTurnedInOutlined";
@@ -289,7 +290,7 @@ export default function Sidenav() {
           <ListItem>
             <ListItemIcon>
               {" "}
-              <AccountCircle />{" "}
+              <AccountCircleIcon />{" "}
             </ListItemIcon>
             <ListItemText> My Profile</ListItemText>
           </ListItem>

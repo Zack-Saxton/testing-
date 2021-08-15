@@ -7,11 +7,8 @@ Functionality       :    To use this component to validate and get the account n
 #################################################################################################################*/
 
 import React, { useState } from "react";
-import { useField } from "formik";
 import PropTypes from "prop-types";
 import TextBox from "../Textfield";
-import { TextField } from '@material-ui/core';
-import { set } from "date-fns";
 
 const AccountNumberWrapper = ({ name, ...otherProps }) => {
   //Set Formik field

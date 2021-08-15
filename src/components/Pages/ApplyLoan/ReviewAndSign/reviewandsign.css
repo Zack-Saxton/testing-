@@ -1,0 +1,36 @@
+@media (max-width: 800px) {
+  #columnheading {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 800px) {
+  #columncontent {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  #rightborder, #rightborder-loanterm, #rightborder-apr {
+    border-right: none !important;
+  }
+}
+
+@media (max-width: 800px) {
+   #rightborder-loanterm, #rightborder-apr {
+    padding-top: 10px!important;
+  }
+}
+
+
+
+@media (max-width: 600px) {
+  #reselect-button, #reviewsubmit-button{
+    width: 100%;
+  }
+}
+
+.MuiTabScrollButton-root{
+  color: white!important;
+}
+

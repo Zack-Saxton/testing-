@@ -8,7 +8,6 @@ Functionality       :    To use this component to validate and get the Password 
 import React from "react";
 import { useField } from "formik";
 import Input from "@material-ui/core/Input";
-import { passwordValidation } from "../../../helpers/validations";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";

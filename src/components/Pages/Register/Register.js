@@ -1,24 +1,31 @@
 import React, { useState } from "react";
-import { useFormik  } from "formik";
+import { useHistory } from "react-router-dom";
+import { useFormik } from "formik";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import * as yup from "yup";
 import Box from "@material-ui/core/Box";
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
+import axios from "axios";
 import {
   Button,
   PasswordWithIcon,
   EmailWithIcon,
   TextFieldWithIcon,
-  SocialSecurityNumber, 
+  SocialSecurityNumber,
   DatePicker,
   Zipcode,
 } from "../../FormsUI";
 import Paper from "@material-ui/core/Paper";
 import Logo from "../../../assets/images/loginbg.png";
 import "./register.css";
-import {  Icon } from "@material-ui/core";
+import { Icon } from "@material-ui/core";
 
+//Styling
 const useStyles = makeStyles((theme) => ({
   main: {
     backgroundImage: "url(" + Logo + ")",
@@ -26,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
- 
+
   maingrid: {
     boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%), 
     0 6px 30px 5px rgb(0 0 0 / 12%), 
@@ -43,13 +50,11 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "12px",
     textAlign: "justify",
     marginLeft: "32px",
-   
   },
   dobtitle: {
     fontSize: "12px",
     textAlign: "justify",
     marginLeft: "40px",
-   
   },
   paper: {
     // marginTop: theme.spacing(8),
@@ -72,48 +77,40 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+//Yup validations for all the input fields
 const validationSchema = yup.object({
   firstname: yup
     .string("Enter your firstname")
     .max(30, "Firstname can be upto 30 characters length")
     .min(2, "Firstname should be minimum of 2 letters")
     .required("Your first name is required"),
-
   lastname: yup
     .string("Enter your Lastname")
     .max(30, "Lastname can be upto 30 characters length")
     .min(2, "Lastname should be minimum of 2 letters")
-    .required("Your last name is required"),
-
+    .required("Your last name is required"),  
   email: yup
     .string("Enter your email")
     .email("Email should be as (you@example.com)")
-    .matches(/^[a-zA-Z\b](([^<>()|?{}=/+'[\]\\.,;:#!$%^&*_-\s@\"]+(\.[^<>()|?{}=/+'[\]\\.,;:#!$%^&*_-\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,4}))$/,"Invalid Email")
-    .required("Email is required"),
-
-    // .matches(
-    //   /^[a-zA-Z](([^<>()|?{}=/+'[\]\\.,;:#!$%^&*_-\s@\"]+(\.[^<>()|?{}=/+'[\]\\.,;:#!$%^&*_-\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,4}))$/,
-    //   "Invalid Email"
-    // )
-    // .required("Your email address is required"),
-
+    .matches(
+      /^[a-zA-Z](?!.*[+/._-][+/._-])(([^<>()|?{}='[\]\\,;:#!$%^&*\s@\"]+(\.[^<>()|?{}=/+'[\]\\.,;_:#!$%^&*-\s@\"]+)*)|(\".+\"))[a-zA-Z0-9]@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,3}))$/,                                              //eslint-disable-line                                                         
+      "Invalid Email" )
+    .required("Your email address is required"),
   date: yup
     .date("Please enter valid date")
     .nullable()
     .required("Your date of birth is required")
     .max(new Date(Date.now() - 567648000000), "You must be at least 18 years")
-    .typeError('Please enter a valid date'),
-
+    .min(new Date(1940, 1, 1), "You are too old")
+    .typeError("Please enter a valid date"),
   password: yup
     .string("Enter your password")
     .matches(
-      /^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,30}$/,
-      "Your password doesn't meet the criteria"
-    )
+      /^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,30}$/,                                                                                                                                                                                                                                                   
+      "Your password doesn't meet the criteria")
     .max(30, "Password can be upto 30 characters length")
     .min(8, "Password should be minimum of 8 characters length")
     .required("Your password is required"),
-
   confirmpassword: yup
     .string()
     .max(30, "Password can be upto 30 characters length")
@@ -123,24 +120,35 @@ const validationSchema = yup.object({
       is: (password) => (password && password.length > 0 ? true : false),
       then: yup.string().oneOf([yup.ref("password")], "Password doesn't match"),
     }),
-
   zip: yup
     .string("Enter your Zip")
     .min(5, "Zipcode should be of minimum 5 characters length")
     .required("Your home ZIP code is required"),
-
   ssn: yup
-    .string()
-    .min(11, "Social Security Number must be up to 9 digits")
-    .required("Your SSN is required"),
+    .string("Enter a SSN")
+    .required("Your SSN is required")
+    .transform((value) => value.replace(/[^\d]/g, ""))
+    .matches(/^(?!000|666)[0-8][0-9]{2}(?!00)[0-9]{2}(?!0000)[0-9]{4}$/,"Invalid SSN")
+    .min(9, "Name must contain at least 9 digits"),
 });
 
+//Begin: Login page
 export default function Register() {
   const classes = useStyles();
   const [validZip, setValidZip] = useState(true);
+  const [state, setState] = useState('');
+  const [city, setCity] = useState('');
+  const [success, setSuccess] = useState(false);
+  const [failed, setFailed] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const history = useHistory();
+
+  //Date implementation for verifying 18 years
   var myDate = new Date();
   myDate.setDate(myDate.getDate() - 6570);
 
+
+//Form Submission
   const formik = useFormik({
     initialValues: {
       firstname: "",
@@ -154,27 +162,105 @@ export default function Register() {
       date: null,
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: async (values) => {
+      // alert(JSON.stringify(values, null, 2));
+      setLoading(true);
+      setFailed(false);
+      let body = {
+        "fname": values.firstname,
+        "lname": values.lastname,
+        "email": values.email,
+        "ssn": values.ssn,
+        "zip_code": values.zip,
+        "password": values.password,
+        "birth_year": values.date.getFullYear().toString(),
+        "birth_month": ("0" + (values.date.getMonth() + 1)).slice(-2),
+        "birth_day": ("0" + (values.date.getDate() + 1)).slice(-2),
+        "address_street": '',
+        "address_city": city,
+        "address_state": state
+      }
+
+      console.log(body);
+      console.log(values);
+      try{
+        
+      
+      let customerStatus  = await axios({
+        method: "POST",
+        url: "/customer/register_new_user",
+        data: JSON.stringify(body),
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "*/*",
+            Host: "psa-development.marinerfinance.io",
+            "Accept-Encoding": "gzip, deflate, br",
+            Connection: "keep-alive",
+            "Content-Length": "6774",
+        },
+        transformRequest: (data, headers) => {
+            delete headers.common["Content-Type"];
+            return data;
+        },
+    });
+
+
+    console.log("ret",customerStatus);
+
+    if(customerStatus.data?.customerFound === false && customerStatus.data?.userFound === false && customerStatus.data?.is_registration_failed === false){
+      
+      history.push("customer/accountoverview");
+    }
+    else if(customerStatus.data?.result === 'error' && customerStatus.data?.statusCode === 400){
+      // alert("Account already exists. Please use the login page and forgot password function to login");
+     
+      setFailed(true);
+      setSuccess(false);
+      setLoading(false);
+    }
+    else{
+      alert("network error");
+      setFailed(false);
+      setSuccess(false);
+      setLoading(false);
+      
+
+    }
+  }
+  catch(error){
+   
+    // alert("network error");
+    setLoading(false);
+  }
+
     },
   });
 
   const onHandleChange = (event) => {
-    const reg = /^([a-zA-Z]+[ ]?|[a-z]+['-]?)+$/;
-
+    const reg = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
     let acc = event.target.value;
-
     if (acc === "" || reg.test(acc)) {
       formik.handleChange(event);
     }
   };
 
+  const handleCloseFailed = () => {
+		setFailed(false);
+	  };
+
+    const handleCloseSuccess = () => {
+      setSuccess(false);
+      history.push("customer/accountoverview");
+      };
+
+ //Preventing space key
   const preventSpace = (event) => {
     if (event.keyCode === 32) {
       event.preventDefault();
     }
   };
 
+  //Fetching valid zipcode 
   const fetchAddress = (e) => {
     fetch("https://api.zippopotam.us/us/" + e.target.value)
       .then((res) => res.json())
@@ -182,18 +268,26 @@ export default function Register() {
         (result) => {
           if (result.places) {
             setValidZip(true);
+            setState(result.places[0]["state abbreviation"]);
+            setCity(result.places[0]["place name"]);
+
           } else {
             setValidZip(false);
+            setState('');
+            setCity('');
           }
         },
         (error) => {
           console.log("error:", error);
           setValidZip(false);
+          setState('');
+          setCity('');
         }
       );
     formik.handleChange(e);
   };
 
+  //View Part
   return (
     <div>
       <div className={classes.main} id="main">
@@ -221,6 +315,8 @@ export default function Register() {
                   {" "}
                   Let us help you get signed in another way
                 </p>
+
+               
 
                 <form onSubmit={formik.handleSubmit}>
                   <Grid
@@ -251,11 +347,10 @@ export default function Register() {
                         }
                         helperText={
                           formik.touched.firstname && formik.errors.firstname
-                        }
-
-                        // customClass='fa fa-plus-circle'
+                        }                       
                       />
                     </Grid>
+
                     <Grid item xs={12} sm={6} fullWidth={true} direction="row">
                       <TextFieldWithIcon
                         name="lastname"
@@ -325,7 +420,6 @@ export default function Register() {
                         id="ssn"
                         type="ssn"
                         value={formik.values.ssn}
-                        // onChange={onSSNhandleChange}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         error={formik.touched.ssn && Boolean(formik.errors.ssn)}
@@ -351,7 +445,6 @@ export default function Register() {
                         label="Zipcode *"
                         placeholder="Enter your zipcode"
                         value={formik.values.zip}
-                        // onChange={formik.handleChange}
                         onChange={fetchAddress}
                         onBlur={formik.handleBlur}
                         error={
@@ -372,7 +465,7 @@ export default function Register() {
                       item
                       xs={12}
                       direction="row"
-                      style={{ display: "inline-flex", paddingBottom:"0px" }}
+                      style={{ display: "inline-flex", paddingBottom: "0px" }}
                     >
                       <Grid
                         style={{ paddingTop: "20px", paddingRight: "10px" }}
@@ -457,6 +550,11 @@ export default function Register() {
                           formik.errors.confirmpassword
                         }
                       />
+                      <br />
+                       <p className={ failed ? "showError addPadd" : "hideError" } data-testid="subtitle">
+                        {" "}
+                        It looks like you already have an account.
+                      </p>
                     </Grid>
                     <br></br>
                     <br></br>
@@ -469,8 +567,13 @@ export default function Register() {
                         data-testid="submit"
                         stylebutton='{"background": "", "color":"" }'
                         background="0F4EB3!important"
+                        disabled = { loading }
                       >
                         Sign In
+                          <i
+                            className="fa fa-refresh fa-spin customSpinner"
+                            style={{ marginRight: "10px", display: loading ? "block" : "none" }}
+                          />
                       </Button>
                     </Grid>
                   </Grid>
@@ -480,6 +583,50 @@ export default function Register() {
           </Grid>
         </Box>
       </div>
+      <Dialog onClose={handleCloseFailed} aria-labelledby="customized-dialog-title" open={false}>
+				<DialogTitle id="customized-dialog-title" onClose={handleCloseFailed}>
+				Notice 
+				</DialogTitle>
+				<DialogContent dividers>
+				<Typography align="justify" gutterBottom>
+        Account already exists. Please use the login page and forgot password function to login
+				</Typography>
+				
+				</DialogContent>
+				<DialogActions className="modalAction">
+				<Button
+					stylebutton='{"background": "#FFBC23", "color": "black", "border-radius": "50px"}'
+					onClick={handleCloseFailed}
+					className="modalButton"
+				>
+					<Typography align="center">
+						Ok
+					</Typography>
+				</Button>
+				</DialogActions>
+			</Dialog>
+      <Dialog onClose={handleCloseSuccess} aria-labelledby="customized-dialog-title" open={success}>
+				<DialogTitle id="customized-dialog-title" onClose={handleCloseSuccess}>
+				Notice 
+				</DialogTitle>
+				<DialogContent dividers>
+				<Typography align="justify" gutterBottom>
+        Account created Successfully!
+				</Typography>
+				
+				</DialogContent>
+				<DialogActions className="modalAction">
+				<Button
+					stylebutton='{"background": "#FFBC23", "color": "black", "border-radius": "50px"}'
+					onClick={handleCloseSuccess}
+					className="modalButton"
+				>
+					<Typography align="center">
+						Ok
+					</Typography>
+				</Button>
+				</DialogActions>
+			</Dialog>
     </div>
   );
 }

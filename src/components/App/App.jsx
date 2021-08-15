@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter, Route, Switch, Redirect} from 'react-router-dom'
 import "./app.css";
 import AccountOverview from "../Pages/AccountOverview/AccountOverview"
 import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory"
 import ApplyLoan from "../Pages/ApplyLoan/ApplyLoan"
+import ReviewAndSign from "../Pages/ApplyLoan/ReviewAndSign/ReviewAndSign"
+import FinalVerification from "../Pages/ApplyLoan/FinalVerification/FinalVerification"
 import LoanHistory  from "../Pages/LoanHistory/LoanHistory"
 import MakePayment from "../Pages/MakePayment/MakePayment"
 import MoneySkill from "../Pages/MoneySkill/MoneySkill"
@@ -16,24 +18,24 @@ import GeneralUser from '../Layout/General';
 import PostLogin from '../Layout/Post';
 import Loginpage from '../Pages/Login/Login'
 import Registerpage from '../Pages/Register/Register'
-import SelectAmount from '../CheckMyOffers/SelectAmount';
-import LoanPurpose from '../CheckMyOffers/LoanPurpose';
-import CitizenshipStatus from '../CheckMyOffers/CitizenshipStatus';
-import Zipcode from '../CheckMyOffers/Zipcode';
-import PersonalInfo from '../CheckMyOffers/PersonalInfo';
-import NewUser from '../CheckMyOffers/NewUser';
-import ExistingUser from "../CheckMyOffers/ExistingUser";
+import SelectAmount from '../Pages/CheckMyOffers/SelectAmount';
+import LoanPurpose from '../Pages/CheckMyOffers/LoanPurpose';
+import CitizenshipStatus from '../Pages/CheckMyOffers/CitizenshipStatus';
+import Zipcode from '../Pages/CheckMyOffers/Zipcode';
+import PersonalInfo from '../Pages/CheckMyOffers/PersonalInfo';
+import NewUser from '../Pages/CheckMyOffers/NewUser';
+import ExistingUser from "../Pages/CheckMyOffers/ExistingUser";
 import CheckMyOffers from '../../contexts/CheckMyOffers';
-import EmploymentStatus from '../CheckMyOffers/EmploymentStatus';
-import AnnualIncome from '../CheckMyOffers/AnnualIncome';
-import HomeAddress from "../CheckMyOffers/home-address";
-import LivingPlace from "../CheckMyOffers/LivingPlace";
-import ActiveDuty from "../CheckMyOffers/ActiveDuty";
-import MarriedStatus from "../CheckMyOffers/MarriedStatus";
-import SSN from "../CheckMyOffers/SSN";
-import NoOffersAvailable from "../CheckMyOffers/NoOffersAvailable";
-import RefferedToBranch from "../CheckMyOffers/RefferedToBranch";
-import EligibleForOffers from "../CheckMyOffers/EligibleForOffer";
+import EmploymentStatus from '../Pages/CheckMyOffers/EmploymentStatus';
+import AnnualIncome from '../Pages/CheckMyOffers/AnnualIncome';
+import HomeAddress from "../Pages/CheckMyOffers/home-address";
+import LivingPlace from "../Pages/CheckMyOffers/LivingPlace";
+import ActiveDuty from "../Pages/CheckMyOffers/ActiveDuty";
+import MarriedStatus from "../Pages/CheckMyOffers/MarriedStatus";
+import SSN from "../Pages/CheckMyOffers/SSN";
+import NoOffersAvailable from "../Pages/CheckMyOffers/NoOffersAvailable";
+import RefferedToBranch from "../Pages/CheckMyOffers/RefferedToBranch";
+import EligibleForOffers from "../Pages/CheckMyOffers/EligibleForOffer";
 
 function App() {
 
@@ -94,6 +96,8 @@ function App() {
               <Route path='/customer/accountoverview' exact component={AccountOverview} />
               <Route path='/customer/paymenthistory' component={PaymentHistory} />
               <Route path='/customer/applyloan' component={ApplyLoan} />
+              <Route path='/customer/reviewandsign' component={ReviewAndSign} />
+              <Route path='/customer/finalverification' component={FinalVerification} />
               <Route path='/customer/loandocument' component={LoanDocument} />
               <Route path='/customer/loanhistory' component={LoanHistory} />
               <Route path='/customer/makepayment' component={MakePayment} />

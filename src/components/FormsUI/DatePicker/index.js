@@ -13,7 +13,8 @@ import DateFnsUtils from "@date-io/date-fns";
 import PropTypes from "prop-types";
 import {
     MuiPickersUtilsProvider,
-    KeyboardDatePicker,
+   
+	KeyboardDatePicker
 } from "@material-ui/pickers";
  
 const DatePickerWrapper = ({ name, format, defaultDate,label, placeholder,maxdate, ...otherProps }) => {
@@ -28,25 +29,28 @@ const DatePickerWrapper = ({ name, format, defaultDate,label, placeholder,maxdat
 	
 
 	return (
-		<MuiPickersUtilsProvider utils={DateFnsUtils} fullWidth={true}>
+		<MuiPickersUtilsProvider utils={DateFnsUtils}>
 			<Grid container justify="space-around">
 				<KeyboardDatePicker
 					margin="normal"
 					id="date-picker-dialog"
 					label={label}   
+					fullWidth={true}
 					format= { format ?? 'MM-dd-yyyy'}
 					value={selectedDate}
 					onChange={handleDateChange}
-					fullWidth={true}	
+					minDate={new Date("1940-01-01")}
+					maxDate={new Date(maxdate)}
 					placeholder={placeholder}
-					maxDate= { maxdate }
+					
 					KeyboardButtonProps={{
 						"aria-label": "change date",
 					}}
 					
-					orientation="landscape"
-					inputProps={{"data-testid":"datePicker"}}
+					
 					{...otherProps}
+					inputProps={{"data-testid":"datePicker"}}
+					
 				/>
 			</Grid>
 		</MuiPickersUtilsProvider>

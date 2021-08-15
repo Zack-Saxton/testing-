@@ -71,3 +71,7 @@ label + .MuiInput-formControl{
     display: none;
  
 }
+
+.addPadd{
+    margin-left: 5% !important;
+}

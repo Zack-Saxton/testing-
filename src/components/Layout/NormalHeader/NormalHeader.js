@@ -1,32 +1,21 @@
 import React from "react";
-import { Link , NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Logo from "../../../assets/images/MarinerLogo.png";
 import {useStyles} from "./Normalheaderstyle"
-
-
 import IconButton from '@material-ui/core/IconButton';
-
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import MoreIcon from '@material-ui/icons/MoreVert';
-
-
-  //Styling Part 
   
   
 const NormalHeader = () => {
 
-// }
-//   export default function NormalHeader() {
+
     const classes = useStyles();
-    // const [anchorEl, setAnchorEl] = React.useState(null);
-    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(false);
-    // const [open, setOpen] = React.useState(false);
-  
-    // const isMenuOpen = Boolean(anchorEl);
+    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(false);    
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
 const handleMobileMenuOpen = (event) => {
@@ -65,6 +54,20 @@ const handleMobileMenuOpen = (event) => {
             Branch Locator
           </Typography>
       </MenuItem>
+      <MenuItem>
+      <NavLink to='/select-amount'className={classes.navlink}  >
+          <Typography className={classes.headeralign} >
+            Check My Offers
+          </Typography>
+          </NavLink>
+          </MenuItem>
+          <MenuItem>
+      <NavLink to='/login'className={classes.navlink}  >
+          <Typography className={classes.headeralign} >
+            Logout
+          </Typography>
+          </NavLink>
+          </MenuItem>
      
       </Menu>
       )

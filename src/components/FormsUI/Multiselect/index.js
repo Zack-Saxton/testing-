@@ -8,7 +8,6 @@ Functionality       :    To use this Multiselect as a default component for UI p
 #################################################################################################################*/
 import React from "react";
 import { FormControl } from "@material-ui/core";
-import { useField } from "formik";
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";

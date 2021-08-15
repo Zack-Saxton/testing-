@@ -11,8 +11,8 @@ Functionality       :    To use this Select Box as a default component for UI pu
 
 import React from "react";
 import { FormControl, makeStyles, MenuItem, Select, FormHelperText } from "@material-ui/core";
-import { useField } from "formik";
 import InputLabel from "@material-ui/core/InputLabel";
+import "./selectBox.css";
 
 const SelectWrapper = ({
 	name,
@@ -30,20 +30,12 @@ const SelectWrapper = ({
 }) => {
 	//To return all formik state
 	
-	const [selectVal, setSelectVal] = React.useState('');
-
-	const handleChange = (event) => {
-		setSelectVal(event.target.value);
-		value = event.target.value;
-		console.log("inside component", event.target.value);
-		// onChange(event);
-	};
-
 	const useStyles = makeStyles((theme) => ({
 		formControl: {
 			margin: theme.spacing(1),
 			
 		},
+	
 		menu: {
 			
 		},
@@ -96,7 +88,7 @@ const SelectWrapper = ({
 			<Select {...configSelect} name={name} value={value} onChange={onChange} MenuProps={MenuProps} data-testid= { selectTestID ?? "selectBox" } inputProps={{"data-testid": inputTestID ?? "selectInput"}}>
 				{selectMF.map((nam) => (
 					<MenuItem key={nam.value} value={nam.value}>
-						<option value={nam.value}>{nam.value}</option>
+						<span className="subOption" value={nam.value}>{nam.value}</span>
 					</MenuItem>
 					// <option value={nam.value}>{nam.value}</option>
 				))}

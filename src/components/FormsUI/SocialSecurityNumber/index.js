@@ -6,7 +6,6 @@ Functionality       :    To use this component to validate and get the SSN in th
 
 #################################################################################################################*/
 import React, { useState } from "react";
-import { useField } from "formik";
 import {
 	ThemeProvider as MuiThemeProvider,
 	createMuiTheme,
@@ -14,9 +13,7 @@ import {
 import InputMask from "react-input-mask";
 import FormControl from "@material-ui/core/FormControl";
 import PropTypes from "prop-types";
-import Textfield from "../Textfield/index";
-import { TextField, FormLabel, FormControlLabel } from "@material-ui/core";
-import Content from "../../../assets/Content/content";
+import { TextField } from "@material-ui/core";
 
 const theme = createMuiTheme();
 const SSNWrapper = ({

@@ -2,8 +2,8 @@ version: '3.7'
 
 services:
 
-  cac-dev:
-    container_name: cac-dev
+  cacdev:
+    container_name: cacdev
     build:
       context: .
       dockerfile: Dockerfile

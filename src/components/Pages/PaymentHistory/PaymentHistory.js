@@ -10,22 +10,9 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import "./paymenthistory.css"
-import {
-  ButtonWithIcon,
-  ButtonSwitch,
-  DatePicker,
-  Button,
-  TextField,
-  Select,
-} from "../../FormsUI";
-import {
-    ArgumentAxis,
-    ValueAxis,
-     Chart,
-    BarSeries,
-  } from '@devexpress/dx-react-chart-material-ui';
+import Chartist from "react-chartist";
+import tooltip from 'chartist-plugin-tooltips-updated';
   
-// import { Chart, Series } from 'devextreme-react/chart';
     
 
 const useStyles = makeStyles((theme) => ({
@@ -107,13 +94,34 @@ const useStyles = makeStyles((theme) => ({
     
   }, ];
 
+  const barChart = {
+    labels: ["Ontime","Late"],
+    series: [
+      {meta:"Ontime Payments",  className:"ontimepayment",   value: [25] },
+      {meta:"Late Payment",  className:"latepayment",   value: [10] },
+    ],
+  };
 
-
-  
+   
 
   export default function PaymentHistory() {
     const classes = useStyles();
     
+    const barOptions = {
+     
+        showLabel: true,
+        seriesBarDistance: 50,
+        reverseData: true,
+        horizontalBars: true,
+        fullWidth: true,
+        plugins: [
+          tooltip({
+            appendToBody: true
+          })
+        ]       
+      
+       
+    };
   
     return (
       <div>
@@ -133,7 +141,6 @@ const useStyles = makeStyles((theme) => ({
           direction="row"
           style={{ padding: "5px" }}
         >
-          {/* <img src={NoOffersAvailableLogo} alt="NoOffersAvailable" /> */}
           <Paper className={classes.paper}>
 
           <Grid item xs={10}>
@@ -144,30 +151,9 @@ const useStyles = makeStyles((theme) => ({
 
  <Grid container spacing={3}>
               <Grid item xs={10} sm={8}>
-           <Chart
-          id="chart"
-      data={databar}
-      rotated
-      style={{ "height": "200px!important" }}
-    >
-      <ArgumentAxis />
-      <ValueAxis  /> 
-      
-      <BarSeries
-           
-            valueField="LatePayment"
-            argumentField="Time"
-            color="red"
-          />
-     <BarSeries
-           valueField="Payment"
-           argumentField="Time"
-           
-            color="lightgreen"
-          /> 
           
-     
-    </Chart> 
+
+<Chartist data={barChart} options={barOptions} type={"Bar"} className="barchart" />
     </Grid>
     <Grid item xs={10} sm={4}>
     <Typography>
@@ -182,7 +168,7 @@ const useStyles = makeStyles((theme) => ({
         </Grid>
 
 
-        <Grid item xs={10} style={{ paddingTop: "10px" }}>
+        <Grid item xs={10} style={{ paddingTop: "10px" , paddingBottom: "20px"}}>
           <TableContainer component={Paper}>
             <Table className={classes.table} aria-label="simple table">
               <TableHead>

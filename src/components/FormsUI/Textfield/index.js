@@ -7,9 +7,7 @@ Functionality       :    To use this component to validate and get the input fro
 #################################################################################################################*/
 import React, { useState } from "react";
 import { TextField } from "@material-ui/core";
-// import { useField } from "formik";
 import Content from '../../../assets/Content/content';
-import {checkRequired} from '../../../helpers/validations';
 import { makeStyles } from "@material-ui/core/styles";
 import { red } from "@material-ui/core/colors";
 import PropTypes from "prop-types";
@@ -93,15 +91,8 @@ const TextfieldWrapper = ({
         focused: classes.cssFocused,
       },
     },
-    // InputProps: {
-    //   classes: {
-    //     root: classes.cssOutlinedInput,
-    //     focused: classes.cssFocused,
-    //   },
-    //   materialProps
-    // },
+  
   };
-let err, msg;
   //Validation part
   const handleOnchange = (e) =>{
     setErrorTF((required && !e.target.value) ? true :  false);

@@ -1,38 +1,23 @@
 import React from "react";
-import { Formik, Form, useFormik } from "formik";
+import { useFormik } from "formik";
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
 import Grid from "@material-ui/core/Grid";
-import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import * as yup from "yup";
 import Box from "@material-ui/core/Box";
-import FormHelperText from "@material-ui/core/FormHelperText";
-
 import {
   Button,
-  EmailTextField,
   PasswordWithIcon,
-  EmailWithIcon,
-  TextFieldWithIcon,
+  EmailWithIcon,  
   Checkbox,
-  SocialSecurityNumber,
-  Slider,
-  Select,
-  Radio,
-  Multiselect,
-  DatePicker,
-  TextArea,
-  Zipcode,
-  TextField,
-  PasswordField,
+  
 } from "../../FormsUI";
 import Paper from "@material-ui/core/Paper";
 import Logo from "../../../assets/images/loginbg.png";
-import { Link, NavLink } from "react-router-dom";
-import { FormControl, Icon } from "@material-ui/core";
-
+import { NavLink } from "react-router-dom";
 import "./login.css";
+
+//Styling
 const useStyles = makeStyles((theme) => ({
   main: {
     backgroundImage: "url(" + Logo + ")",
@@ -80,15 +65,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+//Yup validations for all the input fields
 const validationSchema = yup.object({
   email: yup
     .string("Enter your email")
     .email("Email should be as (you@example.com)")
     .matches(
-      /^[a-zA-Z](([^<>()|?{}=/+'[\]\\.,;:#!$%^&*_-\s@\"]+(\.[^<>()|?{}=/+'[\]\\.,;:#!$%^&*_-\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/,
+      /^[a-zA-Z](?!.*[+/._-][+/._-])(([^<>()|?{}='[\]\\,;:#!$%^&*\s@\"]+(\.[^<>()|?{}=/+'[\]\\.,;_:#!$%^&*-\s@\"]+)*)|(\".+\"))[a-zA-Z0-9]@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,3}))$/,  //eslint-disable-line
       "Invalid Email"
     )
     .required("Your email address is required"),
+
+    // email: yup
+    // .string("Enter your email")
+    // .email("Email should be as (you@example.com)")
+    // .matches(/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/, "Invalid email")
+    // .required("Your email address is required"),
 
   password: yup
     .string("Enter your password")
@@ -97,9 +89,11 @@ const validationSchema = yup.object({
     .required("Your password is required"),
 });
 
+//Begin: Login page
 export default function Login() {
   const classes = useStyles();
 
+  //Form Submission
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -111,12 +105,14 @@ export default function Login() {
     },
   });
 
+  //Preventing space key
   const preventSpace = (event) => {
     if (event.keyCode === 32) {
       event.preventDefault();
     }
   };
 
+  //View Part
   return (
     <div>
       <div className={classes.main} id="main">
@@ -141,9 +137,11 @@ export default function Login() {
                   Sign In
                 </Typography>
 
+       
+
                 <form onSubmit={formik.handleSubmit}>
                   <Grid className="textBlock" container spacing={2}>
-                    <Grid item xs={12} fullWidth={true} direction="row">
+                    <Grid item xs={12} fullWidth={true} id="text"  direction="row">
                       <EmailWithIcon
                         id="email"
                         name="email"

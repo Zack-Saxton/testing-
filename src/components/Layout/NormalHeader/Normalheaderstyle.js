@@ -31,6 +31,10 @@ const useStyles = makeStyles((theme) => ({
       color: "#171717",
       fontSize: 14,
     },
+    navlink:{
+      textDecoration:'none',
+      color: "#171717"
+    },
     appBar: {
           zIndex: theme.zIndex.drawer + 1,
           transition: theme.transitions.create(['width', 'margin'], {

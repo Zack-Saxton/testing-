@@ -18,7 +18,7 @@
         font-size: 14px;
        }
  
-       .col{
+       .col{ 
         margin: 0 15px;
         width: 25%;
         word-wrap: break-word;
@@ -27,6 +27,7 @@
         font-size: 14px;
        padding-bottom: 14px;
        word-wrap: break-word;
+       font-family: "system-ui";
    
       }
    .hreftag{
@@ -38,7 +39,7 @@
    .section-top{
        flex-direction: column;
    }    
-   .col{
+   .col{ 
      text-align: center;
      width: 100%;
      margin: 0
