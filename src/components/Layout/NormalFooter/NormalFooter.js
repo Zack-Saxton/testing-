@@ -8,7 +8,7 @@ export default function NormalFooter() {
   return (
     <div>
       <footer style={{ width: "100%" }}>
-        <section class="section-top">
+        <section class="section-top-normalfooter">
           <div class="col">
             <div class="footer-content">
               <a href="/#" class="hreftag">

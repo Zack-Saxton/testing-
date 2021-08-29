@@ -12,10 +12,11 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import axios from "axios";
 import {
+  ButtonPrimary,
   Button,
-  PasswordWithIcon,
-  EmailWithIcon,
-  TextFieldWithIcon,
+  PasswordField,
+  EmailTextField,
+  TextField,
   SocialSecurityNumber,
   DatePicker,
   Zipcode,
@@ -27,7 +28,7 @@ import { Icon } from "@material-ui/core";
 
 //Styling
 const useStyles = makeStyles((theme) => ({
-  main: {
+  maincontent_background: {
     backgroundImage: "url(" + Logo + ")",
   },
   root: {
@@ -42,19 +43,23 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     fontSize: "20px",
-    textAlign: "initial",
+    textAlign: "center",
     fontWeight: 400,
     color: "black",
   },
+  subtitle:{
+    textAlign: "center",
+  },
   passwordtitle: {
-    fontSize: "12px",
+    fontSize: "14px",
     textAlign: "justify",
-    marginLeft: "32px",
+    
   },
   dobtitle: {
     fontSize: "12px",
     textAlign: "justify",
-    marginLeft: "40px",
+   
+    
   },
   paper: {
     // marginTop: theme.spacing(8),
@@ -74,6 +79,10 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+  },
+  signinbuttongrid:{
+    textAlign: "center",
+    paddingTop: "20px!important"
   },
 }));
 
@@ -101,7 +110,7 @@ const validationSchema = yup.object({
     .nullable()
     .required("Your date of birth is required")
     .max(new Date(Date.now() - 567648000000), "You must be at least 18 years")
-    .min(new Date(1940, 1, 1), "You are too old")
+    .min(new Date(1919, 1, 1), "You are too old")
     .typeError("Please enter a valid date"),
   password: yup
     .string("Enter your password")
@@ -122,7 +131,7 @@ const validationSchema = yup.object({
     }),
   zip: yup
     .string("Enter your Zip")
-    .min(5, "Zipcode should be of minimum 5 characters length")
+    .max(5, "Zipcode should be of maximum 5 characters length")
     .required("Your home ZIP code is required"),
   ssn: yup
     .string("Enter a SSN")
@@ -139,7 +148,7 @@ export default function Register() {
   const [state, setState] = useState('');
   const [city, setCity] = useState('');
   const [success, setSuccess] = useState(false);
-  const [failed, setFailed] = useState(false);
+  const [failed, setFailed] = useState('');
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
@@ -165,7 +174,7 @@ export default function Register() {
     onSubmit: async (values) => {
       // alert(JSON.stringify(values, null, 2));
       setLoading(true);
-      setFailed(false);
+      setFailed('');
       let body = {
         "fname": values.firstname,
         "lname": values.lastname,
@@ -205,22 +214,27 @@ export default function Register() {
     });
 
 
-    console.log("ret",customerStatus);
 
     if(customerStatus.data?.customerFound === false && customerStatus.data?.userFound === false && customerStatus.data?.is_registration_failed === false){
+      localStorage.setItem('token', JSON.stringify({isLoggedIn: true}));  
       
-      history.push("customer/accountoverview");
+      history.push("customers/accountoverview");
     }
-    else if(customerStatus.data?.result === 'error' && customerStatus.data?.statusCode === 400){
+    else if(customerStatus.data?.result === 'succcces' && customerStatus.data?.hasError === false){
+      localStorage.setItem('token', JSON.stringify({isLoggedIn: true}) );  
+      history.push("customers/accountoverview");
+    }
+    else if(customerStatus.data?.result === 'error' && customerStatus.data?.hasError === true){
+      // alert("error caught");
       // alert("Account already exists. Please use the login page and forgot password function to login");
      
-      setFailed(true);
+      setFailed(customerStatus.data?.errorMessage);
       setSuccess(false);
       setLoading(false);
     }
     else{
       alert("network error");
-      setFailed(false);
+      setFailed('Network error, Please try again.');
       setSuccess(false);
       setLoading(false);
       
@@ -228,15 +242,22 @@ export default function Register() {
     }
   }
   catch(error){
-   
-    // alert("network error");
+    setFailed('Please contact us at (844) 306-7300');
     setLoading(false);
   }
 
     },
   });
 
-  const onHandleChange = (event) => {
+  const onFirstNameChange = (event) => {
+    const reg = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
+    let acc = event.target.value;
+    if (acc === "" || reg.test(acc)) {
+      formik.handleChange(event);
+    }
+  };
+
+  const onLastNameChange = (event) => {
     const reg = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
     let acc = event.target.value;
     if (acc === "" || reg.test(acc)) {
@@ -245,12 +266,12 @@ export default function Register() {
   };
 
   const handleCloseFailed = () => {
-		setFailed(false);
+		setFailed('');
 	  };
 
     const handleCloseSuccess = () => {
       setSuccess(false);
-      history.push("customer/accountoverview");
+      history.push("customers/accountoverview");
       };
 
  //Preventing space key
@@ -290,7 +311,7 @@ export default function Register() {
   //View Part
   return (
     <div>
-      <div className={classes.main} id="main">
+      <div className={classes.maincontent_background} id="maincontent_background">
         <Box>
           <Grid xs={12} container justify="center" alignItems="center">
             <Grid
@@ -309,7 +330,7 @@ export default function Register() {
                   data-testid="title"
                   color="textSecondary"
                 >
-                  Sign In help / Register
+                  Sign in help / register
                 </Typography>
                 <p className={classes.subtitle} data-testid="subtitle">
                   {" "}
@@ -320,26 +341,24 @@ export default function Register() {
 
                 <form onSubmit={formik.handleSubmit}>
                   <Grid
-                    className="textBlock"
                     container
                     justify="center"
                     alignItems="center"
-                    spacing={2}
+                    spacing={4}
                   >
                     <Grid item xs={12} sm={6} fullWidth={true} direction="row">
-                      <TextFieldWithIcon
+                      <TextField
                         name="firstname"
                         id="firstname"
                         label="First Name *"
                         placeholder="Enter your firstname"
-                        icon="perm_identity"
-                        iconColor="#595E6E"
-                        iconPosition="left"
-                        data-testid="textbox"
+                        
                         // required={true}
                         materialProps={{ maxLength: "30" }}
                         value={formik.values.firstname}
-                        onChange={onHandleChange}
+                        // onChange={onFirstNameChange}
+                        // onChange={() => onFirstNameChange}
+                        onChange={e => onFirstNameChange(e)}
                         onBlur={formik.handleBlur}
                         error={
                           formik.touched.firstname &&
@@ -352,18 +371,16 @@ export default function Register() {
                     </Grid>
 
                     <Grid item xs={12} sm={6} fullWidth={true} direction="row">
-                      <TextFieldWithIcon
+                      <TextField
                         name="lastname"
                         id="lastname"
                         label="Last Name *"
                         placeholder="Enter your lastname"
-                        icon="perm_identity"
-                        iconColor="#595E6E"
-                        iconPosition="left"
+                       
                         // required={true}
                         materialProps={{ maxLength: "30" }}
                         value={formik.values.lastname}
-                        onChange={onHandleChange}
+                        onChange={onLastNameChange}
                         onBlur={formik.handleBlur}
                         error={
                           formik.touched.lastname &&
@@ -374,18 +391,14 @@ export default function Register() {
                         }
                       />
                     </Grid>
-                    <br></br>
-                    <br></br>
-                    <br></br>
+                  
                     <Grid item xs={12} fullWidth={true} direction="row">
-                      <EmailWithIcon
+                      <EmailTextField
                         id="email"
                         name="email"
                         label="Email *"
                         placeholder="Enter your email address"
-                        icon="emailIcon"
-                        iconColor="#595E6E"
-                        iconPosition="left"
+                       
                         materialProps={{ maxLength: "100" }}
                         onKeyDown={preventSpace}
                         value={formik.values.email}
@@ -397,26 +410,19 @@ export default function Register() {
                         helperText={formik.touched.email && formik.errors.email}
                       />
                     </Grid>
-                    <br></br>
-                    <br></br>
-                    <br></br> <br></br>
+                  
                     <Grid
                       item
                       xs={12}
-                      sm={6}
+                      sm={4}
                       direction="row"
-                      style={{ display: "inline-flex" }}
                     >
-                      <Grid
-                        style={{ paddingTop: "20px", paddingRight: "10px" }}
-                      >
-                        <Icon>securityIcon</Icon>
-                      </Grid>
+                     
 
                       <SocialSecurityNumber
                         name="ssn"
                         label="Social Security Number *"
-                        placeholder="Enter your Social Security Number"
+                        placeholder="Enter your SSN"
                         id="ssn"
                         type="ssn"
                         value={formik.values.ssn}
@@ -429,15 +435,10 @@ export default function Register() {
                     <Grid
                       item
                       xs={12}
-                      sm={6}
+                      sm={4}
                       direction="row"
-                      style={{ display: "inline-flex" }}
                     >
-                      <Grid
-                        style={{ paddingTop: "20px", paddingRight: "10px" }}
-                      >
-                        <Icon>mapIcon</Icon>
-                      </Grid>
+                     
                       <Zipcode
                         fullWidth
                         id="zip"
@@ -458,27 +459,22 @@ export default function Register() {
                         }
                       />
                     </Grid>
-                    <br></br>
-                    <br></br>
-                    <br></br> <br></br>
+                  
                     <Grid
                       item
                       xs={12}
+                      sm={4}
                       direction="row"
-                      style={{ display: "inline-flex", paddingBottom: "0px" }}
                     >
-                      <Grid
-                        style={{ paddingTop: "20px", paddingRight: "10px" }}
-                      >
-                        <Icon>cakeIcon</Icon>
-                      </Grid>
+                     
                       <DatePicker
                         name="date"
                         label="Date of Birth *"
                         id="date"
-                        placeholder="MM-DD-YYYY"
-                        format="MM-dd-yyyy"
+                        placeholder="MM/DD/YYYY"
+                        format="MM/dd/yyyy"
                         maxdate={myDate}
+                        minyear={102}
                         value={formik.values.date}
                         onChange={(values) => {
                           formik.setFieldValue("date", values);
@@ -489,21 +485,16 @@ export default function Register() {
                         }
                         helperText={formik.touched.date && formik.errors.date}
                       />
+                      
                     </Grid>
-                    <Grid xs={12} fullWidth={true}>
-                      <p id="subtitle" className={classes.dobtitle}>
-                        Please ensure your DOB meets the following criteria:
-                        Your age must be greater than or equal to 18 years.
-                      </p>
-                    </Grid>
+                   
+                     
+                  
                     <Grid item xs={12} fullWidth={true} direction="row">
-                      <PasswordWithIcon
+                      <PasswordField
                         name="password"
-                        label="Create new password *"
+                        label="Create New Password *"
                         placeholder="Enter your password"
-                        icon="lock"
-                        iconColor="#595E6E"
-                        iconPosition="left"
                         id="password"
                         type="password"
                         onKeyDown={preventSpace}
@@ -519,7 +510,7 @@ export default function Register() {
                           formik.touched.password && formik.errors.password
                         }
                       />
-                      <p id="subtitle" className={classes.passwordtitle}>
+                      <p id="passwordtitle" className={classes.passwordtitle}>
                         Please ensure your password meets the following
                         criteria: between 8 and 30 characters in length, at
                         least 1 uppercase letter, at least 1 lowercase letter,
@@ -527,13 +518,10 @@ export default function Register() {
                       </p>
                     </Grid>
                     <Grid item xs={12} fullWidth={true} direction="row">
-                      <PasswordWithIcon
+                      <PasswordField
                         name="confirmpassword"
-                        label="Re-enter your password *"
+                        label="Re-enter Your Password *"
                         placeholder="Enter your confirm password"
-                        icon="lock_openIcon"
-                        iconColor="#595E6E"
-                        iconPosition="left"
                         id="cpass"
                         type="password"
                         onKeyDown={preventSpace}
@@ -551,30 +539,25 @@ export default function Register() {
                         }
                       />
                       <br />
-                       <p className={ failed ? "showError addPadd" : "hideError" } data-testid="subtitle">
+                       <p className={ failed !== '' || failed !== undefined ? "showError addPadd" : "hideError" } data-testid="subtitle">
                         {" "}
-                        It looks like you already have an account.
+                        {failed}
                       </p>
                     </Grid>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <Grid item xs={12}>
-                      <Button
+                   
+                    <Grid item xs={12} className={classes.signinbuttongrid}>
+                      <ButtonPrimary
                         type="submit"
                         data-testid="submit"
                         stylebutton='{"background": "", "color":"" }'
-                        background="0F4EB3!important"
                         disabled = { loading }
                       >
-                        Sign In
+                        Sign in
                           <i
                             className="fa fa-refresh fa-spin customSpinner"
                             style={{ marginRight: "10px", display: loading ? "block" : "none" }}
                           />
-                      </Button>
+                      </ButtonPrimary>
                     </Grid>
                   </Grid>
                 </form>

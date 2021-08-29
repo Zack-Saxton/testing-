@@ -14,13 +14,6 @@
     font-weight: 400;
    }
 
-   
-
-   /* .ct-series .ct-slice-donut {
-    stroke: blue;
-    stroke-width: 15px !important;
-    stroke-linecap: round;
-  } */
 
   .donutchart{
     height: 170px;
@@ -29,13 +22,6 @@
             filter: drop-shadow(0px 10px 4px rgba(133, 3, 168, .2));
   }
 
-
-  /* @media (max-width:400px){
-    #activloangrid{
-        font-size: 3vw;
-    
-    }
-    } */
 
     @media (max-width: 598px) {
       /* For mobile phones: */

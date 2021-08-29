@@ -19,11 +19,10 @@ export default function EmailVerification() {
             textAlign: "justify",
             fontSize: "14px",
             color: "#595959",
-            fontFamily: "system-ui",
             fontWeight: "normal",
           }}
         >
-          To verily your phone number we will deliver a passcode to your phone.
+          To verify your phone number we will deliver a passcode to your phone.
           Please select how you would like to receive this passcode.
         </p>
       </Grid>
@@ -32,9 +31,7 @@ export default function EmailVerification() {
         justify="center"
         alignItems="center"
         item
-        lg={8}
-        md={8}
-        xs={12}
+        sm={5}
         className="textBlock"
       >
         <PhoneNumber
@@ -44,7 +41,7 @@ export default function EmailVerification() {
           type="text"
           />
         <div className="MuiTypography-alignLeft">
-          <Typography style={{fontFamily: "system-ui",fontWeight: "normal",}}
+          <Typography style={{fontWeight: "normal",}}
            className="smallTextLeft" variant="p" align="left">
             This is the Phone number you provided in your application
           </Typography>
@@ -59,10 +56,10 @@ export default function EmailVerification() {
           row={true}
           required={true}
           labelplacement={"end"}
-          style={{fontFamily: "system-ui",fontWeight: "normal"}}
+          style={{fontWeight: "normal"}}
         />
         <div className="MuiTypography-alignLeft">
-          <Typography  style={{fontFamily: "system-ui",fontWeight: "normal",}} className="smallTextLeft" variant="p" align="left">
+          <Typography  style={{fontWeight: "normal",}} className="smallTextLeft" variant="p" align="left">
             Standard text message and voice rates apply.
           </Typography>
         </div>
@@ -71,7 +68,7 @@ export default function EmailVerification() {
 
       <Grid item xs={12} style={{ lineHeight: 3 }}>
         <ButtonWithIcon
-          stylebutton='{ "font-family":"system-ui","font-weight":"normal" }'
+          stylebutton='{ "font-weight":"normal" }'
           styleicon='{ "color":"" }'
           fullWidth={true}
           onClick={(e) => {
@@ -82,16 +79,16 @@ export default function EmailVerification() {
         </ButtonWithIcon>
       </Grid>
       <div className={hasPasscode ? "open" : "close"}>
-          <Grid  lg={8} md={8} xs={12}>
+          <Grid  sm={5}>
         <TextField
           name="firstName"
           form={true}
-          label="Enter Passode"
+          label="Enter Passcode"
           materialProps={{
             "data-testid": "offer",
             maxLength: "10",
           }}
-        />
+        /> 
         </Grid>
       </div>
     </div>

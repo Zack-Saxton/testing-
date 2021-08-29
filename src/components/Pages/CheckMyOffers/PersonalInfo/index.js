@@ -16,7 +16,7 @@ import {
 	EmailTextField,
 	PhoneNumber,
 	DatePicker,
-	Button,
+	ButtonPrimary,
 	SocialSecurityNumber,
 } from "../../../FormsUI";
 import { useFormik } from "formik";
@@ -60,16 +60,16 @@ const validationSchema = yup.object({
 		.required("Your Phone number is required")
 		.transform((value) => value.replace(/[^\d]/g, ""))
 		//eslint-disable-next-line
-		.matches(/^1[1-9]{1}[0-9]{2}[0-9]{3}[0-9]{4}$/,"Invalid Phone")
-		.matches(/^1(\d)(?!\1+$)\d{9}$/, "Invalid Phone")
-		.min(11, "Name must contain at least 10 digits"),
+		.matches(/^[1-9]{1}[0-9]{2}[0-9]{3}[0-9]{4}$/,"Invalid Phone")
+		.matches(/^(\d)(?!\1+$)\d{9}$/, "Invalid Phone")
+		.min(10, "Name must contain at least 10 digits"),
 
 	date: yup
 	.date("Please enter valid date")
     .nullable()
     .required("Your date of birth is required")
     .max(new Date(Date.now() - 567648000000), "You must be at least 18 years")
-	.min(new Date(1940, 1, 1), "You are too old")
+	.min(new Date(1919, 1, 1), "You are too old")
 	.typeError('Please enter a valid date'),
 });
 
@@ -104,6 +104,7 @@ function PersonalInfo() {
 			var phone = values.phone.replace(/-/g, "").replace(/\)/g, "").replace(/\(/g, "").replace(/ /g, "") || "";
 			data.phone = phone.slice(1);
 			data.dob = values.date;
+			data.completedPage = data.page.personalInfo;
 			console.log(data);
 
 			if(values.email !== null && values.ssn !== null)
@@ -136,13 +137,22 @@ function PersonalInfo() {
 					// console.log("res emial", customerStatus.data.useFormik.email);
 					// 	console.log("user email", values.email) ;
 					if(customerStatus.data.user.email === values.email){
-						setSsnEmailMatch(true);
-						history.push({
-							pathname: "/existing-user",
-						});
-						setError(false);
-						setErrorMsg('');
+						if (customerStatus.data?.ssnLookupFails === true){
+							setSsnEmailMatch(false);
+							setError(false);
+							setErrorMsg('');
+						}
+						else {
+							setSsnEmailMatch(true);
+							history.push({
+								pathname: "/existing-user",
+							});
+							setError(false);
+							setErrorMsg('');
+						}
+						
 					} 
+					
 					else{
 						setSsnEmailMatch(false);
 						setError(false);
@@ -226,8 +236,12 @@ function PersonalInfo() {
 				event.preventDefault();
 			}
 			};
-console.log(error);
-console.log(errorMsg);
+
+if (data.completedPage < data.page.homeAddress || data.formStatus === 'completed'){
+	history.push("/select-amount");
+}
+
+//JSX [part]
 	return (
 		<div>
 			<ScrollToTopOnMount />
@@ -252,9 +266,9 @@ console.log(errorMsg);
 								<div className="progress mt-0">
 									<div
 										id="determinate"
-										className="det4 determinate slantDiv"
+										className="det40 determinate slantDiv"
 									></div>
-									<span class="floatLeft detNum4">33%</span>
+									<span class="floatLeft detNum40">40%</span>
 								</div>
 								<Grid className="floatLeft">
 									<Link to="/home-address">
@@ -270,7 +284,7 @@ console.log(errorMsg);
 									align="center"
 									justify="center"
 									alignItems="center"
-									className="borrowCSS"
+									className="borrowCSSLP"
 								>
 									Tell us about yourself
 								</Typography>
@@ -294,7 +308,7 @@ console.log(errorMsg);
 											
 											<TextField
 												fullWidth
-												autoFocus 
+							 					autoFocus 
 												id="firstName"
 												name="firstName"
 												label="First Name *"
@@ -396,41 +410,12 @@ console.log(errorMsg);
 											xs={12}
 											className="textBlock"
 										>
-											<EmailTextField
-												fullWidth
-												id="email"
-												name="email"
-												label="Email *"
-												onKeyDown={preventSpace}
-												value={formik.values.email}
-												materialProps={{"maxLength": "100"}}
-												onLoad={checkApplicationStatus}
-												onChange={formik.handleChange}
-												onBlur={checkApplicationStatus}
-												error={
-													formik.touched.email && Boolean(formik.errors.email)
-												}
-												helperText={formik.touched.email && formik.errors.email}
-											/>
-											<p className= { appliedInLast30Days ? "showError smallTextLeftError" : "hideError " }>It looks like you have already submitted an application within the last 30 days.
-
-</p>
-										</Grid>
-										<Grid
-											justify="center"
-											alignItems="center"
-											item
-											lg={8}
-											md={8}
-											xs={12}
-											className="textBlock"
-										>
 											<SocialSecurityNumber
 												name="ssn"
 												label="Social Security Number *"
 												placeholder="Enter your Social Security Number"
 												id="ssn"
-												type="ssn"
+												type="ssn"	
 												value={formik.values.ssn}
 												// onChange={onSSNhandleChange}
 												onChange={formik.handleChange}
@@ -459,6 +444,36 @@ console.log(errorMsg);
 												{/* <p className= { !ssnEmailMatch ? "showError smallTextLeftError" : "hideError " }>The entered SSN and email id is not matched</p> */}
 											</div>
 										</Grid>
+										<Grid
+											justify="center"
+											alignItems="center"
+											item
+											lg={8}
+											md={8}
+											xs={12}
+											className="textBlock"
+										>
+											<EmailTextField
+												fullWidth
+												id="email"
+												name="email"
+												label="Email *"
+												onKeyDown={preventSpace}
+												value={formik.values.email}
+												materialProps={{"maxLength": "100"}}
+												onLoad={checkApplicationStatus}
+												onChange={formik.handleChange}
+												onBlur={checkApplicationStatus}
+												error={
+													formik.touched.email && Boolean(formik.errors.email)
+												}
+												helperText={formik.touched.email && formik.errors.email}
+											/>
+											<p className= { appliedInLast30Days ? "showError smallTextLeftError" : "hideError " }>It looks like you have already submitted an application within the last 30 days.
+
+</p>
+										</Grid>
+										
 										<Grid
 											justify="center"
 											alignItems="center"
@@ -501,7 +516,7 @@ console.log(errorMsg);
 											xs={12}
 											className="textBlock alignButton"
 										>
-											<Button
+											<ButtonPrimary
 												type="submit"
 												stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black"}'
 												disabled = {appliedInLast30Days || error}
@@ -509,7 +524,7 @@ console.log(errorMsg);
 												<Typography align="center" className="textCSS ">
 													Continue
 												</Typography>
-											</Button>
+											</ButtonPrimary>
 											
 										</Grid>
 									</Grid>

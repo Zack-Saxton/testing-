@@ -7,6 +7,8 @@ import Tab from "@material-ui/core/Tab";
 import PropTypes from "prop-types";
 import Box from "@material-ui/core/Box";
 import Stepper from "../Stepper/Stepper";
+import { NavLink } from "react-router-dom";
+import { ButtonSecondary, ButtonWithIcon, Checkbox } from "../../../FormsUI";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -53,18 +55,18 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
   heading: {
-    color: "white",
-    fontWeight: "normal",
-    fontFamily: "system-ui",
+    color: "#fff",
+    fontWeight: "400",
+    fontSize:"1.64rem"
   },
   tablabel: {
     background: "white",
-    marginRight: "10px",
-    marginBottom: "10px",
-    fontFamily: " system-ui",
+    margin: "10px",   
     color: "#3f51b5",
+    fontFamily: "Segoe UI",
+    fontSize: "1rem",
     textTransform: "none",
-    fontWeight: "700",
+    fontWeight: "600",
   },
 
   table: {
@@ -83,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: 1,
   },
   columnheading: {
-    fontFamily: "system-ui",
+   
     fontSize: "14px",
     color: "#171717",
   },
@@ -102,16 +104,29 @@ export default function FinalVerification() {
 
   return (
     <div>
-      <Grid container justify={"center"} style={{ marginTop: "-150px" }}>
-        <Grid item xs={10} fullWidth={true} direction="row">
-          <Typography>
-            <h3 className={classes.heading} data-testid="title">
-              Apply for a loan
-            </h3>
-          </Typography>
-        </Grid>
-
-        <Grid item xs={10}>
+      <Grid container justify={"center"}style={{ marginTop: "-150px", paddingRight:"30px", paddingLeft:"30px" }}>
+      <Grid item xs={12}  fullWidth={true} direction="row" style={{ marginBottom: "-20px" }}>
+            <Typography>
+            
+              <h3 className={classes.heading} >
+              <NavLink
+                  to="/customers/accountoverview"
+                  style={{ textDecoration: "none" }}
+                >
+                  <ButtonWithIcon
+                        icon="arrow_backwardIcon"
+                        iconposition="left"
+                        stylebutton='{"background": "#fff", "color":"#214476",
+                        "minWidth": "0px",
+                        "width": "36px",
+                        "padding": "0px",
+                        "marginRight": "5px", "marginTop":"unset" }'
+                        styleicon='{ "color":"" }'
+                      />
+                      </NavLink> Apply for a Loan</h3>
+            </Typography>
+          </Grid>
+        <Grid item xs={12}>
           <Tabs
             value={value}
             onChange={handleTabChange}
@@ -146,8 +161,21 @@ export default function FinalVerification() {
             />
           </Tabs>
 
-          <TabPanel value={value} index={2}>
+          <TabPanel value={value} index={2}  style={{paddingBottom:"30px"}}>
             <Stepper />
+
+            <Grid item fullWidth={true}>
+                            <p style={{
+                  textAlign: "justify",
+                  fontSize: ".8rem",
+                  color: "#6b6f82",
+                }}>
+                                
+                                    Loan funding and disbursement is conditioned upon our satisfactory review of any documents and other information that we require from you to verity your loan application and/or your identity. This loan
+                                    may not be consummated if you obtain another loan from us pnor to our disbursing funds for this loan. It you have any questions. please contact us.
+                               
+                            </p>
+                        </Grid>
           </TabPanel>
         </Grid>
       </Grid>

@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -17,6 +17,9 @@ const NormalHeader = () => {
     const classes = useStyles();
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(false);    
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+    const history = useHistory();
+    const tokenString = localStorage.getItem('token');
+    const userToken = JSON.parse(tokenString);
 
 const handleMobileMenuOpen = (event) => {
     console.log(event)
@@ -25,6 +28,16 @@ const handleMobileMenuOpen = (event) => {
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
+  };
+
+  const logoutUser = () => {
+
+    let tokenData = {isLoggedIn: false};
+		localStorage.setItem('token', JSON.stringify(tokenData));
+    history.push({
+			pathname: "/login",
+		});
+
   };
 
 
@@ -62,11 +75,15 @@ const handleMobileMenuOpen = (event) => {
           </NavLink>
           </MenuItem>
           <MenuItem>
-      <NavLink to='/login'className={classes.navlink}  >
-          <Typography className={classes.headeralign} >
+          {userToken?.isLoggedIn ? 
+          <Typography className={classes.subtitle} onClick={logoutUser} >
             Logout
+          </Typography> : 
+          <NavLink to='/login'style={{'textDecoration':'none'}} >
+          <Typography className={classes.subtitle} >
+            Login
           </Typography>
-          </NavLink>
+          </NavLink> }
           </MenuItem>
      
       </Menu>
@@ -92,7 +109,7 @@ const handleMobileMenuOpen = (event) => {
           <Typography className={classes.subtitle} >
             Branch Locator
           </Typography>
-          <NavLink to='/customer/accountoverview'style={{'textDecoration':'none'}} >
+          <NavLink to='/customers/accountoverview'style={{'textDecoration':'none'}} >
           <Typography className={classes.subtitle} >
             Main UI
           </Typography>
@@ -107,11 +124,20 @@ const handleMobileMenuOpen = (event) => {
             Check My Offers
           </Typography>
           </NavLink>
+          {userToken?.isLoggedIn ? 
+          <Typography className={classes.subtitle} onClick={logoutUser} >
+            Logout
+          </Typography> : 
           <NavLink to='/login'style={{'textDecoration':'none'}} >
           <Typography className={classes.subtitle} >
             Login
           </Typography>
-          </NavLink>
+          </NavLink> }
+          {/* <NavLink to='/login'style={{'textDecoration':'none'}} >
+          <Typography className={classes.subtitle} >
+            Login
+          </Typography>
+          </NavLink> */}
           </div>
           <div className={classes.sectionMobile}>
             <IconButton

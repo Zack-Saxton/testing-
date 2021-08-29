@@ -5,7 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import ZipcodeLogo from "../../../../assets/icon/I-Zip-Code.png";
-import { Zipcode as ZipcodeField, Button } from "../../../FormsUI";
+import { Zipcode as ZipcodeField, ButtonPrimary } from "../../../FormsUI";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
@@ -125,7 +125,7 @@ function Zipcode() {
 											xs={12}
 											className="alignButton"
 										>
-											<Button
+											<ButtonPrimary
 												type="submit"
 												data-testid="zipcodeCntuButton"
 												stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black"}'
@@ -136,7 +136,7 @@ function Zipcode() {
 												<Typography align="center" className="textCSS ">
 													Continue
 												</Typography>
-											</Button>
+											</ButtonPrimary>
 										</Grid>
 									</Grid>
 								</form>

@@ -3,14 +3,16 @@ import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 import PasswordLogo from "../../../../assets/icon/I-Password.png";
-import { PasswordField, Button } from "../../../FormsUI";
+import { PasswordField, ButtonPrimary } from "../../../FormsUI";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import ScrollToTopOnMount from '../scrollToTop';
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
+import loginSubmit from "../../../controllers/loginController";
+import useToken from '../../../App/useToken';
 
 const validationSchema = yup.object({
 	password: yup
@@ -22,6 +24,9 @@ const validationSchema = yup.object({
 
 function ExistingUser() {
 	const { data, setData } = useContext(CheckMyOffers);
+	const [loginFailed, setLoginFailed] = useState('');
+	const { token, setToken } = useToken();
+	
 	const history = useHistory();
 
 	const formik = useFormik({
@@ -31,13 +36,30 @@ function ExistingUser() {
 			// newPassword: data.zip ? data.zip : '',
 		},
 		validationSchema: validationSchema,
-		onSubmit: (values) => {
+		onSubmit: async (values) => {
 			setData({
 				...data,
 				"password": values.password,
 				"confirmPassword": values.password,
+				"completedPage": data.page.existingUser,
 			});
-			history.push("/employment-status");
+			let retVal = await loginSubmit(data.email, values.password, setToken);
+			console.log(retVal?.data?.data?.hasError);
+			 if(retVal?.data?.data?.user && !retVal?.data?.data?.result ){
+			   localStorage.setItem('token', JSON.stringify({isLoggedIn: true}));
+			   history.push({
+				 pathname: "/employment-status",
+			   });
+			 }
+			 else if (retVal?.data?.data?.result === "error" || retVal?.data?.data?.hasError === true){
+			   localStorage.setItem('token', JSON.stringify({isLoggedIn: false}));
+			   setLoginFailed(retVal?.data?.data?.errorMessage);
+			 }
+			 else{
+			   alert("Network error");
+			 }
+			 console.log("retval",retVal);
+			// history.push("/employment-status");
 		},
 	});
 
@@ -46,6 +68,10 @@ function ExistingUser() {
 		  event.preventDefault();
 		}
 	  };
+
+	  if (data.completedPage < data.page.personalInfo || data.formStatus === 'completed'){
+		history.push("/select-amount");
+	}
 	return (
 		<div>
 			<ScrollToTopOnMount />
@@ -137,6 +163,10 @@ function ExistingUser() {
 													formik.touched.password && formik.errors.password
 												}
 											/>
+													<p className={ loginFailed !== '' ? "showError addPadd" : "hideError" } data-testid="subtitle">
+												{" "}
+												{loginFailed}                 
+											</p>
 										</Grid>
 										<Grid
 											justify="center"
@@ -147,7 +177,7 @@ function ExistingUser() {
 											xs={12}
 											className="textBlock"
 										>
-											<Button
+											<ButtonPrimary
 												type="submit"
 												data-testid="contButton"
 												stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black"}'
@@ -155,7 +185,7 @@ function ExistingUser() {
 												<Typography align="center" className="textCSS ">
 													Sign In
 												</Typography>
-											</Button>
+											</ButtonPrimary>
 										</Grid>
 										<Grid
 											justify="left"

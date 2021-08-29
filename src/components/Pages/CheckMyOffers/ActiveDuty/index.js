@@ -2,7 +2,7 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { useFormik } from 'formik';
-import { Select, Button } from '../../../FormsUI';
+import { Select, ButtonPrimary } from '../../../FormsUI';
 import Paper from "@material-ui/core/Paper";
 import React, { useContext} from 'react';
 import { useHistory, Link } from "react-router-dom";
@@ -45,10 +45,14 @@ function ActiveDuty() {
         console.log("im working")
         data.militaryActiveDuty = values.activeDuty;
         data.militaryActiveDutyRank = values.activeDutyRank;
+        data.completedPage = data.page.activeDuty;
         history.push("/ssn");
     },
 	});
 
+    if (data.completedPage < data.page.livingPlace || data.formStatus === 'completed'){
+		history.push("/select-amount");
+	}
     //JSX part
     return(
         <div>
@@ -109,11 +113,11 @@ function ActiveDuty() {
                                     </Grid>
                                     
                                     <Grid item lg={8} md={8} xs={12} className="alignButton" >
-                                        <Button type='submit' data-testid="contButton" stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black"}' >
+                                        <ButtonPrimary type='submit' data-testid="contButton" stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black"}' >
                                         <Typography  align="center" className="textCSS " >  
                                               Continue
                                             </Typography>
-                                        </Button>
+                                        </ButtonPrimary>
                                     </Grid>
                                 </Grid>  
                                 </form>

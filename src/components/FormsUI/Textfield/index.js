@@ -28,9 +28,9 @@ const TextfieldWrapper = ({
   emailVal,
   setError,
   setHelperText,
-  onChange,
   error, 
   helperText,
+  onChange,
   ...otherProps
 }) => {
 
@@ -99,15 +99,16 @@ const TextfieldWrapper = ({
     setHelpertextTF((required && !e.target.value) ? Content.required : '');
     if(onChange)
     {
-      onChange(e);
+      onChange(e); 
     }
     
 
 }
 
+ return <TextField {...configTextfield} onChange={handleOnchange} inputProps={materialProps} />;
 
 
-  return <TextField {...configTextfield} onChange={handleOnchange} inputProps={materialProps} />;
+ 
 };
  
 //set name prop as mandatory

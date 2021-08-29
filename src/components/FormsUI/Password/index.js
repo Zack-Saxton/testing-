@@ -9,6 +9,7 @@ import React,{useState} from "react";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { TextField, InputAdornment, IconButton } from "@material-ui/core";
+import "./password.css";
 
 
 //Initializing component
@@ -42,8 +43,9 @@ inputProps={materialProps}
           aria-label="toggle password visibility"
           onClick={handleClickShowPassword}
           data-testid= "passButton"
+          className="rem1FSize"
         >
-          {!showPassword ? <Visibility /> : <VisibilityOff />}
+          {!showPassword ? "Hide" : "Show"}
         </IconButton>
       </InputAdornment>
     )

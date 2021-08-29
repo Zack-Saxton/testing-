@@ -62,3 +62,8 @@
     overflow: hidden;
     
 }
+.CMOheading{
+    font-size: 1.64rem !important;
+    line-height: 110% !important;
+    margin: .82rem 0 .656rem 0 !important;
+}

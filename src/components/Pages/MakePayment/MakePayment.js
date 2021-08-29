@@ -14,21 +14,25 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 import "./makepayment.css"
 
 import {
-  ButtonWithIcon,
+  ButtonSecondary,
+  ButtonPrimary,
   ButtonSwitch,
   DatePicker,
   TextField,
   Select,
+  ButtonWithIcon
 } from "../../FormsUI";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
+  // root: {
+  //   flexGrow: 1,
+  // },
   paper: {
     padding: theme.spacing(3),
     display: "flex",
@@ -36,17 +40,59 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
   heading: {
-    color: "white",
-    fontWeight: "normal",
+    color: "#fff",
+    fontWeight: "400",
+    fontSize:"1.64rem"
   },
   table: {
     minWidth: 650,
   },
+  tablehead:{
+    color: "#171717!important",
+    fontWeight: "600",
+    fontSize:"1rem"
+  },
+  tableheadrow:{
+    color: "#171717!important",
+    fontSize:"15px"
+  },
+  cardheading:{
+    color: "#171717!important",
+    fontSize:"18px",
+    fontWeight: "600",
+  },
   autopaylink: {
-    fontSize: "14px",
+    fontSize: "15px",
     textDecoration: "none",
     color: "blue",
   },
+  autopay_content:{
+    fontSize: "15px",
+    textAlign: "justify",
+    color: "#595959"
+  },
+  closeButton: {
+    position: 'absolute',
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+    color: "#171717!important",
+  },
+  dialogPaper:{
+    width: "60%",
+    left: 10,
+    bottom: 200,
+    maxWidth: "unset"
+  },
+  dialogHeading:{
+    color: "#171717!important",
+    fontWeight: "400",
+    fontSize:"1.64rem",
+    textAlign: "center"
+  },
+  endMessage:{
+    color: "#595959",
+    paddingTop: "40px"
+  }
 }));
 
 function createData(
@@ -84,10 +130,14 @@ const rows = [
   ),
 ];
 
-export default function MakePayment() {
+var paymentMaxDate = new Date();
+paymentMaxDate.setDate( paymentMaxDate.getDate() + 30);
+
+export default function MakePayment() { 
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [openPayment, setPaymentOpen] = React.useState(false);
+  // const [close, setClose]= React.useState(false);
+    const [openPayment, setPaymentOpen] = React.useState(false);
   const [openAutopay, setAutopayOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -116,17 +166,33 @@ export default function MakePayment() {
 
   return (
     <div>
-      <Grid container justify={"center"} style={{ marginTop: "-150px" }}>
-        <Grid container direction="row" item xs={10}>
-          <Grid item xs={10} sm={6} fullWidth={true} direction="row">
+      <Grid container justify={"center"} style={{ marginTop: "-150px", paddingRight:"30px", paddingLeft:"30px" }}>
+        <Grid container direction="row" item xs={12}>
+          <Grid item xs={12} sm={6} fullWidth={true} direction="row">
             <Typography>
-              <h3 className={classes.heading}>Make a Payment</h3>
+            
+              <h3 className={classes.heading} >
+              <NavLink
+                  to="/customers/accountoverview"
+                  style={{ textDecoration: "none" }}
+                >
+                  <ButtonWithIcon
+                        icon="arrow_backwardIcon"
+                        iconposition="left"
+                        stylebutton='{"background": "#fff", "color":"#214476",
+                        "minWidth": "0px",
+                        "width": "36px",
+                        "padding": "0px",
+                        "marginRight": "5px", "marginTop":"unset" }'
+                        styleicon='{ "color":"" }'
+                      />
+                      </NavLink> Make a Payment</h3>
             </Typography>
-          </Grid>
+          </Grid> 
           
         </Grid>
 
-        <Grid item xs={10} style={{ paddingBottom: "10px" }}>
+        <Grid item xs={12} style={{ paddingBottom: "10px" }}>
           {/* <Paper className={classes.paper} >
                 <p >Page Under Development </p>
              
@@ -134,30 +200,30 @@ export default function MakePayment() {
           <TableContainer component={Paper}>
             <Table className={classes.table} aria-label="simple table">
               <TableHead>
-                <TableRow>
-                  <TableCell>Account Number</TableCell>
-                  <TableCell align="center">Regular Amount</TableCell>
-                  <TableCell align="center">Interest</TableCell>
-                  <TableCell align="center">Loan Fees</TableCell>
-                  <TableCell align="center">Total</TableCell>
-                  <TableCell align="center">Next Due Date</TableCell>
-                  <TableCell align="center">Scheduled Payment</TableCell>
-                  <TableCell align="center">Autopay</TableCell>
+                <TableRow  >
+                  <TableCell className={classes.tablehead} >Account Number</TableCell>
+                  <TableCell className={classes.tablehead} align="center">Regular Amount</TableCell>
+                  <TableCell className={classes.tablehead} align="center">Interest</TableCell>
+                  <TableCell className={classes.tablehead} align="center">Loan Fees</TableCell>
+                  <TableCell className={classes.tablehead} align="center">Total</TableCell>
+                  <TableCell className={classes.tablehead} align="center">Next Due Date</TableCell>
+                  <TableCell className={classes.tablehead} align="center">Scheduled Payment</TableCell>
+                  <TableCell className={classes.tablehead} align="center">Auto Pay</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {rows.map((row) => (
                   <TableRow key={row.name}>
-                    <TableCell component="th" scope="row">
+                    <TableCell component="th" className={classes.tableheadrow}  scope="row">
                       {row.accountnumber}
                     </TableCell>
-                    <TableCell align="center">{row.regularamount}</TableCell>
-                    <TableCell align="center">{row.interest}</TableCell>
-                    <TableCell align="center">{row.loanfees}</TableCell>
-                    <TableCell align="center">{row.total}</TableCell>
-                    <TableCell align="center">{row.duedate}</TableCell>
-                    <TableCell align="center">{row.schedulepayment}</TableCell>
-                    <TableCell align="center">{row.autopay}</TableCell>
+                    <TableCell className={classes.tableheadrow} align="center">{row.regularamount}</TableCell>
+                    <TableCell className={classes.tableheadrow} align="center">{row.interest}</TableCell>
+                    <TableCell className={classes.tableheadrow} align="center">{row.loanfees}</TableCell>
+                    <TableCell className={classes.tableheadrow} align="center">{row.total}</TableCell>
+                    <TableCell className={classes.tableheadrow} align="center">{row.duedate}</TableCell>
+                    <TableCell className={classes.tableheadrow} align="center">{row.schedulepayment}</TableCell>
+                    <TableCell className={classes.tableheadrow} align="center">{row.autopay}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -167,64 +233,63 @@ export default function MakePayment() {
 
         <Grid
           item
-          xs={10}
+          xs={12}
           sm={4}
           fullWidth={true}
           direction="row"
           style={{ padding: "5px" }}
         >
           <Paper className={classes.paper}>
-            <Typography>
-              <p>Pay from</p>
+            <Typography className={classes.cardheading} >
+              <p >Pay From</p>
             </Typography>
 
             <Select
               name="select"
-              labelform="Account *"
+              labelform="Accounts"
               select='[{"value":"Saving"}, {"value":"Checking"},  {"value":"Debit"}]'
             />
-
-            <ButtonWithIcon
-              icon="add_boxIcon"
-              iconposition="right"
+            
+            <Grid
+             item
+             xs={12}
+             style={{ paddingTop: "20px" }}
+             >
+            <ButtonSecondary
+            
               stylebutton='{"background": "", "color":"" }'
-              styleicon='{ "color":"" }'
+             
             >
-              Add payment method
-            </ButtonWithIcon>
+              Add a payment method
+            </ButtonSecondary>
+            </Grid>
           </Paper>
         </Grid>
         {/* ************************************************************************/}
         {/* &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */}
         <Grid
           item
-          xs={10}
-          sm={6}
+          xs={12}
+          sm={8}
           fullWidth={true}
           direction="row"
           style={{ padding: "5px" }}
         >
           <Paper className={classes.paper}>
-            <Grid item xs={10}>
-              <h4 style={{ margin: "auto" }}>Payment Mode</h4>
+            <Grid item xs={12}>
+            <Typography className={classes.cardheading} >
+              <p >Payment Mode</p>
+            </Typography>
+
               <p style={{ margin: "auto" }}>
-                <small>Choose Autopay</small>
+                <small>Choose auto pay</small>
               </p>
               <ButtonSwitch
                 value="switch"
                 label="Auto pay is"
                 labelPlacement="end"
-                // disabled={ purpose === '' ? true : false }
+               
               />
-            </Grid>
-
-            {/* <p>Choose Autopay</p> */}
-            {/* <ButtonSwitch
-										value="switch"
-										label="Auto pay is"
-										labelPlacement="end"
-                    // disabled={ purpose === '' ? true : false }
-									/> */}
             <p>
               By enabling Auto Pay mode, I acknowledge to have read, understood,
               and agree to the terms of the &nbsp;
@@ -232,29 +297,32 @@ export default function MakePayment() {
                 onClick={handleAutopayClickOpen}
                 className={classes.autopaylink}
               >
-                Auto Pay Authorization
+               Auto Pay Authorization
               </Link>
             </p>
 
-            <Grid item>
-              <ButtonWithIcon
-                icon="doneIcon"
-                iconposition="right"
-                stylebutton='{"background": "", "color":"" }'
-                styleicon='{ "color":"" }'
+            <Grid item xs={12} style={{ paddingBottom: "20px" }}>
+              <ButtonPrimary
+               
+                stylebutton='{"background": "", "color":"" }'              
                 id="makepayment-submitbutton"
                 onClick={handleClickOpen}
               >
                 Submit
-              </ButtonWithIcon>
+              </ButtonPrimary>
+            </Grid>
             </Grid>
 
-            <p>Single Payment</p>
+            <Typography className={classes.cardheading} >
+              <p >Single Payment</p>
+            </Typography>
             <TextField
               name="payment"
               label="Payment Amount"
               type="text"
-              // disabled={ purpose === '' ? true : false }
+              
+              materialProps={{ defaultValue: "$930" }}
+              disabled={true}
             />
 
             <Grid
@@ -263,51 +331,63 @@ export default function MakePayment() {
               direction="row"
               style={{ display: "inline-flex", paddingTop: "10px" }}
             >
-              <DatePicker name="date" label="Payment Date" id="date" />
+              <DatePicker 
+              name="date" 
+              label="Payment Date"
+               placeholder="MM/DD/YYYY"
+                 id="date" 
+                 maxdate={paymentMaxDate}
+                 minyear={4}
+                />
             </Grid>
 
             
-             <Grid container  direction="row">
-                      <Grid
-                        item 
-                        xs={10}
-                        sm={4}
-                        direction="row"
-                        style={{ paddingTop: "10px" }}
-                      >
-                        <ButtonWithIcon
-                          stylebutton='{"margin-right": "" }'
-                          styleicon='{ "color":"" }'
-                          id="makepayment-schedulebutton"
-                          onClick={handlePaymentClickOpen}
-                        >
-                           Schedule Payment
-                        </ButtonWithIcon>
-                      </Grid>
-
+              <Grid container  direction="row"  style={{ paddingTop: "25px" }}> 
+                      
                       <Grid
                         item
-                        xs={10}
-                        sm={4}
-                        direction="row"
-                        style={{ padding: "10px" }}
+                        xs={12}
+                        // sm={4}
+                        md={4}
+							           lg={3}
+                        direction="row"                       
                         id="makepayment-cancelbutton-grid"
                       >
                        
-                          <ButtonWithIcon
-                            stylebutton='{"margin-left": "" }'
+                          <ButtonSecondary
+                            stylebutton='{"margin-right": "20px" }'
                             styleicon='{ "color":"" }'
                             id="makepayment-cancelbutton"
                           >
                             Cancel Payment
-                          </ButtonWithIcon>
+                          </ButtonSecondary>
                        
                       </Grid>
+
+                      <Grid
+                        item 
+                        xs={12}
+                        // sm={6}
+                        md={4}
+                        lg={3}
+                        direction="row"
+                        
+                      >
+                        <ButtonPrimary
+                          stylebutton='{"margin-right": "" }'
+                          
+                          id="makepayment-schedulebutton"
+                          onClick={handlePaymentClickOpen}
+                        >
+                           Schedule Payment
+                        </ButtonPrimary>
+                      </Grid>
+
                       </Grid>
           </Paper>
         </Grid>
-        <Grid item xs={10}>
-          <p>
+        <Grid item xs={12}>
+          <p className={classes.endMessage}>
             {" "}
             <small>
               If you have questions or would like to obtain a payoff balance on
@@ -327,33 +407,35 @@ export default function MakePayment() {
 
       <Dialog
         open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
+        aria-labelledby="alert-dialog-title-autopay"
         aria-describedby="alert-dialog-description"
+        classes={{ paper: classes.dialogPaper }}
+        
+        
       >
-        <DialogTitle id="alert-dialog-title">
-          Are you sure want to enable auto pay ?
+        <DialogTitle  id="alert-dialog-title">
+          <Typography  className={classes.dialogHeading }>
+          Are you sure you want to enable auto pay ?
+          </Typography>
+          <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose} >
+          <CloseIcon />
+        </IconButton>
         </DialogTitle>
 
-        <DialogActions>
-          <ButtonWithIcon
-            icon="doneIcon"
-            iconposition="right"
+        <DialogActions  style={{ justifyContent: "center" }}>
+          <ButtonSecondary
+          
             stylebutton='{"background": "", "color":"" }'
-            styleicon='{ "color":"" }'
-            onClick={handleClose}
-          >
-            Yes
-          </ButtonWithIcon>
-          <ButtonWithIcon
-            icon="clearIcon"
-            iconposition="right"
-            stylebutton='{"background": "", "color":"" }'
-            styleicon='{ "color":"" }'
             onClick={handleClose}
           >
             No
-          </ButtonWithIcon>
+          </ButtonSecondary>
+          <ButtonPrimary
+            stylebutton='{"background": "", "color":"" }'
+            onClick={handleClose}
+          >
+            yes
+          </ButtonPrimary>
         </DialogActions>
       </Dialog>
 
@@ -361,33 +443,33 @@ export default function MakePayment() {
 
       <Dialog
         open={openPayment}
-        onClose={handlePaymentClose}
+        // onClose={handlePaymentClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        classes={{ paper: classes.dialogPaper }}
       >
         <DialogTitle id="alert-dialog-title">
-          Are you sure want to enable single payment ?
+        <Typography className={classes.dialogHeading }>
+          Are you sure you want to schedule a payment ?
+          </Typography>
+          <IconButton aria-label="close" className={classes.closeButton} onClick={handlePaymentClose} >
+          <CloseIcon />
+        </IconButton>
         </DialogTitle>
 
-        <DialogActions>
-          <ButtonWithIcon
-            icon="doneIcon"
-            iconposition="right"
+        <DialogActions style={{ justifyContent: "center" }}>
+          <ButtonSecondary
             stylebutton='{"background": "", "color":"" }'
-            styleicon='{ "color":"" }'
-            onClick={handlePaymentClose}
-          >
-            Yes
-          </ButtonWithIcon>
-          <ButtonWithIcon
-            icon="clearIcon"
-            iconposition="right"
-            stylebutton='{"background": "", "color":"" }'
-            styleicon='{ "color":"" }'
             onClick={handlePaymentClose}
           >
             No
-          </ButtonWithIcon>
+          </ButtonSecondary>
+          <ButtonPrimary
+            stylebutton='{"background": "", "color":"" }'
+            onClick={handlePaymentClose}
+          >
+            Yes
+          </ButtonPrimary>
         </DialogActions>
       </Dialog>
 
@@ -398,22 +480,23 @@ export default function MakePayment() {
         onClose={handleAutopayClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+
       >
         <DialogTitle id="alert-dialog-title">
-          Auto Pay Authorization
+          AUTO PAY AUTHORIZATION
         </DialogTitle>
         <DialogContent>
           <DialogContentText
             id="alert-dialog-description"
             style={{ fontSize: "12px" }}
           >
-            <p style={{textAlign: "justify",fontSize: "13px", color: "#6b6f82", fontFamily: "system-ui"}}>
+            <p className={classes.autopay_content}>
               As used in this authorization, the words, “I,” “MY,” and “ME”
               refer to the borrower agreeing to the terms of this authorization,
               and the word “YOU” refers to Mariner Finance, LLC (and its
               subsidiaries and affiliates) (collectively “Lender”).
             </p>
-            <p style={{textAlign: "justify",fontSize: "13px", color: "#6b6f82", fontFamily: "system-ui"}}>
+            <p className={classes.autopay_content}>
               I hereby authorize and direct Lender to initiate periodic debit
               entries for my scheduled loan payments from the bank account
               information provided to Lender. I agree that debit entries will be
@@ -422,7 +505,7 @@ export default function MakePayment() {
               by Lender at least three (3) business days prior to the payment
               due date.
             </p>
-            <p style={{textAlign: "justify",fontSize: "13px", color: "#6b6f82", fontFamily: "system-ui"}}>
+            <p className={classes.autopay_content}>
               If the first scheduled payment is an extended due date payment,
               then the first drafted payment amount may differ from the
               contractually agreed upon amount due each month. If any scheduled
@@ -430,7 +513,7 @@ export default function MakePayment() {
               the scheduled payment will be debited in full and a check in the
               amount of the overpayment will be issued and mailed to me.
             </p>
-            <p style={{textAlign: "justify",fontSize: "13px", color: "#6b6f82", fontFamily: "system-ui"}}>
+            <p className={classes.autopay_content}>
               Lender may cancel my automatic payment enrollment if any automatic
               payment is returned unpaid by my financial institution. Lender may
               also cancel the automatic payment service for any reason and will
@@ -438,7 +521,7 @@ export default function MakePayment() {
               amount will only be reduced or canceled to avoid creating a credit
               balance on the account.
             </p>
-            <p style={{textAlign: "justify",fontSize: "13px", color: "#6b6f82", fontFamily: "system-ui"}}>
+            <p className={classes.autopay_content}>
               Further, I understand and agree that if my account at the
               depository financial institution provided does not have sufficient
               funds to make my loan payment, Lender will not be responsible or
@@ -451,7 +534,7 @@ export default function MakePayment() {
               agreement as a result of my account at the depository financial
               institution listed below having insufficient funds.
             </p>
-            <p style={{textAlign: "justify",fontSize: "13px", color: "#6b6f82", fontFamily: "system-ui"}}>
+            <p className={classes.autopay_content}>
               Termination: I have the right to stop payment of preauthorized
               transfers from my account by notifying Lender, verbally or in
               writing at the mailing address or email address noted below; any
@@ -460,7 +543,7 @@ export default function MakePayment() {
               If the debit item is resubmitted, Lender must continue to honor
               the stop payment order.
             </p>
-            <p style={{textAlign: "justify",fontSize: "13px", color: "#6b6f82", fontFamily: "system-ui"}}>
+            <p className={classes.autopay_content}>
               I may terminate this authorization at any time (i) through the
               Customer Account Center; (ii) by providing written notice to
               Lender at Mariner Finance, LLC, 8211 Town Center Drive,
@@ -471,7 +554,7 @@ export default function MakePayment() {
               </a>
               .
             </p>
-            <p style={{textAlign: "justify",fontSize: "13px", color: "#6b6f82", fontFamily: "system-ui"}} >
+            <p className={classes.autopay_content} >
               This authorization will remain in effect until the underlying
               obligation to you is satisfied OR you receive written notification
               from me of termination of this authorization and you have
@@ -480,14 +563,12 @@ export default function MakePayment() {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <ButtonWithIcon
-            iconposition="right"
+          <ButtonPrimary
             stylebutton='{"background": "", "color":"" }'
-            styleicon='{ "color":"" }'
             onClick={handleAutopayClose}
           >
             Ok
-          </ButtonWithIcon>
+          </ButtonPrimary>
         </DialogActions>
       </Dialog>
     </div>

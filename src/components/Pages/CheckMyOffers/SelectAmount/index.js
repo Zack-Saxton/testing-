@@ -3,27 +3,42 @@ import "../checkMyOffer.css";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import { Slider, TextField, Button } from "../../../FormsUI";
+import { Slider, TextField,  ButtonPrimary } from "../../../FormsUI";
 import Paper from "@material-ui/core/Paper";
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import ScrollToTopOnMount from '../scrollToTop';
 import { CheckMyOffers as Check } from "../../../../contexts/CheckMyOffers";
 
-function CheckMyOffers() {
-	const { data, setData } = useContext(Check);
+function CheckMyOffers(props) {
+	const { data, setData, resetData } = useContext(Check);
 	const [hasOffercode, setOffercode] = useState();
-	const [select, setSelect] = useState(data.loanAmount ? data.loanAmount : 10000);
+	
 	const history = useHistory();
 
+	if(data.formStatus === '' || data.completedPage === 0 || data.formStatus === 'completed' || props.location.fromLoanPurpose !== 'yes'){
+		console.log("log",props.location.fromLoanPurpose);
+		resetData();
+		data.loanAmount = 10000;
+	}
+	const [select, setSelect] = useState(data.loanAmount ? data.loanAmount : 10000);
 	const handleRoute = (e) => {
-		console.log(select);
+
 		data.loanAmount = select;
+		data.formStatus = 'started';
+		data.completedPage = data.page.selectAmount;
 		setData({ ...data, "loanAmount": select });
 		history.push({
 			pathname: "/loan-purpose",
 		});
 	};
+
+	const getLoggedOut = () => {
+		let userToken = {isLoggedIn: false};
+		localStorage.setItem('token', JSON.stringify(userToken));
+	}
+
+	console.log(props.location.fromLoanPurpose);
 	return (
 		<div>
 			<ScrollToTopOnMount />
@@ -42,7 +57,7 @@ function CheckMyOffers() {
 							alignItems="center"
 						>
 							<Paper className="card" justify="center" alignItems="center">
-								<Typography variant="h5" align="center" className="borrowCSS">
+								<Typography variant="h5" align="center" className="borrowCSS CMOheading">
 									Tell us how much you would like to borrow
 								</Typography>
 								<Grid
@@ -109,14 +124,15 @@ function CheckMyOffers() {
 										</div>
 
 										<Grid className="alignButton">
-											<Button
+											<ButtonPrimary
 												data-testid="contButton"
 												stylebutton='{"background": "#FFBC23", "color":"black"}'
 												onClick={handleRoute}
 											>
 												Continue
-											</Button>
+											</ButtonPrimary>
 										</Grid>
+									
 
 										<Typography variant="p" align="center">
 											Checking your offers will not impact your credit score.*

@@ -191,3 +191,16 @@
     margin-bottom: 10px !important;
     margin-top: -10px !important;
 }
+
+.showError{
+    display: block;
+    color: red;
+    text-align: left;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+ 
+.hideError{
+    display: none;
+ 
+}

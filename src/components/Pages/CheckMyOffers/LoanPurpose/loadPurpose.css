@@ -10,9 +10,12 @@
 	margin-top: 5%;
 	margin-bottom: 2%;
 }
-.borrowCSS {
-	margin-top: 4% !important;
-	margin-bottom: 4% !important;
+.borrowCSSLP {
+	margin-top: 0px !important;
+	margin-bottom: 2% !important;
+	font-size: 1.64rem !important;
+    line-height: 110% !important;
+    margin: .82rem 0 .656rem 0 !important;
 }
 .setSlider {
 	margin-bottom: 0% !important;

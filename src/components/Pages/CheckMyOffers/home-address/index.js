@@ -3,9 +3,9 @@ import { useHistory, Link } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import { TextField, Button, Zipcode } from "../../../FormsUI";
+import { TextField, ButtonPrimary, Zipcode } from "../../../FormsUI";
 import Paper from "@material-ui/core/Paper";
-import AddressLogo from "../../../../assets/icon/I-Address.png";
+import AddressLogo from "../../../../assets/icon/I-Zip-Code.png";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
@@ -77,6 +77,7 @@ function HomeAddress() {
 			data.state = stateShort;
 			data.zip = values.zip;
 			data.stateFullform = values.state;
+			data.completedPage = data.page.homeAddress;
 			history.push("/personal-info");
 		},
 	});
@@ -144,7 +145,9 @@ const preventSpace = (event) => {
 		console.log(e.target.value.trim());
 		formik.setFieldValue("streetAddress", e.target.value.trim());
 	}
-
+	if (data.completedPage < data.page.citizenship || data.formStatus === 'completed'){
+		history.push("/select-amount");
+	}
 	return (
 		<div>
 			<ScrollToTopOnMount />
@@ -169,9 +172,9 @@ const preventSpace = (event) => {
 								<div className="progress mt-0">
 									<div
 										id="determinate"
-										className="det25  determinate slantDiv"
+										className="det30  determinate slantDiv"
 									></div>
-									<span class="floatLeft detNum25">25%</span>
+									<span class="floatLeft detNum30">30%</span>
 								</div>
 								<Grid className="floatLeft">
 									<Link to="/citizenship-status">
@@ -191,9 +194,9 @@ const preventSpace = (event) => {
 									align="center"
 									justify="center"
 									alignItems="center"
-									className="borrowCSS"
+									className="borrowCSSLP"
 								>
-									Where do you live?
+									Enter your zip code
 								</Typography>
 
 								<form onSubmit={formik.handleSubmit}>
@@ -334,9 +337,9 @@ const preventSpace = (event) => {
 											lg={8}
 											md={8}
 											xs={12}
-											className="textBlock"
+											className="textBlock alignButton"
 										>
-											<Button
+											<ButtonPrimary
 												type="submit"
 												stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black"}'
 												disabled={validZip ? false : true}
@@ -345,7 +348,7 @@ const preventSpace = (event) => {
 												<Typography align="center" className="textCSS ">
 													Continue
 												</Typography>
-											</Button>
+											</ButtonPrimary>
 										</Grid>
 									</Grid>
 								</form>
@@ -365,7 +368,7 @@ const preventSpace = (event) => {
 				
 				</DialogContent>
 				<DialogActions className="modalAction">
-				<Button
+				<ButtonPrimary
 					stylebutton='{"background": "#FFBC23", "color": "black", "border-radius": "50px"}'
 					onClick={handleClose}
 					className="modalButton"
@@ -373,7 +376,7 @@ const preventSpace = (event) => {
 					<Typography align="center">
 						Ok
 					</Typography>
-				</Button>
+				</ButtonPrimary>
 				</DialogActions>
 			</Dialog>
 
@@ -389,7 +392,7 @@ const preventSpace = (event) => {
 				
 				</DialogContent>
 				<DialogActions className="modalAction">
-				<Button
+				<ButtonPrimary
 					stylebutton='{"background": "#FFBC23", "color": "black", "border-radius": "50px"}'
 					onClick={handleCloseOhio}
 					className="modalButton"
@@ -397,7 +400,7 @@ const preventSpace = (event) => {
 					<Typography align="center">
 						Ok
 					</Typography>
-				</Button>
+				</ButtonPrimary>
 				</DialogActions>
 			</Dialog>
 		</div>

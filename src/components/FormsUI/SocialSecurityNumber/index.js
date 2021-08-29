@@ -26,6 +26,7 @@ const SSNWrapper = ({
 	helperText,
 	setError,
 	setHelperText,
+	placeholder,
 	...otherProps
 }) => {
 	// const [mobile, setSSN] = React.useState("");
@@ -63,7 +64,7 @@ const SSNWrapper = ({
 							label={label}
 							name={name}
 							error={error}
-							placeholder="Enter your social security number"
+							placeholder={placeholder}
 							helperText={helperText}
 							inputProps={{ "data-testid": "ssn", unmaskedval: unMaskedVal }}
 						/>

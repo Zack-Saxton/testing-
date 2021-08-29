@@ -1,11 +1,11 @@
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import {  Button, Checkbox } from "../../../FormsUI";
+import {  ButtonPrimary , Checkbox } from "../../../FormsUI";
 import Paper from "@material-ui/core/Paper";
 import React, { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import SSNLogo from "../../../../assets/icon/I-SSN.png";
+import SSNLogo from "../../../../assets/icon/Last-Step.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -43,40 +43,71 @@ function  SSN() {
 	};
 
 	const handleOnClick = async (event) => {
+		
+		data.completedPage = data.page.ssn;
 		setLoading(true);
+		
 		response = await submitApplication(data);
 		// checkMyOfferSubmitTest(data);
 		// checkMyOfferSubmit(data);	
+		setData({
+			...data,
+			"result": response.appSubmissionResult ? response.appSubmissionResult : null,
+			"completedPage": data.page.ssn
+
+		});
 		// console.log("responce", response.appSubmissionResult.data);
 		if(response.appSubmissionResult.status === 200){
 			setData({
 				...data,
 				"result": response.appSubmissionResult,
+				"completedPage": data.page.ssn,
+
 			});
 
 		
 		if(response.appSubmissionResult && response.appSubmissionResult?.data?.data?.applicationStatus === 'offers_available'){
 			console.log("valid");
+			setData({
+				...data,
+				"applicationStatus": 'offers_available',
+			});
 					history.push({
 						pathname: "/eligible-for-offers",
+						formcomplete: "yes"
 					});
 		}
 		else if(response.appSubmissionResult && response.appSubmissionResult.data.data.applicationStatus === 'rejected'){
 			console.log("Invalid");
+			setData({
+				...data,
+				"applicationStatus": 'rejected',
+			});
 					history.push({
 						pathname: "/no-offers-available",
+						formcomplete: "yes"
 					});
 		}
 		else if(response.appSubmissionResult && response.appSubmissionResult.data.data.applicationStatus === 'referred'){
-			console.log("Invalid");
+			// console.log("Invalid");
+			setData({
+				...data,
+				"applicationStatus": 'referred',
+			});
 					history.push({
 						pathname: "/reffered-to-branch",
+						formcomplete: "yes"
 					});
 		}
 	} else if(response.appSubmissionResult.status === 403) {
 		console.log("Invalid");
+		setData({
+			...data,
+			"applicationStatus": 'rejected',
+		});
 					history.push({
 						pathname: "/no-offers-available",
+						formcomplete: "yes"
 					});
 	} else{
 		alert("Network Error");
@@ -85,12 +116,10 @@ function  SSN() {
 	
 
 	}
-console.log("agree",agree);
-console.log("dela", agreeDelaware);
-console.log("nM", agreeNewMexico);
-console.log("cal", agreeCalifornia);
-console.log("loading", loading);
-console.log("constrain", (!(agree && agreeDelaware && agreeCalifornia && agreeNewMexico) || !loading  ));
+
+	if (data.completedPage < data.page.livingPlace || data.completedPage < data.page.activeDuty || data.formStatus === 'completed'){
+		history.push("/select-amount");
+	}
 	return (
 		<div>
 			<ScrollToTopOnMount />
@@ -179,12 +208,24 @@ console.log("constrain", (!(agree && agreeDelaware && agreeCalifornia && agreeNe
 												lg={8}
 												md={8}
 												xs={12}
+												className="positionHead"
+											>
+												<p className="agreeTextHead">Please acknowledge and sign our disclosures.</p>
+											</Grid>
+											<Grid
+												justify="left"
+												alignItems="left"
+												item
+												lg={8}
+												md={8}
+												xs={12}
 												className="textBlockWithLessMargin"
 											>
 												<Checkbox
 													name="termsOfService"
 													labelform="Terms & Service"
 													value= {agree}
+													className="checkBoxClass"
 													onChange={(e) => { setAgree(e.target.checked) }}
 													label={
 														<p className="agreeText">
@@ -240,7 +281,7 @@ console.log("constrain", (!(agree && agreeDelaware && agreeCalifornia && agreeNe
 													}
 													required={true}
 													stylelabelform='{ "color":"" }'
-													stylecheckbox='{ "color":"blue" }'
+													stylecheckbox='{ "color":"blue", "top": "0 px", "position": "absolute"}'
 													stylecheckboxlabel='{ "color":"" }'
 												/>
 												<div className={
@@ -352,7 +393,7 @@ console.log("constrain", (!(agree && agreeDelaware && agreeCalifornia && agreeNe
 												xs={12}
 												className="textBlockWithLessMargin alignButtonExtra alignButton"
 											>
-												<Button
+												<ButtonPrimary
 													disabled = { loading ? loading : !(agree && agreeDelaware && agreeCalifornia && agreeNewMexico)}
 													onClick={handleOnClick}
 													stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black"}'
@@ -369,7 +410,7 @@ console.log("constrain", (!(agree && agreeDelaware && agreeCalifornia && agreeNe
 															className="fa fa-refresh fa-spin customSpinner"
 															style={{ marginRight: "10px", display: loading ? "block" : "none" }}
 															/>
-												</Button>
+												</ButtonPrimary>
 											</Grid>
 										</Grid>
 								
@@ -445,7 +486,7 @@ console.log("constrain", (!(agree && agreeDelaware && agreeCalifornia && agreeNe
 				
 				</DialogContent>
 				<DialogActions className="modalAction">
-				<Button
+				<ButtonPrimary
 					stylebutton='{"background": "#FFBC23", "color": "black", "border-radius": "50px"}'
 					onClick={handleClose}
 					className="modalButton"
@@ -453,7 +494,7 @@ console.log("constrain", (!(agree && agreeDelaware && agreeCalifornia && agreeNe
 					<Typography align="center">
 						Ok
 					</Typography>
-				</Button>
+				</ButtonPrimary>
 				</DialogActions>
 			</Dialog>
 		</div>

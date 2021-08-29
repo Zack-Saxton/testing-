@@ -2,7 +2,7 @@ import "../checkMyOffer.css";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import { Select, Button, TextField, Zipcode } from "../../../FormsUI";
+import { Select, ButtonPrimary, TextField, Zipcode } from "../../../FormsUI";
 import Paper from "@material-ui/core/Paper";
 import React, { useState, useContext } from "react";
 import { useHistory, Link } from "react-router-dom";
@@ -83,6 +83,7 @@ function MarriedStatus() {
 				"spouse_address_city": values.spouseSelectState,
 				"spouse_address_state": stateShort,
 				"spouse_address_postal_code": values.spouseZipcode,
+				"completedPage" : data.page.activeDuty
 			});
 			history.push("/ssn");
 		},
@@ -135,7 +136,12 @@ function MarriedStatus() {
 
 		formik.handleChange(e);
 	};
-console.log(stateShort);
+
+	if (data.completedPage < data.page.livingPlace || data.formStatus === 'completed'){
+		history.push("/select-amount");
+	}
+
+	//JSX part
 	return (
 		<div>
 			<ScrollToTopOnMount />
@@ -375,7 +381,7 @@ console.log(stateShort);
 										{/* <p class="left-align"><b>Location</b></p> */}
 
 										<Grid item lg={8} md={8} xs={12} className="alignButton">
-											<Button
+											<ButtonPrimary
 												// onClick={handleRoute}
 												type="submit"
 												disabled={validZip ? false : true}
@@ -384,7 +390,7 @@ console.log(stateShort);
 												<Typography align="center" className="textCSS ">
 													Continue
 												</Typography>
-											</Button>
+											</ButtonPrimary>
 										</Grid>
 									</Grid>
 								</form>

@@ -15,6 +15,12 @@
     margin-top: 4% !important;
     margin-bottom: 4% !important;
 }
+.lessBorrowCSS{
+    margin-top: 1% !important;
+    margin-bottom: 1% !important;
+    font-weight: 400;
+    line-height: 1.3;
+}
 .setSlider{
     margin-bottom: 0% !important;
 }
@@ -66,4 +72,19 @@
 
 .nolink{
     text-decoration: none !important;
+}
+.smalTextImgNoOff{
+    font-size: 1.1rem !important;
+    line-height: 1.3 !important;
+    font-weight: 400 !important;
+}
+
+@media (min-width: 600px){
+    .buttonEnd{
+        justify-content: flex-start !important;
+    }
+    
+    .buttonStart{
+        justify-content: flex-end !important;
+    }
 }

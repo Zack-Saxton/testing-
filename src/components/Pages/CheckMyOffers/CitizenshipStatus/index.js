@@ -1,7 +1,7 @@
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import { Button } from "../../../FormsUI";
+import { ButtonPrimary } from "../../../FormsUI";
 import Paper from "@material-ui/core/Paper";
 import React, { useState, useContext } from "react";
 import { useHistory, Link } from "react-router-dom";
@@ -23,9 +23,23 @@ function CitizenshipStatus() {
 	//Handle the button click
 	const handleRoute = () => {
 		data.citizenship = citizenship;
+		data.completedPage = data.page.citizenship;
 		history.push("/home-address");
 	};
 
+	const goNext = (val) => {
+		data.citizenship = val;
+		setCitizenship(val);
+		if(data.completedPage < data.page.citizenship)
+		{
+			data.completedPage = data.page.citizenship;
+			history.push("/home-address");
+		}
+		
+	}
+	if (data.completedPage < data.page.loanPurpose || data.formStatus === 'completed' ){
+		history.push("/select-amount");
+	}
 	//JSK part
 	return (
 		<div>
@@ -73,7 +87,7 @@ function CitizenshipStatus() {
 									align="center"
 									justify="center"
 									alignItems="center"
-									className="borrowCSS"
+									className="borrowCSSLP"
 								>
 									Describe your citizenship status
 								</Typography>
@@ -101,7 +115,7 @@ function CitizenshipStatus() {
 													: "radioBlock "
 											}
 											onClick={() => {
-												setCitizenship("USA Citizen");
+												goNext("USA Citizen");
 											}}
 										>
 											U.S Citizen
@@ -117,7 +131,7 @@ function CitizenshipStatus() {
 													: "radioBlock "
 											}
 											onClick={() => {
-												setCitizenship("Permanent Resident");
+												goNext("Permanent Resident");
 											}}
 										>
 											Permanent Resident
@@ -149,7 +163,7 @@ function CitizenshipStatus() {
 									</h4>
 
 									<Grid item lg={8} md={8} xs={12} className="alignButton">
-										<Button
+										<ButtonPrimary
 											onClick={handleRoute}
 											data-testid="citizenshipContButton"
 											disabled={
@@ -162,7 +176,7 @@ function CitizenshipStatus() {
 											<Typography align="center" className="textCSS ">
 												Continue
 											</Typography>
-										</Button>
+										</ButtonPrimary>
 									</Grid>
 								</Grid>
 							</Paper>

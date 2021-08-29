@@ -29,7 +29,7 @@ export default function LoanHistory() {
   return (
     <div >
         
-        <Grid container justify={"center"} style={{ marginTop: "-150px" }}>
+        <Grid container justify={"center"}  style={{ marginTop: "-150px" }}>
           <Grid container direction="row" item xs={10}>
             <Typography>
               <h1 className={classes.heading}> Loan History</h1>

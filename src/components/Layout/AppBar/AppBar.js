@@ -32,8 +32,9 @@ import CircleCheckedFilled from "@material-ui/icons/CheckCircle";
 import CircleUnchecked from "@material-ui/icons/RadioButtonUnchecked";
 import logoicon from "../../../assets/images/Favicon.png";
 import logoimage from "../../../assets/images/Normallogo.png";
-import { NavLink } from "react-router-dom";
-import AccountBalanceWalletOutlinedIcon from "@material-ui/icons/AccountBalanceWalletOutlined";
+import { NavLink, useHistory } from "react-router-dom";
+import quickpay from "../../../assets/images/quickpay.png";
+
 
 const drawerWidth = 240;
 
@@ -140,6 +141,15 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
+  activeNavbar: {
+    background: `linear-gradient(
+      85deg
+      , #264266, #0F4EB3) !important;
+      color:white!important`,
+      width: "220px",
+      borderRadius: "0 5px 5px 0",
+      boxShadow: `3px 3px 10px 0 rgb(123 31 162 / 50%)`
+  }
 }));
 
 export default function Sidenav() {
@@ -147,6 +157,7 @@ export default function Sidenav() {
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
+  const history = useHistory();
 
   const handleDrawer = () => {
     console.log("close");
@@ -169,9 +180,11 @@ export default function Sidenav() {
         child.style.display = "none";
       }
       if (checked === false) {
-        document.getElementById("main").style.marginLeft = "0px";
+        document.getElementById("main").style.marginLeft = '73px';
+        // document.getElementById("main").style.width = "100%";
       } else {
         document.getElementById("main").style.marginLeft = "240px";
+        // document.getElementById("main").style.width = "95%";
       }
     }
   };
@@ -184,13 +197,26 @@ export default function Sidenav() {
     setAnchorEl(null);
   };
 
+  const logoutUser = () => {
+
+    setAnchorEl(null);
+    let userToken = {isLoggedIn: false};
+		localStorage.setItem('token', JSON.stringify(userToken));
+    history.push({
+			pathname: "/login",
+		});
+
+  };
+
   const [checked, setChecked] = React.useState(false);
 
   const handleChangeCheckbox = (event) => {
     if (event.target.checked === "false") {
-      document.getElementById("main").style.marginLeft = "0px";
+      document.getElementById("main").style.marginLeft = "73px";
+      // document.getElementById("main").style.width = "100%";
     } else {
       document.getElementById("main").style.marginLeft = "240px";
+      // document.getElementById("main").style.width = "95%";
     }
     setChecked(event.target.checked);
   };
@@ -210,7 +236,7 @@ export default function Sidenav() {
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
       <NavLink to="/login" style={{ textDecoration: "none" }}>
-        <MenuItem onClick={handleMenuClose}>Log Out</MenuItem>
+        <MenuItem onClick={logoutUser}>Log Out</MenuItem>
       </NavLink>
     </Menu>
   );
@@ -267,9 +293,12 @@ export default function Sidenav() {
               Branch Locator
             </Typography>
 
-            <IconButton className={classes.customBadge}>
-              <AccountBalanceWalletOutlinedIcon />
-            </IconButton>
+            <img
+              src={quickpay}
+              style={{marginBottom: "-20px"}}
+              data-testid="background"
+              alt="quickpay"
+            />
 
             <IconButton aria-label="show 17 new notifications" color="inherit">
               <Badge classes={{ badge: classes.customBadge }} badgeContent={17}>
@@ -307,6 +336,7 @@ export default function Sidenav() {
             }),
           }}
           onMouseEnter={handleDrawer}
+          // onMouseLeave={}
         >
           <div className={classes.toolbar}>
             <img src={logoimage} alt="logoimage" style={{ height: "60px" }} />
@@ -328,12 +358,16 @@ export default function Sidenav() {
             </div>
           </div>
           <Divider />
-          <List>
+          <List >
             <NavLink
-              to="/customer/accountoverview"
+              to="/customers/accountoverview"
               style={{ textDecoration: "none" }}
             >
-              <ListItem>
+              <ListItem 
+              // button
+              //  selected={true}
+              //  classes={{ selected: classes.activeNavbar }}
+                 >
                 <ListItemIcon>
                   {" "}
                   <AssignmentTurnedInOutlinedIcon />{" "}
@@ -343,10 +377,13 @@ export default function Sidenav() {
             </NavLink>
 
             <NavLink
-              to="/customer/makepayment"
+              to="/customers/makepayment"
               style={{ textDecoration: "none" }}
             >
-              <ListItem style={{ textDecoration: "none" }}>
+              <ListItem 
+              //  selected={true}
+              //  classes={{ selected: classes.activeNavbar }}
+               style={{ textDecoration: "none" }}>
                 <ListItemIcon>
                   {" "}
                   <AccountBalanceWalletIcon />{" "}
@@ -358,7 +395,7 @@ export default function Sidenav() {
             </NavLink>
 
             <NavLink
-              to="/customer/applyloan"
+              to="/customers/selectoffer"
               style={{ textDecoration: "none" }}
             >
               <ListItem>
@@ -371,7 +408,7 @@ export default function Sidenav() {
             </NavLink>
 
             <NavLink
-              to="/customer/loandocument"
+              to="/customers/loandocument"
               style={{ textDecoration: "none" }}
             >
               <ListItem>
@@ -383,7 +420,7 @@ export default function Sidenav() {
               </ListItem>
             </NavLink>
 
-            <NavLink to="/customer/mybranch" style={{ textDecoration: "none" }}>
+            <NavLink to="/customers/mybranch" style={{ textDecoration: "none" }}>
               <ListItem>
                 <ListItemIcon>
                   {" "}
@@ -394,7 +431,7 @@ export default function Sidenav() {
             </NavLink>
 
             <NavLink
-              to="/customer/myprofile"
+              to="/customers/myprofile"
               style={{ textDecoration: "none" }}
             >
               <ListItem>
@@ -407,7 +444,7 @@ export default function Sidenav() {
             </NavLink>
 
             <NavLink
-              to="/customer/loanhistory"
+              to="/customers/loanhistory"
               style={{ textDecoration: "none" }}
             >
               <ListItem>
@@ -420,7 +457,7 @@ export default function Sidenav() {
             </NavLink>
 
             <NavLink
-              to="/customer/vantagescore"
+              to="/customers/vantagescore"
               style={{ textDecoration: "none" }}
             >
               <ListItem>
@@ -433,7 +470,7 @@ export default function Sidenav() {
             </NavLink>
 
             <NavLink
-              to="/customer/moneyskill"
+              to="/customers/moneyskill"
               style={{ textDecoration: "none" }}
             >
               <ListItem>

@@ -12,7 +12,11 @@ import TableRow from "@material-ui/core/TableRow";
 import "./paymenthistory.css"
 import Chartist from "react-chartist";
 import tooltip from 'chartist-plugin-tooltips-updated';
+import { NavLink } from "react-router-dom";
+import {
   
+  ButtonWithIcon
+} from "../../FormsUI";
     
 
 const useStyles = makeStyles((theme) => ({
@@ -26,11 +30,26 @@ const useStyles = makeStyles((theme) => ({
       color: theme.palette.text.secondary,
     },
     heading: {
-      color: "white",
-      fontWeight: "normal",
+      color: "#fff",
+    fontWeight: "400",
+    fontSize:"1.64rem"
     },
     table: {
       minWidth: 650,
+    },
+    cardheading:{
+      color: "#171717!important",
+      fontSize:"18px",
+      fontWeight: "600",
+    },
+    tablehead:{
+      color: "#171717!important",
+      fontWeight: "600",
+      fontSize:"1rem"
+    },
+    tableheadrow:{
+      color: "#171717!important",
+      fontSize:"15px"
     },
     
   }));
@@ -125,17 +144,34 @@ const useStyles = makeStyles((theme) => ({
   
     return (
       <div>
-        <Grid container justify={"center"} style={{ marginTop: "-150px" }}>
-          <Grid item xs={10} fullWidth={true} direction="row">
+        <Grid container justify={"center"} style={{ marginTop: "-150px", paddingRight:"30px", paddingLeft:"30px" }}>
+          
+          <Grid item xs={12}  fullWidth={true} direction="row">
             <Typography>
-              <h3 className={classes.heading}>Active Loan / Payment History</h3>
+            
+              <h3 className={classes.heading} >
+              <NavLink
+                  to="/customers/accountoverview"
+                  style={{ textDecoration: "none" }}
+                >
+                  <ButtonWithIcon
+                        icon="arrow_backwardIcon"
+                        iconposition="left"
+                        stylebutton='{"background": "#fff", "color":"#214476",
+                        "minWidth": "0px",
+                        "width": "36px",
+                        "padding": "0px",
+                        "marginRight": "5px", "marginTop":"unset" }'
+                        styleicon='{ "color":"" }'
+                      />
+                      </NavLink> Active Loan / Payment History</h3>
             </Typography>
           </Grid>
-
+          
 
           <Grid
           item
-          xs={10}
+          xs={12}
          
           fullWidth={true}
           direction="row"
@@ -143,19 +179,19 @@ const useStyles = makeStyles((theme) => ({
         >
           <Paper className={classes.paper}>
 
-          <Grid item xs={10}>
+          <Grid item xs={12}>
                 <Typography>
-                  <h4 style={{ margin: "auto" }}>On-Time / Late Payments</h4>
+                  <p className={classes.cardheading}>On-Time / Late Payments</p>
                 </Typography>
               </Grid>
 
  <Grid container spacing={3}>
-              <Grid item xs={10} sm={8}>
+              <Grid item xs={12} sm={8}>
           
 
 <Chartist data={barChart} options={barOptions} type={"Bar"} className="barchart" />
     </Grid>
-    <Grid item xs={10} sm={4}>
+    <Grid item xs={12} sm={4}>
     <Typography>
                   <h4 >Your on-time payments have saved you $214 
                   by preventing late payment fees.</h4>
@@ -168,30 +204,30 @@ const useStyles = makeStyles((theme) => ({
         </Grid>
 
 
-        <Grid item xs={10} style={{ paddingTop: "10px" , paddingBottom: "20px"}}>
+        <Grid item xs={12} style={{ paddingTop: "10px" , paddingBottom: "20px"}}>
           <TableContainer component={Paper}>
             <Table className={classes.table} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell style={{ fontWeight: "600" }}>
+                  <TableCell className={classes.tablehead}>
                     Date
                   </TableCell>
-                  <TableCell style={{ fontWeight: "600" }} align="center">
+                  <TableCell className={classes.tablehead} align="center">
                     Description
                   </TableCell>
-                  <TableCell style={{ fontWeight: "600" }} align="center">
+                  <TableCell className={classes.tablehead} align="center">
                     Principal
                   </TableCell>
-                  <TableCell style={{ fontWeight: "600" }} align="center">
+                  <TableCell className={classes.tablehead} align="center">
                     Interest
                   </TableCell>
-                  <TableCell style={{ fontWeight: "600" }} align="center">
+                  <TableCell className={classes.tablehead} align="center">
                     Other
                   </TableCell>
-                  <TableCell style={{ fontWeight: "600" }} align="center">
+                  <TableCell className={classes.tablehead} align="center">
                     Total
                   </TableCell>
-                  <TableCell style={{ fontWeight: "600" }} align="center">
+                  <TableCell className={classes.tablehead} align="center">
                     Balance
                   </TableCell>
                 </TableRow>
@@ -199,15 +235,15 @@ const useStyles = makeStyles((theme) => ({
               <TableBody>
                 {rows.map((row) => (
                   <TableRow key={row.name}>
-                    <TableCell component="th" scope="row">
+                    <TableCell component="th"  className={classes.tableheadrow} scope="row">
                       {row.date}
                     </TableCell>
-                    <TableCell align="center">{row.description}</TableCell>
-                    <TableCell align="center">{row.principal}</TableCell>
-                    <TableCell align="center">{row.interest}</TableCell>
-                    <TableCell align="center">{row.other}</TableCell>
-                    <TableCell align="center">{row.total}</TableCell>
-                    <TableCell align="center">{row.balance}</TableCell>
+                    <TableCell  className={classes.tableheadrow} align="center">{row.description}</TableCell>
+                    <TableCell  className={classes.tableheadrow} align="center">{row.principal}</TableCell>
+                    <TableCell  className={classes.tableheadrow} align="center">{row.interest}</TableCell>
+                    <TableCell  className={classes.tableheadrow} align="center">{row.other}</TableCell>
+                    <TableCell  className={classes.tableheadrow} align="center">{row.total}</TableCell>
+                    <TableCell  className={classes.tableheadrow} align="center">{row.balance}</TableCell>
 
                    
                   </TableRow>

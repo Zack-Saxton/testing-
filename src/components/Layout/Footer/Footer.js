@@ -7,7 +7,7 @@ import Logo from "../../../assets/images/MarinerLogo.png";
 export default function Footer() {
   //View Part
   return (
-    <div>
+    <div >
       <footer style={{ width: "100%" }}>
         <section class="section-top">
           <div class="col">

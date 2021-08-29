@@ -46,7 +46,7 @@ const PhoneNumberWrapper = ({ name, onChange, value, label, error, helperText, .
     <MuiThemeProvider theme={theme}>
       <InputMask
         fullWidth={true}
-        mask="1 - (999) 999 9999"
+        mask="(999) 999-9999"
         value={value}
         name={name}
         onChange={handleChange}

@@ -3,7 +3,7 @@ import "./newUser.css";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import {  Button, PasswordField } from "../../../FormsUI";
+import {  ButtonPrimary, PasswordField } from "../../../FormsUI";
 import Paper from "@material-ui/core/Paper";
 import { useHistory, Link } from "react-router-dom";
 import PasswordLogo from "../../../../assets/icon/I-Password.png";
@@ -57,6 +57,7 @@ function NewUser() {
 				...data,
 				"password": values.newPassword,
 				"confirmPassword": values.confirmPassword,
+				"completedPage": data.page.newUser
 			});
 			let body = {
 				"fname": data.firstName,
@@ -116,7 +117,7 @@ catch(error){
   }
 			
 
-			history.push("/employment-status");
+			// history.push("/employment-status");S
 			
 		},
 	});
@@ -126,6 +127,10 @@ catch(error){
 		  event.preventDefault();
 		}
 	  };
+
+	  if (data.completedPage < data.page.personalInfo || data.formStatus === 'completed'){
+		history.push("/select-amount");
+	}
 
 	return (
 		<div>
@@ -178,7 +183,7 @@ catch(error){
 									align="center"
 									justify="center"
 									alignItems="center"
-									className="borrowCSS"
+									className="borrowCSSLP"
 								>
 									Please create a secure account with us.
 								</Typography>
@@ -256,9 +261,9 @@ catch(error){
 											lg={8}
 											md={8}
 											xs={12}
-											className="textBlock"
+											className="textBlock alignButton"
 										>
-											<Button
+											<ButtonPrimary
 												type="submit"
 												data-testid="contButton"
 												disabled = { loading }
@@ -271,7 +276,7 @@ catch(error){
 													className="fa fa-refresh fa-spin customSpinner"
 													style={{ marginRight: "10px", display: loading ? "block" : "none" }}
 												/>
-											</Button>
+											</ButtonPrimary>
 										</Grid>
 									</Grid>
 								</form>

@@ -23,3 +23,5 @@ export { default as AutoCompleteMultiple } from './AutoCompleteMultiple';
 export { default as ButtonSwitch } from './ButtonSwitch';
 export { default as DataGrid } from './DataGrid';
 export { default as RadioButtonBox} from './RadioButtonBox';
+export {default as ButtonPrimary} from './ButtonPrimary'
+export {default as ButtonSecondary} from './ButtonSecondary'

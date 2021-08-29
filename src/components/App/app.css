@@ -30,8 +30,20 @@ background: linear-gradient(
   transition: 0.5s;
 }
 
+@media (max-width:959px){
+  #main{
+    margin-left: unset!important
+
+  }
+}
+
 #body{
   
   background: #B0CFE1;
   place-items: center;
+}
+
+.MuiButton-root{
+  
+  line-height: 1!important;
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -6,20 +6,21 @@ import Typography from "@material-ui/core/Typography";
 import * as yup from "yup";
 import Box from "@material-ui/core/Box";
 import {
-  Button,
-  PasswordWithIcon,
-  EmailWithIcon,  
+  EmailTextField,  
+  PasswordField,
   Checkbox,
+  ButtonPrimary
   
 } from "../../FormsUI";
 import Paper from "@material-ui/core/Paper";
 import Logo from "../../../assets/images/loginbg.png";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import "./login.css";
+import loginSubmit from '../../controllers/loginController';
 
 //Styling
 const useStyles = makeStyles((theme) => ({
-  main: {
+  maincontent_background: {
     backgroundImage: "url(" + Logo + ")",
   },
 
@@ -40,22 +41,26 @@ const useStyles = makeStyles((theme) => ({
   heading: {
     color: "white",
     justify: "center",
+   
   },
 
   checkbox: {
     textAlign: "initial",
+    fontFamily: "Segoe UI"
   },
-  button: {
-    padding: "10px",
-  },
+ 
   title: {
     fontSize: "25px",
-    textAlign: "initial",
+    textAlign: "center",
+    color: "#171717",
+    fontWeight: "400"
   },
   register: {
-    fontSize: "12px",
+    fontSize: ".9rem",
     textDecoration: "none",
-    color: "blue",
+    color: "#0F4EB3",
+    fontFamily: "Segoe UI"
+    
   },
   maingrid: {
     boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%), 
@@ -63,6 +68,16 @@ const useStyles = makeStyles((theme) => ({
 		0 8px 10px -7px rgb(0 0 0 / 20%)`,
     background: "#f5f2f2",
   },
+  loginbutton:{
+    textAlign: "center"
+  },
+  emailgrid:{
+    lineHeight: "2"
+  },
+  registergrid:{
+    textAlign: "center",
+    width: "100%"
+  }
 }));
 
 //Yup validations for all the input fields
@@ -90,8 +105,11 @@ const validationSchema = yup.object({
 });
 
 //Begin: Login page
-export default function Login() {
+export default function Login({ setToken }) {
   const classes = useStyles();
+  const history = useHistory();
+  const [loginFailed, setLoginFailed] = useState('');
+  const [loading, setLoading] = useState(false);
 
   //Form Submission
   const formik = useFormik({
@@ -100,8 +118,26 @@ export default function Login() {
       password: "",
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: async (values) => {
+      setLoading(true);
+      let retVal = await loginSubmit(values.email, values.password, setToken);
+      if(retVal?.data?.data?.user && retVal?.data?.data?.userFound === true ){
+        localStorage.setItem('token', JSON.stringify({isLoggedIn: true}));  
+        setLoading(false);
+        history.push({
+          pathname: "/customers/accountoverview",
+        });
+      }
+      else if (retVal?.data?.data?.result === "error" || retVal?.data?.data?.hasError === true){
+        localStorage.setItem('token', JSON.stringify({isLoggedIn: false}));
+        setLoading(false);
+        setLoginFailed(retVal?.data?.data?.errorMessage);
+      }
+      else{
+        setLoading(false);
+        alert("Network error");
+      }
+      console.log("retval",retVal);
     },
   });
 
@@ -115,12 +151,12 @@ export default function Login() {
   //View Part
   return (
     <div>
-      <div className={classes.main} id="main">
+      <div className={classes.maincontent_background} id="maincontent_background">
         <Box>
           <Grid xs={12} container justify="center" alignItems="center">
             <Grid
-              xs={10}
-              sm={7}
+              xs={8}
+              sm={6}
               md={5}
               lg={4}
               xl={5}
@@ -134,24 +170,21 @@ export default function Login() {
                   data-testid="title"
                   color="textSecondary"
                 >
-                  Sign In
+                  Sign in
                 </Typography>
 
        
 
                 <form onSubmit={formik.handleSubmit}>
-                  <Grid className="textBlock" container spacing={2}>
-                    <Grid item xs={12} fullWidth={true} id="text"  direction="row">
-                      <EmailWithIcon
+                  <Grid  container spacing={5}  style={{ paddingTop: "30px" }}>
+                    <Grid item xs={12} fullWidth={true} id="text"  direction="row" className={classes.emailgrid}>
+                      <EmailTextField
                         id="email"
                         name="email"
                         type="email"
                         testid="email-input"
                         placeholder="Enter your email address"
-                        label="Email *"
-                        icon="emailIcon"
-                        iconColor="#595E6E"
-                        iconPosition="left"
+                        label="Email Address *"
                         materialProps={{ maxLength: "100" }}
                         onKeyDown={preventSpace}
                         value={formik.values.email}
@@ -163,17 +196,14 @@ export default function Login() {
                         helperText={formik.touched.email && formik.errors.email}
                       />
                     </Grid>
+                    {/* <br></br>
                     <br></br>
-                    <br></br>
-                    <br></br> <br></br>
-                    <Grid item xs={12} fullWidth={true} direction="row">
-                      <PasswordWithIcon
+                    <br></br> <br></br> */}
+                    <Grid item xs={12} fullWidth={true} direction="row"  >
+                      <PasswordField
                         name="password"
                         label="Password *"
                         placeholder="Enter your password"
-                        icon="lock"
-                        iconColor="#595E6E"
-                        iconPosition="left"
                         id="password"
                         type="password"
                         onKeyDown={preventSpace}
@@ -189,44 +219,53 @@ export default function Login() {
                           formik.touched.password && formik.errors.password
                         }
                       />
+                        <p className={ loginFailed !== '' ? "showError addPadd" : "hideError" } data-testid="subtitle">
+                        {" "}
+                        {loginFailed}                 
+                      </p>
                     </Grid>
+                    {/* <br></br>
                     <br></br>
-                    <br></br>
-                    <br></br> <br></br>
+                    <br></br> <br></br> */}
                     <Grid className={classes.checkbox}>
                       <Checkbox
                         name="rememberme"
                         label="Remember Me"
                         labelid="rememberme"
                         testid="checkbox"
-                        stylelabelform='{ "color":"" }'
-                        stylecheckbox='{ "color":"blue","paddingRight":"15px" }'
+                        stylelabelform='{ "paddingTop":"10px" }'
+                        stylecheckbox='{ "color":"#0F4EB3", "marginLeft":"7px","paddingRight":"15px" }'
                         stylecheckboxlabel='{ "color":"" }'
                       />
                     </Grid>
+                  
+                    {/* <br></br>
                     <br></br>
-                    <br></br>
-                    <br></br>
-                    <Grid item xs={12}>
-                      <Button
+                    <br></br> */}
+                    <Grid item xs={12} className={classes.loginbutton}>
+                      <ButtonPrimary
                         type="submit"
                         data-testid="submit"
                         stylebutton='{"background": "", "color":"" }'
-                        background="0F4EB3!important"
+                        disabled = { loading }
                       >
                         Sign In
-                      </Button>
+                        <i
+                            className="fa fa-refresh fa-spin customSpinner"
+                            style={{ marginRight: "10px", display: loading ? "block" : "none" }}
+                          />
+                      </ButtonPrimary>
                     </Grid>
-                    <div>
+                    <Grid   className={classes.registergrid}>
                       <NavLink
                         to="/register"
                         style={{ textDecoration: "none" }}
                       >
                         <p className={classes.register}>
-                          Sign In Help / Register
+                          Sign in Help / Register
                         </p>
                       </NavLink>
-                    </div>
+                    </Grid>
                   </Grid>
                 </form>
               </Paper>

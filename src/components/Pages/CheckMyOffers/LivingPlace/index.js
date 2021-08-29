@@ -2,11 +2,11 @@ import "../checkMyOffer.css";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import { TextField, Button } from "../../../FormsUI";
+import { TextField, ButtonPrimary } from "../../../FormsUI";
 import Paper from "@material-ui/core/Paper";
 import React, { useState, useContext } from "react";
 import { useHistory, Link } from "react-router-dom";
-import CitizenshipStatusLogo from "../../../../assets/icon/I-Citizenship-status.png";
+import CitizenshipStatusLogo from "../../../../assets/icon/I-Own-Rent-Property.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import ScrollToTopOnMount from '../scrollToTop';
 
@@ -14,27 +14,52 @@ function LivingPlace() {
 	const { data, setData } = useContext(CheckMyOffers);
 	const [error, setError] = useState();
 	const [helperText, setHelperText] = useState();
-	const [livingPlace, setLivingPlace] = useState(data.homeOwnership ?? "");
+	var [livingPlace, setLivingPlace] = useState(data.homeOwnership ?? "");
 	const history = useHistory();
 	// const handleRoute = () =>{
 	//     data.livingPlace = livingPlace;
 	//     history.push("/active-duty");
 	//   }
 
+	const setDataState = (val) => {
+		if (data.state === 'NC'){
+			data.completedPage = data.page.livingPlace;
+	
+			setData({ ...data, "rentMortageAmount": 0, "homeOwnership": val });
+			livingPlace = val;
+			history.push("/active-duty")
+		}
+		else if (data.state === 'WI'){
+			data.completedPage = data.page.livingPlace;
+		
+			history.push("/marital-status")
+		}
+		else{
+			data.completedPage = data.page.activeDuty;
+		
+			history.push("/ssn")
+		}
+	}
+
 	const handleRoute = () => {
+		console.log("dat",livingPlace);
 		if (livingPlace === "Renting" || livingPlace === "Own a Home with Mortgage") {
 			if (data.rentMortageAmount !== "" && data.rentMortageAmount !== 0 && data.rentMortageAmount >= 1000) {
 				// alert("nil value");
 				setError(false);
 				setHelperText("");
 				data.homeOwnership = livingPlace;
+				
 				if (data.state === 'NC'){
+					data.completedPage = data.page.livingPlace;
 					history.push("/active-duty")
 				}
 				else if (data.state === 'WI'){
+					data.completedPage = data.page.livingPlace;
 					history.push("/marital-status")
 				}
 				else{
+					data.completedPage = data.page.activeDuty;
 					history.push("/ssn")
 				}
 			} else {
@@ -49,12 +74,17 @@ function LivingPlace() {
 			data.homeOwnership = livingPlace;
 			// data.state === 'North Carolina' ? history.push("/active-duty") : history.push("/marital-status");
 			if (data.state === 'NC'){
+				data.completedPage = data.page.livingPlace;
 				history.push("/active-duty")
+
 			}
 			else if (data.state === 'WI'){
+				data.completedPage = data.page.livingPlace;
 				history.push("/marital-status")
 			}
 			else{
+				data.completedPage = data.page.activeDuty;
+				console.log(data);
 				history.push("/ssn")
 			}
 			// history.push("/active-duty");
@@ -85,6 +115,10 @@ function LivingPlace() {
 			setHelperText("Amount should be minimum $1000");
 		}
 	};
+	if (data.completedPage < data.page.annualIncome || data.formStatus === 'completed'){
+		history.push("/select-amount");
+	}
+	console.log(data);
 	return (
 		<div>
 			<ScrollToTopOnMount />
@@ -127,7 +161,7 @@ function LivingPlace() {
 									align="center"
 									justify="center"
 									alignItems="center"
-									className="borrowCSS"
+									className="borrowCSSLP"
 								>
 									Do you own or rent?
 								</Typography>
@@ -187,7 +221,16 @@ function LivingPlace() {
 													: "radioBlock "
 											}
 											onClick={() => {
-												setLivingPlace("Own a Home with no Mortgage") ; setData({ ...data, "rentMortageAmount": 0 });
+												// setLivingPlace("Own a Home with no Mortgage") ; 
+												// setData({ ...data, "rentMortageAmount": 0, "homeOwnership": "Own a Home with no Mortgage" });
+												// livingPlace = "Own a Home with no Mortgage";
+												setLivingPlace("Own a Home with no Mortgage");
+												data.rentMortageAmount = 0;
+												data.homeOwnership = "Own a Home with no Mortgage";
+												if(data.completedPage < data.page.livingPlace || data.completedPage < data.page.activeDuty){
+													setDataState();
+												}
+												
 											}}
 										>
 											Own a home with no mortgage
@@ -203,7 +246,12 @@ function LivingPlace() {
 													: "radioBlock "
 											}
 											onClick={() => {
-												setLivingPlace("Own a Mobile Home") ; setData({ ...data, "rentMortageAmount": 0 });
+												setLivingPlace("Own a Mobile Home");
+												data.rentMortageAmount = 0;
+												data.homeOwnership = "Own a Mobile Home";
+												if(data.completedPage < data.page.livingPlace || data.completedPage < data.page.activeDuty){
+													setDataState();
+												}
 											}}
 										>
 											Own a mobile home
@@ -219,7 +267,13 @@ function LivingPlace() {
 													: "radioBlock "
 											}
 											onClick={() => {
-												setLivingPlace("Living with Relatives"); setData({ ...data, "rentMortageAmount": 0 });
+												setLivingPlace("Living with Relatives"); 
+												data.rentMortageAmount = 0;
+												data.homeOwnership = "Living with Relatives";
+										
+												if(data.completedPage < data.page.livingPlace || data.completedPage < data.page.activeDuty){
+													setDataState();
+												}
 											}}
 										>
 											Living with relatives
@@ -250,7 +304,7 @@ function LivingPlace() {
 									</Grid>
 
 									<Grid item lg={8} md={8} xs={12} className="alignButton">
-										<Button
+										<ButtonPrimary
 											onClick={handleRoute}
 											data-testid="cntButton"
 											disabled={livingPlace === "" ? true : false}
@@ -259,7 +313,7 @@ function LivingPlace() {
 											<Typography align="center" className="textCSS ">
 												Continue
 											</Typography>
-										</Button>
+										</ButtonPrimary>
 									</Grid>
 								</Grid>
 							</Paper>

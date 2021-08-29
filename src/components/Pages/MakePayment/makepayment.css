@@ -1,8 +1,9 @@
-@media (max-width: 600px) {
+@media (max-width: 800px) {
     #makepayment-cancelbutton-grid{
       padding: 0!important;
      
       padding-top: 10px!important;
+      padding-bottom: 20px!important;
      
     }
   }
@@ -16,6 +17,15 @@
     }
   }  
 
+  @media (max-width: 800px) {
+    #makepayment-schedulebutton, #makepayment-cancelbutton {
+      padding: 0!important;
+     
+     height: 32px;
+      width: 100%!important;
+    }
+  }  
+
   @media (max-width: 600px) {
   #makepayment-submitbutton {
       padding: 0!important;
@@ -24,3 +34,7 @@
       width: 100%!important;
     }
   } 
+
+  .alert-dialog-title-autopay{
+    width: 50%!important
+  }

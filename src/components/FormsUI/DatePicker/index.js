@@ -16,8 +16,9 @@ import {
    
 	KeyboardDatePicker
 } from "@material-ui/pickers";
+import "./datePicker.css";
  
-const DatePickerWrapper = ({ name, format, defaultDate,label, placeholder,maxdate, ...otherProps }) => {
+const DatePickerWrapper = ({ name, format, defaultDate,label, placeholder,maxdate,minyear, ...otherProps }) => {
 
 	// The first commit of Material-UI
 	//const currentDate = new Date();
@@ -25,7 +26,11 @@ const DatePickerWrapper = ({ name, format, defaultDate,label, placeholder,maxdat
 	const handleDateChange = (date) => {
 		setSelectedDate(date);
 	};
-
+	var d = new Date();
+	var year = d.getFullYear();
+    var month = d.getMonth();
+    var day = d.getDate();
+    var minDate = new Date(year - minyear, month, day);
 	
 
 	return (
@@ -36,10 +41,11 @@ const DatePickerWrapper = ({ name, format, defaultDate,label, placeholder,maxdat
 					id="date-picker-dialog"
 					label={label}   
 					fullWidth={true}
-					format= { format ?? 'MM-dd-yyyy'}
+					format= { format ?? 'MM/dd/yyyy'}
 					value={selectedDate}
 					onChange={handleDateChange}
-					minDate={new Date("1940-01-01")}
+					InputAdornmentProps={{ position: 'start' }}
+					minDate={minDate}
 					maxDate={new Date(maxdate)}
 					placeholder={placeholder}
 					

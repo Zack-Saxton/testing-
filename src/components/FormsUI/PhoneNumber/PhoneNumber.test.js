@@ -21,8 +21,8 @@ import '@testing-library/jest-dom';
 
   const input = container.getByTestId('phone');
 
-  fireEvent.change(input, { target: { value: "1234567800" } });
-  expect(input).toHaveAttribute('unmaskedval', '1234567800');
+  fireEvent.change(input, { target: { value: "234567800" } });
+  expect(input).toHaveAttribute('unmaskedval', '234567800');
 });
 
 test('Accept only 10 digits as phone number', () => {
@@ -31,8 +31,8 @@ test('Accept only 10 digits as phone number', () => {
 
  const input = container.getByTestId('phone');
 
- fireEvent.change(input, { target: { value: "1234567800111" } });
- expect(input).toHaveAttribute('unmaskedval', '12345678001');
+ fireEvent.change(input, { target: { value: "234567800111" } });
+ expect(input).toHaveAttribute('unmaskedval', '2345678001');
 });
 
 test('should match the snapshot', () => {

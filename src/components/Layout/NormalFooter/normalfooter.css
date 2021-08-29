@@ -1,8 +1,8 @@
 
-.section-top{
+.section-top-normalfooter{
     background:#d7e6ed;
     display: flex; 
-    justify-content: center; 
+    justify-content: space-evenly; 
     padding: 20px 0;
     }
     .section-bottom{
@@ -24,10 +24,10 @@
         word-wrap: break-word;
       }
       .footer-content{
-        font-size: 14px;
+        font-size: 15px;
        padding-bottom: 14px;
        word-wrap: break-word;
-       font-family: "system-ui";
+      
    
       }
    .hreftag{
@@ -36,7 +36,7 @@
 
    }
    @media all and (max-width: 600px){ 
-   .section-top{
+   .section-top-normalfooter{
        flex-direction: column;
    }    
    .col{ 

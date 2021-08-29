@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import { ButtonWithIcon, Checkbox } from "../../../FormsUI";
+import { ButtonSecondary, ButtonWithIcon, Checkbox } from "../../../FormsUI";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import PropTypes from "prop-types";
@@ -55,20 +55,19 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
   heading: {
-    color: "white",
-    fontWeight: "normal",
-    fontFamily: "system-ui",
+    color: "#fff",
+    fontWeight: "400",
+    fontSize:"1.64rem"
   },
   tablabel: {
     background: "white",
-    marginRight: "10px",
-    marginBottom: "10px",
-    fontFamily: " system-ui",
+    margin: "10px",   
     color: "#3f51b5",
+    fontFamily: "Segoe UI",
+    fontSize: "1rem",
     textTransform: "none",
-    fontWeight: "700",
+    fontWeight: "600",
   },
-
   table: {
     minWidth: 650,
   },
@@ -81,12 +80,12 @@ const useStyles = makeStyles((theme) => ({
   },
 
   rightborder: {
-    padding: "0px 15px",
+    // padding: "0px 15px",
     borderRight: "1px solid",
     lineHeight: 1,
   },
   columnheading: {
-    fontFamily: "system-ui",
+   
     fontSize: "14px",
     color: "#171717",
     textAlign: "center",
@@ -103,16 +102,30 @@ export default function ReviewAndSign() {
 
   return (
     <div>
-      <Grid container justify={"center"} style={{ marginTop: "-150px" }}>
-        <Grid item xs={10} fullWidth={true} direction="row">
-          <Typography>
-            <h3 className={classes.heading} data-testid="title">
-              Apply for a loan
-            </h3>
-          </Typography>
-        </Grid>
+      <Grid container justify={"center"} style={{ marginTop: "-150px", paddingRight:"30px", paddingLeft:"30px" }}>
+      <Grid item xs={12}  fullWidth={true} direction="row" style={{ marginBottom: "-20px" }}>
+            <Typography>
+            
+              <h3 className={classes.heading} >
+              <NavLink
+                  to="/customers/accountoverview"
+                  style={{ textDecoration: "none" }}
+                >
+                  <ButtonWithIcon
+                        icon="arrow_backwardIcon"
+                        iconposition="left"
+                        stylebutton='{"background": "#fff", "color":"#214476",
+                        "minWidth": "0px",
+                        "width": "36px",
+                        "padding": "0px",
+                        "marginRight": "5px" , "marginTop":"unset"}'
+                        styleicon='{ "color":"" }'
+                      />
+                      </NavLink> Apply for a Loan</h3>
+            </Typography>
+          </Grid>
 
-        <Grid item xs={10}>
+        <Grid item xs={12}>
           <Tabs
             value={value}
             onChange={handleChange}
@@ -147,14 +160,14 @@ export default function ReviewAndSign() {
 
           {/* ##############################################Review And Sign################################################################################################# */}
           <TabPanel value={value} index={1}>
-            <Grid item xs={12} sm={12} fullWidth={true} direction="row">
+            <Grid item xs={12}  fullWidth={true} direction="row">
               <Paper className={classes.paper}>
                 <Grid container>
                   <Grid item xs={12} sm={6} fullWidth={true} direction="row">
                     <Typography>
                       <p
                         style={{
-                          fontFamily: "system-ui",
+                         
                           color: "#171717",
                           fontSize: "18px",
                         }}
@@ -166,17 +179,17 @@ export default function ReviewAndSign() {
 
                   <Grid item xs={12} sm={6}>
                     <NavLink
-                      to="/customer/applyloan"
+                      to="/customers/applyloan"
                       style={{ textDecoration: "none" }}
                     >
-                      <ButtonWithIcon
+                      <ButtonSecondary
                         stylebutton='{"float": "right", "color":"" }'
                         styleicon='{ "color":"" }'
                         fullWidth={true}
                         id="reselect-button"
                       >
                         Re-Select Offer
-                      </ButtonWithIcon>
+                      </ButtonSecondary>
                     </NavLink>
                   </Grid>
                 </Grid>
@@ -239,7 +252,7 @@ export default function ReviewAndSign() {
                       Loan Proceeds
                     </p>
                     <h2 className={classes.columncolor} id="columncontent">
-                      $10.000
+                      $10,000
                     </h2>
                   </Grid>
                   <Grid
@@ -260,7 +273,7 @@ export default function ReviewAndSign() {
                     item
                     xs={12}
                     sm={2}
-                    style={{ padding: "0px 15px",lineHeight:"1" }}
+                    style={{ lineHeight:"1" }}
                     id="rightborder"
                   >
                     <p className={classes.columnheading} id="columnheading">
@@ -279,7 +292,7 @@ export default function ReviewAndSign() {
                     textAlign: "justify",
                     fontSize: "13px",
                     color: "#6b6f82",
-                    fontFamily: "system-ui",
+                    
                   }}
                 >
                   Please confirm your selected loan before proceeding. Please
@@ -292,7 +305,7 @@ export default function ReviewAndSign() {
                     textAlign: "justify",
                     fontSize: "13px",
                     color: "#6b6f82",
-                    fontFamily: "system-ui",
+                    
                   }}
                 >
                   To accept your loan offer, please complete the following:
@@ -302,7 +315,7 @@ export default function ReviewAndSign() {
                     textAlign: "justify",
                     fontSize: "13px",
                     color: "#6b6f82",
-                    fontFamily: "system-ui",
+                   
                   }}
                 >
                   <li>
@@ -330,7 +343,7 @@ export default function ReviewAndSign() {
                           style={{
                             fontSize: "14px",
                             lineHeight: 1,
-                            fontFamily: "system-ui",
+                            
                           }}
                         >
                           {" "}
@@ -343,14 +356,14 @@ export default function ReviewAndSign() {
                       labelid="rememberme"
                       testid="checkbox"
                       stylelabelform='{ "font-size":"12px" }'
-                      stylecheckbox='{ "font-size":"12px" }'
+                      stylecheckbox='{ "margin-bottom":"15px" }'
                       stylecheckboxlabel='{ "font-size":"12px" }'
                     />
                   </Grid>
 
                   <Grid item xs={12} style={{ lineHeight: 6 }}>
                     <NavLink
-                      to="/customer/finalverification"
+                      to="/customers/finalverification"
                       style={{ textDecoration: "none" }}
                     >
                       <ButtonWithIcon
@@ -372,7 +385,7 @@ export default function ReviewAndSign() {
                     textAlign: "justify",
                     fontSize: "13px",
                     color: "#6b6f82",
-                    fontFamily: "system-ui",
+                   
                   }}
                 >
                   After you accept your loan, you will be required to provide

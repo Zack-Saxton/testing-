@@ -8,7 +8,7 @@
     padding-bottom: 1%;
 }
 .cardWrapper{
-    margin-top: 5%;
+    margin-top: 4%;
     margin-bottom: 2%;
 }
 .borrowCSS{
@@ -229,12 +229,12 @@
     color: #134ca8;
 }
 
-.det25{
-    width:25%;
+.det30{
+    width:30%;
 }
 
-.detNum25{
-    padding-left:25%;
+.detNum30{
+    padding-left:30%;
     font-weight: 600;
     color: #134ca8;
 }
@@ -330,15 +330,30 @@
 
 .agreeText{
     text-align: justify;
-    font-size: 1rem;
     line-height: 25px;
     position: relative;
     display: inline-block;
     height: 25px;
-    padding-left: 35px;
+    padding-left: 15px;
+    padding-top: 8px;
     cursor: pointer;
     color: #595959;
-    font-family: 'Muli', sans-serif;
+    margin-left: 7%;
+    margin-top: 0%;
+
+}
+.positionHead{
+    text-align: left;
+}
+.agreeTextHead{
+    text-align: justify;
+    line-height: 25px;
+    position: relative;
+    display: inline-block;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    cursor: pointer;
+    color: #595959;
 
 }
 
@@ -370,7 +385,13 @@
 }
 .minText{   
     text-align: justify;
-    font-size: medium !important;
+    font-size: 1rem !important;
+    font-weight: 400 !important;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif !important;
+}
+.vminText{   
+    text-align: justify;
+    font-size: .8rem !important;
     font-weight: 400 !important;
     font-family: "Roboto", "Helvetica", "Arial", sans-serif !important;
 }
@@ -384,6 +405,12 @@
 .buttonWithMargin{
     margin-top: 7%;
     margin-bottom: 7%;
+}
+
+
+.buttonWithSmallMargin{
+    margin-top: 3% !important;
+    margin-bottom: 3% !important;
 }
 
 .Mui-focused{
@@ -466,4 +493,66 @@ text-align: left;
     margin-left: 6px;
     font-size: 115%;
     opacity: 0.7;
+}
+
+.mainTextMsg{
+    font-size: 2.28rem !important;
+    line-height: 110% !important;
+    margin: 1.14rem 0 .912rem 0 !important;
+}
+
+.margin2p{
+    margin-top: 2% !important;
+    margin-bottom: 2% !important;
+}
+
+.cardWrapperImg{
+    margin-top: 4%;
+}
+.smalTextImg{
+    font-size: 1.15rem !important;
+    line-height: 150% !important;
+    margin: .575rem 0 .46rem 0 !important;
+    font-weight: 400 !important;
+}
+
+.smallLineHeight{
+    line-height: 70% !important;
+}
+
+.borrowCSSLP {
+	margin-top: 0px !important;
+	margin-bottom: 2% !important;
+	font-size: 1.64rem !important;
+    font-weight: 400 !important;
+    line-height: 110% !important;
+    margin: .82rem 0 .656rem 0 !important;
+}
+
+.buttlet{
+    display: list-item;         
+    list-style-type: disc;      
+    list-style-position: inside;
+    
+}
+
+.leftAlign{
+    text-align: left !important;
+    width: 100% !important;
+    margin-top: 2% !important;
+    margin-bottom: 2% !important;
+}
+
+@media (min-width: 600px){
+    .buttonEnd{
+        justify-content: flex-start !important;
+    }
+    
+    .buttonStart{
+        justify-content: flex-end !important;
+    }
+}
+.checkBoxClass{
+    position: absolute !important;
+    top: 0px !important;
 }

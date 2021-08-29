@@ -1,5 +1,5 @@
 import React from "react";
-import { ButtonWithIcon } from "../../../FormsUI";
+import { ButtonSecondary } from "../../../FormsUI";
 import Grid from "@material-ui/core/Grid";
 
 //View Part
@@ -12,7 +12,7 @@ export default function EmailVerification() {
             textAlign: "justify",
             fontSize: "14px",
             color: "#595959",
-            fontFamily: "system-ui",
+           
             fontWeight: "normal",
           }}
         >
@@ -24,13 +24,13 @@ export default function EmailVerification() {
       </Grid>
 
       <Grid item xs={12} style={{ lineHeight: 3 }}>
-        <ButtonWithIcon
-          stylebutton='{ "font-family":"system-ui","font-weight":"normal" }'
+        <ButtonSecondary
+          stylebutton='{"font-weight":"normal" }'
           styleicon='{ "color":"" }'
           fullWidth={true}
         >
           Resend the verification link
-        </ButtonWithIcon>
+        </ButtonSecondary>
       </Grid>
     </div>
   );

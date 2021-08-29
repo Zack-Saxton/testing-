@@ -24,11 +24,21 @@ const ButtonWithIcon = ({
   //Styling Part
   const useStyles = makeStyles((theme) => ({
     buttoncolor: {
-      color: "#171717",
+      color: "black",
       background: "#ffbc23",
-      fontFamily: "sans-serif",
+      fontFamily: "Segoe UI",
+      borderRadius: "50px",
       textTransform: "capitalize",
+      height: "36px",
+      fontSize: "1rem",
+      fontWeight: "normal",
+      boxShadow:` 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12), 0 1px 5px 0 rgba(0, 0, 0, .2)`,
+      padding:" 0 2rem",
       width: "auto",
+      '&:hover': {
+        background: '#ffbc23',
+        color: 'black',
+    },
     },
   }));
 

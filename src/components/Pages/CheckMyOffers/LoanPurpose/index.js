@@ -3,7 +3,7 @@ import "./loadPurpose.css";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import { Button } from "../../../FormsUI";
+import { ButtonPrimary } from "../../../FormsUI";
 import Paper from "@material-ui/core/Paper";
 import HomeImprovenentIcon from "../../../../assets/icon/Home-Improvement.png";
 import HomeImprovenentIconWhite from "../../../../assets/icon/white/Home-Improvement.png";
@@ -27,6 +27,7 @@ import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { useHistory, Link } from "react-router-dom";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import ScrollToTopOnMount from '../scrollToTop';
+import { GridApiContext } from "@material-ui/data-grid";
 
 function LoanPurpose(props) {
 	console.log(props);
@@ -36,9 +37,22 @@ function LoanPurpose(props) {
 
 	const handleRoute = () => {
 		data.loanPurpose = purpose;
+		data.completedPage = data.completedPage > data.page.loanPurpose ? data.completedPage :  data.page.loanPurpose;
 		history.push("/citizenship-status");
 	};
-	const useStyles = makeStyles((Theme) =>
+
+	const goNext = (val) => {
+		data.loanPurpose = val;
+		setPurpose(val);
+		if(data.completedPage < data.page.loanPurpose)
+		{
+			
+			data.completedPage = data.completedPage > data.page.loanPurpose ? data.completedPage :  data.page.loanPurpose;
+			history.push("/citizenship-status");
+		}
+		
+	};
+    	const useStyles = makeStyles((Theme) =>
 		createStyles({
 			root: {},
 			paper: {
@@ -72,7 +86,10 @@ function LoanPurpose(props) {
 		})
 	);
 	const classes = useStyles();
-	console.log(data);
+	console.log(data); 
+	if (data.completedPage < data.page.selectAmount || data.formStatus === 'completed' ){
+		history.push("/select-amount");
+	}
 	return (
 		<div>
 			<ScrollToTopOnMount />
@@ -102,11 +119,15 @@ function LoanPurpose(props) {
 									<span class="floatLeft detNum1">8%</span>
 								</div>
 								<Grid class="floatLeft">
-									<Link to="/select-amount">
+									<Link to={{
+										pathname: '/select-amount',
+										fromLoanPurpose: "yes"
+										}}>
+										
 										<i class="material-icons dp48 yellowText ">arrow_back</i>
 									</Link>
 								</Grid>
-								<Typography variant="h5" align="center" className="borrowCSS">
+								<Typography variant="h5" align="center" className="borrowCSSLP">
 									How are you planning to use the money?
 								</Typography>
 								<Grid
@@ -131,7 +152,7 @@ function LoanPurpose(props) {
 													: "block " + classes.paper
 											}
 											onClick={() => {
-												setPurpose("Home Improvement");
+												goNext("Home Improvement");
 											}}
 										>
 											<img
@@ -171,7 +192,7 @@ function LoanPurpose(props) {
 													: "block " + classes.paper
 											}
 											onClick={() => {
-												setPurpose("Auto Expense/Repair");
+												goNext("Auto Expense/Repair");
 											}}
 										>
 											<img
@@ -211,7 +232,7 @@ function LoanPurpose(props) {
 													: "block " + classes.paper
 											}
 											onClick={() => {
-												setPurpose("Vacation");
+												goNext("Vacation");
 											}}
 										>
 											<img
@@ -251,7 +272,7 @@ function LoanPurpose(props) {
 													: "block " + classes.paper
 											}
 											onClick={() => {
-												setPurpose("Holiday Spending");
+												goNext("Holiday Spending");
 											}}
 										>
 											<img
@@ -291,7 +312,7 @@ function LoanPurpose(props) {
 													: "block " + classes.paper
 											}
 											onClick={() => {
-												setPurpose("Medical/Dental");
+												goNext("Medical/Dental");
 											}}
 										>
 											<img
@@ -329,7 +350,7 @@ function LoanPurpose(props) {
 													: "block " + classes.paper
 											}
 											onClick={() => {
-												setPurpose("Debt Consolidation");
+												goNext("Debt Consolidation");
 											}}
 										>
 											<img
@@ -369,7 +390,7 @@ function LoanPurpose(props) {
 													: "block " + classes.paper
 											}
 											onClick={() => {
-												setPurpose("Life Event (Wedding, Graduation, etc)");
+												goNext("Life Event (Wedding, Graduation, etc)");
 											}}
 										>
 											<img
@@ -409,7 +430,7 @@ function LoanPurpose(props) {
 													: "block " + classes.paper
 											}
 											onClick={() => {
-												setPurpose("Unexpected Expenses/Bills");
+												goNext("Unexpected Expenses/Bills");
 											}}
 										>
 											<img
@@ -449,7 +470,7 @@ function LoanPurpose(props) {
 													: "block " + classes.paper
 											}
 											onClick={() => {
-												setPurpose("Major Purchase");
+												goNext("Major Purchase");
 											}}
 										>
 											<img
@@ -489,7 +510,7 @@ function LoanPurpose(props) {
 													: "othersBlock "
 											}
 											onClick={() => {
-												setPurpose("Other");
+												goNext("Other");
 											}}
 										>
 											<Typography
@@ -509,7 +530,7 @@ function LoanPurpose(props) {
 										sm={12}
 										xs={12}
 									>
-										<Button
+										<ButtonPrimary
 											data-testid="contButton"
 											onClick={handleRoute}
 											disabled={purpose === "" ? true : false}
@@ -518,7 +539,7 @@ function LoanPurpose(props) {
 											<Typography align="center" className="textCSS ">
 												Continue
 											</Typography>
-										</Button>
+										</ButtonPrimary>
 									</Grid>
 								</Grid>
 							</Paper>

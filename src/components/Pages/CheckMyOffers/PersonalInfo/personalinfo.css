@@ -163,12 +163,12 @@
     margin-top: 0 !important;
 }
 
-.det4{
-    width:33%;
+.det40{
+    width:40%;
 }
 
-.detNum4{    
-    padding-left:33%;
+.detNum40{    
+    padding-left:40%;
     font-weight: 600;
     color: #134ca8;
 }
@@ -182,4 +182,12 @@
 
 .showError{
     display: block;
+}
+.borrowCSSLP {
+	margin-top: 0px !important;
+	margin-bottom: 2% !important;
+	font-size: 1.64rem !important;
+    font-weight: 400 !important;
+    line-height: 110% !important;
+    margin: .82rem 0 .656rem 0 !important;
 }
