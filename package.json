@@ -48,7 +48,6 @@
     "eject": "react-scripts eject",
     "lint": "eslint src"
   },
-  "proxy":"https://psa-development.marinerfinance.io",
   "eslintConfig": {
     "extends": "react-app"
   },
