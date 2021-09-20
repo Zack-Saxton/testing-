@@ -1,10 +1,10 @@
 import React from 'react'
-import {render, cleanup } from '@testing-library/react'
+import {cleanup, render} from '@testing-library/react'
 import TextArea from './index.js'
 
- afterEach(cleanup)
+afterEach(cleanup)
 
- test('Textfield availability', () => {
+ test('TextField availability', () => {
    const container = render(										
                   <TextArea
 										placeholder="Enter here..."

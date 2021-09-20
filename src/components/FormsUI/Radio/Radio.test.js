@@ -1,7 +1,7 @@
 import React from "react";
-import {render, cleanup, fireEvent } from '@testing-library/react'
+import {cleanup, fireEvent, render} from '@testing-library/react'
 import Radio from './index.js';
-import {Formik, Form} from 'formik';
+import {Form, Formik} from 'formik';
 
 afterEach(cleanup)
 

@@ -2,30 +2,26 @@ import "../checkMyOffer.css";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import { TextField, ButtonPrimary } from "../../../FormsUI";
+import {ButtonPrimary, TextField} from "../../../FormsUI";
 import Paper from "@material-ui/core/Paper";
-import React, { useState, useContext } from "react";
-import { useHistory, Link } from "react-router-dom";
+import React, {useContext, useState} from "react";
+import {Link, useHistory} from "react-router-dom";
 import CitizenshipStatusLogo from "../../../../assets/icon/I-Own-Rent-Property.png";
-import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
+import {CheckMyOffers} from "../../../../contexts/CheckMyOffers";
 import ScrollToTopOnMount from '../scrollToTop';
 
 function LivingPlace() {
 	const { data, setData } = useContext(CheckMyOffers);
 	const [error, setError] = useState();
 	const [helperText, setHelperText] = useState();
-	var [livingPlace, setLivingPlace] = useState(data.homeOwnership ?? "");
-	const history = useHistory();
-	// const handleRoute = () =>{
-	//     data.livingPlace = livingPlace;
-	//     history.push("/active-duty");
-	//   }
+    let [livingPlace, setLivingPlace] = useState(data.homeOwnership ?? "");
+    const history = useHistory();
 
 	const setDataState = (val) => {
 		if (data.state === 'NC'){
 			data.completedPage = data.page.livingPlace;
 	
-			setData({ ...data, "rentMortageAmount": 0, "homeOwnership": val });
+			setData({ ...data, "rentMortgageAmount": 0, "homeOwnership": val });
 			livingPlace = val;
 			history.push("/active-duty")
 		}
@@ -42,10 +38,9 @@ function LivingPlace() {
 	}
 
 	const handleRoute = () => {
-		console.log("dat",livingPlace);
 		if (livingPlace === "Renting" || livingPlace === "Own a Home with Mortgage") {
-			if (data.rentMortageAmount !== "" && data.rentMortageAmount !== 0 && data.rentMortageAmount >= 1000) {
-				// alert("nil value");
+			if (data.rentMortgageAmount !== "" && data.rentMortgageAmount !== 0 && data.rentMortgageAmount >= 1000) {
+				
 				setError(false);
 				setHelperText("");
 				data.homeOwnership = livingPlace;
@@ -63,16 +58,13 @@ function LivingPlace() {
 					history.push("/ssn")
 				}
 			} else {
-				// alert("Enter Anual income");
 				setError(true);
 				setHelperText("Enter valid rent/Mortgage amount");
 			}
 		} else {
 			setError(false);
 			setHelperText("");
-			// alert(employmentStatus);
 			data.homeOwnership = livingPlace;
-			// data.state === 'North Carolina' ? history.push("/active-duty") : history.push("/marital-status");
 			if (data.state === 'NC'){
 				data.completedPage = data.page.livingPlace;
 				history.push("/active-duty")
@@ -84,10 +76,8 @@ function LivingPlace() {
 			}
 			else{
 				data.completedPage = data.page.activeDuty;
-				console.log(data);
 				history.push("/ssn")
 			}
-			// history.push("/active-duty");
 		}
 	};
 
@@ -96,19 +86,17 @@ function LivingPlace() {
 		let acc = event.target.value;
 
 		if (acc === "" || reg.test(acc)) {
-			setData({ ...data, "rentMortageAmount": parseInt(event.target.value ? event.target.value : '0')  });
+			setData({ ...data, "rentMortgageAmount": parseInt(event.target.value ? event.target.value : '0')  });
 		}
-		console.log(event.target.value);
 		if (event.target.value !== '' && event.target.value >= 1000)
 		{
-			console.log("its it");
 			setError(false);
 			setHelperText("");
 		}
 		
 		else if (event.target.value === ''){
 			setError(true);
-			setHelperText("Rent/Motgage amount should not be zero");
+			setHelperText("Rent/Mortgage amount should not be zero");
 		}
 		else{
 			setError(true);
@@ -118,62 +106,51 @@ function LivingPlace() {
 	if (data.completedPage < data.page.annualIncome || data.formStatus === 'completed'){
 		history.push("/select-amount");
 	}
-	console.log(data);
 	return (
 		<div>
 			<ScrollToTopOnMount />
 			<div className="mainDiv">
 				<Box>
-					<Grid xs={12} container justify="center" alignItems="center">
-						<Grid
+					<Grid container item xs={12}  justifyContent="center" alignItems="center" style={{ paddingTop:"70px",paddingBottom:"70px"}}>
+						<Grid container item
 							xs={11}
 							sm={10}
 							md={6}
 							lg={6}
 							xl={6}
 							className="cardWrapper"
-							justify="center"
+							justifyContent="center"
 							alignItems="center"
 						>
-							<Paper
-								className="cardWOPadding"
-								justify="center"
-								alignItems="center"
-							>
+							<Paper 	className="cardWOPadding" style={{justify:"center",alignItems:"center"}}>
 								<div className="progress mt-0">
 									<div
 										id="determinate"
 										className="det75 determinate slantDiv"
-									></div>
-									<span class="floatLeft detNum75">75%</span>
+									/>
+									<span className="floatLeft detNum75">75%</span>
 								</div>
 								<Grid className="floatLeft">
 									<Link to="/annual-income">
-										<i class="material-icons dp48 yellowText  ">arrow_back</i>
+										<i className="material-icons dp48 yellowText  ">arrow_back</i>
 									</Link>
 								</Grid>
 								<Grid>
-									<img src={CitizenshipStatusLogo} alt="citizenshiplogo" className="spinAnimation" />
+									<img src={CitizenshipStatusLogo} alt="citizenship logo" className="spinAnimation" />
 								</Grid>
 
-								<Typography
-									variant="h5"
-									align="center"
-									justify="center"
-									alignItems="center"
-									className="borrowCSSLP"
-								>
+								<Typography variant="h5" style={{align:"center",justify:"center",alignItems:"center"}}  className="borrowCSSLP">
 									Do you own or rent?
 								</Typography>
-								<Grid
+								<Grid item
 									md={12}
 									className="blockDiv"
 									container
-									justify="center"
+									justifyContent="center"
 									alignItems="center"
 								>
-									<Grid
-										justify="center"
+									<Grid container
+										justifyContent="center"
 										alignItems="center"
 										item
 										lg={8}
@@ -198,7 +175,7 @@ function LivingPlace() {
 									<Grid item lg={8} md={8} xs={12}>
 										<Paper
 											elevation={3}
-											data-testid="HomeWithMortage"
+											data-testid="HomeWithMortgage"
 											className={
 												livingPlace === "Own a Home with Mortgage"
 													? "activeBorder radioBlock "
@@ -214,7 +191,7 @@ function LivingPlace() {
 									<Grid item lg={8} md={8} xs={12}>
 										<Paper
 											elevation={3}
-											data-testid="HomeWithNoMortage"
+											data-testid="HomeWithNoMortgage"
 											className={
 												livingPlace === "Own a Home with no Mortgage"
 													? "activeBorder radioBlock "
@@ -222,10 +199,10 @@ function LivingPlace() {
 											}
 											onClick={() => {
 												// setLivingPlace("Own a Home with no Mortgage") ; 
-												// setData({ ...data, "rentMortageAmount": 0, "homeOwnership": "Own a Home with no Mortgage" });
+												// setData({ ...data, "rentMortgageAmount": 0, "homeOwnership": "Own a Home with no Mortgage" });
 												// livingPlace = "Own a Home with no Mortgage";
 												setLivingPlace("Own a Home with no Mortgage");
-												data.rentMortageAmount = 0;
+												data.rentMortgageAmount = 0;
 												data.homeOwnership = "Own a Home with no Mortgage";
 												if(data.completedPage < data.page.livingPlace || data.completedPage < data.page.activeDuty){
 													setDataState();
@@ -247,7 +224,7 @@ function LivingPlace() {
 											}
 											onClick={() => {
 												setLivingPlace("Own a Mobile Home");
-												data.rentMortageAmount = 0;
+												data.rentMortgageAmount = 0;
 												data.homeOwnership = "Own a Mobile Home";
 												if(data.completedPage < data.page.livingPlace || data.completedPage < data.page.activeDuty){
 													setDataState();
@@ -268,7 +245,7 @@ function LivingPlace() {
 											}
 											onClick={() => {
 												setLivingPlace("Living with Relatives"); 
-												data.rentMortageAmount = 0;
+												data.rentMortgageAmount = 0;
 												data.homeOwnership = "Living with Relatives";
 										
 												if(data.completedPage < data.page.livingPlace || data.completedPage < data.page.activeDuty){
@@ -288,16 +265,16 @@ function LivingPlace() {
 													? "showMsg"
 													: "hideMsg"
 											}
-											name="RentOrMortageAmount"
+											name="RentOrMortgageAmount"
 											label="Monthly Rent / Mortgage Amount"
 											form={true}
 											error={error}
 											helperText={helperText}
-											value={data.rentMortageAmount}
+											value={data.rentMortgageAmount}
 											// onChange= { (event) => {setData({ ...data, ['yearsAtEmployers']: event.target.value })}}
 											onChange={onHandleChange}
 											materialProps={{
-												"data-testid": "rentMortageAmount",
+												"data-test-id": "rentMortgageAmount",
 												maxLength: "5",
 											}}
 										/>
@@ -307,8 +284,8 @@ function LivingPlace() {
 										<ButtonPrimary
 											onClick={handleRoute}
 											data-testid="cntButton"
-											disabled={livingPlace === "" ? true : false}
-											stylebutton='{"background": "#FFBC23", "height": "inherit", "black": "white"}'
+											disabled={livingPlace === ""}
+											stylebutton='{"background": "#FFBC23", "height": "inherit", "black": "white","fontSize":"1rem"}'
 										>
 											<Typography align="center" className="textCSS ">
 												Continue

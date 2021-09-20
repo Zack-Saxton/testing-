@@ -7,8 +7,8 @@ Functionality       :    To use this Multiselect as a default component for UI p
 
 #################################################################################################################*/
 import React from "react";
-import { FormControl } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import {FormControl} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -27,7 +27,7 @@ const MultiSelectWrapper = ({
 }) => {
   //To return all formik state
   // const [field, meta] = useField(name);
-  const [setmultiselect, setMultiSelect] = React.useState([]);
+  const [multiSelect, setMultiSelect] = React.useState([]);
   const handleChange = (event) => {
     setMultiSelect(event.target.value);
   };
@@ -98,14 +98,14 @@ const MultiSelectWrapper = ({
 
   return (
     <FormControl {...configFormControl}>
-      <InputLabel className={classes.formlabel}>{labelform}</InputLabel>
+      <InputLabel className={classes.formControl}>{labelform}</InputLabel>
       <Select
         {...configMultiSelect}
-        value={setmultiselect}
+        value={multiSelect}
         multiple
         MenuProps={MenuProps}
-        data-testid= "multiSelectBox"
-        inputProps={{"data-testid": "multiSelectInput"}}
+        data-test-id= "multiSelectBox"
+        inputProps={{"data-test-id": "multiSelectInput"}}
         renderValue={(selected) => selected.join(", ")}
         
       >
@@ -113,7 +113,7 @@ const MultiSelectWrapper = ({
           <MenuItem key={nam.value} value={nam.value}>
             <Checkbox
               refvalue={nam.value}
-              checked={setmultiselect.indexOf(nam.value) > -1}
+              checked={multiSelect.indexOf(nam.value) > -1}
               className={classes.check}
             />
             <ListItemText primary={nam.value} />

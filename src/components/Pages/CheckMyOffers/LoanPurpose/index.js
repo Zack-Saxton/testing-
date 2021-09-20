@@ -1,58 +1,59 @@
-import React, { useState, useContext } from "react";
+import React, {useContext, useState} from "react";
 import "./loadPurpose.css";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import { ButtonPrimary } from "../../../FormsUI";
+import {ButtonPrimary} from "../../../FormsUI";
 import Paper from "@material-ui/core/Paper";
-import HomeImprovenentIcon from "../../../../assets/icon/Home-Improvement.png";
-import HomeImprovenentIconWhite from "../../../../assets/icon/white/Home-Improvement.png";
-import AutoExpenceIcon from "../../../../assets/icon/AutoExpense-Repair.png";
+import HomeImprovementIcon from "../../../../assets/icon/Home-Improvement.png";
+import HomeImprovementIconWhite from "../../../../assets/icon/white/Home-Improvement.png";
+import AutoExpenseIcon from "../../../../assets/icon/AutoExpense-Repair.png";
 import VacationIcon from "../../../../assets/icon/Vacation.png";
 import HolidayIcon from "../../../../assets/icon/Holiday-Spending.png";
 import MedicalIcon from "../../../../assets/icon/Medical-Dental.png";
 import DeptIcon from "../../../../assets/icon/Debt-Consolidation.png";
 import LifeEventIcon from "../../../../assets/icon/Life-Event.png";
-import UnexpectedExpenceIcon from "../../../../assets/icon/Unexpected-Expenses.png";
+import UnexpectedExpenseIcon from "../../../../assets/icon/Unexpected-Expenses.png";
 import MajorPurchaseIcon from "../../../../assets/icon/Major-Purchase.png";
-import AutoExpenceIconWhite from "../../../../assets/icon/white/AutoExpense-Repair.png";
+import AutoExpenseIconWhite from "../../../../assets/icon/white/AutoExpense-Repair.png";
 import VacationIconWhite from "../../../../assets/icon/white/Vacation.png";
 import HolidayIconWhite from "../../../../assets/icon/white/Holiday-Spending.png";
 import MedicalIconWhite from "../../../../assets/icon/white/Medical-Dental.png";
 import DeptIconWhite from "../../../../assets/icon/white/Debt-Consolidation.png";
 import LifeEventIconWhite from "../../../../assets/icon/white/Life-Event.png";
-import UnexpectedExpenceIconWhite from "../../../../assets/icon/white/Unexpected-Expenses.png";
+import UnexpectedExpenseIconWhite from "../../../../assets/icon/white/Unexpected-Expenses.png";
 import MajorPurchaseIconWhite from "../../../../assets/icon/white/Major-Purchase.png";
-import { makeStyles, createStyles } from "@material-ui/core/styles";
-import { useHistory, Link } from "react-router-dom";
-import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
-import ScrollToTopOnMount from '../scrollToTop';
-import { GridApiContext } from "@material-ui/data-grid";
+import {createStyles, makeStyles} from "@material-ui/core/styles";
+import {Link, useHistory} from "react-router-dom";
+import {CheckMyOffers} from "../../../../contexts/CheckMyOffers";
+import ScrollToTopOnMount from "../scrollToTop";
 
 function LoanPurpose(props) {
-	console.log(props);
 	const { data } = useContext(CheckMyOffers);
 	const [purpose, setPurpose] = useState(data.loanPurpose ?? "");
 	const history = useHistory();
 
 	const handleRoute = () => {
 		data.loanPurpose = purpose;
-		data.completedPage = data.completedPage > data.page.loanPurpose ? data.completedPage :  data.page.loanPurpose;
+		data.completedPage =
+			data.completedPage > data.page.loanPurpose
+				? data.completedPage
+				: data.page.loanPurpose;
 		history.push("/citizenship-status");
 	};
 
 	const goNext = (val) => {
 		data.loanPurpose = val;
 		setPurpose(val);
-		if(data.completedPage < data.page.loanPurpose)
-		{
-			
-			data.completedPage = data.completedPage > data.page.loanPurpose ? data.completedPage :  data.page.loanPurpose;
+		if (data.completedPage < data.page.loanPurpose) {
+			data.completedPage =
+				data.completedPage > data.page.loanPurpose
+					? data.completedPage
+					: data.page.loanPurpose;
 			history.push("/citizenship-status");
 		}
-		
 	};
-    	const useStyles = makeStyles((Theme) =>
+	const useStyles = makeStyles((Theme) =>
 		createStyles({
 			root: {},
 			paper: {
@@ -61,7 +62,6 @@ function LoanPurpose(props) {
 				textAlign: "center",
 				color: Theme.palette.text.secondary,
 				boxSizing: "border-box",
-				// border: "1px solid #134ba2 !important"
 			},
 			gridItem: {
 				boxSizing: "border-box",
@@ -86,8 +86,10 @@ function LoanPurpose(props) {
 		})
 	);
 	const classes = useStyles();
-	console.log(data); 
-	if (data.completedPage < data.page.selectAmount || data.formStatus === 'completed' ){
+	if (
+		data.completedPage < data.page.selectAmount ||
+		data.formStatus === "completed"
+	) {
 		history.push("/select-amount");
 	}
 	return (
@@ -95,36 +97,37 @@ function LoanPurpose(props) {
 			<ScrollToTopOnMount />
 			<div className="mainDiv">
 				<Box>
-					<Grid xs={12} container justify="center" alignItems="center">
-						<Grid
+					<Grid container item xs={12}  justifyContent="center" alignItems="center" style={{paddingTop:"70px",paddingBottom:"70px"}}>
+						<Grid container item
 							xs={11}
 							sm={10}
 							md={6}
 							lg={6}
 							xl={6}
 							className="cardWrapper"
-							justify="center"
+							justifyContent="center"
 							alignItems="center"
 						>
 							<Paper
 								className="cardWOPadding"
 								justify="center"
-								alignItems="center"
+								alignitems="center"
 							>
 								<div className="progress mt-0">
 									<div
 										id="determinate"
 										className="det1 determinate slantDiv"
-									></div>
-									<span class="floatLeft detNum1">8%</span>
+									/>
+									<span className="floatLeft detNum1">8%</span>
 								</div>
-								<Grid class="floatLeft">
-									<Link to={{
-										pathname: '/select-amount',
-										fromLoanPurpose: "yes"
-										}}>
-										
-										<i class="material-icons dp48 yellowText ">arrow_back</i>
+								<Grid className="floatLeft">
+									<Link
+										to={{
+											pathname: "/select-amount",
+											fromLoanPurpose: "yes",
+										}}
+									>
+										<i className="material-icons dp48 yellowText ">arrow_back</i>
 									</Link>
 								</Grid>
 								<Typography variant="h5" align="center" className="borrowCSSLP">
@@ -133,7 +136,7 @@ function LoanPurpose(props) {
 								<Grid
 									className="blockDiv"
 									container
-									justify="center"
+									justifyContent="center"
 									alignItems="stretch"
 								>
 									<Grid
@@ -158,8 +161,8 @@ function LoanPurpose(props) {
 											<img
 												src={
 													purpose === "Home Improvement"
-														? HomeImprovenentIconWhite
-														: HomeImprovenentIcon
+														? HomeImprovementIconWhite
+														: HomeImprovementIcon
 												}
 												className="icon"
 												alt="Home improvement"
@@ -199,8 +202,8 @@ function LoanPurpose(props) {
 												alt="Auto Expense/Repair"
 												src={
 													purpose === "Auto Expense/Repair"
-														? AutoExpenceIconWhite
-														: AutoExpenceIcon
+														? AutoExpenseIconWhite
+														: AutoExpenseIcon
 												}
 												className="icon"
 											/>
@@ -318,7 +321,9 @@ function LoanPurpose(props) {
 											<img
 												alt="Medical/Dental"
 												src={
-													purpose === "Medical/Dental" ? MedicalIconWhite : MedicalIcon
+													purpose === "Medical/Dental"
+														? MedicalIconWhite
+														: MedicalIcon
 												}
 												className="icon"
 											/>
@@ -437,8 +442,8 @@ function LoanPurpose(props) {
 												alt="Unexpected Expenses/Bills"
 												src={
 													purpose === "Unexpected Expenses/Bills"
-														? UnexpectedExpenceIconWhite
-														: UnexpectedExpenceIcon
+														? UnexpectedExpenseIconWhite
+														: UnexpectedExpenseIcon
 												}
 												className="icon"
 											/>
@@ -500,6 +505,7 @@ function LoanPurpose(props) {
 										md={12}
 										xs={12}
 										className={`${classes.masonryItemFirst}`}
+										style={{paddingTop:"10px",paddingBottom:"25px"}}
 									>
 										<Paper
 											data-testid="others"
@@ -523,18 +529,20 @@ function LoanPurpose(props) {
 											</Typography>
 										</Paper>
 									</Grid>
-									<Grid
+									<Grid item
 										className="ContinueButton"
 										lg={9}
 										md={9}
 										sm={12}
 										xs={12}
+										style={{paddingBottom:"80px"}}
+										
 									>
 										<ButtonPrimary
 											data-testid="contButton"
 											onClick={handleRoute}
-											disabled={purpose === "" ? true : false}
-											stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black !important"}'
+											disabled={purpose === ""}
+											stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black !important","width":"155px","fontSize":"1rem"}'
 										>
 											<Typography align="center" className="textCSS ">
 												Continue

@@ -1,12 +1,12 @@
 import React from 'react';
-import {render, cleanup, fireEvent, within } from '@testing-library/react';
+import {cleanup, fireEvent, render, within} from '@testing-library/react';
 import ActiveDuty from './index.js';
 import CheckMyOffers from '../../../contexts/CheckMyOffers';
-import { BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
 import '@testing-library/jest-dom';
 
 
- afterEach(cleanup)
+afterEach(cleanup)
 
 
 
@@ -20,7 +20,7 @@ import '@testing-library/jest-dom';
       							
     ); 
  
-    const input = container.getByTestId('ADselect');
+    const input = container.getByTestId('ADSelect');
     expect(input).toBeTruthy();
     const button = container.getByTestId('contButton');
     expect(button).toBeTruthy();
@@ -40,10 +40,10 @@ import '@testing-library/jest-dom';
   
      fireEvent.mouseDown(document.querySelector('#mui-component-select-activeDuty'));
   
-     const listbox = within(container.getByRole('listbox'));
+     const listBox = within(container.getByRole('listBox'));
  
-     expect(listbox.getByText(/Yes/i)).toBeTruthy();
-     expect(listbox.getByText(/No/i)).toBeTruthy(); 
+     expect(listBox.getByText(/Yes/i)).toBeTruthy();
+     expect(listBox.getByText(/No/i)).toBeTruthy();
  
   });
 
@@ -67,7 +67,7 @@ import '@testing-library/jest-dom';
  
      fireEvent.click(listbox.getByText(/Yes/i));
  
-     const input = container.getByTestId('ADinput');
+     const input = container.getByTestId('ADInput');
      expect(input.value).toBe("Yes");
  
   });

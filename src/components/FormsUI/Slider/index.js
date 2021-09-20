@@ -2,11 +2,11 @@
 
 File Name           :    Slider/index.js
 Component Name      :    Slider
-Functionality       :    To use this component to select a value uisng the slider input
+Functionality       :    To use this component to select a value using the slider input
 
 #################################################################################################################*/
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React, {useState} from "react";
+import {makeStyles} from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";

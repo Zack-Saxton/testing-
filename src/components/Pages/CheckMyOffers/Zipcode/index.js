@@ -1,17 +1,18 @@
-import React, { useContext } from "react";
-import { useHistory, Link } from "react-router-dom";
+import React, {useContext} from "react";
+import {Link, useHistory} from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import ZipcodeLogo from "../../../../assets/icon/I-Zip-Code.png";
-import { Zipcode as ZipcodeField, ButtonPrimary } from "../../../FormsUI";
-import { useFormik } from "formik";
+import {ButtonPrimary, Zipcode as ZipcodeField} from "../../../FormsUI";
+import {useFormik} from "formik";
 import * as yup from "yup";
-import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
+import {CheckMyOffers} from "../../../../contexts/CheckMyOffers";
 import ScrollToTopOnMount from '../scrollToTop';
 import "./zipcode.css";
 
+// Yup validation
 const validationSchema = yup.object({
 	zip: yup
 		.string("Enter your Zip")
@@ -19,11 +20,12 @@ const validationSchema = yup.object({
 		.required("Zipcode is required"),
 });
 
+//start of functional components
 function Zipcode() {
 	const { data } = useContext(CheckMyOffers);
 	const history = useHistory();
-	console.log(data);
 
+	//initializing formik
 	const formik = useFormik({
 		initialValues: {
 			zip: data.zip ? data.zip : "",
@@ -35,6 +37,7 @@ function Zipcode() {
 		},
 	});
 
+	//JSX part
 	return (
 		<div>
 			<ScrollToTopOnMount />
@@ -60,12 +63,12 @@ function Zipcode() {
 									<div
 										id="determinate"
 										className="det3  determinate slantDiv"
-									></div>
-									<span class="floatLeft detNum3">25%</span>
+									/>
+									<span className="floatLeft detNum3">25%</span>
 								</div>
 								<Grid className="floatLeft">
 									<Link to="/citizenship-status">
-										<i class="material-icons dp48 yellowText  ">arrow_back</i>
+										<i className="material-icons dp48 yellowText  ">arrow_back</i>
 									</Link>
 								</Grid>
 								<Grid className="liftImage">
@@ -128,12 +131,12 @@ function Zipcode() {
 											<ButtonPrimary
 												type="submit"
 												data-testid="zipcodeCntuButton"
-												stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black"}'
+												stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black","fontSize":"1rem"}'
 												disabled={
 													Boolean(formik.errors.zip) || formik.values.zip === ""
 												}
 											>
-												<Typography align="center" className="textCSS ">
+												<Typography align="center" className="textCSS " style={{fontSize:'1rem'}}>
 													Continue
 												</Typography>
 											</ButtonPrimary>

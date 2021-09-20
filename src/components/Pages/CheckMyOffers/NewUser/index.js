@@ -1,17 +1,17 @@
-import React, { useContext, useState } from "react";
+import React, {useContext, useState} from "react";
 import "./newUser.css";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import {  ButtonPrimary, PasswordField } from "../../../FormsUI";
+import {ButtonPrimary, PasswordField} from "../../../FormsUI";
 import Paper from "@material-ui/core/Paper";
-import { useHistory, Link } from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import PasswordLogo from "../../../../assets/icon/I-Password.png";
-import { useFormik } from "formik";
-import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
+import {useFormik} from "formik";
+import {CheckMyOffers} from "../../../../contexts/CheckMyOffers";
 import * as yup from "yup";
-import axios from 'axios';
-import ScrollToTopOnMount from '../scrollToTop';
+import axios from "axios";
+import ScrollToTopOnMount from "../scrollToTop";
 
 const validationSchema = yup.object({
 	newPassword: yup
@@ -19,25 +19,28 @@ const validationSchema = yup.object({
 		.matches(
 			/^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,30}$/,
 			"Your password doesn't meet the criteria"
-		  )
+		)
 		.max(30, "Password can be upto 30 characters length")
 		.min(8, "Password should be minimum of 8 characters length")
-		.required("Password is required"),
+		.required("Your Password is required"),
 
 	confirmPassword: yup
 		.string()
-		.required("Please confirm your password")
+		.required(
+			"Your password confirmation is required"
+		)
 		.max(30, "Password can be upto 30 characters length")
 		.min(8, "Password should be minimum of 8 characters length")
 		.when("newPassword", {
 			is: (newPassword) =>
-				newPassword && newPassword.length > 0 ? true : false,
+				newPassword && newPassword.length > 0,
 			then: yup
 				.string()
-				.oneOf([yup.ref("newPassword")], "Password doesn't match"),
+				.oneOf(
+					[yup.ref("newPassword")],
+					"Your confirmation password must match your password"
+				),
 		}),
-
-		
 });
 
 function NewUser() {
@@ -73,62 +76,59 @@ function NewUser() {
 				"address_city": data.city,
 				"address_state": data.state
 			};
-try{
-	let customerStatus  = await axios({
-		method: "POST",
-		url: "/customer/register_new_user",
-		data: JSON.stringify(body),
-		headers: {
-			"Content-Type": "application/json",
-			Accept: "*/*",
-			Host: "psa-development.marinerfinance.io",
-			"Accept-Encoding": "gzip, deflate, br",
-			Connection: "keep-alive",
-			"Content-Length": "6774",
-		},
-		transformRequest: (data, headers) => {
-			delete headers.common["Content-Type"];
-			return data;
-		},
-	});
+			try {
+				let customerStatus = await axios({
+					method: "POST",
+					url: "/customer/register_new_user",
+					data: JSON.stringify(body),
+					headers: {
+						"Content-Type": "application/json",
+						// Accept: "*/*",
+						// Host: "psa-development.marinerfinance.io",
+						// "Accept-Encoding": "gzip, deflate, br",
+						// Connection: "keep-alive",
+						// "Content-Length": "6774",
+					},
+					transformRequest: (request, headers) => {
+						delete headers.common["Content-Type"];
+						return request;
+					},
+				});
 
-	if(customerStatus.data?.customerFound === false && customerStatus.data?.userFound === false && customerStatus.data?.is_registration_failed === false){
-      
-		history.push("employment-status");
-	  }
-	  else if(customerStatus.data?.result === 'error' && customerStatus.data?.statusCode === 400){
-		// alert("Account already exists. Please use the login page and forgot password function to login");
-	   
-		setFailed(true);
-		setLoading(false);
-	  }
-	  else{
-		alert("network error");
-		setFailed(false);
-		setLoading(false);
-		
-  
-	  }
-}
-catch(error){
-   
-    alert("network error");
-    setLoading(false);
-  }
-			
-
-			// history.push("/employment-status");S
-			
+				if (
+					customerStatus.data?.customerFound === false &&
+					customerStatus.data?.userFound === false &&
+					customerStatus.data?.is_registration_failed === false
+				) {
+					history.push("employment-status");
+				} else if (
+					customerStatus.data?.result === "error" &&
+					customerStatus.data?.statusCode === 400
+				) {
+					setFailed(true);
+					setLoading(false);
+				} else {
+					alert("network error");
+					setFailed(false);
+					setLoading(false);
+				}
+			} catch (error) {
+				alert("network error");
+				setLoading(false);
+			}
 		},
 	});
 
 	const preventSpace = (event) => {
 		if (event.keyCode === 32) {
-		  event.preventDefault();
+			event.preventDefault();
 		}
-	  };
+	};
 
-	  if (data.completedPage < data.page.personalInfo || data.formStatus === 'completed'){
+	if (
+		data.completedPage < data.page.personalInfo ||
+		data.formStatus === "completed"
+	) {
 		history.push("/select-amount");
 	}
 
@@ -137,42 +137,41 @@ catch(error){
 			<ScrollToTopOnMount />
 			<div className="mainDiv">
 				<Box>
-					<Grid xs={12} container justify="center" alignItems="center">
-						<Grid
+					<Grid item xs={12} container justifyContent="center"  style={{ width:"100%",paddingTop:"70px",paddingBottom:"70px"}}>
+						<Grid container
 							xs={11}
 							sm={10}
 							md={6}
 							lg={6}
-							xl={6}
+							xl={6} item
 							className="cardWrapper"
-							justify="center"
-							alignItems="center"
+                            justifyContent="center"
+							style={{ width:"100%" }}
 						>
 							<Paper
 								className="cardWOPadding"
 								justify="center"
-								alignItems="center"
+								alignitems="center"
 							>
 								<div className="progress mt-0">
-									{/* <div
-										id="determinate"
-										className="det5  determinate slantDiv"
-									></div> */}
-									<span class="floatLeft detNum5"></span>
+									<span className="floatLeft detNum5"/>
 								</div>
 								<Grid className="floatLeft">
 									<Link to="/personal-info">
-										<i class="material-icons dp48 yellowText  ">arrow_back</i>
+										<i className="material-icons dp48 yellowText  ">arrow_back</i>
 									</Link>
 								</Grid>
 								<Grid className="liftImage">
-									<img src={PasswordLogo} alt="passwordlogo" className="spinAnimation" />
+									<img
+										src={PasswordLogo}
+										alt="passwordlogo"
+										className="spinAnimation"
+									/>
 								</Grid>
 								<Typography
-									variant="p"
 									align="center"
 									justify="center"
-									alignItems="center"
+									alignitems="center"
 									className="borrowCSS"
 								>
 									We have detected you are a new customer.
@@ -182,7 +181,7 @@ catch(error){
 									variant="h5"
 									align="center"
 									justify="center"
-									alignItems="center"
+									alignitems="center"
 									className="borrowCSSLP"
 								>
 									Please create a secure account with us.
@@ -190,15 +189,15 @@ catch(error){
 
 								<form onSubmit={formik.handleSubmit}>
 									<Grid
-										md={12}
+										md={12} item
 										className="blockDiv"
 										container
-										justify="center"
-										alignItems="center"
+                                        justifyContent="center"
+										style={{ width:"100%" }}
 									>
-										<Grid
-											justify="center"
-											alignItems="center"
+										<Grid container
+											justifyContent="center"
+											style={{ width:"100%" }}
 											item
 											lg={8}
 											md={8}
@@ -249,15 +248,19 @@ catch(error){
 													formik.errors.confirmPassword
 												}
 											/>
-											<p className={ failed ? "showError" : "hideError" } data-testid="subtitle">
-                  {" "}
-                  Account not created. For help please contact us at (844) 306-7300
-                </p>
+											<p
+												className={failed ? "showError" : "hideError"}
+												data-testid="subtitle"
+											>
+												{" "}
+												Account not created. For help please contact us at (844)
+												306-7300
+											</p>
 										</Grid>
 										<Grid
-											justify="center"
-											alignItems="center"
-											item
+											justifyContent="center"
+											style={{ width:"100%" }}
+											item container
 											lg={8}
 											md={8}
 											xs={12}
@@ -266,7 +269,7 @@ catch(error){
 											<ButtonPrimary
 												type="submit"
 												data-testid="contButton"
-												disabled = { loading }
+												disabled={loading}
 												stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black"}'
 											>
 												<Typography align="center" className="textCSS ">
@@ -274,7 +277,10 @@ catch(error){
 												</Typography>
 												<i
 													className="fa fa-refresh fa-spin customSpinner"
-													style={{ marginRight: "10px", display: loading ? "block" : "none" }}
+													style={{
+														marginRight: "10px",
+														display: loading ? "block" : "none",
+													}}
 												/>
 											</ButtonPrimary>
 										</Grid>

@@ -1,12 +1,12 @@
 /*#################################################################################################################
 
 File Name           :    PasswordWithIcon/index.js
-Component Name      :    Password with Icon
+Component Name      :    password with Icon
 Functionality       :    To use this component to have icon with password Field
 
 #################################################################################################################*/
 import React from "react";
-import { Grid } from "@material-ui/core";
+import {Grid} from "@material-ui/core";
 import Password from "../Password";
 import Icon from "@material-ui/core/Icon";
 
@@ -33,10 +33,10 @@ const PasswordWithIconWrapper = ({
   //View part
   return (
     <div>
-    <Grid item xs={12}  direction="row" style={{display:"inline-flex", width: "100%"}}>
+    <Grid container item xs={12}  direction="row" style={{display:"inline-flex", width: "100%"}}>
               {iconPosition === "left" || !iconPosition ? (
           <Grid  style={{paddingTop:"20px" , paddingRight:"10px"}}>
-            <Icon data-testid= "icon">
+            <Icon data-test-id= "icon">
               {" "}
               {icon}
             </Icon>
@@ -50,7 +50,7 @@ const PasswordWithIconWrapper = ({
        
         {iconPosition === "right" ? (
           <Grid  style={{paddingTop:"20px" , paddingLeft:"10px"}}>
-          <Icon data-testid= "icon">{icon}</Icon>
+          <Icon data-test-id= "icon">{icon}</Icon>
           </Grid>
         ) : (
           ""

@@ -1,8 +1,8 @@
 import React from 'react'
-import {render, cleanup, fireEvent } from '@testing-library/react'
+import {cleanup, fireEvent, render} from '@testing-library/react'
 import TextField from './index.js'
 
- afterEach(cleanup)
+afterEach(cleanup)
 
  test('Render DatePicker', () => {
    const container = render(										
@@ -12,7 +12,7 @@ import TextField from './index.js'
     label="Enter your first name"
     required={true}
     type="email"
-    materialProps={{"data-testid": "test"}}
+    materialProps={{"data-test-id": "test"}}
 />);
  
    const input = container.getByTestId('test');
@@ -29,7 +29,7 @@ import TextField from './index.js'
      label="Enter your first name"
      required={true}
      type="email"
-     materialProps={{"data-testid": "test"}}
+     materialProps={{"data-test-id": "test"}}
  />);
   
     const input = container.getByTestId('test');
@@ -44,7 +44,7 @@ import TextField from './index.js'
      label="Enter your first name"
      required={true}
      type="email"
-     materialProps={{"data-testid": "test"}}
+     materialProps={{"data-test-id": "test"}}
  />);
   
     const input = container.getByTestId('test');
@@ -61,7 +61,7 @@ import TextField from './index.js'
       label="Enter your first name"
       required={true}
       type="email"
-      materialProps={{"data-testid": "test"}}
+      materialProps={{"data-test-id": "test"}}
   />)
     
     expect(asFragment(<TextField
@@ -70,6 +70,6 @@ import TextField from './index.js'
       label="Enter your first name"
       required={true}
       type="email"
-      materialProps={{"data-testid": "test"}}
+      materialProps={{"data-test-id": "test"}}
   />)).toMatchSnapshot()
    });

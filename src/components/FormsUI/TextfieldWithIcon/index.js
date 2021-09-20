@@ -1,16 +1,16 @@
 /*#################################################################################################################
 
-File Name           :    TextfieldWithIcon/index.js
-Component Name      :    TextfieldWithIcon
-Functionality       :    To use this component to add Iconwith textfield
+File Name           :    Text fieldWithIcon/index.js
+Component Name      :    Text fieldWithIcon
+Functionality       :    To use this component to add Icon with text field
 
 #################################################################################################################*/
 import React from "react";
-import { Grid } from "@material-ui/core";
+import {Grid} from "@material-ui/core";
 import TextField from "../Textfield";
 import Icon from "@material-ui/core/Icon";
 
-const TextfieldWithIconWrapper = ({
+const TextFieldWithIconWrapper = ({
   icon,
   iconPosition,
   iconColor,
@@ -22,23 +22,23 @@ const TextfieldWithIconWrapper = ({
 
 
   //Configuring the field properties
-  const configTextfield = { 
+  const configTextField = {
     ...otherProps,
   };
 
   //Validation part
 
-  // configTextfield.error = (mata && mata.touched && mata.error) ? true :  configTextfield.error ?? false;
-  // configTextfield.helperText = (mata && mata.touched && mata.error) ? mata.error : configTextfield.helperText ?? '';
+  // configTextField.error = (mata && mata.touched && mata.error) ? true :  configTextField.error ?? false;
+  // configTextField.helperText = (mata && mata.touched && mata.error) ? mata.error : configTextField.helperText ?? '';
 
 
   //View part
   return (
     <div>
-       <Grid item xs={12}  direction="row" style={{display:"inline-flex", width: "100%"}}>
+       <Grid container item xs={12}  direction="row" style={{display:"inline-flex", width: "100%"}}>
               {iconPosition === "left" || !iconPosition ? (
           <Grid  style={{paddingTop:"20px" , paddingRight:"10px"}}>
-            <Icon data-testid= "icon" >
+            <Icon data-test-id= "icon" >
               {" "}
               {icon}
             </Icon>
@@ -46,10 +46,10 @@ const TextfieldWithIconWrapper = ({
         ) : (
           ""
         )}
-          <TextField {...configTextfield} />
+          <TextField {...configTextField} />
         {iconPosition === "right" ? (
           <Grid  style={{paddingTop:"20px" , paddingLeft:"10px"}}>
-          <Icon data-testid= "icon" >{icon}</Icon>
+          <Icon data-test-id= "icon" >{icon}</Icon>
           </Grid>
         ) : (
           ""
@@ -59,4 +59,4 @@ const TextfieldWithIconWrapper = ({
   );
 };
 
-export default TextfieldWithIconWrapper;
+export default TextFieldWithIconWrapper;

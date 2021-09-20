@@ -1,5 +1,5 @@
 import React from "react";
-import "./footer.css";
+import "./Footer.css";
 import badge from "../../../assets/images/badge.png";
 import Logo from "../../../assets/images/MarinerLogo.png";
 //Styling Part
@@ -9,65 +9,61 @@ export default function Footer() {
   return (
     <div >
       <footer style={{ width: "100%" }}>
-        <section class="section-top">
-          <div class="col">
-            <div class="main-footer-content">
-              <a href="/#" class="hreftag">
+        <section className="section-top" >
+          <div className="col">
+            <div className="main-footer-content">
+              <a href="/#" className="hrefTag">
                 Community Guidelines
               </a>
             </div>
-            <div class="main-footer-content">
-              <a href="/#" class="hreftag">
+            <div className="main-footer-content">
+              <a href="/#" className="hrefTag">
                 Privacy Statement
               </a>
             </div>
-            <div class="main-footer-content">
-              <a href="/#" class="hreftag">
+            <div className="main-footer-content">
+              <a href="/#" className="hrefTag">
                 Terms of Use
               </a>
             </div>
-            <div class="main-footer-content">
-              <a href="/#" class="hreftag">
-                Liscence & disclosures
+            <div className="main-footer-content">
+              <a href="/#" className="hrefTag">
+                Licence & disclosures
               </a>
             </div>
-            <div class="main-footer-content">
-              <a href="/#" class="hreftag">
+            <div className="main-footer-content">
+              <a href="/#" className="hrefTag">
                 Testing Terms of Use
               </a>
             </div>
-            <div class="main-footer-content">
-              <a href="/#" class="hreftag">
+            <div className="main-footer-content">
+              <a href="/#" className="hrefTag">
                 Website Accessibility Statement
               </a>
             </div>
-            <div class="main-footer-content">
-              <a href="/#" class="hreftag">
+            <div className="main-footer-content">
+              <a href="/#" className="hrefTag">
                 CAC Terms Of Use For California Residents Do Not Sell My
                 personal Information
               </a>
             </div>
           </div>
 
-          <div class="col">
-            <div>
+          <div className="col">
+            <div >
             <img src={badge} alt="badge" id= "badge" style={{ height: "90px" }} />
             </div>
-            <div>
-              <img src={Logo} alt="logoimage" style={{ height: "60px" }} />
-            </div>
-          </div>
-
-          
-          <div class="col">
-            <div>
-              <p class="leftalign">
+            <div className="row" style={{display:"flex",paddingTop:"15px",paddingBottom:"15px",paddingLeft:"25px"}}>
+              <img src={Logo} alt="logo image" style={{ height: "60px",paddingRight:"25px" }} />
+            <div className="row">
+            <div style={{paddingTop:"15px",paddingBottom:"15px",}}>
+              <p className="leftAlign">
                 Mariner Finance, LLC, NMLS No. 166564
                 <br />
                 <a
                   href="https://www.nmlsconsumeraccess.org/"
                   target="_blank"
-                  class=" hreftag"
+                  className=" hrefTag"
                   rel="noreferrer"
                 >
                   (www.nmlsconsumeraccess.com)
@@ -76,15 +72,18 @@ export default function Footer() {
                 8211 Town Center Drive,
                 <br /> Nottingham, MD 21236; <br />
                 Telephone Number -
-                <a href="tel:+8773102373" class="hreftag ">
+                <a href="tel:+8773102373" className="hrefTag ">
                   &nbsp; 877-310-2373
                 </a>
               </p>
             </div>
           </div>
+            </div>
+          </div>
+
         </section>
 
-        <section class="section-bottom">
+        <section className="section-bottom">
           <div>
             <span style={{ color: "white" }}>
               &copy; 2020 Mariner Finance All rights reserved.

@@ -6,22 +6,18 @@ Functionality       :    To use this component for having Phone Number
 
 #################################################################################################################*/
 
-import React, { useState } from "react";
-import {
-  ThemeProvider as MuiThemeProvider,
-  createMuiTheme,
-} from "@material-ui/core/styles";
+import React, {useState} from "react";
+import {createTheme, ThemeProvider as MuiThemeProvider,} from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import InputMask from "react-input-mask";
 import FormControl from "@material-ui/core/FormControl";
 import PropTypes from "prop-types";
 
-const theme = createMuiTheme();
+const theme = createTheme();
 const PhoneNumberWrapper = ({ name, onChange, value, label, error, helperText, ...otherProps }) => {
   //Set Formik field
   // const [field, mata] = useField(name);
-  const[unMaskedVal, setUnMaskedVal] = useState(value);
-  console.log("phonenumber:", value);
+  const[unmaskedval, setUnMaskedVal] = useState(value);
 
 
   const handleChange = (e) => {
@@ -50,7 +46,7 @@ const PhoneNumberWrapper = ({ name, onChange, value, label, error, helperText, .
         value={value}
         name={name}
         onChange={handleChange}
-        data-testid="phone"
+        data-test-id="phone"
         disabled={false}
         maskChar=""
         {...otherProps}
@@ -61,7 +57,7 @@ const PhoneNumberWrapper = ({ name, onChange, value, label, error, helperText, .
         error={error} 
         placeholder="Enter Phone Number"
         helperText={helperText}
-         inputProps={{"data-testid": "phone", "unmaskedval": unMaskedVal}}/>}
+         inputProps={{"data-test-id": "phone", "unmaskedval": unmaskedval}}/>}
       </InputMask>
     </MuiThemeProvider> 
     </FormControl>

@@ -1,13 +1,14 @@
-import { render, fireEvent } from '@testing-library/react'
+import {fireEvent, render} from '@testing-library/react'
 import Button from './index';
 import '@testing-library/jest-dom';
+import React from "react";
 
 test('button Availability', () => {
   const container = render(<Button
     stylebutton='{"background": "", "color":"" }'
     background="0F4EB3"
     title="submit"
-    data-testid="submit"
+    data-test-id="submit"
     >
     submit
 </Button>);
@@ -23,7 +24,7 @@ test('Checking Onclick', () => {
       stylebutton='{"background": "", "color":"" }'
       background="0F4EB3"
       title="submit"
-      data-testid="submit"
+      data-test-id="submit"
       >
       submit
   </Button>);
@@ -40,7 +41,7 @@ test('Checking Onclick', () => {
       stylebutton='{"background": "", "color":"" }'
       background="0F4EB3"
       title="submit"
-      data-testid="submit"
+      data-test-id="submit"
       >
       submit
   </Button>);
@@ -57,7 +58,7 @@ test('Checking Onclick', () => {
       stylebutton='{"background": "", "color":"" }'
       background="0F4EB3"
       title="submit"
-      data-testid="submit"
+      data-test-id="submit"
       >
       submit
   </Button>)

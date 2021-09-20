@@ -1,37 +1,35 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import StepContent from '@material-ui/core/StepContent';
-import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import EmailVerification from './EmailVerification';
-import PhoneVerification from './PhoneVerification';
-import FinancialInformation from './FinancialInformation';
-import DocumentPhoto from './DocumentPhoto';
-import VerificationQuestion from './VerificationQuestion';
-import IncomeVerification from './IncomeVerification';
-import BankAccountVerification from './BankAccountVerification'
+import React from "react";
+import {makeStyles} from "@material-ui/core/styles";
+import Stepper from "@material-ui/core/Stepper";
+import Step from "@material-ui/core/Step";
+import StepLabel from "@material-ui/core/StepLabel";
+import StepContent from "@material-ui/core/StepContent";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+import EmailVerification from "./EmailVerification";
+import PhoneVerification from "./PhoneVerification";
+import FinancialInformation from "./FinancialInformation";
+import DocumentPhoto from "./DocumentPhoto";
+import VerificationQuestion from "./VerificationQuestion";
+import IncomeVerification from "./IncomeVerification";
+import BankAccountVerification from "./BankAccountVerification";
 import {ButtonPrimary, ButtonSecondary} from "../../../FormsUI";
-import { NavLink } from "react-router-dom";
-import { Grid } from '@material-ui/core';
-
-
+import {NavLink} from "react-router-dom";
+import {Grid} from "@material-ui/core";
+import "./VerticalLinearStepper.css"
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
-    paddingBottom: "30px"
+    width: "100%",
+    paddingBottom: "30px",
   },
   button_div: {
     marginTop: theme.spacing(3),
     marginRight: theme.spacing(1),
   },
-  steplabel:{
-fontSize:"15px",
-fontWeight: "600"
+  steplabel: {
+    fontSize: "15px",
+    fontWeight: "600",
   },
   actionsContainer: {
     marginBottom: theme.spacing(2),
@@ -42,28 +40,35 @@ fontWeight: "600"
 }));
 
 function getSteps() {
-  return ['Email Verification', 'Phone Verification', 'Financial Information','ID Document & Photo',
-  'ID Verification Questions', 'Bank Account Verification', 'Income Verification'];
+  return [
+    "Email Verification",
+    "Phone Verification",
+    "Financial Information",
+    "ID Document & Photo",
+    "ID Verification Questions",
+    "Bank Account Verification",
+    "Income Verification",
+  ];
 }
 
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return <EmailVerification />
+      return <EmailVerification />;
     case 1:
-      return <PhoneVerification />
+      return <PhoneVerification />;
     case 2:
-      return <FinancialInformation />
+      return <FinancialInformation />;
     case 3:
-        return <DocumentPhoto /> 
+      return <DocumentPhoto />;
     case 4:
-      return <VerificationQuestion /> 
+      return <VerificationQuestion />;
     case 5:
-      return <BankAccountVerification /> 
+      return <BankAccountVerification />;
     case 6:
-      return <IncomeVerification /> 
+      return <IncomeVerification />;
     default:
-      return 'Unknown step';
+      return "Unknown step";
   }
 }
 
@@ -81,67 +86,66 @@ export default function VerticalLinearStepper() {
   };
 
   const handleReset = () => {
-    if(activeStep == 0){
-    setActiveStep(0);
+    if (activeStep === 0) {
+      setActiveStep(0);
     }
-    if(activeStep == 1){
+    if (activeStep === 1) {
       setActiveStep(1);
-      }
-      if(activeStep == 2){
-        setActiveStep(2);
-        }
-        if(activeStep == 3){
-          setActiveStep(3);
-          }
-          if(activeStep == 4){
-            setActiveStep(4);
-            }
-            if(activeStep == 5){
-              setActiveStep(5);
-              }
-              if(activeStep == 6){
-                setActiveStep(6);
-                }
+    }
+    if (activeStep === 2) {
+      setActiveStep(2);
+    }
+    if (activeStep === 3) {
+      setActiveStep(3);
+    }
+    if (activeStep === 4) {
+      setActiveStep(4);
+    }
+    if (activeStep === 5) {
+      setActiveStep(5);
+    }
+    if (activeStep === 6) {
+      setActiveStep(6);
+    }
   };
 
   return (
-    <div className={classes.root} >
+    <div className={classes.root}>
       <Stepper activeStep={activeStep} orientation="vertical">
         {steps.map((label, index) => (
           <Step key={label}>
-            <StepLabel  >
-            {<span className={classes.steplabel}>{label}</span>}</StepLabel>
+            <StepLabel>
+              {<span className={classes.steplabel}>{label}</span>}
+            </StepLabel>
             <StepContent>
-              <Typography >{getStepContent(index)}</Typography>
+              <Typography>{getStepContent(index)}</Typography>
               <div className={classes.actionsContainer}>
-                <div className={classes.button_div}>
-                <ButtonSecondary
-                    
-                    
+                <div className={classes.button_div} >
+                  
+                  <ButtonSecondary
                     stylebutton='{"margin-right": "10px", "color":"" }'
                     onClick={handleReset}
-                   
+                    id = "button_stepper_reset"
                   >
                     Reset
                   </ButtonSecondary>
+                 
                   <ButtonSecondary
                     disabled={activeStep === 0}
                     onClick={handleBack}
+                    id = "button_stepper_prev"
                     stylebutton='{"margin-right": "10px", "color":"" }'
-                   
-                   
                   >
                     Prev
                   </ButtonSecondary>
                   <ButtonPrimary
                     variant="contained"
                     color="primary"
+                    id = "button_stepper_next"
                     stylebutton='{"margin-right": "10px", "color":"" }'
                     onClick={handleNext}
-                   
-                   
                   >
-                    {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                    {activeStep === steps.length - 1 ? "Finish" : "Next"}
                   </ButtonPrimary>
                 </div>
               </div>
@@ -152,15 +156,15 @@ export default function VerticalLinearStepper() {
       {activeStep === steps.length && (
         <Paper square elevation={0} className={classes.resetContainer}>
           <Typography>All steps completed - you&apos;re finished</Typography>
-          <Grid style={{paddingTop:"20px"}}>
-          <NavLink
-                      to="/customers/receiveyourmoney"
-                      style={{ textDecoration: "none" }}
-                    >
-          <ButtonPrimary   stylebutton='{ "color":"" }'>
-            Click here for application status
-          </ButtonPrimary>
-          </NavLink>
+          <Grid style={{ paddingTop: "20px" }}>
+            <NavLink
+              to="/customers/receiveYourMoney"
+              style={{ textDecoration: "none" }}
+            >
+              <ButtonPrimary stylebutton='{ "color":"" }'>
+                Click here for application status
+              </ButtonPrimary>
+            </NavLink>
           </Grid>
         </Paper>
       )}

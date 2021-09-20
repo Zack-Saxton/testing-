@@ -6,7 +6,7 @@ Functionality       :    To use this component to validate and get the Bank rout
 
 #################################################################################################################*/
 
-import React, { useState } from "react";
+import React, {useState} from "react";
 import PropTypes from "prop-types";
 import TextBox from "../Textfield";
 
@@ -15,7 +15,7 @@ const BankRoutingNumberWrapper = ({ name, ...otherProps }) => {
   //Set Formik field
   const [BRNum, setBRNum] = useState("");
   const [isError, setIsError] = useState(false);
-  const [helpertext, setHelpertext] = useState("");
+  const [helperText, setHelperText] = useState("");
 
   //Account Number field onChange handle
   const onHandleBRNChange = (event) => {
@@ -25,9 +25,9 @@ const BankRoutingNumberWrapper = ({ name, ...otherProps }) => {
     if (acc === "" || reg.test(acc)) {
       setBRNum(event.target.value);
     }
-    var isValid = /(^\d{9}$)/.test(event.target.value);
+    const isValid = /(^\d{9}$)/.test(event.target.value);
     (!isValid && event.target.value) ? setIsError(true) : setIsError(false) ;
-    (!isValid && event.target.value) ? setHelpertext("Bank Routing number should be 9 digits") : setHelpertext("") ;
+    (!isValid && event.target.value) ? setHelperText("Bank Routing number should be 9 digits") : setHelperText("") ;
 
   };
 
@@ -38,7 +38,7 @@ const BankRoutingNumberWrapper = ({ name, ...otherProps }) => {
     type: "text",
     fullWidth: true,
     setError: isError,
-    setHelperText: helpertext,
+    setHelperText: helperText,
     ...otherProps,
   };
 
@@ -46,7 +46,7 @@ const BankRoutingNumberWrapper = ({ name, ...otherProps }) => {
   return (
     <TextBox
       {...configTextfield}
-      materialProps={{ maxLength: "9", "data-testid": "BRN"}}
+      materialProps={{ maxLength: "9", "data-test-id": "BRN"}}
       value={BRNum}
       onChange={onHandleBRNChange}
       required={true}

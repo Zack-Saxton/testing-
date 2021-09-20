@@ -1,52 +1,70 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { useEffect, useState } from "react";
+import { useStylesLoanHistory } from "./Style";
+import LoanHistoryCard from "./CardContent";
+import LoanHistoryTable from "./RecordTable";
 import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-
-const useStyles = makeStyles((theme) => ({
- 
-  
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  },
-  heading:{
-    color: "white"
-    
-}
-}));
-
-
+import {NavLink} from "react-router-dom";
+import {ButtonWithIcon} from "../../FormsUI";
+import "./Style.css";
+import ScrollToTopOnMount from "../scrollToTop";
+import LoanHistoryController from "../../controllers/LoanHistoryController";
 
 export default function LoanHistory() {
-  const classes = useStyles();
+  const classes = useStylesLoanHistory();
+
+  const [loanHistoryStatus, setloanHistoryStatus] = useState(null);
+  async function AsyncEffect_loanHistory() {
+    setloanHistoryStatus(await LoanHistoryController());
+  }
+  useEffect(() => {
+    AsyncEffect_loanHistory();
+  }, []);
+
+  //Load data
+  let loanHistoryData =
+    loanHistoryStatus != null ? loanHistoryStatus.data.data.activeLoans : null;
 
   return (
-    <div >
-        
-        <Grid container justify={"center"}  style={{ marginTop: "-150px" }}>
-          <Grid container direction="row" item xs={10}>
-            <Typography>
-              <h1 className={classes.heading}> Loan History</h1>
+    <div>
+      <ScrollToTopOnMount />
+      <Grid
+        container
+        justifyContent={"center"}
+        style={{
+          marginTop: "-150px",
+          paddingRight: "30px",
+          paddingLeft: "30px",
+        }}
+      >
+        <Grid container direction="row" item xs={12}>
+          <Grid item xs={12}>
+            <Typography component={"div"}>
+              <h3 className={classes.heading}>
+                <NavLink
+                  to="/customers/accountOverview"
+                  style={{ textDecoration: "none" }}
+                >
+                  <ButtonWithIcon
+                    icon="arrow_backwardIcon"
+                    iconposition="left"
+                    stylebutton='{"background": "#fff", "color":"#214476",
+                        "minWidth": "0px",
+                        "width": "36px",
+                        "padding": "0px",
+                        "marginRight": "5px", "marginTop":"unset" }'
+                    styleicon='{ "color":"" }'
+                  />
+                </NavLink>{" "}
+                Loan History
+              </h3>
             </Typography>
-            
-          </Grid> 
-
-          <Grid item xs={10}>
-            <Paper className={classes.paper} >
-                <p >Page Under Development </p>
-             
-            </Paper>
           </Grid>
         </Grid>
 
-     
-
+        <LoanHistoryCard userLoanHistoryCard={loanHistoryData} />
+        <LoanHistoryTable userLoanHistoryData={loanHistoryData} />
+      </Grid>
     </div>
   );
 }

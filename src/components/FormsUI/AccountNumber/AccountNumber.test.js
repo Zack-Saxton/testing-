@@ -1,8 +1,8 @@
 import React from 'react'
-import {render, cleanup, fireEvent } from '@testing-library/react'
+import {cleanup, fireEvent, render} from '@testing-library/react'
 import AccountField from './index.js'
 
- afterEach(cleanup)
+afterEach(cleanup)
 
 
 
@@ -13,7 +13,7 @@ import AccountField from './index.js'
     type="text"
     name="text"
     label="test"
-    materialProps={{"data-testid": "accountNum"}}
+    materialProps={{"data-test-id": "accountNum"}}
   />); 
  
    const input = container.getByTestId('accountNum');
@@ -30,7 +30,7 @@ import AccountField from './index.js'
     type="text"
     name="accountNum"
     label="accountNum"
-    materialProps={{"data-testid": "accountNum"}}
+    materialProps={{"data-test-id": "accountNum"}}
   />); 
  
    const input = container.getByTestId('accountNum');
@@ -45,7 +45,7 @@ import AccountField from './index.js'
     type="text"
     name="accountNum"
     label="accountNum"
-    materialProps={{"data-testid": "accountNum", maxLength: 10}}
+    materialProps={{"data-test-id": "accountNum", maxLength: 10}}
   />); 
  
    const input = container.getByTestId('accountNum');
@@ -60,7 +60,7 @@ import AccountField from './index.js'
     type="text"
     name="accountNum"
     label="accountNum"
-    materialProps={{"data-testid": "accountNum"}}
+    materialProps={{"data-test-id": "accountNum"}}
   />);
   const input = wrapper.getByTestId('accountNum');
   expect(input.maxLength).toBe(17);
@@ -72,7 +72,7 @@ test('should match the snapshot', () => {
     type="text"
     name="accountNum"
     label="accountNum"
-    materialProps={{"data-testid": "accountNum"}}
+    materialProps={{"data-test-id": "accountNum"}}
   />)
   expect(asFragment).toMatchSnapshot()
  });

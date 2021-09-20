@@ -1,16 +1,12 @@
 import React from 'react'
-import {render, cleanup, fireEvent, screen, userEvent } from '@testing-library/react'
+import {fireEvent, render, screen} from '@testing-library/react'
 import Register from './Register'
-import ReactDom from 'react-dom';
-import { createMemoryHistory } from 'history'
-import { Router } from 'react-router-dom'
+import {createMemoryHistory} from 'history'
+import {Router} from 'react-router-dom'
 import '@testing-library/jest-dom/extend-expect';
-import { BrowserRouter } from 'react-router-dom';
-import { format } from "date-fns";
 
 
-
-  test('Checks the title of the page', () => {
+test('Checks the title of the page', () => {
     const history = createMemoryHistory()
 
     render(
@@ -295,7 +291,7 @@ test('pass valid email to test email input field', () => {
  
 });
 
-// test('Invalid Password', () => {
+// test('Invalid password', () => {
 //   const history = createMemoryHistory()
 
 //   render(
@@ -303,7 +299,7 @@ test('pass valid email to test email input field', () => {
 //         <Register />
 //       </Router>
 //     )
-//   const input = screen.getByLabelText("Confirm Password");
+//   const input = screen.getByLabelText("Confirm password");
 //   fireEvent.change(input, { target: { value: "123@" } }); 
 //   fireEvent.change(input, { target: { value: "Test@" } });
 //   fireEvent.change(input, { target: { value: "test123" } });
@@ -356,7 +352,7 @@ test('button Availability', () => {
         )
     const button =  screen.getByTestId("submit");
     fireEvent.click(button)
-   // expect(handleSubmit).toHaveBeenCalledTimes(1)
+   // expect(HandleSubmit).toHaveBeenCalledTimes(1)
     
     })
 

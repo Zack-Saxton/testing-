@@ -1,10 +1,10 @@
 import React from "react";
-import { TextField, Radio, ButtonPrimary } from "../../../FormsUI";
+import {ButtonPrimary, Radio, TextField} from "../../../FormsUI";
 import Grid from "@material-ui/core/Grid";
-import { makeStyles } from "@material-ui/core/styles";
+import {makeStyles} from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
-import TextFieldwithtooltip from "@material-ui/core/TextField";
+import TextFieldWithToolTip from "@material-ui/core/TextField";
 
 const useStyles = makeStyles((theme) => ({
   content_grid: {
@@ -26,8 +26,12 @@ export default function BankAccountVerification() {
           must be in the applicant's name
         </p>
 
-        <Grid sm={12} className={classes.content_grid}>
-          <TextField name="accountholder" label="Account Holder" />
+        <Grid sm={12} item className={classes.content_grid}>
+          <TextField
+            name="accountholder"
+            placeholder="Account Holder"
+            label="Account Holder"
+          />
         </Grid>
       </div>
 
@@ -44,11 +48,12 @@ export default function BankAccountVerification() {
       </Grid>
 
       <Grid container spacing={4} direction="row">
-        <Grid item xs={12} sm={6} direction="row" fullWidth={true}>
-          <TextFieldwithtooltip
+        <Grid item xs={12} sm={6} direction="row" style={{ width:"100%" }}>
+          <TextFieldWithToolTip
             name="bankrouting"
-            fullWidth={true}
+           style={{ width:"100%" }}
             type="text"
+            placeholder="Bank Routing number"
             label={
               <div>
                 Bank Routing number
@@ -62,11 +67,12 @@ export default function BankAccountVerification() {
           />
         </Grid>
 
-        <Grid item xs={12} sm={6} direction="row" fullWidth={true}>
-          <TextFieldwithtooltip
+        <Grid item xs={12} sm={6} direction="row" style={{ width:"100%" }}>
+          <TextFieldWithToolTip
             name="bankinfo"
-            fullWidth={true}
+           style={{ width:"100%" }}
             type="text"
+            placeholder="Bank Information"
             label={
               <div>
                 Bank Information
@@ -81,11 +87,19 @@ export default function BankAccountVerification() {
         </Grid>
       </Grid>
 
-      <Grid sm={12} className={classes.content_grid}>
-        <TextField name="bankaccount" label="Bank Account Number" />
+      <Grid item sm={12} className={classes.content_grid}>
+        <TextField
+          name="bankaccount"
+          placeholder="Bank Account Number"
+          label="Bank Account Number"
+        />
       </Grid>
-      <Grid sm={12} className={classes.content_grid}>
-        <TextField name="confirmaccount" label="Confirm Account Number" />
+      <Grid  item sm={12} className={classes.content_grid}>
+        <TextField
+          name="confirmaccount"
+          placeholder="Confirm Account Number"
+          label="Confirm Account Number"
+        />
       </Grid>
 
       <div>

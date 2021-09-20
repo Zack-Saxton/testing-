@@ -1,14 +1,14 @@
-import React, { useState, useContext } from "react";
+import React, {useContext, useState} from "react";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import { TextField, ButtonPrimary, PhoneNumber, Select } from "../../../FormsUI";
+import {ButtonPrimary, PhoneNumber, Select} from "../../../FormsUI";
 import Paper from "@material-ui/core/Paper";
-import { useFormik } from "formik";
+import {useFormik} from "formik";
 import * as yup from "yup";
-import { useHistory, Link } from "react-router-dom";
-import EmploymenyStatus from "../../../../assets/icon/I-Employment-Status.png";
-import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
+import {Link, useHistory} from "react-router-dom";
+import EmploymentStatusPNG from "../../../../assets/icon/I-Employment-Status.png";
+import {CheckMyOffers} from "../../../../contexts/CheckMyOffers";
 import ScrollToTopOnMount from '../scrollToTop';
 import "./employmentStatus.css";
 
@@ -16,26 +16,16 @@ import "./employmentStatus.css";
 
 
 //Initializing functional component CitizenshipStatus
-function CitizenshipStatus() {
+function EmploymentStatus() {
 
-//Retriving Context values
+//Retrieving Context values
 	const { data, setData } = useContext(CheckMyOffers);
-	const [error, setError] = useState();
-	const [helperText, setHelperText] = useState();
 	const [employmentStatus, setEmploymentStatus] = useState(
 		data.employmentStatus ? data.employmentStatus : ""
 	);
 	const history = useHistory();
 
 //initializing formik
-const goNext = (val) => {
-	// alert(val);
-	data.employmentStatus = val;
-	data.yearsAtEmployers = 0;			
-	console.log("cahnge", data);		
-	data.completedPage = data.page.employmentStatus;
-	history.push("/annual-income");
-}
 
 const validationSchema = yup.object({
 	phone: yup
@@ -69,22 +59,21 @@ const validationSchema = yup.object({
 	const formik = useFormik({
 		initialValues: {
 			phone: data.EmployerPhone ? "1" + data.EmployerPhone : "",
-			yearsAtEmployers : '',
+			yearsAtEmployers : data.yearsAtEmployers ? data.yearsAtEmployers : '',
 			employStatus: ''
 		},
 		validationSchema: validationSchema,
-//On submit funcationality
+//On submit functionality
 		onSubmit: (values) => {
-			console.log("data",employmentStatus);
 
 			data.yearsAtEmployers = values.yearsAtEmployers;
-			var phone =
-				values.phone
-					.replace(/-/g, "")
-					.replace(/\)/g, "")
-					.replace(/\(/g, "")
-					.replace(/ /g, "") || "";
-			data.EmployerPhone = phone.slice(1);
+            const phone =
+                values.phone
+                    .replace(/-/g, "")
+                    .replace(/\)/g, "")
+                    .replace(/\(/g, "")
+                    .replace(/ /g, "") || "";
+            data.EmployerPhone = phone.slice(1);
 			data.completedPage = data.page.employmentStatus;
 
 	
@@ -93,27 +82,12 @@ const validationSchema = yup.object({
 				employmentStatus === "Salary" ||
 				employmentStatus === "selfEmployed"
 			) {
-				console.log(data.yearsAtEmployers);
 				if (data.yearsAtEmployers !== "" && data.yearsAtEmployers !== 0 && data.yearsAtEmployers !== null) {
-					// alert("nil value");
-					setError(false);
-					setHelperText("");
 					data.employmentStatus = employmentStatus;
 					history.push("/annual-income");
-				} else {
-					// alert("Enter Anual income");
-					setError(true);
-					setHelperText(
-						data.yearsAtEmployers === 0
-							? "Tenure at employer should not be zero"
-							: "Your tenure at employer is required."
-					);
-				}
+				} 
 			} else {
-				console.log("unemployed");
-				setError(false);
-				setHelperText("");
-				// alert(employmentStatus);
+				
 				data.employmentStatus = employmentStatus;
 				history.push("/annual-income");
 			}
@@ -121,31 +95,8 @@ const validationSchema = yup.object({
 	});
 
 
-	const onHandleChange = (event) => {
-		const reg = /^[0-9\b]+$/;
-		let acc = event.target.value;
-
-		if (acc === "" || reg.test(acc)) {
-			setData({
-				...data,
-				"yearsAtEmployers": parseInt(
-					event.target.value ? event.target.value : "0"
-				),
-			});
-		}
-		console.log(event.target.value);
-		if (event.target.value !== "" && event.target.value > 0) {
-			setError(false);
-			setHelperText("");
-		} else if (event.target.value === "") {
-			setError(true);
-			setHelperText("Tenure at employer should not be zero");
-		}
-	};
-
 // prevent keyboard space
 	const preventSpace = (event) => {
-		// const reg = /[a-zA-Z]+[ ]{0,1}[']{0,1}/;
 		if (event.keyCode === 32) {
 			event.preventDefault();
 		}
@@ -155,67 +106,56 @@ const validationSchema = yup.object({
 	// 	history.push("/select-amount");
 	// }
 // JSX part
-console.log("error", data);
 	return (
 		<div>
 			<ScrollToTopOnMount />
 			<div className="mainDiv">
 				<Box>
-					<Grid xs={12} container justify="center" alignItems="center">
-						<Grid
+					<Grid item xs={12} container justifyContent="center" alignItems="center" style={{ paddingTop:"70px",paddingBottom:"70px"}}>
+						<Grid container item
 							xs={11}
 							sm={10}
 							md={6}
 							lg={6}
 							xl={6}
 							className="cardWrapper"
-							justify="center"
+							justifyContent="center"
 							alignItems="center"
 						>
-							<Paper
-								className="cardWOPadding"
-								justify="center"
-								alignItems="center"
-							>
+							<Paper className="cardWOPadding" style={{justify:"center",alignItems:"center"}}>
 								<form onSubmit={formik.handleSubmit}>
 								<div className="progress mt-0">
 									<div
 										id="determinate"
 										className="det42 determinate slantDiv"
-									></div>
-									<span class="floatLeft detNum42">42%</span>
+									/>
+									<span className="floatLeft detNum42">42%</span>
 								</div>
 								<Grid className="floatLeft">
 									<Link to="/personal-info">
-										<i class="material-icons dp48 yellowText  ">arrow_back</i>
+										<i className="material-icons dp48 yellowText  ">arrow_back</i>
 									</Link>
 								</Grid>
 								<Grid>
 									<img
 										alt="Employment"
-										src={EmploymenyStatus}
+										src={EmploymentStatusPNG}
 										className="spinAnimation"
 									/>
 								</Grid>
 
-								<Typography
-									variant="h5"
-									align="center"
-									justify="center"
-									alignItems="center"
-									className="borrowCSSLP"
-								>
+								<Typography variant="h5" style={{align:"center",justify:"center",alignItems:"center"}} className="borrowCSSLP">
 									Tell us about your employment status
 								</Typography>
-								<Grid
+								<Grid item
 									md={12}
 									className="blockDiv"
 									container
-									justify="center"
+									justifyContent="center"
 									alignItems="center"
 								>
-									<Grid
-										justify="center"
+									<Grid container
+										justifyContent="center"
 										alignItems="center"
 										item
 										lg={8}
@@ -227,8 +167,8 @@ console.log("error", data);
 											data-testid="Hourly"
 											className={
 												employmentStatus === "Employed - Hourly"
-													? "activeBorder radioBlocke "
-													: "radioBlocke "
+													? "activeBorder radioBlocked"
+													: "radioBlocked"
 											}
 											onClick={() => {
 												setEmploymentStatus("Employed - Hourly");
@@ -244,8 +184,8 @@ console.log("error", data);
 											data-testid="Salary"
 											className={
 												employmentStatus === "Salary"
-													? "activeBorder radioBlocke "
-													: "radioBlocke "
+													? "activeBorder radioBlocked"
+													: "radioBlocked"
 											}
 											onClick={() => {
 												setEmploymentStatus("Salary");
@@ -261,8 +201,8 @@ console.log("error", data);
 											data-testid="selfEmployed"
 											className={
 												employmentStatus === "selfEmployed"
-													? "activeBorder radioBlocke "
-													: "radioBlocke "
+													? "activeBorder radioBlocked"
+													: "radioBlocked"
 											}
 											onClick={() => {
 												setEmploymentStatus("selfEmployed");
@@ -278,8 +218,8 @@ console.log("error", data);
 											data-testid="Unemployed"
 											className={
 												employmentStatus === "Unemployed"
-													? "activeBorder radioBlocke "
-													: "radioBlocke "
+													? "activeBorder radioBlocked"
+													: "radioBlocked"
 											}
 											onClick={() => {
 												setEmploymentStatus("Unemployed");
@@ -300,8 +240,8 @@ console.log("error", data);
 											data-testid="Retired"
 											className={
 												employmentStatus === "Retired"
-													? "activeBorder radioBlocke "
-													: "radioBlocke "
+													? "activeBorder radioBlocked"
+													: "radioBlocked"
 											}
 											onClick={() => {
 												setEmploymentStatus("Retired");
@@ -317,40 +257,8 @@ console.log("error", data);
 										</Paper>
 									</Grid>
 									<Grid item lg={8} md={8} xs={12}>
-										{/* <TextField
-											name="yearsAtEmployers"
-											className={
-												employmentStatus === "Employed - Hourly" ||
-												employmentStatus === "Salary" ||
-												employmentStatus === "selfEmployed"
-													? "showMsg"
-													: "hideMsg"
-											}
-											label="Years at Employer"
-											form={true}
-											error={error}
-											helperText={helperText}
-											value={data.yearsAtEmployers}
-											// onChange= { (event) => {setData({ ...data, ['yearsAtEmployers']: event.target.value })}}
-											onChange={onHandleChange}
-											materialProps={{
-												"data-testid": "yearsAtEmployee",
-												maxLength: "2",
-											}}
-										/> */}
-										{/* <selectWithLabel
-                                       fullWidth= {true}
-                                            name="activeDuty"
-                                            labelform="Active Duty *"
-                                            select='[{"value":"0", "label": "Zero"}, {"value":"1", "label": "One"}]'
-                                            value={formik.values.activeDuty}
-											onChange={formik.handleChange}
-											onBlur={formik.handleBlur}
-											error={formik.touched.activeDuty && Boolean(formik.errors.activeDuty)}
-											helperText={formik.touched.activeDuty && formik.errors.activeDuty}
-                                            inputTestID = "ADinput"
-                                            selectTestID = "ADselect"
-                                        /> */}
+										
+										
 										<div className={
 											employmentStatus === "Employed - Hourly" ||
 											employmentStatus === "Salary" ||
@@ -396,8 +304,8 @@ console.log("error", data);
 													{"value":"19", "label": "19 years"},
 													 {"value":"20", "label": "20+ years"}]'
                                   
-                                            inputTestID = "ADinput"
-                                            selectTestID = "ADselect"
+                                            inputTestID = "AD-input"
+                                            selectTestID = "AD-select"
                                         />
 										</div>
 									</Grid>
@@ -428,7 +336,6 @@ console.log("error", data);
 											type="text"
 											onKeyDown={preventSpace}
 											value={formik.values.phone}
-											// onChange={onSSNhandleChange}
 											onChange={formik.handleChange}
 											onBlur={formik.handleBlur}
 											error={
@@ -440,11 +347,10 @@ console.log("error", data);
 
 									<Grid item lg={8} md={8} xs={12} className="alignButton">
 										<ButtonPrimary
-											// onClick={handleRoute}
 											data-testid="cntButton"
 											type= "submit"
-											disabled={employmentStatus === "" ? true : false}
-											stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black"}'
+											disabled={employmentStatus === ""}
+											stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black","fontSize":"1rem"}'
 										>
 											<Typography align="center" className="textCSS ">
 												Continue
@@ -462,4 +368,4 @@ console.log("error", data);
 	);
 }
 
-export default CitizenshipStatus;
+export default EmploymentStatus;

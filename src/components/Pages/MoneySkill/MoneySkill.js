@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import {makeStyles} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
@@ -29,10 +29,10 @@ export default function MoneySkill() {
   return (
     <div >
         
-        <Grid container justify={"center"} style={{ marginTop: "-150px" }}>
+        <Grid container justifyContent={"center"} style={{ marginTop: "-150px" }}>
           <Grid container direction="row" item xs={10}>
-            <Typography>
-              <h1 className={classes.heading}> Money Skill</h1>
+            <Typography className={classes.heading} variant="h1">
+              Money Skill
             </Typography>
             
           </Grid> 

@@ -1,11 +1,11 @@
-
+@import url('https://fonts.googleapis.com/css?family=Muli:300,300i,400,400i,500,600');
 /* @media only screen and (max-width: 360px) {
-    .iconlogin {
+    .icon-login {
       position: relative;
       left: -10px;
     }
   } */
-#maincontent_background{
+#main-content-background{
   min-height: 500px;
 
   /* Create the parallax scrolling effect */
@@ -14,13 +14,13 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
-  #maincontent{
+  #main-content{
     margin-top: 2% !important;
     margin-bottom: 5% !important;
     height: auto !important;
   }
 
-#rememberme {
+#remember-me {
   padding-left: 12px;
 }
   @media (max-width:400px){
@@ -32,9 +32,8 @@
     font-size: 4vw;
  
 }
-#rememberme span{
+#remember-me span{
   font-size: 4vw;
-  
 
 }
 }
@@ -44,16 +43,23 @@
   display: block;
   color: red;
   text-align: left;
-  margin-top: 0px;
-  margin-bottom: 0px;
+  margin-top: 0;
+  margin-bottom: 0;
 }
+
+
+.Mui-focused{
+  background-color:transparent !important;
+  color: white;
+}
+
 
 .hideError{
   display: none;
 
 }
 
-.addPadd{
+.add-pad{
   margin-left: -1px !important;
   padding-top: 20px !important;
   font-size: 14px!important;

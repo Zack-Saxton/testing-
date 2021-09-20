@@ -8,7 +8,7 @@ Functionality       :    To use this RadioButton as a default component for UI p
 #################################################################################################################*/
 
 import React from "react";
-import { FormControl, FormControlLabel, FormLabel } from "@material-ui/core";
+import {FormControl, FormControlLabel, FormLabel} from "@material-ui/core";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 
@@ -20,7 +20,7 @@ const RadioButtonWrapper = ({
   row,
   required,
   onClick,
-  labelplacement,
+  labelplacement: labelPlacement,
   ...otherProps
 }) => {
   //To return all formik state
@@ -31,13 +31,13 @@ const RadioButtonWrapper = ({
   //   setFieldValue(value, checked);
   // };
 
-  const [radiovalue, setradioValue] = React.useState("");
+  const [radioValue, setRadioValue] = React.useState("");
 
   function handleRadioClick(event) {
-    if (event.target.value === radiovalue) {
-      setradioValue("");
+    if (event.target.value === radioValue) {
+      setRadioValue("");
     } else {
-      setradioValue(event.target.value);
+      setRadioValue(event.target.value);
     }
   }
   //Configuring the field with properties
@@ -54,16 +54,16 @@ const RadioButtonWrapper = ({
   //Validation
 
   //parsing data using json
-  let radiolabelMF = JSON.parse(radiolabel);
+  let radioLabelMF = JSON.parse(radiolabel);
 
   //View Part
   return (
     <FormControl >
       <FormLabel style={{fontFamily: "system-ui",fontWeight: "normal",}}>{labelforform}</FormLabel>
-      <RadioGroup  value={radiovalue} {...configRadioButton}>
-        {radiolabelMF.map((radio) => (
+      <RadioGroup  value={radioValue} {...configRadioButton}>
+        {radioLabelMF.map((radio) => (
           <FormControlLabel 
-            labelPlacement={labelplacement}
+            labelPlacement={labelPlacement}
             value={radio.value}
             key={radio.value}
             label={radio.label}

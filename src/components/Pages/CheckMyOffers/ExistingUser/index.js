@@ -3,16 +3,15 @@ import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
-import React, { useContext, useState } from "react";
-import { useHistory, Link } from "react-router-dom";
+import React, {useContext, useState} from "react";
+import {Link, useHistory} from "react-router-dom";
 import PasswordLogo from "../../../../assets/icon/I-Password.png";
-import { PasswordField, ButtonPrimary } from "../../../FormsUI";
-import { useFormik } from "formik";
+import {ButtonPrimary, PasswordField} from "../../../FormsUI";
+import {useFormik} from "formik";
 import * as yup from "yup";
 import ScrollToTopOnMount from '../scrollToTop';
-import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
-import loginSubmit from "../../../controllers/loginController";
-import useToken from '../../../App/useToken';
+import {CheckMyOffers} from "../../../../contexts/CheckMyOffers";
+import loginSubmit from "../../../controllers/LoginController";
 
 const validationSchema = yup.object({
 	password: yup
@@ -25,7 +24,7 @@ const validationSchema = yup.object({
 function ExistingUser() {
 	const { data, setData } = useContext(CheckMyOffers);
 	const [loginFailed, setLoginFailed] = useState('');
-	const { token, setToken } = useToken();
+	const [loading, setLoading] = useState(false);
 	
 	const history = useHistory();
 
@@ -37,31 +36,39 @@ function ExistingUser() {
 		},
 		validationSchema: validationSchema,
 		onSubmit: async (values) => {
+			setLoading(true);
 			setData({
 				...data,
 				"password": values.password,
 				"confirmPassword": values.password,
 				"completedPage": data.page.existingUser,
 			});
-			let retVal = await loginSubmit(data.email, values.password, setToken);
-			console.log(retVal?.data?.data?.hasError);
+			let retVal = await loginSubmit(data.email, values.password);
 			 if(retVal?.data?.data?.user && !retVal?.data?.data?.result ){
 			   localStorage.setItem('token', JSON.stringify({isLoggedIn: true}));
+			   setLoading(false);
 			   history.push({
 				 pathname: "/employment-status",
 			   });
 			 }
 			 else if (retVal?.data?.data?.result === "error" || retVal?.data?.data?.hasError === true){
 			   localStorage.setItem('token', JSON.stringify({isLoggedIn: false}));
+			   setLoading(false);
 			   setLoginFailed(retVal?.data?.data?.errorMessage);
 			 }
 			 else{
 			   alert("Network error");
+			   setLoading(false);
 			 }
-			 console.log("retval",retVal);
 			// history.push("/employment-status");
 		},
 	});
+
+	const passwordOnChange = (e) => {
+        setLoginFailed('');
+        formik.handleChange(e);
+
+    }
 
 	const preventSpace = (event) => {
 		if (event.keyCode === 32) {
@@ -77,68 +84,51 @@ function ExistingUser() {
 			<ScrollToTopOnMount />
 			<div className="mainDiv">
 				<Box>
-					<Grid xs={12} container justify="center" alignItems="center">
-						<Grid
+					<Grid item xs={12} container justifyContent="center" alignItems="center">
+						<Grid container item
 							xs={11}
 							sm={10}
 							md={6}
 							lg={6}
 							xl={6}
 							className="cardWrapper"
-							justify="center"
+							justifyContent="center"
 							alignItems="center"
 						>
-							<Paper
-								className="cardWOPadding"
-								justify="center"
-								alignItems="center"
-							>
-								<div className="progress mt-0">
+							<Paper className="cardWOPadding" style={{justify:"center",alignItems:"center",width:"inherit",marginBottom:"10%",marginTop:"10%"}}>
+								{/* <div className="progress"> */}
 									{/* <div
 										id="determinate"
 										className="det5  determinate "
-									></div> */}
-									<span class="floatLeft detNum5"></span>
-								</div>
+									/> */}
+									<span className="floatLeft detNum5"/>
+								{/* </div> */}
 								<Grid className="floatLeft">
 									<Link to="/personal-info">
-										<i class="material-icons dp48 yellowText  ">arrow_back</i>
+										<i className="material-icons dp48 yellowText  ">arrow_back</i>
 									</Link>
 								</Grid>
-								<Grid className="liftImage">
+								<Grid className="liftImage" style={{marginTop:"-4%"}}>
 									<img src={PasswordLogo} alt="password" className="spinAnimation" />
 								</Grid>
-								<Typography
-									variant="p"
-									align="center"
-									justify="center"
-									alignItems="center"
-									className="borrowCSS"
-								>
+								<Typography style={{align:"center",justify:"center",alignItems:"center",marginBottom:"1%",marginTop:"1%"}}>
 									We have detected you already have an account with us.
 								</Typography>
 
-								<Typography
-									variant="h5"
-									align="center"
-									justify="center"
-									alignItems="center"
-									className="borrowCSS"
-								>
+								<Typography variant="h5" style={{align:"center",justify:"center",alignItems:"center",marginBottom:"1%",marginTop:"1%"}}>
 									Please enter your password and continue.
 								</Typography>
 
 								<form onSubmit={formik.handleSubmit}>
-									<Grid
+									<Grid container item
 										md={12}
 										className="blockDiv"
-										container
-										justify="center"
+										justifyContent="center"
 										alignItems="center"
 									>
-										<Grid
-											justify="center"
-											alignItems="center"
+										<Grid container
+											justifyContent="flex-start"
+											alignItems="flex-start"
 											item
 											lg={8}
 											md={8}
@@ -153,7 +143,7 @@ function ExistingUser() {
 												onKeyDown={preventSpace}
 												materialProps={{ maxLength: "30" }}
 												value={formik.values.password}
-												onChange={formik.handleChange}
+												onChange={passwordOnChange}
 												onBlur={formik.handleBlur}
 												error={
 													formik.touched.password &&
@@ -163,33 +153,38 @@ function ExistingUser() {
 													formik.touched.password && formik.errors.password
 												}
 											/>
-													<p className={ loginFailed !== '' ? "showError addPadd" : "hideError" } data-testid="subtitle">
+													<p className={ loginFailed !== '' ? "showError add-pad" : "hideError" } data-testid="subtitle">
 												{" "}
-												{loginFailed}                 
+												{loginFailed === "Invalid Email or Password" ? "Please enter a valid password" : loginFailed}                 
 											</p>
 										</Grid>
-										<Grid
-											justify="center"
+										<Grid container
+											justifyContent="center"
 											alignItems="center"
 											item
 											lg={8}
 											md={8}
 											xs={12}
-											className="textBlock"
+											className="textBlock alignButton"
 										>
 											<ButtonPrimary
 												type="submit"
 												data-testid="contButton"
 												stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black"}'
+												disabled = { loading }
 											>
-												<Typography align="center" className="textCSS ">
+												
 													Sign In
-												</Typography>
+													<i
+													className="fa fa-refresh fa-spin customSpinner"
+													style={{ marginRight: "10px", display: loading ? "block" : "none" }}
+												/>
+												
 											</ButtonPrimary>
 										</Grid>
-										<Grid
-											justify="left"
-											alignItems="left"
+										<Grid container
+											justifyContent="center"
+											alignItems="center"
 											item
 											lg={8}
 											md={8}
@@ -197,7 +192,7 @@ function ExistingUser() {
 											className="linkBlock"
 										>
 											<Link to="/register" className="link">
-											<p className="link">Sign in Help / Register</p>
+											<p >Sign in Help / Register</p>
 											</Link>
 										
 										</Grid>

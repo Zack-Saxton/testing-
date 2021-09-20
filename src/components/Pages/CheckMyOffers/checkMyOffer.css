@@ -4,8 +4,7 @@
     min-height: 500px !important;
 }
 .card{
-    padding: 5%;
-    padding-bottom: 1%;
+    padding: 5% 5% 1% 5%;
 }
 .cardWrapper{
     margin-top: 4%;
@@ -16,7 +15,7 @@
     margin-bottom: 1% !important;
 }
 .setSlider{
-    margin-bottom: 0% !important;
+    margin-bottom: 0 !important;
 }
 
 .alignSlider{
@@ -71,7 +70,7 @@
 }
 
 .setSlider{
-    margin-bottom: 0% !important;
+    margin-bottom: 0 !important;
 }
 
 .alignSlider{
@@ -112,7 +111,7 @@
 }
 
 .close{
-    height: 0px;
+    height: 0;
     transition: 0.5s;
     overflow: hidden;
     
@@ -132,10 +131,10 @@
     display: block;
     min-width: 100% !important;
     background: #fff;
-    font-family: sans-serif;
+    font-family: 'Muli', sans-serif !important;
     line-height: 2;
     text-align: center;
-    margin: 10px 0px;
+    margin: 10px 0;
     padding-top: 5px;
     padding-bottom: 5px;
 
@@ -143,17 +142,17 @@
 
 .activeBorder{
     background: #134ca5 !important;
-    box-shadow: 1px 0px 2px #144ba1;
+    box-shadow: 1px 0 2px #144ba1;
     color:white !important;
 }
 
 .alignButton{
-    margin: 20px 0px !important;
+    margin: 20px 0 !important;
     height: 40px;
 }
 
 .showMsg{
-    color: red;
+    
     display: block;
     margin: 0;
     color: #f44336 !important;
@@ -168,8 +167,8 @@
     display: block;
     color: red;
     text-align: left;
-    margin-top: 0px;
-    margin-bottom: 0px;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .hideError{
@@ -197,7 +196,7 @@
     display: block;
     overflow: hidden;
     width: 100%;
-    height: 4px;
+    
     margin: .5rem 0 1rem 0;
     border-radius: 2px;
     background-color: white;
@@ -317,7 +316,7 @@
 }
 
 .MuiFormControl-root {
-    margin: 0px !important;
+    margin: 0 !important;
 }
 
 .left-align{
@@ -339,7 +338,7 @@
     cursor: pointer;
     color: #595959;
     margin-left: 7%;
-    margin-top: 0%;
+    margin-top: 0;
 
 }
 .positionHead{
@@ -387,19 +386,19 @@
     text-align: justify;
     font-size: 1rem !important;
     font-weight: 400 !important;
-    font-family: "Roboto", "Helvetica", "Arial", sans-serif !important;
+    font-family: 'Muli', sans-serif !important;
 }
-.vminText{   
+.vMinText{
     text-align: justify;
     font-size: .8rem !important;
     font-weight: 400 !important;
-    font-family: "Roboto", "Helvetica", "Arial", sans-serif !important;
+    font-family: 'Muli', sans-serif !important;
 }
 .listFormat{
     text-align: left;
     font-size: medium !important;
     font-weight: 400 !important;
-    font-family: "Roboto", "Helvetica", "Arial", sans-serif !important;
+    font-family: 'Muli', sans-serif !important;
 }
 
 .buttonWithMargin{
@@ -414,7 +413,7 @@
 }
 
 .Mui-focused{
-    background-color: white;
+    background-color:transparent !important;
     color: white;
 }
 
@@ -441,7 +440,7 @@ text-align: left;
 }
 
 .textBlockShort{
-    margin: 15px 0px !important;
+    margin: 15px 0 !important;
 }
 
 .MuiInput-input.Mui-disabled {
@@ -453,7 +452,7 @@ text-align: left;
 }
 
 .MarginUpDown10{
-    margin: 10px 0px;
+    margin: 10px 0;
 }
 .cursorPointer{
     cursor: pointer;
@@ -480,8 +479,8 @@ text-align: left;
 }
 
 .MuiTableCell-root{
-    padding-top: 10px !important;
-    padding-bottom: 10px !important;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .modalText{
@@ -509,7 +508,7 @@ text-align: left;
 .cardWrapperImg{
     margin-top: 4%;
 }
-.smalTextImg{
+.smallTextImg{
     font-size: 1.15rem !important;
     line-height: 150% !important;
     margin: .575rem 0 .46rem 0 !important;
@@ -521,15 +520,15 @@ text-align: left;
 }
 
 .borrowCSSLP {
-	margin-top: 0px !important;
-	margin-bottom: 2% !important;
+
+    
 	font-size: 1.64rem !important;
     font-weight: 400 !important;
     line-height: 110% !important;
     margin: .82rem 0 .656rem 0 !important;
 }
 
-.buttlet{
+.bullet{
     display: list-item;         
     list-style-type: disc;      
     list-style-position: inside;
@@ -554,5 +553,5 @@ text-align: left;
 }
 .checkBoxClass{
     position: absolute !important;
-    top: 0px !important;
+    top: 0 !important;
 }

@@ -1,24 +1,25 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import {makeStyles} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import { ButtonSecondary, ButtonWithIcon, Checkbox } from "../../../FormsUI";
+import {ButtonSecondary, ButtonWithIcon, Checkbox} from "../../../FormsUI";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import PropTypes from "prop-types";
 import Box from "@material-ui/core/Box";
-import { NavLink } from "react-router-dom";
-import "./reviewandsign.css";
+import {NavLink} from "react-router-dom";
+import ScrollToTopOnMount from '../../scrollToTop';
+import "./reviewAndSign.css";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
   return (
     <div
-      role="tabpanel"
+      role="tab-panel"
       hidden={value !== index}
-      id={`scrollable-auto-tabpanel-${index}`}
+      id={`scrollable-auto-tab-panel-${index}`}
       aria-labelledby={`scrollable-auto-tab-${index}`}
       {...other}
     >
@@ -40,7 +41,7 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `scrollable-auto-tab-${index}`,
-    "aria-controls": `scrollable-auto-tabpanel-${index}`,
+    "aria-controls": `scrollable-auto-tab-panel-${index}`,
   };
 }
 
@@ -57,13 +58,15 @@ const useStyles = makeStyles((theme) => ({
   heading: {
     color: "#fff",
     fontWeight: "400",
-    fontSize:"1.64rem"
+    fontSize: "1.64rem",
+    paddingLeft:"7px",
+    paddingBottom:"30px"
   },
-  tablabel: {
+  tabLabel: {
     background: "white",
-    margin: "10px",   
+    margin: "10px",
     color: "#3f51b5",
-    fontFamily: "Segoe UI",
+    fontFamily: "'Multi', sans-serif !important",
     fontSize: "1rem",
     textTransform: "none",
     fontWeight: "600",
@@ -71,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 650,
   },
-  columncolor: {
+  columnColor: {
     lineHeight: 0,
     color: "#0f4eb3",
     fontSize: 25,
@@ -79,17 +82,20 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
   },
 
-  rightborder: {
+  rightBorder: {
     // padding: "0px 15px",
     borderRight: "1px solid",
     lineHeight: 1,
   },
-  columnheading: {
-   
+  columnHeading: {
     fontSize: "14px",
     color: "#171717",
     textAlign: "center",
   },
+  p:{
+    color: "#171717",
+    fontSize: "18px",
+  }
 }));
 
 export default function ReviewAndSign() {
@@ -102,28 +108,41 @@ export default function ReviewAndSign() {
 
   return (
     <div>
-      <Grid container justify={"center"} style={{ marginTop: "-150px", paddingRight:"30px", paddingLeft:"30px" }}>
-      <Grid item xs={12}  fullWidth={true} direction="row" style={{ marginBottom: "-20px" }}>
-            <Typography>
-            
-              <h3 className={classes.heading} >
+      <ScrollToTopOnMount />
+      <Grid
+        container
+        justifyContent={"center"}
+        style={{
+          marginTop: "-150px",
+          paddingRight: "30px",
+          paddingLeft: "30px",
+        }}
+      >
+        <Grid
+          item
+          xs={12} container
+          direction="row"
+          style={{  width:"100%",marginBottom: "-20px" }}
+        >
+          <Typography  className={classes.heading} variant="h3">
               <NavLink
-                  to="/customers/accountoverview"
-                  style={{ textDecoration: "none" }}
-                >
-                  <ButtonWithIcon
-                        icon="arrow_backwardIcon"
-                        iconposition="left"
-                        stylebutton='{"background": "#fff", "color":"#214476",
+                to="/customers/accountOverview"
+                style={{ textDecoration: "none" }}
+              >
+                <ButtonWithIcon
+                  icon="arrow_backwardIcon"
+                  iconposition="left"
+                  stylebutton='{"background": "#fff", "color":"#214476",
                         "minWidth": "0px",
                         "width": "36px",
                         "padding": "0px",
                         "marginRight": "5px" , "marginTop":"unset"}'
-                        styleicon='{ "color":"" }'
-                      />
-                      </NavLink> Apply for a Loan</h3>
-            </Typography>
-          </Grid>
+                  styleicon='{ "color":"" }'
+                />
+              </NavLink>{" "}
+              Apply for a Loan
+          </Typography>
+        </Grid>
 
         <Grid item xs={12}>
           <Tabs
@@ -139,35 +158,34 @@ export default function ReviewAndSign() {
             <Tab
               label="1. Select Offer"
               disabled={true}
-              className={classes.tablabel}
+              className={classes.tabLabel}
             />
             <Tab
               label="2. Review & Sign"
-              className={classes.tablabel}
+              className={classes.tabLabel}
               {...a11yProps(1)}
             />
             <Tab
               label="3. Final Verification"
               disabled={true}
-              className={classes.tablabel}
+              className={classes.tabLabel}
             />
             <Tab
               label="4. Receive your money"
               disabled={true}
-              className={classes.tablabel}
+              className={classes.tabLabel}
             />
           </Tabs>
 
           {/* ##############################################Review And Sign################################################################################################# */}
           <TabPanel value={value} index={1}>
-            <Grid item xs={12}  fullWidth={true} direction="row">
+            <Grid Container item xs={12} style={{ width:"100%" }} direction="row">
               <Paper className={classes.paper}>
                 <Grid container>
-                  <Grid item xs={12} sm={6} fullWidth={true} direction="row">
+                  <Grid container item xs={12} sm={6} style={{ width:"100%" }} direction="row">
                     <Typography>
                       <p
                         style={{
-                         
                           color: "#171717",
                           fontSize: "18px",
                         }}
@@ -179,13 +197,13 @@ export default function ReviewAndSign() {
 
                   <Grid item xs={12} sm={6}>
                     <NavLink
-                      to="/customers/applyloan"
+                      to="/customers/applyLoan"
                       style={{ textDecoration: "none" }}
                     >
                       <ButtonSecondary
                         stylebutton='{"float": "right", "color":"" }'
                         styleicon='{ "color":"" }'
-                        fullWidth={true}
+                        style={{ width:"100%" }}
                         id="reselect-button"
                       >
                         Re-Select Offer
@@ -199,14 +217,13 @@ export default function ReviewAndSign() {
                     item
                     xs={12}
                     sm={2}
-                    className={classes.rightborder}
-                    id="rightborder"
+                    className={classes.rightBorder}
+                    id="rightBorder"
                   >
-                    
-                    <p className={classes.columnheading} id="columnheading">
+                    <p className={classes.columnHeading} id="columnHeading">
                       Select Amount
                     </p>
-                    <h2 className={classes.columncolor} id="columncontent">
+                    <h2 className={classes.columnColor} id="column-content">
                       $10,000{" "}
                     </h2>
                   </Grid>
@@ -215,13 +232,13 @@ export default function ReviewAndSign() {
                     item
                     xs={12}
                     sm={2}
-                    className={classes.rightborder}
-                    id="rightborder-loanterm"
+                    className={classes.rightBorder}
+                    id="right-border-loan-term"
                   >
-                    <p className={classes.columnheading} id="columnheading">
+                    <p className={classes.columnHeading} id="columnHeading">
                       Loan Term
                     </p>
-                    <h2 className={classes.columncolor} id="columncontent">
+                    <h2 className={classes.columnColor} id="column-content">
                       36M
                     </h2>
                   </Grid>
@@ -230,13 +247,13 @@ export default function ReviewAndSign() {
                     item
                     xs={12}
                     sm={2}
-                    className={classes.rightborder}
-                    id="rightborder"
+                    className={classes.rightBorder}
+                    id="rightBorder"
                   >
-                    <p className={classes.columnheading} id="columnheading">
+                    <p className={classes.columnHeading} id="columnHeading">
                       Fee at Origination
                     </p>
-                    <h2 className={classes.columncolor} id="columncontent">
+                    <h2 className={classes.columnColor} id="column-content">
                       0.00%
                     </h2>
                   </Grid>
@@ -245,13 +262,13 @@ export default function ReviewAndSign() {
                     item
                     xs={12}
                     sm={2}
-                    className={classes.rightborder}
-                    id="rightborder"
+                    className={classes.rightBorder}
+                    id="rightBorder"
                   >
-                    <p className={classes.columnheading} id="columnheading">
+                    <p className={classes.columnHeading} id="columnHeading">
                       Loan Proceeds
                     </p>
-                    <h2 className={classes.columncolor} id="columncontent">
+                    <h2 className={classes.columnColor} id="column-content">
                       $10,000
                     </h2>
                   </Grid>
@@ -259,13 +276,13 @@ export default function ReviewAndSign() {
                     item
                     xs={12}
                     sm={2}
-                    className={classes.rightborder}
-                    id="rightborder-apr"
+                    className={classes.rightBorder}
+                    id="rightBorder-apr"
                   >
-                    <p className={classes.columnheading} id="columnheading">
+                    <p className={classes.columnHeading} id="columnHeading">
                       APR
                     </p>
-                    <h2 className={classes.columncolor} id="columncontent">
+                    <h2 className={classes.columnColor} id="column-content">
                       23.99
                     </h2>
                   </Grid>
@@ -273,26 +290,25 @@ export default function ReviewAndSign() {
                     item
                     xs={12}
                     sm={2}
-                    style={{ lineHeight:"1" }}
-                    id="rightborder"
+                    style={{ lineHeight: "1" }}
+                    id="rightBorder"
                   >
-                    <p className={classes.columnheading} id="columnheading">
+                    <p className={classes.columnHeading} id="columnHeading">
                       Monthly Payment
                     </p>
-                    <h2 className={classes.columncolor} id="columncontent">
+                    <h2 className={classes.columnColor} id="column-content">
                       $392.28
                     </h2>
                   </Grid>
                 </Grid>
               </Paper>
 
-              <Grid item fullWidth={true}>
+              <Grid item style={{ width:"100%" }}>
                 <p
                   style={{
                     textAlign: "justify",
                     fontSize: "13px",
                     color: "#6b6f82",
-                    
                   }}
                 >
                   Please confirm your selected loan before proceeding. Please
@@ -305,7 +321,6 @@ export default function ReviewAndSign() {
                     textAlign: "justify",
                     fontSize: "13px",
                     color: "#6b6f82",
-                    
                   }}
                 >
                   To accept your loan offer, please complete the following:
@@ -315,7 +330,6 @@ export default function ReviewAndSign() {
                     textAlign: "justify",
                     fontSize: "13px",
                     color: "#6b6f82",
-                   
                   }}
                 >
                   <li>
@@ -329,11 +343,11 @@ export default function ReviewAndSign() {
                 </ol>
               </Grid>
 
-              <Grid item xs={12} fullWidth={true} direction="row">
+              <Grid item xs={12} style={{ width:"100%" }} direction="row">
                 <Paper
-                  className={classes.paper}
-                  style={{ height: "250px" }}
-                ></Paper>
+    className={classes.paper}
+    style={{height: "250px"}}
+    />
                 <Paper className={classes.paper}>
                   <Grid item xs={12}>
                     <Checkbox
@@ -343,34 +357,33 @@ export default function ReviewAndSign() {
                           style={{
                             fontSize: "14px",
                             lineHeight: 1,
-                            
+                            textAlign: "justify",
                           }}
                         >
-                          {" "}
                           Please click this box to confirm you would like to
                           submit your application. Please note that we will make
                           a ‘hard’ credit inquiry as part of this process, and
                           that credit inquiry may affect your credit.
                         </span>
                       }
-                      labelid="rememberme"
+                      labelid="remember-me"
                       testid="checkbox"
-                      stylelabelform='{ "font-size":"12px" }'
-                      stylecheckbox='{ "margin-bottom":"15px" }'
-                      stylecheckboxlabel='{ "font-size":"12px" }'
+                      stylelabelform='{ "fontSize":"12px" }'
+                      stylecheckbox='{ "marginBottom":"15px" }'
+                      stylecheckboxlabel='{ "fontSize":"12px" }'
                     />
                   </Grid>
 
                   <Grid item xs={12} style={{ lineHeight: 6 }}>
                     <NavLink
-                      to="/customers/finalverification"
+                      to="/customers/finalVerification"
                       style={{ textDecoration: "none" }}
                     >
                       <ButtonWithIcon
                         stylebutton='{ "color":"" }'
                         styleicon='{ "color":"" }'
-                        fullWidth={true}
-                        id="reviewsubmit-button"
+                        style={{ width:"100%","fontSize":"1rem" }}
+                        id="review-submit-button"
                       >
                         Submit
                       </ButtonWithIcon>
@@ -379,13 +392,12 @@ export default function ReviewAndSign() {
                 </Paper>
               </Grid>
 
-              <Grid item fullWidth={true}>
+              <Grid item style={{ width:"100%" }}>
                 <p
                   style={{
                     textAlign: "justify",
                     fontSize: "13px",
                     color: "#6b6f82",
-                   
                   }}
                 >
                   After you accept your loan, you will be required to provide

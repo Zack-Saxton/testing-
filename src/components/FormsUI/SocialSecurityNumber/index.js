@@ -5,17 +5,14 @@ Component Name      :    SocialSecurityNumber
 Functionality       :    To use this component to validate and get the SSN in the correct format from the user.
 
 #################################################################################################################*/
-import React, { useState } from "react";
-import {
-	ThemeProvider as MuiThemeProvider,
-	createMuiTheme,
-} from "@material-ui/core/styles";
+import React, {useState} from "react";
+import {createTheme, ThemeProvider as MuiThemeProvider,} from "@material-ui/core/styles";
 import InputMask from "react-input-mask";
 import FormControl from "@material-ui/core/FormControl";
 import PropTypes from "prop-types";
-import { TextField } from "@material-ui/core";
+import {TextField} from "@material-ui/core";
 
-const theme = createMuiTheme();
+const theme = createTheme();
 const SSNWrapper = ({
 	name,
 	label,
@@ -29,10 +26,7 @@ const SSNWrapper = ({
 	placeholder,
 	...otherProps
 }) => {
-	// const [mobile, setSSN] = React.useState("");
-	const [unMaskedVal, setUnMaskedVal] = useState("");
-	// const [isError, setIsError] = useState(false);
-	// const [helpertext, setHelpertext] = useState("");
+	const [unmaskedval, setUnMaskedVal] = useState("");
 
 	const handleChange = (event) => {
 		setUnMaskedVal(
@@ -66,7 +60,7 @@ const SSNWrapper = ({
 							error={error}
 							placeholder={placeholder}
 							helperText={helperText}
-							inputProps={{ "data-testid": "ssn", unmaskedval: unMaskedVal }}
+							inputProps={{ "data-test-id": "ssn", unmaskedval: unmaskedval }}
 						/>
 					)}
 				</InputMask>

@@ -1,8 +1,8 @@
 import React from 'react'
-import {render, cleanup } from '@testing-library/react'
+import {cleanup, render} from '@testing-library/react'
 import TextFieldWithIcon from './index.js'
 
- afterEach(cleanup)
+afterEach(cleanup)
 
 
  test("renders icon",()=>{
@@ -28,7 +28,7 @@ import TextFieldWithIcon from './index.js'
             iconColor="#595E6E"
             iconPosition="right"
             required={true}
-            materialProps={{"data-testid": "test"}}
+            materialProps={{"data-test-id": "test"}}
         />);
         const input = container.getByTestId('test');
         expect(input).toBeTruthy();
@@ -43,7 +43,7 @@ import TextFieldWithIcon from './index.js'
                 iconColor="#595E6E"
                 iconPosition="right"
                 required={true}
-                materialProps={{"data-testid": "test"}}
+                materialProps={{"data-test-id": "test"}}
             />)
             
             expect(asFragment(<TextFieldWithIcon
@@ -53,6 +53,6 @@ import TextFieldWithIcon from './index.js'
                 iconColor="#595E6E"
                 iconPosition="right"
                 required={true}
-                materialProps={{"data-testid": "test"}}
+                materialProps={{"data-test-id": "test"}}
             />)).toMatchSnapshot()
            });

@@ -6,7 +6,7 @@ Functionality       :    To use this component to validate and get the account n
 
 #################################################################################################################*/
 
-import React, { useState } from "react";
+import React, {useState} from "react";
 import PropTypes from "prop-types";
 import TextBox from "../Textfield";
 
@@ -14,7 +14,7 @@ const AccountNumberWrapper = ({ name, ...otherProps }) => {
   //Set Formik field
   const [accNum, setAccNum] = useState("");
   const [isError, setIsError] = useState(false);
-  const [helpertext, setHelpertext] = useState("");
+  const [helperText, setHelperText] = useState("");
 
   //Account Number field onChange handle
   const onHandleAccountChange = (event) => {
@@ -24,28 +24,28 @@ const AccountNumberWrapper = ({ name, ...otherProps }) => {
     if (acc === "" || reg.test(acc)) {
       setAccNum(event.target.value);
     }
-    var isValid = /(^\d{6,17}$)/.test(event.target.value);
+    const isValid = /(^\d{6,17}$)/.test(event.target.value);
     (!isValid && event.target.value) ? setIsError(true) : setIsError(false) ;
-    (!isValid && event.target.value) ? setHelpertext("Account number should be between 6 to 17 digits") : setHelpertext("") ;
+    (!isValid && event.target.value) ? setHelperText("Account number should be between 6 to 17 digits") : setHelperText("") ;
 
   };
 
   
   //Configuring the field with properties
-  const configTextfield = {
+  const configTextField = {
     name: name,
     type: "text",
     fullWidth: true,
     setError: isError,
-    setHelperText: helpertext,
+    setHelperText: helperText,
     ...otherProps,
   };
 
   //return the view block
   return (
     <TextBox
-      {...configTextfield}
-      materialProps={{ maxLength: "17", minLength: "6", "data-testid": "accountNum"}}
+      {...configTextField}
+      materialProps={{ maxLength: "17", minLength: "6", "data-test-id": "accountNum"}}
       value={accNum}
       onChange={onHandleAccountChange}
       required={true}

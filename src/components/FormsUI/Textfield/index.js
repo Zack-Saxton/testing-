@@ -1,20 +1,20 @@
 /*#################################################################################################################
 
 File Name           :    TextField/index.js
-Component Name      :    TextFiedl
+Component Name      :    TextField
 Functionality       :    To use this component to validate and get the input from the user as text field.
 
 #################################################################################################################*/
-import React, { useState } from "react";
-import { TextField } from "@material-ui/core";
+import React, {useState} from "react";
+import {TextField} from "@material-ui/core";
 import Content from '../../../assets/Content/content';
-import { makeStyles } from "@material-ui/core/styles";
-import { red } from "@material-ui/core/colors";
+import {makeStyles} from "@material-ui/core/styles";
+import {red} from "@material-ui/core/colors";
 import PropTypes from "prop-types";
 
 
-//Main textfield wrapper
-const TextfieldWrapper = ({
+//Main text field wrapper
+const TextFieldWrapper = ({
   name,
   required,
   color,
@@ -38,7 +38,7 @@ const TextfieldWrapper = ({
 
   //Styling part
   const [errorTF, setErrorTF] = useState(false);
-  const [helpertextTF, setHelpertextTF] = useState("");
+  const [helperTextTF, setHelperTextTF] = useState("");
 
   const useStyles = makeStyles((theme) => ({
     cssLabel: {
@@ -71,17 +71,17 @@ const TextfieldWrapper = ({
   setError = error ?? setError;
   setHelperText = helperText ?? setHelperText;
 
-  //Configuring the textfield with properties
-  const configTextfield = {
+  //Configuring the text field with properties
+  const configTextField = {
     name: name,
     required: required,
     ...otherProps,
     fullWidth: true,
     // error: setError ? setError : errorTF,
-    // helperText: setError ? setHelperText : helpertextTF,
+    // helperText: setError ? setHelperText : helperTextTF,
 
     error: setError ? setError : errorTF,
-    helperText: setError ? setHelperText : helpertextTF,
+    helperText: setError ? setHelperText : helperTextTF,
     classes: {
       root: classes.dynamic,
     },
@@ -95,8 +95,8 @@ const TextfieldWrapper = ({
   };
   //Validation part
   const handleOnchange = (e) =>{
-    setErrorTF((required && !e.target.value) ? true :  false);
-    setHelpertextTF((required && !e.target.value) ? Content.required : '');
+    setErrorTF((required && !e.target.value));
+    setHelperTextTF((required && !e.target.value) ? Content.required : '');
     if(onChange)
     {
       onChange(e); 
@@ -105,15 +105,15 @@ const TextfieldWrapper = ({
 
 }
 
- return <TextField {...configTextfield} onChange={handleOnchange} inputProps={materialProps} />;
+ return <TextField {...configTextField} onChange={handleOnchange} inputProps={materialProps} />;
 
 
  
 };
  
 //set name prop as mandatory
-TextfieldWrapper.propTypes = {
+TextFieldWrapper.propTypes = {
   name: PropTypes.string.isRequired,
 };
 
-export default TextfieldWrapper;
+export default TextFieldWrapper;

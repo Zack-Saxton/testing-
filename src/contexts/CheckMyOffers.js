@@ -6,7 +6,7 @@ const CheckMyOffersContext = (props) => {
 	const [data, setData] = useState({
 		loanAmount: null,
 		term: 36,
-		offerCode: null,
+		offerCode: "",
 		citizenship: null,
 		zip: null,
 		loanPurpose: null,

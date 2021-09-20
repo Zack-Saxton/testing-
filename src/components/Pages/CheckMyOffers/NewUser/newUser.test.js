@@ -1,12 +1,12 @@
 import React from 'react';
-import {render, cleanup, fireEvent, within } from '@testing-library/react';
+import {cleanup, render} from '@testing-library/react';
 import NewUser from './index.js';
 import CheckMyOffers from '../../../contexts/CheckMyOffers';
-import { BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
 import '@testing-library/jest-dom';
 
 
- afterEach(cleanup)
+afterEach(cleanup)
 
 
 

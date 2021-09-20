@@ -1,11 +1,9 @@
 import React from 'react'
-import {render, cleanup, fireEvent, screen, userEvent } from '@testing-library/react'
+import {fireEvent, render, screen} from '@testing-library/react'
 import Login from './Login'
-import ReactDom from 'react-dom';
-import { createMemoryHistory } from 'history'
-import { Router } from 'react-router-dom'
+import {createMemoryHistory} from 'history'
+import {Router} from 'react-router-dom'
 import '@testing-library/jest-dom/extend-expect';
-import { BrowserRouter } from 'react-router-dom';
 // afterEach(cleanup)
 
 
@@ -90,7 +88,7 @@ test('pass valid email to test email input field', () => {
         </Router>
       )
 
-      const inputEl = screen.getByLabelText("Password *");
+      const inputEl = screen.getByLabelText("password *");
       expect(inputEl).toBeTruthy();
       expect(inputEl.hasAttribute('name')).toBe(true);
  
@@ -159,7 +157,7 @@ test('button Availability', () => {
         )
     const button =  screen.getByTestId("submit");
     fireEvent.click(button)
-   // expect(handleSubmit).toHaveBeenCalledTimes(1)
+   // expect(HandleSubmit).toHaveBeenCalledTimes(1)
     
     })
   

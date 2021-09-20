@@ -1,10 +1,11 @@
 import React from 'react';
-import { Grid, Container } from '@material-ui/core';
+import {Container, Grid} from '@material-ui/core';
+
 const Home = () => {
   return (
     <div>
       <main>
-      <Grid container spacing={2}  justify="center" mt={20} style={{ paddingTop: 100 }}>
+      <Grid container spacing={2}  justifyContent="center" mt={20} style={{ paddingTop: 100 }}>
         
         <Grid item xs={5} mt={10}>
           <Container maxWidth="md">

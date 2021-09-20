@@ -1,8 +1,8 @@
 import React from 'react';
-import {render, cleanup, fireEvent } from '@testing-library/react';
+import {cleanup, fireEvent, render} from '@testing-library/react';
 import BRNumber from './index.js';
 
- afterEach(cleanup)
+afterEach(cleanup)
 
 
 
@@ -12,7 +12,7 @@ import BRNumber from './index.js';
     type="text"
     name="BRN"
     label="BRN"
-    materialProps={{"data-testid": "BRN"}}
+    materialProps={{"data-test-id": "BRN"}}
   />); 
  
    const input = container.getByTestId('BRN');
@@ -29,7 +29,7 @@ import BRNumber from './index.js';
     type="text"
     name="BRN"
     label="BRN"
-    materialProps={{"data-testid": "BRN"}}
+    materialProps={{"data-test-id": "BRN"}}
   />); 
  
    const input = container.getByTestId('BRN');
@@ -44,7 +44,7 @@ import BRNumber from './index.js';
     type="text"
     name="BRN"
     label="BRN"
-    materialProps={{"data-testid": "BRN", maxLength: 10}}
+    materialProps={{"data-test-id": "BRN", maxLength: 10}}
   />); 
  
    const input = container.getByTestId('BRN');
@@ -59,7 +59,7 @@ import BRNumber from './index.js';
     type="text"
     name="BRN"
     label="BRN"
-    materialProps={{"data-testid": "BRN"}}
+    materialProps={{"data-test-id": "BRN"}}
   />);
   const input = wrapper.getByTestId('BRN');
   expect(input.maxLength).toBe(9);
@@ -70,7 +70,7 @@ test('should match the snapshot', () => {
     type="text"
     name="BRN"
     label="BRN"
-    materialProps={{"data-testid": "BRN"}}
+    materialProps={{"data-test-id": "BRN"}}
   />)
   expect(asFragment).toMatchSnapshot()
  });

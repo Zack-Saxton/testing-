@@ -3,27 +3,27 @@
 exports[`should match  snapshot 1`] = `
 <DocumentFragment>
   <div
-    class="MuiFormControl-root MuiTextField-root makeStyles-dynamic-17 MuiFormControl-fullWidth"
+    className="MuiFormControl-root MuiTextField-root makeStyles-dynamic-17 MuiFormControl-fullWidth"
   >
     <label
-      class="MuiFormLabel-root MuiInputLabel-root makeStyles-cssLabel-16 MuiInputLabel-formControl MuiInputLabel-animated Mui-required Mui-required"
+      className="MuiFormLabel-root MuiInputLabel-root makeStyles-cssLabel-16 MuiInputLabel-formControl MuiInputLabel-animated Mui-required Mui-required"
       data-shrink="false"
     >
       Enter your first name
       <span
         aria-hidden="true"
-        class="MuiFormLabel-asterisk MuiInputLabel-asterisk"
+        className="MuiFormLabel-asterisk MuiInputLabel-asterisk"
       >
          *
       </span>
     </label>
     <div
-      class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+      className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
     >
       <input
         aria-invalid="false"
-        class="MuiInputBase-input MuiInput-input"
-        data-testid="test"
+        className="MuiInputBase-input MuiInput-input"
+        data-test-id="test"
         name="firstName"
         required=""
         type="text"

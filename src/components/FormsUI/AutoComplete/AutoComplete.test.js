@@ -1,9 +1,9 @@
 import React from 'react'
-import {render, cleanup, fireEvent } from '@testing-library/react'
+import {cleanup, fireEvent, render} from '@testing-library/react'
 import AutoComplete from './index.js'
 import '@testing-library/jest-dom';
 
- afterEach(cleanup)
+afterEach(cleanup)
 
 
 
@@ -15,7 +15,7 @@ import '@testing-library/jest-dom';
 										jsonInput='[{"value":"India"}, {"value":"USA"}]'
 										placeholder="Choose Country"
 										styleAutocomplete='{"width":"300px"}'
-                    data-testid="autoComplete"
+                    data-test-id="autoComplete"
 									/>);
  
 
@@ -40,7 +40,7 @@ import '@testing-library/jest-dom';
     jsonInput='[{"value":"India"}, {"value":"USA"}]'
     placeholder="Choose Country"
     styleAutocomplete='{"width":"300px"}'
-    data-testid="autoComplete"
+    data-test-id="autoComplete"
   />)
   expect(asFragment).toMatchSnapshot()
  });

@@ -1,9 +1,9 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import {makeStyles} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import { ButtonPrimary,ButtonWithIcon,ButtonSecondary,Radio, Checkbox } from "../../../FormsUI";
+import {ButtonPrimary, ButtonSecondary, ButtonWithIcon, Checkbox, Radio,} from "../../../FormsUI";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import PropTypes from "prop-types";
@@ -14,11 +14,12 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import { NavLink } from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import DesktopMacIcon from '@material-ui/icons/DesktopMac';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import Tooltip from '@material-ui/core/Tooltip';
+import ScrollToTopOnMount from '../../scrollToTop';
 import "./selectoffer.css"
 
 function TabPanel(props) {
@@ -28,7 +29,7 @@ function TabPanel(props) {
     <div
       role="tabpanel"
       hidden={value !== index}
-      id={`scrollable-auto-tabpanel-${index}`}
+      id={`scrollable-auto-tab-panel-${index}`}
       aria-labelledby={`scrollable-auto-tab-${index}`}
       {...other}
     >
@@ -50,22 +51,22 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `scrollable-auto-tab-${index}`,
-    "aria-controls": `scrollable-auto-tabpanel-${index}`,
+    "aria-controls": `scrollable-auto-tab-panel-${index}`,
   };
 }
 
 function TabVerticalPanel(props) {
-  const { children, value, verticalindex, ...other } = props;
+  const { children, value, verticalIndex, ...other } = props;
 
   return (
     <div
-      //role="tabpanel"
-      hidden={value !== verticalindex}
-      id={`scrollable-auto-tabpanel-${verticalindex}`}
-      aria-labelledby={`scrollable-auto-tab-${verticalindex}`}
+      //role="tab-panel"
+      hidden={value !== verticalIndex}
+      id={`scrollable-auto-tab-panel-${verticalIndex}`}
+      aria-labelledby={`scrollable-auto-tab-${verticalIndex}`}
       {...other}
     >
-      {value === verticalindex && (
+      {value === verticalIndex && (
         <Box>
           <Typography>{children}</Typography>
         </Box>
@@ -76,14 +77,14 @@ function TabVerticalPanel(props) {
 
 TabVerticalPanel.propTypes = {
   children: PropTypes.node,
-  verticalindex: PropTypes.any.isRequired,
+  verticalIndex: PropTypes.any.isRequired,
   value: PropTypes.any.isRequired,
 };
 
-function tabVerticalProps(verticalindex) {
+function tabVerticalProps(verticalIndex) {
   return {
-    id: `scrollable-auto-tab-vertical-${verticalindex}`,
-    "aria-controls": `scrollable-auto-tabpanel-${verticalindex}`,
+    id: `scrollable-auto-tab-vertical-${verticalIndex}`,
+    "aria-controls": `scrollable-auto-tab-panel-${verticalIndex}`,
   };
 }
 
@@ -97,8 +98,8 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     color: theme.palette.text.secondary,
   },
-  paperverticaltab:{    
-    paddingTop:"20px",
+  paperVerticalTab: {
+    paddingTop: "20px",
     paddingBottom: "20px",
     display: "flex",
     flexDirection: "column",
@@ -107,97 +108,103 @@ const useStyles = makeStyles((theme) => ({
   heading: {
     color: "#fff",
     fontWeight: "400",
-    fontSize:"1.64rem"
+    fontSize: "1.64rem",
+    paddingLeft:"7px",
+    paddingBottom:"25px"
   },
-  tablabel: {
+  tabLabel: {
     background: "white",
-    margin: "10px",   
+    margin: "10px",
     color: "#3f51b5",
-    fontFamily: "Segoe UI",
+    fontFamily: "'Multi', sans-serif !important",
     fontSize: "1rem",
     textTransform: "none",
     fontWeight: "600",
   },
-  tabverticallabel: {
-   
+  tabVerticalLabel: {
     color: "#3f51b5",
     textTransform: "none",
     fontWeight: "600",
-    fontFamily: "Segoe UI",
+    fontFamily: "'Multi', sans-serif !important",
     fontSize: "1rem",
     textAlign: "start",
   },
-  
+
   table: {
     minWidth: 650,
   },
-  tablehead:{
+  tableHead: {
     color: "#171717!important",
     fontWeight: "600",
-    fontSize:"1rem"
+    fontSize: "1rem",
   },
-  tableheadrow:{
+  tableHeadRow: {
     color: "#171717!important",
-    fontSize:"15px"
+    fontSize: "15px",
   },
   indicator: {
     left: "0px",
-    background: "unset"
-   
+    background: "unset",
   },
 }));
 
 function createData(
   select,
-  loanamount,
+  loanAmount,
   availability,
   apr,
-  monthlypayment,
-  compare
+  monthlyPayment,
+  compare,
+  name
 ) {
   return {
     select,
-    loanamount,
+    loanAmount,
     availability,
     apr,
-    monthlypayment,
+    monthlyPayment,
     compare,
+    name
   };
 }
- const branch =<Grid container direction="row" alignItems="center">
- <AccountBalanceIcon /> Inbranch
-</Grid>
+const branch = (
+  <Grid container direction="row" alignItems="center">
+    <AccountBalanceIcon /> In branch
+  </Grid>
+);
 
-const online = <Grid container direction="row" alignItems="center">
-<DesktopMacIcon /> Online
-</Grid>
- const rows48term = [
-  createData("", "$10,000", branch, "23.99%", "$325.96", ""),
-  createData("", "$9,500", branch, "23.99%", "$315.96", ""),
-  createData("", "$9,000", branch, "23.99%", "$305.96", ""),
-  createData("", "$8,500", online, "23.99%", "$285.96", ""),
-  createData("", "$8,000", online, "23.99%", "$275.96", ""),
-  createData("", "$7,000", online, "23.99%", "$265.96", ""),
+const online = (
+  <Grid container direction="row" alignItems="center">
+    <DesktopMacIcon /> Online
+  </Grid>
+);
+const rows48term = [
+  createData("", "$10,000", branch, "23.99%", "$325.96", "","Tori Vega"),
+  createData("", "$9,500", branch, "23.99%", "$315.96", "","Jade"),
+  createData("", "$9,000", branch, "23.99%", "$305.96", "","Christy"),
+  createData("", "$8,500", online, "23.99%", "$285.96", "","Gaby"),
+  createData("", "$8,000", online, "23.99%", "$275.96", "","Sam"),
+  createData("", "$7,000", online, "23.99%", "$265.96", "","Cat"),
 ];
 
 const rows36term = [
-  createData("", "$10,000", branch, "23.99%", "$309.96", ""),
-  createData("", "$9,000", online, "23.99%", "$298.96", ""),
+  createData("", "$10,000", branch, "23.99%", "$309.96", "","Finch"),
+  createData("", "$9,000", online, "23.99%", "$298.96", "","Andre"),
 ];
 
 const rows24term = [
-  createData("", "$10,000", online, "18.99%", "$303.96", ""),
-  createData("", "$9,000", branch, "18.99%", "$289.96", ""),
+  createData("", "$10,000", online, "18.99%", "$303.96", "","Robbie"),
+  createData("", "$9,000", branch, "18.99%", "$289.96", "","Beck"),
 ];
 
 const rows12term = [
-  createData("", "$10,000", branch, "18.99%", "$300.96", ""),
-  createData("", "$9,000", online, "18.99%", "$281.96", ""),
+  createData("", "$10,000", branch, "18.99%", "$300.96", "","Roscoe"),
+  createData("", "$9,000", online, "18.99%", "$281.96", "","John"),
 ];
 
-const rowschart = [
-  createData("", "$10,000", branch, "23.99%", "$325.96", "12 mo"),
-  createData("", "$9,000", online, "23.99%", "$309.96", "48 mo"),
+const rowChart = [
+  createData("", "$10,000", branch, "23.99%", "$325.96", "12 mo","Annie"),
+  createData("", "$9,000", online, "23.99%", "$309.96", "48 mo","Anne"),
 ];
 
 export default function ApplyLoan() {
@@ -212,34 +219,34 @@ export default function ApplyLoan() {
   const handleTabChange = (event, newValues) => {
     setValues(newValues);
   };
-  
+
   return (
     <div>
-      <Grid container justify={"center"} style={{ marginTop: "-150px", paddingRight:"30px", paddingLeft:"30px" }}>
-      <Grid item xs={12}  fullWidth={true} direction="row" style={{ marginBottom: "-20px" }}>
-            <Typography>
-            
-              <h3 className={classes.heading} >
+      <ScrollToTopOnMount />
+      <Grid container justifyContent={"center"} style={{ marginTop: "-150px", paddingRight:"30px", paddingLeft:"30px" }}>
+      <Grid container item xs={12}   direction="row" style={{ marginBottom: "-20px", width:"100%"}}>
+            <Typography className={classes.heading} variant="h3">
               <NavLink
-                  to="/customers/accountoverview"
-                  style={{ textDecoration: "none" }}
-                >
-                  <ButtonWithIcon
-                        icon="arrow_backwardIcon"
-                        iconposition="left"
-                        stylebutton='{"background": "#fff", "color":"#214476",
+                to="/customers/accountOverview"
+                style={{ textDecoration: "none" }}
+              >
+                <ButtonWithIcon
+                  icon="arrow_backwardIcon"
+                  iconposition="left"
+                  stylebutton='{"background": "#fff", "color":"#214476",
                         "minWidth": "0px",
                         "width": "36px",
                         "padding": "0px",
                         "marginRight": "5px",
                       "marginTop":"unset" }'
-                        styleicon='{ "color":"" }'
-                      />
-                      </NavLink> Apply for a Loan</h3>
-            </Typography>
-          </Grid>
+                  styleicon='{ "color":"" }'
+                />
+              </NavLink>{" "}
+              Apply for a Loan
+          </Typography>
+        </Grid>
 
-        <Grid item xs={12}  >
+        <Grid item xs={12}>
           <Tabs
             value={value}
             onChange={handleChange}
@@ -247,41 +254,40 @@ export default function ApplyLoan() {
             textColor="primary"
             variant="scrollable"
             scrollButtons="auto"
+            style={{paddingTop:"10px"}}
             aria-label="scrollable auto tabs example"
           >
             <Tab
               label="1. Select Offer"
-              className={classes.tablabel}
+              className={classes.tabLabel}
               {...a11yProps(0)}
             />
             <Tab
               label="2. Review & Sign"
               disabled={true}
-              className={classes.tablabel}
+              className={classes.tabLabel}
             />
             <Tab
               label="3. Final Verification"
               disabled={true}
-              className={classes.tablabel}
+              className={classes.tabLabel}
             />
             <Tab
               label="4. Receive your money"
               disabled={true}
-              className={classes.tablabel}
+              className={classes.tabLabel}
             />
           </Tabs>
 
           <TabPanel value={value} index={0}>
-            <Grid container xs={12}>
+            <Grid container item xs={12}>
               <Grid
                 item
                 xs={12}
                 sm={3}
-                fullWidth={true}
-                direction="row"
-                style={{ padding: "5px" }}
+                style={{ padding: "5px", width: "100%"}}
               >
-                <Paper className={classes.paperverticaltab}>
+                <Paper className={classes.paperVerticalTab}>
                   <Tabs
                     value={values}
                     onChange={handleTabChange}
@@ -292,8 +298,8 @@ export default function ApplyLoan() {
                     scrollButtons="auto"
                     orientation="vertical"
                     variant="scrollable"
+                    style={{paddingTop:"5px"}}
                     aria-label="scrollable auto tabs example"
-                    className={classes.tabsvertical}
                   >
                     <Tab
                       label={
@@ -301,9 +307,8 @@ export default function ApplyLoan() {
                           48 Month Term
                         </span>
                       }
-                      className={classes.tabverticallabel}
+                      className={classes.tabVerticalLabel}
                       {...tabVerticalProps(0)}
-                     
                     />
 
                     <Tab
@@ -312,19 +317,18 @@ export default function ApplyLoan() {
                           36 Month Term
                         </span>
                       }
-                     
-                      className={classes.tabverticallabel }
+                      className={classes.tabVerticalLabel}
                       {...tabVerticalProps(1)}
                     />
 
                     <Tab
-                      id="tabvertica"
+                      id="tab-vertical"
                       label={
                         <span style={{ float: "left", width: "100%" }}>
                           24 Month Term
                         </span>
                       }
-                      className={classes.tabverticallabel}
+                      className={classes.tabVerticalLabel}
                       {...tabVerticalProps(2)}
                     />
                     <Tab
@@ -333,7 +337,7 @@ export default function ApplyLoan() {
                           12 Month Term
                         </span>
                       }
-                      className={classes.tabverticallabel}
+                      className={classes.tabVerticalLabel}
                       {...tabVerticalProps(3)}
                     />
                     <Tab
@@ -342,29 +346,25 @@ export default function ApplyLoan() {
                           Comparison Chart
                         </span>
                       }
-                      className={classes.tabverticallabel}
+                      className={classes.tabVerticalLabel}
                       {...tabVerticalProps(4)}
                     />
                   </Tabs>
                 </Paper>
               </Grid>
 
-              <Grid
+              <Grid 
                 item
                 xs={12}
                 sm={9}
-                fullWidth={true}
-                direction="row"
-                style={{ padding: "5px" }}
+                style={{ padding: "5px", width: "100%" }}
               >
                 <Paper className={classes.paper}>
-                  <TabVerticalPanel value={values} verticalindex={0}>
+                  <TabVerticalPanel value={values} verticalIndex={0}>
                     <Grid
                       item
                       xs={12}
-                      fullWidth={true}
-                      direction="row"
-                      style={{ paddingBottom: "10px" }}
+                      style={{ paddingBottom: "10px",width:"100%"}}
                     >
                       <TableContainer>
                         <Table
@@ -373,39 +373,39 @@ export default function ApplyLoan() {
                         >
                           <TableHead>
                             <TableRow>
-                              <TableCell className={classes.tablehead}>
+                              <TableCell className={classes.tableHead}>
                                 Select
                               </TableCell>
                               <TableCell
-                                className={classes.tablehead}
-                                align="center"
+                                className={classes.tableHead}
+                                align="left"
                               >
                                 Loan Amount
                               </TableCell>
                               <TableCell
-                                className={classes.tablehead}
-                                align="center"
+                                className={classes.tableHead}
+                                align="left"
                               >
                                 Availability
                               </TableCell>
                               <TableCell
-                                className={classes.tablehead}
-                                align="center"
+                                className={classes.tableHead}
+                                align="left"
                               >
                                <Grid container direction="row" alignItems="center"> APR &nbsp;
-                               <Tooltip title="APR" placement="start-top">
+                               <Tooltip title="APR" placement="top-start" enterTouchDelay={200}>
                                <InfoOutlinedIcon style={{ fontSize:"small", color:"blue"}} /></Tooltip>
                                </Grid>
                               </TableCell>
                               <TableCell
-                                className={classes.tablehead}
-                                align="center"
+                                className={classes.tableHead}
+                                align="left"
                               >
                                 Monthly Payment
                               </TableCell>
                               <TableCell
-                                className={classes.tablehead}
-                                align="center"
+                                className={classes.tableHead}
+                                align="left"
                               >
                                 Compare
                               </TableCell>
@@ -414,28 +414,48 @@ export default function ApplyLoan() {
                           <TableBody>
                             {rows48term.map((row) => (
                               <TableRow key={row.name}>
-                                <TableCell component="th" className={classes.tableheadrow} scope="row">
+                                <TableCell
+                                  component="th"
+                                  className={classes.tableHeadRow}
+                                  scope="row"
+                                >
                                   <Radio
                                     name="select"
                                     radiolabel='[{ "value":"select"}]'
                                   />
                                 </TableCell>
-                                <TableCell className={classes.tableheadrow} align="center">
-                                  {row.loanamount}
+                                <TableCell
+                                  className={classes.tableHeadRow}
+                                  align="left"
+                                >
+                                  {row.loanAmount}
                                 </TableCell>
-                                <TableCell className={classes.tableheadrow} align="center">
-
-                                {row.availability}
+                                <TableCell
+                                  className={classes.tableHeadRow}
+                                  align="left"
+                                >
+                                  {row.availability}
                                 </TableCell>
-                                <TableCell className={classes.tableheadrow} align="center">{row.apr}</TableCell>
-                                <TableCell className={classes.tableheadrow} align="center">
-                                  {row.monthlypayment}
+                                <TableCell
+                                  className={classes.tableHeadRow}
+                                  align="left"
+                                >
+                                  {row.apr}
                                 </TableCell>
-                                <TableCell className={classes.tableheadrow} align="center">
+                                <TableCell
+                                  className={classes.tableHeadRow}
+                                  align="left"
+                                >
+                                  {row.monthlyPayment}
+                                </TableCell>
+                                <TableCell
+                                  className={classes.tableHeadRow}
+                                  align="left"
+                                >
                                   <Checkbox
                                     name="rememberme"
                                     label="Add"
-                                    labelid="rememberme"
+                                    labelid="remember-me"
                                     testid="checkbox"
                                     stylelabelform='{ "color":"" }'
                                     stylecheckbox='{ "color":"" }'
@@ -448,72 +468,77 @@ export default function ApplyLoan() {
                         </Table>
                       </TableContainer>
                     </Grid>
-                    <Grid container  direction="row">
+                    <Grid container direction="row">
+                        
                       <Grid
-                        item 
-                        xs={10}
+                        container
+                        item
+                        xs={20}
                         sm={1}
                         direction="row"
-                        style={{ paddingTop: "10px" }}
+                        style={{ paddingTop: "10px" ,float:"left"}}
                       >
                         <ButtonSecondary
-                          stylebutton='{"margin-right": "" }'
+                          stylebutton='{"marginRight": "" }'
                           styleicon='{ "color":"" }'
-                          id="applyloan-resetbutton"
+                          id="apply-loan-reset-button"
                         >
                           Reset
                         </ButtonSecondary>
                       </Grid>
 
                       <Grid
+                        container
                         item
                         xs={10}
                         sm={3}
                         direction="row"
-                        style={{ padding: "10px" }}
-                        id="applyloan-continuebutton-grid"
+                        style={{ padding: "10px",float:"left", }}
+                        id="apply-loan-continue-button-grid"
                       >
                         <NavLink
-                          to="/customers/reviewandsign"
-                          style={{ textDecoration: "none" }}
+                          to="/customers/reviewAndSign"
+                          style={{ textDecoration: "none",width:"inherit",}}
                         >
                           <ButtonPrimary
-                             stylebutton='{"margin-left": "10px" }'
-                            id="applyloan-continuebutton"
+                            stylebutton='{"marginLeft": "10px" ,"fontSize":"1rem"}'
+                            id="apply-loan-continue-button"
                           >
                             Continue
                           </ButtonPrimary>
                         </NavLink>
                       </Grid>
 
-                      <Grid
+
+                       <Grid
+                        container
                         item
-                        xs={10}
+                        xs={20}
                         sm={8}
-                        fullWidth={true}
                         direction="row"
-                        style={{ padding: "10px" }}
-                        id="applyloan-comparisionbutton-grid"
+                        style={{ padding: "10px",width: "100%",float:"right",justifyContent: "end" }}
+                        id="apply-loan-comparison-button-grid"
                       >
                         <ButtonSecondary
                           fullWidth={true}
                           stylebutton='{"background": "", "float":"right"  }'
                           styleicon='{ "color":"" }'
-                          id="applyloan-comparisionbutton"
+                          id="apply-loan-comparison-button"
                         >
                           View Comparison
                         </ButtonSecondary>
                       </Grid>
+
+                      
                     </Grid>
                   </TabVerticalPanel>
 
-                  <TabVerticalPanel value={values} verticalindex={1}>
-                    <Grid
+                  <TabVerticalPanel value={values} verticalIndex={1}>
+                    <Grid container
                       item
                       xs={12}
-                      fullWidth={true}
                       direction="row"
-                      style={{ paddingBottom: "10px" }}
+                      style={{ paddingBottom: "10px",width:"100%" }}
                     >
                       <TableContainer>
                         <Table
@@ -522,39 +547,51 @@ export default function ApplyLoan() {
                         >
                           <TableHead>
                             <TableRow>
-                              <TableCell className={classes.tablehead}>
+                              <TableCell className={classes.tableHead}>
                                 Select
                               </TableCell>
                               <TableCell
-                                className={classes.tablehead}
-                                align="center"
+                                className={classes.tableHead}
+                                align="left"
                               >
                                 Loan Amount
                               </TableCell>
                               <TableCell
-                                className={classes.tablehead}
-                                align="center"
+                                className={classes.tableHead}
+                                align="left"
                               >
                                 Availability
                               </TableCell>
                               <TableCell
-                                className={classes.tablehead}
-                                align="center"
+                                className={classes.tableHead}
+                                align="left"
                               >
-                                <Grid container direction="row" alignItems="center"> APR &nbsp;
-                               <Tooltip title="APR" placement="start-top">
-                               <InfoOutlinedIcon style={{ fontSize:"small", color:"blue"}} /></Tooltip>
-                               </Grid>
+                                <Grid
+                                  container
+                                  direction="row"
+                                  alignItems="center"
+                                >
+                                  {" "}
+                                  APR &nbsp;
+                                  <Tooltip title="APR" placement="left-start">
+                                    <InfoOutlinedIcon
+                                      style={{
+                                        fontSize: "small",
+                                        color: "blue",
+                                      }}
+                                    />
+                                  </Tooltip>
+                                </Grid>
                               </TableCell>
                               <TableCell
-                                className={classes.tablehead}
-                                align="center"
+                                className={classes.tableHead}
+                                align="left"
                               >
                                 Monthly Payment
                               </TableCell>
                               <TableCell
-                                className={classes.tablehead}
-                                align="center"
+                                className={classes.tableHead}
+                                align="left"
                               >
                                 Compare
                               </TableCell>
@@ -570,21 +607,21 @@ export default function ApplyLoan() {
                                     value="select"
                                   />
                                 </TableCell>
-                                <TableCell align="center">
-                                  {row.loanamount}
+                                <TableCell align="left">
+                                  {row.loanAmount}
                                 </TableCell>
-                                <TableCell align="center">
+                                <TableCell align="left">
                                   {row.availability}
                                 </TableCell>
-                                <TableCell align="center">{row.apr}</TableCell>
-                                <TableCell align="center">
-                                  {row.monthlypayment}
+                                <TableCell align="left">{row.apr}</TableCell>
+                                <TableCell align="left">
+                                  {row.monthlyPayment}
                                 </TableCell>
-                                <TableCell align="center">
+                                <TableCell align="left">
                                   <Checkbox
                                     name="rememberme"
                                     label="Add"
-                                    labelid="rememberme"
+                                    labelid="remember-me"
                                     testid="checkbox"
                                     stylelabelform='{ "color":"" }'
                                     stylecheckbox='{ "color":"" }'
@@ -597,59 +634,58 @@ export default function ApplyLoan() {
                         </Table>
                       </TableContainer>
                     </Grid>
-                    <Grid container  direction="row">
-                      <Grid
-                        item 
-                        xs={10}
+                    <Grid container direction="row">
+                      <Grid container
+                        item
+                        xs={20}
                         sm={1}
                         direction="row"
                         style={{ paddingTop: "10px" }}
                       >
                         <ButtonSecondary
-                          stylebutton='{"margin-right": "" }'
+                          stylebutton='{"marginRight": "" }'
                           styleicon='{ "color":"" }'
-                          id="applyloan-resetbutton"
+                          id="apply-loan-reset-button"
                         >
                           Reset
                         </ButtonSecondary>
                       </Grid>
 
-                      <Grid
+                      <Grid container
                         item
                         xs={10}
                         sm={3}
                         direction="row"
                         style={{ padding: "10px" }}
-                        id="applyloan-continuebutton-grid"
+                        id="apply-loan-continue-button-grid"
                       >
                         <NavLink
-                          to="/customers/reviewandsign"
-                          style={{ textDecoration: "none" }}
+                          to="/customers/reviewAndSign"
+                          style={{ textDecoration: "none",width:"inherit" }}
                         >
                           <ButtonPrimary
-                            stylebutton='{"margin-left": "10px" }'
+                            stylebutton='{"marginLeft": "10px","fontSize":"1rem" }'
                             styleicon='{ "color":"" }'
-                            id="applyloan-continuebutton"
+                            id="apply-loan-continue-button"
                           >
                             Continue
                           </ButtonPrimary>
                         </NavLink>
                       </Grid>
 
-                      <Grid
+                      <Grid container
                         item
-                        xs={10}
+                        xs={20}
                         sm={8}
-                        fullWidth={true}
                         direction="row"
-                        style={{ padding: "10px" }}
-                        id="applyloan-comparisionbutton-grid"
+                        style={{ padding: "10px",width: "100%",justifyContent: "end" }}
+                        id="apply-loan-comparison-button-grid"
                       >
                         <ButtonSecondary
                           fullWidth={true}
                           stylebutton='{"background": "", "float":"right"  }'
                           styleicon='{ "color":"" }'
-                          id="applyloan-comparisionbutton"
+                          id="apply-loan-comparison-button"
                         >
                           View Comparison
                         </ButtonSecondary>
@@ -657,13 +693,12 @@ export default function ApplyLoan() {
                     </Grid>
                   </TabVerticalPanel>
 
-                  <TabVerticalPanel value={values} verticalindex={2}>
-                    <Grid
+                  <TabVerticalPanel value={values} verticalIndex={2}>
+                    <Grid container
                       item
                       xs={12}
-                      fullWidth={true}
                       direction="row"
-                      style={{ paddingBottom: "10px" }}
+                      style={{ paddingBottom: "10px",width:"100%" }}
                     >
                       <TableContainer>
                         <Table
@@ -672,39 +707,51 @@ export default function ApplyLoan() {
                         >
                           <TableHead>
                             <TableRow>
-                              <TableCell className={classes.tablehead}>
+                              <TableCell className={classes.tableHead}>
                                 Select
                               </TableCell>
                               <TableCell
-                                className={classes.tablehead}
-                                align="center"
+                                className={classes.tableHead}
+                                align="left"
                               >
                                 Loan Amount
                               </TableCell>
                               <TableCell
-                                className={classes.tablehead}
-                                align="center"
+                                className={classes.tableHead}
+                                align="left"
                               >
                                 Availability
                               </TableCell>
                               <TableCell
-                                className={classes.tablehead}
-                                align="center"
+                                className={classes.tableHead}
+                                align="left"
                               >
-                                <Grid container direction="row" alignItems="center"> APR &nbsp;
-                               <Tooltip title="APR" placement="start-top">
-                               <InfoOutlinedIcon style={{ fontSize:"small", color:"blue"}} /></Tooltip>
-                               </Grid>
+                                <Grid
+                                  container
+                                  direction="row"
+                                  alignItems="center"
+                                >
+                                  {" "}
+                                  APR &nbsp;
+                                  <Tooltip title="APR" placement="start-top">
+                                    <InfoOutlinedIcon
+                                      style={{
+                                        fontSize: "small",
+                                        color: "blue",
+                                      }}
+                                    />
+                                  </Tooltip>
+                                </Grid>
                               </TableCell>
                               <TableCell
-                                className={classes.tablehead}
-                                align="center"
+                                className={classes.tableHead}
+                                align="left"
                               >
                                 Monthly Payment
                               </TableCell>
                               <TableCell
-                                className={classes.tablehead}
-                                align="center"
+                                className={classes.tableHead}
+                                align="left"
                               >
                                 Compare
                               </TableCell>
@@ -720,21 +767,21 @@ export default function ApplyLoan() {
                                     value="select"
                                   />
                                 </TableCell>
-                                <TableCell align="center">
-                                  {row.loanamount}
+                                <TableCell align="left">
+                                  {row.loanAmount}
                                 </TableCell>
-                                <TableCell align="center">
+                                <TableCell align="left">
                                   {row.availability}
                                 </TableCell>
-                                <TableCell align="center">{row.apr}</TableCell>
-                                <TableCell align="center">
-                                  {row.monthlypayment}
+                                <TableCell align="left">{row.apr}</TableCell>
+                                <TableCell align="left">
+                                  {row.monthlyPayment}
                                 </TableCell>
-                                <TableCell align="center">
+                                <TableCell align="left">
                                   <Checkbox
                                     name="rememberme"
                                     label="Add"
-                                    labelid="rememberme"
+                                    labelid="remember-me"
                                     testid="checkbox"
                                     stylelabelform='{ "color":"" }'
                                     stylecheckbox='{ "color":"" }'
@@ -747,72 +794,70 @@ export default function ApplyLoan() {
                         </Table>
                       </TableContainer>
                     </Grid>
-                    <Grid container  direction="row">
-                      <Grid
-                        item 
-                        xs={10}
+                    <Grid container direction="row">
+                      <Grid container
+                        item
+                        xs={20}
                         sm={1}
                         direction="row"
                         style={{ paddingTop: "10px" }}
                       >
                         <ButtonSecondary
-                          stylebutton='{"margin-right": "" }'
+                          stylebutton='{"marginRight": "" }'
                           styleicon='{ "color":"" }'
-                          id="applyloan-resetbutton"
+                          id="apply-loan-reset-button"
                         >
                           Reset
                         </ButtonSecondary>
                       </Grid>
 
-                      <Grid
+                      <Grid container
                         item
                         xs={10}
                         sm={3}
                         direction="row"
                         style={{ padding: "10px" }}
-                        id="applyloan-continuebutton-grid"
+                        id="apply-loan-continue-button-grid"
                       >
                         <NavLink
-                          to="/customers/reviewandsign"
-                          style={{ textDecoration: "none" }}
+                          to="/customers/reviewAndSign"
+                          style={{ textDecoration: "none",width:"inherit" }}
                         >
                           <ButtonPrimary
-                            stylebutton='{"margin-left": "10px" }'
+                            stylebutton='{"marginLeft": "10px","fontSize":"1rem" }'
                             styleicon='{ "color":"" }'
-                            id="applyloan-continuebutton"
+                            id="apply-loan-continue-button"
                           >
                             Continue
                           </ButtonPrimary>
                         </NavLink>
                       </Grid>
 
-                      <Grid
+                      <Grid container
                         item
-                        xs={10}
+                        xs={20}
                         sm={8}
-                        fullWidth={true}
                         direction="row"
-                        style={{ padding: "10px" }}
-                        id="applyloan-comparisionbutton-grid"
+                        style={{ padding: "10px",width:"100%",justifyContent: "end"}}
+                        id="apply-loan-comparison-button-grid"
                       >
                         <ButtonSecondary
                           fullWidth={true}
                           stylebutton='{"background": "", "float":"right"  }'
                           styleicon='{ "color":"" }'
-                          id="applyloan-comparisionbutton"
+                          id="apply-loan-comparison-button"
                         >
                           View Comparison
                         </ButtonSecondary>
                       </Grid>
                     </Grid>
                   </TabVerticalPanel>
-                  <TabVerticalPanel value={values} verticalindex={3}>
-                    <Grid
+                  <TabVerticalPanel value={values} verticalIndex={3}>
+                    <Grid container
                       item
                       xs={12}
-                      fullWidth={true}
                       direction="row"
-                      style={{ paddingBottom: "10px" }}
+                      style={{ paddingBottom: "10px",width:"100%" }}
                     >
                       <TableContainer>
                         <Table
@@ -821,39 +866,51 @@ export default function ApplyLoan() {
                         >
                           <TableHead>
                             <TableRow>
-                              <TableCell className={classes.tablehead}>
+                              <TableCell className={classes.tableHead}>
                                 Select
                               </TableCell>
                               <TableCell
-                                className={classes.tablehead}
-                                align="center"
+                                className={classes.tableHead}
+                                align="left"
                               >
                                 Loan Amount
                               </TableCell>
                               <TableCell
-                                className={classes.tablehead}
-                                align="center"
+                                className={classes.tableHead}
+                                align="left"
                               >
                                 Availability
                               </TableCell>
                               <TableCell
-                                className={classes.tablehead}
-                                align="center"
+                                className={classes.tableHead}
+                                align="left"
                               >
-                                 <Grid container direction="row" alignItems="center"> APR &nbsp;
-                               <Tooltip title="APR" placement="start-top">
-                               <InfoOutlinedIcon style={{ fontSize:"small", color:"blue"}} /></Tooltip>
-                               </Grid>
+                                <Grid
+                                  container
+                                  direction="row"
+                                  alignItems="center"
+                                >
+                                  {" "}
+                                  APR &nbsp;
+                                  <Tooltip title="APR" placement="start-top">
+                                    <InfoOutlinedIcon
+                                      style={{
+                                        fontSize: "small",
+                                        color: "blue",
+                                      }}
+                                    />
+                                  </Tooltip>
+                                </Grid>
                               </TableCell>
                               <TableCell
-                                className={classes.tablehead}
-                                align="center"
+                                className={classes.tableHead}
+                                align="left"
                               >
                                 Monthly Payment
                               </TableCell>
                               <TableCell
-                                className={classes.tablehead}
-                                align="center"
+                                className={classes.tableHead}
+                                align="left"
                               >
                                 Compare
                               </TableCell>
@@ -869,21 +926,21 @@ export default function ApplyLoan() {
                                     value="select"
                                   />
                                 </TableCell>
-                                <TableCell align="center">
-                                  {row.loanamount}
+                                <TableCell align="left">
+                                  {row.loanAmount}
                                 </TableCell>
-                                <TableCell align="center">
+                                <TableCell align="left">
                                   {row.availability}
                                 </TableCell>
-                                <TableCell align="center">{row.apr}</TableCell>
-                                <TableCell align="center">
-                                  {row.monthlypayment}
+                                <TableCell align="left">{row.apr}</TableCell>
+                                <TableCell align="left">
+                                  {row.monthlyPayment}
                                 </TableCell>
-                                <TableCell align="center">
+                                <TableCell align="left">
                                   <Checkbox
                                     name="rememberme"
                                     label="Add"
-                                    labelid="rememberme"
+                                    labelid="remember-me"
                                     testid="checkbox"
                                     stylelabelform='{ "font-size":"12px" }'
                                     stylecheckbox='{ "font-size":"12px" }'
@@ -896,72 +953,70 @@ export default function ApplyLoan() {
                         </Table>
                       </TableContainer>
                     </Grid>
-                    <Grid container  direction="row">
-                      <Grid
-                        item 
-                        xs={10}
+                    <Grid container direction="row">
+                      <Grid container
+                        item
+                        xs={20}
                         sm={1}
                         direction="row"
                         style={{ paddingTop: "10px" }}
                       >
                         <ButtonSecondary
-                          stylebutton='{"margin-right": "" }'
+                          stylebutton='{"marginRight": "" }'
                           styleicon='{ "color":"" }'
-                          id="applyloan-resetbutton"
+                          id="apply-loan-reset-button"
                         >
                           Reset
                         </ButtonSecondary>
                       </Grid>
 
-                      <Grid
+                      <Grid container
                         item
                         xs={10}
                         sm={3}
                         direction="row"
                         style={{ padding: "10px" }}
-                        id="applyloan-continuebutton-grid"
+                        id="apply-loan-continue-button-grid"
                       >
                         <NavLink
-                          to="/customers/reviewandsign"
-                          style={{ textDecoration: "none" }}
+                          to="/customers/reviewAndSign"
+                          style={{ textDecoration: "none",width:"inherit" }}
                         >
                           <ButtonPrimary
-                            stylebutton='{"margin-left": "10px" }'
+                            stylebutton='{"marginLeft": "10px","fontSize":"1rem"}'
                             styleicon='{ "color":"" }'
-                            id="applyloan-continuebutton"
+                            id="apply-loan-continue-button"
                           >
                             Continue
                           </ButtonPrimary>
                         </NavLink>
                       </Grid>
 
-                      <Grid
+                      <Grid container
                         item
-                        xs={10}
+                        xs={20}
                         sm={8}
-                        fullWidth={true}
                         direction="row"
-                        style={{ padding: "10px" }}
-                        id="applyloan-comparisionbutton-grid"
+                        style={{ padding: "10px",width: "100%",justifyContent: "end" }}
+                        id="apply-loan-comparison-button-grid"
                       >
                         <ButtonSecondary
                           fullWidth={true}
                           stylebutton='{"background": "", "float":"right"  }'
                           styleicon='{ "color":"" }'
-                          id="applyloan-comparisionbutton"
+                          id="apply-loan-comparison-button"
                         >
                           View Comparison
                         </ButtonSecondary>
                       </Grid>
                     </Grid>
                   </TabVerticalPanel>
-                  <TabVerticalPanel value={values} verticalindex={4}>
-                    <Grid
+                  <TabVerticalPanel value={values} verticalIndex={4}>
+                    <Grid container
                       item
                       xs={12}
-                      fullWidth={true}
                       direction="row"
-                      style={{ paddingBottom: "10px" }}
+                      style={{ paddingBottom: "10px", width:"100%" }}
                     >
                       <TableContainer>
                         <Table
@@ -970,46 +1025,58 @@ export default function ApplyLoan() {
                         >
                           <TableHead>
                             <TableRow>
-                              <TableCell className={classes.tablehead}>
+                              <TableCell className={classes.tableHead}>
                                 Select
                               </TableCell>
                               <TableCell
-                                className={classes.tablehead}
-                                align="center"
+                                className={classes.tableHead}
+                                align="left"
                               >
                                 Loan Amount
                               </TableCell>
                               <TableCell
-                                className={classes.tablehead}
-                                align="center"
+                                className={classes.tableHead}
+                                align="left"
                               >
                                 Availability
                               </TableCell>
                               <TableCell
-                                className={classes.tablehead}
-                                align="center"
+                                className={classes.tableHead}
+                                align="left"
                               >
-                                <Grid container direction="row" alignItems="center"> APR &nbsp;
-                               <Tooltip title="APR" placement="start-top">
-                               <InfoOutlinedIcon style={{ fontSize:"small", color:"blue"}} /></Tooltip>
-                               </Grid>
+                                <Grid
+                                  container
+                                  direction="row"
+                                  alignItems="center"
+                                >
+                                  {" "}
+                                  APR &nbsp;
+                                  <Tooltip title="APR" placement="start-top">
+                                    <InfoOutlinedIcon
+                                      style={{
+                                        fontSize: "small",
+                                        color: "blue",
+                                      }}
+                                    />
+                                  </Tooltip>
+                                </Grid>
                               </TableCell>
                               <TableCell
-                                className={classes.tablehead}
-                                align="center"
+                                className={classes.tableHead}
+                                align="left"
                               >
                                 Monthly Payment
                               </TableCell>
                               <TableCell
-                                className={classes.tablehead}
-                                align="center"
+                                className={classes.tableHead}
+                                align="left"
                               >
                                 Term
                               </TableCell>
                             </TableRow>
                           </TableHead>
                           <TableBody>
-                            {rowschart.map((row) => (
+                            {rowChart.map((row) => (
                               <TableRow key={row.name}>
                                 <TableCell component="th" scope="row">
                                   <Radio
@@ -1018,17 +1085,17 @@ export default function ApplyLoan() {
                                     value="select"
                                   />
                                 </TableCell>
-                                <TableCell align="center">
-                                  {row.loanamount}
+                                <TableCell align="left">
+                                  {row.loanAmount}
                                 </TableCell>
-                                <TableCell align="center">
+                                <TableCell align="left">
                                   {row.availability}
                                 </TableCell>
-                                <TableCell align="center">{row.apr}</TableCell>
-                                <TableCell align="center">
-                                  {row.monthlypayment}
+                                <TableCell align="left">{row.apr}</TableCell>
+                                <TableCell align="left">
+                                  {row.monthlyPayment}
                                 </TableCell>
-                                <TableCell align="center">
+                                <TableCell align="left">
                                   {row.compare}
                                 </TableCell>
                               </TableRow>
@@ -1037,82 +1104,63 @@ export default function ApplyLoan() {
                         </Table>
                       </TableContainer>
                     </Grid>
-                    <Grid container  direction="row">
-                      <Grid
-                        item 
-                        xs={10}
+                    <Grid container direction="row">
+                      <Grid container
+                        item
+                        xs={20}
                         sm={1}
                         direction="row"
                         style={{ paddingTop: "10px" }}
                       >
                         <ButtonSecondary
-                          stylebutton='{"margin-right": "" }'
+                          stylebutton='{"marginRight": "" }'
                           styleicon='{ "color":"" }'
-                          id="applyloan-resetbutton"
+                          id="apply-loan-reset-button"
                         >
                           Reset
                         </ButtonSecondary>
                       </Grid>
 
-                      <Grid
+                      <Grid container
                         item
                         xs={10}
                         sm={3}
                         direction="row"
                         style={{ padding: "10px" }}
-                        id="applyloan-continuebutton-grid"
+                        id="apply-loan-continue-button-grid"
                       >
                         <NavLink
-                          to="/customers/reviewandsign"
-                          style={{ textDecoration: "none" }}
+                          to="/customers/reviewAndSign"
+                          style={{ textDecoration: "none",width:"inherit" }}
                         >
                           <ButtonPrimary
-                            stylebutton='{"margin-left": "10px" }'
+                            stylebutton='{"marginLeft": "10px","fontSize":"1rem" }'
                             styleicon='{ "color":"" }'
-                            id="applyloan-continuebutton"
+                            id="apply-loan-continue-button"
                           >
                             Continue
                           </ButtonPrimary>
                         </NavLink>
                       </Grid>
-
-                     
                     </Grid>
                   </TabVerticalPanel>
                 </Paper>
               </Grid>
             </Grid>
-            <Grid item fullWidth={true}>
-              <p
-                style={{
-                  textAlign: "justify",
-                  fontSize: ".8rem",
-                  color: "#6b6f82",
-                }}
-              >
-                {" "}
-                <small>
-                  *Loan funding subject to normal lending requirements,
+            <Grid item  style={{ width: "100%",paddingTop:"25px",paddingBottom:"70px"}}>
+                <Typography style={{textAlign: "justify",fontSize: ".8rem", color: "#6b6f82",lineHeight:"20px",paddingBottom:"20px"}}>
+                *Loan funding subject to normal lending requirements,
                   including, but not limited to, verification of applicant
                   identity, submission of any required supporting documentation,
                   and review of credit information. You must not have opened a
                   loan account with Mariner Finance, LLC or one of its
                   affiliates in the last 60 days. Loan proceeds may not be used
                   for business or commercial purposes, to finance direct
-                  postsecondary education expenses, for the purchase of
+                  post secondary education expenses, for the purchase of
                   securities, for gambling, or for any illegal purpose.
-                </small>
-              </p>
-
-              <p
-                style={{
-                  textAlign: "justify",
-                  fontSize: ".8rem",
-                  color: "#6b6f82",
-                }}
-              >
-                <small>
-                  †The stated APR represents the cost of credit as a yearly rate
+                </Typography>
+                <Typography style={{textAlign: "justify",fontSize: ".8rem",color: "#6b6f82",lineHeight:"20px",paddingBottom:"20px"}}>
+                †The stated APR represents the cost of credit as a yearly rate
                   and will be determined based upon the applicant’s credit at
                   the time of application, subject to state law limits and
                   individual underwriting. APR’s are generally higher on loans
@@ -1120,26 +1168,16 @@ export default function ApplyLoan() {
                   to the most creditworthy borrowers. All terms and conditions
                   of a loan offer, including the APR, will be disclosed during
                   the application process.
-                </small>
-              </p>
-
-              <p
-                style={{
-                  textAlign: "justify",
-                  fontSize: ".8rem",
-                  color: "#6b6f82",
-                }}
-              >
-                <small>
-                  *The process uses a “soft” credit inquiry to determine whether
+                </Typography>
+                <Typography style={{textAlign: "justify",fontSize: ".8rem",color: "#6b6f82",lineHeight:"20px",paddingBottom:"20px"}}>
+                 *The process uses a “soft” credit inquiry to determine whether
                   a loan offer is available, which does not impact your credit
                   score. If you continue with the application process online and
                   accept a loan offer, or are referred to a branch and continue
                   your application there, we will pull your credit report and
                   credit score again using a “hard” credit inquiry. This “hard”
                   credit inquiry may impact your credit score.
-                </small>
-              </p>
+                </Typography>
             </Grid>
           </TabPanel>
         </Grid>

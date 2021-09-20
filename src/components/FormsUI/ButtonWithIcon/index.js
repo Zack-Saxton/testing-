@@ -8,8 +8,8 @@ Functionality       :    To use this ButtonWithIcon as a default component for U
 #################################################################################################################*/
 
 import React from "react";
-import { Button } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import {Button} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core/styles";
 import Icon from "@material-ui/core/Icon";
 
 const ButtonWithIcon = ({
@@ -23,10 +23,10 @@ const ButtonWithIcon = ({
   
   //Styling Part
   const useStyles = makeStyles((theme) => ({
-    buttoncolor: {
+    buttonColor: {
       color: "black",
       background: "#ffbc23",
-      fontFamily: "Segoe UI",
+      fontFamily: "'Multi', sans-serif !important",
       borderRadius: "50px",
       textTransform: "capitalize",
       height: "36px",
@@ -48,20 +48,20 @@ const ButtonWithIcon = ({
   const configButton = {
     variant: "contained",
     fullWidth: true,
-    className: classes.buttoncolor,
+    className: classes.buttonColor,
     ...otherProps,
   };
 
   //parsing data using json
-  let stylebuttonMF = JSON.parse(stylebutton);
-  let styleiconMF = JSON.parse(styleicon);
+  let styleButtonMF = JSON.parse(stylebutton);
+  let styleIconMF = JSON.parse(styleicon);
 
   //View Part
   return (
-    <Button {...configButton} style={stylebuttonMF}>
-      {iconposition === "left" ? <Icon style={styleiconMF} data-testid= "icon">{icon}</Icon> : ""}
+    <Button {...configButton} style={styleButtonMF}>
+      {iconposition === "left" ? <Icon style={styleIconMF} data-testid= "icon">{icon}</Icon> : ""}
       {children}
-      {iconposition === "right" ? <Icon style={styleiconMF} data-testid= "icon">{icon}</Icon> : ""}
+      {iconposition === "right" ? <Icon style={styleIconMF} data-testid= "icon">{icon}</Icon> : ""}
     </Button>
   );
 };

@@ -200,18 +200,17 @@ export async function checkMyOfferSubmit(customer) {
 				data: JSON.stringify(body),
 				headers: {
 					"Content-Type": "application/json",
-					Accept: "*/*",
-					Host: "psa-development.marinerfinance.io",
-					"Accept-Encoding": "gzip, deflate, br",
-					Connection: "keep-alive",
-					"Content-Length": "6774",
+					// Accept: "*/*",
+					// Host: "psa-development.marinerfinance.io",
+					// "Accept-Encoding": "gzip, deflate, br",
+					// Connection: "keep-alive",
+					// "Content-Length": "6774",
 				},
 				transformRequest: (data, headers) => {
 					delete headers.common["Content-Type"];
 					return data;
 				},
 			})
-			console.log('dat',result);
 			response.appSubmissionResult = result;
 		}
 	} catch (error) {
@@ -414,18 +413,13 @@ export async function checkMyOfferSubmitTest(customer) {
 				data: JSON.stringify(bodyTest),
 				headers: {
 					"Content-Type": "application/json",
-					Accept: "*/*",
-					Host: "psa-development.marinerfinance.io",
-					"Accept-Encoding": "gzip, deflate, br",
-					Connection: "keep-alive",
-					"Content-Length": "6774",
+				
 				},
 				transformRequest: (data, headers) => {
 					delete headers.common["Content-Type"];
 					return data;
 				},
 			})
-			console.log('dat',result);
 			response.appSubmissionResult = result;
 		}
 	} catch (error) {

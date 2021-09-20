@@ -4,31 +4,31 @@ exports[`should match the snapshot 1`] = `
 <DocumentFragment>
   <div>
     <div
-      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
       style="display: inline-flex;"
     >
       <div
-        class="MuiFormControl-root MuiTextField-root makeStyles-dynamic-15 MuiFormControl-fullWidth"
+        className="MuiFormControl-root MuiTextField-root makeStyles-dynamic-15 MuiFormControl-fullWidth"
       >
         <label
-          class="MuiFormLabel-root MuiInputLabel-root makeStyles-cssLabel-14 MuiInputLabel-formControl MuiInputLabel-animated Mui-required Mui-required"
+          className="MuiFormLabel-root MuiInputLabel-root makeStyles-cssLabel-14 MuiInputLabel-formControl MuiInputLabel-animated Mui-required Mui-required"
           data-shrink="false"
         >
           Enter Username
           <span
             aria-hidden="true"
-            class="MuiFormLabel-asterisk MuiInputLabel-asterisk"
+            className="MuiFormLabel-asterisk MuiInputLabel-asterisk"
           >
              *
           </span>
         </label>
         <div
-          class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+          className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
         >
           <input
             aria-invalid="false"
-            class="MuiInputBase-input MuiInput-input"
-            data-testid="test"
+            className="MuiInputBase-input MuiInput-input"
+            data-test-id="test"
             name="userName1"
             required=""
             type="text"
@@ -37,13 +37,13 @@ exports[`should match the snapshot 1`] = `
         </div>
       </div>
       <div
-        class="MuiGrid-root"
+        className="MuiGrid-root"
         style="padding-top: 20px; padding-left: 10px;"
       >
         <span
           aria-hidden="true"
-          class="material-icons MuiIcon-root"
-          data-testid="icon"
+          className="material-icons MuiIcon-root"
+          data-test-id="icon"
         >
           cloud
         </span>

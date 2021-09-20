@@ -1,12 +1,11 @@
 import React from 'react';
-import {render, cleanup, fireEvent } from '@testing-library/react';
-import { toHaveClass, not } from '@testing-library/jest-dom'
-import SelecAmount from './index.js';
+import {cleanup, render} from '@testing-library/react';
+import SelectAmount from './index.js';
 import CheckMyOffers from '../../../contexts/CheckMyOffers';
-import { BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
 
 
- afterEach(cleanup)
+afterEach(cleanup)
 
 
 
@@ -14,7 +13,7 @@ import { BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
     const container = render(	
      <BrowserRouter>
           <CheckMyOffers>
-            <SelecAmount />
+            <SelectAmount />
         </CheckMyOffers>		
      </BrowserRouter>
                                    
@@ -22,12 +21,12 @@ import { BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
   
      const Slider = container.getByRole('slider');
      expect(Slider).toBeTruthy();
-    const offercode = container.getByTestId('offer');
-    expect(offercode).toBeTruthy();
-    const OfferTrigger = container.getByTestId('offerCodeTriggerText');
-    expect(OfferTrigger).toBeTruthy();
-    const Button = container.getByTestId('contButton');
-    expect(Button).toBeTruthy();
+    const offerCode = container.getByTestId('offer');
+    expect(offerCode).toBeTruthy();
+    const offerTrigger = container.getByTestId('offerCodeTriggerText');
+    expect(offerTrigger).toBeTruthy();
+    const button = container.getByTestId('contButton');
+    expect(button).toBeTruthy();
     const descriptionInside = container.getByTestId('descriptionInside');
     expect(descriptionInside).toBeTruthy();
     const descriptionOutside = container.getByTestId('descriptionOutside');
@@ -38,7 +37,7 @@ import { BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
     const container = render(	
      <BrowserRouter>
           <CheckMyOffers>
-            <SelecAmount />
+            <SelectAmount />
         </CheckMyOffers>		
      </BrowserRouter>
                                    

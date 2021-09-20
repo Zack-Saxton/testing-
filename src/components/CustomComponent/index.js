@@ -1,35 +1,35 @@
 import React from "react";
-import { Formik, Form } from "formik";
-import { makeStyles } from "@material-ui/core/styles";
+import {Form, Formik} from "formik";
+import {makeStyles} from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import Grid from "@material-ui/core/Grid";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import {
-	TextField,
-	DataGrid,
-	TextFieldWithIcon,
-	Button,
-	ButtonWithIcon,
-	PasswordWithIcon,
-	EmailWithIcon,
-	EmailTextField, 
-	PasswordField,
-	SocialSecurityNumber,
-	Slider,
-	Checkbox,
-	Select,
-	Radio,
-	Multiselect,
-	DatePicker,
-	TextArea,
-	Zipcode,
-	PhoneNumber,
-	AccountNumber,
-	BankRoutingNumber,
-	AutoComplete,
-	AutoCompleteMultiple,
-	ButtonSwitch,
+    AccountNumber,
+    AutoComplete,
+    AutoCompleteMultiple,
+    BankRoutingNumber,
+    Button,
+    ButtonSwitch,
+    ButtonWithIcon,
+    Checkbox,
+    DataGrid,
+    DatePicker,
+    EmailTextField,
+    EmailWithIcon,
+    Multiselect,
+    PasswordField,
+    PasswordWithIcon,
+    PhoneNumber,
+    Radio,
+    Select,
+    Slider,
+    SocialSecurityNumber,
+    TextArea,
+    TextField,
+    TextFieldWithIcon,
+    Zipcode,
 } from "../FormsUI";
 import "../App/app.css";
 import RadioButtonBox from "../FormsUI/RadioButtonBox";
@@ -71,8 +71,8 @@ export default function OutlinedCard() {
 
 	const rows = [
 		{ id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
-		{ id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
-		{ id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 },
+		{ id: 2, lastName: "Bannister", firstName: "Cerise", age: 42 },
+		{ id: 3, lastName: "Bannister", firstName: "Jaime", age: 45 },
 	];
 
 	return (
@@ -234,7 +234,7 @@ export default function OutlinedCard() {
 										name="password"
 										label="password"
 										type="password"
-										data-testid= "pass"
+										data-test-id= "pass"
 									/>
 								</CardContent>
 							</Card>
@@ -544,7 +544,7 @@ export default function OutlinedCard() {
 									<RadioButtonBox
 										stylebutton='{"background": "", "color":"" }'
 										type="radio"
-										id="radiobox"
+										id="radio-box"
 									>
 										U.S Citizen
 									</RadioButtonBox>

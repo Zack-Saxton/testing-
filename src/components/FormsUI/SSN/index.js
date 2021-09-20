@@ -1,12 +1,11 @@
 /*#################################################################################################################
 
-File Name           :    Password/index.js
-Component Name      :    Password
-Functionality       :    To use this component to validate and get the Password with hide and show option.
+File Name           :    password/index.js
+Component Name      :    password
+Functionality       :    To use this component to validate and get the password with hide and show option.
 
 #################################################################################################################*/
 import React from "react";
-import { useField } from "formik";
 import Input from "@material-ui/core/Input";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
@@ -71,14 +70,14 @@ const PasswordWrapper = ({ name, id, onChange, value, label, ...otherProps }) =>
         onCut={handleEdit}
         onCopy={handleEdit}
         onPaste={handleEdit}
-        inputProps={{"data-testid": "pass"}}
+        inputProps={{"data-test-id": "pass"}}
         endAdornment={
           <InputAdornment position="end">
             <IconButton
               aria-label="toggle password visibility"
               onClick={handleClickShowPassword}
               onMouseDown={handleMouseDownPassword}
-              data-testid= "passButton"
+              data-test-id= "passButton"
             >
               {values.showPassword ? <Visibility /> : <VisibilityOff />}
             </IconButton>

@@ -16,7 +16,7 @@
     margin-bottom: 2% !important;
 }
 .setSlider{
-    margin-bottom: 0% !important;
+    margin-bottom: 0 !important;
 }
 
 .alignSlider{
@@ -57,7 +57,7 @@
 }
 
 .close{
-    height: 0px;
+    height: 0;
     transition: 0.5s;
     overflow: hidden;
     
@@ -77,10 +77,10 @@
     display: block;
     min-width: 100% !important;
     background: #fff;
-    font-family: sans-serif;
+    font-family: 'Muli', sans-serif !important;
     line-height: 2;
     text-align: center;
-    margin: 10px 0px;
+    margin: 10px 0;
     padding-top: 5px;
     padding-bottom: 5px;
 
@@ -88,17 +88,17 @@
 
 .activeBorder{
     background: #134ca5 !important;
-    box-shadow: 1px 0px 2px #144ba1;
+    box-shadow: 1px 0 2px #144ba1;
     color:white !important;
 }
 
 .alignButton{
-    margin: 20px 0px !important;
+    margin: 20px 0 !important;
     height: 40px;
 }
 
 .showMsg{
-    color: red;
+   
     display: block;
     margin: 0;
     color: #f44336 !important;
@@ -130,7 +130,7 @@
     display: block;
     overflow: hidden;
     width: 100%;
-    height: 4px;
+  
     margin: .5rem 0 1rem 0;
     border-radius: 2px;
     background-color: white;
@@ -184,8 +184,8 @@
     display: block;
     color: red;
     text-align: left;
-    margin-top: 0px;
-    margin-bottom: 0px;
+    margin-top: 0;
+    margin-bottom: 0;
 }
  
 .hideError{
@@ -194,8 +194,7 @@
 }
 
 .borrowCSSLP {
-	margin-top: 0px !important;
-	margin-bottom: 2% !important;
+
 	font-size: 1.64rem !important;
     font-weight: 400 !important;
     line-height: 110% !important;

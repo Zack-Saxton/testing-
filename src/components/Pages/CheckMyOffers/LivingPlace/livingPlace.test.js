@@ -1,12 +1,11 @@
 import React from 'react';
-import {render, cleanup, fireEvent } from '@testing-library/react';
-import { toHaveClass, not } from '@testing-library/jest-dom'
-import EmploymenmtStatus from './index.js';
+import {cleanup, fireEvent, render} from '@testing-library/react';
+import EmploymentStatus from './index.js';
 import CheckMyOffers from '../../../contexts/CheckMyOffers';
-import { BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
 
 
- afterEach(cleanup)
+afterEach(cleanup)
 
 
 
@@ -14,7 +13,7 @@ import { BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
    const container = render(	
     <BrowserRouter>
          <CheckMyOffers>
-           <EmploymenmtStatus />
+           <EmploymentStatus />
        </CheckMyOffers>		
     </BrowserRouter>
       							
@@ -22,10 +21,10 @@ import { BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
 
    const Renting = container.getByTestId('Renting');
    expect(Renting).toBeTruthy();
-   const HomeWithMortage = container.getByTestId('HomeWithMortage');
-   expect(HomeWithMortage).toBeTruthy();
-   const HomeWithNoMortage = container.getByTestId('HomeWithNoMortage');
-   expect(HomeWithNoMortage).toBeTruthy();
+   const HomeWithMortgage = container.getByTestId('HomeWithMortgage');
+   expect(HomeWithMortgage).toBeTruthy();
+   const HomeWithNoMortgage = container.getByTestId('HomeWithNoMortgage');
+   expect(HomeWithNoMortgage).toBeTruthy();
    const MobileHome = container.getByTestId('MobileHome');
    expect(MobileHome).toBeTruthy();
    const LivingWithRelatives = container.getByTestId('LivingWithRelatives');
@@ -41,21 +40,21 @@ import { BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
     const container = render(	
      <BrowserRouter>
           <CheckMyOffers>
-            <EmploymenmtStatus />
+            <EmploymentStatus />
         </CheckMyOffers>		
      </BrowserRouter>
                                    
      ); 
   
      const Renting = container.getByTestId('Renting');
-     const HomeWithMortage = container.getByTestId('HomeWithMortage');
-     const HomeWithNoMortage = container.getByTestId('HomeWithNoMortage');
+     const HomeWithMortgage = container.getByTestId('HomeWithMortgage');
+     const HomeWithNoMortgage = container.getByTestId('HomeWithNoMortgage');
      const MobileHome = container.getByTestId('MobileHome');
      const LivingWithRelatives = container.getByTestId('LivingWithRelatives');
     fireEvent.click(Renting);
     expect(Renting).toHaveClass('activeBorder') 
-    expect(HomeWithMortage).not.toHaveClass('activeBorder')
-    expect(HomeWithNoMortage).not.toHaveClass('activeBorder') 
+    expect(HomeWithMortgage).not.toHaveClass('activeBorder')
+    expect(HomeWithNoMortgage).not.toHaveClass('activeBorder')
     expect(MobileHome).not.toHaveClass('activeBorder')
     expect(LivingWithRelatives).not.toHaveClass('activeBorder') 
     const ContinueButton = container.getByTestId('cntButton');

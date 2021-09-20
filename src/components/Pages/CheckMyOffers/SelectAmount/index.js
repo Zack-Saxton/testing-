@@ -3,21 +3,21 @@ import "../checkMyOffer.css";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import { Slider, TextField,  ButtonPrimary } from "../../../FormsUI";
+import {ButtonPrimary, Slider, TextField} from "../../../FormsUI";
 import Paper from "@material-ui/core/Paper";
-import React, { useState, useContext } from "react";
-import { useHistory } from "react-router-dom";
+import React, {useContext, useState} from "react";
+import {useHistory} from "react-router-dom";
 import ScrollToTopOnMount from '../scrollToTop';
-import { CheckMyOffers as Check } from "../../../../contexts/CheckMyOffers";
+import {CheckMyOffers as Check} from "../../../../contexts/CheckMyOffers";
 
 function CheckMyOffers(props) {
 	const { data, setData, resetData } = useContext(Check);
-	const [hasOffercode, setOffercode] = useState();
+	const [hasOfferCode, setOfferCode] = useState();
 	
 	const history = useHistory();
 
 	if(data.formStatus === '' || data.completedPage === 0 || data.formStatus === 'completed' || props.location.fromLoanPurpose !== 'yes'){
-		console.log("log",props.location.fromLoanPurpose);
+		
 		resetData();
 		data.loanAmount = 10000;
 	}
@@ -33,41 +33,33 @@ function CheckMyOffers(props) {
 		});
 	};
 
-	const getLoggedOut = () => {
-		let userToken = {isLoggedIn: false};
-		localStorage.setItem('token', JSON.stringify(userToken));
-	}
-
-	console.log(props.location.fromLoanPurpose);
 	return (
 		<div>
 			<ScrollToTopOnMount />
 			<div className="mainDiv">
 				<Box>
-					<Grid xs={12} container justify="center" alignItems="center">
-						<Grid
+					<Grid item xs={12} container justifyContent="center" alignItems="center" >
+						<Grid item
 							xs={11}
 							sm={10}
 							md={6}
 							lg={6}
 							xl={6}
 							className="cardWrapper"
-							container
-							justify="center"
-							alignItems="center"
+						    style={{paddingTop:"70px"}}
 						>
-							<Paper className="card" justify="center" alignItems="center">
-								<Typography variant="h5" align="center" className="borrowCSS CMOheading">
+							<Paper className="card" justify="center" alignitems="center">
+								<Typography variant="h5" align="center" className="borrowCSS CMOHeading">
 									Tell us how much you would like to borrow
 								</Typography>
-								<Grid
+								<Grid item
 									xs={12}
 									className="alignSlider"
 									container
-									justify="center"
+									justifyContent="center"
 									alignItems="center"
 								>
-									<Grid xs={11} sm={10} md={8} lg={8} xl={8}>
+									<Grid item xs={11} sm={10} md={8} lg={8} xl={8}>
 										<Slider
 											className="setSlider"
 											name="slider"
@@ -77,34 +69,39 @@ function CheckMyOffers(props) {
 										/>
 									</Grid>
 								</Grid>
-								<Grid
+								<Grid item
 									xs={12}
 									className="alignSlider"
 									container
-									justify="center"
+									justifyContent="center"
 									alignItems="center"
 								>
-									<Grid
+									<Grid  item
 										xs={11}
 										sm={10}
 										md={8}
 										lg={8}
 										xl={8}
-										justify="center"
-										alignItems="center"
 									>
 										<Typography
 											data-testid="offerCodeTriggerText"
-											variant="p"
 											className="setGreenColor cursorPointer"
 											align="center"
 											onClick={(e) => {
-												setOffercode(hasOffercode ? false : true);
+												setOfferCode(!hasOfferCode);
 											}}
 										>
 											I have an offer code
 										</Typography>
-										<div className={hasOffercode ? "open" : "close"}>
+										</Grid>
+										<Grid  item
+										xs={11}
+										sm={10}
+										md={8}
+										lg={8}
+										xl={8}
+									>
+										<div className={hasOfferCode ? "open" : "close"}>
 											<TextField
 												name="firstName"
 												form={true}
@@ -117,13 +114,20 @@ function CheckMyOffers(props) {
 												}}
 												label="Enter Offer Code"
 												materialProps={{
-													"data-testid": "offer",
+													"data-test-id": "offer",
 													maxLength: "10",
 												}}
 											/>
 										</div>
-
-										<Grid className="alignButton">
+										</Grid>
+										<Grid  item
+										xs={11}
+										sm={10}
+										md={8}
+										lg={8}
+										xl={8}
+									>
+										<Grid  className="alignButton">
 											<ButtonPrimary
 												data-testid="contButton"
 												stylebutton='{"background": "#FFBC23", "color":"black"}'
@@ -132,17 +136,16 @@ function CheckMyOffers(props) {
 												Continue
 											</ButtonPrimary>
 										</Grid>
-									
+										</Grid>
 
-										<Typography variant="p" align="center">
+										<Typography  align="center">
 											Checking your offers will not impact your credit score.*
 										</Typography>
-									</Grid>
 									<Grid className="alignTextInsideCard justifyText">
 										<Typography
 											data-testid="descriptionInside"
 											className="alignText justifyText"
-											variant="p"
+											
 											align="center"
 										>
 											†We offer personal loans from $1,000 to $25,000, with
@@ -166,7 +169,7 @@ function CheckMyOffers(props) {
 								</Grid>
 							</Paper>
 						</Grid>
-						<Grid
+						<Grid item
 							xs={11}
 							sm={10}
 							md={10}
@@ -175,13 +178,12 @@ function CheckMyOffers(props) {
 							data-testid="descriptionOutside"
 							className="alignSmallText"
 							container
-							justify="center"
+							justifyContent="center"
 							alignItems="center"
+							style={{paddingTop:"25px",paddingBottom:"70px"}}
 						>
 							<Typography
-								className="smallText justifyText"
-								variant="p"
-								align="justify"
+								className="smallText" align="center"
 							>
 								To help the government fight the funding of terrorism and money
 								laundering activities, Federal law requires all financial
@@ -193,10 +195,7 @@ function CheckMyOffers(props) {
 								to see your driver's license or other identifying documents.
 							</Typography>
 							<br />
-							<Typography
-								className="smallText justifyText"
-								variant="p"
-								align="justify"
+							<Typography className="smallText" align="center"
 							>
 								*The process uses a “soft” credit inquiry to determine whether a
 								loan offer is available, which does not impact your credit

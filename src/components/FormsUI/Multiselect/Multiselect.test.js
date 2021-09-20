@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent, within } from "@testing-library/react";
+import {fireEvent, render, within} from "@testing-library/react";
 import MultiSelect from './index.js';
 import '@testing-library/jest-dom';
 

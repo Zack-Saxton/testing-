@@ -1,9 +1,9 @@
 import React from 'react'
-import {render, cleanup, fireEvent } from '@testing-library/react'
+import {cleanup, fireEvent, render} from '@testing-library/react'
 import SSNumber from './index.js'
 import '@testing-library/jest-dom';
 
- afterEach(cleanup)
+afterEach(cleanup)
 
  test('Render SSN Field', () => {
    const container = render(										

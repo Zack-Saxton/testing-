@@ -4,8 +4,7 @@
     min-height: 500px !important;
 }
 .card{
-    padding: 5%;
-    padding-bottom: 1%;
+    padding: 5% 5% 1% 5%;
 }
 .cardWrapper{
     margin-top: 5%;
@@ -16,7 +15,7 @@
     margin-bottom: 4% !important;
 }
 .setSlider{
-    margin-bottom: 0% !important;
+    margin-bottom: 0 !important;
 }
 
 .alignSlider{
@@ -32,10 +31,12 @@
 }
 
 .smallText{
-    font-size: .8rem;
+    font-size: 0.8rem !important;
+    line-height: 25px !important;
     color: #fff;
     font-family: 'Muli', sans-serif;
     font-weight: 300;
+    justify-content: center;
 }
 
 .alignSmallText{
@@ -57,12 +58,12 @@
 }
 
 .close{
-    height: 0px;
+    height: 0;
     transition: 0.5s;
     overflow: hidden;
     
 }
-.CMOheading{
+.CMOHeading{
     font-size: 1.64rem !important;
     line-height: 110% !important;
     margin: .82rem 0 .656rem 0 !important;

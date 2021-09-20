@@ -1,9 +1,9 @@
 import React from 'react'
-import {render, cleanup} from '@testing-library/react'
+import {cleanup, render} from '@testing-library/react'
 import DatePicker from './index.js'
-import { format } from "date-fns";
+import {format} from "date-fns";
 
- afterEach(cleanup)
+afterEach(cleanup)
 
  test('Render DatePicker', () => {
    const container = render(										
@@ -11,9 +11,9 @@ import { format } from "date-fns";
  
    const input = container.getByTestId('datePicker');
    expect(input).toBeTruthy();
-   var date = new Date();
-   var formattedDate = format(date, "dd-MM-yyyy");
-   expect(input.value).toBe('');
+     const date = new Date();
+     const formattedDate = format(date, "dd-MM-yyyy");
+     expect(input.value).toBe('');
  });
 
 

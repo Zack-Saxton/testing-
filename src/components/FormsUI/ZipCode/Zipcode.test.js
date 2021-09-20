@@ -1,8 +1,8 @@
 import React from 'react';
-import {render, cleanup, fireEvent } from '@testing-library/react';
+import {cleanup, fireEvent, render} from '@testing-library/react';
 import Zipcode from './index.js';
 
- afterEach(cleanup)
+afterEach(cleanup)
 
 
 
@@ -12,7 +12,7 @@ import Zipcode from './index.js';
     type="text"
     name="text"
     label="test"
-    materialProps={{"data-testid": "zipcode"}}
+    materialProps={{"data-test-id": "zipcode"}}
   />); 
  
    const input = container.getByTestId('zipcode');
@@ -29,7 +29,7 @@ import Zipcode from './index.js';
     type="text"
     name="text"
     label="test"
-    materialProps={{"data-testid": "zipcode"}}
+    materialProps={{"data-test-id": "zipcode"}}
   />); 
  
    const input = container.getByTestId('zipcode');
@@ -44,7 +44,7 @@ import Zipcode from './index.js';
     type="text"
     name="text"
     label="test"
-    materialProps={{"data-testid": "zipcode", maxLength: 10}}
+    materialProps={{"data-test-id": "zipcode", maxLength: 10}}
   />); 
  
    const input = container.getByTestId('zipcode');
@@ -59,7 +59,7 @@ import Zipcode from './index.js';
     type="text"
     name="text"
     label="test"
-    materialProps={{"data-testid": "zipcode"}}
+    materialProps={{"data-test-id": "zipcode"}}
   />);
   const input = wrapper.getByTestId('zipcode');
   expect(input.maxLength).toBe(5);
@@ -72,6 +72,6 @@ test('should match the snapshot', () => {
     type="text"
     name="text"
     label="test"
-    materialProps={{"data-testid": "zipcode"}}
+    materialProps={{"data-test-id": "zipcode"}}
   />)).toMatchSnapshot()
  });

@@ -9,14 +9,14 @@ Functionality       :    To use this AutoComplete SingleSelect as a default comp
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
- 
+
 const AutoCompleteWrapper = ({
   name,
   value,
   id,
   jsonInput,
   optionlabel,
-  textfieldlabel,
+  textfieldlabel: textFieldLabel,
   variant,
   styleAutocomplete,
   ...otherProps
@@ -32,7 +32,7 @@ const AutoCompleteWrapper = ({
       getOptionLabel={(option) => option.value}
       style={styleAutocompleteMF}
       renderInput={(params) => (
-        <TextField {...params} label={textfieldlabel} variant={variant} />
+        <TextField {...params} label={textFieldLabel} variant={variant} />
       )}
     />
   );

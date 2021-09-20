@@ -1,11 +1,11 @@
 import React from 'react';
-import {render, cleanup, fireEvent } from '@testing-library/react';
+import {cleanup, fireEvent, render} from '@testing-library/react';
 import Zipcode from './index.js';
 import CheckMyOffers from '../../../../contexts/CheckMyOffers';
-import { BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
 
 
- afterEach(cleanup)
+afterEach(cleanup)
 
 
 
@@ -36,7 +36,7 @@ import { BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
                                    
      ); 
   
-    const input = container.getByTestId('zipcodeCntuButton');
+    const input = container.getByTestId('zipcodeButton');
     expect(input).toBeTruthy();
     // expect(input.value).toBe('');
     expect(input.hasAttribute('disabled')).toBe(true);
@@ -53,7 +53,7 @@ import { BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
                                    
      ); 
   
-    const button = container.getByTestId('zipcodeCntuButton');
+    const button = container.getByTestId('zipcodeButton');
     const input = container.getByTestId('zipcode');
     fireEvent.change(input, { target: { value: "abc" } });
     expect(input.value).toBe('');

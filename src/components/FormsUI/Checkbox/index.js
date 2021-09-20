@@ -8,13 +8,7 @@ Functionality       :    To use this checkbox as a default component for UI purp
 #################################################################################################################*/
 
 import React from "react";
-import {
-  Checkbox,
-  FormControl,
-  FormControlLabel,
-  FormGroup,
-  FormLabel,
-} from "@material-ui/core";
+import {Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel,} from "@material-ui/core";
 
 const CheckboxWrapper = ({
   name,
@@ -33,7 +27,7 @@ const CheckboxWrapper = ({
   //Configuring Field with Properties
   const configCheckbox = {
     required,
-    id:id,
+    id,
    
     ...otherProps,
    
@@ -44,20 +38,20 @@ const CheckboxWrapper = ({
   
 
   //parsing data using json
-  let stylecheckboxMF = JSON.parse(stylecheckbox);
-  let stylecheckboxlabelMF = JSON.parse(stylecheckboxlabel);
-  let stylelabelformMF = JSON.parse(stylelabelform);
+  let styleCheckBoxMF = JSON.parse(stylecheckbox);
+  let styleCheckBoxLabelMF = JSON.parse(stylecheckboxlabel);
+  let styleLabelFormMF = JSON.parse(stylelabelform);
 
   //view Part
   return (
     <FormControl>
-      <FormLabel  style={stylelabelformMF}>{formlabel}</FormLabel>
+      <FormLabel  style={styleLabelFormMF}>{formlabel}</FormLabel>
       <FormGroup >
         <FormControlLabel
-          control={<Checkbox id={id} {...configCheckbox} style={stylecheckboxMF} /> }
+          control={<Checkbox id={id} {...configCheckbox} style={styleCheckBoxMF} /> }
          
           label={label}
-          style={stylecheckboxlabelMF}
+          style={styleCheckBoxLabelMF}
           id={labelid}
          
          

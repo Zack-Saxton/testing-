@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent, within } from "@testing-library/react";
+import {fireEvent, render, within} from "@testing-library/react";
 import Select from './index.js';
 import '@testing-library/jest-dom';
 
@@ -25,7 +25,7 @@ test('Checks whether all the options are rendered', () => {
     const  { getByRole } = render(
        <>  
         <Select
-            data-testid="selectBox"
+            data-test-id="selectBox"
             name="select"
             labelform="Language Known"
             required={true}
@@ -46,7 +46,7 @@ test('Checks whether all the options are rendered', () => {
     const  { getByRole, getByTestId} = render(
        <>  
         <Select
-            data-testid="selectBox"
+            data-test-id="selectBox"
             name="select"
             labelform="Language Known"
             required={true}
@@ -71,7 +71,7 @@ test('Checks whether all the options are rendered', () => {
 
   test('should match the snapshot', () => {
     const { asFragment } = render(<Select
-      data-testid="selectBox"
+      data-test-id="selectBox"
       name="select"
       labelform="Language Known"
       required={true}

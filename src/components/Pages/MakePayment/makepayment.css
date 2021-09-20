@@ -1,5 +1,5 @@
 @media (max-width: 800px) {
-    #makepayment-cancelbutton-grid{
+    #make-payment-cancel-button-grid{
       padding: 0!important;
      
       padding-top: 10px!important;
@@ -9,32 +9,45 @@
   }
 
   @media (max-width: 600px) {
-    #makepayment-schedulebutton, #makepayment-cancelbutton,#makepayment-submitbutton {
-      padding: 0!important;
+    #make-payment-schedule-button, #make-payment-cancel-button,#make-payment-submit-button {
+      padding: 2%!important;
      
      height: 32px;
-      width: 120%!important;
+      width: auto;
     }
   }  
 
+
+@media only screen and (max-width: 600px) and (min-width: 300px)  {
+  #make-payment-schedule-button, #make-payment-cancel-button, #make-payment-submit-button {
+    width: auto ;
+  }
+}
+
+
   @media (max-width: 800px) {
-    #makepayment-schedulebutton, #makepayment-cancelbutton {
-      padding: 0!important;
+    #make-payment-schedule-button, #make-payment-cancel-button {
+      padding:  2%!important;
      
-     height: 32px;
-      width: 100%!important;
+      height: 32px;
+      width: auto;
     }
   }  
 
   @media (max-width: 600px) {
-  #makepayment-submitbutton {
-      padding: 0!important;
+  #make-payment-submit-button {
+      padding: 2% !important;
      
-     height: 32px;
+      height: 32px;
       width: 100%!important;
     }
   } 
 
-  .alert-dialog-title-autopay{
+  .alert-dialog-title-auto-pay{
     width: 50%!important
+  }
+
+
+  .MuiButton-label{
+    padding: 7px;
   }

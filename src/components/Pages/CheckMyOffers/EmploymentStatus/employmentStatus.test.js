@@ -1,12 +1,11 @@
 import React from 'react';
-import {render, cleanup, fireEvent } from '@testing-library/react';
-import { toHaveClass, not } from '@testing-library/jest-dom'
-import EmploymenmtStatus from './index.js';
+import {cleanup, fireEvent, render} from '@testing-library/react';
+import EmploymentStatus from './index.js';
 import CheckMyOffers from '../../../contexts/CheckMyOffers';
-import { BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
 
 
- afterEach(cleanup)
+afterEach(cleanup)
 
 
 
@@ -14,7 +13,7 @@ import { BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
    const container = render(	
     <BrowserRouter>
          <CheckMyOffers>
-           <EmploymenmtStatus />
+           <EmploymentStatus />
        </CheckMyOffers>		
     </BrowserRouter>
       							
@@ -41,7 +40,7 @@ import { BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
     const container = render(	
      <BrowserRouter>
           <CheckMyOffers>
-            <EmploymenmtStatus />
+            <EmploymentStatus />
         </CheckMyOffers>		
      </BrowserRouter>
                                    

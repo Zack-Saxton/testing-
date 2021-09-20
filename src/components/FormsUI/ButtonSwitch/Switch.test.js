@@ -1,8 +1,8 @@
 import React from 'react'
-import {render, cleanup, fireEvent } from '@testing-library/react'
+import {cleanup, fireEvent, render} from '@testing-library/react'
 import Switch from './index.js'
 
- afterEach(cleanup)
+afterEach(cleanup)
 
  test('Render Button Switch', () => {
    const container = render(										

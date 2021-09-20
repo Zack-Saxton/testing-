@@ -1,7 +1,7 @@
 Mariner Finance Website Development
 
 1. Introduction
-   This document briefs on the technical aspect of the project. It covers the technical stack used and the best practices to be followed by a development team at the time of development.
+   This document briefs on the technical aspect of the project. It covers the technical stack used and the best practices being followed by a development team at the time of development.
    Technical implementation will focus on the UI design development and integration with the API.
 
 2. Technology Stack

@@ -8,8 +8,8 @@ Functionality       :    To use this button as a default component for UI purpos
 #################################################################################################################*/
 
 import React from "react";
-import { Button } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import {Button} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core/styles";
 
 const ButtonWrapper = ({
   children,
@@ -20,7 +20,7 @@ const ButtonWrapper = ({
 }) => {
   //Styling Part
   const useStyles = makeStyles((theme) => ({
-    buttoncolor: {
+    buttonColor: {
       color: "#fff",
       background: "blue",
       fontFamily: "sans-serif",
@@ -34,16 +34,16 @@ const ButtonWrapper = ({
   const configButton = {
     variant: "contained",
     fullWidth: true,
-    className: classes.buttoncolor,
+    className: classes.buttonColor,
     ...otherProps
   };
 
   //parsing data using json
-  let stylebuttonMF = JSON.parse(stylebutton);
+  let styleButtonMF = JSON.parse(stylebutton);
 
   //View Part
   return (
-    <Button {...configButton}  onClick={onClick} style={ stylebuttonMF }>
+    <Button {...configButton}  onClick={onClick} style={ styleButtonMF }>
       {children}
     </Button>
   );

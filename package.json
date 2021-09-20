@@ -1,5 +1,5 @@
 {
-  "name": "MarinerFinancCAC",
+  "name": "MarinerFinanceCAC",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -13,25 +13,30 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.58",
     "@material-ui/pickers": "^3.3.10",
+    "@material-ui/styles": "^4.11.4",
     "@testing-library/react": "^11.2.7",
     "@unicef/material-ui-currency-textfield": "^0.8.6",
     "axios": "^0.21.1",
-    "chartist": "^0.11.4",
-    "chartist-plugin-fill-donut": "^0.1.4",
-    "chartist-plugin-pointlabels": "0.0.6",
-    "chartist-plugin-tooltips-updated": "^0.1.4",
     "classnames": "^2.3.1",
     "date-fns": "^2.22.1",
+    "filereader": "^0.10.3",
     "formik": "^2.2.8",
+    "html2canvas": "^1.3.2",
     "http-proxy-middleware": "^2.0.1",
+    "jspdf": "^2.4.0",
+    "jspdf-autotable": "^3.5.20",
     "material-ui": "^0.20.2",
+    "moment": "^2.29.1",
+    "print-js": "^1.6.0",
+    "prop-types": "^15.7.2",
     "react": "^16.8.6",
-    "react-chartist": "^0.14.4",
+    "react-csv": "^2.0.3",
     "react-dom": "^16.8.6",
     "react-input-mask": "^2.0.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.3",
     "react-text-mask": "^5.4.3",
+    "react-toastify": "^8.0.2",
     "use-local-storage": "^2.2.1",
     "yup": "^0.32.9"
   },
@@ -43,6 +48,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint src"
   },
+  "proxy":"https://psa-development.marinerfinance.io",
   "eslintConfig": {
     "extends": "react-app"
   },
@@ -66,6 +72,7 @@
     "@babel/preset-react": "^7.14.5",
     "@testing-library/jest-dom": "^5.14.1",
     "babel-loader": "^8.2.2",
+    "clsx": "^1.1.1",
     "husky": "^7.0.0",
     "path": "^0.12.7"
   }

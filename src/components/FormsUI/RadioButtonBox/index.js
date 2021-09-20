@@ -8,8 +8,8 @@ Functionality       :    To use this Radio button as a default component for UI 
 #################################################################################################################*/
 
 import React from "react";
-import { Button } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import {Button} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core/styles";
 
 const RadioButtonBoxWrapper = ({
   children,
@@ -20,7 +20,7 @@ const RadioButtonBoxWrapper = ({
 
   //Styling Part
   const useStyles = makeStyles((theme) => ({
-    buttoncolor: {
+    buttonColor: {
       fontFamily: "sans-serif",
       textTransform: "capitalize",
       width: 100,
@@ -39,17 +39,17 @@ const RadioButtonBoxWrapper = ({
   const configRadioButtonBox = {
     variant: "contained",
     fullWidth: true,
-    className: classes.buttoncolor,
+    className: classes.buttonColor,
     type: type,
     ...otherProps,
   };
 
   //parsing data using json
-  let stylebuttonMF = JSON.parse(stylebutton);
+  let styleButtonMF = JSON.parse(stylebutton);
 
   //View Part
   return (
-    <Button {...configRadioButtonBox} style={ stylebuttonMF }>
+    <Button {...configRadioButtonBox} style={ styleButtonMF }>
       {children}
     </Button>
   );

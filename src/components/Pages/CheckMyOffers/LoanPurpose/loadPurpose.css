@@ -11,14 +11,13 @@
 	margin-bottom: 2%;
 }
 .borrowCSSLP {
-	margin-top: 0px !important;
-	margin-bottom: 2% !important;
+
 	font-size: 1.64rem !important;
     line-height: 110% !important;
     margin: .82rem 0 .656rem 0 !important;
 }
 .setSlider {
-	margin-bottom: 0% !important;
+	margin-bottom: 0 !important;
 }
 
 .alignSlider {
@@ -73,7 +72,7 @@
 	display: block;
 	overflow: hidden;
 	width: 100%;
-	height: 4px;
+
 	margin: 0.5rem 0 1rem 0;
 	border-radius: 2px;
 	background-color: white;
@@ -122,12 +121,12 @@
 	width: 50px;
 }
 
-.outerblock {
+.outer-block {
 	padding: 10px;
 }
 
 .blockDiv {
-	padding: 0% 5%;
+	padding: 0 5%;
 
 	align-items: stretch;
 }
@@ -141,7 +140,7 @@
 	color: #171717;
 	font-size: 1.15rem !important;
 	line-height: 110% !important;
-	margin: 0.575rem 0 0.46rem 0 !important;
+	margin: 0.2rem 0 0.2rem 0 !important;
 	font-family: "Muli", sans-serif !important;
 	font-weight: 400 !important;
 }

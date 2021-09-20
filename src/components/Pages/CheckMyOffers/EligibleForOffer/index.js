@@ -1,13 +1,13 @@
-import React, { useContext } from 'react';
-import { useHistory } from "react-router-dom";
+import React, {useContext} from 'react';
+import {useHistory} from "react-router-dom";
 import '../checkMyOffer.css';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import EligibleForOffersLogo from '../../../../assets/gallery/Eligible-for-Offers.png';
-import { ButtonPrimary, ButtonSecondary } from '../../../FormsUI';
+import {ButtonPrimary} from '../../../FormsUI';
 import ScrollToTopOnMount from '../scrollToTop';
-import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
+import {CheckMyOffers} from "../../../../contexts/CheckMyOffers";
 
 //Initializing functional component EligibleForOffers
 function EligibleForOffers(props) {
@@ -27,7 +27,6 @@ function EligibleForOffers(props) {
       data.formStatus = "completed";
       if (data.completedPage < data.page.ssn  && data.applicationStatus !=='referred' &&  props?.location?.formcomplete !== "yes"){
           history.push("/select-amount");
-        // alert("invalid");
       }
 
 //JSX part
@@ -36,35 +35,29 @@ function EligibleForOffers(props) {
             <ScrollToTopOnMount />
                 <div className = "mainDiv">
                     <Box>
-                        <Grid xs={12}  container justify="center" alignItems="center">
-                            <Grid xs={12}  container justify="center" alignItems="center">
-                                <Grid xs={11} sm={10} md={7} lg={7} xl={7} className='cardWrapperImg row' container justify="center" alignItems="center">
+                        <Grid item xs={12}  container justifyContent="center" alignItems="center">
+                            <Grid item xs={12}  container justifyContent="center" alignItems="center">
+                                <Grid item xs={11} sm={10} md={7} lg={7} xl={7} className='cardWrapperImg row' container justifyContent="center" alignItems="center">
                                     <img src={EligibleForOffersLogo} alt="EligibleForOffers" />
                                 </Grid>
                             </Grid>
                             
                             <br />
-                            <Grid xs={12}  container justify="center" alignItems="center">
-                            <Grid xs={11} sm={10} md={6} lg={6} xl={6} className=' row' container justify="center" alignItems="center">
-                                <Typography
-									variant="h3"
-									align="center"
-									justify="center"
-									alignItems="center"
-									className="margin2p textWhite mainTextMsg"
-								>
+                            <Grid item xs={12}  container justifyContent="center" alignItems="center">
+                            <Grid item xs={11} sm={10} md={6} lg={6} xl={6} className=' row' container justifyContent="center" alignItems="center">
+                                <Typography variant="h3" style={{align:"center",justify:"center",alignItems:"center"}} className="margin2p textWhite mainTextMsg">
 									Congratulations!
 								</Typography>
                             </Grid>
                             </Grid>
                             
-                            <Grid xs={12}  container justify="center" alignItems="center">
-                                <Grid xs={11} sm={10} md={6} lg={6} xl={6} className=' row' container justify="center" alignItems="center">
-                                    <Typography
-                                        variant="h6"
-                                        align="center"
-                                        justify="center"
-                                        alignItems="center"
+                            <Grid item xs={12}  container justifyContent="center" alignItems="center">
+                                <Grid item xs={11} sm={10} md={6} lg={6} xl={6} className=' row' container justifyContent="center" alignItems="center">
+                                    <Typography  variant="h6" style={{
+                                         align :"center",
+                                         justify :"center",
+                                         alignItems :"center"
+                                    }}
                                         className=" textWhite smalTextImg"
                                     >
                                         You are eligible for a loan offer*. <br />
@@ -73,9 +66,9 @@ Complete your application process and receive your money as soon as the same day
                                   
                                 </Grid>
                             </Grid>
-                            <Grid xs={12}  container justify="center" alignItems="center">
-                                <Grid xs={11} sm={10} md={6} lg={6} xl={6} className='bottomSpace ' container justify="center" alignItems="center">
-                                <Grid xs={7} sm={6} md={3} lg={3} xl={3} className='  buttonWithSmallMargin' container justify="center" alignItems="center">
+                            <Grid xs={12} item container justifyContent="center" alignItems="center">
+                                <Grid item xs={11} sm={10} md={6} lg={6} xl={6} className='bottomSpace ' container justifyContent="center" alignItems="center">
+                                <Grid item xs={7} sm={6} md={3} lg={3} xl={3} className='  buttonWithSmallMargin' container justifyContent="center" alignItems="center">
                                     <ButtonPrimary stylebutton='{"background": "", "color":"", "fontSize": "" }' onClick={handleRoute}>
                                         View Offers
                                     </ButtonPrimary>

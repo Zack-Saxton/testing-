@@ -1,23 +1,13 @@
-import React, { useState } from "react";
-import {
-  ButtonWithIcon,
-  PhoneNumber,
-  TextField,
-  Radio,
-} from "../../../FormsUI";
+import React from "react";
+import {Radio} from "../../../FormsUI";
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from '@material-ui/core/styles';
-
+import {makeStyles} from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
-
-  content_grid:{
-      marginTop: "15px"
-  }
-
+  content_grid: {
+    marginTop: "15px",
+  },
 }));
-
 
 //View Part
 export default function VerificationQuestion() {
@@ -25,8 +15,10 @@ export default function VerificationQuestion() {
 
   return (
     <div>
-      <p style={{textAlign: "justify"}}>Please answer the questions below to help verify your identity. 
-          Please provide your response within 5 minutes.</p>
+      <p style={{ textAlign: "justify" }}>
+        Please answer the questions below to help verify your identity. Please
+        provide your response within 5 minutes.
+      </p>
 
       <Grid item xs={12} className={classes.content_grid}>
         <Radio
@@ -38,7 +30,7 @@ export default function VerificationQuestion() {
           row={true}
           required={true}
           labelplacement={"end"}
-          style={{fontWeight: "normal"}}
+          style={{ fontWeight: "normal" }}
         />
       </Grid>
 
@@ -52,7 +44,7 @@ export default function VerificationQuestion() {
           row={true}
           required={true}
           labelplacement={"end"}
-          style={{fontWeight: "normal"}}
+          style={{ fontWeight: "normal" }}
         />
       </Grid>
 
@@ -66,7 +58,7 @@ export default function VerificationQuestion() {
           row={true}
           required={true}
           labelplacement={"end"}
-          style={{fontWeight: "normal"}}
+          style={{ fontWeight: "normal" }}
         />
       </Grid>
 
@@ -80,11 +72,9 @@ export default function VerificationQuestion() {
           row={true}
           required={true}
           labelplacement={"end"}
-          style={{fontWeight: "normal"}}
+          style={{ fontWeight: "normal" }}
         />
       </Grid>
-
-      
     </div>
   );
 }

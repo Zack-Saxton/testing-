@@ -1,8 +1,8 @@
 import React from 'react'
-import {render, cleanup } from '@testing-library/react'
+import {cleanup, render} from '@testing-library/react'
 import PasswordWithIcon from './index.js'
 
- afterEach(cleanup)
+afterEach(cleanup)
 
 
  test("renders icon",()=>{
