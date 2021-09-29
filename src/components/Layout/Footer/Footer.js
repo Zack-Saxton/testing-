@@ -4,11 +4,12 @@ import badge from "../../../assets/images/badge.png";
 import Logo from "../../../assets/images/MarinerLogo.png";
 //Styling Part
 
-export default function Footer() {
+export default function Footer()
+{
   //View Part
   return (
     <div >
-      <footer style={{ width: "100%" }}>
+      <footer style={{width: "100%"}}>
         <section className="section-top" >
           <div className="col">
             <div className="main-footer-content">
@@ -51,33 +52,33 @@ export default function Footer() {
 
           <div className="col">
             <div >
-            <img src={badge} alt="badge" id= "badge" style={{ height: "90px" }} />
+              <img src={badge} alt="badge" id="badge" style={{height: "90px"}} />
             </div>
-            <div className="row" style={{display:"flex",paddingTop:"15px",paddingBottom:"15px",paddingLeft:"25px"}}>
-              <img src={Logo} alt="logo image" style={{ height: "60px",paddingRight:"25px" }} />
-            <div className="row">
-            <div style={{paddingTop:"15px",paddingBottom:"15px",}}>
-              <p className="leftAlign">
-                Mariner Finance, LLC, NMLS No. 166564
-                <br />
-                <a
-                  href="https://www.nmlsconsumeraccess.org/"
-                  target="_blank"
-                  className=" hrefTag"
-                  rel="noreferrer"
-                >
-                  (www.nmlsconsumeraccess.com)
-                </a>
-                <br />
-                8211 Town Center Drive,
-                <br /> Nottingham, MD 21236; <br />
-                Telephone Number -
-                <a href="tel:+8773102373" className="hrefTag ">
-                  &nbsp; 877-310-2373
-                </a>
-              </p>
-            </div>
-          </div>
+            <div className="row" style={{display: "flex", paddingTop: "15px", paddingBottom: "15px", paddingLeft: "25px"}}>
+              <img src={Logo} alt="logo image" style={{height: "60px", paddingRight: "25px"}} />
+              <div className="row">
+                <div style={{paddingTop: "15px", paddingBottom: "15px", }}>
+                  <p className="leftAlign">
+                    Mariner Finance, LLC, NMLS No. 166564
+                    <br />
+                    <a
+                      href="https://www.nmlsconsumeraccess.org/"
+                      target="_blank"
+                      className=" hrefTag"
+                      rel="noreferrer"
+                    >
+                      (www.nmlsconsumeraccess.com)
+                    </a>
+                    <br />
+                    8211 Town Center Drive,
+                    <br /> Nottingham, MD 21236; <br />
+                    Telephone Number -
+                    <a href="tel:+8334213184" className="hrefTag ">
+                      &nbsp; 833-421-3184
+                    </a>
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -85,7 +86,7 @@ export default function Footer() {
 
         <section className="section-bottom">
           <div>
-            <span style={{ color: "white" }}>
+            <span style={{color: "white"}}>
               &copy; 2020 Mariner Finance All rights reserved.
             </span>
           </div>

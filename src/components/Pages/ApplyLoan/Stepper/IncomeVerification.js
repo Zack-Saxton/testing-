@@ -10,13 +10,14 @@ const useStyles = makeStyles(() => ({
 }));
 
 //View Part
-export default function IncomeVerification() {
+export default function IncomeVerification()
+{
   const classes = useStyles();
 
   return (
     <div>
       <div>
-        <p style={{ textAlign: "justify" }}>
+        <p style={{textAlign: "justify"}}>
           To finalize our review, we need to verify the income that you have
           stated.
           <li>
@@ -30,14 +31,14 @@ export default function IncomeVerification() {
           verification steps.
         </p>
 
-        <p style={{ textAlign: "justify" }}>
+        <p style={{textAlign: "justify"}}>
           Acceptable ﬁle Formats are PDF, JPG, JPEG, GIF, 81 PNG (please note
           that we are unable to accept screenshots or photos of a computer
           screen).
         </p>
 
-        <p style={{ textAlign: "justify" }}>
-          Feel Free to chat with us or give us a call at 877-310-2373 if you
+        <p style={{textAlign: "justify"}}>
+          Feel Free to chat with us or give us a call at 833-421-3184 if you
           have a question about what is an acceptable form of proof of income!
         </p>
       </div>
