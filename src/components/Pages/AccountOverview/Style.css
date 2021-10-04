@@ -1,0 +1,163 @@
+.stroke-blue {
+    stroke: #274367;
+
+}
+
+.stroke {
+    stroke: rgb(220, 220, 224);
+}
+
+.centerHeading {
+    color: #181818;
+    font-size: 24px;
+    font-family: 'Muli', sans-serif;
+    font-weight: 400;
+}
+
+.donutChart {
+    height: 170px;
+    -webkit-filter: drop-shadow(0px 10px 4px rgba(133, 3, 168, .2));
+    filter: drop-shadow(0px 10px 4px rgba(133, 3, 168, .2));
+}
+
+#mainContainer{
+    width: 100%;
+}
+#paperProperties{
+    border-radius: 2px !important;
+    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%) !important;
+}
+
+@media only screen and (max-width: 599px)  {
+  
+    #LimitedOfferGrid{
+        padding-right: 0 !important;
+    }
+     
+#offerTwo{
+    padding-bottom: 15px !important;
+}
+
+}
+
+@media only screen and (max-width: 1024px)  {
+           
+    #loanText{
+    font-size: 16px !important;
+}
+    #offerText{
+    font-size: 25px !important;
+    }
+    #loanPercent{
+        font-size: 18px !important;
+    }
+    #claimButton{
+        padding: 0px 12px !important;
+
+    }
+}
+
+#LimitedOfferGrid{
+    padding-right: 15px;
+    margin-bottom: 15px !important;
+    border-radius: 2px;
+}
+
+#yellowBg{
+    background-color: #febb26;
+    display: flex;
+    align-items: center;
+}
+#offerText{
+    height: 100%;
+    text-align: center;
+}
+#loanText{
+    font-size: 24.6px;
+    color: #171717;
+    margin: 0;
+}
+#loanPercent{
+    font-weight: bolder;
+    font-size: 34.2px;
+    color: #171717;
+    margin: 0px 0px 10px 0px;
+}
+#claimButton{
+    color: white;
+    background-color: #0f4fb3;
+    font-family: 'Muli', sans-serif !important;
+    font-weight: 900;
+    border-radius: 5px;
+    height: 30px;
+    padding: 0px 30px;
+
+}
+
+@media only screen and (max-width: 768px)  {
+    #offerText button{
+        font-size: 12px;
+        }
+        #loanText{
+        font-size: 14px !important;
+        }
+        #offerText{
+        font-size: 20px !important;
+        }
+}
+
+@media only screen and (max-width: 427px)  {
+    #yellowBg{
+    flex-direction: column;
+    }
+    #yellowBg img{
+    width: 100% !important;
+    }
+    #offerText{
+        margin: 15px 0px !important;
+    }
+}
+
+
+@media only screen and (max-width: 1024px)  {
+   
+#nextPaymentItems{
+    font-size: 18px !important;
+    font-weight: 600;
+}
+#dueDate{
+    font-size: 15px !important;
+}
+#activeLoanGrid{
+    height: 100%;
+}
+#regularAmountGrid{
+    margin-left: -10px;
+}
+#scheduledPaymentGrid{
+    margin-left: -15px !important;
+}
+#RegularAmmountText{
+    width: 116px;
+}
+#ScheduledPaymentText{
+    width: 149px !important;
+    font-size: 15px;
+}
+}
+
+
+@media only screen and (max-width: 425px)  {
+    #activeLoanGrid{
+        height: 100% !important;
+    }
+    #activeLoanWrap{
+        margin-bottom: 60px;
+    }
+    #regularAmountGrid{
+        margin-left: 0;
+    }
+    #scheduledPaymentGrid{
+        margin-left: 0 !important;
+    }
+}

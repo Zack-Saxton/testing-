@@ -1,0 +1,20 @@
+.stroke-blue {
+    stroke: #274367;
+
+}
+.stroke {
+    stroke: rgb(220, 220, 224);
+}
+.centerHeading {
+    color: #181818;
+    font-size: 24px;
+    font-family: 'Muli', sans-serif;
+    font-weight: 400;
+}
+.donutChart {
+    height: 170px;
+    -webkit-filter: drop-shadow(0px 10px 4px rgba(133, 3, 168, .2));
+    filter: drop-shadow(0px 10px 4px rgba(133, 3, 168, .2));
+}
+
+

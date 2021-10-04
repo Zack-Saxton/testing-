@@ -1,0 +1,44 @@
+.mainDiv {
+  background-color: #124ca8;
+  background-image: linear-gradient(to right, #26436a, #104db0);
+  min-height: 500px !important;
+  padding: 30px;
+}
+#tabsWrap {
+  margin-top: 50px;
+}
+#tabsWrap > .MuiTabs-scroller > .MuiTabs-flexContainer {
+  justify-content: space-between;
+  height: 138px;
+}
+#tabsWrap > .MuiTabs-scroller > .MuiTabs-flexContainer button {
+  color: white;
+  width: 180px;
+  padding-top: 20px !important;
+  border-radius: 2px;
+}
+#tabsWrap > .MuiTabs-scroller > .MuiTabs-flexContainer button span svg {
+  color: #0f4eb3;
+  font-size: 45px;
+  border-radius: 2.5px;
+}
+#tabsWrap > .MuiTabs-scroller > .MuiTabs-flexContainer button span p {
+  font-family: "Muli", sans-serif;
+  font-weight: bolder;
+  font-size: 15px;
+  color: #000;
+  text-transform: capitalize;
+  border-radius: 2px;
+}
+#qPannel {
+  margin-top: 25px;
+}
+
+@media only screen and (max-width: 1024px) {
+  #tabsWrap > .MuiTabs-scroller > .MuiTabs-flexContainer button {
+    margin-right: 10px;
+  }
+}
+#tabsWrap .MuiTabScrollButton-root svg {
+  color: rgb(12, 12, 12);
+}

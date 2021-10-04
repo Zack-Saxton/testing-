@@ -1,0 +1,45 @@
+.app {
+  text-align: center;
+}
+.gridStyle
+{
+  margin: 30px;
+}
+.sample{
+  top: 0 !important;
+  height: 250px !important;
+  z-index: -1;
+  
+  left: 0;
+  width: 100%;
+
+  -webkit-transition: .3s ease all;
+  transition: .3s ease all;
+
+background: linear-gradient(
+85deg
+, #264266, #0F4EB3) !important;
+
+}
+
+#main{
+  transition: 0.5s;
+}
+
+@media (max-width:959px){
+  #main{
+    margin-left: unset!important
+
+  }
+}
+
+#body{
+  
+  background: #B0CFE1;
+  place-items: center;
+}
+
+.MuiButton-root{
+  
+  line-height: 1!important;
+}
