@@ -1,10 +1,4 @@
 import React from "react";
-<<<<<<< HEAD
-=======
-import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
->>>>>>> 83d8ecb4a39608eb3df58ad6f726c7a711648941
 import Dialog from "@material-ui/core/Dialog";
 import {
   ButtonPrimary,
@@ -25,7 +19,6 @@ export default function MoneySkill(props) {
   return (
     <div>
       <Dialog
-        id="moneySkillDialogBox"
         open={props.moneySkill}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
@@ -41,7 +34,7 @@ export default function MoneySkill(props) {
           </IconButton>
         </div>
 
-        <h2 id="moneySkillDialogHeading" className={classes.moneySkillDialogHeading}>
+        <h2 className={classes.moneySkillDialogHeading}>
           You are about to leave <br /> marinerfinance.com
         </h2>
 
@@ -78,7 +71,7 @@ export default function MoneySkill(props) {
             onClick={handleCloseMoneySkill}
             stylebutton='{"float": "" }'
           >
-            Stay on Marinerfinance.com
+            Stay On marinerfinance.com
           </ButtonSecondary>
 
           <ButtonPrimary

@@ -463,61 +463,12 @@ export default function MakePayment() {
                   {" "}  Please select any accounts.
                 </p>
 
-        <Grid
-          item
-          xs={12}
-          sm={8}
-          style={{ width: "100%", padding: "5px" }}
-        >
-            
-          <Paper className={classes.paper}>
-          {paymentOptions !== null && showCircularProgress!== true ?
-          <div>
-            <Grid item xs={12}>
-              <Typography className={classes.cardHeading}>
-                Payment Mode
-              </Typography>
-              <p style={{ margin: "auto" }}>
-                <small> {disabledContent ?  " Auto pay is ON" : "Auto pay is Off"}</small>
-              </p>
-             
-              <p style={{ margin: "auto" }}>
-                <small>Choose auto pay</small>
-              </p>
-          <FormControlLabel
-            control={
-          <Switch
-            checked={disabledContent}
-            onChange={handleSwitchPayment}
-            value={disabledContent}
-            inputProps={{"data-test-id": "switch"}}
-            color="primary"
-          />
-            }
-           labelPlacement='end'
-           label={disabledContent ?  " Auto pay is ON" : "Auto pay is Off"}
-         />
-              <p>
-                By enabling Auto Pay mode, I acknowledge to have read,
-                understood, and agree to the terms of the &nbsp;
-                <Link to="#"
-                  onClick={handleAutoPayClickOpen}
-                  className={classes.autoPayLink}
-                >
-                  Auto Pay Authorization
-                </Link>
-              </p>
-
-              <Grid item xs={12} style={{ paddingBottom: "20px" }}>
-                <ButtonPrimary
-                  stylebutton='{"background": "", "color":"" }'
-                  id="submitBtn"
-                  onClick={handleClickSubmit}
-                >
-                  Submit
-                </ButtonPrimary>
-                
-              </Grid>
+                <Grid item xs={12} style={{ paddingTop: "20px" }}>
+                  <ButtonSecondary stylebutton='{"background": "", "color":"" }'>
+                    Add a payment method
+                  </ButtonSecondary>
+                </Grid>
+              </Paper>
             </Grid>
 
             <Grid
@@ -527,35 +478,144 @@ export default function MakePayment() {
               style={{ width: "100%", padding: "5px" }}
             >
 
-            <Grid id="paymentBtnWrap"  style={{ paddingTop: "25px" }}>
-              <Grid
-                 direction="row"
-                id="make-payment-cancel-button-grid"
-              >
-                <ButtonSecondary
-                  stylebutton='{}'
-                  styleicon='{ "color":"" }'
-                  id="cancelPaymentBtn"
-                  onClick={handlePaymentcancel}
-                  disabled={!hasSchedulePayment}
-                >
-                  Cancel Payment
-                </ButtonSecondary>
-              </Grid>
+              <Paper className={classes.paper}>
+                {paymentOptions !== null && showCircularProgress !== true ?
+                  <div>
+                    <Grid item xs={12}>
+                      <Typography className={classes.cardHeading}>
+                        Payment Mode
+                      </Typography>
+                      <p style={{ margin: "auto" }}>
+                        <small> {disabledContent ? " Auto pay is ON" : "Auto pay is Off"}</small>
+                      </p>
 
-              <Grid
-                 direction="row"
-              >
-                <ButtonPrimary
-                  stylebutton='{"marginRight": "" }'
-                  id="make-payment-schedule-button"
-                  onClick={handleSchedulePaymentClick}
-                  disabled={hasSchedulePayment}
-                >
-                  Schedule Payment
-                </ButtonPrimary>
-              </Grid>
-            </Grid>
+                      <p style={{ margin: "auto" }}>
+                        <small>Choose auto pay</small>
+                      </p>
+                      <FormControlLabel
+                        control={
+                          <Switch
+                            checked={disabledContent}
+                            onChange={handleSwitchPayment}
+                            value={disabledContent}
+                            inputProps={{ "data-test-id": "switch" }}
+                            color="primary"
+                          />
+                        }
+                        labelPlacement='end'
+                        label={disabledContent ? " Auto pay is ON" : "Auto pay is Off"}
+                      />
+                      <p>
+                        By enabling Auto Pay mode, I acknowledge to have read,
+                        understood, and agree to the terms of the &nbsp;
+                        <Link to="#"
+                          onClick={handleAutoPayClickOpen}
+                          className={classes.autoPayLink}
+                        >
+                          Auto Pay Authorization
+                        </Link>
+                      </p>
+
+                      <Grid item xs={12} style={{ paddingBottom: "20px" }}>
+                        <ButtonPrimary
+                          stylebutton='{"background": "", "color":"" }'
+                          id="make-payment-submit-button"
+                          onClick={handleClickSubmit}
+                        >
+                          Submit
+                        </ButtonPrimary>
+
+                      </Grid>
+                    </Grid>
+                    <Grid item xs={12}
+                      style={{
+                        opacity: disabledContent ? 0.25 : 1,
+                        pointerEvents: disabledContent ? "none" : "initial"
+                      }}>
+                      <Typography className={classes.cardHeading}>
+                        Single Payment
+                      </Typography>
+                      <TextField
+                        name="payment"
+                        label="Payment Amount"
+                        type="text"
+                        materialProps={{ defaultValue: '$' + paymentAmount }}
+                        disabled={true}
+                      />
+
+                      <Grid
+                        item
+                        xs={12}
+                        container direction="row"
+                        style={{ display: "inline-flex", paddingTop: "10px" }}
+                      >
+                        <DatePicker
+                          name="date"
+                          label="Payment Date"
+                          placeholder="MM/DD/YYYY"
+                          id="date"
+                          disablePast
+                          maxdate={paymentMaxDate}
+                          onKeyDown={(e)=> e.preventDefault()}
+                          shouldDisableDate={disableWeekends}
+                          minyear={4}
+                          onChange={(paymentDatepicker) => {
+                            setpaymentDatepicker(Moment(paymentDatepicker).format("YYYY-MM-DD"));
+                            setrequiredDate('')
+                          }}
+                          value={paymentDatepicker}
+                        />
+                        <p className={requiredDate !== "" ? "showError add Pad" : "hideError"} data-testid="subtitle" >
+                          {" "}  Please select date
+                        </p>
+                      </Grid>
+
+                      <Grid container direction="row" style={{ paddingTop: "25px" }}>
+                        <Grid
+                          item
+                          xs={12}
+                          // sm={4}
+                          md={4}
+                          lg={2}
+                          container direction="row"
+                          id="make-payment-cancel-button-grid"
+                        >
+                          <ButtonSecondary
+                            stylebutton='{"marginRight": "20px" }'
+                            styleicon='{ "color":"" }'
+                            id="make-payment-cancel-button"
+                            onClick={handlePaymentcancel}
+                            disabled={!hasSchedulePayment}
+                          >
+                            Cancel Payment
+                          </ButtonSecondary>
+                        </Grid>
+
+                        <Grid
+                          item
+                          xs={12}
+                          // sm={6}
+                          md={4}
+                          lg={3}
+                          container direction="row"
+                        >
+                          <ButtonPrimary
+                            stylebutton='{"marginRight": "" }'
+                            id="make-payment-schedule-button"
+                            onClick={handleSchedulePaymentClick}
+                            disabled={hasSchedulePayment}
+                          >
+                            Schedule Payment
+                          </ButtonPrimary>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </div> :
+                  <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <CircularProgress />
+                  </div>}
+              </Paper>
+
             </Grid>
           </>
           : '' : ''}
@@ -579,19 +639,16 @@ export default function MakePayment() {
       {/* **************Auto pay submit modal******************* */}
 
       <Dialog
-        id="autopayDialogBox"
-        onClose={handleCloseAutoPayPopup}
         open={open}
         aria-labelledby="alert-dialog-title-autoPay"
         aria-describedby="alert-dialog-description"
         classes={{ paper: classes.dialogPaper }}
       >
-        <DialogTitle id="autopayText">
-          <Typography id="autoTxt" className={classes.dialogHeading}>
-            { disabledContent === false ? "Are you sure you want to disable auto pay ?" : "Are you sure you want to enable auto pay ?" }
+        <DialogTitle id="alert-dialog-title">
+          <Typography className={classes.dialogHeading}>
+            {disabledContent === false ? "Are you sure you want to disable auto pay ?" : "Are you sure you want to enable auto pay ?"}
           </Typography>
           <IconButton
-            id="autopayCloseBtn"
             aria-label="close"
             className={classes.closeButton}
             onClick={handleCloseAutoPayPopup}
@@ -600,7 +657,7 @@ export default function MakePayment() {
           </IconButton>
         </DialogTitle>
 
-        <DialogActions style={{ justifyContent: "center", marginBottom:"25px" }}>
+        <DialogActions style={{ justifyContent: "center" }}>
           <ButtonSecondary
             stylebutton='{"background": "", "color":"" }'
             onClick={handleCloseAutoPayPopup}
@@ -629,18 +686,16 @@ export default function MakePayment() {
 
       <Dialog
         open={openPayment}
-        id="scheduleDialogBox"
-        onClose={handlePaymentClose}
+        // onClose={handlePaymentClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
         classes={{ paper: classes.dialogPaper }}
       >
-        <DialogTitle  id="scheduleDialogHeading">
-          <Typography id="scheduleTxt" className={classes.dialogHeading}>
+        <DialogTitle id="alert-dialog-title">
+          <Typography className={classes.dialogHeading}>
             Are you sure you want to schedule a payment ?
           </Typography>
           <IconButton
-            id="scheduleCloseBtn"
             aria-label="close"
             className={classes.closeButton}
             onClick={handlePaymentClose}
@@ -649,7 +704,7 @@ export default function MakePayment() {
           </IconButton>
         </DialogTitle>
 
-        <DialogActions style={{ justifyContent: "center", marginBottom:"25px" }}>
+        <DialogActions style={{ justifyContent: "center" }}>
           <ButtonSecondary
             stylebutton='{"background": "", "color":"" }'
             onClick={handlePaymentClose}
@@ -678,19 +733,17 @@ export default function MakePayment() {
       {/* **************Auto pay schedule payment modal******************* */}
 
       <Dialog
-      id="deletePayment"
         open={openDeleteSchedule}
-        onClose={handleDeleteScheduleClose}
+        // onClose={handlePaymentClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
         classes={{ paper: classes.dialogPaper }}
       >
-        <DialogTitle id="deleteDialogHeading">
-          <Typography id="deleteTxt" className={classes.dialogHeading}>
+        <DialogTitle id="alert-dialog-title">
+          <Typography className={classes.dialogHeading}>
             Are you sure you want to delete the scheduled payment ?
           </Typography>
           <IconButton
-            id="deleteClose"
             aria-label="close"
             className={classes.closeButton}
             onClick={handleDeleteScheduleClose}
@@ -699,7 +752,7 @@ export default function MakePayment() {
           </IconButton>
         </DialogTitle>
 
-        <DialogActions style={{ justifyContent: "center", marginBottom:"25px"}}>
+        <DialogActions style={{ justifyContent: "center" }}>
           <ButtonSecondary
             stylebutton='{"background": "", "color":"" }'
             onClick={handleDeleteScheduleClose}

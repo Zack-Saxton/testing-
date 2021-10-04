@@ -26,12 +26,10 @@ const useStylesMoneySkill = makeStyles((theme) => ({
     color: "#595959",
     padding: "0px",
     lineHeight: "22px",
-    textAlign:"justify",
   },
   moneySkillDialog: {
     padding: "24px",
     maxWidth: "700px",
-    margin: "15px"
   },
 }));
 

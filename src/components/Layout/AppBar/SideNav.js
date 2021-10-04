@@ -527,7 +527,7 @@ export default function SideNav() {
                 {" "}
                 <DataUsageOutlinedIcon />{" "}
               </ListItemIcon>
-              <ListItemText> MoneySKILL &reg; </ListItemText>
+              <ListItemText> MoneySkill &reg; </ListItemText>
             </ListItem>
           </List>
         </Drawer>

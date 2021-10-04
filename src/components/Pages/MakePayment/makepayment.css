@@ -1,129 +1,61 @@
-#make-payment-schedule-button {
-  font-family: "Muli", sans-serif !important;
-  font-size: 15px !important;
-  color: #171717;
-  padding: 0px 25px;
-}
-#paymentBtnWrap {
-  display: flex;
-  margin-bottom: 10px;
-}
-#cancelPaymentBtn {
-  margin-right: 20px;
-  padding: 0 35px;
-  font-family: "Muli", sans-serif !important;
-  font-size: 15px !important;
-}
-#submitBtn {
-  font-family: "Muli", sans-serif !important;
-  font-size: 15px !important;
-  padding: 0px 30px;
-}
+@media (max-width: 800px) {
+    #make-payment-cancel-button-grid{
+      padding: 0!important;
+     
+      padding-top: 10px!important;
+      padding-bottom: 20px!important;
+     
+    }
+  }
 
-@media (max-width: 599px) {
-  #paymentBtnWrap {
-    flex-direction: column-reverse;
-    align-items: center;
-    justify-content: center;
-  }
-  #make-payment-cancel-button {
-    margin: 0 !important;
-  }
-  #cancelPaymentBtn {
-    margin-right: 0px;
-    margin-top: 20px;
+  @media (max-width: 600px) {
+    #make-payment-schedule-button, #make-payment-cancel-button,#make-payment-submit-button {
+      padding: 2%!important;
+     
+     height: 32px;
+      width: auto;
+    }
+  }  
+
+
+@media only screen and (max-width: 600px) and (min-width: 300px)  {
+  #make-payment-schedule-button, #make-payment-cancel-button, #make-payment-submit-button {
+    width: auto ;
   }
 }
 
-.alert-dialog-title-auto-pay {
-  width: 50% !important;
-}
 
-.showError {
-  display: block;
-  color: red;
-  text-align: left;
-  margin-top: 0;
-  margin-bottom: 0;
-}
+  @media (max-width: 800px) {
+    #make-payment-schedule-button, #make-payment-cancel-button {
+      padding:  2%!important;
+     
+      height: 32px;
+      width: auto;
+    }
+  }  
 
-.hideError {
-  display: none;
-}
+  @media (max-width: 600px) {
+  #make-payment-submit-button {
+      padding: 2% !important;
+     
+      height: 32px;
+      width: 100%!important;
+    }
+  } 
 
-#scheduleDialogBox .MuiDialog-paperWidthSm {
-  border-radius: 2px !important;
-}
-#scheduleDialogHeading {
-  padding: 35px 15px 18px 15px !important;
-}
-
-/* Autoplay Dialog box */
-
-#autopayText {
-  padding: 35px 15px 18px 15px !important;
-}
-
-/* Delete Payment Dialog box */
-#deletePayment .makeStyles-dialogPaper-40 {
-  border-radius: 2px !important;
-}
-#deleteDialogHeading {
-  padding: 35px 15px 18px 15px !important;
-}
-
-@media (max-width: 768px) {
-  #scheduleDialogBox .MuiDialog-paperWidthSm {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-  #scheduleCloseBtn {
-    top: 0;
-    right: 0;
-  }
-  #scheduleDialogHeading {
-    padding: 35px 15px 18px 15px !important;
-  }
-  #dialogActionsBtn {
-    margin-bottom: 25px;
-  }
-  #scheduleTxt {
-    font-size: 25px !important;
+  .alert-dialog-title-auto-pay{
+    width: 50%!important
   }
 
-  /* Autoplay Dialog box */
-  #autopayDialogBox .makeStyles-dialogPaper-40 {
-    width: 100% !important;
-    max-width: 100% !important;
+  .showError{
+    display: block;
+    color: red;
+    text-align: left;
+    margin-top: 0;
+    margin-bottom: 0;
   }
-
-  #autopayCloseBtn {
-    top: 0 !important;
-    right: 0 !important;
+  
+  .hideError{
+    display: none;
+  
   }
-
-  #autoTxt {
-    font-size: 25px !important;
-  }
-  #autopayDialogBox .makeStyles-dialogPaper-107 {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
-  /* Delete Payment Dialog box */
-  #deletePayment .makeStyles-dialogPaper-40 {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-  #deleteTxt {
-    font-size: 25px !important;
-  }
-  #deleteClose {
-    top: 0 !important;
-    right: 0 !important;
-  }
-}
-
-#autopayDialogBox .makeStyles-dialogPaper-40 {
-  border-radius: 2px !important;
-}

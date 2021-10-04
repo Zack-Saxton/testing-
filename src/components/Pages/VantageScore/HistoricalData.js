@@ -19,25 +19,18 @@ export default function HistoricalData(creditData) {
       labels: chartMonths.reverse(),
       datasets: [
         {
-          label: 'VantageScore ®',
+          label: 'Vantage Score',
           data: chartData.reverse(),
           fill: false,
           responsive:true,
-          backgroundColor: "rgb(255,133,10)",
+          backgroundColor: 'rgb(229,229,229)',
           borderColor: 'rgb(255,133,10)',
           borderWidth: 3,
-<<<<<<< HEAD
           pointRadius: 2
-=======
-          pointRadius: 2,
-
->>>>>>> 83d8ecb4a39608eb3df58ad6f726c7a711648941
         },
-        
       ],
     };
 
-<<<<<<< HEAD
     const option = {
       responsive: true,
       maintainAspectRatio: false,
@@ -53,22 +46,6 @@ export default function HistoricalData(creditData) {
     };
 
     
-=======
-   
-      const option = {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            position: "top",
-            labels: {
-              usePointStyle: true,
-              pointStyle: 'line',
-            },
-          },
-        },
-      };
->>>>>>> 83d8ecb4a39608eb3df58ad6f726c7a711648941
 
     return(
       <div>
