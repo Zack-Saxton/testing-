@@ -1,7 +1,7 @@
 import axios from "axios";
 import handleTokenExpiry from './handleTokenExpiry';
 
-export default async function usrAccountDetails() {
+export default async function setAccountDetails() {
     const loginToken = JSON.parse(localStorage.getItem("token"));
     let response = {
         isLoggedIn: "",

@@ -1,5 +1,5 @@
 import React from "react";
-import {useStylesLoanHistory} from "./Style";
+import { useStylesLoanHistory } from "./Style";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Table from "@material-ui/core/Table";
@@ -8,12 +8,13 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import {NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./Style.css";
 import FindInPageIcon from "@material-ui/icons/FindInPage";
 import Moment from "moment";
 import { loanDocumentController as loanDocument } from "../../controllers/LoanDocumentController";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import NumberFormat from 'react-number-format';
 
 export default function LoanHistoryTable(userLoanHistoryData) {
   const classes = useStylesLoanHistory();
@@ -31,16 +32,16 @@ export default function LoanHistoryTable(userLoanHistoryData) {
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell className={classes.tableHead}>
+              <TableCell className={classes.tableHead} align="left" >
                 Account Number
               </TableCell>
-              <TableCell className={classes.tableHead} align="center">
+              <TableCell className={classes.tableHead} align="left" >
                 Date Opened
               </TableCell>
-              <TableCell className={classes.tableHead} align="center">
+              <TableCell className={classes.tableHead} align="left" >
                 Date Closed
               </TableCell>
-              <TableCell className={classes.tableHead} align="center">
+              <TableCell className={classes.tableHead} align="center" >
                 Amount Financed
               </TableCell>
               <TableCell className={classes.tableHead} align="center">
@@ -62,23 +63,23 @@ export default function LoanHistoryTable(userLoanHistoryData) {
                     component="th"
                     className={classes.tableHeadRow}
                     scope="row"
+                    align="left"
                   >
                     {row.loanData.accountNumber}
                   </TableCell>
-                  <TableCell className={classes.tableHeadRow} align="center">
+                  <TableCell className={classes.tableHeadRow} align="left" >
                     {Moment(row.loanData.loanOriginationDate).format(
-                      "MM-DD-YYYY"
+                      "MM/DD/YYYY"
                     )}
                   </TableCell>
-                  <TableCell className={classes.tableHeadRow} align="center">
-                    {Moment(row.loanData.dueDate).format("MM-DD-YYYY")}
+                  <TableCell className={classes.tableHeadRow} align="left" >
+                    {Moment(row.loanData.dueDate).format("MM/DD/YYYY")}
                   </TableCell>
 
-                  <TableCell className={classes.tableHeadRow} align="center">
-                    ${" "}
+                  <TableCell className={classes.tableHeadRow} align="center" >
                     {
-                      row.loanPaymentInformation.accountDetails
-                        .OriginalFinancedAmount
+                      <NumberFormat value={Math.abs(row.loanPaymentInformation.accountDetails
+                        .OriginalFinancedAmount)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
                     }
                   </TableCell>
 

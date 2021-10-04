@@ -21,7 +21,6 @@ export async function loanDocumentController(accNo) {
           : "/gps/get_loan_documents/" + accNo,
       headers: {
         "Content-Type": "application/json",
-
         "x-access-token": loginToken.apiKey,
       },
     }).then((res) => {
@@ -44,49 +43,41 @@ export async function documentdownload(id, name) {
       url: "/gps/download_document/" + id + "/" + name,
 
       headers: {
-        "Content-Type": "application/json",
-        Accept: "*/*",
-        Host: "psa-development.marinerfinance.io",
-        "Accept-Encoding": "gzip, deflate, br",
-        Connection: "keep-alive",
-        "Content-Length": "6774",
+        "Content-Type": "application/json",       
         "x-access-token": loginToken.apiKey,
       },
-    }).then((res) => {
-      var Buffer = require("buffer/").Buffer; // note: the trailing slash is important!
-      const buff = Buffer.from(res.data.bufferFile.data);
-      const url = window.URL.createObjectURL(new Blob([buff]));
-      const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", res.data.exportName);
-      document.body.appendChild(link);
-      link.click();
-    
-      toast.success("downloaded successfully",{
-    
-        position: "bottom-left",
-        autoClose: 1500, 
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      
-      })
+    })
+      .then((res) => {
+        var Buffer = require("buffer/").Buffer; // note: the trailing slash is important!
+        const buff = Buffer.from(res.data.bufferFile.data);
+        const url = window.URL.createObjectURL(new Blob([buff]));
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", res.data.exportName);
+        document.body.appendChild(link);
+        link.click();
 
-    }).catch(err => {toast.error(err.message,{
-    
-      position: "bottom-left",
-      autoClose: 1500, 
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-     
-    
-    }
-    )});
+        toast.success("downloaded successfully", {
+          position: "bottom-left",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      })
+      .catch((err) => {
+        toast.error(err.message, {
+          position: "bottom-left",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      });
   } catch (error) {
     handleTokenExpiry(error);
     resAccDetails.push(error.resAccDetails);
@@ -105,12 +96,7 @@ export async function documentprint(id, name) {
       url: "/gps/download_document/" + id + "/" + name,
 
       headers: {
-        "Content-Type": "application/json",
-        Accept: "*/*",
-        Host: "psa-development.marinerfinance.io",
-        "Accept-Encoding": "gzip, deflate, br",
-        Connection: "keep-alive",
-        "Content-Length": "6774",
+        "Content-Type": "application/json",       
         "x-access-token": loginToken.apiKey,
       },
     }).then((res) => {
@@ -119,7 +105,6 @@ export async function documentprint(id, name) {
       var pdfFile = new Blob([buff]);
       var pdfUrl = URL.createObjectURL(pdfFile);
       printJS(pdfUrl);
-      
     });
   } catch (error) {
     handleTokenExpiry(error);
@@ -129,7 +114,7 @@ export async function documentprint(id, name) {
   return resAccDetails;
 }
 
-export async function uploadDocument(test, fileName, fileType) {
+export async function uploadDocument(test, fileName, fileType, documentType) {
   const loginToken = JSON.parse(localStorage.getItem("token"));
 
   let resAccDetails = [];
@@ -138,11 +123,12 @@ export async function uploadDocument(test, fileName, fileType) {
       {
         data: test,
         mimetype: fileType,
-        documentType: "id_document",
+        documentType: documentType,
         fileName: fileName,
       },
     ],
   };
+
   try {
     await axios({
       method: "POST",
@@ -157,30 +143,29 @@ export async function uploadDocument(test, fileName, fileType) {
         delete headers.common["Content-Type"];
         return data;
       },
-    }).then(res => {toast.success(res.data.data.message,{
-    
-        position: "bottom-left",
-        autoClose: 1500, 
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      
-      }
-      )}) .catch(err => {toast.error(err.data.data.message,{
-    
-        position: "bottom-left",
-        autoClose: 1500, 
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      
-      }
-      )});
-    
+    })
+      .then((res) => {
+        toast.success(res.data.data.message, {
+          position: "bottom-left",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      })
+      .catch((err) => {
+        toast.error(err.data.data.message, {
+          position: "bottom-left",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      });
   } catch (error) {
     handleTokenExpiry(error);
     resAccDetails.push(error.resAccDetails);
@@ -188,6 +173,3 @@ export async function uploadDocument(test, fileName, fileType) {
 
   return resAccDetails;
 }
-
-
-

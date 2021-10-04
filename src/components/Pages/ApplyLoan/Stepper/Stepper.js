@@ -1,5 +1,5 @@
-import React from "react";
-import {makeStyles} from "@material-ui/core/styles";
+import React, { useEffect} from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
@@ -13,9 +13,10 @@ import DocumentPhoto from "./DocumentPhoto";
 import VerificationQuestion from "./VerificationQuestion";
 import IncomeVerification from "./IncomeVerification";
 import BankAccountVerification from "./BankAccountVerification";
-import {ButtonPrimary, ButtonSecondary} from "../../../FormsUI";
-import {NavLink} from "react-router-dom";
-import {Grid} from "@material-ui/core";
+import { ButtonPrimary } from "../../../FormsUI";
+import { NavLink } from "react-router-dom";
+import { Grid } from "@material-ui/core";
+import APICall from '../../../App/APIcall';
 import "./VerticalLinearStepper.css"
 
 const useStyles = makeStyles((theme) => ({
@@ -51,31 +52,59 @@ function getSteps() {
   ];
 }
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <EmailVerification />;
-    case 1:
-      return <PhoneVerification />;
-    case 2:
-      return <FinancialInformation />;
-    case 3:
-      return <DocumentPhoto />;
-    case 4:
-      return <VerificationQuestion />;
-    case 5:
-      return <BankAccountVerification />;
-    case 6:
-      return <IncomeVerification />;
-    default:
-      return "Unknown step";
-  }
-}
+
+
+
 
 export default function VerticalLinearStepper() {
+
   const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = React.useState();
   const steps = getSteps();
+
+  const getApplicationStatus = async () => {
+let data = {
+
+};
+    let res = await APICall("/verification/verification_steps_cac", data, 'POST', true);
+    let tabPosition;
+    tabPosition = '';
+    if(res?.data?.data?.email === false){
+      tabPosition = 0;
+    }
+    if(res?.data?.data?.phone_verification === false && tabPosition === ''){
+      tabPosition = 1;
+    }
+    if(res?.data?.data?.financial_information === false && tabPosition === ''){
+      tabPosition = 2;
+    }
+    if(res?.data?.data?.id_document === false && tabPosition === ''){
+      tabPosition = 3 ;
+    }
+    if(res?.data?.data?.id_questions === false && tabPosition === ''){
+      tabPosition = 4;
+    }
+    if(res?.data?.data?.id_photo === false && tabPosition === ''){
+      tabPosition = 3;
+    }
+    if(res?.data?.data?.bank_account_information === false && tabPosition === ''){
+      tabPosition = 5;
+    }
+    if(res?.data?.data?.bank_account_verification === false && tabPosition === ''){
+      tabPosition = 5;
+    }
+    if(res?.data?.data?.income_verification === false && tabPosition === ''){
+      tabPosition = 6;
+    }
+   setActiveStep(tabPosition);
+  }
+
+  useEffect(() => {
+    getApplicationStatus();
+  }, []);
+
+
+
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -109,6 +138,27 @@ export default function VerticalLinearStepper() {
     }
   };
 
+  function getStepContent(step) {
+    switch (step) {
+      case 0:
+        return <EmailVerification next={handleNext} prev={handleBack} reset={handleReset} steps={steps} activeStep = {activeStep} classes= {classes} />;
+      case 1:
+        return <PhoneVerification  next={handleNext} prev={handleBack} reset={handleReset} steps={steps} activeStep = {activeStep} classes= {classes} />;
+      case 2:
+        return <FinancialInformation  next={handleNext} prev={handleBack} reset={handleReset} steps={steps} activeStep = {activeStep} classes= {classes} />;
+      case 3:
+        return <DocumentPhoto  next={handleNext} prev={handleBack} reset={handleReset} steps={steps} activeStep = {activeStep} classes= {classes} />;
+      case 4:
+        return <VerificationQuestion  next={handleNext} prev={handleBack} reset={handleReset} steps={steps} activeStep = {activeStep} classes= {classes} />;
+      case 5:
+        return <BankAccountVerification  next={handleNext} prev={handleBack} reset={handleReset} steps={steps} activeStep = {activeStep} classes= {classes} />;
+      case 6:
+        return <IncomeVerification  next={handleNext} prev={handleBack} reset={handleReset} steps={steps} activeStep = {activeStep} classes= {classes} />;
+      default:
+        return "Unknown step";
+    }
+  }
+
   return (
     <div className={classes.root}>
       <Stepper activeStep={activeStep} orientation="vertical">
@@ -118,9 +168,9 @@ export default function VerticalLinearStepper() {
               {<span className={classes.steplabel}>{label}</span>}
             </StepLabel>
             <StepContent>
-              <Typography>{getStepContent(index)}</Typography>
+              <div>{getStepContent(index)}</div>
               <div className={classes.actionsContainer}>
-                <div className={classes.button_div} >
+                {/* <div className={classes.button_div} >
                   
                   <ButtonSecondary
                     stylebutton='{"margin-right": "10px", "color":"" }'
@@ -147,7 +197,7 @@ export default function VerticalLinearStepper() {
                   >
                     {activeStep === steps.length - 1 ? "Finish" : "Next"}
                   </ButtonPrimary>
-                </div>
+                </div> */}
               </div>
             </StepContent>
           </Step>

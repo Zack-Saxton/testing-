@@ -1,8 +1,8 @@
-import React from "react";
-import {ButtonPrimary, Select} from "../../../FormsUI";
+import React, { useEffect, useState } from "react";
+import {ButtonPrimary, ButtonSecondary} from "../../../FormsUI";
 import Grid from "@material-ui/core/Grid";
 import {makeStyles} from "@material-ui/core/styles";
-import SelfieLicense from "../../../../assets/images/selfielicense.png";
+import { getIfrmae } from "../../../controllers/applyForLoanController"
 
 const useStyles = makeStyles((theme) => ({
   content_grid: {
@@ -11,8 +11,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 //View Part
-export default function DocumentPhoto() {
+export default function DocumentPhoto(props) {
   const classes = useStyles();
+  const [iframeSrc, setIframeSrc] = useState('');
+
+  async function  loadIframe() {
+    let ifrmae = await getIfrmae();
+    setIframeSrc(ifrmae.data.data.iframeSrc);
+  }
+
+  useEffect(() => {
+    loadIframe();
+  }, []);
 
   return (
     <div>
@@ -28,21 +38,25 @@ export default function DocumentPhoto() {
           </li>
         </p>
       </div>
+      <Grid item sm={12}>
+      { iframeSrc !== '' ? <iframe src={iframeSrc} title="document upload" height="650px" width="100%"/> : null}
 
-      <Grid sm={5} className={classes.content_grid}>
+      </Grid>
+
+      {/* <Grid sm={5} className={classes.content_grid}>
         <Select
           name="select"
           labelform="Select ID Type"
           select='[{"value":"Driver License"}, {"value":"Passport"}, 
               {"value":"State-issued Photo ID Card"}, {"value":"Military Federal Government Photo Id"}]'
         />
-      </Grid>
-
+      </Grid> */}
+{/* 
       <Grid className={classes.content_grid}>
         <ButtonPrimary stylebutton='{"background": "", "color":"" }'>
           Upload a Document
         </ButtonPrimary>
-      </Grid>
+      </Grid> */}
 
       <div>
         <p style={{ textAlign: "justify" }}>
@@ -53,7 +67,7 @@ export default function DocumentPhoto() {
           your ID document matches your appearance (similar to an in-person ID
           check)
         </p>
-        <p style={{ textAlign: "justify" }}>
+        {/* <p style={{ textAlign: "justify" }}>
           To see an example, please look at the image below
         </p>
         <br />
@@ -66,14 +80,44 @@ export default function DocumentPhoto() {
           />{" "}
           <br />
           Sample Photograph
-        </div>
+        </div> */}
       </div>
-
+{/* 
       <Grid className={classes.content_grid}>
         <ButtonPrimary stylebutton='{"background": "", "color":"" }'>
           Upload Your Picture
         </ButtonPrimary>
-      </Grid>
+      </Grid> */}
+      <div className={props.classes.actionsContainer}>
+          <div className={props.classes.button_div} >
+            
+            <ButtonSecondary
+              stylebutton='{"marginRight": "10px", "color":"" }'
+              onClick={props.reset}
+              id = "button_stepper_reset"
+            >
+              Reset
+            </ButtonSecondary>
+            
+            <ButtonSecondary
+              disabled={props?.activeStep === 0}
+              onClick={props?.prev}
+              id = "button_stepper_prev"
+              stylebutton='{"marginRight": "10px", "color":"" }'
+            >
+              Prev
+            </ButtonSecondary>
+            <ButtonPrimary
+              variant="contained"
+              color="primary"
+              id = "button_stepper_next"
+              stylebutton='{"marginRight": "10px", "color":"" }'
+              onClick={()=>{ props.next() }}
+            >
+              {props.activeStep === props?.steps.length - 1 ? "Finish" : "Next"}
+            </ButtonPrimary>
+          </div>
+        </div>
     </div>
   );
 }

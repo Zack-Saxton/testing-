@@ -64,12 +64,6 @@ function ExistingUser() {
 		},
 	});
 
-	const passwordOnChange = (e) => {
-        setLoginFailed('');
-        formik.handleChange(e);
-
-    }
-
 	const preventSpace = (event) => {
 		if (event.keyCode === 32) {
 		  event.preventDefault();
@@ -143,7 +137,7 @@ function ExistingUser() {
 												onKeyDown={preventSpace}
 												materialProps={{ maxLength: "30" }}
 												value={formik.values.password}
-												onChange={passwordOnChange}
+												onChange={formik.handleChange}
 												onBlur={formik.handleBlur}
 												error={
 													formik.touched.password &&
@@ -155,7 +149,7 @@ function ExistingUser() {
 											/>
 													<p className={ loginFailed !== '' ? "showError add-pad" : "hideError" } data-testid="subtitle">
 												{" "}
-												{loginFailed === "Invalid Email or Password" ? "Please enter a valid password" : loginFailed}                 
+												{loginFailed === "Invalid Email or Password" ? "Invalid Password" : loginFailed}                 
 											</p>
 										</Grid>
 										<Grid container
@@ -173,8 +167,9 @@ function ExistingUser() {
 												stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black"}'
 												disabled = { loading }
 											>
-												
+												<Typography align="center" className="textCSS ">
 													Sign In
+												</Typography>
 													<i
 													className="fa fa-refresh fa-spin customSpinner"
 													style={{ marginRight: "10px", display: loading ? "block" : "none" }}

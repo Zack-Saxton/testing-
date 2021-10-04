@@ -54,17 +54,17 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
                 </TableCell>
               </TableRow>
             ) : userRecentPayment.userRecentPaymentData.length ? (
-              userRecentPayment.userRecentPaymentData.map((val) => (
-                <>
-                  {val.loanHistory.AppAccountHistory.map((row) => (
+              userRecentPayment.userRecentPaymentData.map((val,index1) => (
+                <div key={index1}>
+                  {val.loanHistory.AppAccountHistory.map((row,index) => (
                     <>
-                      <TableRow key={row.index}>
+                      <TableRow key={index}>
                         <TableCell
                           component="th"
                           className={classes.tableHeadRow}
                           scope="row"
                         >
-                          {Moment(row.TransactionDate).format("MM-DD-YYYY")}
+                          {Moment(row.TransactionDate).format("MM/DD/YYYY")}
                         </TableCell>
                         <TableCell
                           className={classes.tableHeadRow}
@@ -105,7 +105,7 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
                       </TableRow>
                     </>
                   ))}
-                </>
+                </div>
               ))
             ) : (
               // :

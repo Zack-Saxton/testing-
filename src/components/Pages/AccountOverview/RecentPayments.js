@@ -7,8 +7,9 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Grid from "@material-ui/core/Grid";
 import CircularProgress from '@material-ui/core/CircularProgress';
-import {useStylesAccountOverview} from "./Style";
+import { useStylesAccountOverview } from "./Style";
 import Moment from "moment";
+import NumberFormat from 'react-number-format';
 
 export default function RecentPayments(userRecentPaymentData) {
   const classes = useStylesAccountOverview();
@@ -20,25 +21,25 @@ export default function RecentPayments(userRecentPaymentData) {
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell className={classes.tablehead} align="left">
+              <TableCell className={classes.tablehead} align="center">
                 Date
               </TableCell>
-              <TableCell className={classes.tablehead} align="left">
+              <TableCell className={classes.tablehead} align="center">
                 Description
               </TableCell>
-              <TableCell className={classes.tablehead} align="left">
+              <TableCell className={classes.tablehead} align="center">
                 Principal
               </TableCell>
-              <TableCell className={classes.tablehead} align="left">
+              <TableCell className={classes.tablehead} align="center">
                 Interest
               </TableCell>
-              <TableCell className={classes.tablehead} align="left">
+              <TableCell className={classes.tablehead} align="center">
                 Other
               </TableCell>
-              <TableCell className={classes.tablehead} align="left">
+              <TableCell className={classes.tablehead} align="center">
                 Total Amount
               </TableCell>
-              <TableCell className={classes.tablehead} align="left">
+              <TableCell className={classes.tablehead} align="center">
                 Balance
               </TableCell>
             </TableRow>
@@ -53,50 +54,50 @@ export default function RecentPayments(userRecentPaymentData) {
             ) : userRecentPayment.userRecentPaymentData.length ? (
               userRecentPayment.userRecentPaymentData.slice(0, 1).map((val) => (
                 <>
-                  {val.loanHistory.AppAccountHistory.slice(0, 3).map((row,index) => (
+                  {val.loanHistory.AppAccountHistory.slice(0, 3).map((row, index) => (
                     <>
                       <TableRow key={index}>
                         <TableCell
                           className={classes.tableHeadRow}
-                          align="left"
+                          align="center"
                         >
-                          {Moment(row.TransactionDate).format("MM-DD-YYYY")}
+                          {Moment(row.TransactionDate).format("MM/DD/YYYY")}
                         </TableCell>
                         <TableCell
                           className={classes.tableHeadRow}
-                          align="left"
+                          align="center"
                         >
                           {row.TransactionDescription}
                         </TableCell>
                         <TableCell
                           className={classes.tableHeadRow}
-                          align="left"
+                          align="right"
                         >
-                          ${Math.abs(row.PrincipalAmount)}
+                          <NumberFormat value={Math.abs(row.PrincipalAmount)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
                         </TableCell>
                         <TableCell
                           className={classes.tableHeadRow}
-                          align="left"
+                          align="right"
                         >
-                          ${row.InterestAmount}
+                          <NumberFormat value={Math.abs(row.InterestAmount)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
                         </TableCell>
                         <TableCell
                           className={classes.tableHeadRow}
-                          align="left"
+                          align="right"
                         >
-                          ${row.OtherAmount}
+                          <NumberFormat value={row.OtherAmount} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
                         </TableCell>
                         <TableCell
                           className={classes.tableheadrow}
-                          align="left"
+                          align="right"
                         >
-                          ${Math.abs(row.InterestAmount) + Math.abs(row.PrincipalAmount) + Math.abs(row.OtherAmount)}
+                          <NumberFormat value={Math.abs(row.InterestAmount) + Math.abs(row.PrincipalAmount) + Math.abs(row.OtherAmount)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
                         </TableCell>
                         <TableCell
                           className={classes.tableheadrow}
-                          align="left"
+                          align="right"
                         >
-                          ${row.RunningPrincipalBalance}
+                          <NumberFormat value={row.RunningPrincipalBalance} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
                         </TableCell>
                       </TableRow>
                     </>

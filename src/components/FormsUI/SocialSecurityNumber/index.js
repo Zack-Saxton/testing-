@@ -24,6 +24,7 @@ const SSNWrapper = ({
 	setError,
 	setHelperText,
 	placeholder,
+	mask,
 	...otherProps
 }) => {
 	const [unmaskedval, setUnMaskedVal] = useState("");
@@ -45,7 +46,7 @@ const SSNWrapper = ({
 			<MuiThemeProvider theme={theme}>
 				<InputMask
 					fullWidth={true}
-					mask="999-99-9999"
+					mask={mask ? mask: "999-99-9999"}
 					value={value}
 					name={name}
 					onChange={handleChange}

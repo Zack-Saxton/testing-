@@ -53,7 +53,7 @@ function NoOffersAvailable(props) {
                             
                             <Grid item xs={12}  container justifyContent="center" alignItems="center">
                                 <Grid item xs={11} sm={10} md={6} lg={6} xl={6} className=' row' container justifyContent="center" alignItems="center">
-                                    <Typography variant="h6" style={{ align:"center",justify:"center",alignItems:"center"}} className="lessBorrowCSS smalTextImgNoOff textWhite">
+                                    <Typography variant="h6" style={{ align:"center",justify:"center",alignItems:"center",textAlign:"justify"}} className="lessBorrowCSS smalTextImgNoOff textWhite">
                                         Unfortunately, we could not provide an offer for you at this time. However, you may reapply in 30 days if you feel that your circumstances have changed. Feel free to read our blog articles to understand how you can increase your credit score.
                                     </Typography>
                                 </Grid>

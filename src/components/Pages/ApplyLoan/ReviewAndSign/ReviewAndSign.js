@@ -1,5 +1,5 @@
-import React from "react";
-import {makeStyles} from "@material-ui/core/styles";
+import React, { useEffect } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
@@ -8,16 +8,18 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import PropTypes from "prop-types";
 import Box from "@material-ui/core/Box";
-import {NavLink} from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import ScrollToTopOnMount from '../../scrollToTop';
 import "./reviewAndSign.css";
+import APICall from "../../../App/APIcall"
+import Iframe from "../../../FormsUI/iframe"
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
   return (
     <div
-      role="tab-panel"
+      role="tabpanel"
       hidden={value !== index}
       id={`scrollable-auto-tab-panel-${index}`}
       aria-labelledby={`scrollable-auto-tab-${index}`}
@@ -25,7 +27,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box>
-          <Typography>{children}</Typography>
+          <div>{children}</div>
         </Box>
       )}
     </div>
@@ -59,14 +61,12 @@ const useStyles = makeStyles((theme) => ({
     color: "#fff",
     fontWeight: "400",
     fontSize: "1.64rem",
-    paddingLeft:"7px",
-    paddingBottom:"30px"
   },
   tabLabel: {
     background: "white",
     margin: "10px",
     color: "#3f51b5",
-    fontFamily: "'Multi', sans-serif !important",
+    fontFamily: "'Muli', sans-serif !important",
     fontSize: "1rem",
     textTransform: "none",
     fontWeight: "600",
@@ -92,20 +92,43 @@ const useStyles = makeStyles((theme) => ({
     color: "#171717",
     textAlign: "center",
   },
-  p:{
-    color: "#171717",
-    fontSize: "18px",
-  }
 }));
 
-export default function ReviewAndSign() {
+export default  function ReviewAndSign(props) {
   const classes = useStyles();
 
   const [value, setValue] = React.useState(1);
+  const history = useHistory();
+  const [url, setUrl] = React.useState();
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
+  async function  getIframeURL() {
+    let data ={
+
+    }
+
+    let iframeURL = await APICall("/integration/eoriginal/authenticate_cac", data, "POST", true  );
+    setUrl(iframeURL.data.data.data.iframe);
+   
+  }
+
+  useEffect(() => {
+    getIframeURL();
+  }, []);
+
+  const currencyFormat = (val) => {
+    if(val)
+    {
+		var formated = parseFloat(val);
+		var currency = '$';
+		var forCur = currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+    return forCur;
+    }
+	}
+
+  if(props.location.selectedIndexOffer){
   return (
     <div>
       <ScrollToTopOnMount />
@@ -152,7 +175,7 @@ export default function ReviewAndSign() {
             textColor="primary"
             variant="scrollable"
             scrollButtons="auto"
-            //TabIndicatorProps= {{style: {background:'green',width:'100%', color:'white'}}}
+            
             aria-label="scrollable auto tabs example"
           >
             <Tab
@@ -179,19 +202,17 @@ export default function ReviewAndSign() {
 
           {/* ##############################################Review And Sign################################################################################################# */}
           <TabPanel value={value} index={1}>
-            <Grid Container item xs={12} style={{ width:"100%" }} direction="row">
+            <Grid item xs={12} style={{ width:"100%" }} >
               <Paper className={classes.paper}>
                 <Grid container>
-                  <Grid container item xs={12} sm={6} style={{ width:"100%" }} direction="row">
-                    <Typography>
-                      <p
-                        style={{
+                  <Grid item xs={12} sm={6} style={{ width:"100%" }} >
+                    <Typography style={{
                           color: "#171717",
                           fontSize: "18px",
-                        }}
-                      >
+                        }}>
+                      
                         Selected Loan Offer
-                      </p>
+                    
                     </Typography>
                   </Grid>
 
@@ -212,7 +233,7 @@ export default function ReviewAndSign() {
                   </Grid>
                 </Grid>
 
-                <Grid container>
+                <Grid container  justifyContent="flex-start">
                   <Grid
                     item
                     xs={12}
@@ -224,7 +245,7 @@ export default function ReviewAndSign() {
                       Select Amount
                     </p>
                     <h2 className={classes.columnColor} id="column-content">
-                      $10,000{" "}
+                    {currencyFormat(props.location.selectedIndexOffer.loan_amount).slice(0, -3)}{" "}
                     </h2>
                   </Grid>
 
@@ -239,7 +260,7 @@ export default function ReviewAndSign() {
                       Loan Term
                     </p>
                     <h2 className={classes.columnColor} id="column-content">
-                      36M
+                    {props.location.selectedIndexOffer.term}M
                     </h2>
                   </Grid>
 
@@ -254,7 +275,7 @@ export default function ReviewAndSign() {
                       Fee at Origination
                     </p>
                     <h2 className={classes.columnColor} id="column-content">
-                      0.00%
+                    {props.location.selectedIndexOffer.origination_fee_rate}%
                     </h2>
                   </Grid>
 
@@ -269,7 +290,7 @@ export default function ReviewAndSign() {
                       Loan Proceeds
                     </p>
                     <h2 className={classes.columnColor} id="column-content">
-                      $10,000
+                    {currencyFormat(props.location.selectedIndexOffer.approved_loan_amount).slice(0, -3)}
                     </h2>
                   </Grid>
                   <Grid
@@ -283,7 +304,7 @@ export default function ReviewAndSign() {
                       APR
                     </p>
                     <h2 className={classes.columnColor} id="column-content">
-                      23.99
+                    {props.location.selectedIndexOffer.apr}
                     </h2>
                   </Grid>
                   <Grid
@@ -297,7 +318,7 @@ export default function ReviewAndSign() {
                       Monthly Payment
                     </p>
                     <h2 className={classes.columnColor} id="column-content">
-                      $392.28
+                    {currencyFormat(props.location.selectedIndexOffer.monthly_payment)}
                     </h2>
                   </Grid>
                 </Grid>
@@ -342,13 +363,16 @@ export default function ReviewAndSign() {
                   <li>After signing, click the ‘Submit’ button.</li>
                 </ol>
               </Grid>
-
-              <Grid item xs={12} style={{ width:"100%" }} direction="row">
+              <Grid item xs={12} md={12} lg={12} >
+                  { url ? <Iframe src={url} /> : <p>Loading...</p> }
+                  </Grid>
+              <Grid item xs={12} style={{ width:"100%" }} >
                 <Paper
     className={classes.paper}
     style={{height: "250px"}}
     />
                 <Paper className={classes.paper}>
+                
                   <Grid item xs={12}>
                     <Checkbox
                       name="rememberme"
@@ -416,4 +440,12 @@ export default function ReviewAndSign() {
       </Grid>
     </div>
   );
+} 
+else{
+ history.push({
+   pathname: "/customers/selectoffer"
+ });
+ return null;
+}
+
 }

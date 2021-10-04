@@ -23,7 +23,7 @@ const ButtonWrapper = ({
     buttonColor: {
       color: "#fff",
       background: "blue",
-      fontFamily: "sans-serif",
+      fontFamily: "'Muli', sans-serif !important",
       borderRadius: 150,
       textTransform: "capitalize",
     },

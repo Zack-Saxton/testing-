@@ -507,8 +507,6 @@ export default function OutlinedCard() {
 										jsonInput='[{"value":"India"}, {"value":"USA"}]'
 										placeholder="Choose Country"
 										stylecheckbox='{ "color":""}'
-										//styleAutocomplete='{​​​​​​​​"width":"300px"}​​​​​​​​'
-
 									/>
 								</CardContent>
 							</Card>

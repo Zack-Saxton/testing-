@@ -24,7 +24,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box>
-          <Typography>{children}</Typography>
+          <div>{children}</div>
         </Box>
       )}
     </div>
@@ -59,14 +59,12 @@ const useStyles = makeStyles((theme) => ({
     color: "#fff",
     fontWeight: "400",
     fontSize: "1.64rem",
-    paddingLeft: "7px",
-    paddingBottom: "30px",
   },
   tabLabel: {
     background: "white",
     margin: "10px",
     color: "#3f51b5",
-    fontFamily: "'Multi', sans-serif !important",
+    fontFamily: "'Muli', sans-serif !important",
     fontSize: "1rem",
     textTransform: "none",
     fontWeight: "600",

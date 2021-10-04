@@ -60,7 +60,6 @@ const AutoCompleteMultipleWrapper = ({
   //parsing data using json
   let jsonData = JSON.parse(jsonInput);
   let styleCheckBoxMF = JSON.parse(stylecheckbox)
- //let styleAutocompleteMF = JSON.parse(styleAutocomplete)
 
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;

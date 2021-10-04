@@ -8,7 +8,7 @@ export default async function LoanHistoryController() {
     active: "",
     data: "",
   };
-  
+
   try {
     await axios({
       method: "GET",
@@ -16,7 +16,6 @@ export default async function LoanHistoryController() {
 
       headers: {
         "Content-Type": "application/json",
-
         "x-access-token": loginToken.apiKey,
       },
       transformRequest: (data, headers) => {

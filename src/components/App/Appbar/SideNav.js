@@ -21,7 +21,6 @@ import Badge from "@material-ui/core/Badge";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import SettingsIcon from "@material-ui/icons/Settings";
 import logo from "../../../assets/images/MarinerLogo.png";
@@ -32,6 +31,7 @@ import DescriptionOutlinedIcon from "@material-ui/icons/DescriptionOutlined";
 import AssignmentTurnedInOutlinedIcon from "@material-ui/icons/AssignmentTurnedInOutlined";
 import ListIcon from "@material-ui/icons/List";
 import DataUsageOutlinedIcon from "@material-ui/icons/DataUsageOutlined";
+import Notification from "../../Layout/Notification/Notification";
 
 const drawerWidth = 240;
 
@@ -198,11 +198,7 @@ export default function SideNav() {
                             Branch Locator
                         </Typography>
 
-                        <IconButton aria-label="show 17 new notifications" color="inherit">
-                            <Badge classes={{badge: classes.customBadge}} badgeContent={17}>
-                                <NotificationsIcon/>
-                            </Badge>
-                        </IconButton>
+                        <Notification />
 
                         <IconButton color="inherit">
                             <SettingsIcon/>
@@ -291,7 +287,7 @@ export default function SideNav() {
                     <ListItem>
                         <ListItemIcon>
                             {" "}
-                            <AccountCircleIcon/>{" "}
+                            <AccountCircle/>{" "}
                         </ListItemIcon>
                         <ListItemText> My Profile</ListItemText>
                     </ListItem>
@@ -320,15 +316,6 @@ export default function SideNav() {
                         <ListItemText> MoneySkill </ListItemText>
                     </ListItem>
                 </List>
-                {/* <List>
-          {['Account Overview', 'Make a Payment', 'Apply for a Loan', 'Loan Document', 'My Branch','My Profile',
-          'Loan History', 'VantageScore', 'MoneySKILL'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon> <InboxIcon /> , <AccountBalanceWalletIcon /> , <AccountBalanceIcon /></ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List> */}
             </Drawer>
         </div>
     );

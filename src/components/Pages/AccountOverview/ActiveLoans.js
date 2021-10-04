@@ -1,9 +1,9 @@
 import React from "react";
-import {useStylesAccountOverview} from "./Style";
+import { useStylesAccountOverview } from "./Style";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import {ButtonPrimary} from "../../FormsUI";
+import { ButtonPrimary } from "../../FormsUI";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -12,6 +12,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableRow from "@material-ui/core/TableRow";
 import Moment from "moment";
 import AutoPayStatus from "./AutoPayStatus.js";
+import NumberFormat from 'react-number-format';
 
 export default function ActiveLoans(userActiveLoanData) {
     const classes = useStylesAccountOverview();
@@ -38,9 +39,10 @@ export default function ActiveLoans(userActiveLoanData) {
             ) :
                 userActiveLoans.userActiveLoanData.length
                     ?
-                    userActiveLoans.userActiveLoanData.map((appData,index) => (
+                    userActiveLoans.userActiveLoanData.map((appData, index) => (
                         <Grid container key={index}>
                             <Grid
+                                id="activeLoanWrap"
                                 item
                                 xs={12}
                                 sm={9}
@@ -66,11 +68,11 @@ export default function ActiveLoans(userActiveLoanData) {
 
                                     <Grid container spacing={3} style={{ paddingTop: "20px" }}>
                                         <AutoPayStatus value={appData.loanPaymentInformation.appRecurringACHPayment} />
-                                        <Grid item xs={12} sm={3}>
-                                            <p className={classes.cardContent}> Regular Amount</p>
-                                            <h5 className={classes.brandColor}>
-                                                $<span className="addCommaAmount">
-                                                    {appData.loanDetails.RegularPaymentAmount}
+                                        <Grid id="regularAmountGrid" item xs={12} sm={3}>
+                                            <p id="RegularAmmountText" className={classes.cardContent}> Regular Amount</p>
+                                            <h5 id="nextPaymentItems" className={classes.brandColor}>
+                                                <span className="addCommaAmount">
+                                                    <NumberFormat value={appData.loanDetails.RegularPaymentAmount} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
                                                 </span>
                                             </h5>
                                             <p className={classes.cardContent}>
@@ -78,16 +80,16 @@ export default function ActiveLoans(userActiveLoanData) {
                                             </p>
                                         </Grid>
                                         <Grid item xs={12} sm={3}>
-                                            <p className={classes.cardcontent}>Due Date</p>
-                                            <h5 className={classes.brandColor}>{Moment(appData.loanDetails.LastPaymentDate).format('MM-DD-YYYY')}</h5>
-                                            <p className={classes.cardcontent}>Due in {Math.ceil(Moment.duration(today.diff(Moment(appData.loanDetails.LastPaymentDate))).asDays())} days</p>
+                                            <p id="dueDate" className={classes.cardcontent}>Due Date</p>
+                                            <h5 id="nextPaymentItems" className={classes.brandColor}>{Moment(appData.loanDetails.NextPaymentDate).format('MM/DD/YYYY')}</h5>
+                                            <p className={classes.cardcontent}>Due in {Math.ceil(Moment.duration(Moment(appData.loanDetails.NextPaymentDate).diff(today)).asDays())} days</p>
                                         </Grid>
                                         {(appData.loanPaymentInformation.hasScheduledPayment) ?
                                             (
-                                                <Grid item xs={12} sm={3}>
-                                                    <p className={classes.cardcontent}>Scheduled Payment</p>
-                                                    <h5 className={classes.brandColor}>
-                                                        {Moment(appData.loanPaymentInformation.scheduledPayments.PaymentDate).format('MM-DD-YYYY')}
+                                                <Grid id="scheduledPaymentGrid" item xs={12} sm={3}>
+                                                    <p id="ScheduledPaymentText" className={classes.cardcontent}>Scheduled Payment</p>
+                                                    <h5 id="nextPaymentItems" className={classes.brandColor}>
+                                                        {Moment(appData.loanPaymentInformation.scheduledPayments[0].PaymentDate).format('MM/DD/YYYY')}
                                                     </h5>
                                                     <p className={classes.cardcontent}>
                                                         Future payment is scheduled
@@ -97,8 +99,8 @@ export default function ActiveLoans(userActiveLoanData) {
                                             :
                                             (
                                                 <Grid item xs={12} sm={3}>
-                                                    <p className={classes.cardcontent}>Scheduled Payment</p>
-                                                    <h5 className={classes.brandColor}>NONE</h5>
+                                                    <p id="ScheduledPaymentText" className={classes.cardcontent}>Scheduled Payment</p>
+                                                    <h5 id="nextPaymentItems" className={classes.brandColor}>NONE</h5>
                                                     <p className={classes.cardcontent}>
                                                         No future payment is scheduled
                                                     </p>
@@ -132,7 +134,7 @@ export default function ActiveLoans(userActiveLoanData) {
                                                 Opened On
                                             </p>
                                             <p style={{ margin: "auto" }}>
-                                                <b>{Moment(appData.loanDetails.LoanOriginationDate).format('MM-DD-YYYY')}</b>
+                                                <b>{Moment(appData.loanDetails.LoanOriginationDate).format('MM/DD/YYYY')}</b>
                                             </p>
 
                                         </div>

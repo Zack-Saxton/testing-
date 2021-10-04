@@ -17,6 +17,7 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
 import Moment from "moment";
 import PropTypes from 'prop-types';
+import NumberFormat from 'react-number-format';
 import { useStylesPaymenthistory } from "./Style";
 import "./Style.css";
 
@@ -101,6 +102,8 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
     setPage(0);
   };
 
+   
+
   let userRecentPayment =
     userRecentPaymentData != null ? userRecentPaymentData : null;
 
@@ -111,7 +114,7 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell className={classes.tableHead}>Date</TableCell>
+              <TableCell className={classes.tableHead} align="center">Date</TableCell>
               <TableCell className={classes.tableHead} align="center">
                 Description
               </TableCell>
@@ -137,15 +140,16 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
               (rowsPerPage > 0
                 ? userRecentPayment.userRecentPaymentData[0].loanHistory.AppAccountHistory.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 : userRecentPayment.userRecentPaymentData[0].loanHistory.AppAccountHistory
-              ).map((row, index) => (
+              ).map((row,index1) => (
                 <>
-                  <TableRow key={index}>
+                  <TableRow key={index1}>
                     <TableCell
                       component="th"
                       className={classes.tableHeadRow}
                       scope="row"
+                      align="center"
                     >
-                      {Moment(row.TransactionDate).format("MM-DD-YYYY")}
+                      {Moment(row.TransactionDate).format("MM/DD/YYYY")}
                     </TableCell>
                     <TableCell
                       className={classes.tableHeadRow}
@@ -155,33 +159,33 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
                     </TableCell>
                     <TableCell
                       className={classes.tableHeadRow}
-                      align="center"
+                      align="right"
                     >
-                      $ {Math.abs(row.PrincipalAmount)}
+                      <NumberFormat value={Math.abs(row.PrincipalAmount)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true}  prefix={'$'} />
                     </TableCell>
                     <TableCell
                       className={classes.tableHeadRow}
-                      align="center"
+                      align="right"
                     >
-                      $ {Math.abs(row.InterestAmount)}
+                      <NumberFormat value={Math.abs(row.InterestAmount)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} /> 
                     </TableCell>
                     <TableCell
                       className={classes.tableHeadRow}
-                      align="center"
+                      align="right"
                     >
-                      $ {Math.abs(row.OtherAmount)}
+                        <NumberFormat value={Math.abs(row.OtherAmount)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />  
                     </TableCell>
                     <TableCell
                       className={classes.tableHeadRow}
-                      align="center"
+                      align="right"
                     >
-                      $ {Math.abs(row.InterestAmount) + Math.abs(row.OtherAmount) + Math.abs(row.PrincipalAmount)}
+                         <NumberFormat value={Math.abs(row.InterestAmount) + Math.abs(row.OtherAmount) + Math.abs(row.PrincipalAmount)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
                     </TableCell>
                     <TableCell
                       className={classes.tableHeadRow}
-                      align="center"
+                      align="right"
                     >
-                      $ {row.RunningPrincipalBalance}
+                         <NumberFormat value={Math.abs(row.RunningPrincipalBalance)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
                     </TableCell>
                   </TableRow>
                 </>

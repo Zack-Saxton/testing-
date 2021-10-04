@@ -7,7 +7,7 @@ const CheckLoginStatus = () => {
     var min = 28; // Reset when storage is more than 24hours
     var now = new Date().getTime();
     var actualSetupTime = userToken?.setupTime ?? '';
-
+        
     if(!userToken?.isLoggedIn ){
         history.push({
 			pathname: "/login",

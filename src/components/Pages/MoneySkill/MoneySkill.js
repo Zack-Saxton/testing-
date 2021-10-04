@@ -1,52 +1,95 @@
 import React from "react";
-import {makeStyles} from "@material-ui/core/styles";
+<<<<<<< HEAD
+=======
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
+>>>>>>> 83d8ecb4a39608eb3df58ad6f726c7a711648941
+import Dialog from "@material-ui/core/Dialog";
+import {
+  ButtonPrimary,
+  ButtonSecondary
+} from "../../FormsUI";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
+import { useStylesMoneySkill } from "./Style";
+import "./Style.css";
 
-const useStyles = makeStyles((theme) => ({
- 
-  
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  },
-  heading:{
-    color: "white"
-    
-}
-}));
+export default function MoneySkill(props) {
+  const classes = useStylesMoneySkill();
 
-
-
-export default function MoneySkill() {
-  const classes = useStyles();
+  const handleCloseMoneySkill = () => {
+    props.onChange(false);
+  };
 
   return (
-    <div >
-        
-        <Grid container justifyContent={"center"} style={{ marginTop: "-150px" }}>
-          <Grid container direction="row" item xs={10}>
-            <Typography className={classes.heading} variant="h1">
-              Money Skill
-            </Typography>
-            
-          </Grid> 
+    <div>
+      <Dialog
+        id="moneySkillDialogBox"
+        open={props.moneySkill}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        classes={{ paper: classes.moneySkillDialog }}
+      >
+        <div id="closeBtn" className={classes.buttonClose}>
+          <IconButton
+            aria-label="close"
+            onClick={handleCloseMoneySkill}
+            className={classes.closeButton}
+          >
+            <CloseIcon />
+          </IconButton>
+        </div>
 
-          <Grid item xs={10}>
-            <Paper className={classes.paper} >
-                <p >Page Under Development </p>
-             
-            </Paper>
-          </Grid>
-        </Grid>
+        <h2 id="moneySkillDialogHeading" className={classes.moneySkillDialogHeading}>
+          You are about to leave <br /> marinerfinance.com
+        </h2>
 
-     
+        <div>
+          <p className={classes.moneySkillParagaraph}>
+            Mariner Finance provides this link for your convenience and is not
+            responsible for and makes no claims or representations regarding the
+            content, terms of use, or privacy policies of third party websites.
+          </p>
 
+          <p className={classes.moneySkillParagaraph}>
+            The information you provide to register and use MoneySKILL is
+            governed by the privacy policy of the American Financial Services
+            Association Education Foundation{" "}
+            <a target="blank" href="https://www.afsaef.org/Privacy-Policy">
+              (found here)
+            </a>
+            and the privacy policy of Mariner Finance{" "}
+            <a
+              target="blank"
+              href="https://www.marinerfinance.com/resources/legal/privacy-statement/"
+            >
+              (found here)
+            </a>{" "}
+            . If you have any questions about the collection and use of the
+            information you provide, please review those policies and use the
+            contact mechanisms provided for in the policies.
+          </p>
+        </div>
+
+        <div id="buttonWrap">
+          <ButtonSecondary
+            id="stayBtn"
+            onClick={handleCloseMoneySkill}
+            stylebutton='{"float": "" }'
+          >
+            Stay on Marinerfinance.com
+          </ButtonSecondary>
+
+          <ButtonPrimary
+            href="https://lms.moneyskill.org/students/login"
+            id="Continue"
+            stylebutton='{"float": "" }'
+          >
+            Continue
+          </ButtonPrimary>
+        </div>
+      </Dialog>
     </div>
   );
 }

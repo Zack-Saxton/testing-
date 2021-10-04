@@ -20,11 +20,11 @@ const validationSchema = yup.object({
 		.string()
 		.when("martialStatus", {
 			is: "Married",
-			then: yup.string().required("Your Spouse Address is required"),
+			then: yup.string().required("Spouse Address is required"),
 		})
 		.when("martialStatus", {
 			is: "Separated, under decree of legal separation",
-			then: yup.string().required("Your Spouse Address is required"),
+			then: yup.string().required("Spouse Address is required"),
 		}),
 	spouseZipcode: yup
 		.string()
@@ -60,7 +60,7 @@ const validationSchema = yup.object({
 
 function MarriedStatus() {
 	const { data, setData } = useContext(CheckMyOffers);
-	const [stateShort, setStateShort] = useState("");
+	const [stateShort, setStateShort] = useState(""); 
 	const [validZip, setValidZip] = useState(true);
 	const history = useHistory();
 
@@ -69,7 +69,7 @@ function MarriedStatus() {
 			martialStatus: data.maritalStatus ?? "",
 			add: data.spouse_address_street ?? "",
 			spouseZipcode: data.spouse_address_postal_code ?? "",
-			spouseState: data.stateFullform ? data.stateFullform : "",
+			spouseState: data.spouse_address_state_full_form ? data.spouse_address_state_full_form : "",
 			spouseSelectState: data.spouse_address_city ?? "",
 		},
 		validationSchema: validationSchema,
@@ -80,6 +80,7 @@ function MarriedStatus() {
 				spouse_address_street: values.add,
 				spouse_address_city: values.spouseSelectState,
 				spouse_address_state: stateShort,
+				spouse_address_state_full_form: values.spouseState,
 				spouse_address_postal_code: values.spouseZipcode,
 				completedPage: data.page.activeDuty,
 			});
@@ -88,7 +89,6 @@ function MarriedStatus() {
 	});
 
 	const preventSpace = (event) => {
-		// const reg = /[a-zA-Z]+[ ]{0,1}[']{0,1}/;
 		if (event.keyCode === 32 && formik.values.streetAddress === "") {
 			event.preventDefault();
 		}
@@ -105,19 +105,19 @@ function MarriedStatus() {
 								result.places[0]["place name"]
 							);
 							formik.setFieldValue("spouseState", result.places[0]["state"]);
-							setStateShort(result.places[0]["state abbreviation"]);
+							setStateShort(result.places[0]["state abbreviation"]); 
 							setValidZip(true);
 						} else {
 							formik.setFieldValue("spouseSelectState", "");
 							formik.setFieldValue("spouseState", "");
-							setStateShort("");
+							setStateShort(""); 
 							setValidZip(false);
 						}
 					},
 					(error) => {
 						formik.setFieldValue("spouseSelectState", "");
 						formik.setFieldValue("spouseState", "");
-						setStateShort("");
+						setStateShort(""); 
 						setValidZip(false);
 					}
 				);
@@ -194,7 +194,6 @@ function MarriedStatus() {
 											md={8}
 											xs={12}
 										>
-											{/* Code Here */}
 											<Select
 												fullWidth={true}
 												name="martialStatus"

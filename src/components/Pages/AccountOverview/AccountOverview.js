@@ -1,18 +1,18 @@
-import React, {useEffect, useState} from "react";
-import {useStylesAccountOverview} from "./Style";
+import React, { useEffect, useState } from "react";
+import { useStylesAccountOverview } from "./Style";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import {ButtonPrimary} from "../../FormsUI";
-import {NavLink} from "react-router-dom";
+import { ButtonPrimary } from "../../FormsUI";
+import { NavLink } from "react-router-dom";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
 import ScrollToTopOnMount from "../scrollToTop";
-import LimitedOffer from "./LimitedOffer";
 import RecentApplications from "./RecentApplications";
 import ActiveLoans from "./ActiveLoans";
 import RecentPayments from "./RecentPayments";
 import "./Style.css";
 import usrAccountDetails from "../../controllers/AccountOverviewController";
+import LimitedOffer from "./LimitedOffer"
 
 export default function AccountOverview() {
   const classes = useStylesAccountOverview();
@@ -28,6 +28,7 @@ export default function AccountOverview() {
   }, []);
 
   //Load data
+  let offerData = (accountDetails != null) ? accountDetails.data.data.offerData : null;
   let applicationsData = (accountDetails != null) ? accountDetails.data.data.applicants : null;
   let activeLoansData = (accountDetails != null) ? accountDetails.data.data.activeLoans : null;
   let recentPaymentData = (accountDetails != null) ? accountDetails.data.data.activeLoans : null;
@@ -46,15 +47,17 @@ export default function AccountOverview() {
           paddingLeft: "30px",
         }}
       >
-       {/* <Grid item xs={12} container style={{ width: "100%" }} direction="row">
-          <Typography variant="h5" className={classes.heading} data-testid="title">
-            Account Overview
-          </Typography>
-      </Grid> */}
 
         <Grid item xs={12} style={{ width: "100%" }} container direction="row">
           <Typography variant="h5" className={classes.heading} data-testid="subtitle">
-            Active Application
+            Account Overview
+          </Typography>
+        </Grid>
+        <LimitedOffer userOffers={offerData} />
+
+        <Grid item xs={12} style={{ width: "100%" }} container direction="row">
+          <Typography variant="h5" className={classes.subheading} data-testid="subtitle">
+            Summary of applications
           </Typography>
         </Grid>
         <RecentApplications userApplicationsData={applicationsData} />

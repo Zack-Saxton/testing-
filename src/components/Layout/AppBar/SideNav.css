@@ -1,70 +1,75 @@
-header{
-    box-shadow: 0 0;
-    background: transparent!important;
- } 
-
-
-#close1{
-    display: none;
-}
-#sideMenuRadio{
-    display:block!important;
+header {
+  box-shadow: 0 0;
+  background: transparent !important;
 }
 
+#close1 {
+  display: none;
+}
+#sideMenuRadio {
+  display: block !important;
+}
 
+#moneySkillNavLink {
+  color: #000000de;
+  cursor: pointer;
+}
+#moneySkillNavLink:hover {
+  background-color: #00000009;
+  width: 90%;
+}
+
+a.nav_link:link {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+a.nav_link:hover .MuiListItem-root {
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.54) !important;
+  background-color: rgba(0, 0, 0, 0.035) !important;
+  width: 90%;
+  border-radius: 0 5px 5px 0;
+}
 
 .active .MuiListItem-root {
-    background: linear-gradient(85deg, #264266, #0F4EB3) !important;
-    color:#FFFFFF !important;
-    width: 90%;
-    border-radius: 0 5px 5px 0;
-    box-shadow : 3px 3px 10px 0 rgb(123 31 162 / 50%);
+  background: linear-gradient(85deg, #264266, #0f4eb3) !important;
+  color: #ffffff !important;
+  width: 90%;
+  border-radius: 0 5px 5px 0;
+  box-shadow: 3px 3px 10px 0 rgb(123 31 162 / 50%);
 }
 .active .MuiSvgIcon-root {
-    color: #FFFFFF;
+  color: #ffffff;
 }
 
-
-@media (max-width:960px){
-#close1{
+@media (max-width: 960px) {
+  #close1 {
     display: block;
-}
-#sideMenuRadio{
-    display: none!important;
+  }
+  #sideMenuRadio {
+    display: none !important;
+  }
+  .makeStyles-menuButton-4 {
+    margin-right: 0 !important;
 
-}
-.makeStyles-menuButton-4{
-    margin-right: 0!important;
-
-    vertical-align: bottom!important;
-} 
-
+    vertical-align: bottom !important;
+  }
 }
 
- @media (max-width:480px){
-    #toolbar {
-        display: block!important;
-      
+@media (max-width: 480px) {
+  #toolbar {
+    display: block !important;
+  }
 
-        
-    }
+  #toolBarList {
+    font-size: 3vw !important;
+  }
+}
 
-    #toolBarList{
-        font-size: 3vw!important;
-    }
-}  
-
-@media (max-width:355px){
-    #toolbar {
-       
-        padding-left: 0!important;
-        padding-right: 0!important;
-
-        
-    }
-
-   
-}  
-
-
-
+@media (max-width: 355px) {
+  #toolbar {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}

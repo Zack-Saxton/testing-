@@ -1,6 +1,6 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-import {useStylesAccountOverview} from "./Style";
+import { useStylesAccountOverview } from "./Style";
 import enabled from "../../../assets/images/Enabled.png";
 
 export default function AutoPayStatus(isAutoPay) {
@@ -22,7 +22,7 @@ export default function AutoPayStatus(isAutoPay) {
     return (
       <Grid item xs={12} sm={3}>
         <p className={classes.cardContent}>Auto Pay</p>
-        <h5 className={classes.disableColor}>
+        <h5 id="nextPaymentItems" className={classes.disableColor}>
           DISABLED
         </h5>
         <p className={classes.cardContent}>

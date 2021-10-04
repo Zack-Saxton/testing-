@@ -10,9 +10,6 @@ const ActiveLoanAccNOContext = (props) => {
 
 	});
 
-	
-	
-
 	return (
 		<ActiveLoanAccNO.Provider value={{ data: data, setData: setData  }}>
 			{props.children}

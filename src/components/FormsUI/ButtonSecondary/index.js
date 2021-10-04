@@ -23,7 +23,7 @@ const ButtonSecondary = ({
     buttonColor: {
         color: "#214476",
         background: "#fff",
-        fontFamily: "'Multi', sans-serif !important",
+        fontFamily: "'Muli', sans-serif !important",
         borderRadius: "50px",
         borderColor: "#214476",
         border: "1px solid",

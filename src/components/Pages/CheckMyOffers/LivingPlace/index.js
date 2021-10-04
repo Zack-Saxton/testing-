@@ -198,13 +198,10 @@ function LivingPlace() {
 													: "radioBlock "
 											}
 											onClick={() => {
-												// setLivingPlace("Own a Home with no Mortgage") ; 
-												// setData({ ...data, "rentMortgageAmount": 0, "homeOwnership": "Own a Home with no Mortgage" });
-												// livingPlace = "Own a Home with no Mortgage";
 												setLivingPlace("Own a Home with no Mortgage");
 												data.rentMortgageAmount = 0;
 												data.homeOwnership = "Own a Home with no Mortgage";
-												if(data.completedPage < data.page.livingPlace || data.completedPage < data.page.activeDuty){
+												if(data.completedPage < data.page.livingPlace){
 													setDataState();
 												}
 												
@@ -226,7 +223,7 @@ function LivingPlace() {
 												setLivingPlace("Own a Mobile Home");
 												data.rentMortgageAmount = 0;
 												data.homeOwnership = "Own a Mobile Home";
-												if(data.completedPage < data.page.livingPlace || data.completedPage < data.page.activeDuty){
+												if(data.completedPage < data.page.livingPlace){
 													setDataState();
 												}
 											}}
@@ -248,7 +245,7 @@ function LivingPlace() {
 												data.rentMortgageAmount = 0;
 												data.homeOwnership = "Living with Relatives";
 										
-												if(data.completedPage < data.page.livingPlace || data.completedPage < data.page.activeDuty){
+												if(data.completedPage < data.page.livingPlace){
 													setDataState();
 												}
 											}}
@@ -271,7 +268,6 @@ function LivingPlace() {
 											error={error}
 											helperText={helperText}
 											value={data.rentMortgageAmount}
-											// onChange= { (event) => {setData({ ...data, ['yearsAtEmployers']: event.target.value })}}
 											onChange={onHandleChange}
 											materialProps={{
 												"data-test-id": "rentMortgageAmount",

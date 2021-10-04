@@ -133,7 +133,9 @@ function CheckMyOffers(props) {
 												stylebutton='{"background": "#FFBC23", "color":"black"}'
 												onClick={handleRoute}
 											>
+											<Typography align="center" className="textCSS ">
 												Continue
+											</Typography>
 											</ButtonPrimary>
 										</Grid>
 										</Grid>

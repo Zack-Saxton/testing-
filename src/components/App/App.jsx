@@ -37,15 +37,23 @@ import SSN from "../Pages/CheckMyOffers/SSN";
 import NoOffersAvailable from "../Pages/CheckMyOffers/NoOffersAvailable";
 import ReferredToBranch from "../Pages/CheckMyOffers/ReferredToBranch";
 import EligibleForOffers from "../Pages/CheckMyOffers/EligibleForOffer";
+import CreditKarma from "../Pages/CreditKarma/CreditKarma";
+import ConfirmationCredit from "../Pages/CreditKarma/ConfirmationCredit";
+import FaqPostLogin from "../Pages/Faq/FaqPostLogin";
+import FaqBeforeLogin from "../Pages/Faq/FaqBeforeLogin"
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import ValidateToken from '../Pages/ApplyLoan/Stepper/validateToken'
+import IframeTest from '../FormsUI/iframe' 
 
 function App() {
-
 
     return (
         <div className="App">
 
             <BrowserRouter>
                 <CheckMyOffers>
+                <Route path='/iframe' exact component={IframeTest}/>
                     <Route path='/:path?' exact>
                         <GeneralUser>
                             <Switch>
@@ -53,6 +61,7 @@ function App() {
                                 <Route path='/components' exact component={CustomComponents}/>
                                 <Route path='/login' exact component={LoginPage}/>
                                 <Route path='/register' component={RegisterPage}/>
+                                <Route path='/faq' component={FaqBeforeLogin}/>
                                 <Route path='/select-amount' exact component={SelectAmount}/>
                                 <Route path='/loan-purpose' exact component={LoanPurpose}/>
                                 <Route path='/citizenship-status' exact component={CitizenshipStatus}/>
@@ -68,16 +77,13 @@ function App() {
                                 <Route path='/no-offers-available' exact component={NoOffersAvailable}/>
                                 <Route path='/referred-to-branch' exact component={ReferredToBranch}/>
                                 <Route path='/eligible-for-offers' exact component={EligibleForOffers}/>
+                                <Route path='/credit-karma' exact component={CreditKarma}/>
+                                <Route path='/confirmation-credit' exact component={ConfirmationCredit}/>
                                 <Route path='/zipcode' exact>
-                                    {/* <CheckMyOffers> */}
                                     <Zipcode/>
-                                    {/* </CheckMyOffers> */}
                                 </Route>
-                                {/* <Route path='/personal-info' exact component={PersonalInfo} /> */}
                                 <Route path='/personal-info' exact>
-                                    {/* <CheckMyOffers> */}
                                     <PersonalInfo/>
-                                    {/* </CheckMyOffers> */}
                                 </Route>
                             </Switch>
                         </GeneralUser>
@@ -88,6 +94,7 @@ function App() {
                             <PostLogin>
                                 <Switch>
                                     <Route path='/customers/accountOverview' exact component={AccountOverview}/>
+                                    <Route path='/customers/verification/email' exact component={ValidateToken}/>
                                     <Route path='/customers/paymentHistory' component={PaymentHistory}/>
                                     <Route path='/customers/selectOffer' component={ApplyLoan}/>
                                     <Route path='/customers/reviewAndSign' component={ReviewAndSign}/>
@@ -100,6 +107,7 @@ function App() {
                                     <Route path='/customers/myBranch' component={MyBranch}/>
                                     <Route path='/customers/myProfile' component={MyProfile}/>
                                     <Route path='/customers/vantageScore' component={VantageScore}/>
+                                    <Route path='/customers/faq' component={FaqPostLogin}/>
                                 </Switch>
                             </PostLogin>
                         </Route>
@@ -107,7 +115,7 @@ function App() {
 
                 </CheckMyOffers>
             </BrowserRouter>
-
+            <ToastContainer />
         </div>
     )
 }

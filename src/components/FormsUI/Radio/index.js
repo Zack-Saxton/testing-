@@ -8,9 +8,9 @@ Functionality       :    To use this RadioButton as a default component for UI p
 #################################################################################################################*/
 
 import React from "react";
-import {FormControl, FormControlLabel, FormLabel} from "@material-ui/core";
+import { FormControl, FormControlLabel, FormLabel } from "@material-ui/core";
 import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
+import RadioGroup from "@material-ui/core/RadioGroup"; 
 
 const RadioButtonWrapper = ({
   name,
@@ -20,7 +20,8 @@ const RadioButtonWrapper = ({
   row,
   required,
   onClick,
-  labelplacement: labelPlacement,
+  checked,
+  labelPlacement,
   ...otherProps
 }) => {
   //To return all formik state
@@ -34,18 +35,27 @@ const RadioButtonWrapper = ({
   const [radioValue, setRadioValue] = React.useState("");
 
   function handleRadioClick(event) {
+ 
+
+    
     if (event.target.value === radioValue) {
       setRadioValue("");
+     
     } else {
       setRadioValue(event.target.value);
+      
     }
+    if(onClick){
+        onClick(value??event.target.value);
+
+      }
+    
   }
   //Configuring the field with properties
   const configRadioButton = {
     name,
     row: row,
     required: required,
-    
     ...otherProps,
    
   };
@@ -67,8 +77,7 @@ const RadioButtonWrapper = ({
             value={radio.value}
             key={radio.value}
             label={radio.label}
-           
-            control={<Radio onClick={handleRadioClick} />}
+            control={<Radio checked={checked === radio.value   ? true : false} onClick={handleRadioClick} />}
           />
         ))}
       </RadioGroup>

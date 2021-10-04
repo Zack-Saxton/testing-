@@ -12,14 +12,14 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { NavLink } from "react-router-dom";
-import { ButtonWithIcon } from "../../FormsUI";
+import { ButtonWithIcon, Select } from "../../FormsUI";
 import ScrollToTopOnMount from "../scrollToTop";
 import { toast } from "react-toastify";
 
 import LoanDocumentTable from "./DocumentTable";
 import {
   loanDocumentController as loanDocument,
-  uploadDocument as uploadDocument,
+  uploadDocument ,
 } from "../../controllers/LoanDocumentController";
 
 export default function LoanDocument(props) {
@@ -28,25 +28,30 @@ export default function LoanDocument(props) {
   //Api implementation for table
   const [loanDocumentStatus, setloanDocumentStatus] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [docType, setDocType] = useState('');
 
   async function AsyncEffect_loanDocument() {
     setloanDocumentStatus(
       await loanDocument(
         props?.location?.state?.accNo ? props?.location?.state?.accNo : null
       )
-    );
+    )
   }
   useEffect(() => {
-    AsyncEffect_loanDocument();
+    AsyncEffect_loanDocument()
+    
   }, []);
 
   const handleInputChange = () => {
     setSelectedFile(document.getElementById("file"));
   };
 
+  const handleDocType = (e) => {
+    setDocType(e.target.value);
+  };
   const uploadDoc = () => {
     if (selectedFile === null) {
-      {
+      
         toast.error("please select a file to upload", {
           position: "bottom-left",
           autoClose: 1500,
@@ -56,16 +61,16 @@ export default function LoanDocument(props) {
           draggable: true,
           progress: undefined,
         });
-      }
+      
     } else {
       var filePath = selectedFile.value;
 
       var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.pdf)$/i;
 
       if (!allowedExtensions.exec(filePath)) {
-        {
+        
           toast.error(
-            "Please upload file having extensions .jpeg/.jpg/.png/.pdf only. ",
+            "Please upload file having extensions .jpeg .jpg .png .pdf only. ",
             {
               position: "bottom-left",
               autoClose: 1500,
@@ -76,12 +81,11 @@ export default function LoanDocument(props) {
               progress: undefined,
             }
           );
-        }
+        
         selectedFile.value = "";
 
         return false;
-      } else {
-        console.log(selectedFile);
+      } else if (selectedFile.files[0].size <= 10240000 && docType != null ) {
         let reader = new FileReader();
         if (selectedFile.files && selectedFile.files[0]) {
           reader.onload = () => {
@@ -90,13 +94,42 @@ export default function LoanDocument(props) {
             let test = Buffer.from(buffer2).toJSON().data;
             let fileName = selectedFile.files[0].name;
             let fileType = selectedFile.files[0].type;
+            let documentType = docType;
 
-            uploadDocument(test, fileName, fileType);
+            uploadDocument(test, fileName, fileType, documentType);
           };
           reader.readAsDataURL(selectedFile.files[0]);
         }
+      } 
+      else 
+      {
+        if(selectedFile.files[0].size > 10240000)
+        {
+        toast.error("Please upload file size below 10mb ", {
+          position: "bottom-left",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       }
+     else if(docType == null)
+    {
+      toast.error("Please select a document type to upload", {
+        position: "bottom-left",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
+  }
+  }
+    
   };
 
   let loanDocumentData =
@@ -169,30 +202,43 @@ export default function LoanDocument(props) {
             ) : (
               <LoanDocumentTable userLoanDocumentData={loanDocumentData} />
             )}
-
-            <Grid item xs={4} style={{ paddingTop: "20px" }}>
-              <input
-                style={{
-                  paddingBottom: "20px",
-                }}
-                //accept="image/*"
-                id="contained-button-file"
-                multiple
-                id="file"
-                type="file"
-                onChange={handleInputChange}
+ 
+            <Grid item xs={12} sm={3} style={{ paddingTop: "10px", width: "225px" }}>
+              <Select
+                name="select"
+                labelform="Select Document Type"
+                select='[{ "label": "Identity Document", "value": "id_doc"}, 
+          {"label": "Income Document","value": "income_doc"}, 
+              { "label": "Bank Account Document","value": "bank_doc"}, 
+              { "label": "Other Document","value":"other_doc"}]'
+                onChange={handleDocType}
+                value={docType}
+               
               />
-              {/* <label htmlFor="contained-button-file"> */}
-              <Button
-                variant="contained"
-                onClick={() => uploadDoc()}
-                className={classes.uploadbutton}
-                component="span"
-              >
-                Upload a document
-              </Button>
-              {/* </label> */}
             </Grid>
+            <Grid container direction="row">
+              <Grid item xs={12} sm={3} style={{ paddingTop: "20px" }}>
+                <input
+                 
+                  accept="image/png, image/jpeg, application/pdf, image/jpg "
+                  multiple
+                  id="file"                  
+                  type="file"
+                  onChange={handleInputChange}
+                />
+              </Grid>
+             
+              <Grid item xs={12} sm={4} style={{ paddingTop: "10px" }} >
+                <Button
+                  variant="contained"
+                  onClick={() => uploadDoc()}
+                  className={classes.uploadbutton}
+                  component="span"
+                >
+                  Upload a document
+                </Button>
+              </Grid>
+              </Grid>
           </Paper>
         </Grid>
       </Grid>

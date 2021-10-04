@@ -56,16 +56,9 @@ function SSN() {
 			data: JSON.stringify(body),
 			headers: {
 				"Content-Type": "application/json",
-				// Accept: "*/*",
-				// Host: "psa-development.marinerfinance.io",
-				// "Accept-Encoding": "gzip, deflate, br",
-				// Connection: "keep-alive",
-				// "Content-Length": "6774",
+				
 			},
-			transformRequest: (data, headers) => {
-				delete headers.common["Content-Type"];
-				return data;
-			},
+			
 		})
 		if (result && result.data.AppSubmittedInLast30Days === true) {
 			setAppliedInLast30Days(true);
@@ -159,13 +152,7 @@ function SSN() {
 		return "Are you sure you want to reload/refresh the page.?";
 	};
 
-	// if(logged) {
-	// 	history.pushState(null, null, location.href);
-	// 	window.onpopstate = function(event) {
-	// 	  history.go(1);
-	// 	};
-	//   }
-
+	
 
 		window.history.pushState(null, document.title, window.location.href);
 		window.addEventListener('popstate', function (event){

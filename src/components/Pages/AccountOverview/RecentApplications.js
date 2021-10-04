@@ -7,12 +7,31 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Grid from "@material-ui/core/Grid";
 import CircularProgress from '@material-ui/core/CircularProgress';
-import {useStylesAccountOverview} from "./Style";
-import {ButtonWithIcon} from "../../FormsUI";
+import { useStylesAccountOverview } from "./Style";
+import { ButtonWithIcon } from "../../FormsUI";
+import NumberFormat from 'react-number-format';
 
 export default function RecentApplications({ userApplicationsData }) {
   const classes = useStylesAccountOverview();
   let userApplications = (userApplicationsData != null) ? userApplicationsData : null;
+  let statusStr = {
+    "approved": "Approved",
+    "completing_application": "Completing Application",
+    "contact_branch": "Contact branch",
+    "confirming_info": "Confirming info",
+    "expired": "Expired",
+    "invalid": "Invalid",
+    "offer_selected": "Offer selected",
+    "offers_available": "Offers available",
+    "pre_qual_referred": "Prequal referred",
+    "pre_qual_rejected": "Prequal rejected",
+    "pre_qualified": "Pre qualified",
+    "referred": "Referred",
+    "rejected": "Rejected",
+    "under_review": "Under review",
+    "closing_process": "Closing process",
+    "final_review": "Final review"
+  };
 
   return (
     <Grid item xs={12} style={{ width: "100%", paddingBottom: "10px" }}>
@@ -26,7 +45,7 @@ export default function RecentApplications({ userApplicationsData }) {
               <TableCell className={classes.tableHead} align="left">
                 Product Type
               </TableCell>
-              <TableCell className={classes.tableHead} align="left">
+              <TableCell className={classes.tableHead} align="center">
                 Requested Amount
               </TableCell>
               <TableCell className={classes.tableHead} align="left">
@@ -56,7 +75,7 @@ export default function RecentApplications({ userApplicationsData }) {
             ) :
               userApplications.length
                 ?
-                userApplications.map((appData,index) => (
+                userApplications.map((appData, index) => (
                   <TableRow key={index}>
                     <TableCell className={classes.tableheadrow} >
                       {appData.submissionDate}
@@ -64,24 +83,37 @@ export default function RecentApplications({ userApplicationsData }) {
                     <TableCell className={classes.tableheadrow} align="left">
                       {appData.product}
                     </TableCell>
-                    <TableCell className={classes.tableheadrow} align="left">
-                      ${appData.amountRequested}
+                    <TableCell className={classes.tableheadrow} align="center">
+                      <NumberFormat value={appData.amountRequested} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
                     </TableCell>
                     <TableCell className={classes.tableheadrow} align="left">
                       {appData.loanPurpose}
                     </TableCell>
                     <TableCell className={classes.tableheadrow} align="left">
-                      {appData.status}
+                      {(statusStr[appData.status]) ? statusStr[appData.status] : (appData.status)}
                     </TableCell>
                     <TableCell align="left">
-                      {" "}
-                      <ButtonWithIcon
-                        icon="arrow_forwardIcon"
-                        iconposition="left"
-                        stylebutton='{"background": "", "color":"" }'
-                        styleicon='{ "color":"" }'
-                        href="/select-amount"
-                      />
+                      {appData.isActive ?
+                        (
+                          <ButtonWithIcon
+                            icon="arrow_forwardIcon"
+                            iconposition="left"
+                            stylebutton='{"background": "", "color":"" }'
+                            styleicon='{ "color":"" }'
+                            href="/select-amount"
+                          />
+                        ) : (
+                          <ButtonWithIcon
+                            icon="arrow_forwardIcon"
+                            iconposition="left"
+                            stylebutton='{"background": "", "color":"" }'
+                            styleicon='{ "color":"" }'
+                            href="/select-amount"
+                            disabled={true}
+                          />
+                        )
+                      }
+
                     </TableCell>
                   </TableRow>
                 ))

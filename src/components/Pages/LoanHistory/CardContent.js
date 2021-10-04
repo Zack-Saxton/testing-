@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import {NavLink} from "react-router-dom";
 import "./Style.css";
 import MonetizationOnRoundedIcon from "@material-ui/icons/MonetizationOnRounded";
+import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet"
 
 export default function LoanHistoryCard(userLoanHistoryCard) {
   const classes = useStylesLoanHistory();
@@ -16,13 +17,12 @@ export default function LoanHistoryCard(userLoanHistoryCard) {
 
   if (userLoanHistory.userLoanHistoryCard != null) {
     for (let i = 0; i < userLoanHistory.userLoanHistoryCard.length; i++) {
-      TotalAmount += Number(
+      TotalAmount = TotalAmount + Number(
         userLoanHistory.userLoanHistoryCard[i].loanPaymentInformation
           .accountDetails.OriginalFinancedAmount
       );
     }
   }
-
   //  view part
   return (
     <Grid item xs={12} style={{ paddingBottom: "20px" }}>
@@ -46,13 +46,13 @@ export default function LoanHistoryCard(userLoanHistoryCard) {
           </Grid>
 
           <Grid item xs={12} sm={4} className={classes.cardLoanHistory}>
-            <Paper className={classes.papertotal} id="cardLoanHistory-bg">
-              <div className={classes.cardContentLoanHistory}>
-                Total Amount Financed
-                <p className={classes.cardAmountLoanHistory}>
-                  $ {TotalAmount ? TotalAmount : 0}
-                </p>
-              </div>
+            <Paper className={classes.paper} style={{ height: "70%" }}>
+              <Grid style={{ textAlign: "center" }}>
+                <NavLink to="/customers/makePayment" style={{ textDecoration: "none" }} >
+                  <AccountBalanceWalletIcon id="dolor-icon_loan-history" className="material-icons background-round mt-5 yelloWBG" />
+                  <p className={classes.cardApplyLoan}>Make a Payment</p>
+                </NavLink>
+              </Grid>
             </Paper>
           </Grid>
 

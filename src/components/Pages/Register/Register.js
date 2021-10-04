@@ -107,7 +107,7 @@ const validationSchema = yup.object({
 		.date("Please enter valid date")
 		.nullable()
 		.required("Your date of birth is required")
-		.max(new Date(Date.now() - 567648000000), "You must be at least 18 years")
+		.max(new Date(((new Date(new Date().getFullYear()+'/'+(new Date().getMonth()+1)+'/'+new Date().getDate())).getTime()) - 567650000000), "You must be at least 18 years")
 		.min(new Date(1919, 1, 1), "You are too old")
 		.typeError("Please enter a valid date"),
 	password: yup
@@ -217,15 +217,12 @@ export default function Register() {
 					(customerStatus.data?.result === "success" &&
 						customerStatus.data?.hasError === false)
 				) {
-					let body = {
-						"email" : values.email,
-						"password": values.password
-					}
 					let retVal = await loginSubmit(values.email, values.password, '');
 					if (retVal?.data?.data?.user && retVal?.data?.data?.userFound === true) {
 						let rememberMe = false;
+						var now = new Date().getTime();
 						localStorage.clear();
-						localStorage.setItem("token", JSON.stringify({ isLoggedIn: true, apiKey: retVal?.data?.data?.user?.extensionattributes?.login?.jwt_token }));
+						localStorage.setItem("token", JSON.stringify({ isLoggedIn: true, apiKey: retVal?.data?.data?.user?.extensionattributes?.login?.jwt_token, setupTime: now }));
 		
 						rememberMe === true ?
 							localStorage.setItem("rememberMe", JSON.stringify({ selected: true, email: values.email, password: values.password })) :
@@ -237,7 +234,7 @@ export default function Register() {
 						});
 					}
 					else if (retVal?.data?.data?.result === "error" || retVal?.data?.data?.hasError === true) {
-						localStorage.setItem('token', JSON.stringify({ isLoggedIn: false, apiKey: '' }));
+						localStorage.setItem('token', JSON.stringify({ isLoggedIn: false, apiKey: '', setupTime: '' }));
 						setLoading(false);
 					}
 					else {
@@ -290,6 +287,22 @@ export default function Register() {
 			event.preventDefault();
 		}
 	};
+
+	
+	function autoFocus() {
+		var firstname = document.getElementById("firstname").value
+		var lastname = document.getElementById("lastname").value
+		if (firstname === '') {
+			document.getElementById("firstname").focus();
+		}
+		if (lastname === '') {
+			if (firstname === '') {
+				document.getElementById("firstname").focus();
+			} else {
+				document.getElementById("lastname").focus();
+			}
+		}
+	}
 
 	//Fetching valid zipcode
 	const fetchAddress = (e) => {
@@ -535,13 +548,16 @@ export default function Register() {
 										</Grid>
 
 										<Grid item xs={12} className={classes.signInButtonGrid}>
-											<ButtonPrimary
+											<ButtonPrimary												
+												onClick={autoFocus}
 												type="submit"
 												data-testid="submit"
 												stylebutton='{"background": "", "color":"" }'
 												disabled={loading}
 											>
+											<Typography align="center" className="textCSS ">
 												Sign in
+											</Typography>
 												<i
 													className="fa fa-refresh fa-spin customSpinner"
 													style={{

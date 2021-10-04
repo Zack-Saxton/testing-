@@ -76,9 +76,7 @@ Complete your application process and receive your money as soon as the same day
                               
                                     <Typography
                                         variant="h6"
-                                        // align="center"
-                                        // justify="center"
-                                        // alignItems="center"
+                                       
                                         className=" textWhite minText"
                                     >
                                         
@@ -87,9 +85,7 @@ Complete your application process and receive your money as soon as the same day
                                     <br />
                                     <Typography
                                         variant="h6"
-                                        // align="center"
-                                        // justify="center"
-                                        // alignItems="center"
+                                        
                                         className=" textWhite minText"
                                     >
                                         

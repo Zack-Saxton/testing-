@@ -36,14 +36,14 @@ export default function PaymentHistory() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  
+
   //Api implementation for table
   const [paymentHistoryStatus, setpaymentHistoryStatus] = useState(null);
 
   async function AsyncEffect_paymentHistory() {
     let responseData = await (usrAccountDetails())
     setpaymentHistoryStatus(responseData);
-    setfileName(responseData.data.data.activeLoans.length ? responseData.data.data.activeLoans[0].loanDetails.AccountNumber:null)
+    setfileName(responseData.data.data.activeLoans.length ? responseData.data.data.activeLoans[0].loanDetails.AccountNumber : null)
   }
   useEffect(() => {
     AsyncEffect_paymentHistory();
@@ -60,6 +60,12 @@ export default function PaymentHistory() {
   ];
 
 
+  const currencyFormat = (n) => {
+    const formated = parseFloat(n);
+    const currency = '$';
+    return currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+  }
+
   const downloadPDF = () => {
     let pdfData = recentPaymentData != null ? recentPaymentData[0].loanHistory.AppAccountHistory : []
     const unit = "pt";
@@ -67,7 +73,7 @@ export default function PaymentHistory() {
     const orientation = "portrait";
     const doc = new jsPDF(orientation, unit, size);
     const headerPDF = [["Date", "Description", "Principal", "Interest", "Other", "Total", "Balance"]];
-    const data = pdfData.map(data => [Moment(data.TransactionDate).format("MM-DD-YYYY"), data.TransactionDescription, "$"+Math.abs(data.PrincipalAmount), "$"+data.InterestAmount, "$"+data.OtherAmount, "$"+(Math.abs(data.InterestAmount) + Math.abs(data.OtherAmount) + Math.abs(data.PrincipalAmount)), "$"+data.RunningPrincipalBalance]);
+    const data = pdfData.map(data => [Moment(data.TransactionDate).format("MM-DD-YYYY"), data.TransactionDescription, currencyFormat(Math.abs(data.PrincipalAmount)), currencyFormat(Math.abs(data.InterestAmount)), currencyFormat(Math.abs(data.OtherAmount)), currencyFormat(Math.abs(data.InterestAmount + data.OtherAmount + data.PrincipalAmount)), currencyFormat(Math.abs(data.RunningPrincipalBalance))]);
     doc.setFontSize(15);
     doc.text("Active Loan / Payment History(" + fileName + ")", 40, 30);
     let content = {
@@ -87,19 +93,19 @@ export default function PaymentHistory() {
       ? paymentHistoryStatus.data.data.activeLoans
       : null;
 
-  const dataCSV = recentPaymentData != null ? recentPaymentData.length ?  recentPaymentData[0].loanHistory.AppAccountHistory.map(item => {
+  const dataCSV = recentPaymentData != null ? recentPaymentData.length ? recentPaymentData[0].loanHistory.AppAccountHistory.map(item => {
     return {
       ...item,
       ...{ TransactionDate: Moment(item.TransactionDate).format('MM-DD-YYYY') },
-      ...{ Total: "$"+ (Math.abs(item.InterestAmount) + Math.abs(item.OtherAmount) + Math.abs(item.PrincipalAmount)) },
-      ...{ PrincipalAmount: "$"+(Math.abs(item.PrincipalAmount)) },
-      ...{ InterestAmount: "$"+item.InterestAmount },
-      ...{ TransactionDescription: item.TransactionDescription },
-      ...{ OtherAmount: "$"+item.OtherAmount },
-      ...{ RunningPrincipalBalance: "$"+item.RunningPrincipalBalance },
+      ...{ Total: currencyFormat (Math.abs(item.InterestAmount) + Math.abs(item.OtherAmount) + Math.abs(item.PrincipalAmount)) },
+      ...{ PrincipalAmount: currencyFormat(Math.abs(item.PrincipalAmount))},
+      ...{ InterestAmount:  currencyFormat(Math.abs(item.InterestAmount))},
+      ...{ TransactionDescription: item.TransactionDescription},
+      ...{ OtherAmount: currencyFormat(Math.abs(item.OtherAmount)) },
+      ...{ RunningPrincipalBalance:  currencyFormat (Math.abs(item.RunningPrincipalBalance)) },
     };
-  }) : [] : []  
- 
+  }) : [] : []
+
 
   return (
     <div>

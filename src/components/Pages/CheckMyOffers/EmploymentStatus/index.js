@@ -102,9 +102,9 @@ const validationSchema = yup.object({
 		}
 	};
 
-	// if (data.completedPage < data.page.existingUser  || data.formStatus === 'completed'){
-	// 	history.push("/select-amount");
-	// }
+	if (data.completedPage < data.page.existingUser  || data.formStatus === 'completed'){
+		history.push("/select-amount");
+	}
 // JSX part
 	return (
 		<div>
@@ -214,7 +214,7 @@ const validationSchema = yup.object({
 									</Grid>
 									<Grid item lg={8} md={8} xs={12}>
 										<Paper
-											elevation={3}
+											elevation={3} 
 											data-testid="Unemployed"
 											className={
 												employmentStatus === "Unemployed"

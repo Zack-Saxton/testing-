@@ -8,7 +8,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import {
   documentdownload as downloadDocument,
-  documentprint as documentprint,
+  documentprint as printDocument,
 } from "../../controllers/LoanDocumentController";
 import PrintIcon from "@material-ui/icons/Print";
 import Moment from "moment";
@@ -26,7 +26,7 @@ export default function LoanDocumentTable(userLoanDocumentData) {
   };
 
   const printDoc = (id, name) => {
-    documentprint(id, name);
+    printDocument(id, name);
   };
 
   return (
@@ -51,7 +51,7 @@ export default function LoanDocumentTable(userLoanDocumentData) {
                   {row.displayname}
                 </TableCell>
                 <TableCell className={classes.tableHeadRow}>
-                  {Moment(row.date_uploaded).format("MM-DD-YYYY")}
+                  {Moment(row.date_uploaded).format("MM/DD/YYYY")}
                 </TableCell>
                 <TableCell className={classes.tableHeadRow}>
                   <PrintIcon style={{ color: "blue" }}

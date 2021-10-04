@@ -15,7 +15,9 @@ import Paper from "@material-ui/core/Paper";
 import Logo from "../../../assets/images/loginbg.png";
 import { NavLink, useHistory } from "react-router-dom";
 import "./login.css";
+import APICall from "../../App/APIcall";
 import loginSubmit from "../../controllers/LoginController";
+
 
 //Styling
 const useStyles = makeStyles((theme) => ({
@@ -26,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
     },
     paper: {
-        // marginTop: theme.spacing(8),
         padding: theme.spacing(3),
         display: "flex",
         flexDirection: "column",
@@ -102,7 +103,6 @@ export default function Login({ setToken }) {
     const remMe = localStorage.getItem('rememberMe');
     const remMeJSON = remMe ? JSON.parse(remMe) : {};
 	const [rememberMe, setRememberMe] = useState(remMeJSON.selected === true ? true : false);
-    
 
     //Form Submission
     const formik = useFormik({
@@ -114,12 +114,21 @@ export default function Login({ setToken }) {
         validationSchema: validationSchema,
         onSubmit: async (values) => {
 			setLoading(true);
+            let url = '/customer/login';
+            let method = "POST";
+            let data = { 
+                "email":values.email, 
+                "password": values.password
+                } ;
+            let addAccessToken = false;
+            await APICall(url, data, method, addAccessToken);
+
 			let retVal = await loginSubmit(values.email, values.password, setToken);
 			if (retVal?.data?.data?.user && retVal?.data?.data?.userFound === true) {
                 var now = new Date().getTime();
 				localStorage.clear();
-				localStorage.setItem("token", JSON.stringify({ isLoggedIn: true, apiKey: retVal?.data?.data?.user?.extensionattributes?.login?.jwt_token, setupTime: now }));
-               
+				localStorage.setItem("token", JSON.stringify({ isLoggedIn: true, apiKey: retVal?.data?.data?.user?.extensionattributes?.login?.jwt_token, setupTime: now, applicantGuid: retVal?.data?.data?.user?.attributes?.sor_data?.applicant_guid }));
+                localStorage.setItem("email",values.email);
                 
 
 				rememberMe === true ?
@@ -132,7 +141,7 @@ export default function Login({ setToken }) {
 				});
 			}
 			else if (retVal?.data?.data?.result === "error" || retVal?.data?.data?.hasError === true) {
-				localStorage.setItem('token', JSON.stringify({ isLoggedIn: false, apiKey: '' }));
+				localStorage.setItem('token', JSON.stringify({ isLoggedIn: false, apiKey: '', setupTime: '', applicantGuid: '' }));
 				setLoading(false);
 				setLoginFailed(retVal?.data?.data?.errorMessage);
 			}

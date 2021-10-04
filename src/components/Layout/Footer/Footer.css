@@ -33,6 +33,14 @@
 
    }
    @media all and (max-width: 600px){
+    #mfInfo{
+      flex-direction: column;
+      align-items: center;
+    }
+    #mfInfoImg{
+      width: 50% !important;
+      height: auto !important;
+    }
    .section-top{
        flex-direction: column;
    }

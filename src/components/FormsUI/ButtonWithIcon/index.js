@@ -26,7 +26,7 @@ const ButtonWithIcon = ({
     buttonColor: {
       color: "black",
       background: "#ffbc23",
-      fontFamily: "'Multi', sans-serif !important",
+      fontFamily: "'Muli', sans-serif !important",
       borderRadius: "50px",
       textTransform: "capitalize",
       height: "36px",

@@ -73,23 +73,21 @@ function ReferredToBranch(props) {
                                     </Typography>
                                     <Typography
                                         variant="h6"
-                                        // align="center"
-                                        // justify="center"
-                                        // alignItems="center"
+                                       
                                         className=" textWhite minText"
                                     >
                                         Mariner Branch locations are still open and operational; however, due to the health risks surrounding COVID-19, Mariner will not be accepting unscheduled walk-ins at this time. Instead, please call to schedule an appointment to meet with one of our team members or finish the process by phone in the comfort your home.*
                                     </Typography>
                                     <div className="leftAlign">
                                     <Typography variant="h6" style={{ align:"left", alignItems:"left"}}
-                                        // justify="center"
+                                       
                                         className=" textWhite minText bullet"
                                     >
                                     It's a good idea to know how much money you make a year.
                                     </Typography>
                                     <Typography style={{ align:"left", alignItems:"left"}}
                                         variant="h6"
-                                        // justify="center"
+                                       
                                         className=" textWhite minText bullet"
                                     >
                                      pen and paper may be helpful to take note of any documents you may need at loan closing.
