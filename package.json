@@ -82,5 +82,6 @@
     "clsx": "^1.1.1",
     "husky": "^7.0.2",
     "path": "^0.12.7"
-  }
+  },
+  "proxy": "https://psa-development.marinerfinance.io"
 }

@@ -21,7 +21,6 @@ import {
 } from "./WorkingHours";
 import { ScheduleCallApi } from "../../controllers/MyBranchController";
 import momentTimeZone from "moment-timezone";
-
 const validationSchema = yup.object({
   date: yup
     .date("Please enter valid date")
