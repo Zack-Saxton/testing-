@@ -11,6 +11,24 @@ const useStylesAccountOverview = makeStyles((theme) => ({
     flexDirection: "column",
     color: theme.palette.text.secondary,
   },
+
+  paperPropertiesLimitedOffer:
+  {
+    padding: theme.spacing(2),
+    display: "flex",
+    flexDirection: "column",
+    color: theme.palette.text.secondary,
+
+  },
+
+  paperPropertiesOfferTwo:
+  {
+    padding: theme.spacing(2),
+    display: "flex",
+    flexDirection: "column",
+    color: theme.palette.text.secondary,
+
+  },
   heading: {
     color: "#fff",
     fontWeight: "400",

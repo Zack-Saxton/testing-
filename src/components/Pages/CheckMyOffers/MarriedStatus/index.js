@@ -1,4 +1,4 @@
-import "../checkMyOffer.css";
+import "../CheckMyOffer.css";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -10,8 +10,10 @@ import {useFormik} from "formik";
 import * as yup from "yup";
 import MarriedStatusLogo from "../../../../assets/icon/married-status.png";
 import {CheckMyOffers} from "../../../../contexts/CheckMyOffers";
-import ScrollToTopOnMount from "../scrollToTop";
+import ScrollToTopOnMount from "../ScrollToTop";
 
+
+//Yup validation schema
 const validationSchema = yup.object({
 	martialStatus: yup
 		.string("Enter your Martial Status")
@@ -58,12 +60,15 @@ const validationSchema = yup.object({
 		}),
 });
 
+// custom component - MarriedStatus
 function MarriedStatus() {
 	const { data, setData } = useContext(CheckMyOffers);
 	const [stateShort, setStateShort] = useState(""); 
 	const [validZip, setValidZip] = useState(true);
 	const history = useHistory();
 
+
+	//Configuring formik
 	const formik = useFormik({
 		initialValues: {
 			martialStatus: data.maritalStatus ?? "",
@@ -74,6 +79,7 @@ function MarriedStatus() {
 		},
 		validationSchema: validationSchema,
 		onSubmit: (values) => {
+			//onsubmit store the data to context and procceds
 			setData({
 				...data,
 				maritalStatus: values.martialStatus,
@@ -88,11 +94,14 @@ function MarriedStatus() {
 		},
 	});
 
+	//prevent the space in key down 
 	const preventSpace = (event) => {
 		if (event.keyCode === 32 && formik.values.streetAddress === "") {
 			event.preventDefault();
 		}
 	};
+
+	//fetch the state and city based in zip code
 	const fetchAddress = (e) => {
 		if (e.target.value !== "" && e.target.value.length === 5) {
 			fetch("https://api.zippopotam.us/us/" + e.target.value)
@@ -130,6 +139,7 @@ function MarriedStatus() {
 		formik.handleChange(e);
 	};
 
+	//redirect to select amount if page accessed directly 
 	if (
 		data.completedPage < data.page.livingPlace ||
 		data.formStatus === "completed"

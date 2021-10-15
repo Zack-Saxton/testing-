@@ -2,6 +2,7 @@ import React from "react";
 import clsx from "clsx";
 import "./SideNav.css";
 import { makeStyles } from "@material-ui/core/styles";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -22,8 +23,9 @@ import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import MonetizationOnRoundedIcon from "@material-ui/icons/MonetizationOnRounded";
 import DescriptionOutlinedIcon from "@material-ui/icons/DescriptionOutlined";
-import AssignmentTurnedInOutlinedIcon from "@material-ui/icons/AssignmentTurnedInOutlined";
+import AssignmentTurnedInOutlinedIcon from "@material-ui/icons/AssignmentTurnedInOutlined"; 
 import ListIcon from "@material-ui/icons/List";
+import CallIcon from "@material-ui/icons/Call"
 import DataUsageOutlinedIcon from "@material-ui/icons/DataUsageOutlined";
 import { Checkbox } from "@material-ui/core";
 import CircleCheckedFilled from "@material-ui/icons/CheckCircle";
@@ -32,13 +34,15 @@ import logoIcon from "../../../assets/images/Favicon.png";
 import logoImage from "../../../assets/images/Normallogo.png";
 import { NavLink, useHistory } from "react-router-dom";
 import quickPay from "../../../assets/images/quickpay.png";
+import profileImg from "../../../assets/images/profile-img.png"
 import Notification from "../Notification/Notification"
 import 'react-toastify/dist/ReactToastify.css';
 import { toast, ToastContainer } from "react-toastify";
 import MoneySkill from "../../Pages/MoneySkill/MoneySkill";
 
-const drawerWidth = 240;
+const drawerWidth = 240; 
 
+//Material UI css
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -166,11 +170,32 @@ export default function SideNav() {
   const history = useHistory();
   const [disable, setDisable] = React.useState(false);
   const [skill, setSkill] = React.useState(false);
+  const [checked, setChecked] = React.useState(true);
 
+//Material UI media query for responsiveness
+  let check = useMediaQuery("(min-width:960px)");
+
+  React.useEffect(() => {
+    if (check === true && checked === true) {
+      setChecked(true);
+      setOpen(true);
+      document.getElementById("main").style.marginLeft = "240px";
+      document.getElementById("close").style.display = "none";
+    } else {
+      setOpen(false);
+    }
+  }, [checked, check]);
+
+  const branchName = localStorage.getItem('branchname');
+  const branchPhone = localStorage.getItem('branchphone');
+  const branchcloseStatus = localStorage.getItem('branchopenstatus');
+  
+//Side bar open on mouse event
   const handleDrawer = () => {
     const closeElementId = "close";
     const valueQualifiedName = "value";
-    if (checked === false) {
+
+    if (checked === false || check === false) {
       let menuValue = document
         .getElementById(closeElementId)
         .getAttribute(valueQualifiedName);
@@ -192,18 +217,23 @@ export default function SideNav() {
       } else {
         child.style.display = "none";
       }
-      if (checked === false) {
+      if (checked === false || check === false) {
         document.getElementById("main").style.marginLeft = "73px";
       } else {
         document.getElementById("main").style.marginLeft = "240px";
       }
+      var profiledetailTag = document.getElementById("profileDetails");
+      profiledetailTag.style.display = "block";
     }
   };
+
+//Side bar close on mouse event
 
   const handleDrawerleave = () => {
     const closeElementId = "close";
     const valueQualifiedName = "value";
-    if (checked === false) {
+
+    if (checked === false || check === false) {
       let menuValue = document
         .getElementById(closeElementId)
         .getAttribute(valueQualifiedName);
@@ -226,14 +256,27 @@ export default function SideNav() {
       } else {
         child.style.display = "none";
       }
-      if (checked === false) {
+      if (checked === false || check === false) {
         document.getElementById("main").style.marginLeft = "73px";
       } else {
         document.getElementById("main").style.marginLeft = "240px";
       }
+      
+    var profiledetailTag = document.getElementById("profileDetails");
+    profiledetailTag.style.display = "none";
     }
   };
 
+//Menu button on mouse view
+  const handleMenuButtonOpen = () => {
+    if (check === false) {
+      document.getElementById("close2").style.display = "block ";
+
+      setOpen(true);
+    }
+  };
+
+//Money skill popup
   const handleMoneySkillNav = () => {
     setSkill(true);
   };
@@ -244,6 +287,12 @@ export default function SideNav() {
 
   const handleMenuClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleMobileMenuClose = () => {
+    if (checked === false || check === false) {
+      setOpen(false);
+    }
   };
 
   const logOut = () => {
@@ -270,19 +319,21 @@ export default function SideNav() {
     });
   };
 
-  const [checked, setChecked] = React.useState(true);
-
+//Side bar enable and disable
   const handleChangeCheckbox = (event) => {
     if (event.target.checked === "false") {
       document.getElementById("main").style.marginLeft = "73px";
     } else {
       document.getElementById("main").style.marginLeft = "240px";
     }
+
     setChecked(event.target.checked);
   };
 
+  
   const menuId = "primary-search-account-menu";
 
+//Menu bar 
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
@@ -315,6 +366,7 @@ export default function SideNav() {
     </MenuItem>
   </Menu>;
 
+//View part
   return (
     <div className={classes.grow}>
       <ToastContainer
@@ -330,7 +382,7 @@ export default function SideNav() {
         <Toolbar id="toolbar">
           <IconButton
             aria-label="open drawer"
-            onClick={handleDrawer}
+            onClick={handleMenuButtonOpen}
             id="close1"
             className={clsx(classes.menuButton, {
               [classes.hide]: open,
@@ -385,7 +437,7 @@ export default function SideNav() {
               alt="quick pay"
             />
 
-             <Notification/>
+            <Notification />
 
             <IconButton
               edge="end"
@@ -406,6 +458,7 @@ export default function SideNav() {
         <Drawer
           id="close2"
           variant="permanent"
+          onClick={handleMobileMenuClose}
           className={clsx(classes.drawer, {
             [classes.drawerOpen]: open,
             [classes.drawerClose]: !open,
@@ -420,15 +473,21 @@ export default function SideNav() {
           onMouseLeave={handleDrawerleave}
         >
           <div className={classes.toolbar}>
-          <input type="image" src={logoImage} alt="logo image" style={{ height: "60px" }} />
+            <input
+              type="image"
+              src={logoImage}
+              alt="logo image"
+              style={{ height: "60px" }}
+            />
 
             <Checkbox
-              icon={<CircleUnchecked id="side-menu-radio" />}
-              checkedIcon={<CircleCheckedFilled />}
+              icon={<CircleUnchecked id="sidemenuRadio" />}
+              checkedIcon={<CircleCheckedFilled id="sidemenuRadio" />}
               onClick={handleChangeCheckbox}
               name="sidemenuradio"
               checked={checked}
             />
+
             <div id="close" style={{ display: "none" }}>
               <img
                 src={logoIcon}
@@ -439,9 +498,28 @@ export default function SideNav() {
             </div>
           </div>
           <Divider />
-          <List>
-            <NavLink to="/customers/accountOverview" className="nav_link">
+          <List onClick={handleMobileMenuClose}>
+            <ListItem id="profileDetails" className="profileDetails">
+              <List >
               <ListItem>
+                <img id="sidebarProfilePic" src={profileImg} alt="Profile Pic" />
+              </ListItem> 
+              <ListItem id="sidemenuBranch">  
+                  {branchName === '' || undefined ? '' : 'Branch : '+ branchName}  
+              </ListItem>               
+              <ListItem id={branchcloseStatus === 'null' ? 'sidemenuOpenNow' : 'sidemenuCloseNow'} >  
+                {branchcloseStatus === 'null' ? 'Open Now' : 'Closed Now'}
+              </ListItem> 
+              {branchPhone === '' || undefined  ? '' :  
+              <ListItem id="sidemenuPhone"> 
+                  <CallIcon />  
+                  {branchPhone}
+              </ListItem> 
+              }  
+              </List>
+            </ListItem>
+            <NavLink to="/customers/accountOverview" className="nav_link">
+              <ListItem className="titleSidenav">
                 <ListItemIcon>
                   {" "}
                   <AssignmentTurnedInOutlinedIcon />{" "}
@@ -451,7 +529,7 @@ export default function SideNav() {
             </NavLink>
 
             <NavLink to="/customers/makePayment" className="nav_link">
-              <ListItem>
+              <ListItem className="titleSidenav">
                 <ListItemIcon>
                   {" "}
                   <AccountBalanceWalletIcon />{" "}
@@ -463,7 +541,7 @@ export default function SideNav() {
             </NavLink>
 
             <NavLink to="/customers/selectOffer" className="nav_link">
-              <ListItem>
+              <ListItem className="titleSidenav">
                 <ListItemIcon>
                   {" "}
                   <MonetizationOnRoundedIcon />{" "}
@@ -473,7 +551,7 @@ export default function SideNav() {
             </NavLink>
 
             <NavLink to="/customers/loanDocument" className="nav_link">
-              <ListItem>
+              <ListItem className="titleSidenav">
                 <ListItemIcon>
                   {" "}
                   <DescriptionOutlinedIcon />{" "}
@@ -483,7 +561,7 @@ export default function SideNav() {
             </NavLink>
 
             <NavLink to="/customers/myBranch" className="nav_link">
-              <ListItem>
+              <ListItem className="titleSidenav">
                 <ListItemIcon>
                   {" "}
                   <AccountBalanceIcon />{" "}
@@ -493,7 +571,7 @@ export default function SideNav() {
             </NavLink>
 
             <NavLink to="/customers/myProfile" className="nav_link">
-              <ListItem>
+              <ListItem className="titleSidenav">
                 <ListItemIcon>
                   {" "}
                   <AccountCircleIcon />{" "}
@@ -503,7 +581,7 @@ export default function SideNav() {
             </NavLink>
 
             <NavLink to="/customers/loanHistory" className="nav_link">
-              <ListItem>
+              <ListItem className="titleSidenav">
                 <ListItemIcon>
                   {" "}
                   <ListIcon />{" "}
@@ -513,7 +591,7 @@ export default function SideNav() {
             </NavLink>
 
             <NavLink to="/customers/vantageScore" className="nav_link">
-              <ListItem>
+              <ListItem className="titleSidenav">
                 <ListItemIcon>
                   {" "}
                   <InboxIcon />{" "}
@@ -527,7 +605,10 @@ export default function SideNav() {
                 {" "}
                 <DataUsageOutlinedIcon />{" "}
               </ListItemIcon>
-              <ListItemText> MoneySkill &reg; </ListItemText>
+              <ListItemText className="titleSidenav">
+                {" "}
+                MoneySKILL &reg;{" "}
+              </ListItemText>
             </ListItem>
           </List>
         </Drawer>

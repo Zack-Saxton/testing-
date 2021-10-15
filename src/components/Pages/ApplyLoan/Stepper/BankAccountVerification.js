@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import {
-	ButtonPrimary,
-	ButtonSecondary,
-	Radio,
-	TextField,
-} from "../../../FormsUI";
+import { ButtonPrimary, ButtonSecondary, Radio, TextField } from "../../../FormsUI";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
@@ -12,11 +7,12 @@ import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import TextFieldWithToolTip from "@material-ui/core/TextField";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { errorMessage } from "../../../../helpers/errorMessage";
+import { errorMessage } from "../../../../helpers/ErrorMessage";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import APICall from '../../../App/APIcall';
-import DocumentUpload from './documentUpload';
+import DocumentUpload from './DocumentUpload';
 
+//Styling part
 const useStyles = makeStyles((theme) => ({
 	content_grid: {
 		marginTop: "15px",
@@ -24,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
 	open: {},
 }));
 
+//YUP validation schema 
 const validationSchema = yup.object({
 	accountHolder: yup
 		.string("Enter Account holder's name")
@@ -59,12 +56,19 @@ const validationSchema = yup.object({
 		.min(7, "Account numner should be minimum of 7 digits")
 		.max(16, "Account numner should be minimum of 16 digits"),
 });
+
 //View Part
+//Initializing functional component -  BankAccountVerification
 export default function BankAccountVerification(props) {
 	const classes = useStyles();
+
+	//Initializing state variables 
 	const [accountType, setAccountType] = useState("saving");
 	const [paymnetMode, setPaymentMode] = useState("autopayment");
+	const [verifyRequired, setVerifyRequired] = useState(false);
+	const [error, setError] = useState('');
 
+	//Configuring the formik variable usign useFormik hook 
 	const formik = useFormik({
 		initialValues: {
 			accountHolder: "",
@@ -74,6 +78,8 @@ export default function BankAccountVerification(props) {
 			confirmBankAccountNumber: "",
 		},
 		validationSchema: validationSchema,
+
+		//On submit - submit the user entered details 
 		onSubmit: async (values) => {
 
       let data = { 
@@ -84,12 +90,26 @@ export default function BankAccountVerification(props) {
 		"repayment": paymnetMode
     }
      let res = await APICall("/verification/bank_information_cac", data, "POST", true);
-	 console.log(res);
-	 props.next();
+	 if(res?.data?.data?.bank_account_information && res?.data?.data?.bank_account_verification){
+		
+		props.next();
+	 }
+	 else if (res?.data?.data?.bank_account_information || res?.data?.data?.bank_account_verification){
+		 setError( verifyRequired ? errorMessage?.applyForLoan?.bankAccountVerification?.uploadCheck : errorMessage?.applyForLoan?.bankAccountVerification?.notValid)
+		setVerifyRequired(true);
+	 }
+	 else if (res?.data?.data?.bank_account_information === false || res?.data?.data?.bank_account_verification === false){
+		alert(errorMessage?.applyForLoan?.bankAccountVerification?.notValid);
+	 }
+	 else{
+		 alert("Network Error");
+	 }
+	 
 
 		},
 	});
 
+	//restrictTextOnChange
 	const restrictTextOnChange = (event) => {
 		// const reg = /[a-zA-Z]+[ ]{0,1}[']{0,1}/;
 		const reg = /^[0-9\b]+$/;
@@ -103,7 +123,7 @@ export default function BankAccountVerification(props) {
 
 
 
-
+// restrict Account Holder On Change
 	const restrictAccountHolderOnChange = (event) => {
 		// const reg = /[a-zA-Z]+[ ]{0,1}[']{0,1}/;
 		const reg = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
@@ -113,6 +133,8 @@ export default function BankAccountVerification(props) {
 			formik.handleChange(event);
 		}
 	};
+
+	//View part - JSX part
 	return (
 		<div>
 			<form onSubmit={formik.handleSubmit}>
@@ -281,11 +303,7 @@ export default function BankAccountVerification(props) {
 						name="paymnetMode"
 						radiolabel='[{"label":"Automatic Payment", "value":"autopayment"}]'
 						row={true}
-						// checked = {accountType}
-						// onClick = {(e) => {
-						//   setAccountType(e)
-						// }
-						//   }
+					
 						checked={paymnetMode}
 						// radio={"hell" + "hello"}
 						value={"autopayment"}
@@ -339,9 +357,12 @@ export default function BankAccountVerification(props) {
 					</span>
 				</Grid>
 				<div
-					style={{ display: paymnetMode === "checkpayment" ? "block" : "none" }}
+					style={{ display: verifyRequired  ? "block" : "none" }}
 				>
 					<div>
+					<p style={{display: error && error === '' ? "none" : "block", color: "red"}}>
+							{error}
+						</p>
 						<p style={{ textAlign: "justify" }}>
 							<b>Upload Voided Personal Check:</b>
 							<br />
@@ -357,35 +378,7 @@ export default function BankAccountVerification(props) {
 						</p>
 					</div>
 					<DocumentUpload classes = {classes} />
-            {/* <Grid container direction="row">
-              <Grid item xs={12} sm={3} style={{ paddingTop: "20px" }}>
-                <input
-                 
-                  accept="image/png, image/jpeg, application/pdf, image/jpg "
-                  id="contained-button-file"
-                  multiple
-                  id="file"
-                  type="file"
-                  onChange={handleInputChange}
-                />
-              </Grid>
-             
-              <Grid item xs={12} sm={4} style={{ paddingTop: "10px" }} >
-                <Button
-                  variant="contained"
-                  onClick={() => uploadDoc()}
-                  className={classes.uploadbutton}
-                  component="span"
-                >
-                  Upload a document
-                </Button>
-              </Grid>
-              </Grid> */}
-					<Grid className={classes.content_grid}>
-						<ButtonPrimary stylebutton='{"background": "", "color":"" }'>
-							Upload Your Document
-						</ButtonPrimary>
-					</Grid>
+            
 				</div>
 				<div className={props.classes.actionsContainer}>
 					<div className={props.classes.button_div}>
@@ -410,7 +403,6 @@ export default function BankAccountVerification(props) {
 							color="primary"
 							id="button_stepper_next"
 							stylebutton='{"margin-right": "10px", "color":"" }'
-							// onClick={()=>{ props.next() }}
 							type="submit"
 						>
 							{props.activeStep === props?.steps.length - 1 ? "Finish" : "Next"}

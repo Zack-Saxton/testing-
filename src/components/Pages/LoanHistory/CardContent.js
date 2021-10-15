@@ -8,22 +8,14 @@ import MonetizationOnRoundedIcon from "@material-ui/icons/MonetizationOnRounded"
 import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet"
 
 export default function LoanHistoryCard(userLoanHistoryCard) {
+  
+//Material UI css class
   const classes = useStylesLoanHistory();
-  let userLoanHistory =
-    userLoanHistoryCard != null ? userLoanHistoryCard : null;
 
-  //Calculate Total amount financed
-  let TotalAmount = 0;
+//Loan history data from API
+  let userLoanHistory = userLoanHistoryCard != null ? userLoanHistoryCard : null;
 
-  if (userLoanHistory.userLoanHistoryCard != null) {
-    for (let i = 0; i < userLoanHistory.userLoanHistoryCard.length; i++) {
-      TotalAmount = TotalAmount + Number(
-        userLoanHistory.userLoanHistoryCard[i].loanPaymentInformation
-          .accountDetails.OriginalFinancedAmount
-      );
-    }
-  }
-  //  view part
+//  view part
   return (
     <Grid item xs={12} style={{ paddingBottom: "20px" }}>
       <Paper className={classes.paper}>

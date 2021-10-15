@@ -1,5 +1,5 @@
 import React, {useContext, useState} from "react";
-import "./loadPurpose.css";
+import "./LoanPurpose.css";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -26,13 +26,15 @@ import MajorPurchaseIconWhite from "../../../../assets/icon/white/Major-Purchase
 import {createStyles, makeStyles} from "@material-ui/core/styles";
 import {Link, useHistory} from "react-router-dom";
 import {CheckMyOffers} from "../../../../contexts/CheckMyOffers";
-import ScrollToTopOnMount from "../scrollToTop";
+import ScrollToTopOnMount from "../ScrollToTop";
 
+//Loan purpose component initialization
 function LoanPurpose(props) {
 	const { data } = useContext(CheckMyOffers);
 	const [purpose, setPurpose] = useState(data.loanPurpose ?? "");
 	const history = useHistory();
 
+	//handle the user data nd store it into context and procced next step
 	const handleRoute = () => {
 		data.loanPurpose = purpose;
 		data.completedPage =
@@ -42,6 +44,7 @@ function LoanPurpose(props) {
 		history.push("/citizenship-status");
 	};
 
+//  validate and procceeds to next step
 	const goNext = (val) => {
 		data.loanPurpose = val;
 		setPurpose(val);
@@ -53,6 +56,8 @@ function LoanPurpose(props) {
 			history.push("/citizenship-status");
 		}
 	};
+
+	//styling
 	const useStyles = makeStyles((Theme) =>
 		createStyles({
 			root: {},
@@ -86,12 +91,16 @@ function LoanPurpose(props) {
 		})
 	);
 	const classes = useStyles();
+
+	//redirect to select offers if directly called 
 	if (
 		data.completedPage < data.page.selectAmount ||
 		data.formStatus === "completed"
 	) {
 		history.push("/select-amount");
 	}
+
+	//view part
 	return (
 		<div>
 			<ScrollToTopOnMount />

@@ -17,16 +17,15 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import ScrollToTopOnMount from '../scrollToTop';
-import "../checkMyOffer.css";
-import {checkMyOfferSubmit as submitApplication} from "../../../controllers/checkMyOffersController";
+import ScrollToTopOnMount from '../ScrollToTop';
+import "../CheckMyOffer.css";
+import {checkMyOfferSubmit as submitApplication} from "../../../Controllers/CheckMyOffersController";
 import axios from 'axios';
 
-
+//SSN component initialization
 function SSN() {
 	let response = [];
 	const { data, setData } = useContext(CheckMyOffers);
-	const [appliedInLast30Days, setAppliedInLast30Days] = useState(false);
 	const [agree, setAgree] = useState(false);
 	const [submit, setSubmit] = useState(false);
 	const [agreeDelaware, setAgreeDelaware] = useState(data.state !== "DE");
@@ -35,6 +34,8 @@ function SSN() {
 	const [open, setOpen] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const history = useHistory();
+
+	//handle modal actions
 
 	const handleClickOpen = () => {
 		setOpen(true);
@@ -61,13 +62,11 @@ function SSN() {
 			
 		})
 		if (result && result.data.AppSubmittedInLast30Days === true) {
-			setAppliedInLast30Days(true);
 			setSubmit(true);
 			setLoading(false);
 
 		}
 		else if(result && result.data.AppSubmittedInLast30Days === false){
-			setAppliedInLast30Days(false);
 			response = await submitApplication(data);
 			setSubmit(false);
 
@@ -142,12 +141,13 @@ function SSN() {
 	}
 
 
+	//redirect to select amount if accessed directly 
 	if (data.completedPage < data.page.livingPlace || data.completedPage < data.page.activeDuty || data.formStatus === 'completed') {
 		history.push("/select-amount");
 	}
 	const redirectNC = data.state === 'NC' ? '/active-duty' : 'living-place';
 
-
+//alert when the user tries to close before form submit
 	window.onbeforeunload = function () {
 		return "Are you sure you want to reload/refresh the page.?";
 	};
@@ -159,7 +159,7 @@ function SSN() {
 			window.history.pushState(null, document.title,  window.location.href);
 		});
 	
-	 
+	//JSX poart
 	return (
 		<div>
 			<ScrollToTopOnMount />
@@ -250,7 +250,7 @@ function SSN() {
 										xs={12}
 										className="positionHead"
 									>
-										<p className="agreeTextHead">Please acknowledge and sign our disclosures.</p>
+										<p className="agreeTextHead" style={{marginLeft:"8%"}}>Please acknowledge and sign our disclosures.</p>
 									</Grid>
 									<Grid
 										justifyContent="flex-start"
@@ -423,7 +423,7 @@ function SSN() {
 												stylecheckboxlabel='{ "color":"" }'
 											/>
 										</div>
-										<Typography className={ submit ? "showMsg" : "hideMsg"} style={{ textAlign: "left"}}>
+										<Typography className={ submit ? "showMsg" : "hideMsg"} style={{ textAlign: "left",marginLeft:"8%",marginTop:"2%"}}>
 										It looks like you have already submitted an application within the last 30 days.
 										</Typography>
 									</Grid>

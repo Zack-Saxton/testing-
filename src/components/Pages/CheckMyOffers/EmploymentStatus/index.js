@@ -9,8 +9,8 @@ import * as yup from "yup";
 import {Link, useHistory} from "react-router-dom";
 import EmploymentStatusPNG from "../../../../assets/icon/I-Employment-Status.png";
 import {CheckMyOffers} from "../../../../contexts/CheckMyOffers";
-import ScrollToTopOnMount from '../scrollToTop';
-import "./employmentStatus.css";
+import ScrollToTopOnMount from '../ScrollToTop';
+import "./EmploymentStatus.css";
 
 //Yup validation schema
 

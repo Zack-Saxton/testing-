@@ -8,7 +8,7 @@ import Paper from "@material-ui/core/Paper";
 import AnnualIncomeLogo from "../../../../assets/icon/I-Annual-Income.png";
 import { useFormik } from "formik";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
-import ScrollToTopOnMount from '../scrollToTop';
+import ScrollToTopOnMount from '../ScrollToTop';
 import "./AnnualIncome.css";
 
 
@@ -20,18 +20,16 @@ function NewUser() {
 
 	//Retrieving Context values
 	const history = useHistory();
-	const validate = (personal, household) => {
-
-		if (!isNaN(personal) && !isNaN(household)) {
+	const validate = (personal, household) => { 
+		if (!isNaN(personal) && !isNaN(household)) { 
 			if (personal <= household) {
 				setErrorAnnual('');
 				setErrorPersonal('');
 				return true;
 			} else {
-				setErrorAnnual("Annual household income must be greater than or equal to annual personal income");
+				setErrorAnnual("Annual household income must be greater than or equal to Annual personal income");
 				return false;
 			}
-
 		}
 		else {
 			setErrorPersonal(isNaN(personal) ? "Annual personal income is required" : '');
@@ -51,14 +49,14 @@ function NewUser() {
 		onSubmit: (values) => {
 			const modPersonalIncome = parseInt(values.personalIncome.replace(/\$/g, "").replace(/,/g, ""));
 			const modHouseholdIncome = parseInt(values.householdIncome.replace(/\$/g, "").replace(/,/g, ""));
-
-
-			if (validate(modPersonalIncome, modHouseholdIncome)) {
-				data.annualIncome = modPersonalIncome ? modPersonalIncome : '0';
-				data.householdAnnualIncome = modHouseholdIncome ? modHouseholdIncome : '0';
-				data.completedPage = data.completedPage > data.page.annualIncome ? data.completedPage : data.page.annualIncome;
-				history.push("/living-place");
-			}
+			if(errorPersonal === '' && errorAnnual === ''){
+				if (validate(modPersonalIncome, modHouseholdIncome)) {
+					data.annualIncome = modPersonalIncome ? modPersonalIncome : '0';
+					data.householdAnnualIncome = modHouseholdIncome ? modHouseholdIncome : '0';
+					data.completedPage = data.completedPage > data.page.annualIncome ? data.completedPage : data.page.annualIncome;
+					history.push("/living-place");
+				}
+			}		
 
 		},
 	});
@@ -84,11 +82,11 @@ function NewUser() {
 		}
 	};
 
-
+	// To change text to currency format and check for validations 
 	const currencyFormat = (event) => {
 		const inputName = event.target.name
-		if (inputName === 'personalIncome') {
-			const n = event.target.value.replace(/\$/g, "").replace(/,/g, "").substr(0, 7);
+		if (inputName === 'personalIncome') { 
+			const n = event.target.value.replace(/\$/g, "").replace(/,/g, "").substr(0, 7);  
 			const formated = parseFloat(n);
 			const currency = '$';
 			const forCur = currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
@@ -98,36 +96,52 @@ function NewUser() {
 			if (isNaN(modPersonalIncome)) {
 				setErrorPersonal("Annual personal income is required");
 			} else {
+				const n = event.target.value.replace(/\$/g, "").replace(/,/g, "").substr(0, 7);
+				if(n.length < 4){
+					setErrorPersonal("Annual personal income should not be less than 4 digits");
+					return false;
+				}
+
 				if (!isNaN(modPersonalIncome) && !isNaN(modHouseholdIncome)) {
 					if (modPersonalIncome <= modHouseholdIncome) {
 						setErrorAnnual('');
 						setErrorPersonal('');
 						return true;
 					} else {
-						setErrorAnnual("Annual household income must be greater than or equal to annual personal income");
+						setErrorAnnual("Annual household income must be greater than or equal to Annual personal income");
 						return false;
 					}
 
 				}
 			}
 		} else if (inputName === 'householdIncome') {
-			const n = event.target.value.replace(/\$/g, "").replace(/,/g, "").substr(0, 7);
+			const n = event.target.value.replace(/\$/g, "").replace(/,/g, "").substr(0, 7);	 
 			const formated = parseFloat(n);
 			const currency = '$';
 			const forCur = currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
 			formik.setFieldValue(event.target.name, forCur.slice(0, -3));
 			const modPersonalIncome = parseInt(formik.values.personalIncome.replace(/\$/g, "").replace(/,/g, ""));
 			const modHouseholdIncome = parseInt(formik.values.householdIncome.replace(/\$/g, "").replace(/,/g, ""));
-			if (isNaN(modPersonalIncome)) {
+			if (isNaN(modHouseholdIncome)) {
 				setErrorAnnual("Annual household income is required");
-			} else {
+			} else {				
+				const n = event.target.value.replace(/\$/g, "").replace(/,/g, "").substr(0, 7);
+				if(n.length < 4){
+					setErrorAnnual("Annual household income should not be less than 4 digits");
+					return false;
+				}
+				const perval =  document.getElementById("personalIncome").value.replace(/\$/g, "").replace(/,/g, "").substr(0, 7);	 			
+				if(perval.length < 4){
+					setErrorPersonal("Annual personal income should not be less than 4 digits");
+					return false;
+				}
 				if (!isNaN(modPersonalIncome) && !isNaN(modHouseholdIncome)) {
 					if (modPersonalIncome <= modHouseholdIncome) {
 						setErrorAnnual('');
 						setErrorPersonal('');
 						return true;
 					} else {
-						setErrorAnnual("Annual household income must be greater than or equal to annual personal income");
+						setErrorAnnual("Annual household income must be greater than or equal to Annual personal income");
 						return false;
 					}
 
@@ -136,12 +150,14 @@ function NewUser() {
 		}
 	}
 
+	// prevent the unwanted character 
 	const preventUnwanted = (event) => {
 		if (event.keyCode === 190 || event.keyCode === 188) {
 			event.preventDefault();
 		}
 	};
 
+	//Redirect to select offer is the page hit direclty
 	if (data.completedPage < data.page.employmentStatus || data.formStatus === 'completed') {
 		history.push("/select-amount");
 	}
@@ -209,10 +225,11 @@ function NewUser() {
 											<TextField
 												name="personalIncome"
 												label="Annual Personal Income"
+												id="personalIncome"
 												value={formik.values.personalIncome}
 												onChange={onHandleChangePersonal}
 												materialProps={{
-													"data-testid": "personalIncome",
+													"data-testid": "personalIncome", 
 													maxLength: "10",
 												}}
 												autoComplete='off'
@@ -240,10 +257,11 @@ function NewUser() {
 											<TextField
 												name="householdIncome"
 												label="Annual Household Income"
+												id="householdIncome"
 												value={formik.values.householdIncome}
 												// startAdornment={<InputAdornment position="start">$</InputAdornment>}
 												materialProps={{
-													"data-testid": "annualIncome",
+													"data-testid": "annualIncome", 
 													maxLength: "10",
 												}}
 												autoComplete='off'

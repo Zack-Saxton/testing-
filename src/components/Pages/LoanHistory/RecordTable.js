@@ -12,15 +12,19 @@ import { NavLink } from "react-router-dom";
 import "./Style.css";
 import FindInPageIcon from "@material-ui/icons/FindInPage";
 import Moment from "moment";
-import { loanDocumentController as loanDocument } from "../../controllers/LoanDocumentController";
+import { loanDocumentController as loanDocument } from "../../Controllers/LoanDocumentController";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import NumberFormat from 'react-number-format';
 
 export default function LoanHistoryTable(userLoanHistoryData) {
-  const classes = useStylesLoanHistory();
-  let userLoanHistory =
-    userLoanHistoryData != null ? userLoanHistoryData : null;
 
+//Material UI css class
+  const classes = useStylesLoanHistory();
+
+//Loan history data from API
+  let userLoanHistory =  userLoanHistoryData != null ? userLoanHistoryData : null;
+
+//Download loan document  
   const downloadDoc = (accNo) => {
     loanDocument(accNo);
   };

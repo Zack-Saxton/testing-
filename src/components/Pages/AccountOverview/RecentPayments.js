@@ -12,7 +12,9 @@ import Moment from "moment";
 import NumberFormat from 'react-number-format';
 
 export default function RecentPayments(userRecentPaymentData) {
+  //Material UI css class
   const classes = useStylesAccountOverview();
+  //Recentpayments data
   let userRecentPayment = userRecentPaymentData != null ? userRecentPaymentData : null;
 
   return (

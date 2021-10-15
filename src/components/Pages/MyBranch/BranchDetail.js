@@ -11,6 +11,7 @@ import TableRow from "@material-ui/core/TableRow";
 import ScheduleCall from "./ScheduleCall";
 import ScheduleAppointment from "./ScheduleAppointment";
 
+//Table fields - working days
 function otherUsaState(day, monWedThur, tue, fri) {
   return { day, monWedThur, tue, fri };
 }
@@ -19,6 +20,7 @@ function stateUsaCa(day, monWedThurFri, tue) {
   return { day, monWedThurFri, tue };
 }
 
+//Table field data - working hours
 const otherState = [
   otherUsaState("From", "9:00 AM", "9:00 AM", "9:00 AM"),
   otherUsaState("To", "5:00 PM", "7:00 PM", "5:30 PM"),
@@ -29,14 +31,16 @@ const stateCA = [
   stateUsaCa("To", "5:30 PM", "7:00 PM"),
 ];
 
-const scheduleAppointmentDate = new Date();
-scheduleAppointmentDate.setDate(scheduleAppointmentDate.getDate() + 30);
 
 export default function BranchDetail(MyBranchDetail) {
+
+//Material UI css class
   const classes = useStylesMyBranch();
 
+//Branch details from API
   let branchDetail = MyBranchDetail != null ? MyBranchDetail : null;
 
+//Spliting statename
   let stateName = branchDetail.MyBranchDetail
     ? branchDetail.MyBranchDetail.result
       ? null
@@ -47,6 +51,7 @@ export default function BranchDetail(MyBranchDetail) {
       : null
     : null;
 
+//View part
   return (
     <div>
       <Paper className={classes.paper}>

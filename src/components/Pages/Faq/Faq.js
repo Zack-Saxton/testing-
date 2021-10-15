@@ -18,9 +18,11 @@ import QuestionAnswerIcon from "@material-ui/icons/QuestionAnswer";
 import "./Style.css";
 import questionFaq from "./questions.json";
 
+//Tab function
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
+//Tab view content
   return (
     <div
       role="tabpanel"
@@ -51,15 +53,20 @@ function a11yProps(index) {
   };
 }
 
+
 export default function Faq() {
+
+ //Material UI css class
   const classes = useStylesFaq();
 
+//Accordian implementation
   const [expanded, setExpanded] = React.useState(false);
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
 
+//Tab implementation
   const [values, setValues] = React.useState(0);
   const handleTabChange = (event, value) => {
     setValues(value);

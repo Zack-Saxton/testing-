@@ -13,8 +13,8 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
-import ScrollToTopOnMount from "../scrollToTop";
-import "../checkMyOffer.css";
+import ScrollToTopOnMount from "../ScrollToTop";
+import "../CheckMyOffer.css";
 
 //yup validation schema
 const validationSchema = yup.object({
@@ -40,13 +40,19 @@ const validationSchema = yup.object({
 		.required("Your home ZIP Code is required"),
 });
 
+// Home address component initialization
 function HomeAddress() {
+	//Context data
 	const { data } = useContext(CheckMyOffers);
+
+	//state variables 
 	const [stateShort, setStateShort] = useState(data.state ?? "");
 	const [validZip, setValidZip] = useState(true);
 	const [open, setOpen] = useState(false);
 	const [openOhio, setOpenOhio] = useState(false);
 	const [errorMsg, setErrorMsg] = useState("");
+
+	//Handle modal open and close
 
 	const handleClickOpen = () => {
 		setOpen(true);
@@ -64,6 +70,8 @@ function HomeAddress() {
 
 	const history = useHistory();
 
+	// Formik configutration
+
 	const formik = useFormik({
 		initialValues: {
 			streetAddress: data.streetAddress ? data.streetAddress : "",
@@ -72,6 +80,7 @@ function HomeAddress() {
 			zip: data.zip ? data.zip : "",
 		},
 		validationSchema: validationSchema,
+		// Submit value - store the values to context and proceeds next pages
 		onSubmit: (values) => {
 			data.streetAddress = values.streetAddress;
 			data.city = values.city;

@@ -16,11 +16,10 @@ export default function VerificationQuestion(props) {
 
   let response;
   const classes = useStyles();
-  // let dat = '[{"label":"Option1", "value":"option1"},{"label":"Option2", "value":"option2"}, {"label":"Option3", "value":"option3"},{"label":"Option4", "value":"option4"}]';
   const [responseData, setResponseData ] = useState([]);
   const [check, setCheck ] = useState(null);
-  // const [questionList, setQuestionList] = useState([]);
-
+  
+  //get the initial questions to load
   async function getUserAccountDetails() {
     let url = "/integration/lexisnexis/kba_questions_cac?test=true", 
       data = {},
@@ -28,7 +27,7 @@ export default function VerificationQuestion(props) {
       addAccessToken = true;
       response = await APICall(url, data, method, addAccessToken);
       
-    
+    // structure the API data response to store it in array
     let tempArray = [];
 if(response.data.data.questions){
       tempArray.push({
@@ -45,28 +44,12 @@ if(response.data.data.questions){
   }
 }
 
+// get the function to fetch api on page load 
   useEffect(() => {
     getUserAccountDetails();
   }, []);
 
-
-
-
-  const buildOptions = (options) => {
-    let newArr = [];
-    if(options){
-      options.map((question) => {
-        newArr.push({"label": question?.text?.statement, "value": question["choice-id"]});
-        return null;
-      })
-    }
-    
-    return JSON.stringify(newArr);
-    // return '[{"label":"Option908", "value":"option1"}, {"label":"Option2", "value":"option2"}, {"label":"Option3", "value":"option3"},{"label":"Option4", "value":"option4"}]';
-  }
-
-
-
+//view part
   return (
     <div>
       <p style={{ textAlign: "justify" }}>
@@ -123,7 +106,7 @@ if(response.data.data.questions){
                   });
                   return null;
                 })
-                // setQuestionList(tempArray);
+
                 props.next('') 
               }}
             >

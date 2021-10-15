@@ -1,19 +1,19 @@
 import React from "react";
 import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom'
-import "./app.css";
-import AccountOverview from "../Pages/AccountOverview/AccountOverview"
-import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory"
-import ApplyLoan from "../Pages/ApplyLoan/SelectOffer/SelectOffer"
-import ReviewAndSign from "../Pages/ApplyLoan/ReviewAndSign/ReviewAndSign"
-import FinalVerification from "../Pages/ApplyLoan/FinalVerification/FinalVerification"
+import "./App.css";
+import AccountOverview from "../Pages/AccountOverview/AccountOverview";
+import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory";
+import ApplyLoan from "../Pages/ApplyLoan/SelectOffer/SelectOffer";
+import ReviewAndSign from "../Pages/ApplyLoan/ReviewAndSign/ReviewAndSign";
+import FinalVerification from "../Pages/ApplyLoan/FinalVerification/FinalVerification";
 import ReceiveYourMoney from "../Pages/ApplyLoan/ReceiveYourMoney/ReceiveYourMoney";
-import LoanHistory from "../Pages/LoanHistory/LoanHistory"
-import MakePayment from "../Pages/MakePayment/MakePayment"
-import MoneySkill from "../Pages/MoneySkill/MoneySkill"
-import MyBranch from "../Pages/MyBranch/MyBranch"
-import MyProfile from "../Pages/MyProfile/MyProfile"
-import VantageScore from "../Pages/VantageScore/VantageScore"
-import LoanDocument from "../Pages/LoanDocument/LoanDocument"
+import LoanHistory from "../Pages/LoanHistory/LoanHistory";
+import MakePayment from "../Pages/MakePayment/MakePayment";
+import MoneySkill from "../Pages/MoneySkill/MoneySkill";
+import MyBranch from "../Pages/MyBranch/MyBranch";
+import MyProfile from "../Pages/MyProfile/MyProfile";
+import VantageScore from "../Pages/VantageScore/VantageScore";
+import LoanDocument from "../Pages/LoanDocument/LoanDocument";
 import CustomComponents from "../CustomComponent";
 import GeneralUser from '../Layout/General';
 import PostLogin from '../Layout/Post';
@@ -41,10 +41,12 @@ import CreditKarma from "../Pages/CreditKarma/CreditKarma";
 import ConfirmationCredit from "../Pages/CreditKarma/ConfirmationCredit";
 import FaqPostLogin from "../Pages/Faq/FaqPostLogin";
 import FaqBeforeLogin from "../Pages/Faq/FaqBeforeLogin"
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import ValidateToken from '../Pages/ApplyLoan/Stepper/validateToken'
+import ValidateToken from '../Pages/ApplyLoan/Stepper/ValidateToken'
 import IframeTest from '../FormsUI/iframe' 
+import ErrorBeforeLogin from '../Layout/ErrorBeforeLogin/ErrorBeforeLogin';
+import ErrorAfterLogin from "../Layout/ErrorAfterLogin/ErrorAfterLogin"
+
 
 function App() {
 
@@ -52,12 +54,15 @@ function App() {
         <div className="App">
 
             <BrowserRouter>
+            <Route path='/customers/verification/email' component={ValidateToken}/>
                 <CheckMyOffers>
                 <Route path='/iframe' exact component={IframeTest}/>
+               
                     <Route path='/:path?' exact>
                         <GeneralUser>
                             <Switch>
                                 <Route path='/' exact> <Redirect to="/customers/accountOverview"/> </Route>
+                               
                                 <Route path='/components' exact component={CustomComponents}/>
                                 <Route path='/login' exact component={LoginPage}/>
                                 <Route path='/register' component={RegisterPage}/>
@@ -85,8 +90,10 @@ function App() {
                                 <Route path='/personal-info' exact>
                                     <PersonalInfo/>
                                 </Route>
+                                <Route path='*' component={ErrorBeforeLogin} />
                             </Switch>
-                        </GeneralUser>
+                        </GeneralUser> 
+                       
                     </Route>
 
                     <div id="main" style={{marginLeft: "240px"}}>
@@ -94,7 +101,7 @@ function App() {
                             <PostLogin>
                                 <Switch>
                                     <Route path='/customers/accountOverview' exact component={AccountOverview}/>
-                                    <Route path='/customers/verification/email' exact component={ValidateToken}/>
+                                    {/* <Route path='/customers/verification/email' component={ValidateToken}/> */}
                                     <Route path='/customers/paymentHistory' component={PaymentHistory}/>
                                     <Route path='/customers/selectOffer' component={ApplyLoan}/>
                                     <Route path='/customers/reviewAndSign' component={ReviewAndSign}/>
@@ -108,14 +115,20 @@ function App() {
                                     <Route path='/customers/myProfile' component={MyProfile}/>
                                     <Route path='/customers/vantageScore' component={VantageScore}/>
                                     <Route path='/customers/faq' component={FaqPostLogin}/>
+                                    <Route  path='*' component={ErrorAfterLogin} />
+                                   
                                 </Switch>
                             </PostLogin>
                         </Route>
                     </div>
+                  
 
                 </CheckMyOffers>
             </BrowserRouter>
-            <ToastContainer />
+
+           
+
+           
         </div>
     )
 }

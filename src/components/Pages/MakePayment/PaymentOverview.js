@@ -7,12 +7,14 @@ import TableRow from "@material-ui/core/TableRow";
 import Moment from "moment";
 import { useStylesMakePayment } from "./Style";
 import CircularProgress from '@material-ui/core/CircularProgress';
-import "./makepayment.css";
+import "./MakePayment.css";
 import NumberFormat from 'react-number-format';
 
 
 export default function PaymentOverview(paymentData) {
+    //Material UI css class
     const classes = useStylesMakePayment();
+    //Payment details
     let paymentDetails = (paymentData != null) ? paymentData : null;
     return (
         <Table className={classes.table} aria-label="simple table">

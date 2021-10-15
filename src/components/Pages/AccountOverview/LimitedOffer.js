@@ -12,12 +12,14 @@ import NumberFormat from "react-number-format";
 
 
 export default function LimitedOffer(userOfferData) {
+  //Material UI css class
   const classes = useStylesAccountOverview();
+  // Get offers details
   let userOfferAmount = (userOfferData.userOffers != null) ? userOfferData.userOffers.offerAmount : 0;
 
+  //View
   return (
     <div id="mainContainer">
-
       <Grid container>
         <Grid
           id="LimitedOfferGrid"
@@ -25,9 +27,8 @@ export default function LimitedOffer(userOfferData) {
           xs={12}
           sm={8}
         >
-          <Paper id="paperProperties" className={classes.paper}>
+          <Paper id="paperProperties"  style={{ height: "88%" }} className={classes.paperPropertiesLimitedOffer}>
             <div id="yellowBg">
-
               <img
                 src={adBanner}
                 data-testid="background"
@@ -67,14 +68,13 @@ export default function LimitedOffer(userOfferData) {
             </div>
           </Paper>
         </Grid>
-
         <Grid
           id="offerTwo"
           item
           xs={12}
           sm={4}
         >
-          <Paper id="paperProperties" className={classes.paper}>
+          <Paper id="paperPropertiesOfferTwo"  style={{ height: "88%" }} className={classes.paperPropertiesOfferTwo}>
             <img
               src={MortgageBanner}
               data-testid="background"

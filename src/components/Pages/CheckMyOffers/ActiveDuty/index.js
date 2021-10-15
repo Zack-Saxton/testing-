@@ -9,8 +9,8 @@ import {Link, useHistory} from "react-router-dom";
 import * as yup from "yup";
 import ActiveDutyLogo from "../../../../assets/icon/active-duty.png";
 import {CheckMyOffers} from "../../../../contexts/CheckMyOffers";
-import "../checkMyOffer.css";
-import ScrollToTopOnMount from "../scrollToTop";
+import "../CheckMyOffer.css";
+import ScrollToTopOnMount from "../ScrollToTop";
 
 //Yup validation schema
 const validationSchema = yup.object({

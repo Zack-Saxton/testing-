@@ -1,18 +1,20 @@
 import React, {useContext} from 'react';
 import {useHistory} from "react-router-dom";
-import './checkMyOffer.css';
-import '../checkMyOffer.css';
+import './CheckMyOffer.css';
+import '../CheckMyOffer.css';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import {ButtonPrimary, ButtonSecondary} from '../../../FormsUI';
 import NoOffersAvailableLogo from '../../../../assets/gallery/No_Offers_Available.png';
-import ScrollToTopOnMount from '../scrollToTop';
+import ScrollToTopOnMount from '../ScrollToTop';
 import {CheckMyOffers} from "../../../../contexts/CheckMyOffers";
 
+// NoOffersAvailable functional component initialization
 function NoOffersAvailable(props) {
     const history = useHistory();
     
+    //handle 
     const handleBlog = (e) =>{ 
         window.open("https://www.marinerfinance.com/blog/","_self");
       }
@@ -25,11 +27,13 @@ function NoOffersAvailable(props) {
       const { data } = useContext(CheckMyOffers);
       data.formStatus = "completed";
 
-
+    //Redirect to select amount if directly called 
 
       if (data.completedPage < data.page.ssn  && data.applicationStatus !=='rejected' &&  props?.location?.formcomplete !== "yes"){
           history.push("/select-amount");
       }
+
+      //view part 
     return( 
         <div>
             <ScrollToTopOnMount />

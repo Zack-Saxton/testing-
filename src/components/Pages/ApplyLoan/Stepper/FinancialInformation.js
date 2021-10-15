@@ -4,16 +4,17 @@ import Grid from "@material-ui/core/Grid";
 import {makeStyles} from "@material-ui/core/styles";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { submitFinancialInformation } from '../../../controllers/applyForLoanController'
-import { errorMessage } from "../../../../helpers/errorMessage";
+import { submitFinancialInformation } from '../../../Controllers/ApplyForLoanController'
+import { errorMessage } from "../../../../helpers/ErrorMessage";
 
-
+//styling part
 const useStyles = makeStyles((theme) => ({
   content_grid: {
     marginTop: "15px",
   },
 }));
 
+//YUP validation 
 const validationSchema = yup.object({
 	employerName: yup
 		.string("Enter your Martial Status")
@@ -32,6 +33,7 @@ const validationSchema = yup.object({
 //View Part
 export default function FinancialInformation(props) {
 
+  //Initiaizing state variable
   const [error, setError] = useState('');
   const classes = useStyles();
 	const formik = useFormik({
@@ -50,20 +52,23 @@ let body = {
   "years_at_current_address" : "12",
   "refer" : "nil"
 }
+
+//API call to submit financial info
 let res = await submitFinancialInformation(body);
-console.log("success", res);
 if(res.data.data.phone_verification === true){
   setError('');
   
-  props.next() 
+  props.next() ;
 }
 else{
   alert("has error");
-  setError(errorMessage.applyForLoan.FinancialInformation.verificationNotFound);
+  setError(errorMessage.applyForLoan.financialInformation.verificationNotFound);
 }
 
 		}
 	});
+
+  //View part
   return (
     <div>
       <form onSubmit={formik.handleSubmit}>

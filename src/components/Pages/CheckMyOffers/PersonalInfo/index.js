@@ -6,19 +6,12 @@ import Paper from "@material-ui/core/Paper";
 import PersonLogo from "../../../../assets/icon/I-Personal-Info.png";
 import { Link, useHistory } from "react-router-dom";
 import { format } from "date-fns";
-import "./personalinfo.css";
-import "../checkMyOffer.css";
+import "./PersonalInfo.css";
+import "../CheckMyOffer.css";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import axios from "axios";
-import ScrollToTopOnMount from "../scrollToTop";
-import {
-  ButtonPrimary,
-  DatePicker,
-  EmailTextField,
-  PhoneNumber,
-  SocialSecurityNumber,
-  TextField,
-} from "../../../FormsUI";
+import ScrollToTopOnMount from "../ScrollToTop";
+import { ButtonPrimary, DatePicker, EmailTextField, PhoneNumber, SocialSecurityNumber, TextField } from "../../../FormsUI";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
@@ -98,6 +91,8 @@ function PersonalInfo() {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const history = useHistory();
+
+  //configuring formik
   const formik = useFormik({
     initialValues: {
       firstName: data.firstName ? data.firstName : "",
@@ -141,10 +136,7 @@ function PersonalInfo() {
           headers: {
             "Content-Type": "application/json",
           },
-          // transformRequest: (data, headers) => {
-          //   delete headers.common["Content-Type"];
-          //   return data;
-          // },
+        
         });
 
         if (customerStatus.data.customerFound === true) {
@@ -216,7 +208,7 @@ function PersonalInfo() {
   };
 
   
-
+//onchange validation 
   const onNameChange = (event) => {
     const reg = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
     let acc = event.target.value;
@@ -231,6 +223,14 @@ function PersonalInfo() {
     }
   };
 
+  //on email change call validation
+	const emailOnChange = (e) => {
+		setSsnEmailMatch(true);
+		formik.handleChange(e);
+
+	}
+
+  //set auto focus 
   function autoFocus() {
     var firstname = document.getElementById("firstName").value;
     var lastname = document.getElementById("lastName").value;
@@ -246,6 +246,7 @@ function PersonalInfo() {
     }
   }
 
+  //redirects to select amount if directly calls
   if (
     data.completedPage < data.page.homeAddress ||
     data.formStatus === "completed"
@@ -443,7 +444,7 @@ function PersonalInfo() {
                         id="ssn"
                         type="ssn"
                         value={formik.values.ssn}
-                        onChange={formik.handleChange}
+                        onChange={emailOnChange}
                         onBlur={formik.handleBlur}
                         error={formik.touched.ssn && Boolean(formik.errors.ssn)}
                         helperText={formik.touched.ssn && formik.errors.ssn}
@@ -474,7 +475,7 @@ function PersonalInfo() {
                         value={formik.values.email}
                         materialProps={{ maxLength: "100" }}
                         onLoad={checkApplicationStatus}
-                        onChange={formik.handleChange}
+                        onChange={emailOnChange}
                         onBlur={checkApplicationStatus}
                         error={
                           formik.touched.email && Boolean(formik.errors.email)

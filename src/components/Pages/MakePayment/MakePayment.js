@@ -12,10 +12,10 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { Link, NavLink } from "react-router-dom";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
-import ScrollToTopOnMount from "../scrollToTop";
+import ScrollToTopOnMount from "../ScrollToTop";
 import { useStylesMakePayment } from "./Style";
 import { CircularProgress, FormControlLabel } from '@material-ui/core';
-import "./makepayment.css";
+import "./MakePayment.css";
 import {
   ButtonPrimary,
   ButtonSecondary,
@@ -24,9 +24,9 @@ import {
   Select,
   TextField,
 } from "../../FormsUI";
-import usrAccountDetails from "../../controllers/AccountOverviewController";
-import { usrPaymentMethods, enableAutoPay, disableAutoPay, makePayment, deleteScheduledPayment } from "../../controllers/paymentsController";
-
+import usrAccountDetails from "../../Controllers/AccountOverviewController";
+import { usrPaymentMethods, enableAutoPay, disableAutoPay, makePayment, deleteScheduledPayment } from "../../Controllers/PaymentsController";
+import CheckLoginStatus from "../../App/CheckLoginStatus";
 import PaymentOverview from "./PaymentOverview";
 import Switch from "@material-ui/core/Switch";
 import Moment from "moment";
@@ -40,9 +40,9 @@ const paymentMaxDate = new Date();
 paymentMaxDate.setDate(paymentMaxDate.getDate() + 30);
 
 export default function MakePayment() {
+  //Material UI css class
   const classes = useStylesMakePayment();
 
-  //API Request for Account Details and Payment methods
   const [paymentMethods, setpaymentMethod] = useState(null);
   const [latestLoanData, setlatestLoanData] = useState(null);
   const [paymentAmount, setpaymentAmount] = useState(null);
@@ -61,11 +61,12 @@ export default function MakePayment() {
   const [showCircularProgress, setshowCircularProgress] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  //API Request for Payment methods
   async function getPaymentMethods(usrAccNo) {
     setpaymentMethod(await usrPaymentMethods(usrAccNo));
   }
 
-  // Enable auto payment
+  //Enable auto payment
   async function enableAutoPayment(accntNo, card, paymentDate, isDebit) {
     let data = await enableAutoPay(accntNo, card, paymentDate, isDebit)
     data.data.status === 200 ?
@@ -98,7 +99,7 @@ export default function MakePayment() {
 
     hasSchedulePayment ? (data.data.status === 200 ? deleteSchedule(accntNo, routingNumber) : getData()) : getData()
   }
-  // Disable auto payment
+  //Disable auto payment
   async function disableAutoPayment(accntNo, card, paymentDate, isDebit) {
     let data = await disableAutoPay(accntNo, card, paymentDate, isDebit);
     data.data.status === 200 ?
@@ -131,7 +132,7 @@ export default function MakePayment() {
     getData()
   }
 
-  // Enable Shecduled payment
+  //Enable scheduled payment
   async function makeuserPayment(accntNo, card, paymentDatepicker, isDebit, paymentAmount) {
     setPaymentOpen(false)
     let data = await makePayment(accntNo, card, paymentDatepicker, isDebit, paymentAmount);
@@ -166,7 +167,7 @@ export default function MakePayment() {
 
   }
 
-  // Disable Sheduled payment
+  //Disable scheduled payment
   async function deletePayment(accntNo, refNo) {
 
     let data = await deleteScheduledPayment(accntNo, refNo, isCard);
@@ -212,7 +213,7 @@ export default function MakePayment() {
     getData()
   }
 
-  // Account Overview
+  //API Request for Account Details
   async function getData (){
    setshowCircularProgress(true)
    let User= await usrAccountDetails();
@@ -235,7 +236,7 @@ export default function MakePayment() {
     getData()
   }, []);
 
-  //Account select payment option
+  //Account select payment options
   let paymentData  = paymentMethods != null ? paymentMethods.data.data: null;
 
   let paymentListAch =(paymentData && paymentData.achAccounts!=null) ? paymentData.achAccounts.map(
@@ -248,35 +249,30 @@ export default function MakePayment() {
  
  const paymentOptions =  (paymentListAch != null) ? JSON.stringify(paymentListAch.concat(paymentListCard)): null;
 
+ //Storing the routingNumber,refNumber and SchedulePayments details
  let hasSchedulePayment =  (latestLoanData != null) ? (latestLoanData.length ? latestLoanData[0].loanPaymentInformation.hasScheduledPayment: false) : false;
  let routingNumber = (latestLoanData != null) ? latestLoanData[0]?.loanPaymentInformation?.scheduledPayments[0]?.PaymentMethod?.AchInfo !=null ? latestLoanData[0].loanPaymentInformation.scheduledPayments[0].PaymentMethod.AchInfo.RoutingNumber: 0:0;
  let refNumber = (latestLoanData != null) ? latestLoanData[0]?.loanPaymentInformation?.scheduledPayments[0]?.ReferenceNumber !=null ? latestLoanData[0].loanPaymentInformation.scheduledPayments[0].ReferenceNumber: 0:0;
  let isCard = (latestLoanData != null) ? latestLoanData[0]?.loanPaymentInformation?.scheduledPayments[0]?.PaymentMethod?.IsCard === true ? latestLoanData[0].loanPaymentInformation.scheduledPayments[0].PaymentMethod.IsCard: false:false;
  
+  //Select account
   const handleChangeSelect = (event) => {
     setcard(event.target.value);
     event.nativeEvent.target.innerText.includes('Checking') || event.nativeEvent.target.innerText.includes('Savings') ? setisDebit(false) : setisDebit(true) //true
     setrequiredSelect('')
   };
 
+  //Autopay enable/disable switch
   const handleSwitchPayment = (event) => {
     setdisabledContent(event.target.checked)
   };
 
+  //Autopay submit
   const handleClickSubmit = () => {
     disabledContent === true ? card || card === 0 ? setOpen(true) : setrequiredSelect('Please select any accounts') : setOpen(true)
   };
 
-  const handleCloseAutoPayPopup = () => {
-    setOpen(false)
-  };
-
-  const handleDeleteScheduleClose = () => {
-
-    setopenDeleteSchedule(false)
-  };
-
-
+  //Autopay popup confirm and close
   async function handleAutoPayConfirm() {
     setLoading(true);
     setshowCircularProgress(true)
@@ -284,6 +280,11 @@ export default function MakePayment() {
     setOpen(false)
   }
 
+  const handleCloseAutoPayPopup = () => {
+    setOpen(false)
+  };
+
+  //Cancel Schedule popup confirm and close
   async function handleDeleteSchedule() {
     setLoading(true);
     setshowCircularProgress(true)
@@ -295,26 +296,34 @@ export default function MakePayment() {
     getData()
   }
 
-  const handleSchedulePaymentClick = () => {
-    card || card === 0 ? (paymentDatepicker != null) ? setPaymentOpen(true) : setrequiredDate('Please select any date') : setrequiredSelect('Please select any account')
+  const handleDeleteScheduleClose = () => {
+    setopenDeleteSchedule(false)
   };
 
+  //Schedule Payment
+  const handleSchedulePaymentClick = () => {
+    card || card === 0 ? (paymentDatepicker != null) ? setPaymentOpen(true) : setrequiredDate('Please select any date') : setrequiredSelect('Please select any account')
+    card || card === 0 ? (paymentDatepicker != null) ? setPaymentOpen(true) : document.getElementById("date").focus() : document.getElementById("select").focus()
+  };
+
+  //Cancel Payment
   const handlePaymentcancel = () => {
     setopenDeleteSchedule(true)
   };
 
-
-  const handlePaymentClose = () => {
-    setPaymentOpen(false)
-  };
-
-
+  //Schedule Payment popup confirm and close
   const handleSchedulePaymentSubmit = () => {
     setLoading(true);
     setshowCircularProgress(true)
     makeuserPayment(accntNo, card, paymentDatepicker, isDebit, paymentAmount)
   };
 
+  const handlePaymentClose = () => {
+    setPaymentOpen(false)
+  };
+
+
+  //AUTO PAY AUTHORIZATION pop up open and close
   const handleAutoPayClickOpen = () => {
     setAutoPayOpen(true)
   };
@@ -323,24 +332,17 @@ export default function MakePayment() {
     setAutoPayOpen(false)
   };
 
+  //US Holidays
   function disableWeekends(date) {
     const dateInterditesRaw = [
       new Date(date.getFullYear(), 0, 1),
-
       new Date(date.getFullYear(), 0, 18),
-
       new Date(date.getFullYear(), 4, 31),
-
       new Date(date.getFullYear(), 6, 5),
-
       new Date(date.getFullYear(), 8, 6),
-
       new Date(date.getFullYear(), 10, 11),
-
       new Date(date.getFullYear(), 10, 25),
-
       new Date(date.getFullYear(), 11, 24),
-
       new Date(date.getFullYear(), 11, 31),
     ];
     const dateInterdites = dateInterditesRaw.map((arrVal) => {
@@ -350,8 +352,10 @@ export default function MakePayment() {
 
   }
 
+  //View
   return (
     <div>
+      <CheckLoginStatus/>
       <ScrollToTopOnMount />
       <Grid
         container
@@ -449,6 +453,7 @@ export default function MakePayment() {
                 </Typography>
                 {paymentOptions != null ?
                   <Select
+                    id="select"
                     name="select"
                     labelform="Accounts"
                     select={paymentOptions}
@@ -519,7 +524,7 @@ export default function MakePayment() {
                       <Grid item xs={12} style={{ paddingBottom: "20px" }}>
                         <ButtonPrimary
                           stylebutton='{"background": "", "color":"" }'
-                          id="make-payment-submit-button"
+                          id="submitBtn"
                           onClick={handleClickSubmit}
                         >
                           Submit
@@ -546,7 +551,8 @@ export default function MakePayment() {
                       <Grid
                         item
                         xs={12}
-                        container direction="row"
+                        container 
+                        direction="row"
                         style={{ display: "inline-flex", paddingTop: "10px" }}
                       >
                         <DatePicker
@@ -555,6 +561,7 @@ export default function MakePayment() {
                           placeholder="MM/DD/YYYY"
                           id="date"
                           disablePast
+                          autoComplete="off"
                           maxdate={paymentMaxDate}
                           onKeyDown={(e)=> e.preventDefault()}
                           shouldDisableDate={disableWeekends}
@@ -570,20 +577,12 @@ export default function MakePayment() {
                         </p>
                       </Grid>
 
-                      <Grid container direction="row" style={{ paddingTop: "25px" }}>
-                        <Grid
-                          item
-                          xs={12}
-                          // sm={4}
-                          md={4}
-                          lg={2}
-                          container direction="row"
-                          id="make-payment-cancel-button-grid"
-                        >
+                      <Grid  id="paymentBtnWrap"  style={{ paddingTop: "25px" }}>
+                        <Grid id="make-payment-cancel-button-grid">
                           <ButtonSecondary
-                            stylebutton='{"marginRight": "20px" }'
+                            stylebutton='{}'
                             styleicon='{ "color":"" }'
-                            id="make-payment-cancel-button"
+                            id="cancelPaymentBtn"
                             onClick={handlePaymentcancel}
                             disabled={!hasSchedulePayment}
                           >
@@ -592,12 +591,7 @@ export default function MakePayment() {
                         </Grid>
 
                         <Grid
-                          item
-                          xs={12}
-                          // sm={6}
-                          md={4}
-                          lg={3}
-                          container direction="row"
+                         
                         >
                           <ButtonPrimary
                             stylebutton='{"marginRight": "" }'
@@ -639,16 +633,19 @@ export default function MakePayment() {
       {/* **************Auto pay submit modal******************* */}
 
       <Dialog
+        id="autopayDialogBox"
+        // onClose={handleCloseAutoPayPopup}
         open={open}
         aria-labelledby="alert-dialog-title-autoPay"
         aria-describedby="alert-dialog-description"
         classes={{ paper: classes.dialogPaper }}
       >
-        <DialogTitle id="alert-dialog-title">
-          <Typography className={classes.dialogHeading}>
+        <DialogTitle  id="autopayText">
+          <Typography id="autoTxt"  className={classes.dialogHeading}>
             {disabledContent === false ? "Are you sure you want to disable auto pay ?" : "Are you sure you want to enable auto pay ?"}
           </Typography>
           <IconButton
+           id="autopayCloseBtn"
             aria-label="close"
             className={classes.closeButton}
             onClick={handleCloseAutoPayPopup}
@@ -657,7 +654,7 @@ export default function MakePayment() {
           </IconButton>
         </DialogTitle>
 
-        <DialogActions style={{ justifyContent: "center" }}>
+        <DialogActions style={{ justifyContent: "center", marginBottom:"25px" }}>
           <ButtonSecondary
             stylebutton='{"background": "", "color":"" }'
             onClick={handleCloseAutoPayPopup}
@@ -686,13 +683,14 @@ export default function MakePayment() {
 
       <Dialog
         open={openPayment}
+        id="scheduleDialogBox"
         // onClose={handlePaymentClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
         classes={{ paper: classes.dialogPaper }}
       >
-        <DialogTitle id="alert-dialog-title">
-          <Typography className={classes.dialogHeading}>
+        <DialogTitle id="scheduleDialogHeading">
+          <Typography id="scheduleTxt" className={classes.dialogHeading}>
             Are you sure you want to schedule a payment ?
           </Typography>
           <IconButton
@@ -704,7 +702,7 @@ export default function MakePayment() {
           </IconButton>
         </DialogTitle>
 
-        <DialogActions style={{ justifyContent: "center" }}>
+        <DialogActions style={{ justifyContent: "center",marginBottom:"25px" }}>
           <ButtonSecondary
             stylebutton='{"background": "", "color":"" }'
             onClick={handlePaymentClose}
@@ -733,17 +731,19 @@ export default function MakePayment() {
       {/* **************Auto pay schedule payment modal******************* */}
 
       <Dialog
+        id="deletePayment"
         open={openDeleteSchedule}
         // onClose={handlePaymentClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
         classes={{ paper: classes.dialogPaper }}
       >
-        <DialogTitle id="alert-dialog-title">
-          <Typography className={classes.dialogHeading}>
+        <DialogTitle id="deleteDialogHeading" >
+          <Typography  id="deleteTxt" className={classes.dialogHeading}>
             Are you sure you want to delete the scheduled payment ?
           </Typography>
           <IconButton
+            id="deleteClose"
             aria-label="close"
             className={classes.closeButton}
             onClick={handleDeleteScheduleClose}
@@ -752,7 +752,7 @@ export default function MakePayment() {
           </IconButton>
         </DialogTitle>
 
-        <DialogActions style={{ justifyContent: "center" }}>
+        <DialogActions style={{ justifyContent: "center", marginBottom:"25px" }}>
           <ButtonSecondary
             stylebutton='{"background": "", "color":"" }'
             onClick={handleDeleteScheduleClose}
