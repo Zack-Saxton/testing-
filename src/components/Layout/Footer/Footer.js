@@ -2,9 +2,10 @@ import React from "react";
 import "./Footer.css";
 import badge from "../../../assets/images/badge.png";
 import Logo from "../../../assets/images/MarinerLogo.png";
-//Styling Part
+
 
 export default function Footer() {
+  
   //View Part
   return (
     <div >

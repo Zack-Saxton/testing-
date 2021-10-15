@@ -28,10 +28,12 @@ const useStylesMyBranch = makeStyles((theme) => ({
     fontSize: "13px",
   },
   dialogPaper: {
-    width: "auto",
-    left: 10,
-    bottom: 100,
-    maxWidth: "unset",
+    width: "100%",
+    maxWidth:"500px",
+    paddingBottom:"20px",
+    borderRadius:"2px !important"
+    // left: 10,
+    // bottom: 100,
   },
   dialogHeading: {
     color: "#171717!important",

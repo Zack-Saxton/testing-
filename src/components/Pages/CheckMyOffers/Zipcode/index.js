@@ -9,8 +9,8 @@ import {ButtonPrimary, Zipcode as ZipcodeField} from "../../../FormsUI";
 import {useFormik} from "formik";
 import * as yup from "yup";
 import {CheckMyOffers} from "../../../../contexts/CheckMyOffers";
-import ScrollToTopOnMount from '../scrollToTop';
-import "./zipcode.css";
+import ScrollToTopOnMount from '../ScrollToTop';
+import "./Zipcode.css";
 
 // Yup validation
 const validationSchema = yup.object({

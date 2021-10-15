@@ -1,12 +1,12 @@
 import React, {useContext} from 'react';
 import {useHistory} from "react-router-dom";
-import '../checkMyOffer.css';
+import '../CheckMyOffer.css';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import EligibleForOffersLogo from '../../../../assets/gallery/Eligible-for-Offers.png';
 import {ButtonPrimary} from '../../../FormsUI';
-import ScrollToTopOnMount from '../scrollToTop';
+import ScrollToTopOnMount from '../ScrollToTop';
 import {CheckMyOffers} from "../../../../contexts/CheckMyOffers";
 
 //Initializing functional component EligibleForOffers

@@ -1,4 +1,4 @@
-import "../checkMyOffer.css";
+import "../CheckMyOffer.css";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -8,8 +8,9 @@ import React, {useContext, useState} from "react";
 import {Link, useHistory} from "react-router-dom";
 import CitizenshipStatusLogo from "../../../../assets/icon/I-Own-Rent-Property.png";
 import {CheckMyOffers} from "../../../../contexts/CheckMyOffers";
-import ScrollToTopOnMount from '../scrollToTop';
+import ScrollToTopOnMount from '../ScrollToTop';
 
+//Living place component initialization
 function LivingPlace() {
 	const { data, setData } = useContext(CheckMyOffers);
 	const [error, setError] = useState();
@@ -17,6 +18,7 @@ function LivingPlace() {
     let [livingPlace, setLivingPlace] = useState(data.homeOwnership ?? "");
     const history = useHistory();
 
+	//set data state on continue
 	const setDataState = (val) => {
 		if (data.state === 'NC'){
 			data.completedPage = data.page.livingPlace;
@@ -37,6 +39,7 @@ function LivingPlace() {
 		}
 	}
 
+	//validating user input and proceeds 
 	const handleRoute = () => {
 		if (livingPlace === "Renting" || livingPlace === "Own a Home with Mortgage") {
 			if (data.rentMortgageAmount !== "" && data.rentMortgageAmount !== 0 && data.rentMortgageAmount >= 1000) {
@@ -103,9 +106,13 @@ function LivingPlace() {
 			setHelperText("Amount should be minimum $1000");
 		}
 	};
+
+	//redirect to select amount on direct call
 	if (data.completedPage < data.page.annualIncome || data.formStatus === 'completed'){
 		history.push("/select-amount");
 	}
+
+	//View part
 	return (
 		<div>
 			<ScrollToTopOnMount />

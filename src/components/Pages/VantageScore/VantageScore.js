@@ -6,35 +6,36 @@ import Paper from "@material-ui/core/Paper";
 import {useStyleVantageScore} from "./Style";
 import { NavLink } from 'react-router-dom';
 import { ButtonWithIcon } from "../../FormsUI";
-import Credit from "./credit";
+import Credit from "./Credit";
 import HistoricalData from "./HistoricalData";
 import KeyFactors from "./KeyFactors";
-import {getVantageScore} from "../../controllers/VantageController";
-import ScrollToTopOnMount from "../scrollToTop";
+import {getVantageScore} from "../../Controllers/VantageController";
+import ScrollToTopOnMount from "../ScrollToTop";
+import CheckLoginStatus from "../../App/CheckLoginStatus";
 
 
 export default function VantageScore() {
+  //Material UI css class
   const classes = useStyleVantageScore();
   const [creditData, setCreditData] = useState(null);
   const [keyFactors, setkeyFactors] = useState(null);
 
-
-
+  //API Call for vantageScore
   async function vantageScoreData() {
   let responseData = await (getVantageScore())
   let creditMonitorings = (responseData?.data?.data?.creditmonitorings ? responseData?.data?.data?.creditmonitorings : null)
   setCreditData(creditMonitorings)
   setkeyFactors(creditMonitorings.length ? creditMonitorings[0].parsed:null)
-
   }
+
   useEffect(() => {
     vantageScoreData();
   }, []);
 
-
-
+  //View
   return (
     <div >
+    <CheckLoginStatus/>
     <ScrollToTopOnMount />
     <Grid
       container

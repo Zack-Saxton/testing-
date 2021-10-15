@@ -7,12 +7,15 @@ import Grid from "@material-ui/core/Grid";
 import {NavLink} from "react-router-dom";
 import {ButtonWithIcon} from "../../FormsUI";
 import "./Style.css";
-import ScrollToTopOnMount from "../scrollToTop";
-import LoanHistoryController from "../../controllers/LoanHistoryController";
+import ScrollToTopOnMount from "../ScrollToTop";
+import LoanHistoryController from "../../Controllers/LoanHistoryController";
+import CheckLoginStatus from "../../App/CheckLoginStatus";
 
 export default function LoanHistory() {
+  //Material UI css class
   const classes = useStylesLoanHistory();
 
+  //API Call
   const [loanHistoryStatus, setloanHistoryStatus] = useState(null);
   async function AsyncEffect_loanHistory() {
     setloanHistoryStatus(await LoanHistoryController());
@@ -21,12 +24,14 @@ export default function LoanHistory() {
     AsyncEffect_loanHistory();
   }, []);
 
-  //Load data
-  let loanHistoryData =
-    loanHistoryStatus != null ? loanHistoryStatus.data.data.activeLoans : null;
 
+  //Load data
+  let loanHistoryData = loanHistoryStatus != null ? loanHistoryStatus.data.data.activeLoans : null;
+
+  //View Part
   return (
     <div>
+      <CheckLoginStatus/>
       <ScrollToTopOnMount />
       <Grid
         container
@@ -61,6 +66,7 @@ export default function LoanHistory() {
             </Typography>
           </Grid>
         </Grid>
+
 
         <LoanHistoryCard userLoanHistoryCard={loanHistoryData} />
         <LoanHistoryTable userLoanHistoryData={loanHistoryData} />

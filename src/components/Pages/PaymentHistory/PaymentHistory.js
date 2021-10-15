@@ -11,6 +11,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import CheckLoginStatus from "../../App/CheckLoginStatus";
 import { CSVLink } from "react-csv";
 import { jsPDF } from "jspdf";
 import "jspdf-autotable";
@@ -19,11 +20,14 @@ import Moment from "moment";
 import { useStylesPaymenthistory } from "./Style";
 import PaymentHistoryTable from "./PaymentRecords";
 import { ButtonWithIcon, ButtonPrimary } from "../../FormsUI";
-import usrAccountDetails from "../../controllers/AccountOverviewController";
+import usrAccountDetails from "../../Controllers/AccountOverviewController";
+import ScrollToTopOnMount from "../ScrollToTop";
 import "./Style.css";
 
 //Main function
 export default function PaymentHistory() {
+
+//Material UI css class
   const classes = useStylesPaymenthistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [fileName, setfileName] = React.useState(null);
@@ -66,6 +70,7 @@ export default function PaymentHistory() {
     return currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
   }
 
+//Download pdf
   const downloadPDF = () => {
     let pdfData = recentPaymentData != null ? recentPaymentData[0].loanHistory.AppAccountHistory : []
     const unit = "pt";
@@ -87,12 +92,13 @@ export default function PaymentHistory() {
     setAnchorEl(null);
   };
 
-  //Load Data
+  //Payment history data from API
   let recentPaymentData =
     paymentHistoryStatus != null
       ? paymentHistoryStatus.data.data.activeLoans
       : null;
 
+//Data for csv file
   const dataCSV = recentPaymentData != null ? recentPaymentData.length ? recentPaymentData[0].loanHistory.AppAccountHistory.map(item => {
     return {
       ...item,
@@ -107,8 +113,11 @@ export default function PaymentHistory() {
   }) : [] : []
 
 
+//View part
   return (
     <div>
+      <CheckLoginStatus/>
+      <ScrollToTopOnMount/>
       <Grid
         container
         justifyContent={"center"}

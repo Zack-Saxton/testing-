@@ -15,10 +15,13 @@ import AutoPayStatus from "./AutoPayStatus.js";
 import NumberFormat from 'react-number-format';
 
 export default function ActiveLoans(userActiveLoanData) {
+    //Material UI css class
     const classes = useStylesAccountOverview();
+    //Activeloans data
     let userActiveLoans = (userActiveLoanData != null) ? userActiveLoanData : null;
     let today = Moment(new Date());
 
+    //View
     return (
         <Grid container>
             {userActiveLoans.userActiveLoanData === null ? (

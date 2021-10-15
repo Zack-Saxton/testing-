@@ -1,22 +1,28 @@
 import React, {useContext} from 'react';
 import {useHistory} from "react-router-dom";
-import '../checkMyOffer.css';
+import '../CheckMyOffer.css';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import {ButtonPrimary} from '../../../FormsUI';
 import ReferToBranchLogo from '../../../../assets/gallery/Referred-to-Branch.png';
-import ScrollToTopOnMount from '../scrollToTop';
+import ScrollToTopOnMount from '../ScrollToTop';
 import {CheckMyOffers} from "../../../../contexts/CheckMyOffers";
 
+//reffered to branch functional component initialization
 function ReferredToBranch(props) {
     
+    //get context values
 	const { data } = useContext(CheckMyOffers);
     const history = useHistory();
     data.formStatus = "completed";
+
+    //redirects to select amount of directly called
     if (data.completedPage < data.page.ssn  && data.applicationStatus !=='referred' &&  props?.location?.formcomplete !== "yes"){
           history.push("/select-amount");
       }
+
+      //JSX part
     return(
         <div>
             <ScrollToTopOnMount />
@@ -51,12 +57,12 @@ function ReferredToBranch(props) {
                             <Grid item xs={12}  container justifyContent="center" alignItems="center">
                                 <Grid item xs={11} sm={10} md={6} lg={6} xl={6} className='bottomSpace ' container justifyContent="center" alignItems="center">
                                 <Grid item xs={9} sm={6} md={5} lg={4} xl={4} className='alignButton paddingButton buttonStart' container justifyContent="center" alignItems="center">
-                                    <ButtonPrimary stylebutton='{"background": "", "color":"", "fontSize": "" }' >
+                                    <ButtonPrimary stylebutton='{"background": "", "color":"", "fontSize": "" }'  href='customers/myBranch' >
                                         Finish by Phone
                                     </ButtonPrimary>
                                 </Grid>
                                 <Grid item xs={9} sm={6} md={5} lg={4} xl={4} className='alignButton paddingButton buttonEnd' container justifyContent="center" alignItems="center">
-                                    <ButtonPrimary stylebutton='{"background": "", "color":"", "fontSize": "" }' >
+                                    <ButtonPrimary stylebutton='{"background": "", "color":"", "fontSize": "" }'  href='customers/myBranch' >
                                         Finish by Branch
                                     </ButtonPrimary>
                                 </Grid>

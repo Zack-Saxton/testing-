@@ -2,11 +2,10 @@ import React from "react";
 import {ButtonPrimary, ButtonSecondary} from "../../../FormsUI";
 import Grid from "@material-ui/core/Grid";
 import {makeStyles} from "@material-ui/core/styles";
-import DocumentUpload from './documentUpload';
+import DocumentUpload from './DocumentUpload';
 import APICall from '../../../App/APIcall';
 
-
-
+//styling part
 const useStyles = makeStyles(() => ({
   content_grid: {
     marginTop: "15px",
@@ -14,9 +13,11 @@ const useStyles = makeStyles(() => ({
 }));
 
 //View Part
+//Initializing functional component 
 export default function IncomeVerification(props) {
   const classes = useStyles();
 
+  //JSX part
   return (
     <div>
       <div>
@@ -80,7 +81,11 @@ export default function IncomeVerification(props) {
                 let data = {
 
                 };
+
+                // API call
                     let res = await APICall("/verification/verification_steps_cac", data, 'POST', true);
+
+                    //To check all the steps are completed or not 
                     if(res?.data?.data?.email === true && 
                       res?.data?.data?.phone_verification === true && 
                       res?.data?.data?.financial_information === true && 

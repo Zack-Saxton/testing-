@@ -8,11 +8,14 @@ import TableRow from "@material-ui/core/TableRow";
 import Grid from "@material-ui/core/Grid";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { useStylesAccountOverview } from "./Style";
-import { ButtonWithIcon } from "../../FormsUI";
+import { ButtonPrimary } from "../../FormsUI";
 import NumberFormat from 'react-number-format';
 
 export default function RecentApplications({ userApplicationsData }) {
+  //Material UI css class
   const classes = useStylesAccountOverview();
+
+  //Recentapplications data
   let userApplications = (userApplicationsData != null) ? userApplicationsData : null;
   let statusStr = {
     "approved": "Approved",
@@ -33,6 +36,28 @@ export default function RecentApplications({ userApplicationsData }) {
     "final_review": "Final review"
   };
 
+  let statusStrLink = {
+    "approved": "/customers/finalVerification",
+    "completing_application": "/customers/finalVerification",
+    "contact_branch":  "/customers/myBranch",
+    "confirming_info": "/confirmation-credit",
+    "expired": "/select-amount",
+    "invalid": "/select-amount",
+    "offer_selected": "/customers/reviewAndSign",
+    "offers_available": "/customers/selectOffer",
+    "pre_qual_referred": "/select-amount",
+    "pre_qual_rejected": "/select-amount",
+    "pre_qualified": "/credit-karma",
+    "referred": "/referred-to-branch",
+    "rejected": "/no-offers-available",
+    "under_review": "/customers/loanDocument",
+    "closing_process": "/customers/finalVerification",
+    "final_review": "/customers/loanDocument"
+  }; 
+
+
+ 
+  //View
   return (
     <Grid item xs={12} style={{ width: "100%", paddingBottom: "10px" }}>
       <TableContainer component={Paper}>
@@ -55,7 +80,7 @@ export default function RecentApplications({ userApplicationsData }) {
                 Status
               </TableCell>
               <TableCell className={classes.tableHead} align="left">
-                Resume
+                Actions
               </TableCell>
             </TableRow>
           </TableHead>
@@ -92,25 +117,18 @@ export default function RecentApplications({ userApplicationsData }) {
                     <TableCell className={classes.tableheadrow} align="left">
                       {(statusStr[appData.status]) ? statusStr[appData.status] : (appData.status)}
                     </TableCell>
-                    <TableCell align="left">
+                    <TableCell align="left">    
                       {appData.isActive ?
                         (
-                          <ButtonWithIcon
-                            icon="arrow_forwardIcon"
-                            iconposition="left"
-                            stylebutton='{"background": "", "color":"" }'
-                            styleicon='{ "color":"" }'
-                            href="/select-amount"
-                          />
+                          <ButtonPrimary stylebutton='{"color":"","width":"72%" }'     
+                            href={statusStrLink[appData.status]}
+                          >
+                            Resume
+                          </ButtonPrimary>
                         ) : (
-                          <ButtonWithIcon
-                            icon="arrow_forwardIcon"
-                            iconposition="left"
-                            stylebutton='{"background": "", "color":"" }'
-                            styleicon='{ "color":"" }'
-                            href="/select-amount"
-                            disabled={true}
-                          />
+                          <ButtonPrimary stylebutton='{"color":"","width":"72%" }' href="/select-amount" >
+                            View
+                          </ButtonPrimary>
                         )
                       }
 

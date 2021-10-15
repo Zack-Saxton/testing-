@@ -19,8 +19,10 @@ import {
   Other_Fri,
   other_M_W_Thu,
 } from "./WorkingHours";
-import { ScheduleCallApi } from "../../controllers/MyBranchController";
+import { ScheduleCallApi } from "../../Controllers/MyBranchController";
 import momentTimeZone from "moment-timezone";
+
+// yup validation
 const validationSchema = yup.object({
   date: yup
     .date("Please enter valid date")
@@ -30,9 +32,11 @@ const validationSchema = yup.object({
   callTime: yup.string("Select Time").nullable().required("Time is required"),
 });
 
+//Date validation 
 const scheduleDateCall = new Date();
 scheduleDateCall.setDate(scheduleDateCall.getDate() + 30);
 
+//US holidays
 function disableWeekends(date) {
   const dateInterditesRaw = [
     new Date(date.getFullYear(), 0, 1),
@@ -58,9 +62,14 @@ function disableWeekends(date) {
 }
 
 export default function ScheduleCall(MyBranchCall) {
+
+  //Material UI css class
   const classes = useStylesMyBranch();
+
+  //Branch details from API
   let branchDetail = MyBranchCall != null ? MyBranchCall : null;
 
+//Spliting statename
   let stateName = branchDetail.MyBranchCall.MyBranchDetail
     ? branchDetail.MyBranchCall.MyBranchDetail.result
       ? null
@@ -77,6 +86,7 @@ export default function ScheduleCall(MyBranchCall) {
   const [scheduleCall, setScheduleCall] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
 
+  //Formik implementation
   const formik = useFormik({
     initialValues: {
       date: null,
@@ -104,6 +114,7 @@ export default function ScheduleCall(MyBranchCall) {
     },
   });
 
+//pop up open & close
   const handleScheduleCall = () => {
     setScheduleCall(true);
   };
@@ -116,6 +127,8 @@ export default function ScheduleCall(MyBranchCall) {
     formik.touched.callTime = null;
     setScheduleCall(false);
   };
+
+//View part
   return (
     <div>
       <Grid item xs={12} style={{ paddingTop: "10px", textAlign: "left" }}>
@@ -156,6 +169,7 @@ export default function ScheduleCall(MyBranchCall) {
                 placeholder="MM/DD/YYYY"
                 id="date"
                 disablePast
+                autoComplete="off"
                 onKeyDown={(e) => e.preventDefault()}
                 shouldDisableDate={disableWeekends}
                 maxdate={scheduleDateCall}

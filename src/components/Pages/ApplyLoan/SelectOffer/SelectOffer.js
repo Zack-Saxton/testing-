@@ -3,13 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import {
-	ButtonPrimary,
-	ButtonSecondary,
-	ButtonWithIcon,
-	Checkbox,
-	Radio,
-} from "../../../FormsUI";
+import { ButtonPrimary, ButtonSecondary, ButtonWithIcon, Checkbox, Radio } from "../../../FormsUI";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import PropTypes from "prop-types";
@@ -25,15 +19,16 @@ import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 import DesktopMacIcon from "@material-ui/icons/DesktopMac";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import Tooltip from "@material-ui/core/Tooltip";
-import ScrollToTopOnMount from "../../scrollToTop";
+import ScrollToTopOnMount from "../../ScrollToTop";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import "./selectoffer.css";
-import fetchAvailableOffers, {
-	submitSelectedOfferAPI,
-} from "../../../controllers/applyForLoanController";
-import { errorMessage } from "../../../../helpers/errorMessage";
+import "./SelectOffer.css";
+import fetchAvailableOffers, { submitSelectedOfferAPI } from "../../../Controllers/ApplyForLoanController";
+import { errorMessage } from "../../../../helpers/ErrorMessage";
 
+//Initializing functional component Apply for loan 
 export default function ApplyLoan() {
+
+	//Initializing state variables
 	const [rowData, setRowData] = useState();
 	const [checkedValue, setCheckedValue] = useState("");
 	const [selectedTerm, setSelectedTerm] = useState("");
@@ -41,22 +36,26 @@ export default function ApplyLoan() {
 	const [value, setValue] = React.useState(0);
 	const [accountDetails, setAccountDetails] = useState(null);
 	const [offersToCompare, setOffersToCompare] = useState([]);
-	let offersComp = offersToCompare ? offersToCompare : [];
 	const [terms, setTerms] = useState();
 	const [offerFlag, setOfferFlag] = useState(true);
 	const [loading, setLoading] = useState(false);
 	const [noOffers, setNoOffers] = useState(false);
+	let offersComp = offersToCompare ? offersToCompare : [];
+
 	const history = useHistory();
 	let term;
+
+	//To change the value to currency formate
 	const currencyFormat = (val) => {
 		if (val) {
 			var formated = parseFloat(val);
 			var currency = "$";
-			var forCur =
-				currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+			var forCur = currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 			return forCur;
 		}
 	};
+
+	// Submit the offer selected, It calls the API for select offer and redirecr to sign and review page
 	const submitSelectedOffer = async (selTerm, selIndex) => {
 		setLoading(true);
 		if (accountDetails && selTerm !== "" && selIndex !== "") {
@@ -78,6 +77,7 @@ export default function ApplyLoan() {
 		}
 	};
 
+	// Styling part
 	const useStyles = makeStyles((theme) => ({
 		paper: {
 			padding: theme.spacing(2),
@@ -137,12 +137,14 @@ export default function ApplyLoan() {
 
 	const classes = useStyles();
 
-	async function getUserAccountDetails() {
+	// To fetch the available offers for the logged in user
+	async function getAvailableOffers() {
 		let val = await fetchAvailableOffers();
 		if (val?.data?.data !== "Access token has expired") {
 			setAccountDetails(val);
 			term = Object.keys(val?.data?.data?.Offers);
 			setNoOffers(Object.keys(val?.data?.data?.Offers).length === 0 ? true : false);
+
 			setTerms(term);
 			if (term[0] !== undefined) {
 				initialTabLoad(term[0], 0, val)
@@ -152,12 +154,16 @@ export default function ApplyLoan() {
 		}
 	}
 
+	// to call the fetch offers api on page load 
 	useEffect(() => {
-		getUserAccountDetails();
+		getAvailableOffers();
 	}, []);
+
+	//Initializing the tab implementation
 	function TabPanel(props) {
 		const { children, value, index, ...other } = props;
 
+	// Returns the JSX part depends on parameter value
 		return (
 			<div
 				role="tabpanel"
@@ -188,6 +194,7 @@ export default function ApplyLoan() {
 		};
 	}
 
+	// Select the offers to compare : will push the selected offer value into array
 	const selectOfferToCompare = (row) => {
 		if (offersComp.indexOf(row) === -1) {
 			offersComp.push(row);
@@ -232,6 +239,7 @@ export default function ApplyLoan() {
 		};
 	}
 
+	// Create the data structured to populate the offes for user
 	function createData(
 		select,
 		loanAmount,
@@ -255,18 +263,22 @@ export default function ApplyLoan() {
 			tabIndex,
 		};
 	}
+
+	// Shows the Brnach icon 
 	const branch = (
 		<Grid container direction="row" alignItems="center">
 			<AccountBalanceIcon /> In branch
 		</Grid>
 	);
 
+	//Shows the Online icon
 	const online = (
 		<Grid container direction="row" alignItems="center">
 			<DesktopMacIcon /> Online
 		</Grid>
 	);
 
+	// Load the data depends of tab selected
 	function tabOnChange(termNum, tabIndex) {
 		setOfferFlag(true);
 
@@ -276,7 +288,7 @@ export default function ApplyLoan() {
 				"",
 				currencyFormat(item.loan_amount).slice(0, -3),
 				item.offerType,
-				item.apr,
+				item.apr.toFixed(2),
 				currencyFormat(item.monthly_payment),
 				"",
 				item._id,
@@ -289,11 +301,13 @@ export default function ApplyLoan() {
 		setRowData(rowsterm);
 	}
 
+	//On Compare offers tab is click 
 	function onCompareOfferTabClick() {
 		setOfferFlag(false);
 		setRowData(offersToCompare);
 	}
 
+	// Call function to load the tab initially 
 	function initialTabLoad(termNum, tabIndex, accountDetailsData) {
 		let rowsterm = [];
 		accountDetailsData.data.data.Offers[termNum].map((item, index) => {
@@ -301,7 +315,7 @@ export default function ApplyLoan() {
 				"",
 				currencyFormat(item.loan_amount).slice(0, -3),
 				item.offerType,
-				item.apr,
+				item.apr.toFixed(2),
 				currencyFormat(item.monthly_payment),
 				"",
 				item._id,
@@ -323,6 +337,7 @@ export default function ApplyLoan() {
 		setValues(newValues);
 	};
 
+	//JSX part
 	return (
 		<div>
 			<ScrollToTopOnMount />
@@ -362,6 +377,8 @@ export default function ApplyLoan() {
 						Apply for a Loan
 					</Typography>
 				</Grid>
+
+				{/* Tab section */}
 
 				<Grid item xs={12}>
 
@@ -410,6 +427,7 @@ export default function ApplyLoan() {
 
 								:
 								<>
+								{/* Available tersm tab panel */}
 									<Grid
 										item
 										xs={12}
@@ -475,16 +493,13 @@ export default function ApplyLoan() {
 											)}
 										</Paper>
 									</Grid>
-
-
-
-
 									<Grid
 										item
 										xs={12}
 										sm={9}
 										style={{ padding: "5px", width: "100%" }}
 									>
+										{/* Populate the offers available section */}
 										<Paper className={classes.paper}>
 											{rowData ? (
 												<TabVerticalPanel value={value} verticalIndex={value}>
@@ -661,6 +676,8 @@ export default function ApplyLoan() {
 																id="apply-loan-reset-button"
 																onClick={() => {
 																	setCheckedValue("");
+																	setSelectedTerm("");
+																	setSelectedIndex("");
 																}}
 															>
 																Reset
@@ -683,7 +700,7 @@ export default function ApplyLoan() {
 																	submitSelectedOffer(selectedTerm, selectedIndex);
 																}}
 																disabled={
-																	selectedTerm ? (loading ? true : false) : false
+																	selectedTerm && selectedIndex ? (loading ? true : false) : true
 																}
 															>
 																Continue

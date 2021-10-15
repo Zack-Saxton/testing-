@@ -1,19 +1,19 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-import { resendVerificationEmail } from '../../../controllers/applyForLoanController';
+import { resendVerificationEmail } from '../../../Controllers/ApplyForLoanController';
 import { ButtonPrimary, ButtonSecondary } from "../../../FormsUI";
-import Iframe from '../../../FormsUI/iframe'
 
 
-//View Part
+
 export default function EmailVerification(props) {
 
+//Send verification Email to logged in user
 const sendVerificationEmail = async () => {
   let res = await resendVerificationEmail();
   console.log("API call response", res)
 }
 
-
+//View Part
   return (
     <div>
       <Grid item style={{ width:"100%" }}>
@@ -32,9 +32,7 @@ const sendVerificationEmail = async () => {
           completed email verification. please refresh this page.
         </p>
       </Grid>
-     
-{/* <iframe title="iframeTest" height="500px" width="100%" frameborder="0" allowtransparency="true"  src="https://testondemand.eoriginal.com/ssweb/eo_security_check?authCode=7fF5YzFzywBj2zZGLHWgD3AmtFUJMweseF3PPlWj6u3qTEYbHlQgO1dMsE7T0y0ONQtbY4z6qLpfLq1P86RZYBKd0ADXaJDGKJhVH2iT8iiB0x1OGbVHmABERv0AiM5W"/> */}
-<Iframe />
+
       <Grid item xs={12} style={{ lineHeight: 3 }}>
         <ButtonSecondary
           stylebutton='{"fontWeight":"normal" }'

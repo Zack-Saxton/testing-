@@ -4,6 +4,9 @@ import {Radio} from "../../../FormsUI";
 import { useState} from "react";
 
 
+//Component to load the questions 
+
+//To build the structure for load
 const buildOptions = (options) => {
     let newArr = [];
     if(options){
@@ -36,7 +39,6 @@ export default function LoadQuestions(props) {
             <Radio
             name="question"
             radiolabel={buildOptions(question.choice)}
-            
             // radiolabel={() => {buildOptions(JSON.stringify(props.responseData?.data?.data?.questions?.question?.choice))}}
             // value="male"
             value = {check}
@@ -51,51 +53,9 @@ export default function LoadQuestions(props) {
        })
 
     }
-     {/* <Grid item xs={12} >
-            <Typography>Question</Typography> 
-            <Radio
-            name="question"
-            radiolabel={dat}
-            // radiolabel={() => {JSON.stringify( buildOptions(props.responseData?.data?.data?.questions?.question?.text?.choice))}}
-            // value="male"
-            // value = {check}
-            checked = {check}
-            onClick = {setCheck}  
-            row={true}
-            required={true}
-            labelplacement={"end"}
-            style={{ fontWeight: "normal" }}
-        />
-      </Grid> */}
+ 
       <Grid container>
-      {/* <ButtonPrimary
-              onClick={async () => {
-                let data = {
 
-                  "ref": "31000708040989",
-              
-                  "answers": {
-              
-                  "question_set_id": props?.responseData[0].fullData.data.questions.transaction_id,
-              
-                  "questions": [{
-              
-                      "id": props?.responseData[0].questionId,
-              
-                      "answer": check
-              
-                      }]
-                  }
-              }
-
-              let nxtRes = await APICall("/integration/LexisNexis/kba_disambiguate_answer_cac?test=true", data, "POST", true);
-       
-              }}
-              id = "button_stepper_prev"
-              stylebutton='{"margin": "20px", "color":"" }'
-            >
-              Next
-            </ButtonPrimary> */}
             </Grid>
         </ >
     );

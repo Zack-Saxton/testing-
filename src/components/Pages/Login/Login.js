@@ -5,21 +5,16 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import * as yup from "yup";
 import Box from "@material-ui/core/Box";
-import {
-    EmailTextField,
-    PasswordField,
-    Checkbox,
-    ButtonPrimary,
-} from "../../FormsUI";
+import { EmailTextField, PasswordField, Checkbox, ButtonPrimary } from "../../FormsUI";
 import Paper from "@material-ui/core/Paper";
 import Logo from "../../../assets/images/loginbg.png";
 import { NavLink, useHistory } from "react-router-dom";
-import "./login.css";
+import "./Login.css";
 import APICall from "../../App/APIcall";
-import loginSubmit from "../../controllers/LoginController";
+import loginSubmit from "../../Controllers/LoginController";
+import branchDetails from "../../Controllers/MyBranchController";
 
-
-//Styling
+//Styling part
 const useStyles = makeStyles((theme) => ({
     mainContentBackground: {
         backgroundImage: "url(" + Logo + ")",
@@ -93,13 +88,13 @@ const validationSchema = yup.object({
 });
 
 //Begin: Login page
-export default function Login({ setToken }) {
+export default function Login(props) {
     const classes = useStyles();
     const history = useHistory();
     const [loginFailed, setLoginFailed] = useState("");
     const [loading, setLoading] = useState(false);
     
-
+    //checking remember me is activated or not
     const remMe = localStorage.getItem('rememberMe');
     const remMeJSON = remMe ? JSON.parse(remMe) : {};
 	const [rememberMe, setRememberMe] = useState(remMeJSON.selected === true ? true : false);
@@ -112,6 +107,7 @@ export default function Login({ setToken }) {
             rememberMe: false
         },
         validationSchema: validationSchema,
+        // On login submit
         onSubmit: async (values) => {
 			setLoading(true);
             let url = '/customer/login';
@@ -121,24 +117,31 @@ export default function Login({ setToken }) {
                 "password": values.password
                 } ;
             let addAccessToken = false;
+            //  Calling api with the credentials given by the users
             await APICall(url, data, method, addAccessToken);
 
-			let retVal = await loginSubmit(values.email, values.password, setToken);
+			let retVal = await loginSubmit(values.email, values.password, props.setToken);
 			if (retVal?.data?.data?.user && retVal?.data?.data?.userFound === true) {
                 var now = new Date().getTime();
+                // On login success storing the needed data in the local storage
 				localStorage.clear();
 				localStorage.setItem("token", JSON.stringify({ isLoggedIn: true, apiKey: retVal?.data?.data?.user?.extensionattributes?.login?.jwt_token, setupTime: now, applicantGuid: retVal?.data?.data?.user?.attributes?.sor_data?.applicant_guid }));
                 localStorage.setItem("email",values.email);
+                let branchVal=await branchDetails(); 
+                localStorage.setItem('branchname',branchVal?.data?.data?.branchName) 
+                localStorage.setItem('branchphone',branchVal?.data?.data?.PhoneNumber) 
+                localStorage.setItem('branchopenstatus',branchVal?.data?.data?.date_closed) 
                 
-
+                // set Remember me 
 				rememberMe === true ?
 					localStorage.setItem("rememberMe", JSON.stringify({ selected: true, email: values.email, password: values.password })) :
 					localStorage.setItem("rememberMe", JSON.stringify({ selected: false, email: '', password: '' }));
 
 				setLoading(false);
-				history.push({
-					pathname: "/customers/accountoverview" ,
-				});
+                    history.push({
+                        pathname: (props.location.state?.required && props.location.state?.activationToken) ? "/customers/verification/email?required=" + props.location.state?.required + "&activation_token=" + props.location.state?.activationToken : "/customers/accountoverview",
+                    }); 
+              
 			}
 			else if (retVal?.data?.data?.result === "error" || retVal?.data?.data?.hasError === true) {
 				localStorage.setItem('token', JSON.stringify({ isLoggedIn: false, apiKey: '', setupTime: '', applicantGuid: '' }));
@@ -149,6 +152,7 @@ export default function Login({ setToken }) {
 				setLoading(false);
 				alert("Network error");
 			}
+
 		},
     });
 

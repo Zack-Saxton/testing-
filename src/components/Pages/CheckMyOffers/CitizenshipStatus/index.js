@@ -7,7 +7,7 @@ import React, {useContext, useState} from "react";
 import {Link, useHistory} from "react-router-dom";
 import CitizenshipStatusLogo from "../../../../assets/icon/I-Citizenship-status.png";
 import {CheckMyOffers} from "../../../../contexts/CheckMyOffers";
-import ScrollToTopOnMount from '../scrollToTop';
+import ScrollToTopOnMount from '../ScrollToTop';
 import "./CitizenshipStatus.css";
 
 //Initializing functional component CitizenshipStatus
@@ -27,6 +27,7 @@ function CitizenshipStatus() {
         history.push("/home-address");
     };
 
+    //Procced to next step with validation 
     const goNext = (val) => {
         data.citizenship = val;
         setCitizenship(val);
@@ -35,6 +36,8 @@ function CitizenshipStatus() {
             history.push("/home-address");
         }
 
+
+        //redirects to select amount on direct call
     }
     if (data.completedPage < data.page.loanPurpose || data.formStatus === 'completed') {
         history.push("/select-amount");

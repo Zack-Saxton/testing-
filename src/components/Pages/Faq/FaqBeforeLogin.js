@@ -6,8 +6,10 @@ import "./Style.css";
 import Faq from "./Faq";
 
 export default function FaqBeforeLogin() {
+  //Material UI css class
   const classes = useStylesFaq();
-  //Load data
+
+  //view part
   return (
     <div>
       <div className="mainDiv">

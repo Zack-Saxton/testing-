@@ -7,18 +7,26 @@ import {
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import { useStylesMoneySkill } from "./Style";
+import CheckLoginStatus from "../../App/CheckLoginStatus";
 import "./Style.css";
 
+
 export default function MoneySkill(props) {
+
+//Material UI css class
   const classes = useStylesMoneySkill();
 
+//Pop up
   const handleCloseMoneySkill = () => {
     props.onChange(false);
   };
 
+//View part
   return (
     <div>
+      <CheckLoginStatus/>
       <Dialog
+      id="moneySkillDialogBox"
         open={props.moneySkill}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
@@ -34,7 +42,7 @@ export default function MoneySkill(props) {
           </IconButton>
         </div>
 
-        <h2 className={classes.moneySkillDialogHeading}>
+        <h2 id="moneySkillDialogHeading" className={classes.moneySkillDialogHeading}>
           You are about to leave <br /> marinerfinance.com
         </h2>
 
@@ -71,7 +79,7 @@ export default function MoneySkill(props) {
             onClick={handleCloseMoneySkill}
             stylebutton='{"float": "" }'
           >
-            Stay On marinerfinance.com
+            Stay on Marinerfinance.com
           </ButtonSecondary>
 
           <ButtonPrimary
