@@ -33,7 +33,8 @@ import BasicInformationCard from "./BasicInformation";
 import MailingAddressCard from "./MailingAddress";
 import TextNotificationCard from "./TextNotification";
 import PaymentMethodCard from "./PaymentMethod";
-
+import { toast } from "react-toastify";
+import {changePassword} from "../../controllers/myProfileController"
 import AccountDetailsController from "../../controllers/AccountOverviewController";
 import "./selectoffer.css";
 import {
@@ -43,7 +44,7 @@ import {
   ButtonSwitch,
   Checkbox,
   Radio,
-  TextField,
+  PasswordField,
 } from "../../FormsUI";
 
 import {
@@ -218,6 +219,9 @@ export default function ApplyLoan() {
   const handleMouseDownPassword = () => setShowPassword(!showPassword);
   const [value, setValue] = React.useState(0);
   const [values, setValues] = React.useState(0);
+  const [oldPassword, setOldPassword] = React.useState('');
+  const [newPassword, setNewPassword] = React.useState('');
+  const [confirmPassword, setConfirmPassword] = React.useState('');
   const handleTabChange = (event, newValues) => {
     setValues(newValues);
   };
@@ -232,6 +236,41 @@ export default function ApplyLoan() {
 
     //Load data
     let accountDetailData = accountDetailStatus != null ? accountDetailStatus.data.data : null;
+
+const onClickCancelChangePassword = async () => {
+// Write code to clear text of all passwords...
+
+}
+const onClickChangePassword = async () => {
+  let response = await changePassword(oldPassword, newPassword);
+  if(response.data.data.change_password.passwordReset){
+    toast.success("Password Changed successfully", {
+    position: "bottom-left",
+    autoClose: 3500,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    });
+  } else {
+    toast.error("Password not Changed, Check Password and try again", {
+    position: "bottom-left",
+    autoClose: 3500,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    });
+  }
+}
+//Preventing space key
+    const preventSpace = (event) => {
+        if (event.keyCode === 32) {
+            event.preventDefault();
+        }
+    };
 
   return (
     <div>
@@ -560,14 +599,21 @@ export default function ApplyLoan() {
                                 className={classes.tableHeadRow}
                                 scope="row"
                               >
-
-                                <TextField
+                              <PasswordField
                                   name="oldpassword"
+                                  type="password"
                                   label="Old Password"
-                                  type={showPassword ? "text" : "password"} 
-                                  materialProps={{ defaultValue: "" }}
+                                  onKeyDown={preventSpace}
+                                  materialProps={{ maxLength: "30" }}
+                                  value= {oldPassword}
+                                  onChange= {(event) => {
+                                    setOldPassword(event.target.value);
+                                  }}
+                                  // type={showPassword ? "text" : "password"} 
+                                  // materialProps={{ defaultValue: "" }}
                                   variant="standard"
                                   disabled={false}
+                                  
                                 />
                               </TableCell>
                             </TableRow>
@@ -577,15 +623,18 @@ export default function ApplyLoan() {
                                 className={classes.tableHeadRow}
                                 scope="row"
                               >
-
-
-                                <TextField
+                                <PasswordField
                                   name="newpassword"
                                   type="password"
                                   label="New Password"
+                                  onKeyDown={preventSpace}
+                                  materialProps={{ maxLength: "30" }}
                                   variant="standard"
+                                  value= {newPassword}
+                                  onChange= {(event) => {
+                                    setNewPassword(event.target.value);
+                                  }}
                                   floatingLabelText="Password"
-                                  materialProps={{ defaultValue: "" }}
                                   disabled={false}
                                 />
                                 <p>
@@ -599,12 +648,17 @@ export default function ApplyLoan() {
                                 className={classes.tableHeadRow}
                                 scope="row"
                               >
-                                <TextField
+                                <PasswordField
                                   name="retypenewpassword"
                                   type="password"
                                   label="Retype New Password"
+                                  onKeyDown={preventSpace}
+                                  materialProps={{ maxLength: "30" }}
+                                  value= {confirmPassword}
+                                  onChange= {(event) => {
+                                    setConfirmPassword(event.target.value);
+                                  }}
                                   variant="standard"
-                                  materialProps={{ defaultValue: "" }}
                                   disabled={false}
                                 />
                               </TableCell>
@@ -626,8 +680,9 @@ export default function ApplyLoan() {
                           stylebutton='{"marginRight": "" }'
                           styleicon='{ "color":"" }'
                           id="apply-loan-reset-button"
+                          onClick = {onClickCancelChangePassword}
                         >
-                          Reset
+                          Cancel
                         </ButtonSecondary>
                       </Grid>
 
@@ -639,18 +694,14 @@ export default function ApplyLoan() {
                         style={{ padding: "10px" }}
                         id="apply-loan-continue-button-grid"
                       >
-                        <NavLink
-                          to="/customers/reviewAndSign"
-                          style={{ textDecoration: "none", width: "inherit" }}
-                        >
                           <ButtonPrimary
                             stylebutton='{"marginLeft": "10px","fontSize":"1rem" }'
                             styleicon='{ "color":"" }'
                             id="apply-loan-continue-button"
+                            onClick = {onClickChangePassword}
                           >
-                            Continue
-                          </ButtonPrimary>
-                        </NavLink>
+                            Submit
+                          </ButtonPrimary>                      
                       </Grid>
                     </Grid>
                   </TabVerticalPanel>
