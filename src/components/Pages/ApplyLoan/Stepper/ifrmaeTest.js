@@ -1,6 +1,10 @@
 
 import { Iframe } from "../../../FormsUI/iframe"
+
+//Component to load the iframe 
 function IframeTest() {
+
+  //vie part
   return (
     <div className="App">
      <p>Hello World</p>

@@ -6,12 +6,17 @@ import { ButtonWithIcon } from "../../FormsUI";
 import { useStylesFaq } from "./Style";
 import "./Style.css";
 import Faq from "./Faq";
+import CheckLoginStatus from "../../App/CheckLoginStatus";
 
 export default function FaqPostLogin() {
+
+//Material UI css class
   const classes = useStylesFaq();
-  //Load data
+
+//View part
   return (
     <div>
+      <CheckLoginStatus/>
       <Grid
         container
         justifyContent={"center"}

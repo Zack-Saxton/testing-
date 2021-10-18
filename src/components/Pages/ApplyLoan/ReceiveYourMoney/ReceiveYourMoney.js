@@ -9,8 +9,10 @@ import Box from "@material-ui/core/Box";
 import {NavLink} from "react-router-dom";
 import {ButtonWithIcon} from "../../../FormsUI";
 import Paper from "@material-ui/core/Paper";
-import ScrollToTopOnMount from '../../scrollToTop';
+import ScrollToTopOnMount from '../../ScrollToTop';
+import CheckLoginStatus from "../../../App/CheckLoginStatus";
 
+//Initializing the Tab panel section
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -44,7 +46,7 @@ function a11yProps(index) {
   };
 }
 
-//Styling
+//Styling part
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -91,15 +93,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// Initializing Recive your money component 
 export default function ReceiveYourMoney() {
   const classes = useStyles();
+
+  //Initializing state variables
   const [value, setValue] = React.useState(3);
   const handleTabChange = (event, newValue) => {
     setValue(newValue);
   };
 
+  //JSX part
   return (
     <div>
+      <CheckLoginStatus/>
       <ScrollToTopOnMount />
       <Grid
         container
@@ -114,7 +121,7 @@ export default function ReceiveYourMoney() {
           item
           xs={12} container
           direction="row"
-          style={{  width:"100%",marginBottom: "-20px" }}
+          style={{  width:"100%",marginBottom: "20px" }}
         >
           <Typography  className={classes.heading} variant="h3" >
               <NavLink

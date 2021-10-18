@@ -7,7 +7,7 @@ Functionality       :    To use this component to validate and get the Password 
 #################################################################################################################*/
 import React, {useState} from "react";
 import {IconButton, InputAdornment, TextField} from "@material-ui/core";
-import "./password.css";
+import "./Password.css";
 
 
 //Initializing component

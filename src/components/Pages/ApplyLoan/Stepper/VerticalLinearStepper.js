@@ -18,6 +18,8 @@ import {NavLink} from "react-router-dom";
 import {Grid} from "@material-ui/core";
 import "./VerticalLinearStepper.css"
 
+
+// styling part
 const useStyles = makeStyles((theme) => ({
     root: {
         width: "100%",
@@ -39,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+// Get the steps 
 function getSteps() {
     return [
         "Email Verification",
@@ -51,6 +54,7 @@ function getSteps() {
     ];
 }
 
+// load step content
 function getStepContent(step) {
     switch (step) {
         case 0:
@@ -72,10 +76,13 @@ function getStepContent(step) {
     }
 }
 
+//Component for vertical linear stepper
 export default function VerticalLinearStepper() {
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
     const steps = getSteps();
+
+    //next, prev and reset functionality 
 
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -109,6 +116,8 @@ export default function VerticalLinearStepper() {
         }
     };
 
+
+    //view part
     return (
         <div className={classes.root}>
             <Stepper activeStep={activeStep} orientation="vertical">

@@ -1,0 +1,106 @@
+/* .form {
+box-sizing: content-box;
+  }
+  *, *:before, *:after {
+    box-sizing: unset!important;
+  } */
+
+  #main-content-background{
+    min-height: 500px;
+  
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+ 
+/* .mainDiv{
+    background-color: #124CA8;
+    background-image: linear-gradient(to right, #26436A , #104DB0);
+    min-height: 500px !important;
+} */
+
+.MuiInput-underline:before{
+    border-bottom: 2px solid #0F4EB3 !important;
+}
+
+.cardWOPadding{
+    padding-bottom: 1%;
+    text-align: center;
+}
+
+.cardWrapper{
+    margin-top: 5%;
+    margin-bottom: 2%;
+}
+
+#socialNum{
+    margin-top: 19.1px !important;
+}
+
+#ZipcodeWrap{
+    margin-top: 19.1px !important;
+}
+
+
+#dateWrap label{
+    font-size: 16px !important;
+}
+
+@media (max-width:599px){
+
+    #socialNum{
+        margin-top: 0px !important;
+    }
+    
+    #ZipcodeWrap{
+        margin-top: 0px !important;
+    }
+}
+
+
+
+@media (max-width:400px){
+    #email-label, #password-label, #c-pass-label, #firstname-label, #lastname-label, #zip-label{
+        font-size: 4vw;
+ 
+    }
+}
+@media (max-width:400px){
+#dob-title,#password-title{
+    font-size: 3vw;
+
+}
+}
+
+label + .MuiInput-formControl{
+    background: transparent;
+}
+
+.showError{
+    display: block;
+    color: red;
+    text-align: left;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+ 
+.hideError{
+    display: none;
+ 
+}
+
+
+.Mui-focused{
+  background-color:transparent !important;
+  color: white;
+}
+ 
+
+.add-pad{
+    margin-left: -1px !important;
+    padding-top: 20px !important;
+    font-size: 14px!important;
+}

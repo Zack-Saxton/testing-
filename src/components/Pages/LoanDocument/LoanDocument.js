@@ -13,19 +13,21 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { NavLink } from "react-router-dom";
 import { ButtonWithIcon, Select } from "../../FormsUI";
-import ScrollToTopOnMount from "../scrollToTop";
+import ScrollToTopOnMount from "../ScrollToTop";
 import { toast } from "react-toastify";
-
+import CheckLoginStatus from "../../App/CheckLoginStatus";
 import LoanDocumentTable from "./DocumentTable";
 import {
   loanDocumentController as loanDocument,
   uploadDocument ,
-} from "../../controllers/LoanDocumentController";
+} from "../../Controllers/LoanDocumentController";
 
 export default function LoanDocument(props) {
+
+//Material UI css class
   const classes = useStylesLoanDocument();
 
-  //Api implementation for table
+  //Api call
   const [loanDocumentStatus, setloanDocumentStatus] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [docType, setDocType] = useState('');
@@ -42,13 +44,17 @@ export default function LoanDocument(props) {
     
   }, []);
 
+//Selecting file for upload
   const handleInputChange = () => {
     setSelectedFile(document.getElementById("file"));
   };
 
+//Document type
   const handleDocType = (e) => {
     setDocType(e.target.value);
   };
+
+//Upload Document
   const uploadDoc = () => {
     if (selectedFile === null) {
       
@@ -96,7 +102,7 @@ export default function LoanDocument(props) {
             let fileType = selectedFile.files[0].type;
             let documentType = docType;
 
-            uploadDocument(test, fileName, fileType, documentType);
+            uploadDocument(test, fileName, fileType, documentType);  //Passing data to API
           };
           reader.readAsDataURL(selectedFile.files[0]);
         }
@@ -132,11 +138,13 @@ export default function LoanDocument(props) {
     
   };
 
-  let loanDocumentData =
-    loanDocumentStatus != null ? loanDocumentStatus.data.data : null;
+//Loan Document data from API
+  let loanDocumentData =  loanDocumentStatus != null ? loanDocumentStatus.data.data : null;
 
+//View part
   return (
     <div>
+      <CheckLoginStatus/>
       <ScrollToTopOnMount />
       <Grid
         container
@@ -224,6 +232,7 @@ export default function LoanDocument(props) {
                   multiple
                   id="file"                  
                   type="file"
+                  cursor= "pointer"
                   onChange={handleInputChange}
                 />
               </Grid>

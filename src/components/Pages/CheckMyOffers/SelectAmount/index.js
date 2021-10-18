@@ -1,5 +1,5 @@
-import "./checkMyOffer.css";
-import "../checkMyOffer.css";
+import "./CheckMyOffer.css";
+import "../CheckMyOffer.css";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -7,21 +7,23 @@ import {ButtonPrimary, Slider, TextField} from "../../../FormsUI";
 import Paper from "@material-ui/core/Paper";
 import React, {useContext, useState} from "react";
 import {useHistory} from "react-router-dom";
-import ScrollToTopOnMount from '../scrollToTop';
+import ScrollToTopOnMount from '../ScrollToTop';
 import {CheckMyOffers as Check} from "../../../../contexts/CheckMyOffers";
 
+//initializing check my offers functonal component 
 function CheckMyOffers(props) {
 	const { data, setData, resetData } = useContext(Check);
 	const [hasOfferCode, setOfferCode] = useState();
 	
 	const history = useHistory();
 
+	//reset the context values 
 	if(data.formStatus === '' || data.completedPage === 0 || data.formStatus === 'completed' || props.location.fromLoanPurpose !== 'yes'){
-		
 		resetData();
 		data.loanAmount = 10000;
 	}
 	const [select, setSelect] = useState(data.loanAmount ? data.loanAmount : 10000);
+	//validate and proceeds the flow 
 	const handleRoute = (e) => {
 
 		data.loanAmount = select;
@@ -33,6 +35,7 @@ function CheckMyOffers(props) {
 		});
 	};
 
+	// jsx part
 	return (
 		<div>
 			<ScrollToTopOnMount />

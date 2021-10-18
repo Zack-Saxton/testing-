@@ -50,6 +50,7 @@ function TablePaginationActions(props) {
     onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
   };
 
+//View part
   return (
     <div className={classes.root}>
       <IconButton

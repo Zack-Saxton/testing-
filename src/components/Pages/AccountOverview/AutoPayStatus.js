@@ -4,8 +4,10 @@ import { useStylesAccountOverview } from "./Style";
 import enabled from "../../../assets/images/Enabled.png";
 
 export default function AutoPayStatus(isAutoPay) {
+  //Material UI css class
   const classes = useStylesAccountOverview();
 
+  //View
   if (isAutoPay.value != null) {
     return (
       <Grid item xs={12} sm={3}>

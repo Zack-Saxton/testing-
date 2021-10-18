@@ -4,7 +4,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Logo from "../../../assets/images/MarinerLogo.png";
-import { useStyles } from "./Normalheaderstyle";
+import { useStyles } from "./NormalHeaderStyle";
 import IconButton from "@material-ui/core/IconButton";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
@@ -18,6 +18,7 @@ const NormalHeader = () => {
   const tokenString = localStorage.getItem("token");
   const userToken = JSON.parse(tokenString);
 
+//Menu open & close
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
@@ -35,6 +36,8 @@ const NormalHeader = () => {
   };
 
   const mobileMenuId = "primary-search-account-menu-mobile";
+
+//Menu button on mobile view
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}

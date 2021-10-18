@@ -1,22 +1,26 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import {ButtonSecondary, ButtonWithIcon, Checkbox} from "../../../FormsUI";
+import CheckLoginStatus from "../../../App/CheckLoginStatus";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import PropTypes from "prop-types";
 import Box from "@material-ui/core/Box";
 import { NavLink, useHistory } from "react-router-dom";
-import ScrollToTopOnMount from '../../scrollToTop';
-import "./reviewAndSign.css";
+import ScrollToTopOnMount from '../../ScrollToTop';
+import "./ReviewAndSign.css";
 import APICall from "../../../App/APIcall"
 import Iframe from "../../../FormsUI/iframe"
+import { toast } from "react-toastify";
 
+// initializing Tab panel section 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
+  //return the JSX part for tab 
   return (
     <div
       role="tabpanel"
@@ -47,6 +51,7 @@ function a11yProps(index) {
   };
 }
 
+//Styling part
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -94,30 +99,37 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+//Initializing the Review and sign functional component 
 export default  function ReviewAndSign(props) {
   const classes = useStyles();
 
-  const [value, setValue] = React.useState(1);
+  //Initializing state variable 
+  const [value, setValue] = useState(1);
   const history = useHistory();
-  const [url, setUrl] = React.useState();
+  const [url, setUrl] = useState();
+  const [confirm, setConfirm] = useState(false);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
+  // To get the iframe url from the API 
   async function  getIframeURL() {
     let data ={
 
     }
 
     let iframeURL = await APICall("/integration/eoriginal/authenticate_cac", data, "POST", true  );
-    setUrl(iframeURL.data.data.data.iframe);
+    setUrl(iframeURL?.data?.data?.data?.iframe);
    
   }
 
+  // call the get URL funtion on page load 
   useEffect(() => {
     getIframeURL();
   }, []);
 
+  //Conver the value into currency format
   const currencyFormat = (val) => {
     if(val)
     {
@@ -128,10 +140,12 @@ export default  function ReviewAndSign(props) {
     }
 	}
 
-  if(props.location.selectedIndexOffer){
+  //Check weather the offers is passed or not 
+  if(props?.location?.selectedIndexOffer){
   return (
     <div>
-      <ScrollToTopOnMount />
+      <CheckLoginStatus/>       {/* To check the user logged in or not  */}
+     <ScrollToTopOnMount />    {/* To show the top of the page on load */}
       <Grid
         container
         justifyContent={"center"}
@@ -142,30 +156,32 @@ export default  function ReviewAndSign(props) {
         }}
       >
         <Grid
-          item
-          xs={12} container
-          direction="row"
-          style={{  width:"100%",marginBottom: "-20px" }}
-        >
-          <Typography  className={classes.heading} variant="h3">
-              <NavLink
-                to="/customers/accountOverview"
-                style={{ textDecoration: "none" }}
-              >
-                <ButtonWithIcon
-                  icon="arrow_backwardIcon"
-                  iconposition="left"
-                  stylebutton='{"background": "#fff", "color":"#214476",
+					container
+					item
+					xs={12}
+					direction="row"
+					style={{ marginBottom: "20px", width: "100%" }}
+				>
+					<Typography className={classes.heading} variant="h3">
+						<NavLink
+							to="/customers/accountOverview"
+							style={{ textDecoration: "none" }}
+						>
+							<ButtonWithIcon
+								icon="arrow_backwardIcon"
+								iconposition="left"
+								stylebutton='{"background": "#fff", "color":"#214476",
                         "minWidth": "0px",
                         "width": "36px",
                         "padding": "0px",
-                        "marginRight": "5px" , "marginTop":"unset"}'
-                  styleicon='{ "color":"" }'
-                />
-              </NavLink>{" "}
-              Apply for a Loan
-          </Typography>
-        </Grid>
+                        "marginRight": "5px",
+                      "marginTop":"unset" }'
+								styleicon='{ "color":"" }'
+							/>
+						</NavLink>{" "}
+						Apply for a Loan 
+					</Typography>
+				</Grid>
 
         <Grid item xs={12}>
           <Tabs
@@ -218,7 +234,7 @@ export default  function ReviewAndSign(props) {
 
                   <Grid item xs={12} sm={6}>
                     <NavLink
-                      to="/customers/applyLoan"
+                      to="/customers/selectOffer"
                       style={{ textDecoration: "none" }}
                     >
                       <ButtonSecondary
@@ -304,7 +320,7 @@ export default  function ReviewAndSign(props) {
                       APR
                     </p>
                     <h2 className={classes.columnColor} id="column-content">
-                    {props.location.selectedIndexOffer.apr}
+                    {props.location.selectedIndexOffer.apr.toFixed(2)} %
                     </h2>
                   </Grid>
                   <Grid
@@ -363,14 +379,18 @@ export default  function ReviewAndSign(props) {
                   <li>After signing, click the ‘Submit’ button.</li>
                 </ol>
               </Grid>
-              <Grid item xs={12} md={12} lg={12} >
-                  { url ? <Iframe src={url} /> : <p>Loading...</p> }
-                  </Grid>
+              
               <Grid item xs={12} style={{ width:"100%" }} >
                 <Paper
     className={classes.paper}
-    style={{height: "250px"}}
-    />
+    // style={{height: "250px"}}
+
+    > 
+    
+      <Grid item xs={12} md={12} lg={12} >
+        { url ? <Iframe src={url} /> : <p>Loading...</p> }
+      </Grid>
+      </Paper>
                 <Paper className={classes.paper}>
                 
                   <Grid item xs={12}>
@@ -380,7 +400,8 @@ export default  function ReviewAndSign(props) {
                         <span
                           style={{
                             fontSize: "14px",
-                            lineHeight: 1,
+                            // lineHeight: 1,
+                            paddingTop: "15px",
                             textAlign: "justify",
                           }}
                         >
@@ -391,6 +412,8 @@ export default  function ReviewAndSign(props) {
                         </span>
                       }
                       labelid="remember-me"
+                      value={confirm}
+											onChange={(e) => { setConfirm(e.target.checked) }}
                       testid="checkbox"
                       stylelabelform='{ "fontSize":"12px" }'
                       stylecheckbox='{ "marginBottom":"15px" }'
@@ -399,19 +422,44 @@ export default  function ReviewAndSign(props) {
                   </Grid>
 
                   <Grid item xs={12} style={{ lineHeight: 6 }}>
-                    <NavLink
+                    {/* <NavLink
                       to="/customers/finalVerification"
                       style={{ textDecoration: "none" }}
-                    >
+                    > */}
                       <ButtonWithIcon
                         stylebutton='{ "color":"" }'
                         styleicon='{ "color":"" }'
                         style={{ width:"100%","fontSize":"1rem" }}
                         id="review-submit-button"
+                        disabled={!confirm}
+                        onClick={ async () => {
+                          let data ={
+
+                          };
+                          let authenticateStatus = await APICall("/integration/eoriginal/complete_cac", data, "POST", true  );
+                          if(authenticateStatus?.data?.data?.result === "success"){
+                            history.push({
+                              pathname: "/customers/finalVerification",
+                          });
+                          }
+                          else{
+                            alert("please complete your signing process fully befor continuing to the next page");
+                            toast.error("please complete your signing process fully befor continuing to the next page", {
+                              position: "bottom-left",
+                              autoClose: 1500,
+                              hideProgressBar: false,
+                              closeOnClick: true,
+                              pauseOnHover: true,
+                              draggable: true,
+                              progress: undefined,
+                            });
+                          }
+
+                        }}
                       >
                         Submit
                       </ButtonWithIcon>
-                    </NavLink>
+                    {/* </NavLink> */}
                   </Grid>
                 </Paper>
               </Grid>
@@ -441,6 +489,8 @@ export default  function ReviewAndSign(props) {
     </div>
   );
 } 
+
+//redirects to select offer page if offfer is not selected
 else{
  history.push({
    pathname: "/customers/selectoffer"

@@ -11,22 +11,13 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import axios from "axios";
-import {
-    Button,
-    ButtonPrimary,
-    DatePicker,
-    EmailTextField,
-    PasswordField,
-    SocialSecurityNumber,
-    TextField,
-    Zipcode,
-} from "../../FormsUI";
+import { Button, ButtonPrimary, DatePicker, EmailTextField, PasswordField, SocialSecurityNumber, TextField, Zipcode } from "../../FormsUI";
 import Paper from "@material-ui/core/Paper";
 import Logo from "../../../assets/images/loginbg.png";
-import loginSubmit from "../../controllers/LoginController";
-import "./register.css";
+import loginSubmit from "../../Controllers/LoginController";
+import "./Register.css";
 
-//Styling
+//Styling part
 const useStyles = makeStyles((theme) => ({
 	mainContentBackground: {
 		backgroundImage: "url(" + Logo + ")",
@@ -81,6 +72,8 @@ const useStyles = makeStyles((theme) => ({
 		textAlign: "center",
 		paddingTop: "20px!important",
 	},
+
+
 }));
 
 //Yup validations for all the input fields
@@ -176,6 +169,7 @@ export default function Register() {
 		onSubmit: async (values) => {
 			setLoading(true);
 			setFailed("");
+			//structuring the data for api call
       let body = {
         "fname": values.firstname,
         "lname": values.lastname,
@@ -190,7 +184,7 @@ export default function Register() {
         "address_city": city,
         "address_state": state
       }
-
+			//API call
 			try {
 				let customerStatus = await axios({
 					method: "POST",
@@ -198,11 +192,6 @@ export default function Register() {
 					data: JSON.stringify(body),
 					headers: {
 						"Content-Type": "application/json",
-						// Accept: "*/*",
-						// Host: "psa-development.marinerfinance.io",
-						// "Accept-Encoding": "gzip, deflate, br",
-						// Connection: "keep-alive",
-						// "Content-Length": "6774",
 					},
 					transformRequest: (data, headers) => {
 						delete headers.common["Content-Type"];
@@ -217,6 +206,7 @@ export default function Register() {
 					(customerStatus.data?.result === "success" &&
 						customerStatus.data?.hasError === false)
 				) {
+					//On succes, calls the login API to the JWT token and save it in storage, and make the user logged in and redirecting to home page 
 					let retVal = await loginSubmit(values.email, values.password, '');
 					if (retVal?.data?.data?.user && retVal?.data?.data?.userFound === true) {
 						let rememberMe = false;
@@ -288,7 +278,7 @@ export default function Register() {
 		}
 	};
 
-	
+//Auto focus on name field if it has any error on submit 	
 	function autoFocus() {
 		var firstname = document.getElementById("firstname").value
 		var lastname = document.getElementById("lastname").value
@@ -428,8 +418,9 @@ export default function Register() {
 											/>
 										</Grid>
 
-										<Grid item xs={12} sm={4}  container direction ="row">
+										<Grid id="socialNum" item xs={12} sm={4}  container direction ="row">
 											<SocialSecurityNumber
+												className={classes.socialNum}
 												name="ssn"
 												label="Social Security Number *"
 												placeholder="Enter your SSN"
@@ -442,7 +433,7 @@ export default function Register() {
 												helperText={formik.touched.ssn && formik.errors.ssn}
 											/>
 										</Grid>
-										<Grid item xs={12} sm={4}  container direction ="row">
+										<Grid id="ZipcodeWrap" item xs={12} sm={4}  container direction ="row">
 											<Zipcode
 												fullWidth
 												id="zip"
@@ -464,7 +455,7 @@ export default function Register() {
 											/>
 										</Grid>
 
-										<Grid item xs={12} sm={4}  container direction ="row">
+										<Grid id="dateWrap" item xs={12} sm={4}  container direction ="row">
 											<DatePicker
 												name="date"
 												label="Date of Birth *"

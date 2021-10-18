@@ -6,12 +6,12 @@ import Grid from "@material-ui/core/Grid";
 import { ButtonPrimary } from "../../FormsUI";
 import { NavLink } from "react-router-dom";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
-import ScrollToTopOnMount from "../scrollToTop";
+import ScrollToTopOnMount from "../ScrollToTop";
 import RecentApplications from "./RecentApplications";
 import ActiveLoans from "./ActiveLoans";
 import RecentPayments from "./RecentPayments";
 import "./Style.css";
-import usrAccountDetails from "../../controllers/AccountOverviewController";
+import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import LimitedOffer from "./LimitedOffer"
 
 export default function AccountOverview() {

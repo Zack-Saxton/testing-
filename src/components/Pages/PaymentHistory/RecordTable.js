@@ -12,13 +12,14 @@ import "./Style.css";
 import Moment from "moment";
 
 export default function PaymentHistoryTable(userRecentPaymentData) {
+
+//Material UI css class
   const classes = useStylesPaymenthistory();
 
-  let userRecentPayment =
-    userRecentPaymentData != null ? userRecentPaymentData : null;
+//Payment history data from API
+  let userRecentPayment = userRecentPaymentData != null ? userRecentPaymentData : null;
 
   //View part
-
   return (
     <Grid item xs={12} style={{ paddingTop: "10px", paddingBottom: "20px" }}>
       <TableContainer component={Paper}>

@@ -1,4 +1,4 @@
-import "./existingUser.css";
+import "./ExistingUser.css";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -9,10 +9,11 @@ import PasswordLogo from "../../../../assets/icon/I-Password.png";
 import {ButtonPrimary, PasswordField} from "../../../FormsUI";
 import {useFormik} from "formik";
 import * as yup from "yup";
-import ScrollToTopOnMount from '../scrollToTop';
+import ScrollToTopOnMount from '../ScrollToTop';
 import {CheckMyOffers} from "../../../../contexts/CheckMyOffers";
-import loginSubmit from "../../../controllers/LoginController";
+import loginSubmit from "../../../Controllers/LoginController";
 
+//YUP validation schema
 const validationSchema = yup.object({
 	password: yup
     .string("Enter your password")
@@ -21,6 +22,7 @@ const validationSchema = yup.object({
     .required("Your password is required"),
 });
 
+// Existing user functional component initiallization
 function ExistingUser() {
 	const { data, setData } = useContext(CheckMyOffers);
 	const [loginFailed, setLoginFailed] = useState('');
@@ -28,6 +30,7 @@ function ExistingUser() {
 	
 	const history = useHistory();
 
+	// Formik configuraion 
 	const formik = useFormik({
 		initialValues: {
 			password: "",
@@ -35,6 +38,7 @@ function ExistingUser() {
 			// newPassword: data.zip ? data.zip : '',
 		},
 		validationSchema: validationSchema,
+		// handle submit to login the user 
 		onSubmit: async (values) => {
 			setLoading(true);
 			setData({
@@ -45,14 +49,15 @@ function ExistingUser() {
 			});
 			let retVal = await loginSubmit(data.email, values.password);
 			 if(retVal?.data?.data?.user && !retVal?.data?.data?.result ){
-			   localStorage.setItem('token', JSON.stringify({isLoggedIn: true}));
+			   var now = new Date().getTime();
+			   localStorage.setItem("token", JSON.stringify({ isLoggedIn: true, apiKey: retVal?.data?.data?.user?.extensionattributes?.login?.jwt_token, setupTime: now }));
 			   setLoading(false);
 			   history.push({
 				 pathname: "/employment-status",
 			   });
 			 }
 			 else if (retVal?.data?.data?.result === "error" || retVal?.data?.data?.hasError === true){
-			   localStorage.setItem('token', JSON.stringify({isLoggedIn: false}));
+			   localStorage.setItem('token', JSON.stringify({ isLoggedIn: false, apiKey: '', setupTime: '' }));
 			   setLoading(false);
 			   setLoginFailed(retVal?.data?.data?.errorMessage);
 			 }
@@ -64,15 +69,24 @@ function ExistingUser() {
 		},
 	});
 
+	const passwordOnChange = (e) => {
+        setLoginFailed('');
+        formik.handleChange(e);
+
+    }
+
 	const preventSpace = (event) => {
 		if (event.keyCode === 32) {
 		  event.preventDefault();
 		}
 	  };
 
+	  //redirects to select amount on directr page call
 	  if (data.completedPage < data.page.personalInfo || data.formStatus === 'completed'){
 		history.push("/select-amount");
 	}
+
+	// View part
 	return (
 		<div>
 			<ScrollToTopOnMount />
@@ -137,7 +151,7 @@ function ExistingUser() {
 												onKeyDown={preventSpace}
 												materialProps={{ maxLength: "30" }}
 												value={formik.values.password}
-												onChange={formik.handleChange}
+												onChange={passwordOnChange}
 												onBlur={formik.handleBlur}
 												error={
 													formik.touched.password &&
@@ -149,7 +163,7 @@ function ExistingUser() {
 											/>
 													<p className={ loginFailed !== '' ? "showError add-pad" : "hideError" } data-testid="subtitle">
 												{" "}
-												{loginFailed === "Invalid Email or Password" ? "Invalid Password" : loginFailed}                 
+												{loginFailed === "Invalid Email or Password" ? "Please enter a valid password" : loginFailed}                 
 											</p>
 										</Grid>
 										<Grid container

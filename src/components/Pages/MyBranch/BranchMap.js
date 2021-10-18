@@ -4,10 +4,13 @@ import Paper from "@material-ui/core/Paper";
 import { useStylesMyBranch } from "./Style";
 
 export default function BranchMap(MyBranchDetail) {
+//Material UI css class
   const classes = useStylesMyBranch();
 
+//Branch details from API
   let branchDetail = MyBranchDetail != null ? MyBranchDetail : null;
 
+//View part 
   return (
     <div>
       {branchDetail.MyBranchDetail === null ? (

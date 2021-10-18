@@ -20,7 +20,7 @@ import {
 } from "../../FormsUI";
 import Paper from "@material-ui/core/Paper";
 import Logo from "../../../assets/images/loginbg.png";
-import "./creditkarma.css";
+import "./CreditKarma.css";
 import creditkarmalogo from "../../../assets/images/ck_logo.png";
 
 

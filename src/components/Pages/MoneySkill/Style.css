@@ -3,6 +3,10 @@
     right: 5px !important;
     top: 0px !important;
   }
+  #moneySkillDialogHeading{
+    font-size: 26px;
+    font-weight: bold;
+  }
 }
 #buttonWrap {
   display: flex;
@@ -14,8 +18,8 @@
 }
 #closeBtn {
   position: absolute;
-  right: 24px;
-  top: 10px;
+  right: 14px;
+  top: 5px;
 }
 #stayBtn {
   margin-right: 10px;
@@ -23,6 +27,7 @@
   font-weight: 700;
   padding: 0px 35px;
   box-shadow: none;
+  text-transform: none !important;
 }
 #Continue {
   font-family: "Muli", sans-serif !important;

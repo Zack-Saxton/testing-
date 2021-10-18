@@ -9,7 +9,9 @@ import Box from "@material-ui/core/Box";
 import Stepper from "../Stepper/Stepper";
 import {NavLink} from "react-router-dom";
 import {ButtonWithIcon} from "../../../FormsUI";
-import ScrollToTopOnMount from '../../scrollToTop';
+import ScrollToTopOnMount from '../../ScrollToTop';
+import CheckLoginStatus from "../../../App/CheckLoginStatus";
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -75,6 +77,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+//Initializing Final verification functional component 
 export default function FinalVerification() {
   const classes = useStyles();
   const [value, setValue] = React.useState(2);
@@ -82,8 +85,10 @@ export default function FinalVerification() {
     setValue(newValue);
   };
 
+  //JSX part
   return (
     <div>
+      <CheckLoginStatus/>
       <ScrollToTopOnMount />
       <Grid
         container
@@ -94,11 +99,8 @@ export default function FinalVerification() {
           paddingLeft: "30px",
         }}
       >
-        <Grid
-          item
-          xs={12}         container
-          direction="row"
-          style={{ width:"100%" ,marginBottom: "-20px" }}
+        <Grid item xs={12} container direction="row"
+          style={{ width:"100%" ,marginBottom: "20px" }}
         >
           <Typography className={classes.heading} variant="h3">
               <NavLink
@@ -119,6 +121,8 @@ export default function FinalVerification() {
               Apply for a Loan
           </Typography>
         </Grid>
+
+        {/* Tab section started */}
         <Grid item xs={12}>
           <Tabs
             value={value}

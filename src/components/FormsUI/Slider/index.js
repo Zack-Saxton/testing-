@@ -11,7 +11,7 @@ import PropTypes from "prop-types";
 import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
 import FormControl from "@material-ui/core/FormControl";
-import "./slider.css";
+import "./Slider.css";
 
 //Initial Value points
 const marks = [

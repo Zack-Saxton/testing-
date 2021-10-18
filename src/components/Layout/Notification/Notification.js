@@ -8,107 +8,100 @@ import Badge from "@material-ui/core/Badge";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import {getNoticationData} from "../../controllers/NotificationController";
+import { getNoticationData } from "../../Controllers/NotificationController";
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
+//Material UI css class
 const useStyles = makeStyles((theme) => ({
-
-    customBadge: {
-        backgroundColor: "#ffd524",
-        color: "black",
-    },
+  customBadge: {
+    backgroundColor: "#ffd524",
+    color: "black",
+  },
 }));
 
 export default function Notification() {
-const classes = useStyles();
-const [anchorEl, setAnchorEl] = useState(null);
-const [messages, setMessages] = useState([]);
-const [badgeCount, setbadgeCount] = useState(0);
-const [openDialog, setOpenDialog] = React.useState(false);
-const [messageTitle, setMessageTitle] = useState([]);
-const [messageContent, setMessageContent] = useState([]);
-const open = Boolean(anchorEl);
+  const classes = useStyles();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [messages, setMessages] = useState([]);
+  const [badgeCount, setbadgeCount] = useState(0);
+  const [openDialog, setOpenDialog] = React.useState(false);
+  const [messageTitle, setMessageTitle] = useState([]);
+  const [messageContent, setMessageContent] = useState([]);
+  const open = Boolean(anchorEl);
 
-async function notificationData() {
+  //API call for Notification
+  async function notificationData() {
     let responseData = await (getNoticationData())
     let messagesData = responseData?.data?.data?.messages ? responseData?.data?.data?.messages : []
     setMessages(messagesData)
     let badge = responseData?.data?.data?.messages ? responseData?.data?.data?.messages.length : 0
     setbadgeCount(badge)
-    }
+  }
 
- useEffect(() => {
+  useEffect(() => {
     notificationData();
   }, []);
 
-  const handleClickOpen = (title,content) => {
+  //Open Notification content popup 
+  const handleClickOpen = (title, content) => {
     setMessageTitle(title)
     setMessageContent(content)
     setOpenDialog(true);
   };
-  
-  const handleClose1 = () => {
+
+  //Close Notification content popup
+  const handleCloseDialog = () => {
     setOpenDialog(false);
   };
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  //Menu close 
   const handleClose = () => {
     setAnchorEl(null);
   };
+  
+  //Badge onclick
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
 
-return (
+
+  //View
+  return (
     <div>
-<IconButton aria-label="show 17 new notifications" color="inherit" onClick={handleClick}>
-<Badge classes={{ badge: classes.customBadge }} badgeContent={ badgeCount? badgeCount : 0}>
-    <NotificationsIcon />
-</Badge>
-</IconButton>
+      <IconButton aria-label="show 17 new notifications" color="inherit" onClick={handleClick}>
+        <Badge classes={{ badge: classes.customBadge }} badgeContent={badgeCount ? badgeCount : 0}>
+          <NotificationsIcon />
+        </Badge>
+      </IconButton>
 
-        < Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-        style={{top:"4%"}}
-      >
-     {  messages.length? 
-        messages.map((val,index) => (
-        <MenuItem key={index} onClick={() => {handleClickOpen(val.message_title,val.message)}}><span style={{marginRight:"2%" ,color:"#0F4EB3 !important"}} className="material-icons icon-bg-circle brandColorBG small">stars</span> {val.message_title}</MenuItem>
-        )) : "No Data"
-    
-    }
+      < Menu id="basic-menu" anchorEl={anchorEl} open={open} onClose={handleClose} MenuListProps={{ 'aria-labelledby': 'basic-button' }} style={{ top: "4%"}} >
+        {messages.length ?
+          messages.map((val, index) => (
+            <MenuItem key={index} onClick={() => { handleClickOpen(val.message_title, val.message) }}><span style={{ marginRight: "2%", color: "#0F4EB3 !important" }} className="material-icons icon-bg-circle brandColorBG small">stars</span> {val.message_title}</MenuItem>
+          )) : "No Data"
+        }
       </Menu>
 
-      <Dialog
-        open={openDialog}
-        onClose={handleClose1}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
+      <Dialog open={openDialog} onClose={handleCloseDialog} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
         <DialogTitle id="alert-dialog-title">
-        {messageTitle}
+          {messageTitle}
         </DialogTitle>
-        <DialogContent>
+        <DialogContent style={{ textAlign: 'justify' }}>
           <DialogContentText id="alert-dialog-description" >
             {messageContent}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose1} autoFocus>
+          <Button onClick={handleCloseDialog} autoFocus>
             Ok
           </Button>
         </DialogActions>
       </Dialog>
-      </div>
-)
+    </div>
+  )
 
 }

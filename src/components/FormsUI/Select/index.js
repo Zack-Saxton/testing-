@@ -12,7 +12,7 @@ Functionality       :    To use this Select Box as a default component for UI pu
 import React from "react";
 import {FormControl, FormHelperText, makeStyles, MenuItem, Select} from "@material-ui/core";
 import InputLabel from "@material-ui/core/InputLabel";
-import "./selectBox.css";
+import "./SelectBox.css";
 
 const SelectWrapper = ({
 	name,

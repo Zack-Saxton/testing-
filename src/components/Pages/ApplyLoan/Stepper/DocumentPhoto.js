@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import {ButtonPrimary, ButtonSecondary} from "../../../FormsUI";
 import Grid from "@material-ui/core/Grid";
 import {makeStyles} from "@material-ui/core/styles";
-import { getIfrmae } from "../../../controllers/applyForLoanController"
+import { getIfrmae } from "../../../Controllers/ApplyForLoanController"
+import { errorMessage } from "../../../../helpers/ErrorMessage";
+import APICall from '../../../App/APIcall';
 
+//Styling 
 const useStyles = makeStyles((theme) => ({
   content_grid: {
     marginTop: "15px",
@@ -14,16 +17,20 @@ const useStyles = makeStyles((theme) => ({
 export default function DocumentPhoto(props) {
   const classes = useStyles();
   const [iframeSrc, setIframeSrc] = useState('');
+  const [error, setError] = useState(false);
 
+  //Load the IFrame 
   async function  loadIframe() {
     let ifrmae = await getIfrmae();
     setIframeSrc(ifrmae.data.data.iframeSrc);
   }
 
+  //call function load
   useEffect(() => {
     loadIframe();
   }, []);
 
+  //View part - JSX
   return (
     <div>
       <div className={classes.content_grid}>
@@ -43,20 +50,7 @@ export default function DocumentPhoto(props) {
 
       </Grid>
 
-      {/* <Grid sm={5} className={classes.content_grid}>
-        <Select
-          name="select"
-          labelform="Select ID Type"
-          select='[{"value":"Driver License"}, {"value":"Passport"}, 
-              {"value":"State-issued Photo ID Card"}, {"value":"Military Federal Government Photo Id"}]'
-        />
-      </Grid> */}
-{/* 
-      <Grid className={classes.content_grid}>
-        <ButtonPrimary stylebutton='{"background": "", "color":"" }'>
-          Upload a Document
-        </ButtonPrimary>
-      </Grid> */}
+
 
       <div>
         <p style={{ textAlign: "justify" }}>
@@ -67,27 +61,13 @@ export default function DocumentPhoto(props) {
           your ID document matches your appearance (similar to an in-person ID
           check)
         </p>
-        {/* <p style={{ textAlign: "justify" }}>
-          To see an example, please look at the image below
-        </p>
         <br />
-        <div>
-          <img
-            src={SelfieLicense}
-            style={{ width: "200px" }}
-            data-test-id="background"
-            alt="selfielicense"
-          />{" "}
-          <br />
-          Sample Photograph
-        </div> */}
+        <p  style={{ textAlign: "justify", display: error ? "block" : "none", color: "red" }}>
+        {errorMessage.applyForLoan.documentPhoto.verificationNotFound}
+        </p>
+
       </div>
-{/* 
-      <Grid className={classes.content_grid}>
-        <ButtonPrimary stylebutton='{"background": "", "color":"" }'>
-          Upload Your Picture
-        </ButtonPrimary>
-      </Grid> */}
+
       <div className={props.classes.actionsContainer}>
           <div className={props.classes.button_div} >
             
@@ -112,7 +92,17 @@ export default function DocumentPhoto(props) {
               color="primary"
               id = "button_stepper_next"
               stylebutton='{"marginRight": "10px", "color":"" }'
-              onClick={()=>{ props.next() }}
+              onClick={ async ()=>{ 
+                let data = {
+
+                };
+              let res = await APICall("/verification/verification_steps_cac", data, 'POST', true);
+              if(res?.data?.data?.id_photo ===  true && res?.data?.data?.id_document === true){
+                props.next() 
+              }else {
+                setError(true);
+              }
+              }}
             >
               {props.activeStep === props?.steps.length - 1 ? "Finish" : "Next"}
             </ButtonPrimary>

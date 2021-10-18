@@ -1,0 +1,107 @@
+/* .tabVerticalLabel.MuiTab-wrapper {
+  align-items: start;
+} */
+
+.MuiTabs-vertical span {
+  align-items: start !important;
+}
+
+.MuiPaper-rounded {
+  border-radius: 0px !important;
+}
+
+#scrollable-auto-tab-vertical-0.Mui-selected{
+ 
+background: linear-gradient(
+  85deg
+  , #264266, #0F4EB3) !important;
+  color:white!important;
+  width: 250px;
+  border-radius: 0 5px 5px 0;
+  box-shadow: 3px 3px 10px 0 rgb(123, 31, 162, 50%);
+}
+#scrollable-auto-tab-vertical-1.Mui-selected{ 
+
+  background: linear-gradient( 85deg, #264266, #0F4EB3) !important;
+      color:white!important;
+  width: 250px;
+  border-radius: 0 5px 5px 0;
+  box-shadow: 3px 3px 10px 0 rgb(123, 31, 162, 50%);
+}
+#scrollable-auto-tab-vertical-2.Mui-selected{
+ 
+  background: linear-gradient(85deg, #264266, #0F4EB3) !important;
+  color:white!important;
+  width: 250px;
+  border-radius: 0 5px 5px 0;
+  box-shadow: 3px 3px 10px 0 rgb(123, 31, 162, 50%);
+}
+#scrollable-auto-tab-vertical-3.Mui-selected{
+ 
+  background: linear-gradient(
+    85deg
+    , #264266, #0F4EB3) !important;
+      color:white!important;
+  width: 250px;
+  border-radius: 0 5px 5px 0;
+  box-shadow: 3px 3px 10px 0 rgb(123, 31, 162, 50%);
+}
+#scrollable-auto-tab-vertical-4.Mui-selected{
+  background: linear-gradient(
+    85deg
+    , #264266, #0F4EB3) !important;
+      color:white!important;
+  width: 250px;
+  border-radius: 0 5px 5px 0;
+  box-shadow: 3px 3px 10px 0 rgb(123, 31, 162, 50%);
+}
+
+@media (max-width: 600px) {
+  #apply-loan-reset-button{
+    width: 120%!important;
+  }
+}
+
+@media (max-width: 600px) {
+  #apply-loan-continue-button{
+    width: 120%!important;
+   margin-left: unset!important;
+  }
+}
+
+@media (min-width: 600px) {
+  #apply-loan-continue-button{
+    
+   margin-left: 45px!important;
+  }
+}
+
+@media (min-width: 900px) {
+  #apply-loan-continue-button{
+    
+   margin-left: 30px!important;
+  }
+}
+
+@media (min-width: 1200px) {
+  #apply-loan-continue-button{
+    
+   margin-left: 10px!important;
+  }
+}
+
+@media (max-width: 600px) {
+  #apply-loan-comparison-button{
+    width: 120%!important;
+   
+    float: unset!important;
+  }
+}
+
+@media (max-width: 600px) {
+  #apply-loan-comparison-button-grid, #apply-loan-continue-button-grid{
+    padding: 0!important;
+   
+    padding-top: 10px!important;
+  }
+}

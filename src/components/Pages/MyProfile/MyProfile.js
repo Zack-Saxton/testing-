@@ -243,7 +243,7 @@ const onClickCancelChangePassword = async () => {
 }
 const onClickChangePassword = async () => {
   let response = await changePassword(oldPassword, newPassword);
-  if (response.data.data.change_password.passwordReset) {
+  if(response.data.data.change_password.passwordReset) {
     toast.success("Password Changed successfully", {
       position: "bottom-left",
       autoClose: 3500,

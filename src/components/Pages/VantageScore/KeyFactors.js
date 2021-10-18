@@ -6,15 +6,17 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Grid} from '@material-ui/core';
 import {useStyleVantageScore} from "./Style";
-import creditScore from "./creditScore.json"
+import creditScore from "./CreditScore.json"
 
 
 
 
 export default function ControlledAccordions(keyFactors) {
+  //Material UI css class
   const classes = useStyleVantageScore();
   const [expanded, setExpanded] = React.useState(false);
   
+  //Key factors for the Credit score
    let reasoneOne = keyFactors?.keyFactors ? keyFactors.keyFactors.reason1 :null;
    let reasoneTwo = keyFactors?.keyFactors ? keyFactors.keyFactors.reason2 :null;
    let reasoneThree = keyFactors?.keyFactors ? keyFactors.keyFactors.reason3 :null;
@@ -30,6 +32,7 @@ export default function ControlledAccordions(keyFactors) {
   };
 
 
+  //View
   return (
     <div >
         <h3 className = {classes.KeyFactorsHeading}>

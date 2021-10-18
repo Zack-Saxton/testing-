@@ -1,5 +1,5 @@
 import React, {useContext, useState} from "react";
-import "./newUser.css";
+import "./NewUser.css";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -11,8 +11,10 @@ import {useFormik} from "formik";
 import {CheckMyOffers} from "../../../../contexts/CheckMyOffers";
 import * as yup from "yup";
 import axios from "axios";
-import ScrollToTopOnMount from "../scrollToTop";
+import ScrollToTopOnMount from "../ScrollToTop";
+import loginSubmit from "../../../Controllers/LoginController";
 
+//YUP validation schema 
 const validationSchema = yup.object({
 	newPassword: yup
 		.string("Enter your password")
@@ -43,11 +45,15 @@ const validationSchema = yup.object({
 		}),
 });
 
+//  New user functional component
+
 function NewUser() {
 	const history = useHistory();
 	const { data, setData } = useContext(CheckMyOffers);
 	const [failed, setFailed] = useState(false);
 	const [loading, setLoading] = useState(false);
+
+	//configuring formik
 	const formik = useFormik({
 		initialValues: {
 			newPassword: "",
@@ -55,6 +61,7 @@ function NewUser() {
 		},
 		validationSchema: validationSchema,
 		onSubmit: async (values) => {
+			//register the new user and procceds
 			setLoading(true);
 			setData({
 				...data,
@@ -94,13 +101,37 @@ function NewUser() {
 						return request;
 					},
 				});
-
+				//login the user if registerd successfully and stores the JWT token
 				if (
 					customerStatus.data?.customerFound === false &&
 					customerStatus.data?.userFound === false &&
 					customerStatus.data?.is_registration_failed === false
-				) {
-					history.push("employment-status");
+				) { 
+					let retVal = await loginSubmit(data.email, values.newPassword, '');
+					if (retVal?.data?.data?.user && retVal?.data?.data?.userFound === true) {
+						let rememberMe = false;
+						var now = new Date().getTime();
+						localStorage.clear();
+						localStorage.setItem("token", JSON.stringify({ isLoggedIn: true, apiKey: retVal?.data?.data?.user?.extensionattributes?.login?.jwt_token, setupTime: now }));
+		
+						rememberMe === true ?
+							localStorage.setItem("rememberMe", JSON.stringify({ selected: true, email: values.email, password: values.password })) :
+							localStorage.setItem("rememberMe", JSON.stringify({ selected: false, email: '', password: '' }));
+		
+						setLoading(false);
+						history.push({
+							pathname: "employment-status",
+						});
+					}
+					else if (retVal?.data?.data?.result === "error" || retVal?.data?.data?.hasError === true) {
+						localStorage.setItem('token', JSON.stringify({ isLoggedIn: false, apiKey: '', setupTime: '' }));
+						setLoading(false);
+					}
+					else {
+						setLoading(false);
+						alert("Network error");
+					}
+					// history.push("employment-status");
 				} else if (
 					customerStatus.data?.result === "error" &&
 					customerStatus.data?.statusCode === 400
@@ -108,12 +139,12 @@ function NewUser() {
 					setFailed(true);
 					setLoading(false);
 				} else {
-					alert("network error");
+					alert("network error from register api");
 					setFailed(false);
 					setLoading(false);
 				}
 			} catch (error) {
-				alert("network error");
+				alert("network error from catch");
 				setLoading(false);
 			}
 		},
@@ -125,6 +156,8 @@ function NewUser() {
 		}
 	};
 
+
+	//redirects to select amount on direct call
 	if (
 		data.completedPage < data.page.personalInfo ||
 		data.formStatus === "completed"
@@ -132,6 +165,8 @@ function NewUser() {
 		history.push("/select-amount");
 	}
 
+
+	//View part
 	return (
 		<div>
 			<ScrollToTopOnMount />

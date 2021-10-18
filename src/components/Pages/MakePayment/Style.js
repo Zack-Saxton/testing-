@@ -51,9 +51,7 @@ const useStylesMakePayment = makeStyles((theme) => ({
     },
     dialogPaper: {
       width: "60%",
-      left: 10,
-      bottom: 200,
-      maxWidth: "unset",
+      maxWidth: "unset"
     },
     dialogHeading: {
       color: "#171717!important",

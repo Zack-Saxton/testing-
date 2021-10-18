@@ -17,8 +17,9 @@ import { ButtonPrimary } from "../../../FormsUI";
 import { NavLink } from "react-router-dom";
 import { Grid } from "@material-ui/core";
 import APICall from '../../../App/APIcall';
-import "./VerticalLinearStepper.css"
+import "./VerticalLinearStepper.css";
 
+//Styling part
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -40,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// To get the steps as response
 function getSteps() {
   return [
     "Email Verification",
@@ -52,23 +54,20 @@ function getSteps() {
   ];
 }
 
-
-
-
-
+//Vertial stepper configuration
 export default function VerticalLinearStepper() {
 
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState();
   const steps = getSteps();
 
+  //To open the the stepper from were the user needs to continue. 
   const getApplicationStatus = async () => {
 let data = {
 
 };
     let res = await APICall("/verification/verification_steps_cac", data, 'POST', true);
-    let tabPosition;
-    tabPosition = '';
+    let tabPosition = 4;
     if(res?.data?.data?.email === false){
       tabPosition = 0;
     }
@@ -96,16 +95,14 @@ let data = {
     if(res?.data?.data?.income_verification === false && tabPosition === ''){
       tabPosition = 6;
     }
-   setActiveStep(tabPosition);
+   setActiveStep(tabPosition ?? 0);
   }
 
   useEffect(() => {
     getApplicationStatus();
   }, []);
 
-
-
-
+//To handle the next prev and reset funcationality 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
@@ -138,6 +135,8 @@ let data = {
     }
   };
 
+
+  //To load the component based on the step selected
   function getStepContent(step) {
     switch (step) {
       case 0:
@@ -159,8 +158,10 @@ let data = {
     }
   }
 
+  // view part 
   return (
     <div className={classes.root}>
+      {/* { activeStep ?  */}
       <Stepper activeStep={activeStep} orientation="vertical">
         {steps.map((label, index) => (
           <Step key={label}>
@@ -170,39 +171,13 @@ let data = {
             <StepContent>
               <div>{getStepContent(index)}</div>
               <div className={classes.actionsContainer}>
-                {/* <div className={classes.button_div} >
-                  
-                  <ButtonSecondary
-                    stylebutton='{"margin-right": "10px", "color":"" }'
-                    onClick={handleReset}
-                    id = "button_stepper_reset"
-                  >
-                    Reset
-                  </ButtonSecondary>
-                 
-                  <ButtonSecondary
-                    disabled={activeStep === 0}
-                    onClick={handleBack}
-                    id = "button_stepper_prev"
-                    stylebutton='{"margin-right": "10px", "color":"" }'
-                  >
-                    Prev
-                  </ButtonSecondary>
-                  <ButtonPrimary
-                    variant="contained"
-                    color="primary"
-                    id = "button_stepper_next"
-                    stylebutton='{"margin-right": "10px", "color":"" }'
-                    onClick={handleNext}
-                  >
-                    {activeStep === steps.length - 1 ? "Finish" : "Next"}
-                  </ButtonPrimary>
-                </div> */}
+              
               </div>
             </StepContent>
           </Step>
         ))}
       </Stepper>
+
       {activeStep === steps.length && (
         <Paper square elevation={0} className={classes.resetContainer}>
           <Typography>All steps completed - you&apos;re finished</Typography>

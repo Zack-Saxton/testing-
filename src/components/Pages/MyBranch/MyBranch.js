@@ -6,13 +6,16 @@ import { ButtonWithIcon } from "../../FormsUI";
 import { useStylesMyBranch } from "./Style";
 import BranchDetail from "./BranchDetail";
 import BranchMap from "./BranchMap";
-import MyBranchAPI from "../../controllers/MyBranchController";
+import MyBranchAPI from "../../Controllers/MyBranchController";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import CheckLoginStatus from "../../App/CheckLoginStatus";
 import Paper from "@material-ui/core/Paper";
 
 export default function MyBranch() {
-  const classes = useStylesMyBranch();
+//Material UI css class
+const classes = useStylesMyBranch();
 
+//API call
   const [branchApiStatus, SetBranchApiStatus] = useState(null);
   async function AsyncEffect_MyBranch() {
     SetBranchApiStatus(await MyBranchAPI());
@@ -21,10 +24,13 @@ export default function MyBranch() {
     AsyncEffect_MyBranch();
   }, []);
 
-  //Load data
+ //Branch details from API
   let myBranchData = branchApiStatus != null ? branchApiStatus.data.data : null;
+
+//View part
   return (
     <div>
+      <CheckLoginStatus/>
       <Grid
         container
         justifyContent={"center"}
