@@ -2,8 +2,7 @@ import axios from "axios";
 import handleTokenExpiry from './handleTokenExpiry';
 
 export async function changePassword(oldPassword, newPassword) {
-    const email = localStorage.getItem("email");
-    
+    const email = localStorage.getItem("email");    
     let body = {
         "email": email,
         "oldPassword": oldPassword,
