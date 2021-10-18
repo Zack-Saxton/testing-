@@ -9,13 +9,11 @@ export async function changePassword(oldPassword, newPassword) {
         "oldPassword": oldPassword,
         "newPassword": newPassword
     }
-    console.log(' EMAIL ============================', body)
     const loginToken = JSON.parse(localStorage.getItem("token"));
     let response = {
         data: ''
     }
     try {
-
         await axios({
             method: "POST",
             url: "/customer/change_password",

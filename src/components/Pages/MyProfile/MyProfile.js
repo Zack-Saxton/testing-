@@ -243,25 +243,25 @@ const onClickCancelChangePassword = async () => {
 }
 const onClickChangePassword = async () => {
   let response = await changePassword(oldPassword, newPassword);
-  if(response.data.data.change_password.passwordReset){
+  if(response.data.data.change_password.passwordReset) {
     toast.success("Password Changed successfully", {
-    position: "bottom-left",
-    autoClose: 3500,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
+      position: "bottom-left",
+      autoClose: 3500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
     });
   } else {
     toast.error("Password not Changed, Check Password and try again", {
-    position: "bottom-left",
-    autoClose: 3500,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
+      position: "bottom-left",
+      autoClose: 3500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
     });
   }
 }
@@ -609,8 +609,6 @@ const onClickChangePassword = async () => {
                                   onChange= {(event) => {
                                     setOldPassword(event.target.value);
                                   }}
-                                  // type={showPassword ? "text" : "password"} 
-                                  // materialProps={{ defaultValue: "" }}
                                   variant="standard"
                                   disabled={false}
                                   
@@ -705,8 +703,6 @@ const onClickChangePassword = async () => {
                       </Grid>
                     </Grid>
                   </TabVerticalPanel>
-                  {/* Change Poassword */}
-
                 </Paper>
               </Grid>
             </Grid>
