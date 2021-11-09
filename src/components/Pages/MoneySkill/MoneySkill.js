@@ -7,7 +7,6 @@ import {
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import { useStylesMoneySkill } from "./Style";
-import CheckLoginStatus from "../../App/CheckLoginStatus";
 import "./Style.css";
 import getMoneySkillUrl from "../../Controllers/MoneySkillController"
 

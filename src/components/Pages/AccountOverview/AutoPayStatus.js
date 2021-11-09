@@ -1,5 +1,4 @@
 import React from "react";
-import Grid from "@material-ui/core/Grid";
 import { useStylesAccountOverview } from "./Style";
 import enabled from "../../../assets/images/Enabled.png";
 

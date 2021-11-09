@@ -219,7 +219,7 @@ export default function CreditKarma(props) {
   const [agreeCalifornia, setAgreeCalifornia] = useState("");
   const [agreeNewMexico, setAgreeNewMexico] = useState("");
   const [agree, setAgree] = useState(false);
-  //API call
+  //API call (variable to be used once API available)
   const [partnerSignupState, SetPartnerSignupState] = useState(null);
   async function AsyncEffect_PartnerSignup() {
     SetPartnerSignupState(await PartnerSignup( ));

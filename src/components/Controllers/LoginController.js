@@ -1,5 +1,4 @@
 import APICall from "../lib/AxiosLib";
-import branchDetails from "../Controllers/MyBranchController";
 
 /***** Login method *****/
 export default async function loginSubmit(email, password) {
