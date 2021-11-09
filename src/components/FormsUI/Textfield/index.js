@@ -31,6 +31,7 @@ const TextFieldWrapper = ({
   error, 
   helperText,
   onChange,
+  InputProps,
   ...otherProps
 }) => {
 
@@ -105,7 +106,7 @@ const TextFieldWrapper = ({
 
 }
 
- return <TextField {...configTextField} onChange={handleOnchange} inputProps={materialProps} />;
+ return <TextField {...configTextField} onChange={handleOnchange} InputProps={InputProps} inputProps={materialProps} />;
 
 
  

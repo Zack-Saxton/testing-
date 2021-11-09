@@ -22,7 +22,7 @@ function LivingPlace() {
 	const setDataState = (val) => {
 		if (data.state === 'NC'){
 			data.completedPage = data.page.livingPlace;
-	
+	        
 			setData({ ...data, "rentMortgageAmount": 0, "homeOwnership": val });
 			livingPlace = val;
 			history.push("/active-duty")
@@ -49,6 +49,7 @@ function LivingPlace() {
 				data.homeOwnership = livingPlace;
 				
 				if (data.state === 'NC'){
+
 					data.completedPage = data.page.livingPlace;
 					history.push("/active-duty")
 				}
@@ -209,7 +210,7 @@ function LivingPlace() {
 												data.rentMortgageAmount = 0;
 												data.homeOwnership = "Own a Home with no Mortgage";
 												if(data.completedPage < data.page.livingPlace){
-													setDataState();
+													setDataState("Own a Home with no Mortgage");
 												}
 												
 											}}
@@ -231,7 +232,7 @@ function LivingPlace() {
 												data.rentMortgageAmount = 0;
 												data.homeOwnership = "Own a Mobile Home";
 												if(data.completedPage < data.page.livingPlace){
-													setDataState();
+													setDataState("Own a Mobile Home");
 												}
 											}}
 										>
@@ -253,7 +254,7 @@ function LivingPlace() {
 												data.homeOwnership = "Living with Relatives";
 										
 												if(data.completedPage < data.page.livingPlace){
-													setDataState();
+													setDataState("Living with Relatives");
 												}
 											}}
 										>

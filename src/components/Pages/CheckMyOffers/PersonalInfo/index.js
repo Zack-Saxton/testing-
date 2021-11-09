@@ -5,7 +5,6 @@ import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import PersonLogo from "../../../../assets/icon/I-Personal-Info.png";
 import { Link, useHistory } from "react-router-dom";
-import { format } from "date-fns";
 import "./PersonalInfo.css";
 import "../CheckMyOffer.css";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
@@ -46,9 +45,9 @@ const validationSchema = yup.object({
     //eslint-disable-next-line
     .matches(
       /^(?!000)[0-8][0-9]{2}(?!00)[0-9]{2}(?!0000)[0-9]{4}$/,
-      "Please enter your valid SSN"
+      "Please enter a valid SSN"
     )
-    .matches(/^(\d)(?!\1+$)\d{8}$/, "Please enter your valid SSN")
+    .matches(/^(\d)(?!\1+$)\d{8}$/, "Please enter a valid SSN")
     .min(9, "SSN must contain at least 9 digits"),
 
   phone: yup
@@ -58,26 +57,26 @@ const validationSchema = yup.object({
     //eslint-disable-next-line
     .matches(
       /^[1-9]{1}[0-9]{2}[0-9]{3}[0-9]{4}$/,
-      "Please enter your valid Phone number"
+      "Please enter a valid Phone number"
     )
-    .matches(/^(\d)(?!\1+$)\d{9}$/, "Please enter your valid Phone number")
+    .matches(/^(\d)(?!\1+$)\d{9}$/, "Please enter a valid Phone number")
     .min(10, "Name must contain at least 10 digits"),
 
   date: yup
-    .date("Please enter valid date")
+    .date("Please enter a valid date")
     .nullable()
     .required("Your date of birth is required")
     .max(
       new Date(
         new Date(
           new Date().getFullYear() +
-            "/" +
-            (new Date().getMonth() + 1) +
-            "/" +
-            new Date().getDate()
+          "/" +
+          (new Date().getMonth() + 1) +
+          "/" +
+          new Date().getDate()
         ).getTime() - 567650000000
       ),
-      "You must be at least 18 years"
+      "You must be at least 18 years old" 
     )
     .min(new Date(1919, 1, 1), "You are too old")
     .typeError("Please enter a valid date"),
@@ -99,20 +98,19 @@ function PersonalInfo() {
       lastName: data.lastName ? data.lastName : "",
       email: data.email ?? "",
       ssn: data.ssn ?? "",
-      phone: data.phone ? "1" + data.phone : "",
+      phone: data.phone ? data.phone : "",
       date: data.dob ?? null,
     },
     validationSchema: validationSchema,
 
     //On submit functionality updating context values
-
     onSubmit: async (values) => {
+      const loginToken = JSON.parse(localStorage.getItem("token"));
       setLoading(true);
       data.firstName = values.firstName.trim();
       data.lastName = values.lastName.trim();
       data.email = values.email;
       data.phone = values.phone;
-      data.date = format(values.date, "dd-MM-yyyy");
       data.ssn = values.ssn.replace(/-/g, "").replace(/ /g, "") || "";
       const phone =
         values.phone
@@ -120,8 +118,8 @@ function PersonalInfo() {
           .replace(/\)/g, "")
           .replace(/\(/g, "")
           .replace(/ /g, "") || "";
-      data.phone = phone.slice(1);
-      data.dob = values.date;
+      data.phone = phone;
+      data.dob = values.date
       data.completedPage = data.page.personalInfo;
       if (values.email !== null && values.ssn !== null) {
         let body = {
@@ -129,6 +127,15 @@ function PersonalInfo() {
           ssn: values.ssn.replace(/-/g, "").replace(/ /g, "") || "",
           isAuthenticated: true,
         };
+
+        if(loginToken?.isLoggedIn === true){
+           data.completedPage = data.page.existingUser 
+          history.push({
+            pathname: "/employment-status",
+          });
+          setError(false);
+          setLoading(false);
+        } else {
         let customerStatus = await axios({
           method: "POST",
           url: "/customer/check_customer_user",
@@ -136,9 +143,9 @@ function PersonalInfo() {
           headers: {
             "Content-Type": "application/json",
           },
-        
-        });
 
+        });
+     
         if (customerStatus.data.customerFound === true) {
           if (customerStatus.data.user.email === values.email) {
             if (customerStatus.data?.ssnLookupFails === true) {
@@ -173,6 +180,7 @@ function PersonalInfo() {
           setLoading(false);
         }
       }
+      }
     },
   });
 
@@ -193,10 +201,6 @@ function PersonalInfo() {
           headers: {
             "Content-Type": "application/json",
           },
-          // transformRequest: (data, headers) => {
-          //   delete headers.common["Content-Type"];
-          //   return data;
-          // },
         });
         if (result && result.data.AppSubmittedInLast30Days === true) {
           setAppliedInLast30Days(true);
@@ -207,8 +211,8 @@ function PersonalInfo() {
     }
   };
 
-  
-//onchange validation 
+
+  //onchange validation 
   const onNameChange = (event) => {
     const reg = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
     let acc = event.target.value;
@@ -224,11 +228,11 @@ function PersonalInfo() {
   };
 
   //on email change call validation
-	const emailOnChange = (e) => {
-		setSsnEmailMatch(true);
-		formik.handleChange(e);
+  const emailOnChange = (e) => {
+    setSsnEmailMatch(true);
+    formik.handleChange(e);
 
-	}
+  }
 
   //set auto focus 
   function autoFocus() {
@@ -436,7 +440,7 @@ function PersonalInfo() {
                       direction="row"
                       className="textBlock"
                     >
-                 
+
                       <SocialSecurityNumber
                         name="ssn"
                         label="Social Security Number *"

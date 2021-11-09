@@ -1,34 +1,22 @@
-import axios from "axios";
+import APICall from "../lib/AxiosLib";
+import branchDetails from "../Controllers/MyBranchController";
 
+/***** Login method *****/
 export default async function loginSubmit(email, password) {
-    let body = {
-        "email": email,
-        "password": password
-    }
-    let response = {
-        isLoggedIn: '',
-        active: '',
-        data: ''
-    }
-    try {
+  let url = "login_customer";
+  let param = "";
+  let data = {
+    email: email,
+    password: password,
+  };
+  let method = "POST";
+  let addAccessToken = false;
 
-        response.data = await axios({
-            method: "POST",
-            url: "/customer/login",
-            data: JSON.stringify(body),
-            headers: {
-                "Content-Type": "application/json",
-
-            },
-            transformRequest: (data, headers) => {
-                delete headers.common["Content-Type"];
-                return data;
-            },
-        });
-
-
-    } catch (error) {
-        response.data = error.response;
-    }
-    return response
+  //API call
+  let loginMethod = await APICall(url, param, data, method, addAccessToken);
+  return loginMethod;
 }
+
+
+ 
+

@@ -10,9 +10,10 @@ import Paper from "@material-ui/core/Paper";
 import Logo from "../../../assets/images/loginbg.png";
 import { NavLink, useHistory } from "react-router-dom";
 import "./Login.css";
-import APICall from "../../App/APIcall";
 import loginSubmit from "../../Controllers/LoginController";
 import branchDetails from "../../Controllers/MyBranchController";
+import ScrollToTopOnMount from "../../Pages/ScrollToTop";
+
 
 //Styling part
 const useStyles = makeStyles((theme) => ({
@@ -110,15 +111,8 @@ export default function Login(props) {
         // On login submit
         onSubmit: async (values) => {
 			setLoading(true);
-            let url = '/customer/login';
-            let method = "POST";
-            let data = { 
-                "email":values.email, 
-                "password": values.password
-                } ;
-            let addAccessToken = false;
-            //  Calling api with the credentials given by the users
-            await APICall(url, data, method, addAccessToken);
+            
+            //Sending value to  login controller
 
 			let retVal = await loginSubmit(values.email, values.password, props.setToken);
 			if (retVal?.data?.data?.user && retVal?.data?.data?.userFound === true) {
@@ -139,7 +133,8 @@ export default function Login(props) {
 
 				setLoading(false);
                     history.push({
-                        pathname: (props.location.state?.required && props.location.state?.activationToken) ? "/customers/verification/email?required=" + props.location.state?.required + "&activation_token=" + props.location.state?.activationToken : "/customers/accountoverview",
+                        // pathname: (props.location.state?.required && props.location.state?.activationToken) ? "/customers/verification/email?required=" + props.location.state?.required + "&activation_token=" + props.location.state?.activationToken : "/customers/accountoverview",
+                        pathname: (props.location.state?.redirect) ? props.location.state?.redirect : "/customers/accountoverview",
                     }); 
               
 			}
@@ -172,6 +167,7 @@ export default function Login(props) {
     //View Part
     return (
         <div>
+            <ScrollToTopOnMount />
             <div
                 className={classes.mainContentBackground}
                 id="mainContentBackground"

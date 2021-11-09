@@ -58,8 +58,10 @@ export default function MakePayment() {
   const [paymentDatepicker, setpaymentDatepicker] = useState(null);
   const [requiredSelect, setrequiredSelect] = useState("");
   const [requiredDate, setrequiredDate] = useState("");
+  const [requiredAmount, setRequiredAmount] = useState("");
   const [showCircularProgress, setshowCircularProgress] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [accountDetails, setAccountDetails] = useState(null);
 
   //API Request for Payment methods
   async function getPaymentMethods(usrAccNo) {
@@ -87,7 +89,7 @@ export default function MakePayment() {
         pauseOnHover: true,
         draggable: true,
         progress: undefined
-      }) : toast.error(data?.data?.response?.data?.data?.message ? data.data.response.data.data.message : 'Failed Payment mode', {
+      }) : toast.error(data?.data?.data?.data?.message ? data.data.data.data.message : 'Failed Payment mode', {
         position: "bottom-left",
         autoClose: 5000,
         hideProgressBar: false,
@@ -120,7 +122,7 @@ export default function MakePayment() {
         pauseOnHover: true,
         draggable: true,
         progress: undefined
-      }) : toast.error(data?.data?.response?.data?.data?.message ? data.data.response.data.data.message : 'Failed Payment mode', {
+      }) : toast.error(data?.data?.data?.data?.message ? data.data.data.data.message : 'Failed Payment mode', {
         position: "bottom-left",
         autoClose: 5000,
         hideProgressBar: false,
@@ -154,7 +156,7 @@ export default function MakePayment() {
         pauseOnHover: true,
         draggable: true,
         progress: undefined
-      }) : toast.error(data?.data?.response?.data?.data?.message ? data.data.response.data.data.message : 'Failed Payment mode', {
+      }) : toast.error(data?.data?.data?.data?.message ? data.data.data.data.message : 'Failed Payment mode', {
         position: "bottom-left",
         autoClose: 5000,
         hideProgressBar: false,
@@ -189,7 +191,7 @@ export default function MakePayment() {
         pauseOnHover: true,
         draggable: true,
         progress: undefined
-      }) : toast.error(data?.data?.response?.data?.data?.message ? data.data.response.data.data.message : 'Failed Payment mode', {
+      }) : toast.error(data?.data?.data?.data?.message ? data.data.data.data.message : 'Failed Payment mode', {
         position: "bottom-left",
         autoClose: 5000,
         hideProgressBar: false,
@@ -214,22 +216,23 @@ export default function MakePayment() {
   }
 
   //API Request for Account Details
-  async function getData (){
-   setshowCircularProgress(true)
-   let User= await usrAccountDetails();
-   let activeLoansData = (User != null) ? User.data.data.activeLoans : null;
-   setlatestLoanData(activeLoansData != null ? activeLoansData.slice(0, 1) : null)
-   let latestLoan = (activeLoansData != null) ? activeLoansData.slice(0, 1) : null;
-   setpaymentAmount(activeLoansData.length ? latestLoan != null ? (Math.abs(latestLoan[0].loanPaymentInformation.accountDetails.RegularPaymentAmount) + Math.abs(latestLoan[0].loanPaymentInformation.accountDetails.InterestRate) + Math.abs(latestLoan[0].loanPaymentInformation.accountDetails.LoanFeesAndCharges)).toFixed(2) : null: null)
-   let accoutNo = activeLoansData.length?(latestLoan != null) ? latestLoan[0].loanData.accountNumber : null :[]
-   setaccntNo(activeLoansData.length ?( latestLoan != null) ? latestLoan[0].loanData.accountNumber : null: null)
-   getPaymentMethods(accoutNo)
-   setdisabledContent(activeLoansData.length ?latestLoan != null ? ((latestLoan[0].loanPaymentInformation.appRecurringACHPayment)? true : false) : false : false)
-   setpaymentDate(activeLoansData.length ? latestLoan != null ? (Moment(latestLoan[0].loanPaymentInformation.accountDetails.NextDueDate).format("YYYY-MM-DD") ) : "NONE" : "NONE")
-   let scheduledDate = (latestLoan.length) ? ( latestLoan[0].loanPaymentInformation.hasScheduledPayment) ? Moment(latestLoan[0].loanPaymentInformation.scheduledPayments[0].PaymentDate).format("MM/DD/YYYY") : null :null
-   setpaymentDatepicker(scheduledDate)
-   setLoading(false);
-   setshowCircularProgress(false)
+  async function getData() {
+    setshowCircularProgress(true)
+    let User = await usrAccountDetails();
+    setAccountDetails(User)
+    let activeLoansData = (User != null) ? User.data.data.activeLoans : null;
+    setlatestLoanData(activeLoansData != null ? activeLoansData.slice(0, 1) : null)
+    let latestLoan = (activeLoansData != null) ? activeLoansData.slice(0, 1) : null;
+    setpaymentAmount(activeLoansData?.length ? latestLoan != null ? (Math.abs(latestLoan[0]?.loanPaymentInformation?.accountDetails?.RegularPaymentAmount) + Math.abs(latestLoan[0]?.loanPaymentInformation?.accountDetails?.InterestRate) + Math.abs(latestLoan[0]?.loanPaymentInformation?.accountDetails?.LoanFeesAndCharges)).toFixed(2) : null : null)
+    let accoutNo = activeLoansData?.length ? (latestLoan != null) ? latestLoan[0].loanData.accountNumber : null : []
+    setaccntNo(activeLoansData?.length ? (latestLoan != null) ? latestLoan[0].loanData.accountNumber : null : null)
+    getPaymentMethods(accoutNo)
+    setdisabledContent(activeLoansData?.length ? latestLoan != null ? ((latestLoan[0]?.loanPaymentInformation?.appRecurringACHPayment) ? true : false) : false : false)
+    setpaymentDate(activeLoansData?.length ? latestLoan != null ? (Moment(latestLoan[0]?.loanPaymentInformation?.accountDetails?.NextDueDate).format("YYYY-MM-DD")) : "NONE" : "NONE")
+    let scheduledDate = (latestLoan?.length) ? (latestLoan[0]?.loanPaymentInformation?.hasScheduledPayment) ? Moment(latestLoan[0]?.loanPaymentInformation?.scheduledPayments[0]?.PaymentDate).format("MM/DD/YYYY") : null : null
+    setpaymentDatepicker(scheduledDate)
+    setLoading(false);
+    setshowCircularProgress(false)
   }
 
   useEffect(() => {
@@ -237,24 +240,25 @@ export default function MakePayment() {
   }, []);
 
   //Account select payment options
-  let paymentData  = paymentMethods != null ? paymentMethods.data.data: null;
+  let paymentData = paymentMethods != null ? paymentMethods.data.data : null;
 
-  let paymentListAch =(paymentData && paymentData.achAccounts!=null) ? paymentData.achAccounts.map(
-      pdata => ({value: pdata.SequenceNumber, label: pdata.AccountType+ " (****" + pdata.AccountNumber.substr(-4) +")"}),
-  ) :  null;
- 
-  let paymentListCard =(paymentData && paymentData.achAccounts!=null) ? paymentData.cardAccounts.map(
-    pdata => ({value: pdata.ProfileId, label: pdata.CardType+ " (****" + pdata.LastFour +")"}),
-  ) :  null;
- 
- const paymentOptions =  (paymentListAch != null) ? JSON.stringify(paymentListAch.concat(paymentListCard)): null;
+  let paymentListAch = (paymentData && paymentData.achAccounts != null) ? paymentData.achAccounts.map(
+    pdata => ({ value: pdata.SequenceNumber, label: pdata.AccountType + " (****" + pdata.AccountNumber.substr(-4) + ")" }),
+  ) : null;
 
- //Storing the routingNumber,refNumber and SchedulePayments details
- let hasSchedulePayment =  (latestLoanData != null) ? (latestLoanData.length ? latestLoanData[0].loanPaymentInformation.hasScheduledPayment: false) : false;
- let routingNumber = (latestLoanData != null) ? latestLoanData[0]?.loanPaymentInformation?.scheduledPayments[0]?.PaymentMethod?.AchInfo !=null ? latestLoanData[0].loanPaymentInformation.scheduledPayments[0].PaymentMethod.AchInfo.RoutingNumber: 0:0;
- let refNumber = (latestLoanData != null) ? latestLoanData[0]?.loanPaymentInformation?.scheduledPayments[0]?.ReferenceNumber !=null ? latestLoanData[0].loanPaymentInformation.scheduledPayments[0].ReferenceNumber: 0:0;
- let isCard = (latestLoanData != null) ? latestLoanData[0]?.loanPaymentInformation?.scheduledPayments[0]?.PaymentMethod?.IsCard === true ? latestLoanData[0].loanPaymentInformation.scheduledPayments[0].PaymentMethod.IsCard: false:false;
- 
+  let paymentListCard = (paymentData && paymentData.achAccounts != null) ? paymentData.cardAccounts.map(
+    pdata => ({ value: pdata.ProfileId, label: pdata.CardType + " (****" + pdata.LastFour + ")" }),
+  ) : null;
+
+  const paymentOptions = (paymentListAch != null) ? JSON.stringify(paymentListAch.concat(paymentListCard)) : null;
+
+  //Storing the routingNumber,refNumber and SchedulePayments details
+  let hasSchedulePayment = (latestLoanData != null) ? (latestLoanData.length ? latestLoanData[0].loanPaymentInformation.hasScheduledPayment : false) : false;
+  let routingNumber = (latestLoanData != null) ? latestLoanData[0]?.loanPaymentInformation?.scheduledPayments[0]?.PaymentMethod?.AchInfo != null ? latestLoanData[0].loanPaymentInformation.scheduledPayments[0].PaymentMethod.AchInfo.RoutingNumber : 0 : 0;
+  let refNumber = (latestLoanData != null) ? latestLoanData[0]?.loanPaymentInformation?.scheduledPayments[0]?.ReferenceNumber != null ? latestLoanData[0].loanPaymentInformation.scheduledPayments[0].ReferenceNumber : 0 : 0;
+  let isCard = (latestLoanData != null) ? latestLoanData[0]?.loanPaymentInformation?.scheduledPayments[0]?.PaymentMethod?.IsCard === true ? latestLoanData[0].loanPaymentInformation.scheduledPayments[0].PaymentMethod.IsCard : false : false;
+  let status = (accountDetails != null) ? accountDetails.data.status : null;
+
   //Select account
   const handleChangeSelect = (event) => {
     setcard(event.target.value);
@@ -290,6 +294,7 @@ export default function MakePayment() {
     setshowCircularProgress(true)
     isCard === true ? deletePayment(accntNo, refNumber) : deletePayment(accntNo, routingNumber)
     setrequiredDate('')
+    setRequiredAmount('')
     setrequiredSelect('')
     setpaymentDatepicker(null)
     setopenDeleteSchedule(false)
@@ -302,8 +307,18 @@ export default function MakePayment() {
 
   //Schedule Payment
   const handleSchedulePaymentClick = () => {
-    card || card === 0 ? (paymentDatepicker != null) ? setPaymentOpen(true) : setrequiredDate('Please select any date') : setrequiredSelect('Please select any account')
-    card || card === 0 ? (paymentDatepicker != null) ? setPaymentOpen(true) : document.getElementById("date").focus() : document.getElementById("select").focus()
+    if (card === '') {
+      document.getElementById("select").focus()
+      setrequiredSelect('Please select any account')
+    } else if (paymentAmount === '') {
+      document.getElementById("payment").focus()
+      setRequiredAmount('Please enter payment amount')
+    } else if (paymentDatepicker === null) {
+      document.getElementById("date").focus()
+      setrequiredDate('Please select any date')
+    } else {
+      setPaymentOpen(true)
+    }
   };
 
   //Cancel Payment
@@ -352,10 +367,19 @@ export default function MakePayment() {
 
   }
 
+
+  const onHandlepaymentAmount = (event) => {
+    var price = event.target.value.replace("$", "");
+    const reg = /^[0-9.,$\b]+$/;
+    if (price === "" || reg.test(price)) {
+      setpaymentAmount(price)
+      setRequiredAmount('')
+    }
+  }
   //View
   return (
     <div>
-      <CheckLoginStatus/>
+      <CheckLoginStatus />
       <ScrollToTopOnMount />
       <Grid
         container
@@ -435,7 +459,7 @@ export default function MakePayment() {
           :
           <Grid item xs={12} style={{ paddingBottom: "10px" }}>
             <TableContainer component={Paper}>
-              <PaymentOverview overview={latestLoanData} />
+              <PaymentOverview overview={latestLoanData} status={status} />
             </TableContainer>
           </Grid>}
         {latestLoanData != null ? latestLoanData.length ?
@@ -465,7 +489,7 @@ export default function MakePayment() {
                   </div>
                 }
                 <p className={requiredSelect !== "" ? "showError add Pad" : "hideError"} data-testid="subtitle" >
-                  {" "}  Please select any accounts.
+                  {" "}  {requiredSelect}.
                 </p>
 
                 <Grid item xs={12} style={{ paddingTop: "20px" }}>
@@ -482,7 +506,6 @@ export default function MakePayment() {
               sm={8}
               style={{ width: "100%", padding: "5px" }}
             >
-
               <Paper className={classes.paper}>
                 {paymentOptions !== null && showCircularProgress !== true ?
                   <div>
@@ -493,7 +516,6 @@ export default function MakePayment() {
                       <p style={{ margin: "auto" }}>
                         <small> {disabledContent ? " Auto pay is ON" : "Auto pay is Off"}</small>
                       </p>
-
                       <p style={{ margin: "auto" }}>
                         <small>Choose auto pay</small>
                       </p>
@@ -520,7 +542,6 @@ export default function MakePayment() {
                           Auto Pay Authorization
                         </Link>
                       </p>
-
                       <Grid item xs={12} style={{ paddingBottom: "20px" }}>
                         <ButtonPrimary
                           stylebutton='{"background": "", "color":"" }'
@@ -529,7 +550,6 @@ export default function MakePayment() {
                         >
                           Submit
                         </ButtonPrimary>
-
                       </Grid>
                     </Grid>
                     <Grid item xs={12}
@@ -541,17 +561,21 @@ export default function MakePayment() {
                         Single Payment
                       </Typography>
                       <TextField
+                        id="payment"
                         name="payment"
                         label="Payment Amount"
                         type="text"
-                        materialProps={{ defaultValue: '$' + paymentAmount }}
-                        disabled={true}
+                        autoComplete="off"
+                        onChange={onHandlepaymentAmount}
+                        value={'$' + paymentAmount}
                       />
-
+                      <p className={requiredAmount !== "" ? "showError add Pad" : "hideError"} data-testid="subtitle" >
+                        {" "}  {requiredAmount}
+                      </p>
                       <Grid
                         item
                         xs={12}
-                        container 
+                        container
                         direction="row"
                         style={{ display: "inline-flex", paddingTop: "10px" }}
                       >
@@ -563,21 +587,21 @@ export default function MakePayment() {
                           disablePast
                           autoComplete="off"
                           maxdate={paymentMaxDate}
-                          onKeyDown={(e)=> e.preventDefault()}
+                          onKeyDown={(e) => e.preventDefault()}
                           shouldDisableDate={disableWeekends}
                           minyear={4}
                           onChange={(paymentDatepicker) => {
-                            setpaymentDatepicker(Moment(paymentDatepicker).format("YYYY-MM-DD"));
+                            console.log("for testing purpose in dev", paymentDatepicker);
+                            setpaymentDatepicker(Moment(paymentDatepicker).format("YYYY/MM/DD"));
                             setrequiredDate('')
                           }}
                           value={paymentDatepicker}
                         />
                         <p className={requiredDate !== "" ? "showError add Pad" : "hideError"} data-testid="subtitle" >
-                          {" "}  Please select date
+                          {" "}  {requiredDate}
                         </p>
                       </Grid>
-
-                      <Grid  id="paymentBtnWrap"  style={{ paddingTop: "25px" }}>
+                      <Grid id="paymentBtnWrap" style={{ paddingTop: "25px" }}>
                         <Grid id="make-payment-cancel-button-grid">
                           <ButtonSecondary
                             stylebutton='{}'
@@ -589,10 +613,7 @@ export default function MakePayment() {
                             Cancel Payment
                           </ButtonSecondary>
                         </Grid>
-
-                        <Grid
-                         
-                        >
+                        <Grid>
                           <ButtonPrimary
                             stylebutton='{"marginRight": "" }'
                             id="make-payment-schedule-button"
@@ -609,7 +630,6 @@ export default function MakePayment() {
                     <CircularProgress />
                   </div>}
               </Paper>
-
             </Grid>
           </>
           : '' : ''}
@@ -634,18 +654,17 @@ export default function MakePayment() {
 
       <Dialog
         id="autopayDialogBox"
-        // onClose={handleCloseAutoPayPopup}
         open={open}
         aria-labelledby="alert-dialog-title-autoPay"
         aria-describedby="alert-dialog-description"
         classes={{ paper: classes.dialogPaper }}
       >
-        <DialogTitle  id="autopayText">
-          <Typography id="autoTxt"  className={classes.dialogHeading}>
+        <DialogTitle id="autopayText">
+          <Typography id="autoTxt" className={classes.dialogHeading}>
             {disabledContent === false ? "Are you sure you want to disable auto pay ?" : "Are you sure you want to enable auto pay ?"}
           </Typography>
           <IconButton
-           id="autopayCloseBtn"
+            id="autopayCloseBtn"
             aria-label="close"
             className={classes.closeButton}
             onClick={handleCloseAutoPayPopup}
@@ -654,7 +673,7 @@ export default function MakePayment() {
           </IconButton>
         </DialogTitle>
 
-        <DialogActions style={{ justifyContent: "center", marginBottom:"25px" }}>
+        <DialogActions style={{ justifyContent: "center", marginBottom: "25px" }}>
           <ButtonSecondary
             stylebutton='{"background": "", "color":"" }'
             onClick={handleCloseAutoPayPopup}
@@ -684,7 +703,6 @@ export default function MakePayment() {
       <Dialog
         open={openPayment}
         id="scheduleDialogBox"
-        // onClose={handlePaymentClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
         classes={{ paper: classes.dialogPaper }}
@@ -702,7 +720,7 @@ export default function MakePayment() {
           </IconButton>
         </DialogTitle>
 
-        <DialogActions style={{ justifyContent: "center",marginBottom:"25px" }}>
+        <DialogActions style={{ justifyContent: "center", marginBottom: "25px" }}>
           <ButtonSecondary
             stylebutton='{"background": "", "color":"" }'
             onClick={handlePaymentClose}
@@ -725,21 +743,18 @@ export default function MakePayment() {
           </ButtonPrimary>
         </DialogActions>
       </Dialog>
-
-
-
+      
       {/* **************Auto pay schedule payment modal******************* */}
 
       <Dialog
         id="deletePayment"
         open={openDeleteSchedule}
-        // onClose={handlePaymentClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
         classes={{ paper: classes.dialogPaper }}
       >
         <DialogTitle id="deleteDialogHeading" >
-          <Typography  id="deleteTxt" className={classes.dialogHeading}>
+          <Typography id="deleteTxt" className={classes.dialogHeading}>
             Are you sure you want to delete the scheduled payment ?
           </Typography>
           <IconButton
@@ -752,7 +767,7 @@ export default function MakePayment() {
           </IconButton>
         </DialogTitle>
 
-        <DialogActions style={{ justifyContent: "center", marginBottom:"25px" }}>
+        <DialogActions style={{ justifyContent: "center", marginBottom: "25px" }}>
           <ButtonSecondary
             stylebutton='{"background": "", "color":"" }'
             onClick={handleDeleteScheduleClose}

@@ -22,8 +22,9 @@ import Tooltip from "@material-ui/core/Tooltip";
 import ScrollToTopOnMount from "../../ScrollToTop";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import "./SelectOffer.css";
-import fetchAvailableOffers, { submitSelectedOfferAPI } from "../../../Controllers/ApplyForLoanController";
+import  {fetchAvailableOffers, submitSelectedOfferAPI } from "../../../Controllers/ApplyForLoanController";
 import { errorMessage } from "../../../../helpers/ErrorMessage";
+import CheckLoginStatus from "../../../App/CheckLoginStatus";
 
 //Initializing functional component Apply for loan 
 export default function ApplyLoan() {
@@ -140,18 +141,18 @@ export default function ApplyLoan() {
 	// To fetch the available offers for the logged in user
 	async function getAvailableOffers() {
 		let val = await fetchAvailableOffers();
-		if (val?.data?.data !== "Access token has expired") {
+		if (val?.data?.data !== "Access token has expired" && val?.data) {
 			setAccountDetails(val);
 			term = Object.keys(val?.data?.data?.Offers);
-			setNoOffers(Object.keys(val?.data?.data?.Offers).length === 0 ? true : false);
+			setNoOffers(
+				Object.keys(val?.data?.data?.Offers).length === 0 ? true : false
+			);
 
 			setTerms(term);
 			if (term[0] !== undefined) {
-				initialTabLoad(term[0], 0, val)
+				initialTabLoad(term[0], 0, val);
 			}
-		} else {
-			alert("Network Error, Please refresh the page");
-		}
+		} 
 	}
 
 	// to call the fetch offers api on page load 
@@ -163,7 +164,7 @@ export default function ApplyLoan() {
 	function TabPanel(props) {
 		const { children, value, index, ...other } = props;
 
-	// Returns the JSX part depends on parameter value
+		// Returns the JSX part depends on parameter value
 		return (
 			<div
 				role="tabpanel"
@@ -341,6 +342,7 @@ export default function ApplyLoan() {
 	return (
 		<div>
 			<ScrollToTopOnMount />
+			<CheckLoginStatus/>
 			<Grid
 				container
 				justifyContent={"center"}
@@ -381,7 +383,6 @@ export default function ApplyLoan() {
 				{/* Tab section */}
 
 				<Grid item xs={12}>
-
 					<Tabs
 						value={value}
 						onChange={handleChange}
@@ -416,18 +417,16 @@ export default function ApplyLoan() {
 
 					<TabPanel value={value} index={0}>
 						<Grid container item xs={12}>
-							{noOffers ?
-								<Grid item xs={12}
-									style={{ padding: "5px", width: "100%" }}
-								>
-									<Paper style={{ padding: "20px" }} className={classes.paper} >
-										<Typography>{errorMessage.applyForLoan.selectAmount.noOffersAvailable}</Typography>
+							{noOffers ? (
+								<Grid item xs={12} style={{ padding: "5px", width: "100%" }}>
+									<Paper style={{ padding: "20px" }} className={classes.paper}>
+										<Typography>
+											{errorMessage.applyForLoan.selectAmount.noOffersAvailable}
+										</Typography>
 									</Paper>
 								</Grid>
-
-								:
+							) : (
 								<>
-								{/* Available tersm tab panel */}
 									<Grid
 										item
 										xs={12}
@@ -452,7 +451,8 @@ export default function ApplyLoan() {
 												>
 													{/* {terms ? null : <CircularProgress /> } */}
 													{terms &&
-														accountDetails.data.data !== "Access token has expired"
+														accountDetails.data.data !==
+														"Access token has expired"
 														? terms.map((item, index) => {
 															return (
 																<Tab
@@ -499,7 +499,6 @@ export default function ApplyLoan() {
 										sm={9}
 										style={{ padding: "5px", width: "100%" }}
 									>
-										{/* Populate the offers available section */}
 										<Paper className={classes.paper}>
 											{rowData ? (
 												<TabVerticalPanel value={value} verticalIndex={value}>
@@ -697,10 +696,17 @@ export default function ApplyLoan() {
 																stylebutton='{"marginLeft": "10px" ,"fontSize":"1rem"}'
 																id="apply-loan-continue-button"
 																onClick={() => {
-																	submitSelectedOffer(selectedTerm, selectedIndex);
+																	submitSelectedOffer(
+																		selectedTerm,
+																		selectedIndex
+																	);
 																}}
 																disabled={
-																	selectedTerm && selectedIndex ? (loading ? true : false) : true
+																	selectedTerm && selectedIndex
+																		? loading
+																			? true
+																			: false
+																		: true
 																}
 															>
 																Continue
@@ -751,9 +757,10 @@ export default function ApplyLoan() {
 											)}
 										</Paper>
 									</Grid>
-								</ >
-							}
+								</>
+							)}
 						</Grid>
+
 						<Grid
 							item
 							style={{

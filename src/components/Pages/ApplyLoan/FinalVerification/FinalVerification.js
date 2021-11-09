@@ -1,5 +1,5 @@
 import React from "react";
-import {makeStyles} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Tabs from "@material-ui/core/Tabs";
@@ -7,8 +7,8 @@ import Tab from "@material-ui/core/Tab";
 import PropTypes from "prop-types";
 import Box from "@material-ui/core/Box";
 import Stepper from "../Stepper/Stepper";
-import {NavLink} from "react-router-dom";
-import {ButtonWithIcon} from "../../../FormsUI";
+import { NavLink } from "react-router-dom";
+import { ButtonWithIcon } from "../../../FormsUI";
 import ScrollToTopOnMount from '../../ScrollToTop';
 import CheckLoginStatus from "../../../App/CheckLoginStatus";
 
@@ -88,7 +88,7 @@ export default function FinalVerification() {
   //JSX part
   return (
     <div>
-      <CheckLoginStatus/>
+      <CheckLoginStatus  term="final" />
       <ScrollToTopOnMount />
       <Grid
         container
@@ -100,25 +100,25 @@ export default function FinalVerification() {
         }}
       >
         <Grid item xs={12} container direction="row"
-          style={{ width:"100%" ,marginBottom: "20px" }}
+          style={{ width: "100%", marginBottom: "20px" }}
         >
           <Typography className={classes.heading} variant="h3">
-              <NavLink
-                to="/customers/accountOverview"
-                style={{ textDecoration: "none" }}
-              >
-                <ButtonWithIcon
-                  icon="arrow_backwardIcon"
-                  iconposition="left"
-                  stylebutton='{"background": "#fff", "color":"#214476",
+            <NavLink
+              to="/customers/accountOverview"
+              style={{ textDecoration: "none" }}
+            >
+              <ButtonWithIcon
+                icon="arrow_backwardIcon"
+                iconposition="left"
+                stylebutton='{"background": "#fff", "color":"#214476",
                         "minWidth": "0px",
                         "width": "36px",
                         "padding": "0px",
                         "marginRight": "5px", "marginTop":"unset" }'
-                  styleicon='{ "color":"" }'
-                />
-              </NavLink>{" "}
-              Apply for a Loan
+                styleicon='{ "color":"" }'
+              />
+            </NavLink>{" "}
+            Apply for a Loan
           </Typography>
         </Grid>
 
@@ -158,7 +158,7 @@ export default function FinalVerification() {
           <TabPanel value={value} index={2} style={{ paddingBottom: "30px" }}>
             <Stepper />
 
-            <Grid item style={{ width:"100%" }}>
+            <Grid item style={{ width: "100%" }}>
               <p
                 style={{
                   textAlign: "justify",

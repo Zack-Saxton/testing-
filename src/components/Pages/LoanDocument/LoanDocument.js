@@ -30,7 +30,7 @@ export default function LoanDocument(props) {
   //Api call
   const [loanDocumentStatus, setloanDocumentStatus] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
-  const [docType, setDocType] = useState('');
+  const [docType, setDocType] = useState("");
 
   async function AsyncEffect_loanDocument() {
     setloanDocumentStatus(
@@ -68,7 +68,20 @@ export default function LoanDocument(props) {
           progress: undefined,
         });
       
-    } else {
+    } 
+    else if (docType  === null || docType === "") {
+      
+      toast.error("please select a document type", {
+        position: "bottom-left",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    
+  }else {
       var filePath = selectedFile.value;
 
       var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.pdf)$/i;
@@ -89,10 +102,10 @@ export default function LoanDocument(props) {
           );
         
         selectedFile.value = "";
-
         return false;
-      } else if (selectedFile.files[0].size <= 10240000 && docType != null ) {
-        let reader = new FileReader();
+      } 
+      else if (selectedFile.files[0].size <= 10240000  ) {
+       let reader = new FileReader();
         if (selectedFile.files && selectedFile.files[0]) {
           reader.onload = () => {
             const buffer2 = Buffer.from(reader.result, "base64");
@@ -121,18 +134,6 @@ export default function LoanDocument(props) {
           progress: undefined,
         });
       }
-     else if(docType == null)
-    {
-      toast.error("Please select a document type to upload", {
-        position: "bottom-left",
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-    }
   }
   }
     

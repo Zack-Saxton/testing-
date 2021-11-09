@@ -25,7 +25,7 @@ import { ScheduleVisitApi } from "../../Controllers/MyBranchController";
 // yup validation
 const validationSchema = yup.object({
   date: yup
-    .date("Please enter valid date")
+    .date("Please enter a valid date")
     .nullable()
     .required("Date is required"),
 
@@ -111,7 +111,7 @@ export default function ScheduleAppointment(MyBranchAppointment) {
         visitTimeZone
       );
 
-      if (response[0] === "true") {
+      if (response === "true") {
         formik.values.date = null;
         formik.values.appointmentTime = null;
         setLoading(false);

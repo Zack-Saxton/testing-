@@ -50,7 +50,6 @@ const useStyles = makeStyles((theme) => ({
 		textAlign: "justify",
 	},
 	paper: {
-		// marginTop: theme.spacing(8),
 		padding: theme.spacing(3),
 		display: "flex",
 		flexDirection: "column",
@@ -72,8 +71,6 @@ const useStyles = makeStyles((theme) => ({
 		textAlign: "center",
 		paddingTop: "20px!important",
 	},
-
-
 }));
 
 //Yup validations for all the input fields
@@ -97,10 +94,10 @@ const validationSchema = yup.object({
 		)
 		.required("Your email address is required"),
 	date: yup
-		.date("Please enter valid date")
+		.date("Please enter a valid date")
 		.nullable()
 		.required("Your date of birth is required")
-		.max(new Date(((new Date(new Date().getFullYear()+'/'+(new Date().getMonth()+1)+'/'+new Date().getDate())).getTime()) - 567650000000), "You must be at least 18 years")
+		.max(new Date(((new Date(new Date().getFullYear()+'/'+(new Date().getMonth()+1)+'/'+new Date().getDate())).getTime()) - 567650000000), "You must be at least 18 years old")
 		.min(new Date(1919, 1, 1), "You are too old")
 		.typeError("Please enter a valid date"),
 	password: yup
@@ -131,9 +128,9 @@ const validationSchema = yup.object({
 		.transform((value) => value.replace(/[^\d]/g, ""))
 		.matches(
 			/^(?!000)[0-8][0-9]{2}(?!00)[0-9]{2}(?!0000)[0-9]{4}$/,
-			"Please enter your valid SSN"
+			"Please enter a valid SSN"
 		)
-		.matches(/^(\d)(?!\1+$)\d{8}$/, "Please enter your valid SSN")
+		.matches(/^(\d)(?!\1+$)\d{8}$/, "Please enter a valid SSN")
 		.min(9, "Name must contain at least 9 digits"),
 });
 
@@ -231,9 +228,6 @@ export default function Register() {
 						setLoading(false);
 						alert("Network error");
 					}
-					// localStorage.setItem("token", JSON.stringify({ isLoggedIn: true }));
-
-					// history.push("customers/accountOverview");
 				} else if (
 					customerStatus.data?.result === "error" &&
 					customerStatus.data?.hasError === true
@@ -450,7 +444,7 @@ export default function Register() {
 												helperText={
 													validZip
 														? formik.touched.zip && formik.errors.zip
-														: "Please enter your valid zipcode"
+														: "Please enter a valid zipcode"
 												}
 											/>
 										</Grid>

@@ -30,6 +30,7 @@ export default function AccountOverview() {
   //Load data
   let offerData = (accountDetails != null) ? accountDetails.data.data.offerData : null;
   let applicationsData = (accountDetails != null) ? accountDetails.data.data.applicants : null;
+  let status = (accountDetails != null) ? accountDetails.data.status : null;
   let activeLoansData = (accountDetails != null) ? accountDetails.data.data.activeLoans : null;
   let recentPaymentData = (accountDetails != null) ? accountDetails.data.data.activeLoans : null;
 
@@ -55,12 +56,12 @@ export default function AccountOverview() {
         </Grid>
         <LimitedOffer userOffers={offerData} />
 
-        <Grid item xs={12} style={{ width: "100%" }} container direction="row">
+        <Grid item xs={12} style={{ width: "100%", paddingTop: "30px" }} container direction="row">
           <Typography variant="h5" className={classes.subheading} data-testid="subtitle">
             Summary of applications
           </Typography>
         </Grid>
-        <RecentApplications userApplicationsData={applicationsData} />
+        <RecentApplications userApplicationsData={applicationsData} UserAccountStatus={status} />
 
 
         <Grid item xs={12} style={{ width: "100%" }} container direction="row">
@@ -78,12 +79,12 @@ export default function AccountOverview() {
         >
           <Paper className={classes.paper} style={{ height: "85%" }}>
             <Grid container spacing={3}>
-              <Grid item xs={12}>
+              <Grid item xs={12} sm={6}>
                 <Typography variant="h5" className={classes.activeLoanHeading} >
                   Recent Payments
                 </Typography>
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} sm={6}>
                 <NavLink
                   to="/customers/paymenthistory"
                   style={{ textDecoration: "none" }}

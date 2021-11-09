@@ -24,7 +24,7 @@ export default function ActiveLoans(userActiveLoanData) {
     //View
     return (
         <Grid container>
-            {userActiveLoans.userActiveLoanData === null ? (
+            {userActiveLoans?.userActiveLoanData === null ? (
                 <TableContainer component={Paper}>
                     <Table>
                         <TableBody>
@@ -40,7 +40,7 @@ export default function ActiveLoans(userActiveLoanData) {
                     </Table>
                 </TableContainer>
             ) :
-                userActiveLoans.userActiveLoanData.length
+                userActiveLoans?.userActiveLoanData?.length
                     ?
                     userActiveLoans.userActiveLoanData.map((appData, index) => (
                         <Grid container key={index}>
@@ -69,8 +69,11 @@ export default function ActiveLoans(userActiveLoanData) {
                                         </Grid>
                                     </Grid>
 
-                                    <Grid container spacing={3} style={{ paddingTop: "20px" }}>
-                                        <AutoPayStatus value={appData.loanPaymentInformation.appRecurringACHPayment} />
+                                    <Grid container spacing={3} >
+                                    <Grid  item xs={12} sm={3}>
+                                        <AutoPayStatus value={appData.loanPaymentInformation.appRecurringACHPayment} /> 
+                                        </Grid>
+
                                         <Grid id="regularAmountGrid" item xs={12} sm={3}>
                                             <p id="RegularAmmountText" className={classes.cardContent}> Regular Amount</p>
                                             <h5 id="nextPaymentItems" className={classes.brandColor}>

@@ -1,0 +1,116 @@
+/* .form {
+box-sizing: content-box;
+  }
+  *, *:before, *:after {
+    box-sizing: unset!important;
+  } */
+
+  #main-content-background{
+    min-height: 500px;
+  
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+ 
+/* .mainDiv{
+    background-color: #124CA8;
+    background-image: linear-gradient(to right, #26436A , #104DB0);
+    min-height: 500px !important;
+} */
+
+.MuiInput-underline:before{
+    border-bottom: 2px solid #0F4EB3 !important;
+}
+
+.cardWOPadding{
+    padding-bottom: 1%;
+    text-align: center;
+}
+
+.cardWrapper{
+    margin-top: 5%;
+    margin-bottom: 2%;
+}
+
+
+
+
+@media (max-width:400px){
+    #email-label, #password-label, #c-pass-label, #firstname-label, #lastname-label, #zip-label{
+        font-size: 4vw;
+ 
+    }
+}
+@media (max-width:400px){
+#dob-title,#password-title{
+    font-size: 3vw;
+
+}
+}
+
+label + .MuiInput-formControl{
+    background: transparent;
+}
+
+.showError{
+    display: block;
+    color: red;
+    text-align: left;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+ 
+.hideError{
+    display: none;
+ 
+}
+
+label.MuiFormLabel-root.MuiInputLabel-root.MuiInputLabel-formControl.MuiInputLabel-animated{
+    font-size: 0.8rem;
+}
+
+p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error{ 
+    margin-bottom: -38px;
+}
+
+.Mui-focused{
+  background-color:transparent !important;
+  color: white;
+}
+ 
+
+.add-pad{
+    margin-left: -1px !important;
+    padding-top: 20px !important;
+    font-size: 14px!important;
+}
+
+.showCheckbox{
+    
+    display: block;  
+    font-family: 'Muli', sans-serif;
+    font-weight: 400;
+} 
+.hideCheckbox{
+    display: none;
+}
+
+
+
+.agreeCheckbox{
+    text-align: justify;
+      cursor: pointer;
+    color: #595959;
+
+}
+
+.formatHref{
+    color: blue;
+    text-align: justify;
+    text-decoration: none;
+}
+

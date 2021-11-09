@@ -117,15 +117,6 @@ const NormalHeader = () => {
                 Branch Locator
               </a>
             </Typography>
-            <NavLink
-              to="/customers/accountOverview"
-              style={{ textDecoration: "none" }}
-            >
-              <Typography className={classes.subtitle}>Main UI</Typography>
-            </NavLink>
-            <NavLink to="/components" style={{ textDecoration: "none" }}>
-              <Typography className={classes.subtitle}>Components</Typography>
-            </NavLink>
             <NavLink to="/select-amount" style={{ textDecoration: "none" }}>
               <Typography className={classes.subtitle}>
                 Check My Offers
@@ -140,11 +131,7 @@ const NormalHeader = () => {
                 <Typography className={classes.subtitle}>Login</Typography>
               </NavLink>
             )}
-            {/* <NavLink to='/login'style={{'textDecoration':'none'}} >
-          <Typography className={classes.subtitle} >
-            Login
-          </Typography>
-          </NavLink> */}
+           
           </div>
           <div className={classes.sectionMobile}>
             <IconButton

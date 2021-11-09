@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ButtonWithIcon, PhoneNumber, ButtonSecondary, ButtonPrimary, TextField } from "../../../FormsUI";
+import { ButtonWithIcon, PhoneNumber, ButtonPrimary,ButtonSecondary, TextField } from "../../../FormsUI";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
@@ -8,6 +8,10 @@ import APICall from '../../../App/APIcall';
 import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from "@material-ui/core";
 import { errorMessage } from "../../../../helpers/ErrorMessage";
 import { OTPInitialSubmission, verifyPasscode } from "../../../Controllers/ApplyForLoanController"
+import Dialog from "@material-ui/core/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogActions from "@material-ui/core/DialogActions";
 
 //YUP validation schema
 const validationSchema = yup.object({
@@ -25,19 +29,19 @@ const validationSchema = yup.object({
 //View Part
 export default function PhoneVerification(props) {
 	const [hasPasscode, setOfferCode] = useState(false);
-    const [passcode, setPasscode] = useState('');
+	const [passcode, setPasscode] = useState('');
 	const [error, setError] = useState();
+	const [phoneNum, setPhoneNum] = useState('');
+	const [open, setOpen] = useState(false);
 
 	// get phone number from using email from api 
 	const getPhone = async () => {
-		const email = localStorage.getItem("email");
 
 		let data = {
-			"email": email,
-			"ssn": "",
-			"isAuthenticated": true
+
 		}
-		await APICall("/customer/check_customer_user", data, 'POST', false);
+		let userData = await APICall("/customer/account_overview", data, 'GET', true);
+		setPhoneNum(userData.data.data.customer.latest_contact.phone_number_primary);
 	}
 
 	// get the phone number on load
@@ -45,6 +49,12 @@ export default function PhoneVerification(props) {
 		getPhone();
 
 	}, []);
+
+	useEffect(() => {
+		formik.setFieldValue('phone', phoneNum)
+
+	}, [phoneNum]);
+
 
 	// configuring the formik variables
 	const formik = useFormik({
@@ -58,11 +68,9 @@ export default function PhoneVerification(props) {
 		onSubmit: async (values) => {
 			setOfferCode(true);
 			setOfferCode(hasPasscode ? hasPasscode : !hasPasscode);
-			let res = await OTPInitialSubmission(values.phone, value);
-			console.log("API Call responce:", res);
+			await OTPInitialSubmission(values.phone, value);
 		},
 	});
-
 	const [value, setValue] = React.useState("T");
 
 	const handleChange = (event) => {
@@ -71,7 +79,6 @@ export default function PhoneVerification(props) {
 
 	//To prevent spaces 
 	const preventSpace = (event) => {
-		// const reg = /[a-zA-Z]+[ ]{0,1}[']{0,1}/;
 		if (event.keyCode === 32) {
 			event.preventDefault();
 		}
@@ -81,12 +88,21 @@ export default function PhoneVerification(props) {
 		const reg = /^\d*$/;
 		let acc = event.target.value;
 		setError("");
-	
+
 		if (acc === "" || reg.test(acc)) {
 			setPasscode(event.target.value)
 		}
 	};
 
+
+	const skipPhoneVerification = (event) => {
+		localStorage.setItem("skip", JSON.stringify({ phone: true }));	
+		props.next()
+	};
+
+	const handleClose = () => {
+		setOpen(false);
+	};
 	//view part
 	return (
 		<div>
@@ -108,7 +124,7 @@ export default function PhoneVerification(props) {
 					item
 					sm={5}
 					className="textBlock"
-					
+
 				>
 					<PhoneNumber
 						name="phone"
@@ -118,13 +134,11 @@ export default function PhoneVerification(props) {
 						onKeyDown={preventSpace}
 						value={formik.values.phone}
 						onChange={formik.handleChange}
-						// value={phone}
-						// onChange={handleChangePhone}
+						disabled={true}
 						error={
 							formik.touched.phone && Boolean(formik.errors.phone)
 						}
 						helperText={formik.touched.phone && formik.errors.phone}
-						
 					/>
 					<div className="MuiTypography-alignLeft">
 						<Typography
@@ -164,11 +178,11 @@ export default function PhoneVerification(props) {
 				<Grid item xs={12} style={{ lineHeight: 3 }}>
 					<ButtonWithIcon
 						stylebutton='{ "fontWeight":"normal" }'
-						styleicon='{ "color":"" }' 
-                        type="submit"
+						styleicon='{ "color":"" }'
+						type="submit"
 						fullWidth={true}
 						onClick={async () => {
-                         
+
 							setOfferCode(!hasPasscode);
 						}}
 					>
@@ -176,67 +190,96 @@ export default function PhoneVerification(props) {
 					</ButtonWithIcon>
 				</Grid>
 				<div className={hasPasscode ? "open" : "close"}>
-					<Grid item  sm={5}>
+					<Grid item sm={5}>
 						<TextField
 							name="firstName"
 							form={true}
 							label="Enter Passcode"
-                            value={passcode}
-                            // onChange={(e) => { setPasscode(e.target.value)}}
+							value={passcode}
 							onChange={onPasscodeChange}
 							materialProps={{
 								"data-test-id": "offer",
 								maxLength: "4",
 							}}
-							error = {error ? true : false}
-							helperText = {error}
+							error={error ? true : false}
+							helperText={error}
 						/>
-
-                     
 					</Grid>
 				</div>
 			</form>
+			<br />
+			<div>
+				
+					<Typography onClick={() => {
+						setOpen(true);
+						}} className={props.classes.linkStyle}>
+					I do not have access to this phone
+					</Typography>
+				
+			</div>
 			<div className={props.classes.actionsContainer}>
-                <div className={props.classes.button_div} >
-                  
-                  <ButtonSecondary
-                    stylebutton='{"marginRight": "10px", "color":"" }'
-                    onClick={props.reset}
-                    id = "button_stepper_reset"
-                  >
-                    Reset
-                  </ButtonSecondary>
-                 
-                  <ButtonSecondary
-                    disabled={props.activeStep === 0}
-                    onClick={props.prev}
-                    id = "button_stepper_prev"
-                    stylebutton='{"marginRight": "10px", "color":"" }'
-                  >
-                    Prev
-                  </ButtonSecondary>
-                  <ButtonPrimary
-                    variant="contained"
-                    color="primary"
-                    id = "button_stepper_next"
-                    stylebutton='{"marginRight": "10px", "color":"" }'
-                    // onClick={()=>{ props.next() }}
-					onClick={async () => {
-						let res = await verifyPasscode(passcode);
-						if(res.data.data.phone_verification === true){
-							setError('');
-							props.next() 
+				<div className={props.classes.button_div} >
+
+					<ButtonPrimary
+						variant="contained"
+						color="primary"
+						id="button_stepper_next"
+						stylebutton='{"marginRight": "10px", "color":"" }'
+						onClick={async () => {
+							let res = await verifyPasscode(passcode);
+							if (res.data.data.phone_verification === true) {
+								setError('');
+								props.next()
+							}
+							else {
+								setError(errorMessage.applyForLoan.phoneVerification.verificationNotFound);
+							}
+
+						}}
+					>
+						{props.activeStep === props?.steps.length - 1 ? "Finish" : "Next"}
+					</ButtonPrimary>
+				</div>
+			</div>
+			<Dialog
+				onClose={handleClose}
+				aria-labelledby="customized-dialog-title"
+				open={open}
+			>
+				<DialogTitle id="customized-dialog-title" onClose={handleClose}>
+					Confirmation
+				</DialogTitle>
+				<DialogContent dividers>
+					<Typography align="justify" style={{fontSize: "15px"}} gutterBottom>
+						If you are currently unable to access the phone you provided, click "Verify phone later" to proceed with the remainder of the verifaication process. Please note that we will need to manually verify your phone number by calling and speaking with you directly. 
+					</Typography>
+				</DialogContent>
+				<DialogActions className="modalAction">
+				<br />
+
+				<Grid container >
+
+					<Grid item lg={5} >
+					<ButtonSecondary
+						stylebutton='{"background": "", "color": "black", "border-radius": "50px"}'
+						onClick={handleClose}
+					>
+						<Typography align="center">Return To Selection</Typography>
+					</ButtonSecondary>
+					</Grid>
+					<Grid item lg={5} >
+					<ButtonPrimary
+						stylebutton='{"background": "#FFBC23", "color": "black", "border-radius": "50px"}'
+						onClick={skipPhoneVerification
 						}
-						else{
-							setError(errorMessage.applyForLoan.phoneVerification.verificationNotFound);
-						}
-					
-					}}
->
-                    {props.activeStep === props?.steps.length - 1 ? "Finish" : "Next"}
-                  </ButtonPrimary>
-                </div>
-              </div>
+					>
+						<Typography align="center">Verify Phone Later</Typography>
+					</ButtonPrimary>
+					</Grid>
+					</Grid>
+					<br />
+				</DialogActions>
+			</Dialog>
 		</div>
 	);
 }

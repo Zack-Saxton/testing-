@@ -1,8 +1,8 @@
 export  const errorMessage = {
     applyForLoan : {
         bankAccountVerification : {
-            accountHolderRequired : "Please enter account holder's name",
-            bankRoutingNumberRequired : "Please enter bank routing number",
+            accountHolderRequired : "Please enter a account holder's name",
+            bankRoutingNumberRequired : "Please enter a bank routing number",
             bankInformationRequired : "Please enter the bank information",
             bankAccountNumberRequired : "Please enter the bank account number",
             bankAccountNumberConfirmationRequired : "Please confirm bank account number",

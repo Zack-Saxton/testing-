@@ -1,13 +1,13 @@
 import React from "react";
-import {makeStyles} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import PropTypes from "prop-types";
 import Box from "@material-ui/core/Box";
-import {NavLink} from "react-router-dom";
-import {ButtonWithIcon} from "../../../FormsUI";
+import { NavLink } from "react-router-dom";
+import { ButtonWithIcon } from "../../../FormsUI";
 import Paper from "@material-ui/core/Paper";
 import ScrollToTopOnMount from '../../ScrollToTop';
 import CheckLoginStatus from "../../../App/CheckLoginStatus";
@@ -106,7 +106,7 @@ export default function ReceiveYourMoney() {
   //JSX part
   return (
     <div>
-      <CheckLoginStatus/>
+      <CheckLoginStatus />
       <ScrollToTopOnMount />
       <Grid
         container
@@ -121,25 +121,25 @@ export default function ReceiveYourMoney() {
           item
           xs={12} container
           direction="row"
-          style={{  width:"100%",marginBottom: "20px" }}
+          style={{ width: "100%", marginBottom: "20px" }}
         >
-          <Typography  className={classes.heading} variant="h3" >
-              <NavLink
-                to="/customers/accountOverview"
-                style={{ textDecoration: "none" }}
-              >
-                <ButtonWithIcon
-                  icon="arrow_backwardIcon"
-                  iconposition="left"
-                  stylebutton='{"background": "#fff", "color":"#214476",
+          <Typography className={classes.heading} variant="h3" >
+            <NavLink
+              to="/customers/accountOverview"
+              style={{ textDecoration: "none" }}
+            >
+              <ButtonWithIcon
+                icon="arrow_backwardIcon"
+                iconposition="left"
+                stylebutton='{"background": "#fff", "color":"#214476",
                         "minWidth": "0px",
                         "width": "36px",
                         "padding": "0px",
                         "marginRight": "5px", "marginTop":"unset" }'
-                  styleicon='{ "color":"" }'
-                />
-              </NavLink>{" "}
-              Apply for a Loan
+                styleicon='{ "color":"" }'
+              />
+            </NavLink>{" "}
+            Apply for a Loan
           </Typography>
         </Grid>
         <Grid item xs={12}>
@@ -175,7 +175,7 @@ export default function ReceiveYourMoney() {
           </Tabs>
 
           <TabPanel value={value} index={3} style={{ paddingBottom: "300px" }}>
-            <Grid item xs={12} style={{ width:"100%" }} container direction="row">
+            <Grid item xs={12} style={{ width: "100%" }} container direction="row">
               <Paper className={classes.paper}>
                 <div>
                   <h3>Your Application is Complete</h3>

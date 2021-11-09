@@ -8,7 +8,7 @@ const APICall = async (url, data, method, addAccessToken) => {
     try {
         await axios({
             method: method,
-            url: url,
+            url: url, 
             data: JSON.stringify(data),
             headers: {
                 "Content-Type": "application/json",
@@ -22,7 +22,7 @@ const APICall = async (url, data, method, addAccessToken) => {
             },
         }).then((res) => { 
            
-            response.data = res;
+            response.data = res; 
         });
     } catch (error) {
         response.data = error.response;
@@ -39,7 +39,7 @@ export const APICallNoData = async (url, method, addAccessToken) => {
         status: "",
         data: "",
     };
-    try {
+    try { 
         await axios({
             method: method,
             url: url,

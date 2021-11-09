@@ -11,7 +11,7 @@
          text-align: left;
          padding: 15px 15px;
        }
-       .leftAlign{
+       .leftAlignAddress{
         font-size: 14px;
        }
        .col{
@@ -49,6 +49,9 @@
      width: 100%;
      margin: 0
    }
+   .row{
+    display: unset!important;
+  }
  }
 
  @media all and (max-width: 1300px){

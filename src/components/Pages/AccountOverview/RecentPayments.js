@@ -47,13 +47,13 @@ export default function RecentPayments(userRecentPaymentData) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {userRecentPayment.userRecentPaymentData === null ? (
+            {userRecentPayment?.userRecentPaymentData === null ? (
               <TableRow>
                 <TableCell colSpan="7" align="center">
                   <CircularProgress />
                 </TableCell>
               </TableRow>
-            ) : userRecentPayment.userRecentPaymentData.length ? (
+            ) : userRecentPayment?.userRecentPaymentData?.length ? (
               userRecentPayment.userRecentPaymentData.slice(0, 1).map((val) => (
                 <>
                   {val.loanHistory.AppAccountHistory.slice(0, 3).map((row, index) => (

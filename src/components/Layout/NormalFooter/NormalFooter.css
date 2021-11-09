@@ -14,7 +14,7 @@
          
        }
 
-       .leftAlign{
+       .leftAlignAddress{
         font-size: 14px;
        }
  
@@ -38,11 +38,17 @@
    @media all and (max-width: 600px){ 
    .section-top-normal-footer{
        flex-direction: column;
-   }    
+   }   
+   .badge{
+     text-align: center !important;
+   } 
    .col{ 
      text-align: center;
      width: 100%;
      margin: 0
+   }
+   .row{
+     display: unset!important;
    }
  }
 

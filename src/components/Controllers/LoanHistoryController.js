@@ -1,36 +1,16 @@
-import axios from "axios";
-import handleTokenExpiry from './HandleTokenExpiry';
+import APICall from "../lib/AxiosLib";
 
-//Get Loan history
+/***** Get Loan history *****/
 export default async function LoanHistoryController() {
+  //API
+  let url = "account_overview";
+  let param = "";
+  let data = {};
+  let method = "GET";
+  let addAccessToken = true;
 
-//Login access token
-  const loginToken = JSON.parse(localStorage.getItem("token"));
+  //API call
+  let loanHistory = await APICall(url, param, data, method, addAccessToken);
 
-//Get response on API call
-  let response = {
-    isLoggedIn: "",
-    active: "",
-    data: "",
-  };
-
-  try {
-    await axios({
-      method: "GET",
-      url: "/customer/account_overview",
-
-      headers: {
-        "Content-Type": "application/json",
-        "x-access-token": loginToken.apiKey,
-      },
-      transformRequest: (data, headers) => {
-        delete headers.common["Content-Type"];
-        return data;
-      },
-    }).then((res) => (response.data = res));
-  } catch (error) {
-    handleTokenExpiry(error);
-    response.data = error.response;
-  }
-  return response;
+  return loanHistory;
 }

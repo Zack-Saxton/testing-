@@ -11,14 +11,16 @@ import ScrollToTopOnMount from "../ScrollToTop";
 import LoanHistoryController from "../../Controllers/LoanHistoryController";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
 
+
 export default function LoanHistory() {
   //Material UI css class
   const classes = useStylesLoanHistory();
 
   //API Call
   const [loanHistoryStatus, setloanHistoryStatus] = useState(null);
-  async function AsyncEffect_loanHistory() {
-    setloanHistoryStatus(await LoanHistoryController());
+  
+  async function AsyncEffect_loanHistory() { 
+    setloanHistoryStatus(await LoanHistoryController());    
   }
   useEffect(() => {
     AsyncEffect_loanHistory();
