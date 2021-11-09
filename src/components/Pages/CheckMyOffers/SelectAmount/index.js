@@ -5,27 +5,46 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import {ButtonPrimary, Slider, TextField} from "../../../FormsUI";
 import Paper from "@material-ui/core/Paper";
-import React, {useContext, useState} from "react";
+import React, {useContext, useState, useEffect} from "react";
 import {useHistory} from "react-router-dom";
 import ScrollToTopOnMount from '../ScrollToTop';
 import {CheckMyOffers as Check} from "../../../../contexts/CheckMyOffers";
+import { toast, ToastContainer } from "react-toastify";
+
+
 
 //initializing check my offers functonal component 
 function CheckMyOffers(props) {
 	const { data, setData, resetData } = useContext(Check);
-	const [hasOfferCode, setOfferCode] = useState();
-	
+	const [hasOfferCode, setOfferCode] = useState('');
+	const [select, setSelect] = useState(null);
 	const history = useHistory();
 
-	//reset the context values 
-	if(data.formStatus === '' || data.completedPage === 0 || data.formStatus === 'completed' || props.location.fromLoanPurpose !== 'yes'){
-		resetData();
-		data.loanAmount = 10000;
-	}
-	const [select, setSelect] = useState(data.loanAmount ? data.loanAmount : 10000);
-	//validate and proceeds the flow 
-	const handleRoute = (e) => {
+	useEffect(() => {
+		
+		if(data.formStatus === '' || data.completedPage === 0 || data.formStatus === 'completed' || props.location.fromLoanPurpose !== 'yes'){
+			setData({ ...data, "loading": true });
+			resetData();
+			setSelect(data.loanAmount ? data.loanAmount : 10000)
+		}	 
+	 }, []);
 
+	 if(data?.isActiveUser === "closed"){
+		
+		toast.error("Your account is closed to new applications. Please contact us to reapply.", {
+			position: "bottom-left",
+			autoClose: 2500,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+		  });
+		  history.push({
+			pathname: "/customers/accountOverview",
+		});
+	}
+	const handleRoute = (e) => {
 		data.loanAmount = select;
 		data.formStatus = 'started';
 		data.completedPage = data.page.selectAmount;
@@ -39,6 +58,7 @@ function CheckMyOffers(props) {
 	return (
 		<div>
 			<ScrollToTopOnMount />
+			<ToastContainer />
 			<div className="mainDiv">
 				<Box>
 					<Grid item xs={12} container justifyContent="center" alignItems="center" >
@@ -106,7 +126,7 @@ function CheckMyOffers(props) {
 									>
 										<div className={hasOfferCode ? "open" : "close"}>
 											<TextField
-												name="firstName"
+												name="offerCode"
 												form={true}
 												value={data.offerCode}
 												onChange={(event) => {
@@ -135,10 +155,18 @@ function CheckMyOffers(props) {
 												data-testid="contButton"
 												stylebutton='{"background": "#FFBC23", "color":"black"}'
 												onClick={handleRoute}
+												disabled={data.loading}
 											>
 											<Typography align="center" className="textCSS ">
 												Continue
 											</Typography>
+											<i
+                                                    className="fa fa-refresh fa-spin customSpinner"
+                                                    style={{
+                                                        marginRight: "10px",
+                                                        display: data.loading ? "block" : "none",
+                                                    }}
+                                                />
 											</ButtonPrimary>
 										</Grid>
 										</Grid>

@@ -11,10 +11,9 @@ import { useStylesAccountOverview } from "./Style";
 import { ButtonPrimary } from "../../FormsUI";
 import NumberFormat from 'react-number-format';
 
-export default function RecentApplications({ userApplicationsData }) {
+export default function RecentApplications({ userApplicationsData,UserAccountStatus }) {
   //Material UI css class
   const classes = useStylesAccountOverview();
-
   //Recentapplications data
   let userApplications = (userApplicationsData != null) ? userApplicationsData : null;
   let statusStr = {
@@ -33,6 +32,7 @@ export default function RecentApplications({ userApplicationsData }) {
     "rejected": "Rejected",
     "under_review": "Under review",
     "closing_process": "Closing process",
+    "signature_complete":  "Signature completed",
     "final_review": "Final review"
   };
 
@@ -43,6 +43,7 @@ export default function RecentApplications({ userApplicationsData }) {
     "confirming_info": "/confirmation-credit",
     "expired": "/select-amount",
     "invalid": "/select-amount",
+    "signature_complete":  "/customers/finalVerification",
     "offer_selected": "/customers/reviewAndSign",
     "offers_available": "/customers/selectOffer",
     "pre_qual_referred": "/select-amount",
@@ -85,7 +86,7 @@ export default function RecentApplications({ userApplicationsData }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {userApplications === null ? (
+            {UserAccountStatus === null ? (
               <TableRow>
                 <TableCell
                   colSpan="7"
@@ -98,7 +99,7 @@ export default function RecentApplications({ userApplicationsData }) {
                 </TableCell>
               </TableRow>
             ) :
-              userApplications.length
+              userApplications?.length
                 ?
                 userApplications.map((appData, index) => (
                   <TableRow key={index}>
@@ -126,7 +127,7 @@ export default function RecentApplications({ userApplicationsData }) {
                             Resume
                           </ButtonPrimary>
                         ) : (
-                          <ButtonPrimary stylebutton='{"color":"","width":"72%" }' href="/select-amount" >
+                          <ButtonPrimary stylebutton='{"color":"","width":"72%" }' href="/customers/viewaccount" >
                             View
                           </ButtonPrimary>
                         )

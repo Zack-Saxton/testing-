@@ -1,7 +1,9 @@
 @media (max-width: 400px) {
-    #button_stepper_next, #button_stepper_prev, #button_stepper_reset{
-      width: 100%!important;
-     
-     margin-top: 10px!important;
-    }
-  }
+	#button_stepper_next,
+	#button_stepper_prev,
+	#button_stepper_reset {
+		width: 100% !important;
+
+		margin-top: 10px !important;
+	}
+}

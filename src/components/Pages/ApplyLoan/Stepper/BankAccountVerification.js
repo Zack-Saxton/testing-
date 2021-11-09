@@ -11,6 +11,9 @@ import { errorMessage } from "../../../../helpers/ErrorMessage";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import APICall from '../../../App/APIcall';
 import DocumentUpload from './DocumentUpload';
+import { toast } from "react-toastify";
+
+import "./stepper.css"
 
 //Styling part
 const useStyles = makeStyles((theme) => ({
@@ -57,6 +60,8 @@ const validationSchema = yup.object({
 		.max(16, "Account numner should be minimum of 16 digits"),
 });
 
+
+
 //View Part
 //Initializing functional component -  BankAccountVerification
 export default function BankAccountVerification(props) {
@@ -67,6 +72,24 @@ export default function BankAccountVerification(props) {
 	const [paymnetMode, setPaymentMode] = useState("autopayment");
 	const [verifyRequired, setVerifyRequired] = useState(false);
 	const [error, setError] = useState('');
+	const [invalidRN, setInvalidRN] = useState(false);
+
+	const handleUpload = (res) => {
+		if(res?.bank_account_verification){
+			props.next();
+		}
+		else{
+			toast.error("Document submission failed. Please try again", {
+				position: "bottom-left",
+				autoClose: 1500,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			  });
+		}
+	}
 
 	//Configuring the formik variable usign useFormik hook 
 	const formik = useFormik({
@@ -82,30 +105,27 @@ export default function BankAccountVerification(props) {
 		//On submit - submit the user entered details 
 		onSubmit: async (values) => {
 
-      let data = { 
-        "account_number": values.bankAccountNumber,
-        "account_type": accountType,
-        "routing_number": values.bankRoutingNumber,
-        "bank_name": values.bankInformation,
-		"repayment": paymnetMode
-    }
-     let res = await APICall("/verification/bank_information_cac", data, "POST", true);
-	 if(res?.data?.data?.bank_account_information && res?.data?.data?.bank_account_verification){
-		
-		props.next();
-	 }
-	 else if (res?.data?.data?.bank_account_information || res?.data?.data?.bank_account_verification){
-		 setError( verifyRequired ? errorMessage?.applyForLoan?.bankAccountVerification?.uploadCheck : errorMessage?.applyForLoan?.bankAccountVerification?.notValid)
-		setVerifyRequired(true);
-	 }
-	 else if (res?.data?.data?.bank_account_information === false || res?.data?.data?.bank_account_verification === false){
-		alert(errorMessage?.applyForLoan?.bankAccountVerification?.notValid);
-	 }
-	 else{
-		 alert("Network Error");
-	 }
-	 
-
+			let data = {
+				"account_number": values.bankAccountNumber,
+				"account_type": accountType,
+				"routing_number": values.bankRoutingNumber,
+				"bank_name": values.bankInformation,
+				"repayment": paymnetMode
+			}
+			let res = await APICall("/verification/bank_information_cac", data, "POST", true);
+			if (res?.data?.data?.bank_account_information && res?.data?.data?.bank_account_verification) {
+				props.next();
+			}
+			else if (res?.data?.data?.bank_account_information || res?.data?.data?.bank_account_verification) {
+				setError(verifyRequired ? errorMessage?.applyForLoan?.bankAccountVerification?.uploadCheck : errorMessage?.applyForLoan?.bankAccountVerification?.notValid)
+				setVerifyRequired(true);
+			}
+			else if (res?.data?.data?.bank_account_information === false || res?.data?.data?.bank_account_verification === false) {
+				alert(errorMessage?.applyForLoan?.bankAccountVerification?.notValid);
+			}
+			else {
+				alert("Network Error");
+			}
 		},
 	});
 
@@ -120,15 +140,11 @@ export default function BankAccountVerification(props) {
 		}
 	};
 
-
-
-
-// restrict Account Holder On Change
+	// restrict Account Holder On Change
 	const restrictAccountHolderOnChange = (event) => {
-		// const reg = /[a-zA-Z]+[ ]{0,1}[']{0,1}/;
 		const reg = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
 		let acc = event.target.value;
-
+		//Checking non null and accepting reg ex
 		if (acc === "" || reg.test(acc)) {
 			formik.handleChange(event);
 		}
@@ -170,8 +186,7 @@ export default function BankAccountVerification(props) {
 						name="accountType"
 						labelforform="Account Type"
 						radiolabel='[{"label":"Savings", "value":"saving"},{"label":"Checking", "value":"checking"}]'
-						// value="checking"
-						// value = {accountType}
+
 						checked={accountType}
 						onClick={(e) => {
 							setAccountType(e);
@@ -184,16 +199,25 @@ export default function BankAccountVerification(props) {
 						{accountType === "" ? "Account type required" : ""}
 					</FormHelperText>
 				</Grid>
-
 				<Grid container spacing={4} direction="row">
-					<Grid item xs={12} sm={6}  style={{ width: "100%" }}>
+					<Grid item xs={12} sm={6} style={{ width: "100%" }}>
 						<TextFieldWithToolTip
 							name="bankRoutingNumber"
 							style={{ width: "100%" }}
 							value={formik.values.bankRoutingNumber}
 							inputProps={{ maxLength: "9", "data-test-id": "BRN" }}
 							onChange={restrictTextOnChange}
-							onBlur={formik.handleBlur}
+							onBlur={async (event) => {
+								if (event.target.value !== "" && event.target.value.length === 9) {
+									fetch("https://www.routingnumbers.info/api/data.json?rn=" + event.target.value).then((res) => res.json()).then(
+										(result) => {
+											formik.setFieldValue("bankInformation", result?.customer_name ?? '');
+											setInvalidRN(result?.customer_name ? false : true);
+										})
+									formik.handleBlur(event);
+								}
+							}
+							}
 							error={
 								formik.touched.bankRoutingNumber &&
 								Boolean(formik.errors.bankRoutingNumber)
@@ -217,12 +241,13 @@ export default function BankAccountVerification(props) {
 						/>
 					</Grid>
 
-					<Grid item xs={12} sm={6}  style={{ width: "100%" }}>
+					<Grid item xs={12} sm={6} style={{ width: "100%" }}>
 						<TextFieldWithToolTip
 							name="bankInformation"
 							style={{ width: "100%" }}
 							value={formik.values.bankInformation}
 							onChange={formik.handleChange}
+							disabled={true}
 							inputProps={{
 								maxLength: "100",
 								"data-test-id": "bankInformation",
@@ -250,7 +275,7 @@ export default function BankAccountVerification(props) {
 						/>
 					</Grid>
 				</Grid>
-
+				<p className={invalidRN ? "showError" : "hide"}>Please enter a valid Routing number </p>
 				<Grid item sm={12} className={classes.content_grid}>
 					<TextField
 						name="bankAccountNumber"
@@ -291,7 +316,6 @@ export default function BankAccountVerification(props) {
 						}
 					/>
 				</Grid>
-
 				<div>
 					<p>
 						<b>Repayment</b> <br />
@@ -303,9 +327,8 @@ export default function BankAccountVerification(props) {
 						name="paymnetMode"
 						radiolabel='[{"label":"Automatic Payment", "value":"autopayment"}]'
 						row={true}
-					
+
 						checked={paymnetMode}
-						// radio={"hell" + "hello"}
 						value={"autopayment"}
 						onClick={() => {
 							setPaymentMode("autopayment");
@@ -332,15 +355,12 @@ export default function BankAccountVerification(props) {
 						</p>
 					</span>
 				</Grid>
-
 				<Grid item xs={12}>
 					<Radio
 						name="question"
 						radiolabel='[{"label":"Payment by Check", "value":"checkpayment"}]'
-						// value="checkpayment"
 						row={true}
 						checked={paymnetMode}
-						// radio={"hell" + "hello"}
 						value={"checkpayment"}
 						onClick={() => {
 							setPaymentMode("checkpayment");
@@ -357,10 +377,10 @@ export default function BankAccountVerification(props) {
 					</span>
 				</Grid>
 				<div
-					style={{ display: verifyRequired  ? "block" : "none" }}
+					style={{ display: verifyRequired ? "block" : "none" }}
 				>
 					<div>
-					<p style={{display: error && error === '' ? "none" : "block", color: "red"}}>
+						<p style={{ display: error && error === '' ? "none" : "block", color: "red" }}>
 							{error}
 						</p>
 						<p style={{ textAlign: "justify" }}>
@@ -377,26 +397,19 @@ export default function BankAccountVerification(props) {
 							<li>Acceptable file formats are PDF, JPG, JPEG, GIF and PNG</li>
 						</p>
 					</div>
-					<DocumentUpload classes = {classes} />
-            
+					<DocumentUpload classes={classes} docType={"bank information"} handle={handleUpload} />
+
 				</div>
 				<div className={props.classes.actionsContainer}>
 					<div className={props.classes.button_div}>
 						<ButtonSecondary
 							stylebutton='{"margin-right": "10px", "color":"" }'
-							onClick={props.reset}
+							onClick={(e) => {
+								formik.resetForm();
+							}}
 							id="button_stepper_reset"
 						>
 							Reset
-						</ButtonSecondary>
-
-						<ButtonSecondary
-							disabled={props?.activeStep === 0}
-							onClick={props?.prev}
-							id="button_stepper_prev"
-							stylebutton='{"margin-right": "10px", "color":"" }'
-						>
-							Prev
 						</ButtonSecondary>
 						<ButtonPrimary
 							variant="contained"
@@ -404,6 +417,7 @@ export default function BankAccountVerification(props) {
 							id="button_stepper_next"
 							stylebutton='{"margin-right": "10px", "color":"" }'
 							type="submit"
+							disabled={invalidRN}
 						>
 							{props.activeStep === props?.steps.length - 1 ? "Finish" : "Next"}
 						</ButtonPrimary>

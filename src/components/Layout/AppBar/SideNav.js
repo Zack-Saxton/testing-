@@ -540,7 +540,7 @@ export default function SideNav() {
               </ListItem>
             </NavLink>
 
-            <NavLink to="/customers/selectOffer" className="nav_link">
+            <NavLink to="/customers/applyForLoan" className="nav_link">
               <ListItem className="titleSidenav">
                 <ListItemIcon>
                   {" "}

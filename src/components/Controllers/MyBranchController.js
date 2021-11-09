@@ -1,53 +1,26 @@
-import axios from "axios";
 import { toast } from "react-toastify";
-import handleTokenExpiry from './HandleTokenExpiry';
+import APICall from "../lib/AxiosLib";
 
-
-//My branch details
+/***** My branch details *****/
 export default async function MyBranchAPI() {
+  //API
+  let url = "myBranch_detail";
+  let param = "";
+  let data = {};
+  let method = "POST";
+  let addAccessToken = true;
 
-//Login access token
-  const loginToken = JSON.parse(localStorage.getItem("token"));
-
-//Get response from API call
-  let response = {
-    isLoggedIn: "",
-    active: "",
-    data: "",
-  };
-
-  try {
-    await axios({
-      method: "POST",
-      url: "/customer/find_closest_branch_cac",
-
-      headers: {
-        "Content-Type": "application/json",
-        "x-access-token": loginToken.apiKey,
-      },
-      transformRequest: (data, headers) => {
-        delete headers.common["Content-Type"];
-        return data;
-      },
-    }).then((res) => (response.data = res));
-  } catch (error) {
-    handleTokenExpiry(error);
-    response.data = error.response;
-  }
-  return response;
+  //API call
+  let myBranch = await APICall(url, param, data, method, addAccessToken);
+  return myBranch;
 }
 
-
-//Schedule call
+/***** Schedule call ****/
 export async function ScheduleCallApi(callDate, callingTime, callTimeZone) {
-
-//Login access token
-  const loginToken = JSON.parse(localStorage.getItem("token"));
-
-//Get response from API call
-  let result = [];
-
-  let body = {
+  //API
+  let url = "myBranch_scheduleMeet";
+  let param = "";
+  let data = {
     data: {
       date: callDate,
       time: callingTime,
@@ -57,64 +30,44 @@ export async function ScheduleCallApi(callDate, callingTime, callTimeZone) {
     phone_number: "",
     isAuthenticated: true,
   };
+  let method = "POST";
+  let addAccessToken = true;
 
-  try {
-    await axios({
-      method: "POST",
-      url: "/application/schedule_branch_appointment_cac",
-      data: JSON.stringify(body),
+  //API call
+  let myBranch = await APICall(url, param, data, method, addAccessToken);
 
-      headers: {
-        "Content-Type": "application/json",
-        "x-access-token": loginToken.apiKey,
-      },
-      transformRequest: (data, headers) => {
-        delete headers.common["Content-Type"];
-        return data;
-      },
-    })
-      .then((res) => {
-       
-        toast.success(res.data, {
+  //API response
+  myBranch.data.status === 200
+    ? toast.success(
+        myBranch?.data?.data ? myBranch.data.data : "Your call is scheduled",
+        {
           position: "bottom-left",
-          autoClose: 8000,
+          autoClose: 5500,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-        });
-        return result.push("true");
-      })
-      .catch((err) => {
-        toast.error("your call is not scheduled", {
-          position: "bottom-left",
-          autoClose: 8000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-        return result.push("true");
+        }
+      )
+    : toast.error("Error scheduling call", {
+        position: "bottom-left",
+        autoClose: 5500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
       });
-  } catch (error) {
-    handleTokenExpiry(error);
-    result.push(error.result);
-  }
-
-  return result;
+  return "true";
 }
 
-//Schedule appoitment
+/***** Schedule appoitment *****/
 export async function ScheduleVisitApi(visitDate, visitTime, visitTimeZone) {
-//Login access token
-  const loginToken = JSON.parse(localStorage.getItem("token"));
-
-//Get response from API call
-  let result = [];
-
-  let body = {
+  //API
+  let url = "myBranch_scheduleMeet";
+  let param = "";
+  let data = {
     data: {
       date: visitDate,
       time: visitTime,
@@ -124,50 +77,36 @@ export async function ScheduleVisitApi(visitDate, visitTime, visitTimeZone) {
     phone_number: "",
     isAuthenticated: true,
   };
+  let method = "POST";
+  let addAccessToken = true;
 
-  try {
-    await axios({
-      method: "POST",
-      url: "/application/schedule_branch_appointment_cac",
-      data: JSON.stringify(body),
+  //API call
+  let myBranch = await APICall(url, param, data, method, addAccessToken);
 
-      headers: {
-        "Content-Type": "application/json",
-        "x-access-token": loginToken.apiKey,
-      },
-      transformRequest: (data, headers) => {
-        delete headers.common["Content-Type"];
-        return data;
-      },
-    })
-      .then((res) => {
-        toast.success(res.data, {
+  //API response
+  myBranch.data.status === 200
+    ? toast.success(
+        myBranch?.data?.data
+          ? myBranch.data.data
+          : "Your appointment is scheduled",
+        {
           position: "bottom-left",
-          autoClose: 8000,
+          autoClose: 5500,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-        });
-        return result.push("true");
-      })
-      .catch((err) => {
-        toast.error("your appointment is not scheduled", {
-          position: "bottom-left",
-          autoClose: 8000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-        return result.push("true");
+        }
+      )
+    : toast.error("Error scheduling appointment", {
+        position: "bottom-left",
+        autoClose: 5500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
       });
-  } catch (error) {
-    handleTokenExpiry(error);
-    result.push(error.result);
-  }
-
-  return result;
+  return "true";
 }

@@ -2,14 +2,14 @@ import "../CheckMyOffer.css";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import {ButtonPrimary, Select, TextField, Zipcode} from "../../../FormsUI";
+import { ButtonPrimary, Select, TextField, Zipcode } from "../../../FormsUI";
 import Paper from "@material-ui/core/Paper";
-import React, {useContext, useState} from "react";
-import {Link, useHistory} from "react-router-dom";
-import {useFormik} from "formik";
+import React, { useContext, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import { useFormik } from "formik";
 import * as yup from "yup";
 import MarriedStatusLogo from "../../../../assets/icon/married-status.png";
-import {CheckMyOffers} from "../../../../contexts/CheckMyOffers";
+import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import ScrollToTopOnMount from "../ScrollToTop";
 
 
@@ -63,10 +63,9 @@ const validationSchema = yup.object({
 // custom component - MarriedStatus
 function MarriedStatus() {
 	const { data, setData } = useContext(CheckMyOffers);
-	const [stateShort, setStateShort] = useState(""); 
+	const [stateShort, setStateShort] = useState("");
 	const [validZip, setValidZip] = useState(true);
 	const history = useHistory();
-
 
 	//Configuring formik
 	const formik = useFormik({
@@ -114,19 +113,19 @@ function MarriedStatus() {
 								result.places[0]["place name"]
 							);
 							formik.setFieldValue("spouseState", result.places[0]["state"]);
-							setStateShort(result.places[0]["state abbreviation"]); 
+							setStateShort(result.places[0]["state abbreviation"]);
 							setValidZip(true);
 						} else {
 							formik.setFieldValue("spouseSelectState", "");
 							formik.setFieldValue("spouseState", "");
-							setStateShort(""); 
+							setStateShort("");
 							setValidZip(false);
 						}
 					},
 					(error) => {
 						formik.setFieldValue("spouseSelectState", "");
 						formik.setFieldValue("spouseState", "");
-						setStateShort(""); 
+						setStateShort("");
 						setValidZip(false);
 					}
 				);
@@ -164,7 +163,7 @@ function MarriedStatus() {
 							justifyContent="center"
 							alignItems="center"
 						>
-							<Paper className="cardWOPadding" style={{justify:"center",alignItems:"center",width:"inherit",marginBottom:"10%",marginTop:"10%"}}>
+							<Paper className="cardWOPadding" style={{ justify: "center", alignItems: "center", width: "inherit", marginBottom: "10%", marginTop: "10%" }}>
 								<div className="progress mt-0">
 									<div
 										id="determinate"
@@ -177,7 +176,7 @@ function MarriedStatus() {
 										<i className="material-icons dp48 yellowText  ">arrow_back</i>
 									</Link>
 								</Grid>
-								<Grid style={{marginTop:"-4%"}}>
+								<Grid style={{ marginTop: "-4%" }}>
 									<img
 										alt="marriedlogo"
 										src={MarriedStatusLogo}
@@ -185,7 +184,7 @@ function MarriedStatus() {
 									/>
 								</Grid>
 
-								<Typography variant="h5" style={{align:"center",justify:"center",alignItems:"center"}} className="borrowCSS">
+								<Typography variant="h5" style={{ align: "center", justify: "center", alignItems: "center" }} className="borrowCSS">
 									Are you married?*
 								</Typography>
 								<form onSubmit={formik.handleSubmit}>
@@ -231,7 +230,7 @@ function MarriedStatus() {
 											xs={12}
 											className={
 												formik.values.martialStatus === "Married" ||
-												formik.values.martialStatus ===
+													formik.values.martialStatus ===
 													"Separated, under decree of legal separation"
 													? "showMsg space"
 													: "hideMsg space"
@@ -257,7 +256,7 @@ function MarriedStatus() {
 											xs={12}
 											className={
 												formik.values.martialStatus === "Married" ||
-												formik.values.martialStatus ===
+													formik.values.martialStatus ===
 													"Separated, under decree of legal separation"
 													? "showMsg "
 													: "hideMsg "
@@ -276,7 +275,7 @@ function MarriedStatus() {
 											xs={12}
 											className={
 												formik.values.martialStatus === "Married" ||
-												formik.values.martialStatus ===
+													formik.values.martialStatus ===
 													"Separated, under decree of legal separation"
 													? "showMsg space"
 													: "hideMsg space"
@@ -298,8 +297,8 @@ function MarriedStatus() {
 												helperText={
 													validZip
 														? formik.touched.spouseZipcode &&
-														  formik.errors.spouseZipcode
-														: "Please enter your valid Zip code"
+														formik.errors.spouseZipcode
+														: "Please enter a valid Zip code"
 												}
 											/>
 										</Grid>
@@ -312,7 +311,7 @@ function MarriedStatus() {
 											xs={12}
 											className={
 												formik.values.martialStatus === "Married" ||
-												formik.values.martialStatus ===
+													formik.values.martialStatus ===
 													"Separated, under decree of legal separation"
 													? "showMsg space"
 													: "hideMsg space"
@@ -344,7 +343,7 @@ function MarriedStatus() {
 											xs={12}
 											className={
 												formik.values.martialStatus === "Married" ||
-												formik.values.martialStatus ===
+													formik.values.martialStatus ===
 													"Separated, under decree of legal separation"
 													? "showMsg space"
 													: "hideMsg space"
@@ -366,12 +365,12 @@ function MarriedStatus() {
 													formik.errors.spouseSelectState
 												}
 											/>
-										
+
 										</Grid>
-										
+
 										<Grid item lg={8} md={8} xs={12} className="alignButton">
 											<ButtonPrimary
-												
+
 												type="submit"
 												disabled={!validZip}
 												stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black","fontSize":"1rem"}'

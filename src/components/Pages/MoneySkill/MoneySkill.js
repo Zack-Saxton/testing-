@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Dialog from "@material-ui/core/Dialog";
 import {
   ButtonPrimary,
@@ -7,14 +7,27 @@ import {
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import { useStylesMoneySkill } from "./Style";
-import CheckLoginStatus from "../../App/CheckLoginStatus";
 import "./Style.css";
-
+import getMoneySkillUrl from "../../Controllers/MoneySkillController"
 
 export default function MoneySkill(props) {
 
 //Material UI css class
-  const classes = useStylesMoneySkill();
+ const classes = useStylesMoneySkill();
+
+ //API Call
+ const [moneySkillUrl, setMoneySkillUrl] = useState(null);
+ const [status, setStatus] = useState(null);
+
+ async function getMoneySkillAPI() {
+  let response = await getMoneySkillUrl();
+  setStatus(response?.data?.status)
+  setMoneySkillUrl(response?.data?.data?.moneyskillurl ? response?.data?.data?.moneyskillurl : "https://lms.moneyskill.org/students/login")
+ }
+
+ useEffect(() => {
+   getMoneySkillAPI();
+ }, []);
 
 //Pop up
   const handleCloseMoneySkill = () => {
@@ -24,7 +37,7 @@ export default function MoneySkill(props) {
 //View part
   return (
     <div>
-      <CheckLoginStatus/>
+      {/* <CheckLoginStatus/> */}
       <Dialog
       id="moneySkillDialogBox"
         open={props.moneySkill}
@@ -83,11 +96,20 @@ export default function MoneySkill(props) {
           </ButtonSecondary>
 
           <ButtonPrimary
-            href="https://lms.moneyskill.org/students/login"
+            href={moneySkillUrl}
             id="Continue"
             stylebutton='{"float": "" }'
+            target="_blank"
+            disabled={status === null  ? true : false}
           >
             Continue
+              <i
+              className="fa fa-refresh fa-spin customSpinner"
+              style={{
+                  marginRight: "10px",
+                  display:status === null ? "block" : "none",
+              }}
+              />
           </ButtonPrimary>
         </div>
       </Dialog>

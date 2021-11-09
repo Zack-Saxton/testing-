@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import {ButtonSecondary, ButtonWithIcon, Checkbox} from "../../../FormsUI";
+import { ButtonSecondary, ButtonWithIcon, Checkbox } from "../../../FormsUI";
 import CheckLoginStatus from "../../../App/CheckLoginStatus";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
@@ -15,6 +15,9 @@ import "./ReviewAndSign.css";
 import APICall from "../../../App/APIcall"
 import Iframe from "../../../FormsUI/iframe"
 import { toast } from "react-toastify";
+import usrAccountDetails from "../../../Controllers/AccountOverviewController";
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 // initializing Tab panel section 
 function TabPanel(props) {
@@ -100,7 +103,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 //Initializing the Review and sign functional component 
-export default  function ReviewAndSign(props) {
+export default function ReviewAndSign(props) {
   const classes = useStyles();
 
   //Initializing state variable 
@@ -108,44 +111,47 @@ export default  function ReviewAndSign(props) {
   const history = useHistory();
   const [url, setUrl] = useState();
   const [confirm, setConfirm] = useState(false);
+  const [selectedOffer, setSelectOffer] = useState();
+  // let selectedOffer;
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   // To get the iframe url from the API 
-  async function  getIframeURL() {
-    let data ={
-
-    }
-
-    let iframeURL = await APICall("/integration/eoriginal/authenticate_cac", data, "POST", true  );
+  async function getIframeURL() {
+    let data = {}
+    let iframeURL = await APICall("/integration/eoriginal/authenticate_cac", data, "POST", true);
     setUrl(iframeURL?.data?.data?.data?.iframe);
-   
+  }
+
+  // To get the selected value
+  async function getSelectedOffer() {
+    let accountDetials = await usrAccountDetails();
+    setSelectOffer(accountDetials?.data?.data?.application?.selected_offer);
   }
 
   // call the get URL funtion on page load 
   useEffect(() => {
+    getSelectedOffer();
     getIframeURL();
+
   }, []);
 
   //Conver the value into currency format
   const currencyFormat = (val) => {
-    if(val)
-    {
-		var formated = parseFloat(val);
-		var currency = '$';
-		var forCur = currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
-    return forCur;
+    if (val) {
+      var formated = parseFloat(val);
+      var currency = '$';
+      var forCur = currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+      return forCur;
     }
-	}
-
+  }
   //Check weather the offers is passed or not 
-  if(props?.location?.selectedIndexOffer){
   return (
     <div>
-      <CheckLoginStatus/>       {/* To check the user logged in or not  */}
-     <ScrollToTopOnMount />    {/* To show the top of the page on load */}
+      <CheckLoginStatus />       {/* To check the user logged in or not  */}
+      <ScrollToTopOnMount />     {/* To show the top of the page on load */}
       <Grid
         container
         justifyContent={"center"}
@@ -156,32 +162,32 @@ export default  function ReviewAndSign(props) {
         }}
       >
         <Grid
-					container
-					item
-					xs={12}
-					direction="row"
-					style={{ marginBottom: "20px", width: "100%" }}
-				>
-					<Typography className={classes.heading} variant="h3">
-						<NavLink
-							to="/customers/accountOverview"
-							style={{ textDecoration: "none" }}
-						>
-							<ButtonWithIcon
-								icon="arrow_backwardIcon"
-								iconposition="left"
-								stylebutton='{"background": "#fff", "color":"#214476",
+          container
+          item
+          xs={12}
+          direction="row"
+          style={{ marginBottom: "20px", width: "100%" }}
+        >
+          <Typography className={classes.heading} variant="h3">
+            <NavLink
+              to="/customers/accountOverview"
+              style={{ textDecoration: "none" }}
+            >
+              <ButtonWithIcon
+                icon="arrow_backwardIcon"
+                iconposition="left"
+                stylebutton='{"background": "#fff", "color":"#214476",
                         "minWidth": "0px",
                         "width": "36px",
                         "padding": "0px",
                         "marginRight": "5px",
                       "marginTop":"unset" }'
-								styleicon='{ "color":"" }'
-							/>
-						</NavLink>{" "}
-						Apply for a Loan 
-					</Typography>
-				</Grid>
+                styleicon='{ "color":"" }'
+              />
+            </NavLink>{" "}
+            Apply for a Loan
+          </Typography>
+        </Grid>
 
         <Grid item xs={12}>
           <Tabs
@@ -191,7 +197,7 @@ export default  function ReviewAndSign(props) {
             textColor="primary"
             variant="scrollable"
             scrollButtons="auto"
-            
+
             aria-label="scrollable auto tabs example"
           >
             <Tab
@@ -218,17 +224,17 @@ export default  function ReviewAndSign(props) {
 
           {/* ##############################################Review And Sign################################################################################################# */}
           <TabPanel value={value} index={1}>
-            <Grid item xs={12} style={{ width:"100%" }} >
+            <Grid item xs={12} style={{ width: "100%" }} >
               <Paper className={classes.paper}>
                 <Grid container>
-                  <Grid item xs={12} sm={6} style={{ width:"100%" }} >
+                  <Grid item xs={12} sm={6} style={{ width: "100%" }} >
                     <Typography style={{
-                          color: "#171717",
-                          fontSize: "18px",
-                        }}>
-                      
-                        Selected Loan Offer
-                    
+                      color: "#171717",
+                      fontSize: "18px",
+                    }}>
+
+                      Selected Loan Offer
+
                     </Typography>
                   </Grid>
 
@@ -240,7 +246,7 @@ export default  function ReviewAndSign(props) {
                       <ButtonSecondary
                         stylebutton='{"float": "right", "color":"" }'
                         styleicon='{ "color":"" }'
-                        style={{ width:"100%" }}
+                        style={{ width: "100%" }}
                         id="reselect-button"
                       >
                         Re-Select Offer
@@ -248,99 +254,110 @@ export default  function ReviewAndSign(props) {
                     </NavLink>
                   </Grid>
                 </Grid>
-
-                <Grid container  justifyContent="flex-start">
+                {!selectedOffer ?
                   <Grid
-                    item
-                    xs={12}
-                    sm={2}
-                    className={classes.rightBorder}
-                    id="rightBorder"
+                    className="circleprog"
+                    style={{ width: "100%", textAlign: "center" }}
                   >
-                    <p className={classes.columnHeading} id="columnHeading">
-                      Select Amount
-                    </p>
-                    <h2 className={classes.columnColor} id="column-content">
-                    {currencyFormat(props.location.selectedIndexOffer.loan_amount).slice(0, -3)}{" "}
-                    </h2>
+                    <CheckLoginStatus />
+
+                    <CircularProgress />
                   </Grid>
 
-                  <Grid
-                    item
-                    xs={12}
-                    sm={2}
-                    className={classes.rightBorder}
-                    id="right-border-loan-term"
-                  >
-                    <p className={classes.columnHeading} id="columnHeading">
-                      Loan Term
-                    </p>
-                    <h2 className={classes.columnColor} id="column-content">
-                    {props.location.selectedIndexOffer.term}M
-                    </h2>
-                  </Grid>
+                  :
+                  <Grid container justifyContent="flex-start">
+                    <Grid
+                      item
+                      xs={12}
+                      sm={2}
+                      className={classes.rightBorder}
+                      id="rightBorder"
+                    >
+                      <p className={classes.columnHeading} id="columnHeading">
+                        Select Amount
+                      </p>
+                      <h2 className={classes.columnColor} id="column-content">
+                        {currencyFormat(selectedOffer.approved_loan_amount).slice(0, -3)}{" "}
+                      </h2>
+                    </Grid>
 
-                  <Grid
-                    item
-                    xs={12}
-                    sm={2}
-                    className={classes.rightBorder}
-                    id="rightBorder"
-                  >
-                    <p className={classes.columnHeading} id="columnHeading">
-                      Fee at Origination
-                    </p>
-                    <h2 className={classes.columnColor} id="column-content">
-                    {props.location.selectedIndexOffer.origination_fee_rate}%
-                    </h2>
-                  </Grid>
+                    <Grid
+                      item
+                      xs={12}
+                      sm={2}
+                      className={classes.rightBorder}
+                      id="right-border-loan-term"
+                    >
+                      <p className={classes.columnHeading} id="columnHeading">
+                        Loan Term
+                      </p>
+                      <h2 className={classes.columnColor} id="column-content">
+                        {selectedOffer.term}M
+                      </h2>
+                    </Grid>
 
-                  <Grid
-                    item
-                    xs={12}
-                    sm={2}
-                    className={classes.rightBorder}
-                    id="rightBorder"
-                  >
-                    <p className={classes.columnHeading} id="columnHeading">
-                      Loan Proceeds
-                    </p>
-                    <h2 className={classes.columnColor} id="column-content">
-                    {currencyFormat(props.location.selectedIndexOffer.approved_loan_amount).slice(0, -3)}
-                    </h2>
+                    <Grid
+                      item
+                      xs={12}
+                      sm={2}
+                      className={classes.rightBorder}
+                      id="rightBorder"
+                    >
+                      <p className={classes.columnHeading} id="columnHeading">
+                        Fee at Origination
+                      </p>
+                      <h2 className={classes.columnColor} id="column-content">
+                        {selectedOffer.origination_fee_rate}%
+                      </h2>
+                    </Grid>
+
+                    <Grid
+                      item
+                      xs={12}
+                      sm={2}
+                      className={classes.rightBorder}
+                      id="rightBorder"
+                    >
+                      <p className={classes.columnHeading} id="columnHeading">
+                        Loan Proceeds
+                      </p>
+                      <h2 className={classes.columnColor} id="column-content">
+                        {currencyFormat(selectedOffer.approved_loan_amount).slice(0, -3)}
+                      </h2>
+                    </Grid>
+                    <Grid
+                      item
+                      xs={12}
+                      sm={2}
+                      className={classes.rightBorder}
+                      id="rightBorder-apr"
+                    >
+                      <p className={classes.columnHeading} id="columnHeading">
+                        APR
+                      </p>
+                      <h2 className={classes.columnColor} id="column-content">
+                        {selectedOffer.apr.toFixed(2)} %
+                      </h2>
+                    </Grid>
+                    <Grid
+                      item
+                      xs={12}
+                      sm={2}
+                      style={{ lineHeight: "1" }}
+                      id="rightBorder"
+                    >
+                      <p className={classes.columnHeading} id="columnHeading">
+                        Monthly Payment
+                      </p>
+                      <h2 className={classes.columnColor} id="column-content">
+                        {currencyFormat(selectedOffer.monthly_payment)}
+                      </h2>
+                    </Grid>
                   </Grid>
-                  <Grid
-                    item
-                    xs={12}
-                    sm={2}
-                    className={classes.rightBorder}
-                    id="rightBorder-apr"
-                  >
-                    <p className={classes.columnHeading} id="columnHeading">
-                      APR
-                    </p>
-                    <h2 className={classes.columnColor} id="column-content">
-                    {props.location.selectedIndexOffer.apr.toFixed(2)} %
-                    </h2>
-                  </Grid>
-                  <Grid
-                    item
-                    xs={12}
-                    sm={2}
-                    style={{ lineHeight: "1" }}
-                    id="rightBorder"
-                  >
-                    <p className={classes.columnHeading} id="columnHeading">
-                      Monthly Payment
-                    </p>
-                    <h2 className={classes.columnColor} id="column-content">
-                    {currencyFormat(props.location.selectedIndexOffer.monthly_payment)}
-                    </h2>
-                  </Grid>
-                </Grid>
+                }
               </Paper>
 
-              <Grid item style={{ width:"100%" }}>
+              <Grid item style={{ width: "100%" }}>
                 <p
                   style={{
                     textAlign: "justify",
@@ -379,20 +396,16 @@ export default  function ReviewAndSign(props) {
                   <li>After signing, click the ‘Submit’ button.</li>
                 </ol>
               </Grid>
-              
-              <Grid item xs={12} style={{ width:"100%" }} >
-                <Paper
-    className={classes.paper}
-    // style={{height: "250px"}}
 
-    > 
-    
-      <Grid item xs={12} md={12} lg={12} >
-        { url ? <Iframe src={url} /> : <p>Loading...</p> }
-      </Grid>
-      </Paper>
+              <Grid item xs={12} style={{ width: "100%" }} >
                 <Paper className={classes.paper}>
-                
+
+                  <Grid item xs={12} md={12} lg={12} >
+                    {url ? <Iframe src={url} /> : <p>Loading...</p>}
+                  </Grid>
+                </Paper>
+                <Paper className={classes.paper}>
+
                   <Grid item xs={12}>
                     <Checkbox
                       name="rememberme"
@@ -400,7 +413,6 @@ export default  function ReviewAndSign(props) {
                         <span
                           style={{
                             fontSize: "14px",
-                            // lineHeight: 1,
                             paddingTop: "15px",
                             textAlign: "justify",
                           }}
@@ -413,7 +425,7 @@ export default  function ReviewAndSign(props) {
                       }
                       labelid="remember-me"
                       value={confirm}
-											onChange={(e) => { setConfirm(e.target.checked) }}
+                      onChange={(e) => { setConfirm(e.target.checked) }}
                       testid="checkbox"
                       stylelabelform='{ "fontSize":"12px" }'
                       stylecheckbox='{ "marginBottom":"15px" }'
@@ -422,49 +434,44 @@ export default  function ReviewAndSign(props) {
                   </Grid>
 
                   <Grid item xs={12} style={{ lineHeight: 6 }}>
-                    {/* <NavLink
-                      to="/customers/finalVerification"
-                      style={{ textDecoration: "none" }}
-                    > */}
-                      <ButtonWithIcon
-                        stylebutton='{ "color":"" }'
-                        styleicon='{ "color":"" }'
-                        style={{ width:"100%","fontSize":"1rem" }}
-                        id="review-submit-button"
-                        disabled={!confirm}
-                        onClick={ async () => {
-                          let data ={
+                    <ButtonWithIcon
+                      stylebutton='{ "color":"" }'
+                      styleicon='{ "color":"" }'
+                      style={{ width: "100%", "fontSize": "1rem" }}
+                      id="review-submit-button"
+                      disabled={!confirm}
+                      onClick={async () => {
+                        let data = {
 
-                          };
-                          let authenticateStatus = await APICall("/integration/eoriginal/complete_cac", data, "POST", true  );
-                          if(authenticateStatus?.data?.data?.result === "success"){
-                            history.push({
-                              pathname: "/customers/finalVerification",
+                        };
+                        let authenticateStatus = await APICall("/integration/eoriginal/complete_cac", data, "POST", true);
+                        if (authenticateStatus?.data?.data?.result === "success") {
+                          history.push({
+                            pathname: "/customers/finalVerification",
                           });
-                          }
-                          else{
-                            alert("please complete your signing process fully befor continuing to the next page");
-                            toast.error("please complete your signing process fully befor continuing to the next page", {
-                              position: "bottom-left",
-                              autoClose: 1500,
-                              hideProgressBar: false,
-                              closeOnClick: true,
-                              pauseOnHover: true,
-                              draggable: true,
-                              progress: undefined,
-                            });
-                          }
+                        }
+                        else {
 
-                        }}
-                      >
-                        Submit
-                      </ButtonWithIcon>
-                    {/* </NavLink> */}
+                          toast.error("Please complete your signing process before continuing to the next page", {
+                            position: "bottom-left",
+                            autoClose: 1500,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                          });
+                        }
+
+                      }}
+                    >
+                      Submit
+                    </ButtonWithIcon>
                   </Grid>
                 </Paper>
               </Grid>
 
-              <Grid item style={{ width:"100%" }}>
+              <Grid item style={{ width: "100%" }}>
                 <p
                   style={{
                     textAlign: "justify",
@@ -488,14 +495,4 @@ export default  function ReviewAndSign(props) {
       </Grid>
     </div>
   );
-} 
-
-//redirects to select offer page if offfer is not selected
-else{
- history.push({
-   pathname: "/customers/selectoffer"
- });
- return null;
-}
-
 }

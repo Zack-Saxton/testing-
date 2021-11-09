@@ -3,23 +3,27 @@ import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
-import React, {useContext, useState} from "react";
-import {Link, useHistory} from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import PasswordLogo from "../../../../assets/icon/I-Password.png";
-import {ButtonPrimary, PasswordField} from "../../../FormsUI";
-import {useFormik} from "formik";
+import { ButtonPrimary, PasswordField } from "../../../FormsUI";
+import { useFormik } from "formik";
 import * as yup from "yup";
 import ScrollToTopOnMount from '../ScrollToTop';
-import {CheckMyOffers} from "../../../../contexts/CheckMyOffers";
+import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import loginSubmit from "../../../Controllers/LoginController";
+import usrAccountDetails from "../../../Controllers/AccountOverviewController";
+import { toast } from "react-toastify";
+
+
 
 //YUP validation schema
 const validationSchema = yup.object({
 	password: yup
-    .string("Enter your password")
-    .max(30, "Password can be upto 30 characters length")
-    .min(8, "Password should be minimum of 8 characters length")
-    .required("Your password is required"),
+		.string("Enter your password")
+		.max(30, "Password can be upto 30 characters length")
+		.min(8, "Password should be minimum of 8 characters length")
+		.required("Your password is required"),
 });
 
 // Existing user functional component initiallization
@@ -27,15 +31,12 @@ function ExistingUser() {
 	const { data, setData } = useContext(CheckMyOffers);
 	const [loginFailed, setLoginFailed] = useState('');
 	const [loading, setLoading] = useState(false);
-	
 	const history = useHistory();
 
 	// Formik configuraion 
 	const formik = useFormik({
 		initialValues: {
 			password: "",
-
-			// newPassword: data.zip ? data.zip : '',
 		},
 		validationSchema: validationSchema,
 		// handle submit to login the user 
@@ -48,41 +49,61 @@ function ExistingUser() {
 				"completedPage": data.page.existingUser,
 			});
 			let retVal = await loginSubmit(data.email, values.password);
-			 if(retVal?.data?.data?.user && !retVal?.data?.data?.result ){
-			   var now = new Date().getTime();
-			   localStorage.setItem("token", JSON.stringify({ isLoggedIn: true, apiKey: retVal?.data?.data?.user?.extensionattributes?.login?.jwt_token, setupTime: now }));
-			   setLoading(false);
-			   history.push({
-				 pathname: "/employment-status",
-			   });
-			 }
-			 else if (retVal?.data?.data?.result === "error" || retVal?.data?.data?.hasError === true){
-			   localStorage.setItem('token', JSON.stringify({ isLoggedIn: false, apiKey: '', setupTime: '' }));
-			   setLoading(false);
-			   setLoginFailed(retVal?.data?.data?.errorMessage);
-			 }
-			 else{
-			   alert("Network error");
-			   setLoading(false);
-			 }
-			// history.push("/employment-status");
+			if (retVal?.data?.data?.user && !retVal?.data?.data?.result) {
+				var now = new Date().getTime();
+				localStorage.setItem("token", JSON.stringify({ isLoggedIn: true, apiKey: retVal?.data?.data?.user?.extensionattributes?.login?.jwt_token, setupTime: now }));
+				setLoading(false);
+				let accountDetail= await usrAccountDetails();
+
+				if(accountDetail?.data?.data?.customer?.user_account?.status === "closed"){
+					data.isActiveUser = false;
+					toast.error("Your account is closed to new applications. Please contact us to reapply.", {
+						position: "bottom-left",
+						autoClose: 2500,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+					  });
+					  history.push({
+						pathname: "/customers/accountOverview",
+					});
+				}
+				else{
+					history.push({
+						pathname: "/employment-status",
+					});
+				}
+
+				
+			}
+			else if (retVal?.data?.data?.result === "error" || retVal?.data?.data?.hasError === true) {
+				localStorage.setItem('token', JSON.stringify({ isLoggedIn: false, apiKey: '', setupTime: '' }));
+				setLoading(false);
+				setLoginFailed(retVal?.data?.data?.errorMessage);
+			}
+			else {
+				alert("Network error");
+				setLoading(false);
+			}
 		},
 	});
 
 	const passwordOnChange = (e) => {
-        setLoginFailed('');
-        formik.handleChange(e);
+		setLoginFailed('');
+		formik.handleChange(e);
 
-    }
+	}
 
 	const preventSpace = (event) => {
 		if (event.keyCode === 32) {
-		  event.preventDefault();
+			event.preventDefault();
 		}
-	  };
+	};
 
-	  //redirects to select amount on directr page call
-	  if (data.completedPage < data.page.personalInfo || data.formStatus === 'completed'){
+	//redirects to select amount on directr page call
+	if (data.completedPage < data.page.personalInfo || data.formStatus === 'completed') {
 		history.push("/select-amount");
 	}
 
@@ -103,28 +124,22 @@ function ExistingUser() {
 							justifyContent="center"
 							alignItems="center"
 						>
-							<Paper className="cardWOPadding" style={{justify:"center",alignItems:"center",width:"inherit",marginBottom:"10%",marginTop:"10%"}}>
-								{/* <div className="progress"> */}
-									{/* <div
-										id="determinate"
-										className="det5  determinate "
-									/> */}
-									<span className="floatLeft detNum5"/>
-								{/* </div> */}
+							<Paper className="cardWOPadding" style={{ justify: "center", alignItems: "center", width: "inherit", marginBottom: "10%", marginTop: "10%" }}>
+								<span className="floatLeft detNum5" />
 								<Grid className="floatLeft">
 									<Link to="/personal-info">
 										<i className="material-icons dp48 yellowText  ">arrow_back</i>
 									</Link>
 								</Grid>
-								<Grid className="liftImage" style={{marginTop:"-4%"}}>
+								<Grid className="liftImage" style={{ marginTop: "-4%" }}>
 									<img src={PasswordLogo} alt="password" className="spinAnimation" />
 								</Grid>
-								<Typography style={{align:"center",justify:"center",alignItems:"center",marginBottom:"1%",marginTop:"1%"}}>
+								<Typography style={{ align: "center", justify: "center", alignItems: "center", marginBottom: "1%", marginTop: "1%" }}>
 									We have detected you already have an account with us.
 								</Typography>
 
-								<Typography variant="h5" style={{align:"center",justify:"center",alignItems:"center",marginBottom:"1%",marginTop:"1%"}}>
-									Please enter your password and continue.
+								<Typography variant="h5" style={{ align: "center", justify: "center", alignItems: "center", marginBottom: "1%", marginTop: "1%" }}>
+									Please enter a password and continue.
 								</Typography>
 
 								<form onSubmit={formik.handleSubmit}>
@@ -161,9 +176,9 @@ function ExistingUser() {
 													formik.touched.password && formik.errors.password
 												}
 											/>
-													<p className={ loginFailed !== '' ? "showError add-pad" : "hideError" } data-testid="subtitle">
+											<p className={loginFailed !== '' ? "showError add-pad" : "hideError"} data-testid="subtitle">
 												{" "}
-												{loginFailed === "Invalid Email or Password" ? "Please enter a valid password" : loginFailed}                 
+												{loginFailed === "Invalid Email or Password" ? "Please enter a valid password" : loginFailed}
 											</p>
 										</Grid>
 										<Grid container
@@ -179,16 +194,16 @@ function ExistingUser() {
 												type="submit"
 												data-testid="contButton"
 												stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black"}'
-												disabled = { loading }
+												disabled={loading}
 											>
 												<Typography align="center" className="textCSS ">
 													Sign In
 												</Typography>
-													<i
+												<i
 													className="fa fa-refresh fa-spin customSpinner"
 													style={{ marginRight: "10px", display: loading ? "block" : "none" }}
 												/>
-												
+
 											</ButtonPrimary>
 										</Grid>
 										<Grid container
@@ -201,9 +216,9 @@ function ExistingUser() {
 											className="linkBlock"
 										>
 											<Link to="/register" className="link">
-											<p >Sign in Help / Register</p>
+												<p >Sign in Help / Register</p>
 											</Link>
-										
+
 										</Grid>
 									</Grid>
 								</form>

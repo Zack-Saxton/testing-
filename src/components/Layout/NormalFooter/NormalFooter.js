@@ -11,44 +11,50 @@ export default function NormalFooter() {
         <section className="section-top-normal-footer">
           <div className="col">
             <div className="footer-content">
-              <a href="/#" className="hrefTag">
+              <a target="_blank" rel="noreferrer" href="https://www.marinerfinance.com/resources/legal/community-guidelines/" className="hrefTag">
                 Community Guidelines
               </a>
             </div>
             <div className="footer-content">
-              <a href="/#" className="hrefTag">
+              <a target="_blank" rel="noreferrer" href="https://www.marinerfinance.com/resources/legal/privacy-statement/" className="hrefTag">
                 Privacy Statement
               </a>
             </div>
             <div className="footer-content">
-              <a href="/#" className="hrefTag">
+              <a target="_blank" rel="noreferrer" href="https://www.marinerfinance.com/resources/legal/terms-of-use/" className="hrefTag">
                 Terms of Use
               </a>
             </div>
             <div className="footer-content">
-              <a href="/#" className="hrefTag">
-                Licence & disclosures
+              <a target="_blank" rel="noreferrer" href="https://www.marinerfinance.com/resources/legal/licensing-disclosures/" className="hrefTag">
+              Licensing & Disclosures
+             
               </a>
             </div>
             <div className="footer-content">
-              <a href="/#" className="hrefTag">
-                Testing Terms of Use
+              <a target="_blank" rel="noreferrer" href="https://www.marinerfinance.com/resources/legal/texting-terms-of-use/" className="hrefTag">
+                Texting Terms of Use
               </a>
             </div>
             <div className="footer-content">
-              <a href="/#" className="hrefTag">
+              <a target="_blank" rel="noreferrer" href="https://www.marinerfinance.com/resources/legal/website-accessibility-statement/" className="hrefTag">
                 Website Accessibility Statement
               </a>
             </div>
             <div className="footer-content">
-              <a href="/#" className="hrefTag">
-                CAC Terms Of Use For California Residents Do Not Sell My
+              <a target="_blank" rel="noreferrer" href="https://cis-development.marinerfinance.io/terms-of-use" className="hrefTag">
+                CAC Terms Of Use
+              </a>
+            </div>
+            <div className="footer-content">
+              <a target="_blank" rel="noreferrer" href="https://www.marinerfinance.com/resources/legal/privacy-statement/#online-lending" className="hrefTag">
+                For California Residents Do Not Sell My
                 personal Information
               </a>
             </div>
           </div>
 
-          <div className="">
+          <div className="badge">
             <div>
             <input type="image"
                 src={badge}
@@ -62,7 +68,7 @@ export default function NormalFooter() {
               <input type="image" src={Logo} alt="logo image" style={{ height: "60px",paddingRight:"25px" }} />
             <div className="row">
             <div style={{paddingTop:"15px",paddingBottom:"15px",}}>
-              <p className="leftAlign">
+              <p className="leftAlignAddress">
                 Mariner Finance, LLC, NMLS No. 166564
                 <br />
                 <a

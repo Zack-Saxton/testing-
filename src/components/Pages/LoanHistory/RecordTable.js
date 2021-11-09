@@ -16,6 +16,7 @@ import { loanDocumentController as loanDocument } from "../../Controllers/LoanDo
 import CircularProgress from "@material-ui/core/CircularProgress";
 import NumberFormat from 'react-number-format';
 
+
 export default function LoanHistoryTable(userLoanHistoryData) {
 
 //Material UI css class
@@ -26,7 +27,9 @@ export default function LoanHistoryTable(userLoanHistoryData) {
 
 //Download loan document  
   const downloadDoc = (accNo) => {
-    loanDocument(accNo);
+  
+     loanDocument(accNo);
+    
   };
 
   //View part

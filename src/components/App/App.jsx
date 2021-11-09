@@ -37,27 +37,28 @@ import SSN from "../Pages/CheckMyOffers/SSN";
 import NoOffersAvailable from "../Pages/CheckMyOffers/NoOffersAvailable";
 import ReferredToBranch from "../Pages/CheckMyOffers/ReferredToBranch";
 import EligibleForOffers from "../Pages/CheckMyOffers/EligibleForOffer";
-import CreditKarma from "../Pages/CreditKarma/CreditKarma";
-import ConfirmationCredit from "../Pages/CreditKarma/ConfirmationCredit";
+import PartnerSignUP from "../Pages/AffiliatePartner/PartnerSignUp";
+import ConfirmationInfo from "../Pages/AffiliatePartner/ConfirmationInfo";
 import FaqPostLogin from "../Pages/Faq/FaqPostLogin";
 import FaqBeforeLogin from "../Pages/Faq/FaqBeforeLogin"
 import 'react-toastify/dist/ReactToastify.css';
 import ValidateToken from '../Pages/ApplyLoan/Stepper/ValidateToken'
-import IframeTest from '../FormsUI/iframe' 
 import ErrorBeforeLogin from '../Layout/ErrorBeforeLogin/ErrorBeforeLogin';
 import ErrorAfterLogin from "../Layout/ErrorAfterLogin/ErrorAfterLogin"
+import ApplyForLoanRedirect from "../Pages/ApplyLoan/ApplyForLoanRedirect"
+import ViewAccountDetails from "../Pages/AccountOverview/ViewAccountDetails"
+import { ToastContainer } from "react-toastify";
+
 
 
 function App() {
 
     return (
         <div className="App">
-
+        <ToastContainer />
             <BrowserRouter>
             <Route path='/customers/verification/email' component={ValidateToken}/>
                 <CheckMyOffers>
-                <Route path='/iframe' exact component={IframeTest}/>
-               
                     <Route path='/:path?' exact>
                         <GeneralUser>
                             <Switch>
@@ -81,15 +82,9 @@ function App() {
                                 <Route path='/ssn' exact component={SSN}/>
                                 <Route path='/no-offers-available' exact component={NoOffersAvailable}/>
                                 <Route path='/referred-to-branch' exact component={ReferredToBranch}/>
-                                <Route path='/eligible-for-offers' exact component={EligibleForOffers}/>
-                                <Route path='/credit-karma' exact component={CreditKarma}/>
-                                <Route path='/confirmation-credit' exact component={ConfirmationCredit}/>
-                                <Route path='/zipcode' exact>
-                                    <Zipcode/>
-                                </Route>
-                                <Route path='/personal-info' exact>
-                                    <PersonalInfo/>
-                                </Route>
+                                <Route path='/eligible-for-offers' exact component={EligibleForOffers}/>                                   
+                                <Route path='/zipcode' exact><Zipcode/></Route>
+                                <Route path='/personal-info' exact><PersonalInfo/></Route>
                                 <Route path='*' component={ErrorBeforeLogin} />
                             </Switch>
                         </GeneralUser> 
@@ -98,12 +93,13 @@ function App() {
 
                     <div id="main" style={{marginLeft: "240px"}}>
                         <Route path='/customers/:path?' exact>
-                            <PostLogin>
+                        <PostLogin>
                                 <Switch>
                                     <Route path='/customers/accountOverview' exact component={AccountOverview}/>
                                     {/* <Route path='/customers/verification/email' component={ValidateToken}/> */}
                                     <Route path='/customers/paymentHistory' component={PaymentHistory}/>
                                     <Route path='/customers/selectOffer' component={ApplyLoan}/>
+                                    <Route path='/customers/applyForLoan' component={ApplyForLoanRedirect}/>
                                     <Route path='/customers/reviewAndSign' component={ReviewAndSign}/>
                                     <Route path='/customers/finalVerification' component={FinalVerification}/>
                                     <Route path='/customers/receiveYourMoney' component={ReceiveYourMoney}/>
@@ -115,12 +111,27 @@ function App() {
                                     <Route path='/customers/myProfile' component={MyProfile}/>
                                     <Route path='/customers/vantageScore' component={VantageScore}/>
                                     <Route path='/customers/faq' component={FaqPostLogin}/>
+                                    <Route path='/customers/viewaccount' component={ViewAccountDetails}/>
                                     <Route  path='*' component={ErrorAfterLogin} />
                                    
                                 </Switch>
                             </PostLogin>
                         </Route>
                     </div>
+
+                   
+                        <Route path='/partner/:path?' >
+                            <GeneralUser>
+                                <Switch>
+                                <Route path='/partner/signup' exact component={ErrorBeforeLogin}/>
+                                <Route path='/partner/signup'  component={PartnerSignUP}/>
+                                <Route path='/partner/confirm-signup'  component={ConfirmationInfo}/>
+                                <Route path='*' component={ErrorBeforeLogin} />
+                                   
+                                </Switch>
+                            </GeneralUser>
+                        </Route>
+                  
                   
 
                 </CheckMyOffers>

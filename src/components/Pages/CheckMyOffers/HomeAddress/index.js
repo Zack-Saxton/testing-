@@ -1,14 +1,14 @@
-import React, {useContext, useState} from "react";
-import {Link, useHistory} from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import {ButtonPrimary, TextField, Zipcode} from "../../../FormsUI";
+import { ButtonPrimary, TextField, Zipcode } from "../../../FormsUI";
 import Paper from "@material-ui/core/Paper";
 import AddressLogo from "../../../../assets/icon/I-Zip-Code.png";
-import {useFormik} from "formik";
+import { useFormik } from "formik";
 import * as yup from "yup";
-import {CheckMyOffers} from "../../../../contexts/CheckMyOffers";
+import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -44,7 +44,6 @@ const validationSchema = yup.object({
 function HomeAddress() {
 	//Context data
 	const { data } = useContext(CheckMyOffers);
-
 	//state variables 
 	const [stateShort, setStateShort] = useState(data.state ?? "");
 	const [validZip, setValidZip] = useState(true);
@@ -53,25 +52,21 @@ function HomeAddress() {
 	const [errorMsg, setErrorMsg] = useState("");
 
 	//Handle modal open and close
-
 	const handleClickOpen = () => {
 		setOpen(true);
 	};
 	const handleClose = () => {
 		setOpen(false);
 	};
-
 	const handleClickOpenOhio = () => {
 		setOpenOhio(true);
 	};
 	const handleCloseOhio = () => {
 		setOpenOhio(false);
 	};
-
 	const history = useHistory();
 
 	// Formik configutration
-
 	const formik = useFormik({
 		initialValues: {
 			streetAddress: data.streetAddress ? data.streetAddress : "",
@@ -99,7 +94,7 @@ function HomeAddress() {
 	};
 
 	const fetchAddress = (e) => {
-		setErrorMsg(e.target.value === "" ? "Please enter zipcode" : errorMsg);
+		setErrorMsg(e.target.value === "" ? "Please enter a zipcode" : errorMsg);
 		if (e.target.value !== "" && e.target.value.length === 5) {
 			fetch("https://api.zippopotam.us/us/" + e.target.value)
 				.then((res) => res.json())
@@ -121,7 +116,7 @@ function HomeAddress() {
 							formik.setFieldValue("state", "");
 							setStateShort("");
 							setValidZip(false);
-							setErrorMsg("Please enter valid Zipcode");
+							setErrorMsg("Please enter a valid Zipcode");
 						}
 					},
 					() => {
@@ -129,7 +124,7 @@ function HomeAddress() {
 						formik.setFieldValue("state", "");
 						setStateShort("");
 						setValidZip(false);
-						setErrorMsg("Please enter valid Zipcode");
+						setErrorMsg("Please enter a valid Zipcode");
 					}
 				);
 		} else {
@@ -138,7 +133,6 @@ function HomeAddress() {
 			setStateShort("");
 			setValidZip(true);
 		}
-
 		formik.handleChange(e);
 	};
 
@@ -156,7 +150,7 @@ function HomeAddress() {
 			<ScrollToTopOnMount />
 			<div className="mainDiv">
 				<Box>
-					<Grid item xs={12} container justifyContent="center" alignItems="center" style={{paddingTop:"70px",paddingBottom:"70px"}}>
+					<Grid item xs={12} container justifyContent="center" alignItems="center" style={{ paddingTop: "70px", paddingBottom: "70px" }}>
 						<Grid container item
 							xs={11}
 							sm={10}
@@ -167,7 +161,7 @@ function HomeAddress() {
 							justifyContent="center"
 							alignItems="center"
 						>
-							<Paper className="cardWOPadding" style={{justify:"center",alignItems:"center"}}>
+							<Paper className="cardWOPadding" style={{ justify: "center", alignItems: "center" }}>
 								<div className="progress mt-0">
 									<div
 										id="determinate"
@@ -188,12 +182,12 @@ function HomeAddress() {
 									/>
 								</Grid>
 
-								<Typography variant="h5" className="borrowCSSLP" style={{align:"center",justify:"center",alignItems:"center"}}>
+								<Typography variant="h5" className="borrowCSSLP" style={{ align: "center", justify: "center", alignItems: "center" }}>
 									Enter your zip code
 								</Typography>
 
 								<form onSubmit={formik.handleSubmit}>
-									<Grid  item
+									<Grid item
 										md={12}
 										className="blockDiv"
 										container
@@ -258,7 +252,7 @@ function HomeAddress() {
 												helperText={
 													validZip
 														? formik.touched.zip && formik.errors.zip
-														: "Please enter your valid ZIP Code"
+														: "Please enter a valid ZIP Code"
 												}
 											/>
 										</Grid>

@@ -12,6 +12,7 @@ const CheckLoginStatus = () => {
   if (!userToken?.isLoggedIn) {
     history.push({
       pathname: "/login",
+      state: { redirect: window.location.pathname }
     });
   }
   // calculating the session time
@@ -19,6 +20,7 @@ const CheckLoginStatus = () => {
     alert("Your session has been ended, Please login again to continue");
     history.push({
       pathname: "/login",
+      state: { redirect: window.location.pathname }
     });
   }
   return null;

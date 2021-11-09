@@ -41,3 +41,55 @@
   padding: 15px;
   border-radius: 50%;
 }
+
+
+.showContent{
+    
+  display: block; 
+}
+.hideContent{
+  display: none;
+}
+
+#paymentMethodBtnWrap{
+  display: flex !important;
+  margin-bottom: 10px;
+}
+#addBankAccount_button{
+  margin-right: 20px;
+  padding: 0 35px;
+  font-family: "Muli", sans-serif !important;
+  font-size: 15px !important;
+}
+
+#addDebitCard_button{
+  font-family: "Muli", sans-serif !important;
+  font-size: 15px !important;
+  color: #171717;
+  padding: 0px 25px;
+}
+
+.expirydate div div {
+  display: none;
+}
+
+@media (max-width: 599px) {
+  #paymentMethodBtnWrap {
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+    display: unset !important;
+   
+  }
+  #make-payment-cancel-button {
+    margin: 0 !important;
+  }
+  #addBankAccount_button {
+    width: 100%;
+    margin-top: 20px;
+  }
+  #addDebitCard_button{
+    width: 100%;
+    margin-top: 20px;
+  }
+}

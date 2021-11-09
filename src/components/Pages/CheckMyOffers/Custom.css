@@ -114,7 +114,7 @@
     transform: skewX(-20deg);
     margin-left: -3px;
 }
-
+ 
 .progress .determinate {
     background-color: #ffbc25;
     position: absolute;

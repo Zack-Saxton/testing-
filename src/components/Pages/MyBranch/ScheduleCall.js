@@ -25,7 +25,7 @@ import momentTimeZone from "moment-timezone";
 // yup validation
 const validationSchema = yup.object({
   date: yup
-    .date("Please enter valid date")
+    .date("Please enter a valid date")
     .nullable()
     .required("Date is required"),
 
@@ -104,8 +104,9 @@ export default function ScheduleCall(MyBranchCall) {
       setLoading(true);
 
       let response = await ScheduleCallApi(callDate, callingTime, callTimeZone);
+     
 
-      if (response[0] === "true") {
+      if (response === "true") {
         formik.values.date = null;
         formik.values.callTime = null;
         setLoading(false);
