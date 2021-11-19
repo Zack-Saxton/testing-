@@ -1,5 +1,5 @@
 import React from "react";
-import {makeStyles} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
@@ -14,10 +14,9 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     color: theme.palette.text.secondary,
   },
-  heading:{
+  heading: {
     color: "white"
-    
-}
+  }
 }));
 
 export default function ViewAccountDetails() {
@@ -25,23 +24,20 @@ export default function ViewAccountDetails() {
 
   return (
     <div >
-        <CheckLoginStatus/>
-        <Grid container justifyContent={"center"} style={{ marginTop: "-150px" }}>
-          <Grid container direction="row" item xs={11} style={{marginBottom:"2%"}}>
+      <CheckLoginStatus />
+      <Grid container justifyContent={"center"} style={{ marginTop: "-150px" }}>
+        <Grid container direction="row" item xs={11} style={{ marginBottom: "2%" }}>
           <Typography variant="h5" className={classes.heading} data-testid="subtitle">
             Account Overview Summary
           </Typography>
-          </Grid> 
-
-          <Grid item xs={10}>
-            <Paper className={classes.paper} >
-                <p >Page Under Development </p>
-            </Paper>
-          </Grid>
         </Grid>
 
-     
-
+        <Grid item xs={10}>
+          <Paper className={classes.paper} >
+            <p >Page Under Development </p>
+          </Paper>
+        </Grid>
+      </Grid>
     </div>
   );
 }

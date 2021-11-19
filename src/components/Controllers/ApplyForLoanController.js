@@ -137,7 +137,7 @@ export async function resendVerificationEmail() {
     method,
     addAccessToken
   );
-  if(resendVerificationEmailMethod.data.status === 200 && resendVerificationEmailMethod.data.statusText){
+  if (resendVerificationEmailMethod.data.status === 200 && resendVerificationEmailMethod.data.statusText) {
     toast.success("A verification email has been sent to " + email, {
       position: "bottom-left",
       autoClose: 2500,
@@ -314,5 +314,4 @@ export async function uploadDocument(
   //API call
   let uploadData = await APICall(url, param, data, method, addAccessToken);
   return (uploadData.data.data);
-
 }

@@ -1,7 +1,6 @@
 import APICall from "../lib/AxiosLib";
 import { toast } from "react-toastify";
 
-
 let statusStrLink = {
   approved: "/customers/finalVerification",
   completing_application: "/customers/finalVerification",
@@ -22,7 +21,7 @@ let statusStrLink = {
 };
 
 export default async function PartnerSignup(
-   history,
+  history,
   partnerToken,
   applicantId,
   ssn,
@@ -56,76 +55,75 @@ export default async function PartnerSignup(
     addAccessToken
   );
 
-
   partnerSignupMethod.data.status === 200
     ? toast.success(
-        partnerSignupMethod?.data?.data?.statusText
-          ? partnerSignupMethod.data.data.statusText
-          : "Signedup Successfully",
-        {
-          position: "bottom-left",
-          autoClose: 10000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          onClose: () => {
-            var now = new Date().getTime();
-            localStorage.clear();
-            localStorage.setItem(
-              "token",
-              JSON.stringify({
-                isLoggedIn: true,
-                apiKey:
-                  partnerSignupMethod?.data?.data?.user?.extensionattributes
-                    ?.login?.jwt_token,
-                setupTime: now,
-              })
-            );
-            history.push({
+      partnerSignupMethod?.data?.data?.statusText
+        ? partnerSignupMethod.data.data.statusText
+        : "Signedup Successfully",
+      {
+        position: "bottom-left",
+        autoClose: 10000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        onClose: () => {
+          var now = new Date().getTime();
+          localStorage.clear();
+          localStorage.setItem(
+            "token",
+            JSON.stringify({
+              isLoggedIn: true,
+              apiKey:
+                partnerSignupMethod?.data?.data?.user?.extensionattributes
+                  ?.login?.jwt_token,
+              setupTime: now,
+            })
+          );
+          history.push({
 
-              pathname: statusStrLink[partnerSignupMethod.data.data.applicant.processing.status],
-              state: {
-                  jwt_token :  partnerSignupMethod.data.data.user.extensionattributes.login.jwt_token,
-                  partner_token :  partnerSignupMethod.data.data.user.attributes.partner_token,
-                  first_name : partnerSignupMethod.data.data.applicant.contact.first_name,
-                  last_name :  partnerSignupMethod.data.data.applicant.contact.last_name,
-                  email :  partnerSignupMethod.data.data.applicant.contact.email,
-                  address_postal_code :  partnerSignupMethod.data.data.applicant.contact.address_postal_code,
-                  address_city :  partnerSignupMethod.data.data.applicant.contact.address_city,
-                  address_state :  partnerSignupMethod.data.data.applicant.contact.address_state,
-                  address_street :  partnerSignupMethod.data.data.applicant.contact.address_street,
-                  citizenship :  partnerSignupMethod.data.data.applicant.self_reported.citizenship,
-                  annual_income :  partnerSignupMethod.data.data.applicant.self_reported.annual_income,
-                  household_annual_income :  partnerSignupMethod.data.data.applicant.self_reported.household_annual_income,
-                  employment_status : partnerSignupMethod.data.data.applicant.self_reported.employment_status,
-                  military_status : partnerSignupMethod.data.data.applicant.self_reported.military_status,
-                  spouse_address_street : partnerSignupMethod.data.data.applicant.self_reported.spouse_address_street,
-                  spouse_address_postal_code : partnerSignupMethod.data.data.applicant.self_reported.spouse_address_postal_code,
-                  spouse_address_state : partnerSignupMethod.data.data.applicant.self_reported.spouse_address_state,
-                  spouse_address_city : partnerSignupMethod.data.data.applicant.self_reported.spouse_address_city,
-                 
+            pathname: statusStrLink[partnerSignupMethod.data.data.applicant.processing.status],
+            state: {
+              jwt_token: partnerSignupMethod.data.data.user.extensionattributes.login.jwt_token,
+              partner_token: partnerSignupMethod.data.data.user.attributes.partner_token,
+              first_name: partnerSignupMethod.data.data.applicant.contact.first_name,
+              last_name: partnerSignupMethod.data.data.applicant.contact.last_name,
+              email: partnerSignupMethod.data.data.applicant.contact.email,
+              address_postal_code: partnerSignupMethod.data.data.applicant.contact.address_postal_code,
+              address_city: partnerSignupMethod.data.data.applicant.contact.address_city,
+              address_state: partnerSignupMethod.data.data.applicant.contact.address_state,
+              address_street: partnerSignupMethod.data.data.applicant.contact.address_street,
+              citizenship: partnerSignupMethod.data.data.applicant.self_reported.citizenship,
+              annual_income: partnerSignupMethod.data.data.applicant.self_reported.annual_income,
+              household_annual_income: partnerSignupMethod.data.data.applicant.self_reported.household_annual_income,
+              employment_status: partnerSignupMethod.data.data.applicant.self_reported.employment_status,
+              military_status: partnerSignupMethod.data.data.applicant.self_reported.military_status,
+              spouse_address_street: partnerSignupMethod.data.data.applicant.self_reported.spouse_address_street,
+              spouse_address_postal_code: partnerSignupMethod.data.data.applicant.self_reported.spouse_address_postal_code,
+              spouse_address_state: partnerSignupMethod.data.data.applicant.self_reported.spouse_address_state,
+              spouse_address_city: partnerSignupMethod.data.data.applicant.self_reported.spouse_address_city,
 
-                }
-            });
-          },
-        }
-      )
+
+            }
+          });
+        },
+      }
+    )
     : toast.error(
-        partnerSignupMethod?.data?.statusText
-          ? partnerSignupMethod.data.statusText
-          : "Please check your data",
-        {
-          position: "bottom-left",
-          autoClose: 10000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        }
-      );
+      partnerSignupMethod?.data?.statusText
+        ? partnerSignupMethod.data.statusText
+        : "Please check your data",
+      {
+        position: "bottom-left",
+        autoClose: 10000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      }
+    );
 
   return partnerSignupMethod;
 }

@@ -1,5 +1,6 @@
 import { useHistory } from "react-router-dom";
-// check the login status 
+
+// check the login status
 const CheckLoginStatus = () => {
   const history = useHistory();
   const expiryMinute = process.env.REACT_APP_SESSION_EXPIRY_MINUTES

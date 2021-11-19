@@ -1,7 +1,7 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import { resendVerificationEmail } from "../../../Controllers/ApplyForLoanController";
-import {ButtonSecondary } from "../../../FormsUI";
+import { ButtonSecondary } from "../../../FormsUI";
 
 export default function EmailVerification(props) {
   //Send verification Email to logged in user
@@ -18,7 +18,7 @@ export default function EmailVerification(props) {
             textAlign: "justify",
             fontSize: "14px",
             color: "#595959",
-            fontWeight: "normal", 
+            fontWeight: "normal",
           }}
         >
           In Progress: Your email address has not been verified. Please check
@@ -42,7 +42,7 @@ export default function EmailVerification(props) {
       </Grid>
       <div className={props.classes.actionsContainer}>
         <div className={props.classes.button_div}>
-      
+
         </div>
       </div>
     </div>

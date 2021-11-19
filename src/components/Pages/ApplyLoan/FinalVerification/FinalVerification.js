@@ -11,17 +11,14 @@ import { NavLink } from "react-router-dom";
 import { ButtonWithIcon } from "../../../FormsUI";
 import ScrollToTopOnMount from '../../ScrollToTop';
 import CheckLoginStatus from "../../../App/CheckLoginStatus";
-
-
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
-
   return (
     <div
       role="tabpanel"
       hidden={value !== index}
-      id={`scrollable-auto-tab-panel-${index}`}
-      aria-labelledby={`scrollable-auto-tab-${index}`}
+      id={`scrollable-auto-tab-panel-${ index }`}
+      aria-labelledby={`scrollable-auto-tab-${ index }`}
       {...other}
     >
       {value === index && (
@@ -41,8 +38,8 @@ TabPanel.propTypes = {
 
 function a11yProps(index) {
   return {
-    id: `scrollable-auto-tab-${index}`,
-    "aria-controls": `scrollable-auto-tab-panel-${index}`,
+    id: `scrollable-auto-tab-${ index }`,
+    "aria-controls": `scrollable-auto-tab-panel-${ index }`,
   };
 }
 
@@ -71,13 +68,12 @@ const useStyles = makeStyles((theme) => ({
     textTransform: "none",
     fontWeight: "600",
   },
-
   table: {
     minWidth: 650,
   },
 }));
 
-//Initializing Final verification functional component 
+//Initializing Final verification functional component
 export default function FinalVerification() {
   const classes = useStyles();
   const [value, setValue] = React.useState(2);
@@ -88,7 +84,7 @@ export default function FinalVerification() {
   //JSX part
   return (
     <div>
-      <CheckLoginStatus  term="final" />
+      <CheckLoginStatus term="final" />
       <ScrollToTopOnMount />
       <Grid
         container
@@ -157,7 +153,6 @@ export default function FinalVerification() {
 
           <TabPanel value={value} index={2} style={{ paddingBottom: "30px" }}>
             <Stepper />
-
             <Grid item style={{ width: "100%" }}>
               <p
                 style={{

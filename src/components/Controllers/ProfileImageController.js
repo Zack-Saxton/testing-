@@ -3,7 +3,7 @@ import axios from "axios";
 export default async function usrBasicInformation(email) {
     const loginToken = JSON.parse(localStorage.getItem("token"));
     let body = {
-        "email" : email
+        "email": email
     }
     let response = {
         isLoggedIn: "",
@@ -25,9 +25,9 @@ export default async function usrBasicInformation(email) {
                 return data;
             },
         });
-		
-	} catch (error) {
-		response.data = error.response;
-	}
+
+    } catch (error) {
+        response.data = error.response;
+    }
     return response
 }

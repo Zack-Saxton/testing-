@@ -1,35 +1,35 @@
 import React from "react";
-import {Form, Formik} from "formik";
-import {makeStyles} from "@material-ui/core/styles";
+import { Form, Formik } from "formik";
+import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import Grid from "@material-ui/core/Grid";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import {
-    AccountNumber,
-    AutoComplete,
-    AutoCompleteMultiple,
-    BankRoutingNumber,
-    Button,
-    ButtonSwitch,
-    ButtonWithIcon,
-    Checkbox,
-    DataGrid,
-    DatePicker,
-    EmailTextField,
-    EmailWithIcon,
-    Multiselect,
-    PasswordField,
-    PasswordWithIcon,
-    PhoneNumber,
-    Radio,
-    Select,
-    Slider,
-    SocialSecurityNumber,
-    TextArea,
-    TextField,
-    TextFieldWithIcon,
-    Zipcode,
+	AccountNumber,
+	AutoComplete,
+	AutoCompleteMultiple,
+	BankRoutingNumber,
+	Button,
+	ButtonSwitch,
+	ButtonWithIcon,
+	Checkbox,
+	DataGrid,
+	DatePicker,
+	EmailTextField,
+	EmailWithIcon,
+	Multiselect,
+	PasswordField,
+	PasswordWithIcon,
+	PhoneNumber,
+	Radio,
+	Select,
+	Slider,
+	SocialSecurityNumber,
+	TextArea,
+	TextField,
+	TextFieldWithIcon,
+	Zipcode,
 } from "../FormsUI";
 import "../App/App.css";
 import RadioButtonBox from "../FormsUI/RadioButtonBox";
@@ -138,7 +138,7 @@ export default function OutlinedCard() {
 										iconPosition="right"
 										required={true}
 
-										// customClass='fa fa-plus-circle'
+									// customClass='fa fa-plus-circle'
 									/>
 								</CardContent>
 							</Card>
@@ -234,7 +234,7 @@ export default function OutlinedCard() {
 										name="password"
 										label="password"
 										type="password"
-										data-test-id= "pass"
+										data-test-id="pass"
 									/>
 								</CardContent>
 							</Card>
@@ -306,11 +306,11 @@ export default function OutlinedCard() {
 										Select Box
 									</Typography>
 									<Select
-                                        name="select"
-                                        labelform="Language Known"
-                                        required={true}
-                                        select='[{"value":"Tamil"}, {"value":"Eng"}]'
-                                    />
+										name="select"
+										labelform="Language Known"
+										required={true}
+										select='[{"value":"Tamil"}, {"value":"Eng"}]'
+									/>
 								</CardContent>
 							</Card>
 						</Grid>
@@ -388,8 +388,8 @@ export default function OutlinedCard() {
 									>
 										Slider
 									</Typography>
-									<Slider name="slider" label="Select Loan Amount" 
-								/>
+									<Slider name="slider" label="Select Loan Amount"
+									/>
 								</CardContent>
 							</Card>
 						</Grid>
@@ -403,7 +403,7 @@ export default function OutlinedCard() {
 									>
 										Date Picker
 									</Typography>
-									<DatePicker name="date" defaultDate={new Date("2021-06-29T21:11:54")}/>
+									<DatePicker name="date" defaultDate={new Date("2021-06-29T21:11:54")} />
 								</CardContent>
 							</Card>
 						</Grid>

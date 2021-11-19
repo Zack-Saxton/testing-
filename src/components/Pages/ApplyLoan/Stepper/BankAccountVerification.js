@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 	open: {},
 }));
 
-//YUP validation schema 
+//YUP validation schema
 const validationSchema = yup.object({
 	accountHolder: yup
 		.string("Enter Account holder's name")
@@ -60,14 +60,11 @@ const validationSchema = yup.object({
 		.max(16, "Account numner should be minimum of 16 digits"),
 });
 
-
-
 //View Part
 //Initializing functional component -  BankAccountVerification
 export default function BankAccountVerification(props) {
 	const classes = useStyles();
-
-	//Initializing state variables 
+	//Initializing state variables
 	const [accountType, setAccountType] = useState("saving");
 	const [paymnetMode, setPaymentMode] = useState("autopayment");
 	const [verifyRequired, setVerifyRequired] = useState(false);
@@ -75,10 +72,10 @@ export default function BankAccountVerification(props) {
 	const [invalidRN, setInvalidRN] = useState(false);
 
 	const handleUpload = (res) => {
-		if(res?.bank_account_verification){
+		if (res?.bank_account_verification) {
 			props.next();
 		}
-		else{
+		else {
 			toast.error("Document submission failed. Please try again", {
 				position: "bottom-left",
 				autoClose: 1500,
@@ -87,11 +84,11 @@ export default function BankAccountVerification(props) {
 				pauseOnHover: true,
 				draggable: true,
 				progress: undefined,
-			  });
+			});
 		}
 	}
 
-	//Configuring the formik variable usign useFormik hook 
+	//Configuring the formik variable usign useFormik hook
 	const formik = useFormik({
 		initialValues: {
 			accountHolder: "",
@@ -102,9 +99,8 @@ export default function BankAccountVerification(props) {
 		},
 		validationSchema: validationSchema,
 
-		//On submit - submit the user entered details 
+		//On submit - submit the user entered details
 		onSubmit: async (values) => {
-
 			let data = {
 				"account_number": values.bankAccountNumber,
 				"account_type": accountType,
@@ -134,7 +130,6 @@ export default function BankAccountVerification(props) {
 		// const reg = /[a-zA-Z]+[ ]{0,1}[']{0,1}/;
 		const reg = /^[0-9\b]+$/;
 		let acc = event.target.value;
-
 		if (acc === "" || reg.test(acc)) {
 			formik.handleChange(event);
 		}

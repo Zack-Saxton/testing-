@@ -20,7 +20,7 @@ export default function ActiveLoans(userActiveLoanData) {
     //Activeloans data
     let userActiveLoans = (userActiveLoanData != null) ? userActiveLoanData : null;
     let today = Moment(new Date());
-    
+
     //View
     return (
         <Grid container>
@@ -69,8 +69,8 @@ export default function ActiveLoans(userActiveLoanData) {
                                         </Grid>
                                     </Grid>
                                     <Grid container spacing={3} >
-                                    <Grid  item xs={12} sm={3}>
-                                        <AutoPayStatus value={appData.loanPaymentInformation.appRecurringACHPayment} />
+                                        <Grid item xs={12} sm={3}>
+                                            <AutoPayStatus value={appData.loanPaymentInformation.appRecurringACHPayment} />
                                         </Grid>
                                         <Grid id="regularAmountGrid" item xs={12} sm={3}>
                                             <p id="RegularAmmountText" className={classes.cardContent}> Regular Amount</p>

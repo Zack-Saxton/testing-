@@ -73,11 +73,11 @@ export async function mailingAddress(body) {
 
 /***** Submit TextNotification *****/
 export async function textNotification(body) {
-//  const email = localStorage.getItem("email");
+  //  const email = localStorage.getItem("email");
   let url = "text_subscribe";
   let param = "";
   let data = {
-    "phoneNumber" : body.phone
+    "phoneNumber": body.phone
   };
 
   let method = "POST";

@@ -25,7 +25,7 @@ import amonelogo from "../../../assets/partners/WelcomeAOMember.png";
 import monevologo from "../../../assets/partners/WelcomeMonevoMember.png";
 import NerdWalletlogo from "../../../assets/partners/WelcomeNWMember.png";
 import LendingTreelogo from "../../../assets/partners/WelcomeLTMember.png";
-import partnerSignup,{PopulatePartnerSignup} from "../../Controllers/PartnerSignupController";
+import partnerSignup, { PopulatePartnerSignup } from "../../Controllers/PartnerSignupController";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useLocation } from "react-router-dom";
@@ -41,8 +41,8 @@ const useStyles = makeStyles((theme) => ({
   },
 
   mainGrid: {
-    boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%), 
-    0 6px 30px 5px rgb(0 0 0 / 12%), 
+    boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%),
+    0 6px 30px 5px rgb(0 0 0 / 12%),
     0 8px 10px -7px rgb(0 0 0 / 20%)`,
     background: "#f5f2f2",
   },
@@ -68,8 +68,8 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     color: theme.palette.text.secondary,
-    boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%), 
-  0 6px 30px 5px rgb(0 0 0 / 12%), 
+    boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%),
+  0 6px 30px 5px rgb(0 0 0 / 12%),
   0 8px 10px -7px rgb(0 0 0 / 20%)`,
   },
 
@@ -167,7 +167,7 @@ export default function CreditKarma() {
       await PopulatePartnerSignup(
         partnerToken,
         applicantId,
-        requestAmt, 
+        requestAmt,
         requestApr,
         requestTerm
       )
@@ -189,7 +189,7 @@ export default function CreditKarma() {
   const history = useHistory();
   const [agree, setAgree] = useState(false);
 
- 
+
 
   //Form Submission
   const formik = useFormik({
@@ -455,7 +455,7 @@ export default function CreditKarma() {
                         helperText={
                           formik.touched.phoneType && formik.errors.phoneType
                         }
-                        select='[{ "label": "Cell", "value": "cell"}, 
+                        select='[{ "label": "Cell", "value": "cell"},
                                         {"label": "Home","value": "home"}]'
                       />
                     </Grid>
@@ -588,7 +588,7 @@ export default function CreditKarma() {
                             </a>
                           </p>
                         }
-                         required={utm_source ? utm_source !== "CreditKarma" ? true : false : ""   }
+                        required={utm_source ? utm_source !== "CreditKarma" ? true : false : ""}
                         stylelabelform='{ "color":"" }'
                         stylecheckbox='{ "color":"blue"}'
                         stylecheckboxlabel='{ "color":"" }'

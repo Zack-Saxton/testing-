@@ -7,15 +7,15 @@ export async function changeTextNotify(opted_phone_texting) {
     req.body.allLoansClosed = activeLoans.allLoansClosed true/false
     req.body.sbtInfo;
     */
-    const email = localStorage.getItem("email");    
+    const email = localStorage.getItem("email");
     let body = {
         "email": email,
         "profileInfo": {
-                "opted_phone_texting": opted_phone_texting
-                //"prevPhoneInfo": "4235738888"
+            "opted_phone_texting": opted_phone_texting
+            //"prevPhoneInfo": "4235738888"
         },
         "sbtInfo": {
-            "SubscriptionOptions": 
+            "SubscriptionOptions":
                 [{
                     "BrandingId": "1",
                     "BrandingName": "Mariner Finance"
@@ -48,4 +48,3 @@ export async function changeTextNotify(opted_phone_texting) {
     }
     return response
 }
-

@@ -18,12 +18,11 @@ import { toast } from "react-toastify";
 import usrAccountDetails from "../../../Controllers/AccountOverviewController";
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-
-// initializing Tab panel section 
+// initializing Tab panel section
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
-  //return the JSX part for tab 
+  //return the JSX part for tab
   return (
     <div
       role="tabpanel"
@@ -102,11 +101,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-//Initializing the Review and sign functional component 
+//Initializing the Review and sign functional component
 export default function ReviewAndSign(props) {
   const classes = useStyles();
 
-  //Initializing state variable 
+  //Initializing state variable
   const [value, setValue] = useState(1);
   const history = useHistory();
   const [url, setUrl] = useState();
@@ -118,7 +117,7 @@ export default function ReviewAndSign(props) {
     setValue(newValue);
   };
 
-  // To get the iframe url from the API 
+  // To get the iframe url from the API
   async function getIframeURL() {
     let data = {}
     let iframeURL = await APICall("/integration/eoriginal/authenticate_cac", data, "POST", true);
@@ -131,7 +130,7 @@ export default function ReviewAndSign(props) {
     setSelectOffer(accountDetials?.data?.data?.application?.selected_offer);
   }
 
-  // call the get URL funtion on page load 
+  // call the get URL funtion on page load
   useEffect(() => {
     getSelectedOffer();
     getIframeURL();
@@ -147,7 +146,7 @@ export default function ReviewAndSign(props) {
       return forCur;
     }
   }
-  //Check weather the offers is passed or not 
+  //Check weather the offers is passed or not
   return (
     <div>
       <CheckLoginStatus />       {/* To check the user logged in or not  */}
@@ -260,10 +259,8 @@ export default function ReviewAndSign(props) {
                     style={{ width: "100%", textAlign: "center" }}
                   >
                     <CheckLoginStatus />
-
                     <CircularProgress />
                   </Grid>
-
                   :
                   <Grid container justifyContent="flex-start">
                     <Grid
@@ -396,16 +393,13 @@ export default function ReviewAndSign(props) {
                   <li>After signing, click the ‘Submit’ button.</li>
                 </ol>
               </Grid>
-
               <Grid item xs={12} style={{ width: "100%" }} >
                 <Paper className={classes.paper}>
-
                   <Grid item xs={12} md={12} lg={12} >
                     {url ? <Iframe src={url} /> : <p>Loading...</p>}
                   </Grid>
                 </Paper>
                 <Paper className={classes.paper}>
-
                   <Grid item xs={12}>
                     <Checkbox
                       name="rememberme"
@@ -441,9 +435,7 @@ export default function ReviewAndSign(props) {
                       id="review-submit-button"
                       disabled={!confirm}
                       onClick={async () => {
-                        let data = {
-
-                        };
+                        let data = {};
                         let authenticateStatus = await APICall("/integration/eoriginal/complete_cac", data, "POST", true);
                         if (authenticateStatus?.data?.data?.result === "success") {
                           history.push({
@@ -451,8 +443,7 @@ export default function ReviewAndSign(props) {
                           });
                         }
                         else {
-
-                          toast.error("Please complete your signing process before continuing to the next page", {
+                         toast.error("Please complete your signing process before continuing to the next page", {
                             position: "bottom-left",
                             autoClose: 1500,
                             hideProgressBar: false,
@@ -462,7 +453,6 @@ export default function ReviewAndSign(props) {
                             progress: undefined,
                           });
                         }
-
                       }}
                     >
                       Submit

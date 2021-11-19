@@ -17,7 +17,7 @@ export async function loanDocumentController(accNo) {
 
 /***** Download and converting bufferdata *****/
 function downloadFileData(data) {
-   var Buffer = require("buffer/").Buffer; // note: the trailing slash is important!
+  var Buffer = require("buffer/").Buffer; // note: the trailing slash is important!
   const buff = Buffer.from(data.data.data.bufferFile.data);
   const url = window.URL.createObjectURL(new Blob([buff]));
   const link = document.createElement("a");
@@ -56,19 +56,19 @@ export async function documentdownload(id, name) {
   documentdownload.data.status === 200
     ? downloadFileData(documentdownload)
     : toast.error(
-        documentdownload?.data?.data?.message
-          ? documentdownload.data.data.message
-          : "Downloading failed",
-        {
-          position: "bottom-left",
-          autoClose: 1500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        }
-      );
+      documentdownload?.data?.data?.message
+        ? documentdownload.data.data.message
+        : "Downloading failed",
+      {
+        position: "bottom-left",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      }
+    );
 }
 
 /***** Print file *****/
@@ -96,17 +96,17 @@ export async function documentprint(id, name) {
     method,
     addAccessToken
   );
-   documentDownloadPrint.data.status === 200
+  documentDownloadPrint.data.status === 200
     ? print(documentDownloadPrint)
     : toast.error("Error printing file", {
-        position: "bottom-left",
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      position: "bottom-left",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
 }
 
 /***** upload document method *****/
@@ -131,22 +131,22 @@ export async function uploadDocument(test, fileName, fileType, documentType) {
 
   //API response
   uploadData.data.status === 200
-    ? toast.success(uploadData?.data?.data?.data?.message ? uploadData.data.data.data.message :"Uploaded Successfully", {
-        position: "bottom-left",
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      })
-    : toast.error(uploadData?.data?.data?.data?.message ? uploadData.data.data.data.message :"Error uploading file", {
-        position: "bottom-left",
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+    ? toast.success(uploadData?.data?.data?.data?.message ? uploadData.data.data.data.message : "Uploaded Successfully", {
+      position: "bottom-left",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    })
+    : toast.error(uploadData?.data?.data?.data?.message ? uploadData.data.data.data.message : "Error uploading file", {
+      position: "bottom-left",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
 }
