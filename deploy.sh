@@ -101,7 +101,7 @@ git fetch --all && git checkout $branch && git pull origin $branch
 latestCommit=$(git rev-parse --short HEAD)
 
 #Dockerise the environment
-imageName="fidelisrod/cacdev:${app}-${env}-${latestCommit}"
+imageName="fidelisrod/ops:${app}-${env}-${latestCommit}"
 docker build -f Dockerfile -t ${imageName} .
 echo  "****** Created New Image ****"
 echo $imageName;
