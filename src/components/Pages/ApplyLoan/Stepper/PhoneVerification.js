@@ -251,7 +251,7 @@ export default function PhoneVerification(props) {
 				</DialogTitle>
 				<DialogContent dividers>
 					<Typography align="justify" style={{fontSize: "15px"}} gutterBottom>
-						If you are currently unable to access the phone you provided, click "Verify phone later" to proceed with the remainder of the verifaication process. Please note that we will need to manually verify your phone number by calling and speaking with you directly. 
+						If you are currently unable to access the phone you provided, click "Verify phone later" to proceed with the Remainder of the Verification process. Please note that we will need to manually verify your phone number by calling and speaking with you directly. 
 					</Typography>
 				</DialogContent>
 				<DialogActions className="modalAction">

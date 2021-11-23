@@ -3,12 +3,17 @@ import { useHistory } from 'react-router-dom';
 import APICall from '../../App/APIcall';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from "@material-ui/core/Grid";
-import { toast, ToastContainer } from "react-toastify";
-import CheckLoginStatus from "../../App/CheckLoginStatus";
+import { toast } from "react-toastify";
 
 //To redirect the user to apply for loan sections depends on the status of the loan application
 const ApplyForLoanRedirect = (props) => {
     const history = useHistory();
+
+    const redirectToCMO = () => {
+        history.push({
+            pathname: "/select-amount"
+        });
+    }
 
     //To get the current active application status 
     const getCurrentActiveApplication = async () => {
@@ -39,29 +44,34 @@ const ApplyForLoanRedirect = (props) => {
 
         let accountDetail = JSON.parse(localStorage.getItem('accountDetails')) ;
         let res = accountDetail ? accountDetail : await APICall("/customer/account_overview", data, "GET", true);
-        
-        // let res = await APICall("/customer/account_overview", data, "GET", true);
         let checkStatus = props?.location?.state?.statusCheck === false ? props.location.state.statusCheck : true;
+        
+        if( props?.location?.state?.from === "user"){
+
+            history.push({
+                state: {from: "ended"} 
+            });
         if (res?.data?.data?.customer?.user_account?.status === "closed" && checkStatus !== false) {
+            if(! toast.isActive("closedApplication")) {
             toast.error("Your account is closed to new applications. Please contact us to reapply.", {
                 position: "bottom-left",
                 autoClose: 5500,
                 hideProgressBar: false,
                 closeOnClick: true,
+                toastId: "closedApplication",
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
               });
-              history.push({
-                pathname: "/customers/accountOverview"
-            });
+            }
+                history.push({
+                    pathname: "/customers/accountOverview"
+                });
 
         }
         
         else if (res?.data?.data?.applicants.length === 0) {
-            history.push({
-                pathname: "/select-amount"
-            });
+            redirectToCMO();
         }
         else if (res?.data?.data?.applicants[0]?.isActive === true) {
             history.push({
@@ -77,20 +87,26 @@ const ApplyForLoanRedirect = (props) => {
                         pathname: statusStrLink[item.status]
                     });
                 }
+                return null;
+            })
                 if(isActiveApplicationAvailable === false){
                     history.push({
                         pathname: "/select-amount"
                     });
                 }
                 return null;
-            })
+           
 
         }
         else {
-            history.push({
-                pathname: "/select-amount"
-            });
+            redirectToCMO();
         }
+    }
+    else{
+        history.push({
+            pathname: "/customers/accountOverview"
+        });
+    }
         return res;
     }
     const redirect = () => {
@@ -108,10 +124,8 @@ const ApplyForLoanRedirect = (props) => {
             className="circleprog"
             style={{ width: "100%", textAlign: "center" }}
         >
-      <CheckLoginStatus term="apply" />
 
             <CircularProgress />
-            <ToastContainer />
         </Grid>
     );
 }

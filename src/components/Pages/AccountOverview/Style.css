@@ -23,6 +23,10 @@
      
 }
 
+.MuiTabs-vertical span {
+    align-items: start !important;
+  }
+  
 
 
 @media only screen and (max-width: 1024px)  {
@@ -168,3 +172,25 @@
         }
         }
 
+
+
+
+/* View Application css... */
+#scrollable-auto-tab-vertical-viewApplication-0.Mui-selected{
+
+    background: linear-gradient(
+        85deg
+        , #264266, #0F4EB3) !important;
+        color:white!important;
+        width: 250px;
+        border-radius: 0 5px 5px 0;
+        box-shadow: 3px 3px 10px 0 rgb(123, 31, 162, 50%);
+    }
+    #scrollable-auto-tab-vertical-viewApplication-1.Mui-selected{ 
+    
+        background: linear-gradient( 85deg, #264266, #0F4EB3) !important;
+            color:white!important;
+        width: 250px;
+        border-radius: 0 5px 5px 0;
+        box-shadow: 3px 3px 10px 0 rgb(123, 31, 162, 50%);
+    }

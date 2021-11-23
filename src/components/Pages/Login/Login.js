@@ -11,8 +11,10 @@ import Logo from "../../../assets/images/loginbg.png";
 import { NavLink, useHistory } from "react-router-dom";
 import "./Login.css";
 import loginSubmit from "../../Controllers/LoginController";
-import branchDetails from "../../Controllers/MyBranchController";
 import ScrollToTopOnMount from "../../Pages/ScrollToTop";
+const moment = require('moment');
+const moment_timezone = require('moment-timezone');
+let addVal = (moment_timezone().tz("America/New_York").isDST()) ? 4 : 5;
 
 
 //Styling part
@@ -77,7 +79,7 @@ const validationSchema = yup.object({
         .string("Your email is required")
         .email("A valid email address is required")
         .matches(
-            /^[a-zA-Z](?!.*[+/._-][+/._-])(([^<>()|?{}='[\]\\,;:#!$%^&*\s@\"]+(\.[^<>()|?{}=/+'[\]\\.,;_:#!$%^&*-\s@\"]+)*)|(\".+\"))[a-zA-Z0-9]@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,3}))$/, //eslint-disable-line
+            /^[a-zA-Z](?!.*[+/._-][+/._-])(([^<>()|?{}='[\]\\,;:#!$%^&*\s@\"]+(\.[^<>()|?{}=/+'[\]\\.,;_:#!$%^&*-\s@\"]+)*)|(\".+\"))[a-zA-Z0-9]@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,3}))$/, //eslint-disable-line
             "A valid email address is required"
         )
         .required("Your email address is required"),
@@ -116,16 +118,16 @@ export default function Login(props) {
 
 			let retVal = await loginSubmit(values.email, values.password, props.setToken);
 			if (retVal?.data?.data?.user && retVal?.data?.data?.userFound === true) {
+                let login_date = (retVal.data.data.user.extensionattributes?.login?.last_timestamp_date) ? moment(retVal.data.data.user.extensionattributes.login.last_timestamp_date).subtract(addVal, 'hours').format('MM/DD/YYYY'): '';
                 var now = new Date().getTime();
                 // On login success storing the needed data in the local storage
 				localStorage.clear();
 				localStorage.setItem("token", JSON.stringify({ isLoggedIn: true, apiKey: retVal?.data?.data?.user?.extensionattributes?.login?.jwt_token, setupTime: now, applicantGuid: retVal?.data?.data?.user?.attributes?.sor_data?.applicant_guid }));
+                localStorage.setItem("cred", JSON.stringify({email: values.email, password: values.password }));
                 localStorage.setItem("email",values.email);
-                let branchVal=await branchDetails(); 
-                localStorage.setItem('branchname',branchVal?.data?.data?.branchName) 
-                localStorage.setItem('branchphone',branchVal?.data?.data?.PhoneNumber) 
-                localStorage.setItem('branchopenstatus',branchVal?.data?.data?.date_closed) 
-                
+                localStorage.setItem("profile_picture",retVal?.data?.data?.user?.mobile?.profile_picture ? retVal?.data?.data?.user?.mobile?.profile_picture : "");
+                localStorage.setItem('login_date',login_date) 
+
                 // set Remember me 
 				rememberMe === true ?
 					localStorage.setItem("rememberMe", JSON.stringify({ selected: true, email: values.email, password: values.password })) :
@@ -133,9 +135,9 @@ export default function Login(props) {
 
 				setLoading(false);
                     history.push({
-                        // pathname: (props.location.state?.required && props.location.state?.activationToken) ? "/customers/verification/email?required=" + props.location.state?.required + "&activation_token=" + props.location.state?.activationToken : "/customers/accountoverview",
                         pathname: (props.location.state?.redirect) ? props.location.state?.redirect : "/customers/accountoverview",
                     }); 
+                    history.go(0);
               
 			}
 			else if (retVal?.data?.data?.result === "error" || retVal?.data?.data?.hasError === true) {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory,useLocation } from "react-router-dom";
 import { useFormik } from "formik";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -26,9 +26,7 @@ import monevologo from "../../../assets/partners/WelcomeMonevoMember.png";
 import NerdWalletlogo from "../../../assets/partners/WelcomeNWMember.png";
 import LendingTreelogo from "../../../assets/partners/WelcomeLTMember.png";
 import partnerSignup,{PopulatePartnerSignup} from "../../Controllers/PartnerSignupController";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useLocation } from "react-router-dom";
 
 //Styling
 const useStyles = makeStyles((theme) => ({
@@ -159,12 +157,11 @@ export default function CreditKarma() {
   const requestApr = queryOffer.get("APR");
   const requestTerm = queryOffer.get("TERM");
 
-  //API call
-  const [populatePartnerSignupState, SetPopulatePartnerSignupState] =
-    useState(null);
+   //API call
+  const [populatePartnerSignupState, SetPopulatePartnerSignupState] =    useState(null);
+
   async function AsyncEffect_PopulatePartnerSignup() {
-    SetPopulatePartnerSignupState(
-      await PopulatePartnerSignup(
+    SetPopulatePartnerSignupState(await PopulatePartnerSignup(
         partnerToken,
         applicantId,
         requestAmt, 
@@ -238,18 +235,12 @@ export default function CreditKarma() {
     }
   };
 
-  // function autoFocus() {
-  //   var email = document.getElementById("email").value;
-  //   if (email === "") {
-  //     document.getElementById("email").focus();
-  //   }
-  // }
+ 
 
   //View Part
   return (
     <div>
       <div className={classes.mainContentBackground} id="mainContentBackground">
-        <ToastContainer style={{ width: "75%", color: "red" }} />
         <Box>
           <Grid
             xs={10}

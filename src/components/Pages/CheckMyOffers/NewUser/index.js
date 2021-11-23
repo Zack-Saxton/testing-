@@ -113,7 +113,8 @@ function NewUser() {
 						var now = new Date().getTime();
 						localStorage.clear();
 						localStorage.setItem("token", JSON.stringify({ isLoggedIn: true, apiKey: retVal?.data?.data?.user?.extensionattributes?.login?.jwt_token, setupTime: now }));
-		
+						localStorage.setItem("cred", JSON.stringify({email: data.email, password: values.newPassword }));
+
 						rememberMe === true ?
 							localStorage.setItem("rememberMe", JSON.stringify({ selected: true, email: values.email, password: values.password })) :
 							localStorage.setItem("rememberMe", JSON.stringify({ selected: false, email: '', password: '' }));

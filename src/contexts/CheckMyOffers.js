@@ -50,6 +50,8 @@ const CheckMyOffersContext = (props) => {
 		completedPage: 0,
 		loading:true,
 		isActiveUser: null,
+		disabled: false,
+		last4SSN: null,
 		page: {
 			selectAmount: 1,
 			loanPurpose: 2,
@@ -87,10 +89,12 @@ const CheckMyOffersContext = (props) => {
 			   data.city = latestContact?.address_city ? latestContact?.address_city : null
 			   data.state = latestContact?.address_state? latestContact.address_state: null
 			   data.stateFullform = states[statesFullForm]
+			   data.last4SSN = identification?.last4SSN ? identification?.last4SSN : null;
 			   data.loanPurpose = null
-			   data.ssn = null
+			   data.ssn = identification?.social_security_number ? identification?.social_security_number : null
 			   data.loading = false
 			   data.isActiveUser = userStatus;
+			   data.disabled= true
 			   setData({...data})
 			   }
    
@@ -139,6 +143,8 @@ const CheckMyOffersContext = (props) => {
 				formStatus: '', 
 				completedPage: 0,
 				isActiveUser: null,
+				last4SSN: null,
+				disabled: false,
 				loading: loginToken?.isLoggedIn ? true :false,
 				page: {
 					selectAmount: 1,

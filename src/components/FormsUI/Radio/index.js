@@ -77,7 +77,7 @@ const RadioButtonWrapper = ({
             value={radio.value}
             key={radio.value}
             label={radio.label}
-            control={<Radio checked={checked === radio.value   ? true : false} onClick={handleRadioClick} />}
+            control={<Radio style={{color: "#0F4EB3"}} checked={checked === radio.value   ? true : false} onClick={handleRadioClick} />}
           />
         ))}
       </RadioGroup>

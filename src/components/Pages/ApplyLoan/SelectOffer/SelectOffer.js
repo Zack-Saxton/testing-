@@ -702,7 +702,7 @@ export default function ApplyLoan() {
 																	);
 																}}
 																disabled={
-																	selectedTerm && selectedIndex
+																	selectedTerm && (selectedIndex || selectedIndex === 0) 
 																		? loading
 																			? true
 																			: false

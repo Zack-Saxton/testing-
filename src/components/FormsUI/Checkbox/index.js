@@ -9,7 +9,7 @@ Functionality       :    To use this checkbox as a default component for UI purp
 
 import React from "react";
 import {Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel,} from "@material-ui/core";
-
+import {makeStyles} from "@material-ui/core/styles";
 const CheckboxWrapper = ({
   name,
   value,
@@ -24,16 +24,26 @@ const CheckboxWrapper = ({
   ...otherProps
 }) => {
 
+
+  //Styling Part
+  const useStyles = makeStyles((theme) => ({
+    checkboxStyle: {
+     color: "#0F4EB3 !important"
+      
+    },
+  }));
+  const classes = useStyles();
+
   //Configuring Field with Properties
   const configCheckbox = {
     required,
     id,
-   
+    
     ...otherProps,
    
   };
 
-  //Validation
+  
  
   
 
@@ -48,7 +58,7 @@ const CheckboxWrapper = ({
       <FormLabel  style={styleLabelFormMF}>{formlabel}</FormLabel>
       <FormGroup >
         <FormControlLabel
-          control={<Checkbox id={id} {...configCheckbox} style={styleCheckBoxMF} /> }
+          control={<Checkbox id={id} {...configCheckbox} className={classes.checkboxStyle} style={styleCheckBoxMF}  /> }
          
           label={label}
           style={styleCheckBoxLabelMF}

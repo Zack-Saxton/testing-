@@ -34,6 +34,13 @@ dev_env(){
     appDir="MarinerFinance-Website"
 }
 
+dev_remote_env(){
+    pemFile="/home/fidelis.j@zucisystems.com/Documents/creds/MF/marinerfinance-us-east-1.pem"
+    serverName="ubuntu@cac-app1-dev.marinerfinance.io"
+    gitRepo="git@github.com:marinerfinance/cac.git"
+    appDir="cac"
+}
+
 staging_env(){
     pemFile="/home/fidelis.j@zucisystems.com/Documents/creds/MF/marinerfinance-us-east-1.pem"
     serverName="ubuntu@cac-app1-dev.marinerfinance.io"
@@ -51,6 +58,10 @@ production_env(){
 # Choose an environment
 case $env in
     dev)
+        echo "*** Deployment to development environment ***"
+        # Initialise the variables
+        dev_env ;;
+    dev_remote)
         echo "*** Deployment to development environment ***"
         # Initialise the variables
         dev_env ;;
@@ -90,7 +101,7 @@ git fetch --all && git checkout $branch && git pull origin $branch
 latestCommit=$(git rev-parse --short HEAD)
 
 #Dockerise the environment
-imageName="marinerfinance/ops:${app}-${env}-${latestCommit}"
+imageName="fidelisrod/cacdev:${app}-${env}-${latestCommit}"
 docker build -f Dockerfile -t ${imageName} .
 echo  "****** Created New Image ****"
 echo $imageName;

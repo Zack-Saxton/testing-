@@ -1,4 +1,5 @@
 import axios from "axios";
+import APICall from "../lib/AxiosLib";
 
 export async function checkMyOfferSubmit(customer) {
 	//result - to store the result from api call, token - auth token, loggedIn
@@ -422,3 +423,21 @@ export async function checkMyOfferSubmitTest(customer) {
 	}
 	return response;
 }
+
+export async function getCustomerByEmail(email) {
+	//API
+	let url = "get_customer_by_email";
+	let param = "";
+	let data = {
+		"email": email
+	};
+	let method = "POST";
+	let addAccessToken = false;
+  
+	//API call
+	let loanHistory = await APICall(url, param, data, method, addAccessToken);
+  
+	return loanHistory;
+  }
+
+

@@ -21,8 +21,9 @@ function ReferredToBranch(props) {
     if (data.completedPage < data.page.ssn  && data.applicationStatus !=='referred' &&  props?.location?.formcomplete !== "yes"){
           history.push("/select-amount");
       }
+      window.onbeforeunload = null;
 
-      //JSX part
+    //JSX part
     return(
         <div>
             <ScrollToTopOnMount />
@@ -34,7 +35,6 @@ function ReferredToBranch(props) {
                                     <img src={ReferToBranchLogo} alt="NoOffersAvailable" />
                                 </Grid>
                             </Grid>
-                            
                             <br />
                             <Grid item xs={12}  container justifyContent="center" alignItems="center">
                             <Grid item xs={11} sm={10} md={6} lg={6} xl={6} className=' row' container justifyContent="center" alignItems="center">
@@ -43,7 +43,6 @@ function ReferredToBranch(props) {
 								</Typography>
                             </Grid>
                             </Grid>
-                            
                             <Grid item xs={12}  container justifyContent="center" alignItems="center">
                                 <Grid item xs={11} sm={10} md={6} lg={6} xl={6} className=' row' container justifyContent="center" alignItems="center">
                                     <Typography variant="h6" style={{ align:"center",justify:"center", alignItems:"center"}} className=" textWhite smallTextImg">
@@ -86,21 +85,17 @@ function ReferredToBranch(props) {
                                     </Typography>
                                     <div className="leftAlign">
                                     <Typography variant="h6" style={{ align:"left", alignItems:"left"}}
-                                       
                                         className=" textWhite minText bullet"
                                     >
                                     It's a good idea to know how much money you make a year.
                                     </Typography>
                                     <Typography style={{ align:"left", alignItems:"left"}}
                                         variant="h6"
-                                       
                                         className=" textWhite minText bullet"
                                     >
                                      pen and paper may be helpful to take note of any documents you may need at loan closing.
                                     </Typography>
-                                   
                                     </div>
-                                   
                                     <Typography variant="h6"
                                         style={{
                                             align:"center",
@@ -110,12 +105,9 @@ function ReferredToBranch(props) {
                                         className=" textWhite minText"
                                     >
                                         *Approval of a loan and the loan disbursement process may take longer if additional documentation is required. Loan terms may vary based on credit determination and state law. Completion of a loan application will result in a hard credit pull.
-                                    </Typography>
-                                                
-                                            
+                                    </Typography> 
                                 </Grid>
                             </Grid>
-                             
                         </Grid> 
                     </Box>
                 </div>

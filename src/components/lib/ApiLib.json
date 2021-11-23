@@ -15,6 +15,7 @@
     "myBranch_detail": "/customer/find_closest_branch_cac",
     "myBranch_scheduleMeet": "/application/schedule_branch_appointment_cac",
     "get_notification": "../customer/get_notification_data_cac",
+    "get_customer_by_email": "/customer/get_customer_by_email",
     "vantagescore_credit_monitoring": "/creditmonitoring/get_credit_reports_cac",
     "fetch_available_offers": "/application/get_offers_cac",
     "submit_selected_offers": "/application/select_offer_cac",
@@ -35,6 +36,13 @@
     "update_profile_information_cac": "/gps/update_profile_information_cac",
     "partner_signup" : "/applicant/partner_signup_cac",
     "populate_partner_signup": "/applicant/populate_parner_sign_up",
-    "getMoneySkillLink" : "/customer/getMoneySkillLink"
+    "getMoneySkillLink" : "/customer/getMoneySkillLink",
+    "add_ach_payment_method": "/gps/add_new_payment_method",
+    "add_debit_card_payment_method": "/gps/add_new_card_payment_method_cac",
+    "delete_ach_payment_method": "/gps/delete_bank_payment_method_cac",
+    "delete_debit_card_payment_method": "/gps/delete_card_payment_method_cac",
+    "get_payment_options": "/gps/get_payment_method_options",
+    "get_profile_picture" : "/customer/get_profile_picture",
+    "upload_profile_picture" : "/customer/upload_profile_picture"
   }
 }

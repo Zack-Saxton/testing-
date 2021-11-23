@@ -30,6 +30,8 @@ const NormalHeader = () => {
   const logoutUser = () => {
     let tokenData = { isLoggedIn: false };
     localStorage.setItem("token", JSON.stringify(tokenData));
+    localStorage.setItem("cred", JSON.stringify({email: "", password: "" }));
+
     history.push({
       pathname: "/login",
     });

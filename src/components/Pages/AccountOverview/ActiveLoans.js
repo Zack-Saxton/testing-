@@ -63,7 +63,7 @@ export default function ActiveLoans(userActiveLoanData) {
                                             </Typography>
                                         </Grid>
                                         <Grid item xs={12} sm={6}>
-                                            <ButtonPrimary stylebutton='{"float": "right", "color":"" }' href="./makePayment">
+                                            <ButtonPrimary stylebutton='{"float": "right", "color":"" }' href={"./makePayment/?accNo="+appData.loanDetails.AccountNumber}>
                                                 Make a Payment
                                             </ButtonPrimary>
                                         </Grid>

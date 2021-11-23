@@ -52,6 +52,8 @@ function ExistingUser() {
 			if (retVal?.data?.data?.user && !retVal?.data?.data?.result) {
 				var now = new Date().getTime();
 				localStorage.setItem("token", JSON.stringify({ isLoggedIn: true, apiKey: retVal?.data?.data?.user?.extensionattributes?.login?.jwt_token, setupTime: now }));
+                localStorage.setItem("cred", JSON.stringify({email: data.email, password: values.password }));
+
 				setLoading(false);
 				let accountDetail= await usrAccountDetails();
 

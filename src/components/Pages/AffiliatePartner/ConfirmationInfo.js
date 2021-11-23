@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -26,7 +26,6 @@ import Paper from "@material-ui/core/Paper";
 import Logo from "../../../assets/images/loginbg.png";
 import "./Style.css";
 import creditkarmalogo from "../../../assets/images/ck_logo.png";
-import PartnerSignup from "../../Controllers/PartnerSignupController"
 
 //Styling
 const useStyles = makeStyles((theme) => ({
@@ -205,8 +204,6 @@ const validationSchema = yup.object({
 
 //Begin: Login page
 export default function CreditKarma(props) {
-// console.log(props?.location?.state ? props.location.state : "mmm")
-// console.log(props?.location?.state?.first_name ? props.location.state.first_name : "mmm")
   const classes = useStyles();
   const [loading, setLoading] = useState(false);
   const [validZip, setValidZip] = useState(true);
@@ -219,14 +216,16 @@ export default function CreditKarma(props) {
   const [agreeCalifornia, setAgreeCalifornia] = useState("");
   const [agreeNewMexico, setAgreeNewMexico] = useState("");
   const [agree, setAgree] = useState(false);
-  //API call (variable to be used once API available)
-  const [partnerSignupState, SetPartnerSignupState] = useState(null);
-  async function AsyncEffect_PartnerSignup() {
-    SetPartnerSignupState(await PartnerSignup( ));
-  }
-  useEffect(() => {
-    AsyncEffect_PartnerSignup();
-  }, []);
+  //API call
+  // const [partnerSignupState, SetPartnerSignupState] = useState(null);
+  // async function AsyncEffect_PartnerSignup() {
+  //   SetPartnerSignupState(await PartnerSignup( ));
+  // }
+  // useEffect(() => {
+  //   AsyncEffect_PartnerSignup();
+  // }, []);
+
+ 
 
   //Populate partner signup from API
   // let partnerSignupData =
@@ -234,7 +233,7 @@ export default function CreditKarma(props) {
   //     ? partnerSignupState.data.data.applicant
   //     : null;
 
-      // console.log(partnerSignupState) 
+     
 
   //Date implementation for verifying 18 years
   const myDate = new Date();

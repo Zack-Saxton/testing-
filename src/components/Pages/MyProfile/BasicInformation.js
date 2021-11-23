@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useStylesMyProfile } from "./Style";
 import Grid from "@material-ui/core/Grid";
 import "./Style.css";
 import Moment from "moment";
 import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
 import ProfileImageController from "../../Controllers/ProfileImageController";
-import { businessInformation } from "../../Controllers/myProfileController"
-import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
-import { uploadDocument } from "../../Controllers/LoanDocumentController";
-
+import {
+  basicInformation,
+  uploadNewProfileImage,
+} from "../../Controllers/myProfileController";
+import profileImg from "../../../assets/images/profile-img.png";
 import { toast } from "react-toastify";
 import {
   ButtonPrimary,
@@ -22,14 +21,12 @@ import {
 import { useFormik } from "formik";
 import * as yup from "yup";
 
-//Yup validation schema
 const validationSchema = yup.object({
   email: yup
     .string("Enter your email")
     .email("A valid email address is required")
     .matches(
-      // eslint-disable-next-line
-      /^[a-zA-Z](?!.*[+/._-][+/._-])(([^<>()|?{}='[\]\\,;:#!$%^&*\s@\"]+(\.[^<>()|?{}=/+'[\]\\.,;_:#!$%^&*-\s@\"]+)*)|(\".+\"))[a-zA-Z0-9]@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,3}))$/, //eslint-disable-line
+      /^[a-zA-Z][a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
       "A valid email address is required"
     )
     .required("Your email address is required"),
@@ -38,20 +35,14 @@ const validationSchema = yup.object({
     .string("Enter a name")
     .required("Your Phone number is required")
     .transform((value) => value.replace(/[^\d]/g, ""))
-    //eslint-disable-next-line
-    .matches(
-      /^[1-9]{1}[0-9]{2}[0-9]{3}[0-9]{4}$/,
-      "Please enter your valid Phone number"
-    )
-    .matches(/^(\d)(?!\1+$)\d{9}$/, "Please enter your valid Phone number")
+    .matches(/^[1-9]{1}\d{2}\d{3}\d{4}$/, "Invalid Phone")
+    .matches(/^(\d)(?!\1+$)\d{9}$/, "Invalid Phone")
     .min(10, "Name must contain at least 10 digits"),
 });
 
-
-
 export default function BasicInformation(userAccountDetailCard) {
-  //  let userProfileImage = ProfileImageController != null ? ProfileImageController : 'TesHellot';
-  let userAccountDetail = userAccountDetailCard != null ? userAccountDetailCard : null;
+  let userAccountDetail =
+    userAccountDetailCard != null ? userAccountDetailCard : null;
   const [error] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -62,21 +53,21 @@ export default function BasicInformation(userAccountDetailCard) {
         email: event.target.value,
       };
       if (event.target.value !== "") {
-        let result = await axios({
+        return axios({
           method: "POST",
-          url: "/customer/update_customer",
+          url: "/customer/get_customer_by_email",
           data: JSON.stringify(body),
           headers: {
             "Content-Type": "application/json",
           },
         });
-        return result
       }
     }
   };
 
-
-  const classes = useStylesMyProfile();
+  const onClickCancelChange = () => {
+    formik.resetForm();
+  };
 
   const [profileImage, setProfileImage] = useState(null);
   async function AsyncEffect_profileImage() {
@@ -86,13 +77,21 @@ export default function BasicInformation(userAccountDetailCard) {
     AsyncEffect_profileImage();
   }, []);
 
-  //Load data
-  let profileImageData = profileImage != null ? profileImage.data.data : null;
+  let profileImageData =
+    profileImage?.data?.data?.profile_picture_url != null
+      ? profileImage.data.data.profile_picture_url
+      : profileImg;
 
   const formik = useFormik({
     initialValues: {
-      email: userAccountDetail?.userAccountDetailCard?.customer?.latest_contact?.email ?? "",
-      phone: userAccountDetail?.userAccountDetailCard?.customer?.latest_contact?.phone_number_primary ? userAccountDetail.userAccountDetailCard.customer.latest_contact.phone_number_primary : "",
+      email:
+        userAccountDetail?.userAccountDetailCard?.customer?.latest_contact
+          ?.email ?? "",
+      phone: userAccountDetail?.userAccountDetailCard?.customer?.latest_contact
+        ?.phone_number_primary
+        ? userAccountDetail.userAccountDetailCard.customer.latest_contact
+            .phone_number_primary
+        : "",
     },
     validationSchema: validationSchema,
 
@@ -106,15 +105,14 @@ export default function BasicInformation(userAccountDetailCard) {
           .replace(/ /g, "") || "";
       if (values.email !== null) {
         let body = {
-          "email": values.email,
+          email: values.email,
           isAuthenticated: true,
-          "profileInfo": {
-            "primaryPhoneNumber": phone,
-            "email": values.email,
+          profileInfo: {
+            primaryPhoneNumber: phone,
+            email: values.email,
           },
         };
-        //API call to submit financial info
-        let res = await businessInformation(body);
+        let res = await basicInformation(body);
 
         if (res.data.data.emailUpdate === true) {
           toast.success("Updates successfull", {
@@ -126,6 +124,7 @@ export default function BasicInformation(userAccountDetailCard) {
             draggable: true,
             progress: undefined,
           });
+          setLoading(false);
         } else {
           toast.error("No changes made", {
             position: "bottom-left",
@@ -151,7 +150,7 @@ export default function BasicInformation(userAccountDetailCard) {
     setSelectedFile(document.getElementById("file"));
   };
 
-  const uploadDoc = () => {
+  const uploadProfileImage = () => {
     if (selectedFile === null) {
       toast.error("please select a file to upload", {
         position: "bottom-left",
@@ -162,16 +161,12 @@ export default function BasicInformation(userAccountDetailCard) {
         draggable: true,
         progress: undefined,
       });
-
     } else {
       var filePath = selectedFile.value;
-
-      var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.pdf)$/i;
-
+      var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
       if (!allowedExtensions.exec(filePath)) {
-
         toast.error(
-          "Please upload file having extensions .jpeg .jpg .png .pdf only. ",
+          "Please upload file having extensions .jpeg .jpg .png only. ",
           {
             position: "bottom-left",
             autoClose: 1500,
@@ -186,23 +181,20 @@ export default function BasicInformation(userAccountDetailCard) {
         selectedFile.value = "";
 
         return false;
-      } else if (selectedFile.files[0].size <= 10240000 && docType != null) {
+      } else if (selectedFile.files[0].size <= 10240000) {
         let reader = new FileReader();
         if (selectedFile.files && selectedFile.files[0]) {
           reader.onload = () => {
             const buffer2 = Buffer.from(reader.result, "base64");
-
             let test = Buffer.from(buffer2).toJSON().data;
             let fileName = selectedFile.files[0].name;
             let fileType = selectedFile.files[0].type;
             let documentType = docType;
-
-            uploadDocument(test, fileName, fileType, documentType);
+            uploadNewProfileImage(test, fileName, fileType, documentType);
           };
           reader.readAsDataURL(selectedFile.files[0]);
         }
-      }
-      else {
+      } else {
         if (selectedFile.files[0].size > 10240000) {
           toast.error("Please upload file size below 10mb ", {
             position: "bottom-left",
@@ -213,9 +205,8 @@ export default function BasicInformation(userAccountDetailCard) {
             draggable: true,
             progress: undefined,
           });
-        }
-        else if (docType == null) {
-          toast.error("Please select a document type to upload", {
+        } else if (docType == null) {
+          toast.error("Please select an image type to upload", {
             position: "bottom-left",
             autoClose: 1500,
             hideProgressBar: false,
@@ -230,182 +221,184 @@ export default function BasicInformation(userAccountDetailCard) {
   };
 
   const [selectedFile, setSelectedFile] = useState(null);
-  const [docType] = useState('');
-
-  //  view part
+  const [docType] = useState("");
   return (
-      <form onSubmit={formik.handleSubmit}>
+    <form onSubmit={formik.handleSubmit}>
       <Grid
-              item
-              xs={12}
-              style={{ width: "100%", gap: 15, marginBottom:18 }}
-              container
-              direction="row"
-            >
-                <TextField
-                  label="First Name"
-                  name="firstname"
-                  type="text"
-                  defaultValue={userAccountDetail?.userAccountDetailCard?.customer?.identification?.first_name}
-                  //materialProps={userAccountDetail?.userAccountDetailCard?.customer?.identification?.first_name}
-                  disabled={true}
-                />
-       </Grid>
+        item
+        xs={12}
+        style={{ width: "100%", gap: 15, marginBottom: 18 }}
+        container
+        direction="row"
+      >
+        <TextField
+          label="First Name"
+          name="firstname"
+          type="text"
+          defaultValue={
+            userAccountDetail?.userAccountDetailCard?.customer?.identification
+              ?.first_name
+          }
+          //materialProps={userAccountDetail?.userAccountDetailCard?.customer?.identification?.first_name}
+          disabled={true}
+        />
+      </Grid>
 
       <Grid
-              item
-              xs={12}
-              style={{ width: "100%", gap: 15, marginBottom:18 }}
-              container
-              direction="row"
-            >
-                <TextField
-                  label="Last Name"
-                  name="lastname"
-                  type="text"
-                  //materialProps={{ defaultValue: "Doe" }}
-                  disabled={true}
-                  defaultValue={userAccountDetail.userAccountDetailCard?.customer?.identification?.last_name}
-                />
-       </Grid>
+        item
+        xs={12}
+        style={{ width: "100%", gap: 15, marginBottom: 18 }}
+        container
+        direction="row"
+      >
+        <TextField
+          label="Last Name"
+          name="lastname"
+          type="text"
+          //materialProps={{ defaultValue: "Doe" }}
+          disabled={true}
+          defaultValue={
+            userAccountDetail.userAccountDetailCard?.customer?.identification
+              ?.last_name
+          }
+        />
+      </Grid>
 
-       <Grid
-              item
-              xs={12}
-              style={{ width: "100%", gap: 15, marginBottom:18 }}
-              container
-              direction="row"
-            >
+      <Grid
+        item
+        xs={12}
+        style={{ width: "100%", gap: 15, marginBottom: 18 }}
+        container
+        direction="row"
+      >
+        <TextField
+          label="Date of Birth"
+          name="dob"
+          type="date"
+          format={"DD/MM/YYYY"}
+          //                  materialProps={{ defaultValue: "02/25/1990" }}
+          disabled={true}
+          defaultValue={Moment(
+            userAccountDetail.userAccountDetailCard?.customer?.identification
+              ?.date_of_birth
+          ).format("MM/DD/YYYY")}
+        />
+      </Grid>
 
-                <TextField
-                  label="Date of Birth"
-                  name="dob"
-                  type="date"
-                  format={'DD/MM/YYYY'}
-                  //                  materialProps={{ defaultValue: "02/25/1990" }}
-                  disabled={true}
-                  defaultValue={Moment(userAccountDetail.userAccountDetailCard?.customer?.identification?.date_of_birth).format("MM/DD/YYYY")}
-                />
-       </Grid>
+      <Grid
+        item
+        xs={12}
+        style={{ width: "100%", gap: 15, marginBottom: 18 }}
+        container
+        direction="row"
+      >
+        <EmailTextField
+          fullWidth
+          id="email"
+          name="email"
+          label="Email Address"
+          onKeyDown={preventSpace}
+          value={formik.values.email}
+          materialProps={{ maxLength: "100" }}
+          onLoad={checkApplicationStatus}
+          onChange={formik.handleChange}
+          onBlur={checkApplicationStatus}
+          error={formik.touched.email && Boolean(formik.errors.email)}
+          helperText={formik.touched.email && formik.errors.email}
+        />
+      </Grid>
+      <Grid
+        item
+        xs={12}
+        style={{ width: "100%", gap: 15, marginBottom: 18 }}
+        container
+        direction="row"
+      >
+        <PhoneNumber
+          name="phone"
+          label="Primary Phone Number"
+          placeholder="Enter your phone number"
+          id="phone"
+          type="text"
+          onKeyDown={preventSpace}
+          value={formik.values.phone}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.phone && Boolean(formik.errors.phone)}
+          helperText={formik.touched.phone && formik.errors.phone}
+        />
+      </Grid>
 
-       <Grid
-              item
-              xs={12}
-              style={{ width: "100%", gap: 15, marginBottom:18 }}
-              container
-              direction="row"
-            >
-                <EmailTextField
-                  fullWidth
-                  id="email"
-                  name="email"
-                  label="Email Address"
-                  onKeyDown={preventSpace}
-                  value={formik.values.email}
-                  materialProps={{ maxLength: "100" }}
-                  onLoad={checkApplicationStatus}
-                  onChange={formik.handleChange}
-                  onBlur={checkApplicationStatus}
-                  error={
-                    formik.touched.email && Boolean(formik.errors.email)
-                  }
-                  helperText={formik.touched.email && formik.errors.email}
-                />
+      <Grid container direction="row">
+        <Grid item xs={12} sm={3} style={{ paddingTop: "20px" }}>
+          {/*  <PersonOutlineIcon />{" "}*/}
+          <img
+            id="sidebarProfilePic"
+            src={profileImageData}
+            alt="Profile Pic"
+          />
+
+          <input
+            accept="image/png, image/jpeg, application/pdf, image/jpg "
+            multiple
+            id="file"
+            type="file"
+            onChange={handleInputChange}
+          />
         </Grid>
-        <Grid
-              item
-              xs={12}
-              style={{ width: "100%", gap: 15, marginBottom:18 }}
-              container
-              direction="row"
-            >
 
-                <PhoneNumber
-                  name="phone"
-                  label="Primary Phone Number"
-                  placeholder="Enter your phone number"
-                  id="phone"
-                  type="text"
-                  onKeyDown={preventSpace}
-                  value={formik.values.phone}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  error={
-                    formik.touched.phone && Boolean(formik.errors.phone)
-                  }
-                  helperText={formik.touched.phone && formik.errors.phone}
-                />
-        </Grid>
-
-
-
-
-            <Grid container direction="row">
-              <Grid item xs={12} sm={3} style={{ paddingTop: "20px" }}>
-
-                <PersonOutlineIcon />{" "}
-                {JSON.stringify(profileImageData)}
-
-                <input
-                  accept="image/png, image/jpeg, application/pdf, image/jpg "
-                  multiple
-                  id="file"
-                  type="file"
-                  onChange={handleInputChange}
-                />
-              </Grid>
-
-              <Grid item xs={12} sm={6} style={{ paddingTop: "10px" }} >
-                <Button
-                  variant="contained"
-                  onClick={() => uploadDoc()}
-                  className={classes.uploadbutton}
-                  component="span"
-                >
-                  Upload New Photo
-                </Button><br></br>
-                Allowed jpg, gif or png. Max size of 800kb
-              </Grid>
-            </Grid>
-            <Grid
-              container
-              style={{ justifyContent: "center" }}
-              alignItems="center"
-              item
-              lg={8}
-              md={8}
-              xs={12}
-              className="textBlock alignButton"
-            >
-
-        <ButtonSecondary
-            stylebutton='{"marginRight": "" }'
-            styleicon='{ "color":"" }'
-            id="apply-loan-reset-button"
-            //onClick={onClickCancelChangePassword}
+        <Grid item xs={12} sm={6} style={{ paddingTop: "10px" }}>
+          <ButtonSecondary
+            stylebutton='{"background": "#FFFFFF", "height": "inherit", "color": "black","fontSize":"1rem","border-width":"1","border-style": "solid"}'
+            id="uploadProfileImage"
+            variant="contained"
+            onClick={() => uploadProfileImage()}
+            component="span"
           >
-            Cancel
+            Upload New Photo
           </ButtonSecondary>
+          <br></br>
+          Allowed jpg, gif or png. Max size of 800kb
+        </Grid>
+      </Grid>
+      <Grid
+        container
+        style={{ justifyContent: "center" }}
+        alignItems="center"
+        item
+        lg={8}
+        md={8}
+        xs={12}
+        className="textBlock alignButton"
+      >
+        <ButtonSecondary
+          stylebutton='{"marginRight": " ", "height": "inherit"}'
+          styleicon='{ "color":"" }'
+          id="apply-loan-reset-button"
+          onClick={onClickCancelChange}
+        >
+          <Typography align="center" className="textCSS ">
+            Cancel
+          </Typography>
+        </ButtonSecondary>
 
-              <ButtonPrimary
-                type="submit"
-                stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black","fontSize":"1rem"}'
-                disabled={error || loading}
-              >
-                <Typography align="center" className="textCSS ">
-                  Save Changes
-                </Typography>
-                <i
-                  className="fa fa-refresh fa-spin customSpinner"
-                  style={{
-                    marginRight: "10px",
-                    display: loading ? "block" : "none",
-                  }}
-                />
-              </ButtonPrimary>
-            </Grid>
-
-
-      </form>
+        <ButtonPrimary
+          type="submit"
+          stylebutton='{"marginLeft": "5px","background": "#FFBC23", "height": "inherit", "color": "black","fontSize":"1rem"}'
+          disabled={error || loading}
+        >
+          <Typography align="center" className="textCSS ">
+            Save Changes
+          </Typography>
+          <i
+            className="fa fa-refresh fa-spin customSpinner"
+            style={{
+              marginRight: "10px",
+              display: loading ? "block" : "none",
+            }}
+          />
+        </ButtonPrimary>
+      </Grid>
+    </form>
   );
 }

@@ -12,7 +12,6 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import APICall from '../../../App/APIcall';
 import DocumentUpload from './DocumentUpload';
 import { toast } from "react-toastify";
-
 import "./stepper.css"
 
 //Styling part
@@ -31,19 +30,19 @@ const validationSchema = yup.object({
 			errorMessage.applyForLoan.bankAccountVerification.accountHolderRequired
 		),
 	bankRoutingNumber: yup
-		.string("Enter your Martial Status")
+		.string("Enter your bank routing number")
 		.required(
 			errorMessage.applyForLoan.bankAccountVerification
 				.bankRoutingNumberRequired
 		)
 		.min(9, "Bank Routing number should be 9 digits"),
 	bankInformation: yup
-		.string("Enter your Martial Status")
+		.string("Enter your bank information")
 		.required(
 			errorMessage.applyForLoan.bankAccountVerification.bankInformationRequired
 		),
 	bankAccountNumber: yup
-		.string("Enter your Martial Status")
+		.string("Enter your bank account number")
 		.required(
 			errorMessage.applyForLoan.bankAccountVerification
 				.bankAccountNumberRequired
@@ -51,11 +50,15 @@ const validationSchema = yup.object({
 		.min(7, "Account numner should be minimum of 7 digits")
 		.max(16, "Account numner should be minimum of 16 digits"),
 	confirmBankAccountNumber: yup
-		.string("Enter your Martial Status")
+		.string("Enter your confirm bank account number") 
 		.required(
 			errorMessage.applyForLoan.bankAccountVerification
 				.bankAccountNumberConfirmationRequired
 		)
+		.when("bankAccountNumber", {
+			is: (bankAccountNumber) => (bankAccountNumber && bankAccountNumber.length > 0),
+			then: yup.string().oneOf([yup.ref("bankAccountNumber")], "Your account numbers must match"),
+		})
 		.min(7, "Account numner should be minimum of 7 digits")
 		.max(16, "Account numner should be minimum of 16 digits"),
 });
@@ -104,7 +107,6 @@ export default function BankAccountVerification(props) {
 
 		//On submit - submit the user entered details 
 		onSubmit: async (values) => {
-
 			let data = {
 				"account_number": values.bankAccountNumber,
 				"account_type": accountType,
@@ -131,7 +133,6 @@ export default function BankAccountVerification(props) {
 
 	//restrictTextOnChange
 	const restrictTextOnChange = (event) => {
-		// const reg = /[a-zA-Z]+[ ]{0,1}[']{0,1}/;
 		const reg = /^[0-9\b]+$/;
 		let acc = event.target.value;
 
@@ -149,6 +150,10 @@ export default function BankAccountVerification(props) {
 			formik.handleChange(event);
 		}
 	};
+
+	const handleEdit = (e) => {
+		e.preventDefault();
+	  };
 
 	//View part - JSX part
 	return (
@@ -302,7 +307,10 @@ export default function BankAccountVerification(props) {
 						placeholder="Confirm Account Number"
 						label="Confirm Account Number"
 						value={formik.values.confirmBankAccountNumber}
-						materialProps={{ maxLength: "16", "data-test-id": "BRN" }}
+						onCut={handleEdit}
+						onCopy={handleEdit}
+						onPaste={handleEdit}
+						materialProps={{ maxLength: "16", "data-test-id": "BRN", "autoComplete": 'off' }}
 						onChange={restrictTextOnChange}
 						onBlur={formik.handleBlur}
 						inputProps={{ maxLength: "16", "data-test-id": "BankAccnum" }}
@@ -380,7 +388,7 @@ export default function BankAccountVerification(props) {
 					style={{ display: verifyRequired ? "block" : "none" }}
 				>
 					<div>
-						<p style={{ display: error && error === '' ? "none" : "block", color: "red" }}>
+						<p style={{ display: error && error === '' ? "none" : "block", fontWeight: "bold" }}>
 							{error}
 						</p>
 						<p style={{ textAlign: "justify" }}>
@@ -406,6 +414,7 @@ export default function BankAccountVerification(props) {
 							stylebutton='{"margin-right": "10px", "color":"" }'
 							onClick={(e) => {
 								formik.resetForm();
+								setVerifyRequired(false);
 							}}
 							id="button_stepper_reset"
 						>

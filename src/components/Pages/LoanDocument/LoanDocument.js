@@ -31,6 +31,7 @@ export default function LoanDocument(props) {
   const [loanDocumentStatus, setloanDocumentStatus] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [docType, setDocType] = useState("");
+  const [loading, setLoading] = useState(false);
 
   async function AsyncEffect_loanDocument() {
     setloanDocumentStatus(
@@ -55,31 +56,35 @@ export default function LoanDocument(props) {
   };
 
 //Upload Document
-  const uploadDoc = () => {
+  const  uploadDoc = () => {
     if (selectedFile === null) {
-      
+      if(! toast.isActive("closeToast")) {
         toast.error("please select a file to upload", {
           position: "bottom-left",
           autoClose: 1500,
           hideProgressBar: false,
           closeOnClick: true,
+          toastId: "closeToast",
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
         });
+      }
       
     } 
     else if (docType  === null || docType === "") {
-      
+      if(! toast.isActive("closeToast")) {
       toast.error("please select a document type", {
         position: "bottom-left",
         autoClose: 1500,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
+        toastId: "closeToast",
         draggable: true,
         progress: undefined,
       });
+    }
     
   }else {
       var filePath = selectedFile.value;
@@ -87,7 +92,7 @@ export default function LoanDocument(props) {
       var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.pdf)$/i;
 
       if (!allowedExtensions.exec(filePath)) {
-        
+        if(! toast.isActive("closeToast")) {
           toast.error(
             "Please upload file having extensions .jpeg .jpg .png .pdf only. ",
             {
@@ -98,8 +103,10 @@ export default function LoanDocument(props) {
               pauseOnHover: true,
               draggable: true,
               progress: undefined,
+              toastId: "closeToast",
             }
           );
+        }
         
         selectedFile.value = "";
         return false;
@@ -107,15 +114,25 @@ export default function LoanDocument(props) {
       else if (selectedFile.files[0].size <= 10240000  ) {
        let reader = new FileReader();
         if (selectedFile.files && selectedFile.files[0]) {
-          reader.onload = () => {
+          reader.onload = async () => {
             const buffer2 = Buffer.from(reader.result, "base64");
 
             let test = Buffer.from(buffer2).toJSON().data;
             let fileName = selectedFile.files[0].name;
             let fileType = selectedFile.files[0].type;
             let documentType = docType;
+            setLoading(true);
 
-            uploadDocument(test, fileName, fileType, documentType);  //Passing data to API
+          let response = await  uploadDocument(test, fileName, fileType, documentType); 
+
+            if (response === "true") {
+             
+              setLoading(false);
+              setDocType(null);
+              setSelectedFile(document.getElementById("file").value= null);
+              
+            }
+             //Passing data to API
           };
           reader.readAsDataURL(selectedFile.files[0]);
         }
@@ -124,6 +141,7 @@ export default function LoanDocument(props) {
       {
         if(selectedFile.files[0].size > 10240000)
         {
+          if(! toast.isActive("closeToast")) {
         toast.error("Please upload file size below 10mb ", {
           position: "bottom-left",
           autoClose: 1500,
@@ -132,7 +150,9 @@ export default function LoanDocument(props) {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
+          toastId: "closeToast",
         });
+      }
       }
   }
   }
@@ -244,8 +264,14 @@ export default function LoanDocument(props) {
                   onClick={() => uploadDoc()}
                   className={classes.uploadbutton}
                   component="span"
+                 disabled={loading}
                 >
-                  Upload a document
+                  Upload a document           
+            
+              <i
+                className="fa fa-refresh fa-spin customSpinner"
+               style={{marginRight: "10px", color: "blue", display: loading ? "block" : "none"}}
+                 />
                 </Button>
               </Grid>
               </Grid>
