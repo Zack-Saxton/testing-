@@ -64,7 +64,7 @@ case $env in
     dev_remote)
         echo "*** Deployment to development environment ***"
         # Initialise the variables
-        dev_env ;;
+        dev_remote_env ;;
     staging)
         echo "*** Deployment to Staging environment ***"
         # Initialise the variables
