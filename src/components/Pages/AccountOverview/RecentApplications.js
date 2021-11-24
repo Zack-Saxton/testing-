@@ -12,9 +12,13 @@ import { ButtonPrimary } from "../../FormsUI";
 import NumberFormat from 'react-number-format';
 import { useHistory } from "react-router-dom";
 
+<<<<<<< HEAD
 
 
 export default function RecentApplications({ userApplicationsData,UserAccountStatus,userApplicantData }) {
+=======
+export default function RecentApplications({ userApplicationsData, UserAccountStatus }) {
+>>>>>>> dev
   //Material UI css class
   const classes = useStylesAccountOverview();
   //Recentapplications data
@@ -36,18 +40,18 @@ export default function RecentApplications({ userApplicationsData,UserAccountSta
     "rejected": "Rejected",
     "under_review": "Under review",
     "closing_process": "Closing process",
-    "signature_complete":  "Signature completed",
+    "signature_complete": "Signature completed",
     "final_review": "Final review"
   };
 
   let statusStrLink = {
     "approved": "/customers/finalVerification",
     "completing_application": "/customers/finalVerification",
-    "contact_branch":  "/customers/myBranch",
+    "contact_branch": "/customers/myBranch",
     "confirming_info": "/confirmation-credit",
     "expired": "/select-amount",
     "invalid": "/select-amount",
-    "signature_complete":  "/customers/finalVerification",
+    "signature_complete": "/customers/finalVerification",
     "offer_selected": "/customers/reviewAndSign",
     "offers_available": "/customers/selectOffer",
     "pre_qual_referred": "/select-amount",
@@ -58,6 +62,7 @@ export default function RecentApplications({ userApplicationsData,UserAccountSta
     "under_review": "/customers/loanDocument",
     "closing_process": "/customers/finalVerification",
     "final_review": "/customers/loanDocument"
+<<<<<<< HEAD
   }; 
 
   const history = useHistory();
@@ -69,6 +74,10 @@ export default function RecentApplications({ userApplicationsData,UserAccountSta
       }
   
  
+=======
+  };
+
+>>>>>>> dev
   //View
   return (
     <Grid item xs={12} style={{ width: "100%", paddingBottom: "10px" }}>
@@ -129,10 +138,10 @@ export default function RecentApplications({ userApplicationsData,UserAccountSta
                     <TableCell className={classes.tableheadrow} align="left">
                       {(statusStr[appData.status]) ? statusStr[appData.status] : (appData.status)}
                     </TableCell>
-                    <TableCell align="left">    
+                    <TableCell align="left">
                       {appData.isActive ?
                         (
-                          <ButtonPrimary stylebutton='{"color":"","width":"72%" }'     
+                          <ButtonPrimary stylebutton='{"color":"","width":"72%" }'
                             href={statusStrLink[appData.status]}
                           >
                             Resume

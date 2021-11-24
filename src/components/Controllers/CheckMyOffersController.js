@@ -191,8 +191,6 @@ export async function checkMyOfferSubmit(customer) {
 		"headersHost": "cis-development.marinerfinance.io",
 	};
 
-
-
 	try {
 		if (!loggedIn && !token) {
 			result = await axios({
@@ -409,7 +407,6 @@ export async function checkMyOfferSubmitTest(customer) {
 				data: JSON.stringify(bodyTest),
 				headers: {
 					"Content-Type": "application/json",
-				
 				},
 				transformRequest: (data, headers) => {
 					delete headers.common["Content-Type"];

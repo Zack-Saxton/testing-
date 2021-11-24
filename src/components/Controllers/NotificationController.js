@@ -4,7 +4,6 @@ import APICall from "../lib/AxiosLib";
 export async function getNoticationData() {
   //get the user email id
   const email = localStorage.getItem("email");
-
   let url = "get_notification";
   let param = "";
   let data = {

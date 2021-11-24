@@ -15,7 +15,3 @@ export default async function loginSubmit(email, password) {
   let loginMethod = await APICall(url, param, data, method, addAccessToken);
   return loginMethod;
 }
-
-
- 
-

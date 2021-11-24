@@ -5,7 +5,6 @@ import states from "../contexts/States.json"
 export const CheckMyOffers = createContext();
 
 const CheckMyOffersContext = (props) => {
-
 	//context data initial State
 	const [data, setData] = useState({
 		loanAmount: null,
@@ -46,9 +45,9 @@ const CheckMyOffersContext = (props) => {
 		password: null,
 		confirmPassword: null,
 		result: null,
-		formStatus: '', 
+		formStatus: '',
 		completedPage: 0,
-		loading:true,
+		loading: true,
 		isActiveUser: null,
 		disabled: false,
 		last4SSN: null,
@@ -69,6 +68,7 @@ const CheckMyOffersContext = (props) => {
 		},
 		applicationStatus: ''
 	});
+
 	//setUserAccountDetails in context
 	async function setUserAccountDetails() {
 		data.loading = true

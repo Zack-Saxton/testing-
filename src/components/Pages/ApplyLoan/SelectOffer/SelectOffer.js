@@ -22,11 +22,11 @@ import Tooltip from "@material-ui/core/Tooltip";
 import ScrollToTopOnMount from "../../ScrollToTop";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import "./SelectOffer.css";
-import  {fetchAvailableOffers, submitSelectedOfferAPI } from "../../../Controllers/ApplyForLoanController";
+import { fetchAvailableOffers, submitSelectedOfferAPI } from "../../../Controllers/ApplyForLoanController";
 import { errorMessage } from "../../../../helpers/ErrorMessage";
 import CheckLoginStatus from "../../../App/CheckLoginStatus";
 
-//Initializing functional component Apply for loan 
+//Initializing functional component Apply for loan
 export default function ApplyLoan() {
 
 	//Initializing state variables
@@ -152,10 +152,10 @@ export default function ApplyLoan() {
 			if (term[0] !== undefined) {
 				initialTabLoad(term[0], 0, val);
 			}
-		} 
+		}
 	}
 
-	// to call the fetch offers api on page load 
+	// to call the fetch offers api on page load
 	useEffect(() => {
 		getAvailableOffers();
 	}, []);
@@ -169,8 +169,8 @@ export default function ApplyLoan() {
 			<div
 				role="tabpanel"
 				hidden={value !== index}
-				id={`scrollable-auto-tab-panel-${index}`}
-				aria-labelledby={`scrollable-auto-tab-${index}`}
+				id={`scrollable-auto-tab-panel-${ index }`}
+				aria-labelledby={`scrollable-auto-tab-${ index }`}
 				{...other}
 			>
 				{value === index && (
@@ -190,8 +190,8 @@ export default function ApplyLoan() {
 
 	function a11yProps(index) {
 		return {
-			id: `scrollable-auto-tab-${index}`,
-			"aria-controls": `scrollable-auto-tab-panel-${index}`,
+			id: `scrollable-auto-tab-${ index }`,
+			"aria-controls": `scrollable-auto-tab-panel-${ index }`,
 		};
 	}
 
@@ -214,8 +214,8 @@ export default function ApplyLoan() {
 		return (
 			<div
 				hidden={value !== verticalIndex}
-				id={`scrollable-auto-tab-panel-${verticalIndex}`}
-				aria-labelledby={`scrollable-auto-tab-${verticalIndex}`}
+				id={`scrollable-auto-tab-panel-${ verticalIndex }`}
+				aria-labelledby={`scrollable-auto-tab-${ verticalIndex }`}
 				{...other}
 			>
 				{value === verticalIndex && (
@@ -235,8 +235,8 @@ export default function ApplyLoan() {
 
 	function tabVerticalProps(verticalIndex) {
 		return {
-			id: `scrollable-auto-tab-vertical-${verticalIndex}`,
-			"aria-controls": `scrollable-auto-tab-panel-${verticalIndex}`,
+			id: `scrollable-auto-tab-vertical-${ verticalIndex }`,
+			"aria-controls": `scrollable-auto-tab-panel-${ verticalIndex }`,
 		};
 	}
 
@@ -265,7 +265,7 @@ export default function ApplyLoan() {
 		};
 	}
 
-	// Shows the Brnach icon 
+	// Shows the Brnach icon
 	const branch = (
 		<Grid container direction="row" alignItems="center">
 			<AccountBalanceIcon /> In branch
@@ -302,13 +302,13 @@ export default function ApplyLoan() {
 		setRowData(rowsterm);
 	}
 
-	//On Compare offers tab is click 
+	//On Compare offers tab is click
 	function onCompareOfferTabClick() {
 		setOfferFlag(false);
 		setRowData(offersToCompare);
 	}
 
-	// Call function to load the tab initially 
+	// Call function to load the tab initially
 	function initialTabLoad(termNum, tabIndex, accountDetailsData) {
 		let rowsterm = [];
 		accountDetailsData.data.data.Offers[termNum].map((item, index) => {
@@ -342,7 +342,7 @@ export default function ApplyLoan() {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<CheckLoginStatus/>
+			<CheckLoginStatus />
 			<Grid
 				container
 				justifyContent={"center"}

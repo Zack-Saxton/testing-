@@ -17,7 +17,7 @@ export async function loanDocumentController(accNo) {
 
 /***** Download and converting bufferdata *****/
 function downloadFileData(data) {
-   var Buffer = require("buffer/").Buffer; // note: the trailing slash is important!
+  var Buffer = require("buffer/").Buffer; // note: the trailing slash is important!
   const buff = Buffer.from(data.data.data.bufferFile.data);
   const url = window.URL.createObjectURL(new Blob([buff]));
   const link = document.createElement("a");
@@ -96,7 +96,7 @@ export async function documentprint(id, name) {
     method,
     addAccessToken
   );
-   documentDownloadPrint.data.status === 200
+  documentDownloadPrint.data.status === 200
     ? print(documentDownloadPrint)
     : toast.error("Error printing file", {
         position: "bottom-left",

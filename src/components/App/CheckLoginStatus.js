@@ -86,10 +86,6 @@ const CheckLoginStatus = () => {
     });
 
     }
-    // history.push({
-    //   pathname: "/login",
-    //   state: { redirect: window.location.pathname }
-    // });
   }
   return null;
 }
