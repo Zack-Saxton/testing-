@@ -39,17 +39,22 @@ const validationSchema = yup.object({
     .required("Your email address is required"),
 
   ssn: yup
-    .string("Enter a SSN")
-    .required("Your SSN is required")
-    .transform((value) => value.replace(/[^\d]/g, ""))
-    //eslint-disable-next-line
-    .matches(
-      /^(?!000)[0-8][0-9]{2}(?!00)[0-9]{2}(?!0000)[0-9]{4}$/,
-      "Please enter a valid SSN"
-    )
-    .matches(/^(\d)(?!\1+$)\d{8}$/, "Please enter a valid SSN")
-    .min(9, "SSN must contain at least 9 digits"),
-
+  .string()
+	.when("checkSSN", {
+    is: (checkSSN) =>
+    !checkSSN,
+    then: yup
+      .string("Enter a SSN")
+      .required("Your SSN is required")
+      .transform((value) => value.replace(/[^\d]/g, ""))
+      //eslint-disable-next-line
+      .matches(
+          /^(?!000)[0-8][0-9]{2}(?!00)[0-9]{2}(?!0000)[0-9]{4}$/,
+          "Please enter a valid SSN"
+        )
+        .matches(/^(\d)(?!\1+$)\d{8}$/, "Please enter a valid SSN")
+        .min(9, "SSN must contain at least 9 digits")
+  }),
   phone: yup
     .string("Enter a name")
     .required("Your Phone number is required")
@@ -96,10 +101,12 @@ function PersonalInfo() {
     initialValues: {
       firstName: data.firstName ? data.firstName : "",
       lastName: data.lastName ? data.lastName : "",
-      email: data.email ?? "",
-      ssn: data.ssn ?? "",
+      email: data.email ? data.email : "",
+      ssn: data.ssn ? data.ssn : "",
+      lastSSN: data.last4SSN ? data.last4SSN : "",
       phone: data.phone ? data.phone : "",
       date: data.dob ?? null,
+      checkSSN: data.last4SSN ? true : false
     },
     validationSchema: validationSchema,
 
@@ -111,7 +118,7 @@ function PersonalInfo() {
       data.lastName = values.lastName.trim();
       data.email = values.email;
       data.phone = values.phone;
-      data.ssn = values.ssn.replace(/-/g, "").replace(/ /g, "") || "";
+      data.ssn = data.last4SSN ? data.ssn :values.ssn.replace(/-/g, "").replace(/ /g, "") || ""
       const phone =
         values.phone
           .replace(/-/g, "")
@@ -124,7 +131,7 @@ function PersonalInfo() {
       if (values.email !== null && values.ssn !== null) {
         let body = {
           email: values.email,
-          ssn: values.ssn.replace(/-/g, "").replace(/ /g, "") || "",
+          ssn: data.last4SSN ? data.ssn :values.ssn.replace(/-/g, "").replace(/ /g, "") || "",
           isAuthenticated: true,
         };
 
@@ -358,6 +365,7 @@ function PersonalInfo() {
                         helperText={
                           formik.touched.firstName && formik.errors.firstName
                         }
+                        disabled={data.disabled}
                       />
                     </Grid>
                     <Grid
@@ -386,6 +394,7 @@ function PersonalInfo() {
                         helperText={
                           formik.touched.lastName && formik.errors.lastName
                         }
+                        disabled={data.disabled}
                       />
                       <div className="MuiTypography-alignLeft">
                         <Typography className="smallTextLeft">
@@ -441,18 +450,33 @@ function PersonalInfo() {
                       className="textBlock"
                     >
 
-                      <SocialSecurityNumber
-                        name="ssn"
-                        label="Social Security Number *"
-                        placeholder="Enter your Social Security Number"
-                        id="ssn"
-                        type="ssn"
-                        value={formik.values.ssn}
-                        onChange={emailOnChange}
+                      {data.last4SSN ? <TextField
+                        fullWidth
+                        id="last4ssn"
+                        name="last4ssn"
+                        materialProps={{ maxLength: "30" }}
+                        value={formik.values.lastSSN}
                         onBlur={formik.handleBlur}
-                        error={formik.touched.ssn && Boolean(formik.errors.ssn)}
-                        helperText={formik.touched.ssn && formik.errors.ssn}
-                      />
+                        error={
+                          formik.touched.lastSSN &&
+                          Boolean(formik.errors.lastSSN)
+                        }
+                        helperText={
+                          formik.touched.lastSSN && formik.errors.lastSSN
+                        }
+                        disabled={data.disabled}
+                      /> : <SocialSecurityNumber
+                      name="ssn"
+                      label="Social Security Number *"
+                      placeholder="Enter your Social Security Number"
+                      id="ssn"
+                      type="ssn"
+                      value={formik.values.ssn}
+                      onChange={emailOnChange}
+                      onBlur={formik.handleBlur}
+                      error={formik.touched.ssn && Boolean(formik.errors.ssn)}
+                      helperText={formik.touched.ssn && formik.errors.ssn}
+                    />}
 
                       <div className="MuiTypography-alignLeft">
                         <Typography className="smallTextLeft" align="left">
@@ -485,6 +509,7 @@ function PersonalInfo() {
                           formik.touched.email && Boolean(formik.errors.email)
                         }
                         helperText={formik.touched.email && formik.errors.email}
+                        disabled={data.disabled}
                       />
                       <p
                         className={

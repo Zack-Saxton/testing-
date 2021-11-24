@@ -2,10 +2,15 @@ import React from "react";
 import "./Footer.css";
 import badge from "../../../assets/images/badge.png";
 import Logo from "../../../assets/images/MarinerLogo.png";
+import ConsumerDialog from "../ConsumerFooterDialog/ConsumerDialog"
 
 
 export default function Footer() {
-  
+  const [consumer, setConsumer] = React.useState(false);
+  //Consumer popup
+  const handleOpenConsumer = () => {
+    setConsumer(true);
+  };
   //View Part
   return (
     <div >
@@ -56,31 +61,24 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="col">
+          <div className="col2">
             <div >
-            <input type="image" src={badge} alt="badge" id= "badge" style={{ height: "90px" }} />
+            <input type="image" src={badge} alt="badge" id= "badge" style={{ height: "100%" }} />
             </div>
             <div id="mfInfo" className="row" style={{display:"flex",paddingTop:"15px",paddingBottom:"15px",paddingLeft:"25px"}}>
-            <input type="image" id="mfInfoImg" src={Logo} alt="logo image" style={{ height: "60px",paddingRight:"25px" }} />
+            <input type="image" id="mfInfoImg" src={Logo} alt="logo image" style={{ height: "100%",paddingRight:"25px" }} />
             <div className="row">
             <div style={{paddingTop:"15px",paddingBottom:"15px",}}>
               <p className="leftAlignAddress">
-                Mariner Finance, LLC, NMLS No. 166564
-                <br />
-                <a
-                  href="https://www.nmlsconsumeraccess.org/"
-                  target="_blank"
-                  className=" hrefTag"
-                  rel="noreferrer"
-                >
+                Mariner Finance, LLC, NMLS No. 166564               
+                <p style={{margin:"0",cursor: "pointer"}}onClick={handleOpenConsumer}>
                   (www.nmlsconsumeraccess.com)
-                </a>
-                <br />
+                </p>               
                 8211 Town Center Drive,
-                <br /> Nottingham, MD 21236; <br />
+               Nottingham, MD 21236; <br />
                 Telephone Number -
                 <a href="tel:+8773102373" className="hrefTag ">
-                  &nbsp; 877-310-2373
+                  &nbsp; (877) 310-2373
                 </a>
               </p>
             </div>
@@ -93,11 +91,12 @@ export default function Footer() {
         <section className="section-bottom">
           <div>
             <span style={{ color: "white" }}>
-              &copy; 2020 Mariner Finance All rights reserved.
+              &copy; 2021 Mariner Finance All rights reserved.
             </span>
           </div>
         </section>
       </footer>
+      <ConsumerDialog consumer={consumer} onChange={setConsumer} />
     </div>
   );
 }

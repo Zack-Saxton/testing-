@@ -81,7 +81,7 @@ export default function Credit(creditData) {
        
         <p className = {classes.flex}>  {(score >= 750 || score >= 700 || score >= 640) ? <ThumbUpIcon className = {classes.thumb}/> :<ThumbDownIcon className = {classes.thumb}/>} {status}</p>
         <p>{compareLastmnth}</p>
-        <NavLink to={{ pathname:'/customers/applyForLoan', state: {statusCheck:false}   }} style={{ textDecoration: "none" }}>
+        <NavLink to={{ pathname:'/customers/applyForLoan', state: {statusCheck:false, from: "user"}   }} style={{ textDecoration: "none" }}>
 
  
         <ButtonPrimary stylebutton='{"background": ""}'> Check My Offers</ButtonPrimary>

@@ -50,29 +50,23 @@ export default function FinancialInformation(props) {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-
       let body = {
         "employer_name": values.employerName,
         "current_job_title": values.jobTitle,
         "years_at_current_address": "12",
         "refer": "nil"
       }
-
       //API call to submit financial info
       let res = await submitFinancialInformation(body);
-      if (res.data.data.phone_verification === true) {
+      if (res.data.data.financial_information === true) {
         setError('');
-
         props.next();
       }
       else {
-        alert("has error");
         setError(errorMessage.applyForLoan.financialInformation.verificationNotFound);
       }
-
     }
   });
-
   const nameChange = (event) => { 
     const reg = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
     let acc = event.target.value;
@@ -99,7 +93,6 @@ export default function FinancialInformation(props) {
             helperText={formik.touched.employerName && formik.errors.employerName}
           />
         </Grid>
-
         <Grid item sm={5} className={classes.content_grid}>
           <TextField
             name="jobTitle"
@@ -132,7 +125,6 @@ export default function FinancialInformation(props) {
             }
           />
         </Grid>
-
         <Grid item sm={5} className={classes.content_grid}>
           <Select
             name="howDoYouHearAboutUs"
@@ -152,7 +144,6 @@ export default function FinancialInformation(props) {
           />
           <p style={{ color: "red" }}>{error}</p>
         </Grid>
-
         <div className={props.classes.actionsContainer}>
           <div className={props.classes.button_div} >
 
@@ -160,14 +151,12 @@ export default function FinancialInformation(props) {
               stylebutton='{"marginRight": "10px", "color":"" }'
               onClick={(e) => {
                 formik.resetForm();
-                
               }
               }
               id="button_stepper_reset"
             >
               Reset
             </ButtonSecondary>
-
             <ButtonPrimary
               variant="contained"
               color="primary"

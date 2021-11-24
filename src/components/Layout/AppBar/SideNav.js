@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import clsx from "clsx";
 import "./SideNav.css";
 import { makeStyles } from "@material-ui/core/styles";
@@ -34,11 +34,15 @@ import logoIcon from "../../../assets/images/Favicon.png";
 import logoImage from "../../../assets/images/Normallogo.png";
 import { NavLink, useHistory } from "react-router-dom";
 import quickPay from "../../../assets/images/quickpay.png";
+import ProfileImageController from "../../Controllers/ProfileImageController";
 import profileImg from "../../../assets/images/profile-img.png"
 import Notification from "../Notification/Notification"
 import 'react-toastify/dist/ReactToastify.css';
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import MoneySkill from "../../Pages/MoneySkill/MoneySkill";
+import Tooltip from "@material-ui/core/Tooltip";
+import branchDetails from "../../Controllers/MyBranchController";
+
 
 const drawerWidth = 240; 
 
@@ -186,10 +190,51 @@ export default function SideNav() {
     }
   }, [checked, check]);
 
+  //Formating Phone Number
+  function formatPhoneNumber(phoneNumber) {
+    if(phoneNumber ) {
+    const cleanNum =phoneNumber.toString().replace(/\D/g, '');
+    const match = cleanNum.match(/^(\d{3})(\d{0,3})(\d{0,4})$/);
+    if (match) {
+      return '(' + match[1] + ') ' + (match[2] ? match[2] + "-" : "") + match[3];
+    }
+    return cleanNum;
+  }
+  else{
+    return false
+  }
+}
+
+//Api call Branch Details
+const [branchVal, setBranchDetails] = useState(null);
+async function getUserBranchDetails() {
+  setBranchDetails(await branchDetails());
+}
+useEffect(() => {
+  getUserBranchDetails();
+}, []);  
+
+// Side bar branch details
+localStorage.setItem('branchname',((branchVal?.data?.data?.BranchName) ? (branchVal.data.data.BranchName) : (branchVal?.data?.data?.branchName) ? (branchVal.data.data.branchName) : ""))
+localStorage.setItem('branchphone',branchVal?.data?.data?.PhoneNumber) 
+localStorage.setItem('branchopenstatus',branchVal?.data?.data?.date_closed)
+
+  const loginDate = localStorage.getItem('login_date');
   const branchName = localStorage.getItem('branchname');
   const branchPhone = localStorage.getItem('branchphone');
   const branchcloseStatus = localStorage.getItem('branchopenstatus');
   
+//Profile Image
+  const [profileImage, setProfileImage] = useState(null);
+  async function AsyncEffect_profileImage() {
+    setProfileImage(await ProfileImageController());
+  }
+  useEffect(() => {
+    AsyncEffect_profileImage();
+  }, []);
+  let profileImageData = profileImage?.data?.data?.profile_picture_url != null ? profileImage.data.data.profile_picture_url : profileImg;
+
+
 //Side bar open on mouse event
   const handleDrawer = () => {
     const closeElementId = "close";
@@ -228,7 +273,6 @@ export default function SideNav() {
   };
 
 //Side bar close on mouse event
-
   const handleDrawerleave = () => {
     const closeElementId = "close";
     const valueQualifiedName = "value";
@@ -299,6 +343,8 @@ export default function SideNav() {
     setAnchorEl(null);
     let userToken = { isLoggedIn: false };
     localStorage.setItem("token", JSON.stringify(userToken));
+    localStorage.setItem("cred", JSON.stringify({email: "", password: "" }));
+
 
     history.push({
       pathname: "/login",
@@ -309,7 +355,7 @@ export default function SideNav() {
     setDisable(true);
     toast.success("You are being logged out of the system", {
       position: "bottom-left",
-      autoClose: 1500,
+      autoClose: 2500,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -329,49 +375,30 @@ export default function SideNav() {
 
     setChecked(event.target.checked);
   };
-
-  
-  const menuId = "primary-search-account-menu";
+ 
 
 //Menu bar 
   const renderMenu = (
     <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
+      id="settingsMenu"
+      anchorEl={anchorEl}     
       open={isMenuOpen}
-      onClose={handleMenuClose}
+      onClose={handleMenuClose}     
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-      <MenuItem onClick={logoutUser} disabled={disable}>
-        Log Out
+      <MenuItem onClick={handleMenuClose} id="settingsMenuList">
+      <NavLink to={{ pathname:'/customers/myProfile', state: {tab: 0}  }} className="nav_linkSettingMenu" >My Profile</NavLink></MenuItem>
+      <MenuItem onClick={handleMenuClose} id="settingsMenuList">
+      <NavLink to={{ pathname:'/customers/myProfile', state: {tab: 3}  }}   className="nav_linkSettingMenu" >Payment Accounts</NavLink></MenuItem>
+      <MenuItem onClick={logoutUser} id="settingsMenuListLogout" disabled={disable}>
+        LogOut
       </MenuItem>
     </Menu>
   );
 
-  <Menu>
-    <MenuItem onClick={handleProfileMenuOpen}>
-      <IconButton
-        aria-label="account of current user"
-        aria-controls="primary-search-account-menu"
-        aria-haspopup="true"
-        color="inherit"
-      >
-        <SettingsIcon />
-      </IconButton>
-      <p>Settings</p>
-    </MenuItem>
-  </Menu>;
 
 //View part
   return (
     <div className={classes.grow}>
-      <ToastContainer
-        toastStyle={{ backgroundColor: "green", color: "white" }}
-      />
       <AppBar
         position="absolute"
         elevation={0}
@@ -430,22 +457,27 @@ export default function SideNav() {
               </a>
             </Typography>
 
-            <img
+
+            <NavLink to="/customers/makePayment" >
+            <Tooltip title="Quick Pay" placement="Bottom">
+              <img
               className={clsx(classes.headerimg, classes.headerimgResp)}
               src={quickPay}
               data-test-id="background"
               alt="quick pay"
             />
+            </Tooltip>
+            </NavLink>
 
             <Notification />
 
             <IconButton
               edge="end"
               aria-label="account of current user"
-              aria-controls={menuId}
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
               color="inherit"
+             
             >
               <SettingsIcon />
             </IconButton>
@@ -502,18 +534,21 @@ export default function SideNav() {
             <ListItem id="profileDetails" className="profileDetails">
               <List >
               <ListItem>
-                <img id="sidebarProfilePic" src={profileImg} alt="Profile Pic" />
-              </ListItem> 
+               <img id="sidebarProfilePic" src={profileImageData} alt="Profile Pic" />
+             </ListItem> 
+             <ListItem id="lastlogin">  
+                  {loginDate === '' || undefined ? '' : 'Last Login : '+ loginDate}  
+              </ListItem>               
               <ListItem id="sidemenuBranch">  
-                  {branchName === '' || undefined ? '' : 'Branch : '+ branchName}  
+                  {(branchName === 'null' || branchName ===  undefined || branchName ===  "") ? '' : ('Branch: '+ branchName)}  
               </ListItem>               
               <ListItem id={branchcloseStatus === 'null' ? 'sidemenuOpenNow' : 'sidemenuCloseNow'} >  
-                {branchcloseStatus === 'null' ? 'Open Now' : 'Closed Now'}
+                {branchcloseStatus === 'null' ? 'Open now' : 'Closed now'}
               </ListItem> 
-              {branchPhone === '' || undefined  ? '' :  
+              {formatPhoneNumber(branchPhone) === '' || undefined  ? '' :  
               <ListItem id="sidemenuPhone"> 
                   <CallIcon />  
-                  {branchPhone}
+                  {formatPhoneNumber(branchPhone)}
               </ListItem> 
               }  
               </List>
@@ -540,7 +575,7 @@ export default function SideNav() {
               </ListItem>
             </NavLink>
 
-            <NavLink to="/customers/applyForLoan" className="nav_link">
+            <NavLink to={{ pathname:'/customers/applyForLoan', state: {from: "user"}  }} className="nav_link">
               <ListItem className="titleSidenav">
                 <ListItemIcon>
                   {" "}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useStylesMyProfile } from "./Style";
 import Grid from "@material-ui/core/Grid";
 import "./Style.css";
@@ -8,13 +8,14 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableRow from "@material-ui/core/TableRow";
 import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
-import DesktopMacIcon from "@material-ui/icons/DesktopMac";
-import ListIcon from "@material-ui/icons/List";
-import DeleteIcon from "@material-ui/icons/Delete";
+import PaymentIcon from "@material-ui/icons/Payment";
+import ListIcon from "@material-ui/icons/Reorder";
+import DeleteIcon from "@material-ui/icons/DeleteForever";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import { InputAdornment } from "@material-ui/core";
+import { AddACHPaymentAPI } from "../../Controllers/AddACHDebitMethod";
 import {
   ButtonPrimary,
   ButtonSecondary,
@@ -47,10 +48,10 @@ const validationSchemaDebitCard = yup.object({
   cardNumber: yup
     .string("Enter Debit Card Number")
     .required("Your Debit Card Number is required")
-    .max(16, "Debit Card Number should be of 16 digits"),
+    .min(16, "Debit Card Number should be of 16 digits"),
   cardName: yup
-    .string("Enter Bank Name")
-    .required("Your Bank Name is required"),
+    .string("Enter your card name")
+    .required("Your Name on your card is required"),
   cvv: yup
     .string("Enter CVV")
     .required("Your CVV is required")
@@ -59,7 +60,11 @@ const validationSchemaDebitCard = yup.object({
     .date("Please enter a valid date")
     .nullable()
     .required("Your Card Expiry Date is required")
-    .typeError("Please enter a valid date"),
+    .typeError("Please enter a valid date")
+    .min(
+      new Date(new Date().getFullYear(), new Date().getMonth()),
+      "Please check your Expiry Month and Year"
+    ),
 });
 
 const validationSchemaAddBank = yup.object({
@@ -106,18 +111,17 @@ const branch = (
 
 const online = (
   <Grid container direction="row" alignItems="center">
-    <DesktopMacIcon />
+    <PaymentIcon />
   </Grid>
 );
 
 const rows36term = [
-  createData(branch, "Test1", "", "101", ""),
-  createData(online, "Test2", "", "102", ""),
+  createData(branch, "Test1", "1", "101", ""),
+  createData(online, "Test2", "0", "102", ""),
 ];
 
 export default function PaymentMethod() {
   const classes = useStylesMyProfile();
-  const [scheduleCall, setScheduleCall] = useState(false);
   const [bankRoutingCheque, setHandleBankRoutingCheque] = useState(false);
   const [addBankAccount, setAddBankAccount] = useState(false);
   const [addDebitCard, setAddDebitCard] = useState(false);
@@ -125,7 +129,6 @@ export default function PaymentMethod() {
   const [accountType, setAccountType] = useState("saving");
   const [addBankModal, setAddBankModal] = useState(false);
   const [debitCardModal, setDebitCardModal] = useState(false);
-
   const formikAddBankAccount = useFormik({
     initialValues: {
       accountNickname: "",
@@ -135,8 +138,17 @@ export default function PaymentMethod() {
       bankAccountNumber: "",
     },
     validationSchema: validationSchemaAddBank,
-    onSubmit: async (values) => {
+    enableReinitialize: true,
+    onSubmit:  (values) => {
       setAddBankModal(true);
+      AddACHPaymentAPI(
+        values.accountNickname,
+        values.accountHolder,
+        values.bankRoutingNumber,
+        values.bankAccountNumber,
+        values.accountType,
+        values.defaultBank
+      );
     },
   });
 
@@ -213,6 +225,12 @@ export default function PaymentMethod() {
     setHandleBankRoutingCheque(false);
   };
 
+  useEffect(() => {
+    const img = new Image();
+    // image is already loaded (cached if server permits) on component mount:
+    img.src = cheque;
+  }, []);
+
   const addBankAccountButton = () => {
     setAddBankAccount(true);
     setPaymentMethodDiv(false);
@@ -250,24 +268,50 @@ export default function PaymentMethod() {
               <TableBody>
                 {rows36term.map((row) => (
                   <TableRow key={row.name}>
-                    <TableCell align="left">
-                      TEST
-                      {row.type} {row.name} (nickname)
+                    <TableCell
+                      align="left"
+                      style={{ width: "15px", padding: "1px" }}
+                    >
+                      {row.type}
                     </TableCell>
-                    <TableCell component="th" scope="row">
+                    <TableCell
+                      align="left"
+                      style={{ paddingTop: "26px", padding: "0" }}
+                    >
+                      {row.name} (nickname)
+                    </TableCell>
+                    <TableCell
+                      align="right"
+                      style={{ marginRight: "0", padding: "0" }}
+                    >
                       <Radio
-                        name="select"
+                        name={row.name}
                         label="Set as Default"
                         radiolabel='[{ "value":"select"}]'
-                        value="select"
-                      />{" "}
+                        value={row.paymentmethodid}
+                        style={{
+                          marginTop: "3px",
+                          marginRight: "0px",
+                          padding: "0",
+                        }}
+                      />
+                    </TableCell>
+                    <TableCell
+                      align="left"
+                      style={{
+                        marginTop: "4px",
+                        marginLeft: "-24",
+                        padding: "0",
+                      }}
+                    >
                       Set as Default
                     </TableCell>
+
                     <TableCell align="left">
-                      <ListIcon />( {row.paymentmethodid} )
+                      <ListIcon style={{ color: "blue" }} />
                     </TableCell>
                     <TableCell align="left">
-                      <DeleteIcon />
+                      <DeleteIcon style={{ color: "blue" }} />
                     </TableCell>
                   </TableRow>
                 ))}
@@ -301,9 +345,12 @@ export default function PaymentMethod() {
               </ButtonPrimary>
             </Grid>
 
-            <Grid id="addDebitCardbutton-grid">
+            <Grid
+              id="addDebitCardbutton-grid"
+              style={{ paddingBottom: "30px" }}
+            >
               <ButtonPrimary
-                stylebutton='{"background": "", "float":""  }'
+                stylebutton='{"background": "", "float":"" }'
                 styleicon='{ "color":"" }'
                 id="addDebitCard_button"
                 onClick={() => addDebitCardButton()}
@@ -312,7 +359,7 @@ export default function PaymentMethod() {
               </ButtonPrimary>
             </Grid>
           </Grid>
-          <p style={{ textAlign: "justify" }}>
+          <p className={classes.smallText}>
             You have two payment method options. You can either add your bank
             account information to make payments directly from your bank account
             or you can add debit card information to make payments through your
@@ -352,9 +399,10 @@ export default function PaymentMethod() {
                     fontSize: "18px",
                     color: "rgba(255, 255, 255, .7)",
                     textDecoration: "none",
+                    padding: "10px",
                   }}
                 >
-                  Profile Setting
+                  Profile settings
                 </Link>
                 <Link
                   style={{
@@ -365,7 +413,7 @@ export default function PaymentMethod() {
                   }}
                   onClick={() => closeBankAccountButton()}
                 >
-                  Payment Account
+                  Payment account
                 </Link>
                 <Link
                   style={{
@@ -374,7 +422,7 @@ export default function PaymentMethod() {
                     textDecoration: "none",
                   }}
                 >
-                  Add Bank Account
+                  Add bank account
                 </Link>
               </Breadcrumbs>
             </Grid>
@@ -478,7 +526,26 @@ export default function PaymentMethod() {
                 label="Bank Routing Number"
                 placeholder="Enter your Bank Routing Number"
                 value={formikAddBankAccount.values.bankRoutingNumber}
-                onBlur={formikAddBankAccount.handleBlur}
+                // onBlur={formikAddBankAccount.handleBlur}
+                onBlur={async (event) => {
+                  if (
+                    event.target.value !== "" &&
+                    event.target.value.length === 9
+                  ) {
+                    fetch(
+                      "https://www.routingnumbers.info/api/data.json?rn=" +
+                        event.target.value
+                    )
+                      .then((res) => res.json())
+                      .then((result) => {
+                        formikAddBankAccount.setFieldValue(
+                          "bankName",
+                          result?.customer_name ?? ""
+                        );
+                      });
+                    formikAddBankAccount.handleBlur(event);
+                  }
+                }}
                 onChange={(e) => addBankOnChangeNumber(e)}
                 error={
                   formikAddBankAccount.touched.bankRoutingNumber &&
@@ -652,9 +719,10 @@ export default function PaymentMethod() {
                     fontSize: "18px",
                     color: "rgba(255, 255, 255, .7)",
                     textDecoration: "none",
+                    padding: "10px",
                   }}
                 >
-                  Profile Setting
+                  Profile settings
                 </Link>
                 <Link
                   style={{
@@ -665,7 +733,7 @@ export default function PaymentMethod() {
                   }}
                   onClick={() => closeDebitCardButton()}
                 >
-                  Payment Account
+                  Payment account
                 </Link>
                 <Link
                   style={{
@@ -674,7 +742,7 @@ export default function PaymentMethod() {
                     textDecoration: "none",
                   }}
                 >
-                  Add Debit Card
+                  Add new debit card
                 </Link>
               </Breadcrumbs>
             </Grid>
@@ -768,7 +836,7 @@ export default function PaymentMethod() {
             >
               <DatePicker
                 name="expirydate"
-                label="Expiration Date"
+                label="Expiry Date"
                 id="expirydate"
                 className="expirydate"
                 placeholder="MM/YY"
@@ -901,7 +969,12 @@ export default function PaymentMethod() {
       >
         <DialogTitle id="alert-dialog-title">Bank Routing Number</DialogTitle>
         <DialogContent>
-          <img src={cheque} alt="cheque" />
+          <img
+            src={cheque}
+            alt="chequeImg"
+            id="cheque"
+            style={{ width: "100%" }}
+          />
         </DialogContent>
         <DialogActions>
           <ButtonPrimary

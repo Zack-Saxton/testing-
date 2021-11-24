@@ -1,33 +1,19 @@
-import axios from "axios";
+import APICall from "../lib/AxiosLib";
 
-export default async function usrBasicInformation(email) {
-    const loginToken = JSON.parse(localStorage.getItem("token"));
-    let body = {
-        "email": email
-    }
-    let response = {
-        isLoggedIn: "",
-        active: "",
-        data: ""
-    };
-    try {
-        response.data = await axios({
-            method: "POST",
-            url: "/customer/get_profile_picture",
-            data: JSON.stringify(body),
-            headers: {
-                "Content-Type": "application/json",
-
-                "x-access-token": loginToken.apiKey,
-            },
-            transformRequest: (data, headers) => {
-                delete headers.common["Content-Type"];
-                return data;
-            },
-        });
-
-    } catch (error) {
-        response.data = error.response;
-    }
-    return response
+export default async function usrBasicInformation() {
+  const email = localStorage.getItem("email");
+  let url = "get_profile_picture";
+  let param = "";
+  const profile_picture = localStorage.getItem("profile_picture");
+  let data = {
+    email: email,
+    user: {
+      mobile: {
+        profile_picture: profile_picture,
+      },
+    },
+  };
+  let method = "POST";
+  let addAccessToken = true;
+  return APICall(url, param, data, method, addAccessToken);
 }

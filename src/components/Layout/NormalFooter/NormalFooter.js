@@ -2,11 +2,18 @@ import React from "react";
 import "./NormalFooter.css";
 import badge from "../../../assets/images/badge.png";
 import Logo from "../../../assets/images/MarinerLogo.png";
+import ConsumerDialog from "../ConsumerFooterDialog/ConsumerDialog"
 
 export default function NormalFooter() {
+  const [consumer, setConsumer] = React.useState(false);
+  //Consumer popup
+  const handleOpenConsumer = () => {
+    setConsumer(true);
+  };
+
   //View Part
   return (
-    <div>
+    <div style={{ background:"#d7e6ed"}}>
       <footer style={{ width: "100%" }}>
         <section className="section-top-normal-footer">
           <div className="col">
@@ -54,41 +61,34 @@ export default function NormalFooter() {
             </div>
           </div>
 
-          <div className="badge">
+          <div className="col2">
             <div>
             <input type="image"
                 src={badge}
                 alt="photo"
                 id="badge"
-                style={{ height: "90px" }}
+                style={{ height: "100%" }}
               />
             </div>
-            <div className="col">
-              <div className="row" style={{display:"flex",paddingTop:"15px",paddingBottom:"15px",paddingLeft:"25px"}}>
-              <input type="image" src={Logo} alt="logo image" style={{ height: "60px",paddingRight:"25px" }} />
+            
+              <div  id="mfInfo" className="row" style={{display:"flex",paddingTop:"15px",paddingBottom:"15px",paddingLeft:"25px"}}>
+              <input type="image" id="mfInfoImg" src={Logo} alt="logo image" style={{ height: "100%",paddingRight:"25px" }} />
             <div className="row">
             <div style={{paddingTop:"15px",paddingBottom:"15px",}}>
               <p className="leftAlignAddress">
                 Mariner Finance, LLC, NMLS No. 166564
-                <br />
-                <a
-                  href="https://www.nmlsconsumeraccess.org/"
-                  target="_blank"
-                  className=" hrefTag"
-                  rel="noreferrer"
-                >
+                <p style={{margin:"0",cursor: "pointer"}}onClick={handleOpenConsumer}>
                   (www.nmlsconsumeraccess.com)
-                </a>
-                <br />
+                </p> 
                 8211 Town Center Drive,
-                <br /> Nottingham, MD 21236; <br />
+                 Nottingham, MD 21236; <br />
                 Telephone Number -
                 <a href="tel:+8773102373" className="hrefTag ">
-                  &nbsp; 877-310-2373
+                  &nbsp; (877) 310-2373
                 </a>
               </p>
             </div>
-          </div>
+         
             </div>
             </div>
           </div>
@@ -96,6 +96,7 @@ export default function NormalFooter() {
           
         </section>
       </footer>
+      <ConsumerDialog consumer={consumer} onChange={setConsumer} />
     </div>
   );
 }

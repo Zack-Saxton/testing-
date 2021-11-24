@@ -37,8 +37,7 @@ export default function MoneySkill(props) {
 //View part
   return (
     <div>
-      {/* <CheckLoginStatus/> */}
-      <Dialog
+     <Dialog
       id="moneySkillDialogBox"
         open={props.moneySkill}
         aria-labelledby="alert-dialog-title"

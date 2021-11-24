@@ -28,12 +28,12 @@ function NoOffersAvailable(props) {
       data.formStatus = "completed";
 
     //Redirect to select amount if directly called 
-
       if (data.completedPage < data.page.ssn  && data.applicationStatus !=='rejected' &&  props?.location?.formcomplete !== "yes"){
           history.push("/select-amount");
       }
 
-      //view part 
+      window.onbeforeunload = null;
+    //view part 
     return( 
         <div>
             <ScrollToTopOnMount />
@@ -45,7 +45,6 @@ function NoOffersAvailable(props) {
                                     <img src={NoOffersAvailableLogo} alt="NoOffersAvailable" />
                                 </Grid>
                             </Grid>
-                            
                             <br />
                             <Grid item xs={12}  container justifyContent="center" alignItems="center">
                             <Grid item xs={11} sm={10} md={6} lg={6} xl={6} className=' row' container justifyContent="center" alignItems="center">
@@ -54,7 +53,6 @@ function NoOffersAvailable(props) {
 								</Typography>
                             </Grid>
                             </Grid>
-                            
                             <Grid item xs={12}  container justifyContent="center" alignItems="center">
                                 <Grid item xs={11} sm={10} md={6} lg={6} xl={6} className=' row' container justifyContent="center" alignItems="center">
                                     <Typography variant="h6" style={{ align:"center",justify:"center",alignItems:"center",textAlign:"justify"}} className="lessBorrowCSS smalTextImgNoOff textWhite">
@@ -74,10 +72,8 @@ function NoOffersAvailable(props) {
                                             Back to Home
                                         </ButtonPrimary>
                                     </Grid>
-                                        
                                 </Grid>
                             </Grid>
-                             
                         </Grid> 
                     </Box>
                 </div>

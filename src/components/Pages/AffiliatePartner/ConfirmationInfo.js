@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -26,7 +26,6 @@ import Paper from "@material-ui/core/Paper";
 import Logo from "../../../assets/images/loginbg.png";
 import "./Style.css";
 import creditkarmalogo from "../../../assets/images/ck_logo.png";
-import PartnerSignup from "../../Controllers/PartnerSignupController"
 
 //Styling
 const useStyles = makeStyles((theme) => ({
@@ -205,8 +204,6 @@ const validationSchema = yup.object({
 
 //Begin: Login page
 export default function CreditKarma(props) {
-  // console.log(props?.location?.state ? props.location.state : "mmm")
-  // console.log(props?.location?.state?.first_name ? props.location.state.first_name : "mmm")
   const classes = useStyles();
   const [loading, setLoading] = useState(false);
   const [validZip, setValidZip] = useState(true);
@@ -219,23 +216,7 @@ export default function CreditKarma(props) {
   const [agreeCalifornia, setAgreeCalifornia] = useState("");
   const [agreeNewMexico, setAgreeNewMexico] = useState("");
   const [agree, setAgree] = useState(false);
-  //API call (variable to be used once API available)
-  const [partnerSignupState, SetPartnerSignupState] = useState(null);
-  async function AsyncEffect_PartnerSignup() {
-    SetPartnerSignupState(await PartnerSignup());
-  }
-  useEffect(() => {
-    AsyncEffect_PartnerSignup();
-  }, []);
-
-  //Populate partner signup from API
-  // let partnerSignupData =
-  //   partnerSignupState != null
-  //     ? partnerSignupState.data.data.applicant
-  //     : null;
-
-  // console.log(partnerSignupState)
-
+  //API call
   //Date implementation for verifying 18 years
   const myDate = new Date();
   myDate.setDate(myDate.getDate() - 6571);
@@ -267,30 +248,6 @@ export default function CreditKarma(props) {
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       setLoading(true);
-
-      // let firstname = formik.values.firstname;
-      // let lastname = formik.values.lastname;
-      // let streetAddress = formik.values.streetAddress;
-      // let city = formik.values.city;
-      // let state = formik.values.state;
-      // let zip = formik.values.zip;
-      // let citizenship = formik.values.citizenship;
-      // let personalIncome = formik.values.personalIncome;
-      // let householdIncome = formik.values.householdIncome;
-      // let employementStatus = formik.values.employementStatus;
-      // let activeDuty = formik.values.activeDuty;
-      // let activeDutyRank = formik.values.activeDutyRank;
-      // let martialStatus = formik.values.martialStatus;
-      // let spouseadd = formik.values.add;
-      // let spouseZipcode = formik.values.spouseZipcode;
-      // let spousecity = formik.values.spousecity;
-      // let spouseSelectState = formik.values.spouseSelectState;
-      // let consents = "on";
-      // let submit =  "Confirm";
-      // let use_session = true;
-      // let partner_token =  props?.location?.state?.partner_token ? props.location.state.partner_token : "";
-      // let email = props?.location?.state?.email ? props.location.state.email : "";
-
     },
   });
 
@@ -348,12 +305,6 @@ export default function CreditKarma(props) {
     }
   }
 
-  //   if(props.location.state.address_postal_code !== ""){
-  //   fetchAddress({target: {
-  //     value: props?.location?.state?.address_postal_code ? props.location.state.address_postal_code : ""
-  //   }})
-  // }
-  //fetch the state and city based in zip code
   const fetchSpouseAddress = (e) => {
     if (e.target.value !== "" && e.target.value.length === 5) {
       fetch("https://api.zippopotam.us/us/" + e.target.value)

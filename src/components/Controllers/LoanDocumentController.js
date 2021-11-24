@@ -28,7 +28,7 @@ function downloadFileData(data) {
 
   toast.success("downloaded successfully", {
     position: "bottom-left",
-    autoClose: 1500,
+    autoClose: 5000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
@@ -46,29 +46,29 @@ export async function documentdownload(id, name) {
   let addAccessToken = true;
 
   //API call
-  let documentdownload = await APICall(
+  let loanDocumentDownload = await APICall(
     url,
     param,
     data,
     method,
     addAccessToken
   );
-  documentdownload.data.status === 200
-    ? downloadFileData(documentdownload)
+  loanDocumentDownload.data.status === 200
+    ? downloadFileData(loanDocumentDownload)
     : toast.error(
-      documentdownload?.data?.data?.message
-        ? documentdownload.data.data.message
-        : "Downloading failed",
-      {
-        position: "bottom-left",
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      }
-    );
+        loanDocumentDownload?.data?.data?.message
+          ? loanDocumentDownload.data.data.message
+          : "Downloading failed",
+        {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
+      );
 }
 
 /***** Print file *****/
@@ -99,14 +99,14 @@ export async function documentprint(id, name) {
   documentDownloadPrint.data.status === 200
     ? print(documentDownloadPrint)
     : toast.error("Error printing file", {
-      position: "bottom-left",
-      autoClose: 1500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
 }
 
 /***** upload document method *****/
@@ -128,25 +128,27 @@ export async function uploadDocument(test, fileName, fileType, documentType) {
 
   //API call
   let uploadData = await APICall(url, param, data, method, addAccessToken);
-
+  
   //API response
   uploadData.data.status === 200
-    ? toast.success(uploadData?.data?.data?.data?.message ? uploadData.data.data.data.message : "Uploaded Successfully", {
-      position: "bottom-left",
-      autoClose: 1500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    })
-    : toast.error(uploadData?.data?.data?.data?.message ? uploadData.data.data.data.message : "Error uploading file", {
-      position: "bottom-left",
-      autoClose: 1500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+    ? toast.success((uploadData?.data?.data?.data?.message) ? (uploadData.data.data.data.message) : (uploadData?.data?.data?.message) ? (uploadData.data.data.message) :"Uploaded Successfully", {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
+    : toast.error((uploadData?.data?.data?.data?.message) ? (uploadData.data.data.data.message) : (uploadData?.data?.data?.message) ? (uploadData.data.data.message)  :"Error uploading file", {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
+      return "true"
 }

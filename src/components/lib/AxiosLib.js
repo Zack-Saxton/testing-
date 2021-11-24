@@ -10,7 +10,6 @@ const APICall = async (api, param, data, method, addAccessToken) => {
   };
 
   let url = param === null ? apiUrl.url[api] : apiUrl.url[api] + param;
-
   try {
     await axios({
       method: method,

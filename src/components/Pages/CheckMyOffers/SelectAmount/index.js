@@ -9,7 +9,7 @@ import React, {useContext, useState, useEffect} from "react";
 import {useHistory} from "react-router-dom";
 import ScrollToTopOnMount from '../ScrollToTop';
 import {CheckMyOffers as Check} from "../../../../contexts/CheckMyOffers";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 
 
@@ -58,7 +58,6 @@ function CheckMyOffers(props) {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<ToastContainer />
 			<div className="mainDiv">
 				<Box>
 					<Grid item xs={12} container justifyContent="center" alignItems="center" >

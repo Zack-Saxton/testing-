@@ -20,7 +20,6 @@ import APICall from "../../../App/APIcall";
 import "./VerticalLinearStepper.css";
 import { resendVerificationEmail } from "../../../Controllers/ApplyForLoanController";
 
-
 //Styling part
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -109,8 +108,6 @@ export default function VerticalLinearStepper() {
 			tabPosition = 6;
 		}
 		setActiveStep(tabPosition ?? 0);
-
-		//  setActiveStep(3);
 	};
 
 	useEffect(() => {
@@ -118,9 +115,6 @@ export default function VerticalLinearStepper() {
 	}, []);
 
 	//To handle the next prev and reset funcationality
-	const handleNext = () => {
-		setActiveStep((prevActiveStep) => prevActiveStep + 1);
-	};
 
 	const handleBack = () => {
 		setActiveStep((prevActiveStep) => prevActiveStep - 1);
@@ -156,7 +150,7 @@ export default function VerticalLinearStepper() {
 			case 0:
 				return (
 					<EmailVerification
-						next={handleNext}
+						next={getApplicationStatus}
 						prev={handleBack}
 						reset={handleReset}
 						steps={steps}
@@ -167,7 +161,7 @@ export default function VerticalLinearStepper() {
 			case 1:
 				return (
 					<PhoneVerification
-						next={handleNext}
+						next={getApplicationStatus}
 						prev={handleBack}
 						reset={handleReset}
 						steps={steps}
@@ -178,7 +172,7 @@ export default function VerticalLinearStepper() {
 			case 2:
 				return (
 					<FinancialInformation
-						next={handleNext}
+						next={getApplicationStatus}
 						prev={handleBack}
 						reset={handleReset}
 						steps={steps}
@@ -189,7 +183,7 @@ export default function VerticalLinearStepper() {
 			case 3:
 				return (
 					<DocumentPhoto
-						next={handleNext}
+						next={getApplicationStatus}
 						prev={handleBack}
 						reset={handleReset}
 						steps={steps}
@@ -200,7 +194,7 @@ export default function VerticalLinearStepper() {
 			case 4:
 				return (
 					<VerificationQuestion
-						next={handleNext}
+						next={getApplicationStatus}
 						prev={handleBack}
 						reset={handleReset}
 						steps={steps}
@@ -211,7 +205,7 @@ export default function VerticalLinearStepper() {
 			case 5:
 				return (
 					<BankAccountVerification
-						next={handleNext}
+						next={getApplicationStatus}
 						prev={handleBack}
 						reset={handleReset}
 						steps={steps}
@@ -222,7 +216,7 @@ export default function VerticalLinearStepper() {
 			case 6:
 				return (
 					<IncomeVerification
-						next={handleNext}
+						next={getApplicationStatus}
 						prev={handleBack}
 						reset={handleReset}
 						steps={steps}
@@ -238,8 +232,7 @@ export default function VerticalLinearStepper() {
 	// view part
 	return (
 		<div className={classes.root}>
-			{/* <ToastContainer /> */}
-			{/* { activeStep ?  */}
+		
 			<Stepper activeStep={activeStep} orientation="vertical">
 				{steps.map((label, index) => (
 					<Step key={label}>
@@ -253,7 +246,6 @@ export default function VerticalLinearStepper() {
 					</Step>
 				))}
 			</Stepper>
-
 			{activeStep === steps.length && (
 				<Paper square elevation={0} className={classes.resetContainer}>
 					<Typography>All steps completed - you&apos;re finished</Typography>

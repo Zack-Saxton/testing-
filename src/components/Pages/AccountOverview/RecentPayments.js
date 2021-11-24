@@ -54,9 +54,9 @@ export default function RecentPayments(userRecentPaymentData) {
                 </TableCell>
               </TableRow>
             ) : userRecentPayment?.userRecentPaymentData?.length ? (
-              userRecentPayment.userRecentPaymentData.slice(0, 1).map((val) => (
+              userRecentPayment?.userRecentPaymentData.slice(0, 1).map((val) => (
                 <>
-                  {val.loanHistory.AppAccountHistory.slice(0, 3).map((row, index) => (
+                  {val.loanHistory?.AppAccountHistory?.slice(0, 3).map((row, index) => (
                     <>
                       <TableRow key={index}>
                         <TableCell

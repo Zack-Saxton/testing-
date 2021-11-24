@@ -89,7 +89,7 @@ const validationSchema = yup.object({
 		.string("Enter your email")
 		.email("A valid email address is required")
 		.matches(
-			/^[a-zA-Z](?!.*[+/._-][+/._-])(([^<>()|?{}='[\]\\,;:#!$%^&*\s@\"]+(\.[^<>()|?{}=/+'[\]\\.,;_:#!$%^&*-\s@\"]+)*)|(\".+\"))[a-zA-Z0-9]@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,3}))$/, //eslint-disable-line
+			/^[a-zA-Z](?!.*[+/._-][+/._-])(([^<>()|?{}='[\]\\,;:#!$%^&*\s@\"]+(\.[^<>()|?{}=/+'[\]\\.,;_:#!$%^&*-\s@\"]+)*)|(\".+\"))[a-zA-Z0-9]@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,3}))$/, //eslint-disable-line
 			"A valid email address is required"
 		)
 		.required("Your email address is required"),
@@ -127,7 +127,7 @@ const validationSchema = yup.object({
 		.required("Your SSN is required")
 		.transform((value) => value.replace(/[^\d]/g, ""))
 		.matches(
-			/^(?!000)[0-8][0-9]{2}(?!00)[0-9]{2}(?!0000)[0-9]{4}$/,
+			/^(?!000)[0-8]\d{2}(?!00)\d{2}(?!0000)\d{4}$/,
 			"Please enter a valid SSN"
 		)
 		.matches(/^(\d)(?!\1+$)\d{8}$/, "Please enter a valid SSN")
@@ -210,7 +210,8 @@ export default function Register() {
 						var now = new Date().getTime();
 						localStorage.clear();
 						localStorage.setItem("token", JSON.stringify({ isLoggedIn: true, apiKey: retVal?.data?.data?.user?.extensionattributes?.login?.jwt_token, setupTime: now }));
-		
+		                localStorage.setItem("cred", JSON.stringify({email: values.email, password: values.password }));
+
 						rememberMe === true ?
 							localStorage.setItem("rememberMe", JSON.stringify({ selected: true, email: values.email, password: values.password })) :
 							localStorage.setItem("rememberMe", JSON.stringify({ selected: false, email: '', password: '' }));

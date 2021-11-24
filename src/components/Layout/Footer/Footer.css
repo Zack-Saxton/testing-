@@ -12,11 +12,16 @@
          padding: 15px 15px;
        }
        .leftAlignAddress{
-        font-size: 14px;
+        font-size: 15px;
        }
        .col{
         margin: 0 15px;
-        width: 25%;
+        width: 50%;
+        word-wrap: break-word;
+      }
+      .col2{
+        margin: 0 15px;
+        width: 100%;
         word-wrap: break-word;
       }
       .main-footer-content{
@@ -28,11 +33,12 @@
    .hrefTag{
     text-decoration: none;
     color: black;
+    cursor: pointer;
 
 
 
    }
-   @media all and (max-width: 600px){
+   @media all and (max-width: 700px){
     #mfInfo{
       flex-direction: column;
       align-items: center;
@@ -49,6 +55,11 @@
      width: 100%;
      margin: 0
    }
+   .col2{
+    text-align: center;
+    width: 100%;
+    margin: 0
+  }
    .row{
     display: unset!important;
   }

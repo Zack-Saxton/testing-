@@ -11,8 +11,6 @@ import {CheckMyOffers} from "../../../../contexts/CheckMyOffers";
 
 //Initializing functional component EligibleForOffers
 function EligibleForOffers(props) {
-    
-
     const history = useHistory();
 
     //Handle button click redirecting to account overview page
@@ -20,14 +18,14 @@ function EligibleForOffers(props) {
         history.push({
             pathname: "/customers/accountoverview",
         });
-        
       }
 
       const { data } = useContext(CheckMyOffers);
       data.formStatus = "completed";
       if (data.completedPage < data.page.ssn  && data.applicationStatus !=='referred' &&  props?.location?.formcomplete !== "yes"){
-          history.push("/select-amount");
-      }
+        history.push("/select-amount");
+    }
+      window.onbeforeunload = null;
 
 //JSX part
     return(
@@ -41,7 +39,6 @@ function EligibleForOffers(props) {
                                     <img src={EligibleForOffersLogo} alt="EligibleForOffers" />
                                 </Grid>
                             </Grid>
-                            
                             <br />
                             <Grid item xs={12}  container justifyContent="center" alignItems="center">
                             <Grid item xs={11} sm={10} md={6} lg={6} xl={6} className=' row' container justifyContent="center" alignItems="center">
@@ -50,7 +47,6 @@ function EligibleForOffers(props) {
 								</Typography>
                             </Grid>
                             </Grid>
-                            
                             <Grid item xs={12}  container justifyContent="center" alignItems="center">
                                 <Grid item xs={11} sm={10} md={6} lg={6} xl={6} className=' row' container justifyContent="center" alignItems="center">
                                     <Typography  variant="h6" style={{
@@ -63,7 +59,6 @@ function EligibleForOffers(props) {
                                         You are eligible for a loan offer*. <br />
 Complete your application process and receive your money as soon as the same day**
                                     </Typography>
-                                  
                                 </Grid>
                             </Grid>
                             <Grid xs={12} item container justifyContent="center" alignItems="center">
@@ -73,31 +68,21 @@ Complete your application process and receive your money as soon as the same day
                                         View Offers
                                     </ButtonPrimary>
                                 </Grid>
-                              
                                     <Typography
-                                        variant="h6"
-                                       
+                                        variant="h6"  
                                         className=" textWhite minText"
-                                    >
-                                        
+                                    > 
                                     *Loan funding and disbursement is conditioned upon our satisfactory review of any documents and other information that we require from you to verify your loan applications and/or your identity. This loan may not be consummated if you obtain another loan from us prior to our disbursing funds for this loan.
                                     </Typography>
                                     <br />
                                     <Typography
                                         variant="h6"
-                                        
                                         className=" textWhite minText"
                                     >
-                                        
                                         **Approval of a loan and the loan disbursement process may take longer if additional documentation is required. Loan terms may vary based on credit determination and state law. Completion of a loan application will result in a hard credit pull.
-                                    </Typography>
-                                    
-                                    
-                                                
-                                            
+                                    </Typography>        
                                 </Grid>
                             </Grid>
-                             
                         </Grid> 
                     </Box>
                 </div>

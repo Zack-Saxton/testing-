@@ -1,12 +1,12 @@
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import {ButtonPrimary, Checkbox} from "../../../FormsUI";
+import { ButtonPrimary, Checkbox } from "../../../FormsUI";
 import Paper from "@material-ui/core/Paper";
-import React, {useContext, useState} from "react";
-import {Link, useHistory} from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import SSNLogo from "../../../../assets/icon/Last-Step.png";
-import {CheckMyOffers} from "../../../../contexts/CheckMyOffers";
+import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -19,8 +19,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import ScrollToTopOnMount from '../ScrollToTop';
 import "../CheckMyOffer.css";
-import {checkMyOfferSubmit as submitApplication} from "../../../Controllers/CheckMyOffersController";
-import axios from 'axios';
+import { checkMyOfferSubmit as submitApplication, getCustomerByEmail } from "../../../Controllers/CheckMyOffersController";
 
 //SSN component initialization
 function SSN() {
@@ -36,58 +35,35 @@ function SSN() {
 	const history = useHistory();
 
 	//handle modal actions
-
 	const handleClickOpen = () => {
 		setOpen(true);
 	};
 	const handleClose = () => {
 		setOpen(false);
 	};
-
 	const handleOnClick = async (event) => {
-
 		data.completedPage = data.page.ssn;
 		setLoading(true);
-		let body = {
-			"email": data.email
-		}
-		let result = await axios({
-			method: "POST",
-			url: "/customer/get_customer_by_email",
-			data: JSON.stringify(body),
-			headers: {
-				"Content-Type": "application/json",
-				
-			},
-			
-		})
-		if (result && result.data.AppSubmittedInLast30Days === true) {
+		let result = await getCustomerByEmail(data.email);
+		if (result && result?.data?.data?.AppSubmittedInLast30Days === true) {
 			setSubmit(true);
 			setLoading(false);
-
 		}
-		else if(result && result.data.AppSubmittedInLast30Days === false){
+		else if (result && result?.data?.data?.AppSubmittedInLast30Days === false) {
 			response = await submitApplication(data);
 			setSubmit(false);
-
 			setData({
 				...data,
 				"result": response.appSubmissionResult ? response.appSubmissionResult : null,
 				"completedPage": data.page.ssn
-
 			});
-
 			if (response.appSubmissionResult.status === 200) {
 				setData({
 					...data,
 					"result": response.appSubmissionResult,
 					"completedPage": data.page.ssn,
-	
 				});
-	
-	
 				if (response.appSubmissionResult && response.appSubmissionResult?.data?.data?.applicationStatus === 'offers_available') {
-	
 					setData({
 						...data,
 						"applicationStatus": 'offers_available',
@@ -98,7 +74,6 @@ function SSN() {
 					});
 				}
 				else if (response.appSubmissionResult && response.appSubmissionResult.data.data.applicationStatus === 'rejected') {
-	
 					setData({
 						...data,
 						"applicationStatus": 'rejected',
@@ -109,7 +84,6 @@ function SSN() {
 					});
 				}
 				else if (response.appSubmissionResult && response.appSubmissionResult.data.data.applicationStatus === 'referred') {
-	
 					setData({
 						...data,
 						"applicationStatus": 'referred',
@@ -132,14 +106,12 @@ function SSN() {
 				alert("Network Error");
 				setLoading(false);
 			}
-
 		}
-		else{
+		else {
 			setSubmit(true);
 			setLoading(false);
 		}
 	}
-
 
 	//redirect to select amount if accessed directly 
 	if (data.completedPage < data.page.livingPlace || data.completedPage < data.page.activeDuty || data.formStatus === 'completed') {
@@ -147,25 +119,25 @@ function SSN() {
 	}
 	const redirectNC = data.state === 'NC' ? '/active-duty' : 'living-place';
 
-//alert when the user tries to close before form submit
+	//alert when the user tries to close before form submit
 	window.onbeforeunload = function () {
 		return "Are you sure you want to reload/refresh the page.?";
 	};
-
-	
-
+	window.onunload = function () {
+		window.onbeforeunload = null;
+	};
+	window.history.pushState(null, document.title, window.location.href);
+	window.addEventListener('popstate', function (event) {
 		window.history.pushState(null, document.title, window.location.href);
-		window.addEventListener('popstate', function (event){
-			window.history.pushState(null, document.title,  window.location.href);
-		});
-	
+	});
+
 	//JSX poart
 	return (
 		<div>
 			<ScrollToTopOnMount />
 			<div className="mainDiv">
 				<Box>
-					<Grid xs={12} item container justifyContent="center" style={{ width: "100%",paddingTop:"70px",paddingBottom:"70px" }}>
+					<Grid xs={12} item container justifyContent="center" style={{ width: "100%", paddingTop: "70px", paddingBottom: "70px" }}>
 						<Grid
 							xs={11}
 							sm={10}
@@ -186,7 +158,6 @@ function SSN() {
 									<span className="floatLeft detNum3" />
 								</div>
 								<Grid className="floatLeft">
-
 									<Link to={data.state === 'WI' ? "/marital-status" : redirectNC}>
 										<i className="material-icons dp48 yellowText  ">arrow_back</i>
 									</Link>
@@ -194,7 +165,6 @@ function SSN() {
 								<Grid className="liftImage">
 									<img alt="ssn" src={SSNLogo} className="spinAnimation" />
 								</Grid>
-
 								<Typography
 									variant="h5"
 									align="center"
@@ -204,7 +174,6 @@ function SSN() {
 								>
 									One last step
 								</Typography>
-
 								<Grid
 									md={12}
 									className="blockDiv"
@@ -221,11 +190,6 @@ function SSN() {
 										xs={12}
 										className="textBlockWithLessMargin"
 									>
-										{/* <SocialSecurityNumber
-													disabled={true}
-													value={data.ssn}
-													name="ssn"
-												/> */}
 									</Grid>
 									<Grid container
 										justifyContent="center"
@@ -236,10 +200,6 @@ function SSN() {
 										xs={12}
 										className="textBlockWithLessMargin"
 									>
-										{/* <p className="subText">
-													Your social security number is required to pull your
-													credit information
-												</p> */}
 									</Grid>
 									<Grid
 										justifyContent="flex-start"
@@ -250,7 +210,7 @@ function SSN() {
 										xs={12}
 										className="positionHead"
 									>
-										<p className="agreeTextHead" style={{marginLeft:"8%"}}>Please acknowledge and sign our disclosures.</p>
+										<p className="agreeTextHead" style={{ marginLeft: "8%" }}>Please acknowledge and sign our disclosures.</p>
 									</Grid>
 									<Grid
 										justifyContent="flex-start"
@@ -273,7 +233,6 @@ function SSN() {
 													By clicking this box you acknowledge that you have
 													received, reviewed and agree to the
 													<br />
-
 													<a
 														className="formatURL"
 														href={
@@ -325,22 +284,17 @@ function SSN() {
 											stylecheckbox='{ "color":"blue", "top": "0 px", "position": "absolute"}'
 											stylecheckboxlabel='{ "color":"" }'
 										/>
-										<div className={
-											data.state === "DE"
-
-
-												? "showMsg space"
-												: "hideMsg space"
-											// : "showMsg space"
-
-										}>
+										<div
+											className={data.state === "DE" ? "showCB " : "hideMsg "}
+										>
 											<Checkbox
 												name="delaware"
 												labelform="delaware"
 												value={agreeDelaware}
 												onChange={(e) => { setAgreeDelaware(e.target.checked) }}
+												className={"space checkBoxClass"}
 												label={
-													<p className="agreeText">
+													<p className="agreeText MT5">
 														By clicking this box you acknowledge that you have received and reviewed the {" "}
 
 														<span className="linkText" onClick={handleClickOpen}>
@@ -349,28 +303,22 @@ function SSN() {
 													</p>
 												}
 												stylelabelform='{ "color":"" }'
-												stylecheckbox='{ "color":"blue" }'
+												stylecheckbox='{ "color":"blue", "top": "0 px", "position": "absolute"}'
 												stylecheckboxlabel='{ "color":"" }'
 											/>
 										</div>
-										<div className={
-											data.state === "CA"
-
-
-												? "showMsg space"
-												: "hideMsg space"
-											// : "showMsg space"
-
-										}>
+										<div
+											className={data.state === "CA" ? "showCB " : "hideMsg "}
+										>
 											<Checkbox
 												name="california"
 												labelform="california"
+												className={"space checkBoxClass"}
 												value={agreeCalifornia}
 												onChange={(e) => { setAgreeCalifornia(e.target.checked) }}
 												label={
-													<p className="agreeText">
+													<p className="agreeText MT5">
 														By clicking this box you acknowledge that you have been offered and had the opportunity to review this {" "}
-
 														<a
 															className="formatURL"
 															href={
@@ -384,28 +332,22 @@ function SSN() {
 													</p>
 												}
 												stylelabelform='{ "color":"" }'
-												stylecheckbox='{ "color":"blue" }'
+												stylecheckbox='{ "color":"blue"}'
 												stylecheckboxlabel='{ "color":"" }'
 											/>
 										</div>
-										<div className={
-											data.state === "NM"
-
-
-												? "showMsg space"
-												: "hideMsg space"
-											// : "showMsg space"
-
-										}>
+										<div
+											className={data.state === "NM" ? "showCB " : "hideMsg "}
+										>
 											<Checkbox
 												name="newmexico"
 												labelform="newmexico"
+												className={"space checkBoxClass"}
 												value={agreeNewMexico}
 												onChange={(e) => { setAgreeNewMexico(e.target.checked) }}
 												label={
-													<p className="agreeText">
+													<p className="agreeText MT5">
 														NM Residents: By clicking this box you acknowledge that you have reviewed the Important Consumer Information in Mariner’s New Mexico Consumer Brochure located at {" "}
-
 														<a
 															className="formatURL"
 															href={
@@ -423,12 +365,10 @@ function SSN() {
 												stylecheckboxlabel='{ "color":"" }'
 											/>
 										</div>
-										<Typography className={ submit ? "showMsg" : "hideMsg"} style={{ textAlign: "left",marginLeft:"8%",marginTop:"2%"}}>
-										It looks like you have already submitted an application within the last 30 days.
+										<Typography className={submit ? "showMsg" : "hideMsg"} style={{ textAlign: "left", marginLeft: "8%", marginTop: "2%" }}>
+											It looks like you have already submitted an application within the last 30 days.
 										</Typography>
 									</Grid>
-
-
 									<Grid
 										justifyContent="center"
 										style={{ width: "100%" }}
@@ -445,7 +385,6 @@ function SSN() {
 										>
 											<Typography align="center" className="textCSS button">
 												Check My Offer
-
 											</Typography>
 											<i
 												className="fa fa-refresh fa-spin customSpinner"
@@ -454,7 +393,6 @@ function SSN() {
 										</ButtonPrimary>
 									</Grid>
 								</Grid>
-
 							</Paper>
 						</Grid>
 					</Grid>
@@ -476,7 +414,6 @@ function SSN() {
 								</TableRow>
 							</TableHead>
 							<TableBody>
-
 								<TableRow>
 									<TableCell align="center"> Periodic Interest </TableCell>
 									<TableCell align="center">0.00% - 36.00%</TableCell>
@@ -524,7 +461,6 @@ function SSN() {
 							</TableBody>
 						</Table>
 					</TableContainer>
-
 				</DialogContent>
 				<DialogActions className="modalAction">
 					<ButtonPrimary

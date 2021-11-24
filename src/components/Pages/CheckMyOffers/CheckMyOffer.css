@@ -159,6 +159,17 @@
     font-family: 'Muli', sans-serif;
     font-weight: 400;
 }
+.showCB{
+    
+    display: block;
+    margin: 0;
+    font-family: 'Muli', sans-serif;
+    font-weight: 400;
+}
+
+.MT5{
+    margin-top: 2% !important;
+}
 .hideMsg{
     display: none;
 }

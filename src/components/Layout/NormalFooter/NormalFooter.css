@@ -1,6 +1,6 @@
 
 .section-top-normal-footer{
-    background:#d7e6ed;
+   margin-left: 60px;
     display: flex; 
     justify-content: space-evenly; 
     padding: 20px 0;
@@ -15,12 +15,17 @@
        }
 
        .leftAlignAddress{
-        font-size: 14px;
+        font-size: 15px;
        }
  
        .col{ 
         margin: 0 15px;
-        width: 25%;
+        width: 50%;
+        word-wrap: break-word;
+      }
+      .col2{
+        margin: 0 15px;
+        width: 100%;
         word-wrap: break-word;
       }
       .footer-content{
@@ -33,20 +38,34 @@
    .hrefTag{
     text-decoration: none;
     color: black;
+    cursor: pointer;
 
    }
-   @media all and (max-width: 600px){ 
+   @media all and (max-width: 700px){ 
+
+    #mfInfo{
+      flex-direction: column;
+      align-items: center;
+    }
+    #mfInfoImg{
+      width: 50% !important;
+      height: auto !important;
+    }
    .section-top-normal-footer{
        flex-direction: column;
+       margin-left: unset !important;
    }   
-   .badge{
-     text-align: center !important;
-   } 
+   
    .col{ 
      text-align: center;
      width: 100%;
      margin: 0
    }
+   .col2{
+    text-align: center;
+    width: 100%;
+    margin: 0
+  }
    .row{
      display: unset!important;
    }

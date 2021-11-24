@@ -25,12 +25,15 @@ export default function AccountOverview() {
     getUserAccountDetails();
   }, []);
 
+
   //Load data
-  let offerData = accountDetails?.data?.data?.offerData;
-  let applicationsData = accountDetails?.data?.data?.applicants;
-  let status = accountDetails?.data?.status;
-  let activeLoansData = accountDetails?.data?.data?.activeLoans;
-  let recentPaymentData = accountDetails?.data?.data?.activeLoans;
+  let offerData = (accountDetails != null) ? accountDetails?.data?.data?.offerData : null;
+  let applicationsData = (accountDetails != null) ? accountDetails?.data?.data?.applicants : null;
+  let applicantData = (accountDetails != null) ? accountDetails?.data?.data?.applicant?.contact : null;
+  let status = (accountDetails != null) ? accountDetails?.data?.status : null;
+  let activeLoansData = (accountDetails != null) ? accountDetails?.data?.data?.activeLoans : null;
+  let recentPaymentData = (accountDetails != null) ? accountDetails?.data?.data?.activeLoans : null;
+
 
   //View
   return (
@@ -49,7 +52,9 @@ export default function AccountOverview() {
             Summary of applications
           </Typography>
         </Grid>
-        <RecentApplications userApplicationsData={applicationsData} UserAccountStatus={status} />
+        <RecentApplications userApplicationsData={applicationsData} UserAccountStatus={status} userApplicantData={applicantData} />
+
+
         <Grid item xs={12} style={{ width: "100%" }} container direction="row">
           <Typography variant="h5" className={classes.subheading} data-testid="subtitle">
             Active Loan

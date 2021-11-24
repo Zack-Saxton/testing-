@@ -24,6 +24,13 @@ a.nav_link:link {
   color: rgba(0, 0, 0, 0.87);
 }
 
+.nav_link{
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+
+
 a.nav_link:hover .MuiListItem-root {
   cursor: pointer;
   color: rgba(0, 0, 0, 0.54) !important;
@@ -135,6 +142,10 @@ a.nav_link:hover .MuiListItem-root {
   margin-left: 15%;
 }
 
+#sidemenuRadio{
+  color: #0F4EB3;
+}
+
 .MuiDrawer-paperAnchorLeft.MuiDrawer-paperAnchorDockedLeft.MuiPaper-elevation0{
   overflow-x: hidden;
 }
@@ -180,3 +191,38 @@ a.nav_link:hover .MuiListItem-root {
 #basic-menu ul li{
   white-space: unset !important;
  }
+
+ #settingsMenu:nth-child(3) {
+  top: 55px !important;
+  padding: 14px 24px;
+ 
+}
+#settingsMenu:nth-child(3) ul {
+  /* top: 55px !important; */
+  padding: 0 !important;
+  width: 200px !important;
+}
+
+#settingsMenuList{
+  padding: 14px 16px;
+  font-size: 16px;
+  line-height: 22px;
+  color: #757575 !important;
+}
+
+#settingsMenuListLogout{
+  padding: 14px 16px;
+  font-size: 16px;
+  line-height: 22px;
+  color: #757575 !important;
+  border-top: #e0e0e0 1px solid;
+  font-family: 'Muli', sans-serif !important;
+}
+
+.nav_linkSettingMenu{
+  text-decoration: none;
+  font-size: 16px;
+  color: #757575 !important;
+  font-family: 'Muli', sans-serif !important;
+}
+

@@ -53,7 +53,7 @@ export default function LoanHistoryCard(userLoanHistoryCard) {
               <Grid style={{ textAlign: "center" }}>
                 <NavLink to="/select-amount" style={{ textDecoration: "none" }} >
                   <MonetizationOnRoundedIcon id="dolor-icon_loan-history" className="material-icons background-round mt-5 yelloWBG"/>
-                  <p className={classes.cardApplyLoan}>Apply for loan</p>
+                  <p className={classes.cardApplyLoan}>Apply for a Loan</p>
                 </NavLink>
               </Grid>
             </Paper>

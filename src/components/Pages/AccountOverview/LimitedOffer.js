@@ -57,11 +57,11 @@ export default function LimitedOffer(userOfferData) {
                   <div id="offerText">
                     <p id="loanText">No offers found!</p>
                     <NavLink
-                      to="/customers/selectOffer"
+                      to={{ pathname:'/customers/applyForLoan', state: {from: "user"}  }}
                       style={{ textDecoration: "none" }}
                     >
-                      <ButtonPrimary id="claimButton" stylebutton='{"color":""}'>
-                        Apply for loan
+                      <ButtonPrimary id="claimButton" stylebutton='{"color":"", "text-transform": "none"}'>
+                        Apply for a Loan
                       </ButtonPrimary>
                     </NavLink>
                   </div>

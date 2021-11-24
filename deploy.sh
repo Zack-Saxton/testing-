@@ -34,6 +34,13 @@ dev_env(){
     appDir="MarinerFinance-Website"
 }
 
+dev_remote_env(){
+    pemFile="/home/fidelis.j@zucisystems.com/Documents/creds/MF/marinerfinance-us-east-1.pem"
+    serverName="ubuntu@cac-app1-dev.marinerfinance.io"
+    gitRepo="git@github.com:marinerfinance/cac.git"
+    appDir="cac"
+}
+
 staging_env(){
     pemFile="/home/fidelis.j@zucisystems.com/Documents/creds/MF/marinerfinance-us-east-1.pem"
     serverName="ubuntu@cac-app1-dev.marinerfinance.io"
@@ -54,6 +61,10 @@ case $env in
         echo "*** Deployment to development environment ***"
         # Initialise the variables
         dev_env ;;
+    dev_remote)
+        echo "*** Deployment to development environment ***"
+        # Initialise the variables
+        dev_remote_env ;;
     staging)
         echo "*** Deployment to Staging environment ***"
         # Initialise the variables

@@ -52,7 +52,7 @@ import { ToastContainer } from "react-toastify";
 function App() {
     return (
         <div className="App">
-            <ToastContainer />
+        <ToastContainer theme="colored" />
             <BrowserRouter>
                 <Route path='/customers/verification/email' component={ValidateToken} />
                 <CheckMyOffers>
@@ -92,22 +92,23 @@ function App() {
                                 <Switch>
                                     <Route path='/customers/accountOverview' exact component={AccountOverview} />
                                     {/* <Route path='/customers/verification/email' component={ValidateToken}/> */}
-                                    <Route path='/customers/paymentHistory' component={PaymentHistory} />
-                                    <Route path='/customers/selectOffer' component={ApplyLoan} />
-                                    <Route path='/customers/applyForLoan' component={ApplyForLoanRedirect} />
-                                    <Route path='/customers/reviewAndSign' component={ReviewAndSign} />
-                                    <Route path='/customers/finalVerification' component={FinalVerification} />
-                                    <Route path='/customers/receiveYourMoney' component={ReceiveYourMoney} />
-                                    <Route path='/customers/loanDocument' component={LoanDocument} />
-                                    <Route path='/customers/loanHistory' component={LoanHistory} />
-                                    <Route path='/customers/makePayment' component={MakePayment} />
-                                    <Route path='/customers/moneySkill' component={MoneySkill} />
-                                    <Route path='/customers/myBranch' component={MyBranch} />
-                                    <Route path='/customers/myProfile' component={MyProfile} />
-                                    <Route path='/customers/vantageScore' component={VantageScore} />
-                                    <Route path='/customers/faq' component={FaqPostLogin} />
-                                    <Route path='/customers/viewaccount' component={ViewAccountDetails} />
-                                    <Route path='*' component={ErrorAfterLogin} />
+                                    <Route path='/customers/paymentHistory' component={PaymentHistory}/>
+                                    <Route path='/customers/selectOffer' component={ApplyLoan}/>
+                                    <Route path='/customers/applyForLoan' component={ApplyForLoanRedirect}/>
+                                    <Route path='/customers/reviewAndSign' component={ReviewAndSign}/>
+                                    <Route path='/customers/finalVerification' component={FinalVerification}/>
+                                    <Route path='/customers/receiveYourMoney' component={ReceiveYourMoney}/>
+                                    <Route path='/customers/loanDocument' component={LoanDocument}/>
+                                    <Route path='/customers/loanHistory' component={LoanHistory}/>
+                                    <Route path='/customers/makePayment/:accNo?' component={MakePayment}/>
+                                    <Route path='/customers/moneySkill' component={MoneySkill}/>
+                                    <Route path='/customers/myBranch' component={MyBranch}/>
+                                    <Route path='/customers/myProfile' component={MyProfile}/>
+                                    <Route path='/customers/vantageScore' component={VantageScore}/>
+                                    <Route path='/customers/faq' component={FaqPostLogin}/>
+                                    <Route path='/customers/viewaccount' component={ViewAccountDetails}/>
+                                    <Route  path='*' component={ErrorAfterLogin} />
+                                   
                                 </Switch>
                             </PostLogin>
                         </Route>

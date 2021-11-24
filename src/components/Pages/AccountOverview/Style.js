@@ -29,6 +29,11 @@ const useStylesAccountOverview = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
 
   },
+  titleHeading: {
+    color: "#fff",
+    fontWeight: "400",
+    fontSize: "1.64rem",
+  },
   heading: {
     color: "#fff",
     fontWeight: "400",
@@ -95,6 +100,57 @@ const useStylesAccountOverview = makeStyles((theme) => ({
   cardContent: {
     color: "#171717",
     fontSize: "15px",
+  },
+  tabVerticalLabel: {
+    color: "#3f51b5",
+    textTransform: "none",
+    fontWeight: 700,
+    fontFamily: "'Muli', sans-serif !important",
+    fontSize: "1rem",
+    textAlign: "start",
+  },
+  viewAppindicator: {
+    left: "0px",
+    background: "unset !important",
+  },
+  paperVerticalTabViewDetail: {
+    paddingTop: "20px",
+    paddingBottom: "20px",
+    display: "flex",
+    flexDirection: "column",
+    color: theme.palette.text.secondary,
+  },
+  viewAppHeading:{
+    color: "#171717",
+    fontWeight: "700",
+    fontSize: "17px",
+    margin: "auto",
+  },
+  viewAppInputGrid:{
+    display:"flex",
+     flexDirection:"row",
+      width:"100%",      
+      borderBottom:"lightgrey 1px solid",
+      lineHeight: 0.5,
+  },
+  viewAppInputDisplay:{
+    color: "#171717",
+    width: "50%",
+    fontWeight: "300",
+    lineHeight: "normal"
+  },
+  viewAppStatusHeading:{
+    color: "#171717",
+    fontWeight: "700",
+    fontSize: "20px",
+    margin: "auto",
+  },
+  viewAppStatusDisplay: {
+    fontSize: "18px",
+    textAlign: "justify",
+    color: "#171717",
+    lineHeight: 1.3,
+    fontWeight: "300",
   },
 }));
 export { useStylesAccountOverview };

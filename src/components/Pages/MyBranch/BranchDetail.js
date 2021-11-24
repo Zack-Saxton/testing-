@@ -51,6 +51,22 @@ export default function BranchDetail(MyBranchDetail) {
       : null
     : null;
 
+
+ //Formating Phone Number
+ function formatPhoneNumber(phoneNumber) {
+  if(phoneNumber ) {
+  const cleanNum =phoneNumber.toString().replace(/\D/g, '');
+  const match = cleanNum.match(/^(\d{3})(\d{0,3})(\d{0,4})$/);
+  if (match) {
+    return '(' + match[1] + ') ' + (match[2] ? match[2] + "-" : "") + match[3];
+  }
+  return cleanNum;
+}
+else{
+  return false
+}
+}
+
 //View part
   return (
     <div>
@@ -62,10 +78,10 @@ export default function BranchDetail(MyBranchDetail) {
             <Grid className={classes.branchDetailGrid}>
               <h4 className={classes.branchDetailHeading}>Branch Name</h4>
               <p className={classes.branchDetailInput}>
-                {branchDetail.MyBranchDetail.BranchName}
+                {(branchDetail?.MyBranchDetail?.BranchName) ? (branchDetail.MyBranchDetail.BranchName) : (branchDetail?.MyBranchDetail?.branchName) ? (branchDetail.MyBranchDetail.branchName) : "" }
               </p>
             </Grid>
-
+            
             <Grid className={classes.branchDetailGrid}>
               <h4 className={classes.branchDetailHeading}>Address</h4>
               <p className={classes.branchDetailInput}>
@@ -76,7 +92,7 @@ export default function BranchDetail(MyBranchDetail) {
             <Grid className={classes.branchDetailGrid}>
               <h4 className={classes.branchDetailHeading}>Phone Number</h4>
               <p className={classes.branchDetailInput}>
-                <a href="tel:"> {branchDetail.MyBranchDetail.PhoneNumber}</a>
+                <a href="tel:" style={{textDecoration: "none"}}> {formatPhoneNumber(branchDetail.MyBranchDetail.PhoneNumber)}</a>
               </p>
             </Grid>
 
