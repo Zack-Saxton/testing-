@@ -1,8 +1,4 @@
 import React from "react";
-<<<<<<< HEAD
-=======
-import { makeStyles } from "@material-ui/core/styles";
->>>>>>> dev
 import Typography from "@material-ui/core/Typography";
 import { useStylesAccountOverview } from "./Style";
 import Grid from "@material-ui/core/Grid";
@@ -41,28 +37,12 @@ TabPanelViewApplication.propTypes = {
   value: PropTypes.any.isRequired,
 };
 
-<<<<<<< HEAD
 function tabVerticalProps(verticalIndex) {
   return {
     id: `scrollable-auto-tab-vertical-viewApplication-${verticalIndex}`,
     "aria-controls": `scrollable-auto-tab-panel-${verticalIndex}`,
   };
 }
-=======
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  },
-  heading: {
-    color: "white"
-  }
-}));
->>>>>>> dev
 
 export default function ViewAccountDetails() {
   const classes = useStylesAccountOverview();
@@ -79,7 +59,6 @@ export default function ViewAccountDetails() {
 
   //View part
   return (
-<<<<<<< HEAD
     <div>
       <CheckLoginStatus />
       <Grid
@@ -278,21 +257,6 @@ export default function ViewAccountDetails() {
               </Paper>
             </Grid>
           </Grid>
-=======
-    <div >
-      <CheckLoginStatus />
-      <Grid container justifyContent={"center"} style={{ marginTop: "-150px" }}>
-        <Grid container direction="row" item xs={11} style={{ marginBottom: "2%" }}>
-          <Typography variant="h5" className={classes.heading} data-testid="subtitle">
-            Account Overview Summary
-          </Typography>
-        </Grid>
-
-        <Grid item xs={10}>
-          <Paper className={classes.paper} >
-            <p >Page Under Development </p>
-          </Paper>
->>>>>>> dev
         </Grid>
       </Grid>
     </div>

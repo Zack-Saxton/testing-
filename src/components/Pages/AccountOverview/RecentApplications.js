@@ -12,13 +12,9 @@ import { ButtonPrimary } from "../../FormsUI";
 import NumberFormat from 'react-number-format';
 import { useHistory } from "react-router-dom";
 
-<<<<<<< HEAD
 
 
 export default function RecentApplications({ userApplicationsData,UserAccountStatus,userApplicantData }) {
-=======
-export default function RecentApplications({ userApplicationsData, UserAccountStatus }) {
->>>>>>> dev
   //Material UI css class
   const classes = useStylesAccountOverview();
   //Recentapplications data
@@ -62,7 +58,6 @@ export default function RecentApplications({ userApplicationsData, UserAccountSt
     "under_review": "/customers/loanDocument",
     "closing_process": "/customers/finalVerification",
     "final_review": "/customers/loanDocument"
-<<<<<<< HEAD
   }; 
 
   const history = useHistory();
@@ -74,10 +69,6 @@ export default function RecentApplications({ userApplicationsData, UserAccountSt
       }
   
  
-=======
-  };
-
->>>>>>> dev
   //View
   return (
     <Grid item xs={12} style={{ width: "100%", paddingBottom: "10px" }}>

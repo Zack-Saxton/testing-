@@ -25,12 +25,7 @@ import amonelogo from "../../../assets/partners/WelcomeAOMember.png";
 import monevologo from "../../../assets/partners/WelcomeMonevoMember.png";
 import NerdWalletlogo from "../../../assets/partners/WelcomeNWMember.png";
 import LendingTreelogo from "../../../assets/partners/WelcomeLTMember.png";
-<<<<<<< HEAD
 import partnerSignup,{PopulatePartnerSignup} from "../../Controllers/PartnerSignupController";
-=======
-import partnerSignup, { PopulatePartnerSignup } from "../../Controllers/PartnerSignupController";
-import { ToastContainer } from "react-toastify";
->>>>>>> dev
 import "react-toastify/dist/ReactToastify.css";
 
 //Styling
