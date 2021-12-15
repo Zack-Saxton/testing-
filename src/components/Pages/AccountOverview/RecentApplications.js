@@ -16,8 +16,8 @@ export default function RecentApplications({ userApplicationsData, UserAccountSt
   //Material UI css class
   const classes = useStylesAccountOverview();
   //Recentapplications data
-  let userApplications = (userApplicationsData != null) ? userApplicationsData : null;
-  let userApplicant = (userApplicantData != null) ? userApplicantData : null;
+  let userApplications = userApplicationsData;
+  let userApplicant = userApplicantData;
   let statusStr = {
     "approved": "Approved",
     "completing_application": "Completing Application",

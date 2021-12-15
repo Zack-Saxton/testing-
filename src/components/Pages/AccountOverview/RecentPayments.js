@@ -15,7 +15,7 @@ export default function RecentPayments(userRecentPaymentData) {
   //Material UI css class
   const classes = useStylesAccountOverview();
   //Recentpayments data
-  let userRecentPayment = userRecentPaymentData != null ? userRecentPaymentData : null;
+  let userRecentPayment = userRecentPaymentData;
 
   return (
     <Grid item xs={12} style={{ paddingBottom: "10px" }}>
