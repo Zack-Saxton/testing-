@@ -10,13 +10,13 @@ import CheckLoginStatus from "../../App/CheckLoginStatus";
 
 export default function FaqPostLogin() {
 
-//Material UI css class
+  //Material UI css class
   const classes = useStylesFaq();
 
-//View part
+  //View part
   return (
     <div>
-      <CheckLoginStatus/>
+      <CheckLoginStatus />
       <Grid
         container
         justifyContent={"center"}

@@ -63,15 +63,15 @@ export default function ActiveLoans(userActiveLoanData) {
                                             </Typography>
                                         </Grid>
                                         <Grid item xs={12} sm={6}>
-                                            <ButtonPrimary stylebutton='{"float": "right", "color":"" }' href={"./makePayment/?accNo="+appData.loanDetails.AccountNumber}>
+                                            <ButtonPrimary stylebutton='{"float": "right", "color":"" }' href={"./makePayment/?accNo=" + appData.loanDetails.AccountNumber}>
                                                 Make a Payment
                                             </ButtonPrimary>
                                         </Grid>
                                     </Grid>
 
                                     <Grid container spacing={3} >
-                                    <Grid  item xs={12} sm={3}>
-                                        <AutoPayStatus value={appData.loanPaymentInformation.appRecurringACHPayment} /> 
+                                        <Grid item xs={12} sm={3}>
+                                            <AutoPayStatus value={appData.loanPaymentInformation.appRecurringACHPayment} />
                                         </Grid>
 
                                         <Grid id="regularAmountGrid" item xs={12} sm={3}>

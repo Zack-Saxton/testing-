@@ -36,9 +36,9 @@ export default function AccountOverview() {
   let recentPaymentData = (accountDetails != null) ? accountDetails?.data?.data?.activeLoans : null;
 
   if (Array.isArray(activeLoansData) && activeLoansData.length === 0) {
-    localStorage.setItem("hasActiveLoan",false);
+    localStorage.setItem("hasActiveLoan", false);
   } else {
-    localStorage.setItem("hasActiveLoan",true);
+    localStorage.setItem("hasActiveLoan", true);
   }
 
   //View

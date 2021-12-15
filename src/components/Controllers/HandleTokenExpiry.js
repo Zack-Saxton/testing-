@@ -1,7 +1,6 @@
 const tokenExpiryCheck = (error) => {
 
     if (error?.response?.data === "Unauthorized" || error?.response?.data === "Access token has expired") {
-        //alert("Your session has been ended, Please login again to continue");
         localStorage.setItem("token", JSON.stringify(userToken));
         localStorage.setItem("cred", JSON.stringify({email: "", password: "" }));
         localStorage.setItem("accountDetails", JSON.stringify({ }));

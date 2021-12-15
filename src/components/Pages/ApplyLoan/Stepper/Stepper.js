@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
 		pointerEvents: "initial"
 	},
 	linkStyle: {
-		color: "blue",	
+		color: "blue",
 		textDecoration: "underline",
 		cursor: "pointer"
 	},
@@ -87,19 +87,19 @@ export default function VerticalLinearStepper() {
 			true
 		);
 		let tabPosition = "";
-		if ( res?.data?.data?.email === true && 
+		if (res?.data?.data?.email === true &&
 			res?.data?.data?.phone_verification === true &&
-			res?.data?.data?.financial_information === true && 
+			res?.data?.data?.financial_information === true &&
 			res?.data?.data?.id_document === true &&
-			res?.data?.data?.id_photo === true && 
+			res?.data?.data?.id_photo === true &&
 			res?.data?.data?.id_questions === true &&
-			res?.data?.data?.bank_account_information === true && 
+			res?.data?.data?.bank_account_information === true &&
 			res?.data?.data?.bank_account_verification === true &&
-			res?.data?.data?.income_verification === true){
-				history.push({
-					pathname: "/customers/receiveYourMoney",
-				  });
-			}
+			res?.data?.data?.income_verification === true) {
+			history.push({
+				pathname: "/customers/receiveYourMoney",
+			});
+		}
 
 
 		else if (res?.data?.data?.email === false) {
@@ -112,7 +112,7 @@ export default function VerticalLinearStepper() {
 			tabPosition = 2;
 		} else if (res?.data?.data?.id_document === false && tabPosition === "") {
 			tabPosition = 3;
-		}else if (res?.data?.data?.id_photo === false && tabPosition === "") {
+		} else if (res?.data?.data?.id_photo === false && tabPosition === "") {
 			tabPosition = 3;
 		} else if (res?.data?.data?.id_questions === false && tabPosition === "") {
 			tabPosition = 4;
@@ -261,14 +261,14 @@ export default function VerticalLinearStepper() {
 	// view part
 	return (
 		<div className={classes.root}>
-		
+
 			<Stepper activeStep={activeStep} orientation="vertical">
 				{steps.map((label, index) => (
 					<Step key={label}>
 						<StepLabel>
 							{<span className={classes.steplabel}>{label}</span>}
 						</StepLabel>
-						<StepContent className={ loadingFlag ? classes.loadingOn : classes.loadingOff}>
+						<StepContent className={loadingFlag ? classes.loadingOn : classes.loadingOff}>
 							<div>{getStepContent(index)}</div>
 							<div className={classes.actionsContainer}></div>
 						</StepContent>
