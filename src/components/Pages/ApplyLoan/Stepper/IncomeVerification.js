@@ -7,8 +7,6 @@ import DocumentUpload from "./DocumentUpload";
 import APICall from "../../../App/APIcall";
 import { toast } from "react-toastify";
 
-
-
 //styling part
 const useStyles = makeStyles(() => ({
 	content_grid: {

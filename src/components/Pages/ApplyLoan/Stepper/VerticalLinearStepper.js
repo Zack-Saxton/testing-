@@ -1,5 +1,5 @@
 import React from "react";
-import {makeStyles} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
@@ -13,9 +13,9 @@ import DocumentPhoto from "./DocumentPhoto";
 import VerificationQuestion from "./VerificationQuestion";
 import IncomeVerification from "./IncomeVerification";
 import BankAccountVerification from "./BankAccountVerification";
-import {ButtonPrimary, ButtonSecondary} from "../../../FormsUI";
-import {NavLink} from "react-router-dom";
-import {Grid} from "@material-ui/core";
+import { ButtonPrimary, ButtonSecondary } from "../../../FormsUI";
+import { NavLink } from "react-router-dom";
+import { Grid } from "@material-ui/core";
 import "./VerticalLinearStepper.css"
 
 
@@ -58,19 +58,19 @@ function getSteps() {
 function getStepContent(step) {
     switch (step) {
         case 0:
-            return <EmailVerification/>;
+            return <EmailVerification />;
         case 1:
-            return <PhoneVerification/>;
+            return <PhoneVerification />;
         case 2:
-            return <FinancialInformation/>;
+            return <FinancialInformation />;
         case 3:
-            return <DocumentPhoto/>;
+            return <DocumentPhoto />;
         case 4:
-            return <VerificationQuestion/>;
+            return <VerificationQuestion />;
         case 5:
-            return <BankAccountVerification/>;
+            return <BankAccountVerification />;
         case 6:
-            return <IncomeVerification/>;
+            return <IncomeVerification />;
         default:
             return "Unknown step";
     }
@@ -165,10 +165,10 @@ export default function VerticalLinearStepper() {
             {activeStep === steps.length && (
                 <Paper square elevation={0} className={classes.resetContainer}>
                     <Typography>All steps completed - you&apos;re finished</Typography>
-                    <Grid style={{paddingTop: "20px"}}>
+                    <Grid style={{ paddingTop: "20px" }}>
                         <NavLink
                             to="/customers/receiveYourMoney"
-                            style={{textDecoration: "none"}}
+                            style={{ textDecoration: "none" }}
                         >
                             <ButtonPrimary stylebutton='{ "color":"" }'>
                                 Click here for application status

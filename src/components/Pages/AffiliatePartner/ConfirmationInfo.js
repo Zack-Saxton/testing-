@@ -27,10 +27,10 @@ import Paper from "@material-ui/core/Paper";
 import Logo from "../../../assets/images/loginbg.png";
 import "./Style.css";
 import creditkarmalogo from "../../../assets/images/ck_logo.png";
-import {partnerConfirmInfo} from "../../Controllers/PartnerSignupController";
+import { partnerConfirmInfo } from "../../Controllers/PartnerSignupController";
 import states from "../../lib/States.json"
 import statesFullform from "../../lib/StatesFullform.json"
- 
+
 
 //Styling
 const useStyles = makeStyles((theme) => ({
@@ -91,13 +91,13 @@ const useStyles = makeStyles((theme) => ({
 
 //Yup validations for all the input fields
 const validationSchema = yup.object({
-	firstname: yup
+  firstname: yup
     .string("Enter your Firstname")
     .trim()
     .max(30, "Should be less than 30 characters")
     .matches(/^(?!\s+$).*/g, "* This field cannot contain only backspaces")
     .required("Your firstname is required"),
-	lastname: yup
+  lastname: yup
     .string("Enter your Lastname")
     .trim()
     .max(30, "Should be less than 30 characters")
@@ -147,15 +147,15 @@ const validationSchema = yup.object({
     .transform((value) => value.replace(/\$/g, "").replace(/,/g, ""))
     .required("Your Household Income is required"),
 
-  activeDuty:yup.string().when("state",{
-  is: "NC",
-  then: yup.string().required("Active duty required"),
-}),
+  activeDuty: yup.string().when("state", {
+    is: "NC",
+    then: yup.string().required("Active duty required"),
+  }),
   activeDutyRank: yup.string().when("activeDuty", {
     is: "Yes",
     then: yup.string().required("Active duty rank is required"),
   }),
-  martialStatus:yup.string().when("state",{
+  martialStatus: yup.string().when("state", {
     is: "WI",
     then: yup.string().required("Marital Status required"),
   }),
@@ -224,20 +224,20 @@ export default function CreditKarma(props) {
   const [agreeNewMexico, setAgreeNewMexico] = useState("");
   const [agree, setAgree] = useState(false);
   const history = useHistory();
-  
-     
 
-  
+
+
+
   //Form Submission
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
 
       firstname: props?.location?.state?.first_name ? props.location.state.first_name : "",
-	    lastname: props?.location?.state?.last_name ? props.location.state.last_name : "",
+      lastname: props?.location?.state?.last_name ? props.location.state.last_name : "",
       streetAddress: props?.location?.state?.address_street ? props.location.state.address_street : "",
       city: props?.location?.state?.address_city ? props.location.state.address_city : "",
-      state:  props?.location?.state?.address_state ? states[props.location.state.address_state] : "",
+      state: props?.location?.state?.address_state ? states[props.location.state.address_state] : "",
       zip: props?.location?.state?.address_postal_code ? props.location.state.address_postal_code : "",
       citizenship: props?.location?.state?.citizenship ? props.location.state.citizenship : "",
       personalIncome: props?.location?.state?.annual_income ? props.location.state.annual_income : "",
@@ -252,42 +252,42 @@ export default function CreditKarma(props) {
       spousecity: props?.location?.state?.spouse_address_city ? props.location.state.spouse_address_city : "",
       spouseSelectState: props?.location?.state?.spouse_address_state ? props.location.state.spouse_address_state : "",
     },
-   
+
 
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-    
-      setLoading(true);     
+
+      setLoading(true);
       let confirmInfoData = {
-	   firstname : values.firstname,
-	   lastname : values.lastname,
-	   streetAddress : values.streetAddress,
-	   city : values.city,
-	   state : statesFullform[values.state],
-	   zip : values.zip,
-	   citizenship : values.citizenship,
-	   personalIncome : values.personalIncome,
-	   householdIncome : values.householdIncome,
-	   employementStatus : values.employementStatus,
-	   activeDuty : values.activeDuty,
-	   activeDutyRank : values.activeDutyRank,
-	   martialStatus : values.martialStatus,
-	   spouseadd : values.spouseadd,
-	   spouseZipcode : values.spouseZipcode,
-	   spousecity : values.spousecity,
-	   spouseSelectState : values.spouseSelectState,
-     partner_token :  props?.location?.state?.partner_token ? props.location.state.partner_token : "",
-     email : props?.location?.state?.email ? props.location.state.email : "", 
+        firstname: values.firstname,
+        lastname: values.lastname,
+        streetAddress: values.streetAddress,
+        city: values.city,
+        state: statesFullform[values.state],
+        zip: values.zip,
+        citizenship: values.citizenship,
+        personalIncome: values.personalIncome,
+        householdIncome: values.householdIncome,
+        employementStatus: values.employementStatus,
+        activeDuty: values.activeDuty,
+        activeDutyRank: values.activeDutyRank,
+        martialStatus: values.martialStatus,
+        spouseadd: values.spouseadd,
+        spouseZipcode: values.spouseZipcode,
+        spousecity: values.spousecity,
+        spouseSelectState: values.spouseSelectState,
+        partner_token: props?.location?.state?.partner_token ? props.location.state.partner_token : "",
+        email: props?.location?.state?.email ? props.location.state.email : "",
       }
 
-      let partnerConfirmRes = await  partnerConfirmInfo (confirmInfoData,history)
+      let partnerConfirmRes = await partnerConfirmInfo(confirmInfoData, history)
       if (partnerConfirmRes.data.status !== 200) {
-        setLoading(false);       
+        setLoading(false);
       }
-    },   
+    },
   });
 
-  
+
 
   const onBlurAddress = (e) => {
     formik.setFieldValue("streetAddress", e.target.value.trim());
@@ -315,9 +315,8 @@ export default function CreditKarma(props) {
       setValidZip(true);
     }
 
-    if(e.target.name !== ""  ) 
-    {formik.handleChange(e) }
-    
+    if (e.target.name !== "") { formik.handleChange(e) }
+
 
   };
 
@@ -326,7 +325,7 @@ export default function CreditKarma(props) {
       formik.setFieldValue("city", result.places[0]["place name"]);
       formik.setFieldValue("state", result.places[0]["state"]);
       setValidZip(true);
-      if( (result.places[0]["state"] === "California") || (result.places[0]["state"] === "CA")) {
+      if ((result.places[0]["state"] === "California") || (result.places[0]["state"] === "CA")) {
         handleClickOpen();
       }
       if ((result.places[0]["state"] === "Ohio") || (result.places[0]["state"] === "OH")) {
@@ -354,7 +353,7 @@ export default function CreditKarma(props) {
                 result.places[0]["place name"]
               );
               formik.setFieldValue("spousecity", result.places[0]["state"]);
-               setValidZip(true);
+              setValidZip(true);
             } else {
               formik.setFieldValue("spouseSelectState", "");
               formik.setFieldValue("spousecity", "");
@@ -370,7 +369,7 @@ export default function CreditKarma(props) {
     } else {
       formik.setFieldValue("spouseSelectState", "");
       formik.setFieldValue("spousecity", "");
-     
+
     }
 
     formik.handleChange(e);
@@ -457,9 +456,6 @@ export default function CreditKarma(props) {
     }
   };
 
-  
-  
-
   const changeCitizenship = (event) => {
     let acc = event.target.value;
     if (acc === "Foreign Resident") {
@@ -470,7 +466,7 @@ export default function CreditKarma(props) {
       formik.handleChange(event);
     }
   };
-  
+
   //View Part
   return (
     <div>
@@ -525,8 +521,8 @@ export default function CreditKarma(props) {
                   >
                     <Grid item xs={12} sm={6} style={{ width: "100%" }}>
                       <TextField
-                       
-                       
+
+
                         id="firstname"
                         name="firstname"
                         label="First Name"
@@ -544,9 +540,9 @@ export default function CreditKarma(props) {
                       />
                     </Grid>
 
-					<Grid item xs={12} sm={6} style={{ width: "100%" }}>
+                    <Grid item xs={12} sm={6} style={{ width: "100%" }}>
                       <TextField
-                        
+
                         id="lastname"
                         name="lastname"
                         label="Last Name"
@@ -662,7 +658,7 @@ export default function CreditKarma(props) {
                           helperText={
                             !citizenship
                               ? formik.touched.citizenship &&
-                                formik.errors.citizenship
+                              formik.errors.citizenship
                               : "We are sorry. We do not offer loans to foreign residents."
                           }
                           select='[{ "label": "USA Citizen", "value": "USA Citizen"}, 
@@ -815,7 +811,7 @@ export default function CreditKarma(props) {
                       item
                       xs={12}
                       className={
-                        formik.values.state === "Wisconsin" ||  formik.values.state === "WI"
+                        formik.values.state === "Wisconsin" || formik.values.state === "WI"
                           ? "showCheckbox"
                           : "hideCheckbox"
                       }
@@ -846,7 +842,7 @@ export default function CreditKarma(props) {
                         xs={12}
                         className={
                           formik.values.martialStatus === "Married" ||
-                          formik.values.martialStatus ===
+                            formik.values.martialStatus ===
                             "Separated, under decree of legal separation"
                             ? "showCheckbox"
                             : "hideCheckbox"
@@ -870,7 +866,7 @@ export default function CreditKarma(props) {
                         xs={12}
                         className={
                           formik.values.martialStatus === "Married" ||
-                          formik.values.martialStatus ===
+                            formik.values.martialStatus ===
                             "Separated, under decree of legal separation"
                             ? "showCheckbox"
                             : "hideCheckbox"
@@ -887,7 +883,7 @@ export default function CreditKarma(props) {
                             sm={4}
                             className={
                               formik.values.martialStatus === "Married" ||
-                              formik.values.martialStatus ===
+                                formik.values.martialStatus ===
                                 "Separated, under decree of legal separation"
                                 ? "showCheckbox"
                                 : "hideCheckbox"
@@ -909,7 +905,7 @@ export default function CreditKarma(props) {
                               helperText={
                                 validZip
                                   ? formik.touched.spouseZipcode &&
-                                    formik.errors.spouseZipcode
+                                  formik.errors.spouseZipcode
                                   : "Please enter a valid Zip code"
                               }
                             />
@@ -921,7 +917,7 @@ export default function CreditKarma(props) {
                             style={{ paddingRight: "10px" }}
                             className={
                               formik.values.martialStatus === "Married" ||
-                              formik.values.martialStatus ===
+                                formik.values.martialStatus ===
                                 "Separated, under decree of legal separation"
                                 ? "showCheckbox"
                                 : "hideCheckbox"
@@ -951,7 +947,7 @@ export default function CreditKarma(props) {
                             sm={4}
                             className={
                               formik.values.martialStatus === "Married" ||
-                              formik.values.martialStatus ===
+                                formik.values.martialStatus ===
                                 "Separated, under decree of legal separation"
                                 ? "showCheckbox"
                                 : "hideCheckbox"
@@ -1044,7 +1040,7 @@ export default function CreditKarma(props) {
                       />
                       <div
                         className={
-                          formik.values.state === "Delaware" ||  formik.values.state === "DE"
+                          formik.values.state === "Delaware" || formik.values.state === "DE"
                             ? "showCheckbox"
                             : "hideCheckbox"
                         }
@@ -1148,7 +1144,7 @@ export default function CreditKarma(props) {
 
                     <Grid item xs={12} className={classes.signInButtonGrid}>
                       <ButtonPrimary
-                        
+
                         type="submit"
                         data-testid="submit"
                         stylebutton='{"background": "", "color":"" }'

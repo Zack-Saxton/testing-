@@ -24,7 +24,6 @@ import CheckLoginStatus from "../../../App/CheckLoginStatus";
 export default function ApplyLoan() {
 	//Initializing state variables
 	const [rowData, setRowData] = useState();
-
 	const [value, setValue] = React.useState(0);
 	const [accountDetails, setAccountDetails] = useState(null);
 	const [offersToCompare, setOffersToCompare] = useState([]);
@@ -396,25 +395,25 @@ export default function ApplyLoan() {
 													className={classes.tabsvertical}
 												>
 													{terms &&
-													accountDetails.data.data !==
+														accountDetails.data.data !==
 														"Access token has expired"
 														? terms.map((item, index) => {
-																return (
-																	<Tab
-																		key={index}
-																		label={
-																			<span
-																				style={{ float: "left", width: "100%" }}
-																			>
-																				{item + " Month Term"}
-																			</span>
-																		}
-																		className={classes.tabVerticalLabel}
-																		onClick={() => tabOnChange(item, index)}
-																		{...tabVerticalProps(index)}
-																	/>
-																);
-														  })
+															return (
+																<Tab
+																	key={index}
+																	label={
+																		<span
+																			style={{ float: "left", width: "100%" }}
+																		>
+																			{item + " Month Term"}
+																		</span>
+																	}
+																	className={classes.tabVerticalLabel}
+																	onClick={() => tabOnChange(item, index)}
+																	{...tabVerticalProps(index)}
+																/>
+															);
+														})
 														: "null"}
 													<Tab
 														label={
@@ -445,7 +444,7 @@ export default function ApplyLoan() {
 										offerFlag={offerFlag}
 										rowData={rowData}
 										loading={loading}
-										noOfTerms={ terms ? terms.length : 0}
+										noOfTerms={terms ? terms.length : 0}
 										handleTabChange={handleTabChange}
 										offersToCompare={offersToCompare}
 										submitSelectedOffer={submitSelectedOffer}
@@ -454,12 +453,12 @@ export default function ApplyLoan() {
 										tabVerticalProps={tabVerticalProps}
 										onCompareOfferTabClick={onCompareOfferTabClick}
 										offersToCompareChart={offersToCompareChart}
-										checkedValue = {checkedValue}
-										setCheckedValue = {setCheckedValue}
-										selectedTerm = {selectedTerm}
-										setSelectedTerm = {setSelectedTerm}
-										selectedIndex = {selectedIndex}
-										setSelectedIndex = {setSelectedIndex}
+										checkedValue={checkedValue}
+										setCheckedValue={setCheckedValue}
+										selectedTerm={selectedTerm}
+										setSelectedTerm={setSelectedTerm}
+										selectedIndex={selectedIndex}
+										setSelectedIndex={setSelectedIndex}
 									/>
 								</>
 							)}

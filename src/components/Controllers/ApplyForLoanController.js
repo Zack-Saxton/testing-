@@ -137,7 +137,7 @@ export async function resendVerificationEmail() {
     method,
     addAccessToken
   );
-  if(resendVerificationEmailMethod.data.status === 200 && resendVerificationEmailMethod.data.statusText){
+  if (resendVerificationEmailMethod.data.status === 200 && resendVerificationEmailMethod.data.statusText) {
     toast.success("A verification email has been sent to " + email, {
       position: "bottom-left",
       autoClose: 2500,
@@ -196,7 +196,7 @@ export async function verifyPasscode(passcode) {
 export async function hardPullCheck() {
   let url = "cis_hardpull";
   let param = "";
-  let data =  JSON.parse(localStorage.getItem("user"));
+  let data = JSON.parse(localStorage.getItem("user"));
   let method = "POST";
   let addAccessToken = true;
 
@@ -208,7 +208,7 @@ export async function hardPullCheck() {
     method,
     addAccessToken
   );
-  
+
   return res;
 }
 

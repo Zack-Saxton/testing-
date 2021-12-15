@@ -17,7 +17,6 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import NumberFormat from 'react-number-format';
 import Tooltip from "@material-ui/core/Tooltip";
 
-
 export default function LoanHistoryTable(userLoanHistoryData) {
 
 //Material UI css class
@@ -28,9 +27,7 @@ export default function LoanHistoryTable(userLoanHistoryData) {
 
 //Download loan document  
   const downloadDoc = (accNo) => {
-  
      loanDocument(accNo);
-    
   };
 
   //View part

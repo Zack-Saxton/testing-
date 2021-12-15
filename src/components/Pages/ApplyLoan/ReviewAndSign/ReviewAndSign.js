@@ -19,8 +19,6 @@ import usrAccountDetails from "../../../Controllers/AccountOverviewController";
 import {hardPullCheck} from "../../../Controllers/ApplyForLoanController";
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-
-
 // initializing Tab panel section 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -115,7 +113,6 @@ export default function ReviewAndSign(props) {
   const [confirm, setConfirm] = useState(false);
   const [selectedOffer, setSelectOffer] = useState();
   const [loading, setLoading] = useState(false);
-  // let selectedOffer;
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

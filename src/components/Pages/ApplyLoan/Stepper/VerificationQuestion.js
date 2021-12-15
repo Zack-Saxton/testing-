@@ -64,91 +64,91 @@ export default function VerificationQuestion(props) {
         <div className={props.classes.button_div} >
           {responseData ? <LoadQuestions responseData={responseData} setResponseData={setResponseData} classes={classes} check={check} setCheck={setCheck} /> : <CircularProgress />}
           <div>
-        {setOneFinished ? <MultipleQuestion setLoadingFlag={props.setLoadingFlag} next={props.next} transactionIdMultiple={transactionIdMultiple} questionSetIdMultiple={questionSetIdMultiple} responseData={responseDataMultipleQ} setResponseData={setResponseDataMultipleQ} classes={classes} check={check} setCheck={setCheck} /> : null }
-        </div>
-     
+            {setOneFinished ? <MultipleQuestion setLoadingFlag={props.setLoadingFlag} next={props.next} transactionIdMultiple={transactionIdMultiple} questionSetIdMultiple={questionSetIdMultiple} responseData={responseDataMultipleQ} setResponseData={setResponseDataMultipleQ} classes={classes} check={check} setCheck={setCheck} /> : null}
+          </div>
+
           {
-            !setOneFinished ? 
-            <ButtonPrimary
-            variant="contained"
-            color="primary"
-            id="button_stepper_next"
-            stylebutton='{"marginRight": "10px", "color":"" }'
-            onClick={async () => {
-              if(check){
-              props.setLoadingFlag(true);
-              let sendData = {
-                "ref": responseData[0]?.fullData?.data?.questions?.transaction_id,
-                "answers": {
-                  "question_set_id": responseData[0]?.fullData?.data?.questions?.question_set_id,
-                  "questions": [{
-                    "id": responseData[0].fullData.data.questions?.question["question-id"],
-                    "answer": check
-                  }]
-                }
-              }
-              let nxtRes = await APICall("/integration/LexisNexis/kba_disambiguate_answer_cac?test=true", sendData, "POST", true);
-              let tempArray = [];
-              if(nxtRes?.data?.data?.data?.kba){
+            !setOneFinished ?
+              <ButtonPrimary
+                variant="contained"
+                color="primary"
+                id="button_stepper_next"
+                stylebutton='{"marginRight": "10px", "color":"" }'
+                onClick={async () => {
+                  if (check) {
+                    props.setLoadingFlag(true);
+                    let sendData = {
+                      "ref": responseData[0]?.fullData?.data?.questions?.transaction_id,
+                      "answers": {
+                        "question_set_id": responseData[0]?.fullData?.data?.questions?.question_set_id,
+                        "questions": [{
+                          "id": responseData[0].fullData.data.questions?.question["question-id"],
+                          "answer": check
+                        }]
+                      }
+                    }
+                    let nxtRes = await APICall("/integration/LexisNexis/kba_disambiguate_answer_cac?test=true", sendData, "POST", true);
+                    let tempArray = [];
+                    if (nxtRes?.data?.data?.data?.kba) {
 
-              setQuestionSetIdMultiple(nxtRes?.data?.data?.data?.kba?.questions["question-set-id"]);
-              setTransactionIdMultiple(nxtRes?.data?.data?.data?.kba["transaction-status"]["transaction-id"])
-              
-              nxtRes?.data?.data?.data?.kba?.questions?.question.map((val, key) => {
-                tempArray.push({
-                  "key": key,
-                  "fullData": val,
-                  "question": val.text.statement,
-                  "choice": val.choice,
-                  "questionId": val["question-id"]
-                });
-                return null;
-              })
+                      setQuestionSetIdMultiple(nxtRes?.data?.data?.data?.kba?.questions["question-set-id"]);
+                      setTransactionIdMultiple(nxtRes?.data?.data?.data?.kba["transaction-status"]["transaction-id"])
 
-              setResponseDataMultipleQ(tempArray);
-              setSetOneFinished(true);
-              props.setLoadingFlag(false);
+                      nxtRes?.data?.data?.data?.kba?.questions?.question.map((val, key) => {
+                        tempArray.push({
+                          "key": key,
+                          "fullData": val,
+                          "question": val.text.statement,
+                          "choice": val.choice,
+                          "questionId": val["question-id"]
+                        });
+                        return null;
+                      })
 
-            }
-            else if(nxtRes.data.data.result === "success" && !nxtRes?.data?.data?.data?.kba && nxtRes?.data?.data?.data?.kba?.failed === true ){
-              props.setLoadingFlag(false);
-              props.next();
-            }
-            else{
-              props.setLoadingFlag(false);
-              toast.error("Something went wrong, Please try again", {
-                position: "bottom-left",
-                autoClose: 5500,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              });
-             
-            }
+                      setResponseDataMultipleQ(tempArray);
+                      setSetOneFinished(true);
+                      props.setLoadingFlag(false);
 
-          }
-          else{
-            props.setLoadingFlag(false);
-            toast.error("Select an option to continue", {
-              position: "bottom-left",
-              autoClose: 5500,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            });
-          }
-            }}
-          >
-            {props.activeStep === props?.steps.length - 1 ? "Finish" : "Continue"}
-          </ButtonPrimary>
+                    }
+                    else if (nxtRes.data.data.result === "success" && !nxtRes?.data?.data?.data?.kba && nxtRes?.data?.data?.data?.kba?.failed === true) {
+                      props.setLoadingFlag(false);
+                      props.next();
+                    }
+                    else {
+                      props.setLoadingFlag(false);
+                      toast.error("Something went wrong, Please try again", {
+                        position: "bottom-left",
+                        autoClose: 5500,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                      });
 
-            :
+                    }
 
-            null
+                  }
+                  else {
+                    props.setLoadingFlag(false);
+                    toast.error("Select an option to continue", {
+                      position: "bottom-left",
+                      autoClose: 5500,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                    });
+                  }
+                }}
+              >
+                {props.activeStep === props?.steps.length - 1 ? "Finish" : "Continue"}
+              </ButtonPrimary>
+
+              :
+
+              null
           }
 
 
