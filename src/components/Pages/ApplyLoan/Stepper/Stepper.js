@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
@@ -14,7 +14,7 @@ import VerificationQuestion from "./VerificationQuestion";
 import IncomeVerification from "./IncomeVerification";
 import BankAccountVerification from "./BankAccountVerification";
 import { ButtonPrimary } from "../../../FormsUI";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { Grid } from "@material-ui/core";
 import APICall from "../../../App/APIcall";
 import "./VerticalLinearStepper.css";
@@ -36,6 +36,14 @@ const useStyles = makeStyles((theme) => ({
 	},
 	actionsContainer: {
 		marginBottom: theme.spacing(2),
+	},
+	loadingOn: {
+		opacity: 0.55,
+		pointerEvents: "none"
+	},
+	loadingOff: {
+		opacity: 1,
+		pointerEvents: "initial"
 	},
 	linkStyle: {
 		color: "blue",	
@@ -62,8 +70,10 @@ function getSteps() {
 
 //Vertial stepper configuration
 export default function VerticalLinearStepper() {
+	const history = useHistory();
 	const classes = useStyles();
 	const [activeStep, setActiveStep] = React.useState();
+	const [loadingFlag, setLoadingFlag] = useState(false);
 	const steps = getSteps();
 
 	//To open the the stepper from were the user needs to continue.
@@ -77,7 +87,22 @@ export default function VerticalLinearStepper() {
 			true
 		);
 		let tabPosition = "";
-		if (res?.data?.data?.email === false) {
+		if ( res?.data?.data?.email === true && 
+			res?.data?.data?.phone_verification === true &&
+			res?.data?.data?.financial_information === true && 
+			res?.data?.data?.id_document === true &&
+			res?.data?.data?.id_photo === true && 
+			res?.data?.data?.id_questions === true &&
+			res?.data?.data?.bank_account_information === true && 
+			res?.data?.data?.bank_account_verification === true &&
+			res?.data?.data?.income_verification === true){
+				history.push({
+					pathname: "/customers/receiveYourMoney",
+				  });
+			}
+
+
+		else if (res?.data?.data?.email === false) {
 			tabPosition = 0;
 			resendVerificationEmail();
 		} else if (res?.data?.data?.phone_verification === false && tabPosition === "" && skip?.phone !== true) {
@@ -178,6 +203,8 @@ export default function VerticalLinearStepper() {
 						steps={steps}
 						activeStep={activeStep}
 						classes={classes}
+						setLoadingFlag={setLoadingFlag}
+
 					/>
 				);
 			case 3:
@@ -200,6 +227,7 @@ export default function VerticalLinearStepper() {
 						steps={steps}
 						activeStep={activeStep}
 						classes={classes}
+						setLoadingFlag={setLoadingFlag}
 					/>
 				);
 			case 5:
@@ -211,6 +239,7 @@ export default function VerticalLinearStepper() {
 						steps={steps}
 						activeStep={activeStep}
 						classes={classes}
+						setLoadingFlag={setLoadingFlag}
 					/>
 				);
 			case 6:
@@ -239,7 +268,7 @@ export default function VerticalLinearStepper() {
 						<StepLabel>
 							{<span className={classes.steplabel}>{label}</span>}
 						</StepLabel>
-						<StepContent>
+						<StepContent className={ loadingFlag ? classes.loadingOn : classes.loadingOff}>
 							<div>{getStepContent(index)}</div>
 							<div className={classes.actionsContainer}></div>
 						</StepContent>

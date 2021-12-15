@@ -10,6 +10,5 @@ export default async function setAccountDetails() {
 
   //API call
   let accountOverview = await APICall(url, param, data, method, addAccessToken);
-  localStorage.setItem("accountDetails", JSON.stringify(accountOverview));	
   return accountOverview;
 }

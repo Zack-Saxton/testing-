@@ -141,8 +141,8 @@ const useStylesAccountOverview = makeStyles((theme) => ({
   },
   viewAppStatusHeading:{
     color: "#171717",
-    fontWeight: "700",
-    fontSize: "20px",
+    fontWeight: "900",
+    fontSize: "22px",
     margin: "auto",
   },
   viewAppStatusDisplay: {
@@ -150,7 +150,7 @@ const useStylesAccountOverview = makeStyles((theme) => ({
     textAlign: "justify",
     color: "#171717",
     lineHeight: 1.3,
-    fontWeight: "300",
+    fontWeight: "400",
   },
 }));
 export { useStylesAccountOverview };

@@ -14,7 +14,7 @@ import FormControl from "@material-ui/core/FormControl";
 import PropTypes from "prop-types";
 
 const theme = createTheme();
-const PhoneNumberWrapper = ({ name, onChange, value, label, error, helperText, ...otherProps }) => {
+const PhoneNumberWrapper = ({ name, onChange, value, label, error, disabled,helperText, ...otherProps }) => {
   //Set Formik field
   // const [field, mata] = useField(name);
   const[unmaskedval, setUnMaskedVal] = useState(value);
@@ -47,9 +47,8 @@ const PhoneNumberWrapper = ({ name, onChange, value, label, error, helperText, .
         name={name}
         onChange={handleChange}
         data-test-id="phone"
-        disabled={false}
         maskChar=""
-        {...otherProps}
+       {...otherProps}
       >
         {() => <TextField label={label} 
         name={name} 
@@ -57,7 +56,7 @@ const PhoneNumberWrapper = ({ name, onChange, value, label, error, helperText, .
         error={error} 
         placeholder="Enter Phone Number"
         helperText={helperText}
-         inputProps={{"data-test-id": "phone", "unmaskedval": unmaskedval}}/>}
+         inputProps={{"data-test-id": "phone", "unmaskedval": unmaskedval, disabled:disabled}}/>}
       </InputMask>
     </MuiThemeProvider> 
     </FormControl>

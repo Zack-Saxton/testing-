@@ -1,18 +1,29 @@
 import React, { useState } from "react";
-import { ButtonPrimary, ButtonSecondary, Radio, TextField } from "../../../FormsUI";
+import {
+	ButtonPrimary,
+	ButtonSecondary,
+	Radio,
+	TextField,
+} from "../../../FormsUI";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
+import CloseIcon from "@material-ui/icons/Close";
 import TextFieldWithToolTip from "@material-ui/core/TextField";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { errorMessage } from "../../../../helpers/ErrorMessage";
 import FormHelperText from "@material-ui/core/FormHelperText";
-import APICall from '../../../App/APIcall';
-import DocumentUpload from './DocumentUpload';
+import APICall from "../../../App/APIcall";
+import Typography from "@material-ui/core/Typography";
+import Dialog from "@material-ui/core/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogActions from "@material-ui/core/DialogActions";
+import DocumentUpload from "./DocumentUpload";
 import { toast } from "react-toastify";
-import "./stepper.css"
+import "./stepper.css";
 
 //Styling part
 const useStyles = makeStyles((theme) => ({
@@ -47,38 +58,54 @@ const validationSchema = yup.object({
 			errorMessage.applyForLoan.bankAccountVerification
 				.bankAccountNumberRequired
 		)
-		.min(7, "Account numner should be minimum of 7 digits")
-		.max(16, "Account numner should be minimum of 16 digits"),
+		.min(7, "Account number should be minimum of 7 digits")
+		.max(16, "Account number should be minimum of 16 digits"),
 	confirmBankAccountNumber: yup
-		.string("Enter your confirm bank account number") 
+		.string("Enter your confirm bank account number")
 		.required(
 			errorMessage.applyForLoan.bankAccountVerification
 				.bankAccountNumberConfirmationRequired
 		)
 		.when("bankAccountNumber", {
-			is: (bankAccountNumber) => (bankAccountNumber && bankAccountNumber.length > 0),
-			then: yup.string().oneOf([yup.ref("bankAccountNumber")], "Your account numbers must match"),
+			is: (bankAccountNumber) =>
+				bankAccountNumber && bankAccountNumber.length > 0,
+			then: yup
+				.string()
+				.oneOf(
+					[yup.ref("bankAccountNumber")],
+					"Your account numbers must match"
+				),
 		})
-		.min(7, "Account numner should be minimum of 7 digits")
-		.max(16, "Account numner should be minimum of 16 digits"),
+		.min(7, "Account number should be minimum of 7 digits")
+		.max(16, "Account number should be minimum of 16 digits"),
 });
 
 //View Part
 //Initializing functional component -  BankAccountVerification
 export default function BankAccountVerification(props) {
 	const classes = useStyles();
+
 	//Initializing state variables
 	const [accountType, setAccountType] = useState("saving");
 	const [paymnetMode, setPaymentMode] = useState("autopayment");
 	const [verifyRequired, setVerifyRequired] = useState(false);
-	const [error, setError] = useState('');
+	const [error, setError] = useState("");
 	const [invalidRN, setInvalidRN] = useState(false);
+	const [openAutoPayAuth, setOpenAutoPayAuth] = useState(false);
 
 	const handleUpload = (res) => {
 		if (res?.bank_account_verification) {
+			toast.success("Document uploaded successfully!", {
+				position: "bottom-left",
+				autoClose: 1500,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			  });
 			props.next();
-		}
-		else {
+		} else {
 			toast.error("Document submission failed. Please try again", {
 				position: "bottom-left",
 				autoClose: 1500,
@@ -89,7 +116,7 @@ export default function BankAccountVerification(props) {
 				progress: undefined,
 			});
 		}
-	}
+	};
 
 	//Configuring the formik variable usign useFormik hook
 	const formik = useFormik({
@@ -104,25 +131,45 @@ export default function BankAccountVerification(props) {
 
 		//On submit - submit the user entered details
 		onSubmit: async (values) => {
+			props.setLoadingFlag(true);
 			let data = {
-				"account_number": values.bankAccountNumber,
-				"account_type": accountType,
-				"routing_number": values.bankRoutingNumber,
-				"bank_name": values.bankInformation,
-				"repayment": paymnetMode
-			}
-			let res = await APICall("/verification/bank_information_cac", data, "POST", true);
-			if (res?.data?.data?.bank_account_information && res?.data?.data?.bank_account_verification) {
+				account_number: values.bankAccountNumber,
+				account_type: accountType,
+				routing_number: values.bankRoutingNumber,
+				bank_name: values.bankInformation,
+				repayment: paymnetMode,
+			};
+			let res = await APICall(
+				"/verification/bank_information_cac",
+				data,
+				"POST",
+				true
+			);
+			if (
+				res?.data?.data?.bank_account_information &&
+				res?.data?.data?.bank_account_verification
+			) {
+				props.setLoadingFlag(false);
 				props.next();
-			}
-			else if (res?.data?.data?.bank_account_information || res?.data?.data?.bank_account_verification) {
-				setError(verifyRequired ? errorMessage?.applyForLoan?.bankAccountVerification?.uploadCheck : errorMessage?.applyForLoan?.bankAccountVerification?.notValid)
+			} else if (
+				res?.data?.data?.bank_account_information ||
+				res?.data?.data?.bank_account_verification
+			) {
+				setError(
+					paymnetMode === "autopayment"
+						? errorMessage?.applyForLoan?.bankAccountVerification?.notValid
+						: errorMessage?.applyForLoan?.bankAccountVerification?.uploadCheck
+				);
 				setVerifyRequired(true);
-			}
-			else if (res?.data?.data?.bank_account_information === false || res?.data?.data?.bank_account_verification === false) {
+				props.setLoadingFlag(false);
+			} else if (
+				res?.data?.data?.bank_account_information === false ||
+				res?.data?.data?.bank_account_verification === false
+			) {
+				props.setLoadingFlag(false);
 				alert(errorMessage?.applyForLoan?.bankAccountVerification?.notValid);
-			}
-			else {
+			} else {
+				props.setLoadingFlag(false);
 				alert("Network Error");
 			}
 		},
@@ -132,6 +179,7 @@ export default function BankAccountVerification(props) {
 	const restrictTextOnChange = (event) => {
 		const reg = /^[0-9\b]+$/;
 		let acc = event.target.value;
+
 		if (acc === "" || reg.test(acc)) {
 			formik.handleChange(event);
 		}
@@ -149,7 +197,15 @@ export default function BankAccountVerification(props) {
 
 	const handleEdit = (e) => {
 		e.preventDefault();
-	  };
+	};
+
+	const handleClickOpenAutoPayAuth = () => {
+		setOpenAutoPayAuth(true);
+	};
+
+	const handleCloseAutoPayAuth = () => {
+		setOpenAutoPayAuth(false);
+	};
 
 	//View part - JSX part
 	return (
@@ -187,7 +243,6 @@ export default function BankAccountVerification(props) {
 						name="accountType"
 						labelforform="Account Type"
 						radiolabel='[{"label":"Savings", "value":"saving"},{"label":"Checking", "value":"checking"}]'
-
 						checked={accountType}
 						onClick={(e) => {
 							setAccountType(e);
@@ -207,25 +262,38 @@ export default function BankAccountVerification(props) {
 							style={{ width: "100%" }}
 							value={formik.values.bankRoutingNumber}
 							inputProps={{ maxLength: "9", "data-test-id": "BRN" }}
-							onChange={restrictTextOnChange}
+							onChange={(e) => {
+								setInvalidRN(false);
+								restrictTextOnChange(e)
+							}}
 							onBlur={async (event) => {
-								if (event.target.value !== "" && event.target.value.length === 9) {
-									fetch("https://www.routingnumbers.info/api/data.json?rn=" + event.target.value).then((res) => res.json()).then(
-										(result) => {
-											formik.setFieldValue("bankInformation", result?.customer_name ?? '');
+								if (
+									event.target.value !== "" &&
+									event.target.value.length === 9
+								) {
+									fetch(
+										"https://www.routingnumbers.info/api/data.json?rn=" +
+											event.target.value
+									)
+										.then((res) => res.json())
+										.then((result) => {
+											formik.setFieldValue(
+												"bankInformation",
+												result?.customer_name ?? ""
+											);
 											setInvalidRN(result?.customer_name ? false : true);
-										})
+										});
 									formik.handleBlur(event);
 								}
-							}
-							}
+							}}
 							error={
-								formik.touched.bankRoutingNumber &&
-								Boolean(formik.errors.bankRoutingNumber)
+								(formik.touched.bankRoutingNumber &&
+								Boolean(formik.errors.bankRoutingNumber)) || invalidRN
 							}
 							helperText={
 								formik.touched.bankRoutingNumber &&
-								formik.errors.bankRoutingNumber
+								formik.errors.bankRoutingNumber ? formik.touched.bankRoutingNumber &&
+								formik.errors.bankRoutingNumber  : (invalidRN === true ? "Please enter a valid routing number" : '')
 							}
 							type="text"
 							placeholder="Bank Routing number"
@@ -276,7 +344,6 @@ export default function BankAccountVerification(props) {
 						/>
 					</Grid>
 				</Grid>
-				<p className={invalidRN ? "showError" : "hide"}>Please enter a valid Routing number </p>
 				<Grid item sm={12} className={classes.content_grid}>
 					<TextField
 						name="bankAccountNumber"
@@ -306,7 +373,11 @@ export default function BankAccountVerification(props) {
 						onCut={handleEdit}
 						onCopy={handleEdit}
 						onPaste={handleEdit}
-						materialProps={{ maxLength: "16", "data-test-id": "BRN", "autoComplete": 'off' }}
+						materialProps={{
+							maxLength: "16",
+							"data-test-id": "BRN",
+							autoComplete: "off",
+						}}
 						onChange={restrictTextOnChange}
 						onBlur={formik.handleBlur}
 						inputProps={{ maxLength: "16", "data-test-id": "BankAccnum" }}
@@ -331,7 +402,6 @@ export default function BankAccountVerification(props) {
 						name="paymnetMode"
 						radiolabel='[{"label":"Automatic Payment", "value":"autopayment"}]'
 						row={true}
-
 						checked={paymnetMode}
 						value={"autopayment"}
 						onClick={() => {
@@ -355,7 +425,10 @@ export default function BankAccountVerification(props) {
 							We electronically debit your bank account each month. You can
 							cancel or change the bank account at any time. By clicking the box
 							you are electronically signing and acknowledging and agreeing to
-							the Auto Pay Authorization{" "}
+							the{" "}
+							<span onClick={handleClickOpenAutoPayAuth} className="linkStyle">
+								Auto Pay Authorization
+							</span>{" "}
 						</p>
 					</span>
 				</Grid>
@@ -380,11 +453,14 @@ export default function BankAccountVerification(props) {
 						</p>
 					</span>
 				</Grid>
-				<div
-					style={{ display: verifyRequired ? "block" : "none" }}
-				>
+				<div style={{ display: verifyRequired ? "block" : "none" }}>
 					<div>
-						<p style={{ display: error && error === '' ? "none" : "block", fontWeight: "bold" }}>
+						<p
+							style={{
+								display: error && error === "" ? "none" : "block",
+								fontWeight: "bold",
+							}}
+						>
 							{error}
 						</p>
 						<p style={{ textAlign: "justify" }}>
@@ -401,8 +477,13 @@ export default function BankAccountVerification(props) {
 							<li>Acceptable file formats are PDF, JPG, JPEG, GIF and PNG</li>
 						</p>
 					</div>
-					<DocumentUpload classes={classes} docType={"bank information"} handle={handleUpload} />
-
+					<DocumentUpload
+						classes={classes}
+						resetUpload={paymnetMode}
+						docType={"bank information"}
+						handle={handleUpload}
+						multiple = { paymnetMode === "checkpayment" ? false : true }
+					/>
 				</div>
 				<div className={props.classes.actionsContainer}>
 					<div className={props.classes.button_div}>
@@ -429,6 +510,105 @@ export default function BankAccountVerification(props) {
 					</div>
 				</div>
 			</form>
+
+			<Dialog
+				onClose={handleCloseAutoPayAuth}
+				aria-labelledby="customized-dialog-title"
+				maxWidth="md"
+				open={openAutoPayAuth}
+			>
+				<div id="printableArea">
+					<DialogTitle id="customized-dialog-title" onClose={handleCloseAutoPayAuth}>
+						Auto Pay Authorization
+						<CloseIcon style={{float: "right", cursor: "pointer"}} onClick={handleCloseAutoPayAuth} />
+					</DialogTitle>
+					<DialogContent dividers>
+						<Typography align="justify" gutterBottom>
+							As used in this authorization, the words, “I,” “MY,” and “ME”
+							refer to the borrower agreeing to the terms of this authorization,
+							and the word “YOU” refers to Mariner Finance, LLC (and its
+							subsidiaries and affiliates) (collectively “Lender”).
+						</Typography>
+						<br />
+						<Typography align="justify" gutterBottom>
+							I hereby authorize and direct Lender to initiate periodic debit
+							entries for my scheduled loan payments from the bank account
+							information provided to Lender. I agree that debit entries will be
+							made on my scheduled due date (as specified in my loan documents).
+							Changes made to my account or banking information must be received
+							by Lender at least three (3) business days prior to the payment
+							due date.
+						</Typography>
+						<br />
+						<Typography align="justify" gutterBottom>
+							If the first scheduled payment is an extended due date payment,
+							then the first drafted payment amount may differ from the
+							contractually agreed upon amount due each month. If any scheduled
+							debit amount is greater than the outstanding balance of the loan,
+							the scheduled payment will be debited in full and a check in the
+							amount of the overpayment will be issued and mailed to me.
+						</Typography>
+						<br />
+						<Typography align="justify" gutterBottom>
+							Lender may cancel my automatic payment enrollment if any automatic
+							payment is returned unpaid by my financial institution. Lender may
+							also cancel the automatic payment service for any reason and will
+							notify me if such an action takes place. The automatic payment
+							amount will only be reduced or canceled to avoid creating a credit
+							balance on the account.
+						</Typography>
+						<br />
+						<Typography align="justify" gutterBottom>
+							Further, I understand and agree that if my account at the
+							depository financial institution provided does not have sufficient
+							funds to make my loan payment, Lender will not be responsible or
+							liable for any penalties or charges assessed by any other
+							financial institution as a result of such insufficiency. I
+							acknowledge that, in the event Lender’s additional attempts to
+							collect my payment via EFT‐ACH are unsuccessful, I must make my
+							loan payment by other means. I understand that a fee may be
+							assessed by Lender in accordance with the terms of my loan
+							agreement as a result of my account at the depository financial
+							institution listed below having insufficient funds.
+						</Typography>
+						<br />
+						<Typography align="justify" gutterBottom>
+							<span class="underline">Termination:</span> I have the right to
+							stop payment of preauthorized transfers from my account by
+							notifying Lender, verbally or in writing at the mailing address or
+							email address noted below; any such notification must be received
+							by Lender at any time up to three (3) business days before the
+							scheduled date of the transfer. If the debit item is resubmitted,
+							Lender must continue to honor the stop payment order.
+						</Typography>
+						<br />
+						<Typography align="justify" gutterBottom>
+							I may terminate this authorization at any time (i) through the
+							Customer Account Center; (ii) by providing written notice to
+							Lender at Mariner Finance, LLC, 8211 Town Center Drive,
+							Nottingham, MD 21236, Attn: Servicing; or (iii) by providing
+							written notice to the following email address:
+							recurringpymtoptout@marinerfinance.com.
+						</Typography>
+						<br />
+						<Typography align="justify" gutterBottom>
+							This authorization will remain in effect until the underlying
+							obligation to you is satisfied OR you receive written notification
+							from me of termination of this authorization and you have
+							reasonable time to act upon it, whichever comes first.
+						</Typography>
+					</DialogContent>
+				</div>
+				<DialogActions className="modalAction">
+					<ButtonPrimary
+						stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
+						onClick={handleCloseAutoPayAuth}
+						className="modalButton"
+					>
+						<Typography align="center">Close</Typography>
+					</ButtonPrimary>
+				</DialogActions>
+			</Dialog>
 		</div>
 	);
 }

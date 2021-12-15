@@ -1,10 +1,11 @@
 import React, { createContext, useState } from "react";
 import usrAccountDetails from "../components/Controllers/AccountOverviewController";
-import states from "../contexts/States.json"
+import states from "../components/lib/States.json"
 
 export const CheckMyOffers = createContext();
 
 const CheckMyOffersContext = (props) => {
+
 	//context data initial State
 	const [data, setData] = useState({
 		loanAmount: null,
@@ -45,9 +46,9 @@ const CheckMyOffersContext = (props) => {
 		password: null,
 		confirmPassword: null,
 		result: null,
-		formStatus: '',
+		formStatus: '', 
 		completedPage: 0,
-		loading: true,
+		loading:true,
 		isActiveUser: null,
 		disabled: false,
 		last4SSN: null,
@@ -68,35 +69,42 @@ const CheckMyOffersContext = (props) => {
 		},
 		applicationStatus: ''
 	});
-
 	//setUserAccountDetails in context
 	async function setUserAccountDetails() {
 		data.loading = true
 		let accountDetail= await usrAccountDetails();
-
-			   let identification = (accountDetail != null) ? accountDetail?.data?.data?.customer?.identification : null;
-			   let latestContact = (accountDetail != null) ? accountDetail?.data?.data?.customer?.latest_contact : null;
-			   let statesFullForm = (accountDetail != null) ? accountDetail?.data?.data?.customer?.latest_contact.address_state : null;
-			   let userStatus = (accountDetail != null) ? accountDetail?.data?.data?.customer?.user_account?.status : null;
-			   data.citizenship = identification?.citizenship ? identification?.citizenship : null
-			   data.zip = latestContact?.address_postal_code ? latestContact?.address_postal_code : null
-			   data.firstName = identification?.first_name ? identification?.first_name : null
-			   data.lastName = identification?.last_name ? identification?.last_name : null
-			   data.phone = latestContact?.phone_number_primary ? latestContact?.phone_number_primary : null
-			   data.email = latestContact?.email ? latestContact?.email : null
-			   data.dob = identification?.date_of_birth ? identification?.date_of_birth : null
-			   data.streetAddress = latestContact?.address_street ? latestContact?.address_street : null
-			   data.city = latestContact?.address_city ? latestContact?.address_city : null
-			   data.state = latestContact?.address_state? latestContact.address_state: null
-			   data.stateFullform = states[statesFullForm]
-			   data.last4SSN = identification?.last4SSN ? identification?.last4SSN : null;
-			   data.loanPurpose = null
-			   data.ssn = identification?.social_security_number ? identification?.social_security_number : null
-			   data.loading = false
-			   data.isActiveUser = userStatus;
-			   data.disabled= true
-			   setData({...data})
-			   }
+		if(accountDetail.data.status === 200){
+		const cred = JSON.parse(localStorage.getItem("cred"));
+	
+			let identification = (accountDetail != null) ? accountDetail?.data?.data?.customer?.identification : null;
+			let latestContact = (accountDetail != null) ? accountDetail?.data?.data?.customer?.latest_contact : null;
+			let statesFullForm = (accountDetail != null) ? accountDetail?.data?.data?.customer?.latest_contact.address_state : null;
+			let userStatus = (accountDetail != null) ? accountDetail?.data?.data?.customer?.user_account?.status : null;
+			data.citizenship = identification?.citizenship ? identification?.citizenship : null
+			data.zip = latestContact?.address_postal_code ? latestContact?.address_postal_code : null
+			data.firstName = identification?.first_name ? identification?.first_name : null
+			data.lastName = identification?.last_name ? identification?.last_name : null
+			data.phone = latestContact?.phone_number_primary ? latestContact?.phone_number_primary : null
+			data.email = latestContact?.email ? latestContact?.email : null
+			data.dob = identification?.date_of_birth ? identification?.date_of_birth : null
+			data.streetAddress = latestContact?.address_street ? latestContact?.address_street : null
+			data.city = latestContact?.address_city ? latestContact?.address_city : null
+			data.state = latestContact?.address_state? latestContact.address_state: null
+			data.stateFullform = statesFullForm.length === 2 ? states[statesFullForm] : statesFullForm;
+			data.last4SSN = identification?.last4SSN ? identification?.last4SSN : null;
+			data.loanPurpose = null
+			data.ssn = identification?.social_security_number ? identification?.social_security_number : null
+			data.loading = false;
+			data.password = cred.password;
+			data.confirmPassword = cred.password;
+			data.isActiveUser = userStatus;
+			data.disabled= true
+			setData({...data})
+		}else{
+			data.loading = false
+			setData({...data})
+		}
+	}
    
 
 	const resetData = () => {

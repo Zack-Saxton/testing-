@@ -105,3 +105,8 @@ background: linear-gradient(
     padding-top: 10px!important;
   }
 }
+
+.chartGrid {
+  text-align: center;
+  min-width: 1vh;
+}

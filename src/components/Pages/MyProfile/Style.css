@@ -81,10 +81,6 @@
   display: none;
 }
 
-a:visited {
-  color: #0F4EB3
-  ;
-}
 
 @media (max-width: 599px) {
   #paymentMethodBtnWrap {

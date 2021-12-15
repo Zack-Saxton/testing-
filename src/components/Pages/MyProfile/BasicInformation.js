@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import "./Style.css";
 import Moment from "moment";
-import Typography from "@material-ui/core/Typography";
 import ProfileImageController from "../../Controllers/ProfileImageController";
-import {
-  basicInformation,
-  uploadNewProfileImage,
-} from "../../Controllers/myProfileController";
+import { basicInformation, uploadNewProfileImage, } from "../../Controllers/myProfileController";
+import CircularProgress from '@material-ui/core/CircularProgress';
 import profileImg from "../../../assets/images/profile-img.png";
+import { getCustomerByEmail } from "../../Controllers/CheckMyOffersController";
 import { toast } from "react-toastify";
 import {
   ButtonPrimary,
@@ -24,10 +22,10 @@ import * as yup from "yup";
 const validationSchema = yup.object({
   email: yup
     .string("Enter your email")
-    .email("A valid email address is required")
+    .email("Please enter a valid email address")
     .matches(
       /^[a-zA-Z][a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
-      "A valid email address is required"
+      "Please enter a valid email address"
     )
     .required("Your email address is required"),
 
@@ -35,39 +33,34 @@ const validationSchema = yup.object({
     .string("Enter a name")
     .required("Your Phone number is required")
     .transform((value) => value.replace(/[^\d]/g, ""))
-    .matches(/^[1-9]{1}\d{2}\d{3}\d{4}$/, "Invalid Phone")
-    .matches(/^(\d)(?!\1+$)\d{9}$/, "Invalid Phone")
+    .matches(/^[1-9]{1}\d{2}\d{3}\d{4}$/, "Please enter a valid Phone number")
+    .matches(/^(\d)(?!\1+$)\d{9}$/, "Please enter a valid Phone number")
     .min(10, "Name must contain at least 10 digits"),
 });
 
-export default function BasicInformation(userAccountDetailCard) {
-  let userAccountDetail =
-    userAccountDetailCard != null ? userAccountDetailCard : null;
+export default function BasicInformation(basicInformationData) {
+  
+	const [submit, setSubmit] = useState(false);
   const [error] = useState(false);
   const [loading, setLoading] = useState(false);
+
+
+
+  let basicData = basicInformationData?.basicInformationData?.identification != null ? basicInformationData.basicInformationData.identification : null;
+  let basicInfo =basicInformationData?.basicInformationData?.latest_contact != null ? basicInformationData.basicInformationData.latest_contact : null;
+  
 
   const checkApplicationStatus = async (event) => {
     formik.handleBlur(event);
     if (event.target.value !== "" || event.target.value !== null) {
-      let body = {
-        email: event.target.value,
-      };
-      if (event.target.value !== "") {
-        return axios({
-          method: "POST",
-          url: "/customer/get_customer_by_email",
-          data: JSON.stringify(body),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-      }
-    }
-  };
+      let result = await getCustomerByEmail(event.target.email);
+      if (result && result?.data?.data?.AppSubmittedInLast30Days === true) {
+        setSubmit(true);
+        setLoading(false);
+      }  
+  }
+}
 
-  const onClickCancelChange = () => {
-    formik.resetForm();
-  };
 
   const [profileImage, setProfileImage] = useState(null);
   async function AsyncEffect_profileImage() {
@@ -77,68 +70,148 @@ export default function BasicInformation(userAccountDetailCard) {
     AsyncEffect_profileImage();
   }, []);
 
-  let profileImageData =
-    profileImage?.data?.data?.profile_picture_url != null
-      ? profileImage.data.data.profile_picture_url
-      : profileImg;
+ 
+
+  let profileImageData = profileImage?.data?.data?.profile_picture_url != null ? profileImage.data.data.profile_picture_url : profileImg;
 
   const formik = useFormik({
+    enableReinitialize: true,
     initialValues: {
-      email:
-        userAccountDetail?.userAccountDetailCard?.customer?.latest_contact
-          ?.email ?? "",
-      phone: userAccountDetail?.userAccountDetailCard?.customer?.latest_contact
-        ?.phone_number_primary
-        ? userAccountDetail.userAccountDetailCard.customer.latest_contact
-            .phone_number_primary
-        : "",
+      email: basicInfo?.email ? basicInfo?.email : "",
+      phone: basicInfo?.phone_number_primary ? basicInfo?.phone_number_primary : "",
     },
     validationSchema: validationSchema,
 
     onSubmit: async (values) => {
       setLoading(true);
+     
       const phone =
         values.phone
           .replace(/-/g, "")
           .replace(/\)/g, "")
           .replace(/\(/g, "")
           .replace(/ /g, "") || "";
-      if (values.email !== null) {
-        let body = {
-          email: values.email,
-          isAuthenticated: true,
-          profileInfo: {
+
+      
+        let body = {       
             primaryPhoneNumber: phone,
             email: values.email,
-          },
-        };
-        let res = await basicInformation(body);
-
-        if (res.data.data.emailUpdate === true) {
-          toast.success("Updates successfull", {
-            position: "bottom-left",
-            autoClose: 3500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-          setLoading(false);
-        } else {
+          
+        }        
+     
+        if (formik.initialValues.phone === phone && formik.initialValues.email === values.email ) {
           toast.error("No changes made", {
             position: "bottom-left",
-            autoClose: 3500,
+            autoClose: 3000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
+            onClose: () => { setLoading(false);}
           });
+         
         }
+        else{
+        let res = await basicInformation(body);
+       
+          if (res.data.data.notes.length !== 0) {
+            toast.success("Updated successfully", {
+              position: "bottom-left",
+              autoClose: 3500,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              onClose: () => {
+                setLoading(false);           
+                  window.location.reload();           
+              }
+            });
+           
+            } else {
+            toast.error("Please try again", {
+              position: "bottom-left",
+              autoClose: 3500,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,            
+            onClose: () => { setLoading(false);}
+          });
+          }       
       }
-    },
+
+         if (selectedFile !== null) {
+          var filePath = selectedFile.value;
+          var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+          if (!allowedExtensions.exec(filePath)) {
+            toast.error(
+              "Please upload file having extensions .jpeg .jpg .png only. ",
+              {
+                position: "bottom-left",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              }
+            );
+            setLoading(false);
+            selectedFile.value = "";
+            return false;
+          } else if (selectedFile.files[0].size <= 10240000) {
+            let reader = new FileReader();
+            if (selectedFile.files && selectedFile.files[0]) {
+              reader.onload = () => {
+                const buffer2 = Buffer.from(reader.result, "base64");
+                let test = Buffer.from(buffer2).toJSON().data;
+                let fileName = selectedFile.files[0].name;
+                let fileType = selectedFile.files[0].type;
+                let documentType = docType;
+                uploadNewProfileImage(test, fileName, fileType, documentType);
+              };
+              reader.readAsDataURL(selectedFile.files[0]);              
+              setLoading(false);
+            }
+          } else {
+            if (selectedFile.files[0].size > 10240000) {
+              toast.error("Please upload file size below 10mb ", {
+                position: "bottom-left",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+              setLoading(false);
+            } else if (docType == null) {
+              toast.error("Please select an image type to upload", {
+                position: "bottom-left",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+              setLoading(false);
+            }
+          }
+        }
+
+
+      }
+   
   });
+
+  const onClickCancelChange = () => {
+       formik.resetForm();
+  };
 
   const preventSpace = (event) => {
     if (event.keyCode === 32) {
@@ -147,99 +220,32 @@ export default function BasicInformation(userAccountDetailCard) {
   };
 
   const handleInputChange = () => {
-    setSelectedFile(document.getElementById("file"));
-  };
-
-  const uploadProfileImage = () => {
-    if (selectedFile === null) {
-      toast.error("please select a file to upload", {
-        position: "bottom-left",
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-    } else {
-      var filePath = selectedFile.value;
-      var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
-      if (!allowedExtensions.exec(filePath)) {
-        toast.error(
-          "Please upload file having extensions .jpeg .jpg .png only. ",
-          {
-            position: "bottom-left",
-            autoClose: 1500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          }
-        );
-
-        selectedFile.value = "";
-
-        return false;
-      } else if (selectedFile.files[0].size <= 10240000) {
-        let reader = new FileReader();
-        if (selectedFile.files && selectedFile.files[0]) {
-          reader.onload = () => {
-            const buffer2 = Buffer.from(reader.result, "base64");
-            let test = Buffer.from(buffer2).toJSON().data;
-            let fileName = selectedFile.files[0].name;
-            let fileType = selectedFile.files[0].type;
-            let documentType = docType;
-            uploadNewProfileImage(test, fileName, fileType, documentType);
-          };
-          reader.readAsDataURL(selectedFile.files[0]);
-        }
-      } else {
-        if (selectedFile.files[0].size > 10240000) {
-          toast.error("Please upload file size below 10mb ", {
-            position: "bottom-left",
-            autoClose: 1500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-        } else if (docType == null) {
-          toast.error("Please select an image type to upload", {
-            position: "bottom-left",
-            autoClose: 1500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-        }
-      }
-    }
+    document.getElementById("selectImage").click();
+    setSelectedFile(document.getElementById("selectImage"));
   };
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [docType] = useState("");
   return (
     <form onSubmit={formik.handleSubmit}>
-      <Grid
+       { basicInformationData?.basicInformationData === null ? (
+              <Grid align="center"><CircularProgress  /></Grid>
+        ): <>
+       
+
+        <Grid
         item
         xs={12}
         style={{ width: "100%", gap: 15, marginBottom: 18 }}
         container
         direction="row"
       >
+      
         <TextField
           label="First Name"
           name="firstname"
           type="text"
-          defaultValue={
-            userAccountDetail?.userAccountDetailCard?.customer?.identification
-              ?.first_name
-          }
-          //materialProps={userAccountDetail?.userAccountDetailCard?.customer?.identification?.first_name}
+          value={ basicData?.first_name ? basicData?.first_name : "" }
           disabled={true}
         />
       </Grid>
@@ -255,12 +261,8 @@ export default function BasicInformation(userAccountDetailCard) {
           label="Last Name"
           name="lastname"
           type="text"
-          //materialProps={{ defaultValue: "Doe" }}
           disabled={true}
-          defaultValue={
-            userAccountDetail.userAccountDetailCard?.customer?.identification
-              ?.last_name
-          }
+          value={ basicData?.last_name ?  basicData?.last_name : ""}
         />
       </Grid>
 
@@ -276,12 +278,8 @@ export default function BasicInformation(userAccountDetailCard) {
           name="dob"
           type="date"
           format={"DD/MM/YYYY"}
-          //                  materialProps={{ defaultValue: "02/25/1990" }}
           disabled={true}
-          defaultValue={Moment(
-            userAccountDetail.userAccountDetailCard?.customer?.identification
-              ?.date_of_birth
-          ).format("MM/DD/YYYY")}
+          value={basicData?.date_of_birth ? Moment(  basicData?.date_of_birth ).format("MM/DD/YYYY") : ""}
         />
       </Grid>
 
@@ -319,7 +317,6 @@ export default function BasicInformation(userAccountDetailCard) {
           label="Primary Phone Number"
           placeholder="Enter your phone number"
           id="phone"
-          type="text"
           onKeyDown={preventSpace}
           value={formik.values.phone}
           onChange={formik.handleChange}
@@ -330,21 +327,16 @@ export default function BasicInformation(userAccountDetailCard) {
       </Grid>
 
       <Grid container direction="row">
-        <Grid item xs={12} sm={3} style={{ paddingTop: "20px" }}>
-          {/*  <PersonOutlineIcon />{" "}*/}
+        <Grid item xs={8} sm={3} style={{ paddingTop: "10px", maxWidth: "100px" }}>
           <img
-            id="sidebarProfilePic"
+            width="80px"
             src={profileImageData}
+            align="left"
             alt="Profile Pic"
           />
-
-          <input
-            accept="image/png, image/jpeg, application/pdf, image/jpg "
-            multiple
-            id="file"
-            type="file"
-            onChange={handleInputChange}
-          />
+          <Typography className={submit ? "showMsg" : "hideMsg"} style={{ textAlign: "left", marginLeft: "8%", marginTop: "2%" }}>
+            It looks like you have already submitted an application within the last 30 days.
+          </Typography>
         </Grid>
 
         <Grid item xs={12} sm={6} style={{ paddingTop: "10px" }}>
@@ -352,18 +344,27 @@ export default function BasicInformation(userAccountDetailCard) {
             stylebutton='{"background": "#FFFFFF", "height": "inherit", "color": "black","fontSize":"1rem","border-width":"1","border-style": "solid"}'
             id="uploadProfileImage"
             variant="contained"
-            onClick={() => uploadProfileImage()}
             component="span"
+            onClick={handleInputChange}
+            disabled={error || loading}
           >
             Upload New Photo
           </ButtonSecondary>
+
+          <input
+            accept="image/png, image/jpeg, application/pdf, image/jpg "
+            multiple
+            hidden
+            id="selectImage"
+            type="file"
+          />
           <br></br>
           Allowed jpg, gif or png. Max size of 800kb
         </Grid>
       </Grid>
       <Grid
         container
-        style={{ justifyContent: "center" }}
+        style={{ justifyContent: "left" }}
         alignItems="center"
         item
         lg={8}
@@ -372,33 +373,34 @@ export default function BasicInformation(userAccountDetailCard) {
         className="textBlock alignButton"
       >
         <ButtonSecondary
-          stylebutton='{"marginRight": " ", "height": "inherit"}'
-          styleicon='{ "color":"" }'
-          id="apply-loan-reset-button"
-          onClick={onClickCancelChange}
+            stylebutton='{"marginLeft": "","fontSize":""}'
+            styleicon='{ "color":"" }'
+            onClick={onClickCancelChange}
+           
         >
-          <Typography align="center" className="textCSS ">
             Cancel
-          </Typography>
         </ButtonSecondary>
 
         <ButtonPrimary
-          type="submit"
-          stylebutton='{"marginLeft": "5px","background": "#FFBC23", "height": "inherit", "color": "black","fontSize":"1rem"}'
-          disabled={error || loading}
-        >
-          <Typography align="center" className="textCSS ">
+                stylebutton='{"marginLeft": "","fontSize":"", "marginLeft": "5px"}'
+                styleicon='{ "color":"" }'
+                type="submit"
+                disabled={loading}
+               
+                >
             Save Changes
-          </Typography>
-          <i
+            <i
             className="fa fa-refresh fa-spin customSpinner"
             style={{
               marginRight: "10px",
               display: loading ? "block" : "none",
+              color: "blue"
             }}
           />
         </ButtonPrimary>
+
       </Grid>
+      </>  } 
     </form>
   );
 }

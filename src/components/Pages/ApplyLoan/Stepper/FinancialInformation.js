@@ -50,19 +50,22 @@ export default function FinancialInformation(props) {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
+      props.setLoadingFlag(true);
       let body = {
         "employer_name": values.employerName,
         "current_job_title": values.jobTitle,
-        "years_at_current_address": "12",
-        "refer": "nil"
+        "years_at_current_address": values.yearsAtCurrentAddress,
+        "refer": values.howDoYouHearAboutUs
       }
       //API call to submit financial info
       let res = await submitFinancialInformation(body);
       if (res.data.data.financial_information === true) {
+        props.setLoadingFlag(false);
         setError('');
         props.next();
       }
       else {
+        props.setLoadingFlag(false);
         setError(errorMessage.applyForLoan.financialInformation.verificationNotFound);
       }
     }
@@ -111,7 +114,27 @@ export default function FinancialInformation(props) {
           <Select
             name="yearsAtCurrentAddress"
             labelform="Years at current address"
-            select='[{"value":"0-3"}, {"value":"3-5"},  {"value":"5-10"}]'
+            select='[{"value":"0", "label": "<1 year"}, 
+                     {"value":"1", "label": "1 year"}, 
+                     {"value":"2", "label": "2"}, 
+                     {"value":"3", "label": "3"}, 
+                     {"value":"4", "label": "4"}, 
+                     {"value":"5", "label": "5"}, 
+                     {"value":"6", "label": "6"}, 
+                     {"value":"7", "label": "7"}, 
+                     {"value":"8", "label": "8"}, 
+                     {"value":"9", "label": "9"}, 
+                     {"value":"10", "label": "10"}, 
+                     {"value":"11", "label": "11"}, 
+                     {"value":"12", "label": "12"}, 
+                     {"value":"13", "label": "13"}, 
+                     {"value":"14", "label": "14"}, 
+                     {"value":"15", "label": "15"}, 
+                     {"value":"16", "label": "16"}, 
+                     {"value":"17", "label": "17"}, 
+                     {"value":"18", "label": "18"}, 
+                     {"value":"19", "label": "19"}, 
+                     {"value":"21", "label": "20+ years"}]'
             value={formik.values.yearsAtCurrentAddress}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -129,7 +152,7 @@ export default function FinancialInformation(props) {
           <Select
             name="howDoYouHearAboutUs"
             labelform="How did you hear about us?"
-            select='[{"value":"Internet"}, {"value":"Friends"}]'
+            select='[{"value":"Advertising"}, {"value":"Friend / Family"}, {"value":"Business / Retailer"}, {"value":"Other"}]'
             value={formik.values.howDoYouHearAboutUs}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}

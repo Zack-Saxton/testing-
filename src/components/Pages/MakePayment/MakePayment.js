@@ -144,8 +144,9 @@ export default function MakePayment(props) {
   async function makeuserPayment(accntNo, card, paymentDatepicker, isDebit, paymentAmount) {
     setPaymentOpen(false)
     let data = await makePayment(accntNo, card, paymentDatepicker, isDebit, paymentAmount);
+    let message= paymentDatepicker === Moment().format("YYYY/MM/DD") ? 'We received your payment successfully' : 'Payment has been scheduled';
     data.data.status === 200 ?
-      data?.data?.data?.paymentResult?.PaymentCompleted !== undefined ? toast.success('Payment has been scheduled', {
+      data?.data?.data?.paymentResult?.PaymentCompleted !== undefined ? toast.success(message, {
         position: "bottom-left",
         autoClose: 5000,
         hideProgressBar: false,
@@ -374,6 +375,9 @@ export default function MakePayment(props) {
     } else if (paymentAmount === '') {
       document.getElementById("payment").focus()
       setRequiredAmount('Please enter payment amount')
+    } else if (paymentAmount < 10 ) {
+      document.getElementById("payment").focus()
+      setRequiredAmount('Please enter minimum amount of $10')
     } else if (paymentDatepicker === null) {
       document.getElementById("date").focus()
       setrequiredDate('Please select any date')

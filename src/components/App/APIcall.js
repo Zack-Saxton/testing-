@@ -8,23 +8,25 @@ const APICall = async (url, data, method, addAccessToken) => {
     try {
         await axios({
             method: method,
-            url: url,
+            url: url, 
             data: JSON.stringify(data),
             headers: {
                 "Content-Type": "application/json",
                 "x-access-token": loginToken.apiKey,
             },
             transformRequest: (data, headers) => {
-                if (addAccessToken !== true) {
+                if(addAccessToken !== true){
                     delete headers.common["x-access-token"];
                 }
                 return data;
             },
-        }).then((res) => {
-            response.data = res;
+        }).then((res) => { 
+           
+            response.data = res; 
         });
     } catch (error) {
         response.data = error.response;
+        
     }
     return response;
 }
@@ -37,7 +39,7 @@ export const APICallNoData = async (url, method, addAccessToken) => {
         status: "",
         data: "",
     };
-    try {
+    try { 
         await axios({
             method: method,
             url: url,
@@ -46,17 +48,20 @@ export const APICallNoData = async (url, method, addAccessToken) => {
                 "x-access-token": loginToken.apiKey,
             },
             transformRequest: (data, headers) => {
-                if (addAccessToken !== true) {
+                if(addAccessToken !== true){
                     delete headers.common["x-access-token"];
                 }
                 return data;
             },
-        }).then((res) => {
-
+        }).then((res) => { 
+           
             response.data = res;
         });
     } catch (error) {
         response.data = error.response;
+        
     }
     return response;
 }
+
+  

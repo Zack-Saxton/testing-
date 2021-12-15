@@ -81,7 +81,7 @@ export async function makePayment(
   let data = {
     payment_account: cards,
     payment_amount: paymentAmounts,
-    payment_date: Moment(paymentDatepicker).format("YYYY-MM-DD"),
+    payment_date:  Moment(paymentDatepicker).format("YYYY-MM-DD"),
     is_debit_payment: isDebit,
   };
   let method = "POST";

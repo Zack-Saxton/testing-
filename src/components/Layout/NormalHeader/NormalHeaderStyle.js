@@ -7,6 +7,9 @@ const useStyles = makeStyles((theme) => ({
   grow: {
         flexGrow: 1,
        },
+  pointerCSS: {
+        cursor: "pointer",
+       },
        
     toolbar:{
         background: "#d7e6ed",
@@ -23,7 +26,11 @@ const useStyles = makeStyles((theme) => ({
       flexGrow: 1,
     },
     logoFormat:{
-        height: 60
+        height: 60,
+        cursor: "pointer",
+        "&:hover": {
+          background: "#C7D1D5"
+        },
     },
     subtitle:{
       float: "right!important",

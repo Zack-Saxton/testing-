@@ -93,13 +93,19 @@ const NormalHeader = () => {
     </Menu>
   );
 
+  const redirectToAccountOverview = () => {
+    history.push({
+      pathname: "/customers/accountOverview",
+    });
+  }
+
   //View Part
   return (
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar className={classes.toolbar}>
-          <Typography className={classes.title}>
-            <img className={classes.logoFormat} src={Logo} alt="MF logo" />
+          <Typography  onClick={redirectToAccountOverview} className={classes.title}>
+             <img className={classes.logoFormat}  src={Logo} alt="MF logo" /> 
           </Typography>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>

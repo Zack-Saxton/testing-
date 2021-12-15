@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React,{ useEffect, useState } from "react";
 import { useStylesMyProfile } from "./Style";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
@@ -8,45 +8,26 @@ import Tab from "@material-ui/core/Tab";
 import PropTypes from "prop-types";
 import Box from "@material-ui/core/Box";
 import { NavLink } from "react-router-dom";
-import ScrollToTopOnMount from '../ScrollToTop';
+import ScrollToTopOnMount from "../ScrollToTop";
 import SettingsIcon from "@material-ui/icons/Brightness5";
 import TextsmsIcon from "@material-ui/icons/ChatBubbleOutlineOutlined";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
+import RoomIcon from "@material-ui/icons/Room";
 import PaymentsIcon from "@material-ui/icons/LinkOutlined";
 import BasicInformationCard from "./BasicInformation";
 import TextNotificationCard from "./TextNotification";
 import MailingAddressCard from "./MailingAddress";
 import PaymentMethodCard from "./PaymentMethod";
-import AccountDetailsController from "../../Controllers/AccountOverviewController";
-import ChangePassword from "./ChangePassword"
+import ChangePassword from "./ChangePassword";
 import "./Style.css";
-import {  ButtonWithIcon} from "../../FormsUI";
+import { ButtonWithIcon } from "../../FormsUI";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
+import { getTextNotify } from "../../Controllers/myProfileController";
+import { tabAtom } from "./MyProfileTab";
+import {useAtom} from 'jotai'
+import usrAccountDetails from "../../Controllers/AccountOverviewController";
 
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`scrollable-auto-tab-panel-${index}`}
-      aria-labelledby={`scrollable-auto-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
 
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
-};
 function TabVerticalPanel(props) {
   const { children, value, verticalIndex, ...other } = props;
 
@@ -74,57 +55,65 @@ TabVerticalPanel.propTypes = {
 };
 
 function tabVerticalProps(verticalIndex) {
-  
+
   return {
     id: `scrollable-auto-tab-vertical-${verticalIndex}`,
     "aria-controls": `scrollable-auto-tab-panel-${verticalIndex}`,
   };
 }
 
+export default function MyProfile() {
 
 
-export default function MyProfile(props) {
-  
   const classes = useStylesMyProfile();
-  const [value] = React.useState(0);
-  const [values, setValues] = React.useState(props?.location?.state?.tab ? props?.location?.state?.tab : 0);
+
+  const [accountDetails, setAccountDetails] = useState(null);
+  async function getUserAccountDetails() {
+    setAccountDetails(await usrAccountDetails());
+  }
+
+  useEffect(() => {
+    getUserAccountDetails();
+  }, []);
+  
+  let basicInfoData = (accountDetails != null) ? accountDetails?.data?.data?.customer : null;
+
+   const [values, setValues] = useAtom(tabAtom)
   const handleTabChange = (event, newValues) => {
-    setValues(newValues);
+    setValues(newValues) 
+
   };
 
- 
-
-  const [accountDetailStatus, setaccountDetailStatus] = useState(null);
-  async function AsyncEffect_accountDetail() {
-    setaccountDetailStatus(await AccountDetailsController());
+  let localTextNotify = localStorage.getItem("isTextNotify");
+  if (!localTextNotify) {
+    let textNotifyStatus = getTextNotify();
+    let textNotifyData = textNotifyStatus?.data?.data != null ? textNotifyStatus?.data?.data : null;
+    let isTextNotify = textNotifyData?.sbt_getInfo != null && textNotifyData?.sbt_getInfo?.SubscriptionInfo != null ? textNotifyData?.sbt_getInfo?.SubscriptionInfo[0]?.SubscriptionOptions[0]?.OptInMarketing : false;
+    localStorage.setItem("isTextNotify",isTextNotify);
   }
-  useEffect(() => {
-    AsyncEffect_accountDetail();
-     }, []);
 
-  //Load data
-  let accountDetailData = accountDetailStatus != null ? accountDetailStatus.data.data : null;
-  
-
-  let phonenum = accountDetailData?.customer?.latest_contact?.opted_phone_texting;
-  let textnotify = phonenum ? "On" : "Off";
-
-  
-
+ let textnotify = localStorage.getItem("isTextNotify") === "true" ? "On" : "Off";
+ let hasActiveLoan = localStorage.getItem("hasActiveLoan") === "true" ? "true" : "false";
   return (
     <div>
-      <CheckLoginStatus/>
+      <CheckLoginStatus />
       <ScrollToTopOnMount />
-      <Grid container
+      <Grid
+        container
         justifyContent={"center"}
         style={{
           marginTop: "-150px",
           paddingRight: "30px",
-          paddingLeft: "30px"
+          paddingLeft: "30px",
         }}
       >
-
-        <Grid container item xs={12} direction="row" style={{ marginBottom: "-20px", width: "100%" }}>
+        <Grid
+          container
+          item
+          xs={12}
+          direction="row"
+          style={{ marginBottom: "-20px", width: "100%" }}
+        >
           <Typography className={classes.heading} variant="h3">
             <NavLink
               to="/customers/accountOverview"
@@ -148,8 +137,7 @@ export default function MyProfile(props) {
 
         {/* Left Side Nav */}
         <Grid item xs={12} style={{ paddingBottom: "200px" }}>
-          <TabPanel value={value} index={0}>
-            <Grid container item xs={12}>
+           <Grid container item xs={12}>
               <Grid
                 item
                 xs={12}
@@ -170,11 +158,17 @@ export default function MyProfile(props) {
                     style={{ paddingTop: "5px" }}
                     aria-label="scrollable auto tabs example"
                   >
-
                     <Tab
                       label={
-                        <span style={{ float: "left", width: "100%", verticalAlign: "top" }}>
-                          <SettingsIcon style={{ verticalAlign: "top" }} />{" "}  Basic Information
+                        <span
+                          style={{
+                            float: "left",
+                            width: "100%",
+                            verticalAlign: "top",
+                          }}
+                        >
+                          <SettingsIcon style={{ verticalAlign: "top" }} />{" "}
+                          Basic Information
                         </span>
                       }
                       className={classes.tabVerticalLabel}
@@ -184,7 +178,7 @@ export default function MyProfile(props) {
                     <Tab
                       label={
                         <span style={{ float: "left", width: "100%" }}>
-                          <LockOpenIcon style={{ verticalAlign: "top" }} />{" "}
+                          <RoomIcon style={{ verticalAlign: "top" }} />{" "}
                           Mailing Address
                         </span>
                       }
@@ -193,17 +187,18 @@ export default function MyProfile(props) {
                     />
                     <Tab
                       id="tab-vertical"
+                      disabled={hasActiveLoan === "true" ? false : true}
                       label={
                         <span style={{ float: "left", width: "100%" }}>
-                          <TextsmsIcon style={{ verticalAlign: "top" }} />{" "}
-                          Text Notification -
-                          {textnotify}
+                          <TextsmsIcon style={{ verticalAlign: "top" }} /> 
+                          Text Notification - {textnotify}
                         </span>
                       }
                       className={classes.tabVerticalLabel}
                       {...tabVerticalProps(2)}
                     />
                     <Tab
+                      disabled={hasActiveLoan === "true" ? false : true}
                       label={
                         <span style={{ float: "left", width: "100%" }}>
                           <PaymentsIcon style={{ verticalAlign: "top" }} />{" "}
@@ -228,7 +223,6 @@ export default function MyProfile(props) {
               </Grid>
               {/* End Left Side Nav */}
 
-
               {/* Main Content */}
               <Grid
                 item
@@ -237,27 +231,26 @@ export default function MyProfile(props) {
                 style={{ padding: "5px", width: "100%" }}
               >
                 <Paper className={classes.paper}>
-
                   {/* Basic Information */}
                   <TabVerticalPanel value={values} verticalIndex={0}>
-                    <BasicInformationCard userAccountDetailCard={accountDetailData} />
+                    <BasicInformationCard  basicInformationData={basicInfoData}/>
                   </TabVerticalPanel>
                   {/* //END Basic Information */}
 
                   {/* Mailing Address */}
                   <TabVerticalPanel value={values} verticalIndex={1}>
-                    <MailingAddressCard userAccountDetailCard={accountDetailData} />
+                    <MailingAddressCard  basicInformationData={basicInfoData} />
                   </TabVerticalPanel>
                   {/* END Mailing Address */}
 
                   {/* Start Text Notification */}
                   <TabVerticalPanel value={values} verticalIndex={2}>
-                    <TextNotificationCard userAccountDetailCard={accountDetailData} />
+                    <TextNotificationCard />
                   </TabVerticalPanel>
                   {/* END Text Notification */}
 
                   {/* Payment Method */}
-                  <TabVerticalPanel  value={values} verticalIndex={3}>
+                  <TabVerticalPanel value={values} verticalIndex={3}>
                     <PaymentMethodCard />
                   </TabVerticalPanel>
                   {/* END Payment Method */}
@@ -270,10 +263,9 @@ export default function MyProfile(props) {
                 </Paper>
               </Grid>
             </Grid>
-          </TabPanel>
+         
         </Grid>
       </Grid>
     </div>
-
   );
 }

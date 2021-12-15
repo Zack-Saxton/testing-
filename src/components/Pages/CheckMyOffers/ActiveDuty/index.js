@@ -1,14 +1,14 @@
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import { useFormik } from "formik";
-import { ButtonPrimary, Select } from "../../../FormsUI";
+import {useFormik} from "formik";
+import {ButtonPrimary, Select} from "../../../FormsUI";
 import Paper from "@material-ui/core/Paper";
-import React, { useContext } from "react";
-import { Link, useHistory } from "react-router-dom";
+import React, {useContext} from "react";
+import {Link, useHistory} from "react-router-dom";
 import * as yup from "yup";
 import ActiveDutyLogo from "../../../../assets/icon/active-duty.png";
-import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
+import {CheckMyOffers} from "../../../../contexts/CheckMyOffers";
 import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
 
@@ -44,7 +44,10 @@ function ActiveDuty() {
 		},
 	});
 
-	if (data.completedPage < data.page.livingPlace || data.formStatus === "completed") {
+	if (
+		data.completedPage < data.page.livingPlace ||
+		data.formStatus === "completed"
+	) {
 		history.push("/select-amount");
 	}
 	//JSX part
@@ -61,12 +64,12 @@ function ActiveDuty() {
 							lg={6}
 							xl={6}
 							className="cardWrapper"
-							justifyContent="center"
+                            justifyContent="center"
 						>
 							<Paper
 								className="cardWOPadding"
 								justify="center"
-								style={{ width: "inherit", marginBottom: "10%", marginTop: "10%" }}
+								style={{width:"inherit",marginBottom:"10%",marginTop:"10%"}}
 							>
 								<div className="progress mt-0">
 									<div
@@ -80,7 +83,7 @@ function ActiveDuty() {
 										<i className="material-icons dp48 yellowText  ">arrow_back</i>
 									</Link>
 								</Grid>
-								<Grid style={{ marginTop: "-3%" }}>
+								<Grid style={{marginTop:"-3%"}}>
 									<img
 										alt="Active Duty"
 										src={ActiveDutyLogo}
@@ -88,7 +91,7 @@ function ActiveDuty() {
 									/>
 								</Grid>
 
-								<Typography variant="h5" style={{ align: "center", justify: "center", alignItems: "center" }} className="borrowCSS">
+								<Typography variant="h5" style={{align:"center",justify:"center",alignItems:"center"}} className="borrowCSS">
 									Are you active duty military or <br />
 									do you have a future active duty date?
 								</Typography>
@@ -97,7 +100,7 @@ function ActiveDuty() {
 										md={12}
 										className="blockDiv"
 										container
-										justifyContent="center"
+                                        justifyContent="center"
 										alignItems="center"
 									>
 										<Grid container
@@ -128,7 +131,7 @@ function ActiveDuty() {
 											/>
 										</Grid>
 										<Grid
-											justifyContent="center"
+                                            justifyContent="center"
 											className={
 												formik.values.activeDuty === "Yes"
 													? "showMsg space"

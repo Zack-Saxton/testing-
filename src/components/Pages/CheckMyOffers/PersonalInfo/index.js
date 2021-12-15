@@ -9,6 +9,7 @@ import "./PersonalInfo.css";
 import "../CheckMyOffer.css";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import axios from "axios";
+import { creatProspect } from "../../../Controllers/CheckMyOffersController";
 import ScrollToTopOnMount from "../ScrollToTop";
 import { ButtonPrimary, DatePicker, EmailTextField, PhoneNumber, SocialSecurityNumber, TextField } from "../../../FormsUI";
 import { useFormik } from "formik";
@@ -128,6 +129,10 @@ function PersonalInfo() {
       data.phone = phone;
       data.dob = values.date
       data.completedPage = data.page.personalInfo;
+
+      //Prospect
+			creatProspect(data);
+  
       if (values.email !== null && values.ssn !== null) {
         let body = {
           email: values.email,

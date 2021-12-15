@@ -281,7 +281,7 @@ function SSN() {
 											}
 											required={true}
 											stylelabelform='{ "color":"" }'
-											stylecheckbox='{ "color":"blue", "top": "0 px", "position": "absolute"}'
+											stylecheckbox='{ "color":"blue", "top": "0", "position": "absolute"}'
 											stylecheckboxlabel='{ "color":"" }'
 										/>
 										<div
@@ -303,7 +303,7 @@ function SSN() {
 													</p>
 												}
 												stylelabelform='{ "color":"" }'
-												stylecheckbox='{ "color":"blue", "top": "0 px", "position": "absolute"}'
+												stylecheckbox='{ "color":"blue", "top": "0", "position": "absolute", "marginTop": "10px"}'
 												stylecheckboxlabel='{ "color":"" }'
 											/>
 										</div>
@@ -332,7 +332,7 @@ function SSN() {
 													</p>
 												}
 												stylelabelform='{ "color":"" }'
-												stylecheckbox='{ "color":"blue"}'
+												stylecheckbox='{ "color":"blue", "top": "0", "position": "absolute", "marginTop": "10px"}'
 												stylecheckboxlabel='{ "color":"" }'
 											/>
 										</div>
@@ -361,7 +361,7 @@ function SSN() {
 													</p>
 												}
 												stylelabelform='{ "color":"" }'
-												stylecheckbox='{ "color":"blue" }'
+												stylecheckbox='{ "color":"blue", "top": "0", "position": "absolute", "marginTop": "10px"}'
 												stylecheckboxlabel='{ "color":"" }'
 											/>
 										</div>

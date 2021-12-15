@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./Style.css";
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
 import {
   TextField,
   Zipcode,
@@ -12,6 +11,13 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { mailingAddress } from "../../Controllers/myProfileController";
 import { toast } from "react-toastify";
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { tabAtom } from "./MyProfileTab";
+import { useAtom } from "jotai";
+import { useHistory } from "react-router-dom";
+import states from "../../lib/States.json"
+import statesFullform from "../../lib/StatesFullform.json"
+
 
 const validationSchema = yup.object({
   streetAddress: yup
@@ -36,45 +42,35 @@ const validationSchema = yup.object({
     .required("Your home ZIP Code is required"),
 });
 
-export default function MailingAddress(userAccountDetailCard) {
-  let userAccountDetail =
-    userAccountDetailCard != null ? userAccountDetailCard : null;
-  const [error] = useState(false);
+export default function MailingAddress(basicInformationData) {
   const [loading, setLoading] = useState(false);
   const [validZip, setValidZip] = useState(true);
-  const [setOpen] = useState(false);
-  const [setOpenOhio] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  const history = useHistory();
+  const [, setTabvalue] = useAtom(tabAtom)
+ 
 
-  const handleClickOpenOhio = () => {
-    setOpenOhio(true);
-  };
+  let basicInfo =basicInformationData?.basicInformationData?.latest_contact != null ? basicInformationData.basicInformationData.latest_contact : null;
+  
+
+   
+     const onClickCancelChange = () => {
+      formik.resetForm();
+      history.push({pathname:'/customers/myProfile'});
+      setTabvalue(0)
+     };
+
+
 
   const formik = useFormik({
+    enableReinitialize: true,
     initialValues: {
-      streetAddress: userAccountDetail.userAccountDetailCard?.customer?.latest_contact?.address_street
-        ? userAccountDetail.userAccountDetailCard?.customer?.latest_contact
-          ?.address_street
-        : "",
-      zip: userAccountDetail.userAccountDetailCard?.customer?.latest_contact
-        ?.address_postal_code
-        ? userAccountDetail.userAccountDetailCard?.customer?.latest_contact
-          ?.address_postal_code
-        : "",
-      city: userAccountDetail.userAccountDetailCard?.customer?.latest_contact
-        ?.address_city
-        ? userAccountDetail.userAccountDetailCard?.customer?.latest_contact
-          ?.address_city
-        : "",
-      state: userAccountDetail.userAccountDetailCard?.customer?.latest_contact
-        ?.address_state
-        ? userAccountDetail.userAccountDetailCard?.customer?.latest_contact
-          ?.address_state
-        : "",
-      enableReinitialize: true,
+      
+      streetAddress:  basicInfo?.address_street ?  basicInfo?.address_street : "",
+      zip:  basicInfo?.address_postal_code ?  basicInfo?.address_postal_code : "",
+      city:  basicInfo?.address_city ?  basicInfo?.address_city : "",
+      state:  basicInfo?.address_state ?  states[basicInfo?.address_state] : "",
+     
     },
 
     validationSchema: validationSchema,
@@ -82,37 +78,57 @@ export default function MailingAddress(userAccountDetailCard) {
     onSubmit: async (values) => {
       setLoading(true);
       let body = {
+       
         address1: values.streetAddress,
         city: values.city,
-        state: values.state,
+        state: statesFullform[values.state],
         zipCode: values.zip,
       };
 
-      let res = await mailingAddress(body);
-
-      if (res.data.data.emailUpdate === true) {
-        toast.success("Updates successfull", {
-          position: "bottom-left",
-          autoClose: 3500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-        setLoading(false);
-        window.location.reload();
-      } else {
+      if (formik.initialValues.streetAddress === values.streetAddress && formik.initialValues.zip === values.zip ) {
         toast.error("No changes made", {
           position: "bottom-left",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          onClose: () => { setLoading(false);}
+        });       
+      }
+      else {
+
+      let res = await mailingAddress(body);   
+
+      if (res.data.data.notes.length !== 0) {
+        toast.success("Updated successfully", {
+          position: "bottom-left",
           autoClose: 3500,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
+          onClose: () => {
+            setLoading(false);           
+              window.location.reload();           
+          }
+        });
+       
+      } else {
+        toast.error("Please try again", {
+          position: "bottom-left",
+          autoClose: 3500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          onClose: () => {setLoading(false);}
         });
       }
+    }
     },
   });
 
@@ -143,7 +159,6 @@ export default function MailingAddress(userAccountDetailCard) {
       formik.setFieldValue("state", "");
       setValidZip(true);
     }
-
     if (e.target.name !== "") {
       formik.handleChange(e);
     }
@@ -154,12 +169,7 @@ export default function MailingAddress(userAccountDetailCard) {
       formik.setFieldValue("city", result.places[0]["place name"]);
       formik.setFieldValue("state", result.places[0]["state"]);
       setValidZip(true);
-      if (result.places[0]["state"] === "California") {
-        handleClickOpen();
-      }
-      if (result.places[0]["state"] === "Ohio") {
-        handleClickOpenOhio();
-      }
+     
     } else {
       formik.setFieldValue("city", "");
       formik.setFieldValue("state", "");
@@ -174,6 +184,10 @@ export default function MailingAddress(userAccountDetailCard) {
   return (
     <div style={{ padding: 20 }}>
       <form onSubmit={formik.handleSubmit} id="mailing">
+      { basicInformationData?.basicInformationData === null ? (
+              <Grid align="center"><CircularProgress  /></Grid>
+        ): <>
+       
         <Grid
           item
           xs={12}
@@ -191,6 +205,7 @@ export default function MailingAddress(userAccountDetailCard) {
               "data-test-id": "streetAddress",
               maxLength: "100",
             }}
+            
             onKeyDown={preventSpace}
             value={formik.values.streetAddress}
             onChange={formik.handleChange}
@@ -260,6 +275,7 @@ export default function MailingAddress(userAccountDetailCard) {
             name="zip"
             label="Zip Code"
             materialProps={{ "data-test-id": "zipcode" }}
+           
             value={formik.values.zip}
             onChange={fetchAddress}
             onBlur={formik.handleBlur}
@@ -275,35 +291,33 @@ export default function MailingAddress(userAccountDetailCard) {
         </Grid>
 
         <ButtonSecondary
-          stylebutton='{"marginRight": " ", "height": "inherit"}'
+          stylebutton='{"marginLeft": "","fontSize":""}'
           styleicon='{ "color":"" }'
-          id="apply-loan-reset-button"
-          onClick={() => window.location.reload()}
+          onClick={onClickCancelChange}
+        
         >
-          <Typography align="center" className="textCSS ">
-            Cancel
-          </Typography>
+          Cancel
         </ButtonSecondary>
 
         <ButtonPrimary
+          stylebutton='{"marginLeft": "","fontSize":"", "marginLeft": "5px"}'
+          styleicon='{ "color":"" }'
           type="submit"
-          stylebutton='{"marginLeft": "5px", "background": "#FFBC23", "height": "inherit", "color": "black","fontSize":"1rem"}'
-          disabled={error || loading}
+          disabled={loading}
         >
-          <Typography align="center" className="textCSS ">
-            Save changes
-          </Typography>
+          Save Changes
           <i
             className="fa fa-refresh fa-spin customSpinner"
             style={{
               marginRight: "10px",
               display: loading ? "block" : "none",
+              color: 'blue'
             }}
           />
         </ButtonPrimary>
-        <br></br>
-        <br></br>
+        </> }
       </form>
+     
     </div>
   );
 }

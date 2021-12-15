@@ -208,7 +208,16 @@ export default function Register() {
 					if (retVal?.data?.data?.user && retVal?.data?.data?.userFound === true) {
 						let rememberMe = false;
 						var now = new Date().getTime();
-						localStorage.clear();
+						let userToken = { isLoggedIn: false };
+						localStorage.setItem("token", JSON.stringify(userToken));
+						localStorage.setItem("cred", JSON.stringify({email: "", password: "" }));
+						localStorage.setItem("branchname", JSON.stringify({ }));
+						localStorage.setItem("branchopenstatus", JSON.stringify({ }));
+						localStorage.setItem("login_date", JSON.stringify({ }));
+						localStorage.setItem("user", JSON.stringify({ }));
+						localStorage.setItem("branchphone", JSON.stringify({ }));
+						localStorage.setItem("profile_picture", JSON.stringify({ }));
+						localStorage.setItem("redirec", JSON.stringify({ to: "/select-amount" }));
 						localStorage.setItem("token", JSON.stringify({ isLoggedIn: true, apiKey: retVal?.data?.data?.user?.extensionattributes?.login?.jwt_token, setupTime: now }));
 		                localStorage.setItem("cred", JSON.stringify({email: values.email, password: values.password }));
 

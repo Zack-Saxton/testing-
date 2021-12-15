@@ -3,7 +3,7 @@ import "./Style.css";
 import {useStyleVantageScore} from "./Style";
 import { Grid } from "@material-ui/core";
 import { ButtonPrimary } from "../../FormsUI";
-import { NavLink } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import ThumbUpIcon from '@material-ui/icons/ThumbUpAlt';
 import ThumbDownIcon from '@material-ui/icons/ThumbDownAlt';
 import VantageScore from '../../../assets/images/Vantagescore-logo.png';
@@ -16,6 +16,7 @@ import Moment from "moment";
 export default function Credit(creditData) {
     //Material UI css class
      const classes = useStyleVantageScore();
+     const history = useHistory();
      let percent;
      let score = creditData.creditData[0].parsed.vantage_score
      let creditDate = Moment(creditData.creditData[0].createdat).format('MMMM Y')
@@ -57,6 +58,14 @@ export default function Credit(creditData) {
         } else if (score < 580) {
             status = 'Sorry, you have a Poor credit score!'
         }
+        
+        //Navigation
+        const navigateCheckMyOffers = () =>{
+            history.push({
+                pathname: "/customers/applyForLoan",
+                state: { statusCheck:false, from: "user"}
+                });
+        }
 
     //View
     return(
@@ -78,14 +87,9 @@ export default function Credit(creditData) {
             <img id = "Equifax" src= {Equifax} alt = "EquifaxLogo"></img>
         </Grid>
     <Grid className = {classes.texts} item xs={12} sm={6}>
-       
         <p className = {classes.flex}>  {(score >= 750 || score >= 700 || score >= 640) ? <ThumbUpIcon className = {classes.thumb}/> :<ThumbDownIcon className = {classes.thumb}/>} {status}</p>
         <p>{compareLastmnth}</p>
-        <NavLink to={{ pathname:'/customers/applyForLoan', state: {statusCheck:false, from: "user"}   }} style={{ textDecoration: "none" }}>
-
- 
-        <ButtonPrimary stylebutton='{"background": ""}'> Check My Offers</ButtonPrimary>
-        </NavLink>
+        <ButtonPrimary onClick={navigateCheckMyOffers} stylebutton='{"background": ""}'> Check My Offers</ButtonPrimary>
         <p className = {classes.smallText}>See if you qualify for a loan offer, it won’t affect your credit score.</p>
     </Grid>
     </Grid>

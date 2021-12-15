@@ -16,13 +16,16 @@ import APICall from "../../../App/APIcall"
 import Iframe from "../../../FormsUI/iframe"
 import { toast } from "react-toastify";
 import usrAccountDetails from "../../../Controllers/AccountOverviewController";
+import {hardPullCheck} from "../../../Controllers/ApplyForLoanController";
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-// initializing Tab panel section
+
+
+// initializing Tab panel section 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
-  //return the JSX part for tab
+  //return the JSX part for tab 
   return (
     <div
       role="tabpanel"
@@ -101,23 +104,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-//Initializing the Review and sign functional component
+//Initializing the Review and sign functional component 
 export default function ReviewAndSign(props) {
   const classes = useStyles();
 
-  //Initializing state variable
+  //Initializing state variable 
   const [value, setValue] = useState(1);
   const history = useHistory();
   const [url, setUrl] = useState();
   const [confirm, setConfirm] = useState(false);
   const [selectedOffer, setSelectOffer] = useState();
+  const [loading, setLoading] = useState(false);
   // let selectedOffer;
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  // To get the iframe url from the API
+  // To get the iframe url from the API 
   async function getIframeURL() {
     let data = {}
     let iframeURL = await APICall("/integration/eoriginal/authenticate_cac", data, "POST", true);
@@ -130,7 +134,7 @@ export default function ReviewAndSign(props) {
     setSelectOffer(accountDetials?.data?.data?.application?.selected_offer);
   }
 
-  // call the get URL funtion on page load
+  // call the get URL funtion on page load 
   useEffect(() => {
     getSelectedOffer();
     getIframeURL();
@@ -142,11 +146,10 @@ export default function ReviewAndSign(props) {
     if (val) {
       var formated = parseFloat(val);
       var currency = '$';
-      var forCur = currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
-      return forCur;
+      return currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
     }
   }
-  //Check weather the offers is passed or not
+  //Check weather the offers is passed or not 
   return (
     <div>
       <CheckLoginStatus />       {/* To check the user logged in or not  */}
@@ -259,8 +262,10 @@ export default function ReviewAndSign(props) {
                     style={{ width: "100%", textAlign: "center" }}
                   >
                     <CheckLoginStatus />
+
                     <CircularProgress />
                   </Grid>
+
                   :
                   <Grid container justifyContent="flex-start">
                     <Grid
@@ -274,7 +279,7 @@ export default function ReviewAndSign(props) {
                         Select Amount
                       </p>
                       <h2 className={classes.columnColor} id="column-content">
-                        {currencyFormat(selectedOffer.approved_loan_amount).slice(0, -3)}{" "}
+                        {currencyFormat(selectedOffer.approved_loan_amount)}{" "}
                       </h2>
                     </Grid>
 
@@ -319,7 +324,7 @@ export default function ReviewAndSign(props) {
                         Loan Proceeds
                       </p>
                       <h2 className={classes.columnColor} id="column-content">
-                        {currencyFormat(selectedOffer.approved_loan_amount).slice(0, -3)}
+                        {currencyFormat(selectedOffer.approved_loan_amount)}
                       </h2>
                     </Grid>
                     <Grid
@@ -393,16 +398,19 @@ export default function ReviewAndSign(props) {
                   <li>After signing, click the ‘Submit’ button.</li>
                 </ol>
               </Grid>
+
               <Grid item xs={12} style={{ width: "100%" }} >
                 <Paper className={classes.paper}>
+
                   <Grid item xs={12} md={12} lg={12} >
                     {url ? <Iframe src={url} /> : <p>Loading...</p>}
                   </Grid>
                 </Paper>
                 <Paper className={classes.paper}>
+
                   <Grid item xs={12}>
                     <Checkbox
-                      name="rememberme"
+                      name="confirm"
                       label={
                         <span
                           style={{
@@ -417,7 +425,7 @@ export default function ReviewAndSign(props) {
                           that credit inquiry may affect your credit.
                         </span>
                       }
-                      labelid="remember-me"
+                      labelid="confirm"
                       value={confirm}
                       onChange={(e) => { setConfirm(e.target.checked) }}
                       testid="checkbox"
@@ -426,6 +434,18 @@ export default function ReviewAndSign(props) {
                       stylecheckboxlabel='{ "fontSize":"12px" }'
                     />
                   </Grid>
+                  <Grid container direction="row">
+							<Grid
+								className="circleprog"
+								style={{
+									display: loading ? "block" : "none",
+									width: "100%",
+									textAlign: "center",
+								}}
+							>
+								<CircularProgress />
+							</Grid>
+						</Grid>
 
                   <Grid item xs={12} style={{ lineHeight: 6 }}>
                     <ButtonWithIcon
@@ -433,17 +453,25 @@ export default function ReviewAndSign(props) {
                       styleicon='{ "color":"" }'
                       style={{ width: "100%", "fontSize": "1rem" }}
                       id="review-submit-button"
-                      disabled={!confirm}
+                      disabled={!confirm || loading}
                       onClick={async () => {
-                        let data = {};
+                        setLoading(true);
+                        let data = {
+
+                        };
                         let authenticateStatus = await APICall("/integration/eoriginal/complete_cac", data, "POST", true);
                         if (authenticateStatus?.data?.data?.result === "success") {
+
+                        let hardPull = await hardPullCheck();
+                        if(hardPull?.data?.data?.status === 200 || hardPull?.data?.data?.result === "success" ){
+                          setLoading(false)
                           history.push({
                             pathname: "/customers/finalVerification",
                           });
                         }
-                        else {
-                         toast.error("Please complete your signing process before continuing to the next page", {
+                        else{
+                          setLoading(false)
+                          toast.error("Signing process failed, please try again.", {
                             position: "bottom-left",
                             autoClose: 1500,
                             hideProgressBar: false,
@@ -453,6 +481,21 @@ export default function ReviewAndSign(props) {
                             progress: undefined,
                           });
                         }
+
+                        }
+                        else {
+                          setLoading(false)
+                          toast.error("Please complete your signing process before continuing to the next page", {
+                            position: "bottom-left",
+                            autoClose: 1500,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                          });
+                        }
+
                       }}
                     >
                       Submit

@@ -9,6 +9,8 @@ import { toast } from "react-toastify";
 const ApplyForLoanRedirect = (props) => {
     const history = useHistory();
 
+
+
     const redirectToCMO = () => {
         history.push({
             pathname: "/select-amount"
@@ -42,12 +44,10 @@ const ApplyForLoanRedirect = (props) => {
             "final_review": "/customers/loanDocument"
         };
 
-        let accountDetail = JSON.parse(localStorage.getItem('accountDetails')) ;
-        let res = accountDetail ? accountDetail : await APICall("/customer/account_overview", data, "GET", true);
+        let res = await APICall("/customer/account_overview", data, "GET", true);
         let checkStatus = props?.location?.state?.statusCheck === false ? props.location.state.statusCheck : true;
-        
         if( props?.location?.state?.from === "user"){
-
+        
             history.push({
                 state: {from: "ended"} 
             });
@@ -78,7 +78,7 @@ const ApplyForLoanRedirect = (props) => {
                 pathname: statusStrLink[res?.data?.data?.applicants[0]?.status]
             });
         }
-        else if (true) {
+        else {
             let isActiveApplicationAvailable = false;
             res?.data?.data?.applicants.map((item, index) => {
                 if (item.isActive === true) {
@@ -98,15 +98,14 @@ const ApplyForLoanRedirect = (props) => {
            
 
         }
-        else {
-            redirectToCMO();
-        }
+
     }
     else{
         history.push({
             pathname: "/customers/accountOverview"
         });
     }
+
         return res;
     }
     const redirect = () => {

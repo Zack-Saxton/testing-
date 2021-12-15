@@ -1,6 +1,7 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import { toast } from "react-toastify";
+import { useHistory } from "react-router-dom";
 import "./Style.css";
 import {
   ButtonPrimary,
@@ -13,35 +14,40 @@ import { changePassword } from "../../Controllers/myProfileController";
 
 
 export default function ChangePassword() {
+const history = useHistory();
+const cred = JSON.parse(localStorage.getItem("cred"));
 const passwordvalidationSchema = yup.object().shape({
   oldPassword: yup
     .string("Enter your password")
     .max(30, "Password can be upto 30 characters length")
     .min(8, "Password should be minimum of 8 characters length")
     .matches(
-      /^((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,30})$/, 
+      /^((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,30})$/,
       "A valid password is required."
     )
-    .required("Your password is required"),
+    .required("Your old password is required"),
   newPassword: yup
     .string("Enter your password")
     .max(30, "Password can be upto 30 characters length")
     .min(8, "Password should be minimum of 8 characters length")
     .matches(
-      /^((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,30})$/, 
+      /^((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,30})$/,
       "Your password doesn't meet the criteria."
     )
-    .required("Your password is required"),
+    .required("Your new password is required"),
   confirmPassword: yup
     .string("Enter your password")
-    .oneOf([yup.ref("newPassword"), null], "Password must match.")
+    .oneOf(
+      [yup.ref("newPassword"), null],
+      "Your confirmation password must match new password."
+    )
     .max(30, "Password can be upto 30 characters length")
     .min(8, "Password should be minimum of 8 characters length")
     .matches(
-      /^((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,30})$/, 
+      /^((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,30})$/,
       "Your password doesn't meet the criteria."
     )
-    .required("Your password is required"),
+    .required("Your confirmation password is required"),
 });
 const initialValues = {
   oldPassword: '',
@@ -54,9 +60,24 @@ const formikPassword = useFormik({
   validationSchema: passwordvalidationSchema,
   onSubmit: async (values) => {
     try {
-      if (values.newPassword === values.oldPassword) {
+      
+      
+      if (cred.password !== values.oldPassword) {
         if (!toast.isActive("closeToast")) {
-          toast.error("Your confirmation password must match your password. ", {
+          toast.error("Please check your old password and try again. ", {
+            position: "bottom-left",
+            autoClose: 3500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            toastId: "closeToast",
+          });
+        }
+      } else if (values.newPassword === values.oldPassword) {
+        if (!toast.isActive("closeToast")) {
+          toast.error("Old and new Password must be different. ", {
             position: "bottom-left",
             autoClose: 3500,
             hideProgressBar: false,
@@ -68,36 +89,42 @@ const formikPassword = useFormik({
           });
         }
       } else {
-              let response = await changePassword(values.oldPassword, values.newPassword);  
-              if (response.data.data.change_password.passwordReset) {
-                formikPassword.resetForm();
-                if (!toast.isActive("closeToast")) {
-                  toast.success("Password Changed successfully", {
-                    position: "bottom-left",
-                    autoClose: 3500,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    toastId: "closeToast",
-                  });
-                }
-              } else {
-                if (!toast.isActive("closeToast")) {
-                  toast.error("Please check your password and try again", {
-                    position: "bottom-left",
-                    autoClose: 3500,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    toastId: "closeToast",
-                  });
-                }
-              }
-            }
+        let response = await changePassword(
+          values.oldPassword,
+          values.newPassword
+        );
+        if (response.data.data.change_password.passwordReset) {
+          formikPassword.resetForm();
+          window.setTimeout(function() {
+            window.location.reload();
+          }, 4000);
+          if (!toast.isActive("closeToast")) {
+            toast.success("Password Changed successfully", {
+              position: "bottom-left",
+              autoClose: 3500,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              toastId: "closeToast",
+            });
+          }
+        } else {
+          if (!toast.isActive("closeToast")) {
+            toast.error("Please check your password and try again", {
+              position: "bottom-left",
+              autoClose: 3500,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              toastId: "closeToast",
+            });
+          }
+        }
+      }
     } catch(err) {
       toast.error("Please check your password and try again.", {
         position: "bottom-left",
@@ -141,7 +168,8 @@ const preventSpace = (event) => {
                           type="password"
                           label="Old Password"
                           onKeyDown={preventSpace}
-                          materialProps={{ maxLength: "30" }}
+                          autoComplete="off"
+                          materialProps={{ maxLength: "30", autoComplete : "off" }}
                           value={formikPassword.values.oldPassword}
                           onChange={formikPassword.handleChange}
                           onBlur={formikPassword.handleBlur}
@@ -164,8 +192,9 @@ const preventSpace = (event) => {
                           name="newPassword"
                           type="password"
                           label="New Password"
+                          autoComplete="new-password"
                           onKeyDown={preventSpace}
-                          materialProps={{ maxLength: "30" }}
+                          materialProps={{ maxLength: "30", autoComplete: "new-password" }}
                           variant="standard"
                            value={formikPassword.values.newPassword}
                           onChange={formikPassword.handleChange}
@@ -193,7 +222,8 @@ const preventSpace = (event) => {
                           type="password"
                           label="Retype New Password"
                           onKeyDown={preventSpace}
-                          materialProps={{ maxLength: "30" }}
+                          autoComplete="new-password"
+                          materialProps={{ maxLength: "30", autoComplete: "new-password" }}
                           value={formikPassword.values.confirmPassword}
                           onChange={formikPassword.handleChange}
                           onBlur={formikPassword.handleBlur}

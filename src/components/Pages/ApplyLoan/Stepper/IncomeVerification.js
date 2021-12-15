@@ -1,10 +1,12 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { ButtonPrimary, ButtonSecondary } from "../../../FormsUI";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import DocumentUpload from "./DocumentUpload";
 import APICall from "../../../App/APIcall";
 import { toast } from "react-toastify";
+
 
 
 //styling part
@@ -17,11 +19,19 @@ const useStyles = makeStyles(() => ({
 //View Part
 //Initializing functional componentl	
 export default function IncomeVerification(props) {
+	const history = useHistory();
 	const classes = useStyles();
-
 	const handleUpload = (res) => {
 		if(res?.income_verification){
-			props.next();
+			toast.success("Document uploaded successfully!", {
+				position: "bottom-left",
+				autoClose: 1500,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			  });
 		}
 		else{
 			toast.error("Document submission failed. Please try again", {
@@ -107,7 +117,9 @@ export default function IncomeVerification(props) {
 								res?.data?.data?.bank_account_verification === true &&
 								res?.data?.data?.income_verification === true
 							) {
-								props.next();
+								history.push({
+									pathname: "/customers/receiveYourMoney",
+								  });
 							} else {
 								alert("please finish all the steps");
 							}

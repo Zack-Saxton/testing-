@@ -61,6 +61,7 @@ export default function ConsumerDialog(props) {
 
           <ButtonPrimary
             href="https://www.nmlsconsumeraccess.org/"
+            onClick={handleCloseConsumer} 
             id="Continue"
             stylebutton='{"float": "" }'
             target="_blank"

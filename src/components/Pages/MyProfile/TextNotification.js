@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useStylesMyProfile } from "./Style";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
@@ -8,11 +8,12 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
 import { FormControlLabel } from "@material-ui/core";
 import Switch from "@material-ui/core/Switch";
 import { textNotification } from "../../Controllers/myProfileController";
 import { toast } from "react-toastify";
-import AccountDetailsController from "../../Controllers/AccountOverviewController";
 import "./Style.css";
 import {
   ButtonPrimary,
@@ -25,29 +26,20 @@ import { useFormik } from "formik";
 
 export default function TextNotification() {
   const classes = useStylesMyProfile();
-  const [opted_phone_texting] = React.useState("");
-  const [accountDetailStatus, setaccountDetailStatus] = useState(null);
-  async function AsyncEffect_accountDetail() {
-    setaccountDetailStatus(await AccountDetailsController());
-  }
-  useEffect(() => {
-    AsyncEffect_accountDetail();
-  }, []);
-  let accountDetailData =
-    accountDetailStatus != null ? accountDetailStatus.data.data : null;
-  let phonenum =
-    accountDetailData?.customer?.latest_contact?.opted_phone_texting;
-  let textnotifybool = phonenum ? true : false;
-
+  const [loading, setLoading] = useState(false);
   const [openDisclosure, setDisclosureOpen] = useState(false);
-  const [disabledContent, setdisabledContent] = useState(textnotifybool);
+  let getLocalData = JSON.parse(localStorage.getItem("accountDetails"));
+  let phone = getLocalData?.data?.data?.customer?.latest_contact?.opted_phone_texting;
+  let textnotifybool = localStorage.getItem("isTextNotify") === "true" ? true : false;
+  let [disabledContent, setdisabledContent] = useState(textnotifybool);
+
   const phonevalidationSchema = yup.object().shape({
     phone: yup
       .string("Enter a name")
       .required("Your Phone number is required")
       .transform((value) => value.replace(/[^\d]/g, ""))
-      .matches(/^[1-9]{1}\d{2}\d{3}\d{4}$/, "Invalid Phone")
-      .matches(/^(\d)(?!\1+$)\d{9}$/, "Invalid Phone")
+      .matches(/^[1-9]{1}\d{2}\d{3}\d{4}$/, "Please enter a valid phone number")
+      .matches(/^(\d)(?!\1+$)\d{9}$/, "Please enter a valid phone number")
       .min(10, "Name must contain at least 10 digits"),
 
     acceptterms: yup
@@ -56,48 +48,26 @@ export default function TextNotification() {
       .oneOf([false], "False You must accept the terms and conditions"),
   });
 
-  const initialValues = {
-    phone: phonenum,
-    textingterms: false,
-    acceptterms: false,
-  };
-
   const formikTextNote = useFormik({
-    initialValues: { initialValues },
+    initialValues: {
+      phone: phone ? phone : "",
+      textingterms: phone ? true : false,
+      acceptterms: phone ? true : false,
+      },
     enableReinitialize: true,
     validationSchema: phonevalidationSchema,
 
     onSubmit: async (values) => {
+      setLoading(true);
       try {
-        if (values.textingterms === "") {
-          toast.error("You must agree to the terms of use", {
-            position: "bottom-left",
-            autoClose: 3500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-        } else if (values.opted_phone_texting === "") {
-          toast.error("You must provide a valid phone number", {
-            position: "bottom-left",
-            autoClose: 3500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-        } else {
+
           let body = {
             phone: values.phone,
           };
 
-          let res = await textNotification(body);
-
-          if (res.data.data.emailUpdate === true) {
-            toast.success("Updates successfull", {
+          let res = await textNotification(body, disabledContent);
+          if (res.data.data?.sbt_subscribe_details?.HasNoErrors === true || res.data.data?.sbt_getInfo?.HasNoErrors === true) {
+            toast.success("Updated successfully", {
               position: "bottom-left",
               autoClose: 3500,
               hideProgressBar: false,
@@ -106,6 +76,10 @@ export default function TextNotification() {
               draggable: true,
               progress: undefined,
             });
+            localStorage.setItem("isTextNotify",disabledContent);
+            window.setTimeout(function() {
+              window.location.reload();
+            }, 4000);
           } else {
             toast.error("No changes made", {
               position: "bottom-left",
@@ -117,7 +91,9 @@ export default function TextNotification() {
               progress: undefined,
             });
           }
-        }
+          window.setTimeout(function() {
+            setLoading(false);
+          }, 3050);
       } catch (err) {
         toast.error("Error occured while changing text notification.", {
           position: "bottom-left",
@@ -134,6 +110,7 @@ export default function TextNotification() {
 
   const handleSwitchNotification = (event) => {
     setdisabledContent(event.target.checked);
+    formikTextNote.resetForm();
   };
   const handleDisclosureClickOpen = () => {
     setDisclosureOpen(true);
@@ -185,10 +162,10 @@ export default function TextNotification() {
             labelPlacement="end"
             label={
               disabledContent
-                ? "Text Notifications are ON"
+                ? "Text Notifications are On"
                 : "Text Notifications are Off"
-            }
-          />
+            } 
+          /> 
         </Grid>
         <Grid
           item
@@ -203,18 +180,18 @@ export default function TextNotification() {
             to receive text messages concerning your account, please enable text
             notifications above and provide the requested information.
           </p>
+
           <PhoneNumber
             name="phone"
             label="Mobile Number"
             placeholder="Mobile number"
             id="phone"
-            defaultvalue={opted_phone_texting}
             type="text"
-            materialProps={{ defaultValue: "" }}
             onKeyDown={preventSpace}
             value={formikTextNote.values.phone}
             onChange={formikTextNote.handleChange}
             onBlur={formikTextNote.handleBlur}
+            disabled={disabledContent === false ? true : false}
             error={
               formikTextNote.touched.phone &&
               Boolean(formikTextNote.errors.phone)
@@ -226,7 +203,7 @@ export default function TextNotification() {
           <Link
             to="#"
             onClick={handleDisclosureClickOpen}
-            className={classes.autoPayLink}
+            className={classes.linkStyle}
             style={{ textDecoration: "none" }}
           >
             Disclosure
@@ -253,35 +230,35 @@ export default function TextNotification() {
           />
           <span style={{ paddingTop: "8px", marginLeft: "-30px" }}>
             I have read, understand, and agree to the &nbsp;
-            <Link
-              to="resources/legal/texting-terms-of-use"
-              className={classes.autoPayLink}
-              style={{ textDecoration: "none" }}
-            >
+            <a href="https://www.marinerfinance.com/resources/legal/texting-terms-of-use" className={classes.linkStyle} style={{ textDecoration: "none" }}>
               Texting Terms of Use.
-            </Link>
+            </a>
           </span>
         </Grid>
 
         <Grid container direction="row">
           <ButtonSecondary
-            stylebutton='{"width": "120px", "marginRight": " ", "height": "36px"}'
+            stylebutton='{"marginLeft": "","fontSize":""}'
             styleicon='{ "color":"" }'
-            id="apply-loan-reset-button"
+            type="submit"
             onClick={() => window.location.reload()}
-          >
-            <Typography align="center" className="textCSS ">
-              Cancel
-            </Typography>
+            >
+            Cancel
           </ButtonSecondary>
 
           <ButtonPrimary
+            stylebutton='{"marginLeft": "","fontSize":"", "marginLeft": "5px"}'
+            styleicon='{ "color":"" }'
             type="submit"
-            stylebutton='{"marginLeft": "5px","background": "#FFBC23", "color": "black","fontSize":"1rem","width": "140px", "height": "36px"}'
           >
-            <Typography align="center" className="textCSS ">
-              Update
-            </Typography>
+            Update
+            <i
+              className="fa fa-refresh fa-spin customSpinner"
+              style={{
+                marginRight: "10px",
+                display: loading ? "block" : "none",
+              }}
+            />
           </ButtonPrimary>
         </Grid>
       </form>
@@ -292,12 +269,24 @@ export default function TextNotification() {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">Disclosure</DialogTitle>
+        <DialogTitle id="alert-dialog-title">
+        <Typography id="scheduleTxt" className={classes.dialogHeading}>
+          Disclosure
+        </Typography>
+        <IconButton
+            id="autopayCloseBtn"
+            aria-label="close"
+            className={classes.closeButton}
+            onClick={handleDisclosureClose}
+          >
+            <CloseIcon />
+            </IconButton>
+        </DialogTitle>
         <DialogContent>
           <DialogContentText
             id="alert-dialog-description"
-            style={{ fontSize: "12px" }}
           >
+					<Typography align="justify" style={{fontSize: "15px", color: "black"}} gutterBottom>
             <p className={classes.discosureContent}>
               By providing my mobile and/or home number (including any phone
               number that I later convert to a mobile number), I expressly
@@ -319,6 +308,8 @@ export default function TextNotification() {
               "STOP" to any text message that I receive from Mariner or on
               Mariner's behalf.
             </p>
+          </Typography>
+
           </DialogContentText>
         </DialogContent>
         <DialogActions>

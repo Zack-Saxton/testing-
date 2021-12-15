@@ -19,11 +19,10 @@ export async function changePassword(oldPassword, newPassword) {
 export async function basicInformation(body) {
   let url = "update_profile_information_cac";
   let param = "";
-  let data = {
-    email: body.email,
+  let data = {   
     isAuthenticated: true,
     profileInfo: {
-      primaryPhoneNumber: body.profileInfo.primaryPhoneNumber,
+      primaryPhoneNumber: body.primaryPhoneNumber,
       email: body.email,
     },
   };
@@ -33,14 +32,13 @@ export async function basicInformation(body) {
 }
 
 export async function mailingAddress(body) {
-  const email = localStorage.getItem("email");
   let url = "update_profile_information_cac";
   let param = "";
   let data = {
-    email: email,
+   
     isAuthenticated: true,
     profileInfo: {
-      email: email,
+    
       updatedAddressInfo: {
         zipCode: body.zipCode,
         address1: body.address1,
@@ -54,16 +52,28 @@ export async function mailingAddress(body) {
   return APICall(url, param, data, method, addAccessToken);
 }
 
-export async function textNotification(body) {
+export async function textNotification(body, sub) {
   const email = localStorage.getItem("email");
-  const token = localStorage.getItem("token");
-  const userToken = JSON.parse(token);
-  const appGUID = userToken.applicantGuid;
+  const userToken = localStorage.getItem("userToken");
+  const token = JSON.parse(localStorage.getItem("token"));
+  const accountDetails = JSON.parse(localStorage.getItem("accountDetails"));
+  let appGUID = token.applicantGuid;
   let cleanednumber = body.phone.replace(/\D/g, "");
-  let url = "text_subscribe";
+  let allLoansClosed = accountDetails?.data?.data?.allLoansClosed ? accountDetails.data.data.allLoansClosed : false;
+
+  let url = "text_unsubscribe";
+  if (sub) {
+    url = "text_subscribe";
+  } 
   let param = "";
   let data = {
     email: email,
+    allLoansClosed: allLoansClosed,
+    customer: {
+      latest_contact: {
+        opted_phone_texting: cleanednumber,  
+      }
+    },
     isAuthenticated: true,
     profileInfo: {
       email: email,
@@ -94,6 +104,47 @@ export async function textNotification(body) {
   return APICall(url, param, data, method, addAccessToken);
 }
 
+
+
+export async function getTextNotify() {
+  const email = localStorage.getItem("email");
+  const userToken = localStorage.getItem("userToken");
+  const token = JSON.parse(localStorage.getItem("token"));
+  const accountDetails = JSON.parse(localStorage.getItem("accountDetails"));
+  let appGUID = token.applicantGuid;
+  let opted_phone_texting = accountDetails?.data?.data?.latest_contact?.opted_phone_texting ? accountDetails?.data?.data?.latest_contact?.opted_phone_texting : "";
+  let cleanednumber = opted_phone_texting.replace(/\D/g, "");
+  let allLoansClosed = accountDetails?.data?.data?.allLoansClosed ? accountDetails.data.data.allLoansClosed : false;
+
+  let url = "sbt_getInfo";
+  let param = "";
+  let data = {
+    email: email,
+    allLoansClosed: allLoansClosed,
+    customer: {
+      latest_contact: {
+        opted_phone_texting: cleanednumber,  
+      }
+    },
+    isAuthenticated: true,
+    profileInfo: {
+      email: email,
+      opted_phone_texting: cleanednumber,
+    },
+    user: {
+      attributes: {
+        UserToken: userToken,
+        sor_data: {
+          customer_guid: appGUID,
+        },
+      },
+    },
+  };
+  let method = "POST";
+  let addAccessToken = true;
+  return APICall(url, param, data, method, addAccessToken);
+}
+
 export async function profileImage() {
   const email = localStorage.getItem("email");
   let url = "get_profile_picture";
@@ -104,7 +155,8 @@ export async function profileImage() {
   let method = "POST";
   let addAccessToken = true;
   return APICall(url, param, data, method, addAccessToken);
-}
+ }
+
 
 export async function uploadNewProfileImage(
   test,
@@ -117,15 +169,18 @@ export async function uploadNewProfileImage(
   let param = "";
   let data = {
     email: email,
-    file: [
+    isAuthenticated: true,
+    file: 
       {
-        data: test,
-        mimetype: fileType,
-        documentType: documentType,
-        fileName: fileName,
+        profile_picture: {
+          data: test,
+          mimetype: fileType,
+          documentType: documentType,
+          fileName: fileName,
+        }
       },
-    ],
   };
+
   let method = "POST";
   let addAccessToken = true;
   let uploadData = await APICall(url, param, data, method, addAccessToken);

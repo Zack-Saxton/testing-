@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import { toast } from "react-toastify";
 import { ButtonPrimary } from "../../../FormsUI"
@@ -9,35 +9,47 @@ export default function DocumentUpload(props) {
 
   //Set State
   const [selectedFile, setSelectedFile] = useState(null);
+  const [loader, setLoader] = useState(null);
 
   //To handle the file select change
   const handleInputChange = () => {
     setSelectedFile(document.getElementById("file"));
   };
 
+  useEffect(() => {
+    setSelectedFile(null);
+    document.getElementById("file").value = null;
+  }, [props.resetUpload]);
+
   //upload doc functionality
   const uploadDoc =  () => {
     if (selectedFile === null) {
+      if(! toast.isActive("selectFileToUpload")) {
       toast.error("please select a file to upload", {
         position: "bottom-left",
         autoClose: 1500,
+        toastId: "selectFileToUpload",
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
       });
+    }
+      setLoader(false)
     } else {
       var filePath = selectedFile.value;
 
       var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.pdf)$/i;
 
       if (!allowedExtensions.exec(filePath)) {
+        if(! toast.isActive("extensionError")) {
         toast.error(
           "Please upload file having extensions .jpeg .jpg .png .pdf only. ",
           {
             position: "bottom-left",
             autoClose: 1500,
+            toastId: "extensionError",
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -45,6 +57,9 @@ export default function DocumentUpload(props) {
             progress: undefined,
           }
         );
+        }
+      setLoader(false)
+
         selectedFile.value = "";
 
         return false;
@@ -56,21 +71,28 @@ export default function DocumentUpload(props) {
             let fileData = Buffer.from(buffer2).toJSON().data;
             let fileName = selectedFile.files[0].name;
             let fileType = selectedFile.files[0].type;
-            props.handle(await uploadDocument(fileData, fileName, fileType, props.docType));
+            let response = await uploadDocument(fileData, fileName, fileType, props.docType)
+            setLoader(response ? false : true)
+            props.handle(response);
           };
           reader.readAsDataURL(selectedFile.files[0]);
         }
       }
       else {
+        if(! toast.isActive("fileSizeError")) {
         toast.error("Please upload file size below 10mb ", {
           position: "bottom-left",
           autoClose: 1500,
+          toastId: "fileSizeError",
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
         });
+      }
+      setLoader(false)
+
       }
     }
   };
@@ -81,8 +103,8 @@ export default function DocumentUpload(props) {
       <Grid item xs={12} sm={3} style={{ paddingTop: "20px" }}>
         <input
           accept="image/png, image/jpeg, application/pdf, image/jpg "
-          multiple
           id="file"
+          multiple = { props?.multiple === false ? false : true }
           type="file"
           onChange={handleInputChange}
         />
@@ -91,8 +113,12 @@ export default function DocumentUpload(props) {
         <ButtonPrimary
           variant="contained"
           component="span"
-          disabled={props?.activeStep === 0}
-          onClick={() => uploadDoc()}
+          disabled={loader}
+          onClick={() => {
+            setLoader(true)
+            uploadDoc()
+          }
+           }
           id="button_stepper_prev"
           stylebutton='{"margin-right": "10px", "color":"" }'
         >
