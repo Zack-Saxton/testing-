@@ -2,18 +2,25 @@ import React from "react";
 import {useStylesLoanHistory} from "./Style";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import {NavLink} from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import "./Style.css";
 import MonetizationOnRoundedIcon from "@material-ui/icons/MonetizationOnRounded";
 import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet"
 
 export default function LoanHistoryCard(userLoanHistoryCard) {
   
-//Material UI css class
+  const history = useHistory();
+  //Material UI css class
   const classes = useStylesLoanHistory();
 
 //Loan history data from API
   let userLoanHistory = userLoanHistoryCard != null ? userLoanHistoryCard : null;
+  const redirectToApplyForLoan = () => {
+    history.push({
+      pathname: "/customers/applyForLoan",
+      state: { from: "user" }
+    });
+  }
 
 //  view part
   return (
@@ -29,7 +36,7 @@ export default function LoanHistoryCard(userLoanHistoryCard) {
                 ) : (
                   <p className={classes.cardAmountLoanHistory}>
                     {userLoanHistory.userLoanHistoryCard.length
-                      ? userLoanHistory.userLoanHistoryCard.length
+                      ? ('0' + userLoanHistory.userLoanHistoryCard.length).slice(-2)
                       : 0}
                   </p>
                 )}
@@ -49,12 +56,10 @@ export default function LoanHistoryCard(userLoanHistoryCard) {
           </Grid>
 
           <Grid item xs={12} sm={4} className={classes.cardLoanHistory}>
-            <Paper className={classes.paper} style={{ height: "70%" }}>
+            <Paper className={classes.paperPointer} onClick={redirectToApplyForLoan} style={{ height: "70%" }}>
               <Grid style={{ textAlign: "center" }}>
-                <NavLink to="/select-amount" style={{ textDecoration: "none" }} >
                   <MonetizationOnRoundedIcon id="dolor-icon_loan-history" className="material-icons background-round mt-5 yelloWBG"/>
                   <p className={classes.cardApplyLoan}>Apply for a Loan</p>
-                </NavLink>
               </Grid>
             </Paper>
           </Grid>

@@ -10,6 +10,8 @@ import Tab from "@material-ui/core/Tab";
 import PropTypes from "prop-types";
 import Box from "@material-ui/core/Box";
 import Paper from "@material-ui/core/Paper";
+import NumberFormat from 'react-number-format';
+import ScrollToTopOnMount from "../ScrollToTop";
 
 function TabPanelViewApplication(props) {
   const { children, value, verticalIndex, ...other } = props;
@@ -39,6 +41,7 @@ TabPanelViewApplication.propTypes = {
 
 function tabVerticalProps(verticalIndex) {
   return {
+    
     id: `scrollable-auto-tab-vertical-viewApplication-${verticalIndex}`,
     "aria-controls": `scrollable-auto-tab-panel-${verticalIndex}`,
   };
@@ -61,6 +64,7 @@ export default function ViewAccountDetails() {
   return (
     <div>
       <CheckLoginStatus />
+      <ScrollToTopOnMount />
       <Grid
         container
         justifyContent={"center"}
@@ -113,6 +117,7 @@ export default function ViewAccountDetails() {
                   aria-label="scrollable auto tabs example"
                 >
                   <Tab
+                 
                     label={
                       <span style={{ float: "left", textTransform: "none" }}>
                         Status
@@ -135,20 +140,23 @@ export default function ViewAccountDetails() {
               </Paper>
             </Grid>
  {/* End Left Side Nav */}
- 
+
 {/* Main Content */}
             <Grid item xs={12} sm={8} style={{ padding: "5px", width: "100%" }}>
-              <Paper className={classes.paper}>
-                <TabPanelViewApplication value={values} verticalIndex={0}>
-                  <Grid item xs={12}>
+              <Paper className={classes.paper}  style={values===0 ? {marginBottom: "500px"} : {marginBottom:"0px" }}>
+                <TabPanelViewApplication value={values} verticalIndex={0} >
+
+                 { viewAppApplicantInfo?.status ? (viewAppApplicantInfo?.status === "rejected") ? 
+
+                 <> 
+                 <Grid item xs={12}>
                     <Typography
                       variant="h6"
                       className={classes.viewAppStatusHeading}
                     >
-                      We are Sorry!
+                      We are Sorry! {viewAppApplicantInfo?.status}
                     </Typography>
                   </Grid>
-
                   <Grid>
                     <p className={classes.viewAppStatusDisplay}>
                       Unfortunately, we could not provide an offer for you at
@@ -158,6 +166,77 @@ export default function ViewAccountDetails() {
                       credit score.
                     </p>
                   </Grid>
+                  </>  :
+                  
+                   (viewAppApplicantInfo?.status === "approved") ? 
+
+                   <>  <Grid item xs={12}>
+                    <Typography
+                      variant="h6"
+                      className={classes.viewAppStatusHeading}
+                    >
+                      Dear {viewApplicationContact?.first_name},
+                    </Typography>
+                  </Grid>
+                  <Grid>
+                    <p className={classes.viewAppStatusDisplay}>
+                     Congratulations! We have reviewed your information and are happy to inform you
+                     that your loan proceeds are on the way.
+                     <br></br> <br></br>
+                     Borrowers usually receive funds into their bank account within three business days.
+                     You will receive additional information regarding your account number and due date shortly.
+                     If you signed up for automatic payments they will be deducted on your due date.
+                     <br></br> <br></br>
+                     <NavLink to={{ pathname:'/customers/myBranch'}} style={{textDecoration: "none", color:"#0F4EB3",cursor:"pointer"}}>
+                     Please click here to contact us!
+                     </NavLink>
+                     <br></br> <br></br>
+                     <NavLink to={{ pathname:'/customers/applyForLoan', state: {from: "user"} }} style={{textDecoration: "none", color:"#0F4EB3",cursor:"pointer"}}>
+                     Please click here to start a new application.
+                     </NavLink>
+                    </p>
+                  </Grid> </>  : 
+                  
+
+                   (viewAppApplicantInfo?.status === "refered" || viewAppApplicantInfo?.status === "contact_branch" ) ? 
+                   <> <Grid item xs={12}>
+                    <Typography
+                      variant="h6"
+                      className={classes.viewAppStatusHeading}
+                    >
+                      Congratulations! {viewApplicationContact?.first_name},
+                    </Typography>
+                  </Grid>
+                  <Grid>
+                    <p className={classes.viewAppStatusDisplay}>
+                     We believe we have a solution for you.
+                     <br></br><br></br>
+                     Upon completion of your application and verification of your information,
+                     we may be able to extend your final offer as soon as today!
+                     <br></br> <br></br>
+                     "Let's get on a call" -  <NavLink to={{ pathname:'/customers/myBranch'}} style={{textDecoration: "none", color:"#0F4EB3",cursor:"pointer"}}>
+                     Please click here to contact us!
+                     </NavLink>
+                    </p>
+                  </Grid> </>  :
+
+                   <> <Grid item xs={12}>
+                    <Typography
+                      variant="h6"
+                      className={classes.viewAppStatusHeading}
+                    >
+                      Dear {viewApplicationContact?.first_name},
+                    </Typography>
+                  </Grid>
+                  <Grid>
+                    <p className={classes.viewAppStatusDisplay}>
+                     <NavLink to={{ pathname:'/customers/myBranch'}} style={{textDecoration: "none", color:"#0F4EB3",cursor:"pointer"}}>
+                     Please click here to contact us!
+                     </NavLink>
+                    </p>
+                  </Grid> </>   :  <Grid/>   }
+
+
                 </TabPanelViewApplication>
 
                 <TabPanelViewApplication value={values} verticalIndex={1}>
@@ -201,7 +280,7 @@ export default function ViewAccountDetails() {
                   </Grid>
 
                   <Grid className={classes.viewAppInputGrid}>
-                    <h4 className={classes.viewAppInputDisplay}>state</h4>
+                    <h4 className={classes.viewAppInputDisplay}>State</h4>
                     <h4 className={classes.viewAppInputDisplay}>
                       {" "}
                       {viewApplicationContact?.address_state}
@@ -250,7 +329,7 @@ export default function ViewAccountDetails() {
                     </h4>
                     <h4 className={classes.viewAppInputDisplay}>
                       {" "}
-                      {viewAppApplicantInfo?.amountRequested}
+                      <NumberFormat value={viewAppApplicantInfo?.amountRequested} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
                     </h4>
                   </Grid>
                 </TabPanelViewApplication>

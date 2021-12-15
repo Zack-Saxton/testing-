@@ -32,9 +32,8 @@ import CircleCheckedFilled from "@material-ui/icons/CheckCircle";
 import CircleUnchecked from "@material-ui/icons/RadioButtonUnchecked";
 import logoIcon from "../../../assets/images/Favicon.png";
 import logoImage from "../../../assets/images/Normallogo.png";
-import { NavLink, useHistory } from "react-router-dom";
+import {Link,  NavLink, useHistory } from "react-router-dom";
 import quickPay from "../../../assets/images/quickpay.png";
-import ProfileImageController from "../../Controllers/ProfileImageController";
 import profileImg from "../../../assets/images/profile-img.png"
 import Notification from "../Notification/Notification"
 import 'react-toastify/dist/ReactToastify.css';
@@ -42,6 +41,8 @@ import { toast } from "react-toastify";
 import MoneySkill from "../../Pages/MoneySkill/MoneySkill";
 import Tooltip from "@material-ui/core/Tooltip";
 import branchDetails from "../../Controllers/MyBranchController";
+import { tabAtom } from "../../Pages/MyProfile/MyProfileTab";
+import { useAtom } from "jotai";
 
 
 const drawerWidth = 240; 
@@ -175,6 +176,7 @@ export default function SideNav() {
   const [disable, setDisable] = React.useState(false);
   const [skill, setSkill] = React.useState(false);
   const [checked, setChecked] = React.useState(true);
+  const [, setTabvalue] = useAtom(tabAtom)
 
 //Material UI media query for responsiveness
   let check = useMediaQuery("(min-width:960px)");
@@ -215,25 +217,29 @@ useEffect(() => {
 }, []);  
 
 // Side bar branch details
-localStorage.setItem('branchname',((branchVal?.data?.data?.BranchName) ? (branchVal.data.data.BranchName) : (branchVal?.data?.data?.branchName) ? (branchVal.data.data.branchName) : ""))
+localStorage.setItem('branchname',((branchVal?.data?.data?.BranchName) ? (branchVal.data.data.BranchName) : ""))
 localStorage.setItem('branchphone',branchVal?.data?.data?.PhoneNumber) 
 localStorage.setItem('branchopenstatus',branchVal?.data?.data?.date_closed)
 
-  const loginDate = localStorage.getItem('login_date');
+  
   const branchName = localStorage.getItem('branchname');
   const branchPhone = localStorage.getItem('branchphone');
   const branchcloseStatus = localStorage.getItem('branchopenstatus');
+ 
   
 //Profile Image
-  const [profileImage, setProfileImage] = useState(null);
-  async function AsyncEffect_profileImage() {
-    setProfileImage(await ProfileImageController());
-  }
-  useEffect(() => {
-    AsyncEffect_profileImage();
-  }, []);
-  let profileImageData = profileImage?.data?.data?.profile_picture_url != null ? profileImage.data.data.profile_picture_url : profileImg;
+  // const [profileImage, setProfileImage] = useState(null);
+  // async function AsyncEffect_profileImage() {
+  //   setProfileImage(await ProfileImageController());
+  // }
+  // useEffect(() => {
+  //   AsyncEffect_profileImage();
+  // }, []);
+  // let profileImageData = profileImage?.data?.data?.profile_picture_url != null ? profileImage.data.data.profile_picture_url : profileImg;
 
+  const lastLoginRaw = JSON.parse(localStorage.getItem("user"))?.user?.extensionattributes?.login?.timestamp_date;
+  const date =  lastLoginRaw ? new Date(lastLoginRaw) : new Date();
+  const lastLogin = ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + date.getFullYear()
 
 //Side bar open on mouse event
   const handleDrawer = () => {
@@ -339,12 +345,30 @@ localStorage.setItem('branchopenstatus',branchVal?.data?.data?.date_closed)
     }
   };
 
+  const handleMenuProfile = () =>{
+    history.push({
+      pathname:'/customers/myProfile'});
+    setTabvalue(0)
+    handleMenuClose()
+  }
+  const handleMenuPaymentProfile = () =>{
+    history.push({
+      pathname:'/customers/myProfile'});
+    setTabvalue(3)
+    handleMenuClose()
+  }
+
   const logOut = () => {
     setAnchorEl(null);
     let userToken = { isLoggedIn: false };
     localStorage.setItem("token", JSON.stringify(userToken));
     localStorage.setItem("cred", JSON.stringify({email: "", password: "" }));
-
+    localStorage.setItem("branchname", JSON.stringify({ }));
+    localStorage.setItem("branchopenstatus", JSON.stringify({ }));
+    localStorage.setItem("login_date", JSON.stringify({ }));
+    localStorage.setItem("user", JSON.stringify({ }));
+    localStorage.setItem("branchphone", JSON.stringify({ }));
+    localStorage.setItem("profile_picture", JSON.stringify({ }));
 
     history.push({
       pathname: "/login",
@@ -375,6 +399,12 @@ localStorage.setItem('branchopenstatus',branchVal?.data?.data?.date_closed)
 
     setChecked(event.target.checked);
   };
+
+  const onAFLClick = () => {
+    history.push({
+      pathname: "/customers/applyForLoan",
+    });
+  }
  
 
 //Menu bar 
@@ -385,15 +415,19 @@ localStorage.setItem('branchopenstatus',branchVal?.data?.data?.date_closed)
       open={isMenuOpen}
       onClose={handleMenuClose}     
     >
-      <MenuItem onClick={handleMenuClose} id="settingsMenuList">
-      <NavLink to={{ pathname:'/customers/myProfile', state: {tab: 0}  }} className="nav_linkSettingMenu" >My Profile</NavLink></MenuItem>
-      <MenuItem onClick={handleMenuClose} id="settingsMenuList">
-      <NavLink to={{ pathname:'/customers/myProfile', state: {tab: 3}  }}   className="nav_linkSettingMenu" >Payment Accounts</NavLink></MenuItem>
-      <MenuItem onClick={logoutUser} id="settingsMenuListLogout" disabled={disable}>
-        LogOut
+       <MenuItem onClick={handleMenuProfile} id="settingsMenuList">
+     My Profile</MenuItem>
+      <MenuItem onClick={handleMenuPaymentProfile} id="settingsMenuList">
+      Payment Accounts</MenuItem>
+     <MenuItem onClick={logoutUser} id="settingsMenuListLogout" disabled={disable}>
+        Logout
       </MenuItem>
     </Menu>
   );
+let navElement = document.getElementById("applyForLoanNav");
+if(navElement){
+  document.getElementById("applyForLoanNav").removeAttribute("href"); 
+}
 
 
 //View part
@@ -505,12 +539,14 @@ localStorage.setItem('branchopenstatus',branchVal?.data?.data?.date_closed)
           onMouseLeave={handleDrawerleave}
         >
           <div className={classes.toolbar}>
+            <Link to="/customers/accountOverview">
             <input
               type="image"
               src={logoImage}
               alt="logo image"
               style={{ height: "60px" }}
             />
+            </ Link>
 
             <Checkbox
               icon={<CircleUnchecked id="sidemenuRadio" />}
@@ -534,23 +570,31 @@ localStorage.setItem('branchopenstatus',branchVal?.data?.data?.date_closed)
             <ListItem id="profileDetails" className="profileDetails">
               <List >
               <ListItem>
-               <img id="sidebarProfilePic" src={profileImageData} alt="Profile Pic" />
-             </ListItem> 
-             <ListItem id="lastlogin">  
-                  {loginDate === '' || undefined ? '' : 'Last Login : '+ loginDate}  
-              </ListItem>               
-              <ListItem id="sidemenuBranch">  
-                  {(branchName === 'null' || branchName ===  undefined || branchName ===  "") ? '' : ('Branch: '+ branchName)}  
-              </ListItem>               
-              <ListItem id={branchcloseStatus === 'null' ? 'sidemenuOpenNow' : 'sidemenuCloseNow'} >  
-                {branchcloseStatus === 'null' ? 'Open now' : 'Closed now'}
+             
+                <img id="sidebarProfilePic" src={profileImg} alt="Profile Pic" onClick={handleMenuProfile} />
+               
               </ListItem> 
+              {(branchName === '' || branchName === 'undefined') || (branchPhone === '' || branchPhone === 'undefined') ?
+              <>
+              <ListItem id="sidemenuLastLogin">  
+                  {lastLogin === '' || undefined ? '' : 'Last Login : '+ lastLogin}  
+              </ListItem> </> :
+              
+              <><ListItem id="sidemenuBranch">
+                    {branchName === '' || undefined ? '' : 'Branch : ' + branchName}
+                  </ListItem><ListItem id="sidemenuLastLogin">
+                      {lastLogin === '' || undefined ? '' : 'Last Login : ' + lastLogin}
+                    </ListItem><ListItem id={branchcloseStatus === 'null' ? 'sidemenuOpenNow' : 'sidemenuCloseNow'}>
+                      {branchcloseStatus === 'null' ? 'Open now' : 'Closed now'}
+                    </ListItem>
               {formatPhoneNumber(branchPhone) === '' || undefined  ? '' :  
               <ListItem id="sidemenuPhone"> 
-                  <CallIcon />  
+                  <CallIcon />
+                  <a href={"tel:+"+ branchPhone.replace(/\-/g,"")} className="hrefPhoneNo">
                   {formatPhoneNumber(branchPhone)}
+                </a>  
               </ListItem> 
-              }  
+              }  </>  }
               </List>
             </ListItem>
             <NavLink to="/customers/accountOverview" className="nav_link">
@@ -575,7 +619,7 @@ localStorage.setItem('branchopenstatus',branchVal?.data?.data?.date_closed)
               </ListItem>
             </NavLink>
 
-            <NavLink to={{ pathname:'/customers/applyForLoan', state: {from: "user"}  }} className="nav_link">
+            <NavLink id="applyForLoanNav" to={{  state: {from: "user"}  }} onClick={onAFLClick} className="nav_link">
               <ListItem className="titleSidenav">
                 <ListItemIcon>
                   {" "}

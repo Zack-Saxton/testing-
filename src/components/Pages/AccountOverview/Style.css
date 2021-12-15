@@ -112,7 +112,16 @@
         margin: 15px 0px !important;
     }
 }
-
+#dueDate{
+  
+    margin-block-start: 15px;
+    margin-block-end: 15px;
+}
+#ScheduledPaymentText{
+  
+    margin-block-start: 15px;
+    margin-block-end: 15px;
+}
 
 @media only screen and (max-width: 1024px)  {
    
@@ -122,6 +131,8 @@
 }
 #dueDate{
     font-size: 15px !important;
+    margin-block-start: 15px;
+    margin-block-end: 15px;
 }
 #activeLoanGrid{
     height: 100%;
@@ -138,6 +149,8 @@
 #ScheduledPaymentText{
     width: 149px !important;
     font-size: 15px;
+    margin-block-start: 15px;
+    margin-block-end: 15px;
 }
 }
 

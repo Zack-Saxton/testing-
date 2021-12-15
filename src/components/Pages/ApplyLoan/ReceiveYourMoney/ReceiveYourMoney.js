@@ -93,7 +93,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// Initializing Recive your money component
+// Initializing Recive your money component 
 export default function ReceiveYourMoney() {
   const classes = useStyles();
 

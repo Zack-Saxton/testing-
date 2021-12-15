@@ -40,13 +40,13 @@ export default function BranchDetail(MyBranchDetail) {
 //Branch details from API
   let branchDetail = MyBranchDetail != null ? MyBranchDetail : null;
 
+
 //Spliting statename
-  let stateName = branchDetail.MyBranchDetail
-    ? branchDetail.MyBranchDetail.result
-      ? null
+  let stateName = branchDetail?.MyBranchDetail ? branchDetail.MyBranchDetail?.result 
+      ? null : branchDetail.MyBranchDetail?.message ? null  
       : branchDetail?.MyBranchDetail
-      ? branchDetail.MyBranchDetail.Address.split(",")
-          [branchDetail.MyBranchDetail.Address.split(",").length - 1].trim()
+      ? branchDetail?.MyBranchDetail?.Address?.split(",")
+          [branchDetail?.MyBranchDetail?.Address?.split(",").length - 1].trim()
           .substring(0, 2)
       : null
     : null;
@@ -71,9 +71,9 @@ else{
   return (
     <div>
       <Paper className={classes.paper}>
-        {branchDetail.MyBranchDetail.result ? (
+        {branchDetail?.MyBranchDetail?.result ? (
           <p>No branch information</p>
-        ) : branchDetail.MyBranchDetail ? (
+        ) : branchDetail?.MyBranchDetail?.BranchName  ? (
           <>
             <Grid className={classes.branchDetailGrid}>
               <h4 className={classes.branchDetailHeading}>Branch Name</h4>
@@ -85,7 +85,7 @@ else{
             <Grid className={classes.branchDetailGrid}>
               <h4 className={classes.branchDetailHeading}>Address</h4>
               <p className={classes.branchDetailInput}>
-                {branchDetail.MyBranchDetail.Address}
+                {branchDetail?.MyBranchDetail?.Address ? branchDetail.MyBranchDetail.Address : "" }
               </p>
             </Grid>
 

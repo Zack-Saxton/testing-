@@ -68,10 +68,12 @@ export default function ActiveLoans(userActiveLoanData) {
                                             </ButtonPrimary>
                                         </Grid>
                                     </Grid>
+
                                     <Grid container spacing={3} >
-                                        <Grid item xs={12} sm={3}>
-                                            <AutoPayStatus value={appData.loanPaymentInformation.appRecurringACHPayment} />
+                                    <Grid  item xs={12} sm={3}>
+                                        <AutoPayStatus value={appData.loanPaymentInformation.appRecurringACHPayment} /> 
                                         </Grid>
+
                                         <Grid id="regularAmountGrid" item xs={12} sm={3}>
                                             <p id="RegularAmmountText" className={classes.cardContent}> Regular Amount</p>
                                             <h5 id="nextPaymentItems" className={classes.brandColor}>
@@ -111,6 +113,7 @@ export default function ActiveLoans(userActiveLoanData) {
                                                 </Grid>
                                             )
                                         }
+
                                     </Grid>
                                 </Paper>
                             </Grid>
@@ -132,12 +135,14 @@ export default function ActiveLoans(userActiveLoanData) {
                                             <p style={{ margin: "auto" }}>
                                                 <b>{appData.loanDetails.AccountNumber}</b>
                                             </p>
+
                                             <p className={classes.activeLoanSubHeading_content}>
                                                 Opened On
                                             </p>
                                             <p style={{ margin: "auto" }}>
                                                 <b>{Moment(appData.loanDetails.LoanOriginationDate).format('MM/DD/YYYY')}</b>
                                             </p>
+
                                         </div>
                                     </Grid>
                                 </Paper>

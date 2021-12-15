@@ -22,7 +22,7 @@ export default function BranchMap(MyBranchDetail) {
         <Paper className={classes.paper}>
           <p>Location not available</p>{" "}
         </Paper>
-      ) : branchDetail.MyBranchDetail ? (
+      ) : branchDetail?.MyBranchDetail?.Address ? (
         <iframe
         title="branchLocation"
           style={{ height: "530px", width: "100%" }}

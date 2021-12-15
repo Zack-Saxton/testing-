@@ -3,46 +3,39 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import { ButtonPrimary, ButtonSecondary, ButtonWithIcon, Checkbox, Radio } from "../../../FormsUI";
+import { ButtonWithIcon } from "../../../FormsUI";
+import OfferTable from "./offersTable";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import PropTypes from "prop-types";
 import Box from "@material-ui/core/Box";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
 import { NavLink, useHistory } from "react-router-dom";
-import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
-import DesktopMacIcon from "@material-ui/icons/DesktopMac";
-import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
-import Tooltip from "@material-ui/core/Tooltip";
 import ScrollToTopOnMount from "../../ScrollToTop";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import "./SelectOffer.css";
-import { fetchAvailableOffers, submitSelectedOfferAPI } from "../../../Controllers/ApplyForLoanController";
+import {
+	fetchAvailableOffers,
+	submitSelectedOfferAPI,
+} from "../../../Controllers/ApplyForLoanController";
 import { errorMessage } from "../../../../helpers/ErrorMessage";
 import CheckLoginStatus from "../../../App/CheckLoginStatus";
 
 //Initializing functional component Apply for loan
 export default function ApplyLoan() {
-
 	//Initializing state variables
 	const [rowData, setRowData] = useState();
-	const [checkedValue, setCheckedValue] = useState("");
-	const [selectedTerm, setSelectedTerm] = useState("");
-	const [selectedIndex, setSelectedIndex] = useState("");
+
 	const [value, setValue] = React.useState(0);
 	const [accountDetails, setAccountDetails] = useState(null);
 	const [offersToCompare, setOffersToCompare] = useState([]);
+	const [offersToCompareChart, setOffersToCompareChart] = useState([]);
 	const [terms, setTerms] = useState();
 	const [offerFlag, setOfferFlag] = useState(true);
 	const [loading, setLoading] = useState(false);
 	const [noOffers, setNoOffers] = useState(false);
-	let offersComp = offersToCompare ? offersToCompare : [];
-
+	const [checkedValue, setCheckedValue] = useState("");
+	const [selectedTerm, setSelectedTerm] = useState("");
+	const [selectedIndex, setSelectedIndex] = useState("");
 	const history = useHistory();
 	let term;
 
@@ -51,8 +44,9 @@ export default function ApplyLoan() {
 		if (val) {
 			var formated = parseFloat(val);
 			var currency = "$";
-			var forCur = currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
-			return forCur;
+			return (
+				currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,")
+			);
 		}
 	};
 
@@ -135,7 +129,6 @@ export default function ApplyLoan() {
 			background: "unset",
 		},
 	}));
-
 	const classes = useStyles();
 
 	// To fetch the available offers for the logged in user
@@ -147,7 +140,6 @@ export default function ApplyLoan() {
 			setNoOffers(
 				Object.keys(val?.data?.data?.Offers).length === 0 ? true : false
 			);
-
 			setTerms(term);
 			if (term[0] !== undefined) {
 				initialTabLoad(term[0], 0, val);
@@ -162,18 +154,18 @@ export default function ApplyLoan() {
 
 	//Initializing the tab implementation
 	function TabPanel(props) {
-		const { children, value, index, ...other } = props;
+		const { children, tabPanelValue, index, ...other } = props;
 
 		// Returns the JSX part depends on parameter value
 		return (
 			<div
 				role="tabpanel"
-				hidden={value !== index}
-				id={`scrollable-auto-tab-panel-${ index }`}
-				aria-labelledby={`scrollable-auto-tab-${ index }`}
+				hidden={tabPanelValue !== index}
+				id={`scrollable-auto-tab-panel-${index}`}
+				aria-labelledby={`scrollable-auto-tab-${index}`}
 				{...other}
 			>
-				{value === index && (
+				{tabPanelValue === index && (
 					<Box>
 						<div>{children}</div>
 					</Box>
@@ -185,73 +177,35 @@ export default function ApplyLoan() {
 	TabPanel.propTypes = {
 		children: PropTypes.node,
 		index: PropTypes.any.isRequired,
-		value: PropTypes.any.isRequired,
+		tabPanelValue: PropTypes.any.isRequired,
 	};
 
 	function a11yProps(index) {
 		return {
-			id: `scrollable-auto-tab-${ index }`,
-			"aria-controls": `scrollable-auto-tab-panel-${ index }`,
+			id: `scrollable-auto-tab-${index}`,
+			"aria-controls": `scrollable-auto-tab-panel-${index}`,
 		};
 	}
 
-	// Select the offers to compare : will push the selected offer value into array
-	const selectOfferToCompare = (row) => {
-		if (offersComp.indexOf(row) === -1) {
-			offersComp.push(row);
-		} else {
-			offersComp.indexOf(row) === -1
-				? offersComp.push(row)
-				: offersComp.splice(offersComp.indexOf(row), 1);
-		}
-
-		setOffersToCompare(offersComp);
-	};
-
-	function TabVerticalPanel(props) {
-		const { children, value, verticalIndex, ...other } = props;
-
-		return (
-			<div
-				hidden={value !== verticalIndex}
-				id={`scrollable-auto-tab-panel-${ verticalIndex }`}
-				aria-labelledby={`scrollable-auto-tab-${ verticalIndex }`}
-				{...other}
-			>
-				{value === verticalIndex && (
-					<Box>
-						<div>{children}</div>
-					</Box>
-				)}
-			</div>
-		);
-	}
-
-	TabVerticalPanel.propTypes = {
-		children: PropTypes.node,
-		verticalIndex: PropTypes.any.isRequired,
-		value: PropTypes.any.isRequired,
-	};
-
 	function tabVerticalProps(verticalIndex) {
 		return {
-			id: `scrollable-auto-tab-vertical-${ verticalIndex }`,
-			"aria-controls": `scrollable-auto-tab-panel-${ verticalIndex }`,
+			id: `scrollable-auto-tab-vertical-${verticalIndex}`,
+			"aria-controls": `scrollable-auto-tab-panel-${verticalIndex}`,
 		};
 	}
 
 	// Create the data structured to populate the offes for user
-	function createData(
-		select,
-		loanAmount,
-		availability,
-		apr,
-		monthlyPayment,
-		compare,
-		_id,
-		termNum,
-		tabIndex
-	) {
+	function createData(buildData) {
+		let select = buildData.select,
+			loanAmount = buildData.loanAmount,
+			availability = buildData.availability,
+			apr = buildData.apr,
+			monthlyPayment = buildData.monthlyPayment,
+			compare = buildData.compare,
+			_id = buildData._id,
+			termNum = buildData.termNum,
+			tabIndex = buildData.tabIndex,
+			checked = buildData.checked;
 		return {
 			select,
 			loanAmount,
@@ -262,40 +216,30 @@ export default function ApplyLoan() {
 			_id,
 			termNum,
 			tabIndex,
+			checked,
 		};
 	}
 
-	// Shows the Brnach icon
-	const branch = (
-		<Grid container direction="row" alignItems="center">
-			<AccountBalanceIcon /> In branch
-		</Grid>
-	);
-
-	//Shows the Online icon
-	const online = (
-		<Grid container direction="row" alignItems="center">
-			<DesktopMacIcon /> Online
-		</Grid>
-	);
-
 	// Load the data depends of tab selected
 	function tabOnChange(termNum, tabIndex) {
+		setOffersToCompareChart([]);
 		setOfferFlag(true);
 
 		let rowsterm = [];
 		accountDetails.data.data.Offers[termNum].map((item, index) => {
-			let temp = createData(
-				"",
-				currencyFormat(item.loan_amount).slice(0, -3),
-				item.offerType,
-				item.apr.toFixed(2),
-				currencyFormat(item.monthly_payment),
-				"",
-				item._id,
-				termNum,
-				tabIndex
-			);
+			let buildData = {
+				select: "",
+				loanAmount: currencyFormat(item.loan_amount),
+				availability: item.offerType,
+				apr: item.apr.toFixed(2),
+				monthlyPayment: currencyFormat(item.monthly_payment),
+				compare: "",
+				_id: item._id,
+				termNum: termNum,
+				tabIndex: tabIndex,
+				checked: "false",
+			};
+			let temp = createData(buildData);
 			rowsterm.push(temp);
 			return null;
 		});
@@ -312,17 +256,19 @@ export default function ApplyLoan() {
 	function initialTabLoad(termNum, tabIndex, accountDetailsData) {
 		let rowsterm = [];
 		accountDetailsData.data.data.Offers[termNum].map((item, index) => {
-			let temp = createData(
-				"",
-				currencyFormat(item.loan_amount).slice(0, -3),
-				item.offerType,
-				item.apr.toFixed(2),
-				currencyFormat(item.monthly_payment),
-				"",
-				item._id,
-				termNum,
-				tabIndex
-			);
+			let buildData = {
+				select: "",
+				loanAmount: currencyFormat(item.loan_amount),
+				availability: item.offerType,
+				apr: item.apr.toFixed(2),
+				monthlyPayment: currencyFormat(item.monthly_payment),
+				compare: "",
+				_id: item._id,
+				termNum: termNum,
+				tabIndex: tabIndex,
+				checked: "false",
+			};
+			let temp = createData(buildData);
 			rowsterm.push(temp);
 			return null;
 		});
@@ -368,11 +314,11 @@ export default function ApplyLoan() {
 								icon="arrow_backwardIcon"
 								iconposition="left"
 								stylebutton='{"background": "#fff", "color":"#214476",
-                        "minWidth": "0px",
-                        "width": "36px",
-                        "padding": "0px",
-                        "marginRight": "5px",
-                      "marginTop":"unset" }'
+								"minWidth": "0px",
+								"width": "36px",
+								"padding": "0px",
+								"marginRight": "5px",
+								"marginTop":"unset" }'
 								styleicon='{ "color":"" }'
 							/>
 						</NavLink>{" "}
@@ -415,7 +361,7 @@ export default function ApplyLoan() {
 						/>
 					</Tabs>
 
-					<TabPanel value={value} index={0}>
+					<TabPanel tabPanelValue={value} index={0}>
 						<Grid container item xs={12}>
 							{noOffers ? (
 								<Grid item xs={12} style={{ padding: "5px", width: "100%" }}>
@@ -449,27 +395,26 @@ export default function ApplyLoan() {
 													aria-label="scrollable auto tabs example"
 													className={classes.tabsvertical}
 												>
-													{/* {terms ? null : <CircularProgress /> } */}
 													{terms &&
-														accountDetails.data.data !==
+													accountDetails.data.data !==
 														"Access token has expired"
 														? terms.map((item, index) => {
-															return (
-																<Tab
-																	key={index}
-																	label={
-																		<span
-																			style={{ float: "left", width: "100%" }}
-																		>
-																			{item + " Month Term"}
-																		</span>
-																	}
-																	className={classes.tabVerticalLabel}
-																	onClick={() => tabOnChange(item, index)}
-																	{...tabVerticalProps(index)}
-																/>
-															);
-														})
+																return (
+																	<Tab
+																		key={index}
+																		label={
+																			<span
+																				style={{ float: "left", width: "100%" }}
+																			>
+																				{item + " Month Term"}
+																			</span>
+																		}
+																		className={classes.tabVerticalLabel}
+																		onClick={() => tabOnChange(item, index)}
+																		{...tabVerticalProps(index)}
+																	/>
+																);
+														  })
 														: "null"}
 													<Tab
 														label={
@@ -493,270 +438,29 @@ export default function ApplyLoan() {
 											)}
 										</Paper>
 									</Grid>
-									<Grid
-										item
-										xs={12}
-										sm={9}
-										style={{ padding: "5px", width: "100%" }}
-									>
-										<Paper className={classes.paper}>
-											{rowData ? (
-												<TabVerticalPanel value={value} verticalIndex={value}>
-													<Grid
-														item
-														xs={12}
-														style={{ paddingBottom: "10px", width: "100%" }}
-													>
-														<TableContainer>
-															<Table
-																className={classes.table}
-																aria-label="simple table"
-															>
-																<TableHead>
-																	<TableRow>
-																		<TableCell className={classes.tableHead}>
-																			Select
-																		</TableCell>
-																		<TableCell
-																			className={classes.tableHead}
-																			align="right"
-																		>
-																			Loan Amount
-																		</TableCell>
-																		<TableCell
-																			className={classes.tableHead}
-																			align="left"
-																		>
-																			Availability
-																		</TableCell>
-																		<TableCell
-																			className={classes.tableHead}
-																			align="left"
-																		>
-																			<Grid
-																				container
-																				direction="row"
-																				alignItems="center"
-																			>
-																				{" "}
-																				APR &nbsp;
-																				<Tooltip
-																					title="APR"
-																					placement="top-start"
-																					enterTouchDelay={200}
-																				>
-																					<InfoOutlinedIcon
-																						style={{
-																							fontSize: "small",
-																							color: "blue",
-																						}}
-																					/>
-																				</Tooltip>
-																			</Grid>
-																		</TableCell>
-																		<TableCell
-																			className={classes.tableHead}
-																			align="right"
-																		>
-																			Monthly Payment
-																		</TableCell>
-																		<TableCell
-																			className={classes.tableHead}
-																			align="left"
-																		>
-																			{offerFlag === true ? "Compare" : "Term"}
-																		</TableCell>
-																	</TableRow>
-																</TableHead>
 
-																{rowData ? (
-																	<TableBody>
-																		{rowData.map((row, ind) => (
-																			<TableRow key={ind}>
-																				<TableCell
-																					component="th"
-																					className={classes.tableHeadRow}
-																					scope="row"
-																				>
-																					<Radio
-																						name="select"
-																						radiolabel={
-																							'[{ "value":"' + row._id + '"}]'
-																						}
-																						checked={checkedValue}
-																						value={row._id}
-																						onClick={() => {
-																							setCheckedValue(row._id);
-																							setSelectedIndex(ind);
-																							setSelectedTerm(row.termNum);
-																						}}
-																					/>
-																				</TableCell>
-																				<TableCell
-																					className={classes.tableHeadRow}
-																					align="right"
-																				>
-																					{row.loanAmount}
-																				</TableCell>
-																				<TableCell
-																					className={classes.tableHeadRow}
-																					align="left"
-																				>
-																					{row.availability === "online"
-																						? online
-																						: branch}
-																				</TableCell>
-																				<TableCell
-																					className={classes.tableHeadRow}
-																					align="left"
-																				>
-																					{row.apr + " %"}
-																				</TableCell>
-																				<TableCell
-																					className={classes.tableHeadRow}
-																					align="right"
-																				>
-																					{row.monthlyPayment}
-																				</TableCell>
-																				<TableCell
-																					className={classes.tableHeadRow}
-																					align="left"
-																				>
-																					{offerFlag === true ? (
-																						<Checkbox
-																							name="rememberme"
-																							label="Add"
-																							labelid="remember-me"
-																							testid="checkbox"
-																							onClick={() => {
-																								selectOfferToCompare(row);
-																							}}
-																							stylelabelform='{ "color":"" }'
-																							stylecheckbox='{ "color":"" }'
-																							stylecheckboxlabel='{ "color":"" }'
-																						/>
-																					) : (
-																						row.termNum
-																					)}
-																				</TableCell>
-																			</TableRow>
-																		))}
-																	</TableBody>
-																) : (
-																	<Typography>No Offers Available </Typography>
-																)}
-															</Table>
-														</TableContainer>
-													</Grid>
-													<Grid container direction="row">
-														<Grid
-															className="circleprog"
-															style={{
-																display: loading ? "block" : "none",
-																width: "100%",
-																textAlign: "center",
-															}}
-														>
-															<CircularProgress />
-														</Grid>
-													</Grid>
-													<Grid container direction="row">
-														<Grid
-															container
-															item
-															xs={1}
-															sm={1}
-															direction="row"
-															style={{ paddingTop: "10px", float: "left" }}
-														>
-															<ButtonSecondary
-																stylebutton='{"marginRight": "" }'
-																styleicon='{ "color":"" }'
-																id="apply-loan-reset-button"
-																onClick={() => {
-																	setCheckedValue("");
-																	setSelectedTerm("");
-																	setSelectedIndex("");
-																}}
-															>
-																Reset
-															</ButtonSecondary>
-														</Grid>
-
-														<Grid
-															container
-															item
-															xs={10}
-															sm={3}
-															direction="row"
-															style={{ padding: "10px", float: "left" }}
-															id="apply-loan-continue-button-grid"
-														>
-															<ButtonPrimary
-																stylebutton='{"marginLeft": "10px" ,"fontSize":"1rem"}'
-																id="apply-loan-continue-button"
-																onClick={() => {
-																	submitSelectedOffer(
-																		selectedTerm,
-																		selectedIndex
-																	);
-																}}
-																disabled={
-																	selectedTerm && (selectedIndex || selectedIndex === 0) 
-																		? loading
-																			? true
-																			: false
-																		: true
-																}
-															>
-																Continue
-																<i
-																	className="fa fa-refresh fa-spin customSpinner"
-																	style={{
-																		marginRight: "10px",
-																		display: loading ? "block" : "none",
-																	}}
-																/>
-															</ButtonPrimary>
-														</Grid>
-
-														<Grid
-															container
-															item
-															xs={8}
-															sm={8}
-															direction="row"
-															style={{
-																padding: "10px",
-																width: "100%",
-																float: "right",
-																justifyContent: "end",
-															}}
-															id="apply-loan-comparison-button-grid"
-														>
-															<ButtonSecondary
-																fullWidth={true}
-																stylebutton='{"background": "", "float":"right"  }'
-																styleicon='{ "color":"" }'
-																id="apply-loan-comparison-button"
-																onClick={() => onCompareOfferTabClick()}
-																{...tabVerticalProps(4)}
-															>
-																View Comparison
-															</ButtonSecondary>
-														</Grid>
-													</Grid>
-												</TabVerticalPanel>
-											) : (
-												<Grid
-													className="circleprog"
-													style={{ width: "100%", textAlign: "center" }}
-												>
-													<CircularProgress />
-												</Grid>
-											)}
-										</Paper>
-									</Grid>
+									<OfferTable
+										classes={classes}
+										value={value}
+										offerFlag={offerFlag}
+										rowData={rowData}
+										loading={loading}
+										noOfTerms={ terms ? terms.length : 0}
+										handleTabChange={handleTabChange}
+										offersToCompare={offersToCompare}
+										submitSelectedOffer={submitSelectedOffer}
+										setOffersToCompare={setOffersToCompare}
+										setOffersToCompareChart={setOffersToCompareChart}
+										tabVerticalProps={tabVerticalProps}
+										onCompareOfferTabClick={onCompareOfferTabClick}
+										offersToCompareChart={offersToCompareChart}
+										checkedValue = {checkedValue}
+										setCheckedValue = {setCheckedValue}
+										selectedTerm = {selectedTerm}
+										setSelectedTerm = {setSelectedTerm}
+										selectedIndex = {selectedIndex}
+										setSelectedIndex = {setSelectedIndex}
+									/>
 								</>
 							)}
 						</Grid>

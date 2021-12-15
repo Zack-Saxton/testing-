@@ -15,6 +15,7 @@ import Moment from "moment";
 import { loanDocumentController as loanDocument } from "../../Controllers/LoanDocumentController";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import NumberFormat from 'react-number-format';
+import Tooltip from "@material-ui/core/Tooltip";
 
 
 export default function LoanHistoryTable(userLoanHistoryData) {
@@ -98,10 +99,11 @@ export default function LoanHistoryTable(userLoanHistoryData) {
                         state: { accNo: row.loanData.accountNumber },
                       }}
                       style={{ textDecoration: "none" }}
-                    >
-                      <FindInPageIcon
+                    > <Tooltip title="View Loan Documents" placement="top">
+                      <FindInPageIcon style={{ color: "blue",  cursor: "pointer" }}
                         onClick={() => downloadDoc(row.loanData.accountNumber)}
                       />
+                      </Tooltip>
                     </NavLink>
                   </TableCell>
                 </TableRow>

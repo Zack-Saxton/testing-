@@ -5,6 +5,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { getIframe } from "../../../Controllers/ApplyForLoanController"
 import { errorMessage } from "../../../../helpers/ErrorMessage";
 import APICall from '../../../App/APIcall';
+import { toast } from "react-toastify";
+
 
 //Styling 
 const useStyles = makeStyles((theme) => ({
@@ -60,8 +62,17 @@ export default function DocumentPhoto(props) {
         };
        await fetch('/idscan/save_response_before_cac', options)
       }
-    } catch (error) {
-
+    } catch (errorAPI) {
+      console.log(errorAPI);
+      toast.error("Error uploading document", {
+        position: "bottom-left",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   }
   useEffect(() => {

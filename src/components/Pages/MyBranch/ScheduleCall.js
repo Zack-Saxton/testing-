@@ -70,13 +70,13 @@ export default function ScheduleCall(MyBranchCall) {
   let branchDetail = MyBranchCall != null ? MyBranchCall : null;
 
 //Spliting statename
-  let stateName = branchDetail.MyBranchCall.MyBranchDetail
-    ? branchDetail.MyBranchCall.MyBranchDetail.result
-      ? null
+  let stateName = branchDetail?.MyBranchCall?.MyBranchDetail
+    ? branchDetail?.MyBranchCall?.MyBranchDetail?.result
+      ? null : branchDetail?.MyBranchCall?.MyBranchDetail?.message ? null
       : branchDetail?.MyBranchCall?.MyBranchDetail
-      ? branchDetail.MyBranchCall.MyBranchDetail.Address.split(",")
+      ? branchDetail?.MyBranchCall?.MyBranchDetail?.Address?.split(",")
           [
-            branchDetail.MyBranchCall.MyBranchDetail.Address.split(",").length -
+            branchDetail?.MyBranchCall?.MyBranchDetail?.Address?.split(",").length -
               1
           ].trim()
           .substring(0, 2)

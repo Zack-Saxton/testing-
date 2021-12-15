@@ -137,7 +137,7 @@ export async function resendVerificationEmail() {
     method,
     addAccessToken
   );
-  if (resendVerificationEmailMethod.data.status === 200 && resendVerificationEmailMethod.data.statusText) {
+  if(resendVerificationEmailMethod.data.status === 200 && resendVerificationEmailMethod.data.statusText){
     toast.success("A verification email has been sent to " + email, {
       position: "bottom-left",
       autoClose: 2500,
@@ -190,6 +190,26 @@ export async function verifyPasscode(passcode) {
     addAccessToken
   );
   return verifyPasscodeMethod;
+}
+
+
+export async function hardPullCheck() {
+  let url = "cis_hardpull";
+  let param = "";
+  let data =  JSON.parse(localStorage.getItem("user"));
+  let method = "POST";
+  let addAccessToken = true;
+
+  //API call
+  let res = await APICall(
+    url,
+    param,
+    data,
+    method,
+    addAccessToken
+  );
+  
+  return res;
 }
 
 /***** Verify Financial Information *****/
@@ -314,4 +334,18 @@ export async function uploadDocument(
   //API call
   let uploadData = await APICall(url, param, data, method, addAccessToken);
   return (uploadData.data.data);
+
+}
+
+/***** Submit id verification answers multi*****/
+export async function idVerificationAnswer(passData) {
+  let url = "kba_answers_cac";
+  let param = "";
+  let data = passData;
+  let method = "POST";
+  let addAccessToken = true;
+
+  //API call
+  let answerResponse = await APICall(url, param, data, method, addAccessToken);
+  return answerResponse;
 }

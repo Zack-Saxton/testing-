@@ -73,13 +73,13 @@ export default function ScheduleAppointment(MyBranchAppointment) {
   let branchDetail = MyBranchAppointment != null ? MyBranchAppointment : null;
 
 //Spliting statename
-  let stateName = branchDetail.MyBranchAppointment.MyBranchDetail
-    ? branchDetail.MyBranchAppointment.MyBranchDetail.result
-      ? null
+  let stateName = branchDetail?.MyBranchAppointment?.MyBranchDetail
+    ? branchDetail?.MyBranchAppointment?.MyBranchDetail?.result
+      ? null : branchDetail?.MyBranchAppointment?.MyBranchDetail?.message ? null
       : branchDetail?.MyBranchAppointment?.MyBranchDetail
-      ? branchDetail.MyBranchAppointment.MyBranchDetail.Address.split(",")
+      ? branchDetail?.MyBranchAppointment?.MyBranchDetail?.Address?.split(",")
           [
-            branchDetail.MyBranchAppointment.MyBranchDetail.Address.split(",")
+            branchDetail?.MyBranchAppointment?.MyBranchDetail?.Address?.split(",")
               .length - 1
           ].trim()
           .substring(0, 2)

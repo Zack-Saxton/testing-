@@ -1,11 +1,18 @@
 import {makeStyles} from "@material-ui/core/styles";
 
 const useStylesLoanHistory = makeStyles((theme) => ({
-    paper: {
+      paper: {
         padding: theme.spacing(2),
         display: "flex",
         flexDirection: "column",
         color: theme.palette.text.secondary
+      },
+      paperPointer: {
+        padding: theme.spacing(2),
+        display: "flex",
+        flexDirection: "column",
+        color: theme.palette.text.secondary,
+        cursor: "pointer"
       },
       papertotal: {
         padding: theme.spacing(2),

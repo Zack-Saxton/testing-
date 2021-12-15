@@ -37,6 +37,9 @@ import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import Link from "@material-ui/core/Link";
 import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
+import { useHistory } from "react-router-dom";
+import { tabAtom } from "./MyProfileTab";
+import { useAtom } from "jotai";
 
 //Yup validations for Add Bank Account
 const validationSchemaDebitCard = yup.object({
@@ -122,6 +125,7 @@ const rows36term = [
 
 export default function PaymentMethod() {
   const classes = useStylesMyProfile();
+  const history = useHistory();
   const [bankRoutingCheque, setHandleBankRoutingCheque] = useState(false);
   const [addBankAccount, setAddBankAccount] = useState(false);
   const [addDebitCard, setAddDebitCard] = useState(false);
@@ -129,6 +133,9 @@ export default function PaymentMethod() {
   const [accountType, setAccountType] = useState("saving");
   const [addBankModal, setAddBankModal] = useState(false);
   const [debitCardModal, setDebitCardModal] = useState(false);
+  const [checkedAddBank, setCheckedAddBank] = useState(false);
+  const [checkedDebitCard, setCheckedDebitCard] = useState(false);
+  const [, setTabvalue] = useAtom(tabAtom)
   const formikAddBankAccount = useFormik({
     initialValues: {
       accountNickname: "",
@@ -236,6 +243,8 @@ export default function PaymentMethod() {
     setPaymentMethodDiv(false);
   };
   const closeBankAccountButton = () => {
+    formikAddBankAccount.handleReset()
+    setCheckedAddBank(false)
     setAddBankAccount(false);
     setPaymentMethodDiv(true);
   };
@@ -246,9 +255,18 @@ export default function PaymentMethod() {
   };
 
   const closeDebitCardButton = () => {
+    formikAddDebitCard.handleReset()
+    setCheckedDebitCard(false)
     setAddDebitCard(false);
     setPaymentMethodDiv(true);
   };
+
+  const handleMenuProfile = () =>{
+    history.push({pathname:'/customers/myProfile'});
+    setTabvalue(0)
+  }
+
+
 
   //Preventing space key
   const preventSpace = (event) => {
@@ -268,43 +286,23 @@ export default function PaymentMethod() {
               <TableBody>
                 {rows36term.map((row) => (
                   <TableRow key={row.name}>
-                    <TableCell
-                      align="left"
-                      style={{ width: "15px", padding: "1px" }}
-                    >
-                      {row.type}
+                    <TableCell align="left" style={{ width: "15px", padding: "1px" }}> 
+                      {row.type} 
                     </TableCell>
-                    <TableCell
-                      align="left"
-                      style={{ paddingTop: "26px", padding: "0" }}
-                    >
+                    <TableCell align="left" style={{ paddingTop: "26px", padding: "0" }}>
                       {row.name} (nickname)
                     </TableCell>
-                    <TableCell
-                      align="right"
-                      style={{ marginRight: "0", padding: "0" }}
-                    >
+                    <TableCell align="right" style={{ marginRight: "0", padding: "0" }}>
                       <Radio
                         name={row.name}
                         label="Set as Default"
                         radiolabel='[{ "value":"select"}]'
-                        value={row.paymentmethodid}
-                        style={{
-                          marginTop: "3px",
-                          marginRight: "0px",
-                          padding: "0",
-                        }}
+                        value="select"
+                        style={{ marginTop: "3px", marginRight: "0px", padding: "0" }}
                       />
                     </TableCell>
-                    <TableCell
-                      align="left"
-                      style={{
-                        marginTop: "4px",
-                        marginLeft: "-24",
-                        padding: "0",
-                      }}
-                    >
-                      Set as Default
+                    <TableCell align="left" style={{ marginTop: "4px", marginLeft: "-24", padding: "0" }}>
+                    Set as Default
                     </TableCell>
 
                     <TableCell align="left">
@@ -345,10 +343,7 @@ export default function PaymentMethod() {
               </ButtonPrimary>
             </Grid>
 
-            <Grid
-              id="addDebitCardbutton-grid"
-              style={{ paddingBottom: "30px" }}
-            >
+            <Grid id="addDebitCardbutton-grid" style={{ paddingBottom: "30px" }}>
               <ButtonPrimary
                 stylebutton='{"background": "", "float":"" }'
                 styleicon='{ "color":"" }'
@@ -359,7 +354,7 @@ export default function PaymentMethod() {
               </ButtonPrimary>
             </Grid>
           </Grid>
-          <p className={classes.smallText}>
+          <p className = {classes.smallText}>
             You have two payment method options. You can either add your bank
             account information to make payments directly from your bank account
             or you can add debit card information to make payments through your
@@ -392,14 +387,15 @@ export default function PaymentMethod() {
                   backgroundColor: "#164a9c",
                 }}
                 aria-label="breadcrumb"
-              >
-                <Link
-                  href="/customers/myProfile"
+              > 
+              <Link
+                 onClick={handleMenuProfile}
                   style={{
                     fontSize: "18px",
                     color: "rgba(255, 255, 255, .7)",
                     textDecoration: "none",
                     padding: "10px",
+                    cursor: "pointer"
                   }}
                 >
                   Profile settings
@@ -622,6 +618,9 @@ export default function PaymentMethod() {
                 stylecheckbox='{ "color":"#0F4EB3", "marginLeft":"7px","paddingRight":"15px" }'
                 stylecheckboxlabel='{ "color":"" }'
                 required={true}
+                value={checkedAddBank}
+                checked={checkedAddBank}
+                onChange={(e) => { setCheckedAddBank(e.target.checked) }}
               />
             </Grid>
 
@@ -712,14 +711,15 @@ export default function PaymentMethod() {
                   backgroundColor: "#164a9c",
                 }}
                 aria-label="breadcrumb"
-              >
-                <Link
-                  href="/customers/myProfile"
+              > 
+              <Link
+                 onClick={handleMenuProfile}
                   style={{
                     fontSize: "18px",
                     color: "rgba(255, 255, 255, .7)",
                     textDecoration: "none",
                     padding: "10px",
+                    cursor: "pointer"
                   }}
                 >
                   Profile settings
@@ -892,6 +892,9 @@ export default function PaymentMethod() {
                 stylecheckbox='{ "color":"#0F4EB3", "marginLeft":"7px","paddingRight":"15px" }'
                 stylecheckboxlabel='{ "color":"" }'
                 required={true}
+                value={checkedDebitCard}
+                checked={checkedDebitCard}
+                onChange={(e) => { setCheckedDebitCard(e.target.checked) }}
               />
             </Grid>
 

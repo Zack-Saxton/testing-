@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useLocation, useHistory } from "react-router-dom";
 import APICall from "../../../App/APIcall";
+import { toast } from "react-toastify";
 
 //To validate the token comming in the verify email
 const ValidateToken = () => {
@@ -49,6 +50,48 @@ const ValidateToken = () => {
 				if (res?.data?.data === true) {
 					history.push({
 						pathname: "/customers/finalVerification",
+					});
+				}
+				else if (res.data.data.result === 'error' && res.data.data.statusText === 'Token not valid'){
+					toast.error(`Your token is Expired, please try again.`, {
+						position: "bottom-left",
+						autoClose: 5500,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+					  });
+					  history.push({
+						pathname: "/customers/accountOverview",
+					});
+				}
+				else if (res.data.data.result === 'error'){
+					toast.error( res.data.data.statusText ? res.data.data.statusText : "Your Email verification is failed, Please try again", {
+						position: "bottom-left",
+						autoClose: 5500,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+					  });
+					  history.push({
+						pathname: "/customers/accountOverview",
+					});
+				}
+				else{
+					toast.error( "Your Email verification is failed, Please try again", {
+						position: "bottom-left",
+						autoClose: 5500,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+					  });
+					  history.push({
+						pathname: "/customers/accountOverview",
 					});
 				}
 			});
