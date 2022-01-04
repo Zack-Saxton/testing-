@@ -87,3 +87,50 @@
         justify-content: flex-end !important;
     }
 }
+
+
+.smalTextImgNoOff{
+    font-size: 1.125rem !important;
+    font-weight: 400 !important;
+    text-align: center !important;
+    line-height: 26px !important;
+}
+
+.smallTextImgNoOffOne{
+    font-size: 1.125rem !important;
+    font-weight: 400 !important;
+    text-align: center !important;
+    line-height: 26px !important;
+    margin: 15px 0px 0px 0px !important;
+}
+
+.smallTextImgNoOff{
+    font-size: 1.125rem !important;
+    font-weight: 400 !important;
+    text-align: center !important;
+    line-height: 26px !important;
+    margin: 0 !important;
+}
+
+#CongratsTxt{
+    font-size: 2.125rem !important;
+    margin: 17px 0px !important;
+}
+
+#referCongratsTxt{
+    font-size: 2.125rem !important;
+    margin: 17px 0px !important;
+}
+
+.CongratsSmallTxt{
+    font-size: 0.875rem !important;
+    text-align: center !important;
+}
+
+.beforeVisit{
+    font-size: 0.938rem !important;
+}
+
+.beforeVisitOne{
+   margin: 20px 0px 10px 0px !important;
+}

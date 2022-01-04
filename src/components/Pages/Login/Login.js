@@ -5,13 +5,16 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import * as yup from "yup";
 import Box from "@material-ui/core/Box";
-import { EmailTextField, PasswordField, Checkbox, ButtonPrimary } from "../../FormsUI";
+import { EmailTextField, PasswordField, ButtonPrimary } from "../../FormsUI";
 import Paper from "@material-ui/core/Paper";
 import Logo from "../../../assets/images/loginbg.png";
 import { NavLink, useHistory } from "react-router-dom";
 import "./Login.css";
 import loginSubmit from "../../Controllers/LoginController";
 import ScrollToTopOnMount from "../../Pages/ScrollToTop";
+import Cookies from "js-cookie";
+import { encryptAES } from "../../lib/Crypto"
+
 const moment = require('moment');
 const moment_timezone = require('moment-timezone');
 let addVal = (moment_timezone().tz("America/New_York").isDST()) ? 4 : 5;
@@ -21,6 +24,10 @@ let addVal = (moment_timezone().tz("America/New_York").isDST()) ? 4 : 5;
 const useStyles = makeStyles((theme) => ({
     mainContentBackground: {
         backgroundImage: "url(" + Logo + ")",
+        backgroundSize: "cover",
+        backgroundSizeRepeat:"noRepeat",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed"
     },
     root: {
         flexGrow: 1,
@@ -53,7 +60,8 @@ const useStyles = makeStyles((theme) => ({
         fontSize: ".9rem",
         textDecoration: "none",
         color: "#0F4EB3",
-        fontFamily: "'Muli', sans-serif !important"
+        fontFamily: "'Muli', sans-serif !important",
+        marginBottom:"25px"
     },
     mainGrid: {
         boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%), 
@@ -85,7 +93,7 @@ const validationSchema = yup.object({
         .required("Your email address is required"),
     password: yup
         .string("Enter your password")
-        .max(30, "Password can be upto 30 characters length")
+        .max(100, "Password can be upto 100 characters length")
         .required("Your password is required"),
 });
 
@@ -95,18 +103,13 @@ export default function Login(props) {
     const history = useHistory();
     const [loginFailed, setLoginFailed] = useState("");
     const [loading, setLoading] = useState(false);
-    
-    //checking remember me is activated or not
-    const remMe = localStorage.getItem('rememberMe');
-    const remMeJSON = remMe ? JSON.parse(remMe) : {};
-	const [rememberMe, setRememberMe] = useState(remMeJSON.selected === true ? true : false);
+
 
     //Form Submission
     const formik = useFormik({
         initialValues: {
-            email: remMeJSON?.email === undefined ? '' : remMeJSON?.email,
-            password: remMeJSON?.password === undefined ? '' : remMeJSON?.password,
-            rememberMe: false
+            email: undefined,
+            password: undefined
         },
         validationSchema: validationSchema,
         // On login submit
@@ -119,16 +122,13 @@ export default function Login(props) {
                 let login_date = (retVal.data.data.user.extensionattributes?.login?.last_timestamp_date) ? moment(retVal.data.data.user.extensionattributes.login.last_timestamp_date).subtract(addVal, 'hours').format('MM/DD/YYYY'): '';
                 var now = new Date().getTime();
                 // On login success storing the needed data in the local storage
-                localStorage.setItem("token", JSON.stringify({ isLoggedIn: true, apiKey: retVal?.data?.data?.user?.extensionattributes?.login?.jwt_token, setupTime: now, applicantGuid: retVal?.data?.data?.user?.attributes?.sor_data?.applicant_guid }));
+				Cookies.set("token", JSON.stringify({ isLoggedIn: true, apiKey: retVal?.data?.data?.user?.extensionattributes?.login?.jwt_token, setupTime: now, applicantGuid: retVal?.data?.data?.user?.attributes?.sor_data?.applicant_guid }));
+				Cookies.set("cred", encryptAES(JSON.stringify({email: values.email, password: values.password })));
+                Cookies.set("email",values.email);
+                Cookies.set("profile_picture",retVal?.data?.data?.user?.mobile?.profile_picture ? retVal?.data?.data?.user?.mobile?.profile_picture : "");
+                Cookies.set('login_date',login_date) 
+                Cookies.set('userToken', retVal?.data?.data?.user?.attributes?.UserToken)
 				localStorage.setItem("userToken", retVal?.data?.data?.user?.attributes?.UserToken);
-                localStorage.setItem("cred", JSON.stringify({email: values.email, password: values.password }));
-                localStorage.setItem("email",values.email);
-                localStorage.setItem("profile_picture",retVal?.data?.data?.user?.mobile?.profile_picture ? retVal?.data?.data?.user?.mobile?.profile_picture : "");
-                localStorage.setItem('login_date',login_date);
-                // set Remember me 
-				rememberMe === true ?
-					localStorage.setItem("rememberMe", JSON.stringify({ selected: true, email: values.email, password: values.password })) :
-					localStorage.setItem("rememberMe", JSON.stringify({ selected: false, email: '', password: '' }));
 
 				setLoading(false);
                     history.push({
@@ -139,7 +139,7 @@ export default function Login(props) {
                     }
 			}
 			else if (retVal?.data?.data?.result === "error" || retVal?.data?.data?.hasError === true) {
-				localStorage.setItem('token', JSON.stringify({ isLoggedIn: false, apiKey: '', setupTime: '', applicantGuid: '' }));
+				Cookies.set('token', JSON.stringify({ isLoggedIn: false, apiKey: '', setupTime: '', applicantGuid: '' }));
 				setLoading(false);
 				setLoginFailed(retVal?.data?.data?.errorMessage);
 			}
@@ -175,11 +175,11 @@ export default function Login(props) {
                 <Box>
                     <Grid xs={12} item container justifyContent="center" alignItems="center">
                         <Grid
-                            xs={8}
-                            sm={6}
+                            xs={10}
+                            sm={7}
                             md={5}
                             lg={4}
-                            xl={5}
+                            xl={4}
                             id="main-content"
                             justifyContent="center"
                             item container
@@ -189,7 +189,7 @@ export default function Login(props) {
                                 pointerEvents: loading ? "none" : "initial"
                               }}
                         >
-                            <Paper className={classes.paper}>
+                            <Paper className={classes.paper} id="signInContainer">
                                 <Typography
                                     className={classes.title}
                                     data-testid="title"
@@ -200,11 +200,11 @@ export default function Login(props) {
 
 
                                 <form onSubmit={formik.handleSubmit}>
-                                    <Grid container spacing={5} style={{ paddingTop: "30px" }}>
+                                    <Grid container spacing={7} style={{ paddingTop: "30px" }}>
                                         <Grid
                                             item
                                             xs={12}
-                                            style={{ width:"100%" }}
+                                            style={{ width:"100%", }}
                                             id="text"
                                             container
                                             direction="row"
@@ -239,7 +239,7 @@ export default function Login(props) {
                                                 id="password"
                                                 type="password"
                                                 onKeyDown={preventSpace}
-                                                materialProps={{ maxLength: "30" }}
+                                                materialProps={{ maxLength: "100" }}
                                                 value={formik.values.password}
                                                 onChange={passwordOnChange}
                                                 onBlur={formik.handleBlur}
@@ -256,27 +256,11 @@ export default function Login(props) {
                                             </p>
                                         </Grid>
 
-                                        <Grid className={classes.checkbox}>
-                                            <Checkbox
-                                                name="rememberMe"
-                                                label="Remember Me"
-                                                value={rememberMe}
-                                                checked={rememberMe}
-                                                onChange={(e) => { setRememberMe(e.target.checked) }}
-                                                onBlur={(e) => { setRememberMe(e.target.checked) }}
-                                                labelid="remember-me"
-                                                testid="checkbox"
-                                                stylelabelform='{ "paddingTop":"0px" }'
-                                                stylecheckbox='{ "color":"#0F4EB3", "marginLeft":"7px","paddingRight":"15px" }'
-                                                stylecheckboxlabel='{ "color":"" }'
-                                            />
-                                        </Grid>
-
                                         <Grid item xs={12} className={classes.loginButton}>
                                             <ButtonPrimary
                                                 type="submit"
                                                 data-testid="submit"
-                                                stylebutton='{"background": "", "color":"" }'
+                                                stylebutton='{"background": "", "color":"" , "fontSize" : "15px", "padding" : "0px 30px"}'
                                                 disabled={loading}
                                             >
                                                 Sign In

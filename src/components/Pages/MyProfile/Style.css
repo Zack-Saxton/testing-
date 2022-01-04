@@ -1,104 +1,118 @@
 #card_loanhistory-bg {
-    background: linear-gradient(85deg, #0f4eb3, #264266) !important;
-    box-shadow: 0 6px 20px 0 rgba(57, 73, 171, 0.5) !important;
-  }
-  
-  #dolor-icon-loan-history {
-    height: 25px;
-    width: 25px;
-    border-radius: 50%;
-    padding: 15px;
-    background: #ffbc23 !important;
-    color: #171717 !important;
-  }
-  
+	background: linear-gradient(85deg, #0f4eb3, #264266) !important;
+	box-shadow: 0 6px 20px 0 rgba(57, 73, 171, 0.5) !important;
+}
 
-  .yelloWBG {
-    background: #ffbc23 !important;
-    color: #171717 !important;
+#dolor-icon-loan-history {
+	height: 25px;
+	width: 25px;
+	border-radius: 50%;
+	padding: 15px;
+	background: #ffbc23 !important;
+	color: #171717 !important;
+}
+.posRelativeWidthAuto {
+	position: relative !important;
+	width: auto !important;
+}
+.rowProps {
+	margin-top: 50px !important;
+	margin-bottom: 50px !important;
+}
+.paddingLeftZero {
+	padding-left: 0 !important;
+}
+
+.rowFont {
+	font-size: 1rem !important;
+	font-weight: 700 !important;
+}
+
+.yelloWBG {
+	background: #ffbc23 !important;
+	color: #171717 !important;
 }
 
 .material-icons {
-  font-family: 'Material Icons';
-  font-size: 24px;
-  font-weight: normal;
-  font-style: normal;
-  line-height: 1;
-  display: inline-block;
-  white-space: nowrap;
-  letter-spacing: normal;
-  text-transform: none;
-  word-wrap: normal;
-  direction: ltr;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-feature-settings: 'liga';
-  font-feature-settings: 'liga';
+	font-family: "Material Icons";
+	font-size: 24px;
+	font-weight: normal;
+	font-style: normal;
+	line-height: 1;
+	display: inline-block;
+	white-space: nowrap;
+	letter-spacing: normal;
+	text-transform: none;
+	word-wrap: normal;
+	direction: ltr;
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-feature-settings: "liga";
+	font-feature-settings: "liga";
 }
 
 .background-round {
-  padding: 15px;
-  border-radius: 50%;
+	padding: 15px;
+	border-radius: 50%;
 }
 
-
-.showContent{
-    
-  display: block; 
+.showContent {
+	display: block;
 }
-.hideContent{
-  display: none;
+.hideContent {
+	display: none;
 }
 
-#paymentMethodBtnWrap{
-  display: flex !important;
-  margin-bottom: 10px;
+#profilePhoneNumberWrap div div div{
+	opacity: 0.7 !important;
 }
-#addBankAccount_button{
-  margin-right: 20px;
-  padding: 0 35px;
-  font-family: "Muli", sans-serif !important;
-  font-size: 15px !important;
+
+#paymentMethodBtnWrap {
+	display: flex !important;
+	margin-bottom: 10px;
+}
+#addBankAccount_button {
+	margin-right: 20px;
+	padding: 0 35px;
+	font-family: "Muli", sans-serif !important;
+	font-size: 15px !important;
 }
 
 .sepmarginBottom {
-  font-family: 'Muli', sans-serif;
-  font-weight: 400;
-  line-height: 1.1;
-  color: #171717;
+	font-family: "Muli", sans-serif;
+	font-weight: 400;
+	line-height: 1.1;
+	color: #171717;
 }
 
-
-#addDebitCard_button{
-  font-family: "Muli", sans-serif !important;
-  font-size: 15px !important;
-  color: #171717;
-  padding: 0px 25px;
+#addDebitCard_button {
+	font-family: "Muli", sans-serif !important;
+	font-size: 15px !important;
+	color: #171717;
+	padding: 0px 25px;
 }
 
 .expirydate div div {
-  display: none;
+	display: none;
 }
 
-
 @media (max-width: 599px) {
-  #paymentMethodBtnWrap {
-    flex-direction: column-reverse;
-    align-items: center;
-    justify-content: center;
-    display: unset !important;
-   
-  }
-  #make-payment-cancel-button {
-    margin: 0 !important;
-  }
-  #addBankAccount_button {
-    width: 100%;
-    margin-top: 20px;
-  }
-  #addDebitCard_button{
-    width: 100%;
-    margin-top: 20px;
-  }
+	#paymentMethodBtnWrap {
+		flex-direction: column-reverse;
+		align-items: center;
+		justify-content: center;
+		display: unset !important;
+	}
+	#make-payment-cancel-button {
+		margin: 0 !important;
+	}
+	#addBankAccount_button {
+		width: 100%;
+		margin-top: 20px;
+	}
+	#addDebitCard_button {
+		width: 100%;
+		margin-top: 20px;
+	}
 }

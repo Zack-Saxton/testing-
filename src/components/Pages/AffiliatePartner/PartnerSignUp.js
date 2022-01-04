@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory,useLocation } from "react-router-dom";
 import { useFormik } from "formik";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -25,7 +25,7 @@ import amonelogo from "../../../assets/partners/WelcomeAOMember.png";
 import monevologo from "../../../assets/partners/WelcomeMonevoMember.png";
 import NerdWalletlogo from "../../../assets/partners/WelcomeNWMember.png";
 import LendingTreelogo from "../../../assets/partners/WelcomeLTMember.png";
-import partnerSignup, { PopulatePartnerSignup } from "../../Controllers/PartnerSignupController";
+import partnerSignup,{PopulatePartnerSignup} from "../../Controllers/PartnerSignupController";
 import "react-toastify/dist/ReactToastify.css";
 
 //Styling
@@ -157,17 +157,17 @@ export default function CreditKarma() {
   const requestApr = queryOffer.get("APR");
   const requestTerm = queryOffer.get("TERM");
 
-  //API call
-  const [populatePartnerSignupState, SetPopulatePartnerSignupState] = useState(null);
+   //API call
+  const [populatePartnerSignupState, SetPopulatePartnerSignupState] =    useState(null);
 
   async function AsyncEffect_PopulatePartnerSignup() {
     SetPopulatePartnerSignupState(await PopulatePartnerSignup(
-      partnerToken,
-      applicantId,
-      requestAmt,
-      requestApr,
-      requestTerm
-    )
+        partnerToken,
+        applicantId,
+        requestAmt, 
+        requestApr,
+        requestTerm
+      )
     );
   }
   useEffect(() => {
@@ -185,6 +185,8 @@ export default function CreditKarma() {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
   const [agree, setAgree] = useState(false);
+
+ 
 
   //Form Submission
   const formik = useFormik({
@@ -233,6 +235,8 @@ export default function CreditKarma() {
     }
   };
 
+ 
+
   //View Part
   return (
     <div>
@@ -258,7 +262,11 @@ export default function CreditKarma() {
               item
               style={{ margin: "auto" }}
             >
-              <Paper className={classes.paper}>
+              <Paper className={classes.paper}
+              style={{
+                opacity: loading ? 0.55 : 1,
+                pointerEvents: loading ? "none" : "initial"
+              }}>
                 {utm_source === "CreditKarma" ? (
                   <Typography
                     className={classes.title}
@@ -575,7 +583,7 @@ export default function CreditKarma() {
                             </a>
                           </p>
                         }
-                        required={utm_source ? utm_source !== "CreditKarma" ? true : false : ""}
+                         required={utm_source ? utm_source !== "CreditKarma" ? true : false : ""   }
                         stylelabelform='{ "color":"" }'
                         stylecheckbox='{ "color":"blue"}'
                         stylecheckboxlabel='{ "color":"" }'

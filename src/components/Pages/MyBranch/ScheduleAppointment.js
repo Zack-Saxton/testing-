@@ -139,7 +139,8 @@ export default function ScheduleAppointment(MyBranchAppointment) {
     <div>
       <Grid item xs={12} style={{ paddingTop: "10px", textAlign: "left" }}>
         <ButtonPrimary
-          stylebutton='{"float": "" }'
+          id="scheduleAppointmentBtn"
+          stylebutton='{"float": "","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
           onClick={handleScheduleAppointment}
         >
           Schedule An Appointment
@@ -293,7 +294,7 @@ export default function ScheduleAppointment(MyBranchAppointment) {
           <DialogActions style={{ justifyContent: "center" }}>
             <ButtonPrimary
               type="submit"
-              stylebutton='{"background": "", "color":"" }'
+              stylebutton='{"background": "","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
               disabled={loading}
             >
               Schedule an appointment

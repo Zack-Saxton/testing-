@@ -1,0 +1,39 @@
+#workingHoursTableWrap thead tr th{
+    border: 1px solid rgba(224, 224, 224, 1) !important;
+}
+#workingHoursTableWrap tbody tr th, #workingHoursTableWrap tbody tr td{
+    border: 1px solid rgba(224, 224, 224, 1) !important;
+}
+
+#branchNameBox{
+    border-radius: 2px !important;
+}
+
+#phoneLink{
+    color: #0F4EB3 !important;
+}
+#branchMapWrap{
+    height: 100% !important;
+}
+#branchMapWrap iframe{
+    height: 100% !important;
+}
+#branchDiv{
+    padding-right: 15px;
+}
+
+@media (max-width:599px) {
+    #branchDiv{
+        padding-right: 0px;
+        margin-bottom: 30px;
+    }
+    
+}
+
+@media (max-width:760px) {
+    #scheduleAppointmentBtn{
+        padding: 0px 15px !important;
+    }
+}
+
+

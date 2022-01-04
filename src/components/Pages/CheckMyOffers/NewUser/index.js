@@ -13,6 +13,8 @@ import * as yup from "yup";
 import axios from "axios";
 import ScrollToTopOnMount from "../ScrollToTop";
 import loginSubmit from "../../../Controllers/LoginController";
+import Cookies from "js-cookie"
+import { encryptAES } from "../../../lib/Crypto"
 
 //YUP validation schema 
 const validationSchema = yup.object({
@@ -111,13 +113,13 @@ function NewUser() {
 					if (retVal?.data?.data?.user && retVal?.data?.data?.userFound === true) {
 						let rememberMe = false;
 						var now = new Date().getTime();
-						localStorage.clear();
-						localStorage.setItem("token", JSON.stringify({ isLoggedIn: true, apiKey: retVal?.data?.data?.user?.extensionattributes?.login?.jwt_token, setupTime: now }));
-						localStorage.setItem("cred", JSON.stringify({email: data.email, password: values.newPassword }));
+						// localStorage.clear();
+						Cookies.set("token", JSON.stringify({ isLoggedIn: true, apiKey: retVal?.data?.data?.user?.extensionattributes?.login?.jwt_token, setupTime: now }));
+						Cookies.set("cred", encryptAES(JSON.stringify({email: data.email, password: values.newPassword })));
 
 						rememberMe === true ?
-							localStorage.setItem("rememberMe", JSON.stringify({ selected: true, email: values.email, password: values.password })) :
-							localStorage.setItem("rememberMe", JSON.stringify({ selected: false, email: '', password: '' }));
+							Cookies.set("rememberMe", JSON.stringify({ selected: true, email: values.email, password: values.password })) :
+							Cookies.set("rememberMe", JSON.stringify({ selected: false, email: '', password: '' }));
 		
 						setLoading(false);
 						history.push({
@@ -125,7 +127,7 @@ function NewUser() {
 						});
 					}
 					else if (retVal?.data?.data?.result === "error" || retVal?.data?.data?.hasError === true) {
-						localStorage.setItem('token', JSON.stringify({ isLoggedIn: false, apiKey: '', setupTime: '' }));
+						Cookies.set('token', JSON.stringify({ isLoggedIn: false, apiKey: '', setupTime: '' }));
 						setLoading(false);
 					}
 					else {
@@ -186,6 +188,7 @@ function NewUser() {
 						>
 							<Paper
 								className="cardWOPadding"
+								id="securePasswordWrap"
 								justify="center"
 								alignitems="center"
 							>
@@ -241,6 +244,7 @@ function NewUser() {
 											className="textBlock"
 										>
 											<PasswordField
+												id="createPasswordWrap"
 												name="newPassword"
 												label="Create Password *"
 												type="password"
@@ -259,13 +263,14 @@ function NewUser() {
 													formik.errors.newPassword
 												}
 											/>
-											<p className="subText">
+											<p className="subText passwordMeetTxt">
 												Please ensure your password meets the following
 												criteria: between 8 and 30 characters in length, at
 												least 1 uppercase letter, at least 1 lowercase letter,
 												and at least 1 number
 											</p>
 											<PasswordField
+												id="confirmPasswordWrap"
 												name="confirmPassword"
 												label="Confirm Password *"
 												type="confirmPassword"
@@ -306,11 +311,9 @@ function NewUser() {
 												type="submit"
 												data-testid="contButton"
 												disabled={loading}
-												stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black"}'
+												stylebutton='{"background": "#FFBC23", "fontSize": "0.938rem", "padding": "0px 30px", "color": "black"}'
 											>
-												<Typography align="center" className="textCSS ">
 													Sign In
-												</Typography>
 												<i
 													className="fa fa-refresh fa-spin customSpinner"
 													style={{

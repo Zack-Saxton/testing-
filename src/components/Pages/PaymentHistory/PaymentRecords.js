@@ -110,7 +110,7 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
 
   //View part
   return (
-    <Grid item xs={12} style={{ paddingTop: "30px", paddingBottom: "30px" }}>
+    <Grid item xs={12} style={{ paddingTop: "10px", paddingBottom: "30px" }}>
       <TableContainer id="pdfdiv" component={Paper}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
@@ -148,13 +148,13 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
                       component="th"
                       className={classes.tableHeadRow}
                       scope="row"
-                      align="center"
+                      align="left"
                     >
                       {Moment(row.TransactionDate).format("MM/DD/YYYY")}
                     </TableCell>
                     <TableCell
                       className={classes.tableHeadRow}
-                      align="center"
+                      align="left"
                     >
                       {row.TransactionDescription}
                     </TableCell>

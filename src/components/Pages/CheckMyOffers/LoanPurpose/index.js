@@ -121,6 +121,7 @@ function LoanPurpose(props) {
 								className="cardWOPadding"
 								justify="center"
 								alignitems="center"
+								id="loanPurposeWrap"
 							>
 								<div className="progress mt-0">
 									<div
@@ -177,6 +178,7 @@ function LoanPurpose(props) {
 												alt="Home improvement"
 											/>
 											<Typography
+												id="purposeTxt01"
 												align="center"
 												className={
 													purpose === "Home Improvement"
@@ -217,12 +219,14 @@ function LoanPurpose(props) {
 												className="icon"
 											/>
 											<Typography
+												id="purposeTxt02"
 												align="center"
 												className={
 													purpose === "Auto Expense/Repair"
 														? "borrowCSS textCSS whiteText"
 														: "borrowCSS textCSS"
 												}
+												// id="purposeTxt"
 											>
 												Auto Expense / Repair
 											</Typography>
@@ -257,6 +261,7 @@ function LoanPurpose(props) {
 												className="icon"
 											/>
 											<Typography
+												id="purposeTxt03"
 												align="center"
 												className={
 													purpose === "Vacation"
@@ -297,6 +302,7 @@ function LoanPurpose(props) {
 												className="icon"
 											/>
 											<Typography
+												id="purposeTxt04"
 												align="center"
 												className={
 													purpose === "Holiday Spending"
@@ -337,6 +343,7 @@ function LoanPurpose(props) {
 												className="icon"
 											/>
 											<Typography
+											id="purposeTxt05"
 												align="center"
 												className={
 													purpose === "Medical/Dental"
@@ -377,6 +384,7 @@ function LoanPurpose(props) {
 												className="icon"
 											/>
 											<Typography
+											id="purposeTxt06"
 												align="center"
 												className={
 													purpose === "Debt Consolidation"
@@ -384,7 +392,7 @@ function LoanPurpose(props) {
 														: "borrowCSS textCSS"
 												}
 											>
-												Dept Consolidation
+												Debt Consolidation
 											</Typography>
 										</Paper>
 									</Grid>
@@ -417,6 +425,7 @@ function LoanPurpose(props) {
 												className="icon"
 											/>
 											<Typography
+											id="purposeTxt07"
 												align="center"
 												className={
 													purpose === "Life Event (Wedding, Graduation, etc)"
@@ -457,6 +466,7 @@ function LoanPurpose(props) {
 												className="icon"
 											/>
 											<Typography
+											id="purposeTxt08"
 												align="center"
 												className={
 													purpose === "Unexpected Expenses/Bills"
@@ -497,6 +507,7 @@ function LoanPurpose(props) {
 												className="icon"
 											/>
 											<Typography
+											id="purposeTxt10"
 												align="center"
 												className={
 													purpose === "Major Purchase"
@@ -534,7 +545,7 @@ function LoanPurpose(props) {
 													purpose === "Other" ? "textCSS whiteText" : "textCSS"
 												}
 											>
-												Others
+												Other
 											</Typography>
 										</Paper>
 									</Grid>
@@ -551,11 +562,11 @@ function LoanPurpose(props) {
 											data-testid="contButton"
 											onClick={handleRoute}
 											disabled={purpose === ""}
-											stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black !important","width":"155px","fontSize":"1rem"}'
+											stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black !important","width":"155px","fontSize":"15px"}'
 										>
-											<Typography align="center" className="textCSS ">
+											{/* <Typography align="center" className="textCSS "> */}
 												Continue
-											</Typography>
+											{/* </Typography> */}
 										</ButtonPrimary>
 									</Grid>
 								</Grid>

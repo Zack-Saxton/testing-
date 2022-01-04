@@ -44,10 +44,14 @@ TabVerticalPanel.propTypes = {
 };
 
 export default function OfferTable(props) {
+	// const [checkedValue, setCheckedValue] = useState("");
+	// const [selectedTerm, setSelectedTerm] = useState("");
+	// const [selectedIndex, setSelectedIndex] = useState("");
 	const [termData1, setTermData1] = useState();
 	const [termData2, setTermData2] = useState();
 	const [termDataMax, setTermDataMax] = useState();
 	const [selectData, setSelectData] = useState([]);
+	// const [offToCompare, setOffToCompare] = useState([])
 
 	let offersComp = props.offersToCompare ? props.offersToCompare : [];
 	let offersCompChart = props.offersToCompareChart
@@ -117,7 +121,7 @@ export default function OfferTable(props) {
 
 	};
 	return (
-		<Grid item xs={12} sm={9} style={{ padding: "5px", width: "100%" }}>
+		<Grid item xs={12} sm={9}  className={props.loading ? props.classes.loadingOn : props.classes.loadingOff}  style={{ padding: "5px", width: "100%" }}>
 			<Paper className={props.classes.paper}>
 				{props.rowData ? (
 					<TabVerticalPanel tabValue={props.value} verticalIndex={props.value}>
@@ -399,10 +403,9 @@ export default function OfferTable(props) {
 									stylebutton='{"background": "", "float":"right"  }'
 									styleicon='{ "color":"" }'
 									id="apply-loan-comparison-button"
-									onClick={() => {
-										props.onCompareOfferTabClick()
-										props.handleTabChange(props.noOfTerms, props.noOfTerms);
-										window.scrollTo(0, 0);
+									onClick={() => {props.onCompareOfferTabClick()
+									props.handleTabChange(props.noOfTerms, props.noOfTerms);
+									window.scrollTo(0, 0);
 									}
 									}
 									{...props.tabVerticalProps(4)}

@@ -17,7 +17,7 @@ import { toast } from "react-toastify";
 function CheckMyOffers(props) {
 	const { data, setData, resetData } = useContext(Check);
 	const [hasOfferCode, setOfferCode] = useState('');
-	const [select, setSelect] = useState(null);
+	const [select, setSelect] = useState(data.loanAmount ? data.loanAmount : 10000);
 	const history = useHistory();
 
 	useEffect(() => {
@@ -70,8 +70,8 @@ function CheckMyOffers(props) {
 							className="cardWrapper"
 						    style={{paddingTop:"70px"}}
 						>
-							<Paper className="card" justify="center" alignitems="center">
-								<Typography variant="h5" align="center" className="borrowCSS CMOHeading">
+							<Paper className="card" justify="center" alignitems="center" id="selectAmountWrap">
+								<Typography align="center" className="borrowCSS CMOHeading">
 									Tell us how much you would like to borrow
 								</Typography>
 								<Grid item
@@ -152,13 +152,11 @@ function CheckMyOffers(props) {
 										<Grid  className="alignButton">
 											<ButtonPrimary
 												data-testid="contButton"
-												stylebutton='{"background": "#FFBC23", "color":"black"}'
+												stylebutton='{"background": "#FFBC23", "color":"black","fontSize":"15px","padding":"0px 30px"}'
 												onClick={handleRoute}
 												disabled={data.loading}
 											>
-											<Typography align="center" className="textCSS ">
 												Continue
-											</Typography>
 											<i
                                                     className="fa fa-refresh fa-spin customSpinner"
                                                     style={{

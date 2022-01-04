@@ -139,3 +139,47 @@
   bottom: unset;
   left: unset;
 }
+
+#paymentTableWrap{
+  font-family: "Muli",sans-serif;
+  font-size: 0.938rem !important;
+}
+
+#autoPaySpan .MuiSwitch-thumb{
+  color: #fafafa !important;
+}
+
+#autoPaySpan :nth-child(2){
+  font-size: 0.875rem;
+  color: #575757;
+}
+
+#payment-label{
+  font-size: 0.938rem;
+  color: #595959;
+}
+
+#date-label{
+  font-size: 0.938rem;
+  color: #595959;
+}
+
+#payment{
+  padding-bottom: 15px;
+}
+
+#makePaymentWrap div:nth-child(2) .MuiPaper-rounded{
+  border-radius: 2px !important;
+}
+
+#pdfdiv{
+  border-radius: 2px !important;
+}
+
+#payFromWrap div div label{
+  font-size: 0.938rem !important;
+}
+
+#select{
+  padding-bottom: 15px;
+}

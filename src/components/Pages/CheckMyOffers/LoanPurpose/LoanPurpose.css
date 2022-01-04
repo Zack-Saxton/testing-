@@ -12,7 +12,7 @@
 }
 .borrowCSSLP {
 
-	font-size: 1.64rem !important;
+	font-size: 1.563rem !important;
     line-height: 110% !important;
     margin: .82rem 0 .656rem 0 !important;
 }
@@ -164,4 +164,22 @@
 
 .floatLeft {
 	text-align: left;
+}
+
+#loanPurposeWrap{
+	border-radius: 4px !important;
+}
+
+#purposeTxt01,
+#purposeTxt02,
+#purposeTxt03,
+#purposeTxt04,
+#purposeTxt05,
+#purposeTxt06,
+#purposeTxt07,
+#purposeTxt08,
+#purposeTxt09,
+#purposeTxt10{
+	font-size:1.125rem !important ;
+
 }

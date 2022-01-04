@@ -1,12 +1,13 @@
+import Cookies from "js-cookie";
 import {useEffect, useState} from "react";
 
 export const LocalStorage = (key, defaultValue) => {
-    const stored = localStorage.getItem(key);
+    const stored = Cookies.get(key);
     const initial = stored ? JSON.parse(stored) : defaultValue;
     const [value, setValue] = useState(initial);
 
     useEffect(() => {
-        localStorage.setItem(key, JSON.stringify(value));
+        Cookies.set(key, JSON.stringify(value));
     }, [key, value]);
 
     return [value, setValue];

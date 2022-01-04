@@ -129,7 +129,7 @@ const TextfieldWrapper = ({
 />
       </FormControl>
       <div className={classes.center}>
-        <Typography id="discrete-slider-always" variant='h6'  className={classes.OutputText}>
+        <Typography id="discrete-slider-always-amount" variant='h6'  className={classes.OutputText}>
           $ {value}
         </Typography>
       </div>

@@ -1,5 +1,6 @@
 import APICall from "../lib/AxiosLib";
 import { toast } from "react-toastify";
+import Cookies from "js-cookie";
 
 /***** Get Available offer details *****/
 export async function fetchAvailableOffers() {
@@ -122,7 +123,7 @@ export async function completeSignature(selectedOffer) {
 
 /***** Resend Verification *****/
 export async function resendVerificationEmail() {
-  const email = localStorage.getItem("email");
+  const email = Cookies.get("email");
   let url = "resend_verification_email";
   let param = "";
   let data = {};
@@ -137,7 +138,7 @@ export async function resendVerificationEmail() {
     method,
     addAccessToken
   );
-  if (resendVerificationEmailMethod.data.status === 200 && resendVerificationEmailMethod.data.statusText) {
+  if(resendVerificationEmailMethod.data.status === 200 && resendVerificationEmailMethod.data.statusText){
     toast.success("A verification email has been sent to " + email, {
       position: "bottom-left",
       autoClose: 2500,
@@ -196,7 +197,7 @@ export async function verifyPasscode(passcode) {
 export async function hardPullCheck() {
   let url = "cis_hardpull";
   let param = "";
-  let data = JSON.parse(localStorage.getItem("user"));
+  let data =  JSON.parse(Cookies.get("user") ? Cookies.get("user") : '{ }');
   let method = "POST";
   let addAccessToken = true;
 
@@ -208,7 +209,7 @@ export async function hardPullCheck() {
     method,
     addAccessToken
   );
-
+  
   return res;
 }
 
@@ -314,7 +315,7 @@ export async function uploadDocument(
   fileType,
   documentType
 ) {
-  const loginToken = JSON.parse(localStorage.getItem("token"));
+  const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : '{ }');
   let url = "upload_verification_document";
   let param = "";
   let data = {

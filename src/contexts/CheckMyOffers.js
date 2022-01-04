@@ -1,6 +1,8 @@
 import React, { createContext, useState } from "react";
 import usrAccountDetails from "../components/Controllers/AccountOverviewController";
-import states from "../components/lib/States.json"
+import states from "../components/lib/States.json";
+import Cookies from "js-cookie";
+import {decryptAES} from "../components/lib/Crypto"
 
 export const CheckMyOffers = createContext();
 
@@ -46,9 +48,9 @@ const CheckMyOffersContext = (props) => {
 		password: null,
 		confirmPassword: null,
 		result: null,
-		formStatus: '',
+		formStatus: '', 
 		completedPage: 0,
-		loading: true,
+		loading:true,
 		isActiveUser: null,
 		disabled: false,
 		last4SSN: null,
@@ -72,10 +74,10 @@ const CheckMyOffersContext = (props) => {
 	//setUserAccountDetails in context
 	async function setUserAccountDetails() {
 		data.loading = true
-		let accountDetail = await usrAccountDetails();
-		if (accountDetail.data.status === 200) {
-			const cred = JSON.parse(localStorage.getItem("cred"));
-
+		let accountDetail= await usrAccountDetails();
+		if(accountDetail.data.status === 200){
+		const cred = JSON.parse(Cookies.get("cred") ? decryptAES(Cookies.get("cred")) : '{ }');
+	
 			let identification = (accountDetail != null) ? accountDetail?.data?.data?.customer?.identification : null;
 			let latestContact = (accountDetail != null) ? accountDetail?.data?.data?.customer?.latest_contact : null;
 			let statesFullForm = (accountDetail != null) ? accountDetail?.data?.data?.customer?.latest_contact.address_state : null;
@@ -89,7 +91,7 @@ const CheckMyOffersContext = (props) => {
 			data.dob = identification?.date_of_birth ? identification?.date_of_birth : null
 			data.streetAddress = latestContact?.address_street ? latestContact?.address_street : null
 			data.city = latestContact?.address_city ? latestContact?.address_city : null
-			data.state = latestContact?.address_state ? latestContact.address_state : null
+			data.state = latestContact?.address_state? latestContact.address_state: null
 			data.stateFullform = statesFullForm.length === 2 ? states[statesFullForm] : statesFullForm;
 			data.last4SSN = identification?.last4SSN ? identification?.last4SSN : null;
 			data.loanPurpose = null
@@ -98,83 +100,83 @@ const CheckMyOffersContext = (props) => {
 			data.password = cred.password;
 			data.confirmPassword = cred.password;
 			data.isActiveUser = userStatus;
-			data.disabled = true
-			setData({ ...data })
-		} else {
+			data.disabled= true
+			setData({...data})
+		}else{
 			data.loading = false
-			setData({ ...data })
+			setData({...data})
 		}
 	}
-
+   
 
 	const resetData = () => {
-		const loginToken = JSON.parse(localStorage.getItem("token"));
-		setData({
-			loanAmount: null,
-			term: 36,
-			offerCode: null,
-			citizenship: null,
-			zip: null,
-			loanPurpose: null,
-			firstName: null,
-			lastName: null,
-			phone: null,
-			email: null,
-			dob: null,
-			employmentStatus: null,
-			yearsAtEmployers: '',
-			EmployerPhone: null,
-			householdAnnualIncome: null,
-			annualIncome: null,
-			maritalStatus: null,
-			spouse_address_street: null,
-			spouse_address_city: null,
-			spouse_address_postal_code: null,
-			spouse_address_state: null,
-			spouse_address_state_full_form: null,
-			streetAddress: null,
-			city: null,
-			state: null,
-			stateFullform: null,
-			ssn: null,
-			homeOwnership: null,
-			rentMortageAmount: '',
-			militaryActiveDuty: null,
-			consent_credit_contact_auth: null,
-			consent_electronic_communication: null,
-			consent_privacy_policy: null,
-			consent_terms_of_use: null,
-			militaryActiveDutyRank: null,
-			password: null,
-			confirmPassword: null,
-			result: null,
-			formStatus: '',
-			completedPage: 0,
-			isActiveUser: null,
-			last4SSN: null,
-			disabled: false,
-			loading: loginToken?.isLoggedIn ? true : false,
-			page: {
-				selectAmount: 1,
-				loanPurpose: 2,
-				citizenship: 3,
-				homeAddress: 4,
-				personalInfo: 5,
-				newUser: 6,
-				existingUser: 6,
-				employmentStatus: 7,
-				annualIncome: 8,
-				livingPlace: 9,
-				activeDuty: 10,
-				marriedStatus: 10,
-				ssn: 11
-			},
-			applicationStatus: ''
-		});
-		if (loginToken?.isLoggedIn) {
-			//fetch userdetails
-			setUserAccountDetails()
-		}
+			const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : '{ }');
+			setData({
+				loanAmount: null,
+				term: 36,
+				offerCode: null,
+				citizenship: null,
+				zip: null,
+				loanPurpose: null,
+				firstName: null,
+				lastName: null,
+				phone: null,
+				email: null,
+				dob: null,
+				employmentStatus: null,
+				yearsAtEmployers: '',
+				EmployerPhone: null,
+				householdAnnualIncome: null,
+				annualIncome: null,
+				maritalStatus: null,
+				spouse_address_street: null,
+				spouse_address_city: null,
+				spouse_address_postal_code: null,
+				spouse_address_state: null,
+				spouse_address_state_full_form: null,
+				streetAddress: null,
+				city: null,
+				state: null,
+				stateFullform: null,
+				ssn: null,
+				homeOwnership: null,
+				rentMortageAmount: '',
+				militaryActiveDuty: null,
+				consent_credit_contact_auth: null,
+				consent_electronic_communication: null,
+				consent_privacy_policy: null,
+				consent_terms_of_use: null,
+				militaryActiveDutyRank: null,
+				password: null,
+				confirmPassword: null,
+				result: null,
+				formStatus: '', 
+				completedPage: 0,
+				isActiveUser: null,
+				last4SSN: null,
+				disabled: false,
+				loading: loginToken?.isLoggedIn ? true :false,
+				page: {
+					selectAmount: 1,
+					loanPurpose: 2,
+					citizenship: 3,
+					homeAddress: 4,
+					personalInfo: 5,
+					newUser: 6,
+					existingUser: 6,
+					employmentStatus: 7,
+					annualIncome: 8,
+					livingPlace: 9,
+					activeDuty: 10,
+					marriedStatus: 10,
+					ssn: 11
+				},
+				applicationStatus: ''
+			});
+			if(loginToken?.isLoggedIn){
+				//fetch userdetails
+				setUserAccountDetails()
+			}
 	}
 
 	return (

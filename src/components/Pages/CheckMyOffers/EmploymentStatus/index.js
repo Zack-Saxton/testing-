@@ -35,15 +35,15 @@ function EmploymentStatus() {
 			.string()
 			.when('employStatus', {
 				is: "Employed - Hourly",
-				then: yup.string().required('Years at employers is required'),
+				then: yup.string().required('Years at employer is required'),
 			})
 			.when('employStatus', {
 				is: "Salary",
-				then: yup.string().required('Years at employers is required'),
+				then: yup.string().required('Years at employer is required'),
 			})
 			.when('employStatus', {
 				is: "selfEmployed",
-				then: yup.string().required('Years at employers is required'),
+				then: yup.string().required('Years at employer is required'),
 			}),
 	});
 	const formik = useFormik({
@@ -65,7 +65,6 @@ function EmploymentStatus() {
 					.replace(/ /g, "") || "";
 			data.EmployerPhone = phone.slice(1);
 			data.completedPage = data.page.employmentStatus;
-
 
 			if (
 				employmentStatus === "Employed - Hourly" ||
@@ -112,7 +111,7 @@ function EmploymentStatus() {
 							justifyContent="center"
 							alignItems="center"
 						>
-							<Paper className="cardWOPadding" style={{ justify: "center", alignItems: "center" }}>
+							<Paper id="employmentStatusWrap" className="cardWOPadding" style={{ justify: "center", alignItems: "center" }}>
 								<form onSubmit={formik.handleSubmit}>
 									<div className="progress mt-0">
 										<div
@@ -249,7 +248,7 @@ function EmploymentStatus() {
 										<Grid item lg={8} md={8} xs={12}>
 
 
-											<div className={
+											<div id="employementWrap" className={
 												employmentStatus === "Employed - Hourly" ||
 													employmentStatus === "Salary" ||
 													employmentStatus === "selfEmployed"
@@ -260,6 +259,7 @@ function EmploymentStatus() {
 
 													fullWidth={true}
 													name="yearsAtEmployers"
+													
 													labelform="Years at Employer *"
 													value={formik.values.yearsAtEmployers}
 													onChange={formik.handleChange}
@@ -305,6 +305,7 @@ function EmploymentStatus() {
 											md={8}
 											xs={12}
 											name="phone"
+											id="employerPhoneWrap"
 											className={
 												employmentStatus === "Employed - Hourly" ||
 													employmentStatus === "Salary"
@@ -340,11 +341,9 @@ function EmploymentStatus() {
 												data-testid="cntButton"
 												type="submit"
 												disabled={employmentStatus === ""}
-												stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black","fontSize":"1rem"}'
+												stylebutton='{"background": "#FFBC23", "color": "black","fontSize":"0.938rem","padding": "0px 30px"}'
 											>
-												<Typography align="center" className="textCSS ">
 													Continue
-												</Typography>
 											</ButtonPrimary>
 										</Grid>
 									</Grid>

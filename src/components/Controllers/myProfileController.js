@@ -1,8 +1,8 @@
-import { toast } from "react-toastify";
 import APICall from "../lib/AxiosLib";
+import Cookies from "js-cookie";
 
 export async function changePassword(oldPassword, newPassword) {
-  const email = localStorage.getItem("email");
+  const email = Cookies.get("email");
   let url = "change_password";
   let param = "";
   let data = {
@@ -22,8 +22,10 @@ export async function basicInformation(body) {
   let data = {   
     isAuthenticated: true,
     profileInfo: {
+      email:  body.email,
       primaryPhoneNumber: body.primaryPhoneNumber,
-      email: body.email,
+      updatedPrimaryPhoneNumber: body.primaryPhoneNumber,
+      updatedEmail: body.email, 
     },
   };
   let method = "POST";
@@ -32,6 +34,7 @@ export async function basicInformation(body) {
 }
 
 export async function mailingAddress(body) {
+  
   let url = "update_profile_information_cac";
   let param = "";
   let data = {
@@ -53,10 +56,10 @@ export async function mailingAddress(body) {
 }
 
 export async function textNotification(body, sub) {
-  const email = localStorage.getItem("email");
-  const userToken = localStorage.getItem("userToken");
-  const token = JSON.parse(localStorage.getItem("token"));
-  const accountDetails = JSON.parse(localStorage.getItem("accountDetails"));
+  const email = Cookies.get("email");
+  const userToken = Cookies.get("userToken");
+  const token = JSON.parse(Cookies.get("token") ? Cookies.get("token") : '{ }');
+  const accountDetails = JSON.parse(Cookies.get("accountDetails") ? Cookies.get("accountDetails") : '{ }');
   let appGUID = token.applicantGuid;
   let cleanednumber = body.phone.replace(/\D/g, "");
   let allLoansClosed = accountDetails?.data?.data?.allLoansClosed ? accountDetails.data.data.allLoansClosed : false;
@@ -107,10 +110,10 @@ export async function textNotification(body, sub) {
 
 
 export async function getTextNotify() {
-  const email = localStorage.getItem("email");
-  const userToken = localStorage.getItem("userToken");
-  const token = JSON.parse(localStorage.getItem("token"));
-  const accountDetails = JSON.parse(localStorage.getItem("accountDetails"));
+  const email = Cookies.get("email");
+  const userToken = Cookies.get("userToken");
+  const token = JSON.parse(Cookies.get("token"));
+  const accountDetails = JSON.parse(Cookies.get("accountDetails"));
   let appGUID = token.applicantGuid;
   let opted_phone_texting = accountDetails?.data?.data?.latest_contact?.opted_phone_texting ? accountDetails?.data?.data?.latest_contact?.opted_phone_texting : "";
   let cleanednumber = opted_phone_texting.replace(/\D/g, "");
@@ -145,72 +148,99 @@ export async function getTextNotify() {
   return APICall(url, param, data, method, addAccessToken);
 }
 
-export async function profileImage() {
-  const email = localStorage.getItem("email");
-  let url = "get_profile_picture";
+
+ export async function uploadNewProfileImage(
+  imgData,
+  fileName,
+  fileType,
+  documentType, 
+  email
+) {
+  let url = "upload_profile_picture";
   let param = "";
   let data = {
     email: email,
+    isAuthenticated: true,
+    file: {
+      profile_picture: {
+        data: {
+          type: "Buffer",
+          data: imgData,
+        },
+        mimetype: fileType,
+        documentType: documentType,
+        name: fileName,
+        fromweb: true,
+      },
+    },
   };
+
+  let method = "POST";
+  let addAccessToken = true;
+  return APICall(url, param, data, method, addAccessToken);
+}
+
+export async function addCreditCard(values, cardType) {
+
+  const email = localStorage.getItem("email");
+  let url = "add_new_card_payment";
+  let param = "";
+  let data =  {
+"address_street": values.streetAddress,
+"address_city": values.city,
+"address_state": values.state,
+"address_postal_code": values.zipcode,
+"cardholder_name": values.cardName,
+"card_number": values.cardNumber,
+"issuer": cardType,
+"cvv": parseInt(values.cvv),
+"exp_date": values.expiryMonth + "/" + values.expiryYear ,
+"defaultBank": 1,
+"isMobile": true
+}
   let method = "POST";
   let addAccessToken = true;
   return APICall(url, param, data, method, addAccessToken);
  }
 
 
-export async function uploadNewProfileImage(
-  test,
-  fileName,
-  fileType,
-  documentType
-) {
-  const email = localStorage.getItem("email");
-  let url = "upload_profile_picture";
-  let param = "";
-  let data = {
-    email: email,
-    isAuthenticated: true,
-    file: 
-      {
-        profile_picture: {
-          data: test,
-          mimetype: fileType,
-          documentType: documentType,
-          fileName: fileName,
-        }
-      },
-  };
+ 
+ export async function getPaymentMethods(values) {
 
+  let url = "get_payment_methods";
+  let param = "";
+  let data =  {  }
   let method = "POST";
   let addAccessToken = true;
-  let uploadData = await APICall(url, param, data, method, addAccessToken);
-  uploadData.data.status === 200
-    ? toast.success(
-        uploadData?.data?.data?.data?.message
-          ? uploadData.data.data.data.message
-          : "Uploaded Successfully",
-        {
-          position: "bottom-left",
-          autoClose: 1500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        }
-      )
-    : toast.error(
-        uploadData?.data?.data?.data?.message
-          ? uploadData.data.data.data.message
-          : "Error uploading file",
-        {
-          position: "bottom-left",
-          autoClose: 1500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        }
-      );
-}
+  return APICall(url, param, data, method, addAccessToken);
+ }
+
+ export async function deleteCreditCard(passData) {
+
+  let url = "delete_credit_card";
+  let param = "";
+  let data =  passData;
+  let method = "POST";
+  let addAccessToken = true;
+  return APICall(url, param, data, method, addAccessToken);
+ }
+
+ export async function deleteBankAccount(passData) {
+
+  let url = "delete_bank_account";
+  let param = "";
+  let data =  passData;
+  let method = "POST";
+  let addAccessToken = true;
+  return APICall(url, param, data, method, addAccessToken);
+ }
+
+ export async function setDefaultPayment(passData) {
+
+  let url = "set_default_payment";
+  let param = "";
+  let data =  passData;
+  let method = "POST";
+  let addAccessToken = true;
+  return APICall(url, param, data, method, addAccessToken);
+ }

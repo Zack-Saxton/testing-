@@ -55,12 +55,12 @@ export default function LoanDocumentTable(userLoanDocumentData) {
                   {Moment(row.date_uploaded).format("MM/DD/YYYY")}
                 </TableCell>
                 <TableCell className={classes.tableHeadRow}>
-                  <PrintIcon style={{ color: "blue", cursor: "pointer" }}
+                  <PrintIcon style={{ color: "#104eb3", cursor: "pointer" }}
                     onClick={() =>
                       printDoc(row.downloadProp.file_id, row.downloadProp.name)
                     }
                   />{" "}
-                  <GetAppIcon style={{ color: "blue",  cursor: "pointer" }}
+                  <GetAppIcon style={{ color: "#104eb3",  cursor: "pointer" }}
                     onClick={() =>
                       downloadDoc(
                         row.downloadProp.file_id,

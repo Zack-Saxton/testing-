@@ -64,7 +64,104 @@
     
 }
 .CMOHeading{
-    font-size: 1.64rem !important;
+    font-size: 1.563rem !important;
     line-height: 110% !important;
     margin: .82rem 0 .656rem 0 !important;
 }
+
+#selectAmountWrap{
+    border-radius: 4px !important;
+}
+
+
+#oneLastStepWrap{
+    border-radius: 4px !important;
+}
+
+#oneLastStepWrap div:nth-child(1){
+    border-radius: 4px 4px 0px 0px !important;
+}
+
+#activeDutyWrap{
+    border-radius: 4px !important;
+}
+
+#activeDutyWrap div:nth-child(1){
+    border-radius: 4px 4px 0px 0px !important;
+}
+
+
+
+#selectActiveDuty div label{
+    font-size: 0.968rem !important;
+}
+
+#selectActiveDuty div div:nth-child(2) {
+    padding-bottom: 6px !important;
+}
+
+
+#activeDutyRankWrap div label{
+    font-size: 0.968rem !important;
+}
+
+#activeDutyRankWrap div div:nth-child(2) {
+    padding-bottom: 6px !important;
+}
+
+
+#maritalStatusWrap{
+    border-radius: 4px !important;
+}
+
+#maritalStatusWrap div:nth-child(1){
+    border-radius: 4px 4px 0px 0px !important;
+}
+
+
+
+#selectMaritalStatus div label{
+    font-size: 0.968rem !important;
+}
+
+#selectMaritalStatus div div div:nth-child(1) {
+    padding-bottom: 15px !important;
+}
+
+
+#spouseAddressWrap-label{
+    font-size: 0.968rem !important;
+}
+
+#spouseAddressWrap {
+    padding-bottom: 15px !important;
+}
+
+#zip-label{
+    font-size: 0.968rem !important;
+}
+
+#zip {
+    padding-bottom: 15px !important;
+}
+
+#cityWrap-label{
+    font-size: 0.968rem !important;
+}
+
+#cityWrap {
+    padding-bottom: 15px !important;
+}
+
+#stateWrap-label{
+    font-size: 0.968rem !important;
+}
+
+#stateWrap {
+    padding-bottom: 15px !important;
+}
+
+
+
+
+

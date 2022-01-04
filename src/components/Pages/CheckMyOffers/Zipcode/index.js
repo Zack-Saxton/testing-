@@ -131,14 +131,12 @@ function Zipcode() {
 											<ButtonPrimary
 												type="submit"
 												data-testid="zipcodeCntuButton"
-												stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black","fontSize":"1rem"}'
+												stylebutton='{"background": "#FFBC23", "color": "black","fontSize":"0.938rem", "padding": "0px 30px"}'
 												disabled={
 													Boolean(formik.errors.zip) || formik.values.zip === ""
 												}
 											>
-												<Typography align="center" className="textCSS " style={{fontSize:'1rem'}}>
 													Continue
-												</Typography>
 											</ButtonPrimary>
 										</Grid>
 									</Grid>

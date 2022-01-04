@@ -7,6 +7,8 @@ import DocumentUpload from "./DocumentUpload";
 import APICall from "../../../App/APIcall";
 import { toast } from "react-toastify";
 
+
+
 //styling part
 const useStyles = makeStyles(() => ({
 	content_grid: {
@@ -75,7 +77,7 @@ export default function IncomeVerification(props) {
 
 			<Grid className={classes.content_grid}></Grid>
 			<Grid className={classes.content_grid}>
-				<DocumentUpload classes={classes} docType={"income information"} handle={handleUpload}/>
+				<DocumentUpload classes={classes} docType={"income information"} handle={handleUpload} setLoadingFlag= {props.setLoadingFlag}/>
 			</Grid>
 			<div className={props.classes.actionsContainer}>
 				<div className={props.classes.button_div}>
@@ -94,6 +96,7 @@ export default function IncomeVerification(props) {
 						stylebutton='{"margin-right": "10px", "color":"" }'
 						onClick={async () => {
 							let data = {};
+							props.setLoadingFlag(true)
 
 							// API call
 							let res = await APICall(
@@ -106,7 +109,6 @@ export default function IncomeVerification(props) {
 							//To check all the steps are completed or not
 							if (
 								res?.data?.data?.email === true &&
-								res?.data?.data?.phone_verification === true &&
 								res?.data?.data?.financial_information === true &&
 								res?.data?.data?.id_document === true &&
 								res?.data?.data?.id_questions === true &&
@@ -115,10 +117,12 @@ export default function IncomeVerification(props) {
 								res?.data?.data?.bank_account_verification === true &&
 								res?.data?.data?.income_verification === true
 							) {
+								props.setLoadingFlag(false)
 								history.push({
 									pathname: "/customers/receiveYourMoney",
 								  });
 							} else {
+								props.setLoadingFlag(false)
 								alert("please finish all the steps");
 							}
 						}}

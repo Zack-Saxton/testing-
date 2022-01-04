@@ -54,7 +54,7 @@ function NoOffersAvailable(props) {
                             </Grid>
                             </Grid>
                             <Grid item xs={12}  container justifyContent="center" alignItems="center">
-                                <Grid item xs={11} sm={10} md={6} lg={6} xl={6} className=' row' container justifyContent="center" alignItems="center">
+                                <Grid item xs={11} sm={10} md={6} lg={7} xl={7} className=' row' container justifyContent="center" alignItems="center">
                                     <Typography variant="h6" style={{ align:"center",justify:"center",alignItems:"center",textAlign:"justify"}} className="lessBorrowCSS smalTextImgNoOff textWhite">
                                         Unfortunately, we could not provide an offer for you at this time. However, you may reapply in 30 days if you feel that your circumstances have changed. Feel free to read our blog articles to understand how you can increase your credit score.
                                     </Typography>
@@ -63,12 +63,12 @@ function NoOffersAvailable(props) {
                             <Grid item xs={12}  container justifyContent="center" alignItems="center">
                                 <Grid item xs={11} sm={10} md={6} lg={6} xl={6} className='bottomSpace ' container justifyContent="center" alignItems="center">
                                     <Grid item xs={7} sm={6} md={4} lg={4} xl={4} className='alignButton paddingButton buttonStart' container justifyContent="center" alignItems="flex-start">
-                                    <ButtonSecondary stylebutton='{"background": "", "color":"", "fontSize": "" }'  onClick={handleBlog}>
+                                    <ButtonSecondary stylebutton='{"background": "", "color":"", "fontSize": "0.938rem", "padding": "5px 30px" }'  onClick={handleBlog}>
                                             Blog
                                         </ButtonSecondary>
                                     </Grid>
                                     <Grid item xs={7} sm={6} md={4} lg={4} xl={4} className='alignButton paddingButton buttonEnd' container justifyContent="center" alignItems="center">
-                                        <ButtonPrimary stylebutton='{"background": "", "color":"", "fontSize": "" }' onClick={handleHome}>
+                                        <ButtonPrimary stylebutton='{"background": "", "color":"", "fontSize": "0.938rem", "padding": "5px 30px"}' onClick={handleHome}>
                                             Back to Home
                                         </ButtonPrimary>
                                     </Grid>

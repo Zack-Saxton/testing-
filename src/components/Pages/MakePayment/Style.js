@@ -10,9 +10,7 @@ const useStylesMakePayment = makeStyles((theme) => ({
     heading: {
       color: "#fff",
       fontWeight: "400",
-      fontSize: "1.64rem",
-      paddingLeft:"7px",
-      paddingBottom:"25px"
+      fontSize: "1.563rem",
     },
     table: {
       minWidth: 650,
@@ -21,8 +19,8 @@ const useStylesMakePayment = makeStyles((theme) => ({
     },
     tableHead: {
       color: "#171717!important",
-      fontWeight: "600",
-      fontSize: "1rem",
+      fontWeight: "700",
+      fontSize: "0.938rem",
     },
     tableHeadRow: {
       color: "#171717!important",
@@ -30,13 +28,13 @@ const useStylesMakePayment = makeStyles((theme) => ({
     },
     cardHeading: {
       color: "#171717!important",
-      fontSize: "18px",
-      fontWeight: "600",
+      fontSize: "1.125rem",
+      fontWeight: "400",
     },
     autoPayLink: {
       fontSize: "15px",
       textDecoration: "none",
-      color: "blue",
+      color: "#0F4EB3",
     },
     autoPayContent: {
       fontSize: "15px",

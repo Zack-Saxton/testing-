@@ -13,7 +13,7 @@ const useStylesLoanDocument = makeStyles((theme) => ({
   heading: {
     color: "#fff",
     fontWeight: "400",
-    fontSize: "1.64rem",
+    fontSize: "1.563rem",
   },
 
   tableHead: {

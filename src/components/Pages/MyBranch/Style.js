@@ -14,18 +14,20 @@ const useStylesMyBranch = makeStyles((theme) => ({
   heading: {
     color: "#fff",
     fontWeight: "400",
-    fontSize: "1.64rem",
+    fontSize: "1.563rem",
   },
   branchDetailGrid: {
     textAlign: "initial",
   },
   branchDetailHeading: {
-    color: "black",
+    color: "#171717",
     lineHeight: 0,
+    fontSize: "1.125rem"
   },
   branchDetailInput: {
     lineHeight: 1,
-    fontSize: "13px",
+    fontSize: "0.938rem",
+    color: "#595959"
   },
   dialogPaper: {
     width: "100%",

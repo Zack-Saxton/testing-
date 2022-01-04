@@ -1,0 +1,19 @@
+#rentOrMortage-label{
+    font-size: 0.968rem !important;
+}
+
+#rentOrMortage{
+    padding-bottom: 15px !important;
+}
+
+#ownOrRentWrap{
+    border-radius: 4px !important;
+}
+
+#ownOrRentWrap .mt-0{
+    border-radius: 4px 4px 0px 0px !important;
+}
+
+#ownOrRentBoxOne,#ownOrRentBoxTwo,#ownOrRentBoxThree,#ownOrRentBoxFour,#ownOrRentBoxFive{
+    padding: 2px 0px !important;
+}

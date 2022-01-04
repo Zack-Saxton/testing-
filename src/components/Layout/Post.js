@@ -13,23 +13,26 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import Typography from "@material-ui/core/Typography";
 import { toast } from "react-toastify";
+import Cookies from "js-cookie";
+import LogoutController from "../Controllers/LogoutController"
+import { encryptAES, decryptAES } from "../lib/Crypto"
 
 const Post = ({ children }) => {
 	const history = useHistory();
 	const expiryMinute = process.env.REACT_APP_SESSION_EXPIRY_MINUTES;
-	const tokenString = localStorage.getItem("token");
+	const tokenString = Cookies.get("token") ? Cookies.get("token") : '{ }';
 	const userToken = JSON.parse(tokenString);
-	var min = expiryMinute; 
+	var min = expiryMinute;
 	var actualSetupTime = userToken?.setupTime ?? 0;
 	var nowTime = new Date().getTime();
-	const [openPopUp, setOpenPopUp] = useState(false);
+	const [openPopUp, setOpenPopUp] = useState(false);				
 
 	const handleClosePopUp = () => {
 		setOpenPopUp(false);
 	};
 
 	const backgroundLogin = async () => {
-		const cred = JSON.parse(localStorage.getItem("cred"));
+		const cred = JSON.parse(Cookies.get("cred") ? decryptAES(Cookies.get("cred")) : "{ }");
 		var now = new Date().getTime();
 		actualSetupTime = now;
 		if (!cred) {
@@ -42,7 +45,7 @@ const Post = ({ children }) => {
 			if (retVal?.data?.data?.user && retVal?.data?.data?.userFound === true) {
 				// On login success storing the needed data in the local storage
 				let nowTimeStamp = new Date().getTime();
-				localStorage.setItem(
+				Cookies.set(
 					"token",
 					JSON.stringify({
 						isLoggedIn: true,
@@ -53,16 +56,16 @@ const Post = ({ children }) => {
 							retVal?.data?.data?.user?.attributes?.sor_data?.applicant_guid,
 					})
 				);
-				localStorage.setItem(
+				Cookies.set(
 					"cred",
-					JSON.stringify({ email: cred.email, password: cred.password })
+					encryptAES(JSON.stringify({ email: cred.email, password: cred.password }))
 				);
 				actualSetupTime = now;
 			} else if (
 				retVal?.data?.data?.result === "error" ||
 				retVal?.data?.data?.hasError === true
 			) {
-				localStorage.setItem(
+				Cookies.set(
 					"token",
 					JSON.stringify({
 						isLoggedIn: false,
@@ -71,9 +74,9 @@ const Post = ({ children }) => {
 						applicantGuid: "",
 					})
 				);
-				localStorage.setItem(
+				Cookies.set(
 					"cred",
-					JSON.stringify({ email: "", password: "" })
+					encryptAES(JSON.stringify({ email: "", password: "" }))
 				);
 				history.push({
 					pathname: "/login",
@@ -94,16 +97,8 @@ const Post = ({ children }) => {
 	};
 
 	const handleOnIdleLogout = (event) => {
-		let userToken = { isLoggedIn: false };
-        localStorage.setItem("token", JSON.stringify(userToken));
-        localStorage.setItem("cred", JSON.stringify({email: "", password: "" }));
-        localStorage.setItem("branchname", JSON.stringify({ }));
-        localStorage.setItem("branchopenstatus", JSON.stringify({ }));
-        localStorage.setItem("login_date", JSON.stringify({ }));
-        localStorage.setItem("user", JSON.stringify({ }));
-        localStorage.setItem("branchphone", JSON.stringify({ }));
-        localStorage.setItem("profile_picture", JSON.stringify({ }));
-        localStorage.setItem("redirec", JSON.stringify({ to: "/select-amount" }));
+		LogoutController();
+        Cookies.set("redirec", JSON.stringify({ to: "/select-amount" }));
 		history.push({
 			pathname: "/login",
 		});
@@ -157,7 +152,7 @@ const Post = ({ children }) => {
 					</DialogTitle>
 					<DialogContent dividers>
 						<Typography align="justify" gutterBottom>
-							You have been ideal for a while, click ok to continue, else you
+							You have been idle for a while, click ok to continue, else you
 							will be logged out of the application!
 						</Typography>
 						<br />

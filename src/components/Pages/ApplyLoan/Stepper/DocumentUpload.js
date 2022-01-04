@@ -36,6 +36,7 @@ export default function DocumentUpload(props) {
         progress: undefined,
       });
     }
+      props.setLoadingFlag(false)
       setLoader(false)
     } else {
       var filePath = selectedFile.value;
@@ -58,6 +59,7 @@ export default function DocumentUpload(props) {
           }
         );
         }
+        props.setLoadingFlag(false)
       setLoader(false)
 
         selectedFile.value = "";
@@ -72,6 +74,7 @@ export default function DocumentUpload(props) {
             let fileName = selectedFile.files[0].name;
             let fileType = selectedFile.files[0].type;
             let response = await uploadDocument(fileData, fileName, fileType, props.docType)
+            props.setLoadingFlag(response ? false : true)
             setLoader(response ? false : true)
             props.handle(response);
           };
@@ -91,6 +94,7 @@ export default function DocumentUpload(props) {
           progress: undefined,
         });
       }
+      props.setLoadingFlag(false)
       setLoader(false)
 
       }
@@ -115,14 +119,15 @@ export default function DocumentUpload(props) {
           component="span"
           disabled={loader}
           onClick={() => {
+            props.setLoadingFlag(true)
             setLoader(true)
             uploadDoc()
           }
            }
           id="button_stepper_prev"
-          stylebutton='{"margin-right": "10px", "color":"" }'
+          stylebutton='{"padding":"0px 30px", "fontFamily":"Muli,sans-serif" }'
         >
-          Upload a document
+          Upload
         </ButtonPrimary>
       </Grid>
     </Grid>

@@ -36,11 +36,11 @@ const classes = useStylesMyBranch();
         justifyContent={"center"}
         style={{
           marginTop: "-150px",
-          paddingRight: "30px",
-          paddingLeft: "30px",
+          paddingRight: "23px",
+          paddingLeft: "23px",
         }}
       >
-        <Grid container spacing={3}>
+        <Grid container style={{ paddingBottom: "10px" }} >
           <Grid item xs={12}>
             <Typography variant="h3" className={classes.heading}>
               <NavLink
@@ -65,10 +65,9 @@ const classes = useStylesMyBranch();
 
         <Grid
           container
-          spacing={1}
-          style={{ paddingTop: "20px", paddingBottom: "20px" }}
+          style={{ paddingTop: "10px", paddingBottom: "10px", marginBottom: "45px" }}
         >
-          <Grid item xs={12} sm={5}>
+          <Grid id="branchDiv" item xs={12} sm={5} >
             {myBranchData ? (
               <BranchDetail MyBranchDetail={myBranchData} />
             ) : (

@@ -12,7 +12,7 @@ export default function BranchMap(MyBranchDetail) {
 
 //View part 
   return (
-    <div>
+    <div id="branchMapWrap">
       {branchDetail.MyBranchDetail === null ? (
         <Paper className={classes.paper}>
           {" "}

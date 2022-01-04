@@ -9,14 +9,16 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import MoreIcon from "@material-ui/icons/MoreVert";
+import Cookies from "js-cookie";
+import { encryptAES } from "../../lib/Crypto"
 
 const NormalHeader = () => {
   const classes = useStyles();
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(false);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const history = useHistory();
-  const tokenString = localStorage.getItem("token");
-  const userToken = JSON.parse(tokenString);
+  let cart = Cookies.get("token") ? Cookies.get("token") : '{ }';
+  const userToken = JSON.parse(cart);
 
 //Menu open & close
   const handleMobileMenuOpen = (event) => {
@@ -29,8 +31,8 @@ const NormalHeader = () => {
 
   const logoutUser = () => {
     let tokenData = { isLoggedIn: false };
-    localStorage.setItem("token", JSON.stringify(tokenData));
-    localStorage.setItem("cred", JSON.stringify({email: "", password: "" }));
+    Cookies.set("token", JSON.stringify(tokenData));
+    Cookies.set("cred", encryptAES(JSON.stringify({email: "", password: "" })));
 
     history.push({
       pathname: "/login",
@@ -72,24 +74,6 @@ const NormalHeader = () => {
           </a>
         </Typography>
       </MenuItem>
-      <MenuItem>
-        <NavLink to="/select-amount" className={classes.navLink}>
-          <Typography className={classes.headerAlign}>
-            Check My Offers
-          </Typography>
-        </NavLink>
-      </MenuItem>
-      <MenuItem>
-        {userToken?.isLoggedIn ? (
-          <Typography className={classes.subtitle} onClick={logoutUser}>
-            Logout
-          </Typography>
-        ) : (
-          <NavLink to="/login" style={{ textDecoration: "none" }}>
-            <Typography className={classes.subtitle}>Login</Typography>
-          </NavLink>
-        )}
-      </MenuItem>
     </Menu>
   );
 
@@ -124,22 +108,7 @@ const NormalHeader = () => {
               >
                 Branch Locator
               </a>
-            </Typography>
-            <NavLink to="/select-amount" style={{ textDecoration: "none" }}>
-              <Typography className={classes.subtitle}>
-                Check My Offers
-              </Typography>
-            </NavLink>
-            {userToken?.isLoggedIn ? (
-              <Typography className={classes.subtitle} onClick={logoutUser}>
-                Logout
-              </Typography>
-            ) : (
-              <NavLink to="/login" style={{ textDecoration: "none" }}>
-                <Typography className={classes.subtitle}>Login</Typography>
-              </NavLink>
-            )}
-           
+            </Typography> 
           </div>
           <div className={classes.sectionMobile}>
             <IconButton

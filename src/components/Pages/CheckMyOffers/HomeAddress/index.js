@@ -15,6 +15,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "../CheckMyOffer.css";
+import "../HomeAddress/HomeAdress.css";
 
 //yup validation schema
 const validationSchema = yup.object({
@@ -161,7 +162,7 @@ function HomeAddress() {
 							justifyContent="center"
 							alignItems="center"
 						>
-							<Paper className="cardWOPadding" style={{ justify: "center", alignItems: "center" }}>
+							<Paper id="enterZipWrap" className="cardWOPadding" style={{ justify: "center", alignItems: "center" }}>
 								<div className="progress mt-0">
 									<div
 										id="determinate"
@@ -330,13 +331,11 @@ function HomeAddress() {
 										>
 											<ButtonPrimary
 												type="submit"
-												stylebutton='{"fontSize":"1rem","background": "#FFBC23", "height": "inherit", "color": "black"}'
+												stylebutton='{"fontSize":"0.938rem","background": "#FFBC23", "padding": "0px 30px", "color": "black"}'
 												disabled={!validZip}
 												data-test-id="homeAddressCntBtn"
 											>
-												<Typography align="center" className="textCSS ">
 													Continue
-												</Typography>
 											</ButtonPrimary>
 										</Grid>
 									</Grid>

@@ -1,5 +1,7 @@
 import APICall from "../lib/AxiosLib";
 import { toast } from "react-toastify";
+import LogoutController from "../Controllers/LogoutController";
+import Cookies from "js-cookie";
 
 
 let statusStrLink = {
@@ -31,8 +33,7 @@ export default async function PartnerSignup(
   password,
   confirm_password
 ) {
-  //  const history = useHistory();
-
+ 
   let url = "partner_signup";
   let param = "";
   let data = {
@@ -60,7 +61,8 @@ export default async function PartnerSignup(
     ? toast.success(
         partnerSignupMethod?.data?.data?.statusText
           ? partnerSignupMethod.data.data.statusText
-          : "Signedup Successfully",
+          : partnerSignupMethod?.data?.data?.applicant?.processing?.status === "confirming_info"
+           ? "Successfully Registered, Please confirm your information" : "Successfully Registered",
         {
           position: "bottom-left",
           autoClose: 10000,
@@ -71,17 +73,9 @@ export default async function PartnerSignup(
           progress: undefined,
           onClose: () => {
             var now = new Date().getTime();
-            let userToken = { isLoggedIn: false };
-            localStorage.setItem("token", JSON.stringify(userToken));
-            localStorage.setItem("cred", JSON.stringify({email: "", password: "" }));
-            localStorage.setItem("branchname", JSON.stringify({ }));
-            localStorage.setItem("branchopenstatus", JSON.stringify({ }));
-            localStorage.setItem("login_date", JSON.stringify({ }));
-            localStorage.setItem("user", JSON.stringify({ }));
-            localStorage.setItem("branchphone", JSON.stringify({ }));
-            localStorage.setItem("profile_picture", JSON.stringify({ }));
-            localStorage.setItem("redirec", JSON.stringify({ to: "/select-amount" }));
-            localStorage.setItem(
+            LogoutController();
+            Cookies.set("redirec", JSON.stringify({ to: "/select-amount" }));
+            Cookies.set(
               "token",
               JSON.stringify({
                 isLoggedIn: true,
@@ -91,7 +85,7 @@ export default async function PartnerSignup(
                 setupTime: now,
               })
             );
-            localStorage.setItem("email", partnerSignupMethod.data.data.applicant.contact.email);
+            Cookies.set("email", partnerSignupMethod.data.data.applicant.contact.email);
             history.push({
 
               pathname: statusStrLink[partnerSignupMethod.data.data.applicant.processing.status],
@@ -215,13 +209,12 @@ active_duty_rank :  dataConfirmInfo.activeDutyRank,
     method,
     addAccessToken
   );
-
  
   PartnerConfirmationAPI.data.status === 200
   ? toast.success(
       PartnerConfirmationAPI?.data?.data?.statusText
         ? PartnerConfirmationAPI.data.data.statusText
-        : "Signedup Successfully",
+        : "Successfully registered, please confirm your information",
       {
         position: "bottom-left",
         autoClose: 10000,

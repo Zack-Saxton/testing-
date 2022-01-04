@@ -1,10 +1,12 @@
+import Cookies from "js-cookie";
 import APICall from "../lib/AxiosLib";
 
-export default async function usrBasicInformation() {
-  const email = localStorage.getItem("email");
+export default async function UserImageInformation() {
+
+   const email = Cookies.get("email");
   let url = "get_profile_picture";
   let param = "";
-  const profile_picture = localStorage.getItem("profile_picture");
+  const profile_picture = Cookies.get("profile_picture");
   let data = {
     email: email,
     user: {
@@ -15,5 +17,13 @@ export default async function usrBasicInformation() {
   };
   let method = "POST";
   let addAccessToken = true;
-  return APICall(url, param, data, method, addAccessToken);
+  let res = await APICall(url, param, data, method, addAccessToken);
+ 
+  if(Cookies.get("profile_picture_url")){
+    res.profile_picture_url =  Cookies.get("profile_picture_url");
+  }
+  else {
+    res.profile_picture_url = res?.data?.data?.profile_picture_url;
+  }
+  return res.profile_picture_url;
 }
