@@ -14,7 +14,14 @@ box-sizing: content-box;
     background-repeat: no-repeat;
     background-size: cover;
   }
+  .Mui-focused{
+    background-color:transparent !important;
+    color: white;
+  }
 
+  #citizenship, #employementStatus, #marriedStatus{
+    background:transparent !important;
+  }
  
 /* .mainDiv{
     background-color: #124CA8;
@@ -114,3 +121,35 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error{
     text-decoration: none;
 }
 
+#annualhousehold, #personalIncome, #spouseState , #spouseCity, #spouseZip{
+    padding-bottom: 15px !important;
+}
+
+#annualhousehold-label, #personalIncome-label, #spouseState-label, #spouseCity-label, #spouseZip-label {
+    font-size: 0.938rem !important;
+    padding-bottom:10px !important ;
+}
+
+#employementStatusWrap div label{
+    font-size: 0.968rem !important;
+}
+
+#employementStatusWrap div div div:nth-child(1) {
+    padding-bottom: 15px !important;
+}
+
+#citizenshipWrap div label{
+    font-size: 0.968rem !important;
+}
+
+#citizenshipWrap div div div:nth-child(1) {
+    padding-bottom: 15px !important;
+}
+
+#marriedStatusWrap div label{
+    font-size: 0.968rem !important;
+}
+
+#marriedStatusWrap div div div:nth-child(1) {
+    padding-bottom: 15px !important;
+}

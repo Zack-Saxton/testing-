@@ -59,7 +59,7 @@ function CitizenshipStatus() {
                             justifyContent="center"
                             alignItems="center"
                         >
-                            <Paper className="cardWOPadding" style={{justify:"center",alignItems:"center",width:"inherit",marginBottom:"10%",marginTop:"10%"}}>
+                            <Paper id="citizenshipWrap" className="cardWOPadding" style={{justify:"center",alignItems:"center",width:"inherit",marginBottom:"10%",marginTop:"10%"}}>
                                 <div className="progress mt-0">
                                     <div
                                         id="determinate"
@@ -163,11 +163,9 @@ function CitizenshipStatus() {
                                             disabled={
                                                 citizenship === "" || citizenship === "Foreign Resident"
                                             }
-                                            stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black","fontSize":"1rem"}'
+                                            stylebutton='{"background": "#FFBC23", "color": "black","fontSize":"0.938rem" , "padding": "0px 30px"}'
                                         >
-                                            <Typography align="center" className="textCSS ">
                                                 Continue
-                                            </Typography>
                                         </ButtonPrimary>
                                     </Grid>
                                 </Grid>

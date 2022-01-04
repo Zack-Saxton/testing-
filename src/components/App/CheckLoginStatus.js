@@ -1,8 +1,10 @@
 import { useHistory } from "react-router-dom";
+import Cookies from "js-cookie"
+import LogoutController from "../Controllers/LogoutController"
 // check the login status 
 const CheckLoginStatus = () => {
   const history = useHistory();
-  const tokenString = localStorage.getItem('token');
+  const tokenString = Cookies.get("token") ? Cookies.get("token") : '{ }';
   const userToken = JSON.parse(tokenString);
   var nowTime = new Date().getTime();
   var actualSetupTime = userToken?.setupTime ?? '';
@@ -11,15 +13,7 @@ const CheckLoginStatus = () => {
 
   // check whether the userToken available
   if (!userToken?.isLoggedIn || (nowTime - actualSetupTime) > min * 60 * 1000) {
-    let userToken = { isLoggedIn: false };
-    localStorage.setItem("token", JSON.stringify(userToken));
-    localStorage.setItem("cred", JSON.stringify({email: "", password: "" }));
-    localStorage.setItem("branchname", JSON.stringify({ }));
-    localStorage.setItem("branchopenstatus", JSON.stringify({ }));
-    localStorage.setItem("login_date", JSON.stringify({ }));
-    localStorage.setItem("user", JSON.stringify({ }));
-    localStorage.setItem("branchphone", JSON.stringify({ }));
-    localStorage.setItem("profile_picture", JSON.stringify({ }));
+    LogoutController();
     history.push({
       pathname: "/login",
       state: { redirect: window.location.pathname }

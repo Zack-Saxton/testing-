@@ -14,6 +14,7 @@ import ScrollToTopOnMount from "../ScrollToTop";
 import { ButtonPrimary, DatePicker, EmailTextField, PhoneNumber, SocialSecurityNumber, TextField } from "../../../FormsUI";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import Cookies from "js-cookie"
 
 //Yup validation schema
 const validationSchema = yup.object({
@@ -113,7 +114,7 @@ function PersonalInfo() {
 
     //On submit functionality updating context values
     onSubmit: async (values) => {
-      const loginToken = JSON.parse(localStorage.getItem("token"));
+      const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : '{ }');
       setLoading(true);
       data.firstName = values.firstName.trim();
       data.lastName = values.lastName.trim();
@@ -299,6 +300,7 @@ function PersonalInfo() {
               alignItems="center"
             >
               <Paper
+              id="aboutYourselfWrap"
                 className="cardWOPadding"
                 style={{ justify: "center", alignItems: "center" }}
               >
@@ -453,6 +455,7 @@ function PersonalInfo() {
                       xs={12}
                       direction="row"
                       className="textBlock"
+                      id="tellUs"
                     >
 
                       {data.last4SSN ? <TextField
@@ -537,6 +540,7 @@ function PersonalInfo() {
                       md={8}
                       xs={12}
                       className="textBlock"
+                      id="phoneInput"
                     >
                       <PhoneNumber
                         name="phone"
@@ -590,12 +594,10 @@ function PersonalInfo() {
                       <ButtonPrimary
                         onClick={autoFocus}
                         type="submit"
-                        stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black","fontSize":"1rem"}'
+                        stylebutton='{"background": "#FFBC23", "color": "black","fontSize":"0.938rem", "padding":"0px 30px"}'
                         disabled={appliedInLast30Days || error || loading}
                       >
-                        <Typography align="center" className="textCSS ">
                           Continue
-                        </Typography>
                         <i
                           className="fa fa-refresh fa-spin customSpinner"
                           style={{

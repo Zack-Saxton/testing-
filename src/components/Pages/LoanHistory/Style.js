@@ -24,7 +24,9 @@ const useStylesLoanHistory = makeStyles((theme) => ({
       heading: {
         color: "#fff",
         fontWeight: "400",
-        fontSize: "1.64rem",
+        fontSize: "1.563rem",
+        margin:"0px",
+        lineHeight:"0"
       },
       cardLoanHistory: {
         padding: "10px",
@@ -35,11 +37,12 @@ const useStylesLoanHistory = makeStyles((theme) => ({
         fontSize: "18px",
       },
       cardAmountLoanHistory: {
-        fontSize: "20px",
+        fontSize: "1.563rem",
         marginTop: "10px",
       },
       cardApplyLoan: {
-        fontWeight: 600,
+        fontSize: "1.125rem",
+        fontWeight: 400,
         color: "#171717",
         margin: 0,
       },

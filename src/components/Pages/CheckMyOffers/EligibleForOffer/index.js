@@ -16,7 +16,7 @@ function EligibleForOffers(props) {
     //Handle button click redirecting to account overview page
     const handleRoute = async (e) =>{ 
         history.push({
-            pathname: "/customers/accountoverview",
+            pathname: "/customers/selectOffer",
         });
       }
 
@@ -42,7 +42,7 @@ function EligibleForOffers(props) {
                             <br />
                             <Grid item xs={12}  container justifyContent="center" alignItems="center">
                             <Grid item xs={11} sm={10} md={6} lg={6} xl={6} className=' row' container justifyContent="center" alignItems="center">
-                                <Typography variant="h3" style={{align:"center",justify:"center",alignItems:"center"}} className="margin2p textWhite mainTextMsg">
+                                <Typography id="CongratsTxt" variant="h3" style={{align:"center",justify:"center",alignItems:"center"}} className="margin2p textWhite mainTextMsg">
 									Congratulations!
 								</Typography>
                             </Grid>
@@ -54,30 +54,30 @@ function EligibleForOffers(props) {
                                          justify :"center",
                                          alignItems :"center"
                                     }}
-                                        className=" textWhite smalTextImg"
+                                        className=" textWhite smalTextImg smalTextImgNoOff"
                                     >
                                         You are eligible for a loan offer*. <br />
-Complete your application process and receive your money as soon as the same day**
+                                        Complete your application process and receive your money as soon as the same day**
                                     </Typography>
                                 </Grid>
                             </Grid>
                             <Grid xs={12} item container justifyContent="center" alignItems="center">
                                 <Grid item xs={11} sm={10} md={6} lg={6} xl={6} className='bottomSpace ' container justifyContent="center" alignItems="center">
                                 <Grid item xs={7} sm={6} md={3} lg={3} xl={3} className='  buttonWithSmallMargin' container justifyContent="center" alignItems="center">
-                                    <ButtonPrimary stylebutton='{"background": "", "color":"", "fontSize": "" }' onClick={handleRoute}>
+                                    <ButtonPrimary stylebutton='{"background": "", "color":"", "fontSize": "0.938rem","padding":"0px 30px"}' onClick={handleRoute}>
                                         View Offers
                                     </ButtonPrimary>
                                 </Grid>
                                     <Typography
                                         variant="h6"  
-                                        className=" textWhite minText"
+                                        className=" textWhite minText CongratsSmallTxt"
                                     > 
                                     *Loan funding and disbursement is conditioned upon our satisfactory review of any documents and other information that we require from you to verify your loan applications and/or your identity. This loan may not be consummated if you obtain another loan from us prior to our disbursing funds for this loan.
                                     </Typography>
                                     <br />
                                     <Typography
                                         variant="h6"
-                                        className=" textWhite minText"
+                                        className=" textWhite minText CongratsSmallTxt"
                                     >
                                         **Approval of a loan and the loan disbursement process may take longer if additional documentation is required. Loan terms may vary based on credit determination and state law. Completion of a loan application will result in a hard credit pull.
                                     </Typography>        

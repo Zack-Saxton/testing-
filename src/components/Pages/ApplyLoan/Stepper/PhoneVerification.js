@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ButtonWithIcon, PhoneNumber, ButtonPrimary, ButtonSecondary, TextField } from "../../../FormsUI";
+import { ButtonWithIcon, PhoneNumber, ButtonPrimary,ButtonSecondary, TextField } from "../../../FormsUI";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
@@ -12,6 +12,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
+import Cookies from "js-cookie";
 
 //YUP validation schema
 const validationSchema = yup.object({
@@ -96,7 +97,7 @@ export default function PhoneVerification(props) {
 
 
 	const skipPhoneVerification = (event) => {
-		localStorage.setItem("skip", JSON.stringify({ phone: true }));
+		Cookies.set("skip", JSON.stringify({ phone: true }));	
 		props.next()
 	};
 
@@ -209,13 +210,13 @@ export default function PhoneVerification(props) {
 			</form>
 			<br />
 			<div>
-
-				<Typography onClick={() => {
-					setOpen(true);
-				}} className={props.classes.linkStyle}>
+				
+					<Typography onClick={() => {
+						setOpen(true);
+						}} className={props.classes.linkStyle}>
 					I do not have access to this phone
-				</Typography>
-
+					</Typography>
+				
 			</div>
 			<div className={props.classes.actionsContainer}>
 				<div className={props.classes.button_div} >
@@ -250,32 +251,32 @@ export default function PhoneVerification(props) {
 					Confirmation
 				</DialogTitle>
 				<DialogContent dividers>
-					<Typography align="justify" style={{ fontSize: "15px" }} gutterBottom>
-						If you are currently unable to access the phone you provided, click "Verify phone later" to proceed with the Remainder of the Verification process. Please note that we will need to manually verify your phone number by calling and speaking with you directly.
+					<Typography align="justify" style={{fontSize: "15px"}} gutterBottom>
+						If you are currently unable to access the phone you provided, click "Verify phone later" to proceed with the Remainder of the Verification process. Please note that we will need to manually verify your phone number by calling and speaking with you directly. 
 					</Typography>
 				</DialogContent>
 				<DialogActions className="modalAction">
-					<br />
+				<br />
 
-					<Grid container >
+				<Grid container >
 
-						<Grid item lg={5} >
-							<ButtonSecondary
-								stylebutton='{"background": "", "color": "black", "border-radius": "50px"}'
-								onClick={handleClose}
-							>
-								<Typography align="center">Return To Selection</Typography>
-							</ButtonSecondary>
-						</Grid>
-						<Grid item lg={5} >
-							<ButtonPrimary
-								stylebutton='{"background": "#FFBC23", "color": "black", "border-radius": "50px"}'
-								onClick={skipPhoneVerification
-								}
-							>
-								<Typography align="center">Verify Phone Later</Typography>
-							</ButtonPrimary>
-						</Grid>
+					<Grid item lg={5} >
+					<ButtonSecondary
+						stylebutton='{"background": "", "color": "black", "border-radius": "50px"}'
+						onClick={handleClose}
+					>
+						<Typography align="center">Return To Selection</Typography>
+					</ButtonSecondary>
+					</Grid>
+					<Grid item lg={5} >
+					<ButtonPrimary
+						stylebutton='{"background": "#FFBC23", "color": "black", "border-radius": "50px"}'
+						onClick={skipPhoneVerification
+						}
+					>
+						<Typography align="center">Verify Phone Later</Typography>
+					</ButtonPrimary>
+					</Grid>
 					</Grid>
 					<br />
 				</DialogActions>

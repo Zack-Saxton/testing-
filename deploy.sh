@@ -64,7 +64,7 @@ case $env in
     dev_remote)
         echo "*** Deployment to development environment ***"
         # Initialise the variables
-        dev_remote_env ;;
+        dev_env ;;
     staging)
         echo "*** Deployment to Staging environment ***"
         # Initialise the variables
@@ -101,7 +101,7 @@ git fetch --all && git checkout $branch && git pull origin $branch
 latestCommit=$(git rev-parse --short HEAD)
 
 #Dockerise the environment
-imageName="marinerfinance/ops:${app}-${env}-${latestCommit}"
+imageName="fidelisrod/cacdev:${app}-${env}-${latestCommit}"
 docker build -f Dockerfile -t ${imageName} .
 echo  "****** Created New Image ****"
 echo $imageName;

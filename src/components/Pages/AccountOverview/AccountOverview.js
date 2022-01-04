@@ -13,6 +13,7 @@ import RecentPayments from "./RecentPayments";
 import "./Style.css";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import LimitedOffer from "./LimitedOffer"
+import Cookies from "js-cookie";
 
 export default function AccountOverview() {
   const classes = useStylesAccountOverview();
@@ -28,31 +29,39 @@ export default function AccountOverview() {
   }, []);
 
   //Load data
-  let offerData = accountDetails?.data?.data?.offerData;
-  let applicationsData = accountDetails?.data?.data?.applicants;
-  let applicantData = accountDetails?.data?.data?.applicant?.contact;
-  let status = accountDetails?.data?.status;
-  let activeLoansData = accountDetails?.data?.data?.activeLoans;
-  let recentPaymentData = accountDetails?.data?.data?.activeLoans;
+  let offerData = (accountDetails != null) ? accountDetails?.data?.data?.offerData : null;
+  let applicationsData = (accountDetails != null) ? accountDetails?.data?.data?.applicants : null;
+  let applicantData = (accountDetails != null) ? accountDetails?.data?.data?.applicant?.contact : null;
+  let status = (accountDetails != null) ? accountDetails?.data?.status : null;
+  let activeLoansData = (accountDetails != null) ? accountDetails?.data?.data?.activeLoans : null;
+  let recentPaymentData = (accountDetails != null) ? accountDetails?.data?.data?.activeLoans : null;
 
   if (Array.isArray(activeLoansData) && activeLoansData.length === 0) {
-    localStorage.setItem("hasActiveLoan", false);
+    Cookies.set("hasActiveLoan",false);
   } else {
-    localStorage.setItem("hasActiveLoan", true);
+    Cookies.set("hasActiveLoan",true);
   }
-
-  //View
+ Cookies.set("hasApplicationStatus",accountDetails?.data?.data?.applicant?.processing?.status)
+ 
   return (
     <div>
       <ScrollToTopOnMount />
       <CheckLoginStatus />
-      <Grid container justifyContent="center" style={{ marginTop: "-150px", paddingRight: "30px", paddingLeft: "30px",}}>
-        <Grid item xs={12} style={{ width: "100%" }} container direction="row">
+      <Grid
+        container
+        justifyContent="center"
+        style={{
+          marginTop: "-150px",
+          paddingRight: "23px",
+          paddingLeft: "23px",
+        }}
+      >
+
+        <Grid item xs={12} style={{ width: "100%", paddingBottom:"10px", }} container direction="row">
           <Typography variant="h5" className={classes.heading} data-testid="subtitle">
             Account Overview
           </Typography>
         </Grid>
-
         <LimitedOffer userOffers={offerData} />
 
         <Grid item xs={12} style={{ width: "100%", paddingTop: "30px" }} container direction="row">
@@ -60,19 +69,23 @@ export default function AccountOverview() {
             Summary of applications
           </Typography>
         </Grid>
-
         <RecentApplications userApplicationsData={applicationsData} UserAccountStatus={status} userApplicantData={applicantData} />
 
-        <Grid item xs={12} style={{ width: "100%" }} container direction="row">
-          <Typography variant="h5" className={classes.subheading} data-testid="subtitle">
+
+        <Grid item xs={12} style={{ width: "100%", paddingBottom:"10px", paddingTop:"10px" }} container direction="row">
+          <Typography style={{padding:"0"}} variant="h5" className={classes.subheading} data-testid="subtitle">
             Active Loan
           </Typography>
         </Grid>
-        
         <ActiveLoans userActiveLoanData={activeLoansData} />
 
-        <Grid item xs={12} style={{ width: "100%", padding: "5px", paddingTop: "20px", paddingBottom: "25px" }}>
-          <Paper className={classes.paper} style={{ height: "85%" }}>
+
+        <Grid
+          item
+          xs={12}
+          style={{ width: "100%", padding: "0px 0px 40px 0px"}}
+        >
+          <Paper id="recentPaymentsWrap" className={classes.paper} style={{ height: "85%" }}>
             <Grid container spacing={3}>
               <Grid item xs={12} sm={6}>
                 <Typography variant="h5" className={classes.activeLoanHeading} >
@@ -80,14 +93,18 @@ export default function AccountOverview() {
                 </Typography>
               </Grid>
               <Grid item xs={12} sm={6}>
-                <NavLink to="/customers/paymenthistory" style={{ textDecoration: "none" }}>
-                  <ButtonPrimary stylebutton='{"float": "right", "color":"" }'>
+                <NavLink
+                  to="/customers/paymenthistory"
+                  style={{ textDecoration: "none" }}
+                >
+                  <ButtonPrimary stylebutton='{"float": "right","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'>
                     Payment History
                   </ButtonPrimary>
                 </NavLink>
               </Grid>
             </Grid>
             <RecentPayments userRecentPaymentData={recentPaymentData} />
+
           </Paper>
         </Grid>
       </Grid>

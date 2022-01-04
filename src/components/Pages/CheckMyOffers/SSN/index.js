@@ -149,9 +149,14 @@ function SSN() {
 							style={{ width: "100%" }}
 						>
 							<Paper
+								id="oneLastStepWrap"
 								className="cardWOPadding"
 								justify="center"
 								alignitems="center"
+								style={{
+									opacity: loading ? 0.55 : 1,
+									pointerEvents: loading ? "none" : "initial"
+								  }}
 							>
 								<div className="progress mt-0">
 									<div id="determinate" className="det100  determinate " />
@@ -170,11 +175,13 @@ function SSN() {
 									align="center"
 									justify="center"
 									alignitems="center"
-									className="borrowCSS"
+									className="borrowCSSLP"
+									style={{margin:"0px"}}
 								>
 									One last step
 								</Typography>
 								<Grid
+									id="signDiv"
 									md={12}
 									className="blockDiv"
 									container item
@@ -210,7 +217,7 @@ function SSN() {
 										xs={12}
 										className="positionHead"
 									>
-										<p className="agreeTextHead" style={{ marginLeft: "8%" }}>Please acknowledge and sign our disclosures.</p>
+										<p className="agreeTextHead">Please acknowledge and sign our disclosures.</p>
 									</Grid>
 									<Grid
 										justifyContent="flex-start"
@@ -381,11 +388,9 @@ function SSN() {
 										<ButtonPrimary
 											disabled={loading ? loading : !(agree && agreeDelaware && agreeCalifornia && agreeNewMexico)}
 											onClick={handleOnClick}
-											stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black"}'
+											stylebutton='{"background": "#FFBC23", "fontSize": "0.938rem","color": "black", "padding": "0px 30px"}'
 										>
-											<Typography align="center" className="textCSS button">
 												Check My Offer
-											</Typography>
 											<i
 												className="fa fa-refresh fa-spin customSpinner"
 												style={{ marginRight: "10px", display: loading ? "block" : "none" }}

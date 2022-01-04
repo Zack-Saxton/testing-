@@ -10,6 +10,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import ScheduleCall from "./ScheduleCall";
 import ScheduleAppointment from "./ScheduleAppointment";
+import "../MyBranch/BranchInfo.css";
 
 //Table fields - working days
 function otherUsaState(day, monWedThur, tue, fri) {
@@ -39,6 +40,7 @@ export default function BranchDetail(MyBranchDetail) {
 
 //Branch details from API
   let branchDetail = MyBranchDetail != null ? MyBranchDetail : null;
+ 
 
 
 //Spliting statename
@@ -70,10 +72,10 @@ else{
 //View part
   return (
     <div>
-      <Paper className={classes.paper}>
+      <Paper id="branchNameBox" className={classes.paper}>
         {branchDetail?.MyBranchDetail?.result ? (
           <p>No branch information</p>
-        ) : branchDetail?.MyBranchDetail?.BranchName  ? (
+        ) : (branchDetail?.MyBranchDetail?.BranchName || branchDetail?.MyBranchDetail?.branchName) ? (
           <>
             <Grid className={classes.branchDetailGrid}>
               <h4 className={classes.branchDetailHeading}>Branch Name</h4>
@@ -92,7 +94,7 @@ else{
             <Grid className={classes.branchDetailGrid}>
               <h4 className={classes.branchDetailHeading}>Phone Number</h4>
               <p className={classes.branchDetailInput}>
-                <a href="tel:" style={{textDecoration: "none"}}> {formatPhoneNumber(branchDetail.MyBranchDetail.PhoneNumber)}</a>
+                <a id="phoneLink"href="tel:" style={{textDecoration: "none"}}> {formatPhoneNumber(branchDetail.MyBranchDetail.PhoneNumber)}</a>
               </p>
             </Grid>
 
@@ -101,7 +103,7 @@ else{
                 <Grid className={classes.branchDetailGrid}>
                   <h4 className={classes.branchDetailHeading}>Working Hours</h4>
                 </Grid>
-                <Table className={classes.table} aria-label="simple table">
+                <Table id="workingHoursTableWrap" className={classes.table} aria-label="simple table">
                   <TableHead>
                     <TableRow>
                       <TableCell>Day</TableCell>

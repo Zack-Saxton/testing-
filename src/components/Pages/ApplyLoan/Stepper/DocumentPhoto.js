@@ -6,6 +6,7 @@ import { getIframe } from "../../../Controllers/ApplyForLoanController"
 import { errorMessage } from "../../../../helpers/ErrorMessage";
 import APICall from '../../../App/APIcall';
 import { toast } from "react-toastify";
+import Cookies from "js-cookie"
 
 
 //Styling 
@@ -29,7 +30,7 @@ export default function DocumentPhoto(props) {
   const onMessageHandler = async (event) => {
     try {
         if (event.data.trace_id || event.data.request_id) {
-    const loginToken = JSON.parse(localStorage.getItem("token"));
+    const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : '{ }');
 
         const options = {
           method: 'POST',
@@ -49,7 +50,7 @@ export default function DocumentPhoto(props) {
         }, '*');
 
       } else if (event.data.idscanPayload) {
-    const loginToken = JSON.parse(localStorage.getItem("token"));
+    const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : '{ }');
 
         const options = {
           method: 'POST',
@@ -63,7 +64,6 @@ export default function DocumentPhoto(props) {
        await fetch('/idscan/save_response_before_cac', options)
       }
     } catch (errorAPI) {
-      console.log(errorAPI);
       toast.error("Error uploading document", {
         position: "bottom-left",
         autoClose: 1500,

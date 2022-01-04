@@ -16,11 +16,18 @@ import Paper from "@material-ui/core/Paper";
 import Logo from "../../../assets/images/loginbg.png";
 import loginSubmit from "../../Controllers/LoginController";
 import "./Register.css";
+import Cookies from "js-cookie"
+import LogoutController from "../../Controllers/LogoutController"
+import {encryptAES} from "../../lib/Crypto"
 
 //Styling part
 const useStyles = makeStyles((theme) => ({
 	mainContentBackground: {
 		backgroundImage: "url(" + Logo + ")",
+		backgroundRepeat: "noRepeat",
+		backgroundPosition: "center",
+		backgroundSize:"cover",
+		backgroundAttachment:"fixed"
 	},
 	root: {
 		flexGrow: 1,
@@ -33,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 		background: "#f5f2f2",
 	},
 	title: {
-		fontSize: "20px",
+		fontSize: "25px",
 		textAlign: "center",
 		fontWeight: 400,
 		color: "black",
@@ -51,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	paper: {
 		padding: theme.spacing(3),
+		borderRadius:"6px !important",
 		display: "flex",
 		flexDirection: "column",
 		backgroundColor: `rgba(255, 255, 255, .8)`,
@@ -209,21 +217,14 @@ export default function Register() {
 						let rememberMe = false;
 						var now = new Date().getTime();
 						let userToken = { isLoggedIn: false };
-						localStorage.setItem("token", JSON.stringify(userToken));
-						localStorage.setItem("cred", JSON.stringify({email: "", password: "" }));
-						localStorage.setItem("branchname", JSON.stringify({ }));
-						localStorage.setItem("branchopenstatus", JSON.stringify({ }));
-						localStorage.setItem("login_date", JSON.stringify({ }));
-						localStorage.setItem("user", JSON.stringify({ }));
-						localStorage.setItem("branchphone", JSON.stringify({ }));
-						localStorage.setItem("profile_picture", JSON.stringify({ }));
-						localStorage.setItem("redirec", JSON.stringify({ to: "/select-amount" }));
-						localStorage.setItem("token", JSON.stringify({ isLoggedIn: true, apiKey: retVal?.data?.data?.user?.extensionattributes?.login?.jwt_token, setupTime: now }));
-		                localStorage.setItem("cred", JSON.stringify({email: values.email, password: values.password }));
+						LogoutController()
+						Cookies.set("redirec", JSON.stringify({ to: "/select-amount" }));
+						Cookies.set("token", JSON.stringify({ isLoggedIn: true, apiKey: retVal?.data?.data?.user?.extensionattributes?.login?.jwt_token, setupTime: now }));
+		                Cookies.set("cred", encryptAES(JSON.stringify({email: values.email, password: values.password })));
 
 						rememberMe === true ?
-							localStorage.setItem("rememberMe", JSON.stringify({ selected: true, email: values.email, password: values.password })) :
-							localStorage.setItem("rememberMe", JSON.stringify({ selected: false, email: '', password: '' }));
+						Cookies.set("rememberMe", JSON.stringify({ selected: true, email: values.email, password: values.password })) :
+						Cookies.set("rememberMe", JSON.stringify({ selected: false, email: '', password: '' }));
 		
 						setLoading(false);
 						history.push({
@@ -231,7 +232,7 @@ export default function Register() {
 						});
 					}
 					else if (retVal?.data?.data?.result === "error" || retVal?.data?.data?.hasError === true) {
-						localStorage.setItem('token', JSON.stringify({ isLoggedIn: false, apiKey: '', setupTime: '' }));
+						Cookies.set('token', JSON.stringify({ isLoggedIn: false, apiKey: '', setupTime: '' }));
 						setLoading(false);
 					}
 					else {
@@ -339,7 +340,8 @@ export default function Register() {
 							sm={10}
 							md={8}
 							lg={6} 
-							xl={7}
+							xl={6}
+							id="registerMainContent"
 							className="cardWrapper"
                             justifyContent="center"
 							alignItems="center" container item
@@ -547,12 +549,12 @@ export default function Register() {
 												onClick={autoFocus}
 												type="submit"
 												data-testid="submit"
-												stylebutton='{"background": "", "color":"" }'
+												stylebutton='{"background": "", "color":"", "fontSize" : "15px ! important", "padding" : "0px 30px" }'
 												disabled={loading}
 											>
-											<Typography align="center" className="textCSS ">
+											{/* <Typography align="center" className="textCSS "> */}
 												Sign in
-											</Typography>
+											{/* </Typography> */}
 												<i
 													className="fa fa-refresh fa-spin customSpinner"
 													style={{

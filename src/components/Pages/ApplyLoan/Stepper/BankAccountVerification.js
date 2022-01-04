@@ -482,6 +482,7 @@ export default function BankAccountVerification(props) {
 						resetUpload={paymnetMode}
 						docType={"bank information"}
 						handle={handleUpload}
+						setLoadingFlag= {props.setLoadingFlag}
 						multiple = { paymnetMode === "checkpayment" ? false : true }
 					/>
 				</div>

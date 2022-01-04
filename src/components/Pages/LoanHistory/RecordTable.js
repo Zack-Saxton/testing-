@@ -17,6 +17,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import NumberFormat from 'react-number-format';
 import Tooltip from "@material-ui/core/Tooltip";
 
+
 export default function LoanHistoryTable(userLoanHistoryData) {
 
 //Material UI css class
@@ -27,7 +28,9 @@ export default function LoanHistoryTable(userLoanHistoryData) {
 
 //Download loan document  
   const downloadDoc = (accNo) => {
+  
      loanDocument(accNo);
+    
   };
 
   //View part
@@ -37,19 +40,19 @@ export default function LoanHistoryTable(userLoanHistoryData) {
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell className={classes.tableHead} align="left" >
+              <TableCell style={{ minWidth: "140px" }} className={classes.tableHead} align="left" >
                 Account Number
               </TableCell>
-              <TableCell className={classes.tableHead} align="left" >
+              <TableCell style={{ minWidth: "140px" }} className={classes.tableHead} align="left" >
                 Date Opened
               </TableCell>
-              <TableCell className={classes.tableHead} align="left" >
+              <TableCell style={{ minWidth: "140px" }} className={classes.tableHead} align="left" >
                 Date Closed
               </TableCell>
-              <TableCell className={classes.tableHead} align="center" >
+              <TableCell style={{ minWidth: "140px", padding:"16px 60px 16px 0px"  }} className={classes.tableHead} align="right" >
                 Amount Financed
               </TableCell>
-              <TableCell className={classes.tableHead} align="center">
+              <TableCell style={{ minWidth: "140px", padding:"16px 16px 16px 0px" }} className={classes.tableHead} align="center">
                 Documents
               </TableCell>
             </TableRow>
@@ -81,14 +84,14 @@ export default function LoanHistoryTable(userLoanHistoryData) {
                     {Moment(row.loanData.dueDate).format("MM/DD/YYYY")}
                   </TableCell>
 
-                  <TableCell className={classes.tableHeadRow} align="center" >
+                  <TableCell style={{ minWidth: "140px", width: "150px", padding:"16px 60px 16px 0px" }} className={classes.tableHeadRow} align="right" >
                     {
                       <NumberFormat value={Math.abs(row.loanPaymentInformation.accountDetails
                         .OriginalFinancedAmount)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
                     }
                   </TableCell>
 
-                  <TableCell align="center">
+                  <TableCell style={{ padding:"16px 16px 16px 0px" }} align="center">
                     <NavLink
                       to={{
                         pathname: "/customers/loanDocument",
@@ -97,7 +100,7 @@ export default function LoanHistoryTable(userLoanHistoryData) {
                       }}
                       style={{ textDecoration: "none" }}
                     > <Tooltip title="View Loan Documents" placement="top">
-                      <FindInPageIcon style={{ color: "blue",  cursor: "pointer" }}
+                      <FindInPageIcon style={{ color: "#0F4EB3",  cursor: "pointer" }}
                         onClick={() => downloadDoc(row.loanData.accountNumber)}
                       />
                       </Tooltip>
@@ -108,7 +111,7 @@ export default function LoanHistoryTable(userLoanHistoryData) {
             ) : (
               <TableRow>
                 <TableCell colSpan="7" align="center">
-                  You do not have any recent applications
+                You do not have an active loan
                 </TableCell>
               </TableRow>
             )}

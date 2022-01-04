@@ -22,6 +22,7 @@ const RadioButtonWrapper = ({
   onClick,
   checked,
   labelPlacement,
+  disabled,
   ...otherProps
 }) => {
   //To return all formik state
@@ -69,13 +70,14 @@ const RadioButtonWrapper = ({
   //View Part
   return (
     <FormControl >
-      <FormLabel style={{fontFamily: "system-ui",fontWeight: "normal",}}>{labelforform}</FormLabel>
+      <FormLabel disabled = {disabled ?? false} style={{fontFamily: "system-ui",fontWeight: "normal",}}>{labelforform}</FormLabel>
       <RadioGroup  value={radioValue} {...configRadioButton}>
         {radioLabelMF.map((radio) => (
           <FormControlLabel 
             labelPlacement={labelPlacement}
             value={radio.value}
             key={radio.value}
+            disabled = {disabled ?? false}
             label={radio.label}
             control={<Radio style={{color: "#0F4EB3"}} checked={checked === radio.value   ? true : false} onClick={handleRadioClick} />}
           />

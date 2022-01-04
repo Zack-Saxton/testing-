@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import APICall from "../lib/AxiosLib";
 
 /***** Login method *****/
@@ -13,9 +14,11 @@ export default async function loginSubmit(email, password) {
 
   //API call
   let loginMethod = await APICall(url, param, data, method, addAccessToken);
-  localStorage.setItem("user", JSON.stringify({user: loginMethod?.data?.data?.user }));
+  Cookies.set("user", JSON.stringify({user: loginMethod?.data?.data?.user }));
   return loginMethod;
 }
+
+
 
 
  

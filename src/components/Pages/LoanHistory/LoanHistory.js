@@ -40,11 +40,11 @@ export default function LoanHistory() {
         justifyContent={"center"}
         style={{
           marginTop: "-150px",
-          paddingRight: "30px",
-          paddingLeft: "30px",
+          paddingRight: "23px",
+          paddingLeft: "23px",
         }}
       >
-        <Grid container direction="row" item xs={12}>
+        <Grid id="loanHistoryTxt" container direction="row" item xs={12}>
           <Grid item xs={12}>
             <Typography component={"div"}>
               <h3 className={classes.heading}>

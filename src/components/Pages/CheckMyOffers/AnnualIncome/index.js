@@ -180,7 +180,7 @@ function NewUser() {
 							justifyContent="center"
 							alignItems="center"
 						>
-							<Paper className="cardWOPadding" style={{ justify: "center", alignItems: "center" }}>
+							<Paper id="incomeWrap" className="cardWOPadding" style={{ justify: "center", alignItems: "center" }}>
 								<div className="progress mt-0">
 									<div
 										id="determinate"
@@ -290,11 +290,9 @@ function NewUser() {
 												data-testid="contButton"
 												type="submit"
 
-												stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black","fontSize":"1rem"}'
+												stylebutton='{"background": "#FFBC23", "color": "black","fontSize":" 0.938rem" , "padding": "0px 30px"}'
 											>
-												<Typography align="center" className="textCSS ">
 													Continue
-												</Typography>
 											</ButtonPrimary>
 										</Grid>
 									</Grid>

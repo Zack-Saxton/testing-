@@ -11,7 +11,9 @@ const useStyleVantageScore = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
   heading:{
-    color: "white" 
+    color: "white",
+    fontSize: "1.563rem",
+    lineHeight:"0px"
 },
   MainkeyFactorHeading: {
     fontSize:"15px",

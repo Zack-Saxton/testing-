@@ -19,6 +19,8 @@ import usrAccountDetails from "../../../Controllers/AccountOverviewController";
 import {hardPullCheck} from "../../../Controllers/ApplyForLoanController";
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+
+
 // initializing Tab panel section 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -70,6 +72,14 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "400",
     fontSize: "1.64rem",
   },
+  loadingOn: {
+    opacity: 0.55,
+    pointerEvents: "none" 
+  },
+  loadingOff: {
+    opacity: 1,
+    pointerEvents: "initial" 
+  },
   tabLabel: {
     background: "white",
     margin: "10px",
@@ -113,6 +123,7 @@ export default function ReviewAndSign(props) {
   const [confirm, setConfirm] = useState(false);
   const [selectedOffer, setSelectOffer] = useState();
   const [loading, setLoading] = useState(false);
+  // let selectedOffer;
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -237,7 +248,7 @@ export default function ReviewAndSign(props) {
                     </Typography>
                   </Grid>
 
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={12} sm={6} className={loading ? classes.loadingOn : classes.loadingOff}>
                     <NavLink
                       to="/customers/selectOffer"
                       style={{ textDecoration: "none" }}
@@ -408,6 +419,7 @@ export default function ReviewAndSign(props) {
                   <Grid item xs={12}>
                     <Checkbox
                       name="confirm"
+                      disabled = {loading}
                       label={
                         <span
                           style={{

@@ -17,31 +17,9 @@ export async function AddACHPaymentAPI(accountNickname, accountHolder, bankRouti
   let method = "POST";
   let addAccessToken = true;
   //API call
-  let addACHPaymentMethod = await APICall(url, param, data, method, addAccessToken);
   //API response
-  addACHPaymentMethod.data.status === 200
-    ? toast.success(
-      addACHPaymentMethod?.data?.data ? addACHPaymentMethod.data.data : "ACH Payment Added...",
-      {
-        position: "bottom-left",
-        autoClose: 5500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      }
-    )
-    : toast.error(`Error adding ACH Payment`, {
-      position: "bottom-left",
-      autoClose: 5500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  return "true";
+
+  return APICall(url, param, data, method, addAccessToken);
 }
 //  ========*******======== END of [Add ACH Bank Payment]       ========*******========
 

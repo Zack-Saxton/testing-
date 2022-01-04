@@ -27,7 +27,7 @@ import "./Style.css";
 //Main function
 export default function PaymentHistory() {
 
-  //Material UI css class
+//Material UI css class
   const classes = useStylesPaymenthistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [fileName, setfileName] = React.useState(null);
@@ -70,7 +70,7 @@ export default function PaymentHistory() {
     return currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
   }
 
-  //Download pdf
+//Download pdf
   const downloadPDF = () => {
     let pdfData = recentPaymentData != null ? recentPaymentData[0].loanHistory.AppAccountHistory : []
     const unit = "pt";
@@ -98,36 +98,36 @@ export default function PaymentHistory() {
       ? paymentHistoryStatus.data.data.activeLoans
       : null;
 
-  //Data for csv file
+//Data for csv file
   const dataCSV = recentPaymentData != null ? recentPaymentData.length ? recentPaymentData[0].loanHistory.AppAccountHistory.map(item => {
     return {
       ...item,
       ...{ TransactionDate: Moment(item.TransactionDate).format('MM-DD-YYYY') },
-      ...{ Total: currencyFormat(Math.abs(item.InterestAmount) + Math.abs(item.OtherAmount) + Math.abs(item.PrincipalAmount)) },
-      ...{ PrincipalAmount: currencyFormat(Math.abs(item.PrincipalAmount)) },
-      ...{ InterestAmount: currencyFormat(Math.abs(item.InterestAmount)) },
-      ...{ TransactionDescription: item.TransactionDescription },
+      ...{ Total: currencyFormat (Math.abs(item.InterestAmount) + Math.abs(item.OtherAmount) + Math.abs(item.PrincipalAmount)) },
+      ...{ PrincipalAmount: currencyFormat(Math.abs(item.PrincipalAmount))},
+      ...{ InterestAmount:  currencyFormat(Math.abs(item.InterestAmount))},
+      ...{ TransactionDescription: item.TransactionDescription},
       ...{ OtherAmount: currencyFormat(Math.abs(item.OtherAmount)) },
-      ...{ RunningPrincipalBalance: currencyFormat(Math.abs(item.RunningPrincipalBalance)) },
+      ...{ RunningPrincipalBalance:  currencyFormat (Math.abs(item.RunningPrincipalBalance)) },
     };
   }) : [] : []
 
 
-  //View part
+//View part
   return (
     <div>
-      <CheckLoginStatus />
-      <ScrollToTopOnMount />
+      <CheckLoginStatus/>
+      <ScrollToTopOnMount/>
       <Grid
         container
         justifyContent={"center"}
         style={{
           marginTop: "-150px",
-          paddingRight: "30px",
-          paddingLeft: "30px",
+          paddingRight: "23px",
+          paddingLeft: "23px",
         }}
       >
-        <Grid container spacing={3}>
+        <Grid style={{paddingBottom:"10px"}} container>
           <Grid item xs={12} sm={8}>
             <Typography variant="h3" className={classes.heading}>
               <NavLink
@@ -145,7 +145,7 @@ export default function PaymentHistory() {
                   styleicon='{ "color":"" }'
                 />
               </NavLink>{" "}
-              Active Loan / Payment History {fileName != null ? (<span style={{ fontSize: "70%", fontWeight: "100" }}>({fileName})</span>) : ''}
+              Active Loan {fileName != null ? (<span style={{ fontSize: "70%", fontWeight: "100" }}>({fileName})</span>) : ''} / Payment History 
 
             </Typography>
           </Grid>
@@ -166,7 +166,7 @@ export default function PaymentHistory() {
           </Grid>
         </Grid>
         {recentPaymentData === null ? (
-          <Grid item xs={12} style={{ paddingTop: "30px", paddingBottom: "30px" }}>
+          <Grid item xs={12} style={{ paddingTop: "10px", paddingBottom: "30px" }}>
             <TableContainer id="pdfdiv" component={Paper}>
 
               <Table className={classes.table} aria-label="simple table">

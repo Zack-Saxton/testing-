@@ -38,17 +38,17 @@ function ReferredToBranch(props) {
                             <br />
                             <Grid item xs={12}  container justifyContent="center" alignItems="center">
                             <Grid item xs={11} sm={10} md={6} lg={6} xl={6} className=' row' container justifyContent="center" alignItems="center">
-                                <Typography variant="h3" style={{align:"center",justify:"center",alignItems:"center"}}	className="margin2p textWhite mainTextMsg smallLineHeight">
+                                <Typography id="referCongratsTxt" variant="h3" style={{align:"center",justify:"center",alignItems:"center"}}	className="margin2p textWhite mainTextMsg smallLineHeight">
 									Congratulations!
 								</Typography>
                             </Grid>
                             </Grid>
                             <Grid item xs={12}  container justifyContent="center" alignItems="center">
                                 <Grid item xs={11} sm={10} md={6} lg={6} xl={6} className=' row' container justifyContent="center" alignItems="center">
-                                    <Typography variant="h6" style={{ align:"center",justify:"center", alignItems:"center"}} className=" textWhite smallTextImg">
+                                    <Typography variant="h6" style={{ align:"center",justify:"center", alignItems:"center"}} className="smallTextImgNoOffOne textWhite smallTextImg">
                                         Your local representative is waiting to talk to you.
                                     </Typography>
-                                    <Typography variant="h6" style={{ align:"center",justify:"center", alignItems:"center"}} className="textWhite smallTextImg ">
+                                    <Typography variant="h6" style={{ align:"center",justify:"center", alignItems:"center"}} className="smallTextImgNoOff textWhite smallTextImg ">
                                         Complete the application process from the comfort of your home and you could receive your money as soon as today*
                                     </Typography>
                                 </Grid>
@@ -56,12 +56,12 @@ function ReferredToBranch(props) {
                             <Grid item xs={12}  container justifyContent="center" alignItems="center">
                                 <Grid item xs={11} sm={10} md={6} lg={6} xl={6} className='bottomSpace ' container justifyContent="center" alignItems="center">
                                 <Grid item xs={9} sm={6} md={5} lg={4} xl={4} className='alignButton paddingButton buttonStart' container justifyContent="center" alignItems="center">
-                                    <ButtonPrimary stylebutton='{"background": "", "color":"", "fontSize": "" }'  href='customers/myBranch' >
+                                    <ButtonPrimary stylebutton='{"background": "", "color":"", "fontSize": "0.938rem","padding":"0px 30px"}'  href='customers/myBranch' >
                                         Finish by Phone
                                     </ButtonPrimary>
                                 </Grid>
                                 <Grid item xs={9} sm={6} md={5} lg={4} xl={4} className='alignButton paddingButton buttonEnd' container justifyContent="center" alignItems="center">
-                                    <ButtonPrimary stylebutton='{"background": "", "color":"", "fontSize": "" }'  href='customers/myBranch' >
+                                    <ButtonPrimary stylebutton='{"background": "", "color":"", "fontSize": "0.938rem","padding":"0px 30px" }'  href='customers/myBranch' >
                                         Finish by Branch
                                     </ButtonPrimary>
                                 </Grid>
@@ -72,14 +72,14 @@ function ReferredToBranch(props) {
                                             justify:"center",
                                             alignItems:"center"
                                         }}
-                                        className="textWhite smallTextImg"
+                                        className="textWhite smallTextImg beforeVisitOne"
                                     >
                                         Things you should know before you call or visit.    
                                     </Typography>
                                     <Typography
                                         variant="h6"
                                        
-                                        className=" textWhite minText"
+                                        className=" textWhite minText beforeVisit"
                                     >
                                         Mariner Branch locations are still open and operational; however, due to the health risks surrounding COVID-19, Mariner will not be accepting unscheduled walk-ins at this time. Instead, please call to schedule an appointment to meet with one of our team members or finish the process by phone in the comfort your home.*
                                     </Typography>

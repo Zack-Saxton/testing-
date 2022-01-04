@@ -23,14 +23,15 @@ import {
 } from "../../FormsUI";
 import * as yup from "yup";
 import { useFormik } from "formik";
+import Cookies from "js-cookie";
 
 export default function TextNotification() {
   const classes = useStylesMyProfile();
   const [loading, setLoading] = useState(false);
   const [openDisclosure, setDisclosureOpen] = useState(false);
-  let getLocalData = JSON.parse(localStorage.getItem("accountDetails"));
+  let getLocalData = Cookies.get("accountDetails");
   let phone = getLocalData?.data?.data?.customer?.latest_contact?.opted_phone_texting;
-  let textnotifybool = localStorage.getItem("isTextNotify") === "true" ? true : false;
+  let textnotifybool = Cookies.get("isTextNotify") === "true" ? true : false;
   let [disabledContent, setdisabledContent] = useState(textnotifybool);
 
   const phonevalidationSchema = yup.object().shape({
@@ -76,7 +77,7 @@ export default function TextNotification() {
               draggable: true,
               progress: undefined,
             });
-            localStorage.setItem("isTextNotify",disabledContent);
+            Cookies.set("isTextNotify",disabledContent);
             window.setTimeout(function() {
               window.location.reload();
             }, 4000);

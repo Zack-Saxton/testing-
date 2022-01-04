@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useLocation, useHistory } from "react-router-dom";
 import APICall from "../../../App/APIcall";
 import { toast } from "react-toastify";
+import Cookies from "js-cookie"
 
 //To validate the token comming in the verify email
 const ValidateToken = () => {
@@ -12,21 +13,21 @@ const ValidateToken = () => {
 		return res;
 	};
 
-	//get the token values from link
+    //get the token values from link
 	const required = query.get("required");
 	const activationToken = query.get("activation_token");
 	const history = useHistory();
 
-	//Function to check and validate the teken and redirect depends on the api respose
+    //Function to check and validate the teken and redirect depends on the api respose
 	const redirect = () => {
-		const tokenString = localStorage.getItem("token");
+		const tokenString = Cookies.get("token") ? Cookies.get("token") : '{ }';
 		const userToken = JSON.parse(tokenString);
-		const userEmail = localStorage.getItem("email");
+		const userEmail = Cookies.get("email");
 		const expiryMinute = process.env.REACT_APP_SESSION_EXPIRY_MINUTES
 		var min = expiryMinute; // Reset when storage is more than given time
 		var now = new Date().getTime();
 		var actualSetupTime = userToken?.setupTime ?? '';
-		const returnURL = window.location.pathname + window.location.search;
+ const returnURL = window.location.pathname + window.location.search;
 		if (!userToken?.isLoggedIn) {
 			history.push({
 				pathname: "/login",
@@ -36,11 +37,11 @@ const ValidateToken = () => {
 		else if ((now - actualSetupTime) > min * 60 * 1000) {
 			alert("Your session has been ended, Please login again to continue");
 			history.push({
-				pathname: "/login",
-				state: { redirect: returnURL }
+			  pathname: "/login",
+			  state: { redirect: returnURL}
 			});
-		}
-		else {
+		  }
+		else { 
 			let data = {
 				user_email: userEmail,
 				required: required,
@@ -52,7 +53,7 @@ const ValidateToken = () => {
 						pathname: "/customers/finalVerification",
 					});
 				}
-				else if (res.data.data.result === 'error' && res.data.data.statusText === 'Token not valid') {
+				else if (res.data.data.result === 'error' && res.data.data.statusText === 'Token not valid'){
 					toast.error(`Your token is Expired, please try again.`, {
 						position: "bottom-left",
 						autoClose: 5500,
@@ -61,13 +62,13 @@ const ValidateToken = () => {
 						pauseOnHover: true,
 						draggable: true,
 						progress: undefined,
-					});
-					history.push({
+					  });
+					  history.push({
 						pathname: "/customers/accountOverview",
 					});
 				}
-				else if (res.data.data.result === 'error') {
-					toast.error(res.data.data.statusText ? res.data.data.statusText : "Your Email verification is failed, Please try again", {
+				else if (res.data.data.result === 'error'){
+					toast.error( res.data.data.statusText ? res.data.data.statusText : "Your Email verification is failed, Please try again", {
 						position: "bottom-left",
 						autoClose: 5500,
 						hideProgressBar: false,
@@ -75,13 +76,13 @@ const ValidateToken = () => {
 						pauseOnHover: true,
 						draggable: true,
 						progress: undefined,
-					});
-					history.push({
+					  });
+					  history.push({
 						pathname: "/customers/accountOverview",
 					});
 				}
-				else {
-					toast.error("Your Email verification is failed, Please try again", {
+				else{
+					toast.error( "Your Email verification is failed, Please try again", {
 						position: "bottom-left",
 						autoClose: 5500,
 						hideProgressBar: false,
@@ -89,8 +90,8 @@ const ValidateToken = () => {
 						pauseOnHover: true,
 						draggable: true,
 						progress: undefined,
-					});
-					history.push({
+					  });
+					  history.push({
 						pathname: "/customers/accountOverview",
 					});
 				}
@@ -98,7 +99,7 @@ const ValidateToken = () => {
 		}
 	};
 
-	//Use effect to call the redirect() method on page load
+    //Use effect to call the redirect() method on page load
 	useEffect(() => {
 		redirect();
 	}, []);

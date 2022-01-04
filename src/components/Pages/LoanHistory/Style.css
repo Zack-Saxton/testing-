@@ -41,3 +41,12 @@
   padding: 15px;
   border-radius: 50%;
 }
+
+#loanHistoryTxt{
+  padding-bottom: 10px;
+}
+
+#numberOfLoans{
+  font-size: 1.563rem;
+  margin-bottom: 20px;
+}

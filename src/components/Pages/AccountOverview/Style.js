@@ -8,6 +8,7 @@ const useStylesAccountOverview = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(3),
     display: "flex",
+    borderRadius:"2px",
     flexDirection: "column",
     color: theme.palette.text.secondary,
   },
@@ -37,17 +38,16 @@ const useStylesAccountOverview = makeStyles((theme) => ({
   heading: {
     color: "#fff",
     fontWeight: "400",
-    fontSize: "1.64rem",
-    paddingLeft: "7px",
-    paddingBottom: "30px",
+    fontSize: "1.563rem",
+    // paddingLeft: "7px",
+    // paddingBottom: "30px",
   },
   subheading: {
     color: "#171717",
     fontWeight: "400",
-    fontSize: "1.64rem",
-    paddingLeft: "7px",
-    paddingBottom: "20px",
-    paddingTop: "20px"
+    fontSize: "1.563rem",
+    paddingBottom: "10px",
+    paddingTop: "10px"
   },
   table: {
     minWidth: 650,
@@ -64,7 +64,7 @@ const useStylesAccountOverview = makeStyles((theme) => ({
   activeLoanHeading: {
     color: "#171717",
     fontWeight: "400",
-    fontSize: "18px",
+    fontSize: "1.125rem",
     margin: "auto",
   },
   activeLoanSubHeading: {

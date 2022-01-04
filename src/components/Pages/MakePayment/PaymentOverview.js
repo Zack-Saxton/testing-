@@ -17,17 +17,17 @@ export default function PaymentOverview(paymentData,status) {
     //Payment details
     let paymentDetails = (paymentData != null) ? paymentData : null;
     return (
-        <Table className={classes.table} aria-label="simple table">
+        <Table id="paymentTableWrap" className={classes.table} aria-label="simple table">
             <TableHead>
                 <TableRow>
                     <TableCell className={classes.tableHead}>
                         Account Number
                     </TableCell>
                     <TableCell className={classes.tableHead} align="center">
-                        Regular Amount
+                        Today's Payoff
                     </TableCell>
                     <TableCell className={classes.tableHead} align="center">
-                        Interest
+                        Regular Amount
                     </TableCell>
                     <TableCell className={classes.tableHead} align="center">
                         Loan Fees
@@ -66,22 +66,23 @@ export default function PaymentOverview(paymentData,status) {
                     paymentDetails.overview.map((row,index) => (
                         <TableRow key={index}>
                             <TableCell
+                            style={{fontSize:"0.938rem"}}
                                 component="th"
                                 className={row.tableHeadRow}
                                 scope="row"
                             >
                                  {row.loanDetails.AccountNumber}
                             </TableCell>
-                            <TableCell className={classes.tableHeadRow} align="center">
+                            <TableCell style={{fontWeight:"700"}} className={classes.tableHeadRow} align="center">
+                            <NumberFormat value={Math.abs(row.loanPaymentInformation.accountDetails.CurrentPayOffAmount)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
+                            </TableCell>
+                            <TableCell style={{fontWeight:"700"}} className={classes.tableHeadRow} align="center">
                             <NumberFormat value={Math.abs(row.loanPaymentInformation.accountDetails.RegularPaymentAmount)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
                             </TableCell>
-                            <TableCell className={classes.tableHeadRow} align="center">
-                            <NumberFormat value={Math.abs(row.loanPaymentInformation.accountDetails.InterestRate)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
-                            </TableCell>
-                            <TableCell className={classes.tableHeadRow} align="center">
+                            <TableCell style={{fontWeight:"700"}} className={classes.tableHeadRow} align="center">
                             <NumberFormat value={Math.abs(row.loanPaymentInformation.accountDetails.LoanFeesAndCharges)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
                             </TableCell>
-                            <TableCell className={classes.tableHeadRow} align="center">
+                            <TableCell style={{fontWeight:"700"}} className={classes.tableHeadRow} align="center">
                             <NumberFormat value={Math.abs(row.loanPaymentInformation.accountDetails.RegularPaymentAmount) + Math.abs(row.loanPaymentInformation.accountDetails.InterestRate) + Math.abs(row.loanPaymentInformation.accountDetails.LoanFeesAndCharges)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
                             </TableCell>
                             <TableCell className={classes.tableHeadRow} align="center">
@@ -90,7 +91,7 @@ export default function PaymentOverview(paymentData,status) {
                             <TableCell className={classes.tableHeadRow} align="center">
                             {(row.loanPaymentInformation.hasScheduledPayment) ? Moment(row.loanPaymentInformation.scheduledPayments[0].PaymentDate).format("MM/DD/YYYY") : "NONE" }
                             </TableCell>
-                            <TableCell className={classes.tableHeadRow} align="center">
+                            <TableCell style={{fontWeight:"700"}} className={classes.tableHeadRow} align="center">
                             {(row.loanPaymentInformation.appRecurringACHPayment) ? "On Due Date" : "Disabled" }
                             </TableCell>
                         </TableRow>

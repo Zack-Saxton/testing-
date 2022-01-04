@@ -23,7 +23,7 @@ export default function ActiveLoans(userActiveLoanData) {
 
     //View
     return (
-        <Grid container>
+        <Grid style={{  paddingBottom: "10px", paddingTop: "10px" }} container>
             {userActiveLoans?.userActiveLoanData === null ? (
                 <TableContainer component={Paper}>
                     <Table>
@@ -43,35 +43,35 @@ export default function ActiveLoans(userActiveLoanData) {
                 userActiveLoans?.userActiveLoanData?.length
                     ?
                     userActiveLoans.userActiveLoanData.map((appData, index) => (
-                        <Grid container key={index}>
+                        <Grid style={{  paddingBottom: "20px" }} container key={index}>
                             <Grid
                                 id="activeLoanWrap"
                                 item
                                 xs={12}
                                 sm={9}
-                                style={{ width: "100%", padding: "5px" }}
+                                style={{ width: "100%" }}
                             >
                                 <Paper
                                     className={classes.paper}
                                     id="activeLoanGrid"
-                                    style={{ height: "80%" }}
+                                    style={{ height: "81.33%", borderRadius:"2px!important" }}
                                 >
-                                    <Grid container spacing={3}>
+                                    <Grid container style={{  marginBottom: "20px" }}>
                                         <Grid item xs={12} sm={6}>
-                                            <Typography variant="h5" className={classes.activeLoanHeading} data-testid="subtitle">
+                                            <Typography style={{ fontSize:"1.125rem" }} variant="h5" className={classes.activeLoanHeading} data-testid="subtitle">
                                                 Next Payment Details
                                             </Typography>
                                         </Grid>
                                         <Grid item xs={12} sm={6}>
-                                            <ButtonPrimary stylebutton='{"float": "right", "color":"" }' href={"./makePayment/?accNo=" + appData.loanDetails.AccountNumber}>
+                                            <ButtonPrimary stylebutton='{"float": "right","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}' href={"./makePayment/?accNo="+appData.loanDetails.AccountNumber}>
                                                 Make a Payment
                                             </ButtonPrimary>
                                         </Grid>
                                     </Grid>
 
-                                    <Grid container spacing={3} >
-                                        <Grid item xs={12} sm={3}>
-                                            <AutoPayStatus value={appData.loanPaymentInformation.appRecurringACHPayment} />
+                                    <Grid container  >
+                                    <Grid  item xs={12} sm={3}>
+                                        <AutoPayStatus value={appData.loanPaymentInformation.appRecurringACHPayment} /> 
                                         </Grid>
 
                                         <Grid id="regularAmountGrid" item xs={12} sm={3}>
@@ -118,28 +118,29 @@ export default function ActiveLoans(userActiveLoanData) {
                                 </Paper>
                             </Grid>
                             <Grid
+                                id="overviewContainer"
                                 item
                                 xs={12}
                                 sm={3}
-                                style={{ width: "100%", padding: "5px" }}
+                                style={{ width: "100%", paddingLeft:"15px", borderRadius:"2px"}}
                             >
-                                <Paper className={classes.paper} style={{ height: "80%" }}>
+                                <Paper id="overviewWrap" className={classes.paper} style={{ height: "81.33%", borderRadius: "2px" }}>
                                     <Grid item xs={12}>
                                         <Typography variant="h5" className={classes.activeLoanSubHeading} >
                                             Overview
                                         </Typography>
                                         <div style={{ paddingTop: "20px" }}>
-                                            <p className={classes.activeLoanSubHeading_content}>
+                                            <p style={{ paddingBottom:"2px" }} className={classes.activeLoanSubHeading_content}>
                                                 Account Number
                                             </p>
-                                            <p style={{ margin: "auto" }}>
+                                            <p style={{ margin: "auto", paddingBottom:"5px" }}>
                                                 <b>{appData.loanDetails.AccountNumber}</b>
                                             </p>
 
-                                            <p className={classes.activeLoanSubHeading_content}>
+                                            <p style={{ paddingBottom:"2px" }} className={classes.activeLoanSubHeading_content}>
                                                 Opened On
                                             </p>
-                                            <p style={{ margin: "auto" }}>
+                                            <p  style={{ margin: "auto", }}>
                                                 <b>{Moment(appData.loanDetails.LoanOriginationDate).format('MM/DD/YYYY')}</b>
                                             </p>
 

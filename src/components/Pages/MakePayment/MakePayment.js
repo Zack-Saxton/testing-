@@ -15,6 +15,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import ScrollToTopOnMount from "../ScrollToTop";
 import { useStylesMakePayment } from "./Style";
 import { CircularProgress, FormControlLabel } from '@material-ui/core';
+
 import "./MakePayment.css";
 import {
   ButtonPrimary,
@@ -35,6 +36,8 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import { tabAtom } from "../../Pages/MyProfile/MyProfileTab";
+import { useAtom } from "jotai";
 
 const paymentMaxDate = new Date();
 paymentMaxDate.setDate(paymentMaxDate.getDate() + 30);
@@ -45,6 +48,7 @@ export default function MakePayment(props) {
   const history = useHistory();
   const query = new URLSearchParams(useLocation().search);
   const accNo = query.get('accNo')
+  const [, setTabvalue] = useAtom(tabAtom)
   const [paymentMethods, setpaymentMethod] = useState(null);
   const [latestLoanData, setlatestLoanData] = useState(null);
   const [paymentAmount, setpaymentAmount] = useState(null);
@@ -213,6 +217,12 @@ export default function MakePayment(props) {
   async function disableAutoPaymentScheduled(accntNo, card, paymentDate, isDebit) {
     await disableAutoPay(accntNo, card, paymentDate, isDebit);
     getData()
+  }
+
+  const handleMenuPaymentProfile = () =>{
+    history.push({
+      pathname:'/customers/myProfile'});
+    setTabvalue(3)
   }
 
   // Disable Sheduled payment while make recuiring payment
@@ -462,15 +472,16 @@ export default function MakePayment(props) {
       <CheckLoginStatus />
       <ScrollToTopOnMount />
       <Grid
+        id="makePaymentWrap"
         container
         justifyContent={"center"}
         style={{
           marginTop: "-150px",
-          paddingRight: "30px",
-          paddingLeft: "30px",
+          paddingRight: "23px",
+          paddingLeft: "23px",
         }}
       >
-        <Grid container direction="row" item xs={12}>
+        <Grid style={{ paddingBottom: "10px" }} container direction="row" item xs={12}>
           <Grid item xs={12} sm={6} style={{ width: "100%" }}
             container direction="row">
             <Typography className={classes.heading} variant="h3">
@@ -488,13 +499,13 @@ export default function MakePayment(props) {
                         "marginRight": "5px", "marginTop":"unset" }'
                   styleicon='{ "color":"" }'
                 />
-              </NavLink>{" "}
+              </NavLink>
               Make a Payment
             </Typography>
           </Grid>
         </Grid>
         {showCircularProgress === true ? (
-          <Grid item xs={12} style={{ paddingTop: "30px", paddingBottom: "30px" }}>
+          <Grid item xs={12} style={{ paddingTop: "10px", paddingBottom: "10px" }}>
             <TableContainer id="pdfdiv" component={Paper}>
 
               <Table className={classes.table} aria-label="simple table">
@@ -504,10 +515,10 @@ export default function MakePayment(props) {
                       Account Number
                     </TableCell>
                     <TableCell className={classes.tableHead} align="left">
-                      Regular Amount
+                      Today's Payoff
                     </TableCell>
                     <TableCell className={classes.tableHead} align="left">
-                      Interest
+                      Regular Amount
                     </TableCell>
                     <TableCell className={classes.tableHead} align="left">
                       Loan Fees
@@ -537,7 +548,7 @@ export default function MakePayment(props) {
             </TableContainer>
           </Grid>)
           :
-          <Grid item xs={12} style={{ paddingBottom: "10px" }}>
+          <Grid item xs={12} style={{ paddingBottom: "10px", paddingTop: "10px" }}>
             <TableContainer component={Paper}>
               <PaymentOverview overview={latestLoanData} status={status} />
             </TableContainer>
@@ -546,12 +557,13 @@ export default function MakePayment(props) {
           <>
 
             <Grid
+            id="payFromWrap"
               item
               xs={12}
-              sm={4}
-              style={{ width: "100%", padding: "5px" }}
+              sm={5}
+              style={{ width: "100%", paddingTop: "10px" , paddingRight: "15px" }}
             >
-              <Paper className={classes.paper}>
+              <Paper style={{borderRadius:"2px"}} className={classes.paper}>
                 <Typography className={classes.cardHeading}>
                   Pay From
                 </Typography>
@@ -573,8 +585,8 @@ export default function MakePayment(props) {
                 </p>
 
                 <Grid item xs={12} style={{ paddingTop: "20px" }}>
-                  <ButtonSecondary stylebutton='{"background": "", "color":"" }'>
-                    Add a payment method
+                  <ButtonSecondary stylebutton='{"background": "", "color":"" }' onClick={handleMenuPaymentProfile}>
+                    Add a payment method 
                   </ButtonSecondary>
                 </Grid>
               </Paper>
@@ -583,23 +595,24 @@ export default function MakePayment(props) {
             <Grid
               item
               xs={12}
-              sm={8}
-              style={{ width: "100%", padding: "5px" }}
+              sm={7}
+              style={{ width: "100%", paddingTop:"10px" }}
             >
               <Paper className={classes.paper}>
                 {paymentOptions !== null && showCircularProgress !== true ?
                   <div>
                     <Grid item xs={12}>
-                      <Typography className={classes.cardHeading}>
+                      <Typography style={{paddingBottom:"10px"}} className={classes.cardHeading}>
                         Payment Mode
                       </Typography>
                       <p style={{ margin: "auto" }}>
-                        <small> {disabledContent ? "Auto Pay - On" : "Auto Pay - Off"}</small>
+                        <small style={{fontSize:"0.938rem", color:"#595959"}}> {disabledContent ? "Auto Pay - On" : "Auto Pay - Off"}</small>
                       </p>
                       <p style={{ margin: "auto" }}>
-                        <small>Choose auto pay</small>
+                        <small style={{ color: "#575757" }}>Choose auto pay</small>
                       </p>
                       <FormControlLabel
+                        id="autoPaySpan"
                         control={
                           <Switch
                             checked={disabledContent}
@@ -612,7 +625,7 @@ export default function MakePayment(props) {
                         labelPlacement='end'
                         label={disabledContent ? "Auto pay is On" : "Auto pay is Off"}
                       />
-                      <p>
+                      <p style={{ fontSize: "0.938rem" }}>
                         By enabling Auto Pay mode, I acknowledge to have read,
                         understood, and agree to the terms of the &nbsp;
                         <Link to="#"
@@ -635,10 +648,10 @@ export default function MakePayment(props) {
                     </Grid>
                     <Grid item xs={12}
                       style={{
-                        opacity: disabledContent ? 0.25 : 1,
+                        opacity: disabledContent ? 0.5 : 1,
                         pointerEvents: disabledContent ? "none" : "initial"
                       }}>
-                      <Typography className={classes.cardHeading}>
+                      <Typography style={{ paddingBottom: "10px" }} className={classes.cardHeading}>
                         Single Payment
                       </Typography>
                       <TextField

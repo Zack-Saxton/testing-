@@ -104,3 +104,33 @@ label + .MuiInput-formControl{
     padding-top: 20px !important;
     font-size: 14px!important;
 }
+
+#registerMainContent{
+    min-height: 80vh !important; 
+}
+
+
+#socialNum div div label{
+    font-size: 0.968rem !important;
+}
+#socialNum div div div input{
+    padding-bottom:15px !important;
+}
+
+/* 
+#sZipcodeWrapocialNum div div label{
+    font-size: 0.968rem !important;
+}
+#ZipcodeWrap div div div input{
+    padding-bottom:15px !important;
+} */
+
+
+#firstname ,#lastname , #email, #cpass{
+    padding-bottom: 15px !important;
+}
+
+#firstname-label, #lastname-label, #email-label, #cpass-label {
+    font-size: 0.938rem !important;
+    padding-bottom:10px !important ;
+}

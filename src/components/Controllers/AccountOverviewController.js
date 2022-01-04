@@ -3,7 +3,6 @@ import APICall from "../lib/AxiosLib";
 /***** Get Account overview details *****/
 export default async function setAccountDetails() {
   let url = "account_overview";
-
   let param = "";
   let data = {};
   let method = "GET";

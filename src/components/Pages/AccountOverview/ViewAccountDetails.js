@@ -12,6 +12,7 @@ import Box from "@material-ui/core/Box";
 import Paper from "@material-ui/core/Paper";
 import NumberFormat from 'react-number-format';
 import ScrollToTopOnMount from "../ScrollToTop";
+import Cookies from "js-cookie";
 
 function TabPanelViewApplication(props) {
   const { children, value, verticalIndex, ...other } = props;
@@ -55,9 +56,9 @@ export default function ViewAccountDetails() {
     setValues(newValues);
   };
 
-  var viewAppContact = localStorage.getItem("viewAppContact");
+  var viewAppContact = Cookies.get("viewAppContact") ? Cookies.get("viewAppContact") : '{ }';
   var viewApplicationContact = JSON.parse(viewAppContact);
-  var viewAppApplicant = localStorage.getItem("viewAppApplicant");
+  var viewAppApplicant = Cookies.get("viewAppApplicant") ? Cookies.get("viewAppApplicant") : '{ }';
   var viewAppApplicantInfo = JSON.parse(viewAppApplicant);
 
   //View part

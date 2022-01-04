@@ -9,6 +9,7 @@ import {Link, useHistory} from "react-router-dom";
 import CitizenshipStatusLogo from "../../../../assets/icon/I-Own-Rent-Property.png";
 import {CheckMyOffers} from "../../../../contexts/CheckMyOffers";
 import ScrollToTopOnMount from '../ScrollToTop';
+import "../LivingPlace/LivingPlace.css";
 
 //Living place component initialization
 function LivingPlace() {
@@ -130,7 +131,7 @@ function LivingPlace() {
 							justifyContent="center"
 							alignItems="center"
 						>
-							<Paper 	className="cardWOPadding" style={{justify:"center",alignItems:"center"}}>
+							<Paper id="ownOrRentWrap" 	className="cardWOPadding" style={{justify:"center",alignItems:"center"}}>
 								<div className="progress mt-0">
 									<div
 										id="determinate"
@@ -166,6 +167,7 @@ function LivingPlace() {
 										xs={12}
 									>
 										<Paper
+											id="ownOrRentBoxOne"
 											elevation={3}
 											data-testid="Renting"
 											className={
@@ -182,6 +184,7 @@ function LivingPlace() {
 									</Grid>
 									<Grid item lg={8} md={8} xs={12}>
 										<Paper
+											id="ownOrRentBoxTwo"
 											elevation={3}
 											data-testid="HomeWithMortgage"
 											className={
@@ -198,6 +201,7 @@ function LivingPlace() {
 									</Grid>
 									<Grid item lg={8} md={8} xs={12}>
 										<Paper
+											id="ownOrRentBoxThree"
 											elevation={3}
 											data-testid="HomeWithNoMortgage"
 											className={
@@ -220,6 +224,7 @@ function LivingPlace() {
 									</Grid>
 									<Grid item lg={8} md={8} xs={12}>
 										<Paper
+											id="ownOrRentBoxFour"
 											elevation={3}
 											data-testid="MobileHome"
 											className={
@@ -241,6 +246,7 @@ function LivingPlace() {
 									</Grid>
 									<Grid item lg={8} md={8} xs={12}>
 										<Paper
+											id="ownOrRentBoxFive"
 											elevation={3}
 											data-testid="LivingWithRelatives"
 											className={
@@ -264,6 +270,7 @@ function LivingPlace() {
 
 									<Grid item lg={8} md={8} xs={12}>
 										<TextField
+											id="rentOrMortage"
 											className={
 												livingPlace === "Renting" ||
 												livingPlace === "Own a Home with Mortgage"
@@ -289,11 +296,9 @@ function LivingPlace() {
 											onClick={handleRoute}
 											data-testid="cntButton"
 											disabled={livingPlace === ""}
-											stylebutton='{"background": "#FFBC23", "height": "inherit", "black": "white","fontSize":"1rem"}'
+											stylebutton='{"background": "#FFBC23", "black": "white","fontSize":"0.938rem", "padding": "0px 30px"}'
 										>
-											<Typography align="center" className="textCSS ">
 												Continue
-											</Typography>
 										</ButtonPrimary>
 									</Grid>
 								</Grid>

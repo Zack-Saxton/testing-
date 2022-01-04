@@ -14,6 +14,8 @@ import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import loginSubmit from "../../../Controllers/LoginController";
 import usrAccountDetails from "../../../Controllers/AccountOverviewController";
 import { toast } from "react-toastify";
+import Cookies from "js-cookie"
+import { encryptAES }  from "../../../lib/Crypto"
 
 
 
@@ -50,8 +52,8 @@ function ExistingUser() {
 			let retVal = await loginSubmit(data.email, values.password);
 			if (retVal?.data?.data?.user && !retVal?.data?.data?.result) {
 				var now = new Date().getTime();
-				localStorage.setItem("token", JSON.stringify({ isLoggedIn: true, apiKey: retVal?.data?.data?.user?.extensionattributes?.login?.jwt_token, setupTime: now }));
-                localStorage.setItem("cred", JSON.stringify({email: data.email, password: values.password }));
+				Cookies.set("token", JSON.stringify({ isLoggedIn: true, apiKey: retVal?.data?.data?.user?.extensionattributes?.login?.jwt_token, setupTime: now }));
+                Cookies.set("cred", encryptAES(JSON.stringify({email: data.email, password: values.password })));
 
 				setLoading(false);
 				let accountDetail= await usrAccountDetails();
@@ -80,7 +82,7 @@ function ExistingUser() {
 				
 			}
 			else if (retVal?.data?.data?.result === "error" || retVal?.data?.data?.hasError === true) {
-				localStorage.setItem('token', JSON.stringify({ isLoggedIn: false, apiKey: '', setupTime: '' }));
+				Cookies.set('token', JSON.stringify({ isLoggedIn: false, apiKey: '', setupTime: '' }));
 				setLoading(false);
 				setLoginFailed(retVal?.data?.data?.errorMessage);
 			}

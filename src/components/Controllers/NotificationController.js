@@ -1,9 +1,10 @@
+import Cookies from "js-cookie";
 import APICall from "../lib/AxiosLib";
 
 /***** Get notification details *****/
 export async function getNoticationData() {
   //get the user email id
-  const email = localStorage.getItem("email");
+  const email = Cookies.get("email");
 
   let url = "get_notification";
   let param = "";

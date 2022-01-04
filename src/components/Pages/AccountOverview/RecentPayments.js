@@ -15,7 +15,7 @@ export default function RecentPayments(userRecentPaymentData) {
   //Material UI css class
   const classes = useStylesAccountOverview();
   //Recentpayments data
-  let userRecentPayment = userRecentPaymentData;
+  let userRecentPayment = userRecentPaymentData != null ? userRecentPaymentData : null;
 
   return (
     <Grid item xs={12} style={{ paddingBottom: "10px" }}>
@@ -61,13 +61,13 @@ export default function RecentPayments(userRecentPaymentData) {
                       <TableRow key={index}>
                         <TableCell
                           className={classes.tableHeadRow}
-                          align="center"
+                          align="left"
                         >
                           {Moment(row.TransactionDate).format("MM/DD/YYYY")}
                         </TableCell>
                         <TableCell
                           className={classes.tableHeadRow}
-                          align="center"
+                          align="left"
                         >
                           {row.TransactionDescription}
                         </TableCell>
@@ -109,7 +109,7 @@ export default function RecentPayments(userRecentPaymentData) {
             ) : (
               <TableRow>
                 <TableCell colSpan="7" align="center">
-                  You do not have any recent applications
+                You do not have any payments to display
                 </TableCell>
               </TableRow>
             )}

@@ -4,4 +4,7 @@
     white-space: -moz-pre-wrap;
     white-space: -o-pre-wrap;
     word-wrap: break-word;
+    font-family: 'Muli', sans-serif !important;
+    color: black;
+    padding: 7px 0px !important;
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React,{ useEffect, useState } from "react";
 import { useStylesMyProfile } from "./Style";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
@@ -24,8 +24,10 @@ import { ButtonWithIcon } from "../../FormsUI";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
 import { getTextNotify } from "../../Controllers/myProfileController";
 import { tabAtom } from "./MyProfileTab";
-import { useAtom } from 'jotai'
+import {useAtom} from 'jotai'
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
+import ProfileImageController from "../../Controllers/ProfileImageController";
+import Cookies from "js-cookie";
 
 
 function TabVerticalPanel(props) {
@@ -66,21 +68,28 @@ export default function MyProfile() {
 
 
   const classes = useStylesMyProfile();
+  
 
   const [accountDetails, setAccountDetails] = useState(null);
   async function getUserAccountDetails() {
     setAccountDetails(await usrAccountDetails());
   }
 
+
+  const [profileImage, setProfileImage] = useState(null);
+  async function AsyncEffect_profileImage() {
+    setProfileImage(await ProfileImageController());
+  }
   useEffect(() => {
     getUserAccountDetails();
-  }, []);
-
+    AsyncEffect_profileImage();
+  }, []); 
+  
   let basicInfoData = (accountDetails != null) ? accountDetails?.data?.data?.customer : null;
-
-  const [values, setValues] = useAtom(tabAtom)
+  let getProfImage = (profileImage != null) ? profileImage : null;
+   const [values, setValues] = useAtom(tabAtom)
   const handleTabChange = (event, newValues) => {
-    setValues(newValues)
+    setValues(newValues) 
 
   };
 
@@ -89,11 +98,16 @@ export default function MyProfile() {
     let textNotifyStatus = getTextNotify();
     let textNotifyData = textNotifyStatus?.data?.data != null ? textNotifyStatus?.data?.data : null;
     let isTextNotify = textNotifyData?.sbt_getInfo != null && textNotifyData?.sbt_getInfo?.SubscriptionInfo != null ? textNotifyData?.sbt_getInfo?.SubscriptionInfo[0]?.SubscriptionOptions[0]?.OptInMarketing : false;
-    localStorage.setItem("isTextNotify", isTextNotify);
+    localStorage.setItem("isTextNotify",isTextNotify);
   }
 
-  let textnotify = localStorage.getItem("isTextNotify") === "true" ? "On" : "Off";
-  let hasActiveLoan = localStorage.getItem("hasActiveLoan") === "true" ? "true" : "false";
+ let textnotify = localStorage.getItem("isTextNotify") === "true" ? "On" : "Off";
+ let hasActiveLoan = Cookies.get("hasActiveLoan") === "true" ? true : false;
+  let hasApplicationStatus = Cookies.get("hasApplicationStatus")
+  var appStatus=["rejected", "reffered", "expired"]; 
+  let checkAppStatus = appStatus.includes(hasApplicationStatus)
+  let disableField = (checkAppStatus === true || hasActiveLoan === true) ? true : false;
+
   return (
     <div>
       <CheckLoginStatus />
@@ -137,133 +151,134 @@ export default function MyProfile() {
 
         {/* Left Side Nav */}
         <Grid item xs={12} style={{ paddingBottom: "200px" }}>
-          <Grid container item xs={12}>
-            <Grid
-              item
-              xs={12}
-              sm={4}
-              style={{ padding: "5px", width: "100%" }}
-            >
-              <Paper className={classes.cardHeading}>
-                <Tabs
-                  value={values}
-                  onChange={handleTabChange}
-                  classes={{
-                    indicator: classes.indicator,
-                  }}
-                  textColor="primary"
-                  scrollButtons="auto"
-                  orientation="vertical"
-                  variant="scrollable"
-                  style={{ paddingTop: "5px" }}
-                  aria-label="scrollable auto tabs example"
-                >
-                  <Tab
-                    label={
-                      <span
-                        style={{
-                          float: "left",
-                          width: "100%",
-                          verticalAlign: "top",
-                        }}
-                      >
-                        <SettingsIcon style={{ verticalAlign: "top" }} />{" "}
-                        Basic Information
-                      </span>
-                    }
-                    className={classes.tabVerticalLabel}
-                    {...tabVerticalProps(0)}
-                  />
+           <Grid container item xs={12}>
+              <Grid
+                item
+                xs={12}
+                sm={4}
+                style={{ padding: "5px", width: "100%" }}
+              >
+                <Paper className={classes.cardHeading}>
+                  <Tabs
+                    value={values}
+                    onChange={handleTabChange}
+                    classes={{
+                      indicator: classes.indicator,
+                    }}
+                    textColor="primary"
+                    scrollButtons="auto"
+                    orientation="vertical"
+                    variant="scrollable"
+                    style={{ paddingTop: "5px" }}
+                    aria-label="scrollable auto tabs example"
+                  >
+                    <Tab
+                      label={
+                        <span
+                          style={{
+                            float: "left",
+                            width: "100%",
+                            verticalAlign: "top",
+                          }}
+                        >
+                          <SettingsIcon style={{ verticalAlign: "top" }} />{" "}
+                          Basic Information
+                        </span>
+                      }
+                      className={classes.tabVerticalLabel}
+                      {...tabVerticalProps(0)}
+                    />
 
-                  <Tab
-                    label={
-                      <span style={{ float: "left", width: "100%" }}>
-                        <RoomIcon style={{ verticalAlign: "top" }} />{" "}
-                        Mailing Address
-                      </span>
-                    }
-                    className={classes.tabVerticalLabel}
-                    {...tabVerticalProps(1)}
-                  />
-                  <Tab
-                    id="tab-vertical"
-                    disabled={hasActiveLoan === "true" ? false : true}
-                    label={
-                      <span style={{ float: "left", width: "100%" }}>
-                        <TextsmsIcon style={{ verticalAlign: "top" }} />
-                        Text Notification - {textnotify}
-                      </span>
-                    }
-                    className={classes.tabVerticalLabel}
-                    {...tabVerticalProps(2)}
-                  />
-                  <Tab
-                    disabled={hasActiveLoan === "true" ? false : true}
-                    label={
-                      <span style={{ float: "left", width: "100%" }}>
-                        <PaymentsIcon style={{ verticalAlign: "top" }} />{" "}
-                        Payment Method
-                      </span>
-                    }
-                    className={classes.tabVerticalLabel}
-                    {...tabVerticalProps(3)}
-                  />
-                  <Tab
-                    label={
-                      <span style={{ float: "left", width: "100%" }}>
-                        <LockOpenIcon style={{ verticalAlign: "top" }} />{" "}
-                        Change Password
-                      </span>
-                    }
-                    className={classes.tabVerticalLabel}
-                    {...tabVerticalProps(4)}
-                  />
-                </Tabs>
-              </Paper>
+                    <Tab
+                      label={
+                        <span style={{ float: "left", width: "100%" }}>
+                          <RoomIcon style={{ verticalAlign: "top" }} />{" "}
+                          Mailing Address
+                        </span>
+                      }
+                      className={classes.tabVerticalLabel}
+                      {...tabVerticalProps(1)}
+                    />
+                    <Tab
+                      id="tab-vertical" 
+                      disabled={disableField === true ? false : true}                    
+                      label={
+                        <span style={{ float: "left", width: "100%" }}>
+                          <TextsmsIcon style={{ verticalAlign: "top" }} /> 
+                          Text Notification - {textnotify}
+                        </span>
+                      }
+                      className={classes.tabVerticalLabel}
+                      {...tabVerticalProps(2)}
+                    />
+                    
+                    <Tab
+                     disabled={disableField === true ? false : true}
+                      label={
+                        <span style={{ float: "left", width: "100%" }}>
+                          <PaymentsIcon style={{ verticalAlign: "top" }} />{" "}
+                          Payment Method
+                        </span>
+                      }
+                      className={classes.tabVerticalLabel}
+                      {...tabVerticalProps(3)}
+                    />                  
+                    <Tab
+                      label={
+                        <span style={{ float: "left", width: "100%" }}>
+                          <LockOpenIcon style={{ verticalAlign: "top" }} />{" "}
+                          Change Password
+                        </span>
+                      }
+                      className={classes.tabVerticalLabel}
+                      {...tabVerticalProps(4)}
+                    />
+                  </Tabs>
+                </Paper>
+              </Grid>
+              {/* End Left Side Nav */}
+
+              {/* Main Content */}
+              <Grid
+                item
+                xs={12}
+                sm={8}
+                style={{ padding: "5px", width: "100%" }}
+              >
+                <Paper className={classes.paper}>
+                  {/* Basic Information */}
+                  <TabVerticalPanel value={values} verticalIndex={0}>
+                    <BasicInformationCard  basicInformationData={basicInfoData} getUserAccountDetails={getUserAccountDetails} AsyncEffect_profileImage={AsyncEffect_profileImage} getProfileImage={getProfImage} />
+                  </TabVerticalPanel>
+                  {/* //END Basic Information */}
+
+                  {/* Mailing Address */}
+                  <TabVerticalPanel value={values} verticalIndex={1}>
+                    <MailingAddressCard  basicInformationData={basicInfoData} getUserAccountDetails={getUserAccountDetails} />
+                  </TabVerticalPanel>
+                  {/* END Mailing Address */}
+
+                  {/* Start Text Notification */}
+                  <TabVerticalPanel value={values} verticalIndex={2}>
+                    <TextNotificationCard />
+                  </TabVerticalPanel>
+                  {/* END Text Notification */}
+
+                  {/* Payment Method */}
+                  <TabVerticalPanel value={values} verticalIndex={3}>
+                    <PaymentMethodCard />
+                  </TabVerticalPanel>
+                  {/* END Payment Method */}
+
+                  {/* Change Poassword */}
+                  <TabVerticalPanel value={values} verticalIndex={4}>
+                    <ChangePassword basicInformationData={basicInfoData} />
+                  </TabVerticalPanel>
+                  {/* END Change Poassword */}
+                </Paper>
+              </Grid>
             </Grid>
-            {/* End Left Side Nav */}
-
-            {/* Main Content */}
-            <Grid
-              item
-              xs={12}
-              sm={8}
-              style={{ padding: "5px", width: "100%" }}
-            >
-              <Paper className={classes.paper}>
-                {/* Basic Information */}
-                <TabVerticalPanel value={values} verticalIndex={0}>
-                  <BasicInformationCard basicInformationData={basicInfoData} />
-                </TabVerticalPanel>
-                {/* //END Basic Information */}
-
-                {/* Mailing Address */}
-                <TabVerticalPanel value={values} verticalIndex={1}>
-                  <MailingAddressCard basicInformationData={basicInfoData} />
-                </TabVerticalPanel>
-                {/* END Mailing Address */}
-
-                {/* Start Text Notification */}
-                <TabVerticalPanel value={values} verticalIndex={2}>
-                  <TextNotificationCard />
-                </TabVerticalPanel>
-                {/* END Text Notification */}
-
-                {/* Payment Method */}
-                <TabVerticalPanel value={values} verticalIndex={3}>
-                  <PaymentMethodCard />
-                </TabVerticalPanel>
-                {/* END Payment Method */}
-
-                {/* Change Poassword */}
-                <TabVerticalPanel value={values} verticalIndex={4}>
-                  <ChangePassword />
-                </TabVerticalPanel>
-                {/* END Change Poassword */}
-              </Paper>
-            </Grid>
-          </Grid>
-
+         
         </Grid>
       </Grid>
     </div>

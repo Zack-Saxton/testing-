@@ -181,8 +181,33 @@
 }
 
 .borrowCSSLP {
-	font-size: 1.64rem !important;
+	font-size: 1.563rem !important;
     font-weight: 400 !important;
     line-height: 110% !important;
     margin: .82rem 0 .656rem 0 !important;
+}
+
+
+#personalIncome-label{
+    font-size: 0.968rem !important;
+}
+
+#personalIncome{
+    padding-bottom: 15px !important;
+}
+
+#householdIncome-label{
+    font-size: 0.968rem !important;
+}
+
+#householdIncome{
+    padding-bottom: 15px !important;
+}
+
+#incomeWrap{
+    border-radius: 4px !important;
+}
+
+#incomeWrap div:nth-child(1){
+    border-radius: 4px 4px 0px 0px !important;
 }

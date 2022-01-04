@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect,useContext, useState } from "react";
 import clsx from "clsx";
 import "./SideNav.css";
 import { makeStyles } from "@material-ui/core/styles";
@@ -28,8 +28,8 @@ import ListIcon from "@material-ui/icons/List";
 import CallIcon from "@material-ui/icons/Call"
 import DataUsageOutlinedIcon from "@material-ui/icons/DataUsageOutlined";
 import { Checkbox } from "@material-ui/core";
-import CircleCheckedFilled from "@material-ui/icons/CheckCircle";
-import CircleUnchecked from "@material-ui/icons/RadioButtonUnchecked";
+import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
+import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
 import logoIcon from "../../../assets/images/Favicon.png";
 import logoImage from "../../../assets/images/Normallogo.png";
 import {Link,  NavLink, useHistory } from "react-router-dom";
@@ -41,9 +41,17 @@ import { toast } from "react-toastify";
 import MoneySkill from "../../Pages/MoneySkill/MoneySkill";
 import Tooltip from "@material-ui/core/Tooltip";
 import branchDetails from "../../Controllers/MyBranchController";
+import LogoutController from "../../Controllers/LogoutController";
+import usrAccountDetails from "../../Controllers/AccountOverviewController";
+import Cookies from "js-cookie";
 import { tabAtom } from "../../Pages/MyProfile/MyProfileTab";
 import { useAtom } from "jotai";
-
+import 'react-perfect-scrollbar/dist/css/styles.css';
+import PerfectScrollbar from 'react-perfect-scrollbar';
+import ProfileImageController from "../../Controllers/ProfileImageController";
+import { ProfilePicture } from "../../../contexts/ProfilePicture";
+import { CheckMyOffers } from "../../../contexts/CheckMyOffers"
+import {useQuery} from "react-query"
 
 const drawerWidth = 240; 
 
@@ -177,6 +185,31 @@ export default function SideNav() {
   const [skill, setSkill] = React.useState(false);
   const [checked, setChecked] = React.useState(true);
   const [, setTabvalue] = useAtom(tabAtom)
+  const { dataProfile, resetProfilePicture } = useContext(ProfilePicture);
+  const { data, resetData } = useContext(CheckMyOffers);
+
+  const { data : dataAccountOverview} = useQuery('loan-data', usrAccountDetails )
+  const [activeLoanData, setActiveLoanData] = useState(true);
+  const [currentLoan, setCurrentLoan] = useState(true);
+
+  useEffect(() => {
+    let noOfLoans = dataAccountOverview?.data?.data?.activeLoans?.length;
+    let activeLoan = dataAccountOverview?.data?.data?.applicants;
+
+    //logic to check if atleast one active initiated Loan is there or not
+    const presenceOfLoan = activeLoan?.some((applicant) => applicant.isActive === true);
+    setCurrentLoan(presenceOfLoan);
+
+      //logic to if there is any active Loan Data is there or not
+   if(noOfLoans===undefined){
+    setActiveLoanData(true);
+ }else if(noOfLoans === 0) {
+   setActiveLoanData(true);
+ } else{
+   setActiveLoanData(false);
+ }
+}, [dataAccountOverview, activeLoanData, currentLoan]);
+
 
 //Material UI media query for responsiveness
   let check = useMediaQuery("(min-width:960px)");
@@ -216,28 +249,38 @@ useEffect(() => {
   getUserBranchDetails();
 }, []);  
 
-// Side bar branch details
-localStorage.setItem('branchname',((branchVal?.data?.data?.BranchName) ? (branchVal.data.data.BranchName) : ""))
-localStorage.setItem('branchphone',branchVal?.data?.data?.PhoneNumber) 
-localStorage.setItem('branchopenstatus',branchVal?.data?.data?.date_closed)
 
-  
-  const branchName = localStorage.getItem('branchname');
-  const branchPhone = localStorage.getItem('branchphone');
-  const branchcloseStatus = localStorage.getItem('branchopenstatus');
+const [profileImage, setProfileImage] = useState(null);
+async function AsyncEffect_profileImage() {
+  setProfileImage(await ProfileImageController());
+}
+useEffect(() => {
  
-  
-//Profile Image
-  // const [profileImage, setProfileImage] = useState(null);
-  // async function AsyncEffect_profileImage() {
-  //   setProfileImage(await ProfileImageController());
-  // }
-  // useEffect(() => {
-  //   AsyncEffect_profileImage();
-  // }, []);
-  // let profileImageData = profileImage?.data?.data?.profile_picture_url != null ? profileImage.data.data.profile_picture_url : profileImg;
+  AsyncEffect_profileImage();
+}, []); 
 
-  const lastLoginRaw = JSON.parse(localStorage.getItem("user"))?.user?.extensionattributes?.login?.timestamp_date;
+
+let getProfImage = (profileImage != null) ? profileImage : profileImg;
+
+// Side bar branch details
+Cookies.set('branchname',((branchVal?.data?.data?.BranchName) ? (branchVal.data.data.BranchName) : (branchVal?.data?.data?.branchName) ? (branchVal.data.data.branchName) : ""))
+Cookies.set('branchphone',branchVal?.data?.data?.PhoneNumber) 
+Cookies.set('branchopenstatus',branchVal?.data?.data?.date_closed)
+Cookies.set('getProfileImage',getProfImage)
+
+
+let hasActiveLoan = Cookies.get("hasActiveLoan") === "true" ? true : false;
+let hasApplicationStatus = Cookies.get("hasApplicationStatus")
+var appStatus=["rejected", "reffered", "expired"]; 
+let checkAppStatus = appStatus.includes(hasApplicationStatus)
+let disableField = (checkAppStatus === true || hasActiveLoan === true) ? true : false;
+  const branchName = Cookies.get("branchname");
+  const branchPhone = Cookies.get('branchphone');
+  const branchcloseStatus = Cookies.get('branchopenstatus');
+  const getProfileImage = Cookies.get('getProfileImage');
+  
+
+  const lastLoginRaw = JSON.parse(Cookies.get("user") ? Cookies.get("user") : '{ }')?.user?.extensionattributes?.login?.timestamp_date;
   const date =  lastLoginRaw ? new Date(lastLoginRaw) : new Date();
   const lastLogin = ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + date.getFullYear()
 
@@ -358,20 +401,14 @@ localStorage.setItem('branchopenstatus',branchVal?.data?.data?.date_closed)
     handleMenuClose()
   }
 
-  const logOut = () => {
+  const logOut = async () => {
     setAnchorEl(null);
-    let userToken = { isLoggedIn: false };
-    localStorage.setItem("token", JSON.stringify(userToken));
-    localStorage.setItem("cred", JSON.stringify({email: "", password: "" }));
-    localStorage.setItem("branchname", JSON.stringify({ }));
-    localStorage.setItem("branchopenstatus", JSON.stringify({ }));
-    localStorage.setItem("login_date", JSON.stringify({ }));
-    localStorage.setItem("user", JSON.stringify({ }));
-    localStorage.setItem("branchphone", JSON.stringify({ }));
-    localStorage.setItem("profile_picture", JSON.stringify({ }));
-
+    // LogoutController();
+    await LogoutController();
+    resetData();
+    resetProfilePicture();
     history.push({
-      pathname: "/login",
+      pathname: "/login"
     });
   };
 
@@ -417,7 +454,9 @@ localStorage.setItem('branchopenstatus',branchVal?.data?.data?.date_closed)
     >
        <MenuItem onClick={handleMenuProfile} id="settingsMenuList">
      My Profile</MenuItem>
-      <MenuItem onClick={handleMenuPaymentProfile} id="settingsMenuList">
+      <MenuItem
+     disabled={disableField === true ? false : true}
+       onClick={handleMenuPaymentProfile} id="settingsMenuList">
       Payment Accounts</MenuItem>
      <MenuItem onClick={logoutUser} id="settingsMenuListLogout" disabled={disable}>
         Logout
@@ -492,7 +531,7 @@ if(navElement){
             </Typography>
 
 
-            <NavLink to="/customers/makePayment" >
+            <NavLink to="/customers/makePayment" onClick={(e)=>{activeLoanData && e.preventDefault()}} className={activeLoanData ? 'nav_link_disabled' : ''}>
             <Tooltip title="Quick Pay" placement="Bottom">
               <img
               className={clsx(classes.headerimg, classes.headerimgResp)}
@@ -549,8 +588,8 @@ if(navElement){
             </ Link>
 
             <Checkbox
-              icon={<CircleUnchecked id="sidemenuRadio" />}
-              checkedIcon={<CircleCheckedFilled id="sidemenuRadio" />}
+              icon={<RadioButtonUncheckedIcon id="sidemenuRadio" />}
+              checkedIcon={<RadioButtonCheckedIcon id="sidemenuRadio" />}
               onClick={handleChangeCheckbox}
               name="sidemenuradio"
               checked={checked}
@@ -566,13 +605,14 @@ if(navElement){
             </div>
           </div>
           <Divider />
+          <PerfectScrollbar options={{ suppressScrollX :true,wheelSpeed: 2,wheelPropagation: false,minScrollbarLength: 20 }}>
           <List onClick={handleMobileMenuClose}>
             <ListItem id="profileDetails" className="profileDetails">
               <List >
               <ListItem>
-             
-                <img id="sidebarProfilePic" src={profileImg} alt="Profile Pic" onClick={handleMenuProfile} />
-               
+                <div id="imgWrap">
+                <img id="sidebarProfilePic" src={dataProfile?.profile_picture_url ? dataProfile?.profile_picture_url : getProfileImage} alt="Profile Pic" onClick={handleMenuProfile} />
+                </div>
               </ListItem> 
               {(branchName === '' || branchName === 'undefined') || (branchPhone === '' || branchPhone === 'undefined') ?
               <>
@@ -603,12 +643,14 @@ if(navElement){
                   {" "}
                   <AssignmentTurnedInOutlinedIcon />{" "}
                 </ListItemIcon>
+                <ListItemText style={{ textDecoration: "none" }}>
                 Account Overview
+                </ListItemText>
               </ListItem>
             </NavLink>
 
-            <NavLink to="/customers/makePayment" className="nav_link">
-              <ListItem className="titleSidenav">
+            <NavLink to="/customers/makePayment" onClick={(e)=>{activeLoanData && e.preventDefault()}} className={activeLoanData ? 'nav_link_disabled' : 'nav_link'}>
+              <ListItem className="titleSidenav" disabled={activeLoanData}>
                 <ListItemIcon>
                   {" "}
                   <AccountBalanceWalletIcon />{" "}
@@ -619,8 +661,8 @@ if(navElement){
               </ListItem>
             </NavLink>
 
-            <NavLink id="applyForLoanNav" to={{  state: {from: "user"}  }} onClick={onAFLClick} className="nav_link">
-              <ListItem className="titleSidenav">
+            <NavLink id="applyForLoanNav" to={{  state: {from: "user"}  }} onClick={(e)=>{currentLoan ? e.preventDefault() : onAFLClick()}} className={currentLoan ? "nav_link_disabled" : "nav_link"} >
+              <ListItem className="titleSidenav" disabled={currentLoan}>
                 <ListItemIcon>
                   {" "}
                   <MonetizationOnRoundedIcon />{" "}
@@ -629,8 +671,8 @@ if(navElement){
               </ListItem>
             </NavLink>
 
-            <NavLink to="/customers/loanDocument" className="nav_link">
-              <ListItem className="titleSidenav">
+            <NavLink to="/customers/loanDocument" onClick={(e)=>{activeLoanData && e.preventDefault()}} className={activeLoanData ? 'nav_link_disabled' : 'nav_link'}>
+              <ListItem className="titleSidenav" disabled={activeLoanData}>
                 <ListItemIcon>
                   {" "}
                   <DescriptionOutlinedIcon />{" "}
@@ -639,8 +681,8 @@ if(navElement){
               </ListItem>
             </NavLink>
 
-            <NavLink to="/customers/myBranch" className="nav_link">
-              <ListItem className="titleSidenav">
+            <NavLink to="/customers/myBranch" onClick={(e)=>{activeLoanData && e.preventDefault()}} className={activeLoanData ? 'nav_link_disabled' : 'nav_link'}>
+              <ListItem className="titleSidenav" disabled={activeLoanData}>
                 <ListItemIcon>
                   {" "}
                   <AccountBalanceIcon />{" "}
@@ -659,8 +701,8 @@ if(navElement){
               </ListItem>
             </NavLink>
 
-            <NavLink to="/customers/loanHistory" className="nav_link">
-              <ListItem className="titleSidenav">
+            <NavLink to="/customers/loanHistory" onClick={(e)=>{activeLoanData && e.preventDefault()}} className={activeLoanData ? 'nav_link_disabled' : 'nav_link'}>
+              <ListItem className="titleSidenav" disabled = {activeLoanData}>
                 <ListItemIcon>
                   {" "}
                   <ListIcon />{" "}
@@ -669,8 +711,8 @@ if(navElement){
               </ListItem>
             </NavLink>
 
-            <NavLink to="/customers/vantageScore" className="nav_link">
-              <ListItem className="titleSidenav">
+            <NavLink to="/customers/vantageScore" onClick={(e)=>{activeLoanData && e.preventDefault()}} className={activeLoanData ? 'nav_link_disabled' : 'nav_link'}>
+              <ListItem className="titleSidenav" disabled = {activeLoanData}>
                 <ListItemIcon>
                   {" "}
                   <InboxIcon />{" "}
@@ -690,6 +732,7 @@ if(navElement){
               </ListItemText>
             </ListItem>
           </List>
+         </PerfectScrollbar>
         </Drawer>
       </div>
       <MoneySkill moneySkill={skill} onChange={setSkill} />

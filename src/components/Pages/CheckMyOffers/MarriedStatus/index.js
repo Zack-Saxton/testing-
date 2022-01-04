@@ -163,7 +163,7 @@ function MarriedStatus() {
 							justifyContent="center"
 							alignItems="center"
 						>
-							<Paper className="cardWOPadding" style={{ justify: "center", alignItems: "center", width: "inherit", marginBottom: "10%", marginTop: "10%" }}>
+							<Paper id="maritalStatusWrap" className="cardWOPadding" style={{ justify: "center", alignItems: "center", width: "inherit", marginBottom: "10%", marginTop: "10%" }}>
 								<div className="progress mt-0">
 									<div
 										id="determinate"
@@ -195,7 +195,7 @@ function MarriedStatus() {
 										justifyContent="center"
 										alignItems="center"
 									>
-										<Grid container
+										<Grid id="selectMaritalStatus" container
 											justifyContent="center"
 											alignItems="center"
 											item
@@ -204,6 +204,7 @@ function MarriedStatus() {
 											xs={12}
 										>
 											<Select
+												id="selectMaritalStatusWrap"
 												fullWidth={true}
 												name="martialStatus"
 												labelform="Marital Status *"
@@ -237,6 +238,7 @@ function MarriedStatus() {
 											}
 										>
 											<TextField
+												id="spouseAddressWrap"
 												name="add"
 												label="Spouse's Address (if different) *"
 												value={formik.values.add}
@@ -318,6 +320,7 @@ function MarriedStatus() {
 											}
 										>
 											<TextField
+												id="cityWrap"
 												name="spouseState"
 												label="City"
 												value={formik.values.spouseState}
@@ -350,6 +353,7 @@ function MarriedStatus() {
 											}
 										>
 											<TextField
+												id="stateWrap"
 												name="spouseSelectState"
 												label="State"
 												value={formik.values.spouseSelectState}
@@ -373,11 +377,9 @@ function MarriedStatus() {
 
 												type="submit"
 												disabled={!validZip}
-												stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black","fontSize":"1rem"}'
+												stylebutton='{"background": "#FFBC23", "padding": "0px 30px", "color": "black","fontSize":"0.938rem"}'
 											>
-												<Typography align="center" className="textCSS ">
 													Continue
-												</Typography>
 											</ButtonPrimary>
 										</Grid>
 									</Grid>

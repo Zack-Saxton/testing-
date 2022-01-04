@@ -24,7 +24,7 @@ export default function LoanHistoryCard(userLoanHistoryCard) {
 
 //  view part
   return (
-    <Grid item xs={12} style={{ paddingBottom: "20px" }}>
+    <Grid item xs={12} style={{ paddingBottom: "20px", paddingTop : "10px" }}>
       <Paper className={classes.paper}>
         <Grid container direction="row">
           <Grid item xs={12} sm={4} className={classes.cardLoanHistory}>
@@ -34,7 +34,7 @@ export default function LoanHistoryCard(userLoanHistoryCard) {
                 {userLoanHistory.userLoanHistoryCard === null ? (
                   <p>0</p>
                 ) : (
-                  <p className={classes.cardAmountLoanHistory}>
+                  <p id="numberOfLoans" className={classes.cardAmountLoanHistory}>
                     {userLoanHistory.userLoanHistoryCard.length
                       ? ('0' + userLoanHistory.userLoanHistoryCard.length).slice(-2)
                       : 0}
