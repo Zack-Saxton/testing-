@@ -1,9 +1,9 @@
-import React, {useContext, useState} from "react";
+import React, { useContext, useState } from "react";
 import "./LoanPurpose.css";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import {ButtonPrimary} from "../../../FormsUI";
+import { ButtonPrimary } from "../../../FormsUI";
 import Paper from "@material-ui/core/Paper";
 import HomeImprovementIcon from "../../../../assets/icon/Home-Improvement.png";
 import HomeImprovementIconWhite from "../../../../assets/icon/white/Home-Improvement.png";
@@ -23,9 +23,9 @@ import DeptIconWhite from "../../../../assets/icon/white/Debt-Consolidation.png"
 import LifeEventIconWhite from "../../../../assets/icon/white/Life-Event.png";
 import UnexpectedExpenseIconWhite from "../../../../assets/icon/white/Unexpected-Expenses.png";
 import MajorPurchaseIconWhite from "../../../../assets/icon/white/Major-Purchase.png";
-import {createStyles, makeStyles} from "@material-ui/core/styles";
-import {Link, useHistory} from "react-router-dom";
-import {CheckMyOffers} from "../../../../contexts/CheckMyOffers";
+import { createStyles, makeStyles } from "@material-ui/core/styles";
+import { Link, useHistory } from "react-router-dom";
+import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import ScrollToTopOnMount from "../ScrollToTop";
 
 //Loan purpose component initialization
@@ -44,7 +44,7 @@ function LoanPurpose(props) {
 		history.push("/citizenship-status");
 	};
 
-//  validate and procceeds to next step
+	//  validate and procceeds to next step
 	const goNext = (val) => {
 		data.loanPurpose = val;
 		setPurpose(val);
@@ -92,7 +92,7 @@ function LoanPurpose(props) {
 	);
 	const classes = useStyles();
 
-	//redirect to select offers if directly called 
+	//redirect to select offers if directly called
 	if (
 		data.completedPage < data.page.selectAmount ||
 		data.formStatus === "completed"
@@ -106,8 +106,17 @@ function LoanPurpose(props) {
 			<ScrollToTopOnMount />
 			<div className="mainDiv">
 				<Box>
-					<Grid container item xs={12}  justifyContent="center" alignItems="center" style={{paddingTop:"70px",paddingBottom:"70px"}}>
-						<Grid container item
+					<Grid
+						container
+						item
+						xs={12}
+						justifyContent="center"
+						alignItems="center"
+						style={{ paddingTop: "70px", paddingBottom: "70px" }}
+					>
+						<Grid
+							container
+							item
 							xs={11}
 							sm={10}
 							md={6}
@@ -124,10 +133,7 @@ function LoanPurpose(props) {
 								id="loanPurposeWrap"
 							>
 								<div className="progress mt-0">
-									<div
-										id="determinate"
-										className="det1 determinate slantDiv"
-									/>
+									<div id="determinate" className="det1 determinate slantDiv" />
 									<span className="floatLeft detNum1">8%</span>
 								</div>
 								<Grid className="floatLeft">
@@ -137,7 +143,9 @@ function LoanPurpose(props) {
 											fromLoanPurpose: "yes",
 										}}
 									>
-										<i className="material-icons dp48 yellowText ">arrow_back</i>
+										<i className="material-icons dp48 yellowText ">
+											arrow_back
+										</i>
 									</Link>
 								</Grid>
 								<Typography variant="h5" align="center" className="borrowCSSLP">
@@ -343,7 +351,7 @@ function LoanPurpose(props) {
 												className="icon"
 											/>
 											<Typography
-											id="purposeTxt05"
+												id="purposeTxt05"
 												align="center"
 												className={
 													purpose === "Medical/Dental"
@@ -384,7 +392,7 @@ function LoanPurpose(props) {
 												className="icon"
 											/>
 											<Typography
-											id="purposeTxt06"
+												id="purposeTxt06"
 												align="center"
 												className={
 													purpose === "Debt Consolidation"
@@ -425,7 +433,7 @@ function LoanPurpose(props) {
 												className="icon"
 											/>
 											<Typography
-											id="purposeTxt07"
+												id="purposeTxt07"
 												align="center"
 												className={
 													purpose === "Life Event (Wedding, Graduation, etc)"
@@ -466,7 +474,7 @@ function LoanPurpose(props) {
 												className="icon"
 											/>
 											<Typography
-											id="purposeTxt08"
+												id="purposeTxt08"
 												align="center"
 												className={
 													purpose === "Unexpected Expenses/Bills"
@@ -507,7 +515,7 @@ function LoanPurpose(props) {
 												className="icon"
 											/>
 											<Typography
-											id="purposeTxt10"
+												id="purposeTxt10"
 												align="center"
 												className={
 													purpose === "Major Purchase"
@@ -525,7 +533,7 @@ function LoanPurpose(props) {
 										md={12}
 										xs={12}
 										className={`${classes.masonryItemFirst}`}
-										style={{paddingTop:"10px",paddingBottom:"25px"}}
+										style={{ paddingTop: "10px", paddingBottom: "25px" }}
 									>
 										<Paper
 											data-testid="others"
@@ -549,14 +557,14 @@ function LoanPurpose(props) {
 											</Typography>
 										</Paper>
 									</Grid>
-									<Grid item
+									<Grid
+										item
 										className="ContinueButton"
 										lg={9}
 										md={9}
 										sm={12}
 										xs={12}
-										style={{paddingBottom:"80px"}}
-										
+										style={{ paddingBottom: "80px" }}
 									>
 										<ButtonPrimary
 											data-testid="contButton"
@@ -565,7 +573,7 @@ function LoanPurpose(props) {
 											stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black !important","width":"155px","fontSize":"15px"}'
 										>
 											{/* <Typography align="center" className="textCSS "> */}
-												Continue
+											Continue
 											{/* </Typography> */}
 										</ButtonPrimary>
 									</Grid>

@@ -11,8 +11,8 @@ export default async function MyBranchAPI() {
   let addAccessToken = true;
 
   //API call
-  let myBranch = await APICall(url, param, data, method, addAccessToken);
-  return myBranch;
+  return APICall(url, param, data, method, addAccessToken);
+ 
 }
 
 /***** Schedule call ****/

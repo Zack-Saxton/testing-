@@ -43,7 +43,7 @@ function TabVerticalPanel(props) {
     >
       {value === verticalIndex && (
         <Box>
-          <Typography>{children}</Typography>
+          {children}
         </Box>
       )}
     </div>
@@ -117,8 +117,8 @@ export default function MyProfile() {
         justifyContent={"center"}
         style={{
           marginTop: "-150px",
-          paddingRight: "30px",
-          paddingLeft: "30px",
+          paddingRight: "23px",
+          paddingLeft: "23px",
         }}
       >
         <Grid
@@ -126,7 +126,7 @@ export default function MyProfile() {
           item
           xs={12}
           direction="row"
-          style={{ marginBottom: "-20px", width: "100%" }}
+          style={{ width: "100%", paddingBottom:"10px" }}
         >
           <Typography className={classes.heading} variant="h3">
             <NavLink
@@ -150,15 +150,15 @@ export default function MyProfile() {
         </Grid>
 
         {/* Left Side Nav */}
-        <Grid item xs={12} style={{ paddingBottom: "200px" }}>
+        <Grid item xs={12} style={{ paddingBottom: "200px", paddingTop:"10px" }}>
            <Grid container item xs={12}>
               <Grid
                 item
                 xs={12}
                 sm={4}
-                style={{ padding: "5px", width: "100%" }}
+                style={{  width: "100%" }}
               >
-                <Paper className={classes.cardHeading}>
+                <Paper id="basicInfo" className={classes.cardHeading}>
                   <Tabs
                     value={values}
                     onChange={handleTabChange}
@@ -169,7 +169,7 @@ export default function MyProfile() {
                     scrollButtons="auto"
                     orientation="vertical"
                     variant="scrollable"
-                    style={{ paddingTop: "5px" }}
+                    style={{ padding: "20px 0px" }}
                     aria-label="scrollable auto tabs example"
                   >
                     <Tab
@@ -179,9 +179,11 @@ export default function MyProfile() {
                             float: "left",
                             width: "100%",
                             verticalAlign: "top",
+                            "fontSize":"0.938rem",
+                            "fontFamily":"Muli,sans-serif",fontWeight:"700"
                           }}
                         >
-                          <SettingsIcon style={{ verticalAlign: "top" }} />{" "}
+                          <SettingsIcon style={{ verticalAlign: "top", paddingRight:"10px" }} />{" "}
                           Basic Information
                         </span>
                       }
@@ -191,8 +193,8 @@ export default function MyProfile() {
 
                     <Tab
                       label={
-                        <span style={{ float: "left", width: "100%" }}>
-                          <RoomIcon style={{ verticalAlign: "top" }} />{" "}
+                        <span style={{ float: "left", width: "100%","fontSize":"0.938rem","fontFamily":"Muli,sans-serif",fontWeight:"700" }}>
+                          <RoomIcon style={{ verticalAlign: "top" , paddingRight:"10px" }} />{" "}
                           Mailing Address
                         </span>
                       }
@@ -203,8 +205,8 @@ export default function MyProfile() {
                       id="tab-vertical" 
                       disabled={disableField === true ? false : true}                    
                       label={
-                        <span style={{ float: "left", width: "100%" }}>
-                          <TextsmsIcon style={{ verticalAlign: "top" }} /> 
+                        <span style={{ float: "left", width: "100%" ,"fontSize":"0.938rem","fontFamily":"Muli,sans-serif",fontWeight:"700" }}>
+                          <TextsmsIcon style={{ verticalAlign: "top" , paddingRight:"10px" }} /> 
                           Text Notification - {textnotify}
                         </span>
                       }
@@ -215,8 +217,8 @@ export default function MyProfile() {
                     <Tab
                      disabled={disableField === true ? false : true}
                       label={
-                        <span style={{ float: "left", width: "100%" }}>
-                          <PaymentsIcon style={{ verticalAlign: "top" }} />{" "}
+                        <span style={{ float: "left", width: "100%" ,"fontSize":"0.938rem","fontFamily":"Muli,sans-serif",fontWeight:"700" }}>
+                          <PaymentsIcon style={{ verticalAlign: "top" , paddingRight:"10px" }} />{" "}
                           Payment Method
                         </span>
                       }
@@ -225,8 +227,8 @@ export default function MyProfile() {
                     />                  
                     <Tab
                       label={
-                        <span style={{ float: "left", width: "100%" }}>
-                          <LockOpenIcon style={{ verticalAlign: "top" }} />{" "}
+                        <span style={{ float: "left", width: "100%" ,"fontSize":"0.938rem","fontFamily":"Muli,sans-serif",fontWeight:"700" }}>
+                          <LockOpenIcon style={{ verticalAlign: "top" , paddingRight:"10px" }} />{" "}
                           Change Password
                         </span>
                       }
@@ -240,12 +242,13 @@ export default function MyProfile() {
 
               {/* Main Content */}
               <Grid
+                id="myProfileMainContent"
                 item
                 xs={12}
                 sm={8}
-                style={{ padding: "5px", width: "100%" }}
+                style={{ paddingLeft:"15px", width: "100%" }}
               >
-                <Paper className={classes.paper}>
+                <Paper id="mainContentTab" className={classes.paper}>
                   {/* Basic Information */}
                   <TabVerticalPanel value={values} verticalIndex={0}>
                     <BasicInformationCard  basicInformationData={basicInfoData} getUserAccountDetails={getUserAccountDetails} AsyncEffect_profileImage={AsyncEffect_profileImage} getProfileImage={getProfImage} />

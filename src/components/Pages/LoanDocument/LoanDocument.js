@@ -235,7 +235,7 @@ export default function LoanDocument(props) {
  
             <Grid item xs={12} sm={3} style={{ paddingTop: "10px", width: "225px" }}>
               <Select
-                name="select"
+                name="selectDocument"
                 labelform="Select Document Type"
                 select='[{ "label": "Identity Document", "value": "id_doc"}, 
           {"label": "Income Document","value": "income_doc"}, 

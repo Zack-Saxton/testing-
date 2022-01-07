@@ -16,8 +16,8 @@ export async function getNoticationData() {
   let addAccessToken = true;
 
   //API call
-  let notification = await APICall(url, param, data, method, addAccessToken);
-  return notification;
+  return  APICall(url, param, data, method, addAccessToken);
+ 
 }
 
 export async function setUnread(notificationId,id,isDelete,) {
@@ -34,7 +34,7 @@ export async function setUnread(notificationId,id,isDelete,) {
   let addAccessToken = true;
 
   //API call
-  let notification = await APICall(url, param, data, method, addAccessToken);
-  return notification;
+  return  APICall(url, param, data, method, addAccessToken);
+ 
 }
 

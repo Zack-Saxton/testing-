@@ -9,15 +9,13 @@ import PasswordLogo from "../../../../assets/icon/I-Password.png";
 import { ButtonPrimary, PasswordField } from "../../../FormsUI";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import ScrollToTopOnMount from '../ScrollToTop';
+import ScrollToTopOnMount from "../ScrollToTop";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
-import loginSubmit from "../../../Controllers/LoginController";
+import LoginController from "../../../Controllers/LoginController";
 import usrAccountDetails from "../../../Controllers/AccountOverviewController";
 import { toast } from "react-toastify";
-import Cookies from "js-cookie"
-import { encryptAES }  from "../../../lib/Crypto"
-
-
+import Cookies from "js-cookie";
+import { encryptAES } from "../../../lib/Crypto";
 
 //YUP validation schema
 const validationSchema = yup.object({
@@ -30,63 +28,82 @@ const validationSchema = yup.object({
 // Existing user functional component initiallization
 function ExistingUser() {
 	const { data, setData } = useContext(CheckMyOffers);
-	const [loginFailed, setLoginFailed] = useState('');
+	const [loginFailed, setLoginFailed] = useState("");
 	const [loading, setLoading] = useState(false);
 	const history = useHistory();
 
-	// Formik configuraion 
+	// Formik configuraion
 	const formik = useFormik({
 		initialValues: {
 			password: "",
 		},
 		validationSchema: validationSchema,
-		// handle submit to login the user 
+		// handle submit to login the user
 		onSubmit: async (values) => {
 			setLoading(true);
 			setData({
 				...data,
-				"password": values.password,
-				"confirmPassword": values.password,
-				"completedPage": data.page.existingUser,
+				password: values.password,
+				confirmPassword: values.password,
+				completedPage: data.page.existingUser,
 			});
-			let retVal = await loginSubmit(data.email, values.password);
+			let retVal = await LoginController(data.email, values.password);
 			if (retVal?.data?.data?.user && !retVal?.data?.data?.result) {
 				var now = new Date().getTime();
-				Cookies.set("token", JSON.stringify({ isLoggedIn: true, apiKey: retVal?.data?.data?.user?.extensionattributes?.login?.jwt_token, setupTime: now }));
-                Cookies.set("cred", encryptAES(JSON.stringify({email: data.email, password: values.password })));
+				Cookies.set(
+					"token",
+					JSON.stringify({
+						isLoggedIn: true,
+						apiKey:
+							retVal?.data?.data?.user?.extensionattributes?.login?.jwt_token,
+						setupTime: now,
+					})
+				);
+				Cookies.set(
+					"cred",
+					encryptAES(
+						JSON.stringify({ email: data.email, password: values.password })
+					)
+				);
 
 				setLoading(false);
-				let accountDetail= await usrAccountDetails();
+				let accountDetail = await usrAccountDetails();
 
-				if(accountDetail?.data?.data?.customer?.user_account?.status === "closed"){
+				if (
+					accountDetail?.data?.data?.customer?.user_account?.status === "closed"
+				) {
 					data.isActiveUser = false;
-					toast.error("Your account is closed to new applications. Please contact us to reapply.", {
-						position: "bottom-left",
-						autoClose: 2500,
-						hideProgressBar: false,
-						closeOnClick: true,
-						pauseOnHover: true,
-						draggable: true,
-						progress: undefined,
-					  });
-					  history.push({
+					toast.error(
+						"Your account is closed to new applications. Please contact us to reapply.",
+						{
+							position: "bottom-left",
+							autoClose: 2500,
+							hideProgressBar: false,
+							closeOnClick: true,
+							pauseOnHover: true,
+							draggable: true,
+							progress: undefined,
+						}
+					);
+					history.push({
 						pathname: "/customers/accountOverview",
 					});
-				}
-				else{
+				} else {
 					history.push({
 						pathname: "/employment-status",
 					});
 				}
-
-				
-			}
-			else if (retVal?.data?.data?.result === "error" || retVal?.data?.data?.hasError === true) {
-				Cookies.set('token', JSON.stringify({ isLoggedIn: false, apiKey: '', setupTime: '' }));
+			} else if (
+				retVal?.data?.data?.result === "error" ||
+				retVal?.data?.data?.hasError === true
+			) {
+				Cookies.set(
+					"token",
+					JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" })
+				);
 				setLoading(false);
 				setLoginFailed(retVal?.data?.data?.errorMessage);
-			}
-			else {
+			} else {
 				alert("Network error");
 				setLoading(false);
 			}
@@ -94,10 +111,9 @@ function ExistingUser() {
 	});
 
 	const passwordOnChange = (e) => {
-		setLoginFailed('');
+		setLoginFailed("");
 		formik.handleChange(e);
-
-	}
+	};
 
 	const preventSpace = (event) => {
 		if (event.keyCode === 32) {
@@ -106,7 +122,10 @@ function ExistingUser() {
 	};
 
 	//redirects to select amount on directr page call
-	if (data.completedPage < data.page.personalInfo || data.formStatus === 'completed') {
+	if (
+		data.completedPage < data.page.personalInfo ||
+		data.formStatus === "completed"
+	) {
 		history.push("/select-amount");
 	}
 
@@ -116,8 +135,16 @@ function ExistingUser() {
 			<ScrollToTopOnMount />
 			<div className="mainDiv">
 				<Box>
-					<Grid item xs={12} container justifyContent="center" alignItems="center">
-						<Grid container item
+					<Grid
+						item
+						xs={12}
+						container
+						justifyContent="center"
+						alignItems="center"
+					>
+						<Grid
+							container
+							item
 							xs={11}
 							sm={10}
 							md={6}
@@ -127,32 +154,67 @@ function ExistingUser() {
 							justifyContent="center"
 							alignItems="center"
 						>
-							<Paper className="cardWOPadding" style={{ justify: "center", alignItems: "center", width: "inherit", marginBottom: "10%", marginTop: "10%" }}>
+							<Paper
+								className="cardWOPadding"
+								style={{
+									justify: "center",
+									alignItems: "center",
+									width: "inherit",
+									marginBottom: "10%",
+									marginTop: "10%",
+								}}
+							>
 								<span className="floatLeft detNum5" />
 								<Grid className="floatLeft">
 									<Link to="/personal-info">
-										<i className="material-icons dp48 yellowText  ">arrow_back</i>
+										<i className="material-icons dp48 yellowText  ">
+											arrow_back
+										</i>
 									</Link>
 								</Grid>
 								<Grid className="liftImage" style={{ marginTop: "-4%" }}>
-									<img src={PasswordLogo} alt="password" className="spinAnimation" />
+									<img
+										src={PasswordLogo}
+										alt="password"
+										className="spinAnimation"
+									/>
 								</Grid>
-								<Typography style={{ align: "center", justify: "center", alignItems: "center", marginBottom: "1%", marginTop: "1%" }}>
+								<Typography
+									style={{
+										align: "center",
+										justify: "center",
+										alignItems: "center",
+										marginBottom: "1%",
+										marginTop: "1%",
+									}}
+								>
 									We have detected you already have an account with us.
 								</Typography>
 
-								<Typography variant="h5" style={{ align: "center", justify: "center", alignItems: "center", marginBottom: "1%", marginTop: "1%" }}>
+								<Typography
+									variant="h5"
+									style={{
+										align: "center",
+										justify: "center",
+										alignItems: "center",
+										marginBottom: "1%",
+										marginTop: "1%",
+									}}
+								>
 									Please enter a password and continue.
 								</Typography>
 
 								<form onSubmit={formik.handleSubmit}>
-									<Grid container item
+									<Grid
+										container
+										item
 										md={12}
 										className="blockDiv"
 										justifyContent="center"
 										alignItems="center"
 									>
-										<Grid container
+										<Grid
+											container
 											justifyContent="flex-start"
 											alignItems="flex-start"
 											item
@@ -179,12 +241,20 @@ function ExistingUser() {
 													formik.touched.password && formik.errors.password
 												}
 											/>
-											<p className={loginFailed !== '' ? "showError add-pad" : "hideError"} data-testid="subtitle">
+											<p
+												className={
+													loginFailed !== "" ? "showError add-pad" : "hideError"
+												}
+												data-testid="subtitle"
+											>
 												{" "}
-												{loginFailed === "Invalid Email or Password" ? "Please enter a valid password" : loginFailed}
+												{loginFailed === "Invalid Email or Password"
+													? "Please enter a valid password"
+													: loginFailed}
 											</p>
 										</Grid>
-										<Grid container
+										<Grid
+											container
 											justifyContent="center"
 											alignItems="center"
 											item
@@ -204,12 +274,15 @@ function ExistingUser() {
 												</Typography>
 												<i
 													className="fa fa-refresh fa-spin customSpinner"
-													style={{ marginRight: "10px", display: loading ? "block" : "none" }}
+													style={{
+														marginRight: "10px",
+														display: loading ? "block" : "none",
+													}}
 												/>
-
 											</ButtonPrimary>
 										</Grid>
-										<Grid container
+										<Grid
+											container
 											justifyContent="center"
 											alignItems="center"
 											item
@@ -219,9 +292,8 @@ function ExistingUser() {
 											className="linkBlock"
 										>
 											<Link to="/register" className="link">
-												<p >Sign in Help / Register</p>
+												<p>Sign in Help / Register</p>
 											</Link>
-
 										</Grid>
 									</Grid>
 								</form>

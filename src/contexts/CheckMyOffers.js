@@ -10,50 +10,50 @@ const CheckMyOffersContext = (props) => {
 
 	//context data initial State
 	const [data, setData] = useState({
-		loanAmount: null,
+		loanAmount: '',
 		term: 36,
-		offerCode: "",
-		citizenship: null,
-		zip: null,
-		loanPurpose: null,
-		firstName: null,
-		lastName: null,
-		phone: null,
-		email: null,
-		dob: null,
-		employmentStatus: null,
+		offerCode: '',
+		citizenship: '',
+		zip: '',
+		loanPurpose: '',
+		firstName: '',
+		lastName: '',
+		phone: '',
+		email: '',
+		dob: '',
+		employmentStatus: '',
 		yearsAtEmployers: '',
-		EmployerPhone: null,
-		householdAnnualIncome: null,
-		annualIncome: null,
-		maritalStatus: null,
-		spouse_address_street: null,
-		spouse_address_city: null,
-		spouse_address_postal_code: null,
-		spouse_address_state: null,
-		spouse_address_state_full_form: null,
-		streetAddress: null,
-		city: null,
-		state: null,
-		stateFullform: null,
-		ssn: null,
-		homeOwnership: null,
+		EmployerPhone: '',
+		householdAnnualIncome: '',
+		annualIncome: '',
+		maritalStatus: '',
+		spouse_address_street: '',
+		spouse_address_city: '',
+		spouse_address_postal_code: '',
+		spouse_address_state: '',
+		spouse_address_state_full_form: '',
+		streetAddress: '',
+		city: '',
+		state: '',
+		stateFullform: '',
+		ssn: '',
+		homeOwnership: '',
 		rentMortageAmount: '',
-		militaryActiveDuty: null,
-		consent_credit_contact_auth: null,
-		consent_electronic_communication: null,
-		consent_privacy_policy: null,
-		consent_terms_of_use: null,
-		militaryActiveDutyRank: null,
-		password: null,
-		confirmPassword: null,
-		result: null,
+		militaryActiveDuty: '',
+		consent_credit_contact_auth: '',
+		consent_electronic_communication: '',
+		consent_privacy_policy: '',
+		consent_terms_of_use: '',
+		militaryActiveDutyRank: '',
+		password: '',
+		confirmPassword: '',
+		result: '',
 		formStatus: '', 
 		completedPage: 0,
 		loading:true,
-		isActiveUser: null,
+		isActiveUser: '',
 		disabled: false,
-		last4SSN: null,
+		last4SSN: '',
 		page: {
 			selectAmount: 1,
 			loanPurpose: 2,
@@ -78,24 +78,24 @@ const CheckMyOffersContext = (props) => {
 		if(accountDetail.data.status === 200){
 		const cred = JSON.parse(Cookies.get("cred") ? decryptAES(Cookies.get("cred")) : '{ }');
 	
-			let identification = (accountDetail != null) ? accountDetail?.data?.data?.customer?.identification : null;
-			let latestContact = (accountDetail != null) ? accountDetail?.data?.data?.customer?.latest_contact : null;
-			let statesFullForm = (accountDetail != null) ? accountDetail?.data?.data?.customer?.latest_contact.address_state : null;
-			let userStatus = (accountDetail != null) ? accountDetail?.data?.data?.customer?.user_account?.status : null;
-			data.citizenship = identification?.citizenship ? identification?.citizenship : null
-			data.zip = latestContact?.address_postal_code ? latestContact?.address_postal_code : null
-			data.firstName = identification?.first_name ? identification?.first_name : null
-			data.lastName = identification?.last_name ? identification?.last_name : null
-			data.phone = latestContact?.phone_number_primary ? latestContact?.phone_number_primary : null
-			data.email = latestContact?.email ? latestContact?.email : null
-			data.dob = identification?.date_of_birth ? identification?.date_of_birth : null
-			data.streetAddress = latestContact?.address_street ? latestContact?.address_street : null
-			data.city = latestContact?.address_city ? latestContact?.address_city : null
-			data.state = latestContact?.address_state? latestContact.address_state: null
+			let identification = (accountDetail !== '') ? accountDetail?.data?.data?.customer?.identification : '';
+			let latestContact = (accountDetail !== '') ? accountDetail?.data?.data?.customer?.latest_contact : '';
+			let statesFullForm = (accountDetail !== '') ? accountDetail?.data?.data?.customer?.latest_contact.address_state : '';
+			let userStatus = (accountDetail !== '') ? accountDetail?.data?.data?.customer?.user_account?.status : '';
+			data.citizenship = identification?.citizenship ? identification?.citizenship : ''
+			data.zip = latestContact?.address_postal_code ? latestContact?.address_postal_code : ''
+			data.firstName = identification?.first_name ? identification?.first_name : ''
+			data.lastName = identification?.last_name ? identification?.last_name : ''
+			data.phone = latestContact?.phone_number_primary ? latestContact?.phone_number_primary : ''
+			data.email = latestContact?.email ? latestContact?.email : ''
+			data.dob = identification?.date_of_birth ? identification?.date_of_birth : ''
+			data.streetAddress = latestContact?.address_street ? latestContact?.address_street : ''
+			data.city = latestContact?.address_city ? latestContact?.address_city : ''
+			data.state = latestContact?.address_state? latestContact.address_state: ''
 			data.stateFullform = statesFullForm.length === 2 ? states[statesFullForm] : statesFullForm;
-			data.last4SSN = identification?.last4SSN ? identification?.last4SSN : null;
-			data.loanPurpose = null
-			data.ssn = identification?.social_security_number ? identification?.social_security_number : null
+			data.last4SSN = identification?.last4SSN ? identification?.last4SSN : '';
+			data.loanPurpose = ''
+			data.ssn = identification?.social_security_number ? identification?.social_security_number : ''
 			data.loading = false;
 			data.password = cred.password;
 			data.confirmPassword = cred.password;
@@ -112,48 +112,48 @@ const CheckMyOffersContext = (props) => {
 	const resetData = () => {
 			const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : '{ }');
 			setData({
-				loanAmount: null,
+				loanAmount: '',
 				term: 36,
-				offerCode: null,
-				citizenship: null,
-				zip: null,
-				loanPurpose: null,
-				firstName: null,
-				lastName: null,
-				phone: null,
-				email: null,
-				dob: null,
-				employmentStatus: null,
+				offerCode: '',
+				citizenship: '',
+				zip: '',
+				loanPurpose: '',
+				firstName: '',
+				lastName: '',
+				phone: '',
+				email: '',
+				dob: '',
+				employmentStatus: '',
 				yearsAtEmployers: '',
-				EmployerPhone: null,
-				householdAnnualIncome: null,
-				annualIncome: null,
-				maritalStatus: null,
-				spouse_address_street: null,
-				spouse_address_city: null,
-				spouse_address_postal_code: null,
-				spouse_address_state: null,
-				spouse_address_state_full_form: null,
-				streetAddress: null,
-				city: null,
-				state: null,
-				stateFullform: null,
-				ssn: null,
-				homeOwnership: null,
+				EmployerPhone: '',
+				householdAnnualIncome: '',
+				annualIncome: '',
+				maritalStatus: '',
+				spouse_address_street: '',
+				spouse_address_city: '',
+				spouse_address_postal_code: '',
+				spouse_address_state: '',
+				spouse_address_state_full_form: '',
+				streetAddress: '',
+				city: '',
+				state: '',
+				stateFullform: '',
+				ssn: '',
+				homeOwnership: '',
 				rentMortageAmount: '',
-				militaryActiveDuty: null,
-				consent_credit_contact_auth: null,
-				consent_electronic_communication: null,
-				consent_privacy_policy: null,
-				consent_terms_of_use: null,
-				militaryActiveDutyRank: null,
-				password: null,
-				confirmPassword: null,
-				result: null,
+				militaryActiveDuty: '',
+				consent_credit_contact_auth: '',
+				consent_electronic_communication: '',
+				consent_privacy_policy: '',
+				consent_terms_of_use: '',
+				militaryActiveDutyRank: '',
+				password: '',
+				confirmPassword: '',
+				result: '',
 				formStatus: '', 
 				completedPage: 0,
-				isActiveUser: null,
-				last4SSN: null,
+				isActiveUser: '',
+				last4SSN: '',
 				disabled: false,
 				loading: loginToken?.isLoggedIn ? true :false,
 				page: {

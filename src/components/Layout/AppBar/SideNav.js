@@ -186,7 +186,7 @@ export default function SideNav() {
   const [checked, setChecked] = React.useState(true);
   const [, setTabvalue] = useAtom(tabAtom)
   const { dataProfile, resetProfilePicture } = useContext(ProfilePicture);
-  const { data, resetData } = useContext(CheckMyOffers);
+  const {  resetData } = useContext(CheckMyOffers);
 
   const { data : dataAccountOverview} = useQuery('loan-data', usrAccountDetails )
   const [activeLoanData, setActiveLoanData] = useState(true);
@@ -208,6 +208,11 @@ export default function SideNav() {
  } else{
    setActiveLoanData(false);
  }
+
+ return () => {
+  setCurrentLoan({});
+
+};
 }, [dataAccountOverview, activeLoanData, currentLoan]);
 
 
@@ -249,7 +254,7 @@ useEffect(() => {
   getUserBranchDetails();
 }, []);  
 
-
+//Api call Profile Picture
 const [profileImage, setProfileImage] = useState(null);
 async function AsyncEffect_profileImage() {
   setProfileImage(await ProfileImageController());
@@ -403,7 +408,6 @@ let disableField = (checkAppStatus === true || hasActiveLoan === true) ? true : 
 
   const logOut = async () => {
     setAnchorEl(null);
-    // LogoutController();
     await LogoutController();
     resetData();
     resetProfilePicture();
@@ -443,7 +447,7 @@ let disableField = (checkAppStatus === true || hasActiveLoan === true) ? true : 
     });
   }
  
-
+ 
 //Menu bar 
   const renderMenu = (
     <Menu
@@ -532,7 +536,7 @@ if(navElement){
 
 
             <NavLink to="/customers/makePayment" onClick={(e)=>{activeLoanData && e.preventDefault()}} className={activeLoanData ? 'nav_link_disabled' : ''}>
-            <Tooltip title="Quick Pay" placement="Bottom">
+            <Tooltip title="Quick Pay" placement="bottom">
               <img
               className={clsx(classes.headerimg, classes.headerimgResp)}
               src={quickPay}
@@ -630,7 +634,7 @@ if(navElement){
               {formatPhoneNumber(branchPhone) === '' || undefined  ? '' :  
               <ListItem id="sidemenuPhone"> 
                   <CallIcon />
-                  <a href={"tel:+"+ branchPhone.replace(/\-/g,"")} className="hrefPhoneNo">
+                  <a href="tel:" className="hrefPhoneNo">
                   {formatPhoneNumber(branchPhone)}
                 </a>  
               </ListItem> 
@@ -691,15 +695,15 @@ if(navElement){
               </ListItem>
             </NavLink>
 
-            <NavLink to="/customers/myProfile" className="nav_link">
-              <ListItem className="titleSidenav">
+            <NavLink   to="/customers/myProfile"  onClick={handleMenuProfile} className="nav_link"> 
+              <ListItem className="titleSidenav" >
                 <ListItemIcon>
                   {" "}
                   <AccountCircleIcon />{" "}
                 </ListItemIcon>
                 <ListItemText> My Profile</ListItemText>
               </ListItem>
-            </NavLink>
+             </NavLink> 
 
             <NavLink to="/customers/loanHistory" onClick={(e)=>{activeLoanData && e.preventDefault()}} className={activeLoanData ? 'nav_link_disabled' : 'nav_link'}>
               <ListItem className="titleSidenav" disabled = {activeLoanData}>

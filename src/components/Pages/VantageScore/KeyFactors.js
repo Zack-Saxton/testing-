@@ -8,9 +8,6 @@ import { Grid} from '@material-ui/core';
 import {useStyleVantageScore} from "./Style";
 import creditScore from "./CreditScore.json"
 
-
-
-
 export default function ControlledAccordions(keyFactors) {
   //Material UI css class
   const classes = useStyleVantageScore();

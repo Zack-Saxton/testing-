@@ -1,22 +1,22 @@
-import React, {useContext, useState} from "react";
+import React, { useContext, useState } from "react";
 import "./NewUser.css";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import {ButtonPrimary, PasswordField} from "../../../FormsUI";
+import { ButtonPrimary, PasswordField } from "../../../FormsUI";
 import Paper from "@material-ui/core/Paper";
-import {Link, useHistory} from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import PasswordLogo from "../../../../assets/icon/I-Password.png";
-import {useFormik} from "formik";
-import {CheckMyOffers} from "../../../../contexts/CheckMyOffers";
+import { useFormik } from "formik";
+import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import * as yup from "yup";
 import axios from "axios";
 import ScrollToTopOnMount from "../ScrollToTop";
-import loginSubmit from "../../../Controllers/LoginController";
-import Cookies from "js-cookie"
-import { encryptAES } from "../../../lib/Crypto"
+import LoginController from "../../../Controllers/LoginController";
+import Cookies from "js-cookie";
+import { encryptAES } from "../../../lib/Crypto";
 
-//YUP validation schema 
+//YUP validation schema
 const validationSchema = yup.object({
 	newPassword: yup
 		.string("Enter your password")
@@ -30,14 +30,11 @@ const validationSchema = yup.object({
 
 	confirmPassword: yup
 		.string()
-		.required(
-			"Your password confirmation is required"
-		)
+		.required("Your password confirmation is required")
 		.max(30, "Password can be upto 30 characters length")
 		.min(8, "Password should be minimum of 8 characters length")
 		.when("newPassword", {
-			is: (newPassword) =>
-				newPassword && newPassword.length > 0,
+			is: (newPassword) => newPassword && newPassword.length > 0,
 			then: yup
 				.string()
 				.oneOf(
@@ -67,23 +64,23 @@ function NewUser() {
 			setLoading(true);
 			setData({
 				...data,
-				"password": values.newPassword,
-				"confirmPassword": values.confirmPassword,
-				"completedPage": data.page.newUser
+				password: values.newPassword,
+				confirmPassword: values.confirmPassword,
+				completedPage: data.page.newUser,
 			});
 			let body = {
-				"fname": data.firstName,
-				"lname": data.lastName,
-				"email": data.email,
-				"ssn": data.ssn,
-				"zip_code": data.zip,
-				"password": values.newPassword,
-				"birth_year": data.dob.getFullYear().toString(),
-				"birth_month": ("0" + (data.dob.getMonth() + 1)).slice(-2),
-				"birth_day": ("0" + (data.dob.getDate() + 1)).slice(-2),
-				"address_street": data.streetAddress,
-				"address_city": data.city,
-				"address_state": data.state
+				fname: data.firstName,
+				lname: data.lastName,
+				email: data.email,
+				ssn: data.ssn,
+				zip_code: data.zip,
+				password: values.newPassword,
+				birth_year: data.dob.getFullYear().toString(),
+				birth_month: ("0" + (data.dob.getMonth() + 1)).slice(-2),
+				birth_day: ("0" + (data.dob.getDate() + 1)).slice(-2),
+				address_street: data.streetAddress,
+				address_city: data.city,
+				address_state: data.state,
 			};
 			try {
 				let customerStatus = await axios({
@@ -92,11 +89,6 @@ function NewUser() {
 					data: JSON.stringify(body),
 					headers: {
 						"Content-Type": "application/json",
-						// Accept: "*/*",
-						// Host: "psa-development.marinerfinance.io",
-						// "Accept-Encoding": "gzip, deflate, br",
-						// Connection: "keep-alive",
-						// "Content-Length": "6774",
 					},
 					transformRequest: (request, headers) => {
 						delete headers.common["Content-Type"];
@@ -108,29 +100,67 @@ function NewUser() {
 					customerStatus.data?.customerFound === false &&
 					customerStatus.data?.userFound === false &&
 					customerStatus.data?.is_registration_failed === false
-				) { 
-					let retVal = await loginSubmit(data.email, values.newPassword, '');
-					if (retVal?.data?.data?.user && retVal?.data?.data?.userFound === true) {
+				) {
+					let retVal = await LoginController(
+						data.email,
+						values.newPassword,
+						""
+					);
+					if (
+						retVal?.data?.data?.user &&
+						retVal?.data?.data?.userFound === true
+					) {
 						let rememberMe = false;
 						var now = new Date().getTime();
 						// localStorage.clear();
-						Cookies.set("token", JSON.stringify({ isLoggedIn: true, apiKey: retVal?.data?.data?.user?.extensionattributes?.login?.jwt_token, setupTime: now }));
-						Cookies.set("cred", encryptAES(JSON.stringify({email: data.email, password: values.newPassword })));
+						Cookies.set(
+							"token",
+							JSON.stringify({
+								isLoggedIn: true,
+								apiKey:
+									retVal?.data?.data?.user?.extensionattributes?.login
+										?.jwt_token,
+								setupTime: now,
+							})
+						);
+						Cookies.set(
+							"cred",
+							encryptAES(
+								JSON.stringify({
+									email: data.email,
+									password: values.newPassword,
+								})
+							)
+						);
 
-						rememberMe === true ?
-							Cookies.set("rememberMe", JSON.stringify({ selected: true, email: values.email, password: values.password })) :
-							Cookies.set("rememberMe", JSON.stringify({ selected: false, email: '', password: '' }));
-		
+						rememberMe === true
+							? Cookies.set(
+									"rememberMe",
+									JSON.stringify({
+										selected: true,
+										email: values.email,
+										password: values.password,
+									})
+							  )
+							: Cookies.set(
+									"rememberMe",
+									JSON.stringify({ selected: false, email: "", password: "" })
+							  );
+
 						setLoading(false);
 						history.push({
 							pathname: "employment-status",
 						});
-					}
-					else if (retVal?.data?.data?.result === "error" || retVal?.data?.data?.hasError === true) {
-						Cookies.set('token', JSON.stringify({ isLoggedIn: false, apiKey: '', setupTime: '' }));
+					} else if (
+						retVal?.data?.data?.result === "error" ||
+						retVal?.data?.data?.hasError === true
+					) {
+						Cookies.set(
+							"token",
+							JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" })
+						);
 						setLoading(false);
-					}
-					else {
+					} else {
 						setLoading(false);
 						alert("Network error");
 					}
@@ -159,7 +189,6 @@ function NewUser() {
 		}
 	};
 
-
 	//redirects to select amount on direct call
 	if (
 		data.completedPage < data.page.personalInfo ||
@@ -168,23 +197,30 @@ function NewUser() {
 		history.push("/select-amount");
 	}
 
-
 	//View part
 	return (
 		<div>
 			<ScrollToTopOnMount />
 			<div className="mainDiv">
 				<Box>
-					<Grid item xs={12} container justifyContent="center"  style={{ width:"100%",paddingTop:"70px",paddingBottom:"70px"}}>
-						<Grid container
+					<Grid
+						item
+						xs={12}
+						container
+						justifyContent="center"
+						style={{ width: "100%", paddingTop: "70px", paddingBottom: "70px" }}
+					>
+						<Grid
+							container
 							xs={11}
 							sm={10}
 							md={6}
 							lg={6}
-							xl={6} item
+							xl={6}
+							item
 							className="cardWrapper"
-                            justifyContent="center"
-							style={{ width:"100%" }}
+							justifyContent="center"
+							style={{ width: "100%" }}
 						>
 							<Paper
 								className="cardWOPadding"
@@ -193,11 +229,13 @@ function NewUser() {
 								alignitems="center"
 							>
 								<div className="progress mt-0">
-									<span className="floatLeft detNum5"/>
+									<span className="floatLeft detNum5" />
 								</div>
 								<Grid className="floatLeft">
 									<Link to="/personal-info">
-										<i className="material-icons dp48 yellowText  ">arrow_back</i>
+										<i className="material-icons dp48 yellowText  ">
+											arrow_back
+										</i>
 									</Link>
 								</Grid>
 								<Grid className="liftImage">
@@ -228,15 +266,17 @@ function NewUser() {
 
 								<form onSubmit={formik.handleSubmit}>
 									<Grid
-										md={12} item
+										md={12}
+										item
 										className="blockDiv"
 										container
-                                        justifyContent="center"
-										style={{ width:"100%" }}
+										justifyContent="center"
+										style={{ width: "100%" }}
 									>
-										<Grid container
+										<Grid
+											container
 											justifyContent="center"
-											style={{ width:"100%" }}
+											style={{ width: "100%" }}
 											item
 											lg={8}
 											md={8}
@@ -300,8 +340,9 @@ function NewUser() {
 										</Grid>
 										<Grid
 											justifyContent="center"
-											style={{ width:"100%" }}
-											item container
+											style={{ width: "100%" }}
+											item
+											container
 											lg={8}
 											md={8}
 											xs={12}
@@ -313,7 +354,7 @@ function NewUser() {
 												disabled={loading}
 												stylebutton='{"background": "#FFBC23", "fontSize": "0.938rem", "padding": "0px 30px", "color": "black"}'
 											>
-													Sign In
+												Sign In
 												<i
 													className="fa fa-refresh fa-spin customSpinner"
 													style={{

@@ -203,21 +203,20 @@ export default function CreditKarma() {
     onSubmit: async (values) => {
       setLoading(true);
       setFailed("");
-      let ssn = values.ssn;
-      let phone = values.callPhNo;
-      let phoneType = values.phoneType;
-      let password = values.password;
-      let confirm_password = values.confirmPassword;
+      let partnerSignupData = {
+       ssn : values.ssn,
+       phone : values.callPhNo,
+       phoneType : values.phoneType,
+       password : values.password,
+       confirm_password : values.confirmPassword
+      }
 
       let partnerRes = await partnerSignup(
         history,
         partnerToken,
         applicantId,
-        ssn,
-        phone,
-        phoneType,
-        password,
-        confirm_password
+        partnerSignupData,
+       
       );
       if (partnerRes.data.status === 404) {
         setLoading(false);

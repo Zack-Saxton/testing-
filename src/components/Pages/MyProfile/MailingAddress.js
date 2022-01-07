@@ -298,7 +298,7 @@ export default function MailingAddress(props) {
         </Grid>
 
         <ButtonSecondary
-          stylebutton='{"marginLeft": "","fontSize":""}'
+          stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
           styleicon='{ "color":"" }'
           onClick={onClickCancelChange}
           disabled={disableField === true ? false : true}
@@ -308,7 +308,7 @@ export default function MailingAddress(props) {
         </ButtonSecondary>
 
         <ButtonPrimary
-          stylebutton='{"marginLeft": "","fontSize":"", "marginLeft": "5px"}'
+          stylebutton='{"marginLeft": "5px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
           styleicon='{ "color":"" }'
           type="submit"
           disabled={loading}

@@ -1,17 +1,24 @@
-#streetAddress ,#zip , #city, #state, #zipcode{
-    padding-bottom: 15px !important;
+#streetAddress,
+#zip,
+#city,
+#state,
+#zipcode {
+	padding-bottom: 15px !important;
 }
 
-#streetAddress-label, #zip-label, #city-label, #state-label, #zipcode-label {
-    font-size: 0.938rem !important;
-    padding-bottom:10px !important ;
+#streetAddress-label,
+#zip-label,
+#city-label,
+#state-label,
+#zipcode-label {
+	font-size: 0.938rem !important;
+	padding-bottom: 10px !important ;
 }
 
-#enterZipWrap{
-    border-radius: 4px !important;
+#enterZipWrap {
+	border-radius: 4px !important;
 }
 
-#enterZipWrap div:nth-child(1){
-    border-radius: 4px 4px 0px 0px !important;
+#enterZipWrap div:nth-child(1) {
+	border-radius: 4px 4px 0px 0px !important;
 }
-

@@ -5,6 +5,10 @@
     white-space: -o-pre-wrap;
     word-wrap: break-word;
     font-family: 'Muli', sans-serif !important;
-    color: black;
+    color: blue;
     padding: 7px 0px !important;
+}
+
+#mui-component-select-expiryMonth span {
+    color: currentColor !important;
 }

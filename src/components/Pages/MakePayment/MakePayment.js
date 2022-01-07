@@ -15,7 +15,6 @@ import CloseIcon from "@material-ui/icons/Close";
 import ScrollToTopOnMount from "../ScrollToTop";
 import { useStylesMakePayment } from "./Style";
 import { CircularProgress, FormControlLabel } from '@material-ui/core';
-
 import "./MakePayment.css";
 import {
   ButtonPrimary,
@@ -507,7 +506,6 @@ export default function MakePayment(props) {
         {showCircularProgress === true ? (
           <Grid item xs={12} style={{ paddingTop: "10px", paddingBottom: "10px" }}>
             <TableContainer id="pdfdiv" component={Paper}>
-
               <Table className={classes.table} aria-label="simple table">
                 <TableHead>
                   <TableRow>
@@ -555,7 +553,6 @@ export default function MakePayment(props) {
           </Grid>}
         {latestLoanData != null ? latestLoanData.length ?
           <>
-
             <Grid
             id="payFromWrap"
               item

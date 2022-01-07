@@ -9,16 +9,14 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import MoreIcon from "@material-ui/icons/MoreVert";
-import Cookies from "js-cookie";
-import { encryptAES } from "../../lib/Crypto"
+
 
 const NormalHeader = () => {
   const classes = useStyles();
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(false);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const history = useHistory();
-  let cart = Cookies.get("token") ? Cookies.get("token") : '{ }';
-  const userToken = JSON.parse(cart);
+ 
 
 //Menu open & close
   const handleMobileMenuOpen = (event) => {
@@ -29,15 +27,6 @@ const NormalHeader = () => {
     setMobileMoreAnchorEl(null);
   };
 
-  const logoutUser = () => {
-    let tokenData = { isLoggedIn: false };
-    Cookies.set("token", JSON.stringify(tokenData));
-    Cookies.set("cred", encryptAES(JSON.stringify({email: "", password: "" })));
-
-    history.push({
-      pathname: "/login",
-    });
-  };
 
   const mobileMenuId = "primary-search-account-menu-mobile";
 

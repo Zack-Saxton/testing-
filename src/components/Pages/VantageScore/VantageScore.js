@@ -13,7 +13,6 @@ import { getVantageScore } from "../../Controllers/VantageController";
 import ScrollToTopOnMount from "../ScrollToTop";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
 
-
 export default function VantageScore() {
   //Material UI css class
   const classes = useStyleVantageScore();
@@ -71,7 +70,7 @@ export default function VantageScore() {
         </Grid>
         <div id="creditContainer">
           <Grid item xs={12}>
-            <Paper style={{padding:"36px"}} style={{borderRadius:"2px !important"}} className={classes.paper}>
+            <Paper lstyle={{padding:"36px",borderRadius:"2px !important"}} className={classes.paper}>
               {creditData ? (
                 creditData[0]?.parsed.vantage_score ?
                   (<Credit creditData={creditData} />) : <div>You do not have any credit score</div>
@@ -93,7 +92,6 @@ export default function VantageScore() {
           </Grid>
         </div>
         <div id="dropDown" className={classes.root}>
-
           <Paper>
             {keyFactors ? (
               creditData[0]?.parsed.vantage_score ? (

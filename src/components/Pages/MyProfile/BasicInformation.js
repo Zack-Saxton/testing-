@@ -25,9 +25,9 @@ const validationSchema = yup.object({
     .string("Enter your email")
     .email("Please enter a valid email address")
     .matches(
-      /^[a-zA-Z][a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
-      "Please enter a valid email address"
-    )
+			/^[a-zA-Z](?!.*[+/._-][+/._-])(([^<>()|?{}='[\]\\,;:#!$%^&*\s@\"]+(\.[^<>()|?{}=/+'[\]\\.,;_:#!$%^&*-\s@\"]+)*)|(\".+\"))[a-zA-Z0-9]@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,3}))$/, //eslint-disable-line
+			"A valid email address is required"
+		)
     .required("Your email address is required"),
 
   phone: yup
@@ -131,7 +131,8 @@ const logoutUser = () => {
               toastId: "closeToast",
               onClose: () => {
                 setLoading(false); 
-                props.getUserAccountDetails()        
+                props.getUserAccountDetails()     
+                onClickCancelChange()   
               }
             });}
         }
@@ -149,7 +150,8 @@ const logoutUser = () => {
               toastId: "closeToast",
               onClose: () => {
                 props.getUserAccountDetails()  
-                logoutUser()      
+                logoutUser()  
+                onClickCancelChange()      
               }
             });}
         }
@@ -176,7 +178,7 @@ const logoutUser = () => {
               selectedFile.value = "";
               return false
               
-            } else if (selectedFile.files[0].size <= 10240000) {
+            } else if (selectedFile.files[0].size <= 819200) {
               let reader = new FileReader();
               if (selectedFile.files && selectedFile.files[0]) {
                 reader.onload = async () => {
@@ -226,6 +228,7 @@ const logoutUser = () => {
                               props.AsyncEffect_profileImage()
                                props.getUserAccountDetails()
                               setLoading(false);
+                              onClickCancelChange()  
                               logoutUser()
 
                             }
@@ -237,12 +240,14 @@ const logoutUser = () => {
                             props.AsyncEffect_profileImage()
                             props.getUserAccountDetails()
                             setLoading(false);
+                            onClickCancelChange()  
                             
                            }   
                            else  {
                             setLoading(false);
                             setuploadedImage(uploadData.data.data.profile_picture_url)   
-                            props.AsyncEffect_profileImage()                             
+                            props.AsyncEffect_profileImage() 
+                            onClickCancelChange()                            
         
                            }               
                           }
@@ -276,8 +281,8 @@ const logoutUser = () => {
                
               }
             } else {
-              if (selectedFile.files[0].size > 10240000) {
-                toast.error("Please upload file size below 10mb ", {
+              if (selectedFile.files[0].size > 819200) {
+                toast.error("Please upload file size below 800kb ", {
                   position: "bottom-left",
                   autoClose: 1500,
                   hideProgressBar: false,
@@ -379,6 +384,7 @@ const logoutUser = () => {
 
   
   return (
+    <div>
     <form onSubmit={formik.handleSubmit} style={{
       opacity: loading ? 0.55 : 1,
       pointerEvents: loading ? "none" : "initial"
@@ -396,6 +402,7 @@ const logoutUser = () => {
       >
       
         <TextField
+          id="basicFirstName"
           label="First Name"
           name="firstname"
           type="text"
@@ -412,6 +419,7 @@ const logoutUser = () => {
         direction="row"
       >
         <TextField
+          id="basicLastName"
           label="Last Name"
           name="lastname"
           type="text"
@@ -428,6 +436,7 @@ const logoutUser = () => {
         direction="row"
       >
         <TextField
+          id="basicDOB"
           label="Date of Birth"
           name="dob"
           type="date"
@@ -465,7 +474,7 @@ const logoutUser = () => {
         style={{ width: "100%", gap: 15, marginBottom: 18 }}
         container
         direction="row"
-        id = {disableField === true ? "" : "profilePhoneNumberWrap" } 
+        id = {disableField === true ? "basicPhoneNumber" : "profilePhoneNumberWrap" } 
       >
         <PhoneNumber
           name="phone"
@@ -483,20 +492,19 @@ const logoutUser = () => {
       </Grid>
 
       <Grid container direction="row">
-        <Grid item xs={8} sm={3} style={{ paddingTop: "10px", maxWidth: "100px" }}>
+        <Grid id="imgUploadWrap" item xs={8} sm={3}>
           <img
-            width="80px"
+          style={{width:"100%"}}
             src={uploadedImage !== null ? uploadedImage : profileImageData}
             align="left"
             alt="Profile Pic"
-            style={{ borderRadius: "50%" }}
           />
                 
         </Grid>
 
         <Grid item xs={12} sm={6} style={{ paddingTop: "10px" }}>
           <ButtonSecondary
-            stylebutton='{"background": "#FFFFFF", "height": "inherit", "color": "black","fontSize":"1rem","border-width":"1","border-style": "solid"}'
+            stylebutton='{"background": "#FFFFFF", "padding":"0px 30px","fontWeight":"700","color": "#214476","fontSize":"0.938rem","borderWidth":"1","borderStyle": "solid"}'
             id="uploadProfileImage"
             variant="contained"
             component="span"
@@ -514,7 +522,9 @@ const logoutUser = () => {
             type="file"
           />
           <br></br>
+          <small style={{fontSize:"12px", color:"#595959"}}>
           Allowed jpg, gif or png. Max size of 800kb
+          </small>
         </Grid>
       </Grid>
       <Grid
@@ -528,7 +538,7 @@ const logoutUser = () => {
         className="textBlock alignButton"
       >
         <ButtonSecondary
-            stylebutton='{"marginLeft": "","fontSize":""}'
+            stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
             styleicon='{ "color":"" }'
             onClick={onClickCancelChange}
             disabled={disableField === true ? false : true}
@@ -537,7 +547,7 @@ const logoutUser = () => {
         </ButtonSecondary>
 
         <ButtonPrimary
-                stylebutton='{"marginLeft": "","fontSize":"", "marginLeft": "5px"}'
+                stylebutton='{"marginLeft": "", "color":"#171717", "fontWeight":"700", "marginLeft": "5px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
                 styleicon='{ "color":"" }'
                 type="submit"
                 disabled={loading}
@@ -557,5 +567,6 @@ const logoutUser = () => {
       </Grid>      
       </>  } 
     </form>
+    </div>
   );
 }

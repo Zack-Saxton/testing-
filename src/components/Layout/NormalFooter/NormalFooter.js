@@ -77,9 +77,9 @@ export default function NormalFooter() {
             <div style={{paddingTop:"15px",paddingBottom:"15px",}}>
               <p className="leftAlignAddress">
                 Mariner Finance, LLC, NMLS No. 166564
-                <p style={{margin:"0",cursor: "pointer"}}onClick={handleOpenConsumer}>
+                <span style={{margin:"0",cursor: "pointer"}}onClick={handleOpenConsumer}>
                   (www.nmlsconsumeraccess.com)
-                </p> 
+                </span> 
                 8211 Town Center Drive,
                  Nottingham, MD 21236; <br />
                 Telephone Number -

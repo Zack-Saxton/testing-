@@ -7,8 +7,6 @@ import DocumentUpload from "./DocumentUpload";
 import APICall from "../../../App/APIcall";
 import { toast } from "react-toastify";
 
-
-
 //styling part
 const useStyles = makeStyles(() => ({
 	content_grid: {
@@ -17,12 +15,12 @@ const useStyles = makeStyles(() => ({
 }));
 
 //View Part
-//Initializing functional componentl	
+//Initializing functional componentl
 export default function IncomeVerification(props) {
 	const history = useHistory();
 	const classes = useStyles();
 	const handleUpload = (res) => {
-		if(res?.income_verification){
+		if (res?.income_verification) {
 			toast.success("Document uploaded successfully!", {
 				position: "bottom-left",
 				autoClose: 1500,
@@ -31,9 +29,8 @@ export default function IncomeVerification(props) {
 				pauseOnHover: true,
 				draggable: true,
 				progress: undefined,
-			  });
-		}
-		else{
+			});
+		} else {
 			toast.error("Document submission failed. Please try again", {
 				position: "bottom-left",
 				autoClose: 1500,
@@ -42,9 +39,9 @@ export default function IncomeVerification(props) {
 				pauseOnHover: true,
 				draggable: true,
 				progress: undefined,
-			  });
+			});
 		}
-	}
+	};
 	//JSX part
 	return (
 		<div>
@@ -77,12 +74,17 @@ export default function IncomeVerification(props) {
 
 			<Grid className={classes.content_grid}></Grid>
 			<Grid className={classes.content_grid}>
-				<DocumentUpload classes={classes} docType={"income information"} handle={handleUpload} setLoadingFlag= {props.setLoadingFlag}/>
+				<DocumentUpload
+					classes={classes}
+					docType={"income information"}
+					handle={handleUpload}
+					setLoadingFlag={props.setLoadingFlag}
+				/>
 			</Grid>
 			<div className={props.classes.actionsContainer}>
 				<div className={props.classes.button_div}>
 					<ButtonSecondary
-						stylebutton='{"margin-right": "10px", "color":"" }'
+						stylebutton='{"marginRight": "10px", "color":"" }'
 						onClick={props.reset}
 						id="button_stepper_reset"
 					>
@@ -93,10 +95,10 @@ export default function IncomeVerification(props) {
 						variant="contained"
 						color="primary"
 						id="button_stepper_next"
-						stylebutton='{"margin-right": "10px", "color":"" }'
+						stylebutton='{"marginRight": "10px", "color":"" }'
 						onClick={async () => {
 							let data = {};
-							props.setLoadingFlag(true)
+							props.setLoadingFlag(true);
 
 							// API call
 							let res = await APICall(
@@ -117,12 +119,12 @@ export default function IncomeVerification(props) {
 								res?.data?.data?.bank_account_verification === true &&
 								res?.data?.data?.income_verification === true
 							) {
-								props.setLoadingFlag(false)
+								props.setLoadingFlag(false);
 								history.push({
 									pathname: "/customers/receiveYourMoney",
-								  });
+								});
 							} else {
-								props.setLoadingFlag(false)
+								props.setLoadingFlag(false);
 								alert("please finish all the steps");
 							}
 						}}

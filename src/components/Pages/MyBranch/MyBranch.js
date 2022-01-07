@@ -65,7 +65,7 @@ const classes = useStylesMyBranch();
 
         <Grid
           container
-          style={{ paddingTop: "10px", paddingBottom: "10px", marginBottom: "45px" }}
+          id = "branchMainDiv"        
         >
           <Grid id="branchDiv" item xs={12} sm={5} >
             {myBranchData ? (

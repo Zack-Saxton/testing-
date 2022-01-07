@@ -8,56 +8,80 @@ import Paper from "@material-ui/core/Paper";
 import AnnualIncomeLogo from "../../../../assets/icon/I-Annual-Income.png";
 import { useFormik } from "formik";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
-import ScrollToTopOnMount from '../ScrollToTop';
+import ScrollToTopOnMount from "../ScrollToTop";
 import "./AnnualIncome.css";
-
 
 //Initializing functional component Active duty
 function NewUser() {
 	const { data } = useContext(CheckMyOffers);
-	const [errorAnnual, setErrorAnnual] = useState('');
-	const [errorPersonal, setErrorPersonal] = useState('');
+	const [errorAnnual, setErrorAnnual] = useState("");
+	const [errorPersonal, setErrorPersonal] = useState("");
 
 	//Retrieving Context values
 	const history = useHistory();
-	const validate = (personal, household) => { 
-		if (!isNaN(personal) && !isNaN(household)) { 
+	const validate = (personal, household) => {
+		if (!isNaN(personal) && !isNaN(household)) {
 			if (personal <= household) {
-				setErrorAnnual('');
-				setErrorPersonal('');
+				setErrorAnnual("");
+				setErrorPersonal("");
 				return true;
 			} else {
-				setErrorAnnual("Annual household income must be greater than or equal to Annual personal income");
+				setErrorAnnual(
+					"Annual household income must be greater than or equal to Annual personal income"
+				);
 				return false;
 			}
-		}
-		else {
-			setErrorPersonal(isNaN(personal) ? "Annual personal income is required" : '');
-			setErrorAnnual(isNaN(household) ? "Annual household income is required" : '');
+		} else {
+			setErrorPersonal(
+				isNaN(personal) ? "Annual personal income is required" : ""
+			);
+			setErrorAnnual(
+				isNaN(household) ? "Annual household income is required" : ""
+			);
 			return false;
 		}
-	}
+	};
 
 	//initializing formik
 	const formik = useFormik({
 		initialValues: {
-			personalIncome: data.annualIncome ? '$' + parseFloat(data.annualIncome).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').slice(0, -3) : "",
-			householdIncome: data.householdAnnualIncome ? '$' + parseFloat(data.householdAnnualIncome).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').slice(0, -3) : "",
+			personalIncome: data.annualIncome
+				? "$" +
+				  parseFloat(data.annualIncome)
+						.toFixed(2)
+						.replace(/(\d)(?=(\d{3})+\.)/g, "$1,")
+						.slice(0, -3)
+				: "",
+			householdIncome: data.householdAnnualIncome
+				? "$" +
+				  parseFloat(data.householdAnnualIncome)
+						.toFixed(2)
+						.replace(/(\d)(?=(\d{3})+\.)/g, "$1,")
+						.slice(0, -3)
+				: "",
 		},
 
 		//On submit functionality
 		onSubmit: (values) => {
-			const modPersonalIncome = parseInt(values.personalIncome.replace(/\$/g, "").replace(/,/g, ""));
-			const modHouseholdIncome = parseInt(values.householdIncome.replace(/\$/g, "").replace(/,/g, ""));
-			if(errorPersonal === '' && errorAnnual === ''){
+			const modPersonalIncome = parseInt(
+				values.personalIncome.replace(/\$/g, "").replace(/,/g, "")
+			);
+			const modHouseholdIncome = parseInt(
+				values.householdIncome.replace(/\$/g, "").replace(/,/g, "")
+			);
+			if (errorPersonal === "" && errorAnnual === "") {
 				if (validate(modPersonalIncome, modHouseholdIncome)) {
-					data.annualIncome = modPersonalIncome ? modPersonalIncome : '0';
-					data.householdAnnualIncome = modHouseholdIncome ? modHouseholdIncome : '0';
-					data.completedPage = data.completedPage > data.page.annualIncome ? data.completedPage : data.page.annualIncome;
+					data.annualIncome = modPersonalIncome ? modPersonalIncome : "0";
+					data.householdAnnualIncome = modHouseholdIncome
+						? modHouseholdIncome
+						: "0";
+					data.completedPage =
+						data.completedPage > data.page.annualIncome
+							? data.completedPage
+							: data.page.annualIncome;
 					history.push("/living-place");
 				}
-			}		
-
+			}
 		},
 	});
 
@@ -68,7 +92,7 @@ function NewUser() {
 		let acc = event.target.value;
 
 		if (acc === "" || reg.test(acc)) {
-			setErrorPersonal('');
+			setErrorPersonal("");
 			formik.handleChange(event);
 		}
 	};
@@ -77,80 +101,122 @@ function NewUser() {
 		let acc = event.target.value;
 
 		if (acc === "" || reg.test(acc)) {
-			setErrorAnnual('');
+			setErrorAnnual("");
 			formik.handleChange(event);
 		}
 	};
 
-	// To change text to currency format and check for validations 
-	const currencyFormat = (event) => {
-		const inputName = event.target.name
-		if (inputName === 'personalIncome') { 
-			const n = event.target.value.replace(/\$/g, "").replace(/,/g, "").substr(0, 7);  
-			const formated = parseFloat(n);
-			const currency = '$';
-			const forCur = currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
-			formik.setFieldValue(event.target.name, forCur.slice(0, -3));
-			const modPersonalIncome = parseInt(formik.values.personalIncome.replace(/\$/g, "").replace(/,/g, ""));
-			const modHouseholdIncome = parseInt(formik.values.householdIncome.replace(/\$/g, "").replace(/,/g, ""));
-			if (isNaN(modPersonalIncome)) {
-				setErrorPersonal("Annual personal income is required");
-			} else {
-				const n = event.target.value.replace(/\$/g, "").replace(/,/g, "").substr(0, 7);
-				if(n.length < 4){
-					setErrorPersonal("Annual personal income should not be less than 4 digits");
-					return false;
-				}
-
-				if (!isNaN(modPersonalIncome) && !isNaN(modHouseholdIncome)) {
-					if (modPersonalIncome <= modHouseholdIncome) {
-						setErrorAnnual('');
-						setErrorPersonal('');
-						return true;
-					} else {
-						setErrorAnnual("Annual household income must be greater than or equal to Annual personal income");
-						return false;
-					}
-
-				}
+	const handleHouseHoldIncomeValue = (event) => {
+		const num = event.target.value
+			.replace(/\$/g, "")
+			.replace(/,/g, "")
+			.substr(0, 7);
+		const formated = parseFloat(num);
+		const currency = "$";
+		const forCur =
+			currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+		formik.setFieldValue(event.target.name, forCur.slice(0, -3));
+		const modPersonalIncome = parseInt(
+			formik.values.personalIncome.replace(/\$/g, "").replace(/,/g, "")
+		);
+		const modHouseholdIncome = parseInt(
+			formik.values.householdIncome.replace(/\$/g, "").replace(/,/g, "")
+		);
+		if (isNaN(modHouseholdIncome)) {
+			setErrorAnnual("Annual household income is required");
+		} else {
+			const numNxt = event.target.value
+				.replace(/\$/g, "")
+				.replace(/,/g, "")
+				.substr(0, 7);
+			if (numNxt.length < 4) {
+				setErrorAnnual(
+					"Annual household income should not be less than 4 digits"
+				);
+				return false;
 			}
-		} else if (inputName === 'householdIncome') {
-			const n = event.target.value.replace(/\$/g, "").replace(/,/g, "").substr(0, 7);	 
-			const formated = parseFloat(n);
-			const currency = '$';
-			const forCur = currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
-			formik.setFieldValue(event.target.name, forCur.slice(0, -3));
-			const modPersonalIncome = parseInt(formik.values.personalIncome.replace(/\$/g, "").replace(/,/g, ""));
-			const modHouseholdIncome = parseInt(formik.values.householdIncome.replace(/\$/g, "").replace(/,/g, ""));
-			if (isNaN(modHouseholdIncome)) {
-				setErrorAnnual("Annual household income is required");
-			} else {				
-				const n = event.target.value.replace(/\$/g, "").replace(/,/g, "").substr(0, 7);
-				if(n.length < 4){
-					setErrorAnnual("Annual household income should not be less than 4 digits");
+			const perval = document
+				.getElementById("personalIncome")
+				.value.replace(/\$/g, "")
+				.replace(/,/g, "")
+				.substr(0, 7);
+			if (perval.length < 4) {
+				setErrorPersonal(
+					"Annual personal income should not be less than 4 digits"
+				);
+				return false;
+			}
+			if (!isNaN(modPersonalIncome) && !isNaN(modHouseholdIncome)) {
+				if (modPersonalIncome <= modHouseholdIncome) {
+					setErrorAnnual("");
+					setErrorPersonal("");
+					return true;
+				} else {
+					setErrorAnnual(
+						"Annual household income must be greater than or equal to Annual personal income"
+					);
 					return false;
-				}
-				const perval =  document.getElementById("personalIncome").value.replace(/\$/g, "").replace(/,/g, "").substr(0, 7);	 			
-				if(perval.length < 4){
-					setErrorPersonal("Annual personal income should not be less than 4 digits");
-					return false;
-				}
-				if (!isNaN(modPersonalIncome) && !isNaN(modHouseholdIncome)) {
-					if (modPersonalIncome <= modHouseholdIncome) {
-						setErrorAnnual('');
-						setErrorPersonal('');
-						return true;
-					} else {
-						setErrorAnnual("Annual household income must be greater than or equal to Annual personal income");
-						return false;
-					}
-
 				}
 			}
 		}
-	}
+	};
 
-	// prevent the unwanted character 
+	const handlePeronalIncomeValue = (event) => {
+		const n = event.target.value
+			.replace(/\$/g, "")
+			.replace(/,/g, "")
+			.substr(0, 7);
+		const formated = parseFloat(n);
+		const currency = "$";
+		const forCur =
+			currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+		formik.setFieldValue(event.target.name, forCur.slice(0, -3));
+		const modPersonalIncome = parseInt(
+			formik.values.personalIncome.replace(/\$/g, "").replace(/,/g, "")
+		);
+		const modHouseholdIncome = parseInt(
+			formik.values.householdIncome.replace(/\$/g, "").replace(/,/g, "")
+		);
+		if (isNaN(modPersonalIncome)) {
+			setErrorPersonal("Annual personal income is required");
+		} else {
+			const num = event.target.value
+				.replace(/\$/g, "")
+				.replace(/,/g, "")
+				.substr(0, 7);
+			if (num.length < 4) {
+				setErrorPersonal(
+					"Annual personal income should not be less than 4 digits"
+				);
+				return false;
+			}
+
+			if (!isNaN(modPersonalIncome) && !isNaN(modHouseholdIncome)) {
+				if (modPersonalIncome <= modHouseholdIncome) {
+					setErrorAnnual("");
+					setErrorPersonal("");
+					return true;
+				} else {
+					setErrorAnnual(
+						"Annual household income must be greater than or equal to Annual personal income"
+					);
+					return false;
+				}
+			}
+		}
+	};
+
+	// To change text to currency format and check for validations
+	const currencyFormat = (event) => {
+		const inputName = event.target.name;
+		if (inputName === "personalIncome") {
+			handlePeronalIncomeValue(event);
+		} else if (inputName === "householdIncome") {
+			handleHouseHoldIncomeValue(event);
+		}
+	};
+
+	// prevent the unwanted character
 	const preventUnwanted = (event) => {
 		if (event.keyCode === 190 || event.keyCode === 188) {
 			event.preventDefault();
@@ -158,7 +224,10 @@ function NewUser() {
 	};
 
 	//Redirect to select offer is the page hit direclty
-	if (data.completedPage < data.page.employmentStatus || data.formStatus === 'completed') {
+	if (
+		data.completedPage < data.page.employmentStatus ||
+		data.formStatus === "completed"
+	) {
 		history.push("/select-amount");
 	}
 
@@ -169,8 +238,17 @@ function NewUser() {
 			<ScrollToTopOnMount />
 			<div className="mainDiv">
 				<Box>
-					<Grid container item xs={12} justifyContent="center" alignItems="center" style={{ paddingTop: "70px", paddingBottom: "70px" }}>
-						<Grid container item
+					<Grid
+						container
+						item
+						xs={12}
+						justifyContent="center"
+						alignItems="center"
+						style={{ paddingTop: "70px", paddingBottom: "70px" }}
+					>
+						<Grid
+							container
+							item
 							xs={11}
 							sm={10}
 							md={6}
@@ -180,7 +258,11 @@ function NewUser() {
 							justifyContent="center"
 							alignItems="center"
 						>
-							<Paper id="incomeWrap" className="cardWOPadding" style={{ justify: "center", alignItems: "center" }}>
+							<Paper
+								id="incomeWrap"
+								className="cardWOPadding"
+								style={{ justify: "center", alignItems: "center" }}
+							>
 								<div className="progress mt-0">
 									<div
 										id="determinate"
@@ -190,7 +272,9 @@ function NewUser() {
 								</div>
 								<Grid className="floatLeft">
 									<Link to="/employment-status">
-										<i className="material-icons dp48 yellowText  ">arrow_back</i>
+										<i className="material-icons dp48 yellowText  ">
+											arrow_back
+										</i>
 									</Link>
 								</Grid>
 								<Grid className="liftImage">
@@ -201,19 +285,29 @@ function NewUser() {
 									/>
 								</Grid>
 
-								<Typography variant="h4" style={{ align: "center", justify: "center", alignItems: "center" }} className="borrowCSSLP">
+								<Typography
+									variant="h4"
+									style={{
+										align: "center",
+										justify: "center",
+										alignItems: "center",
+									}}
+									className="borrowCSSLP"
+								>
 									Tell us about your income
 								</Typography>
 
 								<form onSubmit={formik.handleSubmit}>
-									<Grid item
+									<Grid
+										item
 										md={12}
 										className="blockDiv"
 										container
 										justifyContent="center"
 										alignItems="center"
 									>
-										<Grid container
+										<Grid
+											container
 											justifyContent="center"
 											alignItems="center"
 											item
@@ -224,26 +318,20 @@ function NewUser() {
 										>
 											<TextField
 												name="personalIncome"
-												label="Annual Personal Income"
+												label="Annual Personal Income *"
 												id="personalIncome"
 												value={formik.values.personalIncome}
 												onChange={onHandleChangePersonal}
 												materialProps={{
-													"data-testid": "personalIncome", 
+													"data-testid": "personalIncome",
 													maxLength: "10",
 												}}
-												autoComplete='off'
+												autoComplete="off"
 												onBlur={currencyFormat}
 												onKeyDown={preventUnwanted}
-												error={
-													errorPersonal !== ''
-												}
-												helperText={
-													errorPersonal !== '' ? errorPersonal : ''
-												}
-
+												error={errorPersonal !== ""}
+												helperText={errorPersonal !== "" ? errorPersonal : ""}
 											/>
-
 
 											<p className="subText">
 												Do not include income from others in your household.
@@ -256,28 +344,24 @@ function NewUser() {
 											</p>
 											<TextField
 												name="householdIncome"
-												label="Annual Household Income"
+												label="Annual Household Income *"
 												id="householdIncome"
 												value={formik.values.householdIncome}
 												// startAdornment={<InputAdornment position="start">$</InputAdornment>}
 												materialProps={{
-													"data-testid": "annualIncome", 
+													"data-testid": "annualIncome",
 													maxLength: "10",
 												}}
-												autoComplete='off'
+												autoComplete="off"
 												onChange={onHandleChange}
 												onBlur={currencyFormat}
 												onKeyDown={preventUnwanted}
-												error={
-													errorAnnual !== ''
-												}
-												helperText={
-													errorAnnual !== '' ? errorAnnual : ''
-												}
+												error={errorAnnual !== ""}
+												helperText={errorAnnual !== "" ? errorAnnual : ""}
 											/>
-
 										</Grid>
-										<Grid container
+										<Grid
+											container
 											justifyContent="center"
 											alignItems="center"
 											item
@@ -289,10 +373,9 @@ function NewUser() {
 											<ButtonPrimary
 												data-testid="contButton"
 												type="submit"
-
 												stylebutton='{"background": "#FFBC23", "color": "black","fontSize":" 0.938rem" , "padding": "0px 30px"}'
 											>
-													Continue
+												Continue
 											</ButtonPrimary>
 										</Grid>
 									</Grid>

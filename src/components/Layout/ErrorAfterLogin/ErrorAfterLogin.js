@@ -1,7 +1,6 @@
 import React from "react";
 import error_alert from "../../../assets/images/error_alert.png";
 import Grid from "@material-ui/core/Grid";
-import "./Style.css";
 
 export default function ErrorAfterLogin() {
 

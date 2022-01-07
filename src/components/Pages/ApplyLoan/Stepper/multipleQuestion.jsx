@@ -3,8 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import { useEffect, useState } from "react";
 import { Radio, ButtonPrimary } from "../../../FormsUI";
 import { toast } from "react-toastify";
-import { idVerificationAnswer } from "../../../Controllers/ApplyForLoanController"
-
+import { idVerificationAnswer } from "../../../Controllers/ApplyForLoanController";
 
 //Component to load the questions
 //To build the structure for load
@@ -44,56 +43,47 @@ export default function MultipleQuestion(props) {
 			props.responseData.forEach((val, ind) => {
 				let tempArr = {};
 				tempArr = {
-					"id": val.questionId,
-					"answer" : questionArray[val.questionId]
+					id: val.questionId,
+					answer: questionArray[val.questionId],
 				};
 				questionsArrayData.push(tempArr);
-			})
+			});
 			let passData = {
-				"ref" : props.transactionIdMultiple,
-				"answers" : {
-					"question_set_id" : props.questionSetIdMultiple,
-					"questions" : questionsArrayData,
-				}
-			}
+				ref: props.transactionIdMultiple,
+				answers: {
+					question_set_id: props.questionSetIdMultiple,
+					questions: questionsArrayData,
+				},
+			};
 
 			let result = await idVerificationAnswer(passData);
-			if(result?.data?.data?.id_questions === true){
+			if (result?.data?.data?.id_questions === true) {
 				props.setLoadingFlag(false);
 				props.next();
-			}
-			else{
-				toast.error(
-					"Verification unsuccessful, please try again.",
-				   {
-					 position: "bottom-left",
-					 autoClose: 5500,
-					 hideProgressBar: false,
-					 closeOnClick: true,
-					 pauseOnHover: true,
-					 draggable: true,
-					 progress: undefined,
-				   }
-				 )
-				 props.setLoadingFlag(false);
+			} else {
+				toast.error("Verification unsuccessful, please try again.", {
+					position: "bottom-left",
+					autoClose: 5500,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+				});
+				props.setLoadingFlag(false);
 			}
 			props.setLoadingFlag(false);
-		}
-		else{
-			toast.error(
-				 "Please answer every question before continuing.",
-				{
-				  position: "bottom-left",
-				  autoClose: 5500,
-				  hideProgressBar: false,
-				  closeOnClick: true,
-				  pauseOnHover: true,
-				  draggable: true,
-				  progress: undefined,
-				}
-			  )
-			  props.setLoadingFlag(false);
-
+		} else {
+			toast.error("Please answer every question before continuing.", {
+				position: "bottom-left",
+				autoClose: 5500,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
+			props.setLoadingFlag(false);
 		}
 		function myFunction(value, index, array) {
 			if (
@@ -130,7 +120,7 @@ export default function MultipleQuestion(props) {
 				);
 			})}
 			<Grid container>
-				<p style={{display: "none"}}>{refresh}</p>
+				<p style={{ display: "none" }}>{refresh}</p>
 				<ButtonPrimary
 					variant="contained"
 					color="primary"

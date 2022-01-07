@@ -5,7 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { ButtonPrimary, TextField, Zipcode } from "../../../FormsUI";
 import Paper from "@material-ui/core/Paper";
-import AddressLogo from "../../../../assets/icon/I-Zip-Code.png";
+import AddressLogo from "../../../../assets/icon/I-Address.png";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
@@ -45,7 +45,7 @@ const validationSchema = yup.object({
 function HomeAddress() {
 	//Context data
 	const { data } = useContext(CheckMyOffers);
-	//state variables 
+	//state variables
 	const [stateShort, setStateShort] = useState(data.state ?? "");
 	const [validZip, setValidZip] = useState(true);
 	const [open, setOpen] = useState(false);
@@ -151,8 +151,17 @@ function HomeAddress() {
 			<ScrollToTopOnMount />
 			<div className="mainDiv">
 				<Box>
-					<Grid item xs={12} container justifyContent="center" alignItems="center" style={{ paddingTop: "70px", paddingBottom: "70px" }}>
-						<Grid container item
+					<Grid
+						item
+						xs={12}
+						container
+						justifyContent="center"
+						alignItems="center"
+						style={{ paddingTop: "70px", paddingBottom: "70px" }}
+					>
+						<Grid
+							container
+							item
 							xs={11}
 							sm={10}
 							md={6}
@@ -162,7 +171,11 @@ function HomeAddress() {
 							justifyContent="center"
 							alignItems="center"
 						>
-							<Paper id="enterZipWrap" className="cardWOPadding" style={{ justify: "center", alignItems: "center" }}>
+							<Paper
+								id="enterZipWrap"
+								className="cardWOPadding"
+								style={{ justify: "center", alignItems: "center" }}
+							>
 								<div className="progress mt-0">
 									<div
 										id="determinate"
@@ -172,7 +185,9 @@ function HomeAddress() {
 								</div>
 								<Grid className="floatLeft">
 									<Link to="/citizenship-status">
-										<i className="material-icons dp48 yellowText  ">arrow_back</i>
+										<i className="material-icons dp48 yellowText  ">
+											arrow_back
+										</i>
 									</Link>
 								</Grid>
 								<Grid className="liftImage">
@@ -183,19 +198,29 @@ function HomeAddress() {
 									/>
 								</Grid>
 
-								<Typography variant="h5" className="borrowCSSLP" style={{ align: "center", justify: "center", alignItems: "center" }}>
-									Enter your zip code
+								<Typography
+									variant="h5"
+									className="borrowCSSLP"
+									style={{
+										align: "center",
+										justify: "center",
+										alignItems: "center",
+									}}
+								>
+									Enter your home address
 								</Typography>
 
 								<form onSubmit={formik.handleSubmit}>
-									<Grid item
+									<Grid
+										item
 										md={12}
 										className="blockDiv"
 										container
 										justifyContent="center"
 										alignItems="center"
 									>
-										<Grid container
+										<Grid
+											container
 											justifyContent="center"
 											alignItems="center"
 											item
@@ -228,7 +253,8 @@ function HomeAddress() {
 												}
 											/>
 										</Grid>
-										<Grid container
+										<Grid
+											container
 											justifyContent="center"
 											alignItems="center"
 											item
@@ -257,7 +283,8 @@ function HomeAddress() {
 												}
 											/>
 										</Grid>
-										<Grid item
+										<Grid
+											item
 											justifyContent="flex-start"
 											alignItems="flex-start"
 											container
@@ -266,7 +293,8 @@ function HomeAddress() {
 											xs={12}
 											className="textBlockShort"
 										>
-											<Grid container
+											<Grid
+												container
 												justifyContent="center"
 												alignItems="center"
 												item
@@ -291,7 +319,8 @@ function HomeAddress() {
 													helperText={formik.touched.city && formik.errors.city}
 												/>
 											</Grid>
-											<Grid container
+											<Grid
+												container
 												justifyContent="center"
 												alignItems="center"
 												item
@@ -320,7 +349,8 @@ function HomeAddress() {
 											</Grid>
 										</Grid>
 
-										<Grid container
+										<Grid
+											container
 											justifyContent="center"
 											item
 											lg={8}
@@ -335,7 +365,7 @@ function HomeAddress() {
 												disabled={!validZip}
 												data-test-id="homeAddressCntBtn"
 											>
-													Continue
+												Continue
 											</ButtonPrimary>
 										</Grid>
 									</Grid>

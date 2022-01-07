@@ -40,16 +40,16 @@ const useStyles = makeStyles((theme) => ({
 	},
 	loadingOn: {
 		opacity: 0.55,
-		pointerEvents: "none"
+		pointerEvents: "none",
 	},
 	loadingOff: {
 		opacity: 1,
-		pointerEvents: "initial"
+		pointerEvents: "initial",
 	},
 	linkStyle: {
-		color: "blue",	
+		color: "blue",
 		textDecoration: "underline",
-		cursor: "pointer"
+		cursor: "pointer",
 	},
 	resetContainer: {
 		padding: theme.spacing(3),
@@ -80,7 +80,7 @@ export default function VerticalLinearStepper() {
 	//To open the the stepper from were the user needs to continue.
 	const getApplicationStatus = async () => {
 		let data = {};
-		const skip = JSON.parse(Cookies.get('skip') ? Cookies.get('skip') : '{ }');
+		const skip = JSON.parse(Cookies.get("skip") ? Cookies.get("skip") : "{ }");
 		let res = await APICall(
 			"/verification/verification_steps_cac",
 			data,
@@ -88,31 +88,36 @@ export default function VerticalLinearStepper() {
 			true
 		);
 		let tabPosition = "";
-		if ( res?.data?.data?.email === true && 
-			res?.data?.data?.financial_information === true && 
+		if (
+			res?.data?.data?.email === true &&
+			res?.data?.data?.financial_information === true &&
 			res?.data?.data?.id_document === true &&
-			res?.data?.data?.id_photo === true && 
+			res?.data?.data?.id_photo === true &&
 			res?.data?.data?.id_questions === true &&
-			res?.data?.data?.bank_account_information === true && 
+			res?.data?.data?.bank_account_information === true &&
 			res?.data?.data?.bank_account_verification === true &&
-			res?.data?.data?.income_verification === true){
-				history.push({
-					pathname: "/customers/receiveYourMoney",
-				  });
-			}
-
-
-		else if (res?.data?.data?.email === false) {
+			res?.data?.data?.income_verification === true
+		) {
+			history.push({
+				pathname: "/customers/receiveYourMoney",
+			});
+		} else if (res?.data?.data?.email === false) {
 			tabPosition = 0;
 			resendVerificationEmail();
-		} else if (res?.data?.data?.phone_verification === false && tabPosition === "" && skip?.phone !== true) {
+		} else if (
+			res?.data?.data?.phone_verification === false &&
+			tabPosition === "" &&
+			skip?.phone !== true
+		) {
 			tabPosition = 1;
 		} else if (
-			res?.data?.data?.financial_information === false && tabPosition === "") {
+			res?.data?.data?.financial_information === false &&
+			tabPosition === ""
+		) {
 			tabPosition = 2;
 		} else if (res?.data?.data?.id_document === false && tabPosition === "") {
 			tabPosition = 3;
-		}else if (res?.data?.data?.id_photo === false && tabPosition === "") {
+		} else if (res?.data?.data?.id_photo === false && tabPosition === "") {
 			tabPosition = 3;
 		} else if (res?.data?.data?.id_questions === false && tabPosition === "") {
 			tabPosition = 4;
@@ -264,14 +269,15 @@ export default function VerticalLinearStepper() {
 	// view part
 	return (
 		<div className={classes.root}>
-		
 			<Stepper activeStep={activeStep} orientation="vertical">
 				{steps.map((label, index) => (
 					<Step key={label}>
 						<StepLabel>
 							{<span className={classes.steplabel}>{label}</span>}
 						</StepLabel>
-						<StepContent className={ loadingFlag ? classes.loadingOn : classes.loadingOff}>
+						<StepContent
+							className={loadingFlag ? classes.loadingOn : classes.loadingOff}
+						>
 							<div>{getStepContent(index)}</div>
 							<div className={classes.actionsContainer}></div>
 						</StepContent>

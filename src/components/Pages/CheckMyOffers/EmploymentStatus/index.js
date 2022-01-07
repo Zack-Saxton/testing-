@@ -9,12 +9,11 @@ import * as yup from "yup";
 import { Link, useHistory } from "react-router-dom";
 import EmploymentStatusPNG from "../../../../assets/icon/I-Employment-Status.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
-import ScrollToTopOnMount from '../ScrollToTop';
+import ScrollToTopOnMount from "../ScrollToTop";
 import "./EmploymentStatus.css";
 
 //Initializing functional component CitizenshipStatus
 function EmploymentStatus() {
-
 	//Retrieving Context values
 	const { data, setData } = useContext(CheckMyOffers);
 	const [employmentStatus, setEmploymentStatus] = useState(
@@ -28,34 +27,36 @@ function EmploymentStatus() {
 			.string("Enter a name")
 			.nullable()
 			.transform((value) => value.replace(/[^\d]/g, ""))
-			.matches(/^$|^[1-9]{1}[0-9]{2}[0-9]{3}[0-9]{4}$/, "Please enter a valid phone number")
+			.matches(
+				/^$|^[1-9]{1}\d{2}\d{3}\d{4}$/,
+				"Please enter a valid phone number"
+			)
 			.matches(/^$|^(\d)(?!\1+$)\d{9}$/, "Please enter a valid phone number"),
 
 		yearsAtEmployers: yup
 			.string()
-			.when('employStatus', {
+			.when("employStatus", {
 				is: "Employed - Hourly",
-				then: yup.string().required('Years at employer is required'),
+				then: yup.string().required("Years at employer is required"),
 			})
-			.when('employStatus', {
+			.when("employStatus", {
 				is: "Salary",
-				then: yup.string().required('Years at employer is required'),
+				then: yup.string().required("Years at employer is required"),
 			})
-			.when('employStatus', {
+			.when("employStatus", {
 				is: "selfEmployed",
-				then: yup.string().required('Years at employer is required'),
+				then: yup.string().required("Years at employer is required"),
 			}),
 	});
 	const formik = useFormik({
 		initialValues: {
 			phone: data.EmployerPhone ? "1" + data.EmployerPhone : "",
-			yearsAtEmployers: data.yearsAtEmployers ? data.yearsAtEmployers : '',
-			employStatus: ''
+			yearsAtEmployers: data.yearsAtEmployers ? data.yearsAtEmployers : "",
+			employStatus: "",
 		},
 		validationSchema: validationSchema,
 		//On submit functionality
 		onSubmit: (values) => {
-
 			data.yearsAtEmployers = values.yearsAtEmployers;
 			const phone =
 				values.phone
@@ -71,18 +72,20 @@ function EmploymentStatus() {
 				employmentStatus === "Salary" ||
 				employmentStatus === "selfEmployed"
 			) {
-				if (data.yearsAtEmployers !== "" && data.yearsAtEmployers !== 0 && data.yearsAtEmployers !== null) {
+				if (
+					data.yearsAtEmployers !== "" &&
+					data.yearsAtEmployers !== 0 &&
+					data.yearsAtEmployers !== null
+				) {
 					data.employmentStatus = employmentStatus;
 					history.push("/annual-income");
 				}
 			} else {
-
 				data.employmentStatus = employmentStatus;
 				history.push("/annual-income");
 			}
 		},
 	});
-
 
 	// prevent keyboard space
 	const preventSpace = (event) => {
@@ -91,7 +94,10 @@ function EmploymentStatus() {
 		}
 	};
 
-	if (data.completedPage < data.page.existingUser || data.formStatus === 'completed') {
+	if (
+		data.completedPage < data.page.existingUser ||
+		data.formStatus === "completed"
+	) {
 		history.push("/select-amount");
 	}
 	// JSX part
@@ -100,8 +106,17 @@ function EmploymentStatus() {
 			<ScrollToTopOnMount />
 			<div className="mainDiv">
 				<Box>
-					<Grid item xs={12} container justifyContent="center" alignItems="center" style={{ paddingTop: "70px", paddingBottom: "70px" }}>
-						<Grid container item
+					<Grid
+						item
+						xs={12}
+						container
+						justifyContent="center"
+						alignItems="center"
+						style={{ paddingTop: "70px", paddingBottom: "70px" }}
+					>
+						<Grid
+							container
+							item
 							xs={11}
 							sm={10}
 							md={6}
@@ -111,7 +126,11 @@ function EmploymentStatus() {
 							justifyContent="center"
 							alignItems="center"
 						>
-							<Paper id="employmentStatusWrap" className="cardWOPadding" style={{ justify: "center", alignItems: "center" }}>
+							<Paper
+								id="employmentStatusWrap"
+								className="cardWOPadding"
+								style={{ justify: "center", alignItems: "center" }}
+							>
 								<form onSubmit={formik.handleSubmit}>
 									<div className="progress mt-0">
 										<div
@@ -122,7 +141,9 @@ function EmploymentStatus() {
 									</div>
 									<Grid className="floatLeft">
 										<Link to="/personal-info">
-											<i className="material-icons dp48 yellowText  ">arrow_back</i>
+											<i className="material-icons dp48 yellowText  ">
+												arrow_back
+											</i>
 										</Link>
 									</Grid>
 									<Grid>
@@ -133,17 +154,27 @@ function EmploymentStatus() {
 										/>
 									</Grid>
 
-									<Typography variant="h5" style={{ align: "center", justify: "center", alignItems: "center" }} className="borrowCSSLP">
+									<Typography
+										variant="h5"
+										style={{
+											align: "center",
+											justify: "center",
+											alignItems: "center",
+										}}
+										className="borrowCSSLP"
+									>
 										Tell us about your employment status
 									</Typography>
-									<Grid item
+									<Grid
+										item
 										md={12}
 										className="blockDiv"
 										container
 										justifyContent="center"
 										alignItems="center"
 									>
-										<Grid container
+										<Grid
+											container
 											justifyContent="center"
 											alignItems="center"
 											item
@@ -161,7 +192,10 @@ function EmploymentStatus() {
 												}
 												onClick={() => {
 													setEmploymentStatus("Employed - Hourly");
-													formik.setFieldValue('employStatus', "Employed - Hourly");
+													formik.setFieldValue(
+														"employStatus",
+														"Employed - Hourly"
+													);
 												}}
 											>
 												Employed - Hourly
@@ -178,7 +212,7 @@ function EmploymentStatus() {
 												}
 												onClick={() => {
 													setEmploymentStatus("Salary");
-													formik.setFieldValue('employStatus', "Salary");
+													formik.setFieldValue("employStatus", "Salary");
 												}}
 											>
 												Employed - Salaried
@@ -195,7 +229,7 @@ function EmploymentStatus() {
 												}
 												onClick={() => {
 													setEmploymentStatus("selfEmployed");
-													formik.setFieldValue('employStatus', "selfEmployed");
+													formik.setFieldValue("employStatus", "selfEmployed");
 												}}
 											>
 												Self Employed / 1099
@@ -212,8 +246,8 @@ function EmploymentStatus() {
 												}
 												onClick={() => {
 													setEmploymentStatus("Unemployed");
-													setData({ ...data, "yearsAtEmployers": 0 });
-													formik.setFieldValue('employStatus', "Unemployed");
+													setData({ ...data, yearsAtEmployers: 0 });
+													formik.setFieldValue("employStatus", "Unemployed");
 													formik.values.employStatus = "Unemployed";
 													if (data.completedPage < data.page.employmentStatus) {
 														formik.submitForm();
@@ -234,8 +268,8 @@ function EmploymentStatus() {
 												}
 												onClick={() => {
 													setEmploymentStatus("Retired");
-													setData({ ...data, "yearsAtEmployers": 0 });
-													formik.setFieldValue('employStatus', "Retired");
+													setData({ ...data, yearsAtEmployers: 0 });
+													formik.setFieldValue("employStatus", "Retired");
 													formik.values.employStatus = "Retired";
 													if (data.completedPage < data.page.employmentStatus) {
 														formik.submitForm();
@@ -246,20 +280,19 @@ function EmploymentStatus() {
 											</Paper>
 										</Grid>
 										<Grid item lg={8} md={8} xs={12}>
-
-
-											<div id="employementWrap" className={
-												employmentStatus === "Employed - Hourly" ||
+											<div
+												id="employementWrap"
+												className={
+													employmentStatus === "Employed - Hourly" ||
 													employmentStatus === "Salary" ||
 													employmentStatus === "selfEmployed"
-													? "showMsg"
-													: "hideMsg"
-											}>
+														? "showMsg"
+														: "hideMsg"
+												}
+											>
 												<Select
-
 													fullWidth={true}
 													name="yearsAtEmployers"
-													
 													labelform="Years at Employer *"
 													value={formik.values.yearsAtEmployers}
 													onChange={formik.handleChange}
@@ -293,7 +326,6 @@ function EmploymentStatus() {
 													{"value":"18", "label": "18 years"},
 													{"value":"19", "label": "19 years"},
 													 {"value":"20", "label": "20+ years"}]'
-
 													inputTestID="AD-input"
 													selectTestID="AD-select"
 												/>
@@ -308,7 +340,7 @@ function EmploymentStatus() {
 											id="employerPhoneWrap"
 											className={
 												employmentStatus === "Employed - Hourly" ||
-													employmentStatus === "Salary"
+												employmentStatus === "Salary"
 													? "showMsg padTop"
 													: "hideMsg padTop"
 											}
@@ -317,7 +349,7 @@ function EmploymentStatus() {
 												name="phone"
 												className={
 													employmentStatus === "Employed - Hourly" ||
-														employmentStatus === "Salary"
+													employmentStatus === "Salary"
 														? "showMsg"
 														: "hideMsg"
 												}
@@ -343,7 +375,7 @@ function EmploymentStatus() {
 												disabled={employmentStatus === ""}
 												stylebutton='{"background": "#FFBC23", "color": "black","fontSize":"0.938rem","padding": "0px 30px"}'
 											>
-													Continue
+												Continue
 											</ButtonPrimary>
 										</Grid>
 									</Grid>

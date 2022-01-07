@@ -1,85 +1,72 @@
-@import url('https://fonts.googleapis.com/css?family=Muli:300,300i,400,400i,500,600');
-/* @media only screen and (max-width: 360px) {
-    .icon-login {
-      position: relative;
-      left: -10px;
-    }
-  } */
-#main-content-background{
-  min-height: 500px;
+@import url("https://fonts.googleapis.com/css?family=Muli:300,300i,400,400i,500,600");
 
-  /* Create the parallax scrolling effect */
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+#main-content-background {
+	min-height: 500px;
+
+	/* Create the parallax scrolling effect */
+	background-attachment: fixed;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
 }
-  #main-content{
-    /* margin-top: 2% !important;
-    margin-bottom: 5% !important;
-    height: auto !important; */
-    min-height: 80vh !important;
-  }
+#main-content {
+	min-height: 80vh !important;
+}
 
 #remember-me {
-  padding-left: 12px;
+	padding-left: 12px;
 }
-  @media (max-width:400px){
-   #email-label{
-       font-size: 4vw;
-
-   }
-   #password-label{
-    font-size: 4vw;
- 
-}
-#remember-me span{
-  font-size: 4vw;
-
-}
+@media (max-width: 400px) {
+	#email-label {
+		font-size: 4vw;
+	}
+	#password-label {
+		font-size: 4vw;
+	}
+	#remember-me span {
+		font-size: 4vw;
+	}
 }
 
-
-.showError{
-  display: block;
-  color: red;
-  text-align: left;
-  margin-top: 0;
-  margin-bottom: 0;
+.showError {
+	display: block;
+	color: red;
+	text-align: left;
+	margin-top: 0;
+	margin-bottom: 0;
 }
 
-
-.Mui-focused{
-  background-color:transparent !important;
-  color: white;
+.Mui-focused {
+	background-color: transparent !important;
+	color: white;
 }
 
-
-.hideError{
-  display: none;
-
+.hideError {
+	display: none;
 }
 
-.add-pad{
-  margin-left: -1px !important;
-  padding-top: 20px !important;
-  font-size: 14px!important;
+.add-pad {
+	margin-left: -1px !important;
+	padding-top: 20px !important;
+	font-size: 14px !important;
 }
 
-#signInContainer{
-  border-radius: 6px !important;
-  margin: 50px 0px;
+#signInContainer {
+	border-radius: 6px !important;
+	margin: 50px 0px;
 }
 
-#mainContentBackground{
-  min-height: 93vh;
+#mainContentBackground {
+	min-height: 93vh;
 }
 
-#email ,#password{
-  padding-bottom: 15px !important;
+#email,
+#password {
+	padding-bottom: 15px !important;
 }
 
-#email-label, #password-label {
-  font-size: 0.938rem !important;
-  padding-bottom:10px !important ;
+#email-label,
+#password-label {
+	font-size: 0.938rem !important;
+	padding-bottom: 10px !important ;
 }

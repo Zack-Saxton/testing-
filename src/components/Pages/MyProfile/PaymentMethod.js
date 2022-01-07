@@ -74,15 +74,6 @@ const validationSchemaDebitCard = yup.object({
 		.string("Enter CVV")
 		.required("CVV is required")
 		.min(3, "CVV is required."),
-	// expirydate: yup
-	//   .date("Please enter a valid date")
-	//   .nullable()
-	//   .required("Your Card Expiry Date is required")
-	//   .typeError("Please enter a valid date")
-	//   .min(
-	//     new Date(new Date().getFullYear(), new Date().getMonth()),
-	//     "Please check your Expiry Month and Year"
-	//   ),
 	expiryYear: yup
 		.string("Expiration Year is required")
 		.required("Expiration Year is required"),
@@ -118,32 +109,6 @@ const validationSchemaAddBank = yup.object({
 		.max(16, "Account number should be a maximum of 16 digits."),
 });
 
-function createData(type, name, setdefault, paymentmethodid, deletethis) {
-	return {
-		type,
-		name,
-		setdefault,
-		paymentmethodid,
-		deletethis,
-	};
-}
-const branch = (
-	<Grid container direction="row" alignItems="center">
-		<AccountBalanceIcon />
-	</Grid>
-);
-
-const online = (
-	<Grid container direction="row" alignItems="center">
-		<PaymentIcon />
-	</Grid>
-);
-
-const rows36term = [
-	createData(branch, "Test1", "1", "101", ""),
-	createData(online, "Test2", "0", "102", ""),
-];
-
 export default function PaymentMethod() {
 	const classes = useStylesMyProfile();
 	const history = useHistory();
@@ -165,10 +130,13 @@ export default function PaymentMethod() {
 	const [allPaymentMethod, setAllPaymentMethod] = useState(false);
 	const [confirmDelete, setConfirmDelete] = useState(false);
 	const [addBankValues, setAddBankValues] = useState(false);
-	const [routingError, setRoutingError] = useState('');
+	const [routingError, setRoutingError] = useState("");
 	const [, setTabvalue] = useAtom(tabAtom);
 	const [validZip, setValidZip] = useState(true);
+	const [mailingStreetAddress, setMailingStreetAddress] = useState("");
+	const [mailingZipcode, setMailingZipcode] = useState("");
 	const currentYear = new Date().getFullYear();
+
 	const formikAddBankAccount = useFormik({
 		initialValues: {
 			accountNickname: "",
@@ -209,8 +177,6 @@ export default function PaymentMethod() {
 			formikAddBankAccount.handleChange(event);
 		}
 	};
-
-
 
 	const formikAddDebitCard = useFormik({
 		initialValues: {
@@ -253,17 +219,17 @@ export default function PaymentMethod() {
 							"state",
 							result?.places[0]["state abbreviation"]
 						);
-					}
-					else{
+					
+			
+					} else {
 						setValidZip(false);
 						formikAddDebitCard.setFieldValue("city", "");
-						formikAddDebitCard.setFieldValue( "state", "");
+						formikAddDebitCard.setFieldValue("state", "");
 					}
 				});
-		}
-		else{
+		} else {
 			formikAddDebitCard.setFieldValue("city", "");
-			formikAddDebitCard.setFieldValue( "state", "");
+			formikAddDebitCard.setFieldValue("state", "");
 		}
 		formikAddDebitCard.handleChange(e);
 	};
@@ -274,8 +240,14 @@ export default function PaymentMethod() {
 			setEditMode(true);
 			addBankAccountButton();
 			formikAddBankAccount.setFieldValue("accountNickname", row.Nickname);
-			formikAddBankAccount.setFieldValue("bankAccountNumber",	row.AccountNumber );
-			formikAddBankAccount.setFieldValue("bankRoutingNumber",	row.RoutingNumber);
+			formikAddBankAccount.setFieldValue(
+				"bankAccountNumber",
+				row.AccountNumber
+			);
+			formikAddBankAccount.setFieldValue(
+				"bankRoutingNumber",
+				row.RoutingNumber
+			);
 			formikAddBankAccount.setFieldValue("accountHolder", row.OwnerName);
 			setAccountType(row.AccountType);
 			await fetch(
@@ -288,16 +260,24 @@ export default function PaymentMethod() {
 						result?.customer_name ?? ""
 					);
 				});
-		setLoading(false);
-			
+			setLoading(false);
 		} else {
 			let expDate = new Date(row.ExpirationDate);
 			setEditMode(true);
 			addDebitCardButton();
 			formikAddDebitCard.setFieldValue("cardName", row.OwnerName);
-			formikAddDebitCard.setFieldValue("cardNumber", "****-****-****-" + row.LastFour	);
-			formikAddDebitCard.setFieldValue("expiryMonth",	("0" + (expDate.getMonth() + 1)).slice(-2));
-			formikAddDebitCard.setFieldValue("expiryYear", expDate.getFullYear().toString().slice(-2));
+			formikAddDebitCard.setFieldValue(
+				"cardNumber",
+				"****-****-****-" + row.LastFour
+			);
+			formikAddDebitCard.setFieldValue(
+				"expiryMonth",
+				("0" + (expDate.getMonth() + 1)).slice(-2)
+			);
+			formikAddDebitCard.setFieldValue(
+				"expiryYear",
+				expDate.getFullYear().toString().slice(-2)
+			);
 			setEditMode(true);
 			addDebitCardButton();
 			setLoading(false);
@@ -312,11 +292,11 @@ export default function PaymentMethod() {
 			dankort: /^(5019)\d+$/,
 			interpayment: /^(636)\d+$/,
 			Unionpay: /^(62|88)\d+$/,
-			Visa: /^4[0-9]{12}(?:[0-9]{3})?$/,
-			Mastercard: /^5[1-5][0-9]{14}$/,
-			Amex: /^3[47][0-9]{13}$/,
-			Diners: /^3(?:0[0-5]|[68][0-9])[0-9]{11}$/,
-			Discover: /^6(?:011|5[0-9]{2})[0-9]{12}$/,
+			Visa: /^4\d{12}(?:\d{3})?$/,
+			Mastercard: /^5[1-5]\d{14}$/,
+			Amex: /^3[47]\d{13}$/,
+			Diners: /^3(?:0[0-5]|[68]\d)\d{11}$/,
+			Discover: /^6(?:011|5\d{2})\d{12}$/,
 			JCB: /^(?:2131|1800|35\d{3})\d{11}$/,
 		};
 		let valid = false;
@@ -380,7 +360,7 @@ export default function PaymentMethod() {
 	}, []);
 
 	const addBankAccountButton = () => {
-		setRoutingError("")
+		setRoutingError("");
 		setAddBankAccount(true);
 		setPaymentMethodDiv(false);
 		scrollToTop();
@@ -394,7 +374,6 @@ export default function PaymentMethod() {
 		scrollToTop();
 	};
 
-
 	const addDebitCardButton = async () => {
 		setAddDebitCard(true);
 		setPaymentMethodDiv(false);
@@ -403,6 +382,10 @@ export default function PaymentMethod() {
 		if (
 			res?.data?.data?.customer?.latest_contact?.mailing_address_postal_code
 		) {
+			
+			setMailingZipcode(res?.data?.data?.customer?.latest_contact?.mailing_address_postal_code);
+			setMailingStreetAddress(res?.data?.data?.customer?.latest_contact?.mailing_address_street);
+			
 			formikAddDebitCard.setFieldValue(
 				"zipcode",
 				res?.data?.data?.customer?.latest_contact?.mailing_address_postal_code
@@ -421,11 +404,9 @@ export default function PaymentMethod() {
 			};
 			fetchAddress(e);
 		}
-		
 	};
 
 	const closeDebitCardButton = (e) => {
-
 		formikAddDebitCard.handleReset(e);
 		setCheckedDebitCard(false);
 		setAddDebitCard(false);
@@ -554,15 +535,16 @@ export default function PaymentMethod() {
 	};
 
 	const scrollToTop = () => {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth",
-        });
-    };
+		window.scrollTo({
+			top: 0,
+			behavior: "smooth",
+		});
+	};
 
 	const addCreditCardYes = async () => {
 		setLoading(true);
 		let res = await addCreditCard(formikAddDebitCard.values, cardType);
+
 		if (res?.data?.data?.addPaymentResult?.HasNoErrors === true) {
 			setLoading(false);
 			toast.success("Payment method added successfully ", {
@@ -579,7 +561,7 @@ export default function PaymentMethod() {
 			closeDebitCardButton();
 		} else if (res?.data?.data?.addPaymentResult?.HasNoErrors === false) {
 			setLoading(false);
-			toast.error("Error adding card, check the given details and try again", {
+			toast.error(res?.data?.data?.addPaymentResult?.Errors[0].ErrorMessage, {
 				position: "bottom-left",
 				autoClose: 5500,
 				hideProgressBar: false,
@@ -588,7 +570,20 @@ export default function PaymentMethod() {
 				draggable: true,
 				progress: undefined,
 			});
-		} else {
+		}
+		else if(res?.data?.data?.result === "error"){
+			setLoading(false);
+			toast.error(res?.data?.data?.data?.error , {
+				position: "bottom-left",
+				autoClose: 5500,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
+		}
+		 else {
 			setLoading(false);
 			toast.error("Something went wrong, please try again.", {
 				position: "bottom-left",
@@ -645,42 +640,40 @@ export default function PaymentMethod() {
 				className={paymentMethodDiv === true ? "showContent" : "hideContent"}
 			>
 				<Grid item xs={12} style={{ paddingBottom: "20px", width: "100%" }}>
-
-								{allPaymentMethod ? (
-									allPaymentMethod?.data?.data?.paymentOptions &&
-									allPaymentMethod?.data?.data?.paymentOptions.length > 0 ? (
-										<TableContainer>
-										<Table className={classes.table} aria-label="simple table">
-											<TableHead>
-												<TableRow>
-													<TableCell width="40%" align="left" className="rowFont">
-														Account / Card
-													</TableCell>
-													<TableCell
-														width="20%"
-														align="left"
-														className="paddingLeftZero rowFont"
-													>
-														Account Type
-													</TableCell>
-													<TableCell
-														width="20%"
-														align="left"
-														className="paddingLeftZero rowFont"
-													>
-														Set As Default
-													</TableCell>
-													<TableCell width="20%" align="left" className="rowFont">
-														Action
-													</TableCell>
-												</TableRow>
-											</TableHead>
-											<TableBody>
-
-										{ allPaymentMethod?.data?.data?.paymentOptions.map((row) => (
+					{allPaymentMethod ? (
+						allPaymentMethod?.data?.data?.paymentOptions &&
+						allPaymentMethod?.data?.data?.paymentOptions.length > 0 ? (
+							<TableContainer>
+								<Table className={classes.table} aria-label="simple table">
+									<TableHead>
+										<TableRow>
+											<TableCell width="40%" align="left" className="rowFont">
+												Account / Card
+											</TableCell>
+											<TableCell
+												width="20%"
+												align="left"
+												className="paddingLeftZero rowFont"
+											>
+												Account Type
+											</TableCell>
+											<TableCell
+												width="20%"
+												align="left"
+												className="paddingLeftZero rowFont"
+											>
+												Set As Default
+											</TableCell>
+											<TableCell width="20%" align="left" className="rowFont">
+												Action
+											</TableCell>
+										</TableRow>
+									</TableHead>
+									<TableBody>
+										{allPaymentMethod?.data?.data?.paymentOptions.map((row) => (
 											<TableRow
 												hover
-												key={row.name}
+												key={row.Nickname}
 												className="rowProps"
 												height="80px"
 											>
@@ -740,7 +733,7 @@ export default function PaymentMethod() {
 												<TableCell align="left">
 													<DeleteIcon
 														style={{
-															color: "blue",
+															color: "#0F4EB3",
 															float: "left",
 															cursor: "pointer",
 														}}
@@ -758,59 +751,58 @@ export default function PaymentMethod() {
 
 													<ArrowForwardIcon
 														style={{
-															color: "blue",
+															color: "#0F4EB3",
 															float: "right",
 															cursor: "pointer",
 														}}
 														onClick={() => {
-															setLoading(true)
+															setLoading(true);
 															onClickEditCard(row);
 														}}
 													/>
 												</TableCell>
 											</TableRow>
 										))}
-										</TableBody>
-										</Table>
-									</TableContainer>
-									) : allPaymentMethod?.data?.data?.data?.message ? (
-										<Grid
-											className="circleprog"
-											style={{
-												width: "100%",
-												textAlign: "center",
-												marginTop: "20px",
-											}}
-											xs={12}
-										>
-											<Typography>
-												{allPaymentMethod?.data?.data?.data?.message}
-											</Typography>
-										</Grid>
-									) : (
-										<Grid
-											className="circleprog"
-											style={{
-												width: "100%",
-												textAlign: "center",
-												marginTop: "20px",
-											}}
-											xs={12}
-										>
-											<Typography>No Payment methods available</Typography>
-										</Grid>
-									)
-								) : (
-									<Grid
-										className="circleprog"
-										style={{ width: "100%", textAlign: "center" }}
-									>
-										<CircularProgress />
-									</Grid>
-								)}
+									</TableBody>
+								</Table>
+							</TableContainer>
+						) : allPaymentMethod?.data?.data?.data?.message ? (
+							<Grid
+								className="circleprog"
+								style={{
+									width: "100%",
+									textAlign: "center",
+									marginTop: "20px",
+								}}
+								item
+								xs={12}
+							>
+								<Typography>
+									{allPaymentMethod?.data?.data?.data?.message}
+								</Typography>
+							</Grid>
+						) : (
+							<Grid
+								className="circleprog"
+								style={{
+									width: "100%",
+									textAlign: "center",
+									marginTop: "20px",
+								}}
+								xs={12}
+							>
+								<Typography>No Payment methods available</Typography>
+							</Grid>
+						)
+					) : (
+						<Grid
+							className="circleprog"
+							style={{ width: "100%", textAlign: "center" }}
+						>
+							<CircularProgress />
+						</Grid>
+					)}
 
-							
-							
 					<Grid>
 						<p className={classes.bottomTestStyle}>
 							Setting an account as your default does not automatically
@@ -826,7 +818,7 @@ export default function PaymentMethod() {
 								id="addBankAccount_button"
 								onClick={() => {
 									setEditMode(false);
-									setRoutingError('');
+									setRoutingError("");
 									addBankAccountButton();
 								}}
 							>
@@ -843,7 +835,7 @@ export default function PaymentMethod() {
 								styleicon='{ "color":"" }'
 								id="addDebitCard_button"
 								onClick={() => {
-									setSameAsMailAddress(true)
+									setSameAsMailAddress(true);
 									setValidZip(true);
 									setEditMode(false);
 									addDebitCardButton();
@@ -872,7 +864,11 @@ export default function PaymentMethod() {
 						container
 						style={{ paddingBottom: "20px", width: "100%" }}
 					>
-						<Grid item xs={12} className={ editMode ? classes.hideSection : classes.showSection }>
+						<Grid
+							item
+							xs={12}
+							className={editMode ? classes.hideSection : classes.showSection}
+						>
 							<Breadcrumbs
 								separator={
 									<NavigateNextIcon
@@ -1037,13 +1033,17 @@ export default function PaymentMethod() {
 										)
 											.then((res) => res.json())
 											.then((result) => {
-												if(result.message === "OK"){
-												setRoutingError("")
-												formikAddBankAccount.setFieldValue("bankName", result?.customer_name ?? "")
-												}
-												else{
-												setRoutingError("Please enter a valid routing number")
-												formikAddBankAccount.setFieldValue("bankName",  "")
+												if (result.message === "OK") {
+													setRoutingError("");
+													formikAddBankAccount.setFieldValue(
+														"bankName",
+														result?.customer_name ?? ""
+													);
+												} else {
+													setRoutingError(
+														"Please enter a valid routing number"
+													);
+													formikAddBankAccount.setFieldValue("bankName", "");
 												}
 											});
 										formikAddBankAccount.handleBlur(event);
@@ -1052,15 +1052,16 @@ export default function PaymentMethod() {
 								onChange={(e) => addBankOnChangeNumber(e)}
 								error={
 									(formikAddBankAccount.touched.bankRoutingNumber &&
-									Boolean(formikAddBankAccount.errors.bankRoutingNumber)) ||
-									(routingError === '' ? false : true)
+										Boolean(formikAddBankAccount.errors.bankRoutingNumber)) ||
+									(routingError === "" ? false : true)
 								}
-								// helperText={
-								// 	routingError === '' || routingError ? (formikAddBankAccount.touched.bankRoutingNumber &&
-								// 	formikAddBankAccount.errors.bankRoutingNumber) : routingError
-								// }
-								helperText={routingError ? routingError : formikAddBankAccount.touched.bankRoutingNumber &&
-									 	formikAddBankAccount.errors.bankRoutingNumber}
+							
+								helperText={
+									routingError
+										? routingError
+										: formikAddBankAccount.touched.bankRoutingNumber &&
+										  formikAddBankAccount.errors.bankRoutingNumber
+								}
 							/>
 						</Grid>
 
@@ -1121,7 +1122,9 @@ export default function PaymentMethod() {
 								}
 							/>
 						</Grid>
-						<Grid item xs={12}>
+						<Grid item xs={12}
+							className={editMode ? classes.hideSection : classes.showSection}
+						>
 							<Checkbox
 								name="setDefault"
 								label="Set as Default"
@@ -1278,7 +1281,11 @@ export default function PaymentMethod() {
 						style={{ paddingBottom: "20px", width: "100%" }}
 						className={loading ? classes.loadingOn : classes.loadingOff}
 					>
-						<Grid item xs={12} className={ editMode ? classes.hideSection : classes.showSection}>
+						<Grid
+							item
+							xs={12}
+							className={editMode ? classes.hideSection : classes.showSection}
+						>
 							<Breadcrumbs
 								separator={
 									<NavigateNextIcon
@@ -1361,7 +1368,7 @@ export default function PaymentMethod() {
 						<Grid
 							item
 							xs={2}
-							style={{ width: "100%" }}
+							style={{ width: "100%", padding:"0px" }}
 							container
 							direction="row"
 						>
@@ -1374,8 +1381,8 @@ export default function PaymentMethod() {
 									".png"
 								}
 								alt="Logo"
-								width="70px"
-								height="40px"
+								width="60px"
+								height="60px"
 							/>
 						</Grid>
 						<Grid
@@ -1409,10 +1416,10 @@ export default function PaymentMethod() {
 							item
 							xs={12}
 							sm={12}
-							style={{ width: "100%", paddingBottom: "0px"  }}
+							style={{ width: "100%", paddingBottom: "6px"  }}
 							container
 							direction="row"
-						><Typography style={{ font: "inherit" }}>Expiry Date</Typography></Grid>
+						><Typography style={{ font: "inherit" }}>Expiration Date</Typography></Grid>
 						
 						<Grid
 							item
@@ -1513,9 +1520,10 @@ export default function PaymentMethod() {
 							xs={12}
 							className={editMode ? classes.hideSection : classes.showSection}
 						>
-							<Typography variant="h4">Billing Address</Typography>
+							<Typography style={{fontSize:"1.125rem",color:"#171717"}} variant="h4">Billing Address</Typography>
 						</Grid>
 						<Grid
+							style={{padding:"0px 16px"}}
 							item
 							sm={12}
 							xs={12}
@@ -1526,12 +1534,22 @@ export default function PaymentMethod() {
 								label="Same as Mailing Address"
 								labelid="setDefault"
 								stylelabelform='{ "paddingTop":"0px" }'
-								stylecheckbox='{ "color":"#0F4EB3", "marginLeft":"7px","paddingRight":"15px" }'
+								stylecheckbox='{ "color":"#0F4EB3" }'
 								stylecheckboxlabel='{ "color":"" }'
 								required={true}
 								value={sameAsMailAddress}
 								checked={sameAsMailAddress}
 								onChange={(e) => {
+									if(e.target.checked){
+									formikAddDebitCard.setFieldValue("zipcode", mailingZipcode)
+									formikAddDebitCard.setFieldValue("streetAddress", mailingStreetAddress)
+									let event = {
+										target: {
+											value: mailingZipcode,
+										},
+									};
+									fetchAddress(event);
+									}
 									setSameAsMailAddress(e.target.checked);
 								}}
 							/>
@@ -1581,17 +1599,24 @@ export default function PaymentMethod() {
 								materialProps={{ maxLength: "5" }}
 								disabled={sameAsMailAddress}
 								value={formikAddDebitCard.values.zipcode}
-								onChange={fetchAddress}
+								onChange={(e) => {
+									const reg = /^[0-9\b]+$/;
+									let acc = e.target.value;
+									if (acc === "" || reg.test(acc)) {
+										fetchAddress(e);
+									  }
+								}}
 								onBlur={formikAddDebitCard.handleBlur}
 								error={
 									(formikAddDebitCard.touched.zipcode &&
-									Boolean(formikAddDebitCard.errors.zipcode)) || !validZip
+										Boolean(formikAddDebitCard.errors.zipcode)) ||
+									!validZip
 								}
 								helperText={
-									validZip ? 
-									formikAddDebitCard.touched.zipcode &&
-									formikAddDebitCard.errors.zipcode :
-									"Please enter a valid zipcode"
+									validZip
+										? formikAddDebitCard.touched.zipcode &&
+										  formikAddDebitCard.errors.zipcode
+										: "Please enter a valid zipcode"
 								}
 							/>
 						</Grid>
@@ -1683,7 +1708,7 @@ export default function PaymentMethod() {
 									id="addBankAccount_button"
 									onClick={() => closeDebitCardButton()}
 								>
-									{ editMode ? "Back" : "Cancel" }
+									{editMode ? "Back" : "Cancel"}
 								</ButtonSecondary>
 							</Grid>
 
@@ -1692,9 +1717,9 @@ export default function PaymentMethod() {
 								className={editMode ? classes.hideSection : classes.showSection}
 							>
 								<ButtonPrimary
-									stylebutton='{"background": "", "float":""  }'
+									stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
 									id="addDebitCard_button"
-									disabled = {!validZip}
+									disabled={!validZip}
 									onClick={() => openDebitCardModal()}
 								>
 									Add

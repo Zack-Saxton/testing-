@@ -42,7 +42,6 @@ TabPanelViewApplication.propTypes = {
 
 function tabVerticalProps(verticalIndex) {
   return {
-    
     id: `scrollable-auto-tab-vertical-viewApplication-${verticalIndex}`,
     "aria-controls": `scrollable-auto-tab-panel-${verticalIndex}`,
   };
@@ -146,9 +145,7 @@ export default function ViewAccountDetails() {
             <Grid item xs={12} sm={8} style={{ padding: "5px", width: "100%" }}>
               <Paper className={classes.paper}  style={values===0 ? {marginBottom: "500px"} : {marginBottom:"0px" }}>
                 <TabPanelViewApplication value={values} verticalIndex={0} >
-
                  { viewAppApplicantInfo?.status ? (viewAppApplicantInfo?.status === "rejected") ? 
-
                  <> 
                  <Grid item xs={12}>
                     <Typography
@@ -198,7 +195,6 @@ export default function ViewAccountDetails() {
                     </p>
                   </Grid> </>  : 
                   
-
                    (viewAppApplicantInfo?.status === "refered" || viewAppApplicantInfo?.status === "contact_branch" ) ? 
                    <> <Grid item xs={12}>
                     <Typography
@@ -237,9 +233,7 @@ export default function ViewAccountDetails() {
                     </p>
                   </Grid> </>   :  <Grid/>   }
 
-
                 </TabPanelViewApplication>
-
                 <TabPanelViewApplication value={values} verticalIndex={1}>
                   <Grid item xs={12}>
                     <Typography variant="h6" className={classes.viewAppHeading}>

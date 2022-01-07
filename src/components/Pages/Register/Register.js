@@ -1,7 +1,7 @@
-import React, {useState} from "react";
-import {useHistory} from "react-router-dom";
-import {useFormik} from "formik";
-import {makeStyles} from "@material-ui/core/styles";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import { useFormik } from "formik";
+import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import * as yup from "yup";
@@ -11,14 +11,23 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import axios from "axios";
-import { Button, ButtonPrimary, DatePicker, EmailTextField, PasswordField, SocialSecurityNumber, TextField, Zipcode } from "../../FormsUI";
+import {
+	Button,
+	ButtonPrimary,
+	DatePicker,
+	EmailTextField,
+	PasswordField,
+	SocialSecurityNumber,
+	TextField,
+	Zipcode,
+} from "../../FormsUI";
 import Paper from "@material-ui/core/Paper";
 import Logo from "../../../assets/images/loginbg.png";
-import loginSubmit from "../../Controllers/LoginController";
+import LoginController from "../../Controllers/LoginController";
 import "./Register.css";
-import Cookies from "js-cookie"
-import LogoutController from "../../Controllers/LogoutController"
-import {encryptAES} from "../../lib/Crypto"
+import Cookies from "js-cookie";
+import LogoutController from "../../Controllers/LogoutController";
+import { encryptAES } from "../../lib/Crypto";
 
 //Styling part
 const useStyles = makeStyles((theme) => ({
@@ -26,8 +35,8 @@ const useStyles = makeStyles((theme) => ({
 		backgroundImage: "url(" + Logo + ")",
 		backgroundRepeat: "noRepeat",
 		backgroundPosition: "center",
-		backgroundSize:"cover",
-		backgroundAttachment:"fixed"
+		backgroundSize: "cover",
+		backgroundAttachment: "fixed",
 	},
 	root: {
 		flexGrow: 1,
@@ -58,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	paper: {
 		padding: theme.spacing(3),
-		borderRadius:"6px !important",
+		borderRadius: "6px !important",
 		display: "flex",
 		flexDirection: "column",
 		backgroundColor: `rgba(255, 255, 255, .8)`,
@@ -105,7 +114,18 @@ const validationSchema = yup.object({
 		.date("Please enter a valid date")
 		.nullable()
 		.required("Your date of birth is required")
-		.max(new Date(((new Date(new Date().getFullYear()+'/'+(new Date().getMonth()+1)+'/'+new Date().getDate())).getTime()) - 567650000000), "You must be at least 18 years old")
+		.max(
+			new Date(
+				new Date(
+					new Date().getFullYear() +
+						"/" +
+						(new Date().getMonth() + 1) +
+						"/" +
+						new Date().getDate()
+				).getTime() - 567650000000
+			),
+			"You must be at least 18 years old"
+		)
 		.min(new Date(1919, 1, 1), "You are too old")
 		.typeError("Please enter a valid date"),
 	password: yup
@@ -123,8 +143,13 @@ const validationSchema = yup.object({
 		.min(8, "Password should be minimum of 8 characters length")
 		.required("Your password confirmation is required")
 		.when("password", {
-			is: (password) => (password && password.length > 0),
-			then: yup.string().oneOf([yup.ref("password")], "Your confirmation password must match your password"),
+			is: (password) => password && password.length > 0,
+			then: yup
+				.string()
+				.oneOf(
+					[yup.ref("password")],
+					"Your confirmation password must match your password"
+				),
 		}),
 	zip: yup
 		.string("Enter your Zip")
@@ -153,9 +178,9 @@ export default function Register() {
 	const [loading, setLoading] = useState(false);
 	const history = useHistory();
 
-  //Date implementation for verifying 18 years
-    const myDate = new Date();
-    myDate.setDate(myDate.getDate() - 6571);
+	//Date implementation for verifying 18 years
+	const myDate = new Date();
+	myDate.setDate(myDate.getDate() - 6571);
 
 	//Form Submission
 	const formik = useFormik({
@@ -175,20 +200,20 @@ export default function Register() {
 			setLoading(true);
 			setFailed("");
 			//structuring the data for api call
-      let body = {
-        "fname": values.firstname,
-        "lname": values.lastname,
-        "email": values.email,
-        "ssn": values.ssn,
-        "zip_code": values.zip,
-        "password": values.password,
-        "birth_year": values.date.getFullYear().toString(),
-        "birth_month": ("0" + (values.date.getMonth() + 1)).slice(-2),
-        "birth_day": ("0" + (values.date.getDate() + 1)).slice(-2),
-        "address_street": '',
-        "address_city": city,
-        "address_state": state
-      }
+			let body = {
+				fname: values.firstname,
+				lname: values.lastname,
+				email: values.email,
+				ssn: values.ssn,
+				zip_code: values.zip,
+				password: values.password,
+				birth_year: values.date.getFullYear().toString(),
+				birth_month: ("0" + (values.date.getMonth() + 1)).slice(-2),
+				birth_day: ("0" + (values.date.getDate() + 1)).slice(-2),
+				address_street: "",
+				address_city: city,
+				address_state: state,
+			};
 			//API call
 			try {
 				let customerStatus = await axios({
@@ -211,31 +236,64 @@ export default function Register() {
 					(customerStatus.data?.result === "success" &&
 						customerStatus.data?.hasError === false)
 				) {
-					//On succes, calls the login API to the JWT token and save it in storage, and make the user logged in and redirecting to home page 
-					let retVal = await loginSubmit(values.email, values.password, '');
-					if (retVal?.data?.data?.user && retVal?.data?.data?.userFound === true) {
+					//On succes, calls the login API to the JWT token and save it in storage, and make the user logged in and redirecting to home page
+					let retVal = await LoginController(values.email, values.password, "");
+					if (
+						retVal?.data?.data?.user &&
+						retVal?.data?.data?.userFound === true
+					) {
 						let rememberMe = false;
 						var now = new Date().getTime();
-						let userToken = { isLoggedIn: false };
-						LogoutController()
+						LogoutController();
 						Cookies.set("redirec", JSON.stringify({ to: "/select-amount" }));
-						Cookies.set("token", JSON.stringify({ isLoggedIn: true, apiKey: retVal?.data?.data?.user?.extensionattributes?.login?.jwt_token, setupTime: now }));
-		                Cookies.set("cred", encryptAES(JSON.stringify({email: values.email, password: values.password })));
+						Cookies.set(
+							"token",
+							JSON.stringify({
+								isLoggedIn: true,
+								apiKey:
+									retVal?.data?.data?.user?.extensionattributes?.login
+										?.jwt_token,
+								setupTime: now,
+							})
+						);
+						Cookies.set(
+							"cred",
+							encryptAES(
+								JSON.stringify({
+									email: values.email,
+									password: values.password,
+								})
+							)
+						);
 
-						rememberMe === true ?
-						Cookies.set("rememberMe", JSON.stringify({ selected: true, email: values.email, password: values.password })) :
-						Cookies.set("rememberMe", JSON.stringify({ selected: false, email: '', password: '' }));
-		
+						rememberMe === true
+							? Cookies.set(
+									"rememberMe",
+									JSON.stringify({
+										selected: true,
+										email: values.email,
+										password: values.password,
+									})
+							  )
+							: Cookies.set(
+									"rememberMe",
+									JSON.stringify({ selected: false, email: "", password: "" })
+							  );
+
 						setLoading(false);
 						history.push({
 							pathname: "/customers/accountoverview",
 						});
-					}
-					else if (retVal?.data?.data?.result === "error" || retVal?.data?.data?.hasError === true) {
-						Cookies.set('token', JSON.stringify({ isLoggedIn: false, apiKey: '', setupTime: '' }));
+					} else if (
+						retVal?.data?.data?.result === "error" ||
+						retVal?.data?.data?.hasError === true
+					) {
+						Cookies.set(
+							"token",
+							JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" })
+						);
 						setLoading(false);
-					}
-					else {
+					} else {
 						setLoading(false);
 						alert("Network error");
 					}
@@ -283,15 +341,15 @@ export default function Register() {
 		}
 	};
 
-//Auto focus on name field if it has any error on submit 	
+	//Auto focus on name field if it has any error on submit
 	function autoFocus() {
-		var firstname = document.getElementById("firstname").value
-		var lastname = document.getElementById("lastname").value
-		if (firstname === '') {
+		var firstname = document.getElementById("firstname").value;
+		var lastname = document.getElementById("lastname").value;
+		if (firstname === "") {
 			document.getElementById("firstname").focus();
 		}
-		if (lastname === '') {
-			if (firstname === '') {
+		if (lastname === "") {
+			if (firstname === "") {
 				document.getElementById("firstname").focus();
 			} else {
 				document.getElementById("lastname").focus();
@@ -329,22 +387,28 @@ export default function Register() {
 	//View Part
 	return (
 		<div>
-			<div
-				className={classes.mainContentBackground}
-				id="mainContentBackground"
-			>
+			<div className={classes.mainContentBackground} id="mainContentBackground">
 				<Box>
-					<Grid xs={12}  item container justifyContent="center" alignItems="center" style={{paddingTop:"30px",paddingBottom:"40px"}}>
+					<Grid
+						xs={12}
+						item
+						container
+						justifyContent="center"
+						alignItems="center"
+						style={{ paddingTop: "30px", paddingBottom: "40px" }}
+					>
 						<Grid
 							xs={11}
 							sm={10}
 							md={8}
-							lg={6} 
+							lg={6}
 							xl={6}
 							id="registerMainContent"
 							className="cardWrapper"
-                            justifyContent="center"
-							alignItems="center" container item
+							justifyContent="center"
+							alignItems="center"
+							container
+							item
 						>
 							<Paper className={classes.paper}>
 								<Typography
@@ -362,11 +426,18 @@ export default function Register() {
 								<form onSubmit={formik.handleSubmit}>
 									<Grid
 										container
-                                        justifyContent="center"
+										justifyContent="center"
 										alignItems="center"
 										spacing={4}
 									>
-										<Grid item xs={12} sm={6} style={{ width:"100%" }}  container direction ="row">
+										<Grid
+											item
+											xs={12}
+											sm={6}
+											style={{ width: "100%" }}
+											container
+											direction="row"
+										>
 											<TextField
 												name="firstname"
 												id="firstname"
@@ -386,7 +457,14 @@ export default function Register() {
 											/>
 										</Grid>
 
-										<Grid item xs={12} sm={6} style={{ width:"100%" }}  container direction ="row">
+										<Grid
+											item
+											xs={12}
+											sm={6}
+											style={{ width: "100%" }}
+											container
+											direction="row"
+										>
 											<TextField
 												name="lastname"
 												id="lastname"
@@ -406,7 +484,13 @@ export default function Register() {
 											/>
 										</Grid>
 
-										<Grid item xs={12} style={{ width:"100%" }}  container direction ="row">
+										<Grid
+											item
+											xs={12}
+											style={{ width: "100%" }}
+											container
+											direction="row"
+										>
 											<EmailTextField
 												id="email"
 												name="email"
@@ -424,7 +508,14 @@ export default function Register() {
 											/>
 										</Grid>
 
-										<Grid id="socialNum" item xs={12} sm={4}  container direction ="row">
+										<Grid
+											id="socialNum"
+											item
+											xs={12}
+											sm={4}
+											container
+											direction="row"
+										>
 											<SocialSecurityNumber
 												className={classes.socialNum}
 												name="ssn"
@@ -439,7 +530,14 @@ export default function Register() {
 												helperText={formik.touched.ssn && formik.errors.ssn}
 											/>
 										</Grid>
-										<Grid id="ZipcodeWrap" item xs={12} sm={4}  container direction ="row">
+										<Grid
+											id="ZipcodeWrap"
+											item
+											xs={12}
+											sm={4}
+											container
+											direction="row"
+										>
 											<Zipcode
 												fullWidth
 												id="zip"
@@ -461,7 +559,14 @@ export default function Register() {
 											/>
 										</Grid>
 
-										<Grid id="dateWrap" item xs={12} sm={4}  container direction ="row">
+										<Grid
+											id="dateWrap"
+											item
+											xs={12}
+											sm={4}
+											container
+											direction="row"
+										>
 											<DatePicker
 												name="date"
 												label="Date of Birth *"
@@ -482,7 +587,13 @@ export default function Register() {
 											/>
 										</Grid>
 
-										<Grid item xs={12} style={{ width:"100%" }}  container direction ="row">
+										<Grid
+											item
+											xs={12}
+											style={{ width: "100%" }}
+											container
+											direction="row"
+										>
 											<PasswordField
 												name="password"
 												label="Create New Password *"
@@ -509,10 +620,16 @@ export default function Register() {
 												at least 1 symbol and at least 1 number.
 											</p>
 										</Grid>
-										<Grid item xs={12} style={{ width:"100%" }}  container direction ="row">
+										<Grid
+											item
+											xs={12}
+											style={{ width: "100%" }}
+											container
+											direction="row"
+										>
 											<PasswordField
 												name="confirmPassword"
-												label="Re-enter Your Password *"
+												label="Confirm Your Password *"
 												placeholder="Enter your confirm password"
 												id="cpass"
 												type="password"
@@ -545,16 +662,16 @@ export default function Register() {
 										</Grid>
 
 										<Grid item xs={12} className={classes.signInButtonGrid}>
-											<ButtonPrimary												
+											<ButtonPrimary
 												onClick={autoFocus}
 												type="submit"
 												data-testid="submit"
 												stylebutton='{"background": "", "color":"", "fontSize" : "15px ! important", "padding" : "0px 30px" }'
 												disabled={loading}
 											>
-											{/* <Typography align="center" className="textCSS "> */}
+												{/* <Typography align="center" className="textCSS "> */}
 												Sign in
-											{/* </Typography> */}
+												{/* </Typography> */}
 												<i
 													className="fa fa-refresh fa-spin customSpinner"
 													style={{

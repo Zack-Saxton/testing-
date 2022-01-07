@@ -77,7 +77,6 @@ export default function RecentApplications({ userApplicationsData,UserAccountSta
     });
   }
   
- 
   //View
   return (
     <Grid item xs={12} style={{ width: "100%", paddingBottom: "10px" }}>
@@ -152,7 +151,6 @@ export default function RecentApplications({ userApplicationsData,UserAccountSta
                           </ButtonPrimary>
                              )
                       }
-
                     </TableCell>
                   </TableRow>
                 ))

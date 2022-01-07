@@ -11,15 +11,12 @@ import {
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { changePassword } from "../../Controllers/myProfileController";
-import Cookies from "js-cookie"
-import { decryptAES } from "../../lib/Crypto"
 import { tabAtom } from "./MyProfileTab";
 import { useAtom } from "jotai";
 
 
 export default function ChangePassword(basicInformationData) {
 const history = useHistory();
-const cred = JSON.parse(Cookies.get("cred") ? decryptAES(Cookies.get("cred")) : '{ }');
 const [loading, setLoading] = useState(false);
 const [, setTabvalue] = useAtom(tabAtom)
 
@@ -167,6 +164,7 @@ const preventSpace = (event) => {
                         direction="row"
                       >
                         <PasswordField
+                          id="oldPasswordWrap"
                           name="oldPassword"
                           type="password"
                           label="Old Password"
@@ -192,6 +190,7 @@ const preventSpace = (event) => {
                         direction="row"
                       >
                         <PasswordField
+                          id="newPasswordWrap"
                           name="newPassword"
                           type="password"
                           label="New Password"
@@ -206,10 +205,9 @@ const preventSpace = (event) => {
                                   formikPassword.touched.newPassword && Boolean(formikPassword.errors.newPassword)
                                 }
                           helperText={formikPassword.touched.newPassword && formikPassword.errors.newPassword}
-                          floatingLabelText="Password"
                           disabled={false}
                         />
-                        <p style={{ textAlign: "justify"}}>
+                        <p style={{ textAlign: "justify", fontSize:"0.938rem"}}>
                           Please ensure your password meets the following criteria: between 8 and 30 characters in length, at least 1 uppercase letter, at least 1 lowercase letter, at least 1 number, at least 1 special character.
                         </p>
                       </Grid>
@@ -221,9 +219,10 @@ const preventSpace = (event) => {
                         direction="row"
                       >
                         <PasswordField
+                          id="retypeNewPasswordWrap"
                           name="confirmPassword"
                           type="password"
-                          label="Retype New Password"
+                          label="Confirm New Password"
                           onKeyDown={preventSpace}
                           autoComplete="new-password"
                           materialProps={{ maxLength: "30", autoComplete: "new-password" }}
@@ -242,15 +241,19 @@ const preventSpace = (event) => {
                     <Grid container direction="row">
                       <Grid container
                         item
-                        xs={20}
-                        sm={1}
+                        xs={12}
+                        sm={4}
+                        md={3}
+                        lg={2}
+                        xl={1}
                         direction="row"
-                        style={{ paddingTop: "10px" }}
+                        style={{ padding: "10px 0px" }}
+                        id="reEnterUpdate"
                       >
                         <ButtonSecondary
-                          stylebutton='{"marginRight": "" }'
+                          stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
                           styleicon='{ "color":"" }'
-                          id="apply-loan-reset-button"
+                                
                           onClick={handleCancelButton}                        
                   
                         >
@@ -259,16 +262,19 @@ const preventSpace = (event) => {
                       </Grid>
                       <Grid container
                         item
-                        xs={10}
-                        sm={3}
+                        xs={12}
+                        sm={4}
+                        md={3}
+                        lg={2}
+                        xl={1}
                         direction="row"
-                        style={{ padding: "10px" }}
-                        id="apply-loan-continue-button-grid"
+                        style={{ padding: "10px 0px " }}
+                        id="reEnterCancel"
                       >
                         <ButtonPrimary
-                          stylebutton='{"marginLeft": "10px","fontSize":"1rem" }'
+                          stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
                           styleicon='{ "color":"" }'
-                          id="apply-loan-continue-button"
+                          
                          type = "submit"
                          disabled={loading}
                          >

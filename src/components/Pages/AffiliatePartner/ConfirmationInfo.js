@@ -325,17 +325,14 @@ export default function CreditKarma(props) {
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       
-
       const modPersonalIncome = parseInt(values.personalIncome.replace(/\$/g, "").replace(/,/g, ""));
 			const modHouseholdIncome = parseInt(values.householdIncome.replace(/\$/g, "").replace(/,/g, ""));
-   
+
 			if(errorPersonal === '' && errorAnnual === ''){
 				if (validate(modPersonalIncome, modHouseholdIncome)) {
           values.personalIncome = modPersonalIncome 
           values.householdIncome = modHouseholdIncome 
 				
-				
-    
       setLoading(true);     
       let confirmInfoData = {
 	   firstname : values.firstname,
@@ -345,8 +342,8 @@ export default function CreditKarma(props) {
 	   state : statesFullform[values.state],
 	   zip : values.zip,
 	   citizenship : values.citizenship,
-	   personalIncome : parseInt(values.personalIncome.replace(/\$/g, "").replace(/,/g, "")),
-	   householdIncome : parseInt(values.householdIncome.replace(/\$/g, "").replace(/,/g, "")),
+	   personalIncome : values.personalIncome,
+	   householdIncome :  values.householdIncome,
 	   employementStatus : values.employementStatus,
 	   activeDuty : values.activeDuty,
 	   activeDutyRank : values.activeDutyRank,
@@ -358,7 +355,6 @@ export default function CreditKarma(props) {
      partner_token :  props?.location?.state?.partner_token ? props.location.state.partner_token : "",
      email : props?.location?.state?.email ? props.location.state.email : "", 
       }
-
       let partnerConfirmRes = await  partnerConfirmInfo (confirmInfoData,history)
       if (partnerConfirmRes.data.status !== 200) {
         setLoading(false);       
@@ -524,8 +520,8 @@ const currencyFormat = (event) => {
       setErrorPersonal("Annual personal income is required");
       
     } else {
-      const n = event.target.value.replace(/\$/g, "").replace(/,/g, "").substr(0, 7);
-      if(n.length < 4){
+      const nLen = event.target.value.replace(/\$/g, "").replace(/,/g, "").substr(0, 7);
+      if(nLen.length < 4){
         setErrorPersonal("Annual personal income should not be less than 4 digits");
         
         return false;
@@ -555,8 +551,8 @@ const currencyFormat = (event) => {
     if (isNaN(modHouseholdIncome)) {
       setErrorAnnual("Annual household income is required");
     } else {				
-      const n = event.target.value.replace(/\$/g, "").replace(/,/g, "").substr(0, 7);
-      if(n.length < 4){
+      const nLen = event.target.value.replace(/\$/g, "").replace(/,/g, "").substr(0, 7);
+      if(nLen.length < 4){
         setErrorAnnual("Annual household income should not be less than 4 digits");
         return false;
       }

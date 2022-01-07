@@ -27,6 +27,10 @@ export default function MoneySkill(props) {
 
  useEffect(() => {
    getMoneySkillAPI();
+   return () => {
+    setStatus({}); 
+    setMoneySkillUrl({}); 
+  };
  }, []);
 
 //Pop up
@@ -65,25 +69,18 @@ export default function MoneySkill(props) {
             content, terms of use, or privacy policies of third party websites.
           </p>
 
-          <p className={classes.moneySkillParagaraph}>
+         <p className={classes.moneySkillParagaraph}>
             The information you provide to register and use MoneySKILL is
             governed by the privacy policy of the American Financial Services
-            Association Education Foundation{" "}
-            <a target="blank" href="https://www.afsaef.org/Privacy-Policy">
-              (found here)
-            </a>
-            and the privacy policy of Mariner Finance{" "}
-            <a
-              target="blank"
-              href="https://www.marinerfinance.com/resources/legal/privacy-statement/"
-            >
-              (found here)
-            </a>{" "}
-            . If you have any questions about the collection and use of the
+            Association Education Foundation &nbsp;
+            <a target="blank" id="moneySkillInfoLink" href="https://www.afsaef.org/Privacy-Policy">(found here)</a>&nbsp;
+            and the privacy policy of Mariner Finance &nbsp;
+            <a target="blank" id="moneySkillInfoLink" href="https://www.marinerfinance.com/resources/legal/privacy-statement/">(found here)</a>. 
+            &nbsp; If you have any questions about the collection and use of the
             information you provide, please review those policies and use the
             contact mechanisms provided for in the policies.
           </p>
-        </div>
+          </div>
 
         <div id="buttonWrap">
           <ButtonSecondary

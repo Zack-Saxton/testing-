@@ -3,52 +3,58 @@ import "../CheckMyOffer.css";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import {ButtonPrimary, Slider, TextField} from "../../../FormsUI";
+import { ButtonPrimary, Slider, TextField } from "../../../FormsUI";
 import Paper from "@material-ui/core/Paper";
-import React, {useContext, useState, useEffect} from "react";
-import {useHistory} from "react-router-dom";
-import ScrollToTopOnMount from '../ScrollToTop';
-import {CheckMyOffers as Check} from "../../../../contexts/CheckMyOffers";
+import React, { useContext, useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import ScrollToTopOnMount from "../ScrollToTop";
+import { CheckMyOffers as Check } from "../../../../contexts/CheckMyOffers";
 import { toast } from "react-toastify";
 
-
-
-//initializing check my offers functonal component 
+//initializing check my offers functonal component
 function CheckMyOffers(props) {
 	const { data, setData, resetData } = useContext(Check);
-	const [hasOfferCode, setOfferCode] = useState('');
-	const [select, setSelect] = useState(data.loanAmount ? data.loanAmount : 10000);
+	const [hasOfferCode, setOfferCode] = useState("");
+	const [select, setSelect] = useState(
+		data.loanAmount ? data.loanAmount : 10000
+	);
 	const history = useHistory();
 
 	useEffect(() => {
-		
-		if(data.formStatus === '' || data.completedPage === 0 || data.formStatus === 'completed' || props.location.fromLoanPurpose !== 'yes'){
-			setData({ ...data, "loading": true });
+		if (
+			data.formStatus === "" ||
+			data.completedPage === 0 ||
+			data.formStatus === "completed" ||
+			props.location.fromLoanPurpose !== "yes"
+		) {
+			setData({ ...data, loading: true });
 			resetData();
-			setSelect(data.loanAmount ? data.loanAmount : 10000)
-		}	 
-	 }, []);
+			setSelect(data.loanAmount ? data.loanAmount : 10000);
+		}
+	}, []);
 
-	 if(data?.isActiveUser === "closed"){
-		
-		toast.error("Your account is closed to new applications. Please contact us to reapply.", {
-			position: "bottom-left",
-			autoClose: 2500,
-			hideProgressBar: false,
-			closeOnClick: true,
-			pauseOnHover: true,
-			draggable: true,
-			progress: undefined,
-		  });
-		  history.push({
+	if (data?.isActiveUser === "closed") {
+		toast.error(
+			"Your account is closed to new applications. Please contact us to reapply.",
+			{
+				position: "bottom-left",
+				autoClose: 2500,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			}
+		);
+		history.push({
 			pathname: "/customers/accountOverview",
 		});
 	}
 	const handleRoute = (e) => {
 		data.loanAmount = select;
-		data.formStatus = 'started';
+		data.formStatus = "started";
 		data.completedPage = data.page.selectAmount;
-		setData({ ...data, "loanAmount": select });
+		setData({ ...data, loanAmount: select });
 		history.push({
 			pathname: "/loan-purpose",
 		});
@@ -60,21 +66,34 @@ function CheckMyOffers(props) {
 			<ScrollToTopOnMount />
 			<div className="mainDiv">
 				<Box>
-					<Grid item xs={12} container justifyContent="center" alignItems="center" >
-						<Grid item
+					<Grid
+						item
+						xs={12}
+						container
+						justifyContent="center"
+						alignItems="center"
+					>
+						<Grid
+							item
 							xs={11}
 							sm={10}
 							md={6}
 							lg={6}
 							xl={6}
 							className="cardWrapper"
-						    style={{paddingTop:"70px"}}
+							style={{ paddingTop: "70px" }}
 						>
-							<Paper className="card" justify="center" alignitems="center" id="selectAmountWrap">
+							<Paper
+								className="card"
+								justify="center"
+								alignitems="center"
+								id="selectAmountWrap"
+							>
 								<Typography align="center" className="borrowCSS CMOHeading">
 									Tell us how much you would like to borrow
 								</Typography>
-								<Grid item
+								<Grid
+									item
 									xs={12}
 									className="alignSlider"
 									container
@@ -91,20 +110,15 @@ function CheckMyOffers(props) {
 										/>
 									</Grid>
 								</Grid>
-								<Grid item
+								<Grid
+									item
 									xs={12}
 									className="alignSlider"
 									container
 									justifyContent="center"
 									alignItems="center"
 								>
-									<Grid  item
-										xs={11}
-										sm={10}
-										md={8}
-										lg={8}
-										xl={8}
-									>
+									<Grid item xs={11} sm={10} md={8} lg={8} xl={8}>
 										<Typography
 											data-testid="offerCodeTriggerText"
 											className="setGreenColor cursorPointer"
@@ -115,14 +129,8 @@ function CheckMyOffers(props) {
 										>
 											I have an offer code
 										</Typography>
-										</Grid>
-										<Grid  item
-										xs={11}
-										sm={10}
-										md={8}
-										lg={8}
-										xl={8}
-									>
+									</Grid>
+									<Grid item xs={11} sm={10} md={8} lg={8} xl={8}>
 										<div className={hasOfferCode ? "open" : "close"}>
 											<TextField
 												name="offerCode"
@@ -131,7 +139,7 @@ function CheckMyOffers(props) {
 												onChange={(event) => {
 													setData({
 														...data,
-														"offerCode": event.target.value,
+														offerCode: event.target.value,
 													});
 												}}
 												label="Enter Offer Code"
@@ -141,15 +149,9 @@ function CheckMyOffers(props) {
 												}}
 											/>
 										</div>
-										</Grid>
-										<Grid  item
-										xs={11}
-										sm={10}
-										md={8}
-										lg={8}
-										xl={8}
-									>
-										<Grid  className="alignButton">
+									</Grid>
+									<Grid item xs={11} sm={10} md={8} lg={8} xl={8}>
+										<Grid className="alignButton">
 											<ButtonPrimary
 												data-testid="contButton"
 												stylebutton='{"background": "#FFBC23", "color":"black","fontSize":"15px","padding":"0px 30px"}'
@@ -157,25 +159,24 @@ function CheckMyOffers(props) {
 												disabled={data.loading}
 											>
 												Continue
-											<i
-                                                    className="fa fa-refresh fa-spin customSpinner"
-                                                    style={{
-                                                        marginRight: "10px",
-                                                        display: data.loading ? "block" : "none",
-                                                    }}
-                                                />
+												<i
+													className="fa fa-refresh fa-spin customSpinner"
+													style={{
+														marginRight: "10px",
+														display: data.loading ? "block" : "none",
+													}}
+												/>
 											</ButtonPrimary>
 										</Grid>
-										</Grid>
+									</Grid>
 
-										<Typography  align="center">
-											Checking your offers will not impact your credit score.*
-										</Typography>
+									<Typography align="center">
+										Checking your offers will not impact your credit score.*
+									</Typography>
 									<Grid className="alignTextInsideCard justifyText">
 										<Typography
 											data-testid="descriptionInside"
 											className="alignText justifyText"
-											
 											align="center"
 										>
 											†We offer personal loans from $1,000 to $25,000, with
@@ -199,7 +200,8 @@ function CheckMyOffers(props) {
 								</Grid>
 							</Paper>
 						</Grid>
-						<Grid item
+						<Grid
+							item
 							xs={11}
 							sm={10}
 							md={10}
@@ -210,11 +212,9 @@ function CheckMyOffers(props) {
 							container
 							justifyContent="center"
 							alignItems="center"
-							style={{paddingTop:"25px",paddingBottom:"70px"}}
+							style={{ paddingTop: "25px", paddingBottom: "70px" }}
 						>
-							<Typography
-								className="smallText" align="center"
-							>
+							<Typography className="smallText" align="center">
 								To help the government fight the funding of terrorism and money
 								laundering activities, Federal law requires all financial
 								institutions to obtain, verify, and record information that
@@ -225,8 +225,7 @@ function CheckMyOffers(props) {
 								to see your driver's license or other identifying documents.
 							</Typography>
 							<br />
-							<Typography className="smallText" align="center"
-							>
+							<Typography className="smallText" align="center">
 								*The process uses a “soft” credit inquiry to determine whether a
 								loan offer is available, which does not impact your credit
 								score. If you continue with the application process online and

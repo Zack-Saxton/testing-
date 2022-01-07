@@ -18,7 +18,7 @@ const DatePickerWrapper = ({ name, format, defaultDate,label, placeholder,maxdat
 
 	// The first commit of Material-UI
 	//const currentDate = new Date();
-	const [selectedDate, setSelectedDate] = React.useState( null);
+	const [selectedDate, setSelectedDate] = React.useState(' ');
 	const handleDateChange = (date) => {
 		setSelectedDate(date);
 	};
