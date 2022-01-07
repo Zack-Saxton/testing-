@@ -4,7 +4,7 @@ import { Grid } from "@material-ui/core";
 import "../App/App.css";
 import Footer from "../Layout/Footer/Footer";
 import { useHistory } from "react-router-dom";
-import loginSubmit from "../Controllers/LoginController";
+import LoginController from "../Controllers/LoginController";
 import { useIdleTimer } from "react-idle-timer";
 import Dialog from "@material-ui/core/Dialog";
 import { ButtonPrimary } from "../FormsUI";
@@ -41,7 +41,7 @@ const Post = ({ children }) => {
 				state: { redirect: window.location.pathname },
 			});
 		} else {
-			let retVal = await loginSubmit(cred.email, cred.password, "");
+			let retVal = await LoginController(cred.email, cred.password, "");
 			if (retVal?.data?.data?.user && retVal?.data?.data?.userFound === true) {
 				// On login success storing the needed data in the local storage
 				let nowTimeStamp = new Date().getTime();

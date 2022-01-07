@@ -23,12 +23,7 @@ export default function LimitedOffer(userOfferData) {
   return (
     <div id="mainContainer">
       <Grid container spacing={2} style={{paddingBottom: "10px"}}>
-        <Grid
-          id="LimitedOfferGrid"
-          item
-          xs={12}
-          sm={8}
-        >
+        <Grid id="LimitedOfferGrid" item xs={12} sm={8} >
           <Paper id="paperProperties"  style={{ height: "100%" }} className={classes.paperPropertiesLimitedOffer}>
             <div id="yellowBg">
               <div id="Wrapp">
@@ -46,10 +41,7 @@ export default function LimitedOffer(userOfferData) {
                     <p id="loanPercent">
                       <NumberFormat value={userOfferAmount} displayType={'text'} thousandSeparator={true} prefix={'$'} />
                     </p>
-                    <NavLink
-                      to="/customers/selectOffer"
-                      style={{ textDecoration: "none" }}
-                    >
+                    <NavLink to="/customers/selectOffer" style={{ textDecoration: "none" }} >
                       <ButtonPrimary id="claimButton" stylebutton='{"color":""}'>
                         Claim the Offer
                       </ButtonPrimary>
@@ -61,7 +53,7 @@ export default function LimitedOffer(userOfferData) {
                       to={{ pathname:'/customers/applyForLoan', state: {from: "user"}  }}
                       style={{ textDecoration: "none" }}
                     >
-                      <ButtonPrimary id="claimButton" stylebutton='{"color":"", "text-transform": "none"}'>
+                      <ButtonPrimary id="claimButton" stylebutton='{"color":"", "textTransform": "none"}'>
                         Apply for a Loan
                       </ButtonPrimary>
                     </NavLink>
@@ -71,12 +63,7 @@ export default function LimitedOffer(userOfferData) {
             </div>
           </Paper>
         </Grid>
-        <Grid
-          id="offerTwo"
-          item
-          xs={12}
-          sm={4}
-        >
+        <Grid id="offerTwo" item xs={12} sm={4} >
           <Paper id="paperPropertiesOfferTwo" style={{ height: "100%" }} className={classes.paperPropertiesOfferTwo}>
             <a
               target="_blank" 

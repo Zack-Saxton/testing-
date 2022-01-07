@@ -53,6 +53,11 @@ export default function Notification() {
 
   useEffect(() => {
     notificationData();
+    return () => {
+      setMessages({}); 
+      setNotificationId({});
+      setbadgeCount({});
+    };
   }, []);
 
   //Open Notification content popup 

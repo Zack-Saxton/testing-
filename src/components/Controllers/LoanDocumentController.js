@@ -1,6 +1,7 @@
 import printJS from "print-js";
 import { toast } from "react-toastify";
 import APICall from "../lib/AxiosLib";
+import Buffer from "buffer"
 
 /***** Get loan document *****/
 export async function loanDocumentController(accNo) {
@@ -11,13 +12,13 @@ export async function loanDocumentController(accNo) {
   let addAccessToken = true;
 
   //API call
-  let loanDocument = await APICall(url, param, data, method, addAccessToken);
-  return loanDocument;
+  return APICall(url, param, data, method, addAccessToken);
+  
 }
 
 /***** Download and converting bufferdata *****/
 function downloadFileData(data) {
-   var Buffer = require("buffer/").Buffer; // note: the trailing slash is important!
+  Buffer = require("buffer/").Buffer; // note: the trailing slash is important!
   const buff = Buffer.from(data.data.data.bufferFile.data);
   const url = window.URL.createObjectURL(new Blob([buff]));
   const link = document.createElement("a");
@@ -73,7 +74,7 @@ export async function documentdownload(id, name) {
 
 /***** Print file *****/
 function print(data) {
-  var Buffer = require("buffer/").Buffer; // note: the trailing slash is important!
+  Buffer = require("buffer/").Buffer; // note: the trailing slash is important!
   const buff = Buffer.from(data.data.data.bufferFile.data);
   var pdfFile = new Blob([buff]);
   var pdfUrl = URL.createObjectURL(pdfFile);

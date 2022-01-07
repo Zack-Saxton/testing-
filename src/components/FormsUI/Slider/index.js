@@ -82,6 +82,7 @@ const TextfieldWrapper = ({
   const classes = useStyles();
   const [value, setValue] = useState(defaultValue ?? 12500);
   const handleSliderChange = (event, newValue) => {
+   
     if(newValue > 5000)
     {
       if(newValue % 500 === 0)
@@ -89,12 +90,15 @@ const TextfieldWrapper = ({
         setValue(newValue);
         setSelect(newValue);
       }
+      else{
+        setValue(newValue - (newValue % 500) );
+        setSelect(newValue  - (newValue % 500));
+      }
     }
     else{
       setValue(newValue);
       setSelect(newValue);
     }
-   
   };
 
   //Configuring the field with properties

@@ -1,136 +1,115 @@
-/* .form {
-box-sizing: content-box;
-  }
-  *, *:before, *:after {
-    box-sizing: unset!important;
-  } */
+#main-content-background {
+	min-height: 500px;
 
-  #main-content-background{
-    min-height: 500px;
-  
-    /* Create the parallax scrolling effect */
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
-
- 
-/* .mainDiv{
-    background-color: #124CA8;
-    background-image: linear-gradient(to right, #26436A , #104DB0);
-    min-height: 500px !important;
-} */
-
-.MuiInput-underline:before{
-    border-bottom: 2px solid #0F4EB3 !important;
+	/* Create the parallax scrolling effect */
+	background-attachment: fixed;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
-.cardWOPadding{
-    padding-bottom: 1%;
-    text-align: center;
+.MuiInput-underline:before {
+	border-bottom: 2px solid #0f4eb3 !important;
 }
 
-.cardWrapper{
-    margin-top: 5%;
-    margin-bottom: 2%;
+.cardWOPadding {
+	padding-bottom: 1%;
+	text-align: center;
 }
 
-#socialNum{
-    margin-top: 19.1px !important;
+.cardWrapper {
+	margin-top: 5%;
+	margin-bottom: 2%;
 }
 
-#ZipcodeWrap{
-    margin-top: 19.1px !important;
+#socialNum {
+	margin-top: 19.1px !important;
 }
 
-
-#dateWrap label{
-    font-size: 16px !important;
+#ZipcodeWrap {
+	margin-top: 19.1px !important;
 }
 
-@media (max-width:599px){
-
-    #socialNum{
-        margin-top: 0px !important;
-    }
-    
-    #ZipcodeWrap{
-        margin-top: 0px !important;
-    }
+#dateWrap label {
+	font-size: 16px !important;
 }
 
+@media (max-width: 599px) {
+	#socialNum {
+		margin-top: 0px !important;
+	}
 
-
-@media (max-width:400px){
-    #email-label, #password-label, #c-pass-label, #firstname-label, #lastname-label, #zip-label{
-        font-size: 4vw;
- 
-    }
-}
-@media (max-width:400px){
-#dob-title,#password-title{
-    font-size: 3vw;
-
-}
+	#ZipcodeWrap {
+		margin-top: 0px !important;
+	}
 }
 
-label + .MuiInput-formControl{
-    background: transparent;
+@media (max-width: 400px) {
+	#email-label,
+	#password-label,
+	#c-pass-label,
+	#firstname-label,
+	#lastname-label,
+	#zip-label {
+		font-size: 4vw;
+	}
+}
+@media (max-width: 400px) {
+	#dob-title,
+	#password-title {
+		font-size: 3vw;
+	}
 }
 
-.showError{
-    display: block;
-    color: red;
-    text-align: left;
-    margin-top: 0;
-    margin-bottom: 0;
-}
- 
-.hideError{
-    display: none;
- 
+label + .MuiInput-formControl {
+	background: transparent;
 }
 
-
-.Mui-focused{
-  background-color:transparent !important;
-  color: white;
-}
- 
-
-.add-pad{
-    margin-left: -1px !important;
-    padding-top: 20px !important;
-    font-size: 14px!important;
+.showError {
+	display: block;
+	color: red;
+	text-align: left;
+	margin-top: 0;
+	margin-bottom: 0;
 }
 
-#registerMainContent{
-    min-height: 80vh !important; 
+.hideError {
+	display: none;
 }
 
-
-#socialNum div div label{
-    font-size: 0.968rem !important;
-}
-#socialNum div div div input{
-    padding-bottom:15px !important;
+.Mui-focused {
+	background-color: transparent !important;
+	color: white;
 }
 
-/* 
-#sZipcodeWrapocialNum div div label{
-    font-size: 0.968rem !important;
-}
-#ZipcodeWrap div div div input{
-    padding-bottom:15px !important;
-} */
-
-
-#firstname ,#lastname , #email, #cpass{
-    padding-bottom: 15px !important;
+.add-pad {
+	margin-left: -1px !important;
+	padding-top: 20px !important;
+	font-size: 14px !important;
 }
 
-#firstname-label, #lastname-label, #email-label, #cpass-label {
-    font-size: 0.938rem !important;
-    padding-bottom:10px !important ;
+#registerMainContent {
+	min-height: 80vh !important;
+}
+
+#socialNum div div label {
+	font-size: 0.968rem !important;
+}
+#socialNum div div div input {
+	padding-bottom: 15px !important;
+}
+
+#firstname,
+#lastname,
+#email,
+#cpass {
+	padding-bottom: 15px !important;
+}
+
+#firstname-label,
+#lastname-label,
+#email-label,
+#cpass-label {
+	font-size: 0.938rem !important;
+	padding-bottom: 10px !important ;
 }

@@ -1,10 +1,3 @@
-/* .form {
-box-sizing: content-box;
-  }
-  *, *:before, *:after {
-    box-sizing: unset!important;
-  } */
-
   #main-content-background{
     min-height: 500px;
   
@@ -22,12 +15,6 @@ box-sizing: content-box;
   #citizenship, #employementStatus, #marriedStatus{
     background:transparent !important;
   }
- 
-/* .mainDiv{
-    background-color: #124CA8;
-    background-image: linear-gradient(to right, #26436A , #104DB0);
-    min-height: 500px !important;
-} */
 
 .MuiInput-underline:before{
     border-bottom: 2px solid #0F4EB3 !important;

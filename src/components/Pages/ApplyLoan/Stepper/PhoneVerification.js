@@ -1,13 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { ButtonWithIcon, PhoneNumber, ButtonPrimary,ButtonSecondary, TextField } from "../../../FormsUI";
+import {
+	ButtonWithIcon,
+	PhoneNumber,
+	ButtonPrimary,
+	ButtonSecondary,
+	TextField,
+} from "../../../FormsUI";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import APICall from '../../../App/APIcall';
-import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from "@material-ui/core";
+import APICall from "../../../App/APIcall";
+import {
+	Radio,
+	RadioGroup,
+	FormControlLabel,
+	FormControl,
+	FormLabel,
+} from "@material-ui/core";
 import { errorMessage } from "../../../../helpers/ErrorMessage";
-import { OTPInitialSubmission, verifyPasscode } from "../../../Controllers/ApplyForLoanController"
+import {
+	OTPInitialSubmission,
+	verifyPasscode,
+} from "../../../Controllers/ApplyForLoanController";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -26,36 +41,36 @@ const validationSchema = yup.object({
 		.min(10, "Name must contain at least 10 digits"),
 });
 
-
 //View Part
 export default function PhoneVerification(props) {
 	const [hasPasscode, setOfferCode] = useState(false);
-	const [passcode, setPasscode] = useState('');
+	const [passcode, setPasscode] = useState("");
 	const [error, setError] = useState();
-	const [phoneNum, setPhoneNum] = useState('');
+	const [phoneNum, setPhoneNum] = useState("");
 	const [open, setOpen] = useState(false);
 
-	// get phone number from using email from api 
+	// get phone number from using email from api
 	const getPhone = async () => {
-
-		let data = {
-
-		}
-		let userData = await APICall("/customer/account_overview", data, 'GET', true);
-		setPhoneNum(userData.data.data.customer.latest_contact.phone_number_primary);
-	}
+		let data = {};
+		let userData = await APICall(
+			"/customer/account_overview",
+			data,
+			"GET",
+			true
+		);
+		setPhoneNum(
+			userData.data.data.customer.latest_contact.phone_number_primary
+		);
+	};
 
 	// get the phone number on load
 	useEffect(() => {
 		getPhone();
-
 	}, []);
 
 	useEffect(() => {
-		formik.setFieldValue('phone', phoneNum)
-
+		formik.setFieldValue("phone", phoneNum);
 	}, [phoneNum]);
-
 
 	// configuring the formik variables
 	const formik = useFormik({
@@ -78,7 +93,7 @@ export default function PhoneVerification(props) {
 		setValue(event.target.value);
 	};
 
-	//To prevent spaces 
+	//To prevent spaces
 	const preventSpace = (event) => {
 		if (event.keyCode === 32) {
 			event.preventDefault();
@@ -91,14 +106,13 @@ export default function PhoneVerification(props) {
 		setError("");
 
 		if (acc === "" || reg.test(acc)) {
-			setPasscode(event.target.value)
+			setPasscode(event.target.value);
 		}
 	};
 
-
 	const skipPhoneVerification = (event) => {
-		Cookies.set("skip", JSON.stringify({ phone: true }));	
-		props.next()
+		Cookies.set("skip", JSON.stringify({ phone: true }));
+		props.next();
 	};
 
 	const handleClose = () => {
@@ -121,12 +135,7 @@ export default function PhoneVerification(props) {
 				</p>
 			</Grid>
 			<form onSubmit={formik.handleSubmit}>
-				<Grid
-					item
-					sm={5}
-					className="textBlock"
-
-				>
+				<Grid item sm={5} className="textBlock">
 					<PhoneNumber
 						name="phone"
 						label="Phone number *"
@@ -136,9 +145,7 @@ export default function PhoneVerification(props) {
 						value={formik.values.phone}
 						onChange={formik.handleChange}
 						disabled={true}
-						error={
-							formik.touched.phone && Boolean(formik.errors.phone)
-						}
+						error={formik.touched.phone && Boolean(formik.errors.phone)}
 						helperText={formik.touched.phone && formik.errors.phone}
 					/>
 					<div className="MuiTypography-alignLeft">
@@ -183,7 +190,6 @@ export default function PhoneVerification(props) {
 						type="submit"
 						fullWidth={true}
 						onClick={async () => {
-
 							setOfferCode(!hasPasscode);
 						}}
 					>
@@ -210,17 +216,17 @@ export default function PhoneVerification(props) {
 			</form>
 			<br />
 			<div>
-				
-					<Typography onClick={() => {
+				<Typography
+					onClick={() => {
 						setOpen(true);
-						}} className={props.classes.linkStyle}>
+					}}
+					className={props.classes.linkStyle}
+				>
 					I do not have access to this phone
-					</Typography>
-				
+				</Typography>
 			</div>
 			<div className={props.classes.actionsContainer}>
-				<div className={props.classes.button_div} >
-
+				<div className={props.classes.button_div}>
 					<ButtonPrimary
 						variant="contained"
 						color="primary"
@@ -229,13 +235,14 @@ export default function PhoneVerification(props) {
 						onClick={async () => {
 							let res = await verifyPasscode(passcode);
 							if (res.data.data.phone_verification === true) {
-								setError('');
-								props.next()
+								setError("");
+								props.next();
+							} else {
+								setError(
+									errorMessage.applyForLoan.phoneVerification
+										.verificationNotFound
+								);
 							}
-							else {
-								setError(errorMessage.applyForLoan.phoneVerification.verificationNotFound);
-							}
-
 						}}
 					>
 						{props.activeStep === props?.steps.length - 1 ? "Finish" : "Next"}
@@ -251,32 +258,33 @@ export default function PhoneVerification(props) {
 					Confirmation
 				</DialogTitle>
 				<DialogContent dividers>
-					<Typography align="justify" style={{fontSize: "15px"}} gutterBottom>
-						If you are currently unable to access the phone you provided, click "Verify phone later" to proceed with the Remainder of the Verification process. Please note that we will need to manually verify your phone number by calling and speaking with you directly. 
+					<Typography align="justify" style={{ fontSize: "15px" }} gutterBottom>
+						If you are currently unable to access the phone you provided, click
+						"Verify phone later" to proceed with the Remainder of the
+						Verification process. Please note that we will need to manually
+						verify your phone number by calling and speaking with you directly.
 					</Typography>
 				</DialogContent>
 				<DialogActions className="modalAction">
-				<br />
+					<br />
 
-				<Grid container >
-
-					<Grid item lg={5} >
-					<ButtonSecondary
-						stylebutton='{"background": "", "color": "black", "border-radius": "50px"}'
-						onClick={handleClose}
-					>
-						<Typography align="center">Return To Selection</Typography>
-					</ButtonSecondary>
-					</Grid>
-					<Grid item lg={5} >
-					<ButtonPrimary
-						stylebutton='{"background": "#FFBC23", "color": "black", "border-radius": "50px"}'
-						onClick={skipPhoneVerification
-						}
-					>
-						<Typography align="center">Verify Phone Later</Typography>
-					</ButtonPrimary>
-					</Grid>
+					<Grid container>
+						<Grid item lg={5}>
+							<ButtonSecondary
+								stylebutton='{"background": "", "color": "black", "border-radius": "50px"}'
+								onClick={handleClose}
+							>
+								<Typography align="center">Return To Selection</Typography>
+							</ButtonSecondary>
+						</Grid>
+						<Grid item lg={5}>
+							<ButtonPrimary
+								stylebutton='{"background": "#FFBC23", "color": "black", "border-radius": "50px"}'
+								onClick={skipPhoneVerification}
+							>
+								<Typography align="center">Verify Phone Later</Typography>
+							</ButtonPrimary>
+						</Grid>
 					</Grid>
 					<br />
 				</DialogActions>

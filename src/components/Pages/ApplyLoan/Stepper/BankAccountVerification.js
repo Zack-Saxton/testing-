@@ -103,7 +103,7 @@ export default function BankAccountVerification(props) {
 				pauseOnHover: true,
 				draggable: true,
 				progress: undefined,
-			  });
+			});
 			props.next();
 		} else {
 			toast.error("Document submission failed. Please try again", {
@@ -264,7 +264,7 @@ export default function BankAccountVerification(props) {
 							inputProps={{ maxLength: "9", "data-test-id": "BRN" }}
 							onChange={(e) => {
 								setInvalidRN(false);
-								restrictTextOnChange(e)
+								restrictTextOnChange(e);
 							}}
 							onBlur={async (event) => {
 								if (
@@ -288,12 +288,17 @@ export default function BankAccountVerification(props) {
 							}}
 							error={
 								(formik.touched.bankRoutingNumber &&
-								Boolean(formik.errors.bankRoutingNumber)) || invalidRN
+									Boolean(formik.errors.bankRoutingNumber)) ||
+								invalidRN
 							}
 							helperText={
 								formik.touched.bankRoutingNumber &&
-								formik.errors.bankRoutingNumber ? formik.touched.bankRoutingNumber &&
-								formik.errors.bankRoutingNumber  : (invalidRN === true ? "Please enter a valid routing number" : '')
+								formik.errors.bankRoutingNumber
+									? formik.touched.bankRoutingNumber &&
+									  formik.errors.bankRoutingNumber
+									: invalidRN === true
+									? "Please enter a valid routing number"
+									: ""
 							}
 							type="text"
 							placeholder="Bank Routing number"
@@ -482,14 +487,14 @@ export default function BankAccountVerification(props) {
 						resetUpload={paymnetMode}
 						docType={"bank information"}
 						handle={handleUpload}
-						setLoadingFlag= {props.setLoadingFlag}
-						multiple = { paymnetMode === "checkpayment" ? false : true }
+						setLoadingFlag={props.setLoadingFlag}
+						multiple={paymnetMode === "checkpayment" ? false : true}
 					/>
 				</div>
 				<div className={props.classes.actionsContainer}>
 					<div className={props.classes.button_div}>
 						<ButtonSecondary
-							stylebutton='{"margin-right": "10px", "color":"" }'
+							stylebutton='{"marginRight": "10px", "color":"" }'
 							onClick={(e) => {
 								formik.resetForm();
 								setVerifyRequired(false);
@@ -502,7 +507,7 @@ export default function BankAccountVerification(props) {
 							variant="contained"
 							color="primary"
 							id="button_stepper_next"
-							stylebutton='{"margin-right": "10px", "color":"" }'
+							stylebutton='{"marginRight": "10px", "color":"" }'
 							type="submit"
 							disabled={invalidRN}
 						>
@@ -519,9 +524,15 @@ export default function BankAccountVerification(props) {
 				open={openAutoPayAuth}
 			>
 				<div id="printableArea">
-					<DialogTitle id="customized-dialog-title" onClose={handleCloseAutoPayAuth}>
+					<DialogTitle
+						id="customized-dialog-title"
+						onClose={handleCloseAutoPayAuth}
+					>
 						Auto Pay Authorization
-						<CloseIcon style={{float: "right", cursor: "pointer"}} onClick={handleCloseAutoPayAuth} />
+						<CloseIcon
+							style={{ float: "right", cursor: "pointer" }}
+							onClick={handleCloseAutoPayAuth}
+						/>
 					</DialogTitle>
 					<DialogContent dividers>
 						<Typography align="justify" gutterBottom>

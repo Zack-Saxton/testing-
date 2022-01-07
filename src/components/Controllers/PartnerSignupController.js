@@ -27,11 +27,8 @@ export default async function PartnerSignup(
    history,
   partnerToken,
   applicantId,
-  ssn,
-  phone,
-  phoneType,
-  password,
-  confirm_password
+  partnerSignupData,
+  
 ) {
  
   let url = "partner_signup";
@@ -39,11 +36,11 @@ export default async function PartnerSignup(
   let data = {
     partner_token: partnerToken,
     applicant_id: applicantId,
-    ssn_last_four: ssn,
-    phone: phone,
-    phone_type: phoneType,
-    password: password,
-    password_confirm: confirm_password,
+    ssn_last_four: partnerSignupData.ssn,
+    phone: partnerSignupData.phone,
+    phone_type: partnerSignupData.phoneType,
+    password: partnerSignupData.password,
+    password_confirm: partnerSignupData.confirm_password,
   };
   let method = "POST";
   let addAccessToken = false;
@@ -155,14 +152,8 @@ export async function PopulatePartnerSignup(
   let addAccessToken = false;
 
   //API call
-  let populatePartnerSignUp = await APICall(
-    url,
-    param,
-    data,
-    method,
-    addAccessToken
-  );
-  return populatePartnerSignUp;
+  return APICall(url,param,data,method,addAccessToken);
+   
 }
 
 
@@ -188,8 +179,8 @@ export async function partnerConfirmInfo(dataConfirmInfo,history) {
     requested_loan_amount: "",
     income:  JSON.stringify(dataConfirmInfo.personalIncome),
     household_annual_income:  JSON.stringify(dataConfirmInfo.householdIncome),
-  active_duty : dataConfirmInfo.activeDuty,
-active_duty_rank :  dataConfirmInfo.activeDutyRank,
+    active_duty : dataConfirmInfo.activeDuty,
+    active_duty_rank :  dataConfirmInfo.activeDutyRank,
     spouse_city: dataConfirmInfo.spousecity,
     spouse_zipcode: dataConfirmInfo.spouseZipcode, 
     spouse_state: dataConfirmInfo.spouseSelectState,
@@ -209,12 +200,11 @@ active_duty_rank :  dataConfirmInfo.activeDutyRank,
     method,
     addAccessToken
   );
- 
   PartnerConfirmationAPI.data.status === 200
   ? toast.success(
       PartnerConfirmationAPI?.data?.data?.statusText
         ? PartnerConfirmationAPI.data.data.statusText
-        : "Successfully registered, please confirm your information",
+        : "Successfully registered",
       {
         position: "bottom-left",
         autoClose: 10000,

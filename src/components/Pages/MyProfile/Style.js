@@ -45,9 +45,9 @@ const useStylesMyProfile = makeStyles((theme) => ({
 	heading: {
 		color: "#fff",
 		fontWeight: "400",
-		fontSize: "1.64rem",
-		paddingLeft: "7px",
-		paddingBottom: "25px",
+		fontSize: "1.563rem",
+		// paddingLeft: "7px",
+		// paddingBottom: "25px",
 	},
 	table: {
 		minWidth: 650,
@@ -68,14 +68,7 @@ const useStylesMyProfile = makeStyles((theme) => ({
 		left: "0px",
 		background: "unset",
 	},
-	loadingOn: {
-		opacity: 0.55,
-		pointerEvents: "none",
-	},
-	loadingOff: {
-		opacity: 1,
-		pointerEvents: "initial",
-	},
+	
 	closeButton: {
 		position: "absolute",
 		right: theme.spacing(1),
@@ -91,7 +84,7 @@ const useStylesMyProfile = makeStyles((theme) => ({
 		maxWidth: "unset",
 	},
 	linkStyle: {
-		color: "blue !important",
+		color: "#0F4EB3 !important",
 	},
 	dialogHeading: {
 		color: "#171717!important",

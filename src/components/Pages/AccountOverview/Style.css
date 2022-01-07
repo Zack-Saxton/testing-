@@ -1,250 +1,222 @@
-
-
 .centerHeading {
-    color: #181818;
-    font-size: 24px;
-    font-family: 'Muli', sans-serif;
-    font-weight: 400;
+  color: #181818;
+  font-size: 24px;
+  font-family: "Muli", sans-serif;
+  font-weight: 400;
 }
 
-
-#mainContainer{
-    padding-top: 10px;
-    width: 100%;
+#mainContainer {
+  padding-top: 10px;
+  width: 100%;
 }
-#paperPropertiesLimitedOffer{
-    border-radius: 2px !important;
-    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%) !important;
-    
+#paperPropertiesLimitedOffer {
+  border-radius: 2px !important;
+  box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%),
+    0 1px 5px 0 rgb(0 0 0 / 20%) !important;
 }
 
-#paperPropertiesOfferTwo{
-    border-radius: 2px !important;
-    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%) !important;
-     
+#paperPropertiesOfferTwo {
+  border-radius: 2px !important;
+  box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%),
+    0 1px 5px 0 rgb(0 0 0 / 20%) !important;
 }
 
 .MuiTabs-vertical span {
-    align-items: start !important;
+  align-items: start !important;
+}
+
+#activeLoanGrid {
+  border-radius: 2px !important;
+}
+
+#overviewWrap {
+  border-radius: 2px !important;
+}
+
+#summaryOfApplications {
+  border-radius: 2px !important;
+}
+
+#recentPaymentsWrap {
+  border-radius: 2px !important;
+}
+
+@media (max-width: 599px) {
+  #activeLoanGrid {
+    height: 100% !important;
   }
-
-  #activeLoanGrid{
-    border-radius: 2px !important;
+  #overviewContainer {
+    padding: 0px !important;
   }
-
-  #overviewWrap{
-    border-radius: 2px !important;
+  #overviewWrap {
+    height: 55% !important;
+    margin: 60px 0px 40px 0px;
   }
-
-  #summaryOfApplications{
-      border-radius: 2px !important;
+  #activeLoanWrap {
+    /* height: 100% !important; */
   }
-
-  #recentPaymentsWrap{
-      border-radius: 2px !important;
+}
+@media (max-width: 425px) {
+  #overviewWrap {
+    margin: 20px 0px 40px 0px !important;
   }
-
-
-
-  @media (max-width:599px) {
-    #activeLoanGrid{
-        height: 100% !important;
-    }
-    #overviewContainer{
-        padding: 0px !important;
-    }
-    #overviewWrap{
-        height: 55% !important;
-        margin: 60px 0px 40px 0px;
-    }
-    #activeLoanWrap{
-        /* height: 100% !important; */
-    }
-  }
-
-  @media (max-width:425px) {
-    #overviewWrap{
-        margin: 20px 0px 40px 0px !important;
-    }
-  }
-  
-
-
-@media only screen and (max-width: 1024px)  {
-           
-    #loanText{
+}
+@media only screen and (max-width: 1024px) {
+  #loanText {
     font-size: 16px !important;
-}
-    #offerText{
+  }
+  #offerText {
     font-size: 25px !important;
-    }
-    #loanPercent{
-        font-size: 18px !important;
-    }
-    #claimButton{
-        padding: 0px 12px !important;
-
-    }
+  }
+  #loanPercent {
+    font-size: 18px !important;
+  }
+  #claimButton {
+    padding: 0px 12px !important;
+  }
+}
+#yellowBg {
+  background-color: #febb26;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+#offerText {
+  text-align: center;
+  padding-right: 13px;
+}
+#loanText {
+  font-size: 20px;
+  color: #171717;
+  margin-bottom: 7px;
+}
+#loanPercent {
+  font-weight: bolder;
+  font-size: 34.2px;
+  color: #171717;
+  margin: 0px 0px 10px 0px;
+}
+#claimButton {
+  color: white;
+  background-color: #0f4fb3;
+  font-family: "Muli", sans-serif !important;
+  font-weight: 900;
+  border-radius: 5px;
+  height: 30px;
+  padding: 0px 30px;
 }
 
-
-#yellowBg{
-    background-color: #febb26;
-    display: flex;
-    align-items: center;
-    height: 100%;
+@media only screen and (max-width: 768px) {
+  #offerText button {
+    font-size: 12px;
+  }
+  #loanText {
+    font-size: 14px !important;
+  }
+  #offerText {
+    font-size: 20px !important;
+  }
 }
-#offerText{
-    text-align: center;
-    padding-right: 13px;
+#Wrapp {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-#loanText{
-    font-size: 20px;
-    color: #171717;
-    margin-bottom: 7px;
-}
-#loanPercent{
-    font-weight: bolder;
-    font-size: 34.2px;
-    color: #171717;
-    margin: 0px 0px 10px 0px;
-}
-#claimButton{
-    color: white;
-    background-color: #0f4fb3;
-    font-family: 'Muli', sans-serif !important;
-    font-weight: 900;
-    border-radius: 5px;
-    height: 30px;
-    padding: 0px 30px;
-
+#Wrapp img {
+  height: 100%;
+  width: 100%;
 }
 
-@media only screen and (max-width: 768px)  {
-    #offerText button{
-        font-size: 12px;
-        }
-        #loanText{
-        font-size: 14px !important;
-        }
-        #offerText{
-        font-size: 20px !important;
-        }
-}
-#Wrapp{
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-#Wrapp img{
-    height: 100%;
-    width: 100%;
-}
-
-@media only screen and (max-width: 427px)  {
-    #yellowBg{
+@media only screen and (max-width: 427px) {
+  #yellowBg {
     flex-direction: column;
-    }
-    #yellowBg img{
+  }
+  #yellowBg img {
     width: 100% !important;
-    }
-    #offerText{
-        margin: 15px 0px !important;
-    }
+  }
+  #offerText {
+    margin: 15px 0px !important;
+  }
 }
-#dueDate{
-  
-    margin-block-start: 15px;
-    margin-block-end: 15px;
+#dueDate {
+  margin-block-start: 15px;
+  margin-block-end: 15px;
 }
-#ScheduledPaymentText{
-  
-    margin-block-start: 15px;
-    margin-block-end: 15px;
+#ScheduledPaymentText {
+  margin-block-start: 15px;
+  margin-block-end: 15px;
 }
 
-@media only screen and (max-width: 1024px)  {
-   
-#nextPaymentItems{
+@media only screen and (max-width: 1024px) {
+  #nextPaymentItems {
     font-size: 18px !important;
     font-weight: 600;
-}
-#dueDate{
+  }
+  #dueDate {
     font-size: 15px !important;
     margin-block-start: 15px;
     margin-block-end: 15px;
-}
-#activeLoanGrid{
+  }
+  #activeLoanGrid {
     height: 100%;
-}
-#regularAmountGrid{
+  }
+  #regularAmountGrid {
     margin-left: -10px;
-}
-#scheduledPaymentGrid{
+  }
+  #scheduledPaymentGrid {
     margin-left: -15px !important;
-}
-#RegularAmmountText{
+  }
+  #RegularAmmountText {
     width: 116px;
-}
-#ScheduledPaymentText{
+  }
+  #ScheduledPaymentText {
     width: 149px !important;
     font-size: 15px;
     margin-block-start: 15px;
     margin-block-end: 15px;
-}
-}
-
-
-@media only screen and (max-width: 425px)  {
-    #activeLoanGrid{
-        height: 100% !important;
-    }
-    #activeLoanWrap{
-        margin-bottom: 60px;
-    }
-    #regularAmountGrid{
-        margin-left: 0;
-    }
-    #scheduledPaymentGrid{
-        margin-left: 0 !important;
-    }
+  }
 }
 
+@media only screen and (max-width: 425px) {
+  #activeLoanGrid {
+    height: 100% !important;
+  }
+  #activeLoanWrap {
+    margin-bottom: 60px;
+  }
+  #regularAmountGrid {
+    margin-left: 0;
+  }
+  #scheduledPaymentGrid {
+    margin-left: 0 !important;
+  }
+}
 
-@media (max-width:599px){
-    #LimitedOfferGrid{
-        
+@media (max-width: 599px) {
+  #LimitedOfferGrid {
     padding-bottom: 30px;
-    }
-    }
+  }
+}
 
-    @media (max-width:425px){
-        #offerText{
-            
-        padding-right: unset !important;
-        }
-        }
-
-
-
+@media (max-width: 425px) {
+  #offerText {
+    padding-right: unset !important;
+  }
+}
 
 /* View Application css... */
-#scrollable-auto-tab-vertical-viewApplication-0.Mui-selected{
-
-    background: linear-gradient(
-        85deg
-        , #264266, #0F4EB3) !important;
-        color:white!important;
-        width: 250px;
-        border-radius: 0 5px 5px 0;
-        box-shadow: 3px 3px 10px 0 rgb(123, 31, 162, 50%);
-    }
-    #scrollable-auto-tab-vertical-viewApplication-1.Mui-selected{ 
-    
-        background: linear-gradient( 85deg, #264266, #0F4EB3) !important;
-            color:white!important;
-        width: 250px;
-        border-radius: 0 5px 5px 0;
-        box-shadow: 3px 3px 10px 0 rgb(123, 31, 162, 50%);
-    }
+#scrollable-auto-tab-vertical-viewApplication-0.Mui-selected {
+  background: linear-gradient(85deg, #264266, #0f4eb3) !important;
+  color: white !important;
+  width: 250px;
+  border-radius: 0 5px 5px 0;
+  box-shadow: 3px 3px 10px 0 rgb(123, 31, 162, 50%);
+}
+#scrollable-auto-tab-vertical-viewApplication-1.Mui-selected {
+  background: linear-gradient(85deg, #264266, #0f4eb3) !important;
+  color: white !important;
+  width: 250px;
+  border-radius: 0 5px 5px 0;
+  box-shadow: 3px 3px 10px 0 rgb(123, 31, 162, 50%);
+}

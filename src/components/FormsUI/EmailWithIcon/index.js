@@ -19,19 +19,12 @@ const EmailWithIconWrapper = ({
   customClass, //get dynamic icon name
   ...otherProps
 }) => {
-  // const [field, mata] = useField(name);
-
-  //Styling
-
-
   //Configuring the field properties
   const configTextfield = {
     name,
    
     ...otherProps,
   };
-
-  //Validation part
 
   //View part
   return (

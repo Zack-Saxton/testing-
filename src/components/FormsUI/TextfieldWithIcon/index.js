@@ -18,19 +18,12 @@ const TextFieldWithIconWrapper = ({
   //get dynamic icon name
   ...otherProps
 }) => {
-  // const [field, mata] = useField(name);
 
 
   //Configuring the field properties
   const configTextField = {
     ...otherProps,
   };
-
-  //Validation part
-
-  // configTextField.error = (mata && mata.touched && mata.error) ? true :  configTextField.error ?? false;
-  // configTextField.helperText = (mata && mata.touched && mata.error) ? mata.error : configTextField.helperText ?? '';
-
 
   //View part
   return (

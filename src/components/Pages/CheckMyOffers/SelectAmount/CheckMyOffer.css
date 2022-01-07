@@ -1,167 +1,153 @@
-.mainDiv{
-    background-color: #124CA8;
-    background-image: linear-gradient(to right, #26436A , #104DB0);
-    min-height: 500px !important;
+.mainDiv {
+	background-color: #124ca8;
+	background-image: linear-gradient(to right, #26436a, #104db0);
+	min-height: 500px !important;
 }
-.card{
-    padding: 5% 5% 1% 5%;
+.card {
+	padding: 5% 5% 1% 5%;
 }
-.cardWrapper{
-    margin-top: 5%;
-    margin-bottom: 2%;
+.cardWrapper {
+	margin-top: 5%;
+	margin-bottom: 2%;
 }
-.borrowCSS{
-    margin-top: 4% !important;
-    margin-bottom: 4% !important;
+.borrowCSS {
+	margin-top: 4% !important;
+	margin-bottom: 4% !important;
 }
-.setSlider{
-    margin-bottom: 0 !important;
-}
-
-.alignSlider{
-    margin-bottom: 7% !important;
-    text-align: center;
-}
-.setGreenColor{
-    color: green ;
-}
-.alignButton{
-    margin-top: 5%;
-    margin-bottom: 4%;
+.setSlider {
+	margin-bottom: 0 !important;
 }
 
-.smallText{
-    font-size: 0.8rem !important;
-    line-height: 25px !important;
-    color: #fff;
-    font-family: 'Muli', sans-serif;
-    font-weight: 300;
-    justify-content: center;
+.alignSlider {
+	margin-bottom: 7% !important;
+	text-align: center;
+}
+.setGreenColor {
+	color: green;
+}
+.alignButton {
+	margin-top: 5%;
+	margin-bottom: 4%;
 }
 
-.alignSmallText{
-    margin-bottom: 3%;
-}
-.alignText{
-    color: #595959;
-    font-size: 0.9rem;
-    margin-top: 2%;
-}
-
-.alignTextInsideCard{
-    padding-top: 2%;
+.smallText {
+	font-size: 0.8rem !important;
+	line-height: 25px !important;
+	color: #fff;
+	font-family: "Muli", sans-serif;
+	font-weight: 300;
+	justify-content: center;
 }
 
-.open{
-    height: 50px;
-    transition: 0.5s;
+.alignSmallText {
+	margin-bottom: 3%;
+}
+.alignText {
+	color: #595959;
+	font-size: 0.9rem;
+	margin-top: 2%;
 }
 
-.close{
-    height: 0;
-    transition: 0.5s;
-    overflow: hidden;
-    
-}
-.CMOHeading{
-    font-size: 1.563rem !important;
-    line-height: 110% !important;
-    margin: .82rem 0 .656rem 0 !important;
+.alignTextInsideCard {
+	padding-top: 2%;
 }
 
-#selectAmountWrap{
-    border-radius: 4px !important;
+.open {
+	height: 50px;
+	transition: 0.5s;
 }
 
-
-#oneLastStepWrap{
-    border-radius: 4px !important;
+.close {
+	height: 0;
+	transition: 0.5s;
+	overflow: hidden;
+}
+.CMOHeading {
+	font-size: 1.563rem !important;
+	line-height: 110% !important;
+	margin: 0.82rem 0 0.656rem 0 !important;
 }
 
-#oneLastStepWrap div:nth-child(1){
-    border-radius: 4px 4px 0px 0px !important;
+#selectAmountWrap {
+	border-radius: 4px !important;
 }
 
-#activeDutyWrap{
-    border-radius: 4px !important;
+#oneLastStepWrap {
+	border-radius: 4px !important;
 }
 
-#activeDutyWrap div:nth-child(1){
-    border-radius: 4px 4px 0px 0px !important;
+#oneLastStepWrap div:nth-child(1) {
+	border-radius: 4px 4px 0px 0px !important;
 }
 
+#activeDutyWrap {
+	border-radius: 4px !important;
+}
 
+#activeDutyWrap div:nth-child(1) {
+	border-radius: 4px 4px 0px 0px !important;
+}
 
-#selectActiveDuty div label{
-    font-size: 0.968rem !important;
+#selectActiveDuty div label {
+	font-size: 0.968rem !important;
 }
 
 #selectActiveDuty div div:nth-child(2) {
-    padding-bottom: 6px !important;
+	padding-bottom: 6px !important;
 }
 
-
-#activeDutyRankWrap div label{
-    font-size: 0.968rem !important;
+#activeDutyRankWrap div label {
+	font-size: 0.968rem !important;
 }
 
 #activeDutyRankWrap div div:nth-child(2) {
-    padding-bottom: 6px !important;
+	padding-bottom: 6px !important;
 }
 
-
-#maritalStatusWrap{
-    border-radius: 4px !important;
+#maritalStatusWrap {
+	border-radius: 4px !important;
 }
 
-#maritalStatusWrap div:nth-child(1){
-    border-radius: 4px 4px 0px 0px !important;
+#maritalStatusWrap div:nth-child(1) {
+	border-radius: 4px 4px 0px 0px !important;
 }
 
-
-
-#selectMaritalStatus div label{
-    font-size: 0.968rem !important;
+#selectMaritalStatus div label {
+	font-size: 0.968rem !important;
 }
 
 #selectMaritalStatus div div div:nth-child(1) {
-    padding-bottom: 15px !important;
+	padding-bottom: 15px !important;
 }
 
-
-#spouseAddressWrap-label{
-    font-size: 0.968rem !important;
+#spouseAddressWrap-label {
+	font-size: 0.968rem !important;
 }
 
 #spouseAddressWrap {
-    padding-bottom: 15px !important;
+	padding-bottom: 15px !important;
 }
 
-#zip-label{
-    font-size: 0.968rem !important;
+#zip-label {
+	font-size: 0.968rem !important;
 }
 
 #zip {
-    padding-bottom: 15px !important;
+	padding-bottom: 15px !important;
 }
 
-#cityWrap-label{
-    font-size: 0.968rem !important;
+#cityWrap-label {
+	font-size: 0.968rem !important;
 }
 
 #cityWrap {
-    padding-bottom: 15px !important;
+	padding-bottom: 15px !important;
 }
 
-#stateWrap-label{
-    font-size: 0.968rem !important;
+#stateWrap-label {
+	font-size: 0.968rem !important;
 }
 
 #stateWrap {
-    padding-bottom: 15px !important;
+	padding-bottom: 15px !important;
 }
-
-
-
-
-

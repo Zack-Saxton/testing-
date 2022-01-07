@@ -4,7 +4,6 @@ import Moment from "moment";
 import { Line } from "react-chartjs-2";
 import Grid from "@material-ui/core/Grid";
 
-
 export default function HistoricalData(creditData) {
     //Material UI css class
      const classes = useStyleVantageScore();
@@ -13,7 +12,7 @@ export default function HistoricalData(creditData) {
       data =>  data.parsed.vantage_score
      ) :  [];
  
-     ////Vantage score - months 
+     //Vantage score - months 
      let chartMonths =( creditData?.creditData ) ? creditData?.creditData.map(
       data =>  Moment(data.createdat).format('MMM')
      ) :  [];

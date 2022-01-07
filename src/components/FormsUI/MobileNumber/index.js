@@ -22,15 +22,6 @@ const MobileNumberWrapper = ({ name, ...otherProps }) => {
     setMobile(event.target.value);
   };
 
-  //Configuring the field with properties
-  const configTextfield = {
-    name: name,
-    ...field,
-    ...otherProps,
-    fullWidth: true,
-  };
-
-  //Validation
 
   // Check validity
 

@@ -8,7 +8,12 @@ import TableRow from "@material-ui/core/TableRow";
 import Grid from "@material-ui/core/Grid";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import Tooltip from "@material-ui/core/Tooltip";
-import { Checkbox, Radio, ButtonPrimary, ButtonSecondary, } from "../../../FormsUI";
+import {
+	Checkbox,
+	Radio,
+	ButtonPrimary,
+	ButtonSecondary,
+} from "../../../FormsUI";
 import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 import Typography from "@material-ui/core/Typography";
 import DesktopMacIcon from "@material-ui/icons/DesktopMac";
@@ -44,14 +49,10 @@ TabVerticalPanel.propTypes = {
 };
 
 export default function OfferTable(props) {
-	// const [checkedValue, setCheckedValue] = useState("");
-	// const [selectedTerm, setSelectedTerm] = useState("");
-	// const [selectedIndex, setSelectedIndex] = useState("");
 	const [termData1, setTermData1] = useState();
 	const [termData2, setTermData2] = useState();
 	const [termDataMax, setTermDataMax] = useState();
 	const [selectData, setSelectData] = useState([]);
-	// const [offToCompare, setOffToCompare] = useState([])
 
 	let offersComp = props.offersToCompare ? props.offersToCompare : [];
 	let offersCompChart = props.offersToCompareChart
@@ -118,10 +119,17 @@ export default function OfferTable(props) {
 			buildChartData(offersCompChart);
 		}
 		handleAdd(row);
-
 	};
 	return (
-		<Grid item xs={12} sm={9}  className={props.loading ? props.classes.loadingOn : props.classes.loadingOff}  style={{ padding: "5px", width: "100%" }}>
+		<Grid
+			item
+			xs={12}
+			sm={9}
+			className={
+				props.loading ? props.classes.loadingOn : props.classes.loadingOff
+			}
+			style={{ padding: "5px", width: "100%" }}
+		>
 			<Paper className={props.classes.paper}>
 				{props.rowData ? (
 					<TabVerticalPanel tabValue={props.value} verticalIndex={props.value}>
@@ -362,10 +370,14 @@ export default function OfferTable(props) {
 									stylebutton='{"marginLeft": "10px" ,"fontSize":"1rem"}'
 									id="apply-loan-continue-button"
 									onClick={() => {
-										props.submitSelectedOffer(props.selectedTerm, props.selectedIndex);
+										props.submitSelectedOffer(
+											props.selectedTerm,
+											props.selectedIndex
+										);
 									}}
 									disabled={
-										props.selectedTerm && (props.selectedIndex || props.selectedIndex === 0)
+										props.selectedTerm &&
+										(props.selectedIndex || props.selectedIndex === 0)
 											? props.loading
 												? true
 												: false
@@ -403,11 +415,11 @@ export default function OfferTable(props) {
 									stylebutton='{"background": "", "float":"right"  }'
 									styleicon='{ "color":"" }'
 									id="apply-loan-comparison-button"
-									onClick={() => {props.onCompareOfferTabClick()
-									props.handleTabChange(props.noOfTerms, props.noOfTerms);
-									window.scrollTo(0, 0);
-									}
-									}
+									onClick={() => {
+										props.onCompareOfferTabClick();
+										props.handleTabChange(props.noOfTerms, props.noOfTerms);
+										window.scrollTo(0, 0);
+									}}
 									{...props.tabVerticalProps(4)}
 								>
 									View Comparison

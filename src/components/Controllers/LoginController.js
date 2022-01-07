@@ -2,7 +2,7 @@ import Cookies from "js-cookie";
 import APICall from "../lib/AxiosLib";
 
 /***** Login method *****/
-export default async function loginSubmit(email, password) {
+export default async function LoginController(email, password) {
   let url = "login_customer";
   let param = "";
   let data = {

@@ -10,7 +10,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import "./MakePayment.css";
 import NumberFormat from 'react-number-format';
 
-
 export default function PaymentOverview(paymentData,status) {
     //Material UI css class
     const classes = useStylesMakePayment();

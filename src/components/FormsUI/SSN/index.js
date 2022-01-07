@@ -42,22 +42,7 @@ const PasswordWrapper = ({ name, id, onChange, value, label, ...otherProps }) =>
     event.preventDefault();
   };
 
-  //Basic field configurations
-  const configTextfield = {
-    name: name,
-    ...otherProps,
-  };
-
-  // configTextfield.error = (mata && mata.touched && mata.error) ? true :  configTextfield.error ?? false;
-  // configTextfield.helperText = (mata && mata.touched && mata.error) ? mata.error : configTextfield.helperText ?? '';
-  // //Validation part
-  // let check = passwordValidation(field.value);
-
-  // configTextfield.error = (mata.touched && check) ? true :  configTextfield.error ?? false;
-  // configTextfield.helperText = (mata.touched && check) ? check : configTextfield.helperText ?? '';
-  
   return (
-    // <TextField {...configTextfield} />
     <FormControl fullWidth={true}>
       <InputLabel htmlFor={id}>{label}</InputLabel>
       <Input

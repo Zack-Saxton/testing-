@@ -8,27 +8,21 @@ const useStylesAccountOverview = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(3),
     display: "flex",
-    borderRadius:"2px",
+    borderRadius: "2px",
     flexDirection: "column",
     color: theme.palette.text.secondary,
   },
-
-  paperPropertiesLimitedOffer:
-  {
+  paperPropertiesLimitedOffer: {
     padding: theme.spacing(2),
     display: "flex",
     flexDirection: "column",
     color: theme.palette.text.secondary,
-
   },
-
-  paperPropertiesOfferTwo:
-  {
+  paperPropertiesOfferTwo: {
     padding: theme.spacing(2),
     display: "flex",
     flexDirection: "column",
     color: theme.palette.text.secondary,
-
   },
   titleHeading: {
     color: "#fff",
@@ -39,15 +33,13 @@ const useStylesAccountOverview = makeStyles((theme) => ({
     color: "#fff",
     fontWeight: "400",
     fontSize: "1.563rem",
-    // paddingLeft: "7px",
-    // paddingBottom: "30px",
   },
   subheading: {
     color: "#171717",
     fontWeight: "400",
     fontSize: "1.563rem",
     paddingBottom: "10px",
-    paddingTop: "10px"
+    paddingTop: "10px",
   },
   table: {
     minWidth: 650,
@@ -120,26 +112,26 @@ const useStylesAccountOverview = makeStyles((theme) => ({
     flexDirection: "column",
     color: theme.palette.text.secondary,
   },
-  viewAppHeading:{
+  viewAppHeading: {
     color: "#171717",
     fontWeight: "700",
     fontSize: "17px",
     margin: "auto",
   },
-  viewAppInputGrid:{
-    display:"flex",
-     flexDirection:"row",
-      width:"100%",      
-      borderBottom:"lightgrey 1px solid",
-      lineHeight: 0.5,
+  viewAppInputGrid: {
+    display: "flex",
+    flexDirection: "row",
+    width: "100%",
+    borderBottom: "lightgrey 1px solid",
+    lineHeight: 0.5,
   },
-  viewAppInputDisplay:{
+  viewAppInputDisplay: {
     color: "#171717",
     width: "50%",
     fontWeight: "300",
-    lineHeight: "normal"
+    lineHeight: "normal",
   },
-  viewAppStatusHeading:{
+  viewAppStatusHeading: {
     color: "#171717",
     fontWeight: "900",
     fontSize: "22px",
@@ -153,4 +145,5 @@ const useStylesAccountOverview = makeStyles((theme) => ({
     fontWeight: "400",
   },
 }));
+
 export { useStylesAccountOverview };

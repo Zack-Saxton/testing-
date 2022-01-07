@@ -12,7 +12,7 @@ import ActiveLoans from "./ActiveLoans";
 import RecentPayments from "./RecentPayments";
 import "./Style.css";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
-import LimitedOffer from "./LimitedOffer"
+import LimitedOffer from "./LimitedOffer";
 import Cookies from "js-cookie";
 
 export default function AccountOverview() {
@@ -26,6 +26,10 @@ export default function AccountOverview() {
 
   useEffect(() => {
     getUserAccountDetails();
+    return () => {
+      setAccountDetails({}); // This worked for me
+    };
+    
   }, []);
 
   //Load data
@@ -37,12 +41,15 @@ export default function AccountOverview() {
   let recentPaymentData = (accountDetails != null) ? accountDetails?.data?.data?.activeLoans : null;
 
   if (Array.isArray(activeLoansData) && activeLoansData.length === 0) {
-    Cookies.set("hasActiveLoan",false);
+    Cookies.set("hasActiveLoan", false);
   } else {
-    Cookies.set("hasActiveLoan",true);
+    Cookies.set("hasActiveLoan", true);
   }
- Cookies.set("hasApplicationStatus",accountDetails?.data?.data?.applicant?.processing?.status)
- 
+  Cookies.set(
+    "hasApplicationStatus",
+    accountDetails?.data?.data?.applicant?.processing?.status
+  );
+
   return (
     <div>
       <ScrollToTopOnMount />
@@ -56,47 +63,63 @@ export default function AccountOverview() {
           paddingLeft: "23px",
         }}
       >
-
-        <Grid item xs={12} style={{ width: "100%", paddingBottom:"10px", }} container direction="row">
+        <Grid
+          item
+          xs={12}
+          style={{ width: "100%", paddingBottom: "10px" }}
+          container
+          direction="row"
+        >
           <Typography variant="h5" className={classes.heading} data-testid="subtitle">
             Account Overview
           </Typography>
         </Grid>
         <LimitedOffer userOffers={offerData} />
 
-        <Grid item xs={12} style={{ width: "100%", paddingTop: "30px" }} container direction="row">
-          <Typography variant="h5" className={classes.subheading} data-testid="subtitle">
+        <Grid
+          item
+          xs={12}
+          style={{ width: "100%", paddingTop: "30px" }}
+          container
+          direction="row"
+        >
+          <Typography
+            variant="h5"
+            className={classes.subheading}
+            data-testid="subtitle"
+          >
             Summary of applications
           </Typography>
         </Grid>
-        <RecentApplications userApplicationsData={applicationsData} UserAccountStatus={status} userApplicantData={applicantData} />
+        <RecentApplications
+          userApplicationsData={applicationsData}
+          UserAccountStatus={status}
+          userApplicantData={applicantData}
+        />
 
-
-        <Grid item xs={12} style={{ width: "100%", paddingBottom:"10px", paddingTop:"10px" }} container direction="row">
-          <Typography style={{padding:"0"}} variant="h5" className={classes.subheading} data-testid="subtitle">
+        <Grid
+          item
+          xs={12}
+          style={{ width: "100%", paddingBottom: "10px", paddingTop: "10px" }}
+          container
+          direction="row"
+        >
+          <Typography style={{ padding: "0" }} variant="h5" className={classes.subheading} data-testid="subtitle" >
             Active Loan
           </Typography>
         </Grid>
         <ActiveLoans userActiveLoanData={activeLoansData} />
 
-
-        <Grid
-          item
-          xs={12}
-          style={{ width: "100%", padding: "0px 0px 40px 0px"}}
-        >
-          <Paper id="recentPaymentsWrap" className={classes.paper} style={{ height: "85%" }}>
+        <Grid item xs={12} style={{ width: "100%", padding: "0px 0px 40px 0px" }}>
+          <Paper id="recentPaymentsWrap" className={classes.paper} style={{ height: "85%" }} >
             <Grid container spacing={3}>
               <Grid item xs={12} sm={6}>
-                <Typography variant="h5" className={classes.activeLoanHeading} >
+                <Typography variant="h5" className={classes.activeLoanHeading}>
                   Recent Payments
                 </Typography>
               </Grid>
               <Grid item xs={12} sm={6}>
-                <NavLink
-                  to="/customers/paymenthistory"
-                  style={{ textDecoration: "none" }}
-                >
+                <NavLink to="/customers/paymenthistory" style={{ textDecoration: "none" }}>
                   <ButtonPrimary stylebutton='{"float": "right","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'>
                     Payment History
                   </ButtonPrimary>
@@ -104,7 +127,6 @@ export default function AccountOverview() {
               </Grid>
             </Grid>
             <RecentPayments userRecentPaymentData={recentPaymentData} />
-
           </Paper>
         </Grid>
       </Grid>

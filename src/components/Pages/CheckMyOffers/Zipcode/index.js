@@ -1,15 +1,15 @@
-import React, {useContext} from "react";
-import {Link, useHistory} from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, useHistory } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import ZipcodeLogo from "../../../../assets/icon/I-Zip-Code.png";
-import {ButtonPrimary, Zipcode as ZipcodeField} from "../../../FormsUI";
-import {useFormik} from "formik";
+import { ButtonPrimary, Zipcode as ZipcodeField } from "../../../FormsUI";
+import { useFormik } from "formik";
 import * as yup from "yup";
-import {CheckMyOffers} from "../../../../contexts/CheckMyOffers";
-import ScrollToTopOnMount from '../ScrollToTop';
+import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
+import ScrollToTopOnMount from "../ScrollToTop";
 import "./Zipcode.css";
 
 // Yup validation
@@ -68,7 +68,9 @@ function Zipcode() {
 								</div>
 								<Grid className="floatLeft">
 									<Link to="/citizenship-status">
-										<i className="material-icons dp48 yellowText  ">arrow_back</i>
+										<i className="material-icons dp48 yellowText  ">
+											arrow_back
+										</i>
 									</Link>
 								</Grid>
 								<Grid className="liftImage">
@@ -136,7 +138,7 @@ function Zipcode() {
 													Boolean(formik.errors.zip) || formik.values.zip === ""
 												}
 											>
-													Continue
+												Continue
 											</ButtonPrimary>
 										</Grid>
 									</Grid>

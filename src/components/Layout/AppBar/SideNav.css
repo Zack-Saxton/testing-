@@ -64,7 +64,7 @@ a.nav_link:hover .MuiListItem-root {
 
 }
 #sidemenuBranch{
-  padding: 20px 0px 0px 0px;
+  padding: 5px 0px 0px 0px;;
   font-size: 0.875rem;
   justify-content: center;
 }
@@ -134,12 +134,12 @@ a.nav_link:hover .MuiListItem-root {
 }
 
 #imgWrap{
-  width: 120px;
-  height: 120px;
+  max-width: 120px !important;
   margin: auto;
-  padding: 0;
-  border-radius: 50%;
+  padding: 0; 
   overflow: hidden;
+  max-height: 120px !important;
+	border-radius: 50%;
 }
  
 #sidebarProfilePic{

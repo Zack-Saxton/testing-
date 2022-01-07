@@ -139,7 +139,7 @@ export default function TextNotification() {
           container
           direction="row"
         >
-          <Typography className={classes.cardHeading}>
+          <Typography style={{fontSize:"0.75rem"}} className={classes.cardHeading}>
             Enable Text Notifications
           </Typography>
         </Grid>
@@ -151,6 +151,7 @@ export default function TextNotification() {
           direction="row"
         >
           <FormControlLabel
+            id="NotificationsTxt"
             control={
               <Switch
                 checked={disabledContent}
@@ -169,13 +170,14 @@ export default function TextNotification() {
           /> 
         </Grid>
         <Grid
+          id="txtPhoneNumber"
           item
           xs={12}
           style={{ width: "100%", gap: 15, marginBottom: 20 }}
           container
           direction="row"
         >
-          <p class="sepmarginBottom">
+          <p className="sepmarginBottom">
             <br />
             If you have not yet agreed to receive text messages and would like
             to receive text messages concerning your account, please enable text
@@ -205,7 +207,7 @@ export default function TextNotification() {
             to="#"
             onClick={handleDisclosureClickOpen}
             className={classes.linkStyle}
-            style={{ textDecoration: "none" }}
+            style={{ textDecoration: "none", color:"#0F4EB3" }}
           >
             Disclosure
           </Link>
@@ -223,15 +225,14 @@ export default function TextNotification() {
             id="textingterms"
             labelid="texting-terms"
             testid="checkbox"
-            style={{ marginTop: "-12px", marginRight: "-120px" }}
             stylelabelform='{ "fontSize":"12px" }'
             stylecheckbox='{ "fontSize":"12px" }'
             stylecheckboxlabel='{ "fontSize":"12px" }'
-            required="required"
+            required
           />
-          <span style={{ paddingTop: "8px", marginLeft: "-30px" }}>
+          <span style={{ fontSize:"0.938rem", paddingTop: "8px", marginLeft: "-30px" }}>
             I have read, understand, and agree to the &nbsp;
-            <a href="https://www.marinerfinance.com/resources/legal/texting-terms-of-use" className={classes.linkStyle} style={{ textDecoration: "none" }}>
+            <a target="_blank" rel="noreferrer" color="#0F4EB3" href="https://www.marinerfinance.com/resources/legal/texting-terms-of-use" className={classes.linkStyle} style={{ textDecoration: "none" }}>
               Texting Terms of Use.
             </a>
           </span>
@@ -239,7 +240,7 @@ export default function TextNotification() {
 
         <Grid container direction="row">
           <ButtonSecondary
-            stylebutton='{"marginLeft": "","fontSize":""}'
+            stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
             styleicon='{ "color":"" }'
             type="submit"
             onClick={() => window.location.reload()}
@@ -248,7 +249,7 @@ export default function TextNotification() {
           </ButtonSecondary>
 
           <ButtonPrimary
-            stylebutton='{"marginLeft": "","fontSize":"", "marginLeft": "5px"}'
+            stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif", "marginLeft": "5px"}'
             styleicon='{ "color":"" }'
             type="submit"
           >

@@ -11,10 +11,9 @@
 	margin-bottom: 2%;
 }
 .borrowCSSLP {
-
 	font-size: 1.563rem !important;
-    line-height: 110% !important;
-    margin: .82rem 0 .656rem 0 !important;
+	line-height: 110% !important;
+	margin: 0.82rem 0 0.656rem 0 !important;
 }
 .setSlider {
 	margin-bottom: 0 !important;
@@ -166,7 +165,7 @@
 	text-align: left;
 }
 
-#loanPurposeWrap{
+#loanPurposeWrap {
 	border-radius: 4px !important;
 }
 
@@ -179,7 +178,6 @@
 #purposeTxt07,
 #purposeTxt08,
 #purposeTxt09,
-#purposeTxt10{
-	font-size:1.125rem !important ;
-
+#purposeTxt10 {
+	font-size: 1.125rem !important ;
 }

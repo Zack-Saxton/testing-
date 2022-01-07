@@ -23,8 +23,6 @@ const TextAreaWrapper = ({
   character_limit,
   ...otherProps
 }) => {
-  //To return all formik state
-  // const [field, meta] = useField(name);
 
   const CHARACTER_LIMIT = character_limit;
   const [values, setValues] = React.useState({
@@ -54,15 +52,6 @@ const TextAreaWrapper = ({
     onChange: handleChange("name"),
     className: classes.textarea,
   };
-
-  //Validation
-
-  // config.error = (meta && meta.touched && meta.error) ? true :  config.error ?? false;
-  // config.helperText = (meta && meta.touched && meta.error) ? meta.error : config.helperText ?? '';
-
-  // config.error = (required && field.value && meta.touched) ? true :  config.error ?? false;
-  // config.helperText = (required && field.value && meta.touched) ? "required" : config.helperText ?? '';
-  
 
   //View Part
   return (

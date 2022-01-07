@@ -21,7 +21,11 @@
 #branchDiv{
     padding-right: 15px;
 }
-
+#branchMainDiv{
+    padding-top: "10px";
+     padding-bottom: "10px";
+      margin-bottom: "45px";
+}
 @media (max-width:599px) {
     #branchDiv{
         padding-right: 0px;

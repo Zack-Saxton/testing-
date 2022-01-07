@@ -113,7 +113,7 @@ export async function getTextNotify() {
   const email = Cookies.get("email");
   const userToken = Cookies.get("userToken");
   const token = JSON.parse(Cookies.get("token"));
-  const accountDetails = JSON.parse(Cookies.get("accountDetails"));
+  const accountDetails = Cookies.get("accountDetails");
   let appGUID = token.applicantGuid;
   let opted_phone_texting = accountDetails?.data?.data?.latest_contact?.opted_phone_texting ? accountDetails?.data?.data?.latest_contact?.opted_phone_texting : "";
   let cleanednumber = opted_phone_texting.replace(/\D/g, "");
@@ -181,23 +181,21 @@ export async function getTextNotify() {
 }
 
 export async function addCreditCard(values, cardType) {
-
-  const email = localStorage.getItem("email");
   let url = "add_new_card_payment";
   let param = "";
   let data =  {
-"address_street": values.streetAddress,
-"address_city": values.city,
-"address_state": values.state,
-"address_postal_code": values.zipcode,
-"cardholder_name": values.cardName,
-"card_number": values.cardNumber,
-"issuer": cardType,
-"cvv": parseInt(values.cvv),
-"exp_date": values.expiryMonth + "/" + values.expiryYear ,
-"defaultBank": 1,
-"isMobile": true
-}
+    "address_street": values.streetAddress,
+    "address_city": values.city,
+    "address_state": values.state,
+    "address_postal_code": values.zipcode,
+    "cardholder_name": values.cardName,
+    "card_number": values.cardNumber,
+    "issuer": cardType,
+    "cvv": parseInt(values.cvv),
+    "exp_date": values.expiryMonth + "/" + values.expiryYear ,
+    "defaultBank": 1,
+    "isMobile": true
+    }
   let method = "POST";
   let addAccessToken = true;
   return APICall(url, param, data, method, addAccessToken);

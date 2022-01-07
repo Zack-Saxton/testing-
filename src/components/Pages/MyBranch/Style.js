@@ -34,8 +34,6 @@ const useStylesMyBranch = makeStyles((theme) => ({
     maxWidth:"500px",
     paddingBottom:"20px",
     borderRadius:"2px !important"
-    // left: 10,
-    // bottom: 100,
   },
   dialogHeading: {
     color: "#171717!important",

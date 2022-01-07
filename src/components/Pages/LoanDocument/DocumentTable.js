@@ -29,6 +29,8 @@ export default function LoanDocumentTable(userLoanDocumentData) {
     printDocument(id, name);
   };
 
+  const outputDateFormat = 'MM/DD/YYYY';
+
 //View Part
   return (
     <TableContainer>
@@ -52,7 +54,7 @@ export default function LoanDocumentTable(userLoanDocumentData) {
                   {row.displayname}
                 </TableCell>
                 <TableCell className={classes.tableHeadRow}>
-                  {Moment(row.date_uploaded).format("MM/DD/YYYY")}
+                  {Moment(row.date_uploaded).format(outputDateFormat)}
                 </TableCell>
                 <TableCell className={classes.tableHeadRow}>
                   <PrintIcon style={{ color: "#104eb3", cursor: "pointer" }}

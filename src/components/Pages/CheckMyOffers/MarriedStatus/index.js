@@ -12,7 +12,6 @@ import MarriedStatusLogo from "../../../../assets/icon/married-status.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import ScrollToTopOnMount from "../ScrollToTop";
 
-
 //Yup validation schema
 const validationSchema = yup.object({
 	martialStatus: yup
@@ -38,15 +37,23 @@ const validationSchema = yup.object({
 			is: "Separated, under decree of legal separation",
 			then: yup.string().required("Your home ZIP Code is required"),
 		}),
-	spouseState: yup
+	spousecity: yup
 		.string()
 		.when("martialStatus", {
 			is: "Married",
-			then: yup.string().required("Your home city is required. Please re-enter your zip code to populate your city"),
+			then: yup
+				.string()
+				.required(
+					"Your home city is required. Please re-enter your zip code to populate your city"
+				),
 		})
 		.when("martialStatus", {
 			is: "Separated, under decree of legal separation",
-			then: yup.string().required("Your home city is required. Please re-enter your zip code to populate your city"),
+			then: yup
+				.string()
+				.required(
+					"Your home city is required. Please re-enter your zip code to populate your city"
+				),
 		}),
 	spouseSelectState: yup
 		.string()
@@ -73,19 +80,20 @@ function MarriedStatus() {
 			martialStatus: data.maritalStatus ?? "",
 			add: data.spouse_address_street ?? "",
 			spouseZipcode: data.spouse_address_postal_code ?? "",
-			spouseState: data.spouse_address_state_full_form ? data.spouse_address_state_full_form : "",
-			spouseSelectState: data.spouse_address_city ?? "",
+			spouseSelectState: data.spouse_address_state_full_form ? data.spouse_address_state_full_form : "",
+			spousecity: data.spouse_address_city ?? "",
 		},
 		validationSchema: validationSchema,
+	
 		onSubmit: (values) => {
 			//onsubmit store the data to context and procceds
 			setData({
 				...data,
 				maritalStatus: values.martialStatus,
 				spouse_address_street: values.add,
-				spouse_address_city: values.spouseSelectState,
+				spouse_address_city: values.spousecity,
 				spouse_address_state: stateShort,
-				spouse_address_state_full_form: values.spouseState,
+				spouse_address_state_full_form: values.spouseSelectState,
 				spouse_address_postal_code: values.spouseZipcode,
 				completedPage: data.page.activeDuty,
 			});
@@ -93,7 +101,7 @@ function MarriedStatus() {
 		},
 	});
 
-	//prevent the space in key down 
+	//prevent the space in key down
 	const preventSpace = (event) => {
 		if (event.keyCode === 32 && formik.values.streetAddress === "") {
 			event.preventDefault();
@@ -110,35 +118,35 @@ function MarriedStatus() {
 						if (result.places) {
 							formik.setFieldValue(
 								"spouseSelectState",
-								result.places[0]["place name"]
+								result.places[0]["state"]
 							);
-							formik.setFieldValue("spouseState", result.places[0]["state"]);
+							formik.setFieldValue("spousecity", result.places[0]["place name"]);
 							setStateShort(result.places[0]["state abbreviation"]);
 							setValidZip(true);
 						} else {
 							formik.setFieldValue("spouseSelectState", "");
-							formik.setFieldValue("spouseState", "");
+							formik.setFieldValue("spousecity", "");
 							setStateShort("");
 							setValidZip(false);
 						}
 					},
 					(error) => {
 						formik.setFieldValue("spouseSelectState", "");
-						formik.setFieldValue("spouseState", "");
+						formik.setFieldValue("spousecity", "");
 						setStateShort("");
 						setValidZip(false);
 					}
 				);
 		} else {
 			formik.setFieldValue("spouseSelectState", "");
-			formik.setFieldValue("spouseState", "");
+			formik.setFieldValue("spousecity", "");
 			setStateShort("");
 		}
 
 		formik.handleChange(e);
 	};
 
-	//redirect to select amount if page accessed directly 
+	//redirect to select amount if page accessed directly
 	if (
 		data.completedPage < data.page.livingPlace ||
 		data.formStatus === "completed"
@@ -152,8 +160,16 @@ function MarriedStatus() {
 			<ScrollToTopOnMount />
 			<div className="mainDiv">
 				<Box>
-					<Grid item xs={12} container justifyContent="center" alignItems="center">
-						<Grid container item
+					<Grid
+						item
+						xs={12}
+						container
+						justifyContent="center"
+						alignItems="center"
+					>
+						<Grid
+							container
+							item
 							xs={11}
 							sm={10}
 							md={6}
@@ -163,7 +179,17 @@ function MarriedStatus() {
 							justifyContent="center"
 							alignItems="center"
 						>
-							<Paper id="maritalStatusWrap" className="cardWOPadding" style={{ justify: "center", alignItems: "center", width: "inherit", marginBottom: "10%", marginTop: "10%" }}>
+							<Paper
+								id="maritalStatusWrap"
+								className="cardWOPadding"
+								style={{
+									justify: "center",
+									alignItems: "center",
+									width: "inherit",
+									marginBottom: "10%",
+									marginTop: "10%",
+								}}
+							>
 								<div className="progress mt-0">
 									<div
 										id="determinate"
@@ -173,7 +199,9 @@ function MarriedStatus() {
 								</div>
 								<Grid className="floatLeft">
 									<Link to="/living-place">
-										<i className="material-icons dp48 yellowText  ">arrow_back</i>
+										<i className="material-icons dp48 yellowText  ">
+											arrow_back
+										</i>
 									</Link>
 								</Grid>
 								<Grid style={{ marginTop: "-4%" }}>
@@ -184,18 +212,29 @@ function MarriedStatus() {
 									/>
 								</Grid>
 
-								<Typography variant="h5" style={{ align: "center", justify: "center", alignItems: "center" }} className="borrowCSS">
+								<Typography
+									variant="h5"
+									style={{
+										align: "center",
+										justify: "center",
+										alignItems: "center",
+									}}
+									className="borrowCSS"
+								>
 									Are you married?*
 								</Typography>
 								<form onSubmit={formik.handleSubmit}>
-									<Grid item
+									<Grid
+										item
 										md={12}
 										className="blockDiv"
 										container
 										justifyContent="center"
 										alignItems="center"
 									>
-										<Grid id="selectMaritalStatus" container
+										<Grid
+											id="selectMaritalStatus"
+											container
 											justifyContent="center"
 											alignItems="center"
 											item
@@ -222,7 +261,8 @@ function MarriedStatus() {
 												}
 											/>
 										</Grid>
-										<Grid container
+										<Grid
+											container
 											justifyContent="center"
 											alignItems="center"
 											item
@@ -231,7 +271,7 @@ function MarriedStatus() {
 											xs={12}
 											className={
 												formik.values.martialStatus === "Married" ||
-													formik.values.martialStatus ===
+												formik.values.martialStatus ===
 													"Separated, under decree of legal separation"
 													? "showMsg space"
 													: "hideMsg space"
@@ -249,7 +289,8 @@ function MarriedStatus() {
 												helperText={formik.touched.add && formik.errors.add}
 											/>
 										</Grid>
-										<Grid container
+										<Grid
+											container
 											justifyContent="flex-start"
 											alignItems="flex-start"
 											item
@@ -258,7 +299,7 @@ function MarriedStatus() {
 											xs={12}
 											className={
 												formik.values.martialStatus === "Married" ||
-													formik.values.martialStatus ===
+												formik.values.martialStatus ===
 													"Separated, under decree of legal separation"
 													? "showMsg "
 													: "hideMsg "
@@ -268,7 +309,8 @@ function MarriedStatus() {
 												<b>Location</b>
 											</p>
 										</Grid>
-										<Grid container
+										<Grid
+											container
 											justifyContent="flex-start"
 											alignItems="flex-start"
 											item
@@ -277,7 +319,7 @@ function MarriedStatus() {
 											xs={12}
 											className={
 												formik.values.martialStatus === "Married" ||
-													formik.values.martialStatus ===
+												formik.values.martialStatus ===
 													"Separated, under decree of legal separation"
 													? "showMsg space"
 													: "hideMsg space"
@@ -299,12 +341,13 @@ function MarriedStatus() {
 												helperText={
 													validZip
 														? formik.touched.spouseZipcode &&
-														formik.errors.spouseZipcode
+														  formik.errors.spouseZipcode
 														: "Please enter a valid Zip code"
 												}
 											/>
 										</Grid>
-										<Grid container
+										<Grid
+											container
 											justifyContent="flex-start"
 											alignItems="flex-start"
 											item
@@ -313,7 +356,7 @@ function MarriedStatus() {
 											xs={12}
 											className={
 												formik.values.martialStatus === "Married" ||
-													formik.values.martialStatus ===
+												formik.values.martialStatus ===
 													"Separated, under decree of legal separation"
 													? "showMsg space"
 													: "hideMsg space"
@@ -321,23 +364,24 @@ function MarriedStatus() {
 										>
 											<TextField
 												id="cityWrap"
-												name="spouseState"
+												name="spouseCity"
 												label="City"
-												value={formik.values.spouseState}
+												value={formik.values.spousecity}
 												onChange={formik.handleChange}
 												onBlur={formik.handleBlur}
 												disabled={true}
 												error={
-													formik.touched.spouseState &&
-													Boolean(formik.errors.spouseState)
+													formik.touched.spousecity &&
+													Boolean(formik.errors.spousecity)
 												}
 												helperText={
-													formik.touched.spouseState &&
-													formik.errors.spouseState
+													formik.touched.spousecity &&
+													formik.errors.spousecity
 												}
 											/>
 										</Grid>
-										<Grid container
+										<Grid
+											container
 											justifyContent="center"
 											alignItems="center"
 											item
@@ -346,7 +390,7 @@ function MarriedStatus() {
 											xs={12}
 											className={
 												formik.values.martialStatus === "Married" ||
-													formik.values.martialStatus ===
+												formik.values.martialStatus ===
 													"Separated, under decree of legal separation"
 													? "showMsg space"
 													: "hideMsg space"
@@ -369,17 +413,15 @@ function MarriedStatus() {
 													formik.errors.spouseSelectState
 												}
 											/>
-
 										</Grid>
 
 										<Grid item lg={8} md={8} xs={12} className="alignButton">
 											<ButtonPrimary
-
 												type="submit"
 												disabled={!validZip}
 												stylebutton='{"background": "#FFBC23", "padding": "0px 30px", "color": "black","fontSize":"0.938rem"}'
 											>
-													Continue
+												Continue
 											</ButtonPrimary>
 										</Grid>
 									</Grid>

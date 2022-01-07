@@ -9,6 +9,6 @@ export default async function getMoneySkillLink() {
   let addAccessToken = true;
 
   //API call
-  let moneySkillUrl = await APICall(url, param, data, method, addAccessToken);
-  return moneySkillUrl;
+  return APICall(url, param, data, method, addAccessToken);
+  
 }

@@ -82,11 +82,11 @@ export default function ApplyLoan() {
 		},
 		loadingOn: {
 			opacity: 0.55,
-			pointerEvents: "none"
+			pointerEvents: "none",
 		},
 		loadingOff: {
 			opacity: 1,
-			pointerEvents: "initial"
+			pointerEvents: "initial",
 		},
 		paperVerticalTab: {
 			paddingTop: "20px",
@@ -239,7 +239,7 @@ export default function ApplyLoan() {
 				select: "",
 				loanAmount: currencyFormat(item.loan_amount),
 				availability: item.offerType,
-				apr: item.apr.toFixed(2),
+				apr: (item.apr * 100).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0],
 				monthlyPayment: currencyFormat(item.monthly_payment),
 				compare: "",
 				_id: item._id,
@@ -268,7 +268,7 @@ export default function ApplyLoan() {
 				select: "",
 				loanAmount: currencyFormat(item.loan_amount),
 				availability: item.offerType,
-				apr: item.apr.toFixed(2),
+				apr: (item.apr * 100).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0],
 				monthlyPayment: currencyFormat(item.monthly_payment),
 				compare: "",
 				_id: item._id,
@@ -454,7 +454,7 @@ export default function ApplyLoan() {
 										offerFlag={offerFlag}
 										rowData={rowData}
 										loading={loading}
-										noOfTerms={ terms ? terms.length : 0}
+										noOfTerms={terms ? terms.length : 0}
 										handleTabChange={handleTabChange}
 										offersToCompare={offersToCompare}
 										submitSelectedOffer={submitSelectedOffer}
@@ -463,12 +463,12 @@ export default function ApplyLoan() {
 										tabVerticalProps={tabVerticalProps}
 										onCompareOfferTabClick={onCompareOfferTabClick}
 										offersToCompareChart={offersToCompareChart}
-										checkedValue = {checkedValue}
-										setCheckedValue = {setCheckedValue}
-										selectedTerm = {selectedTerm}
-										setSelectedTerm = {setSelectedTerm}
-										selectedIndex = {selectedIndex}
-										setSelectedIndex = {setSelectedIndex}
+										checkedValue={checkedValue}
+										setCheckedValue={setCheckedValue}
+										selectedTerm={selectedTerm}
+										setSelectedTerm={setSelectedTerm}
+										selectedIndex={selectedIndex}
+										setSelectedIndex={setSelectedIndex}
 									/>
 								</>
 							)}

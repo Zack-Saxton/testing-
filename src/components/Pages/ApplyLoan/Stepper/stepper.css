@@ -7,11 +7,11 @@
 	display: none;
 }
 
-.linkStyle{																																																
-	color:blue !important;
+.linkStyle {
+	color: blue !important;
 	cursor: pointer !important;
 }
 
-.underline{
+.underline {
 	text-decoration: underline !important;
 }

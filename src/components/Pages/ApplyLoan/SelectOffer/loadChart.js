@@ -78,7 +78,7 @@ export default function LoadChart(props) {
 
 					<TableBody>
 						{finArray.map((nam, ind) => (
-							<TableRow hover>
+							<TableRow hover key={ nam.term + nam.loanAmount.toString()}>
 								<TableCell className={props.classes.tableHead}>
 									{nam.term} Mo
 								</TableCell>

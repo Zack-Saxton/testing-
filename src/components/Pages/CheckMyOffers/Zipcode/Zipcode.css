@@ -1,172 +1,164 @@
-.mainDiv{
-    background-color: #124CA8;
-    background-image: linear-gradient(to right, #26436A , #104DB0);
-    min-height: 500px !important;
+.mainDiv {
+	background-color: #124ca8;
+	background-image: linear-gradient(to right, #26436a, #104db0);
+	min-height: 500px !important;
 }
-.cardWOPadding{
-    padding-bottom: 1%;
-    text-align: center;
+.cardWOPadding {
+	padding-bottom: 1%;
+	text-align: center;
 }
-.cardWrapper{
-    margin-top: 5%;
-    margin-bottom: 2%;
+.cardWrapper {
+	margin-top: 5%;
+	margin-bottom: 2%;
 }
-.borrowCSS{
-    margin-top: 4% !important;
-    margin-bottom: 4% !important;
+.borrowCSS {
+	margin-top: 4% !important;
+	margin-bottom: 4% !important;
 }
-.setSlider{
-    margin-bottom: 0 !important;
-}
-
-.alignSlider{
-    margin-bottom: 7% !important;
-    text-align: center;
-}
-.setGreenColor{
-    color: green ;
-}
-.alignButton{
-    margin-top: 5%;
-    margin-bottom: 4%;
+.setSlider {
+	margin-bottom: 0 !important;
 }
 
-.smallText{
-    font-size: .8rem;
-    color: #fff;
-    font-family: 'Muli', sans-serif;
-    font-weight: 300;
+.alignSlider {
+	margin-bottom: 7% !important;
+	text-align: center;
+}
+.setGreenColor {
+	color: green;
 }
 
-.alignSmallText{
-    margin-bottom: 3%;
-}
-.alignText{
-    color: #595959;
-    font-size: 0.9rem;
-    margin-top: 2%;
+.smallText {
+	font-size: 0.8rem;
+	color: #fff;
+	font-family: "Muli", sans-serif;
+	font-weight: 300;
 }
 
-.alignTextInsideCard{
-    padding-top: 2%;
+.alignSmallText {
+	margin-bottom: 3%;
+}
+.alignText {
+	color: #595959;
+	font-size: 0.9rem;
+	margin-top: 2%;
 }
 
-.open{
-    height: 50px;
-    transition: 0.5s;
+.alignTextInsideCard {
+	padding-top: 2%;
 }
 
-.close{
-    height: 0;
-    transition: 0.5s;
-    overflow: hidden;
-    
+.open {
+	height: 50px;
+	transition: 0.5s;
 }
 
-.yellowText{
-    color: #ffbc23 !important;
-    margin-left: 10px;
-    font-size: x-large;
-    text-align: left;
+.close {
+	height: 0;
+	transition: 0.5s;
+	overflow: hidden;
 }
 
-.radioBlock{
-    width: 100px;
-    border: 1px solid #0F4EB3;
-    cursor: pointer;
-    display: block;
-    min-width: 100% !important;
-    background: #fff;
-    font-family: 'Muli', sans-serif !important;
-    line-height: 2;
-    text-align: center;
-    margin: 10px 0;
-    padding-top: 5px;
-    padding-bottom: 5px;
-
+.yellowText {
+	color: #ffbc23 !important;
+	margin-left: 10px;
+	font-size: x-large;
+	text-align: left;
 }
 
-.activeBorder{
-    background: #134ca5 !important;
-    box-shadow: 1px 0 2px #144ba1;
-    color:white !important;
+.radioBlock {
+	width: 100px;
+	border: 1px solid #0f4eb3;
+	cursor: pointer;
+	display: block;
+	min-width: 100% !important;
+	background: #fff;
+	font-family: "Muli", sans-serif !important;
+	line-height: 2;
+	text-align: center;
+	margin: 10px 0;
+	padding-top: 5px;
+	padding-bottom: 5px;
 }
 
-.alignButton{
-    margin: 20px 0 !important;
-    height: 40px;
+.activeBorder {
+	background: #134ca5 !important;
+	box-shadow: 1px 0 2px #144ba1;
+	color: white !important;
 }
 
-.showMsg{
-   
-    display: block;
-    margin: 0;
-    color: #f44336 !important;
-    font-family: 'Muli', sans-serif;
-    font-weight: 400;
-}
-.hideMsg{
-    display: none;
+.alignButton {
+	margin: 20px 0 !important;
+	height: 40px;
 }
 
+.showMsg {
+	display: block;
+	margin: 0;
+	color: #f44336 !important;
+	font-family: "Muli", sans-serif;
+	font-weight: 400;
+}
+.hideMsg {
+	display: none;
+}
 
-.slantDiv{
-    transform: skewX(-20deg);
-    margin-left: -3px;
+.slantDiv {
+	transform: skewX(-20deg);
+	margin-left: -3px;
 }
 
 .progress .determinate {
-    background-color: #ffbc25;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    -webkit-transition: width .3s linear;
-    transition: width .3s linear;
+	background-color: #ffbc25;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	-webkit-transition: width 0.3s linear;
+	transition: width 0.3s linear;
 }
 
 .progress {
-    position: relative;
-    display: block;
-    overflow: hidden;
-    width: 100%;
-    
-    margin: .5rem 0 1rem 0;
-    border-radius: 2px;
-    background-color: white;
-    height: 20px;
-    text-align: left !important;
+	position: relative;
+	display: block;
+	overflow: hidden;
+	width: 100%;
+
+	margin: 0.5rem 0 1rem 0;
+	border-radius: 2px;
+	background-color: white;
+	height: 20px;
+	text-align: left !important;
 }
 
 .mt-0 {
-    margin-top: 0 !important;
+	margin-top: 0 !important;
 }
 
-.det3{
-    width:25%;
+.det3 {
+	width: 25%;
 }
 
-.detNum3{
-    padding-left:25%;
-    font-weight: 600;
-    color: #134ca8;
+.detNum3 {
+	padding-left: 25%;
+	font-weight: 600;
+	color: #134ca8;
 }
 
-.Mui-disabled{
-    opacity: 0.7;
+.Mui-disabled {
+	opacity: 0.7;
 }
 
 /*Animation*/
 .spinAnimation {
-    animation-name: rotation;
-    animation-duration: 3s;
+	animation-name: rotation;
+	animation-duration: 3s;
 }
 
 @keyframes rotation {
-    from {
-        -webkit-transform: rotate(0deg);
-    }
-    to {
-        -webkit-transform: rotate(359deg);
-    }
-  }
+	from {
+		-webkit-transform: rotate(0deg);
+	}
+	to {
+		-webkit-transform: rotate(359deg);
+	}
+}
