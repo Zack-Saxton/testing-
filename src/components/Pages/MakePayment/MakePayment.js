@@ -73,8 +73,43 @@ export default function MakePayment(props) {
   const [scheduleDate, setscheduleDate] = useState(null);
 
   //API Request for Payment methods
-  async function getPaymentMethods(usrAccNo) {
-    setpaymentMethod(await usrPaymentMethods(usrAccNo));
+  async function getPaymentMethods() {
+    let payments = await usrPaymentMethods();
+    setpaymentMethod(payments);
+    if (payments?.data?.data?.data?.error) {
+      toast.error(payments?.data?.data?.data?.error, {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }else{
+    //get default card
+    let defaultBank = payments?.data?.data?.defaultBank;
+    let cardFound = await defaultCardCheck(payments?.data?.data?.ACHMethods,'ACH',defaultBank)
+    if(!cardFound){
+    //set default card ACHMethods
+    defaultCardCheck(payments?.data?.data?.CardMethods,'card',defaultBank)
+    }
+    }
+  }
+
+  //set default card CardMethods
+  async function defaultCardCheck(cardData,type,defaultBank) {
+    let checkNickName = false;
+    cardData ? cardData?.length ? 
+    cardData?.forEach((data) => {
+      if (data.Nickname === defaultBank) {
+        type ==='ACH' ? setcard(data.SequenceNumber) : setcard(data.ProfileId);
+        checkNickName = true;
+        return checkNickName;
+      }
+    })
+    : setcard('') : setcard('');
+    return checkNickName;
   }
 
   //Enable auto payment
@@ -240,14 +275,13 @@ export default function MakePayment(props) {
         setlatestLoanData(loan)
         setpaymentAmount(activeLoansData?.length ? data != null ? (Math.abs(data?.loanPaymentInformation?.accountDetails?.RegularPaymentAmount) + Math.abs(data?.loanPaymentInformation?.accountDetails?.InterestRate) + Math.abs(data?.loanPaymentInformation?.accountDetails?.LoanFeesAndCharges)).toFixed(2) : null : null)
         setTotalPaymentAmount(activeLoansData?.length ? data != null ? (Math.abs(data?.loanPaymentInformation?.accountDetails?.RegularPaymentAmount) + Math.abs(data?.loanPaymentInformation?.accountDetails?.InterestRate) + Math.abs(data?.loanPaymentInformation?.accountDetails?.LoanFeesAndCharges)).toFixed(2) : null : null)
-        let accoutNo = activeLoansData?.length ? (data != null) ? data.loanData?.accountNumber : null : []
         setaccntNo(activeLoansData?.length ? (data != null) ? data.loanData?.accountNumber : null : null)
-        getPaymentMethods(accoutNo)
+        getPaymentMethods()
         setdisabledContent(activeLoansData?.length ? data != null ? ((data?.loanPaymentInformation?.appRecurringACHPayment) ? true : false) : false : false)
         setcheckAutoPay(activeLoansData?.length ? data != null ? ((data?.loanPaymentInformation?.appRecurringACHPayment) ? true : false) : false : false)
         setpaymentDate(activeLoansData?.length ? data != null ? (Moment(data?.loanPaymentInformation?.accountDetails?.NextDueDate).format("YYYY-MM-DD")) : "NONE" : "NONE")
         let scheduledDate = (activeLoansData?.length) ? (data?.loanPaymentInformation?.hasScheduledPayment) ? Moment(data?.loanPaymentInformation?.scheduledPayments[0]?.PaymentDate).format("MM/DD/YYYY") : null : null
-        setpaymentDatepicker(scheduledDate)
+        setpaymentDatepicker(scheduledDate ? scheduledDate : new Date())
         setscheduleDate(scheduledDate)
         setLoading(false)
         setAutopaySubmit(true)
@@ -288,14 +322,13 @@ export default function MakePayment(props) {
       let latestLoan = (activeLoansData != null) ? activeLoansData.slice(0, 1) : null;
       setpaymentAmount(activeLoansData?.length ? latestLoan != null ? (Math.abs(latestLoan[0]?.loanPaymentInformation?.accountDetails?.RegularPaymentAmount) + Math.abs(latestLoan[0]?.loanPaymentInformation?.accountDetails?.InterestRate) + Math.abs(latestLoan[0]?.loanPaymentInformation?.accountDetails?.LoanFeesAndCharges)).toFixed(2) : null : null)
       setTotalPaymentAmount(activeLoansData?.length ? latestLoan != null ? (Math.abs(latestLoan[0]?.loanPaymentInformation?.accountDetails?.RegularPaymentAmount) + Math.abs(latestLoan[0]?.loanPaymentInformation?.accountDetails?.InterestRate) + Math.abs(latestLoan[0]?.loanPaymentInformation?.accountDetails?.LoanFeesAndCharges)).toFixed(2) : null : null)
-      let accoutNo = activeLoansData?.length ? (latestLoan != null) ? latestLoan[0].loanData.accountNumber : null : []
       setaccntNo(activeLoansData?.length ? (latestLoan != null) ? latestLoan[0].loanData.accountNumber : null : null)
-      getPaymentMethods(accoutNo)
+      getPaymentMethods()
       setdisabledContent(activeLoansData?.length ? latestLoan != null ? ((latestLoan[0]?.loanPaymentInformation?.appRecurringACHPayment) ? true : false) : false : false)
       setcheckAutoPay(activeLoansData?.length ? latestLoan != null ? ((latestLoan[0]?.loanPaymentInformation?.appRecurringACHPayment) ? true : false) : false : false)
       setpaymentDate(activeLoansData?.length ? latestLoan != null ? (Moment(latestLoan[0]?.loanPaymentInformation?.accountDetails?.NextDueDate).format("YYYY-MM-DD")) : "NONE" : "NONE")
       let scheduledDate = (latestLoan?.length) ? (latestLoan[0]?.loanPaymentInformation?.hasScheduledPayment) ? Moment(latestLoan[0]?.loanPaymentInformation?.scheduledPayments[0]?.PaymentDate).format("MM/DD/YYYY") : null : null
-      setpaymentDatepicker(scheduledDate)
+      setpaymentDatepicker(scheduledDate ? scheduledDate : new Date())
       setscheduleDate(scheduledDate)
       setLoading(false);
       setAutopaySubmit(true)
@@ -310,11 +343,11 @@ export default function MakePayment(props) {
   //Account select payment options
   let paymentData = paymentMethods != null ? paymentMethods.data.data : null;
 
-  let paymentListAch = (paymentData && paymentData.achAccounts != null) ? paymentData.achAccounts.map(
+  let paymentListAch = (paymentData && paymentData.ACHMethods != null) ? paymentData.ACHMethods.map(
     pdata => ({ value: pdata.SequenceNumber, label: pdata.AccountType + " (****" + pdata.AccountNumber.substr(-4) + ")" }),
   ) : null;
 
-  let paymentListCard = (paymentData && paymentData.achAccounts != null) ? paymentData.cardAccounts.map(
+  let paymentListCard = (paymentData && paymentData.ACHMethods != null) ? paymentData.CardMethods.map(
     pdata => ({ value: pdata.ProfileId, label: pdata.CardType + " (****" + pdata.LastFour + ")" }),
   ) : null;
 
@@ -339,7 +372,7 @@ export default function MakePayment(props) {
     setAutopaySubmit(checkAutoPay === event.target.checked? true : false  )
     setdisabledContent(event.target.checked)
     setpaymentAmount(event.target.checked ? totalPaymentAmount : paymentAmount)
-    setpaymentDatepicker(event.target.checked ? scheduleDate : paymentDatepicker)
+    setpaymentDatepicker(event.target.checked ? scheduleDate : new Date())
   };
 
   //Autopay submit
@@ -551,9 +584,9 @@ export default function MakePayment(props) {
               <PaymentOverview overview={latestLoanData} status={status} />
             </TableContainer>
           </Grid>}
-        {latestLoanData != null ? latestLoanData.length ?
+        {latestLoanData != null ? latestLoanData.length ? !paymentData?.data?.error ?
           <>
-            <Grid
+         <Grid
             id="payFromWrap"
               item
               xs={12}
@@ -683,8 +716,8 @@ export default function MakePayment(props) {
                           onKeyDown={(e) => e.preventDefault()}
                           shouldDisableDate={disableWeekends}
                           minyear={4}
-                          onChange={(paymentDatepicker) => {
-                            setpaymentDatepicker(Moment(paymentDatepicker).format("YYYY/MM/DD"));
+                          onChange={(paymentDatepickerOnChange) => {
+                            setpaymentDatepicker(Moment(paymentDatepickerOnChange).format("YYYY/MM/DD"));
                             setrequiredDate('')
                           }}
                           value={paymentDatepicker}
@@ -725,7 +758,7 @@ export default function MakePayment(props) {
               </Paper>
             </Grid>
           </>
-          : '' : ''}
+          :'' : '' : ''}
         <Grid item xs={12}>
           <p className={classes.endMessage}>
             {" "}

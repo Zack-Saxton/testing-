@@ -22,6 +22,8 @@ import PaymentHistoryTable from "./PaymentRecords";
 import { ButtonWithIcon, ButtonPrimary } from "../../FormsUI";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import ScrollToTopOnMount from "../ScrollToTop";
+import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
+import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
 import "./Style.css";
 
 //Main function
@@ -160,8 +162,8 @@ export default function PaymentHistory() {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem><CSVLink style={{ textDecoration: "none", color: "inherit" }} onClick={handleClose} headers={headersCSV} filename={"" + fileName + ".csv"} data={dataCSV}>CSV</CSVLink></MenuItem>
-              <MenuItem onClick={downloadPDF}>PDF</MenuItem>
+              <MenuItem style={{color:"#757575"}} ><CSVLink style={{ textDecoration: "none", color:"#757575" }} onClick={handleClose} headers={headersCSV} filename={"" + fileName + ".csv"} data={dataCSV}><InsertDriveFileIcon style={{paddingRight:'7px',marginBottom:'-4px'}} /> CSV</CSVLink></MenuItem>
+              <MenuItem onClick={downloadPDF} style={{color:"#757575"}}><PictureAsPdfIcon style={{paddingRight:'12px'}}/> PDF</MenuItem>
             </Menu>
           </Grid>
         </Grid>

@@ -15,7 +15,7 @@ import PropTypes from "prop-types";
 
 const MobileNumberWrapper = ({ name, ...otherProps }) => {
   //Set Formik field
-  const [field, mata] = useField(name);
+  const [field] = useField(name);
   const [mobile, setMobile] = React.useState("");
 
   const handleChange = (event) => {

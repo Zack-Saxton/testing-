@@ -47,7 +47,7 @@ function LivingPlace() {
 			if (
 				data.rentMortgageAmount !== "" &&
 				data.rentMortgageAmount !== 0 &&
-				data.rentMortgageAmount >= 1000
+				data.rentMortgageAmount >= 100
 			) {
 				setError(false);
 				setHelperText("");

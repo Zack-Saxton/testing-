@@ -30,7 +30,7 @@ const passwordvalidationSchema = yup.object().shape({
     .max(30, "Password can be upto 30 characters length")
     .min(8, "Password should be minimum of 8 characters length")
     .matches(
-      /^((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,30})$/,
+      /^((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,30})$/,
       "Your password doesn't meet the criteria."
     )
     .required("Your new password is required"),
@@ -43,7 +43,7 @@ const passwordvalidationSchema = yup.object().shape({
     .max(30, "Password can be upto 30 characters length")
     .min(8, "Password should be minimum of 8 characters length")
     .matches(
-      /^((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,30})$/,
+      /^((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,30})$/,
       "Your password doesn't meet the criteria."
     )
     .required("Your confirmation password is required"),
