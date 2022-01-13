@@ -191,14 +191,22 @@ export default function SideNav() {
   const { data : dataAccountOverview} = useQuery('loan-data', usrAccountDetails )
   const [activeLoanData, setActiveLoanData] = useState(true);
   const [currentLoan, setCurrentLoan] = useState(true);
+  const [checkPresenceOfLoan, setCheckPresenceOfLoan] = useState(false)
+  const [checkPresenceOfLoanStatus, setCheckPresenceOfLoanStatus] = useState('')
+
+  
 
   useEffect(() => {
     let noOfLoans = dataAccountOverview?.data?.data?.activeLoans?.length;
     let activeLoan = dataAccountOverview?.data?.data?.applicants;
-
     //logic to check if atleast one active initiated Loan is there or not
-    const presenceOfLoan = activeLoan?.some((applicant) => applicant.isActive === true);
-    setCurrentLoan(presenceOfLoan);
+    const presenceOfLoan = activeLoan?.some((applicant) => applicant.isActive === true )  ;
+    const presenceOfLoanStatus = activeLoan?.find((applicant) => applicant.isActive === true);
+    const userAccountStatus = dataAccountOverview?.data?.data?.customer?.user_account?.status
+   
+    setCheckPresenceOfLoanStatus(presenceOfLoanStatus?.status)
+    setCurrentLoan(presenceOfLoan === true ||  userAccountStatus === "closed" ? true : false);
+    setCheckPresenceOfLoan(presenceOfLoan)
 
       //logic to if there is any active Loan Data is there or not
    if(noOfLoans===undefined){
@@ -214,6 +222,29 @@ export default function SideNav() {
 
 };
 }, [dataAccountOverview, activeLoanData, currentLoan]);
+
+
+
+let statusStrLink = {
+  "approved": "/customers/finalVerification",
+  "completing_application": "/customers/receiveYourMoney",
+  "contact_branch":  "/customers/myBranch",
+  "confirming_info": "/partner/confirm-signup",
+  "expired": "/select-amount",
+  "invalid": "/select-amount",
+  "signature_complete":  "/customers/finalVerification",
+  "offer_selected": "/customers/reviewAndSign",
+  "offers_available": "/customers/selectOffer",
+  "pre_qual_referred": "/select-amount",
+  "pre_qual_rejected": "/select-amount",
+  "pre_qualified": "/credit-karma",
+  "referred": "/referred-to-branch",
+  "rejected": "/no-offers-available",
+  "under_review": "/customers/loanDocument",
+  "closing_process": "/customers/finalVerification",
+  "final_review": "/customers/loanDocument"
+}; 
+
 
 
 //Material UI media query for responsiveness
@@ -446,6 +477,13 @@ let disableField = (checkAppStatus === true || hasActiveLoan === true) ? true : 
       pathname: "/customers/applyForLoan",
     });
   }
+
+  const resumeApplicationClick = () =>{
+    history.push({
+      pathname:statusStrLink[checkPresenceOfLoanStatus],
+    });
+    
+  }
  
  
 //Menu bar 
@@ -610,7 +648,7 @@ if(navElement){
           </div>
           <Divider />
           <PerfectScrollbar options={{ suppressScrollX :true,wheelSpeed: 2,wheelPropagation: false,minScrollbarLength: 20 }}>
-          <List onClick={handleMobileMenuClose}>
+          <List id='listItemWrap' onClick={handleMobileMenuClose}>
             <ListItem id="profileDetails" className="profileDetails">
               <List >
               <ListItem>
@@ -665,6 +703,18 @@ if(navElement){
               </ListItem>
             </NavLink>
 
+
+            {checkPresenceOfLoan === true ?
+            <NavLink to={{  state: {from: "user"} }}  onClick={(e)=>{ resumeApplicationClick()}}  className="nav_link" >
+              <ListItem className="titleSidenav" >
+                <ListItemIcon>
+                  {" "}
+                  <MonetizationOnRoundedIcon />{" "}
+                </ListItemIcon>
+                <ListItemText> Resume Application </ListItemText>
+              </ListItem>
+            </NavLink>
+            :
             <NavLink id="applyForLoanNav" to={{  state: {from: "user"}  }} onClick={(e)=>{currentLoan ? e.preventDefault() : onAFLClick()}} className={currentLoan ? "nav_link_disabled" : "nav_link"} >
               <ListItem className="titleSidenav" disabled={currentLoan}>
                 <ListItemIcon>
@@ -673,7 +723,7 @@ if(navElement){
                 </ListItemIcon>
                 <ListItemText> Apply for a Loan </ListItemText>
               </ListItem>
-            </NavLink>
+            </NavLink>}
 
             <NavLink to="/customers/loanDocument" onClick={(e)=>{activeLoanData && e.preventDefault()}} className={activeLoanData ? 'nav_link_disabled' : 'nav_link'}>
               <ListItem className="titleSidenav" disabled={activeLoanData}>

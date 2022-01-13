@@ -249,7 +249,7 @@ export default function OfferTable(props) {
 														className={props.classes.tableHeadRow}
 														align="left"
 													>
-														{row.apr + " %"}
+														{row.apr + "%"}
 													</TableCell>
 
 													{props.offerFlag === false ? (

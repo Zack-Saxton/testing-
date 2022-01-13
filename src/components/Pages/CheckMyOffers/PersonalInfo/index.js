@@ -111,7 +111,7 @@ function PersonalInfo() {
 			ssn: data.ssn ? data.ssn : "",
 			lastSSN: data.last4SSN ? data.last4SSN : "",
 			phone: data.phone ? data.phone : "",
-			date: data.dob ?? "",
+			date: data.dob ?? null,
 			checkSSN: data.last4SSN ? true : false,
 		},
 		validationSchema: validationSchema,

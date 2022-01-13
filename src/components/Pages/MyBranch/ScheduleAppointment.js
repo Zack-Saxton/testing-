@@ -19,9 +19,12 @@ import {
   other_Tue,
   Other_Fri,
   other_M_W_Thu,
-} from "./WorkingHours";
+  updated_other_Tue ,
+  upt_ca_M_W_TH_F,
+  upt_ca_Tue,
+  upt_other_Fri,upt_other_M_W_Thu
+  }from "./WorkingHours";
 import { ScheduleVisitApi } from "../../Controllers/MyBranchController";
-
 // yup validation
 const validationSchema = yup.object({
   date: yup
@@ -88,6 +91,7 @@ export default function ScheduleAppointment(MyBranchAppointment) {
 
   const [scheduleAppointment, setScheduleAppointment] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
+  
 
 //Formik implementation
   const formik = useFormik({
@@ -110,7 +114,6 @@ export default function ScheduleAppointment(MyBranchAppointment) {
         visitTime,
         visitTimeZone
       );
-
       if (response === "true") {
         formik.values.date = null;
         formik.values.appointmentTime = null;
@@ -133,6 +136,8 @@ export default function ScheduleAppointment(MyBranchAppointment) {
     formik.touched.appointmentTime = null;
     setScheduleAppointment(false);
   };
+
+ 
 
 //View part
   return (
@@ -190,14 +195,13 @@ export default function ScheduleAppointment(MyBranchAppointment) {
                 helperText={formik.touched.date && formik.errors.date}
               />
             </Grid>
-
             {stateName === "CA" ? (
               Moment(formik.values.date).format("dddd") === "Tuesday" ? (
                 <Grid>
-                  <Select
+                   <Select
                     name="appointmentTime"
                     labelform="Time Slot"
-                    select={ca_Tue}
+                    select={Moment(formik.values.date).format("DD-MM-YYYY") === Moment(new Date()).format("DD-MM-YYYY") ? upt_ca_Tue   : ca_Tue }
                     onChange={formik.handleChange}
                     value={formik.values.appointmentTime || ""}
                     onBlur={formik.handleBlur}
@@ -213,10 +217,10 @@ export default function ScheduleAppointment(MyBranchAppointment) {
                 </Grid>
               ) : (
                 <Grid>
-                  <Select
+                <Select
                     name="appointmentTime"
                     labelform="Time Slot"
-                    select={ca_M_W_Th_F}
+                    select={Moment(formik.values.date).format("DD-MM-YYYY") === Moment(new Date()).format("DD-MM-YYYY") ? upt_ca_M_W_TH_F   : ca_M_W_Th_F }
                     onChange={formik.handleChange}
                     value={formik.values.appointmentTime || ""}
                     onBlur={formik.handleBlur}
@@ -232,30 +236,53 @@ export default function ScheduleAppointment(MyBranchAppointment) {
                 </Grid>
               )
             ) : Moment(formik.values.date).format("dddd") === "Tuesday" ? (
+              
+                <Grid>
+                  {
+                    Moment(formik.values.date).format("DD-MM-YYYY") === Moment(new Date()).format("DD-MM-YYYY") ?
+                    (
+                    <Select
+                      name="appointmentTime"
+                        labelform="Time"
+                       select={updated_other_Tue}
+                       onChange={formik.handleChange}
+                       value={formik.values.appointmentTime || ""}
+                       onBlur={formik.handleBlur}
+                       error={
+                         formik.touched.appointmentTime &&
+                          Boolean(formik.errors.appointmentTime)
+                       }
+                      helperText={
+                         formik.touched.appointmentTime &&
+                        formik.errors.appointmentTime
+                       }
+                     /> 
+                     ) : (
+                     <Select
+                      name="appointmentTime"
+                     labelform="Slot"
+                      select={other_Tue}
+                      onChange={formik.handleChange}
+                      value={formik.values.appointmentTime || ""}
+                      onBlur={formik.handleBlur}
+                      error={
+                        formik.touched.appointmentTime &&
+                        Boolean(formik.errors.appointmentTime)
+                      }
+                      helperText={
+                        formik.touched.appointmentTime &&
+                        formik.errors.appointmentTime
+                      }
+                    />
+                    )
+                  }
+                </Grid>
+              ) : Moment(formik.values.date).format("dddd") === "Friday" ? (
               <Grid>
                 <Select
                   name="appointmentTime"
                   labelform="Time Slot"
-                  select={other_Tue}
-                  onChange={formik.handleChange}
-                  value={formik.values.appointmentTime || ""}
-                  onBlur={formik.handleBlur}
-                  error={
-                    formik.touched.appointmentTime &&
-                    Boolean(formik.errors.appointmentTime)
-                  }
-                  helperText={
-                    formik.touched.appointmentTime &&
-                    formik.errors.appointmentTime
-                  }
-                />{" "}
-              </Grid>
-            ) : Moment(formik.values.date).format("dddd") === "Friday" ? (
-              <Grid>
-                <Select
-                  name="appointmentTime"
-                  labelform="Time Slot"
-                  select={Other_Fri}
+                  select={Moment(formik.values.date).format("DD-MM-YYYY") === Moment(new Date()).format("DD-MM-YYYY") ? upt_other_Fri   : Other_Fri }
                   onChange={formik.handleChange}
                   value={formik.values.appointmentTime || ""}
                   onBlur={formik.handleBlur}
@@ -274,7 +301,7 @@ export default function ScheduleAppointment(MyBranchAppointment) {
                 <Select
                   name="appointmentTime"
                   labelform="Time Slot"
-                  select={other_M_W_Thu}
+                  select={Moment(formik.values.date).format("DD-MM-YYYY") === Moment(new Date()).format("DD-MM-YYYY") ? upt_other_M_W_Thu   : other_M_W_Thu }
                   onChange={formik.handleChange}
                   value={formik.values.appointmentTime || ""}
                   onBlur={formik.handleBlur}

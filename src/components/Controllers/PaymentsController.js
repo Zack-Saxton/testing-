@@ -2,23 +2,13 @@ import APICall from "../lib/AxiosLib";
 import Moment from "moment";
 
 /***** Get payment methods *****/
-export async function usrPaymentMethods(account) {
-  let accountNo = account;
-  let url = "payment_method";
-  let param = "/" + accountNo;
-  let data = {};
-  let method = "GET";
+export async function usrPaymentMethods() {
+  let url = "get_payment_methods";
+  let param = "";
+  let data =  {  }
+  let method = "POST";
   let addAccessToken = true;
-
-  //API call
-  let userPaymentMethod = await APICall(
-    url,
-    param,
-    data,
-    method,
-    addAccessToken
-  );
-  return userPaymentMethod;
+  return APICall(url, param, data, method, addAccessToken);
 }
 
 /***** Enable AutoPay mode *****/

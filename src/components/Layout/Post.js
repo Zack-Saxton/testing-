@@ -152,8 +152,7 @@ const Post = ({ children }) => {
 					</DialogTitle>
 					<DialogContent dividers>
 						<Typography align="justify" gutterBottom>
-							You have been idle for a while, click ok to continue, else you
-							will be logged out of the application!
+						You will be logged out due to inactivity. Press Ok to remain logged into the system
 						</Typography>
 						<br />
 					</DialogContent>
@@ -163,7 +162,7 @@ const Post = ({ children }) => {
 						stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
 						onClick={handleClosePopUp}
 					>
-						<Typography align="center">Continue</Typography>
+						<Typography align="center">Ok</Typography>
 					</ButtonPrimary>
 				</DialogActions>
 			</Dialog>

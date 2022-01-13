@@ -130,8 +130,7 @@ export default function LoanDocument(props) {
              
               setLoading(false);
               setDocType(null);
-              setSelectedFile(document.getElementById("file").value= null);
-              
+              selectedFile.value = "";              
             }
              //Passing data to API
           };

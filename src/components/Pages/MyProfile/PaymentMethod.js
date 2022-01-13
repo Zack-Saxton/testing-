@@ -57,7 +57,7 @@ const validationSchemaDebitCard = yup.object({
 	cardNumber: yup
 		.string("Card Number is required.")
 		.required("Card Number is required.")
-		.min(16, "Card Number should be 16 digits."),
+		.min(13, "Card Number should be atleast 13 digits."),
 	cardName: yup
 		.string("Cardholder Name is required.")
 		.required("Cardholder Name is required."),
@@ -123,7 +123,7 @@ export default function PaymentMethod() {
 	const [checkedDebitCard, setCheckedDebitCard] = useState(false);
 	const [sameAsMailAddress, setSameAsMailAddress] = useState(true);
 	const [loading, setLoading] = useState(false);
-	const [cardType, setCardType] = useState(false);
+	const [cardType, setCardType] = useState("unknown");
 	const [deleteType, setDeleteType] = useState();
 	const [deleteID, setDeleteID] = useState();
 	const [editMode, setEditMode] = useState(false);
@@ -286,18 +286,8 @@ export default function PaymentMethod() {
 
 	function detectCardType(e, number) {
 		var re = {
-			electron: /^(4026|417500|4405|4508|4844|4913|4917)\d+$/,
-			Maestro:
-				/^(5018|5020|5038|5612|5893|6304|6759|6761|6762|6763|0604|6390)\d+$/,
-			dankort: /^(5019)\d+$/,
-			interpayment: /^(636)\d+$/,
-			Unionpay: /^(62|88)\d+$/,
 			Visa: /^4\d{12}(?:\d{3})?$/,
 			Mastercard: /^5[1-5]\d{14}$/,
-			Amex: /^3[47]\d{13}$/,
-			Diners: /^3(?:0[0-5]|[68]\d)\d{11}$/,
-			Discover: /^6(?:011|5\d{2})\d{12}$/,
-			JCB: /^(?:2131|1800|35\d{3})\d{11}$/,
 		};
 		let valid = false;
 		for (var key in re) {
@@ -318,7 +308,17 @@ export default function PaymentMethod() {
 		let acc = event.target.value;
 
 		if (acc === "" || reg.test(acc)) {
+
 			formikAddDebitCard.handleChange(event);
+			if(acc.substring(0, 1) === '4'){
+				setCardType('Visa');
+			}
+			else if (acc.substring(0, 1) === '5'){
+				setCardType("Mastercard");
+			}
+			else {
+				setCardType("unknown");
+			}
 		}
 	};
 
@@ -544,7 +544,6 @@ export default function PaymentMethod() {
 	const addCreditCardYes = async () => {
 		setLoading(true);
 		let res = await addCreditCard(formikAddDebitCard.values, cardType);
-
 		if (res?.data?.data?.addPaymentResult?.HasNoErrors === true) {
 			setLoading(false);
 			toast.success("Payment method added successfully ", {
@@ -574,6 +573,18 @@ export default function PaymentMethod() {
 		else if(res?.data?.data?.result === "error"){
 			setLoading(false);
 			toast.error(res?.data?.data?.data?.error , {
+				position: "bottom-left",
+				autoClose: 5500,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
+		}
+		else if(res?.data?.data?.data?.error?.callbackProps?.text){
+			setLoading(false);
+			toast.error(res?.data?.data?.data?.error?.callbackProps?.text, {
 				position: "bottom-left",
 				autoClose: 5500,
 				hideProgressBar: false,
@@ -1350,18 +1361,23 @@ export default function PaymentMethod() {
 								disabled={editMode}
 								onKeyDown={preventSpace}
 								value={formikAddDebitCard.values.cardNumber}
-								onChange={(e) => addDebitOnChangeNumber(e)}
+								onChange={(e) => {
+									addDebitOnChangeNumber(e)
+								}}
 								// onBlur={formikAddDebitCard.handleBlur}
 								onBlur={(e) => {
 									detectCardType(e, e.target.value);
 								}}
 								error={
-									formikAddDebitCard.touched.cardNumber &&
-									Boolean(formikAddDebitCard.errors.cardNumber)
+									(formikAddDebitCard.touched.cardNumber &&
+									Boolean(formikAddDebitCard.errors.cardNumber)) || cardType === false
 								}
 								helperText={
-									formikAddDebitCard.touched.cardNumber &&
-									formikAddDebitCard.errors.cardNumber
+									(formikAddDebitCard.touched.cardNumber &&
+									formikAddDebitCard.errors.cardNumber) ? 
+									(formikAddDebitCard.touched.cardNumber &&
+										formikAddDebitCard.errors.cardNumber) :
+										 "We only accept Visa or Mastercard"
 								}
 							/>
 						</Grid>
@@ -1719,7 +1735,7 @@ export default function PaymentMethod() {
 								<ButtonPrimary
 									stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
 									id="addDebitCard_button"
-									disabled={!validZip}
+									disabled={!validZip || !(cardType === "Visa" || cardType === "Mastercard")}
 									onClick={() => openDebitCardModal()}
 								>
 									Add
@@ -1817,6 +1833,14 @@ export default function PaymentMethod() {
 					<Typography id="deleteTxt" className={classes.dialogHeading}>
 						Are you sure you want to delete the payment method ?
 					</Typography>
+					<IconButton
+								id="debitCardModalClose"
+								aria-label="close"
+								className={classes.closeButton}
+								onClick={handleDeleteConfirmClose}
+							>
+								<CloseIcon />
+							</IconButton>
 				</DialogTitle>
 				<DialogActions>
 					<ButtonSecondary
