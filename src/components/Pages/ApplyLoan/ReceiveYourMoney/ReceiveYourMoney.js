@@ -11,6 +11,7 @@ import { ButtonWithIcon } from "../../../FormsUI";
 import Paper from "@material-ui/core/Paper";
 import ScrollToTopOnMount from "../../ScrollToTop";
 import CheckLoginStatus from "../../../App/CheckLoginStatus";
+import "../SelectOffer/SelectOffer.css";
 
 //Initializing the Tab panel section
 function TabPanel(props) {
@@ -48,29 +49,29 @@ function a11yProps(index) {
 
 //Styling part
 const useStyles = makeStyles((theme) => ({
-	root: {
-		flexGrow: 1,
-	},
-	paper: {
-		padding: theme.spacing(2),
-		display: "flex",
-		flexDirection: "column",
-		color: theme.palette.text.secondary,
-	},
-	heading: {
-		color: "#fff",
-		fontWeight: "400",
-		fontSize: "1.64rem",
-	},
-	tabLabel: {
-		background: "white",
-		margin: "10px",
-		color: "#3f51b5",
-		fontFamily: "'Muli', sans-serif !important",
-		fontSize: "1rem",
-		textTransform: "none",
-		fontWeight: "600",
-	},
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing(2),
+    display: "flex",
+    flexDirection: "column",
+    color: theme.palette.text.secondary,
+  },
+  heading: {
+    color: "#fff",
+    fontWeight: "400",
+    fontSize: "1.64rem",
+  },
+  tabLabel: {
+    background: "white",
+    margin: "0px 20px 10px 0px",
+    color: "#3f51b5",
+    fontFamily: "'Muli', sans-serif !important",
+    fontSize: "1rem",
+    textTransform: "none",
+    fontWeight: "700",
+  },
 
 	table: {
 		minWidth: 650,
@@ -113,8 +114,8 @@ export default function ReceiveYourMoney() {
 				justifyContent={"center"}
 				style={{
 					marginTop: "-150px",
-					paddingRight: "30px",
-					paddingLeft: "30px",
+					paddingRight: "23px",
+					paddingLeft: "23px",
 				}}
 			>
 				<Grid
@@ -175,33 +176,27 @@ export default function ReceiveYourMoney() {
 						/>
 					</Tabs>
 
-					<TabPanel value={value} index={3} style={{ paddingBottom: "300px" }}>
-						<Grid
-							item
-							xs={12}
-							style={{ width: "100%" }}
-							container
-							direction="row"
-						>
-							<Paper className={classes.paper}>
-								<div>
-									<h3>Your Application is Complete</h3>
-									<p style={{ textAlign: "justify" }}>
-										<b>
-											Thank you for submitting your verification information!
-										</b>
-										<br />
-										You should receive an email regarding the funds by the end
-										of the next business day provided that we require no
-										additional information, in which case we will reach out to
-										you.
-									</p>
-								</div>
-							</Paper>
-						</Grid>
-					</TabPanel>
-				</Grid>
-			</Grid>
-		</div>
-	);
+          <TabPanel value={value} index={3} style={{ paddingBottom: "300px", marginTop:"10px" }}>
+            <Grid item xs={12} style={{ width: "100%" }} container direction="row">
+              <Paper className={classes.paper}>
+                <div>
+                  <h3>Your Application is Complete</h3>
+                  <p style={{ textAlign: "justify", fontSize:"0.938rem", lineHeight:"1.5" }}>
+                    <b>
+                      Thank you for submitting your verification information!
+                    </b>
+                    <br />
+                    You should receive an email regarding the funds by the end
+                    of the next business day provided that we require no
+                    additional information, in which case we will reach out to
+                    you.
+                  </p>
+                </div>
+              </Paper>
+            </Grid>
+          </TabPanel>
+        </Grid>
+      </Grid>
+    </div>
+  );
 }

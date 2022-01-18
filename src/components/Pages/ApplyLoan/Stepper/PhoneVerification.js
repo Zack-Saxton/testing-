@@ -125,7 +125,7 @@ export default function PhoneVerification(props) {
 				<p
 					style={{
 						textAlign: "justify",
-						fontSize: "14px",
+						fontSize: "0.938rem",
 						color: "#595959",
 						fontWeight: "normal",
 					}}
@@ -135,7 +135,13 @@ export default function PhoneVerification(props) {
 				</p>
 			</Grid>
 			<form onSubmit={formik.handleSubmit}>
-				<Grid item sm={5} className="textBlock">
+				<Grid
+					item
+					sm={5}
+					className="textBlock"
+					id="applyForLoanPhone"
+
+				>
 					<PhoneNumber
 						name="phone"
 						label="Phone number *"
@@ -150,7 +156,7 @@ export default function PhoneVerification(props) {
 					/>
 					<div className="MuiTypography-alignLeft">
 						<Typography
-							style={{ fontWeight: "normal" }}
+							style={{ fontWeight: "normal", fontSize:"0.75rem" }}
 							className="smallTextLeft"
 							align="left"
 						>
@@ -160,8 +166,9 @@ export default function PhoneVerification(props) {
 				</Grid>
 				<Grid item xs={12} style={{ lineHeight: 3 }}>
 					<FormControl component="fieldset">
-						<FormLabel component="legend">Delivery Method</FormLabel>
+						<FormLabel style={{ fontSize:"0.75rem" }} component="legend">Delivery Method</FormLabel>
 						<RadioGroup
+							id="textAndCall"
 							aria-label="method"
 							name="method"
 							value={value}
@@ -174,7 +181,7 @@ export default function PhoneVerification(props) {
 					</FormControl>
 					<div className="MuiTypography-alignLeft">
 						<Typography
-							style={{ fontWeight: "normal" }}
+							style={{ fontWeight: "normal",fontSize:"0.75rem" }}
 							className="smallTextLeft"
 							align="left"
 						>

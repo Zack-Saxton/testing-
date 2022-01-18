@@ -56,58 +56,58 @@ function a11yProps(index) {
 
 //Styling part
 const useStyles = makeStyles((theme) => ({
-	root: {
-		flexGrow: 1,
-	},
-	paper: {
-		padding: theme.spacing(2),
-		display: "flex",
-		flexDirection: "column",
-		color: theme.palette.text.secondary,
-	},
-	heading: {
-		color: "#fff",
-		fontWeight: "400",
-		fontSize: "1.64rem",
-	},
-	loadingOn: {
-		opacity: 0.55,
-		pointerEvents: "none",
-	},
-	loadingOff: {
-		opacity: 1,
-		pointerEvents: "initial",
-	},
-	tabLabel: {
-		background: "white",
-		margin: "10px",
-		color: "#3f51b5",
-		fontFamily: "'Muli', sans-serif !important",
-		fontSize: "1rem",
-		textTransform: "none",
-		fontWeight: "600",
-	},
-	table: {
-		minWidth: 650,
-	},
-	columnColor: {
-		lineHeight: 0,
-		color: "#0f4eb3",
-		fontSize: 25,
-		fontWeight: 400,
-		textAlign: "center",
-	},
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing(2),
+    display: "flex",
+    flexDirection: "column",
+    color: theme.palette.text.secondary,
+  },
+  heading: {
+    color: "#fff",
+    fontWeight: "400",
+    fontSize: "1.64rem",
+  },
+  loadingOn: {
+    opacity: 0.55,
+    pointerEvents: "none" 
+  },
+  loadingOff: {
+    opacity: 1,
+    pointerEvents: "initial" 
+  },
+  tabLabel: {
+    background: "white",
+    margin: "0px 20px 10px 0px",
+    color: "#3f51b5",
+    fontFamily: "'Muli', sans-serif !important",
+    fontSize: "1rem",
+    textTransform: "none",
+    fontWeight: "600",
+  },
+  table: {
+    minWidth: 650,
+  },
+  columnColor: {
+    lineHeight: 0,
+    color: "#0f4eb3",
+    fontSize: 25,
+    fontWeight: 400,
+    textAlign: "center",
+  },
 
-	rightBorder: {
-		// padding: "0px 15px",
-		borderRight: "1px solid",
-		lineHeight: 1,
-	},
-	columnHeading: {
-		fontSize: "14px",
-		color: "#171717",
-		textAlign: "center",
-	},
+  rightBorder: {
+    // padding: "0px 15px",
+    borderRight: "1px solid",
+    lineHeight: 1,
+  },
+  columnHeading: {
+    fontSize: "14px",
+    color: "#171717",
+    textAlign: "center",
+  },
 }));
 
 //Initializing the Review and sign functional component
@@ -171,8 +171,8 @@ export default function ReviewAndSign(props) {
 				justifyContent={"center"}
 				style={{
 					marginTop: "-150px",
-					paddingRight: "30px",
-					paddingLeft: "30px",
+					paddingRight: "23px",
+					paddingLeft: "23px",
 				}}
 			>
 				<Grid
@@ -196,224 +196,222 @@ export default function ReviewAndSign(props) {
                         "padding": "0px",
                         "marginRight": "5px",
                       "marginTop":"unset" }'
-								styleicon='{ "color":"" }'
-							/>
-						</NavLink>{" "}
-						Apply for a Loan
-					</Typography>
-				</Grid>
+                styleicon='{ "color":"" }'
+              />
+            </NavLink>{" "}
+            Apply for a Loan
+          </Typography>
+        </Grid>
 
-				<Grid item xs={12}>
-					<Tabs
-						value={value}
-						onChange={handleChange}
-						indicatorColor="primary"
-						textColor="primary"
-						variant="scrollable"
-						scrollButtons="auto"
-						aria-label="scrollable auto tabs example"
-					>
-						<Tab
-							label="1. Select Offer"
-							disabled={true}
-							className={classes.tabLabel}
-						/>
-						<Tab
-							label="2. Review & Sign"
-							className={classes.tabLabel}
-							{...a11yProps(1)}
-						/>
-						<Tab
-							label="3. Final Verification"
-							disabled={true}
-							className={classes.tabLabel}
-						/>
-						<Tab
-							label="4. Receive your money"
-							disabled={true}
-							className={classes.tabLabel}
-						/>
-					</Tabs>
+        <Grid item xs={12}>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            indicatorColor="primary"
+            textColor="primary"
+            variant="scrollable"
+            scrollButtons="auto"
 
-					{/* ##############################################Review And Sign################################################################################################# */}
-					<TabPanel value={value} index={1}>
-						<Grid item xs={12} style={{ width: "100%" }}>
-							<Paper className={classes.paper}>
-								<Grid container>
-									<Grid item xs={12} sm={6} style={{ width: "100%" }}>
-										<Typography
-											style={{
-												color: "#171717",
-												fontSize: "18px",
-											}}
-										>
-											Selected Loan Offer
-										</Typography>
-									</Grid>
+            aria-label="scrollable auto tabs example"
+          >
+            <Tab
+              label="1. Select Offer"
+              disabled={true}
+              className={classes.tabLabel}
+            />
+            <Tab
+              label="2. Review & Sign"
+              className={classes.tabLabel}
+              {...a11yProps(1)}
+            />
+            <Tab
+              label="3. Final Verification"
+              disabled={true}
+              className={classes.tabLabel}
+            />
+            <Tab
+              label="4. Receive your money"
+              disabled={true}
+              className={classes.tabLabel}
+            />
+          </Tabs>
 
-									<Grid
-										item
-										xs={12}
-										sm={6}
-										className={loading ? classes.loadingOn : classes.loadingOff}
-									>
-										<NavLink
-											to="/customers/selectOffer"
-											style={{ textDecoration: "none" }}
-										>
-											<ButtonSecondary
-												stylebutton='{"float": "right", "color":"" }'
-												styleicon='{ "color":"" }'
-												style={{ width: "100%" }}
-												id="reselect-button"
-											>
-												Re-Select Offer
-											</ButtonSecondary>
-										</NavLink>
-									</Grid>
-								</Grid>
-								{!selectedOffer ? (
-									<Grid
-										className="circleprog"
-										style={{ width: "100%", textAlign: "center" }}
-									>
-										<CheckLoginStatus />
+          {/* ##############################################Review And Sign################################################################################################# */}
+          <TabPanel value={value} index={1} style={{marginTop:"10px"}}>
+            <Grid item xs={12} style={{ width: "100%" }} >
+              <Paper className={classes.paper}>
+                <Grid container>
+                  <Grid item xs={12} sm={6} style={{ width: "100%" }} >
+                    <Typography style={{
+                      color: "#171717",
+                      fontSize: "18px",
+                    }}>
 
-										<CircularProgress />
-									</Grid>
-								) : (
-									<Grid container justifyContent="flex-start">
-										<Grid
-											item
-											xs={12}
-											sm={2}
-											className={classes.rightBorder}
-											id="rightBorder"
-										>
-											<p className={classes.columnHeading} id="columnHeading">
-												Select Amount
-											</p>
-											<h2 className={classes.columnColor} id="column-content">
-												{currencyFormat(selectedOffer.approved_loan_amount)}{" "}
-											</h2>
-										</Grid>
+                      Selected Loan Offer
 
-										<Grid
-											item
-											xs={12}
-											sm={2}
-											className={classes.rightBorder}
-											id="right-border-loan-term"
-										>
-											<p className={classes.columnHeading} id="columnHeading">
-												Loan Term
-											</p>
-											<h2 className={classes.columnColor} id="column-content">
-												{selectedOffer.term}M
-											</h2>
-										</Grid>
+                    </Typography>
+                  </Grid>
 
-										<Grid
-											item
-											xs={12}
-											sm={2}
-											className={classes.rightBorder}
-											id="rightBorder"
-										>
-											<p className={classes.columnHeading} id="columnHeading">
-												Fee at Origination
-											</p>
-											<h2 className={classes.columnColor} id="column-content">
-												{selectedOffer.origination_fee_rate}%
-											</h2>
-										</Grid>
+                  <Grid item xs={12} sm={6} className={loading ? classes.loadingOn : classes.loadingOff}>
+                    <NavLink
+                      to="/customers/selectOffer"
+                      style={{ textDecoration: "none" }}
+                    >
+                      <ButtonSecondary
+                        stylebutton='{"float": "right", "color":"" }'
+                        styleicon='{ "color":"" }'
+                        style={{ width: "100%" }}
+                        id="reselect-button"
+                      >
+                        Re-Select Offer
+                      </ButtonSecondary>
+                    </NavLink>
+                  </Grid>
+                </Grid>
+                {!selectedOffer ?
+                  <Grid
+                    className="circleprog"
+                    style={{ width: "100%", textAlign: "center" }}
+                  >
+                    <CheckLoginStatus />
 
-										<Grid
-											item
-											xs={12}
-											sm={2}
-											className={classes.rightBorder}
-											id="rightBorder"
-										>
-											<p className={classes.columnHeading} id="columnHeading">
-												Loan Proceeds
-											</p>
-											<h2 className={classes.columnColor} id="column-content">
-												{currencyFormat(selectedOffer.approved_loan_amount)}
-											</h2>
-										</Grid>
-										<Grid
-											item
-											xs={12}
-											sm={2}
-											className={classes.rightBorder}
-											id="rightBorder-apr"
-										>
-											<p className={classes.columnHeading} id="columnHeading">
-												APR
-											</p>
-											<h2 className={classes.columnColor} id="column-content">
-												{(selectedOffer.apr * 100 ).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]} %
-											</h2>
-										</Grid>
-										<Grid
-											item
-											xs={12}
-											sm={2}
-											style={{ lineHeight: "1" }}
-											id="rightBorder"
-										>
-											<p className={classes.columnHeading} id="columnHeading">
-												Monthly Payment
-											</p>
-											<h2 className={classes.columnColor} id="column-content">
-												{currencyFormat(selectedOffer.monthly_payment)}
-											</h2>
-										</Grid>
-									</Grid>
-								)}
-							</Paper>
+                    <CircularProgress />
+                  </Grid>
 
-							<Grid item style={{ width: "100%" }}>
-								<p
-									style={{
-										textAlign: "justify",
-										fontSize: "13px",
-										color: "#6b6f82",
-									}}
-								>
-									Please confirm your selected loan before proceeding. Please
-									note that if you wish to change your loan amount after you
-									continue beyond this step, you will need to contact us to
-									re-apply.
-								</p>
-								<p
-									style={{
-										textAlign: "justify",
-										fontSize: "13px",
-										color: "#6b6f82",
-									}}
-								>
-									To accept your loan offer, please complete the following:
-								</p>
-								<ol
-									style={{
-										textAlign: "justify",
-										fontSize: "13px",
-										color: "#6b6f82",
-									}}
-								>
-									<li>
-										Review all presented disclosures and loan terms in detail.
-									</li>
-									<li>
-										Electronically sign the loan agreement using our digital
-										signature process.
-									</li>
-									<li>After signing, click the ‘Submit’ button.</li>
-								</ol>
-							</Grid>
+                  :
+                  <Grid container justifyContent="flex-start">
+                    <Grid
+                      item
+                      xs={12}
+                      sm={2}
+                      className={classes.rightBorder}
+                      id="rightBorder"
+                    >
+                      <p className={classes.columnHeading} id="columnHeading">
+                        Select Amount
+                      </p>
+                      <h2 className={classes.columnColor} id="column-content">
+                        {currencyFormat(selectedOffer.approved_loan_amount)}{" "}
+                      </h2>
+                    </Grid>
 
+                    <Grid
+                      item
+                      xs={12}
+                      sm={2}
+                      className={classes.rightBorder}
+                      id="right-border-loan-term"
+                    >
+                      <p className={classes.columnHeading} id="columnHeading">
+                        Loan Term
+                      </p>
+                      <h2 className={classes.columnColor} id="column-content">
+                        {selectedOffer.term}M
+                      </h2>
+                    </Grid>
+
+                    <Grid
+                      item
+                      xs={12}
+                      sm={2}
+                      className={classes.rightBorder}
+                      id="rightBorder"
+                    >
+                      <p className={classes.columnHeading} id="columnHeading">
+                        Fee at Origination
+                      </p>
+                      <h2 className={classes.columnColor} id="column-content">
+                        {selectedOffer.origination_fee_rate}%
+                      </h2>
+                    </Grid>
+
+                    <Grid
+                      item
+                      xs={12}
+                      sm={2}
+                      className={classes.rightBorder}
+                      id="rightBorder"
+                    >
+                      <p className={classes.columnHeading} id="columnHeading">
+                        Loan Proceeds
+                      </p>
+                      <h2 className={classes.columnColor} id="column-content">
+                        {currencyFormat(selectedOffer.approved_loan_amount)}
+                      </h2>
+                    </Grid>
+                    <Grid
+                      item
+                      xs={12}
+                      sm={2}
+                      className={classes.rightBorder}
+                      id="rightBorder-apr"
+                    >
+                      <p className={classes.columnHeading} id="columnHeading">
+                        APR
+                      </p>
+                      <h2 className={classes.columnColor} id="column-content">
+                        {selectedOffer.apr.toFixed(2)} %
+                      </h2>
+                    </Grid>
+                    <Grid
+                      item
+                      xs={12}
+                      sm={2}
+                      style={{ lineHeight: "1" }}
+                      id="rightBorder"
+                    >
+                      <p className={classes.columnHeading} id="columnHeading">
+                        Monthly Payment
+                      </p>
+                      <h2 className={classes.columnColor} id="column-content">
+                        {currencyFormat(selectedOffer.monthly_payment)}
+                      </h2>
+                    </Grid>
+                  </Grid>
+                }
+              </Paper>
+
+              <Grid item style={{ width: "100%" }}>
+                <p
+                  style={{
+                    textAlign: "justify",
+                    fontSize: "13px",
+                    color: "#6b6f82",
+                  }}
+                >
+                  Please confirm your selected loan before proceeding. Please
+                  note that if you wish to change your loan amount after you
+                  continue beyond this step, you will need to contact us to
+                  re-apply.
+                </p>
+                <p
+                  style={{
+                    textAlign: "justify",
+                    fontSize: "13px",
+                    color: "#6b6f82",
+                  }}
+                >
+                  To accept your loan offer, please complete the following:
+                </p>
+                <ol
+                  style={{
+                    textAlign: "justify",
+                    fontSize: "13px",
+                    color: "#6b6f82",
+                  }}
+                >
+                  <li>
+                    Review all presented disclosures and loan terms in detail.
+                  </li>
+                  <li>
+                    Electronically sign the loan agreement using our digital
+                    signature process.
+                  </li>
+                  <li>After signing, click the ‘Submit’ button.</li>
+                </ol>
+              </Grid>
+
+              
 							<Grid item xs={12} style={{ width: "100%" }}>
 								<Paper className={classes.paper}>
 									<Grid item xs={12} md={12} lg={12}>

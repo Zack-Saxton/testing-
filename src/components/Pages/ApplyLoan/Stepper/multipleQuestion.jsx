@@ -100,8 +100,9 @@ export default function MultipleQuestion(props) {
 			{props.responseData.map((question, index) => {
 				return (
 					<Grid key={index} item xs={12}>
-						<Typography>{question?.question}</Typography>
+						<Typography id="IdQuestionsTxt">{question?.question}</Typography>
 						<Radio
+							id="radioSelectTxt"
 							name="question"
 							radiolabel={buildOptions(question.choice)}
 							checked={questionArray[question.questionId]}
@@ -126,7 +127,7 @@ export default function MultipleQuestion(props) {
 					color="primary"
 					id="button_stepper_next"
 					onClick={handleMultipleNextClick}
-					stylebutton='{"marginRight": "10px", "color":"" }'
+					stylebutton='{"marginRight": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
 				>
 					Continue
 				</ButtonPrimary>

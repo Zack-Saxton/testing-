@@ -7,11 +7,132 @@
 	display: none;
 }
 
-.linkStyle {
-	color: blue !important;
+.linkStyle{																																																
+	color:#0f4eb3 !important;
 	cursor: pointer !important;
 }
 
 .underline {
 	text-decoration: underline !important;
 }
+.MuiTabs-indicator{
+	display: none !important;
+}
+
+#applyForLoanPhone .MuiFormControl-root .MuiTextField-root label{
+	font-size: 0.938rem;
+}
+
+#applyForLoanPhone .MuiFormControl-root .MuiTextField-root div input{
+	padding-bottom: 12px !important;
+}
+
+#textAndCall label .MuiFormControlLabel-label{
+	font-size: 0.938rem !important;
+}
+
+/* Financial Information */
+#employerNameInput-label{
+	font-size: 0.938rem !important;
+}
+
+#employerNameInput{
+	padding-bottom: 12px;
+}
+
+
+#currentJobTitleInput-label{
+	font-size: 0.938rem !important;
+}
+
+#currentJobTitleInput{
+	padding-bottom: 12px;
+}
+
+
+#currentAddressSelectWrap div .MuiInputLabel-formControl{
+	font-size: 0.938rem !important;
+}
+
+#currentAddressSelect{
+	padding-bottom: 12px;
+}
+
+#heardUsSelectWrap div .MuiInputLabel-formControl{
+	font-size: 0.938rem !important;
+}
+
+#heardUsSelect{
+	padding-bottom: 12px;
+}
+
+/* ID Verification Questions */
+#IdQuestionsTxt{
+	font-size: 0.938rem !important;
+}
+
+#radioSelectTxt label .MuiFormControlLabel-label{
+	font-size: 0.938rem !important;
+}
+
+/* Bank Account Verification */
+
+#accountHolderInput-label{
+	font-size: 0.938rem !important;
+}
+
+#accountHolderInput{
+	padding-bottom: 12px;
+}
+
+
+
+#accountTypeTxt{
+	margin-top: 25px;
+}
+#accountTypeTxt .MuiFormControl-root label .MuiFormControlLabel-label{
+	font-size: 0.938rem !important;
+}
+
+
+#bankRoutingNumberInput-label{
+	font-size: 0.938rem !important;
+}
+
+#bankRoutingNumberInput{
+	padding-bottom: 12px;
+}
+
+
+#bankInformationInput-label{
+	font-size: 0.938rem !important;
+}
+
+#bankInformationInput{
+	padding-bottom: 12px;
+}
+
+#bankAccountNumberInput-label{
+	font-size: 0.938rem !important;
+}
+
+#bankAccountNumberInput{
+	padding-bottom: 12px;
+}
+
+#confirmAccountNumberInput-label{
+	font-size: 0.938rem !important;
+}
+
+#confirmAccountNumberInput{
+	padding-bottom: 12px;
+}
+
+#paymentbyCheckTxt .MuiFormControlLabel-root .MuiFormControlLabel-label{
+	font-size: 00.938rem !important;
+}
+
+/* 
+label.MuiFormLabel-root.MuiInputLabel-root.MuiInputLabel-formControl.MuiInputLabel-animated{
+	font-size: 0.938rem !important;
+} */

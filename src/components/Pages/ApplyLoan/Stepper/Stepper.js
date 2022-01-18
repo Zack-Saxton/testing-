@@ -103,7 +103,6 @@ export default function VerticalLinearStepper() {
 			});
 		} else if (res?.data?.data?.email === false) {
 			tabPosition = 0;
-			resendVerificationEmail();
 		} else if (
 			res?.data?.data?.phone_verification === false &&
 			tabPosition === "" &&

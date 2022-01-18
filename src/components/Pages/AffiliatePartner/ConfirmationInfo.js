@@ -1281,15 +1281,13 @@ const currencyFormat = (event) => {
                         
                         type="submit"
                         data-testid="submit"
-                        stylebutton='{"background": "", "color":"" }'
+                        stylebutton='{"background": "","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
                         disabled={ 
                            formik.values.citizenship=== "Foreign Resident" ? true :
                       loading}
                       onClick={() => autoFocus()}
                       >
-                        <Typography align="center" className="textCSS ">
                           Continue
-                        </Typography>
                         <i
                           className="fa fa-refresh fa-spin customSpinner"
                           style={{

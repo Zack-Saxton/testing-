@@ -227,7 +227,7 @@ export default function SideNav() {
 
 let statusStrLink = {
   "approved": "/customers/finalVerification",
-  "completing_application": "/customers/receiveYourMoney",
+  "completing_application": "/customers/finalVerification",
   "contact_branch":  "/customers/myBranch",
   "confirming_info": "/partner/confirm-signup",
   "expired": "/select-amount",
@@ -648,7 +648,7 @@ if(navElement){
           </div>
           <Divider />
           <PerfectScrollbar options={{ suppressScrollX :true,wheelSpeed: 2,wheelPropagation: false,minScrollbarLength: 20 }}>
-          <List id='listItemWrap' onClick={handleMobileMenuClose}>
+          <List id="listItemWrap" onClick={handleMobileMenuClose}>
             <ListItem id="profileDetails" className="profileDetails">
               <List >
               <ListItem>
