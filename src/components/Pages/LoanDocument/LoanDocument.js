@@ -22,6 +22,7 @@ import {
   loanDocumentController as loanDocument,
   uploadDocument ,
 } from "../../Controllers/LoanDocumentController";
+import   loanDocs from "../../lib/Lang/loanDocument.json";
 
 export default function LoanDocument(props) {
 
@@ -60,7 +61,7 @@ export default function LoanDocument(props) {
   const  uploadDoc = () => {
     if (selectedFile === null) {
       if(! toast.isActive("closeToast")) {
-        toast.error("please select a file to upload", {
+        toast.error(loanDocs.Please_Select_File_Upload, {
           position: "bottom-left",
           autoClose: 1500,
           hideProgressBar: false,
@@ -75,7 +76,7 @@ export default function LoanDocument(props) {
     } 
     else if (docType  === null || docType === "") {
       if(! toast.isActive("closeToast")) {
-      toast.error("please select a document type", {
+      toast.error(loanDocs.Please_Select_A_Document_Type, {
         position: "bottom-left",
         autoClose: 1500,
         hideProgressBar: false,
@@ -142,7 +143,7 @@ export default function LoanDocument(props) {
         if(selectedFile.files[0].size > 10240000)
         {
           if(! toast.isActive("closeToast")) {
-        toast.error("Please upload file size below 10mb ", {
+        toast.error(loanDocs.Please_Upload_File_Below_Size, {
           position: "bottom-left",
           autoClose: 1500,
           hideProgressBar: false,

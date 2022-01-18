@@ -56,7 +56,7 @@ const useStylesAccountOverview = makeStyles((theme) => ({
   activeLoanHeading: {
     color: "#171717",
     fontWeight: "400",
-    fontSize: "1.125rem",
+    fontSize: "1.125rem !important",
     margin: "auto",
   },
   activeLoanSubHeading: {

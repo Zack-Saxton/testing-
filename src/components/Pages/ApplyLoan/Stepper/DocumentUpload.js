@@ -103,34 +103,35 @@ export default function DocumentUpload(props) {
 		}
 	};
 
-	//JSX part
-	return (
-		<Grid container direction="row">
-			<Grid item xs={12} sm={3} style={{ paddingTop: "20px" }}>
-				<input
-					accept="image/png, image/jpeg, application/pdf, image/jpg "
-					id="file"
-					multiple={props?.multiple === false ? false : true}
-					type="file"
-					onChange={handleInputChange}
-				/>
-			</Grid>
-			<Grid item xs={12} sm={4} style={{ paddingTop: "10px" }}>
-				<ButtonPrimary
-					variant="contained"
-					component="span"
-					disabled={loader}
-					onClick={() => {
-						props.setLoadingFlag(true);
-						setLoader(true);
-						uploadDoc();
-					}}
-					id="button_stepper_prev"
-					stylebutton='{"padding":"0px 30px", "fontFamily":"Muli,sans-serif" }'
-				>
-					Upload
-				</ButtonPrimary>
-			</Grid>
-		</Grid>
-	);
+  //JSX part
+  return (
+    <Grid container direction="row">
+      <Grid  style={{ paddingTop: "20px" }}>
+        <input
+          accept="image/png, image/jpeg, application/pdf, image/jpg "
+          id="file"
+          multiple = { props?.multiple === false ? false : true }
+          type="file"
+          onChange={handleInputChange}
+        />
+      </Grid>
+      <Grid  style={{ paddingTop: "10px" }} >
+        <ButtonPrimary
+          variant="contained"
+          component="span"
+          disabled={loader}
+          onClick={() => {
+            props.setLoadingFlag(true)
+            setLoader(true)
+            uploadDoc()
+          }
+           }
+          id="button_stepper_prev"
+          stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
+        >
+          Upload
+        </ButtonPrimary>
+      </Grid>
+    </Grid>
+  );
 }

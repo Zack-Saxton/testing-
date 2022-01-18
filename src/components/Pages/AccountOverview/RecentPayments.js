@@ -23,25 +23,25 @@ export default function RecentPayments(userRecentPaymentData) {
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell className={classes.tablehead} align="center">
+              <TableCell style={{fontSize:"0.938rem", fontWeight:"700"}} className={classes.tablehead} align="center">
                 Date
               </TableCell>
-              <TableCell className={classes.tablehead} align="center">
+              <TableCell style={{fontSize:"0.938rem", fontWeight:"700"}} className={classes.tablehead} align="center">
                 Description
               </TableCell>
-              <TableCell className={classes.tablehead} align="center">
+              <TableCell style={{fontSize:"0.938rem", fontWeight:"700"}} className={classes.tablehead} align="center">
                 Principal
               </TableCell>
-              <TableCell className={classes.tablehead} align="center">
+              <TableCell style={{fontSize:"0.938rem", fontWeight:"700"}} className={classes.tablehead} align="center">
                 Interest
               </TableCell>
-              <TableCell className={classes.tablehead} align="center">
+              <TableCell style={{fontSize:"0.938rem", fontWeight:"700"}} className={classes.tablehead} align="center">
                 Other
               </TableCell>
-              <TableCell className={classes.tablehead} align="center">
+              <TableCell style={{fontSize:"0.938rem", fontWeight:"700"}} className={classes.tablehead} align="center">
                 Total Amount
               </TableCell>
-              <TableCell className={classes.tablehead} align="center">
+              <TableCell style={{fontSize:"0.938rem", fontWeight:"700"}} className={classes.tablehead} align="center">
                 Balance
               </TableCell>
             </TableRow>

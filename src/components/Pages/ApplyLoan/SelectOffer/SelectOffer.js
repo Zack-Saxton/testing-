@@ -98,18 +98,17 @@ export default function ApplyLoan() {
 		heading: {
 			color: "#fff",
 			fontWeight: "400",
-			fontSize: "1.64rem",
-			paddingLeft: "7px",
-			paddingBottom: "25px",
+			fontSize: "1.563rem",
+			paddingBottom: "10px",
 		},
 		tabLabel: {
 			background: "white",
-			margin: "10px",
+			margin: "0px 20px 10px 0px",
 			color: "#3f51b5",
 			fontFamily: "'Muli', sans-serif !important",
-			fontSize: "1rem",
+			fontSize: "0.938rem",
 			textTransform: "none",
-			fontWeight: "600",
+			fontWeight: "700",
 		},
 		tabVerticalLabel: {
 			color: "#3f51b5",
@@ -302,8 +301,8 @@ export default function ApplyLoan() {
 				justifyContent={"center"}
 				style={{
 					marginTop: "-150px",
-					paddingRight: "30px",
-					paddingLeft: "30px",
+					paddingRight: "23px",
+					paddingLeft: "23px",
 				}}
 			>
 				<Grid
@@ -311,7 +310,7 @@ export default function ApplyLoan() {
 					item
 					xs={12}
 					direction="row"
-					style={{ marginBottom: "-20px", width: "100%" }}
+					style={{  width: "100%" }}
 				>
 					<Typography className={classes.heading} variant="h3">
 						<NavLink
@@ -369,10 +368,10 @@ export default function ApplyLoan() {
 						/>
 					</Tabs>
 
-					<TabPanel tabPanelValue={value} index={0}>
+					<TabPanel tabPanelValue={value} index={0} style={{marginTop:"10px"}}>
 						<Grid container item xs={12}>
 							{noOffers ? (
-								<Grid item xs={12} style={{ padding: "5px", width: "100%" }}>
+								<Grid item xs={12} style={{  width: "100%" }}>
 									<Paper style={{ padding: "20px" }} className={classes.paper}>
 										<Typography>
 											{errorMessage.applyForLoan.selectAmount.noOffersAvailable}
@@ -385,7 +384,7 @@ export default function ApplyLoan() {
 										item
 										xs={12}
 										sm={3}
-										style={{ padding: "5px", width: "100%" }}
+										style={{  width: "100%" }}
 										className={loading ? classes.loadingOn : classes.loadingOff}
 									>
 										<Paper className={classes.paperVerticalTab}>
@@ -413,7 +412,7 @@ export default function ApplyLoan() {
 																		key={index}
 																		label={
 																			<span
-																				style={{ float: "left", width: "100%" }}
+																				style={{ float: "left", width: "100%", fontSize:"0.938rem", fontWeight:"700" }}
 																			>
 																				{item + " Month Term"}
 																			</span>

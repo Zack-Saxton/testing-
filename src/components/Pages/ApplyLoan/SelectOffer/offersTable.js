@@ -121,15 +121,7 @@ export default function OfferTable(props) {
 		handleAdd(row);
 	};
 	return (
-		<Grid
-			item
-			xs={12}
-			sm={9}
-			className={
-				props.loading ? props.classes.loadingOn : props.classes.loadingOff
-			}
-			style={{ padding: "5px", width: "100%" }}
-		>
+		<Grid id="loanListTable" item xs={12} sm={9}  className={props.loading ? props.classes.loadingOn : props.classes.loadingOff}  style={{ padding: "0px 0px 0px 15px", width: "100%" }}>
 			<Paper className={props.classes.paper}>
 				{props.rowData ? (
 					<TabVerticalPanel tabValue={props.value} verticalIndex={props.value}>
@@ -144,7 +136,7 @@ export default function OfferTable(props) {
 								offerFlag={props.offerFlag}
 							/>
 						</Grid>
-						<Grid item xs={12} style={{ paddingBottom: "10px", width: "100%" }}>
+						<Grid  item xs={12} style={{ paddingBottom: "10px", width: "100%" }}>
 							<TableContainer>
 								<Table
 									className={props.classes.table}
@@ -334,17 +326,15 @@ export default function OfferTable(props) {
 								<CircularProgress />
 							</Grid>
 						</Grid>
-						<Grid container direction="row">
+						<Grid style={{padding:"10px 0px"}} container direction="row">
 							<Grid
-								container
-								item
-								xs={1}
-								sm={1}
+								
+								
 								direction="row"
-								style={{ paddingTop: "10px", float: "left" }}
+								style={{  float: "left" }}
 							>
 								<ButtonSecondary
-									stylebutton='{"marginRight": "" }'
+									stylebutton='{"marginRight": "","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
 									styleicon='{ "color":"" }'
 									id="apply-loan-reset-button"
 									onClick={() => {
@@ -358,16 +348,14 @@ export default function OfferTable(props) {
 							</Grid>
 
 							<Grid
-								container
-								item
-								xs={10}
-								sm={3}
+								
+								
 								direction="row"
-								style={{ padding: "10px", float: "left" }}
+								style={{ float: "left" }}
 								id="apply-loan-continue-button-grid"
 							>
 								<ButtonPrimary
-									stylebutton='{"marginLeft": "10px" ,"fontSize":"1rem"}'
+									stylebutton='{"marginLeft": "10px" ,"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
 									id="apply-loan-continue-button"
 									onClick={() => {
 										props.submitSelectedOffer(
@@ -396,14 +384,11 @@ export default function OfferTable(props) {
 							</Grid>
 
 							<Grid
-								container
-								item
-								xs={8}
-								sm={8}
+								
 								direction="row"
 								style={{
-									padding: "10px",
-									width: "100%",
+									// padding: "10px",
+									
 									float: "right",
 									justifyContent: "end",
 									display: props.offerFlag ? "block" : "none",

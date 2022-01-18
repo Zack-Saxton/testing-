@@ -212,8 +212,8 @@ export default function BankAccountVerification(props) {
 		<div>
 			<form onSubmit={formik.handleSubmit}>
 				<div>
-					<p style={{ textAlign: "justify" }}>
-						<b>Funding</b> <br />
+					<p style={{ textAlign: "justify", fontSize:"0.938rem" }}>
+						<span style={{ fontSize: "1.063rem", paddingBottom:"6px", fontWeight:"400", display:"block" }}>Funding</span>
 						Please provide your bank account information. This is the bank
 						account where you will receive your Funds Please note that this bank
 						account must be in the applicant's name
@@ -221,6 +221,7 @@ export default function BankAccountVerification(props) {
 
 					<Grid sm={12} item className={classes.content_grid}>
 						<TextField
+							id="accountHolderInput"
 							name="accountHolder"
 							placeholder="Account Holder"
 							label="Account Holder"
@@ -238,8 +239,9 @@ export default function BankAccountVerification(props) {
 					</Grid>
 				</div>
 
-				<Grid item xs={12} className={classes.content_grid}>
+				<Grid id="accountTypeTxt" item xs={12} className={classes.content_grid}>
 					<Radio
+						id="accountTypeRadioTxt"
 						name="accountType"
 						labelforform="Account Type"
 						radiolabel='[{"label":"Savings", "value":"saving"},{"label":"Checking", "value":"checking"}]'
@@ -249,7 +251,7 @@ export default function BankAccountVerification(props) {
 						}}
 						row={true}
 						labelplacement={"end"}
-						style={{ fontWeight: "normal" }}
+						style={{ fontWeight: "normal", fontSize:"10px" }}
 					/>
 					<FormHelperText error={true}>
 						{accountType === "" ? "Account type required" : ""}
@@ -258,6 +260,7 @@ export default function BankAccountVerification(props) {
 				<Grid container spacing={4} direction="row">
 					<Grid item xs={12} sm={6} style={{ width: "100%" }}>
 						<TextFieldWithToolTip
+							id="bankRoutingNumberInput"
 							name="bankRoutingNumber"
 							style={{ width: "100%" }}
 							value={formik.values.bankRoutingNumber}
@@ -317,6 +320,7 @@ export default function BankAccountVerification(props) {
 
 					<Grid item xs={12} sm={6} style={{ width: "100%" }}>
 						<TextFieldWithToolTip
+							id="bankInformationInput"
 							name="bankInformation"
 							style={{ width: "100%" }}
 							value={formik.values.bankInformation}
@@ -351,6 +355,7 @@ export default function BankAccountVerification(props) {
 				</Grid>
 				<Grid item sm={12} className={classes.content_grid}>
 					<TextField
+						id="bankAccountNumberInput"
 						name="bankAccountNumber"
 						placeholder="Bank Account Number"
 						label="Bank Account Number"
@@ -371,6 +376,7 @@ export default function BankAccountVerification(props) {
 				</Grid>
 				<Grid item sm={12} className={classes.content_grid}>
 					<TextField
+						id="confirmAccountNumberInput"
 						name="confirmBankAccountNumber"
 						placeholder="Confirm Account Number"
 						label="Confirm Account Number"
@@ -397,8 +403,8 @@ export default function BankAccountVerification(props) {
 					/>
 				</Grid>
 				<div>
-					<p>
-						<b>Repayment</b> <br />
+					<p style={{ fontSize:"0.938rem"}}>
+						<span style={{ fontSize: "1.063rem", paddingBottom:"6px",marginTop:"30px", fontWeight:"500", display:"block" }}>Repayment</span>
 						Please choose your preferred repayment method.
 					</p>
 				</div>
@@ -415,16 +421,16 @@ export default function BankAccountVerification(props) {
 						labelplacement={"end"}
 						style={{ fontWeight: "normal" }}
 					/>
-					<FormHelperText error={true}>
+					<FormHelperText style={{paddingLeft:"28px"}} error={true}>
 						{paymnetMode === "" ? "Account type required" : ""}
 					</FormHelperText>
 					<span>
-						<br />
 						<p
 							style={{
-								marginLeft: "30px",
-								marginTop: "-10px",
+								margin: "0px",
+								paddingLeft:"28px",
 								textAlign: "justify",
+								fontSize:"0.938rem"
 							}}
 						>
 							We electronically debit your bank account each month. You can
@@ -439,6 +445,7 @@ export default function BankAccountVerification(props) {
 				</Grid>
 				<Grid item xs={12}>
 					<Radio
+						id="paymentbyCheckTxt"
 						name="question"
 						radiolabel='[{"label":"Payment by Check", "value":"checkpayment"}]'
 						row={true}
@@ -452,7 +459,7 @@ export default function BankAccountVerification(props) {
 					/>
 					<span>
 						<br />
-						<p style={{ marginLeft: "30px", marginTop: "-10px" }}>
+						<p style={{ marginLeft: "30px", marginTop: "-10px",fontSize:"0.938rem" }}>
 							{" "}
 							You'll mail us a check each month.
 						</p>
@@ -494,7 +501,7 @@ export default function BankAccountVerification(props) {
 				<div className={props.classes.actionsContainer}>
 					<div className={props.classes.button_div}>
 						<ButtonSecondary
-							stylebutton='{"marginRight": "10px", "color":"" }'
+							stylebutton='{"margin-right": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
 							onClick={(e) => {
 								formik.resetForm();
 								setVerifyRequired(false);
@@ -507,7 +514,7 @@ export default function BankAccountVerification(props) {
 							variant="contained"
 							color="primary"
 							id="button_stepper_next"
-							stylebutton='{"marginRight": "10px", "color":"" }'
+							stylebutton='{"margin-right": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
 							type="submit"
 							disabled={invalidRN}
 						>

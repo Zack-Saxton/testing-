@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
       float: "right!important",
       padding: 15,
       color: "#171717",
-      fontSize: 14,
+      fontSize:"0.875rem",
     },
     navLink:{
       textDecoration:'none',

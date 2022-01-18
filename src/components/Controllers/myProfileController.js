@@ -182,6 +182,7 @@ export async function getTextNotify() {
 
 export async function addCreditCard(values, cardType) {
   let url = "add_new_card_payment";
+  let expyDate = ("0" + (values.expirydate.getMonth() + 1)).slice(-2)+ "/"+ values.expirydate.getFullYear().toString().substr(-2);
   let param = "";
   let data =  {
     "address_street": values.streetAddress,
@@ -192,7 +193,7 @@ export async function addCreditCard(values, cardType) {
     "card_number": values.cardNumber,
     "issuer": cardType,
     "cvv": parseInt(values.cvv),
-    "exp_date": values.expiryMonth + "/" + values.expiryYear ,
+    "exp_date": expyDate ,
     "defaultBank": 1,
     "isMobile": true
     }

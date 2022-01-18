@@ -37,6 +37,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { tabAtom } from "../../Pages/MyProfile/MyProfileTab";
 import { useAtom } from "jotai";
+import Payment from "../../lib/Lang/makeaPayment.json";
 
 const paymentMaxDate = new Date();
 paymentMaxDate.setDate(paymentMaxDate.getDate() + 30);
@@ -116,7 +117,7 @@ export default function MakePayment(props) {
   async function enableAutoPayment(accntNo, card, paymentDate, isDebit) {
     let data = await enableAutoPay(accntNo, card, paymentDate, isDebit)
     data.data.status === 200 ?
-      data.data.data.paymentResult.HasNoErrors === true ? toast.success('Auto Payment mode Enabled', {
+      data.data.data.paymentResult.HasNoErrors === true ? toast.success(Payment.Auto_Payment_Mode_Enabled, {
         position: "bottom-left",
         autoClose: 5000,
         hideProgressBar: false,
@@ -125,7 +126,7 @@ export default function MakePayment(props) {
         draggable: true,
         progress: undefined,
       }
-      ) : toast.error('Failed Payment mode', {
+      ) : toast.error(Payment.Failed_Payment_mode, {
         position: "bottom-left",
         autoClose: 5000,
         hideProgressBar: false,
@@ -133,7 +134,7 @@ export default function MakePayment(props) {
         pauseOnHover: true,
         draggable: true,
         progress: undefined
-      }) : toast.error(data?.data?.data?.data?.message ? data.data.data.data.message : 'Failed Payment mode', {
+      }) : toast.error(data?.data?.data?.data?.message ? data.data.data.data.message : Payment.Failed_Payment_mode, {
         position: "bottom-left",
         autoClose: 5000,
         hideProgressBar: false,
@@ -149,7 +150,7 @@ export default function MakePayment(props) {
   async function disableAutoPayment(accntNo, card, paymentDate, isDebit) {
     let data = await disableAutoPay(accntNo, card, paymentDate, isDebit);
     data.data.status === 200 ?
-      data.data.data.deletePayment.HasNoErrors === true ? toast.success('Auto Payment mode Disabled', {
+      data.data.data.deletePayment.HasNoErrors === true ? toast.success(Payment.Auto_Payment_Mode_Disabled, {
         position: "bottom-left",
         autoClose: 5000,
         hideProgressBar: false,
@@ -158,7 +159,7 @@ export default function MakePayment(props) {
         draggable: true,
         progress: undefined,
       }
-      ) : toast.error('Failed Payment mode', {
+      ) : toast.error(Payment.Failed_Payment_mode , {
         position: "bottom-left",
         autoClose: 5000,
         hideProgressBar: false,
@@ -182,7 +183,7 @@ export default function MakePayment(props) {
   async function makeuserPayment(accntNo, card, paymentDatepicker, isDebit, paymentAmount) {
     setPaymentOpen(false)
     let data = await makePayment(accntNo, card, paymentDatepicker, isDebit, paymentAmount);
-    let message= paymentDatepicker === Moment().format("YYYY/MM/DD") ? 'We received your payment successfully' : 'Payment has been scheduled';
+    let message= paymentDatepicker === Moment().format("YYYY/MM/DD") ? Payment.We_Received_Your_Payment_Successfully : Payment.Payment_has_Scheduled;
     data.data.status === 200 ?
       data?.data?.data?.paymentResult?.PaymentCompleted !== undefined ? toast.success(message, {
         position: "bottom-left",
@@ -193,7 +194,7 @@ export default function MakePayment(props) {
         draggable: true,
         progress: undefined,
       }
-      ) : toast.error('Failed Payment mode', {
+      ) : toast.error(Payment.Failed_Payment_mode, {
         position: "bottom-left",
         autoClose: 5000,
         hideProgressBar: false,
@@ -227,7 +228,7 @@ export default function MakePayment(props) {
         draggable: true,
         progress: undefined,
       }
-      ) : toast.error('Failed Payment mode', {
+      ) : toast.error(Payment.Failed_Payment_mode, {
         position: "bottom-left",
         autoClose: 5000,
         hideProgressBar: false,
@@ -304,7 +305,7 @@ export default function MakePayment(props) {
 
       // if accno is not Valid
       if (res === false) {
-        toast.error('Invalid Account Number', {
+        toast.error(Payment.Invalid_Account_Number, {
           position: "bottom-left",
           autoClose: 5000,
           hideProgressBar: false,
@@ -543,28 +544,28 @@ export default function MakePayment(props) {
                 <TableHead>
                   <TableRow>
                     <TableCell className={classes.tableHead}>
-                      Account Number
+                     {Payment.Account_Number}
                     </TableCell>
                     <TableCell className={classes.tableHead} align="left">
-                      Today's Payoff
+                      {Payment.Todays_Payoff}
                     </TableCell>
                     <TableCell className={classes.tableHead} align="left">
-                      Regular Amount
+                      {Payment.Regular_Amount}
                     </TableCell>
                     <TableCell className={classes.tableHead} align="left">
-                      Loan Fees
+                     {Payment.Loan_Fees}
                     </TableCell>
                     <TableCell className={classes.tableHead} align="left">
-                      Total
+                      {Payment.Total}
                     </TableCell>
                     <TableCell className={classes.tableHead} align="left">
-                      Next Due Date
+                      {Payment.Next_Due_Date}
                     </TableCell>
                     <TableCell className={classes.tableHead} align="left">
-                      Scheduled Payment
+                      {Payment.Scheduled_Payment}
                     </TableCell>
                     <TableCell className={classes.tableHead} align="left">
-                      Auto Pay
+                      {Payment.Auto_Pay}
                     </TableCell>
                   </TableRow>
                 </TableHead>
