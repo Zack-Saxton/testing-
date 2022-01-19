@@ -74,7 +74,7 @@ export default function MyProfile() {
   async function getUserAccountDetails() {
     setAccountDetails(await usrAccountDetails());
   }
-
+  Cookies.set("opted_phone_texting", accountDetails?.data?.data?.customer?.latest_contact?.opted_phone_texting);
 
   const [profileImage, setProfileImage] = useState(null);
   async function AsyncEffect_profileImage() {
@@ -93,17 +93,19 @@ export default function MyProfile() {
 
   };
 
-  let localTextNotify = localStorage.getItem("isTextNotify");
-  if (!localTextNotify) {
+
+  let cookieTextNotify = Cookies.get("isTextNotify");
+  if (!cookieTextNotify) {
     let textNotifyStatus = getTextNotify();
     let textNotifyData = textNotifyStatus?.data?.data != null ? textNotifyStatus?.data?.data : null;
     let isTextNotify = textNotifyData?.sbt_getInfo != null && textNotifyData?.sbt_getInfo?.SubscriptionInfo != null ? textNotifyData?.sbt_getInfo?.SubscriptionInfo[0]?.SubscriptionOptions[0]?.OptInMarketing : false;
-    localStorage.setItem("isTextNotify",isTextNotify);
+    Cookies.set('isTextNotify',isTextNotify);
+    cookieTextNotify = Cookies.get("isTextNotify");
   }
 
- let textnotify = localStorage.getItem("isTextNotify") === "true" ? "On" : "Off";
+ let textnotify = cookieTextNotify === "true" ? "On" : "Off";
  let hasActiveLoan = Cookies.get("hasActiveLoan") === "true" ? true : false;
-  let hasApplicationStatus = Cookies.get("hasApplicationStatus")
+  let hasApplicationStatus = Cookies.get("hasApplicationStatus");
   var appStatus=["rejected", "reffered", "expired"]; 
   let checkAppStatus = appStatus.includes(hasApplicationStatus)
   let disableField = (checkAppStatus === true || hasActiveLoan === true) ? true : false;
