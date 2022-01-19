@@ -57,16 +57,13 @@ export async function mailingAddress(body) {
 
 export async function textNotification(body, sub) {
   const email = Cookies.get("email");
-  const userToken = Cookies.get("userToken");
-  const token = JSON.parse(Cookies.get("token") ? Cookies.get("token") : '{ }');
-  const accountDetails = JSON.parse(Cookies.get("accountDetails") ? Cookies.get("accountDetails") : '{ }');
-  let appGUID = token.applicantGuid;
   let cleanednumber = body.phone.replace(/\D/g, "");
-  let allLoansClosed = accountDetails?.data?.data?.allLoansClosed ? accountDetails.data.data.allLoansClosed : false;
-
+  let allLoansClosed =  Cookies.get("hasActiveLoan") === "true" ? false : true;
   let url = "text_unsubscribe";
+  let textingOn = false;
   if (sub) {
     url = "text_subscribe";
+    textingOn = true;
   } 
   let param = "";
   let data = {
@@ -81,15 +78,7 @@ export async function textNotification(body, sub) {
     profileInfo: {
       email: email,
       opted_phone_texting: cleanednumber,
-      texting: true,
-    },
-    user: {
-      attributes: {
-        UserToken: userToken,
-        sor_data: {
-          customer_guid: appGUID,
-        },
-      },
+      texting: textingOn,
     },
     sbtInfo: [
       {
@@ -117,7 +106,7 @@ export async function getTextNotify() {
   let appGUID = token.applicantGuid;
   let opted_phone_texting = accountDetails?.data?.data?.latest_contact?.opted_phone_texting ? accountDetails?.data?.data?.latest_contact?.opted_phone_texting : "";
   let cleanednumber = opted_phone_texting.replace(/\D/g, "");
-  let allLoansClosed = accountDetails?.data?.data?.allLoansClosed ? accountDetails.data.data.allLoansClosed : false;
+  let allLoansClosed =  Cookies.get("hasActiveLoan") === "true" ? false : true;
 
   let url = "sbt_getInfo";
   let param = "";
