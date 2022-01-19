@@ -1738,7 +1738,7 @@ export default function PaymentMethod() {
             >
                    <DialogTitle id="debitCardModalHeading">
                                 <Typography id="deleteTxt" className={classes.dialogHeading} style={{marginLeft:"135px"}}>
-                                    Are you sure you want to delete bank account?
+                                Are you sure you want to delete this payment method?
                                 </Typography>
                                 <IconButton
                                     id="debitCardModalClose"
