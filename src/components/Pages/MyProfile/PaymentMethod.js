@@ -78,11 +78,11 @@ const validationSchemaDebitCard = yup.object({
     expirydate: yup
         .date("Please enter a valid date")
         .nullable()
-        .required("Your Card Expiry Date is required")
-        .typeError("Please enter a valid date")
+        .required("Expiration Date is required")
+        .typeError("Enter a valid date (format : MM/YY)")
         .min(
           new Date(new Date().getFullYear(), new Date().getMonth()),
-          "Please check your Expiry Month and Year"
+          "Your debit card has expired"
         ),
 });
 
@@ -1392,7 +1392,7 @@ export default function PaymentMethod() {
                         >
                             <DatePicker
                 name="expirydate"
-                label="Expiration"
+                label="Expiration Date"
                 id="expirydate"
                 className="expirydate"
                 placeholder="MM/YY"
@@ -1738,7 +1738,7 @@ export default function PaymentMethod() {
             >
                    <DialogTitle id="debitCardModalHeading">
                                 <Typography id="deleteTxt" className={classes.dialogHeading} style={{marginLeft:"135px"}}>
-                                    Are you sure you want to delete bank account?
+                                Are you sure you want to delete this payment method?
                                 </Typography>
                                 <IconButton
                                     id="debitCardModalClose"
