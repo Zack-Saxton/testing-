@@ -194,8 +194,6 @@ export default function SideNav() {
   const [checkPresenceOfLoan, setCheckPresenceOfLoan] = useState(false)
   const [checkPresenceOfLoanStatus, setCheckPresenceOfLoanStatus] = useState('')
 
-  
-
   useEffect(() => {
     let noOfLoans = dataAccountOverview?.data?.data?.activeLoans?.length;
     let activeLoan = dataAccountOverview?.data?.data?.applicants;
@@ -485,7 +483,6 @@ let disableField = (checkAppStatus === true || hasActiveLoan === true) ? true : 
     
   }
  
- 
 //Menu bar 
   const renderMenu = (
     <Menu
@@ -656,6 +653,9 @@ if(navElement){
                 <img id="sidebarProfilePic" src={dataProfile?.profile_picture_url ? dataProfile?.profile_picture_url : getProfileImage} alt="Profile Pic" onClick={handleMenuProfile} />
                 </div>
               </ListItem> 
+              <ListItem id="sidemenuName">
+               {(dataAccountOverview?.data?.data?.applicant?.contact?.first_name) ?  'Welcome ' + dataAccountOverview?.data?.data?.applicant?.contact?.first_name : "" }
+              </ListItem>
               {(branchName === '' || branchName === 'undefined') || (branchPhone === '' || branchPhone === 'undefined') ?
               <>
               <ListItem id="sidemenuLastLogin">  
@@ -725,8 +725,8 @@ if(navElement){
               </ListItem>
             </NavLink>}
 
-            <NavLink to="/customers/loanDocument" onClick={(e)=>{activeLoanData && e.preventDefault()}} className={activeLoanData ? 'nav_link_disabled' : 'nav_link'}>
-              <ListItem className="titleSidenav" disabled={activeLoanData}>
+            <NavLink to="/customers/loanDocument" onClick={(e)=>{activeLoanData && checkPresenceOfLoanStatus !== "under_review" && checkPresenceOfLoanStatus !== "final_review" && e.preventDefault()}} className={activeLoanData && checkPresenceOfLoanStatus !== "under_review" && checkPresenceOfLoanStatus !== "final_review" ? 'nav_link_disabled' : 'nav_link'}>
+              <ListItem className="titleSidenav" disabled={activeLoanData === true && checkPresenceOfLoanStatus !== "under_review" && checkPresenceOfLoanStatus !== "final_review" ? true : false}>
                 <ListItemIcon>
                   {" "}
                   <DescriptionOutlinedIcon />{" "}

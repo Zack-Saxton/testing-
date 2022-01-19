@@ -5,11 +5,16 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import { ButtonPrimary } from "../../FormsUI";
+import { NavLink } from "react-router-dom";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { useStylesAccountOverview } from "./Style";
 import Moment from "moment";
 import NumberFormat from 'react-number-format';
+import "./Style.css";
 
 export default function RecentPayments(userRecentPaymentData) {
   //Material UI css class
@@ -18,6 +23,22 @@ export default function RecentPayments(userRecentPaymentData) {
   let userRecentPayment = userRecentPaymentData != null ? userRecentPaymentData : null;
 
   return (
+    <Grid item xs={12} style={{ width: "100%", padding: "0px 0px 40px 0px" }}>
+          <Paper id="recentPaymentsWrap" className={classes.paper} style={{ height: "85%" }} >
+            <Grid container spacing={3}>
+              <Grid item xs={12} sm={6}>
+                <Typography variant="h5" className={classes.activeLoanHeading}>
+                  Recent Payments
+                </Typography>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <NavLink to="/customers/paymenthistory" style={{ textDecoration: "none" }}>
+                  <ButtonPrimary stylebutton='{"float": "right","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'>
+                    Payment History
+                  </ButtonPrimary>
+                </NavLink>
+              </Grid>
+            </Grid>
     <Grid item xs={12} style={{ paddingBottom: "10px" }}>
       <TableContainer>
         <Table aria-label="simple table">
@@ -117,5 +138,7 @@ export default function RecentPayments(userRecentPaymentData) {
         </Table>
       </TableContainer>
     </Grid>
+    </Paper>
+        </Grid>
   );
 }

@@ -27,7 +27,7 @@ function downloadFileData(data) {
   document.body.appendChild(link);
   link.click();
 
-  toast.success("downloaded successfully", {
+  toast.success("Document Downloaded Successfully", {
     position: "bottom-left",
     autoClose: 5000,
     hideProgressBar: false,
@@ -132,7 +132,7 @@ export async function uploadDocument(test, fileName, fileType, documentType) {
   
   //API response
   uploadData.data.status === 200
-    ? toast.success((uploadData?.data?.data?.data?.message) ? (uploadData.data.data.data.message) : (uploadData?.data?.data?.message) ? (uploadData.data.data.message) :"Uploaded Successfully", {
+    ? toast.success((uploadData?.data?.data?.data?.message) ? (uploadData.data.data.data.message) : (uploadData?.data?.data?.message) ? (uploadData.data.data.message) :"Document Uploaded Successfully", {
         position: "bottom-left",
         autoClose: 5000,
         hideProgressBar: false,

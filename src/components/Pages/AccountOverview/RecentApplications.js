@@ -6,12 +6,14 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { useStylesAccountOverview } from "./Style";
 import { ButtonPrimary } from "../../FormsUI";
 import NumberFormat from 'react-number-format';
 import { useHistory } from "react-router-dom";
 import Cookies from "js-cookie";
+import "./Style.css";
 
 
 
@@ -79,6 +81,22 @@ export default function RecentApplications({ userApplicationsData,UserAccountSta
   
   //View
   return (
+    <>
+    <Grid
+          item
+          xs={12}
+          style={{ width: "100%", paddingBottom: "10px", paddingTop: "20px" }}
+          container
+          direction="row"
+        >
+          <Typography
+            variant="h5"
+            className={classes.subheading}
+            data-testid="subtitle"
+          >
+            Summary of applications
+          </Typography>
+        </Grid>
     <Grid item xs={12} style={{ width: "100%", paddingBottom: "10px" }}>
       <TableContainer id="summaryOfApplications" component={Paper}>
         <Table className={classes.table} aria-label="simple table">
@@ -168,5 +186,6 @@ export default function RecentApplications({ userApplicationsData,UserAccountSta
         </Table>
       </TableContainer>
     </Grid>
+    </>
   );
 }
