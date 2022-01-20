@@ -46,7 +46,6 @@ import ValidateToken from '../Pages/ApplyLoan/Stepper/ValidateToken'
 import ErrorBeforeLogin from '../Layout/ErrorBeforeLogin/ErrorBeforeLogin';
 import ErrorAfterLogin from "../Layout/ErrorAfterLogin/ErrorAfterLogin"
 import ApplyForLoanRedirect from "../Pages/ApplyLoan/ApplyForLoanRedirect"
-import ViewAccountDetails from "../Pages/AccountOverview/ViewAccountDetails"
 import { ToastContainer } from "react-toastify";
 import ProfilePicture from '../../contexts/ProfilePicture';
 import {QueryClientProvider, QueryClient} from 'react-query';
@@ -119,7 +118,6 @@ function App() {
                                     <Route path='/customers/myProfile' component={MyProfile}/>
                                     <Route path='/customers/vantageScore' component={VantageScore}/>
                                     <Route path='/customers/faq' component={FaqPostLogin}/>
-                                    <Route path='/customers/viewaccount' component={ViewAccountDetails}/>
                                     <Route  path='*' component={ErrorAfterLogin} />
                                    
                                 </Switch>
