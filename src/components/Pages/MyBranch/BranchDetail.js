@@ -101,7 +101,7 @@ else{
             {stateName !== "CA" ? (
               <TableContainer>
                 <Grid className={classes.branchDetailGrid}>
-                  <h4 className={classes.branchDetailHeading}>Working Hours</h4>
+                  <h4 className={classes.branchDetailHeading}>Branch Hours</h4>
                 </Grid>
                 <Table id="workingHoursTableWrap" className={classes.table} aria-label="simple table">
                   <TableHead>
