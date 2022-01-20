@@ -45,7 +45,7 @@ export default function VantageScore() {
           paddingLeft: "23px",
         }}
       >
-        <Grid style={{paddingBottom:"10px"}} container>
+        <Grid style={{ paddingBottom: "10px" }} container>
           <Grid item xs={12}>
             <Typography variant="h5" className={classes.heading}>
               <NavLink
@@ -70,7 +70,7 @@ export default function VantageScore() {
         </Grid>
         <div id="creditContainer">
           <Grid item xs={12}>
-            <Paper lstyle={{padding:"36px",borderRadius:"2px !important"}} className={classes.paper}>
+            <Paper lstyle={{ padding: "36px", borderRadius: "2px !important" }} className={classes.paper}>
               {creditData ? (
                 creditData[0]?.parsed.vantage_score ?
                   (<Credit creditData={creditData} />) : <div>You do not have any credit score</div>
@@ -83,7 +83,7 @@ export default function VantageScore() {
 
         <div id="HistoricalDataContainer">
           <Grid item xs={12}>
-            <Paper style={{padding:"36px"}} className={classes.paper}>
+            <Paper style={{ padding: "36px" }} className={classes.paper}>
               {creditData ? (
                 creditData[0]?.parsed.vantage_score ? (
                   <HistoricalData creditData={creditData} />) : <div>You do not have any historical data </div>

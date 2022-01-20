@@ -118,14 +118,14 @@ export default function MakePayment(props) {
     cardData
       ? cardData?.length
         ? cardData?.forEach((data) => {
-            if (data.Nickname === defaultBank) {
-              type === "ACH"
-                ? setcard(data.SequenceNumber)
-                : setcard(data.ProfileId);
-              checkNickName = true;
-              return checkNickName;
-            }
-          })
+          if (data.Nickname === defaultBank) {
+            type === "ACH"
+              ? setcard(data.SequenceNumber)
+              : setcard(data.ProfileId);
+            checkNickName = true;
+            return checkNickName;
+          }
+        })
         : setcard("")
       : setcard("");
     return checkNickName;
@@ -137,37 +137,37 @@ export default function MakePayment(props) {
     data.data.status === 200
       ? data.data.data.paymentResult.HasNoErrors === true
         ? toast.success(Payment.Auto_Payment_Mode_Enabled, {
-            position: "bottom-left",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          })
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
         : toast.error(Payment.Failed_Payment_mode, {
-            position: "bottom-left",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          })
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
       : toast.error(
-          data?.data?.data?.data?.message
-            ? data.data.data.data.message
-            : Payment.Failed_Payment_mode,
-          {
-            position: "bottom-left",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          }
-        );
+        data?.data?.data?.data?.message
+          ? data.data.data.data.message
+          : Payment.Failed_Payment_mode,
+        {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
+      );
 
     hasSchedulePayment
       ? data.data.status === 200
@@ -181,37 +181,37 @@ export default function MakePayment(props) {
     data.data.status === 200
       ? data.data.data.deletePayment.HasNoErrors === true
         ? toast.success(Payment.Auto_Payment_Mode_Disabled, {
-            position: "bottom-left",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          })
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
         : toast.error(Payment.Failed_Payment_mode, {
-            position: "bottom-left",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          })
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
       : toast.error(
-          data?.data?.data?.data?.message
-            ? data.data.data.data.message
-            : "Failed Payment mode",
-          {
-            position: "bottom-left",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          }
-        );
+        data?.data?.data?.data?.message
+          ? data.data.data.data.message
+          : "Failed Payment mode",
+        {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
+      );
     getData();
   }
 
@@ -235,42 +235,42 @@ export default function MakePayment(props) {
       paymentDatepicker === Moment().format("YYYY/MM/DD")
         ? Payment.We_Received_Your_Payment_Successfully
         : Payment.Payment_has_Scheduled +
-          " Confirmation: " +
-          data?.data?.data?.paymentResult?.ReferenceNumber;
+        " Confirmation: " +
+        data?.data?.data?.paymentResult?.ReferenceNumber;
     data.data.status === 200
       ? data?.data?.data?.paymentResult?.PaymentCompleted !== undefined
         ? toast.success(message, {
-            position: "bottom-left",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          })
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
         : toast.error(Payment.Failed_Payment_mode, {
-            position: "bottom-left",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          })
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
       : toast.error(
-          data?.data?.data?.data?.message
-            ? data.data.data.data.message
-            : "Failed Payment mode",
-          {
-            position: "bottom-left",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          }
-        );
+        data?.data?.data?.data?.message
+          ? data.data.data.data.message
+          : "Failed Payment mode",
+        {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
+      );
     data.data.status === 200
       ? disableAutoPaymentScheduled(accntNo, card, paymentDate, isDebit)
       : getData();
@@ -282,37 +282,37 @@ export default function MakePayment(props) {
     data.data.status === 200
       ? data.data.data.deletePaymentMethod.HasNoErrors === true
         ? toast.success("Scheduled Payment cancelled", {
-            position: "bottom-left",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          })
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
         : toast.error(Payment.Failed_Payment_mode, {
-            position: "bottom-left",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          })
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
       : toast.error(
-          data?.data?.data?.data?.message
-            ? data.data.data.data.message
-            : "Failed Payment mode",
-          {
-            position: "bottom-left",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          }
-        );
+        data?.data?.data?.data?.message
+          ? data.data.data.data.message
+          : "Failed Payment mode",
+        {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
+      );
   }
 
   // Disable auto payment while make payment
@@ -351,18 +351,18 @@ export default function MakePayment(props) {
           activeLoansData?.length
             ? data != null
               ? (
-                  Math.abs(
-                    data?.loanPaymentInformation?.accountDetails
-                      ?.RegularPaymentAmount
-                  ) +
-                  Math.abs(
-                    data?.loanPaymentInformation?.accountDetails?.InterestRate
-                  ) +
-                  Math.abs(
-                    data?.loanPaymentInformation?.accountDetails
-                      ?.LoanFeesAndCharges
-                  )
-                ).toFixed(2)
+                Math.abs(
+                  data?.loanPaymentInformation?.accountDetails
+                    ?.RegularPaymentAmount
+                ) +
+                Math.abs(
+                  data?.loanPaymentInformation?.accountDetails?.InterestRate
+                ) +
+                Math.abs(
+                  data?.loanPaymentInformation?.accountDetails
+                    ?.LoanFeesAndCharges
+                )
+              ).toFixed(2)
               : null
             : null
         );
@@ -370,18 +370,18 @@ export default function MakePayment(props) {
           activeLoansData?.length
             ? data != null
               ? (
-                  Math.abs(
-                    data?.loanPaymentInformation?.accountDetails
-                      ?.RegularPaymentAmount
-                  ) +
-                  Math.abs(
-                    data?.loanPaymentInformation?.accountDetails?.InterestRate
-                  ) +
-                  Math.abs(
-                    data?.loanPaymentInformation?.accountDetails
-                      ?.LoanFeesAndCharges
-                  )
-                ).toFixed(2)
+                Math.abs(
+                  data?.loanPaymentInformation?.accountDetails
+                    ?.RegularPaymentAmount
+                ) +
+                Math.abs(
+                  data?.loanPaymentInformation?.accountDetails?.InterestRate
+                ) +
+                Math.abs(
+                  data?.loanPaymentInformation?.accountDetails
+                    ?.LoanFeesAndCharges
+                )
+              ).toFixed(2)
               : null
             : null
         );
@@ -415,16 +415,16 @@ export default function MakePayment(props) {
           activeLoansData?.length
             ? data != null
               ? Moment(
-                  data?.loanPaymentInformation?.accountDetails?.NextDueDate
-                ).format("YYYY-MM-DD")
+                data?.loanPaymentInformation?.accountDetails?.NextDueDate
+              ).format("YYYY-MM-DD")
               : "NONE"
             : "NONE"
         );
         let scheduledDate = activeLoansData?.length
           ? data?.loanPaymentInformation?.hasScheduledPayment
             ? Moment(
-                data?.loanPaymentInformation?.scheduledPayments[0]?.PaymentDate
-              ).format("MM/DD/YYYY")
+              data?.loanPaymentInformation?.scheduledPayments[0]?.PaymentDate
+            ).format("MM/DD/YYYY")
             : null
           : null;
         setpaymentDatepicker(scheduledDate ? scheduledDate : new Date());
@@ -473,19 +473,19 @@ export default function MakePayment(props) {
         activeLoansData?.length
           ? latestLoan != null
             ? (
-                Math.abs(
-                  latestLoan[0]?.loanPaymentInformation?.accountDetails
-                    ?.RegularPaymentAmount
-                ) +
-                Math.abs(
-                  latestLoan[0]?.loanPaymentInformation?.accountDetails
-                    ?.InterestRate
-                ) +
-                Math.abs(
-                  latestLoan[0]?.loanPaymentInformation?.accountDetails
-                    ?.LoanFeesAndCharges
-                )
-              ).toFixed(2)
+              Math.abs(
+                latestLoan[0]?.loanPaymentInformation?.accountDetails
+                  ?.RegularPaymentAmount
+              ) +
+              Math.abs(
+                latestLoan[0]?.loanPaymentInformation?.accountDetails
+                  ?.InterestRate
+              ) +
+              Math.abs(
+                latestLoan[0]?.loanPaymentInformation?.accountDetails
+                  ?.LoanFeesAndCharges
+              )
+            ).toFixed(2)
             : null
           : null
       );
@@ -493,19 +493,19 @@ export default function MakePayment(props) {
         activeLoansData?.length
           ? latestLoan != null
             ? (
-                Math.abs(
-                  latestLoan[0]?.loanPaymentInformation?.accountDetails
-                    ?.RegularPaymentAmount
-                ) +
-                Math.abs(
-                  latestLoan[0]?.loanPaymentInformation?.accountDetails
-                    ?.InterestRate
-                ) +
-                Math.abs(
-                  latestLoan[0]?.loanPaymentInformation?.accountDetails
-                    ?.LoanFeesAndCharges
-                )
-              ).toFixed(2)
+              Math.abs(
+                latestLoan[0]?.loanPaymentInformation?.accountDetails
+                  ?.RegularPaymentAmount
+              ) +
+              Math.abs(
+                latestLoan[0]?.loanPaymentInformation?.accountDetails
+                  ?.InterestRate
+              ) +
+              Math.abs(
+                latestLoan[0]?.loanPaymentInformation?.accountDetails
+                  ?.LoanFeesAndCharges
+              )
+            ).toFixed(2)
             : null
           : null
       );
@@ -539,18 +539,18 @@ export default function MakePayment(props) {
         activeLoansData?.length
           ? latestLoan != null
             ? Moment(
-                latestLoan[0]?.loanPaymentInformation?.accountDetails
-                  ?.NextDueDate
-              ).format("YYYY-MM-DD")
+              latestLoan[0]?.loanPaymentInformation?.accountDetails
+                ?.NextDueDate
+            ).format("YYYY-MM-DD")
             : "NONE"
           : "NONE"
       );
       let scheduledDate = latestLoan?.length
         ? latestLoan[0]?.loanPaymentInformation?.hasScheduledPayment
           ? Moment(
-              latestLoan[0]?.loanPaymentInformation?.scheduledPayments[0]
-                ?.PaymentDate
-            ).format("MM/DD/YYYY")
+            latestLoan[0]?.loanPaymentInformation?.scheduledPayments[0]
+              ?.PaymentDate
+          ).format("MM/DD/YYYY")
           : null
         : null;
       setpaymentDatepicker(scheduledDate ? scheduledDate : new Date());
@@ -571,18 +571,18 @@ export default function MakePayment(props) {
   let paymentListAch =
     paymentData && paymentData.ACHMethods != null
       ? paymentData.ACHMethods.map((pdata) => ({
-          value: pdata.SequenceNumber,
-          label:
-            pdata.AccountType + " (****" + pdata.AccountNumber.substr(-4) + ")",
-        }))
+        value: pdata.SequenceNumber,
+        label:
+          pdata.AccountType + " (****" + pdata.AccountNumber.substr(-4) + ")",
+      }))
       : null;
 
   let paymentListCard =
     paymentData && paymentData.ACHMethods != null
       ? paymentData.CardMethods.map((pdata) => ({
-          value: pdata.ProfileId,
-          label: pdata.CardType + " (****" + pdata.LastFour + ")",
-        }))
+        value: pdata.ProfileId,
+        label: pdata.CardType + " (****" + pdata.LastFour + ")",
+      }))
       : null;
 
   const paymentOptions =
@@ -600,25 +600,25 @@ export default function MakePayment(props) {
   let routingNumber =
     latestLoanData != null
       ? latestLoanData[0]?.loanPaymentInformation?.scheduledPayments[0]
-          ?.PaymentMethod?.AchInfo != null
+        ?.PaymentMethod?.AchInfo != null
         ? latestLoanData[0].loanPaymentInformation.scheduledPayments[0]
-            .PaymentMethod.AchInfo.RoutingNumber
+          .PaymentMethod.AchInfo.RoutingNumber
         : 0
       : 0;
   let refNumber =
     latestLoanData != null
       ? latestLoanData[0]?.loanPaymentInformation?.scheduledPayments[0]
-          ?.ReferenceNumber != null
+        ?.ReferenceNumber != null
         ? latestLoanData[0].loanPaymentInformation.scheduledPayments[0]
-            .ReferenceNumber
+          .ReferenceNumber
         : 0
       : 0;
   let isCard =
     latestLoanData != null
       ? latestLoanData[0]?.loanPaymentInformation?.scheduledPayments[0]
-          ?.PaymentMethod?.IsCard === true
+        ?.PaymentMethod?.IsCard === true
         ? latestLoanData[0].loanPaymentInformation.scheduledPayments[0]
-            .PaymentMethod.IsCard
+          .PaymentMethod.IsCard
         : false
       : false;
   let status = accountDetails != null ? accountDetails.data.status : null;
@@ -627,7 +627,7 @@ export default function MakePayment(props) {
   const handleChangeSelect = (event) => {
     setcard(event.target.value);
     event.nativeEvent.target.innerText.includes("Checking") ||
-    event.nativeEvent.target.innerText.includes("Savings")
+      event.nativeEvent.target.innerText.includes("Savings")
       ? setisDebit(false)
       : setisDebit(true); //true
     setrequiredSelect("");
@@ -754,7 +754,7 @@ export default function MakePayment(props) {
       price =
         price.indexOf(".") >= 0
           ? price.substr(0, price.indexOf(".")) +
-            price.substr(price.indexOf("."), 3)
+          price.substr(price.indexOf("."), 3)
           : price;
       setpaymentAmount(price);
       setRequiredAmount("");
@@ -950,7 +950,7 @@ export default function MakePayment(props) {
                 >
                   <Paper className={classes.paper}>
                     {paymentOptions !== null &&
-                    showCircularProgress !== true ? (
+                      showCircularProgress !== true ? (
                       <div>
                         <Grid item xs={12}>
                           <Typography

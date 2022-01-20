@@ -8,7 +8,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
 }
-.MuiFormLabel-root, .MuiTypography-root, .MuiFormHelperText-root, .placeholder, 
+.MuiFormLabel-root, .MuiTypography-root, .MuiFormHelperText-root, .placeholder,
 .MuiInputBase-root, .MuiTableCell-root{
   font-family: 'Muli', sans-serif !important;
 }

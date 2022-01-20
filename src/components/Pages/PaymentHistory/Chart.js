@@ -1,5 +1,5 @@
 import React from "react";
-import {useStylesPaymenthistory} from "./Style";
+import { useStylesPaymenthistory } from "./Style";
 import Chartist from "react-chartist";
 import tooltip from "chartist-plugin-tooltips-updated";
 import Typography from "@material-ui/core/Typography";

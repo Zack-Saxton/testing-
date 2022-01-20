@@ -14,12 +14,6 @@ export default async function LoginController(email, password) {
 
   //API call
   let loginMethod = await APICall(url, param, data, method, addAccessToken);
-  Cookies.set("user", JSON.stringify({user: loginMethod?.data?.data?.user }));
+  Cookies.set("user", JSON.stringify({ user: loginMethod?.data?.data?.user }));
   return loginMethod;
 }
-
-
-
-
- 
-

@@ -20,8 +20,8 @@ function TabPanel(props) {
 		<div
 			role="tabpanel"
 			hidden={value !== index}
-			id={`scrollable-auto-tab-panel-${index}`}
-			aria-labelledby={`scrollable-auto-tab-${index}`}
+			id={`scrollable-auto-tab-panel-${ index }`}
+			aria-labelledby={`scrollable-auto-tab-${ index }`}
 			{...other}
 		>
 			{value === index && (
@@ -41,36 +41,36 @@ TabPanel.propTypes = {
 
 function a11yProps(index) {
 	return {
-		id: `scrollable-auto-tab-${index}`,
-		"aria-controls": `scrollable-auto-tab-panel-${index}`,
+		id: `scrollable-auto-tab-${ index }`,
+		"aria-controls": `scrollable-auto-tab-panel-${ index }`,
 	};
 }
 
 //Styling
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(2),
-    display: "flex",
-    flexDirection: "column",
-    color: theme.palette.text.secondary,
-  },
-  heading: {
-    color: "#fff",
-    fontWeight: "400",
-    fontSize: "1.64rem",
-  },
-  tabLabel: {
-    background: "white",
-    margin: "0px 20px 0px 0px",
-    color: "#3f51b5",
-    fontFamily: "'Muli', sans-serif !important",
-    fontSize: "0.938rem !importnat",
-    textTransform: "none",
-    fontWeight: "700",
-  },
+	root: {
+		flexGrow: 1,
+	},
+	paper: {
+		padding: theme.spacing(2),
+		display: "flex",
+		flexDirection: "column",
+		color: theme.palette.text.secondary,
+	},
+	heading: {
+		color: "#fff",
+		fontWeight: "400",
+		fontSize: "1.64rem",
+	},
+	tabLabel: {
+		background: "white",
+		margin: "0px 20px 0px 0px",
+		color: "#3f51b5",
+		fontFamily: "'Muli', sans-serif !important",
+		fontSize: "0.938rem !importnat",
+		textTransform: "none",
+		fontWeight: "700",
+	},
 
 	table: {
 		minWidth: 650,
@@ -126,44 +126,44 @@ export default function FinalVerification() {
 					</Typography>
 				</Grid>
 
-        {/* Tab section started */}
-        <Grid item xs={12}>
-          <Tabs
-            value={value}
-            onChange={handleTabChange}
-            indicatorColor="primary"
-            textColor="primary"
-            variant="scrollable"
-            scrollButtons="auto"
-            id="termsTabs"
-            style={{paddingBottom:"10px"}}
-            aria-label="scrollable auto tabs example"
-          >
-            <Tab
-            style={{fontSize:"0.938rem", fontWeight:"700"}}
-              label="1. Select Offer"
-              disabled={true}
-              className={classes.tabLabel}
-            />
-            <Tab
-              label="2. Review & Sign"
-              className={classes.tabLabel}
-              disabled={true}
-            />
-            <Tab
-              label="3. Final Verification"
-              {...a11yProps(2)}
-              className={classes.tabLabel}
-            />
-            <Tab
-              label="4. Receive your money"
-              disabled={true}
-              className={classes.tabLabel}
-            />
-          </Tabs>
+				{/* Tab section started */}
+				<Grid item xs={12}>
+					<Tabs
+						value={value}
+						onChange={handleTabChange}
+						indicatorColor="primary"
+						textColor="primary"
+						variant="scrollable"
+						scrollButtons="auto"
+						id="termsTabs"
+						style={{ paddingBottom: "10px" }}
+						aria-label="scrollable auto tabs example"
+					>
+						<Tab
+							style={{ fontSize: "0.938rem", fontWeight: "700" }}
+							label="1. Select Offer"
+							disabled={true}
+							className={classes.tabLabel}
+						/>
+						<Tab
+							label="2. Review & Sign"
+							className={classes.tabLabel}
+							disabled={true}
+						/>
+						<Tab
+							label="3. Final Verification"
+							{...a11yProps(2)}
+							className={classes.tabLabel}
+						/>
+						<Tab
+							label="4. Receive your money"
+							disabled={true}
+							className={classes.tabLabel}
+						/>
+					</Tabs>
 
-          <TabPanel value={value} index={2} style={{ paddingBottom: "30px", marginTop:"10px" }}>
-            <Stepper />
+					<TabPanel value={value} index={2} style={{ paddingBottom: "30px", marginTop: "10px" }}>
+						<Stepper />
 
 						<Grid item style={{ width: "100%" }}>
 							<p

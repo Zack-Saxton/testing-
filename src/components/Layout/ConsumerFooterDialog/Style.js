@@ -25,7 +25,7 @@ const useStylesConsumer = makeStyles((theme) => ({
     color: "#595959",
     padding: "0px",
     lineHeight: "22px",
-    textAlign:"justify",
+    textAlign: "justify",
   },
   consumerDialog: {
     padding: "24px",

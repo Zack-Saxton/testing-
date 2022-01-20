@@ -6,7 +6,7 @@ Functionality       :    To use this component to validate and get the account n
 
 #################################################################################################################*/
 
-import React, {useState} from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import TextBox from "../Textfield";
 
@@ -25,12 +25,12 @@ const AccountNumberWrapper = ({ name, ...otherProps }) => {
       setAccNum(event.target.value);
     }
     const isValid = /(^\d{6,17}$)/.test(event.target.value);
-    (!isValid && event.target.value) ? setIsError(true) : setIsError(false) ;
-    (!isValid && event.target.value) ? setHelperText("Account number should be between 6 to 17 digits") : setHelperText("") ;
+    (!isValid && event.target.value) ? setIsError(true) : setIsError(false);
+    (!isValid && event.target.value) ? setHelperText("Account number should be between 6 to 17 digits") : setHelperText("");
 
   };
 
-  
+
   //Configuring the field with properties
   const configTextField = {
     name: name,
@@ -45,7 +45,7 @@ const AccountNumberWrapper = ({ name, ...otherProps }) => {
   return (
     <TextBox
       {...configTextField}
-      materialProps={{ maxLength: "17", minLength: "6", "data-test-id": "accountNum"}}
+      materialProps={{ maxLength: "17", minLength: "6", "data-test-id": "accountNum" }}
       value={accNum}
       onChange={onHandleAccountChange}
       required={true}

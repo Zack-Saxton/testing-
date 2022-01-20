@@ -5,7 +5,7 @@ import Moment from "moment";
 export async function usrPaymentMethods() {
   let url = "get_payment_methods";
   let param = "";
-  let data =  {  }
+  let data = {}
   let method = "POST";
   let addAccessToken = true;
   return APICall(url, param, data, method, addAccessToken);
@@ -71,7 +71,7 @@ export async function makePayment(
   let data = {
     payment_account: cards,
     payment_amount: paymentAmounts,
-    payment_date:  Moment(paymentDatepicker).format("YYYY-MM-DD"),
+    payment_date: Moment(paymentDatepicker).format("YYYY-MM-DD"),
     is_debit_payment: isDebit,
   };
   let method = "POST";

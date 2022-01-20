@@ -212,8 +212,8 @@ export default function BankAccountVerification(props) {
 		<div>
 			<form onSubmit={formik.handleSubmit}>
 				<div>
-					<p style={{ textAlign: "justify", fontSize:"0.938rem" }}>
-						<span style={{ fontSize: "1.063rem", paddingBottom:"6px", fontWeight:"400", display:"block" }}>Funding</span>
+					<p style={{ textAlign: "justify", fontSize: "0.938rem" }}>
+						<span style={{ fontSize: "1.063rem", paddingBottom: "6px", fontWeight: "400", display: "block" }}>Funding</span>
 						Please provide your bank account information. This is the bank
 						account where you will receive your Funds Please note that this bank
 						account must be in the applicant's name
@@ -251,7 +251,7 @@ export default function BankAccountVerification(props) {
 						}}
 						row={true}
 						labelplacement={"end"}
-						style={{ fontWeight: "normal", fontSize:"10px" }}
+						style={{ fontWeight: "normal", fontSize: "10px" }}
 					/>
 					<FormHelperText error={true}>
 						{accountType === "" ? "Account type required" : ""}
@@ -276,7 +276,7 @@ export default function BankAccountVerification(props) {
 								) {
 									fetch(
 										"https://www.routingnumbers.info/api/data.json?rn=" +
-											event.target.value
+										event.target.value
 									)
 										.then((res) => res.json())
 										.then((result) => {
@@ -296,12 +296,12 @@ export default function BankAccountVerification(props) {
 							}
 							helperText={
 								formik.touched.bankRoutingNumber &&
-								formik.errors.bankRoutingNumber
+									formik.errors.bankRoutingNumber
 									? formik.touched.bankRoutingNumber &&
-									  formik.errors.bankRoutingNumber
+									formik.errors.bankRoutingNumber
 									: invalidRN === true
-									? "Please enter a valid routing number"
-									: ""
+										? "Please enter a valid routing number"
+										: ""
 							}
 							type="text"
 							placeholder="Bank Routing number"
@@ -403,8 +403,8 @@ export default function BankAccountVerification(props) {
 					/>
 				</Grid>
 				<div>
-					<p style={{ fontSize:"0.938rem"}}>
-						<span style={{ fontSize: "1.063rem", paddingBottom:"6px",marginTop:"30px", fontWeight:"500", display:"block" }}>Repayment</span>
+					<p style={{ fontSize: "0.938rem" }}>
+						<span style={{ fontSize: "1.063rem", paddingBottom: "6px", marginTop: "30px", fontWeight: "500", display: "block" }}>Repayment</span>
 						Please choose your preferred repayment method.
 					</p>
 				</div>
@@ -421,16 +421,16 @@ export default function BankAccountVerification(props) {
 						labelplacement={"end"}
 						style={{ fontWeight: "normal" }}
 					/>
-					<FormHelperText style={{paddingLeft:"28px"}} error={true}>
+					<FormHelperText style={{ paddingLeft: "28px" }} error={true}>
 						{paymnetMode === "" ? "Account type required" : ""}
 					</FormHelperText>
 					<span>
 						<p
 							style={{
 								margin: "0px",
-								paddingLeft:"28px",
+								paddingLeft: "28px",
 								textAlign: "justify",
-								fontSize:"0.938rem"
+								fontSize: "0.938rem"
 							}}
 						>
 							We electronically debit your bank account each month. You can
@@ -459,7 +459,7 @@ export default function BankAccountVerification(props) {
 					/>
 					<span>
 						<br />
-						<p style={{ marginLeft: "30px", marginTop: "-10px",fontSize:"0.938rem" }}>
+						<p style={{ marginLeft: "30px", marginTop: "-10px", fontSize: "0.938rem" }}>
 							{" "}
 							You'll mail us a check each month.
 						</p>

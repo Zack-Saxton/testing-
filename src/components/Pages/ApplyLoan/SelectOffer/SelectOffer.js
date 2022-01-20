@@ -168,8 +168,8 @@ export default function ApplyLoan() {
 			<div
 				role="tabpanel"
 				hidden={tabPanelValue !== index}
-				id={`scrollable-auto-tab-panel-${index}`}
-				aria-labelledby={`scrollable-auto-tab-${index}`}
+				id={`scrollable-auto-tab-panel-${ index }`}
+				aria-labelledby={`scrollable-auto-tab-${ index }`}
 				{...other}
 			>
 				{tabPanelValue === index && (
@@ -189,15 +189,15 @@ export default function ApplyLoan() {
 
 	function a11yProps(index) {
 		return {
-			id: `scrollable-auto-tab-${index}`,
-			"aria-controls": `scrollable-auto-tab-panel-${index}`,
+			id: `scrollable-auto-tab-${ index }`,
+			"aria-controls": `scrollable-auto-tab-panel-${ index }`,
 		};
 	}
 
 	function tabVerticalProps(verticalIndex) {
 		return {
-			id: `scrollable-auto-tab-vertical-${verticalIndex}`,
-			"aria-controls": `scrollable-auto-tab-panel-${verticalIndex}`,
+			id: `scrollable-auto-tab-vertical-${ verticalIndex }`,
+			"aria-controls": `scrollable-auto-tab-panel-${ verticalIndex }`,
 		};
 	}
 
@@ -310,7 +310,7 @@ export default function ApplyLoan() {
 					item
 					xs={12}
 					direction="row"
-					style={{  width: "100%" }}
+					style={{ width: "100%" }}
 				>
 					<Typography className={classes.heading} variant="h3">
 						<NavLink
@@ -368,10 +368,10 @@ export default function ApplyLoan() {
 						/>
 					</Tabs>
 
-					<TabPanel tabPanelValue={value} index={0} style={{marginTop:"10px"}}>
+					<TabPanel tabPanelValue={value} index={0} style={{ marginTop: "10px" }}>
 						<Grid container item xs={12}>
 							{noOffers ? (
-								<Grid item xs={12} style={{  width: "100%" }}>
+								<Grid item xs={12} style={{ width: "100%" }}>
 									<Paper style={{ padding: "20px" }} className={classes.paper}>
 										<Typography>
 											{errorMessage.applyForLoan.selectAmount.noOffersAvailable}
@@ -384,7 +384,7 @@ export default function ApplyLoan() {
 										item
 										xs={12}
 										sm={3}
-										style={{  width: "100%" }}
+										style={{ width: "100%" }}
 										className={loading ? classes.loadingOn : classes.loadingOff}
 									>
 										<Paper className={classes.paperVerticalTab}>
@@ -404,25 +404,25 @@ export default function ApplyLoan() {
 													className={classes.tabsvertical}
 												>
 													{terms &&
-													accountDetails.data.data !==
+														accountDetails.data.data !==
 														"Access token has expired"
 														? terms.map((item, index) => {
-																return (
-																	<Tab
-																		key={index}
-																		label={
-																			<span
-																				style={{ float: "left", width: "100%", fontSize:"0.938rem", fontWeight:"700" }}
-																			>
-																				{item + " Month Term"}
-																			</span>
-																		}
-																		className={classes.tabVerticalLabel}
-																		onClick={() => tabOnChange(item, index)}
-																		{...tabVerticalProps(index)}
-																	/>
-																);
-														  })
+															return (
+																<Tab
+																	key={index}
+																	label={
+																		<span
+																			style={{ float: "left", width: "100%", fontSize: "0.938rem", fontWeight: "700" }}
+																		>
+																			{item + " Month Term"}
+																		</span>
+																	}
+																	className={classes.tabVerticalLabel}
+																	onClick={() => tabOnChange(item, index)}
+																	{...tabVerticalProps(index)}
+																/>
+															);
+														})
 														: "null"}
 													<Tab
 														label={

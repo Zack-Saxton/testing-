@@ -24,13 +24,13 @@ let statusStrLink = {
 };
 
 export default async function PartnerSignup(
-   history,
+  history,
   partnerToken,
   applicantId,
   partnerSignupData,
-  
+
 ) {
- 
+
   let url = "partner_signup";
   let param = "";
   let data = {
@@ -56,76 +56,76 @@ export default async function PartnerSignup(
 
   partnerSignupMethod.data.status === 200
     ? toast.success(
-        partnerSignupMethod?.data?.data?.statusText
-          ? partnerSignupMethod.data.data.statusText
-          : partnerSignupMethod?.data?.data?.applicant?.processing?.status === "confirming_info"
-           ? "Successfully Registered, Please confirm your information" : "Successfully Registered",
-        {
-          position: "bottom-left",
-          autoClose: 10000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          onClose: () => {
-            var now = new Date().getTime();
-            LogoutController();
-            Cookies.set("redirec", JSON.stringify({ to: "/select-amount" }));
-            Cookies.set(
-              "token",
-              JSON.stringify({
-                isLoggedIn: true,
-                apiKey:
-                  partnerSignupMethod?.data?.data?.user?.extensionattributes
-                    ?.login?.jwt_token,
-                setupTime: now,
-              })
-            );
-            Cookies.set("email", partnerSignupMethod.data.data.applicant.contact.email);
-            history.push({
+      partnerSignupMethod?.data?.data?.statusText
+        ? partnerSignupMethod.data.data.statusText
+        : partnerSignupMethod?.data?.data?.applicant?.processing?.status === "confirming_info"
+          ? "Successfully Registered, Please confirm your information" : "Successfully Registered",
+      {
+        position: "bottom-left",
+        autoClose: 10000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        onClose: () => {
+          var now = new Date().getTime();
+          LogoutController();
+          Cookies.set("redirec", JSON.stringify({ to: "/select-amount" }));
+          Cookies.set(
+            "token",
+            JSON.stringify({
+              isLoggedIn: true,
+              apiKey:
+                partnerSignupMethod?.data?.data?.user?.extensionattributes
+                  ?.login?.jwt_token,
+              setupTime: now,
+            })
+          );
+          Cookies.set("email", partnerSignupMethod.data.data.applicant.contact.email);
+          history.push({
 
-              pathname: statusStrLink[partnerSignupMethod.data.data.applicant.processing.status],
-              state: {
-                  jwt_token :  partnerSignupMethod.data.data.user.extensionattributes.login.jwt_token,
-                  partner_token :  partnerSignupMethod.data.data.user.attributes.partner_token,
-                  first_name : partnerSignupMethod.data.data.applicant.contact.first_name,
-                  last_name :  partnerSignupMethod.data.data.applicant.contact.last_name,
-                  email :  partnerSignupMethod.data.data.applicant.contact.email,
-                  address_postal_code :  partnerSignupMethod.data.data.applicant.contact.address_postal_code,
-                  address_city :  partnerSignupMethod.data.data.applicant.contact.address_city,
-                  address_state :  partnerSignupMethod.data.data.applicant.contact.address_state,
-                  address_street :  partnerSignupMethod.data.data.applicant.contact.address_street,
-                  citizenship :  partnerSignupMethod.data.data.applicant.self_reported.citizenship,
-                  annual_income :  partnerSignupMethod.data.data.applicant.self_reported.annual_income,
-                  household_annual_income :  partnerSignupMethod.data.data.applicant.self_reported.household_annual_income,
-                  employment_status : partnerSignupMethod.data.data.applicant.self_reported.employment_status,
-                  military_status : partnerSignupMethod.data.data.applicant.self_reported.military_status,
-                  spouse_address_street : partnerSignupMethod.data.data.applicant.self_reported.spouse_address_street,
-                  spouse_address_postal_code : partnerSignupMethod.data.data.applicant.self_reported.spouse_address_postal_code,
-                  spouse_address_state : partnerSignupMethod.data.data.applicant.self_reported.spouse_address_state,
-                  spouse_address_city : partnerSignupMethod.data.data.applicant.self_reported.spouse_address_city,
-                 
+            pathname: statusStrLink[partnerSignupMethod.data.data.applicant.processing.status],
+            state: {
+              jwt_token: partnerSignupMethod.data.data.user.extensionattributes.login.jwt_token,
+              partner_token: partnerSignupMethod.data.data.user.attributes.partner_token,
+              first_name: partnerSignupMethod.data.data.applicant.contact.first_name,
+              last_name: partnerSignupMethod.data.data.applicant.contact.last_name,
+              email: partnerSignupMethod.data.data.applicant.contact.email,
+              address_postal_code: partnerSignupMethod.data.data.applicant.contact.address_postal_code,
+              address_city: partnerSignupMethod.data.data.applicant.contact.address_city,
+              address_state: partnerSignupMethod.data.data.applicant.contact.address_state,
+              address_street: partnerSignupMethod.data.data.applicant.contact.address_street,
+              citizenship: partnerSignupMethod.data.data.applicant.self_reported.citizenship,
+              annual_income: partnerSignupMethod.data.data.applicant.self_reported.annual_income,
+              household_annual_income: partnerSignupMethod.data.data.applicant.self_reported.household_annual_income,
+              employment_status: partnerSignupMethod.data.data.applicant.self_reported.employment_status,
+              military_status: partnerSignupMethod.data.data.applicant.self_reported.military_status,
+              spouse_address_street: partnerSignupMethod.data.data.applicant.self_reported.spouse_address_street,
+              spouse_address_postal_code: partnerSignupMethod.data.data.applicant.self_reported.spouse_address_postal_code,
+              spouse_address_state: partnerSignupMethod.data.data.applicant.self_reported.spouse_address_state,
+              spouse_address_city: partnerSignupMethod.data.data.applicant.self_reported.spouse_address_city,
 
-                }
-            });
-          },
-        }
-      )
+
+            }
+          });
+        },
+      }
+    )
     : toast.error(
-        partnerSignupMethod?.data?.statusText
-          ? partnerSignupMethod.data.statusText
-          : "Please check your data",
-        {
-          position: "bottom-left",
-          autoClose: 10000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        }
-      );
+      partnerSignupMethod?.data?.statusText
+        ? partnerSignupMethod.data.statusText
+        : "Please check your data",
+      {
+        position: "bottom-left",
+        autoClose: 10000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      }
+    );
 
   return partnerSignupMethod;
 }
@@ -152,20 +152,20 @@ export async function PopulatePartnerSignup(
   let addAccessToken = false;
 
   //API call
-  return APICall(url,param,data,method,addAccessToken);
-   
+  return APICall(url, param, data, method, addAccessToken);
+
 }
 
 
-export async function partnerConfirmInfo(dataConfirmInfo,history) {
+export async function partnerConfirmInfo(dataConfirmInfo, history) {
   let url = "partner_confirm_info";
   let param = "";
- 
+
   let data = {
     lead_id: "",
     fname: dataConfirmInfo.firstname,
     lname: dataConfirmInfo.lastname,
-    home_phone:"",
+    home_phone: "",
     email: dataConfirmInfo.email,
     address_street: dataConfirmInfo.streetAddress,
     address_city: dataConfirmInfo.city,
@@ -177,18 +177,18 @@ export async function partnerConfirmInfo(dataConfirmInfo,history) {
     citizenship: dataConfirmInfo.citizenship,
     dob: "",
     requested_loan_amount: "",
-    income:  JSON.stringify(dataConfirmInfo.personalIncome),
-    household_annual_income:  JSON.stringify(dataConfirmInfo.householdIncome),
-    active_duty : dataConfirmInfo.activeDuty,
-    active_duty_rank :  dataConfirmInfo.activeDutyRank,
+    income: JSON.stringify(dataConfirmInfo.personalIncome),
+    household_annual_income: JSON.stringify(dataConfirmInfo.householdIncome),
+    active_duty: dataConfirmInfo.activeDuty,
+    active_duty_rank: dataConfirmInfo.activeDutyRank,
     spouse_city: dataConfirmInfo.spousecity,
-    spouse_zipcode: dataConfirmInfo.spouseZipcode, 
+    spouse_zipcode: dataConfirmInfo.spouseZipcode,
     spouse_state: dataConfirmInfo.spouseSelectState,
     spouse_address: dataConfirmInfo.spouseadd,
     marital_status: dataConfirmInfo.martialStatus,
     partner_token: dataConfirmInfo.partner_token
-    }
-  
+  }
+
   let method = "POST";
   let addAccessToken = true;
 
@@ -201,7 +201,7 @@ export async function partnerConfirmInfo(dataConfirmInfo,history) {
     addAccessToken
   );
   PartnerConfirmationAPI.data.status === 200
-  ? toast.success(
+    ? toast.success(
       PartnerConfirmationAPI?.data?.data?.statusText
         ? PartnerConfirmationAPI.data.data.statusText
         : "Successfully registered",
@@ -214,16 +214,16 @@ export async function partnerConfirmInfo(dataConfirmInfo,history) {
         draggable: true,
         progress: undefined,
         onClose: () => {
-         
+
           history.push({
 
             pathname: statusStrLink[PartnerConfirmationAPI.data.data.data.applicationStatus],
-           
+
           });
         },
       }
     )
-  : toast.error(
+    : toast.error(
       "Please login again",
       {
         position: "bottom-left",

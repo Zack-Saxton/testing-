@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 
 export default function ErrorAfterLogin() {
 
-//View part
+  //View part
   return (
     <Grid
       container

@@ -29,8 +29,8 @@ function TabVerticalPanel(props) {
 	return (
 		<div
 			hidden={tabValue !== verticalIndex}
-			id={`scrollable-auto-tab-panel-${verticalIndex}`}
-			aria-labelledby={`scrollable-auto-tab-${verticalIndex}`}
+			id={`scrollable-auto-tab-panel-${ verticalIndex }`}
+			aria-labelledby={`scrollable-auto-tab-${ verticalIndex }`}
 			{...other}
 		>
 			{tabValue === verticalIndex && (
@@ -121,7 +121,7 @@ export default function OfferTable(props) {
 		handleAdd(row);
 	};
 	return (
-		<Grid id="loanListTable" item xs={12} sm={9}  className={props.loading ? props.classes.loadingOn : props.classes.loadingOff}  style={{ padding: "0px 0px 0px 15px", width: "100%" }}>
+		<Grid id="loanListTable" item xs={12} sm={9} className={props.loading ? props.classes.loadingOn : props.classes.loadingOff} style={{ padding: "0px 0px 0px 15px", width: "100%" }}>
 			<Paper className={props.classes.paper}>
 				{props.rowData ? (
 					<TabVerticalPanel tabValue={props.value} verticalIndex={props.value}>
@@ -136,7 +136,7 @@ export default function OfferTable(props) {
 								offerFlag={props.offerFlag}
 							/>
 						</Grid>
-						<Grid  item xs={12} style={{ paddingBottom: "10px", width: "100%" }}>
+						<Grid item xs={12} style={{ paddingBottom: "10px", width: "100%" }}>
 							<TableContainer>
 								<Table
 									className={props.classes.table}
@@ -326,12 +326,12 @@ export default function OfferTable(props) {
 								<CircularProgress />
 							</Grid>
 						</Grid>
-						<Grid style={{padding:"10px 0px"}} container direction="row">
+						<Grid style={{ padding: "10px 0px" }} container direction="row">
 							<Grid
-								
-								
+
+
 								direction="row"
-								style={{  float: "left" }}
+								style={{ float: "left" }}
 							>
 								<ButtonSecondary
 									stylebutton='{"marginRight": "","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
@@ -348,8 +348,8 @@ export default function OfferTable(props) {
 							</Grid>
 
 							<Grid
-								
-								
+
+
 								direction="row"
 								style={{ float: "left" }}
 								id="apply-loan-continue-button-grid"
@@ -365,7 +365,7 @@ export default function OfferTable(props) {
 									}}
 									disabled={
 										props.selectedTerm &&
-										(props.selectedIndex || props.selectedIndex === 0)
+											(props.selectedIndex || props.selectedIndex === 0)
 											? props.loading
 												? true
 												: false
@@ -384,11 +384,11 @@ export default function OfferTable(props) {
 							</Grid>
 
 							<Grid
-								
+
 								direction="row"
 								style={{
 									// padding: "10px",
-									
+
 									float: "right",
 									justifyContent: "end",
 									display: props.offerFlag ? "block" : "none",

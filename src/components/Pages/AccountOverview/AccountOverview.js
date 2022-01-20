@@ -26,7 +26,7 @@ export default function AccountOverview() {
     return () => {
       setAccountDetails({}); // This worked for me
     };
-    
+
   }, []);
 
   //Load data
@@ -72,12 +72,12 @@ export default function AccountOverview() {
         </Grid>
 
         {/* ****************components************ */}
-        
+
         <LimitedOffer userOffers={offerData} />
         <ActiveLoans userActiveLoanData={activeLoansData} />
-        <RecentApplications userApplicationsData={applicationsData} UserAccountStatus={status}/>
+        <RecentApplications userApplicationsData={applicationsData} UserAccountStatus={status} />
         <RecentPayments userRecentPaymentData={recentPaymentData} />
-          
+
       </Grid>
     </div>
   );

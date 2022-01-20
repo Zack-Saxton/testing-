@@ -19,13 +19,13 @@ export async function changePassword(oldPassword, newPassword) {
 export async function basicInformation(body) {
   let url = "update_profile_information_cac";
   let param = "";
-  let data = {   
+  let data = {
     isAuthenticated: true,
     profileInfo: {
-      email:  body.email,
+      email: body.email,
       primaryPhoneNumber: body.primaryPhoneNumber,
       updatedPrimaryPhoneNumber: body.primaryPhoneNumber,
-      updatedEmail: body.email, 
+      updatedEmail: body.email,
     },
   };
   let method = "POST";
@@ -34,14 +34,14 @@ export async function basicInformation(body) {
 }
 
 export async function mailingAddress(body) {
-  
+
   let url = "update_profile_information_cac";
   let param = "";
   let data = {
-   
+
     isAuthenticated: true,
     profileInfo: {
-    
+
       updatedAddressInfo: {
         zipCode: body.zipCode,
         address1: body.address1,
@@ -58,20 +58,20 @@ export async function mailingAddress(body) {
 export async function textNotification(body, sub) {
   const email = Cookies.get("email");
   let cleanednumber = body.phone.replace(/\D/g, "");
-  let allLoansClosed =  Cookies.get("hasActiveLoan") === "true" ? false : true;
+  let allLoansClosed = Cookies.get("hasActiveLoan") === "true" ? false : true;
   let url = "text_unsubscribe";
   let textingOn = false;
   if (sub) {
     url = "text_subscribe";
     textingOn = true;
-  } 
+  }
   let param = "";
   let data = {
     email: email,
     allLoansClosed: allLoansClosed,
     customer: {
       latest_contact: {
-        opted_phone_texting: cleanednumber,  
+        opted_phone_texting: cleanednumber,
       }
     },
     isAuthenticated: true,
@@ -106,7 +106,7 @@ export async function getTextNotify() {
   let appGUID = token.applicantGuid;
   let opted_phone_texting = accountDetails?.data?.data?.latest_contact?.opted_phone_texting ? accountDetails?.data?.data?.latest_contact?.opted_phone_texting : "";
   let cleanednumber = opted_phone_texting.replace(/\D/g, "");
-  let allLoansClosed =  Cookies.get("hasActiveLoan") === "true" ? false : true;
+  let allLoansClosed = Cookies.get("hasActiveLoan") === "true" ? false : true;
 
   let url = "sbt_getInfo";
   let param = "";
@@ -115,7 +115,7 @@ export async function getTextNotify() {
     allLoansClosed: allLoansClosed,
     customer: {
       latest_contact: {
-        opted_phone_texting: cleanednumber,  
+        opted_phone_texting: cleanednumber,
       }
     },
     isAuthenticated: true,
@@ -138,11 +138,11 @@ export async function getTextNotify() {
 }
 
 
- export async function uploadNewProfileImage(
+export async function uploadNewProfileImage(
   imgData,
   fileName,
   fileType,
-  documentType, 
+  documentType,
   email
 ) {
   let url = "upload_profile_picture";
@@ -171,9 +171,9 @@ export async function getTextNotify() {
 
 export async function addCreditCard(values, cardType) {
   let url = "add_new_card_payment";
-  let expyDate = ("0" + (values.expirydate.getMonth() + 1)).slice(-2)+ "/"+ values.expirydate.getFullYear().toString().substr(-2);
+  let expyDate = ("0" + (values.expirydate.getMonth() + 1)).slice(-2) + "/" + values.expirydate.getFullYear().toString().substr(-2);
   let param = "";
-  let data =  {
+  let data = {
     "address_street": values.streetAddress,
     "address_city": values.city,
     "address_state": values.state,
@@ -182,53 +182,53 @@ export async function addCreditCard(values, cardType) {
     "card_number": values.cardNumber,
     "issuer": cardType,
     "cvv": parseInt(values.cvv),
-    "exp_date": expyDate ,
+    "exp_date": expyDate,
     "defaultBank": 1,
     "isMobile": true
-    }
+  }
   let method = "POST";
   let addAccessToken = true;
   return APICall(url, param, data, method, addAccessToken);
- }
+}
 
 
- 
- export async function getPaymentMethods(values) {
+
+export async function getPaymentMethods(values) {
 
   let url = "get_payment_methods";
   let param = "";
-  let data =  {  }
+  let data = {}
   let method = "POST";
   let addAccessToken = true;
   return APICall(url, param, data, method, addAccessToken);
- }
+}
 
- export async function deleteCreditCard(passData) {
+export async function deleteCreditCard(passData) {
 
   let url = "delete_credit_card";
   let param = "";
-  let data =  passData;
+  let data = passData;
   let method = "POST";
   let addAccessToken = true;
   return APICall(url, param, data, method, addAccessToken);
- }
+}
 
- export async function deleteBankAccount(passData) {
+export async function deleteBankAccount(passData) {
 
   let url = "delete_bank_account";
   let param = "";
-  let data =  passData;
+  let data = passData;
   let method = "POST";
   let addAccessToken = true;
   return APICall(url, param, data, method, addAccessToken);
- }
+}
 
- export async function setDefaultPayment(passData) {
+export async function setDefaultPayment(passData) {
 
   let url = "set_default_payment";
   let param = "";
-  let data =  passData;
+  let data = passData;
   let method = "POST";
   let addAccessToken = true;
   return APICall(url, param, data, method, addAccessToken);
- }
+}

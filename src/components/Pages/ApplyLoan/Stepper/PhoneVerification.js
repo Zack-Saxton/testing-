@@ -156,7 +156,7 @@ export default function PhoneVerification(props) {
 					/>
 					<div className="MuiTypography-alignLeft">
 						<Typography
-							style={{ fontWeight: "normal", fontSize:"0.75rem" }}
+							style={{ fontWeight: "normal", fontSize: "0.75rem" }}
 							className="smallTextLeft"
 							align="left"
 						>
@@ -166,7 +166,7 @@ export default function PhoneVerification(props) {
 				</Grid>
 				<Grid item xs={12} style={{ lineHeight: 3 }}>
 					<FormControl component="fieldset">
-						<FormLabel style={{ fontSize:"0.75rem" }} component="legend">Delivery Method</FormLabel>
+						<FormLabel style={{ fontSize: "0.75rem" }} component="legend">Delivery Method</FormLabel>
 						<RadioGroup
 							id="textAndCall"
 							aria-label="method"
@@ -181,7 +181,7 @@ export default function PhoneVerification(props) {
 					</FormControl>
 					<div className="MuiTypography-alignLeft">
 						<Typography
-							style={{ fontWeight: "normal",fontSize:"0.75rem" }}
+							style={{ fontWeight: "normal", fontSize: "0.75rem" }}
 							className="smallTextLeft"
 							align="left"
 						>

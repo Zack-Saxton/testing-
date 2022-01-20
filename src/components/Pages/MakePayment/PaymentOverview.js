@@ -10,7 +10,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import "./MakePayment.css";
 import NumberFormat from 'react-number-format';
 
-export default function PaymentOverview(paymentData,status) {
+export default function PaymentOverview(paymentData, status) {
     //Material UI css class
     const classes = useStylesMakePayment();
     //Payment details
@@ -47,66 +47,65 @@ export default function PaymentOverview(paymentData,status) {
             </TableHead>
             <TableBody>
                 {(status === null)
-                ?
-                <TableRow>
-                <TableCell
-                  colSpan="7"
-                  component="th"
-                  className={classes.tableHeadRow}
-                  scope="row"
-                  align="center"
-                >
-                  <CircularProgress />
-                </TableCell>
-              </TableRow>
-                :
-                (paymentDetails.overview && paymentDetails.overview.length)
                     ?
-                    paymentDetails.overview.map((row,index) => (
-                        <TableRow key={index}>
-                            <TableCell
-                            style={{fontSize:"0.938rem"}}
-                                component="th"
-                                className={row.tableHeadRow}
-                                scope="row"
-                            >
-                                 {row.loanDetails.AccountNumber}
-                            </TableCell>
-                            <TableCell style={{fontWeight:"700"}} className={classes.tableHeadRow} align="center">
-                            <NumberFormat value={Math.abs(row.loanPaymentInformation.accountDetails.CurrentPayOffAmount)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
-                            </TableCell>
-                            <TableCell style={{fontWeight:"700"}} className={classes.tableHeadRow} align="center">
-                            <NumberFormat value={Math.abs(row.loanPaymentInformation.accountDetails.RegularPaymentAmount)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
-                            </TableCell>
-                            <TableCell style={{fontWeight:"700"}} className={classes.tableHeadRow} align="center">
-                            <NumberFormat value={Math.abs(row.loanPaymentInformation.accountDetails.LoanFeesAndCharges)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
-                            </TableCell>
-                            <TableCell style={{fontWeight:"700"}} className={classes.tableHeadRow} align="center">
-                            <NumberFormat value={Math.abs(row.loanPaymentInformation.accountDetails.RegularPaymentAmount) + Math.abs(row.loanPaymentInformation.accountDetails.InterestRate) + Math.abs(row.loanPaymentInformation.accountDetails.LoanFeesAndCharges)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
-                            </TableCell>
-                            <TableCell className={classes.tableHeadRow} align="center">
-                                {Moment(row.loanPaymentInformation.accountDetails.NextDueDate).format("MM/DD/YYYY")}
-                            </TableCell>
-                            <TableCell className={classes.tableHeadRow} align="center">
-                            {(row.loanPaymentInformation.hasScheduledPayment) ? Moment(row.loanPaymentInformation.scheduledPayments[0].PaymentDate).format("MM/DD/YYYY") : "NONE" }
-                            </TableCell>
-                            <TableCell style={{fontWeight:"700"}} className={classes.tableHeadRow} align="center">
-                            {(row.loanPaymentInformation.appRecurringACHPayment) ? "On Due Date" : "Disabled" }
-                            </TableCell>
-                        </TableRow>
-                    ))
-                    :
                     <TableRow>
                         <TableCell
                             colSpan="7"
+                            component="th"
+                            className={classes.tableHeadRow}
+                            scope="row"
                             align="center"
                         >
-                            You do not have any active loans
+                            <CircularProgress />
                         </TableCell>
                     </TableRow>
+                    :
+                    (paymentDetails.overview && paymentDetails.overview.length)
+                        ?
+                        paymentDetails.overview.map((row, index) => (
+                            <TableRow key={index}>
+                                <TableCell
+                                    style={{ fontSize: "0.938rem" }}
+                                    component="th"
+                                    className={row.tableHeadRow}
+                                    scope="row"
+                                >
+                                    {row.loanDetails.AccountNumber}
+                                </TableCell>
+                                <TableCell style={{ fontWeight: "700" }} className={classes.tableHeadRow} align="center">
+                                    <NumberFormat value={Math.abs(row.loanPaymentInformation.accountDetails.CurrentPayOffAmount)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
+                                </TableCell>
+                                <TableCell style={{ fontWeight: "700" }} className={classes.tableHeadRow} align="center">
+                                    <NumberFormat value={Math.abs(row.loanPaymentInformation.accountDetails.RegularPaymentAmount)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
+                                </TableCell>
+                                <TableCell style={{ fontWeight: "700" }} className={classes.tableHeadRow} align="center">
+                                    <NumberFormat value={Math.abs(row.loanPaymentInformation.accountDetails.LoanFeesAndCharges)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
+                                </TableCell>
+                                <TableCell style={{ fontWeight: "700" }} className={classes.tableHeadRow} align="center">
+                                    <NumberFormat value={Math.abs(row.loanPaymentInformation.accountDetails.RegularPaymentAmount) + Math.abs(row.loanPaymentInformation.accountDetails.InterestRate) + Math.abs(row.loanPaymentInformation.accountDetails.LoanFeesAndCharges)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
+                                </TableCell>
+                                <TableCell className={classes.tableHeadRow} align="center">
+                                    {Moment(row.loanPaymentInformation.accountDetails.NextDueDate).format("MM/DD/YYYY")}
+                                </TableCell>
+                                <TableCell className={classes.tableHeadRow} align="center">
+                                    {(row.loanPaymentInformation.hasScheduledPayment) ? Moment(row.loanPaymentInformation.scheduledPayments[0].PaymentDate).format("MM/DD/YYYY") : "NONE"}
+                                </TableCell>
+                                <TableCell style={{ fontWeight: "700" }} className={classes.tableHeadRow} align="center">
+                                    {(row.loanPaymentInformation.appRecurringACHPayment) ? "On Due Date" : "Disabled"}
+                                </TableCell>
+                            </TableRow>
+                        ))
+                        :
+                        <TableRow>
+                            <TableCell
+                                colSpan="7"
+                                align="center"
+                            >
+                                You do not have any active loans
+                            </TableCell>
+                        </TableRow>
                 }
             </TableBody>
         </Table>
     );
 }
-
