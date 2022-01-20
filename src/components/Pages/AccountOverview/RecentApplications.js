@@ -12,17 +12,17 @@ import { useStylesAccountOverview } from "./Style";
 import { ButtonPrimary } from "../../FormsUI";
 import NumberFormat from 'react-number-format';
 import { useHistory } from "react-router-dom";
-import Cookies from "js-cookie";
 import "./Style.css";
 
 
 
-export default function RecentApplications({ userApplicationsData,UserAccountStatus,userApplicantData }) {
+export default function RecentApplications({ userApplicationsData,UserAccountStatus }) {
   //Material UI css class
   const classes = useStylesAccountOverview();
-  //Recentapplications data
+  //Recentapplications data 
   let userApplications = (userApplicationsData != null) ? userApplicationsData : null;
-  let userApplicant = (userApplicantData != null) ? userApplicantData : null;
+  const presenceOfLoan = userApplications?.some((applicant) => applicant.isActive === true )  ; 
+  const presenceOfLoanStatus = userApplications?.find((applicant) => applicant.isActive === true);
   let statusStr = {
     "approved": "Approved",
     "completing_application": "Completing Application",
@@ -64,13 +64,6 @@ export default function RecentApplications({ userApplicationsData,UserAccountSta
   }; 
 
   const history = useHistory();
-
-  //viewBtn click
-  const viewAppData = (contactdata,appData) =>{
-    Cookies.set("viewAppContact",JSON.stringify( contactdata));
-    Cookies.set("viewAppApplicant",JSON.stringify(appData));
-    history.push('/customers/viewaccount')
-  }
 
   //resumebtn click
   const resumeNavigate = (appData) =>{
@@ -136,42 +129,38 @@ export default function RecentApplications({ userApplicationsData,UserAccountSta
                 </TableCell>
               </TableRow>
             ) :
-              userApplications?.length
+              userApplications?.length && presenceOfLoan === true
                 ?
-                userApplications.map((appData, index) => (
-                  <TableRow key={index}>
+                  <TableRow>
                     <TableCell className={classes.tableheadrow} >
-                      {appData.submissionDate}
+                      {presenceOfLoanStatus.submissionDate}
                     </TableCell>
                     <TableCell className={classes.tableheadrow} align="left">
-                      {appData.product}
+                      {presenceOfLoanStatus.product}
                     </TableCell>
                     <TableCell className={classes.tableheadrow} align="center">
-                      <NumberFormat value={appData.amountRequested} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
+                      <NumberFormat value={presenceOfLoanStatus.amountRequested} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
                     </TableCell>
                     <TableCell className={classes.tableheadrow} align="left">
-                      {appData.loanPurpose}
+                      {presenceOfLoanStatus.loanPurpose}
                     </TableCell>
                     <TableCell className={classes.tableheadrow} align="left">
-                      {(statusStr[appData.status]) ? statusStr[appData.status] : (appData.status)}
+                      {(statusStr[presenceOfLoanStatus.status]) ? statusStr[presenceOfLoanStatus.status] : (presenceOfLoanStatus.status)}
                     </TableCell>
                     <TableCell align="left">    
-                      {appData.isActive ?
+                      {presenceOfLoanStatus.isActive ?
                         (
                           <ButtonPrimary stylebutton='{"color":"","width":"72%" }' 
-                            onClick={() =>resumeNavigate(appData.status)}
+                            onClick={() =>resumeNavigate(presenceOfLoanStatus.status)}
                           >
                             Resume
                           </ButtonPrimary>
                         ) : (
-                          <ButtonPrimary stylebutton='{"color":"","width":"72%","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }' onClick={() =>viewAppData(userApplicant,appData)} >
-                            View
-                          </ButtonPrimary>
+                             <></>
                              )
                       }
                     </TableCell>
                   </TableRow>
-                ))
                 :
                 <TableRow>
                   <TableCell
