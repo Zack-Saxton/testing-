@@ -30,7 +30,7 @@ export default function ActiveLoans(userActiveLoanData) {
           <Grid
             item
             xs={12}
-            style={{ width: "100%", paddingTop: "40px" }}
+            style={{ width: "100%", paddingTop: "10px" }}
             container
             direction="row"
           >
@@ -43,7 +43,7 @@ export default function ActiveLoans(userActiveLoanData) {
               Active Loan
             </Typography>
           </Grid>
-          <Grid style={{ paddingBottom: "10px", paddingTop: "10px" }} container>
+          <Grid style={{  paddingTop: "10px" }} container>
             <TableContainer component={Paper}>
               <Table>
                 <TableBody>
@@ -64,12 +64,12 @@ export default function ActiveLoans(userActiveLoanData) {
               <Grid
                 item
                 xs={12}
-                style={{ width: "100%", paddingTop: "40px" }}
+                style={{ width: "100%" }}
                 container
                 direction="row"
               >
                 <Typography
-                  style={{ padding: "0" }}
+                  
                   variant="h5"
                   className={classes.subheading}
                   data-testid="subtitle"
@@ -78,11 +78,11 @@ export default function ActiveLoans(userActiveLoanData) {
                 </Typography>
               </Grid>
               <Grid
-                style={{ paddingBottom: "10px", paddingTop: "10px" }}
+                style={{  paddingTop: "10px" }}
                 container
               >
                 {userActiveLoans.userActiveLoanData.map((appData, index) => (
-                  <Grid style={{ paddingBottom: "20px" }} container key={index}>
+                  <Grid style={{ paddingBottom: "10px" }} container key={index}>
                     <Grid
                       id="activeLoanWrap"
                       item
@@ -176,14 +176,14 @@ export default function ActiveLoans(userActiveLoanData) {
 
                             {today.isBefore(appData.loanDetails.NextPaymentDate) ?
                               <p className={classes.cardcontent}>
-                                Due in
-                                {Math.ceil(
-                                  Moment.duration(
-                                    Moment(
-                                      appData.loanDetails.NextPaymentDate
-                                    ).diff(today)
-                                  ).asDays()
-                                )}
+                              Due in {" "}
+                               {Math.ceil(
+                                Moment.duration(
+                                  Moment(
+                                    appData.loanDetails.NextPaymentDate
+                                  ).diff(today)
+                                ).asDays()
+                              )}{" "}
                                 days
                               </p>
                               :

@@ -22,7 +22,7 @@ export default function LimitedOffer(userOfferData) {
   //View
   return (
     <div id="mainContainer">
-      <Grid container spacing={2} style={{ paddingBottom: "10px" }}>
+      <Grid container spacing={2} style={{paddingBottom: "50px"}}>
         <Grid id="LimitedOfferGrid" item xs={12} sm={8} >
           <Paper id="paperProperties" style={{ height: "100%" }} className={classes.paperPropertiesLimitedOffer}>
             <div id="yellowBg">
