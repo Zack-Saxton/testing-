@@ -78,7 +78,7 @@ export default function RecentApplications({ userApplicationsData,UserAccountSta
     <Grid
           item
           xs={12}
-          style={{ width: "100%", paddingBottom: "10px", paddingTop: "20px" }}
+          style={{ width: "100%", paddingBottom: "10px" }}
           container
           direction="row"
         >
@@ -90,7 +90,7 @@ export default function RecentApplications({ userApplicationsData,UserAccountSta
             Summary of applications
           </Typography>
         </Grid>
-    <Grid item xs={12} style={{ width: "100%", paddingBottom: "10px" }}>
+    <Grid item xs={12} style={{ width: "100%",paddingBottom: "20px", }}>
       <TableContainer id="summaryOfApplications" component={Paper}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
