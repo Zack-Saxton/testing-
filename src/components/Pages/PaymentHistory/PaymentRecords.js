@@ -50,7 +50,7 @@ function TablePaginationActions(props) {
     onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
   };
 
-//View part
+  //View part
   return (
     <div className={classes.root}>
       <IconButton
@@ -103,7 +103,7 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
     setPage(0);
   };
 
-   
+
 
   let userRecentPayment =
     userRecentPaymentData != null ? userRecentPaymentData : null;
@@ -141,7 +141,7 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
               (rowsPerPage > 0
                 ? userRecentPayment.userRecentPaymentData[0].loanHistory.AppAccountHistory.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 : userRecentPayment.userRecentPaymentData[0].loanHistory.AppAccountHistory
-              ).map((row,index1) => (
+              ).map((row, index1) => (
                 <>
                   <TableRow key={index1}>
                     <TableCell
@@ -162,37 +162,37 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
                       className={classes.tableHeadRow}
                       align="right"
                     >
-                      <NumberFormat value={Math.abs(row.PrincipalAmount)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true}  prefix={'$'} />
+                      <NumberFormat value={Math.abs(row.PrincipalAmount)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
                     </TableCell>
                     <TableCell
                       className={classes.tableHeadRow}
                       align="right"
                     >
-                      <NumberFormat value={Math.abs(row.InterestAmount)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} /> 
+                      <NumberFormat value={Math.abs(row.InterestAmount)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
                     </TableCell>
                     <TableCell
                       className={classes.tableHeadRow}
                       align="right"
                     >
-                        <NumberFormat value={Math.abs(row.OtherAmount)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />  
+                      <NumberFormat value={Math.abs(row.OtherAmount)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
                     </TableCell>
                     <TableCell
                       className={classes.tableHeadRow}
                       align="right"
                     >
-                         <NumberFormat value={Math.abs(row.InterestAmount) + Math.abs(row.OtherAmount) + Math.abs(row.PrincipalAmount)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
+                      <NumberFormat value={Math.abs(row.InterestAmount) + Math.abs(row.OtherAmount) + Math.abs(row.PrincipalAmount)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
                     </TableCell>
                     <TableCell
                       className={classes.tableHeadRow}
                       align="right"
                     >
-                         <NumberFormat value={Math.abs(row.RunningPrincipalBalance)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
+                      <NumberFormat value={Math.abs(row.RunningPrincipalBalance)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
                     </TableCell>
                   </TableRow>
                 </>
               ))
             ) : (
-              
+
               <TableRow>
                 <TableCell colSpan="7" align="center">
                   You do not have any recent applications

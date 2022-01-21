@@ -11,6 +11,7 @@ import { useStylesAccountOverview } from "./Style";
 import Moment from "moment";
 import NumberFormat from "react-number-format";
 import {TableCellWrapper} from "../../FormsUI"
+import "./Style.css";
 
 export default function RecentPayments(userRecentPaymentData) {
 	//Material UI css class

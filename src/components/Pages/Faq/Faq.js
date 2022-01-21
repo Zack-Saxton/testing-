@@ -22,13 +22,13 @@ import questionFaq from "./questions.json";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
-//Tab view content
+  //Tab view content
   return (
     <div
       role="tabpanel"
       hidden={value !== index}
-      id={`scrollable-auto-tab-panel-${index}`}
-      aria-labelledby={`scrollable-auto-tab-${index}`}
+      id={`scrollable-auto-tab-panel-${ index }`}
+      aria-labelledby={`scrollable-auto-tab-${ index }`}
       {...other}
     >
       {value === index && (
@@ -48,25 +48,25 @@ TabPanel.propTypes = {
 
 function a11yProps(index) {
   return {
-    id: `scrollable-auto-tab-${index}`,
-    "aria-controls": `scrollable-auto-tab-panel-${index}`,
+    id: `scrollable-auto-tab-${ index }`,
+    "aria-controls": `scrollable-auto-tab-panel-${ index }`,
   };
 }
 
 
 export default function Faq() {
 
- //Material UI css class
+  //Material UI css class
   const classes = useStylesFaq();
 
-//Accordian implementation
+  //Accordian implementation
   const [expanded, setExpanded] = React.useState(false);
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
 
-//Tab implementation
+  //Tab implementation
   const [values, setValues] = React.useState(0);
   const handleTabChange = (event, value) => {
     setValues(value);

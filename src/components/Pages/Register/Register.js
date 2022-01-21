@@ -44,8 +44,8 @@ const useStyles = makeStyles((theme) => ({
 	},
 
 	mainGrid: {
-		boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%), 
-    0 6px 30px 5px rgb(0 0 0 / 12%), 
+		boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%),
+    0 6px 30px 5px rgb(0 0 0 / 12%),
     0 8px 10px -7px rgb(0 0 0 / 20%)`,
 		background: "#f5f2f2",
 	},
@@ -73,8 +73,8 @@ const useStyles = makeStyles((theme) => ({
 		flexDirection: "column",
 		backgroundColor: `rgba(255, 255, 255, .8)`,
 		color: theme.palette.text.secondary,
-		boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%), 
-  0 6px 30px 5px rgb(0 0 0 / 12%), 
+		boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%),
+  0 6px 30px 5px rgb(0 0 0 / 12%),
   0 8px 10px -7px rgb(0 0 0 / 20%)`,
 	},
 
@@ -119,10 +119,10 @@ const validationSchema = yup.object({
 			new Date(
 				new Date(
 					new Date().getFullYear() +
-						"/" +
-						(new Date().getMonth() + 1) +
-						"/" +
-						new Date().getDate()
+					"/" +
+					(new Date().getMonth() + 1) +
+					"/" +
+					new Date().getDate()
 				).getTime() - 567650000000
 			),
 			"You must be at least 18 years old"

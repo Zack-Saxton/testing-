@@ -13,8 +13,8 @@ echo "GIT BRANCH  :" $branch
 echo "SPIN INSTANCES" : $instances
 
 # Choose the APP
-if [ $app != "cac" ]; 
-then 
+if [ $app != "cac" ];
+then
     echo 'Invalid Application Name'
     exit
 fi
@@ -94,10 +94,10 @@ rm -rfv deploy
 mkdir deploy # Need to add code to check if dir already exists
 cd deploy
 
-#Clone from git 
+#Clone from git
 git init && git clone $gitRepo
 cd $appDir
-git fetch --all && git checkout $branch && git pull origin $branch 
+git fetch --all && git checkout $branch && git pull origin $branch
 latestCommit=$(git rev-parse --short HEAD)
 
 #Dockerise the environment

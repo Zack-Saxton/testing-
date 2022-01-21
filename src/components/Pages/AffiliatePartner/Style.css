@@ -1,6 +1,6 @@
   #main-content-background{
     min-height: 500px;
-  
+
     /* Create the parallax scrolling effect */
     background-attachment: fixed;
     background-position: center;
@@ -36,7 +36,7 @@
 @media (max-width:400px){
     #email-label, #password-label, #c-pass-label, #firstname-label, #lastname-label, #zip-label{
         font-size: 4vw;
- 
+
     }
 }
 @media (max-width:400px){
@@ -57,17 +57,17 @@ label + .MuiInput-formControl{
     margin-top: 0;
     margin-bottom: 0;
 }
- 
+
 .hideError{
     display: none;
- 
+
 }
 
 label.MuiFormLabel-root.MuiInputLabel-root.MuiInputLabel-formControl.MuiInputLabel-animated{
     font-size: 0.8rem;
 }
 
-p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error{ 
+p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error{
     margin-bottom: -38px;
 }
 
@@ -75,7 +75,7 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error{
   background-color:transparent !important;
   color: white;
 }
- 
+
 
 .add-pad{
     margin-left: -1px !important;
@@ -84,11 +84,11 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error{
 }
 
 .showCheckbox{
-    
-    display: block;  
+
+    display: block;
     font-family: 'Muli', sans-serif;
     font-weight: 400;
-} 
+}
 .hideCheckbox{
     display: none;
 }

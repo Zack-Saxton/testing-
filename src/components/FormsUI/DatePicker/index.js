@@ -1,20 +1,20 @@
 /*#################################################################################################################
- 
+
 File Name           :    DatePicker/index.js
 Component Name      :    DatePicker
-Functionality       :    To use this component to get the date with restrictions to select particular dates like 
-                         restrict future, past dates, select between given range of dates like that.
- 
+Functionality       :    To use this component to get the date with restrictions to select particular dates like
+												 restrict future, past dates, select between given range of dates like that.
+
 #################################################################################################################*/
 import "date-fns";
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import DateFnsUtils from "@date-io/date-fns";
 import PropTypes from "prop-types";
-import {KeyboardDatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import "./DatePicker.css";
 
-const DatePickerWrapper = ({ name, format, defaultDate,label, placeholder,maxdate,minyear, ...otherProps }) => {
+const DatePickerWrapper = ({ name, format, defaultDate, label, placeholder, maxdate, minyear, ...otherProps }) => {
 
 	// The first commit of Material-UI
 	//const currentDate = new Date();
@@ -35,32 +35,32 @@ const DatePickerWrapper = ({ name, format, defaultDate,label, placeholder,maxdat
 				<KeyboardDatePicker
 					margin="normal"
 					id="date-picker-dialog"
-					label={label}   
+					label={label}
 					fullWidth={true}
-					format= { format ?? 'MM/dd/yyyy'}
+					format={format ?? 'MM/dd/yyyy'}
 					value={selectedDate}
 					onChange={handleDateChange}
 					InputAdornmentProps={{ position: 'start' }}
 					minDate={minDate}
 					maxDate={new Date(maxdate)}
 					placeholder={placeholder}
-					
+
 					KeyboardButtonProps={{
 						"aria-label": "change date",
 					}}
-					
-					
+
+
 					{...otherProps}
-					inputProps={{"data-test-id":"datePicker"}}
-					
+					inputProps={{ "data-test-id": "datePicker" }}
+
 				/>
 			</Grid>
 		</MuiPickersUtilsProvider>
 	);
 };
- 
+
 DatePickerWrapper.propTypes = {
-    name: PropTypes.string.isRequired,
+	name: PropTypes.string.isRequired,
 };
- 
+
 export default DatePickerWrapper;

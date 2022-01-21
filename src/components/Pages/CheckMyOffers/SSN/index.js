@@ -59,7 +59,7 @@ function SSN() {
 		if (
 			response.appSubmissionResult &&
 			response.appSubmissionResult?.data?.data?.applicationStatus ===
-				"offers_available"
+			"offers_available"
 		) {
 			setData({
 				...data,
@@ -281,7 +281,7 @@ function SSN() {
 											label={
 												<p className="agreeText">
 													By clicking this box, you acknowledge that you have received,
-													 reviewed and agree to the following disclosures and consents:
+													reviewed and agree to the following disclosures and consents:
 													<br />
 													<a
 														className="formatURL"
@@ -453,11 +453,11 @@ function SSN() {
 												loading
 													? loading
 													: !(
-															agree &&
-															agreeDelaware &&
-															agreeCalifornia &&
-															agreeNewMexico
-													  )
+														agree &&
+														agreeDelaware &&
+														agreeCalifornia &&
+														agreeNewMexico
+													)
 											}
 											onClick={handleOnClick}
 											stylebutton='{"background": "#FFBC23", "fontSize": "0.938rem","color": "black", "padding": "0px 30px"}'

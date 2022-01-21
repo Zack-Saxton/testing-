@@ -25,7 +25,7 @@ const Post = ({ children }) => {
 	var min = expiryMinute;
 	var actualSetupTime = userToken?.setupTime ?? 0;
 	var nowTime = new Date().getTime();
-	const [openPopUp, setOpenPopUp] = useState(false);				
+	const [openPopUp, setOpenPopUp] = useState(false);
 
 	const handleClosePopUp = () => {
 		setOpenPopUp(false);
@@ -98,7 +98,7 @@ const Post = ({ children }) => {
 
 	const handleOnIdleLogout = (event) => {
 		LogoutController();
-        Cookies.set("redirec", JSON.stringify({ to: "/select-amount" }));
+		Cookies.set("redirec", JSON.stringify({ to: "/select-amount" }));
 		history.push({
 			pathname: "/login",
 		});
@@ -152,7 +152,7 @@ const Post = ({ children }) => {
 					</DialogTitle>
 					<DialogContent dividers>
 						<Typography align="justify" gutterBottom>
-						You will be logged out due to inactivity. Press Ok to remain logged into the system
+							You will be logged out due to inactivity. Press Ok to remain logged into the system
 						</Typography>
 						<br />
 					</DialogContent>

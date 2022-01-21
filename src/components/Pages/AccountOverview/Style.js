@@ -6,6 +6,12 @@ const useStylesAccountOverview = makeStyles((theme) => ({
     flexGrow: 1,
   },
   mainGrid: {
+    width: "100%", 
+    paddingBottom: "10px", 
+    paddingTop: "20px"
+  },
+  tableGrid: {
+    width: "100%", 
     paddingBottom: "10px"
   },
   paper: {

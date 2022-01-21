@@ -1,4 +1,4 @@
-import React, { useEffect,useContext, useState } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import clsx from "clsx";
 import "./SideNav.css";
 import { makeStyles } from "@material-ui/core/styles";
@@ -23,7 +23,7 @@ import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import MonetizationOnRoundedIcon from "@material-ui/icons/MonetizationOnRounded";
 import DescriptionOutlinedIcon from "@material-ui/icons/DescriptionOutlined";
-import AssignmentTurnedInOutlinedIcon from "@material-ui/icons/AssignmentTurnedInOutlined"; 
+import AssignmentTurnedInOutlinedIcon from "@material-ui/icons/AssignmentTurnedInOutlined";
 import ListIcon from "@material-ui/icons/List";
 import CallIcon from "@material-ui/icons/Call"
 import DataUsageOutlinedIcon from "@material-ui/icons/DataUsageOutlined";
@@ -32,7 +32,7 @@ import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
 import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
 import logoIcon from "../../../assets/images/Favicon.png";
 import logoImage from "../../../assets/images/Normallogo.png";
-import {Link,  NavLink, useHistory } from "react-router-dom";
+import { Link, NavLink, useHistory } from "react-router-dom";
 import quickPay from "../../../assets/images/quickpay.png";
 import profileImg from "../../../assets/images/profile-img.png"
 import Notification from "../Notification/Notification"
@@ -51,9 +51,9 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import ProfileImageController from "../../Controllers/ProfileImageController";
 import { ProfilePicture } from "../../../contexts/ProfilePicture";
 import { CheckMyOffers } from "../../../contexts/CheckMyOffers"
-import {useQuery} from "react-query"
+import { useQuery } from "react-query"
 
-const drawerWidth = 240; 
+const drawerWidth = 240;
 
 //Material UI css
 const useStyles = makeStyles((theme) => ({
@@ -186,68 +186,66 @@ export default function SideNav() {
   const [checked, setChecked] = React.useState(true);
   const [, setTabvalue] = useAtom(tabAtom)
   const { dataProfile, resetProfilePicture } = useContext(ProfilePicture);
-  const {  resetData } = useContext(CheckMyOffers);
+  const { resetData } = useContext(CheckMyOffers);
 
-  const { data : dataAccountOverview} = useQuery('loan-data', usrAccountDetails )
+  const { data: dataAccountOverview } = useQuery('loan-data', usrAccountDetails)
   const [activeLoanData, setActiveLoanData] = useState(true);
   const [currentLoan, setCurrentLoan] = useState(true);
   const [checkPresenceOfLoan, setCheckPresenceOfLoan] = useState(false)
   const [checkPresenceOfLoanStatus, setCheckPresenceOfLoanStatus] = useState('')
 
-  
-
   useEffect(() => {
     let noOfLoans = dataAccountOverview?.data?.data?.activeLoans?.length;
     let activeLoan = dataAccountOverview?.data?.data?.applicants;
     //logic to check if atleast one active initiated Loan is there or not
-    const presenceOfLoan = activeLoan?.some((applicant) => applicant.isActive === true )  ;
+    const presenceOfLoan = activeLoan?.some((applicant) => applicant.isActive === true);
     const presenceOfLoanStatus = activeLoan?.find((applicant) => applicant.isActive === true);
     const userAccountStatus = dataAccountOverview?.data?.data?.customer?.user_account?.status
-   
+
     setCheckPresenceOfLoanStatus(presenceOfLoanStatus?.status)
-    setCurrentLoan(presenceOfLoan === true ||  userAccountStatus === "closed" ? true : false);
+    setCurrentLoan(presenceOfLoan === true || userAccountStatus === "closed" ? true : false);
     setCheckPresenceOfLoan(presenceOfLoan)
 
-      //logic to if there is any active Loan Data is there or not
-   if(noOfLoans===undefined){
-    setActiveLoanData(true);
- }else if(noOfLoans === 0) {
-   setActiveLoanData(true);
- } else{
-   setActiveLoanData(false);
- }
+    //logic to if there is any active Loan Data is there or not
+    if (noOfLoans === undefined) {
+      setActiveLoanData(true);
+    } else if (noOfLoans === 0) {
+      setActiveLoanData(true);
+    } else {
+      setActiveLoanData(false);
+    }
 
- return () => {
-  setCurrentLoan({});
+    return () => {
+      setCurrentLoan({});
 
-};
-}, [dataAccountOverview, activeLoanData, currentLoan]);
-
-
-
-let statusStrLink = {
-  "approved": "/customers/finalVerification",
-  "completing_application": "/customers/finalVerification",
-  "contact_branch":  "/customers/myBranch",
-  "confirming_info": "/partner/confirm-signup",
-  "expired": "/select-amount",
-  "invalid": "/select-amount",
-  "signature_complete":  "/customers/finalVerification",
-  "offer_selected": "/customers/reviewAndSign",
-  "offers_available": "/customers/selectOffer",
-  "pre_qual_referred": "/select-amount",
-  "pre_qual_rejected": "/select-amount",
-  "pre_qualified": "/credit-karma",
-  "referred": "/referred-to-branch",
-  "rejected": "/no-offers-available",
-  "under_review": "/customers/loanDocument",
-  "closing_process": "/customers/finalVerification",
-  "final_review": "/customers/loanDocument"
-}; 
+    };
+  }, [dataAccountOverview, activeLoanData, currentLoan]);
 
 
 
-//Material UI media query for responsiveness
+  let statusStrLink = {
+    "approved": "/customers/finalVerification",
+    "completing_application": "/customers/finalVerification",
+    "contact_branch": "/customers/myBranch",
+    "confirming_info": "/partner/confirm-signup",
+    "expired": "/select-amount",
+    "invalid": "/select-amount",
+    "signature_complete": "/customers/finalVerification",
+    "offer_selected": "/customers/reviewAndSign",
+    "offers_available": "/customers/selectOffer",
+    "pre_qual_referred": "/select-amount",
+    "pre_qual_rejected": "/select-amount",
+    "pre_qualified": "/credit-karma",
+    "referred": "/referred-to-branch",
+    "rejected": "/no-offers-available",
+    "under_review": "/customers/loanDocument",
+    "closing_process": "/customers/finalVerification",
+    "final_review": "/customers/loanDocument"
+  };
+
+
+
+  //Material UI media query for responsiveness
   let check = useMediaQuery("(min-width:960px)");
 
   React.useEffect(() => {
@@ -263,64 +261,64 @@ let statusStrLink = {
 
   //Formating Phone Number
   function formatPhoneNumber(phoneNumber) {
-    if(phoneNumber ) {
-    const cleanNum =phoneNumber.toString().replace(/\D/g, '');
-    const match = cleanNum.match(/^(\d{3})(\d{0,3})(\d{0,4})$/);
-    if (match) {
-      return '(' + match[1] + ') ' + (match[2] ? match[2] + "-" : "") + match[3];
+    if (phoneNumber) {
+      const cleanNum = phoneNumber.toString().replace(/\D/g, '');
+      const match = cleanNum.match(/^(\d{3})(\d{0,3})(\d{0,4})$/);
+      if (match) {
+        return '(' + match[1] + ') ' + (match[2] ? match[2] + "-" : "") + match[3];
+      }
+      return cleanNum;
     }
-    return cleanNum;
+    else {
+      return false
+    }
   }
-  else{
-    return false
+
+  //Api call Branch Details
+  const [branchVal, setBranchDetails] = useState(null);
+  async function getUserBranchDetails() {
+    setBranchDetails(await branchDetails());
   }
-}
+  useEffect(() => {
+    getUserBranchDetails();
+  }, []);
 
-//Api call Branch Details
-const [branchVal, setBranchDetails] = useState(null);
-async function getUserBranchDetails() {
-  setBranchDetails(await branchDetails());
-}
-useEffect(() => {
-  getUserBranchDetails();
-}, []);  
+  //Api call Profile Picture
+  const [profileImage, setProfileImage] = useState(null);
+  async function AsyncEffect_profileImage() {
+    setProfileImage(await ProfileImageController());
+  }
+  useEffect(() => {
 
-//Api call Profile Picture
-const [profileImage, setProfileImage] = useState(null);
-async function AsyncEffect_profileImage() {
-  setProfileImage(await ProfileImageController());
-}
-useEffect(() => {
- 
-  AsyncEffect_profileImage();
-}, []); 
+    AsyncEffect_profileImage();
+  }, []);
 
 
-let getProfImage = (profileImage != null) ? profileImage : profileImg;
+  let getProfImage = (profileImage != null) ? profileImage : profileImg;
 
-// Side bar branch details
-Cookies.set('branchname',((branchVal?.data?.data?.BranchName) ? (branchVal.data.data.BranchName) : (branchVal?.data?.data?.branchName) ? (branchVal.data.data.branchName) : ""))
-Cookies.set('branchphone',branchVal?.data?.data?.PhoneNumber) 
-Cookies.set('branchopenstatus',branchVal?.data?.data?.date_closed)
-Cookies.set('getProfileImage',getProfImage)
+  // Side bar branch details
+  Cookies.set('branchname', ((branchVal?.data?.data?.BranchName) ? (branchVal.data.data.BranchName) : (branchVal?.data?.data?.branchName) ? (branchVal.data.data.branchName) : ""))
+  Cookies.set('branchphone', branchVal?.data?.data?.PhoneNumber)
+  Cookies.set('branchopenstatus', branchVal?.data?.data?.date_closed)
+  Cookies.set('getProfileImage', getProfImage)
 
 
-let hasActiveLoan = Cookies.get("hasActiveLoan") === "true" ? true : false;
-let hasApplicationStatus = Cookies.get("hasApplicationStatus")
-var appStatus=["rejected", "reffered", "expired"]; 
-let checkAppStatus = appStatus.includes(hasApplicationStatus)
-let disableField = (checkAppStatus === true || hasActiveLoan === true) ? true : false;
+  let hasActiveLoan = Cookies.get("hasActiveLoan") === "true" ? true : false;
+  let hasApplicationStatus = Cookies.get("hasApplicationStatus")
+  var appStatus = ["rejected", "reffered", "expired"];
+  let checkAppStatus = appStatus.includes(hasApplicationStatus)
+  let disableField = (checkAppStatus === true || hasActiveLoan === true) ? true : false;
   const branchName = Cookies.get("branchname");
   const branchPhone = Cookies.get('branchphone');
   const branchcloseStatus = Cookies.get('branchopenstatus');
   const getProfileImage = Cookies.get('getProfileImage');
-  
+
 
   const lastLoginRaw = JSON.parse(Cookies.get("user") ? Cookies.get("user") : '{ }')?.user?.extensionattributes?.login?.timestamp_date;
-  const date =  lastLoginRaw ? new Date(lastLoginRaw) : new Date();
+  const date = lastLoginRaw ? new Date(lastLoginRaw) : new Date();
   const lastLogin = ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + date.getFullYear()
 
-//Side bar open on mouse event
+  //Side bar open on mouse event
   const handleDrawer = () => {
     const closeElementId = "close";
     const valueQualifiedName = "value";
@@ -357,7 +355,7 @@ let disableField = (checkAppStatus === true || hasActiveLoan === true) ? true : 
     }
   };
 
-//Side bar close on mouse event
+  //Side bar close on mouse event
   const handleDrawerleave = () => {
     const closeElementId = "close";
     const valueQualifiedName = "value";
@@ -390,13 +388,13 @@ let disableField = (checkAppStatus === true || hasActiveLoan === true) ? true : 
       } else {
         document.getElementById("main").style.marginLeft = "240px";
       }
-      
-    var profiledetailTag = document.getElementById("profileDetails");
-    profiledetailTag.style.display = "none";
+
+      var profiledetailTag = document.getElementById("profileDetails");
+      profiledetailTag.style.display = "none";
     }
   };
 
-//Menu button on mouse view
+  //Menu button on mouse view
   const handleMenuButtonOpen = () => {
     if (check === false) {
       document.getElementById("close2").style.display = "block ";
@@ -405,7 +403,7 @@ let disableField = (checkAppStatus === true || hasActiveLoan === true) ? true : 
     }
   };
 
-//Money skill popup
+  //Money skill popup
   const handleMoneySkillNav = () => {
     setSkill(true);
   };
@@ -424,15 +422,17 @@ let disableField = (checkAppStatus === true || hasActiveLoan === true) ? true : 
     }
   };
 
-  const handleMenuProfile = () =>{
+  const handleMenuProfile = () => {
     history.push({
-      pathname:'/customers/myProfile'});
+      pathname: '/customers/myProfile'
+    });
     setTabvalue(0)
     handleMenuClose()
   }
-  const handleMenuPaymentProfile = () =>{
+  const handleMenuPaymentProfile = () => {
     history.push({
-      pathname:'/customers/myProfile'});
+      pathname: '/customers/myProfile'
+    });
     setTabvalue(3)
     handleMenuClose()
   }
@@ -461,7 +461,7 @@ let disableField = (checkAppStatus === true || hasActiveLoan === true) ? true : 
     });
   };
 
-//Side bar enable and disable
+  //Side bar enable and disable
   const handleChangeCheckbox = (event) => {
     if (event.target.checked === "false") {
       document.getElementById("main").style.marginLeft = "73px";
@@ -478,40 +478,39 @@ let disableField = (checkAppStatus === true || hasActiveLoan === true) ? true : 
     });
   }
 
-  const resumeApplicationClick = () =>{
+  const resumeApplicationClick = () => {
     history.push({
-      pathname:statusStrLink[checkPresenceOfLoanStatus],
+      pathname: statusStrLink[checkPresenceOfLoanStatus],
     });
-    
+
   }
- 
- 
-//Menu bar 
+
+  //Menu bar
   const renderMenu = (
     <Menu
       id="settingsMenu"
-      anchorEl={anchorEl}     
+      anchorEl={anchorEl}
       open={isMenuOpen}
-      onClose={handleMenuClose}     
+      onClose={handleMenuClose}
     >
-       <MenuItem onClick={handleMenuProfile} id="settingsMenuList">
-     My Profile</MenuItem>
+      <MenuItem onClick={handleMenuProfile} id="settingsMenuList">
+        My Profile</MenuItem>
       <MenuItem
-     disabled={disableField === true ? false : true}
-       onClick={handleMenuPaymentProfile} id="settingsMenuList">
-      Payment Accounts</MenuItem>
-     <MenuItem onClick={logoutUser} id="settingsMenuListLogout" disabled={disable}>
+        disabled={disableField === true ? false : true}
+        onClick={handleMenuPaymentProfile} id="settingsMenuList">
+        Payment Accounts</MenuItem>
+      <MenuItem onClick={logoutUser} id="settingsMenuListLogout" disabled={disable}>
         Logout
       </MenuItem>
     </Menu>
   );
-let navElement = document.getElementById("applyForLoanNav");
-if(navElement){
-  document.getElementById("applyForLoanNav").removeAttribute("href"); 
-}
+  let navElement = document.getElementById("applyForLoanNav");
+  if (navElement) {
+    document.getElementById("applyForLoanNav").removeAttribute("href");
+  }
 
 
-//View part
+  //View part
   return (
     <div className={classes.grow}>
       <AppBar
@@ -573,15 +572,15 @@ if(navElement){
             </Typography>
 
 
-            <NavLink to="/customers/makePayment" onClick={(e)=>{activeLoanData && e.preventDefault()}} className={activeLoanData ? 'nav_link_disabled' : ''}>
-            <Tooltip title="Quick Pay" placement="bottom">
-              <img
-              className={clsx(classes.headerimg, classes.headerimgResp)}
-              src={quickPay}
-              data-test-id="background"
-              alt="quick pay"
-            />
-            </Tooltip>
+            <NavLink to="/customers/makePayment" onClick={(e) => { activeLoanData && e.preventDefault() }} className={activeLoanData ? 'nav_link_disabled' : ''}>
+              <Tooltip title="Quick Pay" placement="bottom">
+                <img
+                  className={clsx(classes.headerimg, classes.headerimgResp)}
+                  src={quickPay}
+                  data-test-id="background"
+                  alt="quick pay"
+                />
+              </Tooltip>
             </NavLink>
 
             <Notification />
@@ -592,7 +591,7 @@ if(navElement){
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
               color="inherit"
-             
+
             >
               <SettingsIcon />
             </IconButton>
@@ -621,12 +620,12 @@ if(navElement){
         >
           <div className={classes.toolbar}>
             <Link to="/customers/accountOverview">
-            <input
-              type="image"
-              src={logoImage}
-              alt="logo image"
-              style={{ height: "60px" }}
-            />
+              <input
+                type="image"
+                src={logoImage}
+                alt="logo image"
+                style={{ height: "60px" }}
+              />
             </ Link>
 
             <Checkbox
@@ -647,146 +646,149 @@ if(navElement){
             </div>
           </div>
           <Divider />
-          <PerfectScrollbar options={{ suppressScrollX :true,wheelSpeed: 2,wheelPropagation: false,minScrollbarLength: 20 }}>
-          <List id="listItemWrap" onClick={handleMobileMenuClose}>
-            <ListItem id="profileDetails" className="profileDetails">
-              <List >
-              <ListItem>
-                <div id="imgWrap">
-                <img id="sidebarProfilePic" src={dataProfile?.profile_picture_url ? dataProfile?.profile_picture_url : getProfileImage} alt="Profile Pic" onClick={handleMenuProfile} />
-                </div>
-              </ListItem> 
-              {(branchName === '' || branchName === 'undefined') || (branchPhone === '' || branchPhone === 'undefined') ?
-              <>
-              <ListItem id="sidemenuLastLogin">  
-                  {lastLogin === '' || undefined ? '' : 'Last Login : '+ lastLogin}  
-              </ListItem> </> :
-              
-              <><ListItem id="sidemenuBranch">
-                    {branchName === '' || undefined ? '' : 'Branch : ' + branchName}
-                  </ListItem><ListItem id="sidemenuLastLogin">
-                      {lastLogin === '' || undefined ? '' : 'Last Login : ' + lastLogin}
-                    </ListItem><ListItem id={branchcloseStatus === 'null' ? 'sidemenuOpenNow' : 'sidemenuCloseNow'}>
-                      {branchcloseStatus === 'null' ? 'Open now' : 'Closed now'}
-                    </ListItem>
-              {formatPhoneNumber(branchPhone) === '' || undefined  ? '' :  
-              <ListItem id="sidemenuPhone"> 
-                  <CallIcon />
-                  <a href="tel:" className="hrefPhoneNo">
-                  {formatPhoneNumber(branchPhone)}
-                </a>  
-              </ListItem> 
-              }  </>  }
-              </List>
-            </ListItem>
-            <NavLink to="/customers/accountOverview" className="nav_link">
-              <ListItem className="titleSidenav">
+          <PerfectScrollbar options={{ suppressScrollX: true, wheelSpeed: 2, wheelPropagation: false, minScrollbarLength: 20 }}>
+            <List id="listItemWrap" onClick={handleMobileMenuClose}>
+              <ListItem id="profileDetails" className="profileDetails">
+                <List >
+                  <ListItem>
+                    <div id="imgWrap">
+                      <img id="sidebarProfilePic" src={dataProfile?.profile_picture_url ? dataProfile?.profile_picture_url : getProfileImage} alt="Profile Pic" onClick={handleMenuProfile} />
+                    </div>
+                  </ListItem>
+                  <ListItem id="sidemenuName">
+                    {(dataAccountOverview?.data?.data?.applicant?.contact?.first_name) ? 'Welcome ' + dataAccountOverview?.data?.data?.applicant?.contact?.first_name : ""}
+                  </ListItem>
+                  {(branchName === '' || branchName === 'undefined') || (branchPhone === '' || branchPhone === 'undefined') ?
+                    <>
+                      <ListItem id="sidemenuLastLogin">
+                        {lastLogin === '' || undefined ? '' : 'Last Login : ' + lastLogin}
+                      </ListItem> </> :
+
+                    <><ListItem id="sidemenuBranch">
+                      {branchName === '' || undefined ? '' : 'Branch : ' + branchName}
+                    </ListItem><ListItem id="sidemenuLastLogin">
+                        {lastLogin === '' || undefined ? '' : 'Last Login : ' + lastLogin}
+                      </ListItem><ListItem id={branchcloseStatus === 'null' ? 'sidemenuOpenNow' : 'sidemenuCloseNow'}>
+                        {branchcloseStatus === 'null' ? 'Open now' : 'Closed now'}
+                      </ListItem>
+                      {formatPhoneNumber(branchPhone) === '' || undefined ? '' :
+                        <ListItem id="sidemenuPhone">
+                          <CallIcon />
+                          <a href="tel:" className="hrefPhoneNo">
+                            {formatPhoneNumber(branchPhone)}
+                          </a>
+                        </ListItem>
+                      }  </>}
+                </List>
+              </ListItem>
+              <NavLink to="/customers/accountOverview" className="nav_link">
+                <ListItem className="titleSidenav">
+                  <ListItemIcon>
+                    {" "}
+                    <AssignmentTurnedInOutlinedIcon />{" "}
+                  </ListItemIcon>
+                  <ListItemText style={{ textDecoration: "none" }}>
+                    Account Overview
+                  </ListItemText>
+                </ListItem>
+              </NavLink>
+
+              <NavLink to="/customers/makePayment" onClick={(e) => { activeLoanData && e.preventDefault() }} className={activeLoanData ? 'nav_link_disabled' : 'nav_link'}>
+                <ListItem className="titleSidenav" disabled={activeLoanData}>
+                  <ListItemIcon>
+                    {" "}
+                    <AccountBalanceWalletIcon />{" "}
+                  </ListItemIcon>
+                  <ListItemText style={{ textDecoration: "none" }}>
+                    Make a Payment{" "}
+                  </ListItemText>
+                </ListItem>
+              </NavLink>
+
+
+              {checkPresenceOfLoan === true ?
+                <NavLink to={{ state: { from: "user" } }} onClick={(e) => { resumeApplicationClick() }} className="nav_link" >
+                  <ListItem className="titleSidenav" >
+                    <ListItemIcon>
+                      {" "}
+                      <MonetizationOnRoundedIcon />{" "}
+                    </ListItemIcon>
+                    <ListItemText> Resume Application </ListItemText>
+                  </ListItem>
+                </NavLink>
+                :
+                <NavLink id="applyForLoanNav" to={{ state: { from: "user" } }} onClick={(e) => { currentLoan ? e.preventDefault() : onAFLClick() }} className={currentLoan ? "nav_link_disabled" : "nav_link"} >
+                  <ListItem className="titleSidenav" disabled={currentLoan}>
+                    <ListItemIcon>
+                      {" "}
+                      <MonetizationOnRoundedIcon />{" "}
+                    </ListItemIcon>
+                    <ListItemText> Apply for a Loan </ListItemText>
+                  </ListItem>
+                </NavLink>}
+
+              <NavLink to="/customers/loanDocument" onClick={(e) => { activeLoanData && checkPresenceOfLoanStatus !== "under_review" && checkPresenceOfLoanStatus !== "final_review" && e.preventDefault() }} className={activeLoanData && checkPresenceOfLoanStatus !== "under_review" && checkPresenceOfLoanStatus !== "final_review" ? 'nav_link_disabled' : 'nav_link'}>
+                <ListItem className="titleSidenav" disabled={activeLoanData === true && checkPresenceOfLoanStatus !== "under_review" && checkPresenceOfLoanStatus !== "final_review" ? true : false}>
+                  <ListItemIcon>
+                    {" "}
+                    <DescriptionOutlinedIcon />{" "}
+                  </ListItemIcon>
+                  <ListItemText> Loan Documents </ListItemText>
+                </ListItem>
+              </NavLink>
+
+              <NavLink to="/customers/myBranch" onClick={(e) => { activeLoanData && e.preventDefault() }} className={activeLoanData ? 'nav_link_disabled' : 'nav_link'}>
+                <ListItem className="titleSidenav" disabled={activeLoanData}>
+                  <ListItemIcon>
+                    {" "}
+                    <AccountBalanceIcon />{" "}
+                  </ListItemIcon>
+                  <ListItemText> My Branch</ListItemText>
+                </ListItem>
+              </NavLink>
+
+              <NavLink to="/customers/myProfile" onClick={handleMenuProfile} className="nav_link">
+                <ListItem className="titleSidenav" >
+                  <ListItemIcon>
+                    {" "}
+                    <AccountCircleIcon />{" "}
+                  </ListItemIcon>
+                  <ListItemText> My Profile</ListItemText>
+                </ListItem>
+              </NavLink>
+
+              <NavLink to="/customers/loanHistory" onClick={(e) => { activeLoanData && e.preventDefault() }} className={activeLoanData ? 'nav_link_disabled' : 'nav_link'}>
+                <ListItem className="titleSidenav" disabled={activeLoanData}>
+                  <ListItemIcon>
+                    {" "}
+                    <ListIcon />{" "}
+                  </ListItemIcon>
+                  <ListItemText> Loan History</ListItemText>
+                </ListItem>
+              </NavLink>
+
+              <NavLink to="/customers/vantageScore" onClick={(e) => { activeLoanData && e.preventDefault() }} className={activeLoanData ? 'nav_link_disabled' : 'nav_link'}>
+                <ListItem className="titleSidenav" disabled={activeLoanData}>
+                  <ListItemIcon>
+                    {" "}
+                    <InboxIcon />{" "}
+                  </ListItemIcon>
+                  <ListItemText> VantageScore &reg;</ListItemText>
+                </ListItem>
+              </NavLink>
+
+              <ListItem id="moneySkillNavLink" onClick={handleMoneySkillNav}>
                 <ListItemIcon>
                   {" "}
-                  <AssignmentTurnedInOutlinedIcon />{" "}
+                  <DataUsageOutlinedIcon />{" "}
                 </ListItemIcon>
-                <ListItemText style={{ textDecoration: "none" }}>
-                Account Overview
+                <ListItemText className="titleSidenav">
+                  {" "}
+                  MoneySKILL &reg;{" "}
                 </ListItemText>
               </ListItem>
-            </NavLink>
-
-            <NavLink to="/customers/makePayment" onClick={(e)=>{activeLoanData && e.preventDefault()}} className={activeLoanData ? 'nav_link_disabled' : 'nav_link'}>
-              <ListItem className="titleSidenav" disabled={activeLoanData}>
-                <ListItemIcon>
-                  {" "}
-                  <AccountBalanceWalletIcon />{" "}
-                </ListItemIcon>
-                <ListItemText style={{ textDecoration: "none" }}>
-                  Make a Payment{" "}
-                </ListItemText>
-              </ListItem>
-            </NavLink>
-
-
-            {checkPresenceOfLoan === true ?
-            <NavLink to={{  state: {from: "user"} }}  onClick={(e)=>{ resumeApplicationClick()}}  className="nav_link" >
-              <ListItem className="titleSidenav" >
-                <ListItemIcon>
-                  {" "}
-                  <MonetizationOnRoundedIcon />{" "}
-                </ListItemIcon>
-                <ListItemText> Resume Application </ListItemText>
-              </ListItem>
-            </NavLink>
-            :
-            <NavLink id="applyForLoanNav" to={{  state: {from: "user"}  }} onClick={(e)=>{currentLoan ? e.preventDefault() : onAFLClick()}} className={currentLoan ? "nav_link_disabled" : "nav_link"} >
-              <ListItem className="titleSidenav" disabled={currentLoan}>
-                <ListItemIcon>
-                  {" "}
-                  <MonetizationOnRoundedIcon />{" "}
-                </ListItemIcon>
-                <ListItemText> Apply for a Loan </ListItemText>
-              </ListItem>
-            </NavLink>}
-
-            <NavLink to="/customers/loanDocument" onClick={(e)=>{activeLoanData && e.preventDefault()}} className={activeLoanData ? 'nav_link_disabled' : 'nav_link'}>
-              <ListItem className="titleSidenav" disabled={activeLoanData}>
-                <ListItemIcon>
-                  {" "}
-                  <DescriptionOutlinedIcon />{" "}
-                </ListItemIcon>
-                <ListItemText> Loan Documents </ListItemText>
-              </ListItem>
-            </NavLink>
-
-            <NavLink to="/customers/myBranch" onClick={(e)=>{activeLoanData && e.preventDefault()}} className={activeLoanData ? 'nav_link_disabled' : 'nav_link'}>
-              <ListItem className="titleSidenav" disabled={activeLoanData}>
-                <ListItemIcon>
-                  {" "}
-                  <AccountBalanceIcon />{" "}
-                </ListItemIcon>
-                <ListItemText> My Branch</ListItemText>
-              </ListItem>
-            </NavLink>
-
-            <NavLink   to="/customers/myProfile"  onClick={handleMenuProfile} className="nav_link"> 
-              <ListItem className="titleSidenav" >
-                <ListItemIcon>
-                  {" "}
-                  <AccountCircleIcon />{" "}
-                </ListItemIcon>
-                <ListItemText> My Profile</ListItemText>
-              </ListItem>
-             </NavLink> 
-
-            <NavLink to="/customers/loanHistory" onClick={(e)=>{activeLoanData && e.preventDefault()}} className={activeLoanData ? 'nav_link_disabled' : 'nav_link'}>
-              <ListItem className="titleSidenav" disabled = {activeLoanData}>
-                <ListItemIcon>
-                  {" "}
-                  <ListIcon />{" "}
-                </ListItemIcon>
-                <ListItemText> Loan History</ListItemText>
-              </ListItem>
-            </NavLink>
-
-            <NavLink to="/customers/vantageScore" onClick={(e)=>{activeLoanData && e.preventDefault()}} className={activeLoanData ? 'nav_link_disabled' : 'nav_link'}>
-              <ListItem className="titleSidenav" disabled = {activeLoanData}>
-                <ListItemIcon>
-                  {" "}
-                  <InboxIcon />{" "}
-                </ListItemIcon>
-                <ListItemText> VantageScore &reg;</ListItemText>
-              </ListItem>
-            </NavLink>
-
-            <ListItem id="moneySkillNavLink" onClick={handleMoneySkillNav}>
-              <ListItemIcon>
-                {" "}
-                <DataUsageOutlinedIcon />{" "}
-              </ListItemIcon>
-              <ListItemText className="titleSidenav">
-                {" "}
-                MoneySKILL &reg;{" "}
-              </ListItemText>
-            </ListItem>
-          </List>
-         </PerfectScrollbar>
+            </List>
+          </PerfectScrollbar>
         </Drawer>
       </div>
       <MoneySkill moneySkill={skill} onChange={setSkill} />

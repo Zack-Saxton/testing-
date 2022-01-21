@@ -2,14 +2,14 @@
 
 File Name           :    Button/index.js
 Component Name      :    Button
-Functionality       :    To use this button as a default component for UI purpose across the whole application to 
+Functionality       :    To use this button as a default component for UI purpose across the whole application to
                           maintain same consistency.
 
 #################################################################################################################*/
 
 import React from "react";
-import {Button} from "@material-ui/core";
-import {makeStyles} from "@material-ui/core/styles";
+import { Button } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 
 const ButtonWrapper = ({
   children,
@@ -43,7 +43,7 @@ const ButtonWrapper = ({
 
   //View Part
   return (
-    <Button {...configButton}  onClick={onClick} style={ styleButtonMF }>
+    <Button {...configButton} onClick={onClick} style={styleButtonMF}>
       {children}
     </Button>
   );

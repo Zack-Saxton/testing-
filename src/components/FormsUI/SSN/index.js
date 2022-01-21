@@ -27,8 +27,7 @@ const PasswordWrapper = ({ name, id, onChange, value, label, ...otherProps }) =>
   };
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
-    if(onChange)
-    {
+    if (onChange) {
       onChange(event);
     }
   };
@@ -46,7 +45,7 @@ const PasswordWrapper = ({ name, id, onChange, value, label, ...otherProps }) =>
     <FormControl fullWidth={true}>
       <InputLabel htmlFor={id}>{label}</InputLabel>
       <Input
-        id= {id}
+        id={id}
         type={values.showPassword ? "text" : "password"}
         value={values?.password}
         name={name}
@@ -55,14 +54,14 @@ const PasswordWrapper = ({ name, id, onChange, value, label, ...otherProps }) =>
         onCut={handleEdit}
         onCopy={handleEdit}
         onPaste={handleEdit}
-        inputProps={{"data-test-id": "pass"}}
+        inputProps={{ "data-test-id": "pass" }}
         endAdornment={
           <InputAdornment position="end">
             <IconButton
               aria-label="toggle password visibility"
               onClick={handleClickShowPassword}
               onMouseDown={handleMouseDownPassword}
-              data-test-id= "passButton"
+              data-test-id="passButton"
             >
               {values.showPassword ? <Visibility /> : <VisibilityOff />}
             </IconButton>

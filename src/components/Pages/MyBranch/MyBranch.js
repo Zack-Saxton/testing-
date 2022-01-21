@@ -12,10 +12,10 @@ import CheckLoginStatus from "../../App/CheckLoginStatus";
 import Paper from "@material-ui/core/Paper";
 
 export default function MyBranch() {
-//Material UI css class
-const classes = useStylesMyBranch();
+  //Material UI css class
+  const classes = useStylesMyBranch();
 
-//API call
+  //API call
   const [branchApiStatus, SetBranchApiStatus] = useState(null);
   async function AsyncEffect_MyBranch() {
     SetBranchApiStatus(await MyBranchAPI());
@@ -24,13 +24,13 @@ const classes = useStylesMyBranch();
     AsyncEffect_MyBranch();
   }, []);
 
- //Branch details from API
+  //Branch details from API
   let myBranchData = branchApiStatus != null ? branchApiStatus.data.data : null;
 
-//View part
+  //View part
   return (
     <div>
-      <CheckLoginStatus/>
+      <CheckLoginStatus />
       <Grid
         container
         justifyContent={"center"}
@@ -65,7 +65,7 @@ const classes = useStylesMyBranch();
 
         <Grid
           container
-          id = "branchMainDiv"        
+          id="branchMainDiv"
         >
           <Grid id="branchDiv" item xs={12} sm={5} >
             {myBranchData ? (

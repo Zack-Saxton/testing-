@@ -31,9 +31,9 @@ const useStylesMyBranch = makeStyles((theme) => ({
   },
   dialogPaper: {
     width: "100%",
-    maxWidth:"500px",
-    paddingBottom:"20px",
-    borderRadius:"2px !important"
+    maxWidth: "500px",
+    paddingBottom: "20px",
+    borderRadius: "2px !important"
   },
   dialogHeading: {
     color: "#171717!important",

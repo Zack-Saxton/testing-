@@ -2,13 +2,13 @@
 
 File Name           :    Multiselect/index.js
 Component Name      :    Multiselect
-Functionality       :    To use this Multiselect as a default component for UI purpose across the whole application to 
+Functionality       :    To use this Multiselect as a default component for UI purpose across the whole application to
                           maintain same consistency.
 
 #################################################################################################################*/
 import React from "react";
-import {FormControl} from "@material-ui/core";
-import {makeStyles} from "@material-ui/core/styles";
+import { FormControl } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -67,15 +67,15 @@ const MultiSelectWrapper = ({
         width: 150,
       },
     },
-      anchorOrigin: {
+    anchorOrigin: {
       vertical: "bottom",
       horizontal: "left"
-      },
-      transformOrigin: {
+    },
+    transformOrigin: {
       vertical: "top",
       horizontal: "left"
-      },
-      getContentAnchorEl: null
+    },
+    getContentAnchorEl: null
   };
 
   //Configuring Field with Properties
@@ -104,10 +104,10 @@ const MultiSelectWrapper = ({
         value={multiSelect}
         multiple
         MenuProps={MenuProps}
-        data-test-id= "multiSelectBox"
-        inputProps={{"data-test-id": "multiSelectInput"}}
+        data-test-id="multiSelectBox"
+        inputProps={{ "data-test-id": "multiSelectInput" }}
         renderValue={(selected) => selected.join(", ")}
-        
+
       >
         {multiselect1.map((nam) => (
           <MenuItem key={nam.value} value={nam.value}>

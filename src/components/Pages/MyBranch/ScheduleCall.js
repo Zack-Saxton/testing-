@@ -18,7 +18,7 @@ import {
   other_Tue,
   Other_Fri,
   other_M_W_Thu,
-  upt_ca_M_W_TH_F,upt_ca_Tue,updated_other_Tue,upt_other_Fri,upt_other_M_W_Thu
+  upt_ca_M_W_TH_F, upt_ca_Tue, updated_other_Tue, upt_other_Fri, upt_other_M_W_Thu
 } from "./WorkingHours";
 import { ScheduleCallApi } from "../../Controllers/MyBranchController";
 import momentTimeZone from "moment-timezone";
@@ -33,7 +33,7 @@ const validationSchema = yup.object({
   callTime: yup.string("Select Time").nullable().required("Time is required"),
 });
 
-//Date validation 
+//Date validation
 const scheduleDateCall = new Date();
 scheduleDateCall.setDate(scheduleDateCall.getDate() + 30);
 
@@ -70,18 +70,18 @@ export default function ScheduleCall(MyBranchCall) {
   //Branch details from API
   let branchDetail = MyBranchCall != null ? MyBranchCall : null;
 
-//Spliting statename
+  //Spliting statename
   let stateName = branchDetail?.MyBranchCall?.MyBranchDetail
     ? branchDetail?.MyBranchCall?.MyBranchDetail?.result
       ? null : branchDetail?.MyBranchCall?.MyBranchDetail?.message ? null
-      : branchDetail?.MyBranchCall?.MyBranchDetail
-      ? branchDetail?.MyBranchCall?.MyBranchDetail?.Address?.split(",")
+        : branchDetail?.MyBranchCall?.MyBranchDetail
+          ? branchDetail?.MyBranchCall?.MyBranchDetail?.Address?.split(",")
           [
             branchDetail?.MyBranchCall?.MyBranchDetail?.Address?.split(",").length -
-              1
+            1
           ].trim()
-          .substring(0, 2)
-      : null
+            .substring(0, 2)
+          : null
     : null;
 
   const [scheduleCall, setScheduleCall] = React.useState(false);
@@ -105,7 +105,7 @@ export default function ScheduleCall(MyBranchCall) {
       setLoading(true);
 
       let response = await ScheduleCallApi(callDate, callingTime, callTimeZone);
-     
+
 
       if (response === "true") {
         formik.values.date = null;
@@ -116,7 +116,7 @@ export default function ScheduleCall(MyBranchCall) {
     },
   });
 
-//pop up open & close
+  //pop up open & close
   const handleScheduleCall = () => {
     setScheduleCall(true);
   };
@@ -130,7 +130,7 @@ export default function ScheduleCall(MyBranchCall) {
     setScheduleCall(false);
   };
 
-//View part
+  //View part
   return (
     <div>
       <Grid item xs={12} style={{ paddingTop: "10px", textAlign: "left" }}>
@@ -191,7 +191,7 @@ export default function ScheduleCall(MyBranchCall) {
                 <Select
                   name="callTime"
                   labelform="Time Slot"
-                  select={Moment(formik.values.date).format("DD-MM-YYYY") === Moment(new Date()).format("DD-MM-YYYY") ? upt_ca_Tue   : ca_Tue }
+                  select={Moment(formik.values.date).format("DD-MM-YYYY") === Moment(new Date()).format("DD-MM-YYYY") ? upt_ca_Tue : ca_Tue}
                   onChange={formik.handleChange}
                   value={formik.values.callTime || ""}
                   onBlur={formik.handleBlur}
@@ -204,7 +204,7 @@ export default function ScheduleCall(MyBranchCall) {
                 <Select
                   name="callTime"
                   labelform="Time Slot"
-                  select={Moment(formik.values.date).format("DD-MM-YYYY") === Moment(new Date()).format("DD-MM-YYYY") ? upt_ca_M_W_TH_F   : ca_M_W_Th_F }
+                  select={Moment(formik.values.date).format("DD-MM-YYYY") === Moment(new Date()).format("DD-MM-YYYY") ? upt_ca_M_W_TH_F : ca_M_W_Th_F}
                   onChange={formik.handleChange}
                   value={formik.values.callTime}
                   onBlur={formik.handleBlur}
@@ -218,7 +218,7 @@ export default function ScheduleCall(MyBranchCall) {
               <Select
                 name="callTime"
                 labelform="Time Slot"
-                select={Moment(formik.values.date).format("DD-MM-YYYY") === Moment(new Date()).format("DD-MM-YYYY") ? updated_other_Tue   : other_Tue }
+                select={Moment(formik.values.date).format("DD-MM-YYYY") === Moment(new Date()).format("DD-MM-YYYY") ? updated_other_Tue : other_Tue}
                 onChange={formik.handleChange}
                 value={formik.values.callTime || ""}
                 onBlur={formik.handleBlur}
@@ -231,7 +231,7 @@ export default function ScheduleCall(MyBranchCall) {
               <Select
                 name="callTime"
                 labelform="Time Slot"
-                select={Moment(formik.values.date).format("DD-MM-YYYY") === Moment(new Date()).format("DD-MM-YYYY") ? upt_other_Fri   : Other_Fri }
+                select={Moment(formik.values.date).format("DD-MM-YYYY") === Moment(new Date()).format("DD-MM-YYYY") ? upt_other_Fri : Other_Fri}
                 onChange={formik.handleChange}
                 value={formik.values.callTime || ""}
                 onBlur={formik.handleBlur}
@@ -244,7 +244,7 @@ export default function ScheduleCall(MyBranchCall) {
               <Select
                 name="callTime"
                 labelform="Time Slot"
-                select={Moment(formik.values.date).format("DD-MM-YYYY") === Moment(new Date()).format("DD-MM-YYYY") ? upt_other_M_W_Thu   : other_M_W_Thu }
+                select={Moment(formik.values.date).format("DD-MM-YYYY") === Moment(new Date()).format("DD-MM-YYYY") ? upt_other_M_W_Thu : other_M_W_Thu}
                 onChange={formik.handleChange}
                 value={formik.values.callTime || ""}
                 onBlur={formik.handleBlur}

@@ -4,7 +4,7 @@ import "./Style.css";
 
 export default function ErrorBeforeLogin() {
 
-//View part
+  //View part
   return (
     <div id="error">
       <div className="mainDiv">
