@@ -4,13 +4,13 @@ import Paper from "@material-ui/core/Paper";
 import { useStylesMyBranch } from "./Style";
 
 export default function BranchMap(MyBranchDetail) {
-//Material UI css class
+  //Material UI css class
   const classes = useStylesMyBranch();
 
-//Branch details from API
+  //Branch details from API
   let branchDetail = MyBranchDetail != null ? MyBranchDetail : null;
 
-//View part 
+  //View part
   return (
     <div id="branchMapWrap">
       {branchDetail.MyBranchDetail === null ? (
@@ -24,7 +24,7 @@ export default function BranchMap(MyBranchDetail) {
         </Paper>
       ) : branchDetail?.MyBranchDetail?.Address ? (
         <iframe
-        title="branchLocation"
+          title="branchLocation"
           style={{ height: "530px", width: "100%" }}
           id="gmap_canvas"
           src={
@@ -46,4 +46,3 @@ export default function BranchMap(MyBranchDetail) {
     </div>
   );
 }
-

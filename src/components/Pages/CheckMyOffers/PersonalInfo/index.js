@@ -81,10 +81,10 @@ const validationSchema = yup.object({
 			new Date(
 				new Date(
 					new Date().getFullYear() +
-						"/" +
-						(new Date().getMonth() + 1) +
-						"/" +
-						new Date().getDate()
+					"/" +
+					(new Date().getMonth() + 1) +
+					"/" +
+					new Date().getDate()
 				).getTime() - 567650000000
 			),
 			"You must be at least 18 years old"
@@ -469,7 +469,7 @@ function PersonalInfo() {
 													fullWidth
 													id="last4ssn"
 													name="last4ssn"
-                          label="Social Security Number *"
+													label="Social Security Number *"
 													materialProps={{ maxLength: "30" }}
 													value={formik.values.lastSSN}
 													onBlur={formik.handleBlur}

@@ -1,5 +1,5 @@
 import React from "react";
-import {useStylesPaymenthistory} from "./Style";
+import { useStylesPaymenthistory } from "./Style";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Table from "@material-ui/core/Table";
@@ -13,10 +13,10 @@ import Moment from "moment";
 
 export default function PaymentHistoryTable(userRecentPaymentData) {
 
-//Material UI css class
+  //Material UI css class
   const classes = useStylesPaymenthistory();
 
-//Payment history data from API
+  //Payment history data from API
   let userRecentPayment = userRecentPaymentData != null ? userRecentPaymentData : null;
 
   //View part
@@ -55,9 +55,9 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
                 </TableCell>
               </TableRow>
             ) : userRecentPayment.userRecentPaymentData.length ? (
-              userRecentPayment.userRecentPaymentData.map((val,index1) => (
+              userRecentPayment.userRecentPaymentData.map((val, index1) => (
                 <div key={index1}>
-                  {val.loanHistory.AppAccountHistory.map((row,index) => (
+                  {val.loanHistory.AppAccountHistory.map((row, index) => (
                     <>
                       <TableRow key={index}>
                         <TableCell

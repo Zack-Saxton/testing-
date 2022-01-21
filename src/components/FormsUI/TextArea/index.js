@@ -2,14 +2,14 @@
 
 File Name           :    TextArea/index.js
 Component Name      :    TextArea
-Functionality       :    To use this TextArea as a default component for UI purpose across the whole application to 
+Functionality       :    To use this TextArea as a default component for UI purpose across the whole application to
                           maintain same consistency.
 
 #################################################################################################################*/
 
 import React from "react";
-import {TextField} from "@material-ui/core";
-import {makeStyles} from "@material-ui/core/styles";
+import { TextField } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 
 const TextAreaWrapper = ({
   name,
@@ -64,7 +64,7 @@ const TextAreaWrapper = ({
         "data-test-id": "textarea"
       }}
       value={values.name}
-      helperText={`${values.name.length}/${CHARACTER_LIMIT}`}
+      helperText={`${ values.name.length }/${ CHARACTER_LIMIT }`}
     />
   );
 };

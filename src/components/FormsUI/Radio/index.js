@@ -2,7 +2,7 @@
 
 File Name           :    Radio/index.js
 Component Name      :    RadioButton
-Functionality       :    To use this RadioButton as a default component for UI purpose across the whole application to 
+Functionality       :    To use this RadioButton as a default component for UI purpose across the whole application to
                           maintain same consistency.
 
 #################################################################################################################*/
@@ -10,7 +10,7 @@ Functionality       :    To use this RadioButton as a default component for UI p
 import React from "react";
 import { FormControl, FormControlLabel, FormLabel } from "@material-ui/core";
 import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup"; 
+import RadioGroup from "@material-ui/core/RadioGroup";
 
 const RadioButtonWrapper = ({
   name,
@@ -36,21 +36,21 @@ const RadioButtonWrapper = ({
   const [radioValue, setRadioValue] = React.useState("");
 
   function handleRadioClick(event) {
- 
 
-    
+
+
     if (event.target.value === radioValue) {
       setRadioValue("");
-     
+
     } else {
       setRadioValue(event.target.value);
-      
-    }
-    if(onClick){
-        onClick(value??event.target.value);
 
-      }
-    
+    }
+    if (onClick) {
+      onClick(value ?? event.target.value);
+
+    }
+
   }
   //Configuring the field with properties
   const configRadioButton = {
@@ -58,7 +58,7 @@ const RadioButtonWrapper = ({
     row: row,
     required: required,
     ...otherProps,
-   
+
   };
 
 
@@ -70,16 +70,16 @@ const RadioButtonWrapper = ({
   //View Part
   return (
     <FormControl >
-      <FormLabel disabled = {disabled ?? false} style={{fontFamily: "system-ui",fontWeight: "normal",}}>{labelforform}</FormLabel>
-      <RadioGroup  value={radioValue} {...configRadioButton}>
+      <FormLabel disabled={disabled ?? false} style={{ fontFamily: "system-ui", fontWeight: "normal", }}>{labelforform}</FormLabel>
+      <RadioGroup value={radioValue} {...configRadioButton}>
         {radioLabelMF.map((radio) => (
-          <FormControlLabel 
+          <FormControlLabel
             labelPlacement={labelPlacement}
             value={radio.value}
             key={radio.value}
-            disabled = {disabled ?? false}
+            disabled={disabled ?? false}
             label={radio.label}
-            control={<Radio style={{color: "#0F4EB3"}} checked={checked === radio.value   ? true : false} onClick={handleRadioClick} />}
+            control={<Radio style={{ color: "#0F4EB3" }} checked={checked === radio.value ? true : false} onClick={handleRadioClick} />}
           />
         ))}
       </RadioGroup>

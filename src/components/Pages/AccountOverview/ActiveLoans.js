@@ -173,7 +173,7 @@ export default function ActiveLoans(userActiveLoanData) {
                                 appData.loanDetails.NextPaymentDate
                               ).format("MM/DD/YYYY")}
                             </h5>
-                           
+
                             {today.isBefore(appData.loanDetails.NextPaymentDate) ?
                               <p className={classes.cardcontent}>
                               Due in {" "}
@@ -185,12 +185,12 @@ export default function ActiveLoans(userActiveLoanData) {
                                 ).asDays()
                               )}{" "}
                                 days
-                                 </p>
-                               :
-                               <p className={classes.cardcontent}>
+                              </p>
+                              :
+                              <p className={classes.cardcontent}>
                                 Your payment is overdue
-                                </p> }
-                            
+                              </p>}
+
                           </Grid>
                           {appData.loanPaymentInformation
                             .hasScheduledPayment ? (

@@ -1,7 +1,7 @@
 import { useHistory } from "react-router-dom";
 import Cookies from "js-cookie"
 import LogoutController from "../Controllers/LogoutController"
-// check the login status 
+// check the login status
 const CheckLoginStatus = () => {
   const history = useHistory();
   const tokenString = Cookies.get("token") ? Cookies.get("token") : '{ }';
@@ -9,7 +9,7 @@ const CheckLoginStatus = () => {
   var nowTime = new Date().getTime();
   var actualSetupTime = userToken?.setupTime ?? '';
   const expiryMinute = process.env.REACT_APP_SESSION_EXPIRY_MINUTES;
-  var min = expiryMinute; 
+  var min = expiryMinute;
 
   // check whether the userToken available
   if (!userToken?.isLoggedIn || (nowTime - actualSetupTime) > min * 60 * 1000) {

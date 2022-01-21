@@ -27,10 +27,10 @@ import Paper from "@material-ui/core/Paper";
 import Logo from "../../../assets/images/loginbg.png";
 import "./Style.css";
 import creditkarmalogo from "../../../assets/images/ck_logo.png";
-import {partnerConfirmInfo} from "../../Controllers/PartnerSignupController";
+import { partnerConfirmInfo } from "../../Controllers/PartnerSignupController";
 import states from "../../lib/States.json"
 import statesFullform from "../../lib/StatesFullform.json"
- 
+
 
 //Styling
 const useStyles = makeStyles((theme) => ({
@@ -43,8 +43,8 @@ const useStyles = makeStyles((theme) => ({
   },
 
   mainGrid: {
-    boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%), 
-    0 6px 30px 5px rgb(0 0 0 / 12%), 
+    boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%),
+    0 6px 30px 5px rgb(0 0 0 / 12%),
     0 8px 10px -7px rgb(0 0 0 / 20%)`,
     background: "#f5f2f2",
   },
@@ -71,8 +71,8 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     backgroundColor: `rgba(255, 255, 255, .8)`,
     color: theme.palette.text.secondary,
-    boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%), 
-  0 6px 30px 5px rgb(0 0 0 / 12%), 
+    boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%),
+  0 6px 30px 5px rgb(0 0 0 / 12%),
   0 8px 10px -7px rgb(0 0 0 / 20%)`,
   },
 
@@ -91,13 +91,13 @@ const useStyles = makeStyles((theme) => ({
 
 //Yup validations for all the input fields
 const validationSchema = yup.object({
-	firstname: yup
+  firstname: yup
     .string("Enter your Firstname")
     .trim()
     .max(30, "Should be less than 30 characters")
     .matches(/^(?!\s+$).*/g, "* This field cannot contain only backspaces")
     .required("Your firstname is required"),
-	lastname: yup
+  lastname: yup
     .string("Enter your Lastname")
     .trim()
     .max(30, "Should be less than 30 characters")
@@ -131,21 +131,21 @@ const validationSchema = yup.object({
     .string("Enter citizenship")
     .max(30, "Should be less than 30 characters")
     .required("Your citizenship is required"),
-  
+
   employementStatus: yup
     .string("Enter Employement Status")
     .max(30, "Should be less than 30 characters")
     .required("Your Employement Status is required"),
 
-  activeDuty:yup.string().when("state",{
-  is: "NC",
-  then: yup.string().required("Active duty required"),
-}),
+  activeDuty: yup.string().when("state", {
+    is: "NC",
+    then: yup.string().required("Active duty required"),
+  }),
   activeDutyRank: yup.string().when("activeDuty", {
     is: "Yes",
     then: yup.string().required("Active duty rank is required"),
   }),
-  martialStatus:yup.string().when("state",{
+  martialStatus: yup.string().when("state", {
     is: "Wisconsin",
     then: yup.string().required("Marital Status required"),
   }),
@@ -155,16 +155,16 @@ const validationSchema = yup.object({
     .when("martialStatus", {
       is: "Married",
       then: yup.string()
-      .trim()
-    .max(100, "Should be less than 100 characters")
-    .matches(/^(?!\s+$).*/g, "* This field cannot contain only backspaces")
-    
+        .trim()
+        .max(100, "Should be less than 100 characters")
+        .matches(/^(?!\s+$).*/g, "* This field cannot contain only backspaces")
+
     })
     .when("martialStatus", {
       is: "Separated, under decree of legal separation",
       then: yup.string().trim()
-      .max(100, "Should be less than 100 characters")
-      .matches(/^(?!\s+$).*/g, "* This field cannot contain only backspaces")
+        .max(100, "Should be less than 100 characters")
+        .matches(/^(?!\s+$).*/g, "* This field cannot contain only backspaces")
     }),
   spouseZipcode: yup
     .string()
@@ -222,29 +222,29 @@ export default function CreditKarma(props) {
   const [agree, setAgree] = useState(false);
 
   const [errorAnnual, setErrorAnnual] = useState('');
-	const [errorPersonal, setErrorPersonal] = useState('');
+  const [errorPersonal, setErrorPersonal] = useState('');
   const history = useHistory();
- 
- 
-  const validate = (personal, household) => { 
-		if (!isNaN(personal) && !isNaN(household)) { 
-			if (personal <= household) {
-				setErrorAnnual('');
-				setErrorPersonal('');
-				return true;
-			} else {
-				setErrorAnnual("Annual household income must be greater than or equal to Annual personal income");
-				return false;
-			}
-		}
-		else {
-			setErrorPersonal(isNaN(personal) ? "Annual personal income is required" : '');
-			setErrorAnnual(isNaN(household) ? "Annual household income is required" : '');
-			return false;
-		}
-	}
+
+
+  const validate = (personal, household) => {
+    if (!isNaN(personal) && !isNaN(household)) {
+      if (personal <= household) {
+        setErrorAnnual('');
+        setErrorPersonal('');
+        return true;
+      } else {
+        setErrorAnnual("Annual household income must be greater than or equal to Annual personal income");
+        return false;
+      }
+    }
+    else {
+      setErrorPersonal(isNaN(personal) ? "Annual personal income is required" : '');
+      setErrorAnnual(isNaN(household) ? "Annual household income is required" : '');
+      return false;
+    }
+  }
   const autoFocus = () => {
-		var firstname = document.getElementById("firstname").value
+    var firstname = document.getElementById("firstname").value
     var lastname = document.getElementById("lastname").value
     var streetAddress = document.getElementById("streetAddress").value
     var zip = document.getElementById("zip").value
@@ -253,59 +253,59 @@ export default function CreditKarma(props) {
     var employementStatus = document.getElementById("employementStatus").value
     var annualhousehold = document.getElementById("annualhousehold").value
 
-		if (firstname === '') {
-    
-			document.getElementById("firstname").focus();
-		}
+    if (firstname === '') {
+
+      document.getElementById("firstname").focus();
+    }
     else if (lastname === '') {
-      
-			document.getElementById("lastname").focus();
-		}
+
+      document.getElementById("lastname").focus();
+    }
     else if (streetAddress === '') {
-     
-			document.getElementById("streetAddress").focus();
-		}
+
+      document.getElementById("streetAddress").focus();
+    }
     else if (zip === '') {
-     
-			document.getElementById("zip").focus();
-		}
+
+      document.getElementById("zip").focus();
+    }
     else if (citizenshipCnf === '' || citizenshipCnf === undefined) {
-      
-			document.getElementById("citizenship").focus();
-		}
+
+      document.getElementById("citizenship").focus();
+    }
     else if (employementStatus === '' || employementStatus === undefined) {
-      
-			document.getElementById("employementStatus").focus();
-		}
+
+      document.getElementById("employementStatus").focus();
+    }
     else if (personalIncome === '') {
-     
-			document.getElementById("personalIncome").focus();
+
+      document.getElementById("personalIncome").focus();
       validate()
-		}
-   
+    }
+
     else if (annualhousehold === '') {
       validate()
-			document.getElementById("annualhousehold").focus();
-		}
+      document.getElementById("annualhousehold").focus();
+    }
     else {
-    return false
+      return false
     }
 
 
   }
-		
 
-  
+
+
   //Form Submission
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
 
       firstname: props?.location?.state?.first_name ? props.location.state.first_name : "",
-	    lastname: props?.location?.state?.last_name ? props.location.state.last_name : "",
+      lastname: props?.location?.state?.last_name ? props.location.state.last_name : "",
       streetAddress: props?.location?.state?.address_street ? props.location.state.address_street : "",
       city: props?.location?.state?.address_city ? props.location.state.address_city : "",
-      state:  props?.location?.state?.address_state ? states[props.location.state.address_state] : "",
+      state: props?.location?.state?.address_state ? states[props.location.state.address_state] : "",
       zip: props?.location?.state?.address_postal_code ? props.location.state.address_postal_code : "",
       citizenship: props?.location?.state?.citizenship ? props.location.state.citizenship : "",
       personalIncome: props?.location?.state?.annual_income ? '$' + parseFloat(props.location.state.annual_income).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').slice(0, -3) : "",
@@ -320,51 +320,51 @@ export default function CreditKarma(props) {
       spousecity: props?.location?.state?.spouse_address_city ? props.location.state.spouse_address_city : "",
       spouseSelectState: props?.location?.state?.spouse_address_state ? states[props.location.state.spouse_address_state] : "",
     },
-   
+
 
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      
-      const modPersonalIncome = parseInt(values.personalIncome.replace(/\$/g, "").replace(/,/g, ""));
-			const modHouseholdIncome = parseInt(values.householdIncome.replace(/\$/g, "").replace(/,/g, ""));
 
-			if(errorPersonal === '' && errorAnnual === ''){
-				if (validate(modPersonalIncome, modHouseholdIncome)) {
-          values.personalIncome = modPersonalIncome 
-          values.householdIncome = modHouseholdIncome 
-				
-      setLoading(true);     
-      let confirmInfoData = {
-	   firstname : values.firstname,
-	   lastname : values.lastname,
-	   streetAddress : values.streetAddress,
-	   city : values.city,
-	   state : statesFullform[values.state],
-	   zip : values.zip,
-	   citizenship : values.citizenship,
-	   personalIncome : values.personalIncome,
-	   householdIncome :  values.householdIncome,
-	   employementStatus : values.employementStatus,
-	   activeDuty : values.activeDuty,
-	   activeDutyRank : values.activeDutyRank,
-	   martialStatus : values.martialStatus,
-	   spouseadd : values.spouseadd,
-	   spouseZipcode : values.spouseZipcode,
-	   spousecity : values.spousecity,
-	   spouseSelectState : statesFullform[values.spouseSelectState],
-     partner_token :  props?.location?.state?.partner_token ? props.location.state.partner_token : "",
-     email : props?.location?.state?.email ? props.location.state.email : "", 
+      const modPersonalIncome = parseInt(values.personalIncome.replace(/\$/g, "").replace(/,/g, ""));
+      const modHouseholdIncome = parseInt(values.householdIncome.replace(/\$/g, "").replace(/,/g, ""));
+
+      if (errorPersonal === '' && errorAnnual === '') {
+        if (validate(modPersonalIncome, modHouseholdIncome)) {
+          values.personalIncome = modPersonalIncome
+          values.householdIncome = modHouseholdIncome
+
+          setLoading(true);
+          let confirmInfoData = {
+            firstname: values.firstname,
+            lastname: values.lastname,
+            streetAddress: values.streetAddress,
+            city: values.city,
+            state: statesFullform[values.state],
+            zip: values.zip,
+            citizenship: values.citizenship,
+            personalIncome: values.personalIncome,
+            householdIncome: values.householdIncome,
+            employementStatus: values.employementStatus,
+            activeDuty: values.activeDuty,
+            activeDutyRank: values.activeDutyRank,
+            martialStatus: values.martialStatus,
+            spouseadd: values.spouseadd,
+            spouseZipcode: values.spouseZipcode,
+            spousecity: values.spousecity,
+            spouseSelectState: statesFullform[values.spouseSelectState],
+            partner_token: props?.location?.state?.partner_token ? props.location.state.partner_token : "",
+            email: props?.location?.state?.email ? props.location.state.email : "",
+          }
+          let partnerConfirmRes = await partnerConfirmInfo(confirmInfoData, history)
+          if (partnerConfirmRes.data.status !== 200) {
+            setLoading(false);
+          }
+        }
       }
-      let partnerConfirmRes = await  partnerConfirmInfo (confirmInfoData,history)
-      if (partnerConfirmRes.data.status !== 200) {
-        setLoading(false);       
-      }
-    }
-  }	
-    },   
+    },
   });
 
-  
+
 
   const onBlurAddress = (e) => {
     formik.setFieldValue("streetAddress", e.target.value.trim());
@@ -393,9 +393,8 @@ export default function CreditKarma(props) {
       setValidZip(true);
     }
 
-    if(e.target.name !== ""  ) 
-    {formik.handleChange(e) }
-    
+    if (e.target.name !== "") { formik.handleChange(e) }
+
 
   };
 
@@ -404,7 +403,7 @@ export default function CreditKarma(props) {
       formik.setFieldValue("city", result.places[0]["place name"]);
       formik.setFieldValue("state", result.places[0]["state"]);
       setValidZip(true);
-      if( (result.places[0]["state"] === "California") || (result.places[0]["state"] === "CA")) {
+      if ((result.places[0]["state"] === "California") || (result.places[0]["state"] === "CA")) {
         handleClickOpen();
       }
       if ((result.places[0]["state"] === "Ohio") || (result.places[0]["state"] === "OH")) {
@@ -432,7 +431,7 @@ export default function CreditKarma(props) {
                 result.places[0]["place name"]
               );
               formik.setFieldValue("spouseSelectState", result.places[0]["state"]);
-               setValidZip(true);
+              setValidZip(true);
             } else {
               formik.setFieldValue("spouseSelectState", "");
               formik.setFieldValue("spousecity", "");
@@ -448,7 +447,7 @@ export default function CreditKarma(props) {
     } else {
       formik.setFieldValue("spouseSelectState", "");
       formik.setFieldValue("spousecity", "");
-     
+
     }
 
     formik.handleChange(e);
@@ -478,24 +477,24 @@ export default function CreditKarma(props) {
 
   //Restrict alphabets
 
-	const onHandleChangePersonal = (event) => {
-		const reg = /^[0-9.,$\b]+$/;
-		let acc = event.target.value;
+  const onHandleChangePersonal = (event) => {
+    const reg = /^[0-9.,$\b]+$/;
+    let acc = event.target.value;
 
-		if (acc === "" || reg.test(acc)) {
-			setErrorPersonal('');
-			formik.handleChange(event);
-		}
-	};
-	const onHandleChangeHouse = (event) => {
-		const reg = /^[0-9.,$\b]+$/;
-		let acc = event.target.value;
+    if (acc === "" || reg.test(acc)) {
+      setErrorPersonal('');
+      formik.handleChange(event);
+    }
+  };
+  const onHandleChangeHouse = (event) => {
+    const reg = /^[0-9.,$\b]+$/;
+    let acc = event.target.value;
 
-		if (acc === "" || reg.test(acc)) {
-			setErrorAnnual('');
-			formik.handleChange(event);
-		}
-	};
+    if (acc === "" || reg.test(acc)) {
+      setErrorAnnual('');
+      formik.handleChange(event);
+    }
+  };
 
   const preventUnwanted = (event) => {
     if (event.keyCode === 190 || event.keyCode === 188) {
@@ -503,78 +502,78 @@ export default function CreditKarma(props) {
     }
   };
 
- 
 
-// To change text to currency format and check for validations 
-const currencyFormat = (event) => {
-  const inputName = event.target.name
-  if (inputName === 'personalIncome') { 
-    const n = event.target.value.replace(/\$/g, "").replace(/,/g, "").substr(0, 7);  
-    const formated = parseFloat(n);
-    const currency = '$';
-    const forCur = currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
-    formik.setFieldValue(event.target.name, forCur.slice(0, -3));
-    const modPersonalIncome = parseInt(formik.values.personalIncome.replace(/\$/g, "").replace(/,/g, ""));
-    const modHouseholdIncome = parseInt(formik.values.householdIncome.replace(/\$/g, "").replace(/,/g, ""));
-    if (isNaN(modPersonalIncome)) {
-      setErrorPersonal("Annual personal income is required");
-      
-    } else {
-      const nLen = event.target.value.replace(/\$/g, "").replace(/,/g, "").substr(0, 7);
-      if(nLen.length < 4){
-        setErrorPersonal("Annual personal income should not be less than 4 digits");
-        
-        return false;
-      }
 
-      if (!isNaN(modPersonalIncome) && !isNaN(modHouseholdIncome)) {
-        if (modPersonalIncome <= modHouseholdIncome) {
-          setErrorAnnual('');
-          setErrorPersonal('');
-          return true;
-        } else {
-          setErrorAnnual("Annual household income must be greater than or equal to Annual personal income");
-         
+  // To change text to currency format and check for validations
+  const currencyFormat = (event) => {
+    const inputName = event.target.name
+    if (inputName === 'personalIncome') {
+      const n = event.target.value.replace(/\$/g, "").replace(/,/g, "").substr(0, 7);
+      const formated = parseFloat(n);
+      const currency = '$';
+      const forCur = currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+      formik.setFieldValue(event.target.name, forCur.slice(0, -3));
+      const modPersonalIncome = parseInt(formik.values.personalIncome.replace(/\$/g, "").replace(/,/g, ""));
+      const modHouseholdIncome = parseInt(formik.values.householdIncome.replace(/\$/g, "").replace(/,/g, ""));
+      if (isNaN(modPersonalIncome)) {
+        setErrorPersonal("Annual personal income is required");
+
+      } else {
+        const nLen = event.target.value.replace(/\$/g, "").replace(/,/g, "").substr(0, 7);
+        if (nLen.length < 4) {
+          setErrorPersonal("Annual personal income should not be less than 4 digits");
+
           return false;
         }
 
+        if (!isNaN(modPersonalIncome) && !isNaN(modHouseholdIncome)) {
+          if (modPersonalIncome <= modHouseholdIncome) {
+            setErrorAnnual('');
+            setErrorPersonal('');
+            return true;
+          } else {
+            setErrorAnnual("Annual household income must be greater than or equal to Annual personal income");
+
+            return false;
+          }
+
+        }
       }
-    }
-  } else if (inputName === 'householdIncome') {
-    const n = event.target.value.replace(/\$/g, "").replace(/,/g, "").substr(0, 7);	 
-    const formated = parseFloat(n);
-    const currency = '$';
-    const forCur = currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
-    formik.setFieldValue(event.target.name, forCur.slice(0, -3));
-    const modPersonalIncome = parseInt(formik.values.personalIncome.replace(/\$/g, "").replace(/,/g, ""));
-    const modHouseholdIncome = parseInt(formik.values.householdIncome.replace(/\$/g, "").replace(/,/g, ""));
-    if (isNaN(modHouseholdIncome)) {
-      setErrorAnnual("Annual household income is required");
-    } else {				
-      const nLen = event.target.value.replace(/\$/g, "").replace(/,/g, "").substr(0, 7);
-      if(nLen.length < 4){
-        setErrorAnnual("Annual household income should not be less than 4 digits");
-        return false;
-      }
-      const perval =  document.getElementById("personalIncome").value.replace(/\$/g, "").replace(/,/g, "").substr(0, 7);	 			
-      if(perval.length < 4){
-        setErrorPersonal("Annual personal income should not be less than 4 digits");
-        return false;
-      }
-      if (!isNaN(modPersonalIncome) && !isNaN(modHouseholdIncome)) {
-        if (modPersonalIncome <= modHouseholdIncome) {
-          setErrorAnnual('');
-          setErrorPersonal('');
-          return true;
-        } else {
-          setErrorAnnual("Annual household income must be greater than or equal to Annual personal income");
+    } else if (inputName === 'householdIncome') {
+      const n = event.target.value.replace(/\$/g, "").replace(/,/g, "").substr(0, 7);
+      const formated = parseFloat(n);
+      const currency = '$';
+      const forCur = currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+      formik.setFieldValue(event.target.name, forCur.slice(0, -3));
+      const modPersonalIncome = parseInt(formik.values.personalIncome.replace(/\$/g, "").replace(/,/g, ""));
+      const modHouseholdIncome = parseInt(formik.values.householdIncome.replace(/\$/g, "").replace(/,/g, ""));
+      if (isNaN(modHouseholdIncome)) {
+        setErrorAnnual("Annual household income is required");
+      } else {
+        const nLen = event.target.value.replace(/\$/g, "").replace(/,/g, "").substr(0, 7);
+        if (nLen.length < 4) {
+          setErrorAnnual("Annual household income should not be less than 4 digits");
           return false;
         }
+        const perval = document.getElementById("personalIncome").value.replace(/\$/g, "").replace(/,/g, "").substr(0, 7);
+        if (perval.length < 4) {
+          setErrorPersonal("Annual personal income should not be less than 4 digits");
+          return false;
+        }
+        if (!isNaN(modPersonalIncome) && !isNaN(modHouseholdIncome)) {
+          if (modPersonalIncome <= modHouseholdIncome) {
+            setErrorAnnual('');
+            setErrorPersonal('');
+            return true;
+          } else {
+            setErrorAnnual("Annual household income must be greater than or equal to Annual personal income");
+            return false;
+          }
 
+        }
       }
     }
   }
-}
   const onNameChange = (event) => {
     const reg = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
     let acc = event.target.value;
@@ -584,7 +583,7 @@ const currencyFormat = (event) => {
     }
   };
 
-  
+
   const changeCitizenship = (event) => {
     let acc = event.target.value;
     if (acc === "Foreign Resident") {
@@ -622,10 +621,10 @@ const currencyFormat = (event) => {
               style={{ margin: "auto" }}
             >
               <Paper className={classes.paper}
-              style={{
-                opacity: loading ? 0.55 : 1,
-                pointerEvents: loading ? "none" : "initial"
-              }}>
+                style={{
+                  opacity: loading ? 0.55 : 1,
+                  pointerEvents: loading ? "none" : "initial"
+                }}>
                 <Typography
                   className={classes.title}
                   data-testid="title"
@@ -654,8 +653,8 @@ const currencyFormat = (event) => {
                   >
                     <Grid item xs={12} sm={6} style={{ width: "100%" }}>
                       <TextField
-                       
-                       
+
+
                         id="firstname"
                         name="firstname"
                         label="First Name"
@@ -673,9 +672,9 @@ const currencyFormat = (event) => {
                       />
                     </Grid>
 
-					<Grid item xs={12} sm={6} style={{ width: "100%" }}>
+                    <Grid item xs={12} sm={6} style={{ width: "100%" }}>
                       <TextField
-                        
+
                         id="lastname"
                         name="lastname"
                         label="Last Name"
@@ -791,11 +790,11 @@ const currencyFormat = (event) => {
                           helperText={
                             !citizenship
                               ? formik.touched.citizenship &&
-                                formik.errors.citizenship
+                              formik.errors.citizenship
                               : "We are sorry. We do not offer loans to foreign residents."
                           }
-                          select='[{ "label": "USA Citizen", "value": "USA Citizen"}, 
-                                        {"label": "Permanent Resident","value": "Permanent Resident"}, 
+                          select='[{ "label": "USA Citizen", "value": "USA Citizen"},
+                                        {"label": "Permanent Resident","value": "Permanent Resident"},
                                         { "label": "Foreign Resident","value": "Foreign Resident"}]'
                         />
                       </Grid>
@@ -816,11 +815,11 @@ const currencyFormat = (event) => {
                         onBlur={currencyFormat}
                         onKeyDown={preventUnwanted}
                         error={
-													errorPersonal !== ''
-												}
-												helperText={
-													errorPersonal !== '' ? errorPersonal : ''
-												}
+                          errorPersonal !== ''
+                        }
+                        helperText={
+                          errorPersonal !== '' ? errorPersonal : ''
+                        }
                       />
                     </Grid>
                     <Grid item xs={12} sm={4} container direction="row">
@@ -836,14 +835,14 @@ const currencyFormat = (event) => {
                         autoComplete="off"
                         onChange={onHandleChangeHouse}
                         onBlur={currencyFormat}
-                        onKeyDown={preventUnwanted}                       
+                        onKeyDown={preventUnwanted}
                         error={
-													errorAnnual !== ''
-												}
-												helperText={
-													errorAnnual !== '' ? errorAnnual : ''
-												}
-											
+                          errorAnnual !== ''
+                        }
+                        helperText={
+                          errorAnnual !== '' ? errorAnnual : ''
+                        }
+
                       />
                     </Grid>
 
@@ -863,8 +862,8 @@ const currencyFormat = (event) => {
                           formik.touched.employementStatus &&
                           formik.errors.employementStatus
                         }
-                        select='[{ "label": "Employed - Hourly", "value": "Employed - Hourly"}, 
-                                        {"label": "Employed Salaried","value": "Employed Salaried"}, 
+                        select='[{ "label": "Employed - Hourly", "value": "Employed - Hourly"},
+                                        {"label": "Employed Salaried","value": "Employed Salaried"},
                                         { "label": "Self Employed / 1099","value": "Self Employed / 1099"},
                                         { "label": "Unemployed","value": "Unemployed"},
                                         { "label": "Retired","value": "Retired"}]'
@@ -941,7 +940,7 @@ const currencyFormat = (event) => {
                       item
                       xs={12}
                       className={
-                        formik.values.state === "Wisconsin" ||  formik.values.state === "WI"
+                        formik.values.state === "Wisconsin" || formik.values.state === "WI"
                           ? "showCheckbox"
                           : "hideCheckbox"
                       }
@@ -953,7 +952,7 @@ const currencyFormat = (event) => {
                         <Select
                           name="martialStatus"
                           labelform="Marital Status *"
-                          id = "marriedStatus"
+                          id="marriedStatus"
                           select='[{"value":"Married"}, {"value":"Unmarried"}, {"value":"Separated, under decree of legal separation"}]'
                           value={formik.values.martialStatus}
                           onChange={formik.handleChange}
@@ -973,7 +972,7 @@ const currencyFormat = (event) => {
                         xs={12}
                         className={
                           formik.values.martialStatus === "Married" ||
-                          formik.values.martialStatus ===
+                            formik.values.martialStatus ===
                             "Separated, under decree of legal separation"
                             ? "showCheckbox"
                             : "hideCheckbox"
@@ -982,10 +981,10 @@ const currencyFormat = (event) => {
                         <TextField
                           name="spouseadd"
                           label="Spouse's Address (if different)"
-                          value={formik.values.spouseadd}                         
+                          value={formik.values.spouseadd}
                           onChange={formik.handleChange}
-                          
-                         
+
+
                         />
                       </Grid>
                       <Grid
@@ -993,7 +992,7 @@ const currencyFormat = (event) => {
                         xs={12}
                         className={
                           formik.values.martialStatus === "Married" ||
-                          formik.values.martialStatus ===
+                            formik.values.martialStatus ===
                             "Separated, under decree of legal separation"
                             ? "showCheckbox"
                             : "hideCheckbox"
@@ -1011,7 +1010,7 @@ const currencyFormat = (event) => {
                             id="spouseZipWrap"
                             className={
                               formik.values.martialStatus === "Married" ||
-                              formik.values.martialStatus ===
+                                formik.values.martialStatus ===
                                 "Separated, under decree of legal separation"
                                 ? "showCheckbox"
                                 : "hideCheckbox"
@@ -1033,7 +1032,7 @@ const currencyFormat = (event) => {
                               helperText={
                                 validZip
                                   ? formik.touched.spouseZipcode &&
-                                    formik.errors.spouseZipcode
+                                  formik.errors.spouseZipcode
                                   : "Please enter a valid Zip code"
                               }
                             />
@@ -1046,7 +1045,7 @@ const currencyFormat = (event) => {
                             style={{ paddingRight: "10px" }}
                             className={
                               formik.values.martialStatus === "Married" ||
-                              formik.values.martialStatus ===
+                                formik.values.martialStatus ===
                                 "Separated, under decree of legal separation"
                                 ? "showCheckbox"
                                 : "hideCheckbox"
@@ -1069,7 +1068,7 @@ const currencyFormat = (event) => {
                                 formik.errors.spousecity
                               }
                             />
-                           
+
                           </Grid>
 
                           <Grid
@@ -1079,13 +1078,13 @@ const currencyFormat = (event) => {
                             id="spouseStateWrap"
                             className={
                               formik.values.martialStatus === "Married" ||
-                              formik.values.martialStatus ===
+                                formik.values.martialStatus ===
                                 "Separated, under decree of legal separation"
                                 ? "showCheckbox"
                                 : "hideCheckbox"
                             }
                           >
-                             <TextField
+                            <TextField
                               name="spouseSelectState"
                               id="spouseState"
                               label="State"
@@ -1102,7 +1101,7 @@ const currencyFormat = (event) => {
                                 formik.errors.spouseSelectState
                               }
                             />
-                            
+
                           </Grid>
                         </Grid>
                       </Grid>
@@ -1174,7 +1173,7 @@ const currencyFormat = (event) => {
                       />
                       <div
                         className={
-                          formik.values.state === "Delaware" ||  formik.values.state === "DE"
+                          formik.values.state === "Delaware" || formik.values.state === "DE"
                             ? "showCheckbox"
                             : "hideCheckbox"
                         }
@@ -1278,16 +1277,16 @@ const currencyFormat = (event) => {
 
                     <Grid item xs={12} className={classes.signInButtonGrid}>
                       <ButtonPrimary
-                        
+
                         type="submit"
                         data-testid="submit"
                         stylebutton='{"background": "","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
-                        disabled={ 
-                           formik.values.citizenship=== "Foreign Resident" ? true :
-                      loading}
-                      onClick={() => autoFocus()}
+                        disabled={
+                          formik.values.citizenship === "Foreign Resident" ? true :
+                            loading}
+                        onClick={() => autoFocus()}
                       >
-                          Continue
+                        Continue
                         <i
                           className="fa fa-refresh fa-spin customSpinner"
                           style={{

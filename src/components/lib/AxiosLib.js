@@ -3,7 +3,7 @@ import apiUrl from "./ApiLib.json";
 import Cookies from "js-cookie";
 /***** API Calling function *****/
 const APICall = async (api, param, data, method, addAccessToken) => {
-   const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : '{ }');
+  const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : '{ }');
   let response = {
     status: "",
     data: "",
@@ -35,4 +35,3 @@ const APICall = async (api, param, data, method, addAccessToken) => {
 };
 
 export default APICall;
-

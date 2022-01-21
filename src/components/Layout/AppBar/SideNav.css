@@ -90,7 +90,7 @@ a.nav_link:hover .MuiListItem-root {
 }
 
 
-#sidemenuOpenNow{ 
+#sidemenuOpenNow{
   font-family: 'Muli', sans-serif !important;
   font-weight: 400;
   font-size: 0.938rem;
@@ -125,16 +125,16 @@ a.nav_link:hover .MuiListItem-root {
 #imgWrap{
   max-width: 120px !important;
   margin: auto;
-  padding: 0; 
+  padding: 0;
   overflow: hidden;
   max-height: 120px !important;
 	border-radius: 50%;
 }
- 
+
 #sidebarProfilePic{
   width:100%;
   cursor: pointer;
-  
+
 }
 
 #sidemenuRadio{
@@ -145,7 +145,7 @@ a.nav_link:hover .MuiListItem-root {
 .MuiDrawer-paperAnchorLeft.MuiDrawer-paperAnchorDockedLeft.MuiPaper-elevation0{
   overflow-x: hidden;
 }
-  
+
 
 @media (max-width: 960px) {
   #close1 {
@@ -196,7 +196,7 @@ a.nav_link:hover .MuiListItem-root {
 #settingsMenu:nth-child(3) {
   top: 55px !important;
   padding: 14px 24px;
- 
+
 }
 #settingsMenu:nth-child(3) ul {
   /* top: 55px !important; */

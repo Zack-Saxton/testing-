@@ -2,13 +2,13 @@
 
 File Name           :    ButtonSwitch/index.js
 Component Name      :    ButtonSwitch
-Functionality       :    To use this ButtonSwitch as a default component for UI purpose across the whole application to 
+Functionality       :    To use this ButtonSwitch as a default component for UI purpose across the whole application to
                           maintain same consistency.
 
 #################################################################################################################*/
 
 import React from "react";
-import {FormControl, FormControlLabel} from "@material-ui/core";
+import { FormControl, FormControlLabel } from "@material-ui/core";
 import Switch from "@material-ui/core/Switch";
 
 const ButtonSwitchWrapper = ({
@@ -35,7 +35,7 @@ const ButtonSwitchWrapper = ({
             checked={state}
             onChange={handleChange}
             value={state}
-            inputProps={{"data-test-id": "switch"}}
+            inputProps={{ "data-test-id": "switch" }}
             color="primary"
           />
         }

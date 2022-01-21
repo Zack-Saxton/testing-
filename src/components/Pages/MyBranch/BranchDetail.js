@@ -35,41 +35,41 @@ const stateCA = [
 
 export default function BranchDetail(MyBranchDetail) {
 
-//Material UI css class
+  //Material UI css class
   const classes = useStylesMyBranch();
 
-//Branch details from API
+  //Branch details from API
   let branchDetail = MyBranchDetail != null ? MyBranchDetail : null;
- 
 
 
-//Spliting statename
-  let stateName = branchDetail?.MyBranchDetail ? branchDetail.MyBranchDetail?.result 
-      ? null : branchDetail.MyBranchDetail?.message ? null  
+
+  //Spliting statename
+  let stateName = branchDetail?.MyBranchDetail ? branchDetail.MyBranchDetail?.result
+    ? null : branchDetail.MyBranchDetail?.message ? null
       : branchDetail?.MyBranchDetail
-      ? branchDetail?.MyBranchDetail?.Address?.split(",")
-          [branchDetail?.MyBranchDetail?.Address?.split(",").length - 1].trim()
+        ? branchDetail?.MyBranchDetail?.Address?.split(",")
+        [branchDetail?.MyBranchDetail?.Address?.split(",").length - 1].trim()
           .substring(0, 2)
-      : null
+        : null
     : null;
 
 
- //Formating Phone Number
- function formatPhoneNumber(phoneNumber) {
-  if(phoneNumber ) {
-  const cleanNum =phoneNumber.toString().replace(/\D/g, '');
-  const match = cleanNum.match(/^(\d{3})(\d{0,3})(\d{0,4})$/);
-  if (match) {
-    return '(' + match[1] + ') ' + (match[2] ? match[2] + "-" : "") + match[3];
+  //Formating Phone Number
+  function formatPhoneNumber(phoneNumber) {
+    if (phoneNumber) {
+      const cleanNum = phoneNumber.toString().replace(/\D/g, '');
+      const match = cleanNum.match(/^(\d{3})(\d{0,3})(\d{0,4})$/);
+      if (match) {
+        return '(' + match[1] + ') ' + (match[2] ? match[2] + "-" : "") + match[3];
+      }
+      return cleanNum;
+    }
+    else {
+      return false
+    }
   }
-  return cleanNum;
-}
-else{
-  return false
-}
-}
 
-//View part
+  //View part
   return (
     <div>
       <Paper id="branchNameBox" className={classes.paper}>
@@ -80,21 +80,21 @@ else{
             <Grid className={classes.branchDetailGrid}>
               <h4 className={classes.branchDetailHeading}>Branch Name</h4>
               <p className={classes.branchDetailInput}>
-                {(branchDetail?.MyBranchDetail?.BranchName) ? (branchDetail.MyBranchDetail.BranchName) : (branchDetail?.MyBranchDetail?.branchName) ? (branchDetail.MyBranchDetail.branchName) : "" }
+                {(branchDetail?.MyBranchDetail?.BranchName) ? (branchDetail.MyBranchDetail.BranchName) : (branchDetail?.MyBranchDetail?.branchName) ? (branchDetail.MyBranchDetail.branchName) : ""}
               </p>
             </Grid>
-            
+
             <Grid className={classes.branchDetailGrid}>
               <h4 className={classes.branchDetailHeading}>Address</h4>
               <p className={classes.branchDetailInput}>
-                {branchDetail?.MyBranchDetail?.Address ? branchDetail.MyBranchDetail.Address : "" }
+                {branchDetail?.MyBranchDetail?.Address ? branchDetail.MyBranchDetail.Address : ""}
               </p>
             </Grid>
 
             <Grid className={classes.branchDetailGrid}>
               <h4 className={classes.branchDetailHeading}>Phone Number</h4>
               <p className={classes.branchDetailInput}>
-                <a id="phoneLink"href="tel:" style={{textDecoration: "none"}}> {formatPhoneNumber(branchDetail.MyBranchDetail.PhoneNumber)}</a>
+                <a id="phoneLink" href="tel:" style={{ textDecoration: "none" }}> {formatPhoneNumber(branchDetail.MyBranchDetail.PhoneNumber)}</a>
               </p>
             </Grid>
 

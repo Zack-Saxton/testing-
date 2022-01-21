@@ -7,26 +7,26 @@ const useStylesMyProfile = makeStyles((theme) => ({
 		flexDirection: "column",
 		color: theme.palette.text.secondary,
 	},
-  hideSection: {
-    display: "none"
-  },
-  showSection: {
-    display: "block"
-  },
+	hideSection: {
+		display: "none"
+	},
+	showSection: {
+		display: "block"
+	},
 	bottomTestStyle: {
 		fontSize: "15px !important",
 		color: "#595959 !important",
 		fontFamily: "'Muli', sans-serif !important",
 		marginTop: "50px !important",
 	},
-  loadingOn: {
-    opacity: 0.55,
-    pointerEvents: "none"
-  },
-  loadingOff: {
-    opacity: 1,
-    pointerEvents: "initial"
-  },
+	loadingOn: {
+		opacity: 0.55,
+		pointerEvents: "none"
+	},
+	loadingOff: {
+		opacity: 1,
+		pointerEvents: "initial"
+	},
 	paperVerticalTab: {
 		paddingTop: "20px",
 		paddingBottom: "20px",
@@ -68,7 +68,7 @@ const useStylesMyProfile = makeStyles((theme) => ({
 		left: "0px",
 		background: "unset",
 	},
-	
+
 	closeButton: {
 		position: "absolute",
 		right: theme.spacing(1),

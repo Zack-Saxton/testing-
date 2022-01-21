@@ -1,18 +1,17 @@
 {
-    "Account_Number":"AccountNumber",
-     "Todays_Payoff":"Todays Pay Off",
-    "Regular_Amount":"Regular Amount",
-     "Loan_Fees":"Loan Fees",
-     "Total":"Total",
-     "Next_Due_Date":"Next Due Date",
-     "Scheduled_Payment":"Scheduled Payment",
-     "Auto_Pay":"Auto Pay",
-     "Auto_Payment_Mode_Enabled":"Auto Payment Mode Enabled",
-     "Auto_Payment_Mode_Disabled":"Auto Payment mode Disabled",
-     "Failed_Payment_mode":"Failed Payment mode",
-     "Schedule_Payment_Cancelled":"Schedule_Payment_Cancelled",
-     "Invalid_Account_Number":"Invalid Account Number",
-     "We_Received_Your_Payment_Successfully":"We received your payment successfully",
-     "Payment_has_Scheduled":"Payment has Scheduled"
-     
+    "Account_Number": "AccountNumber",
+    "Todays_Payoff": "Todays Pay Off",
+    "Regular_Amount": "Regular Amount",
+    "Loan_Fees": "Loan Fees",
+    "Total": "Total",
+    "Next_Due_Date": "Next Due Date",
+    "Scheduled_Payment": "Scheduled Payment",
+    "Auto_Pay": "Auto Pay",
+    "Auto_Payment_Mode_Enabled": "Auto Payment Mode Enabled",
+    "Auto_Payment_Mode_Disabled": "Auto Payment mode Disabled",
+    "Failed_Payment_mode": "Failed Payment mode",
+    "Schedule_Payment_Cancelled": "Schedule_Payment_Cancelled",
+    "Invalid_Account_Number": "Invalid Account Number",
+    "We_Received_Your_Payment_Successfully": "We received your payment successfully",
+    "Payment_has_Scheduled": "Payment has Scheduled"
 }

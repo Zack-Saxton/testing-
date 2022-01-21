@@ -6,7 +6,7 @@ Functionality       :    To use this component to validate and get the zipcode i
 
 #################################################################################################################*/
 
-import React, {useState} from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import TextBox from "../Textfield";
 
@@ -16,7 +16,7 @@ const ZipCodeWrapper = ({ name, error, helperText, value, onChange, ...otherProp
   const [zipCode, setZipCode] = useState(value ? value : "");
   const [isError, setIsError] = useState(false);
   const [helperText2, setHelperText2] = useState("");
-  
+
 
   //Account Number field onChange handle
   const onHandleZipcodeChange = (event) => {
@@ -27,19 +27,19 @@ const ZipCodeWrapper = ({ name, error, helperText, value, onChange, ...otherProp
       setZipCode(event.target.value);
     }
     const isValid = /(^\d{5}$)/.test(event.target.value);
-    (!isValid && event.target.value) ? setIsError(true) : setIsError(false) ;
-    (!isValid && event.target.value) ? setHelperText2("Zipcode should 5 digits") : setHelperText2("") ;
-   if(onChange){ onChange(event);}
+    (!isValid && event.target.value) ? setIsError(true) : setIsError(false);
+    (!isValid && event.target.value) ? setHelperText2("Zipcode should 5 digits") : setHelperText2("");
+    if (onChange) { onChange(event); }
   };
 
-  
+
   //Configuring the field with properties
   const configTextField = {
     name: name,
     type: "text",
     fullWidth: true,
     setError: error ? error : isError,
-    setHelperText: helperText ? helperText : helperText2 ,
+    setHelperText: helperText ? helperText : helperText2,
     ...otherProps,
   };
 
@@ -47,7 +47,7 @@ const ZipCodeWrapper = ({ name, error, helperText, value, onChange, ...otherProp
   return (
     <TextBox
       {...configTextField}
-      materialProps={{ maxLength: "5", "data-test-id": "zipcode"}}
+      materialProps={{ maxLength: "5", "data-test-id": "zipcode" }}
       value={zipCode}
       onChange={onHandleZipcodeChange}
     />

@@ -84,7 +84,7 @@ function MarriedStatus() {
 			spousecity: data.spouse_address_city ?? "",
 		},
 		validationSchema: validationSchema,
-	
+
 		onSubmit: (values) => {
 			//onsubmit store the data to context and procceds
 			setData({
@@ -271,7 +271,7 @@ function MarriedStatus() {
 											xs={12}
 											className={
 												formik.values.martialStatus === "Married" ||
-												formik.values.martialStatus ===
+													formik.values.martialStatus ===
 													"Separated, under decree of legal separation"
 													? "showMsg space"
 													: "hideMsg space"
@@ -299,7 +299,7 @@ function MarriedStatus() {
 											xs={12}
 											className={
 												formik.values.martialStatus === "Married" ||
-												formik.values.martialStatus ===
+													formik.values.martialStatus ===
 													"Separated, under decree of legal separation"
 													? "showMsg "
 													: "hideMsg "
@@ -319,7 +319,7 @@ function MarriedStatus() {
 											xs={12}
 											className={
 												formik.values.martialStatus === "Married" ||
-												formik.values.martialStatus ===
+													formik.values.martialStatus ===
 													"Separated, under decree of legal separation"
 													? "showMsg space"
 													: "hideMsg space"
@@ -341,7 +341,7 @@ function MarriedStatus() {
 												helperText={
 													validZip
 														? formik.touched.spouseZipcode &&
-														  formik.errors.spouseZipcode
+														formik.errors.spouseZipcode
 														: "Please enter a valid Zip code"
 												}
 											/>
@@ -356,7 +356,7 @@ function MarriedStatus() {
 											xs={12}
 											className={
 												formik.values.martialStatus === "Married" ||
-												formik.values.martialStatus ===
+													formik.values.martialStatus ===
 													"Separated, under decree of legal separation"
 													? "showMsg space"
 													: "hideMsg space"
@@ -390,7 +390,7 @@ function MarriedStatus() {
 											xs={12}
 											className={
 												formik.values.martialStatus === "Married" ||
-												formik.values.martialStatus ===
+													formik.values.martialStatus ===
 													"Separated, under decree of legal separation"
 													? "showMsg space"
 													: "hideMsg space"

@@ -51,30 +51,30 @@ export default function MailingAddress(props) {
 
 
 
-  let basicInfo =props?.basicInformationData?.latest_contact != null ? props.basicInformationData.latest_contact : null;
+  let basicInfo = props?.basicInformationData?.latest_contact != null ? props.basicInformationData.latest_contact : null;
   let hasActiveLoan = Cookies.get("hasActiveLoan") === "true" ? true : false;
   let hasApplicationStatus = Cookies.get("hasApplicationStatus")
-  var appStatus=["rejected", "reffered", "expired"]; 
+  var appStatus = ["rejected", "reffered", "expired"];
   let checkAppStatus = appStatus.includes(hasApplicationStatus)
   let disableField = (checkAppStatus === true || hasActiveLoan === true) ? true : false;
-   
-     const onClickCancelChange = () => {
-      formik.resetForm();
-      history.push({pathname:'/customers/myProfile'});
-      setTabvalue(0)
-     };
+
+  const onClickCancelChange = () => {
+    formik.resetForm();
+    history.push({ pathname: '/customers/myProfile' });
+    setTabvalue(0)
+  };
 
 
 
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      
-      streetAddress:  basicInfo?.address_street ?  basicInfo?.address_street : "",
-      zip:  basicInfo?.address_postal_code ?  basicInfo?.address_postal_code : "",
-      city:  basicInfo?.address_city ?  basicInfo?.address_city : "",
-      state:  basicInfo?.address_state ?  states[basicInfo?.address_state] : "",
-     
+
+      streetAddress: basicInfo?.address_street ? basicInfo?.address_street : "",
+      zip: basicInfo?.address_postal_code ? basicInfo?.address_postal_code : "",
+      city: basicInfo?.address_city ? basicInfo?.address_city : "",
+      state: basicInfo?.address_state ? states[basicInfo?.address_state] : "",
+
     },
 
     validationSchema: validationSchema,
@@ -82,14 +82,14 @@ export default function MailingAddress(props) {
     onSubmit: async (values) => {
       setLoading(true);
       let body = {
-       
+
         address1: values.streetAddress,
         city: values.city,
         state: statesFullform[values.state],
         zipCode: values.zip,
       };
 
-      if (formik.initialValues.streetAddress === values.streetAddress && formik.initialValues.zip === values.zip ) {
+      if (formik.initialValues.streetAddress === values.streetAddress && formik.initialValues.zip === values.zip) {
         toast.error("No changes made", {
           position: "bottom-left",
           autoClose: 3000,
@@ -98,41 +98,41 @@ export default function MailingAddress(props) {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          onClose: () => { setLoading(false);}
-        });       
+          onClose: () => { setLoading(false); }
+        });
       }
       else {
 
-      let res = await mailingAddress(body);   
+        let res = await mailingAddress(body);
 
-      if (res.data.data.notes.length !== 0) {
-        toast.success("Updated successfully", {
-          position: "bottom-left",
-          autoClose: 3500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          onClose: () => {
-            setLoading(false); 
-            props.getUserAccountDetails()  
-            onClickCancelChange()
-          }
-        });  
-      } else {
-        toast.error("Please try again", {
-          position: "bottom-left",
-          autoClose: 3500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          onClose: () => {setLoading(false);}
-        });
+        if (res.data.data.notes.length !== 0) {
+          toast.success("Updated successfully", {
+            position: "bottom-left",
+            autoClose: 3500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            onClose: () => {
+              setLoading(false);
+              props.getUserAccountDetails()
+              onClickCancelChange()
+            }
+          });
+        } else {
+          toast.error("Please try again", {
+            position: "bottom-left",
+            autoClose: 3500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            onClose: () => { setLoading(false); }
+          });
+        }
       }
-    }
     },
   });
 
@@ -173,7 +173,7 @@ export default function MailingAddress(props) {
       formik.setFieldValue("city", result.places[0]["place name"]);
       formik.setFieldValue("state", result.places[0]["state"]);
       setValidZip(true);
-     
+
     } else {
       formik.setFieldValue("city", "");
       formik.setFieldValue("state", "");
@@ -188,144 +188,144 @@ export default function MailingAddress(props) {
   return (
     <div style={{ padding: 20 }}>
       <form onSubmit={formik.handleSubmit} id="mailing" style={{
-                opacity: loading ? 0.55 : 1,
-                pointerEvents: loading ? "none" : "initial"
-              }}>
-      { props?.basicInformationData === null ? (
-              <Grid align="center"><CircularProgress  /></Grid>
-        ): <>
-       
-        <Grid
-          item
-          xs={12}
-          style={{ width: "100%", gap: 15, marginBottom: 20 }}
-          container
-          direction="row"
-        >
-          <TextField
-            fullWidth
-            autoFocus
-            id="streetAddress"
-            name="streetAddress"
-            label="Street Address"
-            materialProps={{
-              "data-test-id": "streetAddress",
-              maxLength: "100",
-            }}
+        opacity: loading ? 0.55 : 1,
+        pointerEvents: loading ? "none" : "initial"
+      }}>
+        {props?.basicInformationData === null ? (
+          <Grid align="center"><CircularProgress /></Grid>
+        ) : <>
+
+          <Grid
+            item
+            xs={12}
+            style={{ width: "100%", gap: 15, marginBottom: 20 }}
+            container
+            direction="row"
+          >
+            <TextField
+              fullWidth
+              autoFocus
+              id="streetAddress"
+              name="streetAddress"
+              label="Street Address"
+              materialProps={{
+                "data-test-id": "streetAddress",
+                maxLength: "100",
+              }}
+              disabled={disableField === true ? false : true}
+              onKeyDown={preventSpace}
+              value={formik.values.streetAddress}
+              onChange={formik.handleChange}
+              onBlur={onBlurAddress}
+              error={
+                formik.touched.streetAddress &&
+                Boolean(formik.errors.streetAddress)
+              }
+              helperText={
+                formik.touched.streetAddress && formik.errors.streetAddress
+              }
+            />
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            style={{ width: "100%", gap: 15, marginBottom: 20 }}
+            container
+            direction="row"
+          >
+            <TextField
+              fullWidth
+              id="city"
+              name="city"
+              label="City"
+              disabled={true}
+              materialProps={{ "data-test-id": "city" }}
+              value={formik.values.city}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.city && Boolean(formik.errors.city)}
+              helperText={formik.touched.city && formik.errors.city}
+            />
+          </Grid>
+
+          <Grid
+            item
+            xs={12}
+            style={{ width: "100%", gap: 15, marginBottom: 20 }}
+            container
+            direction="row"
+          >
+            <TextField
+              fullWidth
+              id="state"
+              name="state"
+              label="State"
+              disabled={true}
+              materialProps={{ "data-test-id": "state" }}
+              value={formik.values.state}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.state && Boolean(formik.errors.state)}
+              helperText={formik.touched.state && formik.errors.state}
+            />
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            style={{ width: "100%", gap: 15, marginBottom: 20 }}
+            container
+            direction="row"
+          >
+            <Zipcode
+              fullWidth
+              id="zip"
+              name="zip"
+              label="Zip Code"
+              materialProps={{ "data-test-id": "zipcode" }}
+              disabled={disableField === true ? false : true}
+              value={basicInfo?.address_postal_code}
+              onChange={fetchAddress}
+              onBlur={formik.handleBlur}
+              error={
+                (formik.touched.zip && Boolean(formik.errors.zip)) || !validZip
+              }
+              helperText={
+                validZip
+                  ? formik.touched.zip && formik.errors.zip
+                  : "Please enter a valid ZIP Code"
+              }
+            />
+          </Grid>
+
+          <ButtonSecondary
+            stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
+            styleicon='{ "color":"" }'
+            onClick={onClickCancelChange}
             disabled={disableField === true ? false : true}
-            onKeyDown={preventSpace}
-            value={formik.values.streetAddress}
-            onChange={formik.handleChange}
-            onBlur={onBlurAddress}
-            error={
-              formik.touched.streetAddress &&
-              Boolean(formik.errors.streetAddress)
-            }
-            helperText={
-              formik.touched.streetAddress && formik.errors.streetAddress
-            }
-          />
-        </Grid>
-        <Grid
-          item
-          xs={12}
-          style={{ width: "100%", gap: 15, marginBottom: 20 }}
-          container
-          direction="row"
-        >
-          <TextField
-            fullWidth
-            id="city"
-            name="city"
-            label="City"
-            disabled={true}
-            materialProps={{ "data-test-id": "city" }}
-            value={formik.values.city}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.city && Boolean(formik.errors.city)}
-            helperText={formik.touched.city && formik.errors.city}
-          />
-        </Grid>
 
-        <Grid
-          item
-          xs={12}
-          style={{ width: "100%", gap: 15, marginBottom: 20 }}
-          container
-          direction="row"
-        >
-          <TextField
-            fullWidth
-            id="state"
-            name="state"
-            label="State"
-            disabled={true}
-            materialProps={{ "data-test-id": "state" }}
-            value={formik.values.state}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.state && Boolean(formik.errors.state)}
-            helperText={formik.touched.state && formik.errors.state}
-          />
-        </Grid>
-        <Grid
-          item
-          xs={12}
-          style={{ width: "100%", gap: 15, marginBottom: 20 }}
-          container
-          direction="row"
-        >
-          <Zipcode
-            fullWidth
-            id="zip"
-            name="zip"
-            label="Zip Code"
-            materialProps={{ "data-test-id": "zipcode" }}
-            disabled={disableField === true ? false : true}
-            value={basicInfo?.address_postal_code}
-            onChange={fetchAddress}
-            onBlur={formik.handleBlur}
-            error={
-              (formik.touched.zip && Boolean(formik.errors.zip)) || !validZip
-            }
-            helperText={
-              validZip
-                ? formik.touched.zip && formik.errors.zip
-                : "Please enter a valid ZIP Code"
-            }
-          />
-        </Grid>
+          >
+            Cancel
+          </ButtonSecondary>
 
-        <ButtonSecondary
-          stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
-          styleicon='{ "color":"" }'
-          onClick={onClickCancelChange}
-          disabled={disableField === true ? false : true}
-        
-        >
-          Cancel
-        </ButtonSecondary>
-
-        <ButtonPrimary
-          stylebutton='{"marginLeft": "5px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
-          styleicon='{ "color":"" }'
-          type="submit"
-          disabled={loading}
-        >
-          Save Changes
-          <i
-            className="fa fa-refresh fa-spin customSpinner"
-            style={{
-              marginRight: "10px",
-              display: loading ? "block" : "none",
-              color: 'blue'
-            }}
-          />
-        </ButtonPrimary>
-        </> }
+          <ButtonPrimary
+            stylebutton='{"marginLeft": "5px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
+            styleicon='{ "color":"" }'
+            type="submit"
+            disabled={loading}
+          >
+            Save Changes
+            <i
+              className="fa fa-refresh fa-spin customSpinner"
+              style={{
+                marginRight: "10px",
+                display: loading ? "block" : "none",
+                color: 'blue'
+              }}
+            />
+          </ButtonPrimary>
+        </>}
       </form>
-     
+
     </div>
   );
 }
