@@ -5,6 +5,9 @@ const useStylesAccountOverview = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
+  mainGrid: {
+    paddingBottom: "10px"
+  },
   paper: {
     padding: theme.spacing(3),
     display: "flex",
@@ -47,7 +50,7 @@ const useStylesAccountOverview = makeStyles((theme) => ({
   tableHead: {
     color: "#171717!important",
     fontWeight: "700",
-    fontSize: "1rem",
+    fontSize: "0.938rem"
   },
   tableHeadRow: {
     color: "#171717!important",

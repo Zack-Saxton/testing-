@@ -25,3 +25,4 @@ export { default as DataGrid } from './DataGrid';
 export { default as RadioButtonBox} from './RadioButtonBox';
 export {default as ButtonPrimary} from './ButtonPrimary'
 export {default as ButtonSecondary} from './ButtonSecondary';
+export {default as TableCellWrapper} from './TableCell';
