@@ -5,6 +5,10 @@ const useStylesAccountOverview = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
+  recentPaymentMainGrid: {
+    width: "100%", 
+    padding: "0px 0px 40px 0px"
+  },
   mainGrid: {
     width: "100%", 
     paddingBottom: "10px", 
@@ -20,6 +24,19 @@ const useStylesAccountOverview = makeStyles((theme) => ({
     borderRadius: "2px",
     flexDirection: "column",
     color: theme.palette.text.secondary,
+  },
+  paperRP: {
+    padding: theme.spacing(3),
+    display: "flex",
+    borderRadius: "2px",
+    marginTop: "15px",
+    marginBottom: "15px",
+    flexDirection: "column",
+    color: theme.palette.text.secondary,
+    height: "85%"
+  },
+  decorNone: {
+    textDecoration: "none"
   },
   paperPropertiesLimitedOffer: {
     padding: theme.spacing(2),

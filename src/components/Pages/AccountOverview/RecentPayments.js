@@ -10,7 +10,10 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { useStylesAccountOverview } from "./Style";
 import Moment from "moment";
 import NumberFormat from "react-number-format";
-import {TableCellWrapper} from "../../FormsUI"
+import {ButtonPrimary, TableCellWrapper} from "../../FormsUI"
+import Typography from "@material-ui/core/Typography";
+import Paper from "@material-ui/core/Paper";
+import { NavLink } from "react-router-dom";
 import "./Style.css";
 
 export default function RecentPayments(userRecentPaymentData) {
@@ -112,6 +115,22 @@ if(userRecentPayment?.userRecentPaymentData?.length){
 }
 
 	return (
+		<Grid item xs={12} className={classes.recentPaymentMainGrid}>
+		<Paper id="recentPaymentsWrap" className={classes.paperRP} >
+		  <Grid container spacing={3}>
+			<Grid item xs={12} sm={6}>
+			  <Typography variant="h5" className={classes.activeLoanHeading}>
+				Recent Payments
+			  </Typography>
+			</Grid>
+			<Grid item xs={12} sm={6}>
+			  <NavLink to="/customers/paymenthistory" className={classes.decorNone} >
+				<ButtonPrimary stylebutton='{"float": "right","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'>
+				  Payment History
+				</ButtonPrimary>
+			  </NavLink>
+			</Grid>
+		  </Grid>
 		<Grid item xs={12} className={classes.mainGrid}>
 			<TableContainer>
 				<Table aria-label="simple table">
@@ -182,6 +201,8 @@ if(userRecentPayment?.userRecentPaymentData?.length){
 						)}
 				</Table>
 			</TableContainer>
+		</Grid>
+		</Paper>
 		</Grid>
 	);
 }
