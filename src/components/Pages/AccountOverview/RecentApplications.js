@@ -78,7 +78,7 @@ export default function RecentApplications({ userApplicationsData, UserAccountSt
       <Grid
         item
         xs={12}
-        style={{ width: "100%", paddingBottom: "10px" }}
+        className={classes.mainGrid}
         container
         direction="row"
       >
@@ -90,7 +90,7 @@ export default function RecentApplications({ userApplicationsData, UserAccountSt
           Summary of applications
         </Typography>
       </Grid>
-      <Grid item xs={12} style={{ width: "100%", paddingBottom: "20px" }}>
+      <Grid item xs={12} className={classes.tableGrid}>
         <TableContainer id="summaryOfApplications" component={Paper}>
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
@@ -147,8 +147,8 @@ export default function RecentApplications({ userApplicationsData, UserAccountSt
                     <TableCell className={classes.tableheadrow} align="left">
                       {(statusStr[presenceOfLoanStatus.status]) ? statusStr[presenceOfLoanStatus.status] : (presenceOfLoanStatus.status)}
                     </TableCell>
-                    <TableCell align="left">
-                      {presenceOfLoanStatus.isActive ?
+                    <TableCell align="left">    
+                      {presenceOfLoanStatus.isActive && presenceOfLoanStatus?.status !== "referred" ?
                         (
                           <ButtonPrimary stylebutton='{"color":"","width":"72%" }'
                             onClick={() => resumeNavigate(presenceOfLoanStatus.status)}

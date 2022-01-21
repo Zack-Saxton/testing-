@@ -5,12 +5,38 @@ const useStylesAccountOverview = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
+  recentPaymentMainGrid: {
+    width: "100%", 
+    padding: "0px 0px 40px 0px"
+  },
+  mainGrid: {
+    width: "100%", 
+    paddingBottom: "10px", 
+    paddingTop: "20px"
+  },
+  tableGrid: {
+    width: "100%", 
+    paddingBottom: "10px"
+  },
   paper: {
     padding: theme.spacing(3),
     display: "flex",
     borderRadius: "2px",
     flexDirection: "column",
     color: theme.palette.text.secondary,
+  },
+  paperRP: {
+    padding: theme.spacing(3),
+    display: "flex",
+    borderRadius: "2px",
+    marginTop: "15px",
+    marginBottom: "15px",
+    flexDirection: "column",
+    color: theme.palette.text.secondary,
+    height: "85%"
+  },
+  decorNone: {
+    textDecoration: "none"
   },
   paperPropertiesLimitedOffer: {
     padding: theme.spacing(2),
@@ -47,7 +73,7 @@ const useStylesAccountOverview = makeStyles((theme) => ({
   tableHead: {
     color: "#171717!important",
     fontWeight: "700",
-    fontSize: "1rem",
+    fontSize: "0.938rem"
   },
   tableHeadRow: {
     color: "#171717!important",
