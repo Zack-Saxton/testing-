@@ -26,30 +26,36 @@ then
     exit
 fi
 
+if [ "$env" = "prod1" ] || [ "$env" = "prod2" ] || [ "$env" = "prod3" ] || [ "$env" = "prod4" ]
+then
+    serverName="ubuntu@${app}-${inst}-prod.marinerfinance.io"
+else
+    serverName="ubuntu@${app}-${inst}-${env}.marinerfinance.io"
+fi
 # Initialise for various environments
 dev_env(){
-    pemFile="/home/fidelis.j@zucisystems.com/Documents/creds/MF/MarinerFinance-DevLinux.pem"
+    pemFile="$home/Code/$app/otherdocs/marinerfinance-us-east-1.pem"
     serverName="ubuntu@ec2-18-191-188-41.us-east-2.compute.amazonaws.com"
     gitRepo="git@github.com:zucisystems-dev/MarinerFinance-Website.git"
     appDir="MarinerFinance-Website"
 }
 
 dev_remote_env(){
-    pemFile="/home/fidelis.j@zucisystems.com/Documents/creds/MF/marinerfinance-us-east-1.pem"
+    pemFile="$home/Code/$app/otherdocs/marinerfinance-us-east-1.pem"
     serverName="ubuntu@cac-app1-dev.marinerfinance.io"
     gitRepo="git@github.com:marinerfinance/cac.git"
     appDir="cac"
 }
 
 staging_env(){
-    pemFile="/home/fidelis.j@zucisystems.com/Documents/creds/MF/marinerfinance-us-east-1.pem"
+    pemFile="$home/Code/$app/otherdocs/marinerfinance-us-east-1.pem"
     serverName="ubuntu@cac-app1-dev.marinerfinance.io"
     gitRepo="git@github.com:marinerfinance/cac.git"
     appDir="cac"
 }
 
 production_env(){
-    pemFile="/home/fidelis.j@zucisystems.com/Documents/creds/MF/MarinerFinance-DevLinux.pem"
+    pemFile="$home/Code/$app/otherdocs/marinerfinance-us-east-1.pem"
     serverName="ubuntu@ec2-18-191-188-41.us-east-2.compute.amazonaws.com"
     gitRepo="git@github.com:zucisystems-dev/MarinerFinance-Website.git"
     appDir="MarinerFinance-Website"
