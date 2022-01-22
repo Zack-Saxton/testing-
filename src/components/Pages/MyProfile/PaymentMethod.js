@@ -44,6 +44,8 @@ import { useHistory } from "react-router-dom";
 import { tabAtom } from "./MyProfileTab";
 import { useAtom } from "jotai";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
+import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
+import { Error } from "../../toast/toast"
 import {
     addCreditCard,
     getPaymentMethods,
@@ -207,34 +209,28 @@ export default function PaymentMethod() {
         }
     };
 
-    const fetchAddress = (e) => {
+const fetchAddress = async(e) => {
+    try {    
         if (e.target.value !== "" && e.target.value.length === 5) {
-            fetch("https://api.zippopotam.us/us/" + e.target.value)
-                .then((res) => res.json())
-                .then((result) => {
-                    if (result.places) {
-                        setValidZip(true);
-                        formikAddDebitCard.setFieldValue(
-                            "city",
-                            result?.places[0]["place name"]
-                        );
-                        formikAddDebitCard.setFieldValue(
-                            "state",
-                            result?.places[0]["state abbreviation"]
-                        );
-
-
-                    } else {
-                        setValidZip(false);
-                        formikAddDebitCard.setFieldValue("city", "");
-                        formikAddDebitCard.setFieldValue("state", "");
-                    }
-                });
+            let result = await ZipCodeLookup(e.target.value);
+            if (result) {
+                setValidZip(true);
+                formikAddDebitCard.setFieldValue("city",result.data.data.data.cityName);
+                formikAddDebitCard.setFieldValue("state",result.data.data.data.stateCode);
+            } else {
+                setValidZip(false);
+                formikAddDebitCard.setFieldValue("city", "");
+                formikAddDebitCard.setFieldValue("state", "");  
+            }
         } else {
-            formikAddDebitCard.setFieldValue("city", "");
+             formikAddDebitCard.setFieldValue("city", "");
             formikAddDebitCard.setFieldValue("state", "");
         }
+         
         formikAddDebitCard.handleChange(e);
+    } catch (error) {
+        Error("Error from [fetchAddress]");
+}
     };
 
     const onClickEditCard = async (row) => {

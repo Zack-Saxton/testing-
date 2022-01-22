@@ -29,7 +29,8 @@ import "./Register.css";
 import Cookies from "js-cookie";
 import LogoutController from "../../Controllers/LogoutController";
 import { encryptAES } from "../../lib/Crypto";
-
+import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
+import { Error } from "../../toast/toast"
 //Styling part
 const useStyles = makeStyles((theme) => ({
 	mainContentBackground: {
@@ -380,31 +381,29 @@ export default function Register() {
 	}
 
 	//Fetching valid zipcode
-	const fetchAddress = (e) => {
+const fetchAddress = async(e) => {
+	try {
 		formik.handleChange(e);
 		if (e.target.value !== "" && e.target.value.length === 5) {
-			fetch("https://api.zippopotam.us/us/" + e.target.value)
-				.then((res) => res.json())
-				.then(
-					(result) => {
-						if (result.places) {
-							setValidZip(true);
-							setState(result.places[0]["state abbreviation"]);
-							setCity(result.places[0]["place name"]);
-						} else {
-							setValidZip(false);
-							setState("");
-							setCity("");
-						}
-					},
-					(error) => {
-						setValidZip(false);
-						setState("");
-						setCity("");
-					}
-				);
+			let result = await ZipCodeLookup(e.target.value);
+      		if (result) {
+            	setValidZip(true);
+            	setState(result.data.data.data.stateCode);
+            	setCity(result.data.data.data.cityName);
+          	} else {
+            	setValidZip(false);
+            	setState("");
+            	setCity("");
+          	}
+		} else {
+			setValidZip(false);
+			setState("");
+			setCity("");
 		}
-	};
+	} catch (error) {
+		Error(" Error from [fetchAddress]");
+	}	
+};
 
 	//View Part
 	return (

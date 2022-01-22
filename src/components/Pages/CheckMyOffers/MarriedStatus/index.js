@@ -11,7 +11,8 @@ import * as yup from "yup";
 import MarriedStatusLogo from "../../../../assets/icon/married-status.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import ScrollToTopOnMount from "../ScrollToTop";
-
+import ZipCodeLookup from "../../../Controllers/ZipCodeLookup";
+import { Error} from "../../../toast/toast";
 //Yup validation schema
 const validationSchema = yup.object({
 	martialStatus: yup
@@ -109,41 +110,30 @@ function MarriedStatus() {
 	};
 
 	//fetch the state and city based in zip code
-	const fetchAddress = (e) => {
+const fetchAddress = async(e) => {
+	try {
 		if (e.target.value !== "" && e.target.value.length === 5) {
-			fetch("https://api.zippopotam.us/us/" + e.target.value)
-				.then((res) => res.json())
-				.then(
-					(result) => {
-						if (result.places) {
-							formik.setFieldValue(
-								"spouseSelectState",
-								result.places[0]["state"]
-							);
-							formik.setFieldValue("spousecity", result.places[0]["place name"]);
-							setStateShort(result.places[0]["state abbreviation"]);
-							setValidZip(true);
-						} else {
-							formik.setFieldValue("spouseSelectState", "");
-							formik.setFieldValue("spousecity", "");
-							setStateShort("");
-							setValidZip(false);
-						}
-					},
-					(error) => {
-						formik.setFieldValue("spouseSelectState", "");
-						formik.setFieldValue("spousecity", "");
-						setStateShort("");
-						setValidZip(false);
-					}
-				);
+			let result = await ZipCodeLookup(e.target.value);
+			if (result) {
+				formik.setFieldValue("spouseSelectState",result.data.data.data.stateCode);
+				formik.setFieldValue("spousecity", result.data.data.data.cityName);
+				setStateShort(result.data.data.data.stateCode);
+				setValidZip(true);
+			} else {
+				formik.setFieldValue("spouseSelectState", "");
+				formik.setFieldValue("spousecity", "");
+				setStateShort("");
+				setValidZip(false);
+			}
 		} else {
 			formik.setFieldValue("spouseSelectState", "");
 			formik.setFieldValue("spousecity", "");
 			setStateShort("");
 		}
-
 		formik.handleChange(e);
+	} catch (error) {
+		Error(' Error from [fetchAddress].')
+	}
 	};
 
 	//redirect to select amount if page accessed directly
