@@ -96,6 +96,8 @@ export default function Credit(creditData) {
           {status}
         </p>
         <p>{compareLastmnth}</p>
+        { score >= 640 && 
+        <>
         <ButtonPrimary onClick={navigateCheckMyOffers} stylebutton='{"background": ""}' >
           {" "}
           Check My Offers
@@ -104,6 +106,8 @@ export default function Credit(creditData) {
           See if you qualify for a loan offer, it won’t affect your credit
           score.
         </p>
+        </>
+}
       </Grid>
     </Grid>
   );
