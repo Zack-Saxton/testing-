@@ -74,17 +74,17 @@ function MarriedStatus() {
 	const [validZip, setValidZip] = useState(true);
 	const history = useHistory();
 
-	//Configuring formik
+	//Configuring formik 
 	const formik = useFormik({
 		initialValues: {
 			martialStatus: data.maritalStatus ?? "",
-			add: data.spouse_address_street ?? "",
-			spouseZipcode: data.spouse_address_postal_code ?? "",
-			spouseSelectState: data.spouse_address_state_full_form ? data.spouse_address_state_full_form : "",
-			spousecity: data.spouse_address_city ?? "",
+			add: data.spouse_address_street ? data.spouse_address_street : ( data.streetAddress ? data.streetAddress : ""),
+			spouseZipcode: data.spouse_address_postal_code ? data.spouse_address_postal_code : ( data.zip ? data.zip : ""),
+			spouseSelectState: data.spouse_address_state_full_form ? data.spouse_address_state_full_form : ( data.stateFullform ? data.stateFullform : ""),
+			spousecity: data.spouse_address_city ? data.spouse_address_city : ( data.city ? data.city : ""),
 		},
 		validationSchema: validationSchema,
-	
+
 		onSubmit: (values) => {
 			//onsubmit store the data to context and procceds
 			setData({
@@ -271,7 +271,7 @@ function MarriedStatus() {
 											xs={12}
 											className={
 												formik.values.martialStatus === "Married" ||
-												formik.values.martialStatus ===
+													formik.values.martialStatus ===
 													"Separated, under decree of legal separation"
 													? "showMsg space"
 													: "hideMsg space"
@@ -299,7 +299,7 @@ function MarriedStatus() {
 											xs={12}
 											className={
 												formik.values.martialStatus === "Married" ||
-												formik.values.martialStatus ===
+													formik.values.martialStatus ===
 													"Separated, under decree of legal separation"
 													? "showMsg "
 													: "hideMsg "
@@ -319,7 +319,7 @@ function MarriedStatus() {
 											xs={12}
 											className={
 												formik.values.martialStatus === "Married" ||
-												formik.values.martialStatus ===
+													formik.values.martialStatus ===
 													"Separated, under decree of legal separation"
 													? "showMsg space"
 													: "hideMsg space"
@@ -341,7 +341,7 @@ function MarriedStatus() {
 												helperText={
 													validZip
 														? formik.touched.spouseZipcode &&
-														  formik.errors.spouseZipcode
+														formik.errors.spouseZipcode
 														: "Please enter a valid Zip code"
 												}
 											/>
@@ -356,7 +356,7 @@ function MarriedStatus() {
 											xs={12}
 											className={
 												formik.values.martialStatus === "Married" ||
-												formik.values.martialStatus ===
+													formik.values.martialStatus ===
 													"Separated, under decree of legal separation"
 													? "showMsg space"
 													: "hideMsg space"
@@ -390,7 +390,7 @@ function MarriedStatus() {
 											xs={12}
 											className={
 												formik.values.martialStatus === "Married" ||
-												formik.values.martialStatus ===
+													formik.values.martialStatus ===
 													"Separated, under decree of legal separation"
 													? "showMsg space"
 													: "hideMsg space"

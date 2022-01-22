@@ -3,7 +3,7 @@ import Header from './NormalHeader/NormalHeader';
 import Footer from './NormalFooter/NormalFooter';
 
 
-const General =  ({children}) => {
+const General = ({ children }) => {
 
     return (
         <div>

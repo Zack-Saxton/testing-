@@ -47,17 +47,17 @@ function NewUser() {
 		initialValues: {
 			personalIncome: data.annualIncome
 				? "$" +
-				  parseFloat(data.annualIncome)
-						.toFixed(2)
-						.replace(/(\d)(?=(\d{3})+\.)/g, "$1,")
-						.slice(0, -3)
+				parseFloat(data.annualIncome)
+					.toFixed(2)
+					.replace(/(\d)(?=(\d{3})+\.)/g, "$1,")
+					.slice(0, -3)
 				: "",
 			householdIncome: data.householdAnnualIncome
 				? "$" +
-				  parseFloat(data.householdAnnualIncome)
-						.toFixed(2)
-						.replace(/(\d)(?=(\d{3})+\.)/g, "$1,")
-						.slice(0, -3)
+				parseFloat(data.householdAnnualIncome)
+					.toFixed(2)
+					.replace(/(\d)(?=(\d{3})+\.)/g, "$1,")
+					.slice(0, -3)
 				: "",
 		},
 

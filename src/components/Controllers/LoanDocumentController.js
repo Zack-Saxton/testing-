@@ -13,7 +13,7 @@ export async function loanDocumentController(accNo) {
 
   //API call
   return APICall(url, param, data, method, addAccessToken);
-  
+
 }
 
 /***** Download and converting bufferdata *****/
@@ -57,19 +57,19 @@ export async function documentdownload(id, name) {
   loanDocumentDownload.data.status === 200
     ? downloadFileData(loanDocumentDownload)
     : toast.error(
-        loanDocumentDownload?.data?.data?.message
-          ? loanDocumentDownload.data.data.message
-          : "Downloading failed",
-        {
-          position: "bottom-left",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        }
-      );
+      loanDocumentDownload?.data?.data?.message
+        ? loanDocumentDownload.data.data.message
+        : "Downloading failed",
+      {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      }
+    );
 }
 
 /***** Print file *****/
@@ -97,17 +97,17 @@ export async function documentprint(id, name) {
     method,
     addAccessToken
   );
-   documentDownloadPrint.data.status === 200
+  documentDownloadPrint.data.status === 200
     ? print(documentDownloadPrint)
     : toast.error("Error printing file", {
-        position: "bottom-left",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      position: "bottom-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
 }
 
 /***** upload document method *****/
@@ -129,27 +129,27 @@ export async function uploadDocument(test, fileName, fileType, documentType) {
 
   //API call
   let uploadData = await APICall(url, param, data, method, addAccessToken);
-  
+
   //API response
   uploadData.data.status === 200
-    ? toast.success((uploadData?.data?.data?.data?.message) ? (uploadData.data.data.data.message) : (uploadData?.data?.data?.message) ? (uploadData.data.data.message) :"Document Uploaded Successfully", {
-        position: "bottom-left",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      })
-    : toast.error((uploadData?.data?.data?.data?.message) ? (uploadData.data.data.data.message) : (uploadData?.data?.data?.message) ? (uploadData.data.data.message)  :"Error uploading file", {
-        position: "bottom-left",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+    ? toast.success((uploadData?.data?.data?.data?.message) ? (uploadData.data.data.data.message) : (uploadData?.data?.data?.message) ? (uploadData.data.data.message) : "Document Uploaded Successfully", {
+      position: "bottom-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    })
+    : toast.error((uploadData?.data?.data?.data?.message) ? (uploadData.data.data.data.message) : (uploadData?.data?.data?.message) ? (uploadData.data.data.message) : "Error uploading file", {
+      position: "bottom-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
 
-      return "true"
+  return "true"
 }

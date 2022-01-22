@@ -16,9 +16,9 @@ const NormalHeader = () => {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(false);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const history = useHistory();
- 
 
-//Menu open & close
+
+  //Menu open & close
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
@@ -30,7 +30,7 @@ const NormalHeader = () => {
 
   const mobileMenuId = "primary-search-account-menu-mobile";
 
-//Menu button on mobile view
+  //Menu button on mobile view
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
@@ -77,8 +77,8 @@ const NormalHeader = () => {
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar className={classes.toolbar}>
-          <Typography  onClick={redirectToAccountOverview} className={classes.title}>
-             <img className={classes.logoFormat}  src={Logo} alt="MF logo" /> 
+          <Typography onClick={redirectToAccountOverview} className={classes.title}>
+            <img className={classes.logoFormat} src={Logo} alt="MF logo" />
           </Typography>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
@@ -97,7 +97,7 @@ const NormalHeader = () => {
               >
                 Branch Locator
               </a>
-            </Typography> 
+            </Typography>
           </div>
           <div className={classes.sectionMobile}>
             <IconButton

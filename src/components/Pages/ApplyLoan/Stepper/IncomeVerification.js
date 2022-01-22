@@ -46,11 +46,11 @@ export default function IncomeVerification(props) {
 	return (
 		<div>
 			<div>
-				<p style={{ textAlign: "justify", fontSize:"0.938rem" }}>
+				<p style={{ textAlign: "justify", fontSize: "0.938rem" }}>
 					<span>
 						To finalize our review, we need to verify the income that you have stated.
 					</span>
-					<li style={{ fontSize:"0.938rem"}}>
+					<li style={{ fontSize: "0.938rem" }}>
 						Please upload your most recent, complete pay statement (dated inside
 						of 30 days) or your most recent benefits statement from the current
 						calendar year if you are retired or not employed.
@@ -61,13 +61,13 @@ export default function IncomeVerification(props) {
 					verification steps.
 				</p>
 
-				<p style={{ textAlign: "justify", fontSize:"0.938rem" }}>
+				<p style={{ textAlign: "justify", fontSize: "0.938rem" }}>
 					Acceptable ﬁle Formats are PDF, JPG, JPEG, GIF, 81 PNG (please note
 					that we are unable to accept screenshots or photos of a computer
 					screen).
 				</p>
 
-				<p style={{ textAlign: "justify", fontSize:"0.938rem" }}>
+				<p style={{ textAlign: "justify", fontSize: "0.938rem" }}>
 					Feel Free to chat with us or give us a call at 877-310-2373 if you
 					have a question about what is an acceptable form of proof of income!
 				</p>

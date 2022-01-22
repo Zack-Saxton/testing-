@@ -11,6 +11,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import axios from "axios";
+import { toast } from "react-toastify";
 import {
 	Button,
 	ButtonPrimary,
@@ -43,8 +44,8 @@ const useStyles = makeStyles((theme) => ({
 	},
 
 	mainGrid: {
-		boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%), 
-    0 6px 30px 5px rgb(0 0 0 / 12%), 
+		boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%),
+    0 6px 30px 5px rgb(0 0 0 / 12%),
     0 8px 10px -7px rgb(0 0 0 / 20%)`,
 		background: "#f5f2f2",
 	},
@@ -72,8 +73,8 @@ const useStyles = makeStyles((theme) => ({
 		flexDirection: "column",
 		backgroundColor: `rgba(255, 255, 255, .8)`,
 		color: theme.palette.text.secondary,
-		boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%), 
-  0 6px 30px 5px rgb(0 0 0 / 12%), 
+		boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%),
+  0 6px 30px 5px rgb(0 0 0 / 12%),
   0 8px 10px -7px rgb(0 0 0 / 20%)`,
 	},
 
@@ -118,10 +119,10 @@ const validationSchema = yup.object({
 			new Date(
 				new Date(
 					new Date().getFullYear() +
-						"/" +
-						(new Date().getMonth() + 1) +
-						"/" +
-						new Date().getDate()
+					"/" +
+					(new Date().getMonth() + 1) +
+					"/" +
+					new Date().getDate()
 				).getTime() - 567650000000
 			),
 			"You must be at least 18 years old"
@@ -182,6 +183,68 @@ export default function Register() {
 	const myDate = new Date();
 	myDate.setDate(myDate.getDate() - 6571);
 
+	const loginUser = async (values) => {
+		let retVal = await LoginController(values.email, values.password, "");
+		if (
+			retVal?.data?.data?.user &&
+			retVal?.data?.data?.userFound === true
+		) {
+			let rememberMe = false;
+			var now = new Date().getTime();
+			LogoutController();
+			Cookies.set("redirec", JSON.stringify({ to: "/select-amount" }));
+			Cookies.set(
+				"token",
+				JSON.stringify({
+					isLoggedIn: true,
+					apiKey:
+						retVal?.data?.data?.user?.extensionattributes?.login
+							?.jwt_token,
+					setupTime: now,
+				})
+			);
+			Cookies.set(
+				"cred",
+				encryptAES(
+					JSON.stringify({
+						email: values.email,
+						password: values.password,
+					})
+				)
+			);
+
+			rememberMe === true
+				? Cookies.set(
+						"rememberMe",
+						JSON.stringify({
+							selected: true,
+							email: values.email,
+							password: values.password,
+						})
+				  )
+				: Cookies.set(
+						"rememberMe",
+						JSON.stringify({ selected: false, email: "", password: "" })
+				  );
+
+			setLoading(false);
+			history.push({
+				pathname: "/customers/accountoverview",
+			});
+		} else if (
+			retVal?.data?.data?.result === "error" ||
+			retVal?.data?.data?.hasError === true
+		) {
+			Cookies.set(
+				"token",
+				JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" })
+			);
+			setLoading(false);
+		} else {
+			setLoading(false);
+			alert("Network error");
+		}
+	}
 	//Form Submission
 	const formik = useFormik({
 		initialValues: {
@@ -237,67 +300,26 @@ export default function Register() {
 						customerStatus.data?.hasError === false)
 				) {
 					//On succes, calls the login API to the JWT token and save it in storage, and make the user logged in and redirecting to home page
-					let retVal = await LoginController(values.email, values.password, "");
-					if (
-						retVal?.data?.data?.user &&
-						retVal?.data?.data?.userFound === true
-					) {
-						let rememberMe = false;
-						var now = new Date().getTime();
-						LogoutController();
-						Cookies.set("redirec", JSON.stringify({ to: "/select-amount" }));
-						Cookies.set(
-							"token",
-							JSON.stringify({
-								isLoggedIn: true,
-								apiKey:
-									retVal?.data?.data?.user?.extensionattributes?.login
-										?.jwt_token,
-								setupTime: now,
-							})
-						);
-						Cookies.set(
-							"cred",
-							encryptAES(
-								JSON.stringify({
-									email: values.email,
-									password: values.password,
-								})
-							)
-						);
+					loginUser(values);
+				}
+				else if (customerStatus.data?.result === "succcces" && customerStatus.data?.successMessage === "Password reset successful") 
+				{
+					toast.success(
+						customerStatus.data?.successMessage,
+						{
+						  position: "bottom-left",
+						  autoClose: 5500,
+						  hideProgressBar: false,
+						  closeOnClick: true,
+						  pauseOnHover: true,
+						  draggable: true,
+						  progress: undefined,
+						}
+					  )
+					  loginUser(values);
 
-						rememberMe === true
-							? Cookies.set(
-									"rememberMe",
-									JSON.stringify({
-										selected: true,
-										email: values.email,
-										password: values.password,
-									})
-							  )
-							: Cookies.set(
-									"rememberMe",
-									JSON.stringify({ selected: false, email: "", password: "" })
-							  );
-
-						setLoading(false);
-						history.push({
-							pathname: "/customers/accountoverview",
-						});
-					} else if (
-						retVal?.data?.data?.result === "error" ||
-						retVal?.data?.data?.hasError === true
-					) {
-						Cookies.set(
-							"token",
-							JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" })
-						);
-						setLoading(false);
-					} else {
-						setLoading(false);
-						alert("Network error");
-					}
-				} else if (
+				}
+				else if (
 					customerStatus.data?.result === "error" &&
 					customerStatus.data?.hasError === true
 				) {

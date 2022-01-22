@@ -1,6 +1,6 @@
 
 #apply-loan-comparison-button-grid{
- margin-left: auto !important; 
+ margin-left: auto !important;
 }
 #apply-loan-continue-button{
   margin-left: 10px !important;
@@ -56,7 +56,7 @@
 }
 
 @media (max-width: 600px) {
-  #apply-loan-comparison-button{ 
+  #apply-loan-comparison-button{
    float: unset!important;
   }
 }

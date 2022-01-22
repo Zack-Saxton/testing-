@@ -1,7 +1,7 @@
 import React from "react";
-import {NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import clsx from "clsx";
-import {makeStyles, useTheme} from "@material-ui/core/styles";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     },
     appBarShift: {
         marginLeft: drawerWidth,
-        width: `calc(100% - ${drawerWidth}px)`,
+        width: `calc(100% - ${ drawerWidth }px)`,
         transition: theme.transitions.create(["width", "margin"], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
@@ -148,10 +148,10 @@ export default function SideNav() {
     const renderMenu = (
         <Menu
             anchorEl={anchorEl}
-            anchorOrigin={{vertical: "top", horizontal: "right"}}
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
             id={menuId}
             keepMounted
-            transformOrigin={{vertical: "top", horizontal: "right"}}
+            transformOrigin={{ vertical: "top", horizontal: "right" }}
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
@@ -162,7 +162,7 @@ export default function SideNav() {
 
     return (
         <div className={classes.root}>
-            <CssBaseline/>
+            <CssBaseline />
             <AppBar
                 position="fixed"
                 className={clsx(classes.appBar, {
@@ -179,12 +179,12 @@ export default function SideNav() {
                             [classes.hide]: open,
                         })}
                     >
-                        <MenuIcon/>
+                        <MenuIcon />
                     </IconButton>
 
-                    <img src={logo} alt="logo" className={classes.logo}/>
+                    <img src={logo} alt="logo" className={classes.logo} />
 
-                    <div className={classes.grow}/>
+                    <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
                         <Typography className={classes.headerAlign}>
                             Blog
@@ -201,7 +201,7 @@ export default function SideNav() {
                         <Notification />
 
                         <IconButton color="inherit">
-                            <SettingsIcon/>
+                            <SettingsIcon />
                         </IconButton>
 
                         <IconButton
@@ -212,7 +212,7 @@ export default function SideNav() {
                             onClick={handleProfileMenuOpen}
                             color="inherit"
                         >
-                            <AccountCircle/>
+                            <AccountCircle />
                         </IconButton>
                     </div>
                 </Toolbar>
@@ -234,19 +234,19 @@ export default function SideNav() {
                 <div className={classes.toolbar}>
                     <IconButton onClick={handleDrawerClose}>
                         {theme.direction === "rtl" ? (
-                            <ChevronRightIcon/>
+                            <ChevronRightIcon />
                         ) : (
-                            <ChevronLeftIcon/>
+                            <ChevronLeftIcon />
                         )}
                     </IconButton>
                 </div>
-                <Divider/>
+                <Divider />
                 <List>
                     <NavLink to="/customers/accountOverview">
                         <ListItem>
                             <ListItemIcon>
                                 {" "}
-                                <AssignmentTurnedInOutlinedIcon/>{" "}
+                                <AssignmentTurnedInOutlinedIcon />{" "}
                             </ListItemIcon>
                             <ListItemText>Account Overview </ListItemText>
                         </ListItem>
@@ -255,7 +255,7 @@ export default function SideNav() {
                     <ListItem>
                         <ListItemIcon>
                             {" "}
-                            <AccountBalanceWalletIcon/>{" "}
+                            <AccountBalanceWalletIcon />{" "}
                         </ListItemIcon>
                         <ListItemText>Make a Payment </ListItemText>
                     </ListItem>
@@ -263,7 +263,7 @@ export default function SideNav() {
                     <ListItem>
                         <ListItemIcon>
                             {" "}
-                            <MonetizationOnRoundedIcon/>{" "}
+                            <MonetizationOnRoundedIcon />{" "}
                         </ListItemIcon>
                         <ListItemText> Apply for a Loan </ListItemText>
                     </ListItem>
@@ -271,7 +271,7 @@ export default function SideNav() {
                     <ListItem>
                         <ListItemIcon>
                             {" "}
-                            <DescriptionOutlinedIcon/>{" "}
+                            <DescriptionOutlinedIcon />{" "}
                         </ListItemIcon>
                         <ListItemText> Loan Document </ListItemText>
                     </ListItem>
@@ -279,7 +279,7 @@ export default function SideNav() {
                     <ListItem>
                         <ListItemIcon>
                             {" "}
-                            <AccountBalanceIcon/>{" "}
+                            <AccountBalanceIcon />{" "}
                         </ListItemIcon>
                         <ListItemText> My Branch</ListItemText>
                     </ListItem>
@@ -287,7 +287,7 @@ export default function SideNav() {
                     <ListItem>
                         <ListItemIcon>
                             {" "}
-                            <AccountCircle/>{" "}
+                            <AccountCircle />{" "}
                         </ListItemIcon>
                         <ListItemText> My Profile</ListItemText>
                     </ListItem>
@@ -295,7 +295,7 @@ export default function SideNav() {
                     <ListItem>
                         <ListItemIcon>
                             {" "}
-                            <ListIcon/>{" "}
+                            <ListIcon />{" "}
                         </ListItemIcon>
                         <ListItemText> Loan History</ListItemText>
                     </ListItem>
@@ -303,7 +303,7 @@ export default function SideNav() {
                     <ListItem>
                         <ListItemIcon>
                             {" "}
-                            <InboxIcon/>{" "}
+                            <InboxIcon />{" "}
                         </ListItemIcon>
                         <ListItemText> VantageScore</ListItemText>
                     </ListItem>
@@ -311,7 +311,7 @@ export default function SideNav() {
                     <ListItem>
                         <ListItemIcon>
                             {" "}
-                            <DataUsageOutlinedIcon/>{" "}
+                            <DataUsageOutlinedIcon />{" "}
                         </ListItemIcon>
                         <ListItemText> MoneySkill </ListItemText>
                     </ListItem>

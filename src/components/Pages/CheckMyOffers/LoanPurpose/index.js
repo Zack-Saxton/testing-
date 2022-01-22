@@ -74,18 +74,18 @@ function LoanPurpose(props) {
 			},
 			masonryItemFirst: {
 				boxSizing: "border-box",
-				padding: `${Theme.spacing(1)}px ${Theme.spacing(1)}px ${Theme.spacing(
+				padding: `${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(
 					1
-				)}px ${Theme.spacing(1)}px`,
+				) }px ${ Theme.spacing(1) }px`,
 				[Theme.breakpoints.up("lg")]: {
-					padding: `${Theme.spacing(1)}px ${Theme.spacing(1)}px ${Theme.spacing(
+					padding: `${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(
 						1
-					)}px ${Theme.spacing(1)}px`,
+					) }px ${ Theme.spacing(1) }px`,
 				},
 				[Theme.breakpoints.down("sm")]: {
-					padding: `${Theme.spacing(1)}px ${Theme.spacing(1)}px ${Theme.spacing(
+					padding: `${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(
 						1
-					)}px ${Theme.spacing(1)}px`,
+					) }px ${ Theme.spacing(1) }px`,
 				},
 			},
 		})
@@ -162,7 +162,7 @@ function LoanPurpose(props) {
 										lg={4}
 										md={4}
 										xs={6}
-										className={`${classes.masonryItemFirst}`}
+										className={`${ classes.masonryItemFirst }`}
 									>
 										<Paper
 											data-testid="home"
@@ -203,7 +203,7 @@ function LoanPurpose(props) {
 										lg={4}
 										md={4}
 										xs={6}
-										className={`${classes.masonryItemFirst}`}
+										className={`${ classes.masonryItemFirst }`}
 									>
 										<Paper
 											data-testid="autoExpense"
@@ -234,7 +234,7 @@ function LoanPurpose(props) {
 														? "borrowCSS textCSS whiteText"
 														: "borrowCSS textCSS"
 												}
-												// id="purposeTxt"
+											// id="purposeTxt"
 											>
 												Auto Expense / Repair
 											</Typography>
@@ -245,7 +245,7 @@ function LoanPurpose(props) {
 										lg={4}
 										md={4}
 										xs={6}
-										className={`${classes.masonryItemFirst}`}
+										className={`${ classes.masonryItemFirst }`}
 									>
 										<Paper
 											data-testid="vacation"
@@ -286,7 +286,7 @@ function LoanPurpose(props) {
 										lg={4}
 										md={4}
 										xs={6}
-										className={`${classes.masonryItemFirst}`}
+										className={`${ classes.masonryItemFirst }`}
 									>
 										<Paper
 											data-testid="holiday"
@@ -327,7 +327,7 @@ function LoanPurpose(props) {
 										lg={4}
 										md={4}
 										xs={6}
-										className={`${classes.masonryItemFirst}`}
+										className={`${ classes.masonryItemFirst }`}
 									>
 										<Paper
 											data-testid="medical"
@@ -368,7 +368,7 @@ function LoanPurpose(props) {
 										lg={4}
 										md={4}
 										xs={6}
-										className={`${classes.masonryItemFirst}`}
+										className={`${ classes.masonryItemFirst }`}
 									>
 										<Paper
 											data-testid="deptConsolidation"
@@ -409,7 +409,7 @@ function LoanPurpose(props) {
 										lg={4}
 										md={4}
 										xs={6}
-										className={`${classes.masonryItemFirst}`}
+										className={`${ classes.masonryItemFirst }`}
 									>
 										<Paper
 											data-testid="lifeEvent"
@@ -450,7 +450,7 @@ function LoanPurpose(props) {
 										lg={4}
 										md={4}
 										xs={6}
-										className={`${classes.masonryItemFirst}`}
+										className={`${ classes.masonryItemFirst }`}
 									>
 										<Paper
 											data-testid="unexpectedBills"
@@ -491,7 +491,7 @@ function LoanPurpose(props) {
 										lg={4}
 										md={4}
 										xs={6}
-										className={`${classes.masonryItemFirst}`}
+										className={`${ classes.masonryItemFirst }`}
 									>
 										<Paper
 											data-testid="majorPurchase"
@@ -532,7 +532,7 @@ function LoanPurpose(props) {
 										lg={12}
 										md={12}
 										xs={12}
-										className={`${classes.masonryItemFirst}`}
+										className={`${ classes.masonryItemFirst }`}
 										style={{ paddingTop: "10px", paddingBottom: "25px" }}
 									>
 										<Paper

@@ -12,17 +12,17 @@ import { useStylesAccountOverview } from "./Style";
 import { ButtonPrimary } from "../../FormsUI";
 import NumberFormat from 'react-number-format';
 import { useHistory } from "react-router-dom";
-import Cookies from "js-cookie";
 import "./Style.css";
 
 
 
-export default function RecentApplications({ userApplicationsData,UserAccountStatus,userApplicantData }) {
+export default function RecentApplications({ userApplicationsData, UserAccountStatus }) {
   //Material UI css class
   const classes = useStylesAccountOverview();
   //Recentapplications data
   let userApplications = (userApplicationsData != null) ? userApplicationsData : null;
-  let userApplicant = (userApplicantData != null) ? userApplicantData : null;
+  const presenceOfLoan = userApplications?.some((applicant) => applicant.isActive === true);
+  const presenceOfLoanStatus = userApplications?.find((applicant) => applicant.isActive === true);
   let statusStr = {
     "approved": "Approved",
     "completing_application": "Completing Application",
@@ -39,18 +39,18 @@ export default function RecentApplications({ userApplicationsData,UserAccountSta
     "rejected": "Rejected",
     "under_review": "Under review",
     "closing_process": "Closing process",
-    "signature_complete":  "Signature completed",
+    "signature_complete": "Signature completed",
     "final_review": "Final review"
   };
 
   let statusStrLink = {
     "approved": "/customers/finalVerification",
     "completing_application": "/customers/finalVerification",
-    "contact_branch":  "/customers/myBranch",
+    "contact_branch": "/customers/myBranch",
     "confirming_info": "/partner/confirm-signup",
     "expired": "/select-amount",
     "invalid": "/select-amount",
-    "signature_complete":  "/customers/finalVerification",
+    "signature_complete": "/customers/finalVerification",
     "offer_selected": "/customers/reviewAndSign",
     "offers_available": "/customers/selectOffer",
     "pre_qual_referred": "/select-amount",
@@ -61,131 +61,120 @@ export default function RecentApplications({ userApplicationsData,UserAccountSta
     "under_review": "/customers/loanDocument",
     "closing_process": "/customers/finalVerification",
     "final_review": "/customers/loanDocument"
-  }; 
+  };
 
   const history = useHistory();
 
-  //viewBtn click
-  const viewAppData = (contactdata,appData) =>{
-    Cookies.set("viewAppContact",JSON.stringify( contactdata));
-    Cookies.set("viewAppApplicant",JSON.stringify(appData));
-    history.push('/customers/viewaccount')
-  }
-
   //resumebtn click
-  const resumeNavigate = (appData) =>{
+  const resumeNavigate = (appData) => {
     history.push({
       pathname: statusStrLink[appData]
     });
   }
-  
+
   //View
   return (
     <>
-    <Grid
-          item
-          xs={12}
-          style={{ width: "100%", paddingBottom: "10px", paddingTop: "20px" }}
-          container
-          direction="row"
+      <Grid
+        item
+        xs={12}
+        className={classes.mainGrid}
+        container
+        direction="row"
+      >
+        <Typography
+          variant="h5"
+          className={classes.subheading}
+          data-testid="subtitle"
         >
-          <Typography
-            variant="h5"
-            className={classes.subheading}
-            data-testid="subtitle"
-          >
-            Summary of applications
-          </Typography>
-        </Grid>
-    <Grid item xs={12} style={{ width: "100%", paddingBottom: "10px" }}>
-      <TableContainer id="summaryOfApplications" component={Paper}>
-        <Table className={classes.table} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell className={classes.tableHead}>
-                Applied on
-              </TableCell>
-              <TableCell className={classes.tableHead} align="left">
-                Product Type
-              </TableCell>
-              <TableCell className={classes.tableHead} align="center">
-                Requested Amount
-              </TableCell>
-              <TableCell className={classes.tableHead} align="left">
-                Loan Purpose
-              </TableCell>
-              <TableCell className={classes.tableHead} align="left">
-                Status
-              </TableCell>
-              <TableCell className={classes.tableHead} align="left">
-                Actions
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {UserAccountStatus === null ? (
+          Summary of applications
+        </Typography>
+      </Grid>
+      <Grid item xs={12} className={classes.tableGrid}>
+        <TableContainer id="summaryOfApplications" component={Paper}>
+          <Table className={classes.table} aria-label="simple table">
+            <TableHead>
               <TableRow>
-                <TableCell
-                  colSpan="7"
-                  component="th"
-                  className={classes.tableHeadRow}
-                  scope="row"
-                  align="center"
-                >
-                  <CircularProgress />
+                <TableCell className={classes.tableHead}>
+                  Applied on
+                </TableCell>
+                <TableCell className={classes.tableHead} align="left">
+                  Product Type
+                </TableCell>
+                <TableCell className={classes.tableHead} align="center">
+                  Requested Amount
+                </TableCell>
+                <TableCell className={classes.tableHead} align="left">
+                  Loan Purpose
+                </TableCell>
+                <TableCell className={classes.tableHead} align="left">
+                  Status
+                </TableCell>
+                <TableCell className={classes.tableHead} align="left">
+                  Actions
                 </TableCell>
               </TableRow>
-            ) :
-              userApplications?.length
-                ?
-                userApplications.map((appData, index) => (
-                  <TableRow key={index}>
+            </TableHead>
+            <TableBody>
+              {UserAccountStatus === null ? (
+                <TableRow>
+                  <TableCell
+                    colSpan="7"
+                    component="th"
+                    className={classes.tableHeadRow}
+                    scope="row"
+                    align="center"
+                  >
+                    <CircularProgress />
+                  </TableCell>
+                </TableRow>
+              ) :
+                userApplications?.length && presenceOfLoan === true
+                  ?
+                  <TableRow>
                     <TableCell className={classes.tableheadrow} >
-                      {appData.submissionDate}
+                      {presenceOfLoanStatus.submissionDate}
                     </TableCell>
                     <TableCell className={classes.tableheadrow} align="left">
-                      {appData.product}
+                      {presenceOfLoanStatus.product}
                     </TableCell>
                     <TableCell className={classes.tableheadrow} align="center">
-                      <NumberFormat value={appData.amountRequested} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
+                      <NumberFormat value={presenceOfLoanStatus.amountRequested} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
                     </TableCell>
                     <TableCell className={classes.tableheadrow} align="left">
-                      {appData.loanPurpose}
+                      {presenceOfLoanStatus.loanPurpose}
                     </TableCell>
                     <TableCell className={classes.tableheadrow} align="left">
-                      {(statusStr[appData.status]) ? statusStr[appData.status] : (appData.status)}
+                      {(statusStr[presenceOfLoanStatus.status]) ? statusStr[presenceOfLoanStatus.status] : (presenceOfLoanStatus.status)}
                     </TableCell>
                     <TableCell align="left">    
-                      {appData.isActive ?
+                      {presenceOfLoanStatus.isActive && presenceOfLoanStatus?.status !== "referred" ?
                         (
-                          <ButtonPrimary stylebutton='{"color":"","width":"72%" }' 
-                            onClick={() =>resumeNavigate(appData.status)}
+                          <ButtonPrimary stylebutton='{"color":"","width":"72%" }'
+                            onClick={() => resumeNavigate(presenceOfLoanStatus.status)}
                           >
                             Resume
                           </ButtonPrimary>
                         ) : (
-                          <ButtonPrimary stylebutton='{"color":"","width":"72%","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }' onClick={() =>viewAppData(userApplicant,appData)} >
-                            View
-                          </ButtonPrimary>
-                             )
+                          <></>
+                        )
                       }
                     </TableCell>
                   </TableRow>
-                ))
-                :
-                <TableRow>
-                  <TableCell
-                    colSpan="7"
-                    align="center"
-                  >
-                    You do not have any recent applications
-                  </TableCell>
-                </TableRow>
-            }
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Grid>
+                  :
+                  <TableRow>
+                    <TableCell
+                      colSpan="7"
+                      align="center"
+                    >
+                      You do not have any recent applications
+                    </TableCell>
+                  </TableRow>
+              }
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Grid>
     </>
   );
 }

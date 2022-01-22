@@ -6,7 +6,7 @@ Functionality       :    To use this component to validate and get the Bank rout
 
 #################################################################################################################*/
 
-import React, {useState} from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import TextBox from "../Textfield";
 
@@ -26,12 +26,12 @@ const BankRoutingNumberWrapper = ({ name, ...otherProps }) => {
       setBRNum(event.target.value);
     }
     const isValid = /(^\d{9}$)/.test(event.target.value);
-    (!isValid && event.target.value) ? setIsError(true) : setIsError(false) ;
-    (!isValid && event.target.value) ? setHelperText("Bank Routing number should be 9 digits") : setHelperText("") ;
+    (!isValid && event.target.value) ? setIsError(true) : setIsError(false);
+    (!isValid && event.target.value) ? setHelperText("Bank Routing number should be 9 digits") : setHelperText("");
 
   };
 
-  
+
   //Configuring the field with properties
   const configTextfield = {
     name: name,
@@ -46,7 +46,7 @@ const BankRoutingNumberWrapper = ({ name, ...otherProps }) => {
   return (
     <TextBox
       {...configTextfield}
-      materialProps={{ maxLength: "9", "data-test-id": "BRN"}}
+      materialProps={{ maxLength: "9", "data-test-id": "BRN" }}
       value={BRNum}
       onChange={onHandleBRNChange}
       required={true}

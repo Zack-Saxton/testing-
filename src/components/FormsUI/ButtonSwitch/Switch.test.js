@@ -1,27 +1,27 @@
 import React from 'react'
-import {cleanup, fireEvent, render} from '@testing-library/react'
+import { cleanup, fireEvent, render } from '@testing-library/react'
 import Switch from './index.js'
 
 afterEach(cleanup)
 
- test('Render Button Switch', () => {
-   const container = render(										
-                  <Switch
-										label="Switch is"
-										labelPlacement="end"
-									/>);
- 
-   const input = container.getByTestId('switch');
-   expect(input).toBeTruthy();
- });
+test('Render Button Switch', () => {
+  const container = render(
+    <Switch
+      label="Switch is"
+      labelPlacement="end"
+    />);
+
+  const input = container.getByTestId('switch');
+  expect(input).toBeTruthy();
+});
 
 
- test('Change switch value', () => {
-  const container = render(										
-                 <Switch
-                   label="Switch is"
-                   labelPlacement="end"
-                 />);
+test('Change switch value', () => {
+  const container = render(
+    <Switch
+      label="Switch is"
+      labelPlacement="end"
+    />);
 
   const input = container.getByTestId('switch');
   fireEvent.click(input);
@@ -35,5 +35,4 @@ test('should match the snapshot', () => {
     labelPlacement="end"
   />)
   expect(asFragment).toMatchSnapshot()
- });
- 
+});

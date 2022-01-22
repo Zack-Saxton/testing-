@@ -1,11 +1,11 @@
-import {render,} from '@testing-library/react';
+import { render, } from '@testing-library/react';
 import Checkbox from './index';
 import '@testing-library/jest-dom';
-import {Form, Formik} from 'formik';
+import { Form, Formik } from 'formik';
 import React from "react";
 
 test("Render checkbox", () => {
-    const {getByTestId} = render(<Formik><Form><Checkbox
+    const { getByTestId } = render(<Formik><Form><Checkbox
         data-test-id="checkbox"
         name="termsOfService"
         labelform="Terms & Service"
@@ -22,7 +22,7 @@ test("Render checkbox", () => {
 });
 
 test("initially unchecked", () => {
-    const {getByTestId} = render(<Formik><Form><Checkbox
+    const { getByTestId } = render(<Formik><Form><Checkbox
         data-test-id="checkbox"
         name="termsOfService"
         labelform="Terms & Service"
@@ -38,7 +38,7 @@ test("initially unchecked", () => {
 });
 
 test('should match the snapshot', () => {
-    const {asFragment} = render(<Formik><Form><Checkbox
+    const { asFragment } = render(<Formik><Form><Checkbox
         data-test-id="checkbox"
         name="termsOfService"
         labelform="Terms & Service"

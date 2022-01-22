@@ -5,11 +5,11 @@ Component Name      :    TextField
 Functionality       :    To use this component to validate and get the input from the user as text field.
 
 #################################################################################################################*/
-import React, {useState} from "react";
-import {TextField} from "@material-ui/core";
+import React, { useState } from "react";
+import { TextField } from "@material-ui/core";
 import Content from '../../../assets/Content/content';
-import {makeStyles} from "@material-ui/core/styles";
-import {red} from "@material-ui/core/colors";
+import { makeStyles } from "@material-ui/core/styles";
+import { red } from "@material-ui/core/colors";
 import PropTypes from "prop-types";
 
 
@@ -28,7 +28,7 @@ const TextFieldWrapper = ({
   emailVal,
   setError,
   setHelperText,
-  error, 
+  error,
   helperText,
   onChange,
   InputProps,
@@ -55,7 +55,7 @@ const TextFieldWrapper = ({
     },
     cssOutlinedInput: {
       "&$cssFocused $notchedOutline": {
-        borderColor: `${theme.palette.primary.main} !important`,
+        borderColor: `${ theme.palette.primary.main } !important`,
         webkitTextSecurity: "square",
         color: red,
         backgroundColor: "yellow",
@@ -92,26 +92,25 @@ const TextFieldWrapper = ({
         focused: classes.cssFocused,
       },
     },
-  
+
   };
   //Validation part
-  const handleOnchange = (e) =>{
+  const handleOnchange = (e) => {
     setErrorTF((required && !e.target.value));
     setHelperTextTF((required && !e.target.value) ? Content.required : '');
-    if(onChange)
-    {
-      onChange(e); 
+    if (onChange) {
+      onChange(e);
     }
-    
-
-}
-
- return <TextField {...configTextField} onChange={handleOnchange} InputProps={InputProps} inputProps={materialProps} />;
 
 
- 
+  }
+
+  return <TextField {...configTextField} onChange={handleOnchange} InputProps={InputProps} inputProps={materialProps} />;
+
+
+
 };
- 
+
 //set name prop as mandatory
 TextFieldWrapper.propTypes = {
   name: PropTypes.string.isRequired,

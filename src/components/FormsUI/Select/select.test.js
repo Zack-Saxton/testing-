@@ -1,81 +1,81 @@
 import React from "react";
-import {fireEvent, render, within} from "@testing-library/react";
+import { fireEvent, render, within } from "@testing-library/react";
 import Select from './index.js';
 import '@testing-library/jest-dom';
 
 test('Render Select Box', () => {
-    const  { getByTestId} = render(
-       <>  
-        <Select
-            name="select"
-            labelform="Language Known"
-            required={true}
-            select='[{"value":"Tamil"}, {"value":"Eng"}]'
-        />
-       </>
-    );
+  const { getByTestId } = render(
+    <>
+      <Select
+        name="select"
+        labelform="Language Known"
+        required={true}
+        select='[{"value":"Tamil"}, {"value":"Eng"}]'
+      />
+    </>
+  );
 
-    
-    const input = getByTestId('selectBox');
-    expect(input).toBeTruthy();
-  
-    
-  });
+
+  const input = getByTestId('selectBox');
+  expect(input).toBeTruthy();
+
+
+});
 test('Checks whether all the options are rendered', () => {
-    const  { getByRole } = render(
-       <>  
-        <Select
-            data-test-id="selectBox"
-            name="select"
-            labelform="Language Known"
-            required={true}
-            select='[{"value":"Tamil"}, {"value":"Eng"}]'
-        />
-       </>
-    );
-    fireEvent.mouseDown(getByRole('button'));
-  
-    const listbox = within(getByRole('listbox'));
+  const { getByRole } = render(
+    <>
+      <Select
+        data-test-id="selectBox"
+        name="select"
+        labelform="Language Known"
+        required={true}
+        select='[{"value":"Tamil"}, {"value":"Eng"}]'
+      />
+    </>
+  );
+  fireEvent.mouseDown(getByRole('button'));
 
-    expect(listbox.getByText(/Tamil/i)).toBeTruthy();
-    expect(listbox.getByText(/Eng/i)).toBeTruthy();  
-  });
-  
+  const listbox = within(getByRole('listbox'));
 
-  test('selects the correct option', () => {
-    const  { getByRole, getByTestId} = render(
-       <>  
-        <Select
-            data-test-id="selectBox"
-            name="select"
-            labelform="Language Known"
-            required={true}
-            select='[{"value":"Tamil"}, {"value":"Eng"}]'
-        />
-       </>
-    );
+  expect(listbox.getByText(/Tamil/i)).toBeTruthy();
+  expect(listbox.getByText(/Eng/i)).toBeTruthy();
+});
 
-    
-  
-    fireEvent.mouseDown(getByRole('button'));
-  
-    const listbox = within(getByRole('listbox'));
 
-    fireEvent.click(listbox.getByText(/Tamil/i));
+test('selects the correct option', () => {
+  const { getByRole, getByTestId } = render(
+    <>
+      <Select
+        data-test-id="selectBox"
+        name="select"
+        labelform="Language Known"
+        required={true}
+        select='[{"value":"Tamil"}, {"value":"Eng"}]'
+      />
+    </>
+  );
 
-    const input = getByTestId('selectInput');
-    expect(input.value).toBe("Tamil");
-  
-    
-  });
 
-  test('should match the snapshot', () => {
-    const { asFragment } = render(<Select
-      data-test-id="selectBox"
-      name="select"
-      labelform="Language Known"
-      required={true}
-      select='[{"value":"Tamil"}, {"value":"Eng"}]'
+
+  fireEvent.mouseDown(getByRole('button'));
+
+  const listbox = within(getByRole('listbox'));
+
+  fireEvent.click(listbox.getByText(/Tamil/i));
+
+  const input = getByTestId('selectInput');
+  expect(input.value).toBe("Tamil");
+
+
+});
+
+test('should match the snapshot', () => {
+  const { asFragment } = render(<Select
+    data-test-id="selectBox"
+    name="select"
+    labelform="Language Known"
+    required={true}
+    select='[{"value":"Tamil"}, {"value":"Eng"}]'
   />)
-    expect(asFragment).toMatchSnapshot()
-   });
+  expect(asFragment).toMatchSnapshot()
+});

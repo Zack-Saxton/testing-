@@ -5,8 +5,8 @@ Component Name      :    Slider
 Functionality       :    To use this component to select a value using the slider input
 
 #################################################################################################################*/
-import React, {useState} from "react";
-import {makeStyles} from "@material-ui/core/styles";
+import React, { useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
@@ -27,7 +27,7 @@ const marks = [
 
 //to add $ sign with value
 function valuetext(value) {
-  return `$${value}`;
+  return `$${ value }`;
 }
 
 //Component initialization
@@ -82,20 +82,18 @@ const TextfieldWrapper = ({
   const classes = useStyles();
   const [value, setValue] = useState(defaultValue ?? 12500);
   const handleSliderChange = (event, newValue) => {
-   
-    if(newValue > 5000)
-    {
-      if(newValue % 500 === 0)
-      {
+
+    if (newValue > 5000) {
+      if (newValue % 500 === 0) {
         setValue(newValue);
         setSelect(newValue);
       }
-      else{
-        setValue(newValue - (newValue % 500) );
-        setSelect(newValue  - (newValue % 500));
+      else {
+        setValue(newValue - (newValue % 500));
+        setSelect(newValue - (newValue % 500));
       }
     }
-    else{
+    else {
       setValue(newValue);
       setSelect(newValue);
     }
@@ -113,7 +111,7 @@ const TextfieldWrapper = ({
     step: difference ?? 250,
     min: min ?? 1000,
     max: max ?? 25000,
-    marks: customMarks ?? marks ,
+    marks: customMarks ?? marks,
     track: false,
   };
 
@@ -129,11 +127,11 @@ const TextfieldWrapper = ({
             {label}
           </Typography>
         </div>
-        <Slider {...config} {...otherProps} name={name} 
-/>
+        <Slider {...config} {...otherProps} name={name}
+        />
       </FormControl>
       <div className={classes.center}>
-        <Typography id="discrete-slider-always-amount" variant='h6'  className={classes.OutputText}>
+        <Typography id="discrete-slider-always-amount" variant='h6' className={classes.OutputText}>
           $ {value}
         </Typography>
       </div>

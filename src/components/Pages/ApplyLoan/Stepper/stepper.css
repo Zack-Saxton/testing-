@@ -7,7 +7,7 @@
 	display: none;
 }
 
-.linkStyle{																																																
+.linkStyle{
 	color:#0f4eb3 !important;
 	cursor: pointer !important;
 }
@@ -132,7 +132,7 @@
 	font-size: 00.938rem !important;
 }
 
-/* 
+/*
 label.MuiFormLabel-root.MuiInputLabel-root.MuiInputLabel-formControl.MuiInputLabel-animated{
 	font-size: 0.938rem !important;
 } */

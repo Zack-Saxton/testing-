@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import {
-	Select,
-	TextField,
-	ButtonPrimary,
-	ButtonSecondary,
+  Select,
+  TextField,
+  ButtonPrimary,
+  ButtonSecondary,
 } from "../../../FormsUI";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
@@ -14,29 +14,29 @@ import { errorMessage } from "../../../../helpers/ErrorMessage";
 
 //styling part
 const useStyles = makeStyles((theme) => ({
-	content_grid: {
-		marginTop: "15px",
-	},
+  content_grid: {
+    marginTop: "15px",
+  },
 }));
 
 //YUP validation
 const validationSchema = yup.object({
-	employerName: yup
-		.string("Your employer name is required.")
-		.max(30, "Employer name can be upto 30 characters length")
-		.min(2, "Employer name should be minimum of 2 letters")
-		.required("Your employer name is required."),
-	jobTitle: yup
-		.string("Your current job title is required.")
-		.max(30, "Job title can be upto 30 characters length")
-		.min(2, "Job title should be minimum of 2 letters")
-		.required("Your current job title is required."),
-	howDoYouHearAboutUs: yup
-		.string("Please let us know how you heard about us.")
-		.required("Please let us know how you heard about us."),
-	yearsAtCurrentAddress: yup
-		.string("Years at current address is required")
-		.required("Years at current address is required"),
+  employerName: yup
+    .string("Your employer name is required.")
+    .max(30, "Employer name can be upto 30 characters length")
+    .min(2, "Employer name should be minimum of 2 letters")
+    .required("Your employer name is required."),
+  jobTitle: yup
+    .string("Your current job title is required.")
+    .max(30, "Job title can be upto 30 characters length")
+    .min(2, "Job title should be minimum of 2 letters")
+    .required("Your current job title is required."),
+  howDoYouHearAboutUs: yup
+    .string("Please let us know how you heard about us.")
+    .required("Please let us know how you heard about us."),
+  yearsAtCurrentAddress: yup
+    .string("Years at current address is required")
+    .required("Years at current address is required"),
 });
 
 //View Part
@@ -74,7 +74,7 @@ export default function FinancialInformation(props) {
       }
     }
   });
-  const nameChange = (event) => { 
+  const nameChange = (event) => {
     const reg = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
     let acc = event.target.value;
     if (acc === "" || reg.test(acc)) {
@@ -121,26 +121,26 @@ export default function FinancialInformation(props) {
             id="currentAddressSelect"
             name="yearsAtCurrentAddress"
             labelform="Years at current address"
-            select='[{"value":"0", "label": "<1 year"}, 
-                     {"value":"1", "label": "1 year"}, 
-                     {"value":"2", "label": "2"}, 
-                     {"value":"3", "label": "3"}, 
-                     {"value":"4", "label": "4"}, 
-                     {"value":"5", "label": "5"}, 
-                     {"value":"6", "label": "6"}, 
-                     {"value":"7", "label": "7"}, 
-                     {"value":"8", "label": "8"}, 
-                     {"value":"9", "label": "9"}, 
-                     {"value":"10", "label": "10"}, 
-                     {"value":"11", "label": "11"}, 
-                     {"value":"12", "label": "12"}, 
-                     {"value":"13", "label": "13"}, 
-                     {"value":"14", "label": "14"}, 
-                     {"value":"15", "label": "15"}, 
-                     {"value":"16", "label": "16"}, 
-                     {"value":"17", "label": "17"}, 
-                     {"value":"18", "label": "18"}, 
-                     {"value":"19", "label": "19"}, 
+            select='[{"value":"0", "label": "<1 year"},
+                     {"value":"1", "label": "1 year"},
+                     {"value":"2", "label": "2"},
+                     {"value":"3", "label": "3"},
+                     {"value":"4", "label": "4"},
+                     {"value":"5", "label": "5"},
+                     {"value":"6", "label": "6"},
+                     {"value":"7", "label": "7"},
+                     {"value":"8", "label": "8"},
+                     {"value":"9", "label": "9"},
+                     {"value":"10", "label": "10"},
+                     {"value":"11", "label": "11"},
+                     {"value":"12", "label": "12"},
+                     {"value":"13", "label": "13"},
+                     {"value":"14", "label": "14"},
+                     {"value":"15", "label": "15"},
+                     {"value":"16", "label": "16"},
+                     {"value":"17", "label": "17"},
+                     {"value":"18", "label": "18"},
+                     {"value":"19", "label": "19"},
                      {"value":"21", "label": "20+ years"}]'
             value={formik.values.yearsAtCurrentAddress}
             onChange={formik.handleChange}

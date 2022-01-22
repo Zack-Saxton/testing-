@@ -2,14 +2,14 @@
 
 File Name           :    RadioButtonBox/index.js
 Component Name      :    RadioButtonBox
-Functionality       :    To use this Radio button as a default component for UI purpose across the whole application to 
+Functionality       :    To use this Radio button as a default component for UI purpose across the whole application to
                           maintain same consistency.
 
 #################################################################################################################*/
 
 import React from "react";
-import {Button} from "@material-ui/core";
-import {makeStyles} from "@material-ui/core/styles";
+import { Button } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 
 const RadioButtonBoxWrapper = ({
   children,
@@ -32,7 +32,7 @@ const RadioButtonBoxWrapper = ({
       display: "block",
     },
   }));
-  
+
   const classes = useStyles();
 
   //Configuring Field with Properties
@@ -49,7 +49,7 @@ const RadioButtonBoxWrapper = ({
 
   //View Part
   return (
-    <Button {...configRadioButtonBox} style={ styleButtonMF }>
+    <Button {...configRadioButtonBox} style={styleButtonMF}>
       {children}
     </Button>
   );

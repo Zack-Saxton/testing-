@@ -50,7 +50,7 @@ const useStyleVantageScore = makeStyles((theme) => ({
     fontSize: "12px",
   },
   // Credit end
-  
+
   // HistoricalData Start
   HistoricalDataHeading: {
     textAlign: "left",

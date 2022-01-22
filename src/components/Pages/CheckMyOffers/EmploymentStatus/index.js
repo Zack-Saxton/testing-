@@ -284,8 +284,8 @@ function EmploymentStatus() {
 												id="employementWrap"
 												className={
 													employmentStatus === "Employed - Hourly" ||
-													employmentStatus === "Salary" ||
-													employmentStatus === "selfEmployed"
+														employmentStatus === "Salary" ||
+														employmentStatus === "selfEmployed"
 														? "showMsg"
 														: "hideMsg"
 												}
@@ -305,7 +305,7 @@ function EmploymentStatus() {
 														formik.touched.yearsAtEmployers &&
 														formik.errors.yearsAtEmployers
 													}
-													select='[{"value":"0", "label": "<1 year"}, 
+													select='[{"value":"0", "label": "<1 year"},
 													{"value":"1", "label": "1 year"},
 													{"value":"2", "label": "2 years"},
 													{"value":"3", "label": "3 years"},
@@ -340,7 +340,7 @@ function EmploymentStatus() {
 											id="employerPhoneWrap"
 											className={
 												employmentStatus === "Employed - Hourly" ||
-												employmentStatus === "Salary"
+													employmentStatus === "Salary"
 													? "showMsg padTop"
 													: "hideMsg padTop"
 											}
@@ -349,7 +349,7 @@ function EmploymentStatus() {
 												name="phone"
 												className={
 													employmentStatus === "Employed - Hourly" ||
-													employmentStatus === "Salary"
+														employmentStatus === "Salary"
 														? "showMsg"
 														: "hideMsg"
 												}

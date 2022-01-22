@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 export const LocalStorage = (key, defaultValue) => {
     const stored = Cookies.get(key);

@@ -3,15 +3,15 @@
 
 File Name           :    AutoCompleteMultiSelect/index.js
 Component Name      :    AutoCompleteMultiSelect
-Functionality       :    To use this ButtonWithIcon as a default component for UI purpose across the whole application to 
+Functionality       :    To use this ButtonWithIcon as a default component for UI purpose across the whole application to
                           maintain same consistency.
 
 #################################################################################################################
  */
 import React from "react";
-import {Checkbox} from "@material-ui/core";
-import {useField, useFormikContext} from "formik";
-import {makeStyles} from "@material-ui/core/styles";
+import { Checkbox } from "@material-ui/core";
+import { useField, useFormikContext } from "formik";
+import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
@@ -54,9 +54,9 @@ const AutoCompleteMultipleWrapper = ({
 
   //Validation
 
-  configAutocomplete.error = (required && !field.value && meta.touched) ? true :  configAutocomplete.error ?? false;
+  configAutocomplete.error = (required && !field.value && meta.touched) ? true : configAutocomplete.error ?? false;
   configAutocomplete.helperText = (required && !field.value && meta.touched) ? Content.required : configAutocomplete.helperText ?? '';
-  
+
   //parsing data using json
   let jsonData = JSON.parse(jsonInput);
   let styleCheckBoxMF = JSON.parse(stylecheckbox)
@@ -83,7 +83,7 @@ const AutoCompleteMultipleWrapper = ({
           {option.value}
         </React.Fragment>
       )}
-     // style={styleAutocompleteMF}
+      // style={styleAutocompleteMF}
       renderInput={(params) => (
         <TextField
           {...params}

@@ -9,7 +9,7 @@
   top: 0 !important;
   height: 250px !important;
   z-index: -1;
-  
+
   left: 0;
   width: 100%;
 
@@ -34,12 +34,12 @@ background: linear-gradient(
 }
 
 #body{
-  
+
   background: #B0CFE1;
   place-items: center;
 }
 
 .MuiButton-root{
-  
+
   line-height: 1!important;
 }

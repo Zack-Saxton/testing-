@@ -1,7 +1,7 @@
 #card_loanhistory-bg {
 	background: linear-gradient(85deg, #0f4eb3, #264266) !important;
 	box-shadow: 0 6px 20px 0 rgba(57, 73, 171, 0.5) !important;
-	
+
 }
 #scrollable-auto-tab-vertical-0.Mui-selected{
 	width:90% !important;
@@ -86,6 +86,7 @@
 
 .sepmarginBottom {
 	font-size: 0.938rem;
+	text-align: justify;
 	font-family: "Muli", sans-serif;
 	font-weight: 400;
 	line-height: 1.5;
@@ -94,11 +95,11 @@
 
 #txtPhoneNumber div div label{
 	font-size: 0.938rem !important;
-	
+
 }
 
 #txtPhoneNumber div div div input{
-	padding-bottom: 15px !important;	
+	padding-bottom: 15px !important;
 }
 
 #addDebitCard_button {
@@ -147,7 +148,7 @@
 }
  #profilePhoneNumberWrap div div div{
 	opacity: 0.7 !important;
-} 
+}
 #profilePhoneNumberWrap div div div input{
 	padding-bottom: 15px;
 }
@@ -163,7 +164,7 @@
 }
 
 #imgUploadWrap{
-	
+
     max-width: 100px !important;
 	max-height: 100px !important;
 	border-radius: 50%;
