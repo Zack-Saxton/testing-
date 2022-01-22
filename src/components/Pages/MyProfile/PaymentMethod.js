@@ -1660,7 +1660,7 @@ export default function PaymentMethod() {
                         classes={{ paper: classes.dialogPaperDebitCard }}
                     >
                         <DialogTitle id="debitCardModalHeading">
-                            <Typography id="deleteTxt" className={classes.dialogHeading}>
+                            <Typography id="deleteTxt" className={classes.dialogHeading} style={{textAlign:'center'}}>
                                 Are you sure you want to add a New Debit Card Details ?
                             </Typography>
                             <IconButton
@@ -1734,22 +1734,23 @@ export default function PaymentMethod() {
                 open={confirmDelete}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
-                classes={{ paper: classes.dialogPaperAddBank }}
+                classes={{ paper: classes.deletePayment }}
             >
-                <DialogTitle id="debitCardModalHeading">
-                    <Typography id="deleteTxt" className={classes.dialogHeading} style={{ marginLeft: "135px" }}>
-                        Are you sure you want to delete this payment method?
-                    </Typography>
-                    <IconButton
-                        id="debitCardModalClose"
-                        aria-label="close"
-                        className={classes.closeButton}
-                        onClick={handleDeleteConfirmClose}
-                    >
-                        <CloseIcon />
-                    </IconButton>
-                </DialogTitle>
-                <DialogActions style={{ justifyContent: "center", marginBottom: "25px" }}>
+                   <DialogTitle id="debitCardModalHeading">
+                                <Typography id="deleteTxt" className={classes.dialogHeading} style={{textAlign:'center'}}>
+                                Are you sure you want to delete this payment method?
+                                </Typography>
+                                <IconButton
+                                    id="debitCardModalClose"
+                                    aria-label="close"
+                                    className={classes.closeButton}
+                                    onClick={handleDeleteConfirmClose}
+                                >
+                                    <CloseIcon />
+                                </IconButton>
+                            </DialogTitle>
+                <DialogActions  style={{ justifyContent: "center", marginBottom: "25px" }}>
+
                     <ButtonSecondary
                         stylebutton='{"background": "", "color":"" }'
                         onClick={handleDeleteConfirmClose}
