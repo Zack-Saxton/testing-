@@ -16,7 +16,8 @@ import DialogActions from "@material-ui/core/DialogActions";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "../CheckMyOffer.css";
 import "../HomeAddress/HomeAdress.css";
-
+import ZipCodeLookup from "../../../Controllers/ZipCodeLookup";
+import { Error} from "../../../toast/toast"
 //yup validation schema
 const validationSchema = yup.object({
 	streetAddress: yup
@@ -94,40 +95,29 @@ function HomeAddress() {
 		}
 	};
 
-	const fetchAddress = (e) => {
+const fetchAddress = async(e) => {
+	try {
 		setErrorMsg(e.target.value === "" ? "Please enter a zipcode" : errorMsg);
 		if (e.target.value !== "" && e.target.value.length === 5) {
-			fetch("https://api.zippopotam.us/us/" + e.target.value)
-				.then((res) => res.json())
-				.then(
-					(result) => {
-						if (result.places) {
-							formik.setFieldValue("city", result.places[0]["place name"]);
-							formik.setFieldValue("state", result.places[0]["state"]);
-							setStateShort(result.places[0]["state abbreviation"]);
-							setValidZip(true);
-							if (result.places[0]["state"] === "California") {
-								handleClickOpen();
-							}
-							if (result.places[0]["state"] === "Ohio") {
-								handleClickOpenOhio();
-							}
-						} else {
-							formik.setFieldValue("city", "");
-							formik.setFieldValue("state", "");
-							setStateShort("");
-							setValidZip(false);
-							setErrorMsg("Please enter a valid Zipcode");
-						}
-					},
-					() => {
-						formik.setFieldValue("city", "");
-						formik.setFieldValue("state", "");
-						setStateShort("");
-						setValidZip(false);
-						setErrorMsg("Please enter a valid Zipcode");
-					}
-				);
+			let result = await ZipCodeLookup(e.target.value);
+			if (result) {
+        		formik.setFieldValue("city", result.data.data.data.cityName);
+        		formik.setFieldValue("state", result.data.data.data.stateCode);
+        		setStateShort(result.data.data.data.stateCode);
+        		setValidZip(true);
+        		if (result.data.data.data.stateCode === "California") {
+          			handleClickOpen();
+        		}
+        		if (result.data.data.data.stateCode === "Ohio") {
+          			handleClickOpenOhio();
+        		}
+      		} else {
+        		formik.setFieldValue("city", "");
+        		formik.setFieldValue("state", "");
+        		setStateShort("");
+        		setValidZip(false);
+        		setErrorMsg("Please enter a valid Zipcode");
+      		}
 		} else {
 			formik.setFieldValue("city", "");
 			formik.setFieldValue("state", "");
@@ -135,8 +125,10 @@ function HomeAddress() {
 			setValidZip(true);
 		}
 		formik.handleChange(e);
-	};
-
+	} catch (error) {
+		Error('Error from [fetchAddress]')
+	}
+};
 	const onBlurAddress = (e) => {
 		formik.setFieldValue("streetAddress", e.target.value.trim());
 	};

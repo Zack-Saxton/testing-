@@ -18,7 +18,8 @@ import { useHistory } from "react-router-dom";
 import states from "../../lib/States.json"
 import statesFullform from "../../lib/StatesFullform.json"
 import Cookies from "js-cookie";
-
+import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
+import { Error } from "../../toast/toast";
 const validationSchema = yup.object({
   streetAddress: yup
     .string("Enter Street Address")
@@ -142,45 +143,45 @@ export default function MailingAddress(props) {
     }
   };
 
-  const fetchAddress = (e) => {
+const fetchAddress = async (e) => {
+  try {
     setErrorMsg(e.target.value === "" ? "Please enter a zipcode" : errorMsg);
     if (e.target.value !== "" && e.target.value.length === 5) {
-      fetch("https://api.zippopotam.us/us/" + e.target.value)
-        .then((res) => res.json())
-        .then(
-          (result) => {
-            fetchAddressValidate(result);
-          },
-          () => {
-            formik.setFieldValue("city", "");
-            formik.setFieldValue("state", "");
-            setValidZip(false);
-            setErrorMsg("Please enter a valid Zipcode");
-          }
-        );
-    } else {
-      formik.setFieldValue("city", "");
-      formik.setFieldValue("state", "");
-      setValidZip(true);
-    }
+     let result = await ZipCodeLookup(e.target.value);
+     if (result) {
+       fetchAddressValidate(result);
+     } else {
+       formik.setFieldValue("city", "");
+       formik.setFieldValue("state", "");
+       setValidZip(false);
+       setErrorMsg("Please enter a valid Zipcode");
+     }
+   }
     if (e.target.name !== "") {
       formik.handleChange(e);
     }
-  };
-
-  function fetchAddressValidate(result) {
-    if (result.places) {
-      formik.setFieldValue("city", result.places[0]["place name"]);
-      formik.setFieldValue("state", result.places[0]["state"]);
-      setValidZip(true);
-
-    } else {
-      formik.setFieldValue("city", "");
-      formik.setFieldValue("state", "");
-      setValidZip(false);
-      setErrorMsg("Please enter a valid Zipcode");
-    }
+  } catch (error) {
+    Error("Error from [fetchAddress]");
   }
+};
+
+
+function fetchAddressValidate(result) {
+  try {
+      if (result.data) {
+        formik.setFieldValue("city", result.data.data.data.cityName);
+        formik.setFieldValue("state", result.data.data.data.stateCode);
+        setValidZip(true);
+      } else {
+        formik.setFieldValue("city", "");
+        formik.setFieldValue("state", "");
+        setValidZip(false);
+        setErrorMsg("Please enter a valid Zipcode");
+      }
+  } catch (error) {
+    Error(" Error from [fetchAddressValidate]");
+  }
+}
   const onBlurAddress = (e) => {
     formik.setFieldValue("streetAddress", e.target.value.trim());
   };

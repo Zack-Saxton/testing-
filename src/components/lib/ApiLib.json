@@ -54,6 +54,7 @@
     "upload_profile_picture": "/customer/upload_profile_picture",
     "set_read": "/customer/countunread_and_markread_or_delete_notification_cac",
     "create_prospect": "/prospect/create_prospect",
-    "kba_answers_cac": "/integration/LexisNexis/kba_answers_cac?test=true"
+    "kba_answers_cac": "/integration/LexisNexis/kba_answers_cac?test=true",
+    "zip_lookup": "/api/v2/zipcodelookup"
   }
 }
