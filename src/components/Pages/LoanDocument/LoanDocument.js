@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState , useRef} from "react";
 import {useStylesLoanDocument} from "./Style";
 import Typography from "@material-ui/core/Typography";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -34,6 +34,7 @@ export default function LoanDocument(props) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [docType, setDocType] = useState("");
   const [loading, setLoading] = useState(false);
+  const changeEvent = useRef("");
 
   async function AsyncEffect_loanDocument() {
     setloanDocumentStatus(
@@ -55,11 +56,14 @@ export default function LoanDocument(props) {
 //Document type
   const handleDocType = (e) => {
     setDocType(e.target.value);
+    changeEvent.current.click();
   };
+
+  
 
 //Upload Document
   const  uploadDoc = () => {
-    if (selectedFile === null) {
+      if (selectedFile === null) {
       if(! toast.isActive("closeToast")) {
         toast.error(loanDocs.Please_Select_File_Upload, {
           position: "bottom-left",
@@ -233,7 +237,7 @@ export default function LoanDocument(props) {
               <LoanDocumentTable userLoanDocumentData={loanDocumentData} />
             )}
  
-            <Grid item xs={12} sm={3} style={{ paddingTop: "10px", width: "225px" }}>
+            <Grid   item xs={12} sm={3} style={{ paddingTop: "10px", width: "225px" }}>
               <Select
                 name="selectDocument"
                 labelform="Select Document Type"
@@ -255,26 +259,30 @@ export default function LoanDocument(props) {
                   id="file"                  
                   type="file"
                   cursor= "pointer"
-                  onChange={handleInputChange}
-                />
-              </Grid>
-             
-              <Grid item xs={12} sm={4} style={{ paddingTop: "10px" }} >
+                  ref={changeEvent}
+                  onClick={handleInputChange}
+                  style={{display:"none"}}
+                /> 
                 <Button
-                id="uploadBtn"
+                  id="uploadBtn"
+                  className="file"
                   variant="contained"
-                  onClick={() => uploadDoc()}
+                  onClick={(event) => uploadDoc(event)}
                   className={classes.uploadbutton}
                   component="span"
                  disabled={loading}
                 >
-                  Upload          
+                Upload          
             
               <i
                 className="fa fa-refresh fa-spin customSpinner"
                style={{marginRight: "10px", color: "blue", display: loading ? "block" : "none"}}
                  />
                 </Button>
+              </Grid>
+             
+              <Grid item xs={12} sm={4} style={{ paddingTop: "10px" }} >
+              
               </Grid>
               </Grid>
           </Paper>
