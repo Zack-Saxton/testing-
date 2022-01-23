@@ -141,6 +141,7 @@ const validationSchema = yup.object({
 
 //Begin: Login page
 export default function CreditKarma() {
+  window.zeHide();
   //Decoding URL for partner signup
   const useQuery = () => new URLSearchParams(useLocation().search);
   const query = useQuery();

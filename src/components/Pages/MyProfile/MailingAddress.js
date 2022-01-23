@@ -44,6 +44,7 @@ const validationSchema = yup.object({
 });
 
 export default function MailingAddress(props) {
+  window.zeHide();
   const [loading, setLoading] = useState(false);
   const [validZip, setValidZip] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");

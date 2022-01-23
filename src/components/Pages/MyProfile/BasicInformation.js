@@ -41,7 +41,7 @@ const validationSchema = yup.object({
 
 export default function BasicInformation(props) {
 
-
+  window.zeHide();
   const [loading, setLoading] = useState(false);
   const { dataProfile, setData } = useContext(ProfilePicture);
   const history = useHistory();

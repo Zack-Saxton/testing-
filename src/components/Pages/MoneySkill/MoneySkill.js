@@ -11,7 +11,7 @@ import "./Style.css";
 import getMoneySkillUrl from "../../Controllers/MoneySkillController"
 
 export default function MoneySkill(props) {
-
+  window.zeHide();
   //Material UI css class
   const classes = useStylesMoneySkill();
 

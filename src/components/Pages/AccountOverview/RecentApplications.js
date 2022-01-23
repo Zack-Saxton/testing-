@@ -19,6 +19,7 @@ import "./Style.css";
 export default function RecentApplications({ userApplicationsData, UserAccountStatus }) {
   //Material UI css class
   const classes = useStylesAccountOverview();
+  window.zeHide();
   //Recentapplications data
   let userApplications = (userApplicationsData != null) ? userApplicationsData : null;
   const presenceOfLoan = userApplications?.some((applicant) => applicant.isActive === true);

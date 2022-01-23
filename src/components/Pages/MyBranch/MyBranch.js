@@ -12,6 +12,7 @@ import CheckLoginStatus from "../../App/CheckLoginStatus";
 import Paper from "@material-ui/core/Paper";
 
 export default function MyBranch() {
+  window.zeHide();
   //Material UI css class
   const classes = useStylesMyBranch();
 

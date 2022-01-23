@@ -171,6 +171,7 @@ const validationSchema = yup.object({
 
 //Begin: Login page
 export default function Register() {
+	window.zeHide();
 	const classes = useStyles();
 	const [validZip, setValidZip] = useState(true);
 	const [state, setState] = useState("");

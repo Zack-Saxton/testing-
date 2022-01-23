@@ -11,6 +11,7 @@ import "./MakePayment.css";
 import NumberFormat from 'react-number-format';
 
 export default function PaymentOverview(paymentData, status) {
+    window.zeHide();
     //Material UI css class
     const classes = useStylesMakePayment();
     //Payment details

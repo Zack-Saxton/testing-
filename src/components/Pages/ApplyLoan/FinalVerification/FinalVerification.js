@@ -81,6 +81,7 @@ const useStyles = makeStyles((theme) => ({
 export default function FinalVerification() {
 	const classes = useStyles();
 	const [value, setValue] = React.useState(2);
+	window.zeShow();
 	const handleTabChange = (event, newValue) => {
 		setValue(newValue);
 	};
