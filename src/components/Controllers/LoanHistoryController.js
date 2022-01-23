@@ -10,5 +10,5 @@ export default async function LoanHistoryController() {
   let addAccessToken = true;
 
   //API call
-  return APICall(url, param, data, method, addAccessToken);  
+  return APICall(url, param, data, method, addAccessToken);
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import {useStylesLoanHistory} from "./Style";
+import { useStylesLoanHistory } from "./Style";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { NavLink, useHistory } from "react-router-dom";
@@ -8,12 +8,12 @@ import MonetizationOnRoundedIcon from "@material-ui/icons/MonetizationOnRounded"
 import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet"
 
 export default function LoanHistoryCard(userLoanHistoryCard) {
-  
+
   const history = useHistory();
   //Material UI css class
   const classes = useStylesLoanHistory();
 
-//Loan history data from API
+  //Loan history data from API
   let userLoanHistory = userLoanHistoryCard != null ? userLoanHistoryCard : null;
   const redirectToApplyForLoan = () => {
     history.push({
@@ -22,9 +22,9 @@ export default function LoanHistoryCard(userLoanHistoryCard) {
     });
   }
 
-//  view part
+  //  view part
   return (
-    <Grid item xs={12} style={{ paddingBottom: "20px", paddingTop : "10px" }}>
+    <Grid item xs={12} style={{ paddingBottom: "20px", paddingTop: "10px" }}>
       <Paper className={classes.paper}>
         <Grid container direction="row">
           <Grid item xs={12} sm={4} className={classes.cardLoanHistory}>
@@ -58,8 +58,8 @@ export default function LoanHistoryCard(userLoanHistoryCard) {
           <Grid item xs={12} sm={4} className={classes.cardLoanHistory}>
             <Paper className={classes.paperPointer} onClick={redirectToApplyForLoan} style={{ height: "70%" }}>
               <Grid style={{ textAlign: "center" }}>
-                  <MonetizationOnRoundedIcon id="dolor-icon_loan-history" className="material-icons background-round mt-5 yelloWBG"/>
-                  <p className={classes.cardApplyLoan}>Apply for a Loan</p>
+                <MonetizationOnRoundedIcon id="dolor-icon_loan-history" className="material-icons background-round mt-5 yelloWBG" />
+                <p className={classes.cardApplyLoan}>Apply for a Loan</p>
               </Grid>
             </Paper>
           </Grid>

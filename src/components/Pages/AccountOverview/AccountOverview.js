@@ -26,13 +26,12 @@ export default function AccountOverview() {
     return () => {
       setAccountDetails({}); // This worked for me
     };
-    
+
   }, []);
 
   //Load data
   let offerData = (accountDetails != null) ? accountDetails?.data?.data?.offerData : null;
   let applicationsData = (accountDetails != null) ? accountDetails?.data?.data?.applicants : null;
-  let applicantData = (accountDetails != null) ? accountDetails?.data?.data?.applicant?.contact : null;
   let status = (accountDetails != null) ? accountDetails?.data?.status : null;
   let activeLoansData = (accountDetails != null) ? accountDetails?.data?.data?.activeLoans : null;
   let recentPaymentData = (accountDetails != null) ? accountDetails?.data?.data?.activeLoans : null;
@@ -73,12 +72,12 @@ export default function AccountOverview() {
         </Grid>
 
         {/* ****************components************ */}
-        
+
         <LimitedOffer userOffers={offerData} />
         <ActiveLoans userActiveLoanData={activeLoansData} />
-        <RecentApplications userApplicationsData={applicationsData} UserAccountStatus={status} userApplicantData={applicantData} />
+        <RecentApplications userApplicationsData={applicationsData} UserAccountStatus={status} />
         <RecentPayments userRecentPaymentData={recentPaymentData} />
-          
+
       </Grid>
     </div>
   );

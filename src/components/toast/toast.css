@@ -1,0 +1,10 @@
+
+.message_box {
+    font-size: 20px;
+    bottom: 1em;
+    border: 1px solid grey !important;;
+    font-weight: 500;
+    padding-top: 10px !important;
+    border-radius: 20px !important;
+    transform: translateX(-30%);
+}

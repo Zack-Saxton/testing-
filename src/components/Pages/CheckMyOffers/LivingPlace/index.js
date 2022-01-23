@@ -96,8 +96,7 @@ function LivingPlace() {
 				),
 			});
 		}
-		if (event.target.value !== '' && event.target.value >= 100)
-		{
+		if (event.target.value !== '' && event.target.value >= 100) {
 			setError(false);
 			setHelperText("");
 		} else if (event.target.value === "") {
@@ -304,7 +303,7 @@ function LivingPlace() {
 											id="rentOrMortage"
 											className={
 												livingPlace === "Renting" ||
-												livingPlace === "Own a Home with Mortgage"
+													livingPlace === "Own a Home with Mortgage"
 													? "showMsg"
 													: "hideMsg"
 											}

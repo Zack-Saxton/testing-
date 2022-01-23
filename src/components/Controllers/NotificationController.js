@@ -16,17 +16,17 @@ export async function getNoticationData() {
   let addAccessToken = true;
 
   //API call
-  return  APICall(url, param, data, method, addAccessToken);
- 
+  return APICall(url, param, data, method, addAccessToken);
+
 }
 
-export async function setUnread(notificationId,id,isDelete,) {
+export async function setUnread(notificationId, id, isDelete,) {
   let url = "set_read";
   let param = "";
   let data = {
     "headersHost": "",
     "isAuthtenticated": "false",
-    "notification_id" : notificationId,
+    "notification_id": notificationId,
     "id": id,
     "isDelete": isDelete
   };
@@ -34,7 +34,6 @@ export async function setUnread(notificationId,id,isDelete,) {
   let addAccessToken = true;
 
   //API call
-  return  APICall(url, param, data, method, addAccessToken);
- 
-}
+  return APICall(url, param, data, method, addAccessToken);
 
+}

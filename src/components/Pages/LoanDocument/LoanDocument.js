@@ -20,13 +20,13 @@ import LoanDocumentTable from "./DocumentTable";
 import "../LoanDocument/LoanDocument.css";
 import {
   loanDocumentController as loanDocument,
-  uploadDocument ,
+  uploadDocument,
 } from "../../Controllers/LoanDocumentController";
-import   loanDocs from "../../lib/Lang/loanDocument.json";
+import loanDocs from "../../lib/Lang/loanDocument.json";
 
 export default function LoanDocument(props) {
 
-//Material UI css class
+  //Material UI css class
   const classes = useStylesLoanDocument();
 
   //Api call
@@ -45,26 +45,19 @@ export default function LoanDocument(props) {
   }
   useEffect(() => {
     AsyncEffect_loanDocument()
-    
+
   }, []);
 
-//Selecting file for upload
+  //Selecting file for upload
   const handleInputChange = () => {
     setSelectedFile(document.getElementById("file"));
   };
 
-//Document type
+  //Document type
   const handleDocType = (e) => {
     setDocType(e.target.value);
     changeEvent.current.click();
   };
-
-  
-
-//Upload Document
-  const  uploadDoc = () => {
-      if (selectedFile === null) {
-      if(! toast.isActive("closeToast")) {
         toast.error(loanDocs.Please_Select_File_Upload, {
           position: "bottom-left",
           autoClose: 1500,
@@ -76,29 +69,29 @@ export default function LoanDocument(props) {
           progress: undefined,
         });
       }
-      
-    } 
-    else if (docType  === null || docType === "") {
-      if(! toast.isActive("closeToast")) {
-      toast.error(loanDocs.Please_Select_A_Document_Type, {
-        position: "bottom-left",
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        toastId: "closeToast",
-        draggable: true,
-        progress: undefined,
-      });
+
     }
-    
-  }else {
+    else if (docType === null || docType === "") {
+      if (!toast.isActive("closeToast")) {
+        toast.error(loanDocs.Please_Select_A_Document_Type, {
+          position: "bottom-left",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          toastId: "closeToast",
+          draggable: true,
+          progress: undefined,
+        });
+      }
+
+    } else {
       var filePath = selectedFile.value;
 
       var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.pdf)$/i;
 
       if (!allowedExtensions.exec(filePath)) {
-        if(! toast.isActive("closeToast")) {
+        if (!toast.isActive("closeToast")) {
           toast.error(
             "Please upload file having extensions .jpeg .jpg .png .pdf only. ",
             {
@@ -113,12 +106,12 @@ export default function LoanDocument(props) {
             }
           );
         }
-        
+
         selectedFile.value = "";
         return false;
-      } 
-      else if (selectedFile.files[0].size <= 10240000  ) {
-       let reader = new FileReader();
+      }
+      else if (selectedFile.files[0].size <= 10240000) {
+        let reader = new FileReader();
         if (selectedFile.files && selectedFile.files[0]) {
           reader.onload = async () => {
             const buffer2 = Buffer.from(reader.result, "base64");
@@ -129,48 +122,46 @@ export default function LoanDocument(props) {
             let documentType = docType;
             setLoading(true);
 
-          let response = await  uploadDocument(test, fileName, fileType, documentType); 
+            let response = await uploadDocument(test, fileName, fileType, documentType);
 
             if (response === "true") {
-             
+
               setLoading(false);
               setDocType(null);
-              selectedFile.value = "";              
+              selectedFile.value = "";
             }
-             //Passing data to API
+            //Passing data to API
           };
           reader.readAsDataURL(selectedFile.files[0]);
         }
-      } 
-      else 
-      {
-        if(selectedFile.files[0].size > 10240000)
-        {
-          if(! toast.isActive("closeToast")) {
-        toast.error(loanDocs.Please_Upload_File_Below_Size, {
-          position: "bottom-left",
-          autoClose: 1500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          toastId: "closeToast",
-        });
       }
+      else {
+        if (selectedFile.files[0].size > 10240000) {
+          if (!toast.isActive("closeToast")) {
+            toast.error(loanDocs.Please_Upload_File_Below_Size, {
+              position: "bottom-left",
+              autoClose: 1500,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              toastId: "closeToast",
+            });
+          }
+        }
       }
-  }
-  }
-    
+    }
+
   };
 
-//Loan Document data from API
-  let loanDocumentData =  loanDocumentStatus != null ? loanDocumentStatus.data.data : null;
+  //Loan Document data from API
+  let loanDocumentData = loanDocumentStatus != null ? loanDocumentStatus.data.data : null;
 
-//View part
+  //View part
   return (
     <div>
-      <CheckLoginStatus/>
+      <CheckLoginStatus />
       <ScrollToTopOnMount />
       <Grid
         container
@@ -181,8 +172,8 @@ export default function LoanDocument(props) {
           paddingLeft: "23px",
         }}
       >
-        <Grid  style={{ paddingBottom: "10px" }} container direction="row" item xs={12}>
-          <Grid  item xs={12}>
+        <Grid style={{ paddingBottom: "10px" }} container direction="row" item xs={12}>
+          <Grid item xs={12}>
             <Typography component={"div"}>
               <h3 id="pageHeading" className={classes.heading}>
                 <NavLink
@@ -238,25 +229,26 @@ export default function LoanDocument(props) {
             )}
  
             <Grid   item xs={12} sm={3} style={{ paddingTop: "10px", width: "225px" }}>
+
               <Select
                 name="selectDocument"
                 labelform="Select Document Type"
-                select='[{ "label": "Identity Document", "value": "id_doc"}, 
-          {"label": "Income Document","value": "income_doc"}, 
-              { "label": "Bank Account Document","value": "bank_doc"}, 
+                select='[{ "label": "Identity Document", "value": "id_doc"},
+          {"label": "Income Document","value": "income_doc"},
+              { "label": "Bank Account Document","value": "bank_doc"},
               { "label": "Other Document","value":"other_doc"}]'
                 onChange={handleDocType}
                 value={docType}
-               
+
               />
             </Grid>
             <Grid container direction="row">
               <Grid item xs={12} sm={3} style={{ paddingTop: "20px" }}>
                 <input
-                 
+
                   accept="image/png, image/jpeg, application/pdf, image/jpg "
                   multiple
-                  id="file"                  
+                  id="file"
                   type="file"
                   cursor= "pointer"
                   ref={changeEvent}
@@ -266,11 +258,12 @@ export default function LoanDocument(props) {
                 <Button
                   id="uploadBtn"
                   className="file"
+
                   variant="contained"
                   onClick={(event) => uploadDoc(event)}
                   className={classes.uploadbutton}
                   component="span"
-                 disabled={loading}
+                  disabled={loading}
                 >
                 Upload          
             
@@ -285,6 +278,7 @@ export default function LoanDocument(props) {
               
               </Grid>
               </Grid>
+
           </Paper>
         </Grid>
       </Grid>

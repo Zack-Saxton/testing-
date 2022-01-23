@@ -11,7 +11,8 @@ import * as yup from "yup";
 import MarriedStatusLogo from "../../../../assets/icon/married-status.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import ScrollToTopOnMount from "../ScrollToTop";
-
+import ZipCodeLookup from "../../../Controllers/ZipCodeLookup";
+import { Error} from "../../../toast/toast";
 //Yup validation schema
 const validationSchema = yup.object({
 	martialStatus: yup
@@ -74,17 +75,17 @@ function MarriedStatus() {
 	const [validZip, setValidZip] = useState(true);
 	const history = useHistory();
 
-	//Configuring formik
+	//Configuring formik 
 	const formik = useFormik({
 		initialValues: {
 			martialStatus: data.maritalStatus ?? "",
-			add: data.spouse_address_street ?? "",
-			spouseZipcode: data.spouse_address_postal_code ?? "",
-			spouseSelectState: data.spouse_address_state_full_form ? data.spouse_address_state_full_form : "",
-			spousecity: data.spouse_address_city ?? "",
+			add: data.spouse_address_street ? data.spouse_address_street : ( data.streetAddress ? data.streetAddress : ""),
+			spouseZipcode: data.spouse_address_postal_code ? data.spouse_address_postal_code : ( data.zip ? data.zip : ""),
+			spouseSelectState: data.spouse_address_state_full_form ? data.spouse_address_state_full_form : ( data.stateFullform ? data.stateFullform : ""),
+			spousecity: data.spouse_address_city ? data.spouse_address_city : ( data.city ? data.city : ""),
 		},
 		validationSchema: validationSchema,
-	
+
 		onSubmit: (values) => {
 			//onsubmit store the data to context and procceds
 			setData({
@@ -109,41 +110,30 @@ function MarriedStatus() {
 	};
 
 	//fetch the state and city based in zip code
-	const fetchAddress = (e) => {
+const fetchAddress = async(e) => {
+	try {
 		if (e.target.value !== "" && e.target.value.length === 5) {
-			fetch("https://api.zippopotam.us/us/" + e.target.value)
-				.then((res) => res.json())
-				.then(
-					(result) => {
-						if (result.places) {
-							formik.setFieldValue(
-								"spouseSelectState",
-								result.places[0]["state"]
-							);
-							formik.setFieldValue("spousecity", result.places[0]["place name"]);
-							setStateShort(result.places[0]["state abbreviation"]);
-							setValidZip(true);
-						} else {
-							formik.setFieldValue("spouseSelectState", "");
-							formik.setFieldValue("spousecity", "");
-							setStateShort("");
-							setValidZip(false);
-						}
-					},
-					(error) => {
-						formik.setFieldValue("spouseSelectState", "");
-						formik.setFieldValue("spousecity", "");
-						setStateShort("");
-						setValidZip(false);
-					}
-				);
+			let result = await ZipCodeLookup(e.target.value);
+			if (result) {
+				formik.setFieldValue("spouseSelectState",result.data.data.data.stateCode);
+				formik.setFieldValue("spousecity", result.data.data.data.cityName);
+				setStateShort(result.data.data.data.stateCode);
+				setValidZip(true);
+			} else {
+				formik.setFieldValue("spouseSelectState", "");
+				formik.setFieldValue("spousecity", "");
+				setStateShort("");
+				setValidZip(false);
+			}
 		} else {
 			formik.setFieldValue("spouseSelectState", "");
 			formik.setFieldValue("spousecity", "");
 			setStateShort("");
 		}
-
 		formik.handleChange(e);
+	} catch (error) {
+		Error(' Error from [fetchAddress].')
+	}
 	};
 
 	//redirect to select amount if page accessed directly
@@ -271,7 +261,7 @@ function MarriedStatus() {
 											xs={12}
 											className={
 												formik.values.martialStatus === "Married" ||
-												formik.values.martialStatus ===
+													formik.values.martialStatus ===
 													"Separated, under decree of legal separation"
 													? "showMsg space"
 													: "hideMsg space"
@@ -299,7 +289,7 @@ function MarriedStatus() {
 											xs={12}
 											className={
 												formik.values.martialStatus === "Married" ||
-												formik.values.martialStatus ===
+													formik.values.martialStatus ===
 													"Separated, under decree of legal separation"
 													? "showMsg "
 													: "hideMsg "
@@ -319,7 +309,7 @@ function MarriedStatus() {
 											xs={12}
 											className={
 												formik.values.martialStatus === "Married" ||
-												formik.values.martialStatus ===
+													formik.values.martialStatus ===
 													"Separated, under decree of legal separation"
 													? "showMsg space"
 													: "hideMsg space"
@@ -341,7 +331,7 @@ function MarriedStatus() {
 												helperText={
 													validZip
 														? formik.touched.spouseZipcode &&
-														  formik.errors.spouseZipcode
+														formik.errors.spouseZipcode
 														: "Please enter a valid Zip code"
 												}
 											/>
@@ -356,7 +346,7 @@ function MarriedStatus() {
 											xs={12}
 											className={
 												formik.values.martialStatus === "Married" ||
-												formik.values.martialStatus ===
+													formik.values.martialStatus ===
 													"Separated, under decree of legal separation"
 													? "showMsg space"
 													: "hideMsg space"
@@ -390,7 +380,7 @@ function MarriedStatus() {
 											xs={12}
 											className={
 												formik.values.martialStatus === "Married" ||
-												formik.values.martialStatus ===
+													formik.values.martialStatus ===
 													"Separated, under decree of legal separation"
 													? "showMsg space"
 													: "hideMsg space"

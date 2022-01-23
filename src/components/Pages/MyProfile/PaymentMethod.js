@@ -44,6 +44,8 @@ import { useHistory } from "react-router-dom";
 import { tabAtom } from "./MyProfileTab";
 import { useAtom } from "jotai";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
+import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
+import { Error } from "../../toast/toast"
 import {
     addCreditCard,
     getPaymentMethods,
@@ -81,8 +83,8 @@ const validationSchemaDebitCard = yup.object({
         .required("Expiration Date is required")
         .typeError("Enter a valid date (format : MM/YY)")
         .min(
-          new Date(new Date().getFullYear(), new Date().getMonth()),
-          "Your debit card has expired"
+            new Date(new Date().getFullYear(), new Date().getMonth()),
+            "Your debit card has expired"
         ),
 });
 
@@ -207,34 +209,28 @@ export default function PaymentMethod() {
         }
     };
 
-    const fetchAddress = (e) => {
+const fetchAddress = async(e) => {
+    try {    
         if (e.target.value !== "" && e.target.value.length === 5) {
-            fetch("https://api.zippopotam.us/us/" + e.target.value)
-                .then((res) => res.json())
-                .then((result) => {
-                    if (result.places) {
-                        setValidZip(true);
-                        formikAddDebitCard.setFieldValue(
-                            "city",
-                            result?.places[0]["place name"]
-                        );
-                        formikAddDebitCard.setFieldValue(
-                            "state",
-                            result?.places[0]["state abbreviation"]
-                        );
-                    
-            
-                    } else {
-                        setValidZip(false);
-                        formikAddDebitCard.setFieldValue("city", "");
-                        formikAddDebitCard.setFieldValue("state", "");
-                    }
-                });
+            let result = await ZipCodeLookup(e.target.value);
+            if (result) {
+                setValidZip(true);
+                formikAddDebitCard.setFieldValue("city",result.data.data.data.cityName);
+                formikAddDebitCard.setFieldValue("state",result.data.data.data.stateCode);
+            } else {
+                setValidZip(false);
+                formikAddDebitCard.setFieldValue("city", "");
+                formikAddDebitCard.setFieldValue("state", "");  
+            }
         } else {
-            formikAddDebitCard.setFieldValue("city", "");
+             formikAddDebitCard.setFieldValue("city", "");
             formikAddDebitCard.setFieldValue("state", "");
         }
+         
         formikAddDebitCard.handleChange(e);
+    } catch (error) {
+        Error("Error from [fetchAddress]");
+}
     };
 
     const onClickEditCard = async (row) => {
@@ -273,7 +269,7 @@ export default function PaymentMethod() {
                 "cardNumber",
                 "****-****-****-" + row.LastFour
             );
-            
+
             setEditMode(true);
             addDebitCardButton();
             setLoading(false);
@@ -378,10 +374,10 @@ export default function PaymentMethod() {
         if (
             res?.data?.data?.customer?.latest_contact?.mailing_address_postal_code
         ) {
-            
+
             setMailingZipcode(res?.data?.data?.customer?.latest_contact?.mailing_address_postal_code);
             setMailingStreetAddress(res?.data?.data?.customer?.latest_contact?.mailing_address_street);
-            
+
             formikAddDebitCard.setFieldValue(
                 "zipcode",
                 res?.data?.data?.customer?.latest_contact?.mailing_address_postal_code
@@ -567,9 +563,9 @@ export default function PaymentMethod() {
                 progress: undefined,
             });
         }
-        else if(res?.data?.data?.result === "error"){
+        else if (res?.data?.data?.result === "error") {
             setLoading(false);
-            toast.error(res?.data?.data?.data?.error , {
+            toast.error(res?.data?.data?.data?.error, {
                 position: "bottom-left",
                 autoClose: 5500,
                 hideProgressBar: false,
@@ -579,7 +575,7 @@ export default function PaymentMethod() {
                 progress: undefined,
             });
         }
-         else {
+        else {
             setLoading(false);
             toast.error("Something went wrong, please try again.", {
                 position: "bottom-left",
@@ -600,7 +596,7 @@ export default function PaymentMethod() {
             event.preventDefault();
         }
     };
-    
+
     //  view part
     return (
         <div className={loading ? classes.loadingOn : classes.loadingOff}>
@@ -610,7 +606,7 @@ export default function PaymentMethod() {
                 <Grid item xs={12} style={{ paddingBottom: "20px", width: "100%" }}>
                     {allPaymentMethod ? (
                         allPaymentMethod?.data?.data?.paymentOptions &&
-                        allPaymentMethod?.data?.data?.paymentOptions.length > 0 ? (
+                            allPaymentMethod?.data?.data?.paymentOptions.length > 0 ? (
                             <TableContainer>
                                 <Table className={classes.table} aria-label="simple table">
                                     <TableHead>
@@ -997,7 +993,7 @@ export default function PaymentMethod() {
                                     ) {
                                         fetch(
                                             "https://www.routingnumbers.info/api/data.json?rn=" +
-                                                event.target.value
+                                            event.target.value
                                         )
                                             .then((res) => res.json())
                                             .then((result) => {
@@ -1023,12 +1019,12 @@ export default function PaymentMethod() {
                                         Boolean(formikAddBankAccount.errors.bankRoutingNumber)) ||
                                     (routingError === "" ? false : true)
                                 }
-                            
+
                                 helperText={
                                     routingError
                                         ? routingError
                                         : formikAddBankAccount.touched.bankRoutingNumber &&
-                                          formikAddBankAccount.errors.bankRoutingNumber
+                                        formikAddBankAccount.errors.bankRoutingNumber
                                 }
                             />
                         </Grid>
@@ -1336,7 +1332,7 @@ export default function PaymentMethod() {
                         <Grid
                             item
                             xs={2}
-                            style={{ width: "100%", padding:"0px" }}
+                            style={{ width: "100%", padding: "0px" }}
                             container
                             direction="row"
                         >
@@ -1362,7 +1358,7 @@ export default function PaymentMethod() {
                         >
                             <TextField
                                 id="cardName"
-                                name="cardName" 
+                                name="cardName"
                                 label="Name on Card "
                                 placeholder="Enter the Name on Card"
                                 materialProps={{ maxLength: "30" }}
@@ -1380,38 +1376,38 @@ export default function PaymentMethod() {
                                 }
                             />
                         </Grid>
-                        
+
                         <Grid
                             item
                             xs={12}
                             sm={5}
-                            
-                            style={{ width: "100%"}}
+
+                            style={{ width: "100%" }}
                             container
                             direction="row"
                         >
                             <DatePicker
-                name="expirydate"
-                label="Expiration Date"
-                id="expirydate"
-                className="expirydate"
-                placeholder="MM/YY"
-                format="MM/yy"
-                onChange={(values) => {
-                  formikAddDebitCard.setFieldValue("expirydate", values);
-                }}
-                onBlur={formikAddDebitCard.handleBlur}
-                error={
-                  formikAddDebitCard.touched.expirydate &&
-                  Boolean(formikAddDebitCard.errors.expirydate)
-                }
-                helperText={
-                  formikAddDebitCard.touched.expirydate &&
-                  formikAddDebitCard.errors.expirydate
-                }
-              />
-                        </Grid> 
-                    <Grid
+                                name="expirydate"
+                                label="Expiration Date"
+                                id="expirydate"
+                                className="expirydate"
+                                placeholder="MM/YY"
+                                format="MM/yy"
+                                onChange={(values) => {
+                                    formikAddDebitCard.setFieldValue("expirydate", values);
+                                }}
+                                onBlur={formikAddDebitCard.handleBlur}
+                                error={
+                                    formikAddDebitCard.touched.expirydate &&
+                                    Boolean(formikAddDebitCard.errors.expirydate)
+                                }
+                                helperText={
+                                    formikAddDebitCard.touched.expirydate &&
+                                    formikAddDebitCard.errors.expirydate
+                                }
+                            />
+                        </Grid>
+                        <Grid
                             item
                             xs={12}
                             sm={5}
@@ -1419,8 +1415,8 @@ export default function PaymentMethod() {
                             container
                             direction="row"
                         >
-                            
-                    
+
+
                             <TextField
                                 name="cvv"
                                 id="cvv"
@@ -1442,7 +1438,7 @@ export default function PaymentMethod() {
                         </Grid>
 
                         <Grid
-                            style={{padding:"0px 16px"}}
+                            style={{ padding: "0px 16px" }}
                             item
                             sm={4}
                             xs={12}
@@ -1462,15 +1458,15 @@ export default function PaymentMethod() {
                                 value={sameAsMailAddress}
                                 checked={sameAsMailAddress}
                                 onChange={(e) => {
-                                    if(e.target.checked){
-                                    formikAddDebitCard.setFieldValue("zipcode", mailingZipcode)
-                                    formikAddDebitCard.setFieldValue("streetAddress", mailingStreetAddress)
-                                    let event = {
-                                        target: {
-                                            value: mailingZipcode,
-                                        },
-                                    };
-                                    fetchAddress(event);
+                                    if (e.target.checked) {
+                                        formikAddDebitCard.setFieldValue("zipcode", mailingZipcode)
+                                        formikAddDebitCard.setFieldValue("streetAddress", mailingStreetAddress)
+                                        let event = {
+                                            target: {
+                                                value: mailingZipcode,
+                                            },
+                                        };
+                                        fetchAddress(event);
                                     }
                                     setSameAsMailAddress(e.target.checked);
                                 }}
@@ -1526,7 +1522,7 @@ export default function PaymentMethod() {
                                     let acc = e.target.value;
                                     if (acc === "" || reg.test(acc)) {
                                         fetchAddress(e);
-                                      }
+                                    }
                                 }}
                                 onBlur={formikAddDebitCard.handleBlur}
                                 error={
@@ -1537,7 +1533,7 @@ export default function PaymentMethod() {
                                 helperText={
                                     validZip
                                         ? formikAddDebitCard.touched.zipcode &&
-                                          formikAddDebitCard.errors.zipcode
+                                        formikAddDebitCard.errors.zipcode
                                         : "Please enter a valid zipcode"
                                 }
                             />
@@ -1750,6 +1746,7 @@ export default function PaymentMethod() {
                                 </IconButton>
                             </DialogTitle>
                 <DialogActions  style={{ justifyContent: "center", marginBottom: "25px" }}>
+
                     <ButtonSecondary
                         stylebutton='{"background": "", "color":"" }'
                         onClick={handleDeleteConfirmClose}
@@ -1774,7 +1771,7 @@ export default function PaymentMethod() {
                         />
                     </ButtonPrimary>
                 </DialogActions>
-            </Dialog>           
+            </Dialog>
         </div>
     );
 }

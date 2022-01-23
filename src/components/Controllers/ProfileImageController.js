@@ -3,7 +3,7 @@ import APICall from "../lib/AxiosLib";
 
 export default async function UserImageInformation() {
 
-   const email = Cookies.get("email");
+  const email = Cookies.get("email");
   let url = "get_profile_picture";
   let param = "";
   const profile_picture = Cookies.get("profile_picture");
@@ -18,9 +18,9 @@ export default async function UserImageInformation() {
   let method = "POST";
   let addAccessToken = true;
   let res = await APICall(url, param, data, method, addAccessToken);
- 
-  if(Cookies.get("profile_picture_url")){
-    res.profile_picture_url =  Cookies.get("profile_picture_url");
+
+  if (Cookies.get("profile_picture_url")) {
+    res.profile_picture_url = Cookies.get("profile_picture_url");
   }
   else {
     res.profile_picture_url = res?.data?.data?.profile_picture_url;

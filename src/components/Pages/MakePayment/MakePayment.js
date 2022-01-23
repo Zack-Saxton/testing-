@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Typography from "@material-ui/core/Typography";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import TableContainer from "@material-ui/core/TableContainer";
@@ -14,7 +14,7 @@ import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import ScrollToTopOnMount from "../ScrollToTop";
 import { useStylesMakePayment } from "./Style";
-import { CircularProgress, FormControlLabel } from '@material-ui/core';
+import { CircularProgress, FormControlLabel } from "@material-ui/core";
 import "./MakePayment.css";
 import {
   ButtonPrimary,
@@ -25,7 +25,13 @@ import {
   TextField,
 } from "../../FormsUI";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
-import { usrPaymentMethods, enableAutoPay, disableAutoPay, makePayment, deleteScheduledPayment } from "../../Controllers/PaymentsController";
+import {
+  usrPaymentMethods,
+  enableAutoPay,
+  disableAutoPay,
+  makePayment,
+  deleteScheduledPayment,
+} from "../../Controllers/PaymentsController";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
 import PaymentOverview from "./PaymentOverview";
 import Switch from "@material-ui/core/Switch";
@@ -47,8 +53,8 @@ export default function MakePayment(props) {
   const classes = useStylesMakePayment();
   const history = useHistory();
   const query = new URLSearchParams(useLocation().search);
-  const accNo = query.get('accNo')
-  const [, setTabvalue] = useAtom(tabAtom)
+  const accNo = query.get("accNo");
+  const [, setTabvalue] = useAtom(tabAtom);
   const [paymentMethods, setpaymentMethod] = useState(null);
   const [latestLoanData, setlatestLoanData] = useState(null);
   const [paymentAmount, setpaymentAmount] = useState(null);
@@ -56,7 +62,7 @@ export default function MakePayment(props) {
   const [openPayment, setPaymentOpen] = useState(false);
   const [openDeleteSchedule, setopenDeleteSchedule] = useState(false);
   const [openAutoPay, setAutoPayOpen] = useState(false);
-  const [card, setcard] = useState('');
+  const [card, setcard] = useState("");
   const [disabledContent, setdisabledContent] = useState(false);
   const [isDebit, setisDebit] = useState(false);
   const [accntNo, setaccntNo] = useState(null);
@@ -87,219 +93,358 @@ export default function MakePayment(props) {
         draggable: true,
         progress: undefined,
       });
-    }else{
-    //get default card
-    let defaultBank = payments?.data?.data?.defaultBank;
-    let cardFound = await defaultCardCheck(payments?.data?.data?.ACHMethods,'ACH',defaultBank)
-    if(!cardFound){
-    //set default card ACHMethods
-    defaultCardCheck(payments?.data?.data?.CardMethods,'card',defaultBank)
-    }
+    } else {
+      //get default card
+      let defaultBank = payments?.data?.data?.defaultBank;
+      let cardFound = await defaultCardCheck(
+        payments?.data?.data?.ACHMethods,
+        "ACH",
+        defaultBank
+      );
+      if (!cardFound) {
+        //set default card ACHMethods
+        defaultCardCheck(
+          payments?.data?.data?.CardMethods,
+          "card",
+          defaultBank
+        );
+      }
     }
   }
 
   //set default card CardMethods
-  async function defaultCardCheck(cardData,type,defaultBank) {
+  async function defaultCardCheck(cardData, type, defaultBank) {
     let checkNickName = false;
-    cardData ? cardData?.length ? 
-    cardData?.forEach((data) => {
-      if (data.Nickname === defaultBank) {
-        type ==='ACH' ? setcard(data.SequenceNumber) : setcard(data.ProfileId);
-        checkNickName = true;
-        return checkNickName;
-      }
-    })
-    : setcard('') : setcard('');
+    cardData
+      ? cardData?.length
+        ? cardData?.forEach((data) => {
+          if (data.Nickname === defaultBank) {
+            type === "ACH"
+              ? setcard(data.SequenceNumber)
+              : setcard(data.ProfileId);
+            checkNickName = true;
+            return checkNickName;
+          }
+        })
+        : setcard("")
+      : setcard("");
     return checkNickName;
   }
 
   //Enable auto payment
   async function enableAutoPayment(accntNo, card, paymentDate, isDebit) {
-    let data = await enableAutoPay(accntNo, card, paymentDate, isDebit)
-    data.data.status === 200 ?
-      data.data.data.paymentResult.HasNoErrors === true ? toast.success(Payment.Auto_Payment_Mode_Enabled, {
-        position: "bottom-left",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      }
-      ) : toast.error(Payment.Failed_Payment_mode, {
-        position: "bottom-left",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined
-      }) : toast.error(data?.data?.data?.data?.message ? data.data.data.data.message : Payment.Failed_Payment_mode, {
-        position: "bottom-left",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined
-      })
+    let data = await enableAutoPay(accntNo, card, paymentDate, isDebit);
+    data.data.status === 200
+      ? data.data.data.paymentResult.HasNoErrors === true
+        ? toast.success(Payment.Auto_Payment_Mode_Enabled, {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+        : toast.error(Payment.Failed_Payment_mode, {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+      : toast.error(
+        data?.data?.data?.data?.message
+          ? data.data.data.data.message
+          : Payment.Failed_Payment_mode,
+        {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
+      );
 
-    hasSchedulePayment ? (data.data.status === 200 ? deleteSchedule(accntNo, routingNumber) : getData()) : getData()
+    hasSchedulePayment
+      ? data.data.status === 200
+        ? deleteSchedule(accntNo, routingNumber)
+        : getData()
+      : getData();
   }
   //Disable auto payment
   async function disableAutoPayment(accntNo, card, paymentDate, isDebit) {
     let data = await disableAutoPay(accntNo, card, paymentDate, isDebit);
-    data.data.status === 200 ?
-      data.data.data.deletePayment.HasNoErrors === true ? toast.success(Payment.Auto_Payment_Mode_Disabled, {
-        position: "bottom-left",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      }
-      ) : toast.error(Payment.Failed_Payment_mode , {
-        position: "bottom-left",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined
-      }) : toast.error(data?.data?.data?.data?.message ? data.data.data.data.message : 'Failed Payment mode', {
-        position: "bottom-left",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined
-      })
-    getData()
+    data.data.status === 200
+      ? data.data.data.deletePayment.HasNoErrors === true
+        ? toast.success(Payment.Auto_Payment_Mode_Disabled, {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+        : toast.error(Payment.Failed_Payment_mode, {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+      : toast.error(
+        data?.data?.data?.data?.message
+          ? data.data.data.data.message
+          : "Failed Payment mode",
+        {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
+      );
+    getData();
   }
 
   //Enable scheduled payment
-  async function makeuserPayment(accntNo, card, paymentDatepicker, isDebit, paymentAmount) {
-    setPaymentOpen(false)
-    let data = await makePayment(accntNo, card, paymentDatepicker, isDebit, paymentAmount);
-    let message= paymentDatepicker === Moment().format("YYYY/MM/DD") ? Payment.We_Received_Your_Payment_Successfully : Payment.Payment_has_Scheduled;
-    data.data.status === 200 ?
-      data?.data?.data?.paymentResult?.PaymentCompleted !== undefined ? toast.success(message, {
-        position: "bottom-left",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      }
-      ) : toast.error(Payment.Failed_Payment_mode, {
-        position: "bottom-left",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined
-      }) : toast.error(data?.data?.data?.data?.message ? data.data.data.data.message : 'Failed Payment mode', {
-        position: "bottom-left",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined
-      })
-        data.data.status === 200 ? disableAutoPaymentScheduled(accntNo, card, paymentDate, isDebit) : getData()
-
+  async function makeuserPayment(
+    accntNo,
+    card,
+    paymentDatepicker,
+    isDebit,
+    paymentAmount
+  ) {
+    setPaymentOpen(false);
+    let data = await makePayment(
+      accntNo,
+      card,
+      paymentDatepicker,
+      isDebit,
+      paymentAmount
+    );
+    let message =
+      paymentDatepicker === Moment().format("YYYY/MM/DD")
+        ? Payment.We_Received_Your_Payment_Successfully
+        : Payment.Payment_has_Scheduled +
+        " Confirmation: " +
+        data?.data?.data?.paymentResult?.ReferenceNumber;
+    data.data.status === 200
+      ? data?.data?.data?.paymentResult?.PaymentCompleted !== undefined
+        ? toast.success(message, {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+        : toast.error(Payment.Failed_Payment_mode, {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+      : toast.error(
+        data?.data?.data?.data?.message
+          ? data.data.data.data.message
+          : "Failed Payment mode",
+        {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
+      );
+    data.data.status === 200
+      ? disableAutoPaymentScheduled(accntNo, card, paymentDate, isDebit)
+      : getData();
   }
 
   //Disable scheduled payment
   async function deletePayment(accntNo, refNo) {
     let data = await deleteScheduledPayment(accntNo, refNo, isCard);
-    data.data.status === 200 ?
-      data.data.data.deletePaymentMethod.HasNoErrors === true ? toast.success('Scheduled Payment cancelled', {
-        position: "bottom-left",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      }
-      ) : toast.error(Payment.Failed_Payment_mode, {
-        position: "bottom-left",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined
-      }) : toast.error(data?.data?.data?.data?.message ? data.data.data.data.message : 'Failed Payment mode', {
-        position: "bottom-left",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined
-      })
+    data.data.status === 200
+      ? data.data.data.deletePaymentMethod.HasNoErrors === true
+        ? toast.success("Scheduled Payment cancelled", {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+        : toast.error(Payment.Failed_Payment_mode, {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+      : toast.error(
+        data?.data?.data?.data?.message
+          ? data.data.data.data.message
+          : "Failed Payment mode",
+        {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
+      );
   }
-
 
   // Disable auto payment while make payment
-  async function disableAutoPaymentScheduled(accntNo, card, paymentDate, isDebit) {
+  async function disableAutoPaymentScheduled(
+    accntNo,
+    card,
+    paymentDate,
+    isDebit
+  ) {
     await disableAutoPay(accntNo, card, paymentDate, isDebit);
-    getData()
+    getData();
   }
 
-  const handleMenuPaymentProfile = () =>{
+  const handleMenuPaymentProfile = () => {
     history.push({
-      pathname:'/customers/myProfile'});
-    setTabvalue(3)
-  }
+      pathname: "/customers/myProfile",
+    });
+    setTabvalue(3);
+  };
 
   // Disable Sheduled payment while make recuiring payment
   async function deleteSchedule(accntNo, refNo) {
     await deleteScheduledPayment(accntNo, refNo);
-    getData()
+    getData();
   }
 
   //Validating ACCNO
   async function checkaccNo(activeLoansData, accNo) {
-    let check = false
-    activeLoansData?.forEach(data => {
+    let check = false;
+    activeLoansData?.forEach((data) => {
       if (data?.loanData?.accountNumber === accNo) {
         let loan = [];
-        loan.push(data)
-        setlatestLoanData(loan)
-        setpaymentAmount(activeLoansData?.length ? data != null ? (Math.abs(data?.loanPaymentInformation?.accountDetails?.RegularPaymentAmount) + Math.abs(data?.loanPaymentInformation?.accountDetails?.InterestRate) + Math.abs(data?.loanPaymentInformation?.accountDetails?.LoanFeesAndCharges)).toFixed(2) : null : null)
-        setTotalPaymentAmount(activeLoansData?.length ? data != null ? (Math.abs(data?.loanPaymentInformation?.accountDetails?.RegularPaymentAmount) + Math.abs(data?.loanPaymentInformation?.accountDetails?.InterestRate) + Math.abs(data?.loanPaymentInformation?.accountDetails?.LoanFeesAndCharges)).toFixed(2) : null : null)
-        setaccntNo(activeLoansData?.length ? (data != null) ? data.loanData?.accountNumber : null : null)
-        getPaymentMethods()
-        setdisabledContent(activeLoansData?.length ? data != null ? ((data?.loanPaymentInformation?.appRecurringACHPayment) ? true : false) : false : false)
-        setcheckAutoPay(activeLoansData?.length ? data != null ? ((data?.loanPaymentInformation?.appRecurringACHPayment) ? true : false) : false : false)
-        setpaymentDate(activeLoansData?.length ? data != null ? (Moment(data?.loanPaymentInformation?.accountDetails?.NextDueDate).format("YYYY-MM-DD")) : "NONE" : "NONE")
-        let scheduledDate = (activeLoansData?.length) ? (data?.loanPaymentInformation?.hasScheduledPayment) ? Moment(data?.loanPaymentInformation?.scheduledPayments[0]?.PaymentDate).format("MM/DD/YYYY") : null : null
-        setpaymentDatepicker(scheduledDate ? scheduledDate : new Date())
-        setscheduleDate(scheduledDate)
-        setLoading(false)
-        setAutopaySubmit(true)
-        setshowCircularProgress(false)
-        check = true
-        return check
+        loan.push(data);
+        setlatestLoanData(loan);
+        setpaymentAmount(
+          activeLoansData?.length
+            ? data != null
+              ? (
+                Math.abs(
+                  data?.loanPaymentInformation?.accountDetails
+                    ?.RegularPaymentAmount
+                ) +
+                Math.abs(
+                  data?.loanPaymentInformation?.accountDetails?.InterestRate
+                ) +
+                Math.abs(
+                  data?.loanPaymentInformation?.accountDetails
+                    ?.LoanFeesAndCharges
+                )
+              ).toFixed(2)
+              : null
+            : null
+        );
+        setTotalPaymentAmount(
+          activeLoansData?.length
+            ? data != null
+              ? (
+                Math.abs(
+                  data?.loanPaymentInformation?.accountDetails
+                    ?.RegularPaymentAmount
+                ) +
+                Math.abs(
+                  data?.loanPaymentInformation?.accountDetails?.InterestRate
+                ) +
+                Math.abs(
+                  data?.loanPaymentInformation?.accountDetails
+                    ?.LoanFeesAndCharges
+                )
+              ).toFixed(2)
+              : null
+            : null
+        );
+        setaccntNo(
+          activeLoansData?.length
+            ? data != null
+              ? data.loanData?.accountNumber
+              : null
+            : null
+        );
+        getPaymentMethods();
+        setdisabledContent(
+          activeLoansData?.length
+            ? data != null
+              ? data?.loanPaymentInformation?.appRecurringACHPayment
+                ? true
+                : false
+              : false
+            : false
+        );
+        setcheckAutoPay(
+          activeLoansData?.length
+            ? data != null
+              ? data?.loanPaymentInformation?.appRecurringACHPayment
+                ? true
+                : false
+              : false
+            : false
+        );
+        setpaymentDate(
+          activeLoansData?.length
+            ? data != null
+              ? Moment(
+                data?.loanPaymentInformation?.accountDetails?.NextDueDate
+              ).format("YYYY-MM-DD")
+              : "NONE"
+            : "NONE"
+        );
+        let scheduledDate = activeLoansData?.length
+          ? data?.loanPaymentInformation?.hasScheduledPayment
+            ? Moment(
+              data?.loanPaymentInformation?.scheduledPayments[0]?.PaymentDate
+            ).format("MM/DD/YYYY")
+            : null
+          : null;
+        setpaymentDatepicker(scheduledDate ? scheduledDate : new Date());
+        setscheduleDate(scheduledDate);
+        setLoading(false);
+        setAutopaySubmit(true);
+        setshowCircularProgress(false);
+        check = true;
+        return check;
       }
     });
-    return check
+    return check;
   }
 
   //API Request for Account Details
   async function getData() {
-    setshowCircularProgress(true)
+    setshowCircularProgress(true);
     let User = await usrAccountDetails();
-    setAccountDetails(User)
-    let activeLoansData = (User != null) ? User.data?.data?.activeLoans : null;
+    setAccountDetails(User);
+    let activeLoansData = User != null ? User.data?.data?.activeLoans : null;
     if (accNo) {
       let res = await checkaccNo(activeLoansData, accNo);
 
@@ -312,147 +457,274 @@ export default function MakePayment(props) {
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
-          progress: undefined
-        })
+          progress: undefined,
+        });
         history.push({
-          pathname: "/customers/accountoverview"
+          pathname: "/customers/accountoverview",
         });
       }
     } else {
-      setlatestLoanData(activeLoansData != null ? activeLoansData.slice(0, 1) : null)
-      let latestLoan = (activeLoansData != null) ? activeLoansData.slice(0, 1) : null;
-      setpaymentAmount(activeLoansData?.length ? latestLoan != null ? (Math.abs(latestLoan[0]?.loanPaymentInformation?.accountDetails?.RegularPaymentAmount) + Math.abs(latestLoan[0]?.loanPaymentInformation?.accountDetails?.InterestRate) + Math.abs(latestLoan[0]?.loanPaymentInformation?.accountDetails?.LoanFeesAndCharges)).toFixed(2) : null : null)
-      setTotalPaymentAmount(activeLoansData?.length ? latestLoan != null ? (Math.abs(latestLoan[0]?.loanPaymentInformation?.accountDetails?.RegularPaymentAmount) + Math.abs(latestLoan[0]?.loanPaymentInformation?.accountDetails?.InterestRate) + Math.abs(latestLoan[0]?.loanPaymentInformation?.accountDetails?.LoanFeesAndCharges)).toFixed(2) : null : null)
-      setaccntNo(activeLoansData?.length ? (latestLoan != null) ? latestLoan[0].loanData.accountNumber : null : null)
-      getPaymentMethods()
-      setdisabledContent(activeLoansData?.length ? latestLoan != null ? ((latestLoan[0]?.loanPaymentInformation?.appRecurringACHPayment) ? true : false) : false : false)
-      setcheckAutoPay(activeLoansData?.length ? latestLoan != null ? ((latestLoan[0]?.loanPaymentInformation?.appRecurringACHPayment) ? true : false) : false : false)
-      setpaymentDate(activeLoansData?.length ? latestLoan != null ? (Moment(latestLoan[0]?.loanPaymentInformation?.accountDetails?.NextDueDate).format("YYYY-MM-DD")) : "NONE" : "NONE")
-      let scheduledDate = (latestLoan?.length) ? (latestLoan[0]?.loanPaymentInformation?.hasScheduledPayment) ? Moment(latestLoan[0]?.loanPaymentInformation?.scheduledPayments[0]?.PaymentDate).format("MM/DD/YYYY") : null : null
-      setpaymentDatepicker(scheduledDate ? scheduledDate : new Date())
-      setscheduleDate(scheduledDate)
+      setlatestLoanData(
+        activeLoansData != null ? activeLoansData.slice(0, 1) : null
+      );
+      let latestLoan =
+        activeLoansData != null ? activeLoansData.slice(0, 1) : null;
+      setpaymentAmount(
+        activeLoansData?.length
+          ? latestLoan != null
+            ? (
+              Math.abs(
+                latestLoan[0]?.loanPaymentInformation?.accountDetails
+                  ?.RegularPaymentAmount
+              ) +
+              Math.abs(
+                latestLoan[0]?.loanPaymentInformation?.accountDetails
+                  ?.InterestRate
+              ) +
+              Math.abs(
+                latestLoan[0]?.loanPaymentInformation?.accountDetails
+                  ?.LoanFeesAndCharges
+              )
+            ).toFixed(2)
+            : null
+          : null
+      );
+      setTotalPaymentAmount(
+        activeLoansData?.length
+          ? latestLoan != null
+            ? (
+              Math.abs(
+                latestLoan[0]?.loanPaymentInformation?.accountDetails
+                  ?.RegularPaymentAmount
+              ) +
+              Math.abs(
+                latestLoan[0]?.loanPaymentInformation?.accountDetails
+                  ?.InterestRate
+              ) +
+              Math.abs(
+                latestLoan[0]?.loanPaymentInformation?.accountDetails
+                  ?.LoanFeesAndCharges
+              )
+            ).toFixed(2)
+            : null
+          : null
+      );
+      setaccntNo(
+        activeLoansData?.length
+          ? latestLoan != null
+            ? latestLoan[0].loanData.accountNumber
+            : null
+          : null
+      );
+      getPaymentMethods();
+      setdisabledContent(
+        activeLoansData?.length
+          ? latestLoan != null
+            ? latestLoan[0]?.loanPaymentInformation?.appRecurringACHPayment
+              ? true
+              : false
+            : false
+          : false
+      );
+      setcheckAutoPay(
+        activeLoansData?.length
+          ? latestLoan != null
+            ? latestLoan[0]?.loanPaymentInformation?.appRecurringACHPayment
+              ? true
+              : false
+            : false
+          : false
+      );
+      setpaymentDate(
+        activeLoansData?.length
+          ? latestLoan != null
+            ? Moment(
+              latestLoan[0]?.loanPaymentInformation?.accountDetails
+                ?.NextDueDate
+            ).format("YYYY-MM-DD")
+            : "NONE"
+          : "NONE"
+      );
+      let scheduledDate = latestLoan?.length
+        ? latestLoan[0]?.loanPaymentInformation?.hasScheduledPayment
+          ? Moment(
+            latestLoan[0]?.loanPaymentInformation?.scheduledPayments[0]
+              ?.PaymentDate
+          ).format("MM/DD/YYYY")
+          : null
+        : null;
+      setpaymentDatepicker(scheduledDate ? scheduledDate : new Date());
+      setscheduleDate(scheduledDate);
       setLoading(false);
-      setAutopaySubmit(true)
-      setshowCircularProgress(false)
+      setAutopaySubmit(true);
+      setshowCircularProgress(false);
     }
   }
 
   useEffect(() => {
-    getData()
+    getData();
   }, []);
 
   //Account select payment options
   let paymentData = paymentMethods != null ? paymentMethods.data.data : null;
 
-  let paymentListAch = (paymentData && paymentData.ACHMethods != null) ? paymentData.ACHMethods.map(
-    pdata => ({ value: pdata.SequenceNumber, label: pdata.AccountType + " (****" + pdata.AccountNumber.substr(-4) + ")" }),
-  ) : null;
+  let paymentListAch =
+    paymentData && paymentData.ACHMethods != null
+      ? paymentData.ACHMethods.map((pdata) => ({
+        value: pdata.SequenceNumber,
+        label:
+          pdata.AccountType + " (****" + pdata.AccountNumber.substr(-4) + ")",
+      }))
+      : null;
 
-  let paymentListCard = (paymentData && paymentData.ACHMethods != null) ? paymentData.CardMethods.map(
-    pdata => ({ value: pdata.ProfileId, label: pdata.CardType + " (****" + pdata.LastFour + ")" }),
-  ) : null;
+  let paymentListCard =
+    paymentData && paymentData.ACHMethods != null
+      ? paymentData.CardMethods.map((pdata) => ({
+        value: pdata.ProfileId,
+        label: pdata.CardType + " (****" + pdata.LastFour + ")",
+      }))
+      : null;
 
-  const paymentOptions = (paymentListAch != null) ? JSON.stringify(paymentListAch.concat(paymentListCard)) : null;
+  const paymentOptions =
+    paymentListAch != null
+      ? JSON.stringify(paymentListAch.concat(paymentListCard))
+      : null;
 
   //Storing the routingNumber,refNumber and SchedulePayments details
-  let hasSchedulePayment = (latestLoanData != null) ? (latestLoanData.length ? latestLoanData[0]?.loanPaymentInformation?.hasScheduledPayment : false) : false;
-  let routingNumber = (latestLoanData != null) ? latestLoanData[0]?.loanPaymentInformation?.scheduledPayments[0]?.PaymentMethod?.AchInfo != null ? latestLoanData[0].loanPaymentInformation.scheduledPayments[0].PaymentMethod.AchInfo.RoutingNumber : 0 : 0;
-  let refNumber = (latestLoanData != null) ? latestLoanData[0]?.loanPaymentInformation?.scheduledPayments[0]?.ReferenceNumber != null ? latestLoanData[0].loanPaymentInformation.scheduledPayments[0].ReferenceNumber : 0 : 0;
-  let isCard = (latestLoanData != null) ? latestLoanData[0]?.loanPaymentInformation?.scheduledPayments[0]?.PaymentMethod?.IsCard === true ? latestLoanData[0].loanPaymentInformation.scheduledPayments[0].PaymentMethod.IsCard : false : false;
-  let status = (accountDetails != null) ? accountDetails.data.status : null;
+  let hasSchedulePayment =
+    latestLoanData != null
+      ? latestLoanData.length
+        ? latestLoanData[0]?.loanPaymentInformation?.hasScheduledPayment
+        : false
+      : false;
+  let routingNumber =
+    latestLoanData != null
+      ? latestLoanData[0]?.loanPaymentInformation?.scheduledPayments[0]
+        ?.PaymentMethod?.AchInfo != null
+        ? latestLoanData[0].loanPaymentInformation.scheduledPayments[0]
+          .PaymentMethod.AchInfo.RoutingNumber
+        : 0
+      : 0;
+  let refNumber =
+    latestLoanData != null
+      ? latestLoanData[0]?.loanPaymentInformation?.scheduledPayments[0]
+        ?.ReferenceNumber != null
+        ? latestLoanData[0].loanPaymentInformation.scheduledPayments[0]
+          .ReferenceNumber
+        : 0
+      : 0;
+  let isCard =
+    latestLoanData != null
+      ? latestLoanData[0]?.loanPaymentInformation?.scheduledPayments[0]
+        ?.PaymentMethod?.IsCard === true
+        ? latestLoanData[0].loanPaymentInformation.scheduledPayments[0]
+          .PaymentMethod.IsCard
+        : false
+      : false;
+  let status = accountDetails != null ? accountDetails.data.status : null;
 
   //Select account
   const handleChangeSelect = (event) => {
     setcard(event.target.value);
-    event.nativeEvent.target.innerText.includes('Checking') || event.nativeEvent.target.innerText.includes('Savings') ? setisDebit(false) : setisDebit(true) //true
-    setrequiredSelect('')
+    event.nativeEvent.target.innerText.includes("Checking") ||
+      event.nativeEvent.target.innerText.includes("Savings")
+      ? setisDebit(false)
+      : setisDebit(true); //true
+    setrequiredSelect("");
   };
 
   //Autopay enable/disable switch
   const handleSwitchPayment = (event) => {
-    setAutopaySubmit(checkAutoPay === event.target.checked? true : false  )
-    setdisabledContent(event.target.checked)
-    setpaymentAmount(event.target.checked ? totalPaymentAmount : paymentAmount)
-    setpaymentDatepicker(event.target.checked ? scheduleDate : new Date())
+    setAutopaySubmit(checkAutoPay === event.target.checked ? true : false);
+    setdisabledContent(event.target.checked);
+    setpaymentAmount(event.target.checked ? totalPaymentAmount : paymentAmount);
+    setpaymentDatepicker(event.target.checked ? scheduleDate : new Date());
   };
 
   //Autopay submit
   const handleClickSubmit = () => {
-    disabledContent === true ? card || card === 0 ? setOpen(true) : setrequiredSelect('Please select any accounts') : setOpen(true)
+    disabledContent === true
+      ? card || card === 0
+        ? setOpen(true)
+        : setrequiredSelect("Please select any accounts")
+      : setOpen(true);
   };
 
   //Autopay popup confirm and close
   async function handleAutoPayConfirm() {
     setLoading(true);
-    setshowCircularProgress(true)
-    disabledContent === true ? enableAutoPayment(accntNo, card, paymentDate, isDebit) : disableAutoPayment(accntNo, card, paymentDate, isDebit)
-    setOpen(false)
+    setshowCircularProgress(true);
+    disabledContent === true
+      ? enableAutoPayment(accntNo, card, paymentDate, isDebit)
+      : disableAutoPayment(accntNo, card, paymentDate, isDebit);
+    setOpen(false);
   }
 
   const handleCloseAutoPayPopup = () => {
-    setOpen(false)
+    setOpen(false);
   };
 
   //Cancel Schedule popup confirm and close
   async function handleDeleteSchedule() {
     setLoading(true);
-    setshowCircularProgress(true)
-    isCard === true ? deletePayment(accntNo, refNumber) : deletePayment(accntNo, routingNumber)
-    setrequiredDate('')
-    setRequiredAmount('')
-    setrequiredSelect('')
-    setpaymentDatepicker(null)
-    setopenDeleteSchedule(false)
-    getData()
+    setshowCircularProgress(true);
+    isCard === true
+      ? deletePayment(accntNo, refNumber)
+      : deletePayment(accntNo, routingNumber);
+    setrequiredDate("");
+    setRequiredAmount("");
+    setrequiredSelect("");
+    setpaymentDatepicker(null);
+    setopenDeleteSchedule(false);
+    getData();
   }
 
   const handleDeleteScheduleClose = () => {
-    setopenDeleteSchedule(false)
+    setopenDeleteSchedule(false);
   };
 
   //Schedule Payment
   const handleSchedulePaymentClick = () => {
-    if (card === '') {
-      document.getElementById("select").focus()
-      setrequiredSelect('Please select any account')
-    } else if (paymentAmount === '') {
-      document.getElementById("payment").focus()
-      setRequiredAmount('Please enter payment amount')
-    } else if (paymentAmount < 10 ) {
-      document.getElementById("payment").focus()
-      setRequiredAmount('Please enter minimum amount of $10')
+    if (card === "") {
+      document.getElementById("select").focus();
+      setrequiredSelect("Please select any account");
+    } else if (paymentAmount === "") {
+      document.getElementById("payment").focus();
+      setRequiredAmount("Please enter payment amount");
+    } else if (paymentAmount < 10) {
+      document.getElementById("payment").focus();
+      setRequiredAmount("Please enter minimum amount of $10");
     } else if (paymentDatepicker === null) {
-      document.getElementById("date").focus()
-      setrequiredDate('Please select any date')
+      document.getElementById("date").focus();
+      setrequiredDate("Please select any date");
     } else {
-      setPaymentOpen(true)
+      setPaymentOpen(true);
     }
   };
 
   //Cancel Payment
   const handlePaymentcancel = () => {
-    setopenDeleteSchedule(true)
+    setopenDeleteSchedule(true);
   };
 
   //Schedule Payment popup confirm and close
   const handleSchedulePaymentSubmit = () => {
     setLoading(true);
-    setshowCircularProgress(true)
-    makeuserPayment(accntNo, card, paymentDatepicker, isDebit, paymentAmount)
+    setshowCircularProgress(true);
+    makeuserPayment(accntNo, card, paymentDatepicker, isDebit, paymentAmount);
   };
 
   const handlePaymentClose = () => {
-    setPaymentOpen(false)
+    setPaymentOpen(false);
   };
-
 
   //AUTO PAY AUTHORIZATION pop up open and close
   const handleAutoPayClickOpen = () => {
-    setAutoPayOpen(true)
+    setAutoPayOpen(true);
   };
 
   const handleAutoPayClose = () => {
-    setAutoPayOpen(false)
+    setAutoPayOpen(false);
   };
 
   //US Holidays
@@ -469,35 +741,38 @@ export default function MakePayment(props) {
       new Date(date.getFullYear(), 11, 31),
     ];
     const dateInterdites = dateInterditesRaw.map((arrVal) => {
-      return arrVal.getTime()
+      return arrVal.getTime();
     });
     return date.getDay() === 0 || dateInterdites.includes(date.getTime());
-
   }
 
   //Handling payment amount
   const onHandlepaymentAmount = (event) => {
     var price = event.target.value.replace("$", "");
-    const reg = /^\d{0,5}(\.\d{0,2})?$/
-    if (price === "" || reg.test(price)){
-      price = (price.indexOf(".") >= 0) ? (price.substr(0, price.indexOf(".")) + price.substr(price.indexOf("."), 3)) : price;
-      setpaymentAmount(price)
-      setRequiredAmount('')
+    const reg = /^\d{0,5}(\.\d{0,2})?$/;
+    if (price === "" || reg.test(price)) {
+      price =
+        price.indexOf(".") >= 0
+          ? price.substr(0, price.indexOf(".")) +
+          price.substr(price.indexOf("."), 3)
+          : price;
+      setpaymentAmount(price);
+      setRequiredAmount("");
     }
-  }
-  
+  };
+
   //payment onblur
   const onBlurPayment = (event) => {
     var price = event.target.value.replace("$", "");
-    var s = price.split('.');
+    var s = price.split(".");
     var afterDecimal = s[1];
-    if(!afterDecimal){
+    if (!afterDecimal) {
       price = event.target.value.replace(".", "");
-      price= price.replace("$", "");
-      setpaymentAmount(price)
-      setRequiredAmount('')
+      price = price.replace("$", "");
+      setpaymentAmount(price);
+      setRequiredAmount("");
     }
-  }
+  };
 
   //View
   return (
@@ -514,9 +789,21 @@ export default function MakePayment(props) {
           paddingLeft: "23px",
         }}
       >
-        <Grid style={{ paddingBottom: "10px" }} container direction="row" item xs={12}>
-          <Grid item xs={12} sm={6} style={{ width: "100%" }}
-            container direction="row">
+        <Grid
+          style={{ paddingBottom: "10px" }}
+          container
+          direction="row"
+          item
+          xs={12}
+        >
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            style={{ width: "100%" }}
+            container
+            direction="row"
+          >
             <Typography className={classes.heading} variant="h3">
               <NavLink
                 to="/customers/accountOverview"
@@ -538,13 +825,17 @@ export default function MakePayment(props) {
           </Grid>
         </Grid>
         {showCircularProgress === true ? (
-          <Grid item xs={12} style={{ paddingTop: "10px", paddingBottom: "10px" }}>
+          <Grid
+            item
+            xs={12}
+            style={{ paddingTop: "10px", paddingBottom: "10px" }}
+          >
             <TableContainer id="pdfdiv" component={Paper}>
               <Table className={classes.table} aria-label="simple table">
                 <TableHead>
                   <TableRow>
                     <TableCell className={classes.tableHead}>
-                     {Payment.Account_Number}
+                      {Payment.Account_Number}
                     </TableCell>
                     <TableCell className={classes.tableHead} align="left">
                       {Payment.Todays_Payoff}
@@ -553,7 +844,7 @@ export default function MakePayment(props) {
                       {Payment.Regular_Amount}
                     </TableCell>
                     <TableCell className={classes.tableHead} align="left">
-                     {Payment.Loan_Fees}
+                      {Payment.Loan_Fees}
                     </TableCell>
                     <TableCell className={classes.tableHead} align="left">
                       {Payment.Total}
@@ -578,188 +869,279 @@ export default function MakePayment(props) {
                 </TableBody>
               </Table>
             </TableContainer>
-          </Grid>)
-          :
-          <Grid item xs={12} style={{ paddingBottom: "10px", paddingTop: "10px" }}>
+          </Grid>
+        ) : (
+          <Grid
+            item
+            xs={12}
+            style={{ paddingBottom: "10px", paddingTop: "10px" }}
+          >
             <TableContainer component={Paper}>
               <PaymentOverview overview={latestLoanData} status={status} />
             </TableContainer>
-          </Grid>}
-        {latestLoanData != null ? latestLoanData.length ? !paymentData?.data?.error ?
-          <>
-         <Grid
-            id="payFromWrap"
-              item
-              xs={12}
-              sm={5}
-              style={{ width: "100%", paddingTop: "10px" , paddingRight: "15px" }}
-            >
-              <Paper style={{borderRadius:"2px"}} className={classes.paper}>
-                <Typography className={classes.cardHeading}>
-                  Pay From
-                </Typography>
-                {paymentOptions != null ?
-                  <Select
-                    id="select"
-                    name="select"
-                    labelform="Accounts"
-                    select={paymentOptions}
-                    onChange={handleChangeSelect}
-                    value={card}
-                  /> :
-                  <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <CircularProgress size={30} />
-                  </div>
-                }
-                <p className={requiredSelect !== "" ? "showError add Pad" : "hideError"} data-testid="subtitle" >
-                  {" "}  {requiredSelect}.
-                </p>
-
-                <Grid item xs={12} style={{ paddingTop: "20px" }}>
-                  <ButtonSecondary stylebutton='{"background": "", "color":"" }' onClick={handleMenuPaymentProfile}>
-                    Add a payment method 
-                  </ButtonSecondary>
-                </Grid>
-              </Paper>
-            </Grid>
-
-            <Grid
-              item
-              xs={12}
-              sm={7}
-              style={{ width: "100%", paddingTop:"10px" }}
-            >
-              <Paper className={classes.paper}>
-                {paymentOptions !== null && showCircularProgress !== true ?
-                  <div>
-                    <Grid item xs={12}>
-                      <Typography style={{paddingBottom:"10px"}} className={classes.cardHeading}>
-                        Payment Mode
-                      </Typography>
-                      <p style={{ margin: "auto" }}>
-                        <small style={{fontSize:"0.938rem", color:"#595959"}}> {disabledContent ? "Auto Pay - On" : "Auto Pay - Off"}</small>
-                      </p>
-                      <p style={{ margin: "auto" }}>
-                        <small style={{ color: "#575757" }}>Choose auto pay</small>
-                      </p>
-                      <FormControlLabel
-                        id="autoPaySpan"
-                        control={
-                          <Switch
-                            checked={disabledContent}
-                            onChange={handleSwitchPayment}
-                            value={disabledContent}
-                            inputProps={{ "data-test-id": "switch" }}
-                            color="primary"
-                          />
-                        }
-                        labelPlacement='end'
-                        label={disabledContent ? "Auto pay is On" : "Auto pay is Off"}
+          </Grid>
+        )}
+        {latestLoanData != null ? (
+          latestLoanData.length ? (
+            !paymentData?.data?.error ? (
+              <>
+                <Grid
+                  id="payFromWrap"
+                  item
+                  xs={12}
+                  sm={5}
+                  style={{
+                    width: "100%",
+                    paddingTop: "10px",
+                    paddingRight: "15px",
+                  }}
+                >
+                  <Paper
+                    style={{ borderRadius: "2px" }}
+                    className={classes.paper}
+                  >
+                    <Typography className={classes.cardHeading}>
+                      Pay From
+                    </Typography>
+                    {paymentOptions != null ? (
+                      <Select
+                        id="select"
+                        name="select"
+                        labelform="Accounts"
+                        select={paymentOptions}
+                        onChange={handleChangeSelect}
+                        value={card}
                       />
-                      <p style={{ fontSize: "0.938rem" }}>
-                        By enabling Auto Pay mode, I acknowledge to have read,
-                        understood, and agree to the terms of the &nbsp;
-                        <Link to="#"
-                          onClick={handleAutoPayClickOpen}
-                          className={classes.autoPayLink}
-                        >
-                          Auto Pay Authorization
-                        </Link>
-                      </p>
-                      <Grid item xs={12} style={{ paddingBottom: "20px" }}>
-                        <ButtonPrimary
-                          stylebutton='{"background": "", "color":"" }'
-                          id="submitBtn"
-                          onClick={handleClickSubmit}
-                          disabled={autopaySubmit}
-                        >
-                          Submit
-                        </ButtonPrimary>
-                      </Grid>
-                    </Grid>
-                    <Grid item xs={12}
-                      style={{
-                        opacity: disabledContent ? 0.5 : 1,
-                        pointerEvents: disabledContent ? "none" : "initial"
-                      }}>
-                      <Typography style={{ paddingBottom: "10px" }} className={classes.cardHeading}>
-                        Single Payment
-                      </Typography>
-                      <TextField
-                        id="payment"
-                        name="payment"
-                        label="Payment Amount"
-                        type="text"
-                        autoComplete="off"
-                        onChange={onHandlepaymentAmount}
-                        value={'$' + paymentAmount}
-                        onBlur={onBlurPayment}
-                        disabled={hasSchedulePayment}
-                      />
-                      <p className={requiredAmount !== "" ? "showError add Pad" : "hideError"} data-testid="subtitle" >
-                        {" "}  {requiredAmount}
-                      </p>
-                      <Grid
-                        item
-                        xs={12}
-                        container
-                        direction="row"
-                        style={{ display: "inline-flex", paddingTop: "10px" }}
+                    ) : (
+                      <div
+                        style={{ display: "flex", justifyContent: "center" }}
                       >
-                        <DatePicker
-                          name="date"
-                          label="Payment Date"
-                          placeholder="MM/DD/YYYY"
-                          id="date"
-                          disablePast
-                          autoComplete="off"
-                          maxdate={paymentMaxDate}
-                          onKeyDown={(e) => e.preventDefault()}
-                          shouldDisableDate={disableWeekends}
-                          minyear={4}
-                          onChange={(paymentDatepickerOnChange) => {
-                            setpaymentDatepicker(Moment(paymentDatepickerOnChange).format("YYYY/MM/DD"));
-                            setrequiredDate('')
-                          }}
-                          value={paymentDatepicker}
-                          disabled={hasSchedulePayment}
-                        />
-                        <p className={requiredDate !== "" ? "showError add Pad" : "hideError"} data-testid="subtitle" >
-                          {" "}  {requiredDate}
-                        </p>
-                      </Grid>
-                      <Grid id="paymentBtnWrap" style={{ paddingTop: "25px" }}>
-                        <Grid id="make-payment-cancel-button-grid">
-                          <ButtonSecondary
-                            stylebutton='{}'
-                            styleicon='{ "color":"" }'
-                            id="cancelPaymentBtn"
-                            onClick={handlePaymentcancel}
-                            disabled={!hasSchedulePayment}
-                          >
-                            Cancel Payment
-                          </ButtonSecondary>
-                        </Grid>
-                        <Grid>
-                          <ButtonPrimary
-                            stylebutton='{"marginRight": "" }'
-                            id="make-payment-schedule-button"
-                            onClick={handleSchedulePaymentClick}
-                            disabled={hasSchedulePayment}
-                          >
-                            Schedule Payment
-                          </ButtonPrimary>
-                        </Grid>
-                      </Grid>
+                        <CircularProgress size={30} />
+                      </div>
+                    )}
+                    <p
+                      className={
+                        requiredSelect !== ""
+                          ? "showError add Pad"
+                          : "hideError"
+                      }
+                      data-testid="subtitle"
+                    >
+                      {" "}
+                      {requiredSelect}.
+                    </p>
+
+                    <Grid item xs={12} style={{ paddingTop: "20px" }}>
+                      <ButtonSecondary
+                        stylebutton='{"background": "", "color":"" }'
+                        onClick={handleMenuPaymentProfile}
+                      >
+                        Add a payment method
+                      </ButtonSecondary>
                     </Grid>
-                  </div> :
-                  <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <CircularProgress />
-                  </div>}
-              </Paper>
-            </Grid>
-          </>
-          :'' : '' : ''}
+                  </Paper>
+                </Grid>
+
+                <Grid
+                  item
+                  xs={12}
+                  sm={7}
+                  style={{ width: "100%", paddingTop: "10px" }}
+                >
+                  <Paper className={classes.paper}>
+                    {paymentOptions !== null &&
+                      showCircularProgress !== true ? (
+                      <div>
+                        <Grid item xs={12}>
+                          <Typography
+                            style={{ paddingBottom: "10px" }}
+                            className={classes.cardHeading}
+                          >
+                            Payment Mode
+                          </Typography>
+                          <p style={{ margin: "auto" }}>
+                            <small
+                              style={{ fontSize: "0.938rem", color: "#595959" }}
+                            >
+                              {" "}
+                              {disabledContent
+                                ? "Auto Pay - On"
+                                : "Auto Pay - Off"}
+                            </small>
+                          </p>
+                          <p style={{ margin: "auto" }}>
+                            <small style={{ color: "#575757" }}>
+                              Choose auto pay
+                            </small>
+                          </p>
+                          <FormControlLabel
+                            id="autoPaySpan"
+                            control={
+                              <Switch
+                                checked={disabledContent}
+                                onChange={handleSwitchPayment}
+                                value={disabledContent}
+                                inputProps={{ "data-test-id": "switch" }}
+                                color="primary"
+                              />
+                            }
+                            labelPlacement="end"
+                            label={
+                              disabledContent
+                                ? "Auto pay is On"
+                                : "Auto pay is Off"
+                            }
+                          />
+                          <p style={{ fontSize: "0.938rem" }}>
+                            By enabling Auto Pay mode, I acknowledge to have
+                            read, understood, and agree to the terms of the
+                            &nbsp;
+                            <Link
+                              to="#"
+                              onClick={handleAutoPayClickOpen}
+                              className={classes.autoPayLink}
+                            >
+                              Auto Pay Authorization
+                            </Link>
+                          </p>
+                          <Grid item xs={12} style={{ paddingBottom: "20px" }}>
+                            <ButtonPrimary
+                              stylebutton='{"background": "", "color":"" }'
+                              id="submitBtn"
+                              onClick={handleClickSubmit}
+                              disabled={autopaySubmit}
+                            >
+                              Submit
+                            </ButtonPrimary>
+                          </Grid>
+                        </Grid>
+                        <Grid
+                          item
+                          xs={12}
+                          style={{
+                            opacity: disabledContent ? 0.5 : 1,
+                            pointerEvents: disabledContent ? "none" : "initial",
+                          }}
+                        >
+                          <Typography
+                            style={{ paddingBottom: "10px" }}
+                            className={classes.cardHeading}
+                          >
+                            Single Payment
+                          </Typography>
+                          <TextField
+                            id="payment"
+                            name="payment"
+                            label="Payment Amount"
+                            type="text"
+                            autoComplete="off"
+                            onChange={onHandlepaymentAmount}
+                            value={"$" + paymentAmount}
+                            onBlur={onBlurPayment}
+                            disabled={hasSchedulePayment}
+                          />
+                          <p
+                            className={
+                              requiredAmount !== ""
+                                ? "showError add Pad"
+                                : "hideError"
+                            }
+                            data-testid="subtitle"
+                          >
+                            {" "}
+                            {requiredAmount}
+                          </p>
+                          <Grid
+                            item
+                            xs={12}
+                            container
+                            direction="row"
+                            style={{
+                              display: "inline-flex",
+                              paddingTop: "10px",
+                            }}
+                          >
+                            <DatePicker
+                              name="date"
+                              label="Payment Date"
+                              placeholder="MM/DD/YYYY"
+                              id="date"
+                              disablePast
+                              autoComplete="off"
+                              maxdate={paymentMaxDate}
+                              onKeyDown={(e) => e.preventDefault()}
+                              shouldDisableDate={disableWeekends}
+                              minyear={4}
+                              onChange={(paymentDatepickerOnChange) => {
+                                setpaymentDatepicker(
+                                  Moment(paymentDatepickerOnChange).format(
+                                    "YYYY/MM/DD"
+                                  )
+                                );
+                                setrequiredDate("");
+                              }}
+                              value={paymentDatepicker}
+                              disabled={hasSchedulePayment}
+                            />
+                            <p
+                              className={
+                                requiredDate !== ""
+                                  ? "showError add Pad"
+                                  : "hideError"
+                              }
+                              data-testid="subtitle"
+                            >
+                              {" "}
+                              {requiredDate}
+                            </p>
+                          </Grid>
+                          <Grid
+                            id="paymentBtnWrap"
+                            style={{ paddingTop: "25px" }}
+                          >
+                            <Grid id="make-payment-cancel-button-grid">
+                              <ButtonSecondary
+                                stylebutton="{}"
+                                styleicon='{ "color":"" }'
+                                id="cancelPaymentBtn"
+                                onClick={handlePaymentcancel}
+                                disabled={!hasSchedulePayment}
+                              >
+                                Cancel Payment
+                              </ButtonSecondary>
+                            </Grid>
+                            <Grid>
+                              <ButtonPrimary
+                                stylebutton='{"marginRight": "" }'
+                                id="make-payment-schedule-button"
+                                onClick={handleSchedulePaymentClick}
+                                disabled={hasSchedulePayment}
+                              >
+                                Schedule Payment
+                              </ButtonPrimary>
+                            </Grid>
+                          </Grid>
+                        </Grid>
+                      </div>
+                    ) : (
+                      <div
+                        style={{ display: "flex", justifyContent: "center" }}
+                      >
+                        <CircularProgress />
+                      </div>
+                    )}
+                  </Paper>
+                </Grid>
+              </>
+            ) : (
+              ""
+            )
+          ) : (
+            ""
+          )
+        ) : (
+          ""
+        )}
         <Grid item xs={12}>
           <p className={classes.endMessage}>
             {" "}
@@ -788,7 +1170,9 @@ export default function MakePayment(props) {
       >
         <DialogTitle id="autopayText">
           <Typography id="autoTxt" className={classes.dialogHeading}>
-            {disabledContent === false ? "Are you sure you want to disable auto pay ?" : "Are you sure you want to enable auto pay ?"}
+            {disabledContent === false
+              ? "Are you sure you want to disable auto pay ?"
+              : "Are you sure you want to enable auto pay ?"}
           </Typography>
           <IconButton
             id="autopayCloseBtn"
@@ -800,7 +1184,9 @@ export default function MakePayment(props) {
           </IconButton>
         </DialogTitle>
 
-        <DialogActions style={{ justifyContent: "center", marginBottom: "25px" }}>
+        <DialogActions
+          style={{ justifyContent: "center", marginBottom: "25px" }}
+        >
           <ButtonSecondary
             stylebutton='{"background": "", "color":"" }'
             onClick={handleCloseAutoPayPopup}
@@ -836,7 +1222,8 @@ export default function MakePayment(props) {
       >
         <DialogTitle id="scheduleDialogHeading">
           <Typography id="scheduleTxt" className={classes.dialogHeading}>
-            Are you sure you want to schedule a payment ?
+            Your Payment of: ${paymentAmount} will be applied to your account.
+            Are you sure?
           </Typography>
           <IconButton
             aria-label="close"
@@ -847,19 +1234,21 @@ export default function MakePayment(props) {
           </IconButton>
         </DialogTitle>
 
-        <DialogActions style={{ justifyContent: "center", marginBottom: "25px" }}>
+        <DialogActions
+          style={{ justifyContent: "center", marginBottom: "25px" }}
+        >
           <ButtonSecondary
             stylebutton='{"background": "", "color":"" }'
             onClick={handlePaymentClose}
           >
-            No
+            Cancel
           </ButtonSecondary>
           <ButtonPrimary
             stylebutton='{"background": "", "color":"" }'
             onClick={handleSchedulePaymentSubmit}
             disabled={loading}
           >
-            Yes
+            Ok
             <i
               className="fa fa-refresh fa-spin customSpinner"
               style={{
@@ -880,7 +1269,7 @@ export default function MakePayment(props) {
         aria-describedby="alert-dialog-description"
         classes={{ paper: classes.dialogPaper }}
       >
-        <DialogTitle id="deleteDialogHeading" >
+        <DialogTitle id="deleteDialogHeading">
           <Typography id="deleteTxt" className={classes.dialogHeading}>
             Are you sure you want to delete the scheduled payment ?
           </Typography>
@@ -894,7 +1283,9 @@ export default function MakePayment(props) {
           </IconButton>
         </DialogTitle>
 
-        <DialogActions style={{ justifyContent: "center", marginBottom: "25px" }}>
+        <DialogActions
+          style={{ justifyContent: "center", marginBottom: "25px" }}
+        >
           <ButtonSecondary
             stylebutton='{"background": "", "color":"" }'
             onClick={handleDeleteScheduleClose}
@@ -917,7 +1308,6 @@ export default function MakePayment(props) {
           </ButtonPrimary>
         </DialogActions>
       </Dialog>
-
 
       {/* **************Auto pay terms & condition modal******************* */}
 

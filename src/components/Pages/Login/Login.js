@@ -38,8 +38,8 @@ const useStyles = makeStyles((theme) => ({
 		flexDirection: "column",
 		backgroundColor: `rgba(255, 255, 255, .8)`,
 		color: theme.palette.text.secondary,
-		boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%), 
-		0 6px 30px 5px rgb(0 0 0 / 12%), 
+		boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%),
+		0 6px 30px 5px rgb(0 0 0 / 12%),
 		0 8px 10px -7px rgb(0 0 0 / 20%)`,
 	},
 	heading: {
@@ -64,8 +64,8 @@ const useStyles = makeStyles((theme) => ({
 		marginBottom: "25px",
 	},
 	mainGrid: {
-		boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%), 
-		0 6px 30px 5px rgb(0 0 0 / 12%), 
+		boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%),
+		0 6px 30px 5px rgb(0 0 0 / 12%),
 		0 8px 10px -7px rgb(0 0 0 / 20%)`,
 		background: "#f5f2f2",
 	},
@@ -122,16 +122,16 @@ export default function Login(props) {
 				props.setToken
 			);
 			if (retVal?.data?.data?.user && retVal?.data?.data?.userFound === true) {
-                let login_date = (retVal.data.data.user.extensionattributes?.login?.last_timestamp_date) ? moment(retVal.data.data.user.extensionattributes.login.last_timestamp_date).subtract(addVal, 'hours').format('MM/DD/YYYY'): '';
-                var now = new Date().getTime();
-                // On login success storing the needed data in the local storage
+				let login_date = (retVal.data.data.user.extensionattributes?.login?.last_timestamp_date) ? moment(retVal.data.data.user.extensionattributes.login.last_timestamp_date).subtract(addVal, 'hours').format('MM/DD/YYYY') : '';
+				var now = new Date().getTime();
+				// On login success storing the needed data in the local storage
 				Cookies.set("token", JSON.stringify({ isLoggedIn: true, apiKey: retVal?.data?.data?.user?.extensionattributes?.login?.jwt_token, setupTime: now, applicantGuid: retVal?.data?.data?.user?.attributes?.sor_data?.applicant_guid }));
-				Cookies.set("cred", encryptAES(JSON.stringify({email: values.email, password: values.password })));
-                Cookies.set("email",values.email);
-                Cookies.set("profile_picture",retVal?.data?.data?.user?.mobile?.profile_picture ? retVal?.data?.data?.user?.mobile?.profile_picture : "");
-                Cookies.set('login_date',login_date) 
-                Cookies.set('userToken', retVal?.data?.data?.user?.attributes?.UserToken)
-			
+				Cookies.set("cred", encryptAES(JSON.stringify({ email: values.email, password: values.password })));
+				Cookies.set("email", values.email);
+				Cookies.set("profile_picture", retVal?.data?.data?.user?.mobile?.profile_picture ? retVal?.data?.data?.user?.mobile?.profile_picture : "");
+				Cookies.set('login_date', login_date)
+				Cookies.set('userToken', retVal?.data?.data?.user?.attributes?.UserToken)
+
 				setLoading(false);
 				history.push({
 					pathname: props.location.state?.redirect

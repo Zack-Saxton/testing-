@@ -409,7 +409,7 @@ export async function checkMyOfferSubmitTest(customer) {
 				data: JSON.stringify(bodyTest),
 				headers: {
 					"Content-Type": "application/json",
-				
+
 				},
 				transformRequest: (data, headers) => {
 					delete headers.common["Content-Type"];
@@ -433,55 +433,53 @@ export async function getCustomerByEmail(email) {
 	};
 	let method = "POST";
 	let addAccessToken = false;
-  
+
 	//API call
 	let loanHistory = await APICall(url, param, data, method, addAccessToken);
-  
-	return loanHistory;
-  }
 
-  export async function creatProspect(body) {
+	return loanHistory;
+}
+
+export async function creatProspect(body) {
 	//API
 	let url = "create_prospect";
 	let param = "";
 	let dobDate = new Date(body.dob);
 	let data = {
 		"first_name": body.firstName,
-        "last_name": body.lastName,
-        "email": body.email,
-        "ssn": body.ssn,
-        "address_postal_code":body.zip,
-        "password": null,
-        "phone":body.phone,
-        "phone_type":null,
-        "citizenship":body.citizenship,
-        "income":null,
-        "household_annual_income":null,
-        "employment_status":null,
-        "tenure_at_employer":null,
-        "rent_or_own_home":null,
-        "rent_or_mortgage_payment":null,
-        "loan_purpose":null,
-        "marital_status":null,
-        "spouse_address_street":null,
-        "spouse_address_city":null,
-        "spouse_address_state":null,
-        "utm_source":null,
-        "is_partner_signup":null,
-        "gclid":null,
-        "loan_requested":null,
+		"last_name": body.lastName,
+		"email": body.email,
+		"ssn": body.ssn,
+		"address_postal_code": body.zip,
+		"password": null,
+		"phone": body.phone,
+		"phone_type": null,
+		"citizenship": body.citizenship,
+		"income": null,
+		"household_annual_income": null,
+		"employment_status": null,
+		"tenure_at_employer": null,
+		"rent_or_own_home": null,
+		"rent_or_mortgage_payment": null,
+		"loan_purpose": null,
+		"marital_status": null,
+		"spouse_address_street": null,
+		"spouse_address_city": null,
+		"spouse_address_state": null,
+		"utm_source": null,
+		"is_partner_signup": null,
+		"gclid": null,
+		"loan_requested": null,
 		"birth_year": dobDate.getFullYear().toString(),
-        "birth_month": ("0" + (dobDate.getMonth() + 1)).slice(-2),
-        "birth_day": ("0" + (dobDate.getDate() + 1)).slice(-2),
-        "address_street": body.streetAddress,
-        "address_city": body.city,
-        "address_state": body.state
+		"birth_month": ("0" + (dobDate.getMonth() + 1)).slice(-2),
+		"birth_day": ("0" + (dobDate.getDate() + 1)).slice(-2),
+		"address_street": body.streetAddress,
+		"address_city": body.city,
+		"address_state": body.state
 	};
 	let method = "POST";
 	let addAccessToken = true;
 	//API call
 	let prospect = await APICall(url, param, data, method, addAccessToken);
 	return prospect;
-  }
-
-
+}

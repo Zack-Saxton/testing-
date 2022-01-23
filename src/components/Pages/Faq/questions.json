@@ -29,7 +29,6 @@
       "message": "To obtain your account number, contact your local branch."
     }
   ],
-
   "application_Question": [
     {
       "question": "What is a Mariner Finance offer code?",
@@ -88,156 +87,154 @@
   ],
   "payment_questions": [
     {
-        "question": "Do I receive a monthly statement?",
-        "message": "No, you will not receive a monthly statement, but, for your convenience, we offer secure online access to your account information through our Customer Account Center. Alternatively, you can contact your local branch for your account information."
-      },
-      {
-        "question": "Can I pay my account at another branch?",
-        "message": "Yes, you may make a payment at any Mariner Finance branch. You can even make a payment online through at our Customer Account Center."
-      },
-      {
-        "question": "Can I set up my account to make automatic payments through your company?",
-        "message": "Yes, Mariner Finance does provide automatic payment options through the Customer Account Center, or you can set up automatic payments through your own bank account."
-      },
-      {
-        "question": "How can I view my payment history?",
-        "message": "You can view your payment history in the Customer Account Center or you can contact your local branch for payment history information."
-      },
-      {
-        "question": "How can I find out what my current balance is? ",
-        "message": "Login to the Customer Account Center or contact your local branch to find out your current balance."
-      },
-      {
-        "question": "I’m having trouble paying online, what should I do?",
-        "message": "If you are having issues logging into the Customer Account Center, please contact our web support team at (844) 306-7300 during the following times: Monday, Wednesday, Thursday 9am-5pm ET, Tuesday 9am-7pm ET, and Friday 9am-5pm ET."
-      },
-      {
-        "question": "How can I make a payment? ",
-        "message": "For your convenience, we offer a secure online access to your account through our Customer Account Center. From the Customer Account Center you can make a single payment, set-up recurring payments, check your balance, and view your payment history. You can also stop by your local branch to pay, or pay by phone from your bank account. Please note that fees may apply to one time online payments or phone payments in some states. No fees will be charged for reoccurring payments, for in-person payments made at a branch, or for mailed-in payments. If you wish to send a payment by mail, please address payments to Mariner Finance, LLC,  P.O. Box 44490, Baltimore, MD 21236 and include your account number."
-      }
-],
-
+      "question": "Do I receive a monthly statement?",
+      "message": "No, you will not receive a monthly statement, but, for your convenience, we offer secure online access to your account information through our Customer Account Center. Alternatively, you can contact your local branch for your account information."
+    },
+    {
+      "question": "Can I pay my account at another branch?",
+      "message": "Yes, you may make a payment at any Mariner Finance branch. You can even make a payment online through at our Customer Account Center."
+    },
+    {
+      "question": "Can I set up my account to make automatic payments through your company?",
+      "message": "Yes, Mariner Finance does provide automatic payment options through the Customer Account Center, or you can set up automatic payments through your own bank account."
+    },
+    {
+      "question": "How can I view my payment history?",
+      "message": "You can view your payment history in the Customer Account Center or you can contact your local branch for payment history information."
+    },
+    {
+      "question": "How can I find out what my current balance is? ",
+      "message": "Login to the Customer Account Center or contact your local branch to find out your current balance."
+    },
+    {
+      "question": "I’m having trouble paying online, what should I do?",
+      "message": "If you are having issues logging into the Customer Account Center, please contact our web support team at (844) 306-7300 during the following times: Monday, Wednesday, Thursday 9am-5pm ET, Tuesday 9am-7pm ET, and Friday 9am-5pm ET."
+    },
+    {
+      "question": "How can I make a payment? ",
+      "message": "For your convenience, we offer a secure online access to your account through our Customer Account Center. From the Customer Account Center you can make a single payment, set-up recurring payments, check your balance, and view your payment history. You can also stop by your local branch to pay, or pay by phone from your bank account. Please note that fees may apply to one time online payments or phone payments in some states. No fees will be charged for reoccurring payments, for in-person payments made at a branch, or for mailed-in payments. If you wish to send a payment by mail, please address payments to Mariner Finance, LLC,  P.O. Box 44490, Baltimore, MD 21236 and include your account number."
+    }
+  ],
   "mariner_questions": [
     {
       "question": "Do you report to any credit bureaus?",
       "message": "Mariner Finance reports directly to Equifax, TransUnion, and Experian."
     },
     {
-        "question": "Are you still affiliated with 1st Mariner Bank? ",
-        "message": "No, Mariner Finance is not affiliated with 1st Mariner Bank."
-      },
-      {
-        "question": "What kind of company is Mariner Finance? ",
-        "message": "Mariner Finance is a consumer finance company."
-      },
-      {
-        "question": "Why do our customers borrow from Mariner Finance?"
-        ,
-        "message": "Mariner Finance has been serving communities since 1927 in over 470 branches in 25 states around the country, with branch managers who live in the communities they serve. For our customers, that means convenience and commitment to the community. Take a look at some of the reasons our customers have chosen Mariner Finance. Spend some time on our testimonial and our review page."
-      },
-      {
-        "question": "Mariner Finance benefits",
-        "message": "i) 15-day satisfaction guarantee. ii) Checking your offers will not impact your credit score*. iii) Secure, fast & easy process"
-      },
-      {
-        "question": "Ready to speak to a person—in person? ",
-        "message": "You have your own unique goals to meet, and it all starts with a 5 minute conversation with one of our team members. You can reach us directly at 877-310-2373. "
-      },
-      {
-        "question": "What is a personal loan? ",
-        "message": "Great question. It’s a loan that may help you deal with an unexpected expense, see a new part of the world, or simply help you achieve your personal goals. We have those."
-      },
-      {
-        "question": "How do personal loans work? ",
-        "message": "With personal loans, the consumer pays off the loan balance at a fixed rate over a fixed period of time. This type of installment loan can be secured by an asset or have a co-signer; or it can be unsecured (based on credit history and other factors).These are loans that meet an individual need as opposed to a business need."
-      },
-      {
-        "question": "Secured versus Unsecured Loans",
-        "message": "Secured loans: A secured loan means you are pledging something of value as an assurance that your loan will be repaid according to the agreed terms and conditions. Assets such as cars can be used as collateral, and, in some instances, the lender can place a lien on the asset, which will remain until the loan has been paid in full, including interest and all applicable fees.It’s important to remember that if you are unable to repay a secured loan, the lender may be able to sell the pledged collateral to pay off all or part of the loan. Unsecured loans:Unsecured loans are loans that do not require the borrower to pledge any collateral. Unsecured loans are sometimes considered riskier because there is no property or assets to recover in event of default. If you have been turned down for an unsecured loan, you may still be able to obtain a secured loan if you have an asset that can be used as collateral."
-      },
-      {
-        "question": "What are the types of personal loans? ",
-        "message": "A personal loan can meet a variety of needs, including medical emergencies, home improvement projects, vacations, weddings and debt consolidation. Mariner Finance has a solution that fits your needs. Check your personal loan offer online today.*"
-      },
-      {
-        "question": "Debt consolidation.",
-        "message": "This type of loan helps streamline a variety of debt—from medical bills to credit card payments—into a workable, single monthly payment solution. Learn more about a loan for debt consolidation.*"
-      },
-      {
-        "question": "Streamline your debt with a loan for debt consolidation.",
-        "message": "If you have multiple debts from a variety of sources—such as wedding expenses, credit card bills, and large purchases—we can work with you to try to find the best way to consolidate debt to lower your payments.If you simply want to learn a little bit more about debt consolidation loans, that’s fine too.Here you’ll discover what a debt consolidation loan is and answers to commonly asked questions. You can also simply apply online for a debt consolidation loan.*"
-      },
-      {
-        "question": "What is debt consolidation?",
-        "message": "Debt consolidation loans are a type of debt refinancing that allows consumers to pay off various unsecured debts by combining them into one loan with one monthly payment.Most consumers consider debt consolidation for unsecured debts which yield a high interest rate, such as credit cards, medical bills, high-interest loans and other various bills."
-      },
-      {
-        "question": "What are the benefits of consolidating debts?",
-        "message": "There are many benefits of getting a loan to manage your debt. Here is a list of some common benefits of debt consolidation loans:You can pay off higher interest loans to consolidate your debt into one loan with one monthly payment.Your debt consolidation loan may result in a reduced overall total monthly payment. You may have the ability to choose a loan term that allows you to repay your loan over a longer term.You may be able to consolidate credit card debts or file for a credit card balance transfer"
-      },
-      {
-        "question": "When to use a loan to consolidate your debt?",
-        "message": "When considering whether to consolidate debt, you should always consider the total interest you are paying over the term of the debt.You may have more sources of debt than you would like. If so, you may want to apply for a Mariner Finance debt consolidation loan to help make life more manageable."
-      },
-      {
-        "question": "Covering unexpected expenses.",
-        "message": "Major appliance breakdowns, brake jobs, medical costs (people and pets), and plumbing repairs all have one thing in common. They tend to happen at the most inconvenient times. Learn more about our unexpected expenses loans.*"
-      },
-      {
-        "question": "Unexpected Expenses. Prepare for what you can’t predict.",
-        "message": "From mechanical to medical expenses, life throws its share of curve balls. Mariner Finance can help you handle unexpected expenses with a custom-made loan solution."
-      },
-      {
-        "question": "Ways to use an unexpected expense loan.",
-        "message": "You never know when your furnace will give out, your car will need a new transmission, or you’ll need to take care of a large hospital bill. Explore our variety of personal loan options, tailored to meet the needs of your unexpected expenses.* Simply call or visit your local branch.There are different types of personal loans. Explore all our personal loan options.*"
-      },
-      {
-        "question": "Making home improvements. ",
-        "message": "You might not always have sufficient funds to cover potentially value-enhancing investments like new countertops, flooring, or deck additions. We can help you make those upgrades happen with one of loans for home improvements.* "
-      },
-      {
-        "question": "Why use loans for home improvements? ",
-        "message": "Home improvements and renovations, small or large, can increase the value of your house but are often not cheap. A home improvement loan can provide a way to make the improvements today and stay within your budget. When you’re ready to sell or want to take out a home equity loan, you could be in a position to sell your home for more money.With a home improvement loan, you could get that new home addition you’ve always sought after or finally remodel your kitchen with new cabinets. Whatever your home improvement needs, Mariner Finance is here to assist you.Explore all our home improvement loan options today.* "
-      },
-      {
-        "question": "Paying for a vacation. ",
-        "message": "Eager to see more of the world, or just another part of the country? Ready to finally book that cruise? Due for a family reunion? Plan the trip you’ve been putting off with one of our vacation loans.*"
-      },
-      {
-        "question": "Vacation Loans that take you places.",
-        "message": "Vacation loans from Mariner Finance can help you finally start your adventure. If you’ve wanted to visit family across the country or landmarks across the globe, now is the time. Why wait?"
-      },
-      {
-        "question": "Why a Vacation Loan? ",
-        "message": "From weekend getaways to month-long sabbaticals, vacation costs can add up quickly. There’s the hotel, airfare, transportation, as well as trying all the local food. With a vacation loan from Mariner Finance, you can book your trip now and take the time to enjoy it. When you get back, a personalized payment plan will be waiting for you.*"
-      },
-      {
-        "question": "How our vacation loans work.",
-        "message": "Our vacation loans give you the benefit of a fixed interest rate and fixed monthly payment, which can make it easier to manage expenses. The vacation financing process is a simple one: apply for a vacation loan* and, if approved, you may be able to get the money you need in as little as a day.Discover other personal loan options."
-      },
-      {
-        "question": "Taking care of wedding expenses.",
-        "message": "Sometimes, love just can’t wait for your bank balance to catch up, and wedding costs are often more than we anticipate. Learn more about our wedding expenses loans."
-      },
-      {
-        "question": "Wedding loans. Make your day unforgettable.",
-        "message": "From centerpieces to soundtracks, there’s a lot you have to think about when planning your wedding. A wedding loan from Mariner Finance might help relieve the financial stress so you can spend less time worrying about paying the caterer and more time enjoying your special day.TheKnot.com estimates that the national average wedding cost is around $33,391. It’s true, getting married can be expensive, but we are here to help.74% of couples planned to borrow money for their wedding finances and 21% actually take out a loan to do so, according to a 2017 study. Personal wedding loans can be a great way to finance the wedding of your dreams. Your wedding day should be stress-free without putting a huge strain on your bank account.Enjoy your wedding day, honeymoon, and the flight back home knowing you had the experience of a lifetime."
-      },
-      {
-        "question": "Why use a personal wedding loan? ",
-        "message": "Sometimes love can’t wait for your bank account to catch up. Adding together the flowers, venue, dream dress and caterer would make anyone’s wallet light. A wedding loan may help you have the wedding of your dreams without cutting your guest list.*"
-      },
-      {
-        "question": "How our wedding loans work.",
-        "message": "Our wedding loans give you the benefit of a fixed interest rate and fixed monthly payment, helping to make it easier to manage your expenses. The process is a simple: apply now and you may be able to get the money you need in as little as a day. We offer loans from $1,000 to $25,000."
-      },
-      {
-        "question": "How our personal loans work.",
-        "message": "Whether secured or unsecured personal loans, our loans give you the benefit of a monthly payment with a fixed interest rate, making it easier to manage expenses. The process is a simple one: apply for a personal loan and receive a quick decision"
-      },
-      {
-        "question": "Mariner Finance Reviews.",
-        "message": "Over 10,000 customers have reviewed Mariner Finance. Feefo independently collects reviews from Mariner Finance customers. Feefo believes that only authentic reviews are worth collecting: genuine feedback that has been matched to a transaction. Since 2010, Feefo has advocated transparency and trust in reviews.One of Mariner Finance core values is Superior Customer Service. By using Feefo, Mariner Finance is able to collect reviews from their customers and listen to their feedback to improve the customer experience even more. Mariner Finance has already received more than 10,000 customer reviews on their Mariner Finance Reviews page."
-      }
-    ]
+      "question": "Are you still affiliated with 1st Mariner Bank? ",
+      "message": "No, Mariner Finance is not affiliated with 1st Mariner Bank."
+    },
+    {
+      "question": "What kind of company is Mariner Finance? ",
+      "message": "Mariner Finance is a consumer finance company."
+    },
+    {
+      "question": "Why do our customers borrow from Mariner Finance?",
+      "message": "Mariner Finance has been serving communities since 1927 in over 470 branches in 25 states around the country, with branch managers who live in the communities they serve. For our customers, that means convenience and commitment to the community. Take a look at some of the reasons our customers have chosen Mariner Finance. Spend some time on our testimonial and our review page."
+    },
+    {
+      "question": "Mariner Finance benefits",
+      "message": "i) 15-day satisfaction guarantee. ii) Checking your offers will not impact your credit score*. iii) Secure, fast & easy process"
+    },
+    {
+      "question": "Ready to speak to a person—in person? ",
+      "message": "You have your own unique goals to meet, and it all starts with a 5 minute conversation with one of our team members. You can reach us directly at 877-310-2373. "
+    },
+    {
+      "question": "What is a personal loan? ",
+      "message": "Great question. It’s a loan that may help you deal with an unexpected expense, see a new part of the world, or simply help you achieve your personal goals. We have those."
+    },
+    {
+      "question": "How do personal loans work? ",
+      "message": "With personal loans, the consumer pays off the loan balance at a fixed rate over a fixed period of time. This type of installment loan can be secured by an asset or have a co-signer; or it can be unsecured (based on credit history and other factors).These are loans that meet an individual need as opposed to a business need."
+    },
+    {
+      "question": "Secured versus Unsecured Loans",
+      "message": "Secured loans: A secured loan means you are pledging something of value as an assurance that your loan will be repaid according to the agreed terms and conditions. Assets such as cars can be used as collateral, and, in some instances, the lender can place a lien on the asset, which will remain until the loan has been paid in full, including interest and all applicable fees.It’s important to remember that if you are unable to repay a secured loan, the lender may be able to sell the pledged collateral to pay off all or part of the loan. Unsecured loans:Unsecured loans are loans that do not require the borrower to pledge any collateral. Unsecured loans are sometimes considered riskier because there is no property or assets to recover in event of default. If you have been turned down for an unsecured loan, you may still be able to obtain a secured loan if you have an asset that can be used as collateral."
+    },
+    {
+      "question": "What are the types of personal loans? ",
+      "message": "A personal loan can meet a variety of needs, including medical emergencies, home improvement projects, vacations, weddings and debt consolidation. Mariner Finance has a solution that fits your needs. Check your personal loan offer online today.*"
+    },
+    {
+      "question": "Debt consolidation.",
+      "message": "This type of loan helps streamline a variety of debt—from medical bills to credit card payments—into a workable, single monthly payment solution. Learn more about a loan for debt consolidation.*"
+    },
+    {
+      "question": "Streamline your debt with a loan for debt consolidation.",
+      "message": "If you have multiple debts from a variety of sources—such as wedding expenses, credit card bills, and large purchases—we can work with you to try to find the best way to consolidate debt to lower your payments.If you simply want to learn a little bit more about debt consolidation loans, that’s fine too.Here you’ll discover what a debt consolidation loan is and answers to commonly asked questions. You can also simply apply online for a debt consolidation loan.*"
+    },
+    {
+      "question": "What is debt consolidation?",
+      "message": "Debt consolidation loans are a type of debt refinancing that allows consumers to pay off various unsecured debts by combining them into one loan with one monthly payment.Most consumers consider debt consolidation for unsecured debts which yield a high interest rate, such as credit cards, medical bills, high-interest loans and other various bills."
+    },
+    {
+      "question": "What are the benefits of consolidating debts?",
+      "message": "There are many benefits of getting a loan to manage your debt. Here is a list of some common benefits of debt consolidation loans:You can pay off higher interest loans to consolidate your debt into one loan with one monthly payment.Your debt consolidation loan may result in a reduced overall total monthly payment. You may have the ability to choose a loan term that allows you to repay your loan over a longer term.You may be able to consolidate credit card debts or file for a credit card balance transfer"
+    },
+    {
+      "question": "When to use a loan to consolidate your debt?",
+      "message": "When considering whether to consolidate debt, you should always consider the total interest you are paying over the term of the debt.You may have more sources of debt than you would like. If so, you may want to apply for a Mariner Finance debt consolidation loan to help make life more manageable."
+    },
+    {
+      "question": "Covering unexpected expenses.",
+      "message": "Major appliance breakdowns, brake jobs, medical costs (people and pets), and plumbing repairs all have one thing in common. They tend to happen at the most inconvenient times. Learn more about our unexpected expenses loans.*"
+    },
+    {
+      "question": "Unexpected Expenses. Prepare for what you can’t predict.",
+      "message": "From mechanical to medical expenses, life throws its share of curve balls. Mariner Finance can help you handle unexpected expenses with a custom-made loan solution."
+    },
+    {
+      "question": "Ways to use an unexpected expense loan.",
+      "message": "You never know when your furnace will give out, your car will need a new transmission, or you’ll need to take care of a large hospital bill. Explore our variety of personal loan options, tailored to meet the needs of your unexpected expenses.* Simply call or visit your local branch.There are different types of personal loans. Explore all our personal loan options.*"
+    },
+    {
+      "question": "Making home improvements. ",
+      "message": "You might not always have sufficient funds to cover potentially value-enhancing investments like new countertops, flooring, or deck additions. We can help you make those upgrades happen with one of loans for home improvements.* "
+    },
+    {
+      "question": "Why use loans for home improvements? ",
+      "message": "Home improvements and renovations, small or large, can increase the value of your house but are often not cheap. A home improvement loan can provide a way to make the improvements today and stay within your budget. When you’re ready to sell or want to take out a home equity loan, you could be in a position to sell your home for more money.With a home improvement loan, you could get that new home addition you’ve always sought after or finally remodel your kitchen with new cabinets. Whatever your home improvement needs, Mariner Finance is here to assist you.Explore all our home improvement loan options today.* "
+    },
+    {
+      "question": "Paying for a vacation. ",
+      "message": "Eager to see more of the world, or just another part of the country? Ready to finally book that cruise? Due for a family reunion? Plan the trip you’ve been putting off with one of our vacation loans.*"
+    },
+    {
+      "question": "Vacation Loans that take you places.",
+      "message": "Vacation loans from Mariner Finance can help you finally start your adventure. If you’ve wanted to visit family across the country or landmarks across the globe, now is the time. Why wait?"
+    },
+    {
+      "question": "Why a Vacation Loan? ",
+      "message": "From weekend getaways to month-long sabbaticals, vacation costs can add up quickly. There’s the hotel, airfare, transportation, as well as trying all the local food. With a vacation loan from Mariner Finance, you can book your trip now and take the time to enjoy it. When you get back, a personalized payment plan will be waiting for you.*"
+    },
+    {
+      "question": "How our vacation loans work.",
+      "message": "Our vacation loans give you the benefit of a fixed interest rate and fixed monthly payment, which can make it easier to manage expenses. The vacation financing process is a simple one: apply for a vacation loan* and, if approved, you may be able to get the money you need in as little as a day.Discover other personal loan options."
+    },
+    {
+      "question": "Taking care of wedding expenses.",
+      "message": "Sometimes, love just can’t wait for your bank balance to catch up, and wedding costs are often more than we anticipate. Learn more about our wedding expenses loans."
+    },
+    {
+      "question": "Wedding loans. Make your day unforgettable.",
+      "message": "From centerpieces to soundtracks, there’s a lot you have to think about when planning your wedding. A wedding loan from Mariner Finance might help relieve the financial stress so you can spend less time worrying about paying the caterer and more time enjoying your special day.TheKnot.com estimates that the national average wedding cost is around $33,391. It’s true, getting married can be expensive, but we are here to help.74% of couples planned to borrow money for their wedding finances and 21% actually take out a loan to do so, according to a 2017 study. Personal wedding loans can be a great way to finance the wedding of your dreams. Your wedding day should be stress-free without putting a huge strain on your bank account.Enjoy your wedding day, honeymoon, and the flight back home knowing you had the experience of a lifetime."
+    },
+    {
+      "question": "Why use a personal wedding loan? ",
+      "message": "Sometimes love can’t wait for your bank account to catch up. Adding together the flowers, venue, dream dress and caterer would make anyone’s wallet light. A wedding loan may help you have the wedding of your dreams without cutting your guest list.*"
+    },
+    {
+      "question": "How our wedding loans work.",
+      "message": "Our wedding loans give you the benefit of a fixed interest rate and fixed monthly payment, helping to make it easier to manage your expenses. The process is a simple: apply now and you may be able to get the money you need in as little as a day. We offer loans from $1,000 to $25,000."
+    },
+    {
+      "question": "How our personal loans work.",
+      "message": "Whether secured or unsecured personal loans, our loans give you the benefit of a monthly payment with a fixed interest rate, making it easier to manage expenses. The process is a simple one: apply for a personal loan and receive a quick decision"
+    },
+    {
+      "question": "Mariner Finance Reviews.",
+      "message": "Over 10,000 customers have reviewed Mariner Finance. Feefo independently collects reviews from Mariner Finance customers. Feefo believes that only authentic reviews are worth collecting: genuine feedback that has been matched to a transaction. Since 2010, Feefo has advocated transparency and trust in reviews.One of Mariner Finance core values is Superior Customer Service. By using Feefo, Mariner Finance is able to collect reviews from their customers and listen to their feedback to improve the customer experience even more. Mariner Finance has already received more than 10,000 customer reviews on their Mariner Finance Reviews page."
+    }
+  ]
 }

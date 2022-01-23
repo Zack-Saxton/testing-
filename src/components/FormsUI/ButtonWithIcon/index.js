@@ -2,14 +2,14 @@
 
 File Name           :    ButtonWithIcon/index.js
 Component Name      :    ButtonWithIcon
-Functionality       :    To use this ButtonWithIcon as a default component for UI purpose across the whole application to 
+Functionality       :    To use this ButtonWithIcon as a default component for UI purpose across the whole application to
                           maintain same consistency.
 
 #################################################################################################################*/
 
 import React from "react";
-import {Button} from "@material-ui/core";
-import {makeStyles} from "@material-ui/core/styles";
+import { Button } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import Icon from "@material-ui/core/Icon";
 
 const ButtonWithIcon = ({
@@ -20,7 +20,7 @@ const ButtonWithIcon = ({
   styleicon,
   ...otherProps
 }) => {
-  
+
   //Styling Part
   const useStyles = makeStyles((theme) => ({
     buttonColor: {
@@ -32,13 +32,13 @@ const ButtonWithIcon = ({
       height: "36px",
       fontSize: "1rem",
       fontWeight: "normal",
-      boxShadow:` 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12), 0 1px 5px 0 rgba(0, 0, 0, .2)`,
-      padding:" 0 2rem",
+      boxShadow: ` 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12), 0 1px 5px 0 rgba(0, 0, 0, .2)`,
+      padding: " 0 2rem",
       width: "auto",
       '&:hover': {
         background: '#ffbc23',
         color: 'black',
-    },
+      },
     },
   }));
 
@@ -59,9 +59,9 @@ const ButtonWithIcon = ({
   //View Part
   return (
     <Button {...configButton} style={styleButtonMF}>
-      {iconposition === "left" ? <Icon style={styleIconMF} data-testid= "icon">{icon}</Icon> : ""}
+      {iconposition === "left" ? <Icon style={styleIconMF} data-testid="icon">{icon}</Icon> : ""}
       {children}
-      {iconposition === "right" ? <Icon style={styleIconMF} data-testid= "icon">{icon}</Icon> : ""}
+      {iconposition === "right" ? <Icon style={styleIconMF} data-testid="icon">{icon}</Icon> : ""}
     </Button>
   );
 };

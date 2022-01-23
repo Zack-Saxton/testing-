@@ -135,17 +135,17 @@ function NewUser() {
 
 						rememberMe === true
 							? Cookies.set(
-									"rememberMe",
-									JSON.stringify({
-										selected: true,
-										email: values.email,
-										password: values.password,
-									})
-							  )
+								"rememberMe",
+								JSON.stringify({
+									selected: true,
+									email: values.email,
+									password: values.password,
+								})
+							)
 							: Cookies.set(
-									"rememberMe",
-									JSON.stringify({ selected: false, email: "", password: "" })
-							  );
+								"rememberMe",
+								JSON.stringify({ selected: false, email: "", password: "" })
+							);
 
 						setLoading(false);
 						history.push({

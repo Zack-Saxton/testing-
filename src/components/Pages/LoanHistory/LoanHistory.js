@@ -4,8 +4,8 @@ import LoanHistoryCard from "./CardContent";
 import LoanHistoryTable from "./RecordTable";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import {NavLink} from "react-router-dom";
-import {ButtonWithIcon} from "../../FormsUI";
+import { NavLink } from "react-router-dom";
+import { ButtonWithIcon } from "../../FormsUI";
 import "./Style.css";
 import ScrollToTopOnMount from "../ScrollToTop";
 import LoanHistoryController from "../../Controllers/LoanHistoryController";
@@ -18,9 +18,9 @@ export default function LoanHistory() {
 
   //API Call
   const [loanHistoryStatus, setloanHistoryStatus] = useState(null);
-  
-  async function AsyncEffect_loanHistory() { 
-    setloanHistoryStatus(await LoanHistoryController());    
+
+  async function AsyncEffect_loanHistory() {
+    setloanHistoryStatus(await LoanHistoryController());
   }
   useEffect(() => {
     AsyncEffect_loanHistory();
@@ -33,7 +33,7 @@ export default function LoanHistory() {
   //View Part
   return (
     <div>
-      <CheckLoginStatus/>
+      <CheckLoginStatus />
       <ScrollToTopOnMount />
       <Grid
         container

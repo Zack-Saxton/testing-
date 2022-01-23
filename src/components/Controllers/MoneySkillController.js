@@ -10,5 +10,5 @@ export default async function getMoneySkillLink() {
 
   //API call
   return APICall(url, param, data, method, addAccessToken);
-  
+
 }

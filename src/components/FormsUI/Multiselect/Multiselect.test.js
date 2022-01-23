@@ -1,79 +1,79 @@
 import React from "react";
-import {fireEvent, render, within} from "@testing-library/react";
+import { fireEvent, render, within } from "@testing-library/react";
 import MultiSelect from './index.js';
 import '@testing-library/jest-dom';
 
 test('Render Select Box', () => {
-    const  { getByTestId} = render(
-       <>  
-        <MultiSelect
-          name="multiselect"
-          labelform="Language Known"
-          multiselect='[{"value":"Tamil"}, {"value":"Eng"}]'
-          checkboxcolor="red"
-        />
-       </>
-    );
+  const { getByTestId } = render(
+    <>
+      <MultiSelect
+        name="multiselect"
+        labelform="Language Known"
+        multiselect='[{"value":"Tamil"}, {"value":"Eng"}]'
+        checkboxcolor="red"
+      />
+    </>
+  );
 
-    
-    const input = getByTestId('multiSelectInput');
-    expect(input).toBeTruthy();
-  
-    
-  });
+
+  const input = getByTestId('multiSelectInput');
+  expect(input).toBeTruthy();
+
+
+});
 test('Checks whether all the options are rendered', () => {
-    const  { getByRole } = render(
-       <>  
-         <MultiSelect
-          name="multiselect"
-          labelform="Language Known"
-          multiselect='[{"value":"Tamil"}, {"value":"Eng"}]'
-          checkboxcolor="red"
-        />
-       </>
-    );
-    fireEvent.mouseDown(getByRole('button'));
-  
-    const listbox = within(getByRole('listbox'));
+  const { getByRole } = render(
+    <>
+      <MultiSelect
+        name="multiselect"
+        labelform="Language Known"
+        multiselect='[{"value":"Tamil"}, {"value":"Eng"}]'
+        checkboxcolor="red"
+      />
+    </>
+  );
+  fireEvent.mouseDown(getByRole('button'));
 
-    expect(listbox.getByText(/Tamil/i)).toBeTruthy();
-    expect(listbox.getByText(/Eng/i)).toBeTruthy();  
-  });
-  
+  const listbox = within(getByRole('listbox'));
 
-  test('selects the correct option', () => {
-    const  { getByRole, getByTestId} = render(
-       <>  
-        <MultiSelect
-          name="multiselect"
-          labelform="Language Known"
-          multiselect='[{"value":"Tamil"}, {"value":"Eng"}]'
-          checkboxcolor="red"
-        />
-       </>
-    );
+  expect(listbox.getByText(/Tamil/i)).toBeTruthy();
+  expect(listbox.getByText(/Eng/i)).toBeTruthy();
+});
 
-    
-  
-    fireEvent.mouseDown(getByRole('button'));
-  
-    const listbox = within(getByRole('listbox'));
 
-    fireEvent.click(listbox.getByText(/Tamil/i));
-    fireEvent.click(listbox.getByText(/Eng/i));
+test('selects the correct option', () => {
+  const { getByRole, getByTestId } = render(
+    <>
+      <MultiSelect
+        name="multiselect"
+        labelform="Language Known"
+        multiselect='[{"value":"Tamil"}, {"value":"Eng"}]'
+        checkboxcolor="red"
+      />
+    </>
+  );
 
-    const input = getByTestId('multiSelectInput');
-    expect(input.value).toBe("Tamil,Eng"); 
-  
-    
-  });
 
-  test('should match the snapshot', () => {
-    const { asFragment } = render(<MultiSelect
-      name="multiselect"
-      labelform="Language Known"
-      multiselect='[{"value":"Tamil"}, {"value":"Eng"}]'
-      checkboxcolor="red"
-    />)
-    expect(asFragment).toMatchSnapshot()
-   });
+
+  fireEvent.mouseDown(getByRole('button'));
+
+  const listbox = within(getByRole('listbox'));
+
+  fireEvent.click(listbox.getByText(/Tamil/i));
+  fireEvent.click(listbox.getByText(/Eng/i));
+
+  const input = getByTestId('multiSelectInput');
+  expect(input.value).toBe("Tamil,Eng");
+
+
+});
+
+test('should match the snapshot', () => {
+  const { asFragment } = render(<MultiSelect
+    name="multiselect"
+    labelform="Language Known"
+    multiselect='[{"value":"Tamil"}, {"value":"Eng"}]'
+    checkboxcolor="red"
+  />)
+  expect(asFragment).toMatchSnapshot()
+});
