@@ -1069,7 +1069,7 @@ export default function MakePayment(props) {
                               disablePast
                               autoComplete="off"
                               maxdate={paymentMaxDate}
-                                onKeyDown={(event) => event.preventDefault()}
+                              onKeyDown={(event) => event.preventDefault()}
                               shouldDisableDate={disableWeekends}
                               minyear={4}
                               onChange={(paymentDatepickerOnChange) => {

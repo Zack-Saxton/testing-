@@ -3,12 +3,16 @@ import Moment from "moment";
 
 /***** Get payment methods *****/
 export async function usrPaymentMethods() {
-  let url = "get_payment_methods";
-  let param = "";
-  let data = {}
-  let method = "POST";
-  let addAccessToken = true;
-  return APICall(url, param, data, method, addAccessToken);
+  try {
+    let url = "get_payment_methods";
+    let param = "";
+    let data = {}
+    let method = "POST";
+    let addAccessToken = true;
+    return await APICall(url, param, data, method, addAccessToken);
+  } catch (error) {
+    Error("Error executing Payment Method API")
+  }
 }
 
 /***** Enable AutoPay mode *****/
@@ -26,13 +30,7 @@ export async function enableAutoPay(accntNo, card, paymentDate, isDebit) {
   let addAccessToken = true;
 
   //API call
-  let enableAutoPayMethod = await APICall(
-    url,
-    param,
-    data,
-    method,
-    addAccessToken
-  );
+  let enableAutoPayMethod = await APICall(url, param, data, method, addAccessToken);
   return enableAutoPayMethod;
 }
 
@@ -46,13 +44,7 @@ export async function disableAutoPay(accntNo, card, paymentDate, isDebit) {
   let addAccessToken = true;
 
   //API call
-  let disableAutoPayMethod = await APICall(
-    url,
-    param,
-    data,
-    method,
-    addAccessToken
-  );
+  let disableAutoPayMethod = await APICall(url, param, data, method, addAccessToken);
   return disableAutoPayMethod;
 }
 
@@ -77,13 +69,7 @@ export async function makePayment(
   let method = "POST";
   let addAccessToken = true;
   //API call
-  let makePaymentMethod = await APICall(
-    url,
-    param,
-    data,
-    method,
-    addAccessToken
-  );
+  let makePaymentMethod = await APICall(url, param, data, method, addAccessToken);
   return makePaymentMethod;
 }
 
@@ -96,12 +82,6 @@ export async function deleteScheduledPayment(accntNo, refNo, isCard) {
   let addAccessToken = true;
 
   //API call
-  let deleteScheduledPaymentMethod = await APICall(
-    url,
-    param,
-    data,
-    method,
-    addAccessToken
-  );
+  let deleteScheduledPaymentMethod = await APICall(url, param, data, method, addAccessToken);
   return deleteScheduledPaymentMethod;
 }

@@ -1,5 +1,5 @@
 import APICall from "../lib/AxiosLib";
-import { Error} from "../toast/toast"
+import { Error } from "../toast/toast"
 /***** ZipCodeLookup method *****/
 export default async function ZipCodeLookup(zipCode) {
     try {
@@ -16,5 +16,4 @@ export default async function ZipCodeLookup(zipCode) {
     } catch (error) {
         Error("Error executing ZipCodeLookup API")
     }
-  
 }
