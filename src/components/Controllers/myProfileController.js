@@ -104,7 +104,7 @@ export async function getTextNotify() {
   const token = JSON.parse(Cookies.get("token"));
   const accountDetails = Cookies.get("accountDetails");
   let appGUID = token.applicantGuid;
-  let opted_phone_texting = accountDetails?.data?.data?.latest_contact?.opted_phone_texting ? accountDetails?.data?.data?.latest_contact?.opted_phone_texting : "";
+  let opted_phone_texting = accountDetails?.data?.latest_contact?.opted_phone_texting ? accountDetails?.data?.latest_contact?.opted_phone_texting : "";
   let cleanednumber = opted_phone_texting.replace(/\D/g, "");
   let allLoansClosed = Cookies.get("hasActiveLoan") === "true" ? false : true;
 

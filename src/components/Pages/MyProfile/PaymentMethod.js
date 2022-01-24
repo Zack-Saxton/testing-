@@ -211,23 +211,23 @@ export default function PaymentMethod() {
     };
 
 const fetchAddress = async(e) => {
-    try {    
+    try {
         if (e.target.value !== "" && e.target.value.length === 5) {
             let result = await ZipCodeLookup(e.target.value);
             if (result) {
                 setValidZip(true);
-                formikAddDebitCard.setFieldValue("city",result.data.data.data.cityName);
-                formikAddDebitCard.setFieldValue("state",result.data.data.data.stateCode);
+                formikAddDebitCard.setFieldValue("city",result?.data?.data.cityName);
+                formikAddDebitCard.setFieldValue("state",result?.data?.data.stateCode);
             } else {
                 setValidZip(false);
                 formikAddDebitCard.setFieldValue("city", "");
-                formikAddDebitCard.setFieldValue("state", "");  
+                formikAddDebitCard.setFieldValue("state", "");
             }
         } else {
              formikAddDebitCard.setFieldValue("city", "");
             formikAddDebitCard.setFieldValue("state", "");
         }
-         
+
         formikAddDebitCard.handleChange(e);
     } catch (error) {
         Error("Error from [fetchAddress]");
@@ -373,25 +373,25 @@ const fetchAddress = async(e) => {
         scrollToTop();
         let res = await usrAccountDetails();
         if (
-            res?.data?.data?.customer?.latest_contact?.mailing_address_postal_code
+            res?.data?.customer?.latest_contact?.mailing_address_postal_code
         ) {
 
-            setMailingZipcode(res?.data?.data?.customer?.latest_contact?.mailing_address_postal_code);
-            setMailingStreetAddress(res?.data?.data?.customer?.latest_contact?.mailing_address_street);
+            setMailingZipcode(res?.data?.customer?.latest_contact?.mailing_address_postal_code);
+            setMailingStreetAddress(res?.data?.customer?.latest_contact?.mailing_address_street);
 
             formikAddDebitCard.setFieldValue(
                 "zipcode",
-                res?.data?.data?.customer?.latest_contact?.mailing_address_postal_code
+                res?.data?.customer?.latest_contact?.mailing_address_postal_code
             );
             formikAddDebitCard.setFieldValue(
                 "streetAddress",
-                res?.data?.data?.customer?.latest_contact?.mailing_address_street
+                res?.data?.customer?.latest_contact?.mailing_address_street
             );
 
             let e = {
                 target: {
                     value:
-                        res?.data?.data?.customer?.latest_contact
+                        res?.data?.customer?.latest_contact
                             ?.mailing_address_postal_code,
                 },
             };
@@ -420,12 +420,12 @@ const fetchAddress = async(e) => {
         };
         let res = await setDefaultPayment(passData);
         if (
-            res?.data?.data?.Success ===
+            res?.data?.Success ===
             "Default Payment Method Set to " + nickname
         ) {
             await getPaymentMethodsOnLoad();
             setLoading(false);
-            toast.success(res?.data?.data?.Success, {
+            toast.success(res?.data?.Success, {
                 position: "bottom-left",
                 autoClose: 5500,
                 hideProgressBar: false,
@@ -456,7 +456,7 @@ const fetchAddress = async(e) => {
                     profileId: uniqueData,
                 };
                 let res = await deleteCreditCard(passData);
-                if (res?.data?.data?.deletePaymentMethod?.HasNoErrors === true) {
+                if (res?.data?.deletePaymentMethod?.HasNoErrors === true) {
                     toast.success("Card deleted successfully.", {
                         position: "bottom-left",
                         autoClose: 5500,
@@ -491,7 +491,7 @@ const fetchAddress = async(e) => {
                     accountNumber: uniqueData,
                 };
                 let res = await deleteBankAccount(passData);
-                if (res?.data?.data?.deletePaymentMethod?.HasNoErrors === true) {
+                if (res?.data?.deletePaymentMethod?.HasNoErrors === true) {
                     toast.success("Bank account deleted successfully.", {
                         position: "bottom-left",
                         autoClose: 5500,
@@ -538,7 +538,7 @@ const fetchAddress = async(e) => {
         setLoading(true);
         let res = await addCreditCard(formikAddDebitCard.values, cardType);
 
-        if (res?.data?.data?.addPaymentResult?.HasNoErrors === true) {
+        if (res?.data?.addPaymentResult?.HasNoErrors === true) {
             setLoading(false);
             toast.success("Payment method added successfully ", {
                 position: "bottom-left",
@@ -552,9 +552,9 @@ const fetchAddress = async(e) => {
             await getPaymentMethodsOnLoad();
             setCardType("");
             closeDebitCardButton();
-        } else if (res?.data?.data?.addPaymentResult?.HasNoErrors === false) {
+        } else if (res?.data?.addPaymentResult?.HasNoErrors === false) {
             setLoading(false);
-            toast.error(res?.data?.data?.addPaymentResult?.Errors[0].ErrorMessage, {
+            toast.error(res?.data?.addPaymentResult?.Errors[0].ErrorMessage, {
                 position: "bottom-left",
                 autoClose: 5500,
                 hideProgressBar: false,
@@ -564,9 +564,9 @@ const fetchAddress = async(e) => {
                 progress: undefined,
             });
         }
-        else if (res?.data?.data?.result === "error") {
+        else if (res?.data?.result === "error") {
             setLoading(false);
-            toast.error(res?.data?.data?.data?.error, {
+            toast.error(res?.data?.data?.error, {
                 position: "bottom-left",
                 autoClose: 5500,
                 hideProgressBar: false,
@@ -606,8 +606,8 @@ const fetchAddress = async(e) => {
             >
                 <Grid item xs={12} style={{ paddingBottom: "20px", width: "100%" }}>
                     {allPaymentMethod ? (
-                        allPaymentMethod?.data?.data?.paymentOptions &&
-                            allPaymentMethod?.data?.data?.paymentOptions.length > 0 ? (
+                        allPaymentMethod?.data?.paymentOptions &&
+                            allPaymentMethod?.data?.paymentOptions.length > 0 ? (
                             <TableContainer>
                                 <Table className={classes.table} aria-label="simple table">
                                     <TableHead>
@@ -635,7 +635,7 @@ const fetchAddress = async(e) => {
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
-                                        {allPaymentMethod?.data?.data?.paymentOptions.map((row) => (
+                                        {allPaymentMethod?.data?.paymentOptions.map((row) => (
                                             <TableRow
                                                 hover
                                                 key={row.Nickname}
@@ -684,9 +684,9 @@ const fetchAddress = async(e) => {
                                                         onChange={() => {
                                                             setDefaultPaymentOnChange(row.Nickname);
                                                         }}
-                                                        checked={allPaymentMethod?.data?.data?.defaultBank}
+                                                        checked={allPaymentMethod?.data?.defaultBank}
                                                         radiolabel={'[{ "value":"' + row.Nickname + '"}]'}
-                                                        value={allPaymentMethod?.data?.data?.defaultBank}
+                                                        value={allPaymentMethod?.data?.defaultBank}
                                                         style={{
                                                             marginTop: "3px",
                                                             marginRight: "0px",
@@ -731,7 +731,7 @@ const fetchAddress = async(e) => {
                                     </TableBody>
                                 </Table>
                             </TableContainer>
-                        ) : allPaymentMethod?.data?.data?.data?.message ? (
+                        ) : allPaymentMethod?.data?.data?.message ? (
                             <Grid
                                 className="circleprog"
                                 style={{
@@ -743,7 +743,7 @@ const fetchAddress = async(e) => {
                                 xs={12}
                             >
                                 <Typography>
-                                    {allPaymentMethod?.data?.data?.data?.message}
+                                    {allPaymentMethod?.data?.data?.message}
                                 </Typography>
                             </Grid>
                         ) : (
@@ -1177,7 +1177,7 @@ const fetchAddress = async(e) => {
                                             accountType,
                                             checkedAddBank ? 1 : 0
                                         );
-                                        if (resBankData?.data?.data?.Success) {
+                                        if (resBankData?.data?.Success) {
                                             toast.success("Payment method added successfully", {
                                                 position: "bottom-left",
                                                 autoClose: 5500,
@@ -1190,10 +1190,10 @@ const fetchAddress = async(e) => {
                                             await getPaymentMethodsOnLoad();
                                             closeBankAccountButton();
                                         } else if (
-                                            resBankData?.data?.data?.result === "error" ||
-                                            resBankData?.data?.data?.status === 400
+                                            resBankData?.data?.result === "error" ||
+                                            resBankData?.data?.status === 400
                                         ) {
-                                            toast.error(resBankData?.data?.data?.data?.error, {
+                                            toast.error(resBankData?.data?.data?.error, {
                                                 position: "bottom-left",
                                                 autoClose: 5500,
                                                 hideProgressBar: false,
@@ -1202,8 +1202,8 @@ const fetchAddress = async(e) => {
                                                 draggable: true,
                                                 progress: undefined,
                                             });
-                                        } else if (resBankData?.data?.data?.type === "error") {
-                                            toast.error(resBankData?.data?.data?.text, {
+                                        } else if (resBankData?.data?.type === "error") {
+                                            toast.error(resBankData?.data?.text, {
                                                 position: "bottom-left",
                                                 autoClose: 5500,
                                                 hideProgressBar: false,

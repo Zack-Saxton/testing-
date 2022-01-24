@@ -63,7 +63,7 @@ export default function FinancialInformation(props) {
       }
       //API call to submit financial info
       let res = await submitFinancialInformation(body);
-      if (res.data.data.financial_information === true) {
+      if (res?.data?.financial_information === true) {
         props.setLoadingFlag(false);
         setError('');
         props.next();

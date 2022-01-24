@@ -200,14 +200,14 @@ export default function BasicInformation(props) {
                 if (uploadData.data.status === 200) {
                   setData({
                     ...dataProfile, "profile_picture_url":
-                      uploadData?.data?.data?.profile_picture_url
-                        ? uploadData?.data?.data?.profile_picture_url
+                      uploadData?.data?.profile_picture_url
+                        ? uploadData?.data?.profile_picture_url
                         : ""
                   });
 
                   Cookies.set("profile_picture_url",
-                    uploadData?.data?.data?.profile_picture_url
-                      ? uploadData?.data?.data?.profile_picture_url
+                    uploadData?.data?.profile_picture_url
+                      ? uploadData?.data?.profile_picture_url
                       : ""
                   );
 
@@ -227,7 +227,7 @@ export default function BasicInformation(props) {
                         onClose: () => {
 
                           if ((formik.initialValues.email !== values.email && selectedFile !== null) || (formik.initialValues.phone !== values.phone && formik.initialValues.email !== values.email && selectedFile !== null)) {
-                            setuploadedImage(uploadData.data.data.profile_picture_url)
+                            setuploadedImage(uploadData?.data?.profile_picture_url)
                             props.AsyncEffect_profileImage()
                             props.getUserAccountDetails()
                             setLoading(false);
@@ -238,7 +238,7 @@ export default function BasicInformation(props) {
 
                           else if ((formik.initialValues.phone !== values.phone && selectedFile !== null)) {
 
-                            setuploadedImage(uploadData.data.data.profile_picture_url)
+                            setuploadedImage(uploadData?.data?.profile_picture_url)
                             props.AsyncEffect_profileImage()
                             props.getUserAccountDetails()
                             setLoading(false);
@@ -247,7 +247,7 @@ export default function BasicInformation(props) {
                           }
                           else {
                             setLoading(false);
-                            setuploadedImage(uploadData.data.data.profile_picture_url)
+                            setuploadedImage(uploadData?.data?.profile_picture_url)
                             props.AsyncEffect_profileImage()
                             onClickCancelChange()
 
@@ -330,7 +330,7 @@ export default function BasicInformation(props) {
         let res = await basicInformation(body);
 
         if ((formik.initialValues.email !== values.email && selectedFile !== null) || (formik.initialValues.phone !== values.phone && formik.initialValues.email !== values.email && selectedFile !== null) || (formik.initialValues.phone !== values.phone && selectedFile !== null)) {
-          if (res.data.data.notes.length !== 0 && selectedFile !== null) {
+          if (res?.data?.notes.length !== 0 && selectedFile !== null) {
 
             uploadBasicInfoImageChange()
 
@@ -340,12 +340,12 @@ export default function BasicInformation(props) {
           uploadBasicInfoImageChange()
         }
         else if (formik.initialValues.phone !== values.phone && formik.initialValues.email === values.email) {
-          if (res.data.data.notes.length !== 0 && res.data.data.emailUpdate === true) {
+          if (res?.data?.notes.length !== 0 && res?.data?.emailUpdate === true) {
             uploadBasicInfoChange()
           }
         }
         else if (formik.initialValues.email !== values.email || (formik.initialValues.phone !== values.phone && formik.initialValues.email !== values.email)) {
-          if (res.data.data.notes.length !== 0 && res.data.data.emailUpdate === true) {
+          if (res?.data?.notes.length !== 0 && res?.data?.emailUpdate === true) {
             uploadBasicInfoChangeLogOut()
           }
         }

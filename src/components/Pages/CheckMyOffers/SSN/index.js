@@ -58,7 +58,7 @@ function SSN() {
 		});
 		if (
 			response.appSubmissionResult &&
-			response.appSubmissionResult?.data?.data?.applicationStatus ===
+			response.appSubmissionResult?.data?.applicationStatus ===
 			"offers_available"
 		) {
 			setData({
@@ -71,7 +71,7 @@ function SSN() {
 			});
 		} else if (
 			response.appSubmissionResult &&
-			response.appSubmissionResult.data.data.applicationStatus === "rejected"
+			response.appSubmissionResult?.data?.applicationStatus === "rejected"
 		) {
 			setData({
 				...data,
@@ -83,7 +83,7 @@ function SSN() {
 			});
 		} else if (
 			response.appSubmissionResult &&
-			response.appSubmissionResult.data.data.applicationStatus === "referred"
+			response.appSubmissionResult?.data?.applicationStatus === "referred"
 		) {
 			setData({
 				...data,
@@ -99,11 +99,11 @@ function SSN() {
 		data.completedPage = data.page.ssn;
 		setLoading(true);
 		let result = await getCustomerByEmail(data.email);
-		if (result && result?.data?.data?.AppSubmittedInLast30Days === true) {
+		if (result && result?.data?.AppSubmittedInLast30Days === true) {
 			stopLoading();
 		} else if (
 			result &&
-			result?.data?.data?.AppSubmittedInLast30Days === false
+			result?.data?.AppSubmittedInLast30Days === false
 		) {
 			response = await submitApplication(data);
 			setSubmit(false);

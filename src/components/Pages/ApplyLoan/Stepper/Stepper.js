@@ -89,49 +89,49 @@ export default function VerticalLinearStepper() {
 		);
 		let tabPosition = "";
 		if (
-			res?.data?.data?.email === true &&
-			res?.data?.data?.financial_information === true &&
-			res?.data?.data?.id_document === true &&
-			res?.data?.data?.id_photo === true &&
-			res?.data?.data?.id_questions === true &&
-			res?.data?.data?.bank_account_information === true &&
-			res?.data?.data?.bank_account_verification === true &&
-			res?.data?.data?.income_verification === true
+			res?.data?.email === true &&
+			res?.data?.financial_information === true &&
+			res?.data?.id_document === true &&
+			res?.data?.id_photo === true &&
+			res?.data?.id_questions === true &&
+			res?.data?.bank_account_information === true &&
+			res?.data?.bank_account_verification === true &&
+			res?.data?.income_verification === true
 		) {
 			history.push({
 				pathname: "/customers/receiveYourMoney",
 			});
-		} else if (res?.data?.data?.email === false) {
+		} else if (res?.data?.email === false) {
 			tabPosition = 0;
 		} else if (
-			res?.data?.data?.phone_verification === false &&
+			res?.data?.phone_verification === false &&
 			tabPosition === "" &&
 			skip?.phone !== true
 		) {
 			tabPosition = 1;
 		} else if (
-			res?.data?.data?.financial_information === false &&
+			res?.data?.financial_information === false &&
 			tabPosition === ""
 		) {
 			tabPosition = 2;
-		} else if (res?.data?.data?.id_document === false && tabPosition === "") {
+		} else if (res?.data?.id_document === false && tabPosition === "") {
 			tabPosition = 3;
-		} else if (res?.data?.data?.id_photo === false && tabPosition === "") {
+		} else if (res?.data?.id_photo === false && tabPosition === "") {
 			tabPosition = 3;
-		} else if (res?.data?.data?.id_questions === false && tabPosition === "") {
+		} else if (res?.data?.id_questions === false && tabPosition === "") {
 			tabPosition = 4;
 		} else if (
-			res?.data?.data?.bank_account_information === false &&
+			res?.data?.bank_account_information === false &&
 			tabPosition === ""
 		) {
 			tabPosition = 5;
 		} else if (
-			res?.data?.data?.bank_account_verification === false &&
+			res?.data?.bank_account_verification === false &&
 			tabPosition === ""
 		) {
 			tabPosition = 5;
 		} else if (
-			res?.data?.data?.income_verification === false &&
+			res?.data?.income_verification === false &&
 			tabPosition === ""
 		) {
 			tabPosition = 6;

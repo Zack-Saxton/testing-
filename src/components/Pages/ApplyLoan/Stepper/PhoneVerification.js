@@ -59,7 +59,7 @@ export default function PhoneVerification(props) {
 			true
 		);
 		setPhoneNum(
-			userData.data.data.customer.latest_contact.phone_number_primary
+			userData?.data?.customer.latest_contact.phone_number_primary
 		);
 	};
 
@@ -241,7 +241,7 @@ export default function PhoneVerification(props) {
 						stylebutton='{"marginRight": "10px", "color":"" }'
 						onClick={async () => {
 							let res = await verifyPasscode(passcode);
-							if (res.data.data.phone_verification === true) {
+							if (res?.data?.phone_verification === true) {
 								setError("");
 								props.next();
 							} else {

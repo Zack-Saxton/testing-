@@ -50,7 +50,7 @@ const ApplyForLoanRedirect = (props) => {
 				state: { from: "ended" },
 			});
 			if (
-				res?.data?.data?.customer?.user_account?.status === "closed" &&
+				res?.data?.customer?.user_account?.status === "closed" &&
 				checkStatus !== false
 			) {
 				if (!toast.isActive("closedApplication")) {
@@ -71,15 +71,15 @@ const ApplyForLoanRedirect = (props) => {
 				history.push({
 					pathname: "/customers/accountOverview",
 				});
-			} else if (res?.data?.data?.applicants.length === 0) {
+			} else if (res?.data?.applicants.length === 0) {
 				redirectToCMO();
-			} else if (res?.data?.data?.applicants[0]?.isActive === true) {
+			} else if (res?.data?.applicants[0]?.isActive === true) {
 				history.push({
-					pathname: statusStrLink[res?.data?.data?.applicants[0]?.status],
+					pathname: statusStrLink[res?.data?.applicants[0]?.status],
 				});
 			} else {
 				let isActiveApplicationAvailable = false;
-				res?.data?.data?.applicants.map((item, index) => {
+				res?.data?.applicants.map((item, index) => {
 					if (item.isActive === true) {
 						isActiveApplicationAvailable = true;
 						history.push({

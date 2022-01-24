@@ -22,7 +22,7 @@ export default function MoneySkill(props) {
   async function getMoneySkillAPI() {
     let response = await getMoneySkillUrl();
     setStatus(response?.data?.status)
-    setMoneySkillUrl(response?.data?.data?.moneyskillurl ? response?.data?.data?.moneyskillurl : "https://lms.moneyskill.org/students/login")
+    setMoneySkillUrl(response?.data?.moneyskillurl ? response?.data?.moneyskillurl : "https://lms.moneyskill.org/students/login")
   }
 
   useEffect(() => {

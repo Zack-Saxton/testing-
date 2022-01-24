@@ -75,7 +75,7 @@ function MarriedStatus() {
 	const [validZip, setValidZip] = useState(true);
 	const history = useHistory();
 
-	//Configuring formik 
+	//Configuring formik
 	const formik = useFormik({
 		initialValues: {
 			martialStatus: data.maritalStatus ?? "",
@@ -115,9 +115,9 @@ const fetchAddress = async(e) => {
 		if (e.target.value !== "" && e.target.value.length === 5) {
 			let result = await ZipCodeLookup(e.target.value);
 			if (result) {
-				formik.setFieldValue("spouseSelectState",result.data.data.data.stateCode);
-				formik.setFieldValue("spousecity", result.data.data.data.cityName);
-				setStateShort(result.data.data.data.stateCode);
+				formik.setFieldValue("spouseSelectState",result?.data?.data.stateCode);
+				formik.setFieldValue("spousecity", result?.data?.data.cityName);
+				setStateShort(result?.data?.data.stateCode);
 				setValidZip(true);
 			} else {
 				formik.setFieldValue("spouseSelectState", "");

@@ -29,7 +29,7 @@ export default function LoanHistory() {
 
 
   //Load data
-  let loanHistoryData = loanHistoryStatus != null ? loanHistoryStatus.data.data.activeLoans : null;
+  let loanHistoryData = loanHistoryStatus != null ? loanHistoryStatus?.data?.activeLoans : null;
 
   //View Part
   return (

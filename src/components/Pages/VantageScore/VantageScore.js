@@ -22,7 +22,7 @@ export default function VantageScore() {
   //API Call for vantageScore
   async function vantageScoreData() {
     let responseData = await (getVantageScore())
-    let creditMonitorings = (responseData?.data?.status === 500 ? [] : responseData?.data?.data?.creditmonitorings ? responseData?.data?.data?.creditmonitorings : null)
+    let creditMonitorings = (responseData?.data?.status === 500 ? [] : responseData?.data?.creditmonitorings ? responseData?.data?.creditmonitorings : null)
     setCreditData(creditMonitorings)
     setkeyFactors(creditMonitorings?.length ? creditMonitorings[0]?.parsed : [])
   }

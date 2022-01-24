@@ -195,12 +195,12 @@ export default function SideNav() {
   const [checkPresenceOfLoanStatus, setCheckPresenceOfLoanStatus] = useState('')
 
   useEffect(() => {
-    let noOfLoans = dataAccountOverview?.data?.data?.activeLoans?.length;
-    let activeLoan = dataAccountOverview?.data?.data?.applicants;
+    let noOfLoans = dataAccountOverview?.data?.activeLoans?.length;
+    let activeLoan = dataAccountOverview?.data?.applicants;
     //logic to check if atleast one active initiated Loan is there or not
     const presenceOfLoan = activeLoan?.some((applicant) => applicant.isActive === true);
     const presenceOfLoanStatus = activeLoan?.find((applicant) => applicant.isActive === true);
-    const userAccountStatus = dataAccountOverview?.data?.data?.customer?.user_account?.status
+    const userAccountStatus = dataAccountOverview?.data?.customer?.user_account?.status
 
     setCheckPresenceOfLoanStatus(presenceOfLoanStatus?.status)
     setCurrentLoan(presenceOfLoan === true || userAccountStatus === "closed" ? true : false);
@@ -297,9 +297,9 @@ export default function SideNav() {
   let getProfImage = (profileImage != null) ? profileImage : profileImg;
 
   // Side bar branch details
-  Cookies.set('branchname', ((branchVal?.data?.data?.BranchName) ? (branchVal.data.data.BranchName) : (branchVal?.data?.data?.branchName) ? (branchVal.data.data.branchName) : ""))
-  Cookies.set('branchphone', branchVal?.data?.data?.PhoneNumber)
-  Cookies.set('branchopenstatus', branchVal?.data?.data?.date_closed)
+  Cookies.set('branchname', ((branchVal?.data?.BranchName) ? (branchVal?.data?.BranchName) : (bra?.data?.data?.branchName) ? (branchVal?.data?.branchName) : ""))
+  Cookies.set('branchphone', branchVal?.data?.PhoneNumber)
+  Cookies.set('branchopenstatus', branchVal?.data?.date_closed)
   Cookies.set('getProfileImage', getProfImage)
 
 
@@ -656,7 +656,7 @@ export default function SideNav() {
                     </div>
                   </ListItem>
                   <ListItem id="sidemenuName">
-                    {(dataAccountOverview?.data?.data?.applicant?.contact?.first_name) ? 'Welcome ' + dataAccountOverview?.data?.data?.applicant?.contact?.first_name : ""}
+                    {(dataAccountOverview?.data?.applicant?.contact?.first_name) ? 'Welcome ' + dataAccountOverview?.data?.applicant?.contact?.first_name : ""}
                   </ListItem>
                   {(branchName === '' || branchName === 'undefined') || (branchPhone === '' || branchPhone === 'undefined') ?
                     <>
