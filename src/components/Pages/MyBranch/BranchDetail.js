@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { useStylesMyBranch } from "./Style";
@@ -10,7 +10,10 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import ScheduleCall from "./ScheduleCall";
 import ScheduleAppointment from "./ScheduleAppointment";
+import HolidayCalender from "../../Controllers/HolidayCalenderController";
 import "../MyBranch/BranchInfo.css";
+
+
 
 //Table fields - working days
 function otherUsaState(day, monWedThur, tue, fri) {
@@ -37,6 +40,20 @@ export default function BranchDetail(MyBranchDetail) {
 
   //Material UI css class
   const classes = useStylesMyBranch();
+
+  
+//API call
+const [holidayCalenderApi, SetHolidayCalenderApi] = useState(null);
+async function AsyncEffect_HolidayCalender() {
+  SetHolidayCalenderApi(await HolidayCalender());
+}
+useEffect(() => {
+  AsyncEffect_HolidayCalender();
+}, []);
+
+//Holiday Calender from API
+let holidayCalenderData = holidayCalenderApi != null ? holidayCalenderApi.data.data : null;
+
 
   //Branch details from API
   let branchDetail = MyBranchDetail != null ? MyBranchDetail : null;
@@ -159,7 +176,7 @@ export default function BranchDetail(MyBranchDetail) {
               xs={12}
               style={{ paddingTop: "10px", textAlign: "left" }}
             >
-              <ScheduleCall MyBranchCall={MyBranchDetail} />
+              <ScheduleCall MyBranchCall={MyBranchDetail} holidayData={holidayCalenderData} />
             </Grid>
 
             <Grid
@@ -167,7 +184,7 @@ export default function BranchDetail(MyBranchDetail) {
               xs={12}
               style={{ paddingTop: "10px", textAlign: "left" }}
             >
-              <ScheduleAppointment MyBranchAppointment={MyBranchDetail} />
+              <ScheduleAppointment MyBranchAppointment={MyBranchDetail} holidayData={holidayCalenderData}/>
             </Grid>
           </>
         ) : (

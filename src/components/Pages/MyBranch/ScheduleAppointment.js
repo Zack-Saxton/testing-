@@ -38,42 +38,31 @@ const validationSchema = yup.object({
     .required("Time is required"),
 });
 
-//Date validation
-const scheduleAppointmentDate = new Date();
-scheduleAppointmentDate.setDate(scheduleAppointmentDate.getDate() + 30);
 
-//US holidays
-function disableWeekends(date) {
-  const dateInterditesRaw = [
-    new Date(date.getFullYear(), 0, 1),
-    new Date(date.getFullYear(), 0, 17),
-    new Date(date.getFullYear(), 1, 21),
-    new Date(date.getFullYear(), 4, 30),
-    new Date(date.getFullYear(), 6, 4),
-    new Date(date.getFullYear(), 8, 5),
-    new Date(date.getFullYear(), 9, 10),
-    new Date(date.getFullYear(), 10, 11),
-    new Date(date.getFullYear(), 10, 24),
-    new Date(date.getFullYear(), 11, 25),
-  ];
-
-  const dateInterdites = dateInterditesRaw.map((arrVal) => {
-    return arrVal.getTime();
-  });
-
-  return (
-    date.getDay() === 0 ||
-    date.getDay() === 6 ||
-    dateInterdites.includes(date.getTime())
-  );
-}
-
-export default function ScheduleAppointment(MyBranchAppointment) {
+export default function ScheduleAppointment({MyBranchAppointment,holidayData}) {
   //Material UI css class
   const classes = useStylesMyBranch();
 
   //Branch details from API
   let branchDetail = MyBranchAppointment != null ? MyBranchAppointment : null;
+
+
+//Date validation
+const scheduleAppointmentDate = new Date();
+scheduleAppointmentDate.setDate(scheduleAppointmentDate.getDate() + 30);
+
+  //US holidays
+function disableHolidays(date) {
+  const holidayApiData = holidayData?.holidays
+  const holidayApiDataValues = holidayApiData.map((arrVal) => {    
+    return new Date(arrVal+"T00:00").getTime();
+  });
+  return (
+    date.getDay() === 0 ||
+    date.getDay() === 6 ||
+    holidayApiDataValues.includes(date.getTime())
+  );
+}
 
   //Spliting statename
   let stateName = branchDetail?.MyBranchAppointment?.MyBranchDetail
@@ -183,7 +172,7 @@ export default function ScheduleAppointment(MyBranchAppointment) {
                 disablePast
                 autoComplete="off"
                 onKeyDown={(e) => e.preventDefault()}
-                shouldDisableDate={disableWeekends}
+                shouldDisableDate={disableHolidays}
                 maxdate={scheduleAppointmentDate}
                 minyear={4}
                 value={formik.values.date}

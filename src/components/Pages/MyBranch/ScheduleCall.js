@@ -33,42 +33,31 @@ const validationSchema = yup.object({
   callTime: yup.string("Select Time").nullable().required("Time is required"),
 });
 
-//Date validation
-const scheduleDateCall = new Date();
-scheduleDateCall.setDate(scheduleDateCall.getDate() + 30);
-
-//US holidays
-function disableWeekends(date) {
-  const dateInterditesRaw = [
-    new Date(date.getFullYear(), 0, 1),
-    new Date(date.getFullYear(), 0, 18),
-    new Date(date.getFullYear(), 4, 31),
-    new Date(date.getFullYear(), 6, 5),
-    new Date(date.getFullYear(), 8, 6),
-    new Date(date.getFullYear(), 10, 11),
-    new Date(date.getFullYear(), 10, 25),
-    new Date(date.getFullYear(), 11, 24),
-    new Date(date.getFullYear(), 11, 31),
-  ];
-
-  const dateInterdites = dateInterditesRaw.map((arrVal) => {
-    return arrVal.getTime();
-  });
-
-  return (
-    date.getDay() === 0 ||
-    date.getDay() === 6 ||
-    dateInterdites.includes(date.getTime())
-  );
-}
-
-export default function ScheduleCall(MyBranchCall) {
+export default function ScheduleCall({MyBranchCall,holidayData}) {
 
   //Material UI css class
   const classes = useStylesMyBranch();
 
   //Branch details from API
   let branchDetail = MyBranchCall != null ? MyBranchCall : null;
+
+  
+//Date validation
+const scheduleDateCall = new Date();
+scheduleDateCall.setDate(scheduleDateCall.getDate() + 30);
+
+//US holidays
+function disableHolidays(date) {
+  const holidayApiData = holidayData?.holidays
+  const holidayApiDataValues = holidayApiData.map((arrVal) => {    
+    return new Date(arrVal+"T00:00").getTime();
+  });
+  return (
+    date.getDay() === 0 ||
+    date.getDay() === 6 ||
+    holidayApiDataValues.includes(date.getTime())
+  );
+}
 
   //Spliting statename
   let stateName = branchDetail?.MyBranchCall?.MyBranchDetail
@@ -173,7 +162,7 @@ export default function ScheduleCall(MyBranchCall) {
                 disablePast
                 autoComplete="off"
                 onKeyDown={(e) => e.preventDefault()}
-                shouldDisableDate={disableWeekends}
+                shouldDisableDate={disableHolidays}
                 maxdate={scheduleDateCall}
                 minyear={4}
                 value={formik.values.date || ""}
