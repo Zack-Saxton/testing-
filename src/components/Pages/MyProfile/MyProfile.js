@@ -65,11 +65,8 @@ function tabVerticalProps(verticalIndex) {
 }
 
 export default function MyProfile() {
-
-
+  window.zeHide();
   const classes = useStylesMyProfile();
-
-
   const [accountDetails, setAccountDetails] = useState(null);
   async function getUserAccountDetails() {
     setAccountDetails(await usrAccountDetails());

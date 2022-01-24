@@ -12,6 +12,7 @@ import GaugeChart from "react-gauge-chart";
 import Moment from "moment";
 
 export default function Credit(creditData) {
+  window.zeHide();
   //Material UI css class
   const classes = useStyleVantageScore();
   const history = useHistory();

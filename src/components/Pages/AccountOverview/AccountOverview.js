@@ -14,7 +14,7 @@ import Cookies from "js-cookie";
 
 export default function AccountOverview() {
   const classes = useStylesAccountOverview();
-
+  window.zeHide();
   //API Call
   const [accountDetails, setAccountDetails] = useState(null);
   async function getUserAccountDetails() {

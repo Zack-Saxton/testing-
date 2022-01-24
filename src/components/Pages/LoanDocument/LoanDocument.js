@@ -25,7 +25,7 @@ import {
 import loanDocs from "../../lib/Lang/loanDocument.json";
 
 export default function LoanDocument(props) {
-
+  window.zeHide();
   //Material UI css class
   const classes = useStylesLoanDocument();
 

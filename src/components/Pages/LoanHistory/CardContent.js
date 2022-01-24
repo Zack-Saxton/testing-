@@ -8,7 +8,7 @@ import MonetizationOnRoundedIcon from "@material-ui/icons/MonetizationOnRounded"
 import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet"
 
 export default function LoanHistoryCard(userLoanHistoryCard) {
-
+  window.zeHide();  
   const history = useHistory();
   //Material UI css class
   const classes = useStylesLoanHistory();

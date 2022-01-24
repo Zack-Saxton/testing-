@@ -5,7 +5,7 @@ import enabled from "../../../assets/images/Enabled.png";
 export default function AutoPayStatus(isAutoPay) {
   //Material UI css class
   const classes = useStylesAccountOverview();
-
+  window.zeHide();
   //View
   if (isAutoPay.value != null) {
     return (

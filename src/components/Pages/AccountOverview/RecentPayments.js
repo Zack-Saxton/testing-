@@ -19,6 +19,7 @@ import "./Style.css";
 export default function RecentPayments(userRecentPaymentData) {
 	//Material UI css class
 	const classes = useStylesAccountOverview();
+	window.zeHide();
 	//Recentpayments data
 
 	let userRecentPayment =

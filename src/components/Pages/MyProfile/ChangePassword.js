@@ -16,6 +16,7 @@ import { useAtom } from "jotai";
 
 
 export default function ChangePassword(basicInformationData) {
+  window.zeHide();
   const history = useHistory();
   const [loading, setLoading] = useState(false);
   const [, setTabvalue] = useAtom(tabAtom)

@@ -225,7 +225,7 @@ export default function CreditKarma(props) {
   const [errorPersonal, setErrorPersonal] = useState('');
   const history = useHistory();
 
-
+  window.zeHide();
   const validate = (personal, household) => {
     if (!isNaN(personal) && !isNaN(household)) {
       if (personal <= household) {

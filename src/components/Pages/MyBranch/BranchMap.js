@@ -4,6 +4,7 @@ import Paper from "@material-ui/core/Paper";
 import { useStylesMyBranch } from "./Style";
 
 export default function BranchMap(MyBranchDetail) {
+  window.zeHide();
   //Material UI css class
   const classes = useStylesMyBranch();
 
