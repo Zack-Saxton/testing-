@@ -110,7 +110,7 @@ export default function VerificationQuestion(props) {
                       props.setLoadingFlag(false);
 
                     }
-                    else if (nxtRes?.data?.result === "success" && !?.data?.data?.data?.kba && ?.data?.data?.data?.kba?.failed === true) {
+                    else if (nxtRes?.data?.result === "success" && !nxtRes?.data?.data?.data?.kba && nxtRes.data?.data?.data?.kba?.failed === true) {
                       props.setLoadingFlag(false);
                       props.next();
                     }
