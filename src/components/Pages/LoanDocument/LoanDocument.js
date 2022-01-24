@@ -58,6 +58,9 @@ export default function LoanDocument(props) {
     setDocType(e.target.value);
     changeEvent.current.click();
   };
+  const uploadDoc = () => {
+    if (selectedFile === null) {
+      if (!toast.isActive("closeToast")) {
         toast.error(loanDocs.Please_Select_File_Upload, {
           position: "bottom-left",
           autoClose: 1500,
