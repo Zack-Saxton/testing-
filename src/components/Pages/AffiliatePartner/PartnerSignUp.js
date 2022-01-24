@@ -178,7 +178,7 @@ export default function CreditKarma() {
   //Populate partner signup from API
   let populateSignupData =
     populatePartnerSignupState != null
-      ? populatePartnerSignupState.data.data.applicant
+      ? populatePartnerSignupState?.data?.applicant
       : null;
 
   const classes = useStyles();

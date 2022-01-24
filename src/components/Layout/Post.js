@@ -42,7 +42,7 @@ const Post = ({ children }) => {
 			});
 		} else {
 			let retVal = await LoginController(cred.email, cred.password, "");
-			if (retVal?.data?.data?.user && retVal?.data?.data?.userFound === true) {
+			if (retVal?.data?.user && retVal?.data?.userFound === true) {
 				// On login success storing the needed data in the local storage
 				let nowTimeStamp = new Date().getTime();
 				Cookies.set(
@@ -50,10 +50,10 @@ const Post = ({ children }) => {
 					JSON.stringify({
 						isLoggedIn: true,
 						apiKey:
-							retVal?.data?.data?.user?.extensionattributes?.login?.jwt_token,
+							retVal?.data?.user?.extensionattributes?.login?.jwt_token,
 						setupTime: nowTimeStamp,
 						applicantGuid:
-							retVal?.data?.data?.user?.attributes?.sor_data?.applicant_guid,
+							retVal?.data?.user?.attributes?.sor_data?.applicant_guid,
 					})
 				);
 				Cookies.set(
@@ -62,8 +62,8 @@ const Post = ({ children }) => {
 				);
 				actualSetupTime = now;
 			} else if (
-				retVal?.data?.data?.result === "error" ||
-				retVal?.data?.data?.hasError === true
+				retVal?.data?.result === "error" ||
+				retVal?.data?.hasError === true
 			) {
 				Cookies.set(
 					"token",

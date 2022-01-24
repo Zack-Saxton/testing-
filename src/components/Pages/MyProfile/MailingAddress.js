@@ -107,7 +107,7 @@ export default function MailingAddress(props) {
 
         let res = await mailingAddress(body);
 
-        if (res.data.data.notes.length !== 0) {
+        if (res?.data?.notes.length !== 0) {
           toast.success("Updated successfully", {
             position: "bottom-left",
             autoClose: 3500,
@@ -170,8 +170,8 @@ const fetchAddress = async (e) => {
 function fetchAddressValidate(result) {
   try {
       if (result.data) {
-        formik.setFieldValue("city", result.data.data.data.cityName);
-        formik.setFieldValue("state", result.data.data.data.stateCode);
+        formik.setFieldValue("city", result?.data?.data.cityName);
+        formik.setFieldValue("state", result?.data?.data.stateCode);
         setValidZip(true);
       } else {
         formik.setFieldValue("city", "");

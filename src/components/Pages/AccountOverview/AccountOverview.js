@@ -30,11 +30,11 @@ export default function AccountOverview() {
   }, []);
 
   //Load data
-  let offerData = (accountDetails != null) ? accountDetails?.data?.data?.offerData : null;
-  let applicationsData = (accountDetails != null) ? accountDetails?.data?.data?.applicants : null;
+  let offerData = (accountDetails != null) ? accountDetails?.data?.offerData : null;
+  let applicationsData = (accountDetails != null) ? accountDetails?.data?.applicants : null;
   let status = (accountDetails != null) ? accountDetails?.data?.status : null;
-  let activeLoansData = (accountDetails != null) ? accountDetails?.data?.data?.activeLoans : null;
-  let recentPaymentData = (accountDetails != null) ? accountDetails?.data?.data?.activeLoans : null;
+  let activeLoansData = (accountDetails != null) ? accountDetails?.data?.activeLoans : null;
+  let recentPaymentData = (accountDetails != null) ? accountDetails?.data?.activeLoans : null;
 
   if (Array.isArray(activeLoansData) && activeLoansData.length === 0) {
     Cookies.set("hasActiveLoan", false);
@@ -43,7 +43,7 @@ export default function AccountOverview() {
   }
   Cookies.set(
     "hasApplicationStatus",
-    accountDetails?.data?.data?.applicant?.processing?.status
+    accountDetails?.data?.applicant?.processing?.status
   );
 
   return (

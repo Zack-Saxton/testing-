@@ -55,15 +55,15 @@ export default function ApplyLoan() {
 		setLoading(true);
 		if (accountDetails && selTerm !== "" && selIndex !== "") {
 			let selectedOfferResponse = await submitSelectedOfferAPI(
-				accountDetails.data.data.Offers[selTerm][selIndex]
+				accountDetails?.data?.Offers[selTerm][selIndex]
 			);
 
-			if (selectedOfferResponse.data.data.status === "success") {
+			if (selectedOfferResponse?.data?.status === "success") {
 				setLoading(false);
 				history.push({
 					pathname: "/customers/reviewAndSign",
 					selectedIndexOffer:
-						selectedOfferResponse.data.data.data.selected_offer,
+						selectedOfferResponse?.data?.data.selected_offer,
 				});
 			} else {
 				setLoading(false);
@@ -143,9 +143,9 @@ export default function ApplyLoan() {
 		let val = await fetchAvailableOffers();
 		if (val?.data?.data !== "Access token has expired" && val?.data) {
 			setAccountDetails(val);
-			term = Object.keys(val?.data?.data?.Offers);
+			term = Object.keys(val?.data?.Offers);
 			setNoOffers(
-				Object.keys(val?.data?.data?.Offers).length === 0 ? true : false
+				Object.keys(val?.data?.Offers).length === 0 ? true : false
 			);
 			setTerms(term);
 			if (term[0] !== undefined) {
@@ -233,7 +233,7 @@ export default function ApplyLoan() {
 		setOfferFlag(true);
 
 		let rowsterm = [];
-		accountDetails.data.data.Offers[termNum].map((item, index) => {
+		accountDetails?.data?.Offers[termNum].map((item, index) => {
 			let buildData = {
 				select: "",
 				loanAmount: currencyFormat(item.loan_amount),
@@ -262,7 +262,7 @@ export default function ApplyLoan() {
 	// Call function to load the tab initially
 	function initialTabLoad(termNum, tabIndex, accountDetailsData) {
 		let rowsterm = [];
-		accountDetailsData.data.data.Offers[termNum].map((item, index) => {
+		accountDetailsData?.data?.Offers[termNum].map((item, index) => {
 			let buildData = {
 				select: "",
 				loanAmount: currencyFormat(item.loan_amount),

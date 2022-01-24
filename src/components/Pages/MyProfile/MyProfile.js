@@ -71,7 +71,7 @@ export default function MyProfile() {
   async function getUserAccountDetails() {
     setAccountDetails(await usrAccountDetails());
   }
-  Cookies.set("opted_phone_texting", accountDetails?.data?.data?.customer?.latest_contact?.opted_phone_texting);
+  Cookies.set("opted_phone_texting", accountDetails?.data?.customer?.latest_contact?.opted_phone_texting);
 
   const [profileImage, setProfileImage] = useState(null);
   async function AsyncEffect_profileImage() {
@@ -82,7 +82,7 @@ export default function MyProfile() {
     AsyncEffect_profileImage();
   }, []);
 
-  let basicInfoData = (accountDetails != null) ? accountDetails?.data?.data?.customer : null;
+  let basicInfoData = (accountDetails != null) ? accountDetails?.data?.customer : null;
   let getProfImage = (profileImage != null) ? profileImage : null;
   const [values, setValues] = useAtom(tabAtom)
   const handleTabChange = (event, newValues) => {

@@ -389,13 +389,13 @@ export default function CreditKarma(props) {
   function fetchAddressValidate(result) {
     try {
       if (result.data) {
-        formik.setFieldValue("city", result.data.data.data.cityName);
-        formik.setFieldValue("state", result.data.data.data.stateCode);
+        formik.setFieldValue("city", result?.data?.data.cityName);
+        formik.setFieldValue("state", result?.data?.data.stateCode);
         setValidZip(true);
-        if ((result.data.data.data.cityName === "California") || (result.data.data.data.stateCode === "CA")) {
+        if ((result?.data?.data.cityName === "California") || (result?.data?.data.stateCode === "CA")) {
           handleClickOpen();
         }
-        if (result.data.data.data.cityName === "Ohio" || result.data.data.data.stateCode === "OH") {
+        if (result?.data?.data.cityName === "Ohio" || result?.data?.data.stateCode === "OH") {
           handleClickOpenOhio();
         }
       } else {
@@ -414,8 +414,8 @@ export default function CreditKarma(props) {
       if (e.target.value !== "" && e.target.value.length === 5) {
         let result = await ZipCodeLookup(e.target.value);
         if (result) {
-          formik.setFieldValue("spousecity",result.data.data.data.cityName);
-          formik.setFieldValue("spouseSelectState", result.data.data.data.stateCode);
+          formik.setFieldValue("spousecity",result?.data?.data.cityName);
+          formik.setFieldValue("spouseSelectState", result?.data?.data.stateCode);
           setValidZip(true);
         } else {
           formik.setFieldValue("spouseSelectState", "");

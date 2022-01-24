@@ -101,14 +101,14 @@ const fetchAddress = async(e) => {
 		if (e.target.value !== "" && e.target.value.length === 5) {
 			let result = await ZipCodeLookup(e.target.value);
 			if (result) {
-        		formik.setFieldValue("city", result.data.data.data.cityName);
-        		formik.setFieldValue("state", result.data.data.data.stateCode);
-        		setStateShort(result.data.data.data.stateCode);
+        		formik.setFieldValue("city", result?.data?.data.cityName);
+        		formik.setFieldValue("state", result?.data?.data.stateCode);
+        		setStateShort(result?.data?.data.stateCode);
         		setValidZip(true);
-        		if (result.data.data.data.stateCode === "California") {
+        		if (result?.data?.data.stateCode === "California") {
           			handleClickOpen();
         		}
-        		if (result.data.data.data.stateCode === "Ohio") {
+        		if (result?.data?.data.stateCode === "Ohio") {
           			handleClickOpenOhio();
         		}
       		} else {

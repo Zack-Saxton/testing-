@@ -23,7 +23,7 @@ export default function DocumentPhoto(props) {
 	//Load the IFrame
 	async function loadIframe() {
 		let iframe = await getIframe();
-		setIframeSrc(iframe.data.data.iframeSrc);
+		setIframeSrc(iframe?.data?.iframeSrc);
 	}
 
 	const onMessageHandler = async (event) => {
@@ -135,7 +135,7 @@ export default function DocumentPhoto(props) {
 						onClick={async () => {
 							let data = {};
 							let res = await APICall("/verification/verification_steps_cac", data, 'POST', true);
-							if (res?.data?.data?.id_photo === true && res?.data?.data?.id_document === true) {
+							if (res?.data?.id_photo === true && res?.data?.id_document === true) {
 								props.next()
 							} else {
 								setError(true);

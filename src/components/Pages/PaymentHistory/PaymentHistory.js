@@ -49,7 +49,7 @@ export default function PaymentHistory() {
   async function AsyncEffect_paymentHistory() {
     let responseData = await (usrAccountDetails())
     setpaymentHistoryStatus(responseData);
-    setfileName(responseData.data.data.activeLoans.length ? responseData.data.data.activeLoans[0].loanDetails.AccountNumber : null)
+    setfileName(responseData?.data?.activeLoans.length ? responseData?.data?.activeLoans[0].loanDetails.AccountNumber : null)
   }
   useEffect(() => {
     AsyncEffect_paymentHistory();
@@ -97,7 +97,7 @@ export default function PaymentHistory() {
   //Payment history data from API
   let recentPaymentData =
     paymentHistoryStatus != null
-      ? paymentHistoryStatus.data.data.activeLoans
+      ? paymentHistoryStatus?.data?.activeLoans
       : null;
 
   //Data for csv file

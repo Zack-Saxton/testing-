@@ -146,14 +146,14 @@ export default function BankAccountVerification(props) {
 				true
 			);
 			if (
-				res?.data?.data?.bank_account_information &&
-				res?.data?.data?.bank_account_verification
+				res?.data?.bank_account_information &&
+				res?.data?.bank_account_verification
 			) {
 				props.setLoadingFlag(false);
 				props.next();
 			} else if (
-				res?.data?.data?.bank_account_information ||
-				res?.data?.data?.bank_account_verification
+				res?.data?.bank_account_information ||
+				res?.data?.bank_account_verification
 			) {
 				setError(
 					paymnetMode === "autopayment"
@@ -163,8 +163,8 @@ export default function BankAccountVerification(props) {
 				setVerifyRequired(true);
 				props.setLoadingFlag(false);
 			} else if (
-				res?.data?.data?.bank_account_information === false ||
-				res?.data?.data?.bank_account_verification === false
+				res?.data?.bank_account_information === false ||
+				res?.data?.bank_account_verification === false
 			) {
 				props.setLoadingFlag(false);
 				alert(errorMessage?.applyForLoan?.bankAccountVerification?.notValid);

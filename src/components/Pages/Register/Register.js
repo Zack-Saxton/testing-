@@ -188,8 +188,8 @@ export default function Register() {
 	const loginUser = async (values) => {
 		let retVal = await LoginController(values.email, values.password, "");
 		if (
-			retVal?.data?.data?.user &&
-			retVal?.data?.data?.userFound === true
+			retVal?.data?.user &&
+			retVal?.data?.userFound === true
 		) {
 			let rememberMe = false;
 			var now = new Date().getTime();
@@ -200,7 +200,7 @@ export default function Register() {
 				JSON.stringify({
 					isLoggedIn: true,
 					apiKey:
-						retVal?.data?.data?.user?.extensionattributes?.login
+						retVal?.data?.user?.extensionattributes?.login
 							?.jwt_token,
 					setupTime: now,
 				})
@@ -234,8 +234,8 @@ export default function Register() {
 				pathname: "/customers/accountoverview",
 			});
 		} else if (
-			retVal?.data?.data?.result === "error" ||
-			retVal?.data?.data?.hasError === true
+			retVal?.data?.result === "error" ||
+			retVal?.data?.hasError === true
 		) {
 			Cookies.set(
 				"token",
@@ -304,7 +304,7 @@ export default function Register() {
 					//On succes, calls the login API to the JWT token and save it in storage, and make the user logged in and redirecting to home page
 					loginUser(values);
 				}
-				else if (customerStatus.data?.result === "succcces" && customerStatus.data?.successMessage === "Password reset successful") 
+				else if (customerStatus.data?.result === "succcces" && customerStatus.data?.successMessage === "Password reset successful")
 				{
 					toast.success(
 						customerStatus.data?.successMessage,
@@ -389,8 +389,8 @@ const fetchAddress = async(e) => {
 			let result = await ZipCodeLookup(e.target.value);
       		if (result) {
             	setValidZip(true);
-            	setState(result.data.data.data.stateCode);
-            	setCity(result.data.data.data.cityName);
+            	setState(result?.data?.data.stateCode);
+            	setCity(result?.data?.data.cityName);
           	} else {
             	setValidZip(false);
             	setState("");
@@ -403,7 +403,7 @@ const fetchAddress = async(e) => {
 		}
 	} catch (error) {
 		Error(" Error from [fetchAddress]");
-	}	
+	}
 };
 
 	//View Part

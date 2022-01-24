@@ -23,7 +23,7 @@ export default async function UserImageInformation() {
     res.profile_picture_url = Cookies.get("profile_picture_url");
   }
   else {
-    res.profile_picture_url = res?.data?.data?.profile_picture_url;
+    res.profile_picture_url = res?.data?.profile_picture_url;
   }
   return res.profile_picture_url;
 }

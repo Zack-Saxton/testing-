@@ -111,14 +111,14 @@ export default function IncomeVerification(props) {
 
 							//To check all the steps are completed or not
 							if (
-								res?.data?.data?.email === true &&
-								res?.data?.data?.financial_information === true &&
-								res?.data?.data?.id_document === true &&
-								res?.data?.data?.id_questions === true &&
-								res?.data?.data?.id_photo === true &&
-								res?.data?.data?.bank_account_information === true &&
-								res?.data?.data?.bank_account_verification === true &&
-								res?.data?.data?.income_verification === true
+								res?.data?.email === true &&
+								res?.data?.financial_information === true &&
+								res?.data?.id_document === true &&
+								res?.data?.id_questions === true &&
+								res?.data?.id_photo === true &&
+								res?.data?.bank_account_information === true &&
+								res?.data?.bank_account_verification === true &&
+								res?.data?.income_verification === true
 							) {
 								props.setLoadingFlag(false);
 								history.push({
