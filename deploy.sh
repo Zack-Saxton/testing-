@@ -28,9 +28,9 @@ fi
 
 if [ "$env" = "prod1" ] || [ "$env" = "prod2" ] || [ "$env" = "prod3" ] || [ "$env" = "prod4" ]
 then
-    serverName="ubuntu@${app}-${inst}-prod.marinerfinance.io"
+    serverName="ubuntu@${app}-${app1}-prod.marinerfinance.io"
 else
-    serverName="ubuntu@${app}-${inst}-${env}.marinerfinance.io"
+    serverName="ubuntu@cis-app1-${env}.marinerfinance.io"
 fi
 gitRepo="git@github.com:marinerfinance/cac.git"
 pemFile="$home/Code/$app/otherdocs/marinerfinance-us-east-1.pem"
