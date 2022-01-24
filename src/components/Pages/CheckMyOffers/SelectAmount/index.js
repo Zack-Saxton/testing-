@@ -50,7 +50,7 @@ function CheckMyOffers(props) {
 			pathname: "/customers/accountOverview",
 		});
 	}
-	const handleRoute = (e) => {
+	const handleRoute = (event) => {
 		data.loanAmount = select;
 		data.formStatus = "started";
 		data.completedPage = data.page.selectAmount;
@@ -123,7 +123,7 @@ function CheckMyOffers(props) {
 											data-testid="offerCodeTriggerText"
 											className="setGreenColor cursorPointer"
 											align="center"
-											onClick={(e) => {
+											onClick={(event) => {
 												setOfferCode(!hasOfferCode);
 											}}
 										>

@@ -26,7 +26,6 @@ export default function AccountOverview() {
     return () => {
       setAccountDetails({}); // This worked for me
     };
-
   }, []);
 
   //Load data

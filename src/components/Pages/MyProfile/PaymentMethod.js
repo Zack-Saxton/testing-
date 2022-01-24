@@ -210,28 +210,28 @@ export default function PaymentMethod() {
         }
     };
 
-const fetchAddress = async(e) => {
-    try {
-        if (e.target.value !== "" && e.target.value.length === 5) {
-            let result = await ZipCodeLookup(e.target.value);
-            if (result) {
-                setValidZip(true);
-                formikAddDebitCard.setFieldValue("city",result?.data?.data.cityName);
-                formikAddDebitCard.setFieldValue("state",result?.data?.data.stateCode);
+    const fetchAddress = async (event) => {
+        try {
+            if (event.target.value !== "" && event.target.value.length === 5) {
+                let result = await ZipCodeLookup(event.target.value);
+                if (result) {
+                    setValidZip(true);
+                    formikAddDebitCard.setFieldValue("city", result?.data?.data.cityName);
+                    formikAddDebitCard.setFieldValue("state", result?.data?.data.stateCode);
+                } else {
+                    setValidZip(false);
+                    formikAddDebitCard.setFieldValue("city", "");
+                    formikAddDebitCard.setFieldValue("state", "");
+                }
             } else {
-                setValidZip(false);
                 formikAddDebitCard.setFieldValue("city", "");
                 formikAddDebitCard.setFieldValue("state", "");
             }
-        } else {
-             formikAddDebitCard.setFieldValue("city", "");
-            formikAddDebitCard.setFieldValue("state", "");
-        }
 
-        formikAddDebitCard.handleChange(e);
-    } catch (error) {
-        Error("Error from [fetchAddress]");
-}
+            formikAddDebitCard.handleChange(event);
+        } catch (error) {
+            Error("Error from [fetchAddress]");
+        }
     };
 
     const onClickEditCard = async (row) => {
@@ -399,8 +399,8 @@ const fetchAddress = async(e) => {
         }
     };
 
-    const closeDebitCardButton = (e) => {
-        formikAddDebitCard.handleReset(e);
+    const closeDebitCardButton = (event) => {
+        formikAddDebitCard.handleReset(event);
         setCheckedDebitCard(false);
         setAddDebitCard(false);
         setPaymentMethodDiv(true);
@@ -942,8 +942,8 @@ const fetchAddress = async(e) => {
                                 labelforform="Account Type"
                                 radiolabel='[{"label":"Savings", "value":"Savings"},{"label":"Checking", "value":"Checking"}]'
                                 checked={accountType}
-                                onClick={(e) => {
-                                    setAccountType(e);
+                                onClick={(event) => {
+                                    setAccountType(event);
                                 }}
                                 row={true}
                                 disabled={editMode}
@@ -1101,8 +1101,8 @@ const fetchAddress = async(e) => {
                                 value={checkedAddBank}
                                 checked={checkedAddBank}
                                 disabled={editMode}
-                                onChange={(e) => {
-                                    setCheckedAddBank(e.target.checked);
+                                onChange={(event) => {
+                                    setCheckedAddBank(event.target.checked);
                                 }}
                             />
                         </Grid>
@@ -1317,8 +1317,8 @@ const fetchAddress = async(e) => {
                                 value={formikAddDebitCard.values.cardNumber}
                                 onChange={(e) => addDebitOnChangeNumber(e)}
                                 // onBlur={formikAddDebitCard.handleBlur}
-                                onBlur={(e) => {
-                                    detectCardType(e, e.target.value);
+                                onBlur={(event) => {
+                                    detectCardType(event, event.target.value);
                                 }}
                                 error={
                                     formikAddDebitCard.touched.cardNumber &&
@@ -1458,18 +1458,18 @@ const fetchAddress = async(e) => {
                                 required={true}
                                 value={sameAsMailAddress}
                                 checked={sameAsMailAddress}
-                                onChange={(e) => {
-                                    if (e.target.checked) {
+                                onChange={(event) => {
+                                    if (event.target.checked) {
                                         formikAddDebitCard.setFieldValue("zipcode", mailingZipcode)
                                         formikAddDebitCard.setFieldValue("streetAddress", mailingStreetAddress)
-                                        let event = {
+                                        let sendEvent = {
                                             target: {
                                                 value: mailingZipcode,
                                             },
                                         };
-                                        fetchAddress(event);
+                                        fetchAddress(sendEvent);
                                     }
-                                    setSameAsMailAddress(e.target.checked);
+                                    setSameAsMailAddress(event.target.checked);
                                 }}
                             />
                         </Grid>
@@ -1518,11 +1518,11 @@ const fetchAddress = async(e) => {
                                 materialProps={{ maxLength: "5" }}
                                 disabled={sameAsMailAddress}
                                 value={formikAddDebitCard.values.zipcode}
-                                onChange={(e) => {
+                                onChange={(event) => {
                                     const reg = /^[0-9\b]+$/;
-                                    let acc = e.target.value;
+                                    let acc = event.target.value;
                                     if (acc === "" || reg.test(acc)) {
-                                        fetchAddress(e);
+                                        fetchAddress(event);
                                     }
                                 }}
                                 onBlur={formikAddDebitCard.handleBlur}
@@ -1613,8 +1613,8 @@ const fetchAddress = async(e) => {
                                 required={true}
                                 value={checkedDebitCard}
                                 checked={checkedDebitCard}
-                                onChange={(e) => {
-                                    setCheckedDebitCard(e.target.checked);
+                                onChange={(event) => {
+                                    setCheckedDebitCard(event.target.checked);
                                 }}
                             />
                         </Grid>
@@ -1657,7 +1657,7 @@ const fetchAddress = async(e) => {
                         classes={{ paper: classes.dialogPaperDebitCard }}
                     >
                         <DialogTitle id="debitCardModalHeading">
-                            <Typography id="deleteTxt" className={classes.dialogHeading} style={{textAlign:'center'}}>
+                            <Typography id="deleteTxt" className={classes.dialogHeading} style={{ textAlign: 'center' }}>
                                 Are you sure you want to add a New Debit Card Details ?
                             </Typography>
                             <IconButton
@@ -1733,20 +1733,20 @@ const fetchAddress = async(e) => {
                 aria-describedby="alert-dialog-description"
                 classes={{ paper: classes.deletePayment }}
             >
-                   <DialogTitle id="debitCardModalHeading">
-                                <Typography id="deleteTxt" className={classes.dialogHeading} style={{textAlign:'center'}}>
-                                Are you sure you want to delete this payment method?
-                                </Typography>
-                                <IconButton
-                                    id="debitCardModalClose"
-                                    aria-label="close"
-                                    className={classes.closeButton}
-                                    onClick={handleDeleteConfirmClose}
-                                >
-                                    <CloseIcon />
-                                </IconButton>
-                            </DialogTitle>
-                <DialogActions  style={{ justifyContent: "center", marginBottom: "25px" }}>
+                <DialogTitle id="debitCardModalHeading">
+                    <Typography id="deleteTxt" className={classes.dialogHeading} style={{ textAlign: 'center' }}>
+                        Are you sure you want to delete this payment method?
+                    </Typography>
+                    <IconButton
+                        id="debitCardModalClose"
+                        aria-label="close"
+                        className={classes.closeButton}
+                        onClick={handleDeleteConfirmClose}
+                    >
+                        <CloseIcon />
+                    </IconButton>
+                </DialogTitle>
+                <DialogActions style={{ justifyContent: "center", marginBottom: "25px" }}>
 
                     <ButtonSecondary
                         stylebutton='{"background": "", "color":"" }'

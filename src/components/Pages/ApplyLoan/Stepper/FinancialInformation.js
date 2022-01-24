@@ -180,7 +180,7 @@ export default function FinancialInformation(props) {
 
             <ButtonSecondary
               stylebutton='{"marginRight": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
-              onClick={(e) => {
+              onClick={(event) => {
                 formik.resetForm();
               }
               }

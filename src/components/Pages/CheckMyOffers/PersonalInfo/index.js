@@ -249,9 +249,9 @@ function PersonalInfo() {
 	};
 
 	//on email change call validation
-	const emailOnChange = (e) => {
+	const emailOnChange = (event) => {
 		setSsnEmailMatch(true);
-		formik.handleChange(e);
+		formik.handleChange(event);
 	};
 
 	//set auto focus

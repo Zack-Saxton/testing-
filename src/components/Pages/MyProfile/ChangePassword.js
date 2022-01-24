@@ -125,7 +125,7 @@ export default function ChangePassword(basicInformationData) {
             }
           }
         }
-      } catch (err) {
+      } catch (error) {
         toast.error("Please try again.", {
           position: "bottom-left",
           autoClose: 3500,

@@ -95,11 +95,11 @@ function HomeAddress() {
 		}
 	};
 
-const fetchAddress = async(e) => {
+	const fetchAddress = async (event) => {
 	try {
-		setErrorMsg(e.target.value === "" ? "Please enter a zipcode" : errorMsg);
-		if (e.target.value !== "" && e.target.value.length === 5) {
-			let result = await ZipCodeLookup(e.target.value);
+		setErrorMsg(event.target.value === "" ? "Please enter a zipcode" : errorMsg);
+		if (event.target.value !== "" && event.target.value.length === 5) {
+			let result = await ZipCodeLookup(event.target.value);
 			if (result) {
         		formik.setFieldValue("city", result?.data?.data.cityName);
         		formik.setFieldValue("state", result?.data?.data.stateCode);
@@ -124,13 +124,13 @@ const fetchAddress = async(e) => {
 			setStateShort("");
 			setValidZip(true);
 		}
-		formik.handleChange(e);
+		formik.handleChange(event);
 	} catch (error) {
 		Error('Error from [fetchAddress]')
 	}
 };
-	const onBlurAddress = (e) => {
-		formik.setFieldValue("streetAddress", e.target.value.trim());
+	const onBlurAddress = (event) => {
+		formik.setFieldValue("streetAddress", event.target.value.trim());
 	};
 	if (
 		data.completedPage < data.page.citizenship ||

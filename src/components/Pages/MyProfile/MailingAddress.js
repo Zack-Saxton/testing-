@@ -144,11 +144,11 @@ export default function MailingAddress(props) {
     }
   };
 
-const fetchAddress = async (e) => {
+  const fetchAddress = async (event) => {
   try {
-    setErrorMsg(e.target.value === "" ? "Please enter a zipcode" : errorMsg);
-    if (e.target.value !== "" && e.target.value.length === 5) {
-     let result = await ZipCodeLookup(e.target.value);
+    setErrorMsg(event.target.value === "" ? "Please enter a zipcode" : errorMsg);
+    if (event.target.value !== "" && event.target.value.length === 5) {
+      let result = await ZipCodeLookup(event.target.value);
      if (result) {
        fetchAddressValidate(result);
      } else {
@@ -158,8 +158,8 @@ const fetchAddress = async (e) => {
        setErrorMsg("Please enter a valid Zipcode");
      }
    }
-    if (e.target.name !== "") {
-      formik.handleChange(e);
+    if (event.target.name !== "") {
+      formik.handleChange(event);
     }
   } catch (error) {
     Error("Error from [fetchAddress]");
@@ -183,8 +183,8 @@ function fetchAddressValidate(result) {
     Error(" Error from [fetchAddressValidate]");
   }
 }
-  const onBlurAddress = (e) => {
-    formik.setFieldValue("streetAddress", e.target.value.trim());
+  const onBlurAddress = (event) => {
+    formik.setFieldValue("streetAddress", event.target.value.trim());
   };
 
   return (

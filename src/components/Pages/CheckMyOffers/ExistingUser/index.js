@@ -110,9 +110,9 @@ function ExistingUser() {
 		},
 	});
 
-	const passwordOnChange = (e) => {
+	const passwordOnChange = (event) => {
 		setLoginFailed("");
-		formik.handleChange(e);
+		formik.handleChange(event);
 	};
 
 	const preventSpace = (event) => {

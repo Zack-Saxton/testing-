@@ -12,7 +12,7 @@ import MarriedStatusLogo from "../../../../assets/icon/married-status.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import ScrollToTopOnMount from "../ScrollToTop";
 import ZipCodeLookup from "../../../Controllers/ZipCodeLookup";
-import { Error} from "../../../toast/toast";
+import { Error } from "../../../toast/toast";
 //Yup validation schema
 const validationSchema = yup.object({
 	martialStatus: yup
@@ -79,10 +79,10 @@ function MarriedStatus() {
 	const formik = useFormik({
 		initialValues: {
 			martialStatus: data.maritalStatus ?? "",
-			add: data.spouse_address_street ? data.spouse_address_street : ( data.streetAddress ? data.streetAddress : ""),
-			spouseZipcode: data.spouse_address_postal_code ? data.spouse_address_postal_code : ( data.zip ? data.zip : ""),
-			spouseSelectState: data.spouse_address_state_full_form ? data.spouse_address_state_full_form : ( data.stateFullform ? data.stateFullform : ""),
-			spousecity: data.spouse_address_city ? data.spouse_address_city : ( data.city ? data.city : ""),
+			add: data.spouse_address_street ? data.spouse_address_street : (data.streetAddress ? data.streetAddress : ""),
+			spouseZipcode: data.spouse_address_postal_code ? data.spouse_address_postal_code : (data.zip ? data.zip : ""),
+			spouseSelectState: data.spouse_address_state_full_form ? data.spouse_address_state_full_form : (data.stateFullform ? data.stateFullform : ""),
+			spousecity: data.spouse_address_city ? data.spouse_address_city : (data.city ? data.city : ""),
 		},
 		validationSchema: validationSchema,
 
@@ -110,30 +110,30 @@ function MarriedStatus() {
 	};
 
 	//fetch the state and city based in zip code
-const fetchAddress = async(e) => {
-	try {
-		if (e.target.value !== "" && e.target.value.length === 5) {
-			let result = await ZipCodeLookup(e.target.value);
-			if (result) {
-				formik.setFieldValue("spouseSelectState",result?.data?.data.stateCode);
-				formik.setFieldValue("spousecity", result?.data?.data.cityName);
-				setStateShort(result?.data?.data.stateCode);
-				setValidZip(true);
+	const fetchAddress = async (event) => {
+		try {
+			if (event.target.value !== "" && event.target.value.length === 5) {
+				let result = await ZipCodeLookup(event.target.value);
+				if (result) {
+					formik.setFieldValue("spouseSelectState", result?.data?.data.stateCode);
+					formik.setFieldValue("spousecity", result?.data?.data.cityName);
+					setStateShort(result?.data?.data.stateCode);
+					setValidZip(true);
+				} else {
+					formik.setFieldValue("spouseSelectState", "");
+					formik.setFieldValue("spousecity", "");
+					setStateShort("");
+					setValidZip(false);
+				}
 			} else {
 				formik.setFieldValue("spouseSelectState", "");
 				formik.setFieldValue("spousecity", "");
 				setStateShort("");
-				setValidZip(false);
 			}
-		} else {
-			formik.setFieldValue("spouseSelectState", "");
-			formik.setFieldValue("spousecity", "");
-			setStateShort("");
+			formik.handleChange(e);
+		} catch (error) {
+			Error(' Error from [fetchAddress].')
 		}
-		formik.handleChange(e);
-	} catch (error) {
-		Error(' Error from [fetchAddress].')
-	}
 	};
 
 	//redirect to select amount if page accessed directly

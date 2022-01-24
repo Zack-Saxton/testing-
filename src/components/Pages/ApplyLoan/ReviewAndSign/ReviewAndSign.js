@@ -439,8 +439,8 @@ export default function ReviewAndSign(props) {
                       }
                       labelid="confirm"
                       value={confirm}
-                      onChange={(e) => {
-                        setConfirm(e.target.checked);
+                      onChange={(event) => {
+                        setConfirm(event.target.checked);
                       }}
                       testid="checkbox"
                       stylelabelform='{ "fontSize":"12px" }'

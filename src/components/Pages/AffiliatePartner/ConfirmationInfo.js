@@ -361,16 +361,16 @@ export default function CreditKarma(props) {
     },
   });
 
-  const onBlurAddress = (e) => {
-    formik.setFieldValue("streetAddress", e.target.value.trim());
-    formik.setFieldValue("spouseadd", e.target.value.trim());
+  const onBlurAddress = (event) => {
+    formik.setFieldValue("streetAddress", event.target.value.trim());
+    formik.setFieldValue("spouseadd", event.target.value.trim());
   };
 
-  const fetchAddress = async(e) => {
+  const fetchAddress = async (event) => {
     try {
-    setErrorMsg(e.target.value === "" ? "Please enter a zipcode" : errorMsg);
-    if (e.target.value !== "" && e.target.value.length === 5) {
-      let result = await ZipCodeLookup(e.target.value);
+      setErrorMsg(event.target.value === "" ? "Please enter a zipcode" : errorMsg);
+      if (event.target.value !== "" && event.target.value.length === 5) {
+        let result = await ZipCodeLookup(event.target.value);
       if (result) {
          fetchAddressValidate(result);
       } else {
@@ -380,7 +380,7 @@ export default function CreditKarma(props) {
         setErrorMsg("Please enter a valid Zipcode");
       }
     }
-    if (e.target.name !== "") { formik.handleChange(e) }
+      if (event.target.name !== "") { formik.handleChange(e) }
   } catch (error) {
     Error("Error from [fetchAddress].");
   }
@@ -409,10 +409,10 @@ export default function CreditKarma(props) {
     }
   }
   //fetch the state and city based in zip code
-  const fetchSpouseAddress = async(e) => {
+  const fetchSpouseAddress = async (event) => {
     try {
-      if (e.target.value !== "" && e.target.value.length === 5) {
-        let result = await ZipCodeLookup(e.target.value);
+      if (event.target.value !== "" && event.target.value.length === 5) {
+        let result = await ZipCodeLookup(event.target.value);
         if (result) {
           formik.setFieldValue("spousecity",result?.data?.data.cityName);
           formik.setFieldValue("spouseSelectState", result?.data?.data.stateCode);
@@ -1085,8 +1085,8 @@ export default function CreditKarma(props) {
                         name="termsOfService"
                         labelform="Terms & Service"
                         value={agree}
-                        onChange={(e) => {
-                          setAgree(e.target.checked);
+                        onChange={(event) => {
+                          setAgree(event.target.checked);
                         }}
                         label={
                           <p className="agreeCheckbox">
@@ -1151,8 +1151,8 @@ export default function CreditKarma(props) {
                           name="delaware"
                           labelform="delaware"
                           value={agreeDelaware}
-                          onChange={(e) => {
-                            setAgreeDelaware(e.target.checked);
+                          onChange={(event) => {
+                            setAgreeDelaware(event.target.checked);
                           }}
                           label={
                             <p className="agreeCheckbox">
@@ -1182,8 +1182,8 @@ export default function CreditKarma(props) {
                           name="california"
                           labelform="california"
                           value={agreeCalifornia}
-                          onChange={(e) => {
-                            setAgreeCalifornia(e.target.checked);
+                          onChange={(event) => {
+                            setAgreeCalifornia(event.target.checked);
                           }}
                           label={
                             <p className="agreeCheckbox">
@@ -1218,8 +1218,8 @@ export default function CreditKarma(props) {
                           name="newmexico"
                           labelform="newmexico"
                           value={agreeNewMexico}
-                          onChange={(e) => {
-                            setAgreeNewMexico(e.target.checked);
+                          onChange={(event) => {
+                            setAgreeNewMexico(event.target.checked);
                           }}
                           label={
                             <p className="agreeCheckbox">

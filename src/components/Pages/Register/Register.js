@@ -382,11 +382,11 @@ export default function Register() {
 	}
 
 	//Fetching valid zipcode
-const fetchAddress = async(e) => {
+	const fetchAddress = async (event) => {
 	try {
-		formik.handleChange(e);
-		if (e.target.value !== "" && e.target.value.length === 5) {
-			let result = await ZipCodeLookup(e.target.value);
+		formik.handleChange(event);
+		if (event.target.value !== "" && event.target.value.length === 5) {
+			let result = await ZipCodeLookup(event.target.value);
       		if (result) {
             	setValidZip(true);
             	setState(result?.data?.data.stateCode);

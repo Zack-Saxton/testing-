@@ -533,8 +533,8 @@ export default function CreditKarma() {
                         name="termsOfService"
                         labelform="Terms & Service"
                         value={agree}
-                        onChange={(e) => {
-                          setAgree(e.target.checked);
+                        onChange={(event) => {
+                          setAgree(event.target.checked);
                         }}
                         label={
                           <p className="agreeCheckbox">

@@ -1,5 +1,5 @@
-import React, {useEffect, useState , useRef} from "react";
-import {useStylesLoanDocument} from "./Style";
+import React, { useEffect, useState, useRef } from "react";
+import { useStylesLoanDocument } from "./Style";
 import Typography from "@material-ui/core/Typography";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Button from "@material-ui/core/Button";
@@ -54,8 +54,8 @@ export default function LoanDocument(props) {
   };
 
   //Document type
-  const handleDocType = (e) => {
-    setDocType(e.target.value);
+  const handleDocType = (event) => {
+    setDocType(event.target.value);
     changeEvent.current.click();
   };
   const uploadDoc = () => {
@@ -72,7 +72,6 @@ export default function LoanDocument(props) {
           progress: undefined,
         });
       }
-
     }
     else if (docType === null || docType === "") {
       if (!toast.isActive("closeToast")) {
@@ -87,29 +86,22 @@ export default function LoanDocument(props) {
           progress: undefined,
         });
       }
-
     } else {
       var filePath = selectedFile.value;
-
       var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.pdf)$/i;
-
       if (!allowedExtensions.exec(filePath)) {
         if (!toast.isActive("closeToast")) {
-          toast.error(
-            "Please upload file having extensions .jpeg .jpg .png .pdf only. ",
-            {
-              position: "bottom-left",
-              autoClose: 1500,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              toastId: "closeToast",
-            }
-          );
+          toast.error("Please upload file having extensions .jpeg .jpg .png .pdf only. ", {
+            position: "bottom-left",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            toastId: "closeToast",
+          });
         }
-
         selectedFile.value = "";
         return false;
       }
@@ -118,7 +110,6 @@ export default function LoanDocument(props) {
         if (selectedFile.files && selectedFile.files[0]) {
           reader.onload = async () => {
             const buffer2 = Buffer.from(reader.result, "base64");
-
             let test = Buffer.from(buffer2).toJSON().data;
             let fileName = selectedFile.files[0].name;
             let fileType = selectedFile.files[0].type;
@@ -126,9 +117,7 @@ export default function LoanDocument(props) {
             setLoading(true);
 
             let response = await uploadDocument(test, fileName, fileType, documentType);
-
             if (response === "true") {
-
               setLoading(false);
               setDocType(null);
               selectedFile.value = "";
@@ -155,7 +144,6 @@ export default function LoanDocument(props) {
         }
       }
     }
-
   };
 
   //Loan Document data from API
@@ -230,8 +218,8 @@ export default function LoanDocument(props) {
             ) : (
               <LoanDocumentTable userLoanDocumentData={loanDocumentData} />
             )}
- 
-            <Grid   item xs={12} sm={3} style={{ paddingTop: "10px", width: "225px" }}>
+
+            <Grid item xs={12} sm={3} style={{ paddingTop: "10px", width: "225px" }}>
 
               <Select
                 name="selectDocument"
@@ -253,11 +241,11 @@ export default function LoanDocument(props) {
                   multiple
                   id="file"
                   type="file"
-                  cursor= "pointer"
+                  cursor="pointer"
                   ref={changeEvent}
                   onClick={handleInputChange}
-                  style={{display:"none"}}
-                /> 
+                  style={{ display: "none" }}
+                />
                 <Button
                   id="uploadBtn"
                   className="file"
@@ -268,19 +256,19 @@ export default function LoanDocument(props) {
                   component="span"
                   disabled={loading}
                 >
-                Upload          
-            
-              <i
-                className="fa fa-refresh fa-spin customSpinner"
-               style={{marginRight: "10px", color: "blue", display: loading ? "block" : "none"}}
-                 />
+                  Upload
+
+                  <i
+                    className="fa fa-refresh fa-spin customSpinner"
+                    style={{ marginRight: "10px", color: "blue", display: loading ? "block" : "none" }}
+                  />
                 </Button>
               </Grid>
-             
+
               <Grid item xs={12} sm={4} style={{ paddingTop: "10px" }} >
-              
+
               </Grid>
-              </Grid>
+            </Grid>
 
           </Paper>
         </Grid>

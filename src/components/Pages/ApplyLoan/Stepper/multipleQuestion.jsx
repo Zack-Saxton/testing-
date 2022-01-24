@@ -106,9 +106,9 @@ export default function MultipleQuestion(props) {
 							name="question"
 							radiolabel={buildOptions(question.choice)}
 							checked={questionArray[question.questionId]}
-							onClick={(e) => {
-								questionArray[question.questionId] = e;
-								setRefresh(e);
+							onClick={(event) => {
+								questionArray[question.questionId] = event;
+								setRefresh(event);
 							}}
 							row={true}
 							required={true}

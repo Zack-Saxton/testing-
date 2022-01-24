@@ -15,7 +15,7 @@ export const decryptAES = (encryptedBase64) => {
       } else {
         return 'error 1';
       }
-    } catch (e) {
+    } catch (error) {
       return 'error 2';
     }
   }

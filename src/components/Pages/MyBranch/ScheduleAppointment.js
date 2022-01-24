@@ -182,7 +182,7 @@ export default function ScheduleAppointment(MyBranchAppointment) {
                 id="date"
                 disablePast
                 autoComplete="off"
-                onKeyDown={(e) => e.preventDefault()}
+                onKeyDown={(event) => event.preventDefault()}
                 shouldDisableDate={disableWeekends}
                 maxdate={scheduleAppointmentDate}
                 minyear={4}

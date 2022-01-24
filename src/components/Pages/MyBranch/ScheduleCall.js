@@ -172,7 +172,7 @@ export default function ScheduleCall(MyBranchCall) {
                 id="date"
                 disablePast
                 autoComplete="off"
-                onKeyDown={(e) => e.preventDefault()}
+                onKeyDown={(event) => event.preventDefault()}
                 shouldDisableDate={disableWeekends}
                 maxdate={scheduleDateCall}
                 minyear={4}

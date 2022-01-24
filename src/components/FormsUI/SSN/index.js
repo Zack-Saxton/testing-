@@ -22,8 +22,8 @@ const PasswordWrapper = ({ name, id, onChange, value, label, ...otherProps }) =>
   });
 
   //to prevent from cut, copy and paste
-  const handleEdit = (e) => {
-    e.preventDefault();
+  const handleEdit = (event) => {
+    event.preventDefault();
   };
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
