@@ -132,7 +132,7 @@ export async function uploadDocument(test, fileName, fileType, documentType) {
 
   //API response
   uploadData.data.status === 200
-    ? toast.success((uploadData?.data?.data?.message) ? (uploadData?.data?.data.message) : (uplo?.data?.data?.message) ? (uploadData?.data?.message) : "Document Uploaded Successfully", {
+    ? toast.success((uploadData?.data?.data?.message) ? (uploadData?.data?.data.message) : (uploadData?.data?.data?.message) ? (uploadData?.data?.message) : "Document Uploaded Successfully", {
       position: "bottom-left",
       autoClose: 5000,
       hideProgressBar: false,
@@ -141,7 +141,7 @@ export async function uploadDocument(test, fileName, fileType, documentType) {
       draggable: true,
       progress: undefined,
     })
-    : toast.error((uploadData?.data?.data?.message) ? (uploadData?.data?.data.message) : (uplo?.data?.data?.message) ? (uploadData?.data?.message) : "Error uploading file", {
+    : toast.error((uploadData?.data?.data?.message) ? (uploadData?.data?.data.message) : (uploadData?.data?.data?.message) ? (uploadData?.data?.message) : "Error uploading file", {
       position: "bottom-left",
       autoClose: 5000,
       hideProgressBar: false,
