@@ -31,7 +31,7 @@ import { partnerConfirmInfo } from "../../Controllers/PartnerSignupController";
 import states from "../../lib/States.json";
 import statesFullform from "../../lib/StatesFullform.json";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
-import { Error } from "../../toast/toast";
+import { toast } from "react-toastify";
 //Styling
 const useStyles = makeStyles((theme) => ({
   mainContentBackground: {
@@ -309,17 +309,17 @@ export default function CreditKarma(props) {
         : "",
       personalIncome: props?.location?.state?.annual_income
         ? "$" +
-          parseFloat(props.location.state.annual_income)
-            .toFixed(2)
-            .replace(/(\d)(?=(\d{3})+\.)/g, "$1,")
-            .slice(0, -3)
+        parseFloat(props.location.state.annual_income)
+          .toFixed(2)
+          .replace(/(\d)(?=(\d{3})+\.)/g, "$1,")
+          .slice(0, -3)
         : "",
       householdIncome: props?.location?.state?.household_annual_income
         ? "$" +
-          parseFloat(props.location.state.household_annual_income)
-            .toFixed(2)
-            .replace(/(\d)(?=(\d{3})+\.)/g, "$1,")
-            .slice(0, -3)
+        parseFloat(props.location.state.household_annual_income)
+          .toFixed(2)
+          .replace(/(\d)(?=(\d{3})+\.)/g, "$1,")
+          .slice(0, -3)
         : "",
       employementStatus: props?.location?.state?.employment_status
         ? props.location.state.employment_status
@@ -424,10 +424,10 @@ export default function CreditKarma(props) {
         }
       }
       if (event.target.name !== "") {
-        formik.handleChange();
+        formik.handleChange(event);
       }
     } catch (error) {
-      Error("Error from [fetchAddress].");
+      toast.error("Error from [fetchAddress].");
     }
   };
 
@@ -476,7 +476,7 @@ export default function CreditKarma(props) {
           formik.setFieldValue("spousecity", "");
           setValidZip(false);
         }
-        formik.handleChange();
+        formik.handleChange(event);
       }
     } catch (error) {
       Error("Error from [fetchSpouseAddress].");
@@ -854,7 +854,7 @@ export default function CreditKarma(props) {
                           helperText={
                             !citizenship
                               ? formik.touched.citizenship &&
-                                formik.errors.citizenship
+                              formik.errors.citizenship
                               : "We are sorry. We do not offer loans to foreign residents."
                           }
                           select='[{ "label": "USA Citizen", "value": "USA Citizen"},
@@ -937,7 +937,7 @@ export default function CreditKarma(props) {
                       xs={12}
                       className={
                         formik.values.state === "North Carolina" ||
-                        formik.values.state === "NC"
+                          formik.values.state === "NC"
                           ? "showCheckbox"
                           : "hideCheckbox"
                       }
@@ -1004,7 +1004,7 @@ export default function CreditKarma(props) {
                       xs={12}
                       className={
                         formik.values.state === "Wisconsin" ||
-                        formik.values.state === "WI"
+                          formik.values.state === "WI"
                           ? "showCheckbox"
                           : "hideCheckbox"
                       }
@@ -1036,7 +1036,7 @@ export default function CreditKarma(props) {
                         xs={12}
                         className={
                           formik.values.martialStatus === "Married" ||
-                          formik.values.martialStatus ===
+                            formik.values.martialStatus ===
                             "Separated, under decree of legal separation"
                             ? "showCheckbox"
                             : "hideCheckbox"
@@ -1054,7 +1054,7 @@ export default function CreditKarma(props) {
                         xs={12}
                         className={
                           formik.values.martialStatus === "Married" ||
-                          formik.values.martialStatus ===
+                            formik.values.martialStatus ===
                             "Separated, under decree of legal separation"
                             ? "showCheckbox"
                             : "hideCheckbox"
@@ -1072,7 +1072,7 @@ export default function CreditKarma(props) {
                             id="spouseZipWrap"
                             className={
                               formik.values.martialStatus === "Married" ||
-                              formik.values.martialStatus ===
+                                formik.values.martialStatus ===
                                 "Separated, under decree of legal separation"
                                 ? "showCheckbox"
                                 : "hideCheckbox"
@@ -1094,7 +1094,7 @@ export default function CreditKarma(props) {
                               helperText={
                                 validZip
                                   ? formik.touched.spouseZipcode &&
-                                    formik.errors.spouseZipcode
+                                  formik.errors.spouseZipcode
                                   : "Please enter a valid Zip code"
                               }
                             />
@@ -1107,7 +1107,7 @@ export default function CreditKarma(props) {
                             style={{ paddingRight: "10px" }}
                             className={
                               formik.values.martialStatus === "Married" ||
-                              formik.values.martialStatus ===
+                                formik.values.martialStatus ===
                                 "Separated, under decree of legal separation"
                                 ? "showCheckbox"
                                 : "hideCheckbox"
@@ -1139,7 +1139,7 @@ export default function CreditKarma(props) {
                             id="spouseStateWrap"
                             className={
                               formik.values.martialStatus === "Married" ||
-                              formik.values.martialStatus ===
+                                formik.values.martialStatus ===
                                 "Separated, under decree of legal separation"
                                 ? "showCheckbox"
                                 : "hideCheckbox"
@@ -1234,7 +1234,7 @@ export default function CreditKarma(props) {
                       <div
                         className={
                           formik.values.state === "Delaware" ||
-                          formik.values.state === "DE"
+                            formik.values.state === "DE"
                             ? "showCheckbox"
                             : "hideCheckbox"
                         }
@@ -1266,7 +1266,7 @@ export default function CreditKarma(props) {
                       <div
                         className={
                           formik.values.state === "California" ||
-                          formik.values.state === "CA"
+                            formik.values.state === "CA"
                             ? "showCheckbox"
                             : "hideCheckbox"
                         }
@@ -1303,7 +1303,7 @@ export default function CreditKarma(props) {
                       <div
                         className={
                           formik.values.state === "New Mexico" ||
-                          formik.values.state === "NM"
+                            formik.values.state === "NM"
                             ? "showCheckbox"
                             : "hideCheckbox"
                         }

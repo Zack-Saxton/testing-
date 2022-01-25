@@ -79,44 +79,20 @@ export default function TextNotification() {
           res.data.data?.sbt_subscribe_details?.HasNoErrors === true ||
           res.data.data?.sbt_getInfo?.HasNoErrors === true
         ) {
-          toast.success("Updated successfully", {
-            position: "bottom-left",
-            autoClose: 3500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
+          toast.success("Updated successfully");
           Cookies.set("isTextNotify", disabledContent);
           window.setTimeout(function () {
             window.location.reload();
           }, 4000);
         } else {
-          toast.error("No changes made", {
-            position: "bottom-left",
-            autoClose: 3500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
+          toast.error("No changes made");
         }
         window.setTimeout(function () {
           setLoading(false);
           setdisabledContent(true);
         }, 3050);
       } catch (error) {
-        toast.error("Error occured while changing text notification.", {
-          position: "bottom-left",
-          autoClose: 3500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        toast.error("Error occured while changing text notification.");
       }
     },
   });

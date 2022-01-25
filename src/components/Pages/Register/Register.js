@@ -30,7 +30,6 @@ import Cookies from "js-cookie";
 import LogoutController from "../../Controllers/LogoutController";
 import { encryptAES } from "../../lib/Crypto";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
-import { Error } from "../../toast/toast"
 //Styling part
 const useStyles = makeStyles((theme) => ({
 	mainContentBackground: {
@@ -43,7 +42,6 @@ const useStyles = makeStyles((theme) => ({
 	root: {
 		flexGrow: 1,
 	},
-
 	mainGrid: {
 		boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%),
     0 6px 30px 5px rgb(0 0 0 / 12%),
@@ -78,7 +76,6 @@ const useStyles = makeStyles((theme) => ({
   0 6px 30px 5px rgb(0 0 0 / 12%),
   0 8px 10px -7px rgb(0 0 0 / 20%)`,
 	},
-
 	form: {
 		width: "100%", // Fix IE 11 issue.
 		marginTop: theme.spacing(3),
@@ -132,10 +129,7 @@ const validationSchema = yup.object({
 		.typeError("Please enter a valid date"),
 	password: yup
 		.string("Enter your password")
-		.matches(
-			/^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,30}$/,
-			"Your password doesn't meet the criteria"
-		)
+		.matches(/^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,30}$/,"Your password doesn't meet the criteria")
 		.max(30, "Password can be upto 30 characters length")
 		.min(8, "Password should be minimum of 8 characters length")
 		.required("Your password is required"),
@@ -161,10 +155,7 @@ const validationSchema = yup.object({
 		.string("Enter a SSN")
 		.required("Your SSN is required")
 		.transform((value) => value.replace(/[^\d]/g, ""))
-		.matches(
-			/^(?!000)[0-8]\d{2}(?!00)\d{2}(?!0000)\d{4}$/,
-			"Please enter a valid SSN"
-		)
+		.matches(/^(?!000)[0-8]\d{2}(?!00)\d{2}(?!0000)\d{4}$/, "Please enter a valid SSN")
 		.matches(/^(\d)(?!\1+$)\d{8}$/, "Please enter a valid SSN")
 		.min(9, "Name must contain at least 9 digits"),
 });
@@ -187,10 +178,7 @@ export default function Register() {
 
 	const loginUser = async (values) => {
 		let retVal = await LoginController(values.email, values.password, "");
-		if (
-			retVal?.data?.user &&
-			retVal?.data?.userFound === true
-		) {
+		if (retVal?.data?.user && retVal?.data?.userFound === true) {
 			let rememberMe = false;
 			var now = new Date().getTime();
 			LogoutController();
@@ -217,30 +205,21 @@ export default function Register() {
 
 			rememberMe === true
 				? Cookies.set(
-						"rememberMe",
-						JSON.stringify({
-							selected: true,
-							email: values.email,
-							password: values.password,
-						})
-				  )
-				: Cookies.set(
-						"rememberMe",
-						JSON.stringify({ selected: false, email: "", password: "" })
-				  );
+					"rememberMe",
+					JSON.stringify({
+						selected: true,
+						email: values.email,
+						password: values.password,
+					})
+				)
+				: Cookies.set("rememberMe",JSON.stringify({ selected: false, email: "", password: "" }));
 
 			setLoading(false);
 			history.push({
 				pathname: "/customers/accountoverview",
 			});
-		} else if (
-			retVal?.data?.result === "error" ||
-			retVal?.data?.hasError === true
-		) {
-			Cookies.set(
-				"token",
-				JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" })
-			);
+		} else if (retVal?.data?.result === "error" || retVal?.data?.hasError === true) {
+			Cookies.set("token", JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" }));
 			setLoading(false);
 		} else {
 			setLoading(false);
@@ -257,7 +236,6 @@ export default function Register() {
 			confirmPassword: "",
 			zip: "",
 			ssn: "",
-
 			date: null,
 		},
 		validationSchema: validationSchema,
@@ -295,31 +273,15 @@ export default function Register() {
 				});
 
 				if (
-					(customerStatus.data?.customerFound === false &&
-						customerStatus.data?.userFound === false &&
-						customerStatus.data?.is_registration_failed === false) ||
-					(customerStatus.data?.result === "success" &&
-						customerStatus.data?.hasError === false)
+					(customerStatus.data?.customerFound === false && customerStatus.data?.userFound === false && customerStatus.data?.is_registration_failed === false) ||
+					(customerStatus.data?.result === "success" && customerStatus.data?.hasError === false)
 				) {
 					//On succes, calls the login API to the JWT token and save it in storage, and make the user logged in and redirecting to home page
 					loginUser(values);
 				}
-				else if (customerStatus.data?.result === "succcces" && customerStatus.data?.successMessage === "Password reset successful")
-				{
-					toast.success(
-						customerStatus.data?.successMessage,
-						{
-						  position: "bottom-left",
-						  autoClose: 5500,
-						  hideProgressBar: false,
-						  closeOnClick: true,
-						  pauseOnHover: true,
-						  draggable: true,
-						  progress: undefined,
-						}
-					  )
-					  loginUser(values);
-
+				else if (customerStatus.data?.result === "succcces" && customerStatus.data?.successMessage === "Password reset successful") {
+					toast.success(customerStatus.data?.successMessage)
+					loginUser(values);
 				}
 				else if (
 					customerStatus.data?.result === "error" &&
@@ -383,28 +345,28 @@ export default function Register() {
 
 	//Fetching valid zipcode
 	const fetchAddress = async (event) => {
-	try {
-		formik.handleChange(event);
-		if (event.target.value !== "" && event.target.value.length === 5) {
-			let result = await ZipCodeLookup(event.target.value);
-      		if (result) {
-            	setValidZip(true);
-            	setState(result?.data?.data.stateCode);
-            	setCity(result?.data?.data.cityName);
-          	} else {
-            	setValidZip(false);
-            	setState("");
-            	setCity("");
-          	}
-		} else {
-			setValidZip(false);
-			setState("");
-			setCity("");
+		try {
+			formik.handleChange(event);
+			if (event.target.value !== "" && event.target.value.length === 5) {
+				let result = await ZipCodeLookup(event.target.value);
+				if (result) {
+					setValidZip(true);
+					setState(result?.data?.data.stateCode);
+					setCity(result?.data?.data.cityName);
+				} else {
+					setValidZip(false);
+					setState("");
+					setCity("");
+				}
+			} else {
+				setValidZip(false);
+				setState("");
+				setCity("");
+			}
+		} catch (error) {
+			toast.error(" Error from [fetchAddress]");
 		}
-	} catch (error) {
-		Error(" Error from [fetchAddress]");
-	}
-};
+	};
 
 	//View Part
 	return (

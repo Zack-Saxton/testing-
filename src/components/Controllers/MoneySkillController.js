@@ -2,13 +2,16 @@ import APICall from "../lib/AxiosLib";
 
 /***** Get Account overview details *****/
 export default async function getMoneySkillLink() {
-  let url = "getMoneySkillLink";
-  let param = "";
-  let data = {};
-  let method = "POST";
-  let addAccessToken = true;
+  try {
+    let url = "getMoneySkillLink";
+    let param = "";
+    let data = {};
+    let method = "POST";
+    let addAccessToken = true;
 
-  //API call
-  return APICall(url, param, data, method, addAccessToken);
-
+    //API call
+    return await APICall(url, param, data, method, addAccessToken);
+  } catch (error) {
+    Error("Error executing getMoneySkillLink API");
+  }
 }

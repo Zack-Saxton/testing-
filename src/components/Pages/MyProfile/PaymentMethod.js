@@ -45,7 +45,6 @@ import { tabAtom } from "./MyProfileTab";
 import { useAtom } from "jotai";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
-import { Error } from "../../toast/toast"
 import {
     addCreditCard,
     getPaymentMethods,
@@ -54,7 +53,6 @@ import {
     setDefaultPayment,
 } from "../../Controllers/myProfileController";
 import CircularProgress from "@material-ui/core/CircularProgress";
-
 //Yup validations for Add Bank Account
 const validationSchemaDebitCard = yup.object({
     cardNumber: yup
@@ -230,7 +228,7 @@ export default function PaymentMethod() {
 
             formikAddDebitCard.handleChange(event);
         } catch (error) {
-            Error("Error from [fetchAddress]");
+            toast.error("Error from [fetchAddress]");
         }
     };
 
@@ -425,26 +423,10 @@ export default function PaymentMethod() {
         ) {
             await getPaymentMethodsOnLoad();
             setLoading(false);
-            toast.success(res?.data?.Success, {
-                position: "bottom-left",
-                autoClose: 5500,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            });
+            toast.success(res?.data?.Success);
         } else {
             setLoading(false);
-            toast.error("Default payment update failed ", {
-                position: "bottom-left",
-                autoClose: 5500,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            });
+            toast.error("Default payment update failed ");
         }
     };
 
@@ -457,31 +439,18 @@ export default function PaymentMethod() {
                 };
                 let res = await deleteCreditCard(passData);
                 if (res?.data?.deletePaymentMethod?.HasNoErrors === true) {
-                    toast.success("Card deleted successfully.", {
-                        position: "bottom-left",
-                        autoClose: 5500,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                    });
-                    setDeleteID("");
-                    setDeleteType("");
-                    handleDeleteConfirmClose();
+                    if (!toast.isActive("closeToast")) {
+                        toast.success("Card deleted successfully.")};
+                        setDeleteID("");
+                        setDeleteType("");
+                        handleDeleteConfirmClose();
+                    
                 } else {
-                    toast.error("Error deleting you card, please try again", {
-                        position: "bottom-left",
-                        autoClose: 5500,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                    });
-                    setDeleteID("");
-                    setDeleteType("");
-                    handleDeleteConfirmClose();
+                    if (!toast.isActive("closeToast")) {toast.error("Error deleting you card, please try again");}
+                        setDeleteID("");
+                        setDeleteType("");
+                        handleDeleteConfirmClose();
+                    
                 }
                 setLoading(false);
                 break;
@@ -492,29 +461,13 @@ export default function PaymentMethod() {
                 };
                 let res = await deleteBankAccount(passData);
                 if (res?.data?.deletePaymentMethod?.HasNoErrors === true) {
-                    toast.success("Bank account deleted successfully.", {
-                        position: "bottom-left",
-                        autoClose: 5500,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                    });
+                    if (!toast.isActive("closeToast")) {toast.success("Bank account deleted successfully.");}
                     getPaymentMethodsOnLoad();
                     setDeleteID("");
                     setDeleteType("");
                     handleDeleteConfirmClose();
                 } else {
-                    toast.error("Error deleting you bank account, please try again", {
-                        position: "bottom-left",
-                        autoClose: 5500,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                    });
+                    if (!toast.isActive("closeToast")) {toast.error("Error deleting you bank account, please try again");}
                     setDeleteID("");
                     setDeleteType("");
                     handleDeleteConfirmClose();
@@ -540,53 +493,21 @@ export default function PaymentMethod() {
 
         if (res?.data?.addPaymentResult?.HasNoErrors === true) {
             setLoading(false);
-            toast.success("Payment method added successfully ", {
-                position: "bottom-left",
-                autoClose: 5500,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            });
+            toast.success("Payment method added successfully ");
             await getPaymentMethodsOnLoad();
             setCardType("");
             closeDebitCardButton();
         } else if (res?.data?.addPaymentResult?.HasNoErrors === false) {
             setLoading(false);
-            toast.error(res?.data?.addPaymentResult?.Errors[0].ErrorMessage, {
-                position: "bottom-left",
-                autoClose: 5500,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            });
+            toast.error(res?.data?.addPaymentResult?.Errors[0].ErrorMessage);
         }
         else if (res?.data?.result === "error") {
             setLoading(false);
-            toast.error(res?.data?.data?.error, {
-                position: "bottom-left",
-                autoClose: 5500,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            });
+            toast.error(res?.data?.data?.error);
         }
         else {
             setLoading(false);
-            toast.error("Something went wrong, please try again.", {
-                position: "bottom-left",
-                autoClose: 5500,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            });
+            toast.error("Something went wrong, please try again.");
         }
         closeDebitCardModal();
     };
@@ -1178,53 +1099,21 @@ export default function PaymentMethod() {
                                             checkedAddBank ? 1 : 0
                                         );
                                         if (resBankData?.data?.Success) {
-                                            toast.success("Payment method added successfully", {
-                                                position: "bottom-left",
-                                                autoClose: 5500,
-                                                hideProgressBar: false,
-                                                closeOnClick: true,
-                                                pauseOnHover: true,
-                                                draggable: true,
-                                                progress: undefined,
-                                            });
+                                            toast.success("Payment method added successfully");
                                             await getPaymentMethodsOnLoad();
                                             closeBankAccountButton();
                                         } else if (
                                             resBankData?.data?.result === "error" ||
                                             resBankData?.data?.status === 400
                                         ) {
-                                            toast.error(resBankData?.data?.data?.error, {
-                                                position: "bottom-left",
-                                                autoClose: 5500,
-                                                hideProgressBar: false,
-                                                closeOnClick: true,
-                                                pauseOnHover: true,
-                                                draggable: true,
-                                                progress: undefined,
-                                            });
+                                            toast.error(resBankData?.data?.data?.error);
                                         } else if (resBankData?.data?.type === "error") {
-                                            toast.error(resBankData?.data?.text, {
-                                                position: "bottom-left",
-                                                autoClose: 5500,
-                                                hideProgressBar: false,
-                                                closeOnClick: true,
-                                                pauseOnHover: true,
-                                                draggable: true,
-                                                progress: undefined,
-                                            });
+                                            toast.error(resBankData?.data?.text);
                                         } else {
-                                            toast.error(
-                                                "Adding bank account failed, please try again.",
-                                                {
-                                                    position: "bottom-left",
-                                                    autoClose: 5500,
-                                                    hideProgressBar: false,
-                                                    closeOnClick: true,
-                                                    pauseOnHover: true,
-                                                    draggable: true,
-                                                    progress: undefined,
-                                                }
-                                            );
+                                            if (!toast.isActive("closeToast")) {
+                                            toast.error("Adding bank account failed, please try again.");
+                                            }
+                                            
                                         }
                                         closeAddBankModal();
                                     }}

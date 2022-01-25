@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import {
-	ButtonPrimary,
-	ButtonSecondary,
-	Radio,
-	TextField,
-} from "../../../FormsUI";
+import { ButtonPrimary, ButtonSecondary, Radio, TextField, } from "../../../FormsUI";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
@@ -84,7 +79,6 @@ const validationSchema = yup.object({
 //Initializing functional component -  BankAccountVerification
 export default function BankAccountVerification(props) {
 	const classes = useStyles();
-
 	//Initializing state variables
 	const [accountType, setAccountType] = useState("saving");
 	const [paymnetMode, setPaymentMode] = useState("autopayment");
@@ -92,29 +86,12 @@ export default function BankAccountVerification(props) {
 	const [error, setError] = useState("");
 	const [invalidRN, setInvalidRN] = useState(false);
 	const [openAutoPayAuth, setOpenAutoPayAuth] = useState(false);
-
 	const handleUpload = (res) => {
 		if (res?.bank_account_verification) {
-			toast.success("Document uploaded successfully!", {
-				position: "bottom-left",
-				autoClose: 1500,
-				hideProgressBar: false,
-				closeOnClick: true,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-			});
+			toast.success("Document uploaded successfully!");
 			props.next();
 		} else {
-			toast.error("Document submission failed. Please try again", {
-				position: "bottom-left",
-				autoClose: 1500,
-				hideProgressBar: false,
-				closeOnClick: true,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-			});
+			toast.error("Document submission failed. Please try again");
 		}
 	};
 
@@ -145,16 +122,10 @@ export default function BankAccountVerification(props) {
 				"POST",
 				true
 			);
-			if (
-				res?.data?.bank_account_information &&
-				res?.data?.bank_account_verification
-			) {
+			if (res?.data?.bank_account_information && res?.data?.bank_account_verification) {
 				props.setLoadingFlag(false);
 				props.next();
-			} else if (
-				res?.data?.bank_account_information ||
-				res?.data?.bank_account_verification
-			) {
+			} else if (res?.data?.bank_account_information || res?.data?.bank_account_verification) {
 				setError(
 					paymnetMode === "autopayment"
 						? errorMessage?.applyForLoan?.bankAccountVerification?.notValid
@@ -162,10 +133,7 @@ export default function BankAccountVerification(props) {
 				);
 				setVerifyRequired(true);
 				props.setLoadingFlag(false);
-			} else if (
-				res?.data?.bank_account_information === false ||
-				res?.data?.bank_account_verification === false
-			) {
+			} else if (res?.data?.bank_account_information === false || res?.data?.bank_account_verification === false) {
 				props.setLoadingFlag(false);
 				alert(errorMessage?.applyForLoan?.bankAccountVerification?.notValid);
 			} else {

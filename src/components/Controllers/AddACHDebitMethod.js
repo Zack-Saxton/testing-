@@ -3,23 +3,27 @@ import APICall from "../lib/AxiosLib";
 
 //  ========*******======== Add ACH Bank Payment                ========*******========
 export async function AddACHPaymentAPI(accountNickname, accountHolder, bankRoutingNumber, bankAccountNumber, accountType, defaultBank) {
-  //API
-  let url = "add_ach_payment_method";
-  let param = "";
-  let data = {
-    nickname: accountNickname,
-    account_holder: accountHolder,
-    routing_number: bankRoutingNumber,
-    account_number: bankAccountNumber,
-    account_type: accountType,
-    defaultBank: defaultBank
-  };
-  let method = "POST";
-  let addAccessToken = true;
-  //API call
-  //API response
+  try {
+    //API
+    let url = "add_ach_payment_method";
+    let param = "";
+    let data = {
+      nickname: accountNickname,
+      account_holder: accountHolder,
+      routing_number: bankRoutingNumber,
+      account_number: bankAccountNumber,
+      account_type: accountType,
+      defaultBank: defaultBank
+    };
+    let method = "POST";
+    let addAccessToken = true;
+    //API call
+    //API response
 
-  return APICall(url, param, data, method, addAccessToken);
+    return await APICall(url, param, data, method, addAccessToken);
+  } catch (error) {
+    Error("Error executing AddACHPaymentAPI API");
+  }
 }
 //  ========*******======== END of [Add ACH Bank Payment]       ========*******========
 
@@ -43,26 +47,8 @@ export async function AddDebitCardAPI(accountNickname, cardNumber, cardName, cvv
   //API response
   addAddDebitCardMethod.data.status === 200
     ? toast.success(
-      addAddDebitCardMethod.data.data("ACH Payment Added..."),
-      {
-        position: "bottom-left",
-        autoClose: 5500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      }
-    )
-    : toast.error("Error adding ACH Payment", {
-      position: "bottom-left",
-      autoClose: 5500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+      addAddDebitCardMethod.data.data("ACH Payment Added..."))
+    : toast.error("Error adding ACH Payment");
   return "true";
 }
 //  ========*******======== END of [Add Debit Card Payment]     ========*******========
@@ -84,26 +70,8 @@ export async function DeleteACHPaymentAPI() {
   //API response
   deleteACHPaymentMethod.data.status === 200
     ? toast.success(
-      deleteACHPaymentMethod.data.data("ACH Payment Deleted..."),
-      {
-        position: "bottom-left",
-        autoClose: 5500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      }
-    )
-    : toast.error("Error Deleting ACH Payment...", {
-      position: "bottom-left",
-      autoClose: 5500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+      deleteACHPaymentMethod.data.data("ACH Payment Deleted..."))
+    : toast.error("Error Deleting ACH Payment...");
   return "true";
 }
 //  ========*******======== END of [Delete ACH Bank Payment]    ========*******========
@@ -123,44 +91,26 @@ export async function DeleteDebitCardAPI() {
   //API response
   deleteDebitCardMethod.data.status === 200
     ? toast.success(
-      deleteDebitCardMethod.data.data("Debit Card Payment Deleted..."),
-      {
-        position: "bottom-left",
-        autoClose: 5500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      }
-    )
-    : toast.error("Error Deleting Debit Card Payment...", {
-      position: "bottom-left",
-      autoClose: 5500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+      deleteDebitCardMethod.data.data("Debit Card Payment Deleted..."))
+    : toast.error("Error Deleting Debit Card Payment...");
   return "true";
 }
 //  ========*******======== END of [Delete Debit Card Payment]    ========*******========
 
 //  ========*******======== Delete Debit Card Payment             ========*******========
 export async function ShowPaymentMethodAPI() {
-  //API
-  let url = "get_payment_options";
-  let param = "";
-  let data = {};
-  let method = "POST";
-  let addAccessToken = true;
+  try {
+    //API
+    let url = "get_payment_options";
+    let param = "";
+    let data = {};
+    let method = "POST";
+    let addAccessToken = true;
 
-  //API call
-  let ShowPaymentMethod = await APICall(url, param, data, method, addAccessToken);
-
-  //API response
-
-  return ShowPaymentMethod;
+    //API call
+    return await APICall(url, param, data, method, addAccessToken);
+  } catch (error) {
+    Error("Error executing ShowPaymentMethodAPI API");
+  }
 }
 //  ========*******======== END of [Delete Debit Card Payment]    ========*******========

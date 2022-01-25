@@ -23,14 +23,7 @@ let statusStrLink = {
   final_review: "/customers/loanDocument",
 };
 
-export default async function PartnerSignup(
-  history,
-  partnerToken,
-  applicantId,
-  partnerSignupData,
-
-) {
-
+export default async function PartnerSignup(history, partnerToken, applicantId, partnerSignupData) {
   let url = "partner_signup";
   let param = "";
   let data = {
@@ -55,19 +48,8 @@ export default async function PartnerSignup(
   );
 
   partnerSignupMethod.data.status === 200
-    ? toast.success(
-      partnerSignupMethod?.data?.statusText
-        ? partnerSignupMethod?.data?.statusText
-        : partnerSignupMethod?.data?.applicant?.processing?.status === "confirming_info"
-          ? "Successfully Registered, Please confirm your information" : "Successfully Registered",
+    ? toast.success(partnerSignupMethod?.data?.statusText? partnerSignupMethod?.data?.statusText partnerSignupMethod?.data?.applicant?.processing?.status === "confirming_info"? "Successfully Registered, Please confirm your information" : "Successfully Registered",
       {
-        position: "bottom-left",
-        autoClose: 10000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
         onClose: () => {
           var now = new Date().getTime();
           LogoutController();
@@ -84,7 +66,6 @@ export default async function PartnerSignup(
           );
           Cookies.set("email", partnerSignupMethod?.data?.applicant.contact.email);
           history.push({
-
             pathname: statusStrLink[partnerSignupMethod?.data?.applicant.processing.status],
             state: {
               jwt_token: partnerSignupMethod?.data?.user.extensionattributes.login.jwt_token,
@@ -105,31 +86,14 @@ export default async function PartnerSignup(
               spouse_address_postal_code: partnerSignupMethod?.data?.applicant.self_reported.spouse_address_postal_code,
               spouse_address_state: partnerSignupMethod?.data?.applicant.self_reported.spouse_address_state,
               spouse_address_city: partnerSignupMethod?.data?.applicant.self_reported.spouse_address_city,
-
-
             }
           });
         },
       }
     )
-    : toast.error(
-      partnerSignupMethod?.data?.statusText
-        ? partnerSignupMethod.data.statusText
-        : "Please check your data",
-      {
-        position: "bottom-left",
-        autoClose: 10000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      }
-    );
-
+    : toast.error(partnerSignupMethod?.data?.statusText? partnerSignupMethod.data.statusText: "Please check your data");
   return partnerSignupMethod;
 }
-
 export async function PopulatePartnerSignup(
   partnerToken,
   applicantId,
@@ -137,30 +101,29 @@ export async function PopulatePartnerSignup(
   requestApr,
   requestTerm
 ) {
-  let url = "populate_partner_signup";
-  let param = "";
-  let data = {
-    partner_token: partnerToken,
-    applicant_id: applicantId,
-    affiliateSelection: {
-      requestedAmount: requestAmt,
-      requestedAPR: requestApr,
-      requestedTerm: requestTerm,
-    },
-  };
-  let method = "POST";
-  let addAccessToken = false;
-
+  try {
+    let url = "populate_partner_signup";
+    let param = "";
+    let data = {
+      partner_token: partnerToken,
+      applicant_id: applicantId,
+      affiliateSelection: {
+        requestedAmount: requestAmt,
+        requestedAPR: requestApr,
+        requestedTerm: requestTerm,
+      },
+    };
+    let method = "POST";
+    let addAccessToken = false;
   //API call
-  return APICall(url, param, data, method, addAccessToken);
-
+    return await APICall(url, param, data, method, addAccessToken);
+  } catch (error) {
+    toast.error("Error executing PopulatePartnerSignup API");
+  }
 }
-
-
 export async function partnerConfirmInfo(dataConfirmInfo, history) {
   let url = "partner_confirm_info";
   let param = "";
-
   let data = {
     lead_id: "",
     fname: dataConfirmInfo.firstname,
@@ -188,53 +151,19 @@ export async function partnerConfirmInfo(dataConfirmInfo, history) {
     marital_status: dataConfirmInfo.martialStatus,
     partner_token: dataConfirmInfo.partner_token
   }
-
   let method = "POST";
   let addAccessToken = true;
-
   //API call
-  let PartnerConfirmationAPI = await APICall(
-    url,
-    param,
-    data,
-    method,
-    addAccessToken
-  );
+  let PartnerConfirmationAPI = await APICall(url, param, data, method, addAccessToken);
   PartnerConfirmationAPI.data.status === 200
-    ? toast.success(
-      PartnerConfirmationAPI?.data?.statusText
-        ? PartnerConfirmationAPI?.data?.statusText
-        : "Successfully registered",
-      {
-        position: "bottom-left",
-        autoClose: 10000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        onClose: () => {
-
+    ? toast.success(PartnerConfirmationAPI?.data?.statusText? PartnerConfirmationAPI?.data?.statusText: "Successfully registered",
+      {onClose: () => {
           history.push({
-
             pathname: statusStrLink[PartnerConfirmationAPI?.data?.data.applicationStatus],
-
           });
         },
       }
     )
-    : toast.error(
-      "Please login again",
-      {
-        position: "bottom-left",
-        autoClose: 10000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      }
-    );
-
+    : toast.error("Please login again");
   return PartnerConfirmationAPI;
 }

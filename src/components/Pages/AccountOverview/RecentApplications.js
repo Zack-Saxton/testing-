@@ -14,8 +14,6 @@ import NumberFormat from 'react-number-format';
 import { useHistory } from "react-router-dom";
 import "./Style.css";
 
-
-
 export default function RecentApplications({ userApplicationsData, UserAccountStatus }) {
   //Material UI css class
   const classes = useStylesAccountOverview();
@@ -148,7 +146,7 @@ export default function RecentApplications({ userApplicationsData, UserAccountSt
                     <TableCell className={classes.tableheadrow} align="left">
                       {(statusStr[presenceOfLoanStatus.status]) ? statusStr[presenceOfLoanStatus.status] : (presenceOfLoanStatus.status)}
                     </TableCell>
-                    <TableCell align="left">    
+                    <TableCell align="left">
                       {presenceOfLoanStatus.isActive && presenceOfLoanStatus?.status !== "referred" ?
                         (
                           <ButtonPrimary stylebutton='{"color":"","width":"72%" }'

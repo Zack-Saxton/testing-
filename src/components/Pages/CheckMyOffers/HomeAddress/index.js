@@ -17,7 +17,7 @@ import ScrollToTopOnMount from "../ScrollToTop";
 import "../CheckMyOffer.css";
 import "../HomeAddress/HomeAdress.css";
 import ZipCodeLookup from "../../../Controllers/ZipCodeLookup";
-import { Error} from "../../../toast/toast"
+import { toast } from "react-toastify"
 //yup validation schema
 const validationSchema = yup.object({
 	streetAddress: yup
@@ -126,7 +126,7 @@ function HomeAddress() {
 		}
 		formik.handleChange(event);
 	} catch (error) {
-		Error('Error from [fetchAddress]')
+		toast.error('Error from [fetchAddress]')
 	}
 };
 	const onBlurAddress = (event) => {

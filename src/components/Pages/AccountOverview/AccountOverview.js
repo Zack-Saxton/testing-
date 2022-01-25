@@ -40,10 +40,7 @@ export default function AccountOverview() {
   } else {
     Cookies.set("hasActiveLoan", true);
   }
-  Cookies.set(
-    "hasApplicationStatus",
-    accountDetails?.data?.applicant?.processing?.status
-  );
+  Cookies.set("hasApplicationStatus", accountDetails?.data?.applicant?.processing?.status);
 
   return (
     <div>

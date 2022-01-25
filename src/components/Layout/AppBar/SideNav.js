@@ -450,13 +450,6 @@ export default function SideNav() {
   const logoutUser = () => {
     setDisable(true);
     toast.success("You are being logged out of the system", {
-      position: "bottom-left",
-      autoClose: 2500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
       onClose: () => logOut(),
     });
   };

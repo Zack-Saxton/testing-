@@ -12,7 +12,7 @@ import MarriedStatusLogo from "../../../../assets/icon/married-status.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import ScrollToTopOnMount from "../ScrollToTop";
 import ZipCodeLookup from "../../../Controllers/ZipCodeLookup";
-import { Error } from "../../../toast/toast";
+import { toast } from "react-toastify";
 //Yup validation schema
 const validationSchema = yup.object({
 	martialStatus: yup
@@ -130,9 +130,9 @@ function MarriedStatus() {
 				formik.setFieldValue("spousecity", "");
 				setStateShort("");
 			}
-			formik.handleChange();
+			formik.handleChange(event);
 		} catch (error) {
-			Error(' Error from [fetchAddress].')
+			toast.error(' Error from [fetchAddress].')
 		}
 	};
 

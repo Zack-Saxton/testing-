@@ -13,10 +13,7 @@ import { NavLink, useHistory } from "react-router-dom";
 import ScrollToTopOnMount from "../../ScrollToTop";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import "./SelectOffer.css";
-import {
-	fetchAvailableOffers,
-	submitSelectedOfferAPI,
-} from "../../../Controllers/ApplyForLoanController";
+import { fetchAvailableOffers, submitSelectedOfferAPI } from "../../../Controllers/ApplyForLoanController";
 import { errorMessage } from "../../../../helpers/ErrorMessage";
 import CheckLoginStatus from "../../../App/CheckLoginStatus";
 
@@ -24,7 +21,6 @@ import CheckLoginStatus from "../../../App/CheckLoginStatus";
 export default function ApplyLoan() {
 	//Initializing state variables
 	const [rowData, setRowData] = useState();
-
 	const [value, setValue] = React.useState(0);
 	const [accountDetails, setAccountDetails] = useState(null);
 	const [offersToCompare, setOffersToCompare] = useState([]);
@@ -54,10 +50,7 @@ export default function ApplyLoan() {
 	const submitSelectedOffer = async (selTerm, selIndex) => {
 		setLoading(true);
 		if (accountDetails && selTerm !== "" && selIndex !== "") {
-			let selectedOfferResponse = await submitSelectedOfferAPI(
-				accountDetails?.data?.Offers[selTerm][selIndex]
-			);
-
+			let selectedOfferResponse = await submitSelectedOfferAPI(accountDetails?.data?.Offers[selTerm][selIndex]);
 			if (selectedOfferResponse?.data?.status === "success") {
 				setLoading(false);
 				history.push({
@@ -118,7 +111,6 @@ export default function ApplyLoan() {
 			fontSize: "1rem",
 			textAlign: "start",
 		},
-
 		table: {
 			minWidth: 650,
 		},
@@ -144,9 +136,7 @@ export default function ApplyLoan() {
 		if (val?.data?.data !== "Access token has expired" && val?.data) {
 			setAccountDetails(val);
 			term = Object.keys(val?.data?.Offers);
-			setNoOffers(
-				Object.keys(val?.data?.Offers).length === 0 ? true : false
-			);
+			setNoOffers(Object.keys(val?.data?.Offers).length === 0 ? true : false);
 			setTerms(term);
 			if (term[0] !== undefined) {
 				initialTabLoad(term[0], 0, val);

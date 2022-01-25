@@ -83,13 +83,6 @@ export default function BasicInformation(props) {
   const logoutUser = () => {
 
     toast.success("You are being logged out of the system", {
-      position: "bottom-left",
-      autoClose: 2500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
       onClose: () => logOut(),
     });
   };
@@ -121,13 +114,6 @@ export default function BasicInformation(props) {
       const uploadBasicInfoChange = () => {
         if (!toast.isActive("closeToast")) {
           toast.success("Updated Successfully", {
-            position: "bottom-left",
-            autoClose: 3500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
             toastId: "closeToast",
             onClose: () => {
               setLoading(false);
@@ -141,13 +127,6 @@ export default function BasicInformation(props) {
       const uploadBasicInfoChangeLogOut = () => {
         if (!toast.isActive("closeToast")) {
           toast.success("Updated Successfully", {
-            position: "bottom-left",
-            autoClose: 3500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
             toastId: "closeToast",
             onClose: () => {
               props.getUserAccountDetails()
@@ -165,17 +144,7 @@ export default function BasicInformation(props) {
           var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
           if (!allowedExtensions.exec(filePath)) {
             toast.error(
-              "Please upload file having extensions .jpeg .jpg .png only. ",
-              {
-                position: "bottom-left",
-                autoClose: 1500,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              }
-            );
+              "Please upload file having extensions .jpeg .jpg .png only. ");
             setLoading(false);
             selectedFile.value = "";
             return false
@@ -216,13 +185,6 @@ export default function BasicInformation(props) {
 
                       "Updated Successfully",
                       {
-                        position: "bottom-left",
-                        autoClose: 1500,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
                         toastId: "closeToast",
                         onClose: () => {
 
@@ -262,13 +224,6 @@ export default function BasicInformation(props) {
                     toast.error(
                       "Error uploading file",
                       {
-                        position: "bottom-left",
-                        autoClose: 1500,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
                         toastId: "closeToast",
                         onClose: () => {
                           setLoading(false);
@@ -284,26 +239,10 @@ export default function BasicInformation(props) {
             }
           } else {
             if (selectedFile.files[0].size > 819200) {
-              toast.error("Please upload file size below 800kb ", {
-                position: "bottom-left",
-                autoClose: 1500,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              });
+              toast.error("Please upload file size below 800kb ");
               setLoading(false);
             } else if (docType == null) {
-              toast.error("Please select an image type to upload", {
-                position: "bottom-left",
-                autoClose: 1500,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              });
+              toast.error("Please select an image type to upload");
               setLoading(false);
             }
           }
@@ -313,13 +252,6 @@ export default function BasicInformation(props) {
       if (formik.initialValues.phone === phone && formik.initialValues.email === values.email && selectedFile === null) {
         if (!toast.isActive("closeToast")) {
           toast.error("No changes made", {
-            position: "bottom-left",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
             toastId: "closeToast",
             onClose: () => { setLoading(false); }
           });
@@ -353,13 +285,6 @@ export default function BasicInformation(props) {
         else {
           if (!toast.isActive("closeToast")) {
             toast.error("Please try again", {
-              position: "bottom-left",
-              autoClose: 3500,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
               toastId: "closeToast",
               onClose: () => { setLoading(false); }
             });

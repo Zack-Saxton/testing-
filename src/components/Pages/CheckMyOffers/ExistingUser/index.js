@@ -73,18 +73,7 @@ function ExistingUser() {
 					accountDetail?.data?.customer?.user_account?.status === "closed"
 				) {
 					data.isActiveUser = false;
-					toast.error(
-						"Your account is closed to new applications. Please contact us to reapply.",
-						{
-							position: "bottom-left",
-							autoClose: 2500,
-							hideProgressBar: false,
-							closeOnClick: true,
-							pauseOnHover: true,
-							draggable: true,
-							progress: undefined,
-						}
-					);
+					toast.error("Your account is closed to new applications. Please contact us to reapply.");
 					history.push({
 						pathname: "/customers/accountOverview",
 					});
