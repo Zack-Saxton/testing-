@@ -105,23 +105,25 @@ export async function PopulatePartnerSignup(
   requestApr,
   requestTerm
 ) {
-  let url = "populate_partner_signup";
-  let param = "";
-  let data = {
-    partner_token: partnerToken,
-    applicant_id: applicantId,
-    affiliateSelection: {
-      requestedAmount: requestAmt,
-      requestedAPR: requestApr,
-      requestedTerm: requestTerm,
-    },
-  };
-  let method = "POST";
-  let addAccessToken = false;
-
+  try {
+    let url = "populate_partner_signup";
+    let param = "";
+    let data = {
+      partner_token: partnerToken,
+      applicant_id: applicantId,
+      affiliateSelection: {
+        requestedAmount: requestAmt,
+        requestedAPR: requestApr,
+        requestedTerm: requestTerm,
+      },
+    };
+    let method = "POST";
+    let addAccessToken = false;
   //API call
-  return APICall(url, param, data, method, addAccessToken);
-
+    return APICall(url, param, data, method, addAccessToken);
+  } catch (error) {
+    toast.error("Error executing PopulatePartnerSignup API");
+  }
 }
 export async function partnerConfirmInfo(dataConfirmInfo, history) {
   let url = "partner_confirm_info";
