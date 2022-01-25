@@ -86,13 +86,7 @@ export default function MakePayment(props) {
     setpaymentMethod(payments);
     if (payments?.data?.data?.error) {
       toast.error(payments?.data?.data?.error, {
-        position: "bottom-left",
         autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
       });
     } else {
       //get default card
@@ -134,35 +128,18 @@ export default function MakePayment(props) {
     data.data.status === 200
       ? data?.data?.paymentResult.HasNoErrors === true
         ? toast.success(Payment.Auto_Payment_Mode_Enabled, {
-            position: "bottom-left",
             autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
           })
         : toast.error(Payment.Failed_Payment_mode, {
-            position: "bottom-left",
             autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
+
           })
       : toast.error(
           data?.data?.data?.message
             ? data?.data?.data.message
             : Payment.Failed_Payment_mode,
           {
-            position: "bottom-left",
             autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
           }
         );
 
@@ -178,35 +155,17 @@ export default function MakePayment(props) {
     data.data.status === 200
       ? data?.data?.deletePayment.HasNoErrors === true
         ? toast.success(Payment.Auto_Payment_Mode_Disabled, {
-            position: "bottom-left",
             autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
           })
         : toast.error(Payment.Failed_Payment_mode, {
-            position: "bottom-left",
             autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
           })
       : toast.error(
           data?.data?.data?.message
             ? data?.data?.data.message
             : "Failed Payment mode",
           {
-            position: "bottom-left",
             autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
           }
         );
     getData();
@@ -237,35 +196,17 @@ export default function MakePayment(props) {
     data.data.status === 200
       ? data?.data?.paymentResult?.PaymentCompleted !== undefined
         ? toast.success(message, {
-            position: "bottom-left",
             autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
           })
         : toast.error(Payment.Failed_Payment_mode, {
-            position: "bottom-left",
             autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
           })
       : toast.error(
           data?.data?.data?.message
             ? data?.data?.data.message
             : "Failed Payment mode",
           {
-            position: "bottom-left",
             autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
           }
         );
     data.data.status === 200
@@ -279,35 +220,17 @@ export default function MakePayment(props) {
     data.data.status === 200
       ? data?.data?.deletePaymentMethod.HasNoErrors === true
         ? toast.success("Scheduled Payment cancelled", {
-            position: "bottom-left",
             autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
           })
         : toast.error(Payment.Failed_Payment_mode, {
-            position: "bottom-left",
             autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
           })
       : toast.error(
           data?.data?.data?.message
             ? data?.data?.data.message
             : "Failed Payment mode",
           {
-            position: "bottom-left",
             autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
           }
         );
   }
@@ -452,13 +375,7 @@ export default function MakePayment(props) {
       // if accno is not Valid
       if (res === false) {
         toast.error(Payment.Invalid_Account_Number, {
-          position: "bottom-left",
           autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
         });
         history.push({
           pathname: "/customers/accountoverview",
