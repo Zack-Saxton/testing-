@@ -41,7 +41,7 @@ export default function MyBranch() {
           paddingLeft: "23px",
         }}
       >
-        <Grid container style={{ paddingBottom: "10px" }} >
+        <Grid container style={{ paddingBottom: "10px" }}>
           <Grid item xs={12}>
             <Typography variant="h3" className={classes.heading}>
               <NavLink
@@ -64,11 +64,8 @@ export default function MyBranch() {
           </Grid>
         </Grid>
 
-        <Grid
-          container
-          id="branchMainDiv"
-        >
-          <Grid id="branchDiv" item xs={12} sm={5} >
+        <Grid container id="branchMainDiv">
+          <Grid id="branchDiv" item xs={12} sm={5}>
             {myBranchData ? (
               <BranchDetail MyBranchDetail={myBranchData} />
             ) : (

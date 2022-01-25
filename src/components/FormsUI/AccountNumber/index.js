@@ -30,7 +30,6 @@ const AccountNumberWrapper = ({ name, ...otherProps }) => {
 
   };
 
-
   //Configuring the field with properties
   const configTextField = {
     name: name,

@@ -9,7 +9,7 @@ import { ButtonWithIcon } from "../../FormsUI";
 import Credit from "./Credit";
 import HistoricalData from "./HistoricalData";
 import KeyFactors from "./KeyFactors";
-import getVantageScore from "../../Controllers/VantageController";
+import  getVantageScore  from "../../Controllers/VantageController";
 import ScrollToTopOnMount from "../ScrollToTop";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
 

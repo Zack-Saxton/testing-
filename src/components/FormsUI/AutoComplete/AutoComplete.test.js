@@ -5,8 +5,6 @@ import '@testing-library/jest-dom';
 
 afterEach(cleanup)
 
-
-
 test('Checks Auto complete based on entered value', () => {
   const container = render(
     <AutoComplete
@@ -17,19 +15,12 @@ test('Checks Auto complete based on entered value', () => {
       styleAutocomplete='{"width":"300px"}'
       data-test-id="autoComplete"
     />);
-
-
   const autocomplete = container.getByRole('textbox')
   expect(autocomplete).toBeTruthy();
-
   autocomplete.focus()
-
   fireEvent.change(document.activeElement, { target: { value: 'I' } })
-
   fireEvent.keyDown(document.activeElement, { key: 'ArrowDown' })
-
   fireEvent.keyDown(document.activeElement, { key: 'Enter' })
-
   expect(autocomplete.value).toEqual('India')
 });
 

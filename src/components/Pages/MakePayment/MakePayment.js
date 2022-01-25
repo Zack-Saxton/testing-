@@ -25,6 +25,7 @@ import {
   TextField,
 } from "../../FormsUI";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
+import HolidayCalender from "../../Controllers/HolidayCalenderController";
 import {
   usrPaymentMethods,
   enableAutoPay,
@@ -79,6 +80,7 @@ export default function MakePayment(props) {
   const [autopaySubmit, setAutopaySubmit] = useState(true);
   const [scheduleDate, setscheduleDate] = useState(null);
   const [checkPaymentInformation, setCheckPaymentInformation] = useState(false);
+  const [holidayCalenderApi, SetHolidayCalenderApi] = useState(null);
 
   //API Request for Payment methods
   async function getPaymentMethods() {
@@ -482,9 +484,20 @@ export default function MakePayment(props) {
     }
   }
 
+  //API call for holiday calender
+async function AsyncEffect_HolidayCalender() {
+  SetHolidayCalenderApi(await HolidayCalender());
+}
+
+
   useEffect(() => {
     getData();
+    AsyncEffect_HolidayCalender();
+
   }, []);
+
+  //Holiday Calender from API
+let holidayCalenderData = holidayCalenderApi != null ? holidayCalenderApi.data.data : null;
 
   //Account select payment options
   let paymentData = paymentMethods != null ? paymentMethods.data : null;
@@ -654,24 +667,18 @@ export default function MakePayment(props) {
     setAutoPayOpen(false);
   };
 
-  //US Holidays
-  function disableWeekends(date) {
-    const dateInterditesRaw = [
-      new Date(date.getFullYear(), 0, 1),
-      new Date(date.getFullYear(), 0, 18),
-      new Date(date.getFullYear(), 4, 31),
-      new Date(date.getFullYear(), 6, 5),
-      new Date(date.getFullYear(), 8, 6),
-      new Date(date.getFullYear(), 10, 11),
-      new Date(date.getFullYear(), 10, 25),
-      new Date(date.getFullYear(), 11, 24),
-      new Date(date.getFullYear(), 11, 31),
-    ];
-    const dateInterdites = dateInterditesRaw.map((arrVal) => {
-      return arrVal.getTime();
-    });
-    return date.getDay() === 0 || dateInterdites.includes(date.getTime());
-  }
+
+  //US holidays
+function disableHolidays(date) {
+  const holidayApiData = holidayCalenderData?.holidays
+  const holidayApiDataValues = holidayApiData.map((arrVal) => {    
+    return new Date(arrVal+"T00:00").getTime();
+  });
+  return (
+    date.getDay() === 0 ||
+    holidayApiDataValues.includes(date.getTime())
+  );
+}
 
   //Handling payment amount
   const onHandlepaymentAmount = (event) => {
@@ -1007,7 +1014,7 @@ export default function MakePayment(props) {
                                 autoComplete="off"
                                 maxdate={paymentMaxDate}
                                 onKeyDown={(event) => event.preventDefault()}
-                                shouldDisableDate={disableWeekends}
+                                shouldDisableDate={disableHolidays}
                                 minyear={4}
                                 onChange={(paymentDatepickerOnChange) => {
                                   setpaymentDatepicker(
