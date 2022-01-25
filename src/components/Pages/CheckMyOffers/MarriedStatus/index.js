@@ -130,7 +130,7 @@ function MarriedStatus() {
 				formik.setFieldValue("spousecity", "");
 				setStateShort("");
 			}
-			formik.handleChange();
+			formik.handleChange(event);
 		} catch (error) {
 			Error(' Error from [fetchAddress].')
 		}

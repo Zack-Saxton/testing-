@@ -55,7 +55,15 @@ function App() {
     return (
         <QueryClientProvider client={queryClient}>
             <div className="App">
-                <ToastContainer theme="colored" />
+                <ToastContainer 
+                    theme="colored" 
+                    position = "bottom-left"
+                    autoClose = {5000}
+                    hideProgressBar = {false}
+                    closeOnClick = {true}
+                    pauseOnHover = {true}
+                    draggable = {true}
+                />
                 <BrowserRouter>
                     <Route path='/customers/verification/email' component={ValidateToken} />
                     <CheckMyOffers>

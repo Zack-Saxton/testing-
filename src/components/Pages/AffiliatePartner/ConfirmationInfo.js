@@ -424,7 +424,7 @@ export default function CreditKarma(props) {
         }
       }
       if (event.target.name !== "") {
-        formik.handleChange();
+        formik.handleChange(event);
       }
     } catch (error) {
       Error("Error from [fetchAddress].");
@@ -476,7 +476,7 @@ export default function CreditKarma(props) {
           formik.setFieldValue("spousecity", "");
           setValidZip(false);
         }
-        formik.handleChange();
+      formik.handleChange(event);
       }
     } catch (error) {
       Error("Error from [fetchSpouseAddress].");
