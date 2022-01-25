@@ -61,7 +61,7 @@ export default function PaymentOverview(paymentData, status) {
                         </TableCell>
                     </TableRow>
                     :
-                    (paymentDetails.overview && paymentDetails.overview.length)
+                    (paymentDetails.overview && paymentDetails.overview.length && !paymentDetails.overview[0].loanPaymentInformation?.errorMessage)
                         ?
                         paymentDetails.overview.map((row, index) => (
                             <TableRow key={index}>

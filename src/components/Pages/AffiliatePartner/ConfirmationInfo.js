@@ -380,7 +380,7 @@ export default function CreditKarma(props) {
         setErrorMsg("Please enter a valid Zipcode");
       }
     }
-      if (event.target.name !== "") { formik.handleChange(e) }
+      if (event.target.name !== "") { formik.handleChange(event) }
   } catch (error) {
     Error("Error from [fetchAddress].");
   }
@@ -422,7 +422,7 @@ export default function CreditKarma(props) {
           formik.setFieldValue("spousecity", "");
           setValidZip(false);
         }
-      formik.handleChange(e);
+      formik.handleChange(event);
       }
     } catch (error) {
       Error("Error from [fetchSpouseAddress].");

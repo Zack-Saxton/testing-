@@ -78,6 +78,7 @@ export default function MakePayment(props) {
   const [checkAutoPay, setcheckAutoPay] = useState(false);
   const [autopaySubmit, setAutopaySubmit] = useState(true);
   const [scheduleDate, setscheduleDate] = useState(null);
+  const [checkPaymentInformation, setCheckPaymentInformation] = useState(false);
 
   //API Request for Payment methods
   async function getPaymentMethods() {
@@ -103,11 +104,7 @@ export default function MakePayment(props) {
       );
       if (!cardFound) {
         //set default card ACHMethods
-        defaultCardCheck(
-          payments?.data?.CardMethods,
-          "card",
-          defaultBank
-        );
+        defaultCardCheck(payments?.data?.CardMethods, "card", defaultBank);
       }
     }
   }
@@ -118,14 +115,14 @@ export default function MakePayment(props) {
     cardData
       ? cardData?.length
         ? cardData?.forEach((data) => {
-          if (data.Nickname === defaultBank) {
-            type === "ACH"
-              ? setcard(data.SequenceNumber)
-              : setcard(data.ProfileId);
-            checkNickName = true;
-            return checkNickName;
-          }
-        })
+            if (data.Nickname === defaultBank) {
+              type === "ACH"
+                ? setcard(data.SequenceNumber)
+                : setcard(data.ProfileId);
+              checkNickName = true;
+              return checkNickName;
+            }
+          })
         : setcard("")
       : setcard("");
     return checkNickName;
@@ -137,37 +134,37 @@ export default function MakePayment(props) {
     data.data.status === 200
       ? data?.data?.paymentResult.HasNoErrors === true
         ? toast.success(Payment.Auto_Payment_Mode_Enabled, {
-          position: "bottom-left",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        })
+            position: "bottom-left",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          })
         : toast.error(Payment.Failed_Payment_mode, {
-          position: "bottom-left",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        })
+            position: "bottom-left",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          })
       : toast.error(
-        data?.data?.data?.message
-          ? data?.data?.data.message
-          : Payment.Failed_Payment_mode,
-        {
-          position: "bottom-left",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        }
-      );
+          data?.data?.data?.message
+            ? data?.data?.data.message
+            : Payment.Failed_Payment_mode,
+          {
+            position: "bottom-left",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          }
+        );
 
     hasSchedulePayment
       ? data.data.status === 200
@@ -181,37 +178,37 @@ export default function MakePayment(props) {
     data.data.status === 200
       ? data?.data?.deletePayment.HasNoErrors === true
         ? toast.success(Payment.Auto_Payment_Mode_Disabled, {
-          position: "bottom-left",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        })
+            position: "bottom-left",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          })
         : toast.error(Payment.Failed_Payment_mode, {
-          position: "bottom-left",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        })
+            position: "bottom-left",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          })
       : toast.error(
-        data?.data?.data?.message
-          ? data?.data?.data.message
-          : "Failed Payment mode",
-        {
-          position: "bottom-left",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        }
-      );
+          data?.data?.data?.message
+            ? data?.data?.data.message
+            : "Failed Payment mode",
+          {
+            position: "bottom-left",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          }
+        );
     getData();
   }
 
@@ -235,42 +232,42 @@ export default function MakePayment(props) {
       paymentDatepicker === Moment().format("YYYY/MM/DD")
         ? Payment.We_Received_Your_Payment_Successfully
         : Payment.Payment_has_Scheduled +
-        " Confirmation: " +
-        data?.data?.paymentResult?.ReferenceNumber;
+          " Confirmation: " +
+          data?.data?.paymentResult?.ReferenceNumber;
     data.data.status === 200
       ? data?.data?.paymentResult?.PaymentCompleted !== undefined
         ? toast.success(message, {
-          position: "bottom-left",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        })
+            position: "bottom-left",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          })
         : toast.error(Payment.Failed_Payment_mode, {
-          position: "bottom-left",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        })
+            position: "bottom-left",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          })
       : toast.error(
-        data?.data?.data?.message
-          ? data?.data?.data.message
-          : "Failed Payment mode",
-        {
-          position: "bottom-left",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        }
-      );
+          data?.data?.data?.message
+            ? data?.data?.data.message
+            : "Failed Payment mode",
+          {
+            position: "bottom-left",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          }
+        );
     data.data.status === 200
       ? disableAutoPaymentScheduled(accntNo, card, paymentDate, isDebit)
       : getData();
@@ -282,37 +279,37 @@ export default function MakePayment(props) {
     data.data.status === 200
       ? data?.data?.deletePaymentMethod.HasNoErrors === true
         ? toast.success("Scheduled Payment cancelled", {
-          position: "bottom-left",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        })
+            position: "bottom-left",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          })
         : toast.error(Payment.Failed_Payment_mode, {
-          position: "bottom-left",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        })
+            position: "bottom-left",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          })
       : toast.error(
-        data?.data?.data?.message
-          ? data?.data?.data.message
-          : "Failed Payment mode",
-        {
-          position: "bottom-left",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        }
-      );
+          data?.data?.data?.message
+            ? data?.data?.data.message
+            : "Failed Payment mode",
+          {
+            position: "bottom-left",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          }
+        );
   }
 
   // Disable auto payment while make payment
@@ -351,18 +348,18 @@ export default function MakePayment(props) {
           activeLoansData?.length
             ? data != null
               ? (
-                Math.abs(
-                  data?.loanPaymentInformation?.accountDetails
-                    ?.RegularPaymentAmount
-                ) +
-                Math.abs(
-                  data?.loanPaymentInformation?.accountDetails?.InterestRate
-                ) +
-                Math.abs(
-                  data?.loanPaymentInformation?.accountDetails
-                    ?.LoanFeesAndCharges
-                )
-              ).toFixed(2)
+                  Math.abs(
+                    data?.loanPaymentInformation?.accountDetails
+                      ?.RegularPaymentAmount
+                  ) +
+                  Math.abs(
+                    data?.loanPaymentInformation?.accountDetails?.InterestRate
+                  ) +
+                  Math.abs(
+                    data?.loanPaymentInformation?.accountDetails
+                      ?.LoanFeesAndCharges
+                  )
+                ).toFixed(2)
               : null
             : null
         );
@@ -370,18 +367,18 @@ export default function MakePayment(props) {
           activeLoansData?.length
             ? data != null
               ? (
-                Math.abs(
-                  data?.loanPaymentInformation?.accountDetails
-                    ?.RegularPaymentAmount
-                ) +
-                Math.abs(
-                  data?.loanPaymentInformation?.accountDetails?.InterestRate
-                ) +
-                Math.abs(
-                  data?.loanPaymentInformation?.accountDetails
-                    ?.LoanFeesAndCharges
-                )
-              ).toFixed(2)
+                  Math.abs(
+                    data?.loanPaymentInformation?.accountDetails
+                      ?.RegularPaymentAmount
+                  ) +
+                  Math.abs(
+                    data?.loanPaymentInformation?.accountDetails?.InterestRate
+                  ) +
+                  Math.abs(
+                    data?.loanPaymentInformation?.accountDetails
+                      ?.LoanFeesAndCharges
+                  )
+                ).toFixed(2)
               : null
             : null
         );
@@ -415,16 +412,16 @@ export default function MakePayment(props) {
           activeLoansData?.length
             ? data != null
               ? Moment(
-                data?.loanPaymentInformation?.accountDetails?.NextDueDate
-              ).format("YYYY-MM-DD")
+                  data?.loanPaymentInformation?.accountDetails?.NextDueDate
+                ).format("YYYY-MM-DD")
               : "NONE"
             : "NONE"
         );
         let scheduledDate = activeLoansData?.length
           ? data?.loanPaymentInformation?.hasScheduledPayment
             ? Moment(
-              data?.loanPaymentInformation?.scheduledPayments[0]?.PaymentDate
-            ).format("MM/DD/YYYY")
+                data?.loanPaymentInformation?.scheduledPayments[0]?.PaymentDate
+              ).format("MM/DD/YYYY")
             : null
           : null;
         setpaymentDatepicker(scheduledDate ? scheduledDate : new Date());
@@ -432,6 +429,9 @@ export default function MakePayment(props) {
         setLoading(false);
         setAutopaySubmit(true);
         setshowCircularProgress(false);
+        setCheckPaymentInformation(
+          data?.loanPaymentInformation?.errorMessage ? true : false
+        );
         check = true;
         return check;
       }
@@ -444,7 +444,8 @@ export default function MakePayment(props) {
     setshowCircularProgress(true);
     let User = await usrAccountDetails();
     setAccountDetails(User);
-    let activeLoansData = User != null ? User.data?.data?.activeLoans : null;
+
+    let activeLoansData = User != null ? User?.data?.activeLoans : null;
     if (accNo) {
       let res = await checkaccNo(activeLoansData, accNo);
 
@@ -473,19 +474,19 @@ export default function MakePayment(props) {
         activeLoansData?.length
           ? latestLoan != null
             ? (
-              Math.abs(
-                latestLoan[0]?.loanPaymentInformation?.accountDetails
-                  ?.RegularPaymentAmount
-              ) +
-              Math.abs(
-                latestLoan[0]?.loanPaymentInformation?.accountDetails
-                  ?.InterestRate
-              ) +
-              Math.abs(
-                latestLoan[0]?.loanPaymentInformation?.accountDetails
-                  ?.LoanFeesAndCharges
-              )
-            ).toFixed(2)
+                Math.abs(
+                  latestLoan[0]?.loanPaymentInformation?.accountDetails
+                    ?.RegularPaymentAmount
+                ) +
+                Math.abs(
+                  latestLoan[0]?.loanPaymentInformation?.accountDetails
+                    ?.InterestRate
+                ) +
+                Math.abs(
+                  latestLoan[0]?.loanPaymentInformation?.accountDetails
+                    ?.LoanFeesAndCharges
+                )
+              ).toFixed(2)
             : null
           : null
       );
@@ -493,19 +494,19 @@ export default function MakePayment(props) {
         activeLoansData?.length
           ? latestLoan != null
             ? (
-              Math.abs(
-                latestLoan[0]?.loanPaymentInformation?.accountDetails
-                  ?.RegularPaymentAmount
-              ) +
-              Math.abs(
-                latestLoan[0]?.loanPaymentInformation?.accountDetails
-                  ?.InterestRate
-              ) +
-              Math.abs(
-                latestLoan[0]?.loanPaymentInformation?.accountDetails
-                  ?.LoanFeesAndCharges
-              )
-            ).toFixed(2)
+                Math.abs(
+                  latestLoan[0]?.loanPaymentInformation?.accountDetails
+                    ?.RegularPaymentAmount
+                ) +
+                Math.abs(
+                  latestLoan[0]?.loanPaymentInformation?.accountDetails
+                    ?.InterestRate
+                ) +
+                Math.abs(
+                  latestLoan[0]?.loanPaymentInformation?.accountDetails
+                    ?.LoanFeesAndCharges
+                )
+              ).toFixed(2)
             : null
           : null
       );
@@ -539,18 +540,18 @@ export default function MakePayment(props) {
         activeLoansData?.length
           ? latestLoan != null
             ? Moment(
-              latestLoan[0]?.loanPaymentInformation?.accountDetails
-                ?.NextDueDate
-            ).format("YYYY-MM-DD")
+                latestLoan[0]?.loanPaymentInformation?.accountDetails
+                  ?.NextDueDate
+              ).format("YYYY-MM-DD")
             : "NONE"
           : "NONE"
       );
       let scheduledDate = latestLoan?.length
         ? latestLoan[0]?.loanPaymentInformation?.hasScheduledPayment
           ? Moment(
-            latestLoan[0]?.loanPaymentInformation?.scheduledPayments[0]
-              ?.PaymentDate
-          ).format("MM/DD/YYYY")
+              latestLoan[0]?.loanPaymentInformation?.scheduledPayments[0]
+                ?.PaymentDate
+            ).format("MM/DD/YYYY")
           : null
         : null;
       setpaymentDatepicker(scheduledDate ? scheduledDate : new Date());
@@ -558,6 +559,9 @@ export default function MakePayment(props) {
       setLoading(false);
       setAutopaySubmit(true);
       setshowCircularProgress(false);
+      setCheckPaymentInformation(
+        latestLoan[0]?.loanPaymentInformation?.errorMessage ? true : false
+      );
     }
   }
 
@@ -566,23 +570,23 @@ export default function MakePayment(props) {
   }, []);
 
   //Account select payment options
-  let paymentData = paymentMethods != null ? paymentMethods.data.data : null;
+  let paymentData = paymentMethods != null ? paymentMethods.data : null;
 
   let paymentListAch =
     paymentData && paymentData.ACHMethods != null
       ? paymentData.ACHMethods.map((pdata) => ({
-        value: pdata.SequenceNumber,
-        label:
-          pdata.AccountType + " (****" + pdata.AccountNumber.substr(-4) + ")",
-      }))
+          value: pdata.SequenceNumber,
+          label:
+            pdata.AccountType + " (****" + pdata.AccountNumber.substr(-4) + ")",
+        }))
       : null;
 
   let paymentListCard =
     paymentData && paymentData.ACHMethods != null
       ? paymentData.CardMethods.map((pdata) => ({
-        value: pdata.ProfileId,
-        label: pdata.CardType + " (****" + pdata.LastFour + ")",
-      }))
+          value: pdata.ProfileId,
+          label: pdata.CardType + " (****" + pdata.LastFour + ")",
+        }))
       : null;
 
   const paymentOptions =
@@ -599,26 +603,32 @@ export default function MakePayment(props) {
       : false;
   let routingNumber =
     latestLoanData != null
-      ? latestLoanData[0]?.loanPaymentInformation?.scheduledPayments[0]
-        ?.PaymentMethod?.AchInfo != null
-        ? latestLoanData[0].loanPaymentInformation.scheduledPayments[0]
-          .PaymentMethod.AchInfo.RoutingNumber
+      ? latestLoanData[0]?.loanPaymentInformation?.scheduledPayments
+        ? latestLoanData[0]?.loanPaymentInformation?.scheduledPayments[0]
+            ?.PaymentMethod?.AchInfo != null
+          ? latestLoanData[0].loanPaymentInformation.scheduledPayments[0]
+              .PaymentMethod.AchInfo.RoutingNumber
+          : 0
         : 0
       : 0;
   let refNumber =
     latestLoanData != null
-      ? latestLoanData[0]?.loanPaymentInformation?.scheduledPayments[0]
-        ?.ReferenceNumber != null
-        ? latestLoanData[0].loanPaymentInformation.scheduledPayments[0]
-          .ReferenceNumber
+      ? latestLoanData[0]?.loanPaymentInformation?.scheduledPayments
+        ? latestLoanData[0]?.loanPaymentInformation?.scheduledPayments[0]
+            ?.ReferenceNumber != null
+          ? latestLoanData[0].loanPaymentInformation.scheduledPayments[0]
+              .ReferenceNumber
+          : 0
         : 0
       : 0;
   let isCard =
     latestLoanData != null
-      ? latestLoanData[0]?.loanPaymentInformation?.scheduledPayments[0]
-        ?.PaymentMethod?.IsCard === true
-        ? latestLoanData[0].loanPaymentInformation.scheduledPayments[0]
-          .PaymentMethod.IsCard
+      ? latestLoanData[0]?.loanPaymentInformation?.scheduledPayments
+        ? latestLoanData[0]?.loanPaymentInformation?.scheduledPayments[0]
+            ?.PaymentMethod?.IsCard === true
+          ? latestLoanData[0].loanPaymentInformation.scheduledPayments[0]
+              .PaymentMethod.IsCard
+          : false
         : false
       : false;
   let status = accountDetails != null ? accountDetails.data.status : null;
@@ -627,7 +637,7 @@ export default function MakePayment(props) {
   const handleChangeSelect = (event) => {
     setcard(event.target.value);
     event.nativeEvent.target.innerText.includes("Checking") ||
-      event.nativeEvent.target.innerText.includes("Savings")
+    event.nativeEvent.target.innerText.includes("Savings")
       ? setisDebit(false)
       : setisDebit(true); //true
     setrequiredSelect("");
@@ -754,7 +764,7 @@ export default function MakePayment(props) {
       price =
         price.indexOf(".") >= 0
           ? price.substr(0, price.indexOf(".")) +
-          price.substr(price.indexOf("."), 3)
+            price.substr(price.indexOf("."), 3)
           : price;
       setpaymentAmount(price);
       setRequiredAmount("");
@@ -884,255 +894,268 @@ export default function MakePayment(props) {
         {latestLoanData != null ? (
           latestLoanData.length ? (
             !paymentData?.data?.error ? (
-              <>
-                <Grid
-                  id="payFromWrap"
-                  item
-                  xs={12}
-                  sm={5}
-                  style={{
-                    width: "100%",
-                    paddingTop: "10px",
-                    paddingRight: "15px",
-                  }}
-                >
-                  <Paper
-                    style={{ borderRadius: "2px" }}
-                    className={classes.paper}
+              !checkPaymentInformation ? (
+                <>
+                  <Grid
+                    id="payFromWrap"
+                    item
+                    xs={12}
+                    sm={5}
+                    style={{
+                      width: "100%",
+                      paddingTop: "10px",
+                      paddingRight: "15px",
+                    }}
                   >
-                    <Typography className={classes.cardHeading}>
-                      Pay From
-                    </Typography>
-                    {paymentOptions != null ? (
-                      <Select
-                        id="select"
-                        name="select"
-                        labelform="Accounts"
-                        select={paymentOptions}
-                        onChange={handleChangeSelect}
-                        value={card}
-                      />
-                    ) : (
-                      <div
-                        style={{ display: "flex", justifyContent: "center" }}
-                      >
-                        <CircularProgress size={30} />
-                      </div>
-                    )}
-                    <p
-                      className={
-                        requiredSelect !== ""
-                          ? "showError add Pad"
-                          : "hideError"
-                      }
-                      data-testid="subtitle"
+                    <Paper
+                      style={{ borderRadius: "2px" }}
+                      className={classes.paper}
                     >
-                      {" "}
-                      {requiredSelect}.
-                    </p>
-
-                    <Grid item xs={12} style={{ paddingTop: "20px" }}>
-                      <ButtonSecondary
-                        stylebutton='{"background": "", "color":"" }'
-                        onClick={handleMenuPaymentProfile}
-                      >
-                        Add a payment method
-                      </ButtonSecondary>
-                    </Grid>
-                  </Paper>
-                </Grid>
-
-                <Grid
-                  item
-                  xs={12}
-                  sm={7}
-                  style={{ width: "100%", paddingTop: "10px" }}
-                >
-                  <Paper className={classes.paper}>
-                    {paymentOptions !== null &&
-                      showCircularProgress !== true ? (
-                      <div>
-                        <Grid item xs={12}>
-                          <Typography
-                            style={{ paddingBottom: "10px" }}
-                            className={classes.cardHeading}
-                          >
-                            Payment Mode
-                          </Typography>
-                          <p style={{ margin: "auto" }}>
-                            <small
-                              style={{ fontSize: "0.938rem", color: "#595959" }}
-                            >
-                              {" "}
-                              {disabledContent
-                                ? "Auto Pay - On"
-                                : "Auto Pay - Off"}
-                            </small>
-                          </p>
-                          <p style={{ margin: "auto" }}>
-                            <small style={{ color: "#575757" }}>
-                              Choose auto pay
-                            </small>
-                          </p>
-                          <FormControlLabel
-                            id="autoPaySpan"
-                            control={
-                              <Switch
-                                checked={disabledContent}
-                                onChange={handleSwitchPayment}
-                                value={disabledContent}
-                                inputProps={{ "data-test-id": "switch" }}
-                                color="primary"
-                              />
-                            }
-                            labelPlacement="end"
-                            label={
-                              disabledContent
-                                ? "Auto pay is On"
-                                : "Auto pay is Off"
-                            }
-                          />
-                          <p style={{ fontSize: "0.938rem" }}>
-                            By enabling Auto Pay mode, I acknowledge to have
-                            read, understood, and agree to the terms of the
-                            &nbsp;
-                            <Link
-                              to="#"
-                              onClick={handleAutoPayClickOpen}
-                              className={classes.autoPayLink}
-                            >
-                              Auto Pay Authorization
-                            </Link>
-                          </p>
-                          <Grid item xs={12} style={{ paddingBottom: "20px" }}>
-                            <ButtonPrimary
-                              stylebutton='{"background": "", "color":"" }'
-                              id="submitBtn"
-                              onClick={handleClickSubmit}
-                              disabled={autopaySubmit}
-                            >
-                              Submit
-                            </ButtonPrimary>
-                          </Grid>
-                        </Grid>
-                        <Grid
-                          item
-                          xs={12}
-                          style={{
-                            opacity: disabledContent ? 0.5 : 1,
-                            pointerEvents: disabledContent ? "none" : "initial",
-                          }}
+                      <Typography className={classes.cardHeading}>
+                        Pay From
+                      </Typography>
+                      {paymentOptions != null ? (
+                        <Select
+                          id="select"
+                          name="select"
+                          labelform="Accounts"
+                          select={paymentOptions}
+                          onChange={handleChangeSelect}
+                          value={card}
+                        />
+                      ) : (
+                        <div
+                          style={{ display: "flex", justifyContent: "center" }}
                         >
-                          <Typography
-                            style={{ paddingBottom: "10px" }}
-                            className={classes.cardHeading}
-                          >
-                            Single Payment
-                          </Typography>
-                          <TextField
-                            id="payment"
-                            name="payment"
-                            label="Payment Amount"
-                            type="text"
-                            autoComplete="off"
-                            onChange={onHandlepaymentAmount}
-                            value={"$" + paymentAmount}
-                            onBlur={onBlurPayment}
-                            disabled={hasSchedulePayment}
-                          />
-                          <p
-                            className={
-                              requiredAmount !== ""
-                                ? "showError add Pad"
-                                : "hideError"
-                            }
-                            data-testid="subtitle"
-                          >
-                            {" "}
-                            {requiredAmount}
-                          </p>
+                          <CircularProgress size={30} />
+                        </div>
+                      )}
+                      <p
+                        className={
+                          requiredSelect !== ""
+                            ? "showError add Pad"
+                            : "hideError"
+                        }
+                        data-testid="subtitle"
+                      >
+                        {" "}
+                        {requiredSelect}.
+                      </p>
+
+                      <Grid item xs={12} style={{ paddingTop: "20px" }}>
+                        <ButtonSecondary
+                          stylebutton='{"background": "", "color":"" }'
+                          onClick={handleMenuPaymentProfile}
+                        >
+                          Add a payment method
+                        </ButtonSecondary>
+                      </Grid>
+                    </Paper>
+                  </Grid>
+
+                  <Grid
+                    item
+                    xs={12}
+                    sm={7}
+                    style={{ width: "100%", paddingTop: "10px" }}
+                  >
+                    <Paper className={classes.paper}>
+                      {paymentOptions !== null &&
+                      showCircularProgress !== true ? (
+                        <div>
+                          <Grid item xs={12}>
+                            <Typography
+                              style={{ paddingBottom: "10px" }}
+                              className={classes.cardHeading}
+                            >
+                              Payment Mode
+                            </Typography>
+                            <p style={{ margin: "auto" }}>
+                              <small
+                                style={{
+                                  fontSize: "0.938rem",
+                                  color: "#595959",
+                                }}
+                              >
+                                {" "}
+                                {disabledContent
+                                  ? "Auto Pay - On"
+                                  : "Auto Pay - Off"}
+                              </small>
+                            </p>
+                            <p style={{ margin: "auto" }}>
+                              <small style={{ color: "#575757" }}>
+                                Choose auto pay
+                              </small>
+                            </p>
+                            <FormControlLabel
+                              id="autoPaySpan"
+                              control={
+                                <Switch
+                                  checked={disabledContent}
+                                  onChange={handleSwitchPayment}
+                                  value={disabledContent}
+                                  inputProps={{ "data-test-id": "switch" }}
+                                  color="primary"
+                                />
+                              }
+                              labelPlacement="end"
+                              label={
+                                disabledContent
+                                  ? "Auto pay is On"
+                                  : "Auto pay is Off"
+                              }
+                            />
+                            <p style={{ fontSize: "0.938rem" }}>
+                              By enabling Auto Pay mode, I acknowledge to have
+                              read, understood, and agree to the terms of the
+                              &nbsp;
+                              <Link
+                                to="#"
+                                onClick={handleAutoPayClickOpen}
+                                className={classes.autoPayLink}
+                              >
+                                Auto Pay Authorization
+                              </Link>
+                            </p>
+                            <Grid
+                              item
+                              xs={12}
+                              style={{ paddingBottom: "20px" }}
+                            >
+                              <ButtonPrimary
+                                stylebutton='{"background": "", "color":"" }'
+                                id="submitBtn"
+                                onClick={handleClickSubmit}
+                                disabled={autopaySubmit}
+                              >
+                                Submit
+                              </ButtonPrimary>
+                            </Grid>
+                          </Grid>
                           <Grid
                             item
                             xs={12}
-                            container
-                            direction="row"
                             style={{
-                              display: "inline-flex",
-                              paddingTop: "10px",
+                              opacity: disabledContent ? 0.5 : 1,
+                              pointerEvents: disabledContent
+                                ? "none"
+                                : "initial",
                             }}
                           >
-                            <DatePicker
-                              name="date"
-                              label="Payment Date"
-                              placeholder="MM/DD/YYYY"
-                              id="date"
-                              disablePast
+                            <Typography
+                              style={{ paddingBottom: "10px" }}
+                              className={classes.cardHeading}
+                            >
+                              Single Payment
+                            </Typography>
+                            <TextField
+                              id="payment"
+                              name="payment"
+                              label="Payment Amount"
+                              type="text"
                               autoComplete="off"
-                              maxdate={paymentMaxDate}
-                              onKeyDown={(event) => event.preventDefault()}
-                              shouldDisableDate={disableWeekends}
-                              minyear={4}
-                              onChange={(paymentDatepickerOnChange) => {
-                                setpaymentDatepicker(
-                                  Moment(paymentDatepickerOnChange).format(
-                                    "YYYY/MM/DD"
-                                  )
-                                );
-                                setrequiredDate("");
-                              }}
-                              value={paymentDatepicker}
+                              onChange={onHandlepaymentAmount}
+                              value={"$" + paymentAmount}
+                              onBlur={onBlurPayment}
                               disabled={hasSchedulePayment}
                             />
                             <p
                               className={
-                                requiredDate !== ""
+                                requiredAmount !== ""
                                   ? "showError add Pad"
                                   : "hideError"
                               }
                               data-testid="subtitle"
                             >
                               {" "}
-                              {requiredDate}
+                              {requiredAmount}
                             </p>
-                          </Grid>
-                          <Grid
-                            id="paymentBtnWrap"
-                            style={{ paddingTop: "25px" }}
-                          >
-                            <Grid id="make-payment-cancel-button-grid">
-                              <ButtonSecondary
-                                stylebutton="{}"
-                                styleicon='{ "color":"" }'
-                                id="cancelPaymentBtn"
-                                onClick={handlePaymentcancel}
-                                disabled={!hasSchedulePayment}
-                              >
-                                Cancel Payment
-                              </ButtonSecondary>
-                            </Grid>
-                            <Grid>
-                              <ButtonPrimary
-                                stylebutton='{"marginRight": "" }'
-                                id="make-payment-schedule-button"
-                                onClick={handleSchedulePaymentClick}
+                            <Grid
+                              item
+                              xs={12}
+                              container
+                              direction="row"
+                              style={{
+                                display: "inline-flex",
+                                paddingTop: "10px",
+                              }}
+                            >
+                              <DatePicker
+                                name="date"
+                                label="Payment Date"
+                                placeholder="MM/DD/YYYY"
+                                id="date"
+                                disablePast
+                                autoComplete="off"
+                                maxdate={paymentMaxDate}
+                                onKeyDown={(event) => event.preventDefault()}
+                                shouldDisableDate={disableWeekends}
+                                minyear={4}
+                                onChange={(paymentDatepickerOnChange) => {
+                                  setpaymentDatepicker(
+                                    Moment(paymentDatepickerOnChange).format(
+                                      "YYYY/MM/DD"
+                                    )
+                                  );
+                                  setrequiredDate("");
+                                }}
+                                value={paymentDatepicker}
                                 disabled={hasSchedulePayment}
+                              />
+                              <p
+                                className={
+                                  requiredDate !== ""
+                                    ? "showError add Pad"
+                                    : "hideError"
+                                }
+                                data-testid="subtitle"
                               >
-                                Schedule Payment
-                              </ButtonPrimary>
+                                {" "}
+                                {requiredDate}
+                              </p>
+                            </Grid>
+                            <Grid
+                              id="paymentBtnWrap"
+                              style={{ paddingTop: "25px" }}
+                            >
+                              <Grid id="make-payment-cancel-button-grid">
+                                <ButtonSecondary
+                                  stylebutton="{}"
+                                  styleicon='{ "color":"" }'
+                                  id="cancelPaymentBtn"
+                                  onClick={handlePaymentcancel}
+                                  disabled={!hasSchedulePayment}
+                                >
+                                  Cancel Payment
+                                </ButtonSecondary>
+                              </Grid>
+                              <Grid>
+                                <ButtonPrimary
+                                  stylebutton='{"marginRight": "" }'
+                                  id="make-payment-schedule-button"
+                                  onClick={handleSchedulePaymentClick}
+                                  disabled={hasSchedulePayment}
+                                >
+                                  Schedule Payment
+                                </ButtonPrimary>
+                              </Grid>
                             </Grid>
                           </Grid>
-                        </Grid>
-                      </div>
-                    ) : (
-                      <div
-                        style={{ display: "flex", justifyContent: "center" }}
-                      >
-                        <CircularProgress />
-                      </div>
-                    )}
-                  </Paper>
-                </Grid>
-              </>
+                        </div>
+                      ) : (
+                        <div
+                          style={{ display: "flex", justifyContent: "center" }}
+                        >
+                          <CircularProgress />
+                        </div>
+                      )}
+                    </Paper>
+                  </Grid>
+                </>
+              ) : (
+                ""
+              )
             ) : (
               ""
             )
