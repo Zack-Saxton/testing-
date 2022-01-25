@@ -32,6 +32,8 @@ then
 else
     serverName="ubuntu@cis-app1-${env}.marinerfinance.io"
 fi
+
+#GIT and PEM Details
 gitRepo="git@github.com:marinerfinance/cac.git"
 pemFile="$home/Code/$app/otherdocs/marinerfinance-us-east-1.pem"
 appDir="cac"
@@ -81,10 +83,9 @@ PARAMS="imageName=\"$imageName\" env=\"$env\" app=\"$app\" instances=\"$instance
 ssh -i $pemFile $serverName $PARAMS 'bash' <<'SSHEND'
 
 #Remove all images and containers
-sudo docker stop $(sudo docker ps -aq)
-sudo docker rm -f $(sudo docker ps -a -q)
-sudo docker rmi -f $(sudo docker images -a -q)
-sudo docker system prune -f
+sudo docker stop $(sudo docker ps -a -q --filter="name=${env}" )
+sudo docker rm -f $(sudo docker ps -a -q --filter="name=${env}")
+sudo docker rmi -f $(sudo docker images "*/*:${app}-${env}*")
 
 #Login and Pull the docker image and run it
 sudo docker login
