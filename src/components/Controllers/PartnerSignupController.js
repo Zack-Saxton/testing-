@@ -48,11 +48,7 @@ export default async function PartnerSignup(history, partnerToken, applicantId, 
   );
 
   partnerSignupMethod.data.status === 200
-    ? toast.success(
-      partnerSignupMethod?.data?.statusText
-        ? partnerSignupMethod?.data?.statusText
-        : partnerSignupMethod?.data?.applicant?.processing?.status === "confirming_info"
-          ? "Successfully Registered, Please confirm your information" : "Successfully Registered",
+    ? toast.success(partnerSignupMethod?.data?.statusText? partnerSignupMethod?.data?.statusText partnerSignupMethod?.data?.applicant?.processing?.status === "confirming_info"? "Successfully Registered, Please confirm your information" : "Successfully Registered",
       {
         onClose: () => {
           var now = new Date().getTime();
@@ -98,7 +94,7 @@ export default async function PartnerSignup(history, partnerToken, applicantId, 
     : toast.error(partnerSignupMethod?.data?.statusText? partnerSignupMethod.data.statusText: "Please check your data");
   return partnerSignupMethod;
 }
-export async function PopulatePartnerSignup(
+export function PopulatePartnerSignup(
   partnerToken,
   applicantId,
   requestAmt,
