@@ -3,23 +3,27 @@ import APICall from "../lib/AxiosLib";
 
 //  ========*******======== Add ACH Bank Payment                ========*******========
 export async function AddACHPaymentAPI(accountNickname, accountHolder, bankRoutingNumber, bankAccountNumber, accountType, defaultBank) {
-  //API
-  let url = "add_ach_payment_method";
-  let param = "";
-  let data = {
-    nickname: accountNickname,
-    account_holder: accountHolder,
-    routing_number: bankRoutingNumber,
-    account_number: bankAccountNumber,
-    account_type: accountType,
-    defaultBank: defaultBank
-  };
-  let method = "POST";
-  let addAccessToken = true;
-  //API call
-  //API response
+  try {
+    //API
+    let url = "add_ach_payment_method";
+    let param = "";
+    let data = {
+      nickname: accountNickname,
+      account_holder: accountHolder,
+      routing_number: bankRoutingNumber,
+      account_number: bankAccountNumber,
+      account_type: accountType,
+      defaultBank: defaultBank
+    };
+    let method = "POST";
+    let addAccessToken = true;
+    //API call
+    //API response
 
-  return APICall(url, param, data, method, addAccessToken);
+    return await APICall(url, param, data, method, addAccessToken);
+  } catch (error) {
+    Error("Error executing AddACHPaymentAPI API");
+  }
 }
 //  ========*******======== END of [Add ACH Bank Payment]       ========*******========
 
@@ -149,18 +153,18 @@ export async function DeleteDebitCardAPI() {
 
 //  ========*******======== Delete Debit Card Payment             ========*******========
 export async function ShowPaymentMethodAPI() {
-  //API
-  let url = "get_payment_options";
-  let param = "";
-  let data = {};
-  let method = "POST";
-  let addAccessToken = true;
+  try {
+    //API
+    let url = "get_payment_options";
+    let param = "";
+    let data = {};
+    let method = "POST";
+    let addAccessToken = true;
 
-  //API call
-  let ShowPaymentMethod = await APICall(url, param, data, method, addAccessToken);
-
-  //API response
-
-  return ShowPaymentMethod;
+    //API call
+    return await APICall(url, param, data, method, addAccessToken);
+  } catch (error) {
+    Error("Error executing ShowPaymentMethodAPI API");
+  }
 }
 //  ========*******======== END of [Delete Debit Card Payment]    ========*******========

@@ -12,6 +12,6 @@ export default async function HolidayCalender() {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    Error("Error executing Holiday Calender API");
+    Error("Error executing HolidayCalender API");
   }
 }

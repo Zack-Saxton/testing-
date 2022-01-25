@@ -5,6 +5,7 @@ import Buffer from "buffer"
 
 /***** Get loan document *****/
 export async function loanDocumentController(accNo) {
+  try {
   let url = accNo === null ? "active_loan_document" : "loan_document";
   let param = url === "loan_document" ? "/" + accNo : "";
   let data = {};
@@ -12,8 +13,10 @@ export async function loanDocumentController(accNo) {
   let addAccessToken = true;
 
   //API call
-  return APICall(url, param, data, method, addAccessToken);
-
+    return await APICall(url, param, data, method, addAccessToken);
+  } catch (error) {
+    Error("Error executing loanDocumentController API");
+  }
 }
 
 /***** Download and converting bufferdata *****/

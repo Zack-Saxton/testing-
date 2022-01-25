@@ -3,16 +3,19 @@ import APICall from "../lib/AxiosLib";
 
 /***** My branch details *****/
 export default async function MyBranchAPI() {
-  //API
-  let url = "myBranch_detail";
-  let param = "";
-  let data = {};
-  let method = "POST";
-  let addAccessToken = true;
+  try {
+    //API
+    let url = "myBranch_detail";
+    let param = "";
+    let data = {};
+    let method = "POST";
+    let addAccessToken = true;
 
-  //API call
-  return APICall(url, param, data, method, addAccessToken);
-
+    //API call
+    return await APICall(url, param, data, method, addAccessToken);
+  } catch (error) {
+    Error("Error executing MyBranchAPI API");
+  }
 }
 
 /***** Schedule call ****/

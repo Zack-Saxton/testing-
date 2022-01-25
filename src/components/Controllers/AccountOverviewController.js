@@ -12,6 +12,6 @@ export default async function setAccountDetails() {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    Error("Error executing Account Overview API");
+    Error("Error executing setAccountDetails API");
   }
 }

@@ -18,15 +18,13 @@ export default async function UserImageInformation() {
     let method = "POST";
     let addAccessToken = true;
     let res = await APICall(url, param, data, method, addAccessToken);
-
     if (Cookies.get("profile_picture_url")) {
       res.profile_picture_url = Cookies.get("profile_picture_url");
-    }
-    else {
+    } else {
       res.profile_picture_url = res?.data?.profile_picture_url;
     }
     return res.profile_picture_url;
   } catch (error) {
-    Error("Error executing Profile Picture API")
+    Error("Error executing UserImageInformation API")
   }
 }
