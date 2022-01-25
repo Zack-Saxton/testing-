@@ -118,9 +118,7 @@ function PersonalInfo() {
 
 		//On submit functionality updating context values
 		onSubmit: async (values) => {
-			const loginToken = JSON.parse(
-				Cookies.get("token") ? Cookies.get("token") : "{ }"
-			);
+			const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : "{ }");
 			setLoading(true);
 			data.firstName = values.firstName.trim();
 			data.lastName = values.lastName.trim();

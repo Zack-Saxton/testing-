@@ -79,7 +79,6 @@ const validationSchema = yup.object({
 //Initializing functional component -  BankAccountVerification
 export default function BankAccountVerification(props) {
 	const classes = useStyles();
-
 	//Initializing state variables
 	const [accountType, setAccountType] = useState("saving");
 	const [paymnetMode, setPaymentMode] = useState("autopayment");
@@ -87,7 +86,6 @@ export default function BankAccountVerification(props) {
 	const [error, setError] = useState("");
 	const [invalidRN, setInvalidRN] = useState(false);
 	const [openAutoPayAuth, setOpenAutoPayAuth] = useState(false);
-
 	const handleUpload = (res) => {
 		if (res?.bank_account_verification) {
 			toast.success("Document uploaded successfully!");
@@ -124,16 +122,10 @@ export default function BankAccountVerification(props) {
 				"POST",
 				true
 			);
-			if (
-				res?.data?.bank_account_information &&
-				res?.data?.bank_account_verification
-			) {
+			if (res?.data?.bank_account_information && res?.data?.bank_account_verification) {
 				props.setLoadingFlag(false);
 				props.next();
-			} else if (
-				res?.data?.bank_account_information ||
-				res?.data?.bank_account_verification
-			) {
+			} else if (res?.data?.bank_account_information || res?.data?.bank_account_verification) {
 				setError(
 					paymnetMode === "autopayment"
 						? errorMessage?.applyForLoan?.bankAccountVerification?.notValid
@@ -141,10 +133,7 @@ export default function BankAccountVerification(props) {
 				);
 				setVerifyRequired(true);
 				props.setLoadingFlag(false);
-			} else if (
-				res?.data?.bank_account_information === false ||
-				res?.data?.bank_account_verification === false
-			) {
+			} else if (res?.data?.bank_account_information === false || res?.data?.bank_account_verification === false) {
 				props.setLoadingFlag(false);
 				alert(errorMessage?.applyForLoan?.bankAccountVerification?.notValid);
 			} else {

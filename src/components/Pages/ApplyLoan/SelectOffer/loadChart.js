@@ -24,10 +24,7 @@ export default function LoadChart(props) {
 	};
 	let finArray = [];
 
-	if (
-		props.offersToCompareChart.length &&
-		props.offersToCompareChart.length >= 2
-	) {
+	if (props?.offersToCompareChart?.length >= 2) {
 		props.offersToCompareChart.forEach((x, i) => {
 			var arr = {
 				monthlyPaymentConverted: toNumeric(x.monthlyPayment),

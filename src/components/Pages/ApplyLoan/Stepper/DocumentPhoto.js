@@ -29,9 +29,7 @@ export default function DocumentPhoto(props) {
 	const onMessageHandler = async (event) => {
 		try {
 			if (event.data.trace_id || event.data.request_id) {
-				const loginToken = JSON.parse(
-					Cookies.get("token") ? Cookies.get("token") : "{ }"
-				);
+				const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : "{ }");
 
 				const options = {
 					method: "POST",
@@ -40,9 +38,7 @@ export default function DocumentPhoto(props) {
 						"Content-Type": "application/json",
 						"x-access-token": loginToken.apiKey,
 					},
-					body: JSON.stringify({
-						requestID: event.data.request_id,
-					}),
+					body: JSON.stringify({requestID: event.data.request_id}),
 				};
 				await fetch("/idscan/save_response_cac", options);
 				event.source.window.postMessage({isVerified: true,},"*");
