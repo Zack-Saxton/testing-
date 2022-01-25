@@ -90,26 +90,10 @@ export default function BankAccountVerification(props) {
 
 	const handleUpload = (res) => {
 		if (res?.bank_account_verification) {
-			toast.success("Document uploaded successfully!", {
-				position: "bottom-left",
-				autoClose: 1500,
-				hideProgressBar: false,
-				closeOnClick: true,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-			});
+			toast.success("Document uploaded successfully!");
 			props.next();
 		} else {
-			toast.error("Document submission failed. Please try again", {
-				position: "bottom-left",
-				autoClose: 1500,
-				hideProgressBar: false,
-				closeOnClick: true,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-			});
+			toast.error("Document submission failed. Please try again");
 		}
 	};
 

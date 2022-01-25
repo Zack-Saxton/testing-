@@ -60,48 +60,18 @@ export default function LoanDocument(props) {
   const uploadDoc = () => {
     if (selectedFile === null) {
       if (!toast.isActive("closeToast")) {
-        toast.error(loanDocs.Please_Select_File_Upload, {
-          position: "bottom-left",
-          autoClose: 1500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          toastId: "closeToast",
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        toast.error(loanDocs.Please_Select_File_Upload);
       }
     } else if (docType === null || docType === "") {
       if (!toast.isActive("closeToast")) {
-        toast.error(loanDocs.Please_Select_A_Document_Type, {
-          position: "bottom-left",
-          autoClose: 1500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          toastId: "closeToast",
-          draggable: true,
-          progress: undefined,
-        });
+        toast.error(loanDocs.Please_Select_A_Document_Type);
       }
     } else {
       var filePath = selectedFile.value;
       var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.pdf)$/i;
       if (!allowedExtensions.exec(filePath)) {
         if (!toast.isActive("closeToast")) {
-          toast.error(
-            "Please upload file having extensions .jpeg .jpg .png .pdf only. ",
-            {
-              position: "bottom-left",
-              autoClose: 1500,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              toastId: "closeToast",
-            }
-          );
+          toast.error("Please upload file having extensions .jpeg .jpg .png .pdf only. ");
         }
         selectedFile.value = "";
         return false;
@@ -134,16 +104,7 @@ export default function LoanDocument(props) {
       } else {
         if (selectedFile.files[0].size > 10240000) {
           if (!toast.isActive("closeToast")) {
-            toast.error(loanDocs.Please_Upload_File_Below_Size, {
-              position: "bottom-left",
-              autoClose: 1500,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              toastId: "closeToast",
-            });
+            toast.error(loanDocs.Please_Upload_File_Below_Size);
           }
         }
       }

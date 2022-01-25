@@ -29,16 +29,7 @@ function downloadFileData(data) {
   link.setAttribute("download", data?.data?.exportName);
   document.body.appendChild(link);
   link.click();
-
-  toast.success("Document Downloaded Successfully", {
-    position: "bottom-left",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-  });
+  if (!toast.isActive("closeToast")) {toast.success("Document Downloaded Successfully");}
 }
 
 /****** Document Download method *****/
@@ -59,20 +50,7 @@ export async function documentdownload(id, name) {
   );
   loanDocumentDownload.data.status === 200
     ? downloadFileData(loanDocumentDownload)
-    : toast.error(
-      loanDocumentDownload?.data?.message
-        ? loanDocumentDownload?.data?.message
-        : "Downloading failed",
-      {
-        position: "bottom-left",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      }
-    );
+    : toast.error(loanDocumentDownload?.data?.message? loanDocumentDownload?.data?.message: "Downloading failed");
 }
 
 /***** Print file *****/
@@ -102,15 +80,7 @@ export async function documentprint(id, name) {
   );
   documentDownloadPrint.data.status === 200
     ? print(documentDownloadPrint)
-    : toast.error("Error printing file", {
-      position: "bottom-left",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+    : toast.error("Error printing file");
 }
 
 /***** upload document method *****/
@@ -135,24 +105,8 @@ export async function uploadDocument(test, fileName, fileType, documentType) {
 
   //API response
   uploadData.data.status === 200
-    ? toast.success((uploadData?.data?.data?.message) ? (uploadData?.data?.data.message) : (uploadData?.data?.data?.message) ? (uploadData?.data?.message) : "Document Uploaded Successfully", {
-      position: "bottom-left",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    })
-    : toast.error((uploadData?.data?.data?.message) ? (uploadData?.data?.data.message) : (uploadData?.data?.data?.message) ? (uploadData?.data?.message) : "Error uploading file", {
-      position: "bottom-left",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+    ? toast.success((uploadData?.data?.data?.message) ? (uploadData?.data?.data.message) : (uploadData?.data?.data?.message) ? (uploadData?.data?.message) : "Document Uploaded Successfully")
+    : toast.error((uploadData?.data?.data?.message) ? (uploadData?.data?.data.message) : (uploadData?.data?.data?.message) ? (uploadData?.data?.message) : "Error uploading file");
 
   return "true"
 }

@@ -19,7 +19,6 @@ import states from "../../lib/States.json"
 import statesFullform from "../../lib/StatesFullform.json"
 import Cookies from "js-cookie";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
-import { Error } from "../../toast/toast";
 const validationSchema = yup.object({
   streetAddress: yup
     .string("Enter Street Address")
@@ -93,13 +92,6 @@ export default function MailingAddress(props) {
 
       if (formik.initialValues.streetAddress === values.streetAddress && formik.initialValues.zip === values.zip) {
         toast.error("No changes made", {
-          position: "bottom-left",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
           onClose: () => { setLoading(false); }
         });
       }
@@ -109,13 +101,6 @@ export default function MailingAddress(props) {
 
         if (res?.data?.notes.length !== 0) {
           toast.success("Updated successfully", {
-            position: "bottom-left",
-            autoClose: 3500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
             onClose: () => {
               setLoading(false);
               props.getUserAccountDetails()
@@ -124,13 +109,6 @@ export default function MailingAddress(props) {
           });
         } else {
           toast.error("Please try again", {
-            position: "bottom-left",
-            autoClose: 3500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
             onClose: () => { setLoading(false); }
           });
         }
@@ -162,7 +140,7 @@ export default function MailingAddress(props) {
       formik.handleChange(event);
     }
   } catch (error) {
-    Error("Error from [fetchAddress]");
+    toast.error("Error from [fetchAddress]");
   }
 };
 
@@ -180,7 +158,7 @@ function fetchAddressValidate(result) {
         setErrorMsg("Please enter a valid Zipcode");
       }
   } catch (error) {
-    Error(" Error from [fetchAddressValidate]");
+    toast.error(" Error from [fetchAddressValidate]");
   }
 }
   const onBlurAddress = (event) => {

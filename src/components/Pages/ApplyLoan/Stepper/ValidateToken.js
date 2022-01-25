@@ -54,47 +54,21 @@ const ValidateToken = () => {
 					history.push({
 						pathname: "/customers/finalVerification",
 					});
-				} else if (res?.data?.result === "error" && res?.data?.statusText === "Token not valid") {
-					toast.error(`Your token is Expired, please try again.`, {
-						position: "bottom-left",
-						autoClose: 5500,
-						hideProgressBar: false,
-						closeOnClick: true,
-						pauseOnHover: true,
-						draggable: true,
-						progress: undefined,
-					});
+				} else if (
+					res?.data?.result === "error" &&
+					res?.data?.statusText === "Token not valid"
+				) {
+					toast.error(`Your token is Expired, please try again.`);
 					history.push({
 						pathname: "/customers/accountOverview",
 					});
 				} else if (res?.data?.result === "error") {
-					toast.error(
-						res?.data?.statusText
-							? res?.data?.statusText
-							: "Your Email verification is failed, Please try again",
-						{
-							position: "bottom-left",
-							autoClose: 5500,
-							hideProgressBar: false,
-							closeOnClick: true,
-							pauseOnHover: true,
-							draggable: true,
-							progress: undefined,
-						}
-					);
+					toast.error(res?.data?.statusText? res?.data?.statusText: "Your Email verification is failed, Please try again");
 					history.push({
 						pathname: "/customers/accountOverview",
 					});
 				} else {
-					toast.error("Your Email verification is failed, Please try again", {
-						position: "bottom-left",
-						autoClose: 5500,
-						hideProgressBar: false,
-						closeOnClick: true,
-						pauseOnHover: true,
-						draggable: true,
-						progress: undefined,
-					});
+					toast.error("Your Email verification is failed, Please try again");
 					history.push({
 						pathname: "/customers/accountOverview",
 					});

@@ -57,12 +57,15 @@ function App() {
             <div className="App">
                 <ToastContainer 
                     theme="colored" 
-                    position = "bottom-left"
+                    position = "bottom-center"
                     autoClose = {5000}
                     hideProgressBar = {false}
                     closeOnClick = {true}
                     pauseOnHover = {true}
                     draggable = {true}
+                    className= "toast_message_box"
+                    style={{ width: "50%",}}
+                   
                 />
                 <BrowserRouter>
                     <Route path='/customers/verification/email' component={ValidateToken} />

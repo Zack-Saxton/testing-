@@ -21,25 +21,9 @@ export default function IncomeVerification(props) {
 	const classes = useStyles();
 	const handleUpload = (res) => {
 		if (res?.income_verification) {
-			toast.success("Document uploaded successfully!", {
-				position: "bottom-left",
-				autoClose: 1500,
-				hideProgressBar: false,
-				closeOnClick: true,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-			});
+			toast.success("Document uploaded successfully!");
 		} else {
-			toast.error("Document submission failed. Please try again", {
-				position: "bottom-left",
-				autoClose: 1500,
-				hideProgressBar: false,
-				closeOnClick: true,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-			});
+			toast.error("Document submission failed. Please try again");
 		}
 	};
 	//JSX part

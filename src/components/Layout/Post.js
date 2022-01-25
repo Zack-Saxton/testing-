@@ -102,15 +102,7 @@ const Post = ({ children }) => {
 		history.push({
 			pathname: "/login",
 		});
-		toast.success("You are being logged out of the system", {
-			position: "bottom-left",
-			autoClose: 2500,
-			hideProgressBar: false,
-			closeOnClick: true,
-			pauseOnHover: true,
-			draggable: true,
-			progress: undefined,
-		});
+		toast.success("You are being logged out of the system");
 	};
 
 	const handleOnAction = (event) => {

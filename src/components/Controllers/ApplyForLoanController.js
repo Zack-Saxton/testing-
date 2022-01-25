@@ -121,15 +121,7 @@ export async function resendVerificationEmail() {
   //API call
   let resendVerificationEmailMethod = await APICall(url, param, data, method, addAccessToken);
   if (resendVerificationEmailMethod.data.status === 200 && resendVerificationEmailMethod.data.statusText) {
-    toast.success("A verification email has been sent to " + email, {
-      position: "bottom-left",
-      autoClose: 2500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+    if (!toast.isActive("closeToast")) {toast.success("A verification email has been sent to " + email);}
   }
   return resendVerificationEmailMethod;
 }
