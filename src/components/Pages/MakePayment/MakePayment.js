@@ -1076,7 +1076,7 @@ function disableHolidays(date) {
                               disablePast
                               autoComplete="off"
                               maxdate={paymentMaxDate}
-                              onKeyDown={(e) => e.preventDefault()}
+                              onKeyDown={(event) => event.preventDefault()}
                               shouldDisableDate={disableHolidays}
                               minyear={4}
                               onChange={(paymentDatepickerOnChange) => {

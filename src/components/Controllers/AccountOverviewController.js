@@ -2,6 +2,8 @@ import APICall from "../lib/AxiosLib";
 
 /***** Get Account overview details *****/
 export default async function setAccountDetails() {
+  try 
+  {
   let url = "account_overview";
   let param = "";
   let data = {};
@@ -9,6 +11,8 @@ export default async function setAccountDetails() {
   let addAccessToken = true;
 
   //API call
-  let accountOverview = await APICall(url, param, data, method, addAccessToken);
-  return accountOverview;
+  return await APICall(url, param, data, method, addAccessToken);
+  } catch (error) {
+    Error("Error executing Account Overview API")
+  }
 }

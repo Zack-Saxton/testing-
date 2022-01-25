@@ -171,7 +171,7 @@ function disableHolidays(date) {
                 id="date"
                 disablePast
                 autoComplete="off"
-                onKeyDown={(e) => e.preventDefault()}
+                onKeyDown={(event) => event.preventDefault()}
                 shouldDisableDate={disableHolidays}
                 maxdate={scheduleAppointmentDate}
                 minyear={4}
