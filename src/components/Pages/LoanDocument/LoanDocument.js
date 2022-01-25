@@ -119,7 +119,7 @@ export default function LoanDocument(props) {
             let response = await uploadDocument(test, fileName, fileType, documentType);
             if (response === "true") {
               setLoading(false);
-              setDocType(null);
+              setDocType("");
               selectedFile.value = "";
             }
             //Passing data to API
@@ -251,7 +251,7 @@ export default function LoanDocument(props) {
                   className="file"
 
                   variant="contained"
-                  onClick={(event) => uploadDoc(event)}
+                  onClick={() => uploadDoc()}
                   className={classes.uploadbutton}
                   component="span"
                   disabled={loading}
