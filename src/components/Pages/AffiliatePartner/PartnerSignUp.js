@@ -6,15 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import * as yup from "yup";
 import Box from "@material-ui/core/Box";
-import {
-  ButtonPrimary,
-  PhoneNumber,
-  Select,
-  EmailTextField,
-  PasswordField,
-  SocialSecurityNumber,
-  Checkbox,
-} from "../../FormsUI";
+import { ButtonPrimary, PhoneNumber, Select, EmailTextField, PasswordField, SocialSecurityNumber, Checkbox } from "../../FormsUI";
 import Paper from "@material-ui/core/Paper";
 import Logo from "../../../assets/images/loginbg.png";
 import "./Style.css";
@@ -37,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-
   mainGrid: {
     boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%),
     0 6px 30px 5px rgb(0 0 0 / 12%),
@@ -70,7 +61,6 @@ const useStyles = makeStyles((theme) => ({
   0 6px 30px 5px rgb(0 0 0 / 12%),
   0 8px 10px -7px rgb(0 0 0 / 20%)`,
   },
-
   form: {
     width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(3),
@@ -94,7 +84,6 @@ const validationSchema = yup.object({
       "A valid email address is required"
     )
     .required("Your email address is required"),
-
   password: yup
     .string("Enter your password")
     .matches(
@@ -124,7 +113,6 @@ const validationSchema = yup.object({
     .transform((value) => value.replace(/[^\d]/g, ""))
     .matches(/^(?!0000)\d{4}$/, "Please enter a valid SSN")
     .min(4, "Name must contain at least 4 digits"),
-
   callPhNo: yup
     .string("Enter a name")
     .required("Your Phone number is required")
@@ -132,7 +120,6 @@ const validationSchema = yup.object({
     .matches(/^[1-9]{1}\d{2}[\d]{3}\d{4}$/, "Please enter a valid Phone number")
     .matches(/^(\d)(?!\1+$)\d{9}$/, "Please enter a valid Phone number")
     .min(10, "Name must contain at least 10 digits"),
-
   phoneType: yup
     .string("Select Phone Type")
     .max(30, "Should be less than 30 characters")
@@ -176,10 +163,7 @@ export default function CreditKarma() {
   }, []);
 
   //Populate partner signup from API
-  let populateSignupData =
-    populatePartnerSignupState != null
-      ? populatePartnerSignupState?.data?.applicant
-      : null;
+  let populateSignupData = populatePartnerSignupState?.data?.applicant;
 
   const classes = useStyles();
   const [failed, setFailed] = useState("");
@@ -187,17 +171,15 @@ export default function CreditKarma() {
   const history = useHistory();
   const [agree, setAgree] = useState(false);
 
-
-
   //Form Submission
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      email: populateSignupData !== null ? populateSignupData?.email : "",
+      email: populateSignupData?.email ?? "",
       password: "",
       confirmPassword: "",
       ssn: "",
-      callPhNo: populateSignupData !== null ? populateSignupData?.phoneNumber : "",
+      callPhNo: populateSignupData?.phoneNumber ?? "",
       phoneType: "",
     },
     validationSchema: validationSchema,
@@ -211,7 +193,6 @@ export default function CreditKarma() {
         password: values.password,
         confirm_password: values.confirmPassword
       }
-
       let partnerRes = await partnerSignup(
         history,
         partnerToken,
@@ -234,9 +215,6 @@ export default function CreditKarma() {
       event.preventDefault();
     }
   };
-
-
-
   //View Part
   return (
     <div>
@@ -368,13 +346,11 @@ export default function CreditKarma() {
                 ) : (
                   ""
                 )}
-
                 <p style={{ textAlign: "center" }}>
                   Thank you for choosing Mariner Finance. Please provide the
                   following information to view your offers.
                 </p>
                 {/* </div> */}
-
                 <form onSubmit={formik.handleSubmit}>
                   <Grid
                     container

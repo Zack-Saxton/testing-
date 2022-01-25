@@ -10,8 +10,6 @@ import { ButtonPrimary } from "../../FormsUI";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import NumberFormat from "react-number-format";
 
-
-
 export default function LimitedOffer(userOfferData) {
   //Material UI css class
   const classes = useStylesAccountOverview();

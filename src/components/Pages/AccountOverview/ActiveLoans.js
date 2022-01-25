@@ -44,7 +44,7 @@ export default function ActiveLoans(userActiveLoanData) {
               Active Loan
             </Typography>
           </Grid>
-          <Grid style={{  paddingTop: "10px" }} container>
+          <Grid style={{ paddingTop: "10px" }} container>
             <TableContainer component={Paper}>
               <Table>
                 <TableBody>
@@ -70,7 +70,7 @@ export default function ActiveLoans(userActiveLoanData) {
                 direction="row"
               >
                 <Typography
-                  
+
                   variant="h5"
                   className={classes.subheading}
                   data-testid="subtitle"
@@ -79,7 +79,7 @@ export default function ActiveLoans(userActiveLoanData) {
                 </Typography>
               </Grid>
               <Grid
-                style={{  paddingTop: "10px" }}
+                style={{ paddingTop: "10px" }}
                 container
               >
                 {userActiveLoans.userActiveLoanData.map((appData, index) => (
@@ -177,14 +177,14 @@ export default function ActiveLoans(userActiveLoanData) {
 
                             {today.isBefore(appData.loanDetails.NextPaymentDate) ?
                               <p className={classes.cardcontent}>
-                              Due in {" "}
-                               {Math.ceil(
-                                Moment.duration(
-                                  Moment(
-                                    appData.loanDetails.NextPaymentDate
-                                  ).diff(today)
-                                ).asDays()
-                              )}{" "}
+                                Due in {" "}
+                                {Math.ceil(
+                                  Moment.duration(
+                                    Moment(
+                                      appData.loanDetails.NextPaymentDate
+                                    ).diff(today)
+                                  ).asDays()
+                                )}{" "}
                                 days
                               </p>
                               :
