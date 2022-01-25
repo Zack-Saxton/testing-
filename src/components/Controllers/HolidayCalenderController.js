@@ -1,17 +1,17 @@
 import APICall from "../lib/AxiosLib";
 
-/***** Get Account overview details *****/
-export default async function setAccountDetails() {
+/***** Get USA Holiday details *****/
+export default async function HolidayCalender() {
   try {
-    let url = "account_overview";
+    let url = "mariner_holiday_calender";
     let param = "";
     let data = {};
-    let method = "GET";
+    let method = "POST";
     let addAccessToken = true;
 
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    Error("Error executing Account Overview API");
+    Error("Error executing Holiday Calender API");
   }
 }
