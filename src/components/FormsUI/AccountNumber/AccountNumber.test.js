@@ -5,7 +5,6 @@ import AccountField from './index.js'
 afterEach(cleanup)
 
 test('Availability test', () => {
-
   const container = render(
     <AccountField
       type="text"
@@ -13,14 +12,11 @@ test('Availability test', () => {
       label="test"
       materialProps={{ "data-test-id": "accountNum" }}
     />);
-
   const input = container.getByTestId('accountNum');
   expect(input).toBeTruthy();
   expect(input.value).toBe('');
   expect(input.hasAttribute('name')).toBe(true);
-
 });
-
 
 test('Input test', () => {
   const container = render(
@@ -30,12 +26,10 @@ test('Input test', () => {
       label="accountNum"
       materialProps={{ "data-test-id": "accountNum" }}
     />);
-
   const input = container.getByTestId('accountNum');
   fireEvent.change(input, { target: { value: "123" } });
   expect(input.value).toBe('123');
 });
-
 
 test('Get only numeric value', () => {
   const container = render(
@@ -45,7 +39,6 @@ test('Get only numeric value', () => {
       label="accountNum"
       materialProps={{ "data-test-id": "accountNum", maxLength: 10 }}
     />);
-
   const input = container.getByTestId('accountNum');
   fireEvent.change(input, { target: { value: "abc" } });
   expect(input.value).toBe('');
