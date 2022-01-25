@@ -113,7 +113,8 @@ export default function LoanDocument(props) {
 
   //Loan Document data from API
   let loanDocumentData =
-    loanDocumentStatus != null ? loanDocumentStatus.data.data : null;
+    loanDocumentStatus != null ? loanDocumentStatus: null;
+    console.log(loanDocumentStatus);
 
   //View part
   return (
