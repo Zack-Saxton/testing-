@@ -49,10 +49,7 @@ const ApplyForLoanRedirect = (props) => {
 			history.push({
 				state: { from: "ended" },
 			});
-			if (
-				res?.data?.customer?.user_account?.status === "closed" &&
-				checkStatus !== false
-			) {
+			if (res?.data?.customer?.user_account?.status === "closed" && checkStatus !== false) {
 				if (!toast.isActive("closedApplication")) {
 					toast.error(
 						"Your account is closed to new applications. Please contact us to reapply.");
@@ -89,7 +86,6 @@ const ApplyForLoanRedirect = (props) => {
 				pathname: "/customers/accountOverview",
 			});
 		}
-
 		return res;
 	};
 	const redirect = () => {

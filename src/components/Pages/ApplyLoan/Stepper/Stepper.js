@@ -18,7 +18,6 @@ import { NavLink, useHistory } from "react-router-dom";
 import { Grid } from "@material-ui/core";
 import APICall from "../../../App/APIcall";
 import "./VerticalLinearStepper.css";
-import { resendVerificationEmail } from "../../../Controllers/ApplyForLoanController";
 import Cookies from "js-cookie";
 
 //Styling part

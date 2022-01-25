@@ -45,16 +45,9 @@ export default function DocumentPhoto(props) {
 					}),
 				};
 				await fetch("/idscan/save_response_cac", options);
-				event.source.window.postMessage(
-					{
-						isVerified: true,
-					},
-					"*"
-				);
+				event.source.window.postMessage({isVerified: true,},"*");
 			} else if (event.data.idscanPayload) {
-				const loginToken = JSON.parse(
-					Cookies.get("token") ? Cookies.get("token") : "{ }"
-				);
+				const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : "{ }");
 
 				const options = {
 					method: "POST",

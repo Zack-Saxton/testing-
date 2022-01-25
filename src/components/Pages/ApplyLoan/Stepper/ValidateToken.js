@@ -9,12 +9,7 @@ const ValidateToken = () => {
 	const useQuery = () => new URLSearchParams(useLocation().search);
 	const query = useQuery();
 	const getResponse = async (data) => {
-		let res = await APICall(
-			"/verification/verify_user_email_cac",
-			data,
-			"POST",
-			true
-		);
+		let res = await APICall("/verification/verify_user_email_cac", data, "POST", true);
 		return res;
 	};
 

@@ -1,5 +1,4 @@
 import React, { createContext, useState } from "react";
-
 export const ActiveLoanAccNO = createContext();
 
 const ActiveLoanAccNOContext = (props) => {
@@ -7,7 +6,6 @@ const ActiveLoanAccNOContext = (props) => {
 		AccountNumber: '',
 		applicationGuid: '',
 		isActive: ''
-
 	});
 
 	return (

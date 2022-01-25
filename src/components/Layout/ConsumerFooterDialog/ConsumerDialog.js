@@ -9,7 +9,6 @@ import "./Style.css";
 export default function ConsumerDialog(props) {
   //Material UI css class
   const classes = useStylesConsumer();
-
   //Pop up
   const handleCloseConsumer = () => {
     props.onChange(false);
