@@ -42,10 +42,10 @@ export default function Notification() {
   //API call for Notification
   async function notificationData() {
     let responseData = await (getNoticationData())
-    let messagesData = responseData?.data?.data?.notificationsToShow ? responseData?.data?.data?.notificationsToShow.message_data : []
+    let messagesData = responseData?.data?.notificationsToShow ? responseData?.data?.notificationsToShow.message_data : []
     setMessages(messagesData)
-    setNotificationId(responseData?.data?.data?.notificationsToShow ? responseData?.data?.data?.notificationsToShow._id : '')
-    let badge = responseData?.data?.data?.user ? responseData?.data?.data?.user?.extensionattributes?.unread_messages : 0
+    setNotificationId(responseData?.data?.notificationsToShow ? responseData?.data?.notificationsToShow._id : '')
+    let badge = responseData?.data?.user ? responseData?.data?.user?.extensionattributes?.unread_messages : 0
     setbadgeCount(badge)
     setLoading(false)
     setmessageDelLoading(false)

@@ -78,10 +78,10 @@ const CheckMyOffersContext = (props) => {
 		if (accountDetail.data.status === 200) {
 			const cred = JSON.parse(Cookies.get("cred") ? decryptAES(Cookies.get("cred")) : '{ }');
 
-			let identification = (accountDetail !== '') ? accountDetail?.data?.data?.customer?.identification : '';
-			let latestContact = (accountDetail !== '') ? accountDetail?.data?.data?.customer?.latest_contact : '';
-			let statesFullForm = (accountDetail !== '') ? accountDetail?.data?.data?.customer?.latest_contact.address_state : '';
-			let userStatus = (accountDetail !== '') ? accountDetail?.data?.data?.customer?.user_account?.status : '';
+			let identification = (accountDetail !== '') ? accountDetail?.data?.customer?.identification : '';
+			let latestContact = (accountDetail !== '') ? accountDetail?.data?.customer?.latest_contact : '';
+			let statesFullForm = (accountDetail !== '') ? accountDetail?.data?.customer?.latest_contact.address_state : '';
+			let userStatus = (accountDetail !== '') ? accountDetail?.data?.customer?.user_account?.status : '';
 			data.citizenship = identification?.citizenship ? identification?.citizenship : ''
 			data.zip = latestContact?.address_postal_code ? latestContact?.address_postal_code : ''
 			data.firstName = identification?.first_name ? identification?.first_name : ''

@@ -15,7 +15,7 @@ import NumberFormat from "react-number-format";
 export default function LimitedOffer(userOfferData) {
   //Material UI css class
   const classes = useStylesAccountOverview();
-
+  window.zeHide();
   // Get offers details
   let userOfferAmount = (userOfferData.userOffers != null) ? userOfferData.userOffers.offerAmount : 0;
 

@@ -68,6 +68,7 @@ export default function TextNotification() {
 
     onSubmit: async (values) => {
       setLoading(true);
+      setdisabledContent(false);
       try {
         let body = {
           phone: values.phone,
@@ -104,8 +105,9 @@ export default function TextNotification() {
         }
         window.setTimeout(function () {
           setLoading(false);
+          setdisabledContent(true);
         }, 3050);
-      } catch (err) {
+      } catch (error) {
         toast.error("Error occured while changing text notification.", {
           position: "bottom-left",
           autoClose: 3500,

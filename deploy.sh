@@ -26,59 +26,15 @@ then
     exit
 fi
 
-# Initialise for various environments
-dev_env(){
-    pemFile="/home/fidelis.j@zucisystems.com/Documents/creds/MF/MarinerFinance-DevLinux.pem"
-    serverName="ubuntu@ec2-18-191-188-41.us-east-2.compute.amazonaws.com"
-    gitRepo="git@github.com:zucisystems-dev/MarinerFinance-Website.git"
-    appDir="MarinerFinance-Website"
-}
-
-dev_remote_env(){
-    pemFile="/home/fidelis.j@zucisystems.com/Documents/creds/MF/marinerfinance-us-east-1.pem"
-    serverName="ubuntu@cac-app1-dev.marinerfinance.io"
-    gitRepo="git@github.com:marinerfinance/cac.git"
-    appDir="cac"
-}
-
-staging_env(){
-    pemFile="/home/fidelis.j@zucisystems.com/Documents/creds/MF/marinerfinance-us-east-1.pem"
-    serverName="ubuntu@cac-app1-dev.marinerfinance.io"
-    gitRepo="git@github.com:marinerfinance/cac.git"
-    appDir="cac"
-}
-
-production_env(){
-    pemFile="/home/fidelis.j@zucisystems.com/Documents/creds/MF/MarinerFinance-DevLinux.pem"
-    serverName="ubuntu@ec2-18-191-188-41.us-east-2.compute.amazonaws.com"
-    gitRepo="git@github.com:zucisystems-dev/MarinerFinance-Website.git"
-    appDir="MarinerFinance-Website"
-}
-
-# Choose an environment
-case $env in
-    dev)
-        echo "*** Deployment to development environment ***"
-        # Initialise the variables
-        dev_env ;;
-    dev_remote)
-        echo "*** Deployment to development environment ***"
-        # Initialise the variables
-        dev_remote_env ;;
-    staging)
-        echo "*** Deployment to Staging environment ***"
-        # Initialise the variables
-        staging_env ;;
-    prod)
-        echo "*** Deployment to Production environment ***"
-        # Initialise the variables
-        production_env ;;
-    *)
-        echo "Unknown environment - choose between dev,staging or prod"
-        exit
-        ;;
-esac
-
+if [ "$env" = "prod1" ] || [ "$env" = "prod2" ] || [ "$env" = "prod3" ] || [ "$env" = "prod4" ]
+then
+    serverName="ubuntu@${app}-${app1}-prod.marinerfinance.io"
+else
+    serverName="ubuntu@cis-app1-${env}.marinerfinance.io"
+fi
+gitRepo="git@github.com:marinerfinance/cac.git"
+pemFile="$home/Code/$app/otherdocs/marinerfinance-us-east-1.pem"
+appDir="cac"
 
 echo "***************************************************************************"
 echo "*************************** Dockerise *************************************"

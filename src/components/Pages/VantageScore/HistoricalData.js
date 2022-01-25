@@ -5,6 +5,7 @@ import { Line } from "react-chartjs-2";
 import Grid from "@material-ui/core/Grid";
 
 export default function HistoricalData(creditData) {
+  window.zeHide();
   //Material UI css class
   const classes = useStyleVantageScore();
   //Vantage score

@@ -11,6 +11,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import axios from "axios";
+import { toast } from "react-toastify";
 import {
 	Button,
 	ButtonPrimary,
@@ -28,7 +29,8 @@ import "./Register.css";
 import Cookies from "js-cookie";
 import LogoutController from "../../Controllers/LogoutController";
 import { encryptAES } from "../../lib/Crypto";
-
+import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
+import { Error } from "../../toast/toast"
 //Styling part
 const useStyles = makeStyles((theme) => ({
 	mainContentBackground: {
@@ -169,6 +171,7 @@ const validationSchema = yup.object({
 
 //Begin: Login page
 export default function Register() {
+	window.zeHide();
 	const classes = useStyles();
 	const [validZip, setValidZip] = useState(true);
 	const [state, setState] = useState("");
@@ -182,6 +185,68 @@ export default function Register() {
 	const myDate = new Date();
 	myDate.setDate(myDate.getDate() - 6571);
 
+	const loginUser = async (values) => {
+		let retVal = await LoginController(values.email, values.password, "");
+		if (
+			retVal?.data?.user &&
+			retVal?.data?.userFound === true
+		) {
+			let rememberMe = false;
+			var now = new Date().getTime();
+			LogoutController();
+			Cookies.set("redirec", JSON.stringify({ to: "/select-amount" }));
+			Cookies.set(
+				"token",
+				JSON.stringify({
+					isLoggedIn: true,
+					apiKey:
+						retVal?.data?.user?.extensionattributes?.login
+							?.jwt_token,
+					setupTime: now,
+				})
+			);
+			Cookies.set(
+				"cred",
+				encryptAES(
+					JSON.stringify({
+						email: values.email,
+						password: values.password,
+					})
+				)
+			);
+
+			rememberMe === true
+				? Cookies.set(
+						"rememberMe",
+						JSON.stringify({
+							selected: true,
+							email: values.email,
+							password: values.password,
+						})
+				  )
+				: Cookies.set(
+						"rememberMe",
+						JSON.stringify({ selected: false, email: "", password: "" })
+				  );
+
+			setLoading(false);
+			history.push({
+				pathname: "/customers/accountoverview",
+			});
+		} else if (
+			retVal?.data?.result === "error" ||
+			retVal?.data?.hasError === true
+		) {
+			Cookies.set(
+				"token",
+				JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" })
+			);
+			setLoading(false);
+		} else {
+			setLoading(false);
+			alert("Network error");
+		}
+	}
 	//Form Submission
 	const formik = useFormik({
 		initialValues: {
@@ -237,67 +302,26 @@ export default function Register() {
 						customerStatus.data?.hasError === false)
 				) {
 					//On succes, calls the login API to the JWT token and save it in storage, and make the user logged in and redirecting to home page
-					let retVal = await LoginController(values.email, values.password, "");
-					if (
-						retVal?.data?.data?.user &&
-						retVal?.data?.data?.userFound === true
-					) {
-						let rememberMe = false;
-						var now = new Date().getTime();
-						LogoutController();
-						Cookies.set("redirec", JSON.stringify({ to: "/select-amount" }));
-						Cookies.set(
-							"token",
-							JSON.stringify({
-								isLoggedIn: true,
-								apiKey:
-									retVal?.data?.data?.user?.extensionattributes?.login
-										?.jwt_token,
-								setupTime: now,
-							})
-						);
-						Cookies.set(
-							"cred",
-							encryptAES(
-								JSON.stringify({
-									email: values.email,
-									password: values.password,
-								})
-							)
-						);
+					loginUser(values);
+				}
+				else if (customerStatus.data?.result === "succcces" && customerStatus.data?.successMessage === "Password reset successful")
+				{
+					toast.success(
+						customerStatus.data?.successMessage,
+						{
+						  position: "bottom-left",
+						  autoClose: 5500,
+						  hideProgressBar: false,
+						  closeOnClick: true,
+						  pauseOnHover: true,
+						  draggable: true,
+						  progress: undefined,
+						}
+					  )
+					  loginUser(values);
 
-						rememberMe === true
-							? Cookies.set(
-								"rememberMe",
-								JSON.stringify({
-									selected: true,
-									email: values.email,
-									password: values.password,
-								})
-							)
-							: Cookies.set(
-								"rememberMe",
-								JSON.stringify({ selected: false, email: "", password: "" })
-							);
-
-						setLoading(false);
-						history.push({
-							pathname: "/customers/accountoverview",
-						});
-					} else if (
-						retVal?.data?.data?.result === "error" ||
-						retVal?.data?.data?.hasError === true
-					) {
-						Cookies.set(
-							"token",
-							JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" })
-						);
-						setLoading(false);
-					} else {
-						setLoading(false);
-						alert("Network error");
-					}
-				} else if (
+				}
+				else if (
 					customerStatus.data?.result === "error" &&
 					customerStatus.data?.hasError === true
 				) {
@@ -358,31 +382,29 @@ export default function Register() {
 	}
 
 	//Fetching valid zipcode
-	const fetchAddress = (e) => {
-		formik.handleChange(e);
-		if (e.target.value !== "" && e.target.value.length === 5) {
-			fetch("https://api.zippopotam.us/us/" + e.target.value)
-				.then((res) => res.json())
-				.then(
-					(result) => {
-						if (result.places) {
-							setValidZip(true);
-							setState(result.places[0]["state abbreviation"]);
-							setCity(result.places[0]["place name"]);
-						} else {
-							setValidZip(false);
-							setState("");
-							setCity("");
-						}
-					},
-					(error) => {
-						setValidZip(false);
-						setState("");
-						setCity("");
-					}
-				);
+	const fetchAddress = async (event) => {
+	try {
+		formik.handleChange(event);
+		if (event.target.value !== "" && event.target.value.length === 5) {
+			let result = await ZipCodeLookup(event.target.value);
+      		if (result) {
+            	setValidZip(true);
+            	setState(result?.data?.data.stateCode);
+            	setCity(result?.data?.data.cityName);
+          	} else {
+            	setValidZip(false);
+            	setState("");
+            	setCity("");
+          	}
+		} else {
+			setValidZip(false);
+			setState("");
+			setCity("");
 		}
-	};
+	} catch (error) {
+		Error(" Error from [fetchAddress]");
+	}
+};
 
 	//View Part
 	return (

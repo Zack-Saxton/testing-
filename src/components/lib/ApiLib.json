@@ -55,6 +55,7 @@
     "set_read": "/customer/countunread_and_markread_or_delete_notification_cac",
     "create_prospect": "/prospect/create_prospect",
     "kba_answers_cac": "/integration/LexisNexis/kba_answers_cac?test=true",
-    "mariner_holiday_calender": "/gps/mariner_holiday_calender"
+    "mariner_holiday_calender": "/gps/mariner_holiday_calender",
+    "zip_lookup": "/api/v2/zipcodelookup"
   }
 }

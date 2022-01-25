@@ -18,6 +18,7 @@ import "./Style.css";
 export default function ActiveLoans(userActiveLoanData) {
   //Material UI css class
   const classes = useStylesAccountOverview();
+  window.zeHide();
   //Activeloans data
   let userActiveLoans = userActiveLoanData != null ? userActiveLoanData : null;
   let today = Moment(new Date());

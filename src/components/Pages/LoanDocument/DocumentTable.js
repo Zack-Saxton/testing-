@@ -13,6 +13,7 @@ import GetAppIcon from "@material-ui/icons/GetApp";
 
 
 export default function LoanDocumentTable(userLoanDocumentData) {
+  window.zeHide();
   //Material UI css class
   const classes = useStylesLoanDocument();
 

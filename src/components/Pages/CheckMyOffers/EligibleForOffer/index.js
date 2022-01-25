@@ -14,7 +14,7 @@ function EligibleForOffers(props) {
 	const history = useHistory();
 
 	//Handle button click redirecting to account overview page
-	const handleRoute = async (e) => {
+	const handleRoute = async (event) => {
 		history.push({
 			pathname: "/customers/selectOffer",
 		});

@@ -15,10 +15,10 @@ function NoOffersAvailable(props) {
 	const history = useHistory();
 
 	//handle
-	const handleBlog = (e) => {
+	const handleBlog = (event) => {
 		window.open("https://www.marinerfinance.com/blog/", "_self");
 	};
-	const handleHome = (e) => {
+	const handleHome = (event) => {
 		history.push({
 			pathname: "/customers/accountoverview",
 		});
@@ -28,11 +28,7 @@ function NoOffersAvailable(props) {
 	data.formStatus = "completed";
 
 	//Redirect to select amount if directly called
-	if (
-		data.completedPage < data.page.ssn &&
-		data.applicationStatus !== "rejected" &&
-		props?.location?.formcomplete !== "yes"
-	) {
+	if (data.completedPage < data.page.ssn && data.applicationStatus !== "rejected" && props?.location?.formcomplete !== "yes") {
 		history.push("/select-amount");
 	}
 

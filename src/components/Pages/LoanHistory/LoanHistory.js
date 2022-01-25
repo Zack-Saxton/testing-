@@ -13,6 +13,7 @@ import CheckLoginStatus from "../../App/CheckLoginStatus";
 
 
 export default function LoanHistory() {
+  window.zeHide();
   //Material UI css class
   const classes = useStylesLoanHistory();
 
@@ -28,7 +29,7 @@ export default function LoanHistory() {
 
 
   //Load data
-  let loanHistoryData = loanHistoryStatus != null ? loanHistoryStatus.data.data.activeLoans : null;
+  let loanHistoryData = loanHistoryStatus != null ? loanHistoryStatus?.data?.activeLoans : null;
 
   //View Part
   return (

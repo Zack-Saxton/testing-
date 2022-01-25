@@ -121,16 +121,16 @@ export default function Login(props) {
 				values.password,
 				props.setToken
 			);
-			if (retVal?.data?.data?.user && retVal?.data?.data?.userFound === true) {
-				let login_date = (retVal.data.data.user.extensionattributes?.login?.last_timestamp_date) ? moment(retVal.data.data.user.extensionattributes.login.last_timestamp_date).subtract(addVal, 'hours').format('MM/DD/YYYY') : '';
+			if (retVal?.data?.user && retVal?.data?.userFound === true) {
+				let login_date = (retVal?.data?.user.extensionattributes?.login?.last_timestamp_date) ? moment(retVal?.data?.user.extensionattributes.login.last_timestamp_date).subtract(addVal, 'hours').format('MM/DD/YYYY') : '';
 				var now = new Date().getTime();
 				// On login success storing the needed data in the local storage
-				Cookies.set("token", JSON.stringify({ isLoggedIn: true, apiKey: retVal?.data?.data?.user?.extensionattributes?.login?.jwt_token, setupTime: now, applicantGuid: retVal?.data?.data?.user?.attributes?.sor_data?.applicant_guid }));
+				Cookies.set("token", JSON.stringify({ isLoggedIn: true, apiKey: retVal?.data?.user?.extensionattributes?.login?.jwt_token, setupTime: now, applicantGuid: retVal?.data?.user?.attributes?.sor_data?.applicant_guid }));
 				Cookies.set("cred", encryptAES(JSON.stringify({ email: values.email, password: values.password })));
 				Cookies.set("email", values.email);
-				Cookies.set("profile_picture", retVal?.data?.data?.user?.mobile?.profile_picture ? retVal?.data?.data?.user?.mobile?.profile_picture : "");
+				Cookies.set("profile_picture", retVal?.data?.user?.mobile?.profile_picture ? retVal?.data?.user?.mobile?.profile_picture : "");
 				Cookies.set('login_date', login_date)
-				Cookies.set('userToken', retVal?.data?.data?.user?.attributes?.UserToken)
+				Cookies.set('userToken', retVal?.data?.user?.attributes?.UserToken)
 
 				setLoading(false);
 				history.push({
@@ -142,8 +142,8 @@ export default function Login(props) {
 					history.go(0);
 				}
 			} else if (
-				retVal?.data?.data?.result === "error" ||
-				retVal?.data?.data?.hasError === true
+				retVal?.data?.result === "error" ||
+				retVal?.data?.hasError === true
 			) {
 				Cookies.set(
 					"token",
@@ -155,7 +155,7 @@ export default function Login(props) {
 					})
 				);
 				setLoading(false);
-				setLoginFailed(retVal?.data?.data?.errorMessage);
+				setLoginFailed(retVal?.data?.errorMessage);
 			} else {
 				setLoading(false);
 				alert("Network error");
@@ -163,9 +163,9 @@ export default function Login(props) {
 		},
 	});
 
-	const passwordOnChange = (e) => {
+	const passwordOnChange = (event) => {
 		setLoginFailed("");
-		formik.handleChange(e);
+		formik.handleChange(event);
 	};
 
 	//Preventing space key

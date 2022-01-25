@@ -9,7 +9,7 @@ import Faq from "./Faq";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
 
 export default function FaqPostLogin() {
-
+  window.zeHide();
   //Material UI css class
   const classes = useStylesFaq();
 

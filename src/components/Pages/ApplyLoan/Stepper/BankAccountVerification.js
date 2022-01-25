@@ -146,14 +146,14 @@ export default function BankAccountVerification(props) {
 				true
 			);
 			if (
-				res?.data?.data?.bank_account_information &&
-				res?.data?.data?.bank_account_verification
+				res?.data?.bank_account_information &&
+				res?.data?.bank_account_verification
 			) {
 				props.setLoadingFlag(false);
 				props.next();
 			} else if (
-				res?.data?.data?.bank_account_information ||
-				res?.data?.data?.bank_account_verification
+				res?.data?.bank_account_information ||
+				res?.data?.bank_account_verification
 			) {
 				setError(
 					paymnetMode === "autopayment"
@@ -163,8 +163,8 @@ export default function BankAccountVerification(props) {
 				setVerifyRequired(true);
 				props.setLoadingFlag(false);
 			} else if (
-				res?.data?.data?.bank_account_information === false ||
-				res?.data?.data?.bank_account_verification === false
+				res?.data?.bank_account_information === false ||
+				res?.data?.bank_account_verification === false
 			) {
 				props.setLoadingFlag(false);
 				alert(errorMessage?.applyForLoan?.bankAccountVerification?.notValid);
@@ -195,8 +195,8 @@ export default function BankAccountVerification(props) {
 		}
 	};
 
-	const handleEdit = (e) => {
-		e.preventDefault();
+	const handleEdit = (event) => {
+		event.preventDefault();
 	};
 
 	const handleClickOpenAutoPayAuth = () => {
@@ -246,8 +246,8 @@ export default function BankAccountVerification(props) {
 						labelforform="Account Type"
 						radiolabel='[{"label":"Savings", "value":"saving"},{"label":"Checking", "value":"checking"}]'
 						checked={accountType}
-						onClick={(e) => {
-							setAccountType(e);
+						onClick={(event) => {
+							setAccountType(event);
 						}}
 						row={true}
 						labelplacement={"end"}
@@ -265,9 +265,9 @@ export default function BankAccountVerification(props) {
 							style={{ width: "100%" }}
 							value={formik.values.bankRoutingNumber}
 							inputProps={{ maxLength: "9", "data-test-id": "BRN" }}
-							onChange={(e) => {
+							onChange={(event) => {
 								setInvalidRN(false);
-								restrictTextOnChange(e);
+								restrictTextOnChange(event);
 							}}
 							onBlur={async (event) => {
 								if (
@@ -502,7 +502,7 @@ export default function BankAccountVerification(props) {
 					<div className={props.classes.button_div}>
 						<ButtonSecondary
 							stylebutton='{"margin-right": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
-							onClick={(e) => {
+							onClick={(event) => {
 								formik.resetForm();
 								setVerifyRequired(false);
 							}}

@@ -19,7 +19,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 
 
 export default function LoanHistoryTable(userLoanHistoryData) {
-
+  window.zeHide();
   //Material UI css class
   const classes = useStylesLoanHistory();
 

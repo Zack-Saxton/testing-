@@ -4,6 +4,7 @@ const APICall = async (url, data, method, addAccessToken) => {
     const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : '{ }');
     let response = {
         status: "",
+        statusText: "",
         data: "",
     };
     try {
@@ -22,12 +23,14 @@ const APICall = async (url, data, method, addAccessToken) => {
                 return data;
             },
         }).then((res) => {
-
-            response.data = res;
+            response.data = res.data;
+            response.status = res.status;
+            response.statusText = res.statusText;
         });
     } catch (error) {
-        response.data = error.response;
-
+        response.data = error.response.data;
+        response.status = error.response.status;
+        response.statusText = error.response.statusText;
     }
     return response;
 }

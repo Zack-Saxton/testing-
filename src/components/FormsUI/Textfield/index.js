@@ -47,7 +47,6 @@ const TextFieldWrapper = ({
       fontSize: lableSize,
       padding: padding,
     },
-
     dynamic: {
       margin: margin,
       padding: padding,
@@ -92,23 +91,17 @@ const TextFieldWrapper = ({
         focused: classes.cssFocused,
       },
     },
-
   };
   //Validation part
-  const handleOnchange = (e) => {
-    setErrorTF((required && !e.target.value));
-    setHelperTextTF((required && !e.target.value) ? Content.required : '');
+  const handleOnchange = (event) => {
+    setErrorTF((required && !event.target.value));
+    setHelperTextTF((required && !event.target.value) ? Content.required : '');
     if (onChange) {
-      onChange(e);
+      onChange(event);
     }
-
-
   }
 
   return <TextField {...configTextField} onChange={handleOnchange} InputProps={InputProps} inputProps={materialProps} />;
-
-
-
 };
 
 //set name prop as mandatory

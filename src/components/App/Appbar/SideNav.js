@@ -17,11 +17,9 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
-import Badge from "@material-ui/core/Badge";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import NotificationsIcon from "@material-ui/icons/Notifications";
 import SettingsIcon from "@material-ui/icons/Settings";
 import logo from "../../../assets/images/MarinerLogo.png";
 import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
@@ -34,7 +32,6 @@ import DataUsageOutlinedIcon from "@material-ui/icons/DataUsageOutlined";
 import Notification from "../../Layout/Notification/Notification";
 
 const drawerWidth = 240;
-
 const useStyles = makeStyles((theme) => ({
     root: {
         display: "flex",
@@ -144,7 +141,6 @@ export default function SideNav() {
     };
 
     const menuId = "primary-search-account-menu";
-
     const renderMenu = (
         <Menu
             anchorEl={anchorEl}

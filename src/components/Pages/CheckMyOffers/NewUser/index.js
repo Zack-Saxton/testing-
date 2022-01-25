@@ -107,8 +107,8 @@ function NewUser() {
 						""
 					);
 					if (
-						retVal?.data?.data?.user &&
-						retVal?.data?.data?.userFound === true
+						retVal?.data?.user &&
+						retVal?.data?.userFound === true
 					) {
 						let rememberMe = false;
 						var now = new Date().getTime();
@@ -118,7 +118,7 @@ function NewUser() {
 							JSON.stringify({
 								isLoggedIn: true,
 								apiKey:
-									retVal?.data?.data?.user?.extensionattributes?.login
+									retVal?.data?.user?.extensionattributes?.login
 										?.jwt_token,
 								setupTime: now,
 							})
@@ -152,8 +152,8 @@ function NewUser() {
 							pathname: "employment-status",
 						});
 					} else if (
-						retVal?.data?.data?.result === "error" ||
-						retVal?.data?.data?.hasError === true
+						retVal?.data?.result === "error" ||
+						retVal?.data?.hasError === true
 					) {
 						Cookies.set(
 							"token",

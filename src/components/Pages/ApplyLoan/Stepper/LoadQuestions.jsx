@@ -30,8 +30,8 @@ export default function LoadQuestions(props) {
 							name="question"
 							radiolabel={buildOptions(question.choice)}
 							checked={props.check}
-							onClick={(e) => {
-								props.setCheck(e);
+							onClick={(event) => {
+								props.setCheck(event);
 							}}
 							row={true}
 							required={true}

@@ -85,8 +85,8 @@ export default function MakePayment(props) {
   async function getPaymentMethods() {
     let payments = await usrPaymentMethods();
     setpaymentMethod(payments);
-    if (payments?.data?.data?.data?.error) {
-      toast.error(payments?.data?.data?.data?.error, {
+    if (payments?.data?.data?.error) {
+      toast.error(payments?.data?.data?.error, {
         position: "bottom-left",
         autoClose: 5000,
         hideProgressBar: false,
@@ -97,16 +97,16 @@ export default function MakePayment(props) {
       });
     } else {
       //get default card
-      let defaultBank = payments?.data?.data?.defaultBank;
+      let defaultBank = payments?.data?.defaultBank;
       let cardFound = await defaultCardCheck(
-        payments?.data?.data?.ACHMethods,
+        payments?.data?.ACHMethods,
         "ACH",
         defaultBank
       );
       if (!cardFound) {
         //set default card ACHMethods
         defaultCardCheck(
-          payments?.data?.data?.CardMethods,
+          payments?.data?.CardMethods,
           "card",
           defaultBank
         );
@@ -137,7 +137,7 @@ export default function MakePayment(props) {
   async function enableAutoPayment(accntNo, card, paymentDate, isDebit) {
     let data = await enableAutoPay(accntNo, card, paymentDate, isDebit);
     data.data.status === 200
-      ? data.data.data.paymentResult.HasNoErrors === true
+      ? data?.data?.paymentResult.HasNoErrors === true
         ? toast.success(Payment.Auto_Payment_Mode_Enabled, {
           position: "bottom-left",
           autoClose: 5000,
@@ -157,8 +157,8 @@ export default function MakePayment(props) {
           progress: undefined,
         })
       : toast.error(
-        data?.data?.data?.data?.message
-          ? data.data.data.data.message
+        data?.data?.data?.message
+          ? data?.data?.data.message
           : Payment.Failed_Payment_mode,
         {
           position: "bottom-left",
@@ -181,7 +181,7 @@ export default function MakePayment(props) {
   async function disableAutoPayment(accntNo, card, paymentDate, isDebit) {
     let data = await disableAutoPay(accntNo, card, paymentDate, isDebit);
     data.data.status === 200
-      ? data.data.data.deletePayment.HasNoErrors === true
+      ? data?.data?.deletePayment.HasNoErrors === true
         ? toast.success(Payment.Auto_Payment_Mode_Disabled, {
           position: "bottom-left",
           autoClose: 5000,
@@ -201,8 +201,8 @@ export default function MakePayment(props) {
           progress: undefined,
         })
       : toast.error(
-        data?.data?.data?.data?.message
-          ? data.data.data.data.message
+        data?.data?.data?.message
+          ? data?.data?.data.message
           : "Failed Payment mode",
         {
           position: "bottom-left",
@@ -238,9 +238,9 @@ export default function MakePayment(props) {
         ? Payment.We_Received_Your_Payment_Successfully
         : Payment.Payment_has_Scheduled +
         " Confirmation: " +
-        data?.data?.data?.paymentResult?.ReferenceNumber;
+        data?.data?.paymentResult?.ReferenceNumber;
     data.data.status === 200
-      ? data?.data?.data?.paymentResult?.PaymentCompleted !== undefined
+      ? data?.data?.paymentResult?.PaymentCompleted !== undefined
         ? toast.success(message, {
           position: "bottom-left",
           autoClose: 5000,
@@ -260,8 +260,8 @@ export default function MakePayment(props) {
           progress: undefined,
         })
       : toast.error(
-        data?.data?.data?.data?.message
-          ? data.data.data.data.message
+        data?.data?.data?.message
+          ? data?.data?.data.message
           : "Failed Payment mode",
         {
           position: "bottom-left",
@@ -282,7 +282,7 @@ export default function MakePayment(props) {
   async function deletePayment(accntNo, refNo) {
     let data = await deleteScheduledPayment(accntNo, refNo, isCard);
     data.data.status === 200
-      ? data.data.data.deletePaymentMethod.HasNoErrors === true
+      ? data?.data?.deletePaymentMethod.HasNoErrors === true
         ? toast.success("Scheduled Payment cancelled", {
           position: "bottom-left",
           autoClose: 5000,
@@ -302,8 +302,8 @@ export default function MakePayment(props) {
           progress: undefined,
         })
       : toast.error(
-        data?.data?.data?.data?.message
-          ? data.data.data.data.message
+        data?.data?.data?.message
+          ? data?.data?.data.message
           : "Failed Payment mode",
         {
           position: "bottom-left",

@@ -15,12 +15,10 @@ const PasswordWrapper = ({ name, label, materialProps, id, ...otherProps }) => {
   const [showPassword, setShowPassword] = useState({
     password: "",
   });
-
   const handleClickShowPassword = () => setShowPassword(!showPassword);
-  const handleEdit = (e) => {
-    e.preventDefault();
+  const handleEdit = (event) => {
+    event.preventDefault();
   };
-
 
   return (
     // <FormControl fullWidth={true} >

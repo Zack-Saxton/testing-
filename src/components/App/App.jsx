@@ -49,15 +49,9 @@ import ApplyForLoanRedirect from "../Pages/ApplyLoan/ApplyForLoanRedirect"
 import { ToastContainer } from "react-toastify";
 import ProfilePicture from '../../contexts/ProfilePicture';
 import { QueryClientProvider, QueryClient } from 'react-query';
-
-
-
 const queryClient = new QueryClient();
 
-
-
 function App() {
-
     return (
         <QueryClientProvider client={queryClient}>
             <div className="App">
@@ -70,7 +64,6 @@ function App() {
                                 <GeneralUser>
                                     <Switch>
                                         <Route path='/' exact> <Redirect to="/customers/accountOverview" /> </Route>
-
                                         <Route path='/components' exact component={CustomComponents} />
                                         <Route path='/login' exact component={LoginPage} />
                                         <Route path='/register' component={RegisterPage} />
@@ -95,9 +88,7 @@ function App() {
                                         <Route path='*' component={ErrorBeforeLogin} />
                                     </Switch>
                                 </GeneralUser>
-
                             </Route>
-
                             <div id="main" style={{ marginLeft: "240px" }}>
                                 <Route path='/customers/:path?' exact>
                                     <PostLogin>
@@ -124,8 +115,6 @@ function App() {
                                     </PostLogin>
                                 </Route>
                             </div>
-
-
                             <Route path='/partner/:path?' >
                                 <GeneralUser>
                                     <Switch>
@@ -133,19 +122,12 @@ function App() {
                                         <Route path='/partner/signup' component={PartnerSignUP} />
                                         <Route path='/partner/confirm-signup' component={ConfirmationInfo} />
                                         <Route path='*' component={ErrorBeforeLogin} />
-
                                     </Switch>
                                 </GeneralUser>
                             </Route>
-
-
                         </ProfilePicture>
                     </CheckMyOffers>
                 </BrowserRouter>
-
-
-
-
             </div>
         </QueryClientProvider>
     )

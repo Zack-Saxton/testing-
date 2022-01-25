@@ -30,8 +30,8 @@ import creditkarmalogo from "../../../assets/images/ck_logo.png";
 import { partnerConfirmInfo } from "../../Controllers/PartnerSignupController";
 import states from "../../lib/States.json"
 import statesFullform from "../../lib/StatesFullform.json"
-
-
+import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
+import { Error} from "../../toast/toast"
 //Styling
 const useStyles = makeStyles((theme) => ({
   mainContentBackground: {
@@ -225,7 +225,7 @@ export default function CreditKarma(props) {
   const [errorPersonal, setErrorPersonal] = useState('');
   const history = useHistory();
 
-
+  window.zeHide();
   const validate = (personal, household) => {
     if (!isNaN(personal) && !isNaN(household)) {
       if (personal <= household) {
@@ -293,9 +293,6 @@ export default function CreditKarma(props) {
 
 
   }
-
-
-
   //Form Submission
   const formik = useFormik({
     enableReinitialize: true,
@@ -364,95 +361,73 @@ export default function CreditKarma(props) {
     },
   });
 
-
-
-  const onBlurAddress = (e) => {
-    formik.setFieldValue("streetAddress", e.target.value.trim());
-    formik.setFieldValue("spouseadd", e.target.value.trim());
+  const onBlurAddress = (event) => {
+    formik.setFieldValue("streetAddress", event.target.value.trim());
+    formik.setFieldValue("spouseadd", event.target.value.trim());
   };
 
-  const fetchAddress = (e) => {
-    setErrorMsg(e.target.value === "" ? "Please enter a zipcode" : errorMsg);
-    if (e.target.value !== "" && e.target.value.length === 5) {
-      fetch("https://api.zippopotam.us/us/" + e.target.value)
-        .then((res) => res.json())
-        .then(
-          (result) => {
-            fetchAddressValidate(result);
-          },
-          () => {
-            formik.setFieldValue("city", "");
-            formik.setFieldValue("state", "");
-            setValidZip(false);
-            setErrorMsg("Please enter a valid Zipcode");
-          }
-        );
-    } else {
-      formik.setFieldValue("city", "");
-      formik.setFieldValue("state", "");
-      setValidZip(true);
+  const fetchAddress = async (event) => {
+    try {
+      setErrorMsg(event.target.value === "" ? "Please enter a zipcode" : errorMsg);
+      if (event.target.value !== "" && event.target.value.length === 5) {
+        let result = await ZipCodeLookup(event.target.value);
+      if (result) {
+         fetchAddressValidate(result);
+      } else {
+        formik.setFieldValue("city", "");
+        formik.setFieldValue("state", "");
+        setValidZip(false);
+        setErrorMsg("Please enter a valid Zipcode");
+      }
     }
-
-    if (e.target.name !== "") { formik.handleChange(e) }
-
-
+      if (event.target.name !== "") { formik.handleChange() }
+  } catch (error) {
+    Error("Error from [fetchAddress].");
+  }
   };
 
   function fetchAddressValidate(result) {
-    if (result.places) {
-      formik.setFieldValue("city", result.places[0]["place name"]);
-      formik.setFieldValue("state", result.places[0]["state"]);
-      setValidZip(true);
-      if ((result.places[0]["state"] === "California") || (result.places[0]["state"] === "CA")) {
-        handleClickOpen();
+    try {
+      if (result.data) {
+        formik.setFieldValue("city", result?.data?.data.cityName);
+        formik.setFieldValue("state", result?.data?.data.stateCode);
+        setValidZip(true);
+        if ((result?.data?.data.cityName === "California") || (result?.data?.data.stateCode === "CA")) {
+          handleClickOpen();
+        }
+        if (result?.data?.data.cityName === "Ohio" || result?.data?.data.stateCode === "OH") {
+          handleClickOpenOhio();
+        }
+      } else {
+        formik.setFieldValue("city", "");
+        formik.setFieldValue("state", "");
+        setValidZip(false);
+        setErrorMsg("Please enter a valid Zipcode");
       }
-      if ((result.places[0]["state"] === "Ohio") || (result.places[0]["state"] === "OH")) {
-        handleClickOpenOhio();
-      }
-    } else {
-      formik.setFieldValue("city", "");
-      formik.setFieldValue("state", "");
-      setValidZip(false);
-      setErrorMsg("Please enter a valid Zipcode");
+    } catch (error) {
+      Error("Error from [fetchAddressValidate].");
     }
   }
-
-
   //fetch the state and city based in zip code
-  const fetchSpouseAddress = (e) => {
-    if (e.target.value !== "" && e.target.value.length === 5) {
-      fetch("https://api.zippopotam.us/us/" + e.target.value)
-        .then((res) => res.json())
-        .then(
-          (result) => {
-            if (result.places) {
-              formik.setFieldValue(
-                "spousecity",
-                result.places[0]["place name"]
-              );
-              formik.setFieldValue("spouseSelectState", result.places[0]["state"]);
-              setValidZip(true);
-            } else {
-              formik.setFieldValue("spouseSelectState", "");
-              formik.setFieldValue("spousecity", "");
-              setValidZip(false);
-            }
-          },
-          (error) => {
-            formik.setFieldValue("spouseSelectState", "");
-            formik.setFieldValue("spousecity", "");
-            setValidZip(false);
-          }
-        );
-    } else {
-      formik.setFieldValue("spouseSelectState", "");
-      formik.setFieldValue("spousecity", "");
-
+  const fetchSpouseAddress = async (event) => {
+    try {
+      if (event.target.value !== "" && event.target.value.length === 5) {
+        let result = await ZipCodeLookup(event.target.value);
+        if (result) {
+          formik.setFieldValue("spousecity",result?.data?.data.cityName);
+          formik.setFieldValue("spouseSelectState", result?.data?.data.stateCode);
+          setValidZip(true);
+        } else {
+          formik.setFieldValue("spouseSelectState", "");
+          formik.setFieldValue("spousecity", "");
+          setValidZip(false);
+        }
+      formik.handleChange();
+      }
+    } catch (error) {
+      Error("Error from [fetchSpouseAddress].");
     }
-
-    formik.handleChange(e);
   };
-
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -502,8 +477,6 @@ export default function CreditKarma(props) {
     }
   };
 
-
-
   // To change text to currency format and check for validations
   const currencyFormat = (event) => {
     const inputName = event.target.name
@@ -525,7 +498,6 @@ export default function CreditKarma(props) {
 
           return false;
         }
-
         if (!isNaN(modPersonalIncome) && !isNaN(modHouseholdIncome)) {
           if (modPersonalIncome <= modHouseholdIncome) {
             setErrorAnnual('');
@@ -536,7 +508,6 @@ export default function CreditKarma(props) {
 
             return false;
           }
-
         }
       }
     } else if (inputName === 'householdIncome') {
@@ -582,8 +553,6 @@ export default function CreditKarma(props) {
       formik.handleChange(event);
     }
   };
-
-
   const changeCitizenship = (event) => {
     let acc = event.target.value;
     if (acc === "Foreign Resident") {
@@ -1116,8 +1085,8 @@ export default function CreditKarma(props) {
                         name="termsOfService"
                         labelform="Terms & Service"
                         value={agree}
-                        onChange={(e) => {
-                          setAgree(e.target.checked);
+                        onChange={(event) => {
+                          setAgree(event.target.checked);
                         }}
                         label={
                           <p className="agreeCheckbox">
@@ -1182,8 +1151,8 @@ export default function CreditKarma(props) {
                           name="delaware"
                           labelform="delaware"
                           value={agreeDelaware}
-                          onChange={(e) => {
-                            setAgreeDelaware(e.target.checked);
+                          onChange={(event) => {
+                            setAgreeDelaware(event.target.checked);
                           }}
                           label={
                             <p className="agreeCheckbox">
@@ -1213,8 +1182,8 @@ export default function CreditKarma(props) {
                           name="california"
                           labelform="california"
                           value={agreeCalifornia}
-                          onChange={(e) => {
-                            setAgreeCalifornia(e.target.checked);
+                          onChange={(event) => {
+                            setAgreeCalifornia(event.target.checked);
                           }}
                           label={
                             <p className="agreeCheckbox">
@@ -1249,8 +1218,8 @@ export default function CreditKarma(props) {
                           name="newmexico"
                           labelform="newmexico"
                           value={agreeNewMexico}
-                          onChange={(e) => {
-                            setAgreeNewMexico(e.target.checked);
+                          onChange={(event) => {
+                            setAgreeNewMexico(event.target.checked);
                           }}
                           label={
                             <p className="agreeCheckbox">

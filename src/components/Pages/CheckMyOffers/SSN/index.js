@@ -58,7 +58,7 @@ function SSN() {
 		});
 		if (
 			response.appSubmissionResult &&
-			response.appSubmissionResult?.data?.data?.applicationStatus ===
+			response.appSubmissionResult?.data?.applicationStatus ===
 			"offers_available"
 		) {
 			setData({
@@ -71,7 +71,7 @@ function SSN() {
 			});
 		} else if (
 			response.appSubmissionResult &&
-			response.appSubmissionResult.data.data.applicationStatus === "rejected"
+			response.appSubmissionResult?.data?.applicationStatus === "rejected"
 		) {
 			setData({
 				...data,
@@ -83,7 +83,7 @@ function SSN() {
 			});
 		} else if (
 			response.appSubmissionResult &&
-			response.appSubmissionResult.data.data.applicationStatus === "referred"
+			response.appSubmissionResult?.data?.applicationStatus === "referred"
 		) {
 			setData({
 				...data,
@@ -99,11 +99,11 @@ function SSN() {
 		data.completedPage = data.page.ssn;
 		setLoading(true);
 		let result = await getCustomerByEmail(data.email);
-		if (result && result?.data?.data?.AppSubmittedInLast30Days === true) {
+		if (result && result?.data?.AppSubmittedInLast30Days === true) {
 			stopLoading();
 		} else if (
 			result &&
-			result?.data?.data?.AppSubmittedInLast30Days === false
+			result?.data?.AppSubmittedInLast30Days === false
 		) {
 			response = await submitApplication(data);
 			setSubmit(false);
@@ -275,8 +275,8 @@ function SSN() {
 											labelform="Terms & Service"
 											value={agree}
 											className="checkBoxClass"
-											onChange={(e) => {
-												setAgree(e.target.checked);
+											onChange={(event) => {
+												setAgree(event.target.checked);
 											}}
 											label={
 												<p className="agreeText">
@@ -341,8 +341,8 @@ function SSN() {
 												name="delaware"
 												labelform="delaware"
 												value={agreeDelaware}
-												onChange={(e) => {
-													setAgreeDelaware(e.target.checked);
+												onChange={(event) => {
+													setAgreeDelaware(event.target.checked);
 												}}
 												className={"space checkBoxClass"}
 												label={
@@ -370,8 +370,8 @@ function SSN() {
 												labelform="california"
 												className={"space checkBoxClass"}
 												value={agreeCalifornia}
-												onChange={(e) => {
-													setAgreeCalifornia(e.target.checked);
+												onChange={(event) => {
+													setAgreeCalifornia(event.target.checked);
 												}}
 												label={
 													<p className="agreeText MT5">
@@ -402,8 +402,8 @@ function SSN() {
 												labelform="newmexico"
 												className={"space checkBoxClass"}
 												value={agreeNewMexico}
-												onChange={(e) => {
-													setAgreeNewMexico(e.target.checked);
+												onChange={(event) => {
+													setAgreeNewMexico(event.target.checked);
 												}}
 												label={
 													<p className="agreeText MT5">

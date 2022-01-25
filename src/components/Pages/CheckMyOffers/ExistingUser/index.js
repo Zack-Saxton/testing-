@@ -48,14 +48,14 @@ function ExistingUser() {
 				completedPage: data.page.existingUser,
 			});
 			let retVal = await LoginController(data.email, values.password);
-			if (retVal?.data?.data?.user && !retVal?.data?.data?.result) {
+			if (retVal?.data?.user && !retVal?.data?.result) {
 				var now = new Date().getTime();
 				Cookies.set(
 					"token",
 					JSON.stringify({
 						isLoggedIn: true,
 						apiKey:
-							retVal?.data?.data?.user?.extensionattributes?.login?.jwt_token,
+							retVal?.data?.user?.extensionattributes?.login?.jwt_token,
 						setupTime: now,
 					})
 				);
@@ -70,7 +70,7 @@ function ExistingUser() {
 				let accountDetail = await usrAccountDetails();
 
 				if (
-					accountDetail?.data?.data?.customer?.user_account?.status === "closed"
+					accountDetail?.data?.customer?.user_account?.status === "closed"
 				) {
 					data.isActiveUser = false;
 					toast.error(
@@ -94,15 +94,15 @@ function ExistingUser() {
 					});
 				}
 			} else if (
-				retVal?.data?.data?.result === "error" ||
-				retVal?.data?.data?.hasError === true
+				retVal?.data?.result === "error" ||
+				retVal?.data?.hasError === true
 			) {
 				Cookies.set(
 					"token",
 					JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" })
 				);
 				setLoading(false);
-				setLoginFailed(retVal?.data?.data?.errorMessage);
+				setLoginFailed(retVal?.data?.errorMessage);
 			} else {
 				alert("Network error");
 				setLoading(false);
@@ -110,9 +110,9 @@ function ExistingUser() {
 		},
 	});
 
-	const passwordOnChange = (e) => {
+	const passwordOnChange = (event) => {
 		setLoginFailed("");
-		formik.handleChange(e);
+		formik.handleChange(event);
 	};
 
 	const preventSpace = (event) => {

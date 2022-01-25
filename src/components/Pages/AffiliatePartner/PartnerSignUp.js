@@ -141,6 +141,7 @@ const validationSchema = yup.object({
 
 //Begin: Login page
 export default function CreditKarma() {
+  window.zeHide();
   //Decoding URL for partner signup
   const useQuery = () => new URLSearchParams(useLocation().search);
   const query = useQuery();
@@ -177,7 +178,7 @@ export default function CreditKarma() {
   //Populate partner signup from API
   let populateSignupData =
     populatePartnerSignupState != null
-      ? populatePartnerSignupState.data.data.applicant
+      ? populatePartnerSignupState?.data?.applicant
       : null;
 
   const classes = useStyles();
@@ -532,8 +533,8 @@ export default function CreditKarma() {
                         name="termsOfService"
                         labelform="Terms & Service"
                         value={agree}
-                        onChange={(e) => {
-                          setAgree(e.target.checked);
+                        onChange={(event) => {
+                          setAgree(event.target.checked);
                         }}
                         label={
                           <p className="agreeCheckbox">

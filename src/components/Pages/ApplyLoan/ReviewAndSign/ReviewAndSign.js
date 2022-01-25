@@ -136,13 +136,13 @@ export default function ReviewAndSign(props) {
       "POST",
       true
     );
-    setUrl(iframeURL?.data?.data?.data?.iframe);
+    setUrl(iframeURL?.data?.data?.iframe);
   }
 
   // To get the selected value
   async function getSelectedOffer() {
     let accountDetials = await usrAccountDetails();
-    setSelectOffer(accountDetials?.data?.data?.application?.selected_offer);
+    setSelectOffer(accountDetials?.data?.application?.selected_offer);
   }
 
   // call the get URL funtion on page load
@@ -439,8 +439,8 @@ export default function ReviewAndSign(props) {
                       }
                       labelid="confirm"
                       value={confirm}
-                      onChange={(e) => {
-                        setConfirm(e.target.checked);
+                      onChange={(event) => {
+                        setConfirm(event.target.checked);
                       }}
                       testid="checkbox"
                       stylelabelform='{ "fontSize":"12px" }'
@@ -478,12 +478,12 @@ export default function ReviewAndSign(props) {
                           true
                         );
                         if (
-                          authenticateStatus?.data?.data?.result === "success"
+                          authenticateStatus?.data?.result === "success"
                         ) {
                           let hardPull = await hardPullCheck();
                           if (
-                            hardPull?.data?.data?.status === 200 ||
-                            hardPull?.data?.data?.result === "success"
+                            hardPull?.data?.status === 200 ||
+                            hardPull?.data?.result === "success"
                           ) {
                             setLoading(false);
                             history.push({

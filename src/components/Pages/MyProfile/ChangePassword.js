@@ -16,6 +16,7 @@ import { useAtom } from "jotai";
 
 
 export default function ChangePassword(basicInformationData) {
+  window.zeHide();
   const history = useHistory();
   const [loading, setLoading] = useState(false);
   const [, setTabvalue] = useAtom(tabAtom)
@@ -90,10 +91,10 @@ export default function ChangePassword(basicInformationData) {
             email
 
           );
-          if (response?.data?.data?.change_password?.passwordReset === true) {
+          if (response?.data?.change_password?.passwordReset === true) {
 
             if (!toast.isActive("closeToast")) {
-              toast.success(response?.data?.data?.change_password?.message ? response?.data?.data?.change_password?.message : "Password Changed successfully", {
+              toast.success(response?.data?.change_password?.message ? response?.data?.change_password?.message : "Password Changed successfully", {
                 position: "bottom-left",
                 autoClose: 3500,
                 hideProgressBar: false,
@@ -108,9 +109,9 @@ export default function ChangePassword(basicInformationData) {
                 }
               });
             }
-          } else if (response?.data?.data?.change_password?.passwordReset === false) {
+          } else if (response?.data?.change_password?.passwordReset === false) {
             if (!toast.isActive("closeToast")) {
-              toast.error(response?.data?.data?.change_password?.message ? response?.data?.data?.change_password?.message : "Please check your old password and try again", {
+              toast.error(response?.data?.change_password?.message ? response?.data?.change_password?.message : "Please check your old password and try again", {
                 position: "bottom-left",
                 autoClose: 3500,
                 hideProgressBar: false,
@@ -124,7 +125,7 @@ export default function ChangePassword(basicInformationData) {
             }
           }
         }
-      } catch (err) {
+      } catch (error) {
         toast.error("Please try again.", {
           position: "bottom-left",
           autoClose: 3500,

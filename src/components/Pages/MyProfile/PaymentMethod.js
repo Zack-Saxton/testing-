@@ -44,6 +44,8 @@ import { useHistory } from "react-router-dom";
 import { tabAtom } from "./MyProfileTab";
 import { useAtom } from "jotai";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
+import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
+import { Error } from "../../toast/toast"
 import {
     addCreditCard,
     getPaymentMethods,
@@ -114,6 +116,7 @@ const validationSchemaAddBank = yup.object({
 });
 
 export default function PaymentMethod() {
+    window.zeHide();
     const classes = useStylesMyProfile();
     const history = useHistory();
     const [bankRoutingCheque, setHandleBankRoutingCheque] = useState(false);
@@ -207,34 +210,28 @@ export default function PaymentMethod() {
         }
     };
 
-    const fetchAddress = (e) => {
-        if (e.target.value !== "" && e.target.value.length === 5) {
-            fetch("https://api.zippopotam.us/us/" + e.target.value)
-                .then((res) => res.json())
-                .then((result) => {
-                    if (result.places) {
-                        setValidZip(true);
-                        formikAddDebitCard.setFieldValue(
-                            "city",
-                            result?.places[0]["place name"]
-                        );
-                        formikAddDebitCard.setFieldValue(
-                            "state",
-                            result?.places[0]["state abbreviation"]
-                        );
+    const fetchAddress = async (event) => {
+        try {
+            if (event.target.value !== "" && event.target.value.length === 5) {
+                let result = await ZipCodeLookup(event.target.value);
+                if (result) {
+                    setValidZip(true);
+                    formikAddDebitCard.setFieldValue("city", result?.data?.data.cityName);
+                    formikAddDebitCard.setFieldValue("state", result?.data?.data.stateCode);
+                } else {
+                    setValidZip(false);
+                    formikAddDebitCard.setFieldValue("city", "");
+                    formikAddDebitCard.setFieldValue("state", "");
+                }
+            } else {
+                formikAddDebitCard.setFieldValue("city", "");
+                formikAddDebitCard.setFieldValue("state", "");
+            }
 
-
-                    } else {
-                        setValidZip(false);
-                        formikAddDebitCard.setFieldValue("city", "");
-                        formikAddDebitCard.setFieldValue("state", "");
-                    }
-                });
-        } else {
-            formikAddDebitCard.setFieldValue("city", "");
-            formikAddDebitCard.setFieldValue("state", "");
+            formikAddDebitCard.handleChange(event);
+        } catch (error) {
+            Error("Error from [fetchAddress]");
         }
-        formikAddDebitCard.handleChange(e);
     };
 
     const onClickEditCard = async (row) => {
@@ -376,25 +373,25 @@ export default function PaymentMethod() {
         scrollToTop();
         let res = await usrAccountDetails();
         if (
-            res?.data?.data?.customer?.latest_contact?.mailing_address_postal_code
+            res?.data?.customer?.latest_contact?.mailing_address_postal_code
         ) {
 
-            setMailingZipcode(res?.data?.data?.customer?.latest_contact?.mailing_address_postal_code);
-            setMailingStreetAddress(res?.data?.data?.customer?.latest_contact?.mailing_address_street);
+            setMailingZipcode(res?.data?.customer?.latest_contact?.mailing_address_postal_code);
+            setMailingStreetAddress(res?.data?.customer?.latest_contact?.mailing_address_street);
 
             formikAddDebitCard.setFieldValue(
                 "zipcode",
-                res?.data?.data?.customer?.latest_contact?.mailing_address_postal_code
+                res?.data?.customer?.latest_contact?.mailing_address_postal_code
             );
             formikAddDebitCard.setFieldValue(
                 "streetAddress",
-                res?.data?.data?.customer?.latest_contact?.mailing_address_street
+                res?.data?.customer?.latest_contact?.mailing_address_street
             );
 
             let e = {
                 target: {
                     value:
-                        res?.data?.data?.customer?.latest_contact
+                        res?.data?.customer?.latest_contact
                             ?.mailing_address_postal_code,
                 },
             };
@@ -402,8 +399,8 @@ export default function PaymentMethod() {
         }
     };
 
-    const closeDebitCardButton = (e) => {
-        formikAddDebitCard.handleReset(e);
+    const closeDebitCardButton = (event) => {
+        formikAddDebitCard.handleReset(event);
         setCheckedDebitCard(false);
         setAddDebitCard(false);
         setPaymentMethodDiv(true);
@@ -423,12 +420,12 @@ export default function PaymentMethod() {
         };
         let res = await setDefaultPayment(passData);
         if (
-            res?.data?.data?.Success ===
+            res?.data?.Success ===
             "Default Payment Method Set to " + nickname
         ) {
             await getPaymentMethodsOnLoad();
             setLoading(false);
-            toast.success(res?.data?.data?.Success, {
+            toast.success(res?.data?.Success, {
                 position: "bottom-left",
                 autoClose: 5500,
                 hideProgressBar: false,
@@ -459,7 +456,7 @@ export default function PaymentMethod() {
                     profileId: uniqueData,
                 };
                 let res = await deleteCreditCard(passData);
-                if (res?.data?.data?.deletePaymentMethod?.HasNoErrors === true) {
+                if (res?.data?.deletePaymentMethod?.HasNoErrors === true) {
                     toast.success("Card deleted successfully.", {
                         position: "bottom-left",
                         autoClose: 5500,
@@ -494,7 +491,7 @@ export default function PaymentMethod() {
                     accountNumber: uniqueData,
                 };
                 let res = await deleteBankAccount(passData);
-                if (res?.data?.data?.deletePaymentMethod?.HasNoErrors === true) {
+                if (res?.data?.deletePaymentMethod?.HasNoErrors === true) {
                     toast.success("Bank account deleted successfully.", {
                         position: "bottom-left",
                         autoClose: 5500,
@@ -541,7 +538,7 @@ export default function PaymentMethod() {
         setLoading(true);
         let res = await addCreditCard(formikAddDebitCard.values, cardType);
 
-        if (res?.data?.data?.addPaymentResult?.HasNoErrors === true) {
+        if (res?.data?.addPaymentResult?.HasNoErrors === true) {
             setLoading(false);
             toast.success("Payment method added successfully ", {
                 position: "bottom-left",
@@ -555,9 +552,9 @@ export default function PaymentMethod() {
             await getPaymentMethodsOnLoad();
             setCardType("");
             closeDebitCardButton();
-        } else if (res?.data?.data?.addPaymentResult?.HasNoErrors === false) {
+        } else if (res?.data?.addPaymentResult?.HasNoErrors === false) {
             setLoading(false);
-            toast.error(res?.data?.data?.addPaymentResult?.Errors[0].ErrorMessage, {
+            toast.error(res?.data?.addPaymentResult?.Errors[0].ErrorMessage, {
                 position: "bottom-left",
                 autoClose: 5500,
                 hideProgressBar: false,
@@ -567,9 +564,9 @@ export default function PaymentMethod() {
                 progress: undefined,
             });
         }
-        else if (res?.data?.data?.result === "error") {
+        else if (res?.data?.result === "error") {
             setLoading(false);
-            toast.error(res?.data?.data?.data?.error, {
+            toast.error(res?.data?.data?.error, {
                 position: "bottom-left",
                 autoClose: 5500,
                 hideProgressBar: false,
@@ -609,8 +606,8 @@ export default function PaymentMethod() {
             >
                 <Grid item xs={12} style={{ paddingBottom: "20px", width: "100%" }}>
                     {allPaymentMethod ? (
-                        allPaymentMethod?.data?.data?.paymentOptions &&
-                            allPaymentMethod?.data?.data?.paymentOptions.length > 0 ? (
+                        allPaymentMethod?.data?.paymentOptions &&
+                            allPaymentMethod?.data?.paymentOptions.length > 0 ? (
                             <TableContainer>
                                 <Table className={classes.table} aria-label="simple table">
                                     <TableHead>
@@ -638,7 +635,7 @@ export default function PaymentMethod() {
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
-                                        {allPaymentMethod?.data?.data?.paymentOptions.map((row) => (
+                                        {allPaymentMethod?.data?.paymentOptions.map((row) => (
                                             <TableRow
                                                 hover
                                                 key={row.Nickname}
@@ -687,9 +684,9 @@ export default function PaymentMethod() {
                                                         onChange={() => {
                                                             setDefaultPaymentOnChange(row.Nickname);
                                                         }}
-                                                        checked={allPaymentMethod?.data?.data?.defaultBank}
+                                                        checked={allPaymentMethod?.data?.defaultBank}
                                                         radiolabel={'[{ "value":"' + row.Nickname + '"}]'}
-                                                        value={allPaymentMethod?.data?.data?.defaultBank}
+                                                        value={allPaymentMethod?.data?.defaultBank}
                                                         style={{
                                                             marginTop: "3px",
                                                             marginRight: "0px",
@@ -734,7 +731,7 @@ export default function PaymentMethod() {
                                     </TableBody>
                                 </Table>
                             </TableContainer>
-                        ) : allPaymentMethod?.data?.data?.data?.message ? (
+                        ) : allPaymentMethod?.data?.data?.message ? (
                             <Grid
                                 className="circleprog"
                                 style={{
@@ -746,7 +743,7 @@ export default function PaymentMethod() {
                                 xs={12}
                             >
                                 <Typography>
-                                    {allPaymentMethod?.data?.data?.data?.message}
+                                    {allPaymentMethod?.data?.data?.message}
                                 </Typography>
                             </Grid>
                         ) : (
@@ -945,8 +942,8 @@ export default function PaymentMethod() {
                                 labelforform="Account Type"
                                 radiolabel='[{"label":"Savings", "value":"Savings"},{"label":"Checking", "value":"Checking"}]'
                                 checked={accountType}
-                                onClick={(e) => {
-                                    setAccountType(e);
+                                onClick={(event) => {
+                                    setAccountType(event);
                                 }}
                                 row={true}
                                 disabled={editMode}
@@ -1104,8 +1101,8 @@ export default function PaymentMethod() {
                                 value={checkedAddBank}
                                 checked={checkedAddBank}
                                 disabled={editMode}
-                                onChange={(e) => {
-                                    setCheckedAddBank(e.target.checked);
+                                onChange={(event) => {
+                                    setCheckedAddBank(event.target.checked);
                                 }}
                             />
                         </Grid>
@@ -1180,7 +1177,7 @@ export default function PaymentMethod() {
                                             accountType,
                                             checkedAddBank ? 1 : 0
                                         );
-                                        if (resBankData?.data?.data?.Success) {
+                                        if (resBankData?.data?.Success) {
                                             toast.success("Payment method added successfully", {
                                                 position: "bottom-left",
                                                 autoClose: 5500,
@@ -1193,10 +1190,10 @@ export default function PaymentMethod() {
                                             await getPaymentMethodsOnLoad();
                                             closeBankAccountButton();
                                         } else if (
-                                            resBankData?.data?.data?.result === "error" ||
-                                            resBankData?.data?.data?.status === 400
+                                            resBankData?.data?.result === "error" ||
+                                            resBankData?.data?.status === 400
                                         ) {
-                                            toast.error(resBankData?.data?.data?.data?.error, {
+                                            toast.error(resBankData?.data?.data?.error, {
                                                 position: "bottom-left",
                                                 autoClose: 5500,
                                                 hideProgressBar: false,
@@ -1205,8 +1202,8 @@ export default function PaymentMethod() {
                                                 draggable: true,
                                                 progress: undefined,
                                             });
-                                        } else if (resBankData?.data?.data?.type === "error") {
-                                            toast.error(resBankData?.data?.data?.text, {
+                                        } else if (resBankData?.data?.type === "error") {
+                                            toast.error(resBankData?.data?.text, {
                                                 position: "bottom-left",
                                                 autoClose: 5500,
                                                 hideProgressBar: false,
@@ -1320,8 +1317,8 @@ export default function PaymentMethod() {
                                 value={formikAddDebitCard.values.cardNumber}
                                 onChange={(e) => addDebitOnChangeNumber(e)}
                                 // onBlur={formikAddDebitCard.handleBlur}
-                                onBlur={(e) => {
-                                    detectCardType(e, e.target.value);
+                                onBlur={(event) => {
+                                    detectCardType(event, event.target.value);
                                 }}
                                 error={
                                     formikAddDebitCard.touched.cardNumber &&
@@ -1461,18 +1458,18 @@ export default function PaymentMethod() {
                                 required={true}
                                 value={sameAsMailAddress}
                                 checked={sameAsMailAddress}
-                                onChange={(e) => {
-                                    if (e.target.checked) {
+                                onChange={(event) => {
+                                    if (event.target.checked) {
                                         formikAddDebitCard.setFieldValue("zipcode", mailingZipcode)
                                         formikAddDebitCard.setFieldValue("streetAddress", mailingStreetAddress)
-                                        let event = {
+                                        let sendEvent = {
                                             target: {
                                                 value: mailingZipcode,
                                             },
                                         };
-                                        fetchAddress(event);
+                                        fetchAddress(sendEvent);
                                     }
-                                    setSameAsMailAddress(e.target.checked);
+                                    setSameAsMailAddress(event.target.checked);
                                 }}
                             />
                         </Grid>
@@ -1521,11 +1518,11 @@ export default function PaymentMethod() {
                                 materialProps={{ maxLength: "5" }}
                                 disabled={sameAsMailAddress}
                                 value={formikAddDebitCard.values.zipcode}
-                                onChange={(e) => {
+                                onChange={(event) => {
                                     const reg = /^[0-9\b]+$/;
-                                    let acc = e.target.value;
+                                    let acc = event.target.value;
                                     if (acc === "" || reg.test(acc)) {
-                                        fetchAddress(e);
+                                        fetchAddress(event);
                                     }
                                 }}
                                 onBlur={formikAddDebitCard.handleBlur}
@@ -1616,8 +1613,8 @@ export default function PaymentMethod() {
                                 required={true}
                                 value={checkedDebitCard}
                                 checked={checkedDebitCard}
-                                onChange={(e) => {
-                                    setCheckedDebitCard(e.target.checked);
+                                onChange={(event) => {
+                                    setCheckedDebitCard(event.target.checked);
                                 }}
                             />
                         </Grid>
@@ -1660,7 +1657,7 @@ export default function PaymentMethod() {
                         classes={{ paper: classes.dialogPaperDebitCard }}
                     >
                         <DialogTitle id="debitCardModalHeading">
-                            <Typography id="deleteTxt" className={classes.dialogHeading}>
+                            <Typography id="deleteTxt" className={classes.dialogHeading} style={{ textAlign: 'center' }}>
                                 Are you sure you want to add a New Debit Card Details ?
                             </Typography>
                             <IconButton
@@ -1734,10 +1731,10 @@ export default function PaymentMethod() {
                 open={confirmDelete}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
-                classes={{ paper: classes.dialogPaperAddBank }}
+                classes={{ paper: classes.deletePayment }}
             >
                 <DialogTitle id="debitCardModalHeading">
-                    <Typography id="deleteTxt" className={classes.dialogHeading} style={{ marginLeft: "135px" }}>
+                    <Typography id="deleteTxt" className={classes.dialogHeading} style={{ textAlign: 'center' }}>
                         Are you sure you want to delete this payment method?
                     </Typography>
                     <IconButton
@@ -1750,6 +1747,7 @@ export default function PaymentMethod() {
                     </IconButton>
                 </DialogTitle>
                 <DialogActions style={{ justifyContent: "center", marginBottom: "25px" }}>
+
                     <ButtonSecondary
                         stylebutton='{"background": "", "color":"" }'
                         onClick={handleDeleteConfirmClose}

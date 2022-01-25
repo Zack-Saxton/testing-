@@ -56,9 +56,9 @@ export default async function PartnerSignup(
 
   partnerSignupMethod.data.status === 200
     ? toast.success(
-      partnerSignupMethod?.data?.data?.statusText
-        ? partnerSignupMethod.data.data.statusText
-        : partnerSignupMethod?.data?.data?.applicant?.processing?.status === "confirming_info"
+      partnerSignupMethod?.data?.statusText
+        ? partnerSignupMethod?.data?.statusText
+        : partnerSignupMethod?.data?.applicant?.processing?.status === "confirming_info"
           ? "Successfully Registered, Please confirm your information" : "Successfully Registered",
       {
         position: "bottom-left",
@@ -77,34 +77,34 @@ export default async function PartnerSignup(
             JSON.stringify({
               isLoggedIn: true,
               apiKey:
-                partnerSignupMethod?.data?.data?.user?.extensionattributes
+                partnerSignupMethod?.data?.user?.extensionattributes
                   ?.login?.jwt_token,
               setupTime: now,
             })
           );
-          Cookies.set("email", partnerSignupMethod.data.data.applicant.contact.email);
+          Cookies.set("email", partnerSignupMethod?.data?.applicant.contact.email);
           history.push({
 
-            pathname: statusStrLink[partnerSignupMethod.data.data.applicant.processing.status],
+            pathname: statusStrLink[partnerSignupMethod?.data?.applicant.processing.status],
             state: {
-              jwt_token: partnerSignupMethod.data.data.user.extensionattributes.login.jwt_token,
-              partner_token: partnerSignupMethod.data.data.user.attributes.partner_token,
-              first_name: partnerSignupMethod.data.data.applicant.contact.first_name,
-              last_name: partnerSignupMethod.data.data.applicant.contact.last_name,
-              email: partnerSignupMethod.data.data.applicant.contact.email,
-              address_postal_code: partnerSignupMethod.data.data.applicant.contact.address_postal_code,
-              address_city: partnerSignupMethod.data.data.applicant.contact.address_city,
-              address_state: partnerSignupMethod.data.data.applicant.contact.address_state,
-              address_street: partnerSignupMethod.data.data.applicant.contact.address_street,
-              citizenship: partnerSignupMethod.data.data.applicant.self_reported.citizenship,
-              annual_income: partnerSignupMethod.data.data.applicant.self_reported.annual_income,
-              household_annual_income: partnerSignupMethod.data.data.applicant.self_reported.household_annual_income,
-              employment_status: partnerSignupMethod.data.data.applicant.self_reported.employment_status,
-              military_status: partnerSignupMethod.data.data.applicant.self_reported.military_status,
-              spouse_address_street: partnerSignupMethod.data.data.applicant.self_reported.spouse_address_street,
-              spouse_address_postal_code: partnerSignupMethod.data.data.applicant.self_reported.spouse_address_postal_code,
-              spouse_address_state: partnerSignupMethod.data.data.applicant.self_reported.spouse_address_state,
-              spouse_address_city: partnerSignupMethod.data.data.applicant.self_reported.spouse_address_city,
+              jwt_token: partnerSignupMethod?.data?.user.extensionattributes.login.jwt_token,
+              partner_token: partnerSignupMethod?.data?.user.attributes.partner_token,
+              first_name: partnerSignupMethod?.data?.applicant.contact.first_name,
+              last_name: partnerSignupMethod?.data?.applicant.contact.last_name,
+              email: partnerSignupMethod?.data?.applicant.contact.email,
+              address_postal_code: partnerSignupMethod?.data?.applicant.contact.address_postal_code,
+              address_city: partnerSignupMethod?.data?.applicant.contact.address_city,
+              address_state: partnerSignupMethod?.data?.applicant.contact.address_state,
+              address_street: partnerSignupMethod?.data?.applicant.contact.address_street,
+              citizenship: partnerSignupMethod?.data?.applicant.self_reported.citizenship,
+              annual_income: partnerSignupMethod?.data?.applicant.self_reported.annual_income,
+              household_annual_income: partnerSignupMethod?.data?.applicant.self_reported.household_annual_income,
+              employment_status: partnerSignupMethod?.data?.applicant.self_reported.employment_status,
+              military_status: partnerSignupMethod?.data?.applicant.self_reported.military_status,
+              spouse_address_street: partnerSignupMethod?.data?.applicant.self_reported.spouse_address_street,
+              spouse_address_postal_code: partnerSignupMethod?.data?.applicant.self_reported.spouse_address_postal_code,
+              spouse_address_state: partnerSignupMethod?.data?.applicant.self_reported.spouse_address_state,
+              spouse_address_city: partnerSignupMethod?.data?.applicant.self_reported.spouse_address_city,
 
 
             }
@@ -202,8 +202,8 @@ export async function partnerConfirmInfo(dataConfirmInfo, history) {
   );
   PartnerConfirmationAPI.data.status === 200
     ? toast.success(
-      PartnerConfirmationAPI?.data?.data?.statusText
-        ? PartnerConfirmationAPI.data.data.statusText
+      PartnerConfirmationAPI?.data?.statusText
+        ? PartnerConfirmationAPI?.data?.statusText
         : "Successfully registered",
       {
         position: "bottom-left",
@@ -217,7 +217,7 @@ export async function partnerConfirmInfo(dataConfirmInfo, history) {
 
           history.push({
 
-            pathname: statusStrLink[PartnerConfirmationAPI.data.data.data.applicationStatus],
+            pathname: statusStrLink[PartnerConfirmationAPI?.data?.data.applicationStatus],
 
           });
         },

@@ -34,13 +34,13 @@ export default function VerificationQuestion(props) {
 
     // structure the API data response to store it in array
     let tempArray = [];
-    if (response.data.data.questions) {
+    if (response?.data?.questions) {
       tempArray.push({
         "key": 0,
         "fullData": response.data,
-        "question": response.data.data.questions.question.text.statement,
-        "choice": response.data.data.questions.question.choice,
-        "questionId": response.data.data.questions.question["question-id"],
+        "question": response?.data?.questions.question.text.statement,
+        "choice": response?.data?.questions.question.choice,
+        "questionId": response?.data?.questions.question["question-id"],
         "answer": ""
       });
       setResponseData(tempArray);
@@ -66,7 +66,6 @@ export default function VerificationQuestion(props) {
           <div>
             {setOneFinished ? <MultipleQuestion setLoadingFlag={props.setLoadingFlag} next={props.next} transactionIdMultiple={transactionIdMultiple} questionSetIdMultiple={questionSetIdMultiple} responseData={responseDataMultipleQ} setResponseData={setResponseDataMultipleQ} classes={classes} check={check} setCheck={setCheck} /> : null}
           </div>
-
           {
             !setOneFinished ?
               <ButtonPrimary
@@ -89,12 +88,10 @@ export default function VerificationQuestion(props) {
                     }
                     let nxtRes = await APICall("/integration/LexisNexis/kba_disambiguate_answer_cac?test=true", sendData, "POST", true);
                     let tempArray = [];
-                    if (nxtRes?.data?.data?.data?.kba) {
-
-                      setQuestionSetIdMultiple(nxtRes?.data?.data?.data?.kba?.questions["question-set-id"]);
-                      setTransactionIdMultiple(nxtRes?.data?.data?.data?.kba["transaction-status"]["transaction-id"])
-
-                      nxtRes?.data?.data?.data?.kba?.questions?.question.map((val, key) => {
+                    if (nxtRes?.data?.data?.kba) {
+                      setQuestionSetIdMultiple(nxtRes?.data?.data?.kba?.questions["question-set-id"]);
+                      setTransactionIdMultiple(nxtRes?.data?.data?.kba["transaction-status"]["transaction-id"])
+                      nxtRes?.data?.data?.kba?.questions?.question.map((val, key) => {
                         tempArray.push({
                           "key": key,
                           "fullData": val,
@@ -104,13 +101,11 @@ export default function VerificationQuestion(props) {
                         });
                         return null;
                       })
-
                       setResponseDataMultipleQ(tempArray);
                       setSetOneFinished(true);
                       props.setLoadingFlag(false);
-
                     }
-                    else if (nxtRes.data.data.result === "success" && !nxtRes?.data?.data?.data?.kba && nxtRes?.data?.data?.data?.kba?.failed === true) {
+                    else if (nxtRes?.data?.result === "success" && !nxtRes?.data?.data?.data?.kba && nxtRes?.data?.data?.data?.kba?.failed === true) {
                       props.setLoadingFlag(false);
                       props.next();
                     }
@@ -125,9 +120,7 @@ export default function VerificationQuestion(props) {
                         draggable: true,
                         progress: undefined,
                       });
-
                     }
-
                   }
                   else {
                     props.setLoadingFlag(false);
@@ -145,15 +138,10 @@ export default function VerificationQuestion(props) {
               >
                 {props.activeStep === props?.steps.length - 1 ? "Finish" : "Continue"}
               </ButtonPrimary>
-
               :
-
               null
           }
-
-
         </div>
-
       </div>
     </div>
   );

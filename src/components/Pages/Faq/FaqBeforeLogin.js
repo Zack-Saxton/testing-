@@ -6,6 +6,7 @@ import "./Style.css";
 import Faq from "./Faq";
 
 export default function FaqBeforeLogin() {
+  window.zeHide();
   //Material UI css class
   const classes = useStylesFaq();
 

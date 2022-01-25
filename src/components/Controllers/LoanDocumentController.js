@@ -19,11 +19,11 @@ export async function loanDocumentController(accNo) {
 /***** Download and converting bufferdata *****/
 function downloadFileData(data) {
   Buffer = require("buffer/").Buffer; // note: the trailing slash is important!
-  const buff = Buffer.from(data.data.data.bufferFile.data);
+  const buff = Buffer.from(data?.data?.bufferFile.data);
   const url = window.URL.createObjectURL(new Blob([buff]));
   const link = document.createElement("a");
   link.href = url;
-  link.setAttribute("download", data.data.data.exportName);
+  link.setAttribute("download", data?.data?.exportName);
   document.body.appendChild(link);
   link.click();
 
@@ -57,8 +57,8 @@ export async function documentdownload(id, name) {
   loanDocumentDownload.data.status === 200
     ? downloadFileData(loanDocumentDownload)
     : toast.error(
-      loanDocumentDownload?.data?.data?.message
-        ? loanDocumentDownload.data.data.message
+      loanDocumentDownload?.data?.message
+        ? loanDocumentDownload?.data?.message
         : "Downloading failed",
       {
         position: "bottom-left",
@@ -75,7 +75,7 @@ export async function documentdownload(id, name) {
 /***** Print file *****/
 function print(data) {
   Buffer = require("buffer/").Buffer; // note: the trailing slash is important!
-  const buff = Buffer.from(data.data.data.bufferFile.data);
+  const buff = Buffer.from(data?.data?.bufferFile.data);
   var pdfFile = new Blob([buff]);
   var pdfUrl = URL.createObjectURL(pdfFile);
   printJS(pdfUrl);
@@ -132,7 +132,7 @@ export async function uploadDocument(test, fileName, fileType, documentType) {
 
   //API response
   uploadData.data.status === 200
-    ? toast.success((uploadData?.data?.data?.data?.message) ? (uploadData.data.data.data.message) : (uploadData?.data?.data?.message) ? (uploadData.data.data.message) : "Document Uploaded Successfully", {
+    ? toast.success((uploadData?.data?.data?.message) ? (uploadData?.data?.data.message) : (uploadData?.data?.data?.message) ? (uploadData?.data?.message) : "Document Uploaded Successfully", {
       position: "bottom-left",
       autoClose: 5000,
       hideProgressBar: false,
@@ -141,7 +141,7 @@ export async function uploadDocument(test, fileName, fileType, documentType) {
       draggable: true,
       progress: undefined,
     })
-    : toast.error((uploadData?.data?.data?.data?.message) ? (uploadData.data.data.data.message) : (uploadData?.data?.data?.message) ? (uploadData.data.data.message) : "Error uploading file", {
+    : toast.error((uploadData?.data?.data?.message) ? (uploadData?.data?.data.message) : (uploadData?.data?.data?.message) ? (uploadData?.data?.message) : "Error uploading file", {
       position: "bottom-left",
       autoClose: 5000,
       hideProgressBar: false,
