@@ -18,7 +18,11 @@ import {
   other_Tue,
   Other_Fri,
   other_M_W_Thu,
-  upt_ca_M_W_TH_F, upt_ca_Tue, updated_other_Tue, upt_other_Fri, upt_other_M_W_Thu
+  upt_ca_M_W_TH_F,
+  upt_ca_Tue,
+  updated_other_Tue,
+  upt_other_Fri,
+  upt_other_M_W_Thu,
 } from "./WorkingHours";
 import { ScheduleCallApi } from "../../Controllers/MyBranchController";
 import momentTimeZone from "moment-timezone";
@@ -33,44 +37,44 @@ const validationSchema = yup.object({
   callTime: yup.string("Select Time").nullable().required("Time is required"),
 });
 
-export default function ScheduleCall({MyBranchCall,holidayData}) {
-
+export default function ScheduleCall({ MyBranchCall, holidayData }) {
   //Material UI css class
   const classes = useStylesMyBranch();
 
   //Branch details from API
   let branchDetail = MyBranchCall != null ? MyBranchCall : null;
 
-  
-//Date validation
-const scheduleDateCall = new Date();
-scheduleDateCall.setDate(scheduleDateCall.getDate() + 30);
+  //Date validation
+  const scheduleDateCall = new Date();
+  scheduleDateCall.setDate(scheduleDateCall.getDate() + 30);
 
-//US holidays
-function disableHolidays(date) {
-  const holidayApiData = holidayData?.holidays
-  const holidayApiDataValues = holidayApiData.map((arrVal) => {    
-    return new Date(arrVal+"T00:00").getTime();
-  });
-  return (
-    date.getDay() === 0 ||
-    date.getDay() === 6 ||
-    holidayApiDataValues.includes(date.getTime())
-  );
-}
+  //US holidays
+  function disableHolidays(date) {
+    const holidayApiData = holidayData?.holidays;
+    const holidayApiDataValues = holidayApiData.map((arrVal) => {
+      return new Date(arrVal + "T00:00").getTime();
+    });
+    return (
+      date.getDay() === 0 ||
+      date.getDay() === 6 ||
+      holidayApiDataValues.includes(date.getTime())
+    );
+  }
 
   //Spliting statename
   let stateName = branchDetail?.MyBranchCall?.MyBranchDetail
     ? branchDetail?.MyBranchCall?.MyBranchDetail?.result
-      ? null : branchDetail?.MyBranchCall?.MyBranchDetail?.message ? null
-        : branchDetail?.MyBranchCall?.MyBranchDetail
-          ? branchDetail?.MyBranchCall?.MyBranchDetail?.Address?.split(",")
+      ? null
+      : branchDetail?.MyBranchCall?.MyBranchDetail?.message
+      ? null
+      : branchDetail?.MyBranchCall?.MyBranchDetail
+      ? branchDetail?.MyBranchCall?.MyBranchDetail?.Address?.split(",")
           [
-            branchDetail?.MyBranchCall?.MyBranchDetail?.Address?.split(",").length -
-            1
+            branchDetail?.MyBranchCall?.MyBranchDetail?.Address?.split(",")
+              .length - 1
           ].trim()
-            .substring(0, 2)
-          : null
+          .substring(0, 2)
+      : null
     : null;
 
   const [scheduleCall, setScheduleCall] = React.useState(false);
@@ -94,7 +98,6 @@ function disableHolidays(date) {
       setLoading(true);
 
       let response = await ScheduleCallApi(callDate, callingTime, callTimeZone);
-
 
       if (response === "true") {
         formik.values.date = null;
@@ -180,7 +183,12 @@ function disableHolidays(date) {
                 <Select
                   name="callTime"
                   labelform="Time Slot"
-                  select={Moment(formik.values.date).format("DD-MM-YYYY") === Moment(new Date()).format("DD-MM-YYYY") ? upt_ca_Tue : ca_Tue}
+                  select={
+                    Moment(formik.values.date).format("DD-MM-YYYY") ===
+                    Moment(new Date()).format("DD-MM-YYYY")
+                      ? upt_ca_Tue
+                      : ca_Tue
+                  }
                   onChange={formik.handleChange}
                   value={formik.values.callTime || ""}
                   onBlur={formik.handleBlur}
@@ -193,7 +201,12 @@ function disableHolidays(date) {
                 <Select
                   name="callTime"
                   labelform="Time Slot"
-                  select={Moment(formik.values.date).format("DD-MM-YYYY") === Moment(new Date()).format("DD-MM-YYYY") ? upt_ca_M_W_TH_F : ca_M_W_Th_F}
+                  select={
+                    Moment(formik.values.date).format("DD-MM-YYYY") ===
+                    Moment(new Date()).format("DD-MM-YYYY")
+                      ? upt_ca_M_W_TH_F
+                      : ca_M_W_Th_F
+                  }
                   onChange={formik.handleChange}
                   value={formik.values.callTime}
                   onBlur={formik.handleBlur}
@@ -207,7 +220,12 @@ function disableHolidays(date) {
               <Select
                 name="callTime"
                 labelform="Time Slot"
-                select={Moment(formik.values.date).format("DD-MM-YYYY") === Moment(new Date()).format("DD-MM-YYYY") ? updated_other_Tue : other_Tue}
+                select={
+                  Moment(formik.values.date).format("DD-MM-YYYY") ===
+                  Moment(new Date()).format("DD-MM-YYYY")
+                    ? updated_other_Tue
+                    : other_Tue
+                }
                 onChange={formik.handleChange}
                 value={formik.values.callTime || ""}
                 onBlur={formik.handleBlur}
@@ -220,7 +238,12 @@ function disableHolidays(date) {
               <Select
                 name="callTime"
                 labelform="Time Slot"
-                select={Moment(formik.values.date).format("DD-MM-YYYY") === Moment(new Date()).format("DD-MM-YYYY") ? upt_other_Fri : Other_Fri}
+                select={
+                  Moment(formik.values.date).format("DD-MM-YYYY") ===
+                  Moment(new Date()).format("DD-MM-YYYY")
+                    ? upt_other_Fri
+                    : Other_Fri
+                }
                 onChange={formik.handleChange}
                 value={formik.values.callTime || ""}
                 onBlur={formik.handleBlur}
@@ -233,7 +256,12 @@ function disableHolidays(date) {
               <Select
                 name="callTime"
                 labelform="Time Slot"
-                select={Moment(formik.values.date).format("DD-MM-YYYY") === Moment(new Date()).format("DD-MM-YYYY") ? upt_other_M_W_Thu : other_M_W_Thu}
+                select={
+                  Moment(formik.values.date).format("DD-MM-YYYY") ===
+                  Moment(new Date()).format("DD-MM-YYYY")
+                    ? upt_other_M_W_Thu
+                    : other_M_W_Thu
+                }
                 onChange={formik.handleChange}
                 value={formik.values.callTime || ""}
                 onBlur={formik.handleBlur}

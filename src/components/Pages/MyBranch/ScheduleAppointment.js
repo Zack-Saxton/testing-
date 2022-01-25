@@ -22,7 +22,8 @@ import {
   updated_other_Tue,
   upt_ca_M_W_TH_F,
   upt_ca_Tue,
-  upt_other_Fri, upt_other_M_W_Thu
+  upt_other_Fri,
+  upt_other_M_W_Thu,
 } from "./WorkingHours";
 import { ScheduleVisitApi } from "../../Controllers/MyBranchController";
 // yup validation
@@ -38,49 +39,52 @@ const validationSchema = yup.object({
     .required("Time is required"),
 });
 
-
-export default function ScheduleAppointment({MyBranchAppointment,holidayData}) {
+export default function ScheduleAppointment({
+  MyBranchAppointment,
+  holidayData,
+}) {
   //Material UI css class
   const classes = useStylesMyBranch();
 
   //Branch details from API
   let branchDetail = MyBranchAppointment != null ? MyBranchAppointment : null;
 
-
-//Date validation
-const scheduleAppointmentDate = new Date();
-scheduleAppointmentDate.setDate(scheduleAppointmentDate.getDate() + 30);
+  //Date validation
+  const scheduleAppointmentDate = new Date();
+  scheduleAppointmentDate.setDate(scheduleAppointmentDate.getDate() + 30);
 
   //US holidays
-function disableHolidays(date) {
-  const holidayApiData = holidayData?.holidays
-  const holidayApiDataValues = holidayApiData.map((arrVal) => {    
-    return new Date(arrVal+"T00:00").getTime();
-  });
-  return (
-    date.getDay() === 0 ||
-    date.getDay() === 6 ||
-    holidayApiDataValues.includes(date.getTime())
-  );
-}
+  function disableHolidays(date) {
+    const holidayApiData = holidayData?.holidays;
+    const holidayApiDataValues = holidayApiData.map((arrVal) => {
+      return new Date(arrVal + "T00:00").getTime();
+    });
+    return (
+      date.getDay() === 0 ||
+      date.getDay() === 6 ||
+      holidayApiDataValues.includes(date.getTime())
+    );
+  }
 
   //Spliting statename
   let stateName = branchDetail?.MyBranchAppointment?.MyBranchDetail
     ? branchDetail?.MyBranchAppointment?.MyBranchDetail?.result
-      ? null : branchDetail?.MyBranchAppointment?.MyBranchDetail?.message ? null
-        : branchDetail?.MyBranchAppointment?.MyBranchDetail
-          ? branchDetail?.MyBranchAppointment?.MyBranchDetail?.Address?.split(",")
+      ? null
+      : branchDetail?.MyBranchAppointment?.MyBranchDetail?.message
+      ? null
+      : branchDetail?.MyBranchAppointment?.MyBranchDetail
+      ? branchDetail?.MyBranchAppointment?.MyBranchDetail?.Address?.split(",")
           [
-            branchDetail?.MyBranchAppointment?.MyBranchDetail?.Address?.split(",")
-              .length - 1
+            branchDetail?.MyBranchAppointment?.MyBranchDetail?.Address?.split(
+              ","
+            ).length - 1
           ].trim()
-            .substring(0, 2)
-          : null
+          .substring(0, 2)
+      : null
     : null;
 
   const [scheduleAppointment, setScheduleAppointment] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
-
 
   //Formik implementation
   const formik = useFormik({
@@ -125,8 +129,6 @@ function disableHolidays(date) {
     formik.touched.appointmentTime = null;
     setScheduleAppointment(false);
   };
-
-
 
   //View part
   return (
@@ -190,7 +192,12 @@ function disableHolidays(date) {
                   <Select
                     name="appointmentTime"
                     labelform="Time Slot"
-                    select={Moment(formik.values.date).format("DD-MM-YYYY") === Moment(new Date()).format("DD-MM-YYYY") ? upt_ca_Tue : ca_Tue}
+                    select={
+                      Moment(formik.values.date).format("DD-MM-YYYY") ===
+                      Moment(new Date()).format("DD-MM-YYYY")
+                        ? upt_ca_Tue
+                        : ca_Tue
+                    }
                     onChange={formik.handleChange}
                     value={formik.values.appointmentTime || ""}
                     onBlur={formik.handleBlur}
@@ -209,7 +216,12 @@ function disableHolidays(date) {
                   <Select
                     name="appointmentTime"
                     labelform="Time Slot"
-                    select={Moment(formik.values.date).format("DD-MM-YYYY") === Moment(new Date()).format("DD-MM-YYYY") ? upt_ca_M_W_TH_F : ca_M_W_Th_F}
+                    select={
+                      Moment(formik.values.date).format("DD-MM-YYYY") ===
+                      Moment(new Date()).format("DD-MM-YYYY")
+                        ? upt_ca_M_W_TH_F
+                        : ca_M_W_Th_F
+                    }
                     onChange={formik.handleChange}
                     value={formik.values.appointmentTime || ""}
                     onBlur={formik.handleBlur}
@@ -225,53 +237,55 @@ function disableHolidays(date) {
                 </Grid>
               )
             ) : Moment(formik.values.date).format("dddd") === "Tuesday" ? (
-
               <Grid>
-                {
-                  Moment(formik.values.date).format("DD-MM-YYYY") === Moment(new Date()).format("DD-MM-YYYY") ?
-                    (
-                      <Select
-                        name="appointmentTime"
-                        labelform="Time"
-                        select={updated_other_Tue}
-                        onChange={formik.handleChange}
-                        value={formik.values.appointmentTime || ""}
-                        onBlur={formik.handleBlur}
-                        error={
-                          formik.touched.appointmentTime &&
-                          Boolean(formik.errors.appointmentTime)
-                        }
-                        helperText={
-                          formik.touched.appointmentTime &&
-                          formik.errors.appointmentTime
-                        }
-                      />
-                    ) : (
-                      <Select
-                        name="appointmentTime"
-                        labelform="Slot"
-                        select={other_Tue}
-                        onChange={formik.handleChange}
-                        value={formik.values.appointmentTime || ""}
-                        onBlur={formik.handleBlur}
-                        error={
-                          formik.touched.appointmentTime &&
-                          Boolean(formik.errors.appointmentTime)
-                        }
-                        helperText={
-                          formik.touched.appointmentTime &&
-                          formik.errors.appointmentTime
-                        }
-                      />
-                    )
-                }
+                {Moment(formik.values.date).format("DD-MM-YYYY") ===
+                Moment(new Date()).format("DD-MM-YYYY") ? (
+                  <Select
+                    name="appointmentTime"
+                    labelform="Time"
+                    select={updated_other_Tue}
+                    onChange={formik.handleChange}
+                    value={formik.values.appointmentTime || ""}
+                    onBlur={formik.handleBlur}
+                    error={
+                      formik.touched.appointmentTime &&
+                      Boolean(formik.errors.appointmentTime)
+                    }
+                    helperText={
+                      formik.touched.appointmentTime &&
+                      formik.errors.appointmentTime
+                    }
+                  />
+                ) : (
+                  <Select
+                    name="appointmentTime"
+                    labelform="Slot"
+                    select={other_Tue}
+                    onChange={formik.handleChange}
+                    value={formik.values.appointmentTime || ""}
+                    onBlur={formik.handleBlur}
+                    error={
+                      formik.touched.appointmentTime &&
+                      Boolean(formik.errors.appointmentTime)
+                    }
+                    helperText={
+                      formik.touched.appointmentTime &&
+                      formik.errors.appointmentTime
+                    }
+                  />
+                )}
               </Grid>
             ) : Moment(formik.values.date).format("dddd") === "Friday" ? (
               <Grid>
                 <Select
                   name="appointmentTime"
                   labelform="Time Slot"
-                  select={Moment(formik.values.date).format("DD-MM-YYYY") === Moment(new Date()).format("DD-MM-YYYY") ? upt_other_Fri : Other_Fri}
+                  select={
+                    Moment(formik.values.date).format("DD-MM-YYYY") ===
+                    Moment(new Date()).format("DD-MM-YYYY")
+                      ? upt_other_Fri
+                      : Other_Fri
+                  }
                   onChange={formik.handleChange}
                   value={formik.values.appointmentTime || ""}
                   onBlur={formik.handleBlur}
@@ -290,7 +304,12 @@ function disableHolidays(date) {
                 <Select
                   name="appointmentTime"
                   labelform="Time Slot"
-                  select={Moment(formik.values.date).format("DD-MM-YYYY") === Moment(new Date()).format("DD-MM-YYYY") ? upt_other_M_W_Thu : other_M_W_Thu}
+                  select={
+                    Moment(formik.values.date).format("DD-MM-YYYY") ===
+                    Moment(new Date()).format("DD-MM-YYYY")
+                      ? upt_other_M_W_Thu
+                      : other_M_W_Thu
+                  }
                   onChange={formik.handleChange}
                   value={formik.values.appointmentTime || ""}
                   onBlur={formik.handleBlur}
