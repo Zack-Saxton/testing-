@@ -94,7 +94,7 @@ export default async function PartnerSignup(history, partnerToken, applicantId, 
     : toast.error(partnerSignupMethod?.data?.statusText? partnerSignupMethod.data.statusText: "Please check your data");
   return partnerSignupMethod;
 }
-export function PopulatePartnerSignup(
+export async function PopulatePartnerSignup(
   partnerToken,
   applicantId,
   requestAmt,
@@ -116,7 +116,7 @@ export function PopulatePartnerSignup(
     let method = "POST";
     let addAccessToken = false;
   //API call
-    return APICall(url, param, data, method, addAccessToken);
+    return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
     toast.error("Error executing PopulatePartnerSignup API");
   }
