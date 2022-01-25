@@ -54,13 +54,6 @@ export default async function PartnerSignup(history, partnerToken, applicantId, 
         : partnerSignupMethod?.data?.applicant?.processing?.status === "confirming_info"
           ? "Successfully Registered, Please confirm your information" : "Successfully Registered",
       {
-        position: "bottom-left",
-        autoClose: 10000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
         onClose: () => {
           var now = new Date().getTime();
           LogoutController();
@@ -102,48 +95,34 @@ export default async function PartnerSignup(history, partnerToken, applicantId, 
         },
       }
     )
-    : toast.error(
-      partnerSignupMethod?.data?.statusText
-        ? partnerSignupMethod.data.statusText
-        : "Please check your data",
-      {
-        position: "bottom-left",
-        autoClose: 10000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      }
-    );
-
+    : toast.error(partnerSignupMethod?.data?.statusText? partnerSignupMethod.data.statusText: "Please check your data");
   return partnerSignupMethod;
 }
+export async function PopulatePartnerSignup(
+  partnerToken,
+  applicantId,
+  requestAmt,
+  requestApr,
+  requestTerm
+) {
+  let url = "populate_partner_signup";
+  let param = "";
+  let data = {
+    partner_token: partnerToken,
+    applicant_id: applicantId,
+    affiliateSelection: {
+      requestedAmount: requestAmt,
+      requestedAPR: requestApr,
+      requestedTerm: requestTerm,
+    },
+  };
+  let method = "POST";
+  let addAccessToken = false;
 
-export async function PopulatePartnerSignup(partnerToken, applicantId, requestAmt, requestApr, requestTerm) {
-  try {
-    let url = "populate_partner_signup";
-    let param = "";
-    let data = {
-      partner_token: partnerToken,
-      applicant_id: applicantId,
-      affiliateSelection: {
-        requestedAmount: requestAmt,
-        requestedAPR: requestApr,
-        requestedTerm: requestTerm,
-      },
-    };
-    let method = "POST";
-    let addAccessToken = false;
+  //API call
+  return APICall(url, param, data, method, addAccessToken);
 
-    //API call
-    return await APICall(url, param, data, method, addAccessToken);
-  } catch (error) {
-    Error("Error executing PopulatePartnerSignup API");
-  }
 }
-
-
 export async function partnerConfirmInfo(dataConfirmInfo, history) {
   let url = "partner_confirm_info";
   let param = "";
@@ -174,44 +153,19 @@ export async function partnerConfirmInfo(dataConfirmInfo, history) {
     marital_status: dataConfirmInfo.martialStatus,
     partner_token: dataConfirmInfo.partner_token
   }
-
   let method = "POST";
   let addAccessToken = true;
-
   //API call
   let PartnerConfirmationAPI = await APICall(url, param, data, method, addAccessToken);
   PartnerConfirmationAPI.data.status === 200
-    ? toast.success(
-      PartnerConfirmationAPI?.data?.statusText
-        ? PartnerConfirmationAPI?.data?.statusText
-        : "Successfully registered",
-      {
-        position: "bottom-left",
-        autoClose: 10000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        onClose: () => {
+    ? toast.success(PartnerConfirmationAPI?.data?.statusText? PartnerConfirmationAPI?.data?.statusText: "Successfully registered",
+      {onClose: () => {
           history.push({
             pathname: statusStrLink[PartnerConfirmationAPI?.data?.data.applicationStatus],
           });
         },
       }
     )
-    : toast.error(
-      "Please login again",
-      {
-        position: "bottom-left",
-        autoClose: 10000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      }
-    );
-
+    : toast.error("Please login again");
   return PartnerConfirmationAPI;
 }

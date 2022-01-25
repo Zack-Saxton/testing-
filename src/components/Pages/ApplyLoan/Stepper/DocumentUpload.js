@@ -24,16 +24,7 @@ export default function DocumentUpload(props) {
 	const uploadDoc = () => {
 		if (selectedFile === null) {
 			if (!toast.isActive("selectFileToUpload")) {
-				toast.error("please select a file to upload", {
-					position: "bottom-left",
-					autoClose: 1500,
-					toastId: "selectFileToUpload",
-					hideProgressBar: false,
-					closeOnClick: true,
-					pauseOnHover: true,
-					draggable: true,
-					progress: undefined,
-				});
+				toast.error("please select a file to upload");
 			}
 			props.setLoadingFlag(false);
 			setLoader(false);
@@ -44,19 +35,7 @@ export default function DocumentUpload(props) {
 
 			if (!allowedExtensions.exec(filePath)) {
 				if (!toast.isActive("extensionError")) {
-					toast.error(
-						"Please upload file having extensions .jpeg .jpg .png .pdf only. ",
-						{
-							position: "bottom-left",
-							autoClose: 1500,
-							toastId: "extensionError",
-							hideProgressBar: false,
-							closeOnClick: true,
-							pauseOnHover: true,
-							draggable: true,
-							progress: undefined,
-						}
-					);
+					toast.error("Please upload file having extensions .jpeg .jpg .png .pdf only. ");
 				}
 				props.setLoadingFlag(false);
 				setLoader(false);
@@ -86,16 +65,7 @@ export default function DocumentUpload(props) {
 				}
 			} else {
 				if (!toast.isActive("fileSizeError")) {
-					toast.error("Please upload file size below 10mb ", {
-						position: "bottom-left",
-						autoClose: 1500,
-						toastId: "fileSizeError",
-						hideProgressBar: false,
-						closeOnClick: true,
-						pauseOnHover: true,
-						draggable: true,
-						progress: undefined,
-					});
+					toast.error("Please upload file size below 10mb ");
 				}
 				props.setLoadingFlag(false);
 				setLoader(false);

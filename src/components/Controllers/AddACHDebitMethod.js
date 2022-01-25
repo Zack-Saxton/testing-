@@ -47,26 +47,8 @@ export async function AddDebitCardAPI(accountNickname, cardNumber, cardName, cvv
   //API response
   addAddDebitCardMethod.data.status === 200
     ? toast.success(
-      addAddDebitCardMethod.data.data("ACH Payment Added..."),
-      {
-        position: "bottom-left",
-        autoClose: 5500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      }
-    )
-    : toast.error("Error adding ACH Payment", {
-      position: "bottom-left",
-      autoClose: 5500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+      addAddDebitCardMethod.data.data("ACH Payment Added..."))
+    : toast.error("Error adding ACH Payment");
   return "true";
 }
 //  ========*******======== END of [Add Debit Card Payment]     ========*******========
@@ -88,26 +70,8 @@ export async function DeleteACHPaymentAPI() {
   //API response
   deleteACHPaymentMethod.data.status === 200
     ? toast.success(
-      deleteACHPaymentMethod.data.data("ACH Payment Deleted..."),
-      {
-        position: "bottom-left",
-        autoClose: 5500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      }
-    )
-    : toast.error("Error Deleting ACH Payment...", {
-      position: "bottom-left",
-      autoClose: 5500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+      deleteACHPaymentMethod.data.data("ACH Payment Deleted..."))
+    : toast.error("Error Deleting ACH Payment...");
   return "true";
 }
 //  ========*******======== END of [Delete ACH Bank Payment]    ========*******========
@@ -127,26 +91,8 @@ export async function DeleteDebitCardAPI() {
   //API response
   deleteDebitCardMethod.data.status === 200
     ? toast.success(
-      deleteDebitCardMethod.data.data("Debit Card Payment Deleted..."),
-      {
-        position: "bottom-left",
-        autoClose: 5500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      }
-    )
-    : toast.error("Error Deleting Debit Card Payment...", {
-      position: "bottom-left",
-      autoClose: 5500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+      deleteDebitCardMethod.data.data("Debit Card Payment Deleted..."))
+    : toast.error("Error Deleting Debit Card Payment...");
   return "true";
 }
 //  ========*******======== END of [Delete Debit Card Payment]    ========*******========

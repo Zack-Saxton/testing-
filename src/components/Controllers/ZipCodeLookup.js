@@ -1,5 +1,5 @@
 import APICall from "../lib/AxiosLib";
-import { Error } from "../toast/toast"
+import { toast } from "react-toastify";
 /***** ZipCodeLookup method *****/
 export default async function ZipCodeLookup(zipCode) {
     try {
@@ -14,6 +14,6 @@ export default async function ZipCodeLookup(zipCode) {
         //API call
         return await APICall(url, param, data, method, addAccessToken);
     } catch (error) {
-        Error("Error executing ZipCodeLookup API")
+        toast.error("Error executing ZipCodeLookup API")
     }
 }

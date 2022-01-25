@@ -55,18 +55,7 @@ const ApplyForLoanRedirect = (props) => {
 			) {
 				if (!toast.isActive("closedApplication")) {
 					toast.error(
-						"Your account is closed to new applications. Please contact us to reapply.",
-						{
-							position: "bottom-left",
-							autoClose: 5500,
-							hideProgressBar: false,
-							closeOnClick: true,
-							toastId: "closedApplication",
-							pauseOnHover: true,
-							draggable: true,
-							progress: undefined,
-						}
-					);
+						"Your account is closed to new applications. Please contact us to reapply.");
 				}
 				history.push({
 					pathname: "/customers/accountOverview",

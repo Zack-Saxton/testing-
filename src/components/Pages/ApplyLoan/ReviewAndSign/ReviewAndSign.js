@@ -492,32 +492,12 @@ export default function ReviewAndSign(props) {
                           } else {
                             setLoading(false);
                             toast.error(
-                              "Signing process failed, please try again.",
-                              {
-                                position: "bottom-left",
-                                autoClose: 1500,
-                                hideProgressBar: false,
-                                closeOnClick: true,
-                                pauseOnHover: true,
-                                draggable: true,
-                                progress: undefined,
-                              }
-                            );
+                              "Signing process failed, please try again.");
                           }
                         } else {
                           setLoading(false);
                           toast.error(
-                            "Please complete your signing process before continuing to the next page",
-                            {
-                              position: "bottom-left",
-                              autoClose: 1500,
-                              hideProgressBar: false,
-                              closeOnClick: true,
-                              pauseOnHover: true,
-                              draggable: true,
-                              progress: undefined,
-                            }
-                          );
+                            "Please complete your signing process before continuing to the next page");
                         }
                       }}
                     >

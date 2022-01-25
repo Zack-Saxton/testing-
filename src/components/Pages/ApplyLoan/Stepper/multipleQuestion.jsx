@@ -61,28 +61,12 @@ export default function MultipleQuestion(props) {
 				props.setLoadingFlag(false);
 				props.next();
 			} else {
-				toast.error("Verification unsuccessful, please try again.", {
-					position: "bottom-left",
-					autoClose: 5500,
-					hideProgressBar: false,
-					closeOnClick: true,
-					pauseOnHover: true,
-					draggable: true,
-					progress: undefined,
-				});
+				toast.error("Verification unsuccessful, please try again.");
 				props.setLoadingFlag(false);
 			}
 			props.setLoadingFlag(false);
 		} else {
-			toast.error("Please answer every question before continuing.", {
-				position: "bottom-left",
-				autoClose: 5500,
-				hideProgressBar: false,
-				closeOnClick: true,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-			});
+			toast.error("Please answer every question before continuing.");
 			props.setLoadingFlag(false);
 		}
 		function myFunction(value, index, array) {

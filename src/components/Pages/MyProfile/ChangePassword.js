@@ -72,13 +72,6 @@ export default function ChangePassword(basicInformationData) {
         if (values.newPassword === values.oldPassword) {
           if (!toast.isActive("closeToast")) {
             toast.error("Old and new Password must be different. ", {
-              position: "bottom-left",
-              autoClose: 3500,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
               toastId: "closeToast",
               onClose: () => { setLoading(false); }
             });
@@ -95,13 +88,6 @@ export default function ChangePassword(basicInformationData) {
 
             if (!toast.isActive("closeToast")) {
               toast.success(response?.data?.change_password?.message ? response?.data?.change_password?.message : "Password Changed successfully", {
-                position: "bottom-left",
-                autoClose: 3500,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
                 toastId: "closeToast",
                 onClose: () => {
                   setLoading(false);
@@ -112,13 +98,6 @@ export default function ChangePassword(basicInformationData) {
           } else if (response?.data?.change_password?.passwordReset === false) {
             if (!toast.isActive("closeToast")) {
               toast.error(response?.data?.change_password?.message ? response?.data?.change_password?.message : "Please check your old password and try again", {
-                position: "bottom-left",
-                autoClose: 3500,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
                 toastId: "closeToast",
                 onClose: () => { setLoading(false); }
               });
@@ -127,13 +106,6 @@ export default function ChangePassword(basicInformationData) {
         }
       } catch (error) {
         toast.error("Please try again.", {
-          position: "bottom-left",
-          autoClose: 3500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
           onClose: () => { setLoading(false); }
         });
       }

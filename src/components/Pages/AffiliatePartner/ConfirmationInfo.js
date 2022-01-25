@@ -31,7 +31,7 @@ import { partnerConfirmInfo } from "../../Controllers/PartnerSignupController";
 import states from "../../lib/States.json";
 import statesFullform from "../../lib/StatesFullform.json";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
-import { Error } from "../../toast/toast";
+import { toast } from "react-toastify";
 //Styling
 const useStyles = makeStyles((theme) => ({
   mainContentBackground: {
@@ -427,7 +427,7 @@ export default function CreditKarma(props) {
         formik.handleChange(event);
       }
     } catch (error) {
-      Error("Error from [fetchAddress].");
+      toast.error("Error from [fetchAddress].");
     }
   };
 

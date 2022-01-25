@@ -68,15 +68,7 @@ export default function DocumentPhoto(props) {
 				await fetch("/idscan/save_response_before_cac", options);
 			}
 		} catch (errorAPI) {
-			toast.error("Error uploading document", {
-				position: "bottom-left",
-				autoClose: 1500,
-				hideProgressBar: false,
-				closeOnClick: true,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-			});
+			toast.error("Error uploading document");
 		}
 	};
 	useEffect(() => {

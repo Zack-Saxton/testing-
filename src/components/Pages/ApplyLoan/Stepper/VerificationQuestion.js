@@ -111,28 +111,12 @@ export default function VerificationQuestion(props) {
                     }
                     else {
                       props.setLoadingFlag(false);
-                      toast.error("Something went wrong, Please try again", {
-                        position: "bottom-left",
-                        autoClose: 5500,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                      });
+                      toast.error("Something went wrong, Please try again");
                     }
                   }
                   else {
                     props.setLoadingFlag(false);
-                    toast.error("Select an option to continue", {
-                      position: "bottom-left",
-                      autoClose: 5500,
-                      hideProgressBar: false,
-                      closeOnClick: true,
-                      pauseOnHover: true,
-                      draggable: true,
-                      progress: undefined,
-                    });
+                    toast.error("Select an option to continue");
                   }
                 }}
               >

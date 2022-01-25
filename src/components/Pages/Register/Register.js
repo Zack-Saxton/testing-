@@ -30,7 +30,6 @@ import Cookies from "js-cookie";
 import LogoutController from "../../Controllers/LogoutController";
 import { encryptAES } from "../../lib/Crypto";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
-import { Error } from "../../toast/toast"
 //Styling part
 const useStyles = makeStyles((theme) => ({
 	mainContentBackground: {
@@ -306,20 +305,8 @@ export default function Register() {
 				}
 				else if (customerStatus.data?.result === "succcces" && customerStatus.data?.successMessage === "Password reset successful")
 				{
-					toast.success(
-						customerStatus.data?.successMessage,
-						{
-						  position: "bottom-left",
-						  autoClose: 5500,
-						  hideProgressBar: false,
-						  closeOnClick: true,
-						  pauseOnHover: true,
-						  draggable: true,
-						  progress: undefined,
-						}
-					  )
+					toast.success(customerStatus.data?.successMessage)
 					  loginUser(values);
-
 				}
 				else if (
 					customerStatus.data?.result === "error" &&
@@ -402,7 +389,7 @@ export default function Register() {
 			setCity("");
 		}
 	} catch (error) {
-		Error(" Error from [fetchAddress]");
+		toast.error(" Error from [fetchAddress]");
 	}
 };
 
