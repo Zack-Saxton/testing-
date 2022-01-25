@@ -15,7 +15,6 @@ const useStyles = makeStyles((theme) => ({
 
 //View Part
 export default function VerificationQuestion(props) {
-
   let response;
   const classes = useStyles();
   const [responseData, setResponseData] = useState([]);

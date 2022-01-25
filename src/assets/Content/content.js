@@ -1,5 +1,4 @@
-const Content =
-{
+const Content = {
     required: "Required",
     validEmail: "Enter valid Email Address",
     validPassword: "Enter valid password",

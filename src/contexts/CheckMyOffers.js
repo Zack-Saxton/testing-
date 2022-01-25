@@ -3,11 +3,9 @@ import usrAccountDetails from "../components/Controllers/AccountOverviewControll
 import states from "../components/lib/States.json";
 import Cookies from "js-cookie";
 import { decryptAES } from "../components/lib/Crypto"
-
 export const CheckMyOffers = createContext();
 
 const CheckMyOffersContext = (props) => {
-
 	//context data initial State
 	const [data, setData] = useState({
 		loanAmount: '',
@@ -107,7 +105,6 @@ const CheckMyOffersContext = (props) => {
 			setData({ ...data })
 		}
 	}
-
 
 	const resetData = () => {
 		const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : '{ }');

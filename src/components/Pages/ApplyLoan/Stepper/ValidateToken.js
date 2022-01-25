@@ -9,12 +9,7 @@ const ValidateToken = () => {
 	const useQuery = () => new URLSearchParams(useLocation().search);
 	const query = useQuery();
 	const getResponse = async (data) => {
-		let res = await APICall(
-			"/verification/verify_user_email_cac",
-			data,
-			"POST",
-			true
-		);
+		let res = await APICall("/verification/verify_user_email_cac", data, "POST", true);
 		return res;
 	};
 
@@ -59,10 +54,7 @@ const ValidateToken = () => {
 					history.push({
 						pathname: "/customers/finalVerification",
 					});
-				} else if (
-					res?.data?.result === "error" &&
-					res?.data?.statusText === "Token not valid"
-				) {
+				} else if (res?.data?.result === "error" && res?.data?.statusText === "Token not valid") {
 					toast.error(`Your token is Expired, please try again.`, {
 						position: "bottom-left",
 						autoClose: 5500,

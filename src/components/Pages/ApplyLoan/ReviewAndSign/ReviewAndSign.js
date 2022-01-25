@@ -97,7 +97,6 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 400,
     textAlign: "center",
   },
-
   rightBorder: {
     // padding: "0px 15px",
     borderRight: "1px solid",

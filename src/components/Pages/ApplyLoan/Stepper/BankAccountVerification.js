@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import {
-	ButtonPrimary,
-	ButtonSecondary,
-	Radio,
-	TextField,
-} from "../../../FormsUI";
+import { ButtonPrimary, ButtonSecondary, Radio, TextField, } from "../../../FormsUI";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";

@@ -1,28 +1,13 @@
 import React, { useEffect, useState } from "react";
-import {
-	ButtonWithIcon,
-	PhoneNumber,
-	ButtonPrimary,
-	ButtonSecondary,
-	TextField,
-} from "../../../FormsUI";
+import { ButtonWithIcon, PhoneNumber, ButtonPrimary, ButtonSecondary, TextField } from "../../../FormsUI";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import APICall from "../../../App/APIcall";
-import {
-	Radio,
-	RadioGroup,
-	FormControlLabel,
-	FormControl,
-	FormLabel,
-} from "@material-ui/core";
+import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from "@material-ui/core";
 import { errorMessage } from "../../../../helpers/ErrorMessage";
-import {
-	OTPInitialSubmission,
-	verifyPasscode,
-} from "../../../Controllers/ApplyForLoanController";
+import { OTPInitialSubmission, verifyPasscode } from "../../../Controllers/ApplyForLoanController";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -52,15 +37,8 @@ export default function PhoneVerification(props) {
 	// get phone number from using email from api
 	const getPhone = async () => {
 		let data = {};
-		let userData = await APICall(
-			"/customer/account_overview",
-			data,
-			"GET",
-			true
-		);
-		setPhoneNum(
-			userData?.data?.customer.latest_contact.phone_number_primary
-		);
+		let userData = await APICall("/customer/account_overview", data, "GET", true);
+		setPhoneNum(userData?.data?.customer.latest_contact.phone_number_primary);
 	};
 
 	// get the phone number on load
@@ -140,7 +118,6 @@ export default function PhoneVerification(props) {
 					sm={5}
 					className="textBlock"
 					id="applyForLoanPhone"
-
 				>
 					<PhoneNumber
 						name="phone"

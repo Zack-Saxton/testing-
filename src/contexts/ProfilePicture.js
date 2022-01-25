@@ -1,11 +1,9 @@
 import React, { createContext, useState } from "react";
-
 export const ProfilePicture = createContext();
 
 const ProfilePictureContext = (props) => {
 	const [dataProfile, setData] = useState({
 		profile_picture_url: "",
-
 	});
 
 	const resetProfilePicture = () => {
