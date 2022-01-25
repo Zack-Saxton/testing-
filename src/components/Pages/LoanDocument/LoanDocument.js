@@ -111,9 +111,6 @@ export default function LoanDocument(props) {
     }
   };
 
-  //Loan Document data from API
-  let loanDocumentData = loanDocumentStatus;
-
   //View part
   return (
     <div>
@@ -161,7 +158,7 @@ export default function LoanDocument(props) {
 
         <Grid item xs={12} style={{ paddingTop: "10px", paddingBottom: "30%" }}>
           <Paper className={classes.paper}>
-            {loanDocumentData === null ? (
+            {loanDocumentStatus === null ? (
               <TableContainer>
                 <Table aria-label="simple table">
                   <TableHead>
@@ -187,7 +184,7 @@ export default function LoanDocument(props) {
                 </Table>
               </TableContainer>
             ) : (
-              <LoanDocumentTable userLoanDocumentData={loanDocumentData} />
+              <LoanDocumentTable userLoanDocumentData={loanDocumentStatus} />
             )}
 
             <Grid
