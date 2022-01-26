@@ -87,9 +87,6 @@ echo "**************************************************************************
 cd $appDir
 # git fetch --all && git checkout $branch && git pull origin $branch
 
-#echo "cd $dir"
-cd $dir
-
 #echo "git fetch"
 git fetch
 
