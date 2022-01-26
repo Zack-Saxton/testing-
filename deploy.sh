@@ -120,8 +120,8 @@ ssh  -i $_PEM_FILE_ $server << ENDHERE
   for((count=1;count<=$instances;count++))
   do
     echo  "****** Spinning Instance ${count}: "
-    docker run -dit --restart=always --name "${app}${instances}-${env}-${latestCommit}" --network $dockerNetwork $imageName
-    docker inspect -f '{{json .NetworkSettings.Networks}}' ${app}${instances}-${env}-${latestCommit} | python -m json.tool
+    docker run -dit --restart=always --name "${app}${count}-${env}-${latestCommit}" --network $dockerNetwork $imageName
+    docker inspect -f '{{json .NetworkSettings.Networks}}' ${app}${count}-${env}-${latestCommit} | python -m json.tool
     sleep 5
   done
   exit
