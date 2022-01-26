@@ -74,7 +74,7 @@ function CheckMyOffersContext(props) {
   async function setUserAccountDetails() {
     data.loading = true;
     const accountDetail = await usrAccountDetails();
-    if (accountDetail.data.status === 200) {
+    if (accountDetail.status === 200) {
       const cred = JSON.parse(
         Cookies.get('cred') ? decryptAES(Cookies.get('cred')) : '{ }'
       );

@@ -179,14 +179,14 @@ export default function MakePayment(props) {
     let result = await makePayment(accntNo, card, paymentDatepicker, isDebit, paymentAmount);
     let message =
       paymentDatepicker === Moment().format("YYYY/MM/DD")? Payment.We_Received_Your_Payment_Successfully: Payment.Payment_has_Scheduled + " Confirmation: " + result?.data?.paymentResult?.ReferenceNumber;
-    result.data.status === 200
+    result.status === 200
       ? result?.data?.paymentResult?.PaymentCompleted !== undefined? toast.success(message, {autoClose: 5000,}) : toast.error(Payment.Failed_Payment_mode, {autoClose: 5000,})
       : toast.error(result?.data?.message? result?.data?.message : "Failed Payment mode",
           {
             autoClose: 5000,
           }
         );
-    result.data.status === 200
+    result.status === 200
       ? disableAutoPaymentScheduled(accntNo, card, paymentDate, isDebit)
       : getData();
   }
