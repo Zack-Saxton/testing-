@@ -4,6 +4,8 @@ branch="$2"
 env="$3"
 instances="$4"
 
+dockerHub=marinerfinance1#
+
 echo "***************************************************************************"
 echo "*********************** DEPLOYMENT INFO************************************"
 echo "***************************************************************************"
@@ -28,32 +30,60 @@ fi
 
 if [ "$env" = "prod1" ] || [ "$env" = "prod2" ] || [ "$env" = "prod3" ] || [ "$env" = "prod4" ]
 then
-    serverName="ubuntu@${app}-${app1}-prod.marinerfinance.io"
-else
+    serverName="ubuntu@${app}-${app1}-prod.marinerfinance.io" else
     serverName="ubuntu@cis-app1-${env}.marinerfinance.io"
 fi
 
+
+case $env in
+  "qa")
+    dockerNetwork="qaNetwork"
+    server="ubuntu@cis-app1-qa.marinerfinance.io"
+    ;;
+  "dev")
+    dockerNetwork="devNetwork"
+    server="ubuntu@cis-app1-dev.marinerfinance.io"
+    ;;
+  "staging")
+    dockerNetwork="stagingNetwork"
+    server="ubuntu@cis-app1-staging.marinerfinance.io"
+    ;;
+  *)
+    dockerNetwork="qaNetwork"
+    ;;
+esac
+
 #GIT and PEM Details
-gitRepo="git@github.com:marinerfinance/cac.git"
-pemFile="$home/Code/$app/otherdocs/marinerfinance-us-east-1.pem"
+#gitRepo="git@github.com:marinerfinance/cac.git"
+#PEM_FILE="$home/Code/$app/otherdocs/marinerfinance-us-east-1.pem"
+
 appDir="cac"
+
+case $whoAmI in
+  "apcruz")
+    _PEM_FILE_=$MARINERFINANCE_EC2_PEMFILE
+    ;;
+  *)
+    _PEM_FILE_="~/Code/cis/otherdocs/marinerfinance-us-east-1.pem"
+    ;;
+esac
 
 echo "***************************************************************************"
 echo "*************************** Dockerise *************************************"
 echo "***************************************************************************"
 # Remove all images and containers (Can be removed if not needed)
-docker stop $(docker ps -aq)
-docker rm -f $(docker ps -a -q)
-docker rmi -f $(docker images -a -q)
-docker system prune -f
+# docker stop $(docker ps -aq)
+# docker rm -f $(docker ps -a -q)
+# docker rmi -f $(docker images -a -q)
+# docker system prune -f
 
-#Set the temp deployment folder
-rm -rfv deploy
-mkdir deploy # Need to add code to check if dir already exists
-cd deploy
+##Set the temp deployment folder
+#rm -rfv deploy
+#mkdir deploy # Need to add code to check if dir already exists
+#cd deploy
 
 #Clone from git
-git init && git clone $gitRepo
+#git init && git clone $gitRepo
 cd $appDir
 git fetch --all && git checkout $branch && git pull origin $branch
 latestCommit=$(git rev-parse --short HEAD)
@@ -68,35 +98,31 @@ echo "**************************************************************************
 echo "************** Login to Dockerhub and push to repo ************************"
 echo "***************************************************************************"
 #Push to dockerhub
-docker login
+
+docker login --username=$DOCKERHUB_USER  --password=$DOCKERHUB_PSWD
+
 docker push "${imageName}"
 echo  "****** Pushed to Dockerhub ****"
 
+echo -e "\033[1;36m ********************************************** \033[0m"
+echo -e "\033[1;36m * TUNNELING INTO EC2 INSTANCE                 \033[0m"
+echo -e "\033[1;36m ********************************************** \033[0m"
 
-echo "***************************************************************************"
-echo "*********** SSH to Server & Pull from Dockerhub & Spin instance ***********"
-echo "***************************************************************************"
-#SSH into the environment
-#Clean the docker images and containers
-#Login to dockerhub and pull the latest image and run it
-PARAMS="imageName=\"$imageName\" env=\"$env\" app=\"$app\" instances=\"$instances\""
-ssh -i $pemFile $serverName $PARAMS 'bash' <<'SSHEND'
+#ssh -o "StrictHostKeyChecking no" -i $PEM_FILE $serverName << ENDHERE
+ssh  -i $_PEM_FILE_ $server << ENDHERE
+  docker stop $(docker ps -aq)
+  docker rm -f $(docker ps -aq)
+  docker rmi -f $(docker images -a -q)
+  docker system purne -f
 
-#Remove all images and containers
-sudo docker stop $(sudo docker ps -a -q --filter="name=${env}" )
-sudo docker rm -f $(sudo docker ps -a -q --filter="name=${env}")
-sudo docker rmi -f $(sudo docker images "*/*:${app}-${env}*")
+  docker login --username=$DOCKERHUB_USER  --password=$DOCKERHUB_PSWD
 
-#Login and Pull the docker image and run it
-sudo docker login
-sudo docker pull $imageName
-
-for((count=1;count<=$instances;count++))
-do
+  for((count=1;count<=$instances;count++))
+  do
     echo  "****** Spinning Instance ${count}: "
-    sudo docker run -dit --name "${app}-${env}-${count}" $imageName
+    docker run -dit --restart=always --name "${app}${instances}-${env}-${latestCommit}" --network $dockerNetwork $imageName
+    docker inspect -f '{{json .NetworkSettings.Networks}}' ${app}${instances}-${env}-${latestCommit} | python -m json.tool
     sleep 5
-done
-
-SSHEND
-exit
+  done
+  exit
+ENDHERE
