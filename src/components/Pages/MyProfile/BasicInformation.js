@@ -165,7 +165,6 @@ export default function BasicInformation(props) {
                 let email = basicInfo?.email === values.email ? basicInfo?.email : values.email;
 
                 let uploadData = await uploadNewProfileImage(imageData, fileName, fileType, documentType, email);
-
                 if (uploadData.data.status === 200) {
                   setData({
                     ...dataProfile, "profile_picture_url":

@@ -102,7 +102,6 @@ export async function uploadDocument(test, fileName, fileType, documentType) {
 
   //API call
   let uploadData = await APICall(url, param, data, method, addAccessToken);
-
   //API response
   uploadData.data.status === 200
     ? toast.success(uploadData?.data?.message ?? "Document Uploaded Successfully")

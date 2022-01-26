@@ -74,8 +74,8 @@ export default function TextNotification() {
           phone: values.phone,
         };
 
-        let res = await textNotification(body, disabledContent);
-        if (res.data?.sbt_subscribe_details?.HasNoErrors === true || res.data?.sbt_getInfo?.HasNoErrors === true) {
+        let result = await textNotification(body, disabledContent);
+        if (result.data?.sbt_subscribe_details?.HasNoErrors === true || result.data?.sbt_getInfo?.HasNoErrors === true) {
           toast.success("Updated successfully");
           Cookies.set("isTextNotify", disabledContent);
           window.setTimeout(function () {

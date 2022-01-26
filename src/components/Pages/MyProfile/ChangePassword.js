@@ -13,7 +13,7 @@ import { useFormik } from "formik";
 import { changePassword } from "../../Controllers/myProfileController";
 import { tabAtom } from "./MyProfileTab";
 import { useAtom } from "jotai";
-
+import LogoutController from "../../Controllers/LogoutController"
 
 export default function ChangePassword(basicInformationData) {
   window.zeHide();
@@ -49,7 +49,19 @@ export default function ChangePassword(basicInformationData) {
       )
       .required("Your confirmation password is required"),
   });
+  const logOut = () => {
+    setLoading(false);
+    LogoutController();
+    history.push({
+      pathname: "/login",
+    });
+  };
 
+  const logoutUser = () => {
+    toast.success("You are being logged out of the system", {
+      onClose: () => logOut(),
+    });
+  };
   const onClickCancelChange = () => {
     formikPassword.resetForm();
     history.push({ pathname: '/customers/myProfile' });
@@ -91,7 +103,8 @@ export default function ChangePassword(basicInformationData) {
                 toastId: "closeToast",
                 onClose: () => {
                   setLoading(false);
-                  onClickCancelChange()
+                  onClickCancelChange();
+                  logoutUser();
                 }
               });
             }
