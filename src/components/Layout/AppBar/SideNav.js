@@ -556,7 +556,7 @@ export default function SideNav() {
               className={clsx(classes.headerAlign, classes.branchLocator)}
             >
               <a
-                href=" https://cis-qa.marinerfinance.io/branchlocatorpage"
+                href=" https://loans.marinerfinance.com/branchlocatorpage"
                 style={{ color: "white" }}
                 className="hrefTag"
               >
