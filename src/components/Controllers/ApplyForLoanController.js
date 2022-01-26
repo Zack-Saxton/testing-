@@ -121,7 +121,7 @@ export async function resendVerificationEmail() {
   //API call
   let resendVerificationEmailMethod = await APICall(url, param, data, method, addAccessToken);
   if (resendVerificationEmailMethod.data.status === 200 && resendVerificationEmailMethod.data.statusText) {
-    if (!toast.isActive("closeToast")) {toast.success("A verification email has been sent to " + email);}
+    if (!toast.isActive("closeToast")) { toast.success("A verification email has been sent to " + email); }
   }
   return resendVerificationEmailMethod;
 }
@@ -129,16 +129,16 @@ export async function resendVerificationEmail() {
 /***** OTP submission *****/
 export async function OTPInitialSubmission(phoneNumber, deliverMethod) {
   try {
-  let url = "otp_initial_submission";
-  let param = "";
-  let data = {
-    phone_number_primary_formatted: phoneNumber,
-    deliverMethod: deliverMethod,
-  };
-  let method = "POST";
-  let addAccessToken = true;
+    let url = "otp_initial_submission";
+    let param = "";
+    let data = {
+      phone_number_primary_formatted: phoneNumber,
+      deliverMethod: deliverMethod,
+    };
+    let method = "POST";
+    let addAccessToken = true;
 
-  //API call
+    //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
     Error("Error executing OTPInitialSubmission API");
@@ -148,13 +148,13 @@ export async function OTPInitialSubmission(phoneNumber, deliverMethod) {
 /***** Verify Passcode for Phone *****/
 export async function verifyPasscode(passcode) {
   try {
-  let url = "verify_passcode";
-  let param = "";
-  let data = { passcode: passcode };
-  let method = "POST";
-  let addAccessToken = true;
+    let url = "verify_passcode";
+    let param = "";
+    let data = { passcode: passcode };
+    let method = "POST";
+    let addAccessToken = true;
 
-  //API call
+    //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
     Error("Error executing verifyPasscode API");
@@ -180,19 +180,19 @@ export async function hardPullCheck() {
 /***** Verify Financial Information *****/
 export async function verifyFinancialInformation() {
   try {
-  let url = "verify_financial_information";
-  let param = "";
-  let data = {
-    employer_name: "vicky",
-    current_job_title: "develoer",
-    employer_phone: "9876543210",
-    years_at_current_address: "12",
-    refer: "nil",
-  };
-  let method = "POST";
-  let addAccessToken = true;
+    let url = "verify_financial_information";
+    let param = "";
+    let data = {
+      employer_name: "vicky",
+      current_job_title: "develoer",
+      employer_phone: "9876543210",
+      years_at_current_address: "12",
+      refer: "nil",
+    };
+    let method = "POST";
+    let addAccessToken = true;
 
-  //API call
+    //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
     Error("Error executing verifyFinancialInformation API");
@@ -218,13 +218,13 @@ export async function getIDVerificationIframe() {
 /***** Save ID verification response *****/
 export async function saveIDVerificationResponseBefore() {
   try {
-  let url = "save_id_verification";
-  let param = "";
-  let data = {};
-  let method = "POST";
-  let addAccessToken = true;
+    let url = "save_id_verification";
+    let param = "";
+    let data = {};
+    let method = "POST";
+    let addAccessToken = true;
 
-  //API call
+    //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
     Error("Error executing saveIDVerificationResponseBefore API");
@@ -234,13 +234,13 @@ export async function saveIDVerificationResponseBefore() {
 /***** Submit financial information *****/
 export async function submitFinancialInformation(body) {
   try {
-  let url = "submit_final_verification";
-  let param = "";
-  let data = body;
-  let method = "POST";
-  let addAccessToken = true;
+    let url = "submit_final_verification";
+    let param = "";
+    let data = body;
+    let method = "POST";
+    let addAccessToken = true;
 
-  //API call
+    //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
     Error("Error executing submitFinancialInformation API");
@@ -250,13 +250,13 @@ export async function submitFinancialInformation(body) {
 /***** Get IFrame *****/
 export async function getIframe() {
   try {
-  let url = "get_iframe";
-  let param = "";
-  let data = {};
-  let method = "POST";
-  let addAccessToken = true;
+    let url = "get_iframe";
+    let param = "";
+    let data = {};
+    let method = "POST";
+    let addAccessToken = true;
 
-  //API call
+    //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
     Error("Error executing getIframe API");
@@ -264,45 +264,42 @@ export async function getIframe() {
 }
 
 /***** Upload Document *****/
-export async function uploadDocument(
-  fileData,
-  fileName,
-  fileType,
-  documentType
-) {
-  const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : '{ }');
-  let url = "upload_verification_document";
-  let param = "";
-  let data = {
-    applicantGuid: loginToken.applicantGuid,
-    file: {
-      document_file: {
-        name: fileName,
-        mimetype: fileType,
-        data: fileData,
+export async function uploadDocument(fileData, fileName, fileType, documentType) {
+  try {
+    const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : '{ }');
+    let url = "upload_verification_document";
+    let param = "";
+    let data = {
+      applicantGuid: loginToken.applicantGuid,
+      file: {
+        document_file: {
+          name: fileName,
+          mimetype: fileType,
+          data: fileData,
+        },
       },
-    },
-    documentType: documentType,
-  };
-  let method = "POST";
-  let addAccessToken = true;
+      documentType: documentType,
+    };
+    let method = "POST";
+    let addAccessToken = true;
 
-  //API call
-  let uploadData = await APICall(url, param, data, method, addAccessToken);
-  return (uploadData.data);
-
+    //API call
+    return await APICall(url, param, data, method, addAccessToken);
+  } catch (error) {
+    Error("Error executing uploadDocument API");
+  }
 }
 
 /***** Submit id verification answers multi*****/
 export async function idVerificationAnswer(passData) {
   try {
-  let url = "kba_answers_cac";
-  let param = "";
-  let data = passData;
-  let method = "POST";
-  let addAccessToken = true;
+    let url = "kba_answers_cac";
+    let param = "";
+    let data = passData;
+    let method = "POST";
+    let addAccessToken = true;
 
-  //API call
+    //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
     Error("Error executing idVerificationAnswer API");
