@@ -85,9 +85,38 @@ echo "**************************************************************************
 #Clone from git
 #git init && git clone $gitRepo
 cd $appDir
-git fetch --all && git checkout $branch && git pull origin $branch
-latestCommit=$(git rev-parse --short HEAD)
+# git fetch --all && git checkout $branch && git pull origin $branch
 
+#echo "cd $dir"
+cd $dir
+
+#echo "git fetch"
+git fetch
+
+#echo "git checkout $branch"
+git checkout $branch
+
+#echo "git pull"
+git pull
+
+#echo "git checkout $env"
+if [ "$env" = "prod" ]
+then
+    git checkout master
+else
+  git checkout $env
+fi
+
+#echo "git pull"
+git pull
+
+#echo "git merge $branch"
+git merge $branch --no-edit
+
+#echo "git push"
+git push
+
+latestCommit=$(git rev-parse --short HEAD)
 #Dockerise the environment
 imageName="marinerfinance/ops:${app}-${env}-${latestCommit}"
 docker build -f Dockerfile -t ${imageName} .
