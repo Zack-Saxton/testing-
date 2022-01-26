@@ -56,7 +56,7 @@ const NormalHeader = () => {
       <MenuItem>
         <Typography className={classes.headerAlign}>
           <a
-            href=" https://cis-qa.marinerfinance.io/branchlocatorpage"
+            href=" https://loans.marinerfinance.com/branchlocatorpage"
             className="hrefTag"
           >
             Branch Locator
@@ -92,7 +92,7 @@ const NormalHeader = () => {
             </NavLink>
             <Typography className={classes.subtitle}>
               <a
-                href=" https://cis-qa.marinerfinance.io/branchlocatorpage"
+                href=" https://loans.marinerfinance.com/branchlocatorpage"
                 className="hrefTag"
               >
                 Branch Locator

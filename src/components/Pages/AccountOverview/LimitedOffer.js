@@ -3,13 +3,12 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { NavLink } from "react-router-dom";
 import { useStylesAccountOverview } from "./Style";
-import adBanner from "../../../assets/gallery/Ad_Banner.jpg";
+import adBanner from "../../../assets/gallery/AdBanner.jpg";
 import MortgageBanner from "../../../assets/images/Mortgage-Banner.jpg";
 import "./Style.css";
 import { ButtonPrimary } from "../../FormsUI";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import NumberFormat from "react-number-format";
-
 export default function LimitedOffer(userOfferData) {
   //Material UI css class
   const classes = useStylesAccountOverview();
