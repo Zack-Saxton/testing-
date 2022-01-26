@@ -143,11 +143,11 @@ ssh  -i $_PEM_FILE_ $server << ENDHERE
 
   docker login --username=$DOCKERHUB_USER  --password=$DOCKERHUB_PSWD
 
-  for((count=1;count<=$instances;count++))
+  for ((count=1;count<=$instances;count++))
   do
-    echo  "****** Spinning Instance ${count}: "
-    docker run -dit --restart=always --name "${app}${count}-${env}-${latestCommit}" --network $dockerNetwork $imageName
-    docker inspect -f '{{json .NetworkSettings.Networks}}' ${app}${count}-${env}-${latestCommit} | python -m json.tool
+    echo  "****** Spinning Instance "\$count": "
+    docker run -dit --restart=always --name "${app}"\$count"-${env}-${latestCommit}" --network $dockerNetwork $imageName
+    docker inspect -f '{{json .NetworkSettings.Networks}}' ${app}"\$count"-${env}-${latestCommit} | python -m json.tool
     sleep 5
   done
   exit
