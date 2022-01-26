@@ -129,12 +129,7 @@ export default function ReviewAndSign(props) {
   // To get the iframe url from the API
   async function getIframeURL() {
     let data = {};
-    let iframeURL = await APICall(
-      "/integration/eoriginal/authenticate_cac",
-      data,
-      "POST",
-      true
-    );
+    let iframeURL = await APICall("/integration/eoriginal/authenticate_cac", data, "POST", true);
     setUrl(iframeURL?.data?.iframe);
   }
 
@@ -210,7 +205,6 @@ export default function ReviewAndSign(props) {
             textColor="primary"
             variant="scrollable"
             scrollButtons="auto"
-
             aria-label="scrollable auto tabs example"
           >
             <Tab
@@ -245,9 +239,7 @@ export default function ReviewAndSign(props) {
                       color: "#171717",
                       fontSize: "18px",
                     }}>
-
                       Selected Loan Offer
-
                     </Typography>
                   </Grid>
 
@@ -273,10 +265,8 @@ export default function ReviewAndSign(props) {
                     style={{ width: "100%", textAlign: "center" }}
                   >
                     <CheckLoginStatus />
-
                     <CircularProgress />
                   </Grid>
-
                   :
                   <Grid container justifyContent="flex-start">
                     <Grid
@@ -293,7 +283,6 @@ export default function ReviewAndSign(props) {
                         {currencyFormat(selectedOffer.approved_loan_amount)}{" "}
                       </h2>
                     </Grid>
-
                     <Grid
                       item
                       xs={12}
@@ -308,7 +297,6 @@ export default function ReviewAndSign(props) {
                         {selectedOffer.term}M
                       </h2>
                     </Grid>
-
                     <Grid
                       item
                       xs={12}
@@ -323,7 +311,6 @@ export default function ReviewAndSign(props) {
                         {selectedOffer.origination_fee_rate}%
                       </h2>
                     </Grid>
-
                     <Grid
                       item
                       xs={12}
@@ -369,7 +356,6 @@ export default function ReviewAndSign(props) {
                   </Grid>
                 }
               </Paper>
-
               <Grid item style={{ width: "100%" }}>
                 <p
                   style={{
@@ -409,8 +395,6 @@ export default function ReviewAndSign(props) {
                   <li>After signing, click the ‘Submit’ button.</li>
                 </ol>
               </Grid>
-
-
               <Grid item xs={12} style={{ width: "100%" }}>
                 <Paper className={classes.paper}>
                   <Grid item xs={12} md={12} lg={12}>
@@ -470,33 +454,21 @@ export default function ReviewAndSign(props) {
                       onClick={async () => {
                         setLoading(true);
                         let data = {};
-                        let authenticateStatus = await APICall(
-                          "/integration/eoriginal/complete_cac",
-                          data,
-                          "POST",
-                          true
-                        );
-                        if (
-                          authenticateStatus?.data?.result === "success"
-                        ) {
+                        let authenticateStatus = await APICall("/integration/eoriginal/complete_cac", data, "POST", true);
+                        if (authenticateStatus?.data?.result === "success") {
                           let hardPull = await hardPullCheck();
-                          if (
-                            hardPull?.data?.status === 200 ||
-                            hardPull?.data?.result === "success"
-                          ) {
+                          if (hardPull?.data?.status === 200 || hardPull?.data?.result === "success") {
                             setLoading(false);
                             history.push({
                               pathname: "/customers/finalVerification",
                             });
                           } else {
                             setLoading(false);
-                            toast.error(
-                              "Signing process failed, please try again.");
+                            toast.error("Signing process failed, please try again.");
                           }
                         } else {
                           setLoading(false);
-                          toast.error(
-                            "Please complete your signing process before continuing to the next page");
+                          toast.error("Please complete your signing process before continuing to the next page");
                         }
                       }}
                     >
@@ -505,7 +477,6 @@ export default function ReviewAndSign(props) {
                   </Grid>
                 </Paper>
               </Grid>
-
               <Grid item style={{ width: "100%" }}>
                 <p
                   style={{

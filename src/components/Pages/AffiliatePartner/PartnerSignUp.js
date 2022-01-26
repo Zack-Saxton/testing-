@@ -149,14 +149,7 @@ export default function CreditKarma() {
   const [populatePartnerSignupState, SetPopulatePartnerSignupState] = useState(null);
 
   async function AsyncEffect_PopulatePartnerSignup() {
-    SetPopulatePartnerSignupState(await PopulatePartnerSignup(
-      partnerToken,
-      applicantId,
-      requestAmt,
-      requestApr,
-      requestTerm
-    )
-    );
+    SetPopulatePartnerSignupState(await PopulatePartnerSignup(partnerToken, applicantId, requestAmt, requestApr, requestTerm));
   }
   useEffect(() => {
     AsyncEffect_PopulatePartnerSignup();

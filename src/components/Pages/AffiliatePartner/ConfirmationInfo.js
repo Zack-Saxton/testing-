@@ -16,13 +16,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import {
-  ButtonPrimary,
-  Select,
-  TextField,
-  Zipcode,
-  Checkbox,
-} from "../../FormsUI";
+import { ButtonPrimary, Select, TextField, Zipcode, Checkbox } from "../../FormsUI";
 import Paper from "@material-ui/core/Paper";
 import Logo from "../../../assets/images/loginbg.png";
 import "./Style.css";
@@ -41,7 +35,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-
   mainGrid: {
     boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%),
     0 6px 30px 5px rgb(0 0 0 / 12%),
@@ -75,7 +68,6 @@ const useStyles = makeStyles((theme) => ({
   0 6px 30px 5px rgb(0 0 0 / 12%),
   0 8px 10px -7px rgb(0 0 0 / 20%)`,
   },
-
   form: {
     width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(3),
@@ -114,29 +106,23 @@ const validationSchema = yup.object({
   city: yup
     .string("Enter City")
     .max(30, "Should be less than 30 characters")
-    .required(
-      "Your home city is required. Please re-enter your zip code to populate your city"
-    ),
+    .required("Your home city is required. Please re-enter your zip code to populate your city"),
   state: yup
     .string("Enter State")
     .max(30, "Should be less than 30 characters")
     .required("Your home state is required."),
-
   zip: yup
     .string("Enter your Zip")
     .min(5, "Zipcode should be of minimum 5 characters length")
     .required("Your home ZIP Code is required"),
-
   citizenship: yup
     .string("Enter citizenship")
     .max(30, "Should be less than 30 characters")
     .required("Your citizenship is required"),
-
   employementStatus: yup
     .string("Enter Employement Status")
     .max(30, "Should be less than 30 characters")
     .required("Your Employement Status is required"),
-
   activeDuty: yup.string().when("state", {
     is: "NC",
     then: yup.string().required("Active duty required"),
@@ -149,7 +135,6 @@ const validationSchema = yup.object({
     is: "Wisconsin",
     then: yup.string().required("Marital Status required"),
   }),
-
   spouseadd: yup
     .string()
     .when("martialStatus", {
@@ -184,17 +169,13 @@ const validationSchema = yup.object({
       is: "Married",
       then: yup
         .string()
-        .required(
-          "Your home city is required. Please re-enter your zip code to populate your city"
-        ),
+        .required("Your home city is required. Please re-enter your zip code to populate your city"),
     })
     .when("martialStatus", {
       is: "Separated, under decree of legal separation",
       then: yup
         .string()
-        .required(
-          "Your home city is required. Please re-enter your zip code to populate your city"
-        ),
+        .required("Your home city is required. Please re-enter your zip code to populate your city"),
     }),
   spouseSelectState: yup
     .string()
@@ -235,18 +216,12 @@ export default function CreditKarma(props) {
         setErrorPersonal("");
         return true;
       } else {
-        setErrorAnnual(
-          "Annual household income must be greater than or equal to Annual personal income"
-        );
+        setErrorAnnual("Annual household income must be greater than or equal to Annual personal income");
         return false;
       }
     } else {
-      setErrorPersonal(
-        isNaN(personal) ? "Annual personal income is required" : ""
-      );
-      setErrorAnnual(
-        isNaN(household) ? "Annual household income is required" : ""
-      );
+      setErrorPersonal(isNaN(personal) ? "Annual personal income is required" : "");
+      setErrorAnnual(isNaN(household) ? "Annual household income is required" : "");
       return false;
     }
   };
@@ -286,27 +261,15 @@ export default function CreditKarma(props) {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      firstname: props?.location?.state?.first_name
-        ? props.location.state.first_name
-        : "",
-      lastname: props?.location?.state?.last_name
-        ? props.location.state.last_name
-        : "",
-      streetAddress: props?.location?.state?.address_street
-        ? props.location.state.address_street
-        : "",
-      city: props?.location?.state?.address_city
-        ? props.location.state.address_city
-        : "",
+      firstname: props?.location?.state?.first_name ?? "",
+      lastname: props?.location?.state?.last_name ?? "",
+      streetAddress: props?.location?.state?.address_street ?? "",
+      city: props?.location?.state?.address_city ?? "",
       state: props?.location?.state?.address_state
         ? states[props.location.state.address_state]
         : "",
-      zip: props?.location?.state?.address_postal_code
-        ? props.location.state.address_postal_code
-        : "",
-      citizenship: props?.location?.state?.citizenship
-        ? props.location.state.citizenship
-        : "",
+      zip: props?.location?.state?.address_postal_code ?? "",
+      citizenship: props?.location?.state?.citizenship ?? "",
       personalIncome: props?.location?.state?.annual_income
         ? "$" +
         parseFloat(props.location.state.annual_income)
@@ -321,30 +284,14 @@ export default function CreditKarma(props) {
           .replace(/(\d)(?=(\d{3})+\.)/g, "$1,")
           .slice(0, -3)
         : "",
-      employementStatus: props?.location?.state?.employment_status
-        ? props.location.state.employment_status
-        : "",
-      activeDuty: props?.location?.state?.active_duty
-        ? props.location.state.active_duty
-        : "",
-      activeDutyRank: props?.location?.state?.active_duty_rank
-        ? props.location.state.active_duty_rank
-        : "",
-      militaryStatus: props?.location?.state?.military_status
-        ? props.location.state.military_status
-        : "",
-      martialStatus: props?.location?.state?.marital_status
-        ? props?.location?.state?.marital_status
-        : "",
-      spouseadd: props?.location?.state?.spouse_address_street
-        ? props.location.state.spouse_address_street
-        : "",
-      spouseZipcode: props?.location?.state?.spouse_address_postal_code
-        ? props.location.state.spouse_address_postal_code
-        : "",
-      spousecity: props?.location?.state?.spouse_address_city
-        ? props.location.state.spouse_address_city
-        : "",
+      employementStatus: props?.location?.state?.employment_status ?? "",
+      activeDuty: props?.location?.state?.active_duty ?? "",
+      activeDutyRank: props?.location?.state?.active_duty_rank ?? "",
+      militaryStatus: props?.location?.state?.military_status ?? "",
+      martialStatus: props?.location?.state?.marital_status ?? "",
+      spouseadd: props?.location?.state?.spouse_address_street ?? "",
+      spouseZipcode: props?.location?.state?.spouse_address_postal_code ?? "",
+      spousecity: props?.location?.state?.spouse_address_city ?? "",
       spouseSelectState: props?.location?.state?.spouse_address_state
         ? states[props.location.state.spouse_address_state]
         : "",
@@ -352,51 +299,38 @@ export default function CreditKarma(props) {
 
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      const modPersonalIncome = parseInt(
-        values.personalIncome.replace(/\$/g, "").replace(/,/g, "")
-      );
-      const modHouseholdIncome = parseInt(
-        values.householdIncome.replace(/\$/g, "").replace(/,/g, "")
-      );
+      const modPersonalIncome = parseInt(values.personalIncome.replace(/\$/g, "").replace(/,/g, ""));
+      const modHouseholdIncome = parseInt(values.householdIncome.replace(/\$/g, "").replace(/,/g, ""));
 
-      if (errorPersonal === "" && errorAnnual === "") {
-        if (validate(modPersonalIncome, modHouseholdIncome)) {
-          values.personalIncome = modPersonalIncome;
-          values.householdIncome = modHouseholdIncome;
+      if (errorPersonal === "" && errorAnnual === "" && validate(modPersonalIncome, modHouseholdIncome)) {
+        values.personalIncome = modPersonalIncome;
+        values.householdIncome = modHouseholdIncome;
 
-          setLoading(true);
-          let confirmInfoData = {
-            firstname: values.firstname,
-            lastname: values.lastname,
-            streetAddress: values.streetAddress,
-            city: values.city,
-            state: statesFullform[values.state],
-            zip: values.zip,
-            citizenship: values.citizenship,
-            personalIncome: values.personalIncome,
-            householdIncome: values.householdIncome,
-            employementStatus: values.employementStatus,
-            activeDuty: values.activeDuty,
-            activeDutyRank: values.activeDutyRank,
-            martialStatus: values.martialStatus,
-            spouseadd: values.spouseadd,
-            spouseZipcode: values.spouseZipcode,
-            spousecity: values.spousecity,
-            spouseSelectState: statesFullform[values.spouseSelectState],
-            partner_token: props?.location?.state?.partner_token
-              ? props.location.state.partner_token
-              : "",
-            email: props?.location?.state?.email
-              ? props.location.state.email
-              : "",
-          };
-          let partnerConfirmRes = await partnerConfirmInfo(
-            confirmInfoData,
-            history
-          );
-          if (partnerConfirmRes.data.status !== 200) {
-            setLoading(false);
-          }
+        setLoading(true);
+        let confirmInfoData = {
+          firstname: values.firstname,
+          lastname: values.lastname,
+          streetAddress: values.streetAddress,
+          city: values.city,
+          state: statesFullform[values.state],
+          zip: values.zip,
+          citizenship: values.citizenship,
+          personalIncome: values.personalIncome,
+          householdIncome: values.householdIncome,
+          employementStatus: values.employementStatus,
+          activeDuty: values.activeDuty,
+          activeDutyRank: values.activeDutyRank,
+          martialStatus: values.martialStatus,
+          spouseadd: values.spouseadd,
+          spouseZipcode: values.spouseZipcode,
+          spousecity: values.spousecity,
+          spouseSelectState: statesFullform[values.spouseSelectState],
+          partner_token: props?.location?.state?.partner_token ?? "",
+          email: props?.location?.state?.email ?? "",
+        };
+        let partnerConfirmRes = await partnerConfirmInfo(confirmInfoData, history);
+        if (partnerConfirmRes.data.status !== 200) {
+          setLoading(false);
         }
       }
     },
@@ -409,9 +343,7 @@ export default function CreditKarma(props) {
 
   const fetchAddress = async (event) => {
     try {
-      setErrorMsg(
-        event.target.value === "" ? "Please enter a zipcode" : errorMsg
-      );
+      setErrorMsg(event.target.value === "" ? "Please enter a zipcode" : errorMsg);
       if (event.target.value !== "" && event.target.value.length === 5) {
         let result = await ZipCodeLookup(event.target.value);
         if (result) {
@@ -532,15 +464,10 @@ export default function CreditKarma(props) {
         .substr(0, 7);
       const formated = parseFloat(n);
       const currency = "$";
-      const forCur =
-        currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+      const forCur = currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
       formik.setFieldValue(event.target.name, forCur.slice(0, -3));
-      const modPersonalIncome = parseInt(
-        formik.values.personalIncome.replace(/\$/g, "").replace(/,/g, "")
-      );
-      const modHouseholdIncome = parseInt(
-        formik.values.householdIncome.replace(/\$/g, "").replace(/,/g, "")
-      );
+      const modPersonalIncome = parseInt(formik.values.personalIncome.replace(/\$/g, "").replace(/,/g, ""));
+      const modHouseholdIncome = parseInt(formik.values.householdIncome.replace(/\$/g, "").replace(/,/g, ""));
       if (isNaN(modPersonalIncome)) {
         setErrorPersonal("Annual personal income is required");
       } else {
@@ -549,10 +476,7 @@ export default function CreditKarma(props) {
           .replace(/,/g, "")
           .substr(0, 7);
         if (nLen.length < 4) {
-          setErrorPersonal(
-            "Annual personal income should not be less than 4 digits"
-          );
-
+          setErrorPersonal("Annual personal income should not be less than 4 digits");
           return false;
         }
         if (!isNaN(modPersonalIncome) && !isNaN(modHouseholdIncome)) {
@@ -561,10 +485,7 @@ export default function CreditKarma(props) {
             setErrorPersonal("");
             return true;
           } else {
-            setErrorAnnual(
-              "Annual household income must be greater than or equal to Annual personal income"
-            );
-
+            setErrorAnnual("Annual household income must be greater than or equal to Annual personal income");
             return false;
           }
         }
@@ -576,15 +497,10 @@ export default function CreditKarma(props) {
         .substr(0, 7);
       const formated = parseFloat(n);
       const currency = "$";
-      const forCur =
-        currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+      const forCur = currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
       formik.setFieldValue(event.target.name, forCur.slice(0, -3));
-      const modPersonalIncome = parseInt(
-        formik.values.personalIncome.replace(/\$/g, "").replace(/,/g, "")
-      );
-      const modHouseholdIncome = parseInt(
-        formik.values.householdIncome.replace(/\$/g, "").replace(/,/g, "")
-      );
+      const modPersonalIncome = parseInt(formik.values.personalIncome.replace(/\$/g, "").replace(/,/g, ""));
+      const modHouseholdIncome = parseInt(formik.values.householdIncome.replace(/\$/g, "").replace(/,/g, ""));
       if (isNaN(modHouseholdIncome)) {
         setErrorAnnual("Annual household income is required");
       } else {
@@ -593,9 +509,7 @@ export default function CreditKarma(props) {
           .replace(/,/g, "")
           .substr(0, 7);
         if (nLen.length < 4) {
-          setErrorAnnual(
-            "Annual household income should not be less than 4 digits"
-          );
+          setErrorAnnual("Annual household income should not be less than 4 digits");
           return false;
         }
         const perval = document
@@ -604,9 +518,7 @@ export default function CreditKarma(props) {
           .replace(/,/g, "")
           .substr(0, 7);
         if (perval.length < 4) {
-          setErrorPersonal(
-            "Annual personal income should not be less than 4 digits"
-          );
+          setErrorPersonal("Annual personal income should not be less than 4 digits");
           return false;
         }
         if (!isNaN(modPersonalIncome) && !isNaN(modHouseholdIncome)) {
@@ -615,9 +527,7 @@ export default function CreditKarma(props) {
             setErrorPersonal("");
             return true;
           } else {
-            setErrorAnnual(
-              "Annual household income must be greater than or equal to Annual personal income"
-            );
+            setErrorAnnual("Annual household income must be greater than or equal to Annual personal income");
             return false;
           }
         }
@@ -627,7 +537,6 @@ export default function CreditKarma(props) {
   const onNameChange = (event) => {
     const reg = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
     let acc = event.target.value;
-
     if (acc === "" || reg.test(acc)) {
       formik.handleChange(event);
     }

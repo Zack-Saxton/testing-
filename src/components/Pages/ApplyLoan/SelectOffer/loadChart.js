@@ -18,8 +18,7 @@ export default function LoadChart(props) {
 	};
 
 	const toNumeric = (stringVal) => {
-		const tempVal =
-			stringVal.replace(/\$/g, "").replace(/,/g, "").replace(/ /g, "") || "";
+		const tempVal = stringVal.replace(/\$/g, "").replace(/,/g, "").replace(/ /g, "") || "";
 		return parseFloat(tempVal);
 	};
 	let finArray = [];
@@ -31,9 +30,7 @@ export default function LoadChart(props) {
 				term: x.termNum,
 				loanAmount: toNumeric(x.loanAmount),
 				intrest: (toNumeric(x.loanAmount) / 100) * toNumeric(x.apr),
-				total:
-					toNumeric(x.loanAmount) +
-					(toNumeric(x.loanAmount) / 100) * toNumeric(x.apr),
+				total: toNumeric(x.loanAmount) + (toNumeric(x.loanAmount) / 100) * toNumeric(x.apr),
 			};
 			finArray.push(arr);
 		});

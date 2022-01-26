@@ -72,7 +72,6 @@ const useStyles = makeStyles((theme) => ({
 		textTransform: "none",
 		fontWeight: "700",
 	},
-
 	table: {
 		minWidth: 650,
 	},
