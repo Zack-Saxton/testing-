@@ -135,7 +135,7 @@ export default function ReviewAndSign(props) {
       "POST",
       true
     );
-    setUrl(iframeURL?.data?.data?.iframe);
+    setUrl(iframeURL?.data?.iframe);
   }
 
   // To get the selected value

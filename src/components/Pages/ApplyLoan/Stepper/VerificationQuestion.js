@@ -87,10 +87,10 @@ export default function VerificationQuestion(props) {
                     }
                     let nxtRes = await APICall("/integration/LexisNexis/kba_disambiguate_answer_cac?test=true", sendData, "POST", true);
                     let tempArray = [];
-                    if (nxtRes?.data?.data?.kba) {
-                      setQuestionSetIdMultiple(nxtRes?.data?.data?.kba?.questions["question-set-id"]);
-                      setTransactionIdMultiple(nxtRes?.data?.data?.kba["transaction-status"]["transaction-id"])
-                      nxtRes?.data?.data?.kba?.questions?.question.map((val, key) => {
+                    if (nxtRes?.data?.kba) {
+                      setQuestionSetIdMultiple(nxtRes?.data?.kba?.questions["question-set-id"]);
+                      setTransactionIdMultiple(nxtRes?.data?.kba["transaction-status"]["transaction-id"])
+                      nxtRes?.data?.kba?.questions?.question.map((val, key) => {
                         tempArray.push({
                           "key": key,
                           "fullData": val,
@@ -104,7 +104,7 @@ export default function VerificationQuestion(props) {
                       setSetOneFinished(true);
                       props.setLoadingFlag(false);
                     }
-                    else if (nxtRes?.data?.result === "success" && !nxtRes?.data?.data?.data?.kba && nxtRes?.data?.data?.data?.kba?.failed === true) {
+                    else if (nxtRes?.data?.result === "success" && !nxtRes?.data?.kba && nxtRes?.data?.kba?.failed === true) {
                       props.setLoadingFlag(false);
                       props.next();
                     }

@@ -75,10 +75,7 @@ export default function TextNotification() {
         };
 
         let res = await textNotification(body, disabledContent);
-        if (
-          res.data.data?.sbt_subscribe_details?.HasNoErrors === true ||
-          res.data.data?.sbt_getInfo?.HasNoErrors === true
-        ) {
+        if (res.data?.sbt_subscribe_details?.HasNoErrors === true || res.data?.sbt_getInfo?.HasNoErrors === true) {
           toast.success("Updated successfully");
           Cookies.set("isTextNotify", disabledContent);
           window.setTimeout(function () {

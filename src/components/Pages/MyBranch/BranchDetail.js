@@ -48,11 +48,10 @@ export default function BranchDetail(MyBranchDetail) {
   }, []);
 
   //Holiday Calender from API
-  let holidayCalenderData =
-    holidayCalenderApi != null ? holidayCalenderApi.data.data : null;
+  let holidayCalenderData = holidayCalenderApi?.data;
 
   //Branch details from API
-  let branchDetail = MyBranchDetail != null ? MyBranchDetail : null;
+  let branchDetail = MyBranchDetail;
 
   //Spliting statename
   let stateName = branchDetail?.MyBranchDetail

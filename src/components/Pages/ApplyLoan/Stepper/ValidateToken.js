@@ -44,12 +44,12 @@ const ValidateToken = () => {
 				state: { redirect: returnURL },
 			});
 		} else {
-			let data = {
+			let result = {
 				user_email: userEmail,
 				required: required,
 				activation_token: activationToken,
 			};
-			getResponse(data).then((res) => {
+			getResponse(result).then((res) => {
 				if (res?.data?.data === true) {
 					history.push({
 						pathname: "/customers/finalVerification",
@@ -63,7 +63,7 @@ const ValidateToken = () => {
 						pathname: "/customers/accountOverview",
 					});
 				} else if (res?.data?.result === "error") {
-					toast.error(res?.data?.statusText? res?.data?.statusText: "Your Email verification is failed, Please try again");
+					toast.error(res?.data?.statusText ?? "Your Email verification is failed, Please try again");
 					history.push({
 						pathname: "/customers/accountOverview",
 					});

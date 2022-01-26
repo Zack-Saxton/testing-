@@ -23,12 +23,12 @@ const APICall = async (url, data, method, addAccessToken) => {
                 return data;
             },
         }).then((res) => {
-            response.data = res.data;
+            response.data = res?.data?.data?.data ?? res?.data?.data ?? res?.data;
             response.status = res.status;
             response.statusText = res.statusText;
         });
     } catch (error) {
-        response.data = error.response.data;
+        response.data = error?.response?.data?.data?.data ?? error?.response?.data?.data ?? error?.response?.data;
         response.status = error.response.status;
         response.statusText = error.response.statusText;
     }

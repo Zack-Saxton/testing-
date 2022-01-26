@@ -41,7 +41,7 @@ export async function ScheduleCallApi(callDate, callingTime, callTimeZone) {
 
   //API response
   myBranch.data.status === 200
-    ? toast.success(myBranch?.data?.data ? myBranch.data.data : "Your call is scheduled")
+    ? toast.success(myBranch?.data ? myBranch.data : "Your call is scheduled")
     : toast.error("Error scheduling call");
   return "true";
 }
@@ -70,8 +70,8 @@ export async function ScheduleVisitApi(visitDate, visitTime, visitTimeZone) {
   //API response
   myBranch.data.status === 200
     ? toast.success(
-      myBranch?.data?.data
-        ? myBranch.data.data
+      myBranch?.data
+        ? myBranch.data
         : "Your appointment is scheduled")
     : toast.error("Error scheduling appointment");
   return "true";

@@ -297,7 +297,7 @@ export default function SideNav() {
   let getProfImage = (profileImage != null) ? profileImage : profileImg;
 
   // Side bar branch details
-  Cookies.set('branchname', ((branchVal?.data?.BranchName) ? (branchVal?.data?.BranchName) : (branchVal?.data?.data?.branchName) ? (branchVal?.data?.branchName) : ""))
+  Cookies.set('branchname', ((branchVal?.data?.BranchName) ? (branchVal?.data?.BranchName) : (branchVal?.data?.branchName) ? (branchVal?.data?.branchName) : ""))
   Cookies.set('branchphone', branchVal?.data?.PhoneNumber)
   Cookies.set('branchopenstatus', branchVal?.data?.date_closed)
   Cookies.set('getProfileImage', getProfImage)

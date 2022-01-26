@@ -214,8 +214,8 @@ export default function PaymentMethod() {
                 let result = await ZipCodeLookup(event.target.value);
                 if (result) {
                     setValidZip(true);
-                    formikAddDebitCard.setFieldValue("city", result?.data?.data.cityName);
-                    formikAddDebitCard.setFieldValue("state", result?.data?.data.stateCode);
+                    formikAddDebitCard.setFieldValue("city", result?.data?.cityName);
+                    formikAddDebitCard.setFieldValue("state", result?.data?.stateCode);
                 } else {
                     setValidZip(false);
                     formikAddDebitCard.setFieldValue("city", "");
@@ -440,17 +440,18 @@ export default function PaymentMethod() {
                 let res = await deleteCreditCard(passData);
                 if (res?.data?.deletePaymentMethod?.HasNoErrors === true) {
                     if (!toast.isActive("closeToast")) {
-                        toast.success("Card deleted successfully.")};
-                        setDeleteID("");
-                        setDeleteType("");
-                        handleDeleteConfirmClose();
-                    
+                        toast.success("Card deleted successfully.")
+                    };
+                    setDeleteID("");
+                    setDeleteType("");
+                    handleDeleteConfirmClose();
+
                 } else {
-                    if (!toast.isActive("closeToast")) {toast.error("Error deleting you card, please try again");}
-                        setDeleteID("");
-                        setDeleteType("");
-                        handleDeleteConfirmClose();
-                    
+                    if (!toast.isActive("closeToast")) { toast.error("Error deleting you card, please try again"); }
+                    setDeleteID("");
+                    setDeleteType("");
+                    handleDeleteConfirmClose();
+
                 }
                 setLoading(false);
                 break;
@@ -461,13 +462,13 @@ export default function PaymentMethod() {
                 };
                 let res = await deleteBankAccount(passData);
                 if (res?.data?.deletePaymentMethod?.HasNoErrors === true) {
-                    if (!toast.isActive("closeToast")) {toast.success("Bank account deleted successfully.");}
+                    if (!toast.isActive("closeToast")) { toast.success("Bank account deleted successfully."); }
                     getPaymentMethodsOnLoad();
                     setDeleteID("");
                     setDeleteType("");
                     handleDeleteConfirmClose();
                 } else {
-                    if (!toast.isActive("closeToast")) {toast.error("Error deleting you bank account, please try again");}
+                    if (!toast.isActive("closeToast")) { toast.error("Error deleting you bank account, please try again"); }
                     setDeleteID("");
                     setDeleteType("");
                     handleDeleteConfirmClose();
@@ -503,7 +504,7 @@ export default function PaymentMethod() {
         }
         else if (res?.data?.result === "error") {
             setLoading(false);
-            toast.error(res?.data?.data?.error);
+            toast.error(res?.data?.error);
         }
         else {
             setLoading(false);
@@ -652,7 +653,7 @@ export default function PaymentMethod() {
                                     </TableBody>
                                 </Table>
                             </TableContainer>
-                        ) : allPaymentMethod?.data?.data?.message ? (
+                        ) : allPaymentMethod?.data?.message ? (
                             <Grid
                                 className="circleprog"
                                 style={{
@@ -664,7 +665,7 @@ export default function PaymentMethod() {
                                 xs={12}
                             >
                                 <Typography>
-                                    {allPaymentMethod?.data?.data?.message}
+                                    {allPaymentMethod?.data?.message}
                                 </Typography>
                             </Grid>
                         ) : (
@@ -1106,14 +1107,14 @@ export default function PaymentMethod() {
                                             resBankData?.data?.result === "error" ||
                                             resBankData?.data?.status === 400
                                         ) {
-                                            toast.error(resBankData?.data?.data?.error);
+                                            toast.error(resBankData?.data?.error);
                                         } else if (resBankData?.data?.type === "error") {
                                             toast.error(resBankData?.data?.text);
                                         } else {
                                             if (!toast.isActive("closeToast")) {
-                                            toast.error("Adding bank account failed, please try again.");
+                                                toast.error("Adding bank account failed, please try again.");
                                             }
-                                            
+
                                         }
                                         closeAddBankModal();
                                     }}

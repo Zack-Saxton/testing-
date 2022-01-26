@@ -123,33 +123,33 @@ export default function MailingAddress(props) {
   };
 
   const fetchAddress = async (event) => {
-  try {
-    setErrorMsg(event.target.value === "" ? "Please enter a zipcode" : errorMsg);
-    if (event.target.value !== "" && event.target.value.length === 5) {
-      let result = await ZipCodeLookup(event.target.value);
-     if (result) {
-       fetchAddressValidate(result);
-     } else {
-       formik.setFieldValue("city", "");
-       formik.setFieldValue("state", "");
-       setValidZip(false);
-       setErrorMsg("Please enter a valid Zipcode");
-     }
-   }
-    if (event.target.name !== "") {
-      formik.handleChange(event);
+    try {
+      setErrorMsg(event.target.value === "" ? "Please enter a zipcode" : errorMsg);
+      if (event.target.value !== "" && event.target.value.length === 5) {
+        let result = await ZipCodeLookup(event.target.value);
+        if (result) {
+          fetchAddressValidate(result);
+        } else {
+          formik.setFieldValue("city", "");
+          formik.setFieldValue("state", "");
+          setValidZip(false);
+          setErrorMsg("Please enter a valid Zipcode");
+        }
+      }
+      if (event.target.name !== "") {
+        formik.handleChange(event);
+      }
+    } catch (error) {
+      toast.error("Error from [fetchAddress]");
     }
-  } catch (error) {
-    toast.error("Error from [fetchAddress]");
-  }
-};
+  };
 
 
-function fetchAddressValidate(result) {
-  try {
+  function fetchAddressValidate(result) {
+    try {
       if (result.data) {
-        formik.setFieldValue("city", result?.data?.data.cityName);
-        formik.setFieldValue("state", result?.data?.data.stateCode);
+        formik.setFieldValue("city", result?.data?.cityName);
+        formik.setFieldValue("state", result?.data?.stateCode);
         setValidZip(true);
       } else {
         formik.setFieldValue("city", "");
@@ -157,10 +157,10 @@ function fetchAddressValidate(result) {
         setValidZip(false);
         setErrorMsg("Please enter a valid Zipcode");
       }
-  } catch (error) {
-    toast.error(" Error from [fetchAddressValidate]");
+    } catch (error) {
+      toast.error(" Error from [fetchAddressValidate]");
+    }
   }
-}
   const onBlurAddress = (event) => {
     formik.setFieldValue("streetAddress", event.target.value.trim());
   };

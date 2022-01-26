@@ -133,7 +133,7 @@ export default function ApplyLoan() {
 	// To fetch the available offers for the logged in user
 	async function getAvailableOffers() {
 		let val = await fetchAvailableOffers();
-		if (val?.data?.data !== "Access token has expired" && val?.data) {
+		if (val?.data !== "Access token has expired" && val?.data) {
 			setAccountDetails(val);
 			term = Object.keys(val?.data?.Offers);
 			setNoOffers(Object.keys(val?.data?.Offers).length === 0 ? true : false);

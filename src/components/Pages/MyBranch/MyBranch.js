@@ -26,7 +26,7 @@ export default function MyBranch() {
   }, []);
 
   //Branch details from API
-  let myBranchData = branchApiStatus != null ? branchApiStatus.data.data : null;
+  let myBranchData = branchApiStatus?.data;
 
   //View part
   return (

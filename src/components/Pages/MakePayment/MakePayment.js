@@ -86,8 +86,8 @@ export default function MakePayment(props) {
   async function getPaymentMethods() {
     let payments = await usrPaymentMethods();
     setpaymentMethod(payments);
-    if (payments?.data?.data?.error) {
-      toast.error(payments?.data?.data?.error, {
+    if (payments?.data?.error) {
+      toast.error(payments?.data?.error, {
         autoClose: 5000,
       });
     } else {
@@ -126,9 +126,9 @@ export default function MakePayment(props) {
 
   //Enable auto payment
   async function enableAutoPayment(accntNo, card, paymentDate, isDebit) {
-    let data = await enableAutoPay(accntNo, card, paymentDate, isDebit);
-    data.data.status === 200
-      ? data?.data?.paymentResult.HasNoErrors === true
+    let result = await enableAutoPay(accntNo, card, paymentDate, isDebit);
+    result.data.status === 200
+      ? result?.data?.paymentResult.HasNoErrors === true
         ? toast.success(Payment.Auto_Payment_Mode_Enabled, {
             autoClose: 5000,
           })
@@ -137,8 +137,8 @@ export default function MakePayment(props) {
 
           })
       : toast.error(
-          data?.data?.data?.message
-            ? data?.data?.data.message
+        result?.data?.message
+          ? result?.data?.message
             : Payment.Failed_Payment_mode,
           {
             autoClose: 5000,
@@ -146,16 +146,16 @@ export default function MakePayment(props) {
         );
 
     hasSchedulePayment
-      ? data.data.status === 200
+      ? result.data.status === 200
         ? deleteSchedule(accntNo, routingNumber)
         : getData()
       : getData();
   }
   //Disable auto payment
   async function disableAutoPayment(accntNo, card, paymentDate, isDebit) {
-    let data = await disableAutoPay(accntNo, card, paymentDate, isDebit);
-    data.data.status === 200
-      ? data?.data?.deletePayment.HasNoErrors === true
+    let result = await disableAutoPay(accntNo, card, paymentDate, isDebit);
+    result.data.status === 200
+      ? result?.data?.deletePayment.HasNoErrors === true
         ? toast.success(Payment.Auto_Payment_Mode_Disabled, {
             autoClose: 5000,
           })
@@ -163,8 +163,8 @@ export default function MakePayment(props) {
             autoClose: 5000,
           })
       : toast.error(
-          data?.data?.data?.message
-            ? data?.data?.data.message
+        result?.data?.message
+          ? result?.data?.message
             : "Failed Payment mode",
           {
             autoClose: 5000,
@@ -174,29 +174,17 @@ export default function MakePayment(props) {
   }
 
   //Enable scheduled payment
-  async function makeuserPayment(
-    accntNo,
-    card,
-    paymentDatepicker,
-    isDebit,
-    paymentAmount
-  ) {
+  async function makeuserPayment(accntNo, card, paymentDatepicker, isDebit, paymentAmount) {
     setPaymentOpen(false);
-    let data = await makePayment(
-      accntNo,
-      card,
-      paymentDatepicker,
-      isDebit,
-      paymentAmount
-    );
+    let result = await makePayment(accntNo, card, paymentDatepicker, isDebit, paymentAmount);
     let message =
       paymentDatepicker === Moment().format("YYYY/MM/DD")
         ? Payment.We_Received_Your_Payment_Successfully
         : Payment.Payment_has_Scheduled +
           " Confirmation: " +
-          data?.data?.paymentResult?.ReferenceNumber;
-    data.data.status === 200
-      ? data?.data?.paymentResult?.PaymentCompleted !== undefined
+        result?.data?.paymentResult?.ReferenceNumber;
+    result.data.status === 200
+      ? result?.data?.paymentResult?.PaymentCompleted !== undefined
         ? toast.success(message, {
             autoClose: 5000,
           })
@@ -204,23 +192,23 @@ export default function MakePayment(props) {
             autoClose: 5000,
           })
       : toast.error(
-          data?.data?.data?.message
-            ? data?.data?.data.message
+        result?.data?.message
+          ? result?.data?.message
             : "Failed Payment mode",
           {
             autoClose: 5000,
           }
         );
-    data.data.status === 200
+    result.data.status === 200
       ? disableAutoPaymentScheduled(accntNo, card, paymentDate, isDebit)
       : getData();
   }
 
   //Disable scheduled payment
   async function deletePayment(accntNo, refNo) {
-    let data = await deleteScheduledPayment(accntNo, refNo, isCard);
-    data.data.status === 200
-      ? data?.data?.deletePaymentMethod.HasNoErrors === true
+    let result = await deleteScheduledPayment(accntNo, refNo, isCard);
+    result.data.status === 200
+      ? result?.data?.deletePaymentMethod.HasNoErrors === true
         ? toast.success("Scheduled Payment cancelled", {
             autoClose: 5000,
           })
@@ -228,8 +216,8 @@ export default function MakePayment(props) {
             autoClose: 5000,
           })
       : toast.error(
-          data?.data?.data?.message
-            ? data?.data?.data.message
+        result?.data?.message
+            ? result?.data?.message
             : "Failed Payment mode",
           {
             autoClose: 5000,
@@ -497,10 +485,10 @@ async function AsyncEffect_HolidayCalender() {
   }, []);
 
   //Holiday Calender from API
-let holidayCalenderData = holidayCalenderApi != null ? holidayCalenderApi.data.data : null;
+let holidayCalenderData = holidayCalenderApi?.data;
 
   //Account select payment options
-  let paymentData = paymentMethods != null ? paymentMethods.data : null;
+  let paymentData = paymentMethods?.data;
 
   let paymentListAch =
     paymentData && paymentData.ACHMethods != null
@@ -671,7 +659,7 @@ let holidayCalenderData = holidayCalenderApi != null ? holidayCalenderApi.data.d
   //US holidays
 function disableHolidays(date) {
   const holidayApiData = holidayCalenderData?.holidays
-  const holidayApiDataValues = holidayApiData.map((arrVal) => {    
+  const holidayApiDataValues = holidayApiData.map((arrVal) => {
     return new Date(arrVal+"T00:00").getTime();
   });
   return (

@@ -96,39 +96,39 @@ function HomeAddress() {
 	};
 
 	const fetchAddress = async (event) => {
-	try {
-		setErrorMsg(event.target.value === "" ? "Please enter a zipcode" : errorMsg);
-		if (event.target.value !== "" && event.target.value.length === 5) {
-			let result = await ZipCodeLookup(event.target.value);
-			if (result) {
-        		formik.setFieldValue("city", result?.data?.data.cityName);
-        		formik.setFieldValue("state", result?.data?.data.stateCode);
-        		setStateShort(result?.data?.data.stateCode);
-        		setValidZip(true);
-        		if (result?.data?.data.stateCode === "California") {
-          			handleClickOpen();
-        		}
-        		if (result?.data?.data.stateCode === "Ohio") {
-          			handleClickOpenOhio();
-        		}
-      		} else {
-        		formik.setFieldValue("city", "");
-        		formik.setFieldValue("state", "");
-        		setStateShort("");
-        		setValidZip(false);
-        		setErrorMsg("Please enter a valid Zipcode");
-      		}
-		} else {
-			formik.setFieldValue("city", "");
-			formik.setFieldValue("state", "");
-			setStateShort("");
-			setValidZip(true);
+		try {
+			setErrorMsg(event.target.value === "" ? "Please enter a zipcode" : errorMsg);
+			if (event.target.value !== "" && event.target.value.length === 5) {
+				let result = await ZipCodeLookup(event.target.value);
+				if (result) {
+					formik.setFieldValue("city", result?.data.cityName);
+					formik.setFieldValue("state", result?.data.stateCode);
+					setStateShort(result?.data?.stateCode);
+					setValidZip(true);
+					if (result?.data?.stateCode === "California") {
+						handleClickOpen();
+					}
+					if (result?.data?.stateCode === "Ohio") {
+						handleClickOpenOhio();
+					}
+				} else {
+					formik.setFieldValue("city", "");
+					formik.setFieldValue("state", "");
+					setStateShort("");
+					setValidZip(false);
+					setErrorMsg("Please enter a valid Zipcode");
+				}
+			} else {
+				formik.setFieldValue("city", "");
+				formik.setFieldValue("state", "");
+				setStateShort("");
+				setValidZip(true);
+			}
+			formik.handleChange(event);
+		} catch (error) {
+			toast.error('Error from [fetchAddress]')
 		}
-		formik.handleChange(event);
-	} catch (error) {
-		toast.error('Error from [fetchAddress]')
-	}
-};
+	};
 	const onBlurAddress = (event) => {
 		formik.setFieldValue("streetAddress", event.target.value.trim());
 	};

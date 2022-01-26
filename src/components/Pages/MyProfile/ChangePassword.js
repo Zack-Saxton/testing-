@@ -87,7 +87,7 @@ export default function ChangePassword(basicInformationData) {
           if (response?.data?.change_password?.passwordReset === true) {
 
             if (!toast.isActive("closeToast")) {
-              toast.success(response?.data?.change_password?.message ? response?.data?.change_password?.message : "Password Changed successfully", {
+              toast.success(response?.data?.change_password?.message ?? "Password Changed successfully", {
                 toastId: "closeToast",
                 onClose: () => {
                   setLoading(false);
@@ -97,7 +97,7 @@ export default function ChangePassword(basicInformationData) {
             }
           } else if (response?.data?.change_password?.passwordReset === false) {
             if (!toast.isActive("closeToast")) {
-              toast.error(response?.data?.change_password?.message ? response?.data?.change_password?.message : "Please check your old password and try again", {
+              toast.error(response?.data?.change_password?.message ?? "Please check your old password and try again", {
                 toastId: "closeToast",
                 onClose: () => { setLoading(false); }
               });

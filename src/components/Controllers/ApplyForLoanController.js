@@ -289,7 +289,7 @@ export async function uploadDocument(
 
   //API call
   let uploadData = await APICall(url, param, data, method, addAccessToken);
-  return (uploadData.data.data);
+  return (uploadData.data);
 
 }
 

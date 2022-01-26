@@ -20,13 +20,13 @@ export async function loanDocumentController(accNo) {
 }
 
 /***** Download and converting bufferdata *****/
-function downloadFileData(data) {
+function downloadFileData(fileData) {
   Buffer = require("buffer/").Buffer; // note: the trailing slash is important!
-  const buff = Buffer.from(data?.data?.bufferFile.data);
+  const buff = Buffer.from(fileData?.data?.bufferFile.data);
   const url = window.URL.createObjectURL(new Blob([buff]));
   const link = document.createElement("a");
   link.href = url;
-  link.setAttribute("download", data?.data?.exportName);
+  link.setAttribute("download", fileData?.data?.exportName);
   document.body.appendChild(link);
   link.click();
   if (!toast.isActive("closeToast")) {toast.success("Document Downloaded Successfully");}
@@ -50,7 +50,7 @@ export async function documentdownload(id, name) {
   );
   loanDocumentDownload.data.status === 200
     ? downloadFileData(loanDocumentDownload)
-    : toast.error(loanDocumentDownload?.data?.message? loanDocumentDownload?.data?.message: "Downloading failed");
+    : toast.error(loanDocumentDownload?.data?.message ?? "Downloading failed");
 }
 
 /***** Print file *****/
@@ -105,8 +105,8 @@ export async function uploadDocument(test, fileName, fileType, documentType) {
 
   //API response
   uploadData.data.status === 200
-    ? toast.success((uploadData?.data?.data?.message) ? (uploadData?.data?.data.message) : (uploadData?.data?.data?.message) ? (uploadData?.data?.message) : "Document Uploaded Successfully")
-    : toast.error((uploadData?.data?.data?.message) ? (uploadData?.data?.data.message) : (uploadData?.data?.data?.message) ? (uploadData?.data?.message) : "Error uploading file");
+    ? toast.success(uploadData?.data?.message ?? "Document Uploaded Successfully")
+    : toast.error(uploadData?.data?.message ?? "Error uploading file");
 
   return "true"
 }

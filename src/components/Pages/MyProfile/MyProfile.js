@@ -87,14 +87,13 @@ export default function MyProfile() {
   const [values, setValues] = useAtom(tabAtom)
   const handleTabChange = (event, newValues) => {
     setValues(newValues)
-
   };
 
 
   let cookieTextNotify = Cookies.get("isTextNotify");
   if (!cookieTextNotify) {
     let textNotifyStatus = getTextNotify();
-    let textNotifyData = textNotifyStatus?.data?.data != null ? textNotifyStatus?.data?.data : null;
+    let textNotifyData = textNotifyStatus?.data;
     let isTextNotify = textNotifyData?.sbt_getInfo != null && textNotifyData?.sbt_getInfo?.SubscriptionInfo != null ? textNotifyData?.sbt_getInfo?.SubscriptionInfo[0]?.SubscriptionOptions[0]?.OptInMarketing : false;
     Cookies.set('isTextNotify', isTextNotify);
     cookieTextNotify = Cookies.get("isTextNotify");

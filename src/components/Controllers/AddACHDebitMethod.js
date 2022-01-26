@@ -47,7 +47,7 @@ export async function AddDebitCardAPI(accountNickname, cardNumber, cardName, cvv
   //API response
   addAddDebitCardMethod.data.status === 200
     ? toast.success(
-      addAddDebitCardMethod.data.data("ACH Payment Added..."))
+      addAddDebitCardMethod.data("ACH Payment Added..."))
     : toast.error("Error adding ACH Payment");
   return "true";
 }
@@ -70,7 +70,7 @@ export async function DeleteACHPaymentAPI() {
   //API response
   deleteACHPaymentMethod.data.status === 200
     ? toast.success(
-      deleteACHPaymentMethod.data.data("ACH Payment Deleted..."))
+      deleteACHPaymentMethod.data("ACH Payment Deleted..."))
     : toast.error("Error Deleting ACH Payment...");
   return "true";
 }
@@ -91,7 +91,7 @@ export async function DeleteDebitCardAPI() {
   //API response
   deleteDebitCardMethod.data.status === 200
     ? toast.success(
-      deleteDebitCardMethod.data.data("Debit Card Payment Deleted..."))
+      deleteDebitCardMethod.data("Debit Card Payment Deleted..."))
     : toast.error("Error Deleting Debit Card Payment...");
   return "true";
 }

@@ -115,9 +115,9 @@ function MarriedStatus() {
 			if (event.target.value !== "" && event.target.value.length === 5) {
 				let result = await ZipCodeLookup(event.target.value);
 				if (result) {
-					formik.setFieldValue("spouseSelectState", result?.data?.data.stateCode);
-					formik.setFieldValue("spousecity", result?.data?.data.cityName);
-					setStateShort(result?.data?.data.stateCode);
+					formik.setFieldValue("spouseSelectState", result?.data?.stateCode);
+					formik.setFieldValue("spousecity", result?.data?.cityName);
+					setStateShort(result?.data?.stateCode);
 					setValidZip(true);
 				} else {
 					formik.setFieldValue("spouseSelectState", "");

@@ -91,7 +91,7 @@ export default async function PartnerSignup(history, partnerToken, applicantId, 
         },
       }
     )
-    : toast.error(partnerSignupMethod?.data?.statusText? partnerSignupMethod.data.statusText: "Please check your data");
+    : toast.error(partnerSignupMethod?.data?.statusText ?? "Please check your data");
   return partnerSignupMethod;
 }
 export async function PopulatePartnerSignup(
@@ -159,7 +159,7 @@ export async function partnerConfirmInfo(dataConfirmInfo, history) {
     ? toast.success(PartnerConfirmationAPI?.data?.statusText? PartnerConfirmationAPI?.data?.statusText: "Successfully registered",
       {onClose: () => {
           history.push({
-            pathname: statusStrLink[PartnerConfirmationAPI?.data?.data.applicationStatus],
+            pathname: statusStrLink[PartnerConfirmationAPI?.data.applicationStatus],
           });
         },
       }
