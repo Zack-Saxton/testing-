@@ -136,10 +136,31 @@ echo -e "\033[1;36m ********************************************** \033[0m"
 
 #ssh -o "StrictHostKeyChecking no" -i $PEM_FILE $serverName << ENDHERE
 ssh  -i $_PEM_FILE_ $server << ENDHERE
-  docker stop $(docker ps -aq)
-  docker rm -f $(docker ps -aq)
-  docker rmi -f $(docker images -a -q)
-  docker system purne -f
+    echo -e "\033[1;36m ********************************************** \033[0m"
+    echo -e "\033[1;36m * START stopping all container (msa) and then  \033[0m"
+    echo -e "\033[1;36m * removing all  container (msa)                \033[0m"
+    echo -e "\033[1;36m ********************************************** \033[0m"
+    removeAllContainer=\$(docker ps -aq)
+    echo ${removeAllContainer}
+    docker rm -f \$removeAllContainer
+    echo -e "\033[1;36m ********************************************** \033[0m"
+    echo -e "\033[1;36m * removed all running container (msa)          \033[0m"
+    echo -e "\033[1;36m ********************************************** \033[0m"
+    echo -e "\033[1;36m ********************************************** \033[0m"
+    echo -e "\033[1;36m * START removing all old images (msa)          \033[0m"
+    echo -e "\033[1;36m ********************************************** \033[0m"
+    removeAllImages=\$(docker images -aq)
+    echo ${removeAllImages}
+    docker rmi \$removeAllImages
+    echo -e "\033[1;36m ********************************************** \033[0m"
+    echo -e "\033[1;36m * removed all images (msa)                     \033[0m"
+    echo -e "\033[1;36m ********************************************** \033[0m"
+    docker builder prune -f
+    echo -e "\033[1;36m ********************************************** \033[0m"
+    echo -e "\033[1;36m * START building new image (msa)               \033[0m"
+    echo -e "\033[1;36m ********************************************** \033[0m"
+    git clean -d -f -f  && git clean -d -f -f && git reset --hard HEAD && git reset --hard HEAD && git pull && git pull
+    sudo apt-get update && sudo apt-get dist-upgrade -y && sudo apt-get autoremove -y
 
   docker login --username=$DOCKERHUB_USER  --password=$DOCKERHUB_PSWD
 
