@@ -10,7 +10,6 @@ export default function BranchMap(MyBranchDetail) {
 
   //Branch details from API
   let branchDetail = MyBranchDetail != null ? MyBranchDetail : null;
-
   //View part
   return (
     <div id="branchMapWrap">
@@ -19,7 +18,7 @@ export default function BranchMap(MyBranchDetail) {
           {" "}
           <CircularProgress />{" "}
         </Paper>
-      ) : branchDetail.MyBranchDetail.result ? (
+      ) : branchDetail?.MyBranchDetail?.result ? (
         <Paper className={classes.paper}>
           <p>Location not available</p>{" "}
         </Paper>

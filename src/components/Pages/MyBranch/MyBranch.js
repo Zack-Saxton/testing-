@@ -24,7 +24,6 @@ export default function MyBranch() {
   useEffect(() => {
     AsyncEffect_MyBranch();
   }, []);
-
   //Branch details from API
   let myBranchData = branchApiStatus?.data;
 
