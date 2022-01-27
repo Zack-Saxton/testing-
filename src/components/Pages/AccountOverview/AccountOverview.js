@@ -24,7 +24,7 @@ export default function AccountOverview() {
   useEffect(() => {
     getUserAccountDetails();
     return () => {
-      setAccountDetails({}); // This worked for me
+      setAccountDetails({});
     };
   }, []);
 
@@ -34,7 +34,6 @@ export default function AccountOverview() {
   let status = (accountDetails != null) ? accountDetails?.data?.status : null;
   let activeLoansData = (accountDetails != null) ? accountDetails?.data?.activeLoans : null;
   let recentPaymentData = (accountDetails != null) ? accountDetails?.data?.activeLoans : null;
-
   if (Array.isArray(activeLoansData) && activeLoansData.length === 0) {
     Cookies.set("hasActiveLoan", false);
   } else {
