@@ -26,7 +26,7 @@ export default function ActiveLoans(userActiveLoanData) {
   //View
   return (
     <>
-      {userActiveLoans?.userActiveLoanData === null ? (
+      {userActiveLoanData?.isLoading ? (
         <>
           <Grid
             item
