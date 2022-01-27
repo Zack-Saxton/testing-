@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useStylesAccountOverview } from "./Style";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
@@ -11,22 +11,14 @@ import "./Style.css";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import LimitedOffer from "./LimitedOffer";
 import Cookies from "js-cookie";
+import {useQuery} from 'react-query'
 
 export default function AccountOverview() {
   const classes = useStylesAccountOverview();
   window.zeHide();
   //API Call
-  const [accountDetails, setAccountDetails] = useState(null);
-  async function getUserAccountDetails() {
-    setAccountDetails(await usrAccountDetails());
-  }
-
-  useEffect(() => {
-    getUserAccountDetails();
-    return () => {
-      setAccountDetails({}); // This worked for me
-    };
-  }, []);
+  const {isLoading, data : accountDetails} = useQuery('loan-data', usrAccountDetails )
+ 
 
   //Load data
   let offerData = (accountDetails != null) ? accountDetails?.data?.offerData : null;
@@ -69,10 +61,10 @@ export default function AccountOverview() {
 
         {/* ****************components************ */}
 
-        <LimitedOffer userOffers={offerData} />
-        <ActiveLoans userActiveLoanData={activeLoansData} />
-        <RecentApplications userApplicationsData={applicationsData} UserAccountStatus={status} />
-        <RecentPayments userRecentPaymentData={recentPaymentData} />
+        <LimitedOffer isLoading={isLoading} userOffers={offerData} />
+        <ActiveLoans isLoading={isLoading} userActiveLoanData={activeLoansData} />
+        <RecentApplications isLoading={isLoading} userApplicationsData={applicationsData} UserAccountStatus={status} />
+        <RecentPayments isLoading={isLoading} userRecentPaymentData={recentPaymentData} />
 
       </Grid>
     </div>

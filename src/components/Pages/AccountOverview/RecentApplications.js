@@ -14,7 +14,7 @@ import NumberFormat from 'react-number-format';
 import { useHistory } from "react-router-dom";
 import "./Style.css";
 
-export default function RecentApplications({ userApplicationsData, UserAccountStatus }) {
+export default function RecentApplications({ isLoading, userApplicationsData }) {
   //Material UI css class
   const classes = useStylesAccountOverview();
   window.zeHide();
@@ -115,7 +115,7 @@ export default function RecentApplications({ userApplicationsData, UserAccountSt
               </TableRow>
             </TableHead>
             <TableBody>
-              {UserAccountStatus === null ? (
+              {isLoading ? (
                 <TableRow>
                   <TableCell
                     colSpan="7"

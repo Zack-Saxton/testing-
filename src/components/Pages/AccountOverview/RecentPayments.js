@@ -179,7 +179,7 @@ export default function RecentPayments(userRecentPaymentData) {
 									</TableCell>
 								</TableRow>
 							</TableHead>
-							{userRecentPayment?.userRecentPaymentData === null ? (
+							{userRecentPaymentData?.isLoading ? (
 								<TableBody>
 									<TableRow>
 										<TableCell colSpan="7" align="center">
