@@ -158,7 +158,6 @@ ssh  -i $_PEM_FILE_ $server << ENDHERE
     echo -e "\033[1;36m ********************************************** \033[0m"
     echo -e "\033[1;36m * removed all images from : ($app)             \033[0m"
     echo -e "\033[1;36m ********************************************** \033[0m"
-    docker builder prune --force
     echo -e "\033[1;36m ********************************************** \033[0m"
     echo -e "\033[1;36m * START Updating server    : ($app)            \033[0m"
     echo -e "\033[1;36m ********************************************** \033[0m"
@@ -171,12 +170,12 @@ ssh  -i $_PEM_FILE_ $server << ENDHERE
   do
     echo  "****** Spinning Instance "\$count": "
     docker run -dit --restart=always --name "${app}"\$count"-${env}-${latestCommit}" --network $dockerNetwork $imageName
-    docker inspect -f '{{json .NetworkSettings.Networks}}' ${app}"\$count"-${env}-${latestCommit} | python -m json.tool
     sleep 5
   done
   exit
 ENDHERE
 
+# docker inspect -f '{{json .NetworkSettings.Networks}}' ${app}"\$count"-${env}-${latestCommit} | python -m json.tool
 # curl_cmd=$(curl -w "\n" --insecure -X GET https://${app}-${env}.marinerfinance.io)
 
 # echo -e "\033[1;36m ********************************************** \033[0m"
