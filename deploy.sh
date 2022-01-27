@@ -155,7 +155,7 @@ ssh  -i $_PEM_FILE_ $server << ENDHERE
     echo -e "\033[1;36m ********************************************** \033[0m"
     echo -e "\033[1;36m * removed all images from : ($app)             \033[0m"
     echo -e "\033[1;36m ********************************************** \033[0m"
-    docker builder prune -f
+    docker builder prune --force
     echo -e "\033[1;36m ********************************************** \033[0m"
     echo -e "\033[1;36m * START Updating server    : ($app)            \033[0m"
     echo -e "\033[1;36m ********************************************** \033[0m"
