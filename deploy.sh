@@ -10,8 +10,8 @@ echo "**************************************************************************
 echo "*********************** DEPLOYMENT INFO************************************"
 echo "***************************************************************************"
 echo "APPLICATION :" $app
-echo "ENVIRONMENT :" $env
 echo "GIT BRANCH  :" $branch
+echo "ENVIRONMENT :" $env
 echo "SPIN INSTANCES" : $instances
 
 # Choose the APP
@@ -30,11 +30,12 @@ fi
 
 if [ "$env" = "prod1" ] || [ "$env" = "prod2" ] || [ "$env" = "prod3" ] || [ "$env" = "prod4" ]
 then
-    serverName="ubuntu@${app}-${app1}-prod.marinerfinance.io" else
+    serverName="ubuntu@${app}-${app1}-prod.marinerfinance.io"
+else
     serverName="ubuntu@cis-app1-${env}.marinerfinance.io"
 fi
 deployUser=$(whoami)
-message="$hostname Deployment for ${app} ${env} STARTED by $deployUser"
+message="$app Deployment START from $branch to $env By $deployUser"
 url="https://hooks.slack.com/services/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"
 curl -X POST -H 'Content-type: application/json' --data '{"text":"'"$message"'"}' "{$url}"
 
@@ -184,6 +185,6 @@ ENDHERE
 
 # echo -e "\033[1;32m *  $curl_cmd  \033[0m"
 
-message="$hostname Deployment for ${app} ${env} COMPLETED by $deployUser"
+message="$app Deployment END from $branch to $env By $deployUser"
 url="https://hooks.slack.com/services/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"
 curl -X POST -H 'Content-type: application/json' --data '{"text":"'"$message"'"}' "{$url}"
