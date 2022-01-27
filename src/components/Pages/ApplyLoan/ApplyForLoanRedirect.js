@@ -4,6 +4,7 @@ import APICall from "../../App/APIcall";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
 import { toast } from "react-toastify";
+import messages from "../../lib/Lang/applyForLoan.json"
 
 //To redirect the user to apply for loan sections depends on the status of the loan application
 const ApplyForLoanRedirect = (props) => {
@@ -52,7 +53,7 @@ const ApplyForLoanRedirect = (props) => {
 			if (res?.data?.customer?.user_account?.status === "closed" && checkStatus !== false) {
 				if (!toast.isActive("closedApplication")) {
 					toast.error(
-						"Your account is closed to new applications. Please contact us to reapply.");
+						messages?.accountClosed);
 				}
 				history.push({
 					pathname: "/customers/accountOverview",

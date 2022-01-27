@@ -6,6 +6,7 @@ import LoadQuestions from "./LoadQuestions";
 import MultipleQuestion from "./multipleQuestion";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { toast } from "react-toastify";
+import messages from "../../../lib/Lang/applyForLoan.json"
 
 const useStyles = makeStyles((theme) => ({
   content_grid: {
@@ -110,12 +111,12 @@ export default function VerificationQuestion(props) {
                     }
                     else {
                       props.setLoadingFlag(false);
-                      toast.error("Something went wrong, Please try again");
+                      toast.error(messages?.unHandledError);
                     }
                   }
                   else {
                     props.setLoadingFlag(false);
-                    toast.error("Select an option to continue");
+                    toast.error(messages?.verificationQuestions?.selectToContinue);
                   }
                 }}
               >

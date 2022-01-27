@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Radio, ButtonPrimary } from "../../../FormsUI";
 import { toast } from "react-toastify";
 import { idVerificationAnswer } from "../../../Controllers/ApplyForLoanController";
+import messages from "../../../lib/Lang/applyForLoan.json"
 
 //Component to load the questions
 //To build the structure for load
@@ -61,12 +62,12 @@ export default function MultipleQuestion(props) {
 				props.setLoadingFlag(false);
 				props.next();
 			} else {
-				toast.error("Verification unsuccessful, please try again.");
+				toast.error(messages?.verificationQuestions?.verificationUnsuccess);
 				props.setLoadingFlag(false);
 			}
 			props.setLoadingFlag(false);
 		} else {
-			toast.error("Please answer every question before continuing.");
+			toast.error(messages?.verificationQuestions?.answerAllQuestion);
 			props.setLoadingFlag(false);
 		}
 		function myFunction(value, index, array) {

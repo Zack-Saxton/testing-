@@ -14,8 +14,8 @@ import ScrollToTopOnMount from "../../ScrollToTop";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import "./SelectOffer.css";
 import { fetchAvailableOffers, submitSelectedOfferAPI } from "../../../Controllers/ApplyForLoanController";
-import { errorMessage } from "../../../../helpers/ErrorMessage";
 import CheckLoginStatus from "../../../App/CheckLoginStatus";
+import messages from "../../../lib/Lang/applyForLoan.json"
 
 //Initializing functional component Apply for loan
 export default function ApplyLoan() {
@@ -364,7 +364,7 @@ export default function ApplyLoan() {
 								<Grid item xs={12} style={{ width: "100%" }}>
 									<Paper style={{ padding: "20px" }} className={classes.paper}>
 										<Typography>
-											{errorMessage.applyForLoan.selectAmount.noOffersAvailable}
+										{messages.selectAmount.noOffersAvailable}
 										</Typography>
 									</Paper>
 								</Grid>

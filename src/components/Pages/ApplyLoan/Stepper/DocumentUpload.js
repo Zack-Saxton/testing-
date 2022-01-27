@@ -3,6 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import { toast } from "react-toastify";
 import { ButtonPrimary } from "../../../FormsUI";
 import { uploadDocument } from "../../../Controllers/ApplyForLoanController";
+import messages from "../../../lib/Lang/applyForLoan.json"
 
 // initialising Document upload component
 export default function DocumentUpload(props) {
@@ -24,7 +25,7 @@ export default function DocumentUpload(props) {
 	const uploadDoc = () => {
 		if (selectedFile === null) {
 			if (!toast.isActive("selectFileToUpload")) {
-				toast.error("please select a file to upload");
+				toast.error(messages?.document?.selectFile);
 			}
 			props.setLoadingFlag(false);
 			setLoader(false);
@@ -35,7 +36,7 @@ export default function DocumentUpload(props) {
 
 			if (!allowedExtensions.exec(filePath)) {
 				if (!toast.isActive("extensionError")) {
-					toast.error("Please upload file having extensions .jpeg .jpg .png .pdf only. ");
+					toast.error(messages?.document?.uploadFileExt);
 				}
 				props.setLoadingFlag(false);
 				setLoader(false);
@@ -65,7 +66,7 @@ export default function DocumentUpload(props) {
 				}
 			} else {
 				if (!toast.isActive("fileSizeError")) {
-					toast.error("Please upload file size below 10mb ");
+					toast.error(messages?.document?.fileUploadSize);
 				}
 				props.setLoadingFlag(false);
 				setLoader(false);

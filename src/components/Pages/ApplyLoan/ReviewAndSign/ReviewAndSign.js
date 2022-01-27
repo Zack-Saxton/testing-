@@ -18,6 +18,7 @@ import { toast } from "react-toastify";
 import usrAccountDetails from "../../../Controllers/AccountOverviewController";
 import { hardPullCheck } from "../../../Controllers/ApplyForLoanController";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import messages from '../../../lib/Lang/applyForLoan.json';
 
 // initializing Tab panel section
 function TabPanel(props) {
@@ -464,11 +465,11 @@ export default function ReviewAndSign(props) {
                             });
                           } else {
                             setLoading(false);
-                            toast.error("Signing process failed, please try again.");
+                            toast.error(messages.eSignFailed);
                           }
                         } else {
                           setLoading(false);
-                          toast.error("Please complete your signing process before continuing to the next page");
+                          toast.error(messages.completeEsign);
                         }
                       }}
                     >
