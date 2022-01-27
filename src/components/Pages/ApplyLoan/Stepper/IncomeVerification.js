@@ -6,6 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import DocumentUpload from "./DocumentUpload";
 import APICall from "../../../App/APIcall";
 import { toast } from "react-toastify";
+import messages from "../../../lib/Lang/applyForLoan.json"
 
 //styling part
 const useStyles = makeStyles(() => ({
@@ -110,7 +111,7 @@ export default function IncomeVerification(props) {
 								});
 							} else {
 								props.setLoadingFlag(false);
-								alert("please finish all the steps");
+								alert(messages.incomeVerification.finishAllSteps);
 							}
 						}}
 					>

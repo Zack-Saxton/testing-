@@ -4,6 +4,7 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import messages from "../../../lib/Lang/applyForLoan.json"
 
 export default function LoadChart(props) {
 	let maxMonthly, maxTotal;
@@ -137,7 +138,7 @@ export default function LoadChart(props) {
 					{props.offerFlag ? (
 						<p></p>
 					) : (
-						<p>Please select any two offers to compare</p>
+						<p>{messages.selectTwoToCompare}</p>
 					)}
 				</div>
 			)}
