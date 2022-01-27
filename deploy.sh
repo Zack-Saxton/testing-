@@ -157,11 +157,10 @@ ssh  -i $_PEM_FILE_ $server << ENDHERE
     echo -e "\033[1;36m ********************************************** \033[0m"
     docker builder prune -f
     echo -e "\033[1;36m ********************************************** \033[0m"
-    echo -e "\033[1;36m * START building new image : ($app)            \033[0m"
+    echo -e "\033[1;36m * START Updating server    : ($app)            \033[0m"
     echo -e "\033[1;36m ********************************************** \033[0m"
 
-    #git clean -d -f -f  && git clean -d -f -f && git reset --hard HEAD && git reset --hard HEAD && git pull && git pull
-    sudo apt-get update && sudo apt-get dist-upgrade -y && sudo apt-get autoremove -y
+    sudo apt-get update && sudo apt-get dist-upgrade -y
 
   docker login --username=$DOCKERHUB_USER  --password=$DOCKERHUB_PSWD
 
