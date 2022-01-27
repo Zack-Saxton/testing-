@@ -91,7 +91,7 @@ export default function RecentApplications({ userApplicationsData, UserAccountSt
       </Grid>
       <Grid item xs={12} className={classes.tableGrid}>
         <TableContainer id="summaryOfApplications" component={Paper}>
-          <Table className={classes.table} aria-label="simple table">
+          <Table id="summaryOfApplicationsTable" className={classes.table} aria-label="simple table">
             <TableHead>
               <TableRow>
                 <TableCell className={classes.tableHead}>
