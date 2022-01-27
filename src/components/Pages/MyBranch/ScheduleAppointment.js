@@ -46,6 +46,14 @@ export default function ScheduleAppointment({
   //Material UI css class
   const classes = useStylesMyBranch();
 
+  //Time slot
+   let slot_updated_other_Tue = JSON.parse(updated_other_Tue);
+   let slot_upt_ca_M_W_TH_F = JSON.parse(upt_ca_M_W_TH_F);
+   let slot_upt_ca_Tue = JSON.parse(upt_ca_Tue);
+   let slot_upt_other_Fri = JSON.parse(upt_other_Fri);
+  let slot_upt_other_M_W_Thu = JSON.parse(upt_other_M_W_Thu);
+  
+
   //Branch details from API
   let branchDetail = MyBranchAppointment != null ? MyBranchAppointment : null;
 
@@ -189,6 +197,7 @@ export default function ScheduleAppointment({
             {stateName === "CA" ? (
               Moment(formik.values.date).format("dddd") === "Tuesday" ? (
                 <Grid>
+                  {slot_upt_ca_Tue[0].value  != "slot" ? 
                   <Select
                     name="appointmentTime"
                     labelform="Time Slot"
@@ -209,10 +218,11 @@ export default function ScheduleAppointment({
                       formik.touched.appointmentTime &&
                       formik.errors.appointmentTime
                     }
-                  />{" "}
+                  /> : <p>No time slot available</p>}
                 </Grid>
               ) : (
                 <Grid>
+                   {slot_upt_ca_M_W_TH_F[0].value  != "slot" ? 
                   <Select
                     name="appointmentTime"
                     labelform="Time Slot"
@@ -233,17 +243,21 @@ export default function ScheduleAppointment({
                       formik.touched.appointmentTime &&
                       formik.errors.appointmentTime
                     }
-                  />
+                  /> : <p>No time slot available</p>}
                 </Grid>
               )
             ) : Moment(formik.values.date).format("dddd") === "Tuesday" ? (
               <Grid>
-                {Moment(formik.values.date).format("DD-MM-YYYY") ===
-                Moment(new Date()).format("DD-MM-YYYY") ? (
+                {slot_updated_other_Tue[0].value  != "slot" ? 
                   <Select
                     name="appointmentTime"
                     labelform="Time"
-                    select={updated_other_Tue}
+                    select={
+                      Moment(formik.values.date).format("DD-MM-YYYY") ===
+                      Moment(new Date()).format("DD-MM-YYYY")
+                        ? updated_other_Tue
+                        : other_Tue
+                    }
                     onChange={formik.handleChange}
                     value={formik.values.appointmentTime || ""}
                     onBlur={formik.handleBlur}
@@ -255,28 +269,12 @@ export default function ScheduleAppointment({
                       formik.touched.appointmentTime &&
                       formik.errors.appointmentTime
                     }
-                  />
-                ) : (
-                  <Select
-                    name="appointmentTime"
-                    labelform="Slot"
-                    select={other_Tue}
-                    onChange={formik.handleChange}
-                    value={formik.values.appointmentTime || ""}
-                    onBlur={formik.handleBlur}
-                    error={
-                      formik.touched.appointmentTime &&
-                      Boolean(formik.errors.appointmentTime)
-                    }
-                    helperText={
-                      formik.touched.appointmentTime &&
-                      formik.errors.appointmentTime
-                    }
-                  />
-                )}
+                  /> : <p>No time slot available</p>}
+                
               </Grid>
             ) : Moment(formik.values.date).format("dddd") === "Friday" ? (
               <Grid>
+                 {slot_upt_other_Fri[0].value  != "slot" ? 
                 <Select
                   name="appointmentTime"
                   labelform="Time Slot"
@@ -297,10 +295,11 @@ export default function ScheduleAppointment({
                     formik.touched.appointmentTime &&
                     formik.errors.appointmentTime
                   }
-                />
+                /> : <p>No time slot available</p>}
               </Grid>
             ) : (
               <Grid>
+                 {slot_upt_other_M_W_Thu[0].value  != "slot" ? 
                 <Select
                   name="appointmentTime"
                   labelform="Time Slot"
@@ -321,7 +320,7 @@ export default function ScheduleAppointment({
                     formik.touched.appointmentTime &&
                     formik.errors.appointmentTime
                   }
-                />
+                /> : <p>No time slot available</p>}
               </Grid>
             )}
           </DialogContent>
