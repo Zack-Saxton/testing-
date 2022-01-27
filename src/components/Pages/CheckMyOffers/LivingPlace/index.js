@@ -18,41 +18,29 @@ function LivingPlace() {
 	const [helperText, setHelperText] = useState();
 	let [livingPlace, setLivingPlace] = useState(data.homeOwnership ?? "");
 	const history = useHistory();
-
 	//set data state on continue
 	const setDataState = (val) => {
 		if (data.state === "NC") {
 			data.completedPage = data.page.livingPlace;
-
 			setData({ ...data, rentMortgageAmount: 0, homeOwnership: val });
 			livingPlace = val;
 			history.push("/active-duty");
 		} else if (data.state === "WI") {
 			data.completedPage = data.page.livingPlace;
-
 			history.push("/marital-status");
 		} else {
 			data.completedPage = data.page.activeDuty;
-
 			history.push("/ssn");
 		}
 	};
 
 	//validating user input and proceeds
 	const handleRoute = () => {
-		if (
-			livingPlace === "Renting" ||
-			livingPlace === "Own a Home with Mortgage"
-		) {
-			if (
-				data.rentMortgageAmount !== "" &&
-				data.rentMortgageAmount !== 0 &&
-				data.rentMortgageAmount >= 100
-			) {
+		if (livingPlace === "Renting" || livingPlace === "Own a Home with Mortgage") {
+			if (data.rentMortgageAmount !== "" &&	data.rentMortgageAmount !== 0 && data.rentMortgageAmount >= 100) {
 				setError(false);
 				setHelperText("");
 				data.homeOwnership = livingPlace;
-
 				if (data.state === "NC") {
 					data.completedPage = data.page.livingPlace;
 					history.push("/active-duty");
@@ -87,7 +75,6 @@ function LivingPlace() {
 	const onHandleChange = (event) => {
 		const reg = /^[0-9\b]+$/;
 		let acc = event.target.value;
-
 		if (acc === "" || reg.test(acc)) {
 			setData({
 				...data,
@@ -109,10 +96,7 @@ function LivingPlace() {
 	};
 
 	//redirect to select amount on direct call
-	if (
-		data.completedPage < data.page.annualIncome ||
-		data.formStatus === "completed"
-	) {
+	if (data.completedPage < data.page.annualIncome || data.formStatus === "completed") {
 		history.push("/select-amount");
 	}
 

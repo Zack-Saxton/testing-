@@ -14,9 +14,7 @@ import "./CitizenshipStatus.css";
 function CitizenshipStatus() {
 	//Retrieving Context values
 	const { data } = useContext(CheckMyOffers);
-	const [citizenship, setCitizenship] = useState(
-		data.citizenship ? data.citizenship : ""
-	);
+	const [citizenship, setCitizenship] = useState(data.citizenship ? data.citizenship : "");
 	const history = useHistory();
 
 	//Handle the button click
@@ -34,7 +32,6 @@ function CitizenshipStatus() {
 			data.completedPage = data.page.citizenship;
 			history.push("/home-address");
 		}
-
 		//redirects to select amount on direct call
 	};
 	if (

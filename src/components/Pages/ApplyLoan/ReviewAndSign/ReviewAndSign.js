@@ -360,7 +360,7 @@ export default function ReviewAndSign(props) {
                 <p
                   style={{
                     textAlign: "justify",
-                    fontSize: "13px",
+                    fontSize: "15px",
                     color: "#6b6f82",
                   }}
                 >
@@ -372,7 +372,7 @@ export default function ReviewAndSign(props) {
                 <p
                   style={{
                     textAlign: "justify",
-                    fontSize: "13px",
+                    fontSize: "15px",
                     color: "#6b6f82",
                   }}
                 >
@@ -381,7 +381,7 @@ export default function ReviewAndSign(props) {
                 <ol
                   style={{
                     textAlign: "justify",
-                    fontSize: "13px",
+                    fontSize: "15px",
                     color: "#6b6f82",
                   }}
                 >
@@ -409,7 +409,7 @@ export default function ReviewAndSign(props) {
                       label={
                         <span
                           style={{
-                            fontSize: "14px",
+                            fontSize: "15px",
                             paddingTop: "15px",
                             textAlign: "justify",
                           }}
@@ -427,7 +427,7 @@ export default function ReviewAndSign(props) {
                       }}
                       testid="checkbox"
                       stylelabelform='{ "fontSize":"12px" }'
-                      stylecheckbox='{ "marginBottom":"15px" }'
+                      stylecheckbox='{ "marginBottom":"0px" }'
                       stylecheckboxlabel='{ "fontSize":"12px" }'
                     />
                   </Grid>
@@ -481,7 +481,7 @@ export default function ReviewAndSign(props) {
                 <p
                   style={{
                     textAlign: "justify",
-                    fontSize: "13px",
+                    fontSize: "15px",
                     color: "#6b6f82",
                   }}
                 >

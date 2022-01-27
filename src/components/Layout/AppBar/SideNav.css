@@ -74,7 +74,7 @@ a.nav_link:hover .MuiListItem-root {
 }
 
 #listItemWrap .nav_link li .MuiListItemText-root span {
-  font-size: 0.875rem !important;
+  font-size: 0.844rem !important;
 }
 
 #applyForLoanNav li .MuiListItemText-root span {
@@ -82,7 +82,7 @@ a.nav_link:hover .MuiListItem-root {
 }
 
 #moneySkillNavLink .titleSidenav span {
-  font-size: 0.875rem !important;
+  font-size: 0.844rem !important;
 }
 
 #sidemenuOpenNow {
@@ -240,6 +240,7 @@ a.nav_link:hover .MuiListItem-root {
 .titleSidenav .MuiListItemIcon-root svg {
   align-items: center !important;
   padding-left: 8px;
+  width: 23px;
 }
 #moneySkillNavLink .MuiListItemIcon-root {
   align-items: center !important;
@@ -255,12 +256,14 @@ a.nav_link:hover .MuiListItem-root {
 #moneySkillNavLink .MuiListItemIcon-root svg {
   align-items: center !important;
   padding-left: 8px;
+  width: 23px;
 }
 .titleSidenav span {
   overflow: hidden !important;
 }
 .titleSidenav .MuiListItemText-root span {
   overflow: hidden !important;
+  font-size: 0.844rem !important;
 }
 #profileDetails ul {
   width: 100% !important;

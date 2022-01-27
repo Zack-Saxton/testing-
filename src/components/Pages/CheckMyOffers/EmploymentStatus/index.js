@@ -16,9 +16,7 @@ import "./EmploymentStatus.css";
 function EmploymentStatus() {
 	//Retrieving Context values
 	const { data, setData } = useContext(CheckMyOffers);
-	const [employmentStatus, setEmploymentStatus] = useState(
-		data.employmentStatus ? data.employmentStatus : ""
-	);
+	const [employmentStatus, setEmploymentStatus] = useState(data.employmentStatus ? data.employmentStatus : "");
 	const history = useHistory();
 
 	//initializing formik
@@ -27,10 +25,7 @@ function EmploymentStatus() {
 			.string("Enter a name")
 			.nullable()
 			.transform((value) => value.replace(/[^\d]/g, ""))
-			.matches(
-				/^$|^[1-9]{1}\d{2}\d{3}\d{4}$/,
-				"Please enter a valid phone number"
-			)
+			.matches(/^$|^[1-9]{1}\d{2}\d{3}\d{4}$/, "Please enter a valid phone number")
 			.matches(/^$|^(\d)(?!\1+$)\d{9}$/, "Please enter a valid phone number"),
 
 		yearsAtEmployers: yup
@@ -67,16 +62,8 @@ function EmploymentStatus() {
 			data.EmployerPhone = phone.slice(1);
 			data.completedPage = data.page.employmentStatus;
 
-			if (
-				employmentStatus === "Employed - Hourly" ||
-				employmentStatus === "Salary" ||
-				employmentStatus === "selfEmployed"
-			) {
-				if (
-					data.yearsAtEmployers !== "" &&
-					data.yearsAtEmployers !== 0 &&
-					data.yearsAtEmployers !== null
-				) {
+			if (employmentStatus === "Employed - Hourly" || employmentStatus === "Salary" || employmentStatus === "selfEmployed") {
+				if (data.yearsAtEmployers !== "" && data.yearsAtEmployers !== 0 && data.yearsAtEmployers !== null) {
 					data.employmentStatus = employmentStatus;
 					history.push("/annual-income");
 				}
@@ -94,10 +81,7 @@ function EmploymentStatus() {
 		}
 	};
 
-	if (
-		data.completedPage < data.page.existingUser ||
-		data.formStatus === "completed"
-	) {
+	if (data.completedPage < data.page.existingUser || data.formStatus === "completed") {
 		history.push("/select-amount");
 	}
 	// JSX part

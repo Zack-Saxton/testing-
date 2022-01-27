@@ -91,7 +91,7 @@ export default function RecentApplications({ isLoading, userApplicationsData }) 
       </Grid>
       <Grid item xs={12} className={classes.tableGrid}>
         <TableContainer id="summaryOfApplications" component={Paper}>
-          <Table className={classes.table} aria-label="simple table">
+          <Table id="summaryOfApplicationsTable" className={classes.table} aria-label="simple table">
             <TableHead>
               <TableRow>
                 <TableCell className={classes.tableHead}>
@@ -147,7 +147,7 @@ export default function RecentApplications({ isLoading, userApplicationsData }) 
                       {(statusStr[presenceOfLoanStatus.status]) ? statusStr[presenceOfLoanStatus.status] : (presenceOfLoanStatus.status)}
                     </TableCell>
                     <TableCell align="left">
-                      {presenceOfLoanStatus.isActive && presenceOfLoanStatus?.status !== "referred" ?
+                      {presenceOfLoanStatus.isActive && presenceOfLoanStatus?.status !== "referred" && presenceOfLoanStatus?.status !== "contact_branch" ?
                         (
                           <ButtonPrimary stylebutton='{"color":"","width":"72%" }'
                             onClick={() => resumeNavigate(presenceOfLoanStatus.status)}
