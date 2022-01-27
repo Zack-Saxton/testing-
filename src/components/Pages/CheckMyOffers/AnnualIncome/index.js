@@ -26,18 +26,12 @@ function NewUser() {
 				setErrorPersonal("");
 				return true;
 			} else {
-				setErrorAnnual(
-					"Annual household income must be greater than or equal to Annual personal income"
-				);
+				setErrorAnnual("Annual household income must be greater than or equal to Annual personal income");
 				return false;
 			}
 		} else {
-			setErrorPersonal(
-				isNaN(personal) ? "Annual personal income is required" : ""
-			);
-			setErrorAnnual(
-				isNaN(household) ? "Annual household income is required" : ""
-			);
+			setErrorPersonal(isNaN(personal) ? "Annual personal income is required" : "");
+			setErrorAnnual(isNaN(household) ? "Annual household income is required" : "");
 			return false;
 		}
 	};
@@ -63,22 +57,13 @@ function NewUser() {
 
 		//On submit functionality
 		onSubmit: (values) => {
-			const modPersonalIncome = parseInt(
-				values.personalIncome.replace(/\$/g, "").replace(/,/g, "")
-			);
-			const modHouseholdIncome = parseInt(
-				values.householdIncome.replace(/\$/g, "").replace(/,/g, "")
-			);
+			const modPersonalIncome = parseInt(values.personalIncome.replace(/\$/g, "").replace(/,/g, ""));
+			const modHouseholdIncome = parseInt(values.householdIncome.replace(/\$/g, "").replace(/,/g, ""));
 			if (errorPersonal === "" && errorAnnual === "") {
 				if (validate(modPersonalIncome, modHouseholdIncome)) {
 					data.annualIncome = modPersonalIncome ? modPersonalIncome : "0";
-					data.householdAnnualIncome = modHouseholdIncome
-						? modHouseholdIncome
-						: "0";
-					data.completedPage =
-						data.completedPage > data.page.annualIncome
-							? data.completedPage
-							: data.page.annualIncome;
+					data.householdAnnualIncome = modHouseholdIncome ? modHouseholdIncome : "0";
+					data.completedPage = data.completedPage > data.page.annualIncome ? data.completedPage : data.page.annualIncome;
 					history.push("/living-place");
 				}
 			}
@@ -90,7 +75,6 @@ function NewUser() {
 	const onHandleChangePersonal = (event) => {
 		const reg = /^[0-9.,$\b]+$/;
 		let acc = event.target.value;
-
 		if (acc === "" || reg.test(acc)) {
 			setErrorPersonal("");
 			formik.handleChange(event);
@@ -99,7 +83,6 @@ function NewUser() {
 	const onHandleChange = (event) => {
 		const reg = /^[0-9.,$\b]+$/;
 		let acc = event.target.value;
-
 		if (acc === "" || reg.test(acc)) {
 			setErrorAnnual("");
 			formik.handleChange(event);
@@ -113,15 +96,10 @@ function NewUser() {
 			.substr(0, 7);
 		const formated = parseFloat(num);
 		const currency = "$";
-		const forCur =
-			currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+		const forCur = currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 		formik.setFieldValue(event.target.name, forCur.slice(0, -3));
-		const modPersonalIncome = parseInt(
-			formik.values.personalIncome.replace(/\$/g, "").replace(/,/g, "")
-		);
-		const modHouseholdIncome = parseInt(
-			formik.values.householdIncome.replace(/\$/g, "").replace(/,/g, "")
-		);
+		const modPersonalIncome = parseInt(formik.values.personalIncome.replace(/\$/g, "").replace(/,/g, ""));
+		const modHouseholdIncome = parseInt(formik.values.householdIncome.replace(/\$/g, "").replace(/,/g, ""));
 		if (isNaN(modHouseholdIncome)) {
 			setErrorAnnual("Annual household income is required");
 		} else {
@@ -130,9 +108,7 @@ function NewUser() {
 				.replace(/,/g, "")
 				.substr(0, 7);
 			if (numNxt.length < 4) {
-				setErrorAnnual(
-					"Annual household income should not be less than 4 digits"
-				);
+				setErrorAnnual("Annual household income should not be less than 4 digits");
 				return false;
 			}
 			const perval = document
@@ -141,9 +117,7 @@ function NewUser() {
 				.replace(/,/g, "")
 				.substr(0, 7);
 			if (perval.length < 4) {
-				setErrorPersonal(
-					"Annual personal income should not be less than 4 digits"
-				);
+				setErrorPersonal("Annual personal income should not be less than 4 digits");
 				return false;
 			}
 			if (!isNaN(modPersonalIncome) && !isNaN(modHouseholdIncome)) {
@@ -152,9 +126,7 @@ function NewUser() {
 					setErrorPersonal("");
 					return true;
 				} else {
-					setErrorAnnual(
-						"Annual household income must be greater than or equal to Annual personal income"
-					);
+					setErrorAnnual("Annual household income must be greater than or equal to Annual personal income");
 					return false;
 				}
 			}
@@ -185,9 +157,7 @@ function NewUser() {
 				.replace(/,/g, "")
 				.substr(0, 7);
 			if (num.length < 4) {
-				setErrorPersonal(
-					"Annual personal income should not be less than 4 digits"
-				);
+				setErrorPersonal("Annual personal income should not be less than 4 digits");
 				return false;
 			}
 
@@ -197,9 +167,7 @@ function NewUser() {
 					setErrorPersonal("");
 					return true;
 				} else {
-					setErrorAnnual(
-						"Annual household income must be greater than or equal to Annual personal income"
-					);
+					setErrorAnnual("Annual household income must be greater than or equal to Annual personal income");
 					return false;
 				}
 			}

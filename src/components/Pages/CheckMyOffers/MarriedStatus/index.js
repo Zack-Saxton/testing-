@@ -44,17 +44,13 @@ const validationSchema = yup.object({
 			is: "Married",
 			then: yup
 				.string()
-				.required(
-					"Your home city is required. Please re-enter your zip code to populate your city"
-				),
+				.required("Your home city is required. Please re-enter your zip code to populate your city"),
 		})
 		.when("martialStatus", {
 			is: "Separated, under decree of legal separation",
 			then: yup
 				.string()
-				.required(
-					"Your home city is required. Please re-enter your zip code to populate your city"
-				),
+				.required("Your home city is required. Please re-enter your zip code to populate your city"),
 		}),
 	spouseSelectState: yup
 		.string()
@@ -137,10 +133,7 @@ function MarriedStatus() {
 	};
 
 	//redirect to select amount if page accessed directly
-	if (
-		data.completedPage < data.page.livingPlace ||
-		data.formStatus === "completed"
-	) {
+	if (data.completedPage < data.page.livingPlace || data.formStatus === "completed") {
 		history.push("/select-amount");
 	}
 
