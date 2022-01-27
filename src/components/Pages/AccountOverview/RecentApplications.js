@@ -147,7 +147,7 @@ export default function RecentApplications({ userApplicationsData, UserAccountSt
                       {(statusStr[presenceOfLoanStatus.status]) ? statusStr[presenceOfLoanStatus.status] : (presenceOfLoanStatus.status)}
                     </TableCell>
                     <TableCell align="left">
-                      {presenceOfLoanStatus.isActive && presenceOfLoanStatus?.status !== "referred" ?
+                      {presenceOfLoanStatus.isActive && presenceOfLoanStatus?.status !== "referred" && presenceOfLoanStatus?.status !== "contact_branch" ?
                         (
                           <ButtonPrimary stylebutton='{"color":"","width":"72%" }'
                             onClick={() => resumeNavigate(presenceOfLoanStatus.status)}
