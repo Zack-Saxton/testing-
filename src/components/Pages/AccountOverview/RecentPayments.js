@@ -132,7 +132,7 @@ export default function RecentPayments(userRecentPaymentData) {
 				</Grid>
 				<Grid item xs={12} className={classes.mainGrid}>
 					<TableContainer>
-						<Table aria-label="simple table">
+						<Table id="recentPaymentsTable" aria-label="simple table">
 							<TableHead>
 								<TableRow>
 									<TableCell

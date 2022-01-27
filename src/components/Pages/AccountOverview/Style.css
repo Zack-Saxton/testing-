@@ -41,6 +41,25 @@
   border-radius: 2px !important;
 }
 
+#recentPaymentsTable thead tr th{
+  font-weight: 700 !important;
+  font-size: 0.938rem !important;
+}
+
+#recentPaymentsTable tbody tr td{
+  font-size: 0.938rem !important;
+}
+
+#summaryOfApplicationsTable  thead tr th{
+  font-weight: 700 !important;
+  font-size: 0.938rem !important;
+}
+
+#summaryOfApplicationsTable  tbody tr td{
+  font-weight: 700 !important;
+  font-size: 0.938rem !important;
+}
+
 @media (max-width: 599px) {
   #activeLoanGrid {
     height: 100% !important;
@@ -51,9 +70,6 @@
   #overviewWrap {
     height: 55% !important;
     margin: 60px 0px 40px 0px;
-  }
-  #activeLoanWrap {
-    /* height: 100% !important; */
   }
 }
 @media (max-width: 425px) {
