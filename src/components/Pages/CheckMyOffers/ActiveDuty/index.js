@@ -44,10 +44,7 @@ function ActiveDuty() {
 		},
 	});
 
-	if (
-		data.completedPage < data.page.livingPlace ||
-		data.formStatus === "completed"
-	) {
+	if (data.completedPage < data.page.livingPlace || data.formStatus === "completed") {
 		history.push("/select-amount");
 	}
 	//JSX part
@@ -105,7 +102,6 @@ function ActiveDuty() {
 										className="spinAnimation"
 									/>
 								</Grid>
-
 								<Typography
 									variant="h5"
 									style={{

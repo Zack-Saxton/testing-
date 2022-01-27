@@ -16,20 +16,16 @@ export default function LoanDocumentTable(userLoanDocumentData) {
   window.zeHide();
   //Material UI css class
   const classes = useStylesLoanDocument();
-
   //Loan Document data from API
   let userLoanDocument = userLoanDocumentData != null ? userLoanDocumentData : null;
-
   //Download loan document
   const downloadDoc = (id, name) => {
     downloadDocument(id, name);
   };
-
   //Print loan document
   const printDoc = (id, name) => {
     printDocument(id, name);
   };
-
   const outputDateFormat = 'MM/DD/YYYY';
 
   //View Part

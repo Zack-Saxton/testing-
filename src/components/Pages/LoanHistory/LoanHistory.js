@@ -16,10 +16,8 @@ export default function LoanHistory() {
   window.zeHide();
   //Material UI css class
   const classes = useStylesLoanHistory();
-
   //API Call
   const [loanHistoryStatus, setloanHistoryStatus] = useState(null);
-
   async function AsyncEffect_loanHistory() {
     setloanHistoryStatus(await LoanHistoryController());
   }
@@ -27,9 +25,8 @@ export default function LoanHistory() {
     AsyncEffect_loanHistory();
   }, []);
 
-
   //Load data
-  let loanHistoryData = loanHistoryStatus != null ? loanHistoryStatus?.data?.activeLoans : null;
+  let loanHistoryData = loanHistoryStatus?.data?.activeLoans;
 
   //View Part
   return (
