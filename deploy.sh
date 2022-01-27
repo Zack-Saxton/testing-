@@ -33,7 +33,10 @@ then
     serverName="ubuntu@${app}-${app1}-prod.marinerfinance.io" else
     serverName="ubuntu@cis-app1-${env}.marinerfinance.io"
 fi
-
+deployUser=$(whoami)
+message="$hostname Deployment for (MSA) ${env} STARTED by $deployUser"
+url="https://hooks.slack.com/services/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"
+curl -X POST -H 'Content-type: application/json' --data '{"text":"'"$message"'"}' "{$url}"
 
 case $env in
   "qa")
@@ -173,3 +176,15 @@ ssh  -i $_PEM_FILE_ $server << ENDHERE
   done
   exit
 ENDHERE
+
+curl_cmd=$(curl -w "\n" --insecure -X GET https://${app}-${env}.marinerfinance.io)
+
+echo -e "\033[1;36m ********************************************** \033[0m"
+echo -e "\033[1;36m * verifying that ${app} is up via API  \033[0m"
+echo -e "\033[1;36m ********************************************** \033[0m"
+
+echo -e "\033[1;32m *  $curl_cmd  \033[0m"
+
+message="$hostname Deployment for ${app} ${env} COMPLETED by $deployUser"
+url="https://hooks.slack.com/services/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"
+curl -X POST -H 'Content-type: application/json' --data '{"text":"'"$message"'"}' "{$url}"
