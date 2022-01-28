@@ -16,6 +16,7 @@ import "./SelectOffer.css";
 import { fetchAvailableOffers, submitSelectedOfferAPI } from "../../../Controllers/ApplyForLoanController";
 import CheckLoginStatus from "../../../App/CheckLoginStatus";
 import messages from "../../../lib/Lang/applyForLoan.json"
+import TabSection from "../TabSection"
 
 //Initializing functional component Apply for loan
 export default function ApplyLoan() {
@@ -177,12 +178,6 @@ export default function ApplyLoan() {
 		tabPanelValue: PropTypes.any.isRequired,
 	};
 
-	function a11yProps(index) {
-		return {
-			id: `scrollable-auto-tab-${ index }`,
-			"aria-controls": `scrollable-auto-tab-panel-${ index }`,
-		};
-	}
 
 	function tabVerticalProps(verticalIndex) {
 		return {
@@ -224,21 +219,7 @@ export default function ApplyLoan() {
 
 		let rowsterm = [];
 		accountDetails?.data?.Offers[termNum].map((item, index) => {
-			let buildData = {
-				select: "",
-				loanAmount: currencyFormat(item.loan_amount),
-				availability: item.offerType,
-				apr: (item.apr * 100).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0],
-				monthlyPayment: currencyFormat(item.monthly_payment),
-				compare: "",
-				_id: item._id,
-				termNum: termNum,
-				tabIndex: tabIndex,
-				checked: "false",
-			};
-			let temp = createData(buildData);
-			rowsterm.push(temp);
-			return null;
+			return structureBuildData(item, termNum, tabIndex, rowsterm)
 		});
 		setRowData(rowsterm);
 	}
@@ -249,25 +230,31 @@ export default function ApplyLoan() {
 		setRowData(offersToCompare);
 	}
 
+	const structureBuildData = (item, termNum, tabIndex, rowsterm) => {
+		let buildData = {
+			select: "",
+			loanAmount: currencyFormat(item.loan_amount),
+			availability: item.offerType,
+			apr: (item.apr * 100).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0],
+			monthlyPayment: currencyFormat(item.monthly_payment),
+			compare: "",
+			_id: item._id,
+			termNum: termNum,
+			tabIndex: tabIndex,
+			checked: "false",
+		};
+		let temp = createData(buildData);
+		rowsterm.push(temp);
+		return null;
+		
+	}
+
 	// Call function to load the tab initially
 	function initialTabLoad(termNum, tabIndex, accountDetailsData) {
 		let rowsterm = [];
 		accountDetailsData?.data?.Offers[termNum].map((item, index) => {
-			let buildData = {
-				select: "",
-				loanAmount: currencyFormat(item.loan_amount),
-				availability: item.offerType,
-				apr: (item.apr * 100).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0],
-				monthlyPayment: currencyFormat(item.monthly_payment),
-				compare: "",
-				_id: item._id,
-				termNum: termNum,
-				tabIndex: tabIndex,
-				checked: "false",
-			};
-			let temp = createData(buildData);
-			rowsterm.push(temp);
-			return null;
+			
+			return structureBuildData(item, termNum, tabIndex, rowsterm)
 		});
 		setRowData(rowsterm);
 	}
@@ -326,37 +313,7 @@ export default function ApplyLoan() {
 				{/* Tab section */}
 
 				<Grid item xs={12}>
-					<Tabs
-						value={value}
-						onChange={handleChange}
-						indicatorColor="primary"
-						textColor="primary"
-						variant="scrollable"
-						scrollButtons="auto"
-						style={{ paddingTop: "10px" }}
-						aria-label="scrollable auto tabs example"
-					>
-						<Tab
-							label="1. Select Offer"
-							className={classes.tabLabel}
-							{...a11yProps(0)}
-						/>
-						<Tab
-							label="2. Review & Sign"
-							disabled={true}
-							className={classes.tabLabel}
-						/>
-						<Tab
-							label="3. Final Verification"
-							disabled={true}
-							className={classes.tabLabel}
-						/>
-						<Tab
-							label="4. Receive your money"
-							disabled={true}
-							className={classes.tabLabel}
-						/>
-					</Tabs>
+					<TabSection value={value} handleChange={handleChange} classes={classes} ay={0}/>
 
 					<TabPanel tabPanelValue={value} index={0} style={{ marginTop: "10px" }}>
 						<Grid container item xs={12}>
