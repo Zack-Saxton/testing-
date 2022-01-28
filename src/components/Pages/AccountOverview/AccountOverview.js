@@ -17,16 +17,15 @@ export default function AccountOverview() {
   const classes = useStylesAccountOverview();
   window.zeHide();
   //API Call
+
   const {isLoading, data : accountDetails} = useQuery('loan-data', usrAccountDetails )
  
-
   //Load data
   let offerData = (accountDetails != null) ? accountDetails?.data?.offerData : null;
   let applicationsData = (accountDetails != null) ? accountDetails?.data?.applicants : null;
   let status = (accountDetails != null) ? accountDetails?.data?.status : null;
   let activeLoansData = (accountDetails != null) ? accountDetails?.data?.activeLoans : null;
   let recentPaymentData = (accountDetails != null) ? accountDetails?.data?.activeLoans : null;
-
   if (Array.isArray(activeLoansData) && activeLoansData.length === 0) {
     Cookies.set("hasActiveLoan", false);
   } else {

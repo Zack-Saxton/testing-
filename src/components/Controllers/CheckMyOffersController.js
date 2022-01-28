@@ -201,7 +201,7 @@ export async function checkMyOfferSubmit(customer) {
 					"Content-Type": "application/json",
 				},
 				transformRequest: (data, headers) => {
-					delete headers.common["Content-Type"];
+					delete headers.common[ "Content-Type" ];
 					return data;
 				},
 			})
