@@ -205,7 +205,7 @@ export async function checkMyOfferSubmit(customer) {
 					return data;
 				},
 			})
-			response.appSubmissionResult = result;
+			response.appSubmissionResult = result?.data;
 		}
 	} catch (error) {
 		response.appSubmissionResult = error.response;
