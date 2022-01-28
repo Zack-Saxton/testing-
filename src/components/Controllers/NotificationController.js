@@ -17,7 +17,7 @@ export async function getNoticationData() {
     let addAccessToken = true;
 
     //API call
-    return APICall(url, param, data, method, addAccessToken);
+    return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
     Error("Error executing getNoticationData API");
   }

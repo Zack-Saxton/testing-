@@ -27,11 +27,11 @@ export default function LoanHistoryCard(userLoanHistoryCard) {
             <Paper className={classes.papertotal} id="cardLoanHistory-bg">
               <div className={classes.cardContentLoanHistory}>
                 Total Number of Loans
-                {userLoanHistory.userLoanHistoryCard === null ? (
+                {userLoanHistory?.userLoanHistoryCard === null ? (
                   <p>0</p>
                 ) : (
                   <p id="numberOfLoans" className={classes.cardAmountLoanHistory}>
-                    {userLoanHistory.userLoanHistoryCard.length
+                    {userLoanHistory?.userLoanHistoryCard?.length
                       ? ('0' + userLoanHistory.userLoanHistoryCard.length).slice(-2)
                       : 0}
                   </p>

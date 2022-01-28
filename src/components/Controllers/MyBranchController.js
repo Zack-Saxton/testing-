@@ -66,6 +66,7 @@ export async function ScheduleVisitApi(visitDate, visitTime, visitTimeZone) {
 
   //API call
   let myBranch = await APICall(url, param, data, method, addAccessToken);
+
   //API response
   myBranch.status === 200
     ? toast.success(

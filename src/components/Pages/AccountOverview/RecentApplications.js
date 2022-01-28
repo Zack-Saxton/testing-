@@ -20,8 +20,8 @@ export default function RecentApplications({ isLoading, userApplicationsData }) 
   window.zeHide();
   //Recentapplications data
   let userApplications = (userApplicationsData != null) ? userApplicationsData : null;
-  const presenceOfLoan = userApplications?.some((applicant) => applicant.isActive === true);
-  const presenceOfLoanStatus = userApplications?.find((applicant) => applicant.isActive === true);
+  const presenceOfLoan = userApplications?.some((applicant) => applicant.isActive === true && applicant?.status !== "referred" && applicant?.status !== "contact_branch");
+  const presenceOfLoanStatus = userApplications?.find((applicant) => applicant.isActive === true && applicant?.status !== "referred" && applicant?.status !== "contact_branch" );
   let statusStr = {
     "approved": "Approved",
     "completing_application": "Completing Application",
