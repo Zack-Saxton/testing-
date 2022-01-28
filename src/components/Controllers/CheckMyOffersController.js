@@ -126,7 +126,7 @@ export async function checkMyOfferSubmit(customer) {
 		"sourceTracking": [
 			{
 				"referer": "https://cis-development.marinerfinance.io/application/form",
-				"date": 1599165637950,
+				"date": Date.now(),
 				"utm_source": null,
 				"utm_medium": null,
 				"utm_campaign": null,
