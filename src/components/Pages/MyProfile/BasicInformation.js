@@ -163,7 +163,7 @@ export default function BasicInformation(props) {
                 let email = basicInfo?.email === values.email ? basicInfo?.email : values.email;
 
                 let uploadData = await uploadNewProfileImage(imageData, fileName, fileType, documentType, email);
-                if (uploadData.data.status === 200) {
+                if (uploadData.status === 200) {
                   setData({
                     ...dataProfile, "profile_picture_url":
                       uploadData?.data?.profile_picture_url
@@ -219,7 +219,7 @@ export default function BasicInformation(props) {
                 else {
                   if (!toast.isActive("closeToast")) {
                     toast.error(
-                      "Error uploading file",
+                      "1) Error uploading file",
                       {
                         toastId: "closeToast",
                         onClose: () => {
