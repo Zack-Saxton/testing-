@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import APICall from "../../../App/APIcall";
+import APICall from "../../../lib/AxiosLib";
 import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from "@material-ui/core";
 import { errorMessage } from "../../../../helpers/ErrorMessage";
 import { OTPInitialSubmission, verifyPasscode } from "../../../Controllers/ApplyForLoanController";
@@ -38,7 +38,7 @@ export default function PhoneVerification(props) {
 	// get phone number from using email from api
 	const getPhone = async () => {
 		let data = {};
-		let userData = await APICall("/customer/account_overview", data, "GET", true);
+		let userData = await APICall("account_overview", '', data, "GET", true);
 		setPhoneNum(userData?.data?.customer.latest_contact.phone_number_primary);
 	};
 

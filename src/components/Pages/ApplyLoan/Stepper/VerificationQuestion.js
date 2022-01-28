@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ButtonPrimary } from "../../../FormsUI";
 import { makeStyles } from "@material-ui/core/styles";
-import APICall from "../../../App/APIcall";
+import APICall from "../../../lib/AxiosLib";
 import LoadQuestions from "./LoadQuestions";
 import MultipleQuestion from "./multipleQuestion";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -26,11 +26,11 @@ export default function VerificationQuestion(props) {
   const [transactionIdMultiple, setTransactionIdMultiple] = useState(null);
 
   async function getUserAccountDetails() {
-    let url = "/integration/lexisnexis/kba_questions_cac?test=true",
+    let url = "kba_questions_cac",
       data = {},
       method = "POST",
       addAccessToken = true;
-    response = await APICall(url, data, method, addAccessToken);
+    response = await APICall(url,'', data, method, addAccessToken);
 
     // structure the API data response to store it in array
     let tempArray = [];
@@ -86,7 +86,7 @@ export default function VerificationQuestion(props) {
                         }]
                       }
                     }
-                    let nxtRes = await APICall("/integration/LexisNexis/kba_disambiguate_answer_cac?test=true", sendData, "POST", true);
+                    let nxtRes = await APICall("/integration/LexisNexis/kba_disambiguate_answer_cac?test=true",'', sendData, "POST", true);
                     let tempArray = [];
                     if (nxtRes?.data?.kba) {
                       setQuestionSetIdMultiple(nxtRes?.data?.kba?.questions["question-set-id"]);
