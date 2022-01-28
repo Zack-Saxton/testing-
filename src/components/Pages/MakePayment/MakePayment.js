@@ -97,9 +97,9 @@ export default function MakePayment(props) {
   async function getPaymentMethods() {
     setpaymentMethod(payments);
     if (payments?.data?.error) {
-      toast.error("Error retrieving loan information -- Account is Closed", {
-        autoClose: 5000,
-      });
+      if (!toast.isActive("closedApplication")) { 
+        toast.error("Error retrieving loan information -- Account is Closed")
+      }      
     } else {
       //get default card
       let defaultBank = payments?.data?.defaultBank;

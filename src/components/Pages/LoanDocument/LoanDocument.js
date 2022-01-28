@@ -49,6 +49,7 @@ let loanDocumentData =  loanDocumentStatus != null ? loanDocumentStatus?.data : 
   const handleDocType = (event) => {
     setDocType(event.target.value);
     changeEvent.current.click();
+    event.target.value = '';
   };
   const uploadDoc = () => {
     if (selectedFile === null) {
@@ -78,7 +79,6 @@ let loanDocumentData =  loanDocumentStatus != null ? loanDocumentStatus?.data : 
             let fileType = selectedFile.files[0].type;
             let documentType = docType;
             setLoading(true);
-
             let response = await uploadDocument(test, fileName, fileType, documentType);
             if (response === "true") {
               setLoading(false);
@@ -92,7 +92,7 @@ let loanDocumentData =  loanDocumentStatus != null ? loanDocumentStatus?.data : 
       } else {
         if (selectedFile.files[0].size > 10240000) {
           if (!toast.isActive("closeToast")) {
-            toast.error(loanDocs.Please_Upload_File_Below_Size);
+            toast.error(loanDocs.Please_Upload_File_Below_Size, {toastId: "closeToast"});
           }
         }
       }
