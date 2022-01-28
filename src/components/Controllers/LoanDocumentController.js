@@ -15,7 +15,7 @@ export async function loanDocumentController(accNo) {
   //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    Error("Error executing loanDocumentController API");
+    toast.error("Error executing loanDocumentController API");
   }
 }
 
@@ -103,7 +103,7 @@ export async function uploadDocument(test, fileName, fileType, documentType) {
   //API call
   let uploadData = await APICall(url, param, data, method, addAccessToken);
   //API response
-  uploadData.data.status === 200
+  uploadData.status === 200
     ? toast.success(uploadData?.data?.message ?? "Document Uploaded Successfully")
     : toast.error(uploadData?.data?.message ?? "Error uploading file");
 
