@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import { NavLink } from "react-router-dom";
@@ -10,6 +10,8 @@ import MyBranchAPI from "../../Controllers/MyBranchController";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
 import Paper from "@material-ui/core/Paper";
+import {useQuery} from 'react-query';
+
 
 export default function MyBranch() {
   window.zeHide();
@@ -17,13 +19,9 @@ export default function MyBranch() {
   const classes = useStylesMyBranch();
 
   //API call
-  const [branchApiStatus, SetBranchApiStatus] = useState(null);
-  async function AsyncEffect_MyBranch() {
-    SetBranchApiStatus(await MyBranchAPI());
-  }
-  useEffect(() => {
-    AsyncEffect_MyBranch();
-  }, []);
+  const { data: branchApiStatus} = useQuery('my-branch', MyBranchAPI);
+
+ 
   //Branch details from API
   let myBranchData = branchApiStatus?.data;
 
