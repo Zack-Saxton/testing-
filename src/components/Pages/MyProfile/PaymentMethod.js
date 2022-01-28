@@ -209,10 +209,11 @@ export default function PaymentMethod() {
     };
 
     const fetchAddress = async (event) => {
+        formikAddDebitCard.handleChange(event);
         try {
-            if (event.target.value !== "" && event.target.value.length === 5) {
+            if (event.target.value !== "" && event.target.value.length === 5) {              
                 let result = await ZipCodeLookup(event.target.value);
-                if (result) {
+                if (result?.status === 200 && result?.data?.cityName) {
                     setValidZip(true);
                     formikAddDebitCard.setFieldValue("city", result?.data?.cityName);
                     formikAddDebitCard.setFieldValue("state", result?.data?.stateCode);
@@ -225,8 +226,6 @@ export default function PaymentMethod() {
                 formikAddDebitCard.setFieldValue("city", "");
                 formikAddDebitCard.setFieldValue("state", "");
             }
-
-            formikAddDebitCard.handleChange(event);
         } catch (error) {
             toast.error("Error from [fetchAddress]");
         }
