@@ -205,6 +205,7 @@ export async function checkMyOfferSubmit(customer) {
 					return data;
 				},
 			})
+			console.log('DAXY ::: ', result)
 			response.appSubmissionResult = result;
 		}
 	} catch (error) {
