@@ -16,16 +16,16 @@ export async function usrPaymentMethods() {
 }
 
 /***** Enable AutoPay mode *****/
-export async function enableAutoPay(accntNo, card, paymentDate, isDebit) {
+export async function enableAutoPay(enableAutoPayAccountNo, enableAutoPayCard, enableAutoPayDate, enableAutoPayIsDebit) {
   try {
-    let cards = card.toString();
+    let cards = enableAutoPayCard.toString();
     let url = "enable_autopay";
-    let param = "/" + accntNo;
+    let param = "/" + enableAutoPayAccountNo;
     let data = {
       payment_account: cards,
       payment_option: "recurring_payment",
-      payment_date: paymentDate,
-      is_debit_payment: isDebit,
+      payment_date: enableAutoPayDate,
+      is_debit_payment: enableAutoPayIsDebit,
     };
     let method = "POST";
     let addAccessToken = true;
@@ -38,11 +38,11 @@ export async function enableAutoPay(accntNo, card, paymentDate, isDebit) {
 }
 
 /***** Disable AutoPay mode *****/
-export async function disableAutoPay(accntNo) {
+export async function disableAutoPay(disableAutoPayAccountNo) {
   try {
     //API
     let url = "disable_autopay";
-    let param = "/" + accntNo;
+    let param = "/" + disableAutoPayAccountNo;
     let data = {};
     let method = "POST";
     let addAccessToken = true;
@@ -54,18 +54,19 @@ export async function disableAutoPay(accntNo) {
   }
 }
 
+
 /***** Schedule a payment *****/
-export async function makePayment(accntNo, card, paymentDatepicker, isDebit, paymentAmount) {
+export async function makePayment(scheduledPaymentAccountNo, scheduledPaymentCard, scheduledPaymentDatePicker, scheduledPaymentIsDebit, scheduledPaymentAmount) {
   try {
-    let cards = card.toString();
-    let paymentAmounts = paymentAmount.toString();
+    let cards = scheduledPaymentCard.toString();
+    let paymentAmounts = scheduledPaymentAmount.toString();
     let url = "make_payment";
-    let param = "/" + accntNo;
+    let param = "/" + scheduledPaymentAccountNo;
     let data = {
       payment_account: cards,
       payment_amount: paymentAmounts,
-      payment_date: Moment(paymentDatepicker).format("YYYY-MM-DD"),
-      is_debit_payment: isDebit,
+      payment_date: Moment(scheduledPaymentDatePicker).format("YYYY-MM-DD"),
+      is_debit_payment: scheduledPaymentIsDebit,
     };
     let method = "POST";
     let addAccessToken = true;
