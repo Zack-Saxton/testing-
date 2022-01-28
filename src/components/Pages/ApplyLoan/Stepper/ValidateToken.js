@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useLocation, useHistory } from "react-router-dom";
-import APICall from "../../../App/APIcall";
+import APICall from "../../../lib/AxiosLib";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
 import messages from "../../../lib/Lang/applyForLoan.json"
@@ -10,7 +10,7 @@ const ValidateToken = () => {
 	const useQuery = () => new URLSearchParams(useLocation().search);
 	const query = useQuery();
 	const getResponse = async (data) => {
-		let res = await APICall("/verification/verify_user_email_cac", data, "POST", true);
+		let res = await APICall("verify_user_email_cac",'', data, "POST", true);
 		return res;
 	};
 

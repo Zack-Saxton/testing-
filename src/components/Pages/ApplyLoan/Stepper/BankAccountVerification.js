@@ -10,7 +10,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { errorMessage } from "../../../../helpers/ErrorMessage";
 import FormHelperText from "@material-ui/core/FormHelperText";
-import APICall from "../../../App/APIcall";
+import APICall from "../../../lib/AxiosLib";
 import Typography from "@material-ui/core/Typography";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -118,7 +118,8 @@ export default function BankAccountVerification(props) {
 				repayment: paymnetMode,
 			};
 			let res = await APICall(
-				"/verification/bank_information_cac",
+				"bank_information_cac",
+				'',
 				data,
 				"POST",
 				true
