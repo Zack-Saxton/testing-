@@ -97,17 +97,13 @@ export default function MakePayment(props) {
   async function getPaymentMethods() {
     setpaymentMethod(payments);
     if (payments?.data?.error) {
-      toast.error(payments?.data?.error, {
+      toast.error("Error retrieving loan information -- Account is Closed", {
         autoClose: 5000,
       });
     } else {
       //get default card
       let defaultBank = payments?.data?.defaultBank;
-      let cardFound = await defaultCardCheck(
-        payments?.data?.ACHMethods,
-        "ACH",
-        defaultBank
-      );
+      let cardFound = await defaultCardCheck(payments?.data?.ACHMethods,"ACH",defaultBank);
       if (!cardFound) {
         //set default card ACHMethods
         defaultCardCheck(payments?.data?.CardMethods, "card", defaultBank);
@@ -489,7 +485,6 @@ let holidayCalenderData = holidayCalenderApi?.data;
 
   //Account select payment options
   let paymentData = paymentMethods?.data;
-
   let paymentListAch =
     paymentData && paymentData.ACHMethods != null
       ? paymentData.ACHMethods.map((pdata) => ({
@@ -498,7 +493,6 @@ let holidayCalenderData = holidayCalenderApi?.data;
             pdata.AccountType + " (****" + pdata.AccountNumber.substr(-4) + ")",
         }))
       : null;
-
   let paymentListCard =
     paymentData && paymentData.ACHMethods != null
       ? paymentData.CardMethods.map((pdata) => ({

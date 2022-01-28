@@ -22,7 +22,7 @@ import Box from "@material-ui/core/Box";
 import PropTypes from "prop-types";
 import LoadChart from "./loadChart";
 import CircularProgress from "@material-ui/core/CircularProgress";
-
+import messages from "../../../lib/Lang/applyForLoan.json"
 function TabVerticalPanel(props) {
 	const { children, tabValue, verticalIndex, ...other } = props;
 
@@ -309,7 +309,7 @@ export default function OfferTable(props) {
 											))}
 										</TableBody>
 									) : (
-										<Typography>No Offers Available </Typography>
+										<Typography>{messages.selectAmount.noOffersAvailable} </Typography>
 									)}
 								</Table>
 							</TableContainer>
