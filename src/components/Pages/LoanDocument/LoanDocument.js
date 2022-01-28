@@ -28,9 +28,7 @@ import {useQuery} from 'react-query';
 export default function LoanDocument(props) {
   window.zeHide();
   //Material UI css class
-  const classes = useStylesLoanDocument();
-
-  
+  const classes = useStylesLoanDocument();  
   const [selectedFile, setSelectedFile] = useState(null);
   const [docType, setDocType] = useState("");
   const [loading, setLoading] = useState(false);
