@@ -28,6 +28,8 @@ import { useAtom } from 'jotai'
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import ProfileImageController from "../../Controllers/ProfileImageController";
 import Cookies from "js-cookie";
+import {useQuery} from 'react-query';
+
 
 
 function TabVerticalPanel(props) {
@@ -67,20 +69,17 @@ function tabVerticalProps(verticalIndex) {
 export default function MyProfile() {
   window.zeHide();
   const classes = useStylesMyProfile();
-  const [accountDetails, setAccountDetails] = useState(null);
-  async function getUserAccountDetails() {
-    setAccountDetails(await usrAccountDetails());
-  }
-  Cookies.set("opted_phone_texting", accountDetails?.data?.customer?.latest_contact?.opted_phone_texting);
 
   const [profileImage, setProfileImage] = useState(null);
   async function AsyncEffect_profileImage() {
     setProfileImage(await ProfileImageController());
   }
   useEffect(() => {
-    getUserAccountDetails();
     AsyncEffect_profileImage();
   }, []);
+
+  const {data: accountDetails } = useQuery('loan-data', usrAccountDetails )
+  Cookies.set("opted_phone_texting", accountDetails?.data?.customer?.latest_contact?.opted_phone_texting);
 
   let basicInfoData = (accountDetails != null) ? accountDetails?.data?.customer : null;
   let getProfImage = (profileImage != null) ? profileImage : null;
@@ -249,13 +248,13 @@ export default function MyProfile() {
               <Paper id="mainContentTab" className={classes.paper}>
                 {/* Basic Information */}
                 <TabVerticalPanel value={values} verticalIndex={0}>
-                  <BasicInformationCard basicInformationData={basicInfoData} getUserAccountDetails={getUserAccountDetails} AsyncEffect_profileImage={AsyncEffect_profileImage} getProfileImage={getProfImage} />
+                  <BasicInformationCard basicInformationData={basicInfoData} getUserAccountDetails={accountDetails} AsyncEffect_profileImage={AsyncEffect_profileImage} getProfileImage={getProfImage} />
                 </TabVerticalPanel>
                 {/* //END Basic Information */}
 
                 {/* Mailing Address */}
                 <TabVerticalPanel value={values} verticalIndex={1}>
-                  <MailingAddressCard basicInformationData={basicInfoData} getUserAccountDetails={getUserAccountDetails} />
+                  <MailingAddressCard basicInformationData={basicInfoData} getUserAccountDetails={accountDetails} />
                 </TabVerticalPanel>
                 {/* END Mailing Address */}
 
