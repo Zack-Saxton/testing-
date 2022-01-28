@@ -78,30 +78,29 @@ export default function DocumentUpload(props) {
 	return (
 		<Grid container direction="row">
 			<Grid style={{ paddingTop: "20px" }}>
+				<ButtonPrimary
+					variant="contained"
+					component="span"
+					disabled={loader}
+					margin-right = "300px"
+					onClick={() => {
+						props.setLoadingFlag(true)
+						setLoader(true)
+						uploadDoc()}
+					}
+					id="button_stepper_prev"
+					stylebutton='{"padding":"0px 30px ", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
+				>
+					Upload
+				</ButtonPrimary>
 				<input
+					style= {{padding: "0px 15px"}}
 					accept="image/png, image/jpeg, application/pdf, image/jpg "
 					id="file"
 					multiple={props?.multiple === false ? false : true}
 					type="file"
 					onChange={handleInputChange}
 				/>
-			</Grid>
-			<Grid style={{ paddingTop: "10px" }} >
-				<ButtonPrimary
-					variant="contained"
-					component="span"
-					disabled={loader}
-					onClick={() => {
-						props.setLoadingFlag(true)
-						setLoader(true)
-						uploadDoc()
-					}
-					}
-					id="button_stepper_prev"
-					stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
-				>
-					Upload
-				</ButtonPrimary>
 			</Grid>
 		</Grid>
 	);
