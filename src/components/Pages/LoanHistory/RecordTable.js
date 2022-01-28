@@ -24,6 +24,7 @@ export default function LoanHistoryTable(userLoanHistoryData) {
   const classes = useStylesLoanHistory();
   //Loan history data from API
   let userLoanHistory = userLoanHistoryData != null ? userLoanHistoryData : null;
+
   //Download loan document
   const downloadDoc = (accNo) => {
     loanDocument(accNo);
@@ -54,14 +55,14 @@ export default function LoanHistoryTable(userLoanHistoryData) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {userLoanHistory.userLoanHistoryData === null ? (
+            {userLoanHistory?.userLoanHistoryData === null ? (
               <TableRow>
                 <TableCell colSpan="7" align="center">
                   <CircularProgress />
                 </TableCell>
               </TableRow>
-            ) : userLoanHistory.userLoanHistoryData.length ? (
-              userLoanHistory.userLoanHistoryData.map((row, index) => (
+            ) : userLoanHistory?.userLoanHistoryData?.length ? (
+              userLoanHistory?.userLoanHistoryData.map((row, index) => (
                 <TableRow key={index}>
                   <TableCell
                     component="th"

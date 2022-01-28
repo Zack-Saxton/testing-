@@ -40,7 +40,7 @@ export default function LoanDocumentTable(userLoanDocumentData) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {userLoanDocument.userLoanDocumentData.length ? (
+          {userLoanDocument?.userLoanDocumentData?.length ? (
             userLoanDocument.userLoanDocumentData.map((row, index) => (
               <TableRow key={index}>
                 <TableCell
