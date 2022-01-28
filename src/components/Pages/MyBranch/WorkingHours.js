@@ -186,15 +186,15 @@ let updated_other_Fri = [
     { "value": "11:30", "label": "11:30 AM" },
     { "value": "12:00", "label": "12:00 PM" },
     { "value": "12:30", "label": "12:30 PM" },
-    // { "value": "13:00", "label": "01:00 PM" },
-    // { "value": "13:30", "label": "01:30 PM" },
-    // { "value": "14:00", "label": "02:00 PM" },
-    // { "value": "14:30", "label": "02:30 PM" },
-    // { "value": "15:00", "label": "03:00 PM" },
-    // { "value": "15:30", "label": "03:30 PM" },
-    // { "value": "16:00", "label": "04:00 PM" },
-    // { "value": "16:30", "label": "04:30 PM" },
-    // { "value": "17:00", "label": "05:00 PM" }
+    { "value": "13:00", "label": "01:00 PM" },
+    { "value": "13:30", "label": "01:30 PM" },
+    { "value": "14:00", "label": "02:00 PM" },
+    { "value": "14:30", "label": "02:30 PM" },
+    { "value": "15:00", "label": "03:00 PM" },
+    { "value": "15:30", "label": "03:30 PM" },
+    { "value": "16:00", "label": "04:00 PM" },
+    { "value": "16:30", "label": "04:30 PM" },
+    { "value": "17:00", "label": "05:00 PM" }
 
 ].filter((v, i) => {
     if (parseInt(v.value.split(":")[0]) > Moment(new Date()).format("HH")) {
