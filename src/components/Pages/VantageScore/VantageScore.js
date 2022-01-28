@@ -22,7 +22,7 @@ export default function VantageScore() {
   const {data : responseData} = useQuery('vantage-score', getVantageScore )
 
   //API Call for vantageScore
-  async function vantageScoreData() {
+  function vantageScoreData() {
     let creditMonitorings = (responseData?.data?.status === 500 ? [] : responseData?.data?.creditmonitorings ? responseData?.data?.creditmonitorings : null)
     setCreditData(creditMonitorings)
     setkeyFactors(creditMonitorings?.length ? creditMonitorings[0]?.parsed : [])

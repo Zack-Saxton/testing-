@@ -83,7 +83,7 @@ export default function ActiveLoans(userActiveLoanData) {
                 container
               >
                 {userActiveLoans.userActiveLoanData.map((appData, index) => (
-                  <Grid style={{ paddingBottom: "10px" }} container key={index}>
+                  <Grid style={{ paddingBottom: "10px" }} container key={"key"+index}>
                     <Grid
                       id="activeLoanWrap"
                       item
