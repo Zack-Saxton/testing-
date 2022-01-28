@@ -89,7 +89,7 @@ export default function DocumentUpload(props) {
 						uploadDoc()}
 					}
 					id="button_stepper_prev"
-					stylebutton='{"padding":"0px 30px ", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
+					stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
 				>
 					Upload
 				</ButtonPrimary>
