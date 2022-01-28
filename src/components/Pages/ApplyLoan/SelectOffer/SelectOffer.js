@@ -52,12 +52,12 @@ export default function ApplyLoan() {
 		setLoading(true);
 		if (accountDetails && selTerm !== "" && selIndex !== "") {
 			let selectedOfferResponse = await submitSelectedOfferAPI(accountDetails?.data?.Offers[selTerm][selIndex]);
-			if (selectedOfferResponse?.data?.status === "success") {
+			if (selectedOfferResponse?.data?.selected_offer) {
 				setLoading(false);
 				history.push({
 					pathname: "/customers/reviewAndSign",
 					selectedIndexOffer:
-						selectedOfferResponse?.data?.data.selected_offer,
+						selectedOfferResponse?.data?.selected_offer,
 				});
 			} else {
 				setLoading(false);
