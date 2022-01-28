@@ -160,7 +160,6 @@ export default function MakePayment(props) {
   //Disable auto payment
   async function disableAutoPayment(accntNo, card, paymentDate, isDebit) {
     let result = await disableAutoPay(accntNo, card, paymentDate, isDebit);
-    console.log(result);
     result.status === 200
       ? result?.data?.deletePayment.HasNoErrors === true
         ? toast.success(Payment.Auto_Payment_Mode_Disabled, {
