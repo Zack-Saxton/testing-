@@ -37,10 +37,7 @@ function LoanPurpose(props) {
 	//handle the user data nd store it into context and procced next step
 	const handleRoute = () => {
 		data.loanPurpose = purpose;
-		data.completedPage =
-			data.completedPage > data.page.loanPurpose
-				? data.completedPage
-				: data.page.loanPurpose;
+		data.completedPage = data.completedPage > data.page.loanPurpose ? data.completedPage : data.page.loanPurpose;
 		history.push("/citizenship-status");
 	};
 
@@ -49,10 +46,7 @@ function LoanPurpose(props) {
 		data.loanPurpose = val;
 		setPurpose(val);
 		if (data.completedPage < data.page.loanPurpose) {
-			data.completedPage =
-				data.completedPage > data.page.loanPurpose
-					? data.completedPage
-					: data.page.loanPurpose;
+			data.completedPage = data.completedPage > data.page.loanPurpose ? data.completedPage : data.page.loanPurpose;
 			history.push("/citizenship-status");
 		}
 	};
@@ -74,18 +68,12 @@ function LoanPurpose(props) {
 			},
 			masonryItemFirst: {
 				boxSizing: "border-box",
-				padding: `${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(
-					1
-				) }px ${ Theme.spacing(1) }px`,
+				padding: `${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(1) }px`,
 				[Theme.breakpoints.up("lg")]: {
-					padding: `${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(
-						1
-					) }px ${ Theme.spacing(1) }px`,
+					padding: `${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(1) }px`,
 				},
 				[Theme.breakpoints.down("sm")]: {
-					padding: `${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(
-						1
-					) }px ${ Theme.spacing(1) }px`,
+					padding: `${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(1) }px`,
 				},
 			},
 		})
@@ -93,10 +81,7 @@ function LoanPurpose(props) {
 	const classes = useStyles();
 
 	//redirect to select offers if directly called
-	if (
-		data.completedPage < data.page.selectAmount ||
-		data.formStatus === "completed"
-	) {
+	if (data.completedPage < data.page.selectAmount || data.formStatus === "completed") {
 		history.push("/select-amount");
 	}
 

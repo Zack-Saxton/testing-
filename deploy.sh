@@ -10,8 +10,8 @@ echo "**************************************************************************
 echo "*********************** DEPLOYMENT INFO************************************"
 echo "***************************************************************************"
 echo "APPLICATION :" $app
-echo "ENVIRONMENT :" $env
 echo "GIT BRANCH  :" $branch
+echo "ENVIRONMENT :" $env
 echo "SPIN INSTANCES" : $instances
 
 # Choose the APP
@@ -30,10 +30,14 @@ fi
 
 if [ "$env" = "prod1" ] || [ "$env" = "prod2" ] || [ "$env" = "prod3" ] || [ "$env" = "prod4" ]
 then
-    serverName="ubuntu@${app}-${app1}-prod.marinerfinance.io" else
+    serverName="ubuntu@${app}-${app1}-prod.marinerfinance.io"
+else
     serverName="ubuntu@cis-app1-${env}.marinerfinance.io"
 fi
-
+deployUser=$(whoami)
+message="$app Deployment START from $branch to $env By $deployUser"
+url="https://hooks.slack.com/services/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"
+curl -X POST -H 'Content-type: application/json' --data '{"text":"'"$message"'"}' "{$url}"
 
 case $env in
   "qa")
@@ -155,13 +159,11 @@ ssh  -i $_PEM_FILE_ $server << ENDHERE
     echo -e "\033[1;36m ********************************************** \033[0m"
     echo -e "\033[1;36m * removed all images from : ($app)             \033[0m"
     echo -e "\033[1;36m ********************************************** \033[0m"
-    docker builder prune -f
     echo -e "\033[1;36m ********************************************** \033[0m"
-    echo -e "\033[1;36m * START building new image : ($app)            \033[0m"
+    echo -e "\033[1;36m * START Updating server    : ($app)            \033[0m"
     echo -e "\033[1;36m ********************************************** \033[0m"
 
-    #git clean -d -f -f  && git clean -d -f -f && git reset --hard HEAD && git reset --hard HEAD && git pull && git pull
-    sudo apt-get update && sudo apt-get dist-upgrade -y && sudo apt-get autoremove -y
+    sudo apt-get update && sudo apt-get dist-upgrade -y
 
   docker login --username=$DOCKERHUB_USER  --password=$DOCKERHUB_PSWD
 
@@ -169,8 +171,20 @@ ssh  -i $_PEM_FILE_ $server << ENDHERE
   do
     echo  "****** Spinning Instance "\$count": "
     docker run -dit --restart=always --name "${app}"\$count"-${env}-${latestCommit}" --network $dockerNetwork $imageName
-    docker inspect -f '{{json .NetworkSettings.Networks}}' ${app}"\$count"-${env}-${latestCommit} | python -m json.tool
     sleep 5
   done
   exit
 ENDHERE
+
+# docker inspect -f '{{json .NetworkSettings.Networks}}' ${app}"\$count"-${env}-${latestCommit} | python -m json.tool
+# curl_cmd=$(curl -w "\n" --insecure -X GET https://${app}-${env}.marinerfinance.io)
+
+# echo -e "\033[1;36m ********************************************** \033[0m"
+# echo -e "\033[1;36m * verifying that ${app} is up via API  \033[0m"
+# echo -e "\033[1;36m ********************************************** \033[0m"
+
+# echo -e "\033[1;32m *  $curl_cmd  \033[0m"
+
+message="$app Deployment END from $branch to $env By $deployUser"
+url="https://hooks.slack.com/services/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"
+curl -X POST -H 'Content-type: application/json' --data '{"text":"'"$message"'"}' "{$url}"

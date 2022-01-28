@@ -169,7 +169,7 @@ export default function FinalVerification() {
 							<p
 								style={{
 									textAlign: "justify",
-									fontSize: ".8rem",
+									fontSize: "0.938rem",
 									color: "#6b6f82",
 								}}
 							>

@@ -37,11 +37,7 @@ export default function LoanDocument(props) {
   const changeEvent = useRef("");
 
   async function AsyncEffect_loanDocument() {
-    setloanDocumentStatus(
-      await loanDocument(
-        props?.location?.state?.accNo ? props?.location?.state?.accNo : null
-      )
-    );
+    setloanDocumentStatus(await loanDocument(props?.location?.state?.accNo ? props?.location?.state?.accNo : null));
   }
   useEffect(() => {
     AsyncEffect_loanDocument();
@@ -86,12 +82,7 @@ export default function LoanDocument(props) {
             let documentType = docType;
             setLoading(true);
 
-            let response = await uploadDocument(
-              test,
-              fileName,
-              fileType,
-              documentType
-            );
+            let response = await uploadDocument(test, fileName, fileType, documentType);
             if (response === "true") {
               setLoading(false);
               setDocType("");

@@ -7,6 +7,7 @@ import { errorMessage } from "../../../../helpers/ErrorMessage";
 import APICall from "../../../App/APIcall";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
+import messages from "../../../lib/Lang/applyForLoan.json"
 
 //Styling
 const useStyles = makeStyles((theme) => ({
@@ -102,7 +103,7 @@ export default function DocumentPhoto(props) {
 				</p>
 				<br />
 				<p style={{ textAlign: "justify", display: error ? "block" : "none", color: "red" }}>
-					{errorMessage.applyForLoan.documentPhoto.verificationNotFound}
+					{messages.documentPhoto.verificationNotFound}
 				</p>
 			</div>
 

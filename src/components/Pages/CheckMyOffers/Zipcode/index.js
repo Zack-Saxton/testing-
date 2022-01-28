@@ -24,7 +24,6 @@ const validationSchema = yup.object({
 function Zipcode() {
 	const { data } = useContext(CheckMyOffers);
 	const history = useHistory();
-
 	//initializing formik
 	const formik = useFormik({
 		initialValues: {

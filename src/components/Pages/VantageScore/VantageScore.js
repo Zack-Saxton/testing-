@@ -12,16 +12,17 @@ import KeyFactors from "./KeyFactors";
 import  getVantageScore  from "../../Controllers/VantageController";
 import ScrollToTopOnMount from "../ScrollToTop";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
+import {useQuery} from 'react-query'
 
 export default function VantageScore() {
   //Material UI css class
   const classes = useStyleVantageScore();
   const [creditData, setCreditData] = useState(null);
   const [keyFactors, setkeyFactors] = useState(null);
+  const {data : responseData} = useQuery('vantage-score', getVantageScore )
 
   //API Call for vantageScore
   async function vantageScoreData() {
-    let responseData = await (getVantageScore())
     let creditMonitorings = (responseData?.data?.status === 500 ? [] : responseData?.data?.creditmonitorings ? responseData?.data?.creditmonitorings : null)
     setCreditData(creditMonitorings)
     setkeyFactors(creditMonitorings?.length ? creditMonitorings[0]?.parsed : [])
@@ -29,7 +30,7 @@ export default function VantageScore() {
 
   useEffect(() => {
     vantageScoreData();
-  }, []);
+  }, [responseData]);
 
   //View
   return (
@@ -93,7 +94,7 @@ export default function VantageScore() {
         </div>
         <div id="dropDown" className={classes.root}>
           <Paper>
-            {keyFactors ? (
+            {keyFactors && creditData ? (
               creditData[0]?.parsed.vantage_score ? (
                 <KeyFactors keyFactors={keyFactors} />) : <Paper className={classes.paper}><div>You do not have any Key Factor</div></Paper>
             ) : <Paper className={classes.paper}> <CircularProgress /></Paper>}

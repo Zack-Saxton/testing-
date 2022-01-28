@@ -44,55 +44,25 @@ function SSN() {
 	const handleClose = () => {
 		setOpen(false);
 	};
-
 	const stopLoading = () => {
 		setSubmit(true);
 		setLoading(false);
 	};
-
 	const handleValidResponse = () => {
 		setData({
 			...data,
 			result: response.appSubmissionResult,
 			completedPage: data.page.ssn,
 		});
-		if (
-			response.appSubmissionResult &&
-			response.appSubmissionResult?.data?.applicationStatus ===
-			"offers_available"
-		) {
-			setData({
-				...data,
-				applicationStatus: "offers_available",
-			});
-			history.push({
-				pathname: "/eligible-for-offers",
-				formcomplete: "yes",
-			});
-		} else if (
-			response.appSubmissionResult &&
-			response.appSubmissionResult?.data?.applicationStatus === "rejected"
-		) {
-			setData({
-				...data,
-				applicationStatus: "rejected",
-			});
-			history.push({
-				pathname: "/no-offers-available",
-				formcomplete: "yes",
-			});
-		} else if (
-			response.appSubmissionResult &&
-			response.appSubmissionResult?.data?.applicationStatus === "referred"
-		) {
-			setData({
-				...data,
-				applicationStatus: "referred",
-			});
-			history.push({
-				pathname: "/referred-to-branch",
-				formcomplete: "yes",
-			});
+		if (response.appSubmissionResult && response.appSubmissionResult?.data?.applicationStatus === "offers_available") {
+			setData({...data, applicationStatus: "offers_available"});
+			history.push({pathname: "/eligible-for-offers", formcomplete: "yes"});
+		} else if (response.appSubmissionResult && response.appSubmissionResult?.data?.applicationStatus === "rejected") {
+			setData({...data, applicationStatus: "rejected"});
+			history.push({pathname: "/no-offers-available", formcomplete: "yes"});
+		} else if (response.appSubmissionResult && response.appSubmissionResult?.data?.applicationStatus === "referred") {
+			setData({...data, applicationStatus: "referred"});
+			history.push({pathname: "/referred-to-branch", formcomplete: "yes"});
 		}
 	};
 	const handleOnClick = async (event) => {
@@ -101,10 +71,7 @@ function SSN() {
 		let result = await getCustomerByEmail(data.email);
 		if (result && result?.data?.AppSubmittedInLast30Days === true) {
 			stopLoading();
-		} else if (
-			result &&
-			result?.data?.AppSubmittedInLast30Days === false
-		) {
+		} else if (result && result?.data?.AppSubmittedInLast30Days === false) {
 			response = await submitApplication(data);
 			setSubmit(false);
 			setData({
@@ -117,14 +84,8 @@ function SSN() {
 			if (response.appSubmissionResult.status === 200) {
 				handleValidResponse();
 			} else if (response.appSubmissionResult.status === 403) {
-				setData({
-					...data,
-					applicationStatus: "rejected",
-				});
-				history.push({
-					pathname: "/no-offers-available",
-					formcomplete: "yes",
-				});
+				setData({...data, applicationStatus: "rejected"});
+				history.push({pathname: "/no-offers-available", formcomplete: "yes"});
 			} else {
 				alert("Network Error");
 				setLoading(false);
@@ -135,11 +96,7 @@ function SSN() {
 	};
 
 	//redirect to select amount if accessed directly
-	if (
-		data.completedPage < data.page.livingPlace ||
-		data.completedPage < data.page.activeDuty ||
-		data.formStatus === "completed"
-	) {
+	if (data.completedPage < data.page.livingPlace || data.completedPage < data.page.activeDuty || data.formStatus === "completed") {
 		history.push("/select-amount");
 	}
 	const redirectNC = data.state === "NC" ? "/active-duty" : "living-place";

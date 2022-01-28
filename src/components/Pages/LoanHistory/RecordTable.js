@@ -22,15 +22,11 @@ export default function LoanHistoryTable(userLoanHistoryData) {
   window.zeHide();
   //Material UI css class
   const classes = useStylesLoanHistory();
-
   //Loan history data from API
   let userLoanHistory = userLoanHistoryData != null ? userLoanHistoryData : null;
-
   //Download loan document
   const downloadDoc = (accNo) => {
-
     loanDocument(accNo);
-
   };
 
   //View part

@@ -13,17 +13,18 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import Cookies from "js-cookie";
+import messages from "../../../lib/Lang/applyForLoan.json"
 
 //YUP validation schema
 const validationSchema = yup.object({
 	phone: yup
-		.string("Enter a name")
-		.required("Your Phone number is required")
+		.string(messages?.phoneVerification?.phoneNumRequired)
+		.required(messages?.phoneVerification?.phoneNumRequired)
 		.transform((value) => value.replace(/[^\d]/g, ""))
 		//eslint-disable-next-line
-		.matches(/^[1-9]{1}\d{2}\d{3}\d{4}$/, "Invalid Phone")
-		.matches(/^(\d)(?!\1+$)\d{9}$/, "Invalid Phone")
-		.min(10, "Name must contain at least 10 digits"),
+		.matches(/^[1-9]{1}\d{2}\d{3}\d{4}$/, messages?.phoneVerification?.invalidPhone)
+		.matches(/^(\d)(?!\1+$)\d{9}$/, messages?.phoneVerification?.invalidPhone)
+		.min(10, messages?.phoneVerification?.phoneNumMin),
 });
 
 //View Part
@@ -223,7 +224,7 @@ export default function PhoneVerification(props) {
 								props.next();
 							} else {
 								setError(
-									errorMessage.applyForLoan.phoneVerification
+									messages.phoneVerification
 										.verificationNotFound
 								);
 							}

@@ -18,6 +18,7 @@ import { toast } from "react-toastify";
 import usrAccountDetails from "../../../Controllers/AccountOverviewController";
 import { hardPullCheck } from "../../../Controllers/ApplyForLoanController";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import messages from '../../../lib/Lang/applyForLoan.json';
 
 // initializing Tab panel section
 function TabPanel(props) {
@@ -360,7 +361,7 @@ export default function ReviewAndSign(props) {
                 <p
                   style={{
                     textAlign: "justify",
-                    fontSize: "13px",
+                    fontSize: "15px",
                     color: "#6b6f82",
                   }}
                 >
@@ -372,7 +373,7 @@ export default function ReviewAndSign(props) {
                 <p
                   style={{
                     textAlign: "justify",
-                    fontSize: "13px",
+                    fontSize: "15px",
                     color: "#6b6f82",
                   }}
                 >
@@ -381,7 +382,7 @@ export default function ReviewAndSign(props) {
                 <ol
                   style={{
                     textAlign: "justify",
-                    fontSize: "13px",
+                    fontSize: "15px",
                     color: "#6b6f82",
                   }}
                 >
@@ -409,7 +410,7 @@ export default function ReviewAndSign(props) {
                       label={
                         <span
                           style={{
-                            fontSize: "14px",
+                            fontSize: "15px",
                             paddingTop: "15px",
                             textAlign: "justify",
                           }}
@@ -427,7 +428,7 @@ export default function ReviewAndSign(props) {
                       }}
                       testid="checkbox"
                       stylelabelform='{ "fontSize":"12px" }'
-                      stylecheckbox='{ "marginBottom":"15px" }'
+                      stylecheckbox='{ "marginBottom":"0px" }'
                       stylecheckboxlabel='{ "fontSize":"12px" }'
                     />
                   </Grid>
@@ -464,11 +465,11 @@ export default function ReviewAndSign(props) {
                             });
                           } else {
                             setLoading(false);
-                            toast.error("Signing process failed, please try again.");
+                            toast.error(messages.eSignFailed);
                           }
                         } else {
                           setLoading(false);
-                          toast.error("Please complete your signing process before continuing to the next page");
+                          toast.error(messages.completeEsign);
                         }
                       }}
                     >
@@ -481,7 +482,7 @@ export default function ReviewAndSign(props) {
                 <p
                   style={{
                     textAlign: "justify",
-                    fontSize: "13px",
+                    fontSize: "15px",
                     color: "#6b6f82",
                   }}
                 >
