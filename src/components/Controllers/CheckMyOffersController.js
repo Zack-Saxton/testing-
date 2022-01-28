@@ -204,8 +204,8 @@ export async function checkMyOfferSubmit(customer) {
 					delete headers.common[ "Content-Type" ];
 					return data;
 				},
-			});
-			response.appSubmissionResult = result;
+			})
+			response.appSubmissionResult = result?.data;
 		}
 	} catch (error) {
 		response.appSubmissionResult = error.response;
