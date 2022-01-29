@@ -51,7 +51,7 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import ProfileImageController from "../../Controllers/ProfileImageController";
 import { ProfilePicture } from "../../../contexts/ProfilePicture";
 import { CheckMyOffers } from "../../../contexts/CheckMyOffers"
-import { useQuery } from "react-query"
+import { useQuery, useQueryClient } from "react-query"
 
 const drawerWidth = 240;
 
@@ -189,6 +189,7 @@ export default function SideNav() {
   const { resetData } = useContext(CheckMyOffers);
 
   const { data: dataAccountOverview } = useQuery('loan-data', usrAccountDetails)
+  const queryClient = useQueryClient()
   const [activeLoanData, setActiveLoanData] = useState(true);
   const [currentLoan, setCurrentLoan] = useState(true);
   const [checkPresenceOfLoan, setCheckPresenceOfLoan] = useState(false)
@@ -439,6 +440,7 @@ export default function SideNav() {
 
   const logOut = async () => {
     setAnchorEl(null);
+    queryClient.removeQueries()
     await LogoutController();
     resetData();
     resetProfilePicture();
@@ -501,7 +503,6 @@ export default function SideNav() {
   if (navElement) {
     document.getElementById("applyForLoanNav").removeAttribute("href");
   }
-
 
   //View part
   return (

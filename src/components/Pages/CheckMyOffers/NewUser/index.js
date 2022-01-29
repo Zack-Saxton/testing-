@@ -15,6 +15,7 @@ import ScrollToTopOnMount from "../ScrollToTop";
 import LoginController from "../../../Controllers/LoginController";
 import Cookies from "js-cookie";
 import { encryptAES } from "../../../lib/Crypto";
+import { useQueryClient } from 'react-query';
 
 //YUP validation schema
 const validationSchema = yup.object({
@@ -44,6 +45,7 @@ function NewUser() {
 	const { data, setData } = useContext(CheckMyOffers);
 	const [failed, setFailed] = useState(false);
 	const [loading, setLoading] = useState(false);
+	const queryClient = useQueryClient()
 
 	//configuring formik
 	const formik = useFormik({
@@ -114,6 +116,7 @@ function NewUser() {
 								})
 							)
 						);
+						queryClient.removeQueries();
 
 						rememberMe === true
 							? Cookies.set("rememberMe", JSON.stringify({selected: true, email: values.email, password: values.password,}))

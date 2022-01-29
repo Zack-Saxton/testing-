@@ -42,7 +42,6 @@ const ApplyForLoanRedirect = (props) => {
 		};
 
 		let res = await APICall("account_overview",'', data, "GET", true);
-		console.log(res);
 		let checkStatus =
 			props?.location?.state?.statusCheck === false
 				? props.location.state.statusCheck

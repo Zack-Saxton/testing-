@@ -32,7 +32,7 @@ import { encryptAES } from "../../lib/Crypto";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
 import reqProperties from "../../lib/Lang/register.json";
 import globalValidation from "../../lib/Lang/globalValidation.json";
-
+import { useQueryClient } from 'react-query';
 //Styling part
 const useStyles = makeStyles((theme) => ({
   mainContentBackground: {
@@ -180,6 +180,7 @@ export default function Register() {
   const [failed, setFailed] = useState("");
   const [loading, setLoading] = useState(false);
   const history = useHistory();
+  const queryClient = useQueryClient()
 
   //Date implementation for verifying 18 years
   const myDate = new Date();
@@ -209,7 +210,7 @@ export default function Register() {
           })
         )
       );
-
+      queryClient.removeQueries();
       rememberMe === true
         ? Cookies.set(
             "rememberMe",
