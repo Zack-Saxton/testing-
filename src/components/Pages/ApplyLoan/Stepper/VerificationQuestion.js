@@ -86,7 +86,7 @@ export default function VerificationQuestion(props) {
                         }]
                       }
                     }
-                    let nxtRes = await APICall("/integration/LexisNexis/kba_disambiguate_answer_cac?test=true",'', sendData, "POST", true);
+                    let nxtRes = await APICall("kba_disambiguate_answer",'', sendData, "POST", true);
                     let tempArray = [];
                     if (nxtRes?.data?.kba) {
                       setQuestionSetIdMultiple(nxtRes?.data?.kba?.questions["question-set-id"]);

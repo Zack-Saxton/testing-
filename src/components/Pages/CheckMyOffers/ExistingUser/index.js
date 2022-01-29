@@ -16,6 +16,7 @@ import usrAccountDetails from "../../../Controllers/AccountOverviewController";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
 import { encryptAES } from "../../../lib/Crypto";
+import { useQueryClient } from 'react-query';
 
 //YUP validation schema
 const validationSchema = yup.object({
@@ -31,7 +32,7 @@ function ExistingUser() {
 	const [loginFailed, setLoginFailed] = useState("");
 	const [loading, setLoading] = useState(false);
 	const history = useHistory();
-
+	const queryClient = useQueryClient()
 	// Formik configuraion
 	const formik = useFormik({
 		initialValues: {
@@ -65,7 +66,7 @@ function ExistingUser() {
 						JSON.stringify({ email: data.email, password: values.password })
 					)
 				);
-
+				queryClient.removeQueries();
 				setLoading(false);
 				let accountDetail = await usrAccountDetails();
 

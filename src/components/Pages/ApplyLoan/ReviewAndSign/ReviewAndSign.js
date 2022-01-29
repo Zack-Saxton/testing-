@@ -129,7 +129,7 @@ export default function ReviewAndSign(props) {
   // To get the iframe url from the API
   async function getIframeURL() {
     let data = {};
-    let iframeURL = await APICall("/integration/eoriginal/authenticate_cac",'', data, "POST", true);
+    let iframeURL = await APICall("esignature_iframe",'', data, "POST", true);
     setUrl(iframeURL?.data?.iframe);
   }
 
@@ -425,7 +425,7 @@ export default function ReviewAndSign(props) {
                       onClick={async () => {
                         setLoading(true);
                         let data = {};
-                        let authenticateStatus = await APICall("/integration/eoriginal/complete_cac",'', data, "POST", true);
+                        let authenticateStatus = await APICall("esignature_complete",'', data, "POST", true);
                         if (authenticateStatus?.data?.result === "success") {
                           let hardPull = await hardPullCheck();
                           if (hardPull?.data?.status === 200 || hardPull?.data?.result === "success") {

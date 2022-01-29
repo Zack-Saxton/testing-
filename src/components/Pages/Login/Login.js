@@ -15,7 +15,7 @@ import ScrollToTopOnMount from "../../Pages/ScrollToTop";
 import Cookies from "js-cookie";
 import { encryptAES } from "../../lib/Crypto";
 import propertyMessages from "../../lib/Lang/Login.json";
-
+import { useQueryClient } from "react-query"
 const moment = require("moment");
 const moment_timezone = require("moment-timezone");
 let addVal = moment_timezone().tz("America/New_York").isDST() ? 4 : 5;
@@ -103,6 +103,7 @@ export default function Login(props) {
 	const history = useHistory();
 	const [loginFailed, setLoginFailed] = useState("");
 	const [loading, setLoading] = useState(false);
+	const queryClient = useQueryClient()
 
 	//Form Submission
 	const formik = useFormik({
@@ -131,7 +132,7 @@ export default function Login(props) {
 				Cookies.set("profile_picture", retVal?.data?.user?.mobile?.profile_picture ? retVal?.data?.user?.mobile?.profile_picture : "");
 				Cookies.set('login_date', login_date)
 				Cookies.set('userToken', retVal?.data?.user?.attributes?.UserToken)
-
+				queryClient.removeQueries();
 				setLoading(false);
 				history.push({
 					pathname: props.location.state?.redirect
