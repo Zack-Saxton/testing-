@@ -1,15 +1,16 @@
 import { useEffect } from "react";
 import { useLocation, useHistory } from "react-router-dom";
-import APICall from "../../../App/APIcall";
+import APICall from "../../../lib/AxiosLib";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
+import messages from "../../../lib/Lang/applyForLoan.json"
 
 //To validate the token comming in the verify email
 const ValidateToken = () => {
 	const useQuery = () => new URLSearchParams(useLocation().search);
 	const query = useQuery();
 	const getResponse = async (data) => {
-		let res = await APICall("/verification/verify_user_email_cac", data, "POST", true);
+		let res = await APICall("verify_user_email_cac",'', data, "POST", true);
 		return res;
 	};
 
@@ -38,7 +39,7 @@ const ValidateToken = () => {
 				},
 			});
 		} else if (now - actualSetupTime > min * 60 * 1000) {
-			alert("Your session has been ended, Please login again to continue");
+			alert(messages?.emailVerification?.sessionEnded);
 			history.push({
 				pathname: "/login",
 				state: { redirect: returnURL },
@@ -58,17 +59,17 @@ const ValidateToken = () => {
 					res?.data?.result === "error" &&
 					res?.data?.statusText === "Token not valid"
 				) {
-					toast.error(`Your token is Expired, please try again.`);
+					toast.error(messages?.emailVerification?.tokenExpired);
 					history.push({
 						pathname: "/customers/accountOverview",
 					});
 				} else if (res?.data?.result === "error") {
-					toast.error(res?.data?.statusText ?? "Your Email verification is failed, Please try again");
+					toast.error(res?.data?.statusText ?? messages?.emailVerification?.verificationFailed);
 					history.push({
 						pathname: "/customers/accountOverview",
 					});
 				} else {
-					toast.error("Your Email verification is failed, Please try again");
+					toast.error(messages?.emailVerification?.verificationFailed);
 					history.push({
 						pathname: "/customers/accountOverview",
 					});

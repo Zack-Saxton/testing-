@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import APICall from "../../App/APIcall";
+import APICall from "../../lib/AxiosLib";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
 import { toast } from "react-toastify";
+import messages from "../../lib/Lang/applyForLoan.json"
 
 //To redirect the user to apply for loan sections depends on the status of the loan application
 const ApplyForLoanRedirect = (props) => {
@@ -40,7 +41,8 @@ const ApplyForLoanRedirect = (props) => {
 			final_review: "/customers/loanDocument",
 		};
 
-		let res = await APICall("/customer/account_overview", data, "GET", true);
+		let res = await APICall("account_overview",'', data, "GET", true);
+		console.log(res);
 		let checkStatus =
 			props?.location?.state?.statusCheck === false
 				? props.location.state.statusCheck
@@ -52,12 +54,13 @@ const ApplyForLoanRedirect = (props) => {
 			if (res?.data?.customer?.user_account?.status === "closed" && checkStatus !== false) {
 				if (!toast.isActive("closedApplication")) {
 					toast.error(
-						"Your account is closed to new applications. Please contact us to reapply.");
+						messages?.accountClosed);
 				}
 				history.push({
 					pathname: "/customers/accountOverview",
 				});
 			} else if (res?.data?.applicants.length === 0) {
+				
 				redirectToCMO();
 			} else if (res?.data?.applicants[0]?.isActive === true) {
 				history.push({

@@ -4,8 +4,9 @@ import { ButtonPrimary, ButtonSecondary } from "../../../FormsUI";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import DocumentUpload from "./DocumentUpload";
-import APICall from "../../../App/APIcall";
+import APICall from "../../../lib/AxiosLib";
 import { toast } from "react-toastify";
+import messages from "../../../lib/Lang/applyForLoan.json"
 
 //styling part
 const useStyles = makeStyles(() => ({
@@ -87,7 +88,8 @@ export default function IncomeVerification(props) {
 
 							// API call
 							let res = await APICall(
-								"/verification/verification_steps_cac",
+								"verification_steps_cac",
+								'',
 								data,
 								"POST",
 								true
@@ -110,7 +112,7 @@ export default function IncomeVerification(props) {
 								});
 							} else {
 								props.setLoadingFlag(false);
-								alert("please finish all the steps");
+								alert(messages.incomeVerification.finishAllSteps);
 							}
 						}}
 					>

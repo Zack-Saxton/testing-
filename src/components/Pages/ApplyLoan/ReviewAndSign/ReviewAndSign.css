@@ -1,6 +1,9 @@
 .MuiTabs-indicator{
 	display: none !important;
 }
+#columnHeading{
+	font-size: 0.938rem !important;
+}
 @media (max-width: 800px) {
 	#column-heading {
 		font-size: 12px;

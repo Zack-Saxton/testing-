@@ -44,7 +44,9 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { tabAtom } from "../../Pages/MyProfile/MyProfileTab";
 import { useAtom } from "jotai";
+import {useQuery} from 'react-query'
 import Payment from "../../lib/Lang/makeaPayment.json";
+
 
 const paymentMaxDate = new Date();
 paymentMaxDate.setDate(paymentMaxDate.getDate() + 30);
@@ -74,30 +76,34 @@ export default function MakePayment(props) {
   const [requiredAmount, setRequiredAmount] = useState("");
   const [showCircularProgress, setshowCircularProgress] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [accountDetails, setAccountDetails] = useState(null);
+  const [accountDetails] = useState(null);
   const [totalPaymentAmount, setTotalPaymentAmount] = useState(null);
   const [checkAutoPay, setcheckAutoPay] = useState(false);
   const [autopaySubmit, setAutopaySubmit] = useState(true);
   const [scheduleDate, setscheduleDate] = useState(null);
   const [checkPaymentInformation, setCheckPaymentInformation] = useState(false);
   const [holidayCalenderApi, SetHolidayCalenderApi] = useState(null);
+  const [activeLoansData, setActiveLoansData] = useState([]);
+  const { isFetching, data : User, refetch} = useQuery('loan-data', usrAccountDetails, {
+    refetchOnMount: false
+  } )
+  const {data : payments} = useQuery ('payment-method', usrPaymentMethods, {
+    refetchOnMount: false
+  } )
+  
+
 
   //API Request for Payment methods
   async function getPaymentMethods() {
-    let payments = await usrPaymentMethods();
     setpaymentMethod(payments);
     if (payments?.data?.error) {
-      toast.error(payments?.data?.error, {
-        autoClose: 5000,
-      });
+      if (!toast.isActive("closedApplication")) { 
+        toast.error("Error retrieving loan information -- Account is Closed")
+      }      
     } else {
       //get default card
       let defaultBank = payments?.data?.defaultBank;
-      let cardFound = await defaultCardCheck(
-        payments?.data?.ACHMethods,
-        "ACH",
-        defaultBank
-      );
+      let cardFound = await defaultCardCheck(payments?.data?.ACHMethods,"ACH",defaultBank);
       if (!cardFound) {
         //set default card ACHMethods
         defaultCardCheck(payments?.data?.CardMethods, "card", defaultBank);
@@ -125,9 +131,9 @@ export default function MakePayment(props) {
   }
 
   //Enable auto payment
-  async function enableAutoPayment(accntNo, card, paymentDate, isDebit) {
-    let result = await enableAutoPay(accntNo, card, paymentDate, isDebit);
-    result.data.status === 200
+  async function enableAutoPayment(enableAutoPayAccountNo, enableAutoPayCard, enableAutoPayDate, enableAutoPayIsDebit) {
+    let result = await enableAutoPay(enableAutoPayAccountNo, enableAutoPayCard, enableAutoPayDate, enableAutoPayIsDebit);
+    result.status === 200
       ? result?.data?.paymentResult.HasNoErrors === true
         ? toast.success(Payment.Auto_Payment_Mode_Enabled, {
             autoClose: 5000,
@@ -135,7 +141,7 @@ export default function MakePayment(props) {
         : toast.error(Payment.Failed_Payment_mode, {
             autoClose: 5000,
 
-          })
+          }) 
       : toast.error(
         result?.data?.message
           ? result?.data?.message
@@ -143,25 +149,25 @@ export default function MakePayment(props) {
           {
             autoClose: 5000,
           }
-        );
+        ) 
 
     hasSchedulePayment
-      ? result.data.status === 200
+      ? result.status === 200
         ? deleteSchedule(accntNo, routingNumber)
-        : getData()
-      : getData();
+        : refetch()
+      : refetch();
   }
   //Disable auto payment
-  async function disableAutoPayment(accntNo, card, paymentDate, isDebit) {
-    let result = await disableAutoPay(accntNo, card, paymentDate, isDebit);
-    result.data.status === 200
+  async function disableAutoPayment(disableAutoPayAccountNo) {
+    let result = await disableAutoPay(disableAutoPayAccountNo);
+    result.status === 200
       ? result?.data?.deletePayment.HasNoErrors === true
         ? toast.success(Payment.Auto_Payment_Mode_Disabled, {
             autoClose: 5000,
-          })
+          }) 
         : toast.error(Payment.Failed_Payment_mode, {
             autoClose: 5000,
-          })
+          }) 
       : toast.error(
         result?.data?.message
           ? result?.data?.message
@@ -169,39 +175,40 @@ export default function MakePayment(props) {
           {
             autoClose: 5000,
           }
-        );
-    getData();
+        )
+      result?.data?.deletePayment.HasNoErrors && refetch();
   }
-
+     
   //Enable scheduled payment
-  async function makeuserPayment(accntNo, card, paymentDatepicker, isDebit, paymentAmount) {
+  async function makeuserPayment(scheduledPaymentAccountNo, scheduledPaymentCard, scheduledPaymentDatePicker, scheduledPaymentIsDebit, scheduledPaymentAmount) {
     setPaymentOpen(false);
-    let result = await makePayment(accntNo, card, paymentDatepicker, isDebit, paymentAmount);
+    let result = await makePayment(scheduledPaymentAccountNo, scheduledPaymentCard, scheduledPaymentDatePicker, scheduledPaymentIsDebit, scheduledPaymentAmount);
     let message =
       paymentDatepicker === Moment().format("YYYY/MM/DD")? Payment.We_Received_Your_Payment_Successfully: Payment.Payment_has_Scheduled + " Confirmation: " + result?.data?.paymentResult?.ReferenceNumber;
     result.status === 200
-      ? result?.data?.paymentResult?.PaymentCompleted !== undefined? toast.success(message, {autoClose: 5000,}) : toast.error(Payment.Failed_Payment_mode, {autoClose: 5000,})
+      ? result?.data?.paymentResult?.PaymentCompleted !== undefined? toast.success(message, {autoClose: 5000,}) && refetch() : toast.error(Payment.Failed_Payment_mode, {autoClose: 5000,})
       : toast.error(result?.data?.message? result?.data?.message : "Failed Payment mode",
           {
             autoClose: 5000,
           }
-        );
+        )
+     
     result.status === 200
       ? disableAutoPaymentScheduled(accntNo, card, paymentDate, isDebit)
-      : getData();
+      : refetch();
   }
 
   //Disable scheduled payment
-  async function deletePayment(accntNo, refNo) {
-    let result = await deleteScheduledPayment(accntNo, refNo, isCard);
-    result.data.status === 200
+  async function deletePayment(disableScheduledPaymentAccountNo, disableScheduledPaymentRefNo, disableScheduledPaymentIsCard) {
+    let result = await deleteScheduledPayment(disableScheduledPaymentAccountNo, disableScheduledPaymentRefNo, disableScheduledPaymentIsCard);
+    result.status === 200
       ? result?.data?.deletePaymentMethod.HasNoErrors === true
         ? toast.success("Scheduled Payment cancelled", {
             autoClose: 5000,
-          })
+          }) && refetch()
         : toast.error(Payment.Failed_Payment_mode, {
             autoClose: 5000,
-          })
+          }) 
       : toast.error(
         result?.data?.message
             ? result?.data?.message
@@ -209,18 +216,13 @@ export default function MakePayment(props) {
           {
             autoClose: 5000,
           }
-        );
+        ) 
   }
 
   // Disable auto payment while make payment
-  async function disableAutoPaymentScheduled(
-    accntNo,
-    card,
-    paymentDate,
-    isDebit
-  ) {
-    await disableAutoPay(accntNo, card, paymentDate, isDebit);
-    getData();
+  async function disableAutoPaymentScheduled(disableAutoPayScheduledAccountNo, disableAutoPayScheduledCard, disableAutoPayScheduledDate, disableAutoPayScheduledIsDebit) {
+    await disableAutoPay(disableAutoPayScheduledAccountNo, disableAutoPayScheduledCard, disableAutoPayScheduledDate, disableAutoPayScheduledIsDebit);
+    refetch()
   }
 
   const handleMenuPaymentProfile = () => {
@@ -231,21 +233,21 @@ export default function MakePayment(props) {
   };
 
   // Disable Sheduled payment while make recuiring payment
-  async function deleteSchedule(accntNo, refNo) {
-    await deleteScheduledPayment(accntNo, refNo);
-    getData();
+  async function deleteSchedule(deleteScheduleAccNo, deleteScheduleRefNo) {
+    await deleteScheduledPayment(deleteScheduleAccNo, deleteScheduleRefNo);
+    refetch()
   }
 
   //Validating ACCNO
-  async function checkaccNo(activeLoansData, accNo) {
+  async function checkaccNo(checkAccNoActiveLoansData, checkAccNo) {
     let check = false;
-    activeLoansData?.forEach((data) => {
-      if (data?.loanData?.accountNumber === accNo) {
+    checkAccNoActiveLoansData?.forEach((data) => {
+      if (data?.loanData?.accountNumber === checkAccNo) {
         let loan = [];
         loan.push(data);
         setlatestLoanData(loan);
         setpaymentAmount(
-          activeLoansData?.length
+          checkAccNoActiveLoansData?.length
             ? data != null
               ? (
                   Math.abs(
@@ -264,7 +266,7 @@ export default function MakePayment(props) {
             : null
         );
         setTotalPaymentAmount(
-          activeLoansData?.length
+          checkAccNoActiveLoansData?.length
             ? data != null
               ? (
                   Math.abs(
@@ -283,7 +285,7 @@ export default function MakePayment(props) {
             : null
         );
         setaccntNo(
-          activeLoansData?.length
+          checkAccNoActiveLoansData?.length
             ? data != null
               ? data.loanData?.accountNumber
               : null
@@ -291,7 +293,7 @@ export default function MakePayment(props) {
         );
         getPaymentMethods();
         setdisabledContent(
-          activeLoansData?.length
+          checkAccNoActiveLoansData?.length
             ? data != null
               ? data?.loanPaymentInformation?.appRecurringACHPayment
                 ? true
@@ -300,7 +302,7 @@ export default function MakePayment(props) {
             : false
         );
         setcheckAutoPay(
-          activeLoansData?.length
+          checkAccNoActiveLoansData?.length
             ? data != null
               ? data?.loanPaymentInformation?.appRecurringACHPayment
                 ? true
@@ -309,7 +311,7 @@ export default function MakePayment(props) {
             : false
         );
         setpaymentDate(
-          activeLoansData?.length
+          checkAccNoActiveLoansData?.length
             ? data != null
               ? Moment(
                   data?.loanPaymentInformation?.accountDetails?.NextDueDate
@@ -317,7 +319,7 @@ export default function MakePayment(props) {
               : "NONE"
             : "NONE"
         );
-        let scheduledDate = activeLoansData?.length
+        let scheduledDate = checkAccNoActiveLoansData?.length
           ? data?.loanPaymentInformation?.hasScheduledPayment
             ? Moment(
                 data?.loanPaymentInformation?.scheduledPayments[0]?.PaymentDate
@@ -328,7 +330,7 @@ export default function MakePayment(props) {
         setscheduleDate(scheduledDate);
         setLoading(false);
         setAutopaySubmit(true);
-        setshowCircularProgress(false);
+        setshowCircularProgress(isFetching);
         setCheckPaymentInformation(
           data?.loanPaymentInformation?.errorMessage ? true : false
         );
@@ -340,16 +342,13 @@ export default function MakePayment(props) {
   }
 
   //API Request for Account Details
-  async function getData() {
-    setshowCircularProgress(true);
-    let User = await usrAccountDetails();
-    setAccountDetails(User);
-
-    let activeLoansData = User != null ? User?.data?.activeLoans : null;
-    if (accNo) {
-      let res = await checkaccNo(activeLoansData, accNo);
-
-      // if accno is not Valid
+   function getData() {
+    setshowCircularProgress(isFetching);
+    let activeLoansData1 = User?.data?.activeLoans
+    setActiveLoansData(activeLoansData1);
+    if (accNo && activeLoansData) {
+      let res = checkaccNo(activeLoansData, accNo);
+     // if accno is not Valid
       if (res === false) {
         toast.error(Payment.Invalid_Account_Number, {
           autoClose: 5000,
@@ -452,9 +451,13 @@ export default function MakePayment(props) {
       setscheduleDate(scheduledDate);
       setLoading(false);
       setAutopaySubmit(true);
-      setshowCircularProgress(false);
+      setshowCircularProgress(isFetching);
       setCheckPaymentInformation(
-        latestLoan[0]?.loanPaymentInformation?.errorMessage ? true : false
+        activeLoansData?.length
+        ? latestLoan != null
+        ? latestLoan[0]?.loanPaymentInformation?.errorMessage ? true : false
+        : null
+        : null
       );
     }
   }
@@ -468,15 +471,15 @@ async function AsyncEffect_HolidayCalender() {
   useEffect(() => {
     getData();
     AsyncEffect_HolidayCalender();
-
-  }, []);
+    getPaymentMethods();
+    return null
+  }, [User, activeLoansData, isFetching, payments]);
 
   //Holiday Calender from API
 let holidayCalenderData = holidayCalenderApi?.data;
 
   //Account select payment options
   let paymentData = paymentMethods?.data;
-
   let paymentListAch =
     paymentData && paymentData.ACHMethods != null
       ? paymentData.ACHMethods.map((pdata) => ({
@@ -485,7 +488,6 @@ let holidayCalenderData = holidayCalenderApi?.data;
             pdata.AccountType + " (****" + pdata.AccountNumber.substr(-4) + ")",
         }))
       : null;
-
   let paymentListCard =
     paymentData && paymentData.ACHMethods != null
       ? paymentData.CardMethods.map((pdata) => ({
@@ -566,12 +568,12 @@ let holidayCalenderData = holidayCalenderApi?.data;
   };
 
   //Autopay popup confirm and close
-  async function handleAutoPayConfirm() {
+   function handleAutoPayConfirm() {
     setLoading(true);
     setshowCircularProgress(true);
     disabledContent === true
       ? enableAutoPayment(accntNo, card, paymentDate, isDebit)
-      : disableAutoPayment(accntNo, card, paymentDate, isDebit);
+      : disableAutoPayment(accntNo);
     setOpen(false);
   }
 
@@ -580,7 +582,7 @@ let holidayCalenderData = holidayCalenderApi?.data;
   };
 
   //Cancel Schedule popup confirm and close
-  async function handleDeleteSchedule() {
+  function handleDeleteSchedule() {
     setLoading(true);
     setshowCircularProgress(true);
     isCard === true
@@ -591,7 +593,7 @@ let holidayCalenderData = holidayCalenderApi?.data;
     setrequiredSelect("");
     setpaymentDatepicker(null);
     setopenDeleteSchedule(false);
-    getData();
+    refetch()
   }
 
   const handleDeleteScheduleClose = () => {

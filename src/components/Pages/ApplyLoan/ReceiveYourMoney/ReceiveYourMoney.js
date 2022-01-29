@@ -2,8 +2,6 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
 import PropTypes from "prop-types";
 import Box from "@material-ui/core/Box";
 import { NavLink } from "react-router-dom";
@@ -12,6 +10,7 @@ import Paper from "@material-ui/core/Paper";
 import ScrollToTopOnMount from "../../ScrollToTop";
 import CheckLoginStatus from "../../../App/CheckLoginStatus";
 import "../SelectOffer/SelectOffer.css";
+import TabSection from "../TabSection"
 
 //Initializing the Tab panel section
 function TabPanel(props) {
@@ -99,7 +98,7 @@ export default function ReceiveYourMoney() {
 
 	//Initializing state variables
 	const [value, setValue] = React.useState(3);
-	const handleTabChange = (event, newValue) => {
+	const handleChange = (event, newValue) => {
 		setValue(newValue);
 	};
 
@@ -144,36 +143,7 @@ export default function ReceiveYourMoney() {
 					</Typography>
 				</Grid>
 				<Grid item xs={12}>
-					<Tabs
-						value={value}
-						onChange={handleTabChange}
-						indicatorColor="primary"
-						textColor="primary"
-						variant="scrollable"
-						scrollButtons="auto"
-						aria-label="scrollable auto tabs example"
-					>
-						<Tab
-							label="1. Select Offer"
-							disabled={true}
-							className={classes.tabLabel}
-						/>
-						<Tab
-							label="2. Review & Sign"
-							className={classes.tabLabel}
-							disabled={true}
-						/>
-						<Tab
-							label="3. Final Verification"
-							disabled={true}
-							className={classes.tabLabel}
-						/>
-						<Tab
-							label="4. Receive your money"
-							{...a11yProps(3)}
-							className={classes.tabLabel}
-						/>
-					</Tabs>
+				<TabSection value={value} handleChange={handleChange} classes={classes} ay={3}/>
 
 					<TabPanel value={value} index={3} style={{ paddingBottom: "300px", marginTop: "10px" }}>
 						<Grid item xs={12} style={{ width: "100%" }} container direction="row">

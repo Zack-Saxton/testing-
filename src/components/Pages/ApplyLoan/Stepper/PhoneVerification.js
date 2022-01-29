@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import APICall from "../../../App/APIcall";
+import APICall from "../../../lib/AxiosLib";
 import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from "@material-ui/core";
 import { errorMessage } from "../../../../helpers/ErrorMessage";
 import { OTPInitialSubmission, verifyPasscode } from "../../../Controllers/ApplyForLoanController";
@@ -13,17 +13,18 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import Cookies from "js-cookie";
+import messages from "../../../lib/Lang/applyForLoan.json"
 
 //YUP validation schema
 const validationSchema = yup.object({
 	phone: yup
-		.string("Enter a name")
-		.required("Your Phone number is required")
+		.string(messages?.phoneVerification?.phoneNumRequired)
+		.required(messages?.phoneVerification?.phoneNumRequired)
 		.transform((value) => value.replace(/[^\d]/g, ""))
 		//eslint-disable-next-line
-		.matches(/^[1-9]{1}\d{2}\d{3}\d{4}$/, "Invalid Phone")
-		.matches(/^(\d)(?!\1+$)\d{9}$/, "Invalid Phone")
-		.min(10, "Name must contain at least 10 digits"),
+		.matches(/^[1-9]{1}\d{2}\d{3}\d{4}$/, messages?.phoneVerification?.invalidPhone)
+		.matches(/^(\d)(?!\1+$)\d{9}$/, messages?.phoneVerification?.invalidPhone)
+		.min(10, messages?.phoneVerification?.phoneNumMin),
 });
 
 //View Part
@@ -37,7 +38,7 @@ export default function PhoneVerification(props) {
 	// get phone number from using email from api
 	const getPhone = async () => {
 		let data = {};
-		let userData = await APICall("/customer/account_overview", data, "GET", true);
+		let userData = await APICall("account_overview", '', data, "GET", true);
 		setPhoneNum(userData?.data?.customer.latest_contact.phone_number_primary);
 	};
 
@@ -223,7 +224,7 @@ export default function PhoneVerification(props) {
 								props.next();
 							} else {
 								setError(
-									errorMessage.applyForLoan.phoneVerification
+									messages.phoneVerification
 										.verificationNotFound
 								);
 							}

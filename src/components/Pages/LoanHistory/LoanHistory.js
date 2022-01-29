@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useStylesLoanHistory } from "./Style";
 import LoanHistoryCard from "./CardContent";
 import LoanHistoryTable from "./RecordTable";
@@ -10,26 +10,18 @@ import "./Style.css";
 import ScrollToTopOnMount from "../ScrollToTop";
 import LoanHistoryController from "../../Controllers/LoanHistoryController";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
-
+import {useQuery} from 'react-query';
 
 export default function LoanHistory() {
   window.zeHide();
   //Material UI css class
   const classes = useStylesLoanHistory();
-
-  //API Call
-  const [loanHistoryStatus, setloanHistoryStatus] = useState(null);
-
-  async function AsyncEffect_loanHistory() {
-    setloanHistoryStatus(await LoanHistoryController());
-  }
-  useEffect(() => {
-    AsyncEffect_loanHistory();
-  }, []);
-
+  
+   //API Call
+  const { data: loanHistoryStatus} = useQuery('loan-history', LoanHistoryController );
 
   //Load data
-  let loanHistoryData = loanHistoryStatus != null ? loanHistoryStatus?.data?.activeLoans : null;
+  let loanHistoryData = loanHistoryStatus?.data?.activeLoans;
 
   //View Part
   return (

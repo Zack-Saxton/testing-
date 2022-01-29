@@ -19,6 +19,10 @@ import states from "../../lib/States.json"
 import statesFullform from "../../lib/StatesFullform.json"
 import Cookies from "js-cookie";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
+import {useQuery} from 'react-query';
+import usrAccountDetails from "../../Controllers/AccountOverviewController";
+
+
 const validationSchema = yup.object({
   streetAddress: yup
     .string("Enter Street Address")
@@ -51,6 +55,7 @@ export default function MailingAddress(props) {
   const [, setTabvalue] = useAtom(tabAtom)
 
 
+  const {refetch } = useQuery('loan-data', usrAccountDetails )
 
   let basicInfo = props?.basicInformationData?.latest_contact != null ? props.basicInformationData.latest_contact : null;
   let hasActiveLoan = Cookies.get("hasActiveLoan") === "true" ? true : false;
@@ -100,13 +105,12 @@ export default function MailingAddress(props) {
         let res = await mailingAddress(body);
 
         if (res?.data?.notes.length !== 0) {
-          toast.success("Updated successfully", {
+           refetch().then(()=>toast.success("Updated successfully", {
             onClose: () => {
               setLoading(false);
-              props.getUserAccountDetails()
               onClickCancelChange()
             }
-          });
+          }));
         } else {
           toast.error("Please try again", {
             onClose: () => { setLoading(false); }

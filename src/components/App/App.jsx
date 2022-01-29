@@ -49,7 +49,15 @@ import ApplyForLoanRedirect from "../Pages/ApplyLoan/ApplyForLoanRedirect"
 import { ToastContainer } from "react-toastify";
 import ProfilePicture from '../../contexts/ProfilePicture';
 import { QueryClientProvider, QueryClient } from 'react-query';
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+        retry: false,
+        staleTime: 500000,
+      },
+    },
+  });
 
 function App() {
     return (
