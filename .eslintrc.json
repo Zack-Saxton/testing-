@@ -1,4 +1,5 @@
-{
+{}
+ /*{
   "env": {
     "browser": true,
     "es2021": true
@@ -10,9 +11,10 @@
   ],
   "parserOptions": {
     "ecmaFeatures": {
-      "jsx": true
+      "jsx": true,
+      "modules": true
     },
-    "ecmaVersion": "latest",
+    "ecmaVersion": 2021,
     "sourceType": "module"
   },
   "plugins": [
@@ -21,11 +23,12 @@
   ],
   "rules": {
     "prettier/prettier": [ // "prettier/prettier" rule from "eslint-plugin-prettier"
-      "error", // violation of the rule will cause an error
+      "warn", // violation of the rule will cause an error0
       {
-        "singleQuote": true // option that sets single quotes as the valid quotes
+        "singleQuote": false, // option that sets single quotes as the valid quotes
+        "doubleQuote": false // option that sets single quotes as the valid quotes
       }
-    ],
+    ], 
     "react/jsx-filename-extension": [
       //"react/jsx-filename-extension" rule from "eslint-plugin-react"
       "warn", // violation of the rule will cause a warning
@@ -34,4 +37,4 @@
       }
     ]
   }
-}
+} */
