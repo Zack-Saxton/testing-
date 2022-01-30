@@ -16,6 +16,7 @@ import usrAccountDetails from "../../../Controllers/AccountOverviewController";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
 import { encryptAES } from "../../../lib/Crypto";
+import { useQueryClient } from 'react-query';
 
 //YUP validation schema
 const validationSchema = yup.object({
@@ -31,7 +32,7 @@ function ExistingUser() {
 	const [loginFailed, setLoginFailed] = useState("");
 	const [loading, setLoading] = useState(false);
 	const history = useHistory();
-
+	const queryClient = useQueryClient()
 	// Formik configuraion
 	const formik = useFormik({
 		initialValues: {
@@ -65,31 +66,19 @@ function ExistingUser() {
 						JSON.stringify({ email: data.email, password: values.password })
 					)
 				);
-
+				queryClient.removeQueries();
 				setLoading(false);
 				let accountDetail = await usrAccountDetails();
 
-				if (
-					accountDetail?.data?.customer?.user_account?.status === "closed"
-				) {
+				if (accountDetail?.data?.customer?.user_account?.status === "closed") {
 					data.isActiveUser = false;
 					toast.error("Your account is closed to new applications. Please contact us to reapply.");
-					history.push({
-						pathname: "/customers/accountOverview",
-					});
+					history.push({pathname: "/customers/accountOverview"});
 				} else {
-					history.push({
-						pathname: "/employment-status",
-					});
+					history.push({pathname: "/employment-status"});
 				}
-			} else if (
-				retVal?.data?.result === "error" ||
-				retVal?.data?.hasError === true
-			) {
-				Cookies.set(
-					"token",
-					JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" })
-				);
+			} else if (retVal?.data?.result === "error" || retVal?.data?.hasError === true) {
+				Cookies.set("token", JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" }));
 				setLoading(false);
 				setLoginFailed(retVal?.data?.errorMessage);
 			} else {
@@ -111,10 +100,7 @@ function ExistingUser() {
 	};
 
 	//redirects to select amount on directr page call
-	if (
-		data.completedPage < data.page.personalInfo ||
-		data.formStatus === "completed"
-	) {
+	if (data.completedPage < data.page.personalInfo || data.formStatus === "completed") {
 		history.push("/select-amount");
 	}
 

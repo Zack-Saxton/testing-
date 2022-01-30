@@ -22,11 +22,7 @@ function EligibleForOffers(props) {
 
 	const { data } = useContext(CheckMyOffers);
 	data.formStatus = "completed";
-	if (
-		data.completedPage < data.page.ssn &&
-		data.applicationStatus !== "referred" &&
-		props?.location?.formcomplete !== "yes"
-	) {
+	if (data.completedPage < data.page.ssn && data.applicationStatus !== "referred" && props?.location?.formcomplete !== "yes") {
 		history.push("/select-amount");
 	}
 	window.onbeforeunload = null;

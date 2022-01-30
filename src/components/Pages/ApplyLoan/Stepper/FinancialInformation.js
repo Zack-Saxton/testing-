@@ -10,7 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { submitFinancialInformation } from "../../../Controllers/ApplyForLoanController";
-import { errorMessage } from "../../../../helpers/ErrorMessage";
+import messages from "../../../lib/Lang/applyForLoan.json"
 
 //styling part
 const useStyles = makeStyles((theme) => ({
@@ -22,21 +22,21 @@ const useStyles = makeStyles((theme) => ({
 //YUP validation
 const validationSchema = yup.object({
   employerName: yup
-    .string("Your employer name is required.")
-    .max(30, "Employer name can be upto 30 characters length")
-    .min(2, "Employer name should be minimum of 2 letters")
-    .required("Your employer name is required."),
+    .string(messages.financialInformation.employeeNameRequired)
+    .max(30, messages.financialInformation.employeeNameMax)
+    .min(2, messages.financialInformation.employeeNameMin)
+    .required(messages.financialInformation.employeeNameRequired),
   jobTitle: yup
-    .string("Your current job title is required.")
-    .max(30, "Job title can be upto 30 characters length")
-    .min(2, "Job title should be minimum of 2 letters")
-    .required("Your current job title is required."),
+    .string(messages.financialInformation.jobTitleRequired)
+    .max(30, messages.financialInformation.jobTitleMax)
+    .min(2, messages.financialInformation.jobTitleMin)
+    .required(messages.financialInformation.jobTitleRequired),
   howDoYouHearAboutUs: yup
-    .string("Please let us know how you heard about us.")
-    .required("Please let us know how you heard about us."),
+    .string(messages.financialInformation.hearYouHeared)
+    .required(messages.financialInformation.hearYouHeared),
   yearsAtCurrentAddress: yup
-    .string("Years at current address is required")
-    .required("Years at current address is required"),
+	  .string(messages.financialInformation.yearAtCurrent)
+		.required(messages.financialInformation.yearAtCurrent),
 });
 
 //View Part
@@ -70,7 +70,7 @@ export default function FinancialInformation(props) {
       }
       else {
         props.setLoadingFlag(false);
-        setError(errorMessage.applyForLoan.financialInformation.verificationNotFound);
+        setError(messages.financialInformation.verificationNotFound);
       }
     }
   });

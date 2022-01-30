@@ -13,14 +13,14 @@ import DialogActions from "@material-ui/core/DialogActions";
 import axios from "axios";
 import { toast } from "react-toastify";
 import {
-	Button,
-	ButtonPrimary,
-	DatePicker,
-	EmailTextField,
-	PasswordField,
-	SocialSecurityNumber,
-	TextField,
-	Zipcode,
+  Button,
+  ButtonPrimary,
+  DatePicker,
+  EmailTextField,
+  PasswordField,
+  SocialSecurityNumber,
+  TextField,
+  Zipcode,
 } from "../../FormsUI";
 import Paper from "@material-ui/core/Paper";
 import Logo from "../../../assets/images/loginbg.png";
@@ -30,695 +30,703 @@ import Cookies from "js-cookie";
 import LogoutController from "../../Controllers/LogoutController";
 import { encryptAES } from "../../lib/Crypto";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
+import reqProperties from "../../lib/Lang/register.json";
+import globalValidation from "../../lib/Lang/globalValidation.json";
+import { useQueryClient } from 'react-query';
 //Styling part
 const useStyles = makeStyles((theme) => ({
-	mainContentBackground: {
-		backgroundImage: "url(" + Logo + ")",
-		backgroundRepeat: "noRepeat",
-		backgroundPosition: "center",
-		backgroundSize: "cover",
-		backgroundAttachment: "fixed",
-	},
-	root: {
-		flexGrow: 1,
-	},
-	mainGrid: {
-		boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%),
+  mainContentBackground: {
+    backgroundImage: "url(" + Logo + ")",
+    backgroundRepeat: "noRepeat",
+    backgroundPosition: "center",
+    backgroundSize: "cover",
+    backgroundAttachment: "fixed",
+  },
+  root: {
+    flexGrow: 1,
+  },
+  mainGrid: {
+    boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%),
     0 6px 30px 5px rgb(0 0 0 / 12%),
     0 8px 10px -7px rgb(0 0 0 / 20%)`,
-		background: "#f5f2f2",
-	},
-	title: {
-		fontSize: "25px",
-		textAlign: "center",
-		fontWeight: 400,
-		color: "black",
-	},
-	subtitle: {
-		textAlign: "center",
-	},
-	passwordTitle: {
-		fontSize: "14px",
-		textAlign: "justify",
-	},
-	dobTitle: {
-		fontSize: "12px",
-		textAlign: "justify",
-	},
-	paper: {
-		padding: theme.spacing(3),
-		borderRadius: "6px !important",
-		display: "flex",
-		flexDirection: "column",
-		backgroundColor: `rgba(255, 255, 255, .8)`,
-		color: theme.palette.text.secondary,
-		boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%),
+    background: "#f5f2f2",
+  },
+  title: {
+    fontSize: "25px",
+    textAlign: "center",
+    fontWeight: 400,
+    color: "black",
+  },
+  subtitle: {
+    textAlign: "center",
+  },
+  passwordTitle: {
+    fontSize: "14px",
+    textAlign: "justify",
+  },
+  dobTitle: {
+    fontSize: "12px",
+    textAlign: "justify",
+  },
+  paper: {
+    padding: theme.spacing(3),
+    borderRadius: "6px !important",
+    display: "flex",
+    flexDirection: "column",
+    backgroundColor: `rgba(255, 255, 255, .8)`,
+    color: theme.palette.text.secondary,
+    boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%),
   0 6px 30px 5px rgb(0 0 0 / 12%),
   0 8px 10px -7px rgb(0 0 0 / 20%)`,
-	},
-	form: {
-		width: "100%", // Fix IE 11 issue.
-		marginTop: theme.spacing(3),
-	},
-	submit: {
-		margin: theme.spacing(3, 0, 2),
-	},
-	signInButtonGrid: {
-		textAlign: "center",
-		paddingTop: "20px!important",
-	},
+  },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing(3),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+  signInButtonGrid: {
+    textAlign: "center",
+    paddingTop: "20px!important",
+  },
 }));
 
 //Yup validations for all the input fields
 const validationSchema = yup.object({
-	firstname: yup
-		.string("Enter your firstname")
-		.max(30, "Firstname can be upto 30 characters length")
-		.min(2, "Firstname should be minimum of 2 letters")
-		.required("Your first name is required"),
-	lastname: yup
-		.string("Enter your Lastname")
-		.max(30, "Lastname can be upto 30 characters length")
-		.min(2, "Lastname should be minimum of 2 letters")
-		.required("Your last name is required"),
-	email: yup
-		.string("Enter your email")
-		.email("A valid email address is required")
-		.matches(
-			/^[a-zA-Z](?!.*[+/._-][+/._-])(([^<>()|?{}='[\]\\,;:#!$%^&*\s@\"]+(\.[^<>()|?{}=/+'[\]\\.,;_:#!$%^&*-\s@\"]+)*)|(\".+\"))[a-zA-Z0-9]@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,3}))$/, //eslint-disable-line
-			"A valid email address is required"
-		)
-		.required("Your email address is required"),
-	date: yup
-		.date("Please enter a valid date")
-		.nullable()
-		.required("Your date of birth is required")
-		.max(
-			new Date(
-				new Date(
-					new Date().getFullYear() +
-					"/" +
-					(new Date().getMonth() + 1) +
-					"/" +
-					new Date().getDate()
-				).getTime() - 567650000000
-			),
-			"You must be at least 18 years old"
-		)
-		.min(new Date(1919, 1, 1), "You are too old")
-		.typeError("Please enter a valid date"),
-	password: yup
-		.string("Enter your password")
-		.matches(/^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,30}$/,"Your password doesn't meet the criteria")
-		.max(30, "Password can be upto 30 characters length")
-		.min(8, "Password should be minimum of 8 characters length")
-		.required("Your password is required"),
-	confirmPassword: yup
-		.string()
-		.max(30, "Password can be upto 30 characters length")
-		.min(8, "Password should be minimum of 8 characters length")
-		.required("Your password confirmation is required")
-		.when("password", {
-			is: (password) => password && password.length > 0,
-			then: yup
-				.string()
-				.oneOf(
-					[yup.ref("password")],
-					"Your confirmation password must match your password"
-				),
-		}),
-	zip: yup
-		.string("Enter your Zip")
-		.max(5, "Zipcode should be of maximum 5 characters length")
-		.required("Your home ZIP code is required"),
-	ssn: yup
-		.string("Enter a SSN")
-		.required("Your SSN is required")
-		.transform((value) => value.replace(/[^\d]/g, ""))
-		.matches(/^(?!000)[0-8]\d{2}(?!00)\d{2}(?!0000)\d{4}$/, "Please enter a valid SSN")
-		.matches(/^(\d)(?!\1+$)\d{8}$/, "Please enter a valid SSN")
-		.min(9, "Name must contain at least 9 digits"),
+  firstname: yup
+    .string(globalValidation.FirstNameEnter)
+    .max(30, globalValidation.FirstNameMax)
+    .min(2,  globalValidation.FirstNameMin)
+    .required(globalValidation.FirstNameRequired),
+  lastname: yup
+    .string(globalValidation.LastNameEnter)
+    .max(30, globalValidation.LastNameMax)
+    .min(2, globalValidation.LastNameMin)
+    .required(globalValidation.LastNameRequired),
+  email: yup
+    .string(globalValidation.EmailEnter)
+    .email(globalValidation.EmailValid)
+    .matches(
+      /^[a-zA-Z](?!.*[+/._-][+/._-])(([^<>()|?{}='[\]\\,;:#!$%^&*\s@\"]+(\.[^<>()|?{}=/+'[\]\\.,;_:#!$%^&*-\s@\"]+)*)|(\".+\"))[a-zA-Z0-9]@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,3}))$/, //eslint-disable-line
+      globalValidation.EmailValid
+    )
+    .required(globalValidation.EmailRequired),
+  date: yup
+    .date(globalValidation.DateOfBirthValid)
+    .nullable()
+    .required(globalValidation.DateOfBirthRequired)
+    .max(
+      new Date(
+        new Date(
+          new Date().getFullYear() +
+            "/" +
+            (new Date().getMonth() + 1) +
+            "/" +
+            new Date().getDate()
+        ).getTime() - 567650000000
+      ),
+      globalValidation.DateOfBirthMinAge
+    )
+    .min(new Date(1919, 1, 1), globalValidation.DateOfBirthMaxAge)
+    .typeError(globalValidation.DateOfBirthValid),
+  password: yup
+    .string(globalValidation.PasswordEnter)
+    .matches(
+      /^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,30}$/,
+      globalValidation.PasswordCriteria
+    )
+    .max(30, globalValidation.PasswordMax)
+    .min(8, globalValidation.PasswordMin)
+    .required(globalValidation.PasswordRequired),
+  confirmPassword: yup
+    .string()
+    .max(30, globalValidation.PasswordMax)
+    .min(8, globalValidation.PasswordMin)
+    .required(globalValidation.PasswordConfirmationRequired)
+    .when("password", {
+      is: (password) => password && password.length > 0,
+      then: yup
+        .string()
+        .oneOf(
+          [yup.ref("password")],
+          globalValidation.PasswordConfirmationMatch
+        ),
+    }),
+  zip: yup
+    .string(globalValidation.ZipCodeEnter)
+    .max(5, globalValidation.ZipCodeMax)
+    .required(globalValidation.ZipCodeRequired),
+  ssn: yup
+    .string(globalValidation.SSNEnter)
+    .required(globalValidation.SSNRequired)
+    .transform((value) => value.replace(/[^\d]/g, ""))
+    .matches(
+      /^(?!000)[0-8]\d{2}(?!00)\d{2}(?!0000)\d{4}$/,
+      globalValidation.SSNValid
+    )
+    .matches(/^(\d)(?!\1+$)\d{8}$/, globalValidation.SSNValid)
+    .min(9, globalValidation.SSNMin),
 });
 
 //Begin: Login page
 export default function Register() {
-	window.zeHide();
-	const classes = useStyles();
-	const [validZip, setValidZip] = useState(true);
-	const [state, setState] = useState("");
-	const [city, setCity] = useState("");
-	const [success, setSuccess] = useState(false);
-	const [failed, setFailed] = useState("");
-	const [loading, setLoading] = useState(false);
-	const history = useHistory();
+  window.zeHide();
+  const classes = useStyles();
+  const [validZip, setValidZip] = useState(true);
+  const [state, setState] = useState("");
+  const [city, setCity] = useState("");
+  const [success, setSuccess] = useState(false);
+  const [failed, setFailed] = useState("");
+  const [loading, setLoading] = useState(false);
+  const history = useHistory();
+  const queryClient = useQueryClient()
 
-	//Date implementation for verifying 18 years
-	const myDate = new Date();
-	myDate.setDate(myDate.getDate() - 6571);
+  //Date implementation for verifying 18 years
+  const myDate = new Date();
+  myDate.setDate(myDate.getDate() - 6571);
 
-	const loginUser = async (values) => {
-		let retVal = await LoginController(values.email, values.password, "");
-		if (retVal?.data?.user && retVal?.data?.userFound === true) {
-			let rememberMe = false;
-			var now = new Date().getTime();
-			LogoutController();
-			Cookies.set("redirec", JSON.stringify({ to: "/select-amount" }));
-			Cookies.set(
-				"token",
-				JSON.stringify({
-					isLoggedIn: true,
-					apiKey:
-						retVal?.data?.user?.extensionattributes?.login
-							?.jwt_token,
-					setupTime: now,
-				})
-			);
-			Cookies.set(
-				"cred",
-				encryptAES(
-					JSON.stringify({
-						email: values.email,
-						password: values.password,
-					})
-				)
-			);
+  const loginUser = async (values) => {
+    let retVal = await LoginController(values.email, values.password, "");
+    if (retVal?.data?.user && retVal?.data?.userFound === true) {
+      let rememberMe = false;
+      var now = new Date().getTime();
+      LogoutController();
+      Cookies.set("redirec", JSON.stringify({ to: "/select-amount" }));
+      Cookies.set(
+        "token",
+        JSON.stringify({
+          isLoggedIn: true,
+          apiKey: retVal?.data?.user?.extensionattributes?.login?.jwt_token,
+          setupTime: now,
+        })
+      );
+      Cookies.set(
+        "cred",
+        encryptAES(
+          JSON.stringify({
+            email: values.email,
+            password: values.password,
+          })
+        )
+      );
+      queryClient.removeQueries();
+      rememberMe === true
+        ? Cookies.set(
+            "rememberMe",
+            JSON.stringify({
+              selected: true,
+              email: values.email,
+              password: values.password,
+            })
+          )
+        : Cookies.set("rememberMe",JSON.stringify({ selected: false, email: "", password: "" }));
 
-			rememberMe === true
-				? Cookies.set(
-					"rememberMe",
-					JSON.stringify({
-						selected: true,
-						email: values.email,
-						password: values.password,
-					})
-				)
-				: Cookies.set("rememberMe",JSON.stringify({ selected: false, email: "", password: "" }));
+      setLoading(false);
+      history.push({
+        pathname: "/customers/accountoverview",
+      });
+    } else if (retVal?.data?.result === "error" || retVal?.data?.hasError === true) {
+      Cookies.set("token", JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" }));
+      setLoading(false);
+    } else {
+      setLoading(false);
+      alert("Network error");
+    }
+  }
+  //Form Submission
+  const formik = useFormik({
+    initialValues: {
+      firstname: "",
+      lastname: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      zip: "",
+      ssn: "",
+      date: null,
+    },
+    validationSchema: validationSchema,
+    onSubmit: async (values) => {
+      setLoading(true);
+      setFailed("");
+      //structuring the data for api call
+      let body = {
+        fname: values.firstname,
+        lname: values.lastname,
+        email: values.email,
+        ssn: values.ssn,
+        zip_code: values.zip,
+        password: values.password,
+        birth_year: values.date.getFullYear().toString(),
+        birth_month: ("0" + (values.date.getMonth() + 1)).slice(-2),
+        birth_day: ("0" + (values.date.getDate() + 1)).slice(-2),
+        address_street: "",
+        address_city: city,
+        address_state: state,
+      };
+      //API call
+      try {
+        let customerStatus = await axios({
+          method: "POST",
+          url: "/customer/register_new_user",
+          data: JSON.stringify(body),
+          headers: {
+            "Content-Type": "application/json",
+          },
+          transformRequest: (data, headers) => {
+            delete headers.common["Content-Type"];
+            return data;
+          },
+        });
 
-			setLoading(false);
-			history.push({
-				pathname: "/customers/accountoverview",
-			});
-		} else if (retVal?.data?.result === "error" || retVal?.data?.hasError === true) {
-			Cookies.set("token", JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" }));
-			setLoading(false);
-		} else {
-			setLoading(false);
-			alert("Network error");
-		}
-	}
-	//Form Submission
-	const formik = useFormik({
-		initialValues: {
-			firstname: "",
-			lastname: "",
-			email: "",
-			password: "",
-			confirmPassword: "",
-			zip: "",
-			ssn: "",
-			date: null,
-		},
-		validationSchema: validationSchema,
-		onSubmit: async (values) => {
-			setLoading(true);
-			setFailed("");
-			//structuring the data for api call
-			let body = {
-				fname: values.firstname,
-				lname: values.lastname,
-				email: values.email,
-				ssn: values.ssn,
-				zip_code: values.zip,
-				password: values.password,
-				birth_year: values.date.getFullYear().toString(),
-				birth_month: ("0" + (values.date.getMonth() + 1)).slice(-2),
-				birth_day: ("0" + (values.date.getDate() + 1)).slice(-2),
-				address_street: "",
-				address_city: city,
-				address_state: state,
-			};
-			//API call
-			try {
-				let customerStatus = await axios({
-					method: "POST",
-					url: "/customer/register_new_user",
-					data: JSON.stringify(body),
-					headers: {
-						"Content-Type": "application/json",
-					},
-					transformRequest: (data, headers) => {
-						delete headers.common["Content-Type"];
-						return data;
-					},
-				});
+        if (
+          (customerStatus.data?.customerFound === false && customerStatus.data?.userFound === false && customerStatus.data?.is_registration_failed === false) ||
+          (customerStatus.data?.result === "success" && customerStatus.data?.hasError === false)
+        ) {
+          //On succes, calls the login API to the JWT token and save it in storage, and make the user logged in and redirecting to home page
+          loginUser(values);
+        } 
+        else if (customerStatus.data?.result === "succcces" && customerStatus.data?.successMessage === "Password reset successful") {
+          toast.success(customerStatus.data?.successMessage)
+          loginUser(values);
+        } 
+        else if (
+          customerStatus.data?.result === "error" &&
+          customerStatus.data?.hasError === true
+        ) {
+          setFailed(customerStatus.data?.errorMessage);
+          setSuccess(false);
+          setLoading(false);
+        } else {
+            alert(globalValidation.Network_Error);
+            setFailed(globalValidation.Network_Error_Please_Try_Again);
+            setSuccess(false);
+            setLoading(false);
+        }
+      } catch (error) {
+        setFailed(reqProperties.Please_Contact_Us_At);
+        setLoading(false);
+      }
+    },
+  });
 
-				if (
-					(customerStatus.data?.customerFound === false && customerStatus.data?.userFound === false && customerStatus.data?.is_registration_failed === false) ||
-					(customerStatus.data?.result === "success" && customerStatus.data?.hasError === false)
-				) {
-					//On succes, calls the login API to the JWT token and save it in storage, and make the user logged in and redirecting to home page
-					loginUser(values);
-				}
-				else if (customerStatus.data?.result === "succcces" && customerStatus.data?.successMessage === "Password reset successful") {
-					toast.success(customerStatus.data?.successMessage)
-					loginUser(values);
-				}
-				else if (
-					customerStatus.data?.result === "error" &&
-					customerStatus.data?.hasError === true
-				) {
-					setFailed(customerStatus.data?.errorMessage);
-					setSuccess(false);
-					setLoading(false);
-				} else {
-					alert("network error");
-					setFailed("Network error, Please try again.");
-					setSuccess(false);
-					setLoading(false);
-				}
-			} catch (error) {
-				setFailed("Please contact us at (844) 306-7300");
-				setLoading(false);
-			}
-		},
-	});
+  const NameChange = (event) => {
+    const reg = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
+    let acc = event.target.value;
+    if (acc === "" || reg.test(acc)) {
+      formik.handleChange(event);
+    }
+  };
 
-	const NameChange = (event) => {
-		const reg = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
-		let acc = event.target.value;
-		if (acc === "" || reg.test(acc)) {
-			formik.handleChange(event);
-		}
-	};
+  const handleCloseFailed = () => {
+    setFailed("");
+  };
 
-	const handleCloseFailed = () => {
-		setFailed("");
-	};
+  const handleCloseSuccess = () => {
+    setSuccess(false);
+    history.push("customers/accountOverview");
+  };
 
-	const handleCloseSuccess = () => {
-		setSuccess(false);
-		history.push("customers/accountOverview");
-	};
+  //Preventing space key
+  const preventSpace = (event) => {
+    if (event.keyCode === 32) {
+      event.preventDefault();
+    }
+  };
 
-	//Preventing space key
-	const preventSpace = (event) => {
-		if (event.keyCode === 32) {
-			event.preventDefault();
-		}
-	};
+  //Auto focus on name field if it has any error on submit
+  function autoFocus() {
+    var firstname = document.getElementById("firstname").value;
+    var lastname = document.getElementById("lastname").value;
+    if (firstname === "") {
+      document.getElementById("firstname").focus();
+    }
+    if (lastname === "") {
+      if (firstname === "") {
+        document.getElementById("firstname").focus();
+      } else {
+        document.getElementById("lastname").focus();
+      }
+    }
+  }
 
-	//Auto focus on name field if it has any error on submit
-	function autoFocus() {
-		var firstname = document.getElementById("firstname").value;
-		var lastname = document.getElementById("lastname").value;
-		if (firstname === "") {
-			document.getElementById("firstname").focus();
-		}
-		if (lastname === "") {
-			if (firstname === "") {
-				document.getElementById("firstname").focus();
-			} else {
-				document.getElementById("lastname").focus();
-			}
-		}
-	}
+  //Fetching valid zipcode
+  const fetchAddress = async (event) => {
+    try {
+      formik.handleChange(event);
+      if (event.target.value !== "" && event.target.value.length === 5) {
+        let result = await ZipCodeLookup(event.target.value);
+        if (result) {
+          setValidZip(true);
+          setState(result?.data.stateCode);
+          setCity(result?.data.cityName);
+        } else {
+          setValidZip(false);
+          setState("");
+          setCity("");
+        }
+      } else {
+        setValidZip(false);
+        setState("");
+        setCity("");
+      }
+    } catch (error) {
+      toast.error(" Error from [fetchAddress]");
+    }
+  };
 
-	//Fetching valid zipcode
-	const fetchAddress = async (event) => {
-		try {
-			formik.handleChange(event);
-			if (event.target.value !== "" && event.target.value.length === 5) {
-				let result = await ZipCodeLookup(event.target.value);
-				if (result) {
-					setValidZip(true);
-					setState(result?.data.stateCode);
-					setCity(result?.data.cityName);
-				} else {
-					setValidZip(false);
-					setState("");
-					setCity("");
-				}
-			} else {
-				setValidZip(false);
-				setState("");
-				setCity("");
-			}
-		} catch (error) {
-			toast.error(" Error from [fetchAddress]");
-		}
-	};
+  //View Part
+  return (
+    <div>
+      <div className={classes.mainContentBackground} id="mainContentBackground">
+        <Box>
+          <Grid
+            xs={12}
+            item
+            container
+            justifyContent="center"
+            alignItems="center"
+            style={{ paddingTop: "30px", paddingBottom: "40px" }}
+          >
+            <Grid
+              xs={11}
+              sm={10}
+              md={8}
+              lg={6}
+              xl={6}
+              id="registerMainContent"
+              className="cardWrapper"
+              justifyContent="center"
+              alignItems="center"
+              container
+              item
+            >
+              <Paper className={classes.paper}>
+                <Typography
+                  className={classes.title}
+                  data-testid="title"
+                  color="textSecondary"
+                >
+                  Sign in help / register
+                </Typography>
+                <p className={classes.subtitle} data-testid="subtitle">
+                  {" "}
+                  Let us help you get signed in another way
+                </p>
 
-	//View Part
-	return (
-		<div>
-			<div className={classes.mainContentBackground} id="mainContentBackground">
-				<Box>
-					<Grid
-						xs={12}
-						item
-						container
-						justifyContent="center"
-						alignItems="center"
-						style={{ paddingTop: "30px", paddingBottom: "40px" }}
-					>
-						<Grid
-							xs={11}
-							sm={10}
-							md={8}
-							lg={6}
-							xl={6}
-							id="registerMainContent"
-							className="cardWrapper"
-							justifyContent="center"
-							alignItems="center"
-							container
-							item
-						>
-							<Paper className={classes.paper}>
-								<Typography
-									className={classes.title}
-									data-testid="title"
-									color="textSecondary"
-								>
-									Sign in help / register
-								</Typography>
-								<p className={classes.subtitle} data-testid="subtitle">
-									{" "}
-									Let us help you get signed in another way
-								</p>
+                <form onSubmit={formik.handleSubmit}>
+                  <Grid
+                    container
+                    justifyContent="center"
+                    alignItems="center"
+                    spacing={4}
+                  >
+                    <Grid
+                      item
+                      xs={12}
+                      sm={6}
+                      style={{ width: "100%" }}
+                      container
+                      direction="row"
+                    >
+                      <TextField
+                        name="firstname"
+                        id="firstname"
+                        label="First Name *"
+                        placeholder={globalValidation.FirstNameEnter}
+                        materialProps={{ maxLength: "30" }}
+                        value={formik.values.firstname}
+                        onChange={(e) => NameChange(e)}
+                        onBlur={formik.handleBlur}
+                        error={
+                          formik.touched.firstname &&
+                          Boolean(formik.errors.firstname)
+                        }
+                        helperText={
+                          formik.touched.firstname && formik.errors.firstname
+                        }
+                      />
+                    </Grid>
 
-								<form onSubmit={formik.handleSubmit}>
-									<Grid
-										container
-										justifyContent="center"
-										alignItems="center"
-										spacing={4}
-									>
-										<Grid
-											item
-											xs={12}
-											sm={6}
-											style={{ width: "100%" }}
-											container
-											direction="row"
-										>
-											<TextField
-												name="firstname"
-												id="firstname"
-												label="First Name *"
-												placeholder="Enter your firstname"
-												materialProps={{ maxLength: "30" }}
-												value={formik.values.firstname}
-												onChange={(e) => NameChange(e)}
-												onBlur={formik.handleBlur}
-												error={
-													formik.touched.firstname &&
-													Boolean(formik.errors.firstname)
-												}
-												helperText={
-													formik.touched.firstname && formik.errors.firstname
-												}
-											/>
-										</Grid>
+                    <Grid
+                      item
+                      xs={12}
+                      sm={6}
+                      style={{ width: "100%" }}
+                      container
+                      direction="row"
+                    >
+                      <TextField
+                        name="lastname"
+                        id="lastname"
+                        label="Last Name *"
+                        placeholder={globalValidation.LastNameEnter}
+                        materialProps={{ maxLength: "30" }}
+                        value={formik.values.lastname}
+                        onChange={NameChange}
+                        onBlur={formik.handleBlur}
+                        error={
+                          formik.touched.lastname &&
+                          Boolean(formik.errors.lastname)
+                        }
+                        helperText={
+                          formik.touched.lastname && formik.errors.lastname
+                        }
+                      />
+                    </Grid>
 
-										<Grid
-											item
-											xs={12}
-											sm={6}
-											style={{ width: "100%" }}
-											container
-											direction="row"
-										>
-											<TextField
-												name="lastname"
-												id="lastname"
-												label="Last Name *"
-												placeholder="Enter your lastname"
-												materialProps={{ maxLength: "30" }}
-												value={formik.values.lastname}
-												onChange={NameChange}
-												onBlur={formik.handleBlur}
-												error={
-													formik.touched.lastname &&
-													Boolean(formik.errors.lastname)
-												}
-												helperText={
-													formik.touched.lastname && formik.errors.lastname
-												}
-											/>
-										</Grid>
+                    <Grid
+                      item
+                      xs={12}
+                      style={{ width: "100%" }}
+                      container
+                      direction="row"
+                    >
+                      <EmailTextField
+                        id="email"
+                        name="email"
+                        label="Email *"
+                        placeholder={globalValidation.EmailEnter}
+                        materialProps={{ maxLength: "100" }}
+                        onKeyDown={preventSpace}
+                        value={formik.values.email}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={
+                          formik.touched.email && Boolean(formik.errors.email)
+                        }
+                        helperText={formik.touched.email && formik.errors.email}
+                      />
+                    </Grid>
 
-										<Grid
-											item
-											xs={12}
-											style={{ width: "100%" }}
-											container
-											direction="row"
-										>
-											<EmailTextField
-												id="email"
-												name="email"
-												label="Email *"
-												placeholder="Enter your email address"
-												materialProps={{ maxLength: "100" }}
-												onKeyDown={preventSpace}
-												value={formik.values.email}
-												onChange={formik.handleChange}
-												onBlur={formik.handleBlur}
-												error={
-													formik.touched.email && Boolean(formik.errors.email)
-												}
-												helperText={formik.touched.email && formik.errors.email}
-											/>
-										</Grid>
+                    <Grid
+                      id="socialNum"
+                      item
+                      xs={12}
+                      sm={4}
+                      container
+                      direction="row"
+                    >
+                      <SocialSecurityNumber
+                        className={classes.socialNum}
+                        name="ssn"
+                        label="Social Security Number *"
+                        placeholder={globalValidation.SSNEnter}
+                        id="ssn"
+                        type="ssn"
+                        value={formik.values.ssn}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.ssn && Boolean(formik.errors.ssn)}
+                        helperText={formik.touched.ssn && formik.errors.ssn}
+                      />
+                    </Grid>
+                    <Grid
+                      id="ZipcodeWrap"
+                      item
+                      xs={12}
+                      sm={4}
+                      container
+                      direction="row"
+                    >
+                      <Zipcode
+                        fullWidth
+                        id="zip"
+                        name="zip"
+                        label="Zip Code *"
+                        placeholder={globalValidation.ZipCodeEnter}
+                        value={formik.values.zip}
+                        onChange={fetchAddress}
+                        onBlur={formik.handleBlur}
+                        error={
+                          (formik.touched.zip && Boolean(formik.errors.zip)) ||
+                          !validZip
+                        }
+                        helperText={
+                          validZip
+                            ? formik.touched.zip && formik.errors.zip
+                            : `${globalValidation.ZipCodeValid}` 
+                        }
+                      />
+                    </Grid>
 
-										<Grid
-											id="socialNum"
-											item
-											xs={12}
-											sm={4}
-											container
-											direction="row"
-										>
-											<SocialSecurityNumber
-												className={classes.socialNum}
-												name="ssn"
-												label="Social Security Number *"
-												placeholder="Enter your SSN"
-												id="ssn"
-												type="ssn"
-												value={formik.values.ssn}
-												onChange={formik.handleChange}
-												onBlur={formik.handleBlur}
-												error={formik.touched.ssn && Boolean(formik.errors.ssn)}
-												helperText={formik.touched.ssn && formik.errors.ssn}
-											/>
-										</Grid>
-										<Grid
-											id="ZipcodeWrap"
-											item
-											xs={12}
-											sm={4}
-											container
-											direction="row"
-										>
-											<Zipcode
-												fullWidth
-												id="zip"
-												name="zip"
-												label="Zipcode *"
-												placeholder="Enter your zipcode"
-												value={formik.values.zip}
-												onChange={fetchAddress}
-												onBlur={formik.handleBlur}
-												error={
-													(formik.touched.zip && Boolean(formik.errors.zip)) ||
-													!validZip
-												}
-												helperText={
-													validZip
-														? formik.touched.zip && formik.errors.zip
-														: "Please enter a valid zipcode"
-												}
-											/>
-										</Grid>
+                    <Grid
+                      id="dateWrap"
+                      item
+                      xs={12}
+                      sm={4}
+                      container
+                      direction="row"
+                    >
+                      <DatePicker
+                        name="date"
+                        label="Date of Birth *"
+                        id="date"
+                        placeholder="MM/DD/YYYY"
+                        format="MM/dd/yyyy"
+                        maxdate={myDate}
+                        minyear={102}
+                        value={formik.values.date}
+                        onChange={(values) => {
+                          formik.setFieldValue("date", values);
+                        }}
+                        onBlur={formik.handleBlur}
+                        error={
+                          formik.touched.date && Boolean(formik.errors.date)
+                        }
+                        helperText={formik.touched.date && formik.errors.date}
+                      />
+                    </Grid>
 
-										<Grid
-											id="dateWrap"
-											item
-											xs={12}
-											sm={4}
-											container
-											direction="row"
-										>
-											<DatePicker
-												name="date"
-												label="Date of Birth *"
-												id="date"
-												placeholder="MM/DD/YYYY"
-												format="MM/dd/yyyy"
-												maxdate={myDate}
-												minyear={102}
-												value={formik.values.date}
-												onChange={(values) => {
-													formik.setFieldValue("date", values);
-												}}
-												onBlur={formik.handleBlur}
-												error={
-													formik.touched.date && Boolean(formik.errors.date)
-												}
-												helperText={formik.touched.date && formik.errors.date}
-											/>
-										</Grid>
+                    <Grid
+                      item
+                      xs={12}
+                      style={{ width: "100%" }}
+                      container
+                      direction="row"
+                    >
+                      <PasswordField
+                        name="password"
+                        label="Create New Password *"
+                        placeholder={globalValidation.PasswordEnter}
+                        id="password"
+                        type="password"
+                        onKeyDown={preventSpace}
+                        materialProps={{ maxLength: "30" }}
+                        value={formik.values.password}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={
+                          formik.touched.password &&
+                          Boolean(formik.errors.password)
+                        }
+                        helperText={
+                          formik.touched.password && formik.errors.password
+                        }
+                      />
+                      <p id="passwordTitle" className={classes.passwordTitle}>
+                        Please ensure your password meets the following
+                        criteria: between 8 and 30 characters in length, at
+                        least 1 uppercase letter, at least 1 lowercase letter,
+                        at least 1 symbol and at least 1 number.
+                      </p>
+                    </Grid>
+                    <Grid
+                      item
+                      xs={12}
+                      style={{ width: "100%" }}
+                      container
+                      direction="row"
+                    >
+                      <PasswordField
+                        name="confirmPassword"
+                        label="Confirm Your Password *"
+                        placeholder={globalValidation.PasswordConfirmEnter}
+                        id="cpass"
+                        type="password"
+                        onKeyDown={preventSpace}
+                        materialProps={{ maxLength: "30" }}
+                        value={formik.values.confirmPassword}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={
+                          formik.touched.confirmPassword &&
+                          Boolean(formik.errors.confirmPassword)
+                        }
+                        helperText={
+                          formik.touched.confirmPassword &&
+                          formik.errors.confirmPassword
+                        }
+                      />
+                      <br />
+                      <p
+                        className={
+                          failed !== "" || failed !== undefined
+                            ? "showError add Pad"
+                            : "hideError"
+                        }
+                        data-testid="subtitle"
+                      >
+                        {" "}
+                        {failed}
+                      </p>
+                    </Grid>
 
-										<Grid
-											item
-											xs={12}
-											style={{ width: "100%" }}
-											container
-											direction="row"
-										>
-											<PasswordField
-												name="password"
-												label="Create New Password *"
-												placeholder="Enter your password"
-												id="password"
-												type="password"
-												onKeyDown={preventSpace}
-												materialProps={{ maxLength: "30" }}
-												value={formik.values.password}
-												onChange={formik.handleChange}
-												onBlur={formik.handleBlur}
-												error={
-													formik.touched.password &&
-													Boolean(formik.errors.password)
-												}
-												helperText={
-													formik.touched.password && formik.errors.password
-												}
-											/>
-											<p id="passwordTitle" className={classes.passwordTitle}>
-												Please ensure your password meets the following
-												criteria: between 8 and 30 characters in length, at
-												least 1 uppercase letter, at least 1 lowercase letter,
-												at least 1 symbol and at least 1 number.
-											</p>
-										</Grid>
-										<Grid
-											item
-											xs={12}
-											style={{ width: "100%" }}
-											container
-											direction="row"
-										>
-											<PasswordField
-												name="confirmPassword"
-												label="Confirm Your Password *"
-												placeholder="Enter your confirm password"
-												id="cpass"
-												type="password"
-												onKeyDown={preventSpace}
-												materialProps={{ maxLength: "30" }}
-												value={formik.values.confirmPassword}
-												onChange={formik.handleChange}
-												onBlur={formik.handleBlur}
-												error={
-													formik.touched.confirmPassword &&
-													Boolean(formik.errors.confirmPassword)
-												}
-												helperText={
-													formik.touched.confirmPassword &&
-													formik.errors.confirmPassword
-												}
-											/>
-											<br />
-											<p
-												className={
-													failed !== "" || failed !== undefined
-														? "showError add Pad"
-														: "hideError"
-												}
-												data-testid="subtitle"
-											>
-												{" "}
-												{failed}
-											</p>
-										</Grid>
-
-										<Grid item xs={12} className={classes.signInButtonGrid}>
-											<ButtonPrimary
-												onClick={autoFocus}
-												type="submit"
-												data-testid="submit"
-												stylebutton='{"background": "", "color":"", "fontSize" : "15px ! important", "padding" : "0px 30px" }'
-												disabled={loading}
-											>
-												{/* <Typography align="center" className="textCSS "> */}
-												Sign in
-												{/* </Typography> */}
-												<i
-													className="fa fa-refresh fa-spin customSpinner"
-													style={{
-														marginRight: "10px",
-														display: loading ? "block" : "none",
-													}}
-												/>
-											</ButtonPrimary>
-										</Grid>
-									</Grid>
-								</form>
-							</Paper>
-						</Grid>
-					</Grid>
-				</Box>
-			</div>
-			<Dialog
-				onClose={handleCloseFailed}
-				aria-labelledby="customized-dialog-title"
-				open={false}
-			>
-				<DialogTitle id="customized-dialog-title" onClose={handleCloseFailed}>
-					Notice
-				</DialogTitle>
-				<DialogContent dividers>
-					<Typography align="justify" gutterBottom>
-						Account already exists. Please use the login page and forgot
-						password function to login
-					</Typography>
-				</DialogContent>
-				<DialogActions className="modalAction">
-					<Button
-						stylebutton='{"background": "#FFBC23", "color": "black", "border-radius": "50px"}'
-						onClick={handleCloseFailed}
-						className="modalButton"
-					>
-						<Typography align="center">Ok</Typography>
-					</Button>
-				</DialogActions>
-			</Dialog>
-			<Dialog
-				onClose={handleCloseSuccess}
-				aria-labelledby="customized-dialog-title"
-				open={success}
-			>
-				<DialogTitle id="customized-dialog-title" onClose={handleCloseSuccess}>
-					Notice
-				</DialogTitle>
-				<DialogContent dividers>
-					<Typography align="justify" gutterBottom>
-						Account created Successfully!
-					</Typography>
-				</DialogContent>
-				<DialogActions className="modalAction">
-					<Button
-						stylebutton='{"background": "#FFBC23", "color": "black", "border-radius": "50px"}'
-						onClick={handleCloseSuccess}
-						className="modalButton"
-					>
-						<Typography align="center">Ok</Typography>
-					</Button>
-				</DialogActions>
-			</Dialog>
-		</div>
-	);
+                    <Grid item xs={12} className={classes.signInButtonGrid}>
+                      <ButtonPrimary
+                        onClick={autoFocus}
+                        type="submit"
+                        data-testid="submit"
+                        stylebutton='{"background": "", "color":"", "fontSize" : "15px ! important", "padding" : "0px 30px" }'
+                        disabled={loading}
+                      >
+                        {/* <Typography align="center" className="textCSS "> */}
+                        Sign in
+                        {/* </Typography> */}
+                        <i
+                          className="fa fa-refresh fa-spin customSpinner"
+                          style={{
+                            marginRight: "10px",
+                            display: loading ? "block" : "none",
+                          }}
+                        />
+                      </ButtonPrimary>
+                    </Grid>
+                  </Grid>
+                </form>
+              </Paper>
+            </Grid>
+          </Grid>
+        </Box>
+      </div>
+      <Dialog
+        onClose={handleCloseFailed}
+        aria-labelledby="customized-dialog-title"
+        open={false}
+      >
+        <DialogTitle id="customized-dialog-title" onClose={handleCloseFailed}>
+          Notice
+        </DialogTitle>
+        <DialogContent dividers>
+          <Typography align="justify" gutterBottom>
+            Account already exists. Please use the login page and forgot
+            password function to login
+          </Typography>
+        </DialogContent>
+        <DialogActions className="modalAction">
+          <Button
+            stylebutton='{"background": "#FFBC23", "color": "black", "border-radius": "50px"}'
+            onClick={handleCloseFailed}
+            className="modalButton"
+          >
+            <Typography align="center">Ok</Typography>
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog
+        onClose={handleCloseSuccess}
+        aria-labelledby="customized-dialog-title"
+        open={success}
+      >
+        <DialogTitle id="customized-dialog-title" onClose={handleCloseSuccess}>
+          Notice
+        </DialogTitle>
+        <DialogContent dividers>
+          <Typography align="justify" gutterBottom>
+            Account created Successfully!
+          </Typography>
+        </DialogContent>
+        <DialogActions className="modalAction">
+          <Button
+            stylebutton='{"background": "#FFBC23", "color": "black", "border-radius": "50px"}'
+            onClick={handleCloseSuccess}
+            className="modalButton"
+          >
+            <Typography align="center">Ok</Typography>
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
 }

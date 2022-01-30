@@ -1,6 +1,7 @@
 import APICall from "../lib/AxiosLib";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
+import messages from "../lib/Lang/applyForLoan.json"
 
 /***** Get Available offer details *****/
 export async function fetchAvailableOffers() {
@@ -121,7 +122,10 @@ export async function resendVerificationEmail() {
   //API call
   let resendVerificationEmailMethod = await APICall(url, param, data, method, addAccessToken);
   if (resendVerificationEmailMethod.data.status === 200 && resendVerificationEmailMethod.data.statusText) {
-    if (!toast.isActive("closeToast")) { toast.success("A verification email has been sent to " + email); }
+    if (!toast.isActive("closeToast"))  
+      { toast.success(messages?.emailVerification?.emailSentSuccess + email, 
+        {toastId: "closeToast"}); 
+      }
   }
   return resendVerificationEmailMethod;
 }

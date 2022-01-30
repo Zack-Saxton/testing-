@@ -132,10 +132,7 @@ function HomeAddress() {
 	const onBlurAddress = (event) => {
 		formik.setFieldValue("streetAddress", event.target.value.trim());
 	};
-	if (
-		data.completedPage < data.page.citizenship ||
-		data.formStatus === "completed"
-	) {
+	if (data.completedPage < data.page.citizenship || data.formStatus === "completed") {
 		history.push("/select-amount");
 	}
 	return (

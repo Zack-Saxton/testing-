@@ -15,19 +15,16 @@ import ScrollToTopOnMount from "../ScrollToTop";
 import LoginController from "../../../Controllers/LoginController";
 import Cookies from "js-cookie";
 import { encryptAES } from "../../../lib/Crypto";
+import { useQueryClient } from 'react-query';
 
 //YUP validation schema
 const validationSchema = yup.object({
 	newPassword: yup
 		.string("Enter your password")
-		.matches(
-			/^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,30}$/,
-			"Your password doesn't meet the criteria"
-		)
+		.matches(/^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,30}$/, "Your password doesn't meet the criteria")
 		.max(30, "Password can be upto 30 characters length")
 		.min(8, "Password should be minimum of 8 characters length")
 		.required("Your Password is required"),
-
 	confirmPassword: yup
 		.string()
 		.required("Your password confirmation is required")
@@ -37,10 +34,7 @@ const validationSchema = yup.object({
 			is: (newPassword) => newPassword && newPassword.length > 0,
 			then: yup
 				.string()
-				.oneOf(
-					[yup.ref("newPassword")],
-					"Your confirmation password must match your password"
-				),
+				.oneOf([yup.ref("newPassword")],"Your confirmation password must match your password"),
 		}),
 });
 
@@ -51,6 +45,7 @@ function NewUser() {
 	const { data, setData } = useContext(CheckMyOffers);
 	const [failed, setFailed] = useState(false);
 	const [loading, setLoading] = useState(false);
+	const queryClient = useQueryClient()
 
 	//configuring formik
 	const formik = useFormik({
@@ -96,20 +91,9 @@ function NewUser() {
 					},
 				});
 				//login the user if registerd successfully and stores the JWT token
-				if (
-					customerStatus.data?.customerFound === false &&
-					customerStatus.data?.userFound === false &&
-					customerStatus.data?.is_registration_failed === false
-				) {
-					let retVal = await LoginController(
-						data.email,
-						values.newPassword,
-						""
-					);
-					if (
-						retVal?.data?.user &&
-						retVal?.data?.userFound === true
-					) {
+				if (customerStatus.data?.customerFound === false && customerStatus.data?.userFound === false && customerStatus.data?.is_registration_failed === false) {
+					let retVal = await LoginController(data.email, values.newPassword, "");
+					if (retVal?.data?.user && retVal?.data?.userFound === true) {
 						let rememberMe = false;
 						var now = new Date().getTime();
 						// localStorage.clear();
@@ -132,43 +116,23 @@ function NewUser() {
 								})
 							)
 						);
+						queryClient.removeQueries();
 
 						rememberMe === true
-							? Cookies.set(
-								"rememberMe",
-								JSON.stringify({
-									selected: true,
-									email: values.email,
-									password: values.password,
-								})
-							)
-							: Cookies.set(
-								"rememberMe",
-								JSON.stringify({ selected: false, email: "", password: "" })
-							);
+							? Cookies.set("rememberMe", JSON.stringify({selected: true, email: values.email, password: values.password,}))
+							: Cookies.set("rememberMe",JSON.stringify({ selected: false, email: "", password: "" }));
 
 						setLoading(false);
-						history.push({
-							pathname: "employment-status",
-						});
-					} else if (
-						retVal?.data?.result === "error" ||
-						retVal?.data?.hasError === true
-					) {
-						Cookies.set(
-							"token",
-							JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" })
-						);
+						history.push({pathname: "employment-status",});
+					} else if (retVal?.data?.result === "error" || retVal?.data?.hasError === true) {
+						Cookies.set("token", JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" }));
 						setLoading(false);
 					} else {
 						setLoading(false);
 						alert("Network error");
 					}
 					// history.push("employment-status");
-				} else if (
-					customerStatus.data?.result === "error" &&
-					customerStatus.data?.statusCode === 400
-				) {
+				} else if (customerStatus.data?.result === "error" && customerStatus.data?.statusCode === 400) {
 					setFailed(true);
 					setLoading(false);
 				} else {
@@ -190,10 +154,7 @@ function NewUser() {
 	};
 
 	//redirects to select amount on direct call
-	if (
-		data.completedPage < data.page.personalInfo ||
-		data.formStatus === "completed"
-	) {
+	if (data.completedPage < data.page.personalInfo || data.formStatus === "completed") {
 		history.push("/select-amount");
 	}
 

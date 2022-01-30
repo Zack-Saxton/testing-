@@ -16,7 +16,7 @@ import BankAccountVerification from "./BankAccountVerification";
 import { ButtonPrimary } from "../../../FormsUI";
 import { NavLink, useHistory } from "react-router-dom";
 import { Grid } from "@material-ui/core";
-import APICall from "../../../App/APIcall";
+import APICall from "../../../lib/AxiosLib";
 import "./VerticalLinearStepper.css";
 import Cookies from "js-cookie";
 
@@ -81,7 +81,8 @@ export default function VerticalLinearStepper() {
 		let data = {};
 		const skip = JSON.parse(Cookies.get("skip") ? Cookies.get("skip") : "{ }");
 		let res = await APICall(
-			"/verification/verification_steps_cac",
+			"verification_steps_cac",
+			'',
 			data,
 			"POST",
 			true

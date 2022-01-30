@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
 import "./Style.css";
 import { useStyleVantageScore } from "./Style";
 import { Grid } from "@material-ui/core";
@@ -10,12 +10,14 @@ import VantageScore from "../../../assets/images/Vantagescore-logo.png";
 import Equifax from "../../../assets/images/equifax-logo.png";
 import GaugeChart from "react-gauge-chart";
 import Moment from "moment";
+import setAccountDetails from "../../Controllers/AccountOverviewController";
 
 export default function Credit(creditData) {
   window.zeHide();
   //Material UI css class
   const classes = useStyleVantageScore();
   const history = useHistory();
+  const [loanstatus,setloanstatus] = useState(null);
   let percent;
   let score = creditData.creditData[0].parsed.vantage_score;
   let creditDate = Moment(creditData.creditData[0].createdat).format("MMMM Y");
@@ -57,6 +59,12 @@ export default function Credit(creditData) {
   } else if (score < 580) {
     status = "Sorry, you have a Poor credit score!";
   }
+  useEffect(()=>{
+        setAccountDetails().then((accountData)=>{
+          const {data} = accountData;
+          setloanstatus(data.customer.user_account.status)
+        })
+    },[])
 
   //Navigation
   const navigateCheckMyOffers = () => {
@@ -97,7 +105,7 @@ export default function Credit(creditData) {
           {status}
         </p>
         <p>{compareLastmnth}</p>
-        { score >= 640 && 
+        { (loanstatus != "closed" && loanstatus != null) &&
         <>
         <ButtonPrimary onClick={navigateCheckMyOffers} stylebutton='{"background": ""}' >
           {" "}

@@ -4,9 +4,10 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import { getIframe } from "../../../Controllers/ApplyForLoanController";
 import { errorMessage } from "../../../../helpers/ErrorMessage";
-import APICall from "../../../App/APIcall";
+import APICall from "../../../lib/AxiosLib";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
+import messages from "../../../lib/Lang/applyForLoan.json"
 
 //Styling
 const useStyles = makeStyles((theme) => ({
@@ -102,7 +103,7 @@ export default function DocumentPhoto(props) {
 				</p>
 				<br />
 				<p style={{ textAlign: "justify", display: error ? "block" : "none", color: "red" }}>
-					{errorMessage.applyForLoan.documentPhoto.verificationNotFound}
+					{messages.documentPhoto.verificationNotFound}
 				</p>
 			</div>
 
@@ -115,7 +116,7 @@ export default function DocumentPhoto(props) {
 						stylebutton='{"marginRight": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
 						onClick={async () => {
 							let data = {};
-							let res = await APICall("/verification/verification_steps_cac", data, 'POST', true);
+							let res = await APICall('verification_steps_cac','', data, 'POST', true);
 							if (res?.data?.id_photo === true && res?.data?.id_document === true) {
 								props.next()
 							} else {

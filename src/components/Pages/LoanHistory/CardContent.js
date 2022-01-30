@@ -8,18 +8,14 @@ import MonetizationOnRoundedIcon from "@material-ui/icons/MonetizationOnRounded"
 import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet"
 
 export default function LoanHistoryCard(userLoanHistoryCard) {
-  window.zeHide();  
+  window.zeHide();
   const history = useHistory();
   //Material UI css class
   const classes = useStylesLoanHistory();
-
   //Loan history data from API
   let userLoanHistory = userLoanHistoryCard != null ? userLoanHistoryCard : null;
   const redirectToApplyForLoan = () => {
-    history.push({
-      pathname: "/customers/applyForLoan",
-      state: { from: "user" }
-    });
+    history.push({pathname: "/customers/applyForLoan", state: { from: "user" }});
   }
 
   //  view part
@@ -31,11 +27,11 @@ export default function LoanHistoryCard(userLoanHistoryCard) {
             <Paper className={classes.papertotal} id="cardLoanHistory-bg">
               <div className={classes.cardContentLoanHistory}>
                 Total Number of Loans
-                {userLoanHistory.userLoanHistoryCard === null ? (
+                {userLoanHistory?.userLoanHistoryCard === null ? (
                   <p>0</p>
                 ) : (
                   <p id="numberOfLoans" className={classes.cardAmountLoanHistory}>
-                    {userLoanHistory.userLoanHistoryCard.length
+                    {userLoanHistory?.userLoanHistoryCard?.length
                       ? ('0' + userLoanHistory.userLoanHistoryCard.length).slice(-2)
                       : 0}
                   </p>

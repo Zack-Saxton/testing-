@@ -203,7 +203,6 @@ export default function CreditKarma(props) {
   const [agreeCalifornia, setAgreeCalifornia] = useState("");
   const [agreeNewMexico, setAgreeNewMexico] = useState("");
   const [agree, setAgree] = useState(false);
-
   const [errorAnnual, setErrorAnnual] = useState("");
   const [errorPersonal, setErrorPersonal] = useState("");
   const history = useHistory();

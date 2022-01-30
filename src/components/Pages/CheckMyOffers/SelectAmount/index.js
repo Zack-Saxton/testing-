@@ -15,18 +15,11 @@ import { toast } from "react-toastify";
 function CheckMyOffers(props) {
 	const { data, setData, resetData } = useContext(Check);
 	const [hasOfferCode, setOfferCode] = useState("");
-	const [select, setSelect] = useState(
-		data.loanAmount ? data.loanAmount : 10000
-	);
+	const [select, setSelect] = useState(data.loanAmount ? data.loanAmount : 10000);
 	const history = useHistory();
 
 	useEffect(() => {
-		if (
-			data.formStatus === "" ||
-			data.completedPage === 0 ||
-			data.formStatus === "completed" ||
-			props.location.fromLoanPurpose !== "yes"
-		) {
+		if (data.formStatus === "" || data.completedPage === 0 || data.formStatus === "completed" || props.location.fromLoanPurpose !== "yes") {
 			setData({ ...data, loading: true });
 			resetData();
 			setSelect(data.loanAmount ? data.loanAmount : 10000);
@@ -35,18 +28,14 @@ function CheckMyOffers(props) {
 
 	if (data?.isActiveUser === "closed") {
 		toast.error("Your account is closed to new applications. Please contact us to reapply.");
-		history.push({
-			pathname: "/customers/accountOverview",
-		});
+		history.push({pathname: "/customers/accountOverview"});
 	}
 	const handleRoute = (event) => {
 		data.loanAmount = select;
 		data.formStatus = "started";
 		data.completedPage = data.page.selectAmount;
 		setData({ ...data, loanAmount: select });
-		history.push({
-			pathname: "/loan-purpose",
-		});
+		history.push({pathname: "/loan-purpose"});
 	};
 
 	// jsx part

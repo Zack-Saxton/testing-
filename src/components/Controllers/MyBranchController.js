@@ -40,7 +40,7 @@ export async function ScheduleCallApi(callDate, callingTime, callTimeZone) {
   let myBranch = await APICall(url, param, data, method, addAccessToken);
 
   //API response
-  myBranch.data.status === 200
+  myBranch.status === 200
     ? toast.success(myBranch?.data ? myBranch.data : "Your call is scheduled")
     : toast.error("Error scheduling call");
   return "true";
@@ -68,7 +68,7 @@ export async function ScheduleVisitApi(visitDate, visitTime, visitTimeZone) {
   let myBranch = await APICall(url, param, data, method, addAccessToken);
 
   //API response
-  myBranch.data.status === 200
+  myBranch.status === 200
     ? toast.success(
       myBranch?.data
         ? myBranch.data

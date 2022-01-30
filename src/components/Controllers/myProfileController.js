@@ -227,7 +227,7 @@ export async function deleteCreditCard(passData) {
     let data = passData;
     let method = "POST";
     let addAccessToken = true;
-    return APICall(url, param, data, method, addAccessToken);
+    return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
     Error("Error executing deleteCreditCard API");
   }

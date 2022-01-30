@@ -31,7 +31,7 @@ export default function LimitedOffer(userOfferData) {
                   alt="ad_banner"
                 />
               </div>
-              {userOfferData.userOffers === null ? (<CircularProgress />) : (
+              {userOfferData.isLoading ? (<CircularProgress />) : (
                 (userOfferAmount) ? (
                   <div id="offerText">
                     <p id="loanText">Personal Loan of</p>

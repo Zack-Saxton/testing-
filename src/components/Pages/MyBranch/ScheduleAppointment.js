@@ -46,7 +46,7 @@ export default function ScheduleAppointment({
   //Material UI css class
   const classes = useStylesMyBranch();
 
-  //Branch details from API
+//API call
   let branchDetail = MyBranchAppointment != null ? MyBranchAppointment : null;
 
   //Date validation
@@ -179,7 +179,7 @@ export default function ScheduleAppointment({
                 minyear={4}
                 value={formik.values.date}
                 onChange={(values) => {
-                  formik.setFieldValue("date", values);
+                  formik.setFieldValue("date", values);                   
                 }}
                 onBlur={formik.handleBlur}
                 error={formik.touched.date && Boolean(formik.errors.date)}
@@ -189,139 +189,142 @@ export default function ScheduleAppointment({
             {stateName === "CA" ? (
               Moment(formik.values.date).format("dddd") === "Tuesday" ? (
                 <Grid>
+                {  Moment(formik.values.date).format("DD-MM-YYYY") ===
+                 Moment(new Date()).format("DD-MM-YYYY")
+                   ?  upt_ca_Tue.length !== 0 ?
                   <Select
                     name="appointmentTime"
                     labelform="Time Slot"
-                    select={
-                      Moment(formik.values.date).format("DD-MM-YYYY") ===
-                      Moment(new Date()).format("DD-MM-YYYY")
-                        ? upt_ca_Tue
-                        : ca_Tue
-                    }
+                    select={JSON.stringify(upt_ca_Tue)}
                     onChange={formik.handleChange}
                     value={formik.values.appointmentTime || ""}
                     onBlur={formik.handleBlur}
-                    error={
-                      formik.touched.appointmentTime &&
-                      Boolean(formik.errors.appointmentTime)
-                    }
-                    helperText={
-                      formik.touched.appointmentTime &&
-                      formik.errors.appointmentTime
-                    }
-                  />{" "}
+                    error={formik.touched.appointmentTime && Boolean(formik.errors.appointmentTime)}
+                    helperText={formik.touched.appointmentTime && formik.errors.appointmentTime}
+                  /> : <p>No time slot available</p>
+                :
+                <Select
+                    name="appointmentTime"
+                    labelform="Time Slot"
+                    select={ca_Tue}
+                    onChange={formik.handleChange}
+                    value={formik.values.appointmentTime || ""}
+                    onBlur={formik.handleBlur}
+                    error={formik.touched.appointmentTime && Boolean(formik.errors.appointmentTime)}
+                    helperText={formik.touched.appointmentTime && formik.errors.appointmentTime}
+                  />}
                 </Grid>
               ) : (
                 <Grid>
+                   {  Moment(formik.values.date).format("DD-MM-YYYY") ===
+                    Moment(new Date()).format("DD-MM-YYYY")
+                      ?  upt_ca_M_W_TH_F.length !== 0 ?
                   <Select
                     name="appointmentTime"
                     labelform="Time Slot"
-                    select={
-                      Moment(formik.values.date).format("DD-MM-YYYY") ===
-                      Moment(new Date()).format("DD-MM-YYYY")
-                        ? upt_ca_M_W_TH_F
-                        : ca_M_W_Th_F
-                    }
+                    select={JSON.stringify(upt_ca_M_W_TH_F)}
                     onChange={formik.handleChange}
-                    value={formik.values.appointmentTime || ""}
+                    value={formik.values.appointmentTime}
                     onBlur={formik.handleBlur}
-                    error={
-                      formik.touched.appointmentTime &&
-                      Boolean(formik.errors.appointmentTime)
-                    }
-                    helperText={
-                      formik.touched.appointmentTime &&
-                      formik.errors.appointmentTime
-                    }
-                  />
+                    error={formik.touched.appointmentTime && Boolean(formik.errors.appointmentTime)}
+                    helperText={formik.touched.appointmentTime && formik.errors.appointmentTime}
+                  /> : <p>No time slot available</p>
+                :
+                <Select
+                    name="appointmentTime"
+                    labelform="Time Slot"
+                    select={ca_M_W_Th_F}
+                    onChange={formik.handleChange}
+                    value={formik.values.appointmentTime}
+                    onBlur={formik.handleBlur}
+                    error={formik.touched.appointmentTime && Boolean(formik.errors.appointmentTime)}
+                    helperText={formik.touched.appointmentTime && formik.errors.appointmentTime}
+                  />}
                 </Grid>
               )
             ) : Moment(formik.values.date).format("dddd") === "Tuesday" ? (
               <Grid>
-                {Moment(formik.values.date).format("DD-MM-YYYY") ===
-                Moment(new Date()).format("DD-MM-YYYY") ? (
+                {  Moment(formik.values.date).format("DD-MM-YYYY") ===
+                    Moment(new Date()).format("DD-MM-YYYY")
+                      ?  updated_other_Tue.length !== 0 ? 
                   <Select
                     name="appointmentTime"
                     labelform="Time"
-                    select={updated_other_Tue}
+                    select={JSON.stringify(updated_other_Tue)}
                     onChange={formik.handleChange}
-                    value={formik.values.appointmentTime || ""}
+                    value={formik.values.appointmentTime}
                     onBlur={formik.handleBlur}
-                    error={
-                      formik.touched.appointmentTime &&
-                      Boolean(formik.errors.appointmentTime)
-                    }
-                    helperText={
-                      formik.touched.appointmentTime &&
-                      formik.errors.appointmentTime
-                    }
-                  />
-                ) : (
-                  <Select
-                    name="appointmentTime"
-                    labelform="Slot"
-                    select={other_Tue}
-                    onChange={formik.handleChange}
-                    value={formik.values.appointmentTime || ""}
-                    onBlur={formik.handleBlur}
-                    error={
-                      formik.touched.appointmentTime &&
-                      Boolean(formik.errors.appointmentTime)
-                    }
-                    helperText={
-                      formik.touched.appointmentTime &&
-                      formik.errors.appointmentTime
-                    }
-                  />
-                )}
+                    error={formik.touched.appointmentTime && Boolean(formik.errors.appointmentTime)}
+                    helperText={formik.touched.appointmentTime && formik.errors.appointmentTime}
+                  /> : <p>No time slot available</p>
+                :
+                <Select
+                name="appointmentTime"
+                labelform="Time"
+                select={other_Tue}
+                onChange={formik.handleChange}
+                value={formik.values.appointmentTime}
+                onBlur={formik.handleBlur}
+                error={formik.touched.appointmentTime && Boolean(formik.errors.appointmentTime)}
+                helperText={formik.touched.appointmentTime && formik.errors.appointmentTime}
+              />}
+                
               </Grid>
             ) : Moment(formik.values.date).format("dddd") === "Friday" ? (
               <Grid>
+                 {  Moment(formik.values.date).format("DD-MM-YYYY") ===
+                    Moment(new Date()).format("DD-MM-YYYY")
+                      ?  upt_other_Fri.length !== 0 ? 
                 <Select
                   name="appointmentTime"
                   labelform="Time Slot"
-                  select={
-                    Moment(formik.values.date).format("DD-MM-YYYY") ===
-                    Moment(new Date()).format("DD-MM-YYYY")
-                      ? upt_other_Fri
-                      : Other_Fri
-                  }
+                  select={JSON.stringify(upt_other_Fri)}
                   onChange={formik.handleChange}
-                  value={formik.values.appointmentTime || ""}
+                  value={formik.values.appointmentTime}
                   onBlur={formik.handleBlur}
-                  error={
-                    formik.touched.appointmentTime &&
-                    Boolean(formik.errors.appointmentTime)
-                  }
-                  helperText={
-                    formik.touched.appointmentTime &&
-                    formik.errors.appointmentTime
-                  }
+                  error={formik.touched.appointmentTime && Boolean(formik.errors.appointmentTime)}
+                  helperText={formik.touched.appointmentTime && formik.errors.appointmentTime}
                 />
+                 : <p>No time slot available</p>
+                 :
+                 <Select
+                  name="appointmentTime"
+                  labelform="Time Slot"
+                  select={Other_Fri}
+                  onChange={formik.handleChange}
+                  value={formik.values.appointmentTime}
+                  onBlur={formik.handleBlur}
+                  error={formik.touched.appointmentTime && Boolean(formik.errors.appointmentTime)}
+                  helperText={formik.touched.appointmentTime && formik.errors.appointmentTime}
+                /> } 
               </Grid>
             ) : (
               <Grid>
+                {  Moment(formik.values.date).format("DD-MM-YYYY") ===
+                    Moment(new Date()).format("DD-MM-YYYY")
+                      ?  upt_other_M_W_Thu.length !== 0 ? 
                 <Select
                   name="appointmentTime"
                   labelform="Time Slot"
-                  select={
-                    Moment(formik.values.date).format("DD-MM-YYYY") ===
-                    Moment(new Date()).format("DD-MM-YYYY")
-                      ? upt_other_M_W_Thu
-                      : other_M_W_Thu
-                  }
+                  select={JSON.stringify(upt_other_M_W_Thu)}
                   onChange={formik.handleChange}
-                  value={formik.values.appointmentTime || ""}
+                  value={formik.values.appointmentTime}
                   onBlur={formik.handleBlur}
-                  error={
-                    formik.touched.appointmentTime &&
-                    Boolean(formik.errors.appointmentTime)
-                  }
-                  helperText={
-                    formik.touched.appointmentTime &&
-                    formik.errors.appointmentTime
-                  }
-                />
+                  error={formik.touched.appointmentTime && Boolean(formik.errors.appointmentTime)}
+                  helperText={formik.touched.appointmentTime && formik.errors.appointmentTime}
+                /> 
+                : <p>No time slot available</p>
+              :
+              <Select
+                  name="appointmentTime"
+                  labelform="Time Slot"
+                  select={other_M_W_Thu}
+                  onChange={formik.handleChange}
+                  value={formik.values.appointmentTime}
+                  onBlur={formik.handleBlur}
+                  error={formik.touched.appointmentTime && Boolean(formik.errors.appointmentTime)}
+                  helperText={formik.touched.appointmentTime && formik.errors.appointmentTime}
+                />}
               </Grid>
             )}
           </DialogContent>

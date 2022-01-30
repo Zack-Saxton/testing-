@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { useStylesLoanDocument } from "./Style";
 import Typography from "@material-ui/core/Typography";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -23,29 +23,22 @@ import {
   uploadDocument,
 } from "../../Controllers/LoanDocumentController";
 import loanDocs from "../../lib/Lang/loanDocument.json";
+import {useQuery} from 'react-query';
 
 export default function LoanDocument(props) {
   window.zeHide();
   //Material UI css class
-  const classes = useStylesLoanDocument();
-
-  //Api call
-  const [loanDocumentStatus, setloanDocumentStatus] = useState(null);
+  const classes = useStylesLoanDocument();  
   const [selectedFile, setSelectedFile] = useState(null);
   const [docType, setDocType] = useState("");
   const [loading, setLoading] = useState(false);
   const changeEvent = useRef("");
 
-  async function AsyncEffect_loanDocument() {
-    setloanDocumentStatus(
-      await loanDocument(
-        props?.location?.state?.accNo ? props?.location?.state?.accNo : null
-      )
-    );
-  }
-  useEffect(() => {
-    AsyncEffect_loanDocument();
-  }, []);
+  //Api call
+  const { data: loanDocumentStatus} = useQuery('loan-document', ()=> loanDocument(props?.location?.state?.accNo ? props?.location?.state?.accNo : null) )
+
+//Loan Document data from API
+let loanDocumentData =  loanDocumentStatus != null ? loanDocumentStatus?.data : null;
 
   //Selecting file for upload
   const handleInputChange = () => {
@@ -56,6 +49,7 @@ export default function LoanDocument(props) {
   const handleDocType = (event) => {
     setDocType(event.target.value);
     changeEvent.current.click();
+    event.target.value = '';
   };
   const uploadDoc = () => {
     if (selectedFile === null) {
@@ -85,13 +79,7 @@ export default function LoanDocument(props) {
             let fileType = selectedFile.files[0].type;
             let documentType = docType;
             setLoading(true);
-
-            let response = await uploadDocument(
-              test,
-              fileName,
-              fileType,
-              documentType
-            );
+            let response = await uploadDocument(test, fileName, fileType, documentType);
             if (response === "true") {
               setLoading(false);
               setDocType("");
@@ -104,7 +92,7 @@ export default function LoanDocument(props) {
       } else {
         if (selectedFile.files[0].size > 10240000) {
           if (!toast.isActive("closeToast")) {
-            toast.error(loanDocs.Please_Upload_File_Below_Size);
+            toast.error(loanDocs.Please_Upload_File_Below_Size, {toastId: "closeToast"});
           }
         }
       }
@@ -158,7 +146,7 @@ export default function LoanDocument(props) {
 
         <Grid item xs={12} style={{ paddingTop: "10px", paddingBottom: "30%" }}>
           <Paper className={classes.paper}>
-            {loanDocumentStatus === null ? (
+            {loanDocumentData === null ? (
               <TableContainer>
                 <Table aria-label="simple table">
                   <TableHead>
@@ -184,7 +172,7 @@ export default function LoanDocument(props) {
                 </Table>
               </TableContainer>
             ) : (
-              <LoanDocumentTable userLoanDocumentData={loanDocumentStatus} />
+              <LoanDocumentTable userLoanDocumentData={loanDocumentData} />
             )}
 
             <Grid

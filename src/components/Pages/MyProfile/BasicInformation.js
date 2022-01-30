@@ -19,6 +19,9 @@ import * as yup from "yup";
 import Cookies from "js-cookie";
 import { ProfilePicture } from "../../../contexts/ProfilePicture";
 import { useHistory } from "react-router-dom";
+import {useQuery} from 'react-query';
+import usrAccountDetails from "../../Controllers/AccountOverviewController";
+
 
 const validationSchema = yup.object({
   email: yup
@@ -46,6 +49,8 @@ export default function BasicInformation(props) {
   const { dataProfile, setData } = useContext(ProfilePicture);
   const history = useHistory();
 
+  const {refetch } = useQuery('loan-data', usrAccountDetails )
+
   let basicData = props?.basicInformationData?.identification != null ? props.basicInformationData.identification : null;
   let basicInfo = props?.basicInformationData?.latest_contact != null ? props.basicInformationData.latest_contact : null;
   let profileImageData = props?.getProfileImage != null ? props.getProfileImage : profileImg;
@@ -68,8 +73,6 @@ export default function BasicInformation(props) {
   const onClickCancelChange = () => {
     formik.resetForm();
     setSelectedFile(null);
-
-
   };
 
   const logOut = () => {
@@ -81,7 +84,6 @@ export default function BasicInformation(props) {
   };
 
   const logoutUser = () => {
-
     toast.success("You are being logged out of the system", {
       onClose: () => logOut(),
     });
@@ -109,32 +111,28 @@ export default function BasicInformation(props) {
       let body = {
         primaryPhoneNumber: phone,
         email: values.email,
-
       }
       const uploadBasicInfoChange = () => {
         if (!toast.isActive("closeToast")) {
-          toast.success("Updated Successfully", {
+          refetch().then(()=>toast.success("Updated Successfully", {
             toastId: "closeToast",
             onClose: () => {
               setLoading(false);
-              props.getUserAccountDetails()
               onClickCancelChange()
             }
-          });
-        }
+          }));}
       }
+
 
       const uploadBasicInfoChangeLogOut = () => {
         if (!toast.isActive("closeToast")) {
-          toast.success("Updated Successfully", {
+          refetch().then(()=>toast.success("Updated Successfully", {
             toastId: "closeToast",
             onClose: () => {
-              props.getUserAccountDetails()
               logoutUser()
               onClickCancelChange()
             }
-          });
-        }
+          }));}
       }
 
 
@@ -165,7 +163,7 @@ export default function BasicInformation(props) {
                 let email = basicInfo?.email === values.email ? basicInfo?.email : values.email;
 
                 let uploadData = await uploadNewProfileImage(imageData, fileName, fileType, documentType, email);
-                if (uploadData.data.status === 200) {
+                if (uploadData.status === 200) {
                   setData({
                     ...dataProfile, "profile_picture_url":
                       uploadData?.data?.profile_picture_url
@@ -190,7 +188,7 @@ export default function BasicInformation(props) {
                           if ((formik.initialValues.email !== values.email && selectedFile !== null) || (formik.initialValues.phone !== values.phone && formik.initialValues.email !== values.email && selectedFile !== null)) {
                             setuploadedImage(uploadData?.data?.profile_picture_url)
                             props.AsyncEffect_profileImage()
-                            props.getUserAccountDetails()
+                            refetch()
                             setLoading(false);
                             onClickCancelChange()
                             logoutUser()
@@ -201,7 +199,7 @@ export default function BasicInformation(props) {
 
                             setuploadedImage(uploadData?.data?.profile_picture_url)
                             props.AsyncEffect_profileImage()
-                            props.getUserAccountDetails()
+                            refetch()
                             setLoading(false);
                             onClickCancelChange()
 
@@ -221,7 +219,7 @@ export default function BasicInformation(props) {
                 else {
                   if (!toast.isActive("closeToast")) {
                     toast.error(
-                      "Error uploading file",
+                      "1) Error uploading file",
                       {
                         toastId: "closeToast",
                         onClose: () => {

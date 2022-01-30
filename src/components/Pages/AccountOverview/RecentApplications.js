@@ -14,14 +14,14 @@ import NumberFormat from 'react-number-format';
 import { useHistory } from "react-router-dom";
 import "./Style.css";
 
-export default function RecentApplications({ userApplicationsData, UserAccountStatus }) {
+export default function RecentApplications({ isLoading, userApplicationsData }) {
   //Material UI css class
   const classes = useStylesAccountOverview();
   window.zeHide();
   //Recentapplications data
   let userApplications = (userApplicationsData != null) ? userApplicationsData : null;
-  const presenceOfLoan = userApplications?.some((applicant) => applicant.isActive === true);
-  const presenceOfLoanStatus = userApplications?.find((applicant) => applicant.isActive === true);
+  const presenceOfLoan = userApplications?.some((applicant) => applicant.isActive === true && applicant?.status !== "referred" && applicant?.status !== "contact_branch");
+  const presenceOfLoanStatus = userApplications?.find((applicant) => applicant.isActive === true && applicant?.status !== "referred" && applicant?.status !== "contact_branch" );
   let statusStr = {
     "approved": "Approved",
     "completing_application": "Completing Application",
@@ -115,7 +115,7 @@ export default function RecentApplications({ userApplicationsData, UserAccountSt
               </TableRow>
             </TableHead>
             <TableBody>
-              {UserAccountStatus === null ? (
+              {isLoading ? (
                 <TableRow>
                   <TableCell
                     colSpan="7"
@@ -147,7 +147,7 @@ export default function RecentApplications({ userApplicationsData, UserAccountSt
                       {(statusStr[presenceOfLoanStatus.status]) ? statusStr[presenceOfLoanStatus.status] : (presenceOfLoanStatus.status)}
                     </TableCell>
                     <TableCell align="left">
-                      {presenceOfLoanStatus.isActive && presenceOfLoanStatus?.status !== "referred" ?
+                      {presenceOfLoanStatus.isActive && presenceOfLoanStatus?.status !== "referred" && presenceOfLoanStatus?.status !== "contact_branch" ?
                         (
                           <ButtonPrimary stylebutton='{"color":"","width":"72%" }'
                             onClick={() => resumeNavigate(presenceOfLoanStatus.status)}

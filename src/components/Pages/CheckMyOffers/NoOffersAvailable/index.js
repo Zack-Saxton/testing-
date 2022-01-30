@@ -13,17 +13,13 @@ import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 // NoOffersAvailable functional component initialization
 function NoOffersAvailable(props) {
 	const history = useHistory();
-
 	//handle
 	const handleBlog = (event) => {
 		window.open("https://www.marinerfinance.com/blog/", "_self");
 	};
 	const handleHome = (event) => {
-		history.push({
-			pathname: "/customers/accountoverview",
-		});
+		history.push({pathname: "/customers/accountoverview"});
 	};
-
 	const { data } = useContext(CheckMyOffers);
 	data.formStatus = "completed";
 

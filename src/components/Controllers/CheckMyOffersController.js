@@ -126,7 +126,7 @@ export async function checkMyOfferSubmit(customer) {
 		"sourceTracking": [
 			{
 				"referer": "https://cis-development.marinerfinance.io/application/form",
-				"date": 1599165637950,
+				"date": Date.now(),
 				"utm_source": null,
 				"utm_medium": null,
 				"utm_campaign": null,
@@ -201,11 +201,11 @@ export async function checkMyOfferSubmit(customer) {
 					"Content-Type": "application/json",
 				},
 				transformRequest: (data, headers) => {
-					delete headers.common["Content-Type"];
+					delete headers.common[ "Content-Type" ];
 					return data;
 				},
 			})
-			response.appSubmissionResult = result;
+			response.appSubmissionResult = result?.data;
 		}
 	} catch (error) {
 		response.appSubmissionResult = error.response;

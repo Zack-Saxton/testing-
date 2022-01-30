@@ -5,19 +5,19 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { ButtonSecondary, ButtonWithIcon, Checkbox } from "../../../FormsUI";
 import CheckLoginStatus from "../../../App/CheckLoginStatus";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
 import PropTypes from "prop-types";
 import Box from "@material-ui/core/Box";
 import { NavLink, useHistory } from "react-router-dom";
 import ScrollToTopOnMount from "../../ScrollToTop";
 import "./ReviewAndSign.css";
-import APICall from "../../../App/APIcall";
+import APICall from "../../../lib/AxiosLib";
 import Iframe from "../../../FormsUI/iframe";
 import { toast } from "react-toastify";
 import usrAccountDetails from "../../../Controllers/AccountOverviewController";
 import { hardPullCheck } from "../../../Controllers/ApplyForLoanController";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import messages from '../../../lib/Lang/applyForLoan.json';
+import TabSection from "../TabSection"
 
 // initializing Tab panel section
 function TabPanel(props) {
@@ -129,7 +129,7 @@ export default function ReviewAndSign(props) {
   // To get the iframe url from the API
   async function getIframeURL() {
     let data = {};
-    let iframeURL = await APICall("/integration/eoriginal/authenticate_cac", data, "POST", true);
+    let iframeURL = await APICall("esignature_iframe",'', data, "POST", true);
     setUrl(iframeURL?.data?.iframe);
   }
 
@@ -198,36 +198,7 @@ export default function ReviewAndSign(props) {
         </Grid>
 
         <Grid item xs={12}>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            indicatorColor="primary"
-            textColor="primary"
-            variant="scrollable"
-            scrollButtons="auto"
-            aria-label="scrollable auto tabs example"
-          >
-            <Tab
-              label="1. Select Offer"
-              disabled={true}
-              className={classes.tabLabel}
-            />
-            <Tab
-              label="2. Review & Sign"
-              className={classes.tabLabel}
-              {...a11yProps(1)}
-            />
-            <Tab
-              label="3. Final Verification"
-              disabled={true}
-              className={classes.tabLabel}
-            />
-            <Tab
-              label="4. Receive your money"
-              disabled={true}
-              className={classes.tabLabel}
-            />
-          </Tabs>
+        <TabSection value={value} handleChange={handleChange} classes={classes} ay={1}/>
 
           {/* ##############################################Review And Sign################################################################################################# */}
           <TabPanel value={value} index={1} style={{ marginTop: "10px" }}>
@@ -454,7 +425,7 @@ export default function ReviewAndSign(props) {
                       onClick={async () => {
                         setLoading(true);
                         let data = {};
-                        let authenticateStatus = await APICall("/integration/eoriginal/complete_cac", data, "POST", true);
+                        let authenticateStatus = await APICall("esignature_complete",'', data, "POST", true);
                         if (authenticateStatus?.data?.result === "success") {
                           let hardPull = await hardPullCheck();
                           if (hardPull?.data?.status === 200 || hardPull?.data?.result === "success") {
@@ -464,11 +435,11 @@ export default function ReviewAndSign(props) {
                             });
                           } else {
                             setLoading(false);
-                            toast.error("Signing process failed, please try again.");
+                            toast.error(messages.eSignFailed);
                           }
                         } else {
                           setLoading(false);
-                          toast.error("Please complete your signing process before continuing to the next page");
+                          toast.error(messages.completeEsign);
                         }
                       }}
                     >

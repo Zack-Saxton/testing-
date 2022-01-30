@@ -10,7 +10,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { errorMessage } from "../../../../helpers/ErrorMessage";
 import FormHelperText from "@material-ui/core/FormHelperText";
-import APICall from "../../../App/APIcall";
+import APICall from "../../../lib/AxiosLib";
 import Typography from "@material-ui/core/Typography";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -18,6 +18,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import DocumentUpload from "./DocumentUpload";
 import { toast } from "react-toastify";
+import messages from "../../../lib/Lang/applyForLoan.json"
 import "./stepper.css";
 
 //Styling part
@@ -31,35 +32,35 @@ const useStyles = makeStyles((theme) => ({
 //YUP validation schema
 const validationSchema = yup.object({
 	accountHolder: yup
-		.string("Enter Account holder's name")
+		.string(messages?.bankAccountVerification?.enterAccHolderName)
 		.required(
-			errorMessage.applyForLoan.bankAccountVerification.accountHolderRequired
+			messages?.bankAccountVerification?.accountHolderRequired
 		),
 	bankRoutingNumber: yup
-		.string("Enter your bank routing number")
+		.string(messages?.bankAccountVerification?.enterBankRoutingNum)
 		.required(
-			errorMessage.applyForLoan.bankAccountVerification
-				.bankRoutingNumberRequired
+			messages?.bankAccountVerification
+				?.bankRoutingNumberRequired
 		)
-		.min(9, "Bank Routing number should be 9 digits"),
+		.min(9, messages?.bankAccountVerification?.minBankRoutingNum),
 	bankInformation: yup
-		.string("Enter your bank information")
+		.string(messages?.bankAccountVerification?.enterBankIfo)
 		.required(
-			errorMessage.applyForLoan.bankAccountVerification.bankInformationRequired
+			messages?.bankAccountVerification?.bankInformationRequired
 		),
 	bankAccountNumber: yup
-		.string("Enter your bank account number")
+		.string(messages?.bankAccountVerification?.minAccountNum)
 		.required(
-			errorMessage.applyForLoan.bankAccountVerification
-				.bankAccountNumberRequired
+			messages?.bankAccountVerification
+				?.bankAccountNumberRequired
 		)
-		.min(7, "Account number should be minimum of 7 digits")
-		.max(16, "Account number should be minimum of 16 digits"),
+		.min(7, messages?.bankAccountVerification?.minAccountNum)
+		.max(16, messages?.bankAccountVerification?.maxAccountNum),
 	confirmBankAccountNumber: yup
-		.string("Enter your confirm bank account number")
+		.string(messages?.bankAccountVerification?.enterConfirmAccNum)
 		.required(
-			errorMessage.applyForLoan.bankAccountVerification
-				.bankAccountNumberConfirmationRequired
+			messages?.bankAccountVerification
+				?.bankAccountNumberConfirmationRequired
 		)
 		.when("bankAccountNumber", {
 			is: (bankAccountNumber) =>
@@ -68,11 +69,11 @@ const validationSchema = yup.object({
 				.string()
 				.oneOf(
 					[yup.ref("bankAccountNumber")],
-					"Your account numbers must match"
+					messages.bankAccountNumber
 				),
 		})
-		.min(7, "Account number should be minimum of 7 digits")
-		.max(16, "Account number should be minimum of 16 digits"),
+		.min(7, messages?.bankAccountVerification?.minAccountNum)
+		.max(16, messages?.bankAccountVerification?.maxAccountNum),
 });
 
 //View Part
@@ -88,10 +89,10 @@ export default function BankAccountVerification(props) {
 	const [openAutoPayAuth, setOpenAutoPayAuth] = useState(false);
 	const handleUpload = (res) => {
 		if (res?.bank_account_verification) {
-			toast.success("Document uploaded successfully!");
+			toast.success(messages?.document?.uploadSuccess);
 			props.next();
 		} else {
-			toast.error("Document submission failed. Please try again");
+			toast.error(messages?.document?.upoloadFailed);
 		}
 	};
 
@@ -117,7 +118,8 @@ export default function BankAccountVerification(props) {
 				repayment: paymnetMode,
 			};
 			let res = await APICall(
-				"/verification/bank_information_cac",
+				"bank_information_cac",
+				'',
 				data,
 				"POST",
 				true
@@ -128,14 +130,14 @@ export default function BankAccountVerification(props) {
 			} else if (res?.data?.bank_account_information || res?.data?.bank_account_verification) {
 				setError(
 					paymnetMode === "autopayment"
-						? errorMessage?.applyForLoan?.bankAccountVerification?.notValid
-						: errorMessage?.applyForLoan?.bankAccountVerification?.uploadCheck
+					? messages?.bankAccountVerification?.notValid
+					: messages?.bankAccountVerification?.uploadCheck
 				);
 				setVerifyRequired(true);
 				props.setLoadingFlag(false);
 			} else if (res?.data?.bank_account_information === false || res?.data?.bank_account_verification === false) {
 				props.setLoadingFlag(false);
-				alert(errorMessage?.applyForLoan?.bankAccountVerification?.notValid);
+				alert(messages?.bankAccountVerification?.notValid);
 			} else {
 				props.setLoadingFlag(false);
 				alert("Network Error");
@@ -268,7 +270,7 @@ export default function BankAccountVerification(props) {
 									? formik.touched.bankRoutingNumber &&
 									formik.errors.bankRoutingNumber
 									: invalidRN === true
-										? "Please enter a valid routing number"
+										? messages?.bankAccountVerification?.enterValidRoutingNum
 										: ""
 							}
 							type="text"
@@ -390,7 +392,7 @@ export default function BankAccountVerification(props) {
 						style={{ fontWeight: "normal" }}
 					/>
 					<FormHelperText style={{ paddingLeft: "28px" }} error={true}>
-						{paymnetMode === "" ? "Account type required" : ""}
+						{paymnetMode === "" ?  messages?.bankAccountVerification?.accountTypeRequired : ""}
 					</FormHelperText>
 					<span>
 						<p

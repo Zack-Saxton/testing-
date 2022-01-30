@@ -26,7 +26,7 @@ export default function ActiveLoans(userActiveLoanData) {
   //View
   return (
     <>
-      {userActiveLoans?.userActiveLoanData === null ? (
+      {userActiveLoanData?.isLoading ? (
         <>
           <Grid
             item
@@ -82,8 +82,8 @@ export default function ActiveLoans(userActiveLoanData) {
                 style={{ paddingTop: "10px" }}
                 container
               >
-                {userActiveLoans.userActiveLoanData.map((appData, index) => (
-                  <Grid style={{ paddingBottom: "10px" }} container key={index}>
+                {userActiveLoans.userActiveLoanData.map((appData, activeIndex) => (
+                  <Grid style={{ paddingBottom: "10px" }} container key={activeIndex}>
                     <Grid
                       id="activeLoanWrap"
                       item
