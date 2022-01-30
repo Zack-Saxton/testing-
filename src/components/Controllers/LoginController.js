@@ -1,7 +1,6 @@
 import Cookies from "js-cookie";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
-import ErrorLogger from "../lib/ErrorLogger";
 
 /***** Login method *****/
 export default async function LoginController(email, password) {
