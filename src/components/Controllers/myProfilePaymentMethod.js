@@ -1,4 +1,5 @@
 import APICall from "../lib/AxiosLib";
+import ErrorLogger from "../lib/ErrorLogger"
 
 // *** Prepare API to add ACH Bank Payment *** [01]
 export async function addBankPayment() {
@@ -20,6 +21,7 @@ export async function addBankPayment() {
     //Make API call to add ACH Bank Payment Method [01]
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
+    ErrorLogger("Error executing addBankPayment API", error)
     Error("Error executing addBankPayment API");
   }
 }
@@ -47,6 +49,7 @@ export async function addDebitCardPayment() {
     //Make API call to add Debit Card Payment Method [02]
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
+    ErrorLogger("Error executing addDebitCardPayment API", error)
     Error("Error executing addDebitCardPayment API");
   }
 }

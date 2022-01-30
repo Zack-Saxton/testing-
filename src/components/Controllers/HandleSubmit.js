@@ -1,6 +1,7 @@
 const loggedIn = true;
 const token = "";
 let invalidLogin, forceChangePasswordToken, loginUserSuccess, errors;
+import ErrorLogger from "../lib/ErrorLogger"
 
 const getClientIp = function (req) {
     // Avoid leaking internal IP that is append to x-forwarded-for
@@ -64,6 +65,7 @@ const HandleSubmit = async (formValues) => {
             }
         }
     } catch (error) {
+        ErrorLogger("Error executing HandleSubmit API", error)
         errors = error;
     }
 };

@@ -2,6 +2,7 @@ import printJS from "print-js";
 import { toast } from "react-toastify";
 import APICall from "../lib/AxiosLib";
 import Buffer from "buffer"
+import ErrorLogger from "../lib/ErrorLogger"
 
 /***** Get loan document *****/
 export async function loanDocumentController(accNo) {
@@ -15,7 +16,8 @@ export async function loanDocumentController(accNo) {
   //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    toast.error("Error executing loanDocumentController API");
+    ErrorLogger("Error executing loanDocumentController API", error)
+    Error("Error executing loanDocumentController API");
   }
 }
 

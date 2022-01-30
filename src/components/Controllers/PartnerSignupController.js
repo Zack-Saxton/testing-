@@ -2,7 +2,7 @@ import APICall from "../lib/AxiosLib";
 import { toast } from "react-toastify";
 import LogoutController from "../Controllers/LogoutController";
 import Cookies from "js-cookie";
-
+import ErrorLogger from "../lib/ErrorLogger"
 
 let statusStrLink = {
   approved: "/customers/finalVerification",
@@ -119,6 +119,7 @@ export async function PopulatePartnerSignup(
   //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
+    ErrorLogger("Error executing PopulatePartnerSignup API", error)
     toast.error("Error executing PopulatePartnerSignup API");
   }
 }
