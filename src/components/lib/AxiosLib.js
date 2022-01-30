@@ -1,7 +1,7 @@
 import axios from "axios";
-import apiUrl from "./ApiLib.json";
 import Cookies from "js-cookie";
-import ErrorLogger from "../lib/ErrorLogger"
+import ErrorLogger from "../lib/ErrorLogger";
+import apiUrl from "./ApiLib.json";
 /***** API Calling function *****/
 const APICall = async (api, param, data, method, addAccessToken) => {
   const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : '{ }');
@@ -11,7 +11,7 @@ const APICall = async (api, param, data, method, addAccessToken) => {
     data: "",
   };
 
-  let url = param === null ? apiUrl.url[api] : apiUrl.url[api] + param;
+  let url = param === null ? apiUrl.url[ api ] : apiUrl.url[ api ] + param;
   try {
     await axios({
       method: method,
@@ -23,7 +23,7 @@ const APICall = async (api, param, data, method, addAccessToken) => {
       },
       transformRequest: (data, headers) => {
         if (addAccessToken !== true) {
-          delete headers.common["x-access-token"];
+          delete headers.common[ "x-access-token" ];
         }
         return data;
       },
@@ -33,7 +33,7 @@ const APICall = async (api, param, data, method, addAccessToken) => {
       response.statusText = res.statusText;
     });
   } catch (error) {
-    ErrorLogger(error.stack, error.message)
+    ErrorLogger(error.stack, error.message);
     response.data = error?.response?.data?.data?.data ?? error?.response?.data?.data ?? error?.response?.data;
     response.status = error.response.status;
     response.statusText = error.response.statusText;

@@ -1,21 +1,21 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Stepper from "@material-ui/core/Stepper";
-import Step from "@material-ui/core/Step";
-import StepLabel from "@material-ui/core/StepLabel";
-import StepContent from "@material-ui/core/StepContent";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import EmailVerification from "./EmailVerification";
-import PhoneVerification from "./PhoneVerification";
-import FinancialInformation from "./FinancialInformation";
-import DocumentPhoto from "./DocumentPhoto";
-import VerificationQuestion from "./VerificationQuestion";
-import IncomeVerification from "./IncomeVerification";
-import BankAccountVerification from "./BankAccountVerification";
-import { ButtonPrimary, ButtonSecondary } from "../../../FormsUI";
-import { NavLink } from "react-router-dom";
 import { Grid } from "@material-ui/core";
+import Paper from "@material-ui/core/Paper";
+import Step from "@material-ui/core/Step";
+import StepContent from "@material-ui/core/StepContent";
+import StepLabel from "@material-ui/core/StepLabel";
+import Stepper from "@material-ui/core/Stepper";
+import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import React from "react";
+import { NavLink } from "react-router-dom";
+import { ButtonPrimary, ButtonSecondary } from "../../../FormsUI";
+import BankAccountVerification from "./BankAccountVerification";
+import DocumentPhoto from "./DocumentPhoto";
+import EmailVerification from "./EmailVerification";
+import FinancialInformation from "./FinancialInformation";
+import IncomeVerification from "./IncomeVerification";
+import PhoneVerification from "./PhoneVerification";
+import VerificationQuestion from "./VerificationQuestion";
 import "./VerticalLinearStepper.css";
 
 // styling part
@@ -78,7 +78,7 @@ function getStepContent(step) {
 //Component for vertical linear stepper
 export default function VerticalLinearStepper() {
 	const classes = useStyles();
-	const [activeStep, setActiveStep] = React.useState(0);
+	const [ activeStep, setActiveStep ] = React.useState(0);
 	const steps = getSteps();
 
 	//next, prev and reset functionality
@@ -117,28 +117,28 @@ export default function VerticalLinearStepper() {
 
 	//view part
 	return (
-		<div className={classes.root}>
-			<Stepper activeStep={activeStep} orientation="vertical">
-				{steps.map((label, index) => (
-					<Step key={label}>
+		<div className={ classes.root }>
+			<Stepper activeStep={ activeStep } orientation="vertical">
+				{ steps.map((label, index) => (
+					<Step key={ label }>
 						<StepLabel>
-							{<span className={classes.stepLabel}>{label}</span>}
+							{ <span className={ classes.stepLabel }>{ label }</span> }
 						</StepLabel>
 						<StepContent>
-							<Typography>{getStepContent(index)}</Typography>
-							<div className={classes.actionsContainer}>
-								<div className={classes.button_div}>
+							<Typography>{ getStepContent(index) }</Typography>
+							<div className={ classes.actionsContainer }>
+								<div className={ classes.button_div }>
 									<ButtonSecondary
 										stylebutton='{"margin-right": "10px", "color":"" }'
-										onClick={handleReset}
+										onClick={ handleReset }
 										id="button_stepper_reset"
 									>
 										Reset
 									</ButtonSecondary>
 
 									<ButtonSecondary
-										disabled={activeStep === 0}
-										onClick={handleBack}
+										disabled={ activeStep === 0 }
+										onClick={ handleBack }
 										id="button_stepper_prev"
 										stylebutton='{"margin-right": "10px", "color":"" }'
 									>
@@ -149,23 +149,23 @@ export default function VerticalLinearStepper() {
 										color="primary"
 										id="button_stepper_next"
 										stylebutton='{"margin-right": "10px", "color":"" }'
-										onClick={handleNext}
+										onClick={ handleNext }
 									>
-										{activeStep === steps.length - 1 ? "Finish" : "Next"}
+										{ activeStep === steps.length - 1 ? "Finish" : "Next" }
 									</ButtonPrimary>
 								</div>
 							</div>
 						</StepContent>
 					</Step>
-				))}
+				)) }
 			</Stepper>
-			{activeStep === steps.length && (
-				<Paper square elevation={0} className={classes.resetContainer}>
+			{ activeStep === steps.length && (
+				<Paper square elevation={ 0 } className={ classes.resetContainer }>
 					<Typography>All steps completed - you&apos;re finished</Typography>
-					<Grid style={{ paddingTop: "20px" }}>
+					<Grid style={ { paddingTop: "20px" } }>
 						<NavLink
 							to="/customers/receiveYourMoney"
-							style={{ textDecoration: "none" }}
+							style={ { textDecoration: "none" } }
 						>
 							<ButtonPrimary stylebutton='{ "color":"" }'>
 								Click here for application status
@@ -173,7 +173,7 @@ export default function VerticalLinearStepper() {
 						</NavLink>
 					</Grid>
 				</Paper>
-			)}
+			) }
 		</div>
 	);
 }

@@ -1,7 +1,7 @@
-import React from "react";
-import { fireEvent, render, within } from "@testing-library/react";
-import Select from './index.js';
 import '@testing-library/jest-dom';
+import { fireEvent, render, within } from "@testing-library/react";
+import React from "react";
+import Select from './index.js';
 
 test('Render Select Box', () => {
   const { getByTestId } = render(
@@ -9,7 +9,7 @@ test('Render Select Box', () => {
       <Select
         name="select"
         labelform="Language Known"
-        required={true}
+        required={ true }
         select='[{"value":"Tamil"}, {"value":"Eng"}]'
       />
     </>
@@ -28,7 +28,7 @@ test('Checks whether all the options are rendered', () => {
         data-test-id="selectBox"
         name="select"
         labelform="Language Known"
-        required={true}
+        required={ true }
         select='[{"value":"Tamil"}, {"value":"Eng"}]'
       />
     </>
@@ -49,7 +49,7 @@ test('selects the correct option', () => {
         data-test-id="selectBox"
         name="select"
         labelform="Language Known"
-        required={true}
+        required={ true }
         select='[{"value":"Tamil"}, {"value":"Eng"}]'
       />
     </>
@@ -74,8 +74,8 @@ test('should match the snapshot', () => {
     data-test-id="selectBox"
     name="select"
     labelform="Language Known"
-    required={true}
+    required={ true }
     select='[{"value":"Tamil"}, {"value":"Eng"}]'
-  />)
-  expect(asFragment).toMatchSnapshot()
+  />);
+  expect(asFragment).toMatchSnapshot();
 });

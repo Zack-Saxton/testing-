@@ -1,6 +1,6 @@
 import * as CryptoJS from 'crypto-js';
 
-const key = "djhfi4334jfdo8sd9jefh9h34hi4843h49349"
+const key = "djhfi4334jfdo8sd9jefh9h34hi4843h49349";
 export const encryptAES = (text) => {
   return CryptoJS.AES.encrypt(text, key).toString();
 };

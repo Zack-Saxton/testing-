@@ -1,12 +1,12 @@
-import React from "react";
-import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import React from "react";
 import { NavLink } from "react-router-dom";
+import CheckLoginStatus from "../../App/CheckLoginStatus";
 import { ButtonWithIcon } from "../../FormsUI";
+import Faq from "./Faq";
 import { useStylesFaq } from "./Style";
 import "./Style.css";
-import Faq from "./Faq";
-import CheckLoginStatus from "../../App/CheckLoginStatus";
 
 export default function FaqPostLogin() {
   window.zeHide();
@@ -19,20 +19,20 @@ export default function FaqPostLogin() {
       <CheckLoginStatus />
       <Grid
         container
-        justifyContent={"center"}
-        style={{
+        justifyContent={ "center" }
+        style={ {
           marginTop: "-150px",
           paddingRight: "30px",
           paddingLeft: "30px",
           paddingBottom: "30px",
-        }}
+        } }
       >
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Typography variant="h3" className={classes.titleHeading}>
+        <Grid container spacing={ 3 }>
+          <Grid item xs={ 12 }>
+            <Typography variant="h3" className={ classes.titleHeading }>
               <NavLink
                 to="/customers/accountOverview"
-                style={{ textDecoration: "none" }}
+                style={ { textDecoration: "none" } }
               >
                 <ButtonWithIcon
                   icon="arrow_backwardIcon"
@@ -44,13 +44,13 @@ export default function FaqPostLogin() {
                         "marginRight": "5px", "marginTop":"unset" }'
                   styleicon='{ "color":"" }'
                 />
-              </NavLink>{" "}
+              </NavLink>{ " " }
               Frequently Asked Questions
             </Typography>
           </Grid>
         </Grid>
 
-        <Grid item xs={12}>
+        <Grid item xs={ 12 }>
           <Faq />
         </Grid>
       </Grid>

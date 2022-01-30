@@ -1,6 +1,6 @@
 import axios from "axios";
 import APICall from "../lib/AxiosLib";
-import ErrorLogger from "../lib/ErrorLogger"
+import ErrorLogger from "../lib/ErrorLogger";
 
 export async function checkMyOfferSubmit(customer) {
 	//result - to store the result from api call, token - auth token, loggedIn
@@ -205,11 +205,11 @@ export async function checkMyOfferSubmit(customer) {
 					delete headers.common[ "Content-Type" ];
 					return data;
 				},
-			})
+			});
 			response.appSubmissionResult = result?.data;
 		}
 	} catch (error) {
-		ErrorLogger("Error executing checkMyOfferSubmit API", error)
+		ErrorLogger("Error executing checkMyOfferSubmit API", error);
 		response.appSubmissionResult = error.response;
 	}
 	return response;
@@ -411,10 +411,10 @@ export async function checkMyOfferSubmitTest(customer) {
 					"Content-Type": "application/json",
 				},
 				transformRequest: (data, headers) => {
-					delete headers.common["Content-Type"];
+					delete headers.common[ "Content-Type" ];
 					return data;
 				},
-			})
+			});
 			response.appSubmissionResult = result;
 		}
 	} catch (error) {
@@ -437,7 +437,7 @@ export async function getCustomerByEmail(email) {
 		//API call
 		return await APICall(url, param, data, method, addAccessToken);
 	} catch (error) {
-		ErrorLogger("Error executing getCustomerByEmail API", error)
+		ErrorLogger("Error executing getCustomerByEmail API", error);
 		Error("Error executing getCustomerByEmail API");
 	}
 }
@@ -485,7 +485,7 @@ export async function creatProspect(body) {
 		//API call
 		return await APICall(url, param, data, method, addAccessToken);
 	} catch (error) {
-		ErrorLogger("Error executing creatProspect API", error)
+		ErrorLogger("Error executing creatProspect API", error);
 		Error("Error executing creatProspect API");
 	}
 }

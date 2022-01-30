@@ -25,7 +25,7 @@
     "ZipCodeEnter": "Enter your Zip Code",
     "ZipCodeValid": "Enter a valid Zip Code",
     "ZipCodeMax": "Zip Code should be of maximum of 5 characters in length",
-    "ZipCodeRequired": "Your home Zip Code is required",    
+    "ZipCodeRequired": "Your home Zip Code is required",
     "SSNEnter": "Enter a SSN",
     "SSNRequired": "Your SSN is required",
     "SSNValid": "Please enter a valid SSN",
@@ -33,5 +33,3 @@
     "Network_Error": "Network Error",
     "Network_Error_Please_Try_Again": "Network error, Please try again."
 }
-
-

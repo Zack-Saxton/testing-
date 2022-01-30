@@ -1,12 +1,12 @@
 import React from "react";
-import "./Footer.css";
 import badge from "../../../assets/images/badge.png";
 import Logo from "../../../assets/images/MarinerLogo.png";
-import ConsumerDialog from "../ConsumerFooterDialog/ConsumerDialog"
+import ConsumerDialog from "../ConsumerFooterDialog/ConsumerDialog";
+import "./Footer.css";
 
 
 export default function Footer() {
-  const [consumer, setConsumer] = React.useState(false);
+  const [ consumer, setConsumer ] = React.useState(false);
   //Consumer popup
   const handleOpenConsumer = () => {
     setConsumer(true);
@@ -14,7 +14,7 @@ export default function Footer() {
   //View Part
   return (
     <div >
-      <footer style={{ width: "100%" }}>
+      <footer style={ { width: "100%" } }>
         <section className="section-top" >
           <div className="col">
             <div className="main-footer-content">
@@ -63,18 +63,18 @@ export default function Footer() {
 
           <div className="col2">
             <div >
-              <input type="image" src={badge} alt="badge" id="badge" style={{ height: "100%" }} />
+              <input type="image" src={ badge } alt="badge" id="badge" style={ { height: "100%" } } />
             </div>
-            <div id="mfInfo" className="row" style={{ display: "flex", paddingTop: "15px", paddingBottom: "15px", paddingLeft: "25px" }}>
-              <input type="image" id="mfInfoImg" src={Logo} alt="logo image" style={{ height: "100%", paddingRight: "25px" }} />
+            <div id="mfInfo" className="row" style={ { display: "flex", paddingTop: "15px", paddingBottom: "15px", paddingLeft: "25px" } }>
+              <input type="image" id="mfInfoImg" src={ Logo } alt="logo image" style={ { height: "100%", paddingRight: "25px" } } />
               <div className="row">
-                <div style={{ paddingTop: "15px", paddingBottom: "15px", }}>
+                <div style={ { paddingTop: "15px", paddingBottom: "15px", } }>
                   <p className="leftAlignAddress">
                     Mariner Finance, LLC, NMLS No. 166564
-                    <span style={{ margin: "0", cursor: "pointer" }} onClick={handleOpenConsumer}>
+                    <span style={ { margin: "0", cursor: "pointer" } } onClick={ handleOpenConsumer }>
                       (www.nmlsconsumeraccess.com)
                     </span>
-                    <br/>
+                    <br />
                     8211 Town Center Drive,
                     Nottingham, MD 21236; <br />
                     Telephone Number -
@@ -91,13 +91,13 @@ export default function Footer() {
 
         <section className="section-bottom">
           <div>
-            <span style={{ color: "white" }}>
+            <span style={ { color: "white" } }>
               &copy; 2022 Mariner Finance All rights reserved.
             </span>
           </div>
         </section>
       </footer>
-      <ConsumerDialog consumer={consumer} onChange={setConsumer} />
+      <ConsumerDialog consumer={ consumer } onChange={ setConsumer } />
     </div>
   );
 }

@@ -5,18 +5,18 @@ Component Name      :    PhoneNumber
 Functionality       :    To use this component to validate and get the Phone Number in the correct format from the user.
 
 #################################################################################################################*/
-import React from "react";
-import { useField } from "formik";
+import FormControl from "@material-ui/core/FormControl";
 import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import InputMask from "react-input-mask";
-import FormControl from "@material-ui/core/FormControl";
+import { useField } from "formik";
 import PropTypes from "prop-types";
+import React from "react";
+import InputMask from "react-input-mask";
 
 const MobileNumberWrapper = ({ name, ...otherProps }) => {
   //Set Formik field
-  const [field] = useField(name);
-  const [mobile, setMobile] = React.useState("");
+  const [ field ] = useField(name);
+  const [ mobile, setMobile ] = React.useState("");
 
   const handleChange = (event) => {
     setMobile(event.target.value);
@@ -26,20 +26,20 @@ const MobileNumberWrapper = ({ name, ...otherProps }) => {
   // Check validity
 
   return (
-    <FormControl fullWidth={true}>
+    <FormControl fullWidth={ true }>
       <MuiThemeProvider>
         <InputMask
-          fullWidth={true}
+          fullWidth={ true }
           mask="(+1)- 9"
-          value={mobile}
-          name={name}
-          onChange={handleChange}
-          disabled={false}
+          value={ mobile }
+          name={ name }
+          onChange={ handleChange }
+          disabled={ false }
           maskChar=" "
-          {...otherProps}
-          {...field}
+          { ...otherProps }
+          { ...field }
         >
-          {() => <TextField label="Enter " />}
+          { () => <TextField label="Enter " /> }
         </InputMask>
       </MuiThemeProvider>
     </FormControl>

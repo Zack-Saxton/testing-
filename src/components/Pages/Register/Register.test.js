@@ -1,15 +1,15 @@
-import React from "react";
-import { fireEvent, render, screen } from "@testing-library/react";
-import Register from "./Register";
-import { createMemoryHistory } from "history";
-import { Router } from "react-router-dom";
 import "@testing-library/jest-dom/extend-expect";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { createMemoryHistory } from "history";
+import React from "react";
+import { Router } from "react-router-dom";
+import Register from "./Register";
 
 test("Checks the title of the page", () => {
 	const history = createMemoryHistory();
 
 	render(
-		<Router history={history}>
+		<Router history={ history }>
 			<Register />
 		</Router>
 	);
@@ -21,7 +21,7 @@ test("Checks the subtitle of the page", () => {
 	const history = createMemoryHistory();
 
 	render(
-		<Router history={history}>
+		<Router history={ history }>
 			<Register />
 		</Router>
 	);
@@ -33,7 +33,7 @@ test("Textbox Firstname", () => {
 	const history = createMemoryHistory();
 
 	render(
-		<Router history={history}>
+		<Router history={ history }>
 			<Register />
 		</Router>
 	);
@@ -46,7 +46,7 @@ test("Invalid Firstname", () => {
 	const history = createMemoryHistory();
 
 	render(
-		<Router history={history}>
+		<Router history={ history }>
 			<Register />
 		</Router>
 	);
@@ -62,7 +62,7 @@ test("Textbox Lastname", () => {
 	const history = createMemoryHistory();
 
 	render(
-		<Router history={history}>
+		<Router history={ history }>
 			<Register />
 		</Router>
 	);
@@ -75,7 +75,7 @@ test("Invalid Lastname", () => {
 	const history = createMemoryHistory();
 
 	render(
-		<Router history={history}>
+		<Router history={ history }>
 			<Register />
 		</Router>
 	);
@@ -91,7 +91,7 @@ test("Render email", () => {
 	const history = createMemoryHistory();
 
 	render(
-		<Router history={history}>
+		<Router history={ history }>
 			<Register />
 		</Router>
 	);
@@ -104,7 +104,7 @@ test("pass valid email to test email input field", () => {
 	const history = createMemoryHistory();
 
 	render(
-		<Router history={history}>
+		<Router history={ history }>
 			<Register />
 		</Router>
 	);
@@ -121,7 +121,7 @@ test("pass invalid email to test input value", () => {
 	const history = createMemoryHistory();
 
 	render(
-		<Router history={history}>
+		<Router history={ history }>
 			<Register />
 		</Router>
 	);
@@ -139,7 +139,7 @@ test("Zipcode availability test", () => {
 	const history = createMemoryHistory();
 
 	render(
-		<Router history={history}>
+		<Router history={ history }>
 			<Register />
 		</Router>
 	);
@@ -153,7 +153,7 @@ test("Zipcode Input test", () => {
 	const history = createMemoryHistory();
 
 	render(
-		<Router history={history}>
+		<Router history={ history }>
 			<Register />
 		</Router>
 	);
@@ -166,7 +166,7 @@ test("Get only numeric value for zipcode", () => {
 	const history = createMemoryHistory();
 
 	render(
-		<Router history={history}>
+		<Router history={ history }>
 			<Register />
 		</Router>
 	);
@@ -181,7 +181,7 @@ it("zipcode should be 5 digits", () => {
 	const history = createMemoryHistory();
 
 	render(
-		<Router history={history}>
+		<Router history={ history }>
 			<Register />
 		</Router>
 	);
@@ -193,7 +193,7 @@ test("Render Date of birth", () => {
 	const history = createMemoryHistory();
 
 	render(
-		<Router history={history}>
+		<Router history={ history }>
 			<Register />
 		</Router>
 	);
@@ -207,7 +207,7 @@ test("Render password", () => {
 	const history = createMemoryHistory();
 
 	render(
-		<Router history={history}>
+		<Router history={ history }>
 			<Register />
 		</Router>
 	);
@@ -223,7 +223,7 @@ test("Render confirm  password", () => {
 	const history = createMemoryHistory();
 
 	render(
-		<Router history={history}>
+		<Router history={ history }>
 			<Register />
 		</Router>
 	);
@@ -237,7 +237,7 @@ test("button Availability", () => {
 	const history = createMemoryHistory();
 
 	render(
-		<Router history={history}>
+		<Router history={ history }>
 			<Register />
 		</Router>
 	);
@@ -250,7 +250,7 @@ test("Button Onclick", () => {
 	const history = createMemoryHistory();
 
 	render(
-		<Router history={history}>
+		<Router history={ history }>
 			<Register />
 		</Router>
 	);

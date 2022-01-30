@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import LogoutController from "../Controllers/LogoutController"
+import LogoutController from "../Controllers/LogoutController";
 const tokenExpiryCheck = (error) => {
     if (error.response.data === "Unauthorized" || error.response.data === "Access token has expired") {
         LogoutController();
@@ -7,6 +7,6 @@ const tokenExpiryCheck = (error) => {
         window.location.replace("/login");
     }
     return null;
-}
+};
 
 export default tokenExpiryCheck;

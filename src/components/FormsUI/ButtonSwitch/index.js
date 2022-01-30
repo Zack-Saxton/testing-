@@ -20,7 +20,7 @@ const ButtonSwitchWrapper = ({
   ...otherProps
 }) => {
   //Validation
-  const [state, setState] = React.useState(true);
+  const [ state, setState ] = React.useState(true);
 
   let handleChange = (event) => {
     setState(event.target.checked);
@@ -32,15 +32,15 @@ const ButtonSwitchWrapper = ({
       <FormControlLabel
         control={
           <Switch
-            checked={state}
-            onChange={handleChange}
-            value={state}
-            inputProps={{ "data-test-id": "switch" }}
+            checked={ state }
+            onChange={ handleChange }
+            value={ state }
+            inputProps={ { "data-test-id": "switch" } }
             color="primary"
           />
         }
-        labelPlacement={labelplacement}
-        label={state ? label + " ON" : label + " Off"}
+        labelPlacement={ labelplacement }
+        label={ state ? label + " ON" : label + " Off" }
       />
     </FormControl>
   );

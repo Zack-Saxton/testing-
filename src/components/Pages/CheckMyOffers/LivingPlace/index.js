@@ -14,9 +14,9 @@ import "../LivingPlace/LivingPlace.css";
 //Living place component initialization
 function LivingPlace() {
 	const { data, setData } = useContext(CheckMyOffers);
-	const [error, setError] = useState();
-	const [helperText, setHelperText] = useState();
-	let [livingPlace, setLivingPlace] = useState(data.homeOwnership ?? "");
+	const [ error, setError ] = useState();
+	const [ helperText, setHelperText ] = useState();
+	let [ livingPlace, setLivingPlace ] = useState(data.homeOwnership ?? "");
 	const history = useHistory();
 	//set data state on continue
 	const setDataState = (val) => {
@@ -37,7 +37,7 @@ function LivingPlace() {
 	//validating user input and proceeds
 	const handleRoute = () => {
 		if (livingPlace === "Renting" || livingPlace === "Own a Home with Mortgage") {
-			if (data.rentMortgageAmount !== "" &&	data.rentMortgageAmount !== 0 && data.rentMortgageAmount >= 100) {
+			if (data.rentMortgageAmount !== "" && data.rentMortgageAmount !== 0 && data.rentMortgageAmount >= 100) {
 				setError(false);
 				setHelperText("");
 				data.homeOwnership = livingPlace;
@@ -109,19 +109,19 @@ function LivingPlace() {
 					<Grid
 						container
 						item
-						xs={12}
+						xs={ 12 }
 						justifyContent="center"
 						alignItems="center"
-						style={{ paddingTop: "70px", paddingBottom: "70px" }}
+						style={ { paddingTop: "70px", paddingBottom: "70px" } }
 					>
 						<Grid
 							container
 							item
-							xs={11}
-							sm={10}
-							md={6}
-							lg={6}
-							xl={6}
+							xs={ 11 }
+							sm={ 10 }
+							md={ 6 }
+							lg={ 6 }
+							xl={ 6 }
 							className="cardWrapper"
 							justifyContent="center"
 							alignItems="center"
@@ -129,7 +129,7 @@ function LivingPlace() {
 							<Paper
 								id="ownOrRentWrap"
 								className="cardWOPadding"
-								style={{ justify: "center", alignItems: "center" }}
+								style={ { justify: "center", alignItems: "center" } }
 							>
 								<div className="progress mt-0">
 									<div
@@ -147,7 +147,7 @@ function LivingPlace() {
 								</Grid>
 								<Grid>
 									<img
-										src={CitizenshipStatusLogo}
+										src={ CitizenshipStatusLogo }
 										alt="citizenship logo"
 										className="spinAnimation"
 									/>
@@ -155,18 +155,18 @@ function LivingPlace() {
 
 								<Typography
 									variant="h5"
-									style={{
+									style={ {
 										align: "center",
 										justify: "center",
 										alignItems: "center",
-									}}
+									} }
 									className="borrowCSSLP"
 								>
 									Do you own or rent?
 								</Typography>
 								<Grid
 									item
-									md={12}
+									md={ 12 }
 									className="blockDiv"
 									container
 									justifyContent="center"
@@ -177,98 +177,98 @@ function LivingPlace() {
 										justifyContent="center"
 										alignItems="center"
 										item
-										lg={8}
-										md={8}
-										xs={12}
+										lg={ 8 }
+										md={ 8 }
+										xs={ 12 }
 									>
 										<Paper
 											id="ownOrRentBoxOne"
-											elevation={3}
+											elevation={ 3 }
 											data-testid="Renting"
 											className={
 												livingPlace === "Renting"
 													? "activeBorder radioBlock "
 													: "radioBlock "
 											}
-											onClick={() => {
+											onClick={ () => {
 												setLivingPlace("Renting");
-											}}
+											} }
 										>
 											Renting
 										</Paper>
 									</Grid>
-									<Grid item lg={8} md={8} xs={12}>
+									<Grid item lg={ 8 } md={ 8 } xs={ 12 }>
 										<Paper
 											id="ownOrRentBoxTwo"
-											elevation={3}
+											elevation={ 3 }
 											data-testid="HomeWithMortgage"
 											className={
 												livingPlace === "Own a Home with Mortgage"
 													? "activeBorder radioBlock "
 													: "radioBlock "
 											}
-											onClick={() => {
+											onClick={ () => {
 												setLivingPlace("Own a Home with Mortgage");
-											}}
+											} }
 										>
 											Own a home with mortgage
 										</Paper>
 									</Grid>
-									<Grid item lg={8} md={8} xs={12}>
+									<Grid item lg={ 8 } md={ 8 } xs={ 12 }>
 										<Paper
 											id="ownOrRentBoxThree"
-											elevation={3}
+											elevation={ 3 }
 											data-testid="HomeWithNoMortgage"
 											className={
 												livingPlace === "Own a Home with no Mortgage"
 													? "activeBorder radioBlock "
 													: "radioBlock "
 											}
-											onClick={() => {
+											onClick={ () => {
 												setLivingPlace("Own a Home with no Mortgage");
 												data.rentMortgageAmount = 0;
 												data.homeOwnership = "Own a Home with no Mortgage";
 												if (data.completedPage < data.page.livingPlace) {
 													setDataState("Own a Home with no Mortgage");
 												}
-											}}
+											} }
 										>
 											Own a home with no mortgage
 										</Paper>
 									</Grid>
-									<Grid item lg={8} md={8} xs={12}>
+									<Grid item lg={ 8 } md={ 8 } xs={ 12 }>
 										<Paper
 											id="ownOrRentBoxFour"
-											elevation={3}
+											elevation={ 3 }
 											data-testid="MobileHome"
 											className={
 												livingPlace === "Own a Mobile Home"
 													? "activeBorder radioBlock "
 													: "radioBlock "
 											}
-											onClick={() => {
+											onClick={ () => {
 												setLivingPlace("Own a Mobile Home");
 												data.rentMortgageAmount = 0;
 												data.homeOwnership = "Own a Mobile Home";
 												if (data.completedPage < data.page.livingPlace) {
 													setDataState("Own a Mobile Home");
 												}
-											}}
+											} }
 										>
 											Own a mobile home
 										</Paper>
 									</Grid>
-									<Grid item lg={8} md={8} xs={12}>
+									<Grid item lg={ 8 } md={ 8 } xs={ 12 }>
 										<Paper
 											id="ownOrRentBoxFive"
-											elevation={3}
+											elevation={ 3 }
 											data-testid="LivingWithRelatives"
 											className={
 												livingPlace === "Living with Relatives"
 													? "activeBorder radioBlock "
 													: "radioBlock "
 											}
-											onClick={() => {
+											onClick={ () => {
 												setLivingPlace("Living with Relatives");
 												data.rentMortgageAmount = 0;
 												data.homeOwnership = "Living with Relatives";
@@ -276,13 +276,13 @@ function LivingPlace() {
 												if (data.completedPage < data.page.livingPlace) {
 													setDataState("Living with Relatives");
 												}
-											}}
+											} }
 										>
 											Living with relatives
 										</Paper>
 									</Grid>
 
-									<Grid item lg={8} md={8} xs={12}>
+									<Grid item lg={ 8 } md={ 8 } xs={ 12 }>
 										<TextField
 											id="rentOrMortage"
 											className={
@@ -293,23 +293,23 @@ function LivingPlace() {
 											}
 											name="RentOrMortgageAmount"
 											label="Monthly Rent / Mortgage Amount"
-											form={true}
-											error={error}
-											helperText={helperText}
-											value={data.rentMortgageAmount}
-											onChange={onHandleChange}
-											materialProps={{
+											form={ true }
+											error={ error }
+											helperText={ helperText }
+											value={ data.rentMortgageAmount }
+											onChange={ onHandleChange }
+											materialProps={ {
 												"data-test-id": "rentMortgageAmount",
 												maxLength: "5",
-											}}
+											} }
 										/>
 									</Grid>
 
-									<Grid item lg={8} md={8} xs={12} className="alignButton">
+									<Grid item lg={ 8 } md={ 8 } xs={ 12 } className="alignButton">
 										<ButtonPrimary
-											onClick={handleRoute}
+											onClick={ handleRoute }
 											data-testid="cntButton"
-											disabled={livingPlace === ""}
+											disabled={ livingPlace === "" }
 											stylebutton='{"background": "#FFBC23", "black": "white","fontSize":"0.938rem", "padding": "0px 30px"}'
 										>
 											Continue

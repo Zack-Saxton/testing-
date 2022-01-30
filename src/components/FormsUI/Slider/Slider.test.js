@@ -1,8 +1,8 @@
-import React from 'react'
-import { cleanup, render } from '@testing-library/react'
-import Slider from './index.js'
+import { cleanup, render } from '@testing-library/react';
+import React from 'react';
+import Slider from './index.js';
 
-afterEach(cleanup)
+afterEach(cleanup);
 
 test('Slider availability', () => {
   const container = render(
@@ -14,6 +14,6 @@ test('Slider availability', () => {
 });
 
 test('should match the snapshot', () => {
-  const { asFragment } = render(<Slider name="slider2" label="Select Loan Amount" />)
-  expect(asFragment).toMatchSnapshot()
+  const { asFragment } = render(<Slider name="slider2" label="Select Loan Amount" />);
+  expect(asFragment).toMatchSnapshot();
 });

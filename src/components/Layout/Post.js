@@ -1,21 +1,21 @@
-import React, { useState } from "react";
-import AppBar from "./AppBar/SideNav";
 import { Grid } from "@material-ui/core";
-import "../App/App.css";
-import Footer from "../Layout/Footer/Footer";
-import { useHistory } from "react-router-dom";
-import LoginController from "../Controllers/LoginController";
-import { useIdleTimer } from "react-idle-timer";
 import Dialog from "@material-ui/core/Dialog";
-import { ButtonPrimary } from "../FormsUI";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import Typography from "@material-ui/core/Typography";
-import { toast } from "react-toastify";
 import Cookies from "js-cookie";
-import LogoutController from "../Controllers/LogoutController"
-import { encryptAES, decryptAES } from "../lib/Crypto"
+import React, { useState } from "react";
+import { useIdleTimer } from "react-idle-timer";
+import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
+import "../App/App.css";
+import LoginController from "../Controllers/LoginController";
+import LogoutController from "../Controllers/LogoutController";
+import { ButtonPrimary } from "../FormsUI";
+import Footer from "../Layout/Footer/Footer";
+import { decryptAES, encryptAES } from "../lib/Crypto";
+import AppBar from "./AppBar/SideNav";
 
 const Post = ({ children }) => {
 	const history = useHistory();
@@ -25,7 +25,7 @@ const Post = ({ children }) => {
 	var min = expiryMinute;
 	var actualSetupTime = userToken?.setupTime ?? 0;
 	var nowTime = new Date().getTime();
-	const [openPopUp, setOpenPopUp] = useState(false);
+	const [ openPopUp, setOpenPopUp ] = useState(false);
 
 	const handleClosePopUp = () => {
 		setOpenPopUp(false);
@@ -128,18 +128,18 @@ const Post = ({ children }) => {
 			<div id="body">
 				<Grid className="sample" />
 				<AppBar />
-				{children}
+				{ children }
 			</div>
 			<Footer />
 			<Dialog
-				onClose={handleClosePopUp}
+				onClose={ handleClosePopUp }
 				aria-labelledby="customized-dialog-title"
 				maxWidth="xs"
 				// style={{maxWidth: "90% !important"}}
-				open={openPopUp}
+				open={ openPopUp }
 			>
 				<div id="printableArea">
-					<DialogTitle id="customized-dialog-title" onClose={handleClosePopUp}>
+					<DialogTitle id="customized-dialog-title" onClose={ handleClosePopUp }>
 						Alert
 					</DialogTitle>
 					<DialogContent dividers>
@@ -152,7 +152,7 @@ const Post = ({ children }) => {
 				<DialogActions className="modalAction">
 					<ButtonPrimary
 						stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
-						onClick={handleClosePopUp}
+						onClick={ handleClosePopUp }
 					>
 						<Typography align="center">Ok</Typography>
 					</ButtonPrimary>

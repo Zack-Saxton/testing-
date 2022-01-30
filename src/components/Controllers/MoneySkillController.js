@@ -1,5 +1,5 @@
 import APICall from "../lib/AxiosLib";
-import ErrorLogger from "../lib/ErrorLogger"
+import ErrorLogger from "../lib/ErrorLogger";
 
 /***** Get Account overview details *****/
 export default async function getMoneySkillLink() {
@@ -13,7 +13,7 @@ export default async function getMoneySkillLink() {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    ErrorLogger("Error executing getMoneySkillLink API", error)
+    ErrorLogger("Error executing getMoneySkillLink API", error);
     Error("Error executing getMoneySkillLink API");
   }
 }

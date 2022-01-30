@@ -1,9 +1,9 @@
-import React from "react";
-import { cleanup, fireEvent, render } from '@testing-library/react'
-import Radio from './index.js';
+import { cleanup, fireEvent, render } from '@testing-library/react';
 import { Form, Formik } from 'formik';
+import React from "react";
+import Radio from './index.js';
 
-afterEach(cleanup)
+afterEach(cleanup);
 
 test("renders Radio Button", () => {
     const container = render(
@@ -14,9 +14,9 @@ test("renders Radio Button", () => {
                     labelforform="Gender"
                     radiolabel='[{"label":"Male", "value":"male"}, {"label":"Female", "value":"female"}]'
                     value="male"
-                    row={true}
-                    required={true}
-                    labelplacement={"end"}
+                    row={ true }
+                    required={ true }
+                    labelplacement={ "end" }
                 />
             </Form>
         </Formik>
@@ -39,9 +39,9 @@ test("Changing Radio value", () => {
                     labelforform="Gender"
                     radiolabel='[{"label":"Male", "value":"male"}, {"label":"Female", "value":"female"}]'
                     value="male"
-                    row={true}
-                    required={true}
-                    labelplacement={"end"}
+                    row={ true }
+                    required={ true }
+                    labelplacement={ "end" }
                 />
             </Form>
         </Formik>
@@ -50,7 +50,7 @@ test("Changing Radio value", () => {
 
     const radio = container.getByLabelText('Male');
     fireEvent.change(radio, { target: { value: "female" } });
-    expect(radio.value).toBe('female')
+    expect(radio.value).toBe('female');
 });
 
 test('should match the snapshot', () => {
@@ -61,11 +61,11 @@ test('should match the snapshot', () => {
                 labelforform="Gender"
                 radiolabel='[{"label":"Male", "value":"male"}, {"label":"Female", "value":"female"}]'
                 value="male"
-                row={true}
-                required={true}
-                labelplacement={"end"}
+                row={ true }
+                required={ true }
+                labelplacement={ "end" }
             />
         </Form>
-    </Formik>)
-    expect(asFragment).toMatchSnapshot()
+    </Formik>);
+    expect(asFragment).toMatchSnapshot();
 });

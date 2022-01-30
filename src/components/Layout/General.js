@@ -1,7 +1,7 @@
 import React from 'react';
-import Header from './NormalHeader/NormalHeader';
+import "./Layout.css";
 import Footer from './NormalFooter/NormalFooter';
-import "./Layout.css"
+import Header from './NormalHeader/NormalHeader';
 
 
 const General = ({ children }) => {
@@ -9,10 +9,10 @@ const General = ({ children }) => {
     return (
         <div id="BG">
             <Header />
-            {children}
+            { children }
             <Footer />
         </div>
-    )
-}
+    );
+};
 
 export default General;

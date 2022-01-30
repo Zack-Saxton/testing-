@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { ButtonWithIcon, PhoneNumber, ButtonPrimary, ButtonSecondary, TextField } from "../../../FormsUI";
+import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from "@material-ui/core";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
-import * as yup from "yup";
-import APICall from "../../../lib/AxiosLib";
-import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from "@material-ui/core";
-import { errorMessage } from "../../../../helpers/ErrorMessage";
-import { OTPInitialSubmission, verifyPasscode } from "../../../Controllers/ApplyForLoanController";
-import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogActions from "@material-ui/core/DialogActions";
 import Cookies from "js-cookie";
-import messages from "../../../lib/Lang/applyForLoan.json"
+import React, { useEffect, useState } from "react";
+import * as yup from "yup";
+import { OTPInitialSubmission, verifyPasscode } from "../../../Controllers/ApplyForLoanController";
+import { ButtonPrimary, ButtonSecondary, ButtonWithIcon, PhoneNumber, TextField } from "../../../FormsUI";
+import APICall from "../../../lib/AxiosLib";
+import messages from "../../../lib/Lang/applyForLoan.json";
 
 //YUP validation schema
 const validationSchema = yup.object({
@@ -29,11 +28,11 @@ const validationSchema = yup.object({
 
 //View Part
 export default function PhoneVerification(props) {
-	const [hasPasscode, setOfferCode] = useState(false);
-	const [passcode, setPasscode] = useState("");
-	const [error, setError] = useState();
-	const [phoneNum, setPhoneNum] = useState("");
-	const [open, setOpen] = useState(false);
+	const [ hasPasscode, setOfferCode ] = useState(false);
+	const [ passcode, setPasscode ] = useState("");
+	const [ error, setError ] = useState();
+	const [ phoneNum, setPhoneNum ] = useState("");
+	const [ open, setOpen ] = useState(false);
 
 	// get phone number from using email from api
 	const getPhone = async () => {
@@ -49,7 +48,7 @@ export default function PhoneVerification(props) {
 
 	useEffect(() => {
 		formik.setFieldValue("phone", phoneNum);
-	}, [phoneNum]);
+	}, [ phoneNum ]);
 
 	// configuring the formik variables
 	const formik = useFormik({
@@ -66,7 +65,7 @@ export default function PhoneVerification(props) {
 			await OTPInitialSubmission(values.phone, value);
 		},
 	});
-	const [value, setValue] = React.useState("T");
+	const [ value, setValue ] = React.useState("T");
 
 	const handleChange = (event) => {
 		setValue(event.target.value);
@@ -100,23 +99,23 @@ export default function PhoneVerification(props) {
 	//view part
 	return (
 		<div>
-			<Grid item sm={12} lg={12}>
+			<Grid item sm={ 12 } lg={ 12 }>
 				<p
-					style={{
+					style={ {
 						textAlign: "justify",
 						fontSize: "0.938rem",
 						color: "#595959",
 						fontWeight: "normal",
-					}}
+					} }
 				>
 					To verify your phone number we will deliver a passcode to your phone.
 					Please select how you would like to receive this passcode.
 				</p>
 			</Grid>
-			<form onSubmit={formik.handleSubmit}>
+			<form onSubmit={ formik.handleSubmit }>
 				<Grid
 					item
-					sm={5}
+					sm={ 5 }
 					className="textBlock"
 					id="applyForLoanPhone"
 				>
@@ -125,16 +124,16 @@ export default function PhoneVerification(props) {
 						label="Phone number *"
 						id="phone"
 						type="text"
-						onKeyDown={preventSpace}
-						value={formik.values.phone}
-						onChange={formik.handleChange}
-						disabled={true}
-						error={formik.touched.phone && Boolean(formik.errors.phone)}
-						helperText={formik.touched.phone && formik.errors.phone}
+						onKeyDown={ preventSpace }
+						value={ formik.values.phone }
+						onChange={ formik.handleChange }
+						disabled={ true }
+						error={ formik.touched.phone && Boolean(formik.errors.phone) }
+						helperText={ formik.touched.phone && formik.errors.phone }
 					/>
 					<div className="MuiTypography-alignLeft">
 						<Typography
-							style={{ fontWeight: "normal", fontSize: "0.75rem" }}
+							style={ { fontWeight: "normal", fontSize: "0.75rem" } }
 							className="smallTextLeft"
 							align="left"
 						>
@@ -142,24 +141,24 @@ export default function PhoneVerification(props) {
 						</Typography>
 					</div>
 				</Grid>
-				<Grid item xs={12} style={{ lineHeight: 3 }}>
+				<Grid item xs={ 12 } style={ { lineHeight: 3 } }>
 					<FormControl component="fieldset">
-						<FormLabel style={{ fontSize: "0.75rem" }} component="legend">Delivery Method</FormLabel>
+						<FormLabel style={ { fontSize: "0.75rem" } } component="legend">Delivery Method</FormLabel>
 						<RadioGroup
 							id="textAndCall"
 							aria-label="method"
 							name="method"
-							value={value}
-							onChange={handleChange}
-							row={true}
+							value={ value }
+							onChange={ handleChange }
+							row={ true }
 						>
-							<FormControlLabel value="T" control={<Radio />} label="Text" />
-							<FormControlLabel value="M" control={<Radio />} label="Call" />
+							<FormControlLabel value="T" control={ <Radio /> } label="Text" />
+							<FormControlLabel value="M" control={ <Radio /> } label="Call" />
 						</RadioGroup>
 					</FormControl>
 					<div className="MuiTypography-alignLeft">
 						<Typography
-							style={{ fontWeight: "normal", fontSize: "0.75rem" }}
+							style={ { fontWeight: "normal", fontSize: "0.75rem" } }
 							className="smallTextLeft"
 							align="left"
 						>
@@ -168,33 +167,33 @@ export default function PhoneVerification(props) {
 					</div>
 				</Grid>
 
-				<Grid item xs={12} style={{ lineHeight: 3 }}>
+				<Grid item xs={ 12 } style={ { lineHeight: 3 } }>
 					<ButtonWithIcon
 						stylebutton='{ "fontWeight":"normal" }'
 						styleicon='{ "color":"" }'
 						type="submit"
-						fullWidth={true}
-						onClick={async () => {
+						fullWidth={ true }
+						onClick={ async () => {
 							setOfferCode(!hasPasscode);
-						}}
+						} }
 					>
 						Send Passcode
 					</ButtonWithIcon>
 				</Grid>
-				<div className={hasPasscode ? "open" : "close"}>
-					<Grid item sm={5}>
+				<div className={ hasPasscode ? "open" : "close" }>
+					<Grid item sm={ 5 }>
 						<TextField
 							name="firstName"
-							form={true}
+							form={ true }
 							label="Enter Passcode"
-							value={passcode}
-							onChange={onPasscodeChange}
-							materialProps={{
+							value={ passcode }
+							onChange={ onPasscodeChange }
+							materialProps={ {
 								"data-test-id": "offer",
 								maxLength: "4",
-							}}
-							error={error ? true : false}
-							helperText={error}
+							} }
+							error={ error ? true : false }
+							helperText={ error }
 						/>
 					</Grid>
 				</div>
@@ -202,22 +201,22 @@ export default function PhoneVerification(props) {
 			<br />
 			<div>
 				<Typography
-					onClick={() => {
+					onClick={ () => {
 						setOpen(true);
-					}}
-					className={props.classes.linkStyle}
+					} }
+					className={ props.classes.linkStyle }
 				>
 					I do not have access to this phone
 				</Typography>
 			</div>
-			<div className={props.classes.actionsContainer}>
-				<div className={props.classes.button_div}>
+			<div className={ props.classes.actionsContainer }>
+				<div className={ props.classes.button_div }>
 					<ButtonPrimary
 						variant="contained"
 						color="primary"
 						id="button_stepper_next"
 						stylebutton='{"marginRight": "10px", "color":"" }'
-						onClick={async () => {
+						onClick={ async () => {
 							let res = await verifyPasscode(passcode);
 							if (res?.data?.phone_verification === true) {
 								setError("");
@@ -228,22 +227,22 @@ export default function PhoneVerification(props) {
 										.verificationNotFound
 								);
 							}
-						}}
+						} }
 					>
-						{props.activeStep === props?.steps.length - 1 ? "Finish" : "Next"}
+						{ props.activeStep === props?.steps.length - 1 ? "Finish" : "Next" }
 					</ButtonPrimary>
 				</div>
 			</div>
 			<Dialog
-				onClose={handleClose}
+				onClose={ handleClose }
 				aria-labelledby="customized-dialog-title"
-				open={open}
+				open={ open }
 			>
-				<DialogTitle id="customized-dialog-title" onClose={handleClose}>
+				<DialogTitle id="customized-dialog-title" onClose={ handleClose }>
 					Confirmation
 				</DialogTitle>
 				<DialogContent dividers>
-					<Typography align="justify" style={{ fontSize: "15px" }} gutterBottom>
+					<Typography align="justify" style={ { fontSize: "15px" } } gutterBottom>
 						If you are currently unable to access the phone you provided, click
 						"Verify phone later" to proceed with the Remainder of the
 						Verification process. Please note that we will need to manually
@@ -254,18 +253,18 @@ export default function PhoneVerification(props) {
 					<br />
 
 					<Grid container>
-						<Grid item lg={5}>
+						<Grid item lg={ 5 }>
 							<ButtonSecondary
 								stylebutton='{"background": "", "color": "black", "border-radius": "50px"}'
-								onClick={handleClose}
+								onClick={ handleClose }
 							>
 								<Typography align="center">Return To Selection</Typography>
 							</ButtonSecondary>
 						</Grid>
-						<Grid item lg={5}>
+						<Grid item lg={ 5 }>
 							<ButtonPrimary
 								stylebutton='{"background": "#FFBC23", "color": "black", "border-radius": "50px"}'
-								onClick={skipPhoneVerification}
+								onClick={ skipPhoneVerification }
 							>
 								<Typography align="center">Verify Phone Later</Typography>
 							</ButtonPrimary>

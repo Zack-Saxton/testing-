@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import APICall from "../lib/AxiosLib";
-import ErrorLogger from "../lib/ErrorLogger"
+import ErrorLogger from "../lib/ErrorLogger";
 
 //  ========*******======== Add ACH Bank Payment                ========*******========
 export async function AddACHPaymentAPI(accountNickname, accountHolder, bankRoutingNumber, bankAccountNumber, accountType, defaultBank) {
@@ -23,7 +23,7 @@ export async function AddACHPaymentAPI(accountNickname, accountHolder, bankRouti
 
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    ErrorLogger("Error executing AddACHPaymentAPI API", error)
+    ErrorLogger("Error executing AddACHPaymentAPI API", error);
     Error("Error executing AddACHPaymentAPI API");
   }
 }
@@ -112,7 +112,7 @@ export async function ShowPaymentMethodAPI() {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    ErrorLogger("Error executing ShowPaymentMethodAPI API", error)
+    ErrorLogger("Error executing ShowPaymentMethodAPI API", error);
     Error("Error executing ShowPaymentMethodAPI API");
   }
 }

@@ -1,15 +1,15 @@
-import React from "react";
-import { fireEvent, render, screen } from "@testing-library/react";
-import Login from "./Login";
-import { createMemoryHistory } from "history";
-import { Router } from "react-router-dom";
 import "@testing-library/jest-dom/extend-expect";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { createMemoryHistory } from "history";
+import React from "react";
+import { Router } from "react-router-dom";
+import Login from "./Login";
 
 test("Checks the title of the page", () => {
 	const history = createMemoryHistory();
 
 	render(
-		<Router history={history}>
+		<Router history={ history }>
 			<Login />
 		</Router>
 	);
@@ -21,7 +21,7 @@ test("Render email", () => {
 	const history = createMemoryHistory();
 
 	render(
-		<Router history={history}>
+		<Router history={ history }>
 			<Login />
 		</Router>
 	);
@@ -34,7 +34,7 @@ test("pass valid email to test email input field", () => {
 	const history = createMemoryHistory();
 
 	render(
-		<Router history={history}>
+		<Router history={ history }>
 			<Login />
 		</Router>
 	);
@@ -50,7 +50,7 @@ test("Render password", () => {
 	const history = createMemoryHistory();
 
 	render(
-		<Router history={history}>
+		<Router history={ history }>
 			<Login />
 		</Router>
 	);
@@ -64,7 +64,7 @@ test("Render checkbox", () => {
 	const history = createMemoryHistory();
 
 	render(
-		<Router history={history}>
+		<Router history={ history }>
 			<Login />
 		</Router>
 	);
@@ -77,7 +77,7 @@ test("checkbox initially unchecked", () => {
 	const history = createMemoryHistory();
 
 	render(
-		<Router history={history}>
+		<Router history={ history }>
 			<Login />
 		</Router>
 	);
@@ -89,7 +89,7 @@ test("button Availability", () => {
 	const history = createMemoryHistory();
 
 	render(
-		<Router history={history}>
+		<Router history={ history }>
 			<Login />
 		</Router>
 	);
@@ -102,7 +102,7 @@ test("Button Onclick", () => {
 	const history = createMemoryHistory();
 
 	render(
-		<Router history={history}>
+		<Router history={ history }>
 			<Login />
 		</Router>
 	);

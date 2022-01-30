@@ -1,8 +1,8 @@
-import React from "react";
 import { cleanup, render } from "@testing-library/react";
-import SelectAmount from "./index.js";
-import CheckMyOffers from "../../../contexts/CheckMyOffers";
+import React from "react";
 import { BrowserRouter } from "react-router-dom";
+import CheckMyOffers from "../../../contexts/CheckMyOffers";
+import SelectAmount from "./index.js";
 
 afterEach(cleanup);
 

@@ -14,7 +14,7 @@ import "./CitizenshipStatus.css";
 function CitizenshipStatus() {
 	//Retrieving Context values
 	const { data } = useContext(CheckMyOffers);
-	const [citizenship, setCitizenship] = useState(data.citizenship ? data.citizenship : "");
+	const [ citizenship, setCitizenship ] = useState(data.citizenship ? data.citizenship : "");
 	const history = useHistory();
 
 	//Handle the button click
@@ -48,7 +48,7 @@ function CitizenshipStatus() {
 				<Box>
 					<Grid
 						item
-						xs={12}
+						xs={ 12 }
 						container
 						justifyContent="center"
 						alignItems="center"
@@ -56,11 +56,11 @@ function CitizenshipStatus() {
 						<Grid
 							container
 							item
-							xs={11}
-							sm={10}
-							md={6}
-							lg={6}
-							xl={6}
+							xs={ 11 }
+							sm={ 10 }
+							md={ 6 }
+							lg={ 6 }
+							xl={ 6 }
 							className="cardWrapper"
 							justifyContent="center"
 							alignItems="center"
@@ -68,13 +68,13 @@ function CitizenshipStatus() {
 							<Paper
 								id="citizenshipWrap"
 								className="cardWOPadding"
-								style={{
+								style={ {
 									justify: "center",
 									alignItems: "center",
 									width: "inherit",
 									marginBottom: "10%",
 									marginTop: "10%",
-								}}
+								} }
 							>
 								<div className="progress mt-0">
 									<div id="determinate" className="det2 determinate slantDiv" />
@@ -90,25 +90,25 @@ function CitizenshipStatus() {
 								<Grid>
 									<img
 										alt="Citizenship"
-										src={CitizenshipStatusLogo}
+										src={ CitizenshipStatusLogo }
 										className="spinAnimation"
 									/>
 								</Grid>
 
 								<Typography
 									variant="h6"
-									style={{
+									style={ {
 										align: "center",
 										justify: "center",
 										alignItems: "center",
-									}}
+									} }
 									className="borrowCSSLP"
 								>
 									Describe your citizenship status
 								</Typography>
 								<Grid
 									item
-									md={12}
+									md={ 12 }
 									className="blockDiv"
 									container
 									justifyContent="center"
@@ -119,53 +119,53 @@ function CitizenshipStatus() {
 										justifyContent="center"
 										alignItems="center"
 										item
-										lg={8}
-										md={8}
-										xs={12}
+										lg={ 8 }
+										md={ 8 }
+										xs={ 12 }
 									>
 										<Paper
-											elevation={3}
+											elevation={ 3 }
 											data-test-id="usCitizen"
 											className={
 												citizenship === "USA Citizen"
 													? "activeBorder radioBlock "
 													: "radioBlock "
 											}
-											onClick={() => {
+											onClick={ () => {
 												goNext("USA Citizen");
-											}}
+											} }
 										>
 											U.S Citizen
 										</Paper>
 									</Grid>
-									<Grid item lg={8} md={8} xs={12}>
+									<Grid item lg={ 8 } md={ 8 } xs={ 12 }>
 										<Paper
-											elevation={3}
+											elevation={ 3 }
 											data-test-id="permanentResident"
 											className={
 												citizenship === "Permanent Resident"
 													? "activeBorder radioBlock "
 													: "radioBlock "
 											}
-											onClick={() => {
+											onClick={ () => {
 												goNext("Permanent Resident");
-											}}
+											} }
 										>
 											Permanent Resident
 										</Paper>
 									</Grid>
-									<Grid item lg={8} md={8} xs={12}>
+									<Grid item lg={ 8 } md={ 8 } xs={ 12 }>
 										<Paper
-											elevation={3}
+											elevation={ 3 }
 											data-test-id="foreignResident"
 											className={
 												citizenship === "Foreign Resident"
 													? "activeBorder radioBlock "
 													: "radioBlock "
 											}
-											onClick={() => {
+											onClick={ () => {
 												setCitizenship("Foreign Resident");
-											}}
+											} }
 										>
 											Foreign Resident
 										</Paper>
@@ -179,9 +179,9 @@ function CitizenshipStatus() {
 										We are sorry. We do not offer loans to foreign residents.
 									</h4>
 
-									<Grid item lg={8} md={8} xs={12} className="alignButton">
+									<Grid item lg={ 8 } md={ 8 } xs={ 12 } className="alignButton">
 										<ButtonPrimary
-											onClick={handleRoute}
+											onClick={ handleRoute }
 											data-test-id="citizenshipContButton"
 											disabled={
 												citizenship === "" || citizenship === "Foreign Resident"

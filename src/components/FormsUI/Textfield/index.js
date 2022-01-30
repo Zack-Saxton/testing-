@@ -5,12 +5,12 @@ Component Name      :    TextField
 Functionality       :    To use this component to validate and get the input from the user as text field.
 
 #################################################################################################################*/
-import React, { useState } from "react";
 import { TextField } from "@material-ui/core";
-import Content from '../../../assets/Content/content';
-import { makeStyles } from "@material-ui/core/styles";
 import { red } from "@material-ui/core/colors";
+import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
+import React, { useState } from "react";
+import Content from '../../../assets/Content/content';
 
 
 //Main text field wrapper
@@ -38,8 +38,8 @@ const TextFieldWrapper = ({
   //Configure it with Formik
 
   //Styling part
-  const [errorTF, setErrorTF] = useState(false);
-  const [helperTextTF, setHelperTextTF] = useState("");
+  const [ errorTF, setErrorTF ] = useState(false);
+  const [ helperTextTF, setHelperTextTF ] = useState("");
 
   const useStyles = makeStyles((theme) => ({
     cssLabel: {
@@ -99,9 +99,9 @@ const TextFieldWrapper = ({
     if (onChange) {
       onChange(event);
     }
-  }
+  };
 
-  return <TextField {...configTextField} onChange={handleOnchange} InputProps={InputProps} inputProps={materialProps} />;
+  return <TextField { ...configTextField } onChange={ handleOnchange } InputProps={ InputProps } inputProps={ materialProps } />;
 };
 
 //set name prop as mandatory

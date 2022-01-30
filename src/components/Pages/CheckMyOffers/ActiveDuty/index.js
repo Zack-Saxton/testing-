@@ -1,14 +1,14 @@
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
-import { ButtonPrimary, Select } from "../../../FormsUI";
-import Paper from "@material-ui/core/Paper";
 import React, { useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import * as yup from "yup";
 import ActiveDutyLogo from "../../../../assets/icon/active-duty.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
+import { ButtonPrimary, Select } from "../../../FormsUI";
 import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
 
@@ -55,7 +55,7 @@ function ActiveDuty() {
 				<Box>
 					<Grid
 						item
-						xs={12}
+						xs={ 12 }
 						container
 						justifyContent="center"
 						alignItems="center"
@@ -63,11 +63,11 @@ function ActiveDuty() {
 						<Grid
 							container
 							item
-							xs={11}
-							sm={10}
-							md={6}
-							lg={6}
-							xl={6}
+							xs={ 11 }
+							sm={ 10 }
+							md={ 6 }
+							lg={ 6 }
+							xl={ 6 }
 							className="cardWrapper"
 							justifyContent="center"
 						>
@@ -75,11 +75,11 @@ function ActiveDuty() {
 								id="activeDutyWrap"
 								className="cardWOPadding"
 								justify="center"
-								style={{
+								style={ {
 									width: "inherit",
 									marginBottom: "10%",
 									marginTop: "10%",
-								}}
+								} }
 							>
 								<div className="progress mt-0">
 									<div
@@ -95,29 +95,29 @@ function ActiveDuty() {
 										</i>
 									</Link>
 								</Grid>
-								<Grid style={{ marginTop: "-3%" }}>
+								<Grid style={ { marginTop: "-3%" } }>
 									<img
 										alt="Active Duty"
-										src={ActiveDutyLogo}
+										src={ ActiveDutyLogo }
 										className="spinAnimation"
 									/>
 								</Grid>
 								<Typography
 									variant="h5"
-									style={{
+									style={ {
 										align: "center",
 										justify: "center",
 										alignItems: "center",
-									}}
+									} }
 									className="borrowCSS"
 								>
 									Are you active duty military or <br />
 									do you have a future active duty date?
 								</Typography>
-								<form onSubmit={formik.handleSubmit}>
+								<form onSubmit={ formik.handleSubmit }>
 									<Grid
 										item
-										md={12}
+										md={ 12 }
 										className="blockDiv"
 										container
 										justifyContent="center"
@@ -129,18 +129,18 @@ function ActiveDuty() {
 											justifyContent="center"
 											alignItems="center"
 											item
-											lg={8}
-											md={8}
-											xs={12}
+											lg={ 8 }
+											md={ 8 }
+											xs={ 12 }
 										>
 											<Select
-												fullWidth={true}
+												fullWidth={ true }
 												name="activeDuty"
 												labelform="Active Duty *"
 												select='[{"value":"Yes"}, {"value":"No"}]'
-												value={formik.values.activeDuty}
-												onChange={formik.handleChange}
-												onBlur={formik.handleBlur}
+												value={ formik.values.activeDuty }
+												onChange={ formik.handleChange }
+												onBlur={ formik.handleBlur }
 												error={
 													formik.touched.activeDuty &&
 													Boolean(formik.errors.activeDuty)
@@ -163,18 +163,18 @@ function ActiveDuty() {
 											alignItems="center"
 											container
 											item
-											lg={8}
-											md={8}
-											xs={12}
+											lg={ 8 }
+											md={ 8 }
+											xs={ 12 }
 										>
 											<Select
-												fullWidth={true}
+												fullWidth={ true }
 												name="activeDutyRank"
 												labelform="Active duty rank *"
 												select='[{"value":"E4 and below"}, {"value":"E5 and above"}]'
-												value={formik.values.activeDutyRank}
-												onChange={formik.handleChange}
-												onBlur={formik.handleBlur}
+												value={ formik.values.activeDutyRank }
+												onChange={ formik.handleChange }
+												onBlur={ formik.handleBlur }
 												error={
 													formik.touched.activeDutyRank &&
 													Boolean(formik.errors.activeDutyRank)
@@ -186,7 +186,7 @@ function ActiveDuty() {
 											/>
 										</Grid>
 
-										<Grid item lg={8} md={8} xs={12} className="alignButton">
+										<Grid item lg={ 8 } md={ 8 } xs={ 12 } className="alignButton">
 											<ButtonPrimary
 												type="submit"
 												data-testid="contButton"

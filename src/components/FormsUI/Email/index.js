@@ -21,28 +21,28 @@ const EmailWrapper = ({ name, suffix, lable, materialProps, id, ...otherProps })
     InputProps: suffix
       ? {
         endAdornment: (
-          <InputAdornment position="end">{suffix}</InputAdornment>
+          <InputAdornment position="end">{ suffix }</InputAdornment>
         ),
       }
       : {},
     ...otherProps,
   };
 
-  const [setValues] = useState("");
+  const [ setValues ] = useState("");
   const handleChange = (event) => {
     setValues(event.target.value + suffix);
   };
 
   return (
     <TextField
-      id={id}
+      id={ id }
       lable="email"
       type="email"
-      fullWidth={true}
+      fullWidth={ true }
       // value= {value}
-      inputProps={materialProps}
-      onChange={handleChange}
-      {...configTextfield}
+      inputProps={ materialProps }
+      onChange={ handleChange }
+      { ...configTextfield }
     />
   );
 };

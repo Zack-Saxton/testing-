@@ -7,10 +7,10 @@ const Eror404 = ({ children }) => {
     return (
         <div>
 
-            {children}
+            { children }
 
         </div>
-    )
-}
+    );
+};
 
 export default Eror404;

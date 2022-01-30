@@ -1,5 +1,5 @@
 import APICall from "../lib/AxiosLib";
-import ErrorLogger from "../lib/ErrorLogger"
+import ErrorLogger from "../lib/ErrorLogger";
 
 /***** Get USA Holiday details *****/
 export default async function HolidayCalender() {
@@ -13,7 +13,7 @@ export default async function HolidayCalender() {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    ErrorLogger("Error executing HolidayCalender API", error)
+    ErrorLogger("Error executing HolidayCalender API", error);
     Error("Error executing HolidayCalender API");
   }
 }

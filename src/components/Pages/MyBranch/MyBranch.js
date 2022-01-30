@@ -1,16 +1,16 @@
-import React from "react";
-import Typography from "@material-ui/core/Typography";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+import React from "react";
+import { useQuery } from 'react-query';
 import { NavLink } from "react-router-dom";
+import CheckLoginStatus from "../../App/CheckLoginStatus";
+import MyBranchAPI from "../../Controllers/MyBranchController";
 import { ButtonWithIcon } from "../../FormsUI";
-import { useStylesMyBranch } from "./Style";
 import BranchDetail from "./BranchDetail";
 import BranchMap from "./BranchMap";
-import MyBranchAPI from "../../Controllers/MyBranchController";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import CheckLoginStatus from "../../App/CheckLoginStatus";
-import Paper from "@material-ui/core/Paper";
-import {useQuery} from 'react-query';
+import { useStylesMyBranch } from "./Style";
 
 
 export default function MyBranch() {
@@ -19,9 +19,9 @@ export default function MyBranch() {
   const classes = useStylesMyBranch();
 
   //API call
-  const { data: branchApiStatus} = useQuery('my-branch', MyBranchAPI);
+  const { data: branchApiStatus } = useQuery('my-branch', MyBranchAPI);
 
- 
+
   //Branch details from API
   let myBranchData = branchApiStatus?.data;
 
@@ -31,19 +31,19 @@ export default function MyBranch() {
       <CheckLoginStatus />
       <Grid
         container
-        justifyContent={"center"}
-        style={{
+        justifyContent={ "center" }
+        style={ {
           marginTop: "-150px",
           paddingRight: "23px",
           paddingLeft: "23px",
-        }}
+        } }
       >
-        <Grid container style={{ paddingBottom: "10px" }}>
-          <Grid item xs={12}>
-            <Typography variant="h3" className={classes.heading}>
+        <Grid container style={ { paddingBottom: "10px" } }>
+          <Grid item xs={ 12 }>
+            <Typography variant="h3" className={ classes.heading }>
               <NavLink
                 to="/customers/accountOverview"
-                style={{ textDecoration: "none" }}
+                style={ { textDecoration: "none" } }
               >
                 <ButtonWithIcon
                   icon="arrow_backwardIcon"
@@ -55,25 +55,25 @@ export default function MyBranch() {
                         "marginRight": "5px", "marginTop":"unset" }'
                   styleicon='{ "color":"" }'
                 />
-              </NavLink>{" "}
+              </NavLink>{ " " }
               My Branch
             </Typography>
           </Grid>
         </Grid>
 
         <Grid container id="branchMainDiv">
-          <Grid id="branchDiv" item xs={12} sm={5}>
-            {myBranchData ? (
-              <BranchDetail MyBranchDetail={myBranchData} />
+          <Grid id="branchDiv" item xs={ 12 } sm={ 5 }>
+            { myBranchData ? (
+              <BranchDetail MyBranchDetail={ myBranchData } />
             ) : (
-              <Paper className={classes.paper}>
-                {" "}
-                <CircularProgress />{" "}
+              <Paper className={ classes.paper }>
+                { " " }
+                <CircularProgress />{ " " }
               </Paper>
-            )}
+            ) }
           </Grid>
-          <Grid item xs={12} sm={7}>
-            <BranchMap MyBranchDetail={myBranchData} />
+          <Grid item xs={ 12 } sm={ 7 }>
+            <BranchMap MyBranchDetail={ myBranchData } />
           </Grid>
         </Grid>
       </Grid>

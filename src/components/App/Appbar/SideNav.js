@@ -1,34 +1,34 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import clsx from "clsx";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import List from "@material-ui/core/List";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
+import Drawer from "@material-ui/core/Drawer";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import SettingsIcon from "@material-ui/icons/Settings";
-import logo from "../../../assets/images/MarinerLogo.png";
-import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
+import MenuItem from "@material-ui/core/MenuItem";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
 import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
-import MonetizationOnRoundedIcon from "@material-ui/icons/MonetizationOnRounded";
-import DescriptionOutlinedIcon from "@material-ui/icons/DescriptionOutlined";
+import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
+import AccountCircle from "@material-ui/icons/AccountCircle";
 import AssignmentTurnedInOutlinedIcon from "@material-ui/icons/AssignmentTurnedInOutlined";
-import ListIcon from "@material-ui/icons/List";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import DataUsageOutlinedIcon from "@material-ui/icons/DataUsageOutlined";
+import DescriptionOutlinedIcon from "@material-ui/icons/DescriptionOutlined";
+import ListIcon from "@material-ui/icons/List";
+import MenuIcon from "@material-ui/icons/Menu";
+import MonetizationOnRoundedIcon from "@material-ui/icons/MonetizationOnRounded";
+import InboxIcon from "@material-ui/icons/MoveToInbox";
+import SettingsIcon from "@material-ui/icons/Settings";
+import clsx from "clsx";
+import React from "react";
+import { NavLink } from "react-router-dom";
+import logo from "../../../assets/images/MarinerLogo.png";
 import Notification from "../../Layout/Notification/Notification";
 
 const drawerWidth = 240;
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     },
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
-        transition: theme.transitions.create(["width", "margin"], {
+        transition: theme.transitions.create([ "width", "margin" ], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     appBarShift: {
         marginLeft: drawerWidth,
         width: `calc(100% - ${ drawerWidth }px)`,
-        transition: theme.transitions.create(["width", "margin"], {
+        transition: theme.transitions.create([ "width", "margin" ], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
         }),
@@ -76,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
         }),
         overflowX: "hidden",
         width: theme.spacing(7) + 1,
-        [theme.breakpoints.up("sm")]: {
+        [ theme.breakpoints.up("sm") ]: {
             width: theme.spacing(9) + 1,
         },
     },
@@ -111,7 +111,7 @@ const useStyles = makeStyles((theme) => ({
     },
     sectionDesktop: {
         display: "none",
-        [theme.breakpoints.up("md")]: {
+        [ theme.breakpoints.up("md") ]: {
             display: "flex",
         },
     },
@@ -120,8 +120,8 @@ const useStyles = makeStyles((theme) => ({
 export default function SideNav() {
     const classes = useStyles();
     const theme = useTheme();
-    const [open, setOpen] = React.useState(false);
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [ open, setOpen ] = React.useState(false);
+    const [ anchorEl, setAnchorEl ] = React.useState(null);
     const isMenuOpen = Boolean(anchorEl);
 
     const handleDrawerOpen = () => {
@@ -143,54 +143,54 @@ export default function SideNav() {
     const menuId = "primary-search-account-menu";
     const renderMenu = (
         <Menu
-            anchorEl={anchorEl}
-            anchorOrigin={{ vertical: "top", horizontal: "right" }}
-            id={menuId}
+            anchorEl={ anchorEl }
+            anchorOrigin={ { vertical: "top", horizontal: "right" } }
+            id={ menuId }
             keepMounted
-            transformOrigin={{ vertical: "top", horizontal: "right" }}
-            open={isMenuOpen}
-            onClose={handleMenuClose}
+            transformOrigin={ { vertical: "top", horizontal: "right" } }
+            open={ isMenuOpen }
+            onClose={ handleMenuClose }
         >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+            <MenuItem onClick={ handleMenuClose }>Profile</MenuItem>
+            <MenuItem onClick={ handleMenuClose }>My account</MenuItem>
         </Menu>
     );
 
     return (
-        <div className={classes.root}>
+        <div className={ classes.root }>
             <CssBaseline />
             <AppBar
                 position="fixed"
-                className={clsx(classes.appBar, {
-                    [classes.appBarShift]: open,
-                })}
+                className={ clsx(classes.appBar, {
+                    [ classes.appBarShift ]: open,
+                }) }
             >
                 <Toolbar>
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
-                        onClick={handleDrawerOpen}
+                        onClick={ handleDrawerOpen }
                         edge="start"
-                        className={clsx(classes.menuButton, {
-                            [classes.hide]: open,
-                        })}
+                        className={ clsx(classes.menuButton, {
+                            [ classes.hide ]: open,
+                        }) }
                     >
                         <MenuIcon />
                     </IconButton>
 
-                    <img src={logo} alt="logo" className={classes.logo} />
+                    <img src={ logo } alt="logo" className={ classes.logo } />
 
-                    <div className={classes.grow} />
-                    <div className={classes.sectionDesktop}>
-                        <Typography className={classes.headerAlign}>
+                    <div className={ classes.grow } />
+                    <div className={ classes.sectionDesktop }>
+                        <Typography className={ classes.headerAlign }>
                             Blog
                         </Typography>
 
-                        <Typography className={classes.headerAlign}>
+                        <Typography className={ classes.headerAlign }>
                             FAQ's
                         </Typography>
 
-                        <Typography className={classes.headerAlign}>
+                        <Typography className={ classes.headerAlign }>
                             Branch Locator
                         </Typography>
 
@@ -203,9 +203,9 @@ export default function SideNav() {
                         <IconButton
                             edge="end"
                             aria-label="account of current user"
-                            aria-controls={menuId}
+                            aria-controls={ menuId }
                             aria-haspopup="true"
-                            onClick={handleProfileMenuOpen}
+                            onClick={ handleProfileMenuOpen }
                             color="inherit"
                         >
                             <AccountCircle />
@@ -213,27 +213,27 @@ export default function SideNav() {
                     </div>
                 </Toolbar>
             </AppBar>
-            {renderMenu}
+            { renderMenu }
             <Drawer
                 variant="permanent"
-                className={clsx(classes.drawer, {
-                    [classes.drawerOpen]: open,
-                    [classes.drawerClose]: !open,
-                })}
-                classes={{
+                className={ clsx(classes.drawer, {
+                    [ classes.drawerOpen ]: open,
+                    [ classes.drawerClose ]: !open,
+                }) }
+                classes={ {
                     paper: clsx({
-                        [classes.drawerOpen]: open,
-                        [classes.drawerClose]: !open,
+                        [ classes.drawerOpen ]: open,
+                        [ classes.drawerClose ]: !open,
                     }),
-                }}
+                } }
             >
-                <div className={classes.toolbar}>
-                    <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === "rtl" ? (
+                <div className={ classes.toolbar }>
+                    <IconButton onClick={ handleDrawerClose }>
+                        { theme.direction === "rtl" ? (
                             <ChevronRightIcon />
                         ) : (
                             <ChevronLeftIcon />
-                        )}
+                        ) }
                     </IconButton>
                 </div>
                 <Divider />
@@ -241,8 +241,8 @@ export default function SideNav() {
                     <NavLink to="/customers/accountOverview">
                         <ListItem>
                             <ListItemIcon>
-                                {" "}
-                                <AssignmentTurnedInOutlinedIcon />{" "}
+                                { " " }
+                                <AssignmentTurnedInOutlinedIcon />{ " " }
                             </ListItemIcon>
                             <ListItemText>Account Overview </ListItemText>
                         </ListItem>
@@ -250,64 +250,64 @@ export default function SideNav() {
 
                     <ListItem>
                         <ListItemIcon>
-                            {" "}
-                            <AccountBalanceWalletIcon />{" "}
+                            { " " }
+                            <AccountBalanceWalletIcon />{ " " }
                         </ListItemIcon>
                         <ListItemText>Make a Payment </ListItemText>
                     </ListItem>
 
                     <ListItem>
                         <ListItemIcon>
-                            {" "}
-                            <MonetizationOnRoundedIcon />{" "}
+                            { " " }
+                            <MonetizationOnRoundedIcon />{ " " }
                         </ListItemIcon>
                         <ListItemText> Apply for a Loan </ListItemText>
                     </ListItem>
 
                     <ListItem>
                         <ListItemIcon>
-                            {" "}
-                            <DescriptionOutlinedIcon />{" "}
+                            { " " }
+                            <DescriptionOutlinedIcon />{ " " }
                         </ListItemIcon>
                         <ListItemText> Loan Document </ListItemText>
                     </ListItem>
 
                     <ListItem>
                         <ListItemIcon>
-                            {" "}
-                            <AccountBalanceIcon />{" "}
+                            { " " }
+                            <AccountBalanceIcon />{ " " }
                         </ListItemIcon>
                         <ListItemText> My Branch</ListItemText>
                     </ListItem>
 
                     <ListItem>
                         <ListItemIcon>
-                            {" "}
-                            <AccountCircle />{" "}
+                            { " " }
+                            <AccountCircle />{ " " }
                         </ListItemIcon>
                         <ListItemText> My Profile</ListItemText>
                     </ListItem>
 
                     <ListItem>
                         <ListItemIcon>
-                            {" "}
-                            <ListIcon />{" "}
+                            { " " }
+                            <ListIcon />{ " " }
                         </ListItemIcon>
                         <ListItemText> Loan History</ListItemText>
                     </ListItem>
 
                     <ListItem>
                         <ListItemIcon>
-                            {" "}
-                            <InboxIcon />{" "}
+                            { " " }
+                            <InboxIcon />{ " " }
                         </ListItemIcon>
                         <ListItemText> VantageScore</ListItemText>
                     </ListItem>
 
                     <ListItem>
                         <ListItemIcon>
-                            {" "}
-                            <DataUsageOutlinedIcon />{" "}
+                            { " " }
+                            <DataUsageOutlinedIcon />{ " " }
                         </ListItemIcon>
                         <ListItemText> MoneySkill </ListItemText>
                     </ListItem>

@@ -1,22 +1,22 @@
 import printJS from "print-js";
 import { toast } from "react-toastify";
 import APICall from "../lib/AxiosLib";
-import Buffer from "buffer"
-import ErrorLogger from "../lib/ErrorLogger"
+import Buffer from "buffer";
+import ErrorLogger from "../lib/ErrorLogger";
 
 /***** Get loan document *****/
 export async function loanDocumentController(accNo) {
   try {
-  let url = accNo === null ? "active_loan_document" : "loan_document";
-  let param = url === "loan_document" ? "/" + accNo : "";
-  let data = {};
-  let method = "GET";
-  let addAccessToken = true;
+    let url = accNo === null ? "active_loan_document" : "loan_document";
+    let param = url === "loan_document" ? "/" + accNo : "";
+    let data = {};
+    let method = "GET";
+    let addAccessToken = true;
 
-  //API call
+    //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    ErrorLogger("Error executing loanDocumentController API", error)
+    ErrorLogger("Error executing loanDocumentController API", error);
     Error("Error executing loanDocumentController API");
   }
 }
@@ -25,13 +25,13 @@ export async function loanDocumentController(accNo) {
 function downloadFileData(fileData) {
   Buffer = require("buffer/").Buffer; // note: the trailing slash is important!
   const buff = Buffer.from(fileData?.data?.bufferFile.data);
-  const url = window.URL.createObjectURL(new Blob([buff]));
+  const url = window.URL.createObjectURL(new Blob([ buff ]));
   const link = document.createElement("a");
   link.href = url;
   link.setAttribute("download", fileData?.data?.exportName);
   document.body.appendChild(link);
   link.click();
-  if (!toast.isActive("closeToast")) {toast.success("Document Downloaded Successfully");}
+  if (!toast.isActive("closeToast")) { toast.success("Document Downloaded Successfully"); }
 }
 
 /****** Document Download method *****/
@@ -59,7 +59,7 @@ export async function documentdownload(id, name) {
 function print(data) {
   Buffer = require("buffer/").Buffer; // note: the trailing slash is important!
   const buff = Buffer.from(data?.data?.bufferFile.data);
-  var pdfFile = new Blob([buff]);
+  var pdfFile = new Blob([ buff ]);
   var pdfUrl = URL.createObjectURL(pdfFile);
   printJS(pdfUrl);
 }
@@ -109,5 +109,5 @@ export async function uploadDocument(test, fileName, fileType, documentType) {
     ? toast.success(uploadData?.data?.message ?? "Document Uploaded Successfully")
     : toast.error(uploadData?.data?.message ?? "Error uploading file");
 
-  return "true"
+  return "true";
 }

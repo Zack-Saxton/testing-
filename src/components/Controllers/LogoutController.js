@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import { encryptAES } from "../lib/Crypto"
+import { encryptAES } from "../lib/Crypto";
 
 export default function LogoutController() {
   // check whether the userToken available
