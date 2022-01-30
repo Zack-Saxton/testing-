@@ -91,6 +91,7 @@ function CheckMyOffers(props) {
 								>
 									<Grid item xs={11} sm={10} md={8} lg={8} xl={8}>
 										<Slider
+											id="sliderBar"
 											className="setSlider"
 											name="slider"
 											defaultValue={select ? select : 10000}
@@ -122,6 +123,7 @@ function CheckMyOffers(props) {
 									<Grid item xs={11} sm={10} md={8} lg={8} xl={8}>
 										<div className={hasOfferCode ? "open" : "close"}>
 											<TextField
+												id="offerCodeInput"
 												name="offerCode"
 												form={true}
 												value={data.offerCode}

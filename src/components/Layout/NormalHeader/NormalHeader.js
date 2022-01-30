@@ -75,7 +75,7 @@ const NormalHeader = () => {
   //View Part
   return (
     <div className={classes.grow}>
-      <AppBar position="static">
+      <AppBar  id="MainHeaderWrap" position="static">
         <Toolbar className={classes.toolbar}>
           <Typography onClick={redirectToAccountOverview} className={classes.title}>
             <img className={classes.logoFormat} src={Logo} alt="MF logo" />
@@ -84,13 +84,13 @@ const NormalHeader = () => {
           <div className={classes.sectionDesktop}>
             <Typography className={classes.subtitle}>
               <a href="https://www.marinerfinance.com/blog" className="hrefTag">
-                Blog
+                Blogs
               </a>
             </Typography>
             <NavLink to="/faq" style={{ textDecoration: "none" }}>
               <Typography className={classes.subtitle}>FAQ'S</Typography>
             </NavLink>
-            <Typography className={classes.subtitle}>
+            <Typography style={{paddingRight:"0px"}} className={classes.subtitle}>
               <a
                 href=" https://loans.marinerfinance.com/branchlocatorpage"
                 className="hrefTag"
