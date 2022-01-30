@@ -1283,8 +1283,9 @@ export default function PaymentMethod() {
                                 className="expirydate"
                                 placeholder="MM/YY"
                                 format="MM/yy"
+                                value={formikAddDebitCard.values.expirydate}
                                 onChange={(values) => {
-                                    formikAddDebitCard.setFieldValue("expirydate", values);
+                                    formikAddDebitCard.setFieldValue("expirydate", values); 
                                 }}
                                 onBlur={formikAddDebitCard.handleBlur}
                                 error={
