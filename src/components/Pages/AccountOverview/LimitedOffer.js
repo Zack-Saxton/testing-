@@ -34,13 +34,13 @@ export default function LimitedOffer(userOfferData) {
               {userOfferData.isLoading ? (<CircularProgress />) : (
                 (userOfferAmount) ? (
                   <div id="offerText">
-                    <p id="loanText">Personal Loan of</p>
+                    <p id="loanText">You may have money available now! Up to </p>
                     <p id="loanPercent">
                       <NumberFormat value={userOfferAmount} displayType={'text'} thousandSeparator={true} prefix={'$'} />
                     </p>
                     <NavLink to="/customers/selectOffer" style={{ textDecoration: "none" }} >
                       <ButtonPrimary id="claimButton" stylebutton='{"color":""}'>
-                        Claim the Offer
+                        Check My Offer
                       </ButtonPrimary>
                     </NavLink>
                   </div>
