@@ -1,6 +1,7 @@
 import axios from "axios";
 import apiUrl from "./ApiLib.json";
 import Cookies from "js-cookie";
+import ErrorLogger from "../lib/ErrorLogger"
 /***** API Calling function *****/
 const APICall = async (api, param, data, method, addAccessToken) => {
   const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : '{ }');
@@ -32,6 +33,7 @@ const APICall = async (api, param, data, method, addAccessToken) => {
       response.statusText = res.statusText;
     });
   } catch (error) {
+    ErrorLogger(error.stack, error.message)
     response.data = error?.response?.data?.data?.data ?? error?.response?.data?.data ?? error?.response?.data;
     response.status = error.response.status;
     response.statusText = error.response.statusText;
