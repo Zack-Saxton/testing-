@@ -48,7 +48,7 @@ export async function documentdownload(id, name) {
     method,
     addAccessToken
   );
-  loanDocumentDownload.data.status === 200
+  loanDocumentDownload.status === 200
     ? downloadFileData(loanDocumentDownload)
     : toast.error(loanDocumentDownload?.data?.message ?? "Downloading failed");
 }
