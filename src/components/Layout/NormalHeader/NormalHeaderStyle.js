@@ -12,11 +12,12 @@ const useStyles = makeStyles((theme) => ({
   },
 
   toolbar: {
-    background: "#d7e6ed",
+    backgroundColor: "#d2e1e766",
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    padding: theme.spacing(0, 1),
+    padding:"0px 30px",
+    // padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
   },
@@ -36,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     float: "right!important",
     padding: 15,
     color: "#171717",
-    fontSize: "0.875rem",
+    fontSize: "0.938rem",
   },
   navLink: {
     textDecoration: 'none',

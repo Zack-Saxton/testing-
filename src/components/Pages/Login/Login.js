@@ -22,13 +22,7 @@ let addVal = moment_timezone().tz("America/New_York").isDST() ? 4 : 5;
 
 //Styling part
 const useStyles = makeStyles((theme) => ({
-	mainContentBackground: {
-		backgroundImage: "url(" + Logo + ")",
-		backgroundSize: "cover",
-		backgroundSizeRepeat: "noRepeat",
-		backgroundPosition: "center",
-		backgroundAttachment: "fixed",
-	},
+	
 	root: {
 		flexGrow: 1,
 	},

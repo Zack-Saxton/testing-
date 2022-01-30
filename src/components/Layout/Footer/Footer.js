@@ -74,6 +74,7 @@ export default function Footer() {
                     <span style={{ margin: "0", cursor: "pointer" }} onClick={handleOpenConsumer}>
                       (www.nmlsconsumeraccess.com)
                     </span>
+                    <br/>
                     8211 Town Center Drive,
                     Nottingham, MD 21236; <br />
                     Telephone Number -
