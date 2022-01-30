@@ -16,6 +16,8 @@ import Cookies from "js-cookie";
 import { encryptAES } from "../../lib/Crypto";
 import propertyMessages from "../../lib/Lang/Login.json";
 import { useQueryClient } from "react-query"
+import {FormValidationRules} from "../../lib/FormValidationRule";
+var formValidation = new FormValidationRules();
 const moment = require("moment");
 const moment_timezone = require("moment-timezone");
 let addVal = moment_timezone().tz("America/New_York").isDST() ? 4 : 5;
@@ -76,20 +78,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 //Yup validations for all the input fields
-const validationSchema = yup.object({
-	email: yup
-		.string("Your email is required")
-		.email("A valid email address is required")
-		.matches(
-			/^[a-zA-Z](?!.*[+/._-][+/._-])(([^<>()|?{}='[\]\\,;:#!$%^&*\s@\"]+(\.[^<>()|?{}=/+'[\]\\.,;_:#!$%^&*-\s@\"]+)*)|(\".+\"))[a-zA-Z0-9]@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,3}))$/, //eslint-disable-line
-			"A valid email address is required"
-		)
-		.required(propertyMessages.Email_required),
-	password: yup
-		.string("Enter your password")
-		.max(100, "Password can be upto 100 characters length")
-		.required("Your password is required"),
-});
+const validationSchema = formValidation.getFormValidationRule('login');
 
 //Begin: Login page
 export default function Login(props) {

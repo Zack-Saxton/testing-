@@ -1,5 +1,6 @@
 import Cookies from "js-cookie";
 import APICall from "../lib/AxiosLib";
+import ErrorLogger from "../lib/ErrorLogger"
 
 /***** Login method *****/
 export default async function LoginController(email, password) {
@@ -18,6 +19,7 @@ export default async function LoginController(email, password) {
     Cookies.set("user", JSON.stringify({ user: loginMethod?.data?.user }));
     return loginMethod;
   } catch (error) {
+    ErrorLogger("Error executing LoginController API", error)
     Error("Error executing LoginController API");
   }
 }

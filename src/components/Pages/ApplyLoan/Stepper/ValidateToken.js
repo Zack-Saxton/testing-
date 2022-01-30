@@ -51,7 +51,7 @@ const ValidateToken = () => {
 				activation_token: activationToken,
 			};
 			getResponse(result).then((res) => {
-				if (res?.data?.data === true) {
+				if (res?.data === true) {
 					history.push({
 						pathname: "/customers/finalVerification",
 					});

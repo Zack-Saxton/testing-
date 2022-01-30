@@ -33,6 +33,9 @@ import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
 import reqProperties from "../../lib/Lang/register.json";
 import globalValidation from "../../lib/Lang/globalValidation.json";
 import { useQueryClient } from 'react-query';
+import {FormValidationRules} from "../../lib/FormValidationRule";
+var formValidation = new FormValidationRules();
+
 //Styling part
 const useStyles = makeStyles((theme) => ({
   mainContentBackground: {
@@ -93,81 +96,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 //Yup validations for all the input fields
-const validationSchema = yup.object({
-  firstname: yup
-    .string(globalValidation.FirstNameEnter)
-    .max(30, globalValidation.FirstNameMax)
-    .min(2,  globalValidation.FirstNameMin)
-    .required(globalValidation.FirstNameRequired),
-  lastname: yup
-    .string(globalValidation.LastNameEnter)
-    .max(30, globalValidation.LastNameMax)
-    .min(2, globalValidation.LastNameMin)
-    .required(globalValidation.LastNameRequired),
-  email: yup
-    .string(globalValidation.EmailEnter)
-    .email(globalValidation.EmailValid)
-    .matches(
-      /^[a-zA-Z](?!.*[+/._-][+/._-])(([^<>()|?{}='[\]\\,;:#!$%^&*\s@\"]+(\.[^<>()|?{}=/+'[\]\\.,;_:#!$%^&*-\s@\"]+)*)|(\".+\"))[a-zA-Z0-9]@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,3}))$/, //eslint-disable-line
-      globalValidation.EmailValid
-    )
-    .required(globalValidation.EmailRequired),
-  date: yup
-    .date(globalValidation.DateOfBirthValid)
-    .nullable()
-    .required(globalValidation.DateOfBirthRequired)
-    .max(
-      new Date(
-        new Date(
-          new Date().getFullYear() +
-            "/" +
-            (new Date().getMonth() + 1) +
-            "/" +
-            new Date().getDate()
-        ).getTime() - 567650000000
-      ),
-      globalValidation.DateOfBirthMinAge
-    )
-    .min(new Date(1919, 1, 1), globalValidation.DateOfBirthMaxAge)
-    .typeError(globalValidation.DateOfBirthValid),
-  password: yup
-    .string(globalValidation.PasswordEnter)
-    .matches(
-      /^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,30}$/,
-      globalValidation.PasswordCriteria
-    )
-    .max(30, globalValidation.PasswordMax)
-    .min(8, globalValidation.PasswordMin)
-    .required(globalValidation.PasswordRequired),
-  confirmPassword: yup
-    .string()
-    .max(30, globalValidation.PasswordMax)
-    .min(8, globalValidation.PasswordMin)
-    .required(globalValidation.PasswordConfirmationRequired)
-    .when("password", {
-      is: (password) => password && password.length > 0,
-      then: yup
-        .string()
-        .oneOf(
-          [yup.ref("password")],
-          globalValidation.PasswordConfirmationMatch
-        ),
-    }),
-  zip: yup
-    .string(globalValidation.ZipCodeEnter)
-    .max(5, globalValidation.ZipCodeMax)
-    .required(globalValidation.ZipCodeRequired),
-  ssn: yup
-    .string(globalValidation.SSNEnter)
-    .required(globalValidation.SSNRequired)
-    .transform((value) => value.replace(/[^\d]/g, ""))
-    .matches(
-      /^(?!000)[0-8]\d{2}(?!00)\d{2}(?!0000)\d{4}$/,
-      globalValidation.SSNValid
-    )
-    .matches(/^(\d)(?!\1+$)\d{8}$/, globalValidation.SSNValid)
-    .min(9, globalValidation.SSNMin),
-});
+const validationSchema = formValidation.getFormValidationRule('');
+
+
 
 //Begin: Login page
 export default function Register() {
@@ -245,6 +176,7 @@ export default function Register() {
       zip: "",
       ssn: "",
       date: null,
+      isRegisterForm: 1
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
