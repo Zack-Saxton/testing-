@@ -1,7 +1,7 @@
 import APICall from "./AxiosLib";
 
 /***** My branch details *****/
-export default async function ErrorLogger(error, message) {
+export default async function ErrorLogger(message, error) {
   try {
     //API
     let url = "error_logger";
