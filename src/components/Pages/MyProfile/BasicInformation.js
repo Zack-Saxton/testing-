@@ -16,24 +16,25 @@ import LogoutController from "../../Controllers/LogoutController";
 import { basicInformation, uploadNewProfileImage } from "../../Controllers/myProfileController";
 import { ButtonPrimary, ButtonSecondary, EmailTextField, PhoneNumber, TextField } from "../../FormsUI";
 import "./Style.css";
-
+import globalValidation from "../../lib/Lang/globalValidation.json";
 
 const validationSchema = yup.object({
   email: yup
-    .string("Enter your email")
-    .email("Please enter a valid email address")
+    .string(globalValidation.EmailEnter)
+    .email(globalValidation.EmailValid)
     .matches(
       /^[a-zA-Z](?!.*[+/._-][+/._-])(([^<>()|?{}='[\]\\,;:#!$%^&*\s@\"]+(\.[^<>()|?{}=/+'[\]\\.,;_:#!$%^&*-\s@\"]+)*)|(\".+\"))[a-zA-Z0-9]@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,3}))$/, //eslint-disable-line
-      "A valid email address is required"
+      globalValidation.EmailValid
     )
-    .required("Your email address is required"),
+    .required(globalValidation.EmailRequired),
+
   phone: yup
-    .string("Enter a name")
-    .required("Your Phone number is required")
+    .string(globalValidation.PhoneEnter)
+    .required(globalValidation.PhoneRequired)
     .transform((value) => value.replace(/[^\d]/g, ""))
-    .matches(/^[1-9]{1}\d{2}\d{3}\d{4}$/, "Please enter a valid Phone number")
-    .matches(/^(\d)(?!\1+$)\d{9}$/, "Please enter a valid Phone number")
-    .min(10, "Name must contain at least 10 digits"),
+    .matches(/^[1-9]{1}\d{2}\d{3}\d{4}$/, globalValidation.PhoneValid)
+    .matches(/^(\d)(?!\1+$)\d{9}$/, globalValidation.PhoneValid)
+    .min(10, globalValidation.PhoneMin),
 });
 
 async function filetoImage(file) {
@@ -55,9 +56,9 @@ export default function BasicInformation(props) {
   let basicInfo = props?.basicInformationData?.latest_contact != null ? props.basicInformationData.latest_contact : null;
   let profileImageData = props?.getProfileImage != null ? props.getProfileImage : profileImg;
   let hasActiveLoan = Cookies.get("hasActiveLoan") === "true" ? true : false;
-  let hasApplicationStatus = Cookies.get("hasApplicationStatus");
-  var appStatus = [ "rejected", "reffered", "expired" ];
-  let checkAppStatus = appStatus.includes(hasApplicationStatus);
+  let hasApplicationStatus = Cookies.get("hasApplicationStatus")
+  var appStatus = ["rejected", "referred", "expired"];
+  let checkAppStatus = appStatus.includes(hasApplicationStatus)
   let disableField = (checkAppStatus === true || hasActiveLoan === true) ? true : false;
   const [ selectedFile, setSelectedFile ] = useState(null);
   const [ docType ] = useState("");
@@ -82,7 +83,7 @@ export default function BasicInformation(props) {
   };
 
   const logoutUser = () => {
-    toast.success("You are being logged out of the system", {
+    toast.success(globalValidation.LoggedOut, {
       onClose: () => logOut(),
     });
   };
@@ -111,7 +112,7 @@ export default function BasicInformation(props) {
       };
       const uploadBasicInfoChange = () => {
         if (!toast.isActive("closeToast")) {
-          refetch().then(() => toast.success("Updated Successfully", {
+          refetch().then(()=>toast.success(globalValidation.UpdatedSuccessfully, {
             toastId: "closeToast",
             onClose: () => {
               setLoading(false);
@@ -123,7 +124,7 @@ export default function BasicInformation(props) {
 
       const uploadBasicInfoChangeLogOut = () => {
         if (!toast.isActive("closeToast")) {
-          refetch().then(() => toast.success("Updated Successfully", {
+          refetch().then(()=>toast.success(globalValidation.UpdatedSuccessfully, {
             toastId: "closeToast",
             onClose: () => {
               logoutUser();
@@ -138,11 +139,10 @@ export default function BasicInformation(props) {
           var filePath = selectedFile.value;
           var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
           if (!allowedExtensions.exec(filePath)) {
-            toast.error(
-              "Please upload file having extensions .jpeg .jpg .png only. ");
-            setLoading(false);
-            selectedFile.value = "";
-            return false;
+            toast.error(globalValidation.ImageExtentions);
+               setLoading(false);
+             selectedFile.value = "";
+            return false
 
           } else if (selectedFile.files[ 0 ].size <= 819200) {
             let reader = new FileReader();
@@ -183,7 +183,7 @@ export default function BasicInformation(props) {
 
                   if (!toast.isActive("closeToast")) {
                     toast.success(
-                      "Updated Successfully",
+                      globalValidation.UpdatedSuccessfully,
                       {
                         toastId: "closeToast",
                         onClose: () => {
@@ -216,8 +216,7 @@ export default function BasicInformation(props) {
                 }
                 else {
                   if (!toast.isActive("closeToast")) {
-                    toast.error(
-                      " Error uploading file",
+                    toast.error(globalValidation.FileUploadError,
                       {
                         toastId: "closeToast",
                         onClose: () => {
@@ -227,16 +226,15 @@ export default function BasicInformation(props) {
                     );
                   }
                 }
-
               };
-              reader.readAsDataURL(selectedFile.files[ 0 ]);
+              reader.readAsDataURL(selectedFile.files[0]);
             }
           } else {
-            if (selectedFile.files[ 0 ].size > 819200) {
-              toast.error("Please upload file size below 800kb ");
+            if (selectedFile.files[0].size > 819200) {
+              toast.error(globalValidation.FileUploadMax);
               setLoading(false);
             } else if (docType == null) {
-              toast.error("Please select an image type to upload");
+              toast.error(globalValidation.FileUploadTypeImage);
               setLoading(false);
             }
           }
@@ -245,7 +243,7 @@ export default function BasicInformation(props) {
 
       if (formik.initialValues.phone === phone && formik.initialValues.email === values.email && selectedFile === null) {
         if (!toast.isActive("closeToast")) {
-          toast.error("No changes made", {
+          toast.error(globalValidation.NoChange, {
             toastId: "closeToast",
             onClose: () => { setLoading(false); }
           });
@@ -274,7 +272,7 @@ export default function BasicInformation(props) {
         }
         else {
           if (!toast.isActive("closeToast")) {
-            toast.error("Please try again", {
+            toast.error(globalValidation.TryAgain, {
               toastId: "closeToast",
               onClose: () => { setLoading(false); }
             });
