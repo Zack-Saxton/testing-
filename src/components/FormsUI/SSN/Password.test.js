@@ -1,9 +1,9 @@
-import React from 'react';
-import { cleanup, fireEvent, render } from '@testing-library/react';
-import PasswordField from './index.js';
 import '@testing-library/jest-dom';
+import { cleanup, fireEvent, render } from '@testing-library/react';
+import React from 'react';
+import PasswordField from './index.js';
 
-afterEach(cleanup)
+afterEach(cleanup);
 
 test('render password', () => {
   const container = render(
@@ -46,6 +46,6 @@ test('should match the snapshot', () => {
     label="password"
     type="password"
     data-test-id="pass"
-  />)
-  expect(asFragment).toMatchSnapshot()
+  />);
+  expect(asFragment).toMatchSnapshot();
 });

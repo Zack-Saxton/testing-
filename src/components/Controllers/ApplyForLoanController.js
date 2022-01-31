@@ -1,7 +1,8 @@
 import APICall from "../lib/AxiosLib";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
-import messages from "../lib/Lang/applyForLoan.json"
+import messages from "../lib/Lang/applyForLoan.json";
+import ErrorLogger from "../lib/ErrorLogger";
 
 /***** Get Available offer details *****/
 export async function fetchAvailableOffers() {
@@ -15,6 +16,7 @@ export async function fetchAvailableOffers() {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
+    ErrorLogger("Error executing fetchAvailableOffers API", error);
     Error("Error executing fetchAvailableOffers API");
   }
 }
@@ -74,6 +76,7 @@ export async function submitSelectedOfferAPI(selectedOffer) {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
+    ErrorLogger("Error executing submitSelectedOfferAPI API", error);
     Error("Error executing submitSelectedOfferAPI API");
   }
 }
@@ -90,6 +93,7 @@ export async function getSignatureIframe() {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
+    ErrorLogger("Error executing getSignatureIframe API", error);
     Error("Error executing getSignatureIframe API");
   }
 }
@@ -106,6 +110,7 @@ export async function completeSignature() {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
+    ErrorLogger("Error executing completeSignature API", error);
     Error("Error executing completeSignature API");
   }
 }
@@ -122,7 +127,10 @@ export async function resendVerificationEmail() {
   //API call
   let resendVerificationEmailMethod = await APICall(url, param, data, method, addAccessToken);
   if (resendVerificationEmailMethod.data.status === 200 && resendVerificationEmailMethod.data.statusText) {
-    if (!toast.isActive("closeToast")) { toast.success(messages?.emailVerification?.emailSentSuccess + email); }
+    if (!toast.isActive("closeToast")) {
+      toast.success(messages?.emailVerification?.emailSentSuccess + email,
+        { toastId: "closeToast" });
+    }
   }
   return resendVerificationEmailMethod;
 }
@@ -142,6 +150,7 @@ export async function OTPInitialSubmission(phoneNumber, deliverMethod) {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
+    ErrorLogger("Error executing OTPInitialSubmission API", error);
     Error("Error executing OTPInitialSubmission API");
   }
 }
@@ -158,6 +167,7 @@ export async function verifyPasscode(passcode) {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
+    ErrorLogger("Error executing verifyPasscode API", error);
     Error("Error executing verifyPasscode API");
   }
 }
@@ -174,6 +184,7 @@ export async function hardPullCheck() {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
+    ErrorLogger("Error executing hardPullCheck API", error);
     Error("Error executing hardPullCheck API");
   }
 }
@@ -196,6 +207,7 @@ export async function verifyFinancialInformation() {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
+    ErrorLogger("Error executing verifyFinancialInformation API", error);
     Error("Error executing verifyFinancialInformation API");
   }
 }
@@ -212,6 +224,7 @@ export async function getIDVerificationIframe() {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
+    ErrorLogger("Error executing getIDVerificationIframe API", error);
     Error("Error executing getIDVerificationIframe API");
   }
 }
@@ -228,6 +241,7 @@ export async function saveIDVerificationResponseBefore() {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
+    ErrorLogger("Error executing saveIDVerificationResponseBefore API", error);
     Error("Error executing saveIDVerificationResponseBefore API");
   }
 }
@@ -244,6 +258,7 @@ export async function submitFinancialInformation(body) {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
+    ErrorLogger("Error executing submitFinancialInformation API", error);
     Error("Error executing submitFinancialInformation API");
   }
 }
@@ -260,6 +275,7 @@ export async function getIframe() {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
+    ErrorLogger("Error executing getIframe API", error);
     Error("Error executing getIframe API");
   }
 }
@@ -287,6 +303,7 @@ export async function uploadDocument(fileData, fileName, fileType, documentType)
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
+    ErrorLogger("Error executing uploadDocument API", error);
     Error("Error executing uploadDocument API");
   }
 }
@@ -303,6 +320,7 @@ export async function idVerificationAnswer(passData) {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
+    ErrorLogger("Error executing idVerificationAnswer API", error);
     Error("Error executing idVerificationAnswer API");
   }
 }

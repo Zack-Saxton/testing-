@@ -14,8 +14,8 @@ import "./AnnualIncome.css";
 //Initializing functional component Active duty
 function NewUser() {
 	const { data } = useContext(CheckMyOffers);
-	const [errorAnnual, setErrorAnnual] = useState("");
-	const [errorPersonal, setErrorPersonal] = useState("");
+	const [ errorAnnual, setErrorAnnual ] = useState("");
+	const [ errorPersonal, setErrorPersonal ] = useState("");
 
 	//Retrieving Context values
 	const history = useHistory();
@@ -209,19 +209,19 @@ function NewUser() {
 					<Grid
 						container
 						item
-						xs={12}
+						xs={ 12 }
 						justifyContent="center"
 						alignItems="center"
-						style={{ paddingTop: "70px", paddingBottom: "70px" }}
+						style={ { paddingTop: "70px", paddingBottom: "70px" } }
 					>
 						<Grid
 							container
 							item
-							xs={11}
-							sm={10}
-							md={6}
-							lg={6}
-							xl={6}
+							xs={ 11 }
+							sm={ 10 }
+							md={ 6 }
+							lg={ 6 }
+							xl={ 6 }
 							className="cardWrapper"
 							justifyContent="center"
 							alignItems="center"
@@ -229,7 +229,7 @@ function NewUser() {
 							<Paper
 								id="incomeWrap"
 								className="cardWOPadding"
-								style={{ justify: "center", alignItems: "center" }}
+								style={ { justify: "center", alignItems: "center" } }
 							>
 								<div className="progress mt-0">
 									<div
@@ -248,27 +248,27 @@ function NewUser() {
 								<Grid className="liftImage">
 									<img
 										alt="AnnualIncome"
-										src={AnnualIncomeLogo}
+										src={ AnnualIncomeLogo }
 										className="spinAnimation"
 									/>
 								</Grid>
 
 								<Typography
 									variant="h4"
-									style={{
+									style={ {
 										align: "center",
 										justify: "center",
 										alignItems: "center",
-									}}
+									} }
 									className="borrowCSSLP"
 								>
 									Tell us about your income
 								</Typography>
 
-								<form onSubmit={formik.handleSubmit}>
+								<form onSubmit={ formik.handleSubmit }>
 									<Grid
 										item
-										md={12}
+										md={ 12 }
 										className="blockDiv"
 										container
 										justifyContent="center"
@@ -279,26 +279,26 @@ function NewUser() {
 											justifyContent="center"
 											alignItems="center"
 											item
-											lg={8}
-											md={8}
-											xs={12}
+											lg={ 8 }
+											md={ 8 }
+											xs={ 12 }
 											className="textBlock"
 										>
 											<TextField
 												name="personalIncome"
 												label="Annual Personal Income *"
 												id="personalIncome"
-												value={formik.values.personalIncome}
-												onChange={onHandleChangePersonal}
-												materialProps={{
+												value={ formik.values.personalIncome }
+												onChange={ onHandleChangePersonal }
+												materialProps={ {
 													"data-testid": "personalIncome",
 													maxLength: "10",
-												}}
+												} }
 												autoComplete="off"
-												onBlur={currencyFormat}
-												onKeyDown={preventUnwanted}
-												error={errorPersonal !== ""}
-												helperText={errorPersonal !== "" ? errorPersonal : ""}
+												onBlur={ currencyFormat }
+												onKeyDown={ preventUnwanted }
+												error={ errorPersonal !== "" }
+												helperText={ errorPersonal !== "" ? errorPersonal : "" }
 											/>
 
 											<p className="subText">
@@ -314,18 +314,18 @@ function NewUser() {
 												name="householdIncome"
 												label="Annual Household Income *"
 												id="householdIncome"
-												value={formik.values.householdIncome}
+												value={ formik.values.householdIncome }
 												// startAdornment={<InputAdornment position="start">$</InputAdornment>}
-												materialProps={{
+												materialProps={ {
 													"data-testid": "annualIncome",
 													maxLength: "10",
-												}}
+												} }
 												autoComplete="off"
-												onChange={onHandleChange}
-												onBlur={currencyFormat}
-												onKeyDown={preventUnwanted}
-												error={errorAnnual !== ""}
-												helperText={errorAnnual !== "" ? errorAnnual : ""}
+												onChange={ onHandleChange }
+												onBlur={ currencyFormat }
+												onKeyDown={ preventUnwanted }
+												error={ errorAnnual !== "" }
+												helperText={ errorAnnual !== "" ? errorAnnual : "" }
 											/>
 										</Grid>
 										<Grid
@@ -333,9 +333,9 @@ function NewUser() {
 											justifyContent="center"
 											alignItems="center"
 											item
-											lg={8}
-											md={8}
-											xs={12}
+											lg={ 8 }
+											md={ 8 }
+											xs={ 12 }
 											className="textBlock alignButton"
 										>
 											<ButtonPrimary

@@ -1,14 +1,14 @@
-import React from "react";
-import Paper from "@material-ui/core/Paper";
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import React from "react";
+import NumberFormat from "react-number-format";
 import { NavLink } from "react-router-dom";
-import { useStylesAccountOverview } from "./Style";
 import adBanner from "../../../assets/gallery/AdBanner.jpg";
 import MortgageBanner from "../../../assets/images/Mortgage-Banner.jpg";
-import "./Style.css";
 import { ButtonPrimary } from "../../FormsUI";
-import CircularProgress from '@material-ui/core/CircularProgress';
-import NumberFormat from "react-number-format";
+import { useStylesAccountOverview } from "./Style";
+import "./Style.css";
 export default function LimitedOffer(userOfferData) {
   //Material UI css class
   const classes = useStylesAccountOverview();
@@ -19,36 +19,36 @@ export default function LimitedOffer(userOfferData) {
   //View
   return (
     <div id="mainContainer">
-      <Grid container spacing={2} style={{paddingBottom: "50px"}}>
-        <Grid id="LimitedOfferGrid" item xs={12} sm={8} >
-          <Paper id="paperProperties" style={{ height: "100%" }} className={classes.paperPropertiesLimitedOffer}>
+      <Grid container spacing={ 2 } style={ { paddingBottom: "50px" } }>
+        <Grid id="LimitedOfferGrid" item xs={ 12 } sm={ 8 } >
+          <Paper id="paperProperties" style={ { height: "100%" } } className={ classes.paperPropertiesLimitedOffer }>
             <div id="yellowBg">
               <div id="Wrapp">
                 <img
-                  src={adBanner}
+                  src={ adBanner }
                   data-testid="background"
-                  style={{ textDecoration: "none", height: "100%" }}
+                  style={ { textDecoration: "none", height: "100%" } }
                   alt="ad_banner"
                 />
               </div>
-              {userOfferData.isLoading ? (<CircularProgress />) : (
+              { userOfferData.isLoading ? (<CircularProgress />) : (
                 (userOfferAmount) ? (
                   <div id="offerText">
-                    <p id="loanText">Personal Loan of</p>
+                    <p id="loanText">You may have money available now! Up to </p>
                     <p id="loanPercent">
-                      <NumberFormat value={userOfferAmount} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                      <NumberFormat value={ userOfferAmount } displayType={ 'text' } thousandSeparator={ true } prefix={ '$' } />
                     </p>
-                    <NavLink to="/customers/selectOffer" style={{ textDecoration: "none" }} >
+                    <NavLink to="/customers/selectOffer" style={ { textDecoration: "none" } } >
                       <ButtonPrimary id="claimButton" stylebutton='{"color":""}'>
-                        Claim the Offer
+                        Check My Offer
                       </ButtonPrimary>
                     </NavLink>
                   </div>
                 ) : (
                   <div id="offerText">
                     <NavLink
-                      to={{ pathname: '/customers/applyForLoan', state: { from: "user" } }}
-                      style={{ textDecoration: "none" }}
+                      to={ { pathname: '/customers/applyForLoan', state: { from: "user" } } }
+                      style={ { textDecoration: "none" } }
                     >
                       <ButtonPrimary id="claimButton" stylebutton='{"color":"", "textTransform": "none"}'>
                         Apply for a Loan
@@ -56,23 +56,23 @@ export default function LimitedOffer(userOfferData) {
                     </NavLink>
                   </div>
                 )
-              )}
+              ) }
             </div>
           </Paper>
         </Grid>
-        <Grid id="offerTwo" item xs={12} sm={4} >
-          <Paper id="paperPropertiesOfferTwo" style={{ height: "100%" }} className={classes.paperPropertiesOfferTwo}>
+        <Grid id="offerTwo" item xs={ 12 } sm={ 4 } >
+          <Paper id="paperPropertiesOfferTwo" style={ { height: "100%" } } className={ classes.paperPropertiesOfferTwo }>
             <a
               target="_blank"
               rel="noreferrer"
               href="https://www.marinerfinance.com/apply-home-loan/?utm_source=CAC&utm_medium=panel&utm_campaign=Mrktoffer_Mortgage"
-              style={{ textDecoration: "none", height: "100%" }}
+              style={ { textDecoration: "none", height: "100%" } }
             >
               <img
-                src={MortgageBanner}
+                src={ MortgageBanner }
                 data-testid="background"
                 alt="mortgage_banner"
-                style={{ width: "100%", height: "100%" }}
+                style={ { width: "100%", height: "100%" } }
               />
             </a>
           </Paper>

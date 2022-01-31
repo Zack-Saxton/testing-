@@ -1,8 +1,8 @@
-import APICall from "../lib/AxiosLib";
+import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 import LogoutController from "../Controllers/LogoutController";
-import Cookies from "js-cookie";
-
+import APICall from "../lib/AxiosLib";
+import ErrorLogger from "../lib/ErrorLogger";
 
 let statusStrLink = {
   approved: "/customers/finalVerification",
@@ -48,8 +48,8 @@ export default async function PartnerSignup(history, partnerToken, applicantId, 
   );
 
   partnerSignupMethod.data.status === 200
-    ? toast.success( partnerSignupMethod?.data?.statusText ? partnerSignupMethod?.data?.statusText
-          : partnerSignupMethod?.data?.applicant?.processing?.status === "confirming_info" ? "Successfully Registered, Please confirm your information" : "Successfully Registered",
+    ? toast.success(partnerSignupMethod?.data?.statusText ? partnerSignupMethod?.data?.statusText
+      : partnerSignupMethod?.data?.applicant?.processing?.status === "confirming_info" ? "Successfully Registered, Please confirm your information" : "Successfully Registered",
       {
         onClose: () => {
           var now = new Date().getTime();
@@ -67,7 +67,7 @@ export default async function PartnerSignup(history, partnerToken, applicantId, 
           );
           Cookies.set("email", partnerSignupMethod?.data?.applicant.contact.email);
           history.push({
-            pathname: statusStrLink[partnerSignupMethod?.data?.applicant.processing.status],
+            pathname: statusStrLink[ partnerSignupMethod?.data?.applicant.processing.status ],
             state: {
               jwt_token: partnerSignupMethod?.data?.user.extensionattributes.login.jwt_token,
               partner_token: partnerSignupMethod?.data?.user.attributes.partner_token,
@@ -116,9 +116,10 @@ export async function PopulatePartnerSignup(
     };
     let method = "POST";
     let addAccessToken = false;
-  //API call
+    //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
+    ErrorLogger("Error executing PopulatePartnerSignup API", error);
     toast.error("Error executing PopulatePartnerSignup API");
   }
 }
@@ -151,16 +152,17 @@ export async function partnerConfirmInfo(dataConfirmInfo, history) {
     spouse_address: dataConfirmInfo.spouseadd,
     marital_status: dataConfirmInfo.martialStatus,
     partner_token: dataConfirmInfo.partner_token
-  }
+  };
   let method = "POST";
   let addAccessToken = true;
   //API call
   let PartnerConfirmationAPI = await APICall(url, param, data, method, addAccessToken);
   PartnerConfirmationAPI.data.status === 200
-    ? toast.success(PartnerConfirmationAPI?.data?.statusText? PartnerConfirmationAPI?.data?.statusText: "Successfully registered",
-      {onClose: () => {
+    ? toast.success(PartnerConfirmationAPI?.data?.statusText ? PartnerConfirmationAPI?.data?.statusText : "Successfully registered",
+      {
+        onClose: () => {
           history.push({
-            pathname: statusStrLink[PartnerConfirmationAPI?.data.applicationStatus],
+            pathname: statusStrLink[ PartnerConfirmationAPI?.data.applicationStatus ],
           });
         },
       }

@@ -1,6 +1,6 @@
 
 .section-top-normal-footer{
-   margin-left: 60px;
+   padding: 20px 70px !important;
     display: flex;
     justify-content: space-evenly;
     padding: 20px 0;
@@ -16,6 +16,7 @@
 
        .leftAlignAddress{
         font-size: 15px;
+        line-height: 1.5;
        }
 
        .col{
@@ -30,7 +31,7 @@
       }
       .footer-content{
         font-size: 15px;
-       padding-bottom: 14px;
+        padding-bottom: 25px;
        word-wrap: break-word;
 
 

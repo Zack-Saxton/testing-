@@ -6,14 +6,14 @@ Functionality       :    To use this Multiselect as a default component for UI p
                           maintain same consistency.
 
 #################################################################################################################*/
-import React from "react";
 import { FormControl } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Select from "@material-ui/core/Select";
 import Checkbox from "@material-ui/core/Checkbox";
+import InputLabel from "@material-ui/core/InputLabel";
+import ListItemText from "@material-ui/core/ListItemText";
+import MenuItem from "@material-ui/core/MenuItem";
+import Select from "@material-ui/core/Select";
+import { makeStyles } from "@material-ui/core/styles";
+import React from "react";
 
 const MultiSelectWrapper = ({
   name,
@@ -27,7 +27,7 @@ const MultiSelectWrapper = ({
 }) => {
   //To return all formik state
   // const [field, meta] = useField(name);
-  const [multiSelect, setMultiSelect] = React.useState([]);
+  const [ multiSelect, setMultiSelect ] = React.useState([]);
   const handleChange = (event) => {
     setMultiSelect(event.target.value);
   };
@@ -97,28 +97,28 @@ const MultiSelectWrapper = ({
   let multiselect1 = JSON.parse(multiselect);
 
   return (
-    <FormControl {...configFormControl}>
-      <InputLabel className={classes.formControl}>{labelform}</InputLabel>
+    <FormControl { ...configFormControl }>
+      <InputLabel className={ classes.formControl }>{ labelform }</InputLabel>
       <Select
-        {...configMultiSelect}
-        value={multiSelect}
+        { ...configMultiSelect }
+        value={ multiSelect }
         multiple
-        MenuProps={MenuProps}
+        MenuProps={ MenuProps }
         data-test-id="multiSelectBox"
-        inputProps={{ "data-test-id": "multiSelectInput" }}
-        renderValue={(selected) => selected.join(", ")}
+        inputProps={ { "data-test-id": "multiSelectInput" } }
+        renderValue={ (selected) => selected.join(", ") }
 
       >
-        {multiselect1.map((nam) => (
-          <MenuItem key={nam.value} value={nam.value}>
+        { multiselect1.map((nam) => (
+          <MenuItem key={ nam.value } value={ nam.value }>
             <Checkbox
-              refvalue={nam.value}
-              checked={multiSelect.indexOf(nam.value) > -1}
-              className={classes.check}
+              refvalue={ nam.value }
+              checked={ multiSelect.indexOf(nam.value) > -1 }
+              className={ classes.check }
             />
-            <ListItemText primary={nam.value} />
+            <ListItemText primary={ nam.value } />
           </MenuItem>
-        ))}
+        )) }
       </Select>
     </FormControl>
   );

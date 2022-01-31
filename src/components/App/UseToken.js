@@ -1,5 +1,5 @@
-import { useState } from "react";
 import Cookies from "js-cookie";
+import { useState } from "react";
 
 export default function useToken() {
 	const getToken = () => {
@@ -7,7 +7,7 @@ export default function useToken() {
 		const userToken = JSON.parse(tokenString);
 		return userToken?.isLoggedIn;
 	};
-	const [token, setToken] = useState(getToken());
+	const [ token, setToken ] = useState(getToken());
 	const saveToken = (userToken) => {
 		Cookies.set("token", JSON.stringify(userToken));
 		setToken(userToken.token);

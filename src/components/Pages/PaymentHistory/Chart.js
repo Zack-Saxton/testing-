@@ -1,10 +1,10 @@
-import React from "react";
-import { useStylesPaymenthistory } from "./Style";
-import Chartist from "react-chartist";
-import tooltip from "chartist-plugin-tooltips-updated";
-import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+import tooltip from "chartist-plugin-tooltips-updated";
+import React from "react";
+import Chartist from "react-chartist";
+import { useStylesPaymenthistory } from "./Style";
 import "./Style.css";
 
 //Data for bar chart
@@ -20,10 +20,10 @@ export const dataBar = [
 ];
 
 const barChart = {
-  labels: ["On time", "Late"],
+  labels: [ "On time", "Late" ],
   series: [
-    { meta: "On time Payments", className: "onTimePayment", value: [25] },
-    { meta: "Late Payment", className: "latePayment", value: [10] },
+    { meta: "On time Payments", className: "onTimePayment", value: [ 25 ] },
+    { meta: "Late Payment", className: "latePayment", value: [ 10 ] },
   ],
 };
 
@@ -46,25 +46,25 @@ export default function PaymentHistoryChart() {
   };
 
   return (
-    <Grid item xs={12} style={{ padding: "5px" }}>
-      <Paper className={classes.paper}>
-        <Grid item xs={12}>
-          <Typography component={"div"}>
-            <p className={classes.cardHeading}>On-Time / Late Payments</p>
+    <Grid item xs={ 12 } style={ { padding: "5px" } }>
+      <Paper className={ classes.paper }>
+        <Grid item xs={ 12 }>
+          <Typography component={ "div" }>
+            <p className={ classes.cardHeading }>On-Time / Late Payments</p>
           </Typography>
         </Grid>
 
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={8}>
+        <Grid container spacing={ 3 }>
+          <Grid item xs={ 12 } sm={ 8 }>
             <Chartist
-              data={barChart}
-              options={barOptions}
-              type={"Bar"}
+              data={ barChart }
+              options={ barOptions }
+              type={ "Bar" }
               className="barchart"
             />
           </Grid>
-          <Grid item xs={12} sm={4}>
-            <Typography component={"div"}>
+          <Grid item xs={ 12 } sm={ 4 }>
+            <Typography component={ "div" }>
               <h4>
                 Your on-time payments have saved you $214 by preventing late
                 payment fees.

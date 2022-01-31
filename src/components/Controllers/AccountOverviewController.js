@@ -1,4 +1,5 @@
 import APICall from "../lib/AxiosLib";
+import ErrorLogger from "../lib/ErrorLogger";
 
 /***** Get Account overview details *****/
 export default async function setAccountDetails() {
@@ -12,6 +13,7 @@ export default async function setAccountDetails() {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
+    ErrorLogger("Error executing setAccountDetails API", error);
     Error("Error executing setAccountDetails API");
   }
 }

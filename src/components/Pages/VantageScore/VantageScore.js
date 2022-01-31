@@ -1,36 +1,36 @@
-import React, { useEffect, useState } from "react";
-import Typography from "@material-ui/core/Typography";
 import { CircularProgress } from '@material-ui/core';
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import { useStyleVantageScore } from "./Style";
+import Typography from "@material-ui/core/Typography";
+import React, { useEffect, useState } from "react";
+import { useQuery } from 'react-query';
 import { NavLink } from 'react-router-dom';
+import CheckLoginStatus from "../../App/CheckLoginStatus";
+import getVantageScore from "../../Controllers/VantageController";
 import { ButtonWithIcon } from "../../FormsUI";
+import ScrollToTopOnMount from "../ScrollToTop";
 import Credit from "./Credit";
 import HistoricalData from "./HistoricalData";
 import KeyFactors from "./KeyFactors";
-import  getVantageScore  from "../../Controllers/VantageController";
-import ScrollToTopOnMount from "../ScrollToTop";
-import CheckLoginStatus from "../../App/CheckLoginStatus";
-import {useQuery} from 'react-query'
+import { useStyleVantageScore } from "./Style";
 
 export default function VantageScore() {
   //Material UI css class
   const classes = useStyleVantageScore();
-  const [creditData, setCreditData] = useState(null);
-  const [keyFactors, setkeyFactors] = useState(null);
-  const {data : responseData} = useQuery('vantage-score', getVantageScore )
+  const [ creditData, setCreditData ] = useState(null);
+  const [ keyFactors, setkeyFactors ] = useState(null);
+  const { data: responseData } = useQuery('vantage-score', getVantageScore);
 
   //API Call for vantageScore
   function vantageScoreData() {
-    let creditMonitorings = (responseData?.data?.status === 500 ? [] : responseData?.data?.creditmonitorings ? responseData?.data?.creditmonitorings : null)
-    setCreditData(creditMonitorings)
-    setkeyFactors(creditMonitorings?.length ? creditMonitorings[0]?.parsed : [])
+    let creditMonitorings = (responseData?.data?.status === 500 ? [] : responseData?.data?.creditmonitorings ? responseData?.data?.creditmonitorings : null);
+    setCreditData(creditMonitorings);
+    setkeyFactors(creditMonitorings?.length ? creditMonitorings[ 0 ]?.parsed : []);
   }
 
   useEffect(() => {
     vantageScoreData();
-  }, [responseData]);
+  }, [ responseData ]);
 
   //View
   return (
@@ -39,19 +39,19 @@ export default function VantageScore() {
       <ScrollToTopOnMount />
       <Grid
         container
-        justifyContent={"center"}
-        style={{
+        justifyContent={ "center" }
+        style={ {
           marginTop: "-150px",
           paddingRight: "23px",
           paddingLeft: "23px",
-        }}
+        } }
       >
-        <Grid style={{ paddingBottom: "10px" }} container>
-          <Grid item xs={12}>
-            <Typography variant="h5" className={classes.heading}>
+        <Grid style={ { paddingBottom: "10px" } } container>
+          <Grid item xs={ 12 }>
+            <Typography variant="h5" className={ classes.heading }>
               <NavLink
                 to="/customers/accountOverview"
-                style={{ textDecoration: "none" }}
+                style={ { textDecoration: "none" } }
               >
                 <ButtonWithIcon
                   icon="arrow_backwardIcon"
@@ -63,18 +63,18 @@ export default function VantageScore() {
                       "marginRight": "5px", "marginTop":"unset" }'
                   styleicon='{ "color":"" }'
                 />
-              </NavLink>{" "}
+              </NavLink>{ " " }
               Credit Monitoring
 
             </Typography>
           </Grid>
         </Grid>
         <div id="creditContainer">
-          <Grid item xs={12}>
-            <Paper lstyle={{ padding: "36px", borderRadius: "2px !important" }} className={classes.paper}>
-              {creditData ? (
-                creditData[0]?.parsed.vantage_score ?
-                  (<Credit creditData={creditData} />) : <div>You do not have any credit score</div>
+          <Grid item xs={ 12 }>
+            <Paper lstyle={ { padding: "36px", borderRadius: "2px !important" } } className={ classes.paper }>
+              { creditData ? (
+                creditData[ 0 ]?.parsed.vantage_score ?
+                  (<Credit creditData={ creditData } />) : <div>You do not have any credit score</div>
               ) : <CircularProgress />
 
               }
@@ -83,21 +83,21 @@ export default function VantageScore() {
         </div>
 
         <div id="HistoricalDataContainer">
-          <Grid item xs={12}>
-            <Paper style={{ padding: "36px" }} className={classes.paper}>
-              {creditData ? (
-                creditData[0]?.parsed.vantage_score ? (
-                  <HistoricalData creditData={creditData} />) : <div>You do not have any historical data </div>
-              ) : <CircularProgress />}
+          <Grid item xs={ 12 }>
+            <Paper style={ { padding: "36px" } } className={ classes.paper }>
+              { creditData ? (
+                creditData[ 0 ]?.parsed.vantage_score ? (
+                  <HistoricalData creditData={ creditData } />) : <div>You do not have any historical data </div>
+              ) : <CircularProgress /> }
             </Paper>
           </Grid>
         </div>
-        <div id="dropDown" className={classes.root}>
+        <div id="dropDown" className={ classes.root }>
           <Paper>
-            {keyFactors && creditData ? (
-              creditData[0]?.parsed.vantage_score ? (
-                <KeyFactors keyFactors={keyFactors} />) : <Paper className={classes.paper}><div>You do not have any Key Factor</div></Paper>
-            ) : <Paper className={classes.paper}> <CircularProgress /></Paper>}
+            { keyFactors && creditData ? (
+              creditData[ 0 ]?.parsed.vantage_score ? (
+                <KeyFactors keyFactors={ keyFactors } />) : <Paper className={ classes.paper }><div>You do not have any Key Factor</div></Paper>
+            ) : <Paper className={ classes.paper }> <CircularProgress /></Paper> }
           </Paper>
         </div>
       </Grid>

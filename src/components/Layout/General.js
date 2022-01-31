@@ -1,17 +1,18 @@
 import React from 'react';
-import Header from './NormalHeader/NormalHeader';
+import "./Layout.css";
 import Footer from './NormalFooter/NormalFooter';
+import Header from './NormalHeader/NormalHeader';
 
 
 const General = ({ children }) => {
 
     return (
-        <div>
+        <div id="BG">
             <Header />
-            {children}
+            { children }
             <Footer />
         </div>
-    )
-}
+    );
+};
 
 export default General;

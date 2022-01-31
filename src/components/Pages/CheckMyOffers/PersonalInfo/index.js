@@ -1,27 +1,27 @@
-import React, { useContext, useState } from "react";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
-import PersonLogo from "../../../../assets/icon/I-Personal-Info.png";
-import { Link, useHistory } from "react-router-dom";
-import "./PersonalInfo.css";
-import "../CheckMyOffer.css";
-import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
+import Typography from "@material-ui/core/Typography";
 import axios from "axios";
+import { useFormik } from "formik";
+import Cookies from "js-cookie";
+import React, { useContext, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import * as yup from "yup";
+import PersonLogo from "../../../../assets/icon/I-Personal-Info.png";
+import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { creatProspect } from "../../../Controllers/CheckMyOffersController";
-import ScrollToTopOnMount from "../ScrollToTop";
 import {
 	ButtonPrimary,
 	DatePicker,
 	EmailTextField,
 	PhoneNumber,
 	SocialSecurityNumber,
-	TextField,
+	TextField
 } from "../../../FormsUI";
-import { useFormik } from "formik";
-import * as yup from "yup";
-import Cookies from "js-cookie";
+import "../CheckMyOffer.css";
+import ScrollToTopOnMount from "../ScrollToTop";
+import "./PersonalInfo.css";
 
 //Yup validation schema
 const validationSchema = yup.object({
@@ -96,10 +96,10 @@ const validationSchema = yup.object({
 //Initializing functional component Personal info
 function PersonalInfo() {
 	const { data } = useContext(CheckMyOffers);
-	const [appliedInLast30Days, setAppliedInLast30Days] = useState(false);
-	const [ssnEmailMatch, setSsnEmailMatch] = useState(true);
-	const [error, setError] = useState(false);
-	const [loading, setLoading] = useState(false);
+	const [ appliedInLast30Days, setAppliedInLast30Days ] = useState(false);
+	const [ ssnEmailMatch, setSsnEmailMatch ] = useState(true);
+	const [ error, setError ] = useState(false);
+	const [ loading, setLoading ] = useState(false);
 	const history = useHistory();
 
 	//configuring formik
@@ -284,30 +284,30 @@ function PersonalInfo() {
 				<Box>
 					<Grid
 						item
-						xs={12}
+						xs={ 12 }
 						container
 						alignItems="center"
-						style={{
+						style={ {
 							justifyContent: "center",
 							paddingTop: "70px",
 							paddingBottom: "70px",
-						}}
+						} }
 					>
 						<Grid
 							container
 							item
-							xs={11}
-							sm={10}
-							md={6}
-							lg={6}
-							xl={6}
+							xs={ 11 }
+							sm={ 10 }
+							md={ 6 }
+							lg={ 6 }
+							xl={ 6 }
 							className="cardWrapper"
 							alignItems="center"
 						>
 							<Paper
 								id="aboutYourselfWrap"
 								className="cardWOPadding"
-								style={{ justify: "center", alignItems: "center" }}
+								style={ { justify: "center", alignItems: "center" } }
 							>
 								<div className="progress mt-0">
 									<div
@@ -326,38 +326,38 @@ function PersonalInfo() {
 								<Grid>
 									<img
 										alt="person logo"
-										src={PersonLogo}
+										src={ PersonLogo }
 										className="spinAnimation"
 									/>
 								</Grid>
 
 								<Typography
 									variant="h5"
-									style={{
+									style={ {
 										align: "center",
 										justify: "center",
 										alignItems: "center",
-									}}
+									} }
 									className="borrowCSSLP"
 								>
 									Tell us about yourself
 								</Typography>
-								<form onSubmit={formik.handleSubmit}>
+								<form onSubmit={ formik.handleSubmit }>
 									<Grid
 										item
-										md={12}
+										md={ 12 }
 										className="blockDiv"
 										container
-										style={{ justifyContent: "center" }}
+										style={ { justifyContent: "center" } }
 										alignItems="center"
 									>
 										<Grid
 											container
 											alignItems="center"
 											item
-											lg={8}
-											md={8}
-											xs={12}
+											lg={ 8 }
+											md={ 8 }
+											xs={ 12 }
 											className="textBlock"
 										>
 											<TextField
@@ -366,10 +366,10 @@ function PersonalInfo() {
 												id="firstName"
 												name="firstName"
 												label="First Name *"
-												materialProps={{ maxLength: "30" }}
-												value={formik.values.firstName}
-												onChange={onNameChange}
-												onBlur={formik.handleBlur}
+												materialProps={ { maxLength: "30" } }
+												value={ formik.values.firstName }
+												onChange={ onNameChange }
+												onBlur={ formik.handleBlur }
 												error={
 													formik.touched.firstName &&
 													Boolean(formik.errors.firstName)
@@ -377,7 +377,7 @@ function PersonalInfo() {
 												helperText={
 													formik.touched.firstName && formik.errors.firstName
 												}
-												disabled={data.disabled}
+												disabled={ data.disabled }
 											/>
 										</Grid>
 										<Grid
@@ -385,9 +385,9 @@ function PersonalInfo() {
 											justifyContent="flex-start"
 											alignItems="flex-start"
 											item
-											lg={8}
-											md={8}
-											xs={12}
+											lg={ 8 }
+											md={ 8 }
+											xs={ 12 }
 											className="textBlock"
 										>
 											<TextField
@@ -395,10 +395,10 @@ function PersonalInfo() {
 												id="lastName"
 												name="lastName"
 												label="Last Name *"
-												materialProps={{ maxLength: "30" }}
-												value={formik.values.lastName}
-												onChange={onNameChange}
-												onBlur={formik.handleBlur}
+												materialProps={ { maxLength: "30" } }
+												value={ formik.values.lastName }
+												onChange={ onNameChange }
+												onBlur={ formik.handleBlur }
 												error={
 													formik.touched.lastName &&
 													Boolean(formik.errors.lastName)
@@ -406,7 +406,7 @@ function PersonalInfo() {
 												helperText={
 													formik.touched.lastName && formik.errors.lastName
 												}
-												disabled={data.disabled}
+												disabled={ data.disabled }
 											/>
 											<div className="MuiTypography-alignLeft">
 												<Typography className="smallTextLeft">
@@ -416,12 +416,12 @@ function PersonalInfo() {
 										</Grid>
 										<Grid
 											container
-											style={{ justifyContent: "center" }}
+											style={ { justifyContent: "center" } }
 											alignItems="center"
 											item
-											lg={8}
-											md={8}
-											xs={12}
+											lg={ 8 }
+											md={ 8 }
+											xs={ 12 }
 											className="textBlock"
 										>
 											<DatePicker
@@ -430,17 +430,17 @@ function PersonalInfo() {
 												id="date"
 												placeholder="MM/DD/YYYY"
 												format="MM/dd/yyyy"
-												maxdate={myDate}
-												minyear={102}
-												value={formik.values.date}
-												onChange={(values) => {
+												maxdate={ myDate }
+												minyear={ 102 }
+												value={ formik.values.date }
+												onChange={ (values) => {
 													formik.setFieldValue("date", values);
-												}}
-												onBlur={formik.handleBlur}
+												} }
+												onBlur={ formik.handleBlur }
 												error={
 													formik.touched.date && Boolean(formik.errors.date)
 												}
-												helperText={formik.touched.date && formik.errors.date}
+												helperText={ formik.touched.date && formik.errors.date }
 											/>
 
 											<div className="MuiTypography-alignLeft">
@@ -455,22 +455,22 @@ function PersonalInfo() {
 											justifyContent="flex-start"
 											alignItems="flex-start"
 											item
-											lg={8}
-											md={8}
-											xs={12}
+											lg={ 8 }
+											md={ 8 }
+											xs={ 12 }
 											direction="row"
 											className="textBlock"
 											id="tellUs"
 										>
-											{data.last4SSN ? (
+											{ data.last4SSN ? (
 												<TextField
 													fullWidth
 													id="last4ssn"
 													name="last4ssn"
 													label="Social Security Number *"
-													materialProps={{ maxLength: "30" }}
-													value={formik.values.lastSSN}
-													onBlur={formik.handleBlur}
+													materialProps={ { maxLength: "30" } }
+													value={ formik.values.lastSSN }
+													onBlur={ formik.handleBlur }
 													error={
 														formik.touched.lastSSN &&
 														Boolean(formik.errors.lastSSN)
@@ -478,7 +478,7 @@ function PersonalInfo() {
 													helperText={
 														formik.touched.lastSSN && formik.errors.lastSSN
 													}
-													disabled={data.disabled}
+													disabled={ data.disabled }
 												/>
 											) : (
 												<SocialSecurityNumber
@@ -487,15 +487,15 @@ function PersonalInfo() {
 													placeholder="Enter your Social Security Number"
 													id="ssn"
 													type="ssn"
-													value={formik.values.ssn}
-													onChange={emailOnChange}
-													onBlur={formik.handleBlur}
+													value={ formik.values.ssn }
+													onChange={ emailOnChange }
+													onBlur={ formik.handleBlur }
 													error={
 														formik.touched.ssn && Boolean(formik.errors.ssn)
 													}
-													helperText={formik.touched.ssn && formik.errors.ssn}
+													helperText={ formik.touched.ssn && formik.errors.ssn }
 												/>
-											)}
+											) }
 
 											<div className="MuiTypography-alignLeft">
 												<Typography className="smallTextLeft" align="left">
@@ -505,12 +505,12 @@ function PersonalInfo() {
 										</Grid>
 										<Grid
 											container
-											style={{ justifyContent: "center" }}
+											style={ { justifyContent: "center" } }
 											alignItems="center"
 											item
-											lg={8}
-											md={8}
-											xs={12}
+											lg={ 8 }
+											md={ 8 }
+											xs={ 12 }
 											className="textBlock"
 										>
 											<EmailTextField
@@ -518,17 +518,17 @@ function PersonalInfo() {
 												id="email"
 												name="email"
 												label="Email *"
-												onKeyDown={preventSpace}
-												value={formik.values.email}
-												materialProps={{ maxLength: "100" }}
-												onLoad={checkApplicationStatus}
-												onChange={emailOnChange}
-												onBlur={checkApplicationStatus}
+												onKeyDown={ preventSpace }
+												value={ formik.values.email }
+												materialProps={ { maxLength: "100" } }
+												onLoad={ checkApplicationStatus }
+												onChange={ emailOnChange }
+												onBlur={ checkApplicationStatus }
 												error={
 													formik.touched.email && Boolean(formik.errors.email)
 												}
-												helperText={formik.touched.email && formik.errors.email}
-												disabled={data.disabled}
+												helperText={ formik.touched.email && formik.errors.email }
+												disabled={ data.disabled }
 											/>
 											<p
 												className={
@@ -544,12 +544,12 @@ function PersonalInfo() {
 
 										<Grid
 											container
-											style={{ justifyContent: "center" }}
+											style={ { justifyContent: "center" } }
 											alignItems="center"
 											item
-											lg={8}
-											md={8}
-											xs={12}
+											lg={ 8 }
+											md={ 8 }
+											xs={ 12 }
 											className="textBlock"
 											id="phoneInput"
 										>
@@ -559,14 +559,14 @@ function PersonalInfo() {
 												placeholder="Enter your phone number"
 												id="phone"
 												type="text"
-												onKeyDown={preventSpace}
-												value={formik.values.phone}
-												onChange={formik.handleChange}
-												onBlur={formik.handleBlur}
+												onKeyDown={ preventSpace }
+												value={ formik.values.phone }
+												onChange={ formik.handleChange }
+												onBlur={ formik.handleBlur }
 												error={
 													formik.touched.phone && Boolean(formik.errors.phone)
 												}
-												helperText={formik.touched.phone && formik.errors.phone}
+												helperText={ formik.touched.phone && formik.errors.phone }
 											/>
 											<div className="alignErrorLeft">
 												<Typography
@@ -577,7 +577,7 @@ function PersonalInfo() {
 													}
 													align="left"
 												>
-													It looks like you already have an account. Please{" "}
+													It looks like you already have an account. Please{ " " }
 													<a href="/login">sign in.</a>
 												</Typography>
 												<Typography
@@ -594,27 +594,27 @@ function PersonalInfo() {
 										</Grid>
 										<Grid
 											container
-											style={{ justifyContent: "center" }}
+											style={ { justifyContent: "center" } }
 											alignItems="center"
 											item
-											lg={8}
-											md={8}
-											xs={12}
+											lg={ 8 }
+											md={ 8 }
+											xs={ 12 }
 											className="textBlock alignButton"
 										>
 											<ButtonPrimary
-												onClick={autoFocus}
+												onClick={ autoFocus }
 												type="submit"
 												stylebutton='{"background": "#FFBC23", "color": "black","fontSize":"0.938rem", "padding":"0px 30px"}'
-												disabled={appliedInLast30Days || error || loading}
+												disabled={ appliedInLast30Days || error || loading }
 											>
 												Continue
 												<i
 													className="fa fa-refresh fa-spin customSpinner"
-													style={{
+													style={ {
 														marginRight: "10px",
 														display: loading ? "block" : "none",
-													}}
+													} }
 												/>
 											</ButtonPrimary>
 										</Grid>

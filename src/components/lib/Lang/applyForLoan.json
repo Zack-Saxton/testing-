@@ -1,73 +1,73 @@
 {
-    "selectAmount" : {
-        "noOffersAvailable" : "Currently no offers available for you",
-        "selectTwoToCompare" : "Please select any two offers to compare"
+    "selectAmount": {
+        "noOffersAvailable": "Currently no offers available for you",
+        "selectTwoToCompare": "Please select any two offers to compare"
     },
-    "reviewAndSignin" : {
-        "eSignFailed" : "Signing process failed, please try again.",
-        "completeEsign" : "Please complete your signing process before continuing to the next page"
+    "reviewAndSignin": {
+        "eSignFailed": "Signing process failed, please try again.",
+        "completeEsign": "Please complete your signing process before continuing to the next page"
     },
-    "document" : {
-        "uploadSuccess" : "Document uploaded successfully!",
-        "upoloadFailed" : "Document submission failed. Please try again",
-        "selectFile" : "please select a file to upload",
-        "uploadFileExt" : "Please upload file having extensions .jpeg .jpg .png .pdf only. ",
-        "fileUploadSize" : "Please upload file size below 10mb "
+    "document": {
+        "uploadSuccess": "Document uploaded successfully!",
+        "upoloadFailed": "Document submission failed. Please try again",
+        "selectFile": "please select a file to upload",
+        "uploadFileExt": "Please upload file having extensions .jpeg .jpg .png .pdf only. ",
+        "fileUploadSize": "Please upload file size below 10mb "
     },
-    "bankAccountVerification" : {
-        "accountHolderRequired" : "Please enter a account holder's name",
-        "minAccountNum" : "Account number should be minimum of 7 digits",
-        "maxAccountNum" : "Account number should be minimum of 16 digits",
-        "bankRoutingNumberRequired" : "Please enter a bank routing number",
-        "enterValidRoutingNum" : "Please enter a valid routing number",
-        "matchAccountNum" : "Your account numbers must match",
-        "enterConfirmAccNum" : "Enter your confirm bank account number",
-        "enterBankRoutingNum" : "Enter your bank routing number",
-        "enterAccHolderName" : "Enter Account holder's name",
-        "enterBankIfo" : "Enter your bank information",
-        "enterAccNum" : "Enter your bank account number",
-        "minBankRoutingNum" : "Bank Routing number should be 9 digits",
-        "bankInformationRequired" : "Please enter the bank information",
-        "bankAccountNumberRequired" : "Please enter the bank account number",
-        "bankAccountNumberConfirmationRequired" : "Please confirm bank account number",
-        "notValid" : "Please check and upload the correct document",
-        "uploadCheck" : "Please upload the image of your Check",
-        "accountTypeRequired" : "Account type required"
+    "bankAccountVerification": {
+        "accountHolderRequired": "Please enter a account holder's name",
+        "minAccountNum": "Account number should be minimum of 7 digits",
+        "maxAccountNum": "Account number should be minimum of 16 digits",
+        "bankRoutingNumberRequired": "Please enter a bank routing number",
+        "enterValidRoutingNum": "Please enter a valid routing number",
+        "matchAccountNum": "Your account numbers must match",
+        "enterConfirmAccNum": "Enter your confirm bank account number",
+        "enterBankRoutingNum": "Enter your bank routing number",
+        "enterAccHolderName": "Enter Account holder's name",
+        "enterBankIfo": "Enter your bank information",
+        "enterAccNum": "Enter your bank account number",
+        "minBankRoutingNum": "Bank Routing number should be 9 digits",
+        "bankInformationRequired": "Please enter the bank information",
+        "bankAccountNumberRequired": "Please enter the bank account number",
+        "bankAccountNumberConfirmationRequired": "Please confirm bank account number",
+        "notValid": "Please check and upload the correct document",
+        "uploadCheck": "Please upload the image of your Check",
+        "accountTypeRequired": "Account type required"
     },
-    "emailVerification" : {
-        "sessionEnded" : "Your session has been ended, Please login again to continue",
-        "tokenExpired" : "Your token is Expired, please try again.",
-        "verificationFailed" : "Your Email verification is failed, Please try again",
-        "emailSentSuccess" : "A verification email has been sent to "
+    "emailVerification": {
+        "sessionEnded": "Your session has been ended, Please login again to continue",
+        "tokenExpired": "Your token is Expired, please try again.",
+        "verificationFailed": "Your Email verification is failed, Please try again",
+        "emailSentSuccess": "A verification email has been sent to "
     },
-    "phoneVerification" : {
-        "verificationNotFound" : "Verification not found",
-        "phoneNumRequired" : "Your Phone number is required",
-        "invalidPhone" : "Invalid Phone",
-        "phoneNumMin" : "Name must contain at least 10 digits"
+    "phoneVerification": {
+        "verificationNotFound": "Verification not found",
+        "phoneNumRequired": "Your Phone number is required",
+        "invalidPhone": "Invalid Phone",
+        "phoneNumMin": "Name must contain at least 10 digits"
     },
-    "financialInformation" : {
-        "verificationNotFound" : "Verification not found",
-        "employeeNameRequired" : "Your employer name is required.",
-        "employeeNameMax" : "Employer name can be upto 30 characters length",
-        "employeeNameMin" : "Employer name should be minimum of 2 letters",
-        "jobTitleRequired" : "Your current job title is required.",
-        "jobTitleMax" : "Job title can be upto 30 characters length",
-        "jobTitleMin" : "Job title should be minimum of 2 letters",
-        "hearYouHeared" : "Please let us know how you heard about us.",
-        "yearAtCurrent" : "Years at current address is required"
+    "financialInformation": {
+        "verificationNotFound": "Verification not found",
+        "employeeNameRequired": "Your employer name is required.",
+        "employeeNameMax": "Employer name can be upto 30 characters length",
+        "employeeNameMin": "Employer name should be minimum of 2 letters",
+        "jobTitleRequired": "Your current job title is required.",
+        "jobTitleMax": "Job title can be upto 30 characters length",
+        "jobTitleMin": "Job title should be minimum of 2 letters",
+        "hearYouHeared": "Please let us know how you heard about us.",
+        "yearAtCurrent": "Years at current address is required"
     },
-    "documentPhoto" : {
-        "verificationNotFound" : "Verification not found"
+    "documentPhoto": {
+        "verificationNotFound": "Verification not found"
     },
-    "incomeVerification" : {
-        "finishAllSteps" : "please finish all the steps"
+    "incomeVerification": {
+        "finishAllSteps": "please finish all the steps"
     },
-    "verificationQuestions" : {
-        "verificationUnsuccess" : "Verification unsuccessful, please try again.",
-        "answerAllQuestion" : "Please answer every question before continuing.",
-        "selectToContinue" : "Select an option to continue"
+    "verificationQuestions": {
+        "verificationUnsuccess": "Verification unsuccessful, please try again.",
+        "answerAllQuestion": "Please answer every question before continuing.",
+        "selectToContinue": "Select an option to continue"
     },
-    "unHandledError" : "Something went wrong, Please try again",
-    "accountClosed" : "Your account is closed to new applications. Please contact us to reapply."
+    "unHandledError": "Something went wrong, Please try again",
+    "accountClosed": "Your account is closed to new applications. Please contact us to reapply."
 }

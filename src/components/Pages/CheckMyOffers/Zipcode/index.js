@@ -1,14 +1,14 @@
-import React, { useContext } from "react";
-import { Link, useHistory } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
-import ZipcodeLogo from "../../../../assets/icon/I-Zip-Code.png";
-import { ButtonPrimary, Zipcode as ZipcodeField } from "../../../FormsUI";
+import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
+import React, { useContext } from "react";
+import { Link, useHistory } from "react-router-dom";
 import * as yup from "yup";
+import ZipcodeLogo from "../../../../assets/icon/I-Zip-Code.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
+import { ButtonPrimary, Zipcode as ZipcodeField } from "../../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./Zipcode.css";
 
@@ -42,13 +42,13 @@ function Zipcode() {
 			<ScrollToTopOnMount />
 			<div className="mainDiv">
 				<Box>
-					<Grid xs={12} container justify="center" alignItems="center">
+					<Grid xs={ 12 } container justify="center" alignItems="center">
 						<Grid
-							xs={11}
-							sm={10}
-							md={6}
-							lg={6}
-							xl={6}
+							xs={ 11 }
+							sm={ 10 }
+							md={ 6 }
+							lg={ 6 }
+							xl={ 6 }
 							className="cardWrapper"
 							justify="center"
 							alignItems="center"
@@ -75,7 +75,7 @@ function Zipcode() {
 								<Grid className="liftImage">
 									<img
 										alt="Zipcode"
-										src={ZipcodeLogo}
+										src={ ZipcodeLogo }
 										className="spinAnimation"
 									/>
 								</Grid>
@@ -90,9 +90,9 @@ function Zipcode() {
 									Enter your zip code
 								</Typography>
 
-								<form onSubmit={formik.handleSubmit}>
+								<form onSubmit={ formik.handleSubmit }>
 									<Grid
-										md={12}
+										md={ 12 }
 										className="blockDiv"
 										container
 										justify="center"
@@ -102,9 +102,9 @@ function Zipcode() {
 											justify="center"
 											alignItems="center"
 											item
-											lg={8}
-											md={8}
-											xs={12}
+											lg={ 8 }
+											md={ 8 }
+											xs={ 12 }
 											className="textBlock"
 										>
 											<ZipcodeField
@@ -112,21 +112,21 @@ function Zipcode() {
 												id="zip"
 												name="zip"
 												label="zip"
-												materialProps={{ "data-testid": "zipcode" }}
-												value={formik.values.zip}
-												onChange={formik.handleChange}
-												onBlur={formik.handleBlur}
-												error={formik.touched.zip && Boolean(formik.errors.zip)}
-												helperText={formik.touched.zip && formik.errors.zip}
+												materialProps={ { "data-testid": "zipcode" } }
+												value={ formik.values.zip }
+												onChange={ formik.handleChange }
+												onBlur={ formik.handleBlur }
+												error={ formik.touched.zip && Boolean(formik.errors.zip) }
+												helperText={ formik.touched.zip && formik.errors.zip }
 											/>
 										</Grid>
 										<Grid
 											justify="center"
 											alignItems="center"
 											item
-											lg={8}
-											md={8}
-											xs={12}
+											lg={ 8 }
+											md={ 8 }
+											xs={ 12 }
 											className="alignButton"
 										>
 											<ButtonPrimary

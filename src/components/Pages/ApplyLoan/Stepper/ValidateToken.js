@@ -1,16 +1,16 @@
-import { useEffect } from "react";
-import { useLocation, useHistory } from "react-router-dom";
-import APICall from "../../../lib/AxiosLib";
-import { toast } from "react-toastify";
 import Cookies from "js-cookie";
-import messages from "../../../lib/Lang/applyForLoan.json"
+import { useEffect } from "react";
+import { useHistory, useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
+import APICall from "../../../lib/AxiosLib";
+import messages from "../../../lib/Lang/applyForLoan.json";
 
 //To validate the token comming in the verify email
 const ValidateToken = () => {
 	const useQuery = () => new URLSearchParams(useLocation().search);
 	const query = useQuery();
 	const getResponse = async (data) => {
-		let res = await APICall("verify_user_email_cac",'', data, "POST", true);
+		let res = await APICall("verify_user_email_cac", '', data, "POST", true);
 		return res;
 	};
 
@@ -51,7 +51,7 @@ const ValidateToken = () => {
 				activation_token: activationToken,
 			};
 			getResponse(result).then((res) => {
-				if (res?.data?.data === true) {
+				if (res?.data === true) {
 					history.push({
 						pathname: "/customers/finalVerification",
 					});

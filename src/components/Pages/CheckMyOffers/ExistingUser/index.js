@@ -16,6 +16,7 @@ import usrAccountDetails from "../../../Controllers/AccountOverviewController";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
 import { encryptAES } from "../../../lib/Crypto";
+import { useQueryClient } from 'react-query';
 
 //YUP validation schema
 const validationSchema = yup.object({
@@ -28,10 +29,10 @@ const validationSchema = yup.object({
 // Existing user functional component initiallization
 function ExistingUser() {
 	const { data, setData } = useContext(CheckMyOffers);
-	const [loginFailed, setLoginFailed] = useState("");
-	const [loading, setLoading] = useState(false);
+	const [ loginFailed, setLoginFailed ] = useState("");
+	const [ loading, setLoading ] = useState(false);
 	const history = useHistory();
-
+	const queryClient = useQueryClient();
 	// Formik configuraion
 	const formik = useFormik({
 		initialValues: {
@@ -65,16 +66,16 @@ function ExistingUser() {
 						JSON.stringify({ email: data.email, password: values.password })
 					)
 				);
-
+				queryClient.removeQueries();
 				setLoading(false);
 				let accountDetail = await usrAccountDetails();
 
 				if (accountDetail?.data?.customer?.user_account?.status === "closed") {
 					data.isActiveUser = false;
 					toast.error("Your account is closed to new applications. Please contact us to reapply.");
-					history.push({pathname: "/customers/accountOverview"});
+					history.push({ pathname: "/customers/accountOverview" });
 				} else {
-					history.push({pathname: "/employment-status"});
+					history.push({ pathname: "/employment-status" });
 				}
 			} else if (retVal?.data?.result === "error" || retVal?.data?.hasError === true) {
 				Cookies.set("token", JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" }));
@@ -111,7 +112,7 @@ function ExistingUser() {
 				<Box>
 					<Grid
 						item
-						xs={12}
+						xs={ 12 }
 						container
 						justifyContent="center"
 						alignItems="center"
@@ -119,24 +120,24 @@ function ExistingUser() {
 						<Grid
 							container
 							item
-							xs={11}
-							sm={10}
-							md={6}
-							lg={6}
-							xl={6}
+							xs={ 11 }
+							sm={ 10 }
+							md={ 6 }
+							lg={ 6 }
+							xl={ 6 }
 							className="cardWrapper"
 							justifyContent="center"
 							alignItems="center"
 						>
 							<Paper
 								className="cardWOPadding"
-								style={{
+								style={ {
 									justify: "center",
 									alignItems: "center",
 									width: "inherit",
 									marginBottom: "10%",
 									marginTop: "10%",
-								}}
+								} }
 							>
 								<span className="floatLeft detNum5" />
 								<Grid className="floatLeft">
@@ -146,43 +147,43 @@ function ExistingUser() {
 										</i>
 									</Link>
 								</Grid>
-								<Grid className="liftImage" style={{ marginTop: "-4%" }}>
+								<Grid className="liftImage" style={ { marginTop: "-4%" } }>
 									<img
-										src={PasswordLogo}
+										src={ PasswordLogo }
 										alt="password"
 										className="spinAnimation"
 									/>
 								</Grid>
 								<Typography
-									style={{
+									style={ {
 										align: "center",
 										justify: "center",
 										alignItems: "center",
 										marginBottom: "1%",
 										marginTop: "1%",
-									}}
+									} }
 								>
 									We have detected you already have an account with us.
 								</Typography>
 
 								<Typography
 									variant="h5"
-									style={{
+									style={ {
 										align: "center",
 										justify: "center",
 										alignItems: "center",
 										marginBottom: "1%",
 										marginTop: "1%",
-									}}
+									} }
 								>
 									Please enter a password and continue.
 								</Typography>
 
-								<form onSubmit={formik.handleSubmit}>
+								<form onSubmit={ formik.handleSubmit }>
 									<Grid
 										container
 										item
-										md={12}
+										md={ 12 }
 										className="blockDiv"
 										justifyContent="center"
 										alignItems="center"
@@ -192,9 +193,9 @@ function ExistingUser() {
 											justifyContent="flex-start"
 											alignItems="flex-start"
 											item
-											lg={8}
-											md={8}
-											xs={12}
+											lg={ 8 }
+											md={ 8 }
+											xs={ 12 }
 											className="textBlock"
 										>
 											<PasswordField
@@ -202,11 +203,11 @@ function ExistingUser() {
 												label="Password *"
 												type="password"
 												data-testid="password"
-												onKeyDown={preventSpace}
-												materialProps={{ maxLength: "30" }}
-												value={formik.values.password}
-												onChange={passwordOnChange}
-												onBlur={formik.handleBlur}
+												onKeyDown={ preventSpace }
+												materialProps={ { maxLength: "30" } }
+												value={ formik.values.password }
+												onChange={ passwordOnChange }
+												onBlur={ formik.handleBlur }
 												error={
 													formik.touched.password &&
 													Boolean(formik.errors.password)
@@ -221,10 +222,10 @@ function ExistingUser() {
 												}
 												data-testid="subtitle"
 											>
-												{" "}
-												{loginFailed === "Invalid Email or Password"
+												{ " " }
+												{ loginFailed === "Invalid Email or Password"
 													? "Please enter a valid password"
-													: loginFailed}
+													: loginFailed }
 											</p>
 										</Grid>
 										<Grid
@@ -232,26 +233,26 @@ function ExistingUser() {
 											justifyContent="center"
 											alignItems="center"
 											item
-											lg={8}
-											md={8}
-											xs={12}
+											lg={ 8 }
+											md={ 8 }
+											xs={ 12 }
 											className="textBlock alignButton"
 										>
 											<ButtonPrimary
 												type="submit"
 												data-testid="contButton"
 												stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black"}'
-												disabled={loading}
+												disabled={ loading }
 											>
 												<Typography align="center" className="textCSS ">
 													Sign In
 												</Typography>
 												<i
 													className="fa fa-refresh fa-spin customSpinner"
-													style={{
+													style={ {
 														marginRight: "10px",
 														display: loading ? "block" : "none",
-													}}
+													} }
 												/>
 											</ButtonPrimary>
 										</Grid>
@@ -260,9 +261,9 @@ function ExistingUser() {
 											justifyContent="center"
 											alignItems="center"
 											item
-											lg={8}
-											md={8}
-											xs={12}
+											lg={ 8 }
+											md={ 8 }
+											xs={ 12 }
 											className="linkBlock"
 										>
 											<Link to="/register" className="link">

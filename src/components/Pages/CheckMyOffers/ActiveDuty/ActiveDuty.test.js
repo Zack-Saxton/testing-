@@ -1,9 +1,9 @@
-import React from "react";
-import { cleanup, fireEvent, render, within } from "@testing-library/react";
-import ActiveDuty from "./index.js";
-import CheckMyOffers from "../../../contexts/CheckMyOffers";
-import { BrowserRouter } from "react-router-dom";
 import "@testing-library/jest-dom";
+import { cleanup, fireEvent, render, within } from "@testing-library/react";
+import React from "react";
+import { BrowserRouter } from "react-router-dom";
+import CheckMyOffers from "../../../contexts/CheckMyOffers";
+import ActiveDuty from "./index.js";
 
 afterEach(cleanup);
 

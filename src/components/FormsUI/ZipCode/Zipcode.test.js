@@ -1,8 +1,8 @@
-import React from 'react';
 import { cleanup, fireEvent, render } from '@testing-library/react';
+import React from 'react';
 import Zipcode from './index.js';
 
-afterEach(cleanup)
+afterEach(cleanup);
 
 
 
@@ -12,7 +12,7 @@ test('Availability test', () => {
       type="text"
       name="text"
       label="test"
-      materialProps={{ "data-test-id": "zipcode" }}
+      materialProps={ { "data-test-id": "zipcode" } }
     />);
 
   const input = container.getByTestId('zipcode');
@@ -29,7 +29,7 @@ test('Input test', () => {
       type="text"
       name="text"
       label="test"
-      materialProps={{ "data-test-id": "zipcode" }}
+      materialProps={ { "data-test-id": "zipcode" } }
     />);
 
   const input = container.getByTestId('zipcode');
@@ -44,7 +44,7 @@ test('Get only numeric value', () => {
       type="text"
       name="text"
       label="test"
-      materialProps={{ "data-test-id": "zipcode", maxLength: 10 }}
+      materialProps={ { "data-test-id": "zipcode", maxLength: 10 } }
     />);
 
   const input = container.getByTestId('zipcode');
@@ -59,19 +59,19 @@ it('should be 5 digits', () => {
     type="text"
     name="text"
     label="test"
-    materialProps={{ "data-test-id": "zipcode" }}
+    materialProps={ { "data-test-id": "zipcode" } }
   />);
   const input = wrapper.getByTestId('zipcode');
   expect(input.maxLength).toBe(5);
 });
 
 test('should match the snapshot', () => {
-  const { asFragment } = render()
+  const { asFragment } = render();
 
   expect(asFragment(<Zipcode
     type="text"
     name="text"
     label="test"
-    materialProps={{ "data-test-id": "zipcode" }}
-  />)).toMatchSnapshot()
+    materialProps={ { "data-test-id": "zipcode" } }
+  />)).toMatchSnapshot();
 });

@@ -72,8 +72,8 @@ function getSteps() {
 export default function VerticalLinearStepper() {
 	const history = useHistory();
 	const classes = useStyles();
-	const [activeStep, setActiveStep] = React.useState();
-	const [loadingFlag, setLoadingFlag] = useState(false);
+	const [ activeStep, setActiveStep ] = React.useState();
+	const [ loadingFlag, setLoadingFlag ] = useState(false);
 	const steps = getSteps();
 
 	//To open the the stepper from were the user needs to continue.
@@ -179,85 +179,85 @@ export default function VerticalLinearStepper() {
 			case 0:
 				return (
 					<EmailVerification
-						next={getApplicationStatus}
-						prev={handleBack}
-						reset={handleReset}
-						steps={steps}
-						activeStep={activeStep}
-						classes={classes}
-						setLoadingFlag={setLoadingFlag}
+						next={ getApplicationStatus }
+						prev={ handleBack }
+						reset={ handleReset }
+						steps={ steps }
+						activeStep={ activeStep }
+						classes={ classes }
+						setLoadingFlag={ setLoadingFlag }
 					/>
 				);
 			case 1:
 				return (
 					<PhoneVerification
-						next={getApplicationStatus}
-						prev={handleBack}
-						reset={handleReset}
-						steps={steps}
-						activeStep={activeStep}
-						classes={classes}
-						setLoadingFlag={setLoadingFlag}
+						next={ getApplicationStatus }
+						prev={ handleBack }
+						reset={ handleReset }
+						steps={ steps }
+						activeStep={ activeStep }
+						classes={ classes }
+						setLoadingFlag={ setLoadingFlag }
 					/>
 				);
 			case 2:
 				return (
 					<FinancialInformation
-						next={getApplicationStatus}
-						prev={handleBack}
-						reset={handleReset}
-						steps={steps}
-						activeStep={activeStep}
-						classes={classes}
-						setLoadingFlag={setLoadingFlag}
+						next={ getApplicationStatus }
+						prev={ handleBack }
+						reset={ handleReset }
+						steps={ steps }
+						activeStep={ activeStep }
+						classes={ classes }
+						setLoadingFlag={ setLoadingFlag }
 					/>
 				);
 			case 3:
 				return (
 					<DocumentPhoto
-						next={getApplicationStatus}
-						prev={handleBack}
-						reset={handleReset}
-						steps={steps}
-						activeStep={activeStep}
-						classes={classes}
-						setLoadingFlag={setLoadingFlag}
+						next={ getApplicationStatus }
+						prev={ handleBack }
+						reset={ handleReset }
+						steps={ steps }
+						activeStep={ activeStep }
+						classes={ classes }
+						setLoadingFlag={ setLoadingFlag }
 					/>
 				);
 			case 4:
 				return (
 					<VerificationQuestion
-						next={getApplicationStatus}
-						prev={handleBack}
-						reset={handleReset}
-						steps={steps}
-						activeStep={activeStep}
-						classes={classes}
-						setLoadingFlag={setLoadingFlag}
+						next={ getApplicationStatus }
+						prev={ handleBack }
+						reset={ handleReset }
+						steps={ steps }
+						activeStep={ activeStep }
+						classes={ classes }
+						setLoadingFlag={ setLoadingFlag }
 					/>
 				);
 			case 5:
 				return (
 					<BankAccountVerification
-						next={getApplicationStatus}
-						prev={handleBack}
-						reset={handleReset}
-						steps={steps}
-						activeStep={activeStep}
-						classes={classes}
-						setLoadingFlag={setLoadingFlag}
+						next={ getApplicationStatus }
+						prev={ handleBack }
+						reset={ handleReset }
+						steps={ steps }
+						activeStep={ activeStep }
+						classes={ classes }
+						setLoadingFlag={ setLoadingFlag }
 					/>
 				);
 			case 6:
 				return (
 					<IncomeVerification
-						next={getApplicationStatus}
-						prev={handleBack}
-						reset={handleReset}
-						steps={steps}
-						activeStep={activeStep}
-						classes={classes}
-						setLoadingFlag={setLoadingFlag}
+						next={ getApplicationStatus }
+						prev={ handleBack }
+						reset={ handleReset }
+						steps={ steps }
+						activeStep={ activeStep }
+						classes={ classes }
+						setLoadingFlag={ setLoadingFlag }
 					/>
 				);
 			default:
@@ -267,29 +267,29 @@ export default function VerticalLinearStepper() {
 
 	// view part
 	return (
-		<div className={classes.root}>
-			<Stepper activeStep={activeStep} orientation="vertical">
-				{steps.map((label, index) => (
-					<Step key={label}>
+		<div className={ classes.root }>
+			<Stepper activeStep={ activeStep } orientation="vertical">
+				{ steps.map((label, index) => (
+					<Step key={ label }>
 						<StepLabel>
-							{<span className={classes.steplabel}>{label}</span>}
+							{ <span className={ classes.steplabel }>{ label }</span> }
 						</StepLabel>
 						<StepContent
-							className={loadingFlag ? classes.loadingOn : classes.loadingOff}
+							className={ loadingFlag ? classes.loadingOn : classes.loadingOff }
 						>
-							<div>{getStepContent(index)}</div>
-							<div className={classes.actionsContainer}></div>
+							<div>{ getStepContent(index) }</div>
+							<div className={ classes.actionsContainer }></div>
 						</StepContent>
 					</Step>
-				))}
+				)) }
 			</Stepper>
-			{activeStep === steps.length && (
-				<Paper square elevation={0} className={classes.resetContainer}>
+			{ activeStep === steps.length && (
+				<Paper square elevation={ 0 } className={ classes.resetContainer }>
 					<Typography>All steps completed - you&apos;re finished</Typography>
-					<Grid style={{ paddingTop: "20px" }}>
+					<Grid style={ { paddingTop: "20px" } }>
 						<NavLink
 							to="/customers/receiveYourMoney"
-							style={{ textDecoration: "none" }}
+							style={ { textDecoration: "none" } }
 						>
 							<ButtonPrimary stylebutton='{ "color":"" }'>
 								Click here for application status
@@ -297,7 +297,7 @@ export default function VerticalLinearStepper() {
 						</NavLink>
 					</Grid>
 				</Paper>
-			)}
+			) }
 		</div>
 	);
 }

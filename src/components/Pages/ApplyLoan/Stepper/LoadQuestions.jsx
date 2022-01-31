@@ -10,7 +10,7 @@ const buildOptions = (options) => {
 		options.map((question) => {
 			newArr.push({
 				label: question?.text?.statement,
-				value: question["choice-id"],
+				value: question[ "choice-id" ],
 			});
 			return null;
 		});
@@ -22,27 +22,27 @@ const buildOptions = (options) => {
 export default function LoadQuestions(props) {
 	return (
 		<>
-			{props.responseData.map((question, index) => {
+			{ props.responseData.map((question, index) => {
 				return (
-					<Grid key={index} item xs={12}>
-						<Typography>{question?.question}</Typography>
+					<Grid key={ index } item xs={ 12 }>
+						<Typography>{ question?.question }</Typography>
 						<Radio
 							name="question"
-							radiolabel={buildOptions(question.choice)}
-							checked={props.check}
-							onClick={(event) => {
+							radiolabel={ buildOptions(question.choice) }
+							checked={ props.check }
+							onClick={ (event) => {
 								props.setCheck(event);
-							}}
-							row={true}
-							required={true}
-							labelplacement={"end"}
-							style={{ fontWeight: "normal" }}
+							} }
+							row={ true }
+							required={ true }
+							labelplacement={ "end" }
+							style={ { fontWeight: "normal" } }
 						/>
 						<br />
 						<br />
 					</Grid>
 				);
-			})}
+			}) }
 			<Grid container></Grid>
 		</>
 	);

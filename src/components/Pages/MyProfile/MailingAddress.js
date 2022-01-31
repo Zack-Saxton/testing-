@@ -1,26 +1,25 @@
-import React, { useState } from "react";
-import "./Style.css";
-import Grid from "@material-ui/core/Grid";
-import {
-  TextField,
-  Zipcode,
-  ButtonPrimary,
-  ButtonSecondary,
-} from "../../FormsUI";
-import { useFormik } from "formik";
-import * as yup from "yup";
-import { mailingAddress } from "../../Controllers/myProfileController";
-import { toast } from "react-toastify";
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { tabAtom } from "./MyProfileTab";
+import Grid from "@material-ui/core/Grid";
+import { useFormik } from "formik";
 import { useAtom } from "jotai";
-import { useHistory } from "react-router-dom";
-import states from "../../lib/States.json"
-import statesFullform from "../../lib/StatesFullform.json"
 import Cookies from "js-cookie";
-import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
-import {useQuery} from 'react-query';
+import React, { useState } from "react";
+import { useQuery } from 'react-query';
+import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
+import * as yup from "yup";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
+import { mailingAddress } from "../../Controllers/myProfileController";
+import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
+import {
+  ButtonPrimary,
+  ButtonSecondary, TextField,
+  Zipcode
+} from "../../FormsUI";
+import states from "../../lib/States.json";
+import statesFullform from "../../lib/StatesFullform.json";
+import { tabAtom } from "./MyProfileTab";
+import "./Style.css";
 
 
 const validationSchema = yup.object({
@@ -48,26 +47,26 @@ const validationSchema = yup.object({
 
 export default function MailingAddress(props) {
   window.zeHide();
-  const [loading, setLoading] = useState(false);
-  const [validZip, setValidZip] = useState(true);
-  const [errorMsg, setErrorMsg] = useState("");
+  const [ loading, setLoading ] = useState(false);
+  const [ validZip, setValidZip ] = useState(true);
+  const [ errorMsg, setErrorMsg ] = useState("");
   const history = useHistory();
-  const [, setTabvalue] = useAtom(tabAtom)
+  const [ , setTabvalue ] = useAtom(tabAtom);
 
 
-  const {refetch } = useQuery('loan-data', usrAccountDetails )
+  const { refetch } = useQuery('loan-data', usrAccountDetails);
 
   let basicInfo = props?.basicInformationData?.latest_contact != null ? props.basicInformationData.latest_contact : null;
   let hasActiveLoan = Cookies.get("hasActiveLoan") === "true" ? true : false;
-  let hasApplicationStatus = Cookies.get("hasApplicationStatus")
-  var appStatus = ["rejected", "reffered", "expired"];
-  let checkAppStatus = appStatus.includes(hasApplicationStatus)
+  let hasApplicationStatus = Cookies.get("hasApplicationStatus");
+  var appStatus = [ "rejected", "reffered", "expired" ];
+  let checkAppStatus = appStatus.includes(hasApplicationStatus);
   let disableField = (checkAppStatus === true || hasActiveLoan === true) ? true : false;
 
   const onClickCancelChange = () => {
     formik.resetForm();
     history.push({ pathname: '/customers/myProfile' });
-    setTabvalue(0)
+    setTabvalue(0);
   };
 
 
@@ -79,7 +78,7 @@ export default function MailingAddress(props) {
       streetAddress: basicInfo?.address_street ? basicInfo?.address_street : "",
       zip: basicInfo?.address_postal_code ? basicInfo?.address_postal_code : "",
       city: basicInfo?.address_city ? basicInfo?.address_city : "",
-      state: basicInfo?.address_state ? states[basicInfo?.address_state] : "",
+      state: basicInfo?.address_state ? states[ basicInfo?.address_state ] : "",
 
     },
 
@@ -91,7 +90,7 @@ export default function MailingAddress(props) {
 
         address1: values.streetAddress,
         city: values.city,
-        state: statesFullform[values.state],
+        state: statesFullform[ values.state ],
         zipCode: values.zip,
       };
 
@@ -105,10 +104,10 @@ export default function MailingAddress(props) {
         let res = await mailingAddress(body);
 
         if (res?.data?.notes.length !== 0) {
-           refetch().then(()=>toast.success("Updated successfully", {
+          refetch().then(() => toast.success("Updated successfully", {
             onClose: () => {
               setLoading(false);
-              onClickCancelChange()
+              onClickCancelChange();
             }
           }));
         } else {
@@ -170,19 +169,19 @@ export default function MailingAddress(props) {
   };
 
   return (
-    <div style={{ padding: 20 }}>
-      <form onSubmit={formik.handleSubmit} id="mailing" style={{
+    <div style={ { padding: 20 } }>
+      <form onSubmit={ formik.handleSubmit } id="mailing" style={ {
         opacity: loading ? 0.55 : 1,
         pointerEvents: loading ? "none" : "initial"
-      }}>
-        {props?.basicInformationData === null ? (
+      } }>
+        { props?.basicInformationData === null ? (
           <Grid align="center"><CircularProgress /></Grid>
         ) : <>
 
           <Grid
             item
-            xs={12}
-            style={{ width: "100%", gap: 15, marginBottom: 20 }}
+            xs={ 12 }
+            style={ { width: "100%", gap: 15, marginBottom: 20 } }
             container
             direction="row"
           >
@@ -192,15 +191,15 @@ export default function MailingAddress(props) {
               id="streetAddress"
               name="streetAddress"
               label="Street Address"
-              materialProps={{
+              materialProps={ {
                 "data-test-id": "streetAddress",
                 maxLength: "100",
-              }}
-              disabled={disableField === true ? false : true}
-              onKeyDown={preventSpace}
-              value={formik.values.streetAddress}
-              onChange={formik.handleChange}
-              onBlur={onBlurAddress}
+              } }
+              disabled={ disableField === true ? false : true }
+              onKeyDown={ preventSpace }
+              value={ formik.values.streetAddress }
+              onChange={ formik.handleChange }
+              onBlur={ onBlurAddress }
               error={
                 formik.touched.streetAddress &&
                 Boolean(formik.errors.streetAddress)
@@ -212,8 +211,8 @@ export default function MailingAddress(props) {
           </Grid>
           <Grid
             item
-            xs={12}
-            style={{ width: "100%", gap: 15, marginBottom: 20 }}
+            xs={ 12 }
+            style={ { width: "100%", gap: 15, marginBottom: 20 } }
             container
             direction="row"
           >
@@ -222,20 +221,20 @@ export default function MailingAddress(props) {
               id="city"
               name="city"
               label="City"
-              disabled={true}
-              materialProps={{ "data-test-id": "city" }}
-              value={formik.values.city}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={formik.touched.city && Boolean(formik.errors.city)}
-              helperText={formik.touched.city && formik.errors.city}
+              disabled={ true }
+              materialProps={ { "data-test-id": "city" } }
+              value={ formik.values.city }
+              onChange={ formik.handleChange }
+              onBlur={ formik.handleBlur }
+              error={ formik.touched.city && Boolean(formik.errors.city) }
+              helperText={ formik.touched.city && formik.errors.city }
             />
           </Grid>
 
           <Grid
             item
-            xs={12}
-            style={{ width: "100%", gap: 15, marginBottom: 20 }}
+            xs={ 12 }
+            style={ { width: "100%", gap: 15, marginBottom: 20 } }
             container
             direction="row"
           >
@@ -244,19 +243,19 @@ export default function MailingAddress(props) {
               id="state"
               name="state"
               label="State"
-              disabled={true}
-              materialProps={{ "data-test-id": "state" }}
-              value={formik.values.state}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={formik.touched.state && Boolean(formik.errors.state)}
-              helperText={formik.touched.state && formik.errors.state}
+              disabled={ true }
+              materialProps={ { "data-test-id": "state" } }
+              value={ formik.values.state }
+              onChange={ formik.handleChange }
+              onBlur={ formik.handleBlur }
+              error={ formik.touched.state && Boolean(formik.errors.state) }
+              helperText={ formik.touched.state && formik.errors.state }
             />
           </Grid>
           <Grid
             item
-            xs={12}
-            style={{ width: "100%", gap: 15, marginBottom: 20 }}
+            xs={ 12 }
+            style={ { width: "100%", gap: 15, marginBottom: 20 } }
             container
             direction="row"
           >
@@ -265,11 +264,11 @@ export default function MailingAddress(props) {
               id="zip"
               name="zip"
               label="Zip Code"
-              materialProps={{ "data-test-id": "zipcode" }}
-              disabled={disableField === true ? false : true}
-              value={basicInfo?.address_postal_code}
-              onChange={fetchAddress}
-              onBlur={formik.handleBlur}
+              materialProps={ { "data-test-id": "zipcode" } }
+              disabled={ disableField === true ? false : true }
+              value={ basicInfo?.address_postal_code }
+              onChange={ fetchAddress }
+              onBlur={ formik.handleBlur }
               error={
                 (formik.touched.zip && Boolean(formik.errors.zip)) || !validZip
               }
@@ -284,8 +283,8 @@ export default function MailingAddress(props) {
           <ButtonSecondary
             stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
             styleicon='{ "color":"" }'
-            onClick={onClickCancelChange}
-            disabled={disableField === true ? false : true}
+            onClick={ onClickCancelChange }
+            disabled={ disableField === true ? false : true }
 
           >
             Cancel
@@ -295,19 +294,19 @@ export default function MailingAddress(props) {
             stylebutton='{"marginLeft": "5px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
             styleicon='{ "color":"" }'
             type="submit"
-            disabled={loading}
+            disabled={ loading }
           >
             Save Changes
             <i
               className="fa fa-refresh fa-spin customSpinner"
-              style={{
+              style={ {
                 marginRight: "10px",
                 display: loading ? "block" : "none",
                 color: 'blue'
-              }}
+              } }
             />
           </ButtonPrimary>
-        </>}
+        </> }
       </form>
 
     </div>

@@ -80,7 +80,7 @@ const TextfieldWrapper = ({
   }));
 
   const classes = useStyles();
-  const [value, setValue] = useState(defaultValue ?? 12500);
+  const [ value, setValue ] = useState(defaultValue ?? 12500);
   const handleSliderChange = (event, newValue) => {
 
     if (newValue > 5000) {
@@ -116,23 +116,23 @@ const TextfieldWrapper = ({
   };
 
   return (
-    <div className={classes.FormControlWrap}>
-      <FormControl fullWidth={true}>
-        <div className={classes.center}>
+    <div className={ classes.FormControlWrap }>
+      <FormControl fullWidth={ true }>
+        <div className={ classes.center }>
           <Typography
-            className={classes.label}
+            className={ classes.label }
             id="discrete-slider-always"
             gutterBottom
           >
-            {label}
+            { label }
           </Typography>
         </div>
-        <Slider {...config} {...otherProps} name={name}
+        <Slider { ...config } { ...otherProps } name={ name }
         />
       </FormControl>
-      <div className={classes.center}>
-        <Typography id="discrete-slider-always-amount" variant='h6' className={classes.OutputText}>
-          $ {value}
+      <div className={ classes.center }>
+        <Typography id="discrete-slider-always-amount" variant='h6' className={ classes.OutputText }>
+          $ { value }
         </Typography>
       </div>
     </div>

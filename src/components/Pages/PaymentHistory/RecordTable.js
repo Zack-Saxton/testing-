@@ -1,15 +1,15 @@
-import React from "react";
-import { useStylesPaymenthistory } from "./Style";
-import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import "./Style.css";
 import Moment from "moment";
+import React from "react";
+import { useStylesPaymenthistory } from "./Style";
+import "./Style.css";
 
 export default function PaymentHistoryTable(userRecentPaymentData) {
 
@@ -21,34 +21,34 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
 
   //View part
   return (
-    <Grid item xs={12} style={{ paddingTop: "10px", paddingBottom: "20px" }}>
-      <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="simple table">
+    <Grid item xs={ 12 } style={ { paddingTop: "10px", paddingBottom: "20px" } }>
+      <TableContainer component={ Paper }>
+        <Table className={ classes.table } aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell className={classes.tableHead}>Date</TableCell>
-              <TableCell className={classes.tableHead} align="center">
+              <TableCell className={ classes.tableHead }>Date</TableCell>
+              <TableCell className={ classes.tableHead } align="center">
                 Description
               </TableCell>
-              <TableCell className={classes.tableHead} align="center">
+              <TableCell className={ classes.tableHead } align="center">
                 Principal
               </TableCell>
-              <TableCell className={classes.tableHead} align="center">
+              <TableCell className={ classes.tableHead } align="center">
                 Interest
               </TableCell>
-              <TableCell className={classes.tableHead} align="center">
+              <TableCell className={ classes.tableHead } align="center">
                 Other
               </TableCell>
-              <TableCell className={classes.tableHead} align="center">
+              <TableCell className={ classes.tableHead } align="center">
                 Total
               </TableCell>
-              <TableCell className={classes.tableHead} align="center">
+              <TableCell className={ classes.tableHead } align="center">
                 Balance
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {userRecentPayment.userRecentPaymentData === null ? (
+            { userRecentPayment.userRecentPaymentData === null ? (
               <TableRow>
                 <TableCell colSpan="7" align="center">
                   Please wait...
@@ -56,56 +56,56 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
               </TableRow>
             ) : userRecentPayment.userRecentPaymentData.length ? (
               userRecentPayment.userRecentPaymentData.map((val, index1) => (
-                <div key={index1}>
-                  {val.loanHistory.AppAccountHistory.map((row, index) => (
+                <div key={ index1 }>
+                  { val.loanHistory.AppAccountHistory.map((row, index) => (
                     <>
-                      <TableRow key={index}>
+                      <TableRow key={ index }>
                         <TableCell
                           component="th"
-                          className={classes.tableHeadRow}
+                          className={ classes.tableHeadRow }
                           scope="row"
                         >
-                          {Moment(row.TransactionDate).format("MM/DD/YYYY")}
+                          { Moment(row.TransactionDate).format("MM/DD/YYYY") }
                         </TableCell>
                         <TableCell
-                          className={classes.tableHeadRow}
+                          className={ classes.tableHeadRow }
                           align="center"
                         >
-                          {row.TransactionDescription}
+                          { row.TransactionDescription }
                         </TableCell>
                         <TableCell
-                          className={classes.tableHeadRow}
+                          className={ classes.tableHeadRow }
                           align="center"
                         >
-                          {row.PrincipalAmount}
+                          { row.PrincipalAmount }
                         </TableCell>
                         <TableCell
-                          className={classes.tableHeadRow}
+                          className={ classes.tableHeadRow }
                           align="center"
                         >
-                          {row.InterestAmount}
+                          { row.InterestAmount }
                         </TableCell>
                         <TableCell
-                          className={classes.tableHeadRow}
+                          className={ classes.tableHeadRow }
                           align="center"
                         >
-                          {row.OtherAmount}
+                          { row.OtherAmount }
                         </TableCell>
                         <TableCell
-                          className={classes.tableHeadRow}
+                          className={ classes.tableHeadRow }
                           align="center"
                         >
                           -
                         </TableCell>
                         <TableCell
-                          className={classes.tableHeadRow}
+                          className={ classes.tableHeadRow }
                           align="center"
                         >
-                          {row.RunningPrincipalBalance}
+                          { row.RunningPrincipalBalance }
                         </TableCell>
                       </TableRow>
                     </>
-                  ))}
+                  )) }
                 </div>
               ))
             ) : (
@@ -115,7 +115,7 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
                   You do not have any recent applications
                 </TableCell>
               </TableRow>
-            )}
+            ) }
           </TableBody>
         </Table>
       </TableContainer>

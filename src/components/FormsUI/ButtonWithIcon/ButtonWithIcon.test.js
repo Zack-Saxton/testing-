@@ -1,8 +1,8 @@
-import React from 'react'
-import { cleanup, render } from '@testing-library/react'
-import ButtonWithIcon from './index.js'
+import { cleanup, render } from '@testing-library/react';
+import React from 'react';
+import ButtonWithIcon from './index.js';
 
-afterEach(cleanup)
+afterEach(cleanup);
 
 
 test("renders icon", () => {
@@ -27,6 +27,6 @@ test('should match the snapshot', () => {
         styleicon='{ "color":"" }'
     >
         Cancel
-    </ButtonWithIcon>)
-    expect(asFragment).toMatchSnapshot()
+    </ButtonWithIcon>);
+    expect(asFragment).toMatchSnapshot();
 });

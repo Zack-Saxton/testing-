@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
 import Dialog from "@material-ui/core/Dialog";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
+import React, { useEffect, useState } from "react";
+import getMoneySkillUrl from "../../Controllers/MoneySkillController";
 import {
   ButtonPrimary,
   ButtonSecondary
 } from "../../FormsUI";
-import IconButton from "@material-ui/core/IconButton";
-import CloseIcon from "@material-ui/icons/Close";
 import { useStylesMoneySkill } from "./Style";
 import "./Style.css";
-import getMoneySkillUrl from "../../Controllers/MoneySkillController"
 
 export default function MoneySkill(props) {
   window.zeHide();
@@ -16,13 +16,13 @@ export default function MoneySkill(props) {
   const classes = useStylesMoneySkill();
 
   //API Call
-  const [moneySkillUrl, setMoneySkillUrl] = useState(null);
-  const [status, setStatus] = useState(null);
+  const [ moneySkillUrl, setMoneySkillUrl ] = useState(null);
+  const [ status, setStatus ] = useState(null);
 
   async function getMoneySkillAPI() {
     let response = await getMoneySkillUrl();
-    setStatus(response?.data?.status)
-    setMoneySkillUrl(response?.data?.moneyskillurl ? response?.data?.moneyskillurl : "https://lms.moneyskill.org/students/login")
+    setStatus(response?.data?.status);
+    setMoneySkillUrl(response?.data?.moneyskillurl ? response?.data?.moneyskillurl : "https://lms.moneyskill.org/students/login");
   }
 
   useEffect(() => {
@@ -43,33 +43,33 @@ export default function MoneySkill(props) {
     <div>
       <Dialog
         id="moneySkillDialogBox"
-        open={props.moneySkill}
+        open={ props.moneySkill }
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
-        classes={{ paper: classes.moneySkillDialog }}
+        classes={ { paper: classes.moneySkillDialog } }
       >
-        <div id="closeBtn" className={classes.buttonClose}>
+        <div id="closeBtn" className={ classes.buttonClose }>
           <IconButton
             aria-label="close"
-            onClick={handleCloseMoneySkill}
-            className={classes.closeButton}
+            onClick={ handleCloseMoneySkill }
+            className={ classes.closeButton }
           >
             <CloseIcon />
           </IconButton>
         </div>
 
-        <h2 id="moneySkillDialogHeading" className={classes.moneySkillDialogHeading}>
+        <h2 id="moneySkillDialogHeading" className={ classes.moneySkillDialogHeading }>
           You are about to leave <br /> marinerfinance.com
         </h2>
 
         <div>
-          <p className={classes.moneySkillParagaraph}>
+          <p className={ classes.moneySkillParagaraph }>
             Mariner Finance provides this link for your convenience and is not
             responsible for and makes no claims or representations regarding the
             content, terms of use, or privacy policies of third party websites.
           </p>
 
-          <p className={classes.moneySkillParagaraph}>
+          <p className={ classes.moneySkillParagaraph }>
             The information you provide to register and use MoneySKILL is
             governed by the privacy policy of the American Financial Services
             Association Education Foundation &nbsp;
@@ -85,27 +85,27 @@ export default function MoneySkill(props) {
         <div id="buttonWrap">
           <ButtonSecondary
             id="stayBtn"
-            onClick={handleCloseMoneySkill}
+            onClick={ handleCloseMoneySkill }
             stylebutton='{"float": "" }'
           >
             Stay on Marinerfinance.com
           </ButtonSecondary>
 
           <ButtonPrimary
-            href={moneySkillUrl}
+            href={ moneySkillUrl }
             id="Continue"
             stylebutton='{"float": "" }'
             target="_blank"
-            disabled={status === null ? true : false}
-            onClick={handleCloseMoneySkill}
+            disabled={ status === null ? true : false }
+            onClick={ handleCloseMoneySkill }
           >
             Continue
             <i
               className="fa fa-refresh fa-spin customSpinner"
-              style={{
+              style={ {
                 marginRight: "10px",
                 display: status === null ? "block" : "none",
-              }}
+              } }
             />
           </ButtonPrimary>
         </div>

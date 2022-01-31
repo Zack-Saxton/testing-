@@ -1,6 +1,6 @@
+import Cookies from "js-cookie";
 import React from "react";
 import { withRouter } from "react-router-dom";
-import Cookies from "js-cookie";
 
 class CheckLogin extends React.Component {
 	componentDidMount() {

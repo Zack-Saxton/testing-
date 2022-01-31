@@ -1,5 +1,6 @@
-import APICall from "../lib/AxiosLib";
 import Cookies from "js-cookie";
+import APICall from "../lib/AxiosLib";
+import ErrorLogger from "../lib/ErrorLogger";
 
 export async function changePassword(oldPassword, newPassword) {
   try {
@@ -16,6 +17,7 @@ export async function changePassword(oldPassword, newPassword) {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
+    ErrorLogger("Error executing changePassword API", error);
     Error("Error executing changePassword API");
   }
 }
@@ -37,6 +39,7 @@ export async function basicInformation(body) {
     let addAccessToken = true;
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
+    ErrorLogger("Error executing basicInformation API", error);
     Error("Error executing basicInformation API");
   }
 }
@@ -60,6 +63,7 @@ export async function mailingAddress(body) {
     let addAccessToken = true;
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
+    ErrorLogger("Error executing mailingAddress API", error);
     Error("Error executing mailingAddress API");
   }
 }
@@ -105,6 +109,7 @@ export async function textNotification(body, sub) {
     let addAccessToken = true;
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
+    ErrorLogger("Error executing textNotification API", error);
     Error("Error executing textNotification API");
   }
 }
@@ -148,6 +153,7 @@ export async function getTextNotify() {
     let addAccessToken = true;
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
+    ErrorLogger("Error executing getTextNotify API", error);
     Error("Error executing getTextNotify API");
   }
 }
@@ -177,6 +183,7 @@ export async function uploadNewProfileImage(imgData, fileName, fileType, documen
     let addAccessToken = true;
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
+    ErrorLogger("Error executing uploadNewProfileImage API", error);
     Error("Error executing uploadNewProfileImage API");
   }
 }
@@ -198,11 +205,12 @@ export async function addCreditCard(values, cardType) {
       "exp_date": expyDate,
       "defaultBank": 1,
       "isMobile": true
-    }
+    };
     let method = "POST";
     let addAccessToken = true;
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
+    ErrorLogger("Error executing addCreditCard API", error);
     Error("Error executing addCreditCard API");
   }
 }
@@ -211,11 +219,12 @@ export async function getPaymentMethods() {
   try {
     let url = "get_payment_methods";
     let param = "";
-    let data = {}
+    let data = {};
     let method = "POST";
     let addAccessToken = true;
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
+    ErrorLogger("Error executing getPaymentMethods API", error);
     Error("Error executing getPaymentMethods API");
   }
 }
@@ -229,6 +238,7 @@ export async function deleteCreditCard(passData) {
     let addAccessToken = true;
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
+    ErrorLogger("Error executing deleteCreditCard API", error);
     Error("Error executing deleteCreditCard API");
   }
 }
@@ -242,6 +252,7 @@ export async function deleteBankAccount(passData) {
     let addAccessToken = true;
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
+    ErrorLogger("Error executing deleteBankAccount API", error);
     Error("Error executing deleteBankAccount API");
   }
 }
@@ -255,6 +266,7 @@ export async function setDefaultPayment(passData) {
     let addAccessToken = true;
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
+    ErrorLogger("Error executing setDefaultPayment API", error);
     Error("Error executing setDefaultPayment API");
   }
 }

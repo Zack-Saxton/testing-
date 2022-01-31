@@ -1,10 +1,10 @@
-import { useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import APICall from "../../lib/AxiosLib";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
+import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
-import messages from "../../lib/Lang/applyForLoan.json"
+import APICall from "../../lib/AxiosLib";
+import messages from "../../lib/Lang/applyForLoan.json";
 
 //To redirect the user to apply for loan sections depends on the status of the loan application
 const ApplyForLoanRedirect = (props) => {
@@ -41,8 +41,7 @@ const ApplyForLoanRedirect = (props) => {
 			final_review: "/customers/loanDocument",
 		};
 
-		let res = await APICall("account_overview",'', data, "GET", true);
-		console.log(res);
+		let res = await APICall("account_overview", '', data, "GET", true);
 		let checkStatus =
 			props?.location?.state?.statusCheck === false
 				? props.location.state.statusCheck
@@ -60,11 +59,11 @@ const ApplyForLoanRedirect = (props) => {
 					pathname: "/customers/accountOverview",
 				});
 			} else if (res?.data?.applicants.length === 0) {
-				
+
 				redirectToCMO();
-			} else if (res?.data?.applicants[0]?.isActive === true) {
+			} else if (res?.data?.applicants[ 0 ]?.isActive === true) {
 				history.push({
-					pathname: statusStrLink[res?.data?.applicants[0]?.status],
+					pathname: statusStrLink[ res?.data?.applicants[ 0 ]?.status ],
 				});
 			} else {
 				let isActiveApplicationAvailable = false;
@@ -72,7 +71,7 @@ const ApplyForLoanRedirect = (props) => {
 					if (item.isActive === true) {
 						isActiveApplicationAvailable = true;
 						history.push({
-							pathname: statusStrLink[item.status],
+							pathname: statusStrLink[ item.status ],
 						});
 					}
 					return null;
@@ -100,7 +99,7 @@ const ApplyForLoanRedirect = (props) => {
 
 	//View part
 	return (
-		<Grid className="circleprog" style={{ width: "100%", textAlign: "center" }}>
+		<Grid className="circleprog" style={ { width: "100%", textAlign: "center" } }>
 			<CircularProgress />
 		</Grid>
 	);

@@ -7,9 +7,9 @@ Functionality       :    To use this button as a default component for UI purpos
 
 #################################################################################################################*/
 
-import React from "react";
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import React from "react";
 
 const ButtonPrimary = ({
   children,
@@ -53,8 +53,8 @@ const ButtonPrimary = ({
 
   //View Part
   return (
-    <Button {...configButton} style={styleButtonMF} >
-      {children}
+    <Button { ...configButton } style={ styleButtonMF } >
+      { children }
     </Button>
   );
 };

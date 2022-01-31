@@ -1,44 +1,44 @@
-import React, { useState, useRef } from "react";
-import { useStylesLoanDocument } from "./Style";
-import Typography from "@material-ui/core/Typography";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import Button from "@material-ui/core/Button";
-import Paper from "@material-ui/core/Paper";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import Typography from "@material-ui/core/Typography";
+import React, { useRef, useState } from "react";
+import { useQuery } from 'react-query';
 import { NavLink } from "react-router-dom";
-import { ButtonWithIcon, Select } from "../../FormsUI";
-import ScrollToTopOnMount from "../ScrollToTop";
 import { toast } from "react-toastify";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
-import LoanDocumentTable from "./DocumentTable";
-import "../LoanDocument/LoanDocument.css";
 import {
   loanDocumentController as loanDocument,
-  uploadDocument,
+  uploadDocument
 } from "../../Controllers/LoanDocumentController";
+import { ButtonWithIcon, Select } from "../../FormsUI";
 import loanDocs from "../../lib/Lang/loanDocument.json";
-import {useQuery} from 'react-query';
+import "../LoanDocument/LoanDocument.css";
+import ScrollToTopOnMount from "../ScrollToTop";
+import LoanDocumentTable from "./DocumentTable";
+import { useStylesLoanDocument } from "./Style";
 
 export default function LoanDocument(props) {
   window.zeHide();
   //Material UI css class
-  const classes = useStylesLoanDocument();  
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [docType, setDocType] = useState("");
-  const [loading, setLoading] = useState(false);
+  const classes = useStylesLoanDocument();
+  const [ selectedFile, setSelectedFile ] = useState(null);
+  const [ docType, setDocType ] = useState("");
+  const [ loading, setLoading ] = useState(false);
   const changeEvent = useRef("");
 
   //Api call
-  const { data: loanDocumentStatus} = useQuery('loan-document', ()=> loanDocument(props?.location?.state?.accNo ? props?.location?.state?.accNo : null) )
+  const { data: loanDocumentStatus } = useQuery('loan-document', () => loanDocument(props?.location?.state?.accNo ? props?.location?.state?.accNo : null));
 
-//Loan Document data from API
-let loanDocumentData =  loanDocumentStatus != null ? loanDocumentStatus?.data : null;
+  //Loan Document data from API
+  let loanDocumentData = loanDocumentStatus != null ? loanDocumentStatus?.data : null;
 
   //Selecting file for upload
   const handleInputChange = () => {
@@ -49,6 +49,7 @@ let loanDocumentData =  loanDocumentStatus != null ? loanDocumentStatus?.data : 
   const handleDocType = (event) => {
     setDocType(event.target.value);
     changeEvent.current.click();
+    event.target.value = '';
   };
   const uploadDoc = () => {
     if (selectedFile === null) {
@@ -68,17 +69,16 @@ let loanDocumentData =  loanDocumentStatus != null ? loanDocumentStatus?.data : 
         }
         selectedFile.value = "";
         return false;
-      } else if (selectedFile.files[0].size <= 10240000) {
+      } else if (selectedFile.files[ 0 ].size <= 10240000) {
         let reader = new FileReader();
-        if (selectedFile.files && selectedFile.files[0]) {
+        if (selectedFile.files && selectedFile.files[ 0 ]) {
           reader.onload = async () => {
             const buffer2 = Buffer.from(reader.result, "base64");
             let test = Buffer.from(buffer2).toJSON().data;
-            let fileName = selectedFile.files[0].name;
-            let fileType = selectedFile.files[0].type;
+            let fileName = selectedFile.files[ 0 ].name;
+            let fileType = selectedFile.files[ 0 ].type;
             let documentType = docType;
             setLoading(true);
-
             let response = await uploadDocument(test, fileName, fileType, documentType);
             if (response === "true") {
               setLoading(false);
@@ -87,12 +87,12 @@ let loanDocumentData =  loanDocumentStatus != null ? loanDocumentStatus?.data : 
             }
             //Passing data to API
           };
-          reader.readAsDataURL(selectedFile.files[0]);
+          reader.readAsDataURL(selectedFile.files[ 0 ]);
         }
       } else {
-        if (selectedFile.files[0].size > 10240000) {
+        if (selectedFile.files[ 0 ].size > 10240000) {
           if (!toast.isActive("closeToast")) {
-            toast.error(loanDocs.Please_Upload_File_Below_Size);
+            toast.error(loanDocs.Please_Upload_File_Below_Size, { toastId: "closeToast" });
           }
         }
       }
@@ -106,26 +106,26 @@ let loanDocumentData =  loanDocumentStatus != null ? loanDocumentStatus?.data : 
       <ScrollToTopOnMount />
       <Grid
         container
-        justifyContent={"center"}
-        style={{
+        justifyContent={ "center" }
+        style={ {
           marginTop: "-150px",
           paddingRight: "23px",
           paddingLeft: "23px",
-        }}
+        } }
       >
         <Grid
-          style={{ paddingBottom: "10px" }}
+          style={ { paddingBottom: "10px" } }
           container
           direction="row"
           item
-          xs={12}
+          xs={ 12 }
         >
-          <Grid item xs={12}>
-            <Typography component={"div"}>
-              <h3 id="pageHeading" className={classes.heading}>
+          <Grid item xs={ 12 }>
+            <Typography component={ "div" }>
+              <h3 id="pageHeading" className={ classes.heading }>
                 <NavLink
                   to="/customers/accountOverview"
-                  style={{ textDecoration: "none" }}
+                  style={ { textDecoration: "none" } }
                 >
                   <ButtonWithIcon
                     icon="arrow_backwardIcon"
@@ -137,27 +137,27 @@ let loanDocumentData =  loanDocumentStatus != null ? loanDocumentStatus?.data : 
                         "marginRight": "5px", "marginTop":"unset" }'
                     styleicon='{ "color":"" }'
                   />
-                </NavLink>{" "}
+                </NavLink>{ " " }
                 Loan Documents
               </h3>
             </Typography>
           </Grid>
         </Grid>
 
-        <Grid item xs={12} style={{ paddingTop: "10px", paddingBottom: "30%" }}>
-          <Paper className={classes.paper}>
-            {loanDocumentData === null ? (
+        <Grid item xs={ 12 } style={ { paddingTop: "10px", paddingBottom: "30%" } }>
+          <Paper className={ classes.paper }>
+            { loanDocumentData === null ? (
               <TableContainer>
                 <Table aria-label="simple table">
                   <TableHead>
                     <TableRow>
-                      <TableCell className={classes.tableHead}>
+                      <TableCell className={ classes.tableHead }>
                         Document Name
                       </TableCell>
-                      <TableCell className={classes.tableHead}>
+                      <TableCell className={ classes.tableHead }>
                         Date Uploaded
                       </TableCell>
-                      <TableCell className={classes.tableHead}>
+                      <TableCell className={ classes.tableHead }>
                         Actions
                       </TableCell>
                     </TableRow>
@@ -172,14 +172,14 @@ let loanDocumentData =  loanDocumentStatus != null ? loanDocumentStatus?.data : 
                 </Table>
               </TableContainer>
             ) : (
-              <LoanDocumentTable userLoanDocumentData={loanDocumentData} />
-            )}
+              <LoanDocumentTable userLoanDocumentData={ loanDocumentData } />
+            ) }
 
             <Grid
               item
-              xs={12}
-              sm={3}
-              style={{ paddingTop: "10px", width: "225px" }}
+              xs={ 12 }
+              sm={ 3 }
+              style={ { paddingTop: "10px", width: "225px" } }
             >
               <Select
                 name="selectDocument"
@@ -188,44 +188,44 @@ let loanDocumentData =  loanDocumentStatus != null ? loanDocumentStatus?.data : 
           {"label": "Income Document","value": "income_doc"},
               { "label": "Bank Account Document","value": "bank_doc"},
               { "label": "Other Document","value":"other_doc"}]'
-                onChange={handleDocType}
-                value={docType}
+                onChange={ handleDocType }
+                value={ docType }
               />
             </Grid>
             <Grid container direction="row">
-              <Grid item xs={12} sm={3} style={{ paddingTop: "20px" }}>
+              <Grid item xs={ 12 } sm={ 3 } style={ { paddingTop: "20px" } }>
                 <input
                   accept="image/png, image/jpeg, application/pdf, image/jpg "
                   multiple
                   id="file"
                   type="file"
                   cursor="pointer"
-                  ref={changeEvent}
-                  onClick={handleInputChange}
-                  style={{ display: "none" }}
+                  ref={ changeEvent }
+                  onClick={ handleInputChange }
+                  style={ { display: "none" } }
                 />
                 <Button
                   id="uploadBtn"
                   className="file"
                   variant="contained"
-                  onClick={() => uploadDoc()}
-                  className={classes.uploadbutton}
+                  onClick={ () => uploadDoc() }
+                  className={ classes.uploadbutton }
                   component="span"
-                  disabled={loading}
+                  disabled={ loading }
                 >
                   Upload
                   <i
                     className="fa fa-refresh fa-spin customSpinner"
-                    style={{
+                    style={ {
                       marginRight: "10px",
                       color: "blue",
                       display: loading ? "block" : "none",
-                    }}
+                    } }
                   />
                 </Button>
               </Grid>
 
-              <Grid item xs={12} sm={4} style={{ paddingTop: "10px" }}></Grid>
+              <Grid item xs={ 12 } sm={ 4 } style={ { paddingTop: "10px" } }></Grid>
             </Grid>
           </Paper>
         </Grid>

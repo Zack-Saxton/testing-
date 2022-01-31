@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
-import { encryptAES } from "../lib/Crypto"
-export default function LogoutController() {
+import { encryptAES } from "../lib/Crypto";
 
+export default function LogoutController() {
   // check whether the userToken available
   let userToken = { isLoggedIn: false };
   Cookies.set("token", JSON.stringify(userToken));

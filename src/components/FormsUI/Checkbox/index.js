@@ -55,14 +55,14 @@ const CheckboxWrapper = ({
   //view Part
   return (
     <FormControl>
-      <FormLabel style={styleLabelFormMF}>{formlabel}</FormLabel>
+      <FormLabel style={ styleLabelFormMF }>{ formlabel }</FormLabel>
       <FormGroup >
         <FormControlLabel
-          control={<Checkbox id={id} {...configCheckbox} className={classes.checkboxStyle} style={styleCheckBoxMF} />}
+          control={ <Checkbox id={ id } { ...configCheckbox } className={ classes.checkboxStyle } style={ styleCheckBoxMF } /> }
 
-          label={label}
-          style={styleCheckBoxLabelMF}
-          id={labelid}
+          label={ label }
+          style={ styleCheckBoxLabelMF }
+          id={ labelid }
 
 
         />

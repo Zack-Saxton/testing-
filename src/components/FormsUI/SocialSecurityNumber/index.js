@@ -27,7 +27,7 @@ const SSNWrapper = ({
 	mask,
 	...otherProps
 }) => {
-	const [unmaskedval, setUnMaskedVal] = useState("");
+	const [ unmaskedval, setUnMaskedVal ] = useState("");
 
 	const handleChange = (event) => {
 		setUnMaskedVal(
@@ -42,28 +42,28 @@ const SSNWrapper = ({
 
 
 	return (
-		<FormControl fullWidth={true}>
-			<MuiThemeProvider theme={theme}>
+		<FormControl fullWidth={ true }>
+			<MuiThemeProvider theme={ theme }>
 				<InputMask
-					fullWidth={true}
-					mask={mask ? mask : "999-99-9999"}
-					value={value}
-					name={name}
-					onChange={handleChange}
-					disabled={false}
+					fullWidth={ true }
+					mask={ mask ? mask : "999-99-9999" }
+					value={ value }
+					name={ name }
+					onChange={ handleChange }
+					disabled={ false }
 					maskChar=""
-					{...otherProps}
+					{ ...otherProps }
 				>
-					{() => (
+					{ () => (
 						<TextField
-							label={label}
-							name={name}
-							error={error}
-							placeholder={placeholder}
-							helperText={helperText}
-							inputProps={{ "data-test-id": "ssn", unmaskedval: unmaskedval }}
+							label={ label }
+							name={ name }
+							error={ error }
+							placeholder={ placeholder }
+							helperText={ helperText }
+							inputProps={ { "data-test-id": "ssn", unmaskedval: unmaskedval } }
 						/>
-					)}
+					) }
 				</InputMask>
 			</MuiThemeProvider>
 		</FormControl>

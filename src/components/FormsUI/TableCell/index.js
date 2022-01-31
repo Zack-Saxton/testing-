@@ -17,10 +17,10 @@ const TableCellWrapper = ({ parseData, className, align, ...otherProps }) => {
 		for (var key in data.data) {
 			dom_content.push(
 				<TableCell
-					className={data.data[key].className}
-					align={data.data[key].align}
+					className={ data.data[ key ].className }
+					align={ data.data[ key ].align }
 				>
-					{data.data[key].value}
+					{ data.data[ key ].value }
 				</TableCell>
 			);
 		}
@@ -33,7 +33,7 @@ const TableCellWrapper = ({ parseData, className, align, ...otherProps }) => {
 			data.data.forEach(function (arrayItem) {
 				dom_content.push(
 					<TableRow>
-						<BuildCell data={arrayItem} />
+						<BuildCell data={ arrayItem } />
 					</TableRow>
 				);
 			});
@@ -44,7 +44,7 @@ const TableCellWrapper = ({ parseData, className, align, ...otherProps }) => {
 
 	return (
 		<TableBody>
-			<BuildTable data={parseData} />
+			<BuildTable data={ parseData } />
 		</TableBody>
 	);
 };

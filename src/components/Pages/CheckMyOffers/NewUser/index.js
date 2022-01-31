@@ -1,20 +1,21 @@
-import React, { useContext, useState } from "react";
-import "./NewUser.css";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import { ButtonPrimary, PasswordField } from "../../../FormsUI";
 import Paper from "@material-ui/core/Paper";
-import { Link, useHistory } from "react-router-dom";
-import PasswordLogo from "../../../../assets/icon/I-Password.png";
-import { useFormik } from "formik";
-import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
-import * as yup from "yup";
+import Typography from "@material-ui/core/Typography";
 import axios from "axios";
-import ScrollToTopOnMount from "../ScrollToTop";
-import LoginController from "../../../Controllers/LoginController";
+import { useFormik } from "formik";
 import Cookies from "js-cookie";
+import React, { useContext, useState } from "react";
+import { useQueryClient } from 'react-query';
+import { Link, useHistory } from "react-router-dom";
+import * as yup from "yup";
+import PasswordLogo from "../../../../assets/icon/I-Password.png";
+import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
+import LoginController from "../../../Controllers/LoginController";
+import { ButtonPrimary, PasswordField } from "../../../FormsUI";
 import { encryptAES } from "../../../lib/Crypto";
+import ScrollToTopOnMount from "../ScrollToTop";
+import "./NewUser.css";
 
 //YUP validation schema
 const validationSchema = yup.object({
@@ -33,7 +34,7 @@ const validationSchema = yup.object({
 			is: (newPassword) => newPassword && newPassword.length > 0,
 			then: yup
 				.string()
-				.oneOf([yup.ref("newPassword")],"Your confirmation password must match your password"),
+				.oneOf([ yup.ref("newPassword") ], "Your confirmation password must match your password"),
 		}),
 });
 
@@ -42,8 +43,9 @@ const validationSchema = yup.object({
 function NewUser() {
 	const history = useHistory();
 	const { data, setData } = useContext(CheckMyOffers);
-	const [failed, setFailed] = useState(false);
-	const [loading, setLoading] = useState(false);
+	const [ failed, setFailed ] = useState(false);
+	const [ loading, setLoading ] = useState(false);
+	const queryClient = useQueryClient();
 
 	//configuring formik
 	const formik = useFormik({
@@ -84,7 +86,7 @@ function NewUser() {
 						"Content-Type": "application/json",
 					},
 					transformRequest: (request, headers) => {
-						delete headers.common["Content-Type"];
+						delete headers.common[ "Content-Type" ];
 						return request;
 					},
 				});
@@ -114,13 +116,14 @@ function NewUser() {
 								})
 							)
 						);
+						queryClient.removeQueries();
 
 						rememberMe === true
-							? Cookies.set("rememberMe", JSON.stringify({selected: true, email: values.email, password: values.password,}))
-							: Cookies.set("rememberMe",JSON.stringify({ selected: false, email: "", password: "" }));
+							? Cookies.set("rememberMe", JSON.stringify({ selected: true, email: values.email, password: values.password, }))
+							: Cookies.set("rememberMe", JSON.stringify({ selected: false, email: "", password: "" }));
 
 						setLoading(false);
-						history.push({pathname: "employment-status",});
+						history.push({ pathname: "employment-status", });
 					} else if (retVal?.data?.result === "error" || retVal?.data?.hasError === true) {
 						Cookies.set("token", JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" }));
 						setLoading(false);
@@ -163,22 +166,22 @@ function NewUser() {
 				<Box>
 					<Grid
 						item
-						xs={12}
+						xs={ 12 }
 						container
 						justifyContent="center"
-						style={{ width: "100%", paddingTop: "70px", paddingBottom: "70px" }}
+						style={ { width: "100%", paddingTop: "70px", paddingBottom: "70px" } }
 					>
 						<Grid
 							container
-							xs={11}
-							sm={10}
-							md={6}
-							lg={6}
-							xl={6}
+							xs={ 11 }
+							sm={ 10 }
+							md={ 6 }
+							lg={ 6 }
+							xl={ 6 }
 							item
 							className="cardWrapper"
 							justifyContent="center"
-							style={{ width: "100%" }}
+							style={ { width: "100%" } }
 						>
 							<Paper
 								className="cardWOPadding"
@@ -198,7 +201,7 @@ function NewUser() {
 								</Grid>
 								<Grid className="liftImage">
 									<img
-										src={PasswordLogo}
+										src={ PasswordLogo }
 										alt="passwordlogo"
 										className="spinAnimation"
 									/>
@@ -222,23 +225,23 @@ function NewUser() {
 									Please create a secure account with us.
 								</Typography>
 
-								<form onSubmit={formik.handleSubmit}>
+								<form onSubmit={ formik.handleSubmit }>
 									<Grid
-										md={12}
+										md={ 12 }
 										item
 										className="blockDiv"
 										container
 										justifyContent="center"
-										style={{ width: "100%" }}
+										style={ { width: "100%" } }
 									>
 										<Grid
 											container
 											justifyContent="center"
-											style={{ width: "100%" }}
+											style={ { width: "100%" } }
 											item
-											lg={8}
-											md={8}
-											xs={12}
+											lg={ 8 }
+											md={ 8 }
+											xs={ 12 }
 											className="textBlock"
 										>
 											<PasswordField
@@ -247,11 +250,11 @@ function NewUser() {
 												label="Create Password *"
 												type="password"
 												data-testid="password"
-												materialProps={{ maxLength: "30" }}
-												onKeyDown={preventSpace}
-												value={formik.values.newPassword}
-												onChange={formik.handleChange}
-												onBlur={formik.handleBlur}
+												materialProps={ { maxLength: "30" } }
+												onKeyDown={ preventSpace }
+												value={ formik.values.newPassword }
+												onChange={ formik.handleChange }
+												onBlur={ formik.handleBlur }
 												error={
 													formik.touched.newPassword &&
 													Boolean(formik.errors.newPassword)
@@ -273,11 +276,11 @@ function NewUser() {
 												label="Confirm Password *"
 												type="confirmPassword"
 												data-testid="confirmpassword"
-												materialProps={{ maxLength: "30" }}
-												onKeyDown={preventSpace}
-												value={formik.values.confirmPassword}
-												onChange={formik.handleChange}
-												onBlur={formik.handleBlur}
+												materialProps={ { maxLength: "30" } }
+												onKeyDown={ preventSpace }
+												value={ formik.values.confirmPassword }
+												onChange={ formik.handleChange }
+												onBlur={ formik.handleBlur }
 												error={
 													formik.touched.confirmPassword &&
 													Boolean(formik.errors.confirmPassword)
@@ -288,37 +291,37 @@ function NewUser() {
 												}
 											/>
 											<p
-												className={failed ? "showError" : "hideError"}
+												className={ failed ? "showError" : "hideError" }
 												data-testid="subtitle"
 											>
-												{" "}
+												{ " " }
 												Account not created. For help please contact us at (844)
 												306-7300
 											</p>
 										</Grid>
 										<Grid
 											justifyContent="center"
-											style={{ width: "100%" }}
+											style={ { width: "100%" } }
 											item
 											container
-											lg={8}
-											md={8}
-											xs={12}
+											lg={ 8 }
+											md={ 8 }
+											xs={ 12 }
 											className="textBlock alignButton"
 										>
 											<ButtonPrimary
 												type="submit"
 												data-testid="contButton"
-												disabled={loading}
+												disabled={ loading }
 												stylebutton='{"background": "#FFBC23", "fontSize": "0.938rem", "padding": "0px 30px", "color": "black"}'
 											>
 												Sign In
 												<i
 													className="fa fa-refresh fa-spin customSpinner"
-													style={{
+													style={ {
 														marginRight: "10px",
 														display: loading ? "block" : "none",
-													}}
+													} }
 												/>
 											</ButtonPrimary>
 										</Grid>

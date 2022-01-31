@@ -7,9 +7,9 @@ Functionality       :    To use this TextArea as a default component for UI purp
 
 #################################################################################################################*/
 
-import React from "react";
 import { TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import React from "react";
 
 const TextAreaWrapper = ({
   name,
@@ -25,12 +25,12 @@ const TextAreaWrapper = ({
 }) => {
 
   const CHARACTER_LIMIT = character_limit;
-  const [values, setValues] = React.useState({
+  const [ values, setValues ] = React.useState({
     name: "",
   });
 
   const handleChange = (nam) => (event) => {
-    setValues({ ...values, [nam]: event.target.value });
+    setValues({ ...values, [ nam ]: event.target.value });
   };
 
   //Styling Part
@@ -56,15 +56,15 @@ const TextAreaWrapper = ({
   //View Part
   return (
     <TextField
-      {...config}
-      className={classes.textarea}
+      { ...config }
+      className={ classes.textarea }
       multiline
-      inputProps={{
+      inputProps={ {
         maxLength: CHARACTER_LIMIT ?? 20,
         "data-test-id": "textarea"
-      }}
-      value={values.name}
-      helperText={`${ values.name.length }/${ CHARACTER_LIMIT }`}
+      } }
+      value={ values.name }
+      helperText={ `${ values.name.length }/${ CHARACTER_LIMIT }` }
     />
   );
 };

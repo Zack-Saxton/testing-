@@ -12,9 +12,9 @@ import TextBox from "../Textfield";
 
 const AccountNumberWrapper = ({ name, ...otherProps }) => {
   //Set Formik field
-  const [accNum, setAccNum] = useState("");
-  const [isError, setIsError] = useState(false);
-  const [helperText, setHelperText] = useState("");
+  const [ accNum, setAccNum ] = useState("");
+  const [ isError, setIsError ] = useState(false);
+  const [ helperText, setHelperText ] = useState("");
 
   //Account Number field onChange handle
   const onHandleAccountChange = (event) => {
@@ -43,11 +43,11 @@ const AccountNumberWrapper = ({ name, ...otherProps }) => {
   //return the view block
   return (
     <TextBox
-      {...configTextField}
-      materialProps={{ maxLength: "17", minLength: "6", "data-test-id": "accountNum" }}
-      value={accNum}
-      onChange={onHandleAccountChange}
-      required={true}
+      { ...configTextField }
+      materialProps={ { maxLength: "17", minLength: "6", "data-test-id": "accountNum" } }
+      value={ accNum }
+      onChange={ onHandleAccountChange }
+      required={ true }
     />
   );
 };
