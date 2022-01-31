@@ -58,9 +58,9 @@ export default function MailingAddress(props) {
 
   let basicInfo = props?.basicInformationData?.latest_contact != null ? props.basicInformationData.latest_contact : null;
   let hasActiveLoan = Cookies.get("hasActiveLoan") === "true" ? true : false;
-  let hasApplicationStatus = Cookies.get("hasApplicationStatus");
-  var appStatus = [ "rejected", "reffered", "expired" ];
-  let checkAppStatus = appStatus.includes(hasApplicationStatus);
+  let hasApplicationStatus = Cookies.get("hasApplicationStatus")
+  var appStatus = ["rejected", "referred", "expired"];
+  let checkAppStatus = appStatus.includes(hasApplicationStatus)
   let disableField = (checkAppStatus === true || hasActiveLoan === true) ? true : false;
 
   const onClickCancelChange = () => {

@@ -51,6 +51,7 @@ import ProfileImageController from "../../Controllers/ProfileImageController";
 import MoneySkill from "../../Pages/MoneySkill/MoneySkill";
 import { tabAtom } from "../../Pages/MyProfile/MyProfileTab";
 import Notification from "../Notification/Notification";
+import globalValidation from "../../lib/Lang/globalValidation.json";
 import "./SideNav.css";
 
 const drawerWidth = 240;
@@ -305,9 +306,9 @@ export default function SideNav() {
 
 
   let hasActiveLoan = Cookies.get("hasActiveLoan") === "true" ? true : false;
-  let hasApplicationStatus = Cookies.get("hasApplicationStatus");
-  var appStatus = [ "rejected", "reffered", "expired" ];
-  let checkAppStatus = appStatus.includes(hasApplicationStatus);
+  let hasApplicationStatus = Cookies.get("hasApplicationStatus")
+  var appStatus = ["rejected", "referred", "expired"];
+  let checkAppStatus = appStatus.includes(hasApplicationStatus)
   let disableField = (checkAppStatus === true || hasActiveLoan === true) ? true : false;
   const branchName = Cookies.get("branchname");
   const branchPhone = Cookies.get('branchphone');
@@ -451,7 +452,7 @@ export default function SideNav() {
 
   const logoutUser = () => {
     setDisable(true);
-    toast.success("You are being logged out of the system", {
+    toast.success(globalValidation.LoggedOut, {
       onClose: () => logOut(),
     });
   };
