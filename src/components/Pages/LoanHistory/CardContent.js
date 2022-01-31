@@ -41,7 +41,7 @@ export default function LoanHistoryCard(userLoanHistoryCard) {
           </Grid>
 
           <Grid item xs={ 12 } sm={ 4 } className={ classes.cardLoanHistory }>
-            <Paper className={ classes.paper } style={ { height: "70%" } }>
+            <Paper className={ classes.paperPointer } style={ { height: "70%" } }>
               <Grid style={ { textAlign: "center" } }>
                 <NavLink to="/customers/makePayment" style={ { textDecoration: "none" } } >
                   <AccountBalanceWalletIcon id="dolor-icon_loan-history" className="material-icons background-round mt-5 yelloWBG" />
