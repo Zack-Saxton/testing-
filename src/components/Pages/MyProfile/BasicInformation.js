@@ -38,10 +38,10 @@ const validationSchema = yup.object({
 
 async function filetoImage(file) {
   try {
-    return await imageConversion.filetoDataURL(file);
-  } catch (error) {
-    Error("Error executing image conversion");
-  }
+  return await imageConversion.filetoDataURL(file);  
+} catch (error) {  
+  ErrorLogger("Error executing image conversion", error);
+}
 }
 
 export default function BasicInformation(props) {

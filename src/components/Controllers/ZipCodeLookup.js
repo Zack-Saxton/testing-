@@ -17,6 +17,5 @@ export default async function ZipCodeLookup(zipCode) {
         return await APICall(url, param, data, method, addAccessToken);
     } catch (error) {
         ErrorLogger("Error executing ZipCodeLookup API", error);
-        toast.error("Error executing ZipCodeLookup API");
     }
 }

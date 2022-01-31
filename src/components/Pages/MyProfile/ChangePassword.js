@@ -14,7 +14,7 @@ import {
 } from "../../FormsUI";
 import { tabAtom } from "./MyProfileTab";
 import "./Style.css";
-
+import ErrorLogger from "../../lib/ErrorLogger";
 export default function ChangePassword(basicInformationData) {
   window.zeHide();
   const history = useHistory();
@@ -118,9 +118,7 @@ export default function ChangePassword(basicInformationData) {
           }
         }
       } catch (error) {
-        toast.error("Please try again.", {
-          onClose: () => { setLoading(false); }
-        });
+        ErrorLogger("Error from Password chage.",error);
       }
     },
   });

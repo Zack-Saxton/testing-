@@ -20,7 +20,7 @@ import states from "../../lib/States.json";
 import statesFullform from "../../lib/StatesFullform.json";
 import { tabAtom } from "./MyProfileTab";
 import "./Style.css";
-
+import ErrorLogger from '../../lib/ErrorLogger';
 
 const validationSchema = yup.object({
   streetAddress: yup
@@ -143,7 +143,7 @@ export default function MailingAddress(props) {
         formik.handleChange(event);
       }
     } catch (error) {
-      toast.error("Error from [fetchAddress]");
+      ErrorLogger("Error from fetchAddress", error);
     }
   };
 
@@ -161,7 +161,7 @@ export default function MailingAddress(props) {
         setErrorMsg("Please enter a valid Zipcode");
       }
     } catch (error) {
-      toast.error(" Error from [fetchAddressValidate]");
+      ErrorLogger(" Error from fetchAddressValidate", error);
     }
   }
   const onBlurAddress = (event) => {

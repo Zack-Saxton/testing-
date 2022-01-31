@@ -16,7 +16,7 @@ import { ButtonPrimary, PasswordField } from "../../../FormsUI";
 import { encryptAES } from "../../../lib/Crypto";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./NewUser.css";
-
+import ErrorLogger from "../../../lib/ErrorLogger";
 //YUP validation schema
 const validationSchema = yup.object({
 	newPassword: yup
@@ -141,7 +141,7 @@ function NewUser() {
 					setLoading(false);
 				}
 			} catch (error) {
-				alert("network error from catch");
+				ErrorLogger("network error from catch", error);
 				setLoading(false);
 			}
 		},
