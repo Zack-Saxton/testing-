@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Redirect, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import "./App.css";
 import AccountOverview from "../Pages/AccountOverview/AccountOverview";
 import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory";
@@ -75,13 +75,13 @@ function App() {
                     style={ { width: "50%", } }
                 />
                 <BrowserRouter>
-                    <Route path='/customers/verification/email' element={ <ValidateToken /> } />
-                    <CheckMyOffers>
-                        <ProfilePicture>
-                            <Route path='/:path?' exact>
-                                <GeneralUser>
-                                    <Routes>
-                                        <Route path='/' render={ () => <Redirect to="/customers/accountOverview" /> } />
+                    <Routes>
+                        <Route path='/customers/verification/email' element={ <ValidateToken /> } />
+                        <CheckMyOffers>
+                            <ProfilePicture>
+                                <Route path='/:path?' exact>
+                                    <GeneralUser>
+                                        <Route path='/' exact element={ <Navigate to="/customers/accountOverview" /> } />
                                         <Route path='/components' exact element={ <CustomComponents /> } />
                                         <Route path='/login' exact element={ <LoginPage /> } />
                                         <Route path='/register' element={ <RegisterPage /> } />
@@ -104,46 +104,46 @@ function App() {
                                         <Route path='/zipcode' exact element={ <ZipCode /> } />
                                         <Route path='/personal-info' exact element={ <PersonalInfo /> } />
                                         <Route path='*' element={ <ErrorBeforeLogin /> } />
-                                    </Routes>
-                                </GeneralUser>
-                            </Route>
-                            <div id="main" style={ { marginLeft: "240px" } }>
-                                <Route path='/customers/:path?' exact>
-                                    <PostLogin>
-                                        <Routes>
-                                            <Route path='/customers/accountOverview' exact element={ <AccountOverview /> } />
-                                            {/* <Route path='/customers/verification/email' element={ValidateToken}/> */ }
-                                            <Route path='/customers/paymentHistory' element={ <PaymentHistory /> } />
-                                            <Route path='/customers/selectOffer' element={ <ApplyLoan /> } />
-                                            <Route path='/customers/applyForLoan' element={ <ApplyForLoanRedirect /> } />
-                                            <Route path='/customers/reviewAndSign' element={ <ReviewAndSign /> } />
-                                            <Route path='/customers/finalVerification' element={ <FinalVerification /> } />
-                                            <Route path='/customers/receiveYourMoney' element={ <ReceiveYourMoney /> } />
-                                            <Route path='/customers/loanDocument' element={ <LoanDocument /> } />
-                                            <Route path='/customers/loanHistory' element={ <LoanHistory /> } />
-                                            <Route path='/customers/makePayment/:accNo?' element={ <MakePayment /> } />
-                                            <Route path='/customers/moneySkill' element={ <MoneySkill /> } />
-                                            <Route path='/customers/myBranch' element={ <MyBranch /> } />
-                                            <Route path='/customers/myProfile' element={ <MyProfile /> } />
-                                            <Route path='/customers/vantageScore' element={ <VantageScore /> } />
-                                            <Route path='/customers/faq' element={ <FaqPostLogin /> } />
-                                            <Route path='*' element={ <ErrorAfterLogin /> } />
-                                        </Routes>
-                                    </PostLogin>
+                                    </GeneralUser>
                                 </Route>
-                            </div>
-                            <Route path='/partner/:path?' >
-                                <GeneralUser>
-                                    <Routes>
-                                        <Route path='/partner/signup' exact element={ <ErrorBeforeLogin /> } />
-                                        <Route path='/partner/signup' element={ <PartnerSignUP /> } />
-                                        <Route path='/partner/confirm-signup' element={ <ConfirmationInfo /> } />
-                                        <Route path='*' element={ <ErrorBeforeLogin /> } />
-                                    </Routes>
-                                </GeneralUser>
-                            </Route>
-                        </ProfilePicture>
-                    </CheckMyOffers>
+                                <div id="main" style={ { marginLeft: "240px" } }>
+                                    <Route path='/customers/:path?' exact>
+                                        <PostLogin>
+                                            <Routes>
+                                                <Route path='/customers/accountOverview' exact element={ <AccountOverview /> } />
+                                                {/* <Route path='/customers/verification/email' element={ValidateToken}/> */ }
+                                                <Route path='/customers/paymentHistory' element={ <PaymentHistory /> } />
+                                                <Route path='/customers/selectOffer' element={ <ApplyLoan /> } />
+                                                <Route path='/customers/applyForLoan' element={ <ApplyForLoanRedirect /> } />
+                                                <Route path='/customers/reviewAndSign' element={ <ReviewAndSign /> } />
+                                                <Route path='/customers/finalVerification' element={ <FinalVerification /> } />
+                                                <Route path='/customers/receiveYourMoney' element={ <ReceiveYourMoney /> } />
+                                                <Route path='/customers/loanDocument' element={ <LoanDocument /> } />
+                                                <Route path='/customers/loanHistory' element={ <LoanHistory /> } />
+                                                <Route path='/customers/makePayment/:accNo?' element={ <MakePayment /> } />
+                                                <Route path='/customers/moneySkill' element={ <MoneySkill /> } />
+                                                <Route path='/customers/myBranch' element={ <MyBranch /> } />
+                                                <Route path='/customers/myProfile' element={ <MyProfile /> } />
+                                                <Route path='/customers/vantageScore' element={ <VantageScore /> } />
+                                                <Route path='/customers/faq' element={ <FaqPostLogin /> } />
+                                                <Route path='*' element={ <ErrorAfterLogin /> } />
+                                            </Routes>
+                                        </PostLogin>
+                                    </Route>
+                                </div>
+                                <Route path='/partner/:path?' >
+                                    <GeneralUser>
+                                        <Routes>
+                                            <Route path='/partner/signup' exact element={ <ErrorBeforeLogin /> } />
+                                            <Route path='/partner/signup' element={ <PartnerSignUP /> } />
+                                            <Route path='/partner/confirm-signup' element={ <ConfirmationInfo /> } />
+                                            <Route path='*' element={ <ErrorBeforeLogin /> } />
+                                        </Routes>
+                                    </GeneralUser>
+                                </Route>
+                            </ProfilePicture>
+                        </CheckMyOffers>
+                    </Routes>
                 </BrowserRouter>
             </div>
         </QueryClientProvider>
