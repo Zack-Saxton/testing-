@@ -17,18 +17,17 @@ const ZipCodeWrapper = ({ name, error, helperText, value, onChange, ...otherProp
   const [ isError, setIsError ] = useState(false);
   const [ helperText2, setHelperText2 ] = useState("");
 
-
   //Account Number field onChange handle
   const onHandleZipcodeChange = (event) => {
     const reg = /^[0-9\b]+$/;
-    let acc = event.target.value;
+    let zipcode = event.target.value;
 
-    if (acc === "" || reg.test(acc)) {
-      setZipCode(event.target.value);
+    if (zipcode === "" || reg.test(zipcode)) {
+      setZipCode(zipcode);
     }
-    const isValid = /(^\d{5}$)/.test(event.target.value);
-    (!isValid && event.target.value) ? setIsError(true) : setIsError(false);
-    (!isValid && event.target.value) ? setHelperText2("Zipcode should 5 digits") : setHelperText2("");
+    const isValid = /(^\d{5}$)/.test(zipcode);
+    (!isValid && zipcode) ? setIsError(true) : setIsError(false);
+    (!isValid && zipcode) ? setHelperText2("Zipcode should 5 digits") : setHelperText2("");
     if (onChange) { onChange(event); }
   };
 

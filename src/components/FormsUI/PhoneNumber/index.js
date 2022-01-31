@@ -33,7 +33,6 @@ const PhoneNumberWrapper = ({ name, onChange, value, label, error, disabled, hel
 
   return (
     <FormControl style={ { width: "100%" } }>
-
       <MuiThemeProvider theme={ theme }>
         <InputMask
           style={ { width: "100%" } }

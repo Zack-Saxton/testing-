@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route, Routes } from 'react-router-dom';
 import "./App.css";
 import AccountOverview from "../Pages/AccountOverview/AccountOverview";
 import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory";
@@ -22,7 +22,7 @@ import RegisterPage from '../Pages/Register/Register';
 import SelectAmount from '../Pages/CheckMyOffers/SelectAmount';
 import LoanPurpose from '../Pages/CheckMyOffers/LoanPurpose';
 import CitizenshipStatus from '../Pages/CheckMyOffers/CitizenshipStatus';
-import Zipcode from '../Pages/CheckMyOffers/Zipcode';
+import ZipCode from '../Pages/CheckMyOffers/Zipcode';
 import PersonalInfo from '../Pages/CheckMyOffers/PersonalInfo';
 import NewUser from '../Pages/CheckMyOffers/NewUser';
 import ExistingUser from "../Pages/CheckMyOffers/ExistingUser";
@@ -73,75 +73,73 @@ function App() {
                     draggable={ true }
                     className="toast_message_box"
                     style={ { width: "50%", } }
-
                 />
                 <BrowserRouter>
-                    <Route path='/customers/verification/email' component={ ValidateToken } />
+                    <Route path='/customers/verification/email' element={ <ValidateToken /> } />
                     <CheckMyOffers>
                         <ProfilePicture>
                             <Route path='/:path?' exact>
                                 <GeneralUser>
-                                    <Switch>
-                                        <Route path='/' exact> <Redirect to="/customers/accountOverview" /> </Route>
-                                        <Route path='/components' exact component={ CustomComponents } />
-                                        <Route path='/login' exact component={ LoginPage } />
-                                        <Route path='/register' component={ RegisterPage } />
-                                        <Route path='/faq' component={ FaqBeforeLogin } />
-                                        <Route path='/select-amount' exact component={ SelectAmount } />
-                                        <Route path='/loan-purpose' exact component={ LoanPurpose } />
-                                        <Route path='/citizenship-status' exact component={ CitizenshipStatus } />
-                                        <Route path='/new-user' exact component={ NewUser } />
-                                        <Route path='/existing-user' exact component={ ExistingUser } />
-                                        <Route path='/employment-status' exact component={ EmploymentStatus } />
-                                        <Route path='/annual-income' exact component={ AnnualIncome } />
-                                        <Route path='/home-address' exact component={ HomeAddress } />
-                                        <Route path='/living-place' exact component={ LivingPlace } />
-                                        <Route path='/active-duty' exact component={ ActiveDuty } />
-                                        <Route path='/marital-status' exact component={ MarriedStatus } />
-                                        <Route path='/ssn' exact component={ SSN } />
-                                        <Route path='/no-offers-available' exact component={ NoOffersAvailable } />
-                                        <Route path='/referred-to-branch' exact component={ ReferredToBranch } />
-                                        <Route path='/eligible-for-offers' exact component={ EligibleForOffers } />
-                                        <Route path='/zipcode' exact><Zipcode /></Route>
-                                        <Route path='/personal-info' exact><PersonalInfo /></Route>
-                                        <Route path='*' component={ ErrorBeforeLogin } />
-                                    </Switch>
+                                    <Routes>
+                                        <Route path='/' render={ () => <Redirect to="/customers/accountOverview" /> } />
+                                        <Route path='/components' exact element={ <CustomComponents /> } />
+                                        <Route path='/login' exact element={ <LoginPage /> } />
+                                        <Route path='/register' element={ <RegisterPage /> } />
+                                        <Route path='/faq' element={ <FaqBeforeLogin /> } />
+                                        <Route path='/select-amount' exact element={ <SelectAmount /> } />
+                                        <Route path='/loan-purpose' exact element={ <LoanPurpose /> } />
+                                        <Route path='/citizenship-status' exact element={ <CitizenshipStatus /> } />
+                                        <Route path='/new-user' exact element={ <NewUser /> } />
+                                        <Route path='/existing-user' exact element={ <ExistingUser /> } />
+                                        <Route path='/employment-status' exact element={ <EmploymentStatus /> } />
+                                        <Route path='/annual-income' exact element={ <AnnualIncome /> } />
+                                        <Route path='/home-address' exact element={ <HomeAddress /> } />
+                                        <Route path='/living-place' exact element={ <LivingPlace /> } />
+                                        <Route path='/active-duty' exact element={ <ActiveDuty /> } />
+                                        <Route path='/marital-status' exact element={ <MarriedStatus /> } />
+                                        <Route path='/ssn' exact element={ <SSN /> } />
+                                        <Route path='/no-offers-available' exact element={ <NoOffersAvailable /> } />
+                                        <Route path='/referred-to-branch' exact element={ <ReferredToBranch /> } />
+                                        <Route path='/eligible-for-offers' exact element={ <EligibleForOffers /> } />
+                                        <Route path='/zipcode' exact element={ <ZipCode /> } />
+                                        <Route path='/personal-info' exact element={ <PersonalInfo /> } />
+                                        <Route path='*' element={ <ErrorBeforeLogin /> } />
+                                    </Routes>
                                 </GeneralUser>
                             </Route>
                             <div id="main" style={ { marginLeft: "240px" } }>
                                 <Route path='/customers/:path?' exact>
                                     <PostLogin>
-                                        <Switch>
-                                            <Route path='/customers/accountOverview' exact component={ AccountOverview } />
-                                            {/* <Route path='/customers/verification/email' component={ValidateToken}/> */ }
-                                            <Route path='/customers/paymentHistory' component={ PaymentHistory } />
-                                            <Route path='/customers/selectOffer' component={ ApplyLoan } />
-                                            <Route path='/customers/applyForLoan' component={ ApplyForLoanRedirect } />
-                                            <Route path='/customers/reviewAndSign' component={ ReviewAndSign } />
-                                            <Route path='/customers/finalVerification' component={ FinalVerification } />
-                                            <Route path='/customers/receiveYourMoney' component={ ReceiveYourMoney } />
-                                            <Route path='/customers/loanDocument' component={ LoanDocument } />
-                                            <Route path='/customers/loanHistory' component={ LoanHistory } />
-                                            <Route path='/customers/makePayment/:accNo?' component={ MakePayment } />
-                                            <Route path='/customers/moneySkill' component={ MoneySkill } />
-                                            <Route path='/customers/myBranch' component={ MyBranch } />
-                                            <Route path='/customers/myProfile' component={ MyProfile } />
-                                            <Route path='/customers/vantageScore' component={ VantageScore } />
-                                            <Route path='/customers/faq' component={ FaqPostLogin } />
-                                            <Route path='*' component={ ErrorAfterLogin } />
-
-                                        </Switch>
+                                        <Routes>
+                                            <Route path='/customers/accountOverview' exact element={ <AccountOverview /> } />
+                                            {/* <Route path='/customers/verification/email' element={ValidateToken}/> */ }
+                                            <Route path='/customers/paymentHistory' element={ <PaymentHistory /> } />
+                                            <Route path='/customers/selectOffer' element={ <ApplyLoan /> } />
+                                            <Route path='/customers/applyForLoan' element={ <ApplyForLoanRedirect /> } />
+                                            <Route path='/customers/reviewAndSign' element={ <ReviewAndSign /> } />
+                                            <Route path='/customers/finalVerification' element={ <FinalVerification /> } />
+                                            <Route path='/customers/receiveYourMoney' element={ <ReceiveYourMoney /> } />
+                                            <Route path='/customers/loanDocument' element={ <LoanDocument /> } />
+                                            <Route path='/customers/loanHistory' element={ <LoanHistory /> } />
+                                            <Route path='/customers/makePayment/:accNo?' element={ <MakePayment /> } />
+                                            <Route path='/customers/moneySkill' element={ <MoneySkill /> } />
+                                            <Route path='/customers/myBranch' element={ <MyBranch /> } />
+                                            <Route path='/customers/myProfile' element={ <MyProfile /> } />
+                                            <Route path='/customers/vantageScore' element={ <VantageScore /> } />
+                                            <Route path='/customers/faq' element={ <FaqPostLogin /> } />
+                                            <Route path='*' element={ <ErrorAfterLogin /> } />
+                                        </Routes>
                                     </PostLogin>
                                 </Route>
                             </div>
                             <Route path='/partner/:path?' >
                                 <GeneralUser>
-                                    <Switch>
-                                        <Route path='/partner/signup' exact component={ ErrorBeforeLogin } />
-                                        <Route path='/partner/signup' component={ PartnerSignUP } />
-                                        <Route path='/partner/confirm-signup' component={ ConfirmationInfo } />
-                                        <Route path='*' component={ ErrorBeforeLogin } />
-                                    </Switch>
+                                    <Routes>
+                                        <Route path='/partner/signup' exact element={ <ErrorBeforeLogin /> } />
+                                        <Route path='/partner/signup' element={ <PartnerSignUP /> } />
+                                        <Route path='/partner/confirm-signup' element={ <ConfirmationInfo /> } />
+                                        <Route path='*' element={ <ErrorBeforeLogin /> } />
+                                    </Routes>
                                 </GeneralUser>
                             </Route>
                         </ProfilePicture>

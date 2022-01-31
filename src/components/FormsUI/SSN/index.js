@@ -34,7 +34,6 @@ const PasswordWrapper = ({ name, id, onChange, value, label, ...otherProps }) =>
 
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword });
-
   };
 
   const handleMouseDownPassword = (event) => {
