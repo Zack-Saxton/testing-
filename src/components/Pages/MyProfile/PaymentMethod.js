@@ -426,6 +426,7 @@ export default function PaymentMethod() {
 
     const onClickDelete = async (type, uniqueData) => {
         setLoading(true);
+        try {
         switch (type) {
             case "card": {
                 let passData = {
@@ -441,7 +442,7 @@ export default function PaymentMethod() {
                     handleDeleteConfirmClose();
 
                 } else {
-                    if (!toast.isActive("closeToast")) { toast.error("Error deleting you card, please try again"); }
+                    if (!toast.isActive("closeToast")) { toast.error("Error deleting your card, please try again"); }
                     setDeleteID("");
                     setDeleteType("");
                     handleDeleteConfirmClose();
@@ -462,7 +463,7 @@ export default function PaymentMethod() {
                     setDeleteType("");
                     handleDeleteConfirmClose();
                 } else {
-                    if (!toast.isActive("closeToast")) { toast.error("Error deleting you bank account, please try again"); }
+                    if (!toast.isActive("closeToast")) { toast.error("Error deleting your bank account, please try again"); }
                     setDeleteID("");
                     setDeleteType("");
                     handleDeleteConfirmClose();
@@ -473,6 +474,9 @@ export default function PaymentMethod() {
             default:
             // code block
         }
+    } catch (error) {
+        ErrorLogger(' Error Deleting Payment Method ::', res.data.message)
+    }
     };
 
     const scrollToTop = () => {
