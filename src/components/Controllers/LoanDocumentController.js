@@ -31,7 +31,7 @@ function downloadFileData(fileData) {
   link.setAttribute("download", fileData?.data?.exportName);
   document.body.appendChild(link);
   link.click();
-  if (!toast.isActive("closeToast")) { toast.success("Document Downloaded Successfully"); }
+  if (!toast.isActive("closeToast")) {toast.success("Document Downloaded Successfully",{toastId: "closeToast"});}
 }
 
 /****** Document Download method *****/
@@ -80,7 +80,7 @@ export async function documentprint(id, name) {
     method,
     addAccessToken
   );
-  documentDownloadPrint.data.status === 200
+  documentDownloadPrint.status === 200
     ? print(documentDownloadPrint)
     : toast.error("Error printing file");
 }
@@ -93,7 +93,7 @@ export async function uploadDocument(test, fileName, fileType, documentType) {
     compressedFile: [
       {
         data: test,
-        mimetype: fileType,
+        mimetype: fileType, 
         documentType: documentType,
         fileName: fileName,
       },
