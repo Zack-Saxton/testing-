@@ -33,7 +33,8 @@ import { FormValidationRules } from "../../lib/FormValidationRule";
 import globalValidation from "../../lib/Lang/globalValidation.json";
 import reqProperties from "../../lib/Lang/register.json";
 import "./Register.css";
-var formValidation = new FormValidationRules();
+import ErrorLogger from "../../lib/ErrorLogger";
+let formValidation = new FormValidationRules();
 
 //Styling part
 const useStyles = makeStyles((theme) => ({
@@ -238,6 +239,7 @@ export default function Register() {
       } catch (error) {
         setFailed(reqProperties.Please_Contact_Us_At);
         setLoading(false);
+        ErrorLogger('Error from register_new_user API', error)
       }
     },
   });
@@ -303,7 +305,7 @@ export default function Register() {
         setCity("");
       }
     } catch (error) {
-      toast.error(" Error from [fetchAddress]");
+      ErrorLogger(" Error from [fetchAddress]", error);
     }
   };
 

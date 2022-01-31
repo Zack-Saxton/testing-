@@ -2,6 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import ErrorLogger from "../lib/ErrorLogger";
 import apiUrl from "./ApiLib.json";
+
 /***** API Calling function *****/
 const APICall = async (api, param, data, method, addAccessToken) => {
   const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : '{ }');

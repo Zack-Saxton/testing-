@@ -13,6 +13,8 @@ import ZipCodeLookup from "../../../Controllers/ZipCodeLookup";
 import { ButtonPrimary, Select, TextField, Zipcode } from "../../../FormsUI";
 import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
+import ErrorLogger from "../../../lib/ErrorLogger";
+
 //Yup validation schema
 const validationSchema = yup.object({
 	martialStatus: yup
@@ -128,7 +130,7 @@ function MarriedStatus() {
 			}
 			formik.handleChange(event);
 		} catch (error) {
-			toast.error(' Error from [fetchAddress].');
+			ErrorLogger(' Error from [fetchAddress].', error);
 		}
 	};
 

@@ -1,5 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
+import ErrorLogger from "../lib/ErrorLogger";
 const APICall = async (url, data, method, addAccessToken) => {
     const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : '{ }');
     let response = {
@@ -31,6 +32,7 @@ const APICall = async (url, data, method, addAccessToken) => {
         response.data = error?.response?.data?.data?.data ?? error?.response?.data?.data ?? error?.response?.data;
         response.status = error.response.status;
         response.statusText = error.response.statusText;
+        ErrorLogger('API Response with Error ::', response.data)
     }
     return response;
 };

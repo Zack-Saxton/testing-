@@ -120,7 +120,6 @@ export async function PopulatePartnerSignup(
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
     ErrorLogger("Error executing PopulatePartnerSignup API", error);
-    toast.error("Error executing PopulatePartnerSignup API");
   }
 }
 export async function partnerConfirmInfo(dataConfirmInfo, history) {

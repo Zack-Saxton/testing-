@@ -47,6 +47,7 @@ import {
 import { tabAtom } from "./MyProfileTab";
 import { useStylesMyProfile } from "./Style";
 import "./Style.css";
+import ErrorLogger from "../../lib/ErrorLogger";
 //Yup validations for Add Bank Account
 const validationSchemaDebitCard = yup.object({
     cardNumber: yup
@@ -221,7 +222,7 @@ export default function PaymentMethod() {
                 formikAddDebitCard.setFieldValue("state", "");
             }
         } catch (error) {
-            toast.error("Error from [fetchAddress]");
+            ErrorLogger("Error from [fetchAddress]", error);
         }
     };
 

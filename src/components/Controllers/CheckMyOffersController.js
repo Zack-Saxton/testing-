@@ -418,6 +418,7 @@ export async function checkMyOfferSubmitTest(customer) {
 			response.appSubmissionResult = result;
 		}
 	} catch (error) {
+		ErrorLogger("Error executing psa_digifi API", error);
 		response.appSubmissionResult = error.response;
 	}
 	return response;
