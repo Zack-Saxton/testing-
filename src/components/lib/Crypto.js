@@ -16,7 +16,7 @@ export const decryptAES = (encryptedBase64) => {
         return 'error 1';
       }
     } catch (error) {
-      ErrorLogger(' Error from decryptAES.')
+      ErrorLogger(' Error from decryptAES.', error)
       return 'error 2';
     }
   }
