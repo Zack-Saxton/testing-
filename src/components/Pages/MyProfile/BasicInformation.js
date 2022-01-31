@@ -8,7 +8,8 @@ import { useQuery } from 'react-query';
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
-import profileImg from "../../../assets/images/profile-img.png";
+import * as imageConversion from 'image-conversion';
+import profileImg from "../../../assets/images/profile-img.jpg";
 import { ProfilePicture } from "../../../contexts/ProfilePicture";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import LogoutController from "../../Controllers/LogoutController";
@@ -41,6 +42,14 @@ const validationSchema = yup.object({
     .matches(/^(\d)(?!\1+$)\d{9}$/, "Please enter a valid Phone number")
     .min(10, "Name must contain at least 10 digits"),
 });
+
+async function filetoImage(file) {
+  try {
+  return await imageConversion.filetoDataURL(file);  
+} catch (error) {  
+  Error("Error executing image conversion");
+}
+}
 
 export default function BasicInformation(props) {
 
@@ -88,7 +97,6 @@ export default function BasicInformation(props) {
       onClose: () => logOut(),
     });
   };
-
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -153,15 +161,26 @@ export default function BasicInformation(props) {
             let reader = new FileReader();
             if (selectedFile.files && selectedFile.files[ 0 ]) {
               reader.onload = async () => {
-                const buffer2 = Buffer.from(reader.result, "base64");
+                
+                const compress_file = await imageConversion.compressAccurately(selectedFile.files[0], {
+                  size:80,
+                  accuracy:'',
+                  type: "image/jpeg", 
+                  width: '',
+                  height: "200",
+                  scale: 0.5,  
+                  orientation:2
+                });
+        const compress_image = await filetoImage(compress_file);
+                 const buffer2 = Buffer.from(compress_image, "base64");
                 let encodedFile = Buffer.from(buffer2).toString("base64");
-                let imageData = encodedFile
+                 let imageData = encodedFile
                   .toString()
                   .replace(/^dataimage\/[a-z]+base64/, "");
-                let fileName = selectedFile.files[ 0 ].name;
-                let fileType = selectedFile.files[ 0 ].type;
+                  let fileName = selectedFile.files[0].name;
+                  fileName = fileName.substr(0, fileName.lastIndexOf(".")) + ".jpeg";
+                  let fileType = compress_file.type;
                 let documentType = docType;
-
                 let email = basicInfo?.email === values.email ? basicInfo?.email : values.email;
 
                 let uploadData = await uploadNewProfileImage(imageData, fileName, fileType, documentType, email);
@@ -221,7 +240,7 @@ export default function BasicInformation(props) {
                 else {
                   if (!toast.isActive("closeToast")) {
                     toast.error(
-                      "1) Error uploading file",
+                      " Error uploading file",
                       {
                         toastId: "closeToast",
                         onClose: () => {

@@ -40,7 +40,7 @@ import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import logoIcon from "../../../assets/images/Favicon.png";
 import logoImage from "../../../assets/images/Normallogo.png";
-import profileImg from "../../../assets/images/profile-img.png";
+import profileImg from "../../../assets/images/profile-img.jpg";
 import quickPay from "../../../assets/images/quickpay.png";
 import { CheckMyOffers } from "../../../contexts/CheckMyOffers";
 import { ProfilePicture } from "../../../contexts/ProfilePicture";
