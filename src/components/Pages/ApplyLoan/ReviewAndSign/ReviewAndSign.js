@@ -426,7 +426,7 @@ export default function ReviewAndSign(props) {
                         setLoading(true);
                         let data = {};
                         let authenticateStatus = await APICall("esignature_complete",'', data, "POST", true);
-                        if (authenticateStatus?.data?.result === "success") {
+                        if (authenticateStatus?.data?.message === "Applicant successfully updated") {
                           let hardPull = await hardPullCheck();
                           if (hardPull?.data?.status === 200 || hardPull?.data?.result === "success") {
                             setLoading(false);

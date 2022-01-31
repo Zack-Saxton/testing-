@@ -88,7 +88,7 @@ export default function BankAccountVerification(props) {
 	const [invalidRN, setInvalidRN] = useState(false);
 	const [openAutoPayAuth, setOpenAutoPayAuth] = useState(false);
 	const handleUpload = (res) => {
-		if (res?.bank_account_verification) {
+		if (res?.data?.bank_account_verification) {
 			toast.success(messages?.document?.uploadSuccess);
 			props.next();
 		} else {

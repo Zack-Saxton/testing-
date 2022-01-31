@@ -21,7 +21,7 @@ export default function IncomeVerification(props) {
 	const history = useHistory();
 	const classes = useStyles();
 	const handleUpload = (res) => {
-		if (res?.income_verification) {
+		if (res?.data?.income_verification) {
 			toast.success("Document uploaded successfully!");
 		} else {
 			toast.error("Document submission failed. Please try again");
