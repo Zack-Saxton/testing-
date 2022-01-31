@@ -34,7 +34,7 @@ const APICall = async (api, param, data, method, addAccessToken) => {
     });
   } catch (error) {
     if(api !== "error_logger"){
-      ErrorLogger(error.stack, error.message)
+      ErrorLogger(error.message, error.stack)
     }
     response.data = error?.response?.data?.data?.data ?? error?.response?.data?.data ?? error?.response?.data;
     response.status = error.response.status;
