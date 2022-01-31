@@ -21,7 +21,6 @@ export async function getNoticationData() {
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
     ErrorLogger("Error executing getNoticationData API", error);
-    Error("Error executing getNoticationData API");
   }
 }
 
@@ -43,6 +42,5 @@ export async function setUnread(notificationId, id, isDelete,) {
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
     ErrorLogger("Error executing setUnread API", error);
-    Error("Error executing setUnread API");
   }
 }

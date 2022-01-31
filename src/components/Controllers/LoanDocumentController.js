@@ -17,7 +17,6 @@ export async function loanDocumentController(accNo) {
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
     ErrorLogger("Error executing loanDocumentController API", error);
-    Error("Error executing loanDocumentController API");
   }
 }
 
@@ -93,7 +92,7 @@ export async function uploadDocument(test, fileName, fileType, documentType) {
     compressedFile: [
       {
         data: test,
-        mimetype: fileType, 
+        mimetype: fileType,
         documentType: documentType,
         fileName: fileName,
       },

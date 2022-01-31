@@ -15,6 +15,5 @@ export default async function LoanHistoryController() {
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
     ErrorLogger("Error executing LoanHistoryController API", error);
-    Error("Error executing LoanHistoryController API");
   }
 }

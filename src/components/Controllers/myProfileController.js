@@ -18,7 +18,6 @@ export async function changePassword(oldPassword, newPassword) {
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
     ErrorLogger("Error executing changePassword API", error);
-    Error("Error executing changePassword API");
   }
 }
 
@@ -40,7 +39,6 @@ export async function basicInformation(body) {
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
     ErrorLogger("Error executing basicInformation API", error);
-    Error("Error executing basicInformation API");
   }
 }
 
@@ -64,7 +62,6 @@ export async function mailingAddress(body) {
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
     ErrorLogger("Error executing mailingAddress API", error);
-    Error("Error executing mailingAddress API");
   }
 }
 
@@ -110,7 +107,6 @@ export async function textNotification(body, sub) {
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
     ErrorLogger("Error executing textNotification API", error);
-    Error("Error executing textNotification API");
   }
 }
 
@@ -154,7 +150,6 @@ export async function getTextNotify() {
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
     ErrorLogger("Error executing getTextNotify API", error);
-    Error("Error executing getTextNotify API");
   }
 }
 
@@ -184,7 +179,6 @@ export async function uploadNewProfileImage(imgData, fileName, fileType, documen
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
     ErrorLogger("Error executing uploadNewProfileImage API", error);
-    Error("Error executing uploadNewProfileImage API");
   }
 }
 
@@ -211,7 +205,6 @@ export async function addCreditCard(values, cardType) {
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
     ErrorLogger("Error executing addCreditCard API", error);
-    Error("Error executing addCreditCard API");
   }
 }
 
@@ -225,7 +218,6 @@ export async function getPaymentMethods() {
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
     ErrorLogger("Error executing getPaymentMethods API", error);
-    Error("Error executing getPaymentMethods API");
   }
 }
 
@@ -239,7 +231,6 @@ export async function deleteCreditCard(passData) {
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
     ErrorLogger("Error executing deleteCreditCard API", error);
-    Error("Error executing deleteCreditCard API");
   }
 }
 
@@ -253,7 +244,6 @@ export async function deleteBankAccount(passData) {
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
     ErrorLogger("Error executing deleteBankAccount API", error);
-    Error("Error executing deleteBankAccount API");
   }
 }
 
@@ -267,6 +257,5 @@ export async function setDefaultPayment(passData) {
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
     ErrorLogger("Error executing setDefaultPayment API", error);
-    Error("Error executing setDefaultPayment API");
   }
 }

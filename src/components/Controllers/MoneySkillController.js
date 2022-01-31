@@ -14,6 +14,5 @@ export default async function getMoneySkillLink() {
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
     ErrorLogger("Error executing getMoneySkillLink API", error);
-    Error("Error executing getMoneySkillLink API");
   }
 }

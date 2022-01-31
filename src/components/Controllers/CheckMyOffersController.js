@@ -438,7 +438,6 @@ export async function getCustomerByEmail(email) {
 		return await APICall(url, param, data, method, addAccessToken);
 	} catch (error) {
 		ErrorLogger("Error executing getCustomerByEmail API", error);
-		Error("Error executing getCustomerByEmail API");
 	}
 }
 
@@ -486,6 +485,5 @@ export async function creatProspect(body) {
 		return await APICall(url, param, data, method, addAccessToken);
 	} catch (error) {
 		ErrorLogger("Error executing creatProspect API", error);
-		Error("Error executing creatProspect API");
 	}
 }

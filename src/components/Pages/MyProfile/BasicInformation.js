@@ -14,13 +14,7 @@ import { ProfilePicture } from "../../../contexts/ProfilePicture";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import LogoutController from "../../Controllers/LogoutController";
 import { basicInformation, uploadNewProfileImage } from "../../Controllers/myProfileController";
-import {
-  ButtonPrimary,
-  ButtonSecondary,
-  EmailTextField,
-  PhoneNumber,
-  TextField
-} from "../../FormsUI";
+import { ButtonPrimary, ButtonSecondary, EmailTextField, PhoneNumber, TextField } from "../../FormsUI";
 import "./Style.css";
 
 
@@ -33,7 +27,6 @@ const validationSchema = yup.object({
       "A valid email address is required"
     )
     .required("Your email address is required"),
-
   phone: yup
     .string("Enter a name")
     .required("Your Phone number is required")
@@ -45,10 +38,10 @@ const validationSchema = yup.object({
 
 async function filetoImage(file) {
   try {
-  return await imageConversion.filetoDataURL(file);  
-} catch (error) {  
-  Error("Error executing image conversion");
-}
+    return await imageConversion.filetoDataURL(file);
+  } catch (error) {
+    Error("Error executing image conversion");
+  }
 }
 
 export default function BasicInformation(props) {
@@ -57,9 +50,7 @@ export default function BasicInformation(props) {
   const [ loading, setLoading ] = useState(false);
   const { dataProfile, setData } = useContext(ProfilePicture);
   const history = useHistory();
-
   const { refetch } = useQuery('loan-data', usrAccountDetails);
-
   let basicData = props?.basicInformationData?.identification != null ? props.basicInformationData.identification : null;
   let basicInfo = props?.basicInformationData?.latest_contact != null ? props.basicInformationData.latest_contact : null;
   let profileImageData = props?.getProfileImage != null ? props.getProfileImage : profileImg;
@@ -68,8 +59,6 @@ export default function BasicInformation(props) {
   var appStatus = [ "rejected", "reffered", "expired" ];
   let checkAppStatus = appStatus.includes(hasApplicationStatus);
   let disableField = (checkAppStatus === true || hasActiveLoan === true) ? true : false;
-
-
   const [ selectedFile, setSelectedFile ] = useState(null);
   const [ docType ] = useState("");
   const [ uploadedImage, setuploadedImage ] = useState(null);
@@ -132,7 +121,6 @@ export default function BasicInformation(props) {
         }
       };
 
-
       const uploadBasicInfoChangeLogOut = () => {
         if (!toast.isActive("closeToast")) {
           refetch().then(() => toast.success("Updated Successfully", {
@@ -144,7 +132,6 @@ export default function BasicInformation(props) {
           }));
         }
       };
-
 
       const uploadBasicInfoImageChange = async () => {
         if (selectedFile !== null) {
@@ -161,25 +148,25 @@ export default function BasicInformation(props) {
             let reader = new FileReader();
             if (selectedFile.files && selectedFile.files[ 0 ]) {
               reader.onload = async () => {
-                
-                const compress_file = await imageConversion.compressAccurately(selectedFile.files[0], {
-                  size:80,
-                  accuracy:'',
-                  type: "image/jpeg", 
+
+                const compress_file = await imageConversion.compressAccurately(selectedFile.files[ 0 ], {
+                  size: 80,
+                  accuracy: '',
+                  type: "image/jpeg",
                   width: '',
                   height: "200",
-                  scale: 0.5,  
-                  orientation:2
+                  scale: 0.5,
+                  orientation: 2
                 });
-        const compress_image = await filetoImage(compress_file);
-                 const buffer2 = Buffer.from(compress_image, "base64");
+                const compress_image = await filetoImage(compress_file);
+                const buffer2 = Buffer.from(compress_image, "base64");
                 let encodedFile = Buffer.from(buffer2).toString("base64");
-                 let imageData = encodedFile
+                let imageData = encodedFile
                   .toString()
                   .replace(/^dataimage\/[a-z]+base64/, "");
-                  let fileName = selectedFile.files[0].name;
-                  fileName = fileName.substr(0, fileName.lastIndexOf(".")) + ".jpeg";
-                  let fileType = compress_file.type;
+                let fileName = selectedFile.files[ 0 ].name;
+                fileName = fileName.substr(0, fileName.lastIndexOf(".")) + ".jpeg";
+                let fileType = compress_file.type;
                 let documentType = docType;
                 let email = basicInfo?.email === values.email ? basicInfo?.email : values.email;
 
@@ -192,20 +179,14 @@ export default function BasicInformation(props) {
                         : ""
                   });
 
-                  Cookies.set("profile_picture_url",
-                    uploadData?.data?.profile_picture_url
-                      ? uploadData?.data?.profile_picture_url
-                      : ""
-                  );
+                  Cookies.set("profile_picture_url", uploadData?.data?.profile_picture_url ? uploadData?.data?.profile_picture_url : "");
 
                   if (!toast.isActive("closeToast")) {
                     toast.success(
-
                       "Updated Successfully",
                       {
                         toastId: "closeToast",
                         onClose: () => {
-
                           if ((formik.initialValues.email !== values.email && selectedFile !== null) || (formik.initialValues.phone !== values.phone && formik.initialValues.email !== values.email && selectedFile !== null)) {
                             setuploadedImage(uploadData?.data?.profile_picture_url);
                             props.AsyncEffect_profileImage();
@@ -215,22 +196,18 @@ export default function BasicInformation(props) {
                             logoutUser();
 
                           }
-
                           else if ((formik.initialValues.phone !== values.phone && selectedFile !== null)) {
-
                             setuploadedImage(uploadData?.data?.profile_picture_url);
                             props.AsyncEffect_profileImage();
                             refetch();
                             setLoading(false);
                             onClickCancelChange();
-
                           }
                           else {
                             setLoading(false);
                             setuploadedImage(uploadData?.data?.profile_picture_url);
                             props.AsyncEffect_profileImage();
                             onClickCancelChange();
-
                           }
                         }
                       }
@@ -253,7 +230,6 @@ export default function BasicInformation(props) {
 
               };
               reader.readAsDataURL(selectedFile.files[ 0 ]);
-
             }
           } else {
             if (selectedFile.files[ 0 ].size > 819200) {
@@ -274,16 +250,13 @@ export default function BasicInformation(props) {
             onClose: () => { setLoading(false); }
           });
         }
-
       }
       else {
         let res = await basicInformation(body);
 
         if ((formik.initialValues.email !== values.email && selectedFile !== null) || (formik.initialValues.phone !== values.phone && formik.initialValues.email !== values.email && selectedFile !== null) || (formik.initialValues.phone !== values.phone && selectedFile !== null)) {
           if (res?.data?.notes.length !== 0 && selectedFile !== null) {
-
             uploadBasicInfoImageChange();
-
           }
         }
         else if (selectedFile !== null) {
@@ -299,7 +272,6 @@ export default function BasicInformation(props) {
             uploadBasicInfoChangeLogOut();
           }
         }
-
         else {
           if (!toast.isActive("closeToast")) {
             toast.error("Please try again", {
@@ -308,22 +280,15 @@ export default function BasicInformation(props) {
             });
           }
         }
-
-
       }
-
     }
-
   });
-
-
 
   const preventSpace = (event) => {
     if (event.keyCode === 32) {
       event.preventDefault();
     }
   };
-
 
   return (
     <div>
@@ -334,7 +299,6 @@ export default function BasicInformation(props) {
         { props?.basicInformationData === null ? (
           <Grid align="center"><CircularProgress /></Grid>
         ) : <>
-
           <Grid
             item
             xs={ 12 }
@@ -352,7 +316,6 @@ export default function BasicInformation(props) {
               disabled={ true }
             />
           </Grid>
-
           <Grid
             item
             xs={ 12 }
@@ -369,7 +332,6 @@ export default function BasicInformation(props) {
               value={ basicData?.last_name ? basicData?.last_name : "" }
             />
           </Grid>
-
           <Grid
             item
             xs={ 12 }
@@ -387,7 +349,6 @@ export default function BasicInformation(props) {
               value={ basicData?.date_of_birth ? Moment(basicData?.date_of_birth).format("MM/DD/YYYY") : "" }
             />
           </Grid>
-
           <Grid
             item
             xs={ 12 }
