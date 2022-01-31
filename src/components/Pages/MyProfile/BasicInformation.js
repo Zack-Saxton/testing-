@@ -1,26 +1,26 @@
-import React, { useContext, useState } from "react";
-import Grid from "@material-ui/core/Grid";
-import "./Style.css";
-import Moment from "moment";
-import { basicInformation, uploadNewProfileImage, } from "../../Controllers/myProfileController";
-import LogoutController from "../../Controllers/LogoutController";
 import CircularProgress from '@material-ui/core/CircularProgress';
-import profileImg from "../../../assets/images/profile-img.png";
+import Grid from "@material-ui/core/Grid";
+import { useFormik } from "formik";
+import Cookies from "js-cookie";
+import Moment from "moment";
+import React, { useContext, useState } from "react";
+import { useQuery } from 'react-query';
+import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
+import * as yup from "yup";
+import profileImg from "../../../assets/images/profile-img.png";
+import { ProfilePicture } from "../../../contexts/ProfilePicture";
+import usrAccountDetails from "../../Controllers/AccountOverviewController";
+import LogoutController from "../../Controllers/LogoutController";
+import { basicInformation, uploadNewProfileImage } from "../../Controllers/myProfileController";
 import {
   ButtonPrimary,
   ButtonSecondary,
   EmailTextField,
   PhoneNumber,
-  TextField,
+  TextField
 } from "../../FormsUI";
-import { useFormik } from "formik";
-import * as yup from "yup";
-import Cookies from "js-cookie";
-import { ProfilePicture } from "../../../contexts/ProfilePicture";
-import { useHistory } from "react-router-dom";
-import {useQuery} from 'react-query';
-import usrAccountDetails from "../../Controllers/AccountOverviewController";
+import "./Style.css";
 
 
 const validationSchema = yup.object({
@@ -45,25 +45,25 @@ const validationSchema = yup.object({
 export default function BasicInformation(props) {
 
   window.zeHide();
-  const [loading, setLoading] = useState(false);
+  const [ loading, setLoading ] = useState(false);
   const { dataProfile, setData } = useContext(ProfilePicture);
   const history = useHistory();
 
-  const {refetch } = useQuery('loan-data', usrAccountDetails )
+  const { refetch } = useQuery('loan-data', usrAccountDetails);
 
   let basicData = props?.basicInformationData?.identification != null ? props.basicInformationData.identification : null;
   let basicInfo = props?.basicInformationData?.latest_contact != null ? props.basicInformationData.latest_contact : null;
   let profileImageData = props?.getProfileImage != null ? props.getProfileImage : profileImg;
   let hasActiveLoan = Cookies.get("hasActiveLoan") === "true" ? true : false;
-  let hasApplicationStatus = Cookies.get("hasApplicationStatus")
-  var appStatus = ["rejected", "reffered", "expired"];
-  let checkAppStatus = appStatus.includes(hasApplicationStatus)
+  let hasApplicationStatus = Cookies.get("hasApplicationStatus");
+  var appStatus = [ "rejected", "reffered", "expired" ];
+  let checkAppStatus = appStatus.includes(hasApplicationStatus);
   let disableField = (checkAppStatus === true || hasActiveLoan === true) ? true : false;
 
 
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [docType] = useState("");
-  const [uploadedImage, setuploadedImage] = useState(null);
+  const [ selectedFile, setSelectedFile ] = useState(null);
+  const [ docType ] = useState("");
+  const [ uploadedImage, setuploadedImage ] = useState(null);
 
   const handleInputChange = () => {
     document.getElementById("selectImage").click();
@@ -111,29 +111,31 @@ export default function BasicInformation(props) {
       let body = {
         primaryPhoneNumber: phone,
         email: values.email,
-      }
+      };
       const uploadBasicInfoChange = () => {
         if (!toast.isActive("closeToast")) {
-          refetch().then(()=>toast.success("Updated Successfully", {
+          refetch().then(() => toast.success("Updated Successfully", {
             toastId: "closeToast",
             onClose: () => {
               setLoading(false);
-              onClickCancelChange()
+              onClickCancelChange();
             }
-          }));}
-      }
+          }));
+        }
+      };
 
 
       const uploadBasicInfoChangeLogOut = () => {
         if (!toast.isActive("closeToast")) {
-          refetch().then(()=>toast.success("Updated Successfully", {
+          refetch().then(() => toast.success("Updated Successfully", {
             toastId: "closeToast",
             onClose: () => {
-              logoutUser()
-              onClickCancelChange()
+              logoutUser();
+              onClickCancelChange();
             }
-          }));}
-      }
+          }));
+        }
+      };
 
 
       const uploadBasicInfoImageChange = async () => {
@@ -145,19 +147,19 @@ export default function BasicInformation(props) {
               "Please upload file having extensions .jpeg .jpg .png only. ");
             setLoading(false);
             selectedFile.value = "";
-            return false
+            return false;
 
-          } else if (selectedFile.files[0].size <= 819200) {
+          } else if (selectedFile.files[ 0 ].size <= 819200) {
             let reader = new FileReader();
-            if (selectedFile.files && selectedFile.files[0]) {
+            if (selectedFile.files && selectedFile.files[ 0 ]) {
               reader.onload = async () => {
                 const buffer2 = Buffer.from(reader.result, "base64");
                 let encodedFile = Buffer.from(buffer2).toString("base64");
                 let imageData = encodedFile
                   .toString()
                   .replace(/^dataimage\/[a-z]+base64/, "");
-                let fileName = selectedFile.files[0].name;
-                let fileType = selectedFile.files[0].type;
+                let fileName = selectedFile.files[ 0 ].name;
+                let fileType = selectedFile.files[ 0 ].type;
                 let documentType = docType;
 
                 let email = basicInfo?.email === values.email ? basicInfo?.email : values.email;
@@ -186,34 +188,34 @@ export default function BasicInformation(props) {
                         onClose: () => {
 
                           if ((formik.initialValues.email !== values.email && selectedFile !== null) || (formik.initialValues.phone !== values.phone && formik.initialValues.email !== values.email && selectedFile !== null)) {
-                            setuploadedImage(uploadData?.data?.profile_picture_url)
-                            props.AsyncEffect_profileImage()
-                            refetch()
+                            setuploadedImage(uploadData?.data?.profile_picture_url);
+                            props.AsyncEffect_profileImage();
+                            refetch();
                             setLoading(false);
-                            onClickCancelChange()
-                            logoutUser()
+                            onClickCancelChange();
+                            logoutUser();
 
                           }
 
                           else if ((formik.initialValues.phone !== values.phone && selectedFile !== null)) {
 
-                            setuploadedImage(uploadData?.data?.profile_picture_url)
-                            props.AsyncEffect_profileImage()
-                            refetch()
+                            setuploadedImage(uploadData?.data?.profile_picture_url);
+                            props.AsyncEffect_profileImage();
+                            refetch();
                             setLoading(false);
-                            onClickCancelChange()
+                            onClickCancelChange();
 
                           }
                           else {
                             setLoading(false);
-                            setuploadedImage(uploadData?.data?.profile_picture_url)
-                            props.AsyncEffect_profileImage()
-                            onClickCancelChange()
+                            setuploadedImage(uploadData?.data?.profile_picture_url);
+                            props.AsyncEffect_profileImage();
+                            onClickCancelChange();
 
                           }
                         }
                       }
-                    )
+                    );
                   }
                 }
                 else {
@@ -231,11 +233,11 @@ export default function BasicInformation(props) {
                 }
 
               };
-              reader.readAsDataURL(selectedFile.files[0]);
+              reader.readAsDataURL(selectedFile.files[ 0 ]);
 
             }
           } else {
-            if (selectedFile.files[0].size > 819200) {
+            if (selectedFile.files[ 0 ].size > 819200) {
               toast.error("Please upload file size below 800kb ");
               setLoading(false);
             } else if (docType == null) {
@@ -244,7 +246,7 @@ export default function BasicInformation(props) {
             }
           }
         }
-      }
+      };
 
       if (formik.initialValues.phone === phone && formik.initialValues.email === values.email && selectedFile === null) {
         if (!toast.isActive("closeToast")) {
@@ -261,21 +263,21 @@ export default function BasicInformation(props) {
         if ((formik.initialValues.email !== values.email && selectedFile !== null) || (formik.initialValues.phone !== values.phone && formik.initialValues.email !== values.email && selectedFile !== null) || (formik.initialValues.phone !== values.phone && selectedFile !== null)) {
           if (res?.data?.notes.length !== 0 && selectedFile !== null) {
 
-            uploadBasicInfoImageChange()
+            uploadBasicInfoImageChange();
 
           }
         }
         else if (selectedFile !== null) {
-          uploadBasicInfoImageChange()
+          uploadBasicInfoImageChange();
         }
         else if (formik.initialValues.phone !== values.phone && formik.initialValues.email === values.email) {
           if (res?.data?.notes.length !== 0 && res?.data?.emailUpdate === true) {
-            uploadBasicInfoChange()
+            uploadBasicInfoChange();
           }
         }
         else if (formik.initialValues.email !== values.email || (formik.initialValues.phone !== values.phone && formik.initialValues.email !== values.email)) {
           if (res?.data?.notes.length !== 0 && res?.data?.emailUpdate === true) {
-            uploadBasicInfoChangeLogOut()
+            uploadBasicInfoChangeLogOut();
           }
         }
 
@@ -306,18 +308,18 @@ export default function BasicInformation(props) {
 
   return (
     <div>
-      <form onSubmit={formik.handleSubmit} style={{
+      <form onSubmit={ formik.handleSubmit } style={ {
         opacity: loading ? 0.55 : 1,
         pointerEvents: loading ? "none" : "initial"
-      }}>
-        {props?.basicInformationData === null ? (
+      } }>
+        { props?.basicInformationData === null ? (
           <Grid align="center"><CircularProgress /></Grid>
         ) : <>
 
           <Grid
             item
-            xs={12}
-            style={{ width: "100%", gap: 15, marginBottom: 18 }}
+            xs={ 12 }
+            style={ { width: "100%", gap: 15, marginBottom: 18 } }
             container
             direction="row"
           >
@@ -327,15 +329,15 @@ export default function BasicInformation(props) {
               label="First Name"
               name="firstname"
               type="text"
-              value={basicData?.first_name ? basicData?.first_name : ""}
-              disabled={true}
+              value={ basicData?.first_name ? basicData?.first_name : "" }
+              disabled={ true }
             />
           </Grid>
 
           <Grid
             item
-            xs={12}
-            style={{ width: "100%", gap: 15, marginBottom: 18 }}
+            xs={ 12 }
+            style={ { width: "100%", gap: 15, marginBottom: 18 } }
             container
             direction="row"
           >
@@ -344,15 +346,15 @@ export default function BasicInformation(props) {
               label="Last Name"
               name="lastname"
               type="text"
-              disabled={true}
-              value={basicData?.last_name ? basicData?.last_name : ""}
+              disabled={ true }
+              value={ basicData?.last_name ? basicData?.last_name : "" }
             />
           </Grid>
 
           <Grid
             item
-            xs={12}
-            style={{ width: "100%", gap: 15, marginBottom: 18 }}
+            xs={ 12 }
+            style={ { width: "100%", gap: 15, marginBottom: 18 } }
             container
             direction="row"
           >
@@ -361,16 +363,16 @@ export default function BasicInformation(props) {
               label="Date of Birth"
               name="dob"
               type="date"
-              format={"DD/MM/YYYY"}
-              disabled={true}
-              value={basicData?.date_of_birth ? Moment(basicData?.date_of_birth).format("MM/DD/YYYY") : ""}
+              format={ "DD/MM/YYYY" }
+              disabled={ true }
+              value={ basicData?.date_of_birth ? Moment(basicData?.date_of_birth).format("MM/DD/YYYY") : "" }
             />
           </Grid>
 
           <Grid
             item
-            xs={12}
-            style={{ width: "100%", gap: 15, marginBottom: 18 }}
+            xs={ 12 }
+            style={ { width: "100%", gap: 15, marginBottom: 18 } }
             container
             direction="row"
           >
@@ -379,58 +381,58 @@ export default function BasicInformation(props) {
               id="email"
               name="email"
               label="Email Address"
-              disabled={disableField === true ? false : true}
-              onKeyDown={preventSpace}
-              value={formik.values.email}
-              materialProps={{ maxLength: "100" }}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={formik.touched.email && Boolean(formik.errors.email)}
-              helperText={formik.touched.email && formik.errors.email}
+              disabled={ disableField === true ? false : true }
+              onKeyDown={ preventSpace }
+              value={ formik.values.email }
+              materialProps={ { maxLength: "100" } }
+              onChange={ formik.handleChange }
+              onBlur={ formik.handleBlur }
+              error={ formik.touched.email && Boolean(formik.errors.email) }
+              helperText={ formik.touched.email && formik.errors.email }
             />
           </Grid>
           <Grid
             item
-            xs={12}
-            style={{ width: "100%", gap: 15, marginBottom: 18 }}
+            xs={ 12 }
+            style={ { width: "100%", gap: 15, marginBottom: 18 } }
             container
             direction="row"
-            id={disableField === true ? "basicPhoneNumber" : "profilePhoneNumberWrap"}
+            id={ disableField === true ? "basicPhoneNumber" : "profilePhoneNumberWrap" }
           >
             <PhoneNumber
               name="phone"
               label="Primary Phone Number"
               placeholder="Enter your phone number"
               id="phone"
-              disabled={disableField === true ? false : true}
-              onKeyDown={preventSpace}
-              value={formik.values.phone}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={formik.touched.phone && Boolean(formik.errors.phone)}
-              helperText={formik.touched.phone && formik.errors.phone}
+              disabled={ disableField === true ? false : true }
+              onKeyDown={ preventSpace }
+              value={ formik.values.phone }
+              onChange={ formik.handleChange }
+              onBlur={ formik.handleBlur }
+              error={ formik.touched.phone && Boolean(formik.errors.phone) }
+              helperText={ formik.touched.phone && formik.errors.phone }
             />
           </Grid>
 
           <Grid container direction="row">
-            <Grid id="imgUploadWrap" item xs={8} sm={3}>
+            <Grid id="imgUploadWrap" item xs={ 8 } sm={ 3 }>
               <img
-                style={{ width: "100%" }}
-                src={uploadedImage !== null ? uploadedImage : profileImageData}
+                style={ { width: "100%" } }
+                src={ uploadedImage !== null ? uploadedImage : profileImageData }
                 align="left"
                 alt="Profile Pic"
               />
 
             </Grid>
 
-            <Grid item xs={12} sm={6} style={{ paddingTop: "10px" }}>
+            <Grid item xs={ 12 } sm={ 6 } style={ { paddingTop: "10px" } }>
               <ButtonSecondary
                 stylebutton='{"background": "#FFFFFF", "padding":"0px 30px","fontWeight":"700","color": "#214476","fontSize":"0.938rem","borderWidth":"1","borderStyle": "solid"}'
                 id="uploadProfileImage"
                 variant="contained"
                 component="span"
-                onClick={handleInputChange}
-                disabled={disableField === true ? false : true}
+                onClick={ handleInputChange }
+                disabled={ disableField === true ? false : true }
               >
                 Upload New Photo
               </ButtonSecondary>
@@ -443,26 +445,26 @@ export default function BasicInformation(props) {
                 type="file"
               />
               <br></br>
-              <small style={{ fontSize: "12px", color: "#595959" }}>
+              <small style={ { fontSize: "12px", color: "#595959" } }>
                 Allowed jpg, gif or png. Max size of 800kb
               </small>
             </Grid>
           </Grid>
           <Grid
             container
-            style={{ justifyContent: "left" }}
+            style={ { justifyContent: "left" } }
             alignItems="center"
             item
-            lg={8}
-            md={8}
-            xs={12}
+            lg={ 8 }
+            md={ 8 }
+            xs={ 12 }
             className="textBlock alignButton"
           >
             <ButtonSecondary
               stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
               styleicon='{ "color":"" }'
-              onClick={onClickCancelChange}
-              disabled={disableField === true ? false : true}
+              onClick={ onClickCancelChange }
+              disabled={ disableField === true ? false : true }
             >
               Cancel
             </ButtonSecondary>
@@ -471,22 +473,22 @@ export default function BasicInformation(props) {
               stylebutton='{"marginLeft": "", "color":"#171717", "fontWeight":"700", "marginLeft": "5px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
               styleicon='{ "color":"" }'
               type="submit"
-              disabled={loading}
+              disabled={ loading }
 
             >
               Save Changes
               <i
                 className="fa fa-refresh fa-spin customSpinner"
-                style={{
+                style={ {
                   marginRight: "10px",
                   display: loading ? "block" : "none",
                   color: "blue"
-                }}
+                } }
               />
             </ButtonPrimary>
 
           </Grid>
-        </>}
+        </> }
       </form>
     </div>
   );

@@ -1,5 +1,6 @@
 import { toast } from "react-toastify";
 import APICall from "../lib/AxiosLib";
+import ErrorLogger from "../lib/ErrorLogger";
 
 /***** My branch details *****/
 export default async function MyBranchAPI() {
@@ -14,6 +15,7 @@ export default async function MyBranchAPI() {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
+    ErrorLogger("Error executing MyBranchAPI API", error);
     Error("Error executing MyBranchAPI API");
   }
 }

@@ -18,7 +18,7 @@ const DatePickerWrapper = ({ name, format, defaultDate, label, placeholder, maxd
 
 	// The first commit of Material-UI
 	//const currentDate = new Date();
-	const [selectedDate, setSelectedDate] = React.useState(null);
+	const [ selectedDate, setSelectedDate ] = React.useState(null);
 	const handleDateChange = (date) => {
 		setSelectedDate(date);
 	};
@@ -30,28 +30,28 @@ const DatePickerWrapper = ({ name, format, defaultDate, label, placeholder, maxd
 
 
 	return (
-		<MuiPickersUtilsProvider utils={DateFnsUtils}>
+		<MuiPickersUtilsProvider utils={ DateFnsUtils }>
 			<Grid container justifyContent="space-around">
 				<KeyboardDatePicker
 					margin="normal"
 					id="date-picker-dialog"
-					label={label}
-					fullWidth={true}
-					format={format ?? 'MM/dd/yyyy'}
-					value={selectedDate}
-					onChange={handleDateChange}
-					InputAdornmentProps={{ position: 'start' }}
-					minDate={minDate}
-					maxDate={new Date(maxdate)}
-					placeholder={placeholder}
+					label={ label }
+					fullWidth={ true }
+					format={ format ?? 'MM/dd/yyyy' }
+					value={ selectedDate }
+					onChange={ handleDateChange }
+					InputAdornmentProps={ { position: 'start' } }
+					minDate={ minDate }
+					maxDate={ new Date(maxdate) }
+					placeholder={ placeholder }
 
-					KeyboardButtonProps={{
+					KeyboardButtonProps={ {
 						"aria-label": "change date",
-					}}
+					} }
 
 
-					{...otherProps}
-					inputProps={{ "data-test-id": "datePicker" }}
+					{ ...otherProps }
+					inputProps={ { "data-test-id": "datePicker" } }
 
 				/>
 			</Grid>

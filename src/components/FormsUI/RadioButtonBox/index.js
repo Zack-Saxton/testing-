@@ -7,9 +7,9 @@ Functionality       :    To use this Radio button as a default component for UI 
 
 #################################################################################################################*/
 
-import React from "react";
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import React from "react";
 
 const RadioButtonBoxWrapper = ({
   children,
@@ -49,8 +49,8 @@ const RadioButtonBoxWrapper = ({
 
   //View Part
   return (
-    <Button {...configRadioButtonBox} style={styleButtonMF}>
-      {children}
+    <Button { ...configRadioButtonBox } style={ styleButtonMF }>
+      { children }
     </Button>
   );
 };

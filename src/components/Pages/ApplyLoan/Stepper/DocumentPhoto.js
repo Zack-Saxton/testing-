@@ -7,7 +7,7 @@ import { errorMessage } from "../../../../helpers/ErrorMessage";
 import APICall from "../../../lib/AxiosLib";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
-import messages from "../../../lib/Lang/applyForLoan.json"
+import messages from "../../../lib/Lang/applyForLoan.json";
 
 //Styling
 const useStyles = makeStyles((theme) => ({
@@ -19,8 +19,8 @@ const useStyles = makeStyles((theme) => ({
 //View Part
 export default function DocumentPhoto(props) {
 	const classes = useStyles();
-	const [iframeSrc, setIframeSrc] = useState("");
-	const [error, setError] = useState(false);
+	const [ iframeSrc, setIframeSrc ] = useState("");
+	const [ error, setError ] = useState(false);
 	//Load the IFrame
 	async function loadIframe() {
 		let iframe = await getIframe();
@@ -39,10 +39,10 @@ export default function DocumentPhoto(props) {
 						"Content-Type": "application/json",
 						"x-access-token": loginToken.apiKey,
 					},
-					body: JSON.stringify({requestID: event.data.request_id}),
+					body: JSON.stringify({ requestID: event.data.request_id }),
 				};
 				await fetch("/idscan/save_response_cac", options);
-				event.source.window.postMessage({isVerified: true,},"*");
+				event.source.window.postMessage({ isVerified: true, }, "*");
 			} else if (event.data.idscanPayload) {
 				const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : "{ }");
 
@@ -77,23 +77,23 @@ export default function DocumentPhoto(props) {
 	//View part - JSX
 	return (
 		<div>
-			<div className={classes.content_grid}>
-				<p style={{ textAlign: "justify", fontSize: "0.938rem", lineHeight: "1.5", color: "#595959" }}>
-					<span style={{ paddingLeft: "21px", display: "block" }}> Please upload an image or your driver‘s license, passport,
+			<div className={ classes.content_grid }>
+				<p style={ { textAlign: "justify", fontSize: "0.938rem", lineHeight: "1.5", color: "#595959" } }>
+					<span style={ { paddingLeft: "21px", display: "block" } }> Please upload an image or your driver‘s license, passport,
 						state-issued photo ID card, or military/federal government photo ID.
 					</span>
-					<span style={{ paddingLeft: "21px" }}>Please ensure:</span>
-					<li style={{ textAlign: "justify" }}>Document is currently valid</li>
-					<li style={{ textAlign: "justify" }}>
+					<span style={ { paddingLeft: "21px" } }>Please ensure:</span>
+					<li style={ { textAlign: "justify" } }>Document is currently valid</li>
+					<li style={ { textAlign: "justify" } }>
 						The entire document is visible and all information is legible
 					</li>
 				</p>
 			</div>
-			<Grid item sm={12}>
-				{iframeSrc !== '' ? <iframe src={iframeSrc} allow="camera;" id="iframeDiv" title="document upload" height="650px" width="100%" /> : null}
+			<Grid item sm={ 12 }>
+				{ iframeSrc !== '' ? <iframe src={ iframeSrc } allow="camera;" id="iframeDiv" title="document upload" height="650px" width="100%" /> : null }
 			</Grid>
 			<div>
-				<p style={{ textAlign: "justify", fontSize: "0.938rem", lineHeight: "1.5", color: "#595959" }}>
+				<p style={ { textAlign: "justify", fontSize: "0.938rem", lineHeight: "1.5", color: "#595959" } }>
 					Please upload a picture of yourself in which you are holding your
 					state or federal government issued ID next to your face. Please ensure
 					that the information on the ID is legible and that your hand is
@@ -102,29 +102,29 @@ export default function DocumentPhoto(props) {
 					check)
 				</p>
 				<br />
-				<p style={{ textAlign: "justify", display: error ? "block" : "none", color: "red" }}>
-					{messages.documentPhoto.verificationNotFound}
+				<p style={ { textAlign: "justify", display: error ? "block" : "none", color: "red" } }>
+					{ messages.documentPhoto.verificationNotFound }
 				</p>
 			</div>
 
-			<div className={props.classes.actionsContainer}>
-				<div className={props.classes.button_div} >
+			<div className={ props.classes.actionsContainer }>
+				<div className={ props.classes.button_div } >
 					<ButtonPrimary
 						variant="contained"
 						color="primary"
 						id="button_stepper_next"
 						stylebutton='{"marginRight": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
-						onClick={async () => {
+						onClick={ async () => {
 							let data = {};
-							let res = await APICall('verification_steps_cac','', data, 'POST', true);
+							let res = await APICall('verification_steps_cac', '', data, 'POST', true);
 							if (res?.data?.id_photo === true && res?.data?.id_document === true) {
-								props.next()
+								props.next();
 							} else {
 								setError(true);
 							}
-						}}
+						} }
 					>
-						{props.activeStep === props?.steps.length - 1 ? "Finish" : "Next"}
+						{ props.activeStep === props?.steps.length - 1 ? "Finish" : "Next" }
 					</ButtonPrimary>
 				</div>
 			</div>

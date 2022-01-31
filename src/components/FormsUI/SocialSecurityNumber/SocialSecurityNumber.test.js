@@ -1,9 +1,9 @@
-import React from 'react'
-import { cleanup, fireEvent, render } from '@testing-library/react'
-import SSNumber from './index.js'
 import '@testing-library/jest-dom';
+import { cleanup, fireEvent, render } from '@testing-library/react';
+import React from 'react';
+import SSNumber from './index.js';
 
-afterEach(cleanup)
+afterEach(cleanup);
 
 test('Render SSN Field', () => {
   const container = render(
@@ -36,6 +36,6 @@ test('Accept only 9 digits as social security Number', () => {
 });
 
 test('should match the snapshot', () => {
-  const { asFragment } = render(<SSNumber name="ssn" />)
-  expect(asFragment).toMatchSnapshot()
+  const { asFragment } = render(<SSNumber name="ssn" />);
+  expect(asFragment).toMatchSnapshot();
 });

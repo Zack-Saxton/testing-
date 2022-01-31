@@ -1,8 +1,8 @@
-import React from 'react';
 import { cleanup, fireEvent, render } from '@testing-library/react';
+import React from 'react';
 import BRNumber from './index.js';
 
-afterEach(cleanup)
+afterEach(cleanup);
 
 
 
@@ -12,7 +12,7 @@ test('Availability test', () => {
       type="text"
       name="BRN"
       label="BRN"
-      materialProps={{ "data-test-id": "BRN" }}
+      materialProps={ { "data-test-id": "BRN" } }
     />);
 
   const input = container.getByTestId('BRN');
@@ -29,7 +29,7 @@ test('IRender Bank routing Number', () => {
       type="text"
       name="BRN"
       label="BRN"
-      materialProps={{ "data-test-id": "BRN" }}
+      materialProps={ { "data-test-id": "BRN" } }
     />);
 
   const input = container.getByTestId('BRN');
@@ -44,7 +44,7 @@ test('Get only numeric value', () => {
       type="text"
       name="BRN"
       label="BRN"
-      materialProps={{ "data-test-id": "BRN", maxLength: 10 }}
+      materialProps={ { "data-test-id": "BRN", maxLength: 10 } }
     />);
 
   const input = container.getByTestId('BRN');
@@ -59,7 +59,7 @@ it('should be between 6 to 17 characters', () => {
     type="text"
     name="BRN"
     label="BRN"
-    materialProps={{ "data-test-id": "BRN" }}
+    materialProps={ { "data-test-id": "BRN" } }
   />);
   const input = wrapper.getByTestId('BRN');
   expect(input.maxLength).toBe(9);
@@ -70,7 +70,7 @@ test('should match the snapshot', () => {
     type="text"
     name="BRN"
     label="BRN"
-    materialProps={{ "data-test-id": "BRN" }}
-  />)
-  expect(asFragment).toMatchSnapshot()
+    materialProps={ { "data-test-id": "BRN" } }
+  />);
+  expect(asFragment).toMatchSnapshot();
 });

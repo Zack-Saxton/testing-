@@ -1,7 +1,7 @@
-import React from "react";
-import { fireEvent, render, within } from "@testing-library/react";
-import MultiSelect from './index.js';
 import '@testing-library/jest-dom';
+import { fireEvent, render, within } from "@testing-library/react";
+import React from "react";
+import MultiSelect from './index.js';
 
 test('Render Select Box', () => {
   const { getByTestId } = render(
@@ -74,6 +74,6 @@ test('should match the snapshot', () => {
     labelform="Language Known"
     multiselect='[{"value":"Tamil"}, {"value":"Eng"}]'
     checkboxcolor="red"
-  />)
-  expect(asFragment).toMatchSnapshot()
+  />);
+  expect(asFragment).toMatchSnapshot();
 });

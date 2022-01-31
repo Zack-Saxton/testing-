@@ -8,14 +8,14 @@ Functionality       :    To use this ButtonWithIcon as a default component for U
 
 #################################################################################################################
  */
-import React from "react";
 import { Checkbox } from "@material-ui/core";
-import { useField, useFormikContext } from "formik";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import Autocomplete from "@material-ui/lab/Autocomplete";
-import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
+import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import { useField, useFormikContext } from "formik";
+import React from "react";
 import Content from '../../../assets/Content/content';
 
 const AutoCompleteMultipleWrapper = ({
@@ -34,7 +34,7 @@ const AutoCompleteMultipleWrapper = ({
 }) => {
   //To return all formik state
   const { setFieldValue } = useFormikContext();
-  const [field, meta] = useField(name);
+  const [ field, meta ] = useField(name);
 
   const handleChange = (evt) => {
     const { checked } = evt.target;
@@ -59,7 +59,7 @@ const AutoCompleteMultipleWrapper = ({
 
   //parsing data using json
   let jsonData = JSON.parse(jsonInput);
-  let styleCheckBoxMF = JSON.parse(stylecheckbox)
+  let styleCheckBoxMF = JSON.parse(stylecheckbox);
 
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -67,31 +67,31 @@ const AutoCompleteMultipleWrapper = ({
   //View Part
   return (
     <Autocomplete
-      id={id}
+      id={ id }
       disableCloseOnSelect
       multiple
-      options={jsonData}
-      getOptionLabel={(option) => option.value}
-      renderOption={(option, { selected }) => (
+      options={ jsonData }
+      getOptionLabel={ (option) => option.value }
+      renderOption={ (option, { selected }) => (
         <React.Fragment>
           <Checkbox
-            icon={icon}
-            checkedIcon={checkedIcon}
-            style={styleCheckBoxMF}
-            checked={selected}
+            icon={ icon }
+            checkedIcon={ checkedIcon }
+            style={ styleCheckBoxMF }
+            checked={ selected }
           />
-          {option.value}
+          { option.value }
         </React.Fragment>
-      )}
+      ) }
       // style={styleAutocompleteMF}
-      renderInput={(params) => (
+      renderInput={ (params) => (
         <TextField
-          {...params}
-          label={label}
-          variant={variant}
-          placeholder={placeholder}
+          { ...params }
+          label={ label }
+          variant={ variant }
+          placeholder={ placeholder }
         />
-      )}
+      ) }
     />
   );
 };

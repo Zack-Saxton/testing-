@@ -1,41 +1,41 @@
-import React, { useState } from "react";
-import { useStylesMyProfile } from "./Style";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
-import { Link, useHistory } from "react-router-dom";
+import { FormControlLabel } from "@material-ui/core";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
-import CloseIcon from "@material-ui/icons/Close";
-import { FormControlLabel } from "@material-ui/core";
 import Switch from "@material-ui/core/Switch";
-import { textNotification } from "../../Controllers/myProfileController";
-import { toast } from "react-toastify";
-import { tabAtom } from "./MyProfileTab";
+import Typography from "@material-ui/core/Typography";
+import CloseIcon from "@material-ui/icons/Close";
+import { useFormik } from "formik";
 import { useAtom } from "jotai";
-import "./Style.css";
+import Cookies from "js-cookie";
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
+import * as yup from "yup";
+import { textNotification } from "../../Controllers/myProfileController";
 import {
   ButtonPrimary,
   ButtonSecondary,
   Checkbox,
-  PhoneNumber,
+  PhoneNumber
 } from "../../FormsUI";
-import * as yup from "yup";
-import { useFormik } from "formik";
-import Cookies from "js-cookie";
+import { tabAtom } from "./MyProfileTab";
+import { useStylesMyProfile } from "./Style";
+import "./Style.css";
 
 export default function TextNotification() {
   const classes = useStylesMyProfile();
-  const [loading, setLoading] = useState(false);
-  const [openDisclosure, setDisclosureOpen] = useState(false);
+  const [ loading, setLoading ] = useState(false);
+  const [ openDisclosure, setDisclosureOpen ] = useState(false);
   const history = useHistory();
-  const [, setTabvalue] = useAtom(tabAtom);
+  const [ , setTabvalue ] = useAtom(tabAtom);
   let phone = Cookies.get("opted_phone_texting");
   let textnotifybool = Cookies.get("isTextNotify") === "true" ? true : false;
-  let [disabledContent, setdisabledContent] = useState(textnotifybool);
+  let [ disabledContent, setdisabledContent ] = useState(textnotifybool);
   const onClickCancelChange = () => {
     formikTextNote.resetForm();
     history.push({ pathname: "/customers/myProfile" });
@@ -53,8 +53,8 @@ export default function TextNotification() {
 
     acceptterms: yup
       .boolean()
-      .oneOf([true], "You must accept the terms and conditions")
-      .oneOf([false], "False You must accept the terms and conditions"),
+      .oneOf([ true ], "You must accept the terms and conditions")
+      .oneOf([ false ], "False You must accept the terms and conditions"),
   });
 
   const formikTextNote = useFormik({
@@ -111,30 +111,30 @@ export default function TextNotification() {
   };
 
   return (
-    <div style={{ padding: 20 }}>
+    <div style={ { padding: 20 } }>
       <form
-        onSubmit={formikTextNote.handleSubmit}
+        onSubmit={ formikTextNote.handleSubmit }
         name="formTextNotify"
         id="formTextNotify"
       >
         <Grid
           item
-          xs={12}
-          style={{ width: "100%", gap: 15, marginBottom: 20 }}
+          xs={ 12 }
+          style={ { width: "100%", gap: 15, marginBottom: 20 } }
           container
           direction="row"
         >
           <Typography
-            style={{ fontSize: "0.75rem" }}
-            className={classes.cardHeading}
+            style={ { fontSize: "0.75rem" } }
+            className={ classes.cardHeading }
           >
             Enable Text Notifications
           </Typography>
         </Grid>
         <Grid
           item
-          xs={12}
-          style={{ width: "100%", gap: 15, marginBottom: -10 }}
+          xs={ 12 }
+          style={ { width: "100%", gap: 15, marginBottom: -10 } }
           container
           direction="row"
         >
@@ -142,10 +142,10 @@ export default function TextNotification() {
             id="NotificationsTxt"
             control={
               <Switch
-                checked={disabledContent}
-                onChange={handleSwitchNotification}
-                value={disabledContent}
-                inputProps={{ "data-test-id": "switch" }}
+                checked={ disabledContent }
+                onChange={ handleSwitchNotification }
+                value={ disabledContent }
+                inputProps={ { "data-test-id": "switch" } }
                 color="primary"
               />
             }
@@ -160,8 +160,8 @@ export default function TextNotification() {
         <Grid
           id="txtPhoneNumber"
           item
-          xs={12}
-          style={{ width: "100%", gap: 15, marginBottom: 20 }}
+          xs={ 12 }
+          style={ { width: "100%", gap: 15, marginBottom: 20 } }
           container
           direction="row"
         >
@@ -178,11 +178,11 @@ export default function TextNotification() {
             placeholder="Mobile number"
             id="phone"
             type="text"
-            onKeyDown={preventSpace}
-            value={formikTextNote.values.phone}
-            onChange={formikTextNote.handleChange}
-            onBlur={formikTextNote.handleBlur}
-            disabled={disabledContent === false ? true : false}
+            onKeyDown={ preventSpace }
+            value={ formikTextNote.values.phone }
+            onChange={ formikTextNote.handleChange }
+            onBlur={ formikTextNote.handleBlur }
+            disabled={ disabledContent === false ? true : false }
             error={
               formikTextNote.touched.phone &&
               Boolean(formikTextNote.errors.phone)
@@ -193,23 +193,23 @@ export default function TextNotification() {
           />
           <Link
             to="#"
-            onClick={handleDisclosureClickOpen}
-            className={classes.linkStyle}
-            style={{ textDecoration: "none", color: "#0F4EB3" }}
+            onClick={ handleDisclosureClickOpen }
+            className={ classes.linkStyle }
+            style={ { textDecoration: "none", color: "#0F4EB3" } }
           >
             Disclosure
           </Link>
         </Grid>
         <Grid
           item
-          xs={12}
-          style={{ width: "100%", gap: 15, marginBottom: 20 }}
+          xs={ 12 }
+          style={ { width: "100%", gap: 15, marginBottom: 20 } }
           container
           direction="row"
         >
           <Checkbox
             name="textingterms"
-            disabled={disabledContent === false ? true : false}
+            disabled={ disabledContent === false ? true : false }
             id="textingterms"
             labelid="texting-terms"
             testid="checkbox"
@@ -219,11 +219,11 @@ export default function TextNotification() {
             required
           />
           <span
-            style={{
+            style={ {
               fontSize: "0.938rem",
               paddingTop: "8px",
               marginLeft: "-30px",
-            }}
+            } }
           >
             I have read, understand, and agree to the &nbsp;
             <a
@@ -231,8 +231,8 @@ export default function TextNotification() {
               rel="noreferrer"
               color="#0F4EB3"
               href="https://www.marinerfinance.com/resources/legal/texting-terms-of-use"
-              className={classes.linkStyle}
-              style={{ textDecoration: "none" }}
+              className={ classes.linkStyle }
+              style={ { textDecoration: "none" } }
             >
               Texting Terms of Use.
             </a>
@@ -244,8 +244,8 @@ export default function TextNotification() {
             stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
             styleicon='{ "color":"" }'
             type="submit"
-            onClick={onClickCancelChange}
-            disabled={loading}
+            onClick={ onClickCancelChange }
+            disabled={ loading }
           >
             Cancel
           </ButtonSecondary>
@@ -254,35 +254,35 @@ export default function TextNotification() {
             stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif", "marginLeft": "5px"}'
             styleicon='{ "color":"" }'
             type="submit"
-            disabled={loading}
+            disabled={ loading }
           >
             Update
             <i
               className="fa fa-refresh fa-spin customSpinner"
-              style={{
+              style={ {
                 marginRight: "10px",
                 display: loading ? "block" : "none",
-              }}
+              } }
             />
           </ButtonPrimary>
         </Grid>
       </form>
 
       <Dialog
-        open={openDisclosure}
-        onClose={handleDisclosureClose}
+        open={ openDisclosure }
+        onClose={ handleDisclosureClose }
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          <Typography id="scheduleTxt" className={classes.dialogHeading}>
+          <Typography id="scheduleTxt" className={ classes.dialogHeading }>
             Disclosure
           </Typography>
           <IconButton
             id="autopayCloseBtn"
             aria-label="close"
-            className={classes.closeButton}
-            onClick={handleDisclosureClose}
+            className={ classes.closeButton }
+            onClick={ handleDisclosureClose }
           >
             <CloseIcon />
           </IconButton>
@@ -291,10 +291,10 @@ export default function TextNotification() {
           <DialogContentText id="alert-dialog-description">
             <Typography
               align="justify"
-              style={{ fontSize: "15px", color: "black" }}
+              style={ { fontSize: "15px", color: "black" } }
               gutterBottom
             >
-              <p className={classes.discosureContent}>
+              <p className={ classes.discosureContent }>
                 By providing my mobile and/or home number (including any phone
                 number that I later convert to a mobile number), I expressly
                 consent and agree to receive informational phone calls and text
@@ -305,7 +305,7 @@ export default function TextNotification() {
                 calls and messages applies to each phone number that I provide
                 to Mariner now or in the future.
               </p>
-              <p className={classes.discosureContent}>
+              <p className={ classes.discosureContent }>
                 I understand that any text messages Mariner sends to me may be
                 accessed by anyone with access to my text messages. I
                 acknowledge that my mobile phone service provider may charge me
@@ -321,7 +321,7 @@ export default function TextNotification() {
         <DialogActions>
           <ButtonPrimary
             stylebutton='{"background": "", "color":"" }'
-            onClick={handleDisclosureClose}
+            onClick={ handleDisclosureClose }
           >
             Ok
           </ButtonPrimary>

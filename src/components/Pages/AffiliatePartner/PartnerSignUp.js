@@ -1,24 +1,24 @@
-import React, { useState, useEffect } from "react";
-import { useHistory, useLocation } from "react-router-dom";
-import { useFormik } from "formik";
-import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import * as yup from "yup";
 import Box from "@material-ui/core/Box";
-import { ButtonPrimary, PhoneNumber, Select, EmailTextField, PasswordField, SocialSecurityNumber, Checkbox } from "../../FormsUI";
+import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import { useFormik } from "formik";
+import React, { useEffect, useState } from "react";
+import { useHistory, useLocation } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
+import * as yup from "yup";
 import Logo from "../../../assets/images/loginbg.png";
-import "./Style.css";
-import creditkarmalogo from "../../../assets/partners/WelcomeCKMember.png";
-import OneLoanPlacelogo from "../../../assets/partners/WelcomeOLPMember.png";
-import GTLlogo from "../../../assets/partners/WelcomeGTLMember.png";
 import amonelogo from "../../../assets/partners/WelcomeAOMember.png";
+import creditkarmalogo from "../../../assets/partners/WelcomeCKMember.png";
+import GTLlogo from "../../../assets/partners/WelcomeGTLMember.png";
+import LendingTreelogo from "../../../assets/partners/WelcomeLTMember.png";
 import monevologo from "../../../assets/partners/WelcomeMonevoMember.png";
 import NerdWalletlogo from "../../../assets/partners/WelcomeNWMember.png";
-import LendingTreelogo from "../../../assets/partners/WelcomeLTMember.png";
+import OneLoanPlacelogo from "../../../assets/partners/WelcomeOLPMember.png";
 import partnerSignup, { PopulatePartnerSignup } from "../../Controllers/PartnerSignupController";
-import "react-toastify/dist/ReactToastify.css";
+import { ButtonPrimary, Checkbox, EmailTextField, PasswordField, PhoneNumber, Select, SocialSecurityNumber } from "../../FormsUI";
+import "./Style.css";
 
 //Styling
 const useStyles = makeStyles((theme) => ({
@@ -103,7 +103,7 @@ const validationSchema = yup.object({
       then: yup
         .string()
         .oneOf(
-          [yup.ref("password")],
+          [ yup.ref("password") ],
           "Your confirmation password must match your password"
         ),
     }),
@@ -134,8 +134,8 @@ export default function CreditKarma() {
   const query = useQuery();
   const url = window.location.href;
   const splitHash = url.split("/") ? url.split("/") : "";
-  const splitPartnerToken = splitHash[5] ? splitHash[5].split("?") : "";
-  const partnerToken = splitPartnerToken[0] ? splitPartnerToken[0] : "";
+  const splitPartnerToken = splitHash[ 5 ] ? splitHash[ 5 ].split("?") : "";
+  const partnerToken = splitPartnerToken[ 0 ] ? splitPartnerToken[ 0 ] : "";
   const utm_source = query.get("utm_source");
   const offer = query.get("offer");
   const useQueryOffer = () => new URLSearchParams(offer);
@@ -146,7 +146,7 @@ export default function CreditKarma() {
   const requestTerm = queryOffer.get("TERM");
 
   //API call
-  const [populatePartnerSignupState, SetPopulatePartnerSignupState] = useState(null);
+  const [ populatePartnerSignupState, SetPopulatePartnerSignupState ] = useState(null);
 
   async function AsyncEffect_PopulatePartnerSignup() {
     SetPopulatePartnerSignupState(await PopulatePartnerSignup(partnerToken, applicantId, requestAmt, requestApr, requestTerm));
@@ -159,10 +159,10 @@ export default function CreditKarma() {
   let populateSignupData = populatePartnerSignupState?.data?.applicant;
 
   const classes = useStyles();
-  const [failed, setFailed] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [ failed, setFailed ] = useState("");
+  const [ loading, setLoading ] = useState(false);
   const history = useHistory();
-  const [agree, setAgree] = useState(false);
+  const [ agree, setAgree ] = useState(false);
 
   //Form Submission
   const formik = useFormik({
@@ -185,7 +185,7 @@ export default function CreditKarma() {
         phoneType: values.phoneType,
         password: values.password,
         confirm_password: values.confirmPassword
-      }
+      };
       let partnerRes = await partnerSignup(
         history,
         partnerToken,
@@ -211,164 +211,164 @@ export default function CreditKarma() {
   //View Part
   return (
     <div>
-      <div className={classes.mainContentBackground} id="mainContentBackground">
+      <div className={ classes.mainContentBackground } id="mainContentBackground">
         <Box>
           <Grid
-            xs={10}
+            xs={ 10 }
             item
-            style={{
+            style={ {
               paddingTop: "30px",
               paddingBottom: "40px",
               margin: "auto",
               width: "100%",
-            }}
+            } }
           >
             <Grid
-              xs={11}
-              sm={10}
-              md={8}
-              lg={6}
-              xl={7}
+              xs={ 11 }
+              sm={ 10 }
+              md={ 8 }
+              lg={ 6 }
+              xl={ 7 }
               className="cardWrapper"
               item
-              style={{ margin: "auto" }}
+              style={ { margin: "auto" } }
             >
-              <Paper className={classes.paper}
-                style={{
+              <Paper className={ classes.paper }
+                style={ {
                   opacity: loading ? 0.55 : 1,
                   pointerEvents: loading ? "none" : "initial"
-                }}>
-                {utm_source === "CreditKarma" ? (
+                } }>
+                { utm_source === "CreditKarma" ? (
                   <Typography
-                    className={classes.title}
+                    className={ classes.title }
                     data-testid="title"
                     color="textSecondary"
                   >
                     <a href="https://www.creditkarma.com/" target="blank">
                       <img
-                        src={creditkarmalogo}
-                        style={{ width: "100%" }}
+                        src={ creditkarmalogo }
+                        style={ { width: "100%" } }
                         alt="creditkarmalogo"
                       />
                     </a>
                   </Typography>
                 ) : utm_source === "OneLoanPlace" ? (
                   <Typography
-                    className={classes.title}
+                    className={ classes.title }
                     data-testid="title"
                     color="textSecondary"
                   >
                     <a href="/#" target="blank">
                       <img
-                        src={OneLoanPlacelogo}
-                        style={{ width: "100%" }}
+                        src={ OneLoanPlacelogo }
+                        style={ { width: "100%" } }
                         alt="OneLoanPlacelogo"
                       />
                     </a>
                   </Typography>
                 ) : utm_source === "GTL" ? (
                   <Typography
-                    className={classes.title}
+                    className={ classes.title }
                     data-testid="title"
                     color="textSecondary"
                   >
                     <a href="/#" target="blank">
                       <img
-                        src={GTLlogo}
-                        style={{ width: "100%" }}
+                        src={ GTLlogo }
+                        style={ { width: "100%" } }
                         alt="GTLlogo"
                       />
                     </a>
                   </Typography>
                 ) : utm_source === "amone" ? (
                   <Typography
-                    className={classes.title}
+                    className={ classes.title }
                     data-testid="title"
                     color="textSecondary"
                   >
                     <a href="/#" target="blank">
                       <img
-                        src={amonelogo}
-                        style={{ width: "100%" }}
+                        src={ amonelogo }
+                        style={ { width: "100%" } }
                         alt="amonelogo"
                       />
                     </a>
                   </Typography>
                 ) : utm_source === "monevo" || utm_source === "monevoN" ? (
                   <Typography
-                    className={classes.title}
+                    className={ classes.title }
                     data-testid="title"
                     color="textSecondary"
                   >
                     <a href="/#" target="blank">
                       <img
-                        src={monevologo}
-                        style={{ width: "100%" }}
+                        src={ monevologo }
+                        style={ { width: "100%" } }
                         alt="monevologo"
                       />
                     </a>
                   </Typography>
                 ) : utm_source === "NerdWallet" ? (
                   <Typography
-                    className={classes.title}
+                    className={ classes.title }
                     data-testid="title"
                     color="textSecondary"
                   >
                     <a href="/#" target="blank">
                       <img
-                        src={NerdWalletlogo}
-                        style={{ width: "100%" }}
+                        src={ NerdWalletlogo }
+                        style={ { width: "100%" } }
                         alt="NerdWalletlogo"
                       />
                     </a>
                   </Typography>
                 ) : utm_source === "LendingTree" ? (
                   <Typography
-                    className={classes.title}
+                    className={ classes.title }
                     data-testid="title"
                     color="textSecondary"
                   >
                     <a href="/#" target="blank">
                       <img
-                        src={LendingTreelogo}
-                        style={{ width: "100%" }}
+                        src={ LendingTreelogo }
+                        style={ { width: "100%" } }
                         alt="LendingTreelogo"
                       />
                     </a>
                   </Typography>
                 ) : (
                   ""
-                )}
-                <p style={{ textAlign: "center" }}>
+                ) }
+                <p style={ { textAlign: "center" } }>
                   Thank you for choosing Mariner Finance. Please provide the
                   following information to view your offers.
                 </p>
-                {/* </div> */}
-                <form onSubmit={formik.handleSubmit}>
+                {/* </div> */ }
+                <form onSubmit={ formik.handleSubmit }>
                   <Grid
                     container
-                    spacing={4}
+                    spacing={ 4 }
                   >
-                    <Grid item xs={12} style={{ width: "100%" }}>
+                    <Grid item xs={ 12 } style={ { width: "100%" } }>
                       <EmailTextField
                         id="email"
                         name="email"
                         label="Email Address"
                         placeholder="Enter your email address"
-                        materialProps={{ maxLength: "100" }}
-                        onKeyDown={preventSpace}
-                        value={formik.values.email}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
+                        materialProps={ { maxLength: "100" } }
+                        onKeyDown={ preventSpace }
+                        value={ formik.values.email }
+                        onChange={ formik.handleChange }
+                        onBlur={ formik.handleBlur }
                         error={
                           formik.touched.email && Boolean(formik.errors.email)
                         }
-                        helperText={formik.touched.email && formik.errors.email}
-                        disabled={true}
+                        helperText={ formik.touched.email && formik.errors.email }
+                        disabled={ true }
                       />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    <Grid item xs={ 12 }>
                       <SocialSecurityNumber
                         name="ssn"
                         label="Enter your last 4 digits of SSN"
@@ -376,24 +376,24 @@ export default function CreditKarma() {
                         id="ssn"
                         type="ssn"
                         mask="9999"
-                        value={formik.values.ssn}
-                        onChange={formik.handleChange}
-                        materialProps={{ maxLength: "4" }}
-                        onBlur={formik.handleBlur}
-                        error={formik.touched.ssn && Boolean(formik.errors.ssn)}
-                        helperText={formik.touched.ssn && formik.errors.ssn}
+                        value={ formik.values.ssn }
+                        onChange={ formik.handleChange }
+                        materialProps={ { maxLength: "4" } }
+                        onBlur={ formik.handleBlur }
+                        error={ formik.touched.ssn && Boolean(formik.errors.ssn) }
+                        helperText={ formik.touched.ssn && formik.errors.ssn }
                       />
                     </Grid>
 
-                    <Grid item xs={12} sm={6} container direction="row">
+                    <Grid item xs={ 12 } sm={ 6 } container direction="row">
                       <PhoneNumber
                         name="callPhNo"
                         label="Phone Number"
                         id="phone"
                         type="text"
-                        onChange={formik.handleChange}
-                        value={formik.values.callPhNo}
-                        onBlur={formik.handleBlur}
+                        onChange={ formik.handleChange }
+                        value={ formik.values.callPhNo }
+                        onBlur={ formik.handleBlur }
                         error={
                           formik.touched.callPhNo &&
                           Boolean(formik.errors.callPhNo)
@@ -404,14 +404,14 @@ export default function CreditKarma() {
                       />
                     </Grid>
 
-                    <Grid item xs={12} sm={6} container direction="row">
+                    <Grid item xs={ 12 } sm={ 6 } container direction="row">
                       <Select
                         id="phoneType"
                         name="phoneType"
                         labelform="Phone Type"
-                        value={formik.values.phoneType}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
+                        value={ formik.values.phoneType }
+                        onChange={ formik.handleChange }
+                        onBlur={ formik.handleBlur }
                         error={
                           formik.touched.phoneType &&
                           Boolean(formik.errors.phoneType)
@@ -424,18 +424,18 @@ export default function CreditKarma() {
                       />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    <Grid item xs={ 12 }>
                       <PasswordField
                         name="password"
                         label="Create New Password *"
                         placeholder="Enter your password"
                         id="password"
                         type="password"
-                        onKeyDown={preventSpace}
-                        materialProps={{ maxLength: "30" }}
-                        value={formik.values.password}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
+                        onKeyDown={ preventSpace }
+                        materialProps={ { maxLength: "30" } }
+                        value={ formik.values.password }
+                        onChange={ formik.handleChange }
+                        onBlur={ formik.handleBlur }
                         error={
                           formik.touched.password &&
                           Boolean(formik.errors.password)
@@ -444,25 +444,25 @@ export default function CreditKarma() {
                           formik.touched.password && formik.errors.password
                         }
                       />
-                      <p id="passwordTitle" className={classes.passwordTitle}>
+                      <p id="passwordTitle" className={ classes.passwordTitle }>
                         Please ensure your password meets the following
                         criteria: between 8 and 30 characters in length, at
                         least 1 uppercase letter, at least 1 lowercase letter,
                         at least 1 symbol and at least 1 number.
                       </p>
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={ 12 }>
                       <PasswordField
                         name="confirmPassword"
                         label="Re-enter Your Password *"
                         placeholder="Enter your confirm password"
                         id="cpass"
                         type="password"
-                        onKeyDown={preventSpace}
-                        materialProps={{ maxLength: "30" }}
-                        value={formik.values.confirmPassword}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
+                        onKeyDown={ preventSpace }
+                        materialProps={ { maxLength: "30" } }
+                        value={ formik.values.confirmPassword }
+                        onChange={ formik.handleChange }
+                        onBlur={ formik.handleBlur }
                         error={
                           formik.touched.confirmPassword &&
                           Boolean(formik.errors.confirmPassword)
@@ -481,14 +481,14 @@ export default function CreditKarma() {
                         }
                         data-testid="subtitle"
                       >
-                        {" "}
-                        {failed}
+                        { " " }
+                        { failed }
                       </p>
                     </Grid>
 
                     <Grid
                       item
-                      xs={12}
+                      xs={ 12 }
                       className={
                         utm_source !== "CreditKarma"
                           ? "showCheckbox"
@@ -501,10 +501,10 @@ export default function CreditKarma() {
                       <Checkbox
                         name="termsOfService"
                         labelform="Terms & Service"
-                        value={agree}
-                        onChange={(event) => {
+                        value={ agree }
+                        onChange={ (event) => {
                           setAgree(event.target.checked);
-                        }}
+                        } }
                         label={
                           <p className="agreeCheckbox">
                             By clicking this box you acknowledge that you have
@@ -517,8 +517,8 @@ export default function CreditKarma() {
                               target="_blank"
                               rel="noreferrer noopener"
                             >
-                              {" "}
-                              E-Signature Disclosure and Consent,{" "}
+                              { " " }
+                              E-Signature Disclosure and Consent,{ " " }
                             </a>
                             <a
                               className="formatHref"
@@ -528,7 +528,7 @@ export default function CreditKarma() {
                               target="_blank"
                               rel="noreferrer noopener"
                             >
-                              Credit and Contact Authorization,{" "}
+                              Credit and Contact Authorization,{ " " }
                             </a>
                             <a
                               className="formatHref"
@@ -538,7 +538,7 @@ export default function CreditKarma() {
                               target="_blank"
                               rel="noreferrer noopener"
                             >
-                              Website Terms of Use,{" "}
+                              Website Terms of Use,{ " " }
                             </a>
                             <a
                               className="formatHref"
@@ -552,30 +552,30 @@ export default function CreditKarma() {
                             </a>
                           </p>
                         }
-                        required={utm_source ? utm_source !== "CreditKarma" ? true : false : ""}
+                        required={ utm_source ? utm_source !== "CreditKarma" ? true : false : "" }
                         stylelabelform='{ "color":"" }'
                         stylecheckbox='{ "color":"blue"}'
                         stylecheckboxlabel='{ "color":"" }'
                       />
                     </Grid>
 
-                    <Grid item xs={12} className={classes.signInButtonGrid}>
+                    <Grid item xs={ 12 } className={ classes.signInButtonGrid }>
                       <ButtonPrimary
                         // onClick={autoFocus}
                         type="submit"
                         data-testid="submit"
                         stylebutton='{"background": "", "color":"" }'
-                        disabled={loading}
+                        disabled={ loading }
                       >
                         <Typography align="center" className="textCSS ">
                           Continue
                         </Typography>
                         <i
                           className="fa fa-refresh fa-spin customSpinner"
-                          style={{
+                          style={ {
                             marginRight: "10px",
                             display: loading ? "block" : "none",
-                          }}
+                          } }
                         />
                       </ButtonPrimary>
                     </Grid>

@@ -1,4 +1,5 @@
 import APICall from "../lib/AxiosLib";
+import ErrorLogger from "../lib/ErrorLogger";
 
 /***** Get Loan history *****/
 export default async function LoanHistoryController() {
@@ -13,6 +14,7 @@ export default async function LoanHistoryController() {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
+    ErrorLogger("Error executing LoanHistoryController API", error);
     Error("Error executing LoanHistoryController API");
   }
 }

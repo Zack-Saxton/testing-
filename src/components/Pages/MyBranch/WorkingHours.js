@@ -44,13 +44,13 @@ var updated_ca_M_W_TH_F = [
     { "value": "16:30", "label": "04:30 PM" },
     { "value": "17:00", "label": "05:00 PM" }
 ].filter((v, i) => {
-    if (parseInt(v.value.split(":")[0]) > Moment(new Date()).format("HH")) {
+    if (parseInt(v.value.split(":")[ 0 ]) > Moment(new Date()).format("HH")) {
         return v;
     }
-    return null
+    return null;
 }
-)
-export const upt_ca_M_W_TH_F = updated_ca_M_W_TH_F
+);
+export const upt_ca_M_W_TH_F = updated_ca_M_W_TH_F;
 
 
 
@@ -97,12 +97,12 @@ let updated_ca_Tue = [
     { "value": "18:30", "label": "06:30 PM" }
 
 ].filter((v, i) => {
-    if (parseInt(v.value.split(":")[0]) > Moment(new Date()).format("HH")) {
+    if (parseInt(v.value.split(":")[ 0 ]) > Moment(new Date()).format("HH")) {
         return v;
     }
-    return null
-})
-export const upt_ca_Tue = updated_ca_Tue
+    return null;
+});
+export const upt_ca_Tue = updated_ca_Tue;
 
 
 // For all other states:
@@ -149,12 +149,12 @@ let updated_other_M_W_Thu = [
     { "value": "16:00", "label": "04:00 PM" },
     { "value": "20:30", "label": "21:30 PM" }
 ].filter((v, i) => {
-    if (parseInt(v.value.split(":")[0]) > Moment(new Date()).format("HH")) {
+    if (parseInt(v.value.split(":")[ 0 ]) > Moment(new Date()).format("HH")) {
         return v;
     }
-    return null 
-})
-export const upt_other_M_W_Thu = updated_other_M_W_Thu
+    return null;
+});
+export const upt_other_M_W_Thu = updated_other_M_W_Thu;
 
 
 export const Other_Fri = `[
@@ -197,13 +197,13 @@ let updated_other_Fri = [
     { "value": "17:00", "label": "05:00 PM" }
 
 ].filter((v, i) => {
-    if (parseInt(v.value.split(":")[0]) > Moment(new Date()).format("HH")) {
+    if (parseInt(v.value.split(":")[ 0 ]) > Moment(new Date()).format("HH")) {
         return v;
     }
-    return null
-})
+    return null;
+});
 
-export const upt_other_Fri = updated_other_Fri
+export const upt_other_Fri = updated_other_Fri;
 
 
 export const other_Tue = `[
@@ -251,10 +251,9 @@ let upt_other_Tue = [
     { "value": "18:00", "label": "06:00 PM" },
     { "value": "18:30", "label": "06:30 PM" }
 ].filter((v, i) => {
-    if (parseInt(v.value.split(":")[0]) > Moment(new Date()).format("HH")) {
+    if (parseInt(v.value.split(":")[ 0 ]) > Moment(new Date()).format("HH")) {
         return v;
     }
-    return null
-})
-export const updated_other_Tue = upt_other_Tue
-
+    return null;
+});
+export const updated_other_Tue = upt_other_Tue;

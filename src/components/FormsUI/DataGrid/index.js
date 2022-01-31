@@ -5,8 +5,8 @@ Component Name      :    Zipcode
 Functionality       :    To use this component to validate and get the Zip code in the correct format from the user.
 
 #################################################################################################################*/
-import * as React from "react";
 import { DataGrid } from "@material-ui/data-grid";
+import * as React from "react";
 
 const DataGridWrapper = ({
   name,
@@ -18,9 +18,9 @@ const DataGridWrapper = ({
 }) => {
   return (
     <div
-      style={{ height: height ?? "300", width: width ?? "100%" }}
+      style={ { height: height ?? "300", width: width ?? "100%" } }
     >
-      <DataGrid rows={rows} columns={columns} pageSize={15} {...otherProps} />
+      <DataGrid rows={ rows } columns={ columns } pageSize={ 15 } { ...otherProps } />
     </div>
   );
 };

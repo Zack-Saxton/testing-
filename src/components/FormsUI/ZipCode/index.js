@@ -6,16 +6,16 @@ Functionality       :    To use this component to validate and get the zipcode i
 
 #################################################################################################################*/
 
-import React, { useState } from "react";
 import PropTypes from "prop-types";
+import React, { useState } from "react";
 import TextBox from "../Textfield";
 
 
 const ZipCodeWrapper = ({ name, error, helperText, value, onChange, ...otherProps }) => {
   //Set Formik field
-  const [zipCode, setZipCode] = useState(value ? value : "");
-  const [isError, setIsError] = useState(false);
-  const [helperText2, setHelperText2] = useState("");
+  const [ zipCode, setZipCode ] = useState(value ? value : "");
+  const [ isError, setIsError ] = useState(false);
+  const [ helperText2, setHelperText2 ] = useState("");
 
 
   //Account Number field onChange handle
@@ -46,10 +46,10 @@ const ZipCodeWrapper = ({ name, error, helperText, value, onChange, ...otherProp
   //return the view block
   return (
     <TextBox
-      {...configTextField}
-      materialProps={{ maxLength: "5", "data-test-id": "zipcode" }}
-      value={zipCode}
-      onChange={onHandleZipcodeChange}
+      { ...configTextField }
+      materialProps={ { maxLength: "5", "data-test-id": "zipcode" } }
+      value={ zipCode }
+      onChange={ onHandleZipcodeChange }
     />
   );
 };

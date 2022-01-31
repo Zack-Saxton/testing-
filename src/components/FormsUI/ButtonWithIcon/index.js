@@ -7,10 +7,10 @@ Functionality       :    To use this ButtonWithIcon as a default component for U
 
 #################################################################################################################*/
 
-import React from "react";
 import { Button } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
 import Icon from "@material-ui/core/Icon";
+import { makeStyles } from "@material-ui/core/styles";
+import React from "react";
 
 const ButtonWithIcon = ({
   children,
@@ -58,10 +58,10 @@ const ButtonWithIcon = ({
 
   //View Part
   return (
-    <Button {...configButton} style={styleButtonMF}>
-      {iconposition === "left" ? <Icon style={styleIconMF} data-testid="icon">{icon}</Icon> : ""}
-      {children}
-      {iconposition === "right" ? <Icon style={styleIconMF} data-testid="icon">{icon}</Icon> : ""}
+    <Button { ...configButton } style={ styleButtonMF }>
+      { iconposition === "left" ? <Icon style={ styleIconMF } data-testid="icon">{ icon }</Icon> : "" }
+      { children }
+      { iconposition === "right" ? <Icon style={ styleIconMF } data-testid="icon">{ icon }</Icon> : "" }
     </Button>
   );
 };

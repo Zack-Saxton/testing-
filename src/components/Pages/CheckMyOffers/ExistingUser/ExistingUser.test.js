@@ -1,9 +1,9 @@
-import React from "react";
-import { cleanup, render } from "@testing-library/react";
-import AnnualIncome from "./index.js";
-import CheckMyOffers from "../../../contexts/CheckMyOffers";
-import { BrowserRouter } from "react-router-dom";
 import "@testing-library/jest-dom";
+import { cleanup, render } from "@testing-library/react";
+import React from "react";
+import { BrowserRouter } from "react-router-dom";
+import CheckMyOffers from "../../../contexts/CheckMyOffers";
+import AnnualIncome from "./index.js";
 
 afterEach(cleanup);
 

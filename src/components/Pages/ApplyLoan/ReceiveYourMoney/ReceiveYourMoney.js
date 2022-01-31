@@ -1,16 +1,16 @@
-import React from "react";
+import Box from "@material-ui/core/Box";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
-import Box from "@material-ui/core/Box";
+import React from "react";
 import { NavLink } from "react-router-dom";
-import { ButtonWithIcon } from "../../../FormsUI";
-import Paper from "@material-ui/core/Paper";
-import ScrollToTopOnMount from "../../ScrollToTop";
 import CheckLoginStatus from "../../../App/CheckLoginStatus";
+import { ButtonWithIcon } from "../../../FormsUI";
+import ScrollToTopOnMount from "../../ScrollToTop";
 import "../SelectOffer/SelectOffer.css";
-import TabSection from "../TabSection"
+import TabSection from "../TabSection";
 
 //Initializing the Tab panel section
 function TabPanel(props) {
@@ -19,16 +19,16 @@ function TabPanel(props) {
 	return (
 		<div
 			role="tabpanel"
-			hidden={value !== index}
-			id={`scrollable-auto-tab-panel-${ index }`}
-			aria-labelledby={`scrollable-auto-tab-${ index }`}
-			{...other}
+			hidden={ value !== index }
+			id={ `scrollable-auto-tab-panel-${ index }` }
+			aria-labelledby={ `scrollable-auto-tab-${ index }` }
+			{ ...other }
 		>
-			{value === index && (
+			{ value === index && (
 				<Box>
-					<div>{children}</div>
+					<div>{ children }</div>
 				</Box>
-			)}
+			) }
 		</div>
 	);
 }
@@ -97,7 +97,7 @@ export default function ReceiveYourMoney() {
 	const classes = useStyles();
 
 	//Initializing state variables
-	const [value, setValue] = React.useState(3);
+	const [ value, setValue ] = React.useState(3);
 	const handleChange = (event, newValue) => {
 		setValue(newValue);
 	};
@@ -109,24 +109,24 @@ export default function ReceiveYourMoney() {
 			<ScrollToTopOnMount />
 			<Grid
 				container
-				justifyContent={"center"}
-				style={{
+				justifyContent={ "center" }
+				style={ {
 					marginTop: "-150px",
 					paddingRight: "23px",
 					paddingLeft: "23px",
-				}}
+				} }
 			>
 				<Grid
 					item
-					xs={12}
+					xs={ 12 }
 					container
 					direction="row"
-					style={{ width: "100%", marginBottom: "20px" }}
+					style={ { width: "100%", marginBottom: "20px" } }
 				>
-					<Typography className={classes.heading} variant="h3">
+					<Typography className={ classes.heading } variant="h3">
 						<NavLink
 							to="/customers/accountOverview"
-							style={{ textDecoration: "none" }}
+							style={ { textDecoration: "none" } }
 						>
 							<ButtonWithIcon
 								icon="arrow_backwardIcon"
@@ -138,19 +138,19 @@ export default function ReceiveYourMoney() {
                         "marginRight": "5px", "marginTop":"unset" }'
 								styleicon='{ "color":"" }'
 							/>
-						</NavLink>{" "}
+						</NavLink>{ " " }
 						Apply for a Loan
 					</Typography>
 				</Grid>
-				<Grid item xs={12}>
-				<TabSection value={value} handleChange={handleChange} classes={classes} ay={3}/>
+				<Grid item xs={ 12 }>
+					<TabSection value={ value } handleChange={ handleChange } classes={ classes } ay={ 3 } />
 
-					<TabPanel value={value} index={3} style={{ paddingBottom: "300px", marginTop: "10px" }}>
-						<Grid item xs={12} style={{ width: "100%" }} container direction="row">
-							<Paper className={classes.paper}>
+					<TabPanel value={ value } index={ 3 } style={ { paddingBottom: "300px", marginTop: "10px" } }>
+						<Grid item xs={ 12 } style={ { width: "100%" } } container direction="row">
+							<Paper className={ classes.paper }>
 								<div>
 									<h3>Your Application is Complete</h3>
-									<p style={{ textAlign: "justify", fontSize: "0.938rem", lineHeight: "1.5" }}>
+									<p style={ { textAlign: "justify", fontSize: "0.938rem", lineHeight: "1.5" } }>
 										<b>
 											Thank you for submitting your verification information!
 										</b>

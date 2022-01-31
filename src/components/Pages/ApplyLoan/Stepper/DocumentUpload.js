@@ -3,13 +3,13 @@ import Grid from "@material-ui/core/Grid";
 import { toast } from "react-toastify";
 import { ButtonPrimary } from "../../../FormsUI";
 import { uploadDocument } from "../../../Controllers/ApplyForLoanController";
-import messages from "../../../lib/Lang/applyForLoan.json"
+import messages from "../../../lib/Lang/applyForLoan.json";
 
 // initialising Document upload component
 export default function DocumentUpload(props) {
 	//Set State
-	const [selectedFile, setSelectedFile] = useState(null);
-	const [loader, setLoader] = useState(null);
+	const [ selectedFile, setSelectedFile ] = useState(null);
+	const [ loader, setLoader ] = useState(null);
 
 	//To handle the file select change
 	const handleInputChange = () => {
@@ -19,7 +19,7 @@ export default function DocumentUpload(props) {
 	useEffect(() => {
 		setSelectedFile(null);
 		document.getElementById("file").value = null;
-	}, [props.resetUpload]);
+	}, [ props.resetUpload ]);
 
 	//upload doc functionality
 	const uploadDoc = () => {
@@ -44,14 +44,14 @@ export default function DocumentUpload(props) {
 				selectedFile.value = "";
 
 				return false;
-			} else if (selectedFile.files[0].size <= 10240000) {
+			} else if (selectedFile.files[ 0 ].size <= 10240000) {
 				let reader = new FileReader();
-				if (selectedFile.files && selectedFile.files[0]) {
+				if (selectedFile.files && selectedFile.files[ 0 ]) {
 					reader.onload = async () => {
 						const buffer2 = Buffer.from(reader.result, "base64");
 						let fileData = Buffer.from(buffer2).toJSON().data;
-						let fileName = selectedFile.files[0].name;
-						let fileType = selectedFile.files[0].type;
+						let fileName = selectedFile.files[ 0 ].name;
+						let fileType = selectedFile.files[ 0 ].type;
 						let response = await uploadDocument(
 							fileData,
 							fileName,
@@ -62,7 +62,7 @@ export default function DocumentUpload(props) {
 						setLoader(response ? false : true);
 						props.handle(response);
 					};
-					reader.readAsDataURL(selectedFile.files[0]);
+					reader.readAsDataURL(selectedFile.files[ 0 ]);
 				}
 			} else {
 				if (!toast.isActive("fileSizeError")) {
@@ -77,16 +77,17 @@ export default function DocumentUpload(props) {
 	//JSX part
 	return (
 		<Grid container direction="row">
-			<Grid style={{ paddingTop: "20px" }}>
+			<Grid style={ { paddingTop: "20px" } }>
 				<ButtonPrimary
 					variant="contained"
 					component="span"
-					disabled={loader}
-					margin-right = "300px"
-					onClick={() => {
-						props.setLoadingFlag(true)
-						setLoader(true)
-						uploadDoc()}
+					disabled={ loader }
+					margin-right="300px"
+					onClick={ () => {
+						props.setLoadingFlag(true);
+						setLoader(true);
+						uploadDoc();
+					}
 					}
 					id="button_stepper_prev"
 					stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
@@ -94,12 +95,12 @@ export default function DocumentUpload(props) {
 					Upload
 				</ButtonPrimary>
 				<input
-					style= {{padding: "0px 15px"}}
+					style={ { padding: "0px 15px" } }
 					accept="image/png, image/jpeg, application/pdf, image/jpg "
 					id="file"
-					multiple={props?.multiple === false ? false : true}
+					multiple={ props?.multiple === false ? false : true }
 					type="file"
-					onChange={handleInputChange}
+					onChange={ handleInputChange }
 				/>
 			</Grid>
 		</Grid>

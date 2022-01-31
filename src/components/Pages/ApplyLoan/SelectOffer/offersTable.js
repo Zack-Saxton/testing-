@@ -1,43 +1,42 @@
-import React, { useState } from "react";
+import Box from "@material-ui/core/Box";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import Grid from "@material-ui/core/Grid";
-import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import Tooltip from "@material-ui/core/Tooltip";
-import {
-	Checkbox,
-	Radio,
-	ButtonPrimary,
-	ButtonSecondary,
-} from "../../../FormsUI";
-import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 import Typography from "@material-ui/core/Typography";
+import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 import DesktopMacIcon from "@material-ui/icons/DesktopMac";
-import Paper from "@material-ui/core/Paper";
-import Box from "@material-ui/core/Box";
+import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import PropTypes from "prop-types";
+import React, { useState } from "react";
+import {
+	ButtonPrimary,
+	ButtonSecondary, Checkbox,
+	Radio
+} from "../../../FormsUI";
+import messages from "../../../lib/Lang/applyForLoan.json";
 import LoadChart from "./loadChart";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import messages from "../../../lib/Lang/applyForLoan.json"
 function TabVerticalPanel(props) {
 	const { children, tabValue, verticalIndex, ...other } = props;
 
 	return (
 		<div
-			hidden={tabValue !== verticalIndex}
-			id={`scrollable-auto-tab-panel-${ verticalIndex }`}
-			aria-labelledby={`scrollable-auto-tab-${ verticalIndex }`}
-			{...other}
+			hidden={ tabValue !== verticalIndex }
+			id={ `scrollable-auto-tab-panel-${ verticalIndex }` }
+			aria-labelledby={ `scrollable-auto-tab-${ verticalIndex }` }
+			{ ...other }
 		>
-			{tabValue === verticalIndex && (
+			{ tabValue === verticalIndex && (
 				<Box>
-					<div>{children}</div>
+					<div>{ children }</div>
 				</Box>
-			)}
+			) }
 		</div>
 	);
 }
@@ -49,10 +48,10 @@ TabVerticalPanel.propTypes = {
 };
 
 export default function OfferTable(props) {
-	const [termData1, setTermData1] = useState();
-	const [termData2, setTermData2] = useState();
-	const [termDataMax, setTermDataMax] = useState();
-	const [selectData, setSelectData] = useState([]);
+	const [ termData1, setTermData1 ] = useState();
+	const [ termData2, setTermData2 ] = useState();
+	const [ termDataMax, setTermDataMax ] = useState();
+	const [ selectData, setSelectData ] = useState([]);
 
 	let offersComp = props.offersToCompare ? props.offersToCompare : [];
 	let offersCompChart = props.offersToCompareChart
@@ -73,7 +72,7 @@ export default function OfferTable(props) {
 	);
 
 	const handleAdd = (todo) => {
-		const newRecord = [...selectData];
+		const newRecord = [ ...selectData ];
 		newRecord.push(todo);
 		setSelectData(newRecord);
 	};
@@ -93,12 +92,12 @@ export default function OfferTable(props) {
 	};
 	const buildChartData = (chartData) => {
 		if (chartData.length >= 2) {
-			setTermData1(chartData[0]?.monthlyPayment);
-			setTermData2(chartData[1]?.monthlyPayment);
+			setTermData1(chartData[ 0 ]?.monthlyPayment);
+			setTermData2(chartData[ 1 ]?.monthlyPayment);
 			setTermDataMax(
-				chartData[0]?.monthlyPayment > chartData[1]?.monthlyPayment
-					? chartData[0]?.monthlyPayment
-					: chartData[1].monthlyPayment
+				chartData[ 0 ]?.monthlyPayment > chartData[ 1 ]?.monthlyPayment
+					? chartData[ 0 ]?.monthlyPayment
+					: chartData[ 1 ].monthlyPayment
 			);
 		}
 	};
@@ -121,155 +120,155 @@ export default function OfferTable(props) {
 		handleAdd(row);
 	};
 	return (
-		<Grid id="loanListTable" item xs={12} sm={9} className={props.loading ? props.classes.loadingOn : props.classes.loadingOff} style={{ padding: "0px 0px 0px 15px", width: "100%" }}>
-			<Paper className={props.classes.paper}>
-				{props.rowData ? (
-					<TabVerticalPanel tabValue={props.value} verticalIndex={props.value}>
-						<Grid item xs={12} style={{ paddingBottom: "10px", width: "100%" }}>
+		<Grid id="loanListTable" item xs={ 12 } sm={ 9 } className={ props.loading ? props.classes.loadingOn : props.classes.loadingOff } style={ { padding: "0px 0px 0px 15px", width: "100%" } }>
+			<Paper className={ props.classes.paper }>
+				{ props.rowData ? (
+					<TabVerticalPanel tabValue={ props.value } verticalIndex={ props.value }>
+						<Grid item xs={ 12 } style={ { paddingBottom: "10px", width: "100%" } }>
 							<LoadChart
-								termData1={termData1}
-								termData2={termData2}
-								termDataMax={termDataMax}
-								classes={props.classes}
-								offersToCompareChart={props.offersToCompareChart}
-								offersToCompare={props.offersToCompare}
-								offerFlag={props.offerFlag}
+								termData1={ termData1 }
+								termData2={ termData2 }
+								termDataMax={ termDataMax }
+								classes={ props.classes }
+								offersToCompareChart={ props.offersToCompareChart }
+								offersToCompare={ props.offersToCompare }
+								offerFlag={ props.offerFlag }
 							/>
 						</Grid>
-						<Grid item xs={12} style={{ paddingBottom: "10px", width: "100%" }}>
+						<Grid item xs={ 12 } style={ { paddingBottom: "10px", width: "100%" } }>
 							<TableContainer>
 								<Table
-									className={props.classes.table}
+									className={ props.classes.table }
 									aria-label="simple table"
 								>
 									<TableHead>
 										<TableRow>
-											<TableCell width="8%" className={props.classes.tableHead}>
+											<TableCell width="8%" className={ props.classes.tableHead }>
 												Select
 											</TableCell>
 											<TableCell
-												className={props.classes.tableHead}
+												className={ props.classes.tableHead }
 												align="right"
 											>
 												Loan Amount
 											</TableCell>
 											<TableCell
-												className={props.classes.tableHead}
+												className={ props.classes.tableHead }
 												align="left"
 											>
 												Availability
 											</TableCell>
 											<TableCell
-												className={props.classes.tableHead}
+												className={ props.classes.tableHead }
 												align="left"
 											>
 												<Grid container direction="row" alignItems="center">
-													{" "}
+													{ " " }
 													APR &nbsp;
 													<Tooltip
 														title="APR"
 														placement="top-start"
-														enterTouchDelay={200}
+														enterTouchDelay={ 200 }
 													>
 														<InfoOutlinedIcon
-															style={{
+															style={ {
 																fontSize: "small",
 																color: "blue",
-															}}
+															} }
 														/>
 													</Tooltip>
 												</Grid>
 											</TableCell>
-											{props.offerFlag === false ? (
+											{ props.offerFlag === false ? (
 												<TableCell
-													className={props.classes.tableHead}
+													className={ props.classes.tableHead }
 													align="right"
 												>
 													Term
 												</TableCell>
-											) : null}
+											) : null }
 											<TableCell
-												className={props.classes.tableHead}
+												className={ props.classes.tableHead }
 												align="right"
 											>
 												Monthly Payment
 											</TableCell>
 											<TableCell
-												className={props.classes.tableHead}
+												className={ props.classes.tableHead }
 												align="left"
 											>
 												Compare
-												{/* {props.offerFlag === true ? "Compare" : "Term"} */}
+												{/* {props.offerFlag === true ? "Compare" : "Term"} */ }
 											</TableCell>
 										</TableRow>
 									</TableHead>
 
-									{props.rowData ? (
+									{ props.rowData ? (
 										<TableBody>
-											{props.rowData.map((row, ind) => (
-												<TableRow key={ind}>
+											{ props.rowData.map((row, ind) => (
+												<TableRow key={ ind }>
 													<TableCell
 														component="th"
-														className={props.classes.tableHeadRow}
+														className={ props.classes.tableHeadRow }
 														scope="row"
 													>
 														<Radio
 															name="select"
-															radiolabel={'[{ "value":"' + row._id + '"}]'}
-															checked={props.checkedValue}
-															value={row._id}
-															onClick={() => {
+															radiolabel={ '[{ "value":"' + row._id + '"}]' }
+															checked={ props.checkedValue }
+															value={ row._id }
+															onClick={ () => {
 																props.setCheckedValue(row._id);
 																props.setSelectedIndex(ind);
 																props.setSelectedTerm(row.termNum);
-															}}
+															} }
 														/>
 													</TableCell>
 													<TableCell
-														className={props.classes.tableHeadRow}
+														className={ props.classes.tableHeadRow }
 														align="right"
 													>
-														{row.loanAmount}
+														{ row.loanAmount }
 													</TableCell>
 													<TableCell
-														className={props.classes.tableHeadRow}
+														className={ props.classes.tableHeadRow }
 														align="left"
 													>
-														{row.availability === "online" ? online : branch}
+														{ row.availability === "online" ? online : branch }
 													</TableCell>
 													<TableCell
-														className={props.classes.tableHeadRow}
+														className={ props.classes.tableHeadRow }
 														align="left"
 													>
-														{row.apr + "%"}
+														{ row.apr + "%" }
 													</TableCell>
 
-													{props.offerFlag === false ? (
+													{ props.offerFlag === false ? (
 														<TableCell
-															className={props.classes.tableHeadRow}
+															className={ props.classes.tableHeadRow }
 															align="right"
 														>
-															{row.termNum + "Mo"}
+															{ row.termNum + "Mo" }
 														</TableCell>
-													) : null}
+													) : null }
 
 													<TableCell
-														className={props.classes.tableHeadRow}
+														className={ props.classes.tableHeadRow }
 														align="right"
 													>
-														{row.monthlyPayment}
+														{ row.monthlyPayment }
 													</TableCell>
 													<TableCell
-														className={props.classes.tableHeadRow}
+														className={ props.classes.tableHeadRow }
 														align="left"
 													>
-														{props.offerFlag === true ? (
+														{ props.offerFlag === true ? (
 															<Checkbox
 																name="offerToCompare"
 																label="Add"
 																labelid="offerToCompare"
 																testid="checkbox"
-																value={row._id}
+																value={ row._id }
 																checked={
 																	props.offersToCompare.findIndex(
 																		(x) => x._id === row._id
@@ -277,9 +276,9 @@ export default function OfferTable(props) {
 																		? false
 																		: true
 																}
-																onChange={() => {
+																onChange={ () => {
 																	selectOfferToCompare(row);
-																}}
+																} }
 																stylelabelform='{ "color":"" }'
 																stylecheckbox='{ "color":"" }'
 																stylecheckboxlabel='{ "color":"" }'
@@ -290,56 +289,56 @@ export default function OfferTable(props) {
 																label="Add"
 																labelid="chartData"
 																testid="checkbox"
-																value={row._id}
+																value={ row._id }
 																checked={
 																	props.offersToCompareChart.indexOf(row) === -1
 																		? false
 																		: true
 																}
-																onChange={() => {
+																onChange={ () => {
 																	selectOfferToCompareChart(row);
-																}}
+																} }
 																stylelabelform='{ "color":"" }'
 																stylecheckbox='{ "color":"" }'
 																stylecheckboxlabel='{ "color":"" }'
 															/>
-														)}
+														) }
 													</TableCell>
 												</TableRow>
-											))}
+											)) }
 										</TableBody>
 									) : (
-										<Typography>{messages.selectAmount.noOffersAvailable} </Typography>
-									)}
+										<Typography>{ messages.selectAmount.noOffersAvailable } </Typography>
+									) }
 								</Table>
 							</TableContainer>
 						</Grid>
 						<Grid container direction="row">
 							<Grid
 								className="circleprog"
-								style={{
+								style={ {
 									display: props.loading ? "block" : "none",
 									width: "100%",
 									textAlign: "center",
-								}}
+								} }
 							>
 								<CircularProgress />
 							</Grid>
 						</Grid>
-						<Grid style={{ padding: "10px 0px" }} container direction="row">
+						<Grid style={ { padding: "10px 0px" } } container direction="row">
 							<Grid
 								direction="row"
-								style={{ float: "left" }}
+								style={ { float: "left" } }
 							>
 								<ButtonSecondary
 									stylebutton='{"marginRight": "","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
 									styleicon='{ "color":"" }'
 									id="apply-loan-reset-button"
-									onClick={() => {
+									onClick={ () => {
 										props.setCheckedValue("");
 										props.setSelectedTerm("");
 										props.setSelectedIndex("");
-									}}
+									} }
 								>
 									Reset
 								</ButtonSecondary>
@@ -347,18 +346,18 @@ export default function OfferTable(props) {
 
 							<Grid
 								direction="row"
-								style={{ float: "left" }}
+								style={ { float: "left" } }
 								id="apply-loan-continue-button-grid"
 							>
 								<ButtonPrimary
 									stylebutton='{"marginLeft": "10px" ,"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
 									id="apply-loan-continue-button"
-									onClick={() => {
+									onClick={ () => {
 										props.submitSelectedOffer(
 											props.selectedTerm,
 											props.selectedIndex
 										);
-									}}
+									} }
 									disabled={
 										props.selectedTerm &&
 											(props.selectedIndex || props.selectedIndex === 0)
@@ -371,35 +370,35 @@ export default function OfferTable(props) {
 									Continue
 									<i
 										className="fa fa-refresh fa-spin customSpinner"
-										style={{
+										style={ {
 											marginRight: "10px",
 											display: props.loading ? "block" : "none",
-										}}
+										} }
 									/>
 								</ButtonPrimary>
 							</Grid>
 
 							<Grid
 								direction="row"
-								style={{
+								style={ {
 									// padding: "10px",
 									float: "right",
 									justifyContent: "end",
 									display: props.offerFlag ? "block" : "none",
-								}}
+								} }
 								id="apply-loan-comparison-button-grid"
 							>
 								<ButtonSecondary
-									fullWidth={true}
+									fullWidth={ true }
 									stylebutton='{"background": "", "float":"right"  }'
 									styleicon='{ "color":"" }'
 									id="apply-loan-comparison-button"
-									onClick={() => {
+									onClick={ () => {
 										props.onCompareOfferTabClick();
 										props.handleTabChange(props.noOfTerms, props.noOfTerms);
 										window.scrollTo(0, 0);
-									}}
-									{...props.tabVerticalProps(4)}
+									} }
+									{ ...props.tabVerticalProps(4) }
 								>
 									View Comparison
 								</ButtonSecondary>
@@ -409,11 +408,11 @@ export default function OfferTable(props) {
 				) : (
 					<Grid
 						className="circleprog"
-						style={{ width: "100%", textAlign: "center" }}
+						style={ { width: "100%", textAlign: "center" } }
 					>
 						<CircularProgress />
 					</Grid>
-				)}
+				) }
 			</Paper>
 		</Grid>
 	);

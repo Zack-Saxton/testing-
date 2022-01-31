@@ -1,6 +1,6 @@
 import React from "react";
-import { useStylesAccountOverview } from "./Style";
 import enabled from "../../../assets/images/Enabled.png";
+import { useStylesAccountOverview } from "./Style";
 
 export default function AutoPayStatus(isAutoPay) {
   //Material UI css class
@@ -10,11 +10,11 @@ export default function AutoPayStatus(isAutoPay) {
   if (isAutoPay.value != null) {
     return (
       <div>
-        <p className={classes.cardContent}>Auto Pay</p>
-        <h5 className={classes.enableColor}>
-          ENABLED <img src={enabled} alt="enabled" />
+        <p className={ classes.cardContent }>Auto Pay</p>
+        <h5 className={ classes.enableColor }>
+          ENABLED <img src={ enabled } alt="enabled" />
         </h5>
-        <p className={classes.cardContent}>
+        <p className={ classes.cardContent }>
           On due date of every month
         </p>
       </div>
@@ -22,11 +22,11 @@ export default function AutoPayStatus(isAutoPay) {
   } else {
     return (
       <div>
-        <p className={classes.cardContent}>Auto Pay</p>
-        <h5 id="nextPaymentItems" className={classes.disableColor}>
+        <p className={ classes.cardContent }>Auto Pay</p>
+        <h5 id="nextPaymentItems" className={ classes.disableColor }>
           DISABLED
         </h5>
-        <p className={classes.cardContent}>
+        <p className={ classes.cardContent }>
           Enable and be stress free
         </p>
       </div>

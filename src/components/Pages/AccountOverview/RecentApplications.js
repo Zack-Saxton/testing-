@@ -1,3 +1,5 @@
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -5,13 +7,11 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { useStylesAccountOverview } from "./Style";
-import { ButtonPrimary } from "../../FormsUI";
 import NumberFormat from 'react-number-format';
 import { useHistory } from "react-router-dom";
+import { ButtonPrimary } from "../../FormsUI";
+import { useStylesAccountOverview } from "./Style";
 import "./Style.css";
 
 export default function RecentApplications({ isLoading, userApplicationsData }) {
@@ -21,7 +21,7 @@ export default function RecentApplications({ isLoading, userApplicationsData }) 
   //Recentapplications data
   let userApplications = (userApplicationsData != null) ? userApplicationsData : null;
   const presenceOfLoan = userApplications?.some((applicant) => applicant.isActive === true && applicant?.status !== "referred" && applicant?.status !== "contact_branch");
-  const presenceOfLoanStatus = userApplications?.find((applicant) => applicant.isActive === true && applicant?.status !== "referred" && applicant?.status !== "contact_branch" );
+  const presenceOfLoanStatus = userApplications?.find((applicant) => applicant.isActive === true && applicant?.status !== "referred" && applicant?.status !== "contact_branch");
   let statusStr = {
     "approved": "Approved",
     "completing_application": "Completing Application",
@@ -67,60 +67,60 @@ export default function RecentApplications({ isLoading, userApplicationsData }) 
   //resumebtn click
   const resumeNavigate = (appData) => {
     history.push({
-      pathname: statusStrLink[appData]
+      pathname: statusStrLink[ appData ]
     });
-  }
+  };
 
   //View
   return (
     <>
       <Grid
         item
-        xs={12}
-        className={classes.mainGrid}
+        xs={ 12 }
+        className={ classes.mainGrid }
         container
         direction="row"
       >
         <Typography
           variant="h5"
-          className={classes.subheading}
+          className={ classes.subheading }
           data-testid="subtitle"
         >
           Summary of applications
         </Typography>
       </Grid>
-      <Grid item xs={12} className={classes.tableGrid}>
-        <TableContainer id="summaryOfApplications" component={Paper}>
-          <Table id="summaryOfApplicationsTable" className={classes.table} aria-label="simple table">
+      <Grid item xs={ 12 } className={ classes.tableGrid }>
+        <TableContainer id="summaryOfApplications" component={ Paper }>
+          <Table id="summaryOfApplicationsTable" className={ classes.table } aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell className={classes.tableHead}>
+                <TableCell className={ classes.tableHead }>
                   Applied on
                 </TableCell>
-                <TableCell className={classes.tableHead} align="left">
+                <TableCell className={ classes.tableHead } align="left">
                   Product Type
                 </TableCell>
-                <TableCell className={classes.tableHead} align="center">
+                <TableCell className={ classes.tableHead } align="center">
                   Requested Amount
                 </TableCell>
-                <TableCell className={classes.tableHead} align="left">
+                <TableCell className={ classes.tableHead } align="left">
                   Loan Purpose
                 </TableCell>
-                <TableCell className={classes.tableHead} align="left">
+                <TableCell className={ classes.tableHead } align="left">
                   Status
                 </TableCell>
-                <TableCell className={classes.tableHead} align="left">
+                <TableCell className={ classes.tableHead } align="left">
                   Actions
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {isLoading ? (
+              { isLoading ? (
                 <TableRow>
                   <TableCell
                     colSpan="7"
                     component="th"
-                    className={classes.tableHeadRow}
+                    className={ classes.tableHeadRow }
                     scope="row"
                     align="center"
                   >
@@ -131,26 +131,26 @@ export default function RecentApplications({ isLoading, userApplicationsData }) 
                 userApplications?.length && presenceOfLoan === true
                   ?
                   <TableRow>
-                    <TableCell className={classes.tableheadrow} >
-                      {presenceOfLoanStatus.submissionDate}
+                    <TableCell className={ classes.tableheadrow } >
+                      { presenceOfLoanStatus.submissionDate }
                     </TableCell>
-                    <TableCell className={classes.tableheadrow} align="left">
-                      {presenceOfLoanStatus.product}
+                    <TableCell className={ classes.tableheadrow } align="left">
+                      { presenceOfLoanStatus.product }
                     </TableCell>
-                    <TableCell className={classes.tableheadrow} align="center">
-                      <NumberFormat value={presenceOfLoanStatus.amountRequested} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
+                    <TableCell className={ classes.tableheadrow } align="center">
+                      <NumberFormat value={ presenceOfLoanStatus.amountRequested } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
                     </TableCell>
-                    <TableCell className={classes.tableheadrow} align="left">
-                      {presenceOfLoanStatus.loanPurpose}
+                    <TableCell className={ classes.tableheadrow } align="left">
+                      { presenceOfLoanStatus.loanPurpose }
                     </TableCell>
-                    <TableCell className={classes.tableheadrow} align="left">
-                      {(statusStr[presenceOfLoanStatus.status]) ? statusStr[presenceOfLoanStatus.status] : (presenceOfLoanStatus.status)}
+                    <TableCell className={ classes.tableheadrow } align="left">
+                      { (statusStr[ presenceOfLoanStatus.status ]) ? statusStr[ presenceOfLoanStatus.status ] : (presenceOfLoanStatus.status) }
                     </TableCell>
                     <TableCell align="left">
-                      {presenceOfLoanStatus.isActive && presenceOfLoanStatus?.status !== "referred" && presenceOfLoanStatus?.status !== "contact_branch" ?
+                      { presenceOfLoanStatus.isActive && presenceOfLoanStatus?.status !== "referred" && presenceOfLoanStatus?.status !== "contact_branch" ?
                         (
                           <ButtonPrimary stylebutton='{"color":"","width":"72%" }'
-                            onClick={() => resumeNavigate(presenceOfLoanStatus.status)}
+                            onClick={ () => resumeNavigate(presenceOfLoanStatus.status) }
                           >
                             Resume
                           </ButtonPrimary>

@@ -17,7 +17,7 @@ import ScrollToTopOnMount from "../ScrollToTop";
 import "../CheckMyOffer.css";
 import "../HomeAddress/HomeAdress.css";
 import ZipCodeLookup from "../../../Controllers/ZipCodeLookup";
-import { toast } from "react-toastify"
+import { toast } from "react-toastify";
 //yup validation schema
 const validationSchema = yup.object({
 	streetAddress: yup
@@ -47,11 +47,11 @@ function HomeAddress() {
 	//Context data
 	const { data } = useContext(CheckMyOffers);
 	//state variables
-	const [stateShort, setStateShort] = useState(data.state ?? "");
-	const [validZip, setValidZip] = useState(true);
-	const [open, setOpen] = useState(false);
-	const [openOhio, setOpenOhio] = useState(false);
-	const [errorMsg, setErrorMsg] = useState("");
+	const [ stateShort, setStateShort ] = useState(data.state ?? "");
+	const [ validZip, setValidZip ] = useState(true);
+	const [ open, setOpen ] = useState(false);
+	const [ openOhio, setOpenOhio ] = useState(false);
+	const [ errorMsg, setErrorMsg ] = useState("");
 
 	//Handle modal open and close
 	const handleClickOpen = () => {
@@ -126,7 +126,7 @@ function HomeAddress() {
 			}
 			formik.handleChange(event);
 		} catch (error) {
-			toast.error('Error from [fetchAddress]')
+			toast.error('Error from [fetchAddress]');
 		}
 	};
 	const onBlurAddress = (event) => {
@@ -142,20 +142,20 @@ function HomeAddress() {
 				<Box>
 					<Grid
 						item
-						xs={12}
+						xs={ 12 }
 						container
 						justifyContent="center"
 						alignItems="center"
-						style={{ paddingTop: "70px", paddingBottom: "70px" }}
+						style={ { paddingTop: "70px", paddingBottom: "70px" } }
 					>
 						<Grid
 							container
 							item
-							xs={11}
-							sm={10}
-							md={6}
-							lg={6}
-							xl={6}
+							xs={ 11 }
+							sm={ 10 }
+							md={ 6 }
+							lg={ 6 }
+							xl={ 6 }
 							className="cardWrapper"
 							justifyContent="center"
 							alignItems="center"
@@ -163,7 +163,7 @@ function HomeAddress() {
 							<Paper
 								id="enterZipWrap"
 								className="cardWOPadding"
-								style={{ justify: "center", alignItems: "center" }}
+								style={ { justify: "center", alignItems: "center" } }
 							>
 								<div className="progress mt-0">
 									<div
@@ -182,7 +182,7 @@ function HomeAddress() {
 								<Grid className="liftImage">
 									<img
 										alt="Address"
-										src={AddressLogo}
+										src={ AddressLogo }
 										className="spinAnimation"
 									/>
 								</Grid>
@@ -190,19 +190,19 @@ function HomeAddress() {
 								<Typography
 									variant="h5"
 									className="borrowCSSLP"
-									style={{
+									style={ {
 										align: "center",
 										justify: "center",
 										alignItems: "center",
-									}}
+									} }
 								>
 									Enter your home address
 								</Typography>
 
-								<form onSubmit={formik.handleSubmit}>
+								<form onSubmit={ formik.handleSubmit }>
 									<Grid
 										item
-										md={12}
+										md={ 12 }
 										className="blockDiv"
 										container
 										justifyContent="center"
@@ -213,9 +213,9 @@ function HomeAddress() {
 											justifyContent="center"
 											alignItems="center"
 											item
-											lg={8}
-											md={8}
-											xs={12}
+											lg={ 8 }
+											md={ 8 }
+											xs={ 12 }
 											className="textBlockShort"
 										>
 											<TextField
@@ -224,14 +224,14 @@ function HomeAddress() {
 												id="streetAddress"
 												name="streetAddress"
 												label="Street Address *"
-												materialProps={{
+												materialProps={ {
 													"data-test-id": "streetAddress",
 													maxLength: "100",
-												}}
-												onKeyDown={preventSpace}
-												value={formik.values.streetAddress}
-												onChange={formik.handleChange}
-												onBlur={onBlurAddress}
+												} }
+												onKeyDown={ preventSpace }
+												value={ formik.values.streetAddress }
+												onChange={ formik.handleChange }
+												onBlur={ onBlurAddress }
 												error={
 													formik.touched.streetAddress &&
 													Boolean(formik.errors.streetAddress)
@@ -247,9 +247,9 @@ function HomeAddress() {
 											justifyContent="center"
 											alignItems="center"
 											item
-											lg={8}
-											md={8}
-											xs={12}
+											lg={ 8 }
+											md={ 8 }
+											xs={ 12 }
 											className="textBlockShort"
 										>
 											<Zipcode
@@ -257,10 +257,10 @@ function HomeAddress() {
 												id="zip"
 												name="zip"
 												label="Zipcode *"
-												materialProps={{ "data-test-id": "zipcode" }}
-												value={formik.values.zip}
-												onChange={fetchAddress}
-												onBlur={formik.handleBlur}
+												materialProps={ { "data-test-id": "zipcode" } }
+												value={ formik.values.zip }
+												onChange={ fetchAddress }
+												onBlur={ formik.handleBlur }
 												error={
 													(formik.touched.zip && Boolean(formik.errors.zip)) ||
 													!validZip
@@ -277,9 +277,9 @@ function HomeAddress() {
 											justifyContent="flex-start"
 											alignItems="flex-start"
 											container
-											md={8}
-											lg={8}
-											xs={12}
+											md={ 8 }
+											lg={ 8 }
+											xs={ 12 }
 											className="textBlockShort"
 										>
 											<Grid
@@ -287,9 +287,9 @@ function HomeAddress() {
 												justifyContent="center"
 												alignItems="center"
 												item
-												lg={6}
-												md={6}
-												xs={6}
+												lg={ 6 }
+												md={ 6 }
+												xs={ 6 }
 												className=" padding-right-1"
 											>
 												<TextField
@@ -297,15 +297,15 @@ function HomeAddress() {
 													id="city"
 													name="city"
 													label="City"
-													disabled={true}
-													materialProps={{ "data-test-id": "city" }}
-													value={formik.values.city}
-													onChange={formik.handleChange}
-													onBlur={formik.handleBlur}
+													disabled={ true }
+													materialProps={ { "data-test-id": "city" } }
+													value={ formik.values.city }
+													onChange={ formik.handleChange }
+													onBlur={ formik.handleBlur }
 													error={
 														formik.touched.city && Boolean(formik.errors.city)
 													}
-													helperText={formik.touched.city && formik.errors.city}
+													helperText={ formik.touched.city && formik.errors.city }
 												/>
 											</Grid>
 											<Grid
@@ -313,9 +313,9 @@ function HomeAddress() {
 												justifyContent="center"
 												alignItems="center"
 												item
-												lg={6}
-												md={6}
-												xs={6}
+												lg={ 6 }
+												md={ 6 }
+												xs={ 6 }
 												className=" padding-left-1"
 											>
 												<TextField
@@ -323,11 +323,11 @@ function HomeAddress() {
 													id="state"
 													name="state"
 													label="State"
-													disabled={true}
-													materialProps={{ "data-test-id": "state" }}
-													value={formik.values.state}
-													onChange={formik.handleChange}
-													onBlur={formik.handleBlur}
+													disabled={ true }
+													materialProps={ { "data-test-id": "state" } }
+													value={ formik.values.state }
+													onChange={ formik.handleChange }
+													onBlur={ formik.handleBlur }
 													error={
 														formik.touched.state && Boolean(formik.errors.state)
 													}
@@ -342,16 +342,16 @@ function HomeAddress() {
 											container
 											justifyContent="center"
 											item
-											lg={8}
-											md={8}
-											xs={12}
+											lg={ 8 }
+											md={ 8 }
+											xs={ 12 }
 											alignItems="center"
 											className="textBlock alignButton"
 										>
 											<ButtonPrimary
 												type="submit"
 												stylebutton='{"fontSize":"0.938rem","background": "#FFBC23", "padding": "0px 30px", "color": "black"}'
-												disabled={!validZip}
+												disabled={ !validZip }
 												data-test-id="homeAddressCntBtn"
 											>
 												Continue
@@ -365,11 +365,11 @@ function HomeAddress() {
 				</Box>
 			</div>
 			<Dialog
-				onClose={handleClose}
+				onClose={ handleClose }
 				aria-labelledby="customized-dialog-title"
-				open={open}
+				open={ open }
 			>
-				<DialogTitle id="customized-dialog-title" onClose={handleClose}>
+				<DialogTitle id="customized-dialog-title" onClose={ handleClose }>
 					Notice to CA Residents
 				</DialogTitle>
 				<DialogContent dividers>
@@ -380,7 +380,7 @@ function HomeAddress() {
 				<DialogActions className="modalAction">
 					<ButtonPrimary
 						stylebutton='{"background": "#FFBC23", "color": "black", "border-radius": "50px"}'
-						onClick={handleClose}
+						onClick={ handleClose }
 						className="modalButton"
 					>
 						<Typography align="center">Ok</Typography>
@@ -389,11 +389,11 @@ function HomeAddress() {
 			</Dialog>
 
 			<Dialog
-				onClose={handleCloseOhio}
+				onClose={ handleCloseOhio }
 				aria-labelledby="customized-dialog-title"
-				open={openOhio}
+				open={ openOhio }
 			>
-				<DialogTitle id="customized-dialog-title" onClose={handleCloseOhio}>
+				<DialogTitle id="customized-dialog-title" onClose={ handleCloseOhio }>
 					Notice to OH Residents
 				</DialogTitle>
 				<DialogContent dividers>
@@ -408,7 +408,7 @@ function HomeAddress() {
 				<DialogActions className="modalAction">
 					<ButtonPrimary
 						stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
-						onClick={handleCloseOhio}
+						onClick={ handleCloseOhio }
 						className="modalButton"
 					>
 						<Typography align="center">Ok</Typography>

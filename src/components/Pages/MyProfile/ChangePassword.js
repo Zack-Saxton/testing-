@@ -1,25 +1,25 @@
-import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
-import { toast } from "react-toastify";
+import { useFormik } from "formik";
+import { useAtom } from "jotai";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import "./Style.css";
+import { toast } from "react-toastify";
+import * as yup from "yup";
+import LogoutController from "../../Controllers/LogoutController";
+import { changePassword } from "../../Controllers/myProfileController";
 import {
   ButtonPrimary,
   ButtonSecondary,
-  PasswordField,
+  PasswordField
 } from "../../FormsUI";
-import * as yup from "yup";
-import { useFormik } from "formik";
-import { changePassword } from "../../Controllers/myProfileController";
 import { tabAtom } from "./MyProfileTab";
-import { useAtom } from "jotai";
-import LogoutController from "../../Controllers/LogoutController"
+import "./Style.css";
 
 export default function ChangePassword(basicInformationData) {
   window.zeHide();
   const history = useHistory();
-  const [loading, setLoading] = useState(false);
-  const [, setTabvalue] = useAtom(tabAtom)
+  const [ loading, setLoading ] = useState(false);
+  const [ , setTabvalue ] = useAtom(tabAtom);
 
   let basicInfo = basicInformationData?.basicInformationData?.latest_contact != null ? basicInformationData.basicInformationData.latest_contact : null;
   const passwordvalidationSchema = yup.object().shape({
@@ -38,7 +38,7 @@ export default function ChangePassword(basicInformationData) {
     confirmPassword: yup
       .string("Enter your password")
       .oneOf(
-        [yup.ref("newPassword"), null],
+        [ yup.ref("newPassword"), null ],
         "Your confirmation password must match new password."
       )
       .max(30, "Password can be upto 30 characters length")
@@ -65,7 +65,7 @@ export default function ChangePassword(basicInformationData) {
   const onClickCancelChange = () => {
     formikPassword.resetForm();
     history.push({ pathname: '/customers/myProfile' });
-    setTabvalue(0)
+    setTabvalue(0);
   };
 
 
@@ -89,7 +89,7 @@ export default function ChangePassword(basicInformationData) {
             });
           }
         } else {
-          let email = basicInfo?.email
+          let email = basicInfo?.email;
           let response = await changePassword(
             values.oldPassword,
             values.newPassword,
@@ -127,7 +127,7 @@ export default function ChangePassword(basicInformationData) {
 
   const handleCancelButton = () => {
     formikPassword.resetForm();
-  }
+  };
   //Preventing space key
   const preventSpace = (event) => {
     if (event.keyCode === 32) {
@@ -136,16 +136,16 @@ export default function ChangePassword(basicInformationData) {
   };
   return (
     <div>
-      <form onSubmit={formikPassword.handleSubmit} name="formPassword" id="formPassword">
+      <form onSubmit={ formikPassword.handleSubmit } name="formPassword" id="formPassword">
         <Grid container
           item
-          xs={12}
+          xs={ 12 }
           direction="row"
         >
           <Grid
             item
-            xs={12}
-            style={{ width: "100%", gap: 15, marginBottom: 18 }}
+            xs={ 12 }
+            style={ { width: "100%", gap: 15, marginBottom: 18 } }
             container
             direction="row"
           >
@@ -154,24 +154,24 @@ export default function ChangePassword(basicInformationData) {
               name="oldPassword"
               type="password"
               label="Old Password"
-              onKeyDown={preventSpace}
+              onKeyDown={ preventSpace }
               autoComplete="off"
-              materialProps={{ maxLength: "30", autoComplete: "off" }}
-              value={formikPassword.values.oldPassword}
-              onChange={formikPassword.handleChange}
-              onBlur={formikPassword.handleBlur}
+              materialProps={ { maxLength: "30", autoComplete: "off" } }
+              value={ formikPassword.values.oldPassword }
+              onChange={ formikPassword.handleChange }
+              onBlur={ formikPassword.handleBlur }
               error={
                 formikPassword.touched.oldPassword && Boolean(formikPassword.errors.oldPassword)
               }
-              helperText={formikPassword.touched.oldPassword && formikPassword.errors.oldPassword}
+              helperText={ formikPassword.touched.oldPassword && formikPassword.errors.oldPassword }
               variant="standard"
-              disabled={false}
+              disabled={ false }
             />
           </Grid>
           <Grid
             item
-            xs={12}
-            style={{ width: "100%", gap: 15, marginBottom: 18 }}
+            xs={ 12 }
+            style={ { width: "100%", gap: 15, marginBottom: 18 } }
             container
             direction="row"
           >
@@ -181,26 +181,26 @@ export default function ChangePassword(basicInformationData) {
               type="password"
               label="New Password"
               autoComplete="new-password"
-              onKeyDown={preventSpace}
-              materialProps={{ maxLength: "30", autoComplete: "new-password" }}
+              onKeyDown={ preventSpace }
+              materialProps={ { maxLength: "30", autoComplete: "new-password" } }
               variant="standard"
-              value={formikPassword.values.newPassword}
-              onChange={formikPassword.handleChange}
-              onBlur={formikPassword.handleBlur}
+              value={ formikPassword.values.newPassword }
+              onChange={ formikPassword.handleChange }
+              onBlur={ formikPassword.handleBlur }
               error={
                 formikPassword.touched.newPassword && Boolean(formikPassword.errors.newPassword)
               }
-              helperText={formikPassword.touched.newPassword && formikPassword.errors.newPassword}
-              disabled={false}
+              helperText={ formikPassword.touched.newPassword && formikPassword.errors.newPassword }
+              disabled={ false }
             />
-            <p style={{ textAlign: "justify", fontSize: "0.938rem" }}>
+            <p style={ { textAlign: "justify", fontSize: "0.938rem" } }>
               Please ensure your password meets the following criteria: between 8 and 30 characters in length, at least 1 uppercase letter, at least 1 lowercase letter, at least 1 number, at least 1 special character.
             </p>
           </Grid>
           <Grid
             item
-            xs={12}
-            style={{ width: "100%", gap: 15, marginBottom: 18 }}
+            xs={ 12 }
+            style={ { width: "100%", gap: 15, marginBottom: 18 } }
             container
             direction="row"
           >
@@ -209,38 +209,38 @@ export default function ChangePassword(basicInformationData) {
               name="confirmPassword"
               type="password"
               label="Confirm New Password"
-              onKeyDown={preventSpace}
+              onKeyDown={ preventSpace }
               autoComplete="new-password"
-              materialProps={{ maxLength: "30", autoComplete: "new-password" }}
-              value={formikPassword.values.confirmPassword}
-              onChange={formikPassword.handleChange}
-              onBlur={formikPassword.handleBlur}
+              materialProps={ { maxLength: "30", autoComplete: "new-password" } }
+              value={ formikPassword.values.confirmPassword }
+              onChange={ formikPassword.handleChange }
+              onBlur={ formikPassword.handleBlur }
               error={
                 formikPassword.touched.confirmPassword && Boolean(formikPassword.errors.confirmPassword)
               }
-              helperText={formikPassword.touched.confirmPassword && formikPassword.errors.confirmPassword}
+              helperText={ formikPassword.touched.confirmPassword && formikPassword.errors.confirmPassword }
               variant="standard"
-              disabled={false}
+              disabled={ false }
             />
           </Grid>
         </Grid>
         <Grid container direction="row">
           <Grid container
             item
-            xs={12}
-            sm={4}
-            md={3}
-            lg={2}
-            xl={1}
+            xs={ 12 }
+            sm={ 4 }
+            md={ 3 }
+            lg={ 2 }
+            xl={ 1 }
             direction="row"
-            style={{ padding: "10px 0px" }}
+            style={ { padding: "10px 0px" } }
             id="reEnterUpdate"
           >
             <ButtonSecondary
               stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
               styleicon='{ "color":"" }'
 
-              onClick={handleCancelButton}
+              onClick={ handleCancelButton }
 
             >
               Cancel
@@ -248,13 +248,13 @@ export default function ChangePassword(basicInformationData) {
           </Grid>
           <Grid container
             item
-            xs={12}
-            sm={4}
-            md={3}
-            lg={2}
-            xl={1}
+            xs={ 12 }
+            sm={ 4 }
+            md={ 3 }
+            lg={ 2 }
+            xl={ 1 }
             direction="row"
-            style={{ padding: "10px 0px " }}
+            style={ { padding: "10px 0px " } }
             id="reEnterCancel"
           >
             <ButtonPrimary
@@ -262,16 +262,16 @@ export default function ChangePassword(basicInformationData) {
               styleicon='{ "color":"" }'
 
               type="submit"
-              disabled={loading}
+              disabled={ loading }
             >
               Update
               <i
                 className="fa fa-refresh fa-spin customSpinner"
-                style={{
+                style={ {
                   marginRight: "10px",
                   display: loading ? "block" : "none",
                   color: 'blue'
-                }}
+                } }
               />
             </ButtonPrimary>
           </Grid>

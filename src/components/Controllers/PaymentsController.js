@@ -1,17 +1,19 @@
-import APICall from "../lib/AxiosLib";
 import Moment from "moment";
+import APICall from "../lib/AxiosLib";
+import ErrorLogger from "../lib/ErrorLogger";
 
 /***** Get payment methods *****/
 export async function usrPaymentMethods() {
   try {
     let url = "get_payment_methods";
     let param = "";
-    let data = {}
+    let data = {};
     let method = "POST";
     let addAccessToken = true;
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    Error("Error executing usrPaymentMethods API")
+    ErrorLogger("Error executing usrPaymentMethods API", error);
+    Error("Error executing usrPaymentMethods API");
   }
 }
 
@@ -33,7 +35,8 @@ export async function enableAutoPay(enableAutoPayAccountNo, enableAutoPayCard, e
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    Error("Error executing enableAutoPay API")
+    ErrorLogger("Error executing enableAutoPay API", error);
+    Error("Error executing enableAutoPay API");
   }
 }
 
@@ -50,7 +53,8 @@ export async function disableAutoPay(disableAutoPayAccountNo) {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    Error("Error executing disableAutoPay API")
+    ErrorLogger("Error executing disableAutoPay API", error);
+    Error("Error executing disableAutoPay API");
   }
 }
 
@@ -73,7 +77,8 @@ export async function makePayment(scheduledPaymentAccountNo, scheduledPaymentCar
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    Error("Error executing makePayment API")
+    ErrorLogger("Error executing makePayment API", error);
+    Error("Error executing makePayment API");
   }
 }
 
@@ -89,6 +94,7 @@ export async function deleteScheduledPayment(accntNo, refNo, isCard) {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    Error("Error executing deleteScheduledPayment API")
+    ErrorLogger("Error executing deleteScheduledPayment API", error);
+    Error("Error executing deleteScheduledPayment API");
   }
 }

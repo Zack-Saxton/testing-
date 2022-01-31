@@ -1,29 +1,29 @@
-import React, { useEffect, useState } from "react";
 import { CircularProgress } from '@material-ui/core';
-import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
-import CheckLoginStatus from "../../App/CheckLoginStatus";
-import { CSVLink } from "react-csv";
+import Typography from "@material-ui/core/Typography";
+import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
+import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
 import { jsPDF } from "jspdf";
 import "jspdf-autotable";
-import { NavLink } from "react-router-dom";
 import Moment from "moment";
-import { useStylesPaymenthistory } from "./Style";
-import PaymentHistoryTable from "./PaymentRecords";
-import { ButtonWithIcon, ButtonPrimary } from "../../FormsUI";
+import React, { useEffect, useState } from "react";
+import { CSVLink } from "react-csv";
+import { NavLink } from "react-router-dom";
+import CheckLoginStatus from "../../App/CheckLoginStatus";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
+import { ButtonPrimary, ButtonWithIcon } from "../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
-import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
-import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
+import PaymentHistoryTable from "./PaymentRecords";
+import { useStylesPaymenthistory } from "./Style";
 import "./Style.css";
 
 //Main function
@@ -31,8 +31,8 @@ export default function PaymentHistory() {
 
   //Material UI css class
   const classes = useStylesPaymenthistory();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [fileName, setfileName] = React.useState(null);
+  const [ anchorEl, setAnchorEl ] = React.useState(null);
+  const [ fileName, setfileName ] = React.useState(null);
 
 
   const handleClick = (event) => {
@@ -44,12 +44,12 @@ export default function PaymentHistory() {
   };
 
   //Api implementation for table
-  const [paymentHistoryStatus, setpaymentHistoryStatus] = useState(null);
+  const [ paymentHistoryStatus, setpaymentHistoryStatus ] = useState(null);
 
   async function AsyncEffect_paymentHistory() {
-    let responseData = await (usrAccountDetails())
+    let responseData = await (usrAccountDetails());
     setpaymentHistoryStatus(responseData);
-    setfileName(responseData?.data?.activeLoans.length ? responseData?.data?.activeLoans[0].loanDetails.AccountNumber : null)
+    setfileName(responseData?.data?.activeLoans.length ? responseData?.data?.activeLoans[ 0 ].loanDetails.AccountNumber : null);
   }
   useEffect(() => {
     AsyncEffect_paymentHistory();
@@ -70,17 +70,17 @@ export default function PaymentHistory() {
     const formated = parseFloat(n);
     const currency = '$';
     return currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
-  }
+  };
 
   //Download pdf
   const downloadPDF = () => {
-    let pdfData = recentPaymentData != null ? recentPaymentData[0].loanHistory.AppAccountHistory : []
+    let pdfData = recentPaymentData != null ? recentPaymentData[ 0 ].loanHistory.AppAccountHistory : [];
     const unit = "pt";
     const size = "A4";
     const orientation = "portrait";
     const doc = new jsPDF(orientation, unit, size);
-    const headerPDF = [["Date", "Description", "Principal", "Interest", "Other", "Total", "Balance"]];
-    const data = pdfData.map(data => [Moment(data.TransactionDate).format("MM-DD-YYYY"), data.TransactionDescription, currencyFormat(Math.abs(data.PrincipalAmount)), currencyFormat(Math.abs(data.InterestAmount)), currencyFormat(Math.abs(data.OtherAmount)), currencyFormat(Math.abs(data.InterestAmount + data.OtherAmount + data.PrincipalAmount)), currencyFormat(Math.abs(data.RunningPrincipalBalance))]);
+    const headerPDF = [ [ "Date", "Description", "Principal", "Interest", "Other", "Total", "Balance" ] ];
+    const data = pdfData.map(data => [ Moment(data.TransactionDate).format("MM-DD-YYYY"), data.TransactionDescription, currencyFormat(Math.abs(data.PrincipalAmount)), currencyFormat(Math.abs(data.InterestAmount)), currencyFormat(Math.abs(data.OtherAmount)), currencyFormat(Math.abs(data.InterestAmount + data.OtherAmount + data.PrincipalAmount)), currencyFormat(Math.abs(data.RunningPrincipalBalance)) ]);
     doc.setFontSize(15);
     doc.text("Active Loan / Payment History(" + fileName + ")", 40, 30);
     let content = {
@@ -90,7 +90,7 @@ export default function PaymentHistory() {
       theme: 'plain'
     };
     doc.autoTable(content);
-    doc.save("" + fileName + ".pdf")
+    doc.save("" + fileName + ".pdf");
     setAnchorEl(null);
   };
 
@@ -101,7 +101,7 @@ export default function PaymentHistory() {
       : null;
 
   //Data for csv file
-  const dataCSV = recentPaymentData != null ? recentPaymentData.length ? recentPaymentData[0].loanHistory.AppAccountHistory.map(item => {
+  const dataCSV = recentPaymentData != null ? recentPaymentData.length ? recentPaymentData[ 0 ].loanHistory.AppAccountHistory.map(item => {
     return {
       ...item,
       ...{ TransactionDate: Moment(item.TransactionDate).format('MM-DD-YYYY') },
@@ -112,7 +112,7 @@ export default function PaymentHistory() {
       ...{ OtherAmount: currencyFormat(Math.abs(item.OtherAmount)) },
       ...{ RunningPrincipalBalance: currencyFormat(Math.abs(item.RunningPrincipalBalance)) },
     };
-  }) : [] : []
+  }) : [] : [];
 
 
   //View part
@@ -122,19 +122,19 @@ export default function PaymentHistory() {
       <ScrollToTopOnMount />
       <Grid
         container
-        justifyContent={"center"}
-        style={{
+        justifyContent={ "center" }
+        style={ {
           marginTop: "-150px",
           paddingRight: "23px",
           paddingLeft: "23px",
-        }}
+        } }
       >
-        <Grid style={{ paddingBottom: "10px" }} container>
-          <Grid item xs={12} sm={8}>
-            <Typography variant="h3" className={classes.heading}>
+        <Grid style={ { paddingBottom: "10px" } } container>
+          <Grid item xs={ 12 } sm={ 8 }>
+            <Typography variant="h3" className={ classes.heading }>
               <NavLink
                 to="/customers/accountOverview"
-                style={{ textDecoration: "none" }}
+                style={ { textDecoration: "none" } }
               >
                 <ButtonWithIcon
                   icon="arrow_backwardIcon"
@@ -146,51 +146,51 @@ export default function PaymentHistory() {
                         "marginRight": "5px", "marginTop":"unset" }'
                   styleicon='{ "color":"" }'
                 />
-              </NavLink>{" "}
-              Active Loan {fileName != null ? (<span style={{ fontSize: "70%", fontWeight: "100" }}>({fileName})</span>) : ''} / Payment History
+              </NavLink>{ " " }
+              Active Loan { fileName != null ? (<span style={ { fontSize: "70%", fontWeight: "100" } }>({ fileName })</span>) : '' } / Payment History
 
             </Typography>
           </Grid>
-          <Grid item xs={12} sm={4}>
-            <ButtonPrimary aria-controls="simple-menu" anchorel={anchorEl} aria-haspopup="true" stylebutton='{"float": "right", "color":"" }' onClick={handleClick}>
+          <Grid item xs={ 12 } sm={ 4 }>
+            <ButtonPrimary aria-controls="simple-menu" anchorel={ anchorEl } aria-haspopup="true" stylebutton='{"float": "right", "color":"" }' onClick={ handleClick }>
               Download
             </ButtonPrimary>
             <Menu
               id="simple-menu"
-              anchorEl={anchorEl}
+              anchorEl={ anchorEl }
               keepMounted
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
+              open={ Boolean(anchorEl) }
+              onClose={ handleClose }
             >
-              <MenuItem style={{ color: "#757575" }} ><CSVLink style={{ textDecoration: "none", color: "#757575" }} onClick={handleClose} headers={headersCSV} filename={"" + fileName + ".csv"} data={dataCSV}><InsertDriveFileIcon style={{ paddingRight: '7px', marginBottom: '-4px' }} /> CSV</CSVLink></MenuItem>
-              <MenuItem onClick={downloadPDF} style={{ color: "#757575" }}><PictureAsPdfIcon style={{ paddingRight: '12px' }} /> PDF</MenuItem>
+              <MenuItem style={ { color: "#757575" } } ><CSVLink style={ { textDecoration: "none", color: "#757575" } } onClick={ handleClose } headers={ headersCSV } filename={ "" + fileName + ".csv" } data={ dataCSV }><InsertDriveFileIcon style={ { paddingRight: '7px', marginBottom: '-4px' } } /> CSV</CSVLink></MenuItem>
+              <MenuItem onClick={ downloadPDF } style={ { color: "#757575" } }><PictureAsPdfIcon style={ { paddingRight: '12px' } } /> PDF</MenuItem>
             </Menu>
           </Grid>
         </Grid>
-        {recentPaymentData === null ? (
-          <Grid item xs={12} style={{ paddingTop: "10px", paddingBottom: "30px" }}>
-            <TableContainer id="pdfdiv" component={Paper}>
+        { recentPaymentData === null ? (
+          <Grid item xs={ 12 } style={ { paddingTop: "10px", paddingBottom: "30px" } }>
+            <TableContainer id="pdfdiv" component={ Paper }>
 
-              <Table className={classes.table} aria-label="simple table">
+              <Table className={ classes.table } aria-label="simple table">
                 <TableHead>
                   <TableRow>
-                    <TableCell className={classes.tableHead}>Date</TableCell>
-                    <TableCell className={classes.tableHead} align="center">
+                    <TableCell className={ classes.tableHead }>Date</TableCell>
+                    <TableCell className={ classes.tableHead } align="center">
                       Description
                     </TableCell>
-                    <TableCell className={classes.tableHead} align="center">
+                    <TableCell className={ classes.tableHead } align="center">
                       Principal
                     </TableCell>
-                    <TableCell className={classes.tableHead} align="center">
+                    <TableCell className={ classes.tableHead } align="center">
                       Interest
                     </TableCell>
-                    <TableCell className={classes.tableHead} align="center">
+                    <TableCell className={ classes.tableHead } align="center">
                       Other
                     </TableCell>
-                    <TableCell className={classes.tableHead} align="center">
+                    <TableCell className={ classes.tableHead } align="center">
                       Total
                     </TableCell>
-                    <TableCell className={classes.tableHead} align="center">
+                    <TableCell className={ classes.tableHead } align="center">
                       Balance
                     </TableCell>
                   </TableRow>
@@ -205,7 +205,7 @@ export default function PaymentHistory() {
               </Table>
             </TableContainer>
           </Grid>)
-          : <PaymentHistoryTable userRecentPaymentData={recentPaymentData} />
+          : <PaymentHistoryTable userRecentPaymentData={ recentPaymentData } />
         }
 
       </Grid>

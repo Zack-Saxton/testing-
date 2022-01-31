@@ -1,17 +1,23 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
-import { useFormik } from "formik";
-import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import * as yup from "yup";
 import Box from "@material-ui/core/Box";
 import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
 import axios from "axios";
+import { useFormik } from "formik";
+import Cookies from "js-cookie";
+import React, { useState } from "react";
+import { useQueryClient } from 'react-query';
+import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
+import Logo from "../../../assets/images/loginbg.png";
+import LoginController from "../../Controllers/LoginController";
+import LogoutController from "../../Controllers/LogoutController";
+import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
 import {
   Button,
   ButtonPrimary,
@@ -20,19 +26,15 @@ import {
   PasswordField,
   SocialSecurityNumber,
   TextField,
-  Zipcode,
+  Zipcode
 } from "../../FormsUI";
-import Paper from "@material-ui/core/Paper";
-import Logo from "../../../assets/images/loginbg.png";
-import LoginController from "../../Controllers/LoginController";
-import "./Register.css";
-import Cookies from "js-cookie";
-import LogoutController from "../../Controllers/LogoutController";
 import { encryptAES } from "../../lib/Crypto";
-import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
-import reqProperties from "../../lib/Lang/register.json";
+import { FormValidationRules } from "../../lib/FormValidationRule";
 import globalValidation from "../../lib/Lang/globalValidation.json";
-import { useQueryClient } from 'react-query';
+import reqProperties from "../../lib/Lang/register.json";
+import "./Register.css";
+var formValidation = new FormValidationRules();
+
 //Styling part
 const useStyles = makeStyles((theme) => ({
   mainContentBackground: {
@@ -93,94 +95,22 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 //Yup validations for all the input fields
-const validationSchema = yup.object({
-  firstname: yup
-    .string(globalValidation.FirstNameEnter)
-    .max(30, globalValidation.FirstNameMax)
-    .min(2,  globalValidation.FirstNameMin)
-    .required(globalValidation.FirstNameRequired),
-  lastname: yup
-    .string(globalValidation.LastNameEnter)
-    .max(30, globalValidation.LastNameMax)
-    .min(2, globalValidation.LastNameMin)
-    .required(globalValidation.LastNameRequired),
-  email: yup
-    .string(globalValidation.EmailEnter)
-    .email(globalValidation.EmailValid)
-    .matches(
-      /^[a-zA-Z](?!.*[+/._-][+/._-])(([^<>()|?{}='[\]\\,;:#!$%^&*\s@\"]+(\.[^<>()|?{}=/+'[\]\\.,;_:#!$%^&*-\s@\"]+)*)|(\".+\"))[a-zA-Z0-9]@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,3}))$/, //eslint-disable-line
-      globalValidation.EmailValid
-    )
-    .required(globalValidation.EmailRequired),
-  date: yup
-    .date(globalValidation.DateOfBirthValid)
-    .nullable()
-    .required(globalValidation.DateOfBirthRequired)
-    .max(
-      new Date(
-        new Date(
-          new Date().getFullYear() +
-            "/" +
-            (new Date().getMonth() + 1) +
-            "/" +
-            new Date().getDate()
-        ).getTime() - 567650000000
-      ),
-      globalValidation.DateOfBirthMinAge
-    )
-    .min(new Date(1919, 1, 1), globalValidation.DateOfBirthMaxAge)
-    .typeError(globalValidation.DateOfBirthValid),
-  password: yup
-    .string(globalValidation.PasswordEnter)
-    .matches(
-      /^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,30}$/,
-      globalValidation.PasswordCriteria
-    )
-    .max(30, globalValidation.PasswordMax)
-    .min(8, globalValidation.PasswordMin)
-    .required(globalValidation.PasswordRequired),
-  confirmPassword: yup
-    .string()
-    .max(30, globalValidation.PasswordMax)
-    .min(8, globalValidation.PasswordMin)
-    .required(globalValidation.PasswordConfirmationRequired)
-    .when("password", {
-      is: (password) => password && password.length > 0,
-      then: yup
-        .string()
-        .oneOf(
-          [yup.ref("password")],
-          globalValidation.PasswordConfirmationMatch
-        ),
-    }),
-  zip: yup
-    .string(globalValidation.ZipCodeEnter)
-    .max(5, globalValidation.ZipCodeMax)
-    .required(globalValidation.ZipCodeRequired),
-  ssn: yup
-    .string(globalValidation.SSNEnter)
-    .required(globalValidation.SSNRequired)
-    .transform((value) => value.replace(/[^\d]/g, ""))
-    .matches(
-      /^(?!000)[0-8]\d{2}(?!00)\d{2}(?!0000)\d{4}$/,
-      globalValidation.SSNValid
-    )
-    .matches(/^(\d)(?!\1+$)\d{8}$/, globalValidation.SSNValid)
-    .min(9, globalValidation.SSNMin),
-});
+const validationSchema = formValidation.getFormValidationRule('');
+
+
 
 //Begin: Login page
 export default function Register() {
   window.zeHide();
   const classes = useStyles();
-  const [validZip, setValidZip] = useState(true);
-  const [state, setState] = useState("");
-  const [city, setCity] = useState("");
-  const [success, setSuccess] = useState(false);
-  const [failed, setFailed] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [ validZip, setValidZip ] = useState(true);
+  const [ state, setState ] = useState("");
+  const [ city, setCity ] = useState("");
+  const [ success, setSuccess ] = useState(false);
+  const [ failed, setFailed ] = useState("");
+  const [ loading, setLoading ] = useState(false);
   const history = useHistory();
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
 
   //Date implementation for verifying 18 years
   const myDate = new Date();
@@ -213,14 +143,14 @@ export default function Register() {
       queryClient.removeQueries();
       rememberMe === true
         ? Cookies.set(
-            "rememberMe",
-            JSON.stringify({
-              selected: true,
-              email: values.email,
-              password: values.password,
-            })
-          )
-        : Cookies.set("rememberMe",JSON.stringify({ selected: false, email: "", password: "" }));
+          "rememberMe",
+          JSON.stringify({
+            selected: true,
+            email: values.email,
+            password: values.password,
+          })
+        )
+        : Cookies.set("rememberMe", JSON.stringify({ selected: false, email: "", password: "" }));
 
       setLoading(false);
       history.push({
@@ -233,7 +163,7 @@ export default function Register() {
       setLoading(false);
       alert("Network error");
     }
-  }
+  };
   //Form Submission
   const formik = useFormik({
     initialValues: {
@@ -245,6 +175,7 @@ export default function Register() {
       zip: "",
       ssn: "",
       date: null,
+      isRegisterForm: 1
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -275,7 +206,7 @@ export default function Register() {
             "Content-Type": "application/json",
           },
           transformRequest: (data, headers) => {
-            delete headers.common["Content-Type"];
+            delete headers.common[ "Content-Type" ];
             return data;
           },
         });
@@ -286,11 +217,11 @@ export default function Register() {
         ) {
           //On succes, calls the login API to the JWT token and save it in storage, and make the user logged in and redirecting to home page
           loginUser(values);
-        } 
+        }
         else if (customerStatus.data?.result === "succcces" && customerStatus.data?.successMessage === "Password reset successful") {
-          toast.success(customerStatus.data?.successMessage)
+          toast.success(customerStatus.data?.successMessage);
           loginUser(values);
-        } 
+        }
         else if (
           customerStatus.data?.result === "error" &&
           customerStatus.data?.hasError === true
@@ -299,10 +230,10 @@ export default function Register() {
           setSuccess(false);
           setLoading(false);
         } else {
-            alert(globalValidation.Network_Error);
-            setFailed(globalValidation.Network_Error_Please_Try_Again);
-            setSuccess(false);
-            setLoading(false);
+          alert(globalValidation.Network_Error);
+          setFailed(globalValidation.Network_Error_Please_Try_Again);
+          setSuccess(false);
+          setLoading(false);
         }
       } catch (error) {
         setFailed(reqProperties.Please_Contact_Us_At);
@@ -379,22 +310,22 @@ export default function Register() {
   //View Part
   return (
     <div>
-      <div className={classes.mainContentBackground} id="mainContentBackground">
+      <div className={ classes.mainContentBackground } id="mainContentBackground">
         <Box>
           <Grid
-            xs={12}
+            xs={ 12 }
             item
             container
             justifyContent="center"
             alignItems="center"
-            style={{ paddingTop: "30px", paddingBottom: "40px" }}
+            style={ { paddingTop: "30px", paddingBottom: "40px" } }
           >
             <Grid
-              xs={11}
-              sm={10}
-              md={8}
-              lg={6}
-              xl={6}
+              xs={ 11 }
+              sm={ 10 }
+              md={ 8 }
+              lg={ 6 }
+              xl={ 6 }
               id="registerMainContent"
               className="cardWrapper"
               justifyContent="center"
@@ -402,31 +333,31 @@ export default function Register() {
               container
               item
             >
-              <Paper className={classes.paper}>
+              <Paper className={ classes.paper }>
                 <Typography
-                  className={classes.title}
+                  className={ classes.title }
                   data-testid="title"
                   color="textSecondary"
                 >
                   Sign in help / register
                 </Typography>
-                <p className={classes.subtitle} data-testid="subtitle">
-                  {" "}
+                <p className={ classes.subtitle } data-testid="subtitle">
+                  { " " }
                   Let us help you get signed in another way
                 </p>
 
-                <form onSubmit={formik.handleSubmit}>
+                <form onSubmit={ formik.handleSubmit }>
                   <Grid
                     container
                     justifyContent="center"
                     alignItems="center"
-                    spacing={4}
+                    spacing={ 4 }
                   >
                     <Grid
                       item
-                      xs={12}
-                      sm={6}
-                      style={{ width: "100%" }}
+                      xs={ 12 }
+                      sm={ 6 }
+                      style={ { width: "100%" } }
                       container
                       direction="row"
                     >
@@ -434,11 +365,11 @@ export default function Register() {
                         name="firstname"
                         id="firstname"
                         label="First Name *"
-                        placeholder={globalValidation.FirstNameEnter}
-                        materialProps={{ maxLength: "30" }}
-                        value={formik.values.firstname}
-                        onChange={(e) => NameChange(e)}
-                        onBlur={formik.handleBlur}
+                        placeholder={ globalValidation.FirstNameEnter }
+                        materialProps={ { maxLength: "30" } }
+                        value={ formik.values.firstname }
+                        onChange={ (e) => NameChange(e) }
+                        onBlur={ formik.handleBlur }
                         error={
                           formik.touched.firstname &&
                           Boolean(formik.errors.firstname)
@@ -451,9 +382,9 @@ export default function Register() {
 
                     <Grid
                       item
-                      xs={12}
-                      sm={6}
-                      style={{ width: "100%" }}
+                      xs={ 12 }
+                      sm={ 6 }
+                      style={ { width: "100%" } }
                       container
                       direction="row"
                     >
@@ -461,11 +392,11 @@ export default function Register() {
                         name="lastname"
                         id="lastname"
                         label="Last Name *"
-                        placeholder={globalValidation.LastNameEnter}
-                        materialProps={{ maxLength: "30" }}
-                        value={formik.values.lastname}
-                        onChange={NameChange}
-                        onBlur={formik.handleBlur}
+                        placeholder={ globalValidation.LastNameEnter }
+                        materialProps={ { maxLength: "30" } }
+                        value={ formik.values.lastname }
+                        onChange={ NameChange }
+                        onBlur={ formik.handleBlur }
                         error={
                           formik.touched.lastname &&
                           Boolean(formik.errors.lastname)
@@ -478,8 +409,8 @@ export default function Register() {
 
                     <Grid
                       item
-                      xs={12}
-                      style={{ width: "100%" }}
+                      xs={ 12 }
+                      style={ { width: "100%" } }
                       container
                       direction="row"
                     >
@@ -487,46 +418,46 @@ export default function Register() {
                         id="email"
                         name="email"
                         label="Email *"
-                        placeholder={globalValidation.EmailEnter}
-                        materialProps={{ maxLength: "100" }}
-                        onKeyDown={preventSpace}
-                        value={formik.values.email}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
+                        placeholder={ globalValidation.EmailEnter }
+                        materialProps={ { maxLength: "100" } }
+                        onKeyDown={ preventSpace }
+                        value={ formik.values.email }
+                        onChange={ formik.handleChange }
+                        onBlur={ formik.handleBlur }
                         error={
                           formik.touched.email && Boolean(formik.errors.email)
                         }
-                        helperText={formik.touched.email && formik.errors.email}
+                        helperText={ formik.touched.email && formik.errors.email }
                       />
                     </Grid>
 
                     <Grid
                       id="socialNum"
                       item
-                      xs={12}
-                      sm={4}
+                      xs={ 12 }
+                      sm={ 4 }
                       container
                       direction="row"
                     >
                       <SocialSecurityNumber
-                        className={classes.socialNum}
+                        className={ classes.socialNum }
                         name="ssn"
                         label="Social Security Number *"
-                        placeholder={globalValidation.SSNEnter}
+                        placeholder={ globalValidation.SSNEnter }
                         id="ssn"
                         type="ssn"
-                        value={formik.values.ssn}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        error={formik.touched.ssn && Boolean(formik.errors.ssn)}
-                        helperText={formik.touched.ssn && formik.errors.ssn}
+                        value={ formik.values.ssn }
+                        onChange={ formik.handleChange }
+                        onBlur={ formik.handleBlur }
+                        error={ formik.touched.ssn && Boolean(formik.errors.ssn) }
+                        helperText={ formik.touched.ssn && formik.errors.ssn }
                       />
                     </Grid>
                     <Grid
                       id="ZipcodeWrap"
                       item
-                      xs={12}
-                      sm={4}
+                      xs={ 12 }
+                      sm={ 4 }
                       container
                       direction="row"
                     >
@@ -535,10 +466,10 @@ export default function Register() {
                         id="zip"
                         name="zip"
                         label="Zip Code *"
-                        placeholder={globalValidation.ZipCodeEnter}
-                        value={formik.values.zip}
-                        onChange={fetchAddress}
-                        onBlur={formik.handleBlur}
+                        placeholder={ globalValidation.ZipCodeEnter }
+                        value={ formik.values.zip }
+                        onChange={ fetchAddress }
+                        onBlur={ formik.handleBlur }
                         error={
                           (formik.touched.zip && Boolean(formik.errors.zip)) ||
                           !validZip
@@ -546,7 +477,7 @@ export default function Register() {
                         helperText={
                           validZip
                             ? formik.touched.zip && formik.errors.zip
-                            : `${globalValidation.ZipCodeValid}` 
+                            : `${ globalValidation.ZipCodeValid }`
                         }
                       />
                     </Grid>
@@ -554,8 +485,8 @@ export default function Register() {
                     <Grid
                       id="dateWrap"
                       item
-                      xs={12}
-                      sm={4}
+                      xs={ 12 }
+                      sm={ 4 }
                       container
                       direction="row"
                     >
@@ -565,38 +496,38 @@ export default function Register() {
                         id="date"
                         placeholder="MM/DD/YYYY"
                         format="MM/dd/yyyy"
-                        maxdate={myDate}
-                        minyear={102}
-                        value={formik.values.date}
-                        onChange={(values) => {
+                        maxdate={ myDate }
+                        minyear={ 102 }
+                        value={ formik.values.date }
+                        onChange={ (values) => {
                           formik.setFieldValue("date", values);
-                        }}
-                        onBlur={formik.handleBlur}
+                        } }
+                        onBlur={ formik.handleBlur }
                         error={
                           formik.touched.date && Boolean(formik.errors.date)
                         }
-                        helperText={formik.touched.date && formik.errors.date}
+                        helperText={ formik.touched.date && formik.errors.date }
                       />
                     </Grid>
 
                     <Grid
                       item
-                      xs={12}
-                      style={{ width: "100%" }}
+                      xs={ 12 }
+                      style={ { width: "100%" } }
                       container
                       direction="row"
                     >
                       <PasswordField
                         name="password"
                         label="Create New Password *"
-                        placeholder={globalValidation.PasswordEnter}
+                        placeholder={ globalValidation.PasswordEnter }
                         id="password"
                         type="password"
-                        onKeyDown={preventSpace}
-                        materialProps={{ maxLength: "30" }}
-                        value={formik.values.password}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
+                        onKeyDown={ preventSpace }
+                        materialProps={ { maxLength: "30" } }
+                        value={ formik.values.password }
+                        onChange={ formik.handleChange }
+                        onBlur={ formik.handleBlur }
                         error={
                           formik.touched.password &&
                           Boolean(formik.errors.password)
@@ -605,7 +536,7 @@ export default function Register() {
                           formik.touched.password && formik.errors.password
                         }
                       />
-                      <p id="passwordTitle" className={classes.passwordTitle}>
+                      <p id="passwordTitle" className={ classes.passwordTitle }>
                         Please ensure your password meets the following
                         criteria: between 8 and 30 characters in length, at
                         least 1 uppercase letter, at least 1 lowercase letter,
@@ -614,22 +545,22 @@ export default function Register() {
                     </Grid>
                     <Grid
                       item
-                      xs={12}
-                      style={{ width: "100%" }}
+                      xs={ 12 }
+                      style={ { width: "100%" } }
                       container
                       direction="row"
                     >
                       <PasswordField
                         name="confirmPassword"
                         label="Confirm Your Password *"
-                        placeholder={globalValidation.PasswordConfirmEnter}
+                        placeholder={ globalValidation.PasswordConfirmEnter }
                         id="cpass"
                         type="password"
-                        onKeyDown={preventSpace}
-                        materialProps={{ maxLength: "30" }}
-                        value={formik.values.confirmPassword}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
+                        onKeyDown={ preventSpace }
+                        materialProps={ { maxLength: "30" } }
+                        value={ formik.values.confirmPassword }
+                        onChange={ formik.handleChange }
+                        onBlur={ formik.handleBlur }
                         error={
                           formik.touched.confirmPassword &&
                           Boolean(formik.errors.confirmPassword)
@@ -648,28 +579,28 @@ export default function Register() {
                         }
                         data-testid="subtitle"
                       >
-                        {" "}
-                        {failed}
+                        { " " }
+                        { failed }
                       </p>
                     </Grid>
 
-                    <Grid item xs={12} className={classes.signInButtonGrid}>
+                    <Grid item xs={ 12 } className={ classes.signInButtonGrid }>
                       <ButtonPrimary
-                        onClick={autoFocus}
+                        onClick={ autoFocus }
                         type="submit"
                         data-testid="submit"
                         stylebutton='{"background": "", "color":"", "fontSize" : "15px ! important", "padding" : "0px 30px" }'
-                        disabled={loading}
+                        disabled={ loading }
                       >
-                        {/* <Typography align="center" className="textCSS "> */}
+                        {/* <Typography align="center" className="textCSS "> */ }
                         Sign in
-                        {/* </Typography> */}
+                        {/* </Typography> */ }
                         <i
                           className="fa fa-refresh fa-spin customSpinner"
-                          style={{
+                          style={ {
                             marginRight: "10px",
                             display: loading ? "block" : "none",
-                          }}
+                          } }
                         />
                       </ButtonPrimary>
                     </Grid>
@@ -681,11 +612,11 @@ export default function Register() {
         </Box>
       </div>
       <Dialog
-        onClose={handleCloseFailed}
+        onClose={ handleCloseFailed }
         aria-labelledby="customized-dialog-title"
-        open={false}
+        open={ false }
       >
-        <DialogTitle id="customized-dialog-title" onClose={handleCloseFailed}>
+        <DialogTitle id="customized-dialog-title" onClose={ handleCloseFailed }>
           Notice
         </DialogTitle>
         <DialogContent dividers>
@@ -697,7 +628,7 @@ export default function Register() {
         <DialogActions className="modalAction">
           <Button
             stylebutton='{"background": "#FFBC23", "color": "black", "border-radius": "50px"}'
-            onClick={handleCloseFailed}
+            onClick={ handleCloseFailed }
             className="modalButton"
           >
             <Typography align="center">Ok</Typography>
@@ -705,11 +636,11 @@ export default function Register() {
         </DialogActions>
       </Dialog>
       <Dialog
-        onClose={handleCloseSuccess}
+        onClose={ handleCloseSuccess }
         aria-labelledby="customized-dialog-title"
-        open={success}
+        open={ success }
       >
-        <DialogTitle id="customized-dialog-title" onClose={handleCloseSuccess}>
+        <DialogTitle id="customized-dialog-title" onClose={ handleCloseSuccess }>
           Notice
         </DialogTitle>
         <DialogContent dividers>
@@ -720,7 +651,7 @@ export default function Register() {
         <DialogActions className="modalAction">
           <Button
             stylebutton='{"background": "#FFBC23", "color": "black", "border-radius": "50px"}'
-            onClick={handleCloseSuccess}
+            onClick={ handleCloseSuccess }
             className="modalButton"
           >
             <Typography align="center">Ok</Typography>

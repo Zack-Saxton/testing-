@@ -57,10 +57,11 @@
     "kba_answers_cac": "/integration/LexisNexis/kba_answers_cac?test=true",
     "mariner_holiday_calender": "/gps/mariner_holiday_calender",
     "zip_lookup": "/api/v2/zipcodelookup",
-    "bank_information_cac" : "/verification/bank_information_cac",
-    "verification_steps_cac" : "/verification/verification_steps_cac",
-    "verify_user_email_cac" : "/verification/verify_user_email_cac",
-    "kba_questions_cac":"/integration/lexisnexis/kba_questions_cac?test=true",
-    "kba_disambiguate_answer": "/integration/LexisNexis/kba_disambiguate_answer_cac?test=true"
+    "bank_information_cac": "/verification/bank_information_cac",
+    "verification_steps_cac": "/verification/verification_steps_cac",
+    "verify_user_email_cac": "/verification/verify_user_email_cac",
+    "kba_questions_cac": "/integration/lexisnexis/kba_questions_cac?test=true",
+    "kba_disambiguate_answer": "/integration/LexisNexis/kba_disambiguate_answer_cac?test=true",
+    "error_logger": "/logger/logError"
   }
 }
