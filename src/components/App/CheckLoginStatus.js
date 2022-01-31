@@ -1,6 +1,6 @@
+import Cookies from "js-cookie";
 import { useHistory } from "react-router-dom";
-import Cookies from "js-cookie"
-import LogoutController from "../Controllers/LogoutController"
+import LogoutController from "../Controllers/LogoutController";
 // check the login status
 const CheckLoginStatus = () => {
   const history = useHistory();
@@ -21,6 +21,6 @@ const CheckLoginStatus = () => {
   }
 
   return null;
-}
+};
 
 export default CheckLoginStatus;

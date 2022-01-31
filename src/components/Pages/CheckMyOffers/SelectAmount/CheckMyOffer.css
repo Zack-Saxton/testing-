@@ -151,3 +151,20 @@
 #stateWrap {
 	padding-bottom: 15px !important;
 }
+
+#sliderBar .MuiSlider-rail,
+#sliderBar .MuiSlider-mark{
+	height: 3px !important;
+}
+
+#sliderBar .MuiSlider-thumb{
+	width: 13px !important;
+    height: 13px !important;
+}
+
+#offerCodeInput-label{
+	font-size: 0.968rem !important;
+}
+#offerCodeInput {
+	padding-bottom: 15px !important;
+}

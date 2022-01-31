@@ -1,18 +1,18 @@
-import React from 'react'
-import { cleanup, fireEvent, render } from '@testing-library/react'
-import TextField from './index.js'
+import { cleanup, fireEvent, render } from '@testing-library/react';
+import React from 'react';
+import TextField from './index.js';
 
-afterEach(cleanup)
+afterEach(cleanup);
 
 test('Render DatePicker', () => {
   const container = render(
     <TextField
       name="firstName"
-      form={true}
+      form={ true }
       label="Enter your first name"
-      required={true}
+      required={ true }
       type="email"
-      materialProps={{ "data-test-id": "test" }}
+      materialProps={ { "data-test-id": "test" } }
     />);
 
   const input = container.getByTestId('test');
@@ -25,11 +25,11 @@ test('Initially empty', () => {
   const container = render(
     <TextField
       name="firstName"
-      form={true}
+      form={ true }
       label="Enter your first name"
-      required={true}
+      required={ true }
       type="email"
-      materialProps={{ "data-test-id": "test" }}
+      materialProps={ { "data-test-id": "test" } }
     />);
 
   const input = container.getByTestId('test');
@@ -40,11 +40,11 @@ test('Changing value', () => {
   const container = render(
     <TextField
       name="firstName"
-      form={true}
+      form={ true }
       label="Enter your first name"
-      required={true}
+      required={ true }
       type="email"
-      materialProps={{ "data-test-id": "test" }}
+      materialProps={ { "data-test-id": "test" } }
     />);
 
   const input = container.getByTestId('test');
@@ -57,19 +57,19 @@ test('Changing value', () => {
 it('should match  snapshot', () => {
   const { asFragment } = render(<TextField
     name="firstName"
-    form={true}
+    form={ true }
     label="Enter your first name"
-    required={true}
+    required={ true }
     type="email"
-    materialProps={{ "data-test-id": "test" }}
-  />)
+    materialProps={ { "data-test-id": "test" } }
+  />);
 
   expect(asFragment(<TextField
     name="firstName"
-    form={true}
+    form={ true }
     label="Enter your first name"
-    required={true}
+    required={ true }
     type="email"
-    materialProps={{ "data-test-id": "test" }}
-  />)).toMatchSnapshot()
+    materialProps={ { "data-test-id": "test" } }
+  />)).toMatchSnapshot();
 });

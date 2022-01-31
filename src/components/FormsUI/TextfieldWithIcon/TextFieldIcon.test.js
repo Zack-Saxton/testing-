@@ -1,8 +1,8 @@
-import React from 'react'
-import { cleanup, render } from '@testing-library/react'
-import TextFieldWithIcon from './index.js'
+import { cleanup, render } from '@testing-library/react';
+import React from 'react';
+import TextFieldWithIcon from './index.js';
 
-afterEach(cleanup)
+afterEach(cleanup);
 
 
 test("renders icon", () => {
@@ -13,7 +13,7 @@ test("renders icon", () => {
             icon="cloud"
             iconColor="#595E6E"
             iconPosition="right"
-            required={true}
+            required={ true }
         />);
     const input = container.getByTestId('icon');
     expect(input).toBeTruthy();
@@ -27,8 +27,8 @@ test("renders input field", () => {
             icon="cloud"
             iconColor="#595E6E"
             iconPosition="right"
-            required={true}
-            materialProps={{ "data-test-id": "test" }}
+            required={ true }
+            materialProps={ { "data-test-id": "test" } }
         />);
     const input = container.getByTestId('test');
     expect(input).toBeTruthy();
@@ -42,9 +42,9 @@ test('should match the snapshot', () => {
         icon="cloud"
         iconColor="#595E6E"
         iconPosition="right"
-        required={true}
-        materialProps={{ "data-test-id": "test" }}
-    />)
+        required={ true }
+        materialProps={ { "data-test-id": "test" } }
+    />);
 
     expect(asFragment(<TextFieldWithIcon
         name="userName1"
@@ -52,7 +52,7 @@ test('should match the snapshot', () => {
         icon="cloud"
         iconColor="#595E6E"
         iconPosition="right"
-        required={true}
-        materialProps={{ "data-test-id": "test" }}
-    />)).toMatchSnapshot()
+        required={ true }
+        materialProps={ { "data-test-id": "test" } }
+    />)).toMatchSnapshot();
 });

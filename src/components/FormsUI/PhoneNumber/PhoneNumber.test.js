@@ -1,9 +1,9 @@
-import React from 'react'
-import { cleanup, fireEvent, render } from '@testing-library/react'
-import PhoneNumber from './index.js'
 import '@testing-library/jest-dom';
+import { cleanup, fireEvent, render } from '@testing-library/react';
+import React from 'react';
+import PhoneNumber from './index.js';
 
-afterEach(cleanup)
+afterEach(cleanup);
 
 test('Render Phone', () => {
   const container = render(
@@ -36,6 +36,6 @@ test('Accept only 10 digits as phone number', () => {
 });
 
 test('should match the snapshot', () => {
-  const { asFragment } = render(<PhoneNumber name="mobile" />)
-  expect(asFragment).toMatchSnapshot()
+  const { asFragment } = render(<PhoneNumber name="mobile" />);
+  expect(asFragment).toMatchSnapshot();
 });

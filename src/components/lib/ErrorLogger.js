@@ -7,8 +7,8 @@ export default async function ErrorLogger(error, message) {
     let url = "error_logger";
     let param = "";
     let data = {
-        "message": message,
-        "error": error
+      "message": message,
+      "error": error
     };
     let method = "POST";
     let addAccessToken = false;

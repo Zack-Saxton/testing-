@@ -1,40 +1,40 @@
 import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import { ButtonPrimary, Checkbox } from "../../../FormsUI";
-import Paper from "@material-ui/core/Paper";
-import React, { useContext, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
-import SSNLogo from "../../../../assets/icon/Last-Step.png";
-import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import ScrollToTopOnMount from "../ScrollToTop";
-import "../CheckMyOffer.css";
+import Typography from "@material-ui/core/Typography";
+import React, { useContext, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import SSNLogo from "../../../../assets/icon/Last-Step.png";
+import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import {
 	checkMyOfferSubmit as submitApplication,
-	getCustomerByEmail,
+	getCustomerByEmail
 } from "../../../Controllers/CheckMyOffersController";
+import { ButtonPrimary, Checkbox } from "../../../FormsUI";
+import "../CheckMyOffer.css";
+import ScrollToTopOnMount from "../ScrollToTop";
 
 //SSN component initialization
 function SSN() {
 	let response = [];
 	const { data, setData } = useContext(CheckMyOffers);
-	const [agree, setAgree] = useState(false);
-	const [submit, setSubmit] = useState(false);
-	const [agreeDelaware, setAgreeDelaware] = useState(data.state !== "DE");
-	const [agreeCalifornia, setAgreeCalifornia] = useState(data.state !== "CA");
-	const [agreeNewMexico, setAgreeNewMexico] = useState(data.state !== "NM");
-	const [open, setOpen] = useState(false);
-	const [loading, setLoading] = useState(false);
+	const [ agree, setAgree ] = useState(false);
+	const [ submit, setSubmit ] = useState(false);
+	const [ agreeDelaware, setAgreeDelaware ] = useState(data.state !== "DE");
+	const [ agreeCalifornia, setAgreeCalifornia ] = useState(data.state !== "CA");
+	const [ agreeNewMexico, setAgreeNewMexico ] = useState(data.state !== "NM");
+	const [ open, setOpen ] = useState(false);
+	const [ loading, setLoading ] = useState(false);
 	const history = useHistory();
 
 	//handle modal actions
@@ -55,14 +55,14 @@ function SSN() {
 			completedPage: data.page.ssn,
 		});
 		if (response.appSubmissionResult && response.appSubmissionResult?.data?.applicationStatus === "offers_available") {
-			setData({...data, applicationStatus: "offers_available"});
-			history.push({pathname: "/eligible-for-offers", formcomplete: "yes"});
+			setData({ ...data, applicationStatus: "offers_available" });
+			history.push({ pathname: "/eligible-for-offers", formcomplete: "yes" });
 		} else if (response.appSubmissionResult && response.appSubmissionResult?.data?.applicationStatus === "rejected") {
-			setData({...data, applicationStatus: "rejected"});
-			history.push({pathname: "/no-offers-available", formcomplete: "yes"});
+			setData({ ...data, applicationStatus: "rejected" });
+			history.push({ pathname: "/no-offers-available", formcomplete: "yes" });
 		} else if (response.appSubmissionResult && response.appSubmissionResult?.data?.applicationStatus === "referred") {
-			setData({...data, applicationStatus: "referred"});
-			history.push({pathname: "/referred-to-branch", formcomplete: "yes"});
+			setData({ ...data, applicationStatus: "referred" });
+			history.push({ pathname: "/referred-to-branch", formcomplete: "yes" });
 		}
 	};
 	const handleOnClick = async (event) => {
@@ -84,8 +84,8 @@ function SSN() {
 			if (response.appSubmissionResult.status === 200) {
 				handleValidResponse();
 			} else if (response.appSubmissionResult.status === 403) {
-				setData({...data, applicationStatus: "rejected"});
-				history.push({pathname: "/no-offers-available", formcomplete: "yes"});
+				setData({ ...data, applicationStatus: "rejected" });
+				history.push({ pathname: "/no-offers-available", formcomplete: "yes" });
 			} else {
 				alert("Network Error");
 				setLoading(false);
@@ -120,33 +120,33 @@ function SSN() {
 			<div className="mainDiv">
 				<Box>
 					<Grid
-						xs={12}
+						xs={ 12 }
 						item
 						container
 						justifyContent="center"
-						style={{ width: "100%", paddingTop: "70px", paddingBottom: "70px" }}
+						style={ { width: "100%", paddingTop: "70px", paddingBottom: "70px" } }
 					>
 						<Grid
-							xs={11}
-							sm={10}
-							md={6}
-							lg={6}
-							xl={6}
+							xs={ 11 }
+							sm={ 10 }
+							md={ 6 }
+							lg={ 6 }
+							xl={ 6 }
 							item
 							container
 							className="cardWrapper"
 							justifyContent="center"
-							style={{ width: "100%" }}
+							style={ { width: "100%" } }
 						>
 							<Paper
 								id="oneLastStepWrap"
 								className="cardWOPadding"
 								justify="center"
 								alignitems="center"
-								style={{
+								style={ {
 									opacity: loading ? 0.55 : 1,
 									pointerEvents: loading ? "none" : "initial",
-								}}
+								} }
 							>
 								<div className="progress mt-0">
 									<div id="determinate" className="det100  determinate " />
@@ -154,7 +154,7 @@ function SSN() {
 								</div>
 								<Grid className="floatLeft">
 									<Link
-										to={data.state === "WI" ? "/marital-status" : redirectNC}
+										to={ data.state === "WI" ? "/marital-status" : redirectNC }
 									>
 										<i className="material-icons dp48 yellowText  ">
 											arrow_back
@@ -162,7 +162,7 @@ function SSN() {
 									</Link>
 								</Grid>
 								<Grid className="liftImage">
-									<img alt="ssn" src={SSNLogo} className="spinAnimation" />
+									<img alt="ssn" src={ SSNLogo } className="spinAnimation" />
 								</Grid>
 								<Typography
 									variant="h5"
@@ -170,37 +170,37 @@ function SSN() {
 									justify="center"
 									alignitems="center"
 									className="borrowCSSLP"
-									style={{ margin: "0px" }}
+									style={ { margin: "0px" } }
 								>
 									One last step
 								</Typography>
 								<Grid
 									id="signDiv"
-									md={12}
+									md={ 12 }
 									className="blockDiv"
 									container
 									item
 									justifyContent="center"
-									style={{ width: "100%" }}
+									style={ { width: "100%" } }
 								>
 									<Grid
 										justifyContent="center"
-										style={{ width: "100%" }}
+										style={ { width: "100%" } }
 										container
 										item
-										lg={8}
-										md={8}
-										xs={12}
+										lg={ 8 }
+										md={ 8 }
+										xs={ 12 }
 										className="textBlockWithLessMargin"
 									></Grid>
 									<Grid
 										container
 										justifyContent="center"
-										style={{ width: "100%" }}
+										style={ { width: "100%" } }
 										item
-										lg={8}
-										md={8}
-										xs={12}
+										lg={ 8 }
+										md={ 8 }
+										xs={ 12 }
 										className="textBlockWithLessMargin"
 									></Grid>
 									<Grid
@@ -208,9 +208,9 @@ function SSN() {
 										alignItems="flex-start"
 										container
 										item
-										lg={8}
-										md={8}
-										xs={12}
+										lg={ 8 }
+										md={ 8 }
+										xs={ 12 }
 										className="positionHead"
 									>
 										<p className="agreeTextHead">
@@ -222,19 +222,19 @@ function SSN() {
 										alignItems="flex-start"
 										container
 										item
-										lg={8}
-										md={8}
-										xs={12}
+										lg={ 8 }
+										md={ 8 }
+										xs={ 12 }
 										className="textBlockWithLessMargin"
 									>
 										<Checkbox
 											name="termsOfService"
 											labelform="Terms & Service"
-											value={agree}
+											value={ agree }
 											className="checkBoxClass"
-											onChange={(event) => {
+											onChange={ (event) => {
 												setAgree(event.target.checked);
-											}}
+											} }
 											label={
 												<p className="agreeText">
 													By clicking this box, you acknowledge that you have received,
@@ -248,8 +248,8 @@ function SSN() {
 														target="_blank"
 														rel="noreferrer noopener"
 													>
-														{" "}
-														E-Signature Disclosure and Consent,{" "}
+														{ " " }
+														E-Signature Disclosure and Consent,{ " " }
 													</a>
 													<br />
 													<a
@@ -260,7 +260,7 @@ function SSN() {
 														target="_blank"
 														rel="noreferrer noopener"
 													>
-														Credit and Contact Authorization,{" "}
+														Credit and Contact Authorization,{ " " }
 													</a>
 													<br />
 													<a
@@ -271,7 +271,7 @@ function SSN() {
 														target="_blank"
 														rel="noreferrer noopener"
 													>
-														Website Terms of Use,{" "}
+														Website Terms of Use,{ " " }
 													</a>
 													<br />
 													<a
@@ -286,31 +286,31 @@ function SSN() {
 													</a>
 												</p>
 											}
-											required={true}
+											required={ true }
 											stylelabelform='{ "color":"" }'
 											stylecheckbox='{ "color":"blue", "top": "0", "position": "absolute"}'
 											stylecheckboxlabel='{ "color":"" }'
 										/>
 										<div
-											className={data.state === "DE" ? "showCB " : "hideMsg "}
+											className={ data.state === "DE" ? "showCB " : "hideMsg " }
 										>
 											<Checkbox
 												name="delaware"
 												labelform="delaware"
-												value={agreeDelaware}
-												onChange={(event) => {
+												value={ agreeDelaware }
+												onChange={ (event) => {
 													setAgreeDelaware(event.target.checked);
-												}}
-												className={"space checkBoxClass"}
+												} }
+												className={ "space checkBoxClass" }
 												label={
 													<p className="agreeText MT5">
 														By clicking this box you acknowledge that you have
-														received and reviewed the{" "}
+														received and reviewed the{ " " }
 														<span
 															className="formatURLStyle"
-															onClick={handleClickOpen}
+															onClick={ handleClickOpen }
 														>
-															Delaware Itemized Schedule Of Charges.,{" "}
+															Delaware Itemized Schedule Of Charges.,{ " " }
 														</span>
 													</p>
 												}
@@ -320,20 +320,20 @@ function SSN() {
 											/>
 										</div>
 										<div
-											className={data.state === "CA" ? "showCB " : "hideMsg "}
+											className={ data.state === "CA" ? "showCB " : "hideMsg " }
 										>
 											<Checkbox
 												name="california"
 												labelform="california"
-												className={"space checkBoxClass"}
-												value={agreeCalifornia}
-												onChange={(event) => {
+												className={ "space checkBoxClass" }
+												value={ agreeCalifornia }
+												onChange={ (event) => {
 													setAgreeCalifornia(event.target.checked);
-												}}
+												} }
 												label={
 													<p className="agreeText MT5">
 														By clicking this box you acknowledge that you have
-														been offered and had the opportunity to review this{" "}
+														been offered and had the opportunity to review this{ " " }
 														<a
 															className="formatURL"
 															href={
@@ -352,25 +352,25 @@ function SSN() {
 											/>
 										</div>
 										<div
-											className={data.state === "NM" ? "showCB " : "hideMsg "}
+											className={ data.state === "NM" ? "showCB " : "hideMsg " }
 										>
 											<Checkbox
 												name="newmexico"
 												labelform="newmexico"
-												className={"space checkBoxClass"}
-												value={agreeNewMexico}
-												onChange={(event) => {
+												className={ "space checkBoxClass" }
+												value={ agreeNewMexico }
+												onChange={ (event) => {
 													setAgreeNewMexico(event.target.checked);
-												}}
+												} }
 												label={
 													<p className="agreeText MT5">
 														NM Residents: By clicking this box you acknowledge
 														that you have reviewed the Important Consumer
 														Information in Mariner’s New Mexico Consumer
-														Brochure located at{" "}
+														Brochure located at{ " " }
 														<a
 															className="formatURL"
-															href={"http://marfi.me/NMBrochure."}
+															href={ "http://marfi.me/NMBrochure." }
 															target="_blank"
 															rel="noreferrer noopener"
 														>
@@ -384,12 +384,12 @@ function SSN() {
 											/>
 										</div>
 										<Typography
-											className={submit ? "showMsg" : "hideMsg"}
-											style={{
+											className={ submit ? "showMsg" : "hideMsg" }
+											style={ {
 												textAlign: "left",
 												marginLeft: "8%",
 												marginTop: "2%",
-											}}
+											} }
 										>
 											It looks like you have already submitted an application
 											within the last 30 days.
@@ -397,12 +397,12 @@ function SSN() {
 									</Grid>
 									<Grid
 										justifyContent="center"
-										style={{ width: "100%" }}
+										style={ { width: "100%" } }
 										item
 										container
-										lg={8}
-										md={8}
-										xs={12}
+										lg={ 8 }
+										md={ 8 }
+										xs={ 12 }
 										className="textBlockWithLessMargin alignButtonExtra alignButton"
 									>
 										<ButtonPrimary
@@ -416,16 +416,16 @@ function SSN() {
 														agreeNewMexico
 													)
 											}
-											onClick={handleOnClick}
+											onClick={ handleOnClick }
 											stylebutton='{"background": "#FFBC23", "fontSize": "0.938rem","color": "black", "padding": "0px 30px"}'
 										>
 											Submit Application
 											<i
 												className="fa fa-refresh fa-spin customSpinner"
-												style={{
+												style={ {
 													marginRight: "10px",
 													display: loading ? "block" : "none",
-												}}
+												} }
 											/>
 										</ButtonPrimary>
 									</Grid>
@@ -436,23 +436,23 @@ function SSN() {
 				</Box>
 			</div>
 			<Dialog
-				onClose={handleClose}
+				onClose={ handleClose }
 				aria-labelledby="customized-dialog-title"
-				open={open}
+				open={ open }
 			>
-				<DialogTitle id="customized-dialog-title" onClose={handleClose}>
+				<DialogTitle id="customized-dialog-title" onClose={ handleClose }>
 					Delware Itemized Shedule of Charges
 				</DialogTitle>
 				<DialogContent dividers>
 					<Typography align="center" className="textCSS modalText">
-						{" "}
-						Itemized Schedule of Charges (DE){" "}
+						{ " " }
+						Itemized Schedule of Charges (DE){ " " }
 					</Typography>
 					<Typography align="center" className="textCSS modalText">
-						{" "}
-						Closed End Loans{" "}
+						{ " " }
+						Closed End Loans{ " " }
 					</Typography>
-					<TableContainer component={Paper}>
+					<TableContainer component={ Paper }>
 						<Table aria-label="simple table">
 							<TableHead>
 								<TableRow>
@@ -471,8 +471,8 @@ function SSN() {
 								</TableRow>
 								<TableRow>
 									<TableCell align="center">
-										{" "}
-										Recording/Satisfaction Fee{" "}
+										{ " " }
+										Recording/Satisfaction Fee{ " " }
 									</TableCell>
 									<TableCell align="center">$23 - 151</TableCell>
 								</TableRow>
@@ -502,8 +502,8 @@ function SSN() {
 								</TableRow>
 								<TableRow>
 									<TableCell align="center">
-										{" "}
-										Loan by Mail Commitment Fee{" "}
+										{ " " }
+										Loan by Mail Commitment Fee{ " " }
 									</TableCell>
 									<TableCell align="center">$10</TableCell>
 								</TableRow>
@@ -522,7 +522,7 @@ function SSN() {
 				<DialogActions className="modalAction">
 					<ButtonPrimary
 						stylebutton='{"background": "#FFBC23", "color": "black", "border-radius": "50px"}'
-						onClick={handleClose}
+						onClick={ handleClose }
 						className="modalButton"
 					>
 						<Typography align="center">Ok</Typography>

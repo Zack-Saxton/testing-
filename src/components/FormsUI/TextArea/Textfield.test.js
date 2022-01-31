@@ -1,8 +1,8 @@
-import React from 'react'
-import { cleanup, render } from '@testing-library/react'
-import TextArea from './index.js'
+import { cleanup, render } from '@testing-library/react';
+import React from 'react';
+import TextArea from './index.js';
 
-afterEach(cleanup)
+afterEach(cleanup);
 
 test('TextField availability', () => {
   const container = render(
@@ -11,7 +11,7 @@ test('TextField availability', () => {
       row="4"
       label="TextArea"
       variant="outlined"
-      required={true}
+      required={ true }
       character_limit="20"
       name="TextArea"
       value="TextArea"
@@ -30,7 +30,7 @@ test('Initially empty', () => {
       row="4"
       label="TextArea"
       variant="outlined"
-      required={true}
+      required={ true }
       character_limit="20"
       name="TextArea"
       value="TextArea"
@@ -46,11 +46,11 @@ test('should match the snapshot', () => {
     row="4"
     label="TextArea"
     variant="outlined"
-    required={true}
+    required={ true }
     character_limit="20"
     name="TextArea"
     value="TextArea"
-  />)
+  />);
 
-  expect(asFragment).toMatchSnapshot()
+  expect(asFragment).toMatchSnapshot();
 });

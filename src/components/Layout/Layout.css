@@ -1,0 +1,11 @@
+#BG{
+    background-image: url(../../assets/images/loginbg.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+#MainHeaderWrap{
+    box-shadow: none !important;
+}

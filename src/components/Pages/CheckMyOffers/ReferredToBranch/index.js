@@ -17,7 +17,7 @@ function ReferredToBranch(props) {
 	data.formStatus = "completed";
 
 	//redirects to select amount of directly called
-	if (data.completedPage < data.page.ssn &&	data.applicationStatus !== "referred" && props?.location?.formcomplete !== "yes") {
+	if (data.completedPage < data.page.ssn && data.applicationStatus !== "referred" && props?.location?.formcomplete !== "yes") {
 		history.push("/select-amount");
 	}
 	window.onbeforeunload = null;
@@ -31,47 +31,47 @@ function ReferredToBranch(props) {
 					<Grid
 						container
 						item
-						xs={12}
+						xs={ 12 }
 						justifyContent="center"
 						alignItems="center"
 					>
 						<Grid
 							item
-							xs={12}
+							xs={ 12 }
 							container
 							justifyContent="center"
 							alignItems="center"
 						>
 							<Grid
 								item
-								xs={11}
-								sm={10}
-								md={7}
-								lg={7}
-								xl={7}
+								xs={ 11 }
+								sm={ 10 }
+								md={ 7 }
+								lg={ 7 }
+								xl={ 7 }
 								className="cardWrapperImg row"
 								container
 								justifyContent="center"
 								alignItems="center"
 							>
-								<img src={ReferToBranchLogo} alt="NoOffersAvailable" />
+								<img src={ ReferToBranchLogo } alt="NoOffersAvailable" />
 							</Grid>
 						</Grid>
 						<br />
 						<Grid
 							item
-							xs={12}
+							xs={ 12 }
 							container
 							justifyContent="center"
 							alignItems="center"
 						>
 							<Grid
 								item
-								xs={11}
-								sm={10}
-								md={6}
-								lg={6}
-								xl={6}
+								xs={ 11 }
+								sm={ 10 }
+								md={ 6 }
+								lg={ 6 }
+								xl={ 6 }
 								className=" row"
 								container
 								justifyContent="center"
@@ -80,11 +80,11 @@ function ReferredToBranch(props) {
 								<Typography
 									id="referCongratsTxt"
 									variant="h3"
-									style={{
+									style={ {
 										align: "center",
 										justify: "center",
 										alignItems: "center",
-									}}
+									} }
 									className="margin2p textWhite mainTextMsg smallLineHeight"
 								>
 									Congratulations!
@@ -93,18 +93,18 @@ function ReferredToBranch(props) {
 						</Grid>
 						<Grid
 							item
-							xs={12}
+							xs={ 12 }
 							container
 							justifyContent="center"
 							alignItems="center"
 						>
 							<Grid
 								item
-								xs={11}
-								sm={10}
-								md={6}
-								lg={6}
-								xl={6}
+								xs={ 11 }
+								sm={ 10 }
+								md={ 6 }
+								lg={ 6 }
+								xl={ 6 }
 								className=" row"
 								container
 								justifyContent="center"
@@ -112,22 +112,22 @@ function ReferredToBranch(props) {
 							>
 								<Typography
 									variant="h6"
-									style={{
+									style={ {
 										align: "center",
 										justify: "center",
 										alignItems: "center",
-									}}
+									} }
 									className="smallTextImgNoOffOne textWhite smallTextImg"
 								>
 									Your local representative is waiting to talk to you.
 								</Typography>
 								<Typography
 									variant="h6"
-									style={{
+									style={ {
 										align: "center",
 										justify: "center",
 										alignItems: "center",
-									}}
+									} }
 									className="smallTextImgNoOff textWhite smallTextImg "
 								>
 									Complete the application process from the comfort of your home
@@ -137,18 +137,18 @@ function ReferredToBranch(props) {
 						</Grid>
 						<Grid
 							item
-							xs={12}
+							xs={ 12 }
 							container
 							justifyContent="center"
 							alignItems="center"
 						>
 							<Grid
 								item
-								xs={11}
-								sm={10}
-								md={6}
-								lg={6}
-								xl={6}
+								xs={ 11 }
+								sm={ 10 }
+								md={ 6 }
+								lg={ 6 }
+								xl={ 6 }
 								className="bottomSpace "
 								container
 								justifyContent="center"
@@ -156,11 +156,11 @@ function ReferredToBranch(props) {
 							>
 								<Grid
 									item
-									xs={9}
-									sm={6}
-									md={5}
-									lg={4}
-									xl={4}
+									xs={ 9 }
+									sm={ 6 }
+									md={ 5 }
+									lg={ 4 }
+									xl={ 4 }
 									className="alignButton paddingButton buttonStart"
 									container
 									justifyContent="center"
@@ -175,11 +175,11 @@ function ReferredToBranch(props) {
 								</Grid>
 								<Grid
 									item
-									xs={9}
-									sm={6}
-									md={5}
-									lg={4}
-									xl={4}
+									xs={ 9 }
+									sm={ 6 }
+									md={ 5 }
+									lg={ 4 }
+									xl={ 4 }
 									className="alignButton paddingButton buttonEnd"
 									container
 									justifyContent="center"
@@ -195,11 +195,11 @@ function ReferredToBranch(props) {
 								<br />
 								<Typography
 									variant="h6"
-									style={{
+									style={ {
 										align: "center",
 										justify: "center",
 										alignItems: "center",
-									}}
+									} }
 									className="textWhite smallTextImg beforeVisitOne"
 								>
 									Things you should know before you call or visit.
@@ -218,13 +218,13 @@ function ReferredToBranch(props) {
 								<div className="leftAlign">
 									<Typography
 										variant="h6"
-										style={{ align: "left", alignItems: "left" }}
+										style={ { align: "left", alignItems: "left" } }
 										className=" textWhite minText bullet"
 									>
 										It's a good idea to know how much money you make a year.
 									</Typography>
 									<Typography
-										style={{ align: "left", alignItems: "left" }}
+										style={ { align: "left", alignItems: "left" } }
 										variant="h6"
 										className=" textWhite minText bullet"
 									>
@@ -234,11 +234,11 @@ function ReferredToBranch(props) {
 								</div>
 								<Typography
 									variant="h6"
-									style={{
+									style={ {
 										align: "center",
 										justify: "center",
 										alignItems: "center",
-									}}
+									} }
 									className=" textWhite minText"
 								>
 									*Approval of a loan and the loan disbursement process may take

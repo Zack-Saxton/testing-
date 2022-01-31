@@ -1,8 +1,8 @@
-import React from "react";
-import { useStyleVantageScore } from "./Style";
-import Moment from "moment";
-import { Line } from "react-chartjs-2";
 import Grid from "@material-ui/core/Grid";
+import Moment from "moment";
+import React from "react";
+import { Line } from "react-chartjs-2";
+import { useStyleVantageScore } from "./Style";
 
 export default function HistoricalData(creditData) {
   window.zeHide();
@@ -51,9 +51,9 @@ export default function HistoricalData(creditData) {
   //View
   return (
     <div>
-      <h5 className={classes.HistoricalDataHeading}>Historical Data</h5>
+      <h5 className={ classes.HistoricalDataHeading }>Historical Data</h5>
       <Grid>
-        <Line data={data} options={option} />
+        <Line data={ data } options={ option } />
       </Grid>
     </div>
   );

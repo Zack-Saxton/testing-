@@ -1,14 +1,14 @@
-import React, { useContext, useState } from "react";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import { ButtonPrimary, PhoneNumber, Select } from "../../../FormsUI";
 import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
-import * as yup from "yup";
+import React, { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
+import * as yup from "yup";
 import EmploymentStatusPNG from "../../../../assets/icon/I-Employment-Status.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
+import { ButtonPrimary, PhoneNumber, Select } from "../../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./EmploymentStatus.css";
 
@@ -16,7 +16,7 @@ import "./EmploymentStatus.css";
 function EmploymentStatus() {
 	//Retrieving Context values
 	const { data, setData } = useContext(CheckMyOffers);
-	const [employmentStatus, setEmploymentStatus] = useState(data.employmentStatus ? data.employmentStatus : "");
+	const [ employmentStatus, setEmploymentStatus ] = useState(data.employmentStatus ? data.employmentStatus : "");
 	const history = useHistory();
 
 	//initializing formik
@@ -92,20 +92,20 @@ function EmploymentStatus() {
 				<Box>
 					<Grid
 						item
-						xs={12}
+						xs={ 12 }
 						container
 						justifyContent="center"
 						alignItems="center"
-						style={{ paddingTop: "70px", paddingBottom: "70px" }}
+						style={ { paddingTop: "70px", paddingBottom: "70px" } }
 					>
 						<Grid
 							container
 							item
-							xs={11}
-							sm={10}
-							md={6}
-							lg={6}
-							xl={6}
+							xs={ 11 }
+							sm={ 10 }
+							md={ 6 }
+							lg={ 6 }
+							xl={ 6 }
 							className="cardWrapper"
 							justifyContent="center"
 							alignItems="center"
@@ -113,9 +113,9 @@ function EmploymentStatus() {
 							<Paper
 								id="employmentStatusWrap"
 								className="cardWOPadding"
-								style={{ justify: "center", alignItems: "center" }}
+								style={ { justify: "center", alignItems: "center" } }
 							>
-								<form onSubmit={formik.handleSubmit}>
+								<form onSubmit={ formik.handleSubmit }>
 									<div className="progress mt-0">
 										<div
 											id="determinate"
@@ -133,25 +133,25 @@ function EmploymentStatus() {
 									<Grid>
 										<img
 											alt="Employment"
-											src={EmploymentStatusPNG}
+											src={ EmploymentStatusPNG }
 											className="spinAnimation"
 										/>
 									</Grid>
 
 									<Typography
 										variant="h5"
-										style={{
+										style={ {
 											align: "center",
 											justify: "center",
 											alignItems: "center",
-										}}
+										} }
 										className="borrowCSSLP"
 									>
 										Tell us about your employment status
 									</Typography>
 									<Grid
 										item
-										md={12}
+										md={ 12 }
 										className="blockDiv"
 										container
 										justifyContent="center"
@@ -162,73 +162,73 @@ function EmploymentStatus() {
 											justifyContent="center"
 											alignItems="center"
 											item
-											lg={8}
-											md={8}
-											xs={12}
+											lg={ 8 }
+											md={ 8 }
+											xs={ 12 }
 										>
 											<Paper
-												elevation={3}
+												elevation={ 3 }
 												data-testid="Hourly"
 												className={
 													employmentStatus === "Employed - Hourly"
 														? "activeBorder radioBlocked"
 														: "radioBlocked"
 												}
-												onClick={() => {
+												onClick={ () => {
 													setEmploymentStatus("Employed - Hourly");
 													formik.setFieldValue(
 														"employStatus",
 														"Employed - Hourly"
 													);
-												}}
+												} }
 											>
 												Employed - Hourly
 											</Paper>
 										</Grid>
-										<Grid item lg={8} md={8} xs={12}>
+										<Grid item lg={ 8 } md={ 8 } xs={ 12 }>
 											<Paper
-												elevation={3}
+												elevation={ 3 }
 												data-testid="Salary"
 												className={
 													employmentStatus === "Salary"
 														? "activeBorder radioBlocked"
 														: "radioBlocked"
 												}
-												onClick={() => {
+												onClick={ () => {
 													setEmploymentStatus("Salary");
 													formik.setFieldValue("employStatus", "Salary");
-												}}
+												} }
 											>
 												Employed - Salaried
 											</Paper>
 										</Grid>
-										<Grid item lg={8} md={8} xs={12}>
+										<Grid item lg={ 8 } md={ 8 } xs={ 12 }>
 											<Paper
-												elevation={3}
+												elevation={ 3 }
 												data-testid="selfEmployed"
 												className={
 													employmentStatus === "selfEmployed"
 														? "activeBorder radioBlocked"
 														: "radioBlocked"
 												}
-												onClick={() => {
+												onClick={ () => {
 													setEmploymentStatus("selfEmployed");
 													formik.setFieldValue("employStatus", "selfEmployed");
-												}}
+												} }
 											>
 												Self Employed / 1099
 											</Paper>
 										</Grid>
-										<Grid item lg={8} md={8} xs={12}>
+										<Grid item lg={ 8 } md={ 8 } xs={ 12 }>
 											<Paper
-												elevation={3}
+												elevation={ 3 }
 												data-testid="Unemployed"
 												className={
 													employmentStatus === "Unemployed"
 														? "activeBorder radioBlocked"
 														: "radioBlocked"
 												}
-												onClick={() => {
+												onClick={ () => {
 													setEmploymentStatus("Unemployed");
 													setData({ ...data, yearsAtEmployers: 0 });
 													formik.setFieldValue("employStatus", "Unemployed");
@@ -236,21 +236,21 @@ function EmploymentStatus() {
 													if (data.completedPage < data.page.employmentStatus) {
 														formik.submitForm();
 													}
-												}}
+												} }
 											>
 												Unemployed
 											</Paper>
 										</Grid>
-										<Grid item lg={8} md={8} xs={12}>
+										<Grid item lg={ 8 } md={ 8 } xs={ 12 }>
 											<Paper
-												elevation={3}
+												elevation={ 3 }
 												data-testid="Retired"
 												className={
 													employmentStatus === "Retired"
 														? "activeBorder radioBlocked"
 														: "radioBlocked"
 												}
-												onClick={() => {
+												onClick={ () => {
 													setEmploymentStatus("Retired");
 													setData({ ...data, yearsAtEmployers: 0 });
 													formik.setFieldValue("employStatus", "Retired");
@@ -258,12 +258,12 @@ function EmploymentStatus() {
 													if (data.completedPage < data.page.employmentStatus) {
 														formik.submitForm();
 													}
-												}}
+												} }
 											>
 												Retired
 											</Paper>
 										</Grid>
-										<Grid item lg={8} md={8} xs={12}>
+										<Grid item lg={ 8 } md={ 8 } xs={ 12 }>
 											<div
 												id="employementWrap"
 												className={
@@ -275,12 +275,12 @@ function EmploymentStatus() {
 												}
 											>
 												<Select
-													fullWidth={true}
+													fullWidth={ true }
 													name="yearsAtEmployers"
 													labelform="Years at Employer *"
-													value={formik.values.yearsAtEmployers}
-													onChange={formik.handleChange}
-													onBlur={formik.handleBlur}
+													value={ formik.values.yearsAtEmployers }
+													onChange={ formik.handleChange }
+													onBlur={ formik.handleBlur }
 													error={
 														formik.touched.yearsAtEmployers &&
 														Boolean(formik.errors.yearsAtEmployers)
@@ -317,9 +317,9 @@ function EmploymentStatus() {
 										</Grid>
 										<Grid
 											item
-											lg={8}
-											md={8}
-											xs={12}
+											lg={ 8 }
+											md={ 8 }
+											xs={ 12 }
 											name="phone"
 											id="employerPhoneWrap"
 											className={
@@ -341,22 +341,22 @@ function EmploymentStatus() {
 												placeholder="Enter employer's phone number"
 												id="phone"
 												type="text"
-												onKeyDown={preventSpace}
-												value={formik.values.phone}
-												onChange={formik.handleChange}
-												onBlur={formik.handleBlur}
+												onKeyDown={ preventSpace }
+												value={ formik.values.phone }
+												onChange={ formik.handleChange }
+												onBlur={ formik.handleBlur }
 												error={
 													formik.touched.phone && Boolean(formik.errors.phone)
 												}
-												helperText={formik.touched.phone && formik.errors.phone}
+												helperText={ formik.touched.phone && formik.errors.phone }
 											/>
 										</Grid>
 
-										<Grid item lg={8} md={8} xs={12} className="alignButton">
+										<Grid item lg={ 8 } md={ 8 } xs={ 12 } className="alignButton">
 											<ButtonPrimary
 												data-testid="cntButton"
 												type="submit"
-												disabled={employmentStatus === ""}
+												disabled={ employmentStatus === "" }
 												stylebutton='{"background": "#FFBC23", "color": "black","fontSize":"0.938rem","padding": "0px 30px"}'
 											>
 												Continue

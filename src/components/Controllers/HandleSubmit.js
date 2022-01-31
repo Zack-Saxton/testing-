@@ -1,12 +1,13 @@
 const loggedIn = true;
 const token = "";
 let invalidLogin, forceChangePasswordToken, loginUserSuccess, errors;
+import ErrorLogger from "../lib/ErrorLogger";
 
 const getClientIp = function (req) {
     // Avoid leaking internal IP that is append to x-forwarded-for
-    if (req.headers["x-forwarded-for"]) {
+    if (req.headers[ "x-forwarded-for" ]) {
         // try to get from x-forward-for if it set (behind reverse proxy)
-        return req.headers["x-forwarded-for"].split(",")[0].replace(/::ffff:/, "");
+        return req.headers[ "x-forwarded-for" ].split(",")[ 0 ].replace(/::ffff:/, "");
     } else if (req.connection && req.connection.remoteAddress) {
         // no proxy, try getting from connection.remoteAddress
         return req.connection.remoteAddress.replace(/::ffff:/, "");
@@ -64,6 +65,7 @@ const HandleSubmit = async (formValues) => {
             }
         }
     } catch (error) {
+        ErrorLogger("Error executing HandleSubmit API", error);
         errors = error;
     }
 };

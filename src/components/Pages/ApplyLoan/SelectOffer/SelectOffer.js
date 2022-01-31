@@ -1,38 +1,38 @@
-import React, { useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
-import { ButtonWithIcon } from "../../../FormsUI";
-import OfferTable from "./offersTable";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import PropTypes from "prop-types";
 import Box from "@material-ui/core/Box";
-import { NavLink, useHistory } from "react-router-dom";
-import ScrollToTopOnMount from "../../ScrollToTop";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import "./SelectOffer.css";
-import { fetchAvailableOffers, submitSelectedOfferAPI } from "../../../Controllers/ApplyForLoanController";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
+import Tab from "@material-ui/core/Tab";
+import Tabs from "@material-ui/core/Tabs";
+import Typography from "@material-ui/core/Typography";
+import PropTypes from "prop-types";
+import React, { useEffect, useState } from "react";
+import { NavLink, useHistory } from "react-router-dom";
 import CheckLoginStatus from "../../../App/CheckLoginStatus";
-import messages from "../../../lib/Lang/applyForLoan.json"
-import TabSection from "../TabSection"
+import { fetchAvailableOffers, submitSelectedOfferAPI } from "../../../Controllers/ApplyForLoanController";
+import { ButtonWithIcon } from "../../../FormsUI";
+import messages from "../../../lib/Lang/applyForLoan.json";
+import ScrollToTopOnMount from "../../ScrollToTop";
+import TabSection from "../TabSection";
+import OfferTable from "./offersTable";
+import "./SelectOffer.css";
 
 //Initializing functional component Apply for loan
 export default function ApplyLoan() {
 	//Initializing state variables
-	const [rowData, setRowData] = useState();
-	const [value, setValue] = React.useState(0);
-	const [accountDetails, setAccountDetails] = useState(null);
-	const [offersToCompare, setOffersToCompare] = useState([]);
-	const [offersToCompareChart, setOffersToCompareChart] = useState([]);
-	const [terms, setTerms] = useState();
-	const [offerFlag, setOfferFlag] = useState(true);
-	const [loading, setLoading] = useState(false);
-	const [noOffers, setNoOffers] = useState(false);
-	const [checkedValue, setCheckedValue] = useState("");
-	const [selectedTerm, setSelectedTerm] = useState("");
-	const [selectedIndex, setSelectedIndex] = useState("");
+	const [ rowData, setRowData ] = useState();
+	const [ value, setValue ] = React.useState(0);
+	const [ accountDetails, setAccountDetails ] = useState(null);
+	const [ offersToCompare, setOffersToCompare ] = useState([]);
+	const [ offersToCompareChart, setOffersToCompareChart ] = useState([]);
+	const [ terms, setTerms ] = useState();
+	const [ offerFlag, setOfferFlag ] = useState(true);
+	const [ loading, setLoading ] = useState(false);
+	const [ noOffers, setNoOffers ] = useState(false);
+	const [ checkedValue, setCheckedValue ] = useState("");
+	const [ selectedTerm, setSelectedTerm ] = useState("");
+	const [ selectedIndex, setSelectedIndex ] = useState("");
 	const history = useHistory();
 	let term;
 
@@ -51,7 +51,7 @@ export default function ApplyLoan() {
 	const submitSelectedOffer = async (selTerm, selIndex) => {
 		setLoading(true);
 		if (accountDetails && selTerm !== "" && selIndex !== "") {
-			let selectedOfferResponse = await submitSelectedOfferAPI(accountDetails?.data?.Offers[selTerm][selIndex]);
+			let selectedOfferResponse = await submitSelectedOfferAPI(accountDetails?.data?.Offers[ selTerm ][ selIndex ]);
 			if (selectedOfferResponse?.data?.selected_offer) {
 				setLoading(false);
 				history.push({
@@ -139,8 +139,8 @@ export default function ApplyLoan() {
 			term = Object.keys(val?.data?.Offers);
 			setNoOffers(Object.keys(val?.data?.Offers).length === 0 ? true : false);
 			setTerms(term);
-			if (term[0] !== undefined) {
-				initialTabLoad(term[0], 0, val);
+			if (term[ 0 ] !== undefined) {
+				initialTabLoad(term[ 0 ], 0, val);
 			}
 		}
 	}
@@ -158,16 +158,16 @@ export default function ApplyLoan() {
 		return (
 			<div
 				role="tabpanel"
-				hidden={tabPanelValue !== index}
-				id={`scrollable-auto-tab-panel-${ index }`}
-				aria-labelledby={`scrollable-auto-tab-${ index }`}
-				{...other}
+				hidden={ tabPanelValue !== index }
+				id={ `scrollable-auto-tab-panel-${ index }` }
+				aria-labelledby={ `scrollable-auto-tab-${ index }` }
+				{ ...other }
 			>
-				{tabPanelValue === index && (
+				{ tabPanelValue === index && (
 					<Box>
-						<div>{children}</div>
+						<div>{ children }</div>
 					</Box>
-				)}
+				) }
 			</div>
 		);
 	}
@@ -218,8 +218,8 @@ export default function ApplyLoan() {
 		setOfferFlag(true);
 
 		let rowsterm = [];
-		accountDetails?.data?.Offers[termNum].map((item, index) => {
-			return structureBuildData(item, termNum, tabIndex, rowsterm)
+		accountDetails?.data?.Offers[ termNum ].map((item, index) => {
+			return structureBuildData(item, termNum, tabIndex, rowsterm);
 		});
 		setRowData(rowsterm);
 	}
@@ -235,7 +235,7 @@ export default function ApplyLoan() {
 			select: "",
 			loanAmount: currencyFormat(item.loan_amount),
 			availability: item.offerType,
-			apr: (item.apr * 100).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0],
+			apr: (item.apr * 100).toString().match(/^-?\d+(?:\.\d{0,2})?/)[ 0 ],
 			monthlyPayment: currencyFormat(item.monthly_payment),
 			compare: "",
 			_id: item._id,
@@ -246,15 +246,15 @@ export default function ApplyLoan() {
 		let temp = createData(buildData);
 		rowsterm.push(temp);
 		return null;
-		
-	}
+
+	};
 
 	// Call function to load the tab initially
 	function initialTabLoad(termNum, tabIndex, accountDetailsData) {
 		let rowsterm = [];
-		accountDetailsData?.data?.Offers[termNum].map((item, index) => {
-			
-			return structureBuildData(item, termNum, tabIndex, rowsterm)
+		accountDetailsData?.data?.Offers[ termNum ].map((item, index) => {
+
+			return structureBuildData(item, termNum, tabIndex, rowsterm);
 		});
 		setRowData(rowsterm);
 	}
@@ -263,7 +263,7 @@ export default function ApplyLoan() {
 		setValue(newValue);
 	};
 
-	const [values, setValues] = React.useState(0);
+	const [ values, setValues ] = React.useState(0);
 	const handleTabChange = (event, newValues) => {
 		setValues(newValues);
 	};
@@ -275,24 +275,24 @@ export default function ApplyLoan() {
 			<CheckLoginStatus />
 			<Grid
 				container
-				justifyContent={"center"}
-				style={{
+				justifyContent={ "center" }
+				style={ {
 					marginTop: "-150px",
 					paddingRight: "23px",
 					paddingLeft: "23px",
-				}}
+				} }
 			>
 				<Grid
 					container
 					item
-					xs={12}
+					xs={ 12 }
 					direction="row"
-					style={{ width: "100%" }}
+					style={ { width: "100%" } }
 				>
-					<Typography className={classes.heading} variant="h3">
+					<Typography className={ classes.heading } variant="h3">
 						<NavLink
 							to="/customers/accountOverview"
-							style={{ textDecoration: "none" }}
+							style={ { textDecoration: "none" } }
 						>
 							<ButtonWithIcon
 								icon="arrow_backwardIcon"
@@ -305,23 +305,23 @@ export default function ApplyLoan() {
 								"marginTop":"unset" }'
 								styleicon='{ "color":"" }'
 							/>
-						</NavLink>{" "}
+						</NavLink>{ " " }
 						Apply for a Loan
 					</Typography>
 				</Grid>
 
-				{/* Tab section */}
+				{/* Tab section */ }
 
-				<Grid item xs={12}>
-					<TabSection value={value} handleChange={handleChange} classes={classes} ay={0}/>
+				<Grid item xs={ 12 }>
+					<TabSection value={ value } handleChange={ handleChange } classes={ classes } ay={ 0 } />
 
-					<TabPanel tabPanelValue={value} index={0} style={{ marginTop: "10px" }}>
-						<Grid container item xs={12}>
-							{noOffers ? (
-								<Grid item xs={12} style={{ width: "100%" }}>
-									<Paper style={{ padding: "20px" }} className={classes.paper}>
+					<TabPanel tabPanelValue={ value } index={ 0 } style={ { marginTop: "10px" } }>
+						<Grid container item xs={ 12 }>
+							{ noOffers ? (
+								<Grid item xs={ 12 } style={ { width: "100%" } }>
+									<Paper style={ { padding: "20px" } } className={ classes.paper }>
 										<Typography>
-										{messages.selectAmount.noOffersAvailable}
+											{ messages.selectAmount.noOffersAvailable }
 										</Typography>
 									</Paper>
 								</Grid>
@@ -329,113 +329,113 @@ export default function ApplyLoan() {
 								<>
 									<Grid
 										item
-										xs={12}
-										sm={3}
-										style={{ width: "100%" }}
-										className={loading ? classes.loadingOn : classes.loadingOff}
+										xs={ 12 }
+										sm={ 3 }
+										style={ { width: "100%" } }
+										className={ loading ? classes.loadingOn : classes.loadingOff }
 									>
-										<Paper className={classes.paperVerticalTab}>
-											{terms ? (
+										<Paper className={ classes.paperVerticalTab }>
+											{ terms ? (
 												<Tabs
-													value={values}
-													onChange={handleTabChange}
-													classes={{
+													value={ values }
+													onChange={ handleTabChange }
+													classes={ {
 														indicator: classes.indicator,
-													}}
+													} }
 													textColor="primary"
 													scrollButtons="auto"
 													orientation="vertical"
 													variant="scrollable"
-													style={{ paddingTop: "5px" }}
+													style={ { paddingTop: "5px" } }
 													aria-label="scrollable auto tabs example"
-													className={classes.tabsvertical}
+													className={ classes.tabsvertical }
 												>
-													{terms &&
+													{ terms &&
 														accountDetails.data.data !==
 														"Access token has expired"
 														? terms.map((item, index) => {
 															return (
 																<Tab
-																	key={index}
+																	key={ index }
 																	label={
 																		<span
-																			style={{ float: "left", width: "100%", fontSize: "0.938rem", fontWeight: "700" }}
+																			style={ { float: "left", width: "100%", fontSize: "0.938rem", fontWeight: "700" } }
 																		>
-																			{item + " Month Term"}
+																			{ item + " Month Term" }
 																		</span>
 																	}
-																	className={classes.tabVerticalLabel}
-																	onClick={() => tabOnChange(item, index)}
-																	{...tabVerticalProps(index)}
+																	className={ classes.tabVerticalLabel }
+																	onClick={ () => tabOnChange(item, index) }
+																	{ ...tabVerticalProps(index) }
 																/>
 															);
 														})
-														: "null"}
+														: "null" }
 													<Tab
 														label={
-															<span style={{ float: "left", width: "100%" }}>
-																{" "}
+															<span style={ { float: "left", width: "100%" } }>
+																{ " " }
 																Comparison Chart
 															</span>
 														}
-														className={classes.tabVerticalLabel}
-														onClick={() => onCompareOfferTabClick()}
-														{...tabVerticalProps(4)}
+														className={ classes.tabVerticalLabel }
+														onClick={ () => onCompareOfferTabClick() }
+														{ ...tabVerticalProps(4) }
 													/>
 												</Tabs>
 											) : (
 												<Grid
 													className="circleprog"
-													style={{ width: "100%", textAlign: "center" }}
+													style={ { width: "100%", textAlign: "center" } }
 												>
 													<CircularProgress />
 												</Grid>
-											)}
+											) }
 										</Paper>
 									</Grid>
 
 									<OfferTable
-										classes={classes}
-										value={value}
-										offerFlag={offerFlag}
-										rowData={rowData}
-										loading={loading}
-										noOfTerms={terms ? terms.length : 0}
-										handleTabChange={handleTabChange}
-										offersToCompare={offersToCompare}
-										submitSelectedOffer={submitSelectedOffer}
-										setOffersToCompare={setOffersToCompare}
-										setOffersToCompareChart={setOffersToCompareChart}
-										tabVerticalProps={tabVerticalProps}
-										onCompareOfferTabClick={onCompareOfferTabClick}
-										offersToCompareChart={offersToCompareChart}
-										checkedValue={checkedValue}
-										setCheckedValue={setCheckedValue}
-										selectedTerm={selectedTerm}
-										setSelectedTerm={setSelectedTerm}
-										selectedIndex={selectedIndex}
-										setSelectedIndex={setSelectedIndex}
+										classes={ classes }
+										value={ value }
+										offerFlag={ offerFlag }
+										rowData={ rowData }
+										loading={ loading }
+										noOfTerms={ terms ? terms.length : 0 }
+										handleTabChange={ handleTabChange }
+										offersToCompare={ offersToCompare }
+										submitSelectedOffer={ submitSelectedOffer }
+										setOffersToCompare={ setOffersToCompare }
+										setOffersToCompareChart={ setOffersToCompareChart }
+										tabVerticalProps={ tabVerticalProps }
+										onCompareOfferTabClick={ onCompareOfferTabClick }
+										offersToCompareChart={ offersToCompareChart }
+										checkedValue={ checkedValue }
+										setCheckedValue={ setCheckedValue }
+										selectedTerm={ selectedTerm }
+										setSelectedTerm={ setSelectedTerm }
+										selectedIndex={ selectedIndex }
+										setSelectedIndex={ setSelectedIndex }
 									/>
 								</>
-							)}
+							) }
 						</Grid>
 
 						<Grid
 							item
-							style={{
+							style={ {
 								width: "100%",
 								paddingTop: "25px",
 								paddingBottom: "70px",
-							}}
+							} }
 						>
 							<Typography
-								style={{
+								style={ {
 									textAlign: "justify",
 									fontSize: ".8rem",
 									color: "#6b6f82",
 									lineHeight: "20px",
 									paddingBottom: "20px",
-								}}
+								} }
 							>
 								*Loan funding subject to normal lending requirements, including,
 								but not limited to, verification of applicant identity,
@@ -448,13 +448,13 @@ export default function ApplyLoan() {
 								any illegal purpose.
 							</Typography>
 							<Typography
-								style={{
+								style={ {
 									textAlign: "justify",
 									fontSize: ".8rem",
 									color: "#6b6f82",
 									lineHeight: "20px",
 									paddingBottom: "20px",
-								}}
+								} }
 							>
 								†The stated APR represents the cost of credit as a yearly rate
 								and will be determined based upon the applicant’s credit at the
@@ -466,13 +466,13 @@ export default function ApplyLoan() {
 								application process.
 							</Typography>
 							<Typography
-								style={{
+								style={ {
 									textAlign: "justify",
 									fontSize: ".8rem",
 									color: "#6b6f82",
 									lineHeight: "20px",
 									paddingBottom: "20px",
-								}}
+								} }
 							>
 								*The process uses a “soft” credit inquiry to determine whether a
 								loan offer is available, which does not impact your credit

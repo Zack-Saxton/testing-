@@ -6,16 +6,16 @@ const useStylesAccountOverview = makeStyles((theme) => ({
     flexGrow: 1,
   },
   recentPaymentMainGrid: {
-    width: "100%", 
+    width: "100%",
     padding: "0px 0px 40px 0px"
   },
   mainGrid: {
-    width: "100%", 
-    paddingBottom: "10px", 
+    width: "100%",
+    paddingBottom: "10px",
     paddingTop: "20px"
   },
   tableGrid: {
-    width: "100%", 
+    width: "100%",
     paddingBottom: "10px"
   },
   paper: {

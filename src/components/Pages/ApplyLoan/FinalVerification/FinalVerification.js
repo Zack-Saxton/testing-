@@ -1,15 +1,15 @@
-import React from "react";
+import Box from "@material-ui/core/Box";
+import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
-import Box from "@material-ui/core/Box";
-import Stepper from "../Stepper/Stepper";
+import React from "react";
 import { NavLink } from "react-router-dom";
+import CheckLoginStatus from "../../../App/CheckLoginStatus";
 import { ButtonWithIcon } from "../../../FormsUI";
 import ScrollToTopOnMount from "../../ScrollToTop";
-import CheckLoginStatus from "../../../App/CheckLoginStatus";
 import "../SelectOffer/SelectOffer.css";
+import Stepper from "../Stepper/Stepper";
 import TabSection from "../TabSection";
 
 function TabPanel(props) {
@@ -18,16 +18,16 @@ function TabPanel(props) {
   return (
     <div
       role="tabpanel"
-      hidden={value !== index}
-      id={`scrollable-auto-tab-panel-${index}`}
-      aria-labelledby={`scrollable-auto-tab-${index}`}
-      {...other}
+      hidden={ value !== index }
+      id={ `scrollable-auto-tab-panel-${ index }` }
+      aria-labelledby={ `scrollable-auto-tab-${ index }` }
+      { ...other }
     >
-      {value === index && (
+      { value === index && (
         <Box>
-          <div>{children}</div>
+          <div>{ children }</div>
         </Box>
-      )}
+      ) }
     </div>
   );
 }
@@ -40,8 +40,8 @@ TabPanel.propTypes = {
 
 function a11yProps(index) {
   return {
-    id: `scrollable-auto-tab-${index}`,
-    "aria-controls": `scrollable-auto-tab-panel-${index}`,
+    id: `scrollable-auto-tab-${ index }`,
+    "aria-controls": `scrollable-auto-tab-panel-${ index }`,
   };
 }
 
@@ -83,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
 //Initializing Final verification functional component
 export default function FinalVerification() {
   const classes = useStyles();
-  const [value, setValue] = React.useState(2);
+  const [ value, setValue ] = React.useState(2);
   window.zeShow();
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -96,21 +96,21 @@ export default function FinalVerification() {
       <ScrollToTopOnMount />
       <Grid
         container
-        justifyContent={"center"}
+        justifyContent={ "center" }
         className
-        className={classes.mainGrid}
+        className={ classes.mainGrid }
       >
         <Grid
           item
-          xs={12}
+          xs={ 12 }
           container
           direction="row"
-          style={{ width: "100%", marginBottom: "20px" }}
+          style={ { width: "100%", marginBottom: "20px" } }
         >
-          <Typography className={classes.heading} variant="h3">
+          <Typography className={ classes.heading } variant="h3">
             <NavLink
               to="/customers/accountOverview"
-              style={{ textDecoration: "none" }}
+              style={ { textDecoration: "none" } }
             >
               <ButtonWithIcon
                 icon="arrow_backwardIcon"
@@ -122,29 +122,29 @@ export default function FinalVerification() {
 												"marginRight": "5px", "marginTop":"unset" }'
                 styleicon='{ "color":"" }'
               />
-            </NavLink>{" "}
+            </NavLink>{ " " }
             Apply for a Loan
           </Typography>
         </Grid>
 
-        {/* Tab section started */}
-        <Grid item xs={12}>
-		<TabSection value={value} handleChange={handleChange} classes={classes} ay={2}/>
+        {/* Tab section started */ }
+        <Grid item xs={ 12 }>
+          <TabSection value={ value } handleChange={ handleChange } classes={ classes } ay={ 2 } />
 
           <TabPanel
-            value={value}
-            index={2}
-            style={{ paddingBottom: "30px", marginTop: "10px" }}
+            value={ value }
+            index={ 2 }
+            style={ { paddingBottom: "30px", marginTop: "10px" } }
           >
             <Stepper />
 
-            <Grid item style={{ width: "100%" }}>
+            <Grid item style={ { width: "100%" } }>
               <p
-                style={{
+                style={ {
                   textAlign: "justify",
                   fontSize: "0.938rem",
                   color: "#6b6f82",
-                }}
+                } }
               >
                 Loan funding and disbursement is conditioned upon our
                 satisfactory review of any documents and other information that

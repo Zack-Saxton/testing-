@@ -1,15 +1,15 @@
-import React from "react";
-import { useStylesLoanDocument } from "./Style";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import { documentdownload as downloadDocument, documentprint as printDocument } from "../../Controllers/LoanDocumentController";
+import GetAppIcon from "@material-ui/icons/GetApp";
 import PrintIcon from "@material-ui/icons/Print";
 import Moment from "moment";
-import GetAppIcon from "@material-ui/icons/GetApp";
+import React from "react";
+import { documentdownload as downloadDocument, documentprint as printDocument } from "../../Controllers/LoanDocumentController";
+import { useStylesLoanDocument } from "./Style";
 
 
 export default function LoanDocumentTable(userLoanDocumentData) {
@@ -34,33 +34,33 @@ export default function LoanDocumentTable(userLoanDocumentData) {
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell className={classes.tableHead}>Document Name</TableCell>
-            <TableCell className={classes.tableHead}>Date Uploaded</TableCell>
-            <TableCell className={classes.tableHead}>Actions</TableCell>
+            <TableCell className={ classes.tableHead }>Document Name</TableCell>
+            <TableCell className={ classes.tableHead }>Date Uploaded</TableCell>
+            <TableCell className={ classes.tableHead }>Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {userLoanDocument?.userLoanDocumentData?.length ? (
+          { userLoanDocument?.userLoanDocumentData?.length ? (
             userLoanDocument.userLoanDocumentData.map((row, index) => (
-              <TableRow key={index}>
+              <TableRow key={ index }>
                 <TableCell
                   component="th"
-                  className={classes.tableHeadRow}
+                  className={ classes.tableHeadRow }
                   scope="row"
                 >
-                  {row.displayname}
+                  { row.displayname }
                 </TableCell>
-                <TableCell className={classes.tableHeadRow}>
-                  {Moment(row.date_uploaded).format(outputDateFormat)}
+                <TableCell className={ classes.tableHeadRow }>
+                  { Moment(row.date_uploaded).format(outputDateFormat) }
                 </TableCell>
-                <TableCell className={classes.tableHeadRow}>
-                  <PrintIcon style={{ color: "#104eb3", cursor: "pointer" }}
-                    onClick={() =>
+                <TableCell className={ classes.tableHeadRow }>
+                  <PrintIcon style={ { color: "#104eb3", cursor: "pointer" } }
+                    onClick={ () =>
                       printDoc(row.downloadProp.file_id, row.downloadProp.name)
                     }
-                  />{" "}
-                  <GetAppIcon style={{ color: "#104eb3", cursor: "pointer" }}
-                    onClick={() =>
+                  />{ " " }
+                  <GetAppIcon style={ { color: "#104eb3", cursor: "pointer" } }
+                    onClick={ () =>
                       downloadDoc(
                         row.downloadProp.file_id,
                         row.downloadProp.name
@@ -76,7 +76,7 @@ export default function LoanDocumentTable(userLoanDocumentData) {
                 You do not have any documents
               </TableCell>
             </TableRow>
-          )}
+          ) }
         </TableBody>
       </Table>
     </TableContainer>

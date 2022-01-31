@@ -14,8 +14,8 @@ import { toast } from "react-toastify";
 //initializing check my offers functonal component
 function CheckMyOffers(props) {
 	const { data, setData, resetData } = useContext(Check);
-	const [hasOfferCode, setOfferCode] = useState("");
-	const [select, setSelect] = useState(data.loanAmount ? data.loanAmount : 10000);
+	const [ hasOfferCode, setOfferCode ] = useState("");
+	const [ select, setSelect ] = useState(data.loanAmount ? data.loanAmount : 10000);
 	const history = useHistory();
 
 	useEffect(() => {
@@ -28,14 +28,14 @@ function CheckMyOffers(props) {
 
 	if (data?.isActiveUser === "closed") {
 		toast.error("Your account is closed to new applications. Please contact us to reapply.");
-		history.push({pathname: "/customers/accountOverview"});
+		history.push({ pathname: "/customers/accountOverview" });
 	}
 	const handleRoute = (event) => {
 		data.loanAmount = select;
 		data.formStatus = "started";
 		data.completedPage = data.page.selectAmount;
 		setData({ ...data, loanAmount: select });
-		history.push({pathname: "/loan-purpose"});
+		history.push({ pathname: "/loan-purpose" });
 	};
 
 	// jsx part
@@ -46,20 +46,20 @@ function CheckMyOffers(props) {
 				<Box>
 					<Grid
 						item
-						xs={12}
+						xs={ 12 }
 						container
 						justifyContent="center"
 						alignItems="center"
 					>
 						<Grid
 							item
-							xs={11}
-							sm={10}
-							md={6}
-							lg={6}
-							xl={6}
+							xs={ 11 }
+							sm={ 10 }
+							md={ 6 }
+							lg={ 6 }
+							xl={ 6 }
 							className="cardWrapper"
-							style={{ paddingTop: "70px" }}
+							style={ { paddingTop: "70px" } }
 						>
 							<Paper
 								className="card"
@@ -72,77 +72,79 @@ function CheckMyOffers(props) {
 								</Typography>
 								<Grid
 									item
-									xs={12}
+									xs={ 12 }
 									className="alignSlider"
 									container
 									justifyContent="center"
 									alignItems="center"
 								>
-									<Grid item xs={11} sm={10} md={8} lg={8} xl={8}>
+									<Grid item xs={ 11 } sm={ 10 } md={ 8 } lg={ 8 } xl={ 8 }>
 										<Slider
+											id="sliderBar"
 											className="setSlider"
 											name="slider"
-											defaultValue={select ? select : 10000}
-											setSelect={setSelect}
+											defaultValue={ select ? select : 10000 }
+											setSelect={ setSelect }
 											label="Select Loan Amount"
 										/>
 									</Grid>
 								</Grid>
 								<Grid
 									item
-									xs={12}
+									xs={ 12 }
 									className="alignSlider"
 									container
 									justifyContent="center"
 									alignItems="center"
 								>
-									<Grid item xs={11} sm={10} md={8} lg={8} xl={8}>
+									<Grid item xs={ 11 } sm={ 10 } md={ 8 } lg={ 8 } xl={ 8 }>
 										<Typography
 											data-testid="offerCodeTriggerText"
 											className="setGreenColor cursorPointer"
 											align="center"
-											onClick={(event) => {
+											onClick={ (event) => {
 												setOfferCode(!hasOfferCode);
-											}}
+											} }
 										>
 											I have an offer code
 										</Typography>
 									</Grid>
-									<Grid item xs={11} sm={10} md={8} lg={8} xl={8}>
-										<div className={hasOfferCode ? "open" : "close"}>
+									<Grid item xs={ 11 } sm={ 10 } md={ 8 } lg={ 8 } xl={ 8 }>
+										<div className={ hasOfferCode ? "open" : "close" }>
 											<TextField
+												id="offerCodeInput"
 												name="offerCode"
-												form={true}
-												value={data.offerCode}
-												onChange={(event) => {
+												form={ true }
+												value={ data.offerCode }
+												onChange={ (event) => {
 													setData({
 														...data,
 														offerCode: event.target.value,
 													});
-												}}
+												} }
 												label="Enter Offer Code"
-												materialProps={{
+												materialProps={ {
 													"data-test-id": "offer",
 													maxLength: "10",
-												}}
+												} }
 											/>
 										</div>
 									</Grid>
-									<Grid item xs={11} sm={10} md={8} lg={8} xl={8}>
+									<Grid item xs={ 11 } sm={ 10 } md={ 8 } lg={ 8 } xl={ 8 }>
 										<Grid className="alignButton">
 											<ButtonPrimary
 												data-testid="contButton"
 												stylebutton='{"background": "#FFBC23", "color":"black","fontSize":"15px","padding":"0px 30px"}'
-												onClick={handleRoute}
-												disabled={data.loading}
+												onClick={ handleRoute }
+												disabled={ data.loading }
 											>
 												Continue
 												<i
 													className="fa fa-refresh fa-spin customSpinner"
-													style={{
+													style={ {
 														marginRight: "10px",
 														display: data.loading ? "block" : "none",
-													}}
+													} }
 												/>
 											</ButtonPrimary>
 										</Grid>
@@ -180,17 +182,17 @@ function CheckMyOffers(props) {
 						</Grid>
 						<Grid
 							item
-							xs={11}
-							sm={10}
-							md={10}
-							lg={10}
-							xl={10}
+							xs={ 11 }
+							sm={ 10 }
+							md={ 10 }
+							lg={ 10 }
+							xl={ 10 }
 							data-testid="descriptionOutside"
 							className="alignSmallText"
 							container
 							justifyContent="center"
 							alignItems="center"
-							style={{ paddingTop: "25px", paddingBottom: "70px" }}
+							style={ { paddingTop: "25px", paddingBottom: "70px" } }
 						>
 							<Typography className="smallText" align="center">
 								To help the government fight the funding of terrorism and money

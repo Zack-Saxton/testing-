@@ -1,14 +1,14 @@
-import React, { createContext, useState } from 'react';
 import Cookies from 'js-cookie';
+import React, { createContext, useState } from 'react';
 import usrAccountDetails from '../components/Controllers/AccountOverviewController';
-import states from '../components/lib/States.json';
 import { decryptAES } from '../components/lib/Crypto';
+import states from '../components/lib/States.json';
 
 export const CheckMyOffers = createContext();
 
 function CheckMyOffersContext(props) {
   // context data initial State
-  const [data, setData] = useState({
+  const [ data, setData ] = useState({
     loanAmount: '',
     term: 36,
     offerCode: '',
@@ -124,7 +124,7 @@ function CheckMyOffersContext(props) {
         ? latestContact.address_state
         : '';
       data.stateFullform =
-        statesFullForm.length === 2 ? states[statesFullForm] : statesFullForm;
+        statesFullForm.length === 2 ? states[ statesFullForm ] : statesFullForm;
       data.last4SSN = identification?.last4SSN ? identification?.last4SSN : '';
       data.loanPurpose = '';
       data.ssn = identification?.social_security_number
@@ -215,8 +215,8 @@ function CheckMyOffersContext(props) {
   };
 
   return (
-    <CheckMyOffers.Provider value={{ data, setData, resetData }}>
-      {props.children}
+    <CheckMyOffers.Provider value={ { data, setData, resetData } }>
+      { props.children }
     </CheckMyOffers.Provider>
   );
 }

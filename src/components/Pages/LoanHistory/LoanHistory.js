@@ -1,24 +1,24 @@
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
 import React from "react";
-import { useStylesLoanHistory } from "./Style";
+import { useQuery } from 'react-query';
+import { NavLink } from "react-router-dom";
+import CheckLoginStatus from "../../App/CheckLoginStatus";
+import LoanHistoryController from "../../Controllers/LoanHistoryController";
+import { ButtonWithIcon } from "../../FormsUI";
+import ScrollToTopOnMount from "../ScrollToTop";
 import LoanHistoryCard from "./CardContent";
 import LoanHistoryTable from "./RecordTable";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
-import { NavLink } from "react-router-dom";
-import { ButtonWithIcon } from "../../FormsUI";
+import { useStylesLoanHistory } from "./Style";
 import "./Style.css";
-import ScrollToTopOnMount from "../ScrollToTop";
-import LoanHistoryController from "../../Controllers/LoanHistoryController";
-import CheckLoginStatus from "../../App/CheckLoginStatus";
-import {useQuery} from 'react-query';
 
 export default function LoanHistory() {
   window.zeHide();
   //Material UI css class
   const classes = useStylesLoanHistory();
-  
-   //API Call
-  const { data: loanHistoryStatus} = useQuery('loan-history', LoanHistoryController );
+
+  //API Call
+  const { data: loanHistoryStatus } = useQuery('loan-history', LoanHistoryController);
 
   //Load data
   let loanHistoryData = loanHistoryStatus?.data?.activeLoans;
@@ -30,20 +30,20 @@ export default function LoanHistory() {
       <ScrollToTopOnMount />
       <Grid
         container
-        justifyContent={"center"}
-        style={{
+        justifyContent={ "center" }
+        style={ {
           marginTop: "-150px",
           paddingRight: "23px",
           paddingLeft: "23px",
-        }}
+        } }
       >
-        <Grid id="loanHistoryTxt" container direction="row" item xs={12}>
-          <Grid item xs={12}>
-            <Typography component={"div"}>
-              <h3 className={classes.heading}>
+        <Grid id="loanHistoryTxt" container direction="row" item xs={ 12 }>
+          <Grid item xs={ 12 }>
+            <Typography component={ "div" }>
+              <h3 className={ classes.heading }>
                 <NavLink
                   to="/customers/accountOverview"
-                  style={{ textDecoration: "none" }}
+                  style={ { textDecoration: "none" } }
                 >
                   <ButtonWithIcon
                     icon="arrow_backwardIcon"
@@ -55,7 +55,7 @@ export default function LoanHistory() {
                         "marginRight": "5px", "marginTop":"unset" }'
                     styleicon='{ "color":"" }'
                   />
-                </NavLink>{" "}
+                </NavLink>{ " " }
                 Loan History
               </h3>
             </Typography>
@@ -63,8 +63,8 @@ export default function LoanHistory() {
         </Grid>
 
 
-        <LoanHistoryCard userLoanHistoryCard={loanHistoryData} />
-        <LoanHistoryTable userLoanHistoryData={loanHistoryData} />
+        <LoanHistoryCard userLoanHistoryCard={ loanHistoryData } />
+        <LoanHistoryTable userLoanHistoryData={ loanHistoryData } />
       </Grid>
     </div>
   );

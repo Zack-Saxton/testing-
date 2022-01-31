@@ -1,25 +1,25 @@
-import React from "react";
-import { useStylesAccountOverview } from "./Style";
-import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import CheckLoginStatus from "../../App/CheckLoginStatus";
-import ScrollToTopOnMount from "../ScrollToTop";
-import RecentApplications from "./RecentApplications";
-import ActiveLoans from "./ActiveLoans";
-import RecentPayments from "./RecentPayments";
-import "./Style.css";
-import usrAccountDetails from "../../Controllers/AccountOverviewController";
-import LimitedOffer from "./LimitedOffer";
+import Typography from "@material-ui/core/Typography";
 import Cookies from "js-cookie";
-import {useQuery} from 'react-query'
+import React from "react";
+import { useQuery } from 'react-query';
+import CheckLoginStatus from "../../App/CheckLoginStatus";
+import usrAccountDetails from "../../Controllers/AccountOverviewController";
+import ScrollToTopOnMount from "../ScrollToTop";
+import ActiveLoans from "./ActiveLoans";
+import LimitedOffer from "./LimitedOffer";
+import RecentApplications from "./RecentApplications";
+import RecentPayments from "./RecentPayments";
+import { useStylesAccountOverview } from "./Style";
+import "./Style.css";
 
 export default function AccountOverview() {
   const classes = useStylesAccountOverview();
   window.zeHide();
   //API Call
 
-  const {isLoading, data : accountDetails} = useQuery('loan-data', usrAccountDetails )
- 
+  const { isLoading, data: accountDetails } = useQuery('loan-data', usrAccountDetails);
+
   //Load data
   let offerData = (accountDetails != null) ? accountDetails?.data?.offerData : null;
   let applicationsData = (accountDetails != null) ? accountDetails?.data?.applicants : null;
@@ -40,30 +40,30 @@ export default function AccountOverview() {
       <Grid
         container
         justifyContent="center"
-        style={{
+        style={ {
           marginTop: "-150px",
           paddingRight: "23px",
           paddingLeft: "23px",
-        }}
+        } }
       >
         <Grid
           item
-          xs={12}
-          style={{ width: "100%", paddingBottom: "10px" }}
+          xs={ 12 }
+          style={ { width: "100%", paddingBottom: "10px" } }
           container
           direction="row"
         >
-          <Typography variant="h5" className={classes.heading} data-testid="subtitle">
+          <Typography variant="h5" className={ classes.heading } data-testid="subtitle">
             Account Overview
           </Typography>
         </Grid>
 
-        {/* ****************components************ */}
+        {/* ****************components************ */ }
 
-        <LimitedOffer isLoading={isLoading} userOffers={offerData} />
-        <ActiveLoans isLoading={isLoading} userActiveLoanData={activeLoansData} />
-        <RecentApplications isLoading={isLoading} userApplicationsData={applicationsData} UserAccountStatus={status} />
-        <RecentPayments isLoading={isLoading} userRecentPaymentData={recentPaymentData} />
+        <LimitedOffer isLoading={ isLoading } userOffers={ offerData } />
+        <ActiveLoans isLoading={ isLoading } userActiveLoanData={ activeLoansData } />
+        <RecentApplications isLoading={ isLoading } userApplicationsData={ applicationsData } UserAccountStatus={ status } />
+        <RecentPayments isLoading={ isLoading } userRecentPaymentData={ recentPaymentData } />
 
       </Grid>
     </div>

@@ -1,17 +1,17 @@
-import { render, } from '@testing-library/react';
-import Checkbox from './index';
 import '@testing-library/jest-dom';
+import { render } from '@testing-library/react';
 import { Form, Formik } from 'formik';
 import React from "react";
+import Checkbox from './index';
 
 test("Render checkbox", () => {
     const { getByTestId } = render(<Formik><Form><Checkbox
         data-test-id="checkbox"
         name="termsOfService"
         labelform="Terms & Service"
-        value={false}
+        value={ false }
         label="I agree"
-        required={true}
+        required={ true }
         stylelabelform='{ "color":"" }'
         stylecheckbox='{ "color":"blue" }'
         stylecheckboxlabel='{ "color":"" }'
@@ -26,9 +26,9 @@ test("initially unchecked", () => {
         data-test-id="checkbox"
         name="termsOfService"
         labelform="Terms & Service"
-        value={false}
+        value={ false }
         label="I agree"
-        required={true}
+        required={ true }
         stylelabelform='{ "color":"" }'
         stylecheckbox='{ "color":"blue" }'
         stylecheckboxlabel='{ "color":"" }'
@@ -42,12 +42,12 @@ test('should match the snapshot', () => {
         data-test-id="checkbox"
         name="termsOfService"
         labelform="Terms & Service"
-        value={false}
+        value={ false }
         label="I agree"
-        required={true}
+        required={ true }
         stylelabelform='{ "color":"" }'
         stylecheckbox='{ "color":"blue" }'
         stylecheckboxlabel='{ "color":"" }'
-    /></Form></Formik>)
-    expect(asFragment).toMatchSnapshot()
+    /></Form></Formik>);
+    expect(asFragment).toMatchSnapshot();
 });

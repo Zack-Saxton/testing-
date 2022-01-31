@@ -79,9 +79,9 @@ const useStylesMyProfile = makeStyles((theme) => ({
 		width: "60%",
 		maxWidth: "unset",
 	},
-	deletePayment:{
-       width:"60%",
-	   maxWidth:"unset"
+	deletePayment: {
+		width: "60%",
+		maxWidth: "unset"
 	},
 	dialogPaperDebitCard: {
 		width: "60%",

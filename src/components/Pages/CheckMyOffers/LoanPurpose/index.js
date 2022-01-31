@@ -1,37 +1,37 @@
-import React, { useContext, useState } from "react";
-import "./LoanPurpose.css";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import { ButtonPrimary } from "../../../FormsUI";
 import Paper from "@material-ui/core/Paper";
-import HomeImprovementIcon from "../../../../assets/icon/Home-Improvement.png";
-import HomeImprovementIconWhite from "../../../../assets/icon/white/Home-Improvement.png";
-import AutoExpenseIcon from "../../../../assets/icon/AutoExpense-Repair.png";
-import VacationIcon from "../../../../assets/icon/Vacation.png";
-import HolidayIcon from "../../../../assets/icon/Holiday-Spending.png";
-import MedicalIcon from "../../../../assets/icon/Medical-Dental.png";
-import DeptIcon from "../../../../assets/icon/Debt-Consolidation.png";
-import LifeEventIcon from "../../../../assets/icon/Life-Event.png";
-import UnexpectedExpenseIcon from "../../../../assets/icon/Unexpected-Expenses.png";
-import MajorPurchaseIcon from "../../../../assets/icon/Major-Purchase.png";
-import AutoExpenseIconWhite from "../../../../assets/icon/white/AutoExpense-Repair.png";
-import VacationIconWhite from "../../../../assets/icon/white/Vacation.png";
-import HolidayIconWhite from "../../../../assets/icon/white/Holiday-Spending.png";
-import MedicalIconWhite from "../../../../assets/icon/white/Medical-Dental.png";
-import DeptIconWhite from "../../../../assets/icon/white/Debt-Consolidation.png";
-import LifeEventIconWhite from "../../../../assets/icon/white/Life-Event.png";
-import UnexpectedExpenseIconWhite from "../../../../assets/icon/white/Unexpected-Expenses.png";
-import MajorPurchaseIconWhite from "../../../../assets/icon/white/Major-Purchase.png";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import React, { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
+import AutoExpenseIcon from "../../../../assets/icon/AutoExpense-Repair.png";
+import DeptIcon from "../../../../assets/icon/Debt-Consolidation.png";
+import HolidayIcon from "../../../../assets/icon/Holiday-Spending.png";
+import HomeImprovementIcon from "../../../../assets/icon/Home-Improvement.png";
+import LifeEventIcon from "../../../../assets/icon/Life-Event.png";
+import MajorPurchaseIcon from "../../../../assets/icon/Major-Purchase.png";
+import MedicalIcon from "../../../../assets/icon/Medical-Dental.png";
+import UnexpectedExpenseIcon from "../../../../assets/icon/Unexpected-Expenses.png";
+import VacationIcon from "../../../../assets/icon/Vacation.png";
+import AutoExpenseIconWhite from "../../../../assets/icon/white/AutoExpense-Repair.png";
+import DeptIconWhite from "../../../../assets/icon/white/Debt-Consolidation.png";
+import HolidayIconWhite from "../../../../assets/icon/white/Holiday-Spending.png";
+import HomeImprovementIconWhite from "../../../../assets/icon/white/Home-Improvement.png";
+import LifeEventIconWhite from "../../../../assets/icon/white/Life-Event.png";
+import MajorPurchaseIconWhite from "../../../../assets/icon/white/Major-Purchase.png";
+import MedicalIconWhite from "../../../../assets/icon/white/Medical-Dental.png";
+import UnexpectedExpenseIconWhite from "../../../../assets/icon/white/Unexpected-Expenses.png";
+import VacationIconWhite from "../../../../assets/icon/white/Vacation.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
+import { ButtonPrimary } from "../../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
+import "./LoanPurpose.css";
 
 //Loan purpose component initialization
 function LoanPurpose(props) {
 	const { data } = useContext(CheckMyOffers);
-	const [purpose, setPurpose] = useState(data.loanPurpose ?? "");
+	const [ purpose, setPurpose ] = useState(data.loanPurpose ?? "");
 	const history = useHistory();
 
 	//handle the user data nd store it into context and procced next step
@@ -69,10 +69,10 @@ function LoanPurpose(props) {
 			masonryItemFirst: {
 				boxSizing: "border-box",
 				padding: `${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(1) }px`,
-				[Theme.breakpoints.up("lg")]: {
+				[ Theme.breakpoints.up("lg") ]: {
 					padding: `${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(1) }px`,
 				},
-				[Theme.breakpoints.down("sm")]: {
+				[ Theme.breakpoints.down("sm") ]: {
 					padding: `${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(1) }px`,
 				},
 			},
@@ -94,19 +94,19 @@ function LoanPurpose(props) {
 					<Grid
 						container
 						item
-						xs={12}
+						xs={ 12 }
 						justifyContent="center"
 						alignItems="center"
-						style={{ paddingTop: "70px", paddingBottom: "70px" }}
+						style={ { paddingTop: "70px", paddingBottom: "70px" } }
 					>
 						<Grid
 							container
 							item
-							xs={11}
-							sm={10}
-							md={6}
-							lg={6}
-							xl={6}
+							xs={ 11 }
+							sm={ 10 }
+							md={ 6 }
+							lg={ 6 }
+							xl={ 6 }
 							className="cardWrapper"
 							justifyContent="center"
 							alignItems="center"
@@ -123,10 +123,10 @@ function LoanPurpose(props) {
 								</div>
 								<Grid className="floatLeft">
 									<Link
-										to={{
+										to={ {
 											pathname: "/select-amount",
 											fromLoanPurpose: "yes",
-										}}
+										} }
 									>
 										<i className="material-icons dp48 yellowText ">
 											arrow_back
@@ -144,22 +144,22 @@ function LoanPurpose(props) {
 								>
 									<Grid
 										item
-										lg={4}
-										md={4}
-										xs={6}
-										className={`${ classes.masonryItemFirst }`}
+										lg={ 4 }
+										md={ 4 }
+										xs={ 6 }
+										className={ `${ classes.masonryItemFirst }` }
 									>
 										<Paper
 											data-testid="home"
-											elevation={3}
+											elevation={ 3 }
 											className={
 												purpose === "Home Improvement"
 													? "activeCard block " + classes.paper
 													: "block " + classes.paper
 											}
-											onClick={() => {
+											onClick={ () => {
 												goNext("Home Improvement");
-											}}
+											} }
 										>
 											<img
 												src={
@@ -185,22 +185,22 @@ function LoanPurpose(props) {
 									</Grid>
 									<Grid
 										item
-										lg={4}
-										md={4}
-										xs={6}
-										className={`${ classes.masonryItemFirst }`}
+										lg={ 4 }
+										md={ 4 }
+										xs={ 6 }
+										className={ `${ classes.masonryItemFirst }` }
 									>
 										<Paper
 											data-testid="autoExpense"
-											elevation={3}
+											elevation={ 3 }
 											className={
 												purpose === "Auto Expense/Repair"
 													? "activeCard block " + classes.paper
 													: "block " + classes.paper
 											}
-											onClick={() => {
+											onClick={ () => {
 												goNext("Auto Expense/Repair");
-											}}
+											} }
 										>
 											<img
 												alt="Auto Expense/Repair"
@@ -227,22 +227,22 @@ function LoanPurpose(props) {
 									</Grid>
 									<Grid
 										item
-										lg={4}
-										md={4}
-										xs={6}
-										className={`${ classes.masonryItemFirst }`}
+										lg={ 4 }
+										md={ 4 }
+										xs={ 6 }
+										className={ `${ classes.masonryItemFirst }` }
 									>
 										<Paper
 											data-testid="vacation"
-											elevation={3}
+											elevation={ 3 }
 											className={
 												purpose === "Vacation"
 													? "activeCard block " + classes.paper
 													: "block " + classes.paper
 											}
-											onClick={() => {
+											onClick={ () => {
 												goNext("Vacation");
-											}}
+											} }
 										>
 											<img
 												alt="Vacation"
@@ -268,22 +268,22 @@ function LoanPurpose(props) {
 									</Grid>
 									<Grid
 										item
-										lg={4}
-										md={4}
-										xs={6}
-										className={`${ classes.masonryItemFirst }`}
+										lg={ 4 }
+										md={ 4 }
+										xs={ 6 }
+										className={ `${ classes.masonryItemFirst }` }
 									>
 										<Paper
 											data-testid="holiday"
-											elevation={3}
+											elevation={ 3 }
 											className={
 												purpose === "Holiday Spending"
 													? "activeCard block " + classes.paper
 													: "block " + classes.paper
 											}
-											onClick={() => {
+											onClick={ () => {
 												goNext("Holiday Spending");
-											}}
+											} }
 										>
 											<img
 												alt="Holiday Spending"
@@ -309,22 +309,22 @@ function LoanPurpose(props) {
 									</Grid>
 									<Grid
 										item
-										lg={4}
-										md={4}
-										xs={6}
-										className={`${ classes.masonryItemFirst }`}
+										lg={ 4 }
+										md={ 4 }
+										xs={ 6 }
+										className={ `${ classes.masonryItemFirst }` }
 									>
 										<Paper
 											data-testid="medical"
-											elevation={3}
+											elevation={ 3 }
 											className={
 												purpose === "Medical/Dental"
 													? "activeCard block " + classes.paper
 													: "block " + classes.paper
 											}
-											onClick={() => {
+											onClick={ () => {
 												goNext("Medical/Dental");
-											}}
+											} }
 										>
 											<img
 												alt="Medical/Dental"
@@ -350,22 +350,22 @@ function LoanPurpose(props) {
 									</Grid>
 									<Grid
 										item
-										lg={4}
-										md={4}
-										xs={6}
-										className={`${ classes.masonryItemFirst }`}
+										lg={ 4 }
+										md={ 4 }
+										xs={ 6 }
+										className={ `${ classes.masonryItemFirst }` }
 									>
 										<Paper
 											data-testid="deptConsolidation"
-											elevation={3}
+											elevation={ 3 }
 											className={
 												purpose === "Debt Consolidation"
 													? "activeCard block " + classes.paper
 													: "block " + classes.paper
 											}
-											onClick={() => {
+											onClick={ () => {
 												goNext("Debt Consolidation");
-											}}
+											} }
 										>
 											<img
 												alt="Debt Consolidation"
@@ -391,22 +391,22 @@ function LoanPurpose(props) {
 									</Grid>
 									<Grid
 										item
-										lg={4}
-										md={4}
-										xs={6}
-										className={`${ classes.masonryItemFirst }`}
+										lg={ 4 }
+										md={ 4 }
+										xs={ 6 }
+										className={ `${ classes.masonryItemFirst }` }
 									>
 										<Paper
 											data-testid="lifeEvent"
-											elevation={3}
+											elevation={ 3 }
 											className={
 												purpose === "Life Event (Wedding, Graduation, etc)"
 													? "activeCard block " + classes.paper
 													: "block " + classes.paper
 											}
-											onClick={() => {
+											onClick={ () => {
 												goNext("Life Event (Wedding, Graduation, etc)");
-											}}
+											} }
 										>
 											<img
 												alt="Life Event (Wedding, Graduation, etc)"
@@ -432,22 +432,22 @@ function LoanPurpose(props) {
 									</Grid>
 									<Grid
 										item
-										lg={4}
-										md={4}
-										xs={6}
-										className={`${ classes.masonryItemFirst }`}
+										lg={ 4 }
+										md={ 4 }
+										xs={ 6 }
+										className={ `${ classes.masonryItemFirst }` }
 									>
 										<Paper
 											data-testid="unexpectedBills"
-											elevation={3}
+											elevation={ 3 }
 											className={
 												purpose === "Unexpected Expenses/Bills"
 													? "activeCard block " + classes.paper
 													: "block " + classes.paper
 											}
-											onClick={() => {
+											onClick={ () => {
 												goNext("Unexpected Expenses/Bills");
-											}}
+											} }
 										>
 											<img
 												alt="Unexpected Expenses/Bills"
@@ -473,22 +473,22 @@ function LoanPurpose(props) {
 									</Grid>
 									<Grid
 										item
-										lg={4}
-										md={4}
-										xs={6}
-										className={`${ classes.masonryItemFirst }`}
+										lg={ 4 }
+										md={ 4 }
+										xs={ 6 }
+										className={ `${ classes.masonryItemFirst }` }
 									>
 										<Paper
 											data-testid="majorPurchase"
-											elevation={3}
+											elevation={ 3 }
 											className={
 												purpose === "Major Purchase"
 													? "activeCard block " + classes.paper
 													: "block " + classes.paper
 											}
-											onClick={() => {
+											onClick={ () => {
 												goNext("Major Purchase");
-											}}
+											} }
 										>
 											<img
 												alt="Major Purchase"
@@ -514,23 +514,23 @@ function LoanPurpose(props) {
 									</Grid>
 									<Grid
 										item
-										lg={12}
-										md={12}
-										xs={12}
-										className={`${ classes.masonryItemFirst }`}
-										style={{ paddingTop: "10px", paddingBottom: "25px" }}
+										lg={ 12 }
+										md={ 12 }
+										xs={ 12 }
+										className={ `${ classes.masonryItemFirst }` }
+										style={ { paddingTop: "10px", paddingBottom: "25px" } }
 									>
 										<Paper
 											data-testid="others"
-											elevation={3}
+											elevation={ 3 }
 											className={
 												purpose === "Other"
 													? "activeCard othersBlock "
 													: "othersBlock "
 											}
-											onClick={() => {
+											onClick={ () => {
 												goNext("Other");
-											}}
+											} }
 										>
 											<Typography
 												align="center"
@@ -545,21 +545,21 @@ function LoanPurpose(props) {
 									<Grid
 										item
 										className="ContinueButton"
-										lg={9}
-										md={9}
-										sm={12}
-										xs={12}
-										style={{ paddingBottom: "80px" }}
+										lg={ 9 }
+										md={ 9 }
+										sm={ 12 }
+										xs={ 12 }
+										style={ { paddingBottom: "80px" } }
 									>
 										<ButtonPrimary
 											data-testid="contButton"
-											onClick={handleRoute}
-											disabled={purpose === ""}
+											onClick={ handleRoute }
+											disabled={ purpose === "" }
 											stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black !important","width":"155px","fontSize":"15px"}'
 										>
-											{/* <Typography align="center" className="textCSS "> */}
+											{/* <Typography align="center" className="textCSS "> */ }
 											Continue
-											{/* </Typography> */}
+											{/* </Typography> */ }
 										</ButtonPrimary>
 									</Grid>
 								</Grid>

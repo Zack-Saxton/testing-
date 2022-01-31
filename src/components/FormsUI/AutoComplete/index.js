@@ -6,9 +6,9 @@ Functionality       :    To use this AutoComplete SingleSelect as a default comp
                           maintain same consistency.
 
 #################################################################################################################*/
-import React from "react";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+import React from "react";
 
 const AutoCompleteWrapper = ({
   name,
@@ -23,17 +23,17 @@ const AutoCompleteWrapper = ({
 }) => {
   //parsing data using json
   const jsonData = JSON.parse(jsonInput);
-  let styleAutocompleteMF = JSON.parse(styleAutocomplete)
+  let styleAutocompleteMF = JSON.parse(styleAutocomplete);
   //View Part
   return (
     <Autocomplete
-      id={id}
-      options={jsonData}
-      getOptionLabel={(option) => option.value}
-      style={styleAutocompleteMF}
-      renderInput={(params) => (
-        <TextField {...params} label={textFieldLabel} variant={variant} />
-      )}
+      id={ id }
+      options={ jsonData }
+      getOptionLabel={ (option) => option.value }
+      style={ styleAutocompleteMF }
+      renderInput={ (params) => (
+        <TextField { ...params } label={ textFieldLabel } variant={ variant } />
+      ) }
     />
   );
 };

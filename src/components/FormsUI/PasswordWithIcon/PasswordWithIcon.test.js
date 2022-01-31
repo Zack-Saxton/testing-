@@ -1,8 +1,8 @@
-import React from 'react'
-import { cleanup, render } from '@testing-library/react'
-import PasswordWithIcon from './index.js'
+import { cleanup, render } from '@testing-library/react';
+import React from 'react';
+import PasswordWithIcon from './index.js';
 
-afterEach(cleanup)
+afterEach(cleanup);
 
 
 test("renders icon", () => {
@@ -39,6 +39,6 @@ test('should match the snapshot', () => {
         icon="lock"
         iconColor="#595E6E"
         iconPosition="left"
-    />)
-    expect(asFragment).toMatchSnapshot()
+    />);
+    expect(asFragment).toMatchSnapshot();
 });

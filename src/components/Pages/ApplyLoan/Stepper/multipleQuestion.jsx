@@ -1,10 +1,10 @@
 import { Typography } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import { useEffect, useState } from "react";
-import { Radio, ButtonPrimary } from "../../../FormsUI";
 import { toast } from "react-toastify";
 import { idVerificationAnswer } from "../../../Controllers/ApplyForLoanController";
-import messages from "../../../lib/Lang/applyForLoan.json"
+import { ButtonPrimary, Radio } from "../../../FormsUI";
+import messages from "../../../lib/Lang/applyForLoan.json";
 
 //Component to load the questions
 //To build the structure for load
@@ -14,7 +14,7 @@ const buildOptions = (options) => {
 		options.map((question) => {
 			newArr.push({
 				label: question?.text?.statement,
-				value: question["choice-id"],
+				value: question[ "choice-id" ],
 			});
 			return null;
 		});
@@ -24,13 +24,13 @@ const buildOptions = (options) => {
 
 //Customer function to load the questions to view
 export default function MultipleQuestion(props) {
-	const [questionArray, setQuestionArray] = useState([]);
-	const [refresh, setRefresh] = useState([]);
+	const [ questionArray, setQuestionArray ] = useState([]);
+	const [ refresh, setRefresh ] = useState([]);
 	let qarr = [];
 
 	useEffect(() => {
 		for (const x of props.responseData) {
-			qarr[x.questionId] = "";
+			qarr[ x.questionId ] = "";
 		}
 		setQuestionArray(qarr);
 	}, []);
@@ -45,7 +45,7 @@ export default function MultipleQuestion(props) {
 				let tempArr = {};
 				tempArr = {
 					id: val.questionId,
-					answer: questionArray[val.questionId],
+					answer: questionArray[ val.questionId ],
 				};
 				questionsArrayData.push(tempArr);
 			});
@@ -72,8 +72,8 @@ export default function MultipleQuestion(props) {
 		}
 		function myFunction(value, index, array) {
 			if (
-				!questionArray[value.questionId] ||
-				questionArray[value.questionId] === ""
+				!questionArray[ value.questionId ] ||
+				questionArray[ value.questionId ] === ""
 			) {
 				allset = false;
 			}
@@ -82,36 +82,36 @@ export default function MultipleQuestion(props) {
 
 	return (
 		<>
-			{props.responseData.map((question, index) => {
+			{ props.responseData.map((question, index) => {
 				return (
-					<Grid key={index} item xs={12}>
-						<Typography id="IdQuestionsTxt">{question?.question}</Typography>
+					<Grid key={ index } item xs={ 12 }>
+						<Typography id="IdQuestionsTxt">{ question?.question }</Typography>
 						<Radio
 							id="radioSelectTxt"
 							name="question"
-							radiolabel={buildOptions(question.choice)}
-							checked={questionArray[question.questionId]}
-							onClick={(event) => {
-								questionArray[question.questionId] = event;
+							radiolabel={ buildOptions(question.choice) }
+							checked={ questionArray[ question.questionId ] }
+							onClick={ (event) => {
+								questionArray[ question.questionId ] = event;
 								setRefresh(event);
-							}}
-							row={true}
-							required={true}
-							labelplacement={"end"}
-							style={{ fontWeight: "normal" }}
+							} }
+							row={ true }
+							required={ true }
+							labelplacement={ "end" }
+							style={ { fontWeight: "normal" } }
 						/>
 						<br />
 						<br />
 					</Grid>
 				);
-			})}
+			}) }
 			<Grid container>
-				<p style={{ display: "none" }}>{refresh}</p>
+				<p style={ { display: "none" } }>{ refresh }</p>
 				<ButtonPrimary
 					variant="contained"
 					color="primary"
 					id="button_stepper_next"
-					onClick={handleMultipleNextClick}
+					onClick={ handleMultipleNextClick }
 					stylebutton='{"marginRight": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
 				>
 					Continue

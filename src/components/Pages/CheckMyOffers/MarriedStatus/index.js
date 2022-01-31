@@ -1,18 +1,18 @@
-import "../CheckMyOffer.css";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import { ButtonPrimary, Select, TextField, Zipcode } from "../../../FormsUI";
 import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+import { useFormik } from "formik";
 import React, { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { useFormik } from "formik";
+import { toast } from "react-toastify";
 import * as yup from "yup";
 import MarriedStatusLogo from "../../../../assets/icon/married-status.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
-import ScrollToTopOnMount from "../ScrollToTop";
 import ZipCodeLookup from "../../../Controllers/ZipCodeLookup";
-import { toast } from "react-toastify";
+import { ButtonPrimary, Select, TextField, Zipcode } from "../../../FormsUI";
+import "../CheckMyOffer.css";
+import ScrollToTopOnMount from "../ScrollToTop";
 //Yup validation schema
 const validationSchema = yup.object({
 	martialStatus: yup
@@ -67,8 +67,8 @@ const validationSchema = yup.object({
 // custom component - MarriedStatus
 function MarriedStatus() {
 	const { data, setData } = useContext(CheckMyOffers);
-	const [stateShort, setStateShort] = useState("");
-	const [validZip, setValidZip] = useState(true);
+	const [ stateShort, setStateShort ] = useState("");
+	const [ validZip, setValidZip ] = useState(true);
 	const history = useHistory();
 
 	//Configuring formik
@@ -128,7 +128,7 @@ function MarriedStatus() {
 			}
 			formik.handleChange(event);
 		} catch (error) {
-			toast.error(' Error from [fetchAddress].')
+			toast.error(' Error from [fetchAddress].');
 		}
 	};
 
@@ -145,7 +145,7 @@ function MarriedStatus() {
 				<Box>
 					<Grid
 						item
-						xs={12}
+						xs={ 12 }
 						container
 						justifyContent="center"
 						alignItems="center"
@@ -153,11 +153,11 @@ function MarriedStatus() {
 						<Grid
 							container
 							item
-							xs={11}
-							sm={10}
-							md={6}
-							lg={6}
-							xl={6}
+							xs={ 11 }
+							sm={ 10 }
+							md={ 6 }
+							lg={ 6 }
+							xl={ 6 }
 							className="cardWrapper"
 							justifyContent="center"
 							alignItems="center"
@@ -165,13 +165,13 @@ function MarriedStatus() {
 							<Paper
 								id="maritalStatusWrap"
 								className="cardWOPadding"
-								style={{
+								style={ {
 									justify: "center",
 									alignItems: "center",
 									width: "inherit",
 									marginBottom: "10%",
 									marginTop: "10%",
-								}}
+								} }
 							>
 								<div className="progress mt-0">
 									<div
@@ -187,29 +187,29 @@ function MarriedStatus() {
 										</i>
 									</Link>
 								</Grid>
-								<Grid style={{ marginTop: "-4%" }}>
+								<Grid style={ { marginTop: "-4%" } }>
 									<img
 										alt="marriedlogo"
-										src={MarriedStatusLogo}
+										src={ MarriedStatusLogo }
 										className="spinAnimation"
 									/>
 								</Grid>
 
 								<Typography
 									variant="h5"
-									style={{
+									style={ {
 										align: "center",
 										justify: "center",
 										alignItems: "center",
-									}}
+									} }
 									className="borrowCSS"
 								>
 									Are you married?*
 								</Typography>
-								<form onSubmit={formik.handleSubmit}>
+								<form onSubmit={ formik.handleSubmit }>
 									<Grid
 										item
-										md={12}
+										md={ 12 }
 										className="blockDiv"
 										container
 										justifyContent="center"
@@ -221,19 +221,19 @@ function MarriedStatus() {
 											justifyContent="center"
 											alignItems="center"
 											item
-											lg={8}
-											md={8}
-											xs={12}
+											lg={ 8 }
+											md={ 8 }
+											xs={ 12 }
 										>
 											<Select
 												id="selectMaritalStatusWrap"
-												fullWidth={true}
+												fullWidth={ true }
 												name="martialStatus"
 												labelform="Marital Status *"
 												select='[{"value":"Married"}, {"value":"Unmarried"}, {"value":"Separated, under decree of legal separation"}]'
-												value={formik.values.martialStatus}
-												onChange={formik.handleChange}
-												onBlur={formik.handleBlur}
+												value={ formik.values.martialStatus }
+												onChange={ formik.handleChange }
+												onBlur={ formik.handleBlur }
 												error={
 													formik.touched.martialStatus &&
 													Boolean(formik.errors.martialStatus)
@@ -249,9 +249,9 @@ function MarriedStatus() {
 											justifyContent="center"
 											alignItems="center"
 											item
-											lg={8}
-											md={8}
-											xs={12}
+											lg={ 8 }
+											md={ 8 }
+											xs={ 12 }
 											className={
 												formik.values.martialStatus === "Married" ||
 													formik.values.martialStatus ===
@@ -264,12 +264,12 @@ function MarriedStatus() {
 												id="spouseAddressWrap"
 												name="add"
 												label="Spouse's Address (if different) *"
-												value={formik.values.add}
-												onKeyDown={preventSpace}
-												onChange={formik.handleChange}
-												onBlur={formik.handleBlur}
-												error={formik.touched.add && Boolean(formik.errors.add)}
-												helperText={formik.touched.add && formik.errors.add}
+												value={ formik.values.add }
+												onKeyDown={ preventSpace }
+												onChange={ formik.handleChange }
+												onBlur={ formik.handleBlur }
+												error={ formik.touched.add && Boolean(formik.errors.add) }
+												helperText={ formik.touched.add && formik.errors.add }
 											/>
 										</Grid>
 										<Grid
@@ -277,9 +277,9 @@ function MarriedStatus() {
 											justifyContent="flex-start"
 											alignItems="flex-start"
 											item
-											lg={8}
-											md={8}
-											xs={12}
+											lg={ 8 }
+											md={ 8 }
+											xs={ 12 }
 											className={
 												formik.values.martialStatus === "Married" ||
 													formik.values.martialStatus ===
@@ -297,9 +297,9 @@ function MarriedStatus() {
 											justifyContent="flex-start"
 											alignItems="flex-start"
 											item
-											lg={8}
-											md={8}
-											xs={12}
+											lg={ 8 }
+											md={ 8 }
+											xs={ 12 }
 											className={
 												formik.values.martialStatus === "Married" ||
 													formik.values.martialStatus ===
@@ -313,9 +313,9 @@ function MarriedStatus() {
 												id="zip"
 												name="spouseZipcode"
 												label="Zipcode *"
-												value={formik.values.spouseZipcode}
-												onChange={fetchAddress}
-												onBlur={formik.handleBlur}
+												value={ formik.values.spouseZipcode }
+												onChange={ fetchAddress }
+												onBlur={ formik.handleBlur }
 												error={
 													(formik.touched.spouseZipcode &&
 														Boolean(formik.errors.spouseZipcode)) ||
@@ -334,9 +334,9 @@ function MarriedStatus() {
 											justifyContent="flex-start"
 											alignItems="flex-start"
 											item
-											lg={8}
-											md={8}
-											xs={12}
+											lg={ 8 }
+											md={ 8 }
+											xs={ 12 }
 											className={
 												formik.values.martialStatus === "Married" ||
 													formik.values.martialStatus ===
@@ -349,10 +349,10 @@ function MarriedStatus() {
 												id="cityWrap"
 												name="spouseCity"
 												label="City"
-												value={formik.values.spousecity}
-												onChange={formik.handleChange}
-												onBlur={formik.handleBlur}
-												disabled={true}
+												value={ formik.values.spousecity }
+												onChange={ formik.handleChange }
+												onBlur={ formik.handleBlur }
+												disabled={ true }
 												error={
 													formik.touched.spousecity &&
 													Boolean(formik.errors.spousecity)
@@ -368,9 +368,9 @@ function MarriedStatus() {
 											justifyContent="center"
 											alignItems="center"
 											item
-											lg={8}
-											md={8}
-											xs={12}
+											lg={ 8 }
+											md={ 8 }
+											xs={ 12 }
 											className={
 												formik.values.martialStatus === "Married" ||
 													formik.values.martialStatus ===
@@ -383,10 +383,10 @@ function MarriedStatus() {
 												id="stateWrap"
 												name="spouseSelectState"
 												label="State"
-												value={formik.values.spouseSelectState}
-												onChange={formik.handleChange}
-												onBlur={formik.handleBlur}
-												disabled={true}
+												value={ formik.values.spouseSelectState }
+												onChange={ formik.handleChange }
+												onBlur={ formik.handleBlur }
+												disabled={ true }
 												error={
 													formik.touched.spouseSelectState &&
 													Boolean(formik.errors.spouseSelectState)
@@ -398,10 +398,10 @@ function MarriedStatus() {
 											/>
 										</Grid>
 
-										<Grid item lg={8} md={8} xs={12} className="alignButton">
+										<Grid item lg={ 8 } md={ 8 } xs={ 12 } className="alignButton">
 											<ButtonPrimary
 												type="submit"
-												disabled={!validZip}
+												disabled={ !validZip }
 												stylebutton='{"background": "#FFBC23", "padding": "0px 30px", "color": "black","fontSize":"0.938rem"}'
 											>
 												Continue

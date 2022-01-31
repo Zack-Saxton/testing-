@@ -1,16 +1,15 @@
-import React, { useState } from "react";
-import {
-  Select,
-  TextField,
-  ButtonPrimary,
-  ButtonSecondary,
-} from "../../../FormsUI";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import { useFormik } from "formik";
+import React, { useState } from "react";
 import * as yup from "yup";
 import { submitFinancialInformation } from "../../../Controllers/ApplyForLoanController";
-import messages from "../../../lib/Lang/applyForLoan.json"
+import {
+  ButtonPrimary,
+  ButtonSecondary, Select,
+  TextField
+} from "../../../FormsUI";
+import messages from "../../../lib/Lang/applyForLoan.json";
 
 //styling part
 const useStyles = makeStyles((theme) => ({
@@ -35,14 +34,14 @@ const validationSchema = yup.object({
     .string(messages.financialInformation.hearYouHeared)
     .required(messages.financialInformation.hearYouHeared),
   yearsAtCurrentAddress: yup
-	  .string(messages.financialInformation.yearAtCurrent)
-		.required(messages.financialInformation.yearAtCurrent),
+    .string(messages.financialInformation.yearAtCurrent)
+    .required(messages.financialInformation.yearAtCurrent),
 });
 
 //View Part
 export default function FinancialInformation(props) {
   //Initiaizing state variable
-  const [error, setError] = useState('');
+  const [ error, setError ] = useState('');
   const classes = useStyles();
   var formik = useFormik({
     enableReinitialize: true,
@@ -60,7 +59,7 @@ export default function FinancialInformation(props) {
         "current_job_title": values.jobTitle,
         "years_at_current_address": values.yearsAtCurrentAddress,
         "refer": values.howDoYouHearAboutUs
-      }
+      };
       //API call to submit financial info
       let res = await submitFinancialInformation(body);
       if (res?.data?.financial_information === true) {
@@ -85,38 +84,38 @@ export default function FinancialInformation(props) {
   //View part
   return (
     <div>
-      <form onSubmit={formik.handleSubmit}>
-        <Grid item sm={5} className={classes.content_grid}>
+      <form onSubmit={ formik.handleSubmit }>
+        <Grid item sm={ 5 } className={ classes.content_grid }>
           <TextField
             id="employerNameInput"
             name="employerName"
             label="Employer Name"
-            value={formik.values.employerName}
-            materialProps={{ maxLength: "30" }}
-            onChange={(event) => {
+            value={ formik.values.employerName }
+            materialProps={ { maxLength: "30" } }
+            onChange={ (event) => {
               nameChange(event);
-            }}
-            onBlur={formik.handleBlur}
-            error={formik.touched.employerName && Boolean(formik.errors.employerName)}
-            helperText={formik.touched.employerName && formik.errors.employerName}
+            } }
+            onBlur={ formik.handleBlur }
+            error={ formik.touched.employerName && Boolean(formik.errors.employerName) }
+            helperText={ formik.touched.employerName && formik.errors.employerName }
           />
         </Grid>
-        <Grid item sm={5} className={classes.content_grid}>
+        <Grid item sm={ 5 } className={ classes.content_grid }>
           <TextField
             id="currentJobTitleInput"
             name="jobTitle"
             label="Current Job Title"
-            value={formik.values.jobTitle}
-            materialProps={{ maxLength: "30" }}
-            onChange={(event) => {
+            value={ formik.values.jobTitle }
+            materialProps={ { maxLength: "30" } }
+            onChange={ (event) => {
               nameChange(event);
-            }}
-            onBlur={formik.handleBlur}
-            error={formik.touched.jobTitle && Boolean(formik.errors.jobTitle)}
-            helperText={formik.touched.jobTitle && formik.errors.jobTitle}
+            } }
+            onBlur={ formik.handleBlur }
+            error={ formik.touched.jobTitle && Boolean(formik.errors.jobTitle) }
+            helperText={ formik.touched.jobTitle && formik.errors.jobTitle }
           />
         </Grid>
-        <Grid id="currentAddressSelectWrap" item sm={5} className={classes.content_grid}>
+        <Grid id="currentAddressSelectWrap" item sm={ 5 } className={ classes.content_grid }>
           <Select
             id="currentAddressSelect"
             name="yearsAtCurrentAddress"
@@ -142,9 +141,9 @@ export default function FinancialInformation(props) {
                      {"value":"18", "label": "18"},
                      {"value":"19", "label": "19"},
                      {"value":"21", "label": "20+ years"}]'
-            value={formik.values.yearsAtCurrentAddress}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
+            value={ formik.values.yearsAtCurrentAddress }
+            onChange={ formik.handleChange }
+            onBlur={ formik.handleBlur }
             error={
               formik.touched.yearsAtCurrentAddress &&
               Boolean(formik.errors.yearsAtCurrentAddress)
@@ -155,15 +154,15 @@ export default function FinancialInformation(props) {
             }
           />
         </Grid>
-        <Grid id="heardUsSelectWrap" item sm={5} className={classes.content_grid}>
+        <Grid id="heardUsSelectWrap" item sm={ 5 } className={ classes.content_grid }>
           <Select
             id="heardUsSelect"
             name="howDoYouHearAboutUs"
             labelform="How did you hear about us?"
             select='[{"value":"Advertising"}, {"value":"Friend / Family"}, {"value":"Business / Retailer"}, {"value":"Other"}]'
-            value={formik.values.howDoYouHearAboutUs}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
+            value={ formik.values.howDoYouHearAboutUs }
+            onChange={ formik.handleChange }
+            onBlur={ formik.handleBlur }
             error={
               formik.touched.howDoYouHearAboutUs &&
               Boolean(formik.errors.howDoYouHearAboutUs)
@@ -173,14 +172,14 @@ export default function FinancialInformation(props) {
               formik.errors.howDoYouHearAboutUs
             }
           />
-          <p style={{ color: "red" }}>{error}</p>
+          <p style={ { color: "red" } }>{ error }</p>
         </Grid>
-        <div className={props.classes.actionsContainer}>
-          <div className={props.classes.button_div} >
+        <div className={ props.classes.actionsContainer }>
+          <div className={ props.classes.button_div } >
 
             <ButtonSecondary
               stylebutton='{"marginRight": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
-              onClick={(event) => {
+              onClick={ (event) => {
                 formik.resetForm();
               }
               }
@@ -195,7 +194,7 @@ export default function FinancialInformation(props) {
               id="button_stepper_next"
               stylebutton='{"marginRight": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
             >
-              {props.activeStep === props?.steps.length - 1 ? "Finish" : "Next"}
+              { props.activeStep === props?.steps.length - 1 ? "Finish" : "Next" }
             </ButtonPrimary>
           </div>
         </div>

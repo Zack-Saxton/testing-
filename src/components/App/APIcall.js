@@ -18,7 +18,7 @@ const APICall = async (url, data, method, addAccessToken) => {
             },
             transformRequest: (data, headers) => {
                 if (addAccessToken !== true) {
-                    delete headers.common["x-access-token"];
+                    delete headers.common[ "x-access-token" ];
                 }
                 return data;
             },
@@ -33,6 +33,6 @@ const APICall = async (url, data, method, addAccessToken) => {
         response.statusText = error.response.statusText;
     }
     return response;
-}
+};
 
 export default APICall;

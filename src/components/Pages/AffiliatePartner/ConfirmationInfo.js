@@ -1,31 +1,31 @@
-import React, { useState } from "react";
-import { useFormik } from "formik";
-import { useHistory } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import * as yup from "yup";
 import Box from "@material-ui/core/Box";
 import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import { ButtonPrimary, Select, TextField, Zipcode, Checkbox } from "../../FormsUI";
-import Paper from "@material-ui/core/Paper";
-import Logo from "../../../assets/images/loginbg.png";
-import "./Style.css";
+import Typography from "@material-ui/core/Typography";
+import { useFormik } from "formik";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
+import * as yup from "yup";
 import creditkarmalogo from "../../../assets/images/ck_logo.png";
+import Logo from "../../../assets/images/loginbg.png";
 import { partnerConfirmInfo } from "../../Controllers/PartnerSignupController";
+import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
+import { ButtonPrimary, Checkbox, Select, TextField, Zipcode } from "../../FormsUI";
 import states from "../../lib/States.json";
 import statesFullform from "../../lib/StatesFullform.json";
-import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
-import { toast } from "react-toastify";
+import "./Style.css";
 //Styling
 const useStyles = makeStyles((theme) => ({
   mainContentBackground: {
@@ -192,19 +192,19 @@ const validationSchema = yup.object({
 //Begin: Login page
 export default function CreditKarma(props) {
   const classes = useStyles();
-  const [loading, setLoading] = useState(false);
-  const [validZip, setValidZip] = useState(true);
-  const [errorMsg, setErrorMsg] = useState("");
-  const [open, setOpen] = useState(false);
-  const [openDelaware, setOpenDelaware] = useState(false);
-  const [openOhio, setOpenOhio] = useState(false);
-  const [citizenship, setCitizenship] = useState(false);
-  const [agreeDelaware, setAgreeDelaware] = useState("");
-  const [agreeCalifornia, setAgreeCalifornia] = useState("");
-  const [agreeNewMexico, setAgreeNewMexico] = useState("");
-  const [agree, setAgree] = useState(false);
-  const [errorAnnual, setErrorAnnual] = useState("");
-  const [errorPersonal, setErrorPersonal] = useState("");
+  const [ loading, setLoading ] = useState(false);
+  const [ validZip, setValidZip ] = useState(true);
+  const [ errorMsg, setErrorMsg ] = useState("");
+  const [ open, setOpen ] = useState(false);
+  const [ openDelaware, setOpenDelaware ] = useState(false);
+  const [ openOhio, setOpenOhio ] = useState(false);
+  const [ citizenship, setCitizenship ] = useState(false);
+  const [ agreeDelaware, setAgreeDelaware ] = useState("");
+  const [ agreeCalifornia, setAgreeCalifornia ] = useState("");
+  const [ agreeNewMexico, setAgreeNewMexico ] = useState("");
+  const [ agree, setAgree ] = useState(false);
+  const [ errorAnnual, setErrorAnnual ] = useState("");
+  const [ errorPersonal, setErrorPersonal ] = useState("");
   const history = useHistory();
 
   window.zeHide();
@@ -265,7 +265,7 @@ export default function CreditKarma(props) {
       streetAddress: props?.location?.state?.address_street ?? "",
       city: props?.location?.state?.address_city ?? "",
       state: props?.location?.state?.address_state
-        ? states[props.location.state.address_state]
+        ? states[ props.location.state.address_state ]
         : "",
       zip: props?.location?.state?.address_postal_code ?? "",
       citizenship: props?.location?.state?.citizenship ?? "",
@@ -292,7 +292,7 @@ export default function CreditKarma(props) {
       spouseZipcode: props?.location?.state?.spouse_address_postal_code ?? "",
       spousecity: props?.location?.state?.spouse_address_city ?? "",
       spouseSelectState: props?.location?.state?.spouse_address_state
-        ? states[props.location.state.spouse_address_state]
+        ? states[ props.location.state.spouse_address_state ]
         : "",
     },
 
@@ -311,7 +311,7 @@ export default function CreditKarma(props) {
           lastname: values.lastname,
           streetAddress: values.streetAddress,
           city: values.city,
-          state: statesFullform[values.state],
+          state: statesFullform[ values.state ],
           zip: values.zip,
           citizenship: values.citizenship,
           personalIncome: values.personalIncome,
@@ -323,7 +323,7 @@ export default function CreditKarma(props) {
           spouseadd: values.spouseadd,
           spouseZipcode: values.spouseZipcode,
           spousecity: values.spousecity,
-          spouseSelectState: statesFullform[values.spouseSelectState],
+          spouseSelectState: statesFullform[ values.spouseSelectState ],
           partner_token: props?.location?.state?.partner_token ?? "",
           email: props?.location?.state?.email ?? "",
         };
@@ -554,70 +554,70 @@ export default function CreditKarma(props) {
   //View Part
   return (
     <div>
-      <div className={classes.mainContentBackground} id="mainContentBackground">
+      <div className={ classes.mainContentBackground } id="mainContentBackground">
         <Box>
           <Grid
-            xs={12}
+            xs={ 12 }
             item
-            style={{
+            style={ {
               paddingTop: "30px",
               paddingBottom: "40px",
               margin: "auto",
               width: "100%",
-            }}
+            } }
           >
             <Grid
-              xs={11}
-              sm={10}
-              md={6}
-              lg={6}
-              xl={6}
+              xs={ 11 }
+              sm={ 10 }
+              md={ 6 }
+              lg={ 6 }
+              xl={ 6 }
               className="cardWrapper"
               item
-              style={{ margin: "auto" }}
+              style={ { margin: "auto" } }
             >
               <Paper
-                className={classes.paper}
-                style={{
+                className={ classes.paper }
+                style={ {
                   opacity: loading ? 0.55 : 1,
                   pointerEvents: loading ? "none" : "initial",
-                }}
+                } }
               >
                 <Typography
-                  className={classes.title}
+                  className={ classes.title }
                   data-testid="title"
                   color="textSecondary"
                 >
-                  Welcome to Mariner Finance{" "}
+                  Welcome to Mariner Finance{ " " }
                 </Typography>
-                <p style={{ textAlign: "center" }}>
-                  Please review and confirm the information that{" "}
+                <p style={ { textAlign: "center" } }>
+                  Please review and confirm the information that{ " " }
                   <a href="https://www.creditkarma.com/" target="blank">
-                    {" "}
+                    { " " }
                     <img
-                      src={creditkarmalogo}
-                      style={{ height: "13px" }}
+                      src={ creditkarmalogo }
+                      style={ { height: "13px" } }
                       alt="creditkarmalogo"
                     />
-                  </a>{" "}
+                  </a>{ " " }
                   provided about you, it will only take a minute.
                 </p>
-                {/* </div> */}
+                {/* </div> */ }
 
-                <form onSubmit={formik.handleSubmit}>
-                  <Grid container spacing={4}>
-                    <Grid item xs={12} sm={6} style={{ width: "100%" }}>
+                <form onSubmit={ formik.handleSubmit }>
+                  <Grid container spacing={ 4 }>
+                    <Grid item xs={ 12 } sm={ 6 } style={ { width: "100%" } }>
                       <TextField
                         id="firstname"
                         name="firstname"
                         label="First Name"
-                        materialProps={{
+                        materialProps={ {
                           "data-test-id": "name",
                           maxLength: "30",
-                        }}
-                        value={formik.values.firstname}
-                        onChange={onNameChange}
-                        onBlur={formik.handleBlur}
+                        } }
+                        value={ formik.values.firstname }
+                        onChange={ onNameChange }
+                        onBlur={ formik.handleBlur }
                         error={
                           formik.touched.firstname &&
                           Boolean(formik.errors.firstname)
@@ -628,18 +628,18 @@ export default function CreditKarma(props) {
                       />
                     </Grid>
 
-                    <Grid item xs={12} sm={6} style={{ width: "100%" }}>
+                    <Grid item xs={ 12 } sm={ 6 } style={ { width: "100%" } }>
                       <TextField
                         id="lastname"
                         name="lastname"
                         label="Last Name"
-                        materialProps={{
+                        materialProps={ {
                           "data-test-id": "lastname",
                           maxLength: "30",
-                        }}
-                        value={formik.values.lastname}
-                        onChange={onNameChange}
-                        onBlur={formik.handleBlur}
+                        } }
+                        value={ formik.values.lastname }
+                        onChange={ onNameChange }
+                        onBlur={ formik.handleBlur }
                         error={
                           formik.touched.lastname &&
                           Boolean(formik.errors.lastname)
@@ -650,19 +650,19 @@ export default function CreditKarma(props) {
                       />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    <Grid item xs={ 12 }>
                       <TextField
                         fullWidth
                         id="streetAddress"
                         name="streetAddress"
                         label="Address"
-                        materialProps={{
+                        materialProps={ {
                           "data-test-id": "streetAddress",
                           maxLength: "100",
-                        }}
-                        value={formik.values.streetAddress}
-                        onChange={formik.handleChange}
-                        onBlur={onBlurAddress}
+                        } }
+                        value={ formik.values.streetAddress }
+                        onChange={ formik.handleChange }
+                        onBlur={ onBlurAddress }
                         error={
                           formik.touched.streetAddress &&
                           Boolean(formik.errors.streetAddress)
@@ -674,16 +674,16 @@ export default function CreditKarma(props) {
                       />
                     </Grid>
 
-                    <Grid item xs={12} sm={4} container direction="row">
+                    <Grid item xs={ 12 } sm={ 4 } container direction="row">
                       <Zipcode
                         fullWidth
                         id="zip"
                         name="zip"
                         label="Zipcode *"
-                        materialProps={{ "data-test-id": "zipcode" }}
-                        value={formik.values.zip}
-                        onChange={fetchAddress}
-                        onBlur={formik.handleBlur}
+                        materialProps={ { "data-test-id": "zipcode" } }
+                        value={ formik.values.zip }
+                        onChange={ fetchAddress }
+                        onBlur={ formik.handleBlur }
                         error={
                           (formik.touched.zip && Boolean(formik.errors.zip)) ||
                           !validZip
@@ -695,56 +695,56 @@ export default function CreditKarma(props) {
                         }
                       />
                     </Grid>
-                    <Grid item xs={12} sm={4} container direction="row">
+                    <Grid item xs={ 12 } sm={ 4 } container direction="row">
                       <TextField
                         fullWidth
                         id="city"
                         name="city"
                         label="City"
-                        disabled={true}
-                        materialProps={{ "data-test-id": "city" }}
-                        value={formik.values.city}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
+                        disabled={ true }
+                        materialProps={ { "data-test-id": "city" } }
+                        value={ formik.values.city }
+                        onChange={ formik.handleChange }
+                        onBlur={ formik.handleBlur }
                         error={
                           formik.touched.city && Boolean(formik.errors.city)
                         }
-                        helperText={formik.touched.city && formik.errors.city}
+                        helperText={ formik.touched.city && formik.errors.city }
                       />
                     </Grid>
 
-                    <Grid item xs={12} sm={4} container direction="row">
+                    <Grid item xs={ 12 } sm={ 4 } container direction="row">
                       <TextField
                         fullWidth
                         id="state"
                         name="state"
                         label="State"
-                        disabled={true}
-                        materialProps={{ "data-test-id": "state" }}
-                        value={formik.values.state}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
+                        disabled={ true }
+                        materialProps={ { "data-test-id": "state" } }
+                        value={ formik.values.state }
+                        onChange={ formik.handleChange }
+                        onBlur={ formik.handleBlur }
                         error={
                           formik.touched.state && Boolean(formik.errors.state)
                         }
-                        helperText={formik.touched.state && formik.errors.state}
+                        helperText={ formik.touched.state && formik.errors.state }
                       />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    <Grid item xs={ 12 }>
                       <Grid
                         item
-                        xs={12}
-                        style={{ paddingTop: "10px" }}
+                        xs={ 12 }
+                        style={ { paddingTop: "10px" } }
                         id="citizenshipWrap"
                       >
                         <Select
                           id="citizenship"
                           name="citizenship"
                           labelform="Citizenship"
-                          value={formik.values.citizenship}
-                          onChange={changeCitizenship}
-                          onBlur={formik.handleBlur}
+                          value={ formik.values.citizenship }
+                          onChange={ changeCitizenship }
+                          onBlur={ formik.handleBlur }
                           error={
                             (formik.touched.citizenship &&
                               Boolean(formik.errors.citizenship)) ||
@@ -763,47 +763,47 @@ export default function CreditKarma(props) {
                       </Grid>
                     </Grid>
 
-                    <Grid item xs={12} sm={4} container direction="row">
+                    <Grid item xs={ 12 } sm={ 4 } container direction="row">
                       <TextField
                         name="personalIncome"
                         label="Annual Personal Income"
                         id="personalIncome"
-                        value={formik.values.personalIncome}
-                        onChange={onHandleChangePersonal}
-                        materialProps={{
+                        value={ formik.values.personalIncome }
+                        onChange={ onHandleChangePersonal }
+                        materialProps={ {
                           "data-testid": "personalIncome",
                           maxLength: "10",
-                        }}
+                        } }
                         autoComplete="off"
-                        onBlur={currencyFormat}
-                        onKeyDown={preventUnwanted}
-                        error={errorPersonal !== ""}
-                        helperText={errorPersonal !== "" ? errorPersonal : ""}
+                        onBlur={ currencyFormat }
+                        onKeyDown={ preventUnwanted }
+                        error={ errorPersonal !== "" }
+                        helperText={ errorPersonal !== "" ? errorPersonal : "" }
                       />
                     </Grid>
-                    <Grid item xs={12} sm={4} container direction="row">
+                    <Grid item xs={ 12 } sm={ 4 } container direction="row">
                       <TextField
                         name="householdIncome"
                         label="Annual Household Income"
                         id="annualhousehold"
-                        value={formik.values.householdIncome}
-                        materialProps={{
+                        value={ formik.values.householdIncome }
+                        materialProps={ {
                           "data-testid": "annualIncome",
                           maxLength: "10",
-                        }}
+                        } }
                         autoComplete="off"
-                        onChange={onHandleChangeHouse}
-                        onBlur={currencyFormat}
-                        onKeyDown={preventUnwanted}
-                        error={errorAnnual !== ""}
-                        helperText={errorAnnual !== "" ? errorAnnual : ""}
+                        onChange={ onHandleChangeHouse }
+                        onBlur={ currencyFormat }
+                        onKeyDown={ preventUnwanted }
+                        error={ errorAnnual !== "" }
+                        helperText={ errorAnnual !== "" ? errorAnnual : "" }
                       />
                     </Grid>
 
                     <Grid
                       item
-                      xs={12}
-                      sm={4}
+                      xs={ 12 }
+                      sm={ 4 }
                       container
                       direction="row"
                       id="employementStatusWrap"
@@ -812,9 +812,9 @@ export default function CreditKarma(props) {
                         id="employementStatus"
                         name="employementStatus"
                         labelform="Employement Status"
-                        value={formik.values.employementStatus}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
+                        value={ formik.values.employementStatus }
+                        onChange={ formik.handleChange }
+                        onBlur={ formik.handleBlur }
                         error={
                           formik.touched.employementStatus &&
                           Boolean(formik.errors.employementStatus)
@@ -830,10 +830,10 @@ export default function CreditKarma(props) {
                                         { "label": "Retired","value": "Retired"}]'
                       />
                     </Grid>
-                    {/* **************************************************active duty***************************************************** */}
+                    {/* **************************************************active duty***************************************************** */ }
                     <Grid
                       item
-                      xs={12}
+                      xs={ 12 }
                       className={
                         formik.values.state === "North Carolina" ||
                           formik.values.state === "NC"
@@ -842,7 +842,7 @@ export default function CreditKarma(props) {
                       }
                     >
                       <p>
-                        {" "}
+                        { " " }
                         <b>
                           Are you active duty military or do you have a future
                           active duty date?
@@ -853,9 +853,9 @@ export default function CreditKarma(props) {
                           name="activeDuty"
                           labelform="Active Duty *"
                           select='[{"value":"Yes"}, {"value":"No"}]'
-                          value={formik.values.activeDuty}
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
+                          value={ formik.values.activeDuty }
+                          onChange={ formik.handleChange }
+                          onBlur={ formik.handleBlur }
                           error={
                             formik.touched.activeDuty &&
                             Boolean(formik.errors.activeDuty)
@@ -870,7 +870,7 @@ export default function CreditKarma(props) {
                       </Grid>
                       <Grid
                         item
-                        xs={12}
+                        xs={ 12 }
                         className={
                           formik.values.activeDuty === "Yes"
                             ? "showCheckbox"
@@ -881,9 +881,9 @@ export default function CreditKarma(props) {
                           name="activeDutyRank"
                           labelform="Active duty rank *"
                           select='[{"value":"E4 and below"}, {"value":"E5 and above"}]'
-                          value={formik.values.activeDutyRank}
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
+                          value={ formik.values.activeDutyRank }
+                          onChange={ formik.handleChange }
+                          onBlur={ formik.handleBlur }
                           error={
                             formik.touched.activeDutyRank &&
                             Boolean(formik.errors.activeDutyRank)
@@ -896,11 +896,11 @@ export default function CreditKarma(props) {
                       </Grid>
                     </Grid>
 
-                    {/* ****************************************************Married Statue ***************************************** */}
+                    {/* ****************************************************Married Statue ***************************************** */ }
 
                     <Grid
                       item
-                      xs={12}
+                      xs={ 12 }
                       className={
                         formik.values.state === "Wisconsin" ||
                           formik.values.state === "WI"
@@ -908,7 +908,7 @@ export default function CreditKarma(props) {
                           : "hideCheckbox"
                       }
                     >
-                      <Grid item xs={12} id="marriedStatusWrap">
+                      <Grid item xs={ 12 } id="marriedStatusWrap">
                         <p>
                           <b>Are you married?*</b>
                         </p>
@@ -917,9 +917,9 @@ export default function CreditKarma(props) {
                           labelform="Marital Status *"
                           id="marriedStatus"
                           select='[{"value":"Married"}, {"value":"Unmarried"}, {"value":"Separated, under decree of legal separation"}]'
-                          value={formik.values.martialStatus}
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
+                          value={ formik.values.martialStatus }
+                          onChange={ formik.handleChange }
+                          onBlur={ formik.handleBlur }
                           error={
                             formik.touched.martialStatus &&
                             Boolean(formik.errors.martialStatus)
@@ -932,7 +932,7 @@ export default function CreditKarma(props) {
                       </Grid>
                       <Grid
                         item
-                        xs={12}
+                        xs={ 12 }
                         className={
                           formik.values.martialStatus === "Married" ||
                             formik.values.martialStatus ===
@@ -944,13 +944,13 @@ export default function CreditKarma(props) {
                         <TextField
                           name="spouseadd"
                           label="Spouse's Address (if different)"
-                          value={formik.values.spouseadd}
-                          onChange={formik.handleChange}
+                          value={ formik.values.spouseadd }
+                          onChange={ formik.handleChange }
                         />
                       </Grid>
                       <Grid
                         item
-                        xs={12}
+                        xs={ 12 }
                         className={
                           formik.values.martialStatus === "Married" ||
                             formik.values.martialStatus ===
@@ -960,14 +960,14 @@ export default function CreditKarma(props) {
                         }
                       >
                         <p>
-                          <b>Location</b>{" "}
+                          <b>Location</b>{ " " }
                         </p>
 
                         <Grid container direction="row">
                           <Grid
                             item
-                            xs={12}
-                            sm={4}
+                            xs={ 12 }
+                            sm={ 4 }
                             id="spouseZipWrap"
                             className={
                               formik.values.martialStatus === "Married" ||
@@ -976,15 +976,15 @@ export default function CreditKarma(props) {
                                 ? "showCheckbox"
                                 : "hideCheckbox"
                             }
-                            style={{ paddingRight: "10px" }}
+                            style={ { paddingRight: "10px" } }
                           >
                             <Zipcode
                               id="spouseZip"
                               name="spouseZipcode"
                               label="Zipcode *"
-                              value={formik.values.spouseZipcode}
-                              onChange={fetchSpouseAddress}
-                              onBlur={formik.handleBlur}
+                              value={ formik.values.spouseZipcode }
+                              onChange={ fetchSpouseAddress }
+                              onBlur={ formik.handleBlur }
                               error={
                                 (formik.touched.spouseZipcode &&
                                   Boolean(formik.errors.spouseZipcode)) ||
@@ -1000,10 +1000,10 @@ export default function CreditKarma(props) {
                           </Grid>
                           <Grid
                             item
-                            xs={12}
-                            sm={4}
+                            xs={ 12 }
+                            sm={ 4 }
                             id="spouseCityWrap"
-                            style={{ paddingRight: "10px" }}
+                            style={ { paddingRight: "10px" } }
                             className={
                               formik.values.martialStatus === "Married" ||
                                 formik.values.martialStatus ===
@@ -1016,10 +1016,10 @@ export default function CreditKarma(props) {
                               name="spousecity"
                               label="City"
                               id="spouseCity"
-                              value={formik.values.spousecity}
-                              onChange={formik.handleChange}
-                              onBlur={formik.handleBlur}
-                              disabled={true}
+                              value={ formik.values.spousecity }
+                              onChange={ formik.handleChange }
+                              onBlur={ formik.handleBlur }
+                              disabled={ true }
                               error={
                                 formik.touched.spousecity &&
                                 Boolean(formik.errors.spousecity)
@@ -1033,8 +1033,8 @@ export default function CreditKarma(props) {
 
                           <Grid
                             item
-                            xs={12}
-                            sm={4}
+                            xs={ 12 }
+                            sm={ 4 }
                             id="spouseStateWrap"
                             className={
                               formik.values.martialStatus === "Married" ||
@@ -1048,10 +1048,10 @@ export default function CreditKarma(props) {
                               name="spouseSelectState"
                               id="spouseState"
                               label="State"
-                              value={formik.values.spouseSelectState}
-                              onChange={formik.handleChange}
-                              onBlur={formik.handleBlur}
-                              disabled={true}
+                              value={ formik.values.spouseSelectState }
+                              onChange={ formik.handleChange }
+                              onBlur={ formik.handleBlur }
+                              disabled={ true }
                               error={
                                 formik.touched.spouseSelectState &&
                                 Boolean(formik.errors.spouseSelectState)
@@ -1066,18 +1066,18 @@ export default function CreditKarma(props) {
                       </Grid>
                     </Grid>
 
-                    {/* **********************************************Disclosures******************************************************** */}
-                    <Grid item xs={12}>
+                    {/* **********************************************Disclosures******************************************************** */ }
+                    <Grid item xs={ 12 }>
                       <p>
                         <b>Please acknowledge and sign our disclosures.</b>
                       </p>
                       <Checkbox
                         name="termsOfService"
                         labelform="Terms & Service"
-                        value={agree}
-                        onChange={(event) => {
+                        value={ agree }
+                        onChange={ (event) => {
                           setAgree(event.target.checked);
-                        }}
+                        } }
                         label={
                           <p className="agreeCheckbox">
                             By clicking this box you acknowledge that you have
@@ -1090,8 +1090,8 @@ export default function CreditKarma(props) {
                               target="_blank"
                               rel="noreferrer noopener"
                             >
-                              {" "}
-                              E-Signature Disclosure and Consent,{" "}
+                              { " " }
+                              E-Signature Disclosure and Consent,{ " " }
                             </a>
                             <a
                               className="formatHref"
@@ -1101,7 +1101,7 @@ export default function CreditKarma(props) {
                               target="_blank"
                               rel="noreferrer noopener"
                             >
-                              Credit and Contact Authorization,{" "}
+                              Credit and Contact Authorization,{ " " }
                             </a>
                             <a
                               className="formatHref"
@@ -1111,7 +1111,7 @@ export default function CreditKarma(props) {
                               target="_blank"
                               rel="noreferrer noopener"
                             >
-                              Website Terms of Use,{" "}
+                              Website Terms of Use,{ " " }
                             </a>
                             <a
                               className="formatHref"
@@ -1125,7 +1125,7 @@ export default function CreditKarma(props) {
                             </a>
                           </p>
                         }
-                        required={true}
+                        required={ true }
                         stylelabelform='{ "color":"" }'
                         stylecheckbox='{ "color":"blue"}'
                         stylecheckboxlabel='{ "color":"" }'
@@ -1141,19 +1141,19 @@ export default function CreditKarma(props) {
                         <Checkbox
                           name="delaware"
                           labelform="delaware"
-                          value={agreeDelaware}
-                          onChange={(event) => {
+                          value={ agreeDelaware }
+                          onChange={ (event) => {
                             setAgreeDelaware(event.target.checked);
-                          }}
+                          } }
                           label={
                             <p className="agreeCheckbox">
                               By clicking this box you acknowledge that you have
-                              received and reviewed the{" "}
+                              received and reviewed the{ " " }
                               <span
                                 className="formatHref"
-                                onClick={handleClickDelawareOpen}
+                                onClick={ handleClickDelawareOpen }
                               >
-                                Delaware Itemized Schedule Of Charges.{" "}
+                                Delaware Itemized Schedule Of Charges.{ " " }
                               </span>
                             </p>
                           }
@@ -1173,15 +1173,15 @@ export default function CreditKarma(props) {
                         <Checkbox
                           name="california"
                           labelform="california"
-                          value={agreeCalifornia}
-                          onChange={(event) => {
+                          value={ agreeCalifornia }
+                          onChange={ (event) => {
                             setAgreeCalifornia(event.target.checked);
-                          }}
+                          } }
                           label={
                             <p className="agreeCheckbox">
                               By clicking this box you acknowledge that you have
                               been offered and had the opportunity to review
-                              this{" "}
+                              this{ " " }
                               <a
                                 className="formatHref"
                                 href={
@@ -1210,19 +1210,19 @@ export default function CreditKarma(props) {
                         <Checkbox
                           name="newmexico"
                           labelform="newmexico"
-                          value={agreeNewMexico}
-                          onChange={(event) => {
+                          value={ agreeNewMexico }
+                          onChange={ (event) => {
                             setAgreeNewMexico(event.target.checked);
-                          }}
+                          } }
                           label={
                             <p className="agreeCheckbox">
                               NM Residents: By clicking this box you acknowledge
                               that you have reviewed the Important Consumer
                               Information in Mariner’s New Mexico Consumer
-                              Brochure located at{" "}
+                              Brochure located at{ " " }
                               <a
                                 className="formatHref"
-                                href={"http://marfi.me/NMBrochure."}
+                                href={ "http://marfi.me/NMBrochure." }
                                 target="_blank"
                                 rel="noreferrer noopener"
                               >
@@ -1237,7 +1237,7 @@ export default function CreditKarma(props) {
                       </div>
                     </Grid>
 
-                    <Grid item xs={12} className={classes.signInButtonGrid}>
+                    <Grid item xs={ 12 } className={ classes.signInButtonGrid }>
                       <ButtonPrimary
                         type="submit"
                         data-testid="submit"
@@ -1247,15 +1247,15 @@ export default function CreditKarma(props) {
                             ? true
                             : loading
                         }
-                        onClick={() => autoFocus()}
+                        onClick={ () => autoFocus() }
                       >
                         Continue
                         <i
                           className="fa fa-refresh fa-spin customSpinner"
-                          style={{
+                          style={ {
                             marginRight: "10px",
                             display: loading ? "block" : "none",
-                          }}
+                          } }
                         />
                       </ButtonPrimary>
                     </Grid>
@@ -1267,11 +1267,11 @@ export default function CreditKarma(props) {
         </Box>
       </div>
       <Dialog
-        onClose={handleClose}
+        onClose={ handleClose }
         aria-labelledby="customized-dialog-title"
-        open={open}
+        open={ open }
       >
-        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
+        <DialogTitle id="customized-dialog-title" onClose={ handleClose }>
           Notice to CA Residents
         </DialogTitle>
         <DialogContent dividers>
@@ -1282,7 +1282,7 @@ export default function CreditKarma(props) {
         <DialogActions className="modalAction">
           <ButtonPrimary
             stylebutton='{"background": "#FFBC23", "color": "black", "border-radius": "50px"}'
-            onClick={handleClose}
+            onClick={ handleClose }
             className="modalButton"
           >
             <Typography align="center">Ok</Typography>
@@ -1291,11 +1291,11 @@ export default function CreditKarma(props) {
       </Dialog>
 
       <Dialog
-        onClose={handleCloseOhio}
+        onClose={ handleCloseOhio }
         aria-labelledby="customized-dialog-title"
-        open={openOhio}
+        open={ openOhio }
       >
-        <DialogTitle id="customized-dialog-title" onClose={handleCloseOhio}>
+        <DialogTitle id="customized-dialog-title" onClose={ handleCloseOhio }>
           Notice to OH Residents
         </DialogTitle>
         <DialogContent dividers>
@@ -1310,7 +1310,7 @@ export default function CreditKarma(props) {
         <DialogActions className="modalAction">
           <ButtonPrimary
             stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
-            onClick={handleCloseOhio}
+            onClick={ handleCloseOhio }
             className="modalButton"
           >
             <Typography align="center">Ok</Typography>
@@ -1319,23 +1319,23 @@ export default function CreditKarma(props) {
       </Dialog>
 
       <Dialog
-        onClose={handleDelawareClose}
+        onClose={ handleDelawareClose }
         aria-labelledby="customized-dialog-title"
-        open={openDelaware}
+        open={ openDelaware }
       >
-        <DialogTitle id="customized-dialog-title" onClose={handleDelawareClose}>
+        <DialogTitle id="customized-dialog-title" onClose={ handleDelawareClose }>
           Delware Itemized Shedule of Charges
         </DialogTitle>
         <DialogContent dividers>
           <Typography align="center" className="textCSS modalText">
-            {" "}
-            Itemized Schedule of Charges (DE){" "}
+            { " " }
+            Itemized Schedule of Charges (DE){ " " }
           </Typography>
           <Typography align="center" className="textCSS modalText">
-            {" "}
-            Closed End Loans{" "}
+            { " " }
+            Closed End Loans{ " " }
           </Typography>
-          <TableContainer component={Paper}>
+          <TableContainer component={ Paper }>
             <Table aria-label="simple table">
               <TableHead>
                 <TableRow>
@@ -1354,8 +1354,8 @@ export default function CreditKarma(props) {
                 </TableRow>
                 <TableRow>
                   <TableCell align="center">
-                    {" "}
-                    Recording/Satisfaction Fee{" "}
+                    { " " }
+                    Recording/Satisfaction Fee{ " " }
                   </TableCell>
                   <TableCell align="center">$23 - 151</TableCell>
                 </TableRow>
@@ -1385,8 +1385,8 @@ export default function CreditKarma(props) {
                 </TableRow>
                 <TableRow>
                   <TableCell align="center">
-                    {" "}
-                    Loan by Mail Commitment Fee{" "}
+                    { " " }
+                    Loan by Mail Commitment Fee{ " " }
                   </TableCell>
                   <TableCell align="center">$10</TableCell>
                 </TableRow>
@@ -1405,7 +1405,7 @@ export default function CreditKarma(props) {
         <DialogActions className="modalAction">
           <ButtonPrimary
             stylebutton='{"background": "#FFBC23", "color": "black", "border-radius": "50px"}'
-            onClick={handleDelawareClose}
+            onClick={ handleDelawareClose }
             className="modalButton"
           >
             <Typography align="center">Ok</Typography>
