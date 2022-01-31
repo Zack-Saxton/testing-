@@ -288,24 +288,19 @@ export default function Register() {
   const fetchAddress = async (event) => {
     try {
       formik.handleChange(event);
+      setValidZip(false);
+      setState("");
+      setCity("");
       if (event.target.value !== "" && event.target.value.length === 5) {
         let result = await ZipCodeLookup(event.target.value);
         if (result) {
           setValidZip(true);
           setState(result?.data.stateCode);
           setCity(result?.data.cityName);
-        } else {
-          setValidZip(false);
-          setState("");
-          setCity("");
-        }
-      } else {
-        setValidZip(false);
-        setState("");
-        setCity("");
-      }
+        } 
+      } 
     } catch (error) {
-      ErrorLogger(" Error from [fetchAddress]", error);
+      ErrorLogger(" Error from fetchAddress", error);
     }
   };
 

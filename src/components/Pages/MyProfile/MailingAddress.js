@@ -143,7 +143,7 @@ export default function MailingAddress(props) {
         formik.handleChange(event);
       }
     } catch (error) {
-      ErrorLogger("Error from [fetchAddress]", error);
+      ErrorLogger("Error from fetchAddress", error);
     }
   };
 
@@ -161,7 +161,7 @@ export default function MailingAddress(props) {
         setErrorMsg("Please enter a valid Zipcode");
       }
     } catch (error) {
-      ErrorLogger(" Error from [fetchAddressValidate]", error);
+      ErrorLogger(" Error from fetchAddressValidate", error);
     }
   }
   const onBlurAddress = (event) => {

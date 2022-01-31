@@ -130,7 +130,7 @@ function MarriedStatus() {
 			}
 			formik.handleChange(event);
 		} catch (error) {
-			ErrorLogger(' Error from [fetchAddress].', error);
+			ErrorLogger(' Error from fetchAddress.', error);
 		}
 	};
 

@@ -127,7 +127,7 @@ function HomeAddress() {
 			}
 			formik.handleChange(event);
 		} catch (error) {
-			ErrorLogger('Error from [fetchAddress]', error);
+			ErrorLogger('Error from fetchAddress', error);
 		}
 	};
 	const onBlurAddress = (event) => {

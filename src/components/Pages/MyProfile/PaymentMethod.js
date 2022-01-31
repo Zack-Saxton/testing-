@@ -222,7 +222,7 @@ export default function PaymentMethod() {
                 formikAddDebitCard.setFieldValue("state", "");
             }
         } catch (error) {
-            ErrorLogger("Error from [fetchAddress]", error);
+            ErrorLogger("Error from fetchAddress", error);
         }
     };
 

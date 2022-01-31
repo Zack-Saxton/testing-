@@ -359,7 +359,7 @@ export default function CreditKarma(props) {
         formik.handleChange(event);
       }
     } catch (error) {
-      ErrorLogger("Error from [fetchAddress].", error);
+      ErrorLogger("Error from fetchAddress.", error);
     }
   };
 
@@ -382,7 +382,7 @@ export default function CreditKarma(props) {
         setErrorMsg("Please enter a valid Zipcode");
       }
     } catch (error) {
-      ErrorLogger("Error from [fetchAddressValidate].", error);
+      ErrorLogger("Error from fetchAddressValidate.", error);
     }
   }
   //fetch the state and city based in zip code
@@ -402,7 +402,7 @@ export default function CreditKarma(props) {
         formik.handleChange(event);
       }
     } catch (error) {
-      ErrorLogger("Error from [fetchSpouseAddress].",);
+      ErrorLogger("Error from fetchSpouseAddress.",);
     }
   };
   const handleClickOpen = () => {
