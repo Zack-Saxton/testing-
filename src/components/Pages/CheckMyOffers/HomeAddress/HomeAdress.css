@@ -17,8 +17,22 @@
 
 #enterZipWrap {
 	border-radius: 4px !important;
+	padding-bottom: 24px;
 }
 
-#enterZipWrap div:nth-child(1) {
+#denterZipWrap div:nth-child(1) {
 	border-radius: 4px 4px 0px 0px !important;
+}
+#homeAddressTxt{
+	font-size: 1.64rem !important;
+}
+@media  (max-width:768px) {
+	#homeAddressTxt{
+		font-size: 1.4rem !important;
+	}
+}
+@media  (max-width:480px) {
+	#homeAddressTxt{
+		font-size: 1.188rem !important;
+	}
 }

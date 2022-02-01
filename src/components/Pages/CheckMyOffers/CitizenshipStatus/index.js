@@ -52,6 +52,9 @@ function CitizenshipStatus() {
 						container
 						justifyContent="center"
 						alignItems="center"
+						style={ {
+							padding:"70px 0px 70px 0px"
+						} }
 					>
 						<Grid
 							container
@@ -72,8 +75,6 @@ function CitizenshipStatus() {
 									justify: "center",
 									alignItems: "center",
 									width: "inherit",
-									marginBottom: "10%",
-									marginTop: "10%",
 								} }
 							>
 								<div className="progress mt-0">
