@@ -16,11 +16,11 @@ import {
   ButtonSecondary, TextField,
   Zipcode
 } from "../../FormsUI";
+import ErrorLogger from '../../lib/ErrorLogger';
 import states from "../../lib/States.json";
 import statesFullform from "../../lib/StatesFullform.json";
 import { tabAtom } from "./MyProfileTab";
 import "./Style.css";
-import ErrorLogger from '../../lib/ErrorLogger';
 
 const validationSchema = yup.object({
   streetAddress: yup
@@ -58,9 +58,9 @@ export default function MailingAddress(props) {
 
   let basicInfo = props?.basicInformationData?.latest_contact != null ? props.basicInformationData.latest_contact : null;
   let hasActiveLoan = Cookies.get("hasActiveLoan") === "true" ? true : false;
-  let hasApplicationStatus = Cookies.get("hasApplicationStatus")
-  var appStatus = ["rejected", "referred", "expired"];
-  let checkAppStatus = appStatus.includes(hasApplicationStatus)
+  let hasApplicationStatus = Cookies.get("hasApplicationStatus");
+  var appStatus = [ "rejected", "referred", "expired" ];
+  let checkAppStatus = appStatus.includes(hasApplicationStatus);
   let disableField = (checkAppStatus === true || hasActiveLoan === true) ? true : false;
 
   const onClickCancelChange = () => {

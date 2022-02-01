@@ -10,14 +10,14 @@ import { useIdleTimer } from "react-idle-timer";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import "../App/App.css";
+import CheckLoginStatus from "../App/CheckLoginStatus";
 import LoginController from "../Controllers/LoginController";
 import LogoutController from "../Controllers/LogoutController";
 import { ButtonPrimary } from "../FormsUI";
 import Footer from "../Layout/Footer/Footer";
 import { decryptAES, encryptAES } from "../lib/Crypto";
-import AppBar from "./AppBar/SideNav";
 import globalValidation from "../lib/Lang/globalValidation.json";
-import CheckLoginStatus from "../App/CheckLoginStatus";
+import AppBar from "./AppBar/SideNav";
 
 const Post = ({ children }) => {
 	const history = useHistory();
@@ -130,45 +130,45 @@ const Post = ({ children }) => {
 	return (
 		<div>
 			{
-				loginToken.isLoggedIn === true ? 
-			<>
-			<div id="body">
-				<Grid className="sample" />
-				<AppBar />
-				{ children }
-			</div>
-			<Footer />
-			<Dialog
-				onClose={ handleClosePopUp }
-				aria-labelledby="customized-dialog-title"
-				maxWidth="xs"
-				// style={{maxWidth: "90% !important"}}
-				open={ openPopUp }
-			>
-				<div id="printableArea">
-					<DialogTitle id="customized-dialog-title" onClose={ handleClosePopUp }>
-						Alert
-					</DialogTitle>
-					<DialogContent dividers>
-						<Typography align="justify" gutterBottom>
-							You will be logged out due to inactivity. Press Ok to remain logged into the system
-						</Typography>
-						<br />
-					</DialogContent>
-				</div>
-				<DialogActions className="modalAction">
-					<ButtonPrimary
-						stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
-						onClick={ handleClosePopUp }
-					>
-						<Typography align="center">Ok</Typography>
-					</ButtonPrimary>
-				</DialogActions>
-			</Dialog>
-			</>
-			:
-			<CheckLoginStatus />
-}
+				loginToken.isLoggedIn === true ?
+					<>
+						<div id="body">
+							<Grid className="sample" />
+							<AppBar />
+							{ children }
+						</div>
+						<Footer />
+						<Dialog
+							onClose={ handleClosePopUp }
+							aria-labelledby="customized-dialog-title"
+							maxWidth="xs"
+							// style={{maxWidth: "90% !important"}}
+							open={ openPopUp }
+						>
+							<div id="printableArea">
+								<DialogTitle id="customized-dialog-title" onClose={ handleClosePopUp }>
+									Alert
+								</DialogTitle>
+								<DialogContent dividers>
+									<Typography align="justify" gutterBottom>
+										You will be logged out due to inactivity. Press Ok to remain logged into the system
+									</Typography>
+									<br />
+								</DialogContent>
+							</div>
+							<DialogActions className="modalAction">
+								<ButtonPrimary
+									stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
+									onClick={ handleClosePopUp }
+								>
+									<Typography align="center">Ok</Typography>
+								</ButtonPrimary>
+							</DialogActions>
+						</Dialog>
+					</>
+					:
+					<CheckLoginStatus />
+			}
 		</div>
 	);
 };

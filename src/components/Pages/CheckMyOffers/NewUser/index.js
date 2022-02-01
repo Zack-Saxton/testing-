@@ -14,9 +14,9 @@ import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import LoginController from "../../../Controllers/LoginController";
 import { ButtonPrimary, PasswordField } from "../../../FormsUI";
 import { encryptAES } from "../../../lib/Crypto";
+import ErrorLogger from "../../../lib/ErrorLogger";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./NewUser.css";
-import ErrorLogger from "../../../lib/ErrorLogger";
 //YUP validation schema
 const validationSchema = yup.object({
 	newPassword: yup

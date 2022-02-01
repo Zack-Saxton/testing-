@@ -1,6 +1,7 @@
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from "@material-ui/core/Grid";
 import { useFormik } from "formik";
+import * as imageConversion from 'image-conversion';
 import Cookies from "js-cookie";
 import Moment from "moment";
 import React, { useContext, useState } from "react";
@@ -8,15 +9,14 @@ import { useQuery } from 'react-query';
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
-import * as imageConversion from 'image-conversion';
 import profileImg from "../../../assets/images/profile-img.jpg";
 import { ProfilePicture } from "../../../contexts/ProfilePicture";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import LogoutController from "../../Controllers/LogoutController";
 import { basicInformation, uploadNewProfileImage } from "../../Controllers/myProfileController";
 import { ButtonPrimary, ButtonSecondary, EmailTextField, PhoneNumber, TextField } from "../../FormsUI";
-import "./Style.css";
 import globalValidation from "../../lib/Lang/globalValidation.json";
+import "./Style.css";
 
 const validationSchema = yup.object({
   email: yup
@@ -39,10 +39,10 @@ const validationSchema = yup.object({
 
 async function filetoImage(file) {
   try {
-  return await imageConversion.filetoDataURL(file);  
-} catch (error) {  
-  ErrorLogger("Error executing image conversion", error);
-}
+    return await imageConversion.filetoDataURL(file);
+  } catch (error) {
+    ErrorLogger("Error executing image conversion", error);
+  }
 }
 
 export default function BasicInformation(props) {
@@ -56,9 +56,9 @@ export default function BasicInformation(props) {
   let basicInfo = props?.basicInformationData?.latest_contact != null ? props.basicInformationData.latest_contact : null;
   let profileImageData = props?.getProfileImage != null ? props.getProfileImage : profileImg;
   let hasActiveLoan = Cookies.get("hasActiveLoan") === "true" ? true : false;
-  let hasApplicationStatus = Cookies.get("hasApplicationStatus")
-  var appStatus = ["rejected", "referred", "expired"];
-  let checkAppStatus = appStatus.includes(hasApplicationStatus)
+  let hasApplicationStatus = Cookies.get("hasApplicationStatus");
+  var appStatus = [ "rejected", "referred", "expired" ];
+  let checkAppStatus = appStatus.includes(hasApplicationStatus);
   let disableField = (checkAppStatus === true || hasActiveLoan === true) ? true : false;
   const [ selectedFile, setSelectedFile ] = useState(null);
   const [ docType ] = useState("");
@@ -112,7 +112,7 @@ export default function BasicInformation(props) {
       };
       const uploadBasicInfoChange = () => {
         if (!toast.isActive("closeToast")) {
-          refetch().then(()=>toast.success(globalValidation.UpdatedSuccessfully, {
+          refetch().then(() => toast.success(globalValidation.UpdatedSuccessfully, {
             toastId: "closeToast",
             onClose: () => {
               setLoading(false);
@@ -124,7 +124,7 @@ export default function BasicInformation(props) {
 
       const uploadBasicInfoChangeLogOut = () => {
         if (!toast.isActive("closeToast")) {
-          refetch().then(()=>toast.success(globalValidation.UpdatedSuccessfully, {
+          refetch().then(() => toast.success(globalValidation.UpdatedSuccessfully, {
             toastId: "closeToast",
             onClose: () => {
               logoutUser();
@@ -140,9 +140,9 @@ export default function BasicInformation(props) {
           var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
           if (!allowedExtensions.exec(filePath)) {
             toast.error(globalValidation.ImageExtentions);
-               setLoading(false);
-             selectedFile.value = "";
-            return false
+            setLoading(false);
+            selectedFile.value = "";
+            return false;
 
           } else if (selectedFile.files[ 0 ].size <= 819200) {
             let reader = new FileReader();
@@ -227,10 +227,10 @@ export default function BasicInformation(props) {
                   }
                 }
               };
-              reader.readAsDataURL(selectedFile.files[0]);
+              reader.readAsDataURL(selectedFile.files[ 0 ]);
             }
           } else {
-            if (selectedFile.files[0].size > 819200) {
+            if (selectedFile.files[ 0 ].size > 819200) {
               toast.error(globalValidation.FileUploadMax);
               setLoading(false);
             } else if (docType == null) {

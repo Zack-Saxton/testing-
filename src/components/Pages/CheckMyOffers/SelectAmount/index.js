@@ -1,15 +1,15 @@
-import "./CheckMyOffer.css";
-import "../CheckMyOffer.css";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import { ButtonPrimary, Slider, TextField } from "../../../FormsUI";
 import Paper from "@material-ui/core/Paper";
-import React, { useContext, useState, useEffect } from "react";
+import Typography from "@material-ui/core/Typography";
+import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import ScrollToTopOnMount from "../ScrollToTop";
-import { CheckMyOffers as Check } from "../../../../contexts/CheckMyOffers";
 import { toast } from "react-toastify";
+import { CheckMyOffers as Check } from "../../../../contexts/CheckMyOffers";
+import { ButtonPrimary, Slider, TextField } from "../../../FormsUI";
+import "../CheckMyOffer.css";
+import ScrollToTopOnMount from "../ScrollToTop";
+import "./CheckMyOffer.css";
 
 //initializing check my offers functonal component
 function CheckMyOffers(props) {
@@ -17,24 +17,24 @@ function CheckMyOffers(props) {
 	const [ hasOfferCode, setOfferCode ] = useState("");
 	const getValidValue = (selectedValue) => {
 		let validValue = selectedValue % 250 === 0 ? selectedValue : selectedValue - selectedValue % 250;
-		if(validValue < 1000){
+		if (validValue < 1000) {
 			return 1000;
-		}else if (validValue > 25000){
+		} else if (validValue > 25000) {
 			return 25000;
 		}
-		else if(validValue > 5000){
+		else if (validValue > 5000) {
 			return validValue % 500 === 0 ? validValue : validValue - validValue % 500;
 		}
 		else {
 			return validValue;
 		}
-	}
+	};
 	let selectedAmount = getValidValue(props.match.params.amount);
-	const [ select, setSelect ] = useState(data.loanAmount ? data.loanAmount : ( selectedAmount ? parseInt(selectedAmount) : 10000 ));
+	const [ select, setSelect ] = useState(data.loanAmount ? data.loanAmount : (selectedAmount ? parseInt(selectedAmount) : 10000));
 	const history = useHistory();
 
 	useEffect(() => {
-		if(selectedAmount){
+		if (selectedAmount) {
 			data.loanAmount = select;
 			data.formStatus = "started";
 			data.completedPage = data.page.selectAmount;

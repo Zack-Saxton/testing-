@@ -12,10 +12,9 @@ import {
   ButtonSecondary,
   PasswordField
 } from "../../FormsUI";
+import globalValidation from "../../lib/Lang/globalValidation.json";
 import { tabAtom } from "./MyProfileTab";
 import "./Style.css";
-import ErrorLogger from "../../lib/ErrorLogger";
-import globalValidation from "../../lib/Lang/globalValidation.json";
 
 export default function ChangePassword(basicInformationData) {
   window.zeHide();
@@ -40,7 +39,7 @@ export default function ChangePassword(basicInformationData) {
     confirmPassword: yup
       .string(globalValidation.PasswordEnter)
       .oneOf(
-        [yup.ref("newPassword"), null],
+        [ yup.ref("newPassword"), null ],
         globalValidation.PasswordConfirmationMatch
       )
       .max(30, globalValidation.PasswordMax)

@@ -5,12 +5,12 @@ Component Name      :    Slider
 Functionality       :    To use this component to select a value using the slider input
 
 #################################################################################################################*/
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import PropTypes from "prop-types";
-import Typography from "@material-ui/core/Typography";
-import Slider from "@material-ui/core/Slider";
 import FormControl from "@material-ui/core/FormControl";
+import Slider from "@material-ui/core/Slider";
+import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import PropTypes from "prop-types";
+import React, { useState } from "react";
 import "./Slider.css";
 
 //Initial Value points

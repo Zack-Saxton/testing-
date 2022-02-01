@@ -8,14 +8,14 @@ import Tabs from "@material-ui/core/Tabs";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
+import { useQuery } from 'react-query';
 import { NavLink, useHistory } from "react-router-dom";
 import CheckLoginStatus from "../../../App/CheckLoginStatus";
-import messages from "../../../lib/Lang/applyForLoan.json"
-import TabSection from "../TabSection"
-import {useQuery} from 'react-query'
 import { fetchAvailableOffers, submitSelectedOfferAPI } from "../../../Controllers/ApplyForLoanController";
 import { ButtonWithIcon } from "../../../FormsUI";
+import messages from "../../../lib/Lang/applyForLoan.json";
 import ScrollToTopOnMount from "../../ScrollToTop";
+import TabSection from "../TabSection";
 import OfferTable from "./offersTable";
 import "./SelectOffer.css";
 
@@ -37,7 +37,7 @@ export default function ApplyLoan() {
 	const history = useHistory();
 	let term;
 
-	const { data : val} = useQuery('available-offers', fetchAvailableOffers )
+	const { data: val } = useQuery('available-offers', fetchAvailableOffers);
 
 	//To change the value to currency formate
 	const currencyFormat = (val) => {
@@ -135,7 +135,7 @@ export default function ApplyLoan() {
 	const classes = useStyles();
 
 	// To fetch the available offers for the logged in user
-	 function getAvailableOffers() {
+	function getAvailableOffers() {
 		if (val?.data !== "Access token has expired" && val?.data) {
 			setAccountDetails(val);
 			term = Object.keys(val?.data?.Offers);
@@ -150,7 +150,7 @@ export default function ApplyLoan() {
 	// to call the fetch offers api on page load
 	useEffect(() => {
 		getAvailableOffers();
-	}, [val]);
+	}, [ val ]);
 
 	//Initializing the tab implementation
 	function TabPanel(props) {

@@ -1,10 +1,10 @@
+import Typography from "@material-ui/core/Typography";
 import React from "react";
+import { NavLink } from "react-router-dom";
 import badge from "../../../assets/images/badge.png";
 import Logo from "../../../assets/images/MarinerLogo.png";
 import ConsumerDialog from "../ConsumerFooterDialog/ConsumerDialog";
 import "./NormalFooter.css";
-import Typography from "@material-ui/core/Typography";
-import { NavLink } from "react-router-dom";
 
 
 export default function NormalFooter() {
@@ -53,9 +53,9 @@ export default function NormalFooter() {
             </div>
             <div className="footer-content">
               <NavLink to="/termsofuse" target="_blank" className="hrefTag">
-              <Typography>
-                CAC Terms of Use
-              </Typography>
+                <Typography>
+                  CAC Terms of Use
+                </Typography>
               </NavLink>
             </div>
             <div className="footer-content">

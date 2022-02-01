@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { ButtonPrimary } from "../../../FormsUI";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
-import { getIframe } from "../../../Controllers/ApplyForLoanController";
-import { errorMessage } from "../../../../helpers/ErrorMessage";
-import APICall from "../../../lib/AxiosLib";
-import { toast } from "react-toastify";
 import Cookies from "js-cookie";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { getIframe } from "../../../Controllers/ApplyForLoanController";
+import { ButtonPrimary } from "../../../FormsUI";
+import APICall from "../../../lib/AxiosLib";
 import messages from "../../../lib/Lang/applyForLoan.json";
 
 //Styling

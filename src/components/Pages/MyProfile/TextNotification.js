@@ -23,10 +23,10 @@ import {
   Checkbox,
   PhoneNumber
 } from "../../FormsUI";
+import ErrorLogger from "../../lib/ErrorLogger";
 import { tabAtom } from "./MyProfileTab";
 import { useStylesMyProfile } from "./Style";
 import "./Style.css";
-import ErrorLogger from "../../lib/ErrorLogger";
 
 export default function TextNotification() {
   const classes = useStylesMyProfile();

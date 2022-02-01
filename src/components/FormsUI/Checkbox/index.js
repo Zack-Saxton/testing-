@@ -7,9 +7,9 @@ Functionality       :    To use this checkbox as a default component for UI purp
 
 #################################################################################################################*/
 
-import React from "react";
-import { Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, } from "@material-ui/core";
+import { Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import React from "react";
 const CheckboxWrapper = ({
   name,
   value,

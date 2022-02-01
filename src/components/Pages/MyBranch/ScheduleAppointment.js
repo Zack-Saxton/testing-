@@ -194,7 +194,7 @@ export default function ScheduleAppointment({
                         labelform="Time Slot"
                         select={ JSON.stringify(upt_ca_Tue) }
                         onChange={ formik.handleChange }
-                        value={ formik.values.appointmentTime}
+                        value={ formik.values.appointmentTime }
                         onBlur={ formik.handleBlur }
                         error={ formik.touched.appointmentTime && Boolean(formik.errors.appointmentTime) }
                         helperText={ formik.touched.appointmentTime && formik.errors.appointmentTime }

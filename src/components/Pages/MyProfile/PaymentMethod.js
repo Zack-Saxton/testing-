@@ -44,10 +44,10 @@ import {
     Checkbox, DatePicker, Radio,
     TextField
 } from "../../FormsUI";
+import ErrorLogger from "../../lib/ErrorLogger";
 import { tabAtom } from "./MyProfileTab";
 import { useStylesMyProfile } from "./Style";
 import "./Style.css";
-import ErrorLogger from "../../lib/ErrorLogger";
 //Yup validations for Add Bank Account
 const validationSchemaDebitCard = yup.object({
     cardNumber: yup
@@ -475,7 +475,7 @@ export default function PaymentMethod() {
                 // code block
             }
         } catch (error) {
-            ErrorLogger(' Error Deleting Payment Method ::', res.data.message)
+            ErrorLogger(' Error Deleting Payment Method ::', res.data.message);
         }
     };
 

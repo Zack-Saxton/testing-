@@ -1,22 +1,22 @@
-import "./ExistingUser.css";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
-import React, { useContext, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
-import PasswordLogo from "../../../../assets/icon/I-Password.png";
-import { ButtonPrimary, PasswordField } from "../../../FormsUI";
+import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
-import * as yup from "yup";
-import ScrollToTopOnMount from "../ScrollToTop";
-import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
-import LoginController from "../../../Controllers/LoginController";
-import usrAccountDetails from "../../../Controllers/AccountOverviewController";
-import { toast } from "react-toastify";
 import Cookies from "js-cookie";
-import { encryptAES } from "../../../lib/Crypto";
+import React, { useContext, useState } from "react";
 import { useQueryClient } from 'react-query';
+import { Link, useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
+import * as yup from "yup";
+import PasswordLogo from "../../../../assets/icon/I-Password.png";
+import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
+import usrAccountDetails from "../../../Controllers/AccountOverviewController";
+import LoginController from "../../../Controllers/LoginController";
+import { ButtonPrimary, PasswordField } from "../../../FormsUI";
+import { encryptAES } from "../../../lib/Crypto";
+import ScrollToTopOnMount from "../ScrollToTop";
+import "./ExistingUser.css";
 
 //YUP validation schema
 const validationSchema = yup.object({
