@@ -87,7 +87,7 @@ function App() {
                                         <Route path='/login' exact component={ LoginPage } />
                                         <Route path='/register' component={ RegisterPage } />
                                         <Route path='/faq' component={ FaqBeforeLogin } />
-                                        <Route path='/select-amount' exact component={ SelectAmount } />
+                                        <Route path='/select-amount'  component={ SelectAmount } />
                                         <Route path='/loan-purpose' exact component={ LoanPurpose } />
                                         <Route path='/citizenship-status' exact component={ CitizenshipStatus } />
                                         <Route path='/new-user' exact component={ NewUser } />
@@ -108,6 +108,7 @@ function App() {
                                     </Switch>
                                 </GeneralUser>
                             </Route>
+                            <Route path='/select-amount/:amount' exact component={SelectAmount} />
                             <div id="main" style={ { marginLeft: "240px" } }>
                                 <Route path='/customers/:path?' exact>
                                     <PostLogin>
