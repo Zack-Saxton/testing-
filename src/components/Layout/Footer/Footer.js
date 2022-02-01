@@ -3,6 +3,8 @@ import badge from "../../../assets/images/badge.png";
 import Logo from "../../../assets/images/MarinerLogo.png";
 import ConsumerDialog from "../ConsumerFooterDialog/ConsumerDialog";
 import "./Footer.css";
+import Typography from "@material-ui/core/Typography";
+import { NavLink } from "react-router-dom";
 
 
 export default function Footer() {
@@ -49,9 +51,11 @@ export default function Footer() {
             </div>
 
             <div className="main-footer-content">
-              <a target="_blank" rel="noreferrer" href="https://cis-development.marinerfinance.io/terms-of-use" className="hrefTag">
-                CAC Terms Of Use
-              </a>
+            <NavLink to="/termsofuse" target="_blank" className="hrefTag">
+              <Typography>
+                CAC Terms of Use
+              </Typography>
+              </NavLink>
             </div>
             <div className="main-footer-content">
               <a target="_blank" rel="noreferrer" href="https://www.marinerfinance.com/resources/legal/privacy-statement/#online-lending" className="hrefTag">

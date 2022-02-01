@@ -117,6 +117,11 @@ git merge $branch --no-edit
 #echo "git push"
 git push
 
+echo "***************************************************************************"
+echo "************** Remove all images from local        ************************"
+echo "***************************************************************************"
+docker rmi -f $(docker images -a -q)
+
 latestCommit=$(git rev-parse --short HEAD)
 #Dockerise the environment
 imageName="marinerfinance/ops:${app}-${env}-${latestCommit}"

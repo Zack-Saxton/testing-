@@ -17,6 +17,8 @@ import Footer from "../Layout/Footer/Footer";
 import { decryptAES, encryptAES } from "../lib/Crypto";
 import AppBar from "./AppBar/SideNav";
 import globalValidation from "../lib/Lang/globalValidation.json";
+import CheckLoginStatus from "../App/CheckLoginStatus";
+
 const Post = ({ children }) => {
 	const history = useHistory();
 	const expiryMinute = process.env.REACT_APP_SESSION_EXPIRY_MINUTES;
@@ -123,8 +125,13 @@ const Post = ({ children }) => {
 		onIdle: handleOnIdleLogout,
 		debounce: 500,
 	});
+	const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : '{ }');
+
 	return (
 		<div>
+			{
+				loginToken.isLoggedIn === true ? 
+			<>
 			<div id="body">
 				<Grid className="sample" />
 				<AppBar />
@@ -158,6 +165,10 @@ const Post = ({ children }) => {
 					</ButtonPrimary>
 				</DialogActions>
 			</Dialog>
+			</>
+			:
+			<CheckLoginStatus />
+}
 		</div>
 	);
 };
