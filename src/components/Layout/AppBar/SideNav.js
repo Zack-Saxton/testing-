@@ -200,13 +200,13 @@ export default function SideNav() {
     let noOfLoans = dataAccountOverview?.data?.activeLoans?.length;
     let activeLoan = dataAccountOverview?.data?.applicants;
     //logic to check if atleast one active initiated Loan is there or not
-    const presenceOfLoan = activeLoan?.some((applicant) => applicant.isActive === true);
+    const presenceOfLoan = activeLoan?.some((applicant) => applicant.isActive === true && applicant?.status !== "referred" && applicant?.status !== "contact_branch");
     const presenceOfLoanStatus = activeLoan?.find((applicant) => applicant.isActive === true);
     const userAccountStatus = dataAccountOverview?.data?.customer?.user_account?.status;
 
     setCheckPresenceOfLoanStatus(presenceOfLoanStatus?.status);
     setCurrentLoan(presenceOfLoan === true || userAccountStatus === "closed" ? true : false);
-    setCheckPresenceOfLoan(presenceOfLoan);
+    setCheckPresenceOfLoan(presenceOfLoan); 
 
     //logic to if there is any active Loan Data is there or not
     if (noOfLoans === undefined) {
@@ -711,7 +711,7 @@ export default function SideNav() {
 
 
               { checkPresenceOfLoan === true ?
-                <NavLink to={ { state: { from: "user" } } } onClick={ (event) => { resumeApplicationClick(); } } className="nav_link" >
+                <NavLink to={ { state: { from: "user" } } } onClick={ (event) => { resumeApplicationClick() } } className="nav_link" >
                   <ListItem className="titleSidenav" >
                     <ListItemIcon>
                       { " " }
