@@ -76,6 +76,12 @@
     height: 70px!important
   }
 }
+@media all and (max-width: 1024px){
+  .section-top-normal-footer{
+    padding: 20px 40px !important;
+
+  }
+}
 
 @media all and (max-width: 850px){
   #badge{

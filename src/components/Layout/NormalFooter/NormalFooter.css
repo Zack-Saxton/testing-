@@ -55,6 +55,7 @@
    .section-top-normal-footer{
        flex-direction: column;
        margin-left: unset !important;
+       padding: 20px 40px !important;
    }
 
    .col{
