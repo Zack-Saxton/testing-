@@ -22,7 +22,6 @@ export async function addBankPayment() {
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
     ErrorLogger("Error executing addBankPayment API", error);
-    Error("Error executing addBankPayment API");
   }
 }
 
@@ -50,6 +49,5 @@ export async function addDebitCardPayment() {
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
     ErrorLogger("Error executing addDebitCardPayment API", error);
-    Error("Error executing addDebitCardPayment API");
   }
 }

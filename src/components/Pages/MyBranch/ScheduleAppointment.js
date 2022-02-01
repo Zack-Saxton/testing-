@@ -106,7 +106,7 @@ export default function ScheduleAppointment({
       );
       if (response === "true") {
         formik.values.date = null;
-        formik.values.appointmentTime = null;
+        formik.values.appointmentTime = "";
         setLoading(false);
         setScheduleAppointment(false);
       }
@@ -121,7 +121,7 @@ export default function ScheduleAppointment({
   const handleScheduleAppointmentclose = () => {
     document.getElementById("formAppointment").remove();
     formik.values.date = null;
-    formik.values.appointmentTime = null;
+    formik.values.appointmentTime = "";
     formik.touched.date = null;
     formik.touched.appointmentTime = null;
     setScheduleAppointment(false);
@@ -194,7 +194,7 @@ export default function ScheduleAppointment({
                         labelform="Time Slot"
                         select={ JSON.stringify(upt_ca_Tue) }
                         onChange={ formik.handleChange }
-                        value={ formik.values.appointmentTime || "" }
+                        value={ formik.values.appointmentTime}
                         onBlur={ formik.handleBlur }
                         error={ formik.touched.appointmentTime && Boolean(formik.errors.appointmentTime) }
                         helperText={ formik.touched.appointmentTime && formik.errors.appointmentTime }
@@ -205,7 +205,7 @@ export default function ScheduleAppointment({
                       labelform="Time Slot"
                       select={ ca_Tue }
                       onChange={ formik.handleChange }
-                      value={ formik.values.appointmentTime || "" }
+                      value={ formik.values.appointmentTime }
                       onBlur={ formik.handleBlur }
                       error={ formik.touched.appointmentTime && Boolean(formik.errors.appointmentTime) }
                       helperText={ formik.touched.appointmentTime && formik.errors.appointmentTime }

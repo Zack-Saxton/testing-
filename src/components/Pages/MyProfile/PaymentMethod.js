@@ -47,6 +47,7 @@ import {
 import { tabAtom } from "./MyProfileTab";
 import { useStylesMyProfile } from "./Style";
 import "./Style.css";
+import ErrorLogger from "../../lib/ErrorLogger";
 //Yup validations for Add Bank Account
 const validationSchemaDebitCard = yup.object({
     cardNumber: yup
@@ -221,7 +222,7 @@ export default function PaymentMethod() {
                 formikAddDebitCard.setFieldValue("state", "");
             }
         } catch (error) {
-            toast.error("Error from [fetchAddress]");
+            ErrorLogger("Error from fetchAddress", error);
         }
     };
 
@@ -425,52 +426,56 @@ export default function PaymentMethod() {
 
     const onClickDelete = async (type, uniqueData) => {
         setLoading(true);
-        switch (type) {
-            case "card": {
-                let passData = {
-                    profileId: uniqueData,
-                };
-                let res = await deleteCreditCard(passData);
-                if (res?.data?.deletePaymentMethod?.HasNoErrors === true) {
-                    if (!toast.isActive("closeToast")) {
-                        toast.success("Card deleted successfully.");
+        try {
+            switch (type) {
+                case "card": {
+                    let passData = {
+                        profileId: uniqueData,
                     };
-                    setDeleteID("");
-                    setDeleteType("");
-                    handleDeleteConfirmClose();
+                    let res = await deleteCreditCard(passData);
+                    if (res?.data?.deletePaymentMethod?.HasNoErrors === true) {
+                        if (!toast.isActive("closeToast")) {
+                            toast.success("Card deleted successfully.");
+                        };
+                        setDeleteID("");
+                        setDeleteType("");
+                        handleDeleteConfirmClose();
 
-                } else {
-                    if (!toast.isActive("closeToast")) { toast.error("Error deleting you card, please try again"); }
-                    setDeleteID("");
-                    setDeleteType("");
-                    handleDeleteConfirmClose();
+                    } else {
+                        if (!toast.isActive("closeToast")) { toast.error("Error deleting your card, please try again"); }
+                        setDeleteID("");
+                        setDeleteType("");
+                        handleDeleteConfirmClose();
 
+                    }
+                    setLoading(false);
+                    break;
                 }
-                setLoading(false);
-                break;
-            }
-            case "bank": {
-                let passData = {
-                    accountNumber: uniqueData,
-                };
-                let res = await deleteBankAccount(passData);
-                if (res?.data?.deletePaymentMethod?.HasNoErrors === true) {
-                    if (!toast.isActive("closeToast")) { toast.success("Bank account deleted successfully."); }
-                    getPaymentMethodsOnLoad();
-                    setDeleteID("");
-                    setDeleteType("");
-                    handleDeleteConfirmClose();
-                } else {
-                    if (!toast.isActive("closeToast")) { toast.error("Error deleting you bank account, please try again"); }
-                    setDeleteID("");
-                    setDeleteType("");
-                    handleDeleteConfirmClose();
+                case "bank": {
+                    let passData = {
+                        accountNumber: uniqueData,
+                    };
+                    let res = await deleteBankAccount(passData);
+                    if (res?.data?.deletePaymentMethod?.HasNoErrors === true) {
+                        if (!toast.isActive("closeToast")) { toast.success("Bank account deleted successfully."); }
+                        getPaymentMethodsOnLoad();
+                        setDeleteID("");
+                        setDeleteType("");
+                        handleDeleteConfirmClose();
+                    } else {
+                        if (!toast.isActive("closeToast")) { toast.error("Error deleting your bank account, please try again"); }
+                        setDeleteID("");
+                        setDeleteType("");
+                        handleDeleteConfirmClose();
+                    }
+                    setLoading(false);
+                    break;
                 }
-                setLoading(false);
-                break;
+                default:
+                // code block
             }
-            default:
-            // code block
+        } catch (error) {
+            ErrorLogger(' Error Deleting Payment Method ::', res.data.message)
         }
     };
 

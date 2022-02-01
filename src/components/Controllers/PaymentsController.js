@@ -13,7 +13,6 @@ export async function usrPaymentMethods() {
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
     ErrorLogger("Error executing usrPaymentMethods API", error);
-    Error("Error executing usrPaymentMethods API");
   }
 }
 
@@ -36,7 +35,6 @@ export async function enableAutoPay(enableAutoPayAccountNo, enableAutoPayCard, e
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
     ErrorLogger("Error executing enableAutoPay API", error);
-    Error("Error executing enableAutoPay API");
   }
 }
 
@@ -54,7 +52,6 @@ export async function disableAutoPay(disableAutoPayAccountNo) {
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
     ErrorLogger("Error executing disableAutoPay API", error);
-    Error("Error executing disableAutoPay API");
   }
 }
 
@@ -78,7 +75,6 @@ export async function makePayment(scheduledPaymentAccountNo, scheduledPaymentCar
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
     ErrorLogger("Error executing makePayment API", error);
-    Error("Error executing makePayment API");
   }
 }
 
@@ -95,6 +91,5 @@ export async function deleteScheduledPayment(accntNo, refNo, isCard) {
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
     ErrorLogger("Error executing deleteScheduledPayment API", error);
-    Error("Error executing deleteScheduledPayment API");
   }
 }

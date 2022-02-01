@@ -27,6 +27,5 @@ export default async function UserImageInformation() {
     return res.profile_picture_url;
   } catch (error) {
     ErrorLogger("Error executing UserImageInformation API", error);
-    Error("Error executing UserImageInformation API");
   }
 }

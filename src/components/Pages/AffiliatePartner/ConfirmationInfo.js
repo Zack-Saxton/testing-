@@ -25,6 +25,7 @@ import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
 import { ButtonPrimary, Checkbox, Select, TextField, Zipcode } from "../../FormsUI";
 import states from "../../lib/States.json";
 import statesFullform from "../../lib/StatesFullform.json";
+import ErrorLogger from "../../lib/ErrorLogger"
 import "./Style.css";
 //Styling
 const useStyles = makeStyles((theme) => ({
@@ -358,7 +359,7 @@ export default function CreditKarma(props) {
         formik.handleChange(event);
       }
     } catch (error) {
-      toast.error("Error from [fetchAddress].");
+      ErrorLogger("Error from fetchAddress.", error);
     }
   };
 
@@ -381,7 +382,7 @@ export default function CreditKarma(props) {
         setErrorMsg("Please enter a valid Zipcode");
       }
     } catch (error) {
-      Error("Error from [fetchAddressValidate].");
+      ErrorLogger("Error from fetchAddressValidate.", error);
     }
   }
   //fetch the state and city based in zip code
@@ -401,7 +402,7 @@ export default function CreditKarma(props) {
         formik.handleChange(event);
       }
     } catch (error) {
-      Error("Error from [fetchSpouseAddress].");
+      ErrorLogger("Error from fetchSpouseAddress.",);
     }
   };
   const handleClickOpen = () => {

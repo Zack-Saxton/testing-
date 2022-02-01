@@ -20,6 +20,5 @@ export default async function LoginController(email, password) {
     return loginMethod;
   } catch (error) {
     ErrorLogger("Error executing LoginController API", error);
-    Error("Error executing LoginController API");
   }
 }

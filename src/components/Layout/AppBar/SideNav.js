@@ -40,7 +40,7 @@ import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import logoIcon from "../../../assets/images/Favicon.png";
 import logoImage from "../../../assets/images/Normallogo.png";
-import profileImg from "../../../assets/images/profile-img.png";
+import profileImg from "../../../assets/images/profile-img.jpg";
 import quickPay from "../../../assets/images/quickpay.png";
 import { CheckMyOffers } from "../../../contexts/CheckMyOffers";
 import { ProfilePicture } from "../../../contexts/ProfilePicture";
@@ -51,6 +51,7 @@ import ProfileImageController from "../../Controllers/ProfileImageController";
 import MoneySkill from "../../Pages/MoneySkill/MoneySkill";
 import { tabAtom } from "../../Pages/MyProfile/MyProfileTab";
 import Notification from "../Notification/Notification";
+import globalValidation from "../../lib/Lang/globalValidation.json";
 import "./SideNav.css";
 
 const drawerWidth = 240;
@@ -199,13 +200,13 @@ export default function SideNav() {
     let noOfLoans = dataAccountOverview?.data?.activeLoans?.length;
     let activeLoan = dataAccountOverview?.data?.applicants;
     //logic to check if atleast one active initiated Loan is there or not
-    const presenceOfLoan = activeLoan?.some((applicant) => applicant.isActive === true);
+    const presenceOfLoan = activeLoan?.some((applicant) => applicant.isActive === true && applicant?.status !== "referred" && applicant?.status !== "contact_branch");
     const presenceOfLoanStatus = activeLoan?.find((applicant) => applicant.isActive === true);
     const userAccountStatus = dataAccountOverview?.data?.customer?.user_account?.status;
 
     setCheckPresenceOfLoanStatus(presenceOfLoanStatus?.status);
     setCurrentLoan(presenceOfLoan === true || userAccountStatus === "closed" ? true : false);
-    setCheckPresenceOfLoan(presenceOfLoan);
+    setCheckPresenceOfLoan(presenceOfLoan); 
 
     //logic to if there is any active Loan Data is there or not
     if (noOfLoans === undefined) {
@@ -305,9 +306,9 @@ export default function SideNav() {
 
 
   let hasActiveLoan = Cookies.get("hasActiveLoan") === "true" ? true : false;
-  let hasApplicationStatus = Cookies.get("hasApplicationStatus");
-  var appStatus = [ "rejected", "reffered", "expired" ];
-  let checkAppStatus = appStatus.includes(hasApplicationStatus);
+  let hasApplicationStatus = Cookies.get("hasApplicationStatus")
+  var appStatus = ["rejected", "referred", "expired"];
+  let checkAppStatus = appStatus.includes(hasApplicationStatus)
   let disableField = (checkAppStatus === true || hasActiveLoan === true) ? true : false;
   const branchName = Cookies.get("branchname");
   const branchPhone = Cookies.get('branchphone');
@@ -452,7 +453,7 @@ export default function SideNav() {
 
   const logoutUser = () => {
     setDisable(true);
-    toast.success("You are being logged out of the system", {
+    toast.success(globalValidation.LoggedOut, {
       onClose: () => logOut(),
     });
   };
@@ -710,7 +711,7 @@ export default function SideNav() {
 
 
               { checkPresenceOfLoan === true ?
-                <NavLink to={ { state: { from: "user" } } } onClick={ (event) => { resumeApplicationClick(); } } className="nav_link" >
+                <NavLink to={ { state: { from: "user" } } } onClick={ (event) => { resumeApplicationClick() } } className="nav_link" >
                   <ListItem className="titleSidenav" >
                     <ListItemIcon>
                       { " " }

@@ -17,7 +17,6 @@ export async function loanDocumentController(accNo) {
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
     ErrorLogger("Error executing loanDocumentController API", error);
-    Error("Error executing loanDocumentController API");
   }
 }
 
@@ -31,7 +30,7 @@ function downloadFileData(fileData) {
   link.setAttribute("download", fileData?.data?.exportName);
   document.body.appendChild(link);
   link.click();
-  if (!toast.isActive("closeToast")) { toast.success("Document Downloaded Successfully"); }
+  if (!toast.isActive("closeToast")) {toast.success("Document Downloaded Successfully",{toastId: "closeToast"});}
 }
 
 /****** Document Download method *****/
@@ -80,7 +79,7 @@ export async function documentprint(id, name) {
     method,
     addAccessToken
   );
-  documentDownloadPrint.data.status === 200
+  documentDownloadPrint.status === 200
     ? print(documentDownloadPrint)
     : toast.error("Error printing file");
 }

@@ -96,7 +96,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
 
       if (response === "true") {
         formik.values.date = null;
-        formik.values.callTime = null;
+        formik.values.callTime = "";
         setLoading(false);
         setScheduleCall(false);
       }
@@ -111,7 +111,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
   const handleScheduleCallClose = () => {
     document.getElementById("formCall").remove();
     formik.values.date = null;
-    formik.values.callTime = null;
+    formik.values.callTime = "";
     formik.touched.date = null;
     formik.touched.callTime = null;
     setScheduleCall(false);
@@ -163,7 +163,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
                 shouldDisableDate={ disableHolidays }
                 maxdate={ scheduleDateCall }
                 minyear={ 4 }
-                value={ formik.values.date || "" }
+                value={ formik.values.date}
                 onChange={ (values) => {
                   formik.setFieldValue("date", values);
                 } }

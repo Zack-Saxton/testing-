@@ -24,7 +24,6 @@ export async function AddACHPaymentAPI(accountNickname, accountHolder, bankRouti
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
     ErrorLogger("Error executing AddACHPaymentAPI API", error);
-    Error("Error executing AddACHPaymentAPI API");
   }
 }
 //  ========*******======== END of [Add ACH Bank Payment]       ========*******========
@@ -113,7 +112,6 @@ export async function ShowPaymentMethodAPI() {
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
     ErrorLogger("Error executing ShowPaymentMethodAPI API", error);
-    Error("Error executing ShowPaymentMethodAPI API");
   }
 }
 //  ========*******======== END of [Delete Debit Card Payment]    ========*******========

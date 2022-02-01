@@ -16,7 +16,7 @@ import { ButtonPrimary } from "../FormsUI";
 import Footer from "../Layout/Footer/Footer";
 import { decryptAES, encryptAES } from "../lib/Crypto";
 import AppBar from "./AppBar/SideNav";
-
+import globalValidation from "../lib/Lang/globalValidation.json";
 const Post = ({ children }) => {
 	const history = useHistory();
 	const expiryMinute = process.env.REACT_APP_SESSION_EXPIRY_MINUTES;
@@ -102,7 +102,7 @@ const Post = ({ children }) => {
 		history.push({
 			pathname: "/login",
 		});
-		toast.success("You are being logged out of the system");
+		toast.success(globalValidation.LoggedOut);
 	};
 
 	const handleOnAction = (event) => {

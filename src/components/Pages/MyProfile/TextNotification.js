@@ -26,6 +26,7 @@ import {
 import { tabAtom } from "./MyProfileTab";
 import { useStylesMyProfile } from "./Style";
 import "./Style.css";
+import ErrorLogger from "../../lib/ErrorLogger";
 
 export default function TextNotification() {
   const classes = useStylesMyProfile();
@@ -89,7 +90,7 @@ export default function TextNotification() {
           setdisabledContent(true);
         }, 3050);
       } catch (error) {
-        toast.error("Error occured while changing text notification.");
+        ErrorLogger("Error occured while changing text notification.", error);
       }
     },
   });

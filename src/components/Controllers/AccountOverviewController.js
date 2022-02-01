@@ -14,6 +14,5 @@ export default async function setAccountDetails() {
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
     ErrorLogger("Error executing setAccountDetails API", error);
-    Error("Error executing setAccountDetails API");
   }
 }

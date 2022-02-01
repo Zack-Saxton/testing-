@@ -14,6 +14,5 @@ export default async function getVantageScore() {
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
     ErrorLogger("Error executing getVantageScore API", error);
-    Error("Error executing getVantageScore API");
   }
 }

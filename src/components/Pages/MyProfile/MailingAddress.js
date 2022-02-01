@@ -20,7 +20,7 @@ import states from "../../lib/States.json";
 import statesFullform from "../../lib/StatesFullform.json";
 import { tabAtom } from "./MyProfileTab";
 import "./Style.css";
-
+import ErrorLogger from '../../lib/ErrorLogger';
 
 const validationSchema = yup.object({
   streetAddress: yup
@@ -58,9 +58,9 @@ export default function MailingAddress(props) {
 
   let basicInfo = props?.basicInformationData?.latest_contact != null ? props.basicInformationData.latest_contact : null;
   let hasActiveLoan = Cookies.get("hasActiveLoan") === "true" ? true : false;
-  let hasApplicationStatus = Cookies.get("hasApplicationStatus");
-  var appStatus = [ "rejected", "reffered", "expired" ];
-  let checkAppStatus = appStatus.includes(hasApplicationStatus);
+  let hasApplicationStatus = Cookies.get("hasApplicationStatus")
+  var appStatus = ["rejected", "referred", "expired"];
+  let checkAppStatus = appStatus.includes(hasApplicationStatus)
   let disableField = (checkAppStatus === true || hasActiveLoan === true) ? true : false;
 
   const onClickCancelChange = () => {
@@ -143,7 +143,7 @@ export default function MailingAddress(props) {
         formik.handleChange(event);
       }
     } catch (error) {
-      toast.error("Error from [fetchAddress]");
+      ErrorLogger("Error from fetchAddress", error);
     }
   };
 
@@ -161,7 +161,7 @@ export default function MailingAddress(props) {
         setErrorMsg("Please enter a valid Zipcode");
       }
     } catch (error) {
-      toast.error(" Error from [fetchAddressValidate]");
+      ErrorLogger(" Error from fetchAddressValidate", error);
     }
   }
   const onBlurAddress = (event) => {
