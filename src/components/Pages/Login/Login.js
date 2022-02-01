@@ -203,7 +203,7 @@ export default function Login(props) {
 											
 											style={ { width: "100%" } }
 											
-											direction="row"
+											// direction="row"
 											className={ classes.emailGrid }
 										>
 											<EmailTextField
@@ -229,7 +229,7 @@ export default function Login(props) {
 											
 											style={ { width: "100%" } }
 											
-											direction="row"
+											// direction="row"
 										>
 											<PasswordField
 												name="password"
