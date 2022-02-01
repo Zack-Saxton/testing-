@@ -7,7 +7,7 @@ const useStylesAccountOverview = makeStyles((theme) => ({
   },
   recentPaymentMainGrid: {
     width: "100%",
-    padding: "0px 0px 40px 0px"
+    padding: "0px 0px 0px 0px"
   },
   mainGrid: {
     width: "100%",
