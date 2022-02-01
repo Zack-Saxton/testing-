@@ -21,10 +21,6 @@ const CheckLoginStatus = () => {
         state: { redirect: window.location.pathname }
       }); 
     }}, []);
-
-
-
-
   return null;
 };
 
