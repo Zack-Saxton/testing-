@@ -46,6 +46,7 @@ import ValidateToken from '../Pages/ApplyLoan/Stepper/ValidateToken';
 import ErrorBeforeLogin from '../Layout/ErrorBeforeLogin/ErrorBeforeLogin';
 import ErrorAfterLogin from "../Layout/ErrorAfterLogin/ErrorAfterLogin";
 import ApplyForLoanRedirect from "../Pages/ApplyLoan/ApplyForLoanRedirect";
+import TermsOfUse from "../Layout/TermsOfUseFooter/TermsOfUse";
 import { ToastContainer } from "react-toastify";
 import ProfilePicture from '../../contexts/ProfilePicture';
 import { QueryClientProvider, QueryClient } from 'react-query';
@@ -87,6 +88,7 @@ function App() {
                                         <Route path='/login' exact component={ LoginPage } />
                                         <Route path='/register' component={ RegisterPage } />
                                         <Route path='/faq' component={ FaqBeforeLogin } />
+                                        <Route path='/termsofuse' component={ TermsOfUse } />
                                         <Route path='/select-amount' exact component={ SelectAmount } />
                                         <Route path='/loan-purpose' exact component={ LoanPurpose } />
                                         <Route path='/citizenship-status' exact component={ CitizenshipStatus } />
