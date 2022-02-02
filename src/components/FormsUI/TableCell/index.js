@@ -16,7 +16,7 @@ const TableCellWrapper = ({ parseData, className, align, ...otherProps }) => {
 		var dom_content = [];
 		for (var key in data.data) {
 			dom_content.push(
-				<TableCell key={key}
+				<TableCell
 					className={ data.data[ key ].className }
 					align={ data.data[ key ].align }
 				>
@@ -30,9 +30,9 @@ const TableCellWrapper = ({ parseData, className, align, ...otherProps }) => {
 	const BuildTable = (data) => {
 		var dom_content = [];
 		if (data) {
-			data.data.forEach(function (arrayItem, index) {
+			data.data.forEach(function (arrayItem) {
 				dom_content.push(
-					<TableRow key={index}>
+					<TableRow>
 						<BuildCell data={ arrayItem } />
 					</TableRow>
 				);
