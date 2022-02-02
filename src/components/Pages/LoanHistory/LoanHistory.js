@@ -62,7 +62,6 @@ export default function LoanHistory() {
           </Grid>
         </Grid>
 
-
         <LoanHistoryCard userLoanHistoryCard={ loanHistoryData } />
         <LoanHistoryTable userLoanHistoryData={ loanHistoryData } />
       </Grid>

@@ -45,7 +45,6 @@ const TextfieldWrapper = ({
 }) => {
   //Set Formik field
 
-
   // Styling part
   const useStyles = makeStyles((theme) => ({
     cssLabel: {

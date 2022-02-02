@@ -15,10 +15,8 @@ test('Render Select Box', () => {
     </>
   );
 
-
   const input = getByTestId('multiSelectInput');
   expect(input).toBeTruthy();
-
 
 });
 test('Checks whether all the options are rendered', () => {
@@ -40,7 +38,6 @@ test('Checks whether all the options are rendered', () => {
   expect(listbox.getByText(/Eng/i)).toBeTruthy();
 });
 
-
 test('selects the correct option', () => {
   const { getByRole, getByTestId } = render(
     <>
@@ -53,8 +50,6 @@ test('selects the correct option', () => {
     </>
   );
 
-
-
   fireEvent.mouseDown(getByRole('button'));
 
   const listbox = within(getByRole('listbox'));
@@ -64,7 +59,6 @@ test('selects the correct option', () => {
 
   const input = getByTestId('multiSelectInput');
   expect(input.value).toBe("Tamil,Eng");
-
 
 });
 

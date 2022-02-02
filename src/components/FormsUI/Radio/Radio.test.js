@@ -29,7 +29,6 @@ test("renders Radio Button", () => {
     expect(val2).toBeTruthy();
 });
 
-
 test("Changing Radio value", () => {
     const container = render(
         <Formik>

@@ -69,7 +69,6 @@ export default function ChangePassword(basicInformationData) {
     setTabvalue(0);
   };
 
-
   const initialValues = {
     oldPassword: '',
     newPassword: '',

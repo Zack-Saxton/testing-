@@ -6,7 +6,6 @@ import Logo from "../../../assets/images/MarinerLogo.png";
 import ConsumerDialog from "../ConsumerFooterDialog/ConsumerDialog";
 import "./Footer.css";
 
-
 export default function Footer() {
   const [ consumer, setConsumer ] = React.useState(false);
   //Consumer popup

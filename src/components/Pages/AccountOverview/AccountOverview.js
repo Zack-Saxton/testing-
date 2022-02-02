@@ -65,7 +65,6 @@ export default function AccountOverview() {
         <RecentPayments isLoading={ isLoading } userRecentPaymentData={ recentPaymentData } />
         <RecentApplications isLoading={ isLoading } userApplicationsData={ applicationsData } UserAccountStatus={ status } />
 
-
       </Grid>
     </div>
   );

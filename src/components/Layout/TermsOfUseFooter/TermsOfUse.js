@@ -5,7 +5,6 @@ import React from "react";
 import { useStylesTermsOfUse } from "./Style";
 import "./Style.css";
 
-
 export default function TermsOfUse() {
   const classes = useStylesTermsOfUse();
   //View part

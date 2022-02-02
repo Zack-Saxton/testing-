@@ -6,7 +6,6 @@ import Logo from "../../../assets/images/MarinerLogo.png";
 import ConsumerDialog from "../ConsumerFooterDialog/ConsumerDialog";
 import "./NormalFooter.css";
 
-
 export default function NormalFooter() {
   const [ consumer, setConsumer ] = React.useState(false);
   //Consumer popup
@@ -98,7 +97,6 @@ export default function NormalFooter() {
               </div>
             </div>
           </div>
-
 
         </section>
       </footer>

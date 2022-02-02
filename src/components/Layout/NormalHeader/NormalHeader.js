@@ -10,13 +10,11 @@ import { NavLink, useHistory } from "react-router-dom";
 import Logo from "../../../assets/images/MarinerLogo.png";
 import { useStyles } from "./NormalHeaderStyle";
 
-
 const NormalHeader = () => {
   const classes = useStyles();
   const [ mobileMoreAnchorEl, setMobileMoreAnchorEl ] = React.useState(false);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const history = useHistory();
-
 
   //Menu open & close
   const handleMobileMenuOpen = (event) => {
@@ -26,7 +24,6 @@ const NormalHeader = () => {
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
-
 
   const mobileMenuId = "primary-search-account-menu-mobile";
 

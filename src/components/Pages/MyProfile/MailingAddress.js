@@ -53,7 +53,6 @@ export default function MailingAddress(props) {
   const history = useHistory();
   const [ , setTabvalue ] = useAtom(tabAtom);
 
-
   const { refetch } = useQuery('loan-data', usrAccountDetails);
 
   let basicInfo = props?.basicInformationData?.latest_contact != null ? props.basicInformationData.latest_contact : null;
@@ -68,8 +67,6 @@ export default function MailingAddress(props) {
     history.push({ pathname: '/customers/myProfile' });
     setTabvalue(0);
   };
-
-
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -146,7 +143,6 @@ export default function MailingAddress(props) {
       ErrorLogger("Error from fetchAddress", error);
     }
   };
-
 
   function fetchAddressValidate(result) {
     try {

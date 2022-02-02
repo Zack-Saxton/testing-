@@ -180,7 +180,6 @@ export default function ApplyLoan() {
 		tabPanelValue: PropTypes.any.isRequired,
 	};
 
-
 	function tabVerticalProps(verticalIndex) {
 		return {
 			id: `scrollable-auto-tab-vertical-${ verticalIndex }`,

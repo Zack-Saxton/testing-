@@ -43,7 +43,6 @@ import "./MakePayment.css";
 import PaymentOverview from "./PaymentOverview";
 import { useStylesMakePayment } from "./Style";
 
-
 const paymentMaxDate = new Date();
 paymentMaxDate.setDate(paymentMaxDate.getDate() + 30);
 
@@ -86,8 +85,6 @@ export default function MakePayment(props) {
   const { data: payments } = useQuery('payment-method', usrPaymentMethods, {
     refetchOnMount: false
   });
-
-
 
   //API Request for Payment methods
   async function getPaymentMethods() {
@@ -463,7 +460,6 @@ export default function MakePayment(props) {
     SetHolidayCalenderApi(await HolidayCalender());
   }
 
-
   useEffect(() => {
     getData();
     AsyncEffect_HolidayCalender();
@@ -639,7 +635,6 @@ export default function MakePayment(props) {
   const handleAutoPayClose = () => {
     setAutoPayOpen(false);
   };
-
 
   //US holidays
   function disableHolidays(date) {

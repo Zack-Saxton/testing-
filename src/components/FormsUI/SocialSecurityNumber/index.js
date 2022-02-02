@@ -34,12 +34,10 @@ const SSNWrapper = ({
 			event.target.value.replace(/-/g, "").replace(/ /g, "") || ""
 		);
 
-
 		if (onChange) {
 			onChange(event);
 		}
 	};
-
 
 	return (
 		<FormControl fullWidth={ true }>

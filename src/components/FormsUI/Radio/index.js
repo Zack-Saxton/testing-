@@ -37,8 +37,6 @@ const RadioButtonWrapper = ({
 
   function handleRadioClick(event) {
 
-
-
     if (event.target.value === radioValue) {
       setRadioValue("");
 
@@ -60,7 +58,6 @@ const RadioButtonWrapper = ({
     ...otherProps,
 
   };
-
 
   //Validation
 

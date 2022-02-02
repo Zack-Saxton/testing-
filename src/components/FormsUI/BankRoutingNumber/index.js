@@ -10,7 +10,6 @@ import PropTypes from "prop-types";
 import React, { useState } from "react";
 import TextBox from "../Textfield";
 
-
 const BankRoutingNumberWrapper = ({ name, ...otherProps }) => {
   //Set Formik field
   const [ BRNum, setBRNum ] = useState("");
@@ -30,7 +29,6 @@ const BankRoutingNumberWrapper = ({ name, ...otherProps }) => {
     (!isValid && event.target.value) ? setHelperText("Bank Routing number should be 9 digits") : setHelperText("");
 
   };
-
 
   //Configuring the field with properties
   const configTextfield = {

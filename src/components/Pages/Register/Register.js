@@ -98,8 +98,6 @@ const useStyles = makeStyles((theme) => ({
 //Yup validations for all the input fields
 const validationSchema = formValidation.getFormValidationRule('');
 
-
-
 //Begin: Login page
 export default function Register() {
   window.zeHide();

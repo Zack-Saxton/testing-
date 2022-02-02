@@ -166,7 +166,6 @@ export async function verifyPasscode(passcode) {
   }
 }
 
-
 export async function hardPullCheck() {
   try {
     let url = "cis_hardpull";

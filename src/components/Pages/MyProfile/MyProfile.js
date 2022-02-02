@@ -30,8 +30,6 @@ import { useStylesMyProfile } from "./Style";
 import "./Style.css";
 import TextNotificationCard from "./TextNotification";
 
-
-
 function TabVerticalPanel(props) {
   const { children, value, verticalIndex, ...other } = props;
 
@@ -87,7 +85,6 @@ export default function MyProfile() {
   const handleTabChange = (event, newValues) => {
     setValues(newValues);
   };
-
 
   let cookieTextNotify = Cookies.get("isTextNotify");
   if (!cookieTextNotify) {

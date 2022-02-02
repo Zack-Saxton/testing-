@@ -28,7 +28,6 @@ const DatePickerWrapper = ({ name, format, defaultDate, label, placeholder, maxd
 	const day = d.getDate();
 	const minDate = new Date(year - minyear, month, day);
 
-
 	return (
 		<MuiPickersUtilsProvider utils={ DateFnsUtils }>
 			<Grid container justifyContent="space-around">
@@ -48,7 +47,6 @@ const DatePickerWrapper = ({ name, format, defaultDate, label, placeholder, maxd
 					KeyboardButtonProps={ {
 						"aria-label": "change date",
 					} }
-
 
 					{ ...otherProps }
 					inputProps={ { "data-test-id": "datePicker" } }

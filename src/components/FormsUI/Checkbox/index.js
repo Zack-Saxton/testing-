@@ -24,7 +24,6 @@ const CheckboxWrapper = ({
   ...otherProps
 }) => {
 
-
   //Styling Part
   const useStyles = makeStyles((theme) => ({
     checkboxStyle: {
@@ -43,10 +42,6 @@ const CheckboxWrapper = ({
 
   };
 
-
-
-
-
   //parsing data using json
   let styleCheckBoxMF = JSON.parse(stylecheckbox);
   let styleCheckBoxLabelMF = JSON.parse(stylecheckboxlabel);
@@ -63,7 +58,6 @@ const CheckboxWrapper = ({
           label={ label }
           style={ styleCheckBoxLabelMF }
           id={ labelid }
-
 
         />
       </FormGroup>

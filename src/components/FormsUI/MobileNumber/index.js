@@ -22,7 +22,6 @@ const MobileNumberWrapper = ({ name, ...otherProps }) => {
     setMobile(event.target.value);
   };
 
-
   // Check validity
 
   return (

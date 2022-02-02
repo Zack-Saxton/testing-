@@ -105,7 +105,6 @@ export default function BasicInformation(props) {
           .replace(/\(/g, "")
           .replace(/ /g, "") || "";
 
-
       let body = {
         primaryPhoneNumber: phone,
         email: values.email,

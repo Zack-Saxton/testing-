@@ -34,7 +34,6 @@ export default function PaymentHistory() {
   const [ anchorEl, setAnchorEl ] = React.useState(null);
   const [ fileName, setfileName ] = React.useState(null);
 
-
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -64,7 +63,6 @@ export default function PaymentHistory() {
     { label: "Total", key: "Total" },
     { label: "Balance", key: "RunningPrincipalBalance" }
   ];
-
 
   const currencyFormat = (n) => {
     const formated = parseFloat(n);
@@ -113,7 +111,6 @@ export default function PaymentHistory() {
       ...{ RunningPrincipalBalance: currencyFormat(Math.abs(item.RunningPrincipalBalance)) },
     };
   }) : [] : [];
-
 
   //View part
   return (

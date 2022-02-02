@@ -223,8 +223,6 @@ export default function SideNav() {
     };
   }, [ dataAccountOverview, activeLoanData, currentLoan ]);
 
-
-
   let statusStrLink = {
     "approved": "/customers/finalVerification",
     "completing_application": "/customers/finalVerification",
@@ -244,8 +242,6 @@ export default function SideNav() {
     "closing_process": "/customers/finalVerification",
     "final_review": "/customers/loanDocument"
   };
-
-
 
   //Material UI media query for responsiveness
   let check = useMediaQuery("(min-width:960px)");
@@ -295,7 +291,6 @@ export default function SideNav() {
     AsyncEffect_profileImage();
   }, []);
 
-
   let getProfImage = (profileImage != null) ? profileImage : profileImg;
 
   // Side bar branch details
@@ -303,7 +298,6 @@ export default function SideNav() {
   Cookies.set('branchphone', branchVal?.data?.PhoneNumber);
   Cookies.set('branchopenstatus', branchVal?.data?.date_closed);
   Cookies.set('getProfileImage', getProfImage);
-
 
   let hasActiveLoan = Cookies.get("hasActiveLoan") === "true" ? true : false;
   let hasApplicationStatus = Cookies.get("hasApplicationStatus");
@@ -314,8 +308,6 @@ export default function SideNav() {
   const branchPhone = Cookies.get('branchphone');
   const branchcloseStatus = Cookies.get('branchopenstatus');
   const getProfileImage = Cookies.get('getProfileImage');
-
-
 
   const lastLoginRaw = JSON.parse(Cookies.get("user") ? Cookies.get("user") : '{ }')?.user?.extensionattributes?.login?.timestamp_date;
   const date = lastLoginRaw ? new Date(lastLoginRaw) : new Date();
@@ -567,7 +559,6 @@ export default function SideNav() {
               </a>
             </Typography>
 
-
             <NavLink to="/customers/makePayment" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : '' }>
               <Tooltip title="Quick Pay" placement="bottom">
                 <img
@@ -708,7 +699,6 @@ export default function SideNav() {
                   </ListItemText>
                 </ListItem>
               </NavLink>
-
 
               { checkPresenceOfLoan === true ?
                 <NavLink to={ { state: { from: "user" } } } onClick={ (event) => { resumeApplicationClick(); } } className="nav_link" >
