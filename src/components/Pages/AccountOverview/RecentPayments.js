@@ -27,7 +27,7 @@ export default function RecentPayments(userRecentPaymentData) {
 		userRecentPayment?.userRecentPaymentData.slice(0, 1).forEach(function (arrayItem) {
 			arrayItem?.loanHistory?.AppAccountHistory?.slice(0, 3).forEach(function (row) {
 				parData.push(
-					{						
+					{
 						date: {
 							value: Moment(row.TransactionDate).format("MM/DD/YYYY"),
 							align: "left",
@@ -129,48 +129,13 @@ export default function RecentPayments(userRecentPaymentData) {
 						<Table id="recentPaymentsTable" aria-label="simple table">
 							<TableHead>
 								<TableRow>
-									<TableCell
-										className={ classes.tablehead }
-										align="left"
-									>
-										Date
-									</TableCell>
-									<TableCell
-										className={ classes.tablehead }
-										align="left"
-									>
-										Description
-									</TableCell>
-									<TableCell
-										className={ classes.tablehead }
-										align="right"
-									>
-										Principal
-									</TableCell>
-									<TableCell
-										className={ classes.tablehead }
-										align="right"
-									>
-										Interest
-									</TableCell>
-									<TableCell
-										className={ classes.tablehead }
-										align="right"
-									>
-										Other
-									</TableCell>
-									<TableCell
-										className={ classes.tablehead }
-										align="right"
-									>
-										Total Amount
-									</TableCell>
-									<TableCell
-										className={ classes.tablehead }
-										align="right"
-									>
-										Balance
-									</TableCell>
+									<TableCell className={ classes.tablehead } align="left">Date</TableCell>
+									<TableCell className={ classes.tablehead } align="left">Description</TableCell>
+									<TableCell className={ classes.tablehead } align="right">Principal</TableCell>
+									<TableCell className={ classes.tablehead } align="right">Interest</TableCell>
+									<TableCell className={ classes.tablehead } align="right">Other</TableCell>
+									<TableCell className={ classes.tablehead } align="right">Total Amount</TableCell>
+									<TableCell className={ classes.tablehead } align="right">Balance</TableCell>
 								</TableRow>
 							</TableHead>
 							{ userRecentPaymentData?.isLoading ? (

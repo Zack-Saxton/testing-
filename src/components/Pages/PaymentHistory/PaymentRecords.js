@@ -122,7 +122,7 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
             </TableRow>
           </TableHead>
           <TableBody>
-            { userRecentPayment.userRecentPaymentData.length ? (
+            { userRecentPayment?.userRecentPaymentData?.length ? (
               (rowsPerPage > 0
                 ? userRecentPayment.userRecentPaymentData[ 0 ].loanHistory.AppAccountHistory.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 : userRecentPayment.userRecentPaymentData[ 0 ].loanHistory.AppAccountHistory
@@ -189,7 +189,7 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
             <TableRow>
               <TablePagination
                 rowsPerPageOptions={ [ 5, 10, { label: 'All', value: -1 } ] }
-                count={ userRecentPayment.userRecentPaymentData.length ? userRecentPayment.userRecentPaymentData[ 0 ].loanHistory.AppAccountHistory.length : 0 }
+                count={ userRecentPayment?.userRecentPaymentData?.length ? userRecentPayment?.userRecentPaymentData[ 0 ]?.loanHistory.AppAccountHistory?.length : 0 }
                 rowsPerPage={ rowsPerPage }
                 page={ page }
                 SelectProps={ {
