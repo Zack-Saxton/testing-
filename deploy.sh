@@ -128,35 +128,35 @@ latestCommit=$(git rev-parse --short HEAD)
 #docker build -f Dockerfile -t ${imageName} .
 case $env in
   "qa")
-    docker build -t $imageName  $(for i in `cat $CAC_ENV_QA`; do out+="--build-arg $i " ; done; echo $out;out="") .
+    docker build -t $imageName  $(for i in `cat ~/.env_cac_qa`; do out+="--build-arg $i " ; done; echo $out;out="") .
     if [ $? != 0 ]; then
       echo -e "\033[1;31m Failed \033[0m => (reason): docker failed  to build image locally"
       exit 1;
     fi
     ;;
   "dev")
-    docker build -t $imageName  $(for i in `cat $CAC_ENV_DEV`; do out+="--build-arg $i " ; done; echo $out;out="") .
+    docker build -t $imageName  $(for i in `cat ~/.env_cac_dev`; do out+="--build-arg $i " ; done; echo $out;out="") .
     if [ $? != 0 ]; then
       echo -e "\033[1;31m Failed \033[0m => (reason): docker failed  to build image locally"
       exit 1;
     fi
     ;;
   "staging")
-    docker build -t $imageName  $(for i in `cat $CAC_ENV_STAGING`; do out+="--build-arg $i " ; done; echo $out;out="") .
+    docker build -t $imageName  $(for i in `cat ~/.env_cac_staging`; do out+="--build-arg $i " ; done; echo $out;out="") .
     if [ $? != 0 ]; then
       echo -e "\033[1;31m Failed \033[0m => (reason): docker failed  to build image locally"
       exit 1;
     fi
     ;;
   "prod")
-    docker build -t $imageName  $(for i in `cat $CAC_ENV_PROD`; do out+="--build-arg $i " ; done; echo $out;out="") .
+    docker build -t $imageName  $(for i in `cat ~/.env_cac_prod`; do out+="--build-arg $i " ; done; echo $out;out="") .
     if [ $? != 0 ]; then
       echo -e "\033[1;31m Failed \033[0m => (reason): docker failed  to build image locally"
       exit 1;
     fi
     ;;
   *)
-    docker build -t $imageName  $(for i in `cat $CAC_ENV_QA`; do out+="--build-arg $i " ; done; echo $out;out="") .
+    docker build -t $imageName  $(for i in `cat ~/.env_cac_qa`; do out+="--build-arg $i " ; done; echo $out;out="") .
     if [ $? != 0 ]; then
       echo -e "\033[1;31m Failed \033[0m => (reason): docker failed  to build image locally"
       exit 1;
