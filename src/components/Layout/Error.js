@@ -1,7 +1,5 @@
 import React from 'react';
 
-
-
 const Eror404 = ({ children }) => {
 
     return (

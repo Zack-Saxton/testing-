@@ -5,15 +5,14 @@ import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import React, { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { toast } from "react-toastify";
 import * as yup from "yup";
 import MarriedStatusLogo from "../../../../assets/icon/married-status.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import ZipCodeLookup from "../../../Controllers/ZipCodeLookup";
 import { ButtonPrimary, Select, TextField, Zipcode } from "../../../FormsUI";
+import ErrorLogger from "../../../lib/ErrorLogger";
 import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
-import ErrorLogger from "../../../lib/ErrorLogger";
 
 //Yup validation schema
 const validationSchema = yup.object({

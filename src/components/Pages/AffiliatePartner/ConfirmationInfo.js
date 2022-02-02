@@ -16,16 +16,15 @@ import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { toast } from "react-toastify";
 import * as yup from "yup";
 import creditkarmalogo from "../../../assets/images/ck_logo.png";
 import Logo from "../../../assets/images/loginbg.png";
 import { partnerConfirmInfo } from "../../Controllers/PartnerSignupController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
 import { ButtonPrimary, Checkbox, Select, TextField, Zipcode } from "../../FormsUI";
+import ErrorLogger from "../../lib/ErrorLogger";
 import states from "../../lib/States.json";
 import statesFullform from "../../lib/StatesFullform.json";
-import ErrorLogger from "../../lib/ErrorLogger"
 import "./Style.css";
 //Styling
 const useStyles = makeStyles((theme) => ({

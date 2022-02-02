@@ -43,7 +43,6 @@ import "./MakePayment.css";
 import PaymentOverview from "./PaymentOverview";
 import { useStylesMakePayment } from "./Style";
 
-
 const paymentMaxDate = new Date();
 paymentMaxDate.setDate(paymentMaxDate.getDate() + 30);
 
@@ -86,8 +85,6 @@ export default function MakePayment(props) {
   const { data: payments } = useQuery('payment-method', usrPaymentMethods, {
     refetchOnMount: false
   });
-
-
 
   //API Request for Payment methods
   async function getPaymentMethods() {
@@ -463,7 +460,6 @@ export default function MakePayment(props) {
     SetHolidayCalenderApi(await HolidayCalender());
   }
 
-
   useEffect(() => {
     getData();
     AsyncEffect_HolidayCalender();
@@ -555,7 +551,7 @@ export default function MakePayment(props) {
   };
 
 let obj = {};
-let cardLabel = ""; 
+let cardLabel = "";
 if (card) {
   obj = paymentListCard.find(o => o.value === card);
   cardLabel = obj?.label;
@@ -656,7 +652,6 @@ if (cardLabel === undefined) {
     currency: 'USD'
   }).format(value);
 
-
   //US holidays
   function disableHolidays(date) {
     const holidayApiData = holidayCalenderData?.holidays;
@@ -690,8 +685,7 @@ if (cardLabel === undefined) {
     var s = price.split(".");
     var afterDecimal = s[ 1 ];
     if (!afterDecimal) {
-      price = event.target.value.replace(".", "");
-      price = price.replace("$", "");
+      price = event.target.value.replace(/.$/g, "");
       setpaymentAmount(price);
       setRequiredAmount("");
     }
@@ -1108,8 +1102,8 @@ if (cardLabel === undefined) {
           <Typography id="autoTxt" className={ classes.dialogHeading } justifyContent="space-around">
             { disabledContent === false
               ? "Are you sure you want to disable auto pay?"
-              : 
-              "Auto Pay Confirmation" 
+              :
+              "Auto Pay Confirmation"
              }
           </Typography>
           <Typography id="autoTxt" className={ classes.autoPayContent }>

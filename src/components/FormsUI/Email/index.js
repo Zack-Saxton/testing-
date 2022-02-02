@@ -5,9 +5,9 @@ Component Name      :    Email
 Functionality       :    To use this component to get only valid Email address.
 
 #################################################################################################################*/
-import React, { useState } from "react";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import TextField from "@material-ui/core/TextField";
+import React, { useState } from "react";
 
 //Initializing EmailWrapper component
 const EmailWrapper = ({ name, suffix, lable, materialProps, id, ...otherProps }) => {

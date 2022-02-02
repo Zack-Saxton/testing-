@@ -1,6 +1,7 @@
 import * as CryptoJS from 'crypto-js';
 import ErrorLogger from "../lib/ErrorLogger";
-const key = "djhfi4334jfdo8sd9jefh9h34hi4843h49349";
+
+const key = process.env.SECRET_KEY || "";
 export const encryptAES = (text) => {
   return CryptoJS.AES.encrypt(text, key).toString();
 };
@@ -16,7 +17,7 @@ export const decryptAES = (encryptedBase64) => {
         return 'error 1';
       }
     } catch (error) {
-      ErrorLogger(' Error from decryptAES.', error)
+      ErrorLogger(' Error from decryptAES.', error);
       return 'error 2';
     }
   }
