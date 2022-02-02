@@ -112,23 +112,23 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
         <Table className={ classes.table } aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell className={ classes.tableHead } align="center">Date</TableCell>
-              <TableCell className={ classes.tableHead } align="center">
+              <TableCell className={ classes.tableHead } align="left">Date</TableCell>
+              <TableCell className={ classes.tableHead } align="left">
                 Description
               </TableCell>
-              <TableCell className={ classes.tableHead } align="center">
+              <TableCell className={ classes.tableHead } align="right">
                 Principal
               </TableCell>
-              <TableCell className={ classes.tableHead } align="center">
+              <TableCell className={ classes.tableHead } align="right">
                 Interest
               </TableCell>
-              <TableCell className={ classes.tableHead } align="center">
+              <TableCell className={ classes.tableHead } align="right">
                 Other
               </TableCell>
-              <TableCell className={ classes.tableHead } align="center">
+              <TableCell className={ classes.tableHead } align="right">
                 Total
               </TableCell>
-              <TableCell className={ classes.tableHead } align="center">
+              <TableCell className={ classes.tableHead } align="right">
                 Balance
               </TableCell>
             </TableRow>
