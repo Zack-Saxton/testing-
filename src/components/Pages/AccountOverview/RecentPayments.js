@@ -131,43 +131,43 @@ export default function RecentPayments(userRecentPaymentData) {
 								<TableRow>
 									<TableCell
 										className={ classes.tablehead }
-										align="center"
+										align="left"
 									>
 										Date
 									</TableCell>
 									<TableCell
 										className={ classes.tablehead }
-										align="center"
+										align="left"
 									>
 										Description
 									</TableCell>
 									<TableCell
 										className={ classes.tablehead }
-										align="center"
+										align="right"
 									>
 										Principal
 									</TableCell>
 									<TableCell
 										className={ classes.tablehead }
-										align="center"
+										align="right"
 									>
 										Interest
 									</TableCell>
 									<TableCell
 										className={ classes.tablehead }
-										align="center"
+										align="right"
 									>
 										Other
 									</TableCell>
 									<TableCell
 										className={ classes.tablehead }
-										align="center"
+										align="right"
 									>
 										Total Amount
 									</TableCell>
 									<TableCell
 										className={ classes.tablehead }
-										align="center"
+										align="right"
 									>
 										Balance
 									</TableCell>
