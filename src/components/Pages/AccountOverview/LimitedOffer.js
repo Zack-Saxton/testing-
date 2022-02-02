@@ -7,9 +7,7 @@ import { useStylesAccountOverview } from "./Style";
 import adBanner from "../../../assets/gallery/AdBanner.jpg";
 import MortgageBanner from "../../../assets/images/Mortgage-Banner.png";
 import { ButtonPrimary } from "../../FormsUI";
-import { useStylesAccountOverview } from "./Style";
 import "./Style.css";
-import { ButtonPrimary } from "../../FormsUI";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {Modal,Box,Typography} from "@material-ui/core";
 import NumberFormat from "react-number-format";
@@ -57,7 +55,6 @@ export default function LimitedOffer(userOfferData) {
     boxShadow: 24,
     p: 4,
   };
-  
 
   //View
   return (
@@ -81,11 +78,11 @@ export default function LimitedOffer(userOfferData) {
                     <p id="loanPercent">
                       <NumberFormat value={userOfferAmount} displayType={'text'} thousandSeparator={true} prefix={'$'} />
                     </p>
-                    
+
                       <ButtonPrimary onClick={showModal} id="claimButton" stylebutton='{"color":""}'>
                         Check My Offer
                       </ButtonPrimary>
-                   
+
                   </div>
                 ) : (
                   <div id="offerText">
@@ -132,7 +129,7 @@ export default function LimitedOffer(userOfferData) {
           <IconButton
                                 id="debitCardModalClose"
                                 aria-label="close"
-                                
+
                                 onClick={closeModal}
                             >
                                 <CloseIcon />
@@ -150,7 +147,6 @@ export default function LimitedOffer(userOfferData) {
 
 <p className="common">Use it to get things done.</p>
 
-  
 <p className="common">Offer Code:{offerCode}</p>
 <ButtonPrimary id="ClaimButton" stylebutton='{"color":"", "textTransform": "none","marginLeft":"40px"}'>
                         Continue
@@ -160,8 +156,8 @@ export default function LimitedOffer(userOfferData) {
             <Grid>
               <p className="common">Dear {firstName},</p>
               <p className="common">
-                Looking for an easy way to break up the cost of big expenses, without breaking the bank? Or get rid of lingering credit 
-                card bills? A fixed-rate, fixed-payment personal loan of ${amount} from Mariner Finance can help you get the 
+                Looking for an easy way to break up the cost of big expenses, without breaking the bank? Or get rid of lingering credit
+                card bills? A fixed-rate, fixed-payment personal loan of ${amount} from Mariner Finance can help you get the
                 things you want-and get rid of the bills you don't.
                 </p>
                 <p className="common">What will you do with your money?</p>
@@ -203,10 +199,10 @@ consumer finance company of choice.
            </Grid><br/>
            <Grid>
              <p className="common para">PRESCREEN & OPT-OUT NOTICE<br/><br/>
-           <span className="small"> This “prescreened” offer of credit is based on information in your credit report indicating that you meet certain criteria. This offer is not 
-            guaranteed if you do not meet our criteria, including providing acceptable property as collateral. If you do not want to receive prescreened offers of 
-            credit from this and other companies, call the nationwide consumer reporting agencies toll-free: 1-888-5OPT OUT, or write: Equifax, Inc Options, PO Box 740123, 
-            Atlanta, GA 30374; or Experian Opt Out, PO Box 919, Allen, TX 75013; or TransUnion Name Removal Option, PO Box 505, Woodlyn, PA 19094, or 
+           <span className="small"> This “prescreened” offer of credit is based on information in your credit report indicating that you meet certain criteria. This offer is not
+            guaranteed if you do not meet our criteria, including providing acceptable property as collateral. If you do not want to receive prescreened offers of
+            credit from this and other companies, call the nationwide consumer reporting agencies toll-free: 1-888-5OPT OUT, or write: Equifax, Inc Options, PO Box 740123,
+            Atlanta, GA 30374; or Experian Opt Out, PO Box 919, Allen, TX 75013; or TransUnion Name Removal Option, PO Box 505, Woodlyn, PA 19094, or
             visit the website at www.optoutprescreen.com.</span>
             </p>
            </Grid>
@@ -225,7 +221,7 @@ USA Patriot Act - To help the government fight the funding of terrorism and mone
            <Grid>
              <p className="common para">15 Day Satisfaction Guarantee<br></br>
 <span className="small">
-If, for any reason, you are dissatisfied with your loan and repay it in full within 15 days we will waive all finance charges with no 
+If, for any reason, you are dissatisfied with your loan and repay it in full within 15 days we will waive all finance charges with no
 penalties. Your repayment amount must be in the form of cash or certified funds.
 </span>
 </p>
@@ -233,7 +229,7 @@ penalties. Your repayment amount must be in the form of cash or certified funds.
           </Typography>
         </Box>
       </Modal>
-      
+
         </Grid>
       </div>
   );
