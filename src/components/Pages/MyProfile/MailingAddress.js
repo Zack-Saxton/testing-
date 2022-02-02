@@ -41,7 +41,7 @@ const validationSchema = yup.object({
     .required("Your home state is required."),
   zip: yup
     .string("Enter your Zip")
-    .min(5, "Zipcode should be of minimum 5 characters length")
+    .min(5, "Zip Code should be a minimum of 5 characters")
     .required("Your home ZIP Code is required"),
 });
 
@@ -127,8 +127,7 @@ export default function MailingAddress(props) {
 
   const fetchAddress = async (event) => {
     try {
-      setErrorMsg(event.target.value === "" ? "Please enter a zipcode" : errorMsg);
-      if (event.target.value !== "" && event.target.value.length === 5) {
+        setErrorMsg(event.target.value === "" ? "Please enter a zipcode" : errorMsg);
         let result = await ZipCodeLookup(event.target.value);
         if (result) {
           fetchAddressValidate(result);
@@ -138,7 +137,6 @@ export default function MailingAddress(props) {
           setValidZip(false);
           setErrorMsg("Please enter a valid Zipcode");
         }
-      }
       if (event.target.name !== "") {
         formik.handleChange(event);
       }

@@ -28,7 +28,7 @@ const ZipCodeWrapper = ({ name, error, helperText, value, onChange, ...otherProp
     }
     const isValid = /(^\d{5}$)/.test(event.target.value);
     (!isValid && event.target.value) ? setIsError(true) : setIsError(false);
-    (!isValid && event.target.value) ? setHelperText2("Zipcode should 5 digits") : setHelperText2("");
+    (!isValid && event.target.value) ? setHelperText2("Zip Code should be at least 5 digits") : setHelperText2("");
     if (onChange) { onChange(event); }
   };
 
