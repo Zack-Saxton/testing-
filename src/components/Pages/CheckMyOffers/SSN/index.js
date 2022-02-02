@@ -1,16 +1,6 @@
 import Box from "@material-ui/core/Box";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useContext, useState } from "react";
@@ -21,10 +11,9 @@ import {
 	checkMyOfferSubmit as submitApplication,
 	getCustomerByEmail
 } from "../../../Controllers/CheckMyOffersController";
-import { ButtonPrimary, Checkbox, Popup } from "../../../FormsUI";
+import { ButtonPrimary, Checkbox, Popup, RenderContent } from "../../../FormsUI";
 import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
-import { RenderContent } from "../../../FormsUI";
 
 //SSN component initialization
 function SSN() {
@@ -47,7 +36,8 @@ function SSN() {
 			marginTop: "3px !important",
 			marginBottom: "3px !important",
 			textDecoration: "underline !important",
-			color: "#0F4EB3 !important"
+			color: "#0F4EB3 !important",
+			display: "block !important"
 		},
 	}));
 	const classes = useStyles();
@@ -280,10 +270,10 @@ function SSN() {
 													reviewed and agree to the following disclosures and consents:
 													<br />
 												
-													<p className={classes.linkDesign} onClick={() => { handleOnClickEsign() }}>E-Signature Disclosure and Consent,</p>
-													<p className={classes.linkDesign} onClick={() => { handleOnClickCredit() }}>Credit and Contact Authorization,</p>
-													<p className={classes.linkDesign} onClick={() => { handleOnClickwebTOU() }}>Website Terms of Use,</p>
-													<p className={classes.linkDesign} onClick={() => { handleOnClickPrivacy() }}>Website Privacy Statement.</p>
+													<span className={classes.linkDesign} onClick={() => { handleOnClickEsign() }}>E-Signature Disclosure and Consent,</span>
+													<span className={classes.linkDesign} onClick={() => { handleOnClickCredit() }}>Credit and Contact Authorization,</span>
+													<span className={classes.linkDesign} onClick={() => { handleOnClickwebTOU() }}>Website Terms of Use,</span>
+													<span className={classes.linkDesign} onClick={() => { handleOnClickPrivacy() }}>Website Privacy Statement.</span>
 												</p>
 											}
 											required={ true }

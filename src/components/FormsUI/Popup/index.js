@@ -19,7 +19,7 @@ const Popup = ({ children, popupFlag, openPopup, closePopup }) => {
         </DialogContent>
         <DialogActions className="modalAction">
             <ButtonPrimary
-                stylebutton='{"background": "#FFBC23", "color": "black", "border-radius": "50px"}'
+                stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
                 onClick={ closePopup }
                 className="modalButton"
             >
