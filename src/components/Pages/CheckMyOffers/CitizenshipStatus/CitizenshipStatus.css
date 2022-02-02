@@ -170,12 +170,12 @@
 }
 
 #citizenshipWrap {
-	border-radius: 4px 0px !important;
+	border-radius: 5px 0px 0px 0px !important;
 }
 
 #citizenshipWrap div:nth-child(1) {
-	border-radius: 4px 4px 0px 0px !important;
+	border-radius: 2px 4px 0px 0px !important;
 }
 #citizenshipWrap #determinate {
-	border-radius: 4px 0px 0px 0px !important;
+	border-radius: 0px 0px 0px 0px !important;
 }
