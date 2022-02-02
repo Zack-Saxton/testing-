@@ -1,12 +1,12 @@
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import { ButtonPrimary } from "../../../FormsUI";
 import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
 import React, { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import CitizenshipStatusLogo from "../../../../assets/icon/I-Citizenship-status.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
+import { ButtonPrimary } from "../../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./CitizenshipStatus.css";
 
@@ -52,6 +52,9 @@ function CitizenshipStatus() {
 						container
 						justifyContent="center"
 						alignItems="center"
+						style={ {
+							padding: "70px 0px 70px 0px"
+						} }
 					>
 						<Grid
 							container
@@ -72,8 +75,6 @@ function CitizenshipStatus() {
 									justify: "center",
 									alignItems: "center",
 									width: "inherit",
-									marginBottom: "10%",
-									marginTop: "10%",
 								} }
 							>
 								<div className="progress mt-0">

@@ -18,7 +18,7 @@ import "../CheckMyOffer.css";
 import "../HomeAddress/HomeAdress.css";
 import ZipCodeLookup from "../../../Controllers/ZipCodeLookup";
 import { toast } from "react-toastify";
-import ErrorLogger from "../../../lib/ErrorLogger"
+import ErrorLogger from "../../../lib/ErrorLogger";
 //yup validation schema
 const validationSchema = yup.object({
 	streetAddress: yup
@@ -142,22 +142,20 @@ function HomeAddress() {
 			<div className="mainDiv">
 				<Box>
 					<Grid
-						item
-						xs={ 12 }
-						container
+						item xs={ 12 } sm={ 10 } md={ 6 } lg={ 6 }
 						justifyContent="center"
 						alignItems="center"
-						style={ { paddingTop: "70px", paddingBottom: "70px" } }
+						style={ { paddingTop: "70px", paddingBottom: "70px", margin: "auto" } }
 					>
 						<Grid
-							container
-							item
-							xs={ 11 }
-							sm={ 10 }
-							md={ 6 }
-							lg={ 6 }
-							xl={ 6 }
-							className="cardWrapper"
+							// container
+							// item
+							// xs={ 11 }
+							// sm={ 10 }
+							// md={ 6 }
+							// lg={ 6 }
+							// xl={ 6 }
+							// className="cardWrapper"
 							justifyContent="center"
 							alignItems="center"
 						>
@@ -190,11 +188,10 @@ function HomeAddress() {
 
 								<Typography
 									variant="h5"
+									id="homeAddressTxt"
 									className="borrowCSSLP"
 									style={ {
-										align: "center",
-										justify: "center",
-										alignItems: "center",
+
 									} }
 								>
 									Enter your home address

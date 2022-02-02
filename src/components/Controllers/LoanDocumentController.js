@@ -1,7 +1,7 @@
+import Buffer from "buffer";
 import printJS from "print-js";
 import { toast } from "react-toastify";
 import APICall from "../lib/AxiosLib";
-import Buffer from "buffer";
 import ErrorLogger from "../lib/ErrorLogger";
 
 /***** Get loan document *****/
@@ -30,7 +30,7 @@ function downloadFileData(fileData) {
   link.setAttribute("download", fileData?.data?.exportName);
   document.body.appendChild(link);
   link.click();
-  if (!toast.isActive("closeToast")) {toast.success("Document Downloaded Successfully",{toastId: "closeToast"});}
+  if (!toast.isActive("closeToast")) { toast.success("Document Downloaded Successfully", { toastId: "closeToast" }); }
 }
 
 /****** Document Download method *****/

@@ -1,4 +1,3 @@
-import { toast } from "react-toastify";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
 

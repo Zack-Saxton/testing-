@@ -5,12 +5,12 @@ Component Name      :    SocialSecurityNumber
 Functionality       :    To use this component to validate and get the SSN in the correct format from the user.
 
 #################################################################################################################*/
-import React, { useState } from "react";
-import { createTheme, ThemeProvider as MuiThemeProvider, } from "@material-ui/core/styles";
-import InputMask from "react-input-mask";
-import FormControl from "@material-ui/core/FormControl";
-import PropTypes from "prop-types";
 import { TextField } from "@material-ui/core";
+import FormControl from "@material-ui/core/FormControl";
+import { createTheme, ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
+import PropTypes from "prop-types";
+import React, { useState } from "react";
+import InputMask from "react-input-mask";
 
 const theme = createTheme();
 const SSNWrapper = ({
@@ -34,12 +34,10 @@ const SSNWrapper = ({
 			event.target.value.replace(/-/g, "").replace(/ /g, "") || ""
 		);
 
-
 		if (onChange) {
 			onChange(event);
 		}
 	};
-
 
 	return (
 		<FormControl fullWidth={ true }>

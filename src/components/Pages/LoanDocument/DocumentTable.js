@@ -11,7 +11,6 @@ import React from "react";
 import { documentdownload as downloadDocument, documentprint as printDocument } from "../../Controllers/LoanDocumentController";
 import { useStylesLoanDocument } from "./Style";
 
-
 export default function LoanDocumentTable(userLoanDocumentData) {
   window.zeHide();
   //Material UI css class

@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { ButtonPrimary } from "../../../FormsUI";
 import { uploadDocument } from "../../../Controllers/ApplyForLoanController";
+import { ButtonPrimary } from "../../../FormsUI";
 import messages from "../../../lib/Lang/applyForLoan.json";
 
 // initialising Document upload component

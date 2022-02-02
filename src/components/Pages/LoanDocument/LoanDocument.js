@@ -54,11 +54,11 @@ export default function LoanDocument(props) {
   const uploadDoc = () => {
     if (selectedFile === null) {
       if (!toast.isActive("closeToast")) {
-        toast.error(loanDocs.Please_Select_File_Upload,{toastId: "closeToast"});
+        toast.error(loanDocs.Please_Select_File_Upload, { toastId: "closeToast" });
       }
     } else if (docType === null || docType === "") {
       if (!toast.isActive("closeToast")) {
-        toast.error(loanDocs.Please_Select_A_Document_Type,{toastId: "closeToast"});
+        toast.error(loanDocs.Please_Select_A_Document_Type, { toastId: "closeToast" });
       }
     } else {
       var filePath = selectedFile.value;

@@ -17,7 +17,6 @@ import { loanDocumentController as loanDocument } from "../../Controllers/LoanDo
 import { useStylesLoanHistory } from "./Style";
 import "./Style.css";
 
-
 export default function LoanHistoryTable(userLoanHistoryData) {
   window.zeHide();
   //Material UI css class

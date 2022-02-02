@@ -131,7 +131,7 @@
 }
 
 .othersBlock {
-	padding: 10px;
+	padding: 6px;
 	cursor: pointer;
 }
 
@@ -166,7 +166,7 @@
 }
 
 #loanPurposeWrap {
-	border-radius: 4px !important;
+	border-radius: 2px !important;
 }
 
 #purposeTxt01,
@@ -179,5 +179,13 @@
 #purposeTxt08,
 #purposeTxt09,
 #purposeTxt10 {
-	font-size: 1.125rem !important ;
+	font-size: 1.078rem !important ;
+}
+
+#purposeTxt07 span{
+	font-size: 0.938rem !important;
+}
+
+#loanPurposegrid{
+	padding: 0 2.5% 2.5% 2.5% !important;
 }

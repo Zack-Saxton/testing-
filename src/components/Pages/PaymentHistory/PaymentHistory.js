@@ -34,7 +34,6 @@ export default function PaymentHistory() {
   const [ anchorEl, setAnchorEl ] = React.useState(null);
   const [ fileName, setfileName ] = React.useState(null);
 
-
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -64,7 +63,6 @@ export default function PaymentHistory() {
     { label: "Total", key: "Total" },
     { label: "Balance", key: "RunningPrincipalBalance" }
   ];
-
 
   const currencyFormat = (n) => {
     const formated = parseFloat(n);
@@ -113,7 +111,6 @@ export default function PaymentHistory() {
       ...{ RunningPrincipalBalance: currencyFormat(Math.abs(item.RunningPrincipalBalance)) },
     };
   }) : [] : [];
-
 
   //View part
   return (
@@ -174,25 +171,13 @@ export default function PaymentHistory() {
               <Table className={ classes.table } aria-label="simple table">
                 <TableHead>
                   <TableRow>
-                    <TableCell className={ classes.tableHead }>Date</TableCell>
-                    <TableCell className={ classes.tableHead } align="center">
-                      Description
-                    </TableCell>
-                    <TableCell className={ classes.tableHead } align="center">
-                      Principal
-                    </TableCell>
-                    <TableCell className={ classes.tableHead } align="center">
-                      Interest
-                    </TableCell>
-                    <TableCell className={ classes.tableHead } align="center">
-                      Other
-                    </TableCell>
-                    <TableCell className={ classes.tableHead } align="center">
-                      Total
-                    </TableCell>
-                    <TableCell className={ classes.tableHead } align="center">
-                      Balance
-                    </TableCell>
+                    <TableCell className={ classes.tableHead } align="left">Date</TableCell>
+                    <TableCell className={ classes.tableHead } align="left">Description</TableCell>
+                    <TableCell className={ classes.tableHead } align="right">Principal</TableCell>
+                    <TableCell className={ classes.tableHead } align="right">Interest</TableCell>
+                    <TableCell className={ classes.tableHead } align="right">Other</TableCell>
+                    <TableCell className={ classes.tableHead } align="right">Total</TableCell>
+                    <TableCell className={ classes.tableHead } align="right">Balance</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>

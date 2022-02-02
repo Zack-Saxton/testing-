@@ -4,7 +4,6 @@ import PasswordWithIcon from './index.js';
 
 afterEach(cleanup);
 
-
 test("renders icon", () => {
     const container = render(
         <PasswordWithIcon
@@ -30,7 +29,6 @@ test("renders input field", () => {
     const input = container.getByTestId('passProps');
     expect(input).toBeTruthy();
 });
-
 
 test('should match the snapshot', () => {
     const { asFragment } = render(<PasswordWithIcon

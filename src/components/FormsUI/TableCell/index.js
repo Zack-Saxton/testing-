@@ -5,10 +5,10 @@ Component Name      :    TableCellWrapper
 Functionality       :    To use this component to create the body of the table using table cell objects.
 
 #################################################################################################################*/
-import React from "react";
+import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
-import TableBody from "@material-ui/core/TableBody";
+import React from "react";
 
 //Initializing tablecellwrapper
 const TableCellWrapper = ({ parseData, className, align, ...otherProps }) => {

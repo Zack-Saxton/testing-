@@ -1,15 +1,15 @@
-import "../CheckMyOffer.css";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import { ButtonPrimary, TextField } from "../../../FormsUI";
 import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
 import React, { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import CitizenshipStatusLogo from "../../../../assets/icon/I-Own-Rent-Property.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
-import ScrollToTopOnMount from "../ScrollToTop";
+import { ButtonPrimary, TextField } from "../../../FormsUI";
+import "../CheckMyOffer.css";
 import "../LivingPlace/LivingPlace.css";
+import ScrollToTopOnMount from "../ScrollToTop";
 
 //Living place component initialization
 function LivingPlace() {

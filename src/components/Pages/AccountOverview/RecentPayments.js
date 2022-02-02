@@ -15,17 +15,13 @@ import { NavLink } from "react-router-dom";
 import { ButtonPrimary, TableCellWrapper } from "../../FormsUI";
 import { useStylesAccountOverview } from "./Style";
 import "./Style.css";
-
 export default function RecentPayments(userRecentPaymentData) {
 	//Material UI css class
 	const classes = useStylesAccountOverview();
 	window.zeHide();
 	//Recentpayments data
-
 	let userRecentPayment =
 		userRecentPaymentData != null ? userRecentPaymentData : null;
-
-
 	let parData = [];
 	if (userRecentPayment?.userRecentPaymentData?.length) {
 		userRecentPayment?.userRecentPaymentData.slice(0, 1).forEach(function (arrayItem) {
@@ -106,13 +102,11 @@ export default function RecentPayments(userRecentPaymentData) {
 							align: "right",
 							className: classes.tableHeadRow
 						},
-
 					}
 				);
 			});
 		});
 	}
-
 	return (
 		<Grid item xs={ 12 } className={ classes.recentPaymentMainGrid }>
 			<Paper id="recentPaymentsWrap" className={ classes.paperRP } >
@@ -137,43 +131,43 @@ export default function RecentPayments(userRecentPaymentData) {
 								<TableRow>
 									<TableCell
 										className={ classes.tablehead }
-										align="center"
+										align="left"
 									>
 										Date
 									</TableCell>
 									<TableCell
 										className={ classes.tablehead }
-										align="center"
+										align="left"
 									>
 										Description
 									</TableCell>
 									<TableCell
 										className={ classes.tablehead }
-										align="center"
+										align="right"
 									>
 										Principal
 									</TableCell>
 									<TableCell
 										className={ classes.tablehead }
-										align="center"
+										align="right"
 									>
 										Interest
 									</TableCell>
 									<TableCell
 										className={ classes.tablehead }
-										align="center"
+										align="right"
 									>
 										Other
 									</TableCell>
 									<TableCell
 										className={ classes.tablehead }
-										align="center"
+										align="right"
 									>
 										Total Amount
 									</TableCell>
 									<TableCell
 										className={ classes.tablehead }
-										align="center"
+										align="right"
 									>
 										Balance
 									</TableCell>

@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
-import { useHistory } from "react-router-dom";
 import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import LogoutController from "../Controllers/LogoutController";
 // check the login status
 const CheckLoginStatus = () => {
@@ -13,14 +13,15 @@ const CheckLoginStatus = () => {
   var min = expiryMinute;
 
   // check whether the userToken available
-  useEffect(() => { 
-    if (!userToken?.isLoggedIn || (nowTime - actualSetupTime) > min * 60 * 1000) { 
-      LogoutController(); 
-      history.push({ 
+  useEffect(() => {
+    if (!userToken?.isLoggedIn || (nowTime - actualSetupTime) > min * 60 * 1000) {
+      LogoutController();
+      history.push({
         pathname: "/login",
         state: { redirect: window.location.pathname }
-      }); 
-    }}, []);
+      });
+    }
+  }, []);
   return null;
 };
 

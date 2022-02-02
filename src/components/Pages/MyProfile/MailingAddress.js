@@ -16,11 +16,11 @@ import {
   ButtonSecondary, TextField,
   Zipcode
 } from "../../FormsUI";
+import ErrorLogger from '../../lib/ErrorLogger';
 import states from "../../lib/States.json";
 import statesFullform from "../../lib/StatesFullform.json";
 import { tabAtom } from "./MyProfileTab";
 import "./Style.css";
-import ErrorLogger from '../../lib/ErrorLogger';
 
 const validationSchema = yup.object({
   streetAddress: yup
@@ -41,7 +41,7 @@ const validationSchema = yup.object({
     .required("Your home state is required."),
   zip: yup
     .string("Enter your Zip")
-    .min(5, "Zipcode should be of minimum 5 characters length")
+    .min(5, "Zip Code should be a minimum of 5 characters")
     .required("Your home ZIP Code is required"),
 });
 
@@ -53,14 +53,13 @@ export default function MailingAddress(props) {
   const history = useHistory();
   const [ , setTabvalue ] = useAtom(tabAtom);
 
-
   const { refetch } = useQuery('loan-data', usrAccountDetails);
 
   let basicInfo = props?.basicInformationData?.latest_contact != null ? props.basicInformationData.latest_contact : null;
   let hasActiveLoan = Cookies.get("hasActiveLoan") === "true" ? true : false;
-  let hasApplicationStatus = Cookies.get("hasApplicationStatus")
-  var appStatus = ["rejected", "referred", "expired"];
-  let checkAppStatus = appStatus.includes(hasApplicationStatus)
+  let hasApplicationStatus = Cookies.get("hasApplicationStatus");
+  var appStatus = [ "rejected", "referred", "expired" ];
+  let checkAppStatus = appStatus.includes(hasApplicationStatus);
   let disableField = (checkAppStatus === true || hasActiveLoan === true) ? true : false;
 
   const onClickCancelChange = () => {
@@ -68,8 +67,6 @@ export default function MailingAddress(props) {
     history.push({ pathname: '/customers/myProfile' });
     setTabvalue(0);
   };
-
-
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -127,8 +124,7 @@ export default function MailingAddress(props) {
 
   const fetchAddress = async (event) => {
     try {
-      setErrorMsg(event.target.value === "" ? "Please enter a zipcode" : errorMsg);
-      if (event.target.value !== "" && event.target.value.length === 5) {
+        setErrorMsg(event.target.value === "" ? "Please enter a zipcode" : errorMsg);
         let result = await ZipCodeLookup(event.target.value);
         if (result) {
           fetchAddressValidate(result);
@@ -138,7 +134,6 @@ export default function MailingAddress(props) {
           setValidZip(false);
           setErrorMsg("Please enter a valid Zipcode");
         }
-      }
       if (event.target.name !== "") {
         formik.handleChange(event);
       }
@@ -146,7 +141,6 @@ export default function MailingAddress(props) {
       ErrorLogger("Error from fetchAddress", error);
     }
   };
-
 
   function fetchAddressValidate(result) {
     try {

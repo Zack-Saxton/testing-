@@ -1,13 +1,13 @@
-import React, { useContext, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import { ButtonPrimary, TextField } from "../../../FormsUI";
 import Paper from "@material-ui/core/Paper";
-import AnnualIncomeLogo from "../../../../assets/icon/I-Annual-Income.png";
+import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
+import React, { useContext, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import AnnualIncomeLogo from "../../../../assets/icon/I-Annual-Income.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
+import { ButtonPrimary, TextField } from "../../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./AnnualIncome.css";
 
