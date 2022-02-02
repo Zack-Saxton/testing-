@@ -124,8 +124,26 @@ docker rmi -f $(docker images -a -q)
 
 latestCommit=$(git rev-parse --short HEAD)
 #Dockerise the environment
-imageName="marinerfinance/ops:${app}-${env}-${latestCommit}"
-docker build -f Dockerfile -t ${imageName} .
+#imageName="marinerfinance/ops:${app}-${env}-${latestCommit}"
+#docker build -f Dockerfile -t ${imageName} .
+case $env in
+  "qa")
+    docker build -t $imageName  $(for i in `cat $CAC_ENV_QA`; do out+="--build-arg $i " ; done; echo $out;out="") .
+    ;;
+  "dev")
+    docker build -t $imageName  $(for i in `cat $CAC_ENV_DEV`; do out+="--build-arg $i " ; done; echo $out;out="") .
+    ;;
+  "staging")
+    docker build -t $imageName  $(for i in `cat $CAC_ENV_STAGING`; do out+="--build-arg $i " ; done; echo $out;out="") .
+    ;;
+  "prod")
+    docker build -t $imageName  $(for i in `cat $CAC_ENV_PROD`; do out+="--build-arg $i " ; done; echo $out;out="") .
+    ;;
+  *)
+    docker build -t $imageName  $(for i in `cat $CAC_ENV_QA`; do out+="--build-arg $i " ; done; echo $out;out="") .
+    ;;
+esac
+
 echo  "****** Created New Image ****"
 echo $imageName;
 
@@ -170,7 +188,12 @@ ssh  -i $_PEM_FILE_ $server << ENDHERE
 
     sudo apt-get update && sudo apt-get dist-upgrade -y
 
-  docker login --username=$DOCKERHUB_USER  --password=$DOCKERHUB_PSWD
+    docker login --username=$DOCKERHUB_USER  --password=$DOCKERHUB_PSWD
+
+    if [ $? != 0 ]; then
+        echo -e "\033[1;31m Failed \033[0m => (reason): docker failed  to login to dockerHub"
+        exit 1;
+    fi
 
   for ((count=1;count<=$instances;count++))
   do
