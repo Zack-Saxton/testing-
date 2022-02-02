@@ -167,7 +167,6 @@ export default function PaymentHistory() {
         { recentPaymentData === null ? (
           <Grid item xs={ 12 } style={ { paddingTop: "10px", paddingBottom: "30px" } }>
             <TableContainer id="pdfdiv" component={ Paper }>
-
               <Table className={ classes.table } aria-label="simple table">
                 <TableHead>
                   <TableRow>
