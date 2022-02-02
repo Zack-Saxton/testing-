@@ -646,6 +646,11 @@ if (cardLabel === undefined) {
   const handleAutoPayClose = () => {
     setAutoPayOpen(false);
   };
+  const numberFormat = (value) =>
+  new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'USD'
+  }).format(value);
 
   //US holidays
   function disableHolidays(date) {
@@ -1095,7 +1100,7 @@ if (cardLabel === undefined) {
         classes={ { paper: classes.dialogPaper } }
       >
         <DialogTitle id="autopayText">
-          <Typography id="autoTxt" className={ classes.dialogHeading }>
+          <Typography id="autoTxt" className={ classes.dialogHeading } justifyContent="space-around">
             { disabledContent === false
               ? "Are you sure you want to disable auto pay?"
               : 
@@ -1103,11 +1108,12 @@ if (cardLabel === undefined) {
              }
           </Typography>
           <Typography id="autoTxt" className={ classes.autoPayContent }>
-            { disabledContent === false ? "" : "Auto pay Amount: $" + paymentAmount}
+            { disabledContent === false ? "" : "Auto pay Amount: " + numberFormat(paymentAmount) }
             {  <br/> }
             { disabledContent === false ? "" : "Bank/Card: " + cardLabel }
             {  <br/> }
             { disabledContent === false ? "" : "First Auto Pay Date:  "+ Moment(paymentDate).format("MM/DD/YYYY") }
+            
           </Typography>
 
           <IconButton
@@ -1160,15 +1166,16 @@ if (cardLabel === undefined) {
       >
         <DialogTitle id="scheduleDialogHeading">
           <Typography id="scheduleTxt" className={ classes.dialogHeading }>
-            Your Payment of: ${ paymentAmount } will be applied to your account.
+            Your Payment of: {numberFormat(paymentAmount)} will be applied to your account.
             {  <br/> }
             Bank/Card:  {cardLabel}
             {  <br/> }
             Payment Date: {Moment(paymentDatepicker).format("MM/DD/YYYY")}
             {  <br/> }
-            Acct Numebr: {accntNo}
+            Account Number: {accntNo}
             {  <br/> }
             Are you sure?
+            
           </Typography>
           <IconButton
             aria-label="close"
