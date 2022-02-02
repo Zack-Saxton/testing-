@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { ButtonPrimary } from "../../../FormsUI";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
-import { getIframe } from "../../../Controllers/ApplyForLoanController";
-import { errorMessage } from "../../../../helpers/ErrorMessage";
-import APICall from "../../../lib/AxiosLib";
-import { toast } from "react-toastify";
 import Cookies from "js-cookie";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { getIframe } from "../../../Controllers/ApplyForLoanController";
+import { ButtonPrimary } from "../../../FormsUI";
+import APICall from "../../../lib/AxiosLib";
 import messages from "../../../lib/Lang/applyForLoan.json";
 
 //Styling
@@ -84,9 +83,7 @@ export default function DocumentPhoto(props) {
 					</span>
 					<span style={ { paddingLeft: "21px" } }>Please ensure:</span>
 					<li style={ { textAlign: "justify" } }>Document is currently valid</li>
-					<li style={ { textAlign: "justify" } }>
-						The entire document is visible and all information is legible
-					</li>
+					<li style={ { textAlign: "justify" } }>The entire document is visible and all information is legible</li>
 				</p>
 			</div>
 			<Grid item sm={ 12 }>

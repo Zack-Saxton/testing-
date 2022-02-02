@@ -4,8 +4,6 @@ import BRNumber from './index.js';
 
 afterEach(cleanup);
 
-
-
 test('Availability test', () => {
   const container = render(
     <BRNumber
@@ -22,7 +20,6 @@ test('Availability test', () => {
 
 });
 
-
 test('IRender Bank routing Number', () => {
   const container = render(
     <BRNumber
@@ -36,7 +33,6 @@ test('IRender Bank routing Number', () => {
   fireEvent.change(input, { target: { value: "123" } });
   expect(input.value).toBe('123');
 });
-
 
 test('Get only numeric value', () => {
   const container = render(

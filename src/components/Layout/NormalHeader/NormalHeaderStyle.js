@@ -1,6 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -22,9 +21,9 @@ const useStyles = makeStyles((theme) => ({
     ...theme.mixins.toolbar,
   },
 
-
   title: {
     flexGrow: 1,
+    lineHeight:"normal",
   },
   logoFormat: {
     height: 60,
@@ -73,6 +72,5 @@ const useStyles = makeStyles((theme) => ({
     },
   }
 }));
-
 
 export { useStyles };

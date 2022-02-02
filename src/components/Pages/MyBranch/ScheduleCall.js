@@ -163,7 +163,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
                 shouldDisableDate={ disableHolidays }
                 maxdate={ scheduleDateCall }
                 minyear={ 4 }
-                value={ formik.values.date}
+                value={ formik.values.date }
                 onChange={ (values) => {
                   formik.setFieldValue("date", values);
                 } }

@@ -4,7 +4,6 @@ import TextFieldWithIcon from './index.js';
 
 afterEach(cleanup);
 
-
 test("renders icon", () => {
     const container = render(
         <TextFieldWithIcon
@@ -33,7 +32,6 @@ test("renders input field", () => {
     const input = container.getByTestId('test');
     expect(input).toBeTruthy();
 });
-
 
 test('should match the snapshot', () => {
     const { asFragment } = render(<TextFieldWithIcon

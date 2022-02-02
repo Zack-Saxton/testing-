@@ -21,14 +21,12 @@ const PasswordWithIconWrapper = ({
   ...otherProps
 }) => {
 
-
   //Configuring the field properties
   const configTextfield = {
     name,
     id: id,
     ...otherProps,
   };
-
 
   //View part
   return (
@@ -44,7 +42,6 @@ const PasswordWithIconWrapper = ({
         ) : (
           ""
         ) }
-
 
         <Password startIcon { ...configTextfield } />
 

@@ -1,54 +1,62 @@
 import React from "react";
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
-import "./App.css";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import CheckMyOffers from '../../contexts/CheckMyOffers';
+import ProfilePicture from '../../contexts/ProfilePicture';
+import CustomComponents from "../CustomComponent";
+import ErrorAfterLogin from "../Layout/ErrorAfterLogin/ErrorAfterLogin";
+import ErrorBeforeLogin from '../Layout/ErrorBeforeLogin/ErrorBeforeLogin';
+import GeneralUser from '../Layout/General';
+import PostLogin from '../Layout/Post';
+import CommunityGuidelines from "../Layout/DisclosureLink/CommunityGuidelines";
+import PrivacyStatement from "../Layout/DisclosureLink/PrivacyStatement";
+import TermsOfUse from "../Layout/DisclosureLink/TermsOfUse";
+import LicenseDisclosure from "../Layout/DisclosureLink/LicenseDisclosure";
+import TextingTermsOfUse from "../Layout/DisclosureLink/TextingTermsOfUse";
+import CacTermsOfUse from "../Layout/DisclosureLink/CacTermsofUse";
+import WebsiteAccessibility from "../Layout/DisclosureLink/WebsiteAccessibility";
+import CaliforniaResident from "../Layout/DisclosureLink/CaliforniaResident";
 import AccountOverview from "../Pages/AccountOverview/AccountOverview";
-import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory";
-import ApplyLoan from "../Pages/ApplyLoan/SelectOffer/SelectOffer";
-import ReviewAndSign from "../Pages/ApplyLoan/ReviewAndSign/ReviewAndSign";
+import ConfirmationInfo from "../Pages/AffiliatePartner/ConfirmationInfo";
+import PartnerSignUP from "../Pages/AffiliatePartner/PartnerSignUp";
+import ApplyForLoanRedirect from "../Pages/ApplyLoan/ApplyForLoanRedirect";
 import FinalVerification from "../Pages/ApplyLoan/FinalVerification/FinalVerification";
 import ReceiveYourMoney from "../Pages/ApplyLoan/ReceiveYourMoney/ReceiveYourMoney";
+import ReviewAndSign from "../Pages/ApplyLoan/ReviewAndSign/ReviewAndSign";
+import ApplyLoan from "../Pages/ApplyLoan/SelectOffer/SelectOffer";
+import ValidateToken from '../Pages/ApplyLoan/Stepper/ValidateToken';
+import ActiveDuty from "../Pages/CheckMyOffers/ActiveDuty";
+import AnnualIncome from '../Pages/CheckMyOffers/AnnualIncome';
+import CitizenshipStatus from '../Pages/CheckMyOffers/CitizenshipStatus';
+import EligibleForOffers from "../Pages/CheckMyOffers/EligibleForOffer";
+import EmploymentStatus from '../Pages/CheckMyOffers/EmploymentStatus';
+import ExistingUser from "../Pages/CheckMyOffers/ExistingUser";
+import HomeAddress from "../Pages/CheckMyOffers/HomeAddress";
+import LivingPlace from "../Pages/CheckMyOffers/LivingPlace";
+import LoanPurpose from '../Pages/CheckMyOffers/LoanPurpose';
+import MarriedStatus from "../Pages/CheckMyOffers/MarriedStatus";
+import NewUser from '../Pages/CheckMyOffers/NewUser';
+import NoOffersAvailable from "../Pages/CheckMyOffers/NoOffersAvailable";
+import PersonalInfo from '../Pages/CheckMyOffers/PersonalInfo';
+import ReferredToBranch from "../Pages/CheckMyOffers/ReferredToBranch";
+import SelectAmount from '../Pages/CheckMyOffers/SelectAmount';
+import SSN from "../Pages/CheckMyOffers/SSN";
+import Zipcode from '../Pages/CheckMyOffers/Zipcode';
+import FaqBeforeLogin from "../Pages/Faq/FaqBeforeLogin";
+import FaqPostLogin from "../Pages/Faq/FaqPostLogin";
+import LoanDocument from "../Pages/LoanDocument/LoanDocument";
 import LoanHistory from "../Pages/LoanHistory/LoanHistory";
+import LoginPage from '../Pages/Login/Login';
 import MakePayment from "../Pages/MakePayment/MakePayment";
 import MoneySkill from "../Pages/MoneySkill/MoneySkill";
 import MyBranch from "../Pages/MyBranch/MyBranch";
 import MyProfile from "../Pages/MyProfile/MyProfile";
-import VantageScore from "../Pages/VantageScore/VantageScore";
-import LoanDocument from "../Pages/LoanDocument/LoanDocument";
-import CustomComponents from "../CustomComponent";
-import GeneralUser from '../Layout/General';
-import PostLogin from '../Layout/Post';
-import LoginPage from '../Pages/Login/Login';
+import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory";
 import RegisterPage from '../Pages/Register/Register';
-import SelectAmount from '../Pages/CheckMyOffers/SelectAmount';
-import LoanPurpose from '../Pages/CheckMyOffers/LoanPurpose';
-import CitizenshipStatus from '../Pages/CheckMyOffers/CitizenshipStatus';
-import Zipcode from '../Pages/CheckMyOffers/Zipcode';
-import PersonalInfo from '../Pages/CheckMyOffers/PersonalInfo';
-import NewUser from '../Pages/CheckMyOffers/NewUser';
-import ExistingUser from "../Pages/CheckMyOffers/ExistingUser";
-import CheckMyOffers from '../../contexts/CheckMyOffers';
-import EmploymentStatus from '../Pages/CheckMyOffers/EmploymentStatus';
-import AnnualIncome from '../Pages/CheckMyOffers/AnnualIncome';
-import HomeAddress from "../Pages/CheckMyOffers/HomeAddress";
-import LivingPlace from "../Pages/CheckMyOffers/LivingPlace";
-import ActiveDuty from "../Pages/CheckMyOffers/ActiveDuty";
-import MarriedStatus from "../Pages/CheckMyOffers/MarriedStatus";
-import SSN from "../Pages/CheckMyOffers/SSN";
-import NoOffersAvailable from "../Pages/CheckMyOffers/NoOffersAvailable";
-import ReferredToBranch from "../Pages/CheckMyOffers/ReferredToBranch";
-import EligibleForOffers from "../Pages/CheckMyOffers/EligibleForOffer";
-import PartnerSignUP from "../Pages/AffiliatePartner/PartnerSignUp";
-import ConfirmationInfo from "../Pages/AffiliatePartner/ConfirmationInfo";
-import FaqPostLogin from "../Pages/Faq/FaqPostLogin";
-import FaqBeforeLogin from "../Pages/Faq/FaqBeforeLogin";
-import 'react-toastify/dist/ReactToastify.css';
-import ValidateToken from '../Pages/ApplyLoan/Stepper/ValidateToken';
-import ErrorBeforeLogin from '../Layout/ErrorBeforeLogin/ErrorBeforeLogin';
-import ErrorAfterLogin from "../Layout/ErrorAfterLogin/ErrorAfterLogin";
-import ApplyForLoanRedirect from "../Pages/ApplyLoan/ApplyForLoanRedirect";
-import { ToastContainer } from "react-toastify";
-import ProfilePicture from '../../contexts/ProfilePicture';
-import { QueryClientProvider, QueryClient } from 'react-query';
+import VantageScore from "../Pages/VantageScore/VantageScore";
+import "./App.css";
 const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
@@ -58,6 +66,7 @@ const queryClient = new QueryClient({
         },
     },
 });
+import 'dotenv/config';
 
 function App() {
     return (
@@ -87,7 +96,15 @@ function App() {
                                         <Route path='/login' exact component={ LoginPage } />
                                         <Route path='/register' component={ RegisterPage } />
                                         <Route path='/faq' component={ FaqBeforeLogin } />
-                                        <Route path='/select-amount' exact component={ SelectAmount } />
+                                        <Route path='/select-amount' component={ SelectAmount } />
+                                        <Route path='/communityGuidelines' component={ CommunityGuidelines } />
+                                        <Route path='/privacyStatement' component={ PrivacyStatement } />
+                                        <Route path='/termsofuse' component={ TermsOfUse } />
+                                        <Route path='/licenseDisclosure' component={ LicenseDisclosure } />
+                                        <Route path='/textingTermsOfUse' component={ TextingTermsOfUse } />
+                                        <Route path='/cac-termsofuse' component={ CacTermsOfUse } />
+                                        <Route path='/californiaResident' component={ CaliforniaResident } />
+                                        <Route path='/websiteAccessibility' component={ WebsiteAccessibility } />
                                         <Route path='/loan-purpose' exact component={ LoanPurpose } />
                                         <Route path='/citizenship-status' exact component={ CitizenshipStatus } />
                                         <Route path='/new-user' exact component={ NewUser } />
@@ -108,6 +125,7 @@ function App() {
                                     </Switch>
                                 </GeneralUser>
                             </Route>
+                            <Route path='/select-amount/:amount' exact component={ SelectAmount } />
                             <div id="main" style={ { marginLeft: "240px" } }>
                                 <Route path='/customers/:path?' exact>
                                     <PostLogin>

@@ -30,8 +30,6 @@ import { useStylesMyProfile } from "./Style";
 import "./Style.css";
 import TextNotificationCard from "./TextNotification";
 
-
-
 function TabVerticalPanel(props) {
   const { children, value, verticalIndex, ...other } = props;
 
@@ -88,7 +86,6 @@ export default function MyProfile() {
     setValues(newValues);
   };
 
-
   let cookieTextNotify = Cookies.get("isTextNotify");
   if (!cookieTextNotify) {
     let textNotifyStatus = getTextNotify();
@@ -101,8 +98,8 @@ export default function MyProfile() {
   let textnotify = cookieTextNotify === "true" ? "On" : "Off";
   let hasActiveLoan = Cookies.get("hasActiveLoan") === "true" ? true : false;
   let hasApplicationStatus = Cookies.get("hasApplicationStatus");
-  var appStatus = ["rejected", "referred", "expired"];
-  let checkAppStatus = appStatus.includes(hasApplicationStatus)
+  var appStatus = [ "rejected", "referred", "expired" ];
+  let checkAppStatus = appStatus.includes(hasApplicationStatus);
   let disableField = (checkAppStatus === true || hasActiveLoan === true) ? true : false;
 
   return (

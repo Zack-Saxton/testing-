@@ -4,7 +4,6 @@ import ButtonWithIcon from './index.js';
 
 afterEach(cleanup);
 
-
 test("renders icon", () => {
     const container = render(
         <ButtonWithIcon

@@ -23,7 +23,7 @@ const useStylesAccountOverview = makeStyles((theme) => ({
     display: "flex",
     borderRadius: "2px",
     flexDirection: "column",
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.primary,
   },
   paperRP: {
     padding: theme.spacing(3),

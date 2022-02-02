@@ -93,7 +93,6 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
   const [ page, setPage ] = React.useState(0);
   const [ rowsPerPage, setRowsPerPage ] = React.useState(10);
 
-
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -102,8 +101,6 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-
-
 
   let userRecentPayment =
     userRecentPaymentData != null ? userRecentPaymentData : null;
@@ -115,23 +112,23 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
         <Table className={ classes.table } aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell className={ classes.tableHead } align="center">Date</TableCell>
-              <TableCell className={ classes.tableHead } align="center">
+              <TableCell className={ classes.tableHead } align="left">Date</TableCell>
+              <TableCell className={ classes.tableHead } align="left">
                 Description
               </TableCell>
-              <TableCell className={ classes.tableHead } align="center">
+              <TableCell className={ classes.tableHead } align="right">
                 Principal
               </TableCell>
-              <TableCell className={ classes.tableHead } align="center">
+              <TableCell className={ classes.tableHead } align="right">
                 Interest
               </TableCell>
-              <TableCell className={ classes.tableHead } align="center">
+              <TableCell className={ classes.tableHead } align="right">
                 Other
               </TableCell>
-              <TableCell className={ classes.tableHead } align="center">
+              <TableCell className={ classes.tableHead } align="right">
                 Total
               </TableCell>
-              <TableCell className={ classes.tableHead } align="center">
+              <TableCell className={ classes.tableHead } align="right">
                 Balance
               </TableCell>
             </TableRow>
