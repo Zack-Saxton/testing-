@@ -666,7 +666,7 @@ if (cardLabel === undefined) {
 
   //Handling payment amount
   const onHandlepaymentAmount = (event) => {
-    var price = event.target.value.replace("$", "");
+    let price = event.target.value.replace("$", "");
     const reg = /^\d{0,5}(\.\d{0,2})?$/;
     if (price === "" || reg.test(price)) {
       price =
@@ -681,9 +681,9 @@ if (cardLabel === undefined) {
 
   //payment onblur
   const onBlurPayment = (event) => {
-    var price = event.target.value.replace("$", "");
-    var s = price.split(".");
-    var afterDecimal = s[ 1 ];
+    let price = event.target.value.replace("$", "");
+    let s = price.split(".");
+    let afterDecimal = s[ 1 ];
     if (!afterDecimal) {
       price = event.target.value.replace(/.$/g, "");
       setpaymentAmount(price);
