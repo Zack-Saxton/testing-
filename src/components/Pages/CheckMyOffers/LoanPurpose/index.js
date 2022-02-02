@@ -97,7 +97,7 @@ function LoanPurpose(props) {
 						xs={ 12 }
 						justifyContent="center"
 						alignItems="center"
-						style={ { paddingTop: "70px", paddingBottom: "70px" } }
+						style={ { padding:"4% 0%" } }
 					>
 						<Grid
 							container
@@ -137,6 +137,7 @@ function LoanPurpose(props) {
 									How are you planning to use the money?
 								</Typography>
 								<Grid
+									id="loanPurposegrid"
 									className="blockDiv"
 									container
 									justifyContent="center"
@@ -426,7 +427,7 @@ function LoanPurpose(props) {
 														: "borrowCSS textCSS"
 												}
 											>
-												Life Event (wedding, graduation, etc)
+												Life Event <span>(wedding, graduation, etc)</span>
 											</Typography>
 										</Paper>
 									</Grid>
@@ -518,7 +519,7 @@ function LoanPurpose(props) {
 										md={ 12 }
 										xs={ 12 }
 										className={ `${ classes.masonryItemFirst }` }
-										style={ { paddingTop: "10px", paddingBottom: "25px" } }
+										style={ { paddingTop: "7px", paddingBottom: "15px" } }
 									>
 										<Paper
 											data-testid="others"
@@ -549,17 +550,15 @@ function LoanPurpose(props) {
 										md={ 9 }
 										sm={ 12 }
 										xs={ 12 }
-										style={ { paddingBottom: "80px" } }
+										style={ { margin:"15px 0px" } }
 									>
 										<ButtonPrimary
 											data-testid="contButton"
 											onClick={ handleRoute }
 											disabled={ purpose === "" }
-											stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black !important","width":"155px","fontSize":"15px"}'
+											stylebutton='{"background": "#FFBC23","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
 										>
-											{/* <Typography align="center" className="textCSS "> */ }
 											Continue
-											{/* </Typography> */ }
 										</ButtonPrimary>
 									</Grid>
 								</Grid>

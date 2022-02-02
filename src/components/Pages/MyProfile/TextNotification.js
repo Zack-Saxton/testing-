@@ -23,10 +23,10 @@ import {
   Checkbox,
   PhoneNumber
 } from "../../FormsUI";
+import ErrorLogger from "../../lib/ErrorLogger";
 import { tabAtom } from "./MyProfileTab";
 import { useStylesMyProfile } from "./Style";
 import "./Style.css";
-import ErrorLogger from "../../lib/ErrorLogger";
 
 export default function TextNotification() {
   const classes = useStylesMyProfile();
@@ -37,6 +37,7 @@ export default function TextNotification() {
   let phone = Cookies.get("opted_phone_texting");
   let textnotifybool = Cookies.get("isTextNotify") === "true" ? true : false;
   let [ disabledContent, setdisabledContent ] = useState(textnotifybool);
+  
   const onClickCancelChange = () => {
     formikTextNote.resetForm();
     history.push({ pathname: "/customers/myProfile" });
@@ -79,16 +80,11 @@ export default function TextNotification() {
         if (result.data?.sbt_subscribe_details?.HasNoErrors === true || result.data?.sbt_getInfo?.HasNoErrors === true) {
           toast.success("Updated successfully");
           Cookies.set("isTextNotify", disabledContent);
-          window.setTimeout(function () {
-            window.location.reload();
-          }, 4000);
+           onClickCancelChange()
         } else {
           toast.error("No changes made");
         }
-        window.setTimeout(function () {
-          setLoading(false);
-          setdisabledContent(true);
-        }, 3050);
+          onClickCancelChange()
       } catch (error) {
         ErrorLogger("Error occured while changing text notification.", error);
       }

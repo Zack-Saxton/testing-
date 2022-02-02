@@ -1,13 +1,13 @@
-import React, { useContext } from "react";
-import { useHistory } from "react-router-dom";
-import "../CheckMyOffer.css";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import { ButtonPrimary } from "../../../FormsUI";
+import React, { useContext } from "react";
+import { useHistory } from "react-router-dom";
 import ReferToBranchLogo from "../../../../assets/gallery/Referred-to-Branch.png";
-import ScrollToTopOnMount from "../ScrollToTop";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
+import { ButtonPrimary } from "../../../FormsUI";
+import "../CheckMyOffer.css";
+import ScrollToTopOnMount from "../ScrollToTop";
 
 //reffered to branch functional component initialization
 function ReferredToBranch(props) {

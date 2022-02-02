@@ -29,11 +29,11 @@ import {
   Zipcode
 } from "../../FormsUI";
 import { encryptAES } from "../../lib/Crypto";
+import ErrorLogger from "../../lib/ErrorLogger";
 import { FormValidationRules } from "../../lib/FormValidationRule";
 import globalValidation from "../../lib/Lang/globalValidation.json";
 import reqProperties from "../../lib/Lang/register.json";
 import "./Register.css";
-import ErrorLogger from "../../lib/ErrorLogger";
 let formValidation = new FormValidationRules();
 
 //Styling part
@@ -97,8 +97,6 @@ const useStyles = makeStyles((theme) => ({
 
 //Yup validations for all the input fields
 const validationSchema = formValidation.getFormValidationRule('');
-
-
 
 //Begin: Login page
 export default function Register() {
@@ -239,7 +237,7 @@ export default function Register() {
       } catch (error) {
         setFailed(reqProperties.Please_Contact_Us_At);
         setLoading(false);
-        ErrorLogger('Error from register_new_user API', error)
+        ErrorLogger('Error from register_new_user API', error);
       }
     },
   });
@@ -297,8 +295,8 @@ export default function Register() {
           setValidZip(true);
           setState(result?.data.stateCode);
           setCity(result?.data.cityName);
-        } 
-      } 
+        }
+      }
     } catch (error) {
       ErrorLogger(" Error from fetchAddress", error);
     }

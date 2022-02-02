@@ -8,7 +8,8 @@ export default async function ErrorLogger(message, error) {
     let param = "";
     let data = {
       "message": message,
-      "error": error
+      "error": error,
+      "headersHost": "cac-app1-qa"
     };
     let method = "POST";
     let addAccessToken = false;

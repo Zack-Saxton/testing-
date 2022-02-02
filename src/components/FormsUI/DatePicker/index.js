@@ -6,12 +6,12 @@ Functionality       :    To use this component to get the date with restrictions
 												 restrict future, past dates, select between given range of dates like that.
 
 #################################################################################################################*/
-import "date-fns";
-import React from "react";
-import Grid from "@material-ui/core/Grid";
 import DateFnsUtils from "@date-io/date-fns";
-import PropTypes from "prop-types";
+import Grid from "@material-ui/core/Grid";
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import "date-fns";
+import PropTypes from "prop-types";
+import React from "react";
 import "./DatePicker.css";
 
 const DatePickerWrapper = ({ name, format, defaultDate, label, placeholder, maxdate, minyear, ...otherProps }) => {
@@ -27,7 +27,6 @@ const DatePickerWrapper = ({ name, format, defaultDate, label, placeholder, maxd
 	const month = d.getMonth();
 	const day = d.getDate();
 	const minDate = new Date(year - minyear, month, day);
-
 
 	return (
 		<MuiPickersUtilsProvider utils={ DateFnsUtils }>
@@ -48,7 +47,6 @@ const DatePickerWrapper = ({ name, format, defaultDate, label, placeholder, maxd
 					KeyboardButtonProps={ {
 						"aria-label": "change date",
 					} }
-
 
 					{ ...otherProps }
 					inputProps={ { "data-test-id": "datePicker" } }

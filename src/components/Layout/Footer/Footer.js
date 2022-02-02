@@ -1,11 +1,10 @@
+import Typography from "@material-ui/core/Typography";
 import React from "react";
+import { NavLink } from "react-router-dom";
 import badge from "../../../assets/images/badge.png";
 import Logo from "../../../assets/images/MarinerLogo.png";
 import ConsumerDialog from "../ConsumerFooterDialog/ConsumerDialog";
 import "./Footer.css";
-import Typography from "@material-ui/core/Typography";
-import { NavLink } from "react-router-dom";
-
 
 export default function Footer() {
   const [ consumer, setConsumer ] = React.useState(false);
@@ -20,48 +19,62 @@ export default function Footer() {
         <section className="section-top" >
           <div className="col">
             <div className="main-footer-content">
-              <a target="_blank" rel="noreferrer" href="https://www.marinerfinance.com/resources/legal/community-guidelines/" className="hrefTag">
-                Community Guidelines
-              </a>
-            </div>
-            <div className="main-footer-content">
-              <a target="_blank" rel="noreferrer" href="https://www.marinerfinance.com/resources/legal/privacy-statement/" className="hrefTag">
-                Privacy Statement
-              </a>
-            </div>
-            <div className="main-footer-content">
-              <a target="_blank" rel="noreferrer" href="https://www.marinerfinance.com/resources/legal/terms-of-use/" className="hrefTag">
-                Terms of Use
-              </a>
-            </div>
-            <div className="main-footer-content">
-              <a target="_blank" rel="noreferrer" href="https://www.marinerfinance.com/resources/legal/licensing-disclosures/" className="hrefTag">
-                Licensing & Disclosures
-              </a>
-            </div>
-            <div className="main-footer-content">
-              <a target="_blank" rel="noreferrer" href="https://www.marinerfinance.com/resources/legal/texting-terms-of-use/" className="hrefTag">
-                Texting Terms of Use
-              </a>
-            </div>
-            <div className="main-footer-content">
-              <a target="_blank" rel="noreferrer" href="https://www.marinerfinance.com/resources/legal/website-accessibility-statement/" className="hrefTag">
-                Website Accessibility Statement
-              </a>
-            </div>
-
-            <div className="main-footer-content">
-            <NavLink to="/termsofuse" target="_blank" className="hrefTag">
-              <Typography>
-                CAC Terms of Use
-              </Typography>
+            <NavLink to="/communityGuidelines" target="_blank" className="hrefTag">
+                <Typography>
+                  Community Guidelines
+                </Typography>
               </NavLink>
             </div>
             <div className="main-footer-content">
-              <a target="_blank" rel="noreferrer" href="https://www.marinerfinance.com/resources/legal/privacy-statement/#online-lending" className="hrefTag">
+            <NavLink to="/privacyStatement" target="_blank" className="hrefTag">
+                <Typography>
+                  Privacy Statement
+                </Typography>
+              </NavLink>
+            </div>
+            <div className="main-footer-content">
+            <NavLink to="/termsofuse" target="_blank" className="hrefTag">
+                <Typography>
+                  Terms of Use
+                </Typography>
+              </NavLink>
+            </div>
+            <div className="main-footer-content">
+            <NavLink to="/licenseDisclosure" target="_blank" className="hrefTag">
+                <Typography>
+                Licensing & Disclosures
+                </Typography>
+              </NavLink> 
+            </div>
+            <div className="main-footer-content">
+            <NavLink to="/textingTermsOfUse" target="_blank" className="hrefTag">
+                <Typography>
+                Texting Terms of Use
+                </Typography>
+              </NavLink> 
+            </div>
+            <div className="main-footer-content">
+            <NavLink to="/websiteAccessibility" target="_blank" className="hrefTag">
+                <Typography>
+                Website Accessibility Statement
+                </Typography>
+              </NavLink>
+            </div>
+
+            <div className="main-footer-content">
+            <NavLink to="/cac-termsofuse" target="_blank" className="hrefTag">
+                <Typography>
+                  CAC Terms of Use
+                </Typography>
+              </NavLink>
+            </div>
+            <div className="main-footer-content">
+            <NavLink to="/californiaResident" target="_blank" className="hrefTag">
+                <Typography>
                 For California Residents Do Not Sell My
                 personal Information
-              </a>
+                </Typography>
+              </NavLink>
             </div>
           </div>
 

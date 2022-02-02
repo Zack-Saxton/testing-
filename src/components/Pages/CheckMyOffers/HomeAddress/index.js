@@ -18,7 +18,7 @@ import "../CheckMyOffer.css";
 import "../HomeAddress/HomeAdress.css";
 import ZipCodeLookup from "../../../Controllers/ZipCodeLookup";
 import { toast } from "react-toastify";
-import ErrorLogger from "../../../lib/ErrorLogger"
+import ErrorLogger from "../../../lib/ErrorLogger";
 //yup validation schema
 const validationSchema = yup.object({
 	streetAddress: yup
@@ -145,7 +145,7 @@ function HomeAddress() {
 						item xs={ 12 } sm={ 10 } md={ 6 } lg={ 6 }
 						justifyContent="center"
 						alignItems="center"
-						style={ { paddingTop: "70px", paddingBottom: "70px", margin:"auto" } }
+						style={ { paddingTop: "70px", paddingBottom: "70px", margin: "auto" } }
 					>
 						<Grid
 							// container

@@ -30,9 +30,6 @@
     margin-bottom: 2%;
 }
 
-
-
-
 @media (max-width:400px){
     #email-label, #password-label, #c-pass-label, #firstname-label, #lastname-label, #zip-label{
         font-size: 4vw;
@@ -76,7 +73,6 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error{
   color: white;
 }
 
-
 .add-pad{
     margin-left: -1px !important;
     padding-top: 20px !important;
@@ -92,8 +88,6 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error{
 .hideCheckbox{
     display: none;
 }
-
-
 
 .agreeCheckbox{
     text-align: justify;
