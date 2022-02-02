@@ -82,7 +82,7 @@ export default function LimitedOffer(userOfferData) {
                       <ButtonPrimary id="claimButton" stylebutton='{"float": "right","padding":"0px 10px", "textTransform": "none","fontSize":"0.988rem","fontFamily":"Muli,sans-serif"}'>
                         Check My Offer
                       </ButtonPrimary>
-
+                    </NavLink>
                   </div>
                 ) : (
                   <div id="offerText">
