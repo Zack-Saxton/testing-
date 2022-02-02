@@ -284,14 +284,13 @@ export default function SideNav() {
   useEffect(() => {
     getUserBranchDetails();
   }, []);
-
+  
   //Api call Profile Picture
   const [ profileImage, setProfileImage ] = useState(null);
   async function AsyncEffect_profileImage() {
     setProfileImage(await ProfileImageController());
   }
   useEffect(() => {
-
     AsyncEffect_profileImage();
   }, []);
 
