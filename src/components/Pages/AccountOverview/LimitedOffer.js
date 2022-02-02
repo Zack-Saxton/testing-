@@ -28,16 +28,12 @@ export default function LimitedOffer(userOfferData) {
 
   useEffect(()=>{
             setAccountDetails().then((res)=>{
-              setOfferCode(res.data.offerData.OfferCode)
-              setExpiryDate(res.data.offerData.dateExpiration)
-              setAmount(res.data.offerData.offerAmount)
-              setfirstName(res.data.offerData.firstName);
+              setOfferCode(res?.data?.offerData?.OfferCode)
+              setExpiryDate(res?.data?.offerData?.dateExpiration)
+              setAmount(res?.data?.offerData?.offerAmount)
+              setfirstName(res?.data?.offerData?.firstName);
             })
   },[])
-
-  const showModal = () =>{
-    setinitModal(true);
-  }
 
   const closeModal = () =>{
     setinitModal(false);
