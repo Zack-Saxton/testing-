@@ -1,6 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -21,7 +20,6 @@ const useStyles = makeStyles((theme) => ({
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
   },
-
 
   title: {
     flexGrow: 1,
@@ -74,6 +72,5 @@ const useStyles = makeStyles((theme) => ({
     },
   }
 }));
-
 
 export { useStyles };

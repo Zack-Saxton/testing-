@@ -43,7 +43,6 @@ import "./MakePayment.css";
 import PaymentOverview from "./PaymentOverview";
 import { useStylesMakePayment } from "./Style";
 
-
 const paymentMaxDate = new Date();
 paymentMaxDate.setDate(paymentMaxDate.getDate() + 30);
 
@@ -86,8 +85,6 @@ export default function MakePayment(props) {
   const { data: payments } = useQuery('payment-method', usrPaymentMethods, {
     refetchOnMount: false
   });
-
-
 
   //API Request for Payment methods
   async function getPaymentMethods() {
@@ -463,7 +460,6 @@ export default function MakePayment(props) {
     SetHolidayCalenderApi(await HolidayCalender());
   }
 
-
   useEffect(() => {
     getData();
     AsyncEffect_HolidayCalender();
@@ -554,6 +550,17 @@ export default function MakePayment(props) {
     setpaymentDatepicker(event.target.checked ? scheduleDate : new Date());
   };
 
+let obj = {};
+let cardLabel = ""; 
+if (card) {
+  obj = paymentListCard.find(o => o.value === card);
+  cardLabel = obj?.label;
+}
+if (cardLabel === undefined) {
+  obj = paymentListAch.find(o => o.value === card);
+  cardLabel = obj?.label;
+}
+
   //Autopay submit
   const handleClickSubmit = () => {
     disabledContent === true
@@ -639,7 +646,6 @@ export default function MakePayment(props) {
   const handleAutoPayClose = () => {
     setAutoPayOpen(false);
   };
-
 
   //US holidays
   function disableHolidays(date) {
@@ -1091,9 +1097,19 @@ export default function MakePayment(props) {
         <DialogTitle id="autopayText">
           <Typography id="autoTxt" className={ classes.dialogHeading }>
             { disabledContent === false
-              ? "Are you sure you want to disable auto pay ?"
-              : "Are you sure you want to enable auto pay ?" }
+              ? "Are you sure you want to disable auto pay?"
+              : 
+              "Auto Pay Confirmation" 
+             }
           </Typography>
+          <Typography id="autoTxt" className={ classes.autoPayContent }>
+            { disabledContent === false ? "" : "Auto pay Amount: $" + paymentAmount}
+            {  <br/> }
+            { disabledContent === false ? "" : "Bank/Card: " + cardLabel }
+            {  <br/> }
+            { disabledContent === false ? "" : "First Auto Pay Date:  "+ Moment(paymentDate).format("MM/DD/YYYY") }
+          </Typography>
+
           <IconButton
             id="autopayCloseBtn"
             aria-label="close"
@@ -1107,18 +1123,13 @@ export default function MakePayment(props) {
         <DialogActions
           style={ { justifyContent: "center", marginBottom: "25px" } }
         >
-          <ButtonSecondary
-            stylebutton='{"background": "", "color":"" }'
-            onClick={ handleCloseAutoPayPopup }
-          >
-            No
-          </ButtonSecondary>
           <ButtonPrimary
-            stylebutton='{"background": "", "color":"" }'
+            stylebutton='{"background": "green", "color":"" }'
             onClick={ handleAutoPayConfirm }
             disabled={ loading }
           >
-            Yes
+            { disabledContent === false ? "Disable Auto Pay" : "Complete Auto Pay Setup"}
+
             <i
               className="fa fa-refresh fa-spin customSpinner"
               style={ {
@@ -1128,6 +1139,13 @@ export default function MakePayment(props) {
               } }
             />
           </ButtonPrimary>
+          <ButtonSecondary
+            stylebutton='{"background": "red", "color":"" }'
+            onClick={ handleCloseAutoPayPopup }
+            disabled={ loading }
+          >
+            Cancel
+          </ButtonSecondary>
         </DialogActions>
       </Dialog>
 
@@ -1143,6 +1161,13 @@ export default function MakePayment(props) {
         <DialogTitle id="scheduleDialogHeading">
           <Typography id="scheduleTxt" className={ classes.dialogHeading }>
             Your Payment of: ${ paymentAmount } will be applied to your account.
+            {  <br/> }
+            Bank/Card:  {cardLabel}
+            {  <br/> }
+            Payment Date: {Moment(paymentDatepicker).format("MM/DD/YYYY")}
+            {  <br/> }
+            Acct Numebr: {accntNo}
+            {  <br/> }
             Are you sure?
           </Typography>
           <IconButton

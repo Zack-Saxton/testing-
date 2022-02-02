@@ -19,7 +19,6 @@ const TextFieldWithIconWrapper = ({
   ...otherProps
 }) => {
 
-
   //Configuring the field properties
   const configTextField = {
     ...otherProps,

@@ -12,7 +12,6 @@ import PropTypes from "prop-types";
 import React, { useState } from "react";
 import Content from '../../../assets/Content/content';
 
-
 //Main text field wrapper
 const TextFieldWrapper = ({
   name,

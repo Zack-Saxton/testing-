@@ -16,7 +16,6 @@ test('button Availability', () => {
   expect(input).toBeTruthy();
 });
 
-
 test('Checking Onclick', () => {
   const handleClick = jest.fn();
   const container = render(<Button

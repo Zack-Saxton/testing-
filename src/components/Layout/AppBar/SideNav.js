@@ -48,10 +48,10 @@ import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import LogoutController from "../../Controllers/LogoutController";
 import branchDetails from "../../Controllers/MyBranchController";
 import ProfileImageController from "../../Controllers/ProfileImageController";
+import globalValidation from "../../lib/Lang/globalValidation.json";
 import MoneySkill from "../../Pages/MoneySkill/MoneySkill";
 import { tabAtom } from "../../Pages/MyProfile/MyProfileTab";
 import Notification from "../Notification/Notification";
-import globalValidation from "../../lib/Lang/globalValidation.json";
 import "./SideNav.css";
 
 const drawerWidth = 240;
@@ -206,7 +206,7 @@ export default function SideNav() {
 
     setCheckPresenceOfLoanStatus(presenceOfLoanStatus?.status);
     setCurrentLoan(presenceOfLoan === true || userAccountStatus === "closed" ? true : false);
-    setCheckPresenceOfLoan(presenceOfLoan); 
+    setCheckPresenceOfLoan(presenceOfLoan);
 
     //logic to if there is any active Loan Data is there or not
     if (noOfLoans === undefined) {
@@ -222,8 +222,6 @@ export default function SideNav() {
 
     };
   }, [ dataAccountOverview, activeLoanData, currentLoan ]);
-
-
 
   let statusStrLink = {
     "approved": "/customers/finalVerification",
@@ -244,8 +242,6 @@ export default function SideNav() {
     "closing_process": "/customers/finalVerification",
     "final_review": "/customers/loanDocument"
   };
-
-
 
   //Material UI media query for responsiveness
   let check = useMediaQuery("(min-width:960px)");
@@ -295,7 +291,6 @@ export default function SideNav() {
     AsyncEffect_profileImage();
   }, []);
 
-
   let getProfImage = (profileImage != null) ? profileImage : profileImg;
 
   // Side bar branch details
@@ -304,18 +299,15 @@ export default function SideNav() {
   Cookies.set('branchopenstatus', branchVal?.data?.date_closed);
   Cookies.set('getProfileImage', getProfImage);
 
-
   let hasActiveLoan = Cookies.get("hasActiveLoan") === "true" ? true : false;
-  let hasApplicationStatus = Cookies.get("hasApplicationStatus")
-  var appStatus = ["rejected", "referred", "expired"];
-  let checkAppStatus = appStatus.includes(hasApplicationStatus)
+  let hasApplicationStatus = Cookies.get("hasApplicationStatus");
+  var appStatus = [ "rejected", "referred", "expired" ];
+  let checkAppStatus = appStatus.includes(hasApplicationStatus);
   let disableField = (checkAppStatus === true || hasActiveLoan === true) ? true : false;
   const branchName = Cookies.get("branchname");
   const branchPhone = Cookies.get('branchphone');
   const branchcloseStatus = Cookies.get('branchopenstatus');
   const getProfileImage = Cookies.get('getProfileImage');
-
-
 
   const lastLoginRaw = JSON.parse(Cookies.get("user") ? Cookies.get("user") : '{ }')?.user?.extensionattributes?.login?.timestamp_date;
   const date = lastLoginRaw ? new Date(lastLoginRaw) : new Date();
@@ -567,7 +559,6 @@ export default function SideNav() {
               </a>
             </Typography>
 
-
             <NavLink to="/customers/makePayment" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : '' }>
               <Tooltip title="Quick Pay" placement="bottom">
                 <img
@@ -654,15 +645,15 @@ export default function SideNav() {
                   <ListItem id="sidemenuName">
                     { (dataAccountOverview?.data?.applicant?.contact?.first_name) ? 'Welcome ' + dataAccountOverview?.data?.applicant?.contact?.first_name : "" }
                   </ListItem>
-                  { (branchName === '' || branchName === 'undefined') || (branchPhone === '' || branchPhone === 'undefined') 
+                  { (branchName === '' || branchName === 'undefined') || (branchPhone === '' || branchPhone === 'undefined')
                     ?
                     <>
-                      
+
                       <ListItem id="sidemenuLastLogin">
                         { lastLogin === '' || undefined ? '' : 'Last Login : ' + lastLogin }
-                      </ListItem> 
-                      
-                    </> 
+                      </ListItem>
+
+                    </>
                     :
 
                     <>
@@ -670,7 +661,7 @@ export default function SideNav() {
                         { lastLogin === '' || undefined ? '' : 'Last Login : ' + lastLogin }
                       </ListItem>
                       <ListItem id="sidemenuBranch">
-                      { branchName === '' || undefined ? '' : 'Branch : ' + branchName }
+                        { branchName === '' || undefined ? '' : 'Branch : ' + branchName }
                       </ListItem>
                       <ListItem id={ branchcloseStatus === 'null' ? 'sidemenuOpenNow' : 'sidemenuCloseNow' }>
                         { branchcloseStatus === 'null' ? 'Open now' : 'Closed now' }
@@ -709,9 +700,8 @@ export default function SideNav() {
                 </ListItem>
               </NavLink>
 
-
               { checkPresenceOfLoan === true ?
-                <NavLink to={ { state: { from: "user" } } } onClick={ (event) => { resumeApplicationClick() } } className="nav_link" >
+                <NavLink to={ { state: { from: "user" } } } onClick={ (event) => { resumeApplicationClick(); } } className="nav_link" >
                   <ListItem className="titleSidenav" >
                     <ListItemIcon>
                       { " " }

@@ -16,7 +16,6 @@ import { getNoticationData, setUnread } from "../../Controllers/NotificationCont
 import { ButtonPrimary, ButtonSecondary } from "../../FormsUI";
 import "../AppBar/SideNav.css";
 
-
 //Material UI css class
 const useStyles = makeStyles(() => ({
   customBadge: {
@@ -96,7 +95,6 @@ export default function Notification() {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
 
   //View
   return (

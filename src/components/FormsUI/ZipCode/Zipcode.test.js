@@ -4,8 +4,6 @@ import Zipcode from './index.js';
 
 afterEach(cleanup);
 
-
-
 test('Availability test', () => {
   const container = render(
     <Zipcode
@@ -22,7 +20,6 @@ test('Availability test', () => {
 
 });
 
-
 test('Input test', () => {
   const container = render(
     <Zipcode
@@ -36,7 +33,6 @@ test('Input test', () => {
   fireEvent.change(input, { target: { value: "123" } });
   expect(input.value).toBe('123');
 });
-
 
 test('Get only numeric value', () => {
   const container = render(

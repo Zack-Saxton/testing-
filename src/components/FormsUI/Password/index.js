@@ -9,7 +9,6 @@ import { IconButton, InputAdornment, TextField } from "@material-ui/core";
 import React, { useState } from "react";
 import "./Password.css";
 
-
 //Initializing component
 const PasswordWrapper = ({ name, label, materialProps, id, ...otherProps }) => {
   const [ showPassword, setShowPassword ] = useState({
