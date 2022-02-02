@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 //Styling
-const useStylesTermsOfUse = makeStyles((theme) => ({
+const useStylesDisclosure = makeStyles((theme) => ({
   heading: {
     color: "#fff",
     fontWeight: "400",
@@ -16,4 +16,4 @@ const useStylesTermsOfUse = makeStyles((theme) => ({
   },
 }));
 
-export { useStylesTermsOfUse };
+export { useStylesDisclosure };
