@@ -6,12 +6,6 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import React, { useState } from "react";
@@ -21,11 +15,12 @@ import creditkarmalogo from "../../../assets/images/ck_logo.png";
 import Logo from "../../../assets/images/loginbg.png";
 import { partnerConfirmInfo } from "../../Controllers/PartnerSignupController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
-import { ButtonPrimary, Checkbox, Select, TextField, Zipcode } from "../../FormsUI";
+import { ButtonPrimary, Checkbox, Select, TextField, Zipcode,RenderContent,Popup } from "../../FormsUI";
 import ErrorLogger from "../../lib/ErrorLogger";
 import states from "../../lib/States.json";
 import statesFullform from "../../lib/StatesFullform.json";
 import "./Style.css";
+
 //Styling
 const useStyles = makeStyles((theme) => ({
   mainContentBackground: {
@@ -206,6 +201,35 @@ export default function CreditKarma(props) {
   const [ errorAnnual, setErrorAnnual ] = useState("");
   const [ errorPersonal, setErrorPersonal ] = useState("");
   const history = useHistory();
+  const [ esignPopup, setEsignPopup ] = useState(false);
+	const [ creditPopup, setCreditPopup ] = useState(false);
+	const [ webTOUPopup, setwebTOUPopup ] = useState(false);
+	const [ privacyPopup, setPrivacyPopup ] = useState(false);
+
+  const handleOnClickEsign = () => {
+		setEsignPopup(true)
+	}
+	const handleOnClickEsignClose = () => {
+		setEsignPopup(false)
+	}
+	const handleOnClickCredit = () => {
+		setCreditPopup(true)
+	}
+	const handleOnClickCreditClose = () => {
+		setCreditPopup(false)
+	}
+	const handleOnClickwebTOU = () => {
+		setwebTOUPopup(true)
+	}
+	const handleOnClickwebTOUClose = () => {
+		setwebTOUPopup(false)
+	}
+	const handleOnClickPrivacy = () => {
+		setPrivacyPopup(true)
+	}
+	const handleOnClickPrivacyClose = () => {
+		setPrivacyPopup(false)
+  }
 
   window.zeHide();
   const validate = (personal, household) => {
@@ -1081,50 +1105,13 @@ export default function CreditKarma(props) {
                         label={
                           <p className="agreeCheckbox">
                             By clicking this box you acknowledge that you have
-                            received, reviewed and agree to the
-                            <a
-                              className="formatHref"
-                              href={
-                                "https://loans.marinerfinance.com/application/form"
-                              }
-                              target="_blank"
-                              rel="noreferrer noopener"
-                            >
-                              { " " }
-                              E-Signature Disclosure and Consent,{ " " }
-                            </a>
-                            <a
-                              className="formatHref"
-                              href={
-                                "https://loans.marinerfinance.com/application/form"
-                              }
-                              target="_blank"
-                              rel="noreferrer noopener"
-                            >
-                              Credit and Contact Authorization,{ " " }
-                            </a>
-                            <a
-                              className="formatHref"
-                              href={
-                                "https://loans.marinerfinance.com/application/form"
-                              }
-                              target="_blank"
-                              rel="noreferrer noopener"
-                            >
-                              Website Terms of Use,{ " " }
-                            </a>
-                            <a
-                              className="formatHref"
-                              href={
-                                "https://loans.marinerfinance.com/application/form"
-                              }
-                              target="_blank"
-                              rel="noreferrer noopener"
-                            >
-                              Website Privacy Statement.
-                            </a>
-                          </p>
-                        }
+                            received, reviewed and agree to the {""}                          
+                        <span className="formatHref" onClick={() => { handleOnClickEsign() }}>E-Signature Disclosure and Consent,</span>
+                        {""} <span className="formatHref" onClick={() => { handleOnClickCredit() }}>Credit and Contact Authorization,</span>
+                        {""} <span className="formatHref" onClick={() => { handleOnClickwebTOU() }}>Website Terms of Use,</span>
+                        {""} <span className="formatHref" onClick={() => { handleOnClickPrivacy() }}>Website Privacy Statement.</span>
+                      </p>
+                    } 
                         required={ true }
                         stylelabelform='{ "color":"" }'
                         stylecheckbox='{ "color":"blue"}'
@@ -1318,100 +1305,23 @@ export default function CreditKarma(props) {
         </DialogActions>
       </Dialog>
 
-      <Dialog
-        onClose={ handleDelawareClose }
-        aria-labelledby="customized-dialog-title"
-        open={ openDelaware }
-      >
-        <DialogTitle id="customized-dialog-title" onClose={ handleDelawareClose }>
-          Delware Itemized Shedule of Charges
-        </DialogTitle>
-        <DialogContent dividers>
-          <Typography align="center" className="textCSS modalText">
-            { " " }
-            Itemized Schedule of Charges (DE){ " " }
-          </Typography>
-          <Typography align="center" className="textCSS modalText">
-            { " " }
-            Closed End Loans{ " " }
-          </Typography>
-          <TableContainer component={ Paper }>
-            <Table aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell align="center" className="tableHeader">
-                    Description
-                  </TableCell>
-                  <TableCell align="center" className="tableHeader">
-                    Fee
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                <TableRow>
-                  <TableCell align="center"> Periodic Interest </TableCell>
-                  <TableCell align="center">0.00% - 36.00%</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell align="center">
-                    { " " }
-                    Recording/Satisfaction Fee{ " " }
-                  </TableCell>
-                  <TableCell align="center">$23 - 151</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell align="center"> Legal Fee </TableCell>
-                  <TableCell align="center">Actual cost Incurred</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell align="center"> Repossession Fee </TableCell>
-                  <TableCell align="center">Actual cost Incurred</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell align="center"> Late Fee </TableCell>
-                  <TableCell align="center">5% of Unpaid Installment</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell align="center"> Bad Check Fee </TableCell>
-                  <TableCell align="center">$15</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell align="center"> Check by Phone Fee </TableCell>
-                  <TableCell align="center">$6</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell align="center"> Internet Payment Fee </TableCell>
-                  <TableCell align="center">$2</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell align="center">
-                    { " " }
-                    Loan by Mail Commitment Fee{ " " }
-                  </TableCell>
-                  <TableCell align="center">$10</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell align="center"> Refinancing Fee </TableCell>
-                  <TableCell align="center">$150</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell align="center"> Non-Filing Insurance </TableCell>
-                  <TableCell align="center">$25</TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </DialogContent>
-        <DialogActions className="modalAction">
-          <ButtonPrimary
-            stylebutton='{"background": "#FFBC23", "color": "black", "border-radius": "50px"}'
-            onClick={ handleDelawareClose }
-            className="modalButton"
-          >
-            <Typography align="center">Ok</Typography>
-          </ButtonPrimary>
-        </DialogActions>
-      </Dialog>
+
+      <Popup popupFlag = {esignPopup} closePopup = {handleOnClickEsignClose}>
+				<RenderContent disclosureLink="/eSign" />
+			</Popup>
+			<Popup popupFlag = {creditPopup} closePopup = {handleOnClickCreditClose}>
+				<RenderContent disclosureLink="/credit" />
+			</Popup>
+			<Popup popupFlag = {webTOUPopup} closePopup = {handleOnClickwebTOUClose}>
+				<RenderContent disclosureLink="/websiteTermsOfUse" />
+			</Popup>
+			<Popup popupFlag = {privacyPopup} closePopup = {handleOnClickPrivacyClose}>
+				<RenderContent disclosureLink="/privacy" />
+			</Popup>
+			<Popup popupFlag = {openDelaware} closePopup = {handleDelawareClose}>
+				<RenderContent disclosureLink="/delaware" />
+			</Popup>
+
     </div>
   );
 }
