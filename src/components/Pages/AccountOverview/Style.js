@@ -111,13 +111,15 @@ const useStylesAccountOverview = makeStyles((theme) => ({
   },
   disableColor: {
     margin: "auto",
-    color: "#171717",
+    color: "#eb1809",
     fontSize: 25,
     fontWeight: 400,
+    textDecoration:"none",
   },
   cardContent: {
     color: "#171717",
     fontSize: "15px",
+    textDecoration:"none",
   },
   tabVerticalLabel: {
     color: "#3f51b5",

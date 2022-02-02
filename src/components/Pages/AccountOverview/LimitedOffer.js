@@ -78,8 +78,8 @@ export default function LimitedOffer(userOfferData) {
                     <p id="loanPercent">
                       <NumberFormat value={userOfferAmount} displayType={'text'} thousandSeparator={true} prefix={'$'} />
                     </p>
-
-                      <ButtonPrimary onClick={showModal} id="claimButton" stylebutton='{"color":""}'>
+                    <NavLink to="/customers/selectOffer" style={ { textDecoration: "none" } } >
+                      <ButtonPrimary id="claimButton" stylebutton='{"float": "right","padding":"0px 10px", "textTransform": "none","fontSize":"0.988rem","fontFamily":"Muli,sans-serif"}'>
                         Check My Offer
                       </ButtonPrimary>
 
@@ -90,7 +90,7 @@ export default function LimitedOffer(userOfferData) {
                       to={{ pathname: '/customers/applyForLoan', state: { from: "user" } }}
                       style={{ textDecoration: "none" }}
                     >
-                      <ButtonPrimary id="claimButton" stylebutton='{"color":"", "textTransform": "none"}'>
+                      <ButtonPrimary id="claimButton" stylebutton='{"float": "right","padding":"0px 10px", "textTransform": "none","fontSize":"0.988rem","fontFamily":"Muli,sans-serif"}'>
                         Apply for a Loan
                       </ButtonPrimary>
                     </NavLink>
