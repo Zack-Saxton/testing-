@@ -17,8 +17,8 @@ import { partnerConfirmInfo } from "../../Controllers/PartnerSignupController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
 import { ButtonPrimary, Checkbox, Select, TextField, Zipcode,RenderContent,Popup } from "../../FormsUI";
 import ErrorLogger from "../../lib/ErrorLogger";
-import states from "../../lib/States.json";
-import statesFullform from "../../lib/StatesFullform.json";
+import states from '../../../assets/data/States.json';
+import statesFullform from "../../../assets/data/StatesFullform.json";
 import "./Style.css";
 
 //Styling
@@ -1105,13 +1105,13 @@ export default function CreditKarma(props) {
                         label={
                           <p className="agreeCheckbox">
                             By clicking this box you acknowledge that you have
-                            received, reviewed and agree to the {""}                          
+                            received, reviewed and agree to the {""}
                         <span className="formatHref" onClick={() => { handleOnClickEsign() }}>E-Signature Disclosure and Consent,</span>
                         {""} <span className="formatHref" onClick={() => { handleOnClickCredit() }}>Credit and Contact Authorization,</span>
                         {""} <span className="formatHref" onClick={() => { handleOnClickwebTOU() }}>Website Terms of Use,</span>
                         {""} <span className="formatHref" onClick={() => { handleOnClickPrivacy() }}>Website Privacy Statement.</span>
                       </p>
-                    } 
+                    }
                         required={ true }
                         stylelabelform='{ "color":"" }'
                         stylecheckbox='{ "color":"blue"}'
@@ -1304,7 +1304,6 @@ export default function CreditKarma(props) {
           </ButtonPrimary>
         </DialogActions>
       </Dialog>
-
 
       <Popup popupFlag = {esignPopup} closePopup = {handleOnClickEsignClose}>
 				<RenderContent disclosureLink="/eSign" />

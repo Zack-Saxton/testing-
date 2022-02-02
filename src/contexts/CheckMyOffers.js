@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 import React, { createContext, useState } from 'react';
 import usrAccountDetails from '../components/Controllers/AccountOverviewController';
 import { decryptAES } from '../components/lib/Crypto';
-import states from '../components/lib/States.json';
+import states from '../../src/assets/data/States.json';
 
 export const CheckMyOffers = createContext();
 

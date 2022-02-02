@@ -17,8 +17,8 @@ import {
   Zipcode
 } from "../../FormsUI";
 import ErrorLogger from '../../lib/ErrorLogger';
-import states from "../../lib/States.json";
-import statesFullform from "../../lib/StatesFullform.json";
+import states from '../../../assets/data/States.json';
+import statesFullform from "../../../assets/data/StatesFullform.json";
 import { tabAtom } from "./MyProfileTab";
 import "./Style.css";
 
