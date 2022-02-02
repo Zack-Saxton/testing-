@@ -21,7 +21,7 @@ export default function Footer() {
             <div className="main-footer-content">
             <NavLink to="/communityGuidelines" target="_blank" className="hrefTag">
                 <Typography>
-                  Community Guideliness
+                  Community Guidelines
                 </Typography>
               </NavLink>
             </div>
