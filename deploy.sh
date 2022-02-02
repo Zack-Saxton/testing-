@@ -176,9 +176,10 @@ ssh  -i $_PEM_FILE_ $server << ENDHERE
     echo -e "\033[1;36m ********************************************** \033[0m"
     echo -e "\033[1;36m * START removing all old images : ($app)       \033[0m"
     echo -e "\033[1;36m ********************************************** \033[0m"
-    removeAllImages=\$(docker images -aq)
-    echo ${removeAllImages}
-    docker rmi \$removeAllImages
+    # removeAllImages=\$(docker images -aq)
+    # echo ${removeAllImages}
+    # docker rmi \$removeAllImages
+    docker image prune
     echo -e "\033[1;36m ********************************************** \033[0m"
     echo -e "\033[1;36m * removed all images from : ($app)             \033[0m"
     echo -e "\033[1;36m ********************************************** \033[0m"
