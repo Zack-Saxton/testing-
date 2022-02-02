@@ -27,7 +27,7 @@ export default function RecentPayments(userRecentPaymentData) {
 		userRecentPayment?.userRecentPaymentData.slice(0, 1).forEach(function (arrayItem) {
 			arrayItem?.loanHistory?.AppAccountHistory?.slice(0, 3).forEach(function (row) {
 				parData.push(
-					{
+					{						
 						date: {
 							value: Moment(row.TransactionDate).format("MM/DD/YYYY"),
 							align: "left",

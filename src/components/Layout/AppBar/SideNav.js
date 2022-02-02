@@ -188,7 +188,6 @@ export default function SideNav() {
   const [ , setTabvalue ] = useAtom(tabAtom);
   const { dataProfile, resetProfilePicture } = useContext(ProfilePicture);
   const { resetData } = useContext(CheckMyOffers);
-
   const { data: dataAccountOverview } = useQuery('loan-data', usrAccountDetails);
   const queryClient = useQueryClient();
   const [ activeLoanData, setActiveLoanData ] = useState(true);
@@ -219,7 +218,6 @@ export default function SideNav() {
 
     return () => {
       setCurrentLoan({});
-
     };
   }, [ dataAccountOverview, activeLoanData, currentLoan ]);
 
@@ -281,6 +279,7 @@ export default function SideNav() {
     getUserBranchDetails();
   }, []);
   
+  
   //Api call Profile Picture
   const [ profileImage, setProfileImage ] = useState(null);
   async function AsyncEffect_profileImage() {
@@ -295,7 +294,7 @@ export default function SideNav() {
   // Side bar branch details
   Cookies.set('branchname', ((branchVal?.data?.BranchName) ? (branchVal?.data?.BranchName) : (branchVal?.data?.branchName) ? (branchVal?.data?.branchName) : ""));
   Cookies.set('branchphone', branchVal?.data?.PhoneNumber);
-  Cookies.set('branchopenstatus', branchVal?.data?.date_closed);
+  Cookies.set('branchopenstatus', branchVal?.data?.branchIsOpen);
   Cookies.set('getProfileImage', getProfImage);
 
   let hasActiveLoan = Cookies.get("hasActiveLoan") === "true" ? true : false;
@@ -431,16 +430,16 @@ export default function SideNav() {
     handleMenuClose();
   };
 
-  const logOut = async () => {
+   function logOut() {
     setAnchorEl(null);
     queryClient.removeQueries();
-    await LogoutController();
+    LogoutController();
     resetData();
     resetProfilePicture();
     history.push({
       pathname: "/login"
     });
-  };
+  }
 
   const logoutUser = () => {
     setDisable(true);
@@ -662,8 +661,8 @@ export default function SideNav() {
                       <ListItem id="sidemenuBranch">
                         { branchName === '' || undefined ? '' : 'Branch : ' + branchName }
                       </ListItem>
-                      <ListItem id={ branchcloseStatus === 'null' ? 'sidemenuOpenNow' : 'sidemenuCloseNow' }>
-                        { branchcloseStatus === 'null' ? 'Open now' : 'Closed now' }
+                      <ListItem id={ branchcloseStatus ? 'sidemenuOpenNow' : 'sidemenuCloseNow' }>
+                        { branchcloseStatus ? 'Open now' : 'Closed now' }
                       </ListItem>
                       { formatPhoneNumber(branchPhone) === '' || undefined ? '' :
                         <ListItem id="sidemenuPhone">
