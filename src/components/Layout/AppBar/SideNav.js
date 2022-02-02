@@ -48,7 +48,7 @@ import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import LogoutController from "../../Controllers/LogoutController";
 import branchDetails from "../../Controllers/MyBranchController";
 import ProfileImageController from "../../Controllers/ProfileImageController";
-import globalValidation from "../../lib/Lang/globalValidation.json";
+import globalMessages from "../../../assets/Content/globalMessages.json";
 import MoneySkill from "../../Pages/MoneySkill/MoneySkill";
 import { tabAtom } from "../../Pages/MyProfile/MyProfileTab";
 import Notification from "../Notification/Notification";
@@ -278,8 +278,7 @@ export default function SideNav() {
   useEffect(() => {
     getUserBranchDetails();
   }, []);
-  
-  
+
   //Api call Profile Picture
   const [ profileImage, setProfileImage ] = useState(null);
   async function AsyncEffect_profileImage() {
@@ -430,7 +429,7 @@ export default function SideNav() {
     handleMenuClose();
   };
 
-   function logOut() {
+  function logOut() {
     setAnchorEl(null);
     queryClient.removeQueries();
     LogoutController();
@@ -443,7 +442,7 @@ export default function SideNav() {
 
   const logoutUser = () => {
     setDisable(true);
-    toast.success(globalValidation.LoggedOut, {
+    toast.success(globalMessages.LoggedOut, {
       onClose: () => logOut(),
     });
   };

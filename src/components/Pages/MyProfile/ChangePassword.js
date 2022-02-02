@@ -12,7 +12,7 @@ import {
   ButtonSecondary,
   PasswordField
 } from "../../FormsUI";
-import globalValidation from "../../lib/Lang/globalValidation.json";
+import globalMessages from "../../../assets/Content/globalMessages.json";
 import { tabAtom } from "./MyProfileTab";
 import "./Style.css";
 
@@ -25,30 +25,30 @@ export default function ChangePassword(basicInformationData) {
   let basicInfo = basicInformationData?.basicInformationData?.latest_contact != null ? basicInformationData.basicInformationData.latest_contact : null;
   const passwordvalidationSchema = yup.object().shape({
     oldPassword: yup
-      .string(globalValidation.PasswordEnter)
-      .required(globalValidation.PasswordOld),
+      .string(globalMessages.PasswordEnter)
+      .required(globalMessages.PasswordOld),
     newPassword: yup
-      .string(globalValidation.PasswordEnter)
-      .max(30, globalValidation.PasswordMax)
-      .min(8, globalValidation.PasswordMin)
+      .string(globalMessages.PasswordEnter)
+      .max(30, globalMessages.PasswordMax)
+      .min(8, globalMessages.PasswordMin)
       .matches(
         /^((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,30})$/,
-        globalValidation.PasswordCriteria
+        globalMessages.PasswordCriteria
       )
-      .required(globalValidation.PasswordNewRequired),
+      .required(globalMessages.PasswordNewRequired),
     confirmPassword: yup
-      .string(globalValidation.PasswordEnter)
+      .string(globalMessages.PasswordEnter)
       .oneOf(
         [ yup.ref("newPassword"), null ],
-        globalValidation.PasswordConfirmationMatch
+        globalMessages.PasswordConfirmationMatch
       )
-      .max(30, globalValidation.PasswordMax)
-      .min(8, globalValidation.PasswordMin)
+      .max(30, globalMessages.PasswordMax)
+      .min(8, globalMessages.PasswordMin)
       .matches(
         /^((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,30})$/,
-        globalValidation.PasswordCriteria
+        globalMessages.PasswordCriteria
       )
-      .required(globalValidation.PasswordConfirmationRequired),
+      .required(globalMessages.PasswordConfirmationRequired),
   });
   const logOut = () => {
     setLoading(false);
@@ -59,7 +59,7 @@ export default function ChangePassword(basicInformationData) {
   };
 
   const logoutUser = () => {
-    toast.success(globalValidation.LoggedOut, {
+    toast.success(globalMessages.LoggedOut, {
       onClose: () => logOut(),
     });
   };
@@ -83,7 +83,7 @@ export default function ChangePassword(basicInformationData) {
       try {
         if (values.newPassword === values.oldPassword) {
           if (!toast.isActive("closeToast")) {
-            toast.error(globalValidation.PasswordOldNewMatch, {
+            toast.error(globalMessages.PasswordOldNewMatch, {
               toastId: "closeToast",
               onClose: () => { setLoading(false); }
             });
@@ -99,7 +99,7 @@ export default function ChangePassword(basicInformationData) {
           if (response?.data?.change_password?.passwordReset === true) {
 
             if (!toast.isActive("closeToast")) {
-              toast.success(response?.data?.change_password?.message ?? globalValidation.PasswordChangedSuccessfully, {
+              toast.success(response?.data?.change_password?.message ?? globalMessages.PasswordChangedSuccessfully, {
                 toastId: "closeToast",
                 onClose: () => {
                   setLoading(false);
@@ -110,7 +110,7 @@ export default function ChangePassword(basicInformationData) {
             }
           } else if (response?.data?.change_password?.passwordReset === false) {
             if (!toast.isActive("closeToast")) {
-              toast.error(response?.data?.change_password?.message ?? globalValidation.PasswordCheckOld, {
+              toast.error(response?.data?.change_password?.message ?? globalMessages.PasswordCheckOld, {
                 toastId: "closeToast",
                 onClose: () => { setLoading(false); }
               });
@@ -118,7 +118,7 @@ export default function ChangePassword(basicInformationData) {
           }
         }
       } catch (error) {
-        toast.error(globalValidation.TryAgain, {
+        toast.error(globalMessages.TryAgain, {
           onClose: () => { setLoading(false); }
         });
       }
