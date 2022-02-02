@@ -191,8 +191,6 @@ echo -e "\033[1;36m ********************************************** \033[0m"
 echo -e "\033[1;36m * TUNNELING INTO EC2 INSTANCE ($app)           \033[0m"
 echo -e "\033[1;36m ********************************************** \033[0m"
 
-exit
-
 #ssh -o "StrictHostKeyChecking no" -i $PEM_FILE $serverName << ENDHERE
 ssh  -i $_PEM_FILE_ $server << ENDHERE
      echo -e "\033[1;36m ********************************************** \033[0m"
