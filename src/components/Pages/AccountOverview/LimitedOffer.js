@@ -5,7 +5,7 @@ import React from "react";
 import NumberFormat from "react-number-format";
 import { NavLink } from "react-router-dom";
 import adBanner from "../../../assets/gallery/AdBanner.jpg";
-import MortgageBanner from "../../../assets/images/Mortgage-Banner.jpg";
+import MortgageBanner from "../../../assets/images/Mortgage-Banner.png";
 import { ButtonPrimary } from "../../FormsUI";
 import { useStylesAccountOverview } from "./Style";
 import "./Style.css";
