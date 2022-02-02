@@ -560,6 +560,10 @@ if (card) {
   obj = paymentListCard.find(o => o.value === card);
   cardLabel = obj?.label;
 }
+if (cardLabel === undefined) {
+  obj = paymentListAch.find(o => o.value === card);
+  cardLabel = obj?.label;
+}
 
   //Autopay submit
   const handleClickSubmit = () => {
@@ -1162,6 +1166,13 @@ if (card) {
         <DialogTitle id="scheduleDialogHeading">
           <Typography id="scheduleTxt" className={ classes.dialogHeading }>
             Your Payment of: ${ paymentAmount } will be applied to your account.
+            {  <br/> }
+            Bank/Card:  {cardLabel}
+            {  <br/> }
+            Payment Date: {Moment(paymentDatepicker).format("MM/DD/YYYY")}
+            {  <br/> }
+            Acct Numebr: {accntNo}
+            {  <br/> }
             Are you sure?
           </Typography>
           <IconButton
