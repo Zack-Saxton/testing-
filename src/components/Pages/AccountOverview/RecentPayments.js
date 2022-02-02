@@ -20,8 +20,7 @@ export default function RecentPayments(userRecentPaymentData) {
 	const classes = useStylesAccountOverview();
 	window.zeHide();
 	//Recentpayments data
-	let userRecentPayment =
-		userRecentPaymentData != null ? userRecentPaymentData : null;
+	let userRecentPayment = userRecentPaymentData;
 	let parData = [];
 	if (userRecentPayment?.userRecentPaymentData?.length) {
 		userRecentPayment?.userRecentPaymentData.slice(0, 1).forEach(function (arrayItem) {

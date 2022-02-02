@@ -102,8 +102,7 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
     setPage(0);
   };
 
-  let userRecentPayment =
-    userRecentPaymentData != null ? userRecentPaymentData : null;
+  let userRecentPayment = userRecentPaymentData;
 
   //View part
   return (
@@ -126,7 +125,7 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
               (rowsPerPage > 0
                 ? userRecentPayment.userRecentPaymentData[ 0 ].loanHistory.AppAccountHistory.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 : userRecentPayment.userRecentPaymentData[ 0 ].loanHistory.AppAccountHistory
-              ).map((row, index1) => (
+              ).map((row) => (
                 <>
                   <TableRow key={ Math.abs(row.RunningPrincipalBalance) }>
                     <TableCell
