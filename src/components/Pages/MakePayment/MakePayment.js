@@ -551,7 +551,7 @@ export default function MakePayment(props) {
   };
 
 let obj = {};
-let cardLabel = ""; 
+let cardLabel = "";
 if (card) {
   obj = paymentListCard.find(o => o.value === card);
   cardLabel = obj?.label;
@@ -685,8 +685,7 @@ if (cardLabel === undefined) {
     var s = price.split(".");
     var afterDecimal = s[ 1 ];
     if (!afterDecimal) {
-      price = event.target.value.replace(".", "");
-      price = price.replace("$", "");
+      price = event.target.value.replace(/.$/g, "");
       setpaymentAmount(price);
       setRequiredAmount("");
     }
@@ -1103,8 +1102,8 @@ if (cardLabel === undefined) {
           <Typography id="autoTxt" className={ classes.dialogHeading } justifyContent="space-around">
             { disabledContent === false
               ? "Are you sure you want to disable auto pay?"
-              : 
-              "Auto Pay Confirmation" 
+              :
+              "Auto Pay Confirmation"
              }
           </Typography>
           <Typography id="autoTxt" className={ classes.autoPayContent }>
