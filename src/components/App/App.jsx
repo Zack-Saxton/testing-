@@ -59,6 +59,7 @@ const queryClient = new QueryClient({
         },
     },
 });
+import 'dotenv/config';
 
 function App() {
     return (
