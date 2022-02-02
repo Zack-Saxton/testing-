@@ -59,9 +59,6 @@ export default function TextNotification() {
       .oneOf([ false ], "False You must accept the terms and conditions"),
   });
 
-
-  
-
   const formikTextNote = useFormik({
     initialValues: {
       phone: phone ? phone : "",
