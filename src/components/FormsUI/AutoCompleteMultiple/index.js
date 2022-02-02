@@ -16,7 +16,7 @@ import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { useField, useFormikContext } from "formik";
 import React from "react";
-import Content from '../../../assets/Content/content';
+import globalMessages from '../../../assets/Content/globalMessages.json';
 
 const AutoCompleteMultipleWrapper = ({
   name,
@@ -55,7 +55,7 @@ const AutoCompleteMultipleWrapper = ({
   //Validation
 
   configAutocomplete.error = (required && !field.value && meta.touched) ? true : configAutocomplete.error ?? false;
-  configAutocomplete.helperText = (required && !field.value && meta.touched) ? Content.required : configAutocomplete.helperText ?? '';
+  configAutocomplete.helperText = (required && !field.value && meta.touched) ? globalMessages.required : configAutocomplete.helperText ?? '';
 
   //parsing data using json
   let jsonData = JSON.parse(jsonInput);
