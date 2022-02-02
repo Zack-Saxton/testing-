@@ -356,13 +356,8 @@ export default function ReviewAndSign(props) {
                     color: "#6b6f82",
                   } }
                 >
-                  <li>
-                    Review all presented disclosures and loan terms in detail.
-                  </li>
-                  <li>
-                    Electronically sign the loan agreement using our digital
-                    signature process.
-                  </li>
+                  <li>Review all presented disclosures and loan terms in detail.</li>
+                  <li>Electronically sign the loan agreement using our digital signature process.</li>
                   <li>After signing, click the ‘Submit’ button.</li>
                 </ol>
               </Grid>

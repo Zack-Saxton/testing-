@@ -83,9 +83,7 @@ export default function DocumentPhoto(props) {
 					</span>
 					<span style={ { paddingLeft: "21px" } }>Please ensure:</span>
 					<li style={ { textAlign: "justify" } }>Document is currently valid</li>
-					<li style={ { textAlign: "justify" } }>
-						The entire document is visible and all information is legible
-					</li>
+					<li style={ { textAlign: "justify" } }>The entire document is visible and all information is legible</li>
 				</p>
 			</div>
 			<Grid item sm={ 12 }>
