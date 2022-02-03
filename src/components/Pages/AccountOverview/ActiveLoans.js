@@ -100,7 +100,7 @@ export default function ActiveLoans(userActiveLoanData) {
                         } }
                       >
                         <Grid container style={ { marginBottom: "20px" } }>
-                          <Grid item xs={ 12 } sm={ 6 }>
+                          <Grid item xs={ 12 } sm={ 6 } >
                             <Typography
                               style={ { fontSize: "1.125rem" } }
                               variant="h5"
@@ -110,8 +110,9 @@ export default function ActiveLoans(userActiveLoanData) {
                               Next Payment Details
                             </Typography>
                           </Grid>
-                          <Grid item xs={ 12 } sm={ 6 }>
+                          <Grid item className="makePaymentButton" className="testbutton" xs={ 12 } sm={ 6 }>
                             <ButtonPrimary
+                              id="makeAPaymentButtonStyle"
                               stylebutton='{"float": "right","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
                               href={
                                 "./makePayment/?accNo=" +
