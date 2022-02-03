@@ -66,6 +66,7 @@ const useStylesAccountOverview = makeStyles((theme) => ({
     fontSize: "1.563rem",
     paddingBottom: "10px",
     paddingTop: "10px",
+    marginTop: "5px"
   },
   table: {
     minWidth: 650,
