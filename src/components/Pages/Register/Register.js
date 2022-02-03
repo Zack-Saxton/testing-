@@ -302,6 +302,10 @@ export default function Register() {
     }
   };
 
+  const andLogic = (valueOne, valueTwo ) =>{
+    return(valueOne && valueTwo)
+  }
+
   //View Part
   return (
     <div>
@@ -366,11 +370,13 @@ export default function Register() {
                         onChange={ (e) => NameChange(e) }
                         onBlur={ formik.handleBlur }
                         error={
-                          formik.touched.firstname &&
-                          Boolean(formik.errors.firstname)
+                          andLogic(formik.touched.firstname,Boolean(formik.errors.firstname))
+                          
+                          
                         }
                         helperText={
-                          formik.touched.firstname && formik.errors.firstname
+                          andLogic(formik.touched.firstname ,formik.errors.firstname)
+                          
                         }
                       />
                     </Grid>
@@ -393,11 +399,14 @@ export default function Register() {
                         onChange={ NameChange }
                         onBlur={ formik.handleBlur }
                         error={
-                          formik.touched.lastname &&
-                          Boolean(formik.errors.lastname)
+                          
+                          andLogic( formik.touched.lastname, Boolean(formik.errors.lastname)
+
+                         )
                         }
                         helperText={
-                          formik.touched.lastname && formik.errors.lastname
+                          andLogic(formik.touched.lastname,formik.errors.lastname)
+                           
                         }
                       />
                     </Grid>
@@ -420,9 +429,11 @@ export default function Register() {
                         onChange={ formik.handleChange }
                         onBlur={ formik.handleBlur }
                         error={
-                          formik.touched.email && Boolean(formik.errors.email)
+                          andLogic( formik.touched.email ,Boolean(formik.errors.email))
+
+                         
                         }
-                        helperText={ formik.touched.email && formik.errors.email }
+                        helperText={ andLogic( formik.touched.email ,formik.errors.email)    }
                       />
                     </Grid>
 
@@ -444,8 +455,8 @@ export default function Register() {
                         value={ formik.values.ssn }
                         onChange={ formik.handleChange }
                         onBlur={ formik.handleBlur }
-                        error={ formik.touched.ssn && Boolean(formik.errors.ssn) }
-                        helperText={ formik.touched.ssn && formik.errors.ssn }
+                        error={andLogic(formik.touched.ssn,Boolean(formik.errors.ssn)) }
+                        helperText={ andLogic(formik.touched.ssn, formik.errors.ssn)    }
                       />
                     </Grid>
                     <Grid
@@ -498,10 +509,10 @@ export default function Register() {
                           formik.setFieldValue("date", values);
                         } }
                         onBlur={ formik.handleBlur }
-                        error={
-                          formik.touched.date && Boolean(formik.errors.date)
+                        error={andLogic( formik.touched.date, Boolean(formik.errors.date) ) 
+                          
                         }
-                        helperText={ formik.touched.date && formik.errors.date }
+                        helperText={ andLogic(formik.touched.date, formik.errors.date) }
                       />
                     </Grid>
 
@@ -523,12 +534,13 @@ export default function Register() {
                         value={ formik.values.password }
                         onChange={ formik.handleChange }
                         onBlur={ formik.handleBlur }
-                        error={
-                          formik.touched.password &&
-                          Boolean(formik.errors.password)
+                        error={ andLogic( formik.touched.password ,  Boolean(formik.errors.password)) 
+                          
+                         
                         }
                         helperText={
-                          formik.touched.password && formik.errors.password
+                          andLogic( formik.touched.password, formik.errors.password) 
+                          
                         }
                       />
                       <p id="passwordTitle" className={ classes.passwordTitle }>
@@ -556,13 +568,12 @@ export default function Register() {
                         value={ formik.values.confirmPassword }
                         onChange={ formik.handleChange }
                         onBlur={ formik.handleBlur }
-                        error={
-                          formik.touched.confirmPassword &&
-                          Boolean(formik.errors.confirmPassword)
+                        error={ andLogic( formik.touched.confirmPassword,  Boolean(formik.errors.confirmPassword)) 
+                         
                         }
                         helperText={
-                          formik.touched.confirmPassword &&
-                          formik.errors.confirmPassword
+                          andLogic( formik.touched.confirmPassword, formik.errors.confirmPassword) 
+                          
                         }
                       />
                       <br />
