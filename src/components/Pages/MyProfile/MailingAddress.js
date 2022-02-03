@@ -18,7 +18,6 @@ import {
 } from "../../FormsUI";
 import ErrorLogger from '../../lib/ErrorLogger';
 import states from '../../../assets/data/States.json';
-import statesFullform from "../../../assets/data/StatesFullform.json";
 import { tabAtom } from "./MyProfileTab";
 import "./Style.css";
 
@@ -87,7 +86,7 @@ export default function MailingAddress(props) {
 
         address1: values.streetAddress,
         city: values.city,
-        state: statesFullform[ values.state ],
+        state: Object.keys(states).find(key => states[ key ] === values.state),
         zipCode: values.zip,
       };
 
@@ -189,7 +188,7 @@ export default function MailingAddress(props) {
                 "data-test-id": "streetAddress",
                 maxLength: "100",
               } }
-              disabled={ disableField === true ? false : true }
+              disabled={ !disableField }
               onKeyDown={ preventSpace }
               value={ formik.values.streetAddress }
               onChange={ formik.handleChange }
@@ -259,7 +258,7 @@ export default function MailingAddress(props) {
               name="zip"
               label="Zip Code"
               materialProps={ { "data-test-id": "zipcode" } }
-              disabled={ disableField === true ? false : true }
+              disabled={ !disableField }
               value={ basicInfo?.address_postal_code }
               onChange={ fetchAddress }
               onBlur={ formik.handleBlur }
@@ -278,7 +277,7 @@ export default function MailingAddress(props) {
             stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
             styleicon='{ "color":"" }'
             onClick={ onClickCancelChange }
-            disabled={ disableField === true ? false : true }
+            disabled={ !disableField }
 
           >
             Cancel
