@@ -275,3 +275,10 @@ centerHeading {
   box-shadow: 3px 3px 10px 0 rgb(123, 31, 162, 50%);
 }
 
+@media (max-width: 599px) {
+  #makeAPaymentButtonStyle {
+    float: left !important;
+    margin-top: 3% !important;
+  }
+ 
+}

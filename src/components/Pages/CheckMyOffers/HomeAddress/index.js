@@ -17,7 +17,6 @@ import ScrollToTopOnMount from "../ScrollToTop";
 import "../CheckMyOffer.css";
 import "../HomeAddress/HomeAdress.css";
 import ZipCodeLookup from "../../../Controllers/ZipCodeLookup";
-import { toast } from "react-toastify";
 import ErrorLogger from "../../../lib/ErrorLogger";
 //yup validation schema
 const validationSchema = yup.object({
@@ -106,10 +105,10 @@ function HomeAddress() {
 					formik.setFieldValue("state", result?.data.stateCode);
 					setStateShort(result?.data?.stateCode);
 					setValidZip(true);
-					if (result?.data?.stateCode === "California") {
+					if (result?.data?.stateCode === "CA") {
 						handleClickOpen();
 					}
-					if (result?.data?.stateCode === "Ohio") {
+					if (result?.data?.stateCode === "OH") {
 						handleClickOpenOhio();
 					}
 				} else {

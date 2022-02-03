@@ -97,9 +97,9 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error{
 }
 
 .formatHref{
-    color: blue;
+    color: #0F4EB3;
     text-align: justify;
-    text-decoration: none;
+    text-decoration: underline;
 }
 
 #annualhousehold, #personalIncome, #spouseState , #spouseCity, #spouseZip{
