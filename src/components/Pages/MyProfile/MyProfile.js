@@ -17,7 +17,7 @@ import { useQuery } from 'react-query';
 import { NavLink } from "react-router-dom";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
-import { getTextNotify } from "../../Controllers/MyProfileController";
+import getTextNotify from "../../Controllers/MyProfileController";
 import ProfileImageController from "../../Controllers/ProfileImageController";
 import { ButtonWithIcon } from "../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
@@ -75,7 +75,11 @@ export default function MyProfile() {
   }, []);
 
   const { data: accountDetails } = useQuery('loan-data', usrAccountDetails);
-  Cookies.set("opted_phone_texting", accountDetails?.data?.customer?.latest_contact?.opted_phone_texting);
+  if (!Cookies.get("temp_opted_phone_texting") === undefined) {
+    Cookies.set("opted_phone_texting", accountDetails?.data?.customer?.latest_contact?.opted_phone_texting);
+  } else {
+    Cookies.set("opted_phone_texting", Cookies.get("temp_opted_phone_texting"));
+  }
 
   let basicInfoData = accountDetails?.data?.customer;
   let getProfImage = profileImage;
@@ -84,17 +88,21 @@ export default function MyProfile() {
     setValues(newValues);
   };
 
-  let cookieTextNotify = Cookies.get("isTextNotify");
-  if (!cookieTextNotify) {
-    let textNotifyStatus = getTextNotify();
-    let textNotifyData = textNotifyStatus?.data?.sbt_getInfo;
-    let isTextNotify = (textNotifyData?.SubscriptionInfo.length &&
-                        textNotifyData?.SubscriptionInfo[ 0 ]?.SubscriptionOptions.length) ? textNotifyData?.SubscriptionInfo[ 0 ]?.SubscriptionOptions[ 0 ]?.OptInMarketing : false;
-    Cookies.set('isTextNotify', isTextNotify);
-    cookieTextNotify = Cookies.get("isTextNotify");
+  const [ textNotifyData, setTextNotifyData ] = useState(null);
+  async function AsyncEffect_textNotifyData() {
+    setTextNotifyData(await getTextNotify());
   }
-
-  let textnotify = cookieTextNotify === "true" ? "On" : "Off";
+  useEffect(() => {
+    AsyncEffect_textNotifyData();
+  }, []);
+let textNotifyDetails = textNotifyData;
+let cookieTextNotify = Cookies.get("isTextNotify");
+if (!Cookies.get("isTextNotify" === undefined)) {
+  let textNotifyStatus = textNotifyDetails?.data?.sbt_getInfo?.SubscriptionInfo[0]?.SubscriptionOptions[0]?.OptInAccount;
+    Cookies.set('isTextNotify', textNotifyStatus);
+    cookieTextNotify = textNotifyStatus;
+ } 
+ let textnotify = cookieTextNotify ? "On" : "Off";
   let hasActiveLoan = Cookies.get("hasActiveLoan") === "true" ? true : false;
   let hasApplicationStatus = Cookies.get("hasApplicationStatus");
   var appStatus = [ "rejected", "referred", "expired" ];
