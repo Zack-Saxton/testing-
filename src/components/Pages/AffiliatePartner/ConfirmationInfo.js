@@ -391,10 +391,10 @@ export default function CreditKarma(props) {
         formik.setFieldValue("city", result?.data?.cityName);
         formik.setFieldValue("state", result?.data?.stateCode);
         setValidZip(true);
-        if (result?.data?.cityName === "California" || result?.data?.stateCode === "CA") {
+        if (result?.data?.stateCode === "CA") {
           handleClickOpen();
         }
-        if (result?.data?.cityName === "Ohio" || result?.data?.stateCode === "OH") {
+        if (result?.data?.stateCode === "OH") {
           handleClickOpenOhio();
         }
       } else {
