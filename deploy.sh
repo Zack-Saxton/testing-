@@ -68,7 +68,7 @@ case $whoAmI in
     _PEM_FILE_=$MARINERFINANCE_EC2_PEMFILE
     ;;
   *)
-    _PEM_FILE_="~/Code/cis/otherdocs/marinerfinance-us-east-1.pem"
+    _PEM_FILE_="~/Code/marinerfinance-us-east-1.pem"
     ;;
 esac
 
@@ -88,7 +88,7 @@ echo "**************************************************************************
 
 #Clone from git
 #git init && git clone $gitRepo
-cd $appDir
+cd ~/Code/cac
 # git fetch --all && git checkout $branch && git pull origin $branch
 
 #echo "git fetch"
@@ -120,24 +120,72 @@ git push
 echo "***************************************************************************"
 echo "************** Remove all images from local        ************************"
 echo "***************************************************************************"
-docker rmi -f $(docker images -a -q)
+# docker rmi -f $(docker images -a -q)
 
 latestCommit=$(git rev-parse --short HEAD)
 #Dockerise the environment
 imageName="marinerfinance/ops:${app}-${env}-${latestCommit}"
-docker build -f Dockerfile -t ${imageName} .
+#docker build -f Dockerfile -t ${imageName} .
+case $env in
+  "qa")
+    docker build -t $imageName  $(for i in `cat ~/.env_cac_qa`; do out+="--build-arg $i " ; done; echo $out;out="") .
+    if [ $? != 0 ]; then
+      echo -e "\033[1;31m Failed \033[0m => (reason): docker failed  to build image locally"
+      exit 1;
+    fi
+    ;;
+  "dev")
+    cat ~/.
+    docker build -t $imageName  $(for i in `cat ~/.env_cac_dev`; do out+="--build-arg $i " ; done; echo $out;out="") .
+    if [ $? != 0 ]; then
+      echo -e "\033[1;31m Failed \033[0m => (reason): docker failed  to build image locally"
+      exit 1;
+    fi
+    ;;
+  "staging")
+    docker build -t $imageName  $(for i in `cat ~/.env_cac_staging`; do out+="--build-arg $i " ; done; echo $out;out="") .
+    if [ $? != 0 ]; then
+      echo -e "\033[1;31m Failed \033[0m => (reason): docker failed  to build image locally"
+      exit 1;
+    fi
+    ;;
+  "prod")
+    docker build -t $imageName  $(for i in `cat ~/.env_cac_prod`; do out+="--build-arg $i " ; done; echo $out;out="") .
+    if [ $? != 0 ]; then
+      echo -e "\033[1;31m Failed \033[0m => (reason): docker failed  to build image locally"
+      exit 1;
+    fi
+    ;;
+  *)
+    docker build -t $imageName  $(for i in `cat ~/.env_cac_qa`; do out+="--build-arg $i " ; done; echo $out;out="") .
+    if [ $? != 0 ]; then
+      echo -e "\033[1;31m Failed \033[0m => (reason): docker failed  to build image locally"
+      exit 1;
+    fi
+    ;;
+esac
+
 echo  "****** Created New Image ****"
 echo $imageName;
 
-echo "***************************************************************************"
-echo "************** Login to Dockerhub and push to repo ************************"
-echo "***************************************************************************"
-#Push to dockerhub
+echo -e "\033[1;36m ********************************************** \033[0m"
+echo -e "\033[1;36m * LOGIN INTO DOCKER_HUB                        \033[0m"
+echo -e "\033[1;36m ********************************************** \033[0m"
 
 docker login --username=$DOCKERHUB_USER  --password=$DOCKERHUB_PSWD
+if [ $? != 0 ]; then
+  echo -e "\033[1;31m Failed \033[0m => (reason): docker failed  to login to dockerHub"
+  exit 1;
+fi
 
 docker push "${imageName}"
-echo  "****** Pushed to Dockerhub ****"
+
+if [ $? != 0 ]; then
+  echo -e "\033[1;31m Failed \033[0m => (reason): docker failed  to push image"
+  exit 1;
+fi
+
+echo -e "\033[1;35m * PUSHED IMAGE ID: ($imageName)               \033[0m"
 
 echo -e "\033[1;36m ********************************************** \033[0m"
 echo -e "\033[1;36m * TUNNELING INTO EC2 INSTANCE ($app)           \033[0m"
@@ -145,50 +193,55 @@ echo -e "\033[1;36m ********************************************** \033[0m"
 
 #ssh -o "StrictHostKeyChecking no" -i $PEM_FILE $serverName << ENDHERE
 ssh  -i $_PEM_FILE_ $server << ENDHERE
-    echo -e "\033[1;36m ********************************************** \033[0m"
-    echo -e "\033[1;36m * START stopping all container ($app) and then  \033[0m"
-    echo -e "\033[1;36m * removing all  container ($app)                \033[0m"
-    echo -e "\033[1;36m ********************************************** \033[0m"
-    removeAllContainer=\$(docker ps -aq)
-    echo ${removeAllContainer}
-    docker rm -f \$removeAllContainer
-    echo -e "\033[1;36m ********************************************** \033[0m"
-    echo -e "\033[1;36m * removed all running container from : ($app)  \033[0m"
-    echo -e "\033[1;36m ********************************************** \033[0m"
-    echo -e "\033[1;36m ********************************************** \033[0m"
-    echo -e "\033[1;36m * START removing all old images : ($app)       \033[0m"
-    echo -e "\033[1;36m ********************************************** \033[0m"
-    removeAllImages=\$(docker images -aq)
-    echo ${removeAllImages}
-    docker rmi \$removeAllImages
-    echo -e "\033[1;36m ********************************************** \033[0m"
-    echo -e "\033[1;36m * removed all images from : ($app)             \033[0m"
-    echo -e "\033[1;36m ********************************************** \033[0m"
-    echo -e "\033[1;36m ********************************************** \033[0m"
-    echo -e "\033[1;36m * START Updating server    : ($app)            \033[0m"
-    echo -e "\033[1;36m ********************************************** \033[0m"
+     echo -e "\033[1;36m ********************************************** \033[0m"
+     echo -e "\033[1;36m * START stopping all container ($app) and then  \033[0m"
+     echo -e "\033[1;36m * removing all  container ($app)                \033[0m"
+     echo -e "\033[1;36m ********************************************** \033[0m"
+     removeAllContainer=\$(docker ps -aq)
+     echo ${removeAllContainer}
+     docker rm -f \$removeAllContainer
+     echo -e "\033[1;36m ********************************************** \033[0m"
+     echo -e "\033[1;36m * removed all running container from : ($app)  \033[0m"
+     echo -e "\033[1;36m ********************************************** \033[0m"
+     echo -e "\033[1;36m ********************************************** \033[0m"
+     echo -e "\033[1;36m * START removing all old images : ($app)       \033[0m"
+     echo -e "\033[1;36m ********************************************** \033[0m"
+     removeAllImages=\$(docker images -aq)
+     echo ${removeAllImages}
+     docker rmi \$removeAllImages
+     echo -e "\033[1;36m ********************************************** \033[0m"
+     echo -e "\033[1;36m * removed all images from : ($app)             \033[0m"
+     echo -e "\033[1;36m ********************************************** \033[0m"
+     echo -e "\033[1;36m ********************************************** \033[0m"
+     echo -e "\033[1;36m * START Updating server    : ($app)            \033[0m"
+     echo -e "\033[1;36m ********************************************** \033[0m"
 
-    sudo apt-get update && sudo apt-get dist-upgrade -y
+     sudo apt-get update && sudo apt-get dist-upgrade -y
 
-  docker login --username=$DOCKERHUB_USER  --password=$DOCKERHUB_PSWD
+     docker login --username=$DOCKERHUB_USER  --password=$DOCKERHUB_PSWD
 
-  for ((count=1;count<=$instances;count++))
-  do
-    echo  "****** Spinning Instance "\$count": "
-    docker run -dit --restart=always --name "${app}"\$count"-${env}-${latestCommit}" --network $dockerNetwork $imageName
-    sleep 5
-  done
-  exit
+     if [ $? != 0 ]; then
+         echo -e "\033[1;31m Failed \033[0m => (reason): docker failed  to login to dockerHub"
+         exit 1;
+     fi
+
+   for ((count=1;count<=$instances;count++))
+   do
+     echo  "****** Spinning Instance "\$count": "
+     docker run -dit --restart=always --name "${app}"\$count"-${env}-${latestCommit}" --network $dockerNetwork $imageName
+     sleep 5
+   done
+   exit
 ENDHERE
 
-# docker inspect -f '{{json .NetworkSettings.Networks}}' ${app}"\$count"-${env}-${latestCommit} | python -m json.tool
-# curl_cmd=$(curl -w "\n" --insecure -X GET https://${app}-${env}.marinerfinance.io)
+ # docker inspect -f '{{json .NetworkSettings.Networks}}' ${app}"\$count"-${env}-${latestCommit} | python -m json.tool
+ # curl_cmd=$(curl -w "\n" --insecure -X GET https://${app}-${env}.marinerfinance.io)
 
-# echo -e "\033[1;36m ********************************************** \033[0m"
-# echo -e "\033[1;36m * verifying that ${app} is up via API  \033[0m"
-# echo -e "\033[1;36m ********************************************** \033[0m"
+ # echo -e "\033[1;36m ********************************************** \033[0m"
+ # echo -e "\033[1;36m * verifying that ${app} is up via API  \033[0m"
+ # echo -e "\033[1;36m ********************************************** \033[0m"
 
-# echo -e "\033[1;32m *  $curl_cmd  \033[0m"
+ # echo -e "\033[1;32m *  $curl_cmd  \033[0m"
 
 message="$app Deployment END from $branch to $env By $deployUser"
 url="https://hooks.slack.com/services/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"

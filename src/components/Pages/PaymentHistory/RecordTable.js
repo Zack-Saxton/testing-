@@ -17,7 +17,7 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
   const classes = useStylesPaymenthistory();
 
   //Payment history data from API
-  let userRecentPayment = userRecentPaymentData != null ? userRecentPaymentData : null;
+  let userRecentPayment = userRecentPaymentData ?? null;
 
   //View part
   return (
@@ -26,40 +26,28 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
         <Table className={ classes.table } aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell className={ classes.tableHead }>Date</TableCell>
-              <TableCell className={ classes.tableHead } align="center">
-                Description
-              </TableCell>
-              <TableCell className={ classes.tableHead } align="center">
-                Principal
-              </TableCell>
-              <TableCell className={ classes.tableHead } align="center">
-                Interest
-              </TableCell>
-              <TableCell className={ classes.tableHead } align="center">
-                Other
-              </TableCell>
-              <TableCell className={ classes.tableHead } align="center">
-                Total
-              </TableCell>
-              <TableCell className={ classes.tableHead } align="center">
-                Balance
-              </TableCell>
+              <TableCell className={ classes.tableHead } align="left">Date</TableCell>
+              <TableCell className={ classes.tableHead } align="left">Description</TableCell>
+              <TableCell className={ classes.tableHead } align="right">Principal</TableCell>
+              <TableCell className={ classes.tableHead } align="right">Interest</TableCell>
+              <TableCell className={ classes.tableHead } align="right">Other</TableCell>
+              <TableCell className={ classes.tableHead } align="right">Total</TableCell>
+              <TableCell className={ classes.tableHead } align="right">Balance</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            { userRecentPayment.userRecentPaymentData === null ? (
+            { userRecentPayment?.userRecentPaymentData === null ? (
               <TableRow>
                 <TableCell colSpan="7" align="center">
                   Please wait...
                 </TableCell>
               </TableRow>
-            ) : userRecentPayment.userRecentPaymentData.length ? (
-              userRecentPayment.userRecentPaymentData.map((val, index1) => (
+            ) : userRecentPayment?.userRecentPaymentData?.length ? (
+              userRecentPayment?.userRecentPaymentData.map((val, index1) => (
                 <div key={ index1 }>
-                  { val.loanHistory.AppAccountHistory.map((row, index) => (
+                  { val?.loanHistory?.AppAccountHistory.map((row) => (
                     <>
-                      <TableRow key={ index }>
+                      <TableRow key={ row.RunningPrincipalBalance }>
                         <TableCell
                           component="th"
                           className={ classes.tableHeadRow }

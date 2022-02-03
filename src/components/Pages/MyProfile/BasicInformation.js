@@ -15,26 +15,26 @@ import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import LogoutController from "../../Controllers/LogoutController";
 import { basicInformation, uploadNewProfileImage } from "../../Controllers/myProfileController";
 import { ButtonPrimary, ButtonSecondary, EmailTextField, PhoneNumber, TextField } from "../../FormsUI";
-import globalValidation from "../../lib/Lang/globalValidation.json";
+import globalMessages from "../../../assets/data/globalMessages.json";
 import "./Style.css";
 
 const validationSchema = yup.object({
   email: yup
-    .string(globalValidation.EmailEnter)
-    .email(globalValidation.EmailValid)
+    .string(globalMessages.EmailEnter)
+    .email(globalMessages.EmailValid)
     .matches(
       /^[a-zA-Z](?!.*[+/._-][+/._-])(([^<>()|?{}='[\]\\,;:#!$%^&*\s@\"]+(\.[^<>()|?{}=/+'[\]\\.,;_:#!$%^&*-\s@\"]+)*)|(\".+\"))[a-zA-Z0-9]@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,3}))$/, //eslint-disable-line
-      globalValidation.EmailValid
+      globalMessages.EmailValid
     )
-    .required(globalValidation.EmailRequired),
+    .required(globalMessages.EmailRequired),
 
   phone: yup
-    .string(globalValidation.PhoneEnter)
-    .required(globalValidation.PhoneRequired)
+    .string(globalMessages.PhoneEnter)
+    .required(globalMessages.PhoneRequired)
     .transform((value) => value.replace(/[^\d]/g, ""))
-    .matches(/^[1-9]{1}\d{2}\d{3}\d{4}$/, globalValidation.PhoneValid)
-    .matches(/^(\d)(?!\1+$)\d{9}$/, globalValidation.PhoneValid)
-    .min(10, globalValidation.PhoneMin),
+    .matches(/^[1-9]{1}\d{2}\d{3}\d{4}$/, globalMessages.PhoneValid)
+    .matches(/^(\d)(?!\1+$)\d{9}$/, globalMessages.PhoneValid)
+    .min(10, globalMessages.PhoneMin),
 });
 
 async function filetoImage(file) {
@@ -83,7 +83,7 @@ export default function BasicInformation(props) {
   };
 
   const logoutUser = () => {
-    toast.success(globalValidation.LoggedOut, {
+    toast.success(globalMessages.LoggedOut, {
       onClose: () => logOut(),
     });
   };
@@ -111,7 +111,7 @@ export default function BasicInformation(props) {
       };
       const uploadBasicInfoChange = () => {
         if (!toast.isActive("closeToast")) {
-          refetch().then(() => toast.success(globalValidation.UpdatedSuccessfully, {
+          refetch().then(() => toast.success(globalMessages.UpdatedSuccessfully, {
             toastId: "closeToast",
             onClose: () => {
               setLoading(false);
@@ -123,7 +123,7 @@ export default function BasicInformation(props) {
 
       const uploadBasicInfoChangeLogOut = () => {
         if (!toast.isActive("closeToast")) {
-          refetch().then(() => toast.success(globalValidation.UpdatedSuccessfully, {
+          refetch().then(() => toast.success(globalMessages.UpdatedSuccessfully, {
             toastId: "closeToast",
             onClose: () => {
               logoutUser();
@@ -138,7 +138,7 @@ export default function BasicInformation(props) {
           var filePath = selectedFile.value;
           var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
           if (!allowedExtensions.exec(filePath)) {
-            toast.error(globalValidation.ImageExtentions);
+            toast.error(globalMessages.ImageExtentions);
             setLoading(false);
             selectedFile.value = "";
             return false;
@@ -182,7 +182,7 @@ export default function BasicInformation(props) {
 
                   if (!toast.isActive("closeToast")) {
                     toast.success(
-                      globalValidation.UpdatedSuccessfully,
+                      globalMessages.UpdatedSuccessfully,
                       {
                         toastId: "closeToast",
                         onClose: () => {
@@ -215,7 +215,7 @@ export default function BasicInformation(props) {
                 }
                 else {
                   if (!toast.isActive("closeToast")) {
-                    toast.error(globalValidation.FileUploadError,
+                    toast.error(globalMessages.FileUploadError,
                       {
                         toastId: "closeToast",
                         onClose: () => {
@@ -230,10 +230,10 @@ export default function BasicInformation(props) {
             }
           } else {
             if (selectedFile.files[ 0 ].size > 819200) {
-              toast.error(globalValidation.FileUploadMax);
+              toast.error(globalMessages.FileUploadMax);
               setLoading(false);
             } else if (docType == null) {
-              toast.error(globalValidation.FileUploadTypeImage);
+              toast.error(globalMessages.FileUploadTypeImage);
               setLoading(false);
             }
           }
@@ -242,7 +242,7 @@ export default function BasicInformation(props) {
 
       if (formik.initialValues.phone === phone && formik.initialValues.email === values.email && selectedFile === null) {
         if (!toast.isActive("closeToast")) {
-          toast.error(globalValidation.NoChange, {
+          toast.error(globalMessages.NoChange, {
             toastId: "closeToast",
             onClose: () => { setLoading(false); }
           });
@@ -271,7 +271,7 @@ export default function BasicInformation(props) {
         }
         else {
           if (!toast.isActive("closeToast")) {
-            toast.error(globalValidation.TryAgain, {
+            toast.error(globalMessages.TryAgain, {
               toastId: "closeToast",
               onClose: () => { setLoading(false); }
             });

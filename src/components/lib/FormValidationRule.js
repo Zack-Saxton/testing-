@@ -1,71 +1,71 @@
 import * as yup from "yup";
-import globalValidation from "../lib/Lang/globalValidation.json";
+import globalMessages from "../../assets/data/globalMessages.json";
 export class FormValidationRules {
 
     constructor() {
     }
     email() {
         return yup
-            .string(globalValidation.EmailRequired)
-            .email(globalValidation.EmailValid)
+            .string(globalMessages.EmailRequired)
+            .email(globalMessages.EmailValid)
             .matches(
                 /^[a-zA-Z](?!.*[+/._-][+/._-])(([^<>()|?{}='[\]\\,;:#!$%^&*\s@\"]+(\.[^<>()|?{}=/+'[\]\\.,;_:#!$%^&*-\s@\"]+)*)|(\".+\"))[a-zA-Z0-9]@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,3}))$/, //eslint-disable-line
-                globalValidation.EmailValid
+                globalMessages.EmailValid
             )
-            .required(globalValidation.EmailRequired);
+            .required(globalMessages.EmailRequired);
     }
     password() {
         return yup
-            .string(globalValidation.PasswordEnter)
+            .string(globalMessages.PasswordEnter)
             .when('isRegisterForm', {
                 is: (isRegisterForm) => isRegisterForm == 1,
                 then: yup
                     .string()
                     .matches(
                         /^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,30}$/,
-                        globalValidation.PasswordCriteria
+                        globalMessages.PasswordCriteria
                     )
             })
-            .max(30, globalValidation.PasswordMax)
-            .min(8, globalValidation.PasswordMin)
-            .required(globalValidation.PasswordRequired);
+            .max(30, globalMessages.PasswordMax)
+            .min(8, globalMessages.PasswordMin)
+            .required(globalMessages.PasswordRequired);
     }
 
     confirmPassword() {
         return yup
             .string()
-            .max(30, globalValidation.PasswordMax)
-            .min(8, globalValidation.PasswordMin)
-            .required(globalValidation.PasswordRequired)
+            .max(30, globalMessages.PasswordMax)
+            .min(8, globalMessages.PasswordMin)
+            .required(globalMessages.PasswordRequired)
             .when("password", {
                 is: (password) => password && password.length > 0,
                 then: yup
                     .string()
                     .oneOf(
                         [ yup.ref("password") ],
-                        globalValidation.PasswordConfirmationMatch
+                        globalMessages.PasswordConfirmationMatch
                     ),
             });
     }
     firstName() {
         return yup
-            .string(globalValidation.FirstNameEnter)
-            .max(30, globalValidation.FirstNameMax)
-            .min(2, globalValidation.FirstNameMin)
-            .required(globalValidation.FirstNameRequired);
+            .string(globalMessages.FirstNameEnter)
+            .max(30, globalMessages.FirstNameMax)
+            .min(2, globalMessages.FirstNameMin)
+            .required(globalMessages.FirstNameRequired);
     }
     lastName() {
         return yup
-            .string(globalValidation.LastNameEnter)
-            .max(30, globalValidation.LastNameMax)
-            .min(2, globalValidation.LastNameMin)
-            .required(globalValidation.LastNameRequired);
+            .string(globalMessages.LastNameEnter)
+            .max(30, globalMessages.LastNameMax)
+            .min(2, globalMessages.LastNameMin)
+            .required(globalMessages.LastNameRequired);
     }
     dobDate() {
         return yup
-            .date(globalValidation.DateOfBirthValid)
+            .date(globalMessages.DateOfBirthValid)
             .nullable()
-            .required(globalValidation.DateOfBirthRequired)
+            .required(globalMessages.DateOfBirthRequired)
             .max(
                 new Date(
                     new Date(
@@ -76,29 +76,29 @@ export class FormValidationRules {
                         new Date().getDate()
                     ).getTime() - 567650000000
                 ),
-                globalValidation.DateOfBirthMinAge
+                globalMessages.DateOfBirthMinAge
             )
-            .min(new Date(1919, 1, 1), globalValidation.DateOfBirthMaxAge)
-            .typeError(globalValidation.DateOfBirthValid);
+            .min(new Date(1919, 1, 1), globalMessages.DateOfBirthMaxAge)
+            .typeError(globalMessages.DateOfBirthValid);
     }
 
     zipCode() {
         return yup
-            .string(globalValidation.ZipCodeEnter)
-            .max(5, globalValidation.ZipCodeMax)
-            .required(globalValidation.ZipCodeRequired);
+            .string(globalMessages.ZipCodeEnter)
+            .max(5, globalMessages.ZipCodeMax)
+            .required(globalMessages.ZipCodeRequired);
     }
     ssn() {
         return yup
-            .string(globalValidation.SSNEnter)
-            .required(globalValidation.SSNRequired)
+            .string(globalMessages.SSNEnter)
+            .required(globalMessages.SSNRequired)
             .transform((value) => value.replace(/[^\d]/g, ""))
             .matches(
                 /^(?!000)[0-8]\d{2}(?!00)\d{2}(?!0000)\d{4}$/,
-                globalValidation.SSNValid
+                globalMessages.SSNValid
             )
-            .matches(/^(\d)(?!\1+$)\d{8}$/, globalValidation.SSNValid)
-            .min(9, globalValidation.SSNMin);
+            .matches(/^(\d)(?!\1+$)\d{8}$/, globalMessages.SSNValid)
+            .min(9, globalMessages.SSNMin);
     }
     getFormValidationRule(type = 'login') {
         if (type == 'login') {

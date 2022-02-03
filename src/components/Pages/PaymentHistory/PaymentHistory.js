@@ -47,7 +47,7 @@ export default function PaymentHistory() {
 
   async function AsyncEffect_paymentHistory() {
     let responseData = await (usrAccountDetails());
-    setpaymentHistoryStatus(responseData);
+    setpaymentHistoryStatus(responseData?.data);
     setfileName(responseData?.data?.activeLoans.length ? responseData?.data?.activeLoans[ 0 ].loanDetails.AccountNumber : null);
   }
   useEffect(() => {
@@ -78,7 +78,7 @@ export default function PaymentHistory() {
     const orientation = "portrait";
     const doc = new jsPDF(orientation, unit, size);
     const headerPDF = [ [ "Date", "Description", "Principal", "Interest", "Other", "Total", "Balance" ] ];
-    const data = pdfData.map(data => [ Moment(data.TransactionDate).format("MM-DD-YYYY"), data.TransactionDescription, currencyFormat(Math.abs(data.PrincipalAmount)), currencyFormat(Math.abs(data.InterestAmount)), currencyFormat(Math.abs(data.OtherAmount)), currencyFormat(Math.abs(data.InterestAmount + data.OtherAmount + data.PrincipalAmount)), currencyFormat(Math.abs(data.RunningPrincipalBalance)) ]);
+    const data = pdfData.map(dataItem => [ Moment(dataItem.TransactionDate).format("MM-DD-YYYY"), dataItem.TransactionDescription, currencyFormat(Math.abs(dataItem.PrincipalAmount)), currencyFormat(Math.abs(dataItem.InterestAmount)), currencyFormat(Math.abs(dataItem.OtherAmount)), currencyFormat(Math.abs(dataItem.InterestAmount + dataItem.OtherAmount + dataItem.PrincipalAmount)), currencyFormat(Math.abs(dataItem.RunningPrincipalBalance)) ]);
     doc.setFontSize(15);
     doc.text("Active Loan / Payment History(" + fileName + ")", 40, 30);
     let content = {
@@ -167,29 +167,16 @@ export default function PaymentHistory() {
         { recentPaymentData === null ? (
           <Grid item xs={ 12 } style={ { paddingTop: "10px", paddingBottom: "30px" } }>
             <TableContainer id="pdfdiv" component={ Paper }>
-
               <Table className={ classes.table } aria-label="simple table">
                 <TableHead>
                   <TableRow>
-                    <TableCell className={ classes.tableHead }>Date</TableCell>
-                    <TableCell className={ classes.tableHead } align="center">
-                      Description
-                    </TableCell>
-                    <TableCell className={ classes.tableHead } align="center">
-                      Principal
-                    </TableCell>
-                    <TableCell className={ classes.tableHead } align="center">
-                      Interest
-                    </TableCell>
-                    <TableCell className={ classes.tableHead } align="center">
-                      Other
-                    </TableCell>
-                    <TableCell className={ classes.tableHead } align="center">
-                      Total
-                    </TableCell>
-                    <TableCell className={ classes.tableHead } align="center">
-                      Balance
-                    </TableCell>
+                    <TableCell className={ classes.tableHead } align="left">Date</TableCell>
+                    <TableCell className={ classes.tableHead } align="left">Description</TableCell>
+                    <TableCell className={ classes.tableHead } align="right">Principal</TableCell>
+                    <TableCell className={ classes.tableHead } align="right">Interest</TableCell>
+                    <TableCell className={ classes.tableHead } align="right">Other</TableCell>
+                    <TableCell className={ classes.tableHead } align="right">Total</TableCell>
+                    <TableCell className={ classes.tableHead } align="right">Balance</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>

@@ -16,7 +16,7 @@ import LogoutController from "../Controllers/LogoutController";
 import { ButtonPrimary } from "../FormsUI";
 import Footer from "../Layout/Footer/Footer";
 import { decryptAES, encryptAES } from "../lib/Crypto";
-import globalValidation from "../lib/Lang/globalValidation.json";
+import globalMessages from "../../assets/data/globalMessages.json";
 import AppBar from "./AppBar/SideNav";
 
 const Post = ({ children }) => {
@@ -104,7 +104,7 @@ const Post = ({ children }) => {
 		history.push({
 			pathname: "/login",
 		});
-		toast.success(globalValidation.LoggedOut);
+		toast.success(globalMessages.LoggedOut);
 	};
 
 	const handleOnAction = (event) => {

@@ -61,8 +61,8 @@ export default function LoanHistoryTable(userLoanHistoryData) {
                 </TableCell>
               </TableRow>
             ) : userLoanHistory?.userLoanHistoryData?.length ? (
-              userLoanHistory?.userLoanHistoryData.map((row, index) => (
-                <TableRow key={ index }>
+              userLoanHistory?.userLoanHistoryData.map((row) => (
+                <TableRow key={ row.loanData.accountNumber }>
                   <TableCell
                     component="th"
                     className={ classes.tableHeadRow }

@@ -94,24 +94,12 @@ export default function RecentApplications({ isLoading, userApplicationsData }) 
           <Table id="summaryOfApplicationsTable" className={ classes.table } aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell className={ classes.tableHead }>
-                  Applied on
-                </TableCell>
-                <TableCell className={ classes.tableHead } align="left">
-                  Product Type
-                </TableCell>
-                <TableCell className={ classes.tableHead } align="center">
-                  Requested Amount
-                </TableCell>
-                <TableCell className={ classes.tableHead } align="left">
-                  Loan Purpose
-                </TableCell>
-                <TableCell className={ classes.tableHead } align="left">
-                  Status
-                </TableCell>
-                <TableCell className={ classes.tableHead } align="left">
-                  Actions
-                </TableCell>
+                <TableCell className={ classes.tableHead }>Applied on</TableCell>
+                <TableCell className={ classes.tableHead } align="left">Product Type</TableCell>
+                <TableCell className={ classes.tableHead } align="center">Requested Amount</TableCell>
+                <TableCell className={ classes.tableHead } align="left">Loan Purpose</TableCell>
+                <TableCell className={ classes.tableHead } align="left">Status</TableCell>
+                <TableCell className={ classes.tableHead } align="left">Actions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
