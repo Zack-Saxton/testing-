@@ -32,7 +32,6 @@ import { encryptAES } from "../../lib/Crypto";
 import ErrorLogger from "../../lib/ErrorLogger";
 import { FormValidationRules } from "../../lib/FormValidationRule";
 import globalMessages from "../../../assets/data/globalMessages.json";
-import reqProperties from "../../lib/Lang/register.json";
 import "./Register.css";
 let formValidation = new FormValidationRules();
 
@@ -235,7 +234,7 @@ export default function Register() {
           setLoading(false);
         }
       } catch (error) {
-        setFailed(reqProperties.Please_Contact_Us_At);
+        setFailed(globalMessages.Please_Contact_Us_At);
         setLoading(false);
         ErrorLogger('Error from register_new_user API', error);
       }
