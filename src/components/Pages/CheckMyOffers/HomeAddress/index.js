@@ -145,17 +145,9 @@ function HomeAddress() {
 						item xs={ 12 } sm={ 10 } md={ 6 } lg={ 6 }
 						justifyContent="center"
 						alignItems="center"
-						style={ { paddingTop: "70px", paddingBottom: "70px", margin: "auto" } }
+						style={ { padding:"4% 0", margin: "auto" } }
 					>
 						<Grid
-							// container
-							// item
-							// xs={ 11 }
-							// sm={ 10 }
-							// md={ 6 }
-							// lg={ 6 }
-							// xl={ 6 }
-							// className="cardWrapper"
 							justifyContent="center"
 							alignItems="center"
 						>

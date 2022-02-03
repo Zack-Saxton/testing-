@@ -3,9 +3,6 @@
 	background-image: linear-gradient(to right, #26436a, #104db0);
 	min-height: 500px !important;
 }
-.cardWOPadding {
-	padding-bottom: 1%;
-}
 .cardWrapper {
 	margin-top: 5%;
 	margin-bottom: 2%;
@@ -13,7 +10,6 @@
 .borrowCSSLP {
 	font-size: 1.538rem !important;
 	line-height: 110% !important;
-	margin: 0.82rem 0 0.656rem 0 !important;
 }
 .setSlider {
 	margin-bottom: 0 !important;
@@ -25,10 +21,6 @@
 }
 .setGreenColor {
 	color: green;
-}
-.alignButton {
-	margin-top: 5%;
-	margin-bottom: 4%;
 }
 
 .smallText {
@@ -156,9 +148,7 @@
 }
 
 .ContinueButton {
-	margin-top: 2%;
-	margin-bottom: 2%;
-	height: 40px;
+	margin: 15px 0px 19px 0 !important;
 }
 
 .floatLeft {
