@@ -13,7 +13,7 @@ import profileImg from "../../../assets/images/profile-img.jpg";
 import { ProfilePicture } from "../../../contexts/ProfilePicture";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import LogoutController from "../../Controllers/LogoutController";
-import { basicInformation, uploadNewProfileImage } from "../../Controllers/myProfileController";
+import { basicInformation, uploadNewProfileImage } from "../../Controllers/MyProfileController";
 import { ButtonPrimary, ButtonSecondary, EmailTextField, PhoneNumber, TextField } from "../../FormsUI";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import "./Style.css";

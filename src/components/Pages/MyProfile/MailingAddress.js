@@ -9,7 +9,7 @@ import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
-import { mailingAddress } from "../../Controllers/myProfileController";
+import { mailingAddress } from "../../Controllers/MyProfileController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
 import {
   ButtonPrimary,

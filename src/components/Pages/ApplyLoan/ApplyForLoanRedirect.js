@@ -59,7 +59,6 @@ const ApplyForLoanRedirect = (props) => {
 					pathname: "/customers/accountOverview",
 				});
 			} else if (res?.data?.applicants.length === 0) {
-
 				redirectToCMO();
 			} else if (res?.data?.applicants[ 0 ]?.isActive === true) {
 				history.push({
