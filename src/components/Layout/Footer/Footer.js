@@ -1,12 +1,13 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
+import Typography from "@material-ui/core/Typography";
 import "./Footer.css";
 import badge from "../../../assets/images/badge.png";
 import Logo from "../../../assets/images/MarinerLogo.png";
-import ConsumerDialog from "../ConsumerFooterDialog/ConsumerDialog"
-
+import ConsumerDialog from "../ConsumerFooterDialog/ConsumerDialog";
 
 export default function Footer() {
-  const [consumer, setConsumer] = React.useState(false);
+  const [ consumer, setConsumer ] = React.useState(false);
   //Consumer popup
   const handleOpenConsumer = () => {
     setConsumer(true);
@@ -14,82 +15,79 @@ export default function Footer() {
   //View Part
   return (
     <div >
-      <footer style={{ width: "100%" }}>
+      <footer style={ { width: "100%" } }>
         <section className="section-top" >
           <div className="col">
             <div className="main-footer-content">
-            <NavLink to="/communityGuidelines" target="_blank" className="hrefTag">
+              <NavLink to="/communityGuidelines" target="_blank" className="hrefTag">
                 <Typography>
                   Community Guidelines
                 </Typography>
               </NavLink>
             </div>
             <div className="main-footer-content">
-            <NavLink to="/privacyStatement" target="_blank" className="hrefTag">
+              <NavLink to="/privacyStatement" target="_blank" className="hrefTag">
                 <Typography>
                   Privacy Statement
                 </Typography>
               </NavLink>
             </div>
             <div className="main-footer-content">
-            <NavLink to="/termsofuse" target="_blank" className="hrefTag">
+              <NavLink to="/termsofuse" target="_blank" className="hrefTag">
                 <Typography>
                   Terms of Use
                 </Typography>
               </NavLink>
             </div>
             <div className="main-footer-content">
-            <NavLink to="/licenseDisclosure" target="_blank" className="hrefTag">
+              <NavLink to="/licenseDisclosure" target="_blank" className="hrefTag">
                 <Typography>
-                Licensing & Disclosures
-                </Typography>
-              </NavLink> 
-            </div>
-            <div className="main-footer-content">
-            <NavLink to="/textingTermsOfUse" target="_blank" className="hrefTag">
-                <Typography>
-                Texting Terms of Use
-                </Typography>
-              </NavLink> 
-            </div>
-            <div className="main-footer-content">
-            <NavLink to="/websiteAccessibility" target="_blank" className="hrefTag">
-                <Typography>
-                Website Accessibility Statement
+                  Licensing & Disclosures
                 </Typography>
               </NavLink>
             </div>
-
+            <div className="main-footer-content">
+              <NavLink to="/textingTermsOfUse" target="_blank" className="hrefTag">
+                <Typography>
+                  Texting Terms of Use
+                </Typography>
+              </NavLink>
+            </div>
+            <div className="main-footer-content">
+              <NavLink to="/websiteAccessibility" target="_blank" className="hrefTag">
+                <Typography>
+                  Website Accessibility Statement
+                </Typography>
+              </NavLink>
+            </div>
             <div className="main-footer-content">
               <a target="_blank" rel="noreferrer" href="https://cis-development.marinerfinance.io/terms-of-use" className="hrefTag">
                 CAC Terms Of Use
               </a>
-
             </div>
             <div className="main-footer-content">
-            <NavLink to="/californiaResident" target="_blank" className="hrefTag">
+              <NavLink to="/californiaResident" target="_blank" className="hrefTag">
                 <Typography>
-                For California Residents Do Not Sell My
-                personal Information
+                  For California Residents Do Not Sell My
+                  personal Information
                 </Typography>
               </NavLink>
             </div>
           </div>
-
           <div className="col2">
             <div >
-              <input type="image" src={badge} alt="badge" id="badge" style={{ height: "100%" }} />
+              <input type="image" src={ badge } alt="badge" id="badge" style={ { height: "100%" } } />
             </div>
-            <div id="mfInfo" className="row" style={{ display: "flex", paddingTop: "15px", paddingBottom: "15px", paddingLeft: "25px" }}>
-              <input type="image" id="mfInfoImg" src={Logo} alt="logo image" style={{ height: "100%", paddingRight: "25px" }} />
+            <div id="mfInfo" className="row" style={ { display: "flex", paddingTop: "15px", paddingBottom: "15px", paddingLeft: "25px" } }>
+              <input type="image" id="mfInfoImg" src={ Logo } alt="logo image" style={ { height: "100%", paddingRight: "25px" } } />
               <div className="row">
-                <div style={{ paddingTop: "15px", paddingBottom: "15px", }}>
+                <div style={ { paddingTop: "15px", paddingBottom: "15px", } }>
                   <p className="leftAlignAddress">
                     Mariner Finance, LLC, NMLS No. 166564
-                    <span style={{ margin: "0", cursor: "pointer" }} onClick={handleOpenConsumer}>
+                    <span style={ { margin: "0", cursor: "pointer" } } onClick={ handleOpenConsumer }>
                       (www.nmlsconsumeraccess.com)
                     </span>
-                    <br/>
+                    <br />
                     8211 Town Center Drive,
                     Nottingham, MD 21236; <br />
                     Telephone Number -
@@ -101,18 +99,16 @@ export default function Footer() {
               </div>
             </div>
           </div>
-
         </section>
-
         <section className="section-bottom">
           <div>
-            <span style={{ color: "white" }}>
-              &copy; {new Date().getFullYear()} Mariner Finance All rights reserved.
+            <span style={ { color: "white" } }>
+              &copy; { new Date().getFullYear() } Mariner Finance All rights reserved.
             </span>
           </div>
         </section>
       </footer>
-      <ConsumerDialog consumer={consumer} onChange={setConsumer} />
+      <ConsumerDialog consumer={ consumer } onChange={ setConsumer } />
     </div>
   );
 }
