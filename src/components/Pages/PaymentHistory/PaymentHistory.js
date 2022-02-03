@@ -47,7 +47,7 @@ export default function PaymentHistory() {
 
   async function AsyncEffect_paymentHistory() {
     let responseData = await (usrAccountDetails());
-    setpaymentHistoryStatus(responseData?.data);
+    setpaymentHistoryStatus(responseData);
     setfileName(responseData?.data?.activeLoans.length ? responseData?.data?.activeLoans[ 0 ].loanDetails.AccountNumber : null);
   }
   useEffect(() => {
