@@ -102,8 +102,7 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
     setPage(0);
   };
 
-  let userRecentPayment =
-    userRecentPaymentData != null ? userRecentPaymentData : null;
+  let userRecentPayment = userRecentPaymentData;
 
   //View part
   return (
@@ -113,34 +112,22 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
           <TableHead>
             <TableRow>
               <TableCell className={ classes.tableHead } align="left">Date</TableCell>
-              <TableCell className={ classes.tableHead } align="left">
-                Description
-              </TableCell>
-              <TableCell className={ classes.tableHead } align="right">
-                Principal
-              </TableCell>
-              <TableCell className={ classes.tableHead } align="right">
-                Interest
-              </TableCell>
-              <TableCell className={ classes.tableHead } align="right">
-                Other
-              </TableCell>
-              <TableCell className={ classes.tableHead } align="right">
-                Total
-              </TableCell>
-              <TableCell className={ classes.tableHead } align="right">
-                Balance
-              </TableCell>
+              <TableCell className={ classes.tableHead } align="left">Description</TableCell>
+              <TableCell className={ classes.tableHead } align="right">Principal</TableCell>
+              <TableCell className={ classes.tableHead } align="right">Interest</TableCell>
+              <TableCell className={ classes.tableHead } align="right">Other</TableCell>
+              <TableCell className={ classes.tableHead } align="right">Total</TableCell>
+              <TableCell className={ classes.tableHead } align="right">Balance</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            { userRecentPayment.userRecentPaymentData.length ? (
+            { userRecentPayment?.userRecentPaymentData?.length && userRecentPayment.userRecentPaymentData[ 0 ].loanHistory.length ? (
               (rowsPerPage > 0
-                ? userRecentPayment.userRecentPaymentData[ 0 ].loanHistory.AppAccountHistory.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                : userRecentPayment.userRecentPaymentData[ 0 ].loanHistory.AppAccountHistory
-              ).map((row, index1) => (
+                ? userRecentPayment.userRecentPaymentData[ 0 ].loanHistory[0].AppAccountHistory.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                : userRecentPayment.userRecentPaymentData[ 0 ].loanHistory[0].AppAccountHistory
+              ).map((row) => (
                 <>
-                  <TableRow key={ index1 }>
+                  <TableRow key={ Math.abs(row.RunningPrincipalBalance) }>
                     <TableCell
                       component="th"
                       className={ classes.tableHeadRow }
@@ -201,8 +188,7 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
             <TableRow>
               <TablePagination
                 rowsPerPageOptions={ [ 5, 10, { label: 'All', value: -1 } ] }
-
-                count={ userRecentPayment.userRecentPaymentData.length ? userRecentPayment.userRecentPaymentData[ 0 ].loanHistory.AppAccountHistory.length : 0 }
+                count={ userRecentPayment?.userRecentPaymentData?.length && userRecentPayment?.userRecentPaymentData[ 0 ]?.loanHistory.length ? userRecentPayment?.userRecentPaymentData[ 0 ]?.loanHistory[0].AppAccountHistory?.length : 0 }
                 rowsPerPage={ rowsPerPage }
                 page={ page }
                 SelectProps={ {

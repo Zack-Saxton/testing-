@@ -20,8 +20,7 @@ export default function RecentPayments(userRecentPaymentData) {
 	const classes = useStylesAccountOverview();
 	window.zeHide();
 	//Recentpayments data
-	let userRecentPayment =
-		userRecentPaymentData != null ? userRecentPaymentData : null;
+	let userRecentPayment = userRecentPaymentData;
 	let parData = [];
 	if (userRecentPayment?.userRecentPaymentData?.length) {
 		userRecentPayment?.userRecentPaymentData.slice(0, 1).forEach(function (arrayItem) {
@@ -129,48 +128,13 @@ export default function RecentPayments(userRecentPaymentData) {
 						<Table id="recentPaymentsTable" aria-label="simple table">
 							<TableHead>
 								<TableRow>
-									<TableCell
-										className={ classes.tablehead }
-										align="left"
-									>
-										Date
-									</TableCell>
-									<TableCell
-										className={ classes.tablehead }
-										align="left"
-									>
-										Description
-									</TableCell>
-									<TableCell
-										className={ classes.tablehead }
-										align="right"
-									>
-										Principal
-									</TableCell>
-									<TableCell
-										className={ classes.tablehead }
-										align="right"
-									>
-										Interest
-									</TableCell>
-									<TableCell
-										className={ classes.tablehead }
-										align="right"
-									>
-										Other
-									</TableCell>
-									<TableCell
-										className={ classes.tablehead }
-										align="right"
-									>
-										Total Amount
-									</TableCell>
-									<TableCell
-										className={ classes.tablehead }
-										align="right"
-									>
-										Balance
-									</TableCell>
+									<TableCell className={ classes.tablehead } align="left">Date</TableCell>
+									<TableCell className={ classes.tablehead } align="left">Description</TableCell>
+									<TableCell className={ classes.tablehead } align="right">Principal</TableCell>
+									<TableCell className={ classes.tablehead } align="right">Interest</TableCell>
+									<TableCell className={ classes.tablehead } align="right">Other</TableCell>
+									<TableCell className={ classes.tablehead } align="right">Total Amount</TableCell>
+									<TableCell className={ classes.tablehead } align="right">Balance</TableCell>
 								</TableRow>
 							</TableHead>
 							{ userRecentPaymentData?.isLoading ? (

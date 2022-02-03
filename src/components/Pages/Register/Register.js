@@ -31,7 +31,7 @@ import {
 import { encryptAES } from "../../lib/Crypto";
 import ErrorLogger from "../../lib/ErrorLogger";
 import { FormValidationRules } from "../../lib/FormValidationRule";
-import globalValidation from "../../lib/Lang/globalValidation.json";
+import globalMessages from "../../../assets/data/globalMessages.json";
 import reqProperties from "../../lib/Lang/register.json";
 import "./Register.css";
 let formValidation = new FormValidationRules();
@@ -229,8 +229,8 @@ export default function Register() {
           setSuccess(false);
           setLoading(false);
         } else {
-          alert(globalValidation.Network_Error);
-          setFailed(globalValidation.Network_Error_Please_Try_Again);
+          alert(globalMessages.Network_Error);
+          setFailed(globalMessages.Network_Error_Please_Try_Again);
           setSuccess(false);
           setLoading(false);
         }
@@ -360,7 +360,7 @@ export default function Register() {
                         name="firstname"
                         id="firstname"
                         label="First Name *"
-                        placeholder={ globalValidation.FirstNameEnter }
+                        placeholder={ globalMessages.FirstNameEnter }
                         materialProps={ { maxLength: "30" } }
                         value={ formik.values.firstname }
                         onChange={ (e) => NameChange(e) }
@@ -387,7 +387,7 @@ export default function Register() {
                         name="lastname"
                         id="lastname"
                         label="Last Name *"
-                        placeholder={ globalValidation.LastNameEnter }
+                        placeholder={ globalMessages.LastNameEnter }
                         materialProps={ { maxLength: "30" } }
                         value={ formik.values.lastname }
                         onChange={ NameChange }
@@ -413,7 +413,7 @@ export default function Register() {
                         id="email"
                         name="email"
                         label="Email *"
-                        placeholder={ globalValidation.EmailEnter }
+                        placeholder={ globalMessages.EmailEnter }
                         materialProps={ { maxLength: "100" } }
                         onKeyDown={ preventSpace }
                         value={ formik.values.email }
@@ -438,7 +438,7 @@ export default function Register() {
                         className={ classes.socialNum }
                         name="ssn"
                         label="Social Security Number *"
-                        placeholder={ globalValidation.SSNEnter }
+                        placeholder={ globalMessages.SSNEnter }
                         id="ssn"
                         type="ssn"
                         value={ formik.values.ssn }
@@ -461,7 +461,7 @@ export default function Register() {
                         id="zip"
                         name="zip"
                         label="Zip Code *"
-                        placeholder={ globalValidation.ZipCodeEnter }
+                        placeholder={ globalMessages.ZipCodeEnter }
                         value={ formik.values.zip }
                         onChange={ fetchAddress }
                         onBlur={ formik.handleBlur }
@@ -472,7 +472,7 @@ export default function Register() {
                         helperText={
                           validZip
                             ? formik.touched.zip && formik.errors.zip
-                            : `${ globalValidation.ZipCodeValid }`
+                            : `${ globalMessages.ZipCodeValid }`
                         }
                       />
                     </Grid>
@@ -515,7 +515,7 @@ export default function Register() {
                       <PasswordField
                         name="password"
                         label="Create New Password *"
-                        placeholder={ globalValidation.PasswordEnter }
+                        placeholder={ globalMessages.PasswordEnter }
                         id="password"
                         type="password"
                         onKeyDown={ preventSpace }
@@ -548,7 +548,7 @@ export default function Register() {
                       <PasswordField
                         name="confirmPassword"
                         label="Confirm Your Password *"
-                        placeholder={ globalValidation.PasswordConfirmEnter }
+                        placeholder={ globalMessages.PasswordConfirmEnter }
                         id="cpass"
                         type="password"
                         onKeyDown={ preventSpace }

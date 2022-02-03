@@ -72,13 +72,13 @@ export default function PaymentHistory() {
 
   //Download pdf
   const downloadPDF = () => {
-    let pdfData = recentPaymentData != null ? recentPaymentData[ 0 ].loanHistory.AppAccountHistory : [];
+    let pdfData = recentPaymentData != null ? recentPaymentData[ 0 ].loanHistory[0].AppAccountHistory : [];
     const unit = "pt";
     const size = "A4";
     const orientation = "portrait";
     const doc = new jsPDF(orientation, unit, size);
     const headerPDF = [ [ "Date", "Description", "Principal", "Interest", "Other", "Total", "Balance" ] ];
-    const data = pdfData.map(data => [ Moment(data.TransactionDate).format("MM-DD-YYYY"), data.TransactionDescription, currencyFormat(Math.abs(data.PrincipalAmount)), currencyFormat(Math.abs(data.InterestAmount)), currencyFormat(Math.abs(data.OtherAmount)), currencyFormat(Math.abs(data.InterestAmount + data.OtherAmount + data.PrincipalAmount)), currencyFormat(Math.abs(data.RunningPrincipalBalance)) ]);
+    const data = pdfData.map(dataItem => [ Moment(dataItem.TransactionDate).format("MM-DD-YYYY"), dataItem.TransactionDescription, currencyFormat(Math.abs(dataItem.PrincipalAmount)), currencyFormat(Math.abs(dataItem.InterestAmount)), currencyFormat(Math.abs(dataItem.OtherAmount)), currencyFormat(Math.abs(dataItem.InterestAmount + dataItem.OtherAmount + dataItem.PrincipalAmount)), currencyFormat(Math.abs(dataItem.RunningPrincipalBalance)) ]);
     doc.setFontSize(15);
     doc.text("Active Loan / Payment History(" + fileName + ")", 40, 30);
     let content = {
@@ -99,7 +99,7 @@ export default function PaymentHistory() {
       : null;
 
   //Data for csv file
-  const dataCSV = recentPaymentData != null ? recentPaymentData.length ? recentPaymentData[ 0 ].loanHistory.AppAccountHistory.map(item => {
+  const dataCSV = recentPaymentData?.length && recentPaymentData[ 0 ]?.loanHistory.length && recentPaymentData[ 0 ]?.loanHistory[0]?.AppAccountHistory ? recentPaymentData[ 0 ].loanHistory[0].AppAccountHistory.map(item => {
     return {
       ...item,
       ...{ TransactionDate: Moment(item.TransactionDate).format('MM-DD-YYYY') },
@@ -110,7 +110,7 @@ export default function PaymentHistory() {
       ...{ OtherAmount: currencyFormat(Math.abs(item.OtherAmount)) },
       ...{ RunningPrincipalBalance: currencyFormat(Math.abs(item.RunningPrincipalBalance)) },
     };
-  }) : [] : [];
+  }) : [];
 
   //View part
   return (
@@ -167,7 +167,6 @@ export default function PaymentHistory() {
         { recentPaymentData === null ? (
           <Grid item xs={ 12 } style={ { paddingTop: "10px", paddingBottom: "30px" } }>
             <TableContainer id="pdfdiv" component={ Paper }>
-
               <Table className={ classes.table } aria-label="simple table">
                 <TableHead>
                   <TableRow>

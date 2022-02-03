@@ -17,7 +17,7 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
   const classes = useStylesPaymenthistory();
 
   //Payment history data from API
-  let userRecentPayment = userRecentPaymentData != null ? userRecentPaymentData : null;
+  let userRecentPayment = userRecentPaymentData ?? null;
 
   //View part
   return (
@@ -36,18 +36,18 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
             </TableRow>
           </TableHead>
           <TableBody>
-            { userRecentPayment.userRecentPaymentData === null ? (
+            { userRecentPayment?.userRecentPaymentData === null ? (
               <TableRow>
                 <TableCell colSpan="7" align="center">
                   Please wait...
                 </TableCell>
               </TableRow>
-            ) : userRecentPayment.userRecentPaymentData.length ? (
-              userRecentPayment.userRecentPaymentData.map((val, index1) => (
+            ) : userRecentPayment?.userRecentPaymentData?.length ? (
+              userRecentPayment?.userRecentPaymentData.map((val, index1) => (
                 <div key={ index1 }>
-                  { val.loanHistory.AppAccountHistory.map((row, index) => (
+                  { val?.loanHistory[0]?.AppAccountHistory.map((row) => (
                     <>
-                      <TableRow key={ index }>
+                      <TableRow key={ row.RunningPrincipalBalance }>
                         <TableCell
                           component="th"
                           className={ classes.tableHeadRow }
