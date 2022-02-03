@@ -135,8 +135,6 @@ export default function PaymentMethod() {
     const [ validZip, setValidZip ] = useState(true);
     const [ mailingStreetAddress, setMailingStreetAddress ] = useState("");
     const [ mailingZipcode, setMailingZipcode ] = useState("");
-    const currentYear = new Date().getFullYear();
-
     const formikAddBankAccount = useFormik({
         initialValues: {
             accountNickname: "",
@@ -164,7 +162,7 @@ export default function PaymentMethod() {
     const addBankOnChange = (event) => {
         const reg = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
         let acc = event.target.value;
-        if (acc === "" || reg.test(acc)) {
+        if (acc === "" || acc.match(reg)) {
             formikAddBankAccount.handleChange(event);
         }
     };
@@ -173,7 +171,7 @@ export default function PaymentMethod() {
         const reg = /^[0-9\b]+$/;
         let acc = event.target.value;
 
-        if (acc === "" || reg.test(acc)) {
+        if (acc === "" || acc.match(reg)) {
             formikAddBankAccount.handleChange(event);
         }
     };
@@ -198,7 +196,7 @@ export default function PaymentMethod() {
     const addDebitOnChange = (event) => {
         const reg = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
         let acc = event.target.value;
-        if (acc === "" || reg.test(acc)) {
+        if (acc === "" || acc.match(reg)) {
             formikAddDebitCard.handleChange(event);
         }
     };
@@ -254,7 +252,6 @@ export default function PaymentMethod() {
                 });
             setLoading(false);
         } else {
-            let expDate = new Date(row.ExpirationDate);
             setEditMode(true);
             addDebitCardButton();
             formikAddDebitCard.setFieldValue("cardName", row.OwnerName);
@@ -284,15 +281,15 @@ export default function PaymentMethod() {
             Discover: /^6(?:011|5\d{2})\d{12}$/,
             JCB: /^(?:2131|1800|35\d{3})\d{11}$/,
         };
-        let valid = false;
+        let _valid = false;
         for (var key in re) {
             if (re[ key ].test(number)) {
                 setCardType(key);
-                valid = true;
+                _valid = true;
                 return key;
             }
         }
-        if (valid === false) {
+        if (!_valid) {
             setCardType(false);
         }
         formikAddDebitCard.handleBlur(e);
@@ -436,7 +433,7 @@ export default function PaymentMethod() {
                     if (res?.data?.deletePaymentMethod?.HasNoErrors === true) {
                         if (!toast.isActive("closeToast")) {
                             toast.success("Card deleted successfully.");
-                        };
+                        }
                         setDeleteID("");
                         setDeleteType("");
                         handleDeleteConfirmClose();
@@ -630,7 +627,6 @@ export default function PaymentMethod() {
                                                             );
                                                             setDeleteType(row?.AccountType ? "bank" : "card");
                                                             handleDeleteConfirmOpen();
-                                                            // onClickDelete(row?.AccountType ? "bank" : "card", row?.AccountType ? row.SequenceNumber : row.ProfileId );
                                                         } }
                                                     />
 
