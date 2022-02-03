@@ -119,6 +119,10 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error{
     padding-bottom: 15px !important;
 }
 
+#citizenshipWrap{
+    padding: 0 !important;
+}
+
 #citizenshipWrap div label{
     font-size: 0.968rem !important;
 }

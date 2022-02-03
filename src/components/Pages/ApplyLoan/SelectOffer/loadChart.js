@@ -10,8 +10,8 @@ export default function LoadChart(props) {
 	let maxMonthly, maxTotal;
 	const currencyFormat = (val) => {
 		if (val) {
-			var formated = parseFloat(val);
-			var currency = "$";
+			let formated = parseFloat(val);
+			let currency = "$";
 			return (
 				currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,")
 			);
@@ -26,7 +26,7 @@ export default function LoadChart(props) {
 
 	if (props?.offersToCompareChart?.length >= 2) {
 		props.offersToCompareChart.forEach((x, i) => {
-			var arr = {
+			let arr = {
 				monthlyPaymentConverted: toNumeric(x.monthlyPayment),
 				term: x.termNum,
 				loanAmount: toNumeric(x.loanAmount),

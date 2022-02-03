@@ -13,10 +13,11 @@ import profileImg from "../../../assets/images/profile-img.jpg";
 import { ProfilePicture } from "../../../contexts/ProfilePicture";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import LogoutController from "../../Controllers/LogoutController";
-import { basicInformation, uploadNewProfileImage } from "../../Controllers/myProfileController";
+import { basicInformation, uploadNewProfileImage } from "../../Controllers/MyProfileController";
 import { ButtonPrimary, ButtonSecondary, EmailTextField, PhoneNumber, TextField } from "../../FormsUI";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import "./Style.css";
+import ErrorLogger from '../../lib/ErrorLogger';
 
 const validationSchema = yup.object({
   email: yup
@@ -27,7 +28,6 @@ const validationSchema = yup.object({
       globalMessages.EmailValid
     )
     .required(globalMessages.EmailRequired),
-
   phone: yup
     .string(globalMessages.PhoneEnter)
     .required(globalMessages.PhoneRequired)
@@ -52,14 +52,14 @@ export default function BasicInformation(props) {
   const { dataProfile, setData } = useContext(ProfilePicture);
   const history = useHistory();
   const { refetch } = useQuery('loan-data', usrAccountDetails);
-  let basicData = props?.basicInformationData?.identification != null ? props.basicInformationData.identification : null;
-  let basicInfo = props?.basicInformationData?.latest_contact != null ? props.basicInformationData.latest_contact : null;
-  let profileImageData = props?.getProfileImage != null ? props.getProfileImage : profileImg;
+  let basicData = props?.basicInformationData?.identification;
+  let basicInfo = props?.basicInformationData?.latest_contact;
+  let profileImageData = props?.getProfileImage ?? profileImg;
   let hasActiveLoan = Cookies.get("hasActiveLoan") === "true" ? true : false;
   let hasApplicationStatus = Cookies.get("hasApplicationStatus");
   var appStatus = [ "rejected", "referred", "expired" ];
   let checkAppStatus = appStatus.includes(hasApplicationStatus);
-  let disableField = (checkAppStatus === true || hasActiveLoan === true) ? true : false;
+  let disableField = (checkAppStatus || hasActiveLoan) ? true : false;
   const [ selectedFile, setSelectedFile ] = useState(null);
   const [ docType ] = useState("");
   const [ uploadedImage, setuploadedImage ] = useState(null);
@@ -91,8 +91,8 @@ export default function BasicInformation(props) {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      email: basicInfo?.email ? basicInfo?.email : "",
-      phone: basicInfo?.phone_number_primary ? basicInfo?.phone_number_primary : "",
+      email: basicInfo?.email ?? "",
+      phone: basicInfo?.phone_number_primary ?? "",
     },
     validationSchema: validationSchema,
 
@@ -142,12 +142,10 @@ export default function BasicInformation(props) {
             setLoading(false);
             selectedFile.value = "";
             return false;
-
           } else if (selectedFile.files[ 0 ].size <= 819200) {
             let reader = new FileReader();
             if (selectedFile.files && selectedFile.files[ 0 ]) {
               reader.onload = async () => {
-
                 const compress_file = await imageConversion.compressAccurately(selectedFile.files[ 0 ], {
                   size: 80,
                   accuracy: '',
@@ -172,14 +170,10 @@ export default function BasicInformation(props) {
                 let uploadData = await uploadNewProfileImage(imageData, fileName, fileType, documentType, email);
                 if (uploadData.status === 200) {
                   setData({
-                    ...dataProfile, "profile_picture_url":
-                      uploadData?.data?.profile_picture_url
-                        ? uploadData?.data?.profile_picture_url
-                        : ""
+                    ...dataProfile, "profile_picture_url": uploadData?.data?.profile_picture_url ?? ""
                   });
 
                   Cookies.set("profile_picture_url", uploadData?.data?.profile_picture_url ? uploadData?.data?.profile_picture_url : "");
-
                   if (!toast.isActive("closeToast")) {
                     toast.success(
                       globalMessages.UpdatedSuccessfully,
@@ -193,7 +187,6 @@ export default function BasicInformation(props) {
                             setLoading(false);
                             onClickCancelChange();
                             logoutUser();
-
                           }
                           else if ((formik.initialValues.phone !== values.phone && selectedFile !== null)) {
                             setuploadedImage(uploadData?.data?.profile_picture_url);
@@ -303,7 +296,6 @@ export default function BasicInformation(props) {
             container
             direction="row"
           >
-
             <TextField
               id="basicFirstName"
               label="First Name"
@@ -358,7 +350,7 @@ export default function BasicInformation(props) {
               id="email"
               name="email"
               label="Email Address"
-              disabled={ disableField === true ? false : true }
+              disabled={ !disableField}
               onKeyDown={ preventSpace }
               value={ formik.values.email }
               materialProps={ { maxLength: "100" } }
@@ -374,14 +366,14 @@ export default function BasicInformation(props) {
             style={ { width: "100%", gap: 15, marginBottom: 18 } }
             container
             direction="row"
-            id={ disableField === true ? "basicPhoneNumber" : "profilePhoneNumberWrap" }
+            id={ disableField ? "basicPhoneNumber" : "profilePhoneNumberWrap" }
           >
             <PhoneNumber
               name="phone"
               label="Primary Phone Number"
               placeholder="Enter your phone number"
               id="phone"
-              disabled={ disableField === true ? false : true }
+              disabled={ !disableField }
               onKeyDown={ preventSpace }
               value={ formik.values.phone }
               onChange={ formik.handleChange }
@@ -395,7 +387,7 @@ export default function BasicInformation(props) {
             <Grid id="imgUploadWrap" item xs={ 8 } sm={ 3 }>
               <img
                 style={ { width: "100%" } }
-                src={ uploadedImage !== null ? uploadedImage : profileImageData }
+                src={ uploadedImage ?? profileImageData }
                 align="left"
                 alt="Profile Pic"
               />
@@ -409,7 +401,7 @@ export default function BasicInformation(props) {
                 variant="contained"
                 component="span"
                 onClick={ handleInputChange }
-                disabled={ disableField === true ? false : true }
+                disabled={ !disableField }
               >
                 Upload New Photo
               </ButtonSecondary>
@@ -441,17 +433,15 @@ export default function BasicInformation(props) {
               stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
               styleicon='{ "color":"" }'
               onClick={ onClickCancelChange }
-              disabled={ disableField === true ? false : true }
+              disabled={ !disableField }
             >
               Cancel
             </ButtonSecondary>
-
             <ButtonPrimary
               stylebutton='{"marginLeft": "", "color":"#171717", "fontWeight":"700", "marginLeft": "5px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
               styleicon='{ "color":"" }'
               type="submit"
               disabled={ loading }
-
             >
               Save Changes
               <i
@@ -463,7 +453,6 @@ export default function BasicInformation(props) {
                 } }
               />
             </ButtonPrimary>
-
           </Grid>
         </> }
       </form>

@@ -137,7 +137,6 @@ function LoanPurpose(props) {
 									How are you planning to use the money?
 								</Typography>
 								<Grid
-									id="loanPurposegrid"
 									className="blockDiv"
 									container
 									justifyContent="center"
@@ -534,6 +533,7 @@ function LoanPurpose(props) {
 											} }
 										>
 											<Typography
+												id="otherText"
 												align="center"
 												className={
 													purpose === "Other" ? "textCSS whiteText" : "textCSS"

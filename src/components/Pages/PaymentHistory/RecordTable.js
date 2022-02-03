@@ -45,7 +45,7 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
             ) : userRecentPayment?.userRecentPaymentData?.length ? (
               userRecentPayment?.userRecentPaymentData.map((val, index1) => (
                 <div key={ index1 }>
-                  { val?.loanHistory?.AppAccountHistory.map((row) => (
+                  { val?.loanHistory[0]?.AppAccountHistory.map((row) => (
                     <>
                       <TableRow key={ row.RunningPrincipalBalance }>
                         <TableCell

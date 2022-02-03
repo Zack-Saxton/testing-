@@ -15,16 +15,15 @@ import { NavLink } from "react-router-dom";
 import { ButtonPrimary, TableCellWrapper } from "../../FormsUI";
 import { useStylesAccountOverview } from "./Style";
 import "./Style.css";
-export default function RecentPayments(userRecentPaymentData) {
+export default function RecentPayments(paymentHistory) {
 	//Material UI css class
 	const classes = useStylesAccountOverview();
 	window.zeHide();
 	//Recentpayments data
-	let userRecentPayment = userRecentPaymentData;
 	let parData = [];
-	if (userRecentPayment?.userRecentPaymentData?.length) {
-		userRecentPayment?.userRecentPaymentData.slice(0, 1).forEach(function (arrayItem) {
-			arrayItem?.loanHistory?.AppAccountHistory?.slice(0, 3).forEach(function (row) {
+	if (paymentHistory?.userRecentPaymentData?.length) {
+		paymentHistory?.userRecentPaymentData.slice(0, 1).forEach(function (arrayItem) {
+			arrayItem?.AppAccountHistory?.slice(0, 3).forEach(function (row) {
 				parData.push(
 					{
 						date: {
@@ -137,7 +136,7 @@ export default function RecentPayments(userRecentPaymentData) {
 									<TableCell className={ classes.tablehead } align="right">Balance</TableCell>
 								</TableRow>
 							</TableHead>
-							{ userRecentPaymentData?.isLoading ? (
+							{ paymentHistory?.isLoading ? (
 								<TableBody>
 									<TableRow>
 										<TableCell colSpan="7" align="center">
@@ -145,7 +144,7 @@ export default function RecentPayments(userRecentPaymentData) {
 										</TableCell>
 									</TableRow>
 								</TableBody>
-							) : userRecentPayment?.userRecentPaymentData?.length ? (
+							) : paymentHistory?.userRecentPaymentData?.length ? (
 								<TableCellWrapper parseData={ parData } />
 							) : (
 								<TableBody>

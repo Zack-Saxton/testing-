@@ -41,6 +41,7 @@ const APICall = async (api, param, data, method, addAccessToken) => {
     response.status = error.response.status;
     response.statusText = error.response.statusText;
   }
+  console.log('API Data :: ', JSON.stringify(response, null, 4));
   return response;
 };
 

@@ -88,12 +88,12 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-export default function PaymentHistoryTable(userRecentPaymentData) {
+export default function PaymentHistoryTable({userRecentPaymentData}) {
   const classes = useStylesPaymenthistory();
   const [ page, setPage ] = React.useState(0);
   const [ rowsPerPage, setRowsPerPage ] = React.useState(10);
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (newPage) => {
     setPage(newPage);
   };
 
@@ -101,8 +101,6 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-
-  let userRecentPayment = userRecentPaymentData;
 
   //View part
   return (
@@ -121,13 +119,13 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
             </TableRow>
           </TableHead>
           <TableBody>
-            { userRecentPayment?.userRecentPaymentData?.length ? (
+            { userRecentPaymentData ? (
               (rowsPerPage > 0
-                ? userRecentPayment.userRecentPaymentData[ 0 ].loanHistory.AppAccountHistory.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                : userRecentPayment.userRecentPaymentData[ 0 ].loanHistory.AppAccountHistory
+                ? userRecentPaymentData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                : userRecentPaymentData
               ).map((row) => (
                 <>
-                  <TableRow key={ Math.abs(row.RunningPrincipalBalance) }>
+                  <TableRow key={(Math.random()*1000)}> 
                     <TableCell
                       component="th"
                       className={ classes.tableHeadRow }
@@ -188,7 +186,7 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
             <TableRow>
               <TablePagination
                 rowsPerPageOptions={ [ 5, 10, { label: 'All', value: -1 } ] }
-                count={ userRecentPayment?.userRecentPaymentData?.length ? userRecentPayment?.userRecentPaymentData[ 0 ]?.loanHistory.AppAccountHistory?.length : 0 }
+                count={ userRecentPaymentData?.length }
                 rowsPerPage={ rowsPerPage }
                 page={ page }
                 SelectProps={ {

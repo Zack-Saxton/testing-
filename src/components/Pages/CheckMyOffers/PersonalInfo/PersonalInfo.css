@@ -145,7 +145,7 @@
 	overflow: hidden;
 	width: 100%;
 
-	margin: 0.5rem 0 1rem 0;
+	margin: 0.5rem 0 0.938rem 0;
 	border-radius: 2px 2px 0px 0px;
 	background-color: white;
 	height: 20px;
@@ -164,9 +164,10 @@
 	padding-left: 40%;
 	font-weight: 600;
 	color: #134ca8;
+	margin-left: 0.5%;
 }
 .textBlock {
-	margin: 20px 0 !important;
+	margin: 15px 0 !important;
 }
 
 .hideError {
@@ -177,7 +178,7 @@
 	display: block;
 }
 .borrowCSSLP {
-	font-size: 1.563rem !important;
+	font-size: 1.538rem !important;
 	font-weight: 400 !important;
 	line-height: 110% !important;
 	margin: 0.82rem 0 0.656rem 0 !important;
@@ -190,7 +191,6 @@
 .alignErrorLeft {
 	width: 100%;
 	text-align: left;
-	margin-top: 10px !important;
 }
 
 #firstName,
@@ -232,9 +232,10 @@
 	border-radius: 4px !important;
 }
 
-/* #aboutYourselfWrap div:nth-child(1) {
-	border-radius: 4px 4px 0px 0px !important;
-} */
-/* #aboutYourselfWrap #determinate {
-	border-radius: 4px 0px 0px 0px !important;
-} */
+#arrowBack{
+	position: relative;
+}
+
+.floatingButton{
+	position: absolute;
+}

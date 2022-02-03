@@ -19,7 +19,7 @@ import {
   uploadDocument
 } from "../../Controllers/LoanDocumentController";
 import { ButtonWithIcon, Select } from "../../FormsUI";
-import loanDocs from "../../lib/Lang/loanDocument.json";
+import globalMessages from "../../../assets/data/globalMessages.json";
 import "../LoanDocument/LoanDocument.css";
 import ScrollToTopOnMount from "../ScrollToTop";
 import LoanDocumentTable from "./DocumentTable";
@@ -51,26 +51,15 @@ export default function LoanDocument(props) {
     changeEvent.current.click();
     event.target.value = '';
   };
-  const uploadDoc = () => {
-    if (selectedFile === null) {
+  const handleElse = () =>{
+    if (selectedFile.files[ 0 ].size > 10240000) {
       if (!toast.isActive("closeToast")) {
-        toast.error(loanDocs.Please_Select_File_Upload, { toastId: "closeToast" });
+        toast.error(globalMessages.Please_Upload_File_Below_Size, { toastId: "closeToast" });
       }
-    } else if (docType === null || docType === "") {
-      if (!toast.isActive("closeToast")) {
-        toast.error(loanDocs.Please_Select_A_Document_Type, { toastId: "closeToast" });
-      }
-    } else {
-      var filePath = selectedFile.value;
-      var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.pdf)$/i;
-      if (!allowedExtensions.exec(filePath)) {
-        if (!toast.isActive("closeToast")) {
-          toast.error("Please upload file having extensions .jpeg .jpg .png .pdf only. ");
-        }
-        selectedFile.value = "";
-        return false;
-      } else if (selectedFile.files[ 0 ].size <= 10240000) {
-        let reader = new FileReader();
+    }
+  }
+  const handleElseTwo= ()=>{
+    let reader = new FileReader();
         if (selectedFile.files && selectedFile.files[ 0 ]) {
           reader.onload = async () => {
             const buffer2 = Buffer.from(reader.result, "base64");
@@ -88,15 +77,32 @@ export default function LoanDocument(props) {
             //Passing data to API
           };
           reader.readAsDataURL(selectedFile.files[ 0 ]);
+          
         }
-      } else {
-        if (selectedFile.files[ 0 ].size > 10240000) {
-          if (!toast.isActive("closeToast")) {
-            toast.error(loanDocs.Please_Upload_File_Below_Size, { toastId: "closeToast" });
-          }
-        }
+  }
+  const uploadDoc = () => {
+    if (selectedFile === null) {
+      if (!toast.isActive("closeToast")) {
+        toast.error(globalMessages.Please_Select_File_Upload, { toastId: "closeToast" });
       }
-    }
+    } else if (docType === null || docType === "") {
+      if (!toast.isActive("closeToast")) {
+        toast.error(globalMessages.Please_Select_A_Document_Type, { toastId: "closeToast" });
+      }
+    } else {
+      var filePath = selectedFile.value;
+      var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.pdf)$/i;
+      if (!allowedExtensions.exec(filePath)) {
+        if (!toast.isActive("closeToast")) {
+          toast.error("Please upload file having extensions .jpeg .jpg .png .pdf only. ");
+        }
+        selectedFile.value = "";
+        return false;
+      } else if (selectedFile.files[ 0 ].size <= 10240000) {
+        handleElseTwo()
+      } else {
+        handleElse()      
+    }}
   };
 
   //View part
