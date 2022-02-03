@@ -16,7 +16,7 @@ import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
-import { textNotification } from "../../Controllers/myProfileController";
+import { textNotification } from "../../Controllers/MyProfileController";
 import {
   ButtonPrimary,
   ButtonSecondary,
@@ -37,7 +37,7 @@ export default function TextNotification() {
   let phone = Cookies.get("opted_phone_texting");
   let textnotifybool = Cookies.get("isTextNotify") === "true" ? true : false;
   let [ disabledContent, setdisabledContent ] = useState(textnotifybool);
-  
+
   const onClickCancelChange = () => {
     formikTextNote.resetForm();
     history.push({ pathname: "/customers/myProfile" });

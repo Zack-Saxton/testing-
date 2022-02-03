@@ -72,7 +72,7 @@ export default function PaymentHistory() {
 
   //Download pdf
   const downloadPDF = () => {
-    let pdfData = recentPaymentData != null ? recentPaymentData[ 0 ].loanHistory.AppAccountHistory : [];
+    let pdfData = recentPaymentData != null ? recentPaymentData[ 0 ].loanHistory[0].AppAccountHistory : [];
     const unit = "pt";
     const size = "A4";
     const orientation = "portrait";
@@ -99,7 +99,7 @@ export default function PaymentHistory() {
       : null;
 
   //Data for csv file
-  const dataCSV = recentPaymentData != null ? recentPaymentData.length ? recentPaymentData[ 0 ].loanHistory.AppAccountHistory.map(item => {
+  const dataCSV = recentPaymentData?.length && recentPaymentData[ 0 ]?.loanHistory?.AppAccountHistory ? recentPaymentData[0].loanHistory.AppAccountHistory.map(item => {
     return {
       ...item,
       ...{ TransactionDate: Moment(item.TransactionDate).format('MM-DD-YYYY') },
@@ -110,7 +110,7 @@ export default function PaymentHistory() {
       ...{ OtherAmount: currencyFormat(Math.abs(item.OtherAmount)) },
       ...{ RunningPrincipalBalance: currencyFormat(Math.abs(item.RunningPrincipalBalance)) },
     };
-  }) : [] : [];
+  }) : [];
 
   //View part
   return (
