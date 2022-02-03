@@ -5,9 +5,9 @@ import Grid from "@material-ui/core/Grid";
 import { NavLink } from "react-router-dom";
 import { useStylesAccountOverview } from "./Style";
 import adBanner from "../../../assets/gallery/AdBanner.jpg";
-import MortgageBanner from "../../../assets/images/Mortgage-Banner.png";
-import { ButtonPrimary } from "../../FormsUI";
+import MortgageBanner from "../../../assets/images/Mortgage-Banner.jpg";
 import "./Style.css";
+import { ButtonPrimary } from "../../FormsUI";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {Modal,Box,Typography} from "@material-ui/core";
 import NumberFormat from "react-number-format";
@@ -28,12 +28,16 @@ export default function LimitedOffer(userOfferData) {
 
   useEffect(()=>{
             setAccountDetails().then((res)=>{
-              setOfferCode(res?.data?.offerData?.OfferCode)
-              setExpiryDate(res?.data?.offerData?.dateExpiration)
-              setAmount(res?.data?.offerData?.offerAmount)
-              setfirstName(res?.data?.offerData?.firstName);
+              setOfferCode(res.data.offerData.OfferCode)
+              setExpiryDate(res.data.offerData.dateExpiration)
+              setAmount(res.data.offerData.offerAmount)
+              setfirstName(res.data.offerData.firstName);
             })
   },[])
+
+  const showModal = () =>{
+    setinitModal(true);
+  }
 
   const closeModal = () =>{
     setinitModal(false);
@@ -51,6 +55,7 @@ export default function LimitedOffer(userOfferData) {
     boxShadow: 24,
     p: 4,
   };
+  
 
   //View
   return (
@@ -74,11 +79,11 @@ export default function LimitedOffer(userOfferData) {
                     <p id="loanPercent">
                       <NumberFormat value={userOfferAmount} displayType={'text'} thousandSeparator={true} prefix={'$'} />
                     </p>
-                    <NavLink to="/customers/selectOffer" style={ { textDecoration: "none" } } >
-                      <ButtonPrimary id="claimButton" stylebutton='{"float": "right","padding":"0px 10px", "textTransform": "none","fontSize":"0.988rem","fontFamily":"Muli,sans-serif"}'>
+                    
+                      <ButtonPrimary onClick={showModal} id="claimButton" stylebutton='{"color":""}'>
                         Check My Offer
                       </ButtonPrimary>
-                    </NavLink>
+                   
                   </div>
                 ) : (
                   <div id="offerText">
@@ -86,7 +91,7 @@ export default function LimitedOffer(userOfferData) {
                       to={{ pathname: '/customers/applyForLoan', state: { from: "user" } }}
                       style={{ textDecoration: "none" }}
                     >
-                      <ButtonPrimary id="claimButton" stylebutton='{"float": "right","padding":"0px 10px", "textTransform": "none","fontSize":"0.988rem","fontFamily":"Muli,sans-serif"}'>
+                      <ButtonPrimary id="claimButton" stylebutton='{"color":"", "textTransform": "none"}'>
                         Apply for a Loan
                       </ButtonPrimary>
                     </NavLink>
@@ -125,7 +130,7 @@ export default function LimitedOffer(userOfferData) {
           <IconButton
                                 id="debitCardModalClose"
                                 aria-label="close"
-
+                                
                                 onClick={closeModal}
                             >
                                 <CloseIcon />
@@ -143,6 +148,7 @@ export default function LimitedOffer(userOfferData) {
 
 <p className="common">Use it to get things done.</p>
 
+  
 <p className="common">Offer Code:{offerCode}</p>
 <ButtonPrimary id="ClaimButton" stylebutton='{"color":"", "textTransform": "none","marginLeft":"40px"}'>
                         Continue
@@ -152,8 +158,8 @@ export default function LimitedOffer(userOfferData) {
             <Grid>
               <p className="common">Dear {firstName},</p>
               <p className="common">
-                Looking for an easy way to break up the cost of big expenses, without breaking the bank? Or get rid of lingering credit
-                card bills? A fixed-rate, fixed-payment personal loan of ${amount} from Mariner Finance can help you get the
+                Looking for an easy way to break up the cost of big expenses, without breaking the bank? Or get rid of lingering credit 
+                card bills? A fixed-rate, fixed-payment personal loan of ${amount} from Mariner Finance can help you get the 
                 things you want-and get rid of the bills you don't.
                 </p>
                 <p className="common">What will you do with your money?</p>
@@ -195,10 +201,10 @@ consumer finance company of choice.
            </Grid><br/>
            <Grid>
              <p className="common para">PRESCREEN & OPT-OUT NOTICE<br/><br/>
-           <span className="small"> This “prescreened” offer of credit is based on information in your credit report indicating that you meet certain criteria. This offer is not
-            guaranteed if you do not meet our criteria, including providing acceptable property as collateral. If you do not want to receive prescreened offers of
-            credit from this and other companies, call the nationwide consumer reporting agencies toll-free: 1-888-5OPT OUT, or write: Equifax, Inc Options, PO Box 740123,
-            Atlanta, GA 30374; or Experian Opt Out, PO Box 919, Allen, TX 75013; or TransUnion Name Removal Option, PO Box 505, Woodlyn, PA 19094, or
+           <span className="small"> This “prescreened” offer of credit is based on information in your credit report indicating that you meet certain criteria. This offer is not 
+            guaranteed if you do not meet our criteria, including providing acceptable property as collateral. If you do not want to receive prescreened offers of 
+            credit from this and other companies, call the nationwide consumer reporting agencies toll-free: 1-888-5OPT OUT, or write: Equifax, Inc Options, PO Box 740123, 
+            Atlanta, GA 30374; or Experian Opt Out, PO Box 919, Allen, TX 75013; or TransUnion Name Removal Option, PO Box 505, Woodlyn, PA 19094, or 
             visit the website at www.optoutprescreen.com.</span>
             </p>
            </Grid>
@@ -217,7 +223,7 @@ USA Patriot Act - To help the government fight the funding of terrorism and mone
            <Grid>
              <p className="common para">15 Day Satisfaction Guarantee<br></br>
 <span className="small">
-If, for any reason, you are dissatisfied with your loan and repay it in full within 15 days we will waive all finance charges with no
+If, for any reason, you are dissatisfied with your loan and repay it in full within 15 days we will waive all finance charges with no 
 penalties. Your repayment amount must be in the form of cash or certified funds.
 </span>
 </p>
@@ -225,7 +231,7 @@ penalties. Your repayment amount must be in the form of cash or certified funds.
           </Typography>
         </Box>
       </Modal>
-
+      
         </Grid>
       </div>
   );
