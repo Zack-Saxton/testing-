@@ -11,7 +11,7 @@
 	margin-bottom: 2%;
 }
 .borrowCSSLP {
-	font-size: 1.563rem !important;
+	font-size: 1.538rem !important;
 	line-height: 110% !important;
 	margin: 0.82rem 0 0.656rem 0 !important;
 }
@@ -72,7 +72,7 @@
 	overflow: hidden;
 	width: 100%;
 
-	margin: 0.5rem 0 1rem 0;
+	margin: 0.5rem 0 0.938rem 0;
 	border-radius: 2px;
 	background-color: white;
 	height: 20px;
@@ -90,6 +90,7 @@
 	padding-left: 8.333333333333334%;
 	font-weight: 600;
 	color: #134ca8;
+	margin-left: 0.5%;
 }
 
 .activeCard {
@@ -125,8 +126,7 @@
 }
 
 .blockDiv {
-	padding: 0 5%;
-
+	padding: 0 24px 24px 24px !important;
 	align-items: stretch;
 }
 
@@ -167,6 +167,7 @@
 
 #loanPurposeWrap {
 	border-radius: 2px !important;
+	padding-bottom: 0 !important;
 }
 
 #purposeTxt01,
@@ -181,11 +182,11 @@
 #purposeTxt10 {
 	font-size: 1.078rem !important ;
 }
+#otherText{
+	font-size: 1.12rem !important;
+}
 
 #purposeTxt07 span{
 	font-size: 0.938rem !important;
 }
 
-#loanPurposegrid{
-	padding: 0 2.5% 2.5% 2.5% !important;
-}

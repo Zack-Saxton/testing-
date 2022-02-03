@@ -289,8 +289,7 @@ function PersonalInfo() {
 						alignItems="center"
 						style={ {
 							justifyContent: "center",
-							paddingTop: "70px",
-							paddingBottom: "70px",
+							padding:"4% 0%"
 						} }
 					>
 						<Grid
@@ -307,7 +306,7 @@ function PersonalInfo() {
 							<Paper
 								id="aboutYourselfWrap"
 								className="cardWOPadding"
-								style={ { justify: "center", alignItems: "center" } }
+								style={ { justify: "center", alignItems: "center", padding:"0" } }
 							>
 								<div className="progress mt-0">
 									<div
@@ -317,8 +316,8 @@ function PersonalInfo() {
 									<span className="floatLeft detNum40">40%</span>
 								</div>
 								<Grid className="floatLeft">
-									<Link to="/home-address">
-										<i className="material-icons dp48 yellowText  ">
+									<Link to="/home-address" id="arrowBack">
+										<i className="material-icons dp48 yellowText  floatingButton">
 											arrow_back
 										</i>
 									</Link>
@@ -337,6 +336,7 @@ function PersonalInfo() {
 										align: "center",
 										justify: "center",
 										alignItems: "center",
+										fontSize:"1.538rem"
 									} }
 									className="borrowCSSLP"
 								>
@@ -594,13 +594,13 @@ function PersonalInfo() {
 										</Grid>
 										<Grid
 											container
-											style={ { justifyContent: "center" } }
+											style={ { justifyContent: "center", margin:"15px 0px" } }
 											alignItems="center"
 											item
 											lg={ 8 }
 											md={ 8 }
 											xs={ 12 }
-											className="textBlock alignButton"
+											className="textBlock"
 										>
 											<ButtonPrimary
 												onClick={ autoFocus }
