@@ -81,7 +81,7 @@ function CheckMyOffers(props) {
 							lg={ 6 }
 							xl={ 6 }
 							className="cardWrapper"
-							style={ { paddingTop: "70px" } }
+							style={ { paddingTop: "4%" } }
 						>
 							<Paper
 								className="card"

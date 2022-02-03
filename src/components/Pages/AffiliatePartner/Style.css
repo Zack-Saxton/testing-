@@ -127,9 +127,6 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error{
     font-size: 0.968rem !important;
 }
 
-#citizenshipWrap div div div:nth-child(1) {
-    padding-bottom: 15px !important;
-}
 
 #marriedStatusWrap div label{
     font-size: 0.968rem !important;

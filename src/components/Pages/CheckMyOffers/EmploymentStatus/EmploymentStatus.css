@@ -4,7 +4,6 @@
 	min-height: 500px !important;
 }
 .cardWOPadding {
-	padding-bottom: 1%;
 	text-align: center;
 }
 .cardWrapper {
@@ -86,10 +85,6 @@
 	color: white !important;
 }
 
-.alignButton {
-	margin: 20px 0 !important;
-	height: 40px;
-}
 
 .showMsg {
 	display: block;
@@ -171,7 +166,6 @@
 	font-size: 1.538rem !important;
 	font-weight: 400 !important;
 	line-height: 110% !important;
-	margin: 0.82rem 0 0.656rem 0 !important;
 }
 
 #employementWrap div label {
