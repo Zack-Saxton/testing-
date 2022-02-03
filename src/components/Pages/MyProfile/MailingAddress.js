@@ -17,7 +17,6 @@ import {
   Zipcode
 } from "../../FormsUI";
 import ErrorLogger from '../../lib/ErrorLogger';
-import states from '../../../assets/data/States.json';
 import { tabAtom } from "./MyProfileTab";
 import "./Style.css";
 
@@ -261,9 +260,7 @@ export default function MailingAddress(props) {
                 (formik.touched.zip && Boolean(formik.errors.zip)) || !validZip
               }
               helperText={
-                validZip
-                  ? formik.touched.zip && formik.errors.zip
-                  : "Please enter a valid ZIP Code"
+                validZip? formik.touched.zip && formik.errors.zip : "Please enter a valid ZIP Code"
               }
             />
           </Grid>
