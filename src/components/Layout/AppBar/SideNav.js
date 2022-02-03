@@ -482,7 +482,7 @@ export default function SideNav() {
       <MenuItem onClick={ handleMenuProfile } id="settingsMenuList">
         My Profile</MenuItem>
       <MenuItem
-        disabled={ disableField === true ? false : true }
+        disabled={ !disableField }
         onClick={ handleMenuPaymentProfile } id="settingsMenuList">
         Payment Accounts</MenuItem>
       <MenuItem onClick={ logoutUser } id="settingsMenuListLogout" disabled={ disable }>

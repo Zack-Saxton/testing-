@@ -32,11 +32,11 @@ import { toast } from "react-toastify";
 import * as yup from "yup";
 import cheque from "../../../assets/images/cheque.jpg";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
-import { AddACHPaymentAPI } from "../../Controllers/AddACHDebitMethod";
+import { AddACHPaymentAPI } from "../../Controllers/ACHDebitController";
 import {
     addCreditCard, deleteBankAccount,
     deleteCreditCard, getPaymentMethods, setDefaultPayment
-} from "../../Controllers/myProfileController";
+} from "../../Controllers/MyProfileController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
 import {
     ButtonPrimary,

@@ -99,7 +99,7 @@ export default function PaymentHistory() {
       : null;
 
   //Data for csv file
-  const dataCSV = recentPaymentData?.length && recentPaymentData[ 0 ]?.loanHistory.length && recentPaymentData[ 0 ]?.loanHistory[0]?.AppAccountHistory ? recentPaymentData[ 0 ].loanHistory[0].AppAccountHistory.map(item => {
+  const dataCSV = recentPaymentData?.length && recentPaymentData[ 0 ]?.loanHistory?.AppAccountHistory ? recentPaymentData[0].loanHistory.AppAccountHistory.map(item => {
     return {
       ...item,
       ...{ TransactionDate: Moment(item.TransactionDate).format('MM-DD-YYYY') },

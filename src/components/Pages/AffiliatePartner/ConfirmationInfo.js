@@ -18,7 +18,6 @@ import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
 import { ButtonPrimary, Checkbox, Select, TextField, Zipcode,RenderContent,Popup } from "../../FormsUI";
 import ErrorLogger from "../../lib/ErrorLogger";
 import states from '../../../assets/data/States.json';
-import statesFullform from "../../../assets/data/StatesFullform.json";
 import "./Style.css";
 
 //Styling
@@ -335,7 +334,7 @@ export default function CreditKarma(props) {
           lastname: values.lastname,
           streetAddress: values.streetAddress,
           city: values.city,
-          state: statesFullform[ values.state ],
+          state: Object.keys(states).find(key => states[ key ] === values.state),
           zip: values.zip,
           citizenship: values.citizenship,
           personalIncome: values.personalIncome,
@@ -347,7 +346,7 @@ export default function CreditKarma(props) {
           spouseadd: values.spouseadd,
           spouseZipcode: values.spouseZipcode,
           spousecity: values.spousecity,
-          spouseSelectState: statesFullform[ values.spouseSelectState ],
+          spouseSelectState: Object.keys(states).find(key => states[ key ] === values.spouseSelectState),
           partner_token: props?.location?.state?.partner_token ?? "",
           email: props?.location?.state?.email ?? "",
         };
