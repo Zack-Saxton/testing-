@@ -40,10 +40,10 @@ export default function ApplyLoan() {
 	const { data: val } = useQuery('available-offers', fetchAvailableOffers);
 
 	//To change the value to currency formate
-	const currencyFormat = (val) => {
-		if (val) {
-			var formated = parseFloat(val);
-			var currency = "$";
+	const currencyFormat = (currencyValue) => {
+		if (currencyValue) {
+			let formated = parseFloat(currencyValue);
+			let currency = "$";
 			return (
 				currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,")
 			);

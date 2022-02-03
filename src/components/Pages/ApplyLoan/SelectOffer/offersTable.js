@@ -111,7 +111,7 @@ export default function OfferTable(props) {
 			}
 			buildChartData(offersCompChart);
 		} else {
-			var index = offersCompChart.indexOf(row);
+			let index = offersCompChart.indexOf(row);
 			if (index !== -1) {
 				offersCompChart.splice(index, 1);
 			}
@@ -327,7 +327,6 @@ export default function OfferTable(props) {
 						</Grid>
 						<Grid style={ { padding: "10px 0px" } } container direction="row">
 							<Grid
-								direction="row"
 								style={ { float: "left" } }
 							>
 								<ButtonSecondary
@@ -345,7 +344,6 @@ export default function OfferTable(props) {
 							</Grid>
 
 							<Grid
-								direction="row"
 								style={ { float: "left" } }
 								id="apply-loan-continue-button-grid"
 							>
@@ -379,9 +377,7 @@ export default function OfferTable(props) {
 							</Grid>
 
 							<Grid
-								direction="row"
 								style={ {
-									// padding: "10px",
 									float: "right",
 									justifyContent: "end",
 									display: props.offerFlag ? "block" : "none",

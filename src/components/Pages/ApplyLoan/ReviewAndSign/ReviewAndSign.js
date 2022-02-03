@@ -148,8 +148,8 @@ export default function ReviewAndSign(props) {
   //Conver the value into currency format
   const currencyFormat = (val) => {
     if (val) {
-      var formated = parseFloat(val);
-      var currency = "$";
+      let formated = parseFloat(val);
+      let currency = "$";
       return (
         currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,")
       );

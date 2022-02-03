@@ -70,7 +70,7 @@ export default function IncomeVerification(props) {
 			<div className={ props.classes.actionsContainer }>
 				<div className={ props.classes.button_div }>
 					<ButtonSecondary
-						stylebutton='{"margin-right": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
+						stylebutton='{"marginRight": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
 						onClick={ props.reset }
 						id="button_stepper_reset"
 					>
@@ -81,7 +81,7 @@ export default function IncomeVerification(props) {
 						variant="contained"
 						color="primary"
 						id="button_stepper_next"
-						stylebutton='{"margin-right": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
+						stylebutton='{"marginRight": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
 						onClick={ async () => {
 							let data = {};
 							props.setLoadingFlag(true);
