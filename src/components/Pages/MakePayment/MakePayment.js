@@ -36,7 +36,7 @@ import {
   Select,
   TextField
 } from "../../FormsUI";
-import Payment from "../../lib/Lang/makeaPayment.json";
+import globalMessages from "../../../assets/data/globalMessages.json";
 import { tabAtom } from "../../Pages/MyProfile/MyProfileTab";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./MakePayment.css";
@@ -128,17 +128,17 @@ export default function MakePayment(props) {
     let result = await enableAutoPay(enableAutoPayAccountNo, enableAutoPayCard, enableAutoPayDate, enableAutoPayIsDebit);
     result.status === 200
       ? result?.data?.paymentResult.HasNoErrors === true
-        ? toast.success(Payment.Auto_Payment_Mode_Enabled, {
+        ? toast.success(globalMessages.Auto_Payment_Mode_Enabled, {
           autoClose: 5000,
         })
-        : toast.error(Payment.Failed_Payment_mode, {
+        : toast.error(globalMessages.Failed_Payment_mode, {
           autoClose: 5000,
 
         })
       : toast.error(
         result?.data?.message
           ? result?.data?.message
-          : Payment.Failed_Payment_mode,
+          : globalMessages.Failed_Payment_mode,
         {
           autoClose: 5000,
         }
@@ -155,10 +155,10 @@ export default function MakePayment(props) {
     let result = await disableAutoPay(disableAutoPayAccountNo);
     result.status === 200
       ? result?.data?.deletePayment.HasNoErrors === true
-        ? toast.success(Payment.Auto_Payment_Mode_Disabled, {
+        ? toast.success(globalMessages.Auto_Payment_Mode_Disabled, {
           autoClose: 5000,
         })
-        : toast.error(Payment.Failed_Payment_mode, {
+        : toast.error(globalMessages.Failed_Payment_mode, {
           autoClose: 5000,
         })
       : toast.error(
@@ -177,9 +177,9 @@ export default function MakePayment(props) {
     setPaymentOpen(false);
     let result = await makePayment(scheduledPaymentAccountNo, scheduledPaymentCard, scheduledPaymentDatePicker, scheduledPaymentIsDebit, scheduledPaymentAmount);
     let message =
-      paymentDatepicker === Moment().format("YYYY/MM/DD") ? Payment.We_Received_Your_Payment_Successfully : Payment.Payment_has_Scheduled + " Confirmation: " + result?.data?.paymentResult?.ReferenceNumber;
+      paymentDatepicker === Moment().format("YYYY/MM/DD") ? globalMessages.We_Received_Your_Payment_Successfully : globalMessages.Payment_has_Scheduled + " Confirmation: " + result?.data?.paymentResult?.ReferenceNumber;
     result.status === 200
-      ? result?.data?.paymentResult?.PaymentCompleted !== undefined ? toast.success(message, { autoClose: 5000, }) && refetch() : toast.error(Payment.Failed_Payment_mode, { autoClose: 5000, })
+      ? result?.data?.paymentResult?.PaymentCompleted !== undefined ? toast.success(message, { autoClose: 5000, }) && refetch() : toast.error(globalMessages.Failed_Payment_mode, { autoClose: 5000, })
       : toast.error(result?.data?.message ? result?.data?.message : "Failed Payment mode",
         {
           autoClose: 5000,
@@ -199,7 +199,7 @@ export default function MakePayment(props) {
         ? toast.success("Scheduled Payment cancelled", {
           autoClose: 5000,
         }) && refetch()
-        : toast.error(Payment.Failed_Payment_mode, {
+        : toast.error(globalMessages.Failed_Payment_mode, {
           autoClose: 5000,
         })
       : toast.error(
@@ -343,7 +343,7 @@ export default function MakePayment(props) {
       let res = checkaccNo(activeLoansData, accNo);
       // if accno is not Valid
       if (res === false) {
-        toast.error(Payment.Invalid_Account_Number, {
+        toast.error(globalMessages.Invalid_Account_Number, {
           autoClose: 5000,
         });
         history.push({
@@ -752,28 +752,28 @@ if (cardLabel === undefined) {
                 <TableHead>
                   <TableRow>
                     <TableCell className={ classes.tableHead }>
-                      { Payment.Account_Number }
+                      { globalMessages.Account_Number }
                     </TableCell>
                     <TableCell className={ classes.tableHead } align="left">
-                      { Payment.Todays_Payoff }
+                      { globalMessages.Todays_Payoff }
                     </TableCell>
                     <TableCell className={ classes.tableHead } align="left">
-                      { Payment.Regular_Amount }
+                      { globalMessages.Regular_Amount }
                     </TableCell>
                     <TableCell className={ classes.tableHead } align="left">
-                      { Payment.Loan_Fees }
+                      { globalMessages.Loan_Fees }
                     </TableCell>
                     <TableCell className={ classes.tableHead } align="left">
-                      { Payment.Total }
+                      { globalMessages.Total }
                     </TableCell>
                     <TableCell className={ classes.tableHead } align="left">
-                      { Payment.Next_Due_Date }
+                      { globalMessages.Next_Due_Date }
                     </TableCell>
                     <TableCell className={ classes.tableHead } align="left">
-                      { Payment.Scheduled_Payment }
+                      { globalMessages.Scheduled_Payment }
                     </TableCell>
                     <TableCell className={ classes.tableHead } align="left">
-                      { Payment.Auto_Pay }
+                      { globalMessages.Auto_Pay }
                     </TableCell>
                   </TableRow>
                 </TableHead>
@@ -1112,7 +1112,7 @@ if (cardLabel === undefined) {
             { disabledContent === false ? "" : "Bank/Card: " + cardLabel }
             {  <br/> }
             { disabledContent === false ? "" : "First Auto Pay Date:  "+ Moment(paymentDate).format("MM/DD/YYYY") }
-            
+
           </Typography>
 
           <IconButton
@@ -1174,7 +1174,7 @@ if (cardLabel === undefined) {
             Account Number: {accntNo}
             {  <br/> }
             Are you sure?
-            
+
           </Typography>
           <IconButton
             aria-label="close"

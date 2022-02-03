@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import LogoutController from "../../Controllers/LogoutController";
-import { changePassword } from "../../Controllers/myProfileController";
+import { changePassword } from "../../Controllers/MyProfileController";
 import {
   ButtonPrimary,
   ButtonSecondary,

@@ -17,7 +17,7 @@ import { useQuery } from 'react-query';
 import { NavLink } from "react-router-dom";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
-import { getTextNotify } from "../../Controllers/myProfileController";
+import { getTextNotify } from "../../Controllers/MyProfileController";
 import ProfileImageController from "../../Controllers/ProfileImageController";
 import { ButtonWithIcon } from "../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
@@ -57,7 +57,6 @@ TabVerticalPanel.propTypes = {
 };
 
 function tabVerticalProps(verticalIndex) {
-
   return {
     id: `scrollable-auto-tab-vertical-${ verticalIndex }`,
     "aria-controls": `scrollable-auto-tab-panel-${ verticalIndex }`,
@@ -67,7 +66,6 @@ function tabVerticalProps(verticalIndex) {
 export default function MyProfile() {
   window.zeHide();
   const classes = useStylesMyProfile();
-
   const [ profileImage, setProfileImage ] = useState(null);
   async function AsyncEffect_profileImage() {
     setProfileImage(await ProfileImageController());
@@ -79,8 +77,8 @@ export default function MyProfile() {
   const { data: accountDetails } = useQuery('loan-data', usrAccountDetails);
   Cookies.set("opted_phone_texting", accountDetails?.data?.customer?.latest_contact?.opted_phone_texting);
 
-  let basicInfoData = (accountDetails != null) ? accountDetails?.data?.customer : null;
-  let getProfImage = (profileImage != null) ? profileImage : null;
+  let basicInfoData = accountDetails?.data?.customer;
+  let getProfImage = profileImage;
   const [ values, setValues ] = useAtom(tabAtom);
   const handleTabChange = (event, newValues) => {
     setValues(newValues);
@@ -89,8 +87,9 @@ export default function MyProfile() {
   let cookieTextNotify = Cookies.get("isTextNotify");
   if (!cookieTextNotify) {
     let textNotifyStatus = getTextNotify();
-    let textNotifyData = textNotifyStatus?.data;
-    let isTextNotify = textNotifyData?.sbt_getInfo != null && textNotifyData?.sbt_getInfo?.SubscriptionInfo != null ? textNotifyData?.sbt_getInfo?.SubscriptionInfo[ 0 ]?.SubscriptionOptions[ 0 ]?.OptInMarketing : false;
+    let textNotifyData = textNotifyStatus?.data?.sbt_getInfo;
+    let isTextNotify = (textNotifyData?.SubscriptionInfo.length &&
+                        textNotifyData?.SubscriptionInfo[ 0 ]?.SubscriptionOptions.length) ? textNotifyData?.SubscriptionInfo[ 0 ]?.SubscriptionOptions[ 0 ]?.OptInMarketing : false;
     Cookies.set('isTextNotify', isTextNotify);
     cookieTextNotify = Cookies.get("isTextNotify");
   }
@@ -142,7 +141,6 @@ export default function MyProfile() {
             Profile Settings
           </Typography>
         </Grid>
-
         {/* Left Side Nav */ }
         <Grid item xs={ 12 } style={ { paddingBottom: "200px", paddingTop: "10px" } }>
           <Grid container item xs={ 12 }>
@@ -184,7 +182,6 @@ export default function MyProfile() {
                     className={ classes.tabVerticalLabel }
                     { ...tabVerticalProps(0) }
                   />
-
                   <Tab
                     label={
                       <span style={ { float: "left", width: "100%", "fontSize": "0.938rem", "fontFamily": "Muli,sans-serif", fontWeight: "700" } }>
@@ -197,7 +194,7 @@ export default function MyProfile() {
                   />
                   <Tab
                     id="tab-vertical"
-                    disabled={ disableField === true ? false : true }
+                    disabled={ !disableField }
                     label={
                       <span style={ { float: "left", width: "100%", "fontSize": "0.938rem", "fontFamily": "Muli,sans-serif", fontWeight: "700" } }>
                         <TextsmsIcon style={ { verticalAlign: "top", paddingRight: "10px" } } />
@@ -207,9 +204,8 @@ export default function MyProfile() {
                     className={ classes.tabVerticalLabel }
                     { ...tabVerticalProps(2) }
                   />
-
                   <Tab
-                    disabled={ disableField === true ? false : true }
+                    disabled={ !disableField }
                     label={
                       <span style={ { float: "left", width: "100%", "fontSize": "0.938rem", "fontFamily": "Muli,sans-serif", fontWeight: "700" } }>
                         <PaymentsIcon style={ { verticalAlign: "top", paddingRight: "10px" } } />{ " " }
@@ -275,7 +271,6 @@ export default function MyProfile() {
               </Paper>
             </Grid>
           </Grid>
-
         </Grid>
       </Grid>
     </div>
