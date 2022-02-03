@@ -107,7 +107,6 @@ const MultiSelectWrapper = ({
         data-test-id="multiSelectBox"
         inputProps={ { "data-test-id": "multiSelectInput" } }
         renderValue={ (selected) => selected.join(", ") }
-
       >
         { multiselect1.map((nam) => (
           <MenuItem key={ nam.value } value={ nam.value }>

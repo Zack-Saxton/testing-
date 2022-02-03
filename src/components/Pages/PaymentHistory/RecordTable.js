@@ -43,11 +43,11 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
                 </TableCell>
               </TableRow>
             ) : userRecentPayment?.userRecentPaymentData?.length ? (
-              userRecentPayment?.userRecentPaymentData.map((val, index1) => (
-                <div key={ index1 }>
+              userRecentPayment?.userRecentPaymentData.map((val) => (
+                <div key={ (Math.random() * 1000) }>
                   { val?.loanHistory[0]?.AppAccountHistory.map((row) => (
                     <>
-                      <TableRow key={ row.RunningPrincipalBalance }>
+                      <TableRow key={ (Math.random() * 1000) }>
                         <TableCell
                           component="th"
                           className={ classes.tableHeadRow }
