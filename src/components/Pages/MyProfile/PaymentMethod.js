@@ -648,30 +648,13 @@ export default function PaymentMethod() {
                                 </Table>
                             </TableContainer>
                         ) : allPaymentMethod?.data?.message ? (
-                            <Grid
-                                className="circleprog"
-                                style={ {
-                                    width: "100%",
-                                    textAlign: "center",
-                                    marginTop: "20px",
-                                } }
-                                item
-                                xs={ 12 }
-                            >
+                            <Grid className="circleprog" style={ {width: "100%", textAlign: "center", marginTop: "20px",} } item xs={ 12 }>
                                 <Typography>
                                     { allPaymentMethod?.data?.message }
                                 </Typography>
                             </Grid>
                         ) : (
-                            <Grid
-                                className="circleprog"
-                                style={ {
-                                    width: "100%",
-                                    textAlign: "center",
-                                    marginTop: "20px",
-                                } }
-                                xs={ 12 }
-                            >
+                            <Grid className="circleprog" style={ {width: "100%", textAlign: "center", marginTop: "20px",} } item xs={ 12 }>
                                 <Typography>No Payment methods available</Typography>
                             </Grid>
                         )
