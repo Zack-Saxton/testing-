@@ -21,7 +21,7 @@ export default function LoanHistory() {
   const { data: loanHistoryStatus } = useQuery('loan-history', LoanHistoryController);
 
   //Load data
-  let loanHistoryData = loanHistoryStatus?.data?.activeLoans;
+  let loanHistoryData = loanHistoryStatus?.data?.activeLoans?.length ? loanHistoryStatus?.data?.activeLoans[0] : [];
 
   //View Part
   return (

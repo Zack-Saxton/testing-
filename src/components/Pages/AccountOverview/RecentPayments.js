@@ -24,7 +24,7 @@ export default function RecentPayments(userRecentPaymentData) {
 	let parData = [];
 	if (userRecentPayment?.userRecentPaymentData?.length) {
 		userRecentPayment?.userRecentPaymentData.slice(0, 1).forEach(function (arrayItem) {
-			arrayItem?.loanHistory?.AppAccountHistory?.slice(0, 3).forEach(function (row) {
+			arrayItem?.loanHistory[0]?.AppAccountHistory?.slice(0, 3).forEach(function (row) {
 				parData.push(
 					{
 						date: {
