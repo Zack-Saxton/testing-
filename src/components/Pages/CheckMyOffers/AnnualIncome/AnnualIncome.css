@@ -124,7 +124,7 @@
 	overflow: hidden;
 	width: 100%;
 
-	margin: 0.5rem 0 1rem 0;
+	margin: 0.5rem 0 0.938rem 0;
 	border-radius: 2px 2px 0px 0px;
 	background-color: white;
 	height: 20px;
@@ -174,7 +174,7 @@
 }
 
 .borrowCSSLP {
-	font-size: 1.563rem !important;
+	font-size: 1.538rem !important;
 	font-weight: 400 !important;
 	line-height: 110% !important;
 	margin: 0.82rem 0 0.656rem 0 !important;

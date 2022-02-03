@@ -161,7 +161,7 @@
 	overflow: hidden;
 	width: 100%;
 
-	margin: 0.5rem 0 1rem 0;
+	margin: 0.5rem 0 0.938rem 0;
 	border-radius: 2px 2px 0px 0px;
 	background-color: white;
 	height: 16px !important;
@@ -200,6 +200,7 @@
 	padding-left: 30%;
 	font-weight: 600;
 	color: #134ca8;
+	margin-left: 0.5%;
 }
 
 .det75 {
@@ -333,7 +334,7 @@
 
 .smallTextLeft {
 	text-align: left;
-	font-size: 0.8rem;
+	font-size: 0.75rem !important;
 	color: #595959;
 	margin-top: 10px !important;
 }
@@ -491,7 +492,7 @@
 }
 
 .borrowCSSLP {
-	font-size: 1.563rem !important;
+	font-size: 1.538rem !important;
 	font-weight: 400 !important;
 	line-height: 110% !important;
 	margin: 0.82rem 0 0.656rem 0 !important;
