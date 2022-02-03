@@ -12,7 +12,7 @@ import {
   ButtonSecondary,
   PasswordField
 } from "../../FormsUI";
-import globalMessages from "../../../assets/Content/globalMessages.json";
+import globalMessages from "../../../assets/data/globalMessages.json";
 import { tabAtom } from "./MyProfileTab";
 import "./Style.css";
 

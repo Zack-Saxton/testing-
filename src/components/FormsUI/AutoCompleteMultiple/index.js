@@ -16,7 +16,7 @@ import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { useField, useFormikContext } from "formik";
 import React from "react";
-import globalMessages from '../../../assets/Content/globalMessages.json';
+import globalMessages from '../../../assets/data/globalMessages.json';
 
 const AutoCompleteMultipleWrapper = ({
   name,

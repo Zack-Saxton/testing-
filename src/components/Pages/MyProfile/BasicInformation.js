@@ -15,7 +15,7 @@ import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import LogoutController from "../../Controllers/LogoutController";
 import { basicInformation, uploadNewProfileImage } from "../../Controllers/myProfileController";
 import { ButtonPrimary, ButtonSecondary, EmailTextField, PhoneNumber, TextField } from "../../FormsUI";
-import globalMessages from "../../../assets/Content/globalMessages.json";
+import globalMessages from "../../../assets/data/globalMessages.json";
 import "./Style.css";
 
 const validationSchema = yup.object({

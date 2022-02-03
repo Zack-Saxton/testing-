@@ -1,5 +1,5 @@
 import * as yup from "yup";
-import globalMessages from "../../assets/Content/globalMessages.json";
+import globalMessages from "../../assets/data/globalMessages.json";
 export class FormValidationRules {
 
     constructor() {

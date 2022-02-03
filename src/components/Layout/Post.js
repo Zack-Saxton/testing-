@@ -16,7 +16,7 @@ import LogoutController from "../Controllers/LogoutController";
 import { ButtonPrimary } from "../FormsUI";
 import Footer from "../Layout/Footer/Footer";
 import { decryptAES, encryptAES } from "../lib/Crypto";
-import globalMessages from "../../assets/Content/globalMessages.json";
+import globalMessages from "../../assets/data/globalMessages.json";
 import AppBar from "./AppBar/SideNav";
 
 const Post = ({ children }) => {
