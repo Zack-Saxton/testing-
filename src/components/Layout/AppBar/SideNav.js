@@ -281,7 +281,6 @@ export default function SideNav() {
     return null;
   }, [branchVal]);
 
-  console.log(branchAvailability);
 
   //Api call Profile Picture
   const [ profileImage, setProfileImage ] = useState(null);
