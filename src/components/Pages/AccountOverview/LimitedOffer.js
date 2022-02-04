@@ -22,16 +22,16 @@ export default function LimitedOffer(userOfferData) {
   let userOfferAmount = (userOfferData.userOffers != null) ? userOfferData.userOffers.offerAmount : 0;
   const [initModal,setinitModal] = useState(false);
   const [offerCode,setOfferCode] = useState(" ");
-  const [amount,setAmount] = useState("");
-  const [expiryDate,setExpiryDate] = useState("")
+  const [amount,setAmount] = useState(" ");
+  const [expiryDate,setExpiryDate] = useState(" ")
   const [firstName,setfirstName] = useState("")
 
   useEffect(()=>{
             setAccountDetails().then((res)=>{
-              setOfferCode(res.data.offerData.OfferCode)
-              setExpiryDate(res.data.offerData.dateExpiration)
-              setAmount(res.data.offerData.offerAmount)
-              setfirstName(res.data.offerData.firstName);
+              setOfferCode(res?.data?.offerData?.OfferCode)
+              setExpiryDate(res?.data?.offerData?.dateExpiration)
+              setAmount(res?.data?.offerData?.offerAmount)
+              setfirstName(res?.data?.offerData?.firstName);
             })
   },[])
 
