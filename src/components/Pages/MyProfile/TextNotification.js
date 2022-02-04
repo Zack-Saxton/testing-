@@ -79,7 +79,6 @@ export default function TextNotification() {
         let result = await textNotification(body, disabledContent);
         if (result.data?.sbt_subscribe_details?.HasNoErrors === true || result.data?.sbt_getInfo?.HasNoErrors === true) {
           toast.success("Updated successfully");
-          Cookies.set("isTextNotify", disabledContent);
            onClickCancelChange()
         } else {
           toast.error("No changes made");

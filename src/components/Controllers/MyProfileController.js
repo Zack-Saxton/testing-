@@ -104,11 +104,12 @@ export async function textNotification(body, sub) {
     };
     let method = "POST";
     let addAccessToken = true;
-    let res = await APICall(url, param, data, method, addAccessToken);
-    if (res.status === 200) {
-        Cookies.set("temp_opted_phone_texting", cleanednumber);
-    }
-  return res;
+    let results = await APICall(url, param, data, method, addAccessToken);
+    if (results.status === 200) {
+      Cookies.set("temp_opted_phone_texting", cleanednumber);
+      Cookies.set("isTextNotify", textingOn);
+      }
+    return results;
   } catch (error) {
     ErrorLogger("Error executing textNotification API", error);
   }
