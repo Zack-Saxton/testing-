@@ -1108,12 +1108,49 @@ if (cardLabel === undefined) {
              }
           </Typography>
           <Typography id="autoTxt" className={ classes.autoPayContent }>
-            { disabledContent === false ? "" : "Auto pay Amount: " + numberFormat(paymentAmount) }
-            {  <br/> }
-            { disabledContent === false ? "" : "Bank/Card: " + cardLabel }
-            {  <br/> }
-            { disabledContent === false ? "" : "First Auto Pay Date:  "+ Moment(paymentDate).format("MM/DD/YYYY") }
+          <TableContainer>
+              <Table className={ classes.table } aria-label="simple table" border-color="white">
+                <TableBody>
+                  <TableRow>
+                  <TableCell className={ classes.tableheadrow } align="left" width="20%">
+                    </TableCell>
+                    <TableCell className={ classes.tableheadrow } align="left">
+                      { disabledContent === false ? "" : "Auto pay Amount: "}
+                    </TableCell>
+                    <TableCell align="left">
+                      { disabledContent === false ? "" : numberFormat(paymentAmount) }
+                    </TableCell>
+                    <TableCell className={ classes.tableheadrow } align="left">
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                  <TableCell className={ classes.tableheadrow } align="left" width="20%">
+                    </TableCell>
+                    <TableCell  align="left">
+                      { disabledContent === false ? "" : "Bank/Card: "}
+                    </TableCell>
+                    <TableCell  align="left">
+                      { disabledContent === false ? "" : cardLabel }
+                    </TableCell>
+                    <TableCell className={ classes.tableheadrow } align="left">
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                  <TableCell className={ classes.tableheadrow } align="left" width="20%">
+                    </TableCell>
+                    <TableCell  align="left">
+                      { disabledContent === false ? "" : "First Auto Pay Date:  "}
+                    </TableCell>
+                    <TableCell  align="left">
+                      { disabledContent === false ? "" : Moment(paymentDate).format("MM/DD/YYYY") }
+                    </TableCell>
+                    <TableCell className={ classes.tableheadrow } align="left">
+                    </TableCell>
+                  </TableRow>
 
+                </TableBody>
+              </Table>
+            </TableContainer>
           </Typography>
 
           <IconButton
@@ -1129,8 +1166,15 @@ if (cardLabel === undefined) {
         <DialogActions
           style={ { justifyContent: "center", marginBottom: "25px" } }
         >
+          <ButtonSecondary
+            stylebutton='{"background": "", "color":"" }'
+            onClick={ handleCloseAutoPayPopup }
+            disabled={ loading }
+          >
+            Cancel
+          </ButtonSecondary>
           <ButtonPrimary
-            stylebutton='{"background": "green", "color":"" }'
+            stylebutton='{"background": "", "color":"" }'
             onClick={ handleAutoPayConfirm }
             disabled={ loading }
           >
@@ -1145,13 +1189,6 @@ if (cardLabel === undefined) {
               } }
             />
           </ButtonPrimary>
-          <ButtonSecondary
-            stylebutton='{"background": "red", "color":"" }'
-            onClick={ handleCloseAutoPayPopup }
-            disabled={ loading }
-          >
-            Cancel
-          </ButtonSecondary>
         </DialogActions>
       </Dialog>
 
@@ -1167,15 +1204,51 @@ if (cardLabel === undefined) {
         <DialogTitle id="scheduleDialogHeading">
           <Typography id="scheduleTxt" className={ classes.dialogHeading }>
             Your Payment of: {numberFormat(paymentAmount)} will be applied to your account.
-            {  <br/> }
-            Bank/Card:  {cardLabel}
-            {  <br/> }
-            Payment Date: {Moment(paymentDatepicker).format("MM/DD/YYYY")}
-            {  <br/> }
-            Account Number: {accntNo}
-            {  <br/> }
-            Are you sure?
+               <TableContainer>
+              <Table className={ classes.table } aria-label="simple table" border-color="white">
+                <TableBody>
+                  <TableRow>
+                  <TableCell className={ classes.tableheadrow } align="left" width="20%">
+                    </TableCell>
+                    <TableCell  align="left">
+                     Bank/Card:
+                    </TableCell>
+                    <TableCell  align="left">
+                      {cardLabel}
+                    </TableCell>
+                    <TableCell className={ classes.tableheadrow } align="left">
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                  <TableCell className={ classes.tableheadrow } align="left" width="20%">
+                    </TableCell>
+                    <TableCell  align="left">
+                      Payment Date:
+                    </TableCell>
+                    <TableCell  align="left">
+                    {Moment(paymentDatepicker).format("MM/DD/YYYY")}
+                    </TableCell>
+                    <TableCell className={ classes.tableheadrow } align="left">
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                  <TableCell className={ classes.tableheadrow } align="left" width="20%">
+                    </TableCell>
+                    <TableCell className={ classes.tableheadrow } align="left">
+                    Account Number:
+                    </TableCell>
+                    <TableCell align="left">
+                    {accntNo}
+                    </TableCell>
+                    <TableCell className={ classes.tableheadrow } align="left">
+                    </TableCell>
+                  </TableRow>
 
+                </TableBody>
+              </Table>
+            </TableContainer>
+
+            Are you sure?
           </Typography>
           <IconButton
             aria-label="close"
