@@ -14,9 +14,9 @@ import FirstPageIcon from '@material-ui/icons/FirstPage';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
+import {useState} from 'react';
 import Moment from "moment";
 import PropTypes from 'prop-types';
-import React from "react";
 import NumberFormat from 'react-number-format';
 import { useStylesPaymenthistory } from "./Style";
 import "./Style.css";
@@ -90,8 +90,8 @@ TablePaginationActions.propTypes = {
 
 export default function PaymentHistoryTable({userRecentPaymentData}) {
   const classes = useStylesPaymenthistory();
-  const [ page, setPage ] = React.useState(0);
-  const [ rowsPerPage, setRowsPerPage ] = React.useState(10);
+  const [ page, setPage ] = useState(0);
+  const [ rowsPerPage, setRowsPerPage ] = useState(10);
 
   const handleChangePage = (newPage) => {
     setPage(newPage);
@@ -102,13 +102,21 @@ export default function PaymentHistoryTable({userRecentPaymentData}) {
     setPage(0);
   };
 
+  const paymentHistoryTable = [];
+  userRecentPaymentData ? (
+    (rowsPerPage > 0
+      ? userRecentPaymentData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+      : userRecentPaymentData
+    ).map((row) => paymentHistoryTable.push({...row, id:Math.random()*1000}))) : "";
+
+
   //View part
   return (
     <Grid item xs={ 12 } style={ { paddingTop: "10px", paddingBottom: "30px" } }>
       <TableContainer id="pdfdiv" component={ Paper }>
         <Table className={ classes.table } aria-label="simple table">
-          <TableHead>
-            <TableRow>
+          <TableHead key = {Math.random()*1000}>
+            <TableRow key = {Math.random()*1000}>
               <TableCell className={ classes.tableHead } align="left">Date</TableCell>
               <TableCell className={ classes.tableHead } align="left">Description</TableCell>
               <TableCell className={ classes.tableHead } align="right">Principal</TableCell>
@@ -119,13 +127,8 @@ export default function PaymentHistoryTable({userRecentPaymentData}) {
             </TableRow>
           </TableHead>
           <TableBody>
-            { userRecentPaymentData ? (
-              (rowsPerPage > 0
-                ? userRecentPaymentData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                : userRecentPaymentData
-              ).map((row) => (
-                <>
-                  <TableRow key={(Math.random()*1000)}> 
+            { paymentHistoryTable ? paymentHistoryTable.map((row) => (
+                  <TableRow key={row.id}> 
                     <TableCell
                       component="th"
                       className={ classes.tableHeadRow }
@@ -171,10 +174,8 @@ export default function PaymentHistoryTable({userRecentPaymentData}) {
                       <NumberFormat value={ Math.abs(row.RunningPrincipalBalance) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
                     </TableCell>
                   </TableRow>
-                </>
               ))
-            ) : (
-
+             : (
               <TableRow>
                 <TableCell colSpan="7" align="center">
                   You do not have any recent applications
