@@ -75,7 +75,7 @@ export default function MyProfile() {
   }, []);
 
   const { data: accountDetails } = useQuery('loan-data', usrAccountDetails);
-  if (!Cookies.get("temp_opted_phone_texting") === undefined) {
+  if (Cookies.get("temp_opted_phone_texting") === undefined || Cookies.get("temp_opted_phone_texting") === "") {
     Cookies.set("opted_phone_texting", accountDetails?.data?.customer?.latest_contact?.opted_phone_texting);
   } else {
     Cookies.set("opted_phone_texting", Cookies.get("temp_opted_phone_texting"));
