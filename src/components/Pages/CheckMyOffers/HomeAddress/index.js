@@ -180,7 +180,7 @@ function HomeAddress() {
 								<Typography
 									variant="h5"
 									id="homeAddressTxt"
-									className="borrowCSSLP"
+									className="borrowCSSLP checkMyOfferText"
 									style={ {
 
 									} }
