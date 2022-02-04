@@ -15,6 +15,7 @@ import AccountOverview from "../Pages/AccountOverview/AccountOverview";
 import ConfirmationInfo from "../Pages/AffiliatePartner/ConfirmationInfo";
 import PartnerSignUP from "../Pages/AffiliatePartner/PartnerSignUp";
 import ApplyForLoanRedirect from "../Pages/ApplyLoan/ApplyForLoanRedirect";
+import ResumeApplication from "../Pages/ApplyLoan/ResumeApplication";
 import FinalVerification from "../Pages/ApplyLoan/FinalVerification/FinalVerification";
 import ReceiveYourMoney from "../Pages/ApplyLoan/ReceiveYourMoney/ReceiveYourMoney";
 import ReviewAndSign from "../Pages/ApplyLoan/ReviewAndSign/ReviewAndSign";
@@ -128,6 +129,7 @@ function App() {
                                             <Route path='/customers/paymentHistory' component={ PaymentHistory } />
                                             <Route path='/customers/selectOffer' component={ ApplyLoan } />
                                             <Route path='/customers/applyForLoan' component={ ApplyForLoanRedirect } />
+                                            <Route path='/customers/resumeApplication' component={ ResumeApplication } />
                                             <Route path='/customers/reviewAndSign' component={ ReviewAndSign } />
                                             <Route path='/customers/finalVerification' component={ FinalVerification } />
                                             <Route path='/customers/receiveYourMoney' component={ ReceiveYourMoney } />
