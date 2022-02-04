@@ -514,7 +514,6 @@ export default function PaymentMethod() {
             event.preventDefault();
         }
     };
-
     //  view part
     return (
         <div className={ loading ? classes.loadingOn : classes.loadingOff }>
@@ -1076,17 +1075,23 @@ export default function PaymentMethod() {
                                             accountType,
                                             checkedAddBank ? 1 : 0
                                         );
-                                        if (resBankData?.data?.Success) {
+                                        if (resBankData?.data?.status === 200) {
                                             toast.success("Payment method added successfully");
                                             await getPaymentMethodsOnLoad();
                                             closeBankAccountButton();
                                         } else if (
-                                            resBankData?.data?.result === "error" ||
-                                            resBankData?.data?.status === 400
+                                            resBankData?.data?.type === "error" &&
+                                            resBankData?.status === 400
                                         ) {
                                             toast.error(resBankData?.data?.error);
-                                        } else if (resBankData?.data?.type === "error") {
+                                        } else if (
+                                            resBankData?.data?.type === "error" &&
+                                            resBankData?.data?.status === 200
+                                        ) {
                                             toast.error(resBankData?.data?.text);
+                                        }
+                                        else if (resBankData?.status === 404) {
+                                            toast.error("Error retrieving loan information - Account is closed.");
                                         } else {
                                             if (!toast.isActive("closeToast")) {
                                                 toast.error("Adding bank account failed, please try again.");
