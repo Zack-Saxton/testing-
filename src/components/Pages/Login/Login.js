@@ -127,6 +127,7 @@ export default function Login(props) {
 				Cookies.set("profile_picture", retVal?.data?.user?.mobile?.profile_picture ? retVal?.data?.user?.mobile?.profile_picture : "");
 				Cookies.set('login_date', login_date);
 				Cookies.set('userToken', retVal?.data?.user?.attributes?.UserToken);
+				Cookies.set('temp_opted_phone_texting', "");
 				queryClient.removeQueries();
 				setLoading(false);
 				history.push({
