@@ -179,7 +179,7 @@ function LoanPurpose(props) {
 														: "borrowCSS textCSS"
 												}
 											>
-												Home improvement
+												Home Improvement
 											</Typography>
 										</Paper>
 									</Grid>

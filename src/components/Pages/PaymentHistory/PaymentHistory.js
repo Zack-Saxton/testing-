@@ -48,8 +48,11 @@ export default function PaymentHistory() {
   const [historyOfLoans, setHistoryOfLoans] = useState([]);
 
   useEffect(() => {
+    if(paymentHistoryStatus){
     setfileName(paymentHistoryStatus?.data?.activeLoans.length ? paymentHistoryStatus?.data?.activeLoans[0].loanDetails.AccountNumber : null);
     setHistoryOfLoans(paymentHistoryStatus?.data?.loanHistory.length ? paymentHistoryStatus?.data?.loanHistory[0].AppAccountHistory : []);
+    }
+    return null
   }, [paymentHistoryStatus]);
 
   const headersCSV = [
@@ -160,7 +163,7 @@ export default function PaymentHistory() {
             <TableContainer id="pdfdiv" component={ Paper }>
               <Table className={ classes.table } aria-label="simple table">
                 <TableHead>
-                  <TableRow key = { Math.floor(Math.random() * 1000)}>
+                  <TableRow key = { Math.random() * 1000}>
                     <TableCell className={ classes.tableHead } align="left">Date</TableCell>
                     <TableCell className={ classes.tableHead } align="left">Description</TableCell>
                     <TableCell className={ classes.tableHead } align="right">Principal</TableCell>

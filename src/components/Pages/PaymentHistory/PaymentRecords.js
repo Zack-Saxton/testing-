@@ -16,7 +16,7 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
 import Moment from "moment";
 import PropTypes from 'prop-types';
-import React from "react";
+import {useState} from "react";
 import NumberFormat from 'react-number-format';
 import { useStylesPaymenthistory } from "./Style";
 import "./Style.css";
@@ -90,10 +90,10 @@ TablePaginationActions.propTypes = {
 
 export default function PaymentHistoryTable({userRecentPaymentData}) {
   const classes = useStylesPaymenthistory();
-  const [ page, setPage ] = React.useState(0);
-  const [ rowsPerPage, setRowsPerPage ] = React.useState(10);
-
-  const handleChangePage = (newPage) => {
+  const [ page, setPage ] = useState(0);
+  const [ rowsPerPage, setRowsPerPage ] = useState(10);
+  
+  const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
@@ -124,8 +124,7 @@ export default function PaymentHistoryTable({userRecentPaymentData}) {
                 ? userRecentPaymentData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 : userRecentPaymentData
               ).map((row) => (
-                <>
-                  <TableRow key={(Math.random()*1000)}> 
+                  <TableRow key={Math.random()*1000}> 
                     <TableCell
                       component="th"
                       className={ classes.tableHeadRow }
@@ -171,10 +170,8 @@ export default function PaymentHistoryTable({userRecentPaymentData}) {
                       <NumberFormat value={ Math.abs(row.RunningPrincipalBalance) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
                     </TableCell>
                   </TableRow>
-                </>
               ))
             ) : (
-
               <TableRow>
                 <TableCell colSpan="7" align="center">
                   You do not have any recent applications
