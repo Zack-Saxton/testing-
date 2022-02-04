@@ -40,8 +40,8 @@ export default function LoanDocumentTable(userLoanDocumentData) {
         </TableHead>
         <TableBody>
           { userLoanDocument?.userLoanDocumentData?.length ? (
-            userLoanDocument.userLoanDocumentData.map((row, index) => (
-              <TableRow key={ index }>
+            userLoanDocument.userLoanDocumentData.map((row) => (
+              <TableRow key={ (Math.random() * 1000) }>
                 <TableCell
                   component="th"
                   className={ classes.tableHeadRow }

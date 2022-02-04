@@ -9,14 +9,9 @@ export default function HistoricalData(creditData) {
   //Material UI css class
   const classes = useStyleVantageScore();
   //Vantage score
-  let chartData = (creditData?.creditData) ? creditData?.creditData.map(
-    data => data.parsed.vantage_score
-  ) : [];
-
+  let chartData = (creditData?.creditData) ? creditData?.creditData.map(dataItem => dataItem.parsed.vantage_score) : [];
   //Vantage score - months
-  let chartMonths = (creditData?.creditData) ? creditData?.creditData.map(
-    data => Moment(data.createdat).format('MMM')
-  ) : [];
+  let chartMonths = (creditData?.creditData) ? creditData?.creditData.map(dataItem => Moment(dataItem.createdat).format('MMM')) : [];
 
   const data = {
     labels: chartMonths.reverse(),
