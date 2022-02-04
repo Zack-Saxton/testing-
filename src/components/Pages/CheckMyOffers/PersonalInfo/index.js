@@ -338,7 +338,7 @@ function PersonalInfo() {
 										alignItems: "center",
 										fontSize:"1.538rem"
 									} }
-									className="borrowCSSLP"
+									className="borrowCSSLP checkMyOfferText"
 								>
 									Tell us about yourself
 								</Typography>

@@ -7,11 +7,12 @@
 }
 
 #ownOrRentWrap {
-	border-radius: 4px !important;
+	border-radius: 2px !important;
+	padding: 0 !important;
 }
 
 #ownOrRentWrap .mt-0 {
-	border-radius: 4px 4px 0px 0px !important;
+	border-radius: 2px 2px 0px 0px !important;
 }
 
 #ownOrRentBoxOne,
@@ -20,4 +21,10 @@
 #ownOrRentBoxFour,
 #ownOrRentBoxFive {
 	padding: 2px 0px !important;
+	font-size: 0.938rem !important;
+	margin: 0px 0px 15px 0px !important;
+}
+
+#ownOrRentBoxOne{
+	margin: 15px 0px 15px 0px !important;
 }
