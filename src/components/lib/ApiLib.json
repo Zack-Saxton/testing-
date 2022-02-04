@@ -63,6 +63,7 @@
     "kba_questions_cac": "/integration/lexisnexis/kba_questions_cac?test=true",
     "kba_disambiguate_answer": "/integration/LexisNexis/kba_disambiguate_answer_cac?test=true",
     "error_logger": "/logger/logError",
-    "disclosure_link" : "/customer/consents"
+    "disclosure_link" : "/customer/consents",
+    "register_customer" : "/customer/register_new_user" 
   }
 }

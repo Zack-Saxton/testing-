@@ -22,3 +22,20 @@ export default async function LoginController(email, password) {
     ErrorLogger("Error executing LoginController API", error);
   }
 }
+
+
+/***** Register method *****/
+export async function RegisterController(registerData) {
+  try {
+    let api = "register_customer";
+    let param = "";
+    let data = registerData
+    let method = "POST";
+    let addAccessToken = false;
+
+    //API call
+    return APICall(api, param, data, method, addAccessToken);
+  } catch (error) {
+    ErrorLogger("Error executing LoginController API", error);
+  }
+}
