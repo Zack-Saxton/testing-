@@ -26,13 +26,14 @@ import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import PaymentIcon from "@material-ui/icons/Payment";
 import { useFormik } from "formik";
 import { useAtom } from "jotai";
+import { useQuery } from 'react-query';
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import cheque from "../../../assets/images/cheque.jpg";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
-import { AddACHPaymentAPI } from "../../Controllers/ACHDebitController";
+import { AddACHPaymentAPI } from "../../../components/Controllers/ACHDebitController";
 import {
     addCreditCard, deleteBankAccount,
     deleteCreditCard, getPaymentMethods, setDefaultPayment
@@ -127,7 +128,6 @@ export default function PaymentMethod() {
     const [ deleteType, setDeleteType ] = useState();
     const [ deleteID, setDeleteID ] = useState();
     const [ editMode, setEditMode ] = useState(false);
-    const [ allPaymentMethod, setAllPaymentMethod ] = useState(false);
     const [ confirmDelete, setConfirmDelete ] = useState(false);
     const [ addBankValues, setAddBankValues ] = useState(false);
     const [ routingError, setRoutingError ] = useState("");
@@ -135,6 +135,10 @@ export default function PaymentMethod() {
     const [ validZip, setValidZip ] = useState(true);
     const [ mailingStreetAddress, setMailingStreetAddress ] = useState("");
     const [ mailingZipcode, setMailingZipcode ] = useState("");
+    const { data: allPaymentMethod, refetch } = useQuery('payment-method', getPaymentMethods, {
+        refetchOnMount: false
+      });
+
     const formikAddBankAccount = useFormik({
         initialValues: {
             accountNickname: "",
@@ -170,7 +174,6 @@ export default function PaymentMethod() {
     const addBankOnChangeNumber = (event) => {
         const reg = /^[0-9\b]+$/;
         let acc = event.target.value;
-
         if (acc === "" || acc.match(reg)) {
             formikAddBankAccount.handleChange(event);
         }
@@ -330,15 +333,11 @@ export default function PaymentMethod() {
     const handleDeleteConfirmOpen = () => {
         setConfirmDelete(true);
     };
-    async function getPaymentMethodsOnLoad() {
-        let paymentMedthods = await getPaymentMethods();
-        setAllPaymentMethod(paymentMedthods);
-    }
+
     useEffect(() => {
         const img = new Image();
         // image is already loaded (cached if server permits) on component mount:
         img.src = cheque;
-        getPaymentMethodsOnLoad();
     }, []);
 
     const addBankAccountButton = () => {
@@ -412,7 +411,7 @@ export default function PaymentMethod() {
             res?.data?.Success ===
             "Default Payment Method Set to " + nickname
         ) {
-            await getPaymentMethodsOnLoad();
+            refetch();
             setLoading(false);
             toast.success(res?.data?.Success);
         } else {
