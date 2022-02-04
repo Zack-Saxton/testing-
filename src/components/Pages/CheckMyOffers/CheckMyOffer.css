@@ -28,7 +28,6 @@
 	min-height: 500px !important;
 }
 .cardWOPadding {
-	padding-bottom: 1%;
 	text-align: center;
 }
 .cardWrapper {
@@ -103,8 +102,7 @@
 }
 
 .alignButton {
-	margin: 20px 0 !important;
-	height: 40px;
+	margin: 15px 0 !important;
 }
 
 .showMsg {
@@ -495,7 +493,6 @@
 	font-size: 1.538rem !important;
 	font-weight: 400 !important;
 	line-height: 110% !important;
-	margin: 0.82rem 0 0.656rem 0 !important;
 }
 
 .bullet {
@@ -509,6 +506,10 @@
 	width: 100% !important;
 	margin-top: 2% !important;
 	margin-bottom: 2% !important;
+}
+
+.checkMyOfferText{
+	margin: 10px 0px !important;
 }
 
 @media (min-width: 600px) {

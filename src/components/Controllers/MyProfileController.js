@@ -104,23 +104,25 @@ export async function textNotification(body, sub) {
     };
     let method = "POST";
     let addAccessToken = true;
-    return await APICall(url, param, data, method, addAccessToken);
+    let res = await APICall(url, param, data, method, addAccessToken);
+    if (res.status === 200) {
+        Cookies.set("temp_opted_phone_texting", cleanednumber);
+    }
+  return res;
   } catch (error) {
     ErrorLogger("Error executing textNotification API", error);
   }
 }
 
-export async function getTextNotify() {
+export default async function getTextNotify() {
   try {
     const email = Cookies.get("email");
     const userToken = Cookies.get("userToken");
     const token = JSON.parse(Cookies.get("token"));
-    const accountDetails = Cookies.get("accountDetails");
     let appGUID = token.applicantGuid;
-    let opted_phone_texting = accountDetails?.data?.latest_contact?.opted_phone_texting ? accountDetails?.data?.latest_contact?.opted_phone_texting : "";
+    let opted_phone_texting = Cookies.get("opted_phone_texting");
     let cleanednumber = opted_phone_texting.replace(/\D/g, "");
     let allLoansClosed = Cookies.get("hasActiveLoan") === "true" ? false : true;
-
     let url = "sbt_getInfo";
     let param = "";
     let data = {

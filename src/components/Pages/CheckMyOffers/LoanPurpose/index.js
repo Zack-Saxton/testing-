@@ -133,7 +133,7 @@ function LoanPurpose(props) {
 										</i>
 									</Link>
 								</Grid>
-								<Typography variant="h5" align="center" className="borrowCSSLP">
+								<Typography  variant="h5" align="center" className="borrowCSSLP checkMyOfferText">
 									How are you planning to use the money?
 								</Typography>
 								<Grid

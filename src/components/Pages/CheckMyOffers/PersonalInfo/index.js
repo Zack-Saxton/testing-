@@ -594,7 +594,7 @@ function PersonalInfo() {
 										</Grid>
 										<Grid
 											container
-											style={ { justifyContent: "center", margin:"15px 0px" } }
+											style={ { justifyContent: "center", margin:" 15px 0px 19px 0px" } }
 											alignItems="center"
 											item
 											lg={ 8 }

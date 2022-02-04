@@ -36,19 +36,14 @@ const RadioButtonWrapper = ({
   const [ radioValue, setRadioValue ] = React.useState("");
 
   function handleRadioClick(event) {
-
     if (event.target.value === radioValue) {
       setRadioValue("");
-
     } else {
       setRadioValue(event.target.value);
-
     }
     if (onClick) {
       onClick(value ?? event.target.value);
-
     }
-
   }
   //Configuring the field with properties
   const configRadioButton = {
@@ -56,11 +51,7 @@ const RadioButtonWrapper = ({
     row: row,
     required: required,
     ...otherProps,
-
   };
-
-  //Validation
-
   //parsing data using json
   let radioLabelMF = JSON.parse(radiolabel);
 

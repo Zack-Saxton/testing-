@@ -46,14 +46,11 @@ export default function PaymentHistory() {
   //Api implementation for table
   const { data: paymentHistoryStatus } = useQuery('loan-data', usrAccountDetails);
   const [historyOfLoans, setHistoryOfLoans] = useState([]);
-  
 
-  
   useEffect(() => {
     setfileName(paymentHistoryStatus?.data?.activeLoans.length ? paymentHistoryStatus?.data?.activeLoans[0].loanDetails.AccountNumber : null);
     setHistoryOfLoans(paymentHistoryStatus?.data?.loanHistory.length ? paymentHistoryStatus?.data?.loanHistory[0].AppAccountHistory : []);
   }, [paymentHistoryStatus]);
-
 
   const headersCSV = [
     { label: "Date", key: "TransactionDate" },
@@ -91,8 +88,6 @@ export default function PaymentHistory() {
     doc.save("" + fileName + ".pdf");
     setAnchorEl(null);
   };
-
-  
 
   //Data for csv file
   const dataCSV = historyOfLoans ? historyOfLoans.map(item => {
@@ -187,7 +182,6 @@ export default function PaymentHistory() {
           </Grid>)
           : <PaymentHistoryTable userRecentPaymentData={ historyOfLoans } />
         }
-
       </Grid>
     </div>
   );

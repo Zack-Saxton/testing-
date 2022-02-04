@@ -53,7 +53,7 @@ function CitizenshipStatus() {
 						justifyContent="center"
 						alignItems="center"
 						style={ {
-							padding: "70px 0px 70px 0px"
+							padding: "4% 0px 4% 0px"
 						} }
 					>
 						<Grid
@@ -82,8 +82,8 @@ function CitizenshipStatus() {
 									<span className="floatLeft detNum2">17%</span>
 								</div>
 								<Grid className="floatLeft">
-									<Link to="/loan-purpose">
-										<i className="material-icons dp48 yellowText  ">
+									<Link className="arrowBack" to="/loan-purpose">
+										<i className="material-icons dp48 yellowText floatingButton">
 											arrow_back
 										</i>
 									</Link>
@@ -103,7 +103,7 @@ function CitizenshipStatus() {
 										justify: "center",
 										alignItems: "center",
 									} }
-									className="borrowCSSLP"
+									className="checkMyOfferText borrowCSSLP "
 								>
 									Describe your citizenship status
 								</Typography>
@@ -125,6 +125,7 @@ function CitizenshipStatus() {
 										xs={ 12 }
 									>
 										<Paper
+											id="usButton"
 											elevation={ 3 }
 											data-test-id="usCitizen"
 											className={
@@ -141,6 +142,7 @@ function CitizenshipStatus() {
 									</Grid>
 									<Grid item lg={ 8 } md={ 8 } xs={ 12 }>
 										<Paper
+											id="permanentResidentButton"
 											elevation={ 3 }
 											data-test-id="permanentResident"
 											className={
@@ -157,6 +159,7 @@ function CitizenshipStatus() {
 									</Grid>
 									<Grid item lg={ 8 } md={ 8 } xs={ 12 }>
 										<Paper
+											id="foreignResidentButton"
 											elevation={ 3 }
 											data-test-id="foreignResident"
 											className={

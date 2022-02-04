@@ -25,7 +25,7 @@ export default function LoadQuestions(props) {
 			{ props.responseData.map((question, index) => {
 				return (
 					<Grid key={ index } item xs={ 12 }>
-						<Typography>{ question?.question }</Typography>
+						<Typography>{ question?.question } *</Typography>
 						<Radio
 							name="question"
 							radiolabel={ buildOptions(question.choice) }

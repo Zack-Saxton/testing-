@@ -685,7 +685,8 @@ if (cardLabel === undefined) {
     let s = price.split(".");
     let afterDecimal = s[ 1 ];
     if (!afterDecimal) {
-      price = event.target.value.replace(/.$/g, "");
+      price = event.target.value.replace(".", "");
+      price = price.replace("$", "");
       setpaymentAmount(price);
       setRequiredAmount("");
     }

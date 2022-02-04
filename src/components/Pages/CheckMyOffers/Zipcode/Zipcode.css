@@ -4,7 +4,6 @@
 	min-height: 500px !important;
 }
 .cardWOPadding {
-	padding-bottom: 1%;
 	text-align: center;
 }
 .cardWrapper {
@@ -86,10 +85,6 @@
 	color: white !important;
 }
 
-.alignButton {
-	margin: 20px 0 !important;
-	height: 40px;
-}
 
 .showMsg {
 	display: block;

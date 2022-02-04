@@ -63,8 +63,8 @@ export default function PaymentOverview(paymentData, status) {
                     :
                     (paymentDetails.overview && paymentDetails.overview.length && !paymentDetails.overview[ 0 ].loanPaymentInformation?.errorMessage)
                         ?
-                        paymentDetails.overview.map((row, index) => (
-                            <TableRow key={ index }>
+                        paymentDetails.overview.map((row) => (
+                            <TableRow key={ (Math.random() * 1000) }>
                                 <TableCell
                                     style={ { fontSize: "0.938rem" } }
                                     component="th"
