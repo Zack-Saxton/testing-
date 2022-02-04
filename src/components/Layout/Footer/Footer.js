@@ -61,9 +61,11 @@ export default function Footer() {
               </NavLink>
             </div>
             <div className="main-footer-content">
-              <a target="_blank" rel="noreferrer" href="https://cis-development.marinerfinance.io/terms-of-use" className="hrefTag">
-                CAC Terms Of Use
-              </a>
+            <NavLink to="/cac-termsofuse" target="_blank" className="hrefTag">
+                <Typography>
+                  CAC Terms Of Use
+                </Typography>
+              </NavLink>
             </div>
             <div className="main-footer-content">
               <NavLink to="/californiaResident" target="_blank" className="hrefTag">

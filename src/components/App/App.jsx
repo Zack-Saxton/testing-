@@ -10,14 +10,7 @@ import ErrorAfterLogin from "../Layout/ErrorAfterLogin/ErrorAfterLogin";
 import ErrorBeforeLogin from '../Layout/ErrorBeforeLogin/ErrorBeforeLogin';
 import GeneralUser from '../Layout/General';
 import PostLogin from '../Layout/Post';
-import CommunityGuidelines from "../Layout/DisclosureLink/CommunityGuidelines";
-import PrivacyStatement from "../Layout/DisclosureLink/PrivacyStatement";
-import TermsOfUse from "../Layout/DisclosureLink/TermsOfUse";
-import LicenseDisclosure from "../Layout/DisclosureLink/LicenseDisclosure";
-import TextingTermsOfUse from "../Layout/DisclosureLink/TextingTermsOfUse";
-import CacTermsOfUse from "../Layout/DisclosureLink/CacTermsofUse";
-import WebsiteAccessibility from "../Layout/DisclosureLink/WebsiteAccessibility";
-import CaliforniaResident from "../Layout/DisclosureLink/CaliforniaResident";
+import Disclosure from "../Layout/DisclosureLink/Disclosure";
 import AccountOverview from "../Pages/AccountOverview/AccountOverview";
 import ConfirmationInfo from "../Pages/AffiliatePartner/ConfirmationInfo";
 import PartnerSignUP from "../Pages/AffiliatePartner/PartnerSignUp";
@@ -97,14 +90,14 @@ function App() {
                                         <Route path='/register' component={ RegisterPage } />
                                         <Route path='/faq' component={ FaqBeforeLogin } />
                                         <Route path='/select-amount' component={ SelectAmount } />
-                                        <Route path='/communityGuidelines' component={ CommunityGuidelines } />
-                                        <Route path='/privacyStatement' component={ PrivacyStatement } />
-                                        <Route path='/termsofuse' component={ TermsOfUse } />
-                                        <Route path='/licenseDisclosure' component={ LicenseDisclosure } />
-                                        <Route path='/textingTermsOfUse' component={ TextingTermsOfUse } />
-                                        <Route path='/cac-termsofuse' component={ CacTermsOfUse } />
-                                        <Route path='/californiaResident' component={ CaliforniaResident } />
-                                        <Route path='/websiteAccessibility' component={ WebsiteAccessibility } />
+                                        <Route path='/privacyStatement'  component={() => (<Disclosure URL="/privacy" />)} />
+                                        <Route path='/communityGuidelines'  component={() => (<Disclosure URL="/communityGuidelines" />)} />
+                                        <Route path='/termsofuse'  component={() => (<Disclosure URL="/termsOfUse" />)} />
+                                        <Route path='/cac-termsofuse'  component={() => (<Disclosure URL="/cacTermsOfUse" />)} />
+                                        <Route path='/licenseDisclosure'  component={() => (<Disclosure URL="/licensing" />)} />
+                                        <Route path='/textingTermsOfUse'  component={() => (<Disclosure URL="/textingTermsOfUse" />)} />
+                                        <Route path='/californiaResident'  component={() => (<Disclosure URL="/california" />)} />
+                                        <Route path='/websiteAccessibility'  component={() => (<Disclosure URL="/websiteAccessibility" />)} />
                                         <Route path='/loan-purpose' exact component={ LoanPurpose } />
                                         <Route path='/citizenship-status' exact component={ CitizenshipStatus } />
                                         <Route path='/new-user' exact component={ NewUser } />
