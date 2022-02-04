@@ -292,7 +292,7 @@ function LivingPlace() {
 													: "hideMsg"
 											}
 											name="RentOrMortgageAmount"
-											label="Monthly Rent / Mortgage Amount"
+											label="Monthly Rent / Mortgage Amount *"
 											form={ true }
 											error={ error }
 											helperText={ helperText }
