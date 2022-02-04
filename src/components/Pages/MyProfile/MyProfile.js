@@ -96,16 +96,16 @@ export default function MyProfile() {
     AsyncEffect_textNotifyData();
   }, []);
 let textNotifyDetails = textNotifyData;
-let cookieTextNotify = JSON.parse(Cookies.get("isTextNotify"));
-if (!cookieTextNotify) {
+let cookieTextNotify = Cookies.get("isTextNotify");
+if (Cookies.get("isTextNotify" === undefined)) {
   let textNotifyStatus = textNotifyDetails?.data?.sbt_getInfo?.SubscriptionInfo[0]?.SubscriptionOptions[0]?.OptInAccount;
     Cookies.set('isTextNotify', textNotifyStatus);
     cookieTextNotify = textNotifyStatus;
  } 
-  let textnotify = JSON.parse(cookieTextNotify) ? "On" : "Off";
-  let hasActiveLoan = JSON.parse(Cookies.get("hasActiveLoan"));
+  let textnotify = cookieTextNotify === "true" ? "On" : "Off";
+  let hasActiveLoan = Cookies.get("hasActiveLoan") === "true" ? true : false;
   let hasApplicationStatus = Cookies.get("hasApplicationStatus");
-  let appStatus = [ "rejected", "referred", "expired" ];
+  var appStatus = [ "rejected", "referred", "expired" ];
   let checkAppStatus = appStatus.includes(hasApplicationStatus);
   let disableField = (checkAppStatus === true || hasActiveLoan === true) ? true : false;
 
