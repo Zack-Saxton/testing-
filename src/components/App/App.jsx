@@ -125,7 +125,6 @@ function App() {
                                     <PostLogin>
                                         <Switch>
                                             <Route path='/customers/accountOverview' exact component={ AccountOverview } />
-                                            {/* <Route path='/customers/verification/email' component={ValidateToken}/> */ }
                                             <Route path='/customers/paymentHistory' component={ PaymentHistory } />
                                             <Route path='/customers/selectOffer' component={ ApplyLoan } />
                                             <Route path='/customers/applyForLoan' component={ ApplyForLoanRedirect } />
