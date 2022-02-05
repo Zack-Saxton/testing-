@@ -56,7 +56,7 @@ const validationSchemaDebitCard = yup.object({
         .test('MC-VC', 'We only accept Visa or Master card', value => (value.length > 0 && (value.slice(0, 1) === '4' || value.slice(0, 1) === '5')))
            
         .required("Card Number is required.")
-        .min(16, "Card Number should be minimum 16 digits."),
+        .min(16, "Card Number should be 16 digits."),
         
     cardName: yup
         .string("Cardholder Name is required.")
