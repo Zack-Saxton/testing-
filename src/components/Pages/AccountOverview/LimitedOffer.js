@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react";
-import Paper from "@material-ui/core/Paper";
-import logo from "../../../assets/images/mariner-finance.jpg";
-import Grid from "@material-ui/core/Grid";
-import { NavLink } from "react-router-dom";
-import { useStylesAccountOverview } from "./Style";
-import adBanner from "../../../assets/gallery/AdBanner.jpg";
-import MortgageBanner from "../../../assets/images/Mortgage-Banner.jpg";
-import "./Style.css";
-import { ButtonPrimary } from "../../FormsUI";
+import { Box, Modal, Typography } from "@material-ui/core";
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { Modal, Box, Typography } from "@material-ui/core";
-import NumberFormat from "react-number-format";
+import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
+import Paper from "@material-ui/core/Paper";
 import CloseIcon from "@material-ui/icons/Close";
+import React, { useEffect, useState } from "react";
+import NumberFormat from "react-number-format";
+import { NavLink } from "react-router-dom";
+import adBanner from "../../../assets/gallery/AdBanner.jpg";
+import logo from "../../../assets/images/mariner-finance.jpg";
+import MortgageBanner from "../../../assets/images/Mortgage-Banner.jpg";
 import setAccountDetails from "../../Controllers/AccountOverviewController";
+import { ButtonPrimary } from "../../FormsUI";
+import { useStylesAccountOverview } from "./Style";
+import "./Style.css";
 export default function LimitedOffer(userOfferData) {
   //Material UI css class
   const classes = useStylesAccountOverview();

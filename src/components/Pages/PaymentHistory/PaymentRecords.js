@@ -16,7 +16,7 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
 import Moment from "moment";
 import PropTypes from 'prop-types';
-import {useState} from "react";
+import { useState } from "react";
 import NumberFormat from 'react-number-format';
 import { useStylesPaymenthistory } from "./Style";
 import "./Style.css";
@@ -88,11 +88,11 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-export default function PaymentHistoryTable({userRecentPaymentData}) {
+export default function PaymentHistoryTable({ userRecentPaymentData }) {
   const classes = useStylesPaymenthistory();
   const [ page, setPage ] = useState(0);
   const [ rowsPerPage, setRowsPerPage ] = useState(10);
-  
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -124,52 +124,52 @@ export default function PaymentHistoryTable({userRecentPaymentData}) {
                 ? userRecentPaymentData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 : userRecentPaymentData
               ).map((row) => (
-                  <TableRow key={Math.random()*1000}> 
-                    <TableCell
-                      component="th"
-                      className={ classes.tableHeadRow }
-                      scope="row"
-                      align="left"
-                    >
-                      { Moment(row.TransactionDate).format("MM/DD/YYYY") }
-                    </TableCell>
-                    <TableCell
-                      className={ classes.tableHeadRow }
-                      align="left"
-                    >
-                      { row.TransactionDescription }
-                    </TableCell>
-                    <TableCell
-                      className={ classes.tableHeadRow }
-                      align="right"
-                    >
-                      <NumberFormat value={ Math.abs(row.PrincipalAmount) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
-                    </TableCell>
-                    <TableCell
-                      className={ classes.tableHeadRow }
-                      align="right"
-                    >
-                      <NumberFormat value={ Math.abs(row.InterestAmount) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
-                    </TableCell>
-                    <TableCell
-                      className={ classes.tableHeadRow }
-                      align="right"
-                    >
-                      <NumberFormat value={ Math.abs(row.OtherAmount) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
-                    </TableCell>
-                    <TableCell
-                      className={ classes.tableHeadRow }
-                      align="right"
-                    >
-                      <NumberFormat value={ Math.abs(row.InterestAmount) + Math.abs(row.OtherAmount) + Math.abs(row.PrincipalAmount) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
-                    </TableCell>
-                    <TableCell
-                      className={ classes.tableHeadRow }
-                      align="right"
-                    >
-                      <NumberFormat value={ Math.abs(row.RunningPrincipalBalance) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
-                    </TableCell>
-                  </TableRow>
+                <TableRow key={ Math.random() * 1000 }>
+                  <TableCell
+                    component="th"
+                    className={ classes.tableHeadRow }
+                    scope="row"
+                    align="left"
+                  >
+                    { Moment(row.TransactionDate).format("MM/DD/YYYY") }
+                  </TableCell>
+                  <TableCell
+                    className={ classes.tableHeadRow }
+                    align="left"
+                  >
+                    { row.TransactionDescription }
+                  </TableCell>
+                  <TableCell
+                    className={ classes.tableHeadRow }
+                    align="right"
+                  >
+                    <NumberFormat value={ Math.abs(row.PrincipalAmount) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
+                  </TableCell>
+                  <TableCell
+                    className={ classes.tableHeadRow }
+                    align="right"
+                  >
+                    <NumberFormat value={ Math.abs(row.InterestAmount) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
+                  </TableCell>
+                  <TableCell
+                    className={ classes.tableHeadRow }
+                    align="right"
+                  >
+                    <NumberFormat value={ Math.abs(row.OtherAmount) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
+                  </TableCell>
+                  <TableCell
+                    className={ classes.tableHeadRow }
+                    align="right"
+                  >
+                    <NumberFormat value={ Math.abs(row.InterestAmount) + Math.abs(row.OtherAmount) + Math.abs(row.PrincipalAmount) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
+                  </TableCell>
+                  <TableCell
+                    className={ classes.tableHeadRow }
+                    align="right"
+                  >
+                    <NumberFormat value={ Math.abs(row.RunningPrincipalBalance) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
+                  </TableCell>
+                </TableRow>
               ))
             ) : (
               <TableRow>

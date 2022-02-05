@@ -17,7 +17,7 @@ const TableCellWrapper = ({ parseData, className, align, ...otherProps }) => {
 		for (var key in data.data) {
 			dom_content.push(
 				<TableCell
-					key = {Math.random()*1000}
+					key={ Math.random() * 1000 }
 					className={ data.data[ key ].className }
 					align={ data.data[ key ].align }
 				>
@@ -33,7 +33,7 @@ const TableCellWrapper = ({ parseData, className, align, ...otherProps }) => {
 		if (data) {
 			data.data.forEach(function (arrayItem) {
 				dom_content.push(
-					<TableRow key={Math.random()*1000}>
+					<TableRow key={ Math.random() * 1000 }>
 						<BuildCell data={ arrayItem } />
 					</TableRow>
 				);

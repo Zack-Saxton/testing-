@@ -79,11 +79,11 @@ export default function TextNotification() {
         let result = await textNotification(body, disabledContent);
         if (result.data?.sbt_subscribe_details?.HasNoErrors === true || result.data?.sbt_getInfo?.HasNoErrors === true) {
           toast.success("Updated successfully");
-           onClickCancelChange()
+          onClickCancelChange();
         } else {
           toast.error("No changes made");
         }
-          onClickCancelChange()
+        onClickCancelChange();
       } catch (error) {
         ErrorLogger("Error occured while changing text notification.", error);
       }

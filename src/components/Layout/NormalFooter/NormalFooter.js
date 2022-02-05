@@ -20,44 +20,44 @@ export default function NormalFooter() {
         <section className="section-top-normal-footer">
           <div className="col">
             <div className="footer-content">
-            <NavLink to="/communityGuidelines" target="_blank" className="hrefTag">
+              <NavLink to="/communityGuidelines" target="_blank" className="hrefTag">
                 <Typography className="normalFooterFont">
                   Community Guidelines
                 </Typography>
               </NavLink>
             </div>
             <div className="footer-content">
-            <NavLink to="/privacyStatement" target="_blank" className="hrefTag">
+              <NavLink to="/privacyStatement" target="_blank" className="hrefTag">
                 <Typography className="normalFooterFont">
                   Privacy Statement
                 </Typography>
               </NavLink>
             </div>
             <div className="footer-content">
-            <NavLink to="/termsofuse" target="_blank" className="hrefTag">
+              <NavLink to="/termsofuse" target="_blank" className="hrefTag">
                 <Typography className="normalFooterFont">
                   Terms of Use
                 </Typography>
               </NavLink>
             </div>
             <div className="footer-content">
-            <NavLink to="/licenseDisclosure" target="_blank" className="hrefTag">
+              <NavLink to="/licenseDisclosure" target="_blank" className="hrefTag">
                 <Typography className="normalFooterFont">
-                Licensing & Disclosures
+                  Licensing & Disclosures
                 </Typography>
-              </NavLink>              
+              </NavLink>
             </div>
             <div className="footer-content">
               <NavLink to="/textingTermsOfUse" target="_blank" className="hrefTag">
                 <Typography className="normalFooterFont">
-                Texting Terms of Use
+                  Texting Terms of Use
                 </Typography>
-              </NavLink> 
+              </NavLink>
             </div>
-            <div className="footer-content">              
+            <div className="footer-content">
               <NavLink to="/websiteAccessibility" target="_blank" className="hrefTag">
                 <Typography className="normalFooterFont">
-                Website Accessibility Statement
+                  Website Accessibility Statement
                 </Typography>
               </NavLink>
             </div>
@@ -71,8 +71,8 @@ export default function NormalFooter() {
             <div className="footer-content">
               <NavLink to="/californiaResident" target="_blank" className="hrefTag">
                 <Typography className="normalFooterFont">
-                For California Residents Do Not Sell My
-                personal Information
+                  For California Residents Do Not Sell My
+                  personal Information
                 </Typography>
               </NavLink>
             </div>

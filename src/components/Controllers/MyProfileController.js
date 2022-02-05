@@ -108,7 +108,7 @@ export async function textNotification(body, sub) {
     if (results.status === 200) {
       Cookies.set("temp_opted_phone_texting", cleanednumber);
       Cookies.set("isTextNotify", textingOn);
-      }
+    }
     return results;
   } catch (error) {
     ErrorLogger("Error executing textNotification API", error);

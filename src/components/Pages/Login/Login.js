@@ -2,7 +2,6 @@ import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
-import { EmailTextField, PasswordField, ButtonPrimary } from "../../FormsUI";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
@@ -10,6 +9,7 @@ import React, { useState } from "react";
 import { useQueryClient } from "react-query";
 import { NavLink, useHistory } from "react-router-dom";
 import LoginController from "../../Controllers/LoginController";
+import { ButtonPrimary, EmailTextField, PasswordField } from "../../FormsUI";
 import { encryptAES } from "../../lib/Crypto";
 import { FormValidationRules } from "../../lib/FormValidationRule";
 import ScrollToTopOnMount from "../../Pages/ScrollToTop";
@@ -97,7 +97,7 @@ export default function Login(props) {
 	const history = useHistory();
 	const [ loginFailed, setLoginFailed ] = useState("");
 	const [ loading, setLoading ] = useState(false);
-	const [counter,setCounter] = useState(0);
+	const [ counter, setCounter ] = useState(0);
 	const queryClient = useQueryClient();
 
 	//Form Submission
@@ -151,13 +151,13 @@ export default function Login(props) {
 						applicantGuid: "",
 					})
 				);
-				setCounter(counter + 1)
+				setCounter(counter + 1);
 				setLoading(false);
 				setLoginFailed(retVal?.data?.errorMessage);
-                if(counter >= 1){
-                    history.push('/register');
-                }
-            } else {
+				if (counter >= 1) {
+					history.push('/register');
+				}
+			} else {
 				setLoading(false);
 				alert("Network error");
 			}

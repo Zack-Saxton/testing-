@@ -95,13 +95,13 @@ export default function MyProfile() {
   useEffect(() => {
     AsyncEffect_textNotifyData();
   }, []);
-let textNotifyDetails = textNotifyData;
-let cookieTextNotify = Cookies.get("isTextNotify");
-if (Cookies.get("isTextNotify" === undefined)) {
-  let textNotifyStatus = textNotifyDetails?.data?.sbt_getInfo?.SubscriptionInfo[0]?.SubscriptionOptions[0]?.OptInAccount;
+  let textNotifyDetails = textNotifyData;
+  let cookieTextNotify = Cookies.get("isTextNotify");
+  if (Cookies.get("isTextNotify" === undefined)) {
+    let textNotifyStatus = textNotifyDetails?.data?.sbt_getInfo?.SubscriptionInfo[ 0 ]?.SubscriptionOptions[ 0 ]?.OptInAccount;
     Cookies.set('isTextNotify', textNotifyStatus);
     cookieTextNotify = textNotifyStatus;
- } 
+  }
   let textnotify = cookieTextNotify === "true" ? "On" : "Off";
   let hasActiveLoan = Cookies.get("hasActiveLoan") === "true" ? true : false;
   let hasApplicationStatus = Cookies.get("hasApplicationStatus");

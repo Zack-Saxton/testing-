@@ -1,10 +1,10 @@
+import Typography from "@material-ui/core/Typography";
 import React from "react";
 import { NavLink } from "react-router-dom";
-import Typography from "@material-ui/core/Typography";
-import "./Footer.css";
 import badge from "../../../assets/images/badge.png";
 import Logo from "../../../assets/images/MarinerLogo.png";
 import ConsumerDialog from "../ConsumerFooterDialog/ConsumerDialog";
+import "./Footer.css";
 
 export default function Footer() {
   const [ consumer, setConsumer ] = React.useState(false);
@@ -61,7 +61,7 @@ export default function Footer() {
               </NavLink>
             </div>
             <div className="main-footer-content">
-            <NavLink to="/cac-termsofuse" target="_blank" className="hrefTag">
+              <NavLink to="/cac-termsofuse" target="_blank" className="hrefTag">
                 <Typography>
                   CAC Terms Of Use
                 </Typography>

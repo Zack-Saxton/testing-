@@ -1,23 +1,23 @@
+import Box from "@material-ui/core/Box";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+import { useFormik } from "formik";
 import React, { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import { ButtonPrimary, TextField, Zipcode } from "../../../FormsUI";
-import Paper from "@material-ui/core/Paper";
-import AddressLogo from "../../../../assets/icon/I-Address.png";
-import { useFormik } from "formik";
 import * as yup from "yup";
+import AddressLogo from "../../../../assets/icon/I-Address.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
-import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogActions from "@material-ui/core/DialogActions";
-import ScrollToTopOnMount from "../ScrollToTop";
+import ZipCodeLookup from "../../../Controllers/ZipCodeLookup";
+import { ButtonPrimary, TextField, Zipcode } from "../../../FormsUI";
+import ErrorLogger from "../../../lib/ErrorLogger";
 import "../CheckMyOffer.css";
 import "../HomeAddress/HomeAdress.css";
-import ZipCodeLookup from "../../../Controllers/ZipCodeLookup";
-import ErrorLogger from "../../../lib/ErrorLogger";
+import ScrollToTopOnMount from "../ScrollToTop";
 //yup validation schema
 const validationSchema = yup.object({
 	streetAddress: yup
@@ -144,7 +144,7 @@ function HomeAddress() {
 						item xs={ 12 } sm={ 10 } md={ 6 } lg={ 6 }
 						justifyContent="center"
 						alignItems="center"
-						style={ { padding:"4% 0", margin: "auto" } }
+						style={ { padding: "4% 0", margin: "auto" } }
 					>
 						<Grid
 							justifyContent="center"

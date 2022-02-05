@@ -127,8 +127,8 @@ export default function ActiveLoans(userActiveLoanData) {
                         <Grid container>
                           <Grid item xs={ 12 } sm={ 3 }>
                             <AutoPayStatus
-                              isAutoPay={appData?.loanPaymentInformation?.appRecurringACHPayment ? true : false} 
-                              accountNumber={appData?.loanDetails?.AccountNumber}
+                              isAutoPay={ appData?.loanPaymentInformation?.appRecurringACHPayment ? true : false }
+                              accountNumber={ appData?.loanDetails?.AccountNumber }
                             />
                           </Grid>
 

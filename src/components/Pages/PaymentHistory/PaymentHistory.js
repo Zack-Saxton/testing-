@@ -17,6 +17,7 @@ import "jspdf-autotable";
 import Moment from "moment";
 import React, { useEffect, useState } from "react";
 import { CSVLink } from "react-csv";
+import { useQuery } from 'react-query';
 import { NavLink } from "react-router-dom";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
@@ -25,7 +26,6 @@ import ScrollToTopOnMount from "../ScrollToTop";
 import PaymentHistoryTable from "./PaymentRecords";
 import { useStylesPaymenthistory } from "./Style";
 import "./Style.css";
-import { useQuery } from 'react-query';
 
 //Main function
 export default function PaymentHistory() {
@@ -45,15 +45,15 @@ export default function PaymentHistory() {
 
   //Api implementation for table
   const { data: paymentHistoryStatus } = useQuery('loan-data', usrAccountDetails);
-  const [historyOfLoans, setHistoryOfLoans] = useState([]);
+  const [ historyOfLoans, setHistoryOfLoans ] = useState([]);
 
   useEffect(() => {
-    if(paymentHistoryStatus){
-    setfileName(paymentHistoryStatus?.data?.activeLoans.length ? paymentHistoryStatus?.data?.activeLoans[0].loanDetails.AccountNumber : null);
-    setHistoryOfLoans(paymentHistoryStatus?.data?.loanHistory.length ? paymentHistoryStatus?.data?.loanHistory[0].AppAccountHistory : []);
+    if (paymentHistoryStatus) {
+      setfileName(paymentHistoryStatus?.data?.activeLoans.length ? paymentHistoryStatus?.data?.activeLoans[ 0 ].loanDetails.AccountNumber : null);
+      setHistoryOfLoans(paymentHistoryStatus?.data?.loanHistory.length ? paymentHistoryStatus?.data?.loanHistory[ 0 ].AppAccountHistory : []);
     }
-    return null
-  }, [paymentHistoryStatus]);
+    return null;
+  }, [ paymentHistoryStatus ]);
 
   const headersCSV = [
     { label: "Date", key: "TransactionDate" },
@@ -104,7 +104,7 @@ export default function PaymentHistory() {
       ...{ OtherAmount: currencyFormat(Math.abs(item.OtherAmount)) },
       ...{ RunningPrincipalBalance: currencyFormat(Math.abs(item.RunningPrincipalBalance)) },
     };
-  }) : []
+  }) : [];
 
   //View part
   return (
@@ -153,8 +153,8 @@ export default function PaymentHistory() {
               open={ Boolean(anchorEl) }
               onClose={ handleClose }
             >
-              <MenuItem key={'csv'} style={ { color: "#757575" } } ><CSVLink style={ { textDecoration: "none", color: "#757575" } } onClick={ handleClose } headers={ headersCSV } filename={ "" + fileName + ".csv" } data={ dataCSV }><InsertDriveFileIcon style={ { paddingRight: '7px', marginBottom: '-4px' } } /> CSV</CSVLink></MenuItem>
-              <MenuItem key={'pdf'}onClick={ downloadPDF } style={ { color: "#757575" } }><PictureAsPdfIcon style={ { paddingRight: '12px' } } /> PDF</MenuItem>
+              <MenuItem key={ 'csv' } style={ { color: "#757575" } } ><CSVLink style={ { textDecoration: "none", color: "#757575" } } onClick={ handleClose } headers={ headersCSV } filename={ "" + fileName + ".csv" } data={ dataCSV }><InsertDriveFileIcon style={ { paddingRight: '7px', marginBottom: '-4px' } } /> CSV</CSVLink></MenuItem>
+              <MenuItem key={ 'pdf' } onClick={ downloadPDF } style={ { color: "#757575" } }><PictureAsPdfIcon style={ { paddingRight: '12px' } } /> PDF</MenuItem>
             </Menu>
           </Grid>
         </Grid>
@@ -163,7 +163,7 @@ export default function PaymentHistory() {
             <TableContainer id="pdfdiv" component={ Paper }>
               <Table className={ classes.table } aria-label="simple table">
                 <TableHead>
-                  <TableRow key = { Math.random() * 1000}>
+                  <TableRow key={ Math.random() * 1000 }>
                     <TableCell className={ classes.tableHead } align="left">Date</TableCell>
                     <TableCell className={ classes.tableHead } align="left">Description</TableCell>
                     <TableCell className={ classes.tableHead } align="right">Principal</TableCell>
