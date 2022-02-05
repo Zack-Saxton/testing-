@@ -222,16 +222,14 @@ export default function TextNotification() {
             } }
           >
             I have read, understand, and agree to the &nbsp;
-            <a
+            <Link
+              to={`/textingTermsOfUse`}
               target="_blank"
-              rel="noreferrer"
-              color="#0F4EB3"
-              href="https://www.marinerfinance.com/resources/legal/texting-terms-of-use"
-              className={ classes.linkStyle }
-              style={ { textDecoration: "none" } }
+              className={classes.linkStyle}
+              style={{ textDecoration: "none", color: "#0F4EB3" }}
             >
               Texting Terms of Use.
-            </a>
+            </Link>
           </span>
         </Grid>
 
