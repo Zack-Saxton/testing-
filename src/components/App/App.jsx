@@ -31,6 +31,7 @@ import ExistingUser from "../Pages/CheckMyOffers/ExistingUser";
 import HomeAddress from "../Pages/CheckMyOffers/HomeAddress";
 import LivingPlace from "../Pages/CheckMyOffers/LivingPlace";
 import LoanPurpose from '../Pages/CheckMyOffers/LoanPurpose';
+import PreApproved from "../Pages/CheckMyOffers/PreApproved";
 import MarriedStatus from "../Pages/CheckMyOffers/MarriedStatus";
 import NewUser from '../Pages/CheckMyOffers/NewUser';
 import NoOffersAvailable from "../Pages/CheckMyOffers/NoOffersAvailable";
@@ -100,6 +101,7 @@ function App() {
                                         <Route path='/californiaResident' component={ () => (<Disclosure URL="/california" />) } />
                                         <Route path='/websiteAccessibility' component={ () => (<Disclosure URL="/websiteAccessibility" />) } />
                                         <Route path='/loan-purpose' exact component={ LoanPurpose } />
+                                        <Route path='/pre-approved' exact component={PreApproved}/>
                                         <Route path='/citizenship-status' exact component={ CitizenshipStatus } />
                                         <Route path='/new-user' exact component={ NewUser } />
                                         <Route path='/existing-user' exact component={ ExistingUser } />
