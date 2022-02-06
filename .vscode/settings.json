@@ -1,3 +1,11 @@
 {
-  "formatFiles.runOrganizeImports": true
+  "formatFiles.runOrganizeImports": true,
+  "formatFiles.excludedFolders": [
+    "node_modules",
+    ".vscode",
+    ".git",
+    "dist",
+    ".chrome"
+  ],
+  "javascript.format.placeOpenBraceOnNewLineForControlBlocks": false
 }
