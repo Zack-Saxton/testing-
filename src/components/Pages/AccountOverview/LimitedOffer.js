@@ -2,7 +2,7 @@ import React,{useState,useEffect} from "react";
 import Paper from "@material-ui/core/Paper";
 import logo from "../../../assets/images/mariner-finance.jpg";
 import Grid from "@material-ui/core/Grid";
-import { NavLink } from "react-router-dom";
+import { NavLink,useHistory } from "react-router-dom";
 import { useStylesAccountOverview } from "./Style";
 import adBanner from "../../../assets/gallery/AdBanner.jpg";
 import MortgageBanner from "../../../assets/images/Mortgage-Banner.jpg";
@@ -20,11 +20,13 @@ export default function LimitedOffer(userOfferData) {
   window.zeHide();
   // Get offers details
   let userOfferAmount = (userOfferData.userOffers != null) ? userOfferData.userOffers.offerAmount : 0;
+  const history = useHistory();
   const [initModal,setinitModal] = useState(false);
   const [offerCode,setOfferCode] = useState(" ");
   const [amount,setAmount] = useState(" ");
   const [expiryDate,setExpiryDate] = useState(" ")
   const [firstName,setfirstName] = useState("")
+  
 
   useEffect(()=>{
             setAccountDetails().then((res)=>{
@@ -55,6 +57,10 @@ export default function LimitedOffer(userOfferData) {
     boxShadow: 24,
     p: 4,
   };
+
+  const handleContinue = () =>{
+    history.push({pathname:"/pre-approved"})
+  }
   
 
   //View
@@ -150,7 +156,7 @@ export default function LimitedOffer(userOfferData) {
 
   
 <p className="common">Offer Code:{offerCode}</p>
-<ButtonPrimary id="ClaimButton" stylebutton='{"color":"", "textTransform": "none","marginLeft":"40px"}'>
+<ButtonPrimary id="ClaimButton" stylebutton='{"color":"", "textTransform": "none","marginLeft":"40px"}' onClick={handleContinue}>
                         Continue
                       </ButtonPrimary>
                 </Grid>
@@ -178,7 +184,7 @@ Oak Lawn Branch<br></br>
            </Grid>
            <Grid style={{textAlign:"center"}}>
            <p>Easy, Fast, Flexible & Convenient</p>
-           <ButtonPrimary id="ClaimButton" stylebutton='{"color":"", "textTransform": "none"}'>
+           <ButtonPrimary id="ClaimButton" stylebutton='{"color":"", "textTransform": "none"}' onClick={handleContinue}>
                         Continue
                       </ButtonPrimary>
 <p>We need more information from you to show you your offers. Please click continue to tell us more about yourself.</p>
