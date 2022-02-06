@@ -193,7 +193,7 @@ export default function BankAccountVerification(props) {
 							id="accountHolderInput"
 							name="accountHolder"
 							placeholder="Account Holder"
-							label="Account Holder"
+							label="Account Holder *"
 							value={ formik.values.accountHolder }
 							onChange={ restrictAccountHolderOnChange }
 							onBlur={ formik.handleBlur }
@@ -276,7 +276,7 @@ export default function BankAccountVerification(props) {
 							placeholder="Bank Routing number"
 							label={
 								<div>
-									Bank Routing number
+									Bank Routing number *
 									<Tooltip title="Bank Routing Number" placement="top-start">
 										<InfoOutlinedIcon
 											style={ { fontSize: "small", color: "blue" } }
@@ -311,7 +311,7 @@ export default function BankAccountVerification(props) {
 							placeholder="Bank Information"
 							label={
 								<div>
-									Bank Information
+									Bank Information *
 									<Tooltip title="Bank Information" placement="top-start">
 										<InfoOutlinedIcon
 											style={ { fontSize: "small", color: "blue" } }
@@ -327,7 +327,7 @@ export default function BankAccountVerification(props) {
 						id="bankAccountNumberInput"
 						name="bankAccountNumber"
 						placeholder="Bank Account Number"
-						label="Bank Account Number"
+						label="Bank Account Number *"
 						value={ formik.values.bankAccountNumber }
 						materialProps={ { maxLength: "16", "data-test-id": "BRN" } }
 						onChange={ restrictTextOnChange }
@@ -348,7 +348,7 @@ export default function BankAccountVerification(props) {
 						id="confirmAccountNumberInput"
 						name="confirmBankAccountNumber"
 						placeholder="Confirm Account Number"
-						label="Confirm Account Number"
+						label="Confirm Account Number *"
 						value={ formik.values.confirmBankAccountNumber }
 						onCut={ handleEdit }
 						onCopy={ handleEdit }
@@ -470,7 +470,7 @@ export default function BankAccountVerification(props) {
 				<div className={ props.classes.actionsContainer }>
 					<div className={ props.classes.button_div }>
 						<ButtonSecondary
-							stylebutton='{"margin-right": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
+							stylebutton='{"marginRight": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
 							onClick={ (event) => {
 								formik.resetForm();
 								setVerifyRequired(false);
@@ -483,7 +483,7 @@ export default function BankAccountVerification(props) {
 							variant="contained"
 							color="primary"
 							id="button_stepper_next"
-							stylebutton='{"margin-right": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
+							stylebutton='{"marginRight": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
 							type="submit"
 							disabled={ invalidRN }
 						>

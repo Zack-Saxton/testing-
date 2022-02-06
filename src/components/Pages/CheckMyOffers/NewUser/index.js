@@ -2,16 +2,17 @@ import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-import axios from "axios";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useContext, useState } from "react";
 import { useQueryClient } from 'react-query';
 import { Link, useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
 import * as yup from "yup";
+import globalMessages from '../../../../assets/data/globalMessages.json';
 import PasswordLogo from "../../../../assets/icon/I-Password.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
-import LoginController from "../../../Controllers/LoginController";
+import LoginController, { RegisterController } from "../../../Controllers/LoginController";
 import { ButtonPrimary, PasswordField } from "../../../FormsUI";
 import { encryptAES } from "../../../lib/Crypto";
 import ErrorLogger from "../../../lib/ErrorLogger";
@@ -78,25 +79,13 @@ function NewUser() {
 				address_state: data.state,
 			};
 			try {
-				let customerStatus = await axios({
-					method: "POST",
-					url: "/customer/register_new_user",
-					data: JSON.stringify(body),
-					headers: {
-						"Content-Type": "application/json",
-					},
-					transformRequest: (request, headers) => {
-						delete headers.common[ "Content-Type" ];
-						return request;
-					},
-				});
+				let customerStatus = await RegisterController(body);
 				//login the user if registerd successfully and stores the JWT token
-				if (customerStatus.data?.customerFound === false && customerStatus.data?.userFound === false && customerStatus.data?.is_registration_failed === false) {
+				if ((customerStatus.data?.customerFound === false && customerStatus.data?.userFound === false && customerStatus.data?.is_registration_failed === false) || (customerStatus?.data?.statusCode === 200 && customerStatus?.data?.result === "succcces")) {
 					let retVal = await LoginController(data.email, values.newPassword, "");
 					if (retVal?.data?.user && retVal?.data?.userFound === true) {
 						let rememberMe = false;
-						var now = new Date().getTime();
-						// localStorage.clear();
+						let now = new Date().getTime();
 						Cookies.set(
 							"token",
 							JSON.stringify({
@@ -131,12 +120,12 @@ function NewUser() {
 						setLoading(false);
 						alert("Network error");
 					}
-					// history.push("employment-status");
-				} else if (customerStatus.data?.result === "error" && customerStatus.data?.statusCode === 400) {
+				}
+				else if (customerStatus.data?.result === "error" && customerStatus.data?.statusCode === 400) {
 					setFailed(true);
 					setLoading(false);
 				} else {
-					alert("network error from register api");
+					toast.error(globalMessages?.Registration_Failed);
 					setFailed(false);
 					setLoading(false);
 				}

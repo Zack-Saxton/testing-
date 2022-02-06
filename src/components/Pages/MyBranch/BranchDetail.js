@@ -144,8 +144,8 @@ export default function BranchDetail(MyBranchDetail) {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    { otherState.map((row, index) => (
-                      <TableRow key={ index }>
+                    { otherState.map((row) => (
+                      <TableRow key={ (Math.random() * 1000) }>
                         <TableCell component="th" scope="row">
                           { row.day }
                         </TableCell>
@@ -171,8 +171,8 @@ export default function BranchDetail(MyBranchDetail) {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    { stateCA.map((row, index) => (
-                      <TableRow key={ index }>
+                    { stateCA.map((row) => (
+                      <TableRow key={ (Math.random() * 1000) }>
                         <TableCell component="th" scope="row">
                           { row.day }
                         </TableCell>

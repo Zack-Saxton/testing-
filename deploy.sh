@@ -224,7 +224,8 @@ ssh  -i $_PEM_FILE_ $server << ENDHERE
          echo -e "\033[1;31m Failed \033[0m => (reason): docker failed  to login to dockerHub"
          exit 1;
      fi
-
+     docker push "${imageName}"
+     
    for ((count=1;count<=$instances;count++))
    do
      echo  "****** Spinning Instance "\$count": "

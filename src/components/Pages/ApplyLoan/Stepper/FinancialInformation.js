@@ -89,7 +89,7 @@ export default function FinancialInformation(props) {
           <TextField
             id="employerNameInput"
             name="employerName"
-            label="Employer Name"
+            label="Employer Name *"
             value={ formik.values.employerName }
             materialProps={ { maxLength: "30" } }
             onChange={ (event) => {
@@ -104,7 +104,7 @@ export default function FinancialInformation(props) {
           <TextField
             id="currentJobTitleInput"
             name="jobTitle"
-            label="Current Job Title"
+            label="Current Job Title *"
             value={ formik.values.jobTitle }
             materialProps={ { maxLength: "30" } }
             onChange={ (event) => {
@@ -119,7 +119,7 @@ export default function FinancialInformation(props) {
           <Select
             id="currentAddressSelect"
             name="yearsAtCurrentAddress"
-            labelform="Years at current address"
+            labelform="Years at current address *"
             select='[{"value":"0", "label": "<1 year"},
                      {"value":"1", "label": "1 year"},
                      {"value":"2", "label": "2"},
@@ -158,7 +158,7 @@ export default function FinancialInformation(props) {
           <Select
             id="heardUsSelect"
             name="howDoYouHearAboutUs"
-            labelform="How did you hear about us?"
+            labelform="How did you hear about us? *"
             select='[{"value":"Advertising"}, {"value":"Friend / Family"}, {"value":"Business / Retailer"}, {"value":"Other"}]'
             value={ formik.values.howDoYouHearAboutUs }
             onChange={ formik.handleChange }

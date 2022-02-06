@@ -27,12 +27,13 @@ import PaymentIcon from "@material-ui/icons/Payment";
 import { useFormik } from "formik";
 import { useAtom } from "jotai";
 import React, { useEffect, useState } from "react";
+import { useQuery } from 'react-query';
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import cheque from "../../../assets/images/cheque.jpg";
+import { AddACHPaymentAPI } from "../../../components/Controllers/ACHDebitController";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
-import { AddACHPaymentAPI } from "../../Controllers/ACHDebitController";
 import {
     addCreditCard, deleteBankAccount,
     deleteCreditCard, getPaymentMethods, setDefaultPayment
@@ -52,8 +53,11 @@ import "./Style.css";
 const validationSchemaDebitCard = yup.object({
     cardNumber: yup
         .string("Card Number is required.")
+        .test('MC-VC', 'We only accept Visa or Master card', value => (value.length > 0 && (value.slice(0, 1) === '4' || value.slice(0, 1) === '5')))
+           
         .required("Card Number is required.")
         .min(16, "Card Number should be 16 digits."),
+        
     cardName: yup
         .string("Cardholder Name is required.")
         .required("Cardholder Name is required."),
@@ -127,7 +131,6 @@ export default function PaymentMethod() {
     const [ deleteType, setDeleteType ] = useState();
     const [ deleteID, setDeleteID ] = useState();
     const [ editMode, setEditMode ] = useState(false);
-    const [ allPaymentMethod, setAllPaymentMethod ] = useState(false);
     const [ confirmDelete, setConfirmDelete ] = useState(false);
     const [ addBankValues, setAddBankValues ] = useState(false);
     const [ routingError, setRoutingError ] = useState("");
@@ -135,7 +138,9 @@ export default function PaymentMethod() {
     const [ validZip, setValidZip ] = useState(true);
     const [ mailingStreetAddress, setMailingStreetAddress ] = useState("");
     const [ mailingZipcode, setMailingZipcode ] = useState("");
-    const currentYear = new Date().getFullYear();
+    const { data: allPaymentMethod, refetch } = useQuery('payment-method', getPaymentMethods, {
+        refetchOnMount: false
+    });
 
     const formikAddBankAccount = useFormik({
         initialValues: {
@@ -164,7 +169,7 @@ export default function PaymentMethod() {
     const addBankOnChange = (event) => {
         const reg = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
         let acc = event.target.value;
-        if (acc === "" || reg.test(acc)) {
+        if (acc === "" || acc.match(reg)) {
             formikAddBankAccount.handleChange(event);
         }
     };
@@ -172,8 +177,7 @@ export default function PaymentMethod() {
     const addBankOnChangeNumber = (event) => {
         const reg = /^[0-9\b]+$/;
         let acc = event.target.value;
-
-        if (acc === "" || reg.test(acc)) {
+        if (acc === "" || acc.match(reg)) {
             formikAddBankAccount.handleChange(event);
         }
     };
@@ -198,7 +202,7 @@ export default function PaymentMethod() {
     const addDebitOnChange = (event) => {
         const reg = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
         let acc = event.target.value;
-        if (acc === "" || reg.test(acc)) {
+        if (acc === "" || acc.match(reg)) {
             formikAddDebitCard.handleChange(event);
         }
     };
@@ -254,7 +258,6 @@ export default function PaymentMethod() {
                 });
             setLoading(false);
         } else {
-            let expDate = new Date(row.ExpirationDate);
             setEditMode(true);
             addDebitCardButton();
             formikAddDebitCard.setFieldValue("cardName", row.OwnerName);
@@ -284,15 +287,15 @@ export default function PaymentMethod() {
             Discover: /^6(?:011|5\d{2})\d{12}$/,
             JCB: /^(?:2131|1800|35\d{3})\d{11}$/,
         };
-        let valid = false;
+        let _valid = false;
         for (var key in re) {
             if (re[ key ].test(number)) {
                 setCardType(key);
-                valid = true;
+                _valid = true;
                 return key;
             }
         }
-        if (valid === false) {
+        if (!_valid) {
             setCardType(false);
         }
         formikAddDebitCard.handleBlur(e);
@@ -333,15 +336,11 @@ export default function PaymentMethod() {
     const handleDeleteConfirmOpen = () => {
         setConfirmDelete(true);
     };
-    async function getPaymentMethodsOnLoad() {
-        let paymentMedthods = await getPaymentMethods();
-        setAllPaymentMethod(paymentMedthods);
-    }
+
     useEffect(() => {
         const img = new Image();
         // image is already loaded (cached if server permits) on component mount:
         img.src = cheque;
-        getPaymentMethodsOnLoad();
     }, []);
 
     const addBankAccountButton = () => {
@@ -415,7 +414,7 @@ export default function PaymentMethod() {
             res?.data?.Success ===
             "Default Payment Method Set to " + nickname
         ) {
-            await getPaymentMethodsOnLoad();
+            refetch();
             setLoading(false);
             toast.success(res?.data?.Success);
         } else {
@@ -436,7 +435,7 @@ export default function PaymentMethod() {
                     if (res?.data?.deletePaymentMethod?.HasNoErrors === true) {
                         if (!toast.isActive("closeToast")) {
                             toast.success("Card deleted successfully.");
-                        };
+                        }
                         setDeleteID("");
                         setDeleteType("");
                         handleDeleteConfirmClose();
@@ -517,7 +516,6 @@ export default function PaymentMethod() {
             event.preventDefault();
         }
     };
-
     //  view part
     return (
         <div className={ loading ? classes.loadingOn : classes.loadingOff }>
@@ -630,7 +628,6 @@ export default function PaymentMethod() {
                                                             );
                                                             setDeleteType(row?.AccountType ? "bank" : "card");
                                                             handleDeleteConfirmOpen();
-                                                            // onClickDelete(row?.AccountType ? "bank" : "card", row?.AccountType ? row.SequenceNumber : row.ProfileId );
                                                         } }
                                                     />
 
@@ -652,30 +649,13 @@ export default function PaymentMethod() {
                                 </Table>
                             </TableContainer>
                         ) : allPaymentMethod?.data?.message ? (
-                            <Grid
-                                className="circleprog"
-                                style={ {
-                                    width: "100%",
-                                    textAlign: "center",
-                                    marginTop: "20px",
-                                } }
-                                item
-                                xs={ 12 }
-                            >
+                            <Grid className="circleprog" style={ { width: "100%", textAlign: "center", marginTop: "20px", } } item xs={ 12 }>
                                 <Typography>
                                     { allPaymentMethod?.data?.message }
                                 </Typography>
                             </Grid>
                         ) : (
-                            <Grid
-                                className="circleprog"
-                                style={ {
-                                    width: "100%",
-                                    textAlign: "center",
-                                    marginTop: "20px",
-                                } }
-                                xs={ 12 }
-                            >
+                            <Grid className="circleprog" style={ { width: "100%", textAlign: "center", marginTop: "20px", } } item xs={ 12 }>
                                 <Typography>No Payment methods available</Typography>
                             </Grid>
                         )
@@ -1097,17 +1077,23 @@ export default function PaymentMethod() {
                                             accountType,
                                             checkedAddBank ? 1 : 0
                                         );
-                                        if (resBankData?.data?.Success) {
+                                        if (resBankData?.data?.status === 200) {
                                             toast.success("Payment method added successfully");
                                             await getPaymentMethodsOnLoad();
                                             closeBankAccountButton();
                                         } else if (
-                                            resBankData?.data?.result === "error" ||
-                                            resBankData?.data?.status === 400
+                                            resBankData?.data?.type === "error" &&
+                                            resBankData?.status === 400
                                         ) {
                                             toast.error(resBankData?.data?.error);
-                                        } else if (resBankData?.data?.type === "error") {
+                                        } else if (
+                                            resBankData?.data?.type === "error" &&
+                                            resBankData?.data?.status === 200
+                                        ) {
                                             toast.error(resBankData?.data?.text);
+                                        }
+                                        else if (resBankData?.status === 404) {
+                                            toast.error("Error retrieving loan information - Account is closed.");
                                         } else {
                                             if (!toast.isActive("closeToast")) {
                                                 toast.error("Adding bank account failed, please try again.");

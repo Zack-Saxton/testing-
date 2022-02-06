@@ -79,12 +79,11 @@ export default function TextNotification() {
         let result = await textNotification(body, disabledContent);
         if (result.data?.sbt_subscribe_details?.HasNoErrors === true || result.data?.sbt_getInfo?.HasNoErrors === true) {
           toast.success("Updated successfully");
-          Cookies.set("isTextNotify", disabledContent);
-           onClickCancelChange()
+          onClickCancelChange();
         } else {
           toast.error("No changes made");
         }
-          onClickCancelChange()
+        onClickCancelChange();
       } catch (error) {
         ErrorLogger("Error occured while changing text notification.", error);
       }
@@ -223,16 +222,14 @@ export default function TextNotification() {
             } }
           >
             I have read, understand, and agree to the &nbsp;
-            <a
+            <Link
+              to={`/textingTermsOfUse`}
               target="_blank"
-              rel="noreferrer"
-              color="#0F4EB3"
-              href="https://www.marinerfinance.com/resources/legal/texting-terms-of-use"
-              className={ classes.linkStyle }
-              style={ { textDecoration: "none" } }
+              className={classes.linkStyle}
+              style={{ textDecoration: "none", color: "#0F4EB3" }}
             >
               Texting Terms of Use.
-            </a>
+            </Link>
           </span>
         </Grid>
 

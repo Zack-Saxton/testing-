@@ -112,19 +112,16 @@ function LivingPlace() {
 						xs={ 12 }
 						justifyContent="center"
 						alignItems="center"
-						style={ { paddingTop: "70px", paddingBottom: "70px" } }
+						style={ { padding: "4% 0%" } }
 					>
 						<Grid
-							container
+							// containe
 							item
 							xs={ 11 }
 							sm={ 10 }
 							md={ 6 }
 							lg={ 6 }
 							xl={ 6 }
-							className="cardWrapper"
-							justifyContent="center"
-							alignItems="center"
 						>
 							<Paper
 								id="ownOrRentWrap"
@@ -139,8 +136,8 @@ function LivingPlace() {
 									<span className="floatLeft detNum75">75%</span>
 								</div>
 								<Grid className="floatLeft">
-									<Link to="/annual-income">
-										<i className="material-icons dp48 yellowText  ">
+									<Link className="arrowBack" to="/annual-income">
+										<i className="material-icons dp48 yellowText floatingButton">
 											arrow_back
 										</i>
 									</Link>
@@ -160,7 +157,7 @@ function LivingPlace() {
 										justify: "center",
 										alignItems: "center",
 									} }
-									className="borrowCSSLP"
+									className="borrowCSSLP checkMyOfferText"
 								>
 									Do you own or rent?
 								</Typography>
@@ -292,7 +289,7 @@ function LivingPlace() {
 													: "hideMsg"
 											}
 											name="RentOrMortgageAmount"
-											label="Monthly Rent / Mortgage Amount"
+											label="Monthly Rent / Mortgage Amount *"
 											form={ true }
 											error={ error }
 											helperText={ helperText }
@@ -305,7 +302,7 @@ function LivingPlace() {
 										/>
 									</Grid>
 
-									<Grid item lg={ 8 } md={ 8 } xs={ 12 } className="alignButton">
+									<Grid item lg={ 8 } md={ 8 } xs={ 12 } className="alignButton ContinueButton">
 										<ButtonPrimary
 											onClick={ handleRoute }
 											data-testid="cntButton"

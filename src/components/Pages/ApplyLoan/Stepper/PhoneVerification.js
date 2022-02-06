@@ -255,7 +255,7 @@ export default function PhoneVerification(props) {
 					<Grid container>
 						<Grid item lg={ 5 }>
 							<ButtonSecondary
-								stylebutton='{"background": "", "color": "black", "border-radius": "50px"}'
+								stylebutton='{"background": "", "color": "black", "borderRadius": "50px"}'
 								onClick={ handleClose }
 							>
 								<Typography align="center">Return To Selection</Typography>
@@ -263,7 +263,7 @@ export default function PhoneVerification(props) {
 						</Grid>
 						<Grid item lg={ 5 }>
 							<ButtonPrimary
-								stylebutton='{"background": "#FFBC23", "color": "black", "border-radius": "50px"}'
+								stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
 								onClick={ skipPhoneVerification }
 							>
 								<Typography align="center">Verify Phone Later</Typography>

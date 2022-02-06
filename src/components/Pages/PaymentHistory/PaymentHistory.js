@@ -17,6 +17,7 @@ import "jspdf-autotable";
 import Moment from "moment";
 import React, { useEffect, useState } from "react";
 import { CSVLink } from "react-csv";
+import { useQuery } from 'react-query';
 import { NavLink } from "react-router-dom";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
@@ -31,8 +32,8 @@ export default function PaymentHistory() {
 
   //Material UI css class
   const classes = useStylesPaymenthistory();
-  const [ anchorEl, setAnchorEl ] = React.useState(null);
-  const [ fileName, setfileName ] = React.useState(null);
+  const [ anchorEl, setAnchorEl ] = useState(null);
+  const [ fileName, setfileName ] = useState(null);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -43,16 +44,16 @@ export default function PaymentHistory() {
   };
 
   //Api implementation for table
-  const [ paymentHistoryStatus, setpaymentHistoryStatus ] = useState(null);
+  const { data: paymentHistoryStatus } = useQuery('loan-data', usrAccountDetails);
+  const [ historyOfLoans, setHistoryOfLoans ] = useState([]);
 
-  async function AsyncEffect_paymentHistory() {
-    let responseData = await (usrAccountDetails());
-    setpaymentHistoryStatus(responseData);
-    setfileName(responseData?.data?.activeLoans.length ? responseData?.data?.activeLoans[ 0 ].loanDetails.AccountNumber : null);
-  }
   useEffect(() => {
-    AsyncEffect_paymentHistory();
-  }, []);
+    if (paymentHistoryStatus) {
+      setfileName(paymentHistoryStatus?.data?.activeLoans.length ? paymentHistoryStatus?.data?.activeLoans[ 0 ].loanDetails.AccountNumber : null);
+      setHistoryOfLoans(paymentHistoryStatus?.data?.loanHistory.length ? paymentHistoryStatus?.data?.loanHistory[ 0 ].AppAccountHistory : []);
+    }
+    return null;
+  }, [ paymentHistoryStatus ]);
 
   const headersCSV = [
     { label: "Date", key: "TransactionDate" },
@@ -72,13 +73,12 @@ export default function PaymentHistory() {
 
   //Download pdf
   const downloadPDF = () => {
-    let pdfData = recentPaymentData != null ? recentPaymentData[ 0 ].loanHistory[0].AppAccountHistory : [];
     const unit = "pt";
     const size = "A4";
     const orientation = "portrait";
     const doc = new jsPDF(orientation, unit, size);
     const headerPDF = [ [ "Date", "Description", "Principal", "Interest", "Other", "Total", "Balance" ] ];
-    const data = pdfData.map(dataItem => [ Moment(dataItem.TransactionDate).format("MM-DD-YYYY"), dataItem.TransactionDescription, currencyFormat(Math.abs(dataItem.PrincipalAmount)), currencyFormat(Math.abs(dataItem.InterestAmount)), currencyFormat(Math.abs(dataItem.OtherAmount)), currencyFormat(Math.abs(dataItem.InterestAmount + dataItem.OtherAmount + dataItem.PrincipalAmount)), currencyFormat(Math.abs(dataItem.RunningPrincipalBalance)) ]);
+    const data = historyOfLoans?.map(dataItem => [ Moment(dataItem.TransactionDate).format("MM-DD-YYYY"), dataItem.TransactionDescription, currencyFormat(Math.abs(dataItem.PrincipalAmount)), currencyFormat(Math.abs(dataItem.InterestAmount)), currencyFormat(Math.abs(dataItem.OtherAmount)), currencyFormat(Math.abs(dataItem.InterestAmount + dataItem.OtherAmount + dataItem.PrincipalAmount)), currencyFormat(Math.abs(dataItem.RunningPrincipalBalance)) ]);
     doc.setFontSize(15);
     doc.text("Active Loan / Payment History(" + fileName + ")", 40, 30);
     let content = {
@@ -92,14 +92,8 @@ export default function PaymentHistory() {
     setAnchorEl(null);
   };
 
-  //Payment history data from API
-  let recentPaymentData =
-    paymentHistoryStatus != null
-      ? paymentHistoryStatus?.data?.activeLoans
-      : null;
-
   //Data for csv file
-  const dataCSV = recentPaymentData?.length && recentPaymentData[ 0 ]?.loanHistory?.AppAccountHistory ? recentPaymentData[0].loanHistory.AppAccountHistory.map(item => {
+  const dataCSV = historyOfLoans ? historyOfLoans.map(item => {
     return {
       ...item,
       ...{ TransactionDate: Moment(item.TransactionDate).format('MM-DD-YYYY') },
@@ -159,17 +153,17 @@ export default function PaymentHistory() {
               open={ Boolean(anchorEl) }
               onClose={ handleClose }
             >
-              <MenuItem style={ { color: "#757575" } } ><CSVLink style={ { textDecoration: "none", color: "#757575" } } onClick={ handleClose } headers={ headersCSV } filename={ "" + fileName + ".csv" } data={ dataCSV }><InsertDriveFileIcon style={ { paddingRight: '7px', marginBottom: '-4px' } } /> CSV</CSVLink></MenuItem>
-              <MenuItem onClick={ downloadPDF } style={ { color: "#757575" } }><PictureAsPdfIcon style={ { paddingRight: '12px' } } /> PDF</MenuItem>
+              <MenuItem key={ 'csv' } style={ { color: "#757575" } } ><CSVLink style={ { textDecoration: "none", color: "#757575" } } onClick={ handleClose } headers={ headersCSV } filename={ "" + fileName + ".csv" } data={ dataCSV }><InsertDriveFileIcon style={ { paddingRight: '7px', marginBottom: '-4px' } } /> CSV</CSVLink></MenuItem>
+              <MenuItem key={ 'pdf' } onClick={ downloadPDF } style={ { color: "#757575" } }><PictureAsPdfIcon style={ { paddingRight: '12px' } } /> PDF</MenuItem>
             </Menu>
           </Grid>
         </Grid>
-        { recentPaymentData === null ? (
+        { historyOfLoans === null ? (
           <Grid item xs={ 12 } style={ { paddingTop: "10px", paddingBottom: "30px" } }>
             <TableContainer id="pdfdiv" component={ Paper }>
               <Table className={ classes.table } aria-label="simple table">
                 <TableHead>
-                  <TableRow>
+                  <TableRow key={ Math.random() * 1000 }>
                     <TableCell className={ classes.tableHead } align="left">Date</TableCell>
                     <TableCell className={ classes.tableHead } align="left">Description</TableCell>
                     <TableCell className={ classes.tableHead } align="right">Principal</TableCell>
@@ -189,9 +183,8 @@ export default function PaymentHistory() {
               </Table>
             </TableContainer>
           </Grid>)
-          : <PaymentHistoryTable userRecentPaymentData={ recentPaymentData } />
+          : <PaymentHistoryTable userRecentPaymentData={ historyOfLoans } />
         }
-
       </Grid>
     </div>
   );
