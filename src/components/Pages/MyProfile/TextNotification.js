@@ -10,7 +10,6 @@ import Switch from "@material-ui/core/Switch";
 import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import { useFormik } from "formik";
-import { useAtom } from "jotai";
 import Cookies from "js-cookie";
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
@@ -24,7 +23,7 @@ import {
   PhoneNumber
 } from "../../FormsUI";
 import ErrorLogger from "../../lib/ErrorLogger";
-import { tabAtom } from "./MyProfileTab";
+import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import { useStylesMyProfile } from "./Style";
 import "./Style.css";
 
@@ -33,7 +32,7 @@ export default function TextNotification() {
   const [ loading, setLoading ] = useState(false);
   const [ openDisclosure, setDisclosureOpen ] = useState(false);
   const history = useHistory();
-  const [ , setTabvalue ] = useAtom(tabAtom);
+  const [ , setprofileTabNumber ] = useGlobalState();
   let phone = Cookies.get("opted_phone_texting");
   let textnotifybool = Cookies.get("isTextNotify") === "true" ? true : false;
   let [ disabledContent, setdisabledContent ] = useState(textnotifybool);
@@ -41,9 +40,9 @@ export default function TextNotification() {
   const onClickCancelChange = () => {
     formikTextNote.resetForm();
     history.push({ pathname: "/customers/myProfile" });
-    setTabvalue(0);
+    setprofileTabNumber( { profileTabNumber: 0 } );
   };
-
+  
   const phonevalidationSchema = yup.object().shape({
     phone: yup
       .string("Enter a name")

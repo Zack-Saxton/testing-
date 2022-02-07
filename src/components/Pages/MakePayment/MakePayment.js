@@ -16,7 +16,6 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
-import { useAtom } from "jotai";
 import Moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useQuery } from 'react-query';
@@ -26,6 +25,7 @@ import globalMessages from "../../../assets/data/globalMessages.json";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import HolidayCalender from "../../Controllers/HolidayCalenderController";
+import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import {
   deleteScheduledPayment, disableAutoPay, enableAutoPay, makePayment, usrPaymentMethods
 } from "../../Controllers/PaymentsController";
@@ -37,7 +37,6 @@ import {
   Select,
   TextField
 } from "../../FormsUI";
-import { tabAtom } from "../../Pages/MyProfile/MyProfileTab";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./MakePayment.css";
 import PaymentOverview from "./PaymentOverview";
@@ -52,7 +51,7 @@ export default function MakePayment(props) {
   const history = useHistory();
   const query = new URLSearchParams(useLocation().search);
   const accNo = query.get("accNo");
-  const [ , setTabvalue ] = useAtom(tabAtom);
+  const [ , setprofileTabNumber ] = useGlobalState();
   const [ paymentMethods, setpaymentMethod ] = useState(null);
   const [ latestLoanData, setlatestLoanData ] = useState(null);
   const [ paymentAmount, setpaymentAmount ] = useState(null);
@@ -85,7 +84,7 @@ export default function MakePayment(props) {
   const { data: payments } = useQuery('payment-method', usrPaymentMethods, {
     refetchOnMount: false
   });
-
+  
   //API Request for Payment methods
   async function getPaymentMethods() {
     setpaymentMethod(payments);
@@ -222,7 +221,7 @@ export default function MakePayment(props) {
     history.push({
       pathname: "/customers/myProfile",
     });
-    setTabvalue(3);
+    setprofileTabNumber( { profileTabNumber: 3 } )
   };
 
   // Disable Sheduled payment while make recuiring payment
@@ -1100,14 +1099,15 @@ export default function MakePayment(props) {
         classes={ { paper: classes.dialogPaper } }
       >
         <DialogTitle id="autopayText">
-          <Typography id="autoTxt" className={ classes.dialogHeading } justifyContent="space-around">
+          <Typography id="autoTxt" className={ classes.dialogHeading }>
             { disabledContent === false
               ? "Are you sure you want to disable auto pay?"
               :
               "Auto Pay Confirmation"
             }
           </Typography>
-          <Typography id="autoTxt" className={ classes.autoPayContent }>
+          {/* <Typography id="autoTxt" className={ classes.autoPayContent }> */}
+          <>
             <TableContainer>
               <Table className={ classes.table } aria-label="simple table" border-color="white">
                 <TableBody>
@@ -1151,8 +1151,8 @@ export default function MakePayment(props) {
                 </TableBody>
               </Table>
             </TableContainer>
-          </Typography>
-
+          {/* </Typography> */}
+          </>
           <IconButton
             id="autopayCloseBtn"
             aria-label="close"

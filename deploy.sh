@@ -35,7 +35,8 @@ else
     serverName="ubuntu@cis-app1-${env}.marinerfinance.io"
 fi
 deployUser=$(whoami)
-message="$app Deployment START from $branch to $env By $deployUser"
+hostname="cac-app1-${env}.marinerfinance.io"
+message="$hostname Deployment START from $branch to $env By $deployUser"
 url="https://hooks.slack.com/services/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"
 curl -X POST -H 'Content-type: application/json' --data '{"text":"'"$message"'"}' "{$url}"
 
@@ -225,7 +226,7 @@ ssh  -i $_PEM_FILE_ $server << ENDHERE
          exit 1;
      fi
      docker push "${imageName}"
-     
+
    for ((count=1;count<=$instances;count++))
    do
      echo  "****** Spinning Instance "\$count": "
@@ -244,6 +245,6 @@ ENDHERE
 
  # echo -e "\033[1;32m *  $curl_cmd  \033[0m"
 
-message="$app Deployment END from $branch to $env By $deployUser"
+message="$hostname Deployment END from $branch to $env By $deployUser"
 url="https://hooks.slack.com/services/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"
 curl -X POST -H 'Content-type: application/json' --data '{"text":"'"$message"'"}' "{$url}"
