@@ -28,14 +28,19 @@ export default function Credit(creditData) {
   //chart percent
   if (score >= 750) {
     percent = 0.9;
+    status = "Congratulations, you have an Excellent credit score!";
   } else if (score >= 700) {
     percent = 0.68;
+    status = "Congratulations, you have a Good credit score!";
   } else if (score >= 640) {
     percent = 0.5;
+    status = "Congratulations, you have an Average credit score!";
   } else if (score >= 580) {
     percent = 0.3;
+    status = "Sorry, you have a Below Average credit score!";
   } else if (score < 580) {
     percent = 0.1;
+    status = "Sorry, you have a Poor credit score!";
   }
 
   //Credit score comparison vs lastmnth
@@ -47,18 +52,6 @@ export default function Credit(creditData) {
     compareLastmnth = "Your credit score has decreased since last month.";
   }
 
-  //Credit score message
-  if (score >= 750) {
-    status = "Congratulations, you have an Excellent credit score!";
-  } else if (score >= 700) {
-    status = "Congratulations, you have a Good credit score!";
-  } else if (score >= 640) {
-    status = "Congratulations, you have an Average credit score!";
-  } else if (score >= 580) {
-    status = "Sorry, you have a Below Average credit score!";
-  } else if (score < 580) {
-    status = "Sorry, you have a Poor credit score!";
-  }
   useEffect(() => {
     setAccountDetails().then((accountData) => {
       const { data } = accountData;
@@ -85,7 +78,7 @@ export default function Credit(creditData) {
           cornerRadius={ 0 }
           textColor={ "#212121" }
           percent={ percent }
-          style={ { width: "60%", margin: "auto" } }
+          style={ { width: '60%', margin: 'auto' } }
           formatTextValue={ (value) => score }
           colors={ [ "#a50100", "#e05534", "#f2d82b", "#BCEA78", "#85c900" ] }
         />
@@ -97,7 +90,7 @@ export default function Credit(creditData) {
       <Grid className={ classes.texts } item xs={ 12 } sm={ 6 }>
         <p className={ classes.flex }>
           { " " }
-          { score >= 750 || score >= 700 || score >= 640 ? (
+          { score >= 640 ? (
             <ThumbUpIcon className={ classes.thumb } />
           ) : (
             <ThumbDownIcon className={ classes.thumb } />

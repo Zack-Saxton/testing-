@@ -13,13 +13,13 @@ import React, { useRef, useState } from "react";
 import { useQuery } from 'react-query';
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
+import globalMessages from "../../../assets/data/globalMessages.json";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
 import {
   loanDocumentController as loanDocument,
   uploadDocument
 } from "../../Controllers/LoanDocumentController";
 import { ButtonWithIcon, Select } from "../../FormsUI";
-import globalMessages from "../../../assets/data/globalMessages.json";
 import "../LoanDocument/LoanDocument.css";
 import ScrollToTopOnMount from "../ScrollToTop";
 import LoanDocumentTable from "./DocumentTable";
@@ -51,6 +51,35 @@ export default function LoanDocument(props) {
     changeEvent.current.click();
     event.target.value = '';
   };
+  const handleElse = () => {
+    if (selectedFile.files[ 0 ].size > 10240000) {
+      if (!toast.isActive("closeToast")) {
+        toast.error(globalMessages.Please_Upload_File_Below_Size, { toastId: "closeToast" });
+      }
+    }
+  };
+  const handleElseTwo = () => {
+    let reader = new FileReader();
+    if (selectedFile.files && selectedFile.files[ 0 ]) {
+      reader.onload = async () => {
+        const buffer2 = Buffer.from(reader.result, "base64");
+        let test = Buffer.from(buffer2).toJSON().data;
+        let fileName = selectedFile.files[ 0 ].name;
+        let fileType = selectedFile.files[ 0 ].type;
+        let documentType = docType;
+        setLoading(true);
+        let response = await uploadDocument(test, fileName, fileType, documentType);
+        if (response === "true") {
+          setLoading(false);
+          setDocType("");
+          selectedFile.value = "";
+        }
+        //Passing data to API
+      };
+      reader.readAsDataURL(selectedFile.files[ 0 ]);
+
+    }
+  };
   const uploadDoc = () => {
     if (selectedFile === null) {
       if (!toast.isActive("closeToast")) {
@@ -70,31 +99,9 @@ export default function LoanDocument(props) {
         selectedFile.value = "";
         return false;
       } else if (selectedFile.files[ 0 ].size <= 10240000) {
-        let reader = new FileReader();
-        if (selectedFile.files && selectedFile.files[ 0 ]) {
-          reader.onload = async () => {
-            const buffer2 = Buffer.from(reader.result, "base64");
-            let test = Buffer.from(buffer2).toJSON().data;
-            let fileName = selectedFile.files[ 0 ].name;
-            let fileType = selectedFile.files[ 0 ].type;
-            let documentType = docType;
-            setLoading(true);
-            let response = await uploadDocument(test, fileName, fileType, documentType);
-            if (response === "true") {
-              setLoading(false);
-              setDocType("");
-              selectedFile.value = "";
-            }
-            //Passing data to API
-          };
-          reader.readAsDataURL(selectedFile.files[ 0 ]);
-        }
+        handleElseTwo();
       } else {
-        if (selectedFile.files[ 0 ].size > 10240000) {
-          if (!toast.isActive("closeToast")) {
-            toast.error(globalMessages.Please_Upload_File_Below_Size, { toastId: "closeToast" });
-          }
-        }
+        handleElse();
       }
     }
   };

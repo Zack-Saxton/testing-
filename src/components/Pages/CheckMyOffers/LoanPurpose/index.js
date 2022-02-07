@@ -97,7 +97,7 @@ function LoanPurpose(props) {
 						xs={ 12 }
 						justifyContent="center"
 						alignItems="center"
-						style={ { padding:"4% 0%" } }
+						style={ { padding: "4% 0%" } }
 					>
 						<Grid
 							container
@@ -133,11 +133,10 @@ function LoanPurpose(props) {
 										</i>
 									</Link>
 								</Grid>
-								<Typography variant="h5" align="center" className="borrowCSSLP">
+								<Typography variant="h5" align="center" className="borrowCSSLP checkMyOfferText">
 									How are you planning to use the money?
 								</Typography>
 								<Grid
-									id="loanPurposegrid"
 									className="blockDiv"
 									container
 									justifyContent="center"
@@ -180,7 +179,7 @@ function LoanPurpose(props) {
 														: "borrowCSS textCSS"
 												}
 											>
-												Home improvement
+												Home Improvement
 											</Typography>
 										</Paper>
 									</Grid>
@@ -534,6 +533,7 @@ function LoanPurpose(props) {
 											} }
 										>
 											<Typography
+												id="otherText"
 												align="center"
 												className={
 													purpose === "Other" ? "textCSS whiteText" : "textCSS"
@@ -550,7 +550,7 @@ function LoanPurpose(props) {
 										md={ 9 }
 										sm={ 12 }
 										xs={ 12 }
-										style={ { margin:"15px 0px" } }
+										style={ { margin: "15px 0px" } }
 									>
 										<ButtonPrimary
 											data-testid="contButton"

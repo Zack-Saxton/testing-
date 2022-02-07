@@ -16,15 +16,16 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
-import { useAtom } from "jotai";
 import Moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useQuery } from 'react-query';
 import { Link, NavLink, useHistory, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
+import globalMessages from "../../../assets/data/globalMessages.json";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import HolidayCalender from "../../Controllers/HolidayCalenderController";
+import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import {
   deleteScheduledPayment, disableAutoPay, enableAutoPay, makePayment, usrPaymentMethods
 } from "../../Controllers/PaymentsController";
@@ -36,8 +37,6 @@ import {
   Select,
   TextField
 } from "../../FormsUI";
-import globalMessages from "../../../assets/data/globalMessages.json";
-import { tabAtom } from "../../Pages/MyProfile/MyProfileTab";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./MakePayment.css";
 import PaymentOverview from "./PaymentOverview";
@@ -52,7 +51,7 @@ export default function MakePayment(props) {
   const history = useHistory();
   const query = new URLSearchParams(useLocation().search);
   const accNo = query.get("accNo");
-  const [ , setTabvalue ] = useAtom(tabAtom);
+  const [ , setprofileTabNumber ] = useGlobalState();
   const [ paymentMethods, setpaymentMethod ] = useState(null);
   const [ latestLoanData, setlatestLoanData ] = useState(null);
   const [ paymentAmount, setpaymentAmount ] = useState(null);
@@ -85,7 +84,7 @@ export default function MakePayment(props) {
   const { data: payments } = useQuery('payment-method', usrPaymentMethods, {
     refetchOnMount: false
   });
-
+  
   //API Request for Payment methods
   async function getPaymentMethods() {
     setpaymentMethod(payments);
@@ -222,7 +221,7 @@ export default function MakePayment(props) {
     history.push({
       pathname: "/customers/myProfile",
     });
-    setTabvalue(3);
+    setprofileTabNumber( { profileTabNumber: 3 } )
   };
 
   // Disable Sheduled payment while make recuiring payment
@@ -550,16 +549,16 @@ export default function MakePayment(props) {
     setpaymentDatepicker(event.target.checked ? scheduleDate : new Date());
   };
 
-let obj = {};
-let cardLabel = "";
-if (card) {
-  obj = paymentListCard.find(o => o.value === card);
-  cardLabel = obj?.label;
-}
-if (cardLabel === undefined) {
-  obj = paymentListAch.find(o => o.value === card);
-  cardLabel = obj?.label;
-}
+  let obj = {};
+  let cardLabel = "";
+  if (card) {
+    obj = paymentListCard.find(o => o.value === card);
+    cardLabel = obj?.label;
+  }
+  if (cardLabel === undefined) {
+    obj = paymentListAch.find(o => o.value === card);
+    cardLabel = obj?.label;
+  }
 
   //Autopay submit
   const handleClickSubmit = () => {
@@ -647,10 +646,10 @@ if (cardLabel === undefined) {
     setAutoPayOpen(false);
   };
   const numberFormat = (value) =>
-  new Intl.NumberFormat('en-IN', {
-    style: 'currency',
-    currency: 'USD'
-  }).format(value);
+    new Intl.NumberFormat('en-IN', {
+      style: 'currency',
+      currency: 'USD'
+    }).format(value);
 
   //US holidays
   function disableHolidays(date) {
@@ -685,7 +684,8 @@ if (cardLabel === undefined) {
     let s = price.split(".");
     let afterDecimal = s[ 1 ];
     if (!afterDecimal) {
-      price = event.target.value.replace(/.$/g, "");
+      price = event.target.value.replace(".", "");
+      price = price.replace("$", "");
       setpaymentAmount(price);
       setRequiredAmount("");
     }
@@ -1099,22 +1099,60 @@ if (cardLabel === undefined) {
         classes={ { paper: classes.dialogPaper } }
       >
         <DialogTitle id="autopayText">
-          <Typography id="autoTxt" className={ classes.dialogHeading } justifyContent="space-around">
+          <Typography id="autoTxt" className={ classes.dialogHeading }>
             { disabledContent === false
               ? "Are you sure you want to disable auto pay?"
               :
               "Auto Pay Confirmation"
-             }
+            }
           </Typography>
-          <Typography id="autoTxt" className={ classes.autoPayContent }>
-            { disabledContent === false ? "" : "Auto pay Amount: " + numberFormat(paymentAmount) }
-            {  <br/> }
-            { disabledContent === false ? "" : "Bank/Card: " + cardLabel }
-            {  <br/> }
-            { disabledContent === false ? "" : "First Auto Pay Date:  "+ Moment(paymentDate).format("MM/DD/YYYY") }
+          {/* <Typography id="autoTxt" className={ classes.autoPayContent }> */}
+          <>
+            <TableContainer>
+              <Table className={ classes.table } aria-label="simple table" border-color="white">
+                <TableBody>
+                  <TableRow>
+                    <TableCell className={ classes.tableheadrow } align="left" width="20%">
+                    </TableCell>
+                    <TableCell className={ classes.tableheadrow } align="left">
+                      { disabledContent === false ? "" : "Auto pay Amount: " }
+                    </TableCell>
+                    <TableCell align="left">
+                      { disabledContent === false ? "" : numberFormat(paymentAmount) }
+                    </TableCell>
+                    <TableCell className={ classes.tableheadrow } align="left">
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell className={ classes.tableheadrow } align="left" width="20%">
+                    </TableCell>
+                    <TableCell align="left">
+                      { disabledContent === false ? "" : "Bank/Card: " }
+                    </TableCell>
+                    <TableCell align="left">
+                      { disabledContent === false ? "" : cardLabel }
+                    </TableCell>
+                    <TableCell className={ classes.tableheadrow } align="left">
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell className={ classes.tableheadrow } align="left" width="20%">
+                    </TableCell>
+                    <TableCell align="left">
+                      { disabledContent === false ? "" : "First Auto Pay Date:  " }
+                    </TableCell>
+                    <TableCell align="left">
+                      { disabledContent === false ? "" : Moment(paymentDate).format("MM/DD/YYYY") }
+                    </TableCell>
+                    <TableCell className={ classes.tableheadrow } align="left">
+                    </TableCell>
+                  </TableRow>
 
-          </Typography>
-
+                </TableBody>
+              </Table>
+            </TableContainer>
+          {/* </Typography> */}
+          </>
           <IconButton
             id="autopayCloseBtn"
             aria-label="close"
@@ -1128,12 +1166,19 @@ if (cardLabel === undefined) {
         <DialogActions
           style={ { justifyContent: "center", marginBottom: "25px" } }
         >
+          <ButtonSecondary
+            stylebutton='{"background": "", "color":"" }'
+            onClick={ handleCloseAutoPayPopup }
+            disabled={ loading }
+          >
+            Cancel
+          </ButtonSecondary>
           <ButtonPrimary
-            stylebutton='{"background": "green", "color":"" }'
+            stylebutton='{"background": "", "color":"" }'
             onClick={ handleAutoPayConfirm }
             disabled={ loading }
           >
-            { disabledContent === false ? "Disable Auto Pay" : "Complete Auto Pay Setup"}
+            { disabledContent === false ? "Disable Auto Pay" : "Complete Auto Pay Setup" }
 
             <i
               className="fa fa-refresh fa-spin customSpinner"
@@ -1144,13 +1189,6 @@ if (cardLabel === undefined) {
               } }
             />
           </ButtonPrimary>
-          <ButtonSecondary
-            stylebutton='{"background": "red", "color":"" }'
-            onClick={ handleCloseAutoPayPopup }
-            disabled={ loading }
-          >
-            Cancel
-          </ButtonSecondary>
         </DialogActions>
       </Dialog>
 
@@ -1165,16 +1203,52 @@ if (cardLabel === undefined) {
       >
         <DialogTitle id="scheduleDialogHeading">
           <Typography id="scheduleTxt" className={ classes.dialogHeading }>
-            Your Payment of: {numberFormat(paymentAmount)} will be applied to your account.
-            {  <br/> }
-            Bank/Card:  {cardLabel}
-            {  <br/> }
-            Payment Date: {Moment(paymentDatepicker).format("MM/DD/YYYY")}
-            {  <br/> }
-            Account Number: {accntNo}
-            {  <br/> }
-            Are you sure?
+            Your Payment of: { numberFormat(paymentAmount) } will be applied to your account.
+            <TableContainer>
+              <Table className={ classes.table } aria-label="simple table" border-color="white">
+                <TableBody>
+                  <TableRow>
+                    <TableCell className={ classes.tableheadrow } align="left" width="20%">
+                    </TableCell>
+                    <TableCell align="left">
+                      Bank/Card:
+                    </TableCell>
+                    <TableCell align="left">
+                      { cardLabel }
+                    </TableCell>
+                    <TableCell className={ classes.tableheadrow } align="left">
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell className={ classes.tableheadrow } align="left" width="20%">
+                    </TableCell>
+                    <TableCell align="left">
+                      Payment Date:
+                    </TableCell>
+                    <TableCell align="left">
+                      { Moment(paymentDatepicker).format("MM/DD/YYYY") }
+                    </TableCell>
+                    <TableCell className={ classes.tableheadrow } align="left">
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell className={ classes.tableheadrow } align="left" width="20%">
+                    </TableCell>
+                    <TableCell className={ classes.tableheadrow } align="left">
+                      Account Number:
+                    </TableCell>
+                    <TableCell align="left">
+                      { accntNo }
+                    </TableCell>
+                    <TableCell className={ classes.tableheadrow } align="left">
+                    </TableCell>
+                  </TableRow>
 
+                </TableBody>
+              </Table>
+            </TableContainer>
+
+            Are you sure?
           </Typography>
           <IconButton
             aria-label="close"

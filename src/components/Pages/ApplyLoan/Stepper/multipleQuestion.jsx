@@ -85,7 +85,7 @@ export default function MultipleQuestion(props) {
 			{ props.responseData.map((question, index) => {
 				return (
 					<Grid key={ index } item xs={ 12 }>
-						<Typography id="IdQuestionsTxt">{ question?.question }</Typography>
+						<Typography id="IdQuestionsTxt">{ question?.question } *</Typography>
 						<Radio
 							id="radioSelectTxt"
 							name="question"

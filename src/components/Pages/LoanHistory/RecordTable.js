@@ -17,12 +17,10 @@ import { loanDocumentController as loanDocument } from "../../Controllers/LoanDo
 import { useStylesLoanHistory } from "./Style";
 import "./Style.css";
 
-export default function LoanHistoryTable(userLoanHistoryData) {
+export default function LoanHistoryTable(historyOfLoans) {
   window.zeHide();
   //Material UI css class
   const classes = useStylesLoanHistory();
-  //Loan history data from API
-  let userLoanHistory = userLoanHistoryData;
 
   //Download loan document
   const downloadDoc = (accNo) => {
@@ -44,12 +42,12 @@ export default function LoanHistoryTable(userLoanHistoryData) {
             </TableRow>
           </TableHead>
           <TableBody>
-            { userLoanHistory?.userLoanHistoryData === null ? (
+            { historyOfLoans?.userLoanHistoryData === null ? (
               <TableRow>
                 <TableCell colSpan="7" align="center"><CircularProgress /></TableCell>
               </TableRow>
-            ) : userLoanHistory?.userLoanHistoryData?.length ? (
-              userLoanHistory?.userLoanHistoryData.map((row) => (
+            ) : historyOfLoans?.userLoanHistoryData?.length ? (
+              historyOfLoans?.userLoanHistoryData.map((row) => (
                 <TableRow key={ row.loanData.accountNumber }>
                   <TableCell component="th" className={ classes.tableHeadRow } scope="row" align="left">{ row.loanData.accountNumber }</TableCell>
                   <TableCell className={ classes.tableHeadRow } align="left" >{ row.loanData?.loanOriginationDate ? Moment(row.loanData.loanOriginationDate).format("MM/DD/YYYY") : '' }</TableCell>

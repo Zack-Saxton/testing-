@@ -148,8 +148,8 @@ export default function ReviewAndSign(props) {
   //Conver the value into currency format
   const currencyFormat = (val) => {
     if (val) {
-      var formated = parseFloat(val);
-      var currency = "$";
+      let formated = parseFloat(val);
+      let currency = "$";
       return (
         currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,")
       );
@@ -307,7 +307,7 @@ export default function ReviewAndSign(props) {
                         APR
                       </p>
                       <h2 className={ classes.columnColor } id="column-content">
-                        { selectedOffer.apr.toFixed(2) } %
+                        { (selectedOffer.apr * 100).toString().match(/^-?\d+(?:\.\d{0,2})?/)[ 0 ] } %
                       </h2>
                     </Grid>
                     <Grid

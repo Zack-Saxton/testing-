@@ -38,13 +38,6 @@ TabPanel.propTypes = {
   value: PropTypes.any.isRequired,
 };
 
-function a11yProps(index) {
-  return {
-    id: `scrollable-auto-tab-${ index }`,
-    "aria-controls": `scrollable-auto-tab-panel-${ index }`,
-  };
-}
-
 //Styling
 const useStyles = makeStyles((theme) => ({
   root: {

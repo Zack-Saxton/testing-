@@ -66,6 +66,7 @@ const useStylesAccountOverview = makeStyles((theme) => ({
     fontSize: "1.563rem",
     paddingBottom: "10px",
     paddingTop: "10px",
+    marginTop: "5px"
   },
   table: {
     minWidth: 650,
@@ -114,12 +115,12 @@ const useStylesAccountOverview = makeStyles((theme) => ({
     color: "#eb1809",
     fontSize: 25,
     fontWeight: 400,
-    textDecoration:"none",
+    textDecoration: "none",
   },
   cardContent: {
     color: "#171717",
     fontSize: "15px",
-    textDecoration:"none",
+    textDecoration: "none",
   },
   tabVerticalLabel: {
     color: "#3f51b5",

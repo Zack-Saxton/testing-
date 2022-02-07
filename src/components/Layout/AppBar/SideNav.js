@@ -29,7 +29,6 @@ import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
 import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
 import SettingsIcon from "@material-ui/icons/Settings";
 import clsx from "clsx";
-import { useAtom } from "jotai";
 import Cookies from "js-cookie";
 import React, { useContext, useEffect, useState } from "react";
 import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -50,8 +49,9 @@ import branchDetails from "../../Controllers/MyBranchController";
 import ProfileImageController from "../../Controllers/ProfileImageController";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import MoneySkill from "../../Pages/MoneySkill/MoneySkill";
-import { tabAtom } from "../../Pages/MyProfile/MyProfileTab";
 import Notification from "../Notification/Notification";
+import applicationStatusRedirectPage from "../../../assets/data/applicationStatusRedirectPage.json"
+import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import "./SideNav.css";
 
 const drawerWidth = 240;
@@ -185,7 +185,7 @@ export default function SideNav() {
   const [ disable, setDisable ] = React.useState(false);
   const [ skill, setSkill ] = React.useState(false);
   const [ checked, setChecked ] = React.useState(true);
-  const [ , setTabvalue ] = useAtom(tabAtom);
+  const [ , setprofileTabNumber] = useGlobalState();
   const { dataProfile, resetProfilePicture } = useContext(ProfilePicture);
   const { resetData } = useContext(CheckMyOffers);
   const { data: dataAccountOverview } = useQuery('loan-data', usrAccountDetails);
@@ -194,7 +194,7 @@ export default function SideNav() {
   const [ currentLoan, setCurrentLoan ] = useState(true);
   const [ checkPresenceOfLoan, setCheckPresenceOfLoan ] = useState(false);
   const [ checkPresenceOfLoanStatus, setCheckPresenceOfLoanStatus ] = useState('');
-
+  
   useEffect(() => {
     let noOfLoans = dataAccountOverview?.data?.activeLoans?.length;
     let activeLoan = dataAccountOverview?.data?.applicants;
@@ -220,26 +220,6 @@ export default function SideNav() {
       setCurrentLoan({});
     };
   }, [ dataAccountOverview, activeLoanData, currentLoan ]);
-
-  let statusStrLink = {
-    "approved": "/customers/finalVerification",
-    "completing_application": "/customers/finalVerification",
-    "contact_branch": "/customers/myBranch",
-    "confirming_info": "/partner/confirm-signup",
-    "expired": "/select-amount",
-    "invalid": "/select-amount",
-    "signature_complete": "/customers/finalVerification",
-    "offer_selected": "/customers/reviewAndSign",
-    "offers_available": "/customers/selectOffer",
-    "pre_qual_referred": "/select-amount",
-    "pre_qual_rejected": "/select-amount",
-    "pre_qualified": "/credit-karma",
-    "referred": "/referred-to-branch",
-    "rejected": "/no-offers-available",
-    "under_review": "/customers/loanDocument",
-    "closing_process": "/customers/finalVerification",
-    "final_review": "/customers/loanDocument"
-  };
 
   //Material UI media query for responsiveness
   let check = useMediaQuery("(min-width:960px)");
@@ -271,13 +251,15 @@ export default function SideNav() {
   }
 
   //Api call Branch Details
-  const [ branchVal, setBranchDetails ] = useState(null);
-  async function getUserBranchDetails() {
-    setBranchDetails(await branchDetails());
-  }
+  const {data : branchVal} = useQuery('my-branch', branchDetails)
+  const [branchAvailability, setBranchAvailability] = useState(false);
+ 
   useEffect(() => {
-    getUserBranchDetails();
-  }, []);
+    if(branchVal){
+      setBranchAvailability(branchVal?.data?.branchIsOpen)
+    }
+    return null;
+  }, [branchVal]);
 
   //Api call Profile Picture
   const [ profileImage, setProfileImage ] = useState(null);
@@ -293,7 +275,6 @@ export default function SideNav() {
   // Side bar branch details
   Cookies.set('branchname', ((branchVal?.data?.BranchName) ? (branchVal?.data?.BranchName) : (branchVal?.data?.branchName) ? (branchVal?.data?.branchName) : ""));
   Cookies.set('branchphone', branchVal?.data?.PhoneNumber);
-  Cookies.set('branchopenstatus', branchVal?.data?.branchIsOpen);
   Cookies.set('getProfileImage', getProfImage);
 
   let hasActiveLoan = Cookies.get("hasActiveLoan") === "true" ? true : false;
@@ -303,7 +284,6 @@ export default function SideNav() {
   let disableField = (checkAppStatus === true || hasActiveLoan === true) ? true : false;
   const branchName = Cookies.get("branchname");
   const branchPhone = Cookies.get('branchphone');
-  const branchcloseStatus = Cookies.get('branchopenstatus');
   const getProfileImage = Cookies.get('getProfileImage');
 
   const lastLoginRaw = JSON.parse(Cookies.get("user") ? Cookies.get("user") : '{ }')?.user?.extensionattributes?.login?.timestamp_date;
@@ -418,14 +398,14 @@ export default function SideNav() {
     history.push({
       pathname: '/customers/myProfile'
     });
-    setTabvalue(0);
+    setprofileTabNumber( { profileTabNumber: 0 } )
     handleMenuClose();
   };
   const handleMenuPaymentProfile = () => {
     history.push({
       pathname: '/customers/myProfile'
     });
-    setTabvalue(3);
+    setprofileTabNumber( { profileTabNumber: 3 } )
     handleMenuClose();
   };
 
@@ -466,7 +446,7 @@ export default function SideNav() {
 
   const resumeApplicationClick = () => {
     history.push({
-      pathname: statusStrLink[ checkPresenceOfLoanStatus ],
+      pathname: applicationStatusRedirectPage[ checkPresenceOfLoanStatus ],
     });
 
   };
@@ -660,8 +640,8 @@ export default function SideNav() {
                       <ListItem id="sidemenuBranch">
                         { branchName === '' || undefined ? '' : 'Branch : ' + branchName }
                       </ListItem>
-                      <ListItem id={ branchcloseStatus ? 'sidemenuOpenNow' : 'sidemenuCloseNow' }>
-                        { branchcloseStatus ? 'Open now' : 'Closed now' }
+                      <ListItem id={ branchAvailability ? 'sidemenuOpenNow' : 'sidemenuCloseNow' }>
+                        { branchAvailability ? 'Open now' : 'Closed now' }
                       </ListItem>
                       { formatPhoneNumber(branchPhone) === '' || undefined ? '' :
                         <ListItem id="sidemenuPhone">

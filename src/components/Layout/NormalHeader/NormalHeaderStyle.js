@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 
   title: {
     flexGrow: 1,
-    lineHeight:"normal",
+    lineHeight: "normal",
   },
   logoFormat: {
     height: 60,

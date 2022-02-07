@@ -9,6 +9,7 @@ import React, { useState } from "react";
 import { useIdleTimer } from "react-idle-timer";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
+import globalMessages from "../../assets/data/globalMessages.json";
 import "../App/App.css";
 import CheckLoginStatus from "../App/CheckLoginStatus";
 import LoginController from "../Controllers/LoginController";
@@ -16,7 +17,6 @@ import LogoutController from "../Controllers/LogoutController";
 import { ButtonPrimary } from "../FormsUI";
 import Footer from "../Layout/Footer/Footer";
 import { decryptAES, encryptAES } from "../lib/Crypto";
-import globalMessages from "../../assets/data/globalMessages.json";
 import AppBar from "./AppBar/SideNav";
 
 const Post = ({ children }) => {

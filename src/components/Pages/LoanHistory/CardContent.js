@@ -7,13 +7,13 @@ import { NavLink, useHistory } from "react-router-dom";
 import { useStylesLoanHistory } from "./Style";
 import "./Style.css";
 
-export default function LoanHistoryCard(userLoanHistoryCard) {
+export default function LoanHistoryCard(historyOfLoans) {
   window.zeHide();
   const history = useHistory();
   //Material UI css class
   const classes = useStylesLoanHistory();
   //Loan history data from API
-  let userLoanHistory = userLoanHistoryCard;
+
   const redirectToApplyForLoan = () => {
     history.push({ pathname: "/customers/applyForLoan", state: { from: "user" } });
   };
@@ -27,12 +27,12 @@ export default function LoanHistoryCard(userLoanHistoryCard) {
             <Paper className={ classes.papertotal } id="cardLoanHistory-bg">
               <div className={ classes.cardContentLoanHistory }>
                 Total Number of Loans
-                { userLoanHistory?.userLoanHistoryCard === null ? (
+                { historyOfLoans?.userLoanHistoryCard === null ? (
                   <p>0</p>
                 ) : (
                   <p id="numberOfLoans" className={ classes.cardAmountLoanHistory }>
-                    { userLoanHistory?.userLoanHistoryCard?.length
-                      ? ('0' + userLoanHistory.userLoanHistoryCard.length).slice(-2)
+                    { historyOfLoans?.userLoanHistoryCard?.length
+                      ? ('0' + historyOfLoans.userLoanHistoryCard.length).slice(-2)
                       : 0 }
                   </p>
                 ) }

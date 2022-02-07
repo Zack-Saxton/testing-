@@ -14,6 +14,13 @@ const useStylesDisclosure = makeStyles((theme) => ({
     flexDirection: "column",
     color: theme.palette.text.secondary,
   },
+  mainDivDynamicPage: {
+    backgroundColor: "#124ca8",
+    backgroundImage: "linear-gradient(to right, #26436a, #104db0)",
+    minHeight: "500px !important",
+    padding: "30px",
+    textAlign: "justify !important"
+  }
 }));
 
 export { useStylesDisclosure };
