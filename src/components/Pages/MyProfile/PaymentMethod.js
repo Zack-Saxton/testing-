@@ -469,7 +469,7 @@ export default function PaymentMethod() {
                 // code block
             }
         } catch (error) {
-            ErrorLogger(' Error Deleting Payment Method ::', res.data.message);
+            ErrorLogger(' Error Deleting Payment Method ::', error);
         }
     };
 
@@ -500,7 +500,7 @@ export default function PaymentMethod() {
         }
         else {
             setLoading(false);
-            toast.error("Something went wrong, please try again.");
+            toast.error("Something went rfrsgssgwrong, please try again.");
         }
         closeDebitCardModal();
     };
