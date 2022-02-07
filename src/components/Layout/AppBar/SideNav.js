@@ -52,6 +52,7 @@ import ProfileImageController from "../../Controllers/ProfileImageController";
 import MoneySkill from "../../Pages/MoneySkill/MoneySkill";
 import { tabAtom } from "../../Pages/MyProfile/MyProfileTab";
 import Notification from "../Notification/Notification";
+import applicationStatusRedirectPage from "../../../assets/data/applicationStatusRedirectPage.json"
 import "./SideNav.css";
 
 const drawerWidth = 240;
@@ -220,26 +221,6 @@ export default function SideNav() {
       setCurrentLoan({});
     };
   }, [ dataAccountOverview, activeLoanData, currentLoan ]);
-
-  let statusStrLink = {
-    "approved": "/customers/finalVerification",
-    "completing_application": "/customers/finalVerification",
-    "contact_branch": "/customers/myBranch",
-    "confirming_info": "/partner/confirm-signup",
-    "expired": "/select-amount",
-    "invalid": "/select-amount",
-    "signature_complete": "/customers/finalVerification",
-    "offer_selected": "/customers/reviewAndSign",
-    "offers_available": "/customers/selectOffer",
-    "pre_qual_referred": "/select-amount",
-    "pre_qual_rejected": "/select-amount",
-    "pre_qualified": "/credit-karma",
-    "referred": "/referred-to-branch",
-    "rejected": "/no-offers-available",
-    "under_review": "/customers/loanDocument",
-    "closing_process": "/customers/finalVerification",
-    "final_review": "/customers/loanDocument"
-  };
 
   //Material UI media query for responsiveness
   let check = useMediaQuery("(min-width:960px)");
@@ -466,7 +447,7 @@ export default function SideNav() {
 
   const resumeApplicationClick = () => {
     history.push({
-      pathname: statusStrLink[ checkPresenceOfLoanStatus ],
+      pathname: applicationStatusRedirectPage[ checkPresenceOfLoanStatus ],
     });
 
   };
