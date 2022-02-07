@@ -154,10 +154,10 @@ export default function Login(props) {
 				setCounter(counter + 1);
 				setLoading(false);
 				setLoginFailed(retVal?.data?.errorMessage);
-				if (counter >= 1) {
-					history.push('/register');
-				}
-			} else {
+                if(counter >= 1){
+                    history.push('/register?email='+values.email);
+                }
+            } else {
 				setLoading(false);
 				alert("Network error");
 			}
