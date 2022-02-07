@@ -26,14 +26,14 @@ import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import PaymentIcon from "@material-ui/icons/Payment";
 import { useFormik } from "formik";
 import { useAtom } from "jotai";
-import { useQuery } from 'react-query';
 import React, { useEffect, useState } from "react";
+import { useQuery } from 'react-query';
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import cheque from "../../../assets/images/cheque.jpg";
-import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import { AddACHPaymentAPI } from "../../../components/Controllers/ACHDebitController";
+import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import {
     addCreditCard, deleteBankAccount,
     deleteCreditCard, getPaymentMethods, setDefaultPayment
@@ -53,8 +53,11 @@ import "./Style.css";
 const validationSchemaDebitCard = yup.object({
     cardNumber: yup
         .string("Card Number is required.")
+        .test('MC-VC', 'We only accept Visa or Master card', value => (value.length > 0 && (value.slice(0, 1) === '4' || value.slice(0, 1) === '5')))
+           
         .required("Card Number is required.")
         .min(16, "Card Number should be 16 digits."),
+        
     cardName: yup
         .string("Cardholder Name is required.")
         .required("Cardholder Name is required."),
@@ -137,7 +140,7 @@ export default function PaymentMethod() {
     const [ mailingZipcode, setMailingZipcode ] = useState("");
     const { data: allPaymentMethod, refetch } = useQuery('payment-method', getPaymentMethods, {
         refetchOnMount: false
-      });
+    });
 
     const formikAddBankAccount = useFormik({
         initialValues: {
@@ -646,13 +649,13 @@ export default function PaymentMethod() {
                                 </Table>
                             </TableContainer>
                         ) : allPaymentMethod?.data?.message ? (
-                            <Grid className="circleprog" style={ {width: "100%", textAlign: "center", marginTop: "20px",} } item xs={ 12 }>
+                            <Grid className="circleprog" style={ { width: "100%", textAlign: "center", marginTop: "20px", } } item xs={ 12 }>
                                 <Typography>
                                     { allPaymentMethod?.data?.message }
                                 </Typography>
                             </Grid>
                         ) : (
-                            <Grid className="circleprog" style={ {width: "100%", textAlign: "center", marginTop: "20px",} } item xs={ 12 }>
+                            <Grid className="circleprog" style={ { width: "100%", textAlign: "center", marginTop: "20px", } } item xs={ 12 }>
                                 <Typography>No Payment methods available</Typography>
                             </Grid>
                         )

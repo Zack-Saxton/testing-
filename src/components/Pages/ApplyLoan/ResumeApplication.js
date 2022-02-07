@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 const ResumeApplication = (props) => {
 	const history = useHistory();
 	const redirect = () => {
-        history.push({ pathname: "/customers/applyForLoan", state: { from: "user" } });
+		history.push({ pathname: "/customers/applyForLoan", state: { from: "user" } });
 	};
 	useEffect(() => {
 		redirect();

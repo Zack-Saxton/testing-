@@ -11,13 +11,13 @@ import { useFormik } from "formik";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import * as yup from "yup";
+import states from '../../../assets/data/States.json';
 import creditkarmalogo from "../../../assets/images/ck_logo.png";
 import Logo from "../../../assets/images/loginbg.png";
 import { partnerConfirmInfo } from "../../Controllers/PartnerSignupController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
-import { ButtonPrimary, Checkbox, Select, TextField, Zipcode,RenderContent,Popup } from "../../FormsUI";
+import { ButtonPrimary, Checkbox, Popup, RenderContent, Select, TextField, Zipcode } from "../../FormsUI";
 import ErrorLogger from "../../lib/ErrorLogger";
-import states from '../../../assets/data/States.json';
 import "./Style.css";
 
 //Styling
@@ -201,34 +201,34 @@ export default function CreditKarma(props) {
   const [ errorPersonal, setErrorPersonal ] = useState("");
   const history = useHistory();
   const [ esignPopup, setEsignPopup ] = useState(false);
-	const [ creditPopup, setCreditPopup ] = useState(false);
-	const [ webTOUPopup, setwebTOUPopup ] = useState(false);
-	const [ privacyPopup, setPrivacyPopup ] = useState(false);
+  const [ creditPopup, setCreditPopup ] = useState(false);
+  const [ webTOUPopup, setwebTOUPopup ] = useState(false);
+  const [ privacyPopup, setPrivacyPopup ] = useState(false);
 
   const handleOnClickEsign = () => {
-		setEsignPopup(true)
-	}
-	const handleOnClickEsignClose = () => {
-		setEsignPopup(false)
-	}
-	const handleOnClickCredit = () => {
-		setCreditPopup(true)
-	}
-	const handleOnClickCreditClose = () => {
-		setCreditPopup(false)
-	}
-	const handleOnClickwebTOU = () => {
-		setwebTOUPopup(true)
-	}
-	const handleOnClickwebTOUClose = () => {
-		setwebTOUPopup(false)
-	}
-	const handleOnClickPrivacy = () => {
-		setPrivacyPopup(true)
-	}
-	const handleOnClickPrivacyClose = () => {
-		setPrivacyPopup(false)
-  }
+    setEsignPopup(true);
+  };
+  const handleOnClickEsignClose = () => {
+    setEsignPopup(false);
+  };
+  const handleOnClickCredit = () => {
+    setCreditPopup(true);
+  };
+  const handleOnClickCreditClose = () => {
+    setCreditPopup(false);
+  };
+  const handleOnClickwebTOU = () => {
+    setwebTOUPopup(true);
+  };
+  const handleOnClickwebTOUClose = () => {
+    setwebTOUPopup(false);
+  };
+  const handleOnClickPrivacy = () => {
+    setPrivacyPopup(true);
+  };
+  const handleOnClickPrivacyClose = () => {
+    setPrivacyPopup(false);
+  };
 
   window.zeHide();
   const validate = (personal, household) => {
@@ -1104,13 +1104,13 @@ export default function CreditKarma(props) {
                         label={
                           <p className="agreeCheckbox">
                             By clicking this box you acknowledge that you have
-                            received, reviewed and agree to the {""}
-                        <span className="formatHref" onClick={() => { handleOnClickEsign() }}>E-Signature Disclosure and Consent,</span>
-                        {""} <span className="formatHref" onClick={() => { handleOnClickCredit() }}>Credit and Contact Authorization,</span>
-                        {""} <span className="formatHref" onClick={() => { handleOnClickwebTOU() }}>Website Terms of Use,</span>
-                        {""} <span className="formatHref" onClick={() => { handleOnClickPrivacy() }}>Website Privacy Statement.</span>
-                      </p>
-                    }
+                            received, reviewed and agree to the { "" }
+                            <span className="formatHref" onClick={ () => { handleOnClickEsign(); } }>E-Signature Disclosure and Consent,</span>
+                            { "" } <span className="formatHref" onClick={ () => { handleOnClickCredit(); } }>Credit and Contact Authorization,</span>
+                            { "" } <span className="formatHref" onClick={ () => { handleOnClickwebTOU(); } }>Website Terms of Use,</span>
+                            { "" } <span className="formatHref" onClick={ () => { handleOnClickPrivacy(); } }>Website Privacy Statement.</span>
+                          </p>
+                        }
                         required={ true }
                         stylelabelform='{ "color":"" }'
                         stylecheckbox='{ "color":"blue"}'
@@ -1304,21 +1304,21 @@ export default function CreditKarma(props) {
         </DialogActions>
       </Dialog>
 
-      <Popup popupFlag = {esignPopup} closePopup = {handleOnClickEsignClose}>
-				<RenderContent disclosureLink="/eSign" />
-			</Popup>
-			<Popup popupFlag = {creditPopup} closePopup = {handleOnClickCreditClose}>
-				<RenderContent disclosureLink="/credit" />
-			</Popup>
-			<Popup popupFlag = {webTOUPopup} closePopup = {handleOnClickwebTOUClose}>
-				<RenderContent disclosureLink="/websiteTermsOfUse" />
-			</Popup>
-			<Popup popupFlag = {privacyPopup} closePopup = {handleOnClickPrivacyClose}>
-				<RenderContent disclosureLink="/privacy" />
-			</Popup>
-			<Popup popupFlag = {openDelaware} closePopup = {handleDelawareClose}>
-				<RenderContent disclosureLink="/delaware" />
-			</Popup>
+      <Popup popupFlag={ esignPopup } closePopup={ handleOnClickEsignClose }>
+        <RenderContent disclosureLink="/eSign" />
+      </Popup>
+      <Popup popupFlag={ creditPopup } closePopup={ handleOnClickCreditClose }>
+        <RenderContent disclosureLink="/credit" />
+      </Popup>
+      <Popup popupFlag={ webTOUPopup } closePopup={ handleOnClickwebTOUClose }>
+        <RenderContent disclosureLink="/websiteTermsOfUse" />
+      </Popup>
+      <Popup popupFlag={ privacyPopup } closePopup={ handleOnClickPrivacyClose }>
+        <RenderContent disclosureLink="/privacy" />
+      </Popup>
+      <Popup popupFlag={ openDelaware } closePopup={ handleDelawareClose }>
+        <RenderContent disclosureLink="/delaware" />
+      </Popup>
 
     </div>
   );

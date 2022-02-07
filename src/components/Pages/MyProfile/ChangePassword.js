@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
+import globalMessages from "../../../assets/data/globalMessages.json";
 import LogoutController from "../../Controllers/LogoutController";
 import { changePassword } from "../../Controllers/MyProfileController";
 import {
@@ -12,7 +13,6 @@ import {
   ButtonSecondary,
   PasswordField
 } from "../../FormsUI";
-import globalMessages from "../../../assets/data/globalMessages.json";
 import { tabAtom } from "./MyProfileTab";
 import "./Style.css";
 

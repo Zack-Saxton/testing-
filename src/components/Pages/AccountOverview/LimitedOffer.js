@@ -1,41 +1,41 @@
-import React, { useState, useEffect } from "react";
-import Paper from "@material-ui/core/Paper";
-import logo from "../../../assets/images/mariner-finance.jpg";
-import Grid from "@material-ui/core/Grid";
-import { NavLink } from "react-router-dom";
-import { useStylesAccountOverview } from "./Style";
-import adBanner from "../../../assets/gallery/AdBanner.jpg";
-import MortgageBanner from "../../../assets/images/Mortgage-Banner.jpg";
-import "./Style.css";
-import { ButtonPrimary } from "../../FormsUI";
+import { Box, Modal, Typography } from "@material-ui/core";
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { Modal, Box, Typography } from "@material-ui/core";
-import NumberFormat from "react-number-format";
+import Grid from "@material-ui/core/Grid";
+import { NavLink,useHistory } from "react-router-dom";
 import IconButton from "@material-ui/core/IconButton";
+import Paper from "@material-ui/core/Paper";
 import CloseIcon from "@material-ui/icons/Close";
+import React, { useEffect, useState } from "react";
+import NumberFormat from "react-number-format";
+import adBanner from "../../../assets/gallery/AdBanner.jpg";
+import logo from "../../../assets/images/mariner-finance.jpg";
+import MortgageBanner from "../../../assets/images/Mortgage-Banner.jpg";
 import setAccountDetails from "../../Controllers/AccountOverviewController";
+import { ButtonPrimary } from "../../FormsUI";
+import { useStylesAccountOverview } from "./Style";
+import "./Style.css";
 export default function LimitedOffer(userOfferData) {
   //Material UI css class
   const classes = useStylesAccountOverview();
   window.zeHide();
   // Get offers details
   let userOfferAmount = (userOfferData.userOffers != null) ? userOfferData.userOffers.offerAmount : 0;
-  const [ initModal, setinitModal ] = useState(false);
-  const [ offerCode, setOfferCode ] = useState(" ");
-  const [ amount, setAmount ] = useState("");
-  const [ expiryDate, setExpiryDate ] = useState("");
-  const [ firstName, setfirstName ] = useState("");
+  const history = useHistory();
+  const [initModal,setinitModal] = useState(false);
+  const [offerCode,setOfferCode] = useState(" ");
+  const [amount,setAmount] = useState(" ");
+  const [expiryDate,setExpiryDate] = useState(" ")
+  const [firstName,setfirstName] = useState("")
+  
 
-  useEffect(() => {
-    setAccountDetails().then((res) => {
-      if (res.data?.offerData) {
-        setOfferCode(res.data.offerData.OfferCode);
-        setExpiryDate(res.data.offerData.dateExpiration);
-        setAmount(res.data.offerData.offerAmount);
-        setfirstName(res.data.offerData.firstName);
-      }
-    });
-  }, []);
+  useEffect(()=>{
+            setAccountDetails().then((res)=>{
+              setOfferCode(res?.data?.offerData?.OfferCode)
+              setExpiryDate(res?.data?.offerData?.dateExpiration)
+              setAmount(res?.data?.offerData?.offerAmount)
+              setfirstName(res?.data?.offerData?.firstName);
+            })
+  },[])
 
   const showModal = () => {
     setinitModal(true);
@@ -58,6 +58,10 @@ export default function LimitedOffer(userOfferData) {
     p: 4,
   };
 
+  const handleContinue = () =>{
+    history.push({pathname:"/pre-approved"})
+  }
+  
   //View
   return (
     <div id="mainContainer">
@@ -148,11 +152,11 @@ export default function LimitedOffer(userOfferData) {
                   <p className="common" >${ amount }</p>
 
                   <p className="common">Use it to get things done.</p>
-
-                  <p className="common">Offer Code:{ offerCode }</p>
-                  <ButtonPrimary id="ClaimButton" stylebutton='{"color":"", "textTransform": "none","marginLeft":"40px"}'>
-                    Continue
-                  </ButtonPrimary>
+  
+<p className="common">Offer Code:{offerCode}</p>
+<ButtonPrimary id="ClaimButton" stylebutton='{"color":"", "textTransform": "none","marginLeft":"40px"}' onClick={handleContinue}>
+                        Continue
+                      </ButtonPrimary>
                 </Grid>
               </Grid>
               <Grid>
@@ -163,27 +167,26 @@ export default function LimitedOffer(userOfferData) {
                   things you want-and get rid of the bills you don't.
                 </p>
                 <p className="common">What will you do with your money?</p>
-                <p className="common">Get rid of bills & credit card debt? Spruce up the house? Take a vacation?</p>
-                <p className="common">Use offer code { offerCode } before { expiryDate }. Remember, checking your offer online does not affect your credit.*</p>
-                <p className="common">
-                  Sincerely,<br></br>
-                  Dale Lippold<br></br>
-                  Oak Lawn Branch<br></br>
-                  708-425-1176
-                </p>
-              </Grid>
-              <Grid className="content">
-                You can choose to stop receiving "prescreened" offers of credit from this and other companies by calling toll-free 888-567-8688.
-                <br />See PRESCREEN & OPT-OUT NOTICE below for more information about prescreened offers.
-              </Grid>
-              <Grid style={ { textAlign: "center" } }>
-                <p>Easy, Fast, Flexible & Convenient</p>
-                <ButtonPrimary id="ClaimButton" stylebutton='{"color":"", "textTransform": "none"}'>
-                  Continue
-                </ButtonPrimary>
-                <p>We need more information from you to show you your offers. Please click continue to tell us more about yourself.</p>
-
-                <p>P.P.S. Still have questions? Give your local branch a call today! 708-425-1176</p>
+            <p className="common">Get rid of bills & credit card debt? Spruce up the house? Take a vacation?</p>
+            <p className="common">Use offer code {offerCode} before {expiryDate}. Remember, checking your offer online does not affect your credit.*</p>
+<p className="common">
+Sincerely,<br></br>
+Dale Lippold<br></br>
+Oak Lawn Branch<br></br>
+708-425-1176
+</p>
+            </Grid>
+            <Grid className="content">
+            You can choose to stop receiving "prescreened" offers of credit from this and other companies by calling toll-free 888-567-8688.
+                 <br/>See PRESCREEN & OPT-OUT NOTICE below for more information about prescreened offers.
+           </Grid>
+           <Grid style={{textAlign:"center"}}>
+           <p>Easy, Fast, Flexible & Convenient</p>
+           <ButtonPrimary id="ClaimButton" stylebutton='{"color":"", "textTransform": "none"}' onClick={handleContinue}>
+                        Continue
+                      </ButtonPrimary>
+<p>We need more information from you to show you your offers. Please click continue to tell us more about yourself.</p>
+           <p>P.P.S. Still have questions? Give your local branch a call today! 708-425-1176</p>
               </Grid>
               <Grid>
                 <p className="common para">

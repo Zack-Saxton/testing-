@@ -112,7 +112,7 @@ function LivingPlace() {
 						xs={ 12 }
 						justifyContent="center"
 						alignItems="center"
-						style={ { padding:"4% 0%" } }
+						style={ { padding: "4% 0%" } }
 					>
 						<Grid
 							// containe

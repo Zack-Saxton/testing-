@@ -260,7 +260,7 @@ export default function MailingAddress(props) {
                 (formik.touched.zip && Boolean(formik.errors.zip)) || !validZip
               }
               helperText={
-                validZip? formik.touched.zip && formik.errors.zip : "Please enter a valid ZIP Code"
+                validZip ? formik.touched.zip && formik.errors.zip : "Please enter a valid ZIP Code"
               }
             />
           </Grid>

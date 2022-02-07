@@ -172,7 +172,7 @@ export default function BranchDetail(MyBranchDetail) {
                   </TableHead>
                   <TableBody>
                     { stateCA.map((row) => (
-                      <TableRow key={ (Math.random() * 1000) }> 
+                      <TableRow key={ (Math.random() * 1000) }>
                         <TableCell component="th" scope="row">
                           { row.day }
                         </TableCell>

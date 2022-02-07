@@ -13,7 +13,7 @@ export default function LoanHistoryCard(historyOfLoans) {
   //Material UI css class
   const classes = useStylesLoanHistory();
   //Loan history data from API
-  
+
   const redirectToApplyForLoan = () => {
     history.push({ pathname: "/customers/applyForLoan", state: { from: "user" } });
   };

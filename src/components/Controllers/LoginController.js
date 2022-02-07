@@ -23,13 +23,12 @@ export default async function LoginController(email, password) {
   }
 }
 
-
 /***** Register method *****/
 export async function RegisterController(registerData) {
   try {
     let api = "register_customer";
     let param = "";
-    let data = registerData
+    let data = registerData;
     let method = "POST";
     let addAccessToken = false;
 

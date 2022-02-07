@@ -7,7 +7,9 @@ import Cookies from "js-cookie";
 import React, { useContext, useState } from "react";
 import { useQueryClient } from 'react-query';
 import { Link, useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
 import * as yup from "yup";
+import globalMessages from '../../../../assets/data/globalMessages.json';
 import PasswordLogo from "../../../../assets/icon/I-Password.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import LoginController, { RegisterController } from "../../../Controllers/LoginController";
@@ -15,8 +17,6 @@ import { ButtonPrimary, PasswordField } from "../../../FormsUI";
 import { encryptAES } from "../../../lib/Crypto";
 import ErrorLogger from "../../../lib/ErrorLogger";
 import ScrollToTopOnMount from "../ScrollToTop";
-import { toast } from "react-toastify";
-import globalMessages from '../../../../assets/data/globalMessages.json';
 import "./NewUser.css";
 //YUP validation schema
 const validationSchema = yup.object({
@@ -79,7 +79,7 @@ function NewUser() {
 				address_state: data.state,
 			};
 			try {
-				let customerStatus = await RegisterController(body)
+				let customerStatus = await RegisterController(body);
 				//login the user if registerd successfully and stores the JWT token
 				if ((customerStatus.data?.customerFound === false && customerStatus.data?.userFound === false && customerStatus.data?.is_registration_failed === false) || (customerStatus?.data?.statusCode === 200 && customerStatus?.data?.result === "succcces")) {
 					let retVal = await LoginController(data.email, values.newPassword, "");
@@ -125,7 +125,7 @@ function NewUser() {
 					setFailed(true);
 					setLoading(false);
 				} else {
-					toast.error(globalMessages?.Registration_Failed)
+					toast.error(globalMessages?.Registration_Failed);
 					setFailed(false);
 					setLoading(false);
 				}

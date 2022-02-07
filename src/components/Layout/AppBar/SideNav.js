@@ -38,6 +38,7 @@ import { useQuery, useQueryClient } from "react-query";
 import { Link, NavLink, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import globalMessages from "../../../assets/data/globalMessages.json";
 import logoIcon from "../../../assets/images/Favicon.png";
 import logoImage from "../../../assets/images/Normallogo.png";
 import profileImg from "../../../assets/images/profile-img.jpg";
@@ -48,7 +49,6 @@ import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import LogoutController from "../../Controllers/LogoutController";
 import branchDetails from "../../Controllers/MyBranchController";
 import ProfileImageController from "../../Controllers/ProfileImageController";
-import globalMessages from "../../../assets/data/globalMessages.json";
 import MoneySkill from "../../Pages/MoneySkill/MoneySkill";
 import { tabAtom } from "../../Pages/MyProfile/MyProfileTab";
 import Notification from "../Notification/Notification";
@@ -271,16 +271,15 @@ export default function SideNav() {
   }
 
   //Api call Branch Details
-  const {data : branchVal} = useQuery('my-branch', branchDetails)
-  const [branchAvailability, setBranchAvailability] = useState(false);
- 
+  const { data: branchVal } = useQuery('my-branch', branchDetails);
+  const [ branchAvailability, setBranchAvailability ] = useState(false);
+
   useEffect(() => {
-    if(branchVal){
-      setBranchAvailability(branchVal?.data?.branchIsOpen)
+    if (branchVal) {
+      setBranchAvailability(branchVal?.data?.branchIsOpen);
     }
     return null;
-  }, [branchVal]);
-
+  }, [ branchVal ]);
 
   //Api call Profile Picture
   const [ profileImage, setProfileImage ] = useState(null);
