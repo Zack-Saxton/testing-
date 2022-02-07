@@ -26,14 +26,14 @@ import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import PaymentIcon from "@material-ui/icons/Payment";
 import { useFormik } from "formik";
 import { useAtom } from "jotai";
-import React, { useEffect, useState } from "react";
 import { useQuery } from 'react-query';
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import cheque from "../../../assets/images/cheque.jpg";
-import { AddACHPaymentAPI } from "../../../components/Controllers/ACHDebitController";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
+import { AddACHPaymentAPI } from "../../../components/Controllers/ACHDebitController";
 import {
     addCreditCard, deleteBankAccount,
     deleteCreditCard, getPaymentMethods, setDefaultPayment
@@ -53,10 +53,8 @@ import "./Style.css";
 const validationSchemaDebitCard = yup.object({
     cardNumber: yup
         .string("Card Number is required.")
-        .test('MC-VC', 'We only accept Visa or Master card', value => (value && value.length > 0 && (value.slice(0, 1) === '4' || value.slice(0, 1) === '5')))
         .required("Card Number is required.")
         .min(16, "Card Number should be 16 digits."),
-        
     cardName: yup
         .string("Cardholder Name is required.")
         .required("Cardholder Name is required."),
@@ -137,9 +135,10 @@ export default function PaymentMethod() {
     const [ validZip, setValidZip ] = useState(true);
     const [ mailingStreetAddress, setMailingStreetAddress ] = useState("");
     const [ mailingZipcode, setMailingZipcode ] = useState("");
+    const { data: dataAccountOverview } = useQuery('loan-data', usrAccountDetails);
     const { data: allPaymentMethod, refetch } = useQuery('payment-method', getPaymentMethods, {
         refetchOnMount: false
-    });
+      });
 
     const formikAddBankAccount = useFormik({
         initialValues: {
@@ -260,10 +259,8 @@ export default function PaymentMethod() {
             setEditMode(true);
             addDebitCardButton();
             formikAddDebitCard.setFieldValue("cardName", row.OwnerName);
-            formikAddDebitCard.setFieldValue(
-                "cardNumber",
-                "****-****-****-" + row.LastFour
-            );
+            formikAddDebitCard.setFieldValue("cardNumber","****-****-****-" + row.LastFour);
+            formikAddDebitCard.setFieldValue("expirydate", row.ExpirationDate);
 
             setEditMode(true);
             addDebitCardButton();
@@ -271,8 +268,8 @@ export default function PaymentMethod() {
         }
     };
 
-    function detectCardType(e, number) {
-        var re = {
+    function detectCardType(event, number) {
+        let cardCollections = {
             electron: /^(4026|417500|4405|4508|4844|4913|4917)\d+$/,
             Maestro:
                 /^(5018|5020|5038|5612|5893|6304|6759|6761|6762|6763|0604|6390)\d+$/,
@@ -287,8 +284,8 @@ export default function PaymentMethod() {
             JCB: /^(?:2131|1800|35\d{3})\d{11}$/,
         };
         let _valid = false;
-        for (var key in re) {
-            if (re[ key ].test(number)) {
+        for (let key in cardCollections) {
+            if (cardCollections[ key ].test(number)) {
                 setCardType(key);
                 _valid = true;
                 return key;
@@ -297,14 +294,14 @@ export default function PaymentMethod() {
         if (!_valid) {
             setCardType(false);
         }
-        formikAddDebitCard.handleBlur(e);
+        formikAddDebitCard.handleBlur(event);
     }
 
     const addDebitOnChangeNumber = (event) => {
         const reg = /^[0-9\b]+$/;
-        let acc = event.target.value;
+        let cardNumber = event.target.value;
 
-        if (acc === "" || reg.test(acc)) {
+        if (cardNumber === "" || reg.test(cardNumber)) {
             formikAddDebitCard.handleChange(event);
         }
     };
@@ -353,7 +350,6 @@ export default function PaymentMethod() {
         setCheckedAddBank(false);
         setAddBankAccount(false);
         setPaymentMethodDiv(true);
-
         scrollToTop();
     };
 
@@ -361,31 +357,30 @@ export default function PaymentMethod() {
         setAddDebitCard(true);
         setPaymentMethodDiv(false);
         scrollToTop();
-        let res = await usrAccountDetails();
         if (
-            res?.data?.customer?.latest_contact?.mailing_address_postal_code
+            dataAccountOverview?.data?.customer?.latest_contact?.mailing_address_postal_code
         ) {
 
-            setMailingZipcode(res?.data?.customer?.latest_contact?.mailing_address_postal_code);
-            setMailingStreetAddress(res?.data?.customer?.latest_contact?.mailing_address_street);
+            setMailingZipcode(dataAccountOverview?.data?.customer?.latest_contact?.mailing_address_postal_code);
+            setMailingStreetAddress(dataAccountOverview?.data?.customer?.latest_contact?.mailing_address_street);
 
             formikAddDebitCard.setFieldValue(
                 "zipcode",
-                res?.data?.customer?.latest_contact?.mailing_address_postal_code
+                dataAccountOverview?.data?.customer?.latest_contact?.mailing_address_postal_code
             );
             formikAddDebitCard.setFieldValue(
                 "streetAddress",
-                res?.data?.customer?.latest_contact?.mailing_address_street
+                dataAccountOverview?.data?.customer?.latest_contact?.mailing_address_street
             );
 
-            let e = {
+            let event = {
                 target: {
                     value:
-                        res?.data?.customer?.latest_contact
+                        dataAccountOverview?.data?.customer?.latest_contact
                             ?.mailing_address_postal_code,
                 },
             };
-            fetchAddress(e);
+            fetchAddress(event);
         }
     };
 
@@ -434,6 +429,7 @@ export default function PaymentMethod() {
                     if (res?.data?.deletePaymentMethod?.HasNoErrors === true) {
                         if (!toast.isActive("closeToast")) {
                             toast.success("Card deleted successfully.");
+                            refetch();
                         }
                         setDeleteID("");
                         setDeleteType("");
@@ -456,7 +452,7 @@ export default function PaymentMethod() {
                     let res = await deleteBankAccount(passData);
                     if (res?.data?.deletePaymentMethod?.HasNoErrors === true) {
                         if (!toast.isActive("closeToast")) { toast.success("Bank account deleted successfully."); }
-                        await getPaymentMethods();
+                        refetch()
                         setDeleteID("");
                         setDeleteType("");
                         handleDeleteConfirmClose();
@@ -486,21 +482,21 @@ export default function PaymentMethod() {
 
     const addCreditCardYes = async () => {
         setLoading(true);
-        let res = await addCreditCard(formikAddDebitCard.values, cardType);
+        let creditCardResponse = await addCreditCard(formikAddDebitCard.values, cardType);
 
-        if (res?.data?.addPaymentResult?.HasNoErrors === true) {
+        if (creditCardResponse?.data?.addPaymentResult?.HasNoErrors === true) {
             setLoading(false);
             toast.success("Payment method added successfully ");
-            await getPaymentMethods();
+            refetch();
             setCardType("");
             closeDebitCardButton();
-        } else if (res?.data?.addPaymentResult?.HasNoErrors === false) {
+        } else if (creditCardResponse?.data?.addPaymentResult?.HasNoErrors === false) {
             setLoading(false);
-            toast.error(res?.data?.addPaymentResult?.Errors[ 0 ].ErrorMessage);
+            toast.error(creditCardResponse?.data?.addPaymentResult?.Errors[ 0 ].ErrorMessage);
         }
-        else if (res?.data?.result === "error") {
+        else if (creditCardResponse?.data?.result === "error") {
             setLoading(false);
-            toast.error(res?.data?.error);
+            toast.error(creditCardResponse?.data?.error);
         }
         else {
             setLoading(false);
@@ -515,6 +511,7 @@ export default function PaymentMethod() {
             event.preventDefault();
         }
     };
+
     //  view part
     return (
         <div className={ loading ? classes.loadingOn : classes.loadingOff }>
@@ -648,13 +645,13 @@ export default function PaymentMethod() {
                                 </Table>
                             </TableContainer>
                         ) : allPaymentMethod?.data?.message ? (
-                            <Grid className="circleprog" style={ { width: "100%", textAlign: "center", marginTop: "20px", } } item xs={ 12 }>
+                            <Grid className="circleprog" style={ {width: "100%", textAlign: "center", marginTop: "20px",} } item xs={ 12 }>
                                 <Typography>
                                     { allPaymentMethod?.data?.message }
                                 </Typography>
                             </Grid>
                         ) : (
-                            <Grid className="circleprog" style={ { width: "100%", textAlign: "center", marginTop: "20px", } } item xs={ 12 }>
+                            <Grid className="circleprog" style={ {width: "100%", textAlign: "center", marginTop: "20px",} } item xs={ 12 }>
                                 <Typography>No Payment methods available</Typography>
                             </Grid>
                         )
@@ -1076,23 +1073,17 @@ export default function PaymentMethod() {
                                             accountType,
                                             checkedAddBank ? 1 : 0
                                         );
-                                        if (resBankData?.data?.status === 200) {
+                                        if (resBankData?.data?.Success) {
                                             toast.success("Payment method added successfully");
-                                            await getPaymentMethods();
+                                            refetch()
                                             closeBankAccountButton();
                                         } else if (
-                                            resBankData?.data?.type === "error" &&
-                                            resBankData?.status === 400
+                                            resBankData?.data?.result === "error" ||
+                                            resBankData?.data?.status === 400
                                         ) {
                                             toast.error(resBankData?.data?.error);
-                                        } else if (
-                                            resBankData?.data?.type === "error" &&
-                                            resBankData?.data?.status === 200
-                                        ) {
+                                        } else if (resBankData?.data?.type === "error") {
                                             toast.error(resBankData?.data?.text);
-                                        }
-                                        else if (resBankData?.status === 404) {
-                                            toast.error("Error retrieving loan information - Account is closed.");
                                         } else {
                                             if (!toast.isActive("closeToast")) {
                                                 toast.error("Adding bank account failed, please try again.");
@@ -1267,6 +1258,7 @@ export default function PaymentMethod() {
                                 className="expirydate"
                                 placeholder="MM/YY"
                                 format="MM/yy"
+                                disabled={ editMode }
                                 value={ formikAddDebitCard.values.expirydate }
                                 onChange={ (values) => {
                                     formikAddDebitCard.setFieldValue("expirydate", values);
@@ -1296,6 +1288,7 @@ export default function PaymentMethod() {
                                 id="cvv"
                                 label="CVV"
                                 placeholder="Enter your CVV Number"
+                                disabled={ editMode }
                                 materialProps={ { maxLength: "3" } }
                                 value={ formikAddDebitCard.values.cvv }
                                 onChange={ (e) => addDebitOnChangeNumber(e) }
