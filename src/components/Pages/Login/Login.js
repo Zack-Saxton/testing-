@@ -155,7 +155,7 @@ export default function Login(props) {
 				setLoading(false);
 				setLoginFailed(retVal?.data?.errorMessage);
                 if(counter >= 1){
-                    history.push('/register');
+                    history.push('/register?email='+values.email);
                 }
             } else {
 				setLoading(false);

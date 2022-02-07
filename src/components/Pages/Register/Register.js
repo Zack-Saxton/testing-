@@ -18,6 +18,7 @@ import Logo from "../../../assets/images/loginbg.png";
 import LoginController from "../../Controllers/LoginController";
 import LogoutController from "../../Controllers/LogoutController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
+import { useParams } from "react-router-dom";
 import {
   Button,
   ButtonPrimary,
@@ -163,11 +164,13 @@ export default function Register() {
     }
   };
   //Form Submission
+  const queryParams = new URLSearchParams(window.location.search)
+  console.log(queryParams.get("email"));
   const formik = useFormik({
     initialValues: {
       firstname: "",
       lastname: "",
-      email: "",
+      email:queryParams.get("email"),
       password: "",
       confirmPassword: "",
       zip: "",
