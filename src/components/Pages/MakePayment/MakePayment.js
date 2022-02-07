@@ -1100,14 +1100,15 @@ export default function MakePayment(props) {
         classes={ { paper: classes.dialogPaper } }
       >
         <DialogTitle id="autopayText">
-          <Typography id="autoTxt" className={ classes.dialogHeading } justifyContent="space-around">
+          <Typography id="autoTxt" className={ classes.dialogHeading }>
             { disabledContent === false
               ? "Are you sure you want to disable auto pay?"
               :
               "Auto Pay Confirmation"
             }
           </Typography>
-          <Typography id="autoTxt" className={ classes.autoPayContent }>
+          {/* <Typography id="autoTxt" className={ classes.autoPayContent }> */}
+          <>
             <TableContainer>
               <Table className={ classes.table } aria-label="simple table" border-color="white">
                 <TableBody>
@@ -1151,8 +1152,8 @@ export default function MakePayment(props) {
                 </TableBody>
               </Table>
             </TableContainer>
-          </Typography>
-
+          {/* </Typography> */}
+          </>
           <IconButton
             id="autopayCloseBtn"
             aria-label="close"
