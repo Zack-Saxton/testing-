@@ -307,7 +307,7 @@ export default function ReviewAndSign(props) {
                         APR
                       </p>
                       <h2 className={ classes.columnColor } id="column-content">
-                        { selectedOffer.apr.toFixed(2) } %
+                        { (selectedOffer.apr * 100).toString().match(/^-?\d+(?:\.\d{0,2})?/)[ 0 ] } %
                       </h2>
                     </Grid>
                     <Grid

@@ -143,10 +143,12 @@ function HomeAddress() {
 					<Grid
 						item xs={ 12 } sm={ 10 } md={ 6 } lg={ 6 }
 						justifyContent="center"
+						container
 						alignItems="center"
 						style={ { padding: "4% 0", margin: "auto" } }
 					>
 						<Grid
+							container
 							justifyContent="center"
 							alignItems="center"
 						>
@@ -264,7 +266,6 @@ function HomeAddress() {
 										<Grid
 											item
 											justifyContent="flex-start"
-											alignItems="flex-start"
 											container
 											md={ 8 }
 											lg={ 8 }
@@ -272,9 +273,6 @@ function HomeAddress() {
 											className="textBlockShort"
 										>
 											<Grid
-												container
-												justifyContent="center"
-												alignItems="center"
 												item
 												lg={ 6 }
 												md={ 6 }
