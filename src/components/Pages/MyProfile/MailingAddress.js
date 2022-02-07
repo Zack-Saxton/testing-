@@ -132,6 +132,12 @@ export default function MailingAddress(props) {
           formik.handleChange(event);
         }
       }
+      else {
+        formik.setFieldValue("city", "");
+        formik.setFieldValue("state", "");
+        setValidZip(false);
+        setErrorMsg("Please enter a valid Zipcode");
+      }
     } catch (error) {
       ErrorLogger("Error from fetchAddress", error);
     }
