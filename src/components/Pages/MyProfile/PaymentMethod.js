@@ -53,8 +53,7 @@ import "./Style.css";
 const validationSchemaDebitCard = yup.object({
     cardNumber: yup
         .string("Card Number is required.")
-        .test('MC-VC', 'We only accept Visa or Master card', value => (value.length > 0 && (value.slice(0, 1) === '4' || value.slice(0, 1) === '5')))
-           
+        .test('MC-VC', 'We only accept Visa or Master card', value => (value && value.length > 0 && (value.slice(0, 1) === '4' || value.slice(0, 1) === '5')))
         .required("Card Number is required.")
         .min(16, "Card Number should be 16 digits."),
         
@@ -457,7 +456,7 @@ export default function PaymentMethod() {
                     let res = await deleteBankAccount(passData);
                     if (res?.data?.deletePaymentMethod?.HasNoErrors === true) {
                         if (!toast.isActive("closeToast")) { toast.success("Bank account deleted successfully."); }
-                        getPaymentMethodsOnLoad();
+                        await getPaymentMethods();
                         setDeleteID("");
                         setDeleteType("");
                         handleDeleteConfirmClose();
@@ -474,7 +473,7 @@ export default function PaymentMethod() {
                 // code block
             }
         } catch (error) {
-            ErrorLogger(' Error Deleting Payment Method ::', res.data.message);
+            ErrorLogger(' Error Deleting Payment Method ::', error);
         }
     };
 
@@ -492,7 +491,7 @@ export default function PaymentMethod() {
         if (res?.data?.addPaymentResult?.HasNoErrors === true) {
             setLoading(false);
             toast.success("Payment method added successfully ");
-            await getPaymentMethodsOnLoad();
+            await getPaymentMethods();
             setCardType("");
             closeDebitCardButton();
         } else if (res?.data?.addPaymentResult?.HasNoErrors === false) {
@@ -505,7 +504,7 @@ export default function PaymentMethod() {
         }
         else {
             setLoading(false);
-            toast.error("Something went wrong, please try again.");
+            toast.error("Something went rfrsgssgwrong, please try again.");
         }
         closeDebitCardModal();
     };
@@ -1079,7 +1078,7 @@ export default function PaymentMethod() {
                                         );
                                         if (resBankData?.data?.status === 200) {
                                             toast.success("Payment method added successfully");
-                                            await getPaymentMethodsOnLoad();
+                                            await getPaymentMethods();
                                             closeBankAccountButton();
                                         } else if (
                                             resBankData?.data?.type === "error" &&
