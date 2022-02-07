@@ -138,7 +138,6 @@ let updated_other_M_W_Thu = [
     { "value": "15:00", "label": "03:00 PM" },
     { "value": "15:30", "label": "03:30 PM" },
     { "value": "16:00", "label": "04:00 PM" },
-    { "value": "20:30", "label": "21:30 PM" }
 ].filter((v, i) => {
     if (parseInt(v.value.split(":")[ 0 ]) > Moment(new Date()).format("HH")) {
         return v;
