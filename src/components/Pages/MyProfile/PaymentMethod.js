@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import { InputAdornment } from "@material-ui/core";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -25,9 +26,7 @@ import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import PaymentIcon from "@material-ui/icons/Payment";
 import { useFormik } from "formik";
-import { useAtom } from "jotai";
 import { useQuery } from 'react-query';
-import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
@@ -46,7 +45,7 @@ import {
     TextField
 } from "../../FormsUI";
 import ErrorLogger from "../../lib/ErrorLogger";
-import { tabAtom } from "./MyProfileTab";
+import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import { useStylesMyProfile } from "./Style";
 import "./Style.css";
 //Yup validations for Add Bank Account
@@ -131,15 +130,15 @@ export default function PaymentMethod() {
     const [ confirmDelete, setConfirmDelete ] = useState(false);
     const [ addBankValues, setAddBankValues ] = useState(false);
     const [ routingError, setRoutingError ] = useState("");
-    const [ , setTabvalue ] = useAtom(tabAtom);
+    const [ , setprofileTabNumber ] = useGlobalState();
     const [ validZip, setValidZip ] = useState(true);
     const [ mailingStreetAddress, setMailingStreetAddress ] = useState("");
     const [ mailingZipcode, setMailingZipcode ] = useState("");
     const { data: dataAccountOverview } = useQuery('loan-data', usrAccountDetails);
     const { data: allPaymentMethod, refetch } = useQuery('payment-method', getPaymentMethods, {
         refetchOnMount: false
-      });
-
+    });
+   
     const formikAddBankAccount = useFormik({
         initialValues: {
             accountNickname: "",
@@ -394,7 +393,7 @@ export default function PaymentMethod() {
 
     const handleMenuProfile = () => {
         history.push({ pathname: "/customers/myProfile" });
-        setTabvalue(0);
+        setprofileTabNumber( { profileTabNumber: 0 } );
     };
 
     const setDefaultPaymentOnChange = async (nickname) => {

@@ -29,7 +29,6 @@ import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
 import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
 import SettingsIcon from "@material-ui/icons/Settings";
 import clsx from "clsx";
-import { useAtom } from "jotai";
 import Cookies from "js-cookie";
 import React, { useContext, useEffect, useState } from "react";
 import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -50,8 +49,8 @@ import branchDetails from "../../Controllers/MyBranchController";
 import ProfileImageController from "../../Controllers/ProfileImageController";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import MoneySkill from "../../Pages/MoneySkill/MoneySkill";
-import { tabAtom } from "../../Pages/MyProfile/MyProfileTab";
 import Notification from "../Notification/Notification";
+import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import "./SideNav.css";
 
 const drawerWidth = 240;
@@ -185,7 +184,7 @@ export default function SideNav() {
   const [ disable, setDisable ] = React.useState(false);
   const [ skill, setSkill ] = React.useState(false);
   const [ checked, setChecked ] = React.useState(true);
-  const [ , setTabvalue ] = useAtom(tabAtom);
+  const [ , setprofileTabNumber] = useGlobalState();
   const { dataProfile, resetProfilePicture } = useContext(ProfilePicture);
   const { resetData } = useContext(CheckMyOffers);
   const { data: dataAccountOverview } = useQuery('loan-data', usrAccountDetails);
@@ -194,7 +193,7 @@ export default function SideNav() {
   const [ currentLoan, setCurrentLoan ] = useState(true);
   const [ checkPresenceOfLoan, setCheckPresenceOfLoan ] = useState(false);
   const [ checkPresenceOfLoanStatus, setCheckPresenceOfLoanStatus ] = useState('');
-
+  
   useEffect(() => {
     let noOfLoans = dataAccountOverview?.data?.activeLoans?.length;
     let activeLoan = dataAccountOverview?.data?.applicants;
@@ -418,14 +417,14 @@ export default function SideNav() {
     history.push({
       pathname: '/customers/myProfile'
     });
-    setTabvalue(0);
+    setprofileTabNumber( { profileTabNumber: 0 } )
     handleMenuClose();
   };
   const handleMenuPaymentProfile = () => {
     history.push({
       pathname: '/customers/myProfile'
     });
-    setTabvalue(3);
+    setprofileTabNumber( { profileTabNumber: 3 } )
     handleMenuClose();
   };
 
