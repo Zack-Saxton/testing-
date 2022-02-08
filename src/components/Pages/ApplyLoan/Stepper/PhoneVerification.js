@@ -97,9 +97,6 @@ export default function PhoneVerification(props) {
 		setOpen(false);
 	};
 
-	//Radio Button Change
-	
-
 	//view part
 	return (
 		<div>
