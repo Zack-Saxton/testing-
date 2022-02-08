@@ -18,11 +18,11 @@ import "./Slider.css";
 const marks = [
   {
     value: 1000,
-    label: "$1000",
+    label: "$1,000",
   },
   {
     value: 25000,
-    label: "$25000",
+    label: "$25,000",
   },
 ];
 
