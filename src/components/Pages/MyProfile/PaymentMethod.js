@@ -104,8 +104,6 @@ const validationSchemaAddBank = yup.object({
     bankAccountNumber: yup
         .string("Enter Bank Account Number")
         .required("Bank Account Number is required.")
-        .min(7, "Account number should be a minimum of 7 digits.")
-        .max(16, "Account number should be a maximum of 16 digits."),
 });
 
 export default function PaymentMethod() {
