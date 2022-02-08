@@ -120,14 +120,12 @@ export default function OfferTable(props) {
 		handleAdd(row);
 	};
 	return (
-		<Grid id="loanListTable" item xs={ 12 } sm={ 9 } className={ props.loading ? props.classes.loadingOn : props.classes.loadingOff } style={ { padding: "0px 0px 0px 15px", width: "100%" } }>
+		<Grid id="loanListTable" item xs={ 12 } sm={ 9 } className={ props.loading ? props.classes.loadingOnWithoutBlur : props.classes.loadingOff } style={ { padding: "0px 0px 0px 15px", width: "100%" } }>
 			<Paper className={ props.classes.paper }>
 				{ props.rowData ? (
 					<TabVerticalPanel tabValue={ props.value } verticalIndex={ props.value }>
 						<Grid item xs={ 12 } style={ { paddingBottom: "10px", width: "100%" } }>
 							<LoadChart
-								termData1={ termData1 }
-								termData2={ termData2 }
 								termDataMax={ termDataMax }
 								classes={ props.classes }
 								offersToCompareChart={ props.offersToCompareChart }
@@ -338,6 +336,12 @@ export default function OfferTable(props) {
 										props.setSelectedTerm("");
 										props.setSelectedIndex("");
 									} }
+									disabled={
+										props.selectedTerm &&
+											(props.selectedIndex || props.selectedIndex === 0)
+											? props.loading
+											: true
+									}
 								>
 									Reset
 								</ButtonSecondary>
@@ -360,8 +364,6 @@ export default function OfferTable(props) {
 										props.selectedTerm &&
 											(props.selectedIndex || props.selectedIndex === 0)
 											? props.loading
-												? true
-												: false
 											: true
 									}
 								>
