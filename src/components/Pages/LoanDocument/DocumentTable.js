@@ -50,7 +50,7 @@ export default function LoanDocumentTable(userLoanDocumentData) {
                   { row.displayname }
                 </TableCell>
                 <TableCell className={ classes.tableHeadRow }>
-                  { Moment(row.date_uploaded).format(outputDateFormat) }
+                  { Moment(new Date(row.date_uploaded)).format(outputDateFormat) }
                 </TableCell>
                 <TableCell className={ classes.tableHeadRow }>
                   <PrintIcon style={ { color: "#104eb3", cursor: "pointer" } }

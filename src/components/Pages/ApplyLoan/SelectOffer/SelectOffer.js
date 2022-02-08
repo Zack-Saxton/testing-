@@ -12,6 +12,7 @@ import { useQuery } from 'react-query';
 import { NavLink, useHistory } from "react-router-dom";
 import CheckLoginStatus from "../../../App/CheckLoginStatus";
 import { fetchAvailableOffers, submitSelectedOfferAPI } from "../../../Controllers/ApplyForLoanController";
+import usrAccountDetails from "../../../Controllers/AccountOverviewController";
 import { ButtonWithIcon } from "../../../FormsUI";
 import messages from "../../../lib/Lang/applyForLoan.json";
 import ScrollToTopOnMount from "../../ScrollToTop";
@@ -38,6 +39,7 @@ export default function ApplyLoan() {
 	let term;
 
 	const { data: val } = useQuery('available-offers', fetchAvailableOffers);
+	const { refetch } = useQuery('loan-data', usrAccountDetails);
 
 	//To change the value to currency formate
 	const currencyFormat = (currencyValue) => {
@@ -57,6 +59,7 @@ export default function ApplyLoan() {
 			let selectedOfferResponse = await submitSelectedOfferAPI(accountDetails?.data?.Offers[ selTerm ][ selIndex ]);
 			if (selectedOfferResponse?.data?.selected_offer) {
 				setLoading(false);
+				refetch();
 				history.push({
 					pathname: "/customers/reviewAndSign",
 					selectedIndexOffer:

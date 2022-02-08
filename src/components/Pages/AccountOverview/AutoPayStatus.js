@@ -29,7 +29,7 @@ export default function AutoPayStatus(acct) {
         </h5>
         <p>
           <a className={ classes.cardContent } href={ "./makePayment/?accNo=" + acct.accountNumber }>
-            Enable and be stress free
+            Enable AUTOPAY and be stress free!
           </a>
         </p>
       </div>

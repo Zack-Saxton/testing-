@@ -5,15 +5,18 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import React, { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
+import {useQuery} from 'react-query';
 import SSNLogo from "../../../../assets/icon/Last-Step.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import {
 	checkMyOfferSubmit as submitApplication,
 	getCustomerByEmail
 } from "../../../Controllers/CheckMyOffersController";
+import usrAccountDetails from "../../../Controllers/AccountOverviewController"
 import { ButtonPrimary, Checkbox, Popup, RenderContent } from "../../../FormsUI";
 import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
+
 
 //SSN component initialization
 function SSN() {
@@ -30,6 +33,7 @@ function SSN() {
 	const [ creditPopup, setCreditPopup ] = useState(false);
 	const [ webTOUPopup, setwebTOUPopup ] = useState(false);
 	const [ privacyPopup, setPrivacyPopup ] = useState(false);
+	const { refetch } = useQuery('loan-data', usrAccountDetails);
 	const history = useHistory();
 	const useStyles = makeStyles((theme) => ({
 		linkDesign: {
@@ -112,8 +116,10 @@ function SSN() {
 			});
 			if (response.appSubmissionResult.status === 200) {
 				handleValidResponse();
+				refetch();
 			} else if (response.appSubmissionResult.status === 403) {
 				setData({ ...data, applicationStatus: "rejected" });
+				refetch();
 				history.push({ pathname: "/no-offers-available", formcomplete: "yes" });
 			} else {
 				alert("Network Error");
