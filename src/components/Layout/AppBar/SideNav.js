@@ -53,6 +53,8 @@ import Notification from "../Notification/Notification";
 import applicationStatusRedirectPage from "../../../assets/data/applicationStatusRedirectPage.json"
 import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import "./SideNav.css";
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+
 
 const drawerWidth = 240;
 
@@ -194,6 +196,17 @@ export default function SideNav() {
   const [ currentLoan, setCurrentLoan ] = useState(true);
   const [ checkPresenceOfLoan, setCheckPresenceOfLoan ] = useState(false);
   const [ checkPresenceOfLoanStatus, setCheckPresenceOfLoanStatus ] = useState('');
+  const [isMobileDevice, setDeviceType] = useState(false);
+
+  const handleClickAway = () => {
+    if(isMobileDevice){
+      setOpen(false);    
+    }    
+  };
+  const handleDeviceType = (status) => {
+    setDeviceType(status);
+  };
+
   
   useEffect(() => {
     let noOfLoans = dataAccountOverview?.data?.activeLoans?.length;
@@ -228,10 +241,12 @@ export default function SideNav() {
     if (check === true && checked === true) {
       setChecked(true);
       setOpen(true);
+      handleDeviceType(false);
       document.getElementById("main").style.marginLeft = "240px";
       document.getElementById("close").style.display = "none";
     } else {
       setOpen(false);
+      handleDeviceType(true);
     }
   }, [ checked, check ]);
 
@@ -477,6 +492,8 @@ export default function SideNav() {
 
   //View part
   return (
+    <ClickAwayListener onClickAway={handleClickAway}>
+
     <div className={ classes.grow }>
       <AppBar
         position="absolute"
@@ -764,5 +781,6 @@ export default function SideNav() {
       </div>
       <MoneySkill moneySkill={ skill } onChange={ setSkill } />
     </div>
+    </ClickAwayListener>
   );
 }
