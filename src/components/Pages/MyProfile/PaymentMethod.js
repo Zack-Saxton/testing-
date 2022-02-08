@@ -53,7 +53,8 @@ const validationSchemaDebitCard = yup.object({
     cardNumber: yup
         .string("Card Number is required.")
         .required("Card Number is required.")
-        .min(16, "Card Number should be 16 digits."),
+        .min(13, "Card Number should be 13 digits.")
+        .matches(/^5[1-5]\d{14}|^4\d{12}(?:\d{3})?$/g, "We only accept Visa or Master card"),
     cardName: yup
         .string("Cardholder Name is required.")
         .required("Cardholder Name is required."),
@@ -162,17 +163,17 @@ export default function PaymentMethod() {
     };
 
     const addBankOnChange = (event) => {
-        const reg = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
-        let acc = event.target.value;
-        if (acc === "" || acc.match(reg)) {
+        const pattern = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
+        let enteredName = event.target.value;                       //Holder name, account name, bank name
+        if (enteredName === "" || enteredName.match(pattern)) {
             formikAddBankAccount.handleChange(event);
         }
     };
 
     const addBankOnChangeNumber = (event) => {
-        const reg = /^[0-9\b]+$/;
-        let acc = event.target.value;
-        if (acc === "" || acc.match(reg)) {
+        const pattern = /^[0-9\b]+$/;
+        let accountNumber = event.target.value;
+        if (accountNumber === "" || accountNumber.match(pattern)) {
             formikAddBankAccount.handleChange(event);
         }
     };
@@ -195,9 +196,9 @@ export default function PaymentMethod() {
     });
 
     const addDebitOnChange = (event) => {
-        const reg = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
-        let acc = event.target.value;
-        if (acc === "" || acc.match(reg)) {
+        const pattern = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
+        let cardHolderName = event.target.value;
+        if (cardHolderName === "" || cardHolderName.match(pattern)) {
             formikAddDebitCard.handleChange(event);
         }
     };
@@ -205,18 +206,18 @@ export default function PaymentMethod() {
     const fetchAddress = async (event) => {
         formikAddDebitCard.handleChange(event);
         try {
+            let isValidZip = false;
+            setValidZip(false);
             if (event.target.value !== "" && event.target.value.length === 5) {
                 let result = await ZipCodeLookup(event.target.value);
                 if (result?.status === 200 && result?.data?.cityName) {
                     setValidZip(true);
+                    isValidZip = true;
                     formikAddDebitCard.setFieldValue("city", result?.data?.cityName);
                     formikAddDebitCard.setFieldValue("state", result?.data?.stateCode);
-                } else {
-                    setValidZip(false);
-                    formikAddDebitCard.setFieldValue("city", "");
-                    formikAddDebitCard.setFieldValue("state", "");
                 }
-            } else {
+            } 
+            if(!isValidZip){
                 formikAddDebitCard.setFieldValue("city", "");
                 formikAddDebitCard.setFieldValue("state", "");
             }
@@ -258,7 +259,6 @@ export default function PaymentMethod() {
             formikAddDebitCard.setFieldValue("cardName", row.OwnerName);
             formikAddDebitCard.setFieldValue("cardNumber","****-****-****-" + row.LastFour);
             formikAddDebitCard.setFieldValue("expirydate", row.ExpirationDate);
-
             setEditMode(true);
             addDebitCardButton();
             setLoading(false);
@@ -266,23 +266,13 @@ export default function PaymentMethod() {
     };
 
     function detectCardType(event, number) {
-        let cardCollections = {
-            electron: /^(4026|417500|4405|4508|4844|4913|4917)\d+$/,
-            Maestro:
-                /^(5018|5020|5038|5612|5893|6304|6759|6761|6762|6763|0604|6390)\d+$/,
-            dankort: /^(5019)\d+$/,
-            interpayment: /^(636)\d+$/,
-            Unionpay: /^(62|88)\d+$/,
+        let cardPattern = {
             Visa: /^4\d{12}(?:\d{3})?$/,
-            Mastercard: /^5[1-5]\d{14}$/,
-            Amex: /^3[47]\d{13}$/,
-            Diners: /^3(?:0[0-5]|[68]\d)\d{11}$/,
-            Discover: /^6(?:011|5\d{2})\d{12}$/,
-            JCB: /^(?:2131|1800|35\d{3})\d{11}$/,
+			Mastercard: /^5[1-5]\d{14}$/,
         };
         let _valid = false;
-        for (let key in cardCollections) {
-            if (cardCollections[ key ].test(number)) {
+        for (let key in cardPattern) {
+            if (cardPattern[ key ].test(number)) {
                 setCardType(key);
                 _valid = true;
                 return key;
@@ -375,6 +365,8 @@ export default function PaymentMethod() {
                     value:
                         dataAccountOverview?.data?.customer?.latest_contact
                             ?.mailing_address_postal_code,
+                    id: "addDebitcard",
+                    name: "addDebitcard"
                 },
             };
             fetchAddress(event);
@@ -497,7 +489,7 @@ export default function PaymentMethod() {
         }
         else {
             setLoading(false);
-            toast.error("Something went rfrsgssgwrong, please try again.");
+            toast.error("Something went wrong, please try again.");
         }
         closeDebitCardModal();
     };
