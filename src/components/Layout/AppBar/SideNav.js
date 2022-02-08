@@ -538,7 +538,7 @@ export default function SideNav() {
               className="nav_link"
               style={ { color: "white" } }
             >
-              <Typography className={ classes.headerAlign }>FAQ's</Typography>
+              <Typography className={ classes.headerAlign }>FAQ</Typography>
             </NavLink>
 
             <Typography

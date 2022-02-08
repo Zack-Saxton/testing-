@@ -47,7 +47,7 @@ const NormalHeader = () => {
       </MenuItem>
       <MenuItem>
         <NavLink to="/faq" className="nav_link">
-          <Typography className={ classes.headerAlign }>FAQ's</Typography>
+          <Typography className={ classes.headerAlign }>FAQ</Typography>
         </NavLink>
       </MenuItem>
       <MenuItem>
