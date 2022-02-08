@@ -81,6 +81,9 @@ export default function ApplyLoan() {
 			opacity: 0.55,
 			pointerEvents: "none",
 		},
+		loadingOnWithoutBlur: {
+			pointerEvents: "none",
+		},
 		loadingOff: {
 			opacity: 1,
 			pointerEvents: "initial",
@@ -229,6 +232,7 @@ export default function ApplyLoan() {
 	function onCompareOfferTabClick() {
 		setOfferFlag(false);
 		setRowData(offersToCompare);
+		setOffersToCompareChart([...offersToCompareChart, offersToCompare[0], offersToCompare[1]])
 	}
 
 	const structureBuildData = (item, termNum, tabIndex, rowsterm) => {
@@ -333,7 +337,7 @@ export default function ApplyLoan() {
 										xs={ 12 }
 										sm={ 3 }
 										style={ { width: "100%" } }
-										className={ loading ? classes.loadingOn : classes.loadingOff }
+										className={ loading ? classes.loadingOnWithoutBlur : classes.loadingOff }
 									>
 										<Paper className={ classes.paperVerticalTab }>
 											{ terms ? (
