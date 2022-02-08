@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
+import { useQuery } from 'react-query';
 import { toast } from "react-toastify";
 import CheckLoginStatus from "../../../App/CheckLoginStatus";
 import usrAccountDetails from "../../../Controllers/AccountOverviewController";
@@ -120,6 +121,7 @@ export default function ReviewAndSign(props) {
   const [ confirm, setConfirm ] = useState(false);
   const [ selectedOffer, setSelectOffer ] = useState();
   const [ loading, setLoading ] = useState(false);
+  const { refetch } = useQuery('loan-data', usrAccountDetails);
   // let selectedOffer;
 
   const handleChange = (event, newValue) => {
@@ -425,6 +427,7 @@ export default function ReviewAndSign(props) {
                           let hardPull = await hardPullCheck();
                           if (hardPull?.data?.status === 200 || hardPull?.data?.result === "success") {
                             setLoading(false);
+                            refetch();
                             history.push({
                               pathname: "/customers/finalVerification",
                             });
