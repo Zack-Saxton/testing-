@@ -337,8 +337,7 @@ export default function SideNav() {
       } else {
         document.getElementById("main").style.marginLeft = "240px";
       }
-      var profiledetailTag = document.getElementById("profileDetails");
-      profiledetailTag.style.display = "block";
+      
     }
   };
 
@@ -375,9 +374,6 @@ export default function SideNav() {
       } else {
         document.getElementById("main").style.marginLeft = "240px";
       }
-
-      var profiledetailTag = document.getElementById("profileDetails");
-      profiledetailTag.style.display = "none";
     }
   };
 
@@ -629,7 +625,7 @@ export default function SideNav() {
           <Divider />
           <PerfectScrollbar options={ { suppressScrollX: true, wheelSpeed: 2, wheelPropagation: false, minScrollbarLength: 20 } }>
             <List id="listItemWrap" onClick={ handleMobileMenuClose }>
-              <ListItem id="profileDetails" className="profileDetails">
+              <ListItem id="profileDetails">
                 <List >
                   <ListItem>
                     <div id="imgWrap">
