@@ -1,6 +1,6 @@
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
-/***** Login method *****/
+
 export default async function BranchLocatorController(ZipCode) {
     try {
         let url = "branch_locator";
