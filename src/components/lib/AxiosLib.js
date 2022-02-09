@@ -13,24 +13,22 @@ const APICall = async (api, param, data, method, addAccessToken) => {
   };
 
   let url = param === null ? apiUrl.url[ api ] : apiUrl.url[ api ] + param;
-  let request = {
-    method: method,
-    url: url,
-    data: JSON.stringify(data),
-    headers: {
-      "Content-Type": "application/json",
-      "x-access-token": addAccessToken === true ? loginToken.apiKey : "",
-    },
-    transformRequest: (data, headers) => {
-      if (addAccessToken !== true) {
-        delete headers.common[ "x-access-token" ];
-      }
-      return data;
-    },
-  };
-  console.log('DAXY request :: ', JSON.stringify(request));
   try {
-    await axios(request).then((res) => {
+    await axios({
+      method: method,
+      url: url,
+      data: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": addAccessToken === true ? loginToken.apiKey : "",
+      },
+      transformRequest: (data, headers) => {
+        if (addAccessToken !== true) {
+          delete headers.common[ "x-access-token" ];
+        }
+        return data;
+      },
+    }).then((res) => {
       response.data = res?.data?.data?.data ?? res?.data?.data ?? res?.data;
       response.status = res.status;
       response.statusText = res.statusText;
