@@ -124,8 +124,7 @@ export async function resendVerificationEmail() {
   let resendVerificationEmailMethod = await APICall(url, param, data, method, addAccessToken);
   if (resendVerificationEmailMethod?.status === 200 && resendVerificationEmailMethod?.statusText === "OK") {
     if (!toast.isActive("closeToast")) {
-      toast.success(messages?.emailVerification?.emailSentSuccess + email,
-        { toastId: "closeToast" });
+      toast.success(messages?.emailVerification?.emailSentSuccess + email, { toastId: "closeToast" });
     }
   }
   return resendVerificationEmailMethod;

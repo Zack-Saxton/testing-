@@ -66,9 +66,7 @@ export default function RecentApplications({ isLoading, userApplicationsData,use
 
   //resumebtn click
   const resumeNavigate = (appData) => {
-    history.push({
-      pathname: statusStrLink[ appData ]
-    });
+    history.push({ pathname: statusStrLink[ appData ] });
   };
 
   //viewBtn click

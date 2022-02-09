@@ -23,7 +23,7 @@ export default function LoadChart(props) {
 	};
 	let finArray = [];
 
-	if (props?.offersToCompareChart?.length >= 2) {
+	if (props?.offersToCompareChart?.length >= 2 && props?.offersToCompareChart[ 0 ] && props?.offersToCompareChart[ 1 ]) {
 		props.offersToCompareChart.forEach((offer) => {
 			finArray.push({
 				monthlyPaymentConverted: toNumeric(offer.monthlyPayment),
@@ -41,7 +41,7 @@ export default function LoadChart(props) {
 
 	return (
 		<div>
-			{ props.termData1 ? (
+			{ finArray?.length >= 2 ? (
 				<Table className={ props.classes.table } aria-label="simple table">
 					<TableHead>
 						<TableRow>

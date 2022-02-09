@@ -42,13 +42,7 @@ export async function documentdownload(id, name) {
   let addAccessToken = true;
 
   //API call
-  let loanDocumentDownload = await APICall(
-    url,
-    param,
-    data,
-    method,
-    addAccessToken
-  );
+  let loanDocumentDownload = await APICall(url, param, data, method, addAccessToken);
   loanDocumentDownload.status === 200
     ? downloadFileData(loanDocumentDownload)
     : toast.error(loanDocumentDownload?.data?.message ?? "Downloading failed");
@@ -72,13 +66,7 @@ export async function documentprint(id, name) {
   let addAccessToken = true;
 
   //API call
-  let documentDownloadPrint = await APICall(
-    url,
-    param,
-    data,
-    method,
-    addAccessToken
-  );
+  let documentDownloadPrint = await APICall(url, param, data, method, addAccessToken);
   documentDownloadPrint.status === 200
     ? print(documentDownloadPrint)
     : toast.error("Error printing file");

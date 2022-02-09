@@ -151,9 +151,7 @@ export default function Register() {
         : Cookies.set("rememberMe", JSON.stringify({ selected: false, email: "", password: "" }));
 
       setLoading(false);
-      history.push({
-        pathname: "/customers/accountoverview",
-      });
+      history.push({ pathname: "/customers/accountoverview", });
     } else if (retVal?.data?.result === "error" || retVal?.data?.hasError === true) {
       Cookies.set("token", JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" }));
       setLoading(false);
@@ -168,7 +166,7 @@ export default function Register() {
     initialValues: {
       firstname: "",
       lastname: "",
-      email:queryParams.get("email"),
+      email: queryParams.get("email"),
       password: "",
       confirmPassword: "",
       zip: "",

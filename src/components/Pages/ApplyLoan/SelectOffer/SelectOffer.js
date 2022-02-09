@@ -11,6 +11,7 @@ import React, { useEffect, useState } from "react";
 import { useQuery } from 'react-query';
 import { NavLink, useHistory } from "react-router-dom";
 import CheckLoginStatus from "../../../App/CheckLoginStatus";
+import usrAccountDetails from "../../../Controllers/AccountOverviewController";
 import { fetchAvailableOffers, submitSelectedOfferAPI } from "../../../Controllers/ApplyForLoanController";
 import { ButtonWithIcon } from "../../../FormsUI";
 import messages from "../../../lib/Lang/applyForLoan.json";
@@ -38,6 +39,7 @@ export default function ApplyLoan() {
 	let term;
 
 	const { data: val } = useQuery('available-offers', fetchAvailableOffers);
+	const { refetch } = useQuery('loan-data', usrAccountDetails);
 
 	//To change the value to currency formate
 	const currencyFormat = (currencyValue) => {
@@ -57,11 +59,8 @@ export default function ApplyLoan() {
 			let selectedOfferResponse = await submitSelectedOfferAPI(accountDetails?.data?.Offers[ selTerm ][ selIndex ]);
 			if (selectedOfferResponse?.data?.selected_offer) {
 				setLoading(false);
-				history.push({
-					pathname: "/customers/reviewAndSign",
-					selectedIndexOffer:
-						selectedOfferResponse?.data?.selected_offer,
-				});
+				refetch();
+				history.push({ pathname: "/customers/reviewAndSign", selectedIndexOffer: selectedOfferResponse?.data?.selected_offer, });
 			} else {
 				setLoading(false);
 				alert("Network Error");
@@ -79,6 +78,9 @@ export default function ApplyLoan() {
 		},
 		loadingOn: {
 			opacity: 0.55,
+			pointerEvents: "none",
+		},
+		loadingOnWithoutBlur: {
 			pointerEvents: "none",
 		},
 		loadingOff: {
@@ -229,6 +231,7 @@ export default function ApplyLoan() {
 	function onCompareOfferTabClick() {
 		setOfferFlag(false);
 		setRowData(offersToCompare);
+		setOffersToCompareChart([ ...offersToCompareChart, offersToCompare[ 0 ], offersToCompare[ 1 ] ]);
 	}
 
 	const structureBuildData = (item, termNum, tabIndex, rowsterm) => {
@@ -333,7 +336,7 @@ export default function ApplyLoan() {
 										xs={ 12 }
 										sm={ 3 }
 										style={ { width: "100%" } }
-										className={ loading ? classes.loadingOn : classes.loadingOff }
+										className={ loading ? classes.loadingOnWithoutBlur : classes.loadingOff }
 									>
 										<Paper className={ classes.paperVerticalTab }>
 											{ terms ? (

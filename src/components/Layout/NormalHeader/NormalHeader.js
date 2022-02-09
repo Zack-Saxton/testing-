@@ -64,9 +64,7 @@ const NormalHeader = () => {
   );
 
   const redirectToAccountOverview = () => {
-    history.push({
-      pathname: "/customers/accountOverview",
-    });
+    history.push({ pathname: "/customers/accountOverview", });
   };
 
   //View Part
