@@ -187,7 +187,7 @@ export default function SideNav() {
                         </Typography>
 
                         <Typography className={ classes.headerAlign }>
-                            FAQ's
+                            FAQ
                         </Typography>
 
                         <Typography className={ classes.headerAlign }>

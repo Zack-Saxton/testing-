@@ -1,13 +1,13 @@
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from "@material-ui/core/Grid";
 import { useFormik } from "formik";
-import { useAtom } from "jotai";
 import Cookies from "js-cookie";
 import React, { useState } from "react";
 import { useQuery } from 'react-query';
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
+import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import { mailingAddress } from "../../Controllers/MyProfileController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
@@ -17,7 +17,6 @@ import {
   Zipcode
 } from "../../FormsUI";
 import ErrorLogger from '../../lib/ErrorLogger';
-import { tabAtom } from "./MyProfileTab";
 import "./Style.css";
 
 const validationSchema = yup.object({
@@ -49,7 +48,7 @@ export default function MailingAddress(props) {
   const [ validZip, setValidZip ] = useState(true);
   const [ errorMsg, setErrorMsg ] = useState("");
   const history = useHistory();
-  const [ , setTabvalue ] = useAtom(tabAtom);
+  const [ , setprofileTabNumber ] = useGlobalState();
   const { refetch } = useQuery('loan-data', usrAccountDetails);
 
   let basicInfo = props?.basicInformationData?.latest_contact != null ? props.basicInformationData.latest_contact : null;
@@ -62,7 +61,7 @@ export default function MailingAddress(props) {
   const onClickCancelChange = () => {
     formik.resetForm();
     history.push({ pathname: '/customers/myProfile' });
-    setTabvalue(0);
+    setprofileTabNumber({ profileTabNumber: 0 });
   };
 
   const formik = useFormik({
@@ -131,6 +130,12 @@ export default function MailingAddress(props) {
         if (event.target.name !== "") {
           formik.handleChange(event);
         }
+      }
+      else {
+        formik.setFieldValue("city", "");
+        formik.setFieldValue("state", "");
+        setValidZip(false);
+        setErrorMsg("Please enter a valid Zipcode");
       }
     } catch (error) {
       ErrorLogger("Error from fetchAddress", error);
@@ -260,7 +265,7 @@ export default function MailingAddress(props) {
                 (formik.touched.zip && Boolean(formik.errors.zip)) || !validZip
               }
               helperText={
-                validZip? formik.touched.zip && formik.errors.zip : "Please enter a valid ZIP Code"
+                validZip ? formik.touched.zip && formik.errors.zip : "Please enter a valid ZIP Code"
               }
             />
           </Grid>

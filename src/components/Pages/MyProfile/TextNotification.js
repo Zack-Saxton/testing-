@@ -10,7 +10,6 @@ import Switch from "@material-ui/core/Switch";
 import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import { useFormik } from "formik";
-import { useAtom } from "jotai";
 import Cookies from "js-cookie";
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
@@ -24,7 +23,7 @@ import {
   PhoneNumber
 } from "../../FormsUI";
 import ErrorLogger from "../../lib/ErrorLogger";
-import { tabAtom } from "./MyProfileTab";
+import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import { useStylesMyProfile } from "./Style";
 import "./Style.css";
 
@@ -33,7 +32,7 @@ export default function TextNotification() {
   const [ loading, setLoading ] = useState(false);
   const [ openDisclosure, setDisclosureOpen ] = useState(false);
   const history = useHistory();
-  const [ , setTabvalue ] = useAtom(tabAtom);
+  const [ , setprofileTabNumber ] = useGlobalState();
   let phone = Cookies.get("opted_phone_texting");
   let textnotifybool = Cookies.get("isTextNotify") === "true" ? true : false;
   let [ disabledContent, setdisabledContent ] = useState(textnotifybool);
@@ -41,7 +40,7 @@ export default function TextNotification() {
   const onClickCancelChange = () => {
     formikTextNote.resetForm();
     history.push({ pathname: "/customers/myProfile" });
-    setTabvalue(0);
+    setprofileTabNumber({ profileTabNumber: 0 });
   };
 
   const phonevalidationSchema = yup.object().shape({
@@ -79,12 +78,11 @@ export default function TextNotification() {
         let result = await textNotification(body, disabledContent);
         if (result.data?.sbt_subscribe_details?.HasNoErrors === true || result.data?.sbt_getInfo?.HasNoErrors === true) {
           toast.success("Updated successfully");
-          Cookies.set("isTextNotify", disabledContent);
-           onClickCancelChange()
+          onClickCancelChange();
         } else {
           toast.error("No changes made");
         }
-          onClickCancelChange()
+        onClickCancelChange();
       } catch (error) {
         ErrorLogger("Error occured while changing text notification.", error);
       }
@@ -223,16 +221,14 @@ export default function TextNotification() {
             } }
           >
             I have read, understand, and agree to the &nbsp;
-            <a
+            <Link
+              to={ `/textingTermsOfUse` }
               target="_blank"
-              rel="noreferrer"
-              color="#0F4EB3"
-              href="https://www.marinerfinance.com/resources/legal/texting-terms-of-use"
               className={ classes.linkStyle }
-              style={ { textDecoration: "none" } }
+              style={ { textDecoration: "none", color: "#0F4EB3" } }
             >
               Texting Terms of Use.
-            </a>
+            </Link>
           </span>
         </Grid>
 

@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
@@ -6,17 +7,18 @@ import 'react-toastify/dist/ReactToastify.css';
 import CheckMyOffers from '../../contexts/CheckMyOffers';
 import ProfilePicture from '../../contexts/ProfilePicture';
 import CustomComponents from "../CustomComponent";
+import Disclosure from "../Layout/DisclosureLink/Disclosure";
 import ErrorAfterLogin from "../Layout/ErrorAfterLogin/ErrorAfterLogin";
 import ErrorBeforeLogin from '../Layout/ErrorBeforeLogin/ErrorBeforeLogin';
 import GeneralUser from '../Layout/General';
 import PostLogin from '../Layout/Post';
-import Disclosure from "../Layout/DisclosureLink/Disclosure";
 import AccountOverview from "../Pages/AccountOverview/AccountOverview";
 import ConfirmationInfo from "../Pages/AffiliatePartner/ConfirmationInfo";
 import PartnerSignUP from "../Pages/AffiliatePartner/PartnerSignUp";
 import ApplyForLoanRedirect from "../Pages/ApplyLoan/ApplyForLoanRedirect";
 import FinalVerification from "../Pages/ApplyLoan/FinalVerification/FinalVerification";
 import ReceiveYourMoney from "../Pages/ApplyLoan/ReceiveYourMoney/ReceiveYourMoney";
+import ResumeApplication from "../Pages/ApplyLoan/ResumeApplication";
 import ReviewAndSign from "../Pages/ApplyLoan/ReviewAndSign/ReviewAndSign";
 import ApplyLoan from "../Pages/ApplyLoan/SelectOffer/SelectOffer";
 import ValidateToken from '../Pages/ApplyLoan/Stepper/ValidateToken';
@@ -33,6 +35,7 @@ import MarriedStatus from "../Pages/CheckMyOffers/MarriedStatus";
 import NewUser from '../Pages/CheckMyOffers/NewUser';
 import NoOffersAvailable from "../Pages/CheckMyOffers/NoOffersAvailable";
 import PersonalInfo from '../Pages/CheckMyOffers/PersonalInfo';
+import PreApproved from "../Pages/CheckMyOffers/PreApproved";
 import ReferredToBranch from "../Pages/CheckMyOffers/ReferredToBranch";
 import SelectAmount from '../Pages/CheckMyOffers/SelectAmount';
 import SSN from "../Pages/CheckMyOffers/SSN";
@@ -59,7 +62,6 @@ const queryClient = new QueryClient({
         },
     },
 });
-import 'dotenv/config';
 
 function App() {
     return (
@@ -90,15 +92,16 @@ function App() {
                                         <Route path='/register' component={ RegisterPage } />
                                         <Route path='/faq' component={ FaqBeforeLogin } />
                                         <Route path='/select-amount' component={ SelectAmount } />
-                                        <Route path='/privacyStatement'  component={() => (<Disclosure URL="/privacy" />)} />
-                                        <Route path='/communityGuidelines'  component={() => (<Disclosure URL="/communityGuidelines" />)} />
-                                        <Route path='/termsofuse'  component={() => (<Disclosure URL="/termsOfUse" />)} />
-                                        <Route path='/cac-termsofuse'  component={() => (<Disclosure URL="/cacTermsOfUse" />)} />
-                                        <Route path='/licenseDisclosure'  component={() => (<Disclosure URL="/licensing" />)} />
-                                        <Route path='/textingTermsOfUse'  component={() => (<Disclosure URL="/textingTermsOfUse" />)} />
-                                        <Route path='/californiaResident'  component={() => (<Disclosure URL="/california" />)} />
-                                        <Route path='/websiteAccessibility'  component={() => (<Disclosure URL="/websiteAccessibility" />)} />
+                                        <Route path='/privacyStatement' component={ () => (<Disclosure URL="/privacy" />) } />
+                                        <Route path='/communityGuidelines' component={ () => (<Disclosure URL="/communityGuidelines" />) } />
+                                        <Route path='/termsofuse' component={ () => (<Disclosure URL="/termsOfUse" />) } />
+                                        <Route path='/cac-termsofuse' component={ () => (<Disclosure URL="/cacTermsOfUse" />) } />
+                                        <Route path='/licenseDisclosure' component={ () => (<Disclosure URL="/licensing" />) } />
+                                        <Route path='/textingTermsOfUse' component={ () => (<Disclosure URL="/textingTermsOfUse" />) } />
+                                        <Route path='/californiaResident' component={ () => (<Disclosure URL="/california" />) } />
+                                        <Route path='/websiteAccessibility' component={ () => (<Disclosure URL="/websiteAccessibility" />) } />
                                         <Route path='/loan-purpose' exact component={ LoanPurpose } />
+                                        <Route path='/pre-approved' exact component={ PreApproved } />
                                         <Route path='/citizenship-status' exact component={ CitizenshipStatus } />
                                         <Route path='/new-user' exact component={ NewUser } />
                                         <Route path='/existing-user' exact component={ ExistingUser } />
@@ -124,10 +127,10 @@ function App() {
                                     <PostLogin>
                                         <Switch>
                                             <Route path='/customers/accountOverview' exact component={ AccountOverview } />
-                                            {/* <Route path='/customers/verification/email' component={ValidateToken}/> */ }
                                             <Route path='/customers/paymentHistory' component={ PaymentHistory } />
                                             <Route path='/customers/selectOffer' component={ ApplyLoan } />
                                             <Route path='/customers/applyForLoan' component={ ApplyForLoanRedirect } />
+                                            <Route path='/customers/resumeApplication' component={ ResumeApplication } />
                                             <Route path='/customers/reviewAndSign' component={ ReviewAndSign } />
                                             <Route path='/customers/finalVerification' component={ FinalVerification } />
                                             <Route path='/customers/receiveYourMoney' component={ ReceiveYourMoney } />

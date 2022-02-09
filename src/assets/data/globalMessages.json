@@ -74,5 +74,6 @@
   "We_Received_Your_Payment_Successfully": "We received your payment successfully",
   "Payment_has_Scheduled": "Payment has Scheduled",
   "Please_Contact_Us_At": "Please contact us at (844) 306-7300",
-  "PasswordResetSuccess": "Password reset successful"
+  "PasswordResetSuccess": "Password reset successful",
+  "Registration_Failed": "Registration failed. Please contact us at (844) 306-7300"
 }

@@ -1,8 +1,9 @@
 import Cookies from 'js-cookie';
 import React, { createContext, useState } from 'react';
+import states from '../../src/assets/data/States.json';
 import usrAccountDetails from '../components/Controllers/AccountOverviewController';
 import { decryptAES } from '../components/lib/Crypto';
-import states from '../../src/assets/data/States.json';
+import {useQuery} from 'react-query';
 
 export const CheckMyOffers = createContext();
 
@@ -70,11 +71,14 @@ function CheckMyOffersContext(props) {
     },
     applicationStatus: '',
   });
+  const { data:accountDetail } = useQuery('loan-data', usrAccountDetails);
+
+
+
   // setUserAccountDetails in context
   async function setUserAccountDetails() {
     data.loading = true;
-    const accountDetail = await usrAccountDetails();
-    if (accountDetail.status === 200) {
+    if (accountDetail?.status === 200) {
       const cred = JSON.parse(
         Cookies.get('cred') ? decryptAES(Cookies.get('cred')) : '{ }'
       );

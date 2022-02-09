@@ -1,12 +1,14 @@
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
 import React, { useContext, useState } from "react";
+import { useQuery } from 'react-query';
 import { Link, useHistory } from "react-router-dom";
 import SSNLogo from "../../../../assets/icon/Last-Step.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
+import usrAccountDetails from "../../../Controllers/AccountOverviewController";
 import {
 	checkMyOfferSubmit as submitApplication,
 	getCustomerByEmail
@@ -30,6 +32,7 @@ function SSN() {
 	const [ creditPopup, setCreditPopup ] = useState(false);
 	const [ webTOUPopup, setwebTOUPopup ] = useState(false);
 	const [ privacyPopup, setPrivacyPopup ] = useState(false);
+	const { refetch } = useQuery('loan-data', usrAccountDetails);
 	const history = useHistory();
 	const useStyles = makeStyles((theme) => ({
 		linkDesign: {
@@ -54,29 +57,29 @@ function SSN() {
 		setLoading(false);
 	};
 	const handleOnClickEsign = () => {
-		setEsignPopup(true)
-	}
+		setEsignPopup(true);
+	};
 	const handleOnClickEsignClose = () => {
-		setEsignPopup(false)
-	}
+		setEsignPopup(false);
+	};
 	const handleOnClickCredit = () => {
-		setCreditPopup(true)
-	}
+		setCreditPopup(true);
+	};
 	const handleOnClickCreditClose = () => {
-		setCreditPopup(false)
-	}
+		setCreditPopup(false);
+	};
 	const handleOnClickwebTOU = () => {
-		setwebTOUPopup(true)
-	}
+		setwebTOUPopup(true);
+	};
 	const handleOnClickwebTOUClose = () => {
-		setwebTOUPopup(false)
-	}
+		setwebTOUPopup(false);
+	};
 	const handleOnClickPrivacy = () => {
-		setPrivacyPopup(true)
-	}
+		setPrivacyPopup(true);
+	};
 	const handleOnClickPrivacyClose = () => {
-		setPrivacyPopup(false)
-	}
+		setPrivacyPopup(false);
+	};
 	const handleValidResponse = () => {
 		setData({
 			...data,
@@ -112,8 +115,10 @@ function SSN() {
 			});
 			if (response.appSubmissionResult.status === 200) {
 				handleValidResponse();
+				refetch();
 			} else if (response.appSubmissionResult.status === 403) {
 				setData({ ...data, applicationStatus: "rejected" });
+				refetch();
 				history.push({ pathname: "/no-offers-available", formcomplete: "yes" });
 			} else {
 				alert("Network Error");
@@ -269,11 +274,11 @@ function SSN() {
 													By clicking this box, you acknowledge that you have received,
 													reviewed and agree to the following disclosures and consents:
 													<br />
-												
-													<span className={classes.linkDesign} onClick={() => { handleOnClickEsign() }}>E-Signature Disclosure and Consent,</span>
-													<span className={classes.linkDesign} onClick={() => { handleOnClickCredit() }}>Credit and Contact Authorization,</span>
-													<span className={classes.linkDesign} onClick={() => { handleOnClickwebTOU() }}>Website Terms of Use,</span>
-													<span className={classes.linkDesign} onClick={() => { handleOnClickPrivacy() }}>Website Privacy Statement.</span>
+
+													<span className={ classes.linkDesign } onClick={ () => { handleOnClickEsign(); } }>E-Signature Disclosure and Consent,</span>
+													<span className={ classes.linkDesign } onClick={ () => { handleOnClickCredit(); } }>Credit and Contact Authorization,</span>
+													<span className={ classes.linkDesign } onClick={ () => { handleOnClickwebTOU(); } }>Website Terms of Use,</span>
+													<span className={ classes.linkDesign } onClick={ () => { handleOnClickPrivacy(); } }>Website Privacy Statement.</span>
 												</p>
 											}
 											required={ true }
@@ -425,20 +430,20 @@ function SSN() {
 					</Grid>
 				</Box>
 			</div>
-			
-			<Popup popupFlag = {esignPopup} closePopup = {handleOnClickEsignClose}>
+
+			<Popup popupFlag={ esignPopup } closePopup={ handleOnClickEsignClose }>
 				<RenderContent disclosureLink="/eSign" />
 			</Popup>
-			<Popup popupFlag = {creditPopup} closePopup = {handleOnClickCreditClose}>
+			<Popup popupFlag={ creditPopup } closePopup={ handleOnClickCreditClose }>
 				<RenderContent disclosureLink="/credit" />
 			</Popup>
-			<Popup popupFlag = {webTOUPopup} closePopup = {handleOnClickwebTOUClose}>
+			<Popup popupFlag={ webTOUPopup } closePopup={ handleOnClickwebTOUClose }>
 				<RenderContent disclosureLink="/websiteTermsOfUse" />
 			</Popup>
-			<Popup popupFlag = {privacyPopup} closePopup = {handleOnClickPrivacyClose}>
+			<Popup popupFlag={ privacyPopup } closePopup={ handleOnClickPrivacyClose }>
 				<RenderContent disclosureLink="/privacy" />
 			</Popup>
-			<Popup popupFlag = {open} closePopup = {handleClose}>
+			<Popup popupFlag={ open } closePopup={ handleClose }>
 				<RenderContent disclosureLink="/delaware" />
 			</Popup>
 		</div>

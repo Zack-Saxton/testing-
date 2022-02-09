@@ -1,10 +1,11 @@
 import Grid from "@material-ui/core/Grid";
 import { useFormik } from "formik";
-import { useAtom } from "jotai";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
+import globalMessages from "../../../assets/data/globalMessages.json";
+import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import LogoutController from "../../Controllers/LogoutController";
 import { changePassword } from "../../Controllers/MyProfileController";
 import {
@@ -12,15 +13,13 @@ import {
   ButtonSecondary,
   PasswordField
 } from "../../FormsUI";
-import globalMessages from "../../../assets/data/globalMessages.json";
-import { tabAtom } from "./MyProfileTab";
 import "./Style.css";
 
 export default function ChangePassword(basicInformationData) {
   window.zeHide();
   const history = useHistory();
   const [ loading, setLoading ] = useState(false);
-  const [ , setTabvalue ] = useAtom(tabAtom);
+  const [ , setprofileTabNumber ] = useGlobalState();
 
   let basicInfo = basicInformationData?.basicInformationData?.latest_contact != null ? basicInformationData.basicInformationData.latest_contact : null;
   const passwordvalidationSchema = yup.object().shape({
@@ -53,9 +52,7 @@ export default function ChangePassword(basicInformationData) {
   const logOut = () => {
     setLoading(false);
     LogoutController();
-    history.push({
-      pathname: "/login",
-    });
+    history.push({ pathname: "/login", });
   };
 
   const logoutUser = () => {
@@ -66,7 +63,7 @@ export default function ChangePassword(basicInformationData) {
   const onClickCancelChange = () => {
     formikPassword.resetForm();
     history.push({ pathname: '/customers/myProfile' });
-    setTabvalue(0);
+    setprofileTabNumber({ profileTabNumber: 0 });
   };
 
   const initialValues = {

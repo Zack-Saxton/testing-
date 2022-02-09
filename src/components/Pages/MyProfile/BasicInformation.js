@@ -9,15 +9,15 @@ import { useQuery } from 'react-query';
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
+import globalMessages from "../../../assets/data/globalMessages.json";
 import profileImg from "../../../assets/images/profile-img.jpg";
 import { ProfilePicture } from "../../../contexts/ProfilePicture";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import LogoutController from "../../Controllers/LogoutController";
 import { basicInformation, uploadNewProfileImage } from "../../Controllers/MyProfileController";
 import { ButtonPrimary, ButtonSecondary, EmailTextField, PhoneNumber, TextField } from "../../FormsUI";
-import globalMessages from "../../../assets/data/globalMessages.json";
-import "./Style.css";
 import ErrorLogger from '../../lib/ErrorLogger';
+import "./Style.css";
 
 const validationSchema = yup.object({
   email: yup
@@ -77,9 +77,7 @@ export default function BasicInformation(props) {
   const logOut = () => {
     setLoading(false);
     LogoutController();
-    history.push({
-      pathname: "/login"
-    });
+    history.push({ pathname: "/login" });
   };
 
   const logoutUser = () => {
@@ -350,7 +348,7 @@ export default function BasicInformation(props) {
               id="email"
               name="email"
               label="Email Address"
-              disabled={ !disableField}
+              disabled={ !disableField }
               onKeyDown={ preventSpace }
               value={ formik.values.email }
               materialProps={ { maxLength: "100" } }

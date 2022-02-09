@@ -17,7 +17,7 @@ const useStylesDisclosure = makeStyles((theme) => ({
   mainDivDynamicPage: {
     backgroundColor: "#124ca8",
     backgroundImage: "linear-gradient(to right, #26436a, #104db0)",
-    minHeight:"500px !important",
+    minHeight: "500px !important",
     padding: "30px",
     textAlign: "justify !important"
   }

@@ -9,12 +9,12 @@ import TextsmsIcon from "@material-ui/icons/ChatBubbleOutlineOutlined";
 import PaymentsIcon from "@material-ui/icons/LinkOutlined";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import RoomIcon from "@material-ui/icons/Room";
-import { useAtom } from 'jotai';
 import Cookies from "js-cookie";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { useQuery } from 'react-query';
 import { NavLink } from "react-router-dom";
+import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import getTextNotify from "../../Controllers/MyProfileController";
@@ -24,7 +24,6 @@ import ScrollToTopOnMount from "../ScrollToTop";
 import BasicInformationCard from "./BasicInformation";
 import ChangePassword from "./ChangePassword";
 import MailingAddressCard from "./MailingAddress";
-import { tabAtom } from "./MyProfileTab";
 import PaymentMethodCard from "./PaymentMethod";
 import { useStylesMyProfile } from "./Style";
 import "./Style.css";
@@ -75,7 +74,7 @@ export default function MyProfile() {
   }, []);
 
   const { data: accountDetails } = useQuery('loan-data', usrAccountDetails);
-  if (!Cookies.get("temp_opted_phone_texting") === undefined) {
+  if (Cookies.get("temp_opted_phone_texting") === undefined || Cookies.get("temp_opted_phone_texting") === "") {
     Cookies.set("opted_phone_texting", accountDetails?.data?.customer?.latest_contact?.opted_phone_texting);
   } else {
     Cookies.set("opted_phone_texting", Cookies.get("temp_opted_phone_texting"));
@@ -83,9 +82,9 @@ export default function MyProfile() {
 
   let basicInfoData = accountDetails?.data?.customer;
   let getProfImage = profileImage;
-  const [ values, setValues ] = useAtom(tabAtom);
+  const [ globalState, setprofileTabNumber ] = useGlobalState();
   const handleTabChange = (event, newValues) => {
-    setValues(newValues);
+    setprofileTabNumber({ profileTabNumber: newValues });
   };
 
   const [ textNotifyData, setTextNotifyData ] = useState(null);
@@ -95,14 +94,14 @@ export default function MyProfile() {
   useEffect(() => {
     AsyncEffect_textNotifyData();
   }, []);
-let textNotifyDetails = textNotifyData;
-let cookieTextNotify = Cookies.get("isTextNotify");
-if (!Cookies.get("isTextNotify" === undefined)) {
-  let textNotifyStatus = textNotifyDetails?.data?.sbt_getInfo?.SubscriptionInfo[0]?.SubscriptionOptions[0]?.OptInAccount;
+  let textNotifyDetails = textNotifyData;
+  let cookieTextNotify = Cookies.get("isTextNotify");
+  if (Cookies.get("isTextNotify" === undefined)) {
+    let textNotifyStatus = textNotifyDetails?.data?.sbt_getInfo?.SubscriptionInfo[ 0 ]?.SubscriptionOptions[ 0 ]?.OptInAccount;
     Cookies.set('isTextNotify', textNotifyStatus);
     cookieTextNotify = textNotifyStatus;
- } 
- let textnotify = cookieTextNotify ? "On" : "Off";
+  }
+  let textnotify = cookieTextNotify === "true" ? "On" : "Off";
   let hasActiveLoan = Cookies.get("hasActiveLoan") === "true" ? true : false;
   let hasApplicationStatus = Cookies.get("hasApplicationStatus");
   var appStatus = [ "rejected", "referred", "expired" ];
@@ -160,7 +159,7 @@ if (!Cookies.get("isTextNotify" === undefined)) {
             >
               <Paper id="basicInfo" className={ classes.cardHeading }>
                 <Tabs
-                  value={ values }
+                  value={ globalState.profileTabNumber }
                   onChange={ handleTabChange }
                   classes={ {
                     indicator: classes.indicator,
@@ -248,31 +247,31 @@ if (!Cookies.get("isTextNotify" === undefined)) {
             >
               <Paper id="mainContentTab" className={ classes.paper }>
                 {/* Basic Information */ }
-                <TabVerticalPanel value={ values } verticalIndex={ 0 }>
+                <TabVerticalPanel value={ globalState.profileTabNumber } verticalIndex={ 0 }>
                   <BasicInformationCard basicInformationData={ basicInfoData } getUserAccountDetails={ accountDetails } AsyncEffect_profileImage={ AsyncEffect_profileImage } getProfileImage={ getProfImage } />
                 </TabVerticalPanel>
                 {/* //END Basic Information */ }
 
                 {/* Mailing Address */ }
-                <TabVerticalPanel value={ values } verticalIndex={ 1 }>
+                <TabVerticalPanel value={ globalState.profileTabNumber } verticalIndex={ 1 }>
                   <MailingAddressCard basicInformationData={ basicInfoData } getUserAccountDetails={ accountDetails } />
                 </TabVerticalPanel>
                 {/* END Mailing Address */ }
 
                 {/* Start Text Notification */ }
-                <TabVerticalPanel value={ values } verticalIndex={ 2 }>
+                <TabVerticalPanel value={ globalState.profileTabNumber } verticalIndex={ 2 }>
                   <TextNotificationCard />
                 </TabVerticalPanel>
                 {/* END Text Notification */ }
 
                 {/* Payment Method */ }
-                <TabVerticalPanel value={ values } verticalIndex={ 3 }>
+                <TabVerticalPanel value={ globalState.profileTabNumber } verticalIndex={ 3 }>
                   <PaymentMethodCard />
                 </TabVerticalPanel>
                 {/* END Payment Method */ }
 
                 {/* Change Poassword */ }
-                <TabVerticalPanel value={ values } verticalIndex={ 4 }>
+                <TabVerticalPanel value={ globalState.profileTabNumber } verticalIndex={ 4 }>
                   <ChangePassword basicInformationData={ basicInfoData } />
                 </TabVerticalPanel>
                 {/* END Change Poassword */ }

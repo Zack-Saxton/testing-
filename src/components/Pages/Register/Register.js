@@ -14,6 +14,7 @@ import React, { useState } from "react";
 import { useQueryClient } from 'react-query';
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
+import globalMessages from "../../../assets/data/globalMessages.json";
 import Logo from "../../../assets/images/loginbg.png";
 import LoginController from "../../Controllers/LoginController";
 import LogoutController from "../../Controllers/LogoutController";
@@ -31,7 +32,6 @@ import {
 import { encryptAES } from "../../lib/Crypto";
 import ErrorLogger from "../../lib/ErrorLogger";
 import { FormValidationRules } from "../../lib/FormValidationRule";
-import globalMessages from "../../../assets/data/globalMessages.json";
 import "./Register.css";
 let formValidation = new FormValidationRules();
 
@@ -151,9 +151,7 @@ export default function Register() {
         : Cookies.set("rememberMe", JSON.stringify({ selected: false, email: "", password: "" }));
 
       setLoading(false);
-      history.push({
-        pathname: "/customers/accountoverview",
-      });
+      history.push({ pathname: "/customers/accountoverview", });
     } else if (retVal?.data?.result === "error" || retVal?.data?.hasError === true) {
       Cookies.set("token", JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" }));
       setLoading(false);
@@ -163,11 +161,13 @@ export default function Register() {
     }
   };
   //Form Submission
+  const queryParams = new URLSearchParams(window.location.search);
+  console.log(queryParams.get("email"));
   const formik = useFormik({
     initialValues: {
       firstname: "",
       lastname: "",
-      email: "",
+      email: queryParams.get("email"),
       password: "",
       confirmPassword: "",
       zip: "",
@@ -301,9 +301,9 @@ export default function Register() {
     }
   };
 
-  const andLogic = (valueOne, valueTwo ) =>{
-    return(valueOne && valueTwo)
-  }
+  const andLogic = (valueOne, valueTwo) => {
+    return (valueOne && valueTwo);
+  };
 
   //View Part
   return (
@@ -369,13 +369,12 @@ export default function Register() {
                         onChange={ (e) => NameChange(e) }
                         onBlur={ formik.handleBlur }
                         error={
-                          andLogic(formik.touched.firstname,Boolean(formik.errors.firstname))
-                          
-                          
+                          andLogic(formik.touched.firstname, Boolean(formik.errors.firstname))
+
                         }
                         helperText={
-                          andLogic(formik.touched.firstname ,formik.errors.firstname)
-                          
+                          andLogic(formik.touched.firstname, formik.errors.firstname)
+
                         }
                       />
                     </Grid>
@@ -398,14 +397,14 @@ export default function Register() {
                         onChange={ NameChange }
                         onBlur={ formik.handleBlur }
                         error={
-                          
-                          andLogic( formik.touched.lastname, Boolean(formik.errors.lastname)
 
-                         )
+                          andLogic(formik.touched.lastname, Boolean(formik.errors.lastname)
+
+                          )
                         }
                         helperText={
-                          andLogic(formik.touched.lastname,formik.errors.lastname)
-                           
+                          andLogic(formik.touched.lastname, formik.errors.lastname)
+
                         }
                       />
                     </Grid>
@@ -428,11 +427,10 @@ export default function Register() {
                         onChange={ formik.handleChange }
                         onBlur={ formik.handleBlur }
                         error={
-                          andLogic( formik.touched.email ,Boolean(formik.errors.email))
+                          andLogic(formik.touched.email, Boolean(formik.errors.email))
 
-                         
                         }
-                        helperText={ andLogic( formik.touched.email ,formik.errors.email)    }
+                        helperText={ andLogic(formik.touched.email, formik.errors.email) }
                       />
                     </Grid>
 
@@ -454,8 +452,8 @@ export default function Register() {
                         value={ formik.values.ssn }
                         onChange={ formik.handleChange }
                         onBlur={ formik.handleBlur }
-                        error={andLogic(formik.touched.ssn,Boolean(formik.errors.ssn)) }
-                        helperText={ andLogic(formik.touched.ssn, formik.errors.ssn)    }
+                        error={ andLogic(formik.touched.ssn, Boolean(formik.errors.ssn)) }
+                        helperText={ andLogic(formik.touched.ssn, formik.errors.ssn) }
                       />
                     </Grid>
                     <Grid
@@ -508,8 +506,8 @@ export default function Register() {
                           formik.setFieldValue("date", values);
                         } }
                         onBlur={ formik.handleBlur }
-                        error={andLogic( formik.touched.date, Boolean(formik.errors.date) ) 
-                          
+                        error={ andLogic(formik.touched.date, Boolean(formik.errors.date))
+
                         }
                         helperText={ andLogic(formik.touched.date, formik.errors.date) }
                       />
@@ -533,13 +531,12 @@ export default function Register() {
                         value={ formik.values.password }
                         onChange={ formik.handleChange }
                         onBlur={ formik.handleBlur }
-                        error={ andLogic( formik.touched.password ,  Boolean(formik.errors.password)) 
-                          
-                         
+                        error={ andLogic(formik.touched.password, Boolean(formik.errors.password))
+
                         }
                         helperText={
-                          andLogic( formik.touched.password, formik.errors.password) 
-                          
+                          andLogic(formik.touched.password, formik.errors.password)
+
                         }
                       />
                       <p id="passwordTitle" className={ classes.passwordTitle }>
@@ -567,12 +564,12 @@ export default function Register() {
                         value={ formik.values.confirmPassword }
                         onChange={ formik.handleChange }
                         onBlur={ formik.handleBlur }
-                        error={ andLogic( formik.touched.confirmPassword,  Boolean(formik.errors.confirmPassword)) 
-                         
+                        error={ andLogic(formik.touched.confirmPassword, Boolean(formik.errors.confirmPassword))
+
                         }
                         helperText={
-                          andLogic( formik.touched.confirmPassword, formik.errors.confirmPassword) 
-                          
+                          andLogic(formik.touched.confirmPassword, formik.errors.confirmPassword)
+
                         }
                       />
                       <br />

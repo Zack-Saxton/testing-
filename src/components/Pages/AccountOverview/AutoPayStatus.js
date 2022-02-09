@@ -11,7 +11,7 @@ export default function AutoPayStatus(acct) {
     return (
       <div>
         <p className={ classes.cardContent }>Auto Pay</p>
-        <h5 className={ classes.enableColor }>    
+        <h5 className={ classes.enableColor }>
           ENABLED <img src={ enabled } alt="enabled" />
         </h5>
         <p className={ classes.cardContent }>
@@ -24,13 +24,13 @@ export default function AutoPayStatus(acct) {
       <div>
         <p className={ classes.cardContent }>Auto Pay</p>
         <h5 id="nextPaymentItems" className={ classes.disableColor }>
-        <a color="#eb1809" className={ classes.disableColor } href= { "./makePayment/?accNo=" + acct.accountNumber}>
-          DISABLED</a>
+          <a color="#eb1809" className={ classes.disableColor } href={ "./makePayment/?accNo=" + acct.accountNumber }>
+            DISABLED</a>
         </h5>
         <p>
-        <a className={ classes.cardContent } href= { "./makePayment/?accNo=" + acct.accountNumber}>
-          Enable and be stress free
-        </a>
+          <a className={ classes.cardContent } href={ "./makePayment/?accNo=" + acct.accountNumber }>
+            Enable AUTOPAY and be stress free!
+          </a>
         </p>
       </div>
     );

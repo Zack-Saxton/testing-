@@ -38,10 +38,7 @@ const ValidateToken = () => {
 			});
 		} else if (now - actualSetupTime > min * 60 * 1000) {
 			alert(messages?.emailVerification?.sessionEnded);
-			history.push({
-				pathname: "/login",
-				state: { redirect: returnURL },
-			});
+			history.push({ pathname: "/login", state: { redirect: returnURL }, });
 		} else {
 			let result = {
 				user_email: userEmail,
@@ -50,27 +47,19 @@ const ValidateToken = () => {
 			};
 			getResponse(result).then((res) => {
 				if (res?.data === true) {
-					history.push({
-						pathname: "/customers/finalVerification",
-					});
+					history.push({ pathname: "/customers/finalVerification", });
 				} else if (
 					res?.data?.result === "error" &&
 					res?.data?.statusText === "Token not valid"
 				) {
 					toast.error(messages?.emailVerification?.tokenExpired);
-					history.push({
-						pathname: "/customers/accountOverview",
-					});
+					history.push({ pathname: "/customers/accountOverview", });
 				} else if (res?.data?.result === "error") {
 					toast.error(res?.data?.statusText ?? messages?.emailVerification?.verificationFailed);
-					history.push({
-						pathname: "/customers/accountOverview",
-					});
+					history.push({ pathname: "/customers/accountOverview", });
 				} else {
 					toast.error(messages?.emailVerification?.verificationFailed);
-					history.push({
-						pathname: "/customers/accountOverview",
-					});
+					history.push({ pathname: "/customers/accountOverview", });
 				}
 			});
 		}

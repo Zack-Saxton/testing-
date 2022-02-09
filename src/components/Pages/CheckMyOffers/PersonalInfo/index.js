@@ -151,9 +151,7 @@ function PersonalInfo() {
 
 				if (loginToken?.isLoggedIn === true) {
 					data.completedPage = data.page.existingUser;
-					history.push({
-						pathname: "/employment-status",
-					});
+					history.push({ pathname: "/employment-status", });
 					setError(false);
 					setLoading(false);
 				} else {
@@ -174,9 +172,7 @@ function PersonalInfo() {
 								setLoading(false);
 							} else {
 								setSsnEmailMatch(true);
-								history.push({
-									pathname: "/existing-user",
-								});
+								history.push({ pathname: "/existing-user", });
 								setError(false);
 								setLoading(false);
 							}
@@ -188,9 +184,7 @@ function PersonalInfo() {
 					} else if (customerStatus.data.customerFound === false) {
 						setError(false);
 						setLoading(false);
-						history.push({
-							pathname: "/new-user",
-						});
+						history.push({ pathname: "/new-user", });
 					} else if (
 						customerStatus.data.errorMessage ===
 						"More than 1 customer record retrieved "
@@ -289,7 +283,7 @@ function PersonalInfo() {
 						alignItems="center"
 						style={ {
 							justifyContent: "center",
-							padding:"4% 0%"
+							padding: "4% 0%"
 						} }
 					>
 						<Grid
@@ -306,7 +300,7 @@ function PersonalInfo() {
 							<Paper
 								id="aboutYourselfWrap"
 								className="cardWOPadding"
-								style={ { justify: "center", alignItems: "center", padding:"0" } }
+								style={ { justify: "center", alignItems: "center", padding: "0" } }
 							>
 								<div className="progress mt-0">
 									<div
@@ -336,7 +330,7 @@ function PersonalInfo() {
 										align: "center",
 										justify: "center",
 										alignItems: "center",
-										fontSize:"1.538rem"
+										fontSize: "1.538rem"
 									} }
 									className="borrowCSSLP checkMyOfferText"
 								>
@@ -594,7 +588,7 @@ function PersonalInfo() {
 										</Grid>
 										<Grid
 											container
-											style={ { justifyContent: "center", margin:" 15px 0px 19px 0px" } }
+											style={ { justifyContent: "center", margin: " 15px 0px 19px 0px" } }
 											alignItems="center"
 											item
 											lg={ 8 }

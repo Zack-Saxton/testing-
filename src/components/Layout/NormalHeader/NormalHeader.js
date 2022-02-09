@@ -47,7 +47,7 @@ const NormalHeader = () => {
       </MenuItem>
       <MenuItem>
         <NavLink to="/faq" className="nav_link">
-          <Typography className={ classes.headerAlign }>FAQ's</Typography>
+          <Typography className={ classes.headerAlign }>FAQ</Typography>
         </NavLink>
       </MenuItem>
       <MenuItem>
@@ -64,9 +64,7 @@ const NormalHeader = () => {
   );
 
   const redirectToAccountOverview = () => {
-    history.push({
-      pathname: "/customers/accountOverview",
-    });
+    history.push({ pathname: "/customers/accountOverview", });
   };
 
   //View Part
@@ -85,7 +83,7 @@ const NormalHeader = () => {
               </a>
             </Typography>
             <NavLink to="/faq" style={ { textDecoration: "none" } }>
-              <Typography className={ classes.subtitle }>FAQ'S</Typography>
+              <Typography className={ classes.subtitle }>FAQ</Typography>
             </NavLink>
             <Typography style={ { paddingRight: "0px" } } className={ classes.subtitle }>
               <a

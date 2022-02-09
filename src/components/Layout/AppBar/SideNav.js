@@ -29,7 +29,6 @@ import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
 import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
 import SettingsIcon from "@material-ui/icons/Settings";
 import clsx from "clsx";
-import { useAtom } from "jotai";
 import Cookies from "js-cookie";
 import React, { useContext, useEffect, useState } from "react";
 import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -50,9 +49,11 @@ import branchDetails from "../../Controllers/MyBranchController";
 import ProfileImageController from "../../Controllers/ProfileImageController";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import MoneySkill from "../../Pages/MoneySkill/MoneySkill";
-import { tabAtom } from "../../Pages/MyProfile/MyProfileTab";
 import Notification from "../Notification/Notification";
+import applicationStatusRedirectPage from "../../../assets/data/applicationStatusRedirectPage.json";
+import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import "./SideNav.css";
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 const drawerWidth = 240;
 
@@ -185,7 +186,7 @@ export default function SideNav() {
   const [ disable, setDisable ] = React.useState(false);
   const [ skill, setSkill ] = React.useState(false);
   const [ checked, setChecked ] = React.useState(true);
-  const [ , setTabvalue ] = useAtom(tabAtom);
+  const [ , setprofileTabNumber ] = useGlobalState();
   const { dataProfile, resetProfilePicture } = useContext(ProfilePicture);
   const { resetData } = useContext(CheckMyOffers);
   const { data: dataAccountOverview } = useQuery('loan-data', usrAccountDetails);
@@ -194,6 +195,16 @@ export default function SideNav() {
   const [ currentLoan, setCurrentLoan ] = useState(true);
   const [ checkPresenceOfLoan, setCheckPresenceOfLoan ] = useState(false);
   const [ checkPresenceOfLoanStatus, setCheckPresenceOfLoanStatus ] = useState('');
+  const [ isMobileDevice, setDeviceType ] = useState(false);
+
+  const handleClickAway = () => {
+    if (isMobileDevice) {
+      setOpen(false);
+    }
+  };
+  const handleDeviceType = (status) => {
+    setDeviceType(status);
+  };
 
   useEffect(() => {
     let noOfLoans = dataAccountOverview?.data?.activeLoans?.length;
@@ -221,26 +232,6 @@ export default function SideNav() {
     };
   }, [ dataAccountOverview, activeLoanData, currentLoan ]);
 
-  let statusStrLink = {
-    "approved": "/customers/finalVerification",
-    "completing_application": "/customers/finalVerification",
-    "contact_branch": "/customers/myBranch",
-    "confirming_info": "/partner/confirm-signup",
-    "expired": "/select-amount",
-    "invalid": "/select-amount",
-    "signature_complete": "/customers/finalVerification",
-    "offer_selected": "/customers/reviewAndSign",
-    "offers_available": "/customers/selectOffer",
-    "pre_qual_referred": "/select-amount",
-    "pre_qual_rejected": "/select-amount",
-    "pre_qualified": "/credit-karma",
-    "referred": "/referred-to-branch",
-    "rejected": "/no-offers-available",
-    "under_review": "/customers/loanDocument",
-    "closing_process": "/customers/finalVerification",
-    "final_review": "/customers/loanDocument"
-  };
-
   //Material UI media query for responsiveness
   let check = useMediaQuery("(min-width:960px)");
 
@@ -248,10 +239,12 @@ export default function SideNav() {
     if (check === true && checked === true) {
       setChecked(true);
       setOpen(true);
+      handleDeviceType(false);
       document.getElementById("main").style.marginLeft = "240px";
       document.getElementById("close").style.display = "none";
     } else {
       setOpen(false);
+      handleDeviceType(true);
     }
   }, [ checked, check ]);
 
@@ -271,13 +264,15 @@ export default function SideNav() {
   }
 
   //Api call Branch Details
-  const [ branchVal, setBranchDetails ] = useState(null);
-  async function getUserBranchDetails() {
-    setBranchDetails(await branchDetails());
-  }
+  const { data: branchVal } = useQuery('my-branch', branchDetails);
+  const [ branchAvailability, setBranchAvailability ] = useState(false);
+
   useEffect(() => {
-    getUserBranchDetails();
-  }, []);
+    if (branchVal) {
+      setBranchAvailability(branchVal?.data?.branchIsOpen);
+    }
+    return null;
+  }, [ branchVal ]);
 
   //Api call Profile Picture
   const [ profileImage, setProfileImage ] = useState(null);
@@ -293,7 +288,6 @@ export default function SideNav() {
   // Side bar branch details
   Cookies.set('branchname', ((branchVal?.data?.BranchName) ? (branchVal?.data?.BranchName) : (branchVal?.data?.branchName) ? (branchVal?.data?.branchName) : ""));
   Cookies.set('branchphone', branchVal?.data?.PhoneNumber);
-  Cookies.set('branchopenstatus', branchVal?.data?.branchIsOpen);
   Cookies.set('getProfileImage', getProfImage);
 
   let hasActiveLoan = Cookies.get("hasActiveLoan") === "true" ? true : false;
@@ -303,7 +297,6 @@ export default function SideNav() {
   let disableField = (checkAppStatus === true || hasActiveLoan === true) ? true : false;
   const branchName = Cookies.get("branchname");
   const branchPhone = Cookies.get('branchphone');
-  const branchcloseStatus = Cookies.get('branchopenstatus');
   const getProfileImage = Cookies.get('getProfileImage');
 
   const lastLoginRaw = JSON.parse(Cookies.get("user") ? Cookies.get("user") : '{ }')?.user?.extensionattributes?.login?.timestamp_date;
@@ -342,8 +335,7 @@ export default function SideNav() {
       } else {
         document.getElementById("main").style.marginLeft = "240px";
       }
-      var profiledetailTag = document.getElementById("profileDetails");
-      profiledetailTag.style.display = "block";
+
     }
   };
 
@@ -380,9 +372,6 @@ export default function SideNav() {
       } else {
         document.getElementById("main").style.marginLeft = "240px";
       }
-
-      var profiledetailTag = document.getElementById("profileDetails");
-      profiledetailTag.style.display = "none";
     }
   };
 
@@ -415,17 +404,13 @@ export default function SideNav() {
   };
 
   const handleMenuProfile = () => {
-    history.push({
-      pathname: '/customers/myProfile'
-    });
-    setTabvalue(0);
+    history.push({ pathname: '/customers/myProfile' });
+    setprofileTabNumber({ profileTabNumber: 0 });
     handleMenuClose();
   };
   const handleMenuPaymentProfile = () => {
-    history.push({
-      pathname: '/customers/myProfile'
-    });
-    setTabvalue(3);
+    history.push({ pathname: '/customers/myProfile' });
+    setprofileTabNumber({ profileTabNumber: 3 });
     handleMenuClose();
   };
 
@@ -435,9 +420,7 @@ export default function SideNav() {
     LogoutController();
     resetData();
     resetProfilePicture();
-    history.push({
-      pathname: "/login"
-    });
+    history.push({ pathname: "/login" });
   }
 
   const logoutUser = () => {
@@ -459,15 +442,11 @@ export default function SideNav() {
   };
 
   const onAFLClick = () => {
-    history.push({
-      pathname: "/customers/applyForLoan",
-    });
+    history.push({ pathname: "/customers/applyForLoan", });
   };
 
   const resumeApplicationClick = () => {
-    history.push({
-      pathname: statusStrLink[ checkPresenceOfLoanStatus ],
-    });
+    history.push({ pathname: applicationStatusRedirectPage[ checkPresenceOfLoanStatus ], });
 
   };
 
@@ -497,292 +476,295 @@ export default function SideNav() {
 
   //View part
   return (
-    <div className={ classes.grow }>
-      <AppBar
-        position="absolute"
-        elevation={ 0 }
-        className={ clsx(classes.appBar, {
-          [ classes.appBarShift ]: open,
-        }) }
-      >
-        <Toolbar id="toolbar">
-          <IconButton
-            aria-label="open drawer"
-            onClick={ handleMenuButtonOpen }
-            id="close1"
-            className={ clsx(classes.menuButton, {
-              [ classes.hide ]: open,
-            }) }
-          >
-            <MenuIcon />
-          </IconButton>
+    <ClickAwayListener onClickAway={ handleClickAway }>
 
-          <div className={ classes.grow } />
-          <div
-            id="tool-bar-list"
-            style={ {
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              display: "-webkit-box",
-            } }
-          >
-            <Typography className={ classes.headerAlign }>
-              <a
-                href="https://www.marinerfinance.com/blog"
-                style={ { color: "white" } }
-                className="hrefTag"
-              >
-                Blog
-              </a>
-            </Typography>
-
-            <NavLink
-              to="/customers/faq"
-              className="nav_link"
-              style={ { color: "white" } }
-            >
-              <Typography className={ classes.headerAlign }>FAQ's</Typography>
-            </NavLink>
-
-            <Typography
-              className={ clsx(classes.headerAlign, classes.branchLocator) }
-            >
-              <a
-                href=" https://loans.marinerfinance.com/branchlocatorpage"
-                style={ { color: "white" } }
-                className="hrefTag"
-              >
-                Branch Locator
-              </a>
-            </Typography>
-
-            <NavLink to="/customers/makePayment" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : '' }>
-              <Tooltip title="Quick Pay" placement="bottom">
-                <img
-                  className={ clsx(classes.headerimg, classes.headerimgResp) }
-                  src={ quickPay }
-                  data-test-id="background"
-                  alt="quick pay"
-                />
-              </Tooltip>
-            </NavLink>
-
-            <Notification />
-
-            <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-haspopup="true"
-              onClick={ handleProfileMenuOpen }
-              color="inherit"
-
-            >
-              <SettingsIcon />
-            </IconButton>
-          </div>
-        </Toolbar>
-      </AppBar>
-
-      { renderMenu }
-      <div className={ classes.sectionDrawer }>
-        <Drawer
-          id="close2"
-          variant="permanent"
-          onClick={ handleMobileMenuClose }
-          className={ clsx(classes.drawer, {
-            [ classes.drawerOpen ]: open,
-            [ classes.drawerClose ]: !open,
+      <div className={ classes.grow }>
+        <AppBar
+          position="absolute"
+          elevation={ 0 }
+          className={ clsx(classes.appBar, {
+            [ classes.appBarShift ]: open,
           }) }
-          classes={ {
-            paper: clsx({
+        >
+          <Toolbar id="toolbar">
+            <IconButton
+              aria-label="open drawer"
+              onClick={ handleMenuButtonOpen }
+              id="close1"
+              className={ clsx(classes.menuButton, {
+                [ classes.hide ]: open,
+              }) }
+            >
+              <MenuIcon />
+            </IconButton>
+
+            <div className={ classes.grow } />
+            <div
+              id="tool-bar-list"
+              style={ {
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                display: "-webkit-box",
+              } }
+            >
+              <Typography className={ classes.headerAlign }>
+                <a
+                  href="https://www.marinerfinance.com/blog"
+                  style={ { color: "white" } }
+                  className="hrefTag"
+                >
+                  Blog
+                </a>
+              </Typography>
+
+              <NavLink
+                to="/customers/faq"
+                className="nav_link"
+                style={ { color: "white" } }
+              >
+                <Typography className={ classes.headerAlign }>FAQ</Typography>
+              </NavLink>
+
+              <Typography
+                className={ clsx(classes.headerAlign, classes.branchLocator) }
+              >
+                <a
+                  href=" https://loans.marinerfinance.com/branchlocatorpage"
+                  style={ { color: "white" } }
+                  className="hrefTag"
+                >
+                  Branch Locator
+                </a>
+              </Typography>
+
+              <NavLink to="/customers/makePayment" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : '' }>
+                <Tooltip title="Quick Pay" placement="bottom">
+                  <img
+                    className={ clsx(classes.headerimg, classes.headerimgResp) }
+                    src={ quickPay }
+                    data-test-id="background"
+                    alt="quick pay"
+                  />
+                </Tooltip>
+              </NavLink>
+
+              <Notification />
+
+              <IconButton
+                edge="end"
+                aria-label="account of current user"
+                aria-haspopup="true"
+                onClick={ handleProfileMenuOpen }
+                color="inherit"
+
+              >
+                <SettingsIcon />
+              </IconButton>
+            </div>
+          </Toolbar>
+        </AppBar>
+
+        { renderMenu }
+        <div className={ classes.sectionDrawer }>
+          <Drawer
+            id="close2"
+            variant="permanent"
+            onClick={ handleMobileMenuClose }
+            className={ clsx(classes.drawer, {
               [ classes.drawerOpen ]: open,
               [ classes.drawerClose ]: !open,
-            }),
-          } }
-          onMouseEnter={ handleDrawer }
-          onMouseLeave={ handleDrawerleave }
-        >
-          <div className={ classes.toolbar }>
-            <Link to="/customers/accountOverview">
-              <input
-                type="image"
-                src={ logoImage }
-                alt="logo image"
-                style={ { height: "60px" } }
-              />
-            </ Link>
+            }) }
+            classes={ {
+              paper: clsx({
+                [ classes.drawerOpen ]: open,
+                [ classes.drawerClose ]: !open,
+              }),
+            } }
+            onMouseEnter={ handleDrawer }
+            onMouseLeave={ handleDrawerleave }
+          >
+            <div className={ classes.toolbar }>
+              <Link to="/customers/accountOverview">
+                <input
+                  type="image"
+                  src={ logoImage }
+                  alt="logo image"
+                  style={ { height: "60px" } }
+                />
+              </ Link>
 
-            <Checkbox
-              icon={ <RadioButtonUncheckedIcon id="sidemenuRadio" /> }
-              checkedIcon={ <RadioButtonCheckedIcon id="sidemenuRadio" /> }
-              onClick={ handleChangeCheckbox }
-              name="sidemenuradio"
-              checked={ checked }
-            />
-
-            <div id="close" style={ { display: "none" } }>
-              <img
-                src={ logoIcon }
-                alt="logo icon"
-                className={ classes.logo }
-                style={ { margin: "13px" } }
+              <Checkbox
+                icon={ <RadioButtonUncheckedIcon id="sidemenuRadio" /> }
+                checkedIcon={ <RadioButtonCheckedIcon id="sidemenuRadio" /> }
+                onClick={ handleChangeCheckbox }
+                name="sidemenuradio"
+                checked={ checked }
               />
+
+              <div id="close" style={ { display: "none" } }>
+                <img
+                  src={ logoIcon }
+                  alt="logo icon"
+                  className={ classes.logo }
+                  style={ { margin: "13px" } }
+                />
+              </div>
             </div>
-          </div>
-          <Divider />
-          <PerfectScrollbar options={ { suppressScrollX: true, wheelSpeed: 2, wheelPropagation: false, minScrollbarLength: 20 } }>
-            <List id="listItemWrap" onClick={ handleMobileMenuClose }>
-              <ListItem id="profileDetails" className="profileDetails">
-                <List >
-                  <ListItem>
-                    <div id="imgWrap">
-                      <img id="sidebarProfilePic" src={ dataProfile?.profile_picture_url ? dataProfile?.profile_picture_url : getProfileImage } alt="Profile Pic" onClick={ handleMenuProfile } />
-                    </div>
-                  </ListItem>
-                  <ListItem id="sidemenuName">
-                    { (dataAccountOverview?.data?.applicant?.contact?.first_name) ? 'Welcome ' + dataAccountOverview?.data?.applicant?.contact?.first_name : "" }
-                  </ListItem>
-                  { (branchName === '' || branchName === 'undefined') || (branchPhone === '' || branchPhone === 'undefined')
-                    ?
-                    <>
+            <Divider />
+            <PerfectScrollbar options={ { suppressScrollX: true, wheelSpeed: 2, wheelPropagation: false, minScrollbarLength: 20 } }>
+              <List id="listItemWrap" onClick={ handleMobileMenuClose }>
+                <ListItem id="profileDetails">
+                  <List >
+                    <ListItem>
+                      <div id="imgWrap">
+                        <img id="sidebarProfilePic" src={ dataProfile?.profile_picture_url ? dataProfile?.profile_picture_url : getProfileImage } alt="Profile Pic" onClick={ handleMenuProfile } />
+                      </div>
+                    </ListItem>
+                    <ListItem id="sidemenuName">
+                      { (dataAccountOverview?.data?.applicant?.contact?.first_name) ? 'Welcome ' + dataAccountOverview?.data?.applicant?.contact?.first_name : "" }
+                    </ListItem>
+                    { (branchName === '' || branchName === 'undefined') || (branchPhone === '' || branchPhone === 'undefined')
+                      ?
+                      <>
 
-                      <ListItem id="sidemenuLastLogin">
-                        { lastLogin === '' || undefined ? '' : 'Last Login : ' + lastLogin }
-                      </ListItem>
-
-                    </>
-                    :
-
-                    <>
-                      <ListItem id="sidemenuLastLogin">
-                        { lastLogin === '' || undefined ? '' : 'Last Login : ' + lastLogin }
-                      </ListItem>
-                      <ListItem id="sidemenuBranch">
-                        { branchName === '' || undefined ? '' : 'Branch : ' + branchName }
-                      </ListItem>
-                      <ListItem id={ branchcloseStatus ? 'sidemenuOpenNow' : 'sidemenuCloseNow' }>
-                        { branchcloseStatus ? 'Open now' : 'Closed now' }
-                      </ListItem>
-                      { formatPhoneNumber(branchPhone) === '' || undefined ? '' :
-                        <ListItem id="sidemenuPhone">
-                          <CallIcon />
-                          <a href="tel:" className="hrefPhoneNo">
-                            { formatPhoneNumber(branchPhone) }
-                          </a>
+                        <ListItem id="sidemenuLastLogin">
+                          { lastLogin === '' || undefined ? '' : 'Last Login : ' + lastLogin }
                         </ListItem>
-                      }  </> }
-                </List>
-              </ListItem>
-              <NavLink to="/customers/accountOverview" className="nav_link">
-                <ListItem className="titleSidenav">
-                  <ListItemIcon>
-                    { " " }
-                    <AssignmentTurnedInOutlinedIcon />{ " " }
-                  </ListItemIcon>
-                  <ListItemText style={ { textDecoration: "none" } }>
-                    Account Overview
-                  </ListItemText>
-                </ListItem>
-              </NavLink>
 
-              <NavLink to="/customers/makePayment" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : 'nav_link' }>
-                <ListItem className="titleSidenav" disabled={ activeLoanData }>
-                  <ListItemIcon>
-                    { " " }
-                    <AccountBalanceWalletIcon />{ " " }
-                  </ListItemIcon>
-                  <ListItemText style={ { textDecoration: "none" } }>
-                    Make a Payment{ " " }
-                  </ListItemText>
-                </ListItem>
-              </NavLink>
+                      </>
+                      :
 
-              { checkPresenceOfLoan === true ?
-                <NavLink to={ { state: { from: "user" } } } onClick={ (event) => { resumeApplicationClick(); } } className="nav_link" >
+                      <>
+                        <ListItem id="sidemenuLastLogin">
+                          { lastLogin === '' || undefined ? '' : 'Last Login : ' + lastLogin }
+                        </ListItem>
+                        <ListItem id="sidemenuBranch">
+                          { branchName === '' || undefined ? '' : 'Branch : ' + branchName }
+                        </ListItem>
+                        <ListItem id={ branchAvailability ? 'sidemenuOpenNow' : 'sidemenuCloseNow' }>
+                          { branchAvailability ? 'Open now' : 'Closed now' }
+                        </ListItem>
+                        { formatPhoneNumber(branchPhone) === '' || undefined ? '' :
+                          <ListItem id="sidemenuPhone">
+                            <CallIcon />
+                            <a href="tel:" className="hrefPhoneNo">
+                              { formatPhoneNumber(branchPhone) }
+                            </a>
+                          </ListItem>
+                        }  </> }
+                  </List>
+                </ListItem>
+                <NavLink to="/customers/accountOverview" className="nav_link">
+                  <ListItem className="titleSidenav">
+                    <ListItemIcon>
+                      { " " }
+                      <AssignmentTurnedInOutlinedIcon />{ " " }
+                    </ListItemIcon>
+                    <ListItemText style={ { textDecoration: "none" } }>
+                      Account Overview
+                    </ListItemText>
+                  </ListItem>
+                </NavLink>
+
+                <NavLink to="/customers/makePayment" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : 'nav_link' }>
+                  <ListItem className="titleSidenav" disabled={ activeLoanData }>
+                    <ListItemIcon>
+                      { " " }
+                      <AccountBalanceWalletIcon />{ " " }
+                    </ListItemIcon>
+                    <ListItemText style={ { textDecoration: "none" } }>
+                      Make a Payment{ " " }
+                    </ListItemText>
+                  </ListItem>
+                </NavLink>
+
+                { checkPresenceOfLoan === true ?
+                  <NavLink to={ { state: { from: "user" } } } onClick={ (event) => { resumeApplicationClick(); } } className="nav_link" >
+                    <ListItem className="titleSidenav" >
+                      <ListItemIcon>
+                        { " " }
+                        <MonetizationOnRoundedIcon />{ " " }
+                      </ListItemIcon>
+                      <ListItemText> Resume Application </ListItemText>
+                    </ListItem>
+                  </NavLink>
+                  :
+                  <NavLink id="applyForLoanNav" to={ { state: { from: "user" } } } onClick={ (event) => { currentLoan ? event.preventDefault() : onAFLClick(); } } className={ currentLoan ? "nav_link_disabled" : "nav_link" } >
+                    <ListItem className="titleSidenav" disabled={ currentLoan }>
+                      <ListItemIcon>
+                        { " " }
+                        <MonetizationOnRoundedIcon />{ " " }
+                      </ListItemIcon>
+                      <ListItemText> Apply for a Loan </ListItemText>
+                    </ListItem>
+                  </NavLink> }
+
+                <NavLink to="/customers/loanDocument" onClick={ (event) => { activeLoanData && checkPresenceOfLoanStatus !== "under_review" && checkPresenceOfLoanStatus !== "final_review" && event.preventDefault(); } } className={ activeLoanData && checkPresenceOfLoanStatus !== "under_review" && checkPresenceOfLoanStatus !== "final_review" ? 'nav_link_disabled' : 'nav_link' }>
+                  <ListItem className="titleSidenav" disabled={ activeLoanData === true && checkPresenceOfLoanStatus !== "under_review" && checkPresenceOfLoanStatus !== "final_review" ? true : false }>
+                    <ListItemIcon>
+                      { " " }
+                      <DescriptionOutlinedIcon />{ " " }
+                    </ListItemIcon>
+                    <ListItemText> Loan Documents </ListItemText>
+                  </ListItem>
+                </NavLink>
+
+                <NavLink to="/customers/myBranch" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : 'nav_link' }>
+                  <ListItem className="titleSidenav" disabled={ activeLoanData }>
+                    <ListItemIcon>
+                      { " " }
+                      <AccountBalanceIcon />{ " " }
+                    </ListItemIcon>
+                    <ListItemText> My Branch</ListItemText>
+                  </ListItem>
+                </NavLink>
+
+                <NavLink to="/customers/myProfile" onClick={ handleMenuProfile } className="nav_link">
                   <ListItem className="titleSidenav" >
                     <ListItemIcon>
                       { " " }
-                      <MonetizationOnRoundedIcon />{ " " }
+                      <AccountCircleIcon />{ " " }
                     </ListItemIcon>
-                    <ListItemText> Resume Application </ListItemText>
+                    <ListItemText> My Profile</ListItemText>
                   </ListItem>
                 </NavLink>
-                :
-                <NavLink id="applyForLoanNav" to={ { state: { from: "user" } } } onClick={ (event) => { currentLoan ? event.preventDefault() : onAFLClick(); } } className={ currentLoan ? "nav_link_disabled" : "nav_link" } >
-                  <ListItem className="titleSidenav" disabled={ currentLoan }>
+
+                <NavLink to="/customers/loanHistory" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : 'nav_link' }>
+                  <ListItem className="titleSidenav" disabled={ activeLoanData }>
                     <ListItemIcon>
                       { " " }
-                      <MonetizationOnRoundedIcon />{ " " }
+                      <ListIcon />{ " " }
                     </ListItemIcon>
-                    <ListItemText> Apply for a Loan </ListItemText>
+                    <ListItemText> Loan History</ListItemText>
                   </ListItem>
-                </NavLink> }
+                </NavLink>
 
-              <NavLink to="/customers/loanDocument" onClick={ (event) => { activeLoanData && checkPresenceOfLoanStatus !== "under_review" && checkPresenceOfLoanStatus !== "final_review" && event.preventDefault(); } } className={ activeLoanData && checkPresenceOfLoanStatus !== "under_review" && checkPresenceOfLoanStatus !== "final_review" ? 'nav_link_disabled' : 'nav_link' }>
-                <ListItem className="titleSidenav" disabled={ activeLoanData === true && checkPresenceOfLoanStatus !== "under_review" && checkPresenceOfLoanStatus !== "final_review" ? true : false }>
+                <NavLink to="/customers/vantageScore" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : 'nav_link' }>
+                  <ListItem className="titleSidenav" disabled={ activeLoanData }>
+                    <ListItemIcon>
+                      { " " }
+                      <InboxIcon />{ " " }
+                    </ListItemIcon>
+                    <ListItemText> VantageScore &reg;</ListItemText>
+                  </ListItem>
+                </NavLink>
+
+                <ListItem id="moneySkillNavLink" onClick={ handleMoneySkillNav }>
                   <ListItemIcon>
                     { " " }
-                    <DescriptionOutlinedIcon />{ " " }
+                    <DataUsageOutlinedIcon />{ " " }
                   </ListItemIcon>
-                  <ListItemText> Loan Documents </ListItemText>
-                </ListItem>
-              </NavLink>
-
-              <NavLink to="/customers/myBranch" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : 'nav_link' }>
-                <ListItem className="titleSidenav" disabled={ activeLoanData }>
-                  <ListItemIcon>
+                  <ListItemText className="titleSidenav">
                     { " " }
-                    <AccountBalanceIcon />{ " " }
-                  </ListItemIcon>
-                  <ListItemText> My Branch</ListItemText>
+                    MoneySKILL &reg;{ " " }
+                  </ListItemText>
                 </ListItem>
-              </NavLink>
-
-              <NavLink to="/customers/myProfile" onClick={ handleMenuProfile } className="nav_link">
-                <ListItem className="titleSidenav" >
-                  <ListItemIcon>
-                    { " " }
-                    <AccountCircleIcon />{ " " }
-                  </ListItemIcon>
-                  <ListItemText> My Profile</ListItemText>
-                </ListItem>
-              </NavLink>
-
-              <NavLink to="/customers/loanHistory" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : 'nav_link' }>
-                <ListItem className="titleSidenav" disabled={ activeLoanData }>
-                  <ListItemIcon>
-                    { " " }
-                    <ListIcon />{ " " }
-                  </ListItemIcon>
-                  <ListItemText> Loan History</ListItemText>
-                </ListItem>
-              </NavLink>
-
-              <NavLink to="/customers/vantageScore" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : 'nav_link' }>
-                <ListItem className="titleSidenav" disabled={ activeLoanData }>
-                  <ListItemIcon>
-                    { " " }
-                    <InboxIcon />{ " " }
-                  </ListItemIcon>
-                  <ListItemText> VantageScore &reg;</ListItemText>
-                </ListItem>
-              </NavLink>
-
-              <ListItem id="moneySkillNavLink" onClick={ handleMoneySkillNav }>
-                <ListItemIcon>
-                  { " " }
-                  <DataUsageOutlinedIcon />{ " " }
-                </ListItemIcon>
-                <ListItemText className="titleSidenav">
-                  { " " }
-                  MoneySKILL &reg;{ " " }
-                </ListItemText>
-              </ListItem>
-            </List>
-          </PerfectScrollbar>
-        </Drawer>
+              </List>
+            </PerfectScrollbar>
+          </Drawer>
+        </div>
+        <MoneySkill moneySkill={ skill } onChange={ setSkill } />
       </div>
-      <MoneySkill moneySkill={ skill } onChange={ setSkill } />
-    </div>
+    </ClickAwayListener>
   );
 }
