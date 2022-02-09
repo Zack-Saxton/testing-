@@ -188,12 +188,17 @@ export default function PaymentMethod() {
             city: "",
             state: "",
             zipcode: "",
+            setDefault: false
         },
         validationSchema: validationSchemaDebitCard,
         onSubmit: async (values) => {
             setDebitCardModal(true);
         },
     });
+    const setDefaultAccount = (event) => {
+        formikAddDebitCard.setFieldValue("setDefault", event.target.checked);
+        setCheckedDebitCard(event.target.checked);
+    };
 
     const addDebitOnChange = (event) => {
         const pattern = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
@@ -533,7 +538,7 @@ export default function PaymentMethod() {
                                                 Set As Default
                                             </TableCell>
                                             <TableCell width="20%" align="left" className="rowFont">
-                                                Action
+                                                Delete
                                             </TableCell>
                                         </TableRow>
                                     </TableHead>
@@ -1469,7 +1474,7 @@ export default function PaymentMethod() {
                                 value={ checkedDebitCard }
                                 checked={ checkedDebitCard }
                                 onChange={ (event) => {
-                                    setCheckedDebitCard(event.target.checked);
+                                    setDefaultAccount(event);
                                 } }
                             />
                         </Grid>
