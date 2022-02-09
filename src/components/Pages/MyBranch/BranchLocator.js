@@ -14,6 +14,7 @@ import ErrorLogger from "../../lib/ErrorLogger";
 import { useLoadScript } from "@react-google-maps/api"
 import Map from "./BranchLocatorMap";
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { MFStates} from "../../../assets/data/marinerBusinesStates"
 export default function BranchLocator() {
   window.zeHide();
   //Material UI css class
@@ -27,11 +28,6 @@ export default function BranchLocator() {
   const [loading, setLoading] = useState(false);
   const [zoomDepth, setZoomDepth] = useState();
   //API call
-
-  const MFStates = ['Alabama', 'Arizona', 'California', 'Delaware', 'Florida', 'Georgia', 'Illinois', 'Indiana', 'Kentucky', 'Louisiana',
-    'Maryland', 'Mississippi', 'Missouri', 'New ersey', 'New Mexico', 'New York', 'North Carolina', 'Ohio', 'Oklahoma', 'Oregon',
-    'Pennsylvania', 'South Carolina', 'Tennessee', 'Texas', 'Utah', 'Virginia', 'Wisconsin', 'Washington'];
-
   const getBranchLists = async (search_text) => {
     try {
       setLoading(true);
