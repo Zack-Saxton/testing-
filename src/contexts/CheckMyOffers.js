@@ -71,7 +71,6 @@ function CheckMyOffersContext(props) {
     applicationStatus: '',
   });
 
-
   // setUserAccountDetails in context
   async function setUserAccountDetails() {
     const accountDetail = await usrAccountDetails();
@@ -114,7 +113,7 @@ function CheckMyOffersContext(props) {
         : '';
       data.email = latestContact?.email ? latestContact?.email : '';
       data.dob = identification?.date_of_birth
-        ? identification?.date_of_birth
+        ? Moment(identification?.date_of_birth).format("MM/DD/YYYY")
         : '';
       data.streetAddress = latestContact?.address_street
         ? latestContact?.address_street

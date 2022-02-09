@@ -52,6 +52,7 @@ import MyProfile from "../Pages/MyProfile/MyProfile";
 import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory";
 import RegisterPage from '../Pages/Register/Register';
 import VantageScore from "../Pages/VantageScore/VantageScore";
+import ViewAccountDetails from "../Pages/AccountOverview/ViewAccountDetails";
 import "./App.css";
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -76,8 +77,6 @@ function App() {
                     pauseOnHover={ true }
                     draggable={ true }
                     className="toast_message_box"
-                    style={ { width: "50%", } }
-
                 />
                 <BrowserRouter>
                     <Route path='/customers/verification/email' component={ ValidateToken } />
@@ -142,6 +141,7 @@ function App() {
                                             <Route path='/customers/myProfile' component={ MyProfile } />
                                             <Route path='/customers/vantageScore' component={ VantageScore } />
                                             <Route path='/customers/faq' component={ FaqPostLogin } />
+                                            <Route path='/customers/viewaccount' component={ ViewAccountDetails }/>
                                             <Route path='*' component={ ErrorAfterLogin } />
 
                                         </Switch>
