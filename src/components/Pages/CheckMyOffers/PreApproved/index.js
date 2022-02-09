@@ -16,6 +16,7 @@ const PreApproved = () => {
         setAccountDetails().then((res) => {
             setOfferAmount(res?.data?.offerData?.offerAmount);
         });
+        return null
     }, []);
 
     const handleContinue = () => {
@@ -45,7 +46,7 @@ const PreApproved = () => {
                         >
 
                             <Paper
-                                className="card"
+                                className="checkMyOffersWrap"
                                 justify="center"
                                 alignitems="center"
                                 id="selectAmountWrap"
@@ -82,6 +83,7 @@ const PreApproved = () => {
                                     </Grid>
                                 </Grid>
                                 <Grid
+                                    id="checkMyOffersText"
                                     item
                                     xs={ 12 }
                                     className="alignSlider"
@@ -119,13 +121,13 @@ const PreApproved = () => {
                                         </Grid>
                                     </Grid>
 
-                                    <Typography align="center">
+                                    <Typography className="checkMyoffersSubHeading" align="center">
                                         Checking your offers will not impact your credit score.*
                                     </Typography>
                                     <Grid className="alignTextInsideCard justifyText">
                                         <Typography
                                             data-testid="descriptionInside"
-                                            className="alignText justifyText"
+                                            className="alignText justifyText checkMyOffersText"
                                             align="center"
                                         >
                                             †We offer personal loans from $1,000 to $25,000, with

@@ -71,7 +71,7 @@ const validationSchemaDebitCard = yup.object({
         .string("Enter CVV")
         .required("CVV is required")
         .min(3, "CVV is required."),
-    expirydate: yup
+    expiryDate: yup
         .date("Please enter a valid date")
         .nullable()
         .required("Expiration Date is required")
@@ -183,7 +183,7 @@ export default function PaymentMethod() {
             cardNumber: "",
             cardName: "",
             cvv: "",
-            expirydate: null,
+            expiryDate: null,
             streetAddress: "",
             city: "",
             state: "",
@@ -263,7 +263,7 @@ export default function PaymentMethod() {
             addDebitCardButton();
             formikAddDebitCard.setFieldValue("cardName", row.OwnerName);
             formikAddDebitCard.setFieldValue("cardNumber", "****-****-****-" + row.LastFour);
-            formikAddDebitCard.setFieldValue("expirydate", row.ExpirationDate);
+            formikAddDebitCard.setFieldValue("expiryDate", row.ExpirationDate);
             formikAddDebitCard.setFieldValue("cvv", "***");
             setCardType(row.CardType);
             setEditMode(true);
@@ -1248,25 +1248,25 @@ export default function PaymentMethod() {
                             direction="row"
                         >
                             <DatePicker
-                                name="expirydate"
+                                name="expiryDate"
                                 label="Expiration Date"
-                                id="expirydate"
-                                className="expirydate"
+                                id="expiryDate"
+                                className="expiryDate"
                                 placeholder="MM/YY"
                                 format="MM/yy"
                                 disabled={ editMode }
-                                value={ formikAddDebitCard.values.expirydate }
+                                value={ formikAddDebitCard.values.expiryDate }
                                 onChange={ (values) => {
-                                    formikAddDebitCard.setFieldValue("expirydate", values);
+                                    formikAddDebitCard.setFieldValue("expiryDate", values);
                                 } }
                                 onBlur={ formikAddDebitCard.handleBlur }
                                 error={
-                                    formikAddDebitCard.touched.expirydate &&
-                                    Boolean(formikAddDebitCard.errors.expirydate)
+                                    formikAddDebitCard.touched.expiryDate &&
+                                    Boolean(formikAddDebitCard.errors.expiryDate)
                                 }
                                 helperText={
-                                    formikAddDebitCard.touched.expirydate &&
-                                    formikAddDebitCard.errors.expirydate
+                                    formikAddDebitCard.touched.expiryDate &&
+                                    formikAddDebitCard.errors.expiryDate
                                 }
                             />
                         </Grid>
