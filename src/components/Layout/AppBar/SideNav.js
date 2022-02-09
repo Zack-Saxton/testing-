@@ -463,7 +463,7 @@ export default function SideNav() {
       <MenuItem
         disabled={ !disableField }
         onClick={ handleMenuPaymentProfile } id="settingsMenuList">
-        Payment Accounts</MenuItem>
+        Payment Methods</MenuItem>
       <MenuItem onClick={ logoutUser } id="settingsMenuListLogout" disabled={ disable }>
         Logout
       </MenuItem>
