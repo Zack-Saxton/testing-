@@ -16,18 +16,13 @@ function CheckMyOffers(props) {
 	const { data, setData, resetData } = useContext(Check);
 	const [ hasOfferCode, setOfferCode ] = useState("");
 	const getValidValue = (selectedValue) => {
-		let validValue = selectedValue % 250 === 0 ? selectedValue : selectedValue - selectedValue % 250;
+		let validValue = (selectedValue > 5000 && (selectedValue % 500) === 250 ? selectedValue + 250 : selectedValue);
 		if (validValue < 1000) {
 			return 1000;
 		} else if (validValue > 25000) {
 			return 25000;
 		}
-		else if (validValue > 5000) {
-			return validValue % 500 === 0 ? validValue : validValue - validValue % 500;
-		}
-		else {
-			return validValue;
-		}
+		return validValue;
 	};
 	let selectedAmount = getValidValue(props.match.params.amount);
 	const [ select, setSelect ] = useState(data.loanAmount ? data.loanAmount : (selectedAmount ? parseInt(selectedAmount) : 10000));
@@ -40,8 +35,7 @@ function CheckMyOffers(props) {
 			data.completedPage = data.page.selectAmount;
 			setData({ ...data, loanAmount: select, loading: false });
 			history.push({ pathname: "/loan-purpose" });
-		}
-		else if (data.formStatus === "" || data.completedPage === 0 || data.formStatus === "completed" || props.location.fromLoanPurpose !== "yes") {
+		} else if (data.formStatus === "" || data.completedPage === 0 || data.formStatus === "completed" || props.location.fromLoanPurpose !== "yes") {
 			setData({ ...data, loading: true });
 			resetData();
 			setSelect(data.loanAmount ? data.loanAmount : 10000);
