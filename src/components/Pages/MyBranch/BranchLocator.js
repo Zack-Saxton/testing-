@@ -14,7 +14,7 @@ import ErrorLogger from "../../lib/ErrorLogger";
 import { useLoadScript } from "@react-google-maps/api"
 import Map from "./BranchLocatorMap";
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { MFStates} from "../../../assets/data/marinerBusinesStates"
+import { MFStates } from "../../../assets/data/marinerBusinesStates"
 export default function BranchLocator() {
   window.zeHide();
   //Material UI css class
@@ -87,35 +87,32 @@ export default function BranchLocator() {
     }
   }
   const listForMapView = async (List) => {
-      if (List) {
-        setMap(
-          List.map((item) =>
-          ({
-            id: item.id,
-            name: item.Address,
-            position: {
-              lat: Number(item.latitude),
-              lng: Number(item.longitude)
-            }
-          })
-          ))
-      }
+    if (List) {
+      setMap(
+        List.map((item) =>
+        ({
+          id: item.id,
+          name: item.Address,
+          position: {
+            lat: Number(item.latitude),
+            lng: Number(item.longitude)
+          }
+        })
+        ))
+    }
   }
-  const getActivePlaces = async (State_Button) => {
+  const apiGetBranchList = async (value) => {
     try {
-      let result;
-      if (State_Button) {
-        result = await getBranchLists(event.target.innerHTML);
-      } else {
-        result = await getBranchLists(inputText.value);
-      }
-
+      let result = await getBranchLists(value);
       setBranchList(result);
       setLoading(false);
       listForMapView(result);
     } catch (error) {
-      toast.error(' Error from getActivePlaces ', error)
+      ErrorLogger(' Error from apiGetBranchList ', error);
     }
+  }
+  const getActivePlaces = async () => {
+    apiGetBranchList(inputText.value);
   }
   // -------- To Display Dialog to get Directions of Address.......
   const openGetDirectionModal = () => {
@@ -125,14 +122,7 @@ export default function BranchLocator() {
     setgetDirectionModal(false);
   }
   const MFButtonClick = async (event) => {
-    try {
-      let result = await getBranchLists(event.target.innerHTML);
-      setBranchList(result);
-      setLoading(false);
-      listForMapView(result);
-    } catch (error) {
-      ErrorLogger("Error from MFButtonClick", error);
-    }
+    apiGetBranchList(event.target.innerHTML);
   }
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_SECKey

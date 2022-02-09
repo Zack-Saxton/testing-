@@ -8,6 +8,7 @@ import CitizenshipStatusLogo from "../../../../assets/icon/I-Citizenship-status.
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary } from "../../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
+import { citizenshipData } from "../../../../assets/data/constants"
 import "./CitizenshipStatus.css";
 
 //Initializing functional component CitizenshipStatus
@@ -129,12 +130,12 @@ function CitizenshipStatus() {
 											elevation={ 3 }
 											data-test-id="usCitizen"
 											className={
-												citizenship === "USA Citizen"
+												citizenship === citizenshipData.USCitizen
 													? "activeBorder radioBlock "
 													: "radioBlock "
 											}
 											onClick={ () => {
-												goNext("USA Citizen");
+												goNext(citizenshipData.USCitizen);
 											} }
 										>
 											U.S Citizen
@@ -146,12 +147,12 @@ function CitizenshipStatus() {
 											elevation={ 3 }
 											data-test-id="permanentResident"
 											className={
-												citizenship === "Permanent Resident"
+												citizenship === citizenshipData.permanentResident
 													? "activeBorder radioBlock "
 													: "radioBlock "
 											}
 											onClick={ () => {
-												goNext("Permanent Resident");
+												goNext(citizenshipData.permanentResident);
 											} }
 										>
 											Permanent Resident
@@ -163,12 +164,12 @@ function CitizenshipStatus() {
 											elevation={ 3 }
 											data-test-id="foreignResident"
 											className={
-												citizenship === "Foreign Resident"
+												citizenship === citizenshipData.foreignResident
 													? "activeBorder radioBlock "
 													: "radioBlock "
 											}
 											onClick={ () => {
-												setCitizenship("Foreign Resident");
+												setCitizenship(citizenshipData.foreignResident);
 											} }
 										>
 											Foreign Resident
@@ -177,7 +178,7 @@ function CitizenshipStatus() {
 
 									<h4
 										className={
-											citizenship === "Foreign Resident" ? "showMsg" : "hideMsg"
+											citizenship === citizenshipData.foreignResident ? "showMsg" : "hideMsg"
 										}
 									>
 										We are sorry. We do not offer loans to foreign residents.
@@ -188,7 +189,7 @@ function CitizenshipStatus() {
 											onClick={ handleRoute }
 											data-test-id="citizenshipContButton"
 											disabled={
-												citizenship === "" || citizenship === "Foreign Resident"
+												citizenship === "" || citizenship === citizenshipData.foreignResident
 											}
 											stylebutton='{"background": "#FFBC23", "color": "black","fontSize":"0.938rem" , "padding": "0px 30px"}'
 										>
