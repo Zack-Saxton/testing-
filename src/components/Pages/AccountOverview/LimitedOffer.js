@@ -1,7 +1,7 @@
 import { Box, Modal, Typography } from "@material-ui/core";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from "@material-ui/core/Grid";
-import { NavLink,useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import IconButton from "@material-ui/core/IconButton";
 import Paper from "@material-ui/core/Paper";
 import CloseIcon from "@material-ui/icons/Close";
@@ -23,6 +23,7 @@ export default function LimitedOffer(userOfferData) {
   // Get offers details
   let userOfferAmount = (userOfferData.userOffers != null) ? userOfferData.userOffers.offerAmount : 0;
   const history = useHistory();
+  
   const [initModal,setinitModal] = useState(false);
   const [offerCode,setOfferCode] = useState(" ");
   const [amount,setAmount] = useState(" ");
@@ -70,10 +71,10 @@ export default function LimitedOffer(userOfferData) {
     p: 4,
   };
 
-  const handleContinue = () =>{
-    history.push({pathname:"/loan-purpose"})
-  }
-  
+  const handleContinue = () => {
+    history.push({ pathname: "/pre-approved" });
+  };
+
   //View
   return (
     <div id="mainContainer">
@@ -167,11 +168,11 @@ export default function LimitedOffer(userOfferData) {
 </p>
 
                   <p className="common">Use it to get things done.</p>
-  
-<p className="common">Offer Code:{offerCode}</p>
-<ButtonPrimary id="ClaimButton" stylebutton='{"color":"", "textTransform": "none","marginLeft":"40px"}' onClick={handleContinue}>
-                        Continue
-                      </ButtonPrimary>
+
+                  <p className="common">Offer Code:{ offerCode }</p>
+                  <ButtonPrimary id="ClaimButton" stylebutton='{"color":"", "textTransform": "none","marginLeft":"40px"}' onClick={ handleContinue }>
+                    Continue
+                  </ButtonPrimary>
                 </Grid>
               </Grid>
               <Grid>
@@ -202,6 +203,7 @@ Sincerely,<br></br>
                       </ButtonPrimary>
 <p>We need more information from you to show you your offers. Please click continue to tell us more about yourself.</p>
            <p>P.P.S. Still have questions? Give your local branch a call today! 708-425-1176</p>
+
               </Grid>
               <Grid>
                 <p className="common para">

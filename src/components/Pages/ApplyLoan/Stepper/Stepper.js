@@ -80,13 +80,7 @@ export default function VerticalLinearStepper() {
 	const getApplicationStatus = async () => {
 		let data = {};
 		const skip = JSON.parse(Cookies.get("skip") ? Cookies.get("skip") : "{ }");
-		let res = await APICall(
-			"verification_steps_cac",
-			'',
-			data,
-			"POST",
-			true
-		);
+		let res = await APICall("verification_steps_cac", '', data, "POST", true);
 		let tabPosition = "";
 		if (
 			res?.data?.email === true &&
@@ -98,9 +92,7 @@ export default function VerticalLinearStepper() {
 			res?.data?.bank_account_verification === true &&
 			res?.data?.income_verification === true
 		) {
-			history.push({
-				pathname: "/customers/receiveYourMoney",
-			});
+			history.push({ pathname: "/customers/receiveYourMoney", });
 		} else if (res?.data?.email === false) {
 			tabPosition = 0;
 		} else if (

@@ -7,6 +7,7 @@ import { useQuery } from 'react-query';
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
+import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import { mailingAddress } from "../../Controllers/MyProfileController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
@@ -16,7 +17,6 @@ import {
   Zipcode
 } from "../../FormsUI";
 import ErrorLogger from '../../lib/ErrorLogger';
-import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import "./Style.css";
 
 const validationSchema = yup.object({
@@ -61,9 +61,9 @@ export default function MailingAddress(props) {
   const onClickCancelChange = () => {
     formik.resetForm();
     history.push({ pathname: '/customers/myProfile' });
-    setprofileTabNumber( { profileTabNumber: 0 } );
+    setprofileTabNumber({ profileTabNumber: 0 });
   };
-  
+
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {

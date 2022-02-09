@@ -151,9 +151,7 @@ function PersonalInfo() {
 
 				if (loginToken?.isLoggedIn === true) {
 					data.completedPage = data.page.existingUser;
-					history.push({
-						pathname: "/employment-status",
-					});
+					history.push({ pathname: "/employment-status", });
 					setError(false);
 					setLoading(false);
 				} else {
@@ -174,9 +172,7 @@ function PersonalInfo() {
 								setLoading(false);
 							} else {
 								setSsnEmailMatch(true);
-								history.push({
-									pathname: "/existing-user",
-								});
+								history.push({ pathname: "/existing-user", });
 								setError(false);
 								setLoading(false);
 							}
@@ -188,9 +184,7 @@ function PersonalInfo() {
 					} else if (customerStatus.data.customerFound === false) {
 						setError(false);
 						setLoading(false);
-						history.push({
-							pathname: "/new-user",
-						});
+						history.push({ pathname: "/new-user", });
 					} else if (
 						customerStatus.data.errorMessage ===
 						"More than 1 customer record retrieved "

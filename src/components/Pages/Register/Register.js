@@ -19,7 +19,6 @@ import Logo from "../../../assets/images/loginbg.png";
 import LoginController from "../../Controllers/LoginController";
 import LogoutController from "../../Controllers/LogoutController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
-import { useParams } from "react-router-dom";
 import {
   Button,
   ButtonPrimary,
@@ -152,9 +151,7 @@ export default function Register() {
         : Cookies.set("rememberMe", JSON.stringify({ selected: false, email: "", password: "" }));
 
       setLoading(false);
-      history.push({
-        pathname: "/customers/accountoverview",
-      });
+      history.push({ pathname: "/customers/accountoverview", });
     } else if (retVal?.data?.result === "error" || retVal?.data?.hasError === true) {
       Cookies.set("token", JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" }));
       setLoading(false);
@@ -164,13 +161,13 @@ export default function Register() {
     }
   };
   //Form Submission
-  const queryParams = new URLSearchParams(window.location.search)
+  const queryParams = new URLSearchParams(window.location.search);
   console.log(queryParams.get("email"));
   const formik = useFormik({
     initialValues: {
       firstname: "",
       lastname: "",
-      email:queryParams.get("email"),
+      email: queryParams.get("email"),
       password: "",
       confirmPassword: "",
       zip: "",

@@ -61,10 +61,7 @@ export default function Credit(creditData) {
 
   //Navigation
   const navigateCheckMyOffers = () => {
-    history.push({
-      pathname: "/customers/applyForLoan",
-      state: { statusCheck: false, from: "user" },
-    });
+    history.push({ pathname: "/customers/applyForLoan", state: { statusCheck: false, from: "user" }, });
   };
 
   //View
