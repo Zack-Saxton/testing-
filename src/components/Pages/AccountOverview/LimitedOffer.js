@@ -36,7 +36,6 @@ export default function LimitedOffer(userOfferData) {
 
   useEffect(()=>{
             setAccountDetails().then((res)=>{
-              console.log(res);
               setOfferCode(res?.data?.offerData?.OfferCode)
               setExpiryDate(res?.data?.offerData?.dateExpiration)
               setAmount(res?.data?.offerData?.offerAmount)
@@ -48,6 +47,7 @@ export default function LimitedOffer(userOfferData) {
               setbranchManager(res?.data?.branchmanager)
               
             })
+            return null
   },[])
 
   const showModal = () => {
