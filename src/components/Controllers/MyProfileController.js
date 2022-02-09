@@ -200,8 +200,7 @@ export async function addCreditCard(values, cardType) {
       "issuer": cardType,
       "cvv": parseInt(values.cvv),
       "exp_date": expyDate,
-      "defaultBank": 1
-      // "isMobile": true
+      "defaultBank": values.setDefault ? 1 : 0
     };
     let method = "POST";
     let addAccessToken = true;
