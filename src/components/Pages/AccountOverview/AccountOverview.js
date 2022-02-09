@@ -23,6 +23,7 @@ export default function AccountOverview() {
   //Load data
   let offerData = (accountDetails != null) ? accountDetails?.data?.offerData : null;
   let applicationsData = (accountDetails != null) ? accountDetails?.data?.applicants : null;
+  let applicantData = (accountDetails != null) ? accountDetails?.data?.applicant?.contact : null;
   let status = (accountDetails != null) ? accountDetails?.data?.status : null;
   let activeLoansData = (accountDetails != null) ? accountDetails?.data?.activeLoans : null;
   let recentPaymentData = (accountDetails != null) ? accountDetails?.data?.loanHistory : null;
@@ -62,7 +63,7 @@ export default function AccountOverview() {
         <LimitedOffer isLoading={ isLoading } userOffers={ offerData } />
         <ActiveLoans isLoading={ isLoading } userActiveLoanData={ activeLoansData } />
         <RecentPayments isLoading={ isLoading } userRecentPaymentData={ recentPaymentData } />
-        <RecentApplications isLoading={ isLoading } userApplicationsData={ applicationsData } UserAccountStatus={ status } />
+        <RecentApplications isLoading={ isLoading } userApplicationsData={ applicationsData } UserAccountStatus={ status } userApplicantData={ applicantData }/>
 
       </Grid>
     </div>

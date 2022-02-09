@@ -161,8 +161,7 @@ export default function Register() {
     }
   };
   //Form Submission
-  const queryParams = new URLSearchParams(window.location.search);
-  console.log(queryParams.get("email"));
+  const queryParams = new URLSearchParams(window.location.search)
   const formik = useFormik({
     initialValues: {
       firstname: "",
