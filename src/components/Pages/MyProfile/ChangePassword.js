@@ -124,6 +124,8 @@ export default function ChangePassword(basicInformationData) {
 
   const handleCancelButton = () => {
     formikPassword.resetForm();
+    history.push({ pathname: "/customers/myProfile" });
+    setprofileTabNumber({ profileTabNumber: 0 });
   };
   //Preventing space key
   const preventSpace = (event) => {
