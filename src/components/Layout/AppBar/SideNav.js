@@ -300,8 +300,8 @@ export default function SideNav() {
   const getProfileImage = Cookies.get('getProfileImage');
 
   const lastLoginRaw = JSON.parse(Cookies.get("user") ? Cookies.get("user") : '{ }')?.user?.extensionattributes?.login?.timestamp_date;
-  const date = lastLoginRaw ? new Date(lastLoginRaw) : new Date();
-  const lastLogin = ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + date.getFullYear();
+  const loginDate = lastLoginRaw ? new Date(lastLoginRaw) : new Date();
+  const lastLogin = ((loginDate.getMonth() > 8) ? (loginDate.getMonth() + 1) : ('0' + (loginDate.getMonth() + 1))) + '/' + ((loginDate.getDate() > 9) ? loginDate.getDate() : ('0' + loginDate.getDate())) + '/' + loginDate.getFullYear();
 
   //Side bar open on mouse event
   const handleDrawer = () => {

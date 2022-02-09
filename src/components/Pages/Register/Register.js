@@ -171,7 +171,7 @@ export default function Register() {
       confirmPassword: "",
       zip: "",
       ssn: "",
-      date: null,
+      dob: null,
       isRegisterForm: 1
     },
     validationSchema: validationSchema,
@@ -186,9 +186,9 @@ export default function Register() {
         ssn: values.ssn,
         zip_code: values.zip,
         password: values.password,
-        birth_year: values.date.getFullYear().toString(),
-        birth_month: ("0" + (values.date.getMonth() + 1)).slice(-2),
-        birth_day: ("0" + (values.date.getDate() + 1)).slice(-2),
+        birth_year: values.dob.getFullYear().toString(),
+        birth_month: ("0" + (values.dob.getMonth() + 1)).slice(-2),
+        birth_day: ("0" + (values.dob.getDate() + 1)).slice(-2),
         address_street: "",
         address_city: city,
         address_state: state,
@@ -493,22 +493,22 @@ export default function Register() {
                       direction="row"
                     >
                       <DatePicker
-                        name="date"
+                        name="dob"
                         label="Date of Birth *"
-                        id="date"
+                        id="dob"
                         placeholder="MM/DD/YYYY"
                         format="MM/dd/yyyy"
                         maxdate={ myDate }
                         minyear={ 102 }
-                        value={ formik.values.date }
+                        value={ formik.values.dob }
                         onChange={ (values) => {
-                          formik.setFieldValue("date", values);
+                          formik.setFieldValue("dob", values);
                         } }
                         onBlur={ formik.handleBlur }
-                        error={ andLogic(formik.touched.date, Boolean(formik.errors.date))
+                        error={ andLogic(formik.touched.dob, Boolean(formik.errors.dob))
 
                         }
-                        helperText={ andLogic(formik.touched.date, formik.errors.date) }
+                        helperText={ andLogic(formik.touched.dob, formik.errors.dob) }
                       />
                     </Grid>
 

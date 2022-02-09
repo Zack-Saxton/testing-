@@ -30,13 +30,11 @@ const validationSchema = yup.object({
 		.max(30, "Firstname can be upto 30 characters length")
 		.min(2, "Firstname should be minimum of 2 letters")
 		.required("Your first name is required"),
-
 	lastName: yup
 		.string("Enter your Lastname")
 		.max(30, "Lastname can be upto 30 characters length")
 		.min(2, "Lastname should be minimum of 2 letters")
 		.required("Your last name is required"),
-
 	email: yup
 		.string("Enter your email")
 		.email("A valid email address is required")
@@ -46,7 +44,6 @@ const validationSchema = yup.object({
 			"A valid email address is required"
 		)
 		.required("Your email address is required"),
-
 	ssn: yup.string().when("checkSSN", {
 		is: (checkSSN) => !checkSSN,
 		then: yup
@@ -72,8 +69,7 @@ const validationSchema = yup.object({
 		)
 		.matches(/^(\d)(?!\1+$)\d{9}$/, "Please enter a valid Phone number")
 		.min(10, "Name must contain at least 10 digits"),
-
-	date: yup
+	dob: yup
 		.date("Please enter a valid date")
 		.nullable()
 		.required("Your date of birth is required")
@@ -111,7 +107,7 @@ function PersonalInfo() {
 			ssn: data.ssn ? data.ssn : "",
 			lastSSN: data.last4SSN ? data.last4SSN : "",
 			phone: data.phone ? data.phone : "",
-			date: data.dob ?? null,
+			dob: data.dob ?? null,
 			checkSSN: data.last4SSN ? true : false,
 		},
 		validationSchema: validationSchema,
@@ -134,7 +130,7 @@ function PersonalInfo() {
 					.replace(/\(/g, "")
 					.replace(/ /g, "") || "";
 			data.phone = phone;
-			data.dob = values.date;
+			data.dob = values.dob;
 			data.completedPage = data.page.personalInfo;
 
 			//Prospect
@@ -419,22 +415,22 @@ function PersonalInfo() {
 											className="textBlock"
 										>
 											<DatePicker
-												name="date"
+												name="dob"
 												label="Date of Birth *"
-												id="date"
+												id="dob"
 												placeholder="MM/DD/YYYY"
 												format="MM/dd/yyyy"
 												maxdate={ myDate }
 												minyear={ 102 }
-												value={ formik.values.date }
+												value={ formik.values.dob }
 												onChange={ (values) => {
-													formik.setFieldValue("date", values);
+													formik.setFieldValue("dob", values);
 												} }
 												onBlur={ formik.handleBlur }
 												error={
-													formik.touched.date && Boolean(formik.errors.date)
+													formik.touched.dob && Boolean(formik.errors.dob)
 												}
-												helperText={ formik.touched.date && formik.errors.date }
+												helperText={ formik.touched.dob && formik.errors.dob }
 											/>
 
 											<div className="MuiTypography-alignLeft">
