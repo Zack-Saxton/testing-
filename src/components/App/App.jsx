@@ -77,8 +77,6 @@ function App() {
                     pauseOnHover={ true }
                     draggable={ true }
                     className="toast_message_box"
-                    style={ { width: "50%", } }
-
                 />
                 <BrowserRouter>
                     <Route path='/customers/verification/email' component={ ValidateToken } />
