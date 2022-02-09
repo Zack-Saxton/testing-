@@ -82,6 +82,7 @@ const PreApproved = () => {
                                     </Grid>
                                 </Grid>
                                 <Grid
+                                    id="checkMyOffersText"
                                     item
                                     xs={ 12 }
                                     className="alignSlider"
