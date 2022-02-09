@@ -14,6 +14,8 @@ import setAccountDetails from "../../Controllers/AccountOverviewController";
 import { ButtonPrimary } from "../../FormsUI";
 import { useStylesAccountOverview } from "./Style";
 import "./Style.css";
+import MyBranchAPI from "../../Controllers/MyBranchController";
+
 export default function LimitedOffer(userOfferData) {
   //Material UI css class
   const classes = useStylesAccountOverview();
@@ -26,14 +28,24 @@ export default function LimitedOffer(userOfferData) {
   const [amount,setAmount] = useState(" ");
   const [expiryDate,setExpiryDate] = useState(" ")
   const [firstName,setfirstName] = useState("")
+  const [branchCno,setBranchCno] = useState("");
+  const [branchName,setBranchName] = useState("");
+  const [branchManager,setbranchManager] = useState("");
   
 
   useEffect(()=>{
             setAccountDetails().then((res)=>{
+              console.log(res);
               setOfferCode(res?.data?.offerData?.OfferCode)
               setExpiryDate(res?.data?.offerData?.dateExpiration)
               setAmount(res?.data?.offerData?.offerAmount)
               setfirstName(res?.data?.offerData?.firstName);
+            })
+            MyBranchAPI().then((res)=>{
+              setBranchCno(res?.data?.PhoneNumber)
+              setBranchName(res?.data?.branchName + " Branch")
+              setbranchManager(res?.data?.branchmanager)
+              
             })
   },[])
 
@@ -59,7 +71,7 @@ export default function LimitedOffer(userOfferData) {
   };
 
   const handleContinue = () =>{
-    history.push({pathname:"/pre-approved"})
+    history.push({pathname:"/loan-purpose"})
   }
   
   //View
@@ -130,7 +142,7 @@ export default function LimitedOffer(userOfferData) {
           aria-describedby="modal-modal-description"
         >
           <Box sx={ style }>
-            <Typography id="modal-modal-title" variant="h6" component="h2" className="title">
+            <Typography id="modal-modal-title" variant="h4" component="h2" className="title">
               You may have money available now!
               <IconButton
                 id="debitCardModalClose"
@@ -148,8 +160,11 @@ export default function LimitedOffer(userOfferData) {
                   <p className="common">Don't wait! This offer expires { expiryDate }</p>
                 </Grid>
                 <Grid className="rightcheckMyOffers">
-                  <p className="common">You are prequalified upto</p>
-                  <p className="common" >${ amount }</p>
+                  <p className="common">You are prequalified up to</p>
+                  <p className="common" style={{color:"#0F4EB3",fontSize:"bold",textAlign:"center"}}>
+                    ${ amount }
+                    
+</p>
 
                   <p className="common">Use it to get things done.</p>
   
@@ -171,9 +186,9 @@ export default function LimitedOffer(userOfferData) {
             <p className="common">Use offer code {offerCode} before {expiryDate}. Remember, checking your offer online does not affect your credit.*</p>
 <p className="common">
 Sincerely,<br></br>
-Dale Lippold<br></br>
-Oak Lawn Branch<br></br>
-708-425-1176
+{branchManager}<br></br>
+{branchName}<br></br>
+{branchCno}
 </p>
             </Grid>
             <Grid className="content">
