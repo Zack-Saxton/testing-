@@ -13,6 +13,6 @@ export default async function DisclosureLinkController(paramValue) {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    ErrorLogger("Error executing API", error);
+    ErrorLogger("Error executing DisclosureLinkController API", error);
   }
 }

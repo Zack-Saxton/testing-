@@ -428,9 +428,7 @@ export default function ReviewAndSign(props) {
                           if (hardPull?.data?.status === 200 || hardPull?.data?.result === "success") {
                             setLoading(false);
                             refetch();
-                            history.push({
-                              pathname: "/customers/finalVerification",
-                            });
+                            history.push({ pathname: "/customers/finalVerification", });
                           } else {
                             setLoading(false);
                             toast.error(messages.reviewAndSignin.eSignFailed);

@@ -96,6 +96,7 @@ export default function PhoneVerification(props) {
 	const handleClose = () => {
 		setOpen(false);
 	};
+
 	//view part
 	return (
 		<div>
@@ -152,8 +153,8 @@ export default function PhoneVerification(props) {
 							onChange={ handleChange }
 							row={ true }
 						>
-							<FormControlLabel value="T" control={ <Radio /> } label="Text" />
-							<FormControlLabel value="M" control={ <Radio /> } label="Call" />
+							<FormControlLabel value="T" control={ <Radio color='primary' /> } label="Text" />
+							<FormControlLabel value="M" control={ <Radio color='primary' /> } label="Call" />
 						</RadioGroup>
 					</FormControl>
 					<div className="MuiTypography-alignLeft">

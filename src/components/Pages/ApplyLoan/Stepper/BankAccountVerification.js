@@ -32,35 +32,22 @@ const useStyles = makeStyles((theme) => ({
 const validationSchema = yup.object({
 	accountHolder: yup
 		.string(messages?.bankAccountVerification?.enterAccHolderName)
-		.required(
-			messages?.bankAccountVerification?.accountHolderRequired
-		),
+		.required(messages?.bankAccountVerification?.accountHolderRequired),
 	bankRoutingNumber: yup
 		.string(messages?.bankAccountVerification?.enterBankRoutingNum)
-		.required(
-			messages?.bankAccountVerification
-				?.bankRoutingNumberRequired
-		)
+		.required(messages?.bankAccountVerification?.bankRoutingNumberRequired)
 		.min(9, messages?.bankAccountVerification?.minBankRoutingNum),
 	bankInformation: yup
 		.string(messages?.bankAccountVerification?.enterBankIfo)
-		.required(
-			messages?.bankAccountVerification?.bankInformationRequired
-		),
+		.required(messages?.bankAccountVerification?.bankInformationRequired),
 	bankAccountNumber: yup
 		.string(messages?.bankAccountVerification?.minAccountNum)
-		.required(
-			messages?.bankAccountVerification
-				?.bankAccountNumberRequired
-		)
+		.required(messages?.bankAccountVerification?.bankAccountNumberRequired)
 		.min(7, messages?.bankAccountVerification?.minAccountNum)
 		.max(16, messages?.bankAccountVerification?.maxAccountNum),
 	confirmBankAccountNumber: yup
 		.string(messages?.bankAccountVerification?.enterConfirmAccNum)
-		.required(
-			messages?.bankAccountVerification
-				?.bankAccountNumberConfirmationRequired
-		)
+		.required(messages?.bankAccountVerification?.bankAccountNumberConfirmationRequired)
 		.when("bankAccountNumber", {
 			is: (bankAccountNumber) =>
 				bankAccountNumber && bankAccountNumber.length > 0,
@@ -116,13 +103,7 @@ export default function BankAccountVerification(props) {
 				bank_name: values.bankInformation,
 				repayment: paymnetMode,
 			};
-			let res = await APICall(
-				"bank_information_cac",
-				'',
-				data,
-				"POST",
-				true
-			);
+			let res = await APICall("bank_information_cac", '', data, "POST", true);
 			if (res?.data?.bank_account_information && res?.data?.bank_account_verification) {
 				props.setLoadingFlag(false);
 				props.next();
