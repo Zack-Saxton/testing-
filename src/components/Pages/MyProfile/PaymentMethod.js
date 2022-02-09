@@ -264,6 +264,7 @@ export default function PaymentMethod() {
             formikAddDebitCard.setFieldValue("cardName", row.OwnerName);
             formikAddDebitCard.setFieldValue("cardNumber", "****-****-****-" + row.LastFour);
             formikAddDebitCard.setFieldValue("expirydate", row.ExpirationDate);
+            formikAddDebitCard.setFieldValue("cvv", "***");
             setEditMode(true);
             addDebitCardButton();
             setLoading(false);
@@ -1210,7 +1211,7 @@ export default function PaymentMethod() {
                         </Grid>
                         <Grid
                             item
-                            xs={ 12 }
+                            xs={ 10 }
                             style={ { width: "100%" } }
                             container
                             direction="row"
