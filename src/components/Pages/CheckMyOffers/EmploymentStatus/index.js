@@ -96,7 +96,7 @@ function EmploymentStatus() {
 						container
 						justifyContent="center"
 						alignItems="center"
-						style={ { paddingTop: "70px", paddingBottom: "70px" } }
+						style={ { padding: "4% 0px 4% 0px" } }
 					>
 						<Grid
 							container
@@ -106,9 +106,6 @@ function EmploymentStatus() {
 							md={ 6 }
 							lg={ 6 }
 							xl={ 6 }
-							className="cardWrapper"
-							justifyContent="center"
-							alignItems="center"
 						>
 							<Paper
 								id="employmentStatusWrap"
@@ -124,8 +121,8 @@ function EmploymentStatus() {
 										<span className="floatLeft detNum42">42%</span>
 									</div>
 									<Grid className="floatLeft">
-										<Link to="/personal-info">
-											<i className="material-icons dp48 yellowText  ">
+										<Link className="arrowBack" to="/personal-info">
+											<i className="material-icons dp48 yellowText floatingButton">
 												arrow_back
 											</i>
 										</Link>
@@ -145,7 +142,7 @@ function EmploymentStatus() {
 											justify: "center",
 											alignItems: "center",
 										} }
-										className="borrowCSSLP"
+										className="checkMyOfferText borrowCSSLP"
 									>
 										Tell us about your employment status
 									</Typography>
@@ -167,6 +164,7 @@ function EmploymentStatus() {
 											xs={ 12 }
 										>
 											<Paper
+												id="employedHourly"
 												elevation={ 3 }
 												data-testid="Hourly"
 												className={
@@ -187,6 +185,7 @@ function EmploymentStatus() {
 										</Grid>
 										<Grid item lg={ 8 } md={ 8 } xs={ 12 }>
 											<Paper
+												id="employedSalaried"
 												elevation={ 3 }
 												data-testid="Salary"
 												className={
@@ -204,6 +203,7 @@ function EmploymentStatus() {
 										</Grid>
 										<Grid item lg={ 8 } md={ 8 } xs={ 12 }>
 											<Paper
+												id="selfEmployed"
 												elevation={ 3 }
 												data-testid="selfEmployed"
 												className={
@@ -221,6 +221,7 @@ function EmploymentStatus() {
 										</Grid>
 										<Grid item lg={ 8 } md={ 8 } xs={ 12 }>
 											<Paper
+												id="Unemployed"
 												elevation={ 3 }
 												data-testid="Unemployed"
 												className={
@@ -243,6 +244,7 @@ function EmploymentStatus() {
 										</Grid>
 										<Grid item lg={ 8 } md={ 8 } xs={ 12 }>
 											<Paper
+												id="Retired"
 												elevation={ 3 }
 												data-testid="Retired"
 												className={

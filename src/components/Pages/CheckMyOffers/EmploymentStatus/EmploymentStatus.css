@@ -185,6 +185,7 @@
 
 #employmentStatusWrap {
 	border-radius: 4px !important;
+	width: 100%;
 }
 
 #employmentStatusWrap form {

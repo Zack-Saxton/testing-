@@ -84,12 +84,12 @@ function CheckMyOffers(props) {
 							style={ { paddingTop: "4%" } }
 						>
 							<Paper
-								className="card"
+								className="checkMyOffersWrap"
 								justify="center"
 								alignitems="center"
 								id="selectAmountWrap"
 							>
-								<Typography align="center" className="borrowCSS CMOHeading">
+								<Typography align="center" className="checkMyOffersHeading">
 									Tell us how much you would like to borrow
 								</Typography>
 								<Grid
@@ -112,6 +112,7 @@ function CheckMyOffers(props) {
 									</Grid>
 								</Grid>
 								<Grid
+									id="checkMyOffersText"
 									item
 									xs={ 12 }
 									className="alignSlider"
@@ -172,13 +173,13 @@ function CheckMyOffers(props) {
 										</Grid>
 									</Grid>
 
-									<Typography align="center">
+									<Typography className="checkMyoffersSubHeading" align="center">
 										Checking your offers will not impact your credit score.*
 									</Typography>
 									<Grid className="alignTextInsideCard justifyText">
 										<Typography
 											data-testid="descriptionInside"
-											className="alignText justifyText"
+											className="alignText justifyText checkMyOffersText"
 											align="center"
 										>
 											†We offer personal loans from $1,000 to $25,000, with

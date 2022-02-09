@@ -426,6 +426,7 @@
 }
 .cursorPointer {
 	cursor: pointer;
+	font-size: 0.938rem !important;
 }
 
 .modalAction {
@@ -510,6 +511,33 @@
 
 .checkMyOfferText{
 	margin: 10px 0px !important;
+}
+
+#employedHourly{
+	margin: 15px 0px 15px 0px  !important;
+	padding: 2px 0px !important;
+	border-radius: 2px !important;
+	font-size: 0.938rem;
+}
+#employedSalaried,#selfEmployed,#Unemployed,#Retired {
+	margin: 0px 0px 15px 0px  !important;
+	padding: 2px 0px !important;
+	border-radius: 2px !important;
+	font-size: 0.938rem;
+}
+#checkMyOffersText{
+	margin:0 !important;
+}
+.checkMyOffersText{
+	font-size: 0.938rem !important;
+}
+.checkMyOffersHeading{
+	font-size: 1.538rem !important;
+	margin: 40px 0px !important;
+}
+.checkMyoffersSubHeading{
+	font-size: 1.078rem !important;
+	color: #171717 !important;
 }
 
 @media (min-width: 600px) {
