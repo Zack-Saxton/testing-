@@ -311,6 +311,9 @@ export default function SideNav() {
     const valueQualifiedName = "value";
 
     if (checked === false || check === false) {
+      var profiledetailTag = document.getElementById("profileDetails");
+      profiledetailTag.style.display = "block";
+
       let menuValue = document
         .getElementById(closeElementId)
         .getAttribute(valueQualifiedName);
@@ -347,6 +350,9 @@ export default function SideNav() {
     const valueQualifiedName = "value";
 
     if (checked === false || check === false) {
+      var profiledetailTag = document.getElementById("profileDetails");
+      profiledetailTag.style.display = "none";
+      
       let menuValue = document
         .getElementById(closeElementId)
         .getAttribute(valueQualifiedName);
@@ -379,10 +385,13 @@ export default function SideNav() {
 
   //Menu button on mouse view
   const handleMenuButtonOpen = () => {
+    
+      
     if (check === false) {
       document.getElementById("close2").style.display = "block ";
-
       setOpen(true);
+      var profiledetailTag = document.getElementById("profileDetails");
+      profiledetailTag.style.display = "block";
     }
   };
 
