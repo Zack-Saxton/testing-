@@ -1,18 +1,18 @@
 import CircularProgress from '@material-ui/core/CircularProgress';
 import React, { useEffect } from "react";
+import { useQuery } from 'react-query';
 import DisclosureLinkController from "../../Controllers/DisclosureLinkController";
 import "./Style.css";
 
 const RenderContent = ({ disclosureLink }) => {
-    const [ HTML, setHTML ] = React.useState(``);
-
-    useEffect(async () => {
-        setHTML(await DisclosureLinkController(disclosureLink));
-    }, []);
+    const loadData =  () => {
+        return  DisclosureLinkController(disclosureLink)
+    }
+	const { isLoading, data: accountDetails } = useQuery(disclosureLink, loadData);
     return (
         <div>
             {
-                HTML !== `` ? <div dangerouslySetInnerHTML={ { __html: HTML.data } } /> : <CircularProgress />
+                !isLoading ? <div dangerouslySetInnerHTML={ { __html: accountDetails.data } } /> : <CircularProgress />
             }
 
         </div>
