@@ -16,18 +16,13 @@ function CheckMyOffers(props) {
 	const { data, setData, resetData } = useContext(Check);
 	const [ hasOfferCode, setOfferCode ] = useState("");
 	const getValidValue = (selectedValue) => {
-		let validValue = selectedValue % 250 === 0 ? selectedValue : selectedValue - selectedValue % 250;
+		let validValue = (selectedValue > 5000 && (selectedValue % 500) === 250 ? selectedValue + 250 : selectedValue);
 		if (validValue < 1000) {
 			return 1000;
 		} else if (validValue > 25000) {
 			return 25000;
 		}
-		else if (validValue > 5000) {
-			return validValue % 500 === 0 ? validValue : validValue - validValue % 500;
-		}
-		else {
-			return validValue;
-		}
+		return validValue;
 	};
 	let selectedAmount = getValidValue(props.match.params.amount);
 	const [ select, setSelect ] = useState(data.loanAmount ? data.loanAmount : (selectedAmount ? parseInt(selectedAmount) : 10000));
@@ -40,8 +35,7 @@ function CheckMyOffers(props) {
 			data.completedPage = data.page.selectAmount;
 			setData({ ...data, loanAmount: select, loading: false });
 			history.push({ pathname: "/loan-purpose" });
-		}
-		else if (data.formStatus === "" || data.completedPage === 0 || data.formStatus === "completed" || props.location.fromLoanPurpose !== "yes") {
+		} else if (data.formStatus === "" || data.completedPage === 0 || data.formStatus === "completed" || props.location.fromLoanPurpose !== "yes") {
 			setData({ ...data, loading: true });
 			resetData();
 			setSelect(data.loanAmount ? data.loanAmount : 10000);
@@ -57,7 +51,7 @@ function CheckMyOffers(props) {
 		data.formStatus = "started";
 		data.completedPage = data.page.selectAmount;
 		setData({ ...data, loanAmount: select });
-		history.push({ pathname: "/loan-purpose" });
+		history.push({ pathname: "/pre-approved" });
 	};
 
 	// jsx part
@@ -84,12 +78,12 @@ function CheckMyOffers(props) {
 							style={ { paddingTop: "4%" } }
 						>
 							<Paper
-								className="card"
+								className="checkMyOffersWrap"
 								justify="center"
 								alignitems="center"
 								id="selectAmountWrap"
 							>
-								<Typography align="center" className="borrowCSS CMOHeading">
+								<Typography align="center" className="checkMyOffersHeading">
 									Tell us how much you would like to borrow
 								</Typography>
 								<Grid
@@ -112,6 +106,7 @@ function CheckMyOffers(props) {
 									</Grid>
 								</Grid>
 								<Grid
+									id="checkMyOffersText"
 									item
 									xs={ 12 }
 									className="alignSlider"
@@ -172,13 +167,13 @@ function CheckMyOffers(props) {
 										</Grid>
 									</Grid>
 
-									<Typography align="center">
+									<Typography className="checkMyoffersSubHeading" align="center">
 										Checking your offers will not impact your credit score.*
 									</Typography>
 									<Grid className="alignTextInsideCard justifyText">
 										<Typography
 											data-testid="descriptionInside"
-											className="alignText justifyText"
+											className="alignText justifyText checkMyOffersText"
 											align="center"
 										>
 											†We offer personal loans from $1,000 to $25,000, with

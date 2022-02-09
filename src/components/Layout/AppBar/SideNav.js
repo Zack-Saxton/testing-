@@ -309,6 +309,9 @@ export default function SideNav() {
     const valueQualifiedName = "value";
 
     if (checked === false || check === false) {
+      var profiledetailTag = document.getElementById("profileDetails");
+      profiledetailTag.style.display = "block";
+
       let menuValue = document
         .getElementById(closeElementId)
         .getAttribute(valueQualifiedName);
@@ -345,6 +348,9 @@ export default function SideNav() {
     const valueQualifiedName = "value";
 
     if (checked === false || check === false) {
+      var profiledetailTag = document.getElementById("profileDetails");
+      profiledetailTag.style.display = "none";
+      
       let menuValue = document
         .getElementById(closeElementId)
         .getAttribute(valueQualifiedName);
@@ -377,10 +383,13 @@ export default function SideNav() {
 
   //Menu button on mouse view
   const handleMenuButtonOpen = () => {
+    
+      
     if (check === false) {
       document.getElementById("close2").style.display = "block ";
-
       setOpen(true);
+      var profiledetailTag = document.getElementById("profileDetails");
+      profiledetailTag.style.display = "block";
     }
   };
 
@@ -525,17 +534,9 @@ export default function SideNav() {
                 <Typography className={ classes.headerAlign }>FAQ</Typography>
               </NavLink>
 
-              <Typography
-                className={ clsx(classes.headerAlign, classes.branchLocator) }
-              >
-                <a
-                  href=" https://loans.marinerfinance.com/branchlocatorpage"
-                  style={ { color: "white" } }
-                  className="hrefTag"
-                >
-                  Branch Locator
-                </a>
-              </Typography>
+              <NavLink to="/branchlocator" className="nav_link">
+                <Typography className={classes.headerAlign}>Branch Locator</Typography>
+              </NavLink>
 
               <NavLink to="/customers/makePayment" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : '' }>
                 <Tooltip title="Quick Pay" placement="bottom">

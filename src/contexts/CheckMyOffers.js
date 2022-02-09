@@ -3,7 +3,6 @@ import React, { createContext, useState } from 'react';
 import states from '../../src/assets/data/States.json';
 import usrAccountDetails from '../components/Controllers/AccountOverviewController';
 import { decryptAES } from '../components/lib/Crypto';
-import {useQuery} from 'react-query';
 
 export const CheckMyOffers = createContext();
 
@@ -71,12 +70,10 @@ function CheckMyOffersContext(props) {
     },
     applicationStatus: '',
   });
-  const { data:accountDetail } = useQuery('loan-data', usrAccountDetails);
-
-
 
   // setUserAccountDetails in context
   async function setUserAccountDetails() {
+    const accountDetail = await usrAccountDetails();
     data.loading = true;
     if (accountDetail?.status === 200) {
       const cred = JSON.parse(
@@ -116,7 +113,7 @@ function CheckMyOffersContext(props) {
         : '';
       data.email = latestContact?.email ? latestContact?.email : '';
       data.dob = identification?.date_of_birth
-        ? identification?.date_of_birth
+        ? Moment(identification?.date_of_birth).format("MM/DD/YYYY")
         : '';
       data.streetAddress = latestContact?.address_street
         ? latestContact?.address_street
