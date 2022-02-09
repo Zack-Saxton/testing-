@@ -5,6 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import React, { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
+import { maritalStatusData } from "../../../../assets/data/constants"
 import * as yup from "yup";
 import MarriedStatusLogo from "../../../../assets/icon/married-status.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
@@ -22,33 +23,33 @@ const validationSchema = yup.object({
 	add: yup
 		.string()
 		.when("martialStatus", {
-			is: "Married",
+			is: maritalStatusData.married,
 			then: yup.string().required("Spouse Address is required"),
 		})
 		.when("martialStatus", {
-			is: "Separated, under decree of legal separation",
+			is: maritalStatusData.seperated,
 			then: yup.string().required("Spouse Address is required"),
 		}),
 	spouseZipcode: yup
 		.string()
 		.when("martialStatus", {
-			is: "Married",
+			is: maritalStatusData.married,
 			then: yup.string().required("Your home ZIP Code is required"),
 		})
 		.when("martialStatus", {
-			is: "Separated, under decree of legal separation",
+			is: maritalStatusData.seperated,
 			then: yup.string().required("Your home ZIP Code is required"),
 		}),
 	spousecity: yup
 		.string()
 		.when("martialStatus", {
-			is: "Married",
+			is: maritalStatusData.married,
 			then: yup
 				.string()
 				.required("Your home city is required. Please re-enter your zip code to populate your city"),
 		})
 		.when("martialStatus", {
-			is: "Separated, under decree of legal separation",
+			is: maritalStatusData.seperated,
 			then: yup
 				.string()
 				.required("Your home city is required. Please re-enter your zip code to populate your city"),
@@ -56,11 +57,11 @@ const validationSchema = yup.object({
 	spouseSelectState: yup
 		.string()
 		.when("martialStatus", {
-			is: "Married",
+			is: maritalStatusData.married,
 			then: yup.string().required("Your home state is required"),
 		})
 		.when("martialStatus", {
-			is: "Separated, under decree of legal separation",
+			is: maritalStatusData.seperated,
 			then: yup.string().required("Your home state is required"),
 		}),
 });
@@ -231,7 +232,7 @@ function MarriedStatus() {
 												fullWidth={ true }
 												name="martialStatus"
 												labelform="Marital Status *"
-												select='[{"value":"Married"}, {"value":"Unmarried"}, {"value":"Separated, under decree of legal separation"}]'
+												select={'[{"value":"' + maritalStatusData.married + '", "label":"Married"}, {"value":"' + maritalStatusData.unmarried + '", "label":"Unmarried"}, {"label":"Separated, under decree of legal separation", "value":"' + maritalStatusData.seperated + '"}]'}
 												value={ formik.values.martialStatus }
 												onChange={ formik.handleChange }
 												onBlur={ formik.handleBlur }
@@ -254,9 +255,9 @@ function MarriedStatus() {
 											md={ 8 }
 											xs={ 12 }
 											className={
-												formik.values.martialStatus === "Married" ||
+												formik.values.martialStatus === maritalStatusData.married ||
 													formik.values.martialStatus ===
-													"Separated, under decree of legal separation"
+													maritalStatusData.seperated
 													? "showMsg space"
 													: "hideMsg space"
 											}
@@ -282,9 +283,9 @@ function MarriedStatus() {
 											md={ 8 }
 											xs={ 12 }
 											className={
-												formik.values.martialStatus === "Married" ||
+												formik.values.martialStatus === maritalStatusData.married ||
 													formik.values.martialStatus ===
-													"Separated, under decree of legal separation"
+													maritalStatusData.seperated
 													? "showMsg "
 													: "hideMsg "
 											}
@@ -302,9 +303,9 @@ function MarriedStatus() {
 											md={ 8 }
 											xs={ 12 }
 											className={
-												formik.values.martialStatus === "Married" ||
+												formik.values.martialStatus === maritalStatusData.married ||
 													formik.values.martialStatus ===
-													"Separated, under decree of legal separation"
+													maritalStatusData.seperated
 													? "showMsg space"
 													: "hideMsg space"
 											}
@@ -339,9 +340,9 @@ function MarriedStatus() {
 											md={ 8 }
 											xs={ 12 }
 											className={
-												formik.values.martialStatus === "Married" ||
+												formik.values.martialStatus === maritalStatusData.married ||
 													formik.values.martialStatus ===
-													"Separated, under decree of legal separation"
+													maritalStatusData.seperated
 													? "showMsg space"
 													: "hideMsg space"
 											}
@@ -373,9 +374,9 @@ function MarriedStatus() {
 											md={ 8 }
 											xs={ 12 }
 											className={
-												formik.values.martialStatus === "Married" ||
+												formik.values.martialStatus === maritalStatusData.married ||
 													formik.values.martialStatus ===
-													"Separated, under decree of legal separation"
+													maritalStatusData.seperated
 													? "showMsg space"
 													: "hideMsg space"
 											}
