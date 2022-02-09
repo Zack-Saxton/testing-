@@ -11,9 +11,7 @@ const ApplyForLoanRedirect = (props) => {
 	const history = useHistory();
 
 	const redirectToCMO = () => {
-		history.push({
-			pathname: "/select-amount",
-		});
+		history.push({ pathname: "/select-amount", });
 	};
 
 	//To get the current active application status
@@ -47,45 +45,33 @@ const ApplyForLoanRedirect = (props) => {
 				? props.location.state.statusCheck
 				: true;
 		if (props?.location?.state?.from === "user") {
-			history.push({
-				state: { from: "ended" },
-			});
+			history.push({ state: { from: "ended" }, });
 			if (res?.data?.customer?.user_account?.status === "closed" && checkStatus !== false) {
 				if (!toast.isActive("closedApplication")) {
 					toast.error(
 						messages?.accountClosed);
 				}
-				history.push({
-					pathname: "/customers/accountOverview",
-				});
+				history.push({ pathname: "/customers/accountOverview", });
 			} else if (res?.data?.applicants.length === 0) {
 				redirectToCMO();
 			} else if (res?.data?.applicants[ 0 ]?.isActive === true) {
-				history.push({
-					pathname: statusStrLink[ res?.data?.applicants[ 0 ]?.status ],
-				});
+				history.push({ pathname: statusStrLink[ res?.data?.applicants[ 0 ]?.status ], });
 			} else {
 				let isActiveApplicationAvailable = false;
 				res?.data?.applicants.map((item, index) => {
 					if (item.isActive === true) {
 						isActiveApplicationAvailable = true;
-						history.push({
-							pathname: statusStrLink[ item.status ],
-						});
+						history.push({ pathname: statusStrLink[ item.status ], });
 					}
 					return null;
 				});
 				if (isActiveApplicationAvailable === false) {
-					history.push({
-						pathname: "/select-amount",
-					});
+					history.push({ pathname: "/select-amount", });
 				}
 				return null;
 			}
 		} else {
-			history.push({
-				pathname: "/customers/accountOverview",
-			});
+			history.push({ pathname: "/customers/accountOverview", });
 		}
 		return res;
 	};

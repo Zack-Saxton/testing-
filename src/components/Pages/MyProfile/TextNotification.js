@@ -40,9 +40,9 @@ export default function TextNotification() {
   const onClickCancelChange = () => {
     formikTextNote.resetForm();
     history.push({ pathname: "/customers/myProfile" });
-    setprofileTabNumber( { profileTabNumber: 0 } );
+    setprofileTabNumber({ profileTabNumber: 0 });
   };
-  
+
   const phonevalidationSchema = yup.object().shape({
     phone: yup
       .string("Enter a name")
@@ -222,10 +222,10 @@ export default function TextNotification() {
           >
             I have read, understand, and agree to the &nbsp;
             <Link
-              to={`/textingTermsOfUse`}
+              to={ `/textingTermsOfUse` }
               target="_blank"
-              className={classes.linkStyle}
-              style={{ textDecoration: "none", color: "#0F4EB3" }}
+              className={ classes.linkStyle }
+              style={ { textDecoration: "none", color: "#0F4EB3" } }
             >
               Texting Terms of Use.
             </Link>

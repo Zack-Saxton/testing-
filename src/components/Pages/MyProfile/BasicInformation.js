@@ -77,9 +77,7 @@ export default function BasicInformation(props) {
   const logOut = () => {
     setLoading(false);
     LogoutController();
-    history.push({
-      pathname: "/login"
-    });
+    history.push({ pathname: "/login" });
   };
 
   const logoutUser = () => {

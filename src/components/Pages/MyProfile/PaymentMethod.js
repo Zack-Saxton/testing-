@@ -137,7 +137,7 @@ export default function PaymentMethod() {
     const { data: allPaymentMethod, refetch } = useQuery('payment-method', getPaymentMethods, {
         refetchOnMount: false
     });
-   
+
     const formikAddBankAccount = useFormik({
         initialValues: {
             accountNickname: "",
@@ -216,8 +216,8 @@ export default function PaymentMethod() {
                     formikAddDebitCard.setFieldValue("city", result?.data?.cityName);
                     formikAddDebitCard.setFieldValue("state", result?.data?.stateCode);
                 }
-            } 
-            if(!isValidZip){
+            }
+            if (!isValidZip) {
                 formikAddDebitCard.setFieldValue("city", "");
                 formikAddDebitCard.setFieldValue("state", "");
             }
@@ -257,7 +257,7 @@ export default function PaymentMethod() {
             setEditMode(true);
             addDebitCardButton();
             formikAddDebitCard.setFieldValue("cardName", row.OwnerName);
-            formikAddDebitCard.setFieldValue("cardNumber","****-****-****-" + row.LastFour);
+            formikAddDebitCard.setFieldValue("cardNumber", "****-****-****-" + row.LastFour);
             formikAddDebitCard.setFieldValue("expirydate", row.ExpirationDate);
             setEditMode(true);
             addDebitCardButton();
@@ -268,7 +268,7 @@ export default function PaymentMethod() {
     function detectCardType(event, number) {
         let cardPattern = {
             Visa: /^4\d{12}(?:\d{3})?$/,
-			Mastercard: /^5[1-5]\d{14}$/,
+            Mastercard: /^5[1-5]\d{14}$/,
         };
         let _valid = false;
         for (let key in cardPattern) {
@@ -383,7 +383,7 @@ export default function PaymentMethod() {
 
     const handleMenuProfile = () => {
         history.push({ pathname: "/customers/myProfile" });
-        setprofileTabNumber( { profileTabNumber: 0 } );
+        setprofileTabNumber({ profileTabNumber: 0 });
     };
 
     const setDefaultPaymentOnChange = async (nickname) => {
@@ -441,7 +441,7 @@ export default function PaymentMethod() {
                     let res = await deleteBankAccount(passData);
                     if (res?.data?.deletePaymentMethod?.HasNoErrors === true) {
                         if (!toast.isActive("closeToast")) { toast.success("Bank account deleted successfully."); }
-                        refetch()
+                        refetch();
                         setDeleteID("");
                         setDeleteType("");
                         handleDeleteConfirmClose();
@@ -634,13 +634,13 @@ export default function PaymentMethod() {
                                 </Table>
                             </TableContainer>
                         ) : allPaymentMethod?.data?.message ? (
-                            <Grid className="circleprog" style={ {width: "100%", textAlign: "center", marginTop: "20px",} } item xs={ 12 }>
+                            <Grid className="circleprog" style={ { width: "100%", textAlign: "center", marginTop: "20px", } } item xs={ 12 }>
                                 <Typography>
                                     { allPaymentMethod?.data?.message }
                                 </Typography>
                             </Grid>
                         ) : (
-                            <Grid className="circleprog" style={ {width: "100%", textAlign: "center", marginTop: "20px",} } item xs={ 12 }>
+                            <Grid className="circleprog" style={ { width: "100%", textAlign: "center", marginTop: "20px", } } item xs={ 12 }>
                                 <Typography>No Payment methods available</Typography>
                             </Grid>
                         )
@@ -1064,7 +1064,7 @@ export default function PaymentMethod() {
                                         );
                                         if (resBankData?.data?.Success) {
                                             toast.success("Payment method added successfully");
-                                            refetch()
+                                            refetch();
                                             closeBankAccountButton();
                                         } else if (
                                             resBankData?.data?.result === "error" ||
