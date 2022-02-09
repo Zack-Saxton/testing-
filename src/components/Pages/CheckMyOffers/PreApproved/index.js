@@ -16,6 +16,7 @@ const PreApproved = () => {
         setAccountDetails().then((res) => {
             setOfferAmount(res?.data?.offerData?.offerAmount);
         });
+        return null
     }, []);
 
     const handleContinue = () => {
@@ -82,6 +83,7 @@ const PreApproved = () => {
                                     </Grid>
                                 </Grid>
                                 <Grid
+                                    id="checkMyOffersText"
                                     item
                                     xs={ 12 }
                                     className="alignSlider"
