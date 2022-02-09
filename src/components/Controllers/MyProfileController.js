@@ -188,7 +188,7 @@ export async function uploadNewProfileImage(imgData, fileName, fileType, documen
 export async function addCreditCard(values, cardType) {
   try {
     let url = "add_new_card_payment";
-    let expyDate = ("0" + (values.expirydate.getMonth() + 1)).slice(-2) + "/" + values.expirydate.getFullYear().toString().substr(-2);
+    let expiryDate = ("0" + (values.expiryDate.getMonth() + 1)).slice(-2) + "/" + values.expiryDate.getFullYear().toString().substr(-2);
     let param = "";
     let data = {
       "address_street": values.streetAddress,
@@ -199,7 +199,7 @@ export async function addCreditCard(values, cardType) {
       "card_number": values.cardNumber,
       "issuer": cardType,
       "cvv": parseInt(values.cvv),
-      "exp_date": expyDate,
+      "exp_date": expiryDate,
       "defaultBank": values.setDefault ? 1 : 0
     };
     let method = "POST";

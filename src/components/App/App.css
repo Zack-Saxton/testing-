@@ -37,10 +37,5 @@
 }
 .toast_message_box {
     font-size: 30px;
-    bottom: 1em;
-    border: 0px solid grey !important;;
-    font-weight: 500;
-    padding-top: 10px !important;
-    border-radius: 10px !important;
-    transform: translateX(-30%);
+    width: auto;    
 }
