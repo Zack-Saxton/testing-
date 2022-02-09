@@ -34,41 +34,33 @@ function LivingPlace() {
 		}
 	};
 
+	const validateUserInput = () => {
+		setError(false);
+		setHelperText("");
+		data.homeOwnership = livingPlace;
+		if (data.state === "NC") {
+			data.completedPage = data.page.livingPlace;
+			history.push("/active-duty");
+		} else if (data.state === "WI") {
+			data.completedPage = data.page.livingPlace;
+			history.push("/marital-status");
+		} else {
+			data.completedPage = data.page.activeDuty;
+			history.push("/ssn");
+		}
+	}
+
 	//validating user input and proceeds
 	const handleRoute = () => {
 		if (livingPlace === "Renting" || livingPlace === "Own a Home with Mortgage") {
 			if (data.rentMortgageAmount !== "" && data.rentMortgageAmount !== 0 && data.rentMortgageAmount >= 100) {
-				setError(false);
-				setHelperText("");
-				data.homeOwnership = livingPlace;
-				if (data.state === "NC") {
-					data.completedPage = data.page.livingPlace;
-					history.push("/active-duty");
-				} else if (data.state === "WI") {
-					data.completedPage = data.page.livingPlace;
-					history.push("/marital-status");
-				} else {
-					data.completedPage = data.page.activeDuty;
-					history.push("/ssn");
-				}
+				validateUserInput();
 			} else {
 				setError(true);
 				setHelperText("Enter valid rent/Mortgage amount");
 			}
 		} else {
-			setError(false);
-			setHelperText("");
-			data.homeOwnership = livingPlace;
-			if (data.state === "NC") {
-				data.completedPage = data.page.livingPlace;
-				history.push("/active-duty");
-			} else if (data.state === "WI") {
-				data.completedPage = data.page.livingPlace;
-				history.push("/marital-status");
-			} else {
-				data.completedPage = data.page.activeDuty;
-				history.push("/ssn");
-			}
+			validateUserInput();
 		}
 	};
 
