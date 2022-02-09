@@ -18,7 +18,7 @@ const validationSchema = yup.object({
 		.string("Enter your Zip")
 		.required("Select Active duty status"),
 	activeDutyRank: yup.string().when("activeDuty", {
-		is: "Yes",
+		is: "Active Military",
 		then: yup.string().required("Active duty rank is required"),
 	}),
 });
@@ -137,7 +137,7 @@ function ActiveDuty() {
 												fullWidth={ true }
 												name="activeDuty"
 												labelform="Active Duty *"
-												select='[{"value":"Yes"}, {"value":"No"}]'
+												select='[{"label":"Yes", "value":"Active Military"}, {"label":"No", "value":"Not Active Military"}]'
 												value={ formik.values.activeDuty }
 												onChange={ formik.handleChange }
 												onBlur={ formik.handleBlur }
@@ -156,7 +156,7 @@ function ActiveDuty() {
 											id="activeDutyRankWrap"
 											justifyContent="center"
 											className={
-												formik.values.activeDuty === "Yes"
+												formik.values.activeDuty === "Active Military"
 													? "showMsg space"
 													: "hideMsg space"
 											}
