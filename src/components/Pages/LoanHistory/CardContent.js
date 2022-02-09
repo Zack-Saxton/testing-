@@ -18,7 +18,7 @@ export default function LoanHistoryCard(historyOfLoans) {
     history.push({ pathname: "/customers/applyForLoan", state: { from: "user" } });
   };
   const redirectToMakeAPayment = () => {
-    history.push( { pathname: "/customers/makePayment", state: { from: "user" } } );
+    history.push({ pathname: "/customers/makePayment", state: { from: "user" } });
   };
   //  view part
   return (

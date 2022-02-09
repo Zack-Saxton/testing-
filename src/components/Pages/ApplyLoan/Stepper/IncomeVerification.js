@@ -87,13 +87,7 @@ export default function IncomeVerification(props) {
 							props.setLoadingFlag(true);
 
 							// API call
-							let res = await APICall(
-								"verification_steps_cac",
-								'',
-								data,
-								"POST",
-								true
-							);
+							let res = await APICall("verification_steps_cac", '', data, "POST", true);
 
 							//To check all the steps are completed or not
 							if (
@@ -107,9 +101,7 @@ export default function IncomeVerification(props) {
 								res?.data?.income_verification === true
 							) {
 								props.setLoadingFlag(false);
-								history.push({
-									pathname: "/customers/receiveYourMoney",
-								});
+								history.push({ pathname: "/customers/receiveYourMoney", });
 							} else {
 								props.setLoadingFlag(false);
 								alert(messages.incomeVerification.finishAllSteps);

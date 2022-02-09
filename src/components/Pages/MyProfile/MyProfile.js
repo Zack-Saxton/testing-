@@ -14,6 +14,7 @@ import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { useQuery } from 'react-query';
 import { NavLink } from "react-router-dom";
+import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import getTextNotify from "../../Controllers/MyProfileController";
@@ -23,7 +24,6 @@ import ScrollToTopOnMount from "../ScrollToTop";
 import BasicInformationCard from "./BasicInformation";
 import ChangePassword from "./ChangePassword";
 import MailingAddressCard from "./MailingAddress";
-import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import PaymentMethodCard from "./PaymentMethod";
 import { useStylesMyProfile } from "./Style";
 import "./Style.css";
@@ -84,9 +84,9 @@ export default function MyProfile() {
   let getProfImage = profileImage;
   const [ globalState, setprofileTabNumber ] = useGlobalState();
   const handleTabChange = (event, newValues) => {
-    setprofileTabNumber( { profileTabNumber: newValues } );
+    setprofileTabNumber({ profileTabNumber: newValues });
   };
-  
+
   const [ textNotifyData, setTextNotifyData ] = useState(null);
   async function AsyncEffect_textNotifyData() {
     setTextNotifyData(await getTextNotify());

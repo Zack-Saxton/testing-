@@ -84,7 +84,7 @@ export default function MakePayment(props) {
   const { data: payments } = useQuery('payment-method', usrPaymentMethods, {
     refetchOnMount: false
   });
-  
+
   //API Request for Payment methods
   async function getPaymentMethods() {
     setpaymentMethod(payments);
@@ -218,10 +218,8 @@ export default function MakePayment(props) {
   }
 
   const handleMenuPaymentProfile = () => {
-    history.push({
-      pathname: "/customers/myProfile",
-    });
-    setprofileTabNumber( { profileTabNumber: 3 } )
+    history.push({ pathname: "/customers/myProfile", });
+    setprofileTabNumber({ profileTabNumber: 3 });
   };
 
   // Disable Sheduled payment while make recuiring payment
@@ -342,19 +340,12 @@ export default function MakePayment(props) {
       let res = checkaccNo(activeLoansData, accNo);
       // if accno is not Valid
       if (res === false) {
-        toast.error(globalMessages.Invalid_Account_Number, {
-          autoClose: 5000,
-        });
-        history.push({
-          pathname: "/customers/accountoverview",
-        });
+        toast.error(globalMessages.Invalid_Account_Number, { autoClose: 5000, });
+        history.push({ pathname: "/customers/accountoverview", });
       }
     } else {
-      setlatestLoanData(
-        activeLoansData != null ? activeLoansData.slice(0, 1) : null
-      );
-      let latestLoan =
-        activeLoansData != null ? activeLoansData.slice(0, 1) : null;
+      setlatestLoanData(activeLoansData?.slice(0, 1) ?? null);
+      let latestLoan = activeLoansData?.slice(0, 1) ?? null;
       setpaymentAmount(
         activeLoansData?.length
           ? latestLoan != null
@@ -1106,7 +1097,7 @@ export default function MakePayment(props) {
               "Auto Pay Confirmation"
             }
           </Typography>
-          {/* <Typography id="autoTxt" className={ classes.autoPayContent }> */}
+          {/* <Typography id="autoTxt" className={ classes.autoPayContent }> */ }
           <>
             <TableContainer>
               <Table className={ classes.table } aria-label="simple table" border-color="white">
@@ -1151,7 +1142,7 @@ export default function MakePayment(props) {
                 </TableBody>
               </Table>
             </TableContainer>
-          {/* </Typography> */}
+            {/* </Typography> */ }
           </>
           <IconButton
             id="autopayCloseBtn"

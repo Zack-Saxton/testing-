@@ -130,11 +130,7 @@ export default function Login(props) {
 				Cookies.set('temp_opted_phone_texting', "");
 				queryClient.removeQueries();
 				setLoading(false);
-				history.push({
-					pathname: props.location.state?.redirect
-						? props.location.state?.redirect
-						: "/customers/accountoverview",
-				});
+				history.push({ pathname: props.location.state?.redirect ? props.location.state?.redirect : "/customers/accountoverview", });
 				if (props.location.state?.activationToken) {
 					history.go(0);
 				}
@@ -154,10 +150,10 @@ export default function Login(props) {
 				setCounter(counter + 1);
 				setLoading(false);
 				setLoginFailed(retVal?.data?.errorMessage);
-                if(counter >= 1){
-                    history.push('/register?email='+values.email);
-                }
-            } else {
+				if (counter >= 1) {
+					history.push('/register?email=' + values.email);
+				}
+			} else {
 				setLoading(false);
 				alert("Network error");
 			}

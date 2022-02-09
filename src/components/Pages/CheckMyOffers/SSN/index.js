@@ -4,19 +4,18 @@ import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import React, { useContext, useState } from "react";
+import { useQuery } from 'react-query';
 import { Link, useHistory } from "react-router-dom";
-import {useQuery} from 'react-query';
 import SSNLogo from "../../../../assets/icon/Last-Step.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
+import usrAccountDetails from "../../../Controllers/AccountOverviewController";
 import {
 	checkMyOfferSubmit as submitApplication,
 	getCustomerByEmail
 } from "../../../Controllers/CheckMyOffersController";
-import usrAccountDetails from "../../../Controllers/AccountOverviewController"
 import { ButtonPrimary, Checkbox, Popup, RenderContent } from "../../../FormsUI";
 import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
-
 
 //SSN component initialization
 function SSN() {

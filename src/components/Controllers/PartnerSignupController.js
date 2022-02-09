@@ -39,13 +39,7 @@ export default async function PartnerSignup(history, partnerToken, applicantId, 
   let addAccessToken = false;
 
   //API call
-  let partnerSignupMethod = await APICall(
-    url,
-    param,
-    data,
-    method,
-    addAccessToken
-  );
+  let partnerSignupMethod = await APICall(url, param, data, method, addAccessToken);
 
   partnerSignupMethod.data.status === 200
     ? toast.success(partnerSignupMethod?.data?.statusText ? partnerSignupMethod?.data?.statusText
@@ -160,9 +154,7 @@ export async function partnerConfirmInfo(dataConfirmInfo, history) {
     ? toast.success(PartnerConfirmationAPI?.data?.statusText ? PartnerConfirmationAPI?.data?.statusText : "Successfully registered",
       {
         onClose: () => {
-          history.push({
-            pathname: statusStrLink[ PartnerConfirmationAPI?.data.applicationStatus ],
-          });
+          history.push({ pathname: statusStrLink[ PartnerConfirmationAPI?.data.applicationStatus ], });
         },
       }
     )

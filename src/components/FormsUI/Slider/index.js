@@ -5,12 +5,12 @@ Component Name      :    Slider
 Functionality       :    To use this component to select a value using the slider input
 
 #################################################################################################################*/
-import React, { useState } from "react";
 import FormControl from "@material-ui/core/FormControl";
 import Slider from "@material-ui/core/Slider";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
+import React, { useState } from "react";
 import NumberFormat from 'react-number-format';
 import "./Slider.css";
 
@@ -132,7 +132,7 @@ const TextfieldWrapper = ({
       </FormControl>
       <div className={ classes.center }>
         <Typography id="discrete-slider-always-amount" variant='h6' className={ classes.OutputText }>
-           <NumberFormat value={ value } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 0 } fixedDecimalScale={ true } prefix={ '$' } />
+          <NumberFormat value={ value } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 0 } fixedDecimalScale={ true } prefix={ '$' } />
         </Typography>
       </div>
     </div>

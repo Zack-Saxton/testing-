@@ -28,8 +28,8 @@ const Post = ({ children }) => {
     var actualSetupTime = userToken?.setupTime ?? 0;
     var nowTime = new Date().getTime();
     const [ openPopUp, setOpenPopUp ] = useState(false);
-    const [seconds,setSeconds] = useState(0);
-    const [minutes,setMinutes] = useState(2);
+    const [ seconds, setSeconds ] = useState(0);
+    const [ minutes, setMinutes ] = useState(2);
     let secondsTemp = 0;
     let minutesTemp = 2;
     let timer;
@@ -38,17 +38,12 @@ const Post = ({ children }) => {
         setOpenPopUp(false);
     };
 
-    
-
     const backgroundLogin = async () => {
         const cred = JSON.parse(Cookies.get("cred") ? decryptAES(Cookies.get("cred")) : "{ }");
         var now = new Date().getTime();
         actualSetupTime = now;
         if (!cred) {
-            history.push({
-                pathname: "/login",
-                state: { redirect: window.location.pathname },
-            });
+            history.push({ pathname: "/login", state: { redirect: window.location.pathname }, });
         } else {
             let retVal = await LoginController(cred.email, cred.password, "");
             if (retVal?.data?.user && retVal?.data?.userFound === true) {
@@ -87,32 +82,24 @@ const Post = ({ children }) => {
                     "cred",
                     encryptAES(JSON.stringify({ email: "", password: "" }))
                 );
-                history.push({
-                    pathname: "/login",
-                    state: { redirect: window.location.pathname },
-                });
+                history.push({ pathname: "/login", state: { redirect: window.location.pathname }, });
             } else {
                 alert("Network error");
-                history.push({
-                    pathname: "/login",
-                    state: { redirect: window.location.pathname },
-                });
+                history.push({ pathname: "/login", state: { redirect: window.location.pathname }, });
             }
         }
         return true;
     };
     const handleOnIdle = (event) => {
         setOpenPopUp(true);
-        timer = setInterval(()=>{
+        timer = setInterval(() => {
             handleTimer();
-        },1000)
+        }, 1000);
     };
     const handleOnIdleLogout = (event) => {
         LogoutController();
         Cookies.set("redirec", JSON.stringify({ to: "/select-amount" }));
-        history.push({
-            pathname: "/login",
-        });
+        history.push({ pathname: "/login", });
         toast.success(globalMessages.LoggedOut);
     };
 
@@ -120,19 +107,18 @@ const Post = ({ children }) => {
         if (secondsTemp == 0 && minutesTemp == 0) {
             clearTimeout(timer);
             handleOnIdleLogout();
-          } else {
+        } else {
             if (secondsTemp == 0) {
-              minutesTemp = minutesTemp - 1;
-              secondsTemp = 59;
+                minutesTemp = minutesTemp - 1;
+                secondsTemp = 59;
             } else {
-              secondsTemp = secondsTemp - 1;
+                secondsTemp = secondsTemp - 1;
             }
-          }
-          setSeconds(secondsTemp);
-          setMinutes(minutesTemp);
-}
+        }
+        setSeconds(secondsTemp);
+        setMinutes(minutesTemp);
+    };
 
-    
     const handleOnAction = (event) => {
         nowTime = new Date().getTime();
         if (userToken?.isLoggedIn && nowTime - actualSetupTime > min * 60 * 1000) {
@@ -140,16 +126,12 @@ const Post = ({ children }) => {
         }
     };
 
-    
-
     useIdleTimer({
         timeout: 1000 * 60 * 5,
         onIdle: handleOnIdle,
         onAction: handleOnAction,
         debounce: 500,
     });
-
-    
 
     useIdleTimer({
         timeout: 1000 * 60 * 7,
@@ -182,7 +164,7 @@ const Post = ({ children }) => {
                                 </DialogTitle>
                                 <DialogContent dividers>
                                     <Typography align="justify" gutterBottom>
-                                        You will be logged out due to inactivity. Press Ok to remain logged into the system {minutes} : {seconds}
+                                        You will be logged out due to inactivity. Press Ok to remain logged into the system { minutes } : { seconds }
                                     </Typography>
                                     <br />
                                 </DialogContent>
@@ -204,4 +186,4 @@ const Post = ({ children }) => {
     );
 };
 
-export default Post;	
+export default Post;
