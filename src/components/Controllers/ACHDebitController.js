@@ -29,7 +29,7 @@ export async function AddACHPaymentAPI(accountNickname, accountHolder, bankRouti
 //  ========*******======== END of [Add ACH Bank Payment]       ========*******========
 
 //  ========*******======== Add Debit Card Payment              ========*******========
-export async function AddDebitCardAPI(accountNickname, cardNumber, cardName, cvv, expirydate) {
+export async function AddDebitCardAPI(accountNickname, cardNumber, cardName, cvv, expiryDate) {
   //API
   let url = "add_debit_card_payment_method";
   let param = "";
@@ -38,7 +38,7 @@ export async function AddDebitCardAPI(accountNickname, cardNumber, cardName, cvv
     cardNumber: cardNumber,
     cardName: cardName,
     cvv: cvv,
-    expirydate: expirydate,
+    expirydate: expiryDate,
   };
   let method = "POST";
   let addAccessToken = true;
