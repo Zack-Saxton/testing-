@@ -150,7 +150,7 @@ export default function BranchLocator() {
               <h4 className={classes.headigText}>Find a Branch Near You!</h4>
               <Grid id="findBranchGrid">
                 <TextField
-                  style={{ width: "90%" }}
+                  style={ { width: "90%", color:"white"}}
                   id="inputText"
                   label="Enter city & state or zip code"
                 />
