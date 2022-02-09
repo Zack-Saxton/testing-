@@ -34,6 +34,7 @@ export default function LimitedOffer(userOfferData) {
       setAmount(res?.data?.offerData?.offerAmount);
       setfirstName(res?.data?.offerData?.firstName);
     });
+    return null;
   }, []);
 
   const showModal = () => {
