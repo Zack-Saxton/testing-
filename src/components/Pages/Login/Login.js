@@ -9,10 +9,17 @@ import React, { useState } from "react";
 import { useQueryClient } from "react-query";
 import { NavLink, useHistory } from "react-router-dom";
 import LoginController from "../../Controllers/LoginController";
-import { ButtonPrimary, EmailTextField, PasswordField } from "../../FormsUI";
+import { ButtonPrimary, EmailTextField, PasswordField, ButtonSecondary } from "../../FormsUI";
 import { encryptAES } from "../../lib/Crypto";
 import { FormValidationRules } from "../../lib/FormValidationRule";
 import ScrollToTopOnMount from "../../Pages/ScrollToTop";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
 import "./Login.css";
 var formValidation = new FormValidationRules();
 const moment = require("moment");
@@ -172,6 +179,16 @@ export default function Login(props) {
 		}
 	};
 
+	
+	const [ openDeleteSchedule, setopenDeleteSchedule ] = useState(false);
+	const handleDeleteScheduleClose = () => {
+		setopenDeleteSchedule(false);
+	  };
+	 //Cancel Payment
+	 const handlePaymentcancel = () => {
+		setopenDeleteSchedule(true);
+	  };
+
 	//View Part
 	return (
 		<div>
@@ -216,6 +233,9 @@ export default function Login(props) {
 												placeholder="Enter your email address"
 												label="Email Address *"
 												materialProps={ { maxLength: "100" } }
+												suffix={
+													<p id="helpLogin" onClick={handlePaymentcancel}> Help</p>
+												}
 												onKeyDown={ preventSpace }
 												value={ formik.values.email }
 												onChange={ passwordOnChange }
@@ -298,6 +318,60 @@ export default function Login(props) {
 					</Grid>
 				</Box>
 			</div>
+
+
+			<Dialog
+        id="deletePayment"
+        open={ openDeleteSchedule }
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        classes={ { paper: classes.dialogPaper } }
+      >
+		  <div id="closeBtn" className={ classes.buttonClose }>
+          <IconButton
+            aria-label="close"
+            onClick={ handleDeleteScheduleClose }
+            className={ classes.closeButton }
+          >
+            <CloseIcon />
+          </IconButton>
+        </div>
+
+<h2 id="moneySkillDialogHeading" className={ classes.moneySkillDialogHeading }>
+          Having Trouble Logging In? </h2>
+        <DialogTitle id="deleteDialogHeading">
+          <Typography id="deleteTxt" className={ classes.dialogHeading }>
+            <ul><li> If you're a new user, click on "Sign in help/Register" option and enter your registrtion 
+				details.</li></ul>
+          </Typography>
+		  <Typography id="deleteTxt" className={ classes.dialogHeading }>
+            <ul><li> If you have been making payments with our existing customer account center user your 
+				email address in place of your userid and existing password</li></ul>
+          </Typography>
+          <IconButton
+            id="deleteClose"
+            aria-label="close"
+            className={ classes.closeButton }
+            onClick={ handleDeleteScheduleClose }
+          >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+
+        <DialogActions
+          style={ { justifyContent: "center", marginBottom: "25px" } }
+        >
+          <ButtonSecondary
+            stylebutton='{"background": "", "color":"" }'
+            onClick={ handleDeleteScheduleClose }
+          >
+            ok
+          </ButtonSecondary>
+        </DialogActions>
+      </Dialog>
+
+
+
 		</div>
 	);
 }
