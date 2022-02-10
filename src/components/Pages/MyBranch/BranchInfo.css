@@ -44,7 +44,8 @@
     margin: 0px 0px 23px 0px;
 }
 
-.MuiInput-underline:before, .MuiInput-underline:after{
+#findBranchGrid .branchLocatorInput  .MuiInput-underline:before,
+#findBranchGrid .branchLocatorInput  .MuiInput-underline:after{
  border-bottom: 1px solid white !important;
  border-bottom-color: white !important;
 }
