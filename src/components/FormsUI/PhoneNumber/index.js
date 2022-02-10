@@ -18,15 +18,13 @@ const PhoneNumberWrapper = ({ name, onChange, value, label, error, disabled, hel
   //Set Formik field
   // const [field, mata] = useField(name);
   const [ unmaskedval, setUnMaskedVal ] = useState(value);
-  const [ setValues ] = useState("");
   const handleChange = (event) => {
-    if (onChange) {
-      onChange(event);
-    }
     let x = event.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
     event.target.value = !x[ 2 ] ? x[ 1 ] : '(' + x[ 1 ] + ') ' + x[ 2 ] + (x[ 3 ] ? '-' + x[ 3 ] : '');
     setUnMaskedVal(event.target.value);
-    setValues(event.target.value);
+    if (onChange) {
+      onChange(event);
+    }
   };
 
   return (
