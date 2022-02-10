@@ -68,7 +68,7 @@ function NewUser() {
 				fname: data.firstName,
 				lname: data.lastName,
 				email: data.email,
-				ssn: data.ssn,
+				ssn: data.ssn.replace(/-/g, "").replace(/ /g, "") || "",
 				zip_code: data.zip,
 				password: values.newPassword,
 				birth_year: data.dob.getFullYear().toString(),

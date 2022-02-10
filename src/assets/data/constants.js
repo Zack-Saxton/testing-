@@ -44,3 +44,8 @@ export const maritalStatusData = {
         "unmarried": 'Unmarried',
         "seperated": 'Separated, under decree of legal separation',
 };
+
+export const offerTypeData = {
+        "online": "/customers/reviewAndSign",
+        "branch": "/customers/myBranch"
+}
