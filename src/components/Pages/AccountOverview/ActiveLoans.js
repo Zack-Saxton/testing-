@@ -188,7 +188,7 @@ export default function ActiveLoans(userActiveLoanData) {
                               </p>
                               :
                               <p className={ classes.cardcontent }>
-                                Your payment is overdue
+                                Your payment is <br></br> overdue
                               </p> }
 
                           </Grid>
