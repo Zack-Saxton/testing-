@@ -57,7 +57,7 @@ function CheckMyOffers(props) {
 		data.formStatus = "started";
 		data.completedPage = data.page.selectAmount;
 		setData({ ...data, loanAmount: select });
-		history.push({ pathname: "/pre-approved" });
+		history.push({ pathname: "/loan-purpose" });
 	};
 
 	// jsx part
