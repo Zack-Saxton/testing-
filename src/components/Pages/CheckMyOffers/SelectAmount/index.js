@@ -89,7 +89,7 @@ function CheckMyOffers(props) {
 								<Grid
 									item
 									xs={ 12 }
-									className="alignSlider"
+									className="selectAmountGrid"
 									container
 									justifyContent="center"
 									alignItems="center"
