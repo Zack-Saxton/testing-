@@ -321,13 +321,10 @@ export default function OfferTable(props) {
 										props.setCheckedValue("");
 										props.setSelectedTerm("");
 										props.setSelectedIndex("");
-									} }
-									disabled={
-										props.selectedTerm &&
-											(props.selectedIndex || props.selectedIndex === 0)
-											? props.loading
-											: true
-									}
+										props.setOffersToCompareChart([]);
+										props.setOffersToCompare([]);
+									}}
+									{ ...props.tabVerticalProps(0) }
 								>
 									Reset
 								</ButtonSecondary>
