@@ -166,6 +166,10 @@
 	margin-top: 4% !important;
 	margin-bottom: 4% !important;
 }
+.incomeText{
+	font-size: 0.75rem  !important;
+	line-height: 1.5 !important;
+}
 
 .borrowCSSLP {
 	font-size: 1.538rem !important;

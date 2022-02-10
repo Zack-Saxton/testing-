@@ -239,8 +239,8 @@ function NewUser() {
 									<span className="floatLeft detNum50">50%</span>
 								</div>
 								<Grid className="floatLeft">
-									<Link to="/employment-status">
-										<i className="material-icons dp48 yellowText  ">
+									<Link className="arrowBack" to="/employment-status">
+										<i className="material-icons dp48 yellowText floatingButton">
 											arrow_back
 										</i>
 									</Link>
@@ -260,7 +260,7 @@ function NewUser() {
 										justify: "center",
 										alignItems: "center",
 									} }
-									className="borrowCSSLP"
+									className="borrowCSSLP checkMyOfferText"
 								>
 									Tell us about your income
 								</Typography>
@@ -301,7 +301,7 @@ function NewUser() {
 												helperText={ errorPersonal !== "" ? errorPersonal : "" }
 											/>
 
-											<p className="subText">
+											<p className="subText incomeText">
 												Do not include income from others in your household.
 												Stated income will be verified on every application.
 												Your personal income must be verifiable via pay stubs,
