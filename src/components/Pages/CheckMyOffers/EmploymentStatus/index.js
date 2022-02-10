@@ -44,9 +44,15 @@ function EmploymentStatus() {
 				then: yup.string().required("Years at employer is required"),
 			}),
 	});
+
+	function phoneNumberMask(values){
+		let phoneNumber = values.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+			  values = !phoneNumber[ 2 ] ? phoneNumber[ 1 ] : '(' + phoneNumber[ 1 ] + ') ' + phoneNumber[ 2 ] + (phoneNumber[ 3 ] ? '-' + phoneNumber[ 3 ] : '');
+	  return(values);
+	  }
 	const formik = useFormik({
 		initialValues: {
-			phone: data.EmployerPhone ? "1" + data.EmployerPhone : "",
+			phone: data.EmployerPhone ? phoneNumberMask(data.EmployerPhone) : "",
 			yearsAtEmployers: data.yearsAtEmployers ? data.yearsAtEmployers : "",
 			employStatus: "",
 		},
@@ -54,13 +60,13 @@ function EmploymentStatus() {
 		//On submit functionality
 		onSubmit: (values) => {
 			data.yearsAtEmployers = values.yearsAtEmployers;
-			const phone =
+			data.EmployerPhone =
 				values.phone
 					.replace(/-/g, "")
 					.replace(/\)/g, "")
 					.replace(/\(/g, "")
 					.replace(/ /g, "") || "";
-			data.EmployerPhone = phone.slice(1);
+			
 			data.completedPage = data.page.employmentStatus;
 
 			if (employmentStatus === employmentStatusData.employedHourly || employmentStatus === employmentStatusData.employedSalaried || employmentStatus === employmentStatusData.selfEmployed) {
@@ -346,6 +352,7 @@ function EmploymentStatus() {
 												type="text"
 												onKeyDown={ preventSpace }
 												value={ formik.values.phone }
+												onLoad={formik.handleChange}
 												onChange={ formik.handleChange }
 												onBlur={ formik.handleBlur }
 												error={

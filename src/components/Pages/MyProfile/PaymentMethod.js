@@ -695,6 +695,7 @@ export default function PaymentMethod() {
                                     setSameAsMailAddress(true);
                                     setValidZip(true);
                                     setEditMode(false);
+                                    setCardType(false);
                                     addDebitCardButton();
                                 } }
                             >
