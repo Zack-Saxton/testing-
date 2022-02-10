@@ -18,7 +18,7 @@ const PhoneNumberWrapper = ({ name, onChange, value, label, error, disabled, hel
   //Set Formik field
   // const [field, mata] = useField(name);
   const [ unmaskedval, setUnMaskedVal ] = useState(value);
-  const [ phone, setPhone ] = useState(phone);
+  const [ phone, setPhone ] = useState("");
   const handleChange = (event) => {
     if (onChange) {
       onChange(event);
