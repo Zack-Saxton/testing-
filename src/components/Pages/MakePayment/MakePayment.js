@@ -19,7 +19,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import Moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useQuery } from 'react-query';
-import { Link, NavLink, useHistory, useLocation } from "react-router-dom";
+import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
@@ -48,7 +48,7 @@ paymentMaxDate.setDate(paymentMaxDate.getDate() + 30);
 export default function MakePayment(props) {
   //Material UI css class
   const classes = useStylesMakePayment();
-  const history = useHistory();
+  const navigate = useNavigate();
   const query = new URLSearchParams(useLocation().search);
   const accNo = query.get("accNo");
   const [ , setprofileTabNumber ] = useGlobalState();
@@ -218,7 +218,7 @@ export default function MakePayment(props) {
   }
 
   const handleMenuPaymentProfile = () => {
-    history.push({ pathname: "/customers/myProfile", });
+    navigate("/customers/myProfile");
     setprofileTabNumber({ profileTabNumber: 3 });
   };
 
@@ -341,7 +341,7 @@ export default function MakePayment(props) {
       // if accno is not Valid
       if (res === false) {
         toast.error(globalMessages.Invalid_Account_Number, { autoClose: 5000, });
-        history.push({ pathname: "/customers/accountoverview", });
+        navigate("/customers/accountoverview");
       }
     } else {
       setlatestLoanData(activeLoansData?.slice(0, 1) ?? null);

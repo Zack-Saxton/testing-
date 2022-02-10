@@ -1,13 +1,13 @@
 import Cookies from "js-cookie";
 import React from "react";
-import { withRouter } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
+const navigate = useNavigate();
 class CheckLogin extends React.Component {
 	componentDidMount() {
 		const tokenString = Cookies.get("token") ? Cookies.get("token") : "{ }";
 		const userToken = JSON.parse(tokenString);
 		if (!userToken?.isLoggedIn) {
-			this.props.history.push("/login");
+			this.props.navigate("/login");
 		}
 	}
 
@@ -16,4 +16,4 @@ class CheckLogin extends React.Component {
 	}
 }
 
-export default withRouter(CheckLogin);
+export default navigate(CheckLogin);

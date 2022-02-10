@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import React, { useContext, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CitizenshipStatusLogo from "../../../../assets/icon/I-Own-Rent-Property.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, TextField } from "../../../FormsUI";
@@ -18,20 +18,20 @@ function LivingPlace() {
 	const [ error, setError ] = useState();
 	const [ helperText, setHelperText ] = useState();
 	let [ livingPlace, setLivingPlace ] = useState(data.homeOwnership ?? "");
-	const history = useHistory();
+	const navigate = useNavigate();
 	//set data state on continue
 	const setDataState = (val) => {
 		if (data.state === "NC") {
 			data.completedPage = data.page.livingPlace;
 			setData({ ...data, rentMortgageAmount: 0, homeOwnership: val });
 			livingPlace = val;
-			history.push("/active-duty");
+			navigate("/active-duty");
 		} else if (data.state === "WI") {
 			data.completedPage = data.page.livingPlace;
-			history.push("/marital-status");
+			navigate("/marital-status");
 		} else {
 			data.completedPage = data.page.activeDuty;
-			history.push("/ssn");
+			navigate("/ssn");
 		}
 	};
 
@@ -41,13 +41,13 @@ function LivingPlace() {
 		data.homeOwnership = livingPlace;
 		if (data.state === "NC") {
 			data.completedPage = data.page.livingPlace;
-			history.push("/active-duty");
+			navigate("/active-duty");
 		} else if (data.state === "WI") {
 			data.completedPage = data.page.livingPlace;
-			history.push("/marital-status");
+			navigate("/marital-status");
 		} else {
 			data.completedPage = data.page.activeDuty;
-			history.push("/ssn");
+			navigate("/ssn");
 		}
 	}
 
@@ -90,7 +90,7 @@ function LivingPlace() {
 
 	//redirect to select amount on direct call
 	if (data.completedPage < data.page.annualIncome || data.formStatus === "completed") {
-		history.push("/select-amount");
+		navigate("/select-amount");
 	}
 
 	//View part

@@ -9,7 +9,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
 import NumberFormat from 'react-number-format';
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ButtonPrimary } from "../../FormsUI";
 import { useStylesAccountOverview } from "./Style";
 import Cookies from "js-cookie";
@@ -62,18 +62,18 @@ export default function RecentApplications({ isLoading, userApplicationsData,use
     "final_review": "/customers/loanDocument"
   };
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   //resumebtn click
   const resumeNavigate = (appData) => {
-    history.push({ pathname: statusStrLink[ appData ] });
+    navigate(statusStrLink[ appData ]);
   };
 
   //viewBtn click
   const viewAppData = (contactdata,appData) =>{
     Cookies.set("viewAppContact",JSON.stringify( contactdata));
     Cookies.set("viewAppApplicant",JSON.stringify(appData));
-    history.push('/customers/viewaccount')
+    navigate('/customers/viewaccount')
   }
 
   //View

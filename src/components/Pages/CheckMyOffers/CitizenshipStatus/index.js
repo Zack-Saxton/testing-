@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import React, { useContext, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CitizenshipStatusLogo from "../../../../assets/icon/I-Citizenship-status.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary } from "../../../FormsUI";
@@ -16,13 +16,13 @@ function CitizenshipStatus() {
 	//Retrieving Context values
 	const { data } = useContext(CheckMyOffers);
 	const [ citizenship, setCitizenship ] = useState(data.citizenship ? data.citizenship : "");
-	const history = useHistory();
+	const navigate = useNavigate();
 
 	//Handle the button click
 	const handleRoute = () => {
 		data.citizenship = citizenship;
 		data.completedPage = data.page.citizenship;
-		history.push("/home-address");
+		navigate("/home-address");
 	};
 
 	//Procced to next step with validation
@@ -31,7 +31,7 @@ function CitizenshipStatus() {
 		setCitizenship(val);
 		if (data.completedPage < data.page.citizenship) {
 			data.completedPage = data.page.citizenship;
-			history.push("/home-address");
+			navigate("/home-address");
 		}
 		//redirects to select amount on direct call
 	};
@@ -39,7 +39,7 @@ function CitizenshipStatus() {
 		data.completedPage < data.page.loanPurpose ||
 		data.formStatus === "completed"
 	) {
-		history.push("/select-amount");
+		navigate("/select-amount");
 	}
 	//JSK part
 	return (
