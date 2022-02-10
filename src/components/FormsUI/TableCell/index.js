@@ -5,10 +5,10 @@ Component Name      :    TableCellWrapper
 Functionality       :    To use this component to create the body of the table using table cell objects.
 
 #################################################################################################################*/
-import React from "react";
+import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
-import TableBody from "@material-ui/core/TableBody";
+import React from "react";
 
 //Initializing tablecellwrapper
 const TableCellWrapper = ({ parseData, className, align, ...otherProps }) => {
@@ -17,6 +17,7 @@ const TableCellWrapper = ({ parseData, className, align, ...otherProps }) => {
 		for (var key in data.data) {
 			dom_content.push(
 				<TableCell
+					key={ Math.random() * 1000 }
 					className={ data.data[ key ].className }
 					align={ data.data[ key ].align }
 				>
@@ -32,7 +33,7 @@ const TableCellWrapper = ({ parseData, className, align, ...otherProps }) => {
 		if (data) {
 			data.data.forEach(function (arrayItem) {
 				dom_content.push(
-					<TableRow>
+					<TableRow key={ Math.random() * 1000 }>
 						<BuildCell data={ arrayItem } />
 					</TableRow>
 				);

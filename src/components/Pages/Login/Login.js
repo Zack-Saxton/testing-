@@ -26,7 +26,9 @@ const useStyles = makeStyles((theme) => ({
 		flexGrow: 1,
 	},
 	paper: {
-		padding: theme.spacing(3),
+		padding: "30px",
+		margin: "70px 0px",
+		borderRadius: "6px !important",
 		display: "flex",
 		flexDirection: "column",
 		backgroundColor: `rgba(255, 255, 255, .8)`,
@@ -50,11 +52,11 @@ const useStyles = makeStyles((theme) => ({
 		fontWeight: "400",
 	},
 	register: {
-		fontSize: ".9rem",
+		fontSize: "0.844rem",
 		textDecoration: "none",
 		color: "#0F4EB3",
 		fontFamily: "'Muli', sans-serif !important",
-		marginBottom: "25px",
+		marginBottom: "0px",
 	},
 	mainGrid: {
 		boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%),
@@ -62,15 +64,27 @@ const useStyles = makeStyles((theme) => ({
 		0 8px 10px -7px rgb(0 0 0 / 20%)`,
 		background: "#f5f2f2",
 	},
+	mainContentGrid: {
+		margin: "auto",
+		display: "flex",
+		alignItems: "center",
+		minHeight: "93vh"
+	},
 	loginButton: {
 		textAlign: "center",
+		margin: "50px 0px 0px 0px"
 	},
 	emailGrid: {
 		lineHeight: "2",
+		margin: "0px 0px 30px 0px"
+	},
+	passwordGrid: {
+		margin: "0px 0px 30px 0px"
 	},
 	registerGrid: {
 		textAlign: "center",
 		width: "100%",
+		margin: "40px 0px 0px 0px"
 	},
 }));
 
@@ -83,6 +97,7 @@ export default function Login(props) {
 	const history = useHistory();
 	const [ loginFailed, setLoginFailed ] = useState("");
 	const [ loading, setLoading ] = useState(false);
+	const [ counter, setCounter ] = useState(0);
 	const queryClient = useQueryClient();
 
 	//Form Submission
@@ -112,13 +127,10 @@ export default function Login(props) {
 				Cookies.set("profile_picture", retVal?.data?.user?.mobile?.profile_picture ? retVal?.data?.user?.mobile?.profile_picture : "");
 				Cookies.set('login_date', login_date);
 				Cookies.set('userToken', retVal?.data?.user?.attributes?.UserToken);
+				Cookies.set('temp_opted_phone_texting', "");
 				queryClient.removeQueries();
 				setLoading(false);
-				history.push({
-					pathname: props.location.state?.redirect
-						? props.location.state?.redirect
-						: "/customers/accountoverview",
-				});
+				history.push({ pathname: props.location.state?.redirect ? props.location.state?.redirect : "/customers/accountoverview", });
 				if (props.location.state?.activationToken) {
 					history.go(0);
 				}
@@ -135,8 +147,12 @@ export default function Login(props) {
 						applicantGuid: "",
 					})
 				);
+				setCounter(counter + 1);
 				setLoading(false);
 				setLoginFailed(retVal?.data?.errorMessage);
+				if (counter >= 1) {
+					history.push('/register?email=' + values.email);
+				}
 			} else {
 				setLoading(false);
 				alert("Network error");
@@ -163,29 +179,18 @@ export default function Login(props) {
 			<div className={ classes.mainContentBackground } id="mainContentBackground">
 				<Box>
 					<Grid
-						xs={ 12 }
-						item
-						container
-						justifyContent="center"
-						alignItems="center"
+						className={ classes.mainContentGrid }
+						item xl={ 4 } lg={ 4 } md={ 4 } sm={ 10 } xs={ 12 }
 					>
 						<Grid
-							xs={ 10 }
-							sm={ 7 }
-							md={ 5 }
-							lg={ 4 }
-							xl={ 4 }
 							id="main-content"
-							justifyContent="center"
-							item
-							container
-							alignItems="center"
+
 							style={ {
 								opacity: loading ? 0.55 : 1,
 								pointerEvents: loading ? "none" : "initial",
 							} }
 						>
-							<Paper className={ classes.paper } id="signInContainer">
+							<Paper className={ classes.paper }>
 								<Typography
 									className={ classes.title }
 									data-testid="title"
@@ -195,14 +200,12 @@ export default function Login(props) {
 								</Typography>
 
 								<form onSubmit={ formik.handleSubmit }>
-									<Grid container spacing={ 7 } style={ { paddingTop: "30px" } }>
+									<Grid style={ { paddingTop: "30px" } }>
 										<Grid
-											item
-											xs={ 12 }
+
 											style={ { width: "100%" } }
-											id="text"
-											container
-											direction="row"
+
+											// direction="row"
 											className={ classes.emailGrid }
 										>
 											<EmailTextField
@@ -225,11 +228,10 @@ export default function Login(props) {
 										</Grid>
 
 										<Grid
-											item
-											xs={ 12 }
+
 											style={ { width: "100%" } }
-											container
-											direction="row"
+
+										// direction="row"
 										>
 											<PasswordField
 												name="password"

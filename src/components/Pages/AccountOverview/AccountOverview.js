@@ -23,13 +23,13 @@ export default function AccountOverview() {
   //Load data
   let offerData = (accountDetails != null) ? accountDetails?.data?.offerData : null;
   let applicationsData = (accountDetails != null) ? accountDetails?.data?.applicants : null;
+  let applicantData = (accountDetails != null) ? accountDetails?.data?.applicant?.contact : null;
   let status = (accountDetails != null) ? accountDetails?.data?.status : null;
   let activeLoansData = (accountDetails != null) ? accountDetails?.data?.activeLoans : null;
-  let recentPaymentData = (accountDetails != null) ? accountDetails?.data?.activeLoans : null;
+  let recentPaymentData = (accountDetails != null) ? accountDetails?.data?.loanHistory : null;
+  Cookies.set("hasActiveLoan", true);
   if (Array.isArray(activeLoansData) && activeLoansData.length === 0) {
     Cookies.set("hasActiveLoan", false);
-  } else {
-    Cookies.set("hasActiveLoan", true);
   }
   Cookies.set("hasApplicationStatus", accountDetails?.data?.applicant?.processing?.status);
 
@@ -62,8 +62,8 @@ export default function AccountOverview() {
 
         <LimitedOffer isLoading={ isLoading } userOffers={ offerData } />
         <ActiveLoans isLoading={ isLoading } userActiveLoanData={ activeLoansData } />
-        <RecentApplications isLoading={ isLoading } userApplicationsData={ applicationsData } UserAccountStatus={ status } />
         <RecentPayments isLoading={ isLoading } userRecentPaymentData={ recentPaymentData } />
+        <RecentApplications isLoading={ isLoading } userApplicationsData={ applicationsData } UserAccountStatus={ status } userApplicantData={ applicantData }/>
 
       </Grid>
     </div>

@@ -16,7 +16,7 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
 import Moment from "moment";
 import PropTypes from 'prop-types';
-import React from "react";
+import { useState } from "react";
 import NumberFormat from 'react-number-format';
 import { useStylesPaymenthistory } from "./Style";
 import "./Style.css";
@@ -88,11 +88,10 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-export default function PaymentHistoryTable(userRecentPaymentData) {
+export default function PaymentHistoryTable({ userRecentPaymentData }) {
   const classes = useStylesPaymenthistory();
-  const [ page, setPage ] = React.useState(0);
-  const [ rowsPerPage, setRowsPerPage ] = React.useState(10);
-
+  const [ page, setPage ] = useState(0);
+  const [ rowsPerPage, setRowsPerPage ] = useState(10);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -103,11 +102,6 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
     setPage(0);
   };
 
-
-
-  let userRecentPayment =
-    userRecentPaymentData != null ? userRecentPaymentData : null;
-
   //View part
   return (
     <Grid item xs={ 12 } style={ { paddingTop: "10px", paddingBottom: "30px" } }>
@@ -115,84 +109,69 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
         <Table className={ classes.table } aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell className={ classes.tableHead } align="center">Date</TableCell>
-              <TableCell className={ classes.tableHead } align="center">
-                Description
-              </TableCell>
-              <TableCell className={ classes.tableHead } align="center">
-                Principal
-              </TableCell>
-              <TableCell className={ classes.tableHead } align="center">
-                Interest
-              </TableCell>
-              <TableCell className={ classes.tableHead } align="center">
-                Other
-              </TableCell>
-              <TableCell className={ classes.tableHead } align="center">
-                Total
-              </TableCell>
-              <TableCell className={ classes.tableHead } align="center">
-                Balance
-              </TableCell>
+              <TableCell className={ classes.tableHead } align="left">Date</TableCell>
+              <TableCell className={ classes.tableHead } align="left">Description</TableCell>
+              <TableCell className={ classes.tableHead } align="right">Principal</TableCell>
+              <TableCell className={ classes.tableHead } align="right">Interest</TableCell>
+              <TableCell className={ classes.tableHead } align="right">Other</TableCell>
+              <TableCell className={ classes.tableHead } align="right">Total</TableCell>
+              <TableCell className={ classes.tableHead } align="right">Balance</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            { userRecentPayment.userRecentPaymentData.length ? (
+            { userRecentPaymentData ? (
               (rowsPerPage > 0
-                ? userRecentPayment.userRecentPaymentData[ 0 ].loanHistory.AppAccountHistory.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                : userRecentPayment.userRecentPaymentData[ 0 ].loanHistory.AppAccountHistory
-              ).map((row, index1) => (
-                <>
-                  <TableRow key={ index1 }>
-                    <TableCell
-                      component="th"
-                      className={ classes.tableHeadRow }
-                      scope="row"
-                      align="left"
-                    >
-                      { Moment(row.TransactionDate).format("MM/DD/YYYY") }
-                    </TableCell>
-                    <TableCell
-                      className={ classes.tableHeadRow }
-                      align="left"
-                    >
-                      { row.TransactionDescription }
-                    </TableCell>
-                    <TableCell
-                      className={ classes.tableHeadRow }
-                      align="right"
-                    >
-                      <NumberFormat value={ Math.abs(row.PrincipalAmount) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
-                    </TableCell>
-                    <TableCell
-                      className={ classes.tableHeadRow }
-                      align="right"
-                    >
-                      <NumberFormat value={ Math.abs(row.InterestAmount) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
-                    </TableCell>
-                    <TableCell
-                      className={ classes.tableHeadRow }
-                      align="right"
-                    >
-                      <NumberFormat value={ Math.abs(row.OtherAmount) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
-                    </TableCell>
-                    <TableCell
-                      className={ classes.tableHeadRow }
-                      align="right"
-                    >
-                      <NumberFormat value={ Math.abs(row.InterestAmount) + Math.abs(row.OtherAmount) + Math.abs(row.PrincipalAmount) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
-                    </TableCell>
-                    <TableCell
-                      className={ classes.tableHeadRow }
-                      align="right"
-                    >
-                      <NumberFormat value={ Math.abs(row.RunningPrincipalBalance) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
-                    </TableCell>
-                  </TableRow>
-                </>
+                ? userRecentPaymentData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                : userRecentPaymentData
+              ).map((row) => (
+                <TableRow key={ Math.random() * 1000 }>
+                  <TableCell
+                    component="th"
+                    className={ classes.tableHeadRow }
+                    scope="row"
+                    align="left"
+                  >
+                    { Moment(row.TransactionDate).format("MM/DD/YYYY") }
+                  </TableCell>
+                  <TableCell
+                    className={ classes.tableHeadRow }
+                    align="left"
+                  >
+                    { row.TransactionDescription }
+                  </TableCell>
+                  <TableCell
+                    className={ classes.tableHeadRow }
+                    align="right"
+                  >
+                    <NumberFormat value={ Math.abs(row.PrincipalAmount) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
+                  </TableCell>
+                  <TableCell
+                    className={ classes.tableHeadRow }
+                    align="right"
+                  >
+                    <NumberFormat value={ Math.abs(row.InterestAmount) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
+                  </TableCell>
+                  <TableCell
+                    className={ classes.tableHeadRow }
+                    align="right"
+                  >
+                    <NumberFormat value={ Math.abs(row.OtherAmount) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
+                  </TableCell>
+                  <TableCell
+                    className={ classes.tableHeadRow }
+                    align="right"
+                  >
+                    <NumberFormat value={ Math.abs(row.InterestAmount) + Math.abs(row.OtherAmount) + Math.abs(row.PrincipalAmount) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
+                  </TableCell>
+                  <TableCell
+                    className={ classes.tableHeadRow }
+                    align="right"
+                  >
+                    <NumberFormat value={ Math.abs(row.RunningPrincipalBalance) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
+                  </TableCell>
+                </TableRow>
               ))
             ) : (
-
               <TableRow>
                 <TableCell colSpan="7" align="center">
                   You do not have any recent applications
@@ -204,8 +183,7 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
             <TableRow>
               <TablePagination
                 rowsPerPageOptions={ [ 5, 10, { label: 'All', value: -1 } ] }
-
-                count={ userRecentPayment.userRecentPaymentData.length ? userRecentPayment.userRecentPaymentData[ 0 ].loanHistory.AppAccountHistory.length : 0 }
+                count={ userRecentPaymentData?.length }
                 rowsPerPage={ rowsPerPage }
                 page={ page }
                 SelectProps={ {

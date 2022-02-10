@@ -30,13 +30,11 @@ const validationSchema = yup.object({
 		.max(30, "Firstname can be upto 30 characters length")
 		.min(2, "Firstname should be minimum of 2 letters")
 		.required("Your first name is required"),
-
 	lastName: yup
 		.string("Enter your Lastname")
 		.max(30, "Lastname can be upto 30 characters length")
 		.min(2, "Lastname should be minimum of 2 letters")
 		.required("Your last name is required"),
-
 	email: yup
 		.string("Enter your email")
 		.email("A valid email address is required")
@@ -46,7 +44,6 @@ const validationSchema = yup.object({
 			"A valid email address is required"
 		)
 		.required("Your email address is required"),
-
 	ssn: yup.string().when("checkSSN", {
 		is: (checkSSN) => !checkSSN,
 		then: yup
@@ -72,8 +69,7 @@ const validationSchema = yup.object({
 		)
 		.matches(/^(\d)(?!\1+$)\d{9}$/, "Please enter a valid Phone number")
 		.min(10, "Name must contain at least 10 digits"),
-
-	date: yup
+	dob: yup
 		.date("Please enter a valid date")
 		.nullable()
 		.required("Your date of birth is required")
@@ -111,7 +107,7 @@ function PersonalInfo() {
 			ssn: data.ssn ? data.ssn : "",
 			lastSSN: data.last4SSN ? data.last4SSN : "",
 			phone: data.phone ? data.phone : "",
-			date: data.dob ?? null,
+			dob: data.dob ?? null,
 			checkSSN: data.last4SSN ? true : false,
 		},
 		validationSchema: validationSchema,
@@ -134,7 +130,7 @@ function PersonalInfo() {
 					.replace(/\(/g, "")
 					.replace(/ /g, "") || "";
 			data.phone = phone;
-			data.dob = values.date;
+			data.dob = values.dob;
 			data.completedPage = data.page.personalInfo;
 
 			//Prospect
@@ -151,9 +147,7 @@ function PersonalInfo() {
 
 				if (loginToken?.isLoggedIn === true) {
 					data.completedPage = data.page.existingUser;
-					history.push({
-						pathname: "/employment-status",
-					});
+					history.push({ pathname: "/employment-status", });
 					setError(false);
 					setLoading(false);
 				} else {
@@ -174,9 +168,7 @@ function PersonalInfo() {
 								setLoading(false);
 							} else {
 								setSsnEmailMatch(true);
-								history.push({
-									pathname: "/existing-user",
-								});
+								history.push({ pathname: "/existing-user", });
 								setError(false);
 								setLoading(false);
 							}
@@ -188,9 +180,7 @@ function PersonalInfo() {
 					} else if (customerStatus.data.customerFound === false) {
 						setError(false);
 						setLoading(false);
-						history.push({
-							pathname: "/new-user",
-						});
+						history.push({ pathname: "/new-user", });
 					} else if (
 						customerStatus.data.errorMessage ===
 						"More than 1 customer record retrieved "
@@ -289,8 +279,7 @@ function PersonalInfo() {
 						alignItems="center"
 						style={ {
 							justifyContent: "center",
-							paddingTop: "70px",
-							paddingBottom: "70px",
+							padding: "4% 0%"
 						} }
 					>
 						<Grid
@@ -307,7 +296,7 @@ function PersonalInfo() {
 							<Paper
 								id="aboutYourselfWrap"
 								className="cardWOPadding"
-								style={ { justify: "center", alignItems: "center" } }
+								style={ { justify: "center", alignItems: "center", padding: "0" } }
 							>
 								<div className="progress mt-0">
 									<div
@@ -317,8 +306,8 @@ function PersonalInfo() {
 									<span className="floatLeft detNum40">40%</span>
 								</div>
 								<Grid className="floatLeft">
-									<Link to="/home-address">
-										<i className="material-icons dp48 yellowText  ">
+									<Link to="/home-address" id="arrowBack">
+										<i className="material-icons dp48 yellowText  floatingButton">
 											arrow_back
 										</i>
 									</Link>
@@ -337,8 +326,9 @@ function PersonalInfo() {
 										align: "center",
 										justify: "center",
 										alignItems: "center",
+										fontSize: "1.538rem"
 									} }
-									className="borrowCSSLP"
+									className="borrowCSSLP checkMyOfferText"
 								>
 									Tell us about yourself
 								</Typography>
@@ -425,22 +415,22 @@ function PersonalInfo() {
 											className="textBlock"
 										>
 											<DatePicker
-												name="date"
+												name="dob"
 												label="Date of Birth *"
-												id="date"
+												id="dob"
 												placeholder="MM/DD/YYYY"
 												format="MM/dd/yyyy"
 												maxdate={ myDate }
 												minyear={ 102 }
-												value={ formik.values.date }
+												value={ formik.values.dob }
 												onChange={ (values) => {
-													formik.setFieldValue("date", values);
+													formik.setFieldValue("dob", values);
 												} }
 												onBlur={ formik.handleBlur }
 												error={
-													formik.touched.date && Boolean(formik.errors.date)
+													formik.touched.dob && Boolean(formik.errors.dob)
 												}
-												helperText={ formik.touched.date && formik.errors.date }
+												helperText={ formik.touched.dob && formik.errors.dob }
 											/>
 
 											<div className="MuiTypography-alignLeft">
@@ -594,13 +584,13 @@ function PersonalInfo() {
 										</Grid>
 										<Grid
 											container
-											style={ { justifyContent: "center" } }
+											style={ { justifyContent: "center", margin: " 15px 0px 19px 0px" } }
 											alignItems="center"
 											item
 											lg={ 8 }
 											md={ 8 }
 											xs={ 12 }
-											className="textBlock alignButton"
+											className="textBlock"
 										>
 											<ButtonPrimary
 												onClick={ autoFocus }

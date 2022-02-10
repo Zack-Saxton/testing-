@@ -4,7 +4,6 @@
 	min-height: 500px !important;
 }
 .cardWOPadding {
-	padding-bottom: 1%;
 	text-align: center;
 }
 .cardWrapper {
@@ -86,11 +85,6 @@
 	color: white !important;
 }
 
-.alignButton {
-	margin: 20px 0 !important;
-	height: 40px;
-}
-
 .showMsg {
 	display: block;
 	margin: 0;
@@ -138,10 +132,10 @@
 	overflow: hidden;
 	width: 100%;
 
-	margin: 0.5rem 0 1rem 0;
-	border-radius: 2px;
+	margin: 0.5rem 0 0.938rem 0;
+	border-radius: 2px 2px 0px 0px;
 	background-color: white;
-	height: 20px;
+	height: 16px;
 	text-align: left !important;
 }
 
@@ -157,22 +151,45 @@
 	padding-left: 16.6666666666668%;
 	font-weight: 600;
 	color: #134ca8;
+	margin-left: 0.5%;
 }
 
 .floatLeft {
 	text-align: left;
 }
 .borrowCSSLP {
-	font-size: 1.563rem !important;
+	font-size: 1.538rem !important;
 	font-weight: 400 !important;
 	line-height: 110% !important;
-	margin: 0.82rem 0 0.656rem 0 !important;
+}
+#usButton{
+		margin: 15px 0px 15px 0px  !important;
+		padding: 3px 0px !important;
+		border-radius: 2px !important;
+		font-size: 0.938rem;
+}
+#permanentResidentButton,#foreignResidentButton{
+	margin: 0px 0px 15px 0px  !important;
+	padding: 3px 0px !important;
+	border-radius: 2px !important;
+	font-size: 0.938rem;
+}
+.checkMyOfferText{
+	margin: 10px 0px !important;
+}
+
+.arrowBack{
+	position: relative;
+}
+
+.floatingButton{
+	position: absolute;
 }
 
 #citizenshipWrap {
-	border-radius: 4px !important;
+	border-radius: 2px !important;
 }
 
-#citizenshipWrap div:nth-child(1) {
-	border-radius: 4px 4px 0px 0px !important;
+#citizenshipWrap #determinate {
+	border-radius: 0px 0px 0px 0px !important;
 }

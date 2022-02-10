@@ -28,7 +28,6 @@ export default function ControlledAccordions(keyFactors) {
     setExpanded(isExpanded ? panel : false);
   };
 
-
   //View
   return (
     <div >

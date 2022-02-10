@@ -26,6 +26,7 @@ import VacationIconWhite from "../../../../assets/icon/white/Vacation.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary } from "../../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
+import { loanPurposeData } from "../../../../assets/data/constants"
 import "./LoanPurpose.css";
 
 //Loan purpose component initialization
@@ -97,7 +98,7 @@ function LoanPurpose(props) {
 						xs={ 12 }
 						justifyContent="center"
 						alignItems="center"
-						style={ { paddingTop: "70px", paddingBottom: "70px" } }
+						style={ { padding: "4% 0%" } }
 					>
 						<Grid
 							container
@@ -133,7 +134,7 @@ function LoanPurpose(props) {
 										</i>
 									</Link>
 								</Grid>
-								<Typography variant="h5" align="center" className="borrowCSSLP">
+								<Typography variant="h5" align="center" className="borrowCSSLP checkMyOfferText">
 									How are you planning to use the money?
 								</Typography>
 								<Grid
@@ -153,33 +154,33 @@ function LoanPurpose(props) {
 											data-testid="home"
 											elevation={ 3 }
 											className={
-												purpose === "Home Improvement"
+												purpose === loanPurposeData.homeImprovement
 													? "activeCard block " + classes.paper
 													: "block " + classes.paper
 											}
 											onClick={ () => {
-												goNext("Home Improvement");
+												goNext(loanPurposeData.homeImprovement);
 											} }
 										>
 											<img
 												src={
-													purpose === "Home Improvement"
+													purpose === loanPurposeData.homeImprovement
 														? HomeImprovementIconWhite
 														: HomeImprovementIcon
 												}
 												className="icon"
-												alt="Home improvement"
+												alt={loanPurposeData.homeImprovement}
 											/>
 											<Typography
 												id="purposeTxt01"
 												align="center"
 												className={
-													purpose === "Home Improvement"
+													purpose === loanPurposeData.homeImprovement
 														? "borrowCSS textCSS whiteText"
 														: "borrowCSS textCSS"
 												}
 											>
-												Home improvement
+												Home Improvement
 											</Typography>
 										</Paper>
 									</Grid>
@@ -194,18 +195,18 @@ function LoanPurpose(props) {
 											data-testid="autoExpense"
 											elevation={ 3 }
 											className={
-												purpose === "Auto Expense/Repair"
+												purpose === loanPurposeData.autoExpence
 													? "activeCard block " + classes.paper
 													: "block " + classes.paper
 											}
 											onClick={ () => {
-												goNext("Auto Expense/Repair");
+												goNext(loanPurposeData.autoExpence);
 											} }
 										>
 											<img
-												alt="Auto Expense/Repair"
+												alt={loanPurposeData.autoExpence}
 												src={
-													purpose === "Auto Expense/Repair"
+													purpose === loanPurposeData.autoExpence
 														? AutoExpenseIconWhite
 														: AutoExpenseIcon
 												}
@@ -215,11 +216,10 @@ function LoanPurpose(props) {
 												id="purposeTxt02"
 												align="center"
 												className={
-													purpose === "Auto Expense/Repair"
+													purpose === loanPurposeData.autoExpence
 														? "borrowCSS textCSS whiteText"
 														: "borrowCSS textCSS"
 												}
-											// id="purposeTxt"
 											>
 												Auto Expense / Repair
 											</Typography>
@@ -236,18 +236,18 @@ function LoanPurpose(props) {
 											data-testid="vacation"
 											elevation={ 3 }
 											className={
-												purpose === "Vacation"
+												purpose === loanPurposeData.vacation
 													? "activeCard block " + classes.paper
 													: "block " + classes.paper
 											}
 											onClick={ () => {
-												goNext("Vacation");
+												goNext(loanPurposeData.vacation);
 											} }
 										>
 											<img
-												alt="Vacation"
+												alt={loanPurposeData.vacation}
 												src={
-													purpose === "Vacation"
+													purpose === loanPurposeData.vacation
 														? VacationIconWhite
 														: VacationIcon
 												}
@@ -257,7 +257,7 @@ function LoanPurpose(props) {
 												id="purposeTxt03"
 												align="center"
 												className={
-													purpose === "Vacation"
+													purpose === loanPurposeData.vacation
 														? "borrowCSS textCSS whiteText"
 														: "borrowCSS textCSS"
 												}
@@ -277,18 +277,18 @@ function LoanPurpose(props) {
 											data-testid="holiday"
 											elevation={ 3 }
 											className={
-												purpose === "Holiday Spending"
+												purpose === loanPurposeData.holidaySpending
 													? "activeCard block " + classes.paper
 													: "block " + classes.paper
 											}
 											onClick={ () => {
-												goNext("Holiday Spending");
+												goNext(loanPurposeData.holidaySpending);
 											} }
 										>
 											<img
-												alt="Holiday Spending"
+												alt={loanPurposeData.holidaySpending}
 												src={
-													purpose === "Holiday Spending"
+													purpose === loanPurposeData.holidaySpending
 														? HolidayIconWhite
 														: HolidayIcon
 												}
@@ -298,7 +298,7 @@ function LoanPurpose(props) {
 												id="purposeTxt04"
 												align="center"
 												className={
-													purpose === "Holiday Spending"
+													purpose === loanPurposeData.holidaySpending
 														? "borrowCSS textCSS whiteText"
 														: "borrowCSS textCSS"
 												}
@@ -318,18 +318,18 @@ function LoanPurpose(props) {
 											data-testid="medical"
 											elevation={ 3 }
 											className={
-												purpose === "Medical/Dental"
+												purpose === loanPurposeData.medicalDental
 													? "activeCard block " + classes.paper
 													: "block " + classes.paper
 											}
 											onClick={ () => {
-												goNext("Medical/Dental");
+												goNext(loanPurposeData.medicalDental);
 											} }
 										>
 											<img
-												alt="Medical/Dental"
+												alt={loanPurposeData.medicalDental}
 												src={
-													purpose === "Medical/Dental"
+													purpose === loanPurposeData.medicalDental
 														? MedicalIconWhite
 														: MedicalIcon
 												}
@@ -339,7 +339,7 @@ function LoanPurpose(props) {
 												id="purposeTxt05"
 												align="center"
 												className={
-													purpose === "Medical/Dental"
+													purpose === loanPurposeData.medicalDental
 														? "borrowCSS textCSS whiteText"
 														: "borrowCSS textCSS"
 												}
@@ -359,18 +359,18 @@ function LoanPurpose(props) {
 											data-testid="deptConsolidation"
 											elevation={ 3 }
 											className={
-												purpose === "Debt Consolidation"
+												purpose === loanPurposeData.debtConsolidation
 													? "activeCard block " + classes.paper
 													: "block " + classes.paper
 											}
 											onClick={ () => {
-												goNext("Debt Consolidation");
+												goNext(loanPurposeData.debtConsolidation);
 											} }
 										>
 											<img
-												alt="Debt Consolidation"
+												alt={loanPurposeData.debtConsolidation}
 												src={
-													purpose === "Debt Consolidation"
+													purpose === loanPurposeData.debtConsolidation
 														? DeptIconWhite
 														: DeptIcon
 												}
@@ -380,7 +380,7 @@ function LoanPurpose(props) {
 												id="purposeTxt06"
 												align="center"
 												className={
-													purpose === "Debt Consolidation"
+													purpose === loanPurposeData.debtConsolidation
 														? "borrowCSS textCSS whiteText"
 														: "borrowCSS textCSS"
 												}
@@ -400,18 +400,18 @@ function LoanPurpose(props) {
 											data-testid="lifeEvent"
 											elevation={ 3 }
 											className={
-												purpose === "Life Event (Wedding, Graduation, etc)"
+												purpose === loanPurposeData.lifeEvents
 													? "activeCard block " + classes.paper
 													: "block " + classes.paper
 											}
 											onClick={ () => {
-												goNext("Life Event (Wedding, Graduation, etc)");
+												goNext(loanPurposeData.lifeEvents);
 											} }
 										>
 											<img
-												alt="Life Event (Wedding, Graduation, etc)"
+												alt={loanPurposeData.lifeEvents}
 												src={
-													purpose === "Life Event (Wedding, Graduation, etc)"
+													purpose === loanPurposeData.lifeEvents
 														? LifeEventIconWhite
 														: LifeEventIcon
 												}
@@ -421,12 +421,12 @@ function LoanPurpose(props) {
 												id="purposeTxt07"
 												align="center"
 												className={
-													purpose === "Life Event (Wedding, Graduation, etc)"
+													purpose === loanPurposeData.lifeEvents
 														? "borrowCSS textCSS whiteText"
 														: "borrowCSS textCSS"
 												}
 											>
-												Life Event (wedding, graduation, etc)
+												Life Event <span>(wedding, graduation, etc)</span>
 											</Typography>
 										</Paper>
 									</Grid>
@@ -441,18 +441,18 @@ function LoanPurpose(props) {
 											data-testid="unexpectedBills"
 											elevation={ 3 }
 											className={
-												purpose === "Unexpected Expenses/Bills"
+												purpose === loanPurposeData.unexpectedExpence
 													? "activeCard block " + classes.paper
 													: "block " + classes.paper
 											}
 											onClick={ () => {
-												goNext("Unexpected Expenses/Bills");
+												goNext(loanPurposeData.unexpectedExpence);
 											} }
 										>
 											<img
-												alt="Unexpected Expenses/Bills"
+												alt={loanPurposeData.unexpectedExpence}
 												src={
-													purpose === "Unexpected Expenses/Bills"
+													purpose === loanPurposeData.unexpectedExpence
 														? UnexpectedExpenseIconWhite
 														: UnexpectedExpenseIcon
 												}
@@ -462,7 +462,7 @@ function LoanPurpose(props) {
 												id="purposeTxt08"
 												align="center"
 												className={
-													purpose === "Unexpected Expenses/Bills"
+													purpose === loanPurposeData.unexpectedExpence
 														? "borrowCSS textCSS whiteText"
 														: "borrowCSS textCSS"
 												}
@@ -482,18 +482,18 @@ function LoanPurpose(props) {
 											data-testid="majorPurchase"
 											elevation={ 3 }
 											className={
-												purpose === "Major Purchase"
+												purpose === loanPurposeData.majorPruchase
 													? "activeCard block " + classes.paper
 													: "block " + classes.paper
 											}
 											onClick={ () => {
-												goNext("Major Purchase");
+												goNext(loanPurposeData.majorPruchase);
 											} }
 										>
 											<img
-												alt="Major Purchase"
+												alt={loanPurposeData.majorPruchase}
 												src={
-													purpose === "Major Purchase"
+													purpose === loanPurposeData.majorPruchase
 														? MajorPurchaseIconWhite
 														: MajorPurchaseIcon
 												}
@@ -503,7 +503,7 @@ function LoanPurpose(props) {
 												id="purposeTxt10"
 												align="center"
 												className={
-													purpose === "Major Purchase"
+													purpose === loanPurposeData.majorPruchase
 														? "borrowCSS textCSS whiteText"
 														: "borrowCSS textCSS"
 												}
@@ -518,24 +518,25 @@ function LoanPurpose(props) {
 										md={ 12 }
 										xs={ 12 }
 										className={ `${ classes.masonryItemFirst }` }
-										style={ { paddingTop: "10px", paddingBottom: "25px" } }
+										style={ { paddingTop: "7px", paddingBottom: "15px" } }
 									>
 										<Paper
 											data-testid="others"
 											elevation={ 3 }
 											className={
-												purpose === "Other"
+												purpose === loanPurposeData.other
 													? "activeCard othersBlock "
 													: "othersBlock "
 											}
 											onClick={ () => {
-												goNext("Other");
+												goNext(loanPurposeData.other);
 											} }
 										>
 											<Typography
+												id="otherText"
 												align="center"
 												className={
-													purpose === "Other" ? "textCSS whiteText" : "textCSS"
+													purpose === loanPurposeData.other ? "textCSS whiteText" : "textCSS"
 												}
 											>
 												Other
@@ -549,17 +550,15 @@ function LoanPurpose(props) {
 										md={ 9 }
 										sm={ 12 }
 										xs={ 12 }
-										style={ { paddingBottom: "80px" } }
+										style={ { margin: "15px 0px" } }
 									>
 										<ButtonPrimary
 											data-testid="contButton"
 											onClick={ handleRoute }
 											disabled={ purpose === "" }
-											stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black !important","width":"155px","fontSize":"15px"}'
+											stylebutton='{"background": "#FFBC23","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
 										>
-											{/* <Typography align="center" className="textCSS "> */ }
 											Continue
-											{/* </Typography> */ }
 										</ButtonPrimary>
 									</Grid>
 								</Grid>

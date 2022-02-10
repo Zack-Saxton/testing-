@@ -30,9 +30,6 @@
     margin-bottom: 2%;
 }
 
-
-
-
 @media (max-width:400px){
     #email-label, #password-label, #c-pass-label, #firstname-label, #lastname-label, #zip-label{
         font-size: 4vw;
@@ -76,7 +73,6 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error{
   color: white;
 }
 
-
 .add-pad{
     margin-left: -1px !important;
     padding-top: 20px !important;
@@ -93,8 +89,6 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error{
     display: none;
 }
 
-
-
 .agreeCheckbox{
     text-align: justify;
       cursor: pointer;
@@ -103,9 +97,9 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error{
 }
 
 .formatHref{
-    color: blue;
+    color: #0F4EB3;
     text-align: justify;
-    text-decoration: none;
+    text-decoration: underline;
 }
 
 #annualhousehold, #personalIncome, #spouseState , #spouseCity, #spouseZip{
@@ -125,12 +119,12 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error{
     padding-bottom: 15px !important;
 }
 
-#citizenshipWrap div label{
-    font-size: 0.968rem !important;
+#citizenshipWrap{
+    padding: 0 !important;
 }
 
-#citizenshipWrap div div div:nth-child(1) {
-    padding-bottom: 15px !important;
+#citizenshipWrap div label{
+    font-size: 0.968rem !important;
 }
 
 #marriedStatusWrap div label{

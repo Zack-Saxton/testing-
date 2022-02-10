@@ -5,23 +5,24 @@ Component Name      :    Slider
 Functionality       :    To use this component to select a value using the slider input
 
 #################################################################################################################*/
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import PropTypes from "prop-types";
-import Typography from "@material-ui/core/Typography";
-import Slider from "@material-ui/core/Slider";
 import FormControl from "@material-ui/core/FormControl";
+import Slider from "@material-ui/core/Slider";
+import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import PropTypes from "prop-types";
+import React, { useState } from "react";
+import NumberFormat from 'react-number-format';
 import "./Slider.css";
 
 //Initial Value points
 const marks = [
   {
     value: 1000,
-    label: "$1000",
+    label: "$1,000",
   },
   {
     value: 25000,
-    label: "$25000",
+    label: "$25,000",
   },
 ];
 
@@ -44,7 +45,6 @@ const TextfieldWrapper = ({
   ...otherProps
 }) => {
   //Set Formik field
-
 
   // Styling part
   const useStyles = makeStyles((theme) => ({
@@ -132,7 +132,7 @@ const TextfieldWrapper = ({
       </FormControl>
       <div className={ classes.center }>
         <Typography id="discrete-slider-always-amount" variant='h6' className={ classes.OutputText }>
-          $ { value }
+          <NumberFormat value={ value } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 0 } fixedDecimalScale={ true } prefix={ '$' } />
         </Typography>
       </div>
     </div>

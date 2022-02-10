@@ -15,21 +15,15 @@ import { NavLink } from "react-router-dom";
 import { ButtonPrimary, TableCellWrapper } from "../../FormsUI";
 import { useStylesAccountOverview } from "./Style";
 import "./Style.css";
-
-export default function RecentPayments(userRecentPaymentData) {
+export default function RecentPayments(paymentHistory) {
 	//Material UI css class
 	const classes = useStylesAccountOverview();
 	window.zeHide();
 	//Recentpayments data
-
-	let userRecentPayment =
-		userRecentPaymentData != null ? userRecentPaymentData : null;
-
-
 	let parData = [];
-	if (userRecentPayment?.userRecentPaymentData?.length) {
-		userRecentPayment?.userRecentPaymentData.slice(0, 1).forEach(function (arrayItem) {
-			arrayItem?.loanHistory?.AppAccountHistory?.slice(0, 3).forEach(function (row) {
+	if (paymentHistory?.userRecentPaymentData?.length) {
+		paymentHistory?.userRecentPaymentData.slice(0, 1).forEach(function (arrayItem) {
+			arrayItem?.AppAccountHistory?.slice(0, 3).forEach(function (row) {
 				parData.push(
 					{
 						date: {
@@ -106,13 +100,11 @@ export default function RecentPayments(userRecentPaymentData) {
 							align: "right",
 							className: classes.tableHeadRow
 						},
-
 					}
 				);
 			});
 		});
 	}
-
 	return (
 		<Grid item xs={ 12 } className={ classes.recentPaymentMainGrid }>
 			<Paper id="recentPaymentsWrap" className={ classes.paperRP } >
@@ -135,51 +127,16 @@ export default function RecentPayments(userRecentPaymentData) {
 						<Table id="recentPaymentsTable" aria-label="simple table">
 							<TableHead>
 								<TableRow>
-									<TableCell
-										className={ classes.tablehead }
-										align="center"
-									>
-										Date
-									</TableCell>
-									<TableCell
-										className={ classes.tablehead }
-										align="center"
-									>
-										Description
-									</TableCell>
-									<TableCell
-										className={ classes.tablehead }
-										align="center"
-									>
-										Principal
-									</TableCell>
-									<TableCell
-										className={ classes.tablehead }
-										align="center"
-									>
-										Interest
-									</TableCell>
-									<TableCell
-										className={ classes.tablehead }
-										align="center"
-									>
-										Other
-									</TableCell>
-									<TableCell
-										className={ classes.tablehead }
-										align="center"
-									>
-										Total Amount
-									</TableCell>
-									<TableCell
-										className={ classes.tablehead }
-										align="center"
-									>
-										Balance
-									</TableCell>
+									<TableCell className={ classes.tablehead } align="left">Date</TableCell>
+									<TableCell className={ classes.tablehead } align="left">Description</TableCell>
+									<TableCell className={ classes.tablehead } align="right">Principal</TableCell>
+									<TableCell className={ classes.tablehead } align="right">Interest</TableCell>
+									<TableCell className={ classes.tablehead } align="right">Other</TableCell>
+									<TableCell className={ classes.tablehead } align="right">Total Amount</TableCell>
+									<TableCell className={ classes.tablehead } align="right">Balance</TableCell>
 								</TableRow>
 							</TableHead>
-							{ userRecentPaymentData?.isLoading ? (
+							{ paymentHistory?.isLoading ? (
 								<TableBody>
 									<TableRow>
 										<TableCell colSpan="7" align="center">
@@ -187,7 +144,7 @@ export default function RecentPayments(userRecentPaymentData) {
 										</TableCell>
 									</TableRow>
 								</TableBody>
-							) : userRecentPayment?.userRecentPaymentData?.length ? (
+							) : paymentHistory?.userRecentPaymentData?.length ? (
 								<TableCellWrapper parseData={ parData } />
 							) : (
 								<TableBody>

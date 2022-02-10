@@ -7,10 +7,10 @@ Functionality       :    To use this RadioButton as a default component for UI p
 
 #################################################################################################################*/
 
-import React from "react";
 import { FormControl, FormControlLabel, FormLabel } from "@material-ui/core";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
+import React from "react";
 
 const RadioButtonWrapper = ({
   name,
@@ -36,21 +36,14 @@ const RadioButtonWrapper = ({
   const [ radioValue, setRadioValue ] = React.useState("");
 
   function handleRadioClick(event) {
-
-
-
     if (event.target.value === radioValue) {
       setRadioValue("");
-
     } else {
       setRadioValue(event.target.value);
-
     }
     if (onClick) {
       onClick(value ?? event.target.value);
-
     }
-
   }
   //Configuring the field with properties
   const configRadioButton = {
@@ -58,12 +51,7 @@ const RadioButtonWrapper = ({
     row: row,
     required: required,
     ...otherProps,
-
   };
-
-
-  //Validation
-
   //parsing data using json
   let radioLabelMF = JSON.parse(radiolabel);
 

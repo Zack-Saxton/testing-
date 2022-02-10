@@ -76,11 +76,11 @@ export default function VerificationQuestion(props) {
                   if (check) {
                     props.setLoadingFlag(true);
                     let sendData = {
-                      "ref": responseData[0]?.fullData?.questions?.transaction_id,
+                      "ref": responseData[ 0 ]?.fullData?.questions?.transaction_id,
                       "answers": {
-                        "question_set_id": responseData[0]?.fullData?.questions?.question_set_id,
-                        "questions": [{
-                          "id": responseData[0]?.fullData?.questions?.question["question-id"],
+                        "question_set_id": responseData[ 0 ]?.fullData?.questions?.question_set_id,
+                        "questions": [ {
+                          "id": responseData[ 0 ]?.fullData?.questions?.question[ "question-id" ],
                           "answer": check
                         } ]
                       }

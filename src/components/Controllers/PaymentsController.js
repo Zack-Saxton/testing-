@@ -55,7 +55,6 @@ export async function disableAutoPay(disableAutoPayAccountNo) {
   }
 }
 
-
 /***** Schedule a payment *****/
 export async function makePayment(scheduledPaymentAccountNo, scheduledPaymentCard, scheduledPaymentDatePicker, scheduledPaymentIsDebit, scheduledPaymentAmount) {
   try {

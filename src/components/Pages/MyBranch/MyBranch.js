@@ -12,7 +12,6 @@ import BranchDetail from "./BranchDetail";
 import BranchMap from "./BranchMap";
 import { useStylesMyBranch } from "./Style";
 
-
 export default function MyBranch() {
   window.zeHide();
   //Material UI css class
@@ -20,7 +19,6 @@ export default function MyBranch() {
 
   //API call
   const { data: branchApiStatus } = useQuery('my-branch', MyBranchAPI);
-
 
   //Branch details from API
   let myBranchData = branchApiStatus?.data;

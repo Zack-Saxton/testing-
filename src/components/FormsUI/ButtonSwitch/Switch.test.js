@@ -15,7 +15,6 @@ test('Render Button Switch', () => {
   expect(input).toBeTruthy();
 });
 
-
 test('Change switch value', () => {
   const container = render(
     <Switch

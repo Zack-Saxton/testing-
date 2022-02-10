@@ -1,6 +1,7 @@
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from "@material-ui/core/Grid";
 import { useFormik } from "formik";
+import * as imageConversion from 'image-conversion';
 import Cookies from "js-cookie";
 import Moment from "moment";
 import React, { useContext, useState } from "react";
@@ -8,40 +9,40 @@ import { useQuery } from 'react-query';
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
-import * as imageConversion from 'image-conversion';
+import globalMessages from "../../../assets/data/globalMessages.json";
 import profileImg from "../../../assets/images/profile-img.jpg";
 import { ProfilePicture } from "../../../contexts/ProfilePicture";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import LogoutController from "../../Controllers/LogoutController";
-import { basicInformation, uploadNewProfileImage } from "../../Controllers/myProfileController";
+import { basicInformation, uploadNewProfileImage } from "../../Controllers/MyProfileController";
 import { ButtonPrimary, ButtonSecondary, EmailTextField, PhoneNumber, TextField } from "../../FormsUI";
+import ErrorLogger from '../../lib/ErrorLogger';
 import "./Style.css";
-
 
 const validationSchema = yup.object({
   email: yup
-    .string("Enter your email")
-    .email("Please enter a valid email address")
+    .string(globalMessages.EmailEnter)
+    .email(globalMessages.EmailValid)
     .matches(
       /^[a-zA-Z](?!.*[+/._-][+/._-])(([^<>()|?{}='[\]\\,;:#!$%^&*\s@\"]+(\.[^<>()|?{}=/+'[\]\\.,;_:#!$%^&*-\s@\"]+)*)|(\".+\"))[a-zA-Z0-9]@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,3}))$/, //eslint-disable-line
-      "A valid email address is required"
+      globalMessages.EmailValid
     )
-    .required("Your email address is required"),
+    .required(globalMessages.EmailRequired),
   phone: yup
-    .string("Enter a name")
-    .required("Your Phone number is required")
+    .string(globalMessages.PhoneEnter)
+    .required(globalMessages.PhoneRequired)
     .transform((value) => value.replace(/[^\d]/g, ""))
-    .matches(/^[1-9]{1}\d{2}\d{3}\d{4}$/, "Please enter a valid Phone number")
-    .matches(/^(\d)(?!\1+$)\d{9}$/, "Please enter a valid Phone number")
-    .min(10, "Name must contain at least 10 digits"),
+    .matches(/^[1-9]{1}\d{2}\d{3}\d{4}$/, globalMessages.PhoneValid)
+    .matches(/^(\d)(?!\1+$)\d{9}$/, globalMessages.PhoneValid)
+    .min(10, globalMessages.PhoneMin),
 });
 
 async function filetoImage(file) {
   try {
-  return await imageConversion.filetoDataURL(file);  
-} catch (error) {  
-  ErrorLogger("Error executing image conversion", error);
-}
+    return await imageConversion.filetoDataURL(file);
+  } catch (error) {
+    ErrorLogger("Error executing image conversion", error);
+  }
 }
 
 export default function BasicInformation(props) {
@@ -51,14 +52,14 @@ export default function BasicInformation(props) {
   const { dataProfile, setData } = useContext(ProfilePicture);
   const history = useHistory();
   const { refetch } = useQuery('loan-data', usrAccountDetails);
-  let basicData = props?.basicInformationData?.identification != null ? props.basicInformationData.identification : null;
-  let basicInfo = props?.basicInformationData?.latest_contact != null ? props.basicInformationData.latest_contact : null;
-  let profileImageData = props?.getProfileImage != null ? props.getProfileImage : profileImg;
+  let basicData = props?.basicInformationData?.identification;
+  let basicInfo = props?.basicInformationData?.latest_contact;
+  let profileImageData = props?.getProfileImage ?? profileImg;
   let hasActiveLoan = Cookies.get("hasActiveLoan") === "true" ? true : false;
   let hasApplicationStatus = Cookies.get("hasApplicationStatus");
-  var appStatus = [ "rejected", "reffered", "expired" ];
+  var appStatus = [ "rejected", "referred", "expired" ];
   let checkAppStatus = appStatus.includes(hasApplicationStatus);
-  let disableField = (checkAppStatus === true || hasActiveLoan === true) ? true : false;
+  let disableField = (checkAppStatus || hasActiveLoan) ? true : false;
   const [ selectedFile, setSelectedFile ] = useState(null);
   const [ docType ] = useState("");
   const [ uploadedImage, setuploadedImage ] = useState(null);
@@ -76,13 +77,11 @@ export default function BasicInformation(props) {
   const logOut = () => {
     setLoading(false);
     LogoutController();
-    history.push({
-      pathname: "/login"
-    });
+    history.push({ pathname: "/login" });
   };
 
   const logoutUser = () => {
-    toast.success("You are being logged out of the system", {
+    toast.success(globalMessages.LoggedOut, {
       onClose: () => logOut(),
     });
   };
@@ -90,8 +89,8 @@ export default function BasicInformation(props) {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      email: basicInfo?.email ? basicInfo?.email : "",
-      phone: basicInfo?.phone_number_primary ? basicInfo?.phone_number_primary : "",
+      email: basicInfo?.email ?? "",
+      phone: basicInfo?.phone_number_primary ?? "",
     },
     validationSchema: validationSchema,
 
@@ -104,14 +103,13 @@ export default function BasicInformation(props) {
           .replace(/\(/g, "")
           .replace(/ /g, "") || "";
 
-
       let body = {
         primaryPhoneNumber: phone,
         email: values.email,
       };
       const uploadBasicInfoChange = () => {
         if (!toast.isActive("closeToast")) {
-          refetch().then(() => toast.success("Updated Successfully", {
+          refetch().then(() => toast.success(globalMessages.UpdatedSuccessfully, {
             toastId: "closeToast",
             onClose: () => {
               setLoading(false);
@@ -123,7 +121,7 @@ export default function BasicInformation(props) {
 
       const uploadBasicInfoChangeLogOut = () => {
         if (!toast.isActive("closeToast")) {
-          refetch().then(() => toast.success("Updated Successfully", {
+          refetch().then(() => toast.success(globalMessages.UpdatedSuccessfully, {
             toastId: "closeToast",
             onClose: () => {
               logoutUser();
@@ -138,17 +136,14 @@ export default function BasicInformation(props) {
           var filePath = selectedFile.value;
           var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
           if (!allowedExtensions.exec(filePath)) {
-            toast.error(
-              "Please upload file having extensions .jpeg .jpg .png only. ");
+            toast.error(globalMessages.ImageExtentions);
             setLoading(false);
             selectedFile.value = "";
             return false;
-
           } else if (selectedFile.files[ 0 ].size <= 819200) {
             let reader = new FileReader();
             if (selectedFile.files && selectedFile.files[ 0 ]) {
               reader.onload = async () => {
-
                 const compress_file = await imageConversion.compressAccurately(selectedFile.files[ 0 ], {
                   size: 80,
                   accuracy: '',
@@ -173,17 +168,13 @@ export default function BasicInformation(props) {
                 let uploadData = await uploadNewProfileImage(imageData, fileName, fileType, documentType, email);
                 if (uploadData.status === 200) {
                   setData({
-                    ...dataProfile, "profile_picture_url":
-                      uploadData?.data?.profile_picture_url
-                        ? uploadData?.data?.profile_picture_url
-                        : ""
+                    ...dataProfile, "profile_picture_url": uploadData?.data?.profile_picture_url ?? ""
                   });
 
                   Cookies.set("profile_picture_url", uploadData?.data?.profile_picture_url ? uploadData?.data?.profile_picture_url : "");
-
                   if (!toast.isActive("closeToast")) {
                     toast.success(
-                      "Updated Successfully",
+                      globalMessages.UpdatedSuccessfully,
                       {
                         toastId: "closeToast",
                         onClose: () => {
@@ -194,7 +185,6 @@ export default function BasicInformation(props) {
                             setLoading(false);
                             onClickCancelChange();
                             logoutUser();
-
                           }
                           else if ((formik.initialValues.phone !== values.phone && selectedFile !== null)) {
                             setuploadedImage(uploadData?.data?.profile_picture_url);
@@ -216,8 +206,7 @@ export default function BasicInformation(props) {
                 }
                 else {
                   if (!toast.isActive("closeToast")) {
-                    toast.error(
-                      " Error uploading file",
+                    toast.error(globalMessages.FileUploadError,
                       {
                         toastId: "closeToast",
                         onClose: () => {
@@ -227,16 +216,15 @@ export default function BasicInformation(props) {
                     );
                   }
                 }
-
               };
               reader.readAsDataURL(selectedFile.files[ 0 ]);
             }
           } else {
             if (selectedFile.files[ 0 ].size > 819200) {
-              toast.error("Please upload file size below 800kb ");
+              toast.error(globalMessages.FileUploadMax);
               setLoading(false);
             } else if (docType == null) {
-              toast.error("Please select an image type to upload");
+              toast.error(globalMessages.FileUploadTypeImage);
               setLoading(false);
             }
           }
@@ -245,7 +233,7 @@ export default function BasicInformation(props) {
 
       if (formik.initialValues.phone === phone && formik.initialValues.email === values.email && selectedFile === null) {
         if (!toast.isActive("closeToast")) {
-          toast.error("No changes made", {
+          toast.error(globalMessages.NoChange, {
             toastId: "closeToast",
             onClose: () => { setLoading(false); }
           });
@@ -274,7 +262,7 @@ export default function BasicInformation(props) {
         }
         else {
           if (!toast.isActive("closeToast")) {
-            toast.error("Please try again", {
+            toast.error(globalMessages.TryAgain, {
               toastId: "closeToast",
               onClose: () => { setLoading(false); }
             });
@@ -306,7 +294,6 @@ export default function BasicInformation(props) {
             container
             direction="row"
           >
-
             <TextField
               id="basicFirstName"
               label="First Name"
@@ -361,7 +348,7 @@ export default function BasicInformation(props) {
               id="email"
               name="email"
               label="Email Address"
-              disabled={ disableField === true ? false : true }
+              disabled={ !disableField }
               onKeyDown={ preventSpace }
               value={ formik.values.email }
               materialProps={ { maxLength: "100" } }
@@ -377,14 +364,14 @@ export default function BasicInformation(props) {
             style={ { width: "100%", gap: 15, marginBottom: 18 } }
             container
             direction="row"
-            id={ disableField === true ? "basicPhoneNumber" : "profilePhoneNumberWrap" }
+            id={ disableField ? "basicPhoneNumber" : "profilePhoneNumberWrap" }
           >
             <PhoneNumber
               name="phone"
               label="Primary Phone Number"
               placeholder="Enter your phone number"
               id="phone"
-              disabled={ disableField === true ? false : true }
+              disabled={ !disableField }
               onKeyDown={ preventSpace }
               value={ formik.values.phone }
               onChange={ formik.handleChange }
@@ -398,7 +385,7 @@ export default function BasicInformation(props) {
             <Grid id="imgUploadWrap" item xs={ 8 } sm={ 3 }>
               <img
                 style={ { width: "100%" } }
-                src={ uploadedImage !== null ? uploadedImage : profileImageData }
+                src={ uploadedImage ?? profileImageData }
                 align="left"
                 alt="Profile Pic"
               />
@@ -412,7 +399,7 @@ export default function BasicInformation(props) {
                 variant="contained"
                 component="span"
                 onClick={ handleInputChange }
-                disabled={ disableField === true ? false : true }
+                disabled={ !disableField }
               >
                 Upload New Photo
               </ButtonSecondary>
@@ -444,17 +431,15 @@ export default function BasicInformation(props) {
               stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
               styleicon='{ "color":"" }'
               onClick={ onClickCancelChange }
-              disabled={ disableField === true ? false : true }
+              disabled={ !disableField }
             >
               Cancel
             </ButtonSecondary>
-
             <ButtonPrimary
               stylebutton='{"marginLeft": "", "color":"#171717", "fontWeight":"700", "marginLeft": "5px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
               styleicon='{ "color":"" }'
               type="submit"
               disabled={ loading }
-
             >
               Save Changes
               <i
@@ -466,7 +451,6 @@ export default function BasicInformation(props) {
                 } }
               />
             </ButtonPrimary>
-
           </Grid>
         </> }
       </form>

@@ -10,7 +10,6 @@ import PropTypes from "prop-types";
 import React, { useState } from "react";
 import TextBox from "../Textfield";
 
-
 const ZipCodeWrapper = ({ name, error, helperText, value, onChange, ...otherProps }) => {
   //Set Formik field
   const [ zipCode, setZipCode ] = useState(value ? value : "");
@@ -30,7 +29,6 @@ const ZipCodeWrapper = ({ name, error, helperText, value, onChange, ...otherProp
     (!isValid && zipcode) ? setHelperText2("Zipcode should 5 digits") : setHelperText2("");
     if (onChange) { onChange(event); }
   };
-
 
   //Configuring the field with properties
   const configTextField = {

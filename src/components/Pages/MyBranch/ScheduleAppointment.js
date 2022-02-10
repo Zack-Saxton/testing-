@@ -25,7 +25,7 @@ import {
 } from "./WorkingHours";
 // yup validation
 const validationSchema = yup.object({
-  date: yup
+  appointmentDate: yup
     .date("Please enter a valid date")
     .nullable()
     .required("Date is required"),
@@ -51,15 +51,15 @@ export default function ScheduleAppointment({
   scheduleAppointmentDate.setDate(scheduleAppointmentDate.getDate() + 30);
 
   //US holidays
-  function disableHolidays(date) {
+  function disableHolidays(appointmentDate) {
     const holidayApiData = holidayData?.holidays;
     const holidayApiDataValues = holidayApiData.map((arrVal) => {
       return new Date(arrVal + "T00:00").getTime();
     });
     return (
-      date.getDay() === 0 ||
-      date.getDay() === 6 ||
-      holidayApiDataValues.includes(date.getTime())
+      appointmentDate.getDay() === 0 ||
+      appointmentDate.getDay() === 6 ||
+      holidayApiDataValues.includes(appointmentDate.getTime())
     );
   }
 
@@ -86,12 +86,12 @@ export default function ScheduleAppointment({
   //Formik implementation
   const formik = useFormik({
     initialValues: {
-      date: null,
+      appointmentDate: null,
       appointmentTime: "",
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      var visitDate = Moment(values.date).format("YYYY-MM-DD");
+      var visitDate = Moment(values.appointmentDate).format("YYYY-MM-DD");
 
       var visitTime = values.appointmentTime;
       let visitTimeZone = momentTimeZone
@@ -105,7 +105,7 @@ export default function ScheduleAppointment({
         visitTimeZone
       );
       if (response === "true") {
-        formik.values.date = null;
+        formik.values.appointmentDate = null;
         formik.values.appointmentTime = "";
         setLoading(false);
         setScheduleAppointment(false);
@@ -120,9 +120,9 @@ export default function ScheduleAppointment({
 
   const handleScheduleAppointmentclose = () => {
     document.getElementById("formAppointment").remove();
-    formik.values.date = null;
+    formik.values.appointmentDate = null;
     formik.values.appointmentTime = "";
-    formik.touched.date = null;
+    formik.touched.appointmentDate = null;
     formik.touched.appointmentTime = null;
     setScheduleAppointment(false);
   };
@@ -164,29 +164,29 @@ export default function ScheduleAppointment({
           <DialogContent>
             <Grid style={ { paddingBottom: "10px" } }>
               <DatePicker
-                name="date"
+                name="appointmentDate"
                 label="Date"
                 placeholder="MM/DD/YYYY"
-                id="date"
+                id="appointmentDate"
                 disablePast
                 autoComplete="off"
                 onKeyDown={ (event) => event.preventDefault() }
                 shouldDisableDate={ disableHolidays }
                 maxdate={ scheduleAppointmentDate }
                 minyear={ 4 }
-                value={ formik.values.date }
+                value={ formik.values.appointmentDate }
                 onChange={ (values) => {
-                  formik.setFieldValue("date", values);
+                  formik.setFieldValue("appointmentDate", values);
                 } }
                 onBlur={ formik.handleBlur }
-                error={ formik.touched.date && Boolean(formik.errors.date) }
-                helperText={ formik.touched.date && formik.errors.date }
+                error={ formik.touched.appointmentDate && Boolean(formik.errors.appointmentDate) }
+                helperText={ formik.touched.appointmentDate && formik.errors.appointmentDate }
               />
             </Grid>
             { stateName === "CA" ? (
-              Moment(formik.values.date).format("dddd") === "Tuesday" ? (
+              Moment(formik.values.appointmentDate).format("dddd") === "Tuesday" ? (
                 <Grid>
-                  { Moment(formik.values.date).format("DD-MM-YYYY") ===
+                  { Moment(formik.values.appointmentDate).format("DD-MM-YYYY") ===
                     Moment(new Date()).format("DD-MM-YYYY")
                     ? upt_ca_Tue.length !== 0 ?
                       <Select
@@ -194,7 +194,7 @@ export default function ScheduleAppointment({
                         labelform="Time Slot"
                         select={ JSON.stringify(upt_ca_Tue) }
                         onChange={ formik.handleChange }
-                        value={ formik.values.appointmentTime}
+                        value={ formik.values.appointmentTime }
                         onBlur={ formik.handleBlur }
                         error={ formik.touched.appointmentTime && Boolean(formik.errors.appointmentTime) }
                         helperText={ formik.touched.appointmentTime && formik.errors.appointmentTime }
@@ -213,7 +213,7 @@ export default function ScheduleAppointment({
                 </Grid>
               ) : (
                 <Grid>
-                  { Moment(formik.values.date).format("DD-MM-YYYY") ===
+                  { Moment(formik.values.appointmentDate).format("DD-MM-YYYY") ===
                     Moment(new Date()).format("DD-MM-YYYY")
                     ? upt_ca_M_W_TH_F.length !== 0 ?
                       <Select
@@ -239,9 +239,9 @@ export default function ScheduleAppointment({
                     /> }
                 </Grid>
               )
-            ) : Moment(formik.values.date).format("dddd") === "Tuesday" ? (
+            ) : Moment(formik.values.appointmentDate).format("dddd") === "Tuesday" ? (
               <Grid>
-                { Moment(formik.values.date).format("DD-MM-YYYY") ===
+                { Moment(formik.values.appointmentDate).format("DD-MM-YYYY") ===
                   Moment(new Date()).format("DD-MM-YYYY")
                   ? updated_other_Tue.length !== 0 ?
                     <Select
@@ -267,9 +267,9 @@ export default function ScheduleAppointment({
                   /> }
 
               </Grid>
-            ) : Moment(formik.values.date).format("dddd") === "Friday" ? (
+            ) : Moment(formik.values.appointmentDate).format("dddd") === "Friday" ? (
               <Grid>
-                { Moment(formik.values.date).format("DD-MM-YYYY") ===
+                { Moment(formik.values.appointmentDate).format("DD-MM-YYYY") ===
                   Moment(new Date()).format("DD-MM-YYYY")
                   ? upt_other_Fri.length !== 0 ?
                     <Select
@@ -297,7 +297,7 @@ export default function ScheduleAppointment({
               </Grid>
             ) : (
               <Grid>
-                { Moment(formik.values.date).format("DD-MM-YYYY") ===
+                { Moment(formik.values.appointmentDate).format("DD-MM-YYYY") ===
                   Moment(new Date()).format("DD-MM-YYYY")
                   ? upt_other_M_W_Thu.length !== 0 ?
                     <Select

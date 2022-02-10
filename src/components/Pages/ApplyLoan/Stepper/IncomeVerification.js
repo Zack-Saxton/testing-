@@ -70,7 +70,7 @@ export default function IncomeVerification(props) {
 			<div className={ props.classes.actionsContainer }>
 				<div className={ props.classes.button_div }>
 					<ButtonSecondary
-						stylebutton='{"margin-right": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
+						stylebutton='{"marginRight": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
 						onClick={ props.reset }
 						id="button_stepper_reset"
 					>
@@ -81,19 +81,13 @@ export default function IncomeVerification(props) {
 						variant="contained"
 						color="primary"
 						id="button_stepper_next"
-						stylebutton='{"margin-right": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
+						stylebutton='{"marginRight": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
 						onClick={ async () => {
 							let data = {};
 							props.setLoadingFlag(true);
 
 							// API call
-							let res = await APICall(
-								"verification_steps_cac",
-								'',
-								data,
-								"POST",
-								true
-							);
+							let res = await APICall("verification_steps_cac", '', data, "POST", true);
 
 							//To check all the steps are completed or not
 							if (
@@ -107,9 +101,7 @@ export default function IncomeVerification(props) {
 								res?.data?.income_verification === true
 							) {
 								props.setLoadingFlag(false);
-								history.push({
-									pathname: "/customers/receiveYourMoney",
-								});
+								history.push({ pathname: "/customers/receiveYourMoney", });
 							} else {
 								props.setLoadingFlag(false);
 								alert(messages.incomeVerification.finishAllSteps);

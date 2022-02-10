@@ -25,10 +25,6 @@
 .setGreenColor {
 	color: green;
 }
-.alignButton {
-	margin-top: 5%;
-	margin-bottom: 4%;
-}
 
 .smallText {
 	font-size: 0.8rem !important;
@@ -69,7 +65,10 @@
 }
 
 #selectAmountWrap {
-	border-radius: 4px !important;
+	border-radius: 2px !important;
+}
+.checkMyOffersWrap{
+	padding: 24px;
 }
 
 #oneLastStepWrap {

@@ -14,6 +14,7 @@ import React, { useState } from "react";
 import { useQueryClient } from 'react-query';
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
+import globalMessages from "../../../assets/data/globalMessages.json";
 import Logo from "../../../assets/images/loginbg.png";
 import LoginController from "../../Controllers/LoginController";
 import LogoutController from "../../Controllers/LogoutController";
@@ -29,11 +30,9 @@ import {
   Zipcode
 } from "../../FormsUI";
 import { encryptAES } from "../../lib/Crypto";
-import { FormValidationRules } from "../../lib/FormValidationRule";
-import globalValidation from "../../lib/Lang/globalValidation.json";
-import reqProperties from "../../lib/Lang/register.json";
-import "./Register.css";
 import ErrorLogger from "../../lib/ErrorLogger";
+import { FormValidationRules } from "../../lib/FormValidationRule";
+import "./Register.css";
 let formValidation = new FormValidationRules();
 
 //Styling part
@@ -98,8 +97,6 @@ const useStyles = makeStyles((theme) => ({
 //Yup validations for all the input fields
 const validationSchema = formValidation.getFormValidationRule('');
 
-
-
 //Begin: Login page
 export default function Register() {
   window.zeHide();
@@ -154,9 +151,7 @@ export default function Register() {
         : Cookies.set("rememberMe", JSON.stringify({ selected: false, email: "", password: "" }));
 
       setLoading(false);
-      history.push({
-        pathname: "/customers/accountoverview",
-      });
+      history.push({ pathname: "/customers/accountoverview", });
     } else if (retVal?.data?.result === "error" || retVal?.data?.hasError === true) {
       Cookies.set("token", JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" }));
       setLoading(false);
@@ -166,16 +161,17 @@ export default function Register() {
     }
   };
   //Form Submission
+  const queryParams = new URLSearchParams(window.location.search)
   const formik = useFormik({
     initialValues: {
       firstname: "",
       lastname: "",
-      email: "",
+      email: queryParams.get("email"),
       password: "",
       confirmPassword: "",
       zip: "",
       ssn: "",
-      date: null,
+      dob: null,
       isRegisterForm: 1
     },
     validationSchema: validationSchema,
@@ -190,9 +186,9 @@ export default function Register() {
         ssn: values.ssn,
         zip_code: values.zip,
         password: values.password,
-        birth_year: values.date.getFullYear().toString(),
-        birth_month: ("0" + (values.date.getMonth() + 1)).slice(-2),
-        birth_day: ("0" + (values.date.getDate() + 1)).slice(-2),
+        birth_year: values.dob.getFullYear().toString(),
+        birth_month: ("0" + (values.dob.getMonth() + 1)).slice(-2),
+        birth_day: ("0" + (values.dob.getDate() + 1)).slice(-2),
         address_street: "",
         address_city: city,
         address_state: state,
@@ -231,15 +227,15 @@ export default function Register() {
           setSuccess(false);
           setLoading(false);
         } else {
-          alert(globalValidation.Network_Error);
-          setFailed(globalValidation.Network_Error_Please_Try_Again);
+          alert(globalMessages.Network_Error);
+          setFailed(globalMessages.Network_Error_Please_Try_Again);
           setSuccess(false);
           setLoading(false);
         }
       } catch (error) {
-        setFailed(reqProperties.Please_Contact_Us_At);
+        setFailed(globalMessages.Please_Contact_Us_At);
         setLoading(false);
-        ErrorLogger('Error from register_new_user API', error)
+        ErrorLogger('Error from register_new_user API', error);
       }
     },
   });
@@ -297,11 +293,15 @@ export default function Register() {
           setValidZip(true);
           setState(result?.data.stateCode);
           setCity(result?.data.cityName);
-        } 
-      } 
+        }
+      }
     } catch (error) {
       ErrorLogger(" Error from fetchAddress", error);
     }
+  };
+
+  const andLogic = (valueOne, valueTwo) => {
+    return (valueOne && valueTwo);
   };
 
   //View Part
@@ -362,17 +362,18 @@ export default function Register() {
                         name="firstname"
                         id="firstname"
                         label="First Name *"
-                        placeholder={ globalValidation.FirstNameEnter }
+                        placeholder={ globalMessages.FirstNameEnter }
                         materialProps={ { maxLength: "30" } }
                         value={ formik.values.firstname }
                         onChange={ (e) => NameChange(e) }
                         onBlur={ formik.handleBlur }
                         error={
-                          formik.touched.firstname &&
-                          Boolean(formik.errors.firstname)
+                          andLogic(formik.touched.firstname, Boolean(formik.errors.firstname))
+
                         }
                         helperText={
-                          formik.touched.firstname && formik.errors.firstname
+                          andLogic(formik.touched.firstname, formik.errors.firstname)
+
                         }
                       />
                     </Grid>
@@ -389,17 +390,20 @@ export default function Register() {
                         name="lastname"
                         id="lastname"
                         label="Last Name *"
-                        placeholder={ globalValidation.LastNameEnter }
+                        placeholder={ globalMessages.LastNameEnter }
                         materialProps={ { maxLength: "30" } }
                         value={ formik.values.lastname }
                         onChange={ NameChange }
                         onBlur={ formik.handleBlur }
                         error={
-                          formik.touched.lastname &&
-                          Boolean(formik.errors.lastname)
+
+                          andLogic(formik.touched.lastname, Boolean(formik.errors.lastname)
+
+                          )
                         }
                         helperText={
-                          formik.touched.lastname && formik.errors.lastname
+                          andLogic(formik.touched.lastname, formik.errors.lastname)
+
                         }
                       />
                     </Grid>
@@ -415,16 +419,17 @@ export default function Register() {
                         id="email"
                         name="email"
                         label="Email *"
-                        placeholder={ globalValidation.EmailEnter }
+                        placeholder={ globalMessages.EmailEnter }
                         materialProps={ { maxLength: "100" } }
                         onKeyDown={ preventSpace }
                         value={ formik.values.email }
                         onChange={ formik.handleChange }
                         onBlur={ formik.handleBlur }
                         error={
-                          formik.touched.email && Boolean(formik.errors.email)
+                          andLogic(formik.touched.email, Boolean(formik.errors.email))
+
                         }
-                        helperText={ formik.touched.email && formik.errors.email }
+                        helperText={ andLogic(formik.touched.email, formik.errors.email) }
                       />
                     </Grid>
 
@@ -440,14 +445,14 @@ export default function Register() {
                         className={ classes.socialNum }
                         name="ssn"
                         label="Social Security Number *"
-                        placeholder={ globalValidation.SSNEnter }
+                        placeholder={ globalMessages.SSNEnter }
                         id="ssn"
                         type="ssn"
                         value={ formik.values.ssn }
                         onChange={ formik.handleChange }
                         onBlur={ formik.handleBlur }
-                        error={ formik.touched.ssn && Boolean(formik.errors.ssn) }
-                        helperText={ formik.touched.ssn && formik.errors.ssn }
+                        error={ andLogic(formik.touched.ssn, Boolean(formik.errors.ssn)) }
+                        helperText={ andLogic(formik.touched.ssn, formik.errors.ssn) }
                       />
                     </Grid>
                     <Grid
@@ -463,7 +468,7 @@ export default function Register() {
                         id="zip"
                         name="zip"
                         label="Zip Code *"
-                        placeholder={ globalValidation.ZipCodeEnter }
+                        placeholder={ globalMessages.ZipCodeEnter }
                         value={ formik.values.zip }
                         onChange={ fetchAddress }
                         onBlur={ formik.handleBlur }
@@ -474,7 +479,7 @@ export default function Register() {
                         helperText={
                           validZip
                             ? formik.touched.zip && formik.errors.zip
-                            : `${ globalValidation.ZipCodeValid }`
+                            : `${ globalMessages.ZipCodeValid }`
                         }
                       />
                     </Grid>
@@ -488,22 +493,22 @@ export default function Register() {
                       direction="row"
                     >
                       <DatePicker
-                        name="date"
+                        name="dob"
                         label="Date of Birth *"
-                        id="date"
+                        id="dob"
                         placeholder="MM/DD/YYYY"
                         format="MM/dd/yyyy"
                         maxdate={ myDate }
                         minyear={ 102 }
-                        value={ formik.values.date }
+                        value={ formik.values.dob }
                         onChange={ (values) => {
-                          formik.setFieldValue("date", values);
+                          formik.setFieldValue("dob", values);
                         } }
                         onBlur={ formik.handleBlur }
-                        error={
-                          formik.touched.date && Boolean(formik.errors.date)
+                        error={ andLogic(formik.touched.dob, Boolean(formik.errors.dob))
+
                         }
-                        helperText={ formik.touched.date && formik.errors.date }
+                        helperText={ andLogic(formik.touched.dob, formik.errors.dob) }
                       />
                     </Grid>
 
@@ -517,7 +522,7 @@ export default function Register() {
                       <PasswordField
                         name="password"
                         label="Create New Password *"
-                        placeholder={ globalValidation.PasswordEnter }
+                        placeholder={ globalMessages.PasswordEnter }
                         id="password"
                         type="password"
                         onKeyDown={ preventSpace }
@@ -525,12 +530,12 @@ export default function Register() {
                         value={ formik.values.password }
                         onChange={ formik.handleChange }
                         onBlur={ formik.handleBlur }
-                        error={
-                          formik.touched.password &&
-                          Boolean(formik.errors.password)
+                        error={ andLogic(formik.touched.password, Boolean(formik.errors.password))
+
                         }
                         helperText={
-                          formik.touched.password && formik.errors.password
+                          andLogic(formik.touched.password, formik.errors.password)
+
                         }
                       />
                       <p id="passwordTitle" className={ classes.passwordTitle }>
@@ -550,7 +555,7 @@ export default function Register() {
                       <PasswordField
                         name="confirmPassword"
                         label="Confirm Your Password *"
-                        placeholder={ globalValidation.PasswordConfirmEnter }
+                        placeholder={ globalMessages.PasswordConfirmEnter }
                         id="cpass"
                         type="password"
                         onKeyDown={ preventSpace }
@@ -558,13 +563,12 @@ export default function Register() {
                         value={ formik.values.confirmPassword }
                         onChange={ formik.handleChange }
                         onBlur={ formik.handleBlur }
-                        error={
-                          formik.touched.confirmPassword &&
-                          Boolean(formik.errors.confirmPassword)
+                        error={ andLogic(formik.touched.confirmPassword, Boolean(formik.errors.confirmPassword))
+
                         }
                         helperText={
-                          formik.touched.confirmPassword &&
-                          formik.errors.confirmPassword
+                          andLogic(formik.touched.confirmPassword, formik.errors.confirmPassword)
+
                         }
                       />
                       <br />

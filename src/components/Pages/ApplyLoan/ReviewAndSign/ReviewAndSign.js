@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
+import { useQuery } from 'react-query';
 import { toast } from "react-toastify";
 import CheckLoginStatus from "../../../App/CheckLoginStatus";
 import usrAccountDetails from "../../../Controllers/AccountOverviewController";
@@ -120,6 +121,7 @@ export default function ReviewAndSign(props) {
   const [ confirm, setConfirm ] = useState(false);
   const [ selectedOffer, setSelectOffer ] = useState();
   const [ loading, setLoading ] = useState(false);
+  const { refetch } = useQuery('loan-data', usrAccountDetails);
   // let selectedOffer;
 
   const handleChange = (event, newValue) => {
@@ -148,8 +150,8 @@ export default function ReviewAndSign(props) {
   //Conver the value into currency format
   const currencyFormat = (val) => {
     if (val) {
-      var formated = parseFloat(val);
-      var currency = "$";
+      let formated = parseFloat(val);
+      let currency = "$";
       return (
         currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,")
       );
@@ -307,7 +309,7 @@ export default function ReviewAndSign(props) {
                         APR
                       </p>
                       <h2 className={ classes.columnColor } id="column-content">
-                        { selectedOffer.apr.toFixed(2) } %
+                        { (selectedOffer.apr * 100).toString().match(/^-?\d+(?:\.\d{0,2})?/)[ 0 ] } %
                       </h2>
                     </Grid>
                     <Grid
@@ -356,13 +358,8 @@ export default function ReviewAndSign(props) {
                     color: "#6b6f82",
                   } }
                 >
-                  <li>
-                    Review all presented disclosures and loan terms in detail.
-                  </li>
-                  <li>
-                    Electronically sign the loan agreement using our digital
-                    signature process.
-                  </li>
+                  <li>Review all presented disclosures and loan terms in detail.</li>
+                  <li>Electronically sign the loan agreement using our digital signature process.</li>
                   <li>After signing, click the ‘Submit’ button.</li>
                 </ol>
               </Grid>
@@ -425,21 +422,20 @@ export default function ReviewAndSign(props) {
                       onClick={ async () => {
                         setLoading(true);
                         let data = {};
-                        let authenticateStatus = await APICall("esignature_complete",'', data, "POST", true);
+                        let authenticateStatus = await APICall("esignature_complete", '', data, "POST", true);
                         if (authenticateStatus?.data?.message === "Applicant successfully updated") {
                           let hardPull = await hardPullCheck();
                           if (hardPull?.data?.status === 200 || hardPull?.data?.result === "success") {
                             setLoading(false);
-                            history.push({
-                              pathname: "/customers/finalVerification",
-                            });
+                            refetch();
+                            history.push({ pathname: "/customers/finalVerification", });
                           } else {
                             setLoading(false);
-                            toast.error(messages.eSignFailed);
+                            toast.error(messages.reviewAndSignin.eSignFailed);
                           }
                         } else {
                           setLoading(false);
-                          toast.error(messages.completeEsign);
+                          toast.error(messages.reviewAndSignin.completeEsign);
                         }
                       } }
                     >

@@ -1,6 +1,9 @@
 # pull official base image
 FROM node:14.16.1-alpine
 
+ARG SECRET_KEY=default_secret
+ENV SECRET_KEY ${SECRET_KEY}
+
 # set working directory
 WORKDIR /usr/src/app
 

@@ -3,7 +3,6 @@ import "./Layout.css";
 import Footer from './NormalFooter/NormalFooter';
 import Header from './NormalHeader/NormalHeader';
 
-
 const General = ({ children }) => {
 
     return (

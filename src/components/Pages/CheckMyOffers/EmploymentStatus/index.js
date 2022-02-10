@@ -9,6 +9,7 @@ import * as yup from "yup";
 import EmploymentStatusPNG from "../../../../assets/icon/I-Employment-Status.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, PhoneNumber, Select } from "../../../FormsUI";
+import { employmentStatusData } from "../../../../assets/data/constants"
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./EmploymentStatus.css";
 
@@ -31,15 +32,15 @@ function EmploymentStatus() {
 		yearsAtEmployers: yup
 			.string()
 			.when("employStatus", {
-				is: "Employed - Hourly",
+				is: employmentStatusData.employedHourly,
 				then: yup.string().required("Years at employer is required"),
 			})
 			.when("employStatus", {
-				is: "Salary",
+				is: employmentStatusData.employedSalaried,
 				then: yup.string().required("Years at employer is required"),
 			})
 			.when("employStatus", {
-				is: "selfEmployed",
+				is: employmentStatusData.selfEmployed,
 				then: yup.string().required("Years at employer is required"),
 			}),
 	});
@@ -62,7 +63,7 @@ function EmploymentStatus() {
 			data.EmployerPhone = phone.slice(1);
 			data.completedPage = data.page.employmentStatus;
 
-			if (employmentStatus === "Employed - Hourly" || employmentStatus === "Salary" || employmentStatus === "selfEmployed") {
+			if (employmentStatus === employmentStatusData.employedHourly || employmentStatus === employmentStatusData.employedSalaried || employmentStatus === employmentStatusData.selfEmployed) {
 				if (data.yearsAtEmployers !== "" && data.yearsAtEmployers !== 0 && data.yearsAtEmployers !== null) {
 					data.employmentStatus = employmentStatus;
 					history.push("/annual-income");
@@ -96,7 +97,7 @@ function EmploymentStatus() {
 						container
 						justifyContent="center"
 						alignItems="center"
-						style={ { paddingTop: "70px", paddingBottom: "70px" } }
+						style={ { padding: "4% 0px 4% 0px" } }
 					>
 						<Grid
 							container
@@ -106,9 +107,6 @@ function EmploymentStatus() {
 							md={ 6 }
 							lg={ 6 }
 							xl={ 6 }
-							className="cardWrapper"
-							justifyContent="center"
-							alignItems="center"
 						>
 							<Paper
 								id="employmentStatusWrap"
@@ -124,8 +122,8 @@ function EmploymentStatus() {
 										<span className="floatLeft detNum42">42%</span>
 									</div>
 									<Grid className="floatLeft">
-										<Link to="/personal-info">
-											<i className="material-icons dp48 yellowText  ">
+										<Link className="arrowBack" to="/personal-info">
+											<i className="material-icons dp48 yellowText floatingButton">
 												arrow_back
 											</i>
 										</Link>
@@ -145,7 +143,7 @@ function EmploymentStatus() {
 											justify: "center",
 											alignItems: "center",
 										} }
-										className="borrowCSSLP"
+										className="checkMyOfferText borrowCSSLP"
 									>
 										Tell us about your employment status
 									</Typography>
@@ -167,18 +165,19 @@ function EmploymentStatus() {
 											xs={ 12 }
 										>
 											<Paper
+												id="employedHourly"
 												elevation={ 3 }
 												data-testid="Hourly"
 												className={
-													employmentStatus === "Employed - Hourly"
+													employmentStatus === employmentStatusData.employedHourly
 														? "activeBorder radioBlocked"
 														: "radioBlocked"
 												}
 												onClick={ () => {
-													setEmploymentStatus("Employed - Hourly");
+													setEmploymentStatus(employmentStatusData.employedHourly);
 													formik.setFieldValue(
 														"employStatus",
-														"Employed - Hourly"
+														employmentStatusData.employedHourly
 													);
 												} }
 											>
@@ -187,16 +186,17 @@ function EmploymentStatus() {
 										</Grid>
 										<Grid item lg={ 8 } md={ 8 } xs={ 12 }>
 											<Paper
+												id="employedSalaried"
 												elevation={ 3 }
-												data-testid="Salary"
+												data-testid={employmentStatusData.employedSalaried}
 												className={
-													employmentStatus === "Salary"
+													employmentStatus === employmentStatusData.employedSalaried
 														? "activeBorder radioBlocked"
 														: "radioBlocked"
 												}
 												onClick={ () => {
-													setEmploymentStatus("Salary");
-													formik.setFieldValue("employStatus", "Salary");
+													setEmploymentStatus(employmentStatusData.employedSalaried);
+													formik.setFieldValue("employStatus", employmentStatusData.employedSalaried);
 												} }
 											>
 												Employed - Salaried
@@ -204,16 +204,17 @@ function EmploymentStatus() {
 										</Grid>
 										<Grid item lg={ 8 } md={ 8 } xs={ 12 }>
 											<Paper
+												id="selfEmployed"
 												elevation={ 3 }
-												data-testid="selfEmployed"
+												data-testid={employmentStatusData.selfEmployed}
 												className={
-													employmentStatus === "selfEmployed"
+													employmentStatus === employmentStatusData.selfEmployed
 														? "activeBorder radioBlocked"
 														: "radioBlocked"
 												}
 												onClick={ () => {
-													setEmploymentStatus("selfEmployed");
-													formik.setFieldValue("employStatus", "selfEmployed");
+													setEmploymentStatus(employmentStatusData.selfEmployed);
+													formik.setFieldValue("employStatus", employmentStatusData.selfEmployed);
 												} }
 											>
 												Self Employed / 1099
@@ -221,18 +222,19 @@ function EmploymentStatus() {
 										</Grid>
 										<Grid item lg={ 8 } md={ 8 } xs={ 12 }>
 											<Paper
+												id="Unemployed"
 												elevation={ 3 }
-												data-testid="Unemployed"
+												data-testid={employmentStatusData.unemployed}
 												className={
-													employmentStatus === "Unemployed"
+													employmentStatus === employmentStatusData.unemployed
 														? "activeBorder radioBlocked"
 														: "radioBlocked"
 												}
 												onClick={ () => {
-													setEmploymentStatus("Unemployed");
+													setEmploymentStatus(employmentStatusData.unemployed);
 													setData({ ...data, yearsAtEmployers: 0 });
-													formik.setFieldValue("employStatus", "Unemployed");
-													formik.values.employStatus = "Unemployed";
+													formik.setFieldValue("employStatus", employmentStatusData.unemployed);
+													formik.values.employStatus = employmentStatusData.unemployed;
 													if (data.completedPage < data.page.employmentStatus) {
 														formik.submitForm();
 													}
@@ -243,18 +245,19 @@ function EmploymentStatus() {
 										</Grid>
 										<Grid item lg={ 8 } md={ 8 } xs={ 12 }>
 											<Paper
+												id="Retired"
 												elevation={ 3 }
-												data-testid="Retired"
+												data-testid={employmentStatusData.retired}
 												className={
-													employmentStatus === "Retired"
+													employmentStatus === employmentStatusData.retired
 														? "activeBorder radioBlocked"
 														: "radioBlocked"
 												}
 												onClick={ () => {
-													setEmploymentStatus("Retired");
+													setEmploymentStatus(employmentStatusData.retired);
 													setData({ ...data, yearsAtEmployers: 0 });
-													formik.setFieldValue("employStatus", "Retired");
-													formik.values.employStatus = "Retired";
+													formik.setFieldValue("employStatus", employmentStatusData.retired);
+													formik.values.employStatus = employmentStatusData.retired;
 													if (data.completedPage < data.page.employmentStatus) {
 														formik.submitForm();
 													}
@@ -267,9 +270,9 @@ function EmploymentStatus() {
 											<div
 												id="employementWrap"
 												className={
-													employmentStatus === "Employed - Hourly" ||
-														employmentStatus === "Salary" ||
-														employmentStatus === "selfEmployed"
+													employmentStatus === employmentStatusData.employedHourly ||
+														employmentStatus === employmentStatusData.employedSalaried ||
+														employmentStatus === employmentStatusData.selfEmployed
 														? "showMsg"
 														: "hideMsg"
 												}
@@ -323,8 +326,8 @@ function EmploymentStatus() {
 											name="phone"
 											id="employerPhoneWrap"
 											className={
-												employmentStatus === "Employed - Hourly" ||
-													employmentStatus === "Salary"
+												employmentStatus === employmentStatusData.employedHourly ||
+													employmentStatus === employmentStatusData.employedSalaried
 													? "showMsg padTop"
 													: "hideMsg padTop"
 											}
@@ -332,8 +335,8 @@ function EmploymentStatus() {
 											<PhoneNumber
 												name="phone"
 												className={
-													employmentStatus === "Employed - Hourly" ||
-														employmentStatus === "Salary"
+													employmentStatus === employmentStatusData.employedHourly ||
+														employmentStatus === employmentStatusData.employedSalaried
 														? "showMsg"
 														: "hideMsg"
 												}

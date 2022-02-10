@@ -1,4 +1,4 @@
-.centerHeading {
+centerHeading {
   color: #181818;
   font-size: 24px;
   font-family: "Muli", sans-serif;
@@ -29,6 +29,24 @@
   border-radius: 2px !important;
 }
 
+.checkMyOffers{
+  display:flex;
+  justify-content: space-around;
+  height:220px;
+  border:solid 1px #0F4EB3;
+  border-radius: 3px;
+}
+.leftcheckMyOffers{
+  display:flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.title{
+  display:flex;
+  flex-direction:row;
+  justify-content: space-between;
+}
+
 #overviewWrap {
   border-radius: 2px !important;
 }
@@ -44,6 +62,26 @@
 #recentPaymentsTable thead tr th{
   font-weight: 700 !important;
   font-size: 0.938rem !important;
+}
+.content{
+  border:solid 1px black;
+  padding:15px;
+  border-radius: 3px;
+}
+
+.common{
+      font-family: 'Muli', sans-serif;
+      color:#6b6f82;
+      font-weight:normal
+}
+
+.small{
+  font-size: .8rem
+}
+
+.para{
+  width:58vw;
+  word-break: break-all;
 }
 
 #recentPaymentsTable tbody tr td{
@@ -235,4 +273,12 @@
   width: 250px;
   border-radius: 0 5px 5px 0;
   box-shadow: 3px 3px 10px 0 rgb(123, 31, 162, 50%);
+}
+
+@media (max-width: 599px) {
+  #makeAPaymentButtonStyle {
+    float: left !important;
+    margin-top: 3% !important;
+  }
+
 }

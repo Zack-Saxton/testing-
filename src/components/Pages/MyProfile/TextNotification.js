@@ -10,37 +10,37 @@ import Switch from "@material-ui/core/Switch";
 import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import { useFormik } from "formik";
-import { useAtom } from "jotai";
 import Cookies from "js-cookie";
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
-import { textNotification } from "../../Controllers/myProfileController";
+import { textNotification } from "../../Controllers/MyProfileController";
 import {
   ButtonPrimary,
   ButtonSecondary,
   Checkbox,
   PhoneNumber
 } from "../../FormsUI";
-import { tabAtom } from "./MyProfileTab";
+import ErrorLogger from "../../lib/ErrorLogger";
+import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import { useStylesMyProfile } from "./Style";
 import "./Style.css";
-import ErrorLogger from "../../lib/ErrorLogger";
 
 export default function TextNotification() {
   const classes = useStylesMyProfile();
   const [ loading, setLoading ] = useState(false);
   const [ openDisclosure, setDisclosureOpen ] = useState(false);
   const history = useHistory();
-  const [ , setTabvalue ] = useAtom(tabAtom);
+  const [ , setprofileTabNumber ] = useGlobalState();
   let phone = Cookies.get("opted_phone_texting");
   let textnotifybool = Cookies.get("isTextNotify") === "true" ? true : false;
   let [ disabledContent, setdisabledContent ] = useState(textnotifybool);
+
   const onClickCancelChange = () => {
     formikTextNote.resetForm();
     history.push({ pathname: "/customers/myProfile" });
-    setTabvalue(0);
+    setprofileTabNumber({ profileTabNumber: 0 });
   };
 
   const phonevalidationSchema = yup.object().shape({
@@ -78,17 +78,11 @@ export default function TextNotification() {
         let result = await textNotification(body, disabledContent);
         if (result.data?.sbt_subscribe_details?.HasNoErrors === true || result.data?.sbt_getInfo?.HasNoErrors === true) {
           toast.success("Updated successfully");
-          Cookies.set("isTextNotify", disabledContent);
-          window.setTimeout(function () {
-            window.location.reload();
-          }, 4000);
+          onClickCancelChange();
         } else {
           toast.error("No changes made");
         }
-        window.setTimeout(function () {
-          setLoading(false);
-          setdisabledContent(true);
-        }, 3050);
+        onClickCancelChange();
       } catch (error) {
         ErrorLogger("Error occured while changing text notification.", error);
       }
@@ -227,16 +221,14 @@ export default function TextNotification() {
             } }
           >
             I have read, understand, and agree to the &nbsp;
-            <a
+            <Link
+              to={ `/textingTermsOfUse` }
               target="_blank"
-              rel="noreferrer"
-              color="#0F4EB3"
-              href="https://www.marinerfinance.com/resources/legal/texting-terms-of-use"
               className={ classes.linkStyle }
-              style={ { textDecoration: "none" } }
+              style={ { textDecoration: "none", color: "#0F4EB3" } }
             >
               Texting Terms of Use.
-            </a>
+            </Link>
           </span>
         </Grid>
 

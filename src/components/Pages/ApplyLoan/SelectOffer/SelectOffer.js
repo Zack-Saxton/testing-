@@ -8,14 +8,15 @@ import Tabs from "@material-ui/core/Tabs";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
+import { useQuery } from 'react-query';
 import { NavLink, useHistory } from "react-router-dom";
 import CheckLoginStatus from "../../../App/CheckLoginStatus";
-import messages from "../../../lib/Lang/applyForLoan.json"
-import TabSection from "../TabSection"
-import {useQuery} from 'react-query'
+import usrAccountDetails from "../../../Controllers/AccountOverviewController";
 import { fetchAvailableOffers, submitSelectedOfferAPI } from "../../../Controllers/ApplyForLoanController";
 import { ButtonWithIcon } from "../../../FormsUI";
+import messages from "../../../lib/Lang/applyForLoan.json";
 import ScrollToTopOnMount from "../../ScrollToTop";
+import TabSection from "../TabSection";
 import OfferTable from "./offersTable";
 import "./SelectOffer.css";
 
@@ -37,13 +38,14 @@ export default function ApplyLoan() {
 	const history = useHistory();
 	let term;
 
-	const { data : val} = useQuery('available-offers', fetchAvailableOffers )
+	const { data: val } = useQuery('available-offers', fetchAvailableOffers);
+	const { refetch } = useQuery('loan-data', usrAccountDetails);
 
 	//To change the value to currency formate
-	const currencyFormat = (val) => {
-		if (val) {
-			var formated = parseFloat(val);
-			var currency = "$";
+	const currencyFormat = (currencyValue) => {
+		if (currencyValue) {
+			let formated = parseFloat(currencyValue);
+			let currency = "$";
 			return (
 				currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,")
 			);
@@ -57,11 +59,8 @@ export default function ApplyLoan() {
 			let selectedOfferResponse = await submitSelectedOfferAPI(accountDetails?.data?.Offers[ selTerm ][ selIndex ]);
 			if (selectedOfferResponse?.data?.selected_offer) {
 				setLoading(false);
-				history.push({
-					pathname: "/customers/reviewAndSign",
-					selectedIndexOffer:
-						selectedOfferResponse?.data?.selected_offer,
-				});
+				refetch();
+				history.push({ pathname: "/customers/reviewAndSign", selectedIndexOffer: selectedOfferResponse?.data?.selected_offer, });
 			} else {
 				setLoading(false);
 				alert("Network Error");
@@ -79,6 +78,9 @@ export default function ApplyLoan() {
 		},
 		loadingOn: {
 			opacity: 0.55,
+			pointerEvents: "none",
+		},
+		loadingOnWithoutBlur: {
 			pointerEvents: "none",
 		},
 		loadingOff: {
@@ -135,7 +137,7 @@ export default function ApplyLoan() {
 	const classes = useStyles();
 
 	// To fetch the available offers for the logged in user
-	 function getAvailableOffers() {
+	function getAvailableOffers() {
 		if (val?.data !== "Access token has expired" && val?.data) {
 			setAccountDetails(val);
 			term = Object.keys(val?.data?.Offers);
@@ -150,7 +152,7 @@ export default function ApplyLoan() {
 	// to call the fetch offers api on page load
 	useEffect(() => {
 		getAvailableOffers();
-	}, [val]);
+	}, [ val ]);
 
 	//Initializing the tab implementation
 	function TabPanel(props) {
@@ -179,7 +181,6 @@ export default function ApplyLoan() {
 		index: PropTypes.any.isRequired,
 		tabPanelValue: PropTypes.any.isRequired,
 	};
-
 
 	function tabVerticalProps(verticalIndex) {
 		return {
@@ -230,6 +231,7 @@ export default function ApplyLoan() {
 	function onCompareOfferTabClick() {
 		setOfferFlag(false);
 		setRowData(offersToCompare);
+		setOffersToCompareChart([ ...offersToCompareChart, offersToCompare[ 0 ], offersToCompare[ 1 ] ]);
 	}
 
 	const structureBuildData = (item, termNum, tabIndex, rowsterm) => {
@@ -334,7 +336,7 @@ export default function ApplyLoan() {
 										xs={ 12 }
 										sm={ 3 }
 										style={ { width: "100%" } }
-										className={ loading ? classes.loadingOn : classes.loadingOff }
+										className={ loading ? classes.loadingOnWithoutBlur : classes.loadingOff }
 									>
 										<Paper className={ classes.paperVerticalTab }>
 											{ terms ? (

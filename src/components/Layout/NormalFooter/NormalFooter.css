@@ -1,6 +1,6 @@
 
 .section-top-normal-footer{
-   padding: 20px 70px !important;
+   padding: 20px 70px 0px 70px !important;
     display: flex;
     justify-content: space-evenly;
     padding: 20px 0;
@@ -31,9 +31,8 @@
       }
       .footer-content{
         font-size: 15px;
-        padding-bottom: 25px;
+        padding-bottom: 4%;
        word-wrap: break-word;
-
 
       }
    .hrefTag{
@@ -55,6 +54,7 @@
    .section-top-normal-footer{
        flex-direction: column;
        margin-left: unset !important;
+       padding: 20px 40px !important;
    }
 
    .col{
@@ -72,6 +72,10 @@
    }
  }
 
+ .normalFooterFont{
+   font-size: 0.938rem !important;
+   color: #333 !important;
+ }
  @media all and (max-width: 1300px){
   #badge{
     height: 80px!important

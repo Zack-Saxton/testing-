@@ -11,7 +11,6 @@ import React from "react";
 import { documentdownload as downloadDocument, documentprint as printDocument } from "../../Controllers/LoanDocumentController";
 import { useStylesLoanDocument } from "./Style";
 
-
 export default function LoanDocumentTable(userLoanDocumentData) {
   window.zeHide();
   //Material UI css class
@@ -41,8 +40,8 @@ export default function LoanDocumentTable(userLoanDocumentData) {
         </TableHead>
         <TableBody>
           { userLoanDocument?.userLoanDocumentData?.length ? (
-            userLoanDocument.userLoanDocumentData.map((row, index) => (
-              <TableRow key={ index }>
+            userLoanDocument.userLoanDocumentData.map((row) => (
+              <TableRow key={ (Math.random() * 1000) }>
                 <TableCell
                   component="th"
                   className={ classes.tableHeadRow }
@@ -51,7 +50,7 @@ export default function LoanDocumentTable(userLoanDocumentData) {
                   { row.displayname }
                 </TableCell>
                 <TableCell className={ classes.tableHeadRow }>
-                  { Moment(row.date_uploaded).format(outputDateFormat) }
+                  { Moment(new Date(row.date_uploaded)).format(outputDateFormat) }
                 </TableCell>
                 <TableCell className={ classes.tableHeadRow }>
                   <PrintIcon style={ { color: "#104eb3", cursor: "pointer" } }

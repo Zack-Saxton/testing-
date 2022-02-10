@@ -1,4 +1,6 @@
+import Typography from "@material-ui/core/Typography";
 import React from "react";
+import { NavLink } from "react-router-dom";
 import badge from "../../../assets/images/badge.png";
 import Logo from "../../../assets/images/MarinerLogo.png";
 import ConsumerDialog from "../ConsumerFooterDialog/ConsumerDialog";
@@ -18,46 +20,61 @@ export default function NormalFooter() {
         <section className="section-top-normal-footer">
           <div className="col">
             <div className="footer-content">
-              <a target="_blank" rel="noreferrer" href="https://www.marinerfinance.com/resources/legal/community-guidelines/" className="hrefTag">
-                Community Guidelines
-              </a>
+              <NavLink to="/communityGuidelines" target="_blank" className="hrefTag">
+                <Typography className="normalFooterFont">
+                  Community Guidelines
+                </Typography>
+              </NavLink>
             </div>
             <div className="footer-content">
-              <a target="_blank" rel="noreferrer" href="https://www.marinerfinance.com/resources/legal/privacy-statement/" className="hrefTag">
-                Privacy Statement
-              </a>
+              <NavLink to="/privacyStatement" target="_blank" className="hrefTag">
+                <Typography className="normalFooterFont">
+                  Privacy Statement
+                </Typography>
+              </NavLink>
             </div>
             <div className="footer-content">
-              <a target="_blank" rel="noreferrer" href="https://www.marinerfinance.com/resources/legal/terms-of-use/" className="hrefTag">
-                Terms of Use
-              </a>
+              <NavLink to="/termsofuse" target="_blank" className="hrefTag">
+                <Typography className="normalFooterFont">
+                  Terms of Use
+                </Typography>
+              </NavLink>
             </div>
             <div className="footer-content">
-              <a target="_blank" rel="noreferrer" href="https://www.marinerfinance.com/resources/legal/licensing-disclosures/" className="hrefTag">
-                Licensing & Disclosures
-
-              </a>
+              <NavLink to="/licenseDisclosure" target="_blank" className="hrefTag">
+                <Typography className="normalFooterFont">
+                  Licensing & Disclosures
+                </Typography>
+              </NavLink>
             </div>
             <div className="footer-content">
-              <a target="_blank" rel="noreferrer" href="https://www.marinerfinance.com/resources/legal/texting-terms-of-use/" className="hrefTag">
-                Texting Terms of Use
-              </a>
+              <NavLink to="/textingTermsOfUse" target="_blank" className="hrefTag">
+                <Typography className="normalFooterFont">
+                  Texting Terms of Use
+                </Typography>
+              </NavLink>
             </div>
             <div className="footer-content">
-              <a target="_blank" rel="noreferrer" href="https://www.marinerfinance.com/resources/legal/website-accessibility-statement/" className="hrefTag">
-                Website Accessibility Statement
-              </a>
+              <NavLink to="/websiteAccessibility" target="_blank" className="hrefTag">
+                <Typography className="normalFooterFont">
+                  Website Accessibility Statement
+                </Typography>
+              </NavLink>
             </div>
             <div className="footer-content">
-              <a target="_blank" rel="noreferrer" href="https://cis-development.marinerfinance.io/terms-of-use" className="hrefTag">
-                CAC Terms Of Use
-              </a>
+              <NavLink to="/cac-termsofuse" target="_blank" className="hrefTag">
+                <Typography className="normalFooterFont">
+                  CAC Terms of Use
+                </Typography>
+              </NavLink>
             </div>
             <div className="footer-content">
-              <a target="_blank" rel="noreferrer" href="https://www.marinerfinance.com/resources/legal/privacy-statement/#online-lending" className="hrefTag">
-                For California Residents Do Not Sell My
-                personal Information
-              </a>
+              <NavLink to="/californiaResident" target="_blank" className="hrefTag">
+                <Typography className="normalFooterFont">
+                  For California Residents Do Not Sell My
+                  personal Information
+                </Typography>
+              </NavLink>
             </div>
           </div>
 
@@ -93,7 +110,6 @@ export default function NormalFooter() {
               </div>
             </div>
           </div>
-
 
         </section>
       </footer>

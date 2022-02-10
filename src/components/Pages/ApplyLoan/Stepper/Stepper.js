@@ -1,24 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Stepper from "@material-ui/core/Stepper";
-import Step from "@material-ui/core/Step";
-import StepLabel from "@material-ui/core/StepLabel";
-import StepContent from "@material-ui/core/StepContent";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import EmailVerification from "./EmailVerification";
-import PhoneVerification from "./PhoneVerification";
-import FinancialInformation from "./FinancialInformation";
-import DocumentPhoto from "./DocumentPhoto";
-import VerificationQuestion from "./VerificationQuestion";
-import IncomeVerification from "./IncomeVerification";
-import BankAccountVerification from "./BankAccountVerification";
-import { ButtonPrimary } from "../../../FormsUI";
-import { NavLink, useHistory } from "react-router-dom";
 import { Grid } from "@material-ui/core";
-import APICall from "../../../lib/AxiosLib";
-import "./VerticalLinearStepper.css";
+import Paper from "@material-ui/core/Paper";
+import Step from "@material-ui/core/Step";
+import StepContent from "@material-ui/core/StepContent";
+import StepLabel from "@material-ui/core/StepLabel";
+import Stepper from "@material-ui/core/Stepper";
+import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
 import Cookies from "js-cookie";
+import React, { useEffect, useState } from "react";
+import { NavLink, useHistory } from "react-router-dom";
+import { ButtonPrimary } from "../../../FormsUI";
+import APICall from "../../../lib/AxiosLib";
+import BankAccountVerification from "./BankAccountVerification";
+import DocumentPhoto from "./DocumentPhoto";
+import EmailVerification from "./EmailVerification";
+import FinancialInformation from "./FinancialInformation";
+import IncomeVerification from "./IncomeVerification";
+import PhoneVerification from "./PhoneVerification";
+import VerificationQuestion from "./VerificationQuestion";
+import "./VerticalLinearStepper.css";
 
 //Styling part
 const useStyles = makeStyles((theme) => ({
@@ -80,13 +80,7 @@ export default function VerticalLinearStepper() {
 	const getApplicationStatus = async () => {
 		let data = {};
 		const skip = JSON.parse(Cookies.get("skip") ? Cookies.get("skip") : "{ }");
-		let res = await APICall(
-			"verification_steps_cac",
-			'',
-			data,
-			"POST",
-			true
-		);
+		let res = await APICall("verification_steps_cac", '', data, "POST", true);
 		let tabPosition = "";
 		if (
 			res?.data?.email === true &&
@@ -98,9 +92,7 @@ export default function VerticalLinearStepper() {
 			res?.data?.bank_account_verification === true &&
 			res?.data?.income_verification === true
 		) {
-			history.push({
-				pathname: "/customers/receiveYourMoney",
-			});
+			history.push({ pathname: "/customers/receiveYourMoney", });
 		} else if (res?.data?.email === false) {
 			tabPosition = 0;
 		} else if (

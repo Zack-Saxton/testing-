@@ -7,7 +7,7 @@ const useStylesAccountOverview = makeStyles((theme) => ({
   },
   recentPaymentMainGrid: {
     width: "100%",
-    padding: "0px 0px 40px 0px"
+    padding: "0px 0px 0px 0px"
   },
   mainGrid: {
     width: "100%",
@@ -23,7 +23,7 @@ const useStylesAccountOverview = makeStyles((theme) => ({
     display: "flex",
     borderRadius: "2px",
     flexDirection: "column",
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.primary,
   },
   paperRP: {
     padding: theme.spacing(3),
@@ -66,6 +66,7 @@ const useStylesAccountOverview = makeStyles((theme) => ({
     fontSize: "1.563rem",
     paddingBottom: "10px",
     paddingTop: "10px",
+    marginTop: "5px"
   },
   table: {
     minWidth: 650,
@@ -111,13 +112,15 @@ const useStylesAccountOverview = makeStyles((theme) => ({
   },
   disableColor: {
     margin: "auto",
-    color: "#171717",
+    color: "#eb1809",
     fontSize: 25,
     fontWeight: 400,
+    textDecoration: "none",
   },
   cardContent: {
     color: "#171717",
     fontSize: "15px",
+    textDecoration: "none",
   },
   tabVerticalLabel: {
     color: "#3f51b5",

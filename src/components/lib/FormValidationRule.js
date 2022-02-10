@@ -1,72 +1,71 @@
 import * as yup from "yup";
-import propertyMessages from "../lib/Lang/Login.json";
-
+import globalMessages from "../../assets/data/globalMessages.json";
 export class FormValidationRules {
 
     constructor() {
     }
     email() {
         return yup
-            .string("Your email is required")
-            .email("A valid email address is required")
+            .string(globalMessages.EmailRequired)
+            .email(globalMessages.EmailValid)
             .matches(
                 /^[a-zA-Z](?!.*[+/._-][+/._-])(([^<>()|?{}='[\]\\,;:#!$%^&*\s@\"]+(\.[^<>()|?{}=/+'[\]\\.,;_:#!$%^&*-\s@\"]+)*)|(\".+\"))[a-zA-Z0-9]@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,3}))$/, //eslint-disable-line
-                "A valid email address is required"
+                globalMessages.EmailValid
             )
-            .required(propertyMessages.Email_required);
+            .required(globalMessages.EmailRequired);
     }
     password() {
         return yup
-            .string("Enter your password")
+            .string(globalMessages.PasswordEnter)
             .when('isRegisterForm', {
                 is: (isRegisterForm) => isRegisterForm == 1,
                 then: yup
                     .string()
                     .matches(
                         /^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,30}$/,
-                        "Your password doesn't meet the criteria"
+                        globalMessages.PasswordCriteria
                     )
             })
-            .max(30, "Password can be upto 30 characters length")
-            .min(8, "Password should be minimum of 8 characters length")
-            .required("Your password is required");
+            .max(30, globalMessages.PasswordMax)
+            .min(8, globalMessages.PasswordMin)
+            .required(globalMessages.PasswordRequired);
     }
 
     confirmPassword() {
         return yup
             .string()
-            .max(30, "Password can be upto 30 characters length")
-            .min(8, "Password should be minimum of 8 characters length")
-            .required("Your password confirmation is required")
+            .max(30, globalMessages.PasswordMax)
+            .min(8, globalMessages.PasswordMin)
+            .required(globalMessages.PasswordRequired)
             .when("password", {
                 is: (password) => password && password.length > 0,
                 then: yup
                     .string()
                     .oneOf(
                         [ yup.ref("password") ],
-                        "Your confirmation password must match your password"
+                        globalMessages.PasswordConfirmationMatch
                     ),
             });
     }
     firstName() {
         return yup
-            .string("Enter your firstname")
-            .max(30, "Firstname can be upto 30 characters length")
-            .min(2, "Firstname should be minimum of 2 letters")
-            .required("Your first name is required");
+            .string(globalMessages.FirstNameEnter)
+            .max(30, globalMessages.FirstNameMax)
+            .min(2, globalMessages.FirstNameMin)
+            .required(globalMessages.FirstNameRequired);
     }
     lastName() {
         return yup
-            .string("Enter your Lastname")
-            .max(30, "Lastname can be upto 30 characters length")
-            .min(2, "Lastname should be minimum of 2 letters")
-            .required("Your last name is required");
+            .string(globalMessages.LastNameEnter)
+            .max(30, globalMessages.LastNameMax)
+            .min(2, globalMessages.LastNameMin)
+            .required(globalMessages.LastNameRequired);
     }
     dobDate() {
         return yup
-            .date("Please enter a valid date")
+            .date(globalMessages.DateOfBirthValid)
             .nullable()
-            .required("Your date of birth is required")
+            .required(globalMessages.DateOfBirthRequired)
             .max(
                 new Date(
                     new Date(
@@ -77,29 +76,29 @@ export class FormValidationRules {
                         new Date().getDate()
                     ).getTime() - 567650000000
                 ),
-                "You must be at least 18 years old"
+                globalMessages.DateOfBirthMinAge
             )
-            .min(new Date(1919, 1, 1), "You are too old")
-            .typeError("Please enter a valid date");
+            .min(new Date(1919, 1, 1), globalMessages.DateOfBirthMaxAge)
+            .typeError(globalMessages.DateOfBirthValid);
     }
 
     zipCode() {
         return yup
-            .string("Enter your Zip")
-            .max(5, "Zipcode should be of maximum 5 characters length")
-            .required("Your home ZIP code is required");
+            .string(globalMessages.ZipCodeEnter)
+            .max(5, globalMessages.ZipCodeMax)
+            .required(globalMessages.ZipCodeRequired);
     }
     ssn() {
         return yup
-            .string("Enter a SSN")
-            .required("Your SSN is required")
+            .string(globalMessages.SSNEnter)
+            .required(globalMessages.SSNRequired)
             .transform((value) => value.replace(/[^\d]/g, ""))
             .matches(
                 /^(?!000)[0-8]\d{2}(?!00)\d{2}(?!0000)\d{4}$/,
-                "Please enter a valid SSN"
+                globalMessages.SSNValid
             )
-            .matches(/^(\d)(?!\1+$)\d{8}$/, "Please enter a valid SSN")
-            .min(9, "Name must contain at least 9 digits");
+            .matches(/^(\d)(?!\1+$)\d{8}$/, globalMessages.SSNValid)
+            .min(9, globalMessages.SSNMin);
     }
     getFormValidationRule(type = 'login') {
         if (type == 'login') {
@@ -112,7 +111,7 @@ export class FormValidationRules {
                 firstname: this.firstName(),
                 lastname: this.lastName(),
                 email: this.email(),
-                date: this.dobDate(),
+                dob: this.dobDate(),
                 password: this.password(),
                 confirmPassword: this.confirmPassword(),
                 zip: this.zipCode(),

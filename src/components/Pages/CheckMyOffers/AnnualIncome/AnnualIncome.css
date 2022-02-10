@@ -4,7 +4,6 @@
 	min-height: 500px !important;
 }
 .cardWOPadding {
-	padding-bottom: 1%;
 	text-align: center;
 }
 .cardWrapper {
@@ -86,11 +85,6 @@
 	color: white !important;
 }
 
-.alignButton {
-	margin: 20px 0 !important;
-	height: 40px;
-}
-
 .showMsg {
 	display: block;
 	margin: 0;
@@ -124,10 +118,10 @@
 	overflow: hidden;
 	width: 100%;
 
-	margin: 0.5rem 0 1rem 0;
-	border-radius: 2px;
+	margin: 0.5rem 0 0.938rem 0;
+	border-radius: 2px 2px 0px 0px;
 	background-color: white;
-	height: 20px;
+	height: 16px;
 	text-align: left !important;
 }
 
@@ -174,10 +168,9 @@
 }
 
 .borrowCSSLP {
-	font-size: 1.563rem !important;
+	font-size: 1.538rem !important;
 	font-weight: 400 !important;
 	line-height: 110% !important;
-	margin: 0.82rem 0 0.656rem 0 !important;
 }
 
 #personalIncome-label {

@@ -10,13 +10,11 @@ import { NavLink, useHistory } from "react-router-dom";
 import Logo from "../../../assets/images/MarinerLogo.png";
 import { useStyles } from "./NormalHeaderStyle";
 
-
 const NormalHeader = () => {
   const classes = useStyles();
   const [ mobileMoreAnchorEl, setMobileMoreAnchorEl ] = React.useState(false);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const history = useHistory();
-
 
   //Menu open & close
   const handleMobileMenuOpen = (event) => {
@@ -26,7 +24,6 @@ const NormalHeader = () => {
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
-
 
   const mobileMenuId = "primary-search-account-menu-mobile";
 
@@ -50,26 +47,19 @@ const NormalHeader = () => {
       </MenuItem>
       <MenuItem>
         <NavLink to="/faq" className="nav_link">
-          <Typography className={ classes.headerAlign }>FAQ's</Typography>
+          <Typography className={ classes.headerAlign }>FAQ</Typography>
         </NavLink>
       </MenuItem>
       <MenuItem>
-        <Typography className={ classes.headerAlign }>
-          <a
-            href=" https://loans.marinerfinance.com/branchlocatorpage"
-            className="hrefTag"
-          >
-            Branch Locator
-          </a>
-        </Typography>
+        <NavLink to="/branchlocator" className="nav_link">
+          <Typography className={classes.headerAlign}>Branch Locator</Typography>
+        </NavLink>
       </MenuItem>
     </Menu>
   );
 
   const redirectToAccountOverview = () => {
-    history.push({
-      pathname: "/customers/accountOverview",
-    });
+    history.push({ pathname: "/customers/accountOverview", });
   };
 
   //View Part
@@ -88,16 +78,11 @@ const NormalHeader = () => {
               </a>
             </Typography>
             <NavLink to="/faq" style={ { textDecoration: "none" } }>
-              <Typography className={ classes.subtitle }>FAQ'S</Typography>
+              <Typography className={ classes.subtitle }>FAQ</Typography>
             </NavLink>
-            <Typography style={ { paddingRight: "0px" } } className={ classes.subtitle }>
-              <a
-                href=" https://loans.marinerfinance.com/branchlocatorpage"
-                className="hrefTag"
-              >
-                Branch Locator
-              </a>
-            </Typography>
+            <NavLink to="/branchlocator" className="nav_link">
+              <Typography className={classes.subtitle}>Branch Locator</Typography>
+            </NavLink>
           </div>
           <div className={ classes.sectionMobile }>
             <IconButton

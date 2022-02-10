@@ -23,25 +23,25 @@ export default function PaymentOverview(paymentData, status) {
                     <TableCell className={ classes.tableHead }>
                         Account Number
                     </TableCell>
-                    <TableCell className={ classes.tableHead } align="center">
+                    <TableCell className={ classes.tableHead } align="right">
                         Today's Payoff
                     </TableCell>
-                    <TableCell className={ classes.tableHead } align="center">
+                    <TableCell className={ classes.tableHead } align="right">
                         Regular Amount
                     </TableCell>
-                    <TableCell className={ classes.tableHead } align="center">
+                    <TableCell className={ classes.tableHead } align="right">
                         Loan Fees
                     </TableCell>
-                    <TableCell className={ classes.tableHead } align="center">
+                    <TableCell className={ classes.tableHead } align="right">
                         Total
                     </TableCell>
-                    <TableCell className={ classes.tableHead } align="center">
+                    <TableCell className={ classes.tableHead } align="left">
                         Next Due Date
                     </TableCell>
-                    <TableCell className={ classes.tableHead } align="center">
+                    <TableCell className={ classes.tableHead } align="left">
                         Scheduled Payment
                     </TableCell>
-                    <TableCell className={ classes.tableHead } align="center">
+                    <TableCell className={ classes.tableHead } align="left">
                         Auto Pay
                     </TableCell>
                 </TableRow>
@@ -63,8 +63,8 @@ export default function PaymentOverview(paymentData, status) {
                     :
                     (paymentDetails.overview && paymentDetails.overview.length && !paymentDetails.overview[ 0 ].loanPaymentInformation?.errorMessage)
                         ?
-                        paymentDetails.overview.map((row, index) => (
-                            <TableRow key={ index }>
+                        paymentDetails.overview.map((row) => (
+                            <TableRow key={ (Math.random() * 1000) }>
                                 <TableCell
                                     style={ { fontSize: "0.938rem" } }
                                     component="th"
@@ -73,25 +73,25 @@ export default function PaymentOverview(paymentData, status) {
                                 >
                                     { row.loanDetails.AccountNumber }
                                 </TableCell>
-                                <TableCell style={ { fontWeight: "700" } } className={ classes.tableHeadRow } align="center">
+                                <TableCell style={ { fontWeight: "700" } } className={ classes.tableHeadRow } align="right">
                                     <NumberFormat value={ Math.abs(row.loanPaymentInformation.accountDetails.CurrentPayOffAmount) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
                                 </TableCell>
-                                <TableCell style={ { fontWeight: "700" } } className={ classes.tableHeadRow } align="center">
+                                <TableCell style={ { fontWeight: "700" } } className={ classes.tableHeadRow } align="right">
                                     <NumberFormat value={ Math.abs(row.loanPaymentInformation.accountDetails.RegularPaymentAmount) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
                                 </TableCell>
-                                <TableCell style={ { fontWeight: "700" } } className={ classes.tableHeadRow } align="center">
+                                <TableCell style={ { fontWeight: "700" } } className={ classes.tableHeadRow } align="right">
                                     <NumberFormat value={ Math.abs(row.loanPaymentInformation.accountDetails.LoanFeesAndCharges) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
                                 </TableCell>
-                                <TableCell style={ { fontWeight: "700" } } className={ classes.tableHeadRow } align="center">
+                                <TableCell style={ { fontWeight: "700" } } className={ classes.tableHeadRow } align="right">
                                     <NumberFormat value={ Math.abs(row.loanPaymentInformation.accountDetails.RegularPaymentAmount) + Math.abs(row.loanPaymentInformation.accountDetails.InterestRate) + Math.abs(row.loanPaymentInformation.accountDetails.LoanFeesAndCharges) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
                                 </TableCell>
-                                <TableCell className={ classes.tableHeadRow } align="center">
+                                <TableCell className={ classes.tableHeadRow } align="left">
                                     { Moment(row.loanPaymentInformation.accountDetails.NextDueDate).format("MM/DD/YYYY") }
                                 </TableCell>
-                                <TableCell className={ classes.tableHeadRow } align="center">
+                                <TableCell className={ classes.tableHeadRow } align="left">
                                     { (row.loanPaymentInformation.hasScheduledPayment) ? Moment(row.loanPaymentInformation.scheduledPayments[ 0 ].PaymentDate).format("MM/DD/YYYY") : "NONE" }
                                 </TableCell>
-                                <TableCell style={ { fontWeight: "700" } } className={ classes.tableHeadRow } align="center">
+                                <TableCell style={ { fontWeight: "700" } } className={ classes.tableHeadRow } align="left">
                                     { (row.loanPaymentInformation.appRecurringACHPayment) ? "On Due Date" : "Disabled" }
                                 </TableCell>
                             </TableRow>

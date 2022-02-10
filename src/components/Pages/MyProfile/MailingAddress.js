@@ -1,26 +1,23 @@
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from "@material-ui/core/Grid";
 import { useFormik } from "formik";
-import { useAtom } from "jotai";
 import Cookies from "js-cookie";
 import React, { useState } from "react";
 import { useQuery } from 'react-query';
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
+import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
-import { mailingAddress } from "../../Controllers/myProfileController";
+import { mailingAddress } from "../../Controllers/MyProfileController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
 import {
   ButtonPrimary,
   ButtonSecondary, TextField,
   Zipcode
 } from "../../FormsUI";
-import states from "../../lib/States.json";
-import statesFullform from "../../lib/StatesFullform.json";
-import { tabAtom } from "./MyProfileTab";
-import "./Style.css";
 import ErrorLogger from '../../lib/ErrorLogger';
+import "./Style.css";
 
 const validationSchema = yup.object({
   streetAddress: yup
@@ -41,7 +38,7 @@ const validationSchema = yup.object({
     .required("Your home state is required."),
   zip: yup
     .string("Enter your Zip")
-    .min(5, "Zipcode should be of minimum 5 characters length")
+    .min(5, "Zip Code should be a minimum of 5 characters")
     .required("Your home ZIP Code is required"),
 });
 
@@ -51,34 +48,29 @@ export default function MailingAddress(props) {
   const [ validZip, setValidZip ] = useState(true);
   const [ errorMsg, setErrorMsg ] = useState("");
   const history = useHistory();
-  const [ , setTabvalue ] = useAtom(tabAtom);
-
-
+  const [ , setprofileTabNumber ] = useGlobalState();
   const { refetch } = useQuery('loan-data', usrAccountDetails);
 
   let basicInfo = props?.basicInformationData?.latest_contact != null ? props.basicInformationData.latest_contact : null;
   let hasActiveLoan = Cookies.get("hasActiveLoan") === "true" ? true : false;
   let hasApplicationStatus = Cookies.get("hasApplicationStatus");
-  var appStatus = [ "rejected", "reffered", "expired" ];
+  var appStatus = [ "rejected", "referred", "expired" ];
   let checkAppStatus = appStatus.includes(hasApplicationStatus);
   let disableField = (checkAppStatus === true || hasActiveLoan === true) ? true : false;
 
   const onClickCancelChange = () => {
     formik.resetForm();
     history.push({ pathname: '/customers/myProfile' });
-    setTabvalue(0);
+    setprofileTabNumber({ profileTabNumber: 0 });
   };
-
-
 
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-
       streetAddress: basicInfo?.address_street ? basicInfo?.address_street : "",
       zip: basicInfo?.address_postal_code ? basicInfo?.address_postal_code : "",
       city: basicInfo?.address_city ? basicInfo?.address_city : "",
-      state: basicInfo?.address_state ? states[ basicInfo?.address_state ] : "",
+      state: basicInfo?.address_state ? basicInfo?.address_state : "",
 
     },
 
@@ -87,10 +79,9 @@ export default function MailingAddress(props) {
     onSubmit: async (values) => {
       setLoading(true);
       let body = {
-
         address1: values.streetAddress,
         city: values.city,
-        state: statesFullform[ values.state ],
+        state: values.state,
         zipCode: values.zip,
       };
 
@@ -100,9 +91,7 @@ export default function MailingAddress(props) {
         });
       }
       else {
-
         let res = await mailingAddress(body);
-
         if (res?.data?.notes.length !== 0) {
           refetch().then(() => toast.success("Updated successfully", {
             onClose: () => {
@@ -128,7 +117,7 @@ export default function MailingAddress(props) {
   const fetchAddress = async (event) => {
     try {
       setErrorMsg(event.target.value === "" ? "Please enter a zipcode" : errorMsg);
-      if (event.target.value !== "" && event.target.value.length === 5) {
+      if (event.target.value.toString().length === 5) {
         let result = await ZipCodeLookup(event.target.value);
         if (result) {
           fetchAddressValidate(result);
@@ -138,15 +127,20 @@ export default function MailingAddress(props) {
           setValidZip(false);
           setErrorMsg("Please enter a valid Zipcode");
         }
+        if (event.target.name !== "") {
+          formik.handleChange(event);
+        }
       }
-      if (event.target.name !== "") {
-        formik.handleChange(event);
+      else {
+        formik.setFieldValue("city", "");
+        formik.setFieldValue("state", "");
+        setValidZip(false);
+        setErrorMsg("Please enter a valid Zipcode");
       }
     } catch (error) {
       ErrorLogger("Error from fetchAddress", error);
     }
   };
-
 
   function fetchAddressValidate(result) {
     try {
@@ -177,7 +171,6 @@ export default function MailingAddress(props) {
         { props?.basicInformationData === null ? (
           <Grid align="center"><CircularProgress /></Grid>
         ) : <>
-
           <Grid
             item
             xs={ 12 }
@@ -195,7 +188,7 @@ export default function MailingAddress(props) {
                 "data-test-id": "streetAddress",
                 maxLength: "100",
               } }
-              disabled={ disableField === true ? false : true }
+              disabled={ !disableField }
               onKeyDown={ preventSpace }
               value={ formik.values.streetAddress }
               onChange={ formik.handleChange }
@@ -230,7 +223,6 @@ export default function MailingAddress(props) {
               helperText={ formik.touched.city && formik.errors.city }
             />
           </Grid>
-
           <Grid
             item
             xs={ 12 }
@@ -265,7 +257,7 @@ export default function MailingAddress(props) {
               name="zip"
               label="Zip Code"
               materialProps={ { "data-test-id": "zipcode" } }
-              disabled={ disableField === true ? false : true }
+              disabled={ !disableField }
               value={ basicInfo?.address_postal_code }
               onChange={ fetchAddress }
               onBlur={ formik.handleBlur }
@@ -273,23 +265,19 @@ export default function MailingAddress(props) {
                 (formik.touched.zip && Boolean(formik.errors.zip)) || !validZip
               }
               helperText={
-                validZip
-                  ? formik.touched.zip && formik.errors.zip
-                  : "Please enter a valid ZIP Code"
+                validZip ? formik.touched.zip && formik.errors.zip : "Please enter a valid ZIP Code"
               }
             />
           </Grid>
-
           <ButtonSecondary
             stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
             styleicon='{ "color":"" }'
             onClick={ onClickCancelChange }
-            disabled={ disableField === true ? false : true }
+            disabled={ !disableField }
 
           >
             Cancel
           </ButtonSecondary>
-
           <ButtonPrimary
             stylebutton='{"marginLeft": "5px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
             styleicon='{ "color":"" }'

@@ -1,15 +1,16 @@
-import "../CheckMyOffer.css";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import { ButtonPrimary, TextField } from "../../../FormsUI";
 import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
 import React, { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import CitizenshipStatusLogo from "../../../../assets/icon/I-Own-Rent-Property.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
-import ScrollToTopOnMount from "../ScrollToTop";
+import { ButtonPrimary, TextField } from "../../../FormsUI";
+import { homeData } from "../../../../assets/data/constants"
+import "../CheckMyOffer.css";
 import "../LivingPlace/LivingPlace.css";
+import ScrollToTopOnMount from "../ScrollToTop";
 
 //Living place component initialization
 function LivingPlace() {
@@ -34,41 +35,33 @@ function LivingPlace() {
 		}
 	};
 
+	const validateUserInput = () => {
+		setError(false);
+		setHelperText("");
+		data.homeOwnership = livingPlace;
+		if (data.state === "NC") {
+			data.completedPage = data.page.livingPlace;
+			history.push("/active-duty");
+		} else if (data.state === "WI") {
+			data.completedPage = data.page.livingPlace;
+			history.push("/marital-status");
+		} else {
+			data.completedPage = data.page.activeDuty;
+			history.push("/ssn");
+		}
+	}
+
 	//validating user input and proceeds
 	const handleRoute = () => {
-		if (livingPlace === "Renting" || livingPlace === "Own a Home with Mortgage") {
+		if (livingPlace === homeData.renting || livingPlace === homeData.withMortage) {
 			if (data.rentMortgageAmount !== "" && data.rentMortgageAmount !== 0 && data.rentMortgageAmount >= 100) {
-				setError(false);
-				setHelperText("");
-				data.homeOwnership = livingPlace;
-				if (data.state === "NC") {
-					data.completedPage = data.page.livingPlace;
-					history.push("/active-duty");
-				} else if (data.state === "WI") {
-					data.completedPage = data.page.livingPlace;
-					history.push("/marital-status");
-				} else {
-					data.completedPage = data.page.activeDuty;
-					history.push("/ssn");
-				}
+				validateUserInput();
 			} else {
 				setError(true);
 				setHelperText("Enter valid rent/Mortgage amount");
 			}
 		} else {
-			setError(false);
-			setHelperText("");
-			data.homeOwnership = livingPlace;
-			if (data.state === "NC") {
-				data.completedPage = data.page.livingPlace;
-				history.push("/active-duty");
-			} else if (data.state === "WI") {
-				data.completedPage = data.page.livingPlace;
-				history.push("/marital-status");
-			} else {
-				data.completedPage = data.page.activeDuty;
-				history.push("/ssn");
-			}
+			validateUserInput();
 		}
 	};
 
@@ -112,19 +105,16 @@ function LivingPlace() {
 						xs={ 12 }
 						justifyContent="center"
 						alignItems="center"
-						style={ { paddingTop: "70px", paddingBottom: "70px" } }
+						style={ { padding: "4% 0%" } }
 					>
 						<Grid
-							container
+							// containe
 							item
 							xs={ 11 }
 							sm={ 10 }
 							md={ 6 }
 							lg={ 6 }
 							xl={ 6 }
-							className="cardWrapper"
-							justifyContent="center"
-							alignItems="center"
 						>
 							<Paper
 								id="ownOrRentWrap"
@@ -139,8 +129,8 @@ function LivingPlace() {
 									<span className="floatLeft detNum75">75%</span>
 								</div>
 								<Grid className="floatLeft">
-									<Link to="/annual-income">
-										<i className="material-icons dp48 yellowText  ">
+									<Link className="arrowBack" to="/annual-income">
+										<i className="material-icons dp48 yellowText floatingButton">
 											arrow_back
 										</i>
 									</Link>
@@ -160,7 +150,7 @@ function LivingPlace() {
 										justify: "center",
 										alignItems: "center",
 									} }
-									className="borrowCSSLP"
+									className="borrowCSSLP checkMyOfferText"
 								>
 									Do you own or rent?
 								</Typography>
@@ -184,14 +174,14 @@ function LivingPlace() {
 										<Paper
 											id="ownOrRentBoxOne"
 											elevation={ 3 }
-											data-testid="Renting"
+											data-testid={homeData.renting}
 											className={
-												livingPlace === "Renting"
+												livingPlace === homeData.renting
 													? "activeBorder radioBlock "
 													: "radioBlock "
 											}
 											onClick={ () => {
-												setLivingPlace("Renting");
+												setLivingPlace(homeData.renting);
 											} }
 										>
 											Renting
@@ -203,12 +193,12 @@ function LivingPlace() {
 											elevation={ 3 }
 											data-testid="HomeWithMortgage"
 											className={
-												livingPlace === "Own a Home with Mortgage"
+												livingPlace === homeData.withMortage
 													? "activeBorder radioBlock "
 													: "radioBlock "
 											}
 											onClick={ () => {
-												setLivingPlace("Own a Home with Mortgage");
+												setLivingPlace(homeData.withMortage);
 											} }
 										>
 											Own a home with mortgage
@@ -220,16 +210,16 @@ function LivingPlace() {
 											elevation={ 3 }
 											data-testid="HomeWithNoMortgage"
 											className={
-												livingPlace === "Own a Home with no Mortgage"
+												livingPlace === homeData.noMortage
 													? "activeBorder radioBlock "
 													: "radioBlock "
 											}
 											onClick={ () => {
-												setLivingPlace("Own a Home with no Mortgage");
+												setLivingPlace(homeData.noMortage);
 												data.rentMortgageAmount = 0;
-												data.homeOwnership = "Own a Home with no Mortgage";
+												data.homeOwnership = homeData.noMortage;
 												if (data.completedPage < data.page.livingPlace) {
-													setDataState("Own a Home with no Mortgage");
+													setDataState(homeData.noMortage);
 												}
 											} }
 										>
@@ -242,16 +232,16 @@ function LivingPlace() {
 											elevation={ 3 }
 											data-testid="MobileHome"
 											className={
-												livingPlace === "Own a Mobile Home"
+												livingPlace === homeData.mobile
 													? "activeBorder radioBlock "
 													: "radioBlock "
 											}
 											onClick={ () => {
-												setLivingPlace("Own a Mobile Home");
+												setLivingPlace(homeData.mobile);
 												data.rentMortgageAmount = 0;
-												data.homeOwnership = "Own a Mobile Home";
+												data.homeOwnership = homeData.mobile;
 												if (data.completedPage < data.page.livingPlace) {
-													setDataState("Own a Mobile Home");
+													setDataState(homeData.mobile);
 												}
 											} }
 										>
@@ -264,17 +254,17 @@ function LivingPlace() {
 											elevation={ 3 }
 											data-testid="LivingWithRelatives"
 											className={
-												livingPlace === "Living with Relatives"
+												livingPlace === homeData.withRelative
 													? "activeBorder radioBlock "
 													: "radioBlock "
 											}
 											onClick={ () => {
-												setLivingPlace("Living with Relatives");
+												setLivingPlace(homeData.withRelative);
 												data.rentMortgageAmount = 0;
-												data.homeOwnership = "Living with Relatives";
+												data.homeOwnership = homeData.withRelative;
 
 												if (data.completedPage < data.page.livingPlace) {
-													setDataState("Living with Relatives");
+													setDataState(homeData.withRelative);
 												}
 											} }
 										>
@@ -286,13 +276,13 @@ function LivingPlace() {
 										<TextField
 											id="rentOrMortage"
 											className={
-												livingPlace === "Renting" ||
-													livingPlace === "Own a Home with Mortgage"
+												livingPlace === homeData.renting ||
+													livingPlace === homeData.withMortage
 													? "showMsg"
 													: "hideMsg"
 											}
 											name="RentOrMortgageAmount"
-											label="Monthly Rent / Mortgage Amount"
+											label="Monthly Rent / Mortgage Amount *"
 											form={ true }
 											error={ error }
 											helperText={ helperText }
@@ -305,7 +295,7 @@ function LivingPlace() {
 										/>
 									</Grid>
 
-									<Grid item lg={ 8 } md={ 8 } xs={ 12 } className="alignButton">
+									<Grid item lg={ 8 } md={ 8 } xs={ 12 } className="alignButton ContinueButton">
 										<ButtonPrimary
 											onClick={ handleRoute }
 											data-testid="cntButton"

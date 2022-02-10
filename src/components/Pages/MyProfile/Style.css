@@ -109,7 +109,7 @@
 	padding: 0px 25px;
 }
 
-.expirydate div div {
+.expiryDate div div {
 	display: none;
 }
 
@@ -243,7 +243,6 @@
 #bankAccountNumber{
 	padding-bottom: 15px !important;
 }
-
 
 /* Add debit card */
 

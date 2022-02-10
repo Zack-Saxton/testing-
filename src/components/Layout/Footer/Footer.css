@@ -36,8 +36,6 @@
     color: black;
     cursor: pointer;
 
-
-
    }
    @media all and (max-width: 700px){
     #mfInfo{
@@ -74,6 +72,12 @@
 @media all and (max-width: 1100px){
   #badge{
     height: 70px!important
+  }
+}
+@media all and (max-width: 1024px){
+  .section-top-normal-footer{
+    padding: 20px 40px !important;
+
   }
 }
 

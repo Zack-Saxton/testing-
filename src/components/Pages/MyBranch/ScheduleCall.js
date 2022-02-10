@@ -24,11 +24,10 @@ import {
 
 // yup validation
 const validationSchema = yup.object({
-  date: yup
+  appointmentDate: yup
     .date("Please enter a valid date")
     .nullable()
     .required("Date is required"),
-
   callTime: yup.string("Select Time").nullable().required("Time is required"),
 });
 
@@ -44,15 +43,15 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
   scheduleDateCall.setDate(scheduleDateCall.getDate() + 30);
 
   //US holidays
-  function disableHolidays(date) {
+  function disableHolidays(appointmentDate) {
     const holidayApiData = holidayData?.holidays;
     const holidayApiDataValues = holidayApiData.map((arrVal) => {
       return new Date(arrVal + "T00:00").getTime();
     });
     return (
-      date.getDay() === 0 ||
-      date.getDay() === 6 ||
-      holidayApiDataValues.includes(date.getTime())
+      appointmentDate.getDay() === 0 ||
+      appointmentDate.getDay() === 6 ||
+      holidayApiDataValues.includes(appointmentDate.getTime())
     );
   }
 
@@ -78,12 +77,12 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
   //Formik implementation
   const formik = useFormik({
     initialValues: {
-      date: null,
+      appointmentDate: null,
       callTime: "",
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      var callDate = Moment(values.date).format("YYYY-MM-DD");
+      var callDate = Moment(values.appointmentDate).format("YYYY-MM-DD");
       var callingTime = values.callTime;
 
       let callTimeZone = momentTimeZone
@@ -95,7 +94,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
       let response = await ScheduleCallApi(callDate, callingTime, callTimeZone);
 
       if (response === "true") {
-        formik.values.date = null;
+        formik.values.appointmentDate = null;
         formik.values.callTime = "";
         setLoading(false);
         setScheduleCall(false);
@@ -110,9 +109,9 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
 
   const handleScheduleCallClose = () => {
     document.getElementById("formCall").remove();
-    formik.values.date = null;
+    formik.values.appointmentDate = null;
     formik.values.callTime = "";
-    formik.touched.date = null;
+    formik.touched.appointmentDate = null;
     formik.touched.callTime = null;
     setScheduleCall(false);
   };
@@ -153,30 +152,30 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
           <DialogContent>
             <Grid style={ { paddingBottom: "10px" } }>
               <DatePicker
-                name="date"
+                name="appointmentDate"
                 label="Date"
                 placeholder="MM/DD/YYYY"
-                id="date"
+                id="appointmentDate"
                 disablePast
                 autoComplete="off"
                 onKeyDown={ (event) => event.preventDefault() }
                 shouldDisableDate={ disableHolidays }
                 maxdate={ scheduleDateCall }
                 minyear={ 4 }
-                value={ formik.values.date}
+                value={ formik.values.appointmentDate }
                 onChange={ (values) => {
-                  formik.setFieldValue("date", values);
+                  formik.setFieldValue("appointmentDate", values);
                 } }
                 onBlur={ formik.handleBlur }
-                error={ formik.touched.date && Boolean(formik.errors.date) }
-                helperText={ formik.touched.date && formik.errors.date }
+                error={ formik.touched.appointmentDate && Boolean(formik.errors.appointmentDate) }
+                helperText={ formik.touched.appointmentDate && formik.errors.appointmentDate }
               />
             </Grid>
 
             { stateName === "CA" ? (
-              Moment(formik.values.date).format("dddd") === "Tuesday" ? (
+              Moment(formik.values.appointmentDate).format("dddd") === "Tuesday" ? (
                 <Grid>
-                  { Moment(formik.values.date).format("DD-MM-YYYY") ===
+                  { Moment(formik.values.appointmentDate).format("DD-MM-YYYY") ===
                     Moment(new Date()).format("DD-MM-YYYY")
                     ? upt_ca_Tue.length !== 0 ?
                       <Select
@@ -203,7 +202,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
                 </Grid>
               ) : (
                 <Grid>
-                  { Moment(formik.values.date).format("DD-MM-YYYY") ===
+                  { Moment(formik.values.appointmentDate).format("DD-MM-YYYY") ===
                     Moment(new Date()).format("DD-MM-YYYY")
                     ? upt_ca_M_W_TH_F.length !== 0 ?
                       <Select
@@ -229,9 +228,9 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
                     /> }
                 </Grid>
               )
-            ) : Moment(formik.values.date).format("dddd") === "Tuesday" ? (
+            ) : Moment(formik.values.appointmentDate).format("dddd") === "Tuesday" ? (
               <Grid>
-                { Moment(formik.values.date).format("DD-MM-YYYY") ===
+                { Moment(formik.values.appointmentDate).format("DD-MM-YYYY") ===
                   Moment(new Date()).format("DD-MM-YYYY")
                   ? updated_other_Tue.length !== 0 ?
                     <Select
@@ -256,9 +255,9 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
                     helperText={ formik.touched.callTime && formik.errors.callTime }
                   /> }
               </Grid>
-            ) : Moment(formik.values.date).format("dddd") === "Friday" ? (
+            ) : Moment(formik.values.appointmentDate).format("dddd") === "Friday" ? (
               <Grid>
-                { Moment(formik.values.date).format("DD-MM-YYYY") ===
+                { Moment(formik.values.appointmentDate).format("DD-MM-YYYY") ===
                   Moment(new Date()).format("DD-MM-YYYY")
                   ? upt_other_Fri.length !== 0 ?
                     <Select
@@ -285,7 +284,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
               </Grid>
             ) : (
               <Grid>
-                { Moment(formik.values.date).format("DD-MM-YYYY") ===
+                { Moment(formik.values.appointmentDate).format("DD-MM-YYYY") ===
                   Moment(new Date()).format("DD-MM-YYYY")
                   ? upt_other_M_W_Thu.length !== 0 ?
                     <Select

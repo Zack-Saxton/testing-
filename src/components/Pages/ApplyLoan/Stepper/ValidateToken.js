@@ -9,9 +9,8 @@ import messages from "../../../lib/Lang/applyForLoan.json";
 const ValidateToken = () => {
 	const useQuery = () => new URLSearchParams(useLocation().search);
 	const query = useQuery();
-	const getResponse = async (data) => {
-		let res = await APICall("verify_user_email_cac", '', data, "POST", true);
-		return res;
+	const getResponse = (data) => {
+		return APICall("verify_user_email_cac", '', data, "POST", true);
 	};
 
 	//get the token values from link
@@ -24,10 +23,9 @@ const ValidateToken = () => {
 		const tokenString = Cookies.get("token") ? Cookies.get("token") : "{ }";
 		const userToken = JSON.parse(tokenString);
 		const userEmail = Cookies.get("email");
-		const expiryMinute = process.env.REACT_APP_SESSION_EXPIRY_MINUTES;
-		var min = expiryMinute; // Reset when storage is more than given time
-		var now = new Date().getTime();
-		var actualSetupTime = userToken?.setupTime ?? "";
+		const min = process.env.REACT_APP_SESSION_EXPIRY_MINUTES;
+		let now = new Date().getTime();
+		let actualSetupTime = userToken?.setupTime ?? "";
 		const returnURL = window.location.pathname + window.location.search;
 		if (!userToken?.isLoggedIn) {
 			history.push({
@@ -40,10 +38,7 @@ const ValidateToken = () => {
 			});
 		} else if (now - actualSetupTime > min * 60 * 1000) {
 			alert(messages?.emailVerification?.sessionEnded);
-			history.push({
-				pathname: "/login",
-				state: { redirect: returnURL },
-			});
+			history.push({ pathname: "/login", state: { redirect: returnURL }, });
 		} else {
 			let result = {
 				user_email: userEmail,
@@ -52,27 +47,19 @@ const ValidateToken = () => {
 			};
 			getResponse(result).then((res) => {
 				if (res?.data === true) {
-					history.push({
-						pathname: "/customers/finalVerification",
-					});
+					history.push({ pathname: "/customers/finalVerification", });
 				} else if (
 					res?.data?.result === "error" &&
 					res?.data?.statusText === "Token not valid"
 				) {
 					toast.error(messages?.emailVerification?.tokenExpired);
-					history.push({
-						pathname: "/customers/accountOverview",
-					});
+					history.push({ pathname: "/customers/accountOverview", });
 				} else if (res?.data?.result === "error") {
 					toast.error(res?.data?.statusText ?? messages?.emailVerification?.verificationFailed);
-					history.push({
-						pathname: "/customers/accountOverview",
-					});
+					history.push({ pathname: "/customers/accountOverview", });
 				} else {
 					toast.error(messages?.emailVerification?.verificationFailed);
-					history.push({
-						pathname: "/customers/accountOverview",
-					});
+					history.push({ pathname: "/customers/accountOverview", });
 				}
 			});
 		}

@@ -1,25 +1,41 @@
-import "./CheckMyOffer.css";
-import "../CheckMyOffer.css";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import { ButtonPrimary, Slider, TextField } from "../../../FormsUI";
 import Paper from "@material-ui/core/Paper";
-import React, { useContext, useState, useEffect } from "react";
+import Typography from "@material-ui/core/Typography";
+import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import ScrollToTopOnMount from "../ScrollToTop";
-import { CheckMyOffers as Check } from "../../../../contexts/CheckMyOffers";
 import { toast } from "react-toastify";
+import { CheckMyOffers as Check } from "../../../../contexts/CheckMyOffers";
+import { ButtonPrimary, Slider, TextField } from "../../../FormsUI";
+import "../CheckMyOffer.css";
+import ScrollToTopOnMount from "../ScrollToTop";
+import "./CheckMyOffer.css";
 
 //initializing check my offers functonal component
 function CheckMyOffers(props) {
 	const { data, setData, resetData } = useContext(Check);
 	const [ hasOfferCode, setOfferCode ] = useState("");
-	const [ select, setSelect ] = useState(data.loanAmount ? data.loanAmount : 10000);
+	const getValidValue = (selectedValue) => {
+		let validValue = (selectedValue > 5000 && (selectedValue % 500) === 250 ? selectedValue + 250 : selectedValue);
+		if (validValue < 1000) {
+			return 1000;
+		} else if (validValue > 25000) {
+			return 25000;
+		}
+		return validValue;
+	};
+	let selectedAmount = getValidValue(props.match.params.amount);
+	const [ select, setSelect ] = useState(data.loanAmount ? data.loanAmount : (selectedAmount ? parseInt(selectedAmount) : 10000));
 	const history = useHistory();
 
 	useEffect(() => {
-		if (data.formStatus === "" || data.completedPage === 0 || data.formStatus === "completed" || props.location.fromLoanPurpose !== "yes") {
+		if (selectedAmount) {
+			data.loanAmount = select;
+			data.formStatus = "started";
+			data.completedPage = data.page.selectAmount;
+			setData({ ...data, loanAmount: select, loading: false });
+			history.push({ pathname: "/loan-purpose" });
+		} else if (data.formStatus === "" || data.completedPage === 0 || data.formStatus === "completed" || props.location.fromLoanPurpose !== "yes") {
 			setData({ ...data, loading: true });
 			resetData();
 			setSelect(data.loanAmount ? data.loanAmount : 10000);
@@ -35,7 +51,7 @@ function CheckMyOffers(props) {
 		data.formStatus = "started";
 		data.completedPage = data.page.selectAmount;
 		setData({ ...data, loanAmount: select });
-		history.push({ pathname: "/loan-purpose" });
+		history.push({ pathname: "/pre-approved" });
 	};
 
 	// jsx part
@@ -59,15 +75,15 @@ function CheckMyOffers(props) {
 							lg={ 6 }
 							xl={ 6 }
 							className="cardWrapper"
-							style={ { paddingTop: "70px" } }
+							style={ { paddingTop: "4%" } }
 						>
 							<Paper
-								className="card"
+								className="checkMyOffersWrap"
 								justify="center"
 								alignitems="center"
 								id="selectAmountWrap"
 							>
-								<Typography align="center" className="borrowCSS CMOHeading">
+								<Typography align="center" className="checkMyOffersHeading">
 									Tell us how much you would like to borrow
 								</Typography>
 								<Grid
@@ -90,6 +106,7 @@ function CheckMyOffers(props) {
 									</Grid>
 								</Grid>
 								<Grid
+									id="checkMyOffersText"
 									item
 									xs={ 12 }
 									className="alignSlider"
@@ -150,13 +167,13 @@ function CheckMyOffers(props) {
 										</Grid>
 									</Grid>
 
-									<Typography align="center">
+									<Typography className="checkMyoffersSubHeading" align="center">
 										Checking your offers will not impact your credit score.*
 									</Typography>
 									<Grid className="alignTextInsideCard justifyText">
 										<Typography
 											data-testid="descriptionInside"
-											className="alignText justifyText"
+											className="alignText justifyText checkMyOffersText"
 											align="center"
 										>
 											†We offer personal loans from $1,000 to $25,000, with

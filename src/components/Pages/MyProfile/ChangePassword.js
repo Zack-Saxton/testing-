@@ -1,73 +1,70 @@
 import Grid from "@material-ui/core/Grid";
 import { useFormik } from "formik";
-import { useAtom } from "jotai";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
+import globalMessages from "../../../assets/data/globalMessages.json";
+import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import LogoutController from "../../Controllers/LogoutController";
-import { changePassword } from "../../Controllers/myProfileController";
+import { changePassword } from "../../Controllers/MyProfileController";
 import {
   ButtonPrimary,
   ButtonSecondary,
   PasswordField
 } from "../../FormsUI";
-import { tabAtom } from "./MyProfileTab";
 import "./Style.css";
-import ErrorLogger from "../../lib/ErrorLogger";
+
 export default function ChangePassword(basicInformationData) {
   window.zeHide();
   const history = useHistory();
   const [ loading, setLoading ] = useState(false);
-  const [ , setTabvalue ] = useAtom(tabAtom);
+  const [ , setprofileTabNumber ] = useGlobalState();
 
   let basicInfo = basicInformationData?.basicInformationData?.latest_contact != null ? basicInformationData.basicInformationData.latest_contact : null;
   const passwordvalidationSchema = yup.object().shape({
     oldPassword: yup
-      .string("Enter your password")
-      .required("Your old password is required"),
+      .string(globalMessages.PasswordEnter)
+      .required(globalMessages.PasswordOld),
     newPassword: yup
-      .string("Enter your password")
-      .max(30, "Password can be upto 30 characters length")
-      .min(8, "Password should be minimum of 8 characters length")
+      .string(globalMessages.PasswordEnter)
+      .max(30, globalMessages.PasswordMax)
+      .min(8, globalMessages.PasswordMin)
       .matches(
         /^((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,30})$/,
-        "Your password doesn't meet the criteria."
+        globalMessages.PasswordCriteria
       )
-      .required("Your new password is required"),
+      .required(globalMessages.PasswordNewRequired),
     confirmPassword: yup
-      .string("Enter your password")
+      .string(globalMessages.PasswordEnter)
       .oneOf(
         [ yup.ref("newPassword"), null ],
-        "Your confirmation password must match new password."
+        globalMessages.PasswordConfirmationMatch
       )
-      .max(30, "Password can be upto 30 characters length")
-      .min(8, "Password should be minimum of 8 characters length")
+      .max(30, globalMessages.PasswordMax)
+      .min(8, globalMessages.PasswordMin)
       .matches(
         /^((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,30})$/,
-        "Your password doesn't meet the criteria."
+        globalMessages.PasswordCriteria
       )
-      .required("Your confirmation password is required"),
+      .required(globalMessages.PasswordConfirmationRequired),
   });
   const logOut = () => {
     setLoading(false);
     LogoutController();
-    history.push({
-      pathname: "/login",
-    });
+    history.push({ pathname: "/login", });
   };
 
   const logoutUser = () => {
-    toast.success("You are being logged out of the system", {
+    toast.success(globalMessages.LoggedOut, {
       onClose: () => logOut(),
     });
   };
   const onClickCancelChange = () => {
     formikPassword.resetForm();
     history.push({ pathname: '/customers/myProfile' });
-    setTabvalue(0);
+    setprofileTabNumber({ profileTabNumber: 0 });
   };
-
 
   const initialValues = {
     oldPassword: '',
@@ -83,7 +80,7 @@ export default function ChangePassword(basicInformationData) {
       try {
         if (values.newPassword === values.oldPassword) {
           if (!toast.isActive("closeToast")) {
-            toast.error("Old and new Password must be different. ", {
+            toast.error(globalMessages.PasswordOldNewMatch, {
               toastId: "closeToast",
               onClose: () => { setLoading(false); }
             });
@@ -99,7 +96,7 @@ export default function ChangePassword(basicInformationData) {
           if (response?.data?.change_password?.passwordReset === true) {
 
             if (!toast.isActive("closeToast")) {
-              toast.success(response?.data?.change_password?.message ?? "Password Changed successfully", {
+              toast.success(response?.data?.change_password?.message ?? globalMessages.PasswordChangedSuccessfully, {
                 toastId: "closeToast",
                 onClose: () => {
                   setLoading(false);
@@ -110,7 +107,7 @@ export default function ChangePassword(basicInformationData) {
             }
           } else if (response?.data?.change_password?.passwordReset === false) {
             if (!toast.isActive("closeToast")) {
-              toast.error(response?.data?.change_password?.message ?? "Please check your old password and try again", {
+              toast.error(response?.data?.change_password?.message ?? globalMessages.PasswordCheckOld, {
                 toastId: "closeToast",
                 onClose: () => { setLoading(false); }
               });
@@ -118,13 +115,17 @@ export default function ChangePassword(basicInformationData) {
           }
         }
       } catch (error) {
-        ErrorLogger("Error from Password chage.",error);
+        toast.error(globalMessages.TryAgain, {
+          onClose: () => { setLoading(false); }
+        });
       }
     },
   });
 
   const handleCancelButton = () => {
     formikPassword.resetForm();
+    history.push({ pathname: "/customers/myProfile" });
+    setprofileTabNumber({ profileTabNumber: 0 });
   };
   //Preventing space key
   const preventSpace = (event) => {
