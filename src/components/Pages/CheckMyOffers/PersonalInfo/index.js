@@ -107,7 +107,7 @@ function PersonalInfo() {
 			ssn: data.ssn ? data.ssn : "",
 			lastSSN: data.last4SSN ? data.last4SSN : "",
 			phone: data.phone ? data.phone : "",
-			dob: data.dob ?? null,
+			dob: data.dob ? data.dob : null,
 			checkSSN: data.last4SSN ? true : false,
 		},
 		validationSchema: validationSchema,
@@ -415,17 +415,17 @@ function PersonalInfo() {
 											className="textBlock"
 										>
 											<DatePicker
-												name="dob"
-												label="Date of Birth *"
-												id="dob"
-												placeholder="MM/DD/YYYY"
-												format="MM/dd/yyyy"
-												maxdate={ myDate }
-												minyear={ 102 }
-												value={ formik.values.dob }
-												onChange={ (values) => {
-													formik.setFieldValue("dob", values);
-												} }
+											name="dob"
+											label="Date of Birth *"
+											id="dob"
+											placeholder="MM/DD/YYYY"
+											format="MM/dd/yyyy"
+											maxdate={ myDate }
+											minyear={ 102 }
+											value={ formik.values.dob }
+											onChange={ (values) => {
+											  formik.setFieldValue("dob", values);
+											} }
 												onBlur={ formik.handleBlur }
 												error={
 													formik.touched.dob && Boolean(formik.errors.dob)
