@@ -155,15 +155,6 @@
 		-webkit-transform: rotate(359deg);
 	}
 }
-.subText {
-	text-align: justify;
-	color: #595959;
-	font-family: "Muli", sans-serif;
-	font-size: 18px;
-	font-weight: normal;
-	margin-top: 4% !important;
-	margin-bottom: 4% !important;
-}
 
 .link {
 	text-align: center;
