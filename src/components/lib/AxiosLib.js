@@ -41,6 +41,7 @@ const APICall = async (api, param, data, method, addAccessToken) => {
     response.status = error.response.status;
     response.statusText = error.response.statusText;
   }
+  console.log('DAXY Response :: ', JSON.stringify(response));
   return response;
 };
 

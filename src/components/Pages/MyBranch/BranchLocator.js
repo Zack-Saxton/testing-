@@ -14,7 +14,7 @@ import ErrorLogger from "../../lib/ErrorLogger";
 import { useLoadScript } from "@react-google-maps/api"
 import Map from "./BranchLocatorMap";
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { MFStates} from "../../../assets/data/marinerBusinesStates"
+import { MFStates } from "../../../assets/data/marinerBusinesStates"
 export default function BranchLocator() {
   window.zeHide();
   //Material UI css class
@@ -87,35 +87,32 @@ export default function BranchLocator() {
     }
   }
   const listForMapView = async (List) => {
-      if (List) {
-        setMap(
-          List.map((item) =>
-          ({
-            id: item.id,
-            name: item.Address,
-            position: {
-              lat: Number(item.latitude),
-              lng: Number(item.longitude)
-            }
-          })
-          ))
-      }
+    if (List) {
+      setMap(
+        List.map((item) =>
+        ({
+          id: item.id,
+          name: item.Address,
+          position: {
+            lat: Number(item.latitude),
+            lng: Number(item.longitude)
+          }
+        })
+        ))
+    }
   }
-  const getActivePlaces = async (State_Button) => {
+  const apiGetBranchList = async (value) => {
     try {
-      let result;
-      if (State_Button) {
-        result = await getBranchLists(event.target.innerHTML);
-      } else {
-        result = await getBranchLists(inputText.value);
-      }
-
+      let result = await getBranchLists(value);
       setBranchList(result);
       setLoading(false);
       listForMapView(result);
     } catch (error) {
-      toast.error(' Error from getActivePlaces ', error)
+      ErrorLogger(' Error from apiGetBranchList ', error);
     }
+  }
+  const getActivePlaces = async () => {
+    apiGetBranchList(inputText.value);
   }
   // -------- To Display Dialog to get Directions of Address.......
   const openGetDirectionModal = () => {
@@ -125,14 +122,7 @@ export default function BranchLocator() {
     setgetDirectionModal(false);
   }
   const MFButtonClick = async (event) => {
-    try {
-      let result = await getBranchLists(event.target.innerHTML);
-      setBranchList(result);
-      setLoading(false);
-      listForMapView(result);
-    } catch (error) {
-      ErrorLogger("Error from MFButtonClick", error);
-    }
+    apiGetBranchList(event.target.innerText);
   }
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_SECKey
@@ -160,7 +150,7 @@ export default function BranchLocator() {
               <h4 className={classes.headigText}>Find a Branch Near You!</h4>
               <Grid id="findBranchGrid">
                 <TextField
-                  style={{ width: "90%" }}
+                  style={ { width: "90%", color:"white!important"}}
                   id="inputText"
                   label="Enter city & state or zip code"
                 />
@@ -181,7 +171,7 @@ export default function BranchLocator() {
                         <h4>{item.BranchName} Branch</h4>
                         <p>{item.distance} away</p>
                         <p id={item.id}>{item.Address}</p>
-                        <p><a href={item.PhoneNumber} class="BlacktextColor">Phone - {item.PhoneNumber}</a></p>
+                        <p><a href={"tel:+1"+ item.PhoneNumber} className="BlacktextColor">Phone - {item.PhoneNumber}</a></p>
                         <p>{item.timeZoneName}</p>
                         <ButtonPrimary
                           onClick={() => {
@@ -248,18 +238,18 @@ export default function BranchLocator() {
               </Grid>}
           </Grid>
           <Grid container style={{ "textAlign": "center" }}>
-            <Grid item xs={12} justifyContent="center">
+            <Grid item xs={12} >
               <Typography variant="h4" >
                 Mariner Finance States
               </Typography>
             </Grid>
-            <Grid item xs={12} justifyContent="center" >
+            <Grid item xs={12} >
               <Typography variant="h6" >
                 To find a branch near you select your state below
               </Typography>
             </Grid>
           </Grid>
-          <Grid container >
+          <Grid container className={loading ? classes.loadingOnWithoutBlur : classes.loadingOff} >
             {MFStates.map((item, index) => {
               return (
                 <Grid item xs={12} sm={12} md={2} xl={6}>

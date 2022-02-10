@@ -18,17 +18,13 @@ const PhoneNumberWrapper = ({ name, onChange, value, label, error, disabled, hel
   //Set Formik field
   // const [field, mata] = useField(name);
   const [ unmaskedval, setUnMaskedVal ] = useState(value);
-
   const handleChange = (event) => {
-  
+    let x = event.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+    event.target.value = !x[ 2 ] ? x[ 1 ] : '(' + x[ 1 ] + ') ' + x[ 2 ] + (x[ 3 ] ? '-' + x[ 3 ] : '');
+    setUnMaskedVal(event.target.value);
     if (onChange) {
       onChange(event);
     }
-    var x = event.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-  event.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
-  
-    setUnMaskedVal(event.target.value);
-   
   };
 
   return (
@@ -38,7 +34,7 @@ const PhoneNumberWrapper = ({ name, onChange, value, label, error, disabled, hel
         <InputMask
           style={ { width: "100%" } }
           mask="(999) 999-9999"
-          value={value}
+          value={ value }
           name={ name }
           onChange={ handleChange }
           data-test-id="phone"
@@ -47,7 +43,7 @@ const PhoneNumberWrapper = ({ name, onChange, value, label, error, disabled, hel
         >
           { () => <TextField label={ label }
             name={ name }
-            value={value}
+            value={ value }
             error={ error }
             placeholder="Enter Phone Number"
             helperText={ helperText }
