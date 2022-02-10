@@ -14,6 +14,7 @@ import CheckLoginStatus from "../../../App/CheckLoginStatus";
 import usrAccountDetails from "../../../Controllers/AccountOverviewController";
 import { fetchAvailableOffers, submitSelectedOfferAPI } from "../../../Controllers/ApplyForLoanController";
 import { ButtonWithIcon } from "../../../FormsUI";
+import { offerTypeData } from "../../../../assets/data/constants"
 import messages from "../../../lib/Lang/applyForLoan.json";
 import ScrollToTopOnMount from "../../ScrollToTop";
 import TabSection from "../TabSection";
@@ -60,7 +61,7 @@ export default function ApplyLoan() {
 			if (selectedOfferResponse?.data?.selected_offer) {
 				setLoading(false);
 				refetch();
-				history.push({ pathname: "/customers/reviewAndSign", selectedIndexOffer: selectedOfferResponse?.data?.selected_offer, });
+				history.push({ pathname: offerTypeData[accountDetails?.data?.Offers[ selTerm ][ selIndex ]?.offerType], selectedIndexOffer: selectedOfferResponse?.data?.selected_offer, });
 			} else {
 				setLoading(false);
 				alert("Network Error");
