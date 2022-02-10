@@ -85,12 +85,17 @@ export default function BasicInformation(props) {
       onClose: () => logOut(),
     });
   };
+  function phoneNumberMask(values){
+		let phoneNumber = values.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+			  values = !phoneNumber[ 2 ] ? phoneNumber[ 1 ] : '(' + phoneNumber[ 1 ] + ') ' + phoneNumber[ 2 ] + (phoneNumber[ 3 ] ? '-' + phoneNumber[ 3 ] : '');
+	  return(values);
+	  }
 
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
       email: basicInfo?.email ?? "",
-      phone: basicInfo?.phone_number_primary ?? "",
+      phone: basicInfo?.phone_number_primary ? phoneNumberMask(basicInfo.phone_number_primary) : "",
     },
     validationSchema: validationSchema,
 
