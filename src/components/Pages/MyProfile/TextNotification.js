@@ -58,9 +58,15 @@ export default function TextNotification() {
       .oneOf([ false ], "False You must accept the terms and conditions"),
   });
 
+  function phoneNumberMask(values){
+		let phoneNumber = values.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+			  values = !phoneNumber[ 2 ] ? phoneNumber[ 1 ] : '(' + phoneNumber[ 1 ] + ') ' + phoneNumber[ 2 ] + (phoneNumber[ 3 ] ? '-' + phoneNumber[ 3 ] : '');
+	  return(values);
+	  }
+    
   const formikTextNote = useFormik({
     initialValues: {
-      phone: phone ? phone : "",
+      phone: phone ? phoneNumberMask(phone) : "",
       textingterms: phone ? true : false,
       acceptterms: phone ? true : false,
     },
@@ -175,6 +181,7 @@ export default function TextNotification() {
             type="text"
             onKeyDown={ preventSpace }
             value={ formikTextNote.values.phone }
+            onLoad={formikTextNote.handleChange}
             onChange={ formikTextNote.handleChange }
             onBlur={ formikTextNote.handleBlur }
             disabled={ disabledContent === false ? true : false }
