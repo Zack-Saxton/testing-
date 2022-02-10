@@ -98,6 +98,12 @@ function PersonalInfo() {
 	const [ loading, setLoading ] = useState(false);
 	const history = useHistory();
 
+	function phoneNumberMask(values){
+		let phoneNumber = values.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+			  values = !phoneNumber[ 2 ] ? phoneNumber[ 1 ] : '(' + phoneNumber[ 1 ] + ') ' + phoneNumber[ 2 ] + (phoneNumber[ 3 ] ? '-' + phoneNumber[ 3 ] : '');
+	  return(values);
+	  }
+
 	//configuring formik
 	const formik = useFormik({
 		initialValues: {
@@ -106,8 +112,8 @@ function PersonalInfo() {
 			email: data.email ? data.email : "",
 			ssn: data.ssn ? data.ssn : "",
 			lastSSN: data.last4SSN ? data.last4SSN : "",
-			phone: data.phone ? data.phone : "",
-			dob: data.dob ? data.dob : null,
+			phone: data.phone ? phoneNumberMask(data.phone) : "",
+			dob: data.dob ?? null,
 			checkSSN: data.last4SSN ? true : false,
 		},
 		validationSchema: validationSchema,
@@ -236,11 +242,14 @@ function PersonalInfo() {
 		}
 	};
 
+
 	//on email change call validation
 	const emailOnChange = (event) => {
 		setSsnEmailMatch(true);
 		formik.handleChange(event);
 	};
+
+	
 
 	//set auto focus
 	function autoFocus() {
