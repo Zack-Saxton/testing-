@@ -1,27 +1,26 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 
 export default function Disclaimer(offerData){
-    let filteredDisclaimers = [];
+    const [filteredDisclaimers, setFilteredDisclaimers] = useState([]);
 
     const filterDisclaimers = (data) => {
         let campaignType = data.offerData.userOffers.CampaignTypeDesc;
+        let disclaimers = [];
         let disclaimerIndecies;
-        console.log(campaignType);
         if (campaignType && campaignType.toLowerCase() === "bci") {
             disclaimerIndecies = [8, 5, 2, 7, 3, 4, 6 ]
         }
 
         disclaimerIndecies.forEach(index => {
-            filteredDisclaimers.push(allDisclaimers[index])
+            disclaimers.push(allDisclaimers[index])
         })
-
-        console.log('otto ::: filteredDisclaimers ', filteredDisclaimers);
+        setFilteredDisclaimers(disclaimers)
     }
 
     useEffect(() => {
         filterDisclaimers(offerData)
-    })
+    }, [])
 
     const allDisclaimers = [{
         "title" : "PRESCREEN & OPT-OUT NOTICE",
