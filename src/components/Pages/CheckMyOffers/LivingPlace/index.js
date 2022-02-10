@@ -7,6 +7,7 @@ import { Link, useHistory } from "react-router-dom";
 import CitizenshipStatusLogo from "../../../../assets/icon/I-Own-Rent-Property.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, TextField } from "../../../FormsUI";
+import { homeData } from "../../../../assets/data/constants"
 import "../CheckMyOffer.css";
 import "../LivingPlace/LivingPlace.css";
 import ScrollToTopOnMount from "../ScrollToTop";
@@ -52,7 +53,7 @@ function LivingPlace() {
 
 	//validating user input and proceeds
 	const handleRoute = () => {
-		if (livingPlace === "Renting" || livingPlace === "Own a Home with Mortgage") {
+		if (livingPlace === homeData.renting || livingPlace === homeData.withMortage) {
 			if (data.rentMortgageAmount !== "" && data.rentMortgageAmount !== 0 && data.rentMortgageAmount >= 100) {
 				validateUserInput();
 			} else {
@@ -173,14 +174,14 @@ function LivingPlace() {
 										<Paper
 											id="ownOrRentBoxOne"
 											elevation={ 3 }
-											data-testid="Renting"
+											data-testid={homeData.renting}
 											className={
-												livingPlace === "Renting"
+												livingPlace === homeData.renting
 													? "activeBorder radioBlock "
 													: "radioBlock "
 											}
 											onClick={ () => {
-												setLivingPlace("Renting");
+												setLivingPlace(homeData.renting);
 											} }
 										>
 											Renting
@@ -192,12 +193,12 @@ function LivingPlace() {
 											elevation={ 3 }
 											data-testid="HomeWithMortgage"
 											className={
-												livingPlace === "Own a Home with Mortgage"
+												livingPlace === homeData.withMortage
 													? "activeBorder radioBlock "
 													: "radioBlock "
 											}
 											onClick={ () => {
-												setLivingPlace("Own a Home with Mortgage");
+												setLivingPlace(homeData.withMortage);
 											} }
 										>
 											Own a home with mortgage
@@ -209,16 +210,16 @@ function LivingPlace() {
 											elevation={ 3 }
 											data-testid="HomeWithNoMortgage"
 											className={
-												livingPlace === "Own a Home with no Mortgage"
+												livingPlace === homeData.noMortage
 													? "activeBorder radioBlock "
 													: "radioBlock "
 											}
 											onClick={ () => {
-												setLivingPlace("Own a Home with no Mortgage");
+												setLivingPlace(homeData.noMortage);
 												data.rentMortgageAmount = 0;
-												data.homeOwnership = "Own a Home with no Mortgage";
+												data.homeOwnership = homeData.noMortage;
 												if (data.completedPage < data.page.livingPlace) {
-													setDataState("Own a Home with no Mortgage");
+													setDataState(homeData.noMortage);
 												}
 											} }
 										>
@@ -231,16 +232,16 @@ function LivingPlace() {
 											elevation={ 3 }
 											data-testid="MobileHome"
 											className={
-												livingPlace === "Own a Mobile Home"
+												livingPlace === homeData.mobile
 													? "activeBorder radioBlock "
 													: "radioBlock "
 											}
 											onClick={ () => {
-												setLivingPlace("Own a Mobile Home");
+												setLivingPlace(homeData.mobile);
 												data.rentMortgageAmount = 0;
-												data.homeOwnership = "Own a Mobile Home";
+												data.homeOwnership = homeData.mobile;
 												if (data.completedPage < data.page.livingPlace) {
-													setDataState("Own a Mobile Home");
+													setDataState(homeData.mobile);
 												}
 											} }
 										>
@@ -253,17 +254,17 @@ function LivingPlace() {
 											elevation={ 3 }
 											data-testid="LivingWithRelatives"
 											className={
-												livingPlace === "Living with Relatives"
+												livingPlace === homeData.withRelative
 													? "activeBorder radioBlock "
 													: "radioBlock "
 											}
 											onClick={ () => {
-												setLivingPlace("Living with Relatives");
+												setLivingPlace(homeData.withRelative);
 												data.rentMortgageAmount = 0;
-												data.homeOwnership = "Living with Relatives";
+												data.homeOwnership = homeData.withRelative;
 
 												if (data.completedPage < data.page.livingPlace) {
-													setDataState("Living with Relatives");
+													setDataState(homeData.withRelative);
 												}
 											} }
 										>
@@ -275,8 +276,8 @@ function LivingPlace() {
 										<TextField
 											id="rentOrMortage"
 											className={
-												livingPlace === "Renting" ||
-													livingPlace === "Own a Home with Mortgage"
+												livingPlace === homeData.renting ||
+													livingPlace === homeData.withMortage
 													? "showMsg"
 													: "hideMsg"
 											}

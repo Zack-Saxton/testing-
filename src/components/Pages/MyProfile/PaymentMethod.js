@@ -265,6 +265,7 @@ export default function PaymentMethod() {
             formikAddDebitCard.setFieldValue("cardNumber", "****-****-****-" + row.LastFour);
             formikAddDebitCard.setFieldValue("expiryDate", row.ExpirationDate);
             formikAddDebitCard.setFieldValue("cvv", "***");
+            setCardType(row.CardType);
             setEditMode(true);
             addDebitCardButton();
             setLoading(false);
@@ -274,7 +275,7 @@ export default function PaymentMethod() {
     function detectCardType(event, number) {
         let cardPattern = {
             Visa: /^4\d{12}(?:\d{3})?$/,
-            Mastercard: /^5[1-5]\d{14}$/,
+            MasterCard: /^5[1-5]\d{14}$/,
         };
         let _valid = false;
         for (let key in cardPattern) {
@@ -1196,7 +1197,7 @@ export default function PaymentMethod() {
                             container
                             direction="row"
                         >
-                            {/* <Mastercard /> */ }
+                            {/* <MasterCard /> */ }
                             <img
                                 src={
                                     window.location.origin +
@@ -1211,7 +1212,7 @@ export default function PaymentMethod() {
                         </Grid>
                         <Grid
                             item
-                            xs={ 10 }
+                            xs={ 12 }
                             style={ { width: "100%" } }
                             container
                             direction="row"
@@ -1240,7 +1241,7 @@ export default function PaymentMethod() {
                         <Grid
                             item
                             xs={ 12 }
-                            sm={ 5 }
+                            sm={ 6 }
 
                             style={ { width: "100%" } }
                             container
@@ -1272,7 +1273,7 @@ export default function PaymentMethod() {
                         <Grid
                             item
                             xs={ 12 }
-                            sm={ 5 }
+                            sm={ 6 }
                             style={ { width: "100%" } }
                             container
                             direction="row"
