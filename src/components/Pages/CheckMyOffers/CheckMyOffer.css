@@ -290,6 +290,7 @@
 }
 
 .agreeText {
+	font-size: 0.938rem !important;
 	text-align: justify;
 	line-height: 25px;
 	position: relative;
@@ -310,11 +311,11 @@
 	text-align: left;
 }
 .agreeTextHead {
+	font-size: 0.938rem;
 	text-align: justify;
 	line-height: 25px;
 	position: relative;
 	display: inline-block;
-	margin-top: 2px;
 	margin-bottom: 2px;
 	cursor: pointer;
 	color: #595959;
@@ -541,6 +542,9 @@
 	color: #171717 !important;
 }
 
+.disclosuresWrap{
+	margin-bottom: 15px !important;
+}
 @media (min-width: 600px) {
 	.buttonEnd {
 		justify-content: flex-start !important;
