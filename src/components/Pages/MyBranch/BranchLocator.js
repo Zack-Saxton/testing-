@@ -123,7 +123,7 @@ export default function BranchLocator() {
     setgetDirectionModal(false);
   }
   const MFButtonClick = async (event) => {
-    apiGetBranchList(event.target.innerHTML);
+    apiGetBranchList(event.target.innerText);
   }
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_SECKey
@@ -177,7 +177,7 @@ export default function BranchLocator() {
                         <h4 style={{margin:".575rem 0 .46rem 0", lineHeight:"1.5", fontWeight:"400", fontSize:"17px"}}>{item.BranchName} Branch</h4>
                         <p style={{margin:"0px", lineHeight:"1.5", fontSize:"15px"}}>{item.distance} away</p>
                         <p style={{margin:"0px", lineHeight:"1.5", color:"#595959", fontSize:"15px"}} id={item.id}>{item.Address}</p>
-                        <p style={{margin:"0px", lineHeight:"1.5", fontSize:"15px"}}><a href={item.PhoneNumber} class="BlacktextColor">Phone - {item.PhoneNumber}</a></p>
+                        <p style={{margin:"0px", lineHeight:"1.5", fontSize:"15px"}}><a href={"tel:+1"+ item.PhoneNumber} className="BlacktextColor">Phone - {item.PhoneNumber}</a></p>
                         <p style={{ margin:"15px 0px 10px 0px",lineHeight:"1.5", fontSize:"15px"}}>{item.timeZoneName}</p>
                         <ButtonPrimary
                           onClick={() => {
@@ -256,7 +256,7 @@ export default function BranchLocator() {
                 To find a branch near you select your state below
               </Typography>
             </Grid>
-          <Grid container >
+          <Grid container className={loading ? classes.loadingOnWithoutBlur : classes.loadingOff}>
             {MFStates.map((item, index) => {
               return (
                 <Grid style={{padding:"0px 15px 15px 15px"}} item xs={6} sm={3} md={2} xl={2}>

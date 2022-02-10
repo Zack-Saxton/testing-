@@ -8,11 +8,9 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
 import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 import DesktopMacIcon from "@material-ui/icons/DesktopMac";
-import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import {
@@ -162,19 +160,7 @@ export default function OfferTable(props) {
 											>
 												<Grid container direction="row" alignItems="center">
 													{ " " }
-													APR &nbsp;
-													<Tooltip
-														title="APR"
-														placement="top-start"
-														enterTouchDelay={ 200 }
-													>
-														<InfoOutlinedIcon
-															style={ {
-																fontSize: "small",
-																color: "blue",
-															} }
-														/>
-													</Tooltip>
+													APR													 
 												</Grid>
 											</TableCell>
 											{ props.offerFlag === false ? (
