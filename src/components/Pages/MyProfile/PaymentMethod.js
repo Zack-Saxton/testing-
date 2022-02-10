@@ -496,7 +496,7 @@ export default function PaymentMethod() {
         }
         else {
             setLoading(false);
-            toast.error("Something went wrong, please try again.");
+            toast.error("Payment method already exists, please add a different method");
         }
         closeDebitCardModal();
     };
