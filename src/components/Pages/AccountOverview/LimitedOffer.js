@@ -17,6 +17,7 @@ import "./Style.css";
 import MyBranchAPI from "../../Controllers/MyBranchController";
 import Disclaimer from "./Marketing_offer/Disclaimer";
 import AboutMariner from "./Marketing_offer/AboutMariner";
+import PreScreen from "./Marketing_offer/PreScreen";
 
 export default function LimitedOffer(userOfferData) {
   //Material UI css class
@@ -164,11 +165,8 @@ export default function LimitedOffer(userOfferData) {
                     <p className="common">You are prequalified up to</p>
                     <p className="common" style={{color:"#0F4EB3",fontSize:"bold",textAlign:"center"}}>
                       ${ amount }
-                      
-  </p>
-
+                    </p>
                     <p className="common">Use it to get things done.</p>
-
                     <p className="common">Offer Code:{ offerCode }</p>
                     <ButtonPrimary id="ClaimButton" stylebutton='{"color":"", "textTransform": "none","marginLeft":"40px"}' onClick={ handleContinue }>
                       Continue
@@ -177,32 +175,27 @@ export default function LimitedOffer(userOfferData) {
                 </Grid>
                 <Grid>
                   <p className="common">Dear { firstName },</p>
-    <p>
-  Sincerely,<br></br>
-  {branchManager}<br></br>
-  {branchName}<br></br>
-  {branchCno}
-  </p>
-              </Grid>
-              <Grid className="content">
-              You can choose to stop receiving "prescreened" offers of credit from this and other companies by calling toll-free 888-567-8688.
-                  <br/>See PRESCREEN & OPT-OUT NOTICE below for more information about prescreened offers.
-            </Grid>
-            <Grid style={{textAlign:"center"}}>
-            <p>Easy, Fast, Flexible & Convenient</p>
-            <ButtonPrimary id="ClaimButton" stylebutton='{"color":"", "textTransform": "none"}' onClick={handleContinue}>
-                          Continue
-                        </ButtonPrimary>
-  <p>We need more information from you to show you your offers. Please click continue to tell us more about yourself.</p>
-            <p>P.P.S. Still have questions? Give your local branch a call today! 708-425-1176</p>
-
+                  //Marketing Body Here
+                  <p>Sincerely,<br></br>
+                  {branchManager}<br></br>
+                  {branchName}<br></br>
+                  {branchCno}
+                  </p>
+                </Grid>
+                <PreScreen offerData={userOfferData}></PreScreen>
+                <Grid style={{textAlign:"center"}}>
+                  <p>Easy, Fast, Flexible & Convenient</p>
+                    <ButtonPrimary id="ClaimButton" stylebutton='{"color":"", "textTransform": "none"}' onClick={handleContinue}>
+                              Continue
+                    </ButtonPrimary>
+                  <p>We need more information from you to show you your offers. Please click continue to tell us more about yourself.</p>
+                  <p>P.S. Still have questions? Give your local branch a call today! {branchCno}</p>
                 </Grid>
                 <AboutMariner>
-                  </AboutMariner>
-                  <br />
+                </AboutMariner>
+                <br />
                 <Disclaimer offerData={userOfferData}>
-                  </Disclaimer>
-              
+                </Disclaimer>        
               </Typography>
             </Box>
           </Modal>
