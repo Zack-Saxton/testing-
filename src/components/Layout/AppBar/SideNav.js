@@ -143,6 +143,7 @@ const useStyles = makeStyles((theme) => ({
   },
   headerAlign: {
     margin: "12px",
+    color:"#fff"
   },
 
   branchLocator: {
@@ -510,11 +511,6 @@ export default function SideNav() {
             <div className={ classes.grow } />
             <div
               id="tool-bar-list"
-              style={ {
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                display: "-webkit-box",
-              } }
             >
               <Typography className={ classes.headerAlign }>
                 <a

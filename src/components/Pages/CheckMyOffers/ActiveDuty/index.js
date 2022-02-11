@@ -133,6 +133,7 @@ function ActiveDuty() {
 											xs={ 12 }
 										>
 											<Select
+												id="activeDutySelect"
 												fullWidth={ true }
 												name="activeDuty"
 												labelform="Active Duty *"
@@ -167,6 +168,7 @@ function ActiveDuty() {
 											xs={ 12 }
 										>
 											<Select
+												id="activeDutyRank"
 												fullWidth={ true }
 												name="activeDutyRank"
 												labelform="Active duty rank *"
