@@ -40,6 +40,8 @@
 }
 
 #findBranchGrid{
+    display: flex;
+    align-items: center;
     position: relative;
     margin: 0px 0px 23px 0px;
 }
@@ -56,8 +58,11 @@
     font-size: 26px !important;
     left: 5px;
 }
+.goIcon{
+    font-size: 20px !important;
+}
 .branchLocatorInput{
-    width: 90% !important;
+    width: 100% !important;
 }
 .findBranchWrap{
     padding: 0px 15px 0px 15px;
@@ -78,16 +83,8 @@
     min-height: 720px;
 }
 
-@media (max-width:1480px) {
-    .branchLocatorInput{
-        width: 80% !important;
-    }
-}
-
 @media (max-width:960px) {
-    .branchLocatorInput{
-        width: 90% !important;
-    }
+  
     .findBranchWrap{
         padding-top: 40px;
     }
@@ -98,7 +95,6 @@
         padding-right: 0px;
         margin-bottom: 30px;
     }
-
 }
 
 @media (max-width:760px) {
