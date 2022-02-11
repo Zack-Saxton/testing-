@@ -82,6 +82,12 @@
 #mapGridWrap{
     min-height: 720px;
 }
+#timeSlotSelect .subOption{
+    color: #171717 !important;
+}
+#ScheduleAppointmentSelect .subOption{
+    color: #171717 !important;
+}
 
 @media (max-width:960px) {
   

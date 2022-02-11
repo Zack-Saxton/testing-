@@ -134,3 +134,12 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error{
 #marriedStatusWrap div div div:nth-child(1) {
     padding-bottom: 15px !important;
 }
+#phoneType .subOption{
+    color: #171717 !important;
+}
+#citizenship .subOption{
+    color: #171717 !important;
+}
+#employementStatus .subOption{
+    color: #171717 !important;
+}

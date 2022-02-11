@@ -313,6 +313,7 @@ export default function ScheduleAppointment({
                     : <p>No time slot available</p>
                   :
                   <Select
+                    id="ScheduleAppointmentSelect"
                     name="appointmentTime"
                     labelform="Time Slot"
                     select={ other_M_W_Thu }
