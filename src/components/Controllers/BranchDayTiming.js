@@ -30,7 +30,7 @@ export default async function BranchDayTiming(branchLookupData) {
     }
     if (caState) {
         if (currentDay === 'Tuesday' && moment().isBefore(moment().format("YYYY-MM-DD") + "T19:00") && moment().isAfter(moment().format("YYYY-MM-DD") + "T10:00")) {
-            ClosedOrOpen.Value3 = currentDay + ": 10:00am - 7:00pm" + " " + TimeZoneShort(branchLookupData.timeZoneName);  
+            ClosedOrOpen.Value3 = `${currentDay}: 10:00am - 7:00pm ${TimeZoneShort(branchLookupData.timeZoneName)}`;    
         } else if ((currentDay === 'Saturday') && isholidayHours && moment().isBefore(moment().format("YYYY-MM-DD") + "T13:00") && moment().isAfter(moment().format("YYYY-MM-DD") + "T09:00")) {
             ClosedOrOpen.Value3 = `${currentDay}: 9:00am - 1:00pm ${TimeZoneShort(branchLookupData.timeZoneName)}`;   
         } else if ((['Monday', 'Wednesday', 'Thursday'].includes(currentDay)) && moment().isBefore(moment().format("YYYY-MM-DD") + "T17:00") && moment().isAfter(moment().format("YYYY-MM-DD") + "T09:00")) {

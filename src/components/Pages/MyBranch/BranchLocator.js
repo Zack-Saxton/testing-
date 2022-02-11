@@ -17,7 +17,7 @@ import { useLoadScript } from "@react-google-maps/api"
 import Map from "./BranchLocatorMap";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { MFStates } from "../../../assets/data/marinerBusinesStates"
-
+import { makeStyles} from "@material-ui/core";
 export default function BranchLocator() {
   window.zeHide();
   //Material UI css class
@@ -145,6 +145,14 @@ export default function BranchLocator() {
       ErrorLogger(' Error from findBranchTimings', error)
     }
   }
+  const useStyles = makeStyles({
+    ptag: {
+      margin: "0px", 
+      lineHeight: "1.5", 
+      fontSize: "15px" 
+    }
+  })
+  const clessesforptag = useStyles();
   //View part
   return (
     <div>
@@ -190,9 +198,9 @@ export default function BranchLocator() {
                     return (
                       <Grid className="locationInfo">
                         <h4 style={{ margin: ".575rem 0 .46rem 0", lineHeight: "1.5", fontWeight: "400", fontSize: "17px" }}><b>{item.BranchName} Branch</b></h4>
-                        <p style={{ margin: "0px", lineHeight: "1.5", fontSize: "15px" }}>{item.distance}les away {item.BranchTime.Value1} {item.BranchTime.Value2}</p>
-                        <p style={{ margin: "0px", lineHeight: "1.5", color: "#595959", fontSize: "15px" }} id={item.id}>{item.Address}</p>
-                        <p style={{ margin: "0px", lineHeight: "1.5", fontSize: "15px" }}><a href={"tel:+1" + item.PhoneNumber} className="BlacktextColor">Phone - {item.PhoneNumber}</a></p>
+                        <p className={clessesforptag.ptag}>{item.distance}les away {item.BranchTime.Value1} {item.BranchTime.Value2}</p>
+                        <p className={clessesforptag.ptag} style={{color: "#595959"}} id={item.id}>{item.Address}</p>
+                        <p className={clessesforptag.ptag}><a href={"tel:+1" + item.PhoneNumber} className="BlacktextColor">Phone - {item.PhoneNumber}</a></p>
                         {/* <p style={{ margin: "15px 0px 10px 0px", lineHeight: "1.5", fontSize: "15px" }}>{item.timeZoneName}</p> */} 
                         <ButtonPrimary
                           onClick={() => {
