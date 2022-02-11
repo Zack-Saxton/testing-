@@ -140,9 +140,7 @@ export default function BranchLocator() {
     try {
       if (value) {
         return await BranchDayTiming(value);
-      } else {
-        return "";
-      }
+      } 
     } catch (error) {
       ErrorLogger(' Error from findBranchTimings', error)
     }
