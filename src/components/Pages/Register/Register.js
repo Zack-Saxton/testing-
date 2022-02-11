@@ -166,7 +166,7 @@ export default function Register() {
     initialValues: {
       firstname: "",
       lastname: "",
-      email: queryParams.get("email"),
+      email: queryParams.get("email") ?? "",
       password: "",
       confirmPassword: "",
       zip: "",

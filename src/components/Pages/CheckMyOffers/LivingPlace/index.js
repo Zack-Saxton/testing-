@@ -65,18 +65,41 @@ function LivingPlace() {
 		}
 	};
 
+
+  //Mortgage Rent onblur
+  const onBlurPayment = (event) => {
+    let inputValue = event.target.value.replace("$", "");
+    let s = inputValue.split(".");
+    let afterDecimal = s[ 1 ];
+    if (!afterDecimal) {
+      inputValue = event.target.value.replace(".", "");
+      inputValue = inputValue.replace("$", "");
+	  setData({
+		...data,
+		rentMortgageAmount: parseInt(
+			inputValue ? inputValue : "0"
+		),
+	});
+    }
+  };
+
 	const onHandleChange = (event) => {
 		const reg = /^[0-9\b]+$/;
-		let acc = event.target.value;
-		if (acc === "" || reg.test(acc)) {
+		let inputValue = event.target.value.replace("$", "");
+		if (inputValue === "" || reg.test(inputValue)) {
+			inputValue =
+        inputValue.indexOf(".") >= 0
+          ? inputValue.substr(0, inputValue.indexOf(".")) +
+          inputValue.substr(inputValue.indexOf("."), 3)
+          : inputValue;
 			setData({
 				...data,
 				rentMortgageAmount: parseInt(
-					event.target.value ? event.target.value : "0"
+					 inputValue
 				),
 			});
-		}
-		if (event.target.value !== '' && event.target.value >= 100) {
+				}
+		if (inputValue !== '' && inputValue >= 100) {
 			setError(false);
 			setHelperText("");
 		} else if (event.target.value === "") {
@@ -286,11 +309,13 @@ function LivingPlace() {
 											form={ true }
 											error={ error }
 											helperText={ helperText }
-											value={ data.rentMortgageAmount }
+											value={ "$" + (data?.rentMortgageAmount ? data.rentMortgageAmount : "") }
+                              onBlur={ onBlurPayment }
+											// value={dollar }
 											onChange={ onHandleChange }
 											materialProps={ {
 												"data-test-id": "rentMortgageAmount",
-												maxLength: "5",
+												maxLength: "6",
 											} }
 										/>
 									</Grid>
