@@ -112,9 +112,9 @@ function LivingPlace() {
 	};
 
 	//redirect to select amount on direct call
-	// if (data.completedPage < data.page.annualIncome || data.formStatus === "completed") {
-	// 	history.push("/select-amount");
-	// }
+	if (data.completedPage < data.page.annualIncome || data.formStatus === "completed") {
+		history.push("/select-amount");
+	}
 
 	//View part
 	return (
