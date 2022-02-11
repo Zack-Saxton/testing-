@@ -4,7 +4,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { maritalStatusData } from "../../../../assets/data/constants"
 import * as yup from "yup";
 import MarriedStatusLogo from "../../../../assets/icon/married-status.png";
@@ -71,7 +71,7 @@ function MarriedStatus() {
 	const { data, setData } = useContext(CheckMyOffers);
 	const [ stateShort, setStateShort ] = useState("");
 	const [ validZip, setValidZip ] = useState(true);
-	const navigate = useNavigate();
+	const history = useHistory();
 
 	//Configuring formik
 	const formik = useFormik({
@@ -96,7 +96,7 @@ function MarriedStatus() {
 				spouse_address_postal_code: values.spouseZipcode,
 				completedPage: data.page.activeDuty,
 			});
-			navigate("/ssn");
+			history.push("/ssn");
 		},
 	});
 
@@ -136,7 +136,7 @@ function MarriedStatus() {
 
 	//redirect to select amount if page accessed directly
 	if (data.completedPage < data.page.livingPlace || data.formStatus === "completed") {
-		navigate("/select-amount");
+		history.push("/select-amount");
 	}
 
 	//JSX part

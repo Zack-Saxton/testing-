@@ -8,7 +8,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import * as yup from "yup";
 import AddressLogo from "../../../../assets/icon/I-Address.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
@@ -66,7 +66,7 @@ function HomeAddress() {
 	const handleCloseOhio = () => {
 		setOpenOhio(false);
 	};
-	const navigate = useNavigate();
+	const history = useHistory();
 
 	// Formik configutration
 	const formik = useFormik({
@@ -85,7 +85,7 @@ function HomeAddress() {
 			data.zip = values.zip;
 			data.stateFullform = values.state;
 			data.completedPage = data.page.homeAddress;
-			navigate("/personal-info");
+			history.push("/personal-info");
 		},
 	});
 
@@ -133,7 +133,7 @@ function HomeAddress() {
 		formik.setFieldValue("streetAddress", event.target.value.trim());
 	};
 	if (data.completedPage < data.page.citizenship || data.formStatus === "completed") {
-		navigate("/select-amount");
+		history.push("/select-amount");
 	}
 	return (
 		<div>

@@ -60,8 +60,9 @@ export default async function PartnerSignup(history, partnerToken, applicantId, 
             })
           );
           Cookies.set("email", partnerSignupMethod?.data?.applicant.contact.email);
-          navigate(statusStrLink[ partnerSignupMethod?.data?.applicant.processing.status ],
-            {state: {
+          history.push({
+            pathname: statusStrLink[ partnerSignupMethod?.data?.applicant.processing.status ],
+            state: {
               jwt_token: partnerSignupMethod?.data?.user.extensionattributes.login.jwt_token,
               partner_token: partnerSignupMethod?.data?.user.attributes.partner_token,
               first_name: partnerSignupMethod?.data?.applicant.contact.first_name,
@@ -153,7 +154,7 @@ export async function partnerConfirmInfo(dataConfirmInfo, history) {
     ? toast.success(PartnerConfirmationAPI?.data?.statusText ? PartnerConfirmationAPI?.data?.statusText : "Successfully registered",
       {
         onClose: () => {
-          navigate(statusStrLink[ PartnerConfirmationAPI?.data.applicationStatus ]);
+          history.push({ pathname: statusStrLink[ PartnerConfirmationAPI?.data.applicationStatus ], });
         },
       }
     )

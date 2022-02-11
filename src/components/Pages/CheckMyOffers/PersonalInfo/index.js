@@ -6,7 +6,7 @@ import axios from "axios";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import * as yup from "yup";
 import PersonLogo from "../../../../assets/icon/I-Personal-Info.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
@@ -96,7 +96,7 @@ function PersonalInfo() {
 	const [ ssnEmailMatch, setSsnEmailMatch ] = useState(true);
 	const [ error, setError ] = useState(false);
 	const [ loading, setLoading ] = useState(false);
-	const navigate = useNavigate();
+	const history = useHistory();
 
 	//configuring formik
 	const formik = useFormik({
@@ -147,7 +147,7 @@ function PersonalInfo() {
 
 				if (loginToken?.isLoggedIn === true) {
 					data.completedPage = data.page.existingUser;
-					navigate("/employment-status",);
+					history.push({ pathname: "/employment-status", });
 					setError(false);
 					setLoading(false);
 				} else {
@@ -168,7 +168,7 @@ function PersonalInfo() {
 								setLoading(false);
 							} else {
 								setSsnEmailMatch(true);
-								navigate("/existing-user");
+								history.push({ pathname: "/existing-user", });
 								setError(false);
 								setLoading(false);
 							}
@@ -180,7 +180,7 @@ function PersonalInfo() {
 					} else if (customerStatus.data.customerFound === false) {
 						setError(false);
 						setLoading(false);
-						navigate("/new-user");
+						history.push({ pathname: "/new-user", });
 					} else if (
 						customerStatus.data.errorMessage ===
 						"More than 1 customer record retrieved "
@@ -263,7 +263,7 @@ function PersonalInfo() {
 		data.completedPage < data.page.homeAddress ||
 		data.formStatus === "completed"
 	) {
-		navigate("/select-amount");
+		history.push("/select-amount");
 	}
 
 	//JSX [part]

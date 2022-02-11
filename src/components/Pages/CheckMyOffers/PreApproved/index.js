@@ -3,14 +3,14 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import setAccountDetails from "../../../Controllers/AccountOverviewController";
 import { ButtonPrimary } from "../../../FormsUI";
 
 const PreApproved = () => {
 
     const [ offerAmount, setOfferAmount ] = useState("");
-    const navigate = useNavigate();
+    const history = useHistory();
 
     useEffect(() => {
         setAccountDetails().then((res) => {
@@ -20,7 +20,7 @@ const PreApproved = () => {
     }, []);
 
     const handleContinue = () => {
-        navigate("/loan-purpose");
+        history.push({ pathname: "/loan-purpose" });
     };
 
     return (

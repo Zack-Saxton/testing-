@@ -1,7 +1,7 @@
 import Grid from "@material-ui/core/Grid";
 import { useFormik } from "formik";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import globalMessages from "../../../assets/data/globalMessages.json";
@@ -17,7 +17,7 @@ import "./Style.css";
 
 export default function ChangePassword(basicInformationData) {
   window.zeHide();
-  const navigate = useNavigate();
+  const history = useHistory();
   const [ loading, setLoading ] = useState(false);
   const [ , setprofileTabNumber ] = useGlobalState();
 
@@ -52,7 +52,7 @@ export default function ChangePassword(basicInformationData) {
   const logOut = () => {
     setLoading(false);
     LogoutController();
-    navigate("/login");
+    history.push({ pathname: "/login", });
   };
 
   const logoutUser = () => {
@@ -62,7 +62,7 @@ export default function ChangePassword(basicInformationData) {
   };
   const onClickCancelChange = () => {
     formikPassword.resetForm();
-    navigate('/customers/myProfile');
+    history.push({ pathname: '/customers/myProfile' });
     setprofileTabNumber({ profileTabNumber: 0 });
   };
 
@@ -124,7 +124,7 @@ export default function ChangePassword(basicInformationData) {
 
   const handleCancelButton = () => {
     formikPassword.resetForm();
-    navigate("/customers/myProfile");
+    history.push({ pathname: "/customers/myProfile" });
     setprofileTabNumber({ profileTabNumber: 0 });
   };
   //Preventing space key

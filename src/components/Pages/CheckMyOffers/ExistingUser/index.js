@@ -6,7 +6,7 @@ import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useContext, useState } from "react";
 import { useQueryClient } from 'react-query';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import PasswordLogo from "../../../../assets/icon/I-Password.png";
@@ -31,7 +31,7 @@ function ExistingUser() {
 	const { data, setData } = useContext(CheckMyOffers);
 	const [ loginFailed, setLoginFailed ] = useState("");
 	const [ loading, setLoading ] = useState(false);
-	const navigate = useNavigate();
+	const history = useHistory();
 	const queryClient = useQueryClient();
 	// Formik configuraion
 	const formik = useFormik({
@@ -73,9 +73,9 @@ function ExistingUser() {
 				if (accountDetail?.data?.customer?.user_account?.status === "closed") {
 					data.isActiveUser = false;
 					toast.error("Your account is closed to new applications. Please contact us to reapply.");
-					navigate("/customers/accountOverview");
+					history.push({ pathname: "/customers/accountOverview" });
 				} else {
-					navigate("/employment-status");
+					history.push({ pathname: "/employment-status" });
 				}
 			} else if (retVal?.data?.result === "error" || retVal?.data?.hasError === true) {
 				Cookies.set("token", JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" }));
@@ -101,7 +101,7 @@ function ExistingUser() {
 
 	//redirects to select amount on directr page call
 	if (data.completedPage < data.page.personalInfo || data.formStatus === "completed") {
-		navigate("/select-amount");
+		history.push("/select-amount");
 	}
 
 	// View part

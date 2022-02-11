@@ -2,7 +2,7 @@ import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import NoOffersAvailableLogo from "../../../../assets/gallery/No_Offers_Available.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, ButtonSecondary } from "../../../FormsUI";
@@ -12,20 +12,20 @@ import "./CheckMyOffer.css";
 
 // NoOffersAvailable functional component initialization
 function NoOffersAvailable(props) {
-	const navigate = useNavigate();
+	const history = useHistory();
 	//handle
 	const handleBlog = (event) => {
 		window.open("https://www.marinerfinance.com/blog/", "_self");
 	};
 	const handleHome = (event) => {
-		navigate("/customers/accountoverview");
+		history.push({ pathname: "/customers/accountoverview" });
 	};
 	const { data } = useContext(CheckMyOffers);
 	data.formStatus = "completed";
 
 	//Redirect to select amount if directly called
 	if (data.completedPage < data.page.ssn && data.applicationStatus !== "rejected" && props?.location?.formcomplete !== "yes") {
-		navigate("/select-amount");
+		history.push("/select-amount");
 	}
 
 	window.onbeforeunload = null;

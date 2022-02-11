@@ -12,7 +12,7 @@ import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useState } from "react";
 import { useQueryClient } from 'react-query';
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import Logo from "../../../assets/images/loginbg.png";
@@ -107,7 +107,7 @@ export default function Register() {
   const [ success, setSuccess ] = useState(false);
   const [ failed, setFailed ] = useState("");
   const [ loading, setLoading ] = useState(false);
-  const navigate = useNavigate();
+  const history = useHistory();
   const queryClient = useQueryClient();
 
   //Date implementation for verifying 18 years
@@ -151,7 +151,7 @@ export default function Register() {
         : Cookies.set("rememberMe", JSON.stringify({ selected: false, email: "", password: "" }));
 
       setLoading(false);
-      navigate("/customers/accountoverview");
+      history.push({ pathname: "/customers/accountoverview", });
     } else if (retVal?.data?.result === "error" || retVal?.data?.hasError === true) {
       Cookies.set("token", JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" }));
       setLoading(false);
@@ -254,7 +254,7 @@ export default function Register() {
 
   const handleCloseSuccess = () => {
     setSuccess(false);
-    navigate("customers/accountOverview");
+    history.push("customers/accountOverview");
   };
 
   //Preventing space key

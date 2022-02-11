@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useState } from "react";
 import { useQuery } from 'react-query';
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import { useGlobalState } from "../../../contexts/GlobalStateProvider";
@@ -47,7 +47,7 @@ export default function MailingAddress(props) {
   const [ loading, setLoading ] = useState(false);
   const [ validZip, setValidZip ] = useState(true);
   const [ errorMsg, setErrorMsg ] = useState("");
-  const navigate = useNavigate();
+  const history = useHistory();
   const [ , setprofileTabNumber ] = useGlobalState();
   const { refetch } = useQuery('loan-data', usrAccountDetails);
 
@@ -60,7 +60,7 @@ export default function MailingAddress(props) {
 
   const onClickCancelChange = () => {
     formik.resetForm();
-    navigate('/customers/myProfile');
+    history.push({ pathname: '/customers/myProfile' });
     setprofileTabNumber({ profileTabNumber: 0 });
   };
 

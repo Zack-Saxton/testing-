@@ -12,7 +12,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import { textNotification } from "../../Controllers/MyProfileController";
@@ -31,7 +31,7 @@ export default function TextNotification() {
   const classes = useStylesMyProfile();
   const [ loading, setLoading ] = useState(false);
   const [ openDisclosure, setDisclosureOpen ] = useState(false);
-  const navigate = useNavigate();
+  const history = useHistory();
   const [ , setprofileTabNumber ] = useGlobalState();
   let phone = Cookies.get("opted_phone_texting");
   let textnotifybool = Cookies.get("isTextNotify") === "true" ? true : false;
@@ -39,7 +39,7 @@ export default function TextNotification() {
 
   const onClickCancelChange = () => {
     formikTextNote.resetForm();
-    navigate("/customers/myProfile");
+    history.push({ pathname: "/customers/myProfile" });
     setprofileTabNumber({ profileTabNumber: 0 });
   };
 

@@ -9,7 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { useQuery } from 'react-query';
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import CheckLoginStatus from "../../../App/CheckLoginStatus";
 import usrAccountDetails from "../../../Controllers/AccountOverviewController";
 import { fetchAvailableOffers, submitSelectedOfferAPI } from "../../../Controllers/ApplyForLoanController";
@@ -35,7 +35,7 @@ export default function ApplyLoan() {
 	const [ checkedValue, setCheckedValue ] = useState("");
 	const [ selectedTerm, setSelectedTerm ] = useState("");
 	const [ selectedIndex, setSelectedIndex ] = useState("");
-	const navigate = useNavigate();
+	const history = useHistory();
 	let term;
 
 	const { data: val } = useQuery('available-offers', fetchAvailableOffers);
@@ -60,7 +60,7 @@ export default function ApplyLoan() {
 			if (selectedOfferResponse?.data?.selected_offer) {
 				setLoading(false);
 				refetch();
-				navigate("/customers/reviewAndSign", { selectedIndexOffer: selectedOfferResponse?.data?.selected_offer });
+				history.push({ pathname: "/customers/reviewAndSign", selectedIndexOffer: selectedOfferResponse?.data?.selected_offer, });
 			} else {
 				setLoading(false);
 				alert("Network Error");

@@ -4,7 +4,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import * as yup from "yup";
 import EmploymentStatusPNG from "../../../../assets/icon/I-Employment-Status.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
@@ -18,7 +18,7 @@ function EmploymentStatus() {
 	//Retrieving Context values
 	const { data, setData } = useContext(CheckMyOffers);
 	const [ employmentStatus, setEmploymentStatus ] = useState(data.employmentStatus ? data.employmentStatus : "");
-	const navigate = useNavigate();
+	const history = useHistory();
 
 	//initializing formik
 	const validationSchema = yup.object({
@@ -66,11 +66,11 @@ function EmploymentStatus() {
 			if (employmentStatus === employmentStatusData.employedHourly || employmentStatus === employmentStatusData.employedSalaried || employmentStatus === employmentStatusData.selfEmployed) {
 				if (data.yearsAtEmployers !== "" && data.yearsAtEmployers !== 0 && data.yearsAtEmployers !== null) {
 					data.employmentStatus = employmentStatus;
-					navigate("/annual-income");
+					history.push("/annual-income");
 				}
 			} else {
 				data.employmentStatus = employmentStatus;
-				navigate("/annual-income");
+				history.push("/annual-income");
 			}
 		},
 	});
@@ -83,7 +83,7 @@ function EmploymentStatus() {
 	};
 
 	if (data.completedPage < data.page.existingUser || data.formStatus === "completed") {
-		navigate("/select-amount");
+		history.push("/select-amount");
 	}
 	// JSX part
 	return (

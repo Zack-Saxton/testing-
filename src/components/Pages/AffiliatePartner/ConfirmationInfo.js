@@ -9,7 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import * as yup from "yup";
 import states from '../../../assets/data/States.json';
 import creditkarmalogo from "../../../assets/images/ck_logo.png";
@@ -197,7 +197,7 @@ export default function CreditKarma(props) {
   const [ agree, setAgree ] = useState(false);
   const [ errorAnnual, setErrorAnnual ] = useState("");
   const [ errorPersonal, setErrorPersonal ] = useState("");
-  const navigate = useNavigate();
+  const history = useHistory();
   const [ esignPopup, setEsignPopup ] = useState(false);
   const [ creditPopup, setCreditPopup ] = useState(false);
   const [ webTOUPopup, setwebTOUPopup ] = useState(false);

@@ -34,7 +34,7 @@ import React, { useContext, useEffect, useState } from "react";
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import { useQuery, useQueryClient } from "react-query";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import logoIcon from "../../../assets/images/Favicon.png";
@@ -182,7 +182,7 @@ export default function SideNav() {
   const [ open, setOpen ] = React.useState(true);
   const [ anchorEl, setAnchorEl ] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
-  const navigate = useNavigate();
+  const history = useHistory();
   const [ disable, setDisable ] = React.useState(false);
   const [ skill, setSkill ] = React.useState(false);
   const [ checked, setChecked ] = React.useState(true);
@@ -413,12 +413,12 @@ export default function SideNav() {
   };
 
   const handleMenuProfile = () => {
-    navigate('/customers/myProfile');
+    history.push({ pathname: '/customers/myProfile' });
     setprofileTabNumber({ profileTabNumber: 0 });
     handleMenuClose();
   };
   const handleMenuPaymentProfile = () => {
-    navigate('/customers/myProfile');
+    history.push({ pathname: '/customers/myProfile' });
     setprofileTabNumber({ profileTabNumber: 3 });
     handleMenuClose();
   };
@@ -429,7 +429,7 @@ export default function SideNav() {
     LogoutController();
     resetData();
     resetProfilePicture();
-    navigate("/login");
+    history.push({ pathname: "/login" });
   }
 
   const logoutUser = () => {
@@ -451,11 +451,11 @@ export default function SideNav() {
   };
 
   const onAFLClick = () => {
-    navigate("/customers/applyForLoan");
+    history.push({ pathname: "/customers/applyForLoan", });
   };
 
   const resumeApplicationClick = () => {
-    navigate(applicationStatusRedirectPage[ checkPresenceOfLoanStatus ]);
+    history.push({ pathname: applicationStatusRedirectPage[ checkPresenceOfLoanStatus ], });
 
   };
 

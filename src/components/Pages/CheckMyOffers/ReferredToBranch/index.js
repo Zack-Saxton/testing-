@@ -2,7 +2,7 @@ import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import ReferToBranchLogo from "../../../../assets/gallery/Referred-to-Branch.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary } from "../../../FormsUI";
@@ -13,12 +13,12 @@ import ScrollToTopOnMount from "../ScrollToTop";
 function ReferredToBranch(props) {
 	//get context values
 	const { data } = useContext(CheckMyOffers);
-	const navigate = useNavigate();
+	const history = useHistory();
 	data.formStatus = "completed";
 
 	//redirects to select amount of directly called
 	if (data.completedPage < data.page.ssn && data.applicationStatus !== "referred" && props?.location?.formcomplete !== "yes") {
-		navigate("/select-amount");
+		history.push("/select-amount");
 	}
 	window.onbeforeunload = null;
 

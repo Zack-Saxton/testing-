@@ -4,7 +4,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import AnnualIncomeLogo from "../../../../assets/icon/I-Annual-Income.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, TextField } from "../../../FormsUI";
@@ -18,7 +18,7 @@ function NewUser() {
 	const [ errorPersonal, setErrorPersonal ] = useState("");
 
 	//Retrieving Context values
-	const navigate = useNavigate();
+	const history = useHistory();
 	const validate = (personal, household) => {
 		if (!isNaN(personal) && !isNaN(household)) {
 			if (personal <= household) {
@@ -64,7 +64,7 @@ function NewUser() {
 					data.annualIncome = modPersonalIncome ? modPersonalIncome : "0";
 					data.householdAnnualIncome = modHouseholdIncome ? modHouseholdIncome : "0";
 					data.completedPage = data.completedPage > data.page.annualIncome ? data.completedPage : data.page.annualIncome;
-					navigate("/living-place");
+					history.push("/living-place");
 				}
 			}
 		},
@@ -196,7 +196,7 @@ function NewUser() {
 		data.completedPage < data.page.employmentStatus ||
 		data.formStatus === "completed"
 	) {
-		navigate("/select-amount");
+		history.push("/select-amount");
 	}
 
 	//JSX part

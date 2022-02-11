@@ -1,17 +1,17 @@
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import APICall from "../../lib/AxiosLib";
 import messages from "../../lib/Lang/applyForLoan.json";
 
 //To redirect the user to apply for loan sections depends on the status of the loan application
 const ApplyForLoanRedirect = (props) => {
-	const navigate = useNavigate();
+	const history = useHistory();
 
 	const redirectToCMO = () => {
-		navigate("/select-amount");
+		history.push({ pathname: "/select-amount", });
 	};
 
 	//To get the current active application status
@@ -45,33 +45,33 @@ const ApplyForLoanRedirect = (props) => {
 				? props.location.state.statusCheck
 				: true;
 		if (props?.location?.state?.from === "user") {
-			navigate({ state: { from: "ended" }, });
+			history.push({ state: { from: "ended" }, });
 			if (res?.data?.customer?.user_account?.status === "closed" && checkStatus !== false) {
 				if (!toast.isActive("closedApplication")) {
 					toast.error(
 						messages?.accountClosed);
 				}
-				navigate("/customers/accountOverview");
+				history.push({ pathname: "/customers/accountOverview", });
 			} else if (res?.data?.applicants.length === 0) {
 				redirectToCMO();
 			} else if (res?.data?.applicants[ 0 ]?.isActive === true) {
-				navigate(statusStrLink[ res?.data?.applicants[ 0 ]?.status ]);
+				history.push({ pathname: statusStrLink[ res?.data?.applicants[ 0 ]?.status ], });
 			} else {
 				let isActiveApplicationAvailable = false;
 				res?.data?.applicants.map((item, index) => {
 					if (item.isActive === true) {
 						isActiveApplicationAvailable = true;
-						navigate(statusStrLink[ item.status ]);
+						history.push({ pathname: statusStrLink[ item.status ], });
 					}
 					return null;
 				});
 				if (isActiveApplicationAvailable === false) {
-					navigate("/select-amount");
+					history.push({ pathname: "/select-amount", });
 				}
 				return null;
 			}
 		} else {
-			navigate("/customers/accountOverview");
+			history.push({ pathname: "/customers/accountOverview", });
 		}
 		return res;
 	};

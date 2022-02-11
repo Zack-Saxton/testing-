@@ -8,7 +8,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { ButtonPrimary } from "../../../FormsUI";
 import APICall from "../../../lib/AxiosLib";
 import BankAccountVerification from "./BankAccountVerification";
@@ -70,7 +70,7 @@ function getSteps() {
 
 //Vertial stepper configuration
 export default function VerticalLinearStepper() {
-	const navigate = useNavigate();
+	const history = useHistory();
 	const classes = useStyles();
 	const [ activeStep, setActiveStep ] = React.useState();
 	const [ loadingFlag, setLoadingFlag ] = useState(false);
@@ -92,7 +92,7 @@ export default function VerticalLinearStepper() {
 			res?.data?.bank_account_verification === true &&
 			res?.data?.income_verification === true
 		) {
-			navigate("/customers/receiveYourMoney");
+			history.push({ pathname: "/customers/receiveYourMoney", });
 		} else if (res?.data?.email === false) {
 			tabPosition = 0;
 		} else if (

@@ -4,7 +4,7 @@ import ThumbUpIcon from "@material-ui/icons/ThumbUpAlt";
 import Moment from "moment";
 import React, { useEffect, useState } from "react";
 import GaugeChart from "react-gauge-chart";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Equifax from "../../../assets/images/equifax-logo.png";
 import VantageScore from "../../../assets/images/Vantagescore-logo.png";
 import setAccountDetails from "../../Controllers/AccountOverviewController";
@@ -16,7 +16,7 @@ export default function Credit(creditData) {
   window.zeHide();
   //Material UI css class
   const classes = useStyleVantageScore();
-  const navigate = useNavigate();
+  const history = useHistory();
   const [ loanstatus, setloanstatus ] = useState(null);
   let percent;
   let score = creditData.creditData[ 0 ].parsed.vantage_score;
@@ -61,7 +61,7 @@ export default function Credit(creditData) {
 
   //Navigation
   const navigateCheckMyOffers = () => {
-    navigate("/customers/applyForLoan", { state: { statusCheck: false, from: "user" } });
+    history.push({ pathname: "/customers/applyForLoan", state: { statusCheck: false, from: "user" }, });
   };
 
   //View

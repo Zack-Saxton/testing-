@@ -1,7 +1,7 @@
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ButtonPrimary, ButtonSecondary } from "../../../FormsUI";
 import APICall from "../../../lib/AxiosLib";
@@ -18,7 +18,7 @@ const useStyles = makeStyles(() => ({
 //View Part
 //Initializing functional componentl
 export default function IncomeVerification(props) {
-	const navigate = useNavigate();
+	const history = useHistory();
 	const classes = useStyles();
 	const handleUpload = (res) => {
 		if (res?.data?.income_verification) {
@@ -101,7 +101,7 @@ export default function IncomeVerification(props) {
 								res?.data?.income_verification === true
 							) {
 								props.setLoadingFlag(false);
-								navigate("/customers/receiveYourMoney");
+								history.push({ pathname: "/customers/receiveYourMoney", });
 							} else {
 								props.setLoadingFlag(false);
 								alert(messages.incomeVerification.finishAllSteps);

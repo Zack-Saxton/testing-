@@ -7,7 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { useIdleTimer } from "react-idle-timer";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import "../App/App.css";
 import CheckLoginStatus from "../App/CheckLoginStatus";
@@ -20,7 +20,7 @@ import globalMessages from "../../assets/data/globalMessages.json";
 import AppBar from "./AppBar/SideNav";
 
 const Post = ({ children }) => {
-    const navigate = useNavigate();
+    const history = useHistory();
     const expiryMinute = process.env.REACT_APP_SESSION_EXPIRY_MINUTES;
     const tokenString = Cookies.get("token") ? Cookies.get("token") : '{ }';
     const userToken = JSON.parse(tokenString);
@@ -43,7 +43,7 @@ const Post = ({ children }) => {
         var now = new Date().getTime();
         actualSetupTime = now;
         if (!cred) {
-            navigate("/login", { state: { redirect: window.location.pathname }, });
+            history.push({ pathname: "/login", state: { redirect: window.location.pathname }, });
         } else {
             let retVal = await LoginController(cred.email, cred.password, "");
             if (retVal?.data?.user && retVal?.data?.userFound === true) {
@@ -82,10 +82,10 @@ const Post = ({ children }) => {
                     "cred",
                     encryptAES(JSON.stringify({ email: "", password: "" }))
                 );
-                navigate("/login", { state: { redirect: window.location.pathname }, });
+                history.push({ pathname: "/login", state: { redirect: window.location.pathname }, });
             } else {
                 alert("Network error");
-                navigate("/login", { state: { redirect: window.location.pathname }, });
+                history.push({ pathname: "/login", state: { redirect: window.location.pathname }, });
             }
         }
         return true;
@@ -99,7 +99,7 @@ const Post = ({ children }) => {
     const handleOnIdleLogout = (event) => {
         LogoutController();
         Cookies.set("redirec", JSON.stringify({ to: "/select-amount" }));
-        navigate("/login");
+        history.push({ pathname: "/login", });
         toast.success(globalMessages.LoggedOut);
     };
 

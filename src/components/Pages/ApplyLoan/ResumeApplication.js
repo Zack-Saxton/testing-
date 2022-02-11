@@ -1,16 +1,18 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
 import APICall from "../../lib/AxiosLib";
 import applicationStatusRedirectPage from "../../../assets/data/applicationStatusRedirectPage.json";
 //To redirect the user to apply for loan sections depends on the status of the loan application
 const ResumeApplication = (props) => {
-	const navigate = useNavigate();
+	const history = useHistory();
 	const redirect = async () => {
 		let res = await APICall("account_overview", '', {}, "GET", true);
 		let activeApplication = res?.data?.applicants?.find((applicant) => applicant.isActive === true);
-		navigate(activeApplication ? applicationStatusRedirectPage[ activeApplication.status ] : res?.data?.customer?.user_account?.status === "closed" ? "/customers/accountOverview" : "/select-amount");
+		history.push({
+			pathname: activeApplication ? applicationStatusRedirectPage[ activeApplication.status ] : res?.data?.customer?.user_account?.status === "closed" ? "/customers/accountOverview" : "/select-amount",
+		});
 	};
 	useEffect(() => {
 		redirect();

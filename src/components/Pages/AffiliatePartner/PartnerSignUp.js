@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import * as yup from "yup";
 import Logo from "../../../assets/images/loginbg.png";
@@ -161,7 +161,7 @@ export default function CreditKarma() {
   const classes = useStyles();
   const [ failed, setFailed ] = useState("");
   const [ loading, setLoading ] = useState(false);
-  const navigate = useNavigate();
+  const history = useHistory();
   const [ agree, setAgree ] = useState(false);
   const [ esignPopup, setEsignPopup ] = useState(false);
   const [ creditPopup, setCreditPopup ] = useState(false);

@@ -1,7 +1,7 @@
 import { Box, Modal, Typography } from "@material-ui/core";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from "@material-ui/core/Grid";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import IconButton from "@material-ui/core/IconButton";
 import Paper from "@material-ui/core/Paper";
 import CloseIcon from "@material-ui/icons/Close";
@@ -22,7 +22,7 @@ export default function LimitedOffer(userOfferData) {
   window.zeHide();
   // Get offers details
   let userOfferAmount = (userOfferData.userOffers != null) ? userOfferData.userOffers.offerAmount : 0;
-  const navigate = useNavigate();
+  const history = useHistory();
   
   const [initModal,setinitModal] = useState(false);
   const [offerCode,setOfferCode] = useState(" ");
@@ -72,7 +72,7 @@ export default function LimitedOffer(userOfferData) {
   };
 
   const handleContinue = () => {
-    navigate("/pre-approved");
+    history.push({ pathname: "/pre-approved" });
   };
 
   //View

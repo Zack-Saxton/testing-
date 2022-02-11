@@ -6,7 +6,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import React from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import Logo from "../../../assets/images/MarinerLogo.png";
 import { useStyles } from "./NormalHeaderStyle";
 
@@ -14,7 +14,7 @@ const NormalHeader = () => {
   const classes = useStyles();
   const [ mobileMoreAnchorEl, setMobileMoreAnchorEl ] = React.useState(false);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  const navigate = useNavigate();
+  const history = useHistory();
 
   //Menu open & close
   const handleMobileMenuOpen = (event) => {
@@ -59,7 +59,7 @@ const NormalHeader = () => {
   );
 
   const redirectToAccountOverview = () => {
-    navigate("/customers/accountOverview");
+    history.push({ pathname: "/customers/accountOverview", });
   };
 
   //View Part

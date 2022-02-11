@@ -4,7 +4,7 @@ import Paper from "@material-ui/core/Paper";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import AutoExpenseIcon from "../../../../assets/icon/AutoExpense-Repair.png";
 import DeptIcon from "../../../../assets/icon/Debt-Consolidation.png";
 import HolidayIcon from "../../../../assets/icon/Holiday-Spending.png";
@@ -33,13 +33,13 @@ import "./LoanPurpose.css";
 function LoanPurpose(props) {
 	const { data } = useContext(CheckMyOffers);
 	const [ purpose, setPurpose ] = useState(data.loanPurpose ?? "");
-	const navigate = useNavigate();
+	const history = useHistory();
 
 	//handle the user data nd store it into context and procced next step
 	const handleRoute = () => {
 		data.loanPurpose = purpose;
 		data.completedPage = data.completedPage > data.page.loanPurpose ? data.completedPage : data.page.loanPurpose;
-		navigate("/citizenship-status");
+		history.push("/citizenship-status");
 	};
 
 	//  validate and procceeds to next step
@@ -48,7 +48,7 @@ function LoanPurpose(props) {
 		setPurpose(val);
 		if (data.completedPage < data.page.loanPurpose) {
 			data.completedPage = data.completedPage > data.page.loanPurpose ? data.completedPage : data.page.loanPurpose;
-			navigate("/citizenship-status");
+			history.push("/citizenship-status");
 		}
 	};
 
@@ -83,7 +83,7 @@ function LoanPurpose(props) {
 
 	//redirect to select offers if directly called
 	if (data.completedPage < data.page.selectAmount || data.formStatus === "completed") {
-		navigate("/select-amount");
+		history.push("/select-amount");
 	}
 
 	//view part

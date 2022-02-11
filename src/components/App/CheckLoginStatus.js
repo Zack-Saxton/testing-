@@ -1,10 +1,10 @@
 import Cookies from "js-cookie";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import LogoutController from "../Controllers/LogoutController";
 // check the login status
 const CheckLoginStatus = () => {
-  const navigate = useNavigate();
+  const history = useHistory();
   const tokenString = Cookies.get("token") ? Cookies.get("token") : '{ }';
   const userToken = JSON.parse(tokenString);
   var nowTime = new Date().getTime();
@@ -16,7 +16,7 @@ const CheckLoginStatus = () => {
   useEffect(() => {
     if (!userToken?.isLoggedIn || (nowTime - actualSetupTime) > min * 60 * 1000) {
       LogoutController();
-      navigate('/login', { state: { redirect: window.location.pathname } });
+      history.push({ pathname: "/login", state: { redirect: window.location.pathname } });
     }
   }, []);
   return null;

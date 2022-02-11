@@ -3,22 +3,22 @@ import Paper from "@material-ui/core/Paper";
 import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
 import MonetizationOnRoundedIcon from "@material-ui/icons/MonetizationOnRounded";
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useStylesLoanHistory } from "./Style";
 import "./Style.css";
 
 export default function LoanHistoryCard(historyOfLoans) {
   window.zeHide();
-  const navigate = useNavigate();
+  const history = useHistory();
   //Material UI css class
   const classes = useStylesLoanHistory();
   //Loan history data from API
 
   const redirectToApplyForLoan = () => {
-    navigate("/customers/applyForLoan", { state: { from: "user" } });
+    history.push({ pathname: "/customers/applyForLoan", state: { from: "user" } });
   };
   const redirectToMakeAPayment = () => {
-    navigate("/customers/makePayment", { state: { from: "user" } });
+    history.push({ pathname: "/customers/makePayment", state: { from: "user" } });
   };
   //  view part
   return (

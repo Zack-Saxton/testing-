@@ -6,7 +6,7 @@ import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useContext, useState } from "react";
 import { useQueryClient } from 'react-query';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import globalMessages from '../../../../assets/data/globalMessages.json';
@@ -42,7 +42,7 @@ const validationSchema = yup.object({
 //  New user functional component
 
 function NewUser() {
-	const navigate = useNavigate();
+	const history = useHistory();
 	const { data, setData } = useContext(CheckMyOffers);
 	const [ failed, setFailed ] = useState(false);
 	const [ loading, setLoading ] = useState(false);
@@ -112,7 +112,7 @@ function NewUser() {
 							: Cookies.set("rememberMe", JSON.stringify({ selected: false, email: "", password: "" }));
 
 						setLoading(false);
-						navigate("employment-status");
+						history.push({ pathname: "employment-status", });
 					} else if (retVal?.data?.result === "error" || retVal?.data?.hasError === true) {
 						Cookies.set("token", JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" }));
 						setLoading(false);
@@ -144,7 +144,7 @@ function NewUser() {
 
 	//redirects to select amount on direct call
 	if (data.completedPage < data.page.personalInfo || data.formStatus === "completed") {
-		navigate("/select-amount");
+		history.push("/select-amount");
 	}
 
 	//View part

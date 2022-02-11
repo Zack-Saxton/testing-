@@ -7,7 +7,7 @@ import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useState } from "react";
 import { useQueryClient } from "react-query";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import LoginController from "../../Controllers/LoginController";
 import { ButtonPrimary, EmailTextField, PasswordField } from "../../FormsUI";
 import { encryptAES } from "../../lib/Crypto";
@@ -94,7 +94,7 @@ const validationSchema = formValidation.getFormValidationRule('login');
 //Begin: Login page
 export default function Login(props) {
 	const classes = useStyles();
-	const navigate = useNavigate();
+	const history = useHistory();
 	const [ loginFailed, setLoginFailed ] = useState("");
 	const [ loading, setLoading ] = useState(false);
 	const [ counter, setCounter ] = useState(0);
@@ -130,7 +130,7 @@ export default function Login(props) {
 				Cookies.set('temp_opted_phone_texting', "");
 				queryClient.removeQueries();
 				setLoading(false);
-				navigate( props?.location?.state?.redirect ? props.location.state?.redirect : "/customers/accountoverview");
+				history.push({ pathname: props.location.state?.redirect ? props.location.state?.redirect : "/customers/accountoverview", });
 				if (props.location.state?.activationToken) {
 					history.go(0);
 				}
@@ -151,7 +151,7 @@ export default function Login(props) {
 				setLoading(false);
 				setLoginFailed(retVal?.data?.errorMessage);
 				if (counter >= 1) {
-					navigate('/register?email=' + values.email);
+					history.push('/register?email=' + values.email);
 				}
 			} else {
 				setLoading(false);
