@@ -7,3 +7,7 @@
    margin: 0 !important;
    line-height: 0 !important;
 }
+
+#selectDoccumentWrap .subOption{
+    color: #171717;
+}

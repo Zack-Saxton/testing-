@@ -64,6 +64,13 @@
 	padding-bottom: 12px;
 }
 
+#currentAddressSelect .subOption{
+	color: #171717 !important;
+}
+#heardUsSelect .subOption{
+	color: #171717 !important;
+}
+
 /* ID Verification Questions */
 #IdQuestionsTxt{
 	font-size: 0.938rem !important;

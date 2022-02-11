@@ -134,6 +134,7 @@ function ActiveDuty() {
 											xs={ 12 }
 										>
 											<Select
+												id="activeDutySelect"
 												fullWidth={ true }
 												name="activeDuty"
 												labelform="Active Duty *"
@@ -168,6 +169,7 @@ function ActiveDuty() {
 											xs={ 12 }
 										>
 											<Select
+												id="activeDutyRank"
 												fullWidth={ true }
 												name="activeDutyRank"
 												labelform="Thank you for your service. What is your rank? *"

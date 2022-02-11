@@ -300,6 +300,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
                     : <p>No time slot available</p>
                   :
                   <Select
+                    id="timeSlotSelect"
                     name="callTime"
                     labelform="Time Slot"
                     select={ other_M_W_Thu }
