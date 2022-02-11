@@ -158,7 +158,7 @@ function SSN() {
 						item
 						container
 						justifyContent="center"
-						style={ { width: "100%", paddingTop: "70px", paddingBottom: "70px" } }
+						style={ { width: "100%",  padding:"4% 0px" } }
 					>
 						<Grid
 							xs={ 11 }
@@ -188,9 +188,10 @@ function SSN() {
 								</div>
 								<Grid className="floatLeft">
 									<Link
+										id="arrowBack"
 										to={ data.state === "WI" ? "/marital-status" : redirectNC }
 									>
-										<i className="material-icons dp48 yellowText  ">
+										<i className="material-icons dp48 yellowText  floatingButton">
 											arrow_back
 										</i>
 									</Link>
@@ -203,7 +204,7 @@ function SSN() {
 									align="center"
 									justify="center"
 									alignitems="center"
-									className="borrowCSSLP"
+									className="borrowCSSLP checkMyOfferText "
 									style={ { margin: "0px" } }
 								>
 									One last step
@@ -259,7 +260,7 @@ function SSN() {
 										lg={ 8 }
 										md={ 8 }
 										xs={ 12 }
-										className="textBlockWithLessMargin"
+										className="textBlockWithLessMargin disclosuresWrap"
 									>
 										<Checkbox
 											name="termsOfService"

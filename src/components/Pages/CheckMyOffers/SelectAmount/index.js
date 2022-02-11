@@ -51,7 +51,7 @@ function CheckMyOffers(props) {
 		data.formStatus = "started";
 		data.completedPage = data.page.selectAmount;
 		setData({ ...data, loanAmount: select });
-		history.push({ pathname: "/pre-approved" });
+		history.push({ pathname: "/loan-purpose" });
 	};
 
 	// jsx part
@@ -89,7 +89,7 @@ function CheckMyOffers(props) {
 								<Grid
 									item
 									xs={ 12 }
-									className="alignSlider"
+									className="selectAmountGrid"
 									container
 									justifyContent="center"
 									alignItems="center"

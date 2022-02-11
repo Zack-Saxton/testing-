@@ -71,3 +71,8 @@
 	font-size: 0.938rem !important;
 	padding-bottom: 10px !important ;
 }
+
+#helpLogin{
+	font-size: 1rem !important;
+	color: blue;
+}

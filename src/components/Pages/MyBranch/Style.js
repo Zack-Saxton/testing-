@@ -60,7 +60,14 @@ const useStylesMyBranch = makeStyles((theme) => ({
     fontSize: "2.125rem",
     color: "#fff",
     fontWeight: "400"
-  }
+  },
+  loadingOnWithoutBlur: {
+    pointerEvents: "none",
+  },
+  loadingOff: {
+    opacity: 1,
+    pointerEvents: "initial",
+  },
 }));
 
 export { useStylesMyBranch };

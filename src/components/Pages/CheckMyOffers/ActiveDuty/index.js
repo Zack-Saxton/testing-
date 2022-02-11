@@ -59,6 +59,7 @@ function ActiveDuty() {
 						container
 						justifyContent="center"
 						alignItems="center"
+						style={{ padding:"4% 0px"}}
 					>
 						<Grid
 							container
@@ -77,8 +78,6 @@ function ActiveDuty() {
 								justify="center"
 								style={ {
 									width: "inherit",
-									marginBottom: "10%",
-									marginTop: "10%",
 								} }
 							>
 								<div className="progress mt-0">

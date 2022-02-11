@@ -158,7 +158,7 @@ export default function ActiveLoans(userActiveLoanData) {
                               </span>
                             </h5>
                             <p className={ classes.cardContent }>
-                              * Amount may not include all fees!
+                              * Amount may not <br></br> include all fees!
                             </p>
                           </Grid>
                           <Grid item xs={ 12 } sm={ 3 }>
@@ -176,7 +176,7 @@ export default function ActiveLoans(userActiveLoanData) {
 
                             { today.isBefore(appData.loanDetails.NextPaymentDate) ?
                               <p className={ classes.cardcontent }>
-                                Due in { " " }
+                               { " " } Due in { " " }
                                 { Math.ceil(
                                   Moment.duration(
                                     Moment(
@@ -188,7 +188,7 @@ export default function ActiveLoans(userActiveLoanData) {
                               </p>
                               :
                               <p className={ classes.cardcontent }>
-                                Your payment is overdue
+                                Your payment is <br></br> overdue
                               </p> }
 
                           </Grid>

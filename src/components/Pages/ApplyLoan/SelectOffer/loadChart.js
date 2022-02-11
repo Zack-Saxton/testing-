@@ -93,9 +93,9 @@ export default function LoadChart(props) {
 			) : (
 				<div className="chartGrid">
 					{ props.offerFlag ? (
-						<p></p>
+						null
 					) : (
-						<p>{ messages.selectTwoToCompare }</p>
+						<p>{ messages.selectAmount.selectTwoToCompare }</p>
 					) }
 				</div>
 			) }

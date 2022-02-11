@@ -32,7 +32,7 @@ function BranchLocatorMap(props) {
             onLoad={handleOnLoad}
             center={Current}
             onClick={() => setActiveMarker(null)}
-            mapContainerStyle={{ height: "715px", width: "100%" }}
+            mapContainerStyle={{ height: "100%", width: "100%" }}
         >
             <Circle
                 center={Current}
