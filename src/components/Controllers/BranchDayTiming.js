@@ -8,7 +8,6 @@ export default async function BranchDayTiming(branchLookupData) {
     let dotw = moment().day();
     let today = new Date();
     let TodayHour = today.getHours();
-    let PRP = ` HELLO HOW ARE YOU ${today} is # ${TodayHour}`;
     let ClosedOrOpen = { "Value1": "Open Now!", "Value2": "", "Value3":"" };
     if (([1, 3, 4, 5].includes(dotw)) && moment().isBefore(moment().format("YYYY-MM-DD") + "T17:30") && moment().isAfter(moment().format("YYYY-MM-DD") + "T09:00") && caState) {
         ClosedOrOpen = branchInfoDisplay('5:30 P.M. ', branchLookupData)
