@@ -47,6 +47,7 @@ function ActiveDuty() {
 	if (data.completedPage < data.page.livingPlace || data.formStatus === "completed") {
 		history.push("/select-amount");
 	}
+	let disableLoan = formik.values.activeDutyRank === "E4 and below" && formik.values.activeDuty === "Active Military" ? true : false;
 	//JSX part
 	return (
 		<div>
@@ -169,7 +170,7 @@ function ActiveDuty() {
 											<Select
 												fullWidth={ true }
 												name="activeDutyRank"
-												labelform="Active duty rank *"
+												labelform="Thank you for your service. What is your rank? *"
 												select='[{"value":"E4 and below"}, {"value":"E5 and above"}]'
 												value={ formik.values.activeDutyRank }
 												onChange={ formik.handleChange }
@@ -184,11 +185,16 @@ function ActiveDuty() {
 												}
 											/>
 										</Grid>
-
+										<h4
+											className={ disableLoan ? "showMsg" : "hideMsg"	}
+										>
+											Unfortunately, based on the application information provided, <br />you do not meet our application requirements.
+										</h4>
 										<Grid item lg={ 8 } md={ 8 } xs={ 12 } className="alignButton">
 											<ButtonPrimary
 												type="submit"
 												data-testid="contButton"
+												disabled={ disableLoan }
 												stylebutton='{"background": "#FFBC23","fontSize": "0.938rem", "padding": "0px 30px", "color": "black","fontSize":"1rem"}'
 											>
 												Continue
