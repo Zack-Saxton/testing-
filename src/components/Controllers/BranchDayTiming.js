@@ -71,7 +71,7 @@ const branchInfoDisplay = function (time, branchLookupData) {
     let tz = tzMatch[branchLookupData.timeZoneName];
     return (
         {
-            "Value2": time + " " + tz,
+            "Value2": `${time} ${tz}`,
             "Value1": "OPEN UNTIL",
             "Value3": ""
         }
