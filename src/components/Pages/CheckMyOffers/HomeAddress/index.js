@@ -165,8 +165,8 @@ function HomeAddress() {
 									<span className="floatLeft detNum30">30%</span>
 								</div>
 								<Grid className="floatLeft">
-									<Link to="/citizenship-status">
-										<i className="material-icons dp48 yellowText  ">
+									<Link className="arrowBack" to="/citizenship-status">
+										<i className="material-icons dp48 yellowText floatingButton">
 											arrow_back
 										</i>
 									</Link>

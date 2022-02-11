@@ -182,8 +182,8 @@ function NewUser() {
 									<span className="floatLeft detNum5" />
 								</div>
 								<Grid className="floatLeft">
-									<Link to="/personal-info">
-										<i className="material-icons dp48 yellowText  ">
+									<Link className="arrowBack" to="/personal-info" id="">
+										<i className="material-icons dp48 yellowText floatingButton ">
 											arrow_back
 										</i>
 									</Link>
@@ -199,7 +199,8 @@ function NewUser() {
 									align="center"
 									justify="center"
 									alignitems="center"
-									className="borrowCSS"
+									className=""
+									style={{fontSize:"0.938rem", color:"595959"}}
 								>
 									We have detected you are a new customer.
 								</Typography>
@@ -209,7 +210,7 @@ function NewUser() {
 									align="center"
 									justify="center"
 									alignitems="center"
-									className="borrowCSSLP"
+									className="borrowCSSLP checkMyOfferText "
 								>
 									Please create a secure account with us.
 								</Typography>
