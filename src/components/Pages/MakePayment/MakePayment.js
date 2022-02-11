@@ -467,14 +467,14 @@ export default function MakePayment(props) {
       ? paymentData.ACHMethods.map((pdata) => ({
         value: pdata.SequenceNumber,
         label:
-          pdata.AccountType + " (****" + pdata.AccountNumber.substr(-4) + ")",
+        pdata.AccountType + " (" + pdata.Nickname + ") (****" + pdata.AccountNumber.substr(-4) + ")",
       }))
       : null;
   let paymentListCard =
     paymentData && paymentData.ACHMethods != null
       ? paymentData.CardMethods.map((pdata) => ({
         value: pdata.ProfileId,
-        label: pdata.CardType + " (****" + pdata.LastFour + ")",
+        label: pdata.CardType + " (" + pdata.OwnerName + ") (****" + pdata.LastFour + ")",
       }))
       : null;
 
