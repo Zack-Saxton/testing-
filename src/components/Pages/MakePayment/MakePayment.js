@@ -142,9 +142,9 @@ export default function MakePayment(props) {
           autoClose: 5000,
         }
       );
-
+      
     hasSchedulePayment
-      ? result.status === 200
+      ? result.status === 900
         ? deleteSchedule(accntNo, routingNumber)
         : refetch()
       : refetch();
@@ -172,9 +172,9 @@ export default function MakePayment(props) {
   }
 
   //Enable scheduled payment
-  async function makeuserPayment(scheduledPaymentAccountNo, scheduledPaymentCard, scheduledPaymentDatePicker, scheduledPaymentIsDebit, scheduledPaymentAmount) {
+  async function makeuserPayment(scheduledPaymentAccountNo, scheduledPaymentCard, scheduledPaymentDatePicker, scheduledPaymentIsDebit, scheduledPaymentAmount, RemoveScheduledPayment) {
     setPaymentOpen(false);
-    let result = await makePayment(scheduledPaymentAccountNo, scheduledPaymentCard, scheduledPaymentDatePicker, scheduledPaymentIsDebit, scheduledPaymentAmount);
+    let result = await makePayment(scheduledPaymentAccountNo, scheduledPaymentCard, scheduledPaymentDatePicker, scheduledPaymentIsDebit, scheduledPaymentAmount, RemoveScheduledPayment);
     let message =
       paymentDatepicker === Moment().format("YYYY/MM/DD") ? globalMessages.We_Received_Your_Payment_Successfully : globalMessages.Payment_has_Scheduled + " Confirmation: " + result?.data?.paymentResult?.ReferenceNumber;
     result.status === 200
@@ -185,7 +185,7 @@ export default function MakePayment(props) {
         }
       );
 
-    result.status === 200
+    result.status === 900
       ? disableAutoPaymentScheduled(accntNo, card, paymentDate, isDebit)
       : refetch();
   }
@@ -212,11 +212,6 @@ export default function MakePayment(props) {
   }
 
   // Disable auto payment while make payment
-  async function disableAutoPaymentScheduled(disableAutoPayScheduledAccountNo, disableAutoPayScheduledCard, disableAutoPayScheduledDate, disableAutoPayScheduledIsDebit) {
-    await disableAutoPay(disableAutoPayScheduledAccountNo, disableAutoPayScheduledCard, disableAutoPayScheduledDate, disableAutoPayScheduledIsDebit);
-    refetch();
-  }
-
   const handleMenuPaymentProfile = () => {
     history.push({ pathname: "/customers/myProfile", });
     setprofileTabNumber({ profileTabNumber: 3 });
@@ -230,7 +225,7 @@ export default function MakePayment(props) {
 
   //Validating ACCNO
   async function checkaccNo(checkAccNoActiveLoansData, checkAccNo) {
-    let check = false;
+    let check = false; 
     checkAccNoActiveLoansData?.forEach((data) => {
       if (data?.loanData?.accountNumber === checkAccNo) {
         let loan = [];
@@ -467,7 +462,7 @@ export default function MakePayment(props) {
       ? paymentData.ACHMethods.map((pdata) => ({
         value: pdata.SequenceNumber,
         label:
-        pdata.AccountType + " (" + pdata.Nickname + ") (****" + pdata.AccountNumber.substr(-4) + ")",
+          pdata.AccountType + " (" + pdata.Nickname + ") (****" + pdata.AccountNumber.substr(-4) + ")",
       }))
       : null;
   let paymentListCard =
@@ -520,7 +515,7 @@ export default function MakePayment(props) {
           : false
         : false
       : false;
-  let status = accountDetails != null ? accountDetails.data.status : null;
+      let status = accountDetails != null ? accountDetails.data.status : null;
 
   //Select account
   const handleChangeSelect = (event) => {
@@ -532,13 +527,13 @@ export default function MakePayment(props) {
     setrequiredSelect("");
   };
 
-  //Autopay enable/disable switch
-  const handleSwitchPayment = (event) => {
-    setAutopaySubmit(checkAutoPay === event.target.checked ? true : false);
-    setdisabledContent(event.target.checked);
-    setpaymentAmount(event.target.checked ? totalPaymentAmount : paymentAmount);
-    setpaymentDatepicker(event.target.checked ? scheduleDate : new Date());
-  };
+    //Autopay enable/disable switch
+    const handleSwitchPayment = (event) => {
+      setAutopaySubmit(checkAutoPay === event.target.checked ? true : false);
+      setdisabledContent(event.target.checked);
+      setpaymentAmount(event.target.checked ? totalPaymentAmount : paymentAmount);
+      setpaymentDatepicker(event.target.checked ? scheduleDate : new Date());
+    };
 
   let obj = {};
   let cardLabel = "";
@@ -616,12 +611,20 @@ export default function MakePayment(props) {
   const handlePaymentcancel = () => {
     setopenDeleteSchedule(true);
   };
-
+  let RemoveScheduledPayment = "yes";
   //Schedule Payment popup confirm and close
   const handleSchedulePaymentSubmit = () => {
     setLoading(true);
     setshowCircularProgress(true);
-    makeuserPayment(accntNo, card, paymentDatepicker, isDebit, paymentAmount);
+    makeuserPayment(accntNo, card, paymentDatepicker, isDebit, paymentAmount, RemoveScheduledPayment);
+  };
+
+  // Keep Schedule Payment popup confirm and close
+  const handleSchedulePaymentSubmitKeep = () => {
+    setLoading(true);
+    setshowCircularProgress(true);
+    RemoveScheduledPayment = "no";
+    makeuserPayment(accntNo, card, paymentDatepicker, isDebit, paymentAmount, RemoveScheduledPayment);
   };
 
   const handlePaymentClose = () => {
@@ -681,8 +684,23 @@ export default function MakePayment(props) {
       setRequiredAmount("");
     }
   };
-
-  //View
+  let paymentIsScheduled = hasSchedulePayment ? "yes" : "no";
+  let chosenDate = new Date(paymentDatepicker);
+  let todaysDate = new Date();
+  let todaysDay = todaysDate.getDate();
+  let todaysMonth = todaysDate.getMonth();
+  let todaysYear = todaysDate.getFullYear();
+  let chosenDay = chosenDate.getDate();
+  let chosenMonth = chosenDate.getMonth();
+  let chosenYear = chosenDate.getFullYear();
+  let thisDay = new Date(todaysYear, todaysMonth, todaysDay);
+  let pickedDate =  new Date(chosenYear, chosenMonth, chosenDay);
+  let isFutureDate = "no";
+  if(pickedDate > thisDay ) { 
+      isFutureDate = "yes";
+  }
+   
+ //View
   return (
     <div>
       <CheckLoginStatus />
@@ -934,12 +952,6 @@ export default function MakePayment(props) {
                           <Grid
                             item
                             xs={ 12 }
-                            style={ {
-                              opacity: disabledContent ? 0.5 : 1,
-                              pointerEvents: disabledContent
-                                ? "none"
-                                : "initial",
-                            } }
                           >
                             <Typography
                               style={ { paddingBottom: "10px" } }
@@ -956,7 +968,6 @@ export default function MakePayment(props) {
                               onChange={ onHandlepaymentAmount }
                               value={ "$" + paymentAmount }
                               onBlur={ onBlurPayment }
-                              disabled={ hasSchedulePayment }
                             />
                             <p
                               className={
@@ -999,7 +1010,6 @@ export default function MakePayment(props) {
                                   setrequiredDate("");
                                 } }
                                 value={ paymentDatepicker }
-                                disabled={ hasSchedulePayment }
                               />
                               <p
                                 className={
@@ -1025,7 +1035,7 @@ export default function MakePayment(props) {
                                   onClick={ handlePaymentcancel }
                                   disabled={ !hasSchedulePayment }
                                 >
-                                  Cancel Payment
+                                  Cancel Payment 
                                 </ButtonSecondary>
                               </Grid>
                               <Grid>
@@ -1033,7 +1043,6 @@ export default function MakePayment(props) {
                                   stylebutton='{"marginRight": "" }'
                                   id="make-payment-schedule-button"
                                   onClick={ handleSchedulePaymentClick }
-                                  disabled={ hasSchedulePayment }
                                 >
                                   Schedule Payment
                                 </ButtonPrimary>
@@ -1099,6 +1108,7 @@ export default function MakePayment(props) {
           </Typography>
           {/* <Typography id="autoTxt" className={ classes.autoPayContent }> */ }
           <>
+          {disabledContent === true ?
             <TableContainer>
               <Table className={ classes.table } aria-label="simple table" border-color="white">
                 <TableBody>
@@ -1142,7 +1152,8 @@ export default function MakePayment(props) {
                 </TableBody>
               </Table>
             </TableContainer>
-            {/* </Typography> */ }
+            : "" }
+          {/* </Typography> */}
           </>
           <IconButton
             id="autopayCloseBtn"
@@ -1259,6 +1270,7 @@ export default function MakePayment(props) {
           >
             Cancel
           </ButtonSecondary>
+          {paymentIsScheduled === "no" ? 
           <ButtonPrimary
             stylebutton='{"background": "", "color":"" }'
             onClick={ handleSchedulePaymentSubmit }
@@ -1273,6 +1285,43 @@ export default function MakePayment(props) {
               } }
             />
           </ButtonPrimary>
+        : 
+        ""}
+
+        {paymentIsScheduled === "yes" ? 
+            <ButtonPrimary
+            stylebutton='{"background": "", "color":"" }'
+            onClick={ handleSchedulePaymentSubmit }
+            disabled={ loading }
+            >
+            Replace current scheduled payment
+            <i
+              className="fa fa-refresh fa-spin customSpinner"
+              style={ {
+                marginRight: "10px",
+                display: loading ? "block" : "none",
+              } }
+            />
+          </ButtonPrimary> :
+          ""}
+
+        {paymentIsScheduled === "yes" && isFutureDate === "no" ? 
+          <ButtonSecondary
+            stylebutton='{"background": "", "color":"" }'
+            onClick={ handleSchedulePaymentSubmitKeep }
+            disabled={ loading }
+          >
+            Keep scheduled payment and make this payment
+            <i
+              className="fa fa-refresh fa-spin customSpinner"
+              style={ {
+                marginRight: "10px",
+                display: loading ? "block" : "none",
+              } }
+            />
+          </ButtonSecondary>
+      : 
+      ""}
         </DialogActions>
       </Dialog>
 
