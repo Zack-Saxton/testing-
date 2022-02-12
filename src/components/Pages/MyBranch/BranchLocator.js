@@ -150,7 +150,12 @@ export default function BranchLocator() {
       margin: "0px", 
       lineHeight: "1.5", 
       fontSize: "15px" 
-    }
+    },
+    h4tag: { 
+      margin: ".575rem 0 .46rem 0", 
+      lineHeight: "1.5", 
+      fontWeight: "400", 
+      fontSize: "17px" }
   })
   const clessesforptag = useStyles();
   //View part
@@ -197,7 +202,7 @@ export default function BranchLocator() {
                   {getBranchList ? getBranchList.map((item, index) => {
                     return (
                       <Grid className="locationInfo">
-                        <h4 style={{ margin: ".575rem 0 .46rem 0", lineHeight: "1.5", fontWeight: "400", fontSize: "17px" }}><b>{item.BranchName} Branch</b></h4>
+                        <h4 className={clessesforptag.h4tag}><b>{item.BranchName} Branch</b></h4>
                         <p className={clessesforptag.ptag}>{item.distance}les away {item.BranchTime.Value1} {item.BranchTime.Value2}</p>
                         <p className={clessesforptag.ptag} style={{color: "#595959"}} id={item.id}>{item.Address}</p>
                         <p className={clessesforptag.ptag}><a href={"tel:+1" + item.PhoneNumber} className="BlacktextColor">Phone - {item.PhoneNumber}</a></p>
