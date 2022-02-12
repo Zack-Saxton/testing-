@@ -151,6 +151,10 @@
 	padding-bottom: 15px !important;
 }
 
+#sliderBar{
+	margin-top: 35px;
+}
+
 #sliderBar .MuiSlider-rail,
 #sliderBar .MuiSlider-mark{
 	height: 3px !important;

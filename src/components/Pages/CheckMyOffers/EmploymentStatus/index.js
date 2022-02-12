@@ -284,6 +284,7 @@ function EmploymentStatus() {
 												}
 											>
 												<Select
+													id="yearsAtEmployersSelect"
 													fullWidth={ true }
 													name="yearsAtEmployers"
 													labelform="Years at Employer *"
