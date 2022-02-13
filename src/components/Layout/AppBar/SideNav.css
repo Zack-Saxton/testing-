@@ -139,6 +139,10 @@ a.nav_link:hover .MuiListItem-root {
   overflow-x: hidden;
 }
 
+#tool-bar-list{
+  display: flex !important;
+}
+
 @media (max-width: 960px) {
   #close1 {
     display: block;

@@ -75,4 +75,5 @@
 #helpLogin{
 	font-size: 1rem !important;
 	color: blue;
+	cursor: pointer;
 }

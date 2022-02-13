@@ -162,9 +162,11 @@ export default function BranchLocator() {
                 />
                 <ButtonPrimary
                   onClick={getActivePlaces}
-                  stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
+                  stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "padding":"0px 30px"}'
                 >
-                  <ArrowForwardIcon />
+                  <ArrowForwardIcon
+                  className="goIcon"
+                  />
                 </ButtonPrimary>
               </Grid>
             </Grid>

@@ -556,12 +556,10 @@ export default function CreditKarma() {
                         // onClick={autoFocus}
                         type="submit"
                         data-testid="submit"
-                        stylebutton='{"background": "", "color":"" }'
+                        stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
                         disabled={ loading }
                       >
-                        <Typography align="center" className="textCSS ">
                           Continue
-                        </Typography>
                         <i
                           className="fa fa-refresh fa-spin customSpinner"
                           style={ {

@@ -512,6 +512,7 @@
 
 .checkMyOfferText{
 	margin: 10px 0px !important;
+	color: #171717;
 }
 
 #employedHourly{
@@ -545,6 +546,27 @@
 .disclosuresWrap{
 	margin-bottom: 15px !important;
 }
+.checkBoxClass {
+	position: absolute !important;
+	top: 0 !important;
+}
+#signDiv {
+	margin: 25px 0px 0px 0px !important;
+}
+
+#selectMaritalStatusWrap .subOption{
+	color: #171717 !important;
+
+}
+
+#activeDutySelect .subOption{
+	color: #171717 !important;
+
+}
+#activeDutyRank .subOption{
+	color: #171717 !important;
+
+}
 @media (min-width: 600px) {
 	.buttonEnd {
 		justify-content: flex-start !important;
@@ -553,11 +575,4 @@
 	.buttonStart {
 		justify-content: flex-end !important;
 	}
-}
-.checkBoxClass {
-	position: absolute !important;
-	top: 0 !important;
-}
-#signDiv {
-	margin: 25px 0px 0px 0px !important;
 }
