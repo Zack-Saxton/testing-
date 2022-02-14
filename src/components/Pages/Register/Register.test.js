@@ -6,7 +6,7 @@ import { Router } from "react-router-dom";
 import Register from "./Register";
 
 test("Checks the title of the page", () => {
-	const history = createMemoryHistory();
+	const navigate = createMemoryHistory();
 
 	render(
 		<Router history={ history }>
@@ -18,7 +18,7 @@ test("Checks the title of the page", () => {
 });
 
 test("Checks the subtitle of the page", () => {
-	const history = createMemoryHistory();
+	const navigate = createMemoryHistory();
 
 	render(
 		<Router history={ history }>
@@ -30,7 +30,7 @@ test("Checks the subtitle of the page", () => {
 });
 
 test("Textbox Firstname", () => {
-	const history = createMemoryHistory();
+	const navigate = createMemoryHistory();
 
 	render(
 		<Router history={ history }>
@@ -43,7 +43,7 @@ test("Textbox Firstname", () => {
 });
 
 test("Invalid Firstname", () => {
-	const history = createMemoryHistory();
+	const navigate = createMemoryHistory();
 
 	render(
 		<Router history={ history }>
@@ -59,7 +59,7 @@ test("Invalid Firstname", () => {
 });
 
 test("Textbox Lastname", () => {
-	const history = createMemoryHistory();
+	const navigate = createMemoryHistory();
 
 	render(
 		<Router history={ history }>
@@ -72,7 +72,7 @@ test("Textbox Lastname", () => {
 });
 
 test("Invalid Lastname", () => {
-	const history = createMemoryHistory();
+	const navigate = createMemoryHistory();
 
 	render(
 		<Router history={ history }>
@@ -88,7 +88,7 @@ test("Invalid Lastname", () => {
 });
 
 test("Render email", () => {
-	const history = createMemoryHistory();
+	const navigate = createMemoryHistory();
 
 	render(
 		<Router history={ history }>
@@ -101,7 +101,7 @@ test("Render email", () => {
 });
 
 test("pass valid email to test email input field", () => {
-	const history = createMemoryHistory();
+	const navigate = createMemoryHistory();
 
 	render(
 		<Router history={ history }>
@@ -118,7 +118,7 @@ test("pass valid email to test email input field", () => {
 });
 
 test("pass invalid email to test input value", () => {
-	const history = createMemoryHistory();
+	const navigate = createMemoryHistory();
 
 	render(
 		<Router history={ history }>
@@ -136,7 +136,7 @@ test("pass invalid email to test input value", () => {
 });
 
 test("Zipcode availability test", () => {
-	const history = createMemoryHistory();
+	const navigate = createMemoryHistory();
 
 	render(
 		<Router history={ history }>
@@ -150,7 +150,7 @@ test("Zipcode availability test", () => {
 });
 
 test("Zipcode Input test", () => {
-	const history = createMemoryHistory();
+	const navigate = createMemoryHistory();
 
 	render(
 		<Router history={ history }>
@@ -163,7 +163,7 @@ test("Zipcode Input test", () => {
 });
 
 test("Get only numeric value for zipcode", () => {
-	const history = createMemoryHistory();
+	const navigate = createMemoryHistory();
 
 	render(
 		<Router history={ history }>
@@ -178,7 +178,7 @@ test("Get only numeric value for zipcode", () => {
 });
 
 it("zipcode should be 5 digits", () => {
-	const history = createMemoryHistory();
+	const navigate = createMemoryHistory();
 
 	render(
 		<Router history={ history }>
@@ -190,7 +190,7 @@ it("zipcode should be 5 digits", () => {
 });
 
 test("Render Date of birth", () => {
-	const history = createMemoryHistory();
+	const navigate = createMemoryHistory();
 
 	render(
 		<Router history={ history }>
@@ -204,7 +204,7 @@ test("Render Date of birth", () => {
 });
 
 test("Render password", () => {
-	const history = createMemoryHistory();
+	const navigate = createMemoryHistory();
 
 	render(
 		<Router history={ history }>
@@ -220,7 +220,7 @@ test("Render password", () => {
 });
 
 test("Render confirm  password", () => {
-	const history = createMemoryHistory();
+	const navigate = createMemoryHistory();
 
 	render(
 		<Router history={ history }>
@@ -234,7 +234,7 @@ test("Render confirm  password", () => {
 });
 
 test("button Availability", () => {
-	const history = createMemoryHistory();
+	const navigate = createMemoryHistory();
 
 	render(
 		<Router history={ history }>
@@ -247,7 +247,7 @@ test("button Availability", () => {
 });
 
 test("Button Onclick", () => {
-	const history = createMemoryHistory();
+	const navigate = createMemoryHistory();
 
 	render(
 		<Router history={ history }>

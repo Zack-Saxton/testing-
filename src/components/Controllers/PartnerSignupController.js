@@ -23,7 +23,7 @@ let statusStrLink = {
   final_review: "/customers/loanDocument",
 };
 
-export default async function PartnerSignup(history, partnerToken, applicantId, partnerSignupData) {
+export default async function PartnerSignup(navigate, partnerToken, applicantId, partnerSignupData) {
   let url = "partner_signup";
   let param = "";
   let data = {
@@ -60,9 +60,8 @@ export default async function PartnerSignup(history, partnerToken, applicantId, 
             })
           );
           Cookies.set("email", partnerSignupMethod?.data?.applicant.contact.email);
-          history.push({
-            pathname: statusStrLink[ partnerSignupMethod?.data?.applicant.processing.status ],
-            state: {
+          navigate(statusStrLink[ partnerSignupMethod?.data?.applicant.processing.status ],
+            { state: {
               jwt_token: partnerSignupMethod?.data?.user.extensionattributes.login.jwt_token,
               partner_token: partnerSignupMethod?.data?.user.attributes.partner_token,
               first_name: partnerSignupMethod?.data?.applicant.contact.first_name,
@@ -116,7 +115,7 @@ export async function PopulatePartnerSignup(
     ErrorLogger("Error executing PopulatePartnerSignup API", error);
   }
 }
-export async function partnerConfirmInfo(dataConfirmInfo, history) {
+export async function partnerConfirmInfo(dataConfirmInfo, navigate) {
   let url = "partner_confirm_info";
   let param = "";
   let data = {
@@ -154,7 +153,7 @@ export async function partnerConfirmInfo(dataConfirmInfo, history) {
     ? toast.success(PartnerConfirmationAPI?.data?.statusText ? PartnerConfirmationAPI?.data?.statusText : "Successfully registered",
       {
         onClose: () => {
-          history.push({ pathname: statusStrLink[ PartnerConfirmationAPI?.data.applicationStatus ], });
+          navigate(statusStrLink[ PartnerConfirmationAPI?.data.applicationStatus ]);
         },
       }
     )

@@ -6,7 +6,7 @@ import axios from "axios";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useContext, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import PersonLogo from "../../../../assets/icon/I-Personal-Info.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
@@ -96,7 +96,7 @@ function PersonalInfo() {
 	const [ ssnEmailMatch, setSsnEmailMatch ] = useState(true);
 	const [ error, setError ] = useState(false);
 	const [ loading, setLoading ] = useState(false);
-	const history = useHistory();
+	const navigate = useNavigate();
 
 	function phoneNumberMask(values){
 		let phoneNumber = values.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
@@ -153,7 +153,7 @@ function PersonalInfo() {
 
 				if (loginToken?.isLoggedIn === true) {
 					data.completedPage = data.page.existingUser;
-					history.push({ pathname: "/employment-status", });
+					navigate("/employment-status");
 					setError(false);
 					setLoading(false);
 				} else {
@@ -174,7 +174,7 @@ function PersonalInfo() {
 								setLoading(false);
 							} else {
 								setSsnEmailMatch(true);
-								history.push({ pathname: "/existing-user", });
+								navigate("/existing-user");
 								setError(false);
 								setLoading(false);
 							}
@@ -186,7 +186,7 @@ function PersonalInfo() {
 					} else if (customerStatus.data.customerFound === false) {
 						setError(false);
 						setLoading(false);
-						history.push({ pathname: "/new-user", });
+						navigate("/new-user");
 					} else if (
 						customerStatus.data.errorMessage ===
 						"More than 1 customer record retrieved "
@@ -272,7 +272,7 @@ function PersonalInfo() {
 		data.completedPage < data.page.homeAddress ||
 		data.formStatus === "completed"
 	) {
-		history.push("/select-amount");
+		navigate("/select-amount");
 	}
 
 	//JSX [part]

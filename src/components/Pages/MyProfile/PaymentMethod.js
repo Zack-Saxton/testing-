@@ -27,7 +27,7 @@ import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import PaymentIcon from "@material-ui/icons/Payment";
 import { useFormik } from "formik";
 import { useQuery } from 'react-query';
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import cheque from "../../../assets/images/cheque.jpg";
@@ -110,7 +110,7 @@ const validationSchemaAddBank = yup.object({
 export default function PaymentMethod() {
     window.zeHide();
     const classes = useStylesMyProfile();
-    const history = useHistory();
+    const navigate = useNavigate();
     const [ bankRoutingCheque, setHandleBankRoutingCheque ] = useState(false);
     const [ addBankAccount, setAddBankAccount ] = useState(false);
     const [ addDebitCard, setAddDebitCard ] = useState(false);
@@ -389,7 +389,7 @@ export default function PaymentMethod() {
     };
 
     const handleMenuProfile = () => {
-        history.push({ pathname: "/customers/myProfile" });
+        navigate("/customers/myProfile");
         setprofileTabNumber({ profileTabNumber: 0 });
     };
 

@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import React, { useContext, useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { CheckMyOffers as Check } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, Slider, TextField } from "../../../FormsUI";
@@ -24,18 +24,19 @@ function CheckMyOffers(props) {
 		}
 		return validValue;
 	};
-	let selectedAmount = getValidValue(props.match.params.amount);
+	let params = useParams();
+	let selectedAmount = getValidValue(params?.amount);
 	const [ select, setSelect ] = useState(data.loanAmount ? data.loanAmount : (selectedAmount ? parseInt(selectedAmount) : 10000));
-	const history = useHistory();
-
+	const navigate = useNavigate();
+	let location = useLocation();
 	useEffect(() => {
 		if (selectedAmount) {
 			data.loanAmount = select;
 			data.formStatus = "started";
 			data.completedPage = data.page.selectAmount;
 			setData({ ...data, loanAmount: select, loading: false });
-			history.push({ pathname: "/loan-purpose" });
-		} else if (data.formStatus === "" || data.completedPage === 0 || data.formStatus === "completed" || props.location.fromLoanPurpose !== "yes") {
+			navigate("/loan-purpose");
+		} else if (data.formStatus === "" || data.completedPage === 0 || data.formStatus === "completed" || location?.fromLoanPurpose !== "yes") {
 			setData({ ...data, loading: true });
 			resetData();
 			setSelect(data.loanAmount ? data.loanAmount : 10000);
@@ -44,14 +45,14 @@ function CheckMyOffers(props) {
 
 	if (data?.isActiveUser === "closed") {
 		toast.error("Your account is closed to new applications. Please contact us to reapply.");
-		history.push({ pathname: "/customers/accountOverview" });
+		navigate("/customers/accountOverview");
 	}
 	const handleRoute = (event) => {
 		data.loanAmount = select;
 		data.formStatus = "started";
 		data.completedPage = data.page.selectAmount;
 		setData({ ...data, loanAmount: select });
-		history.push({ pathname: "/loan-purpose" });
+		navigate("/loan-purpose");
 	};
 
 	// jsx part

@@ -34,7 +34,7 @@ import React, { useContext, useEffect, useState } from "react";
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import { useQuery, useQueryClient } from "react-query";
-import { Link, NavLink, useHistory } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import logoIcon from "../../../assets/images/Favicon.png";
@@ -183,7 +183,7 @@ export default function SideNav() {
   const [ open, setOpen ] = React.useState(true);
   const [ anchorEl, setAnchorEl ] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
-  const history = useHistory();
+  const navigate = useNavigate();
   const [ disable, setDisable ] = React.useState(false);
   const [ skill, setSkill ] = React.useState(false);
   const [ checked, setChecked ] = React.useState(true);
@@ -414,12 +414,12 @@ export default function SideNav() {
   };
 
   const handleMenuProfile = () => {
-    history.push({ pathname: '/customers/myProfile' });
+    navigate('/customers/myProfile');
     setprofileTabNumber({ profileTabNumber: 0 });
     handleMenuClose();
   };
   const handleMenuPaymentProfile = () => {
-    history.push({ pathname: '/customers/myProfile' });
+    navigate('/customers/myProfile');
     setprofileTabNumber({ profileTabNumber: 3 });
     handleMenuClose();
   };
@@ -430,7 +430,7 @@ export default function SideNav() {
     LogoutController();
     resetData();
     resetProfilePicture();
-    history.push({ pathname: "/login" });
+    navigate("/login");
   }
 
   const logoutUser = () => {
@@ -452,11 +452,11 @@ export default function SideNav() {
   };
 
   const onAFLClick = () => {
-    history.push({ pathname: "/customers/applyForLoan", });
+    navigate("/customers/applyForLoan", { state: { from: "user" } } );
   };
 
   const resumeApplicationClick = () => {
-    history.push({ pathname: applicationStatusRedirectPage[ checkPresenceOfLoanStatus ], });
+    navigate(applicationStatusRedirectPage[ checkPresenceOfLoanStatus ], { state: { from: "user" } } );
 
   };
 
@@ -676,7 +676,7 @@ export default function SideNav() {
                 </NavLink>
 
                 { checkPresenceOfLoan === true ?
-                  <NavLink to={ { state: { from: "user" } } } onClick={ (event) => { resumeApplicationClick(); } } className="nav_link" >
+                  <NavLink to="#" state = { {from: "user" } } onClick={ (event) => { resumeApplicationClick(); } } className="nav_link" >
                     <ListItem className="titleSidenav" >
                       <ListItemIcon>
                         { " " }
@@ -686,7 +686,7 @@ export default function SideNav() {
                     </ListItem>
                   </NavLink>
                   :
-                  <NavLink id="applyForLoanNav" to={ { state: { from: "user" } } } onClick={ (event) => { currentLoan ? event.preventDefault() : onAFLClick(); } } className={ currentLoan ? "nav_link_disabled" : "nav_link" } >
+                  <NavLink id="applyForLoanNav" to="/customers/applyForLoan" state= { { from: "user" } }  state={ { from: "user" } } onClick={ (event) => { currentLoan ? event.preventDefault() :""; } } className={ currentLoan ? "nav_link_disabled" : "nav_link" } >
                     <ListItem className="titleSidenav" disabled={ currentLoan }>
                       <ListItemIcon>
                         { " " }

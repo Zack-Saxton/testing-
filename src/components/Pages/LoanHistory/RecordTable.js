@@ -58,7 +58,7 @@ export default function LoanHistoryTable(historyOfLoans) {
                     }
                   </TableCell>
                   <TableCell style={ { padding: "16px 16px 16px 0px" } } align="center">
-                    <NavLink to={ { pathname: "/customers/loanDocument", state: { accNo: row.loanData.accountNumber }, } } style={ { textDecoration: "none" } }>
+                    <NavLink to="/customers/loanDocument" state={ { accNo: row.loanData.accountNumber } } style={ { textDecoration: "none" } }>
                       <Tooltip title="View Loan Documents" placement="top">
                         <FindInPageIcon style={ { color: "#0F4EB3", cursor: "pointer" } } onClick={ () => downloadDoc(row.loanData.accountNumber) } />
                       </Tooltip>
