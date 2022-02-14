@@ -54,7 +54,7 @@ function LivingPlace() {
 	//validating user input and proceeds
 	const handleRoute = () => {
 		if (livingPlace === homeData.renting || livingPlace === homeData.withMortage) {
-			if (data.rentMortageAmount !== "" && data.rentMortageAmount !== 0 && data.rentMortageAmount >= 100) {
+			if (data.rentMortgageAmount !== "" && data.rentMortgageAmount !== 0 && data.rentMortgageAmount >= 100) {
 				validateUserInput();
 			} else {
 				setError(true);
@@ -76,7 +76,7 @@ function LivingPlace() {
       inputValue = inputValue.replace("$", "");
 	  setData({
 		...data,
-		  rentMortageAmount: parseInt(
+		  rentMortgageAmount: parseInt(
 			inputValue ? inputValue : "0"
 		),
 	});
@@ -94,7 +94,7 @@ function LivingPlace() {
           : inputValue;
 			setData({
 				...data,
-				rentMortageAmount: parseInt(
+				rentMortgageAmount: parseInt(
 					 inputValue
 				),
 			});
@@ -309,12 +309,12 @@ function LivingPlace() {
 											form={ true }
 											error={ error }
 											helperText={ helperText }
-											value={"$" + (data?.rentMortageAmount ? data.rentMortageAmount : "") }
+											value={"$" + (data?.rentMortgageAmount ? data.rentMortgageAmount : "") }
                               				onBlur={ onBlurPayment }
 											// value={dollar }
 											onChange={ onHandleChange }
 											materialProps={ {
-												"data-test-id": "rentMortageAmount",
+												"data-test-id": "rentMortgageAmount",
 												maxLength: "6",
 											} }
 										/>
