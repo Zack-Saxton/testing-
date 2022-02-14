@@ -310,7 +310,7 @@ function LivingPlace() {
 											error={ error }
 											helperText={ helperText }
 											value={"$" + (data?.rentMortageAmount ? data.rentMortageAmount : "") }
-                              onBlur={ onBlurPayment }
+                              				onBlur={ onBlurPayment }
 											// value={dollar }
 											onChange={ onHandleChange }
 											materialProps={ {
