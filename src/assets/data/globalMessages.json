@@ -14,7 +14,7 @@
   "LastNameRequired": "Your last name is required",
   "EmailEnter": "Enter your email",
   "EmailValid": "A valid email address is required",
-  "EmailRequired": "Email address is required",
+  "EmailRequired": "Your email address is required",
   "DateOfBirthValid": "Please enter a valid date",
   "DateOfBirthRequired": "Your date of birth is required",
   "DateOfBirthMinAge": "You must be at least 18 years old",
