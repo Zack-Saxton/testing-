@@ -686,7 +686,7 @@ export default function SideNav() {
                     </ListItem>
                   </NavLink>
                   :
-                  <NavLink id="applyForLoanNav" to="#"  state={ { from: "user" } } onClick={ (event) => { currentLoan ? event.preventDefault() : onAFLClick(); } } className={ currentLoan ? "nav_link_disabled" : "nav_link" } >
+                  <NavLink id="applyForLoanNav" to="/customers/applyForLoan" state= { { from: "user" } }  state={ { from: "user" } } onClick={ (event) => { currentLoan ? event.preventDefault() :""; } } className={ currentLoan ? "nav_link_disabled" : "nav_link" } >
                     <ListItem className="titleSidenav" disabled={ currentLoan }>
                       <ListItemIcon>
                         { " " }
