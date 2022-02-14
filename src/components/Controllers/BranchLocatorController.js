@@ -8,7 +8,7 @@ export default async function BranchLocatorController(ZipCode) {
         let data = {
             zipcode: ZipCode
         };
-        let method = "POST";
+        let method = "GET";
         let addAccessToken = false;
 
         //API call 
