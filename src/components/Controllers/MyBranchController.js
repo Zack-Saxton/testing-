@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
-
+import globalMessages from "../../assets/data/globalMessages.json"
 /***** My branch details *****/
 export default async function MyBranchAPI() {
   try {
@@ -42,8 +42,8 @@ export async function ScheduleCallApi(callDate, callingTime, callTimeZone) {
 
   //API response
   myBranch.status === 200
-    ? toast.success(myBranch?.data ? myBranch.data : "Your call is scheduled")
-    : toast.error("Error scheduling call");
+    ? toast.success(globalMessages?.Schedule_Call)
+    : toast.error(globalMessages?.Schedule_Call_Error);
   return "true";
 }
 
@@ -70,10 +70,7 @@ export async function ScheduleVisitApi(visitDate, visitTime, visitTimeZone) {
 
   //API response
   myBranch.status === 200
-    ? toast.success(
-      myBranch?.data
-        ? myBranch.data
-        : "Your appointment is scheduled")
-    : toast.error("Error scheduling appointment");
+    ? toast.success(globalMessages?.Schedule_Appointment)
+    : toast.error(globalMessages?.Schedule_Appointment_Error);
   return "true";
 }
