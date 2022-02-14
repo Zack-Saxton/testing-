@@ -7,7 +7,7 @@ class CheckLogin extends React.Component {
 		const tokenString = Cookies.get("token") ? Cookies.get("token") : "{ }";
 		const userToken = JSON.parse(tokenString);
 		if (!userToken?.isLoggedIn) {
-			this.props.history.push("/login");
+			this.props.navigate("/login");
 		}
 	}
 

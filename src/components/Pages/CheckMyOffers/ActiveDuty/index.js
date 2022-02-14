@@ -4,7 +4,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import React, { useContext } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import ActiveDutyLogo from "../../../../assets/icon/active-duty.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
@@ -27,7 +27,7 @@ const validationSchema = yup.object({
 function ActiveDuty() {
 	//Retrieving Context values
 	const { data } = useContext(CheckMyOffers);
-	const history = useHistory();
+	const navigate = useNavigate();
 	//initializing formik
 	const formik = useFormik({
 		initialValues: {
@@ -40,12 +40,12 @@ function ActiveDuty() {
 			data.militaryActiveDuty = values.activeDuty;
 			data.militaryActiveDutyRank = values.activeDutyRank;
 			data.completedPage = data.page.activeDuty;
-			history.push("/ssn");
+			navigate("/ssn");
 		},
 	});
 
 	if (data.completedPage < data.page.livingPlace || data.formStatus === "completed") {
-		history.push("/select-amount");
+		navigate("/select-amount");
 	}
 	let disableLoan = formik.values.activeDutyRank === "E4 and below" && formik.values.activeDuty === "Active Military" ? true : false;
 	//JSX part

@@ -189,7 +189,7 @@ export default function ViewAccountDetails() {
                      Please click here to contact us!
                      </NavLink>
                      <br></br> <br></br>
-                     <NavLink to={{ pathname:'/customers/applyForLoan', state: {from: "user"} }} style={{textDecoration: "none", color:"#0F4EB3",cursor:"pointer"}}>
+                     <NavLink to="/customers/applyForLoan" state = { {from: "user"} } style={{textDecoration: "none", color:"#0F4EB3",cursor:"pointer"}}>
                      Please click here to start a new application.
                      </NavLink>
                     </p>
