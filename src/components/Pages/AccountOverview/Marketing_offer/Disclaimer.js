@@ -76,26 +76,26 @@ export default function Disclaimer(offerData){
         "title" : "", //9
         "content" : 'You received this loan offer because you met specific predetermined criteria for creditworthiness. Credit may not be extended if, upon review of your completed application, credit report, and information provided to us by you or others, we find that you no longer meet the predetermined criteria for creditworthiness. This criteria includes, but is not limited to, whether you are able to furnish acceptable property as collateral (including whether you are able to furnish a valid first lien on an eligible vehicle securing the loan), whether you can meet ability to repay requirements, whether you meet certain residency and income requirements, and/or whether you can complete all verification requirements.',
     },
-{
-   "title" : "", //10 
-   "content" : "You are prequalified for a new secured loan, refinancing your existing loan(s), at the Annual Percentage Rate (“APR”) specified on the front page of this offer. Recording fees and other loan fees as well as the cost of any optional products you may elect to purchase and finance, where permitted, may be added to the amount financed, and your new loan may have a different interest rate and term. Current auto loan information (e.g., balance, term, rate, payment), annual reduction in loan payments, and available equity in your vehicle are estimated based on information in your credit file."
-},
-{
-    "title" : "", //11
-    "content" : "If you qualify for additional money, loan terms may vary and will be based upon the loan amount, credit qualifications, state of residence, and the value of the vehicle you\'re refinancing. Vehicle value is based on the National Automobile Dealers Association Used Car Guide for your state. Commercial vehicles are not eligible for this offer. The minimum loan amount is $5,000, and you must owe at least that amount on the vehicle you are refinancing. Not all applicants will qualify for additional money."
-},
-{
-    "title" : "", //12,
-    "content" : "When refinancing your auto loan, you may not have to make a payment on your current loan with us and other identified auto loan this month. However, the duration of time for which you will not have a payment due will vary based on the terms of your current loans and the date your new loan is funded."
-},
-{
-    "title" : "", //13
-    "content" : "The offer is valid through the expiration date printed on the front page of this letter. If you respond after the offer expiration date or do not meet the predetermined criteria, normal lending requirements apply."
-},
-{
-    "title" : "", //14
-    "content" : "You must be the person(s) named in the offer and be at least 21 years of age or older. Also, you must not have opened a loan account with Mariner Finance, LLC, it\'s respective parents companies, subsidiaries, and affiliated companies, in the last 60 days."
-}];
+    {
+    "title" : "", //10 
+    "content" : "You are prequalified for a new secured loan, refinancing your existing loan(s), at the Annual Percentage Rate (“APR”) specified on the front page of this offer. Recording fees and other loan fees as well as the cost of any optional products you may elect to purchase and finance, where permitted, may be added to the amount financed, and your new loan may have a different interest rate and term. Current auto loan information (e.g., balance, term, rate, payment), annual reduction in loan payments, and available equity in your vehicle are estimated based on information in your credit file."
+    },
+    {
+        "title" : "", //11
+        "content" : "If you qualify for additional money, loan terms may vary and will be based upon the loan amount, credit qualifications, state of residence, and the value of the vehicle you\'re refinancing. Vehicle value is based on the National Automobile Dealers Association Used Car Guide for your state. Commercial vehicles are not eligible for this offer. The minimum loan amount is $5,000, and you must owe at least that amount on the vehicle you are refinancing. Not all applicants will qualify for additional money."
+    },
+    {
+        "title" : "", //12,
+        "content" : "When refinancing your auto loan, you may not have to make a payment on your current loan with us and other identified auto loan this month. However, the duration of time for which you will not have a payment due will vary based on the terms of your current loans and the date your new loan is funded."
+    },
+    {
+        "title" : "", //13
+        "content" : "The offer is valid through the expiration date printed on the front page of this letter. If you respond after the offer expiration date or do not meet the predetermined criteria, normal lending requirements apply."
+    },
+    {
+        "title" : "", //14
+        "content" : "You must be the person(s) named in the offer and be at least 21 years of age or older. Also, you must not have opened a loan account with Mariner Finance, LLC, it\'s respective parents companies, subsidiaries, and affiliated companies, in the last 60 days."
+    }];
 
 //View
 return (

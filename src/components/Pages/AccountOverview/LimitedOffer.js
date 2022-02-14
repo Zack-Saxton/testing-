@@ -18,6 +18,7 @@ import MyBranchAPI from "../../Controllers/MyBranchController";
 import Disclaimer from "./Marketing_offer/Disclaimer";
 import AboutMariner from "./Marketing_offer/AboutMariner";
 import PreScreen from "./Marketing_offer/PreScreen";
+import MarketingOffer from "./Marketing_offer/MarketingOffer";
 
 export default function LimitedOffer(userOfferData) {
   //Material UI css class
@@ -29,6 +30,7 @@ export default function LimitedOffer(userOfferData) {
   
   const [initModal,setinitModal] = useState(false);
   const [offerCode,setOfferCode] = useState(" ");
+  const [campaignType, setCampaignType] = useState("");
   const [amount,setAmount] = useState(" ");
   const [expiryDate,setExpiryDate] = useState(" ")
   const [firstName,setfirstName] = useState("")
@@ -42,6 +44,7 @@ export default function LimitedOffer(userOfferData) {
               setExpiryDate(res?.data?.offerData?.dateExpiration)
               setAmount(res?.data?.offerData?.offerAmount)
               setfirstName(res?.data?.offerData?.firstName);
+              setCampaignType(res?.data?.offerData?.CampaignTypeDesc)
             })
             MyBranchAPI().then((res)=>{
               setBranchCno(res?.data?.PhoneNumber)
@@ -175,7 +178,7 @@ export default function LimitedOffer(userOfferData) {
                 </Grid>
                 <Grid>
                   <p className="common">Dear { firstName },</p>
-                  //Marketing Body Here
+                  <MarketingOffer promoType ={campaignType} offerCode ={offerCode} amount ={amount} branchPhone ={branchCno} branchName ={branchName} dateExpiration = {expiryDate}></MarketingOffer>
                   <p>Sincerely,<br></br>
                   {branchManager}<br></br>
                   {branchName}<br></br>
