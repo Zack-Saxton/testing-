@@ -208,7 +208,7 @@ export default function BranchLocator() {
                           <h4 className={clessesforptag.h4tag}><b >{item.BranchName} Branch</b></h4>
                         </NavLink>
                         
-                        <p className={clessesforptag.ptag}>{item.distance}les away {item.BranchTime.Value1} {item.BranchTime.Value2}</p>
+                        <p className={clessesforptag.ptag}>{item.distance}les away | {item.BranchTime.Value1} {item.BranchTime.Value2}</p>
                         <p className={clessesforptag.ptag}  id={item.id}>{item.Address}</p>
                         <p className={clessesforptag.ptag}><u><a href={"tel:+1" + item.PhoneNumber} className="BlacktextColor">Phone - {item.PhoneNumber}</a></u></p>
                         {/* <p style={{ margin: "15px 0px 10px 0px", lineHeight: "1.5", fontSize: "15px" }}>{item.timeZoneName}</p> */} 
