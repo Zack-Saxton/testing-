@@ -21,12 +21,8 @@
 	margin-bottom: 2%;
 }
 
-#socialNum {
-	margin-top: 19.1px !important;
-}
-
-#ZipcodeWrap {
-	margin-top: 19.1px !important;
+#dateWrap {
+	align-self: flex-end
 }
 
 #dateWrap label {
