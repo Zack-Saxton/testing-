@@ -194,7 +194,6 @@ export default function Register() {
         address_state: state,
       };
       //API call
-      console.log(' Processed DATA Before Storing =======>>>>>', body)
       try {
         let customerStatus = await axios({
           method: "POST",
