@@ -503,7 +503,6 @@ export default function Register() {
                         value={ formik.values.dob }
                         onChange={ (values) => {
                           values.setHours(0,0,0,0);
-                          console.log(' Entered DOB ::', values)
                           formik.setFieldValue("dob", values);
                         } }
                         onBlur={ formik.handleBlur }
