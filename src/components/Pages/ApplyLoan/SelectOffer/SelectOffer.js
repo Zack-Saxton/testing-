@@ -9,7 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { useQuery } from 'react-query';
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import CheckLoginStatus from "../../../App/CheckLoginStatus";
 import usrAccountDetails from "../../../Controllers/AccountOverviewController";
 import { fetchAvailableOffers, submitSelectedOfferAPI } from "../../../Controllers/ApplyForLoanController";
@@ -36,7 +36,7 @@ export default function ApplyLoan() {
 	const [ checkedValue, setCheckedValue ] = useState("");
 	const [ selectedTerm, setSelectedTerm ] = useState("");
 	const [ selectedIndex, setSelectedIndex ] = useState("");
-	const history = useHistory();
+	const navigate = useNavigate();
 	let term;
 
 	const { data: val } = useQuery('available-offers', fetchAvailableOffers);
@@ -61,7 +61,7 @@ export default function ApplyLoan() {
 			if (selectedOfferResponse?.data?.selected_offer) {
 				setLoading(false);
 				refetch();
-				history.push({ pathname: offerTypeData[accountDetails?.data?.Offers[ selTerm ][ selIndex ]?.offerType], selectedIndexOffer: selectedOfferResponse?.data?.selected_offer, });
+				navigate(offerTypeData[accountDetails?.data?.Offers[ selTerm ][ selIndex ]?.offerType], { selectedIndexOffer: selectedOfferResponse?.data?.selected_offer, });
 			} else {
 				setLoading(false);
 				alert("Network Error");

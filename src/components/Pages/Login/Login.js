@@ -7,7 +7,7 @@ import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useState } from "react";
 import { useQueryClient } from "react-query";
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import LoginController from "../../Controllers/LoginController";
 import {
   ButtonPrimary,
@@ -107,13 +107,13 @@ const validationSchema = formValidation.getFormValidationRule("login");
 //Begin: Login page
 export default function Login(props) {
   const classes = useStyles();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [loginFailed, setLoginFailed] = useState("");
   const [loading, setLoading] = useState(false);
   const [counter, setCounter] = useState(0);
   const [openDeleteSchedule, setopenDeleteSchedule] = useState(false);
   const queryClient = useQueryClient();
-
+  let location = useLocation();
   //Form Submission
   const formik = useFormik({
     initialValues: {
@@ -170,13 +170,11 @@ export default function Login(props) {
         Cookies.set("temp_opted_phone_texting", "");
         queryClient.removeQueries();
         setLoading(false);
-        history.push({
-          pathname: props.location.state?.redirect
-            ? props.location.state?.redirect
-            : "/customers/accountoverview",
-        });
-        if (props.location.state?.activationToken) {
-          history.go(0);
+        navigate(location.state?.redirect
+            ? location.state?.redirect
+            : "/customers/accountoverview");
+        if (location.state?.activationToken) {
+          navigate(0);
         }
       } else if (
         retVal?.data?.result === "error" ||
@@ -195,7 +193,7 @@ export default function Login(props) {
         setLoading(false);
         setLoginFailed(retVal?.data?.errorMessage);
         if (counter >= 1) {
-          history.push("/register?email=" + values.email);
+          navigate("/register?email=" + values.email);
         }
       } else {
         setLoading(false);

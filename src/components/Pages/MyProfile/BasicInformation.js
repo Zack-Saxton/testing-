@@ -6,7 +6,7 @@ import Cookies from "js-cookie";
 import Moment from "moment";
 import React, { useContext, useState } from "react";
 import { useQuery } from 'react-query';
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import globalMessages from "../../../assets/data/globalMessages.json";
@@ -50,7 +50,7 @@ export default function BasicInformation(props) {
   window.zeHide();
   const [ loading, setLoading ] = useState(false);
   const { dataProfile, setData } = useContext(ProfilePicture);
-  const history = useHistory();
+  const navigate = useNavigate();
   const { refetch } = useQuery('loan-data', usrAccountDetails);
   let basicData = props?.basicInformationData?.identification;
   let basicInfo = props?.basicInformationData?.latest_contact;
@@ -77,7 +77,7 @@ export default function BasicInformation(props) {
   const logOut = () => {
     setLoading(false);
     LogoutController();
-    history.push({ pathname: "/login" });
+    navigate("/login");
   };
 
   const logoutUser = () => {

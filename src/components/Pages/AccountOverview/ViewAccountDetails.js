@@ -185,11 +185,11 @@ export default function ViewAccountDetails() {
                      You will receive additional information regarding your account number and due date shortly.
                      If you signed up for automatic payments they will be deducted on your due date.
                      <br></br> <br></br>
-                     <NavLink to={{ pathname:'/customers/myBranch'}} style={{textDecoration: "none", color:"#0F4EB3",cursor:"pointer"}}>
+                     <NavLink to="'/customers/myBranch'" style={{textDecoration: "none", color:"#0F4EB3",cursor:"pointer"}}>
                      Please click here to contact us!
                      </NavLink>
                      <br></br> <br></br>
-                     <NavLink to={{ pathname:'/customers/applyForLoan', state: {from: "user"} }} style={{textDecoration: "none", color:"#0F4EB3",cursor:"pointer"}}>
+                     <NavLink to="/customers/applyForLoan" state = { {from: "user"} } style={{textDecoration: "none", color:"#0F4EB3",cursor:"pointer"}}>
                      Please click here to start a new application.
                      </NavLink>
                     </p>
@@ -211,7 +211,7 @@ export default function ViewAccountDetails() {
                      Upon completion of your application and verification of your information,
                      we may be able to extend your final offer as soon as today!
                      <br></br> <br></br>
-                     "Let's get on a call" -  <NavLink to={{ pathname:'/customers/myBranch'}} style={{textDecoration: "none", color:"#0F4EB3",cursor:"pointer"}}>
+                     "Let's get on a call" -  <NavLink to="/customers/myBranch" style={{textDecoration: "none", color:"#0F4EB3",cursor:"pointer"}}>
                      Please click here to contact us!
                      </NavLink>
                     </p>
@@ -227,7 +227,7 @@ export default function ViewAccountDetails() {
                   </Grid>
                   <Grid>
                     <p className={classes.viewAppStatusDisplay}>
-                     <NavLink to={{ pathname:'/customers/myBranch'}} style={{textDecoration: "none", color:"#0F4EB3",cursor:"pointer"}}>
+                     <NavLink to="/customers/myBranch" style={{textDecoration: "none", color:"#0F4EB3",cursor:"pointer"}}>
                      Please click here to contact us!
                      </NavLink>
                     </p>

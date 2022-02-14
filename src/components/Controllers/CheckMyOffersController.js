@@ -88,7 +88,7 @@ export async function checkMyOfferSubmit(customer) {
 					"spouse_address_street": customer.spouse_address_street,
 					"citizenship": customer.citizenship,
 					"home_ownership": customer.homeOwnership,
-					"mortgage_or_rental_payment": customer.rentMortageAmount,
+					"mortgage_or_rental_payment": customer.rentMortgageAmount,
 					"military_status": customer.militaryActiveDuty,
 				},
 				"applicant_type": "primary",

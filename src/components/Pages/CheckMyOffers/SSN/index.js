@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import React, { useContext, useState } from "react";
 import { useQuery } from 'react-query';
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SSNLogo from "../../../../assets/icon/Last-Step.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import usrAccountDetails from "../../../Controllers/AccountOverviewController";
@@ -33,7 +33,7 @@ function SSN() {
 	const [ webTOUPopup, setwebTOUPopup ] = useState(false);
 	const [ privacyPopup, setPrivacyPopup ] = useState(false);
 	const { refetch } = useQuery('loan-data', usrAccountDetails);
-	const history = useHistory();
+	const navigate = useNavigate();
 	const useStyles = makeStyles((theme) => ({
 		linkDesign: {
 			marginTop: "3px !important",
@@ -88,13 +88,13 @@ function SSN() {
 		});
 		if (response.appSubmissionResult && response.appSubmissionResult?.data?.applicationStatus === "offers_available") {
 			setData({ ...data, applicationStatus: "offers_available" });
-			history.push({ pathname: "/eligible-for-offers", formcomplete: "yes" });
+			navigate("/eligible-for-offers", { formcomplete: "yes" });
 		} else if (response.appSubmissionResult && response.appSubmissionResult?.data?.applicationStatus === "rejected") {
 			setData({ ...data, applicationStatus: "rejected" });
-			history.push({ pathname: "/no-offers-available", formcomplete: "yes" });
+			navigate("/no-offers-available", { formcomplete: "yes" });
 		} else if (response.appSubmissionResult && response.appSubmissionResult?.data?.applicationStatus === "referred") {
 			setData({ ...data, applicationStatus: "referred" });
-			history.push({ pathname: "/referred-to-branch", formcomplete: "yes" });
+			navigate("/referred-to-branch", { formcomplete: "yes" });
 		}
 	};
 	const handleOnClick = async (event) => {
@@ -119,7 +119,7 @@ function SSN() {
 			} else if (response.appSubmissionResult.status === 403) {
 				setData({ ...data, applicationStatus: "rejected" });
 				refetch();
-				history.push({ pathname: "/no-offers-available", formcomplete: "yes" });
+				navigate("/no-offers-available", { formcomplete: "yes" });
 			} else {
 				alert("Network Error");
 				setLoading(false);
@@ -131,7 +131,7 @@ function SSN() {
 
 	//redirect to select amount if accessed directly
 	if (data.completedPage < data.page.livingPlace || data.completedPage < data.page.activeDuty || data.formStatus === "completed") {
-		history.push("/select-amount");
+		navigate("/select-amount");
 	}
 	const redirectNC = data.state === "NC" ? "/active-duty" : "living-place";
 

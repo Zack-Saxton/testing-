@@ -4,7 +4,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import React, { useContext } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import ZipcodeLogo from "../../../../assets/icon/I-Zip-Code.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
@@ -23,7 +23,7 @@ const validationSchema = yup.object({
 //start of functional components
 function Zipcode() {
 	const { data } = useContext(CheckMyOffers);
-	const history = useHistory();
+	const navigate = useNavigate();
 	//initializing formik
 	const formik = useFormik({
 		initialValues: {
@@ -32,7 +32,7 @@ function Zipcode() {
 		validationSchema: validationSchema,
 		onSubmit: (values) => {
 			data.zip = values.zip;
-			history.push("/personal-info");
+			navigate("/personal-info");
 		},
 	});
 
