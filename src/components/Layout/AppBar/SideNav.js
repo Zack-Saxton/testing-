@@ -452,7 +452,7 @@ export default function SideNav() {
   };
 
   const onAFLClick = () => {
-    navigate("/customers/applyForLoan");
+    navigate("/customers/applyForLoan", { state: { from: "user" } } );
   };
 
   const resumeApplicationClick = () => {
@@ -676,7 +676,7 @@ export default function SideNav() {
                 </NavLink>
 
                 { checkPresenceOfLoan === true ?
-                  <NavLink state = { {from: "user" } } onClick={ (event) => { resumeApplicationClick(); } } className="nav_link" >
+                  <NavLink to="#" state = { {from: "user" } } onClick={ (event) => { resumeApplicationClick(); } } className="nav_link" >
                     <ListItem className="titleSidenav" >
                       <ListItemIcon>
                         { " " }
@@ -686,7 +686,7 @@ export default function SideNav() {
                     </ListItem>
                   </NavLink>
                   :
-                  <NavLink id="applyForLoanNav" to={ { state: { from: "user" } } } onClick={ (event) => { currentLoan ? event.preventDefault() : onAFLClick(); } } className={ currentLoan ? "nav_link_disabled" : "nav_link" } >
+                  <NavLink id="applyForLoanNav" to="#"  state={ { from: "user" } } onClick={ (event) => { currentLoan ? event.preventDefault() : onAFLClick(); } } className={ currentLoan ? "nav_link_disabled" : "nav_link" } >
                     <ListItem className="titleSidenav" disabled={ currentLoan }>
                       <ListItemIcon>
                         { " " }

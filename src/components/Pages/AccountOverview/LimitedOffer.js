@@ -106,7 +106,7 @@ export default function LimitedOffer(userOfferData) {
                 ) : (
                   <div id="offerText">
                     <NavLink
-                      to={ { pathname: '/customers/applyForLoan', state: { from: "user" } } }
+                      to="/customers/applyForLoan" state= { { from: "user" } }
                       style={ { textDecoration: "none" } }
                     >
                       <ButtonPrimary id="claimButton" stylebutton='{"color":"", "textTransform": "none"}'>
