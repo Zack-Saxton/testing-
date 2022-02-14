@@ -187,8 +187,8 @@ export default function Register() {
         zip_code: values.zip,
         password: values.password,
         birth_year: values.dob.getFullYear().toString(),
-        birth_month: ("0" + (values.dob.getMonth() + 1)).slice(-2),
-        birth_day: ("0" + (values.dob.getDate() + 1)).slice(-2),
+        birth_month: String(values.dob.getMonth() + 1).padStart(2, '0'),
+        birth_day: String(values.dob.getDate()).padStart(2, '0'),
         address_street: "",
         address_city: city,
         address_state: state,
@@ -502,6 +502,7 @@ export default function Register() {
                         minyear={ 102 }
                         value={ formik.values.dob }
                         onChange={ (values) => {
+                          values.setHours(0,0,0,0);
                           formik.setFieldValue("dob", values);
                         } }
                         onBlur={ formik.handleBlur }
