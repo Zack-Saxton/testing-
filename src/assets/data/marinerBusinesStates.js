@@ -27,7 +27,7 @@ export const MFStates = [ 'Alabama',
     'Wisconsin', 
     'Washington'
     ]
-export const   branch_hours= {
+export const branch_hours= {
     "monday": "9:00 a.m. – 5:00 p.m.",
     "tuesday": "9:00 a.m. – 7:00 p.m.",
     "wednesday": "9:00 a.m. – 5:00 p.m.",
