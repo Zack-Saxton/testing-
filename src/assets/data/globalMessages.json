@@ -75,5 +75,9 @@
   "Payment_has_Scheduled": "Payment has Scheduled",
   "Please_Contact_Us_At": "Please contact us at (844) 306-7300",
   "PasswordResetSuccess": "Password reset successful",
-  "Registration_Failed": "Registration failed. Please contact us at (844) 306-7300"
+  "Registration_Failed": "Registration failed. Please contact us at (844) 306-7300",
+  "Schedule_Call": "Call has been scheduled.",
+  "Schedule_Call_Error": "Error scheduling call.",
+  "Schedule_Appointment": "Meeting has been scheduled.",
+  "Schedule_Appointment_Error": "Error scheduling an appointment."
 }
