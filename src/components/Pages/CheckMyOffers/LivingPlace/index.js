@@ -76,7 +76,7 @@ function LivingPlace() {
       inputValue = inputValue.replace("$", "");
 	  setData({
 		...data,
-		rentMortgageAmount: parseInt(
+		  rentMortgageAmount: parseInt(
 			inputValue ? inputValue : "0"
 		),
 	});
@@ -309,8 +309,8 @@ function LivingPlace() {
 											form={ true }
 											error={ error }
 											helperText={ helperText }
-											value={ "$" + (data?.rentMortgageAmount ? data.rentMortgageAmount : "") }
-                              onBlur={ onBlurPayment }
+											value={"$" + (data?.rentMortgageAmount ? data.rentMortgageAmount : "") }
+                              				onBlur={ onBlurPayment }
 											// value={dollar }
 											onChange={ onHandleChange }
 											materialProps={ {

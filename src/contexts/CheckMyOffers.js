@@ -38,7 +38,7 @@ function CheckMyOffersContext(props) {
     stateFullform: '',
     ssn: '',
     homeOwnership: '',
-    rentMortageAmount: '',
+    rentMortgageAmount: '',
     militaryActiveDuty: '',
     consent_credit_contact_auth: '',
     consent_electronic_communication: '',
