@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Grid from "@material-ui/core/Grid";
+import moment from "moment";
 
-export default function MarketingOffer(promoType, offerCode, amount, branchPhone, branchName, dateExpiration){
+export default function MarketingOffer(data){
 
   const [message, setMessage] = useState({});
-  const [code, setCode] = useState('');
-  const [offerAmount, setOfferAmount] = useState('');
-  const [bPhone, setBranchPhone] = useState('');
-  const [bName, setBranchName] = useState('');
-  const [Expiration, setDateExpiration] = useState('');
 
   const findMarketingMessage = () => {
     let usermarketingMessage;
     MarketingMessages.forEach( promo => {
-      if ( promo.campaignType === promoType.promoType ) {
+      if ( promo.campaignType === data.promoType ) {
         usermarketingMessage = promo;
      }
     })
@@ -21,33 +17,16 @@ export default function MarketingOffer(promoType, offerCode, amount, branchPhone
   };
 
   useEffect(() => {
-    setCode(offerCode);
-    setOfferAmount(amount);
-    setBranchPhone(branchPhone);
-    setBranchName(branchName);
-    setDateExpiration(dateExpiration);
     findMarketingMessage();
-
-    console.log('otto ::: promoType - ', promoType)
-    console.log('otto ::: offerCode - ', offerCode)
-    console.log('otto ::: amount - ', amount)
-    console.log('otto ::: branchPhone - ', branchPhone)
-    console.log('otto ::: branchName - ', branchName)
-    console.log('otto ::: dateExpiration - ', dateExpiration)
-
-
-    console.log('otto ::: code - ', code)
-    console.log('otto ::: Expiration - ', Expiration)
-    console.log('otto ::: offerAmount - ', offerAmount)
   }, [])
 
   const MarketingMessages = [
       {
           "campaignType" : "PRES",
-          "p1": `Looking for an easy way to break up the cost of big expenses, without breaking the bank? Or to get rid of lingering credit card bills? A fixed-rate, fixed-payment personal loan of ${offerAmount } from Mariner Finance can help you get the things you want and get rid of the bills you don't.`,
+          "p1": `Looking for an easy way to break up the cost of big expenses, without breaking the bank? Or to get rid of lingering credit card bills? A fixed-rate, fixed-payment personal loan of ${data.amount} from Mariner Finance can help you get the things you want and get rid of the bills you don't.`,
           "p2": 'What will you do with your money?',
           "p3": `Get rid of bills & credit card debt? Spruce up the house? Take a vacation?`,
-          "p4": `Use offer code ${code} before ${Expiration}. Remember, checking your offer online does not affect your credit.*`
+          "p4": `Use offer code ${data.offerCode} before ${moment(data.dateExpiration).format('MM/DD/YYYY')}. Remember, checking your offer online does not affect your credit.*`
       },
       {
           "campaignType" : "CONV",
@@ -56,7 +35,7 @@ export default function MarketingOffer(promoType, offerCode, amount, branchPhone
           "p3" : 'Superior customer service',
           "p4" : 'Fast and efficient application process',
           'p5' : 'Upfront and fixed loan terms',
-          'p6' : `Use offer code ${code} before ${Expiration}. Remember, checking your offer online does not affect your credit.*`,
+          'p6' : `Use offer code ${data.offerCode} before ${moment(data.dateExpiration).format('MM/DD/YYYY')}. Remember, checking your offer online does not affect your credit.*`,
       },
       {
         "campaignType": "ITA",
@@ -81,21 +60,21 @@ export default function MarketingOffer(promoType, offerCode, amount, branchPhone
         "campaignType": "AUTO",
         "p1" : `Great news, your credit pre-qualifies you to refinance your auto loan with your current Mariner Finance loan and lower the combined amount you pay each month.`,
         "p2" : 'You may be eligible for additional money based on the equity you have in your car. Also, if you respond before this offer expires, you may not have to make these payments this month.* ',
-        "p3" : `Let us show you how you can drive down your monthly payment. Call us at ${bPhone} or apply `,
-        "p4" : `Remember, you must respond by ${dateExpiration}.`,
+        "p3" : `Let us show you how you can drive down your monthly payment. Call us at ${data.branchPhone} or apply `,
+        "p4" : `Remember, you must respond by ${moment(data.dateExpiration).format('MM/DD/YYYY')}.`,
       },
       {
         "campaignType": "RBO",
         "p1" : 'We have reviewed your account and you are prequalified to refinance your balance for a fresh start! This is a great opportunity to poosibly lower your monthly payment.',
         "p2": 'This may be done without you having to make a payment this month!',
-        "p3" : `To take advantage of this offer, click the button below, call ${bPhone}, or vist your ${bName} Branch by ${Expiration}.`,
+        "p3" : `To take advantage of this offer, click the button below, call ${data.branchPhone}, or vist your ${data.branchName} Branch by ${moment(data.dateExpiration).format('MM/DD/YYYY')}.`,
         "p4" : 'Call, stop by, or continue online today!',
       },
       {
         "campaignType" : "GLO",
         "p1" : 'We have reviewed your account and you are prequalified to refinance your balance for a fresh start! This is a great opportunity to poosibly lower your monthly payment.',
         "p2" : 'This may be done without you having to make a payment this month!',
-        "p3" : `To take advantage of this offer, click the button below, call ${bPhone}, or vist your ${bName} Branch by ${Expiration}.`,
+        "p3" : `To take advantage of this offer, click the button below, call ${data.branchPhone}, or vist your ${data.branchName} Branch by ${moment(data.dateExpiration).format('MM/DD/YYYY')}.`,
         "p4": 'Call, stop by, or continue online today!',
       },
     ]  
