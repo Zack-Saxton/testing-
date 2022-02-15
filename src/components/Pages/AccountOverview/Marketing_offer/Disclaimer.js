@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Grid from "@material-ui/core/Grid";
+import { Grid, Typography } from "@material-ui/core";
 
 export default function Disclaimer(offerData){
     const [filteredDisclaimers, setFilteredDisclaimers] = useState([]);
@@ -103,15 +103,14 @@ return (
         <Grid>
               <p className="common para">Important Offer Information
               </p>
-              <br />
         </Grid>
         {
             filteredDisclaimers.map( (disclaimer) => {
                 return (
                     <Grid>
-                         <p className="common para">{disclaimer.title}<br />
-                            <span className="small">{disclaimer.content}</span>
-                         </p>
+                         <Typography className="common para">{disclaimer.title}
+                            <p className="small">{disclaimer.content}</p>
+                         </Typography>
                     </Grid>
                 )
             })

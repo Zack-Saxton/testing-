@@ -19,6 +19,7 @@ import Disclaimer from "./Marketing_offer/Disclaimer";
 import AboutMariner from "./Marketing_offer/AboutMariner";
 import PreScreen from "./Marketing_offer/PreScreen";
 import MarketingOffer from "./Marketing_offer/MarketingOffer";
+import OptOutNotice from "./Marketing_offer/OptOutNotice";
 
 export default function LimitedOffer(userOfferData) {
   //Material UI css class
@@ -196,7 +197,8 @@ export default function LimitedOffer(userOfferData) {
                 </Grid>
                 <AboutMariner>
                 </AboutMariner>
-                <br />
+                <OptOutNotice  offerData={userOfferData}>
+                </OptOutNotice>
                 <Disclaimer offerData={userOfferData}>
                 </Disclaimer>        
               </Typography>

@@ -17,9 +17,13 @@ export default function PreScreen(offerData) {
         determinePrescreen(offerData)
     }, [])
 
-    return (
-        <Grid className="content">
-           {prescreenMessage}
-        </Grid>
+    if (prescreenMessage !== ""){
+        return (
+            <Grid className="content">
+                {prescreenMessage}
+            </Grid>
         )
+    } else {
+        return null
+    }
 }
