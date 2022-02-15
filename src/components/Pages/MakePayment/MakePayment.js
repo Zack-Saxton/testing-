@@ -535,15 +535,15 @@ export default function MakePayment(props) {
     setpaymentDatepicker(event.target.checked ? scheduleDate : new Date());
   };
 
-  let obj = {};
+  let accountInfo = {};
   let cardLabel = "";
   if ((card) && (paymentListCard?.length)) {
-    obj = paymentListCard.find(o => o.value === card);
-    cardLabel = obj?.label;
+    accountInfo = paymentListCard.find(account => account.value === card);
+    cardLabel = accountInfo?.label;
   }
   if (cardLabel === "" && (paymentListAch?.length)) {
-    obj = paymentListAch.find(o => o.value === card);
-    cardLabel = obj?.label;
+    accountInfo = paymentListAch.find(account => account.value === card);
+    cardLabel = accountInfo?.label;
   }
 
   //Autopay submit
