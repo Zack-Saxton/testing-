@@ -161,7 +161,7 @@ export default function Register() {
     }
   };
   //Form Submission
-  const queryParams = new URLSearchParams(window.location.search)
+  const queryParams = new URLSearchParams(window.location.search);
   const formik = useFormik({
     initialValues: {
       firstname: "",
@@ -502,7 +502,7 @@ export default function Register() {
                         minyear={ 102 }
                         value={ formik.values.dob }
                         onChange={ (values) => {
-                          values.setHours(0,0,0,0);
+                          values.setHours(0, 0, 0, 0);
                           formik.setFieldValue("dob", values);
                         } }
                         onBlur={ formik.handleBlur }

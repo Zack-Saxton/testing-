@@ -60,7 +60,7 @@ function ActiveDuty() {
 						container
 						justifyContent="center"
 						alignItems="center"
-						style={{ padding:"4% 0px"}}
+						style={ { padding: "4% 0px" } }
 					>
 						<Grid
 							container
@@ -188,7 +188,7 @@ function ActiveDuty() {
 											/>
 										</Grid>
 										<h4
-											className={ disableLoan ? "showMsg" : "hideMsg"	}
+											className={ disableLoan ? "showMsg" : "hideMsg" }
 										>
 											Unfortunately, based on the application information provided, <br />you do not meet our application requirements.
 										</h4>

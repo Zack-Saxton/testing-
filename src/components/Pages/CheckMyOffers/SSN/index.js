@@ -158,7 +158,7 @@ function SSN() {
 						item
 						container
 						justifyContent="center"
-						style={ { width: "100%",  padding:"4% 0px" } }
+						style={ { width: "100%", padding: "4% 0px" } }
 					>
 						<Grid
 							xs={ 11 }

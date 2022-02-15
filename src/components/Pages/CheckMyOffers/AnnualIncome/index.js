@@ -212,7 +212,7 @@ function NewUser() {
 						xs={ 12 }
 						justifyContent="center"
 						alignItems="center"
-						style={ { padding:"4% 0px" } }
+						style={ { padding: "4% 0px" } }
 					>
 						<Grid
 							container

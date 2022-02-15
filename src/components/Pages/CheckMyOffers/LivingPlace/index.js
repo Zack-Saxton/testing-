@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import CitizenshipStatusLogo from "../../../../assets/icon/I-Own-Rent-Property.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, TextField } from "../../../FormsUI";
-import { homeData } from "../../../../assets/data/constants"
+import { homeData } from "../../../../assets/data/constants";
 import "../CheckMyOffer.css";
 import "../LivingPlace/LivingPlace.css";
 import ScrollToTopOnMount from "../ScrollToTop";
@@ -49,7 +49,7 @@ function LivingPlace() {
 			data.completedPage = data.page.activeDuty;
 			navigate("/ssn");
 		}
-	}
+	};
 
 	//validating user input and proceeds
 	const handleRoute = () => {
@@ -65,40 +65,39 @@ function LivingPlace() {
 		}
 	};
 
-
-  //Mortgage Rent onblur
-  const onBlurPayment = (event) => {
-    let inputValue = event.target.value.replace("$", "");
-    let s = inputValue.split(".");
-    let afterDecimal = s[ 1 ];
-    if (!afterDecimal) {
-      inputValue = event.target.value.replace(".", "");
-      inputValue = inputValue.replace("$", "");
-	  setData({
-		...data,
-		  rentMortgageAmount: parseInt(
-			inputValue ? inputValue : "0"
-		),
-	});
-    }
-  };
+	//Mortgage Rent onblur
+	const onBlurPayment = (event) => {
+		let inputValue = event.target.value.replace("$", "");
+		let s = inputValue.split(".");
+		let afterDecimal = s[ 1 ];
+		if (!afterDecimal) {
+			inputValue = event.target.value.replace(".", "");
+			inputValue = inputValue.replace("$", "");
+			setData({
+				...data,
+				rentMortgageAmount: parseInt(
+					inputValue ? inputValue : "0"
+				),
+			});
+		}
+	};
 
 	const onHandleChange = (event) => {
 		const reg = /^[0-9\b]+$/;
 		let inputValue = event.target.value.replace("$", "");
 		if (inputValue === "" || reg.test(inputValue)) {
 			inputValue =
-        inputValue.indexOf(".") >= 0
-          ? inputValue.substr(0, inputValue.indexOf(".")) +
-          inputValue.substr(inputValue.indexOf("."), 3)
-          : inputValue;
+				inputValue.indexOf(".") >= 0
+					? inputValue.substr(0, inputValue.indexOf(".")) +
+					inputValue.substr(inputValue.indexOf("."), 3)
+					: inputValue;
 			setData({
 				...data,
 				rentMortgageAmount: parseInt(
-					 inputValue
+					inputValue
 				),
 			});
-				}
+		}
 		if (inputValue !== '' && inputValue >= 100) {
 			setError(false);
 			setHelperText("");
@@ -197,7 +196,7 @@ function LivingPlace() {
 										<Paper
 											id="ownOrRentBoxOne"
 											elevation={ 3 }
-											data-testid={homeData.renting}
+											data-testid={ homeData.renting }
 											className={
 												livingPlace === homeData.renting
 													? "activeBorder radioBlock "
@@ -309,8 +308,8 @@ function LivingPlace() {
 											form={ true }
 											error={ error }
 											helperText={ helperText }
-											value={"$" + (data?.rentMortgageAmount ? data.rentMortgageAmount : "") }
-                              				onBlur={ onBlurPayment }
+											value={ "$" + (data?.rentMortgageAmount ? data.rentMortgageAmount : "") }
+											onBlur={ onBlurPayment }
 											// value={dollar }
 											onChange={ onHandleChange }
 											materialProps={ {

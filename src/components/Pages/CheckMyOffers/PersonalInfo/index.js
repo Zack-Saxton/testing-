@@ -98,11 +98,11 @@ function PersonalInfo() {
 	const [ loading, setLoading ] = useState(false);
 	const navigate = useNavigate();
 
-	function phoneNumberMask(values){
+	function phoneNumberMask(values) {
 		let phoneNumber = values.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-			  values = !phoneNumber[ 2 ] ? phoneNumber[ 1 ] : '(' + phoneNumber[ 1 ] + ') ' + phoneNumber[ 2 ] + (phoneNumber[ 3 ] ? '-' + phoneNumber[ 3 ] : '');
-	  return(values);
-	  }
+		values = !phoneNumber[ 2 ] ? phoneNumber[ 1 ] : '(' + phoneNumber[ 1 ] + ') ' + phoneNumber[ 2 ] + (phoneNumber[ 3 ] ? '-' + phoneNumber[ 3 ] : '');
+		return (values);
+	}
 
 	//configuring formik
 	const formik = useFormik({
@@ -242,14 +242,11 @@ function PersonalInfo() {
 		}
 	};
 
-
 	//on email change call validation
 	const emailOnChange = (event) => {
 		setSsnEmailMatch(true);
 		formik.handleChange(event);
 	};
-
-	
 
 	//set auto focus
 	function autoFocus() {
@@ -424,17 +421,17 @@ function PersonalInfo() {
 											className="textBlock"
 										>
 											<DatePicker
-											name="dob"
-											label="Date of Birth *"
-											id="dob"
-											placeholder="MM/DD/YYYY"
-											format="MM/dd/yyyy"
-											maxdate={ myDate }
-											minyear={ 102 }
-											value={ formik.values.dob }
-											onChange={ (values) => {
-											  formik.setFieldValue("dob", values);
-											} }
+												name="dob"
+												label="Date of Birth *"
+												id="dob"
+												placeholder="MM/DD/YYYY"
+												format="MM/dd/yyyy"
+												maxdate={ myDate }
+												minyear={ 102 }
+												value={ formik.values.dob }
+												onChange={ (values) => {
+													formik.setFieldValue("dob", values);
+												} }
 												onBlur={ formik.handleBlur }
 												error={
 													formik.touched.dob && Boolean(formik.errors.dob)

@@ -64,22 +64,22 @@ const queryClient = new QueryClient({
         },
     },
 });
-const loadGeneralUserComponent = ( componentName ) => {
+const loadGeneralUserComponent = (componentName) => {
     return (
         <GeneralUser>
             { componentName }
         </GeneralUser>
-    )
-}
+    );
+};
 const loadPostComponent = (componentName) => {
     return (
-        <div id="main" style={ { marginLeft: "240px" } }>  
+        <div id="main" style={ { marginLeft: "240px" } }>
             <PostLogin>
                 { componentName }
             </PostLogin>
         </div>
-    )
-}
+    );
+};
 function App() {
     return (
         <QueryClientProvider client={ queryClient }>
@@ -96,74 +96,74 @@ function App() {
                 />
                 <BrowserRouter>
                     <CheckMyOffers>
-                        <ProfilePicture>                          
-                                    <Routes>
-                                        <Route path='/' element={<Navigate replace to="/customers/accountOverview" /> } />                                        
-                                        <Route path='/components' element={ loadGeneralUserComponent(<CustomComponents />) } />
-                                        <Route path='/login' element={ loadGeneralUserComponent(<LoginPage />) } />
-                                        <Route path='/register' element={ loadGeneralUserComponent(<RegisterPage/>) } />
-                                        <Route path='/faq' element={ loadGeneralUserComponent(<FaqBeforeLogin/>) } />                                        
-                                        <Route path='/privacyStatement' element={ loadGeneralUserComponent(<Disclosure URL="/privacy"/>) } />
-                                        <Route path='/communityGuidelines' element={ loadGeneralUserComponent(<Disclosure URL="/communityGuidelines"/>) } />
-                                        <Route path='/termsofuse' element={ loadGeneralUserComponent(<Disclosure URL="/termsOfUse"/>) } />
-                                        <Route path='/cac-termsofuse' element={ loadGeneralUserComponent(<Disclosure URL="/cacTermsOfUse"/>) } />
-                                        <Route path='/licenseDisclosure' element={ loadGeneralUserComponent(<Disclosure URL="/licensing"/>) } />
-                                        <Route path='/textingTermsOfUse' element={ loadGeneralUserComponent(<Disclosure URL="/textingTermsOfUse"/>) } />
-                                        <Route path='/californiaResident' element={ loadGeneralUserComponent(<Disclosure URL="/california"/>) } />
-                                        <Route path='/websiteAccessibility' element={ loadGeneralUserComponent(<Disclosure URL="/websiteAccessibility"/>) } />
-                                        <Route path='/loan-purpose' element={ loadGeneralUserComponent(<LoanPurpose/>) } />
-                                        <Route path='/pre-approved' element={ loadGeneralUserComponent(<PreApproved/>) } />
-                                        <Route path='/citizenship-status' element={ loadGeneralUserComponent(<CitizenshipStatus/>) } />
-                                        <Route path='/new-user' element={ loadGeneralUserComponent(<NewUser/>) } />
-                                        <Route path='/existing-user' element={ loadGeneralUserComponent(<ExistingUser/>) } />
-                                        <Route path='/employment-status' element={ loadGeneralUserComponent(<EmploymentStatus/>) } />
-                                        <Route path='/annual-income' element={ loadGeneralUserComponent(<AnnualIncome/>) } />
-                                        <Route path='/home-address' element={ loadGeneralUserComponent(<HomeAddress/>) } />
-                                        <Route path='/living-place' element={ loadGeneralUserComponent(<LivingPlace/>) } />
-                                        <Route path='/active-duty' element={ loadGeneralUserComponent(<ActiveDuty/>) } />
-                                        <Route path='/marital-status' element={ loadGeneralUserComponent(<MarriedStatus/>) } />
-                                        <Route path='/ssn' element={ loadGeneralUserComponent(<SSN/>) } />
-                                        <Route path='/no-offers-available' element={ loadGeneralUserComponent(<NoOffersAvailable/>) } />
-                                        <Route path='/referred-to-branch' element={ loadGeneralUserComponent(<ReferredToBranch/>) } />
-                                        <Route path='/eligible-for-offers' element={ loadGeneralUserComponent(<EligibleForOffers/>) } />
-                                        <Route path='/zipcode'  element={ loadGeneralUserComponent(<ZipCode />) } />
-                                        <Route path='/personal-info' element={ loadGeneralUserComponent(<PersonalInfo/>) } />
-                                        <Route path='/branchlocator' element={ loadGeneralUserComponent(<BranchLocator />) } ></Route>
-                                        <Route path='*' element={ loadGeneralUserComponent(<ErrorBeforeLogin />) } />                                        
-                                        <Route path='select-amount' element={ loadGeneralUserComponent(<SelectAmount/>) } >
-                                            <Route path=':amount' element={ loadGeneralUserComponent(<SelectAmount/>)  } />
-                                        </Route>
-                                        <Route path='customers' >
-                                                <Route path='accountOverview' element={ loadPostComponent(<AccountOverview />) } />
-                                                <Route path='paymentHistory' element={ loadPostComponent(<PaymentHistory />) } />
-                                                <Route path='selectOffer' element={ loadPostComponent(<ApplyLoan />) } />
-                                                <Route path='applyForLoan' element={ loadPostComponent(<ApplyForLoanRedirect />) } />
-                                                <Route path='resumeApplication' element={ loadPostComponent(<ResumeApplication />) } />
-                                                <Route path='reviewAndSign' element={ loadPostComponent(<ReviewAndSign />) } />
-                                                <Route path='finalVerification' element={ loadPostComponent(<FinalVerification />) } />
-                                                <Route path='receiveYourMoney' element={ loadPostComponent(<ReceiveYourMoney />) } />
-                                                <Route path='loanDocument' element={ loadPostComponent(<LoanDocument />) } />
-                                                <Route path='loanHistory' element={ loadPostComponent(<LoanHistory />) } />
-                                                <Route path='makePayment' element={ loadPostComponent(<MakePayment />) }>
-                                                    <Route path=':accNo' element={ loadPostComponent(<MakePayment />) } />
-                                                </Route>
-                                                <Route path='moneySkill' element={ loadPostComponent(<MoneySkill />) } />
-                                                <Route path='myBranch' element={ loadPostComponent(<MyBranch />) } />
-                                                <Route path='myProfile' element={ loadPostComponent(<MyProfile />) } />
-                                                <Route path='vantageScore' element={ loadPostComponent(<VantageScore />) } />
-                                                <Route path='faq' element={ loadPostComponent(<FaqPostLogin />) } />
-                                                <Route path='viewaccount' element={ loadPostComponent(<ViewAccountDetails />) } />
-                                                <Route path='verification'>
-                                                    <Route path='email' element={ <ValidateToken /> } />
-                                                </Route> 
-                                                <Route path='*' element={ <ErrorAfterLogin /> } />
-                                        </Route>                                        
-                                        <Route path='partner' >
-                                            <Route path='signup' element={ loadGeneralUserComponent(<PartnerSignUP />) } />
-                                            <Route path='confirm-signup' element={ loadGeneralUserComponent(<ConfirmationInfo />) } />
-                                            <Route path='*' element={ loadGeneralUserComponent(<ErrorBeforeLogin />) } />
-                                        </Route>
-                                    </Routes>                            
+                        <ProfilePicture>
+                            <Routes>
+                                <Route path='/' element={ <Navigate replace to="/customers/accountOverview" /> } />
+                                <Route path='/components' element={ loadGeneralUserComponent(<CustomComponents />) } />
+                                <Route path='/login' element={ loadGeneralUserComponent(<LoginPage />) } />
+                                <Route path='/register' element={ loadGeneralUserComponent(<RegisterPage />) } />
+                                <Route path='/faq' element={ loadGeneralUserComponent(<FaqBeforeLogin />) } />
+                                <Route path='/privacyStatement' element={ loadGeneralUserComponent(<Disclosure URL="/privacy" />) } />
+                                <Route path='/communityGuidelines' element={ loadGeneralUserComponent(<Disclosure URL="/communityGuidelines" />) } />
+                                <Route path='/termsofuse' element={ loadGeneralUserComponent(<Disclosure URL="/termsOfUse" />) } />
+                                <Route path='/cac-termsofuse' element={ loadGeneralUserComponent(<Disclosure URL="/cacTermsOfUse" />) } />
+                                <Route path='/licenseDisclosure' element={ loadGeneralUserComponent(<Disclosure URL="/licensing" />) } />
+                                <Route path='/textingTermsOfUse' element={ loadGeneralUserComponent(<Disclosure URL="/textingTermsOfUse" />) } />
+                                <Route path='/californiaResident' element={ loadGeneralUserComponent(<Disclosure URL="/california" />) } />
+                                <Route path='/websiteAccessibility' element={ loadGeneralUserComponent(<Disclosure URL="/websiteAccessibility" />) } />
+                                <Route path='/loan-purpose' element={ loadGeneralUserComponent(<LoanPurpose />) } />
+                                <Route path='/pre-approved' element={ loadGeneralUserComponent(<PreApproved />) } />
+                                <Route path='/citizenship-status' element={ loadGeneralUserComponent(<CitizenshipStatus />) } />
+                                <Route path='/new-user' element={ loadGeneralUserComponent(<NewUser />) } />
+                                <Route path='/existing-user' element={ loadGeneralUserComponent(<ExistingUser />) } />
+                                <Route path='/employment-status' element={ loadGeneralUserComponent(<EmploymentStatus />) } />
+                                <Route path='/annual-income' element={ loadGeneralUserComponent(<AnnualIncome />) } />
+                                <Route path='/home-address' element={ loadGeneralUserComponent(<HomeAddress />) } />
+                                <Route path='/living-place' element={ loadGeneralUserComponent(<LivingPlace />) } />
+                                <Route path='/active-duty' element={ loadGeneralUserComponent(<ActiveDuty />) } />
+                                <Route path='/marital-status' element={ loadGeneralUserComponent(<MarriedStatus />) } />
+                                <Route path='/ssn' element={ loadGeneralUserComponent(<SSN />) } />
+                                <Route path='/no-offers-available' element={ loadGeneralUserComponent(<NoOffersAvailable />) } />
+                                <Route path='/referred-to-branch' element={ loadGeneralUserComponent(<ReferredToBranch />) } />
+                                <Route path='/eligible-for-offers' element={ loadGeneralUserComponent(<EligibleForOffers />) } />
+                                <Route path='/zipcode' element={ loadGeneralUserComponent(<ZipCode />) } />
+                                <Route path='/personal-info' element={ loadGeneralUserComponent(<PersonalInfo />) } />
+                                <Route path='/branchlocator' element={ loadGeneralUserComponent(<BranchLocator />) } ></Route>
+                                <Route path='*' element={ loadGeneralUserComponent(<ErrorBeforeLogin />) } />
+                                <Route path='select-amount' element={ loadGeneralUserComponent(<SelectAmount />) } >
+                                    <Route path=':amount' element={ loadGeneralUserComponent(<SelectAmount />) } />
+                                </Route>
+                                <Route path='customers' >
+                                    <Route path='accountOverview' element={ loadPostComponent(<AccountOverview />) } />
+                                    <Route path='paymentHistory' element={ loadPostComponent(<PaymentHistory />) } />
+                                    <Route path='selectOffer' element={ loadPostComponent(<ApplyLoan />) } />
+                                    <Route path='applyForLoan' element={ loadPostComponent(<ApplyForLoanRedirect />) } />
+                                    <Route path='resumeApplication' element={ loadPostComponent(<ResumeApplication />) } />
+                                    <Route path='reviewAndSign' element={ loadPostComponent(<ReviewAndSign />) } />
+                                    <Route path='finalVerification' element={ loadPostComponent(<FinalVerification />) } />
+                                    <Route path='receiveYourMoney' element={ loadPostComponent(<ReceiveYourMoney />) } />
+                                    <Route path='loanDocument' element={ loadPostComponent(<LoanDocument />) } />
+                                    <Route path='loanHistory' element={ loadPostComponent(<LoanHistory />) } />
+                                    <Route path='makePayment' element={ loadPostComponent(<MakePayment />) }>
+                                        <Route path=':accNo' element={ loadPostComponent(<MakePayment />) } />
+                                    </Route>
+                                    <Route path='moneySkill' element={ loadPostComponent(<MoneySkill />) } />
+                                    <Route path='myBranch' element={ loadPostComponent(<MyBranch />) } />
+                                    <Route path='myProfile' element={ loadPostComponent(<MyProfile />) } />
+                                    <Route path='vantageScore' element={ loadPostComponent(<VantageScore />) } />
+                                    <Route path='faq' element={ loadPostComponent(<FaqPostLogin />) } />
+                                    <Route path='viewaccount' element={ loadPostComponent(<ViewAccountDetails />) } />
+                                    <Route path='verification'>
+                                        <Route path='email' element={ <ValidateToken /> } />
+                                    </Route>
+                                    <Route path='*' element={ <ErrorAfterLogin /> } />
+                                </Route>
+                                <Route path='partner' >
+                                    <Route path='signup' element={ loadGeneralUserComponent(<PartnerSignUP />) } />
+                                    <Route path='confirm-signup' element={ loadGeneralUserComponent(<ConfirmationInfo />) } />
+                                    <Route path='*' element={ loadGeneralUserComponent(<ErrorBeforeLogin />) } />
+                                </Route>
+                            </Routes>
                         </ProfilePicture>
                     </CheckMyOffers>
                 </BrowserRouter>

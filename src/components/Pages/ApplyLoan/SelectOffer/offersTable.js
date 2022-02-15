@@ -160,7 +160,7 @@ export default function OfferTable(props) {
 											>
 												<Grid container direction="row" alignItems="center">
 													{ " " }
-													APR													 
+													APR
 												</Grid>
 											</TableCell>
 											{ props.offerFlag === false ? (
@@ -323,7 +323,7 @@ export default function OfferTable(props) {
 										props.setSelectedIndex("");
 										props.setOffersToCompareChart([]);
 										props.setOffersToCompare([]);
-									}}
+									} }
 									{ ...props.tabVerticalProps(0) }
 								>
 									Reset

@@ -11,7 +11,7 @@ export default async function BranchLocatorController(ZipCode) {
         let method = "GET";
         let addAccessToken = false;
 
-        //API call 
+        //API call
         return await APICall(url, param, data, method, addAccessToken);
     } catch (error) {
         ErrorLogger("Error executing BranchLocatorController API", error);

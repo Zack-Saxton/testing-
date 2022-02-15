@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 import { useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import APICall from "../../../lib/AxiosLib";
 import messages from "../../../lib/Lang/applyForLoan.json";
@@ -29,12 +29,13 @@ const ValidateToken = () => {
 		const returnURL = window.location.pathname + window.location.search;
 		if (!userToken?.isLoggedIn) {
 			navigate("/login",
-				{ state: {
-					redirect: returnURL,
-					required: required,
-					activationToken: activationToken,
-				},
-			});
+				{
+					state: {
+						redirect: returnURL,
+						required: required,
+						activationToken: activationToken,
+					},
+				});
 		} else if (now - actualSetupTime > min * 60 * 1000) {
 			alert(messages?.emailVerification?.sessionEnded);
 			navigate("/login", { state: { redirect: returnURL }, });

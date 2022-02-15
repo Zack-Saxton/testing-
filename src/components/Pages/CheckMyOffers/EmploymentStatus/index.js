@@ -6,10 +6,10 @@ import { useFormik } from "formik";
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
+import { employmentStatusData } from "../../../../assets/data/constants";
 import EmploymentStatusPNG from "../../../../assets/icon/I-Employment-Status.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, PhoneNumber, Select } from "../../../FormsUI";
-import { employmentStatusData } from "../../../../assets/data/constants"
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./EmploymentStatus.css";
 
@@ -45,11 +45,11 @@ function EmploymentStatus() {
 			}),
 	});
 
-	function phoneNumberMask(values){
+	function phoneNumberMask(values) {
 		let phoneNumber = values.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-			  values = !phoneNumber[ 2 ] ? phoneNumber[ 1 ] : '(' + phoneNumber[ 1 ] + ') ' + phoneNumber[ 2 ] + (phoneNumber[ 3 ] ? '-' + phoneNumber[ 3 ] : '');
-	  return(values);
-	  }
+		values = !phoneNumber[ 2 ] ? phoneNumber[ 1 ] : '(' + phoneNumber[ 1 ] + ') ' + phoneNumber[ 2 ] + (phoneNumber[ 3 ] ? '-' + phoneNumber[ 3 ] : '');
+		return (values);
+	}
 	const formik = useFormik({
 		initialValues: {
 			phone: data.EmployerPhone ? phoneNumberMask(data.EmployerPhone) : "",
@@ -66,7 +66,7 @@ function EmploymentStatus() {
 					.replace(/\)/g, "")
 					.replace(/\(/g, "")
 					.replace(/ /g, "") || "";
-			
+
 			data.completedPage = data.page.employmentStatus;
 
 			if (employmentStatus === employmentStatusData.employedHourly || employmentStatus === employmentStatusData.employedSalaried || employmentStatus === employmentStatusData.selfEmployed) {
@@ -194,7 +194,7 @@ function EmploymentStatus() {
 											<Paper
 												id="employedSalaried"
 												elevation={ 3 }
-												data-testid={employmentStatusData.employedSalaried}
+												data-testid={ employmentStatusData.employedSalaried }
 												className={
 													employmentStatus === employmentStatusData.employedSalaried
 														? "activeBorder radioBlocked"
@@ -212,7 +212,7 @@ function EmploymentStatus() {
 											<Paper
 												id="selfEmployed"
 												elevation={ 3 }
-												data-testid={employmentStatusData.selfEmployed}
+												data-testid={ employmentStatusData.selfEmployed }
 												className={
 													employmentStatus === employmentStatusData.selfEmployed
 														? "activeBorder radioBlocked"
@@ -230,7 +230,7 @@ function EmploymentStatus() {
 											<Paper
 												id="Unemployed"
 												elevation={ 3 }
-												data-testid={employmentStatusData.unemployed}
+												data-testid={ employmentStatusData.unemployed }
 												className={
 													employmentStatus === employmentStatusData.unemployed
 														? "activeBorder radioBlocked"
@@ -253,7 +253,7 @@ function EmploymentStatus() {
 											<Paper
 												id="Retired"
 												elevation={ 3 }
-												data-testid={employmentStatusData.retired}
+												data-testid={ employmentStatusData.retired }
 												className={
 													employmentStatus === employmentStatusData.retired
 														? "activeBorder radioBlocked"
@@ -353,7 +353,7 @@ function EmploymentStatus() {
 												type="text"
 												onKeyDown={ preventSpace }
 												value={ formik.values.phone }
-												onLoad={formik.handleChange}
+												onLoad={ formik.handleChange }
 												onChange={ formik.handleChange }
 												onBlur={ formik.handleBlur }
 												error={

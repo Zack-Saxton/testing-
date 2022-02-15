@@ -5,10 +5,11 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Typography from "@material-ui/core/Typography";
 import Cookies from "js-cookie";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useIdleTimer } from "react-idle-timer";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import globalMessages from "../../assets/data/globalMessages.json";
 import "../App/App.css";
 import CheckLoginStatus from "../App/CheckLoginStatus";
 import LoginController from "../Controllers/LoginController";
@@ -16,7 +17,6 @@ import LogoutController from "../Controllers/LogoutController";
 import { ButtonPrimary } from "../FormsUI";
 import Footer from "../Layout/Footer/Footer";
 import { decryptAES, encryptAES } from "../lib/Crypto";
-import globalMessages from "../../assets/data/globalMessages.json";
 import AppBar from "./AppBar/SideNav";
 
 const Post = ({ children }) => {

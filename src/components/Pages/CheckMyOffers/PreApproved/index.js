@@ -16,7 +16,7 @@ const PreApproved = () => {
         setAccountDetails().then((res) => {
             setOfferAmount(res?.data?.offerData?.offerAmount);
         });
-        return null
+        return null;
     }, []);
 
     const handleContinue = () => {

@@ -6,8 +6,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
 import { useQuery } from 'react-query';
+import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import CheckLoginStatus from "../../../App/CheckLoginStatus";
 import usrAccountDetails from "../../../Controllers/AccountOverviewController";
@@ -113,7 +113,6 @@ const useStyles = makeStyles((theme) => ({
 //Initializing the Review and sign functional component
 export default function ReviewAndSign(props) {
   const classes = useStyles();
-
   //Initializing state variable
   const [ value, setValue ] = useState(1);
   const navigate = useNavigate();
@@ -122,8 +121,6 @@ export default function ReviewAndSign(props) {
   const [ selectedOffer, setSelectOffer ] = useState();
   const [ loading, setLoading ] = useState(false);
   const { refetch } = useQuery('loan-data', usrAccountDetails);
-  // let selectedOffer;
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };

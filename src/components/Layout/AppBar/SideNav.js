@@ -143,7 +143,7 @@ const useStyles = makeStyles((theme) => ({
   },
   headerAlign: {
     margin: "12px",
-    color:"#fff"
+    color: "#fff"
   },
 
   branchLocator: {
@@ -351,7 +351,7 @@ export default function SideNav() {
     if (checked === false || check === false) {
       var profiledetailTag = document.getElementById("profileDetails");
       profiledetailTag.style.display = "none";
-      
+
       let menuValue = document
         .getElementById(closeElementId)
         .getAttribute(valueQualifiedName);
@@ -384,8 +384,7 @@ export default function SideNav() {
 
   //Menu button on mouse view
   const handleMenuButtonOpen = () => {
-    
-      
+
     if (check === false) {
       document.getElementById("close2").style.display = "block ";
       setOpen(true);
@@ -452,11 +451,11 @@ export default function SideNav() {
   };
 
   const onAFLClick = () => {
-    navigate("/customers/applyForLoan", { state: { from: "user" } } );
+    navigate("/customers/applyForLoan", { state: { from: "user" } });
   };
 
   const resumeApplicationClick = () => {
-    navigate(applicationStatusRedirectPage[ checkPresenceOfLoanStatus ], { state: { from: "user" } } );
+    navigate(applicationStatusRedirectPage[ checkPresenceOfLoanStatus ], { state: { from: "user" } });
 
   };
 
@@ -531,7 +530,7 @@ export default function SideNav() {
               </NavLink>
 
               <NavLink to="/branchlocator" className="nav_link">
-                <Typography className={classes.headerAlign}>Branch Locator</Typography>
+                <Typography className={ classes.headerAlign }>Branch Locator</Typography>
               </NavLink>
 
               <NavLink to="/customers/makePayment" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : '' }>
@@ -676,7 +675,7 @@ export default function SideNav() {
                 </NavLink>
 
                 { checkPresenceOfLoan === true ?
-                  <NavLink to="#" state = { {from: "user" } } onClick={ (event) => { resumeApplicationClick(); } } className="nav_link" >
+                  <NavLink to="#" state={ { from: "user" } } onClick={ (event) => { resumeApplicationClick(); } } className="nav_link" >
                     <ListItem className="titleSidenav" >
                       <ListItemIcon>
                         { " " }
@@ -686,7 +685,7 @@ export default function SideNav() {
                     </ListItem>
                   </NavLink>
                   :
-                  <NavLink id="applyForLoanNav" to="/customers/applyForLoan" state= { { from: "user" } }  state={ { from: "user" } } onClick={ (event) => { currentLoan ? event.preventDefault() :""; } } className={ currentLoan ? "nav_link_disabled" : "nav_link" } >
+                  <NavLink id="applyForLoanNav" to="/customers/applyForLoan" state={ { from: "user" } } state={ { from: "user" } } onClick={ (event) => { currentLoan ? event.preventDefault() : ""; } } className={ currentLoan ? "nav_link_disabled" : "nav_link" } >
                     <ListItem className="titleSidenav" disabled={ currentLoan }>
                       <ListItemIcon>
                         { " " }

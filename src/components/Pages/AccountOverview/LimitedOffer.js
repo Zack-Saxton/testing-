@@ -23,32 +23,31 @@ export default function LimitedOffer(userOfferData) {
   // Get offers details
   let userOfferAmount = (userOfferData.userOffers != null) ? userOfferData.userOffers.offerAmount : 0;
   const navigate = useNavigate();
-  
-  const [initModal,setinitModal] = useState(false);
-  const [offerCode,setOfferCode] = useState(" ");
-  const [amount,setAmount] = useState(" ");
-  const [expiryDate,setExpiryDate] = useState(" ")
-  const [firstName,setfirstName] = useState("")
-  const [branchCno,setBranchCno] = useState("");
-  const [branchName,setBranchName] = useState("");
-  const [branchManager,setbranchManager] = useState("");
-  
 
-  useEffect(()=>{
-            setAccountDetails().then((res)=>{
-              setOfferCode(res?.data?.offerData?.OfferCode)
-              setExpiryDate(res?.data?.offerData?.dateExpiration)
-              setAmount(res?.data?.offerData?.offerAmount)
-              setfirstName(res?.data?.offerData?.firstName);
-            })
-            MyBranchAPI().then((res)=>{
-              setBranchCno(res?.data?.PhoneNumber)
-              setBranchName(res?.data?.branchName + " Branch")
-              setbranchManager(res?.data?.branchmanager)
-              
-            })
-            return null
-  },[])
+  const [ initModal, setinitModal ] = useState(false);
+  const [ offerCode, setOfferCode ] = useState(" ");
+  const [ amount, setAmount ] = useState(" ");
+  const [ expiryDate, setExpiryDate ] = useState(" ");
+  const [ firstName, setfirstName ] = useState("");
+  const [ branchCno, setBranchCno ] = useState("");
+  const [ branchName, setBranchName ] = useState("");
+  const [ branchManager, setbranchManager ] = useState("");
+
+  useEffect(() => {
+    setAccountDetails().then((res) => {
+      setOfferCode(res?.data?.offerData?.OfferCode);
+      setExpiryDate(res?.data?.offerData?.dateExpiration);
+      setAmount(res?.data?.offerData?.offerAmount);
+      setfirstName(res?.data?.offerData?.firstName);
+    });
+    MyBranchAPI().then((res) => {
+      setBranchCno(res?.data?.PhoneNumber);
+      setBranchName(res?.data?.branchName + " Branch");
+      setbranchManager(res?.data?.branchmanager);
+
+    });
+    return null;
+  }, []);
 
   const showModal = () => {
     setinitModal(true);
@@ -106,7 +105,7 @@ export default function LimitedOffer(userOfferData) {
                 ) : (
                   <div id="offerText">
                     <NavLink
-                      to="/customers/applyForLoan" state= { { from: "user" } }
+                      to="/customers/applyForLoan" state={ { from: "user" } }
                       style={ { textDecoration: "none" } }
                     >
                       <ButtonPrimary id="claimButton" stylebutton='{"color":"", "textTransform": "none"}'>
@@ -162,10 +161,10 @@ export default function LimitedOffer(userOfferData) {
                 </Grid>
                 <Grid className="rightcheckMyOffers">
                   <p className="common">You are prequalified up to</p>
-                  <p className="common" style={{color:"#0F4EB3",fontSize:"bold",textAlign:"center"}}>
+                  <p className="common" style={ { color: "#0F4EB3", fontSize: "bold", textAlign: "center" } }>
                     ${ amount }
-                    
-</p>
+
+                  </p>
 
                   <p className="common">Use it to get things done.</p>
 
@@ -183,26 +182,26 @@ export default function LimitedOffer(userOfferData) {
                   things you want-and get rid of the bills you don't.
                 </p>
                 <p className="common">What will you do with your money?</p>
-            <p className="common">Get rid of bills & credit card debt? Spruce up the house? Take a vacation?</p>
-            <p className="common">Use offer code {offerCode} before {expiryDate}. Remember, checking your offer online does not affect your credit.*</p>
-<p className="common">
-Sincerely,<br></br>
-{branchManager}<br></br>
-{branchName}<br></br>
-{branchCno}
-</p>
-            </Grid>
-            <Grid className="content">
-            You can choose to stop receiving "prescreened" offers of credit from this and other companies by calling toll-free 888-567-8688.
-                 <br/>See PRESCREEN & OPT-OUT NOTICE below for more information about prescreened offers.
-           </Grid>
-           <Grid style={{textAlign:"center"}}>
-           <p>Easy, Fast, Flexible & Convenient</p>
-           <ButtonPrimary id="ClaimButton" stylebutton='{"color":"", "textTransform": "none"}' onClick={handleContinue}>
-                        Continue
-                      </ButtonPrimary>
-<p>We need more information from you to show you your offers. Please click continue to tell us more about yourself.</p>
-           <p>P.P.S. Still have questions? Give your local branch a call today! 708-425-1176</p>
+                <p className="common">Get rid of bills & credit card debt? Spruce up the house? Take a vacation?</p>
+                <p className="common">Use offer code { offerCode } before { expiryDate }. Remember, checking your offer online does not affect your credit.*</p>
+                <p className="common">
+                  Sincerely,<br></br>
+                  { branchManager }<br></br>
+                  { branchName }<br></br>
+                  { branchCno }
+                </p>
+              </Grid>
+              <Grid className="content">
+                You can choose to stop receiving "prescreened" offers of credit from this and other companies by calling toll-free 888-567-8688.
+                <br />See PRESCREEN & OPT-OUT NOTICE below for more information about prescreened offers.
+              </Grid>
+              <Grid style={ { textAlign: "center" } }>
+                <p>Easy, Fast, Flexible & Convenient</p>
+                <ButtonPrimary id="ClaimButton" stylebutton='{"color":"", "textTransform": "none"}' onClick={ handleContinue }>
+                  Continue
+                </ButtonPrimary>
+                <p>We need more information from you to show you your offers. Please click continue to tell us more about yourself.</p>
+                <p>P.P.S. Still have questions? Give your local branch a call today! 708-425-1176</p>
 
               </Grid>
               <Grid>

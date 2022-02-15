@@ -5,10 +5,10 @@ import DisclosureLinkController from "../../Controllers/DisclosureLinkController
 import "./Style.css";
 
 const RenderContent = ({ disclosureLink }) => {
-    const loadData =  () => {
-        return  DisclosureLinkController(disclosureLink)
-    }
-	const { isLoading, data: accountDetails } = useQuery(disclosureLink, loadData);
+    const loadData = () => {
+        return DisclosureLinkController(disclosureLink);
+    };
+    const { isLoading, data: accountDetails } = useQuery(disclosureLink, loadData);
     return (
         <div>
             {

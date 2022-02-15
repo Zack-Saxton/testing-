@@ -30,14 +30,14 @@ const PhoneNumberWrapper = ({ name, onChange, value, label, error, disabled, hel
   return (
     <FormControl style={ { width: "100%" } }>
       <MuiThemeProvider theme={ theme }>
-         <TextField label={ label }
-            name={ name }
-            value={ unmaskedval }
-            error={ error }
-            onChange={handleChange}
-            placeholder="Enter Phone Number"
-            helperText={ helperText }
-            inputProps={ { "data-test-id": "phone", "unmaskedval": unmaskedval, disabled: disabled } } /> 
+        <TextField label={ label }
+          name={ name }
+          value={ unmaskedval }
+          error={ error }
+          onChange={ handleChange }
+          placeholder="Enter Phone Number"
+          helperText={ helperText }
+          inputProps={ { "data-test-id": "phone", "unmaskedval": unmaskedval, disabled: disabled } } />
       </MuiThemeProvider>
     </FormControl>
   );

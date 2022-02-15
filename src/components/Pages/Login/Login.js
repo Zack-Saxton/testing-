@@ -1,26 +1,26 @@
 import Box from "@material-ui/core/Box";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
 import Grid from "@material-ui/core/Grid";
+import IconButton from "@material-ui/core/IconButton";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
+import CloseIcon from "@material-ui/icons/Close";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useState } from "react";
 import { useQueryClient } from "react-query";
-import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import LoginController from "../../Controllers/LoginController";
 import {
   ButtonPrimary,
   EmailTextField,
-  PasswordField,  
+  PasswordField
 } from "../../FormsUI";
 import { encryptAES } from "../../lib/Crypto";
 import { FormValidationRules } from "../../lib/FormValidationRule";
 import ScrollToTopOnMount from "../../Pages/ScrollToTop";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import IconButton from "@material-ui/core/IconButton";
-import CloseIcon from "@material-ui/icons/Close";
 import "./Login.css";
 var formValidation = new FormValidationRules();
 const moment = require("moment");
@@ -108,10 +108,10 @@ const validationSchema = formValidation.getFormValidationRule("login");
 export default function Login(props) {
   const classes = useStyles();
   const navigate = useNavigate();
-  const [loginFailed, setLoginFailed] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [counter, setCounter] = useState(0);
-  const [openDeleteSchedule, setopenDeleteSchedule] = useState(false);
+  const [ loginFailed, setLoginFailed ] = useState("");
+  const [ loading, setLoading ] = useState(false);
+  const [ counter, setCounter ] = useState(0);
+  const [ openDeleteSchedule, setopenDeleteSchedule ] = useState(false);
   const queryClient = useQueryClient();
   let location = useLocation();
   //Form Submission
@@ -135,10 +135,10 @@ export default function Login(props) {
         let login_date = retVal?.data?.user.extensionattributes?.login
           ?.last_timestamp_date
           ? moment(
-              retVal?.data?.user.extensionattributes.login.last_timestamp_date
-            )
-              .subtract(addVal, "hours")
-              .format("MM/DD/YYYY")
+            retVal?.data?.user.extensionattributes.login.last_timestamp_date
+          )
+            .subtract(addVal, "hours")
+            .format("MM/DD/YYYY")
           : "";
         var now = new Date().getTime();
         // On login success storing the needed data in the local storage
@@ -171,8 +171,8 @@ export default function Login(props) {
         queryClient.removeQueries();
         setLoading(false);
         navigate(location.state?.redirect
-            ? location.state?.redirect
-            : "/customers/accountoverview");
+          ? location.state?.redirect
+          : "/customers/accountoverview");
         if (location.state?.activationToken) {
           navigate(0);
         }
@@ -226,39 +226,39 @@ export default function Login(props) {
   return (
     <div>
       <ScrollToTopOnMount />
-      <div className={classes.mainContentBackground} id="mainContentBackground">
+      <div className={ classes.mainContentBackground } id="mainContentBackground">
         <Box>
           <Grid
-            className={classes.mainContentGrid}
+            className={ classes.mainContentGrid }
             item
-            xl={4}
-            lg={4}
-            md={4}
-            sm={10}
-            xs={12}
+            xl={ 4 }
+            lg={ 4 }
+            md={ 4 }
+            sm={ 10 }
+            xs={ 12 }
           >
             <Grid
               id="main-content"
-              style={{
+              style={ {
                 opacity: loading ? 0.55 : 1,
                 pointerEvents: loading ? "none" : "initial",
-              }}
+              } }
             >
-              <Paper className={classes.paper}>
+              <Paper className={ classes.paper }>
                 <Typography
-                  className={classes.title}
+                  className={ classes.title }
                   data-testid="title"
                   color="textSecondary"
                 >
                   Sign in
                 </Typography>
 
-                <form onSubmit={formik.handleSubmit}>
-                  <Grid style={{ paddingTop: "30px" }}>
+                <form onSubmit={ formik.handleSubmit }>
+                  <Grid style={ { paddingTop: "30px" } }>
                     <Grid
-                      style={{ width: "100%" }}
+                      style={ { width: "100%" } }
                       // direction="row"
-                      className={classes.emailGrid}
+                      className={ classes.emailGrid }
                     >
                       <EmailTextField
                         id="email"
@@ -267,28 +267,28 @@ export default function Login(props) {
                         testid="email-input"
                         placeholder="Enter your email address"
                         label="Email Address *"
-                        materialProps={{ maxLength: "100" }}
+                        materialProps={ { maxLength: "100" } }
                         suffix={
-                          <p id="helpLogin" onClick={handlePaymentcancel}>
-                            {" "}
+                          <p id="helpLogin" onClick={ handlePaymentcancel }>
+                            { " " }
                             Help
                           </p>
                         }
-                        onKeyDown={preventSpace}
-                        value={formik.values.email}
-                        onChange={passwordOnChange}
-                        onBlur={formik.handleBlur}
+                        onKeyDown={ preventSpace }
+                        value={ formik.values.email }
+                        onChange={ passwordOnChange }
+                        onBlur={ formik.handleBlur }
                         error={
                           formik.touched.email && Boolean(formik.errors.email)
                         }
-                        helperText={formik.touched.email && formik.errors.email}
+                        helperText={ formik.touched.email && formik.errors.email }
                       />
                     </Grid>
 
                     <Grid
-                      style={{ width: "100%" }}
+                      style={ { width: "100%" } }
 
-                      // direction="row"
+                    // direction="row"
                     >
                       <PasswordField
                         name="password"
@@ -296,11 +296,11 @@ export default function Login(props) {
                         placeholder="Enter your password"
                         id="password"
                         type="password"
-                        onKeyDown={preventSpace}
-                        materialProps={{ maxLength: "100" }}
-                        value={formik.values.password}
-                        onChange={passwordOnChange}
-                        onBlur={formik.handleBlur}
+                        onKeyDown={ preventSpace }
+                        materialProps={ { maxLength: "100" } }
+                        value={ formik.values.password }
+                        onChange={ passwordOnChange }
+                        onBlur={ formik.handleBlur }
                         error={
                           formik.touched.password &&
                           Boolean(formik.errors.password)
@@ -315,35 +315,35 @@ export default function Login(props) {
                         }
                         data-testid="subtitle"
                       >
-                        {" "}
+                        { " " }
                         Invalid email or password. Please try again or click on
                         Sign In help/Register for help signing in.
                       </p>
                     </Grid>
 
-                    <Grid item xs={12} className={classes.loginButton}>
+                    <Grid item xs={ 12 } className={ classes.loginButton }>
                       <ButtonPrimary
                         type="submit"
                         data-testid="submit"
                         stylebutton='{"background": "", "color":"" , "fontSize" : "15px", "padding" : "0px 30px"}'
-                        disabled={loading}
+                        disabled={ loading }
                       >
                         Sign In
                         <i
                           className="fa fa-refresh fa-spin customSpinner"
-                          style={{
+                          style={ {
                             marginRight: "10px",
                             display: loading ? "block" : "none",
-                          }}
+                          } }
                         />
                       </ButtonPrimary>
                     </Grid>
-                    <Grid className={classes.registerGrid}>
+                    <Grid className={ classes.registerGrid }>
                       <NavLink
                         to="/register"
-                        style={{ textDecoration: "none" }}
+                        style={ { textDecoration: "none" } }
                       >
-                        <p className={classes.register}>
+                        <p className={ classes.register }>
                           Sign in Help / Register
                         </p>
                       </NavLink>
@@ -358,16 +358,16 @@ export default function Login(props) {
 
       <Dialog
         id="deletePayment"
-        open={openDeleteSchedule}
+        open={ openDeleteSchedule }
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
-        classes={{ paper: classes.dialogPaper }}
+        classes={ { paper: classes.dialogPaper } }
       >
-        <div id="closeBtn" className={classes.buttonClose}>
+        <div id="closeBtn" className={ classes.buttonClose }>
           <IconButton
             aria-label="close"
-            onClick={handleHelpLoginClose}
-            className={classes.closeButton}
+            onClick={ handleHelpLoginClose }
+            className={ classes.closeButton }
           >
             <CloseIcon />
           </IconButton>
@@ -375,35 +375,35 @@ export default function Login(props) {
 
         <h2
           id="loginHelpDialogHeading"
-          className={classes.loginHelpDialogHeading}
+          className={ classes.loginHelpDialogHeading }
         >
-          Having Trouble Logging In?{" "}
+          Having Trouble Logging In?{ " " }
         </h2>
-          <ul>
-            <li>
-              {" "}
-              If you're a new user, click on
-              <NavLink to="/register" style={{ textDecoration: "none" }}>
-                <span id="helpLogin">"Sign in help/Register"</span>
-              </NavLink>{" "}
-              option and enter your registrtion details.
-            </li>
-          </ul>
-          <ul>
-            <li>
-              {" "}
-              If you have been making payments with our existing customer
-              account center user your email address in place of your userid and
-              existing password
-            </li>
-          </ul>
+        <ul>
+          <li>
+            { " " }
+            If you're a new user, click on
+            <NavLink to="/register" style={ { textDecoration: "none" } }>
+              <span id="helpLogin">"Sign in help/Register"</span>
+            </NavLink>{ " " }
+            option and enter your registrtion details.
+          </li>
+        </ul>
+        <ul>
+          <li>
+            { " " }
+            If you have been making payments with our existing customer
+            account center user your email address in place of your userid and
+            existing password
+          </li>
+        </ul>
 
         <DialogActions
-          style={{ justifyContent: "center", marginBottom: "25px" }}
+          style={ { justifyContent: "center", marginBottom: "25px" } }
         >
           <ButtonPrimary
             stylebutton='{"background": "", "color":"" }'
-            onClick={handleHelpLoginClose}
+            onClick={ handleHelpLoginClose }
           >
             ok
           </ButtonPrimary>

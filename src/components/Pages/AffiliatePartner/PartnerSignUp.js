@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import * as yup from "yup";
 import Logo from "../../../assets/images/loginbg.png";
@@ -559,7 +559,7 @@ export default function CreditKarma() {
                         stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
                         disabled={ loading }
                       >
-                          Continue
+                        Continue
                         <i
                           className="fa fa-refresh fa-spin customSpinner"
                           style={ {
