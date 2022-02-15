@@ -1,46 +1,44 @@
-import { makeStyles } from "@material-ui/core";
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Dialog from "@material-ui/core/Dialog";
 import Grid from "@material-ui/core/Grid";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
+import React, { useState, useEffect } from "react";
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import CloseIcon from "@material-ui/icons/Close";
 import SearchIcon from '@material-ui/icons/Search';
-import { useLoadScript } from "@react-google-maps/api";
-import React, { useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import BranchDayTiming from "../../Controllers/BranchDayTiming";
-import BranchLocatorController from "../../Controllers/BranchLocatorController";
-import { ButtonPrimary, ButtonSecondary, TextField } from "../../FormsUI";
+import { ButtonPrimary, TextField, ButtonSecondary } from "../../FormsUI";
+import { useStylesMyBranch } from "./Style";
 import { useStylesConsumer } from "../../Layout/ConsumerFooterDialog/Style";
+import { toast } from "react-toastify";
+import Dialog from "@material-ui/core/Dialog";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
+import BranchLocatorController from "../../Controllers/BranchLocatorController";
+import Typography from "@material-ui/core/Typography";
 import ErrorLogger from "../../lib/ErrorLogger";
+import { useLoadScript } from "@react-google-maps/api"
 import Map from "./BranchLocatorMap";
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { MFStates } from "../../../assets/data/marinerBusinesStates"
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import Link from "@material-ui/core/Link";
-import   { useStylesMyBranch } from "./Style"
-import BranchImage from "../../../assets/images/branch-locator_hero-image.jpg"
-export default function BranchLocator() {
+import StateImage from "../../../assets/images/States.png"
+export default function StatePage() {
   window.zeHide();
   //Material UI css class
   const classes = useStylesMyBranch();
   const getDirectionsClass = useStylesConsumer();
-  const [ getDirectionModal, setgetDirectionModal ] = useState(false);
-  const [ getBranchList, setBranchList ] = useState();
-  const [ getBranchAddress, setBranchAddress ] = useState();
-  const [ getMap, setMap ] = useState([]);
-  const [ getCurrentLocation, setCurrentLocation ] = useState();
-  const [ loading, setLoading ] = useState(false);
-  const [ zoomDepth, setZoomDepth ] = useState();
+  const [getDirectionModal, setgetDirectionModal] = useState(false);
+  const [getBranchList, setBranchList] = useState();
+  const [getBranchAddress, setBranchAddress] = useState();
+  const [getMap, setMap] = useState([]);
+  const [getCurrentLocation, setCurrentLocation] = useState();
+  const [loading, setLoading] = useState(false);
+  const [zoomDepth, setZoomDepth] = useState();
   //API call
   const getBranchLists = async (search_text) => {
     try {
       setLoading(true);
       let result = await BranchLocatorController(search_text);
       setCurrentLocation(result?.data?.searchLocation);
-      let N = (result?.data?.branchData[ 0 ]?.distance).replace(/[^0-9]/g, '');
+      let N = (result?.data?.branchData[0]?.distance).replace(/[^0-9]/g, '');
       switch (N) {
         case (N > 190):
           {
@@ -83,15 +81,16 @@ export default function BranchLocator() {
             break;
           }
       }
+
       if (result.status === 400) {
-        toast.error(' Check your address and Try again.');
+        toast.error(' Check your address and Try again.')
       } else {
         return (result.data.branchData);
       }
     } catch (error) {
-      toast.error(' Error from getBranchList ', error);
+      toast.error(' Error from getBranchList ', error)
     }
-  };
+  }
   const listForMapView = async (List) => {
     if (List) {
       setMap(
@@ -104,83 +103,50 @@ export default function BranchLocator() {
             lng: Number(item.longitude)
           }
         })
-        ));
+        ))
     }
-  };
+  }
   const apiGetBranchList = async (value) => {
     try {
       let result = await getBranchLists(value);
-      console.log("pass value ", value)
-      console.log("Data ", result)
-      for (let ele in result) {
-        let BranchTime = await findBranchTimings(result[ ele ]);
-        result[ ele ] = Object.assign(result[ ele ], { "BranchTime": BranchTime });
-      }
       setBranchList(result);
       setLoading(false);
       listForMapView(result);
     } catch (error) {
       ErrorLogger(' Error from apiGetBranchList ', error);
     }
-  };
+  }
   const getActivePlaces = async () => {
     apiGetBranchList(inputText.value);
-  };
+  }
+  // -------- To Display Dialog to get Directions of Address.......
   const openGetDirectionModal = () => {
     setgetDirectionModal(true);
-  };
+  }
   const closeGetDirectionModal = () => {
     setgetDirectionModal(false);
-  };
+  }
   const MFButtonClick = async (event) => {
     apiGetBranchList(event.target.innerText);
-  };
+  }
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_SECKey
   });
   useEffect(() => {
     inputText.value = '21236';
     getActivePlaces();
-  }, []);
-  const findBranchTimings = async (value) => {
-    try {
-      if (value) {
-        return await BranchDayTiming(value);
-      }
-    } catch (error) {
-      ErrorLogger(' Error from findBranchTimings', error);
-    }
-  };
-  const useStyles = makeStyles({
-    ptag: {
-      margin: "0px",
-      lineHeight: "1.5",
-      fontSize: "15px"
-    },
-    h4tag: {
-      margin: ".575rem 0 .46rem 0",
-      lineHeight: "1.5",
-      fontWeight: "400",
-      fontSize: "17px",
-      color: "#3498DB"
-    }
-  });
-  const clessesforptag = useStyles();
+  }, [])
   //View part
   return (
     <div>
       <Grid
         container
         justifyContent={"center"}
-        style={
-          {
-            backgroundColor: "#f9f9f9"
-          }
-        }
+        style={{ backgroundColor: "#f9f9f9"}}
       >
         <Grid container style={{ backgroundColor: "#f9f9f9", width: "100%" }}>
           <Grid className="branchImage" item md={6} sm={12} xs={12}>
-            <img src={BranchImage} alt="MF logo" />
+            <img src={ StateImage } alt="MF logo" />
           </Grid>
 
           <Grid style={{ padding: "2% 4%" }} item md={6} sm={12} xs={12}>
@@ -188,23 +154,26 @@ export default function BranchLocator() {
               separator={
                 <NavigateNextIcon
                   className="navigateNextIcon"
-                  style={{ color:"#171717",  }}
+                  style={{ color: "#171717" }}
                 />
               }
               style={{
                 lineHeight: "30px",
                 height: "30px",
-                color:"#171717",
-                fontSize:"0.75rem"
+                color: "#171717",
+                fontSize: "0.75rem",
+
+                // backgroundColor: "#164a9c",
               }}
               aria-label="breadcrumb"
             >
               <Link
                 // onClick={handleMenuProfile}
                 style={{
-                  fontSize:"0.75rem",
-                  color:"#171717",
+                  fontSize: "0.75rem",
+                  color: "#171717",
                   textDecoration: "none",
+                  // padding: "10px",
                   cursor: "pointer",
                 }}
               >
@@ -212,14 +181,23 @@ export default function BranchLocator() {
               </Link>
               <Link
                 style={{
-                  fontSize:"0.75rem",
-                  color:"#171717",
+                  fontSize: "0.75rem",
+                  color: "#171717",
                   textDecoration: "none",
                   cursor: "pointer",
                 }}
                 // onClick={() => closeBankAccountButton()}
               >
                 Branch Locator
+              </Link>
+              <Link
+                style={{
+                  fontSize: "0.75rem",
+                  color: "#171717",
+                  textDecoration: "none",
+                }}
+              >
+                Personal Loans In Alabama
               </Link>
             </Breadcrumbs>
             <h4 className="branchLocatorHeadingMain">
@@ -249,17 +227,19 @@ export default function BranchLocator() {
             </Typography>
 
             <Grid id="findBranchWrapTwo" className={classes.blueBackground}>
-              <h4 className={classes.headigText}>Find a 1234 Branch Near You!</h4>
+              <h4 className={classes.headigText}>
+                Find a Branch in <strong>Alabama</strong>
+              </h4>
               <Grid id="findBranchGrid">
                 <SearchIcon className="searchIcon" style={{ color: "white" }} />
                 <TextField
                   className="branchLocatorInput"
-                  style={ { color: "white!important" } }
+                  style={{ color: "white!important" }}
                   id="inputText"
                   label="Enter city & state or zip code"
                 />
                 <ButtonPrimary
-                  onClick={ getActivePlaces }
+                  onClick={getActivePlaces}
                   stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "padding":"0px 30px"}'
                 >
                   <ArrowForwardIcon className="goIcon" />
@@ -268,13 +248,14 @@ export default function BranchLocator() {
             </Grid>
           </Grid>
         </Grid>
+
         <Grid
-          style={{ padding: "4% 15px 4% 15px", backgroundColor: "white" }}
+          style={{ padding: "4% 30px 4% 30px", backgroundColor: "white" }}
           container
           id=""
         >
           <Grid
-            style={{ padding: "0px 15px 0px 15px" }}
+            style={{ padding: "0px" }}
             id="mapGridWrap"
             item
             xs={12}
@@ -324,10 +305,59 @@ export default function BranchLocator() {
                     getBranchList.map((item, index) => {
                       return (
                         <Grid className="locationInfo">
-                          <h4 className={ clessesforptag.h4tag }><b>{ item.BranchName } Branch</b></h4>
-                        <p className={ clessesforptag.ptag }>{ item.distance }les away { item.BranchTime.Value1 } { item.BranchTime.Value2 }</p>
-                        <p className={ clessesforptag.ptag } style={ { color: "#595959" } } id={ item.id }>{ item.Address }</p>
-                        <p className={ clessesforptag.ptag } ><u><a href={ "tel:+1" + item.PhoneNumber } style={ { color: "blue" } }>Phone - { item.PhoneNumber }</a></u></p>
+                          <h4
+                            style={{
+                              margin: ".575rem 0 .46rem 0",
+                              lineHeight: "1.5",
+                              fontWeight: "400",
+                              fontSize: "17px",
+                            }}
+                          >
+                            {item.BranchName} Branch
+                          </h4>
+                          <p
+                            style={{
+                              margin: "0px",
+                              lineHeight: "1.5",
+                              fontSize: "15px",
+                            }}
+                          >
+                            {item.distance} away
+                          </p>
+                          <p
+                            style={{
+                              margin: "0px",
+                              lineHeight: "1.5",
+                              color: "#595959",
+                              fontSize: "15px",
+                            }}
+                            id={item.id}
+                          >
+                            {item.Address}
+                          </p>
+                          <p
+                            style={{
+                              margin: "0px",
+                              lineHeight: "1.5",
+                              fontSize: "15px",
+                            }}
+                          >
+                            <a
+                              href={"tel:+1" + item.PhoneNumber}
+                              className="BlacktextColor"
+                            >
+                              Phone - {item.PhoneNumber}
+                            </a>
+                          </p>
+                          <p
+                            style={{
+                              margin: "15px 0px 10px 0px",
+                              lineHeight: "1.5",
+                              fontSize: "15px",
+                            }}
+                          >
+                            {item.timeZoneName}
+                          </p>
                           <ButtonPrimary
                             onClick={() => {
                               setBranchAddress(
@@ -348,44 +378,48 @@ export default function BranchLocator() {
                   )}
                   <Dialog
                     id="getDirectionModal"
-                    open={ getDirectionModal }
+                    open={getDirectionModal}
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
-                    classes={ { paper: getDirectionsClass.consumerDialog } }
+                    classes={{ paper: getDirectionsClass.consumerDialog }}
                   >
-                    <div id="closeBtn" className={ getDirectionsClass.buttonClose }>
+                    <div
+                      id="closeBtn"
+                      className={getDirectionsClass.buttonClose}
+                    >
                       <IconButton
                         aria-label="close"
-                        onClick={ closeGetDirectionModal }
-                        className={ getDirectionsClass.closeButton }
+                        onClick={closeGetDirectionModal}
+                        className={getDirectionsClass.closeButton}
                       >
                         <CloseIcon />
                       </IconButton>
                     </div>
                     <h2
                       id="consumerDialogHeading"
-                      className={ getDirectionsClass.consumerDialogHeading }
+                      className={getDirectionsClass.consumerDialogHeading}
                     >
                       You are about to leave marinerfinance.com
                     </h2>
                     <div>
-                      <p className={ getDirectionsClass.consumerParagaraph }>
-                        Mariner Finance provides this link for your convenience and is not
-                        responsible for and makes no claims or representations regarding the
-                        content, terms of use, or privacy policies of third party websites.
+                      <p className={getDirectionsClass.consumerParagaraph}>
+                        Mariner Finance provides this link for your convenience
+                        and is not responsible for and makes no claims or
+                        representations regarding the content, terms of use, or
+                        privacy policies of third party websites.
                       </p>
                     </div>
                     <div id="buttonWrap">
                       <ButtonSecondary
                         id="stayBtn"
-                        onClick={ closeGetDirectionModal }
+                        onClick={closeGetDirectionModal}
                         stylebutton='{"float": "" }'
                       >
                         Stay on Marinerfinance.com
                       </ButtonSecondary>
                       <ButtonPrimary
-                        href={ getBranchAddress }
-                        onClick={ closeGetDirectionModal }
+                        href={getBranchAddress}
+                        onClick={closeGetDirectionModal}
                         id="Continue"
                         stylebutton='{"float": "" }'
                         target="_blank"
@@ -399,59 +433,19 @@ export default function BranchLocator() {
             )}
           </Grid>
         </Grid>
-        <Grid
-          container
-          style={{
-            textAlign: "center",
-            padding: "4% 15px",
-            backgroundColor: "#f9f9f9",
-          }}
-        >
-          <Grid item xs={12} justifyContent="center">
-            <Typography
-              style={{ margin: "1.14rem 0 0.4rem 0", fontWeight: "500" }}
-              variant="h4"
-            >
-              Mariner Finance States
-            </Typography>
-          </Grid>
-          <Grid item xs={12} justifyContent="center">
-            <Typography
-              style={{
-                margin: "0 0 4% 0",
-                fontSize: "1.538rem",
-                fontWeight: "400",
-              }}
-              variant="h6"
-            >
-              To find a branch near you select your state below
-            </Typography>
-          </Grid>
-          <Grid
-            container
-            className={
-              loading ? classes.loadingOnWithoutBlur : classes.loadingOff
-            }
-          >
-            {MFStates.map((item, index) => {
-              return (
-                <Grid
-                  style={{ padding: "0px 15px 15px 15px" }}
-                  item
-                  xs={6}
-                  sm={3}
-                  md={2}
-                  xl={2}
-                >
-                  <ButtonSecondary
-                    stylebutton='{"float": "","width": "100%", "height":"40px" }'
-                    onClick={MFButtonClick(item)}
-                  >
-                    { item }
-                  </ButtonSecondary>
-                </Grid>
-              );
-            })}
+
+        <Grid style={{ backgroundColor: "#f9f9f9", width: "100%", padding:"4% 2rem 4% 1rem" }}>
+          <Grid style={{margin:"auto" }} item md={6}>
+            <h4 className="PesonalLoanHeading">
+              <strong>Personal Loans in Alabama</strong>
+            </h4>
+            <p className="PesonalLoanParagraph">
+              Looking for a personal loan near you? Every one of our Maryland
+              branches share a common benefit: lending professionals proud of
+              the neighborhoods they live and work in, who are totally focused
+              on solving your personal financial challenges. For all the reasons
+              to choose Mariner Finance, visit Why Mariner Finance.
+            </p>
           </Grid>
         </Grid>
 
