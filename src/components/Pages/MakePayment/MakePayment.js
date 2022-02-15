@@ -537,11 +537,11 @@ export default function MakePayment(props) {
 
   let obj = {};
   let cardLabel = "";
-  if (card) {
+  if ((card) && (paymentListCard?.length)) {
     obj = paymentListCard.find(o => o.value === card);
     cardLabel = obj?.label;
   }
-  if (cardLabel === undefined) {
+  if (cardLabel === "" && (paymentListAch?.length)) {
     obj = paymentListAch.find(o => o.value === card);
     cardLabel = obj?.label;
   }
