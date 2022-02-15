@@ -19,6 +19,15 @@ function LivingPlace() {
 	const [ helperText, setHelperText ] = useState();
 	let [ livingPlace, setLivingPlace ] = useState(data.homeOwnership ?? "");
 	const navigate = useNavigate();
+	const currencyFormat = (currencyValue) => {
+		if (currencyValue) {
+			let formated = parseFloat(currencyValue);
+			return (
+				"$" + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").slice(0, -3)
+			);
+		}
+	};
+	
 	//set data state on continue
 	const setDataState = (val) => {
 		if (data.state === "NC") {
@@ -83,8 +92,11 @@ function LivingPlace() {
 	};
 
 	const onHandleChange = (event) => {
+		console.log("value", event.target.value)
 		const reg = /^[0-9\b]+$/;
-		let inputValue = event.target.value.replace("$", "");
+		let inputValue = event.target.value.replace(/\$/g, "").replace(",", "");
+		console.log("converted", inputValue)
+
 		if (inputValue === "" || reg.test(inputValue)) {
 			inputValue =
 				inputValue.indexOf(".") >= 0
@@ -111,11 +123,12 @@ function LivingPlace() {
 	};
 
 	//redirect to select amount on direct call
-	if (data.completedPage < data.page.annualIncome || data.formStatus === "completed") {
-		navigate("/select-amount");
-	}
+	// if (data.completedPage < data.page.annualIncome || data.formStatus === "completed") {
+	// 	navigate("/select-amount");
+	// }
 
 	//View part
+	console.log("currenchy", currencyFormat("1000"));
 	return (
 		<div>
 			<ScrollToTopOnMount />
@@ -308,13 +321,13 @@ function LivingPlace() {
 											form={ true }
 											error={ error }
 											helperText={ helperText }
-											value={ "$" + (data?.rentMortgageAmount ? data.rentMortgageAmount : "") }
+											value={ (data?.rentMortgageAmount ? currencyFormat(data.rentMortgageAmount) : "") }
 											onBlur={ onBlurPayment }
 											// value={dollar }
 											onChange={ onHandleChange }
 											materialProps={ {
 												"data-test-id": "rentMortgageAmount",
-												maxLength: "6",
+												maxLength: "7",
 											} }
 										/>
 									</Grid>
