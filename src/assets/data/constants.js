@@ -1,4 +1,4 @@
-export const citizenshipData =  {
+export const citizenshipData = {
         'USCitizen': 'USA Citizen',
         'permanentResident': 'Permanent Resident',
         'foreignResident': 'Foreign Resident'
@@ -31,7 +31,7 @@ export const homeData = {
         "noMortage": 'Own a Home with no Mortgage',
         "mobile": 'Own a Mobile Home',
         "withRelative": 'Living with Relatives'
-}
+};
 
 export const militaryData = {
         "notActiveMilitary": 'Not Active Military',
@@ -48,4 +48,4 @@ export const maritalStatusData = {
 export const offerTypeData = {
         "online": "/customers/reviewAndSign",
         "branch": "/customers/myBranch"
-}
+};

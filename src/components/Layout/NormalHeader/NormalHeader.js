@@ -52,7 +52,7 @@ const NormalHeader = () => {
       </MenuItem>
       <MenuItem>
         <NavLink to="/branchlocator" className="nav_link">
-          <Typography className={classes.headerAlign}>Branch Locator</Typography>
+          <Typography className={ classes.headerAlign }>Branch Locator</Typography>
         </NavLink>
       </MenuItem>
     </Menu>
@@ -81,7 +81,7 @@ const NormalHeader = () => {
               <Typography className={ classes.subtitle }>FAQ</Typography>
             </NavLink>
             <NavLink to="/branchlocator" className="nav_link">
-              <Typography className={classes.subtitle}>Branch Locator</Typography>
+              <Typography className={ classes.subtitle }>Branch Locator</Typography>
             </NavLink>
           </div>
           <div className={ classes.sectionMobile }>

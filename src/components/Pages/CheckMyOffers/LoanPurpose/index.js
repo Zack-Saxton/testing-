@@ -5,6 +5,7 @@ import { createStyles, makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { loanPurposeData } from "../../../../assets/data/constants";
 import AutoExpenseIcon from "../../../../assets/icon/AutoExpense-Repair.png";
 import DeptIcon from "../../../../assets/icon/Debt-Consolidation.png";
 import HolidayIcon from "../../../../assets/icon/Holiday-Spending.png";
@@ -26,7 +27,6 @@ import VacationIconWhite from "../../../../assets/icon/white/Vacation.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary } from "../../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
-import { loanPurposeData } from "../../../../assets/data/constants"
 import "./LoanPurpose.css";
 
 //Loan purpose component initialization
@@ -124,7 +124,7 @@ function LoanPurpose(props) {
 								</div>
 								<Grid className="floatLeft">
 									<Link
-										to={"/select-amount"}
+										to={ "/select-amount" }
 										state={ { fromLoanPurpose: "yes" } }
 									>
 										<i className="material-icons dp48 yellowText ">
@@ -167,7 +167,7 @@ function LoanPurpose(props) {
 														: HomeImprovementIcon
 												}
 												className="icon"
-												alt={loanPurposeData.homeImprovement}
+												alt={ loanPurposeData.homeImprovement }
 											/>
 											<Typography
 												id="purposeTxt01"
@@ -202,7 +202,7 @@ function LoanPurpose(props) {
 											} }
 										>
 											<img
-												alt={loanPurposeData.autoExpence}
+												alt={ loanPurposeData.autoExpence }
 												src={
 													purpose === loanPurposeData.autoExpence
 														? AutoExpenseIconWhite
@@ -243,7 +243,7 @@ function LoanPurpose(props) {
 											} }
 										>
 											<img
-												alt={loanPurposeData.vacation}
+												alt={ loanPurposeData.vacation }
 												src={
 													purpose === loanPurposeData.vacation
 														? VacationIconWhite
@@ -284,7 +284,7 @@ function LoanPurpose(props) {
 											} }
 										>
 											<img
-												alt={loanPurposeData.holidaySpending}
+												alt={ loanPurposeData.holidaySpending }
 												src={
 													purpose === loanPurposeData.holidaySpending
 														? HolidayIconWhite
@@ -325,7 +325,7 @@ function LoanPurpose(props) {
 											} }
 										>
 											<img
-												alt={loanPurposeData.medicalDental}
+												alt={ loanPurposeData.medicalDental }
 												src={
 													purpose === loanPurposeData.medicalDental
 														? MedicalIconWhite
@@ -366,7 +366,7 @@ function LoanPurpose(props) {
 											} }
 										>
 											<img
-												alt={loanPurposeData.debtConsolidation}
+												alt={ loanPurposeData.debtConsolidation }
 												src={
 													purpose === loanPurposeData.debtConsolidation
 														? DeptIconWhite
@@ -407,7 +407,7 @@ function LoanPurpose(props) {
 											} }
 										>
 											<img
-												alt={loanPurposeData.lifeEvents}
+												alt={ loanPurposeData.lifeEvents }
 												src={
 													purpose === loanPurposeData.lifeEvents
 														? LifeEventIconWhite
@@ -448,7 +448,7 @@ function LoanPurpose(props) {
 											} }
 										>
 											<img
-												alt={loanPurposeData.unexpectedExpence}
+												alt={ loanPurposeData.unexpectedExpence }
 												src={
 													purpose === loanPurposeData.unexpectedExpence
 														? UnexpectedExpenseIconWhite
@@ -489,7 +489,7 @@ function LoanPurpose(props) {
 											} }
 										>
 											<img
-												alt={loanPurposeData.majorPruchase}
+												alt={ loanPurposeData.majorPruchase }
 												src={
 													purpose === loanPurposeData.majorPruchase
 														? MajorPurchaseIconWhite

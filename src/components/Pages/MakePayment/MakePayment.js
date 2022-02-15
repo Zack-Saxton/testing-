@@ -19,13 +19,13 @@ import CloseIcon from "@material-ui/icons/Close";
 import Moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useQuery } from 'react-query';
-import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import globalMessages from "../../../assets/data/globalMessages.json";
+import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import HolidayCalender from "../../Controllers/HolidayCalenderController";
-import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import {
   deleteScheduledPayment, disableAutoPay, enableAutoPay, makePayment, usrPaymentMethods
 } from "../../Controllers/PaymentsController";
@@ -142,7 +142,7 @@ export default function MakePayment(props) {
           autoClose: 5000,
         }
       );
-      
+
     hasSchedulePayment
       ? result.status === 900
         ? deleteSchedule(accntNo, routingNumber)
@@ -225,7 +225,7 @@ export default function MakePayment(props) {
 
   //Validating ACCNO
   async function checkaccNo(checkAccNoActiveLoansData, checkAccNo) {
-    let check = false; 
+    let check = false;
     checkAccNoActiveLoansData?.forEach((data) => {
       if (data?.loanData?.accountNumber === checkAccNo) {
         let loan = [];
@@ -515,7 +515,7 @@ export default function MakePayment(props) {
           : false
         : false
       : false;
-      let status = accountDetails != null ? accountDetails.data.status : null;
+  let status = accountDetails != null ? accountDetails.data.status : null;
 
   //Select account
   const handleChangeSelect = (event) => {
@@ -527,13 +527,13 @@ export default function MakePayment(props) {
     setrequiredSelect("");
   };
 
-    //Autopay enable/disable switch
-    const handleSwitchPayment = (event) => {
-      setAutopaySubmit(checkAutoPay === event.target.checked ? true : false);
-      setdisabledContent(event.target.checked);
-      setpaymentAmount(event.target.checked ? totalPaymentAmount : paymentAmount);
-      setpaymentDatepicker(event.target.checked ? scheduleDate : new Date());
-    };
+  //Autopay enable/disable switch
+  const handleSwitchPayment = (event) => {
+    setAutopaySubmit(checkAutoPay === event.target.checked ? true : false);
+    setdisabledContent(event.target.checked);
+    setpaymentAmount(event.target.checked ? totalPaymentAmount : paymentAmount);
+    setpaymentDatepicker(event.target.checked ? scheduleDate : new Date());
+  };
 
   let obj = {};
   let cardLabel = "";
@@ -694,13 +694,13 @@ export default function MakePayment(props) {
   let chosenMonth = chosenDate.getMonth();
   let chosenYear = chosenDate.getFullYear();
   let thisDay = new Date(todaysYear, todaysMonth, todaysDay);
-  let pickedDate =  new Date(chosenYear, chosenMonth, chosenDay);
+  let pickedDate = new Date(chosenYear, chosenMonth, chosenDay);
   let isFutureDate = "no";
-  if(pickedDate > thisDay ) { 
-      isFutureDate = "yes";
+  if (pickedDate > thisDay) {
+    isFutureDate = "yes";
   }
-   
- //View
+
+  //View
   return (
     <div>
       <CheckLoginStatus />
@@ -1035,7 +1035,7 @@ export default function MakePayment(props) {
                                   onClick={ handlePaymentcancel }
                                   disabled={ !hasSchedulePayment }
                                 >
-                                  Cancel Payment 
+                                  Cancel Payment
                                 </ButtonSecondary>
                               </Grid>
                               <Grid>
@@ -1108,52 +1108,52 @@ export default function MakePayment(props) {
           </Typography>
           {/* <Typography id="autoTxt" className={ classes.autoPayContent }> */ }
           <>
-          {disabledContent === true ?
-            <TableContainer>
-              <Table className={ classes.table } aria-label="simple table" border-color="white">
-                <TableBody>
-                  <TableRow>
-                    <TableCell className={ classes.tableheadrow } align="left" width="20%">
-                    </TableCell>
-                    <TableCell className={ classes.tableheadrow } align="left">
-                      { disabledContent === false ? "" : "Auto pay Amount: " }
-                    </TableCell>
-                    <TableCell align="left">
-                      { disabledContent === false ? "" : numberFormat(paymentAmount) }
-                    </TableCell>
-                    <TableCell className={ classes.tableheadrow } align="left">
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className={ classes.tableheadrow } align="left" width="20%">
-                    </TableCell>
-                    <TableCell align="left">
-                      { disabledContent === false ? "" : "Bank/Card: " }
-                    </TableCell>
-                    <TableCell align="left">
-                      { disabledContent === false ? "" : cardLabel }
-                    </TableCell>
-                    <TableCell className={ classes.tableheadrow } align="left">
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className={ classes.tableheadrow } align="left" width="20%">
-                    </TableCell>
-                    <TableCell align="left">
-                      { disabledContent === false ? "" : "First Auto Pay Date:  " }
-                    </TableCell>
-                    <TableCell align="left">
-                      { disabledContent === false ? "" : Moment(paymentDate).format("MM/DD/YYYY") }
-                    </TableCell>
-                    <TableCell className={ classes.tableheadrow } align="left">
-                    </TableCell>
-                  </TableRow>
+            { disabledContent === true ?
+              <TableContainer>
+                <Table className={ classes.table } aria-label="simple table" border-color="white">
+                  <TableBody>
+                    <TableRow>
+                      <TableCell className={ classes.tableheadrow } align="left" width="20%">
+                      </TableCell>
+                      <TableCell className={ classes.tableheadrow } align="left">
+                        { disabledContent === false ? "" : "Auto pay Amount: " }
+                      </TableCell>
+                      <TableCell align="left">
+                        { disabledContent === false ? "" : numberFormat(paymentAmount) }
+                      </TableCell>
+                      <TableCell className={ classes.tableheadrow } align="left">
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell className={ classes.tableheadrow } align="left" width="20%">
+                      </TableCell>
+                      <TableCell align="left">
+                        { disabledContent === false ? "" : "Bank/Card: " }
+                      </TableCell>
+                      <TableCell align="left">
+                        { disabledContent === false ? "" : cardLabel }
+                      </TableCell>
+                      <TableCell className={ classes.tableheadrow } align="left">
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell className={ classes.tableheadrow } align="left" width="20%">
+                      </TableCell>
+                      <TableCell align="left">
+                        { disabledContent === false ? "" : "First Auto Pay Date:  " }
+                      </TableCell>
+                      <TableCell align="left">
+                        { disabledContent === false ? "" : Moment(paymentDate).format("MM/DD/YYYY") }
+                      </TableCell>
+                      <TableCell className={ classes.tableheadrow } align="left">
+                      </TableCell>
+                    </TableRow>
 
-                </TableBody>
-              </Table>
-            </TableContainer>
-            : "" }
-          {/* </Typography> */}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              : "" }
+            {/* </Typography> */ }
           </>
           <IconButton
             id="autopayCloseBtn"
@@ -1270,58 +1270,58 @@ export default function MakePayment(props) {
           >
             Cancel
           </ButtonSecondary>
-          {paymentIsScheduled === "no" ? 
-          <ButtonPrimary
-            stylebutton='{"background": "", "color":"" }'
-            onClick={ handleSchedulePaymentSubmit }
-            disabled={ loading }
-          >
-            Ok
-            <i
-              className="fa fa-refresh fa-spin customSpinner"
-              style={ {
-                marginRight: "10px",
-                display: loading ? "block" : "none",
-              } }
-            />
-          </ButtonPrimary>
-        : 
-        ""}
-
-        {paymentIsScheduled === "yes" ? 
+          { paymentIsScheduled === "no" ?
             <ButtonPrimary
-            stylebutton='{"background": "", "color":"" }'
-            onClick={ handleSchedulePaymentSubmit }
-            disabled={ loading }
+              stylebutton='{"background": "", "color":"" }'
+              onClick={ handleSchedulePaymentSubmit }
+              disabled={ loading }
             >
-            Replace current scheduled payment
-            <i
-              className="fa fa-refresh fa-spin customSpinner"
-              style={ {
-                marginRight: "10px",
-                display: loading ? "block" : "none",
-              } }
-            />
-          </ButtonPrimary> :
-          ""}
+              Ok
+              <i
+                className="fa fa-refresh fa-spin customSpinner"
+                style={ {
+                  marginRight: "10px",
+                  display: loading ? "block" : "none",
+                } }
+              />
+            </ButtonPrimary>
+            :
+            "" }
 
-        {paymentIsScheduled === "yes" && isFutureDate === "no" ? 
-          <ButtonSecondary
-            stylebutton='{"background": "", "color":"" }'
-            onClick={ handleSchedulePaymentSubmitKeep }
-            disabled={ loading }
-          >
-            Keep scheduled payment and make this payment
-            <i
-              className="fa fa-refresh fa-spin customSpinner"
-              style={ {
-                marginRight: "10px",
-                display: loading ? "block" : "none",
-              } }
-            />
-          </ButtonSecondary>
-      : 
-      ""}
+          { paymentIsScheduled === "yes" ?
+            <ButtonPrimary
+              stylebutton='{"background": "", "color":"" }'
+              onClick={ handleSchedulePaymentSubmit }
+              disabled={ loading }
+            >
+              Replace current scheduled payment
+              <i
+                className="fa fa-refresh fa-spin customSpinner"
+                style={ {
+                  marginRight: "10px",
+                  display: loading ? "block" : "none",
+                } }
+              />
+            </ButtonPrimary> :
+            "" }
+
+          { paymentIsScheduled === "yes" && isFutureDate === "no" ?
+            <ButtonSecondary
+              stylebutton='{"background": "", "color":"" }'
+              onClick={ handleSchedulePaymentSubmitKeep }
+              disabled={ loading }
+            >
+              Keep scheduled payment and make this payment
+              <i
+                className="fa fa-refresh fa-spin customSpinner"
+                style={ {
+                  marginRight: "10px",
+                  display: loading ? "block" : "none",
+                } }
+              />
+            </ButtonSecondary>
+            :
+            "" }
         </DialogActions>
       </Dialog>
 

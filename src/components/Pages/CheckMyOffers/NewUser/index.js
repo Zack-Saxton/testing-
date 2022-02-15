@@ -200,7 +200,7 @@ function NewUser() {
 									justify="center"
 									alignitems="center"
 									className=""
-									style={{fontSize:"0.938rem", color:"595959"}}
+									style={ { fontSize: "0.938rem", color: "595959" } }
 								>
 									We have detected you are a new customer.
 								</Typography>
@@ -255,8 +255,8 @@ function NewUser() {
 												}
 											/>
 											<p className="subText passwordMeetTxt">
-											Please ensure your password meets the following criteria: between 8 and 30 characters in length, 
-											at least 1 uppercase letter, at least 1 lowercase letter, at least 1 symbol and at least 1 number.
+												Please ensure your password meets the following criteria: between 8 and 30 characters in length,
+												at least 1 uppercase letter, at least 1 lowercase letter, at least 1 symbol and at least 1 number.
 											</p>
 											<PasswordField
 												id="confirmPasswordWrap"

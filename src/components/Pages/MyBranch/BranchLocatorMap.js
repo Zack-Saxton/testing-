@@ -1,9 +1,9 @@
+import { Circle, GoogleMap, InfoWindow, Marker } from "@react-google-maps/api";
 import React, { useState } from "react";
-import { GoogleMap, InfoWindow, Marker, Circle } from "@react-google-maps/api";
 import icon from "../../../assets/icon/icon-google-map-marker.png";
 
 function BranchLocatorMap(props) {
-    const [activeMarker, setActiveMarker] = useState(null);
+    const [ activeMarker, setActiveMarker ] = useState(null);
     let Current = (props.CurrentLocation ? props.CurrentLocation : { lat: 39.3697028, lng: -76.4635839 });
     let zoomValue = (props.CurrentLocation ? 10 : 12);
     let ZoomDepth = (props.Zoom) ? props.Zoom : 5;
@@ -27,40 +27,40 @@ function BranchLocatorMap(props) {
     };
     return (
         <GoogleMap
-            zoom={zoomValue}
-            defaultZoom={zoomValue}
-            onLoad={handleOnLoad}
-            center={Current}
-            onClick={() => setActiveMarker(null)}
-            mapContainerStyle={{ height: "100%", width: "100%" }}
+            zoom={ zoomValue }
+            defaultZoom={ zoomValue }
+            onLoad={ handleOnLoad }
+            center={ Current }
+            onClick={ () => setActiveMarker(null) }
+            mapContainerStyle={ { height: "100%", width: "100%" } }
         >
             <Circle
-                center={Current}
-                zoom={zoomValue}
-                radius={zoomValue * ZoomDepth * 1609.344}
-                strokeOpacity={50}
+                center={ Current }
+                zoom={ zoomValue }
+                radius={ zoomValue * ZoomDepth * 1609.344 }
+                strokeOpacity={ 50 }
                 fillColor='#ADD8E6'
-                fillOpacity={0}
+                fillOpacity={ 0 }
             />
             <Marker
-                position={Current}
-                zIndex={8}
+                position={ Current }
+                zIndex={ 8 }
             >
             </Marker>
-            {props.getMap.map(({ id, name, position }) => (
+            { props.getMap.map(({ id, name, position }) => (
                 <Marker
-                    icon={icon}
-                    position={position}
-                    zIndex={id}
-                    onClick={() => handleActiveMarker(id)}
+                    icon={ icon }
+                    position={ position }
+                    zIndex={ id }
+                    onClick={ () => handleActiveMarker(id) }
                 >
-                    {activeMarker === id ? (
-                        <InfoWindow onCloseClick={() => setActiveMarker(null)}>
-                            <div>{name}</div>
+                    { activeMarker === id ? (
+                        <InfoWindow onCloseClick={ () => setActiveMarker(null) }>
+                            <div>{ name }</div>
                         </InfoWindow>
-                    ) : null}
+                    ) : null }
                 </Marker>
-            ))}
+            )) }
         </GoogleMap>
     );
 }

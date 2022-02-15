@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import { InputAdornment } from "@material-ui/core";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -26,13 +25,15 @@ import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import PaymentIcon from "@material-ui/icons/Payment";
 import { useFormik } from "formik";
+import React, { useEffect, useState } from "react";
 import { useQuery } from 'react-query';
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import cheque from "../../../assets/images/cheque.jpg";
-import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import { AddACHPaymentAPI } from "../../../components/Controllers/ACHDebitController";
+import { useGlobalState } from "../../../contexts/GlobalStateProvider";
+import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import {
     addCreditCard, deleteBankAccount,
     deleteCreditCard, getPaymentMethods, setDefaultPayment
@@ -45,7 +46,6 @@ import {
     TextField
 } from "../../FormsUI";
 import ErrorLogger from "../../lib/ErrorLogger";
-import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import { useStylesMyProfile } from "./Style";
 import "./Style.css";
 //Yup validations for Add Bank Account

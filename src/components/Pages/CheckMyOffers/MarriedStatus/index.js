@@ -5,8 +5,8 @@ import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { maritalStatusData } from "../../../../assets/data/constants"
 import * as yup from "yup";
+import { maritalStatusData } from "../../../../assets/data/constants";
 import MarriedStatusLogo from "../../../../assets/icon/married-status.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import ZipCodeLookup from "../../../Controllers/ZipCodeLookup";
@@ -232,7 +232,7 @@ function MarriedStatus() {
 												fullWidth={ true }
 												name="martialStatus"
 												labelform="Marital Status *"
-												select={'[{"value":"' + maritalStatusData.married + '", "label":"Married"}, {"value":"' + maritalStatusData.unmarried + '", "label":"Unmarried"}, {"label":"Separated, under decree of legal separation", "value":"' + maritalStatusData.seperated + '"}]'}
+												select={ '[{"value":"' + maritalStatusData.married + '", "label":"Married"}, {"value":"' + maritalStatusData.unmarried + '", "label":"Unmarried"}, {"label":"Separated, under decree of legal separation", "value":"' + maritalStatusData.seperated + '"}]' }
 												value={ formik.values.martialStatus }
 												onChange={ formik.handleChange }
 												onBlur={ formik.handleBlur }

@@ -16,7 +16,7 @@ const CheckLoginStatus = () => {
   useEffect(() => {
     if (!userToken?.isLoggedIn || (nowTime - actualSetupTime) > min * 60 * 1000) {
       LogoutController();
-      navigate( "/login", { state: { redirect: window.location.pathname } } );
+      navigate("/login", { state: { redirect: window.location.pathname } });
     }
   }, []);
   return null;

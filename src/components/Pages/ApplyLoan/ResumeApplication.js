@@ -1,9 +1,9 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
-import APICall from "../../lib/AxiosLib";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import applicationStatusRedirectPage from "../../../assets/data/applicationStatusRedirectPage.json";
+import APICall from "../../lib/AxiosLib";
 //To redirect the user to apply for loan sections depends on the status of the loan application
 const ResumeApplication = (props) => {
 	const navigate = useNavigate();

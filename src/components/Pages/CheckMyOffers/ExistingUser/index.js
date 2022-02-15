@@ -75,7 +75,7 @@ function ExistingUser() {
 					toast.error("Your account is closed to new applications. Please contact us to reapply.");
 					navigate("/customers/accountOverview");
 				} else {
-					navigate("/employment-status" );
+					navigate("/employment-status");
 				}
 			} else if (retVal?.data?.result === "error" || retVal?.data?.hasError === true) {
 				Cookies.set("token", JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" }));

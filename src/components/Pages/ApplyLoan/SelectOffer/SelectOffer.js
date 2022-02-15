@@ -10,11 +10,11 @@ import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { useQuery } from 'react-query';
 import { NavLink, useNavigate } from "react-router-dom";
+import { offerTypeData } from "../../../../assets/data/constants";
 import CheckLoginStatus from "../../../App/CheckLoginStatus";
 import usrAccountDetails from "../../../Controllers/AccountOverviewController";
 import { fetchAvailableOffers, submitSelectedOfferAPI } from "../../../Controllers/ApplyForLoanController";
 import { ButtonWithIcon } from "../../../FormsUI";
-import { offerTypeData } from "../../../../assets/data/constants"
 import messages from "../../../lib/Lang/applyForLoan.json";
 import ScrollToTopOnMount from "../../ScrollToTop";
 import TabSection from "../TabSection";
@@ -61,7 +61,7 @@ export default function ApplyLoan() {
 			if (selectedOfferResponse?.data?.selected_offer) {
 				setLoading(false);
 				refetch();
-				navigate(offerTypeData[accountDetails?.data?.Offers[ selTerm ][ selIndex ]?.offerType], { selectedIndexOffer: selectedOfferResponse?.data?.selected_offer, });
+				navigate(offerTypeData[ accountDetails?.data?.Offers[ selTerm ][ selIndex ]?.offerType ], { selectedIndexOffer: selectedOfferResponse?.data?.selected_offer, });
 			} else {
 				setLoading(false);
 				alert("Network Error");

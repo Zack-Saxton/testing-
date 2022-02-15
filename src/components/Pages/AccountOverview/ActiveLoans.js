@@ -176,7 +176,7 @@ export default function ActiveLoans(userActiveLoanData) {
 
                             { today.isBefore(appData.loanDetails.NextPaymentDate) ?
                               <p className={ classes.cardcontent }>
-                               { " " } Due in { " " }
+                                { " " } Due in { " " }
                                 { Math.ceil(
                                   Moment.duration(
                                     Moment(

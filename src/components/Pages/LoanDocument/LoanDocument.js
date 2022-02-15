@@ -77,7 +77,6 @@ export default function LoanDocument(props) {
         //Passing data to API
       };
       reader.readAsDataURL(selectedFile.files[ 0 ]);
-
     }
   };
   const uploadDoc = () => {

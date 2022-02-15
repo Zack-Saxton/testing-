@@ -4,11 +4,11 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { citizenshipData } from "../../../../assets/data/constants";
 import CitizenshipStatusLogo from "../../../../assets/icon/I-Citizenship-status.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary } from "../../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
-import { citizenshipData } from "../../../../assets/data/constants"
 import "./CitizenshipStatus.css";
 
 //Initializing functional component CitizenshipStatus
