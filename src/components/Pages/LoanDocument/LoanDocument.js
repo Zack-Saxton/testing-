@@ -9,9 +9,9 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useQuery } from 'react-query';
-import { NavLink } from "react-router-dom";
+import { NavLink,useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
@@ -25,7 +25,8 @@ import ScrollToTopOnMount from "../ScrollToTop";
 import LoanDocumentTable from "./DocumentTable";
 import { useStylesLoanDocument } from "./Style";
 
-export default function LoanDocument(props) {
+
+export default function LoanDocument() {
   window.zeHide();
   //Material UI css class
   const classes = useStylesLoanDocument();
@@ -33,10 +34,14 @@ export default function LoanDocument(props) {
   const [ docType, setDocType ] = useState("");
   const [ loading, setLoading ] = useState(false);
   const changeEvent = useRef("");
+  let location = useLocation();
 
   //Api call
-  const { data: loanDocumentStatus } = useQuery('loan-document', () => loanDocument(props?.location?.state?.accNo ? props?.location?.state?.accNo : null));
-
+  const { data: loanDocumentStatus, refetch } = useQuery('loan-document', () => loanDocument(location?.state?.accNo ? location?.state?.accNo : null));
+  useEffect(() => {
+    refetch()
+  }, [loanDocumentStatus]);
+  
   //Loan Document data from API
   let loanDocumentData = loanDocumentStatus != null ? loanDocumentStatus?.data : null;
 
