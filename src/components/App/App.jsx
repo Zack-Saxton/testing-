@@ -54,6 +54,9 @@ import RegisterPage from '../Pages/Register/Register';
 import VantageScore from "../Pages/VantageScore/VantageScore";
 import ViewAccountDetails from "../Pages/AccountOverview/ViewAccountDetails";
 import BranchLocator from "../Pages/MyBranch/BranchLocator";
+import BranchHeaderLayout from "../Layout/BranchHeader/BranchHeaderLayout";
+import BranchPage from "../Pages/MyBranch/BranchPage";
+import StatePage from "../Pages/MyBranch/StatePage";
 import "./App.css";
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -117,11 +120,12 @@ function App() {
                                         <Route path='/eligible-for-offers' exact component={ EligibleForOffers } />
                                         <Route path='/zipcode' exact><Zipcode /></Route>
                                         <Route path='/personal-info' exact><PersonalInfo /></Route>
-                                        <Route path='/branchlocator' exact component={BranchLocator}></Route>
+                                        {/* <Route path='/branchlocator' exact component={BranchLocator}></Route> */}
                                         <Route path='*' component={ ErrorBeforeLogin } />
                                     </Switch>
                                 </GeneralUser>
                             </Route>
+                            
                             <Route path='/select-amount/:amount' exact component={ SelectAmount } />
                             <div id="main" style={ { marginLeft: "240px" } }>
                                 <Route path='/customers/:path?' exact>
@@ -159,6 +163,15 @@ function App() {
                                         <Route path='*' component={ ErrorBeforeLogin } />
                                     </Switch>
                                 </GeneralUser>
+                            </Route>
+                            <Route  path='/branch/:path?'>
+                                <BranchHeaderLayout>
+                                    <Switch>
+                                    <Route path='/branch/branchlocator' exact component={BranchLocator}></Route>
+                                    <Route path='/branch/branchPage' exact component={BranchPage}></Route>
+                                    <Route path='/branch/StatePage' exact component={StatePage}></Route>
+                                    </Switch>
+                                  </BranchHeaderLayout>  
                             </Route>
                         </ProfilePicture>
                     </CheckMyOffers>

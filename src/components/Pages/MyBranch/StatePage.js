@@ -19,9 +19,8 @@ import { MFStates } from "../../../assets/data/marinerBusinesStates"
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import Link from "@material-ui/core/Link";
-
-import BranchImage from "../../../assets/images/branch-locator_hero-image.jpg"
-export default function BranchLocator() {
+import StateImage from "../../../assets/images/States.png"
+export default function StatePage() {
   window.zeHide();
   //Material UI css class
   const classes = useStylesMyBranch();
@@ -143,15 +142,11 @@ export default function BranchLocator() {
       <Grid
         container
         justifyContent={"center"}
-        style={
-          {
-            backgroundColor: "#f9f9f9"
-          }
-        }
+        style={{ backgroundColor: "#f9f9f9"}}
       >
         <Grid container style={{ backgroundColor: "#f9f9f9", width: "100%" }}>
           <Grid className="branchImage" item md={6} sm={12} xs={12}>
-            <img src={BranchImage} alt="MF logo" />
+            <img src={ StateImage } alt="MF logo" />
           </Grid>
 
           <Grid style={{ padding: "2% 4%" }} item md={6} sm={12} xs={12}>
@@ -159,23 +154,26 @@ export default function BranchLocator() {
               separator={
                 <NavigateNextIcon
                   className="navigateNextIcon"
-                  style={{ color:"#171717",  }}
+                  style={{ color: "#171717" }}
                 />
               }
               style={{
                 lineHeight: "30px",
                 height: "30px",
-                color:"#171717",
-                fontSize:"0.75rem"
+                color: "#171717",
+                fontSize: "0.75rem",
+
+                // backgroundColor: "#164a9c",
               }}
               aria-label="breadcrumb"
             >
               <Link
                 // onClick={handleMenuProfile}
                 style={{
-                  fontSize:"0.75rem",
-                  color:"#171717",
+                  fontSize: "0.75rem",
+                  color: "#171717",
                   textDecoration: "none",
+                  // padding: "10px",
                   cursor: "pointer",
                 }}
               >
@@ -183,14 +181,23 @@ export default function BranchLocator() {
               </Link>
               <Link
                 style={{
-                  fontSize:"0.75rem",
-                  color:"#171717",
+                  fontSize: "0.75rem",
+                  color: "#171717",
                   textDecoration: "none",
                   cursor: "pointer",
                 }}
                 // onClick={() => closeBankAccountButton()}
               >
                 Branch Locator
+              </Link>
+              <Link
+                style={{
+                  fontSize: "0.75rem",
+                  color: "#171717",
+                  textDecoration: "none",
+                }}
+              >
+                Personal Loans In Alabama
               </Link>
             </Breadcrumbs>
             <h4 className="branchLocatorHeadingMain">
@@ -220,7 +227,9 @@ export default function BranchLocator() {
             </Typography>
 
             <Grid id="findBranchWrapTwo" className={classes.blueBackground}>
-              <h4 className={classes.headigText}>Find a 1234 Branch Near You!</h4>
+              <h4 className={classes.headigText}>
+                Find a Branch in <strong>Alabama</strong>
+              </h4>
               <Grid id="findBranchGrid">
                 <SearchIcon className="searchIcon" style={{ color: "white" }} />
                 <TextField
@@ -239,13 +248,14 @@ export default function BranchLocator() {
             </Grid>
           </Grid>
         </Grid>
+
         <Grid
-          style={{ padding: "4% 15px 4% 15px", backgroundColor: "white" }}
+          style={{ padding: "4% 30px 4% 30px", backgroundColor: "white" }}
           container
           id=""
         >
           <Grid
-            style={{ padding: "0px 15px 0px 15px" }}
+            style={{ padding: "0px" }}
             id="mapGridWrap"
             item
             xs={12}
@@ -423,59 +433,19 @@ export default function BranchLocator() {
             )}
           </Grid>
         </Grid>
-        <Grid
-          container
-          style={{
-            textAlign: "center",
-            padding: "4% 15px",
-            backgroundColor: "#f9f9f9",
-          }}
-        >
-          <Grid item xs={12} justifyContent="center">
-            <Typography
-              style={{ margin: "1.14rem 0 0.4rem 0", fontWeight: "500" }}
-              variant="h4"
-            >
-              Mariner Finance States
-            </Typography>
-          </Grid>
-          <Grid item xs={12} justifyContent="center">
-            <Typography
-              style={{
-                margin: "0 0 4% 0",
-                fontSize: "1.538rem",
-                fontWeight: "400",
-              }}
-              variant="h6"
-            >
-              To find a branch near you select your state below
-            </Typography>
-          </Grid>
-          <Grid
-            container
-            className={
-              loading ? classes.loadingOnWithoutBlur : classes.loadingOff
-            }
-          >
-            {MFStates.map((item, index) => {
-              return (
-                <Grid
-                  style={{ padding: "0px 15px 15px 15px" }}
-                  item
-                  xs={6}
-                  sm={3}
-                  md={2}
-                  xl={2}
-                >
-                  <ButtonSecondary
-                    stylebutton='{"float": "","width": "100%", "height":"40px" }'
-                    onClick={MFButtonClick(item)}
-                  >
-                    {item}
-                  </ButtonSecondary>
-                </Grid>
-              );
-            })}
+
+        <Grid style={{ backgroundColor: "#f9f9f9", width: "100%", padding:"4% 2rem 4% 1rem" }}>
+          <Grid style={{margin:"auto" }} item md={6}>
+            <h4 className="PesonalLoanHeading">
+              <strong>Personal Loans in Alabama</strong>
+            </h4>
+            <p className="PesonalLoanParagraph">
+              Looking for a personal loan near you? Every one of our Maryland
+              branches share a common benefit: lending professionals proud of
+              the neighborhoods they live and work in, who are totally focused
+              on solving your personal financial challenges. For all the reasons
+              to choose Mariner Finance, visit Why Mariner Finance.
+            </p>
           </Grid>
         </Grid>
 
