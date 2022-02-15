@@ -22,39 +22,34 @@ export default function MarketingOffer(data){
 
   const MarketingMessages = [
       {
-          "campaignType" : "PRES",
-          "p1": `Looking for an easy way to break up the cost of big expenses, without breaking the bank? Or to get rid of lingering credit card bills? A fixed-rate, fixed-payment personal loan of ${data.amount} from Mariner Finance can help you get the things you want and get rid of the bills you don't.`,
-          "p2": 'What will you do with your money?',
-          "p3": `Get rid of bills & credit card debt? Spruce up the house? Take a vacation?`,
-          "p4": `Use offer code ${data.offerCode} before ${moment(data.dateExpiration).format('MM/DD/YYYY')}. Remember, checking your offer online does not affect your credit.*`
+        "campaignType" : "PRES",
+        "p1": 'Are you looking to plan a vacation? Perhaps make a major purchase? Do you need to consolidate your debt? Life and expenses aren\'t always on the same schedule.',
+        "p2": `That's why we want you to know you are prequalified for a loan from $1,000 to $${data.amount}* to help simplify your bills into one manegable payment!`,
+        "p3": `Sounds good, right?`,
       },
       {
-          "campaignType" : "CONV",
-          "p1" : `Let us help you with holiday shopping, consolidating debt, or tackling unexpected expenses. Whatever you have in mind, your team at Mariner Finance is here to help. That's why we're inviting you to apply for a personal loan up to {amount}* so you can easily manage your expenses. When you do, you may skip this month's payment and spend more time doing what matters most: achieving your goals.`,
-          "p2" : 'You can count on: ',
-          "p3" : 'Superior customer service',
-          "p4" : 'Fast and efficient application process',
-          'p5' : 'Upfront and fixed loan terms',
-          'p6' : `Use offer code ${data.offerCode} before ${moment(data.dateExpiration).format('MM/DD/YYYY')}. Remember, checking your offer online does not affect your credit.*`,
+        "campaignType" : "CONV",
+        "p1": 'Are you looking to plan a vacation? Perhaps make a major purchase? Do you need to consolidate your debt? Life and expenses aren\'t always on the same schedule.',
+        "p2" : `That's why we want you to know you may qualify for a loan up to $${data.amount}* to help simplify your bills into one manegable payment!`,
+        "p3": `Sounds good, right?`,
       },
       {
         "campaignType": "ITA",
-        "p1" : 'You\'re invited to apply for a personal loan up to $4,000 with Mariner Finance so you can get the money you need for debt consolidation, unexpected expenses or bigger projects, like:​​​​​​​ ',
-        "p2" : 'Holiday Shopping',
-        "p3" : 'Auto Repairs',
-        "p4" : 'Household Bills',
+        "p1": 'Are you looking to plan a vacation? Perhaps make a major purchase? Do you need to consolidate your debt? Life and expenses aren\'t always on the same schedule.',
+        "p2" : 'That\'s why we want you to know you may qualify for a loan up to $10,000* to help simplify your bills into one manageable payment!',
+        "p3" : 'Sounds good, right?',
       },
       {
         "campaignType" : "BTO",
-        "p1" : 'We care as much about your goals as you do. You can count on: ',
-        "p2" : 'A quick and easy application process',
-        "p3" : 'Upfront and fixed loan terms',
-        "p4" : 'Friendly staff in over 475 branches in 24 states',
+        "p1": 'Are you looking to plan a vacation? Perhaps make a major purchase? Do you need to consolidate your debt? Life and expenses aren\'t always on the same schedule.',
+        "p2" : `That's why we want you to know you may qualify for a loan up to $${data.amount}* to help simplify your bills into one manegable payment!`,
+        "p3": `Sounds good, right?`,
       },
       {
         "campaignType" : "GRIDS",
-        "p1" : 'We can help you take control of your finances.',
-        "p2" : 'Accepting your offer only takes minutes, and if you respond by noon you could receive your money the same day!'
+        "p1" : 'Are you looking to plan a vacation? Perhaps make a major purchase? Do you need to consolidate your debt? Life and expenses aren\'t always on the same schedule.',
+        "p2" : `That's why we want you to know you are prequalified for a loan up to $${data.amount}* to help simplify your bills into one manegable payment!`,
+        "p3" : 'Sounds good, right?'
       },
       {
         "campaignType": "AUTO",
