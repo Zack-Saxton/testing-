@@ -112,7 +112,7 @@ function NewUser() {
 							: Cookies.set("rememberMe", JSON.stringify({ selected: false, email: "", password: "" }));
 
 						setLoading(false);
-						navigate("employment-status");
+						navigate("/employment-status");
 					} else if (retVal?.data?.result === "error" || retVal?.data?.hasError === true) {
 						Cookies.set("token", JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" }));
 						setLoading(false);
