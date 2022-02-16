@@ -1,18 +1,17 @@
 import React,{useState,useEffect} from "react";
-import setAccountDetails from "../../Controllers/AccountOverviewController";
+import setAccountDetails from "../../../Controllers/AccountOverviewController";
 import Grid from "@material-ui/core/Grid";
-import "./Style.css";
-import { ButtonPrimary } from "../../FormsUI";
+import { ButtonPrimary } from "../../../FormsUI";
+import logo from "../../../../assets/images/mariner-finance.jpg";
 
 
-export const CampaignMessage = ({logo,amount,offerCode,handleContinue,expiryDate}) =>{
+export default function CampaignMessage ({amount,offerCode,handleContinue,expiryDate}) {
 
 const [message,setMessage] = useState("");
 
 useEffect(()=>{
      setAccountDetails().then((res)=>{
          setMessage(res.data.offerData.campaignTypeMessage);
-        // console.log(res.data.offerData.campaignTypeMessage);
      })
 },[])
 

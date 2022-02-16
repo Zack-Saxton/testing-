@@ -20,6 +20,7 @@ import AboutMariner from "./Marketing_offer/AboutMariner";
 import PreScreen from "./Marketing_offer/PreScreen";
 import MarketingOffer from "./Marketing_offer/MarketingOffer";
 import OptOutNotice from "./Marketing_offer/OptOutNotice";
+import CampaignMessage from "./Marketing_offer/CampaignMessage";
 
 export default function LimitedOffer(userOfferData) {
   //Material UI css class
@@ -160,23 +161,8 @@ export default function LimitedOffer(userOfferData) {
                 </IconButton>
               </Typography>
               <Typography id="modal-modal-description" sx={ { mt: 2 } }>
-                <Grid className="checkMyOffers">
-                  <Grid className="leftcheckMyOffers">
-                    <img src={ logo } width="120px" height="70px"></img>
-                    <p className="common">Don't wait! This offer expires { expiryDate }</p>
-                  </Grid>
-                  <Grid className="rightcheckMyOffers">
-                    <p className="common">You are prequalified up to</p>
-                    <p className="common" style={{color:"#0F4EB3",fontSize:"bold",textAlign:"center"}}>
-                      ${ amount }
-                    </p>
-                    <p className="common">Use it to get things done.</p>
-                    <p className="common">Offer Code:{ offerCode }</p>
-                    <ButtonPrimary id="ClaimButton" stylebutton='{"color":"", "textTransform": "none","marginLeft":"40px"}' onClick={ handleContinue }>
-                      Continue
-                    </ButtonPrimary>
-                  </Grid>
-                </Grid>
+                <CampaignMessage amount={amount} offerCode={offerCode} handleContinue={handleContinue} expiryDate={expiryDate}>
+                </CampaignMessage>      
                 <Grid>
                   <p className="common">Dear { firstName },</p>
                   <MarketingOffer promoType ={campaignType} offerCode ={offerCode} amount ={amount} branchPhone ={branchCno} branchName ={branchName} dateExpiration = {expiryDate}></MarketingOffer>
