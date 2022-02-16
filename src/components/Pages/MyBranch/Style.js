@@ -12,9 +12,14 @@ const useStylesMyBranch = makeStyles((theme) => ({
   },
 
   heading: {
-    color: "#fff",
+    color: "#214476",
     fontWeight: "400",
     fontSize: "1.563rem",
+  },
+  centerGrid:{
+    marginTop: "20px",
+    paddingRight: "23px",
+    paddingLeft: "23px",
   },
   branchDetailGrid: {
     textAlign: "initial",

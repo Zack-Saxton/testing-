@@ -31,11 +31,7 @@ export default function LoanHistory() {
       <Grid
         container
         justifyContent={ "center" }
-        style={ {
-          marginTop: "-150px",
-          paddingRight: "23px",
-          paddingLeft: "23px",
-        } }
+        className={ classes.centerGrid }
       >
         <Grid id="loanHistoryTxt" container direction="row" item xs={ 12 }>
           <Grid item xs={ 12 }>
