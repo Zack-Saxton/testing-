@@ -19,7 +19,12 @@ import { MFStates } from "../../../assets/data/marinerBusinesStates"
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import Link from "@material-ui/core/Link";
-import StateImage from "../../../assets/images/States.png"
+import StateImage from "../../../assets/images/States.png";
+import { makeStyles } from "@material-ui/core";
+import { NavLink } from "react-router-dom";
+import BranchDayTiming from "../../Controllers/BranchDayTiming";
+
+
 export default function StatePage() {
   window.zeHide();
   //Material UI css class
@@ -32,63 +37,22 @@ export default function StatePage() {
   const [getCurrentLocation, setCurrentLocation] = useState();
   const [loading, setLoading] = useState(false);
   const [zoomDepth, setZoomDepth] = useState();
+  const queryParams = new URLSearchParams(window.location.search);
+  const Name = queryParams.get('Name');
   //API call
   const getBranchLists = async (search_text) => {
     try {
       setLoading(true);
       let result = await BranchLocatorController(search_text);
-      setCurrentLocation(result?.data?.searchLocation);
-      let N = (result?.data?.branchData[0]?.distance).replace(/[^0-9]/g, '');
-      switch (N) {
-        case (N > 190):
-          {
-            setZoomDepth(11);
-            break;
-          }
-        case (N > 150):
-          {
-            setZoomDepth(10);
-            break;
-          }
-        case (N > 100):
-          {
-            setZoomDepth(9);
-            break;
-          }
-        case (N > 75):
-          {
-            setZoomDepth(8);
-            break;
-          }
-        case (N > 25):
-          {
-            setZoomDepth(5);
-            break;
-          }
-        case (N > 15):
-          {
-            setZoomDepth(3);
-            break;
-          }
-        case (N > 10):
-          {
-            setZoomDepth(2);
-            break;
-          }
-        default:
-          {
-            setZoomDepth(1);
-            break;
-          }
-      }
-
       if (result.status === 400) {
         toast.error(' Check your address and Try again.')
       } else {
+        setCurrentLocation(result?.data?.searchLocation);
+        setZoomDepth((result?.data?.branchData[0]?.distance).replace(/[^0-9]/g, '') / 100);
         return (result.data.branchData);
       }
     } catch (error) {
-      toast.error(' Error from getBranchList ', error)
+      ErrorLogger(' Error from getBranchList ', error)
     }
   }
   const listForMapView = async (List) => {
@@ -109,13 +73,17 @@ export default function StatePage() {
   const apiGetBranchList = async (value) => {
     try {
       let result = await getBranchLists(value);
+      for (let ele in result) {
+        let BranchTime = await findBranchTimings(result[ele]);
+        result[ele] = Object.assign(result[ele], { "BranchTime": BranchTime });
+      }
       setBranchList(result);
       setLoading(false);
       listForMapView(result);
     } catch (error) {
       ErrorLogger(' Error from apiGetBranchList ', error);
     }
-  }
+  };
   const getActivePlaces = async () => {
     apiGetBranchList(inputText.value);
   }
@@ -126,16 +94,37 @@ export default function StatePage() {
   const closeGetDirectionModal = () => {
     setgetDirectionModal(false);
   }
-  const MFButtonClick = async (event) => {
-    apiGetBranchList(event.target.innerText);
-  }
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_SECKey
   });
+  const findBranchTimings = async (value) => {
+    try {
+      if (value) {
+        return await BranchDayTiming(value);
+      }
+    } catch (error) {
+      ErrorLogger(' Error from findBranchTimings', error);
+    }
+  };
   useEffect(() => {
-    inputText.value = '21236';
+    inputText.value = Name;
     getActivePlaces();
-  }, [])
+  }, []);
+  const useStyles = makeStyles({
+    ptag: {
+      margin: "0px",
+      lineHeight: "1.5",
+      fontSize: "15px"
+    },
+    h4tag: {
+      margin: ".575rem 0 .46rem 0",
+      lineHeight: "1.5",
+      fontWeight: "400",
+      fontSize: "17px",
+      color: "#3498DB"
+    }
+  });
+  const clessesforptag = useStyles();
   //View part
   return (
     <div>
@@ -148,7 +137,6 @@ export default function StatePage() {
           <Grid className="branchImage" item md={6} sm={12} xs={12}>
             <img src={ StateImage } alt="MF logo" />
           </Grid>
-
           <Grid style={{ padding: "2% 4%" }} item md={6} sm={12} xs={12}>
             <Breadcrumbs
               separator={
@@ -176,6 +164,7 @@ export default function StatePage() {
                   // padding: "10px",
                   cursor: "pointer",
                 }}
+                onClick={() => window.open(`/`, '_self')}
               >
                 Home
               </Link>
@@ -186,7 +175,7 @@ export default function StatePage() {
                   textDecoration: "none",
                   cursor: "pointer",
                 }}
-                // onClick={() => closeBankAccountButton()}
+                onClick={() => window.open(`/branch/branchlocator/`, '_self')}
               >
                 Branch Locator
               </Link>
@@ -197,7 +186,7 @@ export default function StatePage() {
                   textDecoration: "none",
                 }}
               >
-                Personal Loans In Alabama
+                Personal Loans In {Name}
               </Link>
             </Breadcrumbs>
             <h4 className="branchLocatorHeadingMain">
@@ -228,7 +217,7 @@ export default function StatePage() {
 
             <Grid id="findBranchWrapTwo" className={classes.blueBackground}>
               <h4 className={classes.headigText}>
-                Find a Branch in <strong>Alabama</strong>
+                Find a Branch in {Name}
               </h4>
               <Grid id="findBranchGrid">
                 <SearchIcon className="searchIcon" style={{ color: "white" }} />
@@ -248,7 +237,6 @@ export default function StatePage() {
             </Grid>
           </Grid>
         </Grid>
-
         <Grid
           style={{ padding: "4% 30px 4% 30px", backgroundColor: "white" }}
           container
@@ -273,24 +261,6 @@ export default function StatePage() {
             ) : null}
           </Grid>
           <Grid className="findBranchWrap" item xs={12} sm={12} md={6} xl={6}>
-            {/* <Grid id="findBranchWrap" className={classes.blueBackground}>
-              <h4 className={classes.headigText}>Find a Branch Near You!</h4>
-              <Grid id="findBranchGrid">
-                <SearchIcon className="searchIcon" style={{ color: "white" }} />
-                <TextField
-                  className="branchLocatorInput"
-                  style={{ color: "white!important" }}
-                  id="inputText"
-                  label="Enter city & state or zip code"
-                />
-                <ButtonPrimary
-                  onClick={getActivePlaces}
-                  stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "padding":"0px 30px"}'
-                >
-                  <ArrowForwardIcon className="goIcon" />
-                </ButtonPrimary>
-              </Grid>
-            </Grid> */}
             {loading ? (
               <div align="center">
                 <CircularProgress />{" "}
@@ -305,59 +275,13 @@ export default function StatePage() {
                     getBranchList.map((item, index) => {
                       return (
                         <Grid className="locationInfo">
-                          <h4
-                            style={{
-                              margin: ".575rem 0 .46rem 0",
-                              lineHeight: "1.5",
-                              fontWeight: "400",
-                              fontSize: "17px",
-                            }}
-                          >
-                            {item.BranchName} Branch
-                          </h4>
-                          <p
-                            style={{
-                              margin: "0px",
-                              lineHeight: "1.5",
-                              fontSize: "15px",
-                            }}
-                          >
-                            {item.distance} away
-                          </p>
-                          <p
-                            style={{
-                              margin: "0px",
-                              lineHeight: "1.5",
-                              color: "#595959",
-                              fontSize: "15px",
-                            }}
-                            id={item.id}
-                          >
-                            {item.Address}
-                          </p>
-                          <p
-                            style={{
-                              margin: "0px",
-                              lineHeight: "1.5",
-                              fontSize: "15px",
-                            }}
-                          >
-                            <a
-                              href={"tel:+1" + item.PhoneNumber}
-                              className="BlacktextColor"
-                            >
-                              Phone - {item.PhoneNumber}
-                            </a>
-                          </p>
-                          <p
-                            style={{
-                              margin: "15px 0px 10px 0px",
-                              lineHeight: "1.5",
-                              fontSize: "15px",
-                            }}
-                          >
-                            {item.timeZoneName}
-                          </p>
+                          <NavLink to={`/branch/branchpage/?BranchName=${item.BranchName}`} state={{ Branch_Details: item }} className="nav_link">
+                            <b><h4 className={clessesforptag.h4tag}>{item.BranchName} Branch</h4></b>
+                          </NavLink>
+                          <p className={clessesforptag.ptag}>{item.distance}les away | {item.BranchTime.Value1} {item.BranchTime.Value2}</p>
+                          <p className={clessesforptag.ptag} id={item.id}>{item.Address}</p>
+                          <p className={clessesforptag.ptag} ><u><a href={"tel:+1" + item.PhoneNumber} style={{ color: "blue" }}>Phone - {item.PhoneNumber}</a></u></p>
+                          
                           <ButtonPrimary
                             onClick={() => {
                               setBranchAddress(
@@ -433,11 +357,10 @@ export default function StatePage() {
             )}
           </Grid>
         </Grid>
-
         <Grid style={{ backgroundColor: "#f9f9f9", width: "100%", padding:"4% 2rem 4% 1rem" }}>
           <Grid style={{margin:"auto" }} item md={6}>
             <h4 className="PesonalLoanHeading">
-              <strong>Personal Loans in Alabama</strong>
+              <strong>Personal Loans in {Name}</strong>
             </h4>
             <p className="PesonalLoanParagraph">
               Looking for a personal loan near you? Every one of our Maryland
@@ -448,7 +371,6 @@ export default function StatePage() {
             </p>
           </Grid>
         </Grid>
-
         <Grid className="blueBGColor">
           <h4>Customer Ratings</h4>
           <div
