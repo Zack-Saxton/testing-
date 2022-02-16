@@ -8,7 +8,7 @@ export default function MarketingOffer(data){
 
   const findMarketingMessage = () => {
     let usermarketingMessage;
-    MarketingMessages.forEach( promo => {
+    MarketingMessages.map( promo => {
       if ( promo.campaignType === data.promoType ) {
         usermarketingMessage = promo;
      }
@@ -78,8 +78,8 @@ export default function MarketingOffer(data){
       <Grid>
         {
           Object.keys(message).map(key => {
-            if ( key !== "campaignType"){
-              return <p>{message[key]}</p>
+            if ( key !== "campaignType" ){
+              return <p key={key}>{message[key]}</p>
             }
           })
         }
