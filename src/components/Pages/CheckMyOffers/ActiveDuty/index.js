@@ -10,6 +10,7 @@ import ActiveDutyLogo from "../../../../assets/icon/active-duty.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, Select } from "../../../FormsUI";
 import "../CheckMyOffer.css";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle"
 import ScrollToTopOnMount from "../ScrollToTop";
 
 //Yup validation schema
@@ -28,6 +29,7 @@ function ActiveDuty() {
 	//Retrieving Context values
 	const { data } = useContext(CheckMyOffers);
 	const navigate = useNavigate();
+	const classes = preLoginStyle();
 	//initializing formik
 	const formik = useFormik({
 		initialValues: {
@@ -52,7 +54,7 @@ function ActiveDuty() {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className="mainDiv">
+			<div className={classes.mainDiv}>
 				<Box>
 					<Grid
 						item

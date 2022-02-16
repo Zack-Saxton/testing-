@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { CheckMyOffers as Check } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, Slider, TextField } from "../../../FormsUI";
 import "../CheckMyOffer.css";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle"
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./CheckMyOffer.css";
 
@@ -15,6 +16,7 @@ import "./CheckMyOffer.css";
 function CheckMyOffers(props) {
 	const { data, setData, resetData } = useContext(Check);
 	const [ hasOfferCode, setOfferCode ] = useState("");
+	const classes = preLoginStyle();
 	const getValidValue = (selectedValue) => {
 		let validValue = (selectedValue > 5000 && (selectedValue % 500) === 250 ? selectedValue + 250 : selectedValue);
 		if (validValue < 1000) {
@@ -59,7 +61,7 @@ function CheckMyOffers(props) {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className="mainDiv">
+			<div className={classes.mainDiv}>
 				<Box>
 					<Grid
 						item
@@ -212,7 +214,7 @@ function CheckMyOffers(props) {
 							alignItems="center"
 							style={ { paddingTop: "25px", paddingBottom: "70px" } }
 						>
-							<Typography className="smallText" align="center">
+							<Typography className={classes.smallText} align="center">
 								To help the government fight the funding of terrorism and money
 								laundering activities, Federal law requires all financial
 								institutions to obtain, verify, and record information that
@@ -223,7 +225,7 @@ function CheckMyOffers(props) {
 								to see your driver's license or other identifying documents.
 							</Typography>
 							<br />
-							<Typography className="smallText" align="center">
+							<Typography className={classes.smallText} align="center">
 								*The process uses a “soft” credit inquiry to determine whether a
 								loan offer is available, which does not impact your credit
 								score. If you continue with the application process online and

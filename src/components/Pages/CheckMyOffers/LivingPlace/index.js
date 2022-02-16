@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import CitizenshipStatusLogo from "../../../../assets/icon/I-Own-Rent-Property.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, TextField } from "../../../FormsUI";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle"
 import { homeData } from "../../../../assets/data/constants";
 import "../CheckMyOffer.css";
 import "../LivingPlace/LivingPlace.css";
@@ -15,6 +16,7 @@ import ScrollToTopOnMount from "../ScrollToTop";
 //Living place component initialization
 function LivingPlace() {
 	const { data, setData } = useContext(CheckMyOffers);
+	const classes = preLoginStyle();
 	const [ error, setError ] = useState();
 	const [ helperText, setHelperText ] = useState();
 	let [ livingPlace, setLivingPlace ] = useState(data.homeOwnership ?? "");
@@ -128,7 +130,7 @@ function LivingPlace() {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className="mainDiv">
+			<div className={classes.mainDiv}>
 				<Box>
 					<Grid
 						container

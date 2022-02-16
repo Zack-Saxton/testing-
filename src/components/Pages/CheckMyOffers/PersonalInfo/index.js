@@ -19,6 +19,7 @@ import {
 	SocialSecurityNumber,
 	TextField
 } from "../../../FormsUI";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle"
 import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./PersonalInfo.css";
@@ -97,6 +98,7 @@ function PersonalInfo() {
 	const [ error, setError ] = useState(false);
 	const [ loading, setLoading ] = useState(false);
 	const navigate = useNavigate();
+	const classes = preLoginStyle();
 
 	function phoneNumberMask(values) {
 		let phoneNumber = values.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
@@ -276,7 +278,7 @@ function PersonalInfo() {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className="mainDiv">
+			<div className={classes.mainDiv}>
 				<Box>
 					<Grid
 						item

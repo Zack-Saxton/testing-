@@ -9,6 +9,7 @@ import AnnualIncomeLogo from "../../../../assets/icon/I-Annual-Income.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, TextField } from "../../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle"
 import "./AnnualIncome.css";
 
 //Initializing functional component Active duty
@@ -16,6 +17,7 @@ function NewUser() {
 	const { data } = useContext(CheckMyOffers);
 	const [ errorAnnual, setErrorAnnual ] = useState("");
 	const [ errorPersonal, setErrorPersonal ] = useState("");
+	const classes = preLoginStyle();
 
 	//Retrieving Context values
 	const navigate = useNavigate();
@@ -204,7 +206,7 @@ function NewUser() {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className="mainDiv">
+			<div className={classes.mainDiv}>
 				<Box>
 					<Grid
 						container

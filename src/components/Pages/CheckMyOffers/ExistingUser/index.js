@@ -14,6 +14,7 @@ import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import usrAccountDetails from "../../../Controllers/AccountOverviewController";
 import LoginController from "../../../Controllers/LoginController";
 import { ButtonPrimary, PasswordField } from "../../../FormsUI";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle"
 import { encryptAES } from "../../../lib/Crypto";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./ExistingUser.css";
@@ -32,6 +33,7 @@ function ExistingUser() {
 	const [ loginFailed, setLoginFailed ] = useState("");
 	const [ loading, setLoading ] = useState(false);
 	const navigate = useNavigate();
+	const classes = preLoginStyle();
 	const queryClient = useQueryClient();
 	// Formik configuraion
 	const formik = useFormik({
@@ -108,7 +110,7 @@ function ExistingUser() {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className="mainDiv">
+			<div className={classes.mainDiv}>
 				<Box>
 					<Grid
 						item

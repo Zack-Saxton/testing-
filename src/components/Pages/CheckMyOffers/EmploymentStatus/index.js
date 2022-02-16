@@ -11,6 +11,7 @@ import EmploymentStatusPNG from "../../../../assets/icon/I-Employment-Status.png
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, PhoneNumber, Select } from "../../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import "./EmploymentStatus.css";
 
 //Initializing functional component CitizenshipStatus
@@ -19,6 +20,7 @@ function EmploymentStatus() {
 	const { data, setData } = useContext(CheckMyOffers);
 	const [ employmentStatus, setEmploymentStatus ] = useState(data.employmentStatus ? data.employmentStatus : "");
 	const navigate = useNavigate();
+	const classes = preLoginStyle();
 
 	//initializing formik
 	const validationSchema = yup.object({
@@ -95,7 +97,7 @@ function EmploymentStatus() {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className="mainDiv">
+			<div className={classes.mainDiv}>
 				<Box>
 					<Grid
 						item

@@ -27,6 +27,7 @@ import VacationIconWhite from "../../../../assets/icon/white/Vacation.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary } from "../../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle"
 import "./LoanPurpose.css";
 
 //Loan purpose component initialization
@@ -34,6 +35,7 @@ function LoanPurpose(props) {
 	const { data } = useContext(CheckMyOffers);
 	const [ purpose, setPurpose ] = useState(data.loanPurpose ?? "");
 	const navigate = useNavigate();
+	const preLoginStyles = preLoginStyle();
 
 	//handle the user data nd store it into context and procced next step
 	const handleRoute = () => {
@@ -90,7 +92,7 @@ function LoanPurpose(props) {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className="mainDiv">
+			<div className={preLoginStyles.mainDiv}>
 				<Box>
 					<Grid
 						container

@@ -9,6 +9,7 @@ import CitizenshipStatusLogo from "../../../../assets/icon/I-Citizenship-status.
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary } from "../../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle"
 import "./CitizenshipStatus.css";
 
 //Initializing functional component CitizenshipStatus
@@ -17,6 +18,7 @@ function CitizenshipStatus() {
 	const { data } = useContext(CheckMyOffers);
 	const [ citizenship, setCitizenship ] = useState(data.citizenship ? data.citizenship : "");
 	const navigate = useNavigate();
+	const classes = preLoginStyle();
 
 	//Handle the button click
 	const handleRoute = () => {
@@ -45,7 +47,7 @@ function CitizenshipStatus() {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className="mainDiv">
+			<div className={classes.mainDiv}>
 				<Box>
 					<Grid
 						item

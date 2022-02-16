@@ -16,6 +16,7 @@ import LoginController, { RegisterController } from "../../../Controllers/LoginC
 import { ButtonPrimary, PasswordField } from "../../../FormsUI";
 import { encryptAES } from "../../../lib/Crypto";
 import ErrorLogger from "../../../lib/ErrorLogger";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle"
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./NewUser.css";
 //YUP validation schema
@@ -47,6 +48,7 @@ function NewUser() {
 	const [ failed, setFailed ] = useState(false);
 	const [ loading, setLoading ] = useState(false);
 	const queryClient = useQueryClient();
+	const classes = preLoginStyle();
 
 	//configuring formik
 	const formik = useFormik({
@@ -151,7 +153,7 @@ function NewUser() {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className="mainDiv">
+			<div className={classes.mainDiv}>
 				<Box>
 					<Grid
 						item

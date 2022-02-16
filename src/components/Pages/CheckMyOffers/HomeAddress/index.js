@@ -14,6 +14,7 @@ import AddressLogo from "../../../../assets/icon/I-Address.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import ZipCodeLookup from "../../../Controllers/ZipCodeLookup";
 import { ButtonPrimary, TextField, Zipcode } from "../../../FormsUI";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle"
 import ErrorLogger from "../../../lib/ErrorLogger";
 import "../CheckMyOffer.css";
 import "../HomeAddress/HomeAdress.css";
@@ -46,6 +47,8 @@ const validationSchema = yup.object({
 function HomeAddress() {
 	//Context data
 	const { data } = useContext(CheckMyOffers);
+	const classes = preLoginStyle();
+
 	//state variables
 	const [ stateShort, setStateShort ] = useState(data.state ?? "");
 	const [ validZip, setValidZip ] = useState(true);
@@ -138,7 +141,7 @@ function HomeAddress() {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className="mainDiv">
+			<div className={classes.mainDiv}>
 				<Box>
 					<Grid
 						item xs={ 12 } sm={ 10 } md={ 6 } lg={ 6 }
