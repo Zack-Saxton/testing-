@@ -56,7 +56,7 @@ const useStylesAccountOverview = makeStyles((theme) => ({
     fontSize: "1.64rem",
   },
   heading: {
-    color: "#fff",
+    color: "blue",
     fontWeight: "400",
     fontSize: "1.563rem",
   },

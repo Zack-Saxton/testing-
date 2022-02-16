@@ -41,7 +41,7 @@ export default function AccountOverview() {
         container
         justifyContent="center"
         style={ {
-          marginTop: "-150px",
+           marginTop: "20px",
           paddingRight: "23px",
           paddingLeft: "23px",
         } }
