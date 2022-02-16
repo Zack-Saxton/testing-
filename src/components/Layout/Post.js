@@ -65,10 +65,7 @@ const Post = ({ children }) => {
                     encryptAES(JSON.stringify({ email: cred.email, password: cred.password }))
                 );
                 actualSetupTime = now;
-            } else if (
-                retVal?.data?.result === "error" ||
-                retVal?.data?.hasError === true
-            ) {
+            } else if (retVal?.data?.result === "error" || retVal?.data?.hasError === true) {
                 Cookies.set(
                     "token",
                     JSON.stringify({
@@ -104,11 +101,11 @@ const Post = ({ children }) => {
     };
 
     const handleTimer = () => {
-        if (secondsTemp == 0 && minutesTemp == 0) {
+        if (secondsTemp === 0 && minutesTemp === 0) {
             clearTimeout(timer);
             handleOnIdleLogout();
         } else {
-            if (secondsTemp == 0) {
+            if (secondsTemp === 0) {
                 minutesTemp = minutesTemp - 1;
                 secondsTemp = 59;
             } else {
