@@ -159,7 +159,10 @@ function App() {
                                     <Route path='*' element={ <ErrorAfterLogin /> } />
                                 </Route>
                                 <Route path='partner' >
-                                    <Route path='signup' element={ loadGeneralUserComponent(<PartnerSignUP />) } />
+                                    <Route path='signup' element={ loadGeneralUserComponent(<ErrorBeforeLogin />) } />
+                                    <Route path='signup'>
+                                        <Route path='*' element={ loadGeneralUserComponent(<PartnerSignUP />) } />
+                                    </Route>
                                     <Route path='confirm-signup' element={ loadGeneralUserComponent(<ConfirmationInfo />) } />
                                     <Route path='*' element={ loadGeneralUserComponent(<ErrorBeforeLogin />) } />
                                 </Route>
