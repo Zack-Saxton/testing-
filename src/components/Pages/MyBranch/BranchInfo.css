@@ -292,6 +292,16 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
   .findBranchWrapTwo {
     padding-top: 40px;
   }
+  #getDirectionWrap{
+    justify-content: center;
+  }
+  #getDirectionButton{
+    width: 100%;
+  }
+  #getDirectionSearch{
+    width: 100%;
+    margin-top: 50px;
+  }
 }
 @media (max-width: 599px) {
   #branchDiv {

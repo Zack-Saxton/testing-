@@ -372,8 +372,8 @@ export default function BranchLocator() {
               </Grid>
             )}
           </Grid>
-          <Grid className={clessesforptag.gridMargin} container>
-            <Grid className={clessesforptag.gridPadding} item md={6}>
+          <Grid id="getDirectionWrap" className={clessesforptag.gridMargin} container>
+            <Grid id="getDirectionButton" className={clessesforptag.gridPadding} item md={6}>
               <ButtonPrimary
                 href={getBranchAddress}
                 id="Continue"
@@ -383,7 +383,7 @@ export default function BranchLocator() {
                 Get Driving Directions To Nearest Location
               </ButtonPrimary>
             </Grid>
-            <Grid item md={6} className={classes.blueBackground}>
+            <Grid id="getDirectionSearch" item md={6} className={classes.blueBackground}>
               <Grid id="findBranchGrid">
                 <p className="zipLabel">
                   Can't find it? Try searching another{" "}
