@@ -1,12 +1,14 @@
 import { makeStyles } from "@material-ui/core";
-import CircularProgress from '@material-ui/core/CircularProgress';
+import CircularProgress from "@material-ui/core/CircularProgress";
 import Dialog from "@material-ui/core/Dialog";
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
+import PhoneIcon from "@material-ui/icons/Phone";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import Typography from "@material-ui/core/Typography";
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import CloseIcon from "@material-ui/icons/Close";
-import SearchIcon from '@material-ui/icons/Search';
+import SearchIcon from "@material-ui/icons/Search";
 import { useLoadScript } from "@react-google-maps/api";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -16,12 +18,12 @@ import { ButtonPrimary, ButtonSecondary, TextField } from "../../FormsUI";
 import { useStylesConsumer } from "../../Layout/ConsumerFooterDialog/Style";
 import ErrorLogger from "../../lib/ErrorLogger";
 import Map from "./BranchLocatorMap";
-import { MFStates } from "../../../assets/data/marinerBusinesStates"
+import { MFStates } from "../../../assets/data/marinerBusinesStates";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import Link from "@material-ui/core/Link";
-import   { useStylesMyBranch } from "./Style"
-import BranchImage from "../../../assets/images/branch-locator_hero-image.jpg";
+import { useStylesMyBranch } from "./Style";
+import BranchImage from "../../../assets/images/States.jpg";
 import { NavLink, useParams } from "react-router-dom";
 
 export default function BranchLocator() {
@@ -30,28 +32,33 @@ export default function BranchLocator() {
   //Material UI css class
   const classes = useStylesMyBranch();
   const getDirectionsClass = useStylesConsumer();
-  const [ getDirectionModal, setgetDirectionModal ] = useState(false);
-  const [ getBranchList, setBranchList ] = useState();
-  const [ getBranchAddress, setBranchAddress ] = useState();
-  const [ getMap, setMap ] = useState([]);
-  const [getCurrentLocation, setCurrentLocation] = useState({ lat: 39.3877502, lng: -76.488118 });
-  const [ loading, setLoading ] = useState(false);
-  const [ zoomDepth, setZoomDepth ] = useState(10);
- const { Branch_Name } = useParams();
+  const [getDirectionModal, setgetDirectionModal] = useState(false);
+  const [getBranchList, setBranchList] = useState();
+  const [getBranchAddress, setBranchAddress] = useState();
+  const [getMap, setMap] = useState([]);
+  const [getCurrentLocation, setCurrentLocation] = useState({
+    lat: 39.3877502,
+    lng: -76.488118,
+  });
+  const [loading, setLoading] = useState(false);
+  const [zoomDepth, setZoomDepth] = useState(10);
+  const { Branch_Name } = useParams();
   //API call
   const getBranchLists = async (search_text) => {
     try {
       setLoading(true);
       let result = await BranchLocatorController(search_text);
       if (result.status === 400) {
-        toast.error(' Error from getBranchLists');
+        toast.error(" Error from getBranchLists");
       } else {
         setCurrentLocation((prevState) => ({
           ...prevState,
-          [result.data.searchLocation]: result.data.searchLocation
+          [result.data.searchLocation]: result.data.searchLocation,
         }));
-        setZoomDepth((result?.data?.branchData[0]?.distance).replace(/[^0-9]/g, '')/100);
-        return (result.data.branchData);
+        setZoomDepth(
+          (result?.data?.branchData[0]?.distance).replace(/[^0-9]/g, "") / 100
+        );
+        return result.data.branchData;
       }
     } catch (error) {
       ErrorLogger(" Error occured, can't retrive Branch list. ", error);
@@ -60,30 +67,29 @@ export default function BranchLocator() {
   const listForMapView = async (List) => {
     if (List) {
       setMap(
-        List.map((item) =>
-        ({
+        List.map((item) => ({
           id: item.id,
           name: item.Address,
           position: {
             lat: Number(item.latitude),
-            lng: Number(item.longitude)
-          }
-        })
-        ));
+            lng: Number(item.longitude),
+          },
+        }))
+      );
     }
   };
   const apiGetBranchList = async (value) => {
     try {
       let result = await getBranchLists(value);
       for (let ele in result) {
-        let BranchTime = await findBranchTimings(result[ ele ]);
-        result[ ele ] = Object.assign(result[ ele ], { "BranchTime": BranchTime });
+        let BranchTime = await findBranchTimings(result[ele]);
+        result[ele] = Object.assign(result[ele], { BranchTime: BranchTime });
       }
       setBranchList(result);
       setLoading(false);
       listForMapView(result);
     } catch (error) {
-      ErrorLogger(' Error from apiGetBranchList ', error);
+      ErrorLogger(" Error from apiGetBranchList ", error);
     }
   };
   const getActivePlaces = async () => {
@@ -97,14 +103,13 @@ export default function BranchLocator() {
   };
   const MFButtonClick = async (event) => {
     apiGetBranchList(event.target.innerText);
-    window.open(`/branch/StatePage/?Name=${event.target.innerText}`, '_self')
-    // <NavLink to={`/branch/StatePage/?Name=${event.target.innerText}`} className="nav_link" />
+    window.open(`/branch/StatePage/?Name=${event.target.innerText}`, "_self");
   };
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_SECKey
+    googleMapsApiKey: process.env.REACT_APP_SECKey,
   });
   useEffect(() => {
-    inputText.value = '21236';
+    inputText.value = "21236";
     getActivePlaces();
   }, []);
   const findBranchTimings = async (value) => {
@@ -113,26 +118,43 @@ export default function BranchLocator() {
         return await BranchDayTiming(value);
       }
     } catch (error) {
-      ErrorLogger(' Error from findBranchTimings', error);
+      ErrorLogger(" Error from findBranchTimings", error);
     }
   };
   const branchName = async () => {
-   
-    console.log(' BRANCH =', Branch_Name )
-  }
+    console.log(" BRANCH =", Branch_Name);
+  };
   const useStyles = makeStyles({
     ptag: {
       margin: "0px",
       lineHeight: "1.5",
-      fontSize: "15px"
+      fontSize: "0.938rem",
+    },
+    addressFont: {
+      color: "#595959",
+      margin: "0px",
+      lineHeight: "1.5",
+      fontSize: "0.938rem",
+    },
+    phoneNumber: {
+      color: "#595959",
+      margin: "0px 0px 15px 0px",
+      lineHeight: "1.5",
+      fontSize: "0.938rem",
     },
     h4tag: {
       margin: ".575rem 0 .46rem 0",
       lineHeight: "1.5",
-      fontWeight: "400",
-      fontSize: "17px",
-      color: "#3498DB"
-    }
+      fontWeight: "700",
+      fontSize: "1.078rem",
+      color: "#214476",
+    },
+    gridPadding: {
+      padding: "0px 15px",
+    },
+    gridMargin: {
+      margin: "60px 0px 0px 0px",
+    },
   });
   const clessesforptag = useStyles();
   //View part
@@ -141,56 +163,28 @@ export default function BranchLocator() {
       <Grid
         container
         justifyContent={"center"}
-        style={
-          {
-            backgroundColor: "#f9f9f9"
-          }
-        }
+        style={{
+          backgroundColor: "#f9f9f9",
+        }}
       >
-        <Grid container style={{ backgroundColor: "#f9f9f9", width: "100%" }}>
+        <Grid container style={{ backgroundColor: "#afdfed", width: "100%" }}>
           <Grid className="branchImage" item md={6} sm={12} xs={12}>
             <img src={BranchImage} alt="MF logo" />
           </Grid>
 
           <Grid style={{ padding: "2% 4%" }} item md={6} sm={12} xs={12}>
             <Breadcrumbs
-              separator={
-                <NavigateNextIcon
-                  className="navigateNextIcon"
-                  style={{ color:"#171717",  }}
-                />
-              }
-              style={{
-                lineHeight: "30px",
-                height: "30px",
-                color:"#171717",
-                fontSize:"0.75rem"
-              }}
+              className="breadcrumbWrap"
+              separator={<NavigateNextIcon className="navigateNextIcon" />}
               aria-label="breadcrumb"
             >
               <Link
-                // onClick={handleMenuProfile}
-                style={{
-                  fontSize:"0.75rem",
-                  color:"#171717",
-                  textDecoration: "none",
-                  cursor: "pointer",
-                }}
-                onClick={() => window.open(`/`, '_self')}
+                className="breadcrumbLink"
+                onClick={() => window.open(`/`, "_self")}
               >
                 Home
               </Link>
-              <Link
-                style={{
-                  fontSize:"0.75rem",
-                  color:"#171717",
-                  textDecoration: "none",
-                  cursor: "pointer",
-                }}
-                // onClick={() => closeBankAccountButton()}
-              >
-                Branch Locator
-              </Link>
+              <Link className="breadcrumbLink">Branch Locator</Link>
             </Breadcrumbs>
             <h4 className="branchLocatorHeadingMain">
               <b>Get one on one support</b>
@@ -199,23 +193,23 @@ export default function BranchLocator() {
             </h4>
 
             <Typography className="branchLocatorHeading">
-              <b className="numberText">470+</b>
+              <b className="numberText">480+</b>
 
-              <p className="branchSmallText">Branches in 25 states</p>
+              <span className="branchSmallText">Branches in 25 states</span>
             </Typography>
 
             <Typography className="branchLocatorHeading">
               <b className="numberText">$1k - $25k</b>
 
-              <p className="branchSmallText">Available loan amount</p>
+              <span className="branchSmallText">Available loan amount</span>
             </Typography>
 
             <Typography className="branchLocatorHeading">
               <b className="numberText">4.8</b>
 
-              <p className="branchSmallText">
-                Star Rating based on over 10,000 verified reviews
-              </p>
+              <span className="branchSmallText">
+                Star Rating based on over 13,000 verified reviews
+              </span>
             </Typography>
 
             <Grid id="findBranchWrapTwo" className={classes.blueBackground}>
@@ -223,13 +217,14 @@ export default function BranchLocator() {
               <Grid id="findBranchGrid">
                 <SearchIcon className="searchIcon" style={{ color: "white" }} />
                 <TextField
+                  name="Enter City or State"
                   className="branchLocatorInput"
-                  style={ { color: "white!important" } }
+                  style={{ color: "white!important" }}
                   id="inputText"
                   label="Enter city & state or zip code"
                 />
                 <ButtonPrimary
-                  onClick={ getActivePlaces }
+                  onClick={getActivePlaces}
                   stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "padding":"0px 30px"}'
                 >
                   <ArrowForwardIcon className="goIcon" />
@@ -239,19 +234,11 @@ export default function BranchLocator() {
           </Grid>
         </Grid>
         <Grid
-          style={{ padding: "4% 15px 4% 15px", backgroundColor: "white" }}
+          style={{ padding: "4% 30px 4% 30px", backgroundColor: "#f6f6f6" }}
           container
           id=""
         >
-          <Grid
-            style={{ padding: "0px 15px 0px 15px" }}
-            id="mapGridWrap"
-            item
-            xs={12}
-            sm={12}
-            md={6}
-            xl={6}
-          >
+          <Grid id="mapGridWrap" item xs={12} sm={12} md={6} xl={6}>
             {isLoaded ? (
               <Map
                 id="mapBox"
@@ -271,17 +258,46 @@ export default function BranchLocator() {
                 id="branchLists"
                 style={{ width: "100%", height: "542px", overflowY: "scroll" }}
               >
-                <Grid style={{ padding: "1% 4% 1% 4%" }}>
+                <Grid
+                  className="addressList"
+                  style={{ padding: "1% 4% 1% 4%", backgroundund: "#f6f6f6" }}
+                >
                   {getBranchList ? (
                     getBranchList.map((item, index) => {
                       return (
-                        <Grid className="locationInfo">
-                          <NavLink to={`/branch/branchpage/?BranchName=${item.BranchName}`} state={{ Branch_Details: item }} className="nav_link">
-                          <b><h4 className={clessesforptag.h4tag}>{item.BranchName} Branch</h4></b>
+                        <Grid key={index} item md={4} className="locationInfo">
+                          <NavLink
+                            to={`/branch/branchpage/?BranchName=${item?.BranchName}`}
+                            state={{ Branch_Details: item }}
+                            className="nav_link"
+                          >
+                            <b>
+                              <h4 className={clessesforptag.h4tag}>
+                                {item?.BranchName} Branch
+                              </h4>
+                            </b>
+                            <ChevronRightIcon />
                           </NavLink>
-                        <p className={ clessesforptag.ptag }>{ item.distance }les away | { item.BranchTime.Value1 } { item.BranchTime.Value2 }</p>
-                        <p className={ clessesforptag.ptag }  id={ item.id }>{ item.Address }</p>
-                        <p className={ clessesforptag.ptag } ><u><a href={ "tel:+1" + item.PhoneNumber } style={ { color: "blue" } }>Phone - { item.PhoneNumber }</a></u></p>
+                          <p className={clessesforptag.ptag}>
+                            {item.distance}les away | {item?.BranchTime?.Value1}{" "}
+                            {item?.BranchTime?.Value2}
+                          </p>
+                          <p
+                            className={clessesforptag.addressFont}
+                            id={item.id}
+                          >
+                            {item.Address}
+                          </p>
+                          <p className={clessesforptag.phoneNumber}>
+                            <PhoneIcon />
+                            <a
+                              href={"tel:+1" + item?.PhoneNumber}
+                              style={{ color: "#214476" }}
+                            >
+                              {" "}
+                              {item?.PhoneNumber}
+                            </a>
+                          </p>
                           <ButtonPrimary
                             onClick={() => {
                               setBranchAddress(
@@ -302,44 +318,48 @@ export default function BranchLocator() {
                   )}
                   <Dialog
                     id="getDirectionModal"
-                    open={ getDirectionModal }
+                    open={getDirectionModal}
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
-                    classes={ { paper: getDirectionsClass.consumerDialog } }
+                    classes={{ paper: getDirectionsClass.consumerDialog }}
                   >
-                    <div id="closeBtn" className={ getDirectionsClass.buttonClose }>
+                    <div
+                      id="closeBtn"
+                      className={getDirectionsClass.buttonClose}
+                    >
                       <IconButton
                         aria-label="close"
-                        onClick={ closeGetDirectionModal }
-                        className={ getDirectionsClass.closeButton }
+                        onClick={closeGetDirectionModal}
+                        className={getDirectionsClass.closeButton}
                       >
                         <CloseIcon />
                       </IconButton>
                     </div>
                     <h2
                       id="consumerDialogHeading"
-                      className={ getDirectionsClass.consumerDialogHeading }
+                      className={getDirectionsClass.consumerDialogHeading}
                     >
                       You are about to leave marinerfinance.com
                     </h2>
                     <div>
-                      <p className={ getDirectionsClass.consumerParagaraph }>
-                        Mariner Finance provides this link for your convenience and is not
-                        responsible for and makes no claims or representations regarding the
-                        content, terms of use, or privacy policies of third party websites.
+                      <p className={getDirectionsClass.consumerParagaraph}>
+                        Mariner Finance provides this link for your convenience
+                        and is not responsible for and makes no claims or
+                        representations regarding the content, terms of use, or
+                        privacy policies of third party websites.
                       </p>
                     </div>
                     <div id="buttonWrap">
                       <ButtonSecondary
                         id="stayBtn"
-                        onClick={ closeGetDirectionModal }
+                        onClick={closeGetDirectionModal}
                         stylebutton='{"float": "" }'
                       >
                         Stay on Marinerfinance.com
                       </ButtonSecondary>
                       <ButtonPrimary
-                        href={ getBranchAddress }
-                        onClick={ closeGetDirectionModal }
+                        href={getBranchAddress}
+                        onClick={closeGetDirectionModal}
                         id="Continue"
                         stylebutton='{"float": "" }'
                         target="_blank"
@@ -352,6 +372,42 @@ export default function BranchLocator() {
               </Grid>
             )}
           </Grid>
+          <Grid className={clessesforptag.gridMargin} container>
+            <Grid className={clessesforptag.gridPadding} item md={6}>
+              <ButtonPrimary
+                href={getBranchAddress}
+                id="Continue"
+                stylebutton='{"width": "100%", "padding":"0 15px", "fontSize":"0.938rem", "fontWeight":"400" }'
+                target="_blank"
+              >
+                Get Driving Directions To Nearest Location
+              </ButtonPrimary>
+            </Grid>
+            <Grid item md={6} className={classes.blueBackground}>
+              <Grid id="findBranchGrid">
+                <p className="zipLabel">
+                  Can't find it? Try searching another{" "}
+                </p>
+                <SearchIcon
+                  className="searchIconBottom"
+                  style={{ color: "white" }}
+                />
+                <TextField
+                  name="Enter City or State"
+                  className="branchLocatorInput"
+                  style={{ color: "white!important" }}
+                  id="inputText"
+                  placeholder="Enter city & state or zip code"
+                />
+                <ButtonPrimary
+                  onClick={getActivePlaces}
+                  stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "padding":"0px 30px"}'
+                >
+                  <ArrowForwardIcon className="goIcon" />
+                </ButtonPrimary>
+              </Grid>
+            </Grid>
+          </Grid>
         </Grid>
         <Grid
           container
@@ -361,7 +417,7 @@ export default function BranchLocator() {
             backgroundColor: "#f9f9f9",
           }}
         >
-          <Grid item xs={12} justifyContent="center">
+          <Grid container item xs={12} justifyContent="center">
             <Typography
               style={{ margin: "1.14rem 0 0.4rem 0", fontWeight: "500" }}
               variant="h4"
@@ -369,7 +425,7 @@ export default function BranchLocator() {
               Mariner Finance States
             </Typography>
           </Grid>
-          <Grid item xs={12} justifyContent="center">
+          <Grid container item xs={12} justifyContent="center">
             <Typography
               style={{
                 margin: "0 0 4% 0",
@@ -390,6 +446,7 @@ export default function BranchLocator() {
             {MFStates.map((item, index) => {
               return (
                 <Grid
+                  key={index}
                   style={{ padding: "0px 15px 15px 15px" }}
                   item
                   xs={6}
@@ -401,14 +458,13 @@ export default function BranchLocator() {
                     stylebutton='{"float": "","width": "100%", "height":"40px" }'
                     onClick={MFButtonClick}
                   >
-                    { item }
+                    {item}
                   </ButtonSecondary>
                 </Grid>
               );
             })}
           </Grid>
         </Grid>
-
         <Grid className="blueBGColor">
           <h4>Customer Ratings</h4>
           <div
