@@ -28,13 +28,13 @@
 }
 
 #inputText{
-    color: white !important;
+    color: #000 !important;
     padding-left: 36px;
     padding-bottom: 15px;
     border-bottom-color: white !important;
 }
 #inputText-label{
-    color: white !important;
+    color: #595959 !important;
     font-size: 0.938rem !important;
     padding-left: 45px;
 }
@@ -48,11 +48,11 @@
 
 #findBranchGrid .branchLocatorInput  .MuiInput-underline:before,
 #findBranchGrid .branchLocatorInput  .MuiInput-underline:after{
- border-bottom: 1px solid white !important;
- border-bottom-color: white !important;
+ border-bottom: 2px solid white !important;
+ border-bottom-color: #3f51b5 !important;
 }
 .searchIcon{
-    color: white;
+    color: #595959;
     position: absolute;
     top: 20px;
     font-size: 26px !important;

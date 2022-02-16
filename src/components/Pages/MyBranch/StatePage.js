@@ -144,7 +144,7 @@ export default function StatePage() {
         justifyContent={"center"}
         style={{ backgroundColor: "#f9f9f9"}}
       >
-        <Grid container style={{ backgroundColor: "#f9f9f9", width: "100%" }}>
+        <Grid container style={{ backgroundColor: "#afdfed", width: "100%" }}>
           <Grid className="branchImage" item md={6} sm={12} xs={12}>
             <img src={ StateImage } alt="MF logo" />
           </Grid>
@@ -200,6 +200,28 @@ export default function StatePage() {
                 Personal Loans In Alabama
               </Link>
             </Breadcrumbs>
+
+            <Grid id="findBranchWrapTwo" className={classes.blueBackground}>
+              <h4 className={classes.headigText}>
+                Find a Branch in <strong>Alabama</strong>
+              </h4>
+              <Grid id="findBranchGrid">
+                <SearchIcon className="searchIcon"  />
+                <TextField
+                  className="branchLocatorInput"
+                  style={{ color: "white!important" }}
+                  id="inputText"
+                  label="Enter city & state or zip code"
+                />
+                <ButtonPrimary
+                  onClick={getActivePlaces}
+                  stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "padding":"0px 30px"}'
+                >
+                  <ArrowForwardIcon className="goIcon" />
+                </ButtonPrimary>
+              </Grid>
+            </Grid>
+
             <h4 className="branchLocatorHeadingMain">
               <b>Get one on one support</b>
               <br />
@@ -226,26 +248,7 @@ export default function StatePage() {
               </p>
             </Typography>
 
-            <Grid id="findBranchWrapTwo" className={classes.blueBackground}>
-              <h4 className={classes.headigText}>
-                Find a Branch in <strong>Alabama</strong>
-              </h4>
-              <Grid id="findBranchGrid">
-                <SearchIcon className="searchIcon" style={{ color: "white" }} />
-                <TextField
-                  className="branchLocatorInput"
-                  style={{ color: "white!important" }}
-                  id="inputText"
-                  label="Enter city & state or zip code"
-                />
-                <ButtonPrimary
-                  onClick={getActivePlaces}
-                  stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "padding":"0px 30px"}'
-                >
-                  <ArrowForwardIcon className="goIcon" />
-                </ButtonPrimary>
-              </Grid>
-            </Grid>
+           
           </Grid>
         </Grid>
 

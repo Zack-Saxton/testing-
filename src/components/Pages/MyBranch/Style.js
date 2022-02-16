@@ -48,17 +48,17 @@ const useStylesMyBranch = makeStyles((theme) => ({
     width: "100%",
     display: "flex",
     justifyContent: "flex-end",
-    color: "#171717!important",
+    // color: "#171717!important",
   },
   blueBackground: {
-    backgroundColor: "#214476",
-    margin: "0px",
-    padding: "4%"
+    // backgroundColor: "#214476",
+    margin: "0px"
+    // padding: "4%"
   },
   headigText: {
     margin: "0 0 2% 0",
     fontSize: "2.125rem",
-    color: "#fff",
+    // color: "#fff",
     fontWeight: "400"
   },
   loadingOnWithoutBlur: {
