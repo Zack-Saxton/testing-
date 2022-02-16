@@ -1,10 +1,8 @@
 import Grid from "@material-ui/core/Grid";
 import React, { useState, useEffect } from "react";
-import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import PhoneIcon from "@material-ui/icons/Phone";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import SearchIcon from "@material-ui/icons/Search";
-import { ButtonPrimary, TextField, ButtonSecondary } from "../../FormsUI";
+import { ButtonPrimary, ButtonSecondary } from "../../FormsUI";
 import { useStylesMyBranch } from "./Style";
 import { useStylesConsumer } from "../../Layout/ConsumerFooterDialog/Style";
 import { toast } from "react-toastify";
@@ -16,7 +14,6 @@ import Typography from "@material-ui/core/Typography";
 import ErrorLogger from "../../lib/ErrorLogger";
 import { useLoadScript } from "@react-google-maps/api";
 import Map from "./BranchLocatorMap";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import {
   MFStates,
   MFStateShort,
@@ -25,19 +22,17 @@ import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import Link from "@material-ui/core/Link";
 import BranchImage from "../../../assets/images/States.jpg";
-import { NavLink, useParams, useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
 export default function StatePage(props) {
   window.zeHide();
   //Material UI css class
-  const classes = useStylesMyBranch();
   const getDirectionsClass = useStylesConsumer();
   const [getDirectionModal, setgetDirectionModal] = useState(false);
   const [getBranchList, setBranchList] = useState();
   const [getBranchAddress, setBranchAddress] = useState();
   const [getMap, setMap] = useState([]);
   const [getCurrentLocation, setCurrentLocation] = useState();
-  const [loading, setLoading] = useState(false);
   const [zoomDepth, setZoomDepth] = useState();
   const [getStateName, setStateName] = useState();
   const location = useLocation();
@@ -46,7 +41,6 @@ export default function StatePage(props) {
   //API call
   const getBranchLists = async (search_text) => {
     try {
-      setLoading(true);
       let result = await BranchLocatorController(search_text);
       if (result.status === 400) {
         toast.error(" Check your address and Try again.");
@@ -79,7 +73,6 @@ export default function StatePage(props) {
     try {
       let result = await getBranchLists(value);
       setBranchList(result);
-      setLoading(false);
       listForMapView(result);
     } catch (error) {
       ErrorLogger(" Error from apiGetBranchList ", error);

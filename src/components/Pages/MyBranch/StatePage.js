@@ -17,7 +17,6 @@ import ErrorLogger from "../../lib/ErrorLogger";
 import { useLoadScript } from "@react-google-maps/api";
 import Map from "./BranchLocatorMap";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { MFStates } from "../../../assets/data/marinerBusinesStates";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import Link from "@material-ui/core/Link";
@@ -87,7 +86,13 @@ export default function StatePage() {
     }
   };
   const getActivePlaces = async () => {
-    apiGetBranchList(inputText.value);
+    if (inputText1.value !== "") {
+      apiGetBranchList(inputText1.value);
+      inputText2.value="";
+    } else if (inputText2.value !== "") {
+      apiGetBranchList(inputText2.value);
+      inputText1.value="";
+    }
   };
   // -------- To Display Dialog to get Directions of Address.......
   const openGetDirectionModal = () => {
@@ -109,7 +114,7 @@ export default function StatePage() {
     }
   };
   useEffect(() => {
-    inputText.value = Name;
+    inputText1.value = Name;
     getActivePlaces();
   }, []);
   const useStyles = makeStyles({
@@ -189,7 +194,7 @@ export default function StatePage() {
                   name="Enter City or State"
                   className="branchLocatorInput"
                   style={{ color: "white!important" }}
-                  id="inputText"
+                  id="inputText1"
                   label="Enter city & state or zip code"
                 />
                 <ButtonPrimary
@@ -397,7 +402,7 @@ export default function StatePage() {
                   name="Enter City or State"
                   className="branchLocatorInput"
                   style={{ color: "white!important" }}
-                  id="inputText"
+                  id="inputText2"
                   placeholder="Enter city & state or zip code"
                 />
                 <ButtonPrimary

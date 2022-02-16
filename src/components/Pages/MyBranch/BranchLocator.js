@@ -42,12 +42,12 @@ export default function BranchLocator() {
   });
   const [loading, setLoading] = useState(false);
   const [zoomDepth, setZoomDepth] = useState(10);
-  const { Branch_Name } = useParams();
   //API call
   const getBranchLists = async (search_text) => {
     try {
       setLoading(true);
       let result = await BranchLocatorController(search_text);
+      console.log(' SEARCH=', search_text,' RESULT=',result)
       if (result.status === 400) {
         toast.error(" Error from getBranchLists");
       } else {
@@ -93,7 +93,13 @@ export default function BranchLocator() {
     }
   };
   const getActivePlaces = async () => {
-    apiGetBranchList(inputText.value);
+    if (inputText1.value !== "") {
+      apiGetBranchList(inputText1.value);
+      inputText2.value = "";
+    } else if (inputText2.value !== ""){
+      apiGetBranchList(inputText2.value);
+      inputText1.value = "";
+    }
   };
   const openGetDirectionModal = () => {
     setgetDirectionModal(true);
@@ -109,7 +115,7 @@ export default function BranchLocator() {
     googleMapsApiKey: process.env.REACT_APP_SECKey,
   });
   useEffect(() => {
-    inputText.value = "21236";
+    inputText1.value = "21236";
     getActivePlaces();
   }, []);
   const findBranchTimings = async (value) => {
@@ -120,9 +126,6 @@ export default function BranchLocator() {
     } catch (error) {
       ErrorLogger(" Error from findBranchTimings", error);
     }
-  };
-  const branchName = async () => {
-    console.log(" BRANCH =", Branch_Name);
   };
   const useStyles = makeStyles({
     ptag: {
@@ -220,7 +223,7 @@ export default function BranchLocator() {
                   name="Enter City or State"
                   className="branchLocatorInput"
                   style={{ color: "white!important" }}
-                  id="inputText"
+                  id="inputText1"
                   label="Enter city & state or zip code"
                 />
                 <ButtonPrimary
@@ -396,7 +399,7 @@ export default function BranchLocator() {
                   name="Enter City or State"
                   className="branchLocatorInput"
                   style={{ color: "white!important" }}
-                  id="inputText"
+                  id="inputText2"
                   placeholder="Enter city & state or zip code"
                 />
                 <ButtonPrimary
