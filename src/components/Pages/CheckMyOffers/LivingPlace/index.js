@@ -24,9 +24,7 @@ function LivingPlace() {
 	const currencyFormat = (currencyValue) => {
 		if (currencyValue) {
 			let formated = parseFloat(currencyValue);
-			return (
-				"$" + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").slice(0, -3)
-			);
+			return (`$${formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").slice(0, -3)}`);
 		}
 	};
 	
