@@ -1,4 +1,5 @@
-export const MFStates = [ 'Alabama',
+export const MFStates = [ 
+    'Alabama',
     'Arizona',
     'California',
     'Delaware',
@@ -27,6 +28,36 @@ export const MFStates = [ 'Alabama',
     'Wisconsin',
     'Washington'
 ];
+export const MFStateShort = [
+    'AL',
+    'AZ',
+    'CA',
+    'DE',
+    'FL',
+    'GA',
+    'IL',
+    'IN',
+    'KY',
+    'LA',
+    'MD',
+    'MS',
+    'MO',
+    'NJ',
+    'NM',
+    'NY',
+    'NC',
+    'OH',
+    'OK',
+    'OR',
+    'PA',
+    'SC',
+    'TN',
+    'TX',
+    'UT',
+    'VA',
+    'WI',
+    'WA'
+]
 export const branch_hours = {
     "monday": "9:00 a.m. – 5:00 p.m.",
     "tuesday": "9:00 a.m. – 7:00 p.m.",

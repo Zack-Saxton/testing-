@@ -709,11 +709,7 @@ export default function MakePayment(props) {
         id="makePaymentWrap"
         container
         justifyContent={ "center" }
-        style={ {
-          marginTop: "-150px",
-          paddingRight: "23px",
-          paddingLeft: "23px",
-        } }
+        className={ classes.centerGrid }
       >
         <Grid
           style={ { paddingBottom: "10px" } }
