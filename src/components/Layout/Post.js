@@ -142,17 +142,17 @@ const Post = ({ children }) => {
             {
                 loginToken.isLoggedIn === true ?
                     <>
-                        <div id="body">
-                            <Grid className="sample" />
+                        <div id= "body">
+                        <div className='topBar'></div>
                             <AppBar />
                             { children }
+                            <Footer /> 
                         </div>
-                        <Footer />
+                        
                         <Dialog
                             onClose={ handleClosePopUp }
                             aria-labelledby="customized-dialog-title"
                             maxWidth="xs"
-                            // style={{maxWidth: "90% !important"}}
                             open={ openPopUp }
                         >
                             <div id="printableArea">

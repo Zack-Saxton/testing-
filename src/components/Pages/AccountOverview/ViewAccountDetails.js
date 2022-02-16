@@ -68,12 +68,8 @@ export default function ViewAccountDetails() {
       <Grid
         container
         justifyContent={ "center" }
-        style={ {
-          marginTop: "-150px",
-          paddingRight: "30px",
-          paddingLeft: "30px",
-          paddingBottom: "30px",
-        } }
+        className={ classes.centerGrid }
+
       >
         <Grid container spacing={ 3 }>
           <Grid item xs={ 12 }>
