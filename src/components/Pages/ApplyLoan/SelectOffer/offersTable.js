@@ -172,7 +172,7 @@ export default function OfferTable(props) {
 													<HtmlTooltip
 														title={
 														<>
-															<Typography color="inherit">What Is An  APR?</Typography>
+															<Typography color="inherit">What Is An APR?</Typography>
 															<p>APR stands for "annual percentage rate" and represents the effective annual cost of a loan, including both the interest rate and origination fee.</p>
 														</>
 														}
