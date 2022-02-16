@@ -15,10 +15,6 @@ useEffect(()=>{
      })
 },[])
 
-const handleChange = () =>{
-    handleContinue();
-}
-
 return(
 <Grid className="checkMyOffers">
     <Grid className="leftcheckMyOffers">
@@ -32,7 +28,7 @@ return(
      </p>
     <p className="common">Use it to get things done.</p>
         <p className="common">Offer Code:{ offerCode }</p>
-        <ButtonPrimary id="ClaimButton" stylebutton='{"color":"", "textTransform": "none","marginLeft":"40px"}' onClick={ handleChange }>
+        <ButtonPrimary id="ClaimButton" stylebutton='{"color":"", "textTransform": "none","marginLeft":"40px"}' onClick={ handleContinue }>
                       Continue
             </ButtonPrimary>
     </Grid>
