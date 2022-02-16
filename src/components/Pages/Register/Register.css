@@ -9,7 +9,7 @@
 }
 
 .MuiInput-underline:before {
-	border-bottom: 2px solid #0f4eb3 !important;
+	border-bottom: 2px solid #0f4eb3 ;
 }
 
 .cardWOPadding {
@@ -21,12 +21,8 @@
 	margin-bottom: 2%;
 }
 
-#socialNum {
-	margin-top: 19.1px !important;
-}
-
-#ZipcodeWrap {
-	margin-top: 19.1px !important;
+#dateWrap {
+	align-self: flex-end
 }
 
 #dateWrap label {

@@ -6,7 +6,7 @@ import { Router } from "react-router-dom";
 import Login from "./Login";
 
 test("Checks the title of the page", () => {
-	const history = createMemoryHistory();
+	const navigate = createMemoryHistory();
 
 	render(
 		<Router history={ history }>
@@ -18,7 +18,7 @@ test("Checks the title of the page", () => {
 });
 
 test("Render email", () => {
-	const history = createMemoryHistory();
+	const navigate = createMemoryHistory();
 
 	render(
 		<Router history={ history }>
@@ -31,7 +31,7 @@ test("Render email", () => {
 });
 
 test("pass valid email to test email input field", () => {
-	const history = createMemoryHistory();
+	const navigate = createMemoryHistory();
 
 	render(
 		<Router history={ history }>
@@ -47,7 +47,7 @@ test("pass valid email to test email input field", () => {
 });
 
 test("Render password", () => {
-	const history = createMemoryHistory();
+	const navigate = createMemoryHistory();
 
 	render(
 		<Router history={ history }>
@@ -61,7 +61,7 @@ test("Render password", () => {
 });
 
 test("Render checkbox", () => {
-	const history = createMemoryHistory();
+	const navigate = createMemoryHistory();
 
 	render(
 		<Router history={ history }>
@@ -74,7 +74,7 @@ test("Render checkbox", () => {
 });
 
 test("checkbox initially unchecked", () => {
-	const history = createMemoryHistory();
+	const navigate = createMemoryHistory();
 
 	render(
 		<Router history={ history }>
@@ -86,7 +86,7 @@ test("checkbox initially unchecked", () => {
 });
 
 test("button Availability", () => {
-	const history = createMemoryHistory();
+	const navigate = createMemoryHistory();
 
 	render(
 		<Router history={ history }>
@@ -99,7 +99,7 @@ test("button Availability", () => {
 });
 
 test("Button Onclick", () => {
-	const history = createMemoryHistory();
+	const navigate = createMemoryHistory();
 
 	render(
 		<Router history={ history }>

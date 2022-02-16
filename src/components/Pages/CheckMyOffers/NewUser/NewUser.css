@@ -186,10 +186,12 @@
 
 .passwordMeetTxt {
 	font-size: 0.938rem !important;
+	list-style: 1.4 !important;
 }
 
 #createPasswordWrap-label {
-	font-size: 0.968rem !important;
+	font-size: 0.938rem !important;
+	color: #595959 !important;
 }
 
 #createPasswordWrap {
@@ -197,7 +199,8 @@
 }
 
 #confirmPasswordWrap-label {
-	font-size: 0.968rem !important;
+	font-size: 0.938rem !important;
+	color: #595959 !important;
 }
 
 #confirmPasswordWrap {

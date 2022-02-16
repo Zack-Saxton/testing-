@@ -1,7 +1,7 @@
 import { Box, Modal, Typography } from "@material-ui/core";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from "@material-ui/core/Grid";
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import IconButton from "@material-ui/core/IconButton";
 import Paper from "@material-ui/core/Paper";
 import CloseIcon from "@material-ui/icons/Close";
@@ -29,7 +29,6 @@ export default function LimitedOffer(userOfferData) {
   // Get offers details
   let userOfferAmount = (userOfferData.userOffers != null) ? userOfferData.userOffers.offerAmount : 0;
   const history = useHistory();
-  
   const [initModal,setinitModal] = useState(false);
   const [offerCode,setOfferCode] = useState(" ");
   const [campaignType, setCampaignType] = useState("");
@@ -56,6 +55,7 @@ export default function LimitedOffer(userOfferData) {
             })
   },[])
 
+
   const showModal = () => {
     setinitModal(true);
   };
@@ -78,7 +78,7 @@ export default function LimitedOffer(userOfferData) {
   };
 
   const handleContinue = () => {
-    history.push({ pathname: "/pre-approved" });
+    navigate("/pre-approved");
   };
 
   //View
@@ -103,7 +103,6 @@ export default function LimitedOffer(userOfferData) {
                       <p id="loanPercent">
                         <NumberFormat value={ userOfferAmount } displayType={ 'text' } thousandSeparator={ true } prefix={ '$' } />
                       </p>
-
                       <ButtonPrimary onClick={ showModal } id="claimButton" stylebutton='{"color":""}'>
                         Check My Offer
                       </ButtonPrimary>
@@ -154,7 +153,6 @@ export default function LimitedOffer(userOfferData) {
                 <IconButton
                   id="debitCardModalClose"
                   aria-label="close"
-
                   onClick={ closeModal }
                 >
                   <CloseIcon />

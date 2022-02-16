@@ -4,7 +4,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import React, { useContext } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import ActiveDutyLogo from "../../../../assets/icon/active-duty.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
@@ -18,7 +18,7 @@ const validationSchema = yup.object({
 		.string("Enter your Zip")
 		.required("Select Active duty status"),
 	activeDutyRank: yup.string().when("activeDuty", {
-		is: "Yes",
+		is: "Active Military",
 		then: yup.string().required("Active duty rank is required"),
 	}),
 });
@@ -27,7 +27,7 @@ const validationSchema = yup.object({
 function ActiveDuty() {
 	//Retrieving Context values
 	const { data } = useContext(CheckMyOffers);
-	const history = useHistory();
+	const navigate = useNavigate();
 	//initializing formik
 	const formik = useFormik({
 		initialValues: {
@@ -40,13 +40,14 @@ function ActiveDuty() {
 			data.militaryActiveDuty = values.activeDuty;
 			data.militaryActiveDutyRank = values.activeDutyRank;
 			data.completedPage = data.page.activeDuty;
-			history.push("/ssn");
+			navigate("/ssn");
 		},
 	});
 
 	if (data.completedPage < data.page.livingPlace || data.formStatus === "completed") {
-		history.push("/select-amount");
+		navigate("/select-amount");
 	}
+	let disableLoan = formik.values.activeDutyRank === "E4 and below" && formik.values.activeDuty === "Active Military" ? true : false;
 	//JSX part
 	return (
 		<div>
@@ -59,6 +60,7 @@ function ActiveDuty() {
 						container
 						justifyContent="center"
 						alignItems="center"
+						style={ { padding: "4% 0px" } }
 					>
 						<Grid
 							container
@@ -77,8 +79,6 @@ function ActiveDuty() {
 								justify="center"
 								style={ {
 									width: "inherit",
-									marginBottom: "10%",
-									marginTop: "10%",
 								} }
 							>
 								<div className="progress mt-0">
@@ -134,10 +134,11 @@ function ActiveDuty() {
 											xs={ 12 }
 										>
 											<Select
+												id="activeDutySelect"
 												fullWidth={ true }
 												name="activeDuty"
 												labelform="Active Duty *"
-												select='[{"value":"Yes"}, {"value":"No"}]'
+												select='[{"label":"Yes", "value":"Active Military"}, {"label":"No", "value":"Not Active Military"}]'
 												value={ formik.values.activeDuty }
 												onChange={ formik.handleChange }
 												onBlur={ formik.handleBlur }
@@ -156,7 +157,7 @@ function ActiveDuty() {
 											id="activeDutyRankWrap"
 											justifyContent="center"
 											className={
-												formik.values.activeDuty === "Yes"
+												formik.values.activeDuty === "Active Military"
 													? "showMsg space"
 													: "hideMsg space"
 											}
@@ -168,9 +169,10 @@ function ActiveDuty() {
 											xs={ 12 }
 										>
 											<Select
+												id="activeDutyRank"
 												fullWidth={ true }
 												name="activeDutyRank"
-												labelform="Active duty rank *"
+												labelform="Thank you for your service. What is your rank? *"
 												select='[{"value":"E4 and below"}, {"value":"E5 and above"}]'
 												value={ formik.values.activeDutyRank }
 												onChange={ formik.handleChange }
@@ -185,11 +187,16 @@ function ActiveDuty() {
 												}
 											/>
 										</Grid>
-
+										<h4
+											className={ disableLoan ? "showMsg" : "hideMsg" }
+										>
+											Unfortunately, based on the application information provided, <br />you do not meet our application requirements.
+										</h4>
 										<Grid item lg={ 8 } md={ 8 } xs={ 12 } className="alignButton">
 											<ButtonPrimary
 												type="submit"
 												data-testid="contButton"
+												disabled={ disableLoan }
 												stylebutton='{"background": "#FFBC23","fontSize": "0.938rem", "padding": "0px 30px", "color": "black","fontSize":"1rem"}'
 											>
 												Continue

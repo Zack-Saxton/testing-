@@ -34,7 +34,7 @@ import React, { useContext, useEffect, useState } from "react";
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import { useQuery, useQueryClient } from "react-query";
-import { Link, NavLink, useHistory } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import logoIcon from "../../../assets/images/Favicon.png";
@@ -143,6 +143,7 @@ const useStyles = makeStyles((theme) => ({
   },
   headerAlign: {
     margin: "12px",
+    color: "#fff"
   },
 
   branchLocator: {
@@ -182,7 +183,7 @@ export default function SideNav() {
   const [ open, setOpen ] = React.useState(true);
   const [ anchorEl, setAnchorEl ] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
-  const history = useHistory();
+  const navigate = useNavigate();
   const [ disable, setDisable ] = React.useState(false);
   const [ skill, setSkill ] = React.useState(false);
   const [ checked, setChecked ] = React.useState(true);
@@ -300,8 +301,8 @@ export default function SideNav() {
   const getProfileImage = Cookies.get('getProfileImage');
 
   const lastLoginRaw = JSON.parse(Cookies.get("user") ? Cookies.get("user") : '{ }')?.user?.extensionattributes?.login?.timestamp_date;
-  const date = lastLoginRaw ? new Date(lastLoginRaw) : new Date();
-  const lastLogin = ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + date.getFullYear();
+  const loginDate = lastLoginRaw ? new Date(lastLoginRaw) : new Date();
+  const lastLogin = ((loginDate.getMonth() > 8) ? (loginDate.getMonth() + 1) : ('0' + (loginDate.getMonth() + 1))) + '/' + ((loginDate.getDate() > 9) ? loginDate.getDate() : ('0' + loginDate.getDate())) + '/' + loginDate.getFullYear();
 
   //Side bar open on mouse event
   const handleDrawer = () => {
@@ -350,7 +351,7 @@ export default function SideNav() {
     if (checked === false || check === false) {
       var profiledetailTag = document.getElementById("profileDetails");
       profiledetailTag.style.display = "none";
-      
+
       let menuValue = document
         .getElementById(closeElementId)
         .getAttribute(valueQualifiedName);
@@ -383,8 +384,7 @@ export default function SideNav() {
 
   //Menu button on mouse view
   const handleMenuButtonOpen = () => {
-    
-      
+
     if (check === false) {
       document.getElementById("close2").style.display = "block ";
       setOpen(true);
@@ -413,12 +413,12 @@ export default function SideNav() {
   };
 
   const handleMenuProfile = () => {
-    history.push({ pathname: '/customers/myProfile' });
+    navigate('/customers/myProfile');
     setprofileTabNumber({ profileTabNumber: 0 });
     handleMenuClose();
   };
   const handleMenuPaymentProfile = () => {
-    history.push({ pathname: '/customers/myProfile' });
+    navigate('/customers/myProfile');
     setprofileTabNumber({ profileTabNumber: 3 });
     handleMenuClose();
   };
@@ -429,7 +429,7 @@ export default function SideNav() {
     LogoutController();
     resetData();
     resetProfilePicture();
-    history.push({ pathname: "/login" });
+    navigate("/login");
   }
 
   const logoutUser = () => {
@@ -451,11 +451,11 @@ export default function SideNav() {
   };
 
   const onAFLClick = () => {
-    history.push({ pathname: "/customers/applyForLoan", });
+    navigate("/customers/applyForLoan", { state: { from: "user" } });
   };
 
   const resumeApplicationClick = () => {
-    history.push({ pathname: applicationStatusRedirectPage[ checkPresenceOfLoanStatus ], });
+    navigate(applicationStatusRedirectPage[ checkPresenceOfLoanStatus ], { state: { from: "user" } });
 
   };
 
@@ -510,11 +510,6 @@ export default function SideNav() {
             <div className={ classes.grow } />
             <div
               id="tool-bar-list"
-              style={ {
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                display: "-webkit-box",
-              } }
             >
               <Typography className={ classes.headerAlign }>
                 <a
@@ -534,17 +529,9 @@ export default function SideNav() {
                 <Typography className={ classes.headerAlign }>FAQ</Typography>
               </NavLink>
 
-              <Typography
-                className={ clsx(classes.headerAlign, classes.branchLocator) }
-              >
-                <a
-                  href=" https://loans.marinerfinance.com/branchlocatorpage"
-                  style={ { color: "white" } }
-                  className="hrefTag"
-                >
-                  Branch Locator
-                </a>
-              </Typography>
+              <NavLink to="/branchlocator" className="nav_link">
+                <Typography className={ classes.headerAlign }>Branch Locator</Typography>
+              </NavLink>
 
               <NavLink to="/customers/makePayment" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : '' }>
                 <Tooltip title="Quick Pay" placement="bottom">
@@ -688,7 +675,7 @@ export default function SideNav() {
                 </NavLink>
 
                 { checkPresenceOfLoan === true ?
-                  <NavLink to={ { state: { from: "user" } } } onClick={ (event) => { resumeApplicationClick(); } } className="nav_link" >
+                  <NavLink to="#" state={ { from: "user" } } onClick={ (event) => { resumeApplicationClick(); } } className="nav_link" >
                     <ListItem className="titleSidenav" >
                       <ListItemIcon>
                         { " " }
@@ -698,7 +685,7 @@ export default function SideNav() {
                     </ListItem>
                   </NavLink>
                   :
-                  <NavLink id="applyForLoanNav" to={ { state: { from: "user" } } } onClick={ (event) => { currentLoan ? event.preventDefault() : onAFLClick(); } } className={ currentLoan ? "nav_link_disabled" : "nav_link" } >
+                  <NavLink id="applyForLoanNav" to="/customers/applyForLoan" state={ { from: "user" } } state={ { from: "user" } } onClick={ (event) => { currentLoan ? event.preventDefault() : ""; } } className={ currentLoan ? "nav_link_disabled" : "nav_link" } >
                     <ListItem className="titleSidenav" disabled={ currentLoan }>
                       <ListItemIcon>
                         { " " }

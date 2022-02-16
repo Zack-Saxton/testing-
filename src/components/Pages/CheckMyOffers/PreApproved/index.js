@@ -3,23 +3,24 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import React, { useEffect, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import setAccountDetails from "../../../Controllers/AccountOverviewController";
 import { ButtonPrimary } from "../../../FormsUI";
 
 const PreApproved = () => {
 
     const [ offerAmount, setOfferAmount ] = useState("");
-    const history = useHistory();
+    const navigate = useNavigate();
 
     useEffect(() => {
         setAccountDetails().then((res) => {
             setOfferAmount(res?.data?.offerData?.offerAmount);
         });
+        return null;
     }, []);
 
     const handleContinue = () => {
-        history.push({ pathname: "/loan-purpose" });
+        navigate("/loan-purpose");
     };
 
     return (
@@ -82,6 +83,7 @@ const PreApproved = () => {
                                     </Grid>
                                 </Grid>
                                 <Grid
+                                    id="checkMyOffersText"
                                     item
                                     xs={ 12 }
                                     className="alignSlider"

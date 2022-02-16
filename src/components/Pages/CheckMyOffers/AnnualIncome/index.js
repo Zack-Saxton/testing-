@@ -4,7 +4,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import React, { useContext, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AnnualIncomeLogo from "../../../../assets/icon/I-Annual-Income.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, TextField } from "../../../FormsUI";
@@ -18,7 +18,7 @@ function NewUser() {
 	const [ errorPersonal, setErrorPersonal ] = useState("");
 
 	//Retrieving Context values
-	const history = useHistory();
+	const navigate = useNavigate();
 	const validate = (personal, household) => {
 		if (!isNaN(personal) && !isNaN(household)) {
 			if (personal <= household) {
@@ -64,7 +64,7 @@ function NewUser() {
 					data.annualIncome = modPersonalIncome ? modPersonalIncome : "0";
 					data.householdAnnualIncome = modHouseholdIncome ? modHouseholdIncome : "0";
 					data.completedPage = data.completedPage > data.page.annualIncome ? data.completedPage : data.page.annualIncome;
-					history.push("/living-place");
+					navigate("/living-place");
 				}
 			}
 		},
@@ -196,7 +196,7 @@ function NewUser() {
 		data.completedPage < data.page.employmentStatus ||
 		data.formStatus === "completed"
 	) {
-		history.push("/select-amount");
+		navigate("/select-amount");
 	}
 
 	//JSX part
@@ -212,7 +212,7 @@ function NewUser() {
 						xs={ 12 }
 						justifyContent="center"
 						alignItems="center"
-						style={ { paddingTop: "70px", paddingBottom: "70px" } }
+						style={ { padding: "4% 0px" } }
 					>
 						<Grid
 							container
@@ -239,8 +239,8 @@ function NewUser() {
 									<span className="floatLeft detNum50">50%</span>
 								</div>
 								<Grid className="floatLeft">
-									<Link to="/employment-status">
-										<i className="material-icons dp48 yellowText  ">
+									<Link className="arrowBack" to="/employment-status">
+										<i className="material-icons dp48 yellowText floatingButton">
 											arrow_back
 										</i>
 									</Link>
@@ -260,7 +260,7 @@ function NewUser() {
 										justify: "center",
 										alignItems: "center",
 									} }
-									className="borrowCSSLP"
+									className="borrowCSSLP checkMyOfferText"
 								>
 									Tell us about your income
 								</Typography>
@@ -301,7 +301,7 @@ function NewUser() {
 												helperText={ errorPersonal !== "" ? errorPersonal : "" }
 											/>
 
-											<p className="subText">
+											<p className="subText incomeText">
 												Do not include income from others in your household.
 												Stated income will be verified on every application.
 												Your personal income must be verifiable via pay stubs,

@@ -1,7 +1,7 @@
 import Grid from "@material-ui/core/Grid";
 import { useFormik } from "formik";
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import globalMessages from "../../../assets/data/globalMessages.json";
@@ -17,7 +17,7 @@ import "./Style.css";
 
 export default function ChangePassword(basicInformationData) {
   window.zeHide();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [ loading, setLoading ] = useState(false);
   const [ , setprofileTabNumber ] = useGlobalState();
 
@@ -52,7 +52,7 @@ export default function ChangePassword(basicInformationData) {
   const logOut = () => {
     setLoading(false);
     LogoutController();
-    history.push({ pathname: "/login", });
+    navigate("/login");
   };
 
   const logoutUser = () => {
@@ -62,7 +62,7 @@ export default function ChangePassword(basicInformationData) {
   };
   const onClickCancelChange = () => {
     formikPassword.resetForm();
-    history.push({ pathname: '/customers/myProfile' });
+    navigate('/customers/myProfile');
     setprofileTabNumber({ profileTabNumber: 0 });
   };
 
@@ -91,10 +91,8 @@ export default function ChangePassword(basicInformationData) {
             values.oldPassword,
             values.newPassword,
             email
-
           );
           if (response?.data?.change_password?.passwordReset === true) {
-
             if (!toast.isActive("closeToast")) {
               toast.success(response?.data?.change_password?.message ?? globalMessages.PasswordChangedSuccessfully, {
                 toastId: "closeToast",
@@ -124,6 +122,8 @@ export default function ChangePassword(basicInformationData) {
 
   const handleCancelButton = () => {
     formikPassword.resetForm();
+    navigate("/customers/myProfile");
+    setprofileTabNumber({ profileTabNumber: 0 });
   };
   //Preventing space key
   const preventSpace = (event) => {

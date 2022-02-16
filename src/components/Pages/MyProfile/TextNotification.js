@@ -12,7 +12,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import { textNotification } from "../../Controllers/MyProfileController";
@@ -31,7 +31,7 @@ export default function TextNotification() {
   const classes = useStylesMyProfile();
   const [ loading, setLoading ] = useState(false);
   const [ openDisclosure, setDisclosureOpen ] = useState(false);
-  const history = useHistory();
+  const navigate = useNavigate();
   const [ , setprofileTabNumber ] = useGlobalState();
   let phone = Cookies.get("opted_phone_texting");
   let textnotifybool = Cookies.get("isTextNotify") === "true" ? true : false;
@@ -39,7 +39,7 @@ export default function TextNotification() {
 
   const onClickCancelChange = () => {
     formikTextNote.resetForm();
-    history.push({ pathname: "/customers/myProfile" });
+    navigate("/customers/myProfile");
     setprofileTabNumber({ profileTabNumber: 0 });
   };
 
@@ -58,9 +58,15 @@ export default function TextNotification() {
       .oneOf([ false ], "False You must accept the terms and conditions"),
   });
 
+  function phoneNumberMask(values) {
+    let phoneNumber = values.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+    values = !phoneNumber[ 2 ] ? phoneNumber[ 1 ] : '(' + phoneNumber[ 1 ] + ') ' + phoneNumber[ 2 ] + (phoneNumber[ 3 ] ? '-' + phoneNumber[ 3 ] : '');
+    return (values);
+  }
+
   const formikTextNote = useFormik({
     initialValues: {
-      phone: phone ? phone : "",
+      phone: phone ? phoneNumberMask(phone) : "",
       textingterms: phone ? true : false,
       acceptterms: phone ? true : false,
     },
@@ -175,6 +181,7 @@ export default function TextNotification() {
             type="text"
             onKeyDown={ preventSpace }
             value={ formikTextNote.values.phone }
+            onLoad={ formikTextNote.handleChange }
             onChange={ formikTextNote.handleChange }
             onBlur={ formikTextNote.handleBlur }
             disabled={ disabledContent === false ? true : false }

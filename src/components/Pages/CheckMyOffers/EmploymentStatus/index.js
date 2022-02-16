@@ -4,8 +4,9 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import React, { useContext, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
+import { employmentStatusData } from "../../../../assets/data/constants";
 import EmploymentStatusPNG from "../../../../assets/icon/I-Employment-Status.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, PhoneNumber, Select } from "../../../FormsUI";
@@ -17,7 +18,7 @@ function EmploymentStatus() {
 	//Retrieving Context values
 	const { data, setData } = useContext(CheckMyOffers);
 	const [ employmentStatus, setEmploymentStatus ] = useState(data.employmentStatus ? data.employmentStatus : "");
-	const history = useHistory();
+	const navigate = useNavigate();
 
 	//initializing formik
 	const validationSchema = yup.object({
@@ -31,21 +32,27 @@ function EmploymentStatus() {
 		yearsAtEmployers: yup
 			.string()
 			.when("employStatus", {
-				is: "Employed - Hourly",
+				is: employmentStatusData.employedHourly,
 				then: yup.string().required("Years at employer is required"),
 			})
 			.when("employStatus", {
-				is: "Salary",
+				is: employmentStatusData.employedSalaried,
 				then: yup.string().required("Years at employer is required"),
 			})
 			.when("employStatus", {
-				is: "selfEmployed",
+				is: employmentStatusData.selfEmployed,
 				then: yup.string().required("Years at employer is required"),
 			}),
 	});
+
+	function phoneNumberMask(values) {
+		let phoneNumber = values.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+		values = !phoneNumber[ 2 ] ? phoneNumber[ 1 ] : '(' + phoneNumber[ 1 ] + ') ' + phoneNumber[ 2 ] + (phoneNumber[ 3 ] ? '-' + phoneNumber[ 3 ] : '');
+		return (values);
+	}
 	const formik = useFormik({
 		initialValues: {
-			phone: data.EmployerPhone ? "1" + data.EmployerPhone : "",
+			phone: data.EmployerPhone ? phoneNumberMask(data.EmployerPhone) : "",
 			yearsAtEmployers: data.yearsAtEmployers ? data.yearsAtEmployers : "",
 			employStatus: "",
 		},
@@ -53,23 +60,23 @@ function EmploymentStatus() {
 		//On submit functionality
 		onSubmit: (values) => {
 			data.yearsAtEmployers = values.yearsAtEmployers;
-			const phone =
+			data.EmployerPhone =
 				values.phone
 					.replace(/-/g, "")
 					.replace(/\)/g, "")
 					.replace(/\(/g, "")
 					.replace(/ /g, "") || "";
-			data.EmployerPhone = phone.slice(1);
+
 			data.completedPage = data.page.employmentStatus;
 
-			if (employmentStatus === "Employed - Hourly" || employmentStatus === "Salary" || employmentStatus === "selfEmployed") {
+			if (employmentStatus === employmentStatusData.employedHourly || employmentStatus === employmentStatusData.employedSalaried || employmentStatus === employmentStatusData.selfEmployed) {
 				if (data.yearsAtEmployers !== "" && data.yearsAtEmployers !== 0 && data.yearsAtEmployers !== null) {
 					data.employmentStatus = employmentStatus;
-					history.push("/annual-income");
+					navigate("/annual-income");
 				}
 			} else {
 				data.employmentStatus = employmentStatus;
-				history.push("/annual-income");
+				navigate("/annual-income");
 			}
 		},
 	});
@@ -82,7 +89,7 @@ function EmploymentStatus() {
 	};
 
 	if (data.completedPage < data.page.existingUser || data.formStatus === "completed") {
-		history.push("/select-amount");
+		navigate("/select-amount");
 	}
 	// JSX part
 	return (
@@ -168,15 +175,15 @@ function EmploymentStatus() {
 												elevation={ 3 }
 												data-testid="Hourly"
 												className={
-													employmentStatus === "Employed - Hourly"
+													employmentStatus === employmentStatusData.employedHourly
 														? "activeBorder radioBlocked"
 														: "radioBlocked"
 												}
 												onClick={ () => {
-													setEmploymentStatus("Employed - Hourly");
+													setEmploymentStatus(employmentStatusData.employedHourly);
 													formik.setFieldValue(
 														"employStatus",
-														"Employed - Hourly"
+														employmentStatusData.employedHourly
 													);
 												} }
 											>
@@ -187,15 +194,15 @@ function EmploymentStatus() {
 											<Paper
 												id="employedSalaried"
 												elevation={ 3 }
-												data-testid="Salary"
+												data-testid={ employmentStatusData.employedSalaried }
 												className={
-													employmentStatus === "Salary"
+													employmentStatus === employmentStatusData.employedSalaried
 														? "activeBorder radioBlocked"
 														: "radioBlocked"
 												}
 												onClick={ () => {
-													setEmploymentStatus("Salary");
-													formik.setFieldValue("employStatus", "Salary");
+													setEmploymentStatus(employmentStatusData.employedSalaried);
+													formik.setFieldValue("employStatus", employmentStatusData.employedSalaried);
 												} }
 											>
 												Employed - Salaried
@@ -205,15 +212,15 @@ function EmploymentStatus() {
 											<Paper
 												id="selfEmployed"
 												elevation={ 3 }
-												data-testid="selfEmployed"
+												data-testid={ employmentStatusData.selfEmployed }
 												className={
-													employmentStatus === "selfEmployed"
+													employmentStatus === employmentStatusData.selfEmployed
 														? "activeBorder radioBlocked"
 														: "radioBlocked"
 												}
 												onClick={ () => {
-													setEmploymentStatus("selfEmployed");
-													formik.setFieldValue("employStatus", "selfEmployed");
+													setEmploymentStatus(employmentStatusData.selfEmployed);
+													formik.setFieldValue("employStatus", employmentStatusData.selfEmployed);
 												} }
 											>
 												Self Employed / 1099
@@ -223,17 +230,17 @@ function EmploymentStatus() {
 											<Paper
 												id="Unemployed"
 												elevation={ 3 }
-												data-testid="Unemployed"
+												data-testid={ employmentStatusData.unemployed }
 												className={
-													employmentStatus === "Unemployed"
+													employmentStatus === employmentStatusData.unemployed
 														? "activeBorder radioBlocked"
 														: "radioBlocked"
 												}
 												onClick={ () => {
-													setEmploymentStatus("Unemployed");
+													setEmploymentStatus(employmentStatusData.unemployed);
 													setData({ ...data, yearsAtEmployers: 0 });
-													formik.setFieldValue("employStatus", "Unemployed");
-													formik.values.employStatus = "Unemployed";
+													formik.setFieldValue("employStatus", employmentStatusData.unemployed);
+													formik.values.employStatus = employmentStatusData.unemployed;
 													if (data.completedPage < data.page.employmentStatus) {
 														formik.submitForm();
 													}
@@ -246,17 +253,17 @@ function EmploymentStatus() {
 											<Paper
 												id="Retired"
 												elevation={ 3 }
-												data-testid="Retired"
+												data-testid={ employmentStatusData.retired }
 												className={
-													employmentStatus === "Retired"
+													employmentStatus === employmentStatusData.retired
 														? "activeBorder radioBlocked"
 														: "radioBlocked"
 												}
 												onClick={ () => {
-													setEmploymentStatus("Retired");
+													setEmploymentStatus(employmentStatusData.retired);
 													setData({ ...data, yearsAtEmployers: 0 });
-													formik.setFieldValue("employStatus", "Retired");
-													formik.values.employStatus = "Retired";
+													formik.setFieldValue("employStatus", employmentStatusData.retired);
+													formik.values.employStatus = employmentStatusData.retired;
 													if (data.completedPage < data.page.employmentStatus) {
 														formik.submitForm();
 													}
@@ -269,14 +276,15 @@ function EmploymentStatus() {
 											<div
 												id="employementWrap"
 												className={
-													employmentStatus === "Employed - Hourly" ||
-														employmentStatus === "Salary" ||
-														employmentStatus === "selfEmployed"
+													employmentStatus === employmentStatusData.employedHourly ||
+														employmentStatus === employmentStatusData.employedSalaried ||
+														employmentStatus === employmentStatusData.selfEmployed
 														? "showMsg"
 														: "hideMsg"
 												}
 											>
 												<Select
+													id="yearsAtEmployersSelect"
 													fullWidth={ true }
 													name="yearsAtEmployers"
 													labelform="Years at Employer *"
@@ -325,8 +333,8 @@ function EmploymentStatus() {
 											name="phone"
 											id="employerPhoneWrap"
 											className={
-												employmentStatus === "Employed - Hourly" ||
-													employmentStatus === "Salary"
+												employmentStatus === employmentStatusData.employedHourly ||
+													employmentStatus === employmentStatusData.employedSalaried
 													? "showMsg padTop"
 													: "hideMsg padTop"
 											}
@@ -334,8 +342,8 @@ function EmploymentStatus() {
 											<PhoneNumber
 												name="phone"
 												className={
-													employmentStatus === "Employed - Hourly" ||
-														employmentStatus === "Salary"
+													employmentStatus === employmentStatusData.employedHourly ||
+														employmentStatus === employmentStatusData.employedSalaried
 														? "showMsg"
 														: "hideMsg"
 												}
@@ -345,6 +353,7 @@ function EmploymentStatus() {
 												type="text"
 												onKeyDown={ preventSpace }
 												value={ formik.values.phone }
+												onLoad={ formik.handleChange }
 												onChange={ formik.handleChange }
 												onBlur={ formik.handleBlur }
 												error={

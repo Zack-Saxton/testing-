@@ -111,7 +111,7 @@ export class FormValidationRules {
                 firstname: this.firstName(),
                 lastname: this.lastName(),
                 email: this.email(),
-                date: this.dobDate(),
+                dob: this.dobDate(),
                 password: this.password(),
                 confirmPassword: this.confirmPassword(),
                 zip: this.zipCode(),

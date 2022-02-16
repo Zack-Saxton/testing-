@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import { InputAdornment } from "@material-ui/core";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -26,13 +25,15 @@ import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import PaymentIcon from "@material-ui/icons/Payment";
 import { useFormik } from "formik";
+import React, { useEffect, useState } from "react";
 import { useQuery } from 'react-query';
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import cheque from "../../../assets/images/cheque.jpg";
-import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import { AddACHPaymentAPI } from "../../../components/Controllers/ACHDebitController";
+import { useGlobalState } from "../../../contexts/GlobalStateProvider";
+import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import {
     addCreditCard, deleteBankAccount,
     deleteCreditCard, getPaymentMethods, setDefaultPayment
@@ -45,7 +46,6 @@ import {
     TextField
 } from "../../FormsUI";
 import ErrorLogger from "../../lib/ErrorLogger";
-import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import { useStylesMyProfile } from "./Style";
 import "./Style.css";
 //Yup validations for Add Bank Account
@@ -71,7 +71,7 @@ const validationSchemaDebitCard = yup.object({
         .string("Enter CVV")
         .required("CVV is required")
         .min(3, "CVV is required."),
-    expirydate: yup
+    expiryDate: yup
         .date("Please enter a valid date")
         .nullable()
         .required("Expiration Date is required")
@@ -110,7 +110,7 @@ const validationSchemaAddBank = yup.object({
 export default function PaymentMethod() {
     window.zeHide();
     const classes = useStylesMyProfile();
-    const history = useHistory();
+    const navigate = useNavigate();
     const [ bankRoutingCheque, setHandleBankRoutingCheque ] = useState(false);
     const [ addBankAccount, setAddBankAccount ] = useState(false);
     const [ addDebitCard, setAddDebitCard ] = useState(false);
@@ -183,7 +183,7 @@ export default function PaymentMethod() {
             cardNumber: "",
             cardName: "",
             cvv: "",
-            expirydate: null,
+            expiryDate: null,
             streetAddress: "",
             city: "",
             state: "",
@@ -263,8 +263,9 @@ export default function PaymentMethod() {
             addDebitCardButton();
             formikAddDebitCard.setFieldValue("cardName", row.OwnerName);
             formikAddDebitCard.setFieldValue("cardNumber", "****-****-****-" + row.LastFour);
-            formikAddDebitCard.setFieldValue("expirydate", row.ExpirationDate);
+            formikAddDebitCard.setFieldValue("expiryDate", row.ExpirationDate);
             formikAddDebitCard.setFieldValue("cvv", "***");
+            setCardType(row.CardType);
             setEditMode(true);
             addDebitCardButton();
             setLoading(false);
@@ -274,7 +275,7 @@ export default function PaymentMethod() {
     function detectCardType(event, number) {
         let cardPattern = {
             Visa: /^4\d{12}(?:\d{3})?$/,
-            Mastercard: /^5[1-5]\d{14}$/,
+            MasterCard: /^5[1-5]\d{14}$/,
         };
         let _valid = false;
         for (let key in cardPattern) {
@@ -388,7 +389,7 @@ export default function PaymentMethod() {
     };
 
     const handleMenuProfile = () => {
-        history.push({ pathname: "/customers/myProfile" });
+        navigate("/customers/myProfile");
         setprofileTabNumber({ profileTabNumber: 0 });
     };
 
@@ -495,7 +496,7 @@ export default function PaymentMethod() {
         }
         else {
             setLoading(false);
-            toast.error("Something went wrong, please try again.");
+            toast.error("Payment method already exists, please add a different method");
         }
         closeDebitCardModal();
     };
@@ -694,6 +695,7 @@ export default function PaymentMethod() {
                                     setSameAsMailAddress(true);
                                     setValidZip(true);
                                     setEditMode(false);
+                                    setCardType(false);
                                     addDebitCardButton();
                                 } }
                             >
@@ -1196,7 +1198,7 @@ export default function PaymentMethod() {
                             container
                             direction="row"
                         >
-                            {/* <Mastercard /> */ }
+                            {/* <MasterCard /> */ }
                             <img
                                 src={
                                     window.location.origin +
@@ -1211,7 +1213,7 @@ export default function PaymentMethod() {
                         </Grid>
                         <Grid
                             item
-                            xs={ 10 }
+                            xs={ 12 }
                             style={ { width: "100%" } }
                             container
                             direction="row"
@@ -1240,39 +1242,39 @@ export default function PaymentMethod() {
                         <Grid
                             item
                             xs={ 12 }
-                            sm={ 5 }
+                            sm={ 6 }
 
                             style={ { width: "100%" } }
                             container
                             direction="row"
                         >
                             <DatePicker
-                                name="expirydate"
+                                name="expiryDate"
                                 label="Expiration Date"
-                                id="expirydate"
-                                className="expirydate"
+                                id="expiryDate"
+                                className="expiryDate"
                                 placeholder="MM/YY"
                                 format="MM/yy"
                                 disabled={ editMode }
-                                value={ formikAddDebitCard.values.expirydate }
+                                value={ formikAddDebitCard.values.expiryDate }
                                 onChange={ (values) => {
-                                    formikAddDebitCard.setFieldValue("expirydate", values);
+                                    formikAddDebitCard.setFieldValue("expiryDate", values);
                                 } }
                                 onBlur={ formikAddDebitCard.handleBlur }
                                 error={
-                                    formikAddDebitCard.touched.expirydate &&
-                                    Boolean(formikAddDebitCard.errors.expirydate)
+                                    formikAddDebitCard.touched.expiryDate &&
+                                    Boolean(formikAddDebitCard.errors.expiryDate)
                                 }
                                 helperText={
-                                    formikAddDebitCard.touched.expirydate &&
-                                    formikAddDebitCard.errors.expirydate
+                                    formikAddDebitCard.touched.expiryDate &&
+                                    formikAddDebitCard.errors.expiryDate
                                 }
                             />
                         </Grid>
                         <Grid
                             item
                             xs={ 12 }
-                            sm={ 5 }
+                            sm={ 6 }
                             style={ { width: "100%" } }
                             container
                             direction="row"

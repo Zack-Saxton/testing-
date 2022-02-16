@@ -77,7 +77,6 @@ export default function LoanDocument(props) {
         //Passing data to API
       };
       reader.readAsDataURL(selectedFile.files[ 0 ]);
-
     }
   };
   const uploadDoc = () => {
@@ -189,6 +188,7 @@ export default function LoanDocument(props) {
               style={ { paddingTop: "10px", width: "225px" } }
             >
               <Select
+                id="selectDoccumentWrap"
                 name="selectDocument"
                 labelform="Select Document Type"
                 select='[{ "label": "Identity Document", "value": "id_doc"},

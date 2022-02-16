@@ -5,10 +5,11 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Typography from "@material-ui/core/Typography";
 import Cookies from "js-cookie";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useIdleTimer } from "react-idle-timer";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import globalMessages from "../../assets/data/globalMessages.json";
 import "../App/App.css";
 import CheckLoginStatus from "../App/CheckLoginStatus";
 import LoginController from "../Controllers/LoginController";
@@ -16,11 +17,10 @@ import LogoutController from "../Controllers/LogoutController";
 import { ButtonPrimary } from "../FormsUI";
 import Footer from "../Layout/Footer/Footer";
 import { decryptAES, encryptAES } from "../lib/Crypto";
-import globalMessages from "../../assets/data/globalMessages.json";
 import AppBar from "./AppBar/SideNav";
 
 const Post = ({ children }) => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const expiryMinute = process.env.REACT_APP_SESSION_EXPIRY_MINUTES;
     const tokenString = Cookies.get("token") ? Cookies.get("token") : '{ }';
     const userToken = JSON.parse(tokenString);
@@ -43,7 +43,7 @@ const Post = ({ children }) => {
         var now = new Date().getTime();
         actualSetupTime = now;
         if (!cred) {
-            history.push({ pathname: "/login", state: { redirect: window.location.pathname }, });
+            navigate("/login", { state: { redirect: window.location.pathname }, });
         } else {
             let retVal = await LoginController(cred.email, cred.password, "");
             if (retVal?.data?.user && retVal?.data?.userFound === true) {
@@ -65,10 +65,7 @@ const Post = ({ children }) => {
                     encryptAES(JSON.stringify({ email: cred.email, password: cred.password }))
                 );
                 actualSetupTime = now;
-            } else if (
-                retVal?.data?.result === "error" ||
-                retVal?.data?.hasError === true
-            ) {
+            } else if (retVal?.data?.result === "error" || retVal?.data?.hasError === true) {
                 Cookies.set(
                     "token",
                     JSON.stringify({
@@ -82,10 +79,10 @@ const Post = ({ children }) => {
                     "cred",
                     encryptAES(JSON.stringify({ email: "", password: "" }))
                 );
-                history.push({ pathname: "/login", state: { redirect: window.location.pathname }, });
+                navigate("/login", { state: { redirect: window.location.pathname }, });
             } else {
                 alert("Network error");
-                history.push({ pathname: "/login", state: { redirect: window.location.pathname }, });
+                navigate("/login", { state: { redirect: window.location.pathname }, });
             }
         }
         return true;
@@ -99,16 +96,16 @@ const Post = ({ children }) => {
     const handleOnIdleLogout = (event) => {
         LogoutController();
         Cookies.set("redirec", JSON.stringify({ to: "/select-amount" }));
-        history.push({ pathname: "/login", });
+        navigate("/login");
         toast.success(globalMessages.LoggedOut);
     };
 
     const handleTimer = () => {
-        if (secondsTemp == 0 && minutesTemp == 0) {
+        if (secondsTemp === 0 && minutesTemp === 0) {
             clearTimeout(timer);
             handleOnIdleLogout();
         } else {
-            if (secondsTemp == 0) {
+            if (secondsTemp === 0) {
                 minutesTemp = minutesTemp - 1;
                 secondsTemp = 59;
             } else {

@@ -56,7 +56,7 @@ export async function disableAutoPay(disableAutoPayAccountNo) {
 }
 
 /***** Schedule a payment *****/
-export async function makePayment(scheduledPaymentAccountNo, scheduledPaymentCard, scheduledPaymentDatePicker, scheduledPaymentIsDebit, scheduledPaymentAmount) {
+export async function makePayment(scheduledPaymentAccountNo, scheduledPaymentCard, scheduledPaymentDatePicker, scheduledPaymentIsDebit, scheduledPaymentAmount, RemoveScheduledPayment) {
   try {
     let cards = scheduledPaymentCard.toString();
     let paymentAmounts = scheduledPaymentAmount.toString();
@@ -67,6 +67,7 @@ export async function makePayment(scheduledPaymentAccountNo, scheduledPaymentCar
       payment_amount: paymentAmounts,
       payment_date: Moment(scheduledPaymentDatePicker).format("YYYY-MM-DD"),
       is_debit_payment: scheduledPaymentIsDebit,
+      RemoveScheduledPayment: RemoveScheduledPayment === "yes" ? true : false,
     };
     let method = "POST";
     let addAccessToken = true;

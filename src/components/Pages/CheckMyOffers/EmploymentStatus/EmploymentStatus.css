@@ -166,6 +166,9 @@
 	font-weight: 400 !important;
 	line-height: 110% !important;
 }
+#employementWrap{
+	margin-bottom: 15px !important;
+}
 
 #employementWrap div label {
 	font-size: 0.968rem !important;
@@ -175,6 +178,10 @@
 	padding-bottom: 15px !important;
 }
 
+#employerPhoneWrap{
+	margin-top: 0px !important;
+	margin-bottom: 15px !important;
+}
 #employerPhoneWrap div div label {
 	font-size: 0.968rem !important;
 }
@@ -186,8 +193,13 @@
 #employmentStatusWrap {
 	border-radius: 4px !important;
 	width: 100%;
+	padding: 0px !important;
 }
 
 #employmentStatusWrap form {
 	border-radius: 4px !important;
+}
+
+#yearsAtEmployersSelect .subOption{
+	color: #171717 !important;
 }

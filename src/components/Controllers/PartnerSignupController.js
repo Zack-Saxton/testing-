@@ -23,7 +23,7 @@ let statusStrLink = {
   final_review: "/customers/loanDocument",
 };
 
-export default async function PartnerSignup(history, partnerToken, applicantId, partnerSignupData) {
+export default async function PartnerSignup(navigate, partnerToken, applicantId, partnerSignupData) {
   let url = "partner_signup";
   let param = "";
   let data = {
@@ -60,29 +60,29 @@ export default async function PartnerSignup(history, partnerToken, applicantId, 
             })
           );
           Cookies.set("email", partnerSignupMethod?.data?.applicant.contact.email);
-          history.push({
-            pathname: statusStrLink[ partnerSignupMethod?.data?.applicant.processing.status ],
-            state: {
-              jwt_token: partnerSignupMethod?.data?.user.extensionattributes.login.jwt_token,
-              partner_token: partnerSignupMethod?.data?.user.attributes.partner_token,
-              first_name: partnerSignupMethod?.data?.applicant.contact.first_name,
-              last_name: partnerSignupMethod?.data?.applicant.contact.last_name,
-              email: partnerSignupMethod?.data?.applicant.contact.email,
-              address_postal_code: partnerSignupMethod?.data?.applicant.contact.address_postal_code,
-              address_city: partnerSignupMethod?.data?.applicant.contact.address_city,
-              address_state: partnerSignupMethod?.data?.applicant.contact.address_state,
-              address_street: partnerSignupMethod?.data?.applicant.contact.address_street,
-              citizenship: partnerSignupMethod?.data?.applicant.self_reported.citizenship,
-              annual_income: partnerSignupMethod?.data?.applicant.self_reported.annual_income,
-              household_annual_income: partnerSignupMethod?.data?.applicant.self_reported.household_annual_income,
-              employment_status: partnerSignupMethod?.data?.applicant.self_reported.employment_status,
-              military_status: partnerSignupMethod?.data?.applicant.self_reported.military_status,
-              spouse_address_street: partnerSignupMethod?.data?.applicant.self_reported.spouse_address_street,
-              spouse_address_postal_code: partnerSignupMethod?.data?.applicant.self_reported.spouse_address_postal_code,
-              spouse_address_state: partnerSignupMethod?.data?.applicant.self_reported.spouse_address_state,
-              spouse_address_city: partnerSignupMethod?.data?.applicant.self_reported.spouse_address_city,
-            }
-          });
+          navigate(statusStrLink[ partnerSignupMethod?.data?.applicant.processing.status ],
+            {
+              state: {
+                jwt_token: partnerSignupMethod?.data?.user.extensionattributes.login.jwt_token,
+                partner_token: partnerSignupMethod?.data?.user.attributes.partner_token,
+                first_name: partnerSignupMethod?.data?.applicant.contact.first_name,
+                last_name: partnerSignupMethod?.data?.applicant.contact.last_name,
+                email: partnerSignupMethod?.data?.applicant.contact.email,
+                address_postal_code: partnerSignupMethod?.data?.applicant.contact.address_postal_code,
+                address_city: partnerSignupMethod?.data?.applicant.contact.address_city,
+                address_state: partnerSignupMethod?.data?.applicant.contact.address_state,
+                address_street: partnerSignupMethod?.data?.applicant.contact.address_street,
+                citizenship: partnerSignupMethod?.data?.applicant.self_reported.citizenship,
+                annual_income: partnerSignupMethod?.data?.applicant.self_reported.annual_income,
+                household_annual_income: partnerSignupMethod?.data?.applicant.self_reported.household_annual_income,
+                employment_status: partnerSignupMethod?.data?.applicant.self_reported.employment_status,
+                military_status: partnerSignupMethod?.data?.applicant.self_reported.military_status,
+                spouse_address_street: partnerSignupMethod?.data?.applicant.self_reported.spouse_address_street,
+                spouse_address_postal_code: partnerSignupMethod?.data?.applicant.self_reported.spouse_address_postal_code,
+                spouse_address_state: partnerSignupMethod?.data?.applicant.self_reported.spouse_address_state,
+                spouse_address_city: partnerSignupMethod?.data?.applicant.self_reported.spouse_address_city,
+              }
+            });
         },
       }
     )
@@ -116,7 +116,7 @@ export async function PopulatePartnerSignup(
     ErrorLogger("Error executing PopulatePartnerSignup API", error);
   }
 }
-export async function partnerConfirmInfo(dataConfirmInfo, history) {
+export async function partnerConfirmInfo(dataConfirmInfo, navigate) {
   let url = "partner_confirm_info";
   let param = "";
   let data = {
@@ -154,7 +154,7 @@ export async function partnerConfirmInfo(dataConfirmInfo, history) {
     ? toast.success(PartnerConfirmationAPI?.data?.statusText ? PartnerConfirmationAPI?.data?.statusText : "Successfully registered",
       {
         onClose: () => {
-          history.push({ pathname: statusStrLink[ PartnerConfirmationAPI?.data.applicationStatus ], });
+          navigate(statusStrLink[ PartnerConfirmationAPI?.data.applicationStatus ]);
         },
       }
     )

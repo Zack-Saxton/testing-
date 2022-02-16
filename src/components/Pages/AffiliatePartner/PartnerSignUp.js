@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import * as yup from "yup";
 import Logo from "../../../assets/images/loginbg.png";
@@ -161,7 +161,7 @@ export default function CreditKarma() {
   const classes = useStyles();
   const [ failed, setFailed ] = useState("");
   const [ loading, setLoading ] = useState(false);
-  const history = useHistory();
+  const navigate = useNavigate();
   const [ agree, setAgree ] = useState(false);
   const [ esignPopup, setEsignPopup ] = useState(false);
   const [ creditPopup, setCreditPopup ] = useState(false);
@@ -216,7 +216,7 @@ export default function CreditKarma() {
         confirm_password: values.confirmPassword
       };
       let partnerRes = await partnerSignup(
-        history,
+        navigate,
         partnerToken,
         applicantId,
         partnerSignupData,
@@ -556,12 +556,10 @@ export default function CreditKarma() {
                         // onClick={autoFocus}
                         type="submit"
                         data-testid="submit"
-                        stylebutton='{"background": "", "color":"" }'
+                        stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
                         disabled={ loading }
                       >
-                        <Typography align="center" className="textCSS ">
-                          Continue
-                        </Typography>
+                        Continue
                         <i
                           className="fa fa-refresh fa-spin customSpinner"
                           style={ {

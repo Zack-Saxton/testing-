@@ -3,7 +3,8 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import React, { useContext, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { citizenshipData } from "../../../../assets/data/constants";
 import CitizenshipStatusLogo from "../../../../assets/icon/I-Citizenship-status.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary } from "../../../FormsUI";
@@ -15,13 +16,13 @@ function CitizenshipStatus() {
 	//Retrieving Context values
 	const { data } = useContext(CheckMyOffers);
 	const [ citizenship, setCitizenship ] = useState(data.citizenship ? data.citizenship : "");
-	const history = useHistory();
+	const navigate = useNavigate();
 
 	//Handle the button click
 	const handleRoute = () => {
 		data.citizenship = citizenship;
 		data.completedPage = data.page.citizenship;
-		history.push("/home-address");
+		navigate("/home-address");
 	};
 
 	//Procced to next step with validation
@@ -30,7 +31,7 @@ function CitizenshipStatus() {
 		setCitizenship(val);
 		if (data.completedPage < data.page.citizenship) {
 			data.completedPage = data.page.citizenship;
-			history.push("/home-address");
+			navigate("/home-address");
 		}
 		//redirects to select amount on direct call
 	};
@@ -38,7 +39,7 @@ function CitizenshipStatus() {
 		data.completedPage < data.page.loanPurpose ||
 		data.formStatus === "completed"
 	) {
-		history.push("/select-amount");
+		navigate("/select-amount");
 	}
 	//JSK part
 	return (
@@ -129,12 +130,12 @@ function CitizenshipStatus() {
 											elevation={ 3 }
 											data-test-id="usCitizen"
 											className={
-												citizenship === "USA Citizen"
+												citizenship === citizenshipData.USCitizen
 													? "activeBorder radioBlock "
 													: "radioBlock "
 											}
 											onClick={ () => {
-												goNext("USA Citizen");
+												goNext(citizenshipData.USCitizen);
 											} }
 										>
 											U.S Citizen
@@ -146,12 +147,12 @@ function CitizenshipStatus() {
 											elevation={ 3 }
 											data-test-id="permanentResident"
 											className={
-												citizenship === "Permanent Resident"
+												citizenship === citizenshipData.permanentResident
 													? "activeBorder radioBlock "
 													: "radioBlock "
 											}
 											onClick={ () => {
-												goNext("Permanent Resident");
+												goNext(citizenshipData.permanentResident);
 											} }
 										>
 											Permanent Resident
@@ -163,12 +164,12 @@ function CitizenshipStatus() {
 											elevation={ 3 }
 											data-test-id="foreignResident"
 											className={
-												citizenship === "Foreign Resident"
+												citizenship === citizenshipData.foreignResident
 													? "activeBorder radioBlock "
 													: "radioBlock "
 											}
 											onClick={ () => {
-												setCitizenship("Foreign Resident");
+												setCitizenship(citizenshipData.foreignResident);
 											} }
 										>
 											Foreign Resident
@@ -177,7 +178,7 @@ function CitizenshipStatus() {
 
 									<h4
 										className={
-											citizenship === "Foreign Resident" ? "showMsg" : "hideMsg"
+											citizenship === citizenshipData.foreignResident ? "showMsg" : "hideMsg"
 										}
 									>
 										We are sorry. We do not offer loans to foreign residents.
@@ -188,7 +189,7 @@ function CitizenshipStatus() {
 											onClick={ handleRoute }
 											data-test-id="citizenshipContButton"
 											disabled={
-												citizenship === "" || citizenship === "Foreign Resident"
+												citizenship === "" || citizenship === citizenshipData.foreignResident
 											}
 											stylebutton='{"background": "#FFBC23", "color": "black","fontSize":"0.938rem" , "padding": "0px 30px"}'
 										>

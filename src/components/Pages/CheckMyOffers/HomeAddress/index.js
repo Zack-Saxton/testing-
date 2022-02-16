@@ -8,7 +8,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import React, { useContext, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import AddressLogo from "../../../../assets/icon/I-Address.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
@@ -66,7 +66,7 @@ function HomeAddress() {
 	const handleCloseOhio = () => {
 		setOpenOhio(false);
 	};
-	const history = useHistory();
+	const navigate = useNavigate();
 
 	// Formik configutration
 	const formik = useFormik({
@@ -85,7 +85,7 @@ function HomeAddress() {
 			data.zip = values.zip;
 			data.stateFullform = values.state;
 			data.completedPage = data.page.homeAddress;
-			history.push("/personal-info");
+			navigate("/personal-info");
 		},
 	});
 
@@ -133,7 +133,7 @@ function HomeAddress() {
 		formik.setFieldValue("streetAddress", event.target.value.trim());
 	};
 	if (data.completedPage < data.page.citizenship || data.formStatus === "completed") {
-		history.push("/select-amount");
+		navigate("/select-amount");
 	}
 	return (
 		<div>
@@ -165,8 +165,8 @@ function HomeAddress() {
 									<span className="floatLeft detNum30">30%</span>
 								</div>
 								<Grid className="floatLeft">
-									<Link to="/citizenship-status">
-										<i className="material-icons dp48 yellowText  ">
+									<Link className="arrowBack" to="/citizenship-status">
+										<i className="material-icons dp48 yellowText floatingButton">
 											arrow_back
 										</i>
 									</Link>

@@ -20,6 +20,10 @@
   padding: 0px 30px;
 }
 
+#select .subOption{
+  color: #171717 !important;
+}
+
 @media (max-width: 599px) {
   #paymentBtnWrap {
     flex-direction: column-reverse;

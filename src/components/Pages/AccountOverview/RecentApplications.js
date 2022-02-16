@@ -9,13 +9,13 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
 import NumberFormat from 'react-number-format';
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ButtonPrimary } from "../../FormsUI";
 import { useStylesAccountOverview } from "./Style";
 import Cookies from "js-cookie";
 import "./Style.css";
 
-export default function RecentApplications({ isLoading, userApplicationsData,userApplicantData }) {
+export default function RecentApplications({ isLoading, userApplicationsData, userApplicantData }) {
   //Material UI css class
   const classes = useStylesAccountOverview();
   window.zeHide();
@@ -62,19 +62,19 @@ export default function RecentApplications({ isLoading, userApplicationsData,use
     "final_review": "/customers/loanDocument"
   };
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   //resumebtn click
   const resumeNavigate = (appData) => {
-    history.push({ pathname: statusStrLink[ appData ] });
+    navigate(statusStrLink[ appData ]);
   };
 
   //viewBtn click
-  const viewAppData = (contactdata,appData) =>{
-    Cookies.set("viewAppContact",JSON.stringify( contactdata));
-    Cookies.set("viewAppApplicant",JSON.stringify(appData));
-    history.push('/customers/viewaccount')
-  }
+  const viewAppData = (contactdata, appData) => {
+    Cookies.set("viewAppContact", JSON.stringify(contactdata));
+    Cookies.set("viewAppApplicant", JSON.stringify(appData));
+    navigate('/customers/viewaccount');
+  };
 
   //View
   return (
@@ -122,40 +122,40 @@ export default function RecentApplications({ isLoading, userApplicationsData,use
                 </TableRow>
               ) :
                 userApplications?.length
-                ?
-                userApplications.map((appData, index) => (
-                  <TableRow key={index}>
-                    <TableCell className={classes.tableheadrow} >
-                      {appData.submissionDate}
-                    </TableCell>
-                    <TableCell className={classes.tableheadrow} align="left">
-                      {appData.product}
-                    </TableCell>
-                    <TableCell className={classes.tableheadrow} align="center">
-                      <NumberFormat value={appData.amountRequested} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
-                    </TableCell>
-                    <TableCell className={classes.tableheadrow} align="left">
-                      {appData.loanPurpose}
-                    </TableCell>
-                    <TableCell className={classes.tableheadrow} align="left">
-                      {(statusStr[appData.status]) ? statusStr[appData.status] : (appData.status)}
-                    </TableCell>
-                    <TableCell align="left">    
-                      {appData.isActive ?
-                        (
-                          <ButtonPrimary stylebutton='{"color":"","width":"72%" }' 
-                            onClick={() =>resumeNavigate(appData.status)}
-                          >
-                            Resume
-                          </ButtonPrimary>
-                        ) : (
-                          <ButtonPrimary stylebutton='{"color":"","width":"72%","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }' onClick={() =>viewAppData(userApplicant,appData)} >
-                            View
-                          </ButtonPrimary>
-                             )
-                      }
-                    </TableCell>
-                  </TableRow>
+                  ?
+                  userApplications.map((appData, index) => (
+                    <TableRow key={ index }>
+                      <TableCell className={ classes.tableheadrow } >
+                        { appData.submissionDate }
+                      </TableCell>
+                      <TableCell className={ classes.tableheadrow } align="left">
+                        { appData.product }
+                      </TableCell>
+                      <TableCell className={ classes.tableheadrow } align="center">
+                        <NumberFormat value={ appData.amountRequested } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
+                      </TableCell>
+                      <TableCell className={ classes.tableheadrow } align="left">
+                        { appData.loanPurpose }
+                      </TableCell>
+                      <TableCell className={ classes.tableheadrow } align="left">
+                        { (statusStr[ appData.status ]) ? statusStr[ appData.status ] : (appData.status) }
+                      </TableCell>
+                      <TableCell align="left">
+                        { appData.isActive ?
+                          (
+                            <ButtonPrimary stylebutton='{"color":"","width":"72%" }'
+                              onClick={ () => resumeNavigate(appData.status) }
+                            >
+                              Resume
+                            </ButtonPrimary>
+                          ) : (
+                            <ButtonPrimary stylebutton='{"color":"","width":"72%","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }' onClick={ () => viewAppData(userApplicant, appData) } >
+                              View
+                            </ButtonPrimary>
+                          )
+                        }
+                      </TableCell>
+                    </TableRow>
                   ))
                   :
                   <TableRow>

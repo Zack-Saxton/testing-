@@ -12,7 +12,7 @@ import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useState } from "react";
 import { useQueryClient } from 'react-query';
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import Logo from "../../../assets/images/loginbg.png";
@@ -107,7 +107,7 @@ export default function Register() {
   const [ success, setSuccess ] = useState(false);
   const [ failed, setFailed ] = useState("");
   const [ loading, setLoading ] = useState(false);
-  const history = useHistory();
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
 
   //Date implementation for verifying 18 years
@@ -151,7 +151,7 @@ export default function Register() {
         : Cookies.set("rememberMe", JSON.stringify({ selected: false, email: "", password: "" }));
 
       setLoading(false);
-      history.push({ pathname: "/customers/accountoverview", });
+      navigate("/customers/accountoverview");
     } else if (retVal?.data?.result === "error" || retVal?.data?.hasError === true) {
       Cookies.set("token", JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" }));
       setLoading(false);
@@ -161,17 +161,17 @@ export default function Register() {
     }
   };
   //Form Submission
-  const queryParams = new URLSearchParams(window.location.search)
+  const queryParams = new URLSearchParams(window.location.search);
   const formik = useFormik({
     initialValues: {
       firstname: "",
       lastname: "",
-      email: queryParams.get("email"),
+      email: queryParams.get("email") ?? "",
       password: "",
       confirmPassword: "",
       zip: "",
       ssn: "",
-      date: null,
+      dob: null,
       isRegisterForm: 1
     },
     validationSchema: validationSchema,
@@ -186,9 +186,9 @@ export default function Register() {
         ssn: values.ssn,
         zip_code: values.zip,
         password: values.password,
-        birth_year: values.date.getFullYear().toString(),
-        birth_month: ("0" + (values.date.getMonth() + 1)).slice(-2),
-        birth_day: ("0" + (values.date.getDate() + 1)).slice(-2),
+        birth_year: values.dob.getFullYear().toString(),
+        birth_month: String(values.dob.getMonth() + 1).padStart(2, '0'),
+        birth_day: String(values.dob.getDate()).padStart(2, '0'),
         address_street: "",
         address_city: city,
         address_state: state,
@@ -254,7 +254,7 @@ export default function Register() {
 
   const handleCloseSuccess = () => {
     setSuccess(false);
-    history.push("customers/accountOverview");
+    navigate("/customers/accountOverview");
   };
 
   //Preventing space key
@@ -493,22 +493,23 @@ export default function Register() {
                       direction="row"
                     >
                       <DatePicker
-                        name="date"
+                        name="dob"
                         label="Date of Birth *"
-                        id="date"
+                        id="dob"
                         placeholder="MM/DD/YYYY"
                         format="MM/dd/yyyy"
                         maxdate={ myDate }
                         minyear={ 102 }
-                        value={ formik.values.date }
+                        value={ formik.values.dob }
                         onChange={ (values) => {
-                          formik.setFieldValue("date", values);
+                          values.setHours(0, 0, 0, 0);
+                          formik.setFieldValue("dob", values);
                         } }
                         onBlur={ formik.handleBlur }
-                        error={ andLogic(formik.touched.date, Boolean(formik.errors.date))
+                        error={ andLogic(formik.touched.dob, Boolean(formik.errors.dob))
 
                         }
-                        helperText={ andLogic(formik.touched.date, formik.errors.date) }
+                        helperText={ andLogic(formik.touched.dob, formik.errors.dob) }
                       />
                     </Grid>
 

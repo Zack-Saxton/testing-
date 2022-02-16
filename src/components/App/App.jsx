@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import CheckMyOffers from '../../contexts/CheckMyOffers';
@@ -39,7 +39,7 @@ import PreApproved from "../Pages/CheckMyOffers/PreApproved";
 import ReferredToBranch from "../Pages/CheckMyOffers/ReferredToBranch";
 import SelectAmount from '../Pages/CheckMyOffers/SelectAmount';
 import SSN from "../Pages/CheckMyOffers/SSN";
-import Zipcode from '../Pages/CheckMyOffers/Zipcode';
+import ZipCode from '../Pages/CheckMyOffers/Zipcode';
 import FaqBeforeLogin from "../Pages/Faq/FaqBeforeLogin";
 import FaqPostLogin from "../Pages/Faq/FaqPostLogin";
 import LoanDocument from "../Pages/LoanDocument/LoanDocument";
@@ -53,6 +53,7 @@ import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory";
 import RegisterPage from '../Pages/Register/Register';
 import VantageScore from "../Pages/VantageScore/VantageScore";
 import ViewAccountDetails from "../Pages/AccountOverview/ViewAccountDetails";
+import BranchLocator from "../Pages/MyBranch/BranchLocator";
 import "./App.css";
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -63,7 +64,22 @@ const queryClient = new QueryClient({
         },
     },
 });
-
+const loadGeneralUserComponent = (componentName) => {
+    return (
+        <GeneralUser>
+            { componentName }
+        </GeneralUser>
+    );
+};
+const loadPostComponent = (componentName) => {
+    return (
+        <div id="main" style={ { marginLeft: "240px" } }>
+            <PostLogin>
+                { componentName }
+            </PostLogin>
+        </div>
+    );
+};
 function App() {
     return (
         <QueryClientProvider client={ queryClient }>
@@ -79,85 +95,75 @@ function App() {
                     className="toast_message_box"
                 />
                 <BrowserRouter>
-                    <Route path='/customers/verification/email' component={ ValidateToken } />
                     <CheckMyOffers>
                         <ProfilePicture>
-                            <Route path='/:path?' exact>
-                                <GeneralUser>
-                                    <Switch>
-                                        <Route path='/' exact> <Redirect to="/customers/accountOverview" /> </Route>
-                                        <Route path='/components' exact component={ CustomComponents } />
-                                        <Route path='/login' exact component={ LoginPage } />
-                                        <Route path='/register' component={ RegisterPage } />
-                                        <Route path='/faq' component={ FaqBeforeLogin } />
-                                        <Route path='/select-amount' component={ SelectAmount } />
-                                        <Route path='/privacyStatement' component={ () => (<Disclosure URL="/privacy" />) } />
-                                        <Route path='/communityGuidelines' component={ () => (<Disclosure URL="/communityGuidelines" />) } />
-                                        <Route path='/termsofuse' component={ () => (<Disclosure URL="/termsOfUse" />) } />
-                                        <Route path='/cac-termsofuse' component={ () => (<Disclosure URL="/cacTermsOfUse" />) } />
-                                        <Route path='/licenseDisclosure' component={ () => (<Disclosure URL="/licensing" />) } />
-                                        <Route path='/textingTermsOfUse' component={ () => (<Disclosure URL="/textingTermsOfUse" />) } />
-                                        <Route path='/californiaResident' component={ () => (<Disclosure URL="/california" />) } />
-                                        <Route path='/websiteAccessibility' component={ () => (<Disclosure URL="/websiteAccessibility" />) } />
-                                        <Route path='/loan-purpose' exact component={ LoanPurpose } />
-                                        <Route path='/pre-approved' exact component={ PreApproved } />
-                                        <Route path='/citizenship-status' exact component={ CitizenshipStatus } />
-                                        <Route path='/new-user' exact component={ NewUser } />
-                                        <Route path='/existing-user' exact component={ ExistingUser } />
-                                        <Route path='/employment-status' exact component={ EmploymentStatus } />
-                                        <Route path='/annual-income' exact component={ AnnualIncome } />
-                                        <Route path='/home-address' exact component={ HomeAddress } />
-                                        <Route path='/living-place' exact component={ LivingPlace } />
-                                        <Route path='/active-duty' exact component={ ActiveDuty } />
-                                        <Route path='/marital-status' exact component={ MarriedStatus } />
-                                        <Route path='/ssn' exact component={ SSN } />
-                                        <Route path='/no-offers-available' exact component={ NoOffersAvailable } />
-                                        <Route path='/referred-to-branch' exact component={ ReferredToBranch } />
-                                        <Route path='/eligible-for-offers' exact component={ EligibleForOffers } />
-                                        <Route path='/zipcode' exact><Zipcode /></Route>
-                                        <Route path='/personal-info' exact><PersonalInfo /></Route>
-                                        <Route path='*' component={ ErrorBeforeLogin } />
-                                    </Switch>
-                                </GeneralUser>
-                            </Route>
-                            <Route path='/select-amount/:amount' exact component={ SelectAmount } />
-                            <div id="main" style={ { marginLeft: "240px" } }>
-                                <Route path='/customers/:path?' exact>
-                                    <PostLogin>
-                                        <Switch>
-                                            <Route path='/customers/accountOverview' exact component={ AccountOverview } />
-                                            <Route path='/customers/paymentHistory' component={ PaymentHistory } />
-                                            <Route path='/customers/selectOffer' component={ ApplyLoan } />
-                                            <Route path='/customers/applyForLoan' component={ ApplyForLoanRedirect } />
-                                            <Route path='/customers/resumeApplication' component={ ResumeApplication } />
-                                            <Route path='/customers/reviewAndSign' component={ ReviewAndSign } />
-                                            <Route path='/customers/finalVerification' component={ FinalVerification } />
-                                            <Route path='/customers/receiveYourMoney' component={ ReceiveYourMoney } />
-                                            <Route path='/customers/loanDocument' component={ LoanDocument } />
-                                            <Route path='/customers/loanHistory' component={ LoanHistory } />
-                                            <Route path='/customers/makePayment/:accNo?' component={ MakePayment } />
-                                            <Route path='/customers/moneySkill' component={ MoneySkill } />
-                                            <Route path='/customers/myBranch' component={ MyBranch } />
-                                            <Route path='/customers/myProfile' component={ MyProfile } />
-                                            <Route path='/customers/vantageScore' component={ VantageScore } />
-                                            <Route path='/customers/faq' component={ FaqPostLogin } />
-                                            <Route path='/customers/viewaccount' component={ ViewAccountDetails }/>
-                                            <Route path='*' component={ ErrorAfterLogin } />
-
-                                        </Switch>
-                                    </PostLogin>
+                            <Routes>
+                                <Route path='/' element={ <Navigate replace to="/customers/accountOverview" /> } />
+                                <Route path='/components' element={ loadGeneralUserComponent(<CustomComponents />) } />
+                                <Route path='/login' element={ loadGeneralUserComponent(<LoginPage />) } />
+                                <Route path='/register' element={ loadGeneralUserComponent(<RegisterPage />) } />
+                                <Route path='/faq' element={ loadGeneralUserComponent(<FaqBeforeLogin />) } />
+                                <Route path='/privacyStatement' element={ loadGeneralUserComponent(<Disclosure URL="/privacy" />) } />
+                                <Route path='/communityGuidelines' element={ loadGeneralUserComponent(<Disclosure URL="/communityGuidelines" />) } />
+                                <Route path='/termsofuse' element={ loadGeneralUserComponent(<Disclosure URL="/termsOfUse" />) } />
+                                <Route path='/cac-termsofuse' element={ loadGeneralUserComponent(<Disclosure URL="/cacTermsOfUse" />) } />
+                                <Route path='/licenseDisclosure' element={ loadGeneralUserComponent(<Disclosure URL="/licensing" />) } />
+                                <Route path='/textingTermsOfUse' element={ loadGeneralUserComponent(<Disclosure URL="/textingTermsOfUse" />) } />
+                                <Route path='/californiaResident' element={ loadGeneralUserComponent(<Disclosure URL="/california" />) } />
+                                <Route path='/websiteAccessibility' element={ loadGeneralUserComponent(<Disclosure URL="/websiteAccessibility" />) } />
+                                <Route path='/loan-purpose' element={ loadGeneralUserComponent(<LoanPurpose />) } />
+                                <Route path='/pre-approved' element={ loadGeneralUserComponent(<PreApproved />) } />
+                                <Route path='/citizenship-status' element={ loadGeneralUserComponent(<CitizenshipStatus />) } />
+                                <Route path='/new-user' element={ loadGeneralUserComponent(<NewUser />) } />
+                                <Route path='/existing-user' element={ loadGeneralUserComponent(<ExistingUser />) } />
+                                <Route path='/employment-status' element={ loadGeneralUserComponent(<EmploymentStatus />) } />
+                                <Route path='/annual-income' element={ loadGeneralUserComponent(<AnnualIncome />) } />
+                                <Route path='/home-address' element={ loadGeneralUserComponent(<HomeAddress />) } />
+                                <Route path='/living-place' element={ loadGeneralUserComponent(<LivingPlace />) } />
+                                <Route path='/active-duty' element={ loadGeneralUserComponent(<ActiveDuty />) } />
+                                <Route path='/marital-status' element={ loadGeneralUserComponent(<MarriedStatus />) } />
+                                <Route path='/ssn' element={ loadGeneralUserComponent(<SSN />) } />
+                                <Route path='/no-offers-available' element={ loadGeneralUserComponent(<NoOffersAvailable />) } />
+                                <Route path='/referred-to-branch' element={ loadGeneralUserComponent(<ReferredToBranch />) } />
+                                <Route path='/eligible-for-offers' element={ loadGeneralUserComponent(<EligibleForOffers />) } />
+                                <Route path='/zipcode' element={ loadGeneralUserComponent(<ZipCode />) } />
+                                <Route path='/personal-info' element={ loadGeneralUserComponent(<PersonalInfo />) } />
+                                <Route path='/branchlocator' element={ loadGeneralUserComponent(<BranchLocator />) } ></Route>
+                                <Route path='*' element={ loadGeneralUserComponent(<ErrorBeforeLogin />) } />
+                                <Route path='select-amount' element={ loadGeneralUserComponent(<SelectAmount />) } >
+                                    <Route path=':amount' element={ loadGeneralUserComponent(<SelectAmount />) } />
                                 </Route>
-                            </div>
-                            <Route path='/partner/:path?' >
-                                <GeneralUser>
-                                    <Switch>
-                                        <Route path='/partner/signup' exact component={ ErrorBeforeLogin } />
-                                        <Route path='/partner/signup' component={ PartnerSignUP } />
-                                        <Route path='/partner/confirm-signup' component={ ConfirmationInfo } />
-                                        <Route path='*' component={ ErrorBeforeLogin } />
-                                    </Switch>
-                                </GeneralUser>
-                            </Route>
+                                <Route path='customers' >
+                                    <Route path='accountOverview' element={ loadPostComponent(<AccountOverview />) } />
+                                    <Route path='paymentHistory' element={ loadPostComponent(<PaymentHistory />) } />
+                                    <Route path='selectOffer' element={ loadPostComponent(<ApplyLoan />) } />
+                                    <Route path='applyForLoan' element={ loadPostComponent(<ApplyForLoanRedirect />) } />
+                                    <Route path='resumeApplication' element={ loadPostComponent(<ResumeApplication />) } />
+                                    <Route path='reviewAndSign' element={ loadPostComponent(<ReviewAndSign />) } />
+                                    <Route path='finalVerification' element={ loadPostComponent(<FinalVerification />) } />
+                                    <Route path='receiveYourMoney' element={ loadPostComponent(<ReceiveYourMoney />) } />
+                                    <Route path='loanDocument' element={ loadPostComponent(<LoanDocument />) } />
+                                    <Route path='loanHistory' element={ loadPostComponent(<LoanHistory />) } />
+                                    <Route path='makePayment' element={ loadPostComponent(<MakePayment />) }>
+                                        <Route path=':accNo' element={ loadPostComponent(<MakePayment />) } />
+                                    </Route>
+                                    <Route path='moneySkill' element={ loadPostComponent(<MoneySkill />) } />
+                                    <Route path='myBranch' element={ loadPostComponent(<MyBranch />) } />
+                                    <Route path='myProfile' element={ loadPostComponent(<MyProfile />) } />
+                                    <Route path='vantageScore' element={ loadPostComponent(<VantageScore />) } />
+                                    <Route path='faq' element={ loadPostComponent(<FaqPostLogin />) } />
+                                    <Route path='viewaccount' element={ loadPostComponent(<ViewAccountDetails />) } />
+                                    <Route path='verification'>
+                                        <Route path='email' element={ <ValidateToken /> } />
+                                    </Route>
+                                    <Route path='*' element={ <ErrorAfterLogin /> } />
+                                </Route>
+                                <Route path='partner' >
+                                    <Route path='signup' element={ loadGeneralUserComponent(<PartnerSignUP />) } />
+                                    <Route path='confirm-signup' element={ loadGeneralUserComponent(<ConfirmationInfo />) } />
+                                    <Route path='*' element={ loadGeneralUserComponent(<ErrorBeforeLogin />) } />
+                                </Route>
+                            </Routes>
                         </ProfilePicture>
                     </CheckMyOffers>
                 </BrowserRouter>

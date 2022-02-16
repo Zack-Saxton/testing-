@@ -6,8 +6,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
-import { NavLink, useHistory } from "react-router-dom";
 import { useQuery } from 'react-query';
+import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import CheckLoginStatus from "../../../App/CheckLoginStatus";
 import usrAccountDetails from "../../../Controllers/AccountOverviewController";
@@ -113,17 +113,14 @@ const useStyles = makeStyles((theme) => ({
 //Initializing the Review and sign functional component
 export default function ReviewAndSign(props) {
   const classes = useStyles();
-
   //Initializing state variable
   const [ value, setValue ] = useState(1);
-  const history = useHistory();
+  const navigate = useNavigate();
   const [ url, setUrl ] = useState();
   const [ confirm, setConfirm ] = useState(false);
   const [ selectedOffer, setSelectOffer ] = useState();
   const [ loading, setLoading ] = useState(false);
   const { refetch } = useQuery('loan-data', usrAccountDetails);
-  // let selectedOffer;
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -428,7 +425,7 @@ export default function ReviewAndSign(props) {
                           if (hardPull?.data?.status === 200 || hardPull?.data?.result === "success") {
                             setLoading(false);
                             refetch();
-                            history.push({ pathname: "/customers/finalVerification", });
+                            navigate("/customers/finalVerification");
                           } else {
                             setLoading(false);
                             toast.error(messages.reviewAndSignin.eSignFailed);

@@ -1,10 +1,9 @@
 import Cookies from 'js-cookie';
+import Moment from "moment";
 import React, { createContext, useState } from 'react';
 import states from '../../src/assets/data/States.json';
 import usrAccountDetails from '../components/Controllers/AccountOverviewController';
 import { decryptAES } from '../components/lib/Crypto';
-import {useQuery} from 'react-query';
-import Moment from "moment";
 
 export const CheckMyOffers = createContext();
 
@@ -39,7 +38,7 @@ function CheckMyOffersContext(props) {
     stateFullform: '',
     ssn: '',
     homeOwnership: '',
-    rentMortageAmount: '',
+    rentMortgageAmount: '',
     militaryActiveDuty: '',
     consent_credit_contact_auth: '',
     consent_electronic_communication: '',
@@ -72,10 +71,10 @@ function CheckMyOffersContext(props) {
     },
     applicationStatus: '',
   });
-  const { data:accountDetail } = useQuery('loan-data', usrAccountDetails);
 
   // setUserAccountDetails in context
   async function setUserAccountDetails() {
+    const accountDetail = await usrAccountDetails();
     data.loading = true;
     if (accountDetail?.status === 200) {
       const cred = JSON.parse(

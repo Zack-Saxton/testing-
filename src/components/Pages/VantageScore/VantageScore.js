@@ -65,7 +65,6 @@ export default function VantageScore() {
                 />
               </NavLink>{ " " }
               Credit Monitoring
-
             </Typography>
           </Grid>
         </Grid>
