@@ -40,11 +40,7 @@ export default function AccountOverview() {
       <Grid
         container
         justifyContent="center"
-        style={ {
-          marginTop: "-150px",
-          paddingRight: "23px",
-          paddingLeft: "23px",
-        } }
+        className={ classes.centerGrid }
       >
         <Grid
           item

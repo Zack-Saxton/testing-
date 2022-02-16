@@ -22,12 +22,17 @@ const useStylesLoanHistory = makeStyles((theme) => ({
     background: "linear-gradient(85deg, #0F4EB3, #264266) !important"
   },
   heading: {
-    color: "#fff",
+    color: "#214476",
     fontWeight: "400",
-    fontSize: "1.563rem",
+		fontSize: "1.64rem",
     margin: "0px",
     lineHeight: "0"
   },
+  centerGrid:{
+		marginTop: "20px",
+		paddingRight: "23px",
+		paddingLeft: "23px",
+		},
   cardLoanHistory: {
     padding: "10px",
   },
