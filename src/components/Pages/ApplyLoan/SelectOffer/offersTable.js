@@ -11,6 +11,10 @@ import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
 import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 import DesktopMacIcon from "@material-ui/icons/DesktopMac";
+import Tooltip from "@material-ui/core/Tooltip";
+import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
+import { withStyles } from "@material-ui/core/styles";
+
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import {
@@ -46,11 +50,8 @@ TabVerticalPanel.propTypes = {
 };
 
 export default function OfferTable(props) {
-	const [ termData1, setTermData1 ] = useState();
-	const [ termData2, setTermData2 ] = useState();
 	const [ termDataMax, setTermDataMax ] = useState();
 	const [ selectData, setSelectData ] = useState([]);
-
 	let offersComp = props.offersToCompare ? props.offersToCompare : [];
 	let offersCompChart = props.offersToCompareChart
 		? props.offersToCompareChart
@@ -69,19 +70,28 @@ export default function OfferTable(props) {
 		</Grid>
 	);
 
-	const handleAdd = (todo) => {
+	const handleAdd = (selectedOffer) => {
 		const newRecord = [ ...selectData ];
-		newRecord.push(todo);
+		newRecord.push(selectedOffer);
 		setSelectData(newRecord);
 	};
-
+	const HtmlTooltip = withStyles((theme) => ({
+		tooltip: {
+		  backgroundColor: '#f5f5f9',
+		  color: 'rgba(0, 0, 0, 0.87)',
+		  maxWidth: 500,
+		  fontSize: theme.typography.pxToRem(14),
+		  border: '1px solid #dadde9',
+		  fontFamily: "Muli, sans-serif"
+		},
+	}))(Tooltip);
 	// Select the offers to compare : will push the selected offer value into array
 	const selectOfferToCompare = (row) => {
 		offersComp = props.offersToCompare;
-		if (offersComp.findIndex((x) => x._id === row._id) === -1) {
+		if (offersComp.findIndex((offerInfo) => offerInfo._id === row._id) === -1) {
 			offersComp.push(row);
 		} else {
-			offersComp.findIndex((x) => x._id === row._id) === -1
+			offersComp.findIndex((offerInfo) => offerInfo._id === row._id) === -1
 				? offersComp.push(row)
 				: offersComp.splice(offersComp.indexOf(row), 1);
 		}
@@ -89,9 +99,7 @@ export default function OfferTable(props) {
 		handleAdd(row);
 	};
 	const buildChartData = (chartData) => {
-		if (chartData.length >= 2) {
-			setTermData1(chartData[ 0 ]?.monthlyPayment);
-			setTermData2(chartData[ 1 ]?.monthlyPayment);
+		if (chartData.length >= 2) {			
 			setTermDataMax(
 				chartData[ 0 ]?.monthlyPayment > chartData[ 1 ]?.monthlyPayment
 					? chartData[ 0 ]?.monthlyPayment
@@ -116,7 +124,7 @@ export default function OfferTable(props) {
 			buildChartData(offersCompChart);
 		}
 		handleAdd(row);
-	};
+	};	
 	return (
 		<Grid id="loanListTable" item xs={ 12 } sm={ 9 } className={ props.loading ? props.classes.loadingOnWithoutBlur : props.classes.loadingOff } style={ { padding: "0px 0px 0px 15px", width: "100%" } }>
 			<Paper className={ props.classes.paper }>
@@ -160,7 +168,22 @@ export default function OfferTable(props) {
 											>
 												<Grid container direction="row" alignItems="center">
 													{ " " }
-													APR
+													APR &nbsp;													
+													<HtmlTooltip
+														title={
+														<>
+															<Typography color="inherit">What Is An  APR?</Typography>
+															<p>APR stands for "annual percentage rate" and represents the effective annual cost of a loan, including both the interest rate and origination fee.</p>
+														</>
+														}
+													>
+														<InfoOutlinedIcon
+															style={ {
+																fontSize: "small",
+																color: "blue",
+															} }
+														/>
+													</HtmlTooltip>
 												</Grid>
 											</TableCell>
 											{ props.offerFlag === false ? (
