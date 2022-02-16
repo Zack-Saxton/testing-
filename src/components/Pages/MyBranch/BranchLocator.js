@@ -36,48 +36,32 @@ export default function BranchLocator() {
       setLoading(true);
       let result = await BranchLocatorController(search_text);
       setCurrentLocation(result?.data?.searchLocation);
-      let N = (result?.data?.branchData[ 0 ]?.distance).replace(/[^0-9]/g, '');
+      let N = (result?.data?.branchData[ 0 ]?.distance).replace(/\D/g, '');
       switch (N) {
         case (N > 190):
-          {
-            setZoomDepth(11);
-            break;
-          }
+          setZoomDepth(11);
+          break;
         case (N > 150):
-          {
-            setZoomDepth(10);
-            break;
-          }
+          setZoomDepth(10);
+          break;
         case (N > 100):
-          {
-            setZoomDepth(9);
-            break;
-          }
+          setZoomDepth(9);
+          break;
         case (N > 75):
-          {
-            setZoomDepth(8);
-            break;
-          }
+          setZoomDepth(8);
+          break;
         case (N > 25):
-          {
-            setZoomDepth(5);
-            break;
-          }
+          setZoomDepth(5);
+          break;
         case (N > 15):
-          {
-            setZoomDepth(3);
-            break;
-          }
+          setZoomDepth(3);
+          break;
         case (N > 10):
-          {
-            setZoomDepth(2);
-            break;
-          }
+          setZoomDepth(2);
+          break;
         default:
-          {
-            setZoomDepth(1);
-            break;
-          }
+          setZoomDepth(1);
+          break;
       }
       if (result.status === 400) {
         toast.error(' Check your address and Try again.');
