@@ -7,7 +7,7 @@ import Stepper from "@material-ui/core/Stepper";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Cookies from "js-cookie";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, createRef } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { ButtonPrimary } from "../../../FormsUI";
 import APICall from "../../../lib/AxiosLib";
@@ -75,6 +75,7 @@ export default function VerticalLinearStepper() {
 	const [ activeStep, setActiveStep ] = React.useState();
 	const [ loadingFlag, setLoadingFlag ] = useState(false);
 	const steps = getSteps();
+	const elementsRef = useRef(steps.map(() => createRef()));
 
 	//To open the the stepper from were the user needs to continue.
 	const getApplicationStatus = async () => {
@@ -214,6 +215,7 @@ export default function VerticalLinearStepper() {
 						activeStep={ activeStep }
 						classes={ classes }
 						setLoadingFlag={ setLoadingFlag }
+						reference={elementsRef}
 					/>
 				);
 			case 4:
@@ -264,7 +266,7 @@ export default function VerticalLinearStepper() {
 				{ steps.map((label, index) => (
 					<Step key={ label }>
 						<StepLabel>
-							{ <span className={ classes.steplabel }>{ label }</span> }
+							{ <span className={ classes.steplabel } ref={elementsRef.current[index]} id={label}>{ label }</span> }
 						</StepLabel>
 						<StepContent
 							className={ loadingFlag ? classes.loadingOn : classes.loadingOff }
