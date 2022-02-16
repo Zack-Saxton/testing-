@@ -517,7 +517,7 @@ export default function SideNav() {
                   style={ { color: "white" } }
                   className="hrefTag"
                 >
-                  Blog
+                  Blogs
                 </a>
               </Typography>
 
@@ -675,7 +675,7 @@ export default function SideNav() {
                 </NavLink>
 
                 { checkPresenceOfLoan === true ?
-                  <NavLink to="#" state={ { from: "user" } } onClick={ (event) => { resumeApplicationClick(); } } className="nav_link" >
+                  <NavLink to = {applicationStatusRedirectPage[ checkPresenceOfLoanStatus ]} className="nav_link" >
                     <ListItem className="titleSidenav" >
                       <ListItemIcon>
                         { " " }

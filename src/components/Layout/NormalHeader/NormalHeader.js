@@ -41,7 +41,7 @@ const NormalHeader = () => {
       <MenuItem>
         <Typography className={ classes.headerAlign }>
           <a href="https://www.marinerfinance.com/blog" className="hrefTag">
-            Blog
+            Blogs
           </a>
         </Typography>
       </MenuItem>
