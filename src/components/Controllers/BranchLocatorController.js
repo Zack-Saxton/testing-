@@ -1,13 +1,11 @@
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
 
-export default async function BranchLocatorController(ZipCode) {
+export default async function BranchLocatorController(zipcode) {
     try {
         let url = "branch_locator";
-        let param = "";
-        let data = {
-            zipcode: ZipCode
-        };
+        let param = `?zipcode=${zipcode}`;
+        let data = {};
         let method = "GET";
         let addAccessToken = false;
 

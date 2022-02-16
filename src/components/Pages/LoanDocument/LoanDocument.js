@@ -32,6 +32,7 @@ export default function LoanDocument(props) {
   const [ selectedFile, setSelectedFile ] = useState(null);
   const [ docType, setDocType ] = useState("");
   const [ loading, setLoading ] = useState(false);
+  const [label,setlabel] = useState("No File Upload");
   const changeEvent = useRef("");
 
   //Api call
@@ -45,6 +46,10 @@ export default function LoanDocument(props) {
     setSelectedFile(document.getElementById("file"));
   };
 
+  const handleChange = (event) =>{
+    let uploadedFile = selectedFile.value.split("\\");
+    setlabel(uploadedFile[uploadedFile.length - 1])
+}
   //Document type
   const handleDocType = (event) => {
     setDocType(event.target.value);
@@ -103,6 +108,7 @@ export default function LoanDocument(props) {
         handleElse();
       }
     }
+    setlabel("No File uploaded");
   };
 
   //View part
@@ -188,7 +194,7 @@ export default function LoanDocument(props) {
               style={ { paddingTop: "10px", width: "225px" } }
             >
               <Select
-                id="selectDoccumentWrap"
+              id="selectDoccumentWrap"
                 name="selectDocument"
                 labelform="Select Document Type"
                 select='[{ "label": "Identity Document", "value": "id_doc"},
@@ -209,6 +215,7 @@ export default function LoanDocument(props) {
                   cursor="pointer"
                   ref={ changeEvent }
                   onClick={ handleInputChange }
+                  onChange={(event) => handleChange(event)}
                   style={ { display: "none" } }
                 />
                 <Button
@@ -230,6 +237,7 @@ export default function LoanDocument(props) {
                     } }
                   />
                 </Button>
+                <span style={{marginLeft:"2px"}}>{label}</span>
               </Grid>
 
               <Grid item xs={ 12 } sm={ 4 } style={ { paddingTop: "10px" } }></Grid>
