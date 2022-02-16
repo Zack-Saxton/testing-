@@ -51,7 +51,7 @@ const NormalHeader = () => {
         </NavLink>
       </MenuItem>
       <MenuItem>
-        <NavLink to="/branchlocator" className="nav_link">
+        <NavLink to="/branch/branchlocator" className="nav_link">
           <Typography className={ classes.headerAlign }>Branch Locator</Typography>
         </NavLink>
       </MenuItem>
@@ -80,7 +80,7 @@ const NormalHeader = () => {
             <NavLink to="/faq" style={ { textDecoration: "none" } }>
               <Typography className={ classes.subtitle }>FAQ</Typography>
             </NavLink>
-            <NavLink to="/branchlocator" className="nav_link">
+            <NavLink to="/branch/branchlocator" className="nav_link">
               <Typography className={ classes.subtitle }>Branch Locator</Typography>
             </NavLink>
           </div>

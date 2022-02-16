@@ -52,7 +52,7 @@ const BranchHeader = () => {
         </NavLink>
       </MenuItem>
       <MenuItem>
-        <NavLink to="/branchlocator" className="nav_link">
+        <NavLink to="/branch/branchlocator" className="nav_link">
           <Typography className={classes.headerAlign}>Branch Locator</Typography>
         </NavLink>
       </MenuItem>

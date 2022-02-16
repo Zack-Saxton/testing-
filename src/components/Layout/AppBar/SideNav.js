@@ -527,7 +527,7 @@ export default function SideNav() {
                 <Typography className={ classes.headerAlign }>FAQ</Typography>
               </NavLink>
 
-              <NavLink to="/branchlocator" className="nav_link">
+              <NavLink to="/branch/branchlocator" className="nav_link">
                 <Typography className={ classes.headerAlign }>Branch Locator</Typography>
               </NavLink>
 

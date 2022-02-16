@@ -1,11 +1,10 @@
 import { Circle, GoogleMap, InfoWindow, Marker } from "@react-google-maps/api";
 import React, { useState } from "react";
 import icon from "../../../assets/icon/icon-google-map-marker.png";
-
 function BranchLocatorMap(props) {
     const [ activeMarker, setActiveMarker ] = useState(null);
     let Current = (props.CurrentLocation ? props.CurrentLocation : { lat: 39.3697028, lng: -76.4635839 });
-    let zoomValue = (props.CurrentLocation ? 10 : 12);
+    let zoomValue = (props.CurrentLocation ? 7 : 8);
     let ZoomDepth = (props.Zoom) ? props.Zoom : 5;
     const markers = [
         {
@@ -37,7 +36,7 @@ function BranchLocatorMap(props) {
             <Circle
                 center={ Current }
                 zoom={ zoomValue }
-                radius={ zoomValue * ZoomDepth * 1609.344 }
+                radius={ zoomValue * ZoomDepth * 4000 }
                 strokeOpacity={ 50 }
                 fillColor='#ADD8E6'
                 fillOpacity={ 0 }
