@@ -19,13 +19,17 @@ export default function LoanHistoryCard(historyOfLoans) {
   const { data: dataAccountOverview } = useQuery('loan-data', usrAccountDetails);
   const [ checkPresenceOfLoan, setCheckPresenceOfLoan ] = useState(false);
   const [ checkPresenceOfLoanStatus, setCheckPresenceOfLoanStatus ] = useState('');
+  const [ currentLoan, setCurrentLoan ] = useState(true);
+
 
   useEffect(() => {
   let activeLoan = dataAccountOverview?.data?.applicants;
 
   const presenceOfLoan = activeLoan?.some((applicant) => applicant.isActive === true && applicant?.status !== "referred" && applicant?.status !== "contact_branch");
   const presenceOfLoanStatus = activeLoan?.find((applicant) => applicant.isActive === true);
+  const userAccountStatus = dataAccountOverview?.data?.customer?.user_account?.status;
 
+  setCurrentLoan(presenceOfLoan === true || userAccountStatus === "closed" ? true : false);
   setCheckPresenceOfLoanStatus(presenceOfLoanStatus?.status);
     setCheckPresenceOfLoan(presenceOfLoan);
   }, [dataAccountOverview]);
@@ -81,8 +85,8 @@ export default function LoanHistoryCard(historyOfLoans) {
             </Paper>
           </Grid>
           :
-          <Grid item xs={ 12 } sm={ 4 } className={ classes.cardLoanHistory }>
-            <Paper className={ classes.paperPointer } onClick={ redirectToApplyForLoan } style={ { height: "70%" } }>
+          <Grid item xs={ 12 } sm={ 4 } className={ currentLoan !== true ? "cardLoanHistory" :"disableCardLoanHistory" } >
+            <Paper className={ classes.paperPointer } onClick={  redirectToApplyForLoan }  style={ { height: "70%" } }>
               <Grid style={ { textAlign: "center" } }>
                 <MonetizationOnRoundedIcon id="dolor-icon_loan-history" className="material-icons background-round mt-5 yelloWBG" />
                 <p className={ classes.cardApplyLoan }>Apply for a Loan</p>
