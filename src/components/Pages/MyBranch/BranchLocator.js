@@ -24,7 +24,7 @@ import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import Link from "@material-ui/core/Link";
 import { useStylesMyBranch } from "./Style";
 import BranchImage from "../../../assets/images/States.jpg";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export default function BranchLocator() {
   window.zeHide();
@@ -34,7 +34,7 @@ export default function BranchLocator() {
   const getDirectionsClass = useStylesConsumer();
   const [getDirectionModal, setgetDirectionModal] = useState(false);
   const [getBranchList, setBranchList] = useState();
-  const [getBranchAddress, setBranchAddress] = useState();
+  const [getBranchAddress, setBranchAddress] = useState(null);
   const [getMap, setMap] = useState([]);
   const [getCurrentLocation, setCurrentLocation] = useState({
     lat: 39.3877502,
@@ -91,13 +91,17 @@ export default function BranchLocator() {
       ErrorLogger(" Error from apiGetBranchList ", error);
     }
   };
-  const getActivePlaces = async () => {
+  const clearSearchText =  () => {
+    inputText1.value = "";
+    inputText2.value = "";
+  }
+  const getActivePlaces =  () => {
     if (inputText1.value !== "") {
       apiGetBranchList(inputText1.value);
-      inputText2.value = "";
-    } else if (inputText2.value !== ""){
+      clearSearchText();
+    } else if (inputText2.value !== "") {
       apiGetBranchList(inputText2.value);
-      inputText1.value = "";
+      clearSearchText();
     }
   };
   const openGetDirectionModal = () => {
@@ -105,6 +109,7 @@ export default function BranchLocator() {
   };
   const closeGetDirectionModal = () => {
     setgetDirectionModal(false);
+    setBranchAddress(null)
   };
   const MFButtonClick = async (event) => {
     apiGetBranchList(event.target.innerText);
@@ -379,6 +384,15 @@ export default function BranchLocator() {
               <ButtonPrimary
                 href={getBranchAddress}
                 id="Continue"
+                onClick={() => {
+                  if (inputText2?.value) {
+                    openGetDirectionModal();
+                    setBranchAddress(`https://www.google.com/maps/search/${inputText2.value}`);
+                    inputText2.value = '';
+                  } else {
+                    toast.error(' Please provide address.')
+                  }
+                }}
                 stylebutton='{"width": "100%", "padding":"0 15px", "fontSize":"0.938rem", "fontWeight":"400" }'
                 target="_blank"
               >
