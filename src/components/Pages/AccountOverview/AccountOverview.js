@@ -17,16 +17,14 @@ export default function AccountOverview() {
   const classes = useStylesAccountOverview();
   window.zeHide();
   //API Call
-
   const { isLoading, data: accountDetails } = useQuery('loan-data', usrAccountDetails);
-
   //Load data
-  let offerData = (accountDetails != null) ? accountDetails?.data?.offerData : null;
-  let applicationsData = (accountDetails != null) ? accountDetails?.data?.applicants : null;
-  let applicantData = (accountDetails != null) ? accountDetails?.data?.applicant?.contact : null;
-  let status = (accountDetails != null) ? accountDetails?.data?.status : null;
-  let activeLoansData = (accountDetails != null) ? accountDetails?.data?.activeLoans : null;
-  let recentPaymentData = (accountDetails != null) ? accountDetails?.data?.loanHistory : null;
+  let offerData = accountDetails?.data?.offerData;
+  let applicationsData = accountDetails?.data?.applicants;
+  let applicantData = accountDetails?.data?.applicant?.contact;
+  let status = accountDetails?.data?.status;
+  let activeLoansData = accountDetails?.data?.activeLoans;
+  let recentPaymentData = accountDetails?.data?.loanHistory;
   Cookies.set("hasActiveLoan", true);
   if (Array.isArray(activeLoansData) && activeLoansData.length === 0) {
     Cookies.set("hasActiveLoan", false);
@@ -53,14 +51,11 @@ export default function AccountOverview() {
             Account Overview
           </Typography>
         </Grid>
-
         {/* ****************components************ */ }
-
         <LimitedOffer isLoading={ isLoading } userOffers={ offerData } />
         <ActiveLoans isLoading={ isLoading } userActiveLoanData={ activeLoansData } />
         <RecentPayments isLoading={ isLoading } userRecentPaymentData={ recentPaymentData } />
         <RecentApplications isLoading={ isLoading } userApplicationsData={ applicationsData } UserAccountStatus={ status } userApplicantData={ applicantData } />
-
       </Grid>
     </div>
   );

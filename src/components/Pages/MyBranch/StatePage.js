@@ -17,7 +17,6 @@ import ErrorLogger from "../../lib/ErrorLogger";
 import { useLoadScript } from "@react-google-maps/api";
 import Map from "./BranchLocatorMap";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { MFStates } from "../../../assets/data/marinerBusinesStates";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import Link from "@material-ui/core/Link";
@@ -26,6 +25,33 @@ import { makeStyles } from "@material-ui/core";
 import { NavLink } from "react-router-dom";
 import BranchDayTiming from "../../Controllers/BranchDayTiming";
 
+const useStyles = makeStyles({
+  ptag: {
+    margin: "0px",
+    lineHeight: "1.5",
+    fontSize: "0.938rem",
+  },
+  addressFont: {
+    color: "#595959",
+    margin: "0px",
+    lineHeight: "1.5",
+    fontSize: "0.938rem",
+  },
+  phoneNumber: {
+    color: "#595959",
+    margin: "0px 0px 15px 0px",
+    lineHeight: "1.5",
+    fontSize: "0.938rem",
+  },
+  h4tag: {
+    margin: ".575rem 0 .46rem 0",
+    lineHeight: "1.5",
+    fontWeight: "700",
+    fontSize: "1.078rem",
+    color: "#214476",
+  },
+});
+
 export default function StatePage() {
   window.zeHide();
   //Material UI css class
@@ -33,13 +59,14 @@ export default function StatePage() {
   const getDirectionsClass = useStylesConsumer();
   const [getDirectionModal, setgetDirectionModal] = useState(false);
   const [getBranchList, setBranchList] = useState();
-  const [getBranchAddress, setBranchAddress] = useState();
+  const [getBranchAddress, setBranchAddress] = useState(null);
   const [getMap, setMap] = useState([]);
   const [getCurrentLocation, setCurrentLocation] = useState();
   const [loading, setLoading] = useState(false);
   const [zoomDepth, setZoomDepth] = useState();
   const queryParams = new URLSearchParams(window.location.search);
   const Name = queryParams.get("Name");
+  const clessesforptag = useStyles();
   //API call
   const getBranchLists = async (search_text) => {
     try {
@@ -86,8 +113,18 @@ export default function StatePage() {
       ErrorLogger(" Error from apiGetBranchList ", error);
     }
   };
-  const getActivePlaces = async () => {
-    apiGetBranchList(inputText.value);
+  const clearSearchText = () => {
+    inputText1.value = "";
+    inputText2.value = "";
+  }
+  const getActivePlaces =  () => {
+    if (inputText1?.value !== "") {
+      apiGetBranchList(inputText1.value);
+      clearSearchText();
+    } else if (inputText2?.value !== "") {
+      apiGetBranchList(inputText2.value);
+      clearSearchText();
+    }
   };
   // -------- To Display Dialog to get Directions of Address.......
   const openGetDirectionModal = () => {
@@ -95,6 +132,7 @@ export default function StatePage() {
   };
   const closeGetDirectionModal = () => {
     setgetDirectionModal(false);
+    setBranchAddress(null);
   };
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_SECKey,
@@ -109,36 +147,10 @@ export default function StatePage() {
     }
   };
   useEffect(() => {
-    inputText.value = Name;
+    inputText1.value = Name;
     getActivePlaces();
   }, []);
-  const useStyles = makeStyles({
-    ptag: {
-      margin: "0px",
-      lineHeight: "1.5",
-      fontSize: "0.938rem",
-    },
-    addressFont: {
-      color: "#595959",
-      margin: "0px",
-      lineHeight: "1.5",
-      fontSize: "0.938rem",
-    },
-    phoneNumber: {
-      color: "#595959",
-      margin: "0px 0px 15px 0px",
-      lineHeight: "1.5",
-      fontSize: "0.938rem",
-    },
-    h4tag: {
-      margin: ".575rem 0 .46rem 0",
-      lineHeight: "1.5",
-      fontWeight: "700",
-      fontSize: "1.078rem",
-      color: "#214476",
-    },
-  });
-  const clessesforptag = useStyles();
+  
   //View part
   return (
     <div>
@@ -180,7 +192,6 @@ export default function StatePage() {
                 Personal Loans In {Name}
               </Link>
             </Breadcrumbs>
-
             <Grid id="findBranchWrapTwo" className={classes.blueBackground}>
               <h4 className={classes.headigText}>Find a Branch in {Name}</h4>
               <Grid id="findBranchGrid">
@@ -189,7 +200,7 @@ export default function StatePage() {
                   name="Enter City or State"
                   className="branchLocatorInput"
                   style={{ color: "white!important" }}
-                  id="inputText"
+                  id="inputText1"
                   label="Enter city & state or zip code"
                 />
                 <ButtonPrimary
@@ -200,28 +211,21 @@ export default function StatePage() {
                 </ButtonPrimary>
               </Grid>
             </Grid>
-
             <h4 className="branchLocatorHeadingMain">
               <b>Get one on one support</b>
               <br />
               for a personal loan near you
             </h4>
-
             <Typography className="branchLocatorHeading">
               <b className="numberText">480+</b>
-
               <span className="branchSmallText">Branches in 25 states</span>
             </Typography>
-
             <Typography className="branchLocatorHeading">
               <b className="numberText">$1k - $25k</b>
-
               <span className="branchSmallText">Available loan amount</span>
             </Typography>
-
             <Typography className="branchLocatorHeading">
               <b className="numberText">4.8</b>
-
               <span className="branchSmallText">
                 Star Rating based on over 13,000 verified reviews
               </span>
@@ -373,17 +377,25 @@ export default function StatePage() {
           </Grid>
         </Grid>
         <Grid className={clessesforptag.gridMargin} container>
-            <Grid className={clessesforptag.gridPadding} item md={6}>
-              <ButtonPrimary
-                href={getBranchAddress}
-                id="Continue"
-                stylebutton='{"width": "100%", "padding":"0 15px", "fontSize":"0.938rem", "fontWeight":"400" }'
-                target="_blank"
-              >
-                Get Driving Directions To Nearest Location
-              </ButtonPrimary>
+          <Grid className={clessesforptag.gridPadding} item md={6}>
+            <ButtonPrimary
+              href={getBranchAddress}
+              id="Continue"
+              onClick={() => {
+                if (inputText2.value && inputText2.value !== '') {
+                  setBranchAddress(`https://www.google.com/maps/search/${inputText2.value}`);
+                  inputText2.value = '';
+                  openGetDirectionModal();
+                } else {
+                  toast.error(' Please provide address.')
+                }
+              }}
+              stylebutton='{"width": "100%", "padding":"0 15px", "fontSize":"0.938rem", "fontWeight":"400" }'
+              target="_blank"
+            >
+              Get Driving Directions To Nearest Location
+            </ButtonPrimary>
             </Grid>
-
             <Grid item md={6} className={classes.blueBackground}>
               <Grid id="findBranchGrid">
                 <p className="zipLabel">
@@ -397,7 +409,7 @@ export default function StatePage() {
                   name="Enter City or State"
                   className="branchLocatorInput"
                   style={{ color: "white!important" }}
-                  id="inputText"
+                  id="inputText2"
                   placeholder="Enter city & state or zip code"
                 />
                 <ButtonPrimary

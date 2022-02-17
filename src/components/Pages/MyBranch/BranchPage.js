@@ -1,11 +1,8 @@
 import Grid from "@material-ui/core/Grid";
 import React, { useState, useEffect } from "react";
-import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import PhoneIcon from "@material-ui/icons/Phone";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import SearchIcon from "@material-ui/icons/Search";
-import { ButtonPrimary, TextField, ButtonSecondary } from "../../FormsUI";
-import { useStylesMyBranch } from "./Style";
+import { ButtonPrimary, ButtonSecondary } from "../../FormsUI";
 import { useStylesConsumer } from "../../Layout/ConsumerFooterDialog/Style";
 import { toast } from "react-toastify";
 import Dialog from "@material-ui/core/Dialog";
@@ -16,37 +13,64 @@ import Typography from "@material-ui/core/Typography";
 import ErrorLogger from "../../lib/ErrorLogger";
 import { useLoadScript } from "@react-google-maps/api";
 import Map from "./BranchLocatorMap";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import {
   MFStates,
   MFStateShort,
+  branch_hours,
+  ca_branch_hours
 } from "../../../assets/data/marinerBusinesStates";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import Link from "@material-ui/core/Link";
 import BranchImage from "../../../assets/images/States.png";
-import { NavLink, useParams, useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles({
+  ptag: {
+    margin: "0px",
+    lineHeight: "1.5",
+    fontSize: "0.938rem",
+  },
+  addressFont: {
+    color: "#595959",
+    margin: "0px",
+    lineHeight: "1.5",
+    fontSize: "0.938rem",
+  },
+  phoneNumber: {
+    color: "#595959",
+    margin: "0px 0px 15px 0px",
+    lineHeight: "1.5",
+    fontSize: "0.938rem",
+  },
+  h4tag: {
+    margin: ".575rem 0 .46rem 0",
+    lineHeight: "1.5",
+    fontWeight: "700",
+    fontSize: "1.078rem",
+    color: "#214476",
+  },
+});
 export default function StatePage(props) {
   window.zeHide();
   //Material UI css class
-  const classes = useStylesMyBranch();
+  const clessesforptag = useStyles();
   const getDirectionsClass = useStylesConsumer();
   const [getDirectionModal, setgetDirectionModal] = useState(false);
   const [getBranchList, setBranchList] = useState();
   const [getBranchAddress, setBranchAddress] = useState();
   const [getMap, setMap] = useState([]);
   const [getCurrentLocation, setCurrentLocation] = useState();
-  const [loading, setLoading] = useState(false);
   const [zoomDepth, setZoomDepth] = useState();
   const [getStateName, setStateName] = useState();
   const location = useLocation();
   const { Branch_Details } = location.state;
+  const [branchHours, setBranchHours] = useState();
   let StateFullName = MFStates[MFStateShort.indexOf(getStateName)];
   //API call
   const getBranchLists = async (search_text) => {
     try {
-      setLoading(true);
       let result = await BranchLocatorController(search_text);
       if (result.status === 400) {
         toast.error(" Check your address and Try again.");
@@ -79,7 +103,6 @@ export default function StatePage(props) {
     try {
       let result = await getBranchLists(value);
       setBranchList(result);
-      setLoading(false);
       listForMapView(result);
     } catch (error) {
       ErrorLogger(" Error from apiGetBranchList ", error);
@@ -91,7 +114,13 @@ export default function StatePage(props) {
   const closeGetDirectionModal = () => {
     setgetDirectionModal(false);
   };
-
+  const display_Branch_Times = () => {
+    if (getStateName && getStateName === 'CA') {
+      setBranchHours(ca_branch_hours);
+    } else {
+      setBranchHours(branch_hours);
+    }
+  }
   useEffect(() => {
     apiGetBranchList(Branch_Details.Address);
     let State = Branch_Details.Address.substring(
@@ -100,36 +129,13 @@ export default function StatePage(props) {
     );
     setStateName(State.substring(0, 2));
   }, []);
+  useEffect(() => {
+    display_Branch_Times();
+  }, [getStateName])
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_SECKey,
   });
-  const useStyles = makeStyles({
-    ptag: {
-      margin: "0px",
-      lineHeight: "1.5",
-      fontSize: "0.938rem",
-    },
-    addressFont: {
-      color: "#595959",
-      margin: "0px",
-      lineHeight: "1.5",
-      fontSize: "0.938rem",
-    },
-    phoneNumber: {
-      color: "#595959",
-      margin: "0px 0px 15px 0px",
-      lineHeight: "1.5",
-      fontSize: "0.938rem",
-    },
-    h4tag: {
-      margin: ".575rem 0 .46rem 0",
-      lineHeight: "1.5",
-      fontWeight: "700",
-      fontSize: "1.078rem",
-      color: "#214476",
-    },
-  });
-  const clessesforptag = useStyles();
+  
   //View part
   return (
     <div>
@@ -197,10 +203,12 @@ export default function StatePage(props) {
                   {Branch_Details?.branchManager}
                 </span>
                 <span className="black-text">
-                  <small>{Branch_Details?.BranchTime?.Value1}</small>
-                  <br />
-                  {Branch_Details?.BranchTime?.Value2}{" "}
-                  {Branch_Details?.BranchTime?.Value3}
+                  <small>{Branch_Details?.BranchTime?.Value1} {Branch_Details?.BranchTime?.Value2} </small>
+                  <h4>{Branch_Details?.BranchTime?.Value3}</h4>
+                  <span>Business Hours</span>
+                  {branchHours ? branchHours.map((ele) => {
+                    return (<div> {ele} </div>)
+                  }) : ""}
                 </span>
                 <span className="black-text">
                   <small>Phone Number</small>

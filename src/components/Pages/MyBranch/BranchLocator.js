@@ -24,16 +24,48 @@ import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import Link from "@material-ui/core/Link";
 import { useStylesMyBranch } from "./Style";
 import BranchImage from "../../../assets/images/States.png";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+
+const useStyles = makeStyles({
+  ptag: {
+    margin: "0px",
+    lineHeight: "1.5",
+    fontSize: "0.938rem",
+  },
+  addressFont: {
+    color: "#595959",
+    margin: "0px",
+    lineHeight: "1.5",
+    fontSize: "0.938rem",
+  },
+  phoneNumber: {
+    color: "#595959",
+    margin: "0px 0px 15px 0px",
+    lineHeight: "1.5",
+    fontSize: "0.938rem",
+  },
+  h4tag: {
+    margin: ".575rem 0 .46rem 0",
+    lineHeight: "1.5",
+    fontWeight: "700",
+    fontSize: "1.078rem",
+    color: "#214476",
+  },
+  gridPadding: {
+    padding: "0px 15px",
+  },
+  gridMargin: {
+    margin: "60px 0px 0px 0px",
+  },
+});
 export default function BranchLocator() {
   window.zeHide();
-
   //Material UI css class
   const classes = useStylesMyBranch();
   const getDirectionsClass = useStylesConsumer();
   const [getDirectionModal, setgetDirectionModal] = useState(false);
   const [getBranchList, setBranchList] = useState();
-  const [getBranchAddress, setBranchAddress] = useState();
+  const [getBranchAddress, setBranchAddress] = useState(null);
   const [getMap, setMap] = useState([]);
   const [getCurrentLocation, setCurrentLocation] = useState({
     lat: 39.3877502,
@@ -41,7 +73,7 @@ export default function BranchLocator() {
   });
   const [loading, setLoading] = useState(false);
   const [zoomDepth, setZoomDepth] = useState(10);
-  const { Branch_Name } = useParams();
+  const clessesforptag = useStyles();
   //API call
   const getBranchLists = async (search_text) => {
     try {
@@ -91,14 +123,25 @@ export default function BranchLocator() {
       ErrorLogger(" Error from apiGetBranchList ", error);
     }
   };
-  const getActivePlaces = async () => {
-    apiGetBranchList(inputText.value);
+  const clearSearchText =  () => {
+    inputText1.value = "";
+    inputText2.value = "";
+  }
+  const getActivePlaces =  () => {
+    if (inputText1.value !== "") {
+      apiGetBranchList(inputText1.value);
+      clearSearchText();
+    } else if (inputText2.value !== "") {
+      apiGetBranchList(inputText2.value);
+      clearSearchText();
+    }
   };
   const openGetDirectionModal = () => {
     setgetDirectionModal(true);
   };
   const closeGetDirectionModal = () => {
     setgetDirectionModal(false);
+    setBranchAddress(null)
   };
   const MFButtonClick = async (event) => {
     apiGetBranchList(event.target.innerText);
@@ -108,7 +151,7 @@ export default function BranchLocator() {
     googleMapsApiKey: process.env.REACT_APP_SECKey,
   });
   useEffect(() => {
-    inputText.value = "21236";
+    inputText1.value = "21236";
     getActivePlaces();
   }, []);
   const findBranchTimings = async (value) => {
@@ -120,42 +163,7 @@ export default function BranchLocator() {
       ErrorLogger(" Error from findBranchTimings", error);
     }
   };
-  const branchName = async () => {
-    console.log(" BRANCH =", Branch_Name);
-  };
-  const useStyles = makeStyles({
-    ptag: {
-      margin: "0px",
-      lineHeight: "1.5",
-      fontSize: "0.938rem",
-    },
-    addressFont: {
-      color: "#595959",
-      margin: "0px",
-      lineHeight: "1.5",
-      fontSize: "0.938rem",
-    },
-    phoneNumber: {
-      color: "#595959",
-      margin: "0px 0px 15px 0px",
-      lineHeight: "1.5",
-      fontSize: "0.938rem",
-    },
-    h4tag: {
-      margin: ".575rem 0 .46rem 0",
-      lineHeight: "1.5",
-      fontWeight: "700",
-      fontSize: "1.078rem",
-      color: "#214476",
-    },
-    gridPadding: {
-      padding: "0px 15px",
-    },
-    gridMargin: {
-      margin: "60px 0px 0px 0px",
-    },
-  });
-  const clessesforptag = useStyles();
+ 
   //View part
   return (
     <div>
@@ -219,7 +227,7 @@ export default function BranchLocator() {
                   name="Enter City or State"
                   className="branchLocatorInput"
                   style={{ color: "white!important" }}
-                  id="inputText"
+                  id="inputText1"
                   label="Enter city & state or zip code"
                 />
                 <ButtonPrimary
@@ -376,6 +384,15 @@ export default function BranchLocator() {
               <ButtonPrimary
                 href={getBranchAddress}
                 id="Continue"
+                onClick={() => {
+                  if (inputText2?.value) {
+                    openGetDirectionModal();
+                    setBranchAddress(`https://www.google.com/maps/search/${inputText2.value}`);
+                    inputText2.value = '';
+                  } else {
+                    toast.error(' Please provide address.')
+                  }
+                }}
                 stylebutton='{"width": "100%", "padding":"0 15px", "fontSize":"0.938rem", "fontWeight":"400" }'
                 target="_blank"
               >
@@ -395,7 +412,7 @@ export default function BranchLocator() {
                   name="Enter City or State"
                   className="branchLocatorInput"
                   style={{ color: "white!important" }}
-                  id="inputText"
+                  id="inputText2"
                   placeholder="Enter city & state or zip code"
                 />
                 <ButtonPrimary
