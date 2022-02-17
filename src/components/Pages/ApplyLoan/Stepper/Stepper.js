@@ -53,6 +53,12 @@ const useStyles = makeStyles((theme) => ({
 	resetContainer: {
 		padding: theme.spacing(3),
 	},
+	padTop: {
+		paddingTop: "20px" 
+	},
+	textDecoreNone: {
+		textDecoration: "none" 
+	}
 }));
 
 // To get the steps as response
@@ -280,7 +286,7 @@ export default function VerticalLinearStepper() {
 			{ activeStep === steps.length && (
 				<Paper square elevation={ 0 } className={ classes.resetContainer }>
 					<Typography>All steps completed - you&apos;re finished</Typography>
-					<Grid style={ { paddingTop: "20px" } }>
+					<Grid className={classes.padTop}>
 						<NavLink
 							to="/customers/receiveYourMoney"
 							style={ { textDecoration: "none" } }

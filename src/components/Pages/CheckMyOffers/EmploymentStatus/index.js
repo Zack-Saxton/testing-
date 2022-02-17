@@ -4,6 +4,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import React, { useContext, useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { employmentStatusData } from "../../../../assets/data/constants";
@@ -14,6 +15,27 @@ import ScrollToTopOnMount from "../ScrollToTop";
 import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import "./EmploymentStatus.css";
 
+const useStyles = makeStyles((Theme) =>({
+	boxGrid:{ 
+		padding: "4% 0px 4% 0px" 
+	},
+	paperStyle:{
+		justify: "center",
+		alignItems: "center",
+		textAlign: "center"
+	},
+	typoStyle:{
+		align: "center",
+		justify: "center",
+		alignItems: "center",
+		fontSize: "1.538rem",
+		margin: "10px 0px !important",
+		color: "#171717",
+		fontWeight: "400 !important",
+		lineHeight: "110% !important"
+	},
+})
+);
 //Initializing functional component CitizenshipStatus
 function EmploymentStatus() {
 	//Retrieving Context values
@@ -21,6 +43,8 @@ function EmploymentStatus() {
 	const [ employmentStatus, setEmploymentStatus ] = useState(data.employmentStatus ? data.employmentStatus : "");
 	const navigate = useNavigate();
 	const classes = preLoginStyle();
+	const innerClasses = useStyles();
+
 
 	//initializing formik
 	const validationSchema = yup.object({
@@ -105,7 +129,7 @@ function EmploymentStatus() {
 						container
 						justifyContent="center"
 						alignItems="center"
-						style={ { padding: "4% 0px 4% 0px" } }
+						className={innerClasses.boxGrid}
 					>
 						<Grid
 							container
@@ -118,8 +142,7 @@ function EmploymentStatus() {
 						>
 							<Paper
 								id="employmentStatusWrap"
-								className="cardWOPadding"
-								style={ { justify: "center", alignItems: "center" } }
+								className={innerClasses.paperStyle}
 							>
 								<form onSubmit={ formik.handleSubmit }>
 									<div className="progress mt-0">
@@ -146,12 +169,7 @@ function EmploymentStatus() {
 
 									<Typography
 										variant="h5"
-										style={ {
-											align: "center",
-											justify: "center",
-											alignItems: "center",
-										} }
-										className="checkMyOfferText borrowCSSLP"
+										className={innerClasses.typoStyle}
 									>
 										Tell us about your employment status
 									</Typography>

@@ -2,6 +2,7 @@ import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
@@ -90,6 +91,43 @@ const validationSchema = yup.object({
 		.typeError("Please enter a valid date"),
 });
 
+const useStyles = makeStyles((Theme) =>({
+	gridPadding: {
+		justifyContent: "center",
+		padding: "4% 0%"
+	},
+	paperStyle: { 
+		justify: "center", 
+		alignItems: "center",
+		textAlign: "center",
+		padding: "0"
+	},
+	typoStyle:{
+		align: "center",
+		justify: "center",
+		alignItems: "center",
+		fontSize: "1.538rem",
+		margin: "10px 0px !important",
+		color: "#171717",
+		fontWeight: "400 !important",
+		lineHeight: "110% !important"
+	},
+	justifyGrid: {
+		justifyContent: "center",
+		alignItems: "stretch",
+		textAlign: "center"
+	},
+	justifyGridMargin: {
+		justifyContent: "center", 
+		margin: " 15px 0px 19px 0px"
+	},
+	gridAlign:{
+		justifyContent: "center",
+		padding: "4% 0%"
+	}
+})
+);
+
 //Initializing functional component Personal info
 function PersonalInfo() {
 	const { data } = useContext(CheckMyOffers);
@@ -98,6 +136,7 @@ function PersonalInfo() {
 	const [ error, setError ] = useState(false);
 	const [ loading, setLoading ] = useState(false);
 	const navigate = useNavigate();
+	const innerClasses = useStyles();
 	const classes = preLoginStyle();
 
 	function phoneNumberMask(values) {
@@ -285,10 +324,7 @@ function PersonalInfo() {
 						xs={ 12 }
 						container
 						alignItems="center"
-						style={ {
-							justifyContent: "center",
-							padding: "4% 0%"
-						} }
+						className={innerClasses.gridAlign}
 					>
 						<Grid
 							container
@@ -303,8 +339,7 @@ function PersonalInfo() {
 						>
 							<Paper
 								id="aboutYourselfWrap"
-								className="cardWOPadding"
-								style={ { justify: "center", alignItems: "center", padding: "0" } }
+								className={innerClasses.paperStyle}
 							>
 								<div className="progress mt-0">
 									<div
@@ -330,13 +365,7 @@ function PersonalInfo() {
 
 								<Typography
 									variant="h5"
-									style={ {
-										align: "center",
-										justify: "center",
-										alignItems: "center",
-										fontSize: "1.538rem"
-									} }
-									className="borrowCSSLP checkMyOfferText"
+									className={innerClasses.typoStyle}
 								>
 									Tell us about yourself
 								</Typography>
@@ -344,9 +373,8 @@ function PersonalInfo() {
 									<Grid
 										item
 										md={ 12 }
-										className="blockDiv"
+										className={innerClasses.justifyGrid}
 										container
-										style={ { justifyContent: "center" } }
 										alignItems="center"
 									>
 										<Grid
@@ -414,7 +442,6 @@ function PersonalInfo() {
 										</Grid>
 										<Grid
 											container
-											style={ { justifyContent: "center" } }
 											alignItems="center"
 											item
 											lg={ 8 }
@@ -503,7 +530,6 @@ function PersonalInfo() {
 										</Grid>
 										<Grid
 											container
-											style={ { justifyContent: "center" } }
 											alignItems="center"
 											item
 											lg={ 8 }
@@ -542,7 +568,6 @@ function PersonalInfo() {
 
 										<Grid
 											container
-											style={ { justifyContent: "center" } }
 											alignItems="center"
 											item
 											lg={ 8 }
@@ -592,13 +617,12 @@ function PersonalInfo() {
 										</Grid>
 										<Grid
 											container
-											style={ { justifyContent: "center", margin: " 15px 0px 19px 0px" } }
+											className={innerClasses.justifyGridMargin}
 											alignItems="center"
 											item
 											lg={ 8 }
 											md={ 8 }
 											xs={ 12 }
-											className="textBlock"
 										>
 											<ButtonPrimary
 												onClick={ autoFocus }

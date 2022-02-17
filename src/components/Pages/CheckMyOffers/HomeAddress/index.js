@@ -3,6 +3,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
@@ -43,12 +44,26 @@ const validationSchema = yup.object({
 		.required("Your home ZIP Code is required"),
 });
 
+const useStyles = makeStyles((Theme) =>({
+	gridStyle: {
+		padding: "4% 0", 
+		margin: "auto" 
+	},
+	paperStyle: { 
+		justify: "center", 
+		alignItems: "center",
+		textAlign: "center"
+	}
+})
+);
+
+
 // Home address component initialization
 function HomeAddress() {
 	//Context data
 	const { data } = useContext(CheckMyOffers);
 	const classes = preLoginStyle();
-
+	const innerClasses = useStyles();
 	//state variables
 	const [ stateShort, setStateShort ] = useState(data.state ?? "");
 	const [ validZip, setValidZip ] = useState(true);
@@ -148,7 +163,7 @@ function HomeAddress() {
 						justifyContent="center"
 						container
 						alignItems="center"
-						style={ { padding: "4% 0", margin: "auto" } }
+						className={innerClasses.gridStyle}
 					>
 						<Grid
 							container
@@ -157,8 +172,7 @@ function HomeAddress() {
 						>
 							<Paper
 								id="enterZipWrap"
-								className="cardWOPadding"
-								style={ { justify: "center", alignItems: "center" } }
+								className={innerClasses.paperStyle}
 							>
 								<div className="progress mt-0">
 									<div

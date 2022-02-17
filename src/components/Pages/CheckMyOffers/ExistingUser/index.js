@@ -5,6 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useContext, useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import { useQueryClient } from 'react-query';
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -27,6 +28,29 @@ const validationSchema = yup.object({
 		.required("Your password is required"),
 });
 
+const useStyles = makeStyles((Theme) =>({
+	
+	typoStyle:{
+		align: "center",
+		justify: "center",
+		alignItems: "center",
+		marginBottom: "1%",
+		marginTop: "1%",
+	},
+	negativeMargin: {
+		marginTop: "-4%" 
+	},
+	paperStyle:{
+		justify: "center",
+		alignItems: "center",
+		width: "inherit",
+		marginBottom: "10%",
+		marginTop: "10%",
+		textAlign: "center"
+	}
+})
+);
+
 // Existing user functional component initiallization
 function ExistingUser() {
 	const { data, setData } = useContext(CheckMyOffers);
@@ -34,6 +58,8 @@ function ExistingUser() {
 	const [ loading, setLoading ] = useState(false);
 	const navigate = useNavigate();
 	const classes = preLoginStyle();
+	const innerClasses = useStyles();
+
 	const queryClient = useQueryClient();
 	// Formik configuraion
 	const formik = useFormik({
@@ -132,14 +158,7 @@ function ExistingUser() {
 							alignItems="center"
 						>
 							<Paper
-								className="cardWOPadding"
-								style={ {
-									justify: "center",
-									alignItems: "center",
-									width: "inherit",
-									marginBottom: "10%",
-									marginTop: "10%",
-								} }
+								className={innerClasses.paperStyle}
 							>
 								<span className="floatLeft detNum5" />
 								<Grid className="floatLeft">
@@ -149,7 +168,7 @@ function ExistingUser() {
 										</i>
 									</Link>
 								</Grid>
-								<Grid className="liftImage" style={ { marginTop: "-4%" } }>
+								<Grid className={innerClasses.negativeMargin}>
 									<img
 										src={ PasswordLogo }
 										alt="password"
@@ -157,26 +176,15 @@ function ExistingUser() {
 									/>
 								</Grid>
 								<Typography
-									style={ {
-										align: "center",
-										justify: "center",
-										alignItems: "center",
-										marginBottom: "1%",
-										marginTop: "1%",
-									} }
+									
+									className={innerClasses.typoStyle}
 								>
 									We have detected you already have an account with us.
 								</Typography>
 
 								<Typography
 									variant="h5"
-									style={ {
-										align: "center",
-										justify: "center",
-										alignItems: "center",
-										marginBottom: "1%",
-										marginTop: "1%",
-									} }
+									className={innerClasses.typoStyle}
 								>
 									Please enter a password and continue.
 								</Typography>
