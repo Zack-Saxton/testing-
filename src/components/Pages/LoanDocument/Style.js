@@ -11,11 +11,15 @@ const useStylesLoanDocument = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
   heading: {
-    color: "#fff",
+    color: "#214476",
     fontWeight: "400",
     fontSize: "1.563rem",
   },
-
+  centerGrid:{
+		marginTop: "20px",
+		paddingRight: "23px",
+		paddingLeft: "23px",
+		},
   tableHead: {
     color: "#171717!important",
     fontWeight: "600",

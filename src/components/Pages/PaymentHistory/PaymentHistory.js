@@ -113,12 +113,8 @@ export default function PaymentHistory() {
       <ScrollToTopOnMount />
       <Grid
         container
-        justifyContent={ "center" }
-        style={ {
-          marginTop: "-150px",
-          paddingRight: "23px",
-          paddingLeft: "23px",
-        } }
+        justifyContent={ "center" } 
+        className={ classes.centerGrid }
       >
         <Grid style={ { paddingBottom: "10px" } } container>
           <Grid item xs={ 12 } sm={ 8 }>

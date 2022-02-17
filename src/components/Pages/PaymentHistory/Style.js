@@ -10,11 +10,16 @@ const useStylesPaymenthistory = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     color: theme.palette.text.secondary,
-  },
+  },  
   heading: {
-    color: "#fff",
+    color: "#214476",
     fontWeight: "400",
-    fontSize: "1.64rem",
+    fontSize: "1.563rem",
+  },
+  centerGrid:{
+    marginTop: "20px",
+    paddingRight: "23px",
+    paddingLeft: "23px",
   },
   table: {
     minWidth: 650,
