@@ -24,11 +24,11 @@ export default function LoanHistoryCard(historyOfLoans) {
   let activeLoan = dataAccountOverview?.data?.applicants;
 
   const presenceOfLoan = activeLoan?.some((applicant) => applicant.isActive === true && applicant?.status !== "referred" && applicant?.status !== "contact_branch");
-    const presenceOfLoanStatus = activeLoan?.find((applicant) => applicant.isActive === true);
+  const presenceOfLoanStatus = activeLoan?.find((applicant) => applicant.isActive === true);
 
   setCheckPresenceOfLoanStatus(presenceOfLoanStatus?.status);
     setCheckPresenceOfLoan(presenceOfLoan);
-  }, [ dataAccountOverview ]);
+  }, []);
 
   const redirectToApplyForLoan = () => {
     navigate("/customers/applyForLoan", { state: { from: "user" } });
