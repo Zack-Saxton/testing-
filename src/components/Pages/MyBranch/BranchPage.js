@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import PhoneIcon from "@material-ui/icons/Phone";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { ButtonPrimary, ButtonSecondary } from "../../FormsUI";
-import { useStylesMyBranch } from "./Style";
 import { useStylesConsumer } from "../../Layout/ConsumerFooterDialog/Style";
 import { toast } from "react-toastify";
 import Dialog from "@material-ui/core/Dialog";
@@ -17,6 +16,8 @@ import Map from "./BranchLocatorMap";
 import {
   MFStates,
   MFStateShort,
+  branch_hours,
+  ca_branch_hours
 } from "../../../assets/data/marinerBusinesStates";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
@@ -24,9 +25,37 @@ import Link from "@material-ui/core/Link";
 import BranchImage from "../../../assets/images/States.jpg";
 import { NavLink, useLocation } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles({
+  ptag: {
+    margin: "0px",
+    lineHeight: "1.5",
+    fontSize: "0.938rem",
+  },
+  addressFont: {
+    color: "#595959",
+    margin: "0px",
+    lineHeight: "1.5",
+    fontSize: "0.938rem",
+  },
+  phoneNumber: {
+    color: "#595959",
+    margin: "0px 0px 15px 0px",
+    lineHeight: "1.5",
+    fontSize: "0.938rem",
+  },
+  h4tag: {
+    margin: ".575rem 0 .46rem 0",
+    lineHeight: "1.5",
+    fontWeight: "700",
+    fontSize: "1.078rem",
+    color: "#214476",
+  },
+});
 export default function StatePage(props) {
   window.zeHide();
   //Material UI css class
+  const clessesforptag = useStyles();
   const getDirectionsClass = useStylesConsumer();
   const [getDirectionModal, setgetDirectionModal] = useState(false);
   const [getBranchList, setBranchList] = useState();
@@ -37,6 +66,7 @@ export default function StatePage(props) {
   const [getStateName, setStateName] = useState();
   const location = useLocation();
   const { Branch_Details } = location.state;
+  const [branchHours, setBranchHours] = useState();
   let StateFullName = MFStates[MFStateShort.indexOf(getStateName)];
   //API call
   const getBranchLists = async (search_text) => {
@@ -84,7 +114,13 @@ export default function StatePage(props) {
   const closeGetDirectionModal = () => {
     setgetDirectionModal(false);
   };
-
+  const display_Branch_Times = () => {
+    if (getStateName && getStateName === 'CA') {
+      setBranchHours(ca_branch_hours);
+    } else {
+      setBranchHours(branch_hours);
+    }
+  }
   useEffect(() => {
     apiGetBranchList(Branch_Details.Address);
     let State = Branch_Details.Address.substring(
@@ -93,36 +129,13 @@ export default function StatePage(props) {
     );
     setStateName(State.substring(0, 2));
   }, []);
+  useEffect(() => {
+    display_Branch_Times();
+  }, [getStateName])
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_SECKey,
   });
-  const useStyles = makeStyles({
-    ptag: {
-      margin: "0px",
-      lineHeight: "1.5",
-      fontSize: "0.938rem",
-    },
-    addressFont: {
-      color: "#595959",
-      margin: "0px",
-      lineHeight: "1.5",
-      fontSize: "0.938rem",
-    },
-    phoneNumber: {
-      color: "#595959",
-      margin: "0px 0px 15px 0px",
-      lineHeight: "1.5",
-      fontSize: "0.938rem",
-    },
-    h4tag: {
-      margin: ".575rem 0 .46rem 0",
-      lineHeight: "1.5",
-      fontWeight: "700",
-      fontSize: "1.078rem",
-      color: "#214476",
-    },
-  });
-  const clessesforptag = useStyles();
+  
   //View part
   return (
     <div>
@@ -190,10 +203,12 @@ export default function StatePage(props) {
                   {Branch_Details?.branchManager}
                 </span>
                 <span className="black-text">
-                  <small>{Branch_Details?.BranchTime?.Value1}</small>
-                  <br />
-                  {Branch_Details?.BranchTime?.Value2}{" "}
-                  {Branch_Details?.BranchTime?.Value3}
+                  <small>{Branch_Details?.BranchTime?.Value1} {Branch_Details?.BranchTime?.Value2} </small>
+                  <h4>{Branch_Details?.BranchTime?.Value3}</h4>
+                  <span>Business Hours</span>
+                  {branchHours ? branchHours.map((ele) => {
+                    return (<div> {ele} </div>)
+                  }) : ""}
                 </span>
                 <span className="black-text">
                   <small>Phone Number</small>
