@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStylesFaq = makeStyles((theme) => ({
   titleHeading: {
-    color: "#fff",
+    color: "#214476",
     fontWeight: "400",
     fontSize: "1.64rem",
   },
@@ -13,6 +13,12 @@ const useStylesFaq = makeStyles((theme) => ({
     flexShrink: 0,
     textAlign: "justify",
   },
+  centerGrid:{
+		marginTop: "20px",
+		paddingRight: "30px",
+          paddingLeft: "30px",
+          paddingBottom: "30px",
+		},
   secondaryHeading: {
     fontSize: theme.typography.pxToRem(15),
     color: theme.palette.text.secondary,

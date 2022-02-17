@@ -51,14 +51,19 @@ const useStylesAccountOverview = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
   titleHeading: {
-    color: "#fff",
+    color: "#214476",
     fontWeight: "400",
     fontSize: "1.64rem",
   },
   heading: {
-    color: "#fff",
+    color: "#214476",
     fontWeight: "400",
     fontSize: "1.563rem",
+  },
+  centerGrid:{
+    marginTop: "20px",
+    paddingRight: "23px",
+    paddingLeft: "23px",
   },
   subheading: {
     color: "#171717",
@@ -173,6 +178,7 @@ const useStylesAccountOverview = makeStyles((theme) => ({
     lineHeight: 1.3,
     fontWeight: "400",
   },
+  
 }));
 
 export { useStylesAccountOverview };

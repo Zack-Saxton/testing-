@@ -58,10 +58,15 @@ const useStyles = makeStyles((theme) => ({
 		color: theme.palette.text.secondary,
 	},
 	heading: {
-		color: "#fff",
+		color: "#214476",
 		fontWeight: "400",
 		fontSize: "1.64rem",
 	},
+	centerGrid:{
+		marginTop: "20px",
+		paddingRight: "23px",
+		paddingLeft: "23px",
+		},
 	tabLabel: {
 		background: "white",
 		margin: "0px 20px 10px 0px",
@@ -110,11 +115,7 @@ export default function ReceiveYourMoney() {
 			<Grid
 				container
 				justifyContent={ "center" }
-				style={ {
-					marginTop: "-150px",
-					paddingRight: "23px",
-					paddingLeft: "23px",
-				} }
+				className={ classes.centerGrid }
 			>
 				<Grid
 					item
