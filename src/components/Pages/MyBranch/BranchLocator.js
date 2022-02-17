@@ -23,9 +23,8 @@ import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import Link from "@material-ui/core/Link";
 import { useStylesMyBranch } from "./Style";
-import BranchImage from "../../../assets/images/States.jpg";
+import BranchImage from "../../../assets/images/States.png";
 import { NavLink, useParams } from "react-router-dom";
-
 export default function BranchLocator() {
   window.zeHide();
 
@@ -103,7 +102,7 @@ export default function BranchLocator() {
   };
   const MFButtonClick = async (event) => {
     apiGetBranchList(event.target.innerText);
-    window.open(`/branch/StatePage/?Name=${event.target.innerText}`, "_self");
+    window.open(`/StatePage/?Name=${event.target.innerText}`, "_self");
   };
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_SECKey,
@@ -267,7 +266,7 @@ export default function BranchLocator() {
                       return (
                         <Grid key={index} item md={4} className="locationInfo">
                           <NavLink
-                            to={`/branch/branchpage/?BranchName=${item?.BranchName}`}
+                            to={`/branchpage/?BranchName=${item?.BranchName}`}
                             state={{ Branch_Details: item }}
                             className="nav_link"
                           >

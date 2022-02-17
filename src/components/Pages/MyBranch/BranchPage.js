@@ -24,7 +24,7 @@ import {
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import Link from "@material-ui/core/Link";
-import BranchImage from "../../../assets/images/States.jpg";
+import BranchImage from "../../../assets/images/States.png";
 import { NavLink, useParams, useLocation } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
 export default function StatePage(props) {
@@ -162,7 +162,7 @@ export default function StatePage(props) {
               </Link>
               <Link
               className="breadcrumbLink"
-                onClick={() => window.open(`/branch/branchlocator/`, "_self")}
+                onClick={() => window.open(`/branchlocator/`, "_self")}
               >
                 Branch Locator
               </Link>
@@ -170,7 +170,7 @@ export default function StatePage(props) {
               className="breadcrumbLink"
                 onClick={() =>
                   window.open(
-                    `/branch/StatePage/?Name=${StateFullName}`,
+                    `/StatePage/?Name=${StateFullName}`,
                     "_self"
                   )
                 }
@@ -348,7 +348,7 @@ export default function StatePage(props) {
                   return (
                     <Grid key={index} item md={4} className="locationInfo">
                       <NavLink
-                        to={`/branch/branchpage/?BranchName=${item?.BranchName}`}
+                        to={`/branchpage/?BranchName=${item?.BranchName}`}
                         state={{ Branch_Details: item }}
                         className="nav_link"
                       >
