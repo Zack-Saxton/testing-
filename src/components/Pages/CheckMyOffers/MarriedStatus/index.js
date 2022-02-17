@@ -96,7 +96,7 @@ function MarriedStatus() {
 				spouse_address_postal_code: values.spouseZipcode,
 				completedPage: data.page.activeDuty,
 			});
-			navigate("/ssn");
+			navigate("/oneLastStep");
 		},
 	});
 

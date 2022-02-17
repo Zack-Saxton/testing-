@@ -40,7 +40,7 @@ function LivingPlace() {
 			navigate("/marital-status");
 		} else {
 			data.completedPage = data.page.activeDuty;
-			navigate("/ssn");
+			navigate("/oneLastStep");
 		}
 	};
 
@@ -56,7 +56,7 @@ function LivingPlace() {
 			navigate("/marital-status");
 		} else {
 			data.completedPage = data.page.activeDuty;
-			navigate("/ssn");
+			navigate("/oneLastStep");
 		}
 	};
 

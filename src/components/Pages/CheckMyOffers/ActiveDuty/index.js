@@ -42,7 +42,7 @@ function ActiveDuty() {
 			data.militaryActiveDuty = values.activeDuty;
 			data.militaryActiveDutyRank = values.activeDutyRank;
 			data.completedPage = data.page.activeDuty;
-			navigate("/ssn");
+			navigate("/oneLastStep");
 		},
 	});
 
