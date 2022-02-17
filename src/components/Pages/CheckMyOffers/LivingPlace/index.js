@@ -11,6 +11,7 @@ import { homeData } from "../../../../assets/data/constants";
 import "../CheckMyOffer.css";
 import "../LivingPlace/LivingPlace.css";
 import ScrollToTopOnMount from "../ScrollToTop";
+import globalMessages from "../../../../assets/data/globalMessages.json";
 
 //Living place component initialization
 function LivingPlace() {
@@ -58,7 +59,7 @@ function LivingPlace() {
 				validateUserInput();
 			} else {
 				setError(true);
-				setHelperText("Enter valid rent/Mortgage amount");
+				setHelperText(globalMessages.Rent_Mortgage_Valid);
 			}
 		} else {
 			validateUserInput();
@@ -103,10 +104,10 @@ function LivingPlace() {
 			setHelperText("");
 		} else if (event.target.value === "") {
 			setError(true);
-			setHelperText("Rent/Mortgage amount should not be zero");
+			setHelperText(globalMessages.Rent_Mortgage_Zero);
 		} else {
 			setError(true);
-			setHelperText("Amount should be minimum $100");
+			setHelperText(globalMessages.Rent_Mortgage_Min);
 		}
 	};
 

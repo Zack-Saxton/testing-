@@ -12,6 +12,7 @@ import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, PhoneNumber, Select } from "../../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./EmploymentStatus.css";
+import globalMessages from "../../../../assets/data/globalMessages.json";
 
 //Initializing functional component CitizenshipStatus
 function EmploymentStatus() {
@@ -23,25 +24,25 @@ function EmploymentStatus() {
 	//initializing formik
 	const validationSchema = yup.object({
 		phone: yup
-			.string("Enter a name")
+			.string(globalMessages.NameEnter)
 			.nullable()
 			.transform((value) => value.replace(/[^\d]/g, ""))
-			.matches(/^$|^[1-9]{1}\d{2}\d{3}\d{4}$/, "Please enter a valid phone number")
-			.matches(/^$|^(\d)(?!\1+$)\d{9}$/, "Please enter a valid phone number"),
+			.matches(/^$|^[1-9]{1}\d{2}\d{3}\d{4}$/, globalMessages.PhoneValid)
+			.matches(/^$|^(\d)(?!\1+$)\d{9}$/, globalMessages.PhoneValid),
 
 		yearsAtEmployers: yup
 			.string()
 			.when("employStatus", {
 				is: employmentStatusData.employedHourly,
-				then: yup.string().required("Years at employer is required"),
+				then: yup.string().required(globalMessages.Years_At_Employer_Required),
 			})
 			.when("employStatus", {
 				is: employmentStatusData.employedSalaried,
-				then: yup.string().required("Years at employer is required"),
+				then: yup.string().required(globalMessages.Years_At_Employer_Required),
 			})
 			.when("employStatus", {
 				is: employmentStatusData.selfEmployed,
-				then: yup.string().required("Years at employer is required"),
+				then: yup.string().required(globalMessages.Years_At_Employer_Required),
 			}),
 	});
 

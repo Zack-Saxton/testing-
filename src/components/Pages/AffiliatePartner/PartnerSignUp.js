@@ -18,6 +18,7 @@ import NerdWalletlogo from "../../../assets/partners/WelcomeNWMember.png";
 import OneLoanPlacelogo from "../../../assets/partners/WelcomeOLPMember.png";
 import partnerSignup, { PopulatePartnerSignup } from "../../Controllers/PartnerSignupController";
 import { ButtonPrimary, Checkbox, EmailTextField, PasswordField, PhoneNumber, Popup, RenderContent, Select, SocialSecurityNumber } from "../../FormsUI";
+import globalMessages from "../../../assets/data/globalMessages.json";
 import "./Style.css";
 
 //Styling
@@ -77,53 +78,53 @@ const useStyles = makeStyles((theme) => ({
 //Yup validations for all the input fields
 const validationSchema = yup.object({
   email: yup
-    .string("Enter your email")
-    .email("A valid email address is required")
+    .string(globalMessages.EmailEnter)
+    .email(globalMessages.EmailValid)
     .matches(
       /^[a-zA-Z][a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
-      "A valid email address is required"
+      globalMessages.EmailValid
     )
-    .required("Your email address is required"),
+    .required(globalMessages.EmailRequired),
   password: yup
-    .string("Enter your password")
+    .string(globalMessages.PasswordEnter)
     .matches(
       /^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,30}$/,
-      "Your password doesn't meet the criteria"
+      globalMessages.PasswordCriteria
     )
-    .max(30, "Password can be upto 30 characters length")
-    .min(8, "Password should be minimum of 8 characters length")
-    .required("Your password is required"),
+    .max(30, globalMessages.PasswordMax)
+    .min(8, globalMessages.PasswordMin)
+    .required(globalMessages.PasswordRequired),
   confirmPassword: yup
     .string()
-    .max(30, "Password can be upto 30 characters length")
-    .min(8, "Password should be minimum of 8 characters length")
-    .required("Your password confirmation is required")
+    .max(30, globalMessages.PasswordMax)
+    .min(8, globalMessages.PasswordMin)
+    .required(globalMessages.PasswordConfirmationRequired)
     .when("password", {
       is: (password) => password && password.length > 0,
       then: yup
         .string()
         .oneOf(
           [ yup.ref("password") ],
-          "Your confirmation password must match your password"
+          globalMessages.PasswordConfirmationMatch
         ),
     }),
   ssn: yup
-    .string("Enter a SSN")
-    .required("Your SSN is required")
+    .string(globalMessages.SSNEnter)
+    .required(globalMessages.SSNRequired)
     .transform((value) => value.replace(/[^\d]/g, ""))
-    .matches(/^(?!0000)\d{4}$/, "Please enter a valid SSN")
-    .min(4, "Name must contain at least 4 digits"),
+    .matches(/^(?!0000)\d{4}$/, globalMessages.SSNValid)
+    .min(9, globalMessages.SSNMin),
   callPhNo: yup
-    .string("Enter a name")
-    .required("Your Phone number is required")
+    .string(globalMessages.PhoneEnter)
+    .required(globalMessages.PhoneRequired)
     .transform((value) => value?.replace(/[^\d]/g, ""))
-    .matches(/^[1-9]{1}\d{2}[\d]{3}\d{4}$/, "Please enter a valid Phone number")
-    .matches(/^(\d)(?!\1+$)\d{9}$/, "Please enter a valid Phone number")
-    .min(10, "Name must contain at least 10 digits"),
+    .matches(/^[1-9]{1}\d{2}[\d]{3}\d{4}$/, globalMessages.PhoneValid)
+    .matches(/^(\d)(?!\1+$)\d{9}$/, globalMessages.PhoneValid)
+    .min(10, globalMessages.PhoneMin),
   phoneType: yup
-    .string("Select Phone Type")
-    .max(30, "Should be less than 30 characters")
-    .required("Your Phone Type is required"),
+    .string(globalMessages.PhoneType)
+    .max(30, globalMessages.PhoneTypeMax)
+    .required(globalMessages.PhoneTypeRequired),
 });
 
 //Begin: Login page

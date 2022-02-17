@@ -17,13 +17,14 @@ import { ButtonPrimary, PasswordField } from "../../../FormsUI";
 import { encryptAES } from "../../../lib/Crypto";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./ExistingUser.css";
+import globalMessages from "../../../../assets/data/globalMessages.json";
 
 //YUP validation schema
 const validationSchema = yup.object({
 	password: yup
-		.string("Enter your password")
-		.max(30, "Password can be upto 30 characters length")
-		.required("Your password is required"),
+		.string(globalMessages.PasswordEnter)
+		.max(30,globalMessages.PasswordMax)
+		.required(globalMessages.PasswordRequired),
 });
 
 // Existing user functional component initiallization
@@ -72,7 +73,7 @@ function ExistingUser() {
 
 				if (accountDetail?.data?.customer?.user_account?.status === "closed") {
 					data.isActiveUser = false;
-					toast.error("Your account is closed to new applications. Please contact us to reapply.");
+					toast.error(globalMessages.Account_Closed_New_Apps);
 					navigate("/customers/accountOverview");
 				} else {
 					navigate("/employment-status");

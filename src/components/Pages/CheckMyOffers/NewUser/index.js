@@ -21,21 +21,21 @@ import "./NewUser.css";
 //YUP validation schema
 const validationSchema = yup.object({
 	newPassword: yup
-		.string("Enter your password")
+		.string(globalMessages.PasswordEnter)
 		.matches(/^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,30}$/, "Your password doesn't meet the criteria")
-		.max(30, "Password can be upto 30 characters length")
-		.min(8, "Password should be minimum of 8 characters length")
-		.required("Your Password is required"),
+		.max(30, globalMessages.PasswordMax)
+		.min(8, globalMessages.PasswordMin)
+		.required(globalMessages.PasswordRequired),
 	confirmPassword: yup
 		.string()
-		.required("Your password confirmation is required")
-		.max(30, "Password can be upto 30 characters length")
-		.min(8, "Password should be minimum of 8 characters length")
+		.required(globalMessages.PasswordConfirmationRequired)
+		.max(30, globalMessages.PasswordMax)
+		.min(8, globalMessages.PasswordMin)
 		.when("newPassword", {
 			is: (newPassword) => newPassword && newPassword.length > 0,
 			then: yup
 				.string()
-				.oneOf([ yup.ref("newPassword") ], "Your confirmation password must match your password"),
+				.oneOf([ yup.ref("newPassword") ], globalMessages.PasswordConfirmationMatch),
 		}),
 });
 
