@@ -39,9 +39,10 @@ export default function LoanDocument() {
   //Api call
   const { data: loanDocumentStatus, refetch } = useQuery('loan-document', () => loanDocument(location?.state?.accNo ? location?.state?.accNo : null));
   useEffect(() => {
+    if(refetch){
     refetch()
-    return null
-  }, [location]);
+    }
+  }, []);
   
   //Loan Document data from API
   let loanDocumentData = loanDocumentStatus != null ? loanDocumentStatus?.data : null;

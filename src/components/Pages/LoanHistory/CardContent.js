@@ -28,7 +28,7 @@ export default function LoanHistoryCard(historyOfLoans) {
 
   setCheckPresenceOfLoanStatus(presenceOfLoanStatus?.status);
     setCheckPresenceOfLoan(presenceOfLoan);
-  }, []);
+  }, [dataAccountOverview]);
 
   const redirectToApplyForLoan = () => {
     navigate("/customers/applyForLoan", { state: { from: "user" } });
