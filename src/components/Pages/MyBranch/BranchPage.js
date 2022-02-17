@@ -25,9 +25,37 @@ import Link from "@material-ui/core/Link";
 import BranchImage from "../../../assets/images/States.jpg";
 import { NavLink, useLocation } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles({
+  ptag: {
+    margin: "0px",
+    lineHeight: "1.5",
+    fontSize: "0.938rem",
+  },
+  addressFont: {
+    color: "#595959",
+    margin: "0px",
+    lineHeight: "1.5",
+    fontSize: "0.938rem",
+  },
+  phoneNumber: {
+    color: "#595959",
+    margin: "0px 0px 15px 0px",
+    lineHeight: "1.5",
+    fontSize: "0.938rem",
+  },
+  h4tag: {
+    margin: ".575rem 0 .46rem 0",
+    lineHeight: "1.5",
+    fontWeight: "700",
+    fontSize: "1.078rem",
+    color: "#214476",
+  },
+});
 export default function StatePage(props) {
   window.zeHide();
   //Material UI css class
+  const clessesforptag = useStyles();
   const getDirectionsClass = useStylesConsumer();
   const [getDirectionModal, setgetDirectionModal] = useState(false);
   const [getBranchList, setBranchList] = useState();
@@ -107,33 +135,7 @@ export default function StatePage(props) {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_SECKey,
   });
-  const useStyles = makeStyles({
-    ptag: {
-      margin: "0px",
-      lineHeight: "1.5",
-      fontSize: "0.938rem",
-    },
-    addressFont: {
-      color: "#595959",
-      margin: "0px",
-      lineHeight: "1.5",
-      fontSize: "0.938rem",
-    },
-    phoneNumber: {
-      color: "#595959",
-      margin: "0px 0px 15px 0px",
-      lineHeight: "1.5",
-      fontSize: "0.938rem",
-    },
-    h4tag: {
-      margin: ".575rem 0 .46rem 0",
-      lineHeight: "1.5",
-      fontWeight: "700",
-      fontSize: "1.078rem",
-      color: "#214476",
-    },
-  });
-  const clessesforptag = useStyles();
+  
   //View part
   return (
     <div>

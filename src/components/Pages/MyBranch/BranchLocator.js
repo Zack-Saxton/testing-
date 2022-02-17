@@ -26,9 +26,40 @@ import { useStylesMyBranch } from "./Style";
 import BranchImage from "../../../assets/images/States.jpg";
 import { NavLink } from "react-router-dom";
 
+const useStyles = makeStyles({
+  ptag: {
+    margin: "0px",
+    lineHeight: "1.5",
+    fontSize: "0.938rem",
+  },
+  addressFont: {
+    color: "#595959",
+    margin: "0px",
+    lineHeight: "1.5",
+    fontSize: "0.938rem",
+  },
+  phoneNumber: {
+    color: "#595959",
+    margin: "0px 0px 15px 0px",
+    lineHeight: "1.5",
+    fontSize: "0.938rem",
+  },
+  h4tag: {
+    margin: ".575rem 0 .46rem 0",
+    lineHeight: "1.5",
+    fontWeight: "700",
+    fontSize: "1.078rem",
+    color: "#214476",
+  },
+  gridPadding: {
+    padding: "0px 15px",
+  },
+  gridMargin: {
+    margin: "60px 0px 0px 0px",
+  },
+});
 export default function BranchLocator() {
   window.zeHide();
-
   //Material UI css class
   const classes = useStylesMyBranch();
   const getDirectionsClass = useStylesConsumer();
@@ -42,6 +73,7 @@ export default function BranchLocator() {
   });
   const [loading, setLoading] = useState(false);
   const [zoomDepth, setZoomDepth] = useState(10);
+  const clessesforptag = useStyles();
   //API call
   const getBranchLists = async (search_text) => {
     try {
@@ -131,39 +163,7 @@ export default function BranchLocator() {
       ErrorLogger(" Error from findBranchTimings", error);
     }
   };
-  const useStyles = makeStyles({
-    ptag: {
-      margin: "0px",
-      lineHeight: "1.5",
-      fontSize: "0.938rem",
-    },
-    addressFont: {
-      color: "#595959",
-      margin: "0px",
-      lineHeight: "1.5",
-      fontSize: "0.938rem",
-    },
-    phoneNumber: {
-      color: "#595959",
-      margin: "0px 0px 15px 0px",
-      lineHeight: "1.5",
-      fontSize: "0.938rem",
-    },
-    h4tag: {
-      margin: ".575rem 0 .46rem 0",
-      lineHeight: "1.5",
-      fontWeight: "700",
-      fontSize: "1.078rem",
-      color: "#214476",
-    },
-    gridPadding: {
-      padding: "0px 15px",
-    },
-    gridMargin: {
-      margin: "60px 0px 0px 0px",
-    },
-  });
-  const clessesforptag = useStyles();
+ 
   //View part
   return (
     <div>

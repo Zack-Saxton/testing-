@@ -25,6 +25,33 @@ import { makeStyles } from "@material-ui/core";
 import { NavLink } from "react-router-dom";
 import BranchDayTiming from "../../Controllers/BranchDayTiming";
 
+const useStyles = makeStyles({
+  ptag: {
+    margin: "0px",
+    lineHeight: "1.5",
+    fontSize: "0.938rem",
+  },
+  addressFont: {
+    color: "#595959",
+    margin: "0px",
+    lineHeight: "1.5",
+    fontSize: "0.938rem",
+  },
+  phoneNumber: {
+    color: "#595959",
+    margin: "0px 0px 15px 0px",
+    lineHeight: "1.5",
+    fontSize: "0.938rem",
+  },
+  h4tag: {
+    margin: ".575rem 0 .46rem 0",
+    lineHeight: "1.5",
+    fontWeight: "700",
+    fontSize: "1.078rem",
+    color: "#214476",
+  },
+});
+
 export default function StatePage() {
   window.zeHide();
   //Material UI css class
@@ -39,6 +66,7 @@ export default function StatePage() {
   const [zoomDepth, setZoomDepth] = useState();
   const queryParams = new URLSearchParams(window.location.search);
   const Name = queryParams.get("Name");
+  const clessesforptag = useStyles();
   //API call
   const getBranchLists = async (search_text) => {
     try {
@@ -122,33 +150,7 @@ export default function StatePage() {
     inputText1.value = Name;
     getActivePlaces();
   }, []);
-  const useStyles = makeStyles({
-    ptag: {
-      margin: "0px",
-      lineHeight: "1.5",
-      fontSize: "0.938rem",
-    },
-    addressFont: {
-      color: "#595959",
-      margin: "0px",
-      lineHeight: "1.5",
-      fontSize: "0.938rem",
-    },
-    phoneNumber: {
-      color: "#595959",
-      margin: "0px 0px 15px 0px",
-      lineHeight: "1.5",
-      fontSize: "0.938rem",
-    },
-    h4tag: {
-      margin: ".575rem 0 .46rem 0",
-      lineHeight: "1.5",
-      fontWeight: "700",
-      fontSize: "1.078rem",
-      color: "#214476",
-    },
-  });
-  const clessesforptag = useStyles();
+  
   //View part
   return (
     <div>
