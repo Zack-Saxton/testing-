@@ -1,14 +1,13 @@
 import { Box, Modal, Typography } from "@material-ui/core";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from "@material-ui/core/Grid";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import IconButton from "@material-ui/core/IconButton";
 import Paper from "@material-ui/core/Paper";
 import CloseIcon from "@material-ui/icons/Close";
 import React, { useEffect, useState } from "react";
 import NumberFormat from "react-number-format";
 import adBanner from "../../../assets/gallery/AdBanner.jpg";
-import logo from "../../../assets/images/mariner-finance.jpg";
 import MortgageBanner from "../../../assets/images/Mortgage-Banner.jpg";
 import setAccountDetails from "../../Controllers/AccountOverviewController";
 import { ButtonPrimary } from "../../FormsUI";
@@ -28,7 +27,6 @@ export default function LimitedOffer(userOfferData) {
   window.zeHide();
   // Get offers details
   let userOfferAmount = (userOfferData.userOffers != null) ? userOfferData.userOffers.offerAmount : 0;
-  const history = useHistory();
   const [initModal,setinitModal] = useState(false);
   const [offerCode,setOfferCode] = useState(" ");
   const [campaignType, setCampaignType] = useState("");
