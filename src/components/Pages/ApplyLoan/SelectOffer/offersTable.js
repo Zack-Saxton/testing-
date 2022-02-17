@@ -49,6 +49,17 @@ TabVerticalPanel.propTypes = {
 	tabValue: PropTypes.any.isRequired,
 };
 
+const HtmlTooltip = withStyles((theme) => ({
+	tooltip: {
+	  backgroundColor: '#f5f5f9',
+	  color: 'rgba(0, 0, 0, 0.87)',
+	  maxWidth: 500,
+	  fontSize: theme.typography.pxToRem(14),
+	  border: '1px solid #dadde9',
+	  fontFamily: "Muli, sans-serif"
+	},
+}))(Tooltip);
+
 export default function OfferTable(props) {
 	const [ termDataMax, setTermDataMax ] = useState();
 	const [ selectData, setSelectData ] = useState([]);
@@ -74,17 +85,7 @@ export default function OfferTable(props) {
 		const newRecord = [ ...selectData ];
 		newRecord.push(selectedOffer);
 		setSelectData(newRecord);
-	};
-	const HtmlTooltip = withStyles((theme) => ({
-		tooltip: {
-		  backgroundColor: '#f5f5f9',
-		  color: 'rgba(0, 0, 0, 0.87)',
-		  maxWidth: 500,
-		  fontSize: theme.typography.pxToRem(14),
-		  border: '1px solid #dadde9',
-		  fontFamily: "Muli, sans-serif"
-		},
-	}))(Tooltip);
+	};	
 	// Select the offers to compare : will push the selected offer value into array
 	const selectOfferToCompare = (row) => {
 		offersComp = props.offersToCompare;
