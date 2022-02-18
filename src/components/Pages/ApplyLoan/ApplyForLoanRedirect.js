@@ -77,6 +77,8 @@ const ApplyForLoanRedirect = (props) => {
 	};
 	useEffect(() => {
 		redirect();
+		return null
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	//View part
