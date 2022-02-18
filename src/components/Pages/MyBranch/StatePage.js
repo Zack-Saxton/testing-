@@ -51,6 +51,9 @@ const useStyles = makeStyles({
     fontSize: "1.078rem",
     color: "#214476",
   },
+  gridMargin: {
+    padding:"0px 30px"
+  },
 });
 
 export default function StatePage() {
@@ -196,7 +199,7 @@ export default function StatePage() {
                 Personal Loans In {Name}
               </Link>
             </Breadcrumbs>
-            <Grid id="findBranchWrapTwo" className={classes.blueBackground}>
+            <Grid id="findBranchWrapTwo" >
               <h4 className={classes.headigText}>Find a Branch in {Name}</h4>
               <Grid id="findBranchGrid">
                 <SearchIcon className="searchIcon" style={{ color: "white" }} />
@@ -268,7 +271,7 @@ export default function StatePage() {
                 id="branchLists"
                 style={{ width: "100%", height: "542px", overflowY: "scroll" }}
               >
-                <Grid className="addressList" style={{ padding: "1% 4% 1% 4%" }}>
+                <Grid className="addressList" >
                   {getBranchList ? (
                     getBranchList.map((item, index) => {
                       return (
@@ -400,7 +403,7 @@ export default function StatePage() {
               Get Driving Directions To Nearest Location
             </ButtonPrimary>
             </Grid>
-            <Grid item md={6} className={classes.blueBackground}>
+            <Grid id="searchBoxBottom" item md={6}>
               <Grid id="findBranchGrid">
                 <p className="zipLabel">
                   Can't find it? Try searching another{" "}

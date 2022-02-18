@@ -224,8 +224,9 @@ export default function StatePage(props) {
                   <br />
                   <a
                     href={"tel:+1" + Branch_Details?.PhoneNumber}
-                    className="blueText"
+                    className="branchPhoneNumber"
                   >
+                    <PhoneIcon/>
                     {Branch_Details?.PhoneNumber}
                   </a>
                 </span>
