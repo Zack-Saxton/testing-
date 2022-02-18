@@ -2,7 +2,7 @@ import { Grid } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import React from "react";
 import { NavLink } from "react-router-dom";
-import badge from "../../../assets/images/badge.png";
+import badge from "../../../assets/images/FeefoRatting.png";
 import Logo from "../../../assets/images/mf-logo.png";
 import housingImage from "../../../assets/images/equal_Housing_Lender.png";
 import ConsumerDialog from "../ConsumerFooterDialog/ConsumerDialog";

@@ -11,6 +11,8 @@ import MarriedStatusLogo from "../../../../assets/icon/married-status.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import ZipCodeLookup from "../../../Controllers/ZipCodeLookup";
 import { ButtonPrimary, Select, TextField, Zipcode } from "../../../FormsUI";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle"
+import { makeStyles } from "@material-ui/core/styles";
 import ErrorLogger from "../../../lib/ErrorLogger";
 import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
@@ -67,12 +69,37 @@ const validationSchema = yup.object({
 		}),
 });
 
+const useStyles = makeStyles((Theme) =>({
+	
+	typoStyle:{
+		align: "center",
+		justify: "center",
+		alignItems: "center",
+		marginBottom: "1%",
+		marginTop: "1%",
+	},
+	negativeMargin: {
+		marginTop: "-4%" 
+	},
+	paperStyle:{
+		justify: "center",
+		alignItems: "center",
+		width: "inherit",
+		marginBottom: "10%",
+		marginTop: "10%",
+		textAlign: "center"
+	}
+})
+);
+
 // custom component - MarriedStatus
 function MarriedStatus() {
 	const { data, setData } = useContext(CheckMyOffers);
 	const [ stateShort, setStateShort ] = useState("");
 	const [ validZip, setValidZip ] = useState(true);
 	const navigate = useNavigate();
+	const classes = preLoginStyle();
+	const innerClasses = useStyles();
 	useEffect(() => {
 		//redirect to select amount if page accessed directly
 		if (data.completedPage < data.page.livingPlace || data.formStatus === "completed") {
@@ -144,7 +171,7 @@ function MarriedStatus() {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className="mainDiv">
+			<div className={classes.mainDiv}>
 				<Box>
 					<Grid
 						item
@@ -167,14 +194,7 @@ function MarriedStatus() {
 						>
 							<Paper
 								id="maritalStatusWrap"
-								className="cardWOPadding"
-								style={ {
-									justify: "center",
-									alignItems: "center",
-									width: "inherit",
-									marginBottom: "10%",
-									marginTop: "10%",
-								} }
+								className={innerClasses.paperStyle}
 							>
 								<div className="progress mt-0">
 									<div
@@ -190,7 +210,7 @@ function MarriedStatus() {
 										</i>
 									</Link>
 								</Grid>
-								<Grid style={ { marginTop: "-4%" } }>
+								<Grid className={innerClasses.negativeMargin}>
 									<img
 										alt="marriedlogo"
 										src={ MarriedStatusLogo }
@@ -200,12 +220,7 @@ function MarriedStatus() {
 
 								<Typography
 									variant="h5"
-									style={ {
-										align: "center",
-										justify: "center",
-										alignItems: "center",
-									} }
-									className="borrowCSS"
+									className={innerClasses.typoStyle}
 								>
 									Are you married?*
 								</Typography>

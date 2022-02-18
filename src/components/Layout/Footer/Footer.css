@@ -37,9 +37,7 @@
     cursor: pointer;
 
    }
-   #mfInfoImgOne{
-     width: 100%;
-   }
+  
    .footerPadding{
      padding: 0px 15px;
    }
@@ -49,18 +47,34 @@
    #mfInfo{
      align-items: center;
    }
+
+   .bottomBar{
+     height: 50px;
+    box-shadow: 0 6px 20px 0 rgba(41, 121, 255, .5) !important;
+    background: linear-gradient(85deg, #264266, #0F4EB3) !important;
+    display: flex;
+    align-items: center;
+   }
+
+   .footer-copyright{
+     padding: 10px 0px;
+     color: #fffc !important;
+     font-size: 0.938rem;
+   }
+   .footerHomeLink{
+     text-decoration: none;
+     color: #fff;
+   }
+   .footerText{
+    padding: 0 20px;
+   }
    @media all and (max-width: 700px){
-    #mfInfoImgOne{
-      width: unset;
-    }
+   
     #mfInfo{
       flex-direction: column;
       align-items: center;
     }
-    #mfInfoImg{
-      width: 50% !important;
-      height: auto !important;
-    }
+    
    .section-top{
        flex-direction: column;
    }
