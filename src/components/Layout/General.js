@@ -7,6 +7,7 @@ const General = ({ children }) => {
 
     return (
         <div id="BG">
+            <div className='topBar'></div>
             <Header />
             { children }
             <Footer />

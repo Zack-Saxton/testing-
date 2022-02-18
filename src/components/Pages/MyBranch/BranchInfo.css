@@ -47,6 +47,14 @@
   margin: 0px 0px 23px 0px;
   position: relative;
 }
+#findBranchGridBottom {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 5px 0px;
+  margin: 0px 0px 23px 0px;
+  position: relative;
+}
 .zipLabel {
   position: absolute;
   top: -30px;
@@ -56,12 +64,17 @@
 .searchIconBottom {
   color: #595959 !important;
   position: absolute;
-  top: 7px;
+  top: 10px;
   font-size: 26px !important;
-  left: -20px;
+  left: -4px;
 }
 #findBranchGrid .branchLocatorInput .MuiInput-underline:before,
 #findBranchGrid .branchLocatorInput .MuiInput-underline:after {
+  border-bottom: 2px solid white !important;
+  border-bottom-color: #3f51b5 !important;
+}
+#findBranchGridBottom .branchLocatorInput .MuiInput-underline:before,
+#findBranchGridBottom .branchLocatorInput .MuiInput-underline:after {
   border-bottom: 2px solid white !important;
   border-bottom-color: #3f51b5 !important;
 }
@@ -70,7 +83,7 @@
   position: absolute;
   top: 20px;
   font-size: 26px !important;
-  left: -20px;
+  left: -4px;
 }
 .goIcon {
   font-size: 20px !important;
@@ -78,11 +91,16 @@
 .branchLocatorInput {
   width: 100% !important;
 }
+.branchLocatorInput .MuiInput-underline {
+  padding-left: 26px;
+  padding-bottom: 7px;
+}
 .findBranchWrap {
   padding: 0px 15px 0px 15px;
 }
 #findBranchWrapTwo {
   margin-top: 4%;
+  padding: 0 !important;
 }
 .locationInfo {
   margin-bottom: 2% !important;
@@ -280,17 +298,40 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
 .branchImage img {
   width: 70%;
 }
+#inputText1-label{
+  padding-left: 36px;
+}
+.mobileImage{
+  display: none;
+}
+ 
 @media (max-width: 1400px) {
   .branchImage img {
     width: 100%;
   }
 }
 @media (max-width: 960px) {
+  .mobileImage{
+    display: block;
+  }
+    .webImage{
+      display: none;
+  }
   .findBranchWrap {
     padding-top: 40px;
   }
   .findBranchWrapTwo {
     padding-top: 40px;
+  }
+  #getDirectionWrap{
+    justify-content: center;
+  }
+  #getDirectionButton{
+    width: 100%;
+  }
+  #getDirectionSearch{
+    width: 100%;
+    margin-top: 50px;
   }
 }
 @media (max-width: 599px) {

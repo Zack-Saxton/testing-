@@ -26,17 +26,12 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: "normal",
   },
   logoFormat: {
-    height: 60,
+    height: 62,
     cursor: "pointer",
-    "&:hover": {
-      background: "#C7D1D5"
-    },
   },
   subtitle: {
-    float: "right!important",
-    padding: 15,
     color: "#171717",
-    fontSize: "0.938rem",
+    fontSize: "1rem",
   },
   navLink: {
     textDecoration: 'none',

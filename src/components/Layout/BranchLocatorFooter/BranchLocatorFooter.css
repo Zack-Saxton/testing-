@@ -1,0 +1,56 @@
+.section-top-normal-footer {
+  padding: 20px 70px 0px 70px !important;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 20px 0;
+}
+.section-bottom {
+  background: linear-gradient(85deg, #264266, #0f4eb3) !important;
+  text-align: left;
+  padding: 15px 70px;
+}
+.leftAlignAddress {
+  font-size: 15px;
+  line-height: 1.5;
+  text-align: center;
+}
+.hrefTag {
+  text-decoration: none;
+  color: #4d4d4d;
+  cursor: pointer;
+}
+.paragraph {
+  padding: "20px 70px 0px 70px";
+}
+
+.paragraph p {
+  text-align: justify;
+}
+.leftAlignAddress {
+  font-size: 15px;
+  line-height: 1.5;
+}
+.title {
+  font-weight: bolder;
+}
+.paragraph {
+  padding: "20px 70px 0px 70px";
+}
+@media all and (max-width: 1024px) {
+  .section-top-normal-footer,
+  .paragraph,
+  .section-bottom {
+    padding: 20px 40px !important;
+  }
+}
+@media all and (max-width: 1024px) {
+  .section-top-normal-footer,
+  .paragraph {
+    padding: 20px 40px !important;
+  }
+}
+@media all and (max-width: 700px) {
+  .row {
+    display: unset !important;
+  }
+}

@@ -142,7 +142,6 @@ const useStyles = makeStyles((theme) => ({
     color: "inherit",
   },
   headerAlign: {
-    margin: "12px",
   },
 
   branchLocator: {
@@ -151,8 +150,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   headerimg: {
-    width: "40px",
-    marginBottom: "-20px",
   },
   headerimgResp: {
     "@media (max-width: 700px)": {
@@ -486,7 +483,7 @@ export default function SideNav() {
   return (
     <ClickAwayListener onClickAway={ handleClickAway }>
 
-      <div className={ classes.grow }>
+      <div id="headerWrap" className={ classes.grow }>
         <AppBar
         id="MainHeaderWrapping"
           position="static"
@@ -511,7 +508,7 @@ export default function SideNav() {
             <div
               id="tool-bar-list"
             >
-              <Typography className={ classes.headerAlign }>
+              <Typography id="blogsLink" className={ classes.headerAlign }>
                 <a
                   href="https://www.marinerfinance.com/blog"
                   className="hrefTag"
@@ -522,16 +519,16 @@ export default function SideNav() {
 
               <NavLink
                 to="/customers/faq"
-                className="nav_link"
+                className="nav_link faqLink"
               >
                 <Typography className={ classes.headerAlign }>FAQ</Typography>
               </NavLink>
 
-              <NavLink to="/branch/branchlocator" className="nav_link">
+              <NavLink to="/branchlocator" className="nav_link branchLocatorLink">
                 <Typography className={ classes.headerAlign }>Branch Locator</Typography>
               </NavLink>
 
-              <NavLink to="/customers/makePayment" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : '' }>
+              <NavLink id="quickNameIcon" to="/customers/makePayment" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : '' }>
                 <Tooltip title="Quick Pay" placement="bottom">
                   <img
                     className={ clsx(classes.headerimg, classes.headerimgResp) }
@@ -673,7 +670,7 @@ export default function SideNav() {
                 </NavLink>
 
                 { checkPresenceOfLoan === true ?
-                  <NavLink to="#" state={ { from: "user" } } onClick={ (event) => { resumeApplicationClick(); } } className="nav_link" >
+                  <NavLink to={ applicationStatusRedirectPage[ checkPresenceOfLoanStatus ] } state={ { from: "user" } } className="nav_link" >
                     <ListItem className="titleSidenav" >
                       <ListItemIcon>
                         { " " }

@@ -34,6 +34,7 @@ import cheque from "../../../assets/images/cheque.jpg";
 import { AddACHPaymentAPI } from "../../../components/Controllers/ACHDebitController";
 import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
+import globalMessages from "../../../assets/data/globalMessages.json";
 import {
     addCreditCard, deleteBankAccount,
     deleteCreditCard, getPaymentMethods, setDefaultPayment
@@ -51,60 +52,66 @@ import "./Style.css";
 //Yup validations for Add Bank Account
 const validationSchemaDebitCard = yup.object({
     cardNumber: yup
-        .string("Card Number is required.")
-        .required("Card Number is required.")
-        .min(13, "Card Number should be 13 digits.")
-        .matches(/^5[1-5]\d{14}|^4\d{12}(?:\d{3})?$/g, "We only accept Visa or Master card"),
+        .string(globalMessages.Card_Number_Required)
+        .required(globalMessages.Card_Number_Required)
+        .min(13, globalMessages.Card_Min_Number)
+        .matches(/^5[1-5]\d{14}|^4\d{12}(?:\d{3})?$/g, globalMessages.Valid_Card),
     cardName: yup
-        .string("Cardholder Name is required.")
-        .required("Cardholder Name is required."),
+        .string(globalMessages.Card_Holder_Name_Required)
+        .required(globalMessages.Card_Holder_Name_Required),
     streetAddress: yup
-        .string("Enter street address")
-        .required("Street Address is required."),
-    city: yup.string("Enter city").required("City is required."),
-    state: yup.string("Enter state").required("State is required."),
+        .string(globalMessages.Street_Address)
+        .required(globalMessages.Street_Address_Required),
+    city: yup
+        .string(globalMessages.Enter_City)
+        .required(globalMessages.City_Required),
+    state: yup
+        .string(globalMessages.Enter_State)
+        .required(globalMessages.State_Required),
     zipcode: yup
-        .string("Enter zipcode")
-        .required("Zipcode is required")
-        .min(5, "Zipcode is required"),
+        .string(globalMessages.Enter_Zipcode)
+        .required(globalMessages.Zipcode_Required)
+        .min(5, globalMessages.Zipcode_Required),
     cvv: yup
-        .string("Enter CVV")
-        .required("CVV is required")
-        .min(3, "CVV is required."),
+        .string(globalMessages.Enter_CVV)
+        .required(globalMessages.CVV_Required)
+        .min(3, globalMessages.CVV_Required),
     expiryDate: yup
-        .date("Please enter a valid date")
+        .date(globalMessages.Card_Valid_Date)
         .nullable()
-        .required("Expiration Date is required")
-        .typeError("Enter a valid date (format : MM/YY)")
+        .required(globalMessages.Card_Expiry_Date_Required)
+        .typeError(globalMessages.Valid_Expiry_Date)
         .min(
             new Date(new Date().getFullYear(), new Date().getMonth()),
-            "Your debit card has expired"
+            globalMessages.Expired_Card
         ),
 });
 
 const validationSchemaAddBank = yup.object({
     accountNickname: yup
-        .string("Enter  Account Nickname")
-        .max(30, "Account Nickname can be up to 30 characters length.")
-        .min(2, "Account Nickname should be a minimum of 2 letters.")
-        .required("Account Nickname is required."),
+        .string(globalMessages.Account_Nick_Name)
+        .max(30, globalMessages.Account_Nick_Name_Max)
+        .min(2, globalMessages.Account_Nick_Name_Min)
+        .required(globalMessages.Nick_Name_Required),        
     accountHolder: yup
-        .string("Enter Account Holder Name")
-        .max(30, "Account Holder Name can be up to 30 characters in length.")
-        .min(2, "Account Holder Name should be a minimum of 2 letters.")
-        .required("Account Holder Name is required."),
+        .string(globalMessages.Account_Holder_Name)
+        .max(30, globalMessages.Account_Holder_Name_Max)
+        .min(2, globalMessages.Account_Holder_Name_Min)
+        .required(globalMessages.Account_Holder_Name_Required),        
     bankRoutingNumber: yup
-        .string("Enter Bank Routing Number")
-        .required("Bank Routing Number is required.")
-        .min(9, "Bank Routing number should be 9 digits."),
+        .string(globalMessages.Enter_Routing_No)
+        .required(globalMessages.Routing_No_Required)
+        .min(9, globalMessages.validBankRoutingNumber),        
     bankName: yup
-        .string("Enter Bank Name")
-        .max(50, "Account Holder Name can be up to 50 characters in length.")
-        .min(3, "Bank Name should be minimum of 3 letters.")
-        .required("Bank Name is required."),
+        .string(globalMessages.Bank_Name)
+        .max(50, globalMessages.Bank_Name_Max)
+        .min(3, globalMessages.Bank_Name_Min)
+        .required(globalMessages.Bank_Name_Required),        
     bankAccountNumber: yup
-        .string("Enter Bank Account Number")
-        .required("Bank Account Number is required.")
+        .string(globalMessages.Enter_Account_No)
+        .required(globalMessages.Accoun_No_Required)
+        .min(4, globalMessages.validAccountNumber)
+        .max(17, globalMessages.validAccountNumber)        
 });
 
 export default function PaymentMethod() {
@@ -207,12 +214,18 @@ export default function PaymentMethod() {
             formikAddDebitCard.handleChange(event);
         }
     };
-
+    const getAddressOnChange = (event) => {
+        const pattern = /^[0-9\b]+$/;
+        let zipCode = event.target.value;
+        if (zipCode === "" || pattern.test(zipCode)) {
+            fetchAddress(event);
+        }
+    }
     const fetchAddress = async (event) => {
         formikAddDebitCard.handleChange(event);
         try {
             let isValidZip = false;
-            setValidZip(false);
+            setValidZip(true);
             if (event.target.value !== "" && event.target.value.length === 5) {
                 let result = await ZipCodeLookup(event.target.value);
                 if (result?.status === 200 && result?.data?.cityName) {
@@ -223,6 +236,7 @@ export default function PaymentMethod() {
                 }
             }
             if (!isValidZip) {
+                setValidZip(false)
                 formikAddDebitCard.setFieldValue("city", "");
                 formikAddDebitCard.setFieldValue("state", "");
             }
@@ -292,10 +306,9 @@ export default function PaymentMethod() {
     }
 
     const addDebitOnChangeNumber = (event) => {
-        const reg = /^[0-9\b]+$/;
+        const pattern = /^[0-9\b]+$/;
         let cardNumber = event.target.value;
-
-        if (cardNumber === "" || reg.test(cardNumber)) {
+        if (cardNumber === "" || pattern.test(cardNumber)) {
             formikAddDebitCard.handleChange(event);
         }
     };
@@ -789,7 +802,7 @@ export default function PaymentMethod() {
                                 disabled={ editMode }
                                 placeholder="Enter your Account Nickname "
                                 materialProps={ { maxLength: "30" } }
-                                onChange={ (e) => addBankOnChange(e) }
+                                onChange={ (event) => addBankOnChange(event) }
                                 value={ formikAddBankAccount.values.accountNickname }
                                 onBlur={ formikAddBankAccount.handleBlur }
                                 error={
@@ -817,7 +830,7 @@ export default function PaymentMethod() {
                                 placeholder="Enter the Account Holder Name"
                                 materialProps={ { maxLength: "30" } }
                                 value={ formikAddBankAccount.values.accountHolder }
-                                onChange={ (e) => addBankOnChange(e) }
+                                onChange={ (event) => addBankOnChange(event) }
                                 onBlur={ formikAddBankAccount.handleBlur }
                                 error={
                                     formikAddBankAccount.touched.accountHolder &&
@@ -907,7 +920,7 @@ export default function PaymentMethod() {
                                         formikAddBankAccount.handleBlur(event);
                                     }
                                 } }
-                                onChange={ (e) => addBankOnChangeNumber(e) }
+                                onChange={ (event) => addBankOnChangeNumber(event) }
                                 error={
                                     (formikAddBankAccount.touched.bankRoutingNumber &&
                                         Boolean(formikAddBankAccount.errors.bankRoutingNumber)) ||
@@ -940,7 +953,7 @@ export default function PaymentMethod() {
                                 materialProps={ { maxLength: "100" } }
                                 value={ formikAddBankAccount.values.bankName }
                                 onBlur={ formikAddBankAccount.handleBlur }
-                                onChange={ (e) => addBankOnChange(e) }
+                                onChange={ (event) => addBankOnChange(event) }
                                 error={
                                     formikAddBankAccount.touched.bankName &&
                                     Boolean(formikAddBankAccount.errors.bankName)
@@ -968,7 +981,7 @@ export default function PaymentMethod() {
                                 materialProps={ { maxLength: "16" } }
                                 onKeyDown={ preventSpace }
                                 value={ formikAddBankAccount.values.bankAccountNumber }
-                                onChange={ (e) => addBankOnChangeNumber(e) }
+                                onChange={ (event) => addBankOnChangeNumber(event) }
                                 onBlur={ formikAddBankAccount.handleBlur }
                                 error={
                                     formikAddBankAccount.touched.bankAccountNumber &&
@@ -1080,7 +1093,8 @@ export default function PaymentMethod() {
                                         ) {
                                             toast.error(resBankData?.data?.error);
                                         } else if (resBankData?.data?.type === "error") {
-                                            toast.error(resBankData?.data?.text);
+                                            let errorText = resBankData?.data?.text ? resBankData?.data?.text : resBankData?.data?.error;
+                                            toast.error(errorText);
                                         } else {
                                             if (!toast.isActive("closeToast")) {
                                                 toast.error("Adding bank account failed, please try again.");
@@ -1176,7 +1190,7 @@ export default function PaymentMethod() {
                                 disabled={ editMode }
                                 onKeyDown={ preventSpace }
                                 value={ formikAddDebitCard.values.cardNumber }
-                                onChange={ (e) => addDebitOnChangeNumber(e) }
+                                onChange={ (event) => addDebitOnChangeNumber(event) }
                                 // onBlur={formikAddDebitCard.handleBlur}
                                 onBlur={ (event) => {
                                     detectCardType(event, event.target.value);
@@ -1226,7 +1240,7 @@ export default function PaymentMethod() {
                                 materialProps={ { maxLength: "30" } }
                                 disabled={ editMode }
                                 value={ formikAddDebitCard.values.cardName }
-                                onChange={ (e) => addDebitOnChange(e) }
+                                onChange={ (event) => addDebitOnChange(event) }
                                 onBlur={ formikAddDebitCard.handleBlur }
                                 error={
                                     formikAddDebitCard.touched.cardName &&
@@ -1288,7 +1302,7 @@ export default function PaymentMethod() {
                                 disabled={ editMode }
                                 materialProps={ { maxLength: "3" } }
                                 value={ formikAddDebitCard.values.cvv }
-                                onChange={ (e) => addDebitOnChangeNumber(e) }
+                                onChange={ (event) => addDebitOnChangeNumber(event) }
                                 onBlur={ formikAddDebitCard.handleBlur }
                                 error={
                                     formikAddDebitCard.touched.cvv &&
@@ -1381,13 +1395,7 @@ export default function PaymentMethod() {
                                 materialProps={ { maxLength: "5" } }
                                 disabled={ sameAsMailAddress }
                                 value={ formikAddDebitCard.values.zipcode }
-                                onChange={ (event) => {
-                                    const reg = /^[0-9\b]+$/;
-                                    let acc = event.target.value;
-                                    if (acc === "" || reg.test(acc)) {
-                                        fetchAddress(event);
-                                    }
-                                } }
+                                onChange={ (event) => getAddressOnChange(event) }
                                 onBlur={ formikAddDebitCard.handleBlur }
                                 error={
                                     (formikAddDebitCard.touched.zipcode &&
@@ -1419,7 +1427,7 @@ export default function PaymentMethod() {
                                 disabled
                                 materialProps={ { maxLength: "30" } }
                                 value={ formikAddDebitCard.values.city }
-                                onChange={ (e) => addDebitOnChange(e) }
+                                onChange={ (event) => addDebitOnChange(event) }
                                 onBlur={ formikAddDebitCard.handleBlur }
                                 error={
                                     formikAddDebitCard.touched.city &&
@@ -1448,7 +1456,7 @@ export default function PaymentMethod() {
                                 materialProps={ { maxLength: "30" } }
                                 value={ formikAddDebitCard.values.state }
                                 disabled
-                                onChange={ (e) => addDebitOnChange(e) }
+                                onChange={ (event) => addDebitOnChange(event) }
                                 onBlur={ formikAddDebitCard.handleBlur }
                                 error={
                                     formikAddDebitCard.touched.state &&
