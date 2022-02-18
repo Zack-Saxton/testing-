@@ -7,8 +7,9 @@ import Typography from "@material-ui/core/Typography";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import Logo from "../../../assets/images/MarinerLogo.png";
+import Logo from "../../../assets/images/mf-logo.png";
 import { useStyles } from "./NormalHeaderStyle";
+import "../Layout.css"
 
 const NormalHeader = () => {
   const classes = useStyles();
@@ -39,49 +40,49 @@ const NormalHeader = () => {
       onClose={ handleMobileMenuClose }
     >
       <MenuItem>
-        <Typography className={ classes.headerAlign }>
+        <Typography id="blogsLink" className={ classes.headerAlign }>
           <a href="https://www.marinerfinance.com/blog" className="hrefTag">
-            Blog
+            Blogs
           </a>
         </Typography>
       </MenuItem>
-      <MenuItem>
-        <NavLink to="/faq" className="nav_link">
+      <MenuItem className="faqLink">
+        <NavLink to="/faq" className="nav_link ">
           <Typography className={ classes.headerAlign }>FAQ</Typography>
         </NavLink>
       </MenuItem>
-      <MenuItem>
-        <NavLink to="/branch/branchlocator" className="nav_link">
-          <Typography className={ classes.headerAlign }>Branch Locator</Typography>
+      <MenuItem className="branchLocatorLink">
+        <NavLink to="/branchlocator" className="nav_link">
+          <Typography className={classes.headerAlign}>Branch Locator</Typography>
         </NavLink>
       </MenuItem>
     </Menu>
   );
 
   const redirectToAccountOverview = () => {
-    navigate("/customers/accountOverview");
+    navigate("/customers/accountOverview" );
   };
 
   //View Part
   return (
-    <div className={ classes.grow }>
+    <div id="headerWrap" className={ classes.grow }>
       <AppBar id="MainHeaderWrap" position="static">
-        <Toolbar className={ classes.toolbar }>
+        <Toolbar className="headerToolBar">
           <Typography onClick={ redirectToAccountOverview } className={ classes.title }>
-            <img className={ classes.logoFormat } src={ Logo } alt="MF logo" />
+            <img style={{marginTop:"6px"}} className={ classes.logoFormat } src={ Logo } alt="MF logo" />
           </Typography>
           <div className={ classes.grow } />
           <div className={ classes.sectionDesktop }>
-            <Typography className={ classes.subtitle }>
+            <Typography id="blogsLink" className={ classes.subtitle }>
               <a href="https://www.marinerfinance.com/blog" className="hrefTag">
                 Blogs
               </a>
             </Typography>
-            <NavLink to="/faq" style={ { textDecoration: "none" } }>
-              <Typography className={ classes.subtitle }>FAQ</Typography>
+            <NavLink className="faqLink" to="/faq" style={ { textDecoration: "none" } }>
+              <Typography className={ classes.subtitle }>FAQ's</Typography>
             </NavLink>
-            <NavLink to="/branch/branchlocator" className="nav_link">
-              <Typography className={ classes.subtitle }>Branch Locator</Typography>
+            <NavLink to="/branchlocator" className="nav_link branchLocatorLink">
+              <Typography className={classes.subtitle}>Branch Locator</Typography>
             </NavLink>
           </div>
           <div className={ classes.sectionMobile }>

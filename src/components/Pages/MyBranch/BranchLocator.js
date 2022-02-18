@@ -23,7 +23,8 @@ import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import Link from "@material-ui/core/Link";
 import { useStylesMyBranch } from "./Style";
-import BranchImage from "../../../assets/images/States.jpg";
+import BranchImageWeb from "../../../assets/images/BranchLocatorWeb.png";
+import BranchImageMobile from "../../../assets/images/BranchLocatorMobile.png";
 import { NavLink } from "react-router-dom";
 
 const useStyles = makeStyles({
@@ -145,7 +146,7 @@ export default function BranchLocator() {
   };
   const MFButtonClick = async (event) => {
     apiGetBranchList(event.target.innerText);
-    window.open(`/branch/StatePage/?Name=${event.target.innerText}`, "_self");
+    window.open(`/StatePage/?Name=${event.target.innerText}`, "_self");
   };
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_SECKey,
@@ -176,7 +177,8 @@ export default function BranchLocator() {
       >
         <Grid container style={{ backgroundColor: "#afdfed", width: "100%" }}>
           <Grid className="branchImage" item md={6} sm={12} xs={12}>
-            <img src={BranchImage} alt="MF logo" />
+            <img className="mobileImage" src={BranchImageMobile} alt="MF Banner" />
+          <img className="webImage" src={BranchImageWeb} alt="MF Banner" />
           </Grid>
 
           <Grid style={{ padding: "2% 4%" }} item md={6} sm={12} xs={12}>
@@ -193,6 +195,25 @@ export default function BranchLocator() {
               </Link>
               <Link className="breadcrumbLink">Branch Locator</Link>
             </Breadcrumbs>
+            <Grid id="findBranchWrapTwo" className={classes.blueBackground}>
+              <h4 className={classes.headigText}>Find a Branch Near You!</h4>
+              <Grid id="findBranchGrid">
+                <SearchIcon className="searchIcon" style={{ color: "white" }} />
+                <TextField
+                  name="Enter City or State"
+                  className="branchLocatorInput"
+                  style={{ color: "white!important" }}
+                  id="inputText1"
+                  label="Enter city & state or zip code"
+                />
+                <ButtonPrimary
+                  onClick={getActivePlaces}
+                  stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "padding":"0px 30px"}'
+                >
+                  <ArrowForwardIcon className="goIcon" />
+                </ButtonPrimary>
+              </Grid>
+            </Grid>
             <h4 className="branchLocatorHeadingMain">
               <b>Get one on one support</b>
               <br />
@@ -219,25 +240,7 @@ export default function BranchLocator() {
               </span>
             </Typography>
 
-            <Grid id="findBranchWrapTwo" className={classes.blueBackground}>
-              <h4 className={classes.headigText}>Find a Branch Near You!</h4>
-              <Grid id="findBranchGrid">
-                <SearchIcon className="searchIcon" style={{ color: "white" }} />
-                <TextField
-                  name="Enter City or State"
-                  className="branchLocatorInput"
-                  style={{ color: "white!important" }}
-                  id="inputText1"
-                  label="Enter city & state or zip code"
-                />
-                <ButtonPrimary
-                  onClick={getActivePlaces}
-                  stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "padding":"0px 30px"}'
-                >
-                  <ArrowForwardIcon className="goIcon" />
-                </ButtonPrimary>
-              </Grid>
-            </Grid>
+          
           </Grid>
         </Grid>
         <Grid
@@ -274,7 +277,7 @@ export default function BranchLocator() {
                       return (
                         <Grid key={index} item md={4} className="locationInfo">
                           <NavLink
-                            to={`/branch/branchpage/?BranchName=${item?.BranchName}`}
+                            to={`/branchpage/?BranchName=${item?.BranchName}`}
                             state={{ Branch_Details: item }}
                             className="nav_link"
                           >
@@ -379,8 +382,8 @@ export default function BranchLocator() {
               </Grid>
             )}
           </Grid>
-          <Grid className={clessesforptag.gridMargin} container>
-            <Grid className={clessesforptag.gridPadding} item md={6}>
+          <Grid id="getDirectionWrap" className={clessesforptag.gridMargin} container>
+            <Grid id="getDirectionButton" className={clessesforptag.gridPadding} item md={6}>
               <ButtonPrimary
                 href={getBranchAddress}
                 id="Continue"
@@ -399,8 +402,8 @@ export default function BranchLocator() {
                 Get Driving Directions To Nearest Location
               </ButtonPrimary>
             </Grid>
-            <Grid item md={6} className={classes.blueBackground}>
-              <Grid id="findBranchGrid">
+            <Grid id="getDirectionSearch" item md={6} className={classes.blueBackground}>
+              <Grid id="findBranchGridBottom">
                 <p className="zipLabel">
                   Can't find it? Try searching another{" "}
                 </p>
