@@ -8,7 +8,7 @@
   "Account_Nick_Name_Max":"Account Nickname can be up to 30 characters length.",
   "Account_Nick_Name_Min":"Account Nickname should be a minimum of 2 letters.",
   "Account_Number": "AccountNumber",
-  "Accoun_No_Required":"Bank Account Number is required."
+  "Accoun_No_Required":"Bank Account Number is required.",
   "Active_DutyRequired":"Active duty required",
   "Active_Duty_Rank_Required": "Active duty rank is required",
   "Address_City":"Enter City",
@@ -40,7 +40,7 @@
   "Card_Valid_Date":"Please enter a valid date",
   "CitizenshipEnter": "Enter citizenship",
   "CitizenshipMax": "Citizenship should be less than 30 characters",
-  "CitizenshipRequired": "Your citizenship is required",  
+  "CitizenshipRequired": "Your citizenship is required",
   "City_Required":"City is required.",
   "CVV_Required":"CVV is required",
   "EmailEnter": "Enter your email",
@@ -107,10 +107,10 @@
   "PhoneEnter": "Please enter a phone number",
   "PhoneMin": "You phone number must be at least 10 numbers",
   "PhoneRequired": "Your phone number is required",
-  "PhoneValid": "Please enter a valid phone number",  
+  "PhoneValid": "Please enter a valid phone number",
   "PhoneType": "Select Phone Type",
   "PhoneTypeMax": "Phone type should be less than 30 characters",
-  "PhoneTypeRequired": "Your Phone Type is required",  
+  "PhoneTypeRequired": "Your Phone Type is required",
   "Please_Contact_Us_At": "Please contact us at (844) 306-7300",
   "Please_Select_A_Document_Type": "Please Select a Document Type",
   "Please_Select_File_Upload": "Please Select a file to upload",
@@ -153,5 +153,5 @@
   "ZipCodeValid": "Enter a valid Zip Code",
   "ZipCodeMax": "Zip Code should be 5 characters in length",
   "ZipCodeRequired": "Your home Zip Code is required",
-  "Zipcode_Required":"Zipcode is required" 
+  "Zipcode_Required":"Zipcode is required"
 }
