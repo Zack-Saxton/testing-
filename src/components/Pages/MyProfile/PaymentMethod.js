@@ -1092,7 +1092,8 @@ export default function PaymentMethod() {
                                         ) {
                                             toast.error(resBankData?.data?.error);
                                         } else if (resBankData?.data?.type === "error") {
-                                            toast.error(resBankData?.data?.text);
+                                            let errorText = resBankData?.data?.text ? resBankData?.data?.text : resBankData?.data?.error;
+                                            toast.error(errorText);
                                         } else {
                                             if (!toast.isActive("closeToast")) {
                                                 toast.error("Adding bank account failed, please try again.");
