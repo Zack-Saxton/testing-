@@ -49,3 +49,16 @@
   font-size: 1.563rem;
   margin-bottom: 20px;
 }
+
+.cardLoanHistory{
+  padding: 10px;
+}
+
+.disableCardLoanHistory{
+  opacity: 0.5;
+cursor: no-drop;
+pointer-events: none;
+user-select: none;
+padding: 10px;
+
+}
