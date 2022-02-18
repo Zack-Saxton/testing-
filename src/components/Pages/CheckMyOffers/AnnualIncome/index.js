@@ -10,6 +10,7 @@ import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, TextField } from "../../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./AnnualIncome.css";
+import globalMessages from "../../../../assets/data/globalMessages.json";
 
 //Initializing functional component Active duty
 function NewUser() {
@@ -26,12 +27,12 @@ function NewUser() {
 				setErrorPersonal("");
 				return true;
 			} else {
-				setErrorAnnual("Annual household income must be greater than or equal to Annual personal income");
+				setErrorAnnual(globalMessages.Annual_Household_Equal_Personal);
 				return false;
 			}
 		} else {
-			setErrorPersonal(isNaN(personal) ? "Annual personal income is required" : "");
-			setErrorAnnual(isNaN(household) ? "Annual household income is required" : "");
+			setErrorPersonal(isNaN(personal) ? globalMessages.Annual_Personal_Income_Required : "");
+			setErrorAnnual(isNaN(household) ? globalMessages.Annual_Household_Income_Required : "");
 			return false;
 		}
 	};
@@ -101,14 +102,14 @@ function NewUser() {
 		const modPersonalIncome = parseInt(formik.values.personalIncome.replace(/\$/g, "").replace(/,/g, ""));
 		const modHouseholdIncome = parseInt(formik.values.householdIncome.replace(/\$/g, "").replace(/,/g, ""));
 		if (isNaN(modHouseholdIncome)) {
-			setErrorAnnual("Annual household income is required");
+			setErrorAnnual(globalMessages.Annual_Household_Income_Required);
 		} else {
 			const numNxt = event.target.value
 				.replace(/\$/g, "")
 				.replace(/,/g, "")
 				.substr(0, 7);
 			if (numNxt.length < 4) {
-				setErrorAnnual("Annual household income should not be less than 4 digits");
+				setErrorAnnual(globalMessages.Annual_Household_Income_4_digits);
 				return false;
 			}
 			const perval = document
@@ -117,7 +118,7 @@ function NewUser() {
 				.replace(/,/g, "")
 				.substr(0, 7);
 			if (perval.length < 4) {
-				setErrorPersonal("Annual personal income should not be less than 4 digits");
+				setErrorPersonal(globalMessages.Annual_Personal_Income_4_digits);
 				return false;
 			}
 			if (!isNaN(modPersonalIncome) && !isNaN(modHouseholdIncome)) {
@@ -126,7 +127,7 @@ function NewUser() {
 					setErrorPersonal("");
 					return true;
 				} else {
-					setErrorAnnual("Annual household income must be greater than or equal to Annual personal income");
+					setErrorAnnual(globalMessages.Annual_Income_Greater_Equal);
 					return false;
 				}
 			}
@@ -150,14 +151,14 @@ function NewUser() {
 			formik.values.householdIncome.replace(/\$/g, "").replace(/,/g, "")
 		);
 		if (isNaN(modPersonalIncome)) {
-			setErrorPersonal("Annual personal income is required");
+			setErrorPersonal(globalMessages.Annual_Personal_Income_Required);
 		} else {
 			const num = event.target.value
 				.replace(/\$/g, "")
 				.replace(/,/g, "")
 				.substr(0, 7);
 			if (num.length < 4) {
-				setErrorPersonal("Annual personal income should not be less than 4 digits");
+				setErrorPersonal(globalMessages.Annual_Personal_Income_4_digits);
 				return false;
 			}
 
@@ -167,7 +168,7 @@ function NewUser() {
 					setErrorPersonal("");
 					return true;
 				} else {
-					setErrorAnnual("Annual household income must be greater than or equal to Annual personal income");
+					setErrorAnnual(globalMessages.Annual_Income_Greater_Equal);
 					return false;
 				}
 			}

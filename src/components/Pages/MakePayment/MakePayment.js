@@ -681,6 +681,7 @@ export default function MakePayment(props) {
     if (!afterDecimal) {
       price = event.target.value.replace(".", "");
       price = price.replace("$", "");
+      price = Math.abs( price ).toFixed(2);
       setpaymentAmount(price);
       setRequiredAmount("");
     }

@@ -9,6 +9,7 @@ import { CheckMyOffers as Check } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, Slider, TextField } from "../../../FormsUI";
 import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
+import globalMessages from '../../../../assets/data/globalMessages.json';
 import "./CheckMyOffer.css";
 
 //initializing check my offers functonal component
@@ -46,7 +47,7 @@ function CheckMyOffers(props) {
 	}, []);
 
 	if (data?.isActiveUser === "closed") {
-		toast.error("Your account is closed to new applications. Please contact us to reapply.");
+		toast.error(globalMessages.Account_Closed_New_Apps);
 		navigate("/customers/accountOverview");
 	}
 	const handleRoute = (event) => {

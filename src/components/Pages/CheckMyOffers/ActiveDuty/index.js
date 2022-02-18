@@ -11,15 +11,16 @@ import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, Select } from "../../../FormsUI";
 import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
+import globalMessages from "../../../../assets/data/globalMessages.json";
 
 //Yup validation schema
 const validationSchema = yup.object({
 	activeDuty: yup
-		.string("Enter your Zip")
-		.required("Select Active duty status"),
+		.string(globalMessages.ZipCodeEnter)
+		.required(globalMessages.Select_Active_Duty),
 	activeDutyRank: yup.string().when("activeDuty", {
 		is: "Active Military",
-		then: yup.string().required("Active duty rank is required"),
+		then: yup.string().required(globalMessages.Active_Duty_Rank_Required),
 	}),
 });
 
