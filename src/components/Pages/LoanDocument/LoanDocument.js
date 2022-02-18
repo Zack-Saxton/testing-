@@ -43,8 +43,8 @@ export default function LoanDocument() {
     if(refetch){
     refetch()
     }
-  }, []);
-  
+  }, [refetch]);
+
   //Loan Document data from API
   let loanDocumentData = loanDocumentStatus != null ? loanDocumentStatus?.data : null;
 
