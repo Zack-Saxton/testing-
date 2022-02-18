@@ -72,8 +72,9 @@ const ResetPasswordvalidationSchema = yup.object().shape({
 //Begin: Login page
 export default function Login(props) {
     const classes = useStyles();
-    const history = useNavigate();
+    const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
+    
     //Form Submission
     const formik = useFormik({
         initialValues: {
@@ -91,14 +92,11 @@ export default function Login(props) {
                 let retVal = await ResetPasswordController(values.password);
                 if (retVal.status === 200) {
                     toast.success(globalValidation.PasswordChangedSuccessfully);
-                    navigate(location.state?.redirect
-                        ? location.state?.redirect
-                        : "/customers/accountoverview",
-                    );
+                    navigate("/customers/accountoverview");
                 } else {
                     toast.error(globalValidation.TryAgain);
                     navigate("/login")
-                }
+                };
             } catch (error) {
                 ErrorLogger(' Error Reseting Password ::', error)
             }
