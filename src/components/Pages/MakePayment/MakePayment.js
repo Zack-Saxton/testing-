@@ -450,6 +450,7 @@ export default function MakePayment(props) {
     AsyncEffect_HolidayCalender();
     getPaymentMethods();
     return null;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ User, activeLoansData, isFetching, payments ]);
 
   //Holiday Calender from API

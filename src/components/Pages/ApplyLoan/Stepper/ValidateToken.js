@@ -68,6 +68,8 @@ const ValidateToken = () => {
 	//Use effect to call the redirect() method on page load
 	useEffect(() => {
 		redirect();
+		return null
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return null;

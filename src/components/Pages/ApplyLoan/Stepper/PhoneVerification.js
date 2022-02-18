@@ -44,10 +44,14 @@ export default function PhoneVerification(props) {
 	// get the phone number on load
 	useEffect(() => {
 		getPhone();
+		return null
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	useEffect(() => {
 		formik.setFieldValue("phone", phoneNum);
+		return null
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [ phoneNum ]);
 
 	// configuring the formik variables

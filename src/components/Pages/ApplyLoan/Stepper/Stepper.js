@@ -133,6 +133,8 @@ export default function VerticalLinearStepper() {
 
 	useEffect(() => {
 		getApplicationStatus();
+		return null
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	//To handle the next prev and reset funcationality

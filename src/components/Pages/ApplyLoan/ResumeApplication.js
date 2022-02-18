@@ -14,6 +14,8 @@ const ResumeApplication = (props) => {
 	};
 	useEffect(() => {
 		redirect();
+		return null
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	return (
 		<Grid className="circleprog" style={ { width: "100%", textAlign: "center" } }>

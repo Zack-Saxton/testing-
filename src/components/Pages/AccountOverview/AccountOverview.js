@@ -35,8 +35,18 @@ export default function AccountOverview() {
     <div>
       <ScrollToTopOnMount />
       <CheckLoginStatus />
-      <Grid container justifyContent="center" style={ { marginTop: "-150px", paddingRight: "23px", paddingLeft: "23px" } }>
-        <Grid item xs={ 12 } style={ { width: "100%", paddingBottom: "10px" } } container direction="row">
+      <Grid
+        container
+        justifyContent="center"
+        className={ classes.centerGrid }
+      >
+        <Grid
+          item
+          xs={ 12 }
+          style={ { width: "100%", paddingBottom: "10px" } }
+          container
+          direction="row"
+        >
           <Typography variant="h5" className={ classes.heading } data-testid="subtitle">
             Account Overview
           </Typography>

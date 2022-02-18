@@ -141,7 +141,9 @@ export default function RecentApplications({ isLoading, userApplicationsData, us
                         { (statusStr[ appData.status ]) ? statusStr[ appData.status ] : (appData.status) }
                       </TableCell>
                       <TableCell align="left">
-                        { appData.isActive ?
+                        
+                        { appData.isActive  && appData?.status !== "referred" && appData?.status !== "contact_branch" ?
+
                           (
                             <ButtonPrimary stylebutton='{"color":"","width":"72%" }'
                               onClick={ () => resumeNavigate(appData.status) }
