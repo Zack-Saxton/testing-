@@ -212,7 +212,7 @@ export default function PaymentMethod() {
         formikAddDebitCard.handleChange(event);
         try {
             let isValidZip = false;
-            setValidZip(false);
+            setValidZip(true);
             if (event.target.value !== "" && event.target.value.length === 5) {
                 let result = await ZipCodeLookup(event.target.value);
                 if (result?.status === 200 && result?.data?.cityName) {
@@ -223,6 +223,7 @@ export default function PaymentMethod() {
                 }
             }
             if (!isValidZip) {
+                setValidZip(false)
                 formikAddDebitCard.setFieldValue("city", "");
                 formikAddDebitCard.setFieldValue("state", "");
             }
