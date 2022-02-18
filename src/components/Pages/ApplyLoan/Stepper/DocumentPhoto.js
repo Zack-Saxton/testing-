@@ -138,7 +138,7 @@ export default function DocumentPhoto(props) {
 						color="primary"
 						id="button_stepper_next"
 						stylebutton='{"marginRight": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
-						onClick={ onClickNextBtn() }
+						onClick={ () => { onClickNextBtn() }}
 					>
 						{ props.activeStep === props?.steps.length - 1 ? "Finish" : "Next" }
 					</ButtonPrimary>
