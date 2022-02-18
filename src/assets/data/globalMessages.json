@@ -8,7 +8,7 @@
   "Account_Nick_Name_Max":"Account Nickname can be up to 30 characters length.",
   "Account_Nick_Name_Min":"Account Nickname should be a minimum of 2 letters.",
   "Account_Number": "AccountNumber",
-  "Accoun_No_Required":"Bank Account Number is required."
+  "Accoun_No_Required":"Bank Account Number is required.",
   "Active_DutyRequired":"Active duty required",
   "Active_Duty_Rank_Required": "Active duty rank is required",
   "Address_City":"Enter City",
