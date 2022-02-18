@@ -75,6 +75,18 @@ export default function DocumentPhoto(props) {
 			toast.error("Error uploading document");
 		}
 	};
+
+	const onClickNextBtn = async () => {
+		let data = {};
+		let res = await APICall('verification_steps_cac', '', data, 'POST', true);
+		if (res?.data?.id_photo === true && res?.data?.id_document === true) {
+			props.next();
+			props.reference.current[4].current.scrollIntoView({ behavior: 'smooth' })
+		} else {
+			setError(true);
+		}
+	}  
+
 	useEffect(() => {
 		if (window.addEventListener) {
 			window.addEventListener("message", onMessageHandler, false);
@@ -126,16 +138,7 @@ export default function DocumentPhoto(props) {
 						color="primary"
 						id="button_stepper_next"
 						stylebutton='{"marginRight": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
-						onClick={ async () => {
-							let data = {};
-							let res = await APICall('verification_steps_cac', '', data, 'POST', true);
-							if (res?.data?.id_photo === true && res?.data?.id_document === true) {
-								props.next();
-								props.reference.current[4].current.scrollIntoView({ behavior: 'smooth' })
-							} else {
-								setError(true);
-							}
-						} }
+						onClick={ onClickNextBtn() }
 					>
 						{ props.activeStep === props?.steps.length - 1 ? "Finish" : "Next" }
 					</ButtonPrimary>
