@@ -6,7 +6,7 @@ function BranchLocatorMap(props) {
   let Current = props.CurrentLocation
     ? props.CurrentLocation
     : { lat: 39.3697028, lng: -76.4635839 };
-  let zoomValue = props.CurrentLocation ? 7 : 8;
+  let zoomValue = props.CurrentLocation ? 8 : 7;
   let ZoomDepth = props.Zoom ? props.Zoom : 5;
   const markers = [
     {
@@ -44,7 +44,7 @@ function BranchLocatorMap(props) {
         fillOpacity={0}
       />
       <Marker position={Current} zIndex={8}></Marker>
-      {props.getMap.map(({ id, name, position }) => (
+      {props.getMap.map(({ id, BranchName, BranchAddress, BranchManager,Phone,Distance, position }) => (
         <Marker
           key={id}
           icon={icon}
@@ -54,7 +54,14 @@ function BranchLocatorMap(props) {
         >
           {activeMarker === id ? (
             <InfoWindow onCloseClick={() => setActiveMarker(null)}>
-              <div>{name}</div>
+              <div>
+                <h3>{BranchName} Branch</h3>
+                <p>Branch Manager: {BranchManager}</p>
+                <p>BranchAddress: {BranchAddress}</p>
+                <p>Phone: {Phone}</p>
+                <p>Distance: {Distance}les</p>
+                <p>Position: [Latitude:{position.lat}, Longitude:{position.lng}]</p>
+                </div>
             </InfoWindow>
           ) : null}
         </Marker>

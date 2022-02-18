@@ -24,7 +24,7 @@ import BranchImageWeb from "../../../assets/images/BranchLocatorWeb.png";
 import BranchImageMobile from "../../../assets/images/BranchLocatorMobile.png";
 import { makeStyles } from "@material-ui/core";
 import { NavLink } from "react-router-dom";
-import BranchDayTiming from "../../Controllers/BranchDayTiming";
+import BranchDayTiming, { mapInformationBranchLocator } from "../../Controllers/BranchDayTiming";
 
 const useStyles = makeStyles({
   ptag: {
@@ -87,17 +87,12 @@ export default function StatePage() {
     }
   };
   const listForMapView = async (List) => {
-    if (List) {
-      setMap(
-        List.map((item) => ({
-          id: item.id,
-          name: item.Address,
-          position: {
-            lat: Number(item.latitude),
-            lng: Number(item.longitude),
-          },
-        }))
-      );
+    try {
+      if (List) {
+        setMap(await mapInformationBranchLocator(List));
+      }
+    } catch (error) {
+      ErrorLogger(' Error from listForMapView', error)
     }
   };
   const apiGetBranchList = async (value) => {

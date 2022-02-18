@@ -5,6 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useContext, useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import { useQueryClient } from 'react-query';
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -14,17 +15,42 @@ import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import usrAccountDetails from "../../../Controllers/AccountOverviewController";
 import LoginController from "../../../Controllers/LoginController";
 import { ButtonPrimary, PasswordField } from "../../../FormsUI";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle"
 import { encryptAES } from "../../../lib/Crypto";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./ExistingUser.css";
+import globalMessages from "../../../../assets/data/globalMessages.json";
 
 //YUP validation schema
 const validationSchema = yup.object({
 	password: yup
-		.string("Enter your password")
-		.max(30, "Password can be upto 30 characters length")
-		.required("Your password is required"),
+		.string(globalMessages.PasswordEnter)
+		.max(30,globalMessages.PasswordMax)
+		.required(globalMessages.PasswordRequired),
 });
+
+const useStyles = makeStyles((Theme) =>({
+	
+	typoStyle:{
+		align: "center",
+		justify: "center",
+		alignItems: "center",
+		marginBottom: "1%",
+		marginTop: "1%",
+	},
+	negativeMargin: {
+		marginTop: "-4%" 
+	},
+	paperStyle:{
+		justify: "center",
+		alignItems: "center",
+		width: "inherit",
+		marginBottom: "10%",
+		marginTop: "10%",
+		textAlign: "center"
+	}
+})
+);
 
 // Existing user functional component initiallization
 function ExistingUser() {
@@ -32,6 +58,9 @@ function ExistingUser() {
 	const [ loginFailed, setLoginFailed ] = useState("");
 	const [ loading, setLoading ] = useState(false);
 	const navigate = useNavigate();
+	const classes = preLoginStyle();
+	const innerClasses = useStyles();
+
 	const queryClient = useQueryClient();
 	// Formik configuraion
 	const formik = useFormik({
@@ -72,7 +101,7 @@ function ExistingUser() {
 
 				if (accountDetail?.data?.customer?.user_account?.status === "closed") {
 					data.isActiveUser = false;
-					toast.error("Your account is closed to new applications. Please contact us to reapply.");
+					toast.error(globalMessages.Account_Closed_New_Apps);
 					navigate("/customers/accountOverview");
 				} else {
 					navigate("/employment-status");
@@ -108,7 +137,7 @@ function ExistingUser() {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className="mainDiv">
+			<div className={classes.mainDiv}>
 				<Box>
 					<Grid
 						item
@@ -130,14 +159,7 @@ function ExistingUser() {
 							alignItems="center"
 						>
 							<Paper
-								className="cardWOPadding"
-								style={ {
-									justify: "center",
-									alignItems: "center",
-									width: "inherit",
-									marginBottom: "10%",
-									marginTop: "10%",
-								} }
+								className={innerClasses.paperStyle}
 							>
 								<span className="floatLeft detNum5" />
 								<Grid className="floatLeft">
@@ -147,7 +169,7 @@ function ExistingUser() {
 										</i>
 									</Link>
 								</Grid>
-								<Grid className="liftImage" style={ { marginTop: "-4%" } }>
+								<Grid className={innerClasses.negativeMargin}>
 									<img
 										src={ PasswordLogo }
 										alt="password"
@@ -155,26 +177,15 @@ function ExistingUser() {
 									/>
 								</Grid>
 								<Typography
-									style={ {
-										align: "center",
-										justify: "center",
-										alignItems: "center",
-										marginBottom: "1%",
-										marginTop: "1%",
-									} }
+									
+									className={innerClasses.typoStyle}
 								>
 									We have detected you already have an account with us.
 								</Typography>
 
 								<Typography
 									variant="h5"
-									style={ {
-										align: "center",
-										justify: "center",
-										alignItems: "center",
-										marginBottom: "1%",
-										marginTop: "1%",
-									} }
+									className={innerClasses.typoStyle}
 								>
 									Please enter a password and continue.
 								</Typography>
