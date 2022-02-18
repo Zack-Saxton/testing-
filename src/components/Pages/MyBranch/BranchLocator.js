@@ -151,6 +151,8 @@ export default function BranchLocator() {
   useEffect(() => {
     inputText1.value = "21236";
     getActivePlaces();
+    return null
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const findBranchTimings = async (value) => {
     try {

@@ -150,6 +150,8 @@ export default function StatePage() {
   useEffect(() => {
     inputText1.value = Name;
     getActivePlaces();
+    return null
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
   //View part

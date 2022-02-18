@@ -41,6 +41,8 @@ function CheckMyOffers(props) {
 			resetData();
 			setSelect(data.loanAmount ? data.loanAmount : 10000);
 		}
+		return null
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	if (data?.isActiveUser === "closed") {

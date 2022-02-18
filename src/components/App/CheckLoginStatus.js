@@ -18,8 +18,10 @@ const CheckLoginStatus = () => {
       LogoutController();
       navigate("/login", { state: { redirect: window.location.pathname } });
     }
+    return null
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  return null;
+return null
 };
 
 export default CheckLoginStatus;
