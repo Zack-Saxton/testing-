@@ -1,5 +1,6 @@
 import moment from "moment";
 import { tzMatch } from "../../assets/data/marinerBusinesStates";
+import ErrorLogger from "../lib/ErrorLogger";
 export default async function BranchDayTiming(branchLookupData) {
     let caState = (branchLookupData.Address.split(" ").find(element => element === "CA")) ? true : false;
     let holidayHourDates = [ '1121', '1123', '1128', '1205', '1212', '1219', '1226' ];
@@ -78,3 +79,21 @@ const branchInfoDisplay = function (time, branchLookupData) {
 const TimeZoneShort = function (timeZoneName) {
     return tzMatch[ timeZoneName ];
 };
+export async function mapInformationBranchLocator(List) {
+    try {
+        return (List.map((item) => ({
+            id: item.id,
+            BranchName: item.BranchName,
+            BranchAddress: item.Address,
+            BranchManager: item.branchManager,
+            Phone: item.PhoneNumber,
+            Distance: item.distance,
+            position: {
+                lat: Number(item.latitude),
+                lng: Number(item.longitude),
+            },
+        })));
+    } catch (error) {
+        ErrorLogger(' Error from mapInformationBranchLocator', error)
+    }
+}

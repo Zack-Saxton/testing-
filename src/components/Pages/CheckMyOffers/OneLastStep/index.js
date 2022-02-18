@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useQuery } from 'react-query';
 import { Link, useNavigate } from "react-router-dom";
 import SSNLogo from "../../../../assets/icon/Last-Step.png";
@@ -130,11 +130,13 @@ function SSN() {
 			stopLoading();
 		}
 	};
-
-	//redirect to select amount if accessed directly
-	if (data.completedPage < data.page.livingPlace || data.completedPage < data.page.activeDuty || data.formStatus === "completed") {
-		navigate("/select-amount");
-	}
+	useEffect(() => {
+		//redirect to select amount if accessed directly
+		if (data.completedPage < data.page.livingPlace || data.completedPage < data.page.activeDuty || data.formStatus === "completed") {
+			navigate("/select-amount");
+		}
+	}, []);	
+	
 	const redirectNC = data.state === "NC" ? "/active-duty" : "/living-place";
 
 	//alert when the user tries to close before form submit

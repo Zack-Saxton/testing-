@@ -5,7 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import { makeStyles } from "@material-ui/core/styles";
 import Cookies from "js-cookie";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useQueryClient } from 'react-query';
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -66,6 +66,12 @@ function NewUser() {
 	const innerClasses = useStyles();
 
 
+	useEffect(() => {
+		//redirects to select amount on direct call
+		if (data.completedPage < data.page.personalInfo || data.formStatus === "completed") {
+			navigate("/select-amount");
+		}
+	}, []);
 	//configuring formik
 	const formik = useFormik({
 		initialValues: {
@@ -159,11 +165,7 @@ function NewUser() {
 			event.preventDefault();
 		}
 	};
-
-	//redirects to select amount on direct call
-	if (data.completedPage < data.page.personalInfo || data.formStatus === "completed") {
-		navigate("/select-amount");
-	}
+	
 
 	//View part
 	return (
