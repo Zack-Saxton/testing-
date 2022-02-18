@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
@@ -46,7 +46,11 @@ function EmploymentStatus() {
 	const classes = preLoginStyle();
 	const innerClasses = useStyles();
 
-
+	useEffect(() => {
+		if (data.completedPage < data.page.existingUser || data.formStatus === "completed") {
+			navigate("/select-amount");
+		}
+	}, []);
 	//initializing formik
 	const validationSchema = yup.object({
 		phone: yup
@@ -114,10 +118,7 @@ function EmploymentStatus() {
 			event.preventDefault();
 		}
 	};
-
-	if (data.completedPage < data.page.existingUser || data.formStatus === "completed") {
-		navigate("/select-amount");
-	}
+	
 	// JSX part
 	return (
 		<div>

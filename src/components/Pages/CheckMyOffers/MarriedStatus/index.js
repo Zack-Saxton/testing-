@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { maritalStatusData } from "../../../../assets/data/constants";
@@ -73,7 +73,12 @@ function MarriedStatus() {
 	const [ stateShort, setStateShort ] = useState("");
 	const [ validZip, setValidZip ] = useState(true);
 	const navigate = useNavigate();
-
+	useEffect(() => {
+		//redirect to select amount if page accessed directly
+		if (data.completedPage < data.page.livingPlace || data.formStatus === "completed") {
+			navigate("/select-amount");
+		}
+	}, []);
 	//Configuring formik
 	const formik = useFormik({
 		initialValues: {
@@ -133,12 +138,7 @@ function MarriedStatus() {
 		} catch (error) {
 			ErrorLogger(' Error from fetchAddress.', error);
 		}
-	};
-
-	//redirect to select amount if page accessed directly
-	if (data.completedPage < data.page.livingPlace || data.formStatus === "completed") {
-		navigate("/select-amount");
-	}
+	};	
 
 	//JSX part
 	return (

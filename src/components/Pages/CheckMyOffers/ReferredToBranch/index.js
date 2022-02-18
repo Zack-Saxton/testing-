@@ -1,7 +1,7 @@
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ReferToBranchLogo from "../../../../assets/gallery/Referred-to-Branch.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
@@ -16,10 +16,13 @@ function ReferredToBranch(props) {
 	const navigate = useNavigate();
 	data.formStatus = "completed";
 
-	//redirects to select amount of directly called
-	if (data.completedPage < data.page.ssn && data.applicationStatus !== "referred" && props?.location?.formcomplete !== "yes") {
-		navigate("/select-amount");
-	}
+	useEffect(() => {
+		//redirects to select amount of directly called
+		if (data.completedPage < data.page.ssn && data.applicationStatus !== "referred" && props?.location?.formcomplete !== "yes") {
+			navigate("/select-amount");
+		}
+	}, []);	
+	
 	window.onbeforeunload = null;
 
 	//JSX part
