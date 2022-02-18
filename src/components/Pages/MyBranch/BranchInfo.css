@@ -6,7 +6,7 @@
   border: 1px solid rgba(224, 224, 224, 1) !important;
 }
 #branchNameBox {
-  border-radius: 2px !important;
+  border-radius: 10px !important;
 }
 #phoneLink {
   color: #0f4eb3 !important;
@@ -17,9 +17,11 @@
 }
 #branchMapWrap {
   height: 100% !important;
+ 
 }
 #branchMapWrap iframe {
   height: 100% !important;
+  border-radius: 10px !important;
 }
 #branchDiv {
   padding-right: 15px;

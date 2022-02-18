@@ -302,7 +302,7 @@ function PersonalInfo() {
 							<Paper
 								id="aboutYourselfWrap"
 								className="cardWOPadding"
-								style={ { justify: "center", alignItems: "center", padding: "0" } }
+								style={ { justify: "center", alignItems: "center", padding: "0", borderRadius: "10px" } }
 							>
 								<div className="progress mt-0">
 									<div
