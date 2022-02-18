@@ -83,10 +83,7 @@ export default function BranchLocator() {
       if (result.status === 400) {
         toast.error(" Error from getBranchLists");
       } else {
-        setCurrentLocation((prevState) => ({
-          ...prevState,
-          [result.data.searchLocation]: result.data.searchLocation,
-        }));
+        setCurrentLocation(result?.data?.searchLocation);
         setZoomDepth(
           (result?.data?.branchData[0]?.distance).replace(/[^0-9]/g, "") / 100
         );
