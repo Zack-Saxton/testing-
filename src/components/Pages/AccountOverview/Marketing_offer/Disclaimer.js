@@ -3,7 +3,7 @@ import { Grid, Typography } from "@material-ui/core";
 
 export default function Disclaimer(offerData){
     const [filteredDisclaimers, setFilteredDisclaimers] = useState([]);
-
+   
     const filterDisclaimers = (data) => {
         let campaignType = data.offerData.userOffers.CampaignTypeDesc;
         let disclaimers = [];
@@ -31,9 +31,11 @@ export default function Disclaimer(offerData){
         })
         setFilteredDisclaimers(disclaimers)
     }
-
+    
     useEffect(() => {
         filterDisclaimers(offerData)
+        return null
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const allDisclaimers = [{

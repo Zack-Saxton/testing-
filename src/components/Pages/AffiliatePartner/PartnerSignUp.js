@@ -153,6 +153,8 @@ export default function CreditKarma() {
   }
   useEffect(() => {
     AsyncEffect_PopulatePartnerSignup();
+    return null
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   //Populate partner signup from API

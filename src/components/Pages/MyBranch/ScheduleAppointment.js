@@ -190,6 +190,7 @@ export default function ScheduleAppointment({
                     Moment(new Date()).format("DD-MM-YYYY")
                     ? upt_ca_Tue.length !== 0 ?
                       <Select
+                        id="ScheduleAppointmentSelect"
                         name="appointmentTime"
                         labelform="Time Slot"
                         select={ JSON.stringify(upt_ca_Tue) }
@@ -201,6 +202,7 @@ export default function ScheduleAppointment({
                       /> : <p>No time slot available</p>
                     :
                     <Select
+                      id="ScheduleAppointmentSelect"
                       name="appointmentTime"
                       labelform="Time Slot"
                       select={ ca_Tue }
@@ -217,6 +219,7 @@ export default function ScheduleAppointment({
                     Moment(new Date()).format("DD-MM-YYYY")
                     ? upt_ca_M_W_TH_F.length !== 0 ?
                       <Select
+                        id="ScheduleAppointmentSelect"
                         name="appointmentTime"
                         labelform="Time Slot"
                         select={ JSON.stringify(upt_ca_M_W_TH_F) }
@@ -228,6 +231,7 @@ export default function ScheduleAppointment({
                       /> : <p>No time slot available</p>
                     :
                     <Select
+                      id="ScheduleAppointmentSelect"
                       name="appointmentTime"
                       labelform="Time Slot"
                       select={ ca_M_W_Th_F }
@@ -245,6 +249,7 @@ export default function ScheduleAppointment({
                   Moment(new Date()).format("DD-MM-YYYY")
                   ? updated_other_Tue.length !== 0 ?
                     <Select
+                      id="ScheduleAppointmentSelect"
                       name="appointmentTime"
                       labelform="Time"
                       select={ JSON.stringify(updated_other_Tue) }
@@ -256,6 +261,7 @@ export default function ScheduleAppointment({
                     /> : <p>No time slot available</p>
                   :
                   <Select
+                   id="ScheduleAppointmentSelect"
                     name="appointmentTime"
                     labelform="Time"
                     select={ other_Tue }
@@ -273,6 +279,7 @@ export default function ScheduleAppointment({
                   Moment(new Date()).format("DD-MM-YYYY")
                   ? upt_other_Fri.length !== 0 ?
                     <Select
+                     id="ScheduleAppointmentSelect"
                       name="appointmentTime"
                       labelform="Time Slot"
                       select={ JSON.stringify(upt_other_Fri) }
@@ -285,6 +292,7 @@ export default function ScheduleAppointment({
                     : <p>No time slot available</p>
                   :
                   <Select
+                   id="ScheduleAppointmentSelect"
                     name="appointmentTime"
                     labelform="Time Slot"
                     select={ Other_Fri }
@@ -301,6 +309,7 @@ export default function ScheduleAppointment({
                   Moment(new Date()).format("DD-MM-YYYY")
                   ? upt_other_M_W_Thu.length !== 0 ?
                     <Select
+                     id="ScheduleAppointmentSelect"
                       name="appointmentTime"
                       labelform="Time Slot"
                       select={ JSON.stringify(upt_other_M_W_Thu) }

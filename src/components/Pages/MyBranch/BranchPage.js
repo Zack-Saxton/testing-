@@ -129,10 +129,17 @@ export default function StatePage(props) {
       Branch_Details.Address.length
     );
     setStateName(State.substring(0, 2));
+    return null
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  
   useEffect(() => {
     display_Branch_Times();
+    return null
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getStateName])
+
+
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_SECKey,
   });
