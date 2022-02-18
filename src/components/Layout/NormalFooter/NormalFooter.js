@@ -1,8 +1,10 @@
+import { Grid } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import React from "react";
 import { NavLink } from "react-router-dom";
 import badge from "../../../assets/images/badge.png";
-import Logo from "../../../assets/images/MarinerLogo.png";
+import Logo from "../../../assets/images/mf-logo.png";
+import housingImage from "../../../assets/images/equal_Housing_Lender.png";
 import ConsumerDialog from "../ConsumerFooterDialog/ConsumerDialog";
 import "./NormalFooter.css";
 
@@ -17,9 +19,11 @@ export default function NormalFooter() {
   return (
     <div style={ { background: "#d7e6ed" } }>
       <footer style={ { width: "100%" } }>
-        <section className="section-top-normal-footer">
-          <div className="col">
-            <div className="footer-content">
+          <Grid className="mainFooterWrap">
+
+          <Grid className="footerWrap" container>
+          <Grid item sm={12} md={4} lg={4}>
+          <div className="footer-content">
               <NavLink to="/communityGuidelines" target="_blank" className="hrefTag">
                 <Typography className="normalFooterFont">
                   Community Guidelines
@@ -54,6 +58,10 @@ export default function NormalFooter() {
                 </Typography>
               </NavLink>
             </div>
+          </Grid>
+            
+          <Grid item sm={12} md={4} lg={4}>
+
             <div className="footer-content">
               <NavLink to="/websiteAccessibility" target="_blank" className="hrefTag">
                 <Typography className="normalFooterFont">
@@ -76,42 +84,53 @@ export default function NormalFooter() {
                 </Typography>
               </NavLink>
             </div>
-          </div>
+            </Grid>
 
-          <div className="col2">
-            <div>
-              <input type="image"
+            <Grid item sm={12} md={4} lg={4}>
+              <img type="image"
                 src={ badge }
                 alt="photo"
                 id="badge"
-                style={ { height: "100%" } }
               />
-            </div>
+            </Grid>
 
-            <div id="mfInfo" className="row" style={ { display: "flex", paddingTop: "15px", paddingBottom: "15px", paddingLeft: "25px" } }>
-              <input type="image" id="mfInfoImg" src={ Logo } alt="logo image" style={ { height: "100%", paddingRight: "25px" } } />
-              <div className="row">
+            </Grid>
+            
+          <Grid >
+           
+
+            <Grid container id="mfInfo" className="row" >
+              <Grid item sm={12} md={2} lg={2}>
+                <img type="image" id="mfInfoImg" src={ Logo } alt="logo image" />
+              </Grid>
+             
+              <Grid item sm={12} md={8} lg={8} className="row">
                 <div style={ { paddingTop: "15px", paddingBottom: "15px", } }>
                   <p className="leftAlignAddress">
                     Mariner Finance, LLC, NMLS No. 166564
                     <span style={ { margin: "0", cursor: "pointer" } } onClick={ handleOpenConsumer }>
                       (www.nmlsconsumeraccess.com)
                     </span>
-                    <br />
-                    8211 Town Center Drive,
-                    Nottingham, MD 21236; <br />
+                    
+                    8211 Town Center Drive,<br />
+                    Nottingham, MD 21236; 
                     Telephone Number -
                     <a href="tel:+8773102373" className="hrefTag ">
                       &nbsp; (877) 310-2373
                     </a>
                   </p>
                 </div>
+              </Grid>
 
-              </div>
-            </div>
-          </div>
+              <Grid item sm={12} md={2} lg={2}>
+              <input type="image" id="mfInfoImg" src={ housingImage } alt="logo image" style={ { paddingRight: "25px" } } />
+              </Grid>
 
-        </section>
+            </Grid>
+          </Grid>
+
+          </Grid>
+
       </footer>
       <ConsumerDialog consumer={ consumer } onChange={ setConsumer } />
     </div>
