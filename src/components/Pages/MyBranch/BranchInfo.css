@@ -104,6 +104,9 @@
   margin-top: 4%;
   padding: 0 !important;
 }
+#searchBoxBottom{
+  padding: 0px 0px 0px 4.5%;
+}
 .locationInfo {
   margin-bottom: 2% !important;
 }
@@ -114,6 +117,11 @@
 .locationInfo .nav_link svg {
   color: #214476;
   font-size: 24px;
+}
+.black-text a svg {
+  color: #214476;
+  font-size: 0.9rem;
+  margin-right: 3px;
 }
 .locationInfo p svg {
   font-size: 0.9rem;
@@ -127,6 +135,7 @@
 }
 .addressList {
   background-color: #f6f6f6;
+  padding: 0% 6%;
 }
 .breadcrumbLink{
   font-size: 0.75rem !important;
@@ -148,12 +157,18 @@
     font-weight: 700 !important;
     color: #214476 !important;
 }
-#branchLists {
-  background-color: white;
-  min-height: 720px !important;
+.branchPhoneNumber{
+    font-size: 0.938rem !important;
+    font-weight: 700 !important;
+    color: #214476 !important;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
 }
-#mapGridWrap {
-  min-height: 720px;
+#branchLists {
+  background-color: f6f6f6;
+  min-height: 450px !important;
+  padding: 0px 15px;
 }
 #timeSlotSelect .subOption {
   color: #171717 !important;
@@ -162,6 +177,7 @@
   color: #171717 !important;
 }
 #mapGridWrap {
+  min-height: 450px;
   border: 2px solid #9a9a9a;
   overflow: hidden;
   border-right-color: #eee;
@@ -266,7 +282,7 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
     font-size: 0.75rem !important;
 }
 .PesonalLoanParagraph {
-  text-align: center;
+  text-align: justify;
   margin: 15px 0px !important;
   color: #171717;
   line-height: 1.5;
@@ -306,6 +322,9 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
 .mobileImage{
   display: none;
 }
+#getDirectionSearch{
+  padding: 0px 0px 0px 4.5%;
+}
  
 @media (max-width: 1400px) {
   .branchImage img {
@@ -330,10 +349,12 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
   }
   #getDirectionButton{
     width: 100%;
+    padding: 0 !important;
   }
   #getDirectionSearch{
     width: 100%;
     margin-top: 50px;
+    padding: 0px !important;
   }
 }
 @media (max-width: 599px) {
