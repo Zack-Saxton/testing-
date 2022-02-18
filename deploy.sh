@@ -69,7 +69,7 @@ case $whoAmI in
     _PEM_FILE_=$MARINERFINANCE_EC2_PEMFILE
     ;;
   *)
-    _PEM_FILE_="~/Code/marinerfinance-us-east-1.pem"
+   _PEM_FILE_="~/Code/marinerfinance-us-east-1.pem"
     ;;
 esac
 

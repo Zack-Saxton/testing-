@@ -43,12 +43,15 @@ const useStylesMyProfile = makeStyles((theme) => ({
 		textAlign: "start",
 	},
 	heading: {
-		color: "#fff",
+		color: "#214476",
 		fontWeight: "400",
 		fontSize: "1.563rem",
-		// paddingLeft: "7px",
-		// paddingBottom: "25px",
-	},
+	  },
+	  centerGrid:{
+		marginTop: "20px",
+		paddingRight: "23px",
+		paddingLeft: "23px",
+	  },
 	table: {
 		minWidth: 650,
 	},
@@ -61,8 +64,6 @@ const useStylesMyProfile = makeStyles((theme) => ({
 		maxWidth: "500px",
 		paddingBottom: "20px",
 		borderRadius: "2px !important",
-		// left: 10,
-		// bottom: 100,
 	},
 	indicator: {
 		left: "0px",

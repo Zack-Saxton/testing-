@@ -7,10 +7,11 @@ import Typography from "@material-ui/core/Typography";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import Logo from "../../../assets/images/MarinerLogo.png";
-import { useStyles } from "./NormalHeaderStyle";
+import Logo from "../../../assets/images/mf-logo.png";
+import { useStyles } from "../NormalHeader/NormalHeaderStyle";
+import "./BranchHeader.css"
 
-const NormalHeader = () => {
+const BranchHeader = () => {
   const classes = useStyles();
   const [ mobileMoreAnchorEl, setMobileMoreAnchorEl ] = React.useState(false);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -52,36 +53,36 @@ const NormalHeader = () => {
       </MenuItem>
       <MenuItem>
         <NavLink to="/branch/branchlocator" className="nav_link">
-          <Typography className={ classes.headerAlign }>Branch Locator</Typography>
+          <Typography className={classes.headerAlign}>Branch Locator</Typography>
         </NavLink>
       </MenuItem>
     </Menu>
   );
 
   const redirectToAccountOverview = () => {
-    navigate("/customers/accountOverview");
+    navigate("/customers/accountOverview" );
   };
 
   //View Part
   return (
     <div className={ classes.grow }>
       <AppBar id="MainHeaderWrap" position="static">
-        <Toolbar className={ classes.toolbar }>
-          <Typography onClick={ redirectToAccountOverview } className={ classes.title }>
-            <img className={ classes.logoFormat } src={ Logo } alt="MF logo" />
+        <Toolbar>
+          <Typography style={{height:"79px"}} onClick={ redirectToAccountOverview } className={ classes.title }>
+            <img style={{marginTop:"6px"}} className={ classes.logoFormat } src={ Logo } alt="MF logo" />
           </Typography>
           <div className={ classes.grow } />
           <div className={ classes.sectionDesktop }>
             <Typography className={ classes.subtitle }>
               <a href="https://www.marinerfinance.com/blog" className="hrefTag">
-                Blogs
+                Blog
               </a>
             </Typography>
             <NavLink to="/faq" style={ { textDecoration: "none" } }>
               <Typography className={ classes.subtitle }>FAQ</Typography>
             </NavLink>
             <NavLink to="/branch/branchlocator" className="nav_link">
-              <Typography className={ classes.subtitle }>Branch Locator</Typography>
+              <Typography className={classes.subtitle}>Branch Locator</Typography>
             </NavLink>
           </div>
           <div className={ classes.sectionMobile }>
@@ -101,4 +102,4 @@ const NormalHeader = () => {
   );
 };
 
-export default NormalHeader;
+export default BranchHeader;
