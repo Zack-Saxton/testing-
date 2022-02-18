@@ -8,8 +8,15 @@
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
+	
 }
 
+#resetPasswordWrap{
+	display: flex;
+    align-items: center;
+    justify-content: center;
+	min-height: 93vh;
+}
 #main-content {
 	width: 100%;
 }
@@ -21,6 +28,10 @@
 	#mainContentBackground{
 		padding: 0px 25px;
 	}
+	#resetPasswordWrap{
+		padding: 0px 25px;
+	}
+}
 }
 @media (max-width: 400px) {
 	#email-label {

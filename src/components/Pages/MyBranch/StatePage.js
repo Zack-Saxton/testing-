@@ -181,7 +181,7 @@ export default function StatePage() {
               </Link>
               <Link
               className="breadcrumbLink"
-                onClick={() => window.open(`/branchlocator/`, "_self")}
+                onClick={() => window.open(`/branch/branchlocator/`, "_self")}
               >
                 Branch Locator
               </Link>

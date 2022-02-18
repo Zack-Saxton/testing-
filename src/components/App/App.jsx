@@ -56,6 +56,7 @@ import ViewAccountDetails from "../Pages/AccountOverview/ViewAccountDetails";
 import BranchLocator from "../Pages/MyBranch/BranchLocator";
 import BranchPage from "../Pages/MyBranch/BranchPage";
 import StatePage from "../Pages/MyBranch/StatePage";
+import ResetPassword from '../Pages/Login/ResetPassword';
 import BranchHeaderLayout from "../Layout/BranchLocatorLayout/BranchLocatorLayout";
 import "./App.css";
 const queryClient = new QueryClient({
@@ -143,6 +144,7 @@ function App() {
                                 <Route path='/branch/branchlocator' element={ branchHeaderComponent(<BranchLocator />) } />
                                 <Route path='/branchPage' element={ branchHeaderComponent(<BranchPage />) } />
                                 <Route path='/StatePage' element={ branchHeaderComponent(<StatePage />) } />
+                                <Route path='/resetpassword' element={loadGeneralUserComponent(<ResetPassword />)} />
                                 {/* <Route path='/branchlocator' element={ loadGeneralUserComponent(<BranchLocator />) } ></Route> */}
                                 <Route path='*' element={ loadGeneralUserComponent(<ErrorBeforeLogin />) } />
                                 <Route path='select-amount' element={ loadGeneralUserComponent(<SelectAmount />) } >
