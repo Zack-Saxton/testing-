@@ -1,6 +1,7 @@
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import React, { useContext, useState } from "react";
@@ -9,14 +10,38 @@ import AnnualIncomeLogo from "../../../../assets/icon/I-Annual-Income.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, TextField } from "../../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle"
 import "./AnnualIncome.css";
 import globalMessages from "../../../../assets/data/globalMessages.json";
 
+const useStyles = makeStyles((Theme) =>({
+	boxGrid:{ 
+		padding: "4% 0px 4% 0px" 
+	},
+	paperStyle:{
+		justify: "center",
+		alignItems: "center",
+		textAlign: "center"
+	},
+	typoStyle:{
+		align: "center",
+		justify: "center",
+		alignItems: "center",
+		fontSize: "1.538rem",
+		margin: "10px 0px !important",
+		color: "#171717",
+		fontWeight: "400 !important",
+		lineHeight: "110% !important"
+	},
+})
+);
 //Initializing functional component Active duty
 function NewUser() {
 	const { data } = useContext(CheckMyOffers);
 	const [ errorAnnual, setErrorAnnual ] = useState("");
 	const [ errorPersonal, setErrorPersonal ] = useState("");
+	const classes = preLoginStyle();
+	const innerClasses = useStyles();
 
 	//Retrieving Context values
 	const navigate = useNavigate();
@@ -205,7 +230,7 @@ function NewUser() {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className="mainDiv">
+			<div className={classes.mainDiv}>
 				<Box>
 					<Grid
 						container
@@ -213,7 +238,7 @@ function NewUser() {
 						xs={ 12 }
 						justifyContent="center"
 						alignItems="center"
-						style={ { padding: "4% 0px" } }
+						className={innerClasses.boxGrid}
 					>
 						<Grid
 							container
@@ -229,8 +254,7 @@ function NewUser() {
 						>
 							<Paper
 								id="incomeWrap"
-								className="cardWOPadding"
-								style={ { justify: "center", alignItems: "center" } }
+								className={innerClasses.paperStyle}
 							>
 								<div className="progress mt-0">
 									<div
@@ -256,12 +280,7 @@ function NewUser() {
 
 								<Typography
 									variant="h4"
-									style={ {
-										align: "center",
-										justify: "center",
-										alignItems: "center",
-									} }
-									className="borrowCSSLP checkMyOfferText"
+									className={innerClasses.typoStyle}
 								>
 									Tell us about your income
 								</Typography>

@@ -8,8 +8,10 @@ import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import ActiveDutyLogo from "../../../../assets/icon/active-duty.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
+import { makeStyles } from "@material-ui/core/styles";
 import { ButtonPrimary, Select } from "../../../FormsUI";
 import "../CheckMyOffer.css";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle"
 import ScrollToTopOnMount from "../ScrollToTop";
 import globalMessages from "../../../../assets/data/globalMessages.json";
 
@@ -24,11 +26,28 @@ const validationSchema = yup.object({
 	}),
 });
 
+//Styling part
+const useStyles = makeStyles((theme) => ({
+	paddingGrid: {
+		 padding: "4% 0px" 
+	},
+	paperStyle: {
+		width: "inherit",
+		textAlign: "center"
+	},
+	marginTop: {
+		marginTop: "-3%"
+	}
+
+}));
+
 //Initializing functional component Activity
 function ActiveDuty() {
 	//Retrieving Context values
 	const { data } = useContext(CheckMyOffers);
 	const navigate = useNavigate();
+	const classes = preLoginStyle();
+	const innerClasses = useStyles();
 	//initializing formik
 	const formik = useFormik({
 		initialValues: {
@@ -41,19 +60,19 @@ function ActiveDuty() {
 			data.militaryActiveDuty = values.activeDuty;
 			data.militaryActiveDutyRank = values.activeDutyRank;
 			data.completedPage = data.page.activeDuty;
-			navigate("/ssn");
+			navigate("/oneLastStep");
 		},
 	});
 
-	if (data.completedPage < data.page.livingPlace || data.formStatus === "completed") {
-		navigate("/select-amount");
-	}
+	// if (data.completedPage < data.page.livingPlace || data.formStatus === "completed") {
+	// 	navigate("/select-amount");
+	// }
 	let disableLoan = formik.values.activeDutyRank === "E4 and below" && formik.values.activeDuty === "Active Military" ? true : false;
 	//JSX part
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className="mainDiv">
+			<div className={classes.mainDiv}>
 				<Box>
 					<Grid
 						item
@@ -61,7 +80,7 @@ function ActiveDuty() {
 						container
 						justifyContent="center"
 						alignItems="center"
-						style={ { padding: "4% 0px" } }
+						className={innerClasses.paddingGrid}
 					>
 						<Grid
 							container
@@ -76,11 +95,8 @@ function ActiveDuty() {
 						>
 							<Paper
 								id="activeDutyWrap"
-								className="cardWOPadding"
 								justify="center"
-								style={ {
-									width: "inherit",
-								} }
+								className={innerClasses.paperStyle}
 							>
 								<div className="progress mt-0">
 									<div
@@ -96,7 +112,7 @@ function ActiveDuty() {
 										</i>
 									</Link>
 								</Grid>
-								<Grid style={ { marginTop: "-3%" } }>
+								<Grid className={innerClasses.marginTop}>
 									<img
 										alt="Active Duty"
 										src={ ActiveDutyLogo }

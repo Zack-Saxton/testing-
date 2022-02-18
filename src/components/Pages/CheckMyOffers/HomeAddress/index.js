@@ -3,6 +3,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
@@ -14,6 +15,7 @@ import AddressLogo from "../../../../assets/icon/I-Address.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import ZipCodeLookup from "../../../Controllers/ZipCodeLookup";
 import { ButtonPrimary, TextField, Zipcode } from "../../../FormsUI";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle"
 import ErrorLogger from "../../../lib/ErrorLogger";
 import "../CheckMyOffer.css";
 import "../HomeAddress/HomeAdress.css";
@@ -42,10 +44,26 @@ const validationSchema = yup.object({
 		.required(globalMessages.ZipCodeRequired),
 });
 
+const useStyles = makeStyles((Theme) =>({
+	gridStyle: {
+		padding: "4% 0", 
+		margin: "auto" 
+	},
+	paperStyle: { 
+		justify: "center", 
+		alignItems: "center",
+		textAlign: "center"
+	}
+})
+);
+
+
 // Home address component initialization
 function HomeAddress() {
 	//Context data
 	const { data } = useContext(CheckMyOffers);
+	const classes = preLoginStyle();
+	const innerClasses = useStyles();
 	//state variables
 	const [ stateShort, setStateShort ] = useState(data.state ?? "");
 	const [ validZip, setValidZip ] = useState(true);
@@ -138,14 +156,14 @@ function HomeAddress() {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className="mainDiv">
+			<div className={classes.mainDiv}>
 				<Box>
 					<Grid
 						item xs={ 12 } sm={ 10 } md={ 6 } lg={ 6 }
 						justifyContent="center"
 						container
 						alignItems="center"
-						style={ { padding: "4% 0", margin: "auto" } }
+						className={innerClasses.gridStyle}
 					>
 						<Grid
 							container
@@ -154,8 +172,7 @@ function HomeAddress() {
 						>
 							<Paper
 								id="enterZipWrap"
-								className="cardWOPadding"
-								style={ { justify: "center", alignItems: "center" } }
+								className={innerClasses.paperStyle}
 							>
 								<div className="progress mt-0">
 									<div

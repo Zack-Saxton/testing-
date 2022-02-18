@@ -6,20 +6,53 @@ import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import CitizenshipStatusLogo from "../../../../assets/icon/I-Own-Rent-Property.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
+import { makeStyles } from "@material-ui/core/styles";
 import { ButtonPrimary, TextField } from "../../../FormsUI";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle"
 import { homeData } from "../../../../assets/data/constants";
 import "../CheckMyOffer.css";
 import "../LivingPlace/LivingPlace.css";
 import ScrollToTopOnMount from "../ScrollToTop";
 import globalMessages from "../../../../assets/data/globalMessages.json";
 
+const useStyles = makeStyles((Theme) =>({
+	boxGrid:{ 
+		padding: "4% 0px 4% 0px" 
+	},
+	paperStyle:{
+		justify: "center",
+		alignItems: "center",
+		textAlign: "center"
+	},
+	typoStyle:{
+		align: "center",
+		justify: "center",
+		alignItems: "center",
+		fontSize: "1.538rem",
+		margin: "10px 0px !important",
+		color: "#171717",
+		fontWeight: "400 !important",
+		lineHeight: "110% !important"
+	},
+})
+);
 //Living place component initialization
 function LivingPlace() {
 	const { data, setData } = useContext(CheckMyOffers);
+	const classes = preLoginStyle();
+	const innerClasses = useStyles();
+
 	const [ error, setError ] = useState();
 	const [ helperText, setHelperText ] = useState();
 	let [ livingPlace, setLivingPlace ] = useState(data.homeOwnership ?? "");
 	const navigate = useNavigate();
+	const currencyFormat = (currencyValue) => {
+		if (currencyValue) {
+			let formated = parseFloat(currencyValue);
+			return (`$${formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").slice(0, -3)}`);
+		}
+	};
+	
 	//set data state on continue
 	const setDataState = (val) => {
 		if (data.state === "NC") {
@@ -32,7 +65,7 @@ function LivingPlace() {
 			navigate("/marital-status");
 		} else {
 			data.completedPage = data.page.activeDuty;
-			navigate("/ssn");
+			navigate("/oneLastStep");
 		}
 	};
 
@@ -48,7 +81,7 @@ function LivingPlace() {
 			navigate("/marital-status");
 		} else {
 			data.completedPage = data.page.activeDuty;
-			navigate("/ssn");
+			navigate("/oneLastStep");
 		}
 	};
 
@@ -85,7 +118,7 @@ function LivingPlace() {
 
 	const onHandleChange = (event) => {
 		const reg = /^[0-9\b]+$/;
-		let inputValue = event.target.value.replace("$", "");
+		let inputValue = event.target.value.replace(/\$/g, "").replace(",", "");
 		if (inputValue === "" || reg.test(inputValue)) {
 			inputValue =
 				inputValue.indexOf(".") >= 0
@@ -120,7 +153,7 @@ function LivingPlace() {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className="mainDiv">
+			<div className={classes.mainDiv}>
 				<Box>
 					<Grid
 						container
@@ -128,7 +161,7 @@ function LivingPlace() {
 						xs={ 12 }
 						justifyContent="center"
 						alignItems="center"
-						style={ { padding: "4% 0%" } }
+						className={innerClasses.boxGrid}
 					>
 						<Grid
 							// containe
@@ -141,8 +174,7 @@ function LivingPlace() {
 						>
 							<Paper
 								id="ownOrRentWrap"
-								className="cardWOPadding"
-								style={ { justify: "center", alignItems: "center" } }
+								className={innerClasses.paperStyle}
 							>
 								<div className="progress mt-0">
 									<div
@@ -168,12 +200,7 @@ function LivingPlace() {
 
 								<Typography
 									variant="h5"
-									style={ {
-										align: "center",
-										justify: "center",
-										alignItems: "center",
-									} }
-									className="borrowCSSLP checkMyOfferText"
+									className={innerClasses.typoStyle}
 								>
 									Do you own or rent?
 								</Typography>
@@ -309,13 +336,13 @@ function LivingPlace() {
 											form={ true }
 											error={ error }
 											helperText={ helperText }
-											value={ "$" + (data?.rentMortgageAmount ? data.rentMortgageAmount : "") }
+											value={ (data?.rentMortgageAmount ? currencyFormat(data.rentMortgageAmount) : "") }
 											onBlur={ onBlurPayment }
 											// value={dollar }
 											onChange={ onHandleChange }
 											materialProps={ {
 												"data-test-id": "rentMortgageAmount",
-												maxLength: "6",
+												maxLength: "7",
 											} }
 										/>
 									</Grid>

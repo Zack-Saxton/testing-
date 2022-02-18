@@ -38,7 +38,7 @@ import PersonalInfo from '../Pages/CheckMyOffers/PersonalInfo';
 import PreApproved from "../Pages/CheckMyOffers/PreApproved";
 import ReferredToBranch from "../Pages/CheckMyOffers/ReferredToBranch";
 import SelectAmount from '../Pages/CheckMyOffers/SelectAmount';
-import SSN from "../Pages/CheckMyOffers/SSN";
+import SSN from "../Pages/CheckMyOffers/OneLastStep";
 import ZipCode from '../Pages/CheckMyOffers/Zipcode';
 import FaqBeforeLogin from "../Pages/Faq/FaqBeforeLogin";
 import FaqPostLogin from "../Pages/Faq/FaqPostLogin";
@@ -134,7 +134,7 @@ function App() {
                                 <Route path='/living-place' element={ loadGeneralUserComponent(<LivingPlace />) } />
                                 <Route path='/active-duty' element={ loadGeneralUserComponent(<ActiveDuty />) } />
                                 <Route path='/marital-status' element={ loadGeneralUserComponent(<MarriedStatus />) } />
-                                <Route path='/ssn' element={ loadGeneralUserComponent(<SSN />) } />
+                                <Route path='/oneLastStep' element={ loadGeneralUserComponent(<SSN />) } />
                                 <Route path='/no-offers-available' element={ loadGeneralUserComponent(<NoOffersAvailable />) } />
                                 <Route path='/referred-to-branch' element={ loadGeneralUserComponent(<ReferredToBranch />) } />
                                 <Route path='/eligible-for-offers' element={ loadGeneralUserComponent(<EligibleForOffers />) } />

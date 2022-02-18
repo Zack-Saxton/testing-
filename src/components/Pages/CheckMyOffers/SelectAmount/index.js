@@ -8,14 +8,33 @@ import { toast } from "react-toastify";
 import { CheckMyOffers as Check } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, Slider, TextField } from "../../../FormsUI";
 import "../CheckMyOffer.css";
+import { makeStyles } from "@material-ui/core/styles";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle"
 import ScrollToTopOnMount from "../ScrollToTop";
 import globalMessages from '../../../../assets/data/globalMessages.json';
 import "./CheckMyOffer.css";
+
+//Styling part
+const useStyles = makeStyles((theme) => ({
+	alignSmallText: {
+		paddingTop: "25px", 
+		paddingBottom: "70px",
+		marginBottom: "3%"
+	},
+	cardWrapper:{
+		paddingTop: "4%",
+		marginTop: "5%",
+		marginBottom: "2%"
+	}
+}));
+
 
 //initializing check my offers functonal component
 function CheckMyOffers(props) {
 	const { data, setData, resetData } = useContext(Check);
 	const [ hasOfferCode, setOfferCode ] = useState("");
+	const classes = preLoginStyle();
+	const innerClasses = useStyles();
 	const getValidValue = (selectedValue) => {
 		let validValue = (selectedValue > 5000 && (selectedValue % 500) === 250 ? selectedValue + 250 : selectedValue);
 		if (validValue < 1000) {
@@ -62,7 +81,7 @@ function CheckMyOffers(props) {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className="mainDiv">
+			<div className={classes.mainDiv}>
 				<Box>
 					<Grid
 						item
@@ -78,8 +97,7 @@ function CheckMyOffers(props) {
 							md={ 6 }
 							lg={ 6 }
 							xl={ 6 }
-							className="cardWrapper"
-							style={ { paddingTop: "4%" } }
+							className={innerClasses.cardWrapper}
 						>
 							<Paper
 								className="checkMyOffersWrap"
@@ -209,13 +227,12 @@ function CheckMyOffers(props) {
 							lg={ 10 }
 							xl={ 10 }
 							data-testid="descriptionOutside"
-							className="alignSmallText"
+							className={innerClasses.alignSmallText}
 							container
 							justifyContent="center"
 							alignItems="center"
-							style={ { paddingTop: "25px", paddingBottom: "70px" } }
 						>
-							<Typography className="smallText" align="center">
+							<Typography className={classes.smallText} align="center">
 								To help the government fight the funding of terrorism and money
 								laundering activities, Federal law requires all financial
 								institutions to obtain, verify, and record information that
@@ -226,7 +243,7 @@ function CheckMyOffers(props) {
 								to see your driver's license or other identifying documents.
 							</Typography>
 							<br />
-							<Typography className="smallText" align="center">
+							<Typography className={classes.smallText} align="center">
 								*The process uses a “soft” credit inquiry to determine whether a
 								loan offer is available, which does not impact your credit
 								score. If you continue with the application process online and
