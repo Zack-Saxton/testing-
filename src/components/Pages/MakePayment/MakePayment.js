@@ -2,7 +2,6 @@ import { CircularProgress, FormControlLabel } from "@material-ui/core";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
@@ -1202,6 +1201,7 @@ export default function MakePayment(props) {
         <DialogTitle id="scheduleDialogHeading">
           <Typography id="scheduleTxt" className={ classes.dialogHeading }>
             Your Payment of: { numberFormat(paymentAmount) } will be applied to your account.
+            </Typography>
             <TableContainer>
               <Table className={ classes.table } aria-label="simple table" border-color="white">
                 <TableBody>
@@ -1245,7 +1245,7 @@ export default function MakePayment(props) {
                 </TableBody>
               </Table>
             </TableContainer>
-
+            <Typography className={ classes.dialogHeading }>
             Are you sure?
           </Typography>
           <IconButton
@@ -1382,10 +1382,7 @@ export default function MakePayment(props) {
           AUTO PAY AUTHORIZATION
         </DialogTitle>
         <DialogContent>
-          <DialogContentText
-            id="alert-dialog-description"
-            style={ { fontSize: "12px" } }
-          >
+          
             <p className={ classes.autoPayContent }>
               As used in this authorization, the words, “I,” “MY,” and “ME”
               refer to the borrower agreeing to the terms of this authorization,
@@ -1456,7 +1453,6 @@ export default function MakePayment(props) {
               from me of termination of this authorization and you have
               reasonable time to act upon it, whichever comes first.
             </p>
-          </DialogContentText>
         </DialogContent>
         <DialogActions>
           <ButtonPrimary

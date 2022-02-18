@@ -541,8 +541,6 @@ export default function SideNav() {
                 aria-label="account of current user"
                 aria-haspopup="true"
                 onClick={ handleProfileMenuOpen }
-                color=""
-
               >
                 <SettingsIcon />
               </IconButton>
