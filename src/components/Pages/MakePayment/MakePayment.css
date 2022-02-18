@@ -176,7 +176,7 @@
 }
 
 #makePaymentWrap div:nth-child(2) .MuiPaper-rounded{
-  border-radius: 2px !important;
+  border-radius: 10px !important;
 }
 
 #pdfdiv{

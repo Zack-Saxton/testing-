@@ -43,8 +43,10 @@ export default function LoanDocument() {
     if(refetch){
     refetch()
     }
-  }, [refetch]);
-
+    return null
+    	// eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  
   //Loan Document data from API
   let loanDocumentData = loanDocumentStatus != null ? loanDocumentStatus?.data : null;
 
