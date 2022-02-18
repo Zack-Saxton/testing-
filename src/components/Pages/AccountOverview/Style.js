@@ -21,7 +21,7 @@ const useStylesAccountOverview = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(3),
     display: "flex",
-    borderRadius: "2px",
+    borderRadius: "10px",
     flexDirection: "column",
     color: theme.palette.text.primary,
   },

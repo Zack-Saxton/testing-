@@ -10,13 +10,13 @@ centerHeading {
   width: 100%;
 }
 #paperPropertiesLimitedOffer {
-  border-radius: 2px !important;
+  border-radius: 10px !important;
   box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%),
     0 1px 5px 0 rgb(0 0 0 / 20%) !important;
 }
 
 #paperPropertiesOfferTwo {
-  border-radius: 2px !important;
+  border-radius: 10px !important;
   box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%),
     0 1px 5px 0 rgb(0 0 0 / 20%) !important;
 }
@@ -26,7 +26,7 @@ centerHeading {
 }
 
 #activeLoanGrid {
-  border-radius: 2px !important;
+  border-radius: 10px !important;
 }
 
 .checkMyOffers{
@@ -34,7 +34,7 @@ centerHeading {
   justify-content: space-around;
   height:220px;
   border:solid 1px #0F4EB3;
-  border-radius: 3px;
+  border-radius: 10px;
 }
 .leftcheckMyOffers{
   display:flex;
@@ -48,15 +48,15 @@ centerHeading {
 }
 
 #overviewWrap {
-  border-radius: 2px !important;
+  border-radius: 10px !important;
 }
 
 #summaryOfApplications {
-  border-radius: 2px !important;
+  border-radius: 10px !important;
 }
 
 #recentPaymentsWrap {
-  border-radius: 2px !important;
+  border-radius: 10px !important;
 }
 
 #recentPaymentsTable thead tr th{

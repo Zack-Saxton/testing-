@@ -65,22 +65,22 @@
 }
 
 #selectAmountWrap {
-	border-radius: 2px !important;
+	border-radius: 10px !important;
 }
 .checkMyOffersWrap{
 	padding: 24px;
 }
 
 #oneLastStepWrap {
-	border-radius: 4px !important;
+	border-radius: 10px !important;
 }
 
 #oneLastStepWrap div:nth-child(1) {
-	border-radius: 4px 4px 0px 0px !important;
+	border-radius: 10px 10px 0px 0px !important;
 }
 
 #activeDutyWrap {
-	border-radius: 4px !important;
+	border-radius: 10px !important;
 }
 
 #activeDutyWrap div:nth-child(1) {

@@ -1,7 +1,7 @@
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import NoOffersAvailableLogo from "../../../../assets/gallery/No_Offers_Available.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
@@ -22,11 +22,12 @@ function NoOffersAvailable(props) {
 	};
 	const { data } = useContext(CheckMyOffers);
 	data.formStatus = "completed";
-
-	//Redirect to select amount if directly called
-	if (data.completedPage < data.page.ssn && data.applicationStatus !== "rejected" && props?.location?.formcomplete !== "yes") {
-		navigate("/select-amount");
-	}
+	useEffect(() => {
+		//Redirect to select amount if directly called
+		if (data.completedPage < data.page.ssn && data.applicationStatus !== "rejected" && props?.location?.formcomplete !== "yes") {
+			navigate("/select-amount");
+		}
+	}, []);	
 
 	window.onbeforeunload = null;
 	//view part

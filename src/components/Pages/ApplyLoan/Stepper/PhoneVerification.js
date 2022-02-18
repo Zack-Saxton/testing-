@@ -260,7 +260,7 @@ export default function PhoneVerification(props) {
 						color="primary"
 						id="button_stepper_next"
 						stylebutton='{"marginRight": "10px", "color":"" }'
-						onClick={ onNextClick() }
+						onClick={ () => { onNextClick() }}
 					>
 						{ props.activeStep === props?.steps.length - 1 ? "Finish" : "Next" }
 					</ButtonPrimary>

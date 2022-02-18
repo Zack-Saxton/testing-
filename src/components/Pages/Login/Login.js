@@ -170,9 +170,14 @@ export default function Login(props) {
         Cookies.set("temp_opted_phone_texting", "");
         queryClient.removeQueries();
         setLoading(false);
-        navigate(location.state?.redirect
-          ? location.state?.redirect
-          : "/customers/accountoverview");
+        if (retVal?.data?.user?.attributes?.password_reset) {
+          navigate("/resetpassword")
+        } else {
+          navigate(location.state?.redirect
+              ? location.state?.redirect
+              : "/customers/accountoverview",
+          );
+        }
         if (location.state?.activationToken) {
           navigate(0);
         }

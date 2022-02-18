@@ -52,11 +52,8 @@ const useStyles = makeStyles({
     fontSize: "1.078rem",
     color: "#214476",
   },
-  gridPadding: {
-    padding: "0px 15px",
-  },
   gridMargin: {
-    margin: "60px 0px 0px 0px",
+    margin: "80px 0px 0px 0px",
   },
 });
 export default function BranchLocator() {
@@ -257,11 +254,10 @@ export default function BranchLocator() {
             ) : (
               <Grid
                 id="branchLists"
-                style={{ width: "100%", height: "542px", overflowY: "scroll" }}
+                style={{ width: "100%", height: "450px", overflowY: "scroll" }}
               >
                 <Grid
                   className="addressList"
-                  style={{ padding: "1% 4% 1% 4%", backgroundund: "#f6f6f6" }}
                 >
                   {getBranchList ? (
                     getBranchList.map((item, index) => {

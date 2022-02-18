@@ -119,7 +119,7 @@
 	width: 100%;
 
 	margin: 0.5rem 0 0.938rem 0;
-	border-radius: 2px 2px 0px 0px;
+	border-radius: 10px 10px 0px 0px;
 	background-color: white;
 	height: 16px;
 	text-align: left !important;
@@ -194,7 +194,7 @@
 }
 
 #incomeWrap {
-	border-radius: 4px !important;
+	border-radius: 10px !important;
 }
 
 #incomeWrap div:nth-child(1) {

@@ -1,6 +1,7 @@
 {
   "url": {
     "login_customer": "/customer/login",
+    "password_reset": "/customer/update_password",
     "account_overview": "/customer/account_overview",
     "payment_method": "/gps/get_payment_options",
     "enable_autopay": "/gps/make_recurring_payment",

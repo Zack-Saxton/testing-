@@ -8,7 +8,7 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import AddressLogo from "../../../../assets/icon/I-Address.png";
@@ -70,7 +70,12 @@ function HomeAddress() {
 	const [ open, setOpen ] = useState(false);
 	const [ openOhio, setOpenOhio ] = useState(false);
 	const [ errorMsg, setErrorMsg ] = useState("");
-
+	const navigate = useNavigate();	
+	useEffect(() => {
+		if (data.completedPage < data.page.citizenship || data.formStatus === "completed") {
+			navigate("/select-amount");
+		}
+	}, []);
 	//Handle modal open and close
 	const handleClickOpen = () => {
 		setOpen(true);
@@ -83,8 +88,7 @@ function HomeAddress() {
 	};
 	const handleCloseOhio = () => {
 		setOpenOhio(false);
-	};
-	const navigate = useNavigate();
+	};	
 
 	// Formik configutration
 	const formik = useFormik({
@@ -149,10 +153,8 @@ function HomeAddress() {
 	};
 	const onBlurAddress = (event) => {
 		formik.setFieldValue("streetAddress", event.target.value.trim());
-	};
-	if (data.completedPage < data.page.citizenship || data.formStatus === "completed") {
-		navigate("/select-amount");
-	}
+	};	
+	
 	return (
 		<div>
 			<ScrollToTopOnMount />

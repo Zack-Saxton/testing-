@@ -1,7 +1,7 @@
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import EligibleForOffersLogo from "../../../../assets/gallery/Eligible-for-Offers.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
@@ -11,20 +11,21 @@ import ScrollToTopOnMount from "../ScrollToTop";
 
 //Initializing functional component EligibleForOffers
 function EligibleForOffers(props) {
-	const navigate = useNavigate();
-
+	const navigate = useNavigate();	
+	
 	//Handle button click redirecting to account overview page
 	const handleRoute = async (event) => {
 		navigate("/customers/selectOffer");
 	};
 
 	const { data } = useContext(CheckMyOffers);
-	data.formStatus = "completed";
-	if (data.completedPage < data.page.ssn && data.applicationStatus !== "referred" && props?.location?.formcomplete !== "yes") {
-		navigate("/select-amount");
-	}
+	data.formStatus = "completed";	
 	window.onbeforeunload = null;
-
+	useEffect(() => {
+		if (data.completedPage < data.page.ssn && data.applicationStatus !== "referred" && props?.location?.formcomplete !== "yes") {
+			navigate("/select-amount");
+		}
+	}, []);
 	//JSX part
 	return (
 		<div>
