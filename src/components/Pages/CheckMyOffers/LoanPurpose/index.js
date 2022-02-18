@@ -27,30 +27,8 @@ import VacationIconWhite from "../../../../assets/icon/white/Vacation.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary } from "../../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle"
 import "./LoanPurpose.css";
-
-//Loan purpose component initialization
-function LoanPurpose(props) {
-	const { data } = useContext(CheckMyOffers);
-	const [ purpose, setPurpose ] = useState(data.loanPurpose ?? "");
-	const navigate = useNavigate();
-
-	//handle the user data nd store it into context and procced next step
-	const handleRoute = () => {
-		data.loanPurpose = purpose;
-		data.completedPage = data.completedPage > data.page.loanPurpose ? data.completedPage : data.page.loanPurpose;
-		navigate("/citizenship-status");
-	};
-
-	//  validate and procceeds to next step
-	const goNext = (val) => {
-		data.loanPurpose = val;
-		setPurpose(val);
-		if (data.completedPage < data.page.loanPurpose) {
-			data.completedPage = data.completedPage > data.page.loanPurpose ? data.completedPage : data.page.loanPurpose;
-			navigate("/citizenship-status");
-		}
-	};
 
 	//styling
 	const useStyles = makeStyles((Theme) =>
@@ -77,8 +55,43 @@ function LoanPurpose(props) {
 					padding: `${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(1) }px`,
 				},
 			},
+			mainGridPadding: {
+				padding: "4% 0%"
+			},
+			gridPadding:{ 
+				paddingTop: "7px", 
+				paddingBottom: "15px" 
+			},
+			gridMargin: {
+				margin: "15px 0px 19px 0 !important"
+			}
 		})
 	);
+//Loan purpose component initialization
+function LoanPurpose(props) {
+	const { data } = useContext(CheckMyOffers);
+	const [ purpose, setPurpose ] = useState(data.loanPurpose ?? "");
+	const navigate = useNavigate();
+	const preLoginStyles = preLoginStyle();
+
+	//handle the user data nd store it into context and procced next step
+	const handleRoute = () => {
+		data.loanPurpose = purpose;
+		data.completedPage = data.completedPage > data.page.loanPurpose ? data.completedPage : data.page.loanPurpose;
+		navigate("/citizenship-status");
+	};
+
+	//  validate and procceeds to next step
+	const goNext = (val) => {
+		data.loanPurpose = val;
+		setPurpose(val);
+		if (data.completedPage < data.page.loanPurpose) {
+			data.completedPage = data.completedPage > data.page.loanPurpose ? data.completedPage : data.page.loanPurpose;
+			navigate("/citizenship-status");
+		}
+	};
+
+
 	const classes = useStyles();
 
 	//redirect to select offers if directly called
@@ -90,7 +103,7 @@ function LoanPurpose(props) {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className="mainDiv">
+			<div className={preLoginStyles.mainDiv}>
 				<Box>
 					<Grid
 						container
@@ -98,7 +111,7 @@ function LoanPurpose(props) {
 						xs={ 12 }
 						justifyContent="center"
 						alignItems="center"
-						style={ { padding: "4% 0%" } }
+						className={classes.mainGridPadding}
 					>
 						<Grid
 							container
@@ -515,7 +528,7 @@ function LoanPurpose(props) {
 										lg={ 12 }
 										md={ 12 }
 										xs={ 12 }
-										className={ `${ classes.masonryItemFirst }` }
+										className={ `${ classes.masonryItemFirst } ${classes.gridPadding}` }
 										style={ { paddingTop: "7px", paddingBottom: "15px" } }
 									>
 										<Paper
@@ -543,12 +556,11 @@ function LoanPurpose(props) {
 									</Grid>
 									<Grid
 										item
-										className="ContinueButton"
 										lg={ 9 }
 										md={ 9 }
 										sm={ 12 }
 										xs={ 12 }
-										style={ { margin: "15px 0px" } }
+										className={classes.gridMargin}
 									>
 										<ButtonPrimary
 											data-testid="contButton"

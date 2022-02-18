@@ -3,6 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
+import { makeStyles } from "@material-ui/core/styles";
 import Cookies from "js-cookie";
 import React, { useContext, useState } from "react";
 import { useQueryClient } from 'react-query';
@@ -16,28 +17,42 @@ import LoginController, { RegisterController } from "../../../Controllers/LoginC
 import { ButtonPrimary, PasswordField } from "../../../FormsUI";
 import { encryptAES } from "../../../lib/Crypto";
 import ErrorLogger from "../../../lib/ErrorLogger";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle"
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./NewUser.css";
 //YUP validation schema
 const validationSchema = yup.object({
 	newPassword: yup
-		.string("Enter your password")
+		.string(globalMessages.PasswordEnter)
 		.matches(/^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,30}$/, "Your password doesn't meet the criteria")
-		.max(30, "Password can be upto 30 characters length")
-		.min(8, "Password should be minimum of 8 characters length")
-		.required("Your Password is required"),
+		.max(30, globalMessages.PasswordMax)
+		.min(8, globalMessages.PasswordMin)
+		.required(globalMessages.PasswordRequired),
 	confirmPassword: yup
 		.string()
-		.required("Your password confirmation is required")
-		.max(30, "Password can be upto 30 characters length")
-		.min(8, "Password should be minimum of 8 characters length")
+		.required(globalMessages.PasswordConfirmationRequired)
+		.max(30, globalMessages.PasswordMax)
+		.min(8, globalMessages.PasswordMin)
 		.when("newPassword", {
 			is: (newPassword) => newPassword && newPassword.length > 0,
 			then: yup
 				.string()
-				.oneOf([ yup.ref("newPassword") ], "Your confirmation password must match your password"),
+				.oneOf([ yup.ref("newPassword") ], globalMessages.PasswordConfirmationMatch),
 		}),
 });
+
+const useStyles = makeStyles((Theme) =>({
+	boxGrid: {
+		width: "100%", 
+		paddingTop: "70px", 
+		paddingBottom: "70px"
+	},
+	typoStyle:{
+		fontSize: "0.938rem", 
+		color: "595959" 
+	}
+})
+);
 
 //  New user functional component
 
@@ -47,6 +62,9 @@ function NewUser() {
 	const [ failed, setFailed ] = useState(false);
 	const [ loading, setLoading ] = useState(false);
 	const queryClient = useQueryClient();
+	const classes = preLoginStyle();
+	const innerClasses = useStyles();
+
 
 	//configuring formik
 	const formik = useFormik({
@@ -151,14 +169,14 @@ function NewUser() {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className="mainDiv">
+			<div className={classes.mainDiv}>
 				<Box>
 					<Grid
 						item
 						xs={ 12 }
 						container
 						justifyContent="center"
-						style={ { width: "100%", paddingTop: "70px", paddingBottom: "70px" } }
+						className={innerClasses.boxGrid}
 					>
 						<Grid
 							container
@@ -170,7 +188,7 @@ function NewUser() {
 							item
 							className="cardWrapper"
 							justifyContent="center"
-							style={ { width: "100%" } }
+							// style={ { width: "100%" } }
 						>
 							<Paper
 								className="cardWOPadding"
@@ -199,8 +217,7 @@ function NewUser() {
 									align="center"
 									justify="center"
 									alignitems="center"
-									className=""
-									style={ { fontSize: "0.938rem", color: "595959" } }
+									className={innerClasses.typoStyle}
 								>
 									We have detected you are a new customer.
 								</Typography>
@@ -222,12 +239,12 @@ function NewUser() {
 										className="blockDiv"
 										container
 										justifyContent="center"
-										style={ { width: "100%" } }
+										// style={ { width: "100%" } }
 									>
 										<Grid
 											container
 											justifyContent="center"
-											style={ { width: "100%" } }
+											// style={ { width: "100%" } }
 											item
 											lg={ 8 }
 											md={ 8 }
@@ -289,7 +306,7 @@ function NewUser() {
 										</Grid>
 										<Grid
 											justifyContent="center"
-											style={ { width: "100%" } }
+											// style={ { width: "100%" } }
 											item
 											container
 											lg={ 8 }

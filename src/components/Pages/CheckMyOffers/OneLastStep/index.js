@@ -14,13 +14,15 @@ import {
 	getCustomerByEmail
 } from "../../../Controllers/CheckMyOffersController";
 import { ButtonPrimary, Checkbox, Popup, RenderContent } from "../../../FormsUI";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle"
 import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
 
-//SSN component initialization
+//oneLastStep component initialization
 function SSN() {
 	let response = [];
 	const { data, setData } = useContext(CheckMyOffers);
+	const preLoginClasses = preLoginStyle();
 	const [ agree, setAgree ] = useState(false);
 	const [ submit, setSubmit ] = useState(false);
 	const [ agreeDelaware, setAgreeDelaware ] = useState(data.state !== "DE");
@@ -151,7 +153,7 @@ function SSN() {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className="mainDiv">
+			<div className={preLoginClasses.mainDiv}>
 				<Box>
 					<Grid
 						xs={ 12 }

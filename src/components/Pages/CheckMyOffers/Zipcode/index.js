@@ -10,14 +10,15 @@ import ZipcodeLogo from "../../../../assets/icon/I-Zip-Code.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, Zipcode as ZipcodeField } from "../../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
+import globalMessages from '../../../../assets/data/globalMessages.json';
 import "./Zipcode.css";
 
 // Yup validation
 const validationSchema = yup.object({
 	zip: yup
-		.string("Enter your Zip")
-		.min(5, "Zipcode should be of minimum 5 characters length")
-		.required("Zipcode is required"),
+		.string(globalMessages.ZipCodeEnter)
+		.min(5, globalMessages.ZipCodeMax)
+		.required(globalMessages.ZipCodeRequired),
 });
 
 //start of functional components
