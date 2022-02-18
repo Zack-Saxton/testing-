@@ -673,7 +673,7 @@ export default function SideNav() {
                 </NavLink>
 
                 { checkPresenceOfLoan === true ?
-                  <NavLink to="#" state={ { from: "user" } } onClick={ (event) => { resumeApplicationClick(); } } className="nav_link" >
+                  <NavLink to={ applicationStatusRedirectPage[ checkPresenceOfLoanStatus ] } state={ { from: "user" } } className="nav_link" >
                     <ListItem className="titleSidenav" >
                       <ListItemIcon>
                         { " " }
