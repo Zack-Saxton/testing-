@@ -3,6 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle"
 import EligibleForOffersLogo from "../../../../assets/gallery/Eligible-for-Offers.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary } from "../../../FormsUI";
@@ -12,7 +13,7 @@ import ScrollToTopOnMount from "../ScrollToTop";
 //Initializing functional component EligibleForOffers
 function EligibleForOffers(props) {
 	const navigate = useNavigate();	
-	
+	const classes = preLoginStyle();
 	//Handle button click redirecting to account overview page
 	const handleRoute = async (event) => {
 		navigate("/customers/selectOffer");
@@ -30,7 +31,7 @@ function EligibleForOffers(props) {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className="mainDiv">
+			<div className={classes.mainDiv}>
 				<Box>
 					<Grid
 						item
@@ -89,7 +90,7 @@ function EligibleForOffers(props) {
 										justify: "center",
 										alignItems: "center",
 									} }
-									className="margin2p textWhite mainTextMsg"
+									className="margin2p mainTextMsg"
 								>
 									Congratulations!
 								</Typography>
@@ -121,7 +122,7 @@ function EligibleForOffers(props) {
 										justify: "center",
 										alignItems: "center",
 									} }
-									className=" textWhite smalTextImg smalTextImgNoOff"
+									className="smalTextImg smalTextImgNoOff"
 								>
 									You are eligible for a loan offer*. <br />
 									Complete your application process and receive your money as
@@ -169,7 +170,7 @@ function EligibleForOffers(props) {
 								</Grid>
 								<Typography
 									variant="h6"
-									className=" textWhite minText CongratsSmallTxt"
+									className=" minText CongratsSmallTxt"
 								>
 									*Loan funding and disbursement is conditioned upon our
 									satisfactory review of any documents and other information
@@ -181,7 +182,7 @@ function EligibleForOffers(props) {
 								<br />
 								<Typography
 									variant="h6"
-									className=" textWhite minText CongratsSmallTxt"
+									className=" minText CongratsSmallTxt"
 								>
 									**Approval of a loan and the loan disbursement process may
 									take longer if additional documentation is required. Loan
