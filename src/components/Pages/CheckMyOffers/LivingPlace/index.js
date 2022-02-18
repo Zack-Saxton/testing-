@@ -107,11 +107,10 @@ function LivingPlace() {
 	//Mortgage Rent onblur
 	const onBlurPayment = (event) => {
 		let inputValue = event.target.value.replace("$", "");
-		let s = inputValue.split(".");
-		let afterDecimal = s[ 1 ];
+		let amountDetails = inputValue.split(".");
+		let afterDecimal = amountDetails[ 1 ];
 		if (!afterDecimal) {
-			inputValue = event.target.value.replace(".", "");
-			inputValue = inputValue.replace("$", "");
+			inputValue = event.target.value.replace(/[.$,]/g,'');
 			setData({
 				...data,
 				rentMortgageAmount: parseInt(
