@@ -21,7 +21,7 @@ import ScrollToTopOnMount from "../ScrollToTop";
 //oneLastStep component initialization
 function SSN() {
 	let response = [];
-	const { data, setData } = useContext(CheckMyOffers);
+	const { data, setData, setApplicationLoading } = useContext(CheckMyOffers);
 	const preLoginClasses = preLoginStyle();
 	const [ agree, setAgree ] = useState(false);
 	const [ submit, setSubmit ] = useState(false);
@@ -57,6 +57,7 @@ function SSN() {
 	const stopLoading = () => {
 		setSubmit(true);
 		setLoading(false);
+		setApplicationLoading(false)
 	};
 	const handleOnClickEsign = () => {
 		setEsignPopup(true);
@@ -88,6 +89,7 @@ function SSN() {
 			result: response.appSubmissionResult,
 			completedPage: data.page.ssn,
 		});
+		setApplicationLoading(false)
 		if (response.appSubmissionResult && response.appSubmissionResult?.data?.applicationStatus === "offers_available") {
 			setData({ ...data, applicationStatus: "offers_available" });
 			navigate("/eligible-for-offers", { formcomplete: "yes" });
@@ -102,6 +104,7 @@ function SSN() {
 	const handleOnClick = async (event) => {
 		data.completedPage = data.page.ssn;
 		setLoading(true);
+		setApplicationLoading(true)
 		let result = await getCustomerByEmail(data.email);
 		if (result && result?.data?.AppSubmittedInLast30Days === true) {
 			stopLoading();
@@ -120,11 +123,13 @@ function SSN() {
 				refetch();
 			} else if (response.appSubmissionResult.status === 403) {
 				setData({ ...data, applicationStatus: "rejected" });
+				setApplicationLoading(false)
 				refetch();
 				navigate("/no-offers-available", { formcomplete: "yes" });
 			} else {
 				alert("Network Error");
 				setLoading(false);
+				setApplicationLoading(false)
 			}
 		} else {
 			stopLoading();
