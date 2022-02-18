@@ -38,7 +38,7 @@ import PersonalInfo from '../Pages/CheckMyOffers/PersonalInfo';
 import PreApproved from "../Pages/CheckMyOffers/PreApproved";
 import ReferredToBranch from "../Pages/CheckMyOffers/ReferredToBranch";
 import SelectAmount from '../Pages/CheckMyOffers/SelectAmount';
-import SSN from "../Pages/CheckMyOffers/SSN";
+import SSN from "../Pages/CheckMyOffers/OneLastStep";
 import ZipCode from '../Pages/CheckMyOffers/Zipcode';
 import FaqBeforeLogin from "../Pages/Faq/FaqBeforeLogin";
 import FaqPostLogin from "../Pages/Faq/FaqPostLogin";
@@ -53,10 +53,10 @@ import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory";
 import RegisterPage from '../Pages/Register/Register';
 import VantageScore from "../Pages/VantageScore/VantageScore";
 import ViewAccountDetails from "../Pages/AccountOverview/ViewAccountDetails";
-import BranchHeaderLayout from "../Layout/BranchHeader/BranchHeaderLayout";
 import BranchLocator from "../Pages/MyBranch/BranchLocator";
 import BranchPage from "../Pages/MyBranch/BranchPage";
 import StatePage from "../Pages/MyBranch/StatePage";
+import BranchHeaderLayout from "../Layout/BranchLocatorLayout/BranchLocatorLayout";
 import "./App.css";
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -134,12 +134,15 @@ function App() {
                                 <Route path='/living-place' element={ loadGeneralUserComponent(<LivingPlace />) } />
                                 <Route path='/active-duty' element={ loadGeneralUserComponent(<ActiveDuty />) } />
                                 <Route path='/marital-status' element={ loadGeneralUserComponent(<MarriedStatus />) } />
-                                <Route path='/ssn' element={ loadGeneralUserComponent(<SSN />) } />
+                                <Route path='/oneLastStep' element={ loadGeneralUserComponent(<SSN />) } />
                                 <Route path='/no-offers-available' element={ loadGeneralUserComponent(<NoOffersAvailable />) } />
                                 <Route path='/referred-to-branch' element={ loadGeneralUserComponent(<ReferredToBranch />) } />
                                 <Route path='/eligible-for-offers' element={ loadGeneralUserComponent(<EligibleForOffers />) } />
                                 <Route path='/zipcode' element={ loadGeneralUserComponent(<ZipCode />) } />
                                 <Route path='/personal-info' element={ loadGeneralUserComponent(<PersonalInfo />) } />
+                                <Route path='/branchlocator' element={ branchHeaderComponent(<BranchLocator />) } />
+                                <Route path='/branchPage' element={ branchHeaderComponent(<BranchPage />) } />
+                                <Route path='/StatePage' element={ branchHeaderComponent(<StatePage />) } />
                                 {/* <Route path='/branchlocator' element={ loadGeneralUserComponent(<BranchLocator />) } ></Route> */}
                                 <Route path='*' element={ loadGeneralUserComponent(<ErrorBeforeLogin />) } />
                                 <Route path='select-amount' element={ loadGeneralUserComponent(<SelectAmount />) } >
@@ -171,14 +174,12 @@ function App() {
                                     <Route path='*' element={ <ErrorAfterLogin /> } />
                                 </Route>
                                 <Route path='partner' >
-                                    <Route path='signup' element={ loadGeneralUserComponent(<PartnerSignUP />) } />
+                                    <Route path='signup' element={ loadGeneralUserComponent(<ErrorBeforeLogin />) } />
+                                    <Route path='signup'>
+                                        <Route path='*' element={ loadGeneralUserComponent(<PartnerSignUP />) } />
+                                    </Route>
                                     <Route path='confirm-signup' element={ loadGeneralUserComponent(<ConfirmationInfo />) } />
                                     <Route path='*' element={ loadGeneralUserComponent(<ErrorBeforeLogin />) } />
-                                </Route>
-                                <Route path='branch' >
-                                    <Route path='branchlocator' element={ branchHeaderComponent(<BranchLocator />) } />
-                                    <Route path='branchPage' element={ branchHeaderComponent(<BranchPage />) } />
-                                    <Route path='StatePage' element={ branchHeaderComponent(<StatePage />) } />
                                 </Route>
                             </Routes>
                         </ProfilePicture>

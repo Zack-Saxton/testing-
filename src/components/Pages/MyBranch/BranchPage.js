@@ -22,7 +22,8 @@ import {
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import Link from "@material-ui/core/Link";
-import BranchImage from "../../../assets/images/States.jpg";
+import BranchImageWeb from "../../../assets/images/BranchLocatorWeb.png";
+import BranchImageMobile from "../../../assets/images/BranchLocatorMobile.png";
 import { NavLink, useLocation } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
 
@@ -128,10 +129,17 @@ export default function StatePage(props) {
       Branch_Details.Address.length
     );
     setStateName(State.substring(0, 2));
+    return null
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  
   useEffect(() => {
     display_Branch_Times();
+    return null
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getStateName])
+
+
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_SECKey,
   });
@@ -146,7 +154,8 @@ export default function StatePage(props) {
       >
         <Grid container style={{ backgroundColor: "#afdfed", width: "100%" }}>
           <Grid className="branchImage" item md={6} sm={12} xs={12}>
-            <img src={BranchImage} alt="MF logo" />
+            <img className="mobileImage" src={BranchImageMobile} alt="MF Banner" />
+          <img className="webImage" src={BranchImageWeb} alt="MF Banner" />
           </Grid>
 
           <Grid style={{ padding: "2% 4%" }} item md={6} sm={12} xs={12}>
@@ -168,7 +177,7 @@ export default function StatePage(props) {
               </Link>
               <Link
               className="breadcrumbLink"
-                onClick={() => window.open(`/branch/branchlocator/`, "_self")}
+                onClick={() => window.open(`/branchlocator/`, "_self")}
               >
                 Branch Locator
               </Link>
@@ -176,7 +185,7 @@ export default function StatePage(props) {
               className="breadcrumbLink"
                 onClick={() =>
                   window.open(
-                    `/branch/StatePage/?Name=${StateFullName}`,
+                    `/StatePage/?Name=${StateFullName}`,
                     "_self"
                   )
                 }
@@ -356,7 +365,7 @@ export default function StatePage(props) {
                   return (
                     <Grid key={index} item md={4} className="locationInfo">
                       <NavLink
-                        to={`/branch/branchpage/?BranchName=${item?.BranchName}`}
+                        to={`/branchpage/?BranchName=${item?.BranchName}`}
                         state={{ Branch_Details: item }}
                         className="nav_link"
                       >

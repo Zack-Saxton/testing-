@@ -3,6 +3,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
@@ -14,38 +15,55 @@ import AddressLogo from "../../../../assets/icon/I-Address.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import ZipCodeLookup from "../../../Controllers/ZipCodeLookup";
 import { ButtonPrimary, TextField, Zipcode } from "../../../FormsUI";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle"
 import ErrorLogger from "../../../lib/ErrorLogger";
 import "../CheckMyOffer.css";
 import "../HomeAddress/HomeAdress.css";
 import ScrollToTopOnMount from "../ScrollToTop";
+import globalMessages from "../../../../assets/data/globalMessages.json";
+
 //yup validation schema
 const validationSchema = yup.object({
 	streetAddress: yup
-		.string("Enter Street Address")
+		.string(globalMessages.Address_Street)
 		.trim()
-		.max(100, "Should be less than 100 characters")
-		.matches(/^(?!\s+$).*/g, "* This field cannot contain only backspaces")
-		.required("Your Street Address is required"),
+		.max(100, globalMessages.Length_max_100)
+		.matches(/^(?!\s+$).*/g, globalMessages.No_Backspace_Only)
+		.required(globalMessages.Address_Street_Required),
 	city: yup
-		.string("Enter City")
-		.max(30, "Should be less than 30 characters")
-		.required(
-			"Your home city is required. Please re-enter your zip code to populate your city"
-		),
+		.string(globalMessages.Address_City)
+		.max(30, globalMessages.Length_max_30)
+		.required(globalMessages.Address_Home_City),
 	state: yup
-		.string("Enter State")
-		.max(30, "Should be less than 30 characters")
-		.required("Your home state is required."),
+		.string(globalMessages.Address_State)
+		.max(30, globalMessages.Length_max_30)
+		.required(globalMessages.Address_State_Required),
 	zip: yup
-		.string("Enter your Zip")
-		.min(5, "Zipcode should be of minimum 5 characters length")
-		.required("Your home ZIP Code is required"),
+		.string(globalMessages.ZipCodeEnter)
+		.min(5, globalMessages.ZipCodeMax)
+		.required(globalMessages.ZipCodeRequired),
 });
+
+const useStyles = makeStyles((Theme) =>({
+	gridStyle: {
+		padding: "4% 0", 
+		margin: "auto" 
+	},
+	paperStyle: { 
+		justify: "center", 
+		alignItems: "center",
+		textAlign: "center"
+	}
+})
+);
+
 
 // Home address component initialization
 function HomeAddress() {
 	//Context data
 	const { data } = useContext(CheckMyOffers);
+	const classes = preLoginStyle();
+	const innerClasses = useStyles();
 	//state variables
 	const [ stateShort, setStateShort ] = useState(data.state ?? "");
 	const [ validZip, setValidZip ] = useState(true);
@@ -116,7 +134,7 @@ function HomeAddress() {
 					formik.setFieldValue("state", "");
 					setStateShort("");
 					setValidZip(false);
-					setErrorMsg("Please enter a valid Zipcode");
+					setErrorMsg(globalMessages.ZipCodeValid);
 				}
 			} else {
 				formik.setFieldValue("city", "");
@@ -138,14 +156,14 @@ function HomeAddress() {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className="mainDiv">
+			<div className={classes.mainDiv}>
 				<Box>
 					<Grid
 						item xs={ 12 } sm={ 10 } md={ 6 } lg={ 6 }
 						justifyContent="center"
 						container
 						alignItems="center"
-						style={ { padding: "4% 0", margin: "auto" } }
+						className={innerClasses.gridStyle}
 					>
 						<Grid
 							container
@@ -154,8 +172,7 @@ function HomeAddress() {
 						>
 							<Paper
 								id="enterZipWrap"
-								className="cardWOPadding"
-								style={ { justify: "center", alignItems: "center" } }
+								className={innerClasses.paperStyle}
 							>
 								<div className="progress mt-0">
 									<div
@@ -259,7 +276,7 @@ function HomeAddress() {
 												helperText={
 													validZip
 														? formik.touched.zip && formik.errors.zip
-														: "Please enter a valid ZIP Code"
+														: globalMessages.ZipCodeValid
 												}
 											/>
 										</Grid>

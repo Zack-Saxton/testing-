@@ -449,6 +449,7 @@ export default function MakePayment(props) {
     AsyncEffect_HolidayCalender();
     getPaymentMethods();
     return null;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ User, activeLoansData, isFetching, payments ]);
 
   //Holiday Calender from API
@@ -679,6 +680,7 @@ export default function MakePayment(props) {
     if (!afterDecimal) {
       price = event.target.value.replace(".", "");
       price = price.replace("$", "");
+      price = Math.abs( price ).toFixed(2);
       setpaymentAmount(price);
       setRequiredAmount("");
     }

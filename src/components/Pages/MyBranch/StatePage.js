@@ -20,7 +20,8 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import Link from "@material-ui/core/Link";
-import StateImage from "../../../assets/images/States.jpg";
+import BranchImageWeb from "../../../assets/images/BranchLocatorWeb.png";
+import BranchImageMobile from "../../../assets/images/BranchLocatorMobile.png";
 import { makeStyles } from "@material-ui/core";
 import { NavLink } from "react-router-dom";
 import BranchDayTiming from "../../Controllers/BranchDayTiming";
@@ -149,6 +150,8 @@ export default function StatePage() {
   useEffect(() => {
     inputText1.value = Name;
     getActivePlaces();
+    return null
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
   //View part
@@ -161,7 +164,8 @@ export default function StatePage() {
       >
         <Grid container style={{ backgroundColor: "#afdfed", width: "100%" }}>
           <Grid className="branchImage" item md={6} sm={12} xs={12}>
-            <img src={StateImage} alt="MF logo" />
+            <img className="mobileImage" src={BranchImageMobile} alt="MF Banner" />
+            <img className="webImage" src={BranchImageWeb} alt="MF Banner" />
           </Grid>
           <Grid style={{ padding: "2% 4%" }} item md={6} sm={12} xs={12}>
             <Breadcrumbs
@@ -182,7 +186,7 @@ export default function StatePage() {
               </Link>
               <Link
               className="breadcrumbLink"
-                onClick={() => window.open(`/branch/branchlocator/`, "_self")}
+                onClick={() => window.open(`/branchlocator/`, "_self")}
               >
                 Branch Locator
               </Link>
@@ -270,7 +274,7 @@ export default function StatePage() {
                       return (
                         <Grid key={index} item md={4} className="locationInfo">
                           <NavLink
-                            to={`/branch/branchpage/?BranchName=${item?.BranchName}`}
+                            to={`/branchpage/?BranchName=${item?.BranchName}`}
                             state={{ Branch_Details: item }}
                             className="nav_link"
                           >

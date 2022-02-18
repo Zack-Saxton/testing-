@@ -18,6 +18,7 @@ import { partnerConfirmInfo } from "../../Controllers/PartnerSignupController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
 import { ButtonPrimary, Checkbox, Popup, RenderContent, Select, TextField, Zipcode } from "../../FormsUI";
 import ErrorLogger from "../../lib/ErrorLogger";
+import globalMessages from "../../../assets/data/globalMessages.json";
 import "./Style.css";
 
 //Styling
@@ -78,54 +79,54 @@ const useStyles = makeStyles((theme) => ({
 //Yup validations for all the input fields
 const validationSchema = yup.object({
   firstname: yup
-    .string("Enter your Firstname")
+    .string(globalMessages.FirstNameEnter)
     .trim()
-    .max(30, "Should be less than 30 characters")
-    .matches(/^(?!\s+$).*/g, "* This field cannot contain only backspaces")
-    .required("Your firstname is required"),
+    .max(30, globalMessages.FirstNameMax)
+    .matches(/^(?!\s+$).*/g, globalMessages.No_Backspace_Only)
+    .required(globalMessages.FirstNameRequired),
   lastname: yup
-    .string("Enter your Lastname")
+    .string(globalMessages.LastNameEnter)
     .trim()
-    .max(30, "Should be less than 30 characters")
-    .matches(/^(?!\s+$).*/g, "* This field cannot contain only backspaces")
-    .required("Your lastname is required"),
+    .max(30, globalMessages.LastNameMax)
+    .matches(/^(?!\s+$).*/g, globalMessages.No_Backspace_Only)
+    .required(globalMessages.LastNameRequired),
   streetAddress: yup
-    .string("Enter Street Address")
+    .string(globalMessages.Address_Street)
     .trim()
-    .max(100, "Should be less than 100 characters")
-    .matches(/^(?!\s+$).*/g, "* This field cannot contain only backspaces")
-    .required("Your Address is required"),
+    .max(100, globalMessages.Address_Street_Max)
+    .matches(/^(?!\s+$).*/g, globalMessages.No_Backspace_Only)
+    .required(globalMessages.Address_Street_Required),
   city: yup
-    .string("Enter City")
-    .max(30, "Should be less than 30 characters")
-    .required("Your home city is required. Please re-enter your zip code to populate your city"),
+    .string(globalMessages.Address_City)
+    .max(30, globalMessages.Address_City_Max)
+    .required(globalMessages.Address_Home_City),
   state: yup
-    .string("Enter State")
-    .max(30, "Should be less than 30 characters")
-    .required("Your home state is required."),
+    .string(globalMessages.Address_State)
+    .max(30, globalMessages.Address_State_Max)
+    .required(globalMessages.Address_State_Required),
   zip: yup
-    .string("Enter your Zip")
-    .min(5, "Zipcode should be of minimum 5 characters length")
-    .required("Your home ZIP Code is required"),
+    .string(globalMessages.ZipCodeEnter)
+    .min(5, globalMessages.ZipCodeMax)
+    .required(globalMessages.ZipCodeRequired),
   citizenship: yup
-    .string("Enter citizenship")
-    .max(30, "Should be less than 30 characters")
-    .required("Your citizenship is required"),
+    .string(globalMessages.CitizenshipEnter)
+    .max(30, globalMessages.CitizenshipMax)
+    .required(globalMessages.CitizenshipRequired),
   employementStatus: yup
-    .string("Enter Employement Status")
-    .max(30, "Should be less than 30 characters")
-    .required("Your Employement Status is required"),
+    .string(globalMessages.EmploymentEnter)
+    .max(30, globalMessages.EmploymentMax)
+    .required(globalMessages.EmploymentRequired),
   activeDuty: yup.string().when("state", {
     is: "NC",
-    then: yup.string().required("Active duty required"),
+    then: yup.string().required(globalMessages.Active_DutyRequired),
   }),
   activeDutyRank: yup.string().when("activeDuty", {
     is: "Yes",
-    then: yup.string().required("Active duty rank is required"),
+    then: yup.string().required(globalMessages.Active_Duty_Rank_Required),
   }),
   martialStatus: yup.string().when("state", {
     is: "Wisconsin",
-    then: yup.string().required("Marital Status required"),
+    then: yup.string().required(globalMessages.Marital_Status_Required),
   }),
   spouseadd: yup
     .string()
@@ -134,26 +135,26 @@ const validationSchema = yup.object({
       then: yup
         .string()
         .trim()
-        .max(100, "Should be less than 100 characters")
-        .matches(/^(?!\s+$).*/g, "* This field cannot contain only backspaces"),
+        .max(100, globalMessages.Marital_Status_Max)
+        .matches(/^(?!\s+$).*/g, globalMessages.No_Backspace_Only),
     })
     .when("martialStatus", {
       is: "Separated, under decree of legal separation",
       then: yup
         .string()
         .trim()
-        .max(100, "Should be less than 100 characters")
-        .matches(/^(?!\s+$).*/g, "* This field cannot contain only backspaces"),
+        .max(100, globalMessages.Marital_Status_Max)
+        .matches(/^(?!\s+$).*/g, globalMessages.No_Backspace_Only),
     }),
   spouseZipcode: yup
     .string()
     .when("martialStatus", {
       is: "Married",
-      then: yup.string().required("Your home ZIP Code is required"),
+      then: yup.string().required(globalMessages.ZipCodeRequired),
     })
     .when("martialStatus", {
       is: "Separated, under decree of legal separation",
-      then: yup.string().required("Your home ZIP Code is required"),
+      then: yup.string().required(globalMessages.ZipCodeRequired),
     }),
   spousecity: yup
     .string()
@@ -161,23 +162,23 @@ const validationSchema = yup.object({
       is: "Married",
       then: yup
         .string()
-        .required("Your home city is required. Please re-enter your zip code to populate your city"),
+        .required(globalMessages.Address_Home_City),
     })
     .when("martialStatus", {
       is: "Separated, under decree of legal separation",
       then: yup
         .string()
-        .required("Your home city is required. Please re-enter your zip code to populate your city"),
+        .required(globalMessages.Address_Home_City),
     }),
   spouseSelectState: yup
     .string()
     .when("martialStatus", {
       is: "Married",
-      then: yup.string().required("Your home state is required"),
+      then: yup.string().required(globalMessages.Address_State_Required),
     })
     .when("martialStatus", {
       is: "Separated, under decree of legal separation",
-      then: yup.string().required("Your home state is required"),
+      then: yup.string().required(globalMessages.Address_State_Required),
     }),
 });
 
@@ -236,12 +237,12 @@ export default function CreditKarma(props) {
         setErrorPersonal("");
         return true;
       } else {
-        setErrorAnnual("Annual household income must be greater than or equal to Annual personal income");
+        setErrorAnnual(globalMessages.Annual_Household_Equal_Personal);
         return false;
       }
     } else {
-      setErrorPersonal(isNaN(personal) ? "Annual personal income is required" : "");
-      setErrorAnnual(isNaN(household) ? "Annual household income is required" : "");
+      setErrorPersonal(isNaN(personal) ? globalMessages.Annual_Personal_Income_Required : "");
+      setErrorAnnual(isNaN(household) ? globalMessages.Annual_Household_Income_Required : "");
       return false;
     }
   };
@@ -359,7 +360,7 @@ export default function CreditKarma(props) {
 
   const fetchAddress = async (event) => {
     try {
-      setErrorMsg(event.target.value === "" ? "Please enter a zipcode" : errorMsg);
+      setErrorMsg(event.target.value === "" ? globalMessages.ZipCodeEnter : errorMsg);
       if (event.target.value !== "" && event.target.value.length === 5) {
         let result = await ZipCodeLookup(event.target.value);
         if (result) {
@@ -368,7 +369,7 @@ export default function CreditKarma(props) {
           formik.setFieldValue("city", "");
           formik.setFieldValue("state", "");
           setValidZip(false);
-          setErrorMsg("Please enter a valid Zipcode");
+          setErrorMsg(globalMessages.ZipCodeValid);
         }
       }
       if (event.target.name !== "") {
@@ -482,10 +483,10 @@ export default function CreditKarma(props) {
       const modPersonalIncome = parseInt(formik.values.personalIncome.replace(/\$/g, "").replace(/,/g, ""));
       const modHouseholdIncome = parseInt(formik.values.householdIncome.replace(/\$/g, "").replace(/,/g, ""));
       if (isNaN(modPersonalIncome)) {
-        setErrorPersonal("Annual personal income is required");
+        setErrorPersonal(globalMessages.Annual_Personal_Income_Required);
       } else {
         if (income.length < 4) {
-          setErrorPersonal("Annual personal income should not be less than 4 digits");
+          setErrorPersonal(globalMessages.Annual_Personal_Income_4_digits);
           return false;
         }
         if (!isNaN(modPersonalIncome) && !isNaN(modHouseholdIncome)) {
@@ -494,7 +495,7 @@ export default function CreditKarma(props) {
             setErrorPersonal("");
             return true;
           } else {
-            setErrorAnnual("Annual household income must be greater than or equal to Annual personal income");
+            setErrorAnnual(globalMessages.Annual_Household_Equal_Personal);
             return false;
           }
         }
@@ -510,10 +511,10 @@ export default function CreditKarma(props) {
       const modPersonalIncome = parseInt(formik.values.personalIncome.replace(/\$/g, "").replace(/,/g, ""));
       const modHouseholdIncome = parseInt(formik.values.householdIncome.replace(/\$/g, "").replace(/,/g, ""));
       if (isNaN(modHouseholdIncome)) {
-        setErrorAnnual("Annual household income is required");
+        setErrorAnnual(globalMessages.Annual_Household_Income_Required);
       } else {
         if (income.length < 4) {
-          setErrorAnnual("Annual household income should not be less than 4 digits");
+          setErrorAnnual(globalMessages.Annual_Household_Income_4_digits);
           return false;
         }
         const perval = document
@@ -522,7 +523,7 @@ export default function CreditKarma(props) {
           .replace(/,/g, "")
           .substr(0, 7);
         if (perval.length < 4) {
-          setErrorPersonal("Annual personal income should not be less than 4 digits");
+          setErrorPersonal(globalMessages.Annual_Personal_Income_4_digits);
           return false;
         }
         if (!isNaN(modPersonalIncome) && !isNaN(modHouseholdIncome)) {
@@ -531,7 +532,7 @@ export default function CreditKarma(props) {
             setErrorPersonal("");
             return true;
           } else {
-            setErrorAnnual("Annual household income must be greater than or equal to Annual personal income");
+            setErrorAnnual(globalMessages.Annual_Household_Equal_Personal);
             return false;
           }
         }
@@ -668,13 +669,13 @@ export default function CreditKarma(props) {
                         fullWidth
                         id="zip"
                         name="zip"
-                        label="Zipcode *"
+                        label="Zip Code *"
                         materialProps={ { "data-test-id": "zipcode" } }
                         value={ formik.values.zip }
                         onChange={ fetchAddress }
                         onBlur={ formik.handleBlur }
                         error={ (formik.touched.zip && Boolean(formik.errors.zip)) || !validZip }
-                        helperText={ validZip ? formik.touched.zip && formik.errors.zip : "Please enter a valid ZIP Code" }
+                        helperText={ validZip ? formik.touched.zip && formik.errors.zip : globalMessages.ZipCodeValid }
                       />
                     </Grid>
                     <Grid item xs={ 12 } sm={ 4 } container direction="row">

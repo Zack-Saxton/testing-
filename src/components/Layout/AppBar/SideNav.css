@@ -1,18 +1,25 @@
 header {
   box-shadow: 0 0;
-  /* background: transparent !important; */
+}
+#headerWrap{
+  position: sticky !important;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
 }
 #MainHeaderWrapping{
   background-color: white !important;
-  padding: 0px 15px !important;
   box-shadow: 0px 3px 9px -6px #000000 !important;
-  /* position: sticky; */
+  height: 82px;
+  justify-content: center;
   top: 0;
   z-index: 9;
 }
 
 #close1 {
   display: none;
+  background-color: #ffbc23;
+  padding: 10px !important;
 }
 
 #moneySkillNavLink {
@@ -149,8 +156,17 @@ a.nav_link:hover .MuiListItem-root {
 
 #tool-bar-list{
   display: flex !important;
+  align-items: center;
+  height: 100%;
+}
+#quickNameIcon{
+  height: 64px;
+  margin-right: 10px;
 }
 
+#settingsMenu .MuiPopover-paper{
+top: 118px !important;
+}
 @media (max-width: 960px) {
   #close1 {
     display: block;
@@ -169,6 +185,10 @@ a.nav_link:hover .MuiListItem-root {
 
     vertical-align: bottom !important;
   }
+}
+#toolbar{
+  padding: 0px 25px !important;
+  height: 100%;
 }
 
 @media (max-width: 480px) {

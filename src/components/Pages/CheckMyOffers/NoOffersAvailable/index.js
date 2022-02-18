@@ -168,7 +168,7 @@ function NoOffersAvailable(props) {
 										stylebutton='{"background": "", "color":"", "fontSize": "0.938rem", "padding": "5px 30px" }'
 										onClick={ handleBlog }
 									>
-										Blog
+										Blogs
 									</ButtonSecondary>
 								</Grid>
 								<Grid
