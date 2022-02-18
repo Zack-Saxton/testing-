@@ -535,15 +535,15 @@ export default function MakePayment(props) {
     setpaymentDatepicker(event.target.checked ? scheduleDate : new Date());
   };
 
-  let obj = {};
+  let accountInfo = {};
   let cardLabel = "";
-  if (card) {
-    obj = paymentListCard.find(o => o.value === card);
-    cardLabel = obj?.label;
+  if ((card) && (paymentListCard?.length)) {
+    accountInfo = paymentListCard.find(account => account.value === card);
+    cardLabel = accountInfo?.label;
   }
-  if (cardLabel === undefined) {
-    obj = paymentListAch.find(o => o.value === card);
-    cardLabel = obj?.label;
+  if (cardLabel === "" && (paymentListAch?.length)) {
+    accountInfo = paymentListAch.find(account => account.value === card);
+    cardLabel = accountInfo?.label;
   }
 
   //Autopay submit
@@ -709,11 +709,7 @@ export default function MakePayment(props) {
         id="makePaymentWrap"
         container
         justifyContent={ "center" }
-        style={ {
-          marginTop: "-150px",
-          paddingRight: "23px",
-          paddingLeft: "23px",
-        } }
+        className={ classes.centerGrid }
       >
         <Grid
           style={ { paddingBottom: "10px" } }

@@ -67,9 +67,14 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
   heading: {
-    color: "#fff",
+    color: "#214476",
     fontWeight: "400",
     fontSize: "1.64rem",
+  },
+  centerGrid:{
+    marginTop: "20px",
+    paddingRight: "23px",
+    paddingLeft: "23px",
   },
   loadingOn: {
     opacity: 0.55,
@@ -162,11 +167,7 @@ export default function ReviewAndSign(props) {
       <Grid
         container
         justifyContent={ "center" }
-        style={ {
-          marginTop: "-150px",
-          paddingRight: "23px",
-          paddingLeft: "23px",
-        } }
+        className={ classes.centerGrid }
       >
         <Grid
           container

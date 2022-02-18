@@ -33,6 +33,7 @@ export default function LoanDocument() {
   const [ selectedFile, setSelectedFile ] = useState(null);
   const [ docType, setDocType ] = useState("");
   const [ loading, setLoading ] = useState(false);
+  const [label,setlabel] = useState("No File Upload");
   const changeEvent = useRef("");
   let location = useLocation();
 
@@ -52,6 +53,10 @@ export default function LoanDocument() {
     setSelectedFile(document.getElementById("file"));
   };
 
+  const handleChange = (event) =>{
+    let uploadedFile = selectedFile.value.split("\\");
+    setlabel(uploadedFile[uploadedFile.length - 1])
+}
   //Document type
   const handleDocType = (event) => {
     setDocType(event.target.value);
@@ -110,6 +115,7 @@ export default function LoanDocument() {
         handleElse();
       }
     }
+    setlabel("No File uploaded");
   };
 
   //View part
@@ -120,11 +126,7 @@ export default function LoanDocument() {
       <Grid
         container
         justifyContent={ "center" }
-        style={ {
-          marginTop: "-150px",
-          paddingRight: "23px",
-          paddingLeft: "23px",
-        } }
+        className={ classes.centerGrid }
       >
         <Grid
           style={ { paddingBottom: "10px" } }
@@ -195,7 +197,7 @@ export default function LoanDocument() {
               style={ { paddingTop: "10px", width: "225px" } }
             >
               <Select
-                id="selectDoccumentWrap"
+              id="selectDoccumentWrap"
                 name="selectDocument"
                 labelform="Select Document Type"
                 select='[{ "label": "Identity Document", "value": "id_doc"},
@@ -216,6 +218,7 @@ export default function LoanDocument() {
                   cursor="pointer"
                   ref={ changeEvent }
                   onClick={ handleInputChange }
+                  onChange={(event) => handleChange(event)}
                   style={ { display: "none" } }
                 />
                 <Button
@@ -237,6 +240,7 @@ export default function LoanDocument() {
                     } }
                   />
                 </Button>
+                <span style={{marginLeft:"2px"}}>{label}</span>
               </Grid>
 
               <Grid item xs={ 12 } sm={ 4 } style={ { paddingTop: "10px" } }></Grid>

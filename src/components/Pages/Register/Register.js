@@ -254,7 +254,7 @@ export default function Register() {
 
   const handleCloseSuccess = () => {
     setSuccess(false);
-    navigate("customers/accountOverview");
+    navigate("/customers/accountOverview");
   };
 
   //Preventing space key

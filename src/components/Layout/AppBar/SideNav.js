@@ -143,7 +143,6 @@ const useStyles = makeStyles((theme) => ({
   },
   headerAlign: {
     margin: "12px",
-    color: "#fff"
   },
 
   branchLocator: {
@@ -481,7 +480,8 @@ export default function SideNav() {
 
       <div className={ classes.grow }>
         <AppBar
-          position="absolute"
+        id="MainHeaderWrapping"
+          position="static"
           elevation={ 0 }
           className={ clsx(classes.appBar, {
             [ classes.appBarShift ]: open,
@@ -506,7 +506,6 @@ export default function SideNav() {
               <Typography className={ classes.headerAlign }>
                 <a
                   href="https://www.marinerfinance.com/blog"
-                  style={ { color: "white" } }
                   className="hrefTag"
                 >
                   Blogs
@@ -516,12 +515,11 @@ export default function SideNav() {
               <NavLink
                 to="/customers/faq"
                 className="nav_link"
-                style={ { color: "white" } }
               >
                 <Typography className={ classes.headerAlign }>FAQ</Typography>
               </NavLink>
 
-              <NavLink to="/branchlocator" className="nav_link">
+              <NavLink to="/branch/branchlocator" className="nav_link">
                 <Typography className={ classes.headerAlign }>Branch Locator</Typography>
               </NavLink>
 
@@ -543,7 +541,7 @@ export default function SideNav() {
                 aria-label="account of current user"
                 aria-haspopup="true"
                 onClick={ handleProfileMenuOpen }
-                color="inherit"
+                color=""
 
               >
                 <SettingsIcon />

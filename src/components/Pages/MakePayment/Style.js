@@ -8,10 +8,15 @@ const useStylesMakePayment = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
   heading: {
-    color: "#fff",
-    fontWeight: "400",
-    fontSize: "1.563rem",
-  },
+		color: "#214476",
+		fontWeight: "400",
+		fontSize: "1.563rem",
+	},
+	centerGrid:{
+		marginTop: "20px",
+		paddingRight: "23px",
+		paddingLeft: "23px",
+		},
   table: {
     minWidth: 650,
     paddingBottom: "5px",
