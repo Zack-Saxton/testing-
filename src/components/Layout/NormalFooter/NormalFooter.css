@@ -15,8 +15,11 @@
        }
 
        .leftAlignAddress{
-        font-size: 15px;
+        font-size: 1rem !important;
+        font-weight: 600;
+        color: #333;
         line-height: 1.5;
+        text-align: left !important;
        }
 
        .col{
@@ -31,8 +34,9 @@
       }
       .footer-content{
         font-size: 15px;
-        padding-bottom: 4%;
-       word-wrap: break-word;
+        padding: 0px 15px 0.5% 15px;
+        /* padding-bottom: 0.5%; */
+        word-wrap: break-word;
 
       }
    .hrefTag{
@@ -40,6 +44,19 @@
     color: black;
     cursor: pointer;
 
+   }
+   .mfInfoImg{
+    padding: 0px 15px !important;
+
+   }
+
+   .footerWrap{
+    padding-bottom: 30px;
+  }
+   .mainFooterWrap{
+   
+      padding: 40px 30px;
+    
    }
    @media all and (max-width: 700px){
 
@@ -49,7 +66,7 @@
     }
     #mfInfoImg{
       width: 50% !important;
-      height: auto !important;
+      height: 100% !important;
     }
    .section-top-normal-footer{
        flex-direction: column;
@@ -73,9 +90,10 @@
  }
 
  .normalFooterFont{
-   font-size: 0.938rem !important;
+   font-size: 1rem !important;
    color: #333 !important;
  }
+
  @media all and (max-width: 1300px){
   #badge{
     height: 80px!important
