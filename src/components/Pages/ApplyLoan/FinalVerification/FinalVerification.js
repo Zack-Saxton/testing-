@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
   heading: {
-    color: "#fff",
+    color: "#214476",
     fontWeight: "400",
     fontSize: "1.64rem",
   },
@@ -66,11 +66,11 @@ const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 650,
   },
-  mainGrid: {
-    marginTop: "-150px",
+  centerGrid:{
+    marginTop: "20px",
     paddingRight: "23px",
     paddingLeft: "23px",
-  },
+    },
 }));
 
 //Initializing Final verification functional component
@@ -90,8 +90,7 @@ export default function FinalVerification() {
       <Grid
         container
         justifyContent={ "center" }
-        className
-        className={ classes.mainGrid }
+        className={ classes.centerGrid }
       >
         <Grid
           item

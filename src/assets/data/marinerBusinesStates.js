@@ -1,4 +1,5 @@
-export const MFStates = [ 'Alabama',
+export const MFStates = [ 
+    'Alabama',
     'Arizona',
     'California',
     'Delaware',
@@ -27,20 +28,50 @@ export const MFStates = [ 'Alabama',
     'Wisconsin',
     'Washington'
 ];
-export const branch_hours = {
-    "monday": "9:00 a.m. – 5:00 p.m.",
-    "tuesday": "9:00 a.m. – 7:00 p.m.",
-    "wednesday": "9:00 a.m. – 5:00 p.m.",
-    "thursday": "9:00 a.m. – 5:00 p.m.",
-    "friday": "9:00 a.m. – 5:30 p.m."
-};
-export const ca_branch_hours = {
-    "monday": "9:00 a.m. – 5:30 p.m.",
-    "tuesday": "10:00 a.m. – 7:00 p.m.",
-    "wednesday": "9:00 a.m. – 5:30 p.m.",
-    "thursday": "9:00 a.m. – 5:30 p.m.",
-    "friday": "9:00 a.m. – 5:30 p.m."
-};
+export const MFStateShort = [
+    'AL',
+    'AZ',
+    'CA',
+    'DE',
+    'FL',
+    'GA',
+    'IL',
+    'IN',
+    'KY',
+    'LA',
+    'MD',
+    'MS',
+    'MO',
+    'NJ',
+    'NM',
+    'NY',
+    'NC',
+    'OH',
+    'OK',
+    'OR',
+    'PA',
+    'SC',
+    'TN',
+    'TX',
+    'UT',
+    'VA',
+    'WI',
+    'WA'
+]
+export const branch_hours = [
+    "Monday: 9:00 a.m. – 5:00 p.m.",
+    "Tuesday: 9:00 a.m. – 7:00 p.m.",
+    "Wednesday: 9:00 a.m. – 5:00 p.m.",
+    "Thursday: 9:00 a.m. – 5:00 p.m.",
+    "Friday: 9:00 a.m. – 5:30 p.m."
+];
+export const ca_branch_hours = [
+    "Monday: 9:00 a.m. – 5:30 p.m.",
+    "Tuesday: 10:00 a.m. – 7:00 p.m.",
+    "Wednesday: 9:00 a.m. – 5:30 p.m.",
+    "Thursday: 9:00 a.m. – 5:30 p.m.",
+    "Friday: 9:00 a.m. – 5:30 p.m."
+];
 export const tzMatch = {
     "Eastern Standard Time": "EST",
     "Eastern Daylight Time": "EDT",

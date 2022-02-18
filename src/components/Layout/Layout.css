@@ -5,7 +5,62 @@
     background-position: center;
     background-attachment: fixed;
 }
+.headerWrap{
+    position: sticky !important;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+.topBar{
+    height: 36px;
+    background: linear-gradient(to left, #264266, #0F4EB3);
+}
 
 #MainHeaderWrap{
-    box-shadow: none !important;
+    background-color: white !important;
+    box-shadow: 0px 3px 9px -6px #000000 !important;
+    position: sticky;
+    top: 0;
+    z-index: 9;
+}
+.headerToolBar{
+    height: 82px;
+    padding: 0px 25px !important;
+    align-items: flex-start !important;
+}
+
+
+#blogsLink a{
+    height: 79px;
+    padding: 0px;
+    display: flex;
+    align-items: center;
+    margin-right: 35px;
+}
+.faqLink p{
+    height: 79px;
+    padding: 0px;
+    display: flex;
+    align-items: center;
+    margin-right: 35px;
+}
+.branchLocatorLink p{
+    height: 79px;
+    padding: 0px;
+    display: flex;
+    align-items: center;
+    margin-right: 35px;
+}
+
+#blogsLink a:hover{
+    border-top: 3px solid #214476 !important;
+    color: #214476 !important;
+}
+.faqLink p:hover{
+    border-top: 3px solid #214476 !important;
+    color: #214476 !important;
+}
+.branchLocatorLink p:hover{
+    border-top: 3px solid #214476 !important;
+    color: #214476 !important;
 }

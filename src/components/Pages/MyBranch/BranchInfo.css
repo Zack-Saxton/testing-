@@ -1,110 +1,347 @@
-#workingHoursTableWrap thead tr th{
-    border: 1px solid rgba(224, 224, 224, 1) !important;
+#workingHoursTableWrap thead tr th {
+  border: 1px solid rgba(224, 224, 224, 1) !important;
 }
-#workingHoursTableWrap tbody tr th, #workingHoursTableWrap tbody tr td{
-    border: 1px solid rgba(224, 224, 224, 1) !important;
+#workingHoursTableWrap tbody tr th,
+#workingHoursTableWrap tbody tr td {
+  border: 1px solid rgba(224, 224, 224, 1) !important;
 }
-
-#branchNameBox{
-    border-radius: 2px !important;
+#branchNameBox {
+  border-radius: 2px !important;
 }
-
-#phoneLink{
-    color: #0F4EB3 !important;
+#phoneLink {
+  color: #0f4eb3 !important;
 }
-#branchMapWrap{
-    height: 100% !important;
+.branchMap {
+  min-height: 650px !important;
+  height: 650px !important;
 }
-#branchMapWrap iframe{
-    height: 100% !important;
+#branchMapWrap {
+  height: 100% !important;
 }
-#branchDiv{
-    padding-right: 15px;
+#branchMapWrap iframe {
+  height: 100% !important;
 }
-#branchMainDiv{
-    padding-top: "10px";
-     padding-bottom: "10px";
-      margin-bottom: "45px";
+#branchDiv {
+  padding-right: 15px;
 }
-
-#inputText{
-    color: white !important;
-    padding-left: 36px;
-    padding-bottom: 15px;
-    border-bottom-color: white !important;
+#branchMainDiv {
+  padding-top: "10px";
+  padding-bottom: "10px";
+  margin-bottom: "45px";
 }
-#inputText-label{
-    color: white !important;
+#inputText {
+  color: #000 !important;
+  padding-left: 36px;
+  padding-bottom: 15px;
+  border-bottom-color: white !important;
+}
+#inputText-label {
+  color: #595959 !important;
+  font-size: 0.938rem !important;
+  padding-left: 45px;
+}
+#findBranchGrid {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin: 0px 0px 23px 0px;
+  position: relative;
+}
+#findBranchGridBottom {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 5px 0px;
+  margin: 0px 0px 23px 0px;
+  position: relative;
+}
+.zipLabel {
+  position: absolute;
+  top: -30px;
+  font-size: 12px;
+  color: #171717;
+}
+.searchIconBottom {
+  color: #595959 !important;
+  position: absolute;
+  top: 10px;
+  font-size: 26px !important;
+  left: -4px;
+}
+#findBranchGrid .branchLocatorInput .MuiInput-underline:before,
+#findBranchGrid .branchLocatorInput .MuiInput-underline:after {
+  border-bottom: 2px solid white !important;
+  border-bottom-color: #3f51b5 !important;
+}
+#findBranchGridBottom .branchLocatorInput .MuiInput-underline:before,
+#findBranchGridBottom .branchLocatorInput .MuiInput-underline:after {
+  border-bottom: 2px solid white !important;
+  border-bottom-color: #3f51b5 !important;
+}
+.searchIcon {
+  color: #595959 !important;
+  position: absolute;
+  top: 20px;
+  font-size: 26px !important;
+  left: -4px;
+}
+.goIcon {
+  font-size: 20px !important;
+}
+.branchLocatorInput {
+  width: 100% !important;
+}
+.branchLocatorInput .MuiInput-underline {
+  padding-left: 26px;
+  padding-bottom: 7px;
+}
+.findBranchWrap {
+  padding: 0px 15px 0px 15px;
+}
+#findBranchWrapTwo {
+  margin-top: 4%;
+  padding: 0 !important;
+}
+.locationInfo {
+  margin-bottom: 2% !important;
+}
+.locationInfo .nav_link {
+  display: flex;
+  align-items: center;
+}
+.locationInfo .nav_link svg {
+  color: #214476;
+  font-size: 24px;
+}
+.locationInfo p svg {
+  font-size: 0.9rem;
+  color: #214476 !important;
+}
+.locationInfo p a {
+  font-size: 0.938rem;
+  font-weight: 700;
+  color: #214476 !important;
+  text-decoration: none;
+}
+.addressList {
+  background-color: #f6f6f6;
+}
+.breadcrumbLink{
+  font-size: 0.75rem !important;
+  color: #171717 !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+}
+.branchListWrap {
+  max-height: 192px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.BlacktextColor {
+  color: #171717;
+  text-decoration: none;
+}
+.blueText{
     font-size: 0.938rem !important;
-    padding-left: 45px;
+    font-weight: 700 !important;
+    color: #214476 !important;
 }
-
-#findBranchGrid{
-    display: flex;
-    align-items: center;
-    position: relative;
-    margin: 0px 0px 23px 0px;
+#branchLists {
+  background-color: white;
+  min-height: 720px !important;
 }
-
-#findBranchGrid .branchLocatorInput  .MuiInput-underline:before,
-#findBranchGrid .branchLocatorInput  .MuiInput-underline:after{
- border-bottom: 1px solid white !important;
- border-bottom-color: white !important;
+#mapGridWrap {
+  min-height: 720px;
 }
-.searchIcon{
-    color: white;
-    position: absolute;
-    top: 20px;
-    font-size: 26px !important;
-    left: 5px;
+#timeSlotSelect .subOption {
+  color: #171717 !important;
 }
-.goIcon{
-    font-size: 20px !important;
+#ScheduleAppointmentSelect .subOption {
+  color: #171717 !important;
 }
-.branchLocatorInput{
-    width: 100% !important;
+#mapGridWrap {
+  border: 2px solid #9a9a9a;
+  overflow: hidden;
+  border-right-color: #eee;
+  border-bottom-color: #eee;
 }
-.findBranchWrap{
-    padding: 0px 15px 0px 15px;
+.blueBGColor {
+  background-color: #214476;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 4% 1% 4% 1%;
+  margin: 4% 0 0 0;
 }
-
-.locationInfo{
-    margin-bottom: 4%;
+.blueBGColor h4 {
+  font-size: 2.138rem;
+  color: white;
 }
-.BlacktextColor{
-    color: #171717;
-    text-decoration: none;
+.home .feefowidget-top-row span.feefowidget-average-customer-rating,
+body.home .feefowidget-top-row .feefowidget-rating-label,
+.feefowidget-title-row,
+.feefowidget-content-row {
+  color: white !important;
 }
-#branchLists{
-    background-color: white;
+.feefowidget-carousel-summary.feefowidget-carousel-summary-average-customer-rating
+  .feefowidget-average-customer-rating,
+.feefowidget-carousel-summary.feefowidget-carousel-summary-media-integration
+  .feefowidget-average-customer-rating {
+  color: white !important;
 }
-
-#mapGridWrap{
-    min-height: 720px;
+#feefo-service-review-carousel-widgetId {
+  background-color: transparent !important;
 }
-#timeSlotSelect .subOption{
+#feefo-service-review-carousel-widgetId
+  feefowidget-container-carousel
+  feefowidget-container-main
+  div {
+  background-color: transparent !important;
+}
+.feefowidget-carousel-summary__logo-large {
+  display: none;
+}
+.feefowidget-rating-label {
+  color: white !important;
+}
+.feefowidget-meta-row {
+  color: #ffffff8a !important;
+}
+#feefo-service-review-carousel-widgetId
+  feefowidget-container-carousel
+  feefowidget-container-main
+  div
+  span {
+  color: white !important;
+}
+.feefowidget-carousel-summary-average-customer-rating div span {
+  color: #ffffff8a !important;
+}
+.feefowidget-right-button i,
+.feefowidget-left-button i {
+  color: white !important;
+}
+.feefowidget-read-all-reviews {
+  color: #ffffff8a !important;
+}
+.branchLocatorHeading b {
+  font-size: 2.125rem !important;
+  font-weight: 700;
+  line-height: 36px;
+}
+.branchLocatorHeadingMain {
+  font-size: 2.125rem !important;
+  font-weight: 400;
+  line-height: 36px;
+  color: #214476;
+  margin: 1% 0 4% 0;
+}
+.branchLocatorHeading {
+  font-size: 2.125rem !important;
+  font-weight: 400;
+  line-height: 36px;
+  color: #214476;
+  margin: 3% 0 4% 0;
+}
+.numberText {
+  margin: 17px 2% 14px 0%;
+}
+.branchSmallText {
+  font-size: 0.938rem;
+  color: #000;
+  margin: 0;
+  display: inline-block;
+}
+.navigateNextIcon {
+  font-size: 14px !important;
+  color: #171717 !important;
+}
+.breadcrumbWrap{
+    line-height: 30px !important;
+    height: 30px !important;
     color: #171717 !important;
+    font-size: 0.75rem !important;
 }
-#ScheduleAppointmentSelect .subOption{
-    color: #171717 !important;
+.PesonalLoanParagraph {
+  text-align: center;
+  margin: 15px 0px !important;
+  color: #171717;
+  line-height: 1.5;
+  font-size: 0.938rem;
 }
-
-@media (max-width:960px) {
-
-    .findBranchWrap{
-        padding-top: 40px;
-    }
+.PesonalLoanMapParagraph {
+  text-align: justify;
+  margin: 15px 0px !important;
+  color: #595959;
+  line-height: 1.5;
+  font-size: 0.938rem;
 }
-
-@media (max-width:599px) {
-    #branchDiv{
-        padding-right: 0px;
-        margin-bottom: 30px;
-    }
+.PesonalLoanHeading {
+  color: #214476;
+  text-align: center;
+  font-size: 2.125rem;
+  font-weight: 500;
+  margin: 0;
 }
-
-@media (max-width:760px) {
-    #scheduleAppointmentBtn{
-        padding: 0px 15px !important;
-    }
+.black-text {
+  display: block;
+  margin: 15px 0px;
+}
+.PesonalLoanMapHeading {
+  font-size: 1.538rem;
+  font-weight: 500;
+  color: #171717;
+  margin: 0.82rem 0 2% 0;
+  text-align: left;
+}
+.branchImage img {
+  width: 70%;
+}
+#inputText1-label{
+  padding-left: 36px;
+}
+.mobileImage{
+  display: none;
+}
+ 
+@media (max-width: 1400px) {
+  .branchImage img {
+    width: 100%;
+  }
+}
+@media (max-width: 960px) {
+  .mobileImage{
+    display: block;
+  }
+    .webImage{
+      display: none;
+  }
+  .findBranchWrap {
+    padding-top: 40px;
+  }
+  .findBranchWrapTwo {
+    padding-top: 40px;
+  }
+  #getDirectionWrap{
+    justify-content: center;
+  }
+  #getDirectionButton{
+    width: 100%;
+  }
+  #getDirectionSearch{
+    width: 100%;
+    margin-top: 50px;
+  }
+}
+@media (max-width: 599px) {
+  #branchDiv {
+    padding-right: 0px;
+    margin-bottom: 30px;
+  }
+}
+@media (max-width: 760px) {
+  #scheduleAppointmentBtn {
+    padding: 0px 15px !important;
+  }
 }

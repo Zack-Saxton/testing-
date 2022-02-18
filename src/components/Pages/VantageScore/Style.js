@@ -9,11 +9,16 @@ const useStyleVantageScore = makeStyles((theme) => ({
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary,
-  },
+  },  
   heading: {
-    color: "white",
+    color: "#214476",
+    fontWeight: "400",
     fontSize: "1.563rem",
-    lineHeight: "0px",
+  },
+  centerGrid:{
+    marginTop: "20px",
+    paddingRight: "23px",
+    paddingLeft: "23px",
   },
   MainkeyFactorHeading: {
     fontSize: "15px",

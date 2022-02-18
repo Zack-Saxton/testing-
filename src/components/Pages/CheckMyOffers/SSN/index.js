@@ -133,7 +133,7 @@ function SSN() {
 	if (data.completedPage < data.page.livingPlace || data.completedPage < data.page.activeDuty || data.formStatus === "completed") {
 		navigate("/select-amount");
 	}
-	const redirectNC = data.state === "NC" ? "/active-duty" : "living-place";
+	const redirectNC = data.state === "NC" ? "/active-duty" : "/living-place";
 
 	//alert when the user tries to close before form submit
 	window.onbeforeunload = function () {
