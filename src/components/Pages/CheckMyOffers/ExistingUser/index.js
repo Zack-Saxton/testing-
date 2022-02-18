@@ -4,7 +4,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useQueryClient } from 'react-query';
 import { Link, useNavigate } from "react-router-dom";
@@ -62,6 +62,12 @@ function ExistingUser() {
 	const innerClasses = useStyles();
 
 	const queryClient = useQueryClient();
+	useEffect(() => {
+		//redirects to select amount on directr page call
+		if (data.completedPage < data.page.personalInfo || data.formStatus === "completed") {
+			navigate("/select-amount");
+		}
+	}, []);
 	// Formik configuraion
 	const formik = useFormik({
 		initialValues: {
@@ -79,7 +85,7 @@ function ExistingUser() {
 			});
 			let retVal = await LoginController(data.email, values.password);
 			if (retVal?.data?.user && !retVal?.data?.result) {
-				var now = new Date().getTime();
+				let now = new Date().getTime();
 				Cookies.set(
 					"token",
 					JSON.stringify({
@@ -127,11 +133,7 @@ function ExistingUser() {
 			event.preventDefault();
 		}
 	};
-
-	//redirects to select amount on directr page call
-	if (data.completedPage < data.page.personalInfo || data.formStatus === "completed") {
-		navigate("/select-amount");
-	}
+	
 
 	// View part
 	return (

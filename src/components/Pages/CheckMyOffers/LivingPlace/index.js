@@ -2,7 +2,7 @@ import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import CitizenshipStatusLogo from "../../../../assets/icon/I-Own-Rent-Property.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
@@ -53,6 +53,11 @@ function LivingPlace() {
 		}
 	};
 	
+	useEffect(() => {
+		if (data.completedPage < data.page.annualIncome || data.formStatus === "completed") {
+			navigate("/select-amount");
+		}
+	}, []);
 	//set data state on continue
 	const setDataState = (val) => {
 		if (data.state === "NC") {
@@ -143,11 +148,6 @@ function LivingPlace() {
 			setHelperText(globalMessages.Rent_Mortgage_Min);
 		}
 	};
-
-	//redirect to select amount on direct call
-	if (data.completedPage < data.page.annualIncome || data.formStatus === "completed") {
-		navigate("/select-amount");
-	}
 
 	//View part
 	return (

@@ -4,7 +4,7 @@ import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AnnualIncomeLogo from "../../../../assets/icon/I-Annual-Income.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
@@ -45,6 +45,13 @@ function NewUser() {
 
 	//Retrieving Context values
 	const navigate = useNavigate();
+
+	//Redirect to select offer is the page hit direclty	
+	useEffect(() => {
+		if ( data.completedPage < data.page.employmentStatus || data.formStatus === "completed" ) {
+			navigate("/select-amount");
+		}
+	}, []);
 	const validate = (personal, household) => {
 		if (!isNaN(personal) && !isNaN(household)) {
 			if (personal <= household) {
@@ -99,17 +106,17 @@ function NewUser() {
 	//Restrict alphabets
 
 	const onHandleChangePersonal = (event) => {
-		const reg = /^[0-9.,$\b]+$/;
-		let acc = event.target.value;
-		if (acc === "" || reg.test(acc)) {
+		const pattern = /^[0-9.,$\b]+$/;
+		let annualPersonalIncome = event.target.value;
+		if (annualPersonalIncome === "" || pattern.test(annualPersonalIncome)) {
 			setErrorPersonal("");
 			formik.handleChange(event);
 		}
 	};
 	const onHandleChange = (event) => {
-		const reg = /^[0-9.,$\b]+$/;
-		let acc = event.target.value;
-		if (acc === "" || reg.test(acc)) {
+		const pattern = /^[0-9.,$\b]+$/;
+		let annualHouseholdIncome = event.target.value;
+		if (annualHouseholdIncome === "" || pattern.test(annualHouseholdIncome)) {
 			setErrorAnnual("");
 			formik.handleChange(event);
 		}
@@ -216,14 +223,6 @@ function NewUser() {
 			event.preventDefault();
 		}
 	};
-
-	//Redirect to select offer is the page hit direclty
-	if (
-		data.completedPage < data.page.employmentStatus ||
-		data.formStatus === "completed"
-	) {
-		navigate("/select-amount");
-	}
 
 	//JSX part
 

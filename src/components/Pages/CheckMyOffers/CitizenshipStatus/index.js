@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { citizenshipData } from "../../../../assets/data/constants";
 import CitizenshipStatusLogo from "../../../../assets/icon/I-Citizenship-status.png";
@@ -38,6 +38,11 @@ function CitizenshipStatus() {
 	const classes = preLoginStyle();
 	const innerClasses = useStyles();
 
+	useEffect(() => {
+		if ( data.completedPage < data.page.loanPurpose || data.formStatus === "completed" ) {
+			navigate("/select-amount");
+		}
+	}, []);
 	//Handle the button click
 	const handleRoute = () => {
 		data.citizenship = citizenship;
@@ -54,13 +59,8 @@ function CitizenshipStatus() {
 			navigate("/home-address");
 		}
 		//redirects to select amount on direct call
-	};
-	if (
-		data.completedPage < data.page.loanPurpose ||
-		data.formStatus === "completed"
-	) {
-		navigate("/select-amount");
-	}
+	};	
+	
 	//JSK part
 	return (
 		<div>

@@ -6,7 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import PersonLogo from "../../../../assets/icon/I-Personal-Info.png";
@@ -271,10 +271,9 @@ function PersonalInfo() {
 
 	//onchange validation
 	const onNameChange = (event) => {
-		const reg = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
-		let acc = event.target.value;
-
-		if (acc === "" || reg.test(acc)) {
+		const pattern = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
+		let name = event.target.value;
+		if (name === "" || pattern.test(name)) {
 			formik.handleChange(event);
 		}
 	};
@@ -292,8 +291,8 @@ function PersonalInfo() {
 
 	//set auto focus
 	function autoFocus() {
-		var firstname = document.getElementById("firstName").value;
-		var lastname = document.getElementById("lastName").value;
+		let firstname = document.getElementById("firstName").value;
+		let lastname = document.getElementById("lastName").value;
 		if (firstname === "") {
 			document.getElementById("firstName").focus();
 		}
@@ -305,14 +304,12 @@ function PersonalInfo() {
 			}
 		}
 	}
-
-	//redirects to select amount if directly calls
-	if (
-		data.completedPage < data.page.homeAddress ||
-		data.formStatus === "completed"
-	) {
-		navigate("/select-amount");
-	}
+	useEffect(() => {
+		//redirects to select amount if directly calls
+		if ( data.completedPage < data.page.homeAddress || data.formStatus === "completed" ) {
+			navigate("/select-amount");
+		}
+	}, []);	
 
 	//JSX [part]
 	return (

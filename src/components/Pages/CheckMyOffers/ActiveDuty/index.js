@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import ActiveDutyLogo from "../../../../assets/icon/active-duty.png";
@@ -48,6 +48,11 @@ function ActiveDuty() {
 	const navigate = useNavigate();
 	const classes = preLoginStyle();
 	const innerClasses = useStyles();
+	useEffect(() => {
+		if (data.completedPage < data.page.livingPlace || data.formStatus === "completed") {
+			navigate("/select-amount");
+		}
+	}, []);
 	//initializing formik
 	const formik = useFormik({
 		initialValues: {
@@ -63,10 +68,7 @@ function ActiveDuty() {
 			navigate("/oneLastStep");
 		},
 	});
-
-	// if (data.completedPage < data.page.livingPlace || data.formStatus === "completed") {
-	// 	navigate("/select-amount");
-	// }
+	
 	let disableLoan = formik.values.activeDutyRank === "E4 and below" && formik.values.activeDuty === "Active Military" ? true : false;
 	//JSX part
 	return (
