@@ -446,14 +446,6 @@ export default function SideNav() {
     setChecked(event.target.checked);
   };
 
-  const onAFLClick = () => {
-    navigate("/customers/applyForLoan", { state: { from: "user" } });
-  };
-
-  const resumeApplicationClick = () => {
-    navigate(applicationStatusRedirectPage[ checkPresenceOfLoanStatus ], { state: { from: "user" } });
-
-  };
 
   //Menu bar
   const renderMenu = (
@@ -670,7 +662,7 @@ export default function SideNav() {
                 </NavLink>
 
                 { checkPresenceOfLoan === true ?
-                  <NavLink to="#" state={ { from: "user" } } onClick={ (event) => { resumeApplicationClick(); } } className="nav_link" >
+                  <NavLink to={ applicationStatusRedirectPage[ checkPresenceOfLoanStatus ] } state={ { from: "user" } } className="nav_link" >
                     <ListItem className="titleSidenav" >
                       <ListItemIcon>
                         { " " }
@@ -680,7 +672,7 @@ export default function SideNav() {
                     </ListItem>
                   </NavLink>
                   :
-                  <NavLink id="applyForLoanNav" to="/customers/applyForLoan" state={ { from: "user" } } state={ { from: "user" } } onClick={ (event) => { currentLoan ? event.preventDefault() : ""; } } className={ currentLoan ? "nav_link_disabled" : "nav_link" } >
+                  <NavLink id="applyForLoanNav" to="/customers/applyForLoan" state={ { from: "user" } } onClick={ (event) => { currentLoan ? event.preventDefault() : "" } } className={ currentLoan ? "nav_link_disabled" : "nav_link" } >
                     <ListItem className="titleSidenav" disabled={ currentLoan }>
                       <ListItemIcon>
                         { " " }
