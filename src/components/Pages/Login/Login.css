@@ -21,8 +21,15 @@
 	width: 100%;
 }
 
+#reset-main-content{
+	margin: auto;
+}
 #remember-me {
 	padding-left: 12px;
+}
+#signInContainer{
+	border-radius: 6px !important;
+	padding: 30px;
 }
 @media (max-width: 600px) {
 	#mainContentBackground{
@@ -31,7 +38,6 @@
 	#resetPasswordWrap{
 		padding: 0px 25px;
 	}
-}
 }
 @media (max-width: 400px) {
 	#email-label {

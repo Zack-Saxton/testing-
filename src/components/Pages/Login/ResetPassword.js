@@ -39,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
     },
     emailGrid: {
         lineHeight: "2",
+        padding:"8px"
     },
 }));
 
@@ -115,24 +116,15 @@ export default function Login(props) {
             <ScrollToTopOnMount />
             <div className={classes.mainContentBackground} id="resetPasswordWrap">
                 <Box>
-                    <Grid
-                        xs={12}
-                        item
-                        container
-                        justifyContent="center"
-                        alignItems="center"
-                    >
-                        <Grid
-                            xs={12}
-                            sm={10}
-                            md={4}
-                            lg={4}
-                            xl={4}
-                            id="main-content"
-                            justifyContent="center"
+                    <Grid container>
+                        <Grid container
                             item
-                            container
-                            alignItems="center"
+                        xl={ 6 }
+                        lg={ 6 }
+                        md={ 6 }
+                        sm={ 10 }
+                        xs={ 12 }
+                            id="reset-main-content"
                             style={{
                                 opacity: loading ? 0.55 : 1,
                                 pointerEvents: loading ? "none" : "initial",
