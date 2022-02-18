@@ -13,6 +13,7 @@ import Typography from "@material-ui/core/Typography";
 import ErrorLogger from "../../lib/ErrorLogger";
 import { useLoadScript } from "@react-google-maps/api";
 import Map from "./BranchLocatorMap";
+import { mapInformationBranchLocator } from "../../Controllers/BranchDayTiming";
 import {
   MFStates,
   MFStateShort,
@@ -87,17 +88,12 @@ export default function StatePage(props) {
     }
   };
   const listForMapView = async (List) => {
-    if (List) {
-      setMap(
-        List.map((item) => ({
-          id: item.id,
-          name: item.Address,
-          position: {
-            lat: Number(item.latitude),
-            lng: Number(item.longitude),
-          },
-        }))
-      );
+    try {
+      if (List) {
+        setMap(await mapInformationBranchLocator(List));
+      }
+    } catch (error) {
+      ErrorLogger(' Error from listForMapView', error)
     }
   };
   const apiGetBranchList = async (value) => {
@@ -204,7 +200,6 @@ export default function StatePage(props) {
                   Your {Branch_Details.BranchName}, {getStateName} Branch
                 </strong>
               </h4>
-              <Typography className="">
                 <span className="black-text">{Branch_Details?.Address}</span>
                 <span className="black-text">
                   <small>Branch Manager</small>
@@ -215,8 +210,8 @@ export default function StatePage(props) {
                   <small>{Branch_Details?.BranchTime?.Value1} {Branch_Details?.BranchTime?.Value2} </small>
                   <h4>{Branch_Details?.BranchTime?.Value3}</h4>
                   <span>Business Hours</span>
-                  {branchHours ? branchHours.map((ele) => {
-                    return (<div> {ele} </div>)
+                  {branchHours ? branchHours.map((ele, index) => {
+                    return (<div key={index}>{ele} </div>)
                   }) : ""}
                 </span>
                 <span className="black-text">
@@ -229,7 +224,6 @@ export default function StatePage(props) {
                     {Branch_Details?.PhoneNumber}
                   </a>
                 </span>
-              </Typography>
               <ButtonPrimary
                 onClick={() => {
                   setBranchAddress(

@@ -12,7 +12,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import { useLoadScript } from "@react-google-maps/api";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import BranchDayTiming from "../../Controllers/BranchDayTiming";
+import BranchDayTiming, { mapInformationBranchLocator } from "../../Controllers/BranchDayTiming";
 import BranchLocatorController from "../../Controllers/BranchLocatorController";
 import { ButtonPrimary, ButtonSecondary, TextField } from "../../FormsUI";
 import { useStylesConsumer } from "../../Layout/ConsumerFooterDialog/Style";
@@ -68,10 +68,7 @@ export default function BranchLocator() {
   const [getBranchList, setBranchList] = useState();
   const [getBranchAddress, setBranchAddress] = useState(null);
   const [getMap, setMap] = useState([]);
-  const [getCurrentLocation, setCurrentLocation] = useState({
-    lat: 39.3877502,
-    lng: -76.488118,
-  });
+  const [getCurrentLocation, setCurrentLocation] = useState();
   const [loading, setLoading] = useState(false);
   const [zoomDepth, setZoomDepth] = useState(10);
   const clessesforptag = useStyles();
@@ -94,17 +91,12 @@ export default function BranchLocator() {
     }
   };
   const listForMapView = async (List) => {
-    if (List) {
-      setMap(
-        List.map((item) => ({
-          id: item.id,
-          name: item.Address,
-          position: {
-            lat: Number(item.latitude),
-            lng: Number(item.longitude),
-          },
-        }))
-      );
+    try {
+      if (List) {
+        setMap(await mapInformationBranchLocator(List));
+      }
+    } catch (error) {
+      ErrorLogger(' Error from listForMapView', error)
     }
   };
   const apiGetBranchList = async (value) => {
