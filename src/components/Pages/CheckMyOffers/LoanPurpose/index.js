@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { loanPurposeData } from "../../../../assets/data/constants";
 import AutoExpenseIcon from "../../../../assets/icon/AutoExpense-Repair.png";
@@ -73,7 +73,12 @@ function LoanPurpose(props) {
 	const [ purpose, setPurpose ] = useState(data.loanPurpose ?? "");
 	const navigate = useNavigate();
 	const preLoginStyles = preLoginStyle();
-
+	useEffect(() => {
+		//redirect to select offers if directly called
+		if (data.completedPage < data.page.selectAmount || data.formStatus === "completed") {
+			navigate("/select-amount");
+		}
+	}, []);
 	//handle the user data nd store it into context and procced next step
 	const handleRoute = () => {
 		data.loanPurpose = purpose;
@@ -91,14 +96,8 @@ function LoanPurpose(props) {
 		}
 	};
 
-
 	const classes = useStyles();
-
-	//redirect to select offers if directly called
-	if (data.completedPage < data.page.selectAmount || data.formStatus === "completed") {
-		navigate("/select-amount");
-	}
-
+	
 	//view part
 	return (
 		<div>
