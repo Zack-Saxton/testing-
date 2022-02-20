@@ -1,9 +1,9 @@
+import Cookies from "js-cookie";
 import React from 'react';
+import CheckLoginTimeout from "./CheckLoginTimeout";
 import "./Layout.css";
 import Footer from './NormalFooter/NormalFooter';
 import Header from './NormalHeader/NormalHeader';
-import CheckLoginTimeout from "./CheckLoginTimeout";
-import Cookies from "js-cookie";
 
 const General = ({ children }) => {
 

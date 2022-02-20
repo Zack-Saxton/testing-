@@ -15,7 +15,7 @@ const useStylesMyBranch = makeStyles((theme) => ({
     fontWeight: "400",
     fontSize: "1.563rem",
   },
-  centerGrid:{
+  centerGrid: {
     marginTop: "20px",
     paddingRight: "23px",
     paddingLeft: "23px",

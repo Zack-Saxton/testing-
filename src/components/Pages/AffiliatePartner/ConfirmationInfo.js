@@ -11,6 +11,7 @@ import { useFormik } from "formik";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
+import globalMessages from "../../../assets/data/globalMessages.json";
 import states from '../../../assets/data/States.json';
 import creditkarmalogo from "../../../assets/images/ck_logo.png";
 import Logo from "../../../assets/images/loginbg.png";
@@ -18,7 +19,6 @@ import { partnerConfirmInfo } from "../../Controllers/PartnerSignupController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
 import { ButtonPrimary, Checkbox, Popup, RenderContent, Select, TextField, Zipcode } from "../../FormsUI";
 import ErrorLogger from "../../lib/ErrorLogger";
-import globalMessages from "../../../assets/data/globalMessages.json";
 import "./Style.css";
 
 //Styling

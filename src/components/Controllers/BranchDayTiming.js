@@ -94,6 +94,6 @@ export async function mapInformationBranchLocator(List) {
             },
         })));
     } catch (error) {
-        ErrorLogger(' Error from mapInformationBranchLocator', error)
+        ErrorLogger(' Error from mapInformationBranchLocator', error);
     }
 }

@@ -6,9 +6,8 @@ import Footer from "../Layout/Footer/Footer";
 import AppBar from "./AppBar/SideNav";
 import CheckLoginTimeout from "./CheckLoginTimeout";
 
-
 const Post = ({ children }) => {
-  
+
     const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : '{ }');
 
     return (
@@ -17,11 +16,11 @@ const Post = ({ children }) => {
             {
                 loginToken.isLoggedIn === true ?
                     <>
-                        <div id= "body">
-                        <div className='topBar'></div>
+                        <div id="body">
+                            <div className='topBar'></div>
                             <AppBar />
                             { children }
-                            <Footer /> 
+                            <Footer />
                         </div>
                     </>
                     :

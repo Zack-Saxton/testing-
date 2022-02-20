@@ -2,7 +2,7 @@ import { Circle, GoogleMap, InfoWindow, Marker } from "@react-google-maps/api";
 import React, { useState } from "react";
 import icon from "../../../assets/icon/icon-google-map-marker.png";
 function BranchLocatorMap(props) {
-  const [activeMarker, setActiveMarker] = useState(null);
+  const [ activeMarker, setActiveMarker ] = useState(null);
   let Current = props.CurrentLocation
     ? props.CurrentLocation
     : { lat: 39.3697028, lng: -76.4635839 };
@@ -28,44 +28,44 @@ function BranchLocatorMap(props) {
   };
   return (
     <GoogleMap
-      zoom={zoomValue}
-      defaultZoom={zoomValue}
-      onLoad={handleOnLoad}
-      center={Current}
-      onClick={() => setActiveMarker(null)}
-      mapContainerStyle={{ height: "100%", width: "100%" }}
+      zoom={ zoomValue }
+      defaultZoom={ zoomValue }
+      onLoad={ handleOnLoad }
+      center={ Current }
+      onClick={ () => setActiveMarker(null) }
+      mapContainerStyle={ { height: "100%", width: "100%" } }
     >
       <Circle
-        center={Current}
-        zoom={zoomValue}
-        radius={zoomValue * ZoomDepth * 4000}
-        strokeOpacity={50}
+        center={ Current }
+        zoom={ zoomValue }
+        radius={ zoomValue * ZoomDepth * 4000 }
+        strokeOpacity={ 50 }
         fillColor="#ADD8E6"
-        fillOpacity={0}
+        fillOpacity={ 0 }
       />
-      <Marker position={Current} zIndex={8}></Marker>
-      {props.getMap.map(({ id, BranchName, BranchAddress, BranchManager,Phone,Distance, position }) => (
+      <Marker position={ Current } zIndex={ 8 }></Marker>
+      { props.getMap.map(({ id, BranchName, BranchAddress, BranchManager, Phone, Distance, position }) => (
         <Marker
-          key={id}
-          icon={icon}
-          position={position}
-          zIndex={id}
-          onClick={() => handleActiveMarker(id)}
+          key={ id }
+          icon={ icon }
+          position={ position }
+          zIndex={ id }
+          onClick={ () => handleActiveMarker(id) }
         >
-          {activeMarker === id ? (
-            <InfoWindow onCloseClick={() => setActiveMarker(null)}>
+          { activeMarker === id ? (
+            <InfoWindow onCloseClick={ () => setActiveMarker(null) }>
               <div>
-                <h3>{BranchName} Branch</h3>
-                <p>Branch Manager: {BranchManager}</p>
-                <p>BranchAddress: {BranchAddress}</p>
-                <p>Phone: {Phone}</p>
-                <p>Distance: {Distance}les</p>
-                <p>Position: [Latitude:{position.lat}, Longitude:{position.lng}]</p>
-                </div>
+                <h3>{ BranchName } Branch</h3>
+                <p>Branch Manager: { BranchManager }</p>
+                <p>BranchAddress: { BranchAddress }</p>
+                <p>Phone: { Phone }</p>
+                <p>Distance: { Distance }les</p>
+                <p>Position: [Latitude:{ position.lat }, Longitude:{ position.lng }]</p>
+              </div>
             </InfoWindow>
-          ) : null}
+          ) : null }
         </Marker>
-      ))}
+      )) }
     </GoogleMap>
   );
 }

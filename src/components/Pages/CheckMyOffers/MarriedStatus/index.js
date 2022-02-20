@@ -1,22 +1,22 @@
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { maritalStatusData } from "../../../../assets/data/constants";
+import globalMessages from "../../../../assets/data/globalMessages.json";
 import MarriedStatusLogo from "../../../../assets/icon/married-status.png";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import ZipCodeLookup from "../../../Controllers/ZipCodeLookup";
 import { ButtonPrimary, Select, TextField, Zipcode } from "../../../FormsUI";
-import { preLoginStyle } from "../../../../assets/styles/preLoginStyle"
-import { makeStyles } from "@material-ui/core/styles";
 import ErrorLogger from "../../../lib/ErrorLogger";
 import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
-import globalMessages from "../../../../assets/data/globalMessages.json";
 
 //Yup validation schema
 const validationSchema = yup.object({
@@ -69,9 +69,9 @@ const validationSchema = yup.object({
 		}),
 });
 
-const useStyles = makeStyles((Theme) =>({
-	
-	typoStyle:{
+const useStyles = makeStyles((Theme) => ({
+
+	typoStyle: {
 		align: "center",
 		justify: "center",
 		alignItems: "center",
@@ -79,9 +79,9 @@ const useStyles = makeStyles((Theme) =>({
 		marginTop: "1%",
 	},
 	negativeMargin: {
-		marginTop: "-4%" 
+		marginTop: "-4%"
 	},
-	paperStyle:{
+	paperStyle: {
 		justify: "center",
 		alignItems: "center",
 		width: "inherit",
@@ -165,13 +165,13 @@ function MarriedStatus() {
 		} catch (error) {
 			ErrorLogger(' Error from fetchAddress.', error);
 		}
-	};	
+	};
 
 	//JSX part
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className={classes.mainDiv}>
+			<div className={ classes.mainDiv }>
 				<Box>
 					<Grid
 						item
@@ -194,7 +194,7 @@ function MarriedStatus() {
 						>
 							<Paper
 								id="maritalStatusWrap"
-								className={innerClasses.paperStyle}
+								className={ innerClasses.paperStyle }
 							>
 								<div className="progress mt-0">
 									<div
@@ -210,7 +210,7 @@ function MarriedStatus() {
 										</i>
 									</Link>
 								</Grid>
-								<Grid className={innerClasses.negativeMargin}>
+								<Grid className={ innerClasses.negativeMargin }>
 									<img
 										alt="marriedlogo"
 										src={ MarriedStatusLogo }
@@ -220,7 +220,7 @@ function MarriedStatus() {
 
 								<Typography
 									variant="h5"
-									className={innerClasses.typoStyle}
+									className={ innerClasses.typoStyle }
 								>
 									Are you married?*
 								</Typography>
@@ -248,7 +248,7 @@ function MarriedStatus() {
 												fullWidth={ true }
 												name="maritalStatus"
 												labelform="Marital Status *"
-												select={'[{"value":"' + maritalStatusData.married + '", "label":"Married"}, {"value":"' + maritalStatusData.unmarried + '", "label":"Unmarried"}, {"label":"Separated, under decree of legal separation", "value":"' + maritalStatusData.seperated + '"}]'}
+												select={ '[{"value":"' + maritalStatusData.married + '", "label":"Married"}, {"value":"' + maritalStatusData.unmarried + '", "label":"Unmarried"}, {"label":"Separated, under decree of legal separation", "value":"' + maritalStatusData.seperated + '"}]' }
 												value={ formik.values.maritalStatus }
 												onChange={ formik.handleChange }
 												onBlur={ formik.handleBlur }

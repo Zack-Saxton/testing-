@@ -30,11 +30,11 @@ import { useQuery } from 'react-query';
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
+import globalMessages from "../../../assets/data/globalMessages.json";
 import cheque from "../../../assets/images/cheque.jpg";
 import { AddACHPaymentAPI } from "../../../components/Controllers/ACHDebitController";
 import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
-import globalMessages from "../../../assets/data/globalMessages.json";
 import {
     addCreditCard, deleteBankAccount,
     deleteCreditCard, getPaymentMethods, setDefaultPayment
@@ -92,26 +92,26 @@ const validationSchemaAddBank = yup.object({
         .string(globalMessages.Account_Nick_Name)
         .max(30, globalMessages.Account_Nick_Name_Max)
         .min(2, globalMessages.Account_Nick_Name_Min)
-        .required(globalMessages.Nick_Name_Required),        
+        .required(globalMessages.Nick_Name_Required),
     accountHolder: yup
         .string(globalMessages.Account_Holder_Name)
         .max(30, globalMessages.Account_Holder_Name_Max)
         .min(2, globalMessages.Account_Holder_Name_Min)
-        .required(globalMessages.Account_Holder_Name_Required),        
+        .required(globalMessages.Account_Holder_Name_Required),
     bankRoutingNumber: yup
         .string(globalMessages.Enter_Routing_No)
         .required(globalMessages.Routing_No_Required)
-        .min(9, globalMessages.validBankRoutingNumber),        
+        .min(9, globalMessages.validBankRoutingNumber),
     bankName: yup
         .string(globalMessages.Bank_Name)
         .max(50, globalMessages.Bank_Name_Max)
         .min(3, globalMessages.Bank_Name_Min)
-        .required(globalMessages.Bank_Name_Required),        
+        .required(globalMessages.Bank_Name_Required),
     bankAccountNumber: yup
         .string(globalMessages.Enter_Account_No)
         .required(globalMessages.Accoun_No_Required)
         .min(4, globalMessages.validAccountNumber)
-        .max(17, globalMessages.validAccountNumber)        
+        .max(17, globalMessages.validAccountNumber)
 });
 
 export default function PaymentMethod() {
@@ -220,7 +220,7 @@ export default function PaymentMethod() {
         if (zipCode === "" || pattern.test(zipCode)) {
             fetchAddress(event);
         }
-    }
+    };
     const fetchAddress = async (event) => {
         formikAddDebitCard.handleChange(event);
         try {
@@ -236,7 +236,7 @@ export default function PaymentMethod() {
                 }
             }
             if (!isValidZip) {
-                setValidZip(false)
+                setValidZip(false);
                 formikAddDebitCard.setFieldValue("city", "");
                 formikAddDebitCard.setFieldValue("state", "");
             }

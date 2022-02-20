@@ -13,12 +13,12 @@ const useStylesFaq = makeStyles((theme) => ({
     flexShrink: 0,
     textAlign: "justify",
   },
-  centerGrid:{
-		marginTop: "20px",
-		paddingRight: "30px",
-          paddingLeft: "30px",
-          paddingBottom: "30px",
-		},
+  centerGrid: {
+    marginTop: "20px",
+    paddingRight: "30px",
+    paddingLeft: "30px",
+    paddingBottom: "30px",
+  },
   secondaryHeading: {
     fontSize: theme.typography.pxToRem(15),
     color: theme.palette.text.secondary,

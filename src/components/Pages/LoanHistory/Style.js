@@ -24,15 +24,15 @@ const useStylesLoanHistory = makeStyles((theme) => ({
   heading: {
     color: "#214476",
     fontWeight: "400",
-		fontSize: "1.64rem",
+    fontSize: "1.64rem",
     margin: "0px",
     lineHeight: "0"
   },
-  centerGrid:{
-		marginTop: "20px",
-		paddingRight: "23px",
-		paddingLeft: "23px",
-		},
+  centerGrid: {
+    marginTop: "20px",
+    paddingRight: "23px",
+    paddingLeft: "23px",
+  },
   cardLoanHistory: {
     padding: "10px",
   },

@@ -261,7 +261,7 @@ export default function ScheduleAppointment({
                     /> : <p>No time slot available</p>
                   :
                   <Select
-                   id="ScheduleAppointmentSelect"
+                    id="ScheduleAppointmentSelect"
                     name="appointmentTime"
                     labelform="Time"
                     select={ other_Tue }
@@ -279,7 +279,7 @@ export default function ScheduleAppointment({
                   Moment(new Date()).format("DD-MM-YYYY")
                   ? upt_other_Fri.length !== 0 ?
                     <Select
-                     id="ScheduleAppointmentSelect"
+                      id="ScheduleAppointmentSelect"
                       name="appointmentTime"
                       labelform="Time Slot"
                       select={ JSON.stringify(upt_other_Fri) }
@@ -292,7 +292,7 @@ export default function ScheduleAppointment({
                     : <p>No time slot available</p>
                   :
                   <Select
-                   id="ScheduleAppointmentSelect"
+                    id="ScheduleAppointmentSelect"
                     name="appointmentTime"
                     labelform="Time Slot"
                     select={ Other_Fri }
@@ -309,7 +309,7 @@ export default function ScheduleAppointment({
                   Moment(new Date()).format("DD-MM-YYYY")
                   ? upt_other_M_W_Thu.length !== 0 ?
                     <Select
-                     id="ScheduleAppointmentSelect"
+                      id="ScheduleAppointmentSelect"
                       name="appointmentTime"
                       labelform="Time Slot"
                       select={ JSON.stringify(upt_other_M_W_Thu) }
