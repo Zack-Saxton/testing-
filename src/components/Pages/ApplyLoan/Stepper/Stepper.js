@@ -7,7 +7,7 @@ import Stepper from "@material-ui/core/Stepper";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Cookies from "js-cookie";
-import React, { useEffect, useState, useRef, createRef } from "react";
+import React, { createRef, useEffect, useRef, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { ButtonPrimary } from "../../../FormsUI";
 import APICall from "../../../lib/AxiosLib";
@@ -54,10 +54,10 @@ const useStyles = makeStyles((theme) => ({
 		padding: theme.spacing(3),
 	},
 	padTop: {
-		paddingTop: "20px" 
+		paddingTop: "20px"
 	},
 	textDecoreNone: {
-		textDecoration: "none" 
+		textDecoration: "none"
 	}
 }));
 
@@ -140,7 +140,7 @@ export default function VerticalLinearStepper() {
 
 	useEffect(() => {
 		getApplicationStatus();
-		return null
+		return null;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -223,7 +223,7 @@ export default function VerticalLinearStepper() {
 						activeStep={ activeStep }
 						classes={ classes }
 						setLoadingFlag={ setLoadingFlag }
-						reference={elementsRef}
+						reference={ elementsRef }
 					/>
 				);
 			case 4:
@@ -274,7 +274,7 @@ export default function VerticalLinearStepper() {
 				{ steps.map((label, index) => (
 					<Step key={ label }>
 						<StepLabel>
-							{ <span className={ classes.steplabel } ref={elementsRef.current[index]} id={label}>{ label }</span> }
+							{ <span className={ classes.steplabel } ref={ elementsRef.current[ index ] } id={ label }>{ label }</span> }
 						</StepLabel>
 						<StepContent
 							className={ loadingFlag ? classes.loadingOn : classes.loadingOff }
@@ -288,7 +288,7 @@ export default function VerticalLinearStepper() {
 			{ activeStep === steps.length && (
 				<Paper square elevation={ 0 } className={ classes.resetContainer }>
 					<Typography>All steps completed - you&apos;re finished</Typography>
-					<Grid className={classes.padTop}>
+					<Grid className={ classes.padTop }>
 						<NavLink
 							to="/customers/receiveYourMoney"
 							style={ { textDecoration: "none" } }

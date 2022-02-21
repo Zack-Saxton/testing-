@@ -6,11 +6,11 @@ import { useFormik } from "formik";
 import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
+import globalMessages from '../../../../assets/data/globalMessages.json';
 import ZipcodeLogo from "../../../../assets/icon/I-Zip-Code.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, Zipcode as ZipcodeField } from "../../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
-import globalMessages from '../../../../assets/data/globalMessages.json';
 import "./Zipcode.css";
 
 // Yup validation

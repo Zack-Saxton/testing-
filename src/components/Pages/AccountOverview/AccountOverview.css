@@ -89,9 +89,9 @@
 }
 
 @media (max-width:1920px) {
-    .imageholder{
-        width: 66%;
-    }
+    /* .imageholder{
+        width: 6%;
+    } */
 }
 @media (min-width:1400px) {
     #claimButton{

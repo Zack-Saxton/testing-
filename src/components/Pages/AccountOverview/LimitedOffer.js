@@ -1,57 +1,60 @@
 import { Box, Modal, Typography } from "@material-ui/core";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from "@material-ui/core/Grid";
-import { NavLink, useNavigate } from "react-router-dom";
 import IconButton from "@material-ui/core/IconButton";
 import Paper from "@material-ui/core/Paper";
 import CloseIcon from "@material-ui/icons/Close";
 import React, { useEffect, useState } from "react";
 import NumberFormat from "react-number-format";
+import { NavLink, useNavigate } from "react-router-dom";
 import adBanner from "../../../assets/gallery/AdBanner.jpg";
 import MortgageBanner from "../../../assets/images/Latest_Mortgage_Banner.png";
 import setAccountDetails from "../../Controllers/AccountOverviewController";
 import { ButtonPrimary } from "../../FormsUI";
 import "./Style.css";
 import MyBranchAPI from "../../Controllers/MyBranchController";
-import Disclaimer from "./Marketing_offer/Disclaimer";
+// import { ButtonPrimary } from "../../FormsUI";
 import AboutMariner from "./Marketing_offer/AboutMariner";
-import PreScreen from "./Marketing_offer/PreScreen";
+import CampaignMessage from "./Marketing_offer/CampaignMessage";
+import Disclaimer from "./Marketing_offer/Disclaimer";
 import MarketingOffer from "./Marketing_offer/MarketingOffer";
 import OptOutNotice from "./Marketing_offer/OptOutNotice";
-import CampaignMessage from "./Marketing_offer/CampaignMessage";
+// import CampaignMessage from "./Marketing_offer/CampaignMessage";
 import "./AccountOverview.css"
+import PreScreen from "./Marketing_offer/PreScreen";
+import { useStylesAccountOverview } from "./Style";
+import "./Style.css";
 
 export default function LimitedOffer(userOfferData) {
   //Material UI css class
   window.zeHide();
   // Get offers details
   let userOfferAmount = (userOfferData.userOffers != null) ? userOfferData.userOffers.offerAmount : 0;
-  const [initModal,setinitModal] = useState(false);
-  const [offerCode,setOfferCode] = useState(" ");
-  const [campaignType, setCampaignType] = useState("");
-  const [amount,setAmount] = useState(" ");
-  const [expiryDate,setExpiryDate] = useState(" ")
-  const [firstName,setfirstName] = useState("")
-  const [branchCno,setBranchCno] = useState("");
-  const [branchName,setBranchName] = useState("");
-  const [branchManager,setbranchManager] = useState("");
+  const [ initModal, setinitModal ] = useState(false);
+  const [ offerCode, setOfferCode ] = useState(" ");
+  const [ campaignType, setCampaignType ] = useState("");
+  const [ amount, setAmount ] = useState(" ");
+  const [ expiryDate, setExpiryDate ] = useState(" ");
+  const [ firstName, setfirstName ] = useState("");
+  const [ branchCno, setBranchCno ] = useState("");
+  const [ branchName, setBranchName ] = useState("");
+  const [ branchManager, setbranchManager ] = useState("");
   const navigate = useNavigate();
-  useEffect(()=>{
-            setAccountDetails().then((res)=>{
-              setOfferCode(res?.data?.offerData?.OfferCode)
-              setExpiryDate(res?.data?.offerData?.dateExpiration)
-              setAmount(res?.data?.offerData?.offerAmount)
-              setfirstName(res?.data?.offerData?.firstName);
-              setCampaignType(res?.data?.offerData?.CampaignTypeDesc)
-            })
-            MyBranchAPI().then((res)=>{
-              setBranchCno(res?.data?.PhoneNumber)
-              setBranchName(res?.data?.branchName + " Branch")
-              setbranchManager(res?.data?.branchmanager)
-              
-            })
-  },[])
+  useEffect(() => {
+    setAccountDetails().then((res) => {
+      setOfferCode(res?.data?.offerData?.OfferCode);
+      setExpiryDate(res?.data?.offerData?.dateExpiration);
+      setAmount(res?.data?.offerData?.offerAmount);
+      setfirstName(res?.data?.offerData?.firstName);
+      setCampaignType(res?.data?.offerData?.CampaignTypeDesc);
+    });
+    MyBranchAPI().then((res) => {
+      setBranchCno(res?.data?.PhoneNumber);
+      setBranchName(res?.data?.branchName + " Branch");
+      setbranchManager(res?.data?.branchmanager);
 
+    });
+  }, []);
 
   const showModal = () => {
     setinitModal(true);

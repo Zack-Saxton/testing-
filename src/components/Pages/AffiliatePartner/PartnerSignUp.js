@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import * as yup from "yup";
+import globalMessages from "../../../assets/data/globalMessages.json";
 import Logo from "../../../assets/images/loginbg.png";
 import amonelogo from "../../../assets/partners/WelcomeAOMember.png";
 import creditkarmalogo from "../../../assets/partners/WelcomeCKMember.png";
@@ -18,7 +19,6 @@ import NerdWalletlogo from "../../../assets/partners/WelcomeNWMember.png";
 import OneLoanPlacelogo from "../../../assets/partners/WelcomeOLPMember.png";
 import partnerSignup, { PopulatePartnerSignup } from "../../Controllers/PartnerSignupController";
 import { ButtonPrimary, Checkbox, EmailTextField, PasswordField, PhoneNumber, Popup, RenderContent, Select, SocialSecurityNumber } from "../../FormsUI";
-import globalMessages from "../../../assets/data/globalMessages.json";
 import "./Style.css";
 
 //Styling
@@ -154,7 +154,7 @@ export default function CreditKarma() {
   }
   useEffect(() => {
     AsyncEffect_PopulatePartnerSignup();
-    return null
+    return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

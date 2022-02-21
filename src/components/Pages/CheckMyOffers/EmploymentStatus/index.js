@@ -1,31 +1,31 @@
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
-import React, { useContext, useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { employmentStatusData } from "../../../../assets/data/constants";
+import globalMessages from "../../../../assets/data/globalMessages.json";
 import EmploymentStatusPNG from "../../../../assets/icon/I-Employment-Status.png";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, PhoneNumber, Select } from "../../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
-import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import "./EmploymentStatus.css";
-import globalMessages from "../../../../assets/data/globalMessages.json";
 
-const useStyles = makeStyles((Theme) =>({
-	boxGrid:{ 
-		padding: "4% 0px 4% 0px" 
+const useStyles = makeStyles((Theme) => ({
+	boxGrid: {
+		padding: "4% 0px 4% 0px"
 	},
-	paperStyle:{
+	paperStyle: {
 		justify: "center",
 		alignItems: "center",
 		textAlign: "center"
 	},
-	typoStyle:{
+	typoStyle: {
 		align: "center",
 		justify: "center",
 		alignItems: "center",
@@ -118,12 +118,12 @@ function EmploymentStatus() {
 			event.preventDefault();
 		}
 	};
-	
+
 	// JSX part
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className={classes.mainDiv}>
+			<div className={ classes.mainDiv }>
 				<Box>
 					<Grid
 						item
@@ -131,7 +131,7 @@ function EmploymentStatus() {
 						container
 						justifyContent="center"
 						alignItems="center"
-						className={innerClasses.boxGrid}
+						className={ innerClasses.boxGrid }
 					>
 						<Grid
 							container
@@ -144,7 +144,7 @@ function EmploymentStatus() {
 						>
 							<Paper
 								id="employmentStatusWrap"
-								className={innerClasses.paperStyle}
+								className={ innerClasses.paperStyle }
 							>
 								<form onSubmit={ formik.handleSubmit }>
 									<div className="progress mt-0">
@@ -171,7 +171,7 @@ function EmploymentStatus() {
 
 									<Typography
 										variant="h5"
-										className={innerClasses.typoStyle}
+										className={ innerClasses.typoStyle }
 									>
 										Tell us about your employment status
 									</Typography>

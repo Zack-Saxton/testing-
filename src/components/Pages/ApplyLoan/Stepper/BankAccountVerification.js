@@ -73,16 +73,15 @@ export default function BankAccountVerification(props) {
 	const [ error, setError ] = useState("");
 	const [ invalidRN, setInvalidRN ] = useState(false);
 	const [ openAutoPayAuth, setOpenAutoPayAuth ] = useState(false);
-	function getElementByText( text, ctx)
-		{
-		return document.evaluate("//*[.='"+text+"']", 
+	function getElementByText(text, ctx) {
+		return document.evaluate("//*[.='" + text + "']",
 			ctx || document, null, XPathResult.ANY_TYPE, null).iterateNext();
-		}
+	}
 	const handleUpload = (res) => {
 		if (res?.data?.bank_account_verification) {
 			toast.success(messages?.document?.uploadSuccess);
 			props.next();
-			getElementByText( "Income Verification" ).scrollIntoView();
+			getElementByText("Income Verification").scrollIntoView();
 		} else {
 			toast.error(messages?.document?.upoloadFailed);
 		}

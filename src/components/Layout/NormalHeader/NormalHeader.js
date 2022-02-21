@@ -8,8 +8,8 @@ import MoreIcon from "@material-ui/icons/MoreVert";
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Logo from "../../../assets/images/mf-logo.png";
+import "../Layout.css";
 import { useStyles } from "./NormalHeaderStyle";
-import "../Layout.css"
 
 const NormalHeader = () => {
   const classes = useStyles();
@@ -53,14 +53,14 @@ const NormalHeader = () => {
       </MenuItem>
       <MenuItem className="branchLocatorLink">
         <NavLink to="/branch/branchlocator" className="nav_link">
-          <Typography className={classes.headerAlign}>Branch Locator</Typography>
+          <Typography className={ classes.headerAlign }>Branch Locator</Typography>
         </NavLink>
       </MenuItem>
     </Menu>
   );
 
   const redirectToAccountOverview = () => {
-    navigate("/customers/accountOverview" );
+    navigate("/customers/accountOverview");
   };
 
   //View Part
@@ -69,7 +69,7 @@ const NormalHeader = () => {
       <AppBar id="MainHeaderWrap" position="static">
         <Toolbar className="headerToolBar">
           <Typography onClick={ redirectToAccountOverview } className={ classes.title }>
-            <img style={{marginTop:"6px"}} className={ classes.logoFormat } src={ Logo } alt="MF logo" />
+            <img style={ { marginTop: "6px" } } className={ classes.logoFormat } src={ Logo } alt="MF logo" />
           </Typography>
           <div className={ classes.grow } />
           <div className={ classes.sectionDesktop }>
@@ -82,7 +82,7 @@ const NormalHeader = () => {
               <Typography className={ classes.subtitle }>FAQ's</Typography>
             </NavLink>
             <NavLink to="/branch/branchlocator" className="nav_link branchLocatorLink">
-              <Typography className={classes.subtitle}>Branch Locator</Typography>
+              <Typography className={ classes.subtitle }>Branch Locator</Typography>
             </NavLink>
           </div>
           <div className={ classes.sectionMobile }>

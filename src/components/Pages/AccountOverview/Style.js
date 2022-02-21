@@ -60,7 +60,7 @@ const useStylesAccountOverview = makeStyles((theme) => ({
     fontWeight: "400",
     fontSize: "1.563rem",
   },
-  centerGrid:{
+  centerGrid: {
     marginTop: "20px",
     paddingRight: "23px",
     paddingLeft: "23px",
@@ -178,7 +178,7 @@ const useStylesAccountOverview = makeStyles((theme) => ({
     lineHeight: 1.3,
     fontWeight: "400",
   },
-  
+
 }));
 
 export { useStylesAccountOverview };

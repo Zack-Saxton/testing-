@@ -33,7 +33,7 @@ export default function MultipleQuestion(props) {
 			qarr[ x.questionId ] = "";
 		}
 		setQuestionArray(qarr);
-		return null
+		return null;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 

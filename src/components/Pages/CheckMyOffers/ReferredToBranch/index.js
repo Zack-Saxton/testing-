@@ -3,8 +3,8 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { preLoginStyle } from "../../../../assets/styles/preLoginStyle"
 import ReferToBranchLogo from "../../../../assets/gallery/Referred-to-Branch.png";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary } from "../../../FormsUI";
 import "../CheckMyOffer.css";
@@ -23,15 +23,15 @@ function ReferredToBranch(props) {
 		if (data.completedPage < data.page.ssn && data.applicationStatus !== "referred" && props?.location?.formcomplete !== "yes") {
 			navigate("/select-amount");
 		}
-	}, []);	
-	
+	}, []);
+
 	window.onbeforeunload = null;
 
 	//JSX part
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className={classes.mainDiv}>
+			<div className={ classes.mainDiv }>
 				<Box>
 					<Grid
 						container

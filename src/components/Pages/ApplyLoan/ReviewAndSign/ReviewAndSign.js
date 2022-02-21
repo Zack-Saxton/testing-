@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "400",
     fontSize: "1.64rem",
   },
-  centerGrid:{
+  centerGrid: {
     marginTop: "20px",
     paddingRight: "23px",
     paddingLeft: "23px",

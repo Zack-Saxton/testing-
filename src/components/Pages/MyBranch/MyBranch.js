@@ -30,7 +30,7 @@ export default function MyBranch() {
       <Grid
         container
         justifyContent={ "center" }
-        className={ classes.centerGrid }        
+        className={ classes.centerGrid }
       >
         <Grid container style={ { paddingBottom: "10px" } }>
           <Grid item xs={ 12 }>

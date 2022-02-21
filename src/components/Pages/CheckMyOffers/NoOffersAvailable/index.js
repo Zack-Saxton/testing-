@@ -4,9 +4,9 @@ import Typography from "@material-ui/core/Typography";
 import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import NoOffersAvailableLogo from "../../../../assets/gallery/No_Offers_Available.png";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, ButtonSecondary } from "../../../FormsUI";
-import { preLoginStyle } from "../../../../assets/styles/preLoginStyle"
 import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./CheckMyOffer.css";
@@ -29,14 +29,14 @@ function NoOffersAvailable(props) {
 		if (data.completedPage < data.page.ssn && data.applicationStatus !== "rejected" && props?.location?.formcomplete !== "yes") {
 			navigate("/select-amount");
 		}
-	}, []);	
+	}, []);
 
 	window.onbeforeunload = null;
 	//view part
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className={classes.mainDiv}>
+			<div className={ classes.mainDiv }>
 				<Box>
 					<Grid
 						item

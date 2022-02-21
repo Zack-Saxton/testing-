@@ -10,20 +10,20 @@ import AnnualIncomeLogo from "../../../../assets/icon/I-Annual-Income.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, TextField } from "../../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
-import { preLoginStyle } from "../../../../assets/styles/preLoginStyle"
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import "./AnnualIncome.css";
 import globalMessages from "../../../../assets/data/globalMessages.json";
 
-const useStyles = makeStyles((Theme) =>({
-	boxGrid:{ 
-		padding: "4% 0px 4% 0px" 
+const useStyles = makeStyles((Theme) => ({
+	boxGrid: {
+		padding: "4% 0px 4% 0px"
 	},
-	paperStyle:{
+	paperStyle: {
 		justify: "center",
 		alignItems: "center",
 		textAlign: "center"
 	},
-	typoStyle:{
+	typoStyle: {
 		align: "center",
 		justify: "center",
 		alignItems: "center",
@@ -46,9 +46,9 @@ function NewUser() {
 	//Retrieving Context values
 	const navigate = useNavigate();
 
-	//Redirect to select offer is the page hit direclty	
+	//Redirect to select offer is the page hit direclty
 	useEffect(() => {
-		if ( data.completedPage < data.page.employmentStatus || data.formStatus === "completed" ) {
+		if (data.completedPage < data.page.employmentStatus || data.formStatus === "completed") {
 			navigate("/select-amount");
 		}
 	}, []);
@@ -229,7 +229,7 @@ function NewUser() {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className={classes.mainDiv}>
+			<div className={ classes.mainDiv }>
 				<Box>
 					<Grid
 						container
@@ -237,7 +237,7 @@ function NewUser() {
 						xs={ 12 }
 						justifyContent="center"
 						alignItems="center"
-						className={innerClasses.boxGrid}
+						className={ innerClasses.boxGrid }
 					>
 						<Grid
 							container
@@ -253,7 +253,7 @@ function NewUser() {
 						>
 							<Paper
 								id="incomeWrap"
-								className={innerClasses.paperStyle}
+								className={ innerClasses.paperStyle }
 							>
 								<div className="progress mt-0">
 									<div
@@ -279,7 +279,7 @@ function NewUser() {
 
 								<Typography
 									variant="h4"
-									className={innerClasses.typoStyle}
+									className={ innerClasses.typoStyle }
 								>
 									Tell us about your income
 								</Typography>

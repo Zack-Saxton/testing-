@@ -1,33 +1,32 @@
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
-import React, { useContext, useState, useEffect } from "react";
+import Typography from "@material-ui/core/Typography";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { citizenshipData } from "../../../../assets/data/constants";
 import CitizenshipStatusLogo from "../../../../assets/icon/I-Citizenship-status.png";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
-
 import { ButtonPrimary } from "../../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
-import { preLoginStyle } from "../../../../assets/styles/preLoginStyle"
 import "./CitizenshipStatus.css";
 
-	//styling
-	const useStyles = makeStyles((Theme) =>
-		createStyles({
-			paperStyle: {
-					justify: "center",
-					alignItems: "center",
-					width: "inherit",
-					textAlign: "center"
-			},
-			gridStyle:{
-					padding: "4% 0px 4% 0px"
-			}
-		})
-	);
+//styling
+const useStyles = makeStyles((Theme) =>
+	createStyles({
+		paperStyle: {
+			justify: "center",
+			alignItems: "center",
+			width: "inherit",
+			textAlign: "center"
+		},
+		gridStyle: {
+			padding: "4% 0px 4% 0px"
+		}
+	})
+);
 
 //Initializing functional component CitizenshipStatus
 function CitizenshipStatus() {
@@ -39,7 +38,7 @@ function CitizenshipStatus() {
 	const innerClasses = useStyles();
 
 	useEffect(() => {
-		if ( data.completedPage < data.page.loanPurpose || data.formStatus === "completed" ) {
+		if (data.completedPage < data.page.loanPurpose || data.formStatus === "completed") {
 			navigate("/select-amount");
 		}
 	}, []);
@@ -59,13 +58,13 @@ function CitizenshipStatus() {
 			navigate("/home-address");
 		}
 		//redirects to select amount on direct call
-	};	
-	
+	};
+
 	//JSK part
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className={classes.mainDiv}>
+			<div className={ classes.mainDiv }>
 				<Box>
 					<Grid
 						item
@@ -73,7 +72,7 @@ function CitizenshipStatus() {
 						container
 						justifyContent="center"
 						alignItems="center"
-						className={innerClasses.gridStyle}
+						className={ innerClasses.gridStyle }
 					>
 						<Grid
 							container
@@ -89,7 +88,7 @@ function CitizenshipStatus() {
 						>
 							<Paper
 								id="citizenshipWrap"
-								className={innerClasses.paperStyle}
+								className={ innerClasses.paperStyle }
 							>
 								<div className="progress mt-0">
 									<div id="determinate" className="det2 determinate slantDiv" />

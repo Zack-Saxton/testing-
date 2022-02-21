@@ -1,23 +1,23 @@
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
-import { makeStyles } from "@material-ui/core/styles";
 import Cookies from "js-cookie";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useQueryClient } from 'react-query';
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import globalMessages from '../../../../assets/data/globalMessages.json';
 import PasswordLogo from "../../../../assets/icon/I-Password.png";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import LoginController, { RegisterController } from "../../../Controllers/LoginController";
 import { ButtonPrimary, PasswordField } from "../../../FormsUI";
 import { encryptAES } from "../../../lib/Crypto";
 import ErrorLogger from "../../../lib/ErrorLogger";
-import { preLoginStyle } from "../../../../assets/styles/preLoginStyle"
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./NewUser.css";
 //YUP validation schema
@@ -41,15 +41,15 @@ const validationSchema = yup.object({
 		}),
 });
 
-const useStyles = makeStyles((Theme) =>({
+const useStyles = makeStyles((Theme) => ({
 	boxGrid: {
-		width: "100%", 
-		paddingTop: "70px", 
+		width: "100%",
+		paddingTop: "70px",
 		paddingBottom: "70px"
 	},
-	typoStyle:{
-		fontSize: "0.938rem", 
-		color: "595959" 
+	typoStyle: {
+		fontSize: "0.938rem",
+		color: "595959"
 	}
 })
 );
@@ -64,7 +64,6 @@ function NewUser() {
 	const queryClient = useQueryClient();
 	const classes = preLoginStyle();
 	const innerClasses = useStyles();
-
 
 	useEffect(() => {
 		//redirects to select amount on direct call
@@ -165,20 +164,19 @@ function NewUser() {
 			event.preventDefault();
 		}
 	};
-	
 
 	//View part
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className={classes.mainDiv}>
+			<div className={ classes.mainDiv }>
 				<Box>
 					<Grid
 						item
 						xs={ 12 }
 						container
 						justifyContent="center"
-						className={innerClasses.boxGrid}
+						className={ innerClasses.boxGrid }
 					>
 						<Grid
 							container
@@ -190,7 +188,7 @@ function NewUser() {
 							item
 							className="cardWrapper"
 							justifyContent="center"
-							// style={ { width: "100%" } }
+						// style={ { width: "100%" } }
 						>
 							<Paper
 								className="cardWOPadding"
@@ -219,7 +217,7 @@ function NewUser() {
 									align="center"
 									justify="center"
 									alignitems="center"
-									className={innerClasses.typoStyle}
+									className={ innerClasses.typoStyle }
 								>
 									We have detected you are a new customer.
 								</Typography>
@@ -241,7 +239,7 @@ function NewUser() {
 										className="blockDiv"
 										container
 										justifyContent="center"
-										// style={ { width: "100%" } }
+									// style={ { width: "100%" } }
 									>
 										<Grid
 											container
