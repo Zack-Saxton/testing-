@@ -83,7 +83,7 @@ export default function LimitedOffer(userOfferData) {
     <div id="mainContainer">
       <Grid container spacing={ 2 } style={ { paddingBottom: "50px" } }>
         <Grid id="LimitedOfferGrid" item xs={ 12 } sm={ 8 } >
-          <Paper id="paperProperties" style={ { height: "100%" } } className={ classes.paperPropertiesLimitedOffer }>
+          <Paper id="paperProperties" style={ { height: "221px" } } className={ classes.paperPropertiesLimitedOffer }>
             <div id="yellowBg">
               <div id="Wrapp">
                 <img
@@ -122,18 +122,18 @@ export default function LimitedOffer(userOfferData) {
           </Paper>
         </Grid>
         <Grid id="offerTwo" item xs={ 12 } sm={ 4 } >
-          <Paper id="paperPropertiesOfferTwo" style={ { height: "100%" } } className={ classes.paperPropertiesOfferTwo }>
+          <Paper id="paperPropertiesOfferTwo" style={ { height: "221px" } } className={ classes.paperPropertiesOfferTwo }>
             <a
               target="_blank"
               rel="noreferrer"
               href="https://www.marinerfinance.com/apply-home-loan/?utm_source=CAC&utm_medium=panel&utm_campaign=Mrktoffer_Mortgage"
-              style={ { textDecoration: "none", height: "100%" } }
+              style={ { textDecoration: "none", height: "221px" } }
             >
               <img
                 src={ MortgageBanner }
                 data-testid="background"
                 alt="mortgage_banner"
-                style={ { width: "100%", height: "100%" } }
+                style={ { width: "100%", height: "221px" } }
               />
             </a>
           </Paper>
