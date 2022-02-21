@@ -63,6 +63,11 @@ export default function ScheduleAppointment({
     );
   }
 
+  //Validating current date is holiday
+const today = new Date()
+const checkTodayDate = (Moment(today).format("YYYY-MM-DD"))
+const checkToday = holidayData?.holidays?.find((holidays) => holidays ===  checkTodayDate);
+
   //Spliting statename
   let stateName = branchDetail?.MyBranchAppointment?.MyBranchDetail
     ? branchDetail?.MyBranchAppointment?.MyBranchDetail?.result
@@ -188,7 +193,7 @@ export default function ScheduleAppointment({
                 <Grid>
                   { Moment(formik.values.appointmentDate).format("DD-MM-YYYY") ===
                     Moment(new Date()).format("DD-MM-YYYY")
-                    ? upt_ca_Tue.length !== 0 ?
+                    ? upt_ca_Tue.length !== 0 && Moment(formik.values.appointmentDate).format("YYYY-MM-DD") !== checkToday ?
                       <Select
                         id="ScheduleAppointmentSelect"
                         name="appointmentTime"
@@ -217,7 +222,7 @@ export default function ScheduleAppointment({
                 <Grid>
                   { Moment(formik.values.appointmentDate).format("DD-MM-YYYY") ===
                     Moment(new Date()).format("DD-MM-YYYY")
-                    ? upt_ca_M_W_TH_F.length !== 0 ?
+                    ? upt_ca_M_W_TH_F.length !== 0 && Moment(formik.values.appointmentDate).format("YYYY-MM-DD") !== checkToday ?
                       <Select
                         id="ScheduleAppointmentSelect"
                         name="appointmentTime"
@@ -247,7 +252,7 @@ export default function ScheduleAppointment({
               <Grid>
                 { Moment(formik.values.appointmentDate).format("DD-MM-YYYY") ===
                   Moment(new Date()).format("DD-MM-YYYY")
-                  ? updated_other_Tue.length !== 0 ?
+                  ? updated_other_Tue.length !== 0 && Moment(formik.values.appointmentDate).format("YYYY-MM-DD") !== checkToday ?
                     <Select
                       id="ScheduleAppointmentSelect"
                       name="appointmentTime"
@@ -277,7 +282,7 @@ export default function ScheduleAppointment({
               <Grid>
                 { Moment(formik.values.appointmentDate).format("DD-MM-YYYY") ===
                   Moment(new Date()).format("DD-MM-YYYY")
-                  ? upt_other_Fri.length !== 0 ?
+                  ? upt_other_Fri.length !== 0 && Moment(formik.values.appointmentDate).format("YYYY-MM-DD") !== checkToday ?
                     <Select
                       id="ScheduleAppointmentSelect"
                       name="appointmentTime"
@@ -307,7 +312,7 @@ export default function ScheduleAppointment({
               <Grid>
                 { Moment(formik.values.appointmentDate).format("DD-MM-YYYY") ===
                   Moment(new Date()).format("DD-MM-YYYY")
-                  ? upt_other_M_W_Thu.length !== 0 ?
+                  ? upt_other_M_W_Thu.length !== 0 && Moment(formik.values.appointmentDate).format("YYYY-MM-DD") !== checkToday ?
                     <Select
                       id="ScheduleAppointmentSelect"
                       name="appointmentTime"

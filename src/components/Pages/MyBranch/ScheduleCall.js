@@ -49,11 +49,18 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
       return new Date(arrVal + "T00:00").getTime();
     });
     return (
+
       appointmentDate.getDay() === 0 ||
       appointmentDate.getDay() === 6 ||
       holidayApiDataValues.includes(appointmentDate.getTime())
+
     );
   }
+
+//Validating current date is holiday
+const today = new Date()
+const checkTodayDate = (Moment(today).format("YYYY-MM-DD"))
+const checkToday = holidayData?.holidays?.find((holidays) => holidays ===  checkTodayDate);
 
   //Spliting statename
   let stateName = branchDetail?.MyBranchCall?.MyBranchDetail
@@ -176,8 +183,8 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
               Moment(formik.values.appointmentDate).format("dddd") === "Tuesday" ? (
                 <Grid>
                   { Moment(formik.values.appointmentDate).format("DD-MM-YYYY") ===
-                    Moment(new Date()).format("DD-MM-YYYY")
-                    ? upt_ca_Tue.length !== 0 ?
+                    Moment(new Date()).format("DD-MM-YYYY") 
+                    ? upt_ca_Tue.length !== 0 && Moment(formik.values.appointmentDate).format("YYYY-MM-DD") !== checkToday ?
                       <Select
                         id="timeSlotSelect"
                         name="callTime"
@@ -206,7 +213,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
                 <Grid>
                   { Moment(formik.values.appointmentDate).format("DD-MM-YYYY") ===
                     Moment(new Date()).format("DD-MM-YYYY")
-                    ? upt_ca_M_W_TH_F.length !== 0 ?
+                    ? upt_ca_M_W_TH_F.length !== 0 && Moment(formik.values.appointmentDate).format("YYYY-MM-DD") !== checkToday ?
                       <Select
                         id="timeSlotSelect"
                         name="callTime"
@@ -236,7 +243,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
               <Grid>
                 { Moment(formik.values.appointmentDate).format("DD-MM-YYYY") ===
                   Moment(new Date()).format("DD-MM-YYYY")
-                  ? updated_other_Tue.length !== 0 ?
+                  ? updated_other_Tue.length !== 0 && Moment(formik.values.appointmentDate).format("YYYY-MM-DD") !== checkToday ?
                     <Select
                       id="timeSlotSelect"
                       name="callTime"
@@ -265,7 +272,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
               <Grid>
                 { Moment(formik.values.appointmentDate).format("DD-MM-YYYY") ===
                   Moment(new Date()).format("DD-MM-YYYY")
-                  ? upt_other_Fri.length !== 0 ?
+                  ? upt_other_Fri.length !== 0 && Moment(formik.values.appointmentDate).format("YYYY-MM-DD") !== checkToday ?
                     <Select
                       id="timeSlotSelect"
                       name="callTime"
@@ -294,7 +301,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
               <Grid>
                 { Moment(formik.values.appointmentDate).format("DD-MM-YYYY") ===
                   Moment(new Date()).format("DD-MM-YYYY")
-                  ? upt_other_M_W_Thu.length !== 0 ?
+                  ? upt_other_M_W_Thu.length !== 0 && Moment(formik.values.appointmentDate).format("YYYY-MM-DD") !== checkToday ?
                     <Select
                       id="timeSlotSelect"
                       name="callTime"
