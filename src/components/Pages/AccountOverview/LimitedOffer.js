@@ -84,7 +84,6 @@ export default function LimitedOffer(userOfferData) {
   //View
   return (
       <div id="limitedOfferWrap" className="limitedOfferWrap">
-
         <Grid container id="overviewWrap" className="overviewWrap">
           <Grid  className="imageholder">
             <div className="yellowBackground">

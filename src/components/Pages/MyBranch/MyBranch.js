@@ -11,6 +11,7 @@ import { ButtonWithIcon } from "../../FormsUI";
 import BranchDetail from "./BranchDetail";
 import BranchMap from "./BranchMap";
 import { useStylesMyBranch } from "./Style";
+import ScrollToTopOnMount from "../ScrollToTop";
 
 export default function MyBranch() {
   window.zeHide();
@@ -27,6 +28,7 @@ export default function MyBranch() {
   return (
     <div>
       <CheckLoginStatus />
+      <ScrollToTopOnMount />
       <Grid
         container
         justifyContent={ "center" }
