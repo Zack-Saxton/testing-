@@ -25,7 +25,7 @@ import { ButtonPrimary, ButtonSecondary } from "../../FormsUI";
 import { useStylesConsumer } from "../../Layout/ConsumerFooterDialog/Style";
 import ErrorLogger from "../../lib/ErrorLogger";
 import Map from "./BranchLocatorMap";
-
+import CustomerRatings from "../MyBranch/CustomerRatings";
 const useStyles = makeStyles({
   ptag: {
     margin: "0px",
@@ -405,13 +405,7 @@ export default function StatePage(props) {
             </Grid>
           </Grid>
         </Grid>
-        <Grid className="blueBGColor">
-          <h4>Customer Ratings</h4>
-          <div
-            id="feefo-service-review-carousel-widgetId"
-            className="feefo-review-carousel-widget-service"
-          ></div>
-        </Grid>
+        <CustomerRatings />
       </Grid>
     </div>
   );
