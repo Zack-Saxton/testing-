@@ -36,6 +36,8 @@
     display: flex;
     align-items: center;
     margin-right: 35px;
+    border-top: 3px solid #21447600 !important;
+    transition: 0.2s;
 }
 .faqLink p{
     height: 79px;
@@ -43,6 +45,8 @@
     display: flex;
     align-items: center;
     margin-right: 35px;
+    border-top: 3px solid #21447600 !important;
+    transition: 0.2s;
 }
 .branchLocatorLink p{
     height: 79px;
@@ -50,6 +54,8 @@
     display: flex;
     align-items: center;
     margin-right: 35px;
+    border-top: 3px solid #21447600 !important;
+    transition: 0.2s;
 }
 
 #blogsLink a:hover{

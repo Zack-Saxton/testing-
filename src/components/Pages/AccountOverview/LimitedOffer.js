@@ -8,10 +8,9 @@ import CloseIcon from "@material-ui/icons/Close";
 import React, { useEffect, useState } from "react";
 import NumberFormat from "react-number-format";
 import adBanner from "../../../assets/gallery/AdBanner.jpg";
-import MortgageBanner from "../../../assets/images/Mortgage-Banner.jpg";
+import MortgageBanner from "../../../assets/images/Latest_Mortgage_Banner.png";
 import setAccountDetails from "../../Controllers/AccountOverviewController";
 import { ButtonPrimary } from "../../FormsUI";
-import { useStylesAccountOverview } from "./Style";
 import "./Style.css";
 import MyBranchAPI from "../../Controllers/MyBranchController";
 import Disclaimer from "./Marketing_offer/Disclaimer";
@@ -20,10 +19,10 @@ import PreScreen from "./Marketing_offer/PreScreen";
 import MarketingOffer from "./Marketing_offer/MarketingOffer";
 import OptOutNotice from "./Marketing_offer/OptOutNotice";
 import CampaignMessage from "./Marketing_offer/CampaignMessage";
+import "./AccountOverview.css"
 
 export default function LimitedOffer(userOfferData) {
   //Material UI css class
-  const classes = useStylesAccountOverview();
   window.zeHide();
   // Get offers details
   let userOfferAmount = (userOfferData.userOffers != null) ? userOfferData.userOffers.offerAmount : 0;
@@ -81,20 +80,19 @@ export default function LimitedOffer(userOfferData) {
 
   //View
   return (
-      <div id="mainContainer">
-        <Grid container spacing={ 2 } style={ { paddingBottom: "50px" } }>
-          <Grid id="LimitedOfferGrid" item xs={ 12 } sm={ 8 } >
-            <Paper id="paperProperties" style={ { height: "100%" } } className={ classes.paperPropertiesLimitedOffer }>
-              <div id="yellowBg">
-                <div id="Wrapp">
-                  <img
+      <div id="limitedOfferWrap" className="limitedOfferWrap">
+
+        <Grid container id="overviewWrap" className="overviewWrap">
+          <Grid  className="imageholder">
+            <div className="yellowBackground">
+               <img
+                    className="bannerImage"
                     src={ adBanner }
                     data-testid="background"
-                    style={ { textDecoration: "none", height: "100%" } }
                     alt="ad_banner"
                   />
-                </div>
-                { userOfferData.isLoading ? (<CircularProgress />) : (
+                  <div className="secondGrid">
+                  { userOfferData.isLoading ? (<CircularProgress />) : (
                   (userOfferAmount) ? (
                     <div id="offerText">
                       <p id="loanText">You may have money available now! Up to </p>
@@ -118,28 +116,27 @@ export default function LimitedOffer(userOfferData) {
                       </NavLink>
                     </div>
                   )
-                ) }
-              </div>
-            </Paper>
+                ) }                
+                  </div>
+            </div>           
           </Grid>
-          <Grid id="offerTwo" item xs={ 12 } sm={ 4 } >
-            <Paper id="paperPropertiesOfferTwo" style={ { height: "100%" } } className={ classes.paperPropertiesOfferTwo }>
-              <a
+          <Grid  className="secondBannerWrap">
+          <a
                 target="_blank"
                 rel="noreferrer"
                 href="https://www.marinerfinance.com/apply-home-loan/?utm_source=CAC&utm_medium=panel&utm_campaign=Mrktoffer_Mortgage"
                 style={ { textDecoration: "none", height: "100%" } }
               >
-                <img
+                 <img
+                  className="secondBannerImage"
                   src={ MortgageBanner }
                   data-testid="background"
                   alt="mortgage_banner"
-                  style={ { width: "100%", height: "100%" } }
                 />
-              </a>
-            </Paper>
+                </a>        
           </Grid>
-          <Modal
+        </Grid>
+        <Modal
             open={ initModal }
             //onClose={handleClose}
             aria-labelledby="modal-modal-title"
@@ -186,7 +183,6 @@ export default function LimitedOffer(userOfferData) {
               </Typography>
             </Box>
           </Modal>
-        </Grid>
       </div>
   );
 }

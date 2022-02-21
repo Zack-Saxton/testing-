@@ -15,3 +15,106 @@
     -webkit-filter: drop-shadow(0px 10px 4px rgba(133, 3, 168, .2));
     filter: drop-shadow(0px 10px 4px rgba(133, 3, 168, .2));
 }
+
+.limitedOfferWrap{
+    width: 100%;
+}
+#limitedOfferWrap{
+    width: 100%;
+}
+.overviewWrap{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    justify-content: space-between;
+}
+#overviewWrap{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    justify-content: space-between;
+}
+
+.imageholder{
+    width: 70%;
+    background-color: white;
+    border-radius: 10px;
+    /* padding: 1.5%; */
+    padding: 24px;
+    display: flex;  
+}
+
+.yellowBackground{
+    background-color: #ffbc24;
+    display: flex;
+    width: 100%;
+}
+
+.bannerImage{
+    width: 60%;
+    height: 100%;
+}
+
+.secondBannerWrap{
+    width: 23%;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* padding: 1.5%; */
+    padding: 24px;
+}
+
+.secondBannerImage{
+    width: 100%;
+}
+
+.overviewOfferText{
+    font-size: 1.538rem;
+}
+
+.overviewOfferAmountText{
+    font-size: 34.5px;
+}
+
+.secondGrid{
+    min-width: 40%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+@media (max-width:1920px) {
+    .imageholder{
+        width: 66%;
+    }
+}
+@media (min-width:1400px) {
+    #claimButton{
+        height: 40px;
+        font-size: 23px;
+    }
+}
+@media (max-width:1093px) {
+    .imageholder{
+        width: 64%;
+    }
+    .secondBannerWrap{
+        width: 21%;
+    }
+}
+@media (max-width:960px) {
+    .imageholder{
+        width: 64%;
+    }
+    .secondBannerWrap{
+        width: 21%;
+    }
+    .secondBannerWrap{
+        align-items: unset !important;
+    }
+}
