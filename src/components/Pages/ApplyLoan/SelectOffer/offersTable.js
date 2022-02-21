@@ -70,7 +70,7 @@ export default function OfferTable(props) {
 	// Shows the Brnach icon
 	const branch = (
 		<Grid container direction="row" alignItems="center">
-			<AccountBalanceIcon /> In branch
+			<AccountBalanceIcon /> In Branch
 		</Grid>
 	);
 
