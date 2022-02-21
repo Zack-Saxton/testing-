@@ -38,7 +38,7 @@
 }
 
 .imageholder{
-    width: 69%;
+    width: 66%;
     background-color: white;
     border-radius: 10px;
     /* padding: 1.5%; */
@@ -91,17 +91,25 @@
     justify-content: center;
 }
 
+
 @media (max-width:1920px) {
     /* .imageholder{
         width: 6%;
     } */
 }
+
 @media (min-width:1400px) {
     #claimButton{
         height: 40px;
         font-size: 23px;
     }
 }
+@media (min-width:1281px) {
+    #imageholder{
+        width: 64%;
+    }
+}
+
 @media (max-width:1093px) {
     .imageholder{
         width: 64%;
