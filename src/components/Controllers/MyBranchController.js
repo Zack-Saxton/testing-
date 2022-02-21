@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
+import globalMessages from "../../assets/data/globalMessages.json";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
-import globalMessages from "../../assets/data/globalMessages.json";
 /***** My branch details *****/
 export default async function MyBranchAPI() {
   try {

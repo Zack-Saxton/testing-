@@ -46,12 +46,12 @@ const useStylesMyProfile = makeStyles((theme) => ({
 		color: "#214476",
 		fontWeight: "400",
 		fontSize: "1.563rem",
-	  },
-	  centerGrid:{
+	},
+	centerGrid: {
 		marginTop: "20px",
 		paddingRight: "23px",
 		paddingLeft: "23px",
-	  },
+	},
 	table: {
 		minWidth: 650,
 	},

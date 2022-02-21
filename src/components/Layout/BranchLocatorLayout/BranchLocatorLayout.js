@@ -7,7 +7,7 @@ const BranchHeaderLayout = ({ children }) => {
     <div id="BG">
       <div className="topBar"></div>
       <NormalHeader />
-      {children}
+      { children }
       <BranchLocatorFooter />
     </div>
   );

@@ -15,27 +15,27 @@ import { ButtonPrimary, ButtonSecondary, ButtonWithIcon, PhoneNumber, TextField 
 import APICall from "../../../lib/AxiosLib";
 import messages from "../../../lib/Lang/applyForLoan.json";
 
-const useStyles = makeStyles((Theme) =>({
-	pTagTextStyle:{
+const useStyles = makeStyles((Theme) => ({
+	pTagTextStyle: {
 		textAlign: "justify",
 		fontSize: "0.938rem",
 		color: "#595959",
 		fontWeight: "normal",
 	},
-	smallTextLeft:{
+	smallTextLeft: {
 		textAlign: "left",
 		fontSize: "0.75rem !important",
 		color: "#595959",
 		marginTop: "10px !important",
 		fontWeight: "normal"
 	},
-	fontLableStyle:{
+	fontLableStyle: {
 		fontSize: "0.75rem"
 	},
 	typoStyle: {
 		fontSize: "15px"
 	},
-	lineHightStyle:{
+	lineHightStyle: {
 		lineHeight: 3
 	}
 })
@@ -61,7 +61,6 @@ export default function PhoneVerification(props) {
 	const [ open, setOpen ] = useState(false);
 	const innerClasses = useStyles();
 
-
 	// get phone number from using email from api
 	const getPhone = async () => {
 		let data = {};
@@ -77,13 +76,13 @@ export default function PhoneVerification(props) {
 	// get the phone number on load
 	useEffect(() => {
 		getPhone();
-		return null
+		return null;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	useEffect(() => {
 		formik.setFieldValue("phone", phoneNum);
-		return null
+		return null;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [ phoneNum ]);
 
@@ -137,7 +136,7 @@ export default function PhoneVerification(props) {
 					.verificationNotFound
 			);
 		}
-	}
+	};
 
 	const skipPhoneVerification = (event) => {
 		Cookies.set("skip", JSON.stringify({ phone: true }));
@@ -152,7 +151,7 @@ export default function PhoneVerification(props) {
 		<div>
 			<Grid item sm={ 12 } lg={ 12 }>
 				<p
-					className={innerClasses.pTagTextStyle}
+					className={ innerClasses.pTagTextStyle }
 				>
 					To verify your phone number we will deliver a passcode to your phone.
 					Please select how you would like to receive this passcode.
@@ -171,7 +170,7 @@ export default function PhoneVerification(props) {
 						id="phone"
 						type="text"
 						onKeyDown={ preventSpace }
-						value={ formik.values.phone ? phoneNumberMask(formik.values.phone) : ""}
+						value={ formik.values.phone ? phoneNumberMask(formik.values.phone) : "" }
 						onChange={ formik.handleChange }
 						disabled={ true }
 						error={ formik.touched.phone && Boolean(formik.errors.phone) }
@@ -179,16 +178,16 @@ export default function PhoneVerification(props) {
 					/>
 					<div className="MuiTypography-alignLeft">
 						<Typography
-							className={innerClasses.smallTextLeft}
+							className={ innerClasses.smallTextLeft }
 							align="left"
 						>
 							This is the Phone number you provided in your application
 						</Typography>
 					</div>
 				</Grid>
-				<Grid item xs={ 12 } className={innerClasses.lineHightStyle}>
+				<Grid item xs={ 12 } className={ innerClasses.lineHightStyle }>
 					<FormControl component="fieldset">
-						<FormLabel className={innerClasses.fontLableStyle} component="legend">Delivery Method</FormLabel>
+						<FormLabel className={ innerClasses.fontLableStyle } component="legend">Delivery Method</FormLabel>
 						<RadioGroup
 							id="textAndCall"
 							aria-label="method"
@@ -203,7 +202,7 @@ export default function PhoneVerification(props) {
 					</FormControl>
 					<div className="MuiTypography-alignLeft">
 						<Typography
-							className={innerClasses.smallTextLeft}
+							className={ innerClasses.smallTextLeft }
 							align="left"
 						>
 							Standard text message and voice rates apply.
@@ -211,7 +210,7 @@ export default function PhoneVerification(props) {
 					</div>
 				</Grid>
 
-				<Grid item xs={ 12 } className={innerClasses.lineHightStyle}>
+				<Grid item xs={ 12 } className={ innerClasses.lineHightStyle }>
 					<ButtonWithIcon
 						stylebutton='{ "fontWeight":"normal" }'
 						styleicon='{ "color":"" }'
@@ -260,7 +259,7 @@ export default function PhoneVerification(props) {
 						color="primary"
 						id="button_stepper_next"
 						stylebutton='{"marginRight": "10px", "color":"" }'
-						onClick={ onNextClick() }
+						onClick={ () => { onNextClick(); } }
 					>
 						{ props.activeStep === props?.steps.length - 1 ? "Finish" : "Next" }
 					</ButtonPrimary>
@@ -275,7 +274,7 @@ export default function PhoneVerification(props) {
 					Confirmation
 				</DialogTitle>
 				<DialogContent dividers>
-					<Typography align="justify" className={innerClasses.typoStyle} gutterBottom>
+					<Typography align="justify" className={ innerClasses.typoStyle } gutterBottom>
 						If you are currently unable to access the phone you provided, click
 						"Verify phone later" to proceed with the Remainder of the
 						Verification process. Please note that we will need to manually

@@ -1,20 +1,22 @@
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { maritalStatusData } from "../../../../assets/data/constants";
+import globalMessages from "../../../../assets/data/globalMessages.json";
 import MarriedStatusLogo from "../../../../assets/icon/married-status.png";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import ZipCodeLookup from "../../../Controllers/ZipCodeLookup";
 import { ButtonPrimary, Select, TextField, Zipcode } from "../../../FormsUI";
 import ErrorLogger from "../../../lib/ErrorLogger";
 import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
-import globalMessages from "../../../../assets/data/globalMessages.json";
 
 //Yup validation schema
 const validationSchema = yup.object({
@@ -67,13 +69,43 @@ const validationSchema = yup.object({
 		}),
 });
 
+const useStyles = makeStyles((Theme) => ({
+
+	typoStyle: {
+		align: "center",
+		justify: "center",
+		alignItems: "center",
+		marginBottom: "1%",
+		marginTop: "1%",
+	},
+	negativeMargin: {
+		marginTop: "-4%"
+	},
+	paperStyle: {
+		justify: "center",
+		alignItems: "center",
+		width: "inherit",
+		marginBottom: "10%",
+		marginTop: "10%",
+		textAlign: "center"
+	}
+})
+);
+
 // custom component - MarriedStatus
 function MarriedStatus() {
 	const { data, setData } = useContext(CheckMyOffers);
 	const [ stateShort, setStateShort ] = useState("");
 	const [ validZip, setValidZip ] = useState(true);
 	const navigate = useNavigate();
-
+	const classes = preLoginStyle();
+	const innerClasses = useStyles();
+	useEffect(() => {
+		//redirect to select amount if page accessed directly
+		if (data.completedPage < data.page.livingPlace || data.formStatus === "completed") {
+			navigate("/select-amount");
+		}
+	}, []);
 	//Configuring formik
 	const formik = useFormik({
 		initialValues: {
@@ -135,16 +167,11 @@ function MarriedStatus() {
 		}
 	};
 
-	//redirect to select amount if page accessed directly
-	if (data.completedPage < data.page.livingPlace || data.formStatus === "completed") {
-		navigate("/select-amount");
-	}
-
 	//JSX part
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className="mainDiv">
+			<div className={ classes.mainDiv }>
 				<Box>
 					<Grid
 						item
@@ -167,14 +194,7 @@ function MarriedStatus() {
 						>
 							<Paper
 								id="maritalStatusWrap"
-								className="cardWOPadding"
-								style={ {
-									justify: "center",
-									alignItems: "center",
-									width: "inherit",
-									marginBottom: "10%",
-									marginTop: "10%",
-								} }
+								className={ innerClasses.paperStyle }
 							>
 								<div className="progress mt-0">
 									<div
@@ -190,7 +210,7 @@ function MarriedStatus() {
 										</i>
 									</Link>
 								</Grid>
-								<Grid style={ { marginTop: "-4%" } }>
+								<Grid className={ innerClasses.negativeMargin }>
 									<img
 										alt="marriedlogo"
 										src={ MarriedStatusLogo }
@@ -200,12 +220,7 @@ function MarriedStatus() {
 
 								<Typography
 									variant="h5"
-									style={ {
-										align: "center",
-										justify: "center",
-										alignItems: "center",
-									} }
-									className="borrowCSS"
+									className={ innerClasses.typoStyle }
 								>
 									Are you married?*
 								</Typography>
@@ -233,7 +248,7 @@ function MarriedStatus() {
 												fullWidth={ true }
 												name="maritalStatus"
 												labelform="Marital Status *"
-												select={'[{"value":"' + maritalStatusData.married + '", "label":"Married"}, {"value":"' + maritalStatusData.unmarried + '", "label":"Unmarried"}, {"label":"Separated, under decree of legal separation", "value":"' + maritalStatusData.seperated + '"}]'}
+												select={ '[{"value":"' + maritalStatusData.married + '", "label":"Married"}, {"value":"' + maritalStatusData.unmarried + '", "label":"Unmarried"}, {"label":"Separated, under decree of legal separation", "value":"' + maritalStatusData.seperated + '"}]' }
 												value={ formik.values.maritalStatus }
 												onChange={ formik.handleChange }
 												onBlur={ formik.handleBlur }

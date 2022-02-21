@@ -51,12 +51,12 @@ TabVerticalPanel.propTypes = {
 
 const HtmlTooltip = withStyles((theme) => ({
 	tooltip: {
-	  backgroundColor: '#f5f5f9',
-	  color: 'rgba(0, 0, 0, 0.87)',
-	  maxWidth: 500,
-	  fontSize: theme.typography.pxToRem(14),
-	  border: '1px solid #dadde9',
-	  fontFamily: "Muli, sans-serif"
+		backgroundColor: '#f5f5f9',
+		color: 'rgba(0, 0, 0, 0.87)',
+		maxWidth: 500,
+		fontSize: theme.typography.pxToRem(14),
+		border: '1px solid #dadde9',
+		fontFamily: "Muli, sans-serif"
 	},
 }))(Tooltip);
 
@@ -85,7 +85,7 @@ export default function OfferTable(props) {
 		const newRecord = [ ...selectData ];
 		newRecord.push(selectedOffer);
 		setSelectData(newRecord);
-	};	
+	};
 	// Select the offers to compare : will push the selected offer value into array
 	const selectOfferToCompare = (row) => {
 		offersComp = props.offersToCompare;
@@ -100,7 +100,7 @@ export default function OfferTable(props) {
 		handleAdd(row);
 	};
 	const buildChartData = (chartData) => {
-		if (chartData.length >= 2) {			
+		if (chartData.length >= 2) {
 			setTermDataMax(
 				chartData[ 0 ]?.monthlyPayment > chartData[ 1 ]?.monthlyPayment
 					? chartData[ 0 ]?.monthlyPayment
@@ -125,7 +125,7 @@ export default function OfferTable(props) {
 			buildChartData(offersCompChart);
 		}
 		handleAdd(row);
-	};	
+	};
 	return (
 		<Grid id="loanListTable" item xs={ 12 } sm={ 9 } className={ props.loading ? props.classes.loadingOnWithoutBlur : props.classes.loadingOff } style={ { padding: "0px 0px 0px 15px", width: "100%" } }>
 			<Paper className={ props.classes.paper }>
@@ -169,13 +169,13 @@ export default function OfferTable(props) {
 											>
 												<Grid container direction="row" alignItems="center">
 													{ " " }
-													APR &nbsp;													
+													APR &nbsp;
 													<HtmlTooltip
 														title={
-														<>
-															<Typography color="inherit">What Is An APR?</Typography>
-															<p>APR stands for "annual percentage rate" and represents the effective annual cost of a loan, including both the interest rate and origination fee.</p>
-														</>
+															<>
+																<Typography color="inherit">What Is An APR?</Typography>
+																<p>APR stands for "annual percentage rate" and represents the effective annual cost of a loan, including both the interest rate and origination fee.</p>
+															</>
 														}
 													>
 														<InfoOutlinedIcon

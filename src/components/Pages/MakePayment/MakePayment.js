@@ -680,7 +680,7 @@ export default function MakePayment(props) {
     if (!afterDecimal) {
       price = event.target.value.replace(".", "");
       price = price.replace("$", "");
-      price = Math.abs( price ).toFixed(2);
+      price = Math.abs(price).toFixed(2);
       setpaymentAmount(price);
       setRequiredAmount("");
     }
@@ -1203,51 +1203,51 @@ export default function MakePayment(props) {
         <DialogTitle id="scheduleDialogHeading">
           <Typography id="scheduleTxt" className={ classes.dialogHeading }>
             Your Payment of: { numberFormat(paymentAmount) } will be applied to your account.
-            </Typography>
-            <TableContainer>
-              <Table className={ classes.table } aria-label="simple table" border-color="white">
-                <TableBody>
-                  <TableRow>
-                    <TableCell className={ classes.tableheadrow } align="left" width="20%">
-                    </TableCell>
-                    <TableCell align="left">
-                      Bank/Card:
-                    </TableCell>
-                    <TableCell align="left">
-                      { cardLabel }
-                    </TableCell>
-                    <TableCell className={ classes.tableheadrow } align="left">
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className={ classes.tableheadrow } align="left" width="20%">
-                    </TableCell>
-                    <TableCell align="left">
-                      Payment Date:
-                    </TableCell>
-                    <TableCell align="left">
-                      { Moment(paymentDatepicker).format("MM/DD/YYYY") }
-                    </TableCell>
-                    <TableCell className={ classes.tableheadrow } align="left">
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className={ classes.tableheadrow } align="left" width="20%">
-                    </TableCell>
-                    <TableCell className={ classes.tableheadrow } align="left">
-                      Account Number:
-                    </TableCell>
-                    <TableCell align="left">
-                      { accntNo }
-                    </TableCell>
-                    <TableCell className={ classes.tableheadrow } align="left">
-                    </TableCell>
-                  </TableRow>
+          </Typography>
+          <TableContainer>
+            <Table className={ classes.table } aria-label="simple table" border-color="white">
+              <TableBody>
+                <TableRow>
+                  <TableCell className={ classes.tableheadrow } align="left" width="20%">
+                  </TableCell>
+                  <TableCell align="left">
+                    Bank/Card:
+                  </TableCell>
+                  <TableCell align="left">
+                    { cardLabel }
+                  </TableCell>
+                  <TableCell className={ classes.tableheadrow } align="left">
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className={ classes.tableheadrow } align="left" width="20%">
+                  </TableCell>
+                  <TableCell align="left">
+                    Payment Date:
+                  </TableCell>
+                  <TableCell align="left">
+                    { Moment(paymentDatepicker).format("MM/DD/YYYY") }
+                  </TableCell>
+                  <TableCell className={ classes.tableheadrow } align="left">
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className={ classes.tableheadrow } align="left" width="20%">
+                  </TableCell>
+                  <TableCell className={ classes.tableheadrow } align="left">
+                    Account Number:
+                  </TableCell>
+                  <TableCell align="left">
+                    { accntNo }
+                  </TableCell>
+                  <TableCell className={ classes.tableheadrow } align="left">
+                  </TableCell>
+                </TableRow>
 
-                </TableBody>
-              </Table>
-            </TableContainer>
-            <Typography className={ classes.dialogHeading }>
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <Typography className={ classes.dialogHeading }>
             Are you sure?
           </Typography>
           <IconButton
@@ -1384,77 +1384,77 @@ export default function MakePayment(props) {
           AUTO PAY AUTHORIZATION
         </DialogTitle>
         <DialogContent>
-          
-            <p className={ classes.autoPayContent }>
-              As used in this authorization, the words, “I,” “MY,” and “ME”
-              refer to the borrower agreeing to the terms of this authorization,
-              and the word “YOU” refers to Mariner Finance, LLC (and its
-              subsidiaries and affiliates) (collectively “Lender”).
-            </p>
-            <p className={ classes.autoPayContent }>
-              I hereby authorize and direct Lender to initiate periodic debit
-              entries for my scheduled loan payments from the bank account
-              information provided to Lender. I agree that debit entries will be
-              made on my scheduled due date (as specified in my loan documents).
-              Changes made to my account or banking information must be received
-              by Lender at least three (3) business days prior to the payment
-              due date.
-            </p>
-            <p className={ classes.autoPayContent }>
-              If the first scheduled payment is an extended due date payment,
-              then the first drafted payment amount may differ from the
-              contractually agreed upon amount due each month. If any scheduled
-              debit amount is greater than the outstanding balance of the loan,
-              the scheduled payment will be debited in full and a check in the
-              amount of the overpayment will be issued and mailed to me.
-            </p>
-            <p className={ classes.autoPayContent }>
-              Lender may cancel my automatic payment enrollment if any automatic
-              payment is returned unpaid by my financial institution. Lender may
-              also cancel the automatic payment service for any reason and will
-              notify me if such an action takes place. The automatic payment
-              amount will only be reduced or canceled to avoid creating a credit
-              balance on the account.
-            </p>
-            <p className={ classes.autoPayContent }>
-              Further, I understand and agree that if my account at the
-              depository financial institution provided does not have sufficient
-              funds to make my loan payment, Lender will not be responsible or
-              liable for any penalties or charges assessed by any other
-              financial institution as a result of such insufficiency. I
-              acknowledge that, in the event Lender’s additional attempts to
-              collect my payment via EFT‐ACH are unsuccessful, I must make my
-              loan payment by other means. I understand that a fee may be
-              assessed by Lender in accordance with the terms of my loan
-              agreement as a result of my account at the depository financial
-              institution listed below having insufficient funds.
-            </p>
-            <p className={ classes.autoPayContent }>
-              Termination: I have the right to stop payment of preauthorized
-              transfers from my account by notifying Lender, verbally or in
-              writing at the mailing address or email address noted below; any
-              such notification must be received by Lender at any time up to
-              three (3) business days before the scheduled date of the transfer.
-              If the debit item is resubmitted, Lender must continue to honor
-              the stop payment order.
-            </p>
-            <p className={ classes.autoPayContent }>
-              I may terminate this authorization at any time (i) through the
-              Customer Account Center; (ii) by providing written notice to
-              Lender at Mariner Finance, LLC, 8211 Town Center Drive,
-              Nottingham, MD 21236, Attn: Servicing; or (iii) by providing
-              written notice to the following email address:{ " " }
-              <a href="mailto:recurringpymtoptout@marinerfinance.com">
-                recurringpymtoptout@marinerfinance.com
-              </a>
-              .
-            </p>
-            <p className={ classes.autoPayContent }>
-              This authorization will remain in effect until the underlying
-              obligation to you is satisfied OR you receive written notification
-              from me of termination of this authorization and you have
-              reasonable time to act upon it, whichever comes first.
-            </p>
+
+          <p className={ classes.autoPayContent }>
+            As used in this authorization, the words, “I,” “MY,” and “ME”
+            refer to the borrower agreeing to the terms of this authorization,
+            and the word “YOU” refers to Mariner Finance, LLC (and its
+            subsidiaries and affiliates) (collectively “Lender”).
+          </p>
+          <p className={ classes.autoPayContent }>
+            I hereby authorize and direct Lender to initiate periodic debit
+            entries for my scheduled loan payments from the bank account
+            information provided to Lender. I agree that debit entries will be
+            made on my scheduled due date (as specified in my loan documents).
+            Changes made to my account or banking information must be received
+            by Lender at least three (3) business days prior to the payment
+            due date.
+          </p>
+          <p className={ classes.autoPayContent }>
+            If the first scheduled payment is an extended due date payment,
+            then the first drafted payment amount may differ from the
+            contractually agreed upon amount due each month. If any scheduled
+            debit amount is greater than the outstanding balance of the loan,
+            the scheduled payment will be debited in full and a check in the
+            amount of the overpayment will be issued and mailed to me.
+          </p>
+          <p className={ classes.autoPayContent }>
+            Lender may cancel my automatic payment enrollment if any automatic
+            payment is returned unpaid by my financial institution. Lender may
+            also cancel the automatic payment service for any reason and will
+            notify me if such an action takes place. The automatic payment
+            amount will only be reduced or canceled to avoid creating a credit
+            balance on the account.
+          </p>
+          <p className={ classes.autoPayContent }>
+            Further, I understand and agree that if my account at the
+            depository financial institution provided does not have sufficient
+            funds to make my loan payment, Lender will not be responsible or
+            liable for any penalties or charges assessed by any other
+            financial institution as a result of such insufficiency. I
+            acknowledge that, in the event Lender’s additional attempts to
+            collect my payment via EFT‐ACH are unsuccessful, I must make my
+            loan payment by other means. I understand that a fee may be
+            assessed by Lender in accordance with the terms of my loan
+            agreement as a result of my account at the depository financial
+            institution listed below having insufficient funds.
+          </p>
+          <p className={ classes.autoPayContent }>
+            Termination: I have the right to stop payment of preauthorized
+            transfers from my account by notifying Lender, verbally or in
+            writing at the mailing address or email address noted below; any
+            such notification must be received by Lender at any time up to
+            three (3) business days before the scheduled date of the transfer.
+            If the debit item is resubmitted, Lender must continue to honor
+            the stop payment order.
+          </p>
+          <p className={ classes.autoPayContent }>
+            I may terminate this authorization at any time (i) through the
+            Customer Account Center; (ii) by providing written notice to
+            Lender at Mariner Finance, LLC, 8211 Town Center Drive,
+            Nottingham, MD 21236, Attn: Servicing; or (iii) by providing
+            written notice to the following email address:{ " " }
+            <a href="mailto:recurringpymtoptout@marinerfinance.com">
+              recurringpymtoptout@marinerfinance.com
+            </a>
+            .
+          </p>
+          <p className={ classes.autoPayContent }>
+            This authorization will remain in effect until the underlying
+            obligation to you is satisfied OR you receive written notification
+            from me of termination of this authorization and you have
+            reasonable time to act upon it, whichever comes first.
+          </p>
         </DialogContent>
         <DialogActions>
           <ButtonPrimary

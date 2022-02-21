@@ -1,19 +1,19 @@
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
+import globalMessages from "../../../../assets/data/globalMessages.json";
 import ActiveDutyLogo from "../../../../assets/icon/active-duty.png";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
-import { makeStyles } from "@material-ui/core/styles";
 import { ButtonPrimary, Select } from "../../../FormsUI";
 import "../CheckMyOffer.css";
-import { preLoginStyle } from "../../../../assets/styles/preLoginStyle"
 import ScrollToTopOnMount from "../ScrollToTop";
-import globalMessages from "../../../../assets/data/globalMessages.json";
 
 //Yup validation schema
 const validationSchema = yup.object({
@@ -29,7 +29,7 @@ const validationSchema = yup.object({
 //Styling part
 const useStyles = makeStyles((theme) => ({
 	paddingGrid: {
-		 padding: "4% 0px" 
+		padding: "4% 0px"
 	},
 	paperStyle: {
 		width: "inherit",
@@ -48,6 +48,11 @@ function ActiveDuty() {
 	const navigate = useNavigate();
 	const classes = preLoginStyle();
 	const innerClasses = useStyles();
+	useEffect(() => {
+		if (data.completedPage < data.page.livingPlace || data.formStatus === "completed") {
+			navigate("/select-amount");
+		}
+	}, []);
 	//initializing formik
 	const formik = useFormik({
 		initialValues: {
@@ -64,15 +69,12 @@ function ActiveDuty() {
 		},
 	});
 
-	// if (data.completedPage < data.page.livingPlace || data.formStatus === "completed") {
-	// 	navigate("/select-amount");
-	// }
 	let disableLoan = formik.values.activeDutyRank === "E4 and below" && formik.values.activeDuty === "Active Military" ? true : false;
 	//JSX part
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className={classes.mainDiv}>
+			<div className={ classes.mainDiv }>
 				<Box>
 					<Grid
 						item
@@ -80,7 +82,7 @@ function ActiveDuty() {
 						container
 						justifyContent="center"
 						alignItems="center"
-						className={innerClasses.paddingGrid}
+						className={ innerClasses.paddingGrid }
 					>
 						<Grid
 							container
@@ -96,7 +98,7 @@ function ActiveDuty() {
 							<Paper
 								id="activeDutyWrap"
 								justify="center"
-								className={innerClasses.paperStyle}
+								className={ innerClasses.paperStyle }
 							>
 								<div className="progress mt-0">
 									<div
@@ -112,7 +114,7 @@ function ActiveDuty() {
 										</i>
 									</Link>
 								</Grid>
-								<Grid className={innerClasses.marginTop}>
+								<Grid className={ innerClasses.marginTop }>
 									<img
 										alt="Active Duty"
 										src={ ActiveDutyLogo }

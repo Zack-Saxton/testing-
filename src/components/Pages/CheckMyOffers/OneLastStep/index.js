@@ -3,10 +3,11 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useQuery } from 'react-query';
 import { Link, useNavigate } from "react-router-dom";
 import SSNLogo from "../../../../assets/icon/Last-Step.png";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import usrAccountDetails from "../../../Controllers/AccountOverviewController";
 import {
@@ -14,14 +15,13 @@ import {
 	getCustomerByEmail
 } from "../../../Controllers/CheckMyOffersController";
 import { ButtonPrimary, Checkbox, Popup, RenderContent } from "../../../FormsUI";
-import { preLoginStyle } from "../../../../assets/styles/preLoginStyle"
 import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
 
 //oneLastStep component initialization
 function SSN() {
 	let response = [];
-	const { data, setData } = useContext(CheckMyOffers);
+	const { data, setData, setApplicationLoading } = useContext(CheckMyOffers);
 	const preLoginClasses = preLoginStyle();
 	const [ agree, setAgree ] = useState(false);
 	const [ submit, setSubmit ] = useState(false);
@@ -57,6 +57,7 @@ function SSN() {
 	const stopLoading = () => {
 		setSubmit(true);
 		setLoading(false);
+		setApplicationLoading(false);
 	};
 	const handleOnClickEsign = () => {
 		setEsignPopup(true);
@@ -88,6 +89,7 @@ function SSN() {
 			result: response.appSubmissionResult,
 			completedPage: data.page.ssn,
 		});
+		setApplicationLoading(false);
 		if (response.appSubmissionResult && response.appSubmissionResult?.data?.applicationStatus === "offers_available") {
 			setData({ ...data, applicationStatus: "offers_available" });
 			navigate("/eligible-for-offers", { formcomplete: "yes" });
@@ -102,6 +104,7 @@ function SSN() {
 	const handleOnClick = async (event) => {
 		data.completedPage = data.page.ssn;
 		setLoading(true);
+		setApplicationLoading(true);
 		let result = await getCustomerByEmail(data.email);
 		if (result && result?.data?.AppSubmittedInLast30Days === true) {
 			stopLoading();
@@ -120,21 +123,25 @@ function SSN() {
 				refetch();
 			} else if (response.appSubmissionResult.status === 403) {
 				setData({ ...data, applicationStatus: "rejected" });
+				setApplicationLoading(false);
 				refetch();
 				navigate("/no-offers-available", { formcomplete: "yes" });
 			} else {
 				alert("Network Error");
 				setLoading(false);
+				setApplicationLoading(false);
 			}
 		} else {
 			stopLoading();
 		}
 	};
+	useEffect(() => {
+		//redirect to select amount if accessed directly
+		if (data.completedPage < data.page.livingPlace || data.completedPage < data.page.activeDuty || data.formStatus === "completed") {
+			navigate("/select-amount");
+		}
+	}, []);
 
-	//redirect to select amount if accessed directly
-	if (data.completedPage < data.page.livingPlace || data.completedPage < data.page.activeDuty || data.formStatus === "completed") {
-		navigate("/select-amount");
-	}
 	const redirectNC = data.state === "NC" ? "/active-duty" : "/living-place";
 
 	//alert when the user tries to close before form submit
@@ -153,7 +160,7 @@ function SSN() {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className={preLoginClasses.mainDiv}>
+			<div className={ preLoginClasses.mainDiv }>
 				<Box>
 					<Grid
 						xs={ 12 }

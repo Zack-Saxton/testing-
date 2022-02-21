@@ -15,6 +15,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
+import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import { textNotification } from "../../Controllers/MyProfileController";
 import {
   ButtonPrimary,
@@ -23,7 +24,6 @@ import {
   PhoneNumber
 } from "../../FormsUI";
 import ErrorLogger from "../../lib/ErrorLogger";
-import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import { useStylesMyProfile } from "./Style";
 import "./Style.css";
 

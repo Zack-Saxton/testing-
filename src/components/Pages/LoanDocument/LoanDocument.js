@@ -11,7 +11,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
 import React, { useEffect, useRef, useState } from "react";
 import { useQuery } from 'react-query';
-import { NavLink,useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
@@ -25,7 +25,6 @@ import ScrollToTopOnMount from "../ScrollToTop";
 import LoanDocumentTable from "./DocumentTable";
 import { useStylesLoanDocument } from "./Style";
 
-
 export default function LoanDocument() {
   window.zeHide();
   //Material UI css class
@@ -33,18 +32,20 @@ export default function LoanDocument() {
   const [ selectedFile, setSelectedFile ] = useState(null);
   const [ docType, setDocType ] = useState("");
   const [ loading, setLoading ] = useState(false);
-  const [label,setlabel] = useState("No File Upload");
+  const [ label, setlabel ] = useState("No File Upload");
   const changeEvent = useRef("");
   let location = useLocation();
 
   //Api call
   const { data: loanDocumentStatus, refetch } = useQuery('loan-document', () => loanDocument(location?.state?.accNo ? location?.state?.accNo : null));
   useEffect(() => {
-    if(refetch){
-    refetch()
+    if (refetch) {
+      refetch();
     }
+    return null;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  
+
   //Loan Document data from API
   let loanDocumentData = loanDocumentStatus != null ? loanDocumentStatus?.data : null;
 
@@ -53,10 +54,10 @@ export default function LoanDocument() {
     setSelectedFile(document.getElementById("file"));
   };
 
-  const handleChange = (event) =>{
+  const handleChange = (event) => {
     let uploadedFile = selectedFile.value.split("\\");
-    setlabel(uploadedFile[uploadedFile.length - 1])
-}
+    setlabel(uploadedFile[ uploadedFile.length - 1 ]);
+  };
   //Document type
   const handleDocType = (event) => {
     setDocType(event.target.value);
@@ -197,7 +198,7 @@ export default function LoanDocument() {
               style={ { paddingTop: "10px", width: "225px" } }
             >
               <Select
-              id="selectDoccumentWrap"
+                id="selectDoccumentWrap"
                 name="selectDocument"
                 labelform="Select Document Type"
                 select='[{ "label": "Identity Document", "value": "id_doc"},
@@ -218,7 +219,7 @@ export default function LoanDocument() {
                   cursor="pointer"
                   ref={ changeEvent }
                   onClick={ handleInputChange }
-                  onChange={(event) => handleChange(event)}
+                  onChange={ (event) => handleChange(event) }
                   style={ { display: "none" } }
                 />
                 <Button
@@ -240,7 +241,7 @@ export default function LoanDocument() {
                     } }
                   />
                 </Button>
-                <span style={{marginLeft:"2px"}}>{label}</span>
+                <span style={ { marginLeft: "2px" } }>{ label }</span>
               </Grid>
 
               <Grid item xs={ 12 } sm={ 4 } style={ { paddingTop: "10px" } }></Grid>

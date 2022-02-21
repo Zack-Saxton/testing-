@@ -1,17 +1,17 @@
+import Box from "@material-ui/core/Box";
+import Grid from "@material-ui/core/Grid";
+import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
+import FacebookIcon from "@material-ui/icons/Facebook";
+import LinkedInIcon from "@material-ui/icons/LinkedIn";
+import TwitterIcon from "@material-ui/icons/Twitter";
 import React from "react";
+import Housing from "../../../assets/images/equal_Housing_Lender.png";
 import Logo from "../../../assets/images/MarinerLogo.png";
 import ConsumerDialog from "../ConsumerFooterDialog/ConsumerDialog";
 import "./BranchLocatorFooter.css";
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
-import IconButton from "@material-ui/core/IconButton";
-import FacebookIcon from "@material-ui/icons/Facebook";
-import TwitterIcon from "@material-ui/icons/Twitter";
-import LinkedInIcon from "@material-ui/icons/LinkedIn";
-import Housing from "../../../assets/images/equal_Housing_Lender.png";
 export default function BranchLocatorFooter() {
-  const [consumer, setConsumer] = React.useState(false);
+  const [ consumer, setConsumer ] = React.useState(false);
   // Consumer popup
   const handleOpenConsumer = () => {
     setConsumer(true);
@@ -198,18 +198,18 @@ export default function BranchLocatorFooter() {
 
   //View Part
   return (
-    <div style={{ background: "#d7e6ed" }}>
-      <footer style={{ width: "100%" }}>
+    <div style={ { background: "#d7e6ed" } }>
+      <footer style={ { width: "100%" } }>
         <section className="section-top-normal-footer">
-          <Grid container spacing={4} justifyContent="space-evenly">
-            {groupedFooter.map((nested) => (
-              <Grid item xs={6} sm={3} key={Math.random() * 1000}>
-                {nested.map((element) => (
-                  <div key={element.title} style={{ marginBottom: "30px" }}>
+          <Grid container spacing={ 4 } justifyContent="space-evenly">
+            { groupedFooter.map((nested) => (
+              <Grid item xs={ 6 } sm={ 3 } key={ Math.random() * 1000 }>
+                { nested.map((element) => (
+                  <div key={ element.title } style={ { marginBottom: "30px" } }>
                     <Typography className="title" gutterBottom>
-                      {element.title}
+                      { element.title }
                     </Typography>
-                    {element.title === "Stay Connected" ? (
+                    { element.title === "Stay Connected" ? (
                       <Grid>
                         <IconButton>
                           <FacebookIcon />
@@ -224,26 +224,26 @@ export default function BranchLocatorFooter() {
                     ) : (
                       element.description.map((item) => (
                         <ul
-                          style={{ margin: "0px", paddingLeft: "0px" }}
-                          key={Math.random() * 1000}
+                          style={ { margin: "0px", paddingLeft: "0px" } }
+                          key={ Math.random() * 1000 }
                         >
-                          <li key={item.name} style={{ listStyleType: "none" }}>
+                          <li key={ item.name } style={ { listStyleType: "none" } }>
                             <a href="#" className="hrefTag">
-                              {item.name}
+                              { item.name }
                             </a>
                           </li>
                         </ul>
                       ))
-                    )}
+                    ) }
                   </div>
-                ))}
+                )) }
               </Grid>
-            ))}
+            )) }
           </Grid>
         </section>
         <section
           className="paragraph"
-          style={{ padding: "20px 70px 0px 70px" }}
+          style={ { padding: "20px 70px 0px 70px" } }
         >
           <p>
             <small>
@@ -294,7 +294,7 @@ export default function BranchLocatorFooter() {
               amount must be in the form of cash or certified funds.
             </small>
           </p>
-          <p style={{ textAlign: "left" }}>
+          <p style={ { textAlign: "left" } }>
             <small>
               California Residents: Loans made or arranged pursuant to a
               California Financing Law license.
@@ -302,28 +302,28 @@ export default function BranchLocatorFooter() {
           </p>
         </section>
 
-        <Box sx={{ flexGrow: 1, justifyContent: "space-evenly" }}>
+        <Box sx={ { flexGrow: 1, justifyContent: "space-evenly" } }>
           <Grid container>
-            <Grid item xs={3}>
+            <Grid item xs={ 3 }>
               <a href="#">
                 <img
-                  src={Logo}
-                  style={{
+                  src={ Logo }
+                  style={ {
                     display: "block",
                     marginLeft: "auto",
                     marginRight: "auto",
-                  }}
+                  } }
                 />
               </a>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={ 6 }>
               <div className="row">
-                <div style={{ paddingTop: "15px", paddingBottom: "15px" }}>
+                <div style={ { paddingTop: "15px", paddingBottom: "15px" } }>
                   <p className="leftAlignAddress">
                     Mariner Finance, LLC, NMLS No. 166564
                     <span
-                      style={{ margin: "0", cursor: "pointer" }}
-                      onClick={handleOpenConsumer}
+                      style={ { margin: "0", cursor: "pointer" } }
+                      onClick={ handleOpenConsumer }
                     >
                       (www.nmlsconsumeraccess.com)
                     </span>
@@ -337,15 +337,15 @@ export default function BranchLocatorFooter() {
                 </div>
               </div>
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={ 3 }>
               <a href="#">
                 <img
-                  src={Housing}
-                  style={{
+                  src={ Housing }
+                  style={ {
                     display: "block",
                     marginLeft: "auto",
                     marginRight: "auto",
-                  }}
+                  } }
                 />
               </a>
             </Grid>
@@ -354,14 +354,14 @@ export default function BranchLocatorFooter() {
 
         <section className="section-bottom">
           <div>
-            <span style={{ color: "white" }}>
-              &copy; {new Date().getFullYear()} Mariner Finance All rights
+            <span style={ { color: "white" } }>
+              &copy; { new Date().getFullYear() } Mariner Finance All rights
               reserved.
             </span>
           </div>
         </section>
       </footer>
-      <ConsumerDialog consumer={consumer} onChange={setConsumer} />
+      <ConsumerDialog consumer={ consumer } onChange={ setConsumer } />
     </div>
   );
 }

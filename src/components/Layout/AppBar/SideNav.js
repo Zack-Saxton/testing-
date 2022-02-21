@@ -1,5 +1,6 @@
 import { Checkbox } from "@material-ui/core";
 import AppBar from "@material-ui/core/AppBar";
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
 import IconButton from "@material-ui/core/IconButton";
@@ -37,23 +38,22 @@ import { useQuery, useQueryClient } from "react-query";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import applicationStatusRedirectPage from "../../../assets/data/applicationStatusRedirectPage.json";
+import globalMessages from "../../../assets/data/globalMessages.json";
 import logoIcon from "../../../assets/images/Favicon.png";
 import logoImage from "../../../assets/images/Normallogo.png";
 import profileImg from "../../../assets/images/profile-img.jpg";
 import quickPay from "../../../assets/images/quickpay.png";
 import { CheckMyOffers } from "../../../contexts/CheckMyOffers";
+import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import { ProfilePicture } from "../../../contexts/ProfilePicture";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import LogoutController from "../../Controllers/LogoutController";
 import branchDetails from "../../Controllers/MyBranchController";
 import ProfileImageController from "../../Controllers/ProfileImageController";
-import globalMessages from "../../../assets/data/globalMessages.json";
 import MoneySkill from "../../Pages/MoneySkill/MoneySkill";
 import Notification from "../Notification/Notification";
-import applicationStatusRedirectPage from "../../../assets/data/applicationStatusRedirectPage.json";
-import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import "./SideNav.css";
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 const drawerWidth = 240;
 
@@ -446,7 +446,6 @@ export default function SideNav() {
     setChecked(event.target.checked);
   };
 
-
   //Menu bar
   const renderMenu = (
     <Menu
@@ -477,7 +476,7 @@ export default function SideNav() {
 
       <div id="headerWrap" className={ classes.grow }>
         <AppBar
-        id="MainHeaderWrapping"
+          id="MainHeaderWrapping"
           position="static"
           elevation={ 0 }
           className={ clsx(classes.appBar, {
@@ -516,7 +515,7 @@ export default function SideNav() {
                 <Typography className={ classes.headerAlign }>FAQ</Typography>
               </NavLink>
 
-              <NavLink to="/branchlocator" className="nav_link branchLocatorLink">
+              <NavLink to="/branch/branchlocator" className="nav_link branchLocatorLink">
                 <Typography className={ classes.headerAlign }>Branch Locator</Typography>
               </NavLink>
 
@@ -670,7 +669,7 @@ export default function SideNav() {
                     </ListItem>
                   </NavLink>
                   :
-                  <NavLink id="applyForLoanNav" to="/customers/applyForLoan" state={ { from: "user" } } onClick={ (event) => { currentLoan ? event.preventDefault() : "" } } className={ currentLoan ? "nav_link_disabled" : "nav_link" } >
+                  <NavLink id="applyForLoanNav" to="/customers/applyForLoan" state={ { from: "user" } } onClick={ (event) => { currentLoan ? event.preventDefault() : ""; } } className={ currentLoan ? "nav_link_disabled" : "nav_link" } >
                     <ListItem className="titleSidenav" disabled={ currentLoan }>
                       <ListItemIcon>
                         { " " }

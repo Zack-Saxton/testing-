@@ -1,18 +1,19 @@
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
 import axios from "axios";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
+import globalMessages from '../../../../assets/data/globalMessages.json';
 import PersonLogo from "../../../../assets/icon/I-Personal-Info.png";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { creatProspect } from "../../../Controllers/CheckMyOffersController";
-import globalMessages from '../../../../assets/data/globalMessages.json';
 import {
 	ButtonPrimary,
 	DatePicker,
@@ -21,7 +22,6 @@ import {
 	SocialSecurityNumber,
 	TextField
 } from "../../../FormsUI";
-import { preLoginStyle } from "../../../../assets/styles/preLoginStyle"
 import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./PersonalInfo.css";
@@ -92,18 +92,18 @@ const validationSchema = yup.object({
 		.typeError(globalMessages.DateOfBirthValid),
 });
 
-const useStyles = makeStyles((Theme) =>({
+const useStyles = makeStyles((Theme) => ({
 	gridPadding: {
 		justifyContent: "center",
 		padding: "4% 0%"
 	},
-	paperStyle: { 
-		justify: "center", 
+	paperStyle: {
+		justify: "center",
 		alignItems: "center",
 		textAlign: "center",
 		padding: "0"
 	},
-	typoStyle:{
+	typoStyle: {
 		align: "center",
 		justify: "center",
 		alignItems: "center",
@@ -119,10 +119,10 @@ const useStyles = makeStyles((Theme) =>({
 		textAlign: "center"
 	},
 	justifyGridMargin: {
-		justifyContent: "center", 
+		justifyContent: "center",
 		margin: " 15px 0px 19px 0px"
 	},
-	gridAlign:{
+	gridAlign: {
 		justifyContent: "center",
 		padding: "4% 0%"
 	}
@@ -271,10 +271,9 @@ function PersonalInfo() {
 
 	//onchange validation
 	const onNameChange = (event) => {
-		const reg = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
-		let acc = event.target.value;
-
-		if (acc === "" || reg.test(acc)) {
+		const pattern = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
+		let name = event.target.value;
+		if (name === "" || pattern.test(name)) {
 			formik.handleChange(event);
 		}
 	};
@@ -292,8 +291,8 @@ function PersonalInfo() {
 
 	//set auto focus
 	function autoFocus() {
-		var firstname = document.getElementById("firstName").value;
-		var lastname = document.getElementById("lastName").value;
+		let firstname = document.getElementById("firstName").value;
+		let lastname = document.getElementById("lastName").value;
 		if (firstname === "") {
 			document.getElementById("firstName").focus();
 		}
@@ -305,27 +304,25 @@ function PersonalInfo() {
 			}
 		}
 	}
-
-	//redirects to select amount if directly calls
-	if (
-		data.completedPage < data.page.homeAddress ||
-		data.formStatus === "completed"
-	) {
-		navigate("/select-amount");
-	}
+	useEffect(() => {
+		//redirects to select amount if directly calls
+		if (data.completedPage < data.page.homeAddress || data.formStatus === "completed") {
+			navigate("/select-amount");
+		}
+	}, []);
 
 	//JSX [part]
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className={classes.mainDiv}>
+			<div className={ classes.mainDiv }>
 				<Box>
 					<Grid
 						item
 						xs={ 12 }
 						container
 						alignItems="center"
-						className={innerClasses.gridAlign}
+						className={ innerClasses.gridAlign }
 					>
 						<Grid
 							container
@@ -340,7 +337,7 @@ function PersonalInfo() {
 						>
 							<Paper
 								id="aboutYourselfWrap"
-								className={innerClasses.paperStyle}
+								className={ innerClasses.paperStyle }
 							>
 								<div className="progress mt-0">
 									<div
@@ -366,7 +363,7 @@ function PersonalInfo() {
 
 								<Typography
 									variant="h5"
-									className={innerClasses.typoStyle}
+									className={ innerClasses.typoStyle }
 								>
 									Tell us about yourself
 								</Typography>
@@ -374,7 +371,7 @@ function PersonalInfo() {
 									<Grid
 										item
 										md={ 12 }
-										className={innerClasses.justifyGrid}
+										className={ innerClasses.justifyGrid }
 										container
 										alignItems="center"
 									>
@@ -618,7 +615,7 @@ function PersonalInfo() {
 										</Grid>
 										<Grid
 											container
-											className={innerClasses.justifyGridMargin}
+											className={ innerClasses.justifyGridMargin }
 											alignItems="center"
 											item
 											lg={ 8 }

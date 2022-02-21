@@ -101,11 +101,11 @@ export default function ApplyLoan() {
 			fontSize: "1.563rem",
 			paddingBottom: "10px",
 		},
-		centerGrid:{
+		centerGrid: {
 			marginTop: "20px",
 			paddingRight: "23px",
 			paddingLeft: "23px",
-		  },
+		},
 		tabLabel: {
 			background: "white",
 			margin: "0px 20px 10px 0px",
@@ -158,7 +158,7 @@ export default function ApplyLoan() {
 	// to call the fetch offers api on page load
 	useEffect(() => {
 		getAvailableOffers();
-		return null
+		return null;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [ val ]);
 

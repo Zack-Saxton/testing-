@@ -4,7 +4,7 @@ import ErrorLogger from "../lib/ErrorLogger";
 export default async function BranchLocatorController(zipcode) {
     try {
         let url = "branch_locator";
-        let param = `?zipcode=${zipcode}`;
+        let param = `?zipcode=${ zipcode }`;
         let data = {};
         let method = "GET";
         let addAccessToken = false;

@@ -3,24 +3,24 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
+import globalMessages from "../../../../assets/data/globalMessages.json";
 import AddressLogo from "../../../../assets/icon/I-Address.png";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import ZipCodeLookup from "../../../Controllers/ZipCodeLookup";
 import { ButtonPrimary, TextField, Zipcode } from "../../../FormsUI";
-import { preLoginStyle } from "../../../../assets/styles/preLoginStyle"
 import ErrorLogger from "../../../lib/ErrorLogger";
 import "../CheckMyOffer.css";
 import "../HomeAddress/HomeAdress.css";
 import ScrollToTopOnMount from "../ScrollToTop";
-import globalMessages from "../../../../assets/data/globalMessages.json";
 
 //yup validation schema
 const validationSchema = yup.object({
@@ -44,19 +44,18 @@ const validationSchema = yup.object({
 		.required(globalMessages.ZipCodeRequired),
 });
 
-const useStyles = makeStyles((Theme) =>({
+const useStyles = makeStyles((Theme) => ({
 	gridStyle: {
-		padding: "4% 0", 
-		margin: "auto" 
+		padding: "4% 0",
+		margin: "auto"
 	},
-	paperStyle: { 
-		justify: "center", 
+	paperStyle: {
+		justify: "center",
 		alignItems: "center",
 		textAlign: "center"
 	}
 })
 );
-
 
 // Home address component initialization
 function HomeAddress() {
@@ -70,7 +69,12 @@ function HomeAddress() {
 	const [ open, setOpen ] = useState(false);
 	const [ openOhio, setOpenOhio ] = useState(false);
 	const [ errorMsg, setErrorMsg ] = useState("");
-
+	const navigate = useNavigate();
+	useEffect(() => {
+		if (data.completedPage < data.page.citizenship || data.formStatus === "completed") {
+			navigate("/select-amount");
+		}
+	}, []);
 	//Handle modal open and close
 	const handleClickOpen = () => {
 		setOpen(true);
@@ -84,7 +88,6 @@ function HomeAddress() {
 	const handleCloseOhio = () => {
 		setOpenOhio(false);
 	};
-	const navigate = useNavigate();
 
 	// Formik configutration
 	const formik = useFormik({
@@ -150,20 +153,18 @@ function HomeAddress() {
 	const onBlurAddress = (event) => {
 		formik.setFieldValue("streetAddress", event.target.value.trim());
 	};
-	if (data.completedPage < data.page.citizenship || data.formStatus === "completed") {
-		navigate("/select-amount");
-	}
+
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className={classes.mainDiv}>
+			<div className={ classes.mainDiv }>
 				<Box>
 					<Grid
 						item xs={ 12 } sm={ 10 } md={ 6 } lg={ 6 }
 						justifyContent="center"
 						container
 						alignItems="center"
-						className={innerClasses.gridStyle}
+						className={ innerClasses.gridStyle }
 					>
 						<Grid
 							container
@@ -172,7 +173,7 @@ function HomeAddress() {
 						>
 							<Paper
 								id="enterZipWrap"
-								className={innerClasses.paperStyle}
+								className={ innerClasses.paperStyle }
 							>
 								<div className="progress mt-0">
 									<div
