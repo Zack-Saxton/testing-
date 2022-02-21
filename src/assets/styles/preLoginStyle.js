@@ -4,9 +4,9 @@ import { makeStyles } from "@material-ui/core/styles";
 const preLoginStyle = makeStyles((theme) => ({
   mainDiv: {
     backgroundColor: "#f6f6f6",
-	minHeight: "500px !important"
+    minHeight: "500px !important"
   },
-  smallText:{
+  smallText: {
     color: "#4a4e57",
     fontSize: ".8rem"
   }

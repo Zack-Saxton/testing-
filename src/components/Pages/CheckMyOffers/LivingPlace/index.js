@@ -1,30 +1,30 @@
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import React, { useContext, useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import CitizenshipStatusLogo from "../../../../assets/icon/I-Own-Rent-Property.png";
-import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { makeStyles } from "@material-ui/core/styles";
-import { ButtonPrimary, TextField } from "../../../FormsUI";
-import { preLoginStyle } from "../../../../assets/styles/preLoginStyle"
+import Typography from "@material-ui/core/Typography";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { homeData } from "../../../../assets/data/constants";
+import globalMessages from "../../../../assets/data/globalMessages.json";
+import CitizenshipStatusLogo from "../../../../assets/icon/I-Own-Rent-Property.png";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
+import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
+import { ButtonPrimary, TextField } from "../../../FormsUI";
 import "../CheckMyOffer.css";
 import "../LivingPlace/LivingPlace.css";
 import ScrollToTopOnMount from "../ScrollToTop";
-import globalMessages from "../../../../assets/data/globalMessages.json";
 
-const useStyles = makeStyles((Theme) =>({
-	boxGrid:{ 
-		padding: "4% 0px 4% 0px" 
+const useStyles = makeStyles((Theme) => ({
+	boxGrid: {
+		padding: "4% 0px 4% 0px"
 	},
-	paperStyle:{
+	paperStyle: {
 		justify: "center",
 		alignItems: "center",
 		textAlign: "center"
 	},
-	typoStyle:{
+	typoStyle: {
 		align: "center",
 		justify: "center",
 		alignItems: "center",
@@ -49,10 +49,10 @@ function LivingPlace() {
 	const currencyFormat = (currencyValue) => {
 		if (currencyValue) {
 			let formated = parseFloat(currencyValue);
-			return (`$${formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").slice(0, -3)}`);
+			return (`$${ formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").slice(0, -3) }`);
 		}
 	};
-	
+
 	useEffect(() => {
 		if (data.completedPage < data.page.annualIncome || data.formStatus === "completed") {
 			navigate("/select-amount");
@@ -110,7 +110,7 @@ function LivingPlace() {
 		let amountDetails = inputValue.split(".");
 		let afterDecimal = amountDetails[ 1 ];
 		if (!afterDecimal) {
-			inputValue = event.target.value.replace(/[.$,]/g,'');
+			inputValue = event.target.value.replace(/[.$,]/g, '');
 			setData({
 				...data,
 				rentMortgageAmount: parseInt(
@@ -152,7 +152,7 @@ function LivingPlace() {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className={classes.mainDiv}>
+			<div className={ classes.mainDiv }>
 				<Box>
 					<Grid
 						container
@@ -160,7 +160,7 @@ function LivingPlace() {
 						xs={ 12 }
 						justifyContent="center"
 						alignItems="center"
-						className={innerClasses.boxGrid}
+						className={ innerClasses.boxGrid }
 					>
 						<Grid
 							// containe
@@ -173,7 +173,7 @@ function LivingPlace() {
 						>
 							<Paper
 								id="ownOrRentWrap"
-								className={innerClasses.paperStyle}
+								className={ innerClasses.paperStyle }
 							>
 								<div className="progress mt-0">
 									<div
@@ -199,7 +199,7 @@ function LivingPlace() {
 
 								<Typography
 									variant="h5"
-									className={innerClasses.typoStyle}
+									className={ innerClasses.typoStyle }
 								>
 									Do you own or rent?
 								</Typography>

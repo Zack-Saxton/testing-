@@ -15,11 +15,11 @@ const useStylesLoanDocument = makeStyles((theme) => ({
     fontWeight: "400",
     fontSize: "1.563rem",
   },
-  centerGrid:{
-		marginTop: "20px",
-		paddingRight: "23px",
-		paddingLeft: "23px",
-		},
+  centerGrid: {
+    marginTop: "20px",
+    paddingRight: "23px",
+    paddingLeft: "23px",
+  },
   tableHead: {
     color: "#171717!important",
     fontWeight: "600",

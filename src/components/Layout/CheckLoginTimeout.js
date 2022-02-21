@@ -24,9 +24,9 @@ const CheckLoginTimeout = () => {
   var min = expiryMinute;
   var actualSetupTime = userToken?.setupTime ?? 0;
   var nowTime = new Date().getTime();
-  const [openPopUp, setOpenPopUp] = useState(false);
-  const [seconds, setSeconds] = useState(0);
-  const [minutes, setMinutes] = useState(2);
+  const [ openPopUp, setOpenPopUp ] = useState(false);
+  const [ seconds, setSeconds ] = useState(0);
+  const [ minutes, setMinutes ] = useState(2);
   let secondsTemp = 0;
   let minutesTemp = 2;
   let timer;
@@ -144,25 +144,25 @@ const CheckLoginTimeout = () => {
 
   return (
     <div>
-      {loginToken.isLoggedIn === true ? (
+      { loginToken.isLoggedIn === true ? (
         <>
           <Dialog
-            onClose={handleClosePopUp}
+            onClose={ handleClosePopUp }
             aria-labelledby="customized-dialog-title"
             maxWidth="xs"
-            open={openPopUp}
+            open={ openPopUp }
           >
             <div id="printableArea">
               <DialogTitle
                 id="customized-dialog-title"
-                onClose={handleClosePopUp}
+                onClose={ handleClosePopUp }
               >
                 Alert
               </DialogTitle>
               <DialogContent dividers>
                 <Typography align="justify" gutterBottom>
                   You will be logged out due to inactivity. Press Ok to remain
-                  logged into the system {minutes} : {seconds}
+                  logged into the system { minutes } : { seconds }
                 </Typography>
                 <br />
               </DialogContent>
@@ -170,7 +170,7 @@ const CheckLoginTimeout = () => {
             <DialogActions className="modalAction">
               <ButtonPrimary
                 stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
-                onClick={handleClosePopUp}
+                onClick={ handleClosePopUp }
               >
                 <Typography align="center">Ok</Typography>
               </ButtonPrimary>
@@ -179,7 +179,7 @@ const CheckLoginTimeout = () => {
         </>
       ) : (
         <CheckLoginStatus />
-      )}
+      ) }
     </div>
   );
 };

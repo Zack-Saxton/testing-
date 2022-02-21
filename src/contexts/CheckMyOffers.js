@@ -1,7 +1,7 @@
-import React, { createContext, useState } from 'react';
+import { makeStyles } from "@material-ui/core/styles";
 import Cookies from 'js-cookie';
 import Moment from "moment";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { createContext, useState } from 'react';
 import states from '../../src/assets/data/States.json';
 import usrAccountDetails from '../components/Controllers/AccountOverviewController';
 import { decryptAES } from '../components/lib/Crypto';
@@ -18,7 +18,7 @@ const useStyle = makeStyles((theme) => ({
 }));
 function CheckMyOffersContext(props) {
   // context data initial State
-  const [applicationLoading, setApplicationLoading] = useState(false)
+  const [ applicationLoading, setApplicationLoading ] = useState(false);
   const classes = useStyle();
   const [ data, setData ] = useState({
     loanAmount: '',
@@ -230,7 +230,7 @@ function CheckMyOffersContext(props) {
   return (
     <CheckMyOffers.Provider value={ { data, setData, resetData, setApplicationLoading } }>
       <div className={ applicationLoading ? classes.loadingOn : classes.loadingOff } >
-      { props.children }
+        { props.children }
       </ div>
     </CheckMyOffers.Provider>
   );

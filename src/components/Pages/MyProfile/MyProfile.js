@@ -115,8 +115,8 @@ export default function MyProfile() {
       <Grid
         container
         justifyContent={ "center" }
-        className={ classes.centerGrid }        
-        >
+        className={ classes.centerGrid }
+      >
         <Grid
           container
           item

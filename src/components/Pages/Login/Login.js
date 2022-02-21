@@ -171,11 +171,11 @@ export default function Login(props) {
         queryClient.removeQueries();
         setLoading(false);
         if (retVal?.data?.user?.attributes?.password_reset) {
-          navigate("/resetpassword")
+          navigate("/resetpassword");
         } else {
           navigate(location.state?.redirect
-              ? location.state?.redirect
-              : "/customers/accountoverview",
+            ? location.state?.redirect
+            : "/customers/accountoverview",
           );
         }
         if (location.state?.activationToken) {

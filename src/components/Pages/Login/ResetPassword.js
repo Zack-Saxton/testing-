@@ -6,15 +6,15 @@ import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useState } from "react";
-import { useNavigate}  from "react-router-dom";
-import ResetPasswordController from "../../Controllers/ResetPasswordController";
-import { ButtonPrimary, EmailTextField, PasswordField } from "../../FormsUI";
-import ScrollToTopOnMount from "../../Pages/ScrollToTop";
-import "./Login.css";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import * as yup from "yup";
 import globalValidation from "../../../../src/assets/data/globalMessages.json";
+import ResetPasswordController from "../../Controllers/ResetPasswordController";
+import { ButtonPrimary, EmailTextField, PasswordField } from "../../FormsUI";
 import ErrorLogger from "../../lib/ErrorLogger";
-import { toast } from "react-toastify";
+import ScrollToTopOnMount from "../../Pages/ScrollToTop";
+import "./Login.css";
 //Styling part
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -39,12 +39,12 @@ const useStyles = makeStyles((theme) => ({
     },
     emailGrid: {
         lineHeight: "2",
-        padding:"8px"
+        padding: "8px"
     },
 }));
 
 //Yup validations for all the input fields
-const email = Cookies.get("email")
+const email = Cookies.get("email");
 const ResetPasswordvalidationSchema = yup.object().shape({
     password: yup
         .string(globalValidation.PasswordEnter)
@@ -58,7 +58,7 @@ const ResetPasswordvalidationSchema = yup.object().shape({
     confirmPassword: yup
         .string(globalValidation.PasswordEnter)
         .oneOf(
-            [yup.ref("password"), null],
+            [ yup.ref("password"), null ],
             globalValidation.PasswordConfirmationMatch
         )
         .max(30, globalValidation.PasswordMax)
@@ -68,13 +68,13 @@ const ResetPasswordvalidationSchema = yup.object().shape({
             globalValidation.PasswordCriteria
         )
         .required(globalValidation.PasswordConfirmationRequired),
-})
+});
 //Begin: Login page
 export default function Login(props) {
     const classes = useStyles();
     const navigate = useNavigate();
-    const [loading, setLoading] = useState(false);
-    
+    const [ loading, setLoading ] = useState(false);
+
     //Form Submission
     const formik = useFormik({
         initialValues: {
@@ -95,10 +95,10 @@ export default function Login(props) {
                     navigate("/customers/accountoverview");
                 } else {
                     toast.error(globalValidation.TryAgain);
-                    navigate("/login")
+                    navigate("/login");
                 };
             } catch (error) {
-                ErrorLogger(' Error Reseting Password ::', error)
+                ErrorLogger(' Error Reseting Password ::', error);
             }
         }
     });
@@ -112,35 +112,35 @@ export default function Login(props) {
     return (
         <div>
             <ScrollToTopOnMount />
-            <div className={classes.mainContentBackground} id="resetPasswordWrap">
+            <div className={ classes.mainContentBackground } id="resetPasswordWrap">
                 <Box>
                     <Grid container>
                         <Grid container
                             item
-                        xl={ 6 }
-                        lg={ 6 }
-                        md={ 6 }
-                        sm={ 10 }
-                        xs={ 12 }
+                            xl={ 6 }
+                            lg={ 6 }
+                            md={ 6 }
+                            sm={ 10 }
+                            xs={ 12 }
                             id="reset-main-content"
-                            style={{
+                            style={ {
                                 opacity: loading ? 0.55 : 1,
                                 pointerEvents: loading ? "none" : "initial",
-                            }}
+                            } }
                         >
-                            <Paper className={classes.paper} id="signInContainer">
+                            <Paper className={ classes.paper } id="signInContainer">
                                 <Typography
-                                    className={classes.title}
+                                    className={ classes.title }
                                     data-testid="title"
                                     color="textSecondary"
                                 >
                                     Create New Password
                                 </Typography>
-                                <form onSubmit={formik.handleSubmit}>
-                                    <Grid container spacing={2} style={{ paddingTop: "30px" }}>
-                                        <Grid         
-                                            style={{ width: "100%" }}
-                                            className={classes.emailGrid}
+                                <form onSubmit={ formik.handleSubmit }>
+                                    <Grid container spacing={ 2 } style={ { paddingTop: "30px" } }>
+                                        <Grid
+                                            style={ { width: "100%" } }
+                                            className={ classes.emailGrid }
                                         >
                                             <EmailTextField
                                                 id="email"
@@ -148,16 +148,16 @@ export default function Login(props) {
                                                 type="email"
                                                 testid="email-input"
                                                 disabled="true"
-                                                InputLabelProps={{ style: { fontSize: 40 } }}
+                                                InputLabelProps={ { style: { fontSize: 40 } } }
                                                 label="Create new password for"
-                                                materialProps={{ maxLength: "100" }}
-                                                value={email}
+                                                materialProps={ { maxLength: "100" } }
+                                                value={ email }
                                             />
                                         </Grid>
                                         <Grid
                                             item
-                                            xs={12}
-                                            style={{ width: "100%" }}
+                                            xs={ 12 }
+                                            style={ { width: "100%" } }
                                             container
                                             direction="row"
                                         >
@@ -167,11 +167,11 @@ export default function Login(props) {
                                                 placeholder="Enter your password"
                                                 id="password"
                                                 type="password"
-                                                onKeyDown={preventSpace}
-                                                materialProps={{ maxLength: "100" }}
-                                                value={formik.values.password}
-                                                onChange={formik.handleChange}
-                                                onBlur={formik.handleBlur}
+                                                onKeyDown={ preventSpace }
+                                                materialProps={ { maxLength: "100" } }
+                                                value={ formik.values.password }
+                                                onChange={ formik.handleChange }
+                                                onBlur={ formik.handleBlur }
                                                 error={
                                                     formik.touched.password &&
                                                     Boolean(formik.errors.password)
@@ -183,8 +183,8 @@ export default function Login(props) {
                                         </Grid>
                                         <Grid
                                             item
-                                            xs={12}
-                                            style={{ width: "100%", gap: 15, marginBottom: 10 }}
+                                            xs={ 12 }
+                                            style={ { width: "100%", gap: 15, marginBottom: 10 } }
                                             container
                                             direction="row"
                                         >
@@ -193,34 +193,34 @@ export default function Login(props) {
                                                 name="confirmPassword"
                                                 type="password"
                                                 label="Confirm New Password"
-                                                onKeyDown={preventSpace}
+                                                onKeyDown={ preventSpace }
                                                 autoComplete="new-password"
-                                                materialProps={{ maxLength: "30", autoComplete: "off" }}
-                                                value={formik.values.confirmPassword}
-                                                onChange={formik.handleChange}
-                                                onBlur={formik.handleBlur}
+                                                materialProps={ { maxLength: "30", autoComplete: "off" } }
+                                                value={ formik.values.confirmPassword }
+                                                onChange={ formik.handleChange }
+                                                onBlur={ formik.handleBlur }
                                                 error={
                                                     formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)
                                                 }
-                                                helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
+                                                helperText={ formik.touched.confirmPassword && formik.errors.confirmPassword }
                                                 variant="standard"
-                                                disabled={false}
+                                                disabled={ false }
                                             />
                                         </Grid>
-                                        <Grid item xs={12} className={classes.loginButton}>
+                                        <Grid item xs={ 12 } className={ classes.loginButton }>
                                             <ButtonPrimary
                                                 type="submit"
                                                 data-testid="submit"
                                                 stylebutton='{"background": "", "color":"" , "fontSize" : "15px", "padding" : "0px 30px"}'
-                                                disabled={loading}
+                                                disabled={ loading }
                                             >
                                                 Reset Password
                                                 <i
                                                     className="fa fa-refresh fa-spin customSpinner"
-                                                    style={{
+                                                    style={ {
                                                         marginRight: "10px",
                                                         display: loading ? "block" : "none",
-                                                    }}
+                                                    } }
                                                 />
                                             </ButtonPrimary>
                                         </Grid>

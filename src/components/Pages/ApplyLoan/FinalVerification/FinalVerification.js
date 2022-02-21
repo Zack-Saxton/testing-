@@ -66,11 +66,11 @@ const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 650,
   },
-  centerGrid:{
+  centerGrid: {
     marginTop: "20px",
     paddingRight: "23px",
     paddingLeft: "23px",
-    },
+  },
 }));
 
 //Initializing Final verification functional component

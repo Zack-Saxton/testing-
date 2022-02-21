@@ -3,8 +3,8 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { preLoginStyle } from "../../../../assets/styles/preLoginStyle"
 import EligibleForOffersLogo from "../../../../assets/gallery/Eligible-for-Offers.png";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary } from "../../../FormsUI";
 import "../CheckMyOffer.css";
@@ -12,7 +12,7 @@ import ScrollToTopOnMount from "../ScrollToTop";
 
 //Initializing functional component EligibleForOffers
 function EligibleForOffers(props) {
-	const navigate = useNavigate();	
+	const navigate = useNavigate();
 	const classes = preLoginStyle();
 	//Handle button click redirecting to account overview page
 	const handleRoute = async (event) => {
@@ -20,7 +20,7 @@ function EligibleForOffers(props) {
 	};
 
 	const { data } = useContext(CheckMyOffers);
-	data.formStatus = "completed";	
+	data.formStatus = "completed";
 	window.onbeforeunload = null;
 	useEffect(() => {
 		if (data.completedPage < data.page.ssn && data.applicationStatus !== "referred" && props?.location?.formcomplete !== "yes") {
@@ -31,7 +31,7 @@ function EligibleForOffers(props) {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className={classes.mainDiv}>
+			<div className={ classes.mainDiv }>
 				<Box>
 					<Grid
 						item

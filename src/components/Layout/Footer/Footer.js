@@ -2,9 +2,9 @@ import { Grid } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import React from "react";
 import { NavLink } from "react-router-dom";
+import housingImage from "../../../assets/images/equal_Housing_Lender.png";
 import badge from "../../../assets/images/FeefoRatting.png";
 import Logo from "../../../assets/images/mf-logo.png";
-import housingImage from "../../../assets/images/equal_Housing_Lender.png";
 import ConsumerDialog from "../ConsumerFooterDialog/ConsumerDialog";
 import "./Footer.css";
 
@@ -17,10 +17,10 @@ export default function Footer() {
   //View Part
   return (
     <div>
-      <footer id="mainFooter" style={{ width: "100%" }}>
+      <footer id="mainFooter" style={ { width: "100%" } }>
         <Grid className="mainFooterWrap">
           <Grid className="footerWrap" container>
-            <Grid item sm={12} md={4} lg={4}>
+            <Grid item sm={ 12 } md={ 4 } lg={ 4 }>
               <div className="footer-content">
                 <NavLink
                   to="/communityGuidelines"
@@ -74,7 +74,7 @@ export default function Footer() {
               </div>
             </Grid>
 
-            <Grid item sm={12} md={4} lg={4}>
+            <Grid item sm={ 12 } md={ 4 } lg={ 4 }>
               <div className="footer-content">
                 <NavLink
                   to="/websiteAccessibility"
@@ -110,18 +110,18 @@ export default function Footer() {
               </div>
             </Grid>
 
-            <Grid item sm={12} md={4} lg={4}>
-              <img type="image" src={badge} alt="photo" id="badge" />
+            <Grid item sm={ 12 } md={ 4 } lg={ 4 }>
+              <img type="image" src={ badge } alt="photo" id="badge" />
             </Grid>
           </Grid>
 
           <Grid>
             <Grid container id="mfInfo" className="row">
-              <Grid className="footerPadding" item sm={12} md={2} lg={2}>
+              <Grid className="footerPadding" item sm={ 12 } md={ 2 } lg={ 2 }>
                 <img
                   type="image"
                   id="mfInfoImgOne"
-                  src={Logo}
+                  src={ Logo }
                   alt="logo image"
                 />
               </Grid>
@@ -129,17 +129,17 @@ export default function Footer() {
               <Grid
                 className="footerPadding"
                 item
-                sm={12}
-                md={8}
-                lg={8}
+                sm={ 12 }
+                md={ 8 }
+                lg={ 8 }
                 className="row"
               >
-                <div style={{ paddingTop: "15px", paddingBottom: "15px" }}>
+                <div style={ { paddingTop: "15px", paddingBottom: "15px" } }>
                   <p className="leftAlignAddress">
                     Mariner Finance, LLC, NMLS No. 166564
                     <span
-                      style={{ margin: "0", cursor: "pointer" }}
-                      onClick={handleOpenConsumer}
+                      style={ { margin: "0", cursor: "pointer" } }
+                      onClick={ handleOpenConsumer }
                     >
                       (www.nmlsconsumeraccess.com)
                     </span>
@@ -152,13 +152,13 @@ export default function Footer() {
                 </div>
               </Grid>
 
-              <Grid className="footerPadding" item sm={12} md={2} lg={2}>
+              <Grid className="footerPadding" item sm={ 12 } md={ 2 } lg={ 2 }>
                 <input
                   type="image"
                   id="mfInfoImg"
-                  src={housingImage}
+                  src={ housingImage }
                   alt="logo image"
-                  style={{ paddingRight: "25px" }}
+                  style={ { paddingRight: "25px" } }
                 />
               </Grid>
             </Grid>
@@ -170,17 +170,17 @@ export default function Footer() {
         <div className="footer-copyright">
           <div className="footerText">
             <span>
-              © 2020{" "}
+              © 2020{ " " }
               <a className="footerHomeLink" href="/customers/accountOverview" >
                 Mariner Finance
-              </a>{" "}
+              </a>{ " " }
               All rights reserved.
             </span>
           </div>
         </div>
       </footer>
 
-      <ConsumerDialog consumer={consumer} onChange={setConsumer} />
+      <ConsumerDialog consumer={ consumer } onChange={ setConsumer } />
     </div>
   );
 }

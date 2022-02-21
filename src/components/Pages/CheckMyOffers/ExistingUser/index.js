@@ -15,7 +15,7 @@ import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import usrAccountDetails from "../../../Controllers/AccountOverviewController";
 import LoginController from "../../../Controllers/LoginController";
 import { ButtonPrimary, PasswordField } from "../../../FormsUI";
-import { preLoginStyle } from "../../../../assets/styles/preLoginStyle"
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { encryptAES } from "../../../lib/Crypto";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./ExistingUser.css";
@@ -25,13 +25,13 @@ import globalMessages from "../../../../assets/data/globalMessages.json";
 const validationSchema = yup.object({
 	password: yup
 		.string(globalMessages.PasswordEnter)
-		.max(30,globalMessages.PasswordMax)
+		.max(30, globalMessages.PasswordMax)
 		.required(globalMessages.PasswordRequired),
 });
 
-const useStyles = makeStyles((Theme) =>({
-	
-	typoStyle:{
+const useStyles = makeStyles((Theme) => ({
+
+	typoStyle: {
 		align: "center",
 		justify: "center",
 		alignItems: "center",
@@ -39,9 +39,9 @@ const useStyles = makeStyles((Theme) =>({
 		marginTop: "1%",
 	},
 	negativeMargin: {
-		marginTop: "-4%" 
+		marginTop: "-4%"
 	},
-	paperStyle:{
+	paperStyle: {
 		justify: "center",
 		alignItems: "center",
 		width: "inherit",
@@ -133,13 +133,12 @@ function ExistingUser() {
 			event.preventDefault();
 		}
 	};
-	
 
 	// View part
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className={classes.mainDiv}>
+			<div className={ classes.mainDiv }>
 				<Box>
 					<Grid
 						item
@@ -161,7 +160,7 @@ function ExistingUser() {
 							alignItems="center"
 						>
 							<Paper
-								className={innerClasses.paperStyle}
+								className={ innerClasses.paperStyle }
 							>
 								<span className="floatLeft detNum5" />
 								<Grid className="floatLeft">
@@ -171,7 +170,7 @@ function ExistingUser() {
 										</i>
 									</Link>
 								</Grid>
-								<Grid className={innerClasses.negativeMargin}>
+								<Grid className={ innerClasses.negativeMargin }>
 									<img
 										src={ PasswordLogo }
 										alt="password"
@@ -179,15 +178,15 @@ function ExistingUser() {
 									/>
 								</Grid>
 								<Typography
-									
-									className={innerClasses.typoStyle}
+
+									className={ innerClasses.typoStyle }
 								>
 									We have detected you already have an account with us.
 								</Typography>
 
 								<Typography
 									variant="h5"
-									className={innerClasses.typoStyle}
+									className={ innerClasses.typoStyle }
 								>
 									Please enter a password and continue.
 								</Typography>

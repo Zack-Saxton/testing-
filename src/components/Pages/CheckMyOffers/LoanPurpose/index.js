@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { loanPurposeData } from "../../../../assets/data/constants";
 import AutoExpenseIcon from "../../../../assets/icon/AutoExpense-Repair.png";
@@ -24,49 +24,49 @@ import MajorPurchaseIconWhite from "../../../../assets/icon/white/Major-Purchase
 import MedicalIconWhite from "../../../../assets/icon/white/Medical-Dental.png";
 import UnexpectedExpenseIconWhite from "../../../../assets/icon/white/Unexpected-Expenses.png";
 import VacationIconWhite from "../../../../assets/icon/white/Vacation.png";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary } from "../../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
-import { preLoginStyle } from "../../../../assets/styles/preLoginStyle"
 import "./LoanPurpose.css";
 
-	//styling
-	const useStyles = makeStyles((Theme) =>
-		createStyles({
-			root: {},
-			paper: {
-				padding: Theme.spacing(2),
-				height: "100%",
-				textAlign: "center",
-				color: Theme.palette.text.secondary,
-				boxSizing: "border-box",
-			},
-			gridItem: {
-				boxSizing: "border-box",
-				padding: Theme.spacing(1),
-			},
-			masonryItemFirst: {
-				boxSizing: "border-box",
+//styling
+const useStyles = makeStyles((Theme) =>
+	createStyles({
+		root: {},
+		paper: {
+			padding: Theme.spacing(2),
+			height: "100%",
+			textAlign: "center",
+			color: Theme.palette.text.secondary,
+			boxSizing: "border-box",
+		},
+		gridItem: {
+			boxSizing: "border-box",
+			padding: Theme.spacing(1),
+		},
+		masonryItemFirst: {
+			boxSizing: "border-box",
+			padding: `${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(1) }px`,
+			[ Theme.breakpoints.up("lg") ]: {
 				padding: `${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(1) }px`,
-				[ Theme.breakpoints.up("lg") ]: {
-					padding: `${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(1) }px`,
-				},
-				[ Theme.breakpoints.down("sm") ]: {
-					padding: `${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(1) }px`,
-				},
 			},
-			mainGridPadding: {
-				padding: "4% 0%"
+			[ Theme.breakpoints.down("sm") ]: {
+				padding: `${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(1) }px`,
 			},
-			gridPadding:{ 
-				paddingTop: "7px", 
-				paddingBottom: "15px" 
-			},
-			gridMargin: {
-				margin: "15px 0px 19px 0 !important"
-			}
-		})
-	);
+		},
+		mainGridPadding: {
+			padding: "4% 0%"
+		},
+		gridPadding: {
+			paddingTop: "7px",
+			paddingBottom: "15px"
+		},
+		gridMargin: {
+			margin: "15px 0px 19px 0 !important"
+		}
+	})
+);
 //Loan purpose component initialization
 function LoanPurpose(props) {
 	const { data } = useContext(CheckMyOffers);
@@ -97,12 +97,12 @@ function LoanPurpose(props) {
 	};
 
 	const classes = useStyles();
-	
+
 	//view part
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className={preLoginStyles.mainDiv}>
+			<div className={ preLoginStyles.mainDiv }>
 				<Box>
 					<Grid
 						container
@@ -110,7 +110,7 @@ function LoanPurpose(props) {
 						xs={ 12 }
 						justifyContent="center"
 						alignItems="center"
-						className={classes.mainGridPadding}
+						className={ classes.mainGridPadding }
 					>
 						<Grid
 							container
@@ -527,7 +527,7 @@ function LoanPurpose(props) {
 										lg={ 12 }
 										md={ 12 }
 										xs={ 12 }
-										className={ `${ classes.masonryItemFirst } ${classes.gridPadding}` }
+										className={ `${ classes.masonryItemFirst } ${ classes.gridPadding }` }
 										style={ { paddingTop: "7px", paddingBottom: "15px" } }
 									>
 										<Paper
@@ -559,7 +559,7 @@ function LoanPurpose(props) {
 										md={ 9 }
 										sm={ 12 }
 										xs={ 12 }
-										className={classes.gridMargin}
+										className={ classes.gridMargin }
 									>
 										<ButtonPrimary
 											data-testid="contButton"

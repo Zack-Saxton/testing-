@@ -179,7 +179,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
                     Moment(new Date()).format("DD-MM-YYYY")
                     ? upt_ca_Tue.length !== 0 ?
                       <Select
-                      id="timeSlotSelect"
+                        id="timeSlotSelect"
                         name="callTime"
                         labelform="Time Slot"
                         select={ JSON.stringify(upt_ca_Tue) }
@@ -191,7 +191,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
                       /> : <p>No time slot available</p>
                     :
                     <Select
-                    id="timeSlotSelect"
+                      id="timeSlotSelect"
                       name="callTime"
                       labelform="Time Slot"
                       select={ ca_Tue }
@@ -208,7 +208,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
                     Moment(new Date()).format("DD-MM-YYYY")
                     ? upt_ca_M_W_TH_F.length !== 0 ?
                       <Select
-                      id="timeSlotSelect"
+                        id="timeSlotSelect"
                         name="callTime"
                         labelform="Time Slot"
                         select={ JSON.stringify(upt_ca_M_W_TH_F) }
