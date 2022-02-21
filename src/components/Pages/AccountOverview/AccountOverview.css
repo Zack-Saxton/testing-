@@ -38,12 +38,13 @@
 }
 
 .imageholder{
-    width: 70%;
+    width: 69%;
     background-color: white;
     border-radius: 10px;
     /* padding: 1.5%; */
     padding: 24px;
     display: flex;  
+    box-shadow: rgb(61 61 61 / 10%) 0px 8px 44px 0px;
 }
 
 .yellowBackground{
@@ -66,10 +67,12 @@
     justify-content: center;
     /* padding: 1.5%; */
     padding: 24px;
+    box-shadow: rgb(61 61 61 / 10%) 0px 8px 44px 0px;
 }
 
 .secondBannerImage{
     width: 100%;
+    height: 100%;
 }
 
 .overviewOfferText{
@@ -116,5 +119,28 @@
     }
     .secondBannerWrap{
         align-items: unset !important;
+    }
+}
+@media (max-width:760px) {
+    .imageholder{
+        width: 100% !important;
+    }
+    .secondBannerWrap{
+        width: 100% !important;
+        margin-top: 40px;
+    }
+    .yellowBackground{
+        flex-direction: column;
+    }
+    .bannerImage{
+        width: 100%;
+    }
+    .secondGrid{
+        margin: 30px 0px;
+    }
+    #claimButton{
+        font-size: 30px;
+        padding: 0px 30px !important;
+        height: 44px;
     }
 }
