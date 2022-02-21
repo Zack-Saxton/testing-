@@ -134,9 +134,7 @@ export default function Login(props) {
       if (retVal?.data?.user && retVal?.data?.userFound === true) {
         let login_date = retVal?.data?.user.extensionattributes?.login
           ?.last_timestamp_date
-          ? moment(
-            retVal?.data?.user.extensionattributes.login.last_timestamp_date
-          )
+          ? moment(retVal?.data?.user.extensionattributes.login.last_timestamp_date)
             .subtract(addVal, "hours")
             .format("MM/DD/YYYY")
           : "";
@@ -148,23 +146,12 @@ export default function Login(props) {
             isLoggedIn: true,
             apiKey: retVal?.data?.user?.extensionattributes?.login?.jwt_token,
             setupTime: now,
-            applicantGuid:
-              retVal?.data?.user?.attributes?.sor_data?.applicant_guid,
+            applicantGuid: retVal?.data?.user?.attributes?.sor_data?.applicant_guid,
           })
         );
-        Cookies.set(
-          "cred",
-          encryptAES(
-            JSON.stringify({ email: values.email, password: values.password })
-          )
-        );
+        Cookies.set("cred",encryptAES(JSON.stringify({ email: values.email, password: values.password })));
         Cookies.set("email", values.email);
-        Cookies.set(
-          "profile_picture",
-          retVal?.data?.user?.mobile?.profile_picture
-            ? retVal?.data?.user?.mobile?.profile_picture
-            : ""
-        );
+        Cookies.set("profile_picture",retVal?.data?.user?.mobile?.profile_picture ? retVal?.data?.user?.mobile?.profile_picture : "");
         Cookies.set("login_date", login_date);
         Cookies.set("userToken", retVal?.data?.user?.attributes?.UserToken);
         Cookies.set("temp_opted_phone_texting", "");
@@ -173,10 +160,7 @@ export default function Login(props) {
         if (retVal?.data?.user?.attributes?.password_reset) {
           navigate("/resetpassword");
         } else {
-          navigate(location.state?.redirect
-            ? location.state?.redirect
-            : "/customers/accountoverview",
-          );
+          navigate(location.state?.redirect ? location.state?.redirect : "/customers/accountoverview");
         }
         if (location.state?.activationToken) {
           navigate(0);
