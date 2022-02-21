@@ -17,12 +17,12 @@ import BranchLocatorController from "../../Controllers/BranchLocatorController";
 import { ButtonPrimary, ButtonSecondary, TextField } from "../../FormsUI";
 import { useStylesConsumer } from "../../Layout/ConsumerFooterDialog/Style";
 import ErrorLogger from "../../lib/ErrorLogger";
-import Map from "./BranchLocatorMap";
+import Map from "../BranchLocator/BranchLocatorMap";
 import { MFStates } from "../../../assets/data/marinerBusinesStates";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import Link from "@material-ui/core/Link";
-import { useStylesMyBranch } from "./Style";
+import { useStylesMyBranch } from "../BranchLocator/Style";
 import BranchImageWeb from "../../../assets/images/BranchLocatorWeb.png";
 import BranchImageMobile from "../../../assets/images/BranchLocatorMobile.png";
 import { NavLink } from "react-router-dom";
@@ -137,12 +137,12 @@ export default function BranchLocator() {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_SECKey,
   });
-  useEffect(() => {
-    inputText1.value = "21236";
-    getActivePlaces();
-    return null
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   inputText1.value = "21236";
+  //   getActivePlaces();
+  //   return null
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
   const findBranchTimings = async (value) => {
     try {
       if (value) {
@@ -460,12 +460,14 @@ export default function BranchLocator() {
                   md={2}
                   xl={2}
                 >
-                  <ButtonSecondary
-                    stylebutton='{"float": "","width": "100%", "height":"40px" }'
+                  <NavLink
+                    to={MFButtonClick}
+                    state={{ item }}
+                    className="nav_link"
                     onClick={MFButtonClick}
                   >
                     {item}
-                  </ButtonSecondary>
+                  </NavLink>
                 </Grid>
               );
             })}
