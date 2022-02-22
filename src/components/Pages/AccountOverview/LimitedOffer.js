@@ -6,6 +6,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import React, { useEffect, useState } from "react";
 import NumberFormat from "react-number-format";
 import { NavLink, useNavigate } from "react-router-dom";
+import { useQuery } from 'react-query';
 import adBanner from "../../../assets/gallery/AdBanner.jpg";
 import MortgageBanner from "../../../assets/images/Latest_Mortgage_Banner.png";
 import MyBranchAPI from "../../Controllers/MyBranchController";
@@ -30,22 +31,24 @@ export default function LimitedOffer(userOfferData) {
   const [ amount, setAmount ] = useState(" ");
   const [ expiryDate, setExpiryDate ] = useState(" ");
   const [ firstName, setfirstName ] = useState("");
-  const [ branchCno, setBranchCno ] = useState("");
-  const [ branchName, setBranchName ] = useState("");
-  const [ branchManager, setbranchManager ] = useState("");
+
+  const { data: branchApiStatus } = useQuery('my-branch', MyBranchAPI);
+  let myBranchData = branchApiStatus?.data;
+  const branchCno = myBranchData?.PhoneNumber ?? "";
+  const branchName = myBranchData?.branchName ? (`${ myBranchData?.branchName } Branch`) : "";
+  const branchManager = myBranchData?.branchmanager ?? "";
+  
   const navigate = useNavigate();
   useEffect(() => {
-    setOfferCode(userOfferData?.OfferCode);
-    setExpiryDate(userOfferData?.dateExpiration);
-    setAmount(userOfferData?.offerAmount);
-    setfirstName(userOfferData?.firstName);
-    setCampaignType(userOfferData?.CampaignTypeDesc);
-    MyBranchAPI().then((res) => {
-      setBranchCno(res?.data?.PhoneNumber);
-      setBranchName(res?.data?.branchName + " Branch");
-      setbranchManager(res?.data?.branchmanager);
-    });
-  }, []);
+    if(userOfferData){
+      setOfferCode(userOfferData?.OfferCode);
+      setExpiryDate(userOfferData?.dateExpiration);
+      setAmount(userOfferData?.offerAmount);
+      setfirstName(userOfferData?.firstName);
+      setCampaignType(userOfferData?.CampaignTypeDesc);
+    }
+    return null;    
+  }, [ userOfferData ]);
 
   const showModal = () => {
     setinitModal(true);
