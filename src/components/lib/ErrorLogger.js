@@ -17,6 +17,6 @@ export default async function ErrorLogger(message, error) {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (resError) {
-    Error("Error executing MyBranchAPI API");
+    Error("Error executing ErrorLogger API");
   }
 }

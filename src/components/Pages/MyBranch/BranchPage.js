@@ -134,7 +134,7 @@ export default function StatePage(props) {
   }, [ getStateName ]);
 
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_SECKey,
+    googleMapsApiKey: process.env.SECKey,
   });
 
   //View part
