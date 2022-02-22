@@ -520,7 +520,37 @@ export default function PaymentMethod() {
             event.preventDefault();
         }
     };
+    const addNewAccount = async () => {
+        setLoading(true);
+        let resBankData = await AddACHPaymentAPI(
+            addBankValues.accountNickname,
+            addBankValues.accountHolder,
+            addBankValues.bankRoutingNumber,
+            addBankValues.bankAccountNumber,
+            accountType,
+            checkedAddBank ? 1 : 0
+        );
+        if (resBankData?.data?.Success) {
+            toast.success("Payment method added successfully");
+            refetch();
+            closeBankAccountButton();
+        } else if (
+            resBankData?.data?.result === "error" ||
+            resBankData?.data?.status === 400
+        ) {
+            toast.error(resBankData?.data?.error);
+        } else if (resBankData?.data?.type === "error") {
+            let errorText = resBankData?.data?.text ? resBankData?.data?.text : resBankData?.data?.error;
+            toast.error(errorText);
+        } else {
+            if (!toast.isActive("closeToast")) {
+                toast.error("Adding bank account failed, please try again.");
+            }
 
+        }
+        closeAddBankModal();
+        setLoading(false);
+    }
     //  view part
     return (
         <div className={ loading ? classes.loadingOn : classes.loadingOff }>
@@ -1067,42 +1097,16 @@ export default function PaymentMethod() {
                                 style={ { justifyContent: "center", marginBottom: "25px" } }
                             >
                                 <ButtonSecondary
+                                    disabled={ loading }
                                     stylebutton='{"background": "", "color":"" }'
                                     onClick={ closeAddBankModal }
                                 >
                                     No
                                 </ButtonSecondary>
                                 <ButtonPrimary
+                                    disabled={ loading }
                                     stylebutton='{"background": "", "color":"" }'
-                                    onClick={ async () => {
-                                        let resBankData = await AddACHPaymentAPI(
-                                            addBankValues.accountNickname,
-                                            addBankValues.accountHolder,
-                                            addBankValues.bankRoutingNumber,
-                                            addBankValues.bankAccountNumber,
-                                            accountType,
-                                            checkedAddBank ? 1 : 0
-                                        );
-                                        if (resBankData?.data?.Success) {
-                                            toast.success("Payment method added successfully");
-                                            refetch();
-                                            closeBankAccountButton();
-                                        } else if (
-                                            resBankData?.data?.result === "error" ||
-                                            resBankData?.data?.status === 400
-                                        ) {
-                                            toast.error(resBankData?.data?.error);
-                                        } else if (resBankData?.data?.type === "error") {
-                                            let errorText = resBankData?.data?.text ? resBankData?.data?.text : resBankData?.data?.error;
-                                            toast.error(errorText);
-                                        } else {
-                                            if (!toast.isActive("closeToast")) {
-                                                toast.error("Adding bank account failed, please try again.");
-                                            }
-
-                                        }
-                                        closeAddBankModal();
-                                    } }
+                                    onClick={ addNewAccount }
                                 >
                                     Yes
                                 </ButtonPrimary>
@@ -1629,7 +1633,6 @@ export default function PaymentMethod() {
                         stylebutton='{"background": "", "color":"" }'
                         disabled={ loading }
                         onClick={ () => {
-                            setLoading(true);
                             onClickDelete(deleteType, deleteID);
                         } }
                     >
