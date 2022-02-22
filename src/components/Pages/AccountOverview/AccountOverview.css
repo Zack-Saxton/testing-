@@ -42,7 +42,6 @@
     width: 66%;
     background-color: white;
     border-radius: 10px;
-    /* padding: 1.5%; */
     padding: 24px;
     display: flex;  
     box-shadow: rgb(61 61 61 / 10%) 0px 8px 44px 0px;
@@ -92,9 +91,27 @@
 }
 
 
-@media (min-width:1700px) {
+@media (min-width:1400px) {
+    #claimButton{
+        height: 40px;
+        font-size: 23px;
+    }
+}
+
+@media only screen and (max-width: 1366px) {
     .imageholder{
-        width: 75%;
+        width: 66%;
+    }
+}
+@media only screen and (min-width: 1441px) {
+    .imageholder{
+        width: 69%;
+    }
+    
+}
+@media only screen and (min-width: 2000px) {
+    .imageholder{
+        width: 70%;
     }
     .yellowBackground{
         justify-content: space-between;
@@ -109,19 +126,7 @@
     .secondBannerImage{
         max-height: 222px !important;
     }
-}
-
-@media (max-width:1920px) {
-    /* .imageholder{
-        width: 6%;
-    } */
-}
-
-@media (min-width:1400px) {
-    #claimButton{
-        height: 40px;
-        font-size: 23px;
-    }
+    
 }
 @media (min-width:1281px) {
     #imageholder{
