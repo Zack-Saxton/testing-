@@ -541,11 +541,11 @@ export default function MakePayment(props) {
     accountInfo = paymentListCard.find(account => account.value === card);
     cardLabel = accountInfo?.label;
   }
-  if (cardLabel === "" && (paymentListAch?.length)) {
+  if ((!cardLabel) && (paymentListAch?.length)) {
     accountInfo = paymentListAch.find(account => account.value === card);
     cardLabel = accountInfo?.label;
   }
-
+  
   //Autopay submit
   const handleClickSubmit = () => {
     disabledContent === true
