@@ -118,7 +118,7 @@ export default function LimitedOffer(userOfferData) {
                 target="_blank"
                 rel="noreferrer"
                 href="https://www.marinerfinance.com/apply-home-loan/?utm_source=CAC&utm_medium=panel&utm_campaign=Mrktoffer_Mortgage"
-                style={ { textDecoration: "none", height: "250px"} }
+                style={ { textDecoration: "none", height: "100%"} }
               >
                  <img
                   className="secondBannerImage"
