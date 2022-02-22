@@ -136,7 +136,7 @@ export default function BranchLocator() {
     window.open(`/StatePage/?Name=${ event.target.innerText }`, "_self");
   };
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_SECKey,
+    googleMapsApiKey: process.env.SECKey,
   });
   useEffect(() => {
     inputText1.value = "21236";

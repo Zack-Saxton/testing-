@@ -134,7 +134,7 @@ export default function StatePage() {
     setBranchAddress(null);
   };
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_SECKey,
+    googleMapsApiKey: process.env.SECKey,
   });
   const findBranchTimings = async (value) => {
     try {
