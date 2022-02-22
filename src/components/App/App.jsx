@@ -86,11 +86,9 @@ const loadPostComponent = (componentName) => {
 };
 const branchHeaderComponent = (componentName) => {
     return (
-
         <BranchHeaderLayout>
             { componentName }
         </BranchHeaderLayout>
-
     );
 };
 function App() {
