@@ -142,10 +142,13 @@ function App() {
                                 <Route path='/zipcode' element={ loadGeneralUserComponent(<ZipCode />) } />
                                 <Route path='/personal-info' element={ loadGeneralUserComponent(<PersonalInfo />) } />
                                 <Route path='/branch/branchlocator' element={ branchHeaderComponent(<BranchLocator />) } />
-                                <Route path='/branchPage' element={ branchHeaderComponent(<BranchPage />) } />
-                                <Route path='/StatePage' element={ branchHeaderComponent(<StatePage />) } />
+                                <Route path='/branchPage' element={ branchHeaderComponent(<BranchPage />) } >
+                                    <Route path=':branchname' element={branchHeaderComponent(<BranchPage />)} />
+                                </Route>
+                                <Route path='/StatePage' element={branchHeaderComponent(<StatePage />) } >
+                                    <Route path=':statename' element={branchHeaderComponent(<StatePage />)} />
+                                </Route>
                                 <Route path='/resetpassword' element={loadGeneralUserComponent(<ResetPassword />)} />
-                                {/* <Route path='/branchlocator' element={ loadGeneralUserComponent(<BranchLocator />) } ></Route> */}
                                 <Route path='*' element={ loadGeneralUserComponent(<ErrorBeforeLogin />) } />
                                 <Route path='select-amount' element={ loadGeneralUserComponent(<SelectAmount />) } >
                                     <Route path=':amount' element={ loadGeneralUserComponent(<SelectAmount />) } />

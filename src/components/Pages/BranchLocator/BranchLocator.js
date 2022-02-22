@@ -25,7 +25,7 @@ import Link from "@material-ui/core/Link";
 import { useStylesMyBranch } from "../BranchLocator/Style";
 import BranchImageWeb from "../../../assets/images/BranchLocatorWeb.png";
 import BranchImageMobile from "../../../assets/images/BranchLocatorMobile.png";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 
 const useStyles = makeStyles({
   ptag: {
@@ -69,6 +69,8 @@ export default function BranchLocator() {
   const [loading, setLoading] = useState(false);
   const [zoomDepth, setZoomDepth] = useState(10);
   const clessesforptag = useStyles();
+  const navigate = useNavigate();
+  let params = useParams();
   //API call
   const getBranchLists = async (search_text) => {
     try {
@@ -130,9 +132,11 @@ export default function BranchLocator() {
     setgetDirectionModal(false);
     setBranchAddress(null)
   };
-  const MFButtonClick = async (event) => {
-    apiGetBranchList(event.target.innerText);
-    window.open(`/StatePage/?Name=${event.target.innerText}`, "_self");
+
+  const MFButtonClick =  (event) => {
+      params.statename = event.target.innerText;
+      apiGetBranchList(params.statename);
+      navigate(`/StatePage/${params.statename}`)
   };
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_SECKey,
@@ -460,14 +464,14 @@ export default function BranchLocator() {
                   md={2}
                   xl={2}
                 >
-                  <NavLink
-                    to={MFButtonClick}
+                  <p
+                    // to={"/login"}
                     state={{ item }}
                     className="nav_link"
                     onClick={MFButtonClick}
                   >
                     {item}
-                  </NavLink>
+                  </p>
                 </Grid>
               );
             })}
