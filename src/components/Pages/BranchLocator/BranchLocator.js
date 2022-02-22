@@ -26,7 +26,7 @@ import { useStylesMyBranch } from "../BranchLocator/Style";
 import BranchImageWeb from "../../../assets/images/BranchLocatorWeb.png";
 import BranchImageMobile from "../../../assets/images/BranchLocatorMobile.png";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
-
+import PlacesAutocomplete from "react-places-autocomplete";
 const useStyles = makeStyles({
   ptag: {
     margin: "0px",
@@ -70,6 +70,8 @@ export default function BranchLocator() {
   const [zoomDepth, setZoomDepth] = useState(10);
   const clessesforptag = useStyles();
   const navigate = useNavigate();
+  const [address1, setAddress1] = React.useState("");
+  const [address2, setAddress2] = React.useState("");
   let params = useParams();
   //API call
   const getBranchLists = async (search_text) => {
@@ -113,15 +115,15 @@ export default function BranchLocator() {
     }
   };
   const clearSearchText =  () => {
-    inputText1.value = "";
-    inputText2.value = "";
+    setAddress1("");
+    setAddress2("");
   }
-  const getActivePlaces =  () => {
-    if (inputText1.value !== "") {
-      apiGetBranchList(inputText1.value);
+  const getActivePlaces = () => {
+    if (address1 !== "") {
+      apiGetBranchList(address1);
       clearSearchText();
-    } else if (inputText2.value !== "") {
-      apiGetBranchList(inputText2.value);
+    } else if (address2 !== "") {
+      apiGetBranchList(address2);
       clearSearchText();
     }
   };
@@ -158,7 +160,12 @@ export default function BranchLocator() {
       ErrorLogger(" Error from findBranchTimings", error);
     }
   };
- 
+  const handleSelect1 = async (value) => {
+    setAddress1(value);
+  }
+  const handleSelect2 = async (value) => {
+    setAddress2(value);
+  }
   //View part
   return (
     <div>
@@ -193,13 +200,33 @@ export default function BranchLocator() {
               <h4 className={classes.headigText}>Find a Branch Near You!</h4>
               <Grid id="findBranchGrid">
                 <SearchIcon className="searchIcon" style={{ color: "white" }} />
-                <TextField
-                  name="Enter City or State"
-                  className="branchLocatorInput"
-                  style={{ color: "white!important" }}
-                  id="inputText1"
-                  label="Enter city & state or zip code"
-                />
+                <PlacesAutocomplete
+                  value={address1}
+                  onChange={setAddress1}
+                  onSelect={handleSelect1}
+                  style={{ width: '50%' }}
+                >
+                  {({ getInputProps, suggestions, getSuggestionItemProps, loading2 }) => (
+                    <div>
+                      <input {...getInputProps({ placeholder: 'Enter city & state or zip code' })} />
+                      <div>
+                        {loading2 && <div>Loading...</div>}
+                        {suggestions.map(suggestion => {
+                          const style = {
+                            backgroundColor: suggestion.active ? "#41b6e6" : "#fff"
+                          }
+                          return (
+                            <div {...getSuggestionItemProps(suggestion, {
+                              style
+                            })}>
+                              <span>{suggestion.description}</span>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+                </PlacesAutocomplete>
                 <ButtonPrimary
                   onClick={getActivePlaces}
                   stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "padding":"0px 30px"}'
@@ -381,10 +408,10 @@ export default function BranchLocator() {
                 href={getBranchAddress}
                 id="Continue"
                 onClick={() => {
-                  if (inputText2?.value) {
+                  if (Address2) {
                     openGetDirectionModal();
-                    setBranchAddress(`https://www.google.com/maps/search/${inputText2.value}`);
-                    inputText2.value = '';
+                    setBranchAddress(`https://www.google.com/maps/search/${Address2}`);
+                    setAddress2("");
                   } else {
                     toast.error(' Please provide address.')
                   }
@@ -404,13 +431,33 @@ export default function BranchLocator() {
                   className="searchIconBottom"
                   style={{ color: "white" }}
                 />
-                <TextField
-                  name="Enter City or State"
-                  className="branchLocatorInput"
-                  style={{ color: "white!important" }}
-                  id="inputText2"
-                  placeholder="Enter city & state or zip code"
-                />
+                <PlacesAutocomplete
+                  value={address2}
+                  onChange={setAddress2}
+                  onSelect={handleSelect2}
+                  style={{ width: '50%' }}
+                >
+                  {({ getInputProps, suggestions, getSuggestionItemProps, loading2 }) => (
+                    <div>
+                      <input {...getInputProps({ placeholder: 'Enter city & state or zip code' })} />
+                      <div>
+                        {loading2 && <div>Loading...</div>}
+                        {suggestions.map(suggestion => {
+                          const style = {
+                            backgroundColor: suggestion.active ? "#41b6e6" : "#fff"
+                          }
+                          return (
+                            <div {...getSuggestionItemProps(suggestion, {
+                              style
+                            })}>
+                              <span>{suggestion.description}</span>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+                </PlacesAutocomplete>
                 <ButtonPrimary
                   onClick={getActivePlaces}
                   stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "padding":"0px 30px"}'
