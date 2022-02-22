@@ -250,7 +250,6 @@ export default function ActiveLoans(userActiveLoanData) {
                       <Paper
                         id="overviewWrap"
                         className={ classes.paper }
-                        style={ { height: "81.33%", borderRadius: "2px" } }
                       >
                         <Grid item xs={ 12 }>
                           <Typography
