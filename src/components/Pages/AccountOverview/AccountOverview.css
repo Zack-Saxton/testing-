@@ -92,6 +92,25 @@
 }
 
 
+@media (min-width:1700px) {
+    .imageholder{
+        width: 75%;
+    }
+    .yellowBackground{
+        justify-content: space-between;
+    }
+    .bannerImage{
+        max-height: 227px !important;
+        width: unset;
+    }
+    .secondBannerWrap{
+        width: unset;
+    }
+    .secondBannerImage{
+        max-height: 222px !important;
+    }
+}
+
 @media (max-width:1920px) {
     /* .imageholder{
         width: 6%;
