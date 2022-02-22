@@ -561,7 +561,7 @@ export default function PaymentMethod() {
                                         { allPaymentMethod?.data?.paymentOptions.map((row) => (
                                             <TableRow
                                                 hover
-                                                key={ row.Nickname }
+                                                key={ Math.random() * 1000 }
                                                 className="rowProps"
                                                 height="80px"
                                             >
