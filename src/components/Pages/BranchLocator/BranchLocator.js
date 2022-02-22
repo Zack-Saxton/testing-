@@ -141,12 +141,14 @@ export default function BranchLocator() {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_SECKey,
   });
-  // useEffect(() => {
-  //   inputText1.value = "21236";
-  //   getActivePlaces();
-  //   return null
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  useEffect(() => {
+    const { isLoaded } = useLoadScript({
+      googleMapsApiKey: process.env.REACT_APP_SECKey,
+    });
+    // inputText1.value = "21236";
+    // getActivePlaces();
+    // return null
+  }, []);
   const findBranchTimings = async (value) => {
     try {
       if (value) {

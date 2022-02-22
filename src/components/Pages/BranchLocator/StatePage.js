@@ -4,7 +4,7 @@ import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import PhoneIcon from "@material-ui/icons/Phone";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import SearchIcon from "@material-ui/icons/Search";
-import { ButtonPrimary, TextField, ButtonSecondary } from "../../FormsUI";
+import { ButtonPrimary, ButtonSecondary } from "../../FormsUI";
 import { useStylesMyBranch } from "../BranchLocator/Style";
 import { useStylesConsumer } from "../../Layout/ConsumerFooterDialog/Style";
 import { toast } from "react-toastify";
@@ -138,6 +138,7 @@ export default function StatePage() {
     setBranchAddress(null);
   };
   const { isLoaded, loadError } = useLoadScript({
+    id: 'google-map-script',
     googleMapsApiKey: process.env.REACT_APP_SECKey,
     libraries: ["places"],
   });
