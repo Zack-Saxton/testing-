@@ -140,11 +140,11 @@ export default function BranchLocator() {
   };
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_SECKey,
+    libraries: ["places"],
   });
+ 
   useEffect(() => {
-    const { isLoaded } = useLoadScript({
-      googleMapsApiKey: process.env.REACT_APP_SECKey,
-    });
+   
     // inputText1.value = "21236";
     // getActivePlaces();
     // return null
