@@ -75,7 +75,6 @@ export default function MakePayment(props) {
   const [ autopaySubmit, setAutopaySubmit ] = useState(true);
   const [ scheduleDate, setscheduleDate ] = useState(null);
   const [ checkPaymentInformation, setCheckPaymentInformation ] = useState(false);
-  const [ holidayCalenderApi, SetHolidayCalenderApi ] = useState(null);
   const [ activeLoansData, setActiveLoansData ] = useState([]);
   const { isFetching, data: User, refetch } = useQuery('loan-data', usrAccountDetails, {
     refetchOnMount: false
@@ -83,6 +82,10 @@ export default function MakePayment(props) {
   const { data: payments } = useQuery('payment-method', usrPaymentMethods, {
     refetchOnMount: false
   });
+  const {data: holidayCalenderData} = useQuery('holiday-calendar', HolidayCalender, {
+    refetchOnMount : false 
+  } )
+
 
   //API Request for Payment methods
   async function getPaymentMethods() {
@@ -439,21 +442,16 @@ export default function MakePayment(props) {
     }
   }
 
-  //API call for holiday calender
-  async function AsyncEffect_HolidayCalender() {
-    SetHolidayCalenderApi(await HolidayCalender());
-  }
 
   useEffect(() => {
     getData();
-    AsyncEffect_HolidayCalender();
     getPaymentMethods();
     return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ User, activeLoansData, isFetching, payments ]);
 
   //Holiday Calender from API
-  let holidayCalenderData = holidayCalenderApi?.data;
+  // let holidayCalenderData = holidayCalenderApi?.data;
 
   //Account select payment options
   let paymentData = paymentMethods?.data;
@@ -647,7 +645,7 @@ export default function MakePayment(props) {
 
   //US holidays
   function disableHolidays(date) {
-    const holidayApiData = holidayCalenderData?.holidays;
+    const holidayApiData = holidayCalenderData?.data?.holidays;
     const holidayApiDataValues = holidayApiData.map((arrVal) => {
       return new Date(arrVal + "T00:00").getTime();
     });

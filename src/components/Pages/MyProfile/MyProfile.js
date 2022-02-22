@@ -11,7 +11,7 @@ import LockOpenIcon from "@material-ui/icons/LockOpen";
 import RoomIcon from "@material-ui/icons/Room";
 import Cookies from "js-cookie";
 import PropTypes from "prop-types";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useQuery } from 'react-query';
 import { NavLink } from "react-router-dom";
 import { useGlobalState } from "../../../contexts/GlobalStateProvider";
@@ -65,13 +65,9 @@ function tabVerticalProps(verticalIndex) {
 export default function MyProfile() {
   window.zeHide();
   const classes = useStylesMyProfile();
-  const [ profileImage, setProfileImage ] = useState(null);
-  async function AsyncEffect_profileImage() {
-    setProfileImage(await ProfileImageController());
-  }
-  useEffect(() => {
-    AsyncEffect_profileImage();
-  }, []);
+    
+  //Api call Profile Picture
+  const { data: profileImage } = useQuery('my-profile-picture', ProfileImageController);
 
   const { data: accountDetails } = useQuery('loan-data', usrAccountDetails);
   if (Cookies.get("temp_opted_phone_texting") === undefined || Cookies.get("temp_opted_phone_texting") === "") {
@@ -87,13 +83,9 @@ export default function MyProfile() {
     setprofileTabNumber({ profileTabNumber: newValues });
   };
 
-  const [ textNotifyData, setTextNotifyData ] = useState(null);
-  async function AsyncEffect_textNotifyData() {
-    setTextNotifyData(await getTextNotify());
-  }
-  useEffect(() => {
-    AsyncEffect_textNotifyData();
-  }, []);
+
+  //API call text notification
+  const { data: textNotifyData } = useQuery('text-notification', getTextNotify);
   let textNotifyDetails = textNotifyData;
   let cookieTextNotify = Cookies.get("isTextNotify");
   if (Cookies.get("isTextNotify" === undefined)) {
@@ -244,7 +236,7 @@ export default function MyProfile() {
               <Paper id="mainContentTab" className={ classes.paper }>
                 {/* Basic Information */ }
                 <TabVerticalPanel value={ globalState.profileTabNumber } verticalIndex={ 0 }>
-                  <BasicInformationCard basicInformationData={ basicInfoData } getUserAccountDetails={ accountDetails } AsyncEffect_profileImage={ AsyncEffect_profileImage } getProfileImage={ getProfImage } />
+                  <BasicInformationCard basicInformationData={ basicInfoData } getUserAccountDetails={ accountDetails }  getProfileImage={ getProfImage } />
                 </TabVerticalPanel>
                 {/* //END Basic Information */ }
 
