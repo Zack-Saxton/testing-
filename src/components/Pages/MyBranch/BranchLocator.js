@@ -26,6 +26,7 @@ import { useStylesConsumer } from "../../Layout/ConsumerFooterDialog/Style";
 import ErrorLogger from "../../lib/ErrorLogger";
 import Map from "./BranchLocatorMap";
 import { useStylesMyBranch } from "./Style";
+import CustomerRatings from "../MyBranch/CustomerRatings";
 
 const useStyles = makeStyles({
   ptag: {
@@ -135,7 +136,7 @@ export default function BranchLocator() {
     window.open(`/StatePage/?Name=${ event.target.innerText }`, "_self");
   };
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_SECKey,
+    googleMapsApiKey: process.env.SECKey,
   });
   useEffect(() => {
     inputText1.value = "21236";
@@ -470,13 +471,7 @@ export default function BranchLocator() {
             }) }
           </Grid>
         </Grid>
-        <Grid className="blueBGColor">
-          <h4>Customer Ratings</h4>
-          <div
-            id="feefo-service-review-carousel-widgetId"
-            className="feefo-review-carousel-widget-service"
-          ></div>
-        </Grid>
+        <CustomerRatings />
       </Grid>
     </div>
   );

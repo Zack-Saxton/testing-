@@ -28,50 +28,8 @@ export async function submitSelectedOfferAPI(selectedOffer) {
     let method = "POST";
     let addAccessToken = true;
     let data = {
-      selected_offer: {
-        model_code: selectedOffer.model_code,
-        cosigner_required: selectedOffer.cosigner_required,
-        loan_amount: selectedOffer.loan_amount,
-        annual_interest_rate: selectedOffer.annual_interest_rate,
-        origination_fee_rate: selectedOffer.origination_fee_rate,
-        origination_fee_amount: selectedOffer.origination_fee_amount,
-        apr: selectedOffer.apr,
-        monthly_payment: selectedOffer.monthly_payment,
-        term: selectedOffer.term,
-        display: selectedOffer.display,
-        type: selectedOffer.type,
-        pricing_grade: selectedOffer.pricing_grade,
-        marginal_offer: selectedOffer.marginal_offer,
-        displayPromoOffer: selectedOffer.displayPromoOffer,
-        postScreenOffer: selectedOffer.postScreenOffer,
-        payment_to_income: selectedOffer.payment_to_income,
-        displayLightBoxOffer: selectedOffer.displayLightBoxOffer,
-        lightBoxOffer: selectedOffer.lightBoxOffer,
-        maximum_post_loan_detni: selectedOffer.maximum_post_loan_detni,
-        post_loan_debt_to_income: selectedOffer.post_loan_debt_to_income,
-        post_loan_debt_and_expenses_to_net_income:
-          selectedOffer.post_loan_debt_and_expenses_to_net_income,
-        post_loan_debt_to_net_income: selectedOffer.post_loan_debt_to_net_income,
-        _id: selectedOffer._id,
-        applicant: selectedOffer.applicant,
-        product: {
-          identification: {
-            name: selectedOffer.product.identification.name,
-            guid: selectedOffer.product.identification.guid,
-          },
-          contenttypes: selectedOffer.product.contenttypes,
-          entitytype: selectedOffer.product.credit_product,
-          credit_product_type: selectedOffer.product.credit_product_type,
-          parent_product_type: selectedOffer.product.parent_product_type,
-          description: selectedOffer.product.description,
-          _id: selectedOffer.product._id,
-          createdat: selectedOffer.product.createdat,
-          updatedat: selectedOffer.product.updatedat,
-        },
-        offerType: selectedOffer.offerType,
-      },
-    };
-
+      selected_offer: selectedOffer
+    }
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
