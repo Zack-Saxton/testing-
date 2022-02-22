@@ -199,6 +199,7 @@
 .blueBGColor h4 {
   font-size: 2.138rem;
   color: white;
+  margin: 0 !important;
 }
 .home .feefowidget-top-row span.feefowidget-average-customer-rating,
 body.home .feefowidget-top-row .feefowidget-rating-label,
@@ -213,12 +214,6 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
   color: white !important;
 }
 #feefo-service-review-carousel-widgetId {
-  background-color: transparent !important;
-}
-#feefo-service-review-carousel-widgetId
-  feefowidget-container-carousel
-  feefowidget-container-main
-  div {
   background-color: transparent !important;
 }
 .feefowidget-carousel-summary__logo-large {
@@ -330,6 +325,18 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
   padding: 0px 0px 0px 4.5%;
 }
 
+.feefowidget-window-modal-content{
+  background-color: white !important;
+}
+.feefowidget-container-carousel > .feefowidget-background-white{
+  background-color: transparent !important;
+}
+.feefowidget-standard,
+.feefowidget-standard-background-white, 
+.feefowidget-carousel-container-average-customer-rating, 
+.feefowidget-background-white{
+  background-color: rgba(255, 255, 255, 0) !important;
+}
 @media (max-width: 1400px) {
   .branchImage img {
     width: 100%;
