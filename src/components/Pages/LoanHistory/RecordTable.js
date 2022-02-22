@@ -13,7 +13,6 @@ import Moment from "moment";
 import React from "react";
 import NumberFormat from 'react-number-format';
 import { NavLink } from "react-router-dom";
-import { loanDocumentController as loanDocument } from "../../Controllers/LoanDocumentController";
 import { useStylesLoanHistory } from "./Style";
 import "./Style.css";
 
@@ -21,11 +20,6 @@ export default function LoanHistoryTable(historyOfLoans) {
   window.zeHide();
   //Material UI css class
   const classes = useStylesLoanHistory();
-
-  //Download loan document
-  const downloadDoc = (accNo) => {
-    loanDocument(accNo);
-  };
 
   //View part
   return (
@@ -60,7 +54,7 @@ export default function LoanHistoryTable(historyOfLoans) {
                   <TableCell style={ { padding: "16px 16px 16px 0px" } } align="center">
                     <NavLink to="/customers/loanDocument" state={ { accNo: row.loanData.accountNumber } } style={ { textDecoration: "none" } }>
                       <Tooltip title="View Loan Documents" placement="top">
-                        <FindInPageIcon style={ { color: "#0F4EB3", cursor: "pointer" } } onClick={ () => downloadDoc(row.loanData.accountNumber) } />
+                        <FindInPageIcon style={ { color: "#0F4EB3", cursor: "pointer" } } />
                       </Tooltip>
                     </NavLink>
                   </TableCell>

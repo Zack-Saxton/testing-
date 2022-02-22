@@ -3,6 +3,7 @@ import ThumbDownIcon from "@material-ui/icons/ThumbDownAlt";
 import ThumbUpIcon from "@material-ui/icons/ThumbUpAlt";
 import Moment from "moment";
 import React, { useEffect, useState } from "react";
+import { useQuery } from 'react-query';
 import GaugeChart from "react-gauge-chart";
 import { useNavigate } from "react-router-dom";
 import Equifax from "../../../assets/images/equifax-logo.png";
@@ -18,6 +19,7 @@ export default function Credit(creditData) {
   const classes = useStyleVantageScore();
   const navigate = useNavigate();
   const [ loanstatus, setloanstatus ] = useState(null);
+  const { data: accountDetails } = useQuery('loan-data', setAccountDetails);
   let percent;
   let score = creditData.creditData[ 0 ].parsed.vantage_score;
   let creditDate = Moment(creditData.creditData[ 0 ].createdat).format("MMMM Y");
@@ -53,11 +55,12 @@ export default function Credit(creditData) {
   }
 
   useEffect(() => {
-    setAccountDetails().then((accountData) => {
-      const { data } = accountData;
-      setloanstatus(data.customer.user_account.status);
-    });
-  }, []);
+    if(accountDetails){
+      setloanstatus(accountDetails?.data?.customer?.user_account?.status)
+    }
+    return null
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [accountDetails]);
 
   //Navigation
   const navigateCheckMyOffers = () => {
