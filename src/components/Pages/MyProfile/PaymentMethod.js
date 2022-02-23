@@ -554,8 +554,8 @@ export default function PaymentMethod() {
         } catch (error) {
             ErrorLogger(' Error in adding payment method ::', error);
         }
-        
-    }
+
+    };
     //  view part
     return (
         <div className={ loading ? classes.loadingOn : classes.loadingOff }>

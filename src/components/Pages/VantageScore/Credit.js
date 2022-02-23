@@ -3,8 +3,8 @@ import ThumbDownIcon from "@material-ui/icons/ThumbDownAlt";
 import ThumbUpIcon from "@material-ui/icons/ThumbUpAlt";
 import Moment from "moment";
 import React, { useEffect, useState } from "react";
-import { useQuery } from 'react-query';
 import GaugeChart from "react-gauge-chart";
+import { useQuery } from 'react-query';
 import { useNavigate } from "react-router-dom";
 import Equifax from "../../../assets/images/equifax-logo.png";
 import VantageScore from "../../../assets/images/Vantagescore-logo.png";
@@ -55,12 +55,12 @@ export default function Credit(creditData) {
   }
 
   useEffect(() => {
-    if(accountDetails){
-      setloanstatus(accountDetails?.data?.customer?.user_account?.status)
+    if (accountDetails) {
+      setloanstatus(accountDetails?.data?.customer?.user_account?.status);
     }
-    return null
+    return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [accountDetails]);
+  }, [ accountDetails ]);
 
   //Navigation
   const navigateCheckMyOffers = () => {

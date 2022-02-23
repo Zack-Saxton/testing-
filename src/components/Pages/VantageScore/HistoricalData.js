@@ -12,7 +12,7 @@ export default function HistoricalData(creditData) {
   let chartData = (creditData?.creditData) ? creditData?.creditData.map(dataItem => dataItem.parsed.vantage_score) : [];
   //Vantage score - months
   let chartMonths = (creditData?.creditData) ? creditData?.creditData.map(dataItem => Moment(dataItem.createdat).format('MMM')) : [];
-  
+
   const data = {
     labels: chartMonths.reverse(),
     datasets: [
@@ -42,13 +42,13 @@ export default function HistoricalData(creditData) {
       },
     },
     scales: {
-    y: {
-         suggestedMax: 850,
-         suggestedMin: 400,
-          ticks: {
-              stepSize: 10,
-              max: 100
-          },
+      y: {
+        suggestedMax: 850,
+        suggestedMin: 400,
+        ticks: {
+          stepSize: 10,
+          max: 100
+        },
       },
     },
   };

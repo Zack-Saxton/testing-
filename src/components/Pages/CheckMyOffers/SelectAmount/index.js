@@ -1,19 +1,19 @@
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import globalMessages from '../../../../assets/data/globalMessages.json';
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers as Check } from "../../../../contexts/CheckMyOffers";
+import offercodeValidation from "../../../Controllers/OfferCodeController";
 import { ButtonPrimary, Slider, TextField } from "../../../FormsUI";
 import "../CheckMyOffer.css";
-import { makeStyles } from "@material-ui/core/styles";
-import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import ScrollToTopOnMount from "../ScrollToTop";
-import globalMessages from '../../../../assets/data/globalMessages.json';
 import "./CheckMyOffer.css";
-import offercodeValidation from "../../../Controllers/OfferCodeController";
 
 //Styling part
 const useStyles = makeStyles((theme) => ({

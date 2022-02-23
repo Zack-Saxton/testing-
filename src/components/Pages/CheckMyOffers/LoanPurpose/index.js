@@ -79,7 +79,7 @@ function LoanPurpose(props) {
 			navigate("/select-amount");
 		}
 		return null;
-    	// eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	//handle the user data nd store it into context and procced next step
 	const handleRoute = () => {

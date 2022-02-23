@@ -6,7 +6,7 @@ export default async function offercodeValidation(OfferCode) {
   try {
     let url = "offercode_validation";
     let param = "";
-    let data = {"offerCode":OfferCode};
+    let data = { "offerCode": OfferCode };
     let method = "POST";
     let addAccessToken = true;
 

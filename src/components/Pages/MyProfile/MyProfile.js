@@ -65,7 +65,7 @@ function tabVerticalProps(verticalIndex) {
 export default function MyProfile() {
   window.zeHide();
   const classes = useStylesMyProfile();
-    
+
   //Api call Profile Picture
   const { data: profileImage } = useQuery('my-profile-picture', ProfileImageController);
 
@@ -82,7 +82,6 @@ export default function MyProfile() {
   const handleTabChange = (event, newValues) => {
     setprofileTabNumber({ profileTabNumber: newValues });
   };
-
 
   //API call text notification
   const { data: textNotifyData } = useQuery('text-notification', getTextNotify);
@@ -236,7 +235,7 @@ export default function MyProfile() {
               <Paper id="mainContentTab" className={ classes.paper }>
                 {/* Basic Information */ }
                 <TabVerticalPanel value={ globalState.profileTabNumber } verticalIndex={ 0 }>
-                  <BasicInformationCard basicInformationData={ basicInfoData } getUserAccountDetails={ accountDetails }  getProfileImage={ getProfImage } />
+                  <BasicInformationCard basicInformationData={ basicInfoData } getUserAccountDetails={ accountDetails } getProfileImage={ getProfImage } />
                 </TabVerticalPanel>
                 {/* //END Basic Information */ }
 

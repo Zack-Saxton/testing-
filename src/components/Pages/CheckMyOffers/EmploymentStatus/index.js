@@ -51,7 +51,7 @@ function EmploymentStatus() {
 			navigate("/select-amount");
 		}
 		return null;
-    	// eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	//initializing formik
 	const validationSchema = yup.object({

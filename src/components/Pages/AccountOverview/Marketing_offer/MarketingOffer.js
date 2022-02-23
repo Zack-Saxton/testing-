@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import moment from "moment";
+import React, { useEffect, useState } from "react";
 
 export default function MarketingOffer(data) {
 

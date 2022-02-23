@@ -75,7 +75,7 @@ function HomeAddress() {
 			navigate("/select-amount");
 		}
 		return null;
-    	// eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	//Handle modal open and close
 	const handleClickOpen = () => {

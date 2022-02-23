@@ -106,7 +106,7 @@ function MarriedStatus() {
 			navigate("/select-amount");
 		}
 		return null;
-    	// eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	//Configuring formik
 	const formik = useFormik({
