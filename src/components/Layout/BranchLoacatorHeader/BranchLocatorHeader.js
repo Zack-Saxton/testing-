@@ -92,7 +92,7 @@ const BranchLocatorHeader = () => {
               <Typography className={classes.subtitle}>Login</Typography>
             </NavLink>
             <NavLink to="/customers/applyForLoan" className="nav_link branchHeaderLinksLast">
-              <Typography className={classes.subtitle}>Check My Offers</Typography>
+              <Typography className={classes.subtitle}><span>Check My Offers </span></Typography>
             </NavLink>
           </div>
           <div className={ classes.sectionMobile }>

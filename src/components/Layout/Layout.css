@@ -110,7 +110,7 @@
     display: flex;
     align-items: center;
 }
-.branchHeaderLinksLast p {
+.branchHeaderLinksLast p span {
     background-color: #efefef;
     padding: 0px 6px;
     line-height: 1.15;
