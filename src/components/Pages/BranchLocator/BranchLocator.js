@@ -168,6 +168,61 @@ export default function BranchLocator() {
   const handleSelect2 = async (value) => {
     setAddress2(value);
   }
+
+  const showDialogforDrivingDirection = (
+    <Dialog
+      id="getDirectionModal"
+      open={getDirectionModal}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+      classes={{ paper: getDirectionsClass.consumerDialog }}
+    >
+      <div
+        id="closeBtn"
+        className={getDirectionsClass.buttonClose}
+      >
+        <IconButton
+          aria-label="close"
+          onClick={closeGetDirectionModal}
+          className={getDirectionsClass.closeButton}
+        >
+          <CloseIcon />
+        </IconButton>
+      </div>
+      <h2
+        id="consumerDialogHeading"
+        className={getDirectionsClass.consumerDialogHeading}
+      >
+        You are about to leave marinerfinance.com
+      </h2>
+      <div>
+        <p className={getDirectionsClass.consumerParagaraph}>
+          Mariner Finance provides this link for your convenience
+          and is not responsible for and makes no claims or
+          representations regarding the content, terms of use, or
+          privacy policies of third party websites.
+        </p>
+      </div>
+      <div id="buttonWrap">
+        <ButtonSecondary
+          id="stayBtn"
+          onClick={closeGetDirectionModal}
+          stylebutton='{"float": "" }'
+        >
+          Stay on Marinerfinance.com
+        </ButtonSecondary>
+        <ButtonPrimary
+          href={getBranchAddress}
+          onClick={closeGetDirectionModal}
+          id="Continue"
+          stylebutton='{"float": "" }'
+          target="_blank"
+        >
+          Continue
+        </ButtonPrimary>
+      </div>
+    </Dialog>
+  );
   //View part
   return (
     <div>
@@ -264,7 +319,6 @@ export default function BranchLocator() {
               </span>
             </Typography>
 
-          
           </Grid>
         </Grid>
         <Grid
@@ -349,6 +403,7 @@ export default function BranchLocator() {
                   ) : (
                     <p> No Branch found.</p>
                   )}
+                  {showDialogforDrivingDirection}
                   <Dialog
                     id="getDirectionModal"
                     open={getDirectionModal}
