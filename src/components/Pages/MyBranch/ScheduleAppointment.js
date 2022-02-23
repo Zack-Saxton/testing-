@@ -14,6 +14,8 @@ import * as yup from "yup";
 import { ScheduleVisitApi } from "../../Controllers/MyBranchController";
 import { ButtonPrimary, DatePicker, Select } from "../../FormsUI";
 import { useStylesMyBranch } from "./Style";
+import globalMessages from "../../../assets/data/globalMessages.json";
+
 import {
   ca_M_W_Th_F,
   ca_Tue, Other_Fri,
@@ -26,14 +28,14 @@ import {
 // yup validation
 const validationSchema = yup.object({
   appointmentDate: yup
-    .date("Please enter a valid date")
+    .date(globalMessages.Enter_Appointment_Date)
     .nullable()
-    .required("Date is required"),
+    .required(globalMessages.Appointment_Date_Required),
 
   appointmentTime: yup
-    .string("Select Time")
+    .string(globalMessages.Enter_Appointment_Time)
     .nullable()
-    .required("Time is required"),
+    .required(globalMessages.Appointment_Time_Required),
 });
 
 export default function ScheduleAppointment({
