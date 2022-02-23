@@ -41,10 +41,10 @@ const validationSchema = yup.object({
 		.string(messages?.bankAccountVerification?.enterBankIfo)
 		.required(messages?.bankAccountVerification?.bankInformationRequired),
 	bankAccountNumber: yup
-		.string(messages?.bankAccountVerification?.minAccountNum)
+		.string(messages?.bankAccountVerification?.minMaxAccountNum)
 		.required(messages?.bankAccountVerification?.bankAccountNumberRequired)
-		.min(7, messages?.bankAccountVerification?.minAccountNum)
-		.max(16, messages?.bankAccountVerification?.maxAccountNum),
+		.min(4, messages?.bankAccountVerification?.minMaxAccountNum)
+		.max(17, messages?.bankAccountVerification?.minMaxAccountNum),
 	confirmBankAccountNumber: yup
 		.string(messages?.bankAccountVerification?.enterConfirmAccNum)
 		.required(messages?.bankAccountVerification?.bankAccountNumberConfirmationRequired)
@@ -55,11 +55,11 @@ const validationSchema = yup.object({
 				.string()
 				.oneOf(
 					[ yup.ref("bankAccountNumber") ],
-					messages.bankAccountNumber
+					messages?.bankAccountVerification?.matchAccountNum
 				),
 		})
-		.min(7, messages?.bankAccountVerification?.minAccountNum)
-		.max(16, messages?.bankAccountVerification?.maxAccountNum),
+		.min(7, messages?.bankAccountVerification?.minMaxAccountNum)
+		.max(16, messages?.bankAccountVerification?.minMaxAccountNum),
 });
 
 //View Part
