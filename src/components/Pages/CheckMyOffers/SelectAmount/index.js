@@ -71,18 +71,16 @@ function CheckMyOffers(props) {
 		navigate("/customers/accountOverview");
 	}
 	const handleRoute = (event) => {
-		offercodeValidation(data.offerCode).then((offerCoderes)=>{
-			if(offerCoderes?.data?.offerData?.Message)
-			{
+		offercodeValidation(data.offerCode).then((offerCoderes) => {
+			if (offerCoderes?.data?.offerData?.Message) {
 				navigate("/loan-purpose")
-		}
-		else if(!offerCoderes?.data?.offerData?.Message){
-		data.loanAmount = select;
-		data.formStatus = "started";
-		data.completedPage = data.page.selectAmount;
-		setData({ ...data, loanAmount: select });
-		toast.success("Your Application Code has been accepted");
-		navigate("/pre-approved")
+		  } else if (!offerCoderes?.data?.offerData?.Message) {
+        data.loanAmount = select;
+        data.formStatus = "started";
+        data.completedPage = data.page.selectAmount;
+        setData({ ...data, loanAmount: select });
+        toast.success("Your Application Code has been accepted");
+        navigate("/pre-approved");
 			}
 		}).catch((error)
 		})
