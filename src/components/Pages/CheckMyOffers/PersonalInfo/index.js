@@ -448,26 +448,6 @@ function PersonalInfo() {
 											xs={ 12 }
 											className="textBlock"
 										>
-											{/* <DatePicker
-												name="dob"
-												label="Date of Birth *"
-												id="dob"
-												placeholder="MM/DD/YYYY"
-												format="MM/dd/yyyy"
-												maxdate={ myDate }
-												minyear={ 102 }
-												autoComplete="off"
-                								onKeyDown={ (event) => event.preventDefault() }
-												value={ formik.values.dob }
-												onChange={ (values) => {
-													formik.setFieldValue("dob", values);
-												} }
-												onBlur={ formik.handleBlur }
-												error={
-													formik.touched.dob && Boolean(formik.errors.dob)
-												}
-												helperText={ formik.touched.dob && formik.errors.dob }
-											/> */}
 											<DatePicker
 											name="dob"
 											label="Date of Birth *"
