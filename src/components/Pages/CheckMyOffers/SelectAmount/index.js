@@ -71,8 +71,6 @@ function CheckMyOffers(props) {
 		navigate("/customers/accountOverview");
 	}
 	const handleRoute = (event) => {
-		//console.log(data.offerCode);
-		
 		offercodeValidation(data.offerCode).then((offerCoderes)=>{
 			if(offerCoderes?.data?.offerData?.Message)
 			{
