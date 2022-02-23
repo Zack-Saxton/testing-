@@ -13,6 +13,6 @@ export default async function offercodeValidation(OfferCode) {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    ErrorLogger("Error executing setAccountDetails API", error);
+    ErrorLogger("Error executing offercodeValidation API", error);
   }
 }
