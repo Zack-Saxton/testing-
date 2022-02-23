@@ -25,9 +25,9 @@ import Link from "@material-ui/core/Link";
 import { useStylesMyBranch } from "../BranchLocator/Style";
 import BranchImageWeb from "../../../assets/images/BranchLocatorWeb.png";
 import BranchImageMobile from "../../../assets/images/BranchLocatorMobile.png";
-import { NavLink } from "react-router-dom";
-import PlacesAutocomplete from "react-places-autocomplete";
 import "./BranchLocator.css"
+import { NavLink, useNavigate, useParams } from "react-router-dom";
+import PlacesAutocomplete from "react-places-autocomplete";
 
 const useStyles = makeStyles({
   ptag: {
@@ -71,8 +71,10 @@ export default function BranchLocator() {
   const [loading, setLoading] = useState(false);
   const [zoomDepth, setZoomDepth] = useState(10);
   const clessesforptag = useStyles();
+  const navigate = useNavigate();
   const [address1, setAddress1] = React.useState("");
   const [address2, setAddress2] = React.useState("");
+  let params = useParams();
   //API call
   const getBranchLists = async (search_text) => {
     try {
@@ -115,15 +117,15 @@ export default function BranchLocator() {
     }
   };
   const clearSearchText =  () => {
-    inputText1.value = "";
-    inputText2.value = "";
+    setAddress1("");
+    setAddress2("");
   }
-  const getActivePlaces =  () => {
-    if (inputText1.value !== "") {
-      apiGetBranchList(inputText1.value);
+  const getActivePlaces = () => {
+    if (address1 !== "") {
+      apiGetBranchList(address1);
       clearSearchText();
-    } else if (inputText2.value !== "") {
-      apiGetBranchList(inputText2.value);
+    } else if (address2 !== "") {
+      apiGetBranchList(address2);
       clearSearchText();
     }
   };
@@ -134,18 +136,22 @@ export default function BranchLocator() {
     setgetDirectionModal(false);
     setBranchAddress(null)
   };
-  const MFButtonClick = async (event) => {
-    apiGetBranchList(event.target.innerText);
-    window.open(`/StatePage/?Name=${event.target.innerText}`, "_self");
+
+  const MFButtonClick =  (event) => {
+      params.statename = event.target.innerText;
+      apiGetBranchList(params.statename);
+      navigate(`/StatePage/${params.statename}`)
   };
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_SECKey,
+    libraries: ["places"],
   });
+ 
   // useEffect(() => {
-  //   inputText1.value = "21236";
-  //   getActivePlaces();
-  //   return null
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+   
+  //   // inputText1.value = "21236";
+  //   // getActivePlaces();
+  //   // return null
   // }, []);
   const findBranchTimings = async (value) => {
     try {
@@ -405,10 +411,10 @@ export default function BranchLocator() {
                 href={getBranchAddress}
                 id="Continue"
                 onClick={() => {
-                  if (inputText2?.value) {
+                  if (Address2) {
                     openGetDirectionModal();
-                    setBranchAddress(`https://www.google.com/maps/search/${inputText2.value}`);
-                    inputText2.value = '';
+                    setBranchAddress(`https://www.google.com/maps/search/${Address2}`);
+                    setAddress2("");
                   } else {
                     toast.error(' Please provide address.')
                   }
@@ -522,14 +528,14 @@ export default function BranchLocator() {
                   md={2}
                   xl={2}
                 >
-                  <NavLink
-                    to={MFButtonClick}
+                  <p
+                    // to={"/login"}
                     state={{ item }}
                     className="nav_link stateLinks"
                     onClick={MFButtonClick}
                   >
                     {item}
-                  </NavLink>
+                  </p>
                 </Grid>
               );
             })}
@@ -551,7 +557,7 @@ export default function BranchLocator() {
           <p className="mainParagraph">
           You’re not alone. We understand taking out a personal loan may be a big decision 
           so we want you to be as informed as possible. To help you become a more informed 
-          customer we put together a whole section to <a className="stateLinks">educate you on making a personal loan decision.</a>
+          customer we put together a whole section to <a href="https://www.marinerfinance.com/blog/?s=personal+loans+" className="stateLinks">educate you on making a personal loan decision.</a>
           </p>
           </Grid>
         </Grid>

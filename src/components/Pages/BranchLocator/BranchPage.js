@@ -360,7 +360,7 @@ export default function StatePage(props) {
                   return (
                     <Grid key={index} item md={4} className="locationInfo">
                       <NavLink
-                        to={`/branchpage/?BranchName=${item?.BranchName}`}
+                        to={`/branchpage/${item?.BranchName}`}
                         state={{ Branch_Details: item }}
                         className="nav_link"
                       >

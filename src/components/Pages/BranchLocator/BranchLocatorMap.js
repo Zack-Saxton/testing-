@@ -1,4 +1,4 @@
-import { Circle, GoogleMap, InfoWindow, Marker, useLoadScript } from "@react-google-maps/api";
+import { Circle, GoogleMap, InfoWindow, Marker } from "@react-google-maps/api";
 import React, { useCallback, useRef, useState } from "react";
 import icon from "../../../assets/icon/icon-google-map-marker.png";
 import mapStyles from "../../../contexts/mapStyles";

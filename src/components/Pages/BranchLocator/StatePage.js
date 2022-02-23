@@ -4,7 +4,7 @@ import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import PhoneIcon from "@material-ui/icons/Phone";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import SearchIcon from "@material-ui/icons/Search";
-import { ButtonPrimary, TextField, ButtonSecondary } from "../../FormsUI";
+import { ButtonPrimary, ButtonSecondary } from "../../FormsUI";
 import { useStylesMyBranch } from "../BranchLocator/Style";
 import { useStylesConsumer } from "../../Layout/ConsumerFooterDialog/Style";
 import { toast } from "react-toastify";
@@ -23,7 +23,7 @@ import Link from "@material-ui/core/Link";
 import BranchImageWeb from "../../../assets/images/BranchLocatorWeb.png";
 import BranchImageMobile from "../../../assets/images/BranchLocatorMobile.png";
 import { makeStyles } from "@material-ui/core";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams} from "react-router-dom";
 import BranchDayTiming, { mapInformationBranchLocator } from "../../Controllers/BranchDayTiming";
 import PlacesAutocomplete from "react-places-autocomplete";
 import "@reach/combobox/styles.css";
@@ -69,12 +69,12 @@ export default function StatePage() {
   const [getCurrentLocation, setCurrentLocation] = useState();
   const [loading, setLoading] = useState(false);
   const [zoomDepth, setZoomDepth] = useState();
-  const queryParams = new URLSearchParams(window.location.search);
-  const Name = queryParams.get("Name");
+  const params = useParams()
+  const Name = params.statename
   const clessesforptag = useStyles();
-
   const [address1, setAddress1] = React.useState("");
   const [address2, setAddress2] = React.useState("");
+
   //API call
   const getBranchLists = async (search_text) => {
     try {
@@ -138,6 +138,7 @@ export default function StatePage() {
     setBranchAddress(null);
   };
   const { isLoaded, loadError } = useLoadScript({
+    id: 'google-map-script',
     googleMapsApiKey: process.env.REACT_APP_SECKey,
     libraries: ["places"],
   });
@@ -309,7 +310,7 @@ export default function StatePage() {
                       return (
                         <Grid key={index} item md={4} className="locationInfo">
                           <NavLink
-                            to={`/branchpage/?BranchName=${item?.BranchName}`}
+                            to={`/branchpage/${item?.BranchName}`}
                             state={{ Branch_Details: item }}
                             className="nav_link"
                           >

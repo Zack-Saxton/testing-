@@ -403,6 +403,9 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
  }
  .stateLinks{
    color: #214476 !important;
+   margin: 0;
+   cursor: pointer;
+   text-decoration: none;
  }
 
 @media (max-width: 960px) {

@@ -104,12 +104,6 @@
     align-items: center;
     margin-right: 35px;
 }
-.branchHeaderLinksFirst {
-    height: 79px;
-    padding: 0px;
-    display: flex;
-    align-items: center;
-}
 .branchHeaderLinksLast {
     height: 79px;
     padding: 0px;
@@ -120,4 +114,22 @@
     background-color: #efefef;
     padding: 0px 6px;
     line-height: 1.15;
+}
+.branchHeaderLinks p,
+.branchHeaderLinksFirst p,
+.branchHeaderLinksLast p{
+    height: 79px;
+    padding: 0px;
+    display: flex;
+    align-items: center;
+    border-top: 3px solid #21447600 !important;
+}
+.branchHeaderLinks p:hover,
+.branchHeaderLinksFirst p:hover,
+.branchHeaderLinksLast p:hover{
+    height: 79px;
+    padding: 0px;
+    display: flex;
+    align-items: center;
+    border-top: 3px solid #214476 !important;
 }
