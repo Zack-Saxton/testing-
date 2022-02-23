@@ -10,7 +10,7 @@ import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import CloseIcon from "@material-ui/icons/Close";
 import SearchIcon from "@material-ui/icons/Search";
 import { useLoadScript } from "@react-google-maps/api";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import BranchDayTiming, { mapInformationBranchLocator } from "../../Controllers/BranchDayTiming";
 import BranchLocatorController from "../../Controllers/BranchLocatorController";
@@ -76,6 +76,7 @@ export default function BranchLocator() {
   const [address2, setAddress2] = React.useState("");
   const [showMapListSearch2DirectionButton, setshowMapListSearch2DirectionButton] = useState(false);
   let params = useParams();
+  const mapSection = useRef()
   //API call
   const getBranchLists = async (search_text) => {
     try {
@@ -126,6 +127,7 @@ export default function BranchLocator() {
       setshowMapListSearch2DirectionButton(true);
       apiGetBranchList(document.getElementById('search1').value);
       clearSearchText();
+      mapSection.current.scrollIntoView({ behavior: 'smooth' })
     } else if (document.getElementById('search2').value) {
       apiGetBranchList(document.getElementById('search2').value);
       clearSearchText();
@@ -227,6 +229,7 @@ export default function BranchLocator() {
 
   const stateLinksandStaticText = (
     <Grid
+    ref={mapSection}
       container
       item xs={12} md={10}
       style={{
@@ -576,8 +579,11 @@ export default function BranchLocator() {
     <Grid
       style={{ padding: "4% 30px 4% 30px", backgroundColor: "#f6f6f6" }}
       container
-      id=""
+      id="Broo"
     >
+      <Grid  container>
+      <h3 className="mapTopHeading">Branches Near You</h3>
+      </Grid>
       {displayMap}
       {displayBranchListinDropDown}
       {search2andDirectionfromSearch2}

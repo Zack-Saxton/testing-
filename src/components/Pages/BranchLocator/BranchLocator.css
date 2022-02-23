@@ -359,7 +359,6 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
 .serachResult{
   width: 100%;
   position: absolute;
-  /* padding-left: 40px; */
 }
 .serachResult div{
   padding: 15px 15px;
@@ -384,6 +383,15 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
    font-size: 2.138rem !important;
    font-weight:500 !important;
    width:100% !important; 
+ }
+ .mapTopHeading{
+   text-align: left !important;
+   margin:1.14rem 0 0.4rem 0 !important;
+   margin-bottom: 2% !important;
+   font-size: 2.138rem !important;
+   font-weight:500 !important;
+   width:100% !important; 
+   color: #171717;
  }
  .mainSubHeading{
    text-align: left;
