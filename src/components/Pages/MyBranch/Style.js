@@ -69,6 +69,9 @@ const useStylesMyBranch = makeStyles((theme) => ({
     opacity: 1,
     pointerEvents: "initial",
   },
+  branchClose:{
+    color: "red"
+  }
 }));
 
 export { useStylesMyBranch };

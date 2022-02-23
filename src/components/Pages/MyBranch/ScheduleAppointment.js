@@ -204,7 +204,7 @@ const checkToday = holidayData?.holidays?.find((holidays) => holidays ===  check
                         onBlur={ formik.handleBlur }
                         error={ formik.touched.appointmentTime && Boolean(formik.errors.appointmentTime) }
                         helperText={ formik.touched.appointmentTime && formik.errors.appointmentTime }
-                      /> : <p>No time slot available</p>
+                      /> : <p className={classes.branchClose}>Branch is closed, Please select a new day.</p>
                     :
                     <Select
                       id="ScheduleAppointmentSelect"
@@ -233,7 +233,7 @@ const checkToday = holidayData?.holidays?.find((holidays) => holidays ===  check
                         onBlur={ formik.handleBlur }
                         error={ formik.touched.appointmentTime && Boolean(formik.errors.appointmentTime) }
                         helperText={ formik.touched.appointmentTime && formik.errors.appointmentTime }
-                      /> : <p>No time slot available</p>
+                      /> : <p className={classes.branchClose}>Branch is closed, Please select a new day.</p>
                     :
                     <Select
                       id="ScheduleAppointmentSelect"
@@ -263,7 +263,7 @@ const checkToday = holidayData?.holidays?.find((holidays) => holidays ===  check
                       onBlur={ formik.handleBlur }
                       error={ formik.touched.appointmentTime && Boolean(formik.errors.appointmentTime) }
                       helperText={ formik.touched.appointmentTime && formik.errors.appointmentTime }
-                    /> : <p>No time slot available</p>
+                    /> : <p className={classes.branchClose}>Branch is closed, Please select a new day.</p>
                   :
                   <Select
                     id="ScheduleAppointmentSelect"
@@ -294,7 +294,7 @@ const checkToday = holidayData?.holidays?.find((holidays) => holidays ===  check
                       error={ formik.touched.appointmentTime && Boolean(formik.errors.appointmentTime) }
                       helperText={ formik.touched.appointmentTime && formik.errors.appointmentTime }
                     />
-                    : <p>No time slot available</p>
+                    : <p className={classes.branchClose}>Branch is closed, Please select a new day.</p>
                   :
                   <Select
                     id="ScheduleAppointmentSelect"
@@ -324,7 +324,7 @@ const checkToday = holidayData?.holidays?.find((holidays) => holidays ===  check
                       error={ formik.touched.appointmentTime && Boolean(formik.errors.appointmentTime) }
                       helperText={ formik.touched.appointmentTime && formik.errors.appointmentTime }
                     />
-                    : <p>No time slot available</p>
+                    : <p className={classes.branchClose}>Branch is closed, Please select a new day.</p>
                   :
                   <Select
                     id="ScheduleAppointmentSelect"
