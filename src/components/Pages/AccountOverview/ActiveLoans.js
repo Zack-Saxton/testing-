@@ -10,6 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import Moment from "moment";
 import React from "react";
 import NumberFormat from "react-number-format";
+import { NavLink } from "react-router-dom";
 import { ButtonPrimary } from "../../FormsUI";
 import AutoPayStatus from "./AutoPayStatus.js";
 import { useStylesAccountOverview } from "./Style";
@@ -111,16 +112,14 @@ export default function ActiveLoans(userActiveLoanData) {
                             </Typography>
                           </Grid>
                           <Grid item xs={ 12 } sm={ 6 }>
+                            <NavLink to={`/customers/makePayment/?accNo=${appData.loanDetails.AccountNumber}`} key={Math.random()*1000}>
                             <ButtonPrimary
                               id="makeAPaymentButtonStyle"
                               stylebutton='{"float": "right","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
-                              href={
-                                "./makePayment/?accNo=" +
-                                appData.loanDetails.AccountNumber
-                              }
                             >
                               Make a Payment
                             </ButtonPrimary>
+                            </NavLink>
                           </Grid>
                         </Grid>
 

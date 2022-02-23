@@ -12,6 +12,7 @@ import * as yup from "yup";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import profileImg from "../../../assets/images/profile-img.jpg";
 import { ProfilePicture } from "../../../contexts/ProfilePicture";
+import ProfileImageController from "../../Controllers/ProfileImageController";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import LogoutController from "../../Controllers/LogoutController";
 import { basicInformation, uploadNewProfileImage } from "../../Controllers/MyProfileController";
@@ -52,6 +53,8 @@ export default function BasicInformation(props) {
   const { dataProfile, setData } = useContext(ProfilePicture);
   const navigate = useNavigate();
   const { refetch } = useQuery('loan-data', usrAccountDetails);
+  const { refetch: refetchProfilePicture  } = useQuery('my-profile-picture', ProfileImageController);
+
   let basicData = props?.basicInformationData?.identification;
   let basicInfo = props?.basicInformationData?.latest_contact;
   let profileImageData = props?.getProfileImage ?? profileImg;
@@ -185,7 +188,7 @@ export default function BasicInformation(props) {
                         onClose: () => {
                           if ((formik.initialValues.email !== values.email && selectedFile !== null) || (formik.initialValues.phone !== values.phone && formik.initialValues.email !== values.email && selectedFile !== null)) {
                             setuploadedImage(uploadData?.data?.profile_picture_url);
-                            props.AsyncEffect_profileImage();
+                            refetchProfilePicture();
                             refetch();
                             setLoading(false);
                             onClickCancelChange();
@@ -193,7 +196,7 @@ export default function BasicInformation(props) {
                           }
                           else if ((formik.initialValues.phone !== values.phone && selectedFile !== null)) {
                             setuploadedImage(uploadData?.data?.profile_picture_url);
-                            props.AsyncEffect_profileImage();
+                            refetchProfilePicture();
                             refetch();
                             setLoading(false);
                             onClickCancelChange();
@@ -201,7 +204,7 @@ export default function BasicInformation(props) {
                           else {
                             setLoading(false);
                             setuploadedImage(uploadData?.data?.profile_picture_url);
-                            props.AsyncEffect_profileImage();
+                            refetchProfilePicture();
                             onClickCancelChange();
                           }
                         }
