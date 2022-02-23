@@ -147,7 +147,6 @@ function PersonalInfo() {
 	}
 
 	//configuring formik
-	console.log("data.dob", data.dob)
 	const formik = useFormik({
 		initialValues: {
 			firstName: data.firstName ? data.firstName : "",
