@@ -309,6 +309,8 @@ function PersonalInfo() {
 		if (data.completedPage < data.page.homeAddress || data.formStatus === "completed") {
 			navigate("/select-amount");
 		}
+		return null;
+    	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	//JSX [part]
