@@ -14,6 +14,8 @@ import * as yup from "yup";
 import { ScheduleCallApi } from "../../Controllers/MyBranchController";
 import { ButtonPrimary, DatePicker, Select } from "../../FormsUI";
 import { useStylesMyBranch } from "./Style";
+import globalMessages from "../../../assets/data/globalMessages.json";
+
 import {
   ca_M_W_Th_F,
   ca_Tue, Other_Fri,
@@ -25,10 +27,13 @@ import {
 // yup validation
 const validationSchema = yup.object({
   appointmentDate: yup
-    .date("Please enter a valid date")
+    .date(globalMessages.Enter_Appointment_Date)
     .nullable()
-    .required("Date is required"),
-  callTime: yup.string("Select Time").nullable().required("Time is required"),
+    .required(globalMessages.Appointment_Date_Required),
+  callTime: yup
+    .string(globalMessages.Enter_Appointment_Time)
+    .nullable()
+    .required(globalMessages.Appointment_Time_Required),
 });
 
 export default function ScheduleCall({ MyBranchCall, holidayData }) {
@@ -195,7 +200,7 @@ const checkToday = holidayData?.holidays?.find((holidays) => holidays ===  check
                         onBlur={ formik.handleBlur }
                         error={ formik.touched.callTime && Boolean(formik.errors.callTime) }
                         helperText={ formik.touched.callTime && formik.errors.callTime }
-                      /> : <p>No time slot available</p>
+                      /> : <p className={classes.branchClose}>Branch is closed, Please select a new day.</p>
                     :
                     <Select
                       id="timeSlotSelect"
@@ -224,7 +229,7 @@ const checkToday = holidayData?.holidays?.find((holidays) => holidays ===  check
                         onBlur={ formik.handleBlur }
                         error={ formik.touched.callTime && Boolean(formik.errors.callTime) }
                         helperText={ formik.touched.callTime && formik.errors.callTime }
-                      /> : <p>No time slot available</p>
+                      /> : <p className={classes.branchClose}>Branch is closed, Please select a new day.</p>
                     :
                     <Select
                       id="timeSlotSelect"
@@ -254,7 +259,7 @@ const checkToday = holidayData?.holidays?.find((holidays) => holidays ===  check
                       onBlur={ formik.handleBlur }
                       error={ formik.touched.callTime && Boolean(formik.errors.callTime) }
                       helperText={ formik.touched.callTime && formik.errors.callTime }
-                    /> : <p>No time slot available</p>
+                    /> : <p className={classes.branchClose}>Branch is closed, Please select a new day.</p>
                   :
                   <Select
                     id="timeSlotSelect"
@@ -283,7 +288,7 @@ const checkToday = holidayData?.holidays?.find((holidays) => holidays ===  check
                       onBlur={ formik.handleBlur }
                       error={ formik.touched.callTime && Boolean(formik.errors.callTime) }
                       helperText={ formik.touched.callTime && formik.errors.callTime }
-                    /> : <p>No time slot available</p>
+                    /> : <p className={classes.branchClose}>Branch is closed, Please select a new day.</p>
                   :
                   <Select
                     id="timeSlotSelect"
@@ -313,7 +318,7 @@ const checkToday = holidayData?.holidays?.find((holidays) => holidays ===  check
                       error={ formik.touched.callTime && Boolean(formik.errors.callTime) }
                       helperText={ formik.touched.callTime && formik.errors.callTime }
                     />
-                    : <p>No time slot available</p>
+                    : <p className={classes.branchClose}>Branch is closed, Please select a new day.</p>
                   :
                   <Select
                     id="timeSlotSelect"
