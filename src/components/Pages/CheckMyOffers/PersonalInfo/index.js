@@ -147,6 +147,7 @@ function PersonalInfo() {
 	}
 
 	//configuring formik
+	console.log("data.dob", data.dob)
 	const formik = useFormik({
 		initialValues: {
 			firstName: data.firstName ? data.firstName : "",
@@ -155,7 +156,7 @@ function PersonalInfo() {
 			ssn: data.ssn ? data.ssn : "",
 			lastSSN: data.last4SSN ? data.last4SSN : "",
 			phone: data.phone ? phoneNumberMask(data.phone) : "",
-			dob: data.dob ?? null,
+			dob: data.dob ? data.dob : null,
 			checkSSN: data.last4SSN ? true : false,
 		},
 		validationSchema: validationSchema,
@@ -447,7 +448,7 @@ function PersonalInfo() {
 											xs={ 12 }
 											className="textBlock"
 										>
-											<DatePicker
+											{/* <DatePicker
 												name="dob"
 												label="Date of Birth *"
 												id="dob"
@@ -455,6 +456,8 @@ function PersonalInfo() {
 												format="MM/dd/yyyy"
 												maxdate={ myDate }
 												minyear={ 102 }
+												autoComplete="off"
+                								onKeyDown={ (event) => event.preventDefault() }
 												value={ formik.values.dob }
 												onChange={ (values) => {
 													formik.setFieldValue("dob", values);
@@ -464,7 +467,24 @@ function PersonalInfo() {
 													formik.touched.dob && Boolean(formik.errors.dob)
 												}
 												helperText={ formik.touched.dob && formik.errors.dob }
-											/>
+											/> */}
+											<DatePicker
+											name="dob"
+											label="Date of Birth *"
+											placeholder="MM/DD/YYYY"
+											id="dob"
+											autoComplete="off"
+											onKeyDown={ (event) => event.preventDefault() }
+											maxdate={ myDate }
+											minyear={ 102 }
+											value={ formik.values.dob }
+											onChange={ (values) => {
+											formik.setFieldValue("dob", values);
+											} }
+											onBlur={ formik.handleBlur }
+											error={ formik.touched.dob && Boolean(formik.errors.dob) }
+											helperText={ formik.touched.dob && formik.errors.dob }
+										/>
 
 											<div className="MuiTypography-alignLeft">
 												<Typography className="smallTextLeft" align="left">
