@@ -572,6 +572,17 @@ export default function BranchLocator() {
       ) : null}
     </Grid>
   );
+  const MapBranchListandSearch2Buttons = (
+    <Grid
+      style={{ padding: "4% 30px 4% 30px", backgroundColor: "#f6f6f6" }}
+      container
+      id=""
+    >
+      {displayMap}
+      {displayBranchListinDropDown}
+      {search2andDirectionfromSearch2}
+    </Grid>
+  );
   //View part
   return (
     <div>
@@ -583,15 +594,7 @@ export default function BranchLocator() {
         }}
       >
         {BreadCrumsAndSearch1AndText}
-        <Grid
-          style={{ padding: "4% 30px 4% 30px", backgroundColor: "#f6f6f6" }}
-          container
-          id=""
-        >
-          { showMapListSearch2DirectionButton && displayMap }
-          {showMapListSearch2DirectionButton && displayBranchListinDropDown}
-          {showMapListSearch2DirectionButton && search2andDirectionfromSearch2}
-        </Grid>
+        {showMapListSearch2DirectionButton && MapBranchListandSearch2Buttons}
         {stateLinksandStaticText}
         <Grid className="blueBGColor">
           <h4>Customer Ratings</h4>
