@@ -158,7 +158,7 @@ export default function Login(props) {
         queryClient.removeQueries();
         setLoading(false);
         if (retVal?.data?.user?.attributes?.password_reset) {
-          navigate("/resetpassword");
+          navigate("/resetpassword", {state: {Email: values.email}})
         } else {
           navigate(location.state?.redirect ? location.state?.redirect : "/customers/accountoverview");
         }
