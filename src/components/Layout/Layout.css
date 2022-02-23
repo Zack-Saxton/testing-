@@ -64,3 +64,60 @@
     border-top: 3px solid #214476 !important;
     color: #214476 !important;
 }
+
+.topBarlinks{
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0px 25px;
+}
+
+ 
+.topBarLinkTwo,
+.topBarLinkOne{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid #fff;
+}
+.topBarLinkThree{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border-right: none;
+}
+
+.topBarLinkThree p, 
+.topBarLinkTwo p,
+.topBarLinkOne a{
+    color: white;
+    font-size: 14px;
+    font-weight: 200;
+    padding: 0px 15px;
+}
+
+.branchHeaderLinks ,.branchHeaderLinksFirst{
+    height: 79px;
+    padding: 0px;
+    display: flex;
+    align-items: center;
+    margin-right: 35px;
+}
+.branchHeaderLinksFirst {
+    height: 79px;
+    padding: 0px;
+    display: flex;
+    align-items: center;
+}
+.branchHeaderLinksLast {
+    height: 79px;
+    padding: 0px;
+    display: flex;
+    align-items: center;
+}
+.branchHeaderLinksLast p {
+    background-color: #efefef;
+    padding: 0px 6px;
+    line-height: 1.15;
+}

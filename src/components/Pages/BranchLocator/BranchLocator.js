@@ -26,6 +26,8 @@ import { useStylesMyBranch } from "../BranchLocator/Style";
 import BranchImageWeb from "../../../assets/images/BranchLocatorWeb.png";
 import BranchImageMobile from "../../../assets/images/BranchLocatorMobile.png";
 import { NavLink } from "react-router-dom";
+import PlacesAutocomplete from "react-places-autocomplete";
+import "./BranchLocator.css"
 
 const useStyles = makeStyles({
   ptag: {
@@ -69,6 +71,8 @@ export default function BranchLocator() {
   const [loading, setLoading] = useState(false);
   const [zoomDepth, setZoomDepth] = useState(10);
   const clessesforptag = useStyles();
+  const [address1, setAddress1] = React.useState("");
+  const [address2, setAddress2] = React.useState("");
   //API call
   const getBranchLists = async (search_text) => {
     try {
@@ -152,7 +156,12 @@ export default function BranchLocator() {
       ErrorLogger(" Error from findBranchTimings", error);
     }
   };
- 
+  const handleSelect1 = async (value) => {
+    setAddress1(value);
+  }
+  const handleSelect2 = async (value) => {
+    setAddress2(value);
+  }
   //View part
   return (
     <div>
@@ -163,7 +172,7 @@ export default function BranchLocator() {
           backgroundColor: "#f9f9f9",
         }}
       >
-        <Grid container style={{ backgroundColor: "#afdfed", width: "100%" }}>
+        <Grid container style={{  width: "100%" }}>
           <Grid className="branchImage" item md={6} sm={12} xs={12}>
             <img className="mobileImage" src={BranchImageMobile} alt="MF Banner" />
           <img className="webImage" src={BranchImageWeb} alt="MF Banner" />
@@ -187,14 +196,35 @@ export default function BranchLocator() {
               <h4 className={classes.headigText}>Find a Branch Near You!</h4>
               <Grid id="findBranchGrid">
                 <SearchIcon className="searchIcon" style={{ color: "white" }} />
-                <TextField
-                  name="Enter City or State"
-                  className="branchLocatorInput"
-                  style={{ color: "white!important" }}
-                  id="inputText1"
-                  label="Enter city & state or zip code"
-                />
+                <PlacesAutocomplete
+                  value={address1}
+                  onChange={setAddress1}
+                  onSelect={handleSelect1}
+                  style={{ width: '50%' }}
+                >
+                  {({ getInputProps, suggestions, getSuggestionItemProps, loading2 }) => (
+                    <div className="searchInputWrap">
+                      <input className="stateSearch" {...getInputProps({ placeholder: 'Enter city & state or zip code' })} />
+                      <div className="serachResult">
+                        {loading2 && <div>Loading...</div>}
+                        {suggestions.map(suggestion => {
+                          const style = {
+                            backgroundColor: suggestion.active ? "#41b6e6" : "#fff"
+                          }
+                          return (
+                            <div {...getSuggestionItemProps(suggestion, {
+                              style
+                            })}>
+                              <span style={{padding:"10px 0px"}}>{suggestion.description}</span>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+                </PlacesAutocomplete>
                 <ButtonPrimary
+                  className="branchSearchButton"
                   onClick={getActivePlaces}
                   stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "padding":"0px 30px"}'
                 >
@@ -203,15 +233,15 @@ export default function BranchLocator() {
               </Grid>
             </Grid>
             <h4 className="branchLocatorHeadingMain">
-              <b>Get one on one support</b>
+              Get one on one support
               <br />
               for a personal loan near you
             </h4>
 
             <Typography className="branchLocatorHeading">
-              <b className="numberText">480+</b>
+              <b className="numberText">470+</b>
 
-              <span className="branchSmallText">Branches in 25 states</span>
+              <span className="branchSmallText">Branches in 24 states</span>
             </Typography>
 
             <Typography className="branchLocatorHeading">
@@ -370,7 +400,7 @@ export default function BranchLocator() {
             )}
           </Grid>
           <Grid id="getDirectionWrap" className={clessesforptag.gridMargin} container>
-            <Grid id="getDirectionButton" className={clessesforptag.gridPadding} item md={6}>
+            <Grid className={clessesforptag.gridPadding} item md={6}>
               <ButtonPrimary
                 href={getBranchAddress}
                 id="Continue"
@@ -383,7 +413,7 @@ export default function BranchLocator() {
                     toast.error(' Please provide address.')
                   }
                 }}
-                stylebutton='{"width": "100%", "padding":"0 15px", "fontSize":"0.938rem", "fontWeight":"400" }'
+                stylebutton='{"width": "100%", "padding":"0 15px", "fontSize":"0.938rem", "fontWeight":"400", "height":"47px" }'
                 target="_blank"
               >
                 Get Driving Directions To Nearest Location
@@ -398,14 +428,35 @@ export default function BranchLocator() {
                   className="searchIconBottom"
                   style={{ color: "white" }}
                 />
-                <TextField
-                  name="Enter City or State"
-                  className="branchLocatorInput"
-                  style={{ color: "white!important" }}
-                  id="inputText2"
-                  placeholder="Enter city & state or zip code"
-                />
+                 <PlacesAutocomplete
+                  value={address2}
+                  onChange={setAddress2}
+                  onSelect={handleSelect2}
+                  style={{ width: '50%' }}
+                >
+                  {({ getInputProps, suggestions, getSuggestionItemProps, loading2 }) => (
+                    <div className="searchInputWrap">
+                      <input className="stateSearch" {...getInputProps({ placeholder: 'Enter city & state or zip code' })} />
+                      <div className="serachResult">
+                        {loading2 && <div>Loading...</div>}
+                        {suggestions.map(suggestion => {
+                          const style = {
+                            backgroundColor: suggestion.active ? "#41b6e6" : "#fff"
+                          }
+                          return (
+                            <div {...getSuggestionItemProps(suggestion, {
+                              style
+                            })}>
+                              <span>{suggestion.description}</span>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+                </PlacesAutocomplete>
                 <ButtonPrimary
+                  className="branchSearchButton"
                   onClick={getActivePlaces}
                   stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "padding":"0px 30px"}'
                 >
@@ -417,31 +468,42 @@ export default function BranchLocator() {
         </Grid>
         <Grid
           container
+          item xs={12} md={10}
           style={{
             textAlign: "center",
-            padding: "4% 15px",
+            padding: "4% 0px",
             backgroundColor: "#f9f9f9",
           }}
         >
           <Grid container item xs={12} justifyContent="center">
             <Typography
-              style={{ margin: "1.14rem 0 0.4rem 0", fontWeight: "500" }}
+              className="mainHeading"
               variant="h4"
             >
-              Mariner Finance States
+              Mariner Finance Branch Near You!
             </Typography>
+            <p className="mainParagraph">
+            Mariner Finance, serving communities since 1927, operates 
+            over 480 branches in twenty-seven states. 
+            Find a branch in your neighborhood and explore personal loans near you.
+             Our experienced team members are ready to assist with your financial needs.
+            </p>
           </Grid>
           <Grid container item xs={12} justifyContent="center">
             <Typography
+              className="mainParagraph"
               style={{
-                margin: "0 0 4% 0",
-                fontSize: "1.538rem",
+                margin: "15px 0px 15px 0px",
+                fontSize: "0.938rem",
                 fontWeight: "400",
               }}
               variant="h6"
             >
               To find a branch near you select your state below
             </Typography>
+            <h5 className="mainSubHeading">
+            Mariner Finance States
+            </h5>
           </Grid>
           <Grid
             container
@@ -453,7 +515,7 @@ export default function BranchLocator() {
               return (
                 <Grid
                   key={index}
-                  style={{ padding: "0px 15px 15px 15px" }}
+                  style={{ padding: "0px 15px 15px 15px", textAlign:"left", fontSize:"1.125rem", color:"#214476" }}
                   item
                   xs={6}
                   sm={3}
@@ -463,7 +525,7 @@ export default function BranchLocator() {
                   <NavLink
                     to={MFButtonClick}
                     state={{ item }}
-                    className="nav_link"
+                    className="nav_link stateLinks"
                     onClick={MFButtonClick}
                   >
                     {item}
@@ -471,6 +533,26 @@ export default function BranchLocator() {
                 </Grid>
               );
             })}
+          </Grid>
+          <Grid>
+
+          <Typography className="mainHeading">
+            Apply Online For a Personal Loan
+          </Typography>
+          <p className="mainParagraph">
+            Do you live in one of the 27 states in which we operate and need a 
+            personal loan? Can’t reach a branch or prefer to apply online? If so,
+            you’re in luck! You can apply online today*. It’s quick, easy, and secure.
+          </p>
+          <Typography className="mainHeading">
+          Need money but don’t know much about personal loans?
+          </Typography>
+
+          <p className="mainParagraph">
+          You’re not alone. We understand taking out a personal loan may be a big decision 
+          so we want you to be as informed as possible. To help you become a more informed 
+          customer we put together a whole section to <a className="stateLinks">educate you on making a personal loan decision.</a>
+          </p>
           </Grid>
         </Grid>
         <Grid className="blueBGColor">

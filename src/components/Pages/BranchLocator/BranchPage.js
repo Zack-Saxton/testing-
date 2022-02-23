@@ -148,7 +148,7 @@ export default function StatePage(props) {
         justifyContent={"center"}
         style={{ backgroundColor: "#f9f9f9" }}
       >
-        <Grid container style={{ backgroundColor: "#afdfed", width: "100%" }}>
+        <Grid container style={{ width: "100%" }}>
           <Grid className="branchImage" item md={6} sm={12} xs={12}>
             <img className="mobileImage" src={BranchImageMobile} alt="MF Banner" />
           <img className="webImage" src={BranchImageWeb} alt="MF Banner" />

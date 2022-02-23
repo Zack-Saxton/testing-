@@ -66,9 +66,9 @@
 .searchIconBottom {
   color: #595959 !important;
   position: absolute;
-  top: 10px;
-  font-size: 26px !important;
-  left: -4px;
+  top: 12px;
+  font-size: 25px !important;
+  left: 9px;
 }
 #findBranchGrid .branchLocatorInput .MuiInput-underline:before,
 #findBranchGrid .branchLocatorInput .MuiInput-underline:after {
@@ -318,23 +318,19 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
   text-align: left;
 }
 .branchImage img {
-  width: 70%;
+  max-width: 100%;
 }
 #inputText1-label{
   padding-left: 36px;
 }
 .mobileImage{
   display: none;
+  width: 100%;
 }
 #getDirectionSearch{
   padding: 0px 0px 0px 4.5%;
 }
  
-@media (max-width: 1400px) {
-  .branchImage img {
-    width: 100%;
-  }
-}
 @media (max-width: 960px) {
   .mobileImage{
     display: block;

@@ -58,9 +58,10 @@ const useStylesMyBranch = makeStyles((theme) => ({
         padding: "0px 15px",
     },
     headigText: {
-        margin: "0 0 2% 0",
-        fontSize: "2.125rem",
+        margin: "0 0 4% 0",
+        fontSize: "3.938rem",
         fontWeight: "400",
+        color:"#214476"
     },
     loadingOnWithoutBlur: {
         pointerEvents: "none",

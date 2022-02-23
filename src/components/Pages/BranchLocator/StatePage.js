@@ -169,7 +169,7 @@ export default function StatePage() {
         justifyContent={"center"}
         style={{ backgroundColor: "#f9f9f9" }}
       >
-        <Grid container style={{ backgroundColor: "#afdfed", width: "100%" }}>
+        <Grid container style={{ width: "100%" }}>
           <Grid className="branchImage" item md={6} sm={12} xs={12}>
             <img className="mobileImage" src={BranchImageMobile} alt="MF Banner" />
             <img className="webImage" src={BranchImageWeb} alt="MF Banner" />
@@ -214,9 +214,9 @@ export default function StatePage() {
                   style={{ width: '50%' }}
                 >
                   {({ getInputProps, suggestions, getSuggestionItemProps, loading2 }) => (
-                    <div>
-                      <input {...getInputProps({ placeholder: 'Enter city & state or zip code' })} />
-                      <div>
+                    <div className="searchInputWrap">
+                      <input className="stateSearch" {...getInputProps({ placeholder: 'Enter city & state or zip code' })} />
+                      <div className="serachResult">
                         {loading2 && <div>Loading...</div>}
                         {suggestions.map(suggestion => {
                           const style = {
@@ -242,6 +242,7 @@ export default function StatePage() {
                   label="Enter city & state or zip code"
                 /> */}
                 <ButtonPrimary
+                  className="branchSearchButton"
                   onClick={getActivePlaces}
                   stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "padding":"0px 30px"}'
                 >
@@ -255,8 +256,8 @@ export default function StatePage() {
               for a personal loan near you
             </h4>
             <Typography className="branchLocatorHeading">
-              <b className="numberText">480+</b>
-              <span className="branchSmallText">Branches in 25 states</span>
+              <b className="numberText">470+</b>
+              <span className="branchSmallText">Branches in 24 states</span>
             </Typography>
             <Typography className="branchLocatorHeading">
               <b className="numberText">$1k - $25k</b>
@@ -415,7 +416,7 @@ export default function StatePage() {
           </Grid>
         </Grid>
         <Grid className={clessesforptag.gridMargin} container>
-          <Grid className={clessesforptag.gridPadding} item md={6}>
+          <Grid id="getDirectionButton" container className={clessesforptag.gridPadding} item md={6} sm={12} xs={12}>
             <ButtonPrimary
               href={getBranchAddress}
               id="Continue"
@@ -428,19 +429,19 @@ export default function StatePage() {
                   toast.error(' Please provide address.')
                 }
               }}
-              stylebutton='{"width": "100%", "padding":"0 15px", "fontSize":"0.938rem", "fontWeight":"400" }'
+              stylebutton='{"width": "100%", "padding":"0 15px", "fontSize":"0.938rem", "fontWeight":"400" , "height":"47px" }'
               target="_blank"
             >
               Get Driving Directions To Nearest Location
             </ButtonPrimary>
           </Grid>
-          <Grid id="searchBoxBottom" item md={6}>
+          <Grid id="searchBoxBottom" item md={6} sm={12} xs={12}>
             <Grid id="findBranchGrid">
               <p className="zipLabel">
                 Can't find it? Try searching another{" "}
               </p>
               <SearchIcon
-                className="searchIconBottom"
+                className="searchIconBottomTwo"
                 style={{ color: "white" }}
               />
               <PlacesAutocomplete
@@ -450,9 +451,9 @@ export default function StatePage() {
                 style={{ width: '50%' }}
               >
                 {({ getInputProps, suggestions, getSuggestionItemProps, loading2 }) => (
-                  <div>
-                    <input {...getInputProps({ placeholder: 'Enter city & state or zip code' })} />
-                    <div>
+                  <div className="searchInputWrap">
+                    <input className="stateSearch" {...getInputProps({ placeholder: 'Enter city & state or zip code' })} />
+                    <div className="serachResult">
                       {loading2 && <div>Loading...</div>}
                       {suggestions.map(suggestion => {
                         const style = {
@@ -478,6 +479,7 @@ export default function StatePage() {
                 placeholder="Enter city & state or zip code"
               /> */}
               <ButtonPrimary
+                className="branchSearchButton"
                 onClick={getActivePlaces}
                 stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "padding":"0px 30px"}'
               >
