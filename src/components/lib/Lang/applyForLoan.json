@@ -16,8 +16,7 @@
     },
     "bankAccountVerification": {
         "accountHolderRequired": "Please enter a account holder's name",
-        "minAccountNum": "Account number should be minimum of 7 digits",
-        "maxAccountNum": "Account number should be minimum of 16 digits",
+        "minMaxAccountNum": "Account numbers must be between 4 and 17 digits",
         "bankRoutingNumberRequired": "Please enter a bank routing number",
         "enterValidRoutingNum": "Please enter a valid routing number",
         "matchAccountNum": "Your account numbers must match",

@@ -69,14 +69,6 @@ export default function IncomeVerification(props) {
 			</Grid>
 			<div className={ props.classes.actionsContainer }>
 				<div className={ props.classes.button_div }>
-					<ButtonSecondary
-						stylebutton='{"marginRight": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
-						onClick={ props.reset }
-						id="button_stepper_reset"
-					>
-						Reset
-					</ButtonSecondary>
-
 					<ButtonPrimary
 						variant="contained"
 						color="primary"
