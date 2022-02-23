@@ -267,7 +267,7 @@ export default function StatePage() {
             <Typography className="branchLocatorHeading">
               <b className="numberText">4.8</b>
               <span className="branchSmallText">
-                Star Rating based on over 13,000 verified reviews
+                Star Rating based on over 10,000 verified reviews
               </span>
             </Typography>
           </Grid>
