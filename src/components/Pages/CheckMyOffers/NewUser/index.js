@@ -70,6 +70,8 @@ function NewUser() {
 		if (data.completedPage < data.page.personalInfo || data.formStatus === "completed") {
 			navigate("/select-amount");
 		}
+		return null;
+    	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	//configuring formik
 	const formik = useFormik({

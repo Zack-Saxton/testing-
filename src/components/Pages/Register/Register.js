@@ -498,6 +498,8 @@ export default function Register() {
                         id="dob"
                         placeholder="MM/DD/YYYY"
                         format="MM/dd/yyyy"
+                        autoComplete="off"
+                				onKeyDown={ (event) => event.preventDefault() }
                         maxdate={ myDate }
                         minyear={ 102 }
                         value={ formik.values.dob }

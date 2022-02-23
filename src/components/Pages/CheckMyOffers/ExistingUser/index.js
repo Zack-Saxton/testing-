@@ -67,6 +67,8 @@ function ExistingUser() {
 		if (data.completedPage < data.page.personalInfo || data.formStatus === "completed") {
 			navigate("/select-amount");
 		}
+		return null;
+    	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	// Formik configuraion
 	const formik = useFormik({
