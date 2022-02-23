@@ -84,8 +84,7 @@ function CheckMyOffers(props) {
 		toast.success("Your Application Code has been accepted");
 		navigate("/pre-approved")
 			}
-		}).catch((err)=>{
-			console.log(err);
+		}).catch((error)
 		})
 	};
 
