@@ -89,11 +89,6 @@ function CheckMyOffers(props) {
 		}).catch((err)=>{
 			console.log(err);
 		})
-		// data.loanAmount = select;
-		// data.formStatus = "started";
-		// data.completedPage = data.page.selectAmount;
-		// setData({ ...data, loanAmount: select });
-		// navigate("/loan-purpose");
 	};
 
 	// jsx part
