@@ -13,6 +13,7 @@ import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import ScrollToTopOnMount from "../ScrollToTop";
 import globalMessages from '../../../../assets/data/globalMessages.json';
 import "./CheckMyOffer.css";
+import offercodeValidation from "../../../Controllers/OfferCodeController";
 
 //Styling part
 const useStyles = makeStyles((theme) => ({
@@ -32,8 +33,10 @@ const useStyles = makeStyles((theme) => ({
 function CheckMyOffers(props) {
 	const { data, setData, resetData } = useContext(Check);
 	const [ hasOfferCode, setOfferCode ] = useState("");
+	const [offercodecounter,setoffercodeCounter] = useState(0);
 	const classes = preLoginStyle();
 	const innerClasses = useStyles();
+	const navigate = useNavigate();
 	const getValidValue = (selectedValue) => {
 		let validValue = (selectedValue > 5000 && (selectedValue % 500) === 250 ? selectedValue + 250 : selectedValue);
 		if (validValue < 1000) {
@@ -46,7 +49,6 @@ function CheckMyOffers(props) {
 	let params = useParams();
 	let selectedAmount = getValidValue(params?.amount);
 	const [ select, setSelect ] = useState(data.loanAmount ? data.loanAmount : (selectedAmount ? parseInt(selectedAmount) : 10000));
-	const navigate = useNavigate();
 	let location = useLocation();
 	useEffect(() => {
 		if (selectedAmount) {
@@ -69,11 +71,29 @@ function CheckMyOffers(props) {
 		navigate("/customers/accountOverview");
 	}
 	const handleRoute = (event) => {
+		//console.log(data.offerCode);
+		
+		offercodeValidation(data.offerCode).then((offerCoderes)=>{
+			if(offerCoderes?.data?.offerData?.Message)
+			{
+				navigate("/loan-purpose")
+		}
+		else if(!offerCoderes?.data?.offerData?.Message){
 		data.loanAmount = select;
 		data.formStatus = "started";
 		data.completedPage = data.page.selectAmount;
 		setData({ ...data, loanAmount: select });
-		navigate("/loan-purpose");
+		toast.success("Your Application Code has been accepted");
+		navigate("/pre-approved")
+			}
+		}).catch((err)=>{
+			console.log(err);
+		})
+		// data.loanAmount = select;
+		// data.formStatus = "started";
+		// data.completedPage = data.page.selectAmount;
+		// setData({ ...data, loanAmount: select });
+		// navigate("/loan-purpose");
 	};
 
 	// jsx part
