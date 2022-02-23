@@ -105,6 +105,8 @@ function MarriedStatus() {
 		if (data.completedPage < data.page.livingPlace || data.formStatus === "completed") {
 			navigate("/select-amount");
 		}
+		return null;
+    	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	//Configuring formik
 	const formik = useFormik({
