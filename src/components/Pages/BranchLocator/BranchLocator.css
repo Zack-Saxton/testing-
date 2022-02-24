@@ -119,6 +119,7 @@
   flex-direction: column;
   align-items: self-start;
   justify-content: space-between;
+  padding: 0px 10px;
 }
 .locationInfo .nav_link {
   display: flex;
@@ -323,8 +324,17 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
   margin: 0.82rem 0 2% 0;
   text-align: left;
 }
+.branchImage{
+  background-color: #f6f6f6 !important;
+}
 .branchImage img {
   max-width: 100%;
+}
+.greyBackground{
+  background-color: #f6f6f6 !important;
+}
+#greyBackground{
+  background-color: #f6f6f6 !important;
 }
 #inputText1-label{
   padding-left: 36px;

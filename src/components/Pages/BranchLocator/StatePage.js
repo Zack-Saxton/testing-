@@ -20,8 +20,8 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import Link from "@material-ui/core/Link";
-import BranchImageWeb from "../../../assets/images/BranchLocatorWeb.png";
-import BranchImageMobile from "../../../assets/images/BranchLocatorMobile.png";
+import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.png";
+import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile_Image.png";
 import { makeStyles } from "@material-ui/core";
 import { NavLink, useParams} from "react-router-dom";
 import BranchDayTiming, { mapInformationBranchLocator } from "../../Controllers/BranchDayTiming";
@@ -175,7 +175,7 @@ export default function StatePage() {
             <img className="mobileImage" src={BranchImageMobile} alt="MF Banner" />
             <img className="webImage" src={BranchImageWeb} alt="MF Banner" />
           </Grid>
-          <Grid style={{ padding: "2% 4%" }} item md={6} sm={12} xs={12}>
+          <Grid className="greyBackground" style={{ padding: "2% 4%" }} item md={6} sm={12} xs={12}>
             <Breadcrumbs
               className="breadcrumbWrap"
               separator={
@@ -416,7 +416,7 @@ export default function StatePage() {
             )}
           </Grid>
         </Grid>
-        <Grid className={clessesforptag.gridMargin} container>
+        <Grid id="greyBackground" className={clessesforptag.gridMargin} container>
           <Grid id="getDirectionButton" container className={clessesforptag.gridPadding} item md={6} sm={12} xs={12}>
             <ButtonPrimary
               href={getBranchAddress}
@@ -490,6 +490,7 @@ export default function StatePage() {
           </Grid>
         </Grid>
         <Grid
+        className="greyBackground"
           style={{
             backgroundColor: "#f9f9f9",
             width: "100%",

@@ -23,8 +23,8 @@ import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import Link from "@material-ui/core/Link";
 import { useStylesMyBranch } from "../BranchLocator/Style";
-import BranchImageWeb from "../../../assets/images/BranchLocatorWeb.png";
-import BranchImageMobile from "../../../assets/images/BranchLocatorMobile.png";
+import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.png";
+import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile_Image.png";
 import "./BranchLocator.css"
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import PlacesAutocomplete from "react-places-autocomplete";
@@ -466,7 +466,7 @@ export default function BranchLocator() {
 
   const search1andgetList = (
     <Grid id="findBranchWrapTwo" className={classes.blueBackground}>
-      <h4 className={classes.headigText}>Find a Branch Near You!</h4>
+      <h4 className={classes.headigText}>Find a <b>Branch Near You!</b></h4>
       <Grid id="findBranchGrid">
         <SearchIcon className="searchIcon" style={{ color: "white" }} />
         <PlacesAutocomplete
@@ -530,7 +530,7 @@ export default function BranchLocator() {
         <img className="webImage" src={BranchImageWeb} alt="MF Banner" />
       </Grid>
 
-      <Grid style={{ padding: "2% 4%" }} item md={6} sm={12} xs={12}>
+      <Grid className="greyBackground" style={{ padding: "2% 4%" }} item md={6} sm={12} xs={12}>
         {BreadCrumsDisplay}
         {search1andgetList}
         <h4 className="branchLocatorHeadingMain">

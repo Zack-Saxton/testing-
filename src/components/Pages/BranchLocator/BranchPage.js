@@ -23,8 +23,8 @@ import {
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import Link from "@material-ui/core/Link";
-import BranchImageWeb from "../../../assets/images/BranchLocatorWeb.png";
-import BranchImageMobile from "../../../assets/images/BranchLocatorMobile.png";
+import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.png";
+import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile_Image.png";
 import { NavLink, useLocation } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
 
@@ -154,7 +154,7 @@ export default function StatePage(props) {
           <img className="webImage" src={BranchImageWeb} alt="MF Banner" />
           </Grid>
 
-          <Grid style={{ padding: "2% 4%" }} item md={6} sm={12} xs={12}>
+          <Grid className="greyBackground" style={{ padding: "2% 4%" }} item md={6} sm={12} xs={12}>
             <Breadcrumbs
               className="breadcrumbWrap"
               separator={
