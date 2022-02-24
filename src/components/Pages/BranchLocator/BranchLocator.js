@@ -76,7 +76,7 @@ export default function BranchLocator() {
   const [address2, setAddress2] = React.useState("");
   const [showMapListSearch2DirectionButton, setshowMapListSearch2DirectionButton] = useState(false);
   let params = useParams();
-  // const mapSection = useRef()
+  const mapSection = useRef();
   //API call
   const getBranchLists = async (search_text) => {
     try {
@@ -87,10 +87,10 @@ export default function BranchLocator() {
         setshowMapListSearch2DirectionButton(false);
       } else {
         setCurrentLocation(result?.data?.searchLocation);
-        window.scrollBy({
-          behavior: "smooth",
-          top: 695
-        })
+        // window.scrollBy({
+        //   behavior: "smooth",
+        //   top: 695
+        // })
         setZoomDepth(
           (result?.data?.branchData[0]?.distance).replace(/[^0-9]/g, "") / 100
         );
@@ -132,7 +132,7 @@ export default function BranchLocator() {
       setshowMapListSearch2DirectionButton(true);
       apiGetBranchList(document.getElementById('search1').value);
       clearSearchText();
-      // mapSection.current.scrollIntoView({ behavior: 'smooth' })
+      mapSection.current.scrollIntoView({ behavior: 'smooth' })
     } else if (document.getElementById('search2').value) {
       apiGetBranchList(document.getElementById('search2').value);
       clearSearchText();
@@ -228,7 +228,7 @@ export default function BranchLocator() {
 
   const stateLinksandStaticText = (
     <Grid
-    // ref={mapSection}
+      ref={mapSection}
       container
       item xs={12} md={10}
       style={{
