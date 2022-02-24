@@ -71,7 +71,7 @@ function CheckMyOffers(props) {
 		navigate("/customers/accountOverview");
 	}
 	const handleRoute = async (event) => {
-		if(data.offerCode == ""){
+		if(data.offerCode === ""){
 			navigate("/loan-purpose");
 			return null;
 	}
