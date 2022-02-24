@@ -75,6 +75,7 @@ function CheckMyOffers(props) {
 			navigate("/loan-purpose");
 			return null;
 	}
+	try{
 		let res = await offercodeValidation(data.offerCode);
 		if (res?.data?.offerData?.Message) {
 			toast.error("Please enter a valid Offer Code. If you do not have an Offer Code please select Continue");
@@ -94,7 +95,7 @@ function CheckMyOffers(props) {
 			toast.success("Your Application Code has been accepted");
 			navigate("/pre-approved");
 		}
-	} catch (error) {
+	}} catch (error) {
 		ErrorLogger("Error offerCode VAlidation API", error);
 	}
 	};
