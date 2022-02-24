@@ -233,11 +233,18 @@ export default function SideNav() {
     };
   }, [ dataAccountOverview, activeLoanData, currentLoan ]);
 
-  const handleResumeApplication = () => {
-    navigate(applicationStatusRedirectPage[ checkPresenceOfLoanStatus ]);
-
-};
-// console.log("pageNavigation",pageNavigation)
+  
+  //Navigating customer according to application status
+  let NavUrlResumeApplication = ""
+  if (([ 'approved','completing_application', 'signature_complete', 'closing_process' ].includes(checkPresenceOfLoanStatus)))
+      {
+        NavUrlResumeApplication = checkPresenceOfLoanStatus === "approved" ? "/customers/receiveYourMoney" :"/customers/finalverification";
+      }
+ else if (([ 'offers_available',"offer_selected" ].includes(checkPresenceOfLoanStatus)))
+     {
+       NavUrlResumeApplication = checkPresenceOfLoanStatus === "offers_available" ?   "/customers/selectOffer" :  "/customers/reviewAndSign";
+      }
+  let pageNavResumeApplication = NavUrlResumeApplication !== "" ? true : false  
 
 
   //Material UI media query for responsiveness
@@ -666,9 +673,9 @@ export default function SideNav() {
                 </NavLink>
 
                 { checkPresenceOfLoan === true ?
-                checkPresenceOfLoanStatus === "approved" ?
+                 pageNavResumeApplication === true ?
                 
-                <NavLink   to = "/customers/receiveYourMoney" className="nav_link" >
+                <NavLink   to = {NavUrlResumeApplication}  className="nav_link" >
                     <ListItem className="titleSidenav" >
                       <ListItemIcon>
                         { " " }
@@ -677,51 +684,8 @@ export default function SideNav() {
                       <ListItemText> Resume Application </ListItemText>
                     </ListItem>
                   </NavLink>
-                  :
-
-                  checkPresenceOfLoanStatus === "completing_application" ||
-                  checkPresenceOfLoanStatus === "signature_complete" ||
-                  checkPresenceOfLoanStatus === "closing_process" ?
-                
-                <NavLink   to = "/customers/finalVerification" className="nav_link" >
-                    <ListItem className="titleSidenav" >
-                      <ListItemIcon>
-                        { " " }
-                        <MonetizationOnRoundedIcon />{ " " }
-                      </ListItemIcon>
-                      <ListItemText> Resume Application </ListItemText>
-                    </ListItem>
-                  </NavLink>
-                  :
-                  
-                  checkPresenceOfLoanStatus === "offers_available" ?                
-                <NavLink   to = "/customers/selectOffer" className="nav_link" >
-                    <ListItem className="titleSidenav" >
-                      <ListItemIcon>
-                        { " " }
-                        <MonetizationOnRoundedIcon />{ " " }
-                      </ListItemIcon>
-                      <ListItemText> Resume Application </ListItemText>
-                    </ListItem>
-                  </NavLink> 
-                  :
-                  
-                  checkPresenceOfLoanStatus === "offer_selected" ?                
-                <NavLink   to = "/customers/reviewAndSign" className="nav_link" >
-                    <ListItem className="titleSidenav" >
-                      <ListItemIcon>
-                        { " " }
-                        <MonetizationOnRoundedIcon />{ " " }
-                      </ListItemIcon>
-                      <ListItemText> Resume Application </ListItemText>
-                    </ListItem>
-                  </NavLink>
-                  :
-                  
-                  <Link  
-                  
-                to = {applicationStatusRedirectPage[ checkPresenceOfLoanStatus]} className="nav_link" >
-
+                  :                  
+                  <Link to = {applicationStatusRedirectPage[ checkPresenceOfLoanStatus]} className="nav_link" >
                    <ListItem className="titleSidenav" >
                      <ListItemIcon>
                        { " " }
