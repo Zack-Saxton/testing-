@@ -38,26 +38,24 @@ export default function Notification() {
   const [ messageDelLoading, setmessageDelLoading ] = useState(false);
   const [ id, setID ] = useState('');
   const open = Boolean(anchorEl);
-  const {data: notificationResponse, refetch} = useQuery('notification', getNoticationData);
-
- 
+  const { data: notificationResponse, refetch } = useQuery('notification', getNoticationData);
 
   useEffect(() => {
-    if(notificationResponse){
+    if (notificationResponse) {
       let messagesData = notificationResponse?.data?.notificationsToShow ? notificationResponse?.data?.notificationsToShow.message_data : [];
-    setMessages(messagesData);
-    setNotificationId(notificationResponse?.data?.notificationsToShow ? notificationResponse?.data?.notificationsToShow._id : '');
-    let badge = notificationResponse?.data?.user ? notificationResponse?.data?.user?.extensionattributes?.unread_messages : 0;
-    setbadgeCount(badge);
-    setLoading(false);
-    setmessageDelLoading(false);
+      setMessages(messagesData);
+      setNotificationId(notificationResponse?.data?.notificationsToShow ? notificationResponse?.data?.notificationsToShow._id : '');
+      let badge = notificationResponse?.data?.user ? notificationResponse?.data?.user?.extensionattributes?.unread_messages : 0;
+      setbadgeCount(badge);
+      setLoading(false);
+      setmessageDelLoading(false);
     }
     return () => {
       setMessages({});
       setNotificationId({});
       setbadgeCount({});
     };
-  }, [notificationResponse]);
+  }, [ notificationResponse ]);
 
   //Open Notification content popup
   const handleClickOpen = async (title, content, mid, active) => {

@@ -67,6 +67,6 @@
     "branch_locator": "/branchlocator/getZipCode",
     "disclosure_link": "/customer/consents",
     "register_customer": "/customer/register_new_user",
-    "offercode_validation":"/application/validate_offer_code"
+    "offercode_validation": "/application/validate_offer_code"
   }
 }

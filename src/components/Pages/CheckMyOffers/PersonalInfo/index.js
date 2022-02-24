@@ -310,7 +310,7 @@ function PersonalInfo() {
 			navigate("/select-amount");
 		}
 		return null;
-    	// eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	//JSX [part]
@@ -450,22 +450,22 @@ function PersonalInfo() {
 											className="textBlock"
 										>
 											<DatePicker
-											name="dob"
-											label="Date of Birth *"
-											placeholder="MM/DD/YYYY"
-											id="dob"
-											autoComplete="off"
-											onKeyDown={ (event) => event.preventDefault() }
-											maxdate={ myDate }
-											minyear={ 102 }
-											value={ formik.values.dob }
-											onChange={ (values) => {
-											formik.setFieldValue("dob", values);
-											} }
-											onBlur={ formik.handleBlur }
-											error={ formik.touched.dob && Boolean(formik.errors.dob) }
-											helperText={ formik.touched.dob && formik.errors.dob }
-										/>
+												name="dob"
+												label="Date of Birth *"
+												placeholder="MM/DD/YYYY"
+												id="dob"
+												autoComplete="off"
+												onKeyDown={ (event) => event.preventDefault() }
+												maxdate={ myDate }
+												minyear={ 102 }
+												value={ formik.values.dob }
+												onChange={ (values) => {
+													formik.setFieldValue("dob", values);
+												} }
+												onBlur={ formik.handleBlur }
+												error={ formik.touched.dob && Boolean(formik.errors.dob) }
+												helperText={ formik.touched.dob && formik.errors.dob }
+											/>
 
 											<div className="MuiTypography-alignLeft">
 												<Typography className="smallTextLeft" align="left">

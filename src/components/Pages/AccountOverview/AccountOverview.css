@@ -43,7 +43,7 @@
     background-color: white;
     border-radius: 10px;
     padding: 24px;
-    display: flex;  
+    display: flex;
     box-shadow: rgb(61 61 61 / 10%) 0px 8px 44px 0px;
 }
 
@@ -90,7 +90,6 @@
     justify-content: center;
 }
 
-
 @media (min-width:1400px) {
     #claimButton{
         height: 32px;
@@ -107,7 +106,7 @@
     .imageholder{
         width: 69%;
     }
-    
+
 }
 @media only screen and (min-width: 2000px) {
     .imageholder{
@@ -126,7 +125,7 @@
     .secondBannerImage{
         max-height: 222px !important;
     }
-    
+
 }
 @media (min-width:1281px) {
     #imageholder{

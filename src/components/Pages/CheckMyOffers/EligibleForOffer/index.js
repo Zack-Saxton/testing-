@@ -27,7 +27,7 @@ function EligibleForOffers(props) {
 			navigate("/select-amount");
 		}
 		return null;
-    	// eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	//JSX part
 	return (

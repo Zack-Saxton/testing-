@@ -52,7 +52,7 @@ function NewUser() {
 			navigate("/select-amount");
 		}
 		return null;
-    	// eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	const validate = (personal, household) => {
 		if (!isNaN(personal) && !isNaN(household)) {

@@ -24,8 +24,8 @@ import BranchLocatorController from "../../Controllers/BranchLocatorController";
 import { ButtonPrimary, ButtonSecondary } from "../../FormsUI";
 import { useStylesConsumer } from "../../Layout/ConsumerFooterDialog/Style";
 import ErrorLogger from "../../lib/ErrorLogger";
-import Map from "./BranchLocatorMap";
 import CustomerRatings from "../MyBranch/CustomerRatings";
+import Map from "./BranchLocatorMap";
 const useStyles = makeStyles({
   ptag: {
     margin: "0px",

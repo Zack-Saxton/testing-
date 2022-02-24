@@ -12,10 +12,10 @@ import * as yup from "yup";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import profileImg from "../../../assets/images/profile-img.jpg";
 import { ProfilePicture } from "../../../contexts/ProfilePicture";
-import ProfileImageController from "../../Controllers/ProfileImageController";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import LogoutController from "../../Controllers/LogoutController";
 import { basicInformation, uploadNewProfileImage } from "../../Controllers/MyProfileController";
+import ProfileImageController from "../../Controllers/ProfileImageController";
 import { ButtonPrimary, ButtonSecondary, EmailTextField, PhoneNumber, TextField } from "../../FormsUI";
 import ErrorLogger from '../../lib/ErrorLogger';
 import "./Style.css";
@@ -53,7 +53,7 @@ export default function BasicInformation(props) {
   const { dataProfile, setData } = useContext(ProfilePicture);
   const navigate = useNavigate();
   const { refetch } = useQuery('loan-data', usrAccountDetails);
-  const { refetch: refetchProfilePicture  } = useQuery('my-profile-picture', ProfileImageController);
+  const { refetch: refetchProfilePicture } = useQuery('my-profile-picture', ProfileImageController);
 
   let basicData = props?.basicInformationData?.identification;
   let basicInfo = props?.basicInformationData?.latest_contact;

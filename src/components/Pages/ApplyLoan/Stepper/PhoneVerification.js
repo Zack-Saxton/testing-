@@ -3,15 +3,15 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
+import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import * as yup from "yup";
 import { OTPInitialSubmission, verifyPasscode } from "../../../Controllers/ApplyForLoanController";
-import { ButtonPrimary, ButtonSecondary, ButtonWithIcon, PhoneNumber, TextField } from "../../../FormsUI";
+import { ButtonPrimary, ButtonSecondary, ButtonWithIcon, TextField } from "../../../FormsUI";
 import APICall from "../../../lib/AxiosLib";
 import messages from "../../../lib/Lang/applyForLoan.json";
 

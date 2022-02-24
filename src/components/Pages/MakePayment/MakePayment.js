@@ -82,10 +82,9 @@ export default function MakePayment(props) {
   const { data: payments } = useQuery('payment-method', usrPaymentMethods, {
     refetchOnMount: false
   });
-  const {data: holidayCalenderData} = useQuery('holiday-calendar', HolidayCalender, {
-    refetchOnMount : false 
-  } )
-
+  const { data: holidayCalenderData } = useQuery('holiday-calendar', HolidayCalender, {
+    refetchOnMount: false
+  });
 
   //API Request for Payment methods
   async function getPaymentMethods() {
@@ -442,7 +441,6 @@ export default function MakePayment(props) {
     }
   }
 
-
   useEffect(() => {
     getData();
     getPaymentMethods();
@@ -543,7 +541,7 @@ export default function MakePayment(props) {
     accountInfo = paymentListAch.find(account => account.value === card);
     cardLabel = accountInfo?.label;
   }
-  
+
   //Autopay submit
   const handleClickSubmit = () => {
     disabledContent === true

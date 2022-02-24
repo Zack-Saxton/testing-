@@ -141,7 +141,7 @@ function SSN() {
 			navigate("/select-amount");
 		}
 		return null;
-    	// eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const redirectNC = data.state === "NC" ? "/active-duty" : "/living-place";

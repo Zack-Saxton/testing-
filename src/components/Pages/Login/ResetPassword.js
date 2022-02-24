@@ -6,10 +6,10 @@ import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import globalValidation from "../../../../src/assets/data/globalMessages.json";
-import { useNavigate, useParams, useLocation}  from "react-router-dom";
 import ResetPasswordController from "../../Controllers/ResetPasswordController";
 import { ButtonPrimary, EmailTextField, PasswordField } from "../../FormsUI";
 import ErrorLogger from "../../lib/ErrorLogger";
@@ -73,7 +73,7 @@ const ResetPasswordvalidationSchema = yup.object().shape({
 export default function Login(props) {
     const classes = useStyles();
     const navigate = useNavigate();
-    const [loading, setLoading] = useState(false);
+    const [ loading, setLoading ] = useState(false);
     let location = useLocation();
     //Form Submission
     const formik = useFormik({
@@ -150,8 +150,8 @@ export default function Login(props) {
                                                 disabled="true"
                                                 InputLabelProps={ { style: { fontSize: 40 } } }
                                                 label="Create new password for"
-                                                materialProps={{ maxLength: "100" }}
-                                                value={location.state.Email}
+                                                materialProps={ { maxLength: "100" } }
+                                                value={ location.state.Email }
                                             />
                                         </Grid>
                                         <Grid

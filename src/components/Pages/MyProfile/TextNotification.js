@@ -15,9 +15,9 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
+import globalMessages from "../../../assets/data/globalMessages.json";
 import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import { textNotification } from "../../Controllers/MyProfileController";
-import globalMessages from "../../../assets/data/globalMessages.json";
 import {
   ButtonPrimary,
   ButtonSecondary,

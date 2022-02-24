@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { ButtonPrimary, ButtonSecondary } from "../../../FormsUI";
+import { ButtonPrimary } from "../../../FormsUI";
 import APICall from "../../../lib/AxiosLib";
 import messages from "../../../lib/Lang/applyForLoan.json";
 import DocumentUpload from "./DocumentUpload";
