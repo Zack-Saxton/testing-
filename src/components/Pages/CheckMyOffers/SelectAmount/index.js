@@ -71,6 +71,7 @@ function CheckMyOffers(props) {
 		navigate("/customers/accountOverview");
 	}
 	const handleRoute = async (event) => {
+    try{
 		if(data.offerCode === ""){
 			navigate("/loan-purpose");
 			return null;
@@ -94,7 +95,7 @@ function CheckMyOffers(props) {
 			toast.success("Your Application Code has been accepted");
 			navigate("/pre-approved");
 		}
-	} catch (error) {
+	}} catch (error) {
 		ErrorLogger("Error offerCode VAlidation API", error);
 	}
 	};
