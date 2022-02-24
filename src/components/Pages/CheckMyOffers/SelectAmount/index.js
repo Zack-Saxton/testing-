@@ -79,7 +79,7 @@ function CheckMyOffers(props) {
 		if (res?.data?.offerData?.Message) {
 			toast.error("Please enter a valid Offer Code. If you do not have an Offer Code please select Continue");
 			tempCounter = tempCounter ++;
-			if(tempCounter == 2){
+			if(tempCounter === 2){
               navigate("/loan-purpose")
 			}
 			
