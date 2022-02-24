@@ -84,7 +84,7 @@ export default function BranchLocator() {
       let result = await BranchLocatorController(search_text);
       if ((result.status === 400) || (result.data.branchData[0].BranchNumber === "0001")) {
         toast.error(" No branches within that area. Please enter a valid city and state.");
-        setshowMapListSearch2DirectionButton(false);
+        // setshowMapListSearch2DirectionButton(false);
       } else {
         setCurrentLocation(result?.data?.searchLocation);
         // window.scrollBy({
@@ -149,7 +149,7 @@ export default function BranchLocator() {
   const MFButtonClick = (event) => {
     params.statename = event.target.innerText;
     apiGetBranchList(params.statename);
-    navigate(`/StatePage/${params.statename}`)
+    navigate(`/StatePage/${params.statename}`);
   };
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_SECKey,
@@ -407,7 +407,7 @@ export default function BranchLocator() {
                 return (
                   <Grid key={index} item md={4} className="locationInfo">
                     <NavLink
-                      to={`/branchpage/?BranchName=${item?.BranchName}`}
+                      to={`/branchpage/${item?.BranchName}`}
                       state={{ Branch_Details: item }}
                       className="nav_link"
                     >
@@ -581,7 +581,7 @@ export default function BranchLocator() {
       id="Broo"
     >
       <Grid  container>
-      <h3 className="mapTopHeading">Branches Near You</h3>
+        <h3 ref={mapSection} className="mapTopHeading">Branches Near You</h3>
       </Grid>
       {displayMap}
       {displayBranchListinDropDown}
