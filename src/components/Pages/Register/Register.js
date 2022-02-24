@@ -144,9 +144,9 @@ export default function Register() {
         ? Cookies.set(
           "rememberMe",
           JSON.stringify({
-            selected: true,
-            email: values.email,
-            password: values.password,
+            isLoggedIn: true,
+            apiKey: retVal?.data?.user?.extensionattributes?.login?.jwt_token,
+            setupTime: now,
           })
         )
         : Cookies.set("rememberMe", JSON.stringify({ selected: false, email: "", password: "" }));
@@ -234,9 +234,9 @@ export default function Register() {
   });
 
   const NameChange = (event) => {
-    const reg = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
-    let acc = event.target.value;
-    if (acc === "" || reg.test(acc)) {
+    const pattern = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
+    let name = event.target.value;
+    if (name === "" || pattern.test(name)) {
       formik.handleChange(event);
     }
   };
@@ -358,7 +358,7 @@ export default function Register() {
                         placeholder={ globalMessages.FirstNameEnter }
                         materialProps={ { maxLength: "30" } }
                         value={ formik.values.firstname }
-                        onChange={ (e) => NameChange(e) }
+                        onChange={ (event) => NameChange(event) }
                         onBlur={ formik.handleBlur }
                         error={
                           andLogic(formik.touched.firstname, Boolean(formik.errors.firstname))
