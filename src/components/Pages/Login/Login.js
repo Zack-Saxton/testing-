@@ -375,7 +375,7 @@ export default function Login(props) {
             <NavLink to="/register" style={ { textDecoration: "none" } }>
               <span id="helpLogin">"Sign in help/Register"</span>
             </NavLink>{ " " }
-            option and enter your registrtion details.
+            option and enter your registration details.
           </li>
         </ul>
         <ul>
