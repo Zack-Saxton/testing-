@@ -127,15 +127,16 @@ export default function StatePage(props) {
       Branch_Details.Address.length
     );
     setStateName(State.substring(0, 2));
+    
     return null
   }, []);
   
   useEffect(() => {
     display_Branch_Times();
     window.scrollTo(0, 0);
+    document.title = `Your ${Branch_Details.BranchName}, ${getStateName} Branch`;
     return null
   }, [getStateName])
-
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_SECKey,
@@ -183,15 +184,6 @@ export default function StatePage(props) {
                 onClick={() =>
                   {params.statename = StateFullName;
                   navigate(`/StatePage/${params.statename}`);
-                  // <NavLink
-                  //   to={`/branchpage/${params.Name}`}
-                  //   state={{ Name: params.Name}}
-                  //   className="nav_link"
-                  // ></NavLink>
-                  // window.open(
-                  //   `/StatePage/?Name=${StateFullName}`,
-                  //   "_self"
-                  // )
                 }}
               >
                 {StateFullName ?? ""}
@@ -373,6 +365,14 @@ export default function StatePage(props) {
                         to={`/branchpage/${item?.BranchName}`}
                         state={{ Branch_Details: item }}
                         className="nav_link"
+                        onClick={ () => {
+                          let State = item.Address.substring(
+                            item.Address.length - 8,
+                            item.Address.length
+                          );
+                          document.title = `Your ${item.BranchName}, ${State.substring(0, 2)} Branch`;
+                        }}
+                        
                       >
                         <b>
                           <h4 className={clessesforptag.h4tag}>

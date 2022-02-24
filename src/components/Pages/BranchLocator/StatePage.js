@@ -22,6 +22,7 @@ import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import Link from "@material-ui/core/Link";
 import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.png";
 import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile_Image.png";
+import TitleImage from "../../../assets/images/Favicon.png";
 import { makeStyles } from "@material-ui/core";
 import { NavLink, useParams} from "react-router-dom";
 import BranchDayTiming, { mapInformationBranchLocator } from "../../Controllers/BranchDayTiming";
@@ -153,6 +154,7 @@ export default function StatePage() {
     }
   };
   useEffect(() => {
+    document.title = `Personal Loans in ${Name} | Mariner Finance Branch | Discover More`;
     apiGetBranchList(Name);
     window.scrollTo(0,0);
     return null

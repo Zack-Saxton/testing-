@@ -155,7 +155,10 @@ export default function BranchLocator() {
     googleMapsApiKey: process.env.REACT_APP_SECKey,
     libraries: ["places"],
   });
-
+  useEffect(() => {
+    document.title = "Mariner Finance States | Personal Loans |Discover More ";
+   
+  }, []);
   const findBranchTimings = async (value) => {
     try {
       if (value) {
