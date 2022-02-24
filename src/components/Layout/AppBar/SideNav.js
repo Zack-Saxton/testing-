@@ -218,7 +218,6 @@ export default function SideNav() {
     setCurrentLoan(presenceOfLoan === true || userAccountStatus === "closed" ? true : false);
     setCheckPresenceOfLoan(presenceOfLoan);
 
-    console.log(applicationStatusRedirectPage[ checkPresenceOfLoanStatus ])
     //logic to if there is any active Loan Data is there or not
     if (noOfLoans === undefined) {
       setActiveLoanData(true);
