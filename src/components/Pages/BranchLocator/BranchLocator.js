@@ -407,7 +407,7 @@ export default function BranchLocator() {
                 return (
                   <Grid key={index} item md={4} className="locationInfo">
                     <NavLink
-                      to={`/branchpage/${item?.BranchName}`}
+                      to={`/branchpage/personal-loan-in-${item.BranchName}-${item.Address.substring(item.Address.length - 8, item.Address.length).substring(0, 2)}`}
                       state={{ Branch_Details: item }}
                       className="nav_link"
                     >
