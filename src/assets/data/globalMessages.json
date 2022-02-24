@@ -89,7 +89,7 @@
   "Nick_Name_Required": "Account Nickname is required.",
   "No_Backspace_Only": "* This field cannot contain only backspaces",
   "NoChange": "No changes made",
-  "PasswordChangedSuccessfully": "Password Changed successfully",
+ "PasswordChangedSuccessfully": "Password Changed successfully, logging you into your account.",
   "PasswordCheckOld": "Please check your old password and try again",
   "PasswordConfirmationMatch": "Your confirmation password must match your password",
   "PasswordConfirmationRequired": "Your password confirmation is required",
