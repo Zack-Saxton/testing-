@@ -140,6 +140,8 @@ function SSN() {
 		if (data.completedPage < data.page.livingPlace || data.completedPage < data.page.activeDuty || data.formStatus === "completed") {
 			navigate("/select-amount");
 		}
+		return null;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const redirectNC = data.state === "NC" ? "/active-duty" : "/living-place";

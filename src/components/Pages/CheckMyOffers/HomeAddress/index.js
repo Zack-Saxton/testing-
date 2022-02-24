@@ -74,6 +74,8 @@ function HomeAddress() {
 		if (data.completedPage < data.page.citizenship || data.formStatus === "completed") {
 			navigate("/select-amount");
 		}
+		return null;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	//Handle modal open and close
 	const handleClickOpen = () => {

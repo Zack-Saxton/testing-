@@ -112,13 +112,13 @@ export default function ActiveLoans(userActiveLoanData) {
                             </Typography>
                           </Grid>
                           <Grid item xs={ 12 } sm={ 6 }>
-                            <NavLink to={`/customers/makePayment/?accNo=${appData.loanDetails.AccountNumber}`} key={Math.random()*1000}>
-                            <ButtonPrimary
-                              id="makeAPaymentButtonStyle"
-                              stylebutton='{"float": "right","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
-                            >
-                              Make a Payment
-                            </ButtonPrimary>
+                            <NavLink to={ `/customers/makePayment/?accNo=${ appData.loanDetails.AccountNumber }` } key={ Math.random() * 1000 }>
+                              <ButtonPrimary
+                                id="makeAPaymentButtonStyle"
+                                stylebutton='{"float": "right","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
+                              >
+                                Make a Payment
+                              </ButtonPrimary>
                             </NavLink>
                           </Grid>
                         </Grid>

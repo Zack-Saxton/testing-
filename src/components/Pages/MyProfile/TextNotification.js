@@ -15,6 +15,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
+import globalMessages from "../../../assets/data/globalMessages.json";
 import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import { textNotification } from "../../Controllers/MyProfileController";
 import {
@@ -45,17 +46,17 @@ export default function TextNotification() {
 
   const phonevalidationSchema = yup.object().shape({
     phone: yup
-      .string("Enter a name")
-      .required("Your Phone number is required")
+      .string(globalMessages.NameEnter)
+      .required(globalMessages.PhoneRequired)
       .transform((value) => value.replace(/[^\d]/g, ""))
-      .matches(/^[1-9]{1}\d{2}\d{3}\d{4}$/, "Please enter a valid phone number")
-      .matches(/^(\d)(?!\1+$)\d{9}$/, "Please enter a valid phone number")
-      .min(10, "Name must contain at least 10 digits"),
+      .matches(/^[1-9]{1}\d{2}\d{3}\d{4}$/, globalMessages.PhoneValid)
+      .matches(/^(\d)(?!\1+$)\d{9}$/, globalMessages.PhoneValid)
+      .min(10, globalMessages.PhoneMin),
 
     acceptterms: yup
       .boolean()
-      .oneOf([ true ], "You must accept the terms and conditions")
-      .oneOf([ false ], "False You must accept the terms and conditions"),
+      .oneOf([ true ], globalMessages.Accept_Text_Terms)
+      .oneOf([ false ], `False ${ globalMessages.Accept_Text_Terms }`),
   });
 
   function phoneNumberMask(values) {

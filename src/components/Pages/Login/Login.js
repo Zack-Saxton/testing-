@@ -149,16 +149,16 @@ export default function Login(props) {
             applicantGuid: retVal?.data?.user?.attributes?.sor_data?.applicant_guid,
           })
         );
-        Cookies.set("cred",encryptAES(JSON.stringify({ email: values.email, password: values.password })));
+        Cookies.set("cred", encryptAES(JSON.stringify({ email: values.email, password: values.password })));
         Cookies.set("email", values.email);
-        Cookies.set("profile_picture",retVal?.data?.user?.mobile?.profile_picture ? retVal?.data?.user?.mobile?.profile_picture : "");
+        Cookies.set("profile_picture", retVal?.data?.user?.mobile?.profile_picture ? retVal?.data?.user?.mobile?.profile_picture : "");
         Cookies.set("login_date", login_date);
         Cookies.set("userToken", retVal?.data?.user?.attributes?.UserToken);
         Cookies.set("temp_opted_phone_texting", "");
         queryClient.removeQueries();
         setLoading(false);
         if (retVal?.data?.user?.attributes?.password_reset) {
-          navigate("/resetpassword");
+          navigate("/resetpassword", { state: { Email: values.email } });
         } else {
           navigate(location.state?.redirect ? location.state?.redirect : "/customers/accountoverview");
         }

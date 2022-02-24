@@ -8,10 +8,10 @@ import { NavLink } from "react-router-dom";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
 import MyBranchAPI from "../../Controllers/MyBranchController";
 import { ButtonWithIcon } from "../../FormsUI";
+import ScrollToTopOnMount from "../ScrollToTop";
 import BranchDetail from "./BranchDetail";
 import BranchMap from "./BranchMap";
 import { useStylesMyBranch } from "./Style";
-import ScrollToTopOnMount from "../ScrollToTop";
 
 export default function MyBranch() {
   window.zeHide();

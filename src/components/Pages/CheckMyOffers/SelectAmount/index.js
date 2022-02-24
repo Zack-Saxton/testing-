@@ -1,17 +1,18 @@
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import globalMessages from '../../../../assets/data/globalMessages.json';
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers as Check } from "../../../../contexts/CheckMyOffers";
+import offercodeValidation from "../../../Controllers/OfferCodeController";
 import { ButtonPrimary, Slider, TextField } from "../../../FormsUI";
 import "../CheckMyOffer.css";
-import { makeStyles } from "@material-ui/core/styles";
-import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import ScrollToTopOnMount from "../ScrollToTop";
-import globalMessages from '../../../../assets/data/globalMessages.json';
 import "./CheckMyOffer.css";
 
 //Styling part
@@ -34,6 +35,7 @@ function CheckMyOffers(props) {
 	const [ hasOfferCode, setOfferCode ] = useState("");
 	const classes = preLoginStyle();
 	const innerClasses = useStyles();
+	const navigate = useNavigate();
 	const getValidValue = (selectedValue) => {
 		let validValue = (selectedValue > 5000 && (selectedValue % 500) === 250 ? selectedValue + 250 : selectedValue);
 		if (validValue < 1000) {
@@ -46,7 +48,6 @@ function CheckMyOffers(props) {
 	let params = useParams();
 	let selectedAmount = getValidValue(params?.amount);
 	const [ select, setSelect ] = useState(data.loanAmount ? data.loanAmount : (selectedAmount ? parseInt(selectedAmount) : 10000));
-	const navigate = useNavigate();
 	let location = useLocation();
 	useEffect(() => {
 		if (selectedAmount) {
@@ -68,12 +69,18 @@ function CheckMyOffers(props) {
 		toast.error(globalMessages.Account_Closed_New_Apps);
 		navigate("/customers/accountOverview");
 	}
-	const handleRoute = (event) => {
-		data.loanAmount = select;
-		data.formStatus = "started";
-		data.completedPage = data.page.selectAmount;
-		setData({ ...data, loanAmount: select });
-		navigate("/loan-purpose");
+	const handleRoute = async (event) => {
+		let res = await offercodeValidation(data.offerCode);
+		if (res?.data?.offerData?.Message) {
+			navigate("/loan-purpose");
+		} else {
+			data.loanAmount = select;
+			data.formStatus = "started";
+			data.completedPage = data.page.selectAmount;
+			setData({ ...data, loanAmount: select });
+			toast.success("Your Application Code has been accepted");
+			navigate("/pre-approved");
+		}
 	};
 
 	// jsx part

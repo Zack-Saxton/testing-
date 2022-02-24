@@ -413,7 +413,7 @@ export default function SideNav() {
   };
 
   const handleMenuProfile = (navType) => {
-    if (navType === 'top'){
+    if (navType === 'top') {
       navigate('/customers/myProfile');
     }
     setprofileTabNumber({ profileTabNumber: 0 });
@@ -461,7 +461,7 @@ export default function SideNav() {
       open={ isMenuOpen }
       onClose={ handleMenuClose }
     >
-      <MenuItem onClick={(menuType)=> handleMenuProfile('top') } id="settingsMenuList">
+      <MenuItem onClick={ (menuType) => handleMenuProfile('top') } id="settingsMenuList">
         My Profile</MenuItem>
       <MenuItem
         disabled={ !disableField }
@@ -604,7 +604,7 @@ export default function SideNav() {
                   <List >
                     <ListItem>
                       <div id="imgWrap">
-                        <img id="sidebarProfilePic" src={ dataProfile?.profile_picture_url ? dataProfile?.profile_picture_url : getProfileImage } alt="Profile Pic" onClick={(menuType)=> handleMenuProfile('side') } />
+                        <img id="sidebarProfilePic" src={ dataProfile?.profile_picture_url ? dataProfile?.profile_picture_url : getProfileImage } alt="Profile Pic" onClick={ (menuType) => handleMenuProfile('side') } />
                       </div>
                     </ListItem>
                     <ListItem id="sidemenuName">
@@ -761,7 +761,7 @@ export default function SideNav() {
                   </ListItem>
                 </NavLink>
 
-                <NavLink to="/customers/myProfile" onClick={(menuType)=> handleMenuProfile('side') } className="nav_link">
+                <NavLink to="/customers/myProfile" onClick={ (menuType) => handleMenuProfile('side') } className="nav_link">
                   <ListItem className="titleSidenav" >
                     <ListItemIcon>
                       { " " }

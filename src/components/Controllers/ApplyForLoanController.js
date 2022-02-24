@@ -29,7 +29,7 @@ export async function submitSelectedOfferAPI(selectedOffer) {
     let addAccessToken = true;
     let data = {
       selected_offer: selectedOffer
-    }
+    };
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {

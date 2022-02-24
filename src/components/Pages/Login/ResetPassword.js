@@ -6,7 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import globalValidation from "../../../../src/assets/data/globalMessages.json";
@@ -74,7 +74,7 @@ export default function Login(props) {
     const classes = useStyles();
     const navigate = useNavigate();
     const [ loading, setLoading ] = useState(false);
-
+    let location = useLocation();
     //Form Submission
     const formik = useFormik({
         initialValues: {
@@ -151,7 +151,7 @@ export default function Login(props) {
                                                 InputLabelProps={ { style: { fontSize: 40 } } }
                                                 label="Create new password for"
                                                 materialProps={ { maxLength: "100" } }
-                                                value={ email }
+                                                value={ location.state.Email }
                                             />
                                         </Grid>
                                         <Grid

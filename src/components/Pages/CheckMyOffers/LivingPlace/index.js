@@ -57,6 +57,8 @@ function LivingPlace() {
 		if (data.completedPage < data.page.annualIncome || data.formStatus === "completed") {
 			navigate("/select-amount");
 		}
+		return null;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	//set data state on continue
 	const setDataState = (val) => {

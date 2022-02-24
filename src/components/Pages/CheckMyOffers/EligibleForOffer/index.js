@@ -26,6 +26,8 @@ function EligibleForOffers(props) {
 		if (data.completedPage < data.page.ssn && data.applicationStatus !== "referred" && props?.location?.formcomplete !== "yes") {
 			navigate("/select-amount");
 		}
+		return null;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	//JSX part
 	return (

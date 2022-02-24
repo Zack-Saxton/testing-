@@ -7,6 +7,7 @@ import { useQuery } from 'react-query';
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
+import globalMessages from "../../../assets/data/globalMessages.json";
 import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import { mailingAddress } from "../../Controllers/MyProfileController";
@@ -19,27 +20,26 @@ import {
 import ErrorLogger from '../../lib/ErrorLogger';
 import "./Style.css";
 
+
 const validationSchema = yup.object({
   streetAddress: yup
-    .string("Enter Street Address")
+    .string(globalMessages.Street_Address)
     .trim()
-    .max(100, "Should be less than 100 characters")
-    .matches(/^(?!\s+$).*/g, "* This field cannot contain only backspaces")
-    .required("Your Street Address is required"),
+    .max(100, globalMessages.Length_max_100)
+    .matches(/^(?!\s+$).*/g, globalMessages.No_Backspace_Only)
+    .required(globalMessages.Address_Street_Required),
   city: yup
-    .string("Enter City")
-    .max(30, "Should be less than 30 characters")
-    .required(
-      "Your home city is required. Please re-enter your zip code to populate your city"
-    ),
+    .string(globalMessages.Enter_City)
+    .max(30, globalMessages.Length_max_30)
+    .required(globalMessages.Address_Home_City),
   state: yup
-    .string("Enter State")
-    .max(30, "Should be less than 30 characters")
-    .required("Your home state is required."),
+    .string(globalMessages.Enter_State)
+    .max(30, globalMessages.Length_max_30)
+    .required(globalMessages.Address_State_Required),
   zip: yup
-    .string("Enter your Zip")
-    .min(5, "Zip Code should be a minimum of 5 characters")
-    .required("Your home ZIP Code is required"),
+    .string(globalMessages.ZipCodeEnter)
+    .min(5, globalMessages.ZipCodeMax)
+    .required(globalMessages.ZipCodeRequired),
 });
 
 export default function MailingAddress(props) {

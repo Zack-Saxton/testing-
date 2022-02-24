@@ -41,6 +41,16 @@ export default function HistoricalData(creditData) {
         },
       },
     },
+    scales: {
+      y: {
+        suggestedMax: 850,
+        suggestedMin: 400,
+        ticks: {
+          stepSize: 10,
+          max: 100
+        },
+      },
+    },
   };
 
   //View

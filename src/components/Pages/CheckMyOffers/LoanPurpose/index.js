@@ -78,6 +78,8 @@ function LoanPurpose(props) {
 		if (data.completedPage < data.page.selectAmount || data.formStatus === "completed") {
 			navigate("/select-amount");
 		}
+		return null;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	//handle the user data nd store it into context and procced next step
 	const handleRoute = () => {
