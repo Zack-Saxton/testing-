@@ -36,6 +36,7 @@ function CheckMyOffers(props) {
 	const classes = preLoginStyle();
 	const innerClasses = useStyles();
 	const navigate = useNavigate();
+    let  tempCounter = 0;
 	const getValidValue = (selectedValue) => {
 		let validValue = (selectedValue > 5000 && (selectedValue % 500) === 250 ? selectedValue + 250 : selectedValue);
 		if (validValue < 1000) {
@@ -70,17 +71,33 @@ function CheckMyOffers(props) {
 		navigate("/customers/accountOverview");
 	}
 	const handleRoute = async (event) => {
+    try{
+		if(data.offerCode === ""){
+			navigate("/loan-purpose");
+			return null;
+	}
 		let res = await offercodeValidation(data.offerCode);
 		if (res?.data?.offerData?.Message) {
-			navigate("/loan-purpose");
+			toast.error("Please enter a valid Offer Code. If you do not have an Offer Code please select Continue");
+			tempCounter++;
+			if(tempCounter === 2){
+              navigate("/loan-purpose")
+			}
+			
 		} else {
 			data.loanAmount = select;
 			data.formStatus = "started";
 			data.completedPage = data.page.selectAmount;
 			setData({ ...data, loanAmount: select });
+		if (res?.data?.offerData?.Message) {
+			navigate("/loan-purpose");
+		} else {
 			toast.success("Your Application Code has been accepted");
 			navigate("/pre-approved");
 		}
+	}} catch (error) {
+		ErrorLogger("Error offerCode VAlidation API", error);
+	}
 	};
 
 	// jsx part
