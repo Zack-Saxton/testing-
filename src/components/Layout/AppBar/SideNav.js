@@ -193,10 +193,7 @@ export default function SideNav() {
   const [ checkPresenceOfLoan, setCheckPresenceOfLoan ] = useState(false);
   const [ checkPresenceOfLoanStatus, setCheckPresenceOfLoanStatus ] = useState('');
   const [ isMobileDevice, setDeviceType ] = useState(false);
-  const [ pageNavigation, setPageNavigation ] = useState(null);
-
-  console.log("checkPresenceOfLoanStatus",checkPresenceOfLoanStatus)
-
+  
   const handleClickAway = () => {
     if (isMobileDevice) {
       setOpen(false);
