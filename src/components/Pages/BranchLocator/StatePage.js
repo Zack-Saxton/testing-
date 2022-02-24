@@ -28,6 +28,7 @@ import { NavLink, useParams} from "react-router-dom";
 import BranchDayTiming, { mapInformationBranchLocator } from "../../Controllers/BranchDayTiming";
 import PlacesAutocomplete from "react-places-autocomplete";
 import "@reach/combobox/styles.css";
+import { Helmet } from "react-helmet";
 const useStyles = makeStyles({
   ptag: {
     margin: "0px",
@@ -154,7 +155,7 @@ export default function StatePage() {
     }
   };
   useEffect(() => {
-    document.title = `Personal Loans in ${Name} | Mariner Finance Branch | Discover More`;
+    // document.title = `Personal Loans in ${Name} | Mariner Finance Branch | Discover More`;
     apiGetBranchList(Name);
     window.scrollTo(0,0);
     return null
@@ -168,6 +169,12 @@ export default function StatePage() {
   //View part
   return (
     <div>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Personal Loans in {Name} | Mariner Finance Branch | Discover More</title>
+        <link rel="icon" type="image/png" href={TitleImage} sizes="16x16" />
+        <meta name="description" content={`Looking for a personal loan in ${Name}?  Mariner Finance branch employees can help. Discover a ${Name} location today.`} />
+      </Helmet>
       <Grid
         container
         justifyContent={"center"}

@@ -28,7 +28,8 @@ import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile_Imag
 import "./BranchLocator.css"
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import PlacesAutocomplete from "react-places-autocomplete";
-
+import TitleImage from "../../../assets/images/Favicon.png";
+import { Helmet } from "react-helmet";
 const useStyles = makeStyles({
   ptag: {
     margin: "0px",
@@ -155,10 +156,6 @@ export default function BranchLocator() {
     googleMapsApiKey: process.env.REACT_APP_SECKey,
     libraries: ["places"],
   });
-  useEffect(() => {
-    document.title = "Mariner Finance States | Personal Loans |Discover More ";
-   
-  }, []);
   const findBranchTimings = async (value) => {
     try {
       if (value) {
@@ -594,6 +591,12 @@ export default function BranchLocator() {
   //View part
   return (
     <div>
+      <Helmet> 
+        <meta charSet="utf-8" />
+        <title>Mariner Finance States | Personal Loans |Discover More</title>
+        <link rel="icon" type="image/png" href={TitleImage} sizes="16x16" />
+        <meta name="description" content="Looking for a personal loan?  Discover which states Mariner Finance serves.  Visit a branch in one of our many states today." />
+      </Helmet>
       <Grid
         container
         justifyContent={"center"}

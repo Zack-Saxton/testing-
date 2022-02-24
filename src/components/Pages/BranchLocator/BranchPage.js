@@ -27,7 +27,8 @@ import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.png"
 import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile_Image.png";
 import { NavLink, useLocation, useParams, useNavigate } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
-
+import { Helmet } from "react-helmet";
+import TitleImage from "../../../assets/images/Favicon.png";
 const useStyles = makeStyles({
   ptag: {
     margin: "0px",
@@ -134,7 +135,8 @@ export default function StatePage(props) {
   useEffect(() => {
     display_Branch_Times();
     window.scrollTo(0, 0);
-    document.title = `Your ${Branch_Details.BranchName}, ${getStateName} Branch`;
+    document.title = `Personal Loans in  ${Branch_Details.BranchName}, ${getStateName} | Mariner Finance Branch | Discover More `;
+    
     return null
   }, [getStateName])
 
@@ -145,6 +147,11 @@ export default function StatePage(props) {
   //View part
   return (
     <div>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <link rel="icon" type="image/png" href={TitleImage} sizes="16x16" />
+        <meta name="description" content={`Looking for a personal loan in ${Branch_Details.BranchName},${getStateName} ?  Mariner Finance branch employees can help. Visit our ${Branch_Details.BranchName}, ${getStateName} location today.`} />
+      </Helmet>
       <Grid
         container
         justifyContent={"center"}
@@ -370,7 +377,7 @@ export default function StatePage(props) {
                             item.Address.length - 8,
                             item.Address.length
                           );
-                          document.title = `Your ${item.BranchName}, ${State.substring(0, 2)} Branch`;
+                          document.title = `Personal Loans in ${item.BranchName}, ${State.substring(0, 2)} | Mariner Finance Branch | Discover More`;
                         }}
                         
                       >
