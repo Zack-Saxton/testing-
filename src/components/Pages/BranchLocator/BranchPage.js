@@ -29,6 +29,8 @@ import MarinerFinanceBuilding from "../../../assets/images/mariner-finance-Build
 import { NavLink, useLocation, useParams, useNavigate } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
 import "./BranchLocator.css"
+import { Helmet } from "react-helmet";
+import TitleImage from "../../../assets/images/Favicon.png";
 const useStyles = makeStyles({
   ptag: {
     margin: "0px",
@@ -135,7 +137,8 @@ export default function StatePage(props) {
   useEffect(() => {
     display_Branch_Times();
     window.scrollTo(0, 0);
-    document.title = `Your ${Branch_Details.BranchName}, ${getStateName} Branch`;
+    document.title = `Personal Loans in  ${Branch_Details.BranchName}, ${getStateName} | Mariner Finance Branch | Discover More `;
+    
     return null
   }, [getStateName])
 
@@ -146,6 +149,11 @@ export default function StatePage(props) {
   //View part
   return (
     <div>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <link rel="icon" type="image/png" href={TitleImage} sizes="16x16" />
+        <meta name="description" content={`Looking for a personal loan in ${Branch_Details.BranchName},${getStateName} ?  Mariner Finance branch employees can help. Visit our ${Branch_Details.BranchName}, ${getStateName} location today.`} />
+      </Helmet>
       <Grid
         container
         justifyContent={"center"}
@@ -186,8 +194,8 @@ export default function StatePage(props) {
                 Home
               </Link>
               <Link
-                className="breadcrumbLink"
-                onClick={() => window.open(`/branch/branchlocator/`, "_self")}
+              className="breadcrumbLink"
+                onClick={() => window.open(`/branch-locator/`, "_self")}
               >
                 Branch Locator
               </Link>
@@ -404,7 +412,7 @@ export default function StatePage(props) {
                   return (
                     <Grid key={index} item md={4} className="locationInfo">
                       <NavLink
-                        to={`/branchpage/${item?.BranchName}`}
+                        to={`/branchpage/personal-loan-in-${item.BranchName}-${item.Address.substring(item.Address.length - 8, item.Address.length).substring(0, 2)}`}
                         state={{ Branch_Details: item }}
                         className="nav_link"
                         onClick={() => {
@@ -412,9 +420,7 @@ export default function StatePage(props) {
                             item.Address.length - 8,
                             item.Address.length
                           );
-                          document.title = `Your ${
-                            item.BranchName
-                          }, ${State.substring(0, 2)} Branch`;
+                          document.title = `Personal Loans in ${item.BranchName}, ${State.substring(0, 2)} | Mariner Finance Branch | Discover More`;
                         }}
                       >
                         <b>

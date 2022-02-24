@@ -141,7 +141,7 @@ function App() {
                                 <Route path='/eligible-for-offers' element={ loadGeneralUserComponent(<EligibleForOffers />) } />
                                 <Route path='/zipcode' element={ loadGeneralUserComponent(<ZipCode />) } />
                                 <Route path='/personal-info' element={ loadGeneralUserComponent(<PersonalInfo />) } />
-                                <Route path='/branch/branchlocator' element={ branchHeaderComponent(<BranchLocator />) } />
+                                <Route path='/branch-locator' element={ branchHeaderComponent(<BranchLocator />) } />
                                 <Route path='/branchPage' element={ branchHeaderComponent(<BranchPage />) } >
                                     <Route path=':branchname' element={branchHeaderComponent(<BranchPage />)} />
                                 </Route>
