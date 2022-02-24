@@ -23,8 +23,8 @@ import {
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import Link from "@material-ui/core/Link";
-import BranchImageWeb from "../../../assets/images/BranchLocatorWeb.png";
-import BranchImageMobile from "../../../assets/images/BranchLocatorMobile.png";
+import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.png";
+import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile_Image.png";
 import { NavLink, useLocation, useParams, useNavigate } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
 
@@ -215,8 +215,10 @@ export default function StatePage(props) {
                   {Branch_Details?.branchManager}
                 </span>
                 <span className="black-text">
-                  <small>{Branch_Details?.BranchTime?.Value1} {Branch_Details?.BranchTime?.Value2} </small>
-                  <h4>{Branch_Details?.BranchTime?.Value3}</h4>
+                {(Branch_Details?.BranchTime?.Value2 && Branch_Details?.BranchTime?.Value3)? 
+                  <h4>{Branch_Details?.BranchTime?.Value3}</h4> :
+                  <h4>{Branch_Details?.BranchTime?.Value1} {Branch_Details?.BranchTime?.Value2} </h4>
+                }
                   <span>Business Hours</span>
                   {branchHours ? branchHours.map((ele, index) => {
                     return (<div key={index}>{ele} </div>)
