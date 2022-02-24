@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import Logo from "../../../assets/images/loginbg.png";
-import LoginController from "../../Controllers/LoginController";
+import LoginController, { RegisterController } from "../../Controllers/LoginController";
 import LogoutController from "../../Controllers/LogoutController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
 import {
@@ -115,6 +115,7 @@ export default function Register() {
   myDate.setDate(myDate.getDate() - 6571);
 
   const loginUser = async (values) => {
+    try{
     let retVal = await LoginController(values.email, values.password, "");
     if (retVal?.data?.user && retVal?.data?.userFound === true) {
       let rememberMe = false;
@@ -159,6 +160,9 @@ export default function Register() {
       setLoading(false);
       alert("Network error");
     }
+  } catch (error) {
+		ErrorLogger("Error executing Login API", error);
+	}
   };
   //Form Submission
   const queryParams = new URLSearchParams(window.location.search);
@@ -195,18 +199,7 @@ export default function Register() {
       };
       //API call
       try {
-        let customerStatus = await axios({
-          method: "POST",
-          url: "/customer/register_new_user",
-          data: JSON.stringify(body),
-          headers: {
-            "Content-Type": "application/json",
-          },
-          transformRequest: (data, headers) => {
-            delete headers.common[ "Content-Type" ];
-            return data;
-          },
-        });
+        let customerStatus = await RegisterController(body);
 
         if (
           (customerStatus.data?.customerFound === false && customerStatus.data?.userFound === false && customerStatus.data?.is_registration_failed === false) ||
@@ -596,9 +589,7 @@ export default function Register() {
                         stylebutton='{"background": "", "color":"", "fontSize" : "15px ! important", "padding" : "0px 30px" }'
                         disabled={ loading }
                       >
-                        {/* <Typography align="center" className="textCSS "> */ }
                         Sign in
-                        {/* </Typography> */ }
                         <i
                           className="fa fa-refresh fa-spin customSpinner"
                           style={ {
