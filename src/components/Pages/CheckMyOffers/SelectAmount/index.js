@@ -88,9 +88,15 @@ function CheckMyOffers(props) {
 			data.formStatus = "started";
 			data.completedPage = data.page.selectAmount;
 			setData({ ...data, loanAmount: select });
+		if (res?.data?.offerData?.Message) {
+			navigate("/loan-purpose");
+		} else {
 			toast.success("Your Application Code has been accepted");
 			navigate("/pre-approved");
 		}
+	} catch (error) {
+		ErrorLogger("Error offerCode VAlidation API", error);
+	}
 	};
 
 	// jsx part
