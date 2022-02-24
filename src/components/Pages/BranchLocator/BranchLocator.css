@@ -175,6 +175,7 @@
     text-decoration: none;
     display: flex;
     align-items: center;
+    margin-top: 10px;
 }
 #branchLists {
   background-color: f6f6f6;
@@ -317,6 +318,17 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
   display: block;
   margin: 15px 0px;
 }
+.businessHours{
+  padding-left: 14px;
+}
+.businessHours h4 {
+  margin: 0px 0px 12px 0px;
+}
+.businessHoursSpan{
+  font-weight: bolder;
+  padding-bottom: 5px;
+  display: block;
+}
 .PesonalLoanMapHeading {
   font-size: 1.538rem;
   font-weight: 500;
@@ -426,6 +438,68 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
    text-decoration: none;
  }
 
+ .branchInfo{
+  background-color: white;
+  border-radius: 10px;
+  padding: 17px 25px 20px 25px;
+  box-shadow: 0 11px 17px 2px rgb(0 0 0 / 14%), 0 6px 30px 8px rgb(0 0 0 / 12%), 0 5px 3px -7px rgb(0 0 0 / 20%);
+  margin-top: 18px;
+ }
+
+ .marinerFinanceBuildingImage{
+  width: 250px;
+  object-fit: cover;
+  height: 150px;
+ }
+ .branchAddressSpan{
+   margin: 0px;
+ }
+ .branchDetailsWrap{
+   margin: 15px 0px;
+ }
+
+ .branchManager{
+  padding-left: 14px;
+}
+
+ .branchManager small{
+  font-weight: bolder;
+  font-size: 15px;
+}
+.weekdays{
+  font-size: 14px;
+  padding-bottom: 1.5px;
+}
+.secondaryButtonWrap{
+  justify-content: center;
+}
+
+.learnMoreLinks a{
+  color: #214476;
+}
+.greyBackgroundWrap{
+  margin: auto;
+  width: 90%;
+  padding: 20px 30px;
+  border-radius: 10px;
+  background-color: #EBEBEB;
+  margin: 60px auto 0px auto;
+}
+.applyOnlineHeading{
+  text-align: center;
+  font-size: 1.563rem !important;
+  font-weight: bolder !important;
+  color: #171717;
+}
+.applyOnlineParagraph{
+  text-align: center;
+  font-size: 1.1rem !important;
+  color: #595959;
+}
+.applyOnlineButton{
+  justify-content: center;
+  padding: 50px 0px 30px 0px;
+}
 @media (max-width: 960px) {
   .mobileImage{
     display: block;

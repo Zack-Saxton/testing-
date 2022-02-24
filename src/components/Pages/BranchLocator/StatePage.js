@@ -1,5 +1,5 @@
 import Grid from "@material-ui/core/Grid";
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import PhoneIcon from "@material-ui/icons/Phone";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
@@ -75,7 +75,7 @@ export default function StatePage() {
   const clessesforptag = useStyles();
   const [address1, setAddress1] = React.useState("");
   const [address2, setAddress2] = React.useState("");
-
+  const mapSection = useRef();
   //API call
   const getBranchLists = async (search_text) => {
     try {
@@ -125,6 +125,7 @@ export default function StatePage() {
     if (address1 !== "") {
       apiGetBranchList(address1);
       clearSearchText();
+      mapSection.current.scrollIntoView({ behavior: 'smooth' })
     } else if (address2 !== "") {
       apiGetBranchList(address2);
       clearSearchText();
@@ -208,7 +209,7 @@ export default function StatePage() {
               </Link>
             </Breadcrumbs>
             <Grid id="findBranchWrapTwo" >
-              <h4 className={classes.headigText}>Find a Branch in {Name}</h4>
+              <h4 className={classes.headigText}>Personal Loan in {Name}</h4>
               <Grid id="findBranchGrid">
                 <SearchIcon className="searchIcon" style={{ color: "white" }} />
                 <PlacesAutocomplete
@@ -276,6 +277,7 @@ export default function StatePage() {
           </Grid>
         </Grid>
         <Grid
+          ref={mapSection}
           style={{ padding: "4% 30px 4% 30px", backgroundColor: "#f6f6f6" }}
           container
         >

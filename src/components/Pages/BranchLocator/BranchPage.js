@@ -25,9 +25,10 @@ import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import Link from "@material-ui/core/Link";
 import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.png";
 import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile_Image.png";
+import MarinerFinanceBuilding from "../../../assets/images/mariner-finance-Building.jpeg";
 import { NavLink, useLocation, useParams, useNavigate } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
-
+import "./BranchLocator.css"
 const useStyles = makeStyles({
   ptag: {
     margin: "0px",
@@ -152,11 +153,22 @@ export default function StatePage(props) {
       >
         <Grid container style={{ width: "100%" }}>
           <Grid className="branchImage" item md={6} sm={12} xs={12}>
-            <img className="mobileImage" src={BranchImageMobile} alt="MF Banner" />
-          <img className="webImage" src={BranchImageWeb} alt="MF Banner" />
+            <img
+              className="mobileImage"
+              src={BranchImageMobile}
+              alt="MF Banner"
+            />
+            <img className="webImage" src={BranchImageWeb} alt="MF Banner" />
           </Grid>
 
-          <Grid className="greyBackground" style={{ padding: "2% 4%" }} item md={6} sm={12} xs={12}>
+          <Grid
+            className="greyBackground"
+            style={{ padding: "2% 4%" }}
+            item
+            md={6}
+            sm={12}
+            xs={12}
+          >
             <Breadcrumbs
               className="breadcrumbWrap"
               separator={
@@ -168,66 +180,94 @@ export default function StatePage(props) {
               aria-label="breadcrumb"
             >
               <Link
-              className="breadcrumbLink"
+                className="breadcrumbLink"
                 onClick={() => window.open(`/`, "_self")}
               >
                 Home
               </Link>
               <Link
-              className="breadcrumbLink"
+                className="breadcrumbLink"
                 onClick={() => window.open(`/branch/branchlocator/`, "_self")}
               >
                 Branch Locator
               </Link>
               <Link
-              className="breadcrumbLink"
-                onClick={() =>
-                  {params.statename = StateFullName;
+                className="breadcrumbLink"
+                onClick={() => {
+                  params.statename = StateFullName;
                   navigate(`/StatePage/${params.statename}`);
                 }}
               >
                 {StateFullName ?? ""}
               </Link>
-              <Link
-              className="breadcrumbLink"
-              >
+              <Link className="breadcrumbLink">
                 Your {Branch_Details.BranchName}, {getStateName} Branch
               </Link>
             </Breadcrumbs>
-            <Grid>
+            <Grid className="branchInfo">
               <h4 className="branchLocatorHeadingMain">
                 <strong>
                   Your {Branch_Details.BranchName}, {getStateName} Branch
                 </strong>
               </h4>
-                <span className="black-text">{Branch_Details?.Address}</span>
-                <span className="black-text">
+              <Grid container>
+                <Grid 
+                className="marinerFinanceBuildingImageWrap"
+                  item
+                  sm={6}
+                  md={6}
+                  lg={6}>
+                  <img
+                  
+                  className="marinerFinanceBuildingImage"
+                  src={MarinerFinanceBuilding}
+                />
+                </Grid>
+                
+
+                <Grid item sm={6} md={6} lg={6} className="businessHours">
+                  {Branch_Details?.BranchTime?.Value2 &&
+                  Branch_Details?.BranchTime?.Value3 ? (
+                    <h4>{Branch_Details?.BranchTime?.Value3}</h4>
+                  ) : (
+                    <h4>
+                      {Branch_Details?.BranchTime?.Value1}{" "}
+                      {Branch_Details?.BranchTime?.Value2}{" "}
+                    </h4>
+                  )}
+                  <span className="businessHoursSpan">Business Hours</span>
+                  {branchHours
+                    ? branchHours.map((ele, index) => {
+                        return <div className="weekdays" key={index}>{ele} </div>;
+                      })
+                    : ""}
+                </Grid>
+              </Grid>
+              <Grid className="branchDetailsWrap" container>
+                <Grid item sm={6} md={6} lg={6}>
+                  <span className="branchAddressSpan">{Branch_Details?.Address}</span>
+                  <span>
+                    {/* <small>Phone Number</small> */}
+                    {/* <br /> */}
+                    <a
+                      href={"tel:+1" + Branch_Details?.PhoneNumber}
+                      className="branchPhoneNumber"
+                    >
+                      <PhoneIcon />
+                      {Branch_Details?.PhoneNumber}
+                    </a>
+                  </span>
+                </Grid>
+
+                <Grid item sm={6} md={6} lg={6} className="branchManager">
                   <small>Branch Manager</small>
                   <br />
                   {Branch_Details?.branchManager}
-                </span>
-                <span className="black-text">
-                {(Branch_Details?.BranchTime?.Value2 && Branch_Details?.BranchTime?.Value3)? 
-                  <h4>{Branch_Details?.BranchTime?.Value3}</h4> :
-                  <h4>{Branch_Details?.BranchTime?.Value1} {Branch_Details?.BranchTime?.Value2} </h4>
-                }
-                  <span>Business Hours</span>
-                  {branchHours ? branchHours.map((ele, index) => {
-                    return (<div key={index}>{ele} </div>)
-                  }) : ""}
-                </span>
-                <span className="black-text">
-                  <small>Phone Number</small>
-                  <br />
-                  <a
-                    href={"tel:+1" + Branch_Details?.PhoneNumber}
-                    className="branchPhoneNumber"
-                  >
-                    <PhoneIcon/>
-                    {Branch_Details?.PhoneNumber}
-                  </a>
-                </span>
-              <ButtonPrimary
+                </Grid>
+              </Grid>
+
+              <Grid className="secondaryButtonWrap" container>
+                 <ButtonSecondary
                 onClick={() => {
                   setBranchAddress(
                     "https://www.google.com/maps/search/" +
@@ -238,7 +278,9 @@ export default function StatePage(props) {
                 stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
               >
                 Get Directions
-              </ButtonPrimary>
+              </ButtonSecondary>
+              </Grid>
+             
             </Grid>
           </Grid>
         </Grid>
@@ -365,14 +407,15 @@ export default function StatePage(props) {
                         to={`/branchpage/${item?.BranchName}`}
                         state={{ Branch_Details: item }}
                         className="nav_link"
-                        onClick={ () => {
+                        onClick={() => {
                           let State = item.Address.substring(
                             item.Address.length - 8,
                             item.Address.length
                           );
-                          document.title = `Your ${item.BranchName}, ${State.substring(0, 2)} Branch`;
+                          document.title = `Your ${
+                            item.BranchName
+                          }, ${State.substring(0, 2)} Branch`;
                         }}
-                        
                       >
                         <b>
                           <h4 className={clessesforptag.h4tag}>
@@ -417,6 +460,32 @@ export default function StatePage(props) {
               )}
             </Grid>
           </Grid>
+        </Grid>
+        <Grid item md={10}>
+          <Typography className="learnMoreLinks">
+          Learn more about our <a href="https://www.marinerfinance.com/personal-loans/">personal loans</a>, <a href="https://www.marinerfinance.com/car-loans/">car loans</a>, <a href="https://www.marinerfinance.com/personal-loans/debt-consolidation-loans/">debt consolidation loans</a>, <a href="https://www.marinerfinance.com/personal-loans/home-improvement-loans/">home improvement loans</a>, <a href="https://www.marinerfinance.com/personal-loans/vacation-loans/">vacation loans</a>, and <a href="https://www.marinerfinance.com/personal-loans/wedding-loans/">wedding loans</a>. 
+          </Typography>
+        </Grid>
+
+        <Grid item md={10}>
+          <Grid className="greyBackgroundWrap">
+            <Typography className="applyOnlineHeading">
+          Can't get to a branch? No worries, apply for an online loan today!
+          </Typography>
+          <Typography className="applyOnlineParagraph">
+          Apply now! Loans starting from $1k up to $25k | Fast Application | Quick Decision | ACH Money Transfers Available
+          </Typography>
+          <Grid container className="applyOnlineButton">
+            <ButtonPrimary 
+            stylebutton='{"padding":"24px 34px","fontWeight":"900", "fontSize":"1.25rem","fontFamily":"Muli,sans-serif"}'
+          >
+            Apply Online Now
+          </ButtonPrimary>
+          </Grid>
+          
+          </Grid>
+          
+          
         </Grid>
         <Grid className="blueBGColor">
           <h4>Customer Ratings</h4>

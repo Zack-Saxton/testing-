@@ -23,23 +23,23 @@ export default function BranchLocatorFooter() {
       description: [
         {
           name: "Unexpected Expenses",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/personal-loans/unexpected-expenses/",
         },
         {
           name: "Vacation Loans",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/personal-loans/vacation-loans/",
         },
         {
           name: "Loan for Debt Consolidation",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/personal-loans/debt-consolidation-loans/",
         },
         {
           name: "Loan for Home Improvements",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/personal-loans/home-improvement-loans/",
         },
         {
           name: "Wedding Loans",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/personal-loans/wedding-loans/",
         },
       ],
     },
@@ -48,15 +48,15 @@ export default function BranchLocatorFooter() {
       description: [
         {
           name: "Facebook",
-          link: "#",
+          link: "https://www.facebook.com/MarinerFinance/",
         },
         {
           name: "Twitter",
-          link: "#",
+          link: "https://twitter.com/MarinerFinance",
         },
         {
           name: "LinkedIn",
-          link: "#",
+          link: "https://www.linkedin.com/company/mariner-finance/",
         },
       ],
     },
@@ -65,15 +65,15 @@ export default function BranchLocatorFooter() {
       description: [
         {
           name: "Auto Refinancing Loan",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/car-loans/auto-refinance/",
         },
         {
           name: "Finance Car Loan",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/car-loans/new-car-loan/",
         },
         {
           name: "Finance a Used Car",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/car-loans/used-car-loan/",
         },
       ],
     },
@@ -82,23 +82,19 @@ export default function BranchLocatorFooter() {
       description: [
         {
           name: "Mortgage Loans",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/home-loans/mortgage-loans/",
         },
         {
           name: "Home Refinance",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/home-loans/home-refinance/",
         },
         {
           name: "FHA Loans and VA Loans",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/home-loans/fha-and-va-loans/",
         },
         {
-          name: "Meet our Loan",
-          link: "#",
-        },
-        {
-          name: "Officers",
-          link: "#",
+          name: "Meet our Loan Officers",
+          link: "https://wps-qa.marinerfinance.io/home-loans/meet-our-loan-officers/",
         },
       ],
     },
@@ -107,19 +103,19 @@ export default function BranchLocatorFooter() {
       description: [
         {
           name: "How to apply for a Personal Loan",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/resources/how-to-apply/",
         },
         {
           name: "FAQ",
-          link: "#",
+          link: "/faq",
         },
         {
           name: "Blog",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/blog/",
         },
         {
           name: "Mariner States",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/state/",
         },
       ],
     },
@@ -128,19 +124,19 @@ export default function BranchLocatorFooter() {
       description: [
         {
           name: "Why Us",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/why-mariner-finance/",
         },
         {
           name: "Branch Locator",
-          link: "#",
+          link: "branch/branchlocator",
         },
         {
           name: "Customer Support",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/customer-support/",
         },
         {
           name: "Careers",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/why-mariner-finance/careers/",
         },
       ],
     },
@@ -149,11 +145,11 @@ export default function BranchLocatorFooter() {
       description: [
         {
           name: "COVID-19",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/coronavirus-covid-19-information/",
         },
         {
           name: "Disaster Information Hurricane Dorian",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/coronavirus-covid-19-information/",
         },
       ],
     },
@@ -162,27 +158,27 @@ export default function BranchLocatorFooter() {
       description: [
         {
           name: "Community Guidelines",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/resources/legal/#fusion-tab-communityguidelines",
         },
         {
           name: "Privacy Statement",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/resources/legal/#fusion-tab-privacystatement",
         },
         {
           name: "Terms of Use",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/resources/legal/#fusion-tab-termsofuse",
         },
         {
           name: "Licensing and Disclosure",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/resources/legal/#fusion-tab-licensing&disclosures",
         },
         {
           name: "Texting Terms of Use",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/resources/legal/#fusion-tab-textingtermsofuse",
         },
         {
           name: "Website Accessibility",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/resources/legal/#fusion-tab-websiteaccessibilitystatement",
         },
       ],
     },
@@ -206,20 +202,26 @@ export default function BranchLocatorFooter() {
               <Grid item xs={6} sm={3} key={Math.random() * 1000}>
                 {nested.map((element) => (
                   <div key={element.title} style={{ marginBottom: "30px" }}>
-                    <Typography className="title" gutterBottom>
+                    <Typography className="footerLinkstitle" gutterBottom>
                       {element.title}
                     </Typography>
                     {element.title === "Stay Connected" ? (
                       <Grid>
-                        <IconButton>
+                        <a target="_blank" href="https://www.facebook.com/MarinerFinance/">
+                        <IconButton className="socialIcons">
                           <FacebookIcon />
                         </IconButton>
-                        <IconButton>
+                        </a>
+                        <a target="_blank" href="https://twitter.com/MarinerFinance">
+                        <IconButton className="socialIcons">
                           <TwitterIcon />
                         </IconButton>
-                        <IconButton>
+                        </a>
+                        <a target="_blank" href="https://www.linkedin.com/company/mariner-finance/">
+                        <IconButton className="socialIcons">
                           <LinkedInIcon />
                         </IconButton>
+                        </a>
                       </Grid>
                     ) : (
                       element.description.map((item) => (
@@ -228,7 +230,7 @@ export default function BranchLocatorFooter() {
                           key={Math.random() * 1000}
                         >
                           <li key={item.name} style={{ listStyleType: "none" }}>
-                            <a href="#" className="hrefTag">
+                            <a href={item.link} className="hrefTag">
                               {item.name}
                             </a>
                           </li>
