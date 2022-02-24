@@ -23,9 +23,9 @@ import {
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import Link from "@material-ui/core/Link";
-import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.png";
-import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile_Image.png";
-import { NavLink, useLocation } from "react-router-dom";
+import BranchImageWeb from "../../../assets/images/BranchLocatorWeb.png";
+import BranchImageMobile from "../../../assets/images/BranchLocatorMobile.png";
+import { NavLink, useLocation, useParams, useNavigate } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles({
@@ -69,7 +69,9 @@ export default function StatePage(props) {
   const location = useLocation();
   const { Branch_Details } = location.state;
   const [branchHours, setBranchHours] = useState();
+  const navigate = useNavigate();
   let StateFullName = MFStates[MFStateShort.indexOf(getStateName)];
+  let params = useParams();
   //API call
   const getBranchLists = async (search_text) => {
     try {
@@ -126,14 +128,12 @@ export default function StatePage(props) {
     );
     setStateName(State.substring(0, 2));
     return null
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
   useEffect(() => {
     display_Branch_Times();
     window.scrollTo(0, 0);
     return null
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getStateName])
 
 
@@ -181,11 +181,18 @@ export default function StatePage(props) {
               <Link
               className="breadcrumbLink"
                 onClick={() =>
-                  window.open(
-                    `/StatePage/?Name=${StateFullName}`,
-                    "_self"
-                  )
-                }
+                  {params.statename = StateFullName;
+                  navigate(`/StatePage/${params.statename}`);
+                  // <NavLink
+                  //   to={`/branchpage/${params.Name}`}
+                  //   state={{ Name: params.Name}}
+                  //   className="nav_link"
+                  // ></NavLink>
+                  // window.open(
+                  //   `/StatePage/?Name=${StateFullName}`,
+                  //   "_self"
+                  // )
+                }}
               >
                 {StateFullName ?? ""}
               </Link>
