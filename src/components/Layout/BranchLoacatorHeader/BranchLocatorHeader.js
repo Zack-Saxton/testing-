@@ -53,7 +53,7 @@ const BranchLocatorHeader = () => {
         </NavLink>
       </MenuItem>
       <MenuItem className="branchLocatorLink">
-        <NavLink to="/branch/branchlocator" className="nav_link">
+        <NavLink to="/branch-locator" className="nav_link">
           <Typography className={classes.headerAlign}>Branch Locator</Typography>
         </NavLink>
       </MenuItem>
@@ -74,22 +74,22 @@ const BranchLocatorHeader = () => {
           </Typography>
           <div className={ classes.grow } />
           <div className={ classes.sectionDesktop }>
-          <NavLink className="branchHeaderLinksFirst" to="/branch/branchlocator" style={ { textDecoration: "none" } }>
+          <NavLink className="branchHeaderLinksFirst" to="/branch-locator" style={ { textDecoration: "none" } }>
               <Typography className={ classes.subtitle }>Personal Loans</Typography>
             </NavLink>
-          <NavLink className="branchHeaderLinksFirst" to="/branch/branchlocator" style={ { textDecoration: "none" } }>
+            <NavLink className="branchHeaderLinksFirst" to="/branch-locator" style={ { textDecoration: "none" } }>
               <Typography className={ classes.subtitle }>Car Loans</Typography>
             </NavLink>
-          <NavLink className="branchHeaderLinks" to="/branch/branchlocator" style={ { textDecoration: "none" } }>
+            <NavLink className="branchHeaderLinks" to="/branch-locator" style={ { textDecoration: "none" } }>
               <Typography className={ classes.subtitle }>Home Loans</Typography>
             </NavLink>
-            <NavLink className="branchHeaderLinks" to="/branch/branchlocator" style={ { textDecoration: "none" } }>
+            <NavLink className="branchHeaderLinks" to="/branch-locator" style={ { textDecoration: "none" } }>
               <Typography className={ classes.subtitle }>Resources</Typography>
             </NavLink>
-            <NavLink to="/branch/branchlocator" className="nav_link branchHeaderLinks">
+            <NavLink to="/branch-locator" className="nav_link branchHeaderLinks">
               <Typography className={classes.subtitle}>Why Us?</Typography>
             </NavLink>
-            <NavLink to="/branch/branchlocator" className="nav_link branchHeaderLinks">
+            <NavLink to="/branch-locator" className="nav_link branchHeaderLinks">
               <Typography className={classes.subtitle}>Mail Offer?</Typography>
             </NavLink>
             <NavLink to="/login" className="nav_link branchHeaderLinks">

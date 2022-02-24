@@ -23,7 +23,7 @@ const BranchHeaderLayout = ({ children }) => {
             <NavLink className="topBarLinkTwo" to="/faq" style={ { textDecoration: "none" } }>
               <Typography >Customer Support</Typography>
             </NavLink>
-            <NavLink to="/branch/branchlocator" className="nav_link topBarLinkThree">
+            <NavLink to="/branch-locator" className="nav_link topBarLinkThree">
               <Typography >Branch Locator</Typography>
             </NavLink>
           </div> 
