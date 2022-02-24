@@ -16,6 +16,7 @@
     align-items: center;
     justify-content: center;
 	min-height: 93vh;
+	background-color: #f6f6f6 !important;
 }
 #main-content {
 	width: 100%;
