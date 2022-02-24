@@ -193,6 +193,9 @@ export default function SideNav() {
   const [ checkPresenceOfLoan, setCheckPresenceOfLoan ] = useState(false);
   const [ checkPresenceOfLoanStatus, setCheckPresenceOfLoanStatus ] = useState('');
   const [ isMobileDevice, setDeviceType ] = useState(false);
+  const [ pageNavigation, setPageNavigation ] = useState(null);
+
+  console.log("checkPresenceOfLoanStatus",checkPresenceOfLoanStatus)
 
   const handleClickAway = () => {
     if (isMobileDevice) {
@@ -215,6 +218,7 @@ export default function SideNav() {
     setCurrentLoan(presenceOfLoan === true || userAccountStatus === "closed" ? true : false);
     setCheckPresenceOfLoan(presenceOfLoan);
 
+    console.log(applicationStatusRedirectPage[ checkPresenceOfLoanStatus ])
     //logic to if there is any active Loan Data is there or not
     if (noOfLoans === undefined) {
       setActiveLoanData(true);
@@ -228,6 +232,13 @@ export default function SideNav() {
       setCurrentLoan({});
     };
   }, [ dataAccountOverview, activeLoanData, currentLoan ]);
+
+  const handleResumeApplication = () => {
+    navigate(applicationStatusRedirectPage[ checkPresenceOfLoanStatus ]);
+
+};
+// console.log("pageNavigation",pageNavigation)
+
 
   //Material UI media query for responsiveness
   let check = useMediaQuery("(min-width:960px)");
@@ -413,6 +424,7 @@ export default function SideNav() {
     setprofileTabNumber({ profileTabNumber: 3 });
     handleMenuClose();
   };
+
 
   function logOut() {
     setAnchorEl(null);
@@ -654,7 +666,9 @@ export default function SideNav() {
                 </NavLink>
 
                 { checkPresenceOfLoan === true ?
-                  <NavLink to={ applicationStatusRedirectPage[ checkPresenceOfLoanStatus ] } state={ { from: "user" } } className="nav_link" >
+                checkPresenceOfLoanStatus === "approved" ?
+                
+                <NavLink   to = "/customers/receiveYourMoney" className="nav_link" >
                     <ListItem className="titleSidenav" >
                       <ListItemIcon>
                         { " " }
@@ -663,6 +677,59 @@ export default function SideNav() {
                       <ListItemText> Resume Application </ListItemText>
                     </ListItem>
                   </NavLink>
+                  :
+
+                  checkPresenceOfLoanStatus === "completing_application" ||
+                  checkPresenceOfLoanStatus === "signature_complete" ||
+                  checkPresenceOfLoanStatus === "closing_process" ?
+                
+                <NavLink   to = "/customers/finalVerification" className="nav_link" >
+                    <ListItem className="titleSidenav" >
+                      <ListItemIcon>
+                        { " " }
+                        <MonetizationOnRoundedIcon />{ " " }
+                      </ListItemIcon>
+                      <ListItemText> Resume Application </ListItemText>
+                    </ListItem>
+                  </NavLink>
+                  :
+                  
+                  checkPresenceOfLoanStatus === "offers_available" ?                
+                <NavLink   to = "/customers/selectOffer" className="nav_link" >
+                    <ListItem className="titleSidenav" >
+                      <ListItemIcon>
+                        { " " }
+                        <MonetizationOnRoundedIcon />{ " " }
+                      </ListItemIcon>
+                      <ListItemText> Resume Application </ListItemText>
+                    </ListItem>
+                  </NavLink> 
+                  :
+                  
+                  checkPresenceOfLoanStatus === "offer_selected" ?                
+                <NavLink   to = "/customers/reviewAndSign" className="nav_link" >
+                    <ListItem className="titleSidenav" >
+                      <ListItemIcon>
+                        { " " }
+                        <MonetizationOnRoundedIcon />{ " " }
+                      </ListItemIcon>
+                      <ListItemText> Resume Application </ListItemText>
+                    </ListItem>
+                  </NavLink>
+                  :
+                  
+                  <Link  
+                  
+                to = {applicationStatusRedirectPage[ checkPresenceOfLoanStatus]} className="nav_link" >
+
+                   <ListItem className="titleSidenav" >
+                     <ListItemIcon>
+                       { " " }
+                       <MonetizationOnRoundedIcon />{ " " }
+                     </ListItemIcon>
+                     <ListItemText> Resume Application </ListItemText>
+                   </ListItem>
+                 </Link>
                   :
                   <NavLink id="applyForLoanNav" to="/customers/applyForLoan" state={ { from: "user" } } onClick={ (event) => { currentLoan ? event.preventDefault() : ""; } } className={ currentLoan ? "nav_link_disabled" : "nav_link" } >
                     <ListItem className="titleSidenav" disabled={ currentLoan }>
@@ -674,7 +741,7 @@ export default function SideNav() {
                     </ListItem>
                   </NavLink> }
 
-                <NavLink to="/customers/loanDocument" onClick={ (event) => { activeLoanData && checkPresenceOfLoanStatus !== "under_review" && checkPresenceOfLoanStatus !== "final_review" && event.preventDefault(); } } className={ activeLoanData && checkPresenceOfLoanStatus !== "under_review" && checkPresenceOfLoanStatus !== "final_review" ? 'nav_link_disabled' : 'nav_link' }>
+                <NavLink to="/customers/loanDocument" onClick={ (event) => { activeLoanData && checkPresenceOfLoanStatus !== "under_review" && checkPresenceOfLoanStatus !== "final_review" && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : 'nav_link' }>
                   <ListItem className="titleSidenav" disabled={ activeLoanData === true && checkPresenceOfLoanStatus !== "under_review" && checkPresenceOfLoanStatus !== "final_review" ? true : false }>
                     <ListItemIcon>
                       { " " }
@@ -684,7 +751,7 @@ export default function SideNav() {
                   </ListItem>
                 </NavLink>
 
-                <NavLink to="/customers/myBranch" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : 'nav_link' }>
+                <NavLink  id = "mybranchNav" to="/customers/myBranch" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : 'nav_link' }>
                   <ListItem className="titleSidenav" disabled={ activeLoanData }>
                     <ListItemIcon>
                       { " " }
