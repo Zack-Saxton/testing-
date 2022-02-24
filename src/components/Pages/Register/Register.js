@@ -115,50 +115,54 @@ export default function Register() {
   myDate.setDate(myDate.getDate() - 6571);
 
   const loginUser = async (values) => {
-    let retVal = await LoginController(values.email, values.password, "");
-    if (retVal?.data?.user && retVal?.data?.userFound === true) {
-      let rememberMe = false;
-      var now = new Date().getTime();
-      LogoutController();
-      Cookies.set("redirec", JSON.stringify({ to: "/select-amount" }));
-      Cookies.set(
-        "token",
-        JSON.stringify({
-          isLoggedIn: true,
-          apiKey: retVal?.data?.user?.extensionattributes?.login?.jwt_token,
-          setupTime: now,
-        })
-      );
-      Cookies.set(
-        "cred",
-        encryptAES(
+    try {
+      let retVal = await LoginController(values.email, values.password, "");
+      if (retVal?.data?.user && retVal?.data?.userFound === true) {
+        let rememberMe = false;
+        var now = new Date().getTime();
+        LogoutController();
+        Cookies.set("redirec", JSON.stringify({ to: "/select-amount" }));
+        Cookies.set(
+          "token",
           JSON.stringify({
-            email: values.email,
-            password: values.password,
+            isLoggedIn: true,
+            apiKey: retVal?.data?.user?.extensionattributes?.login?.jwt_token,
+            setupTime: now,
           })
-        )
-      );
-      queryClient.removeQueries();
-      rememberMe === true
-        ? Cookies.set(
-          "rememberMe",
-          JSON.stringify({
-            selected: true,
-            email: values.email,
-            password: values.password,
-          })
-        )
-        : Cookies.set("rememberMe", JSON.stringify({ selected: false, email: "", password: "" }));
+        );
+        Cookies.set(
+          "cred",
+          encryptAES(
+            JSON.stringify({
+              email: values.email,
+              password: values.password,
+            })
+          )
+        );
+        queryClient.removeQueries();
+        rememberMe === true
+          ? Cookies.set(
+            "rememberMe",
+            JSON.stringify({
+              selected: true,
+              email: values.email,
+              password: values.password,
+            })
+          )
+          : Cookies.set("rememberMe", JSON.stringify({ selected: false, email: "", password: "" }));
 
-      setLoading(false);
-      navigate("/customers/accountoverview");
-    } else if (retVal?.data?.result === "error" || retVal?.data?.hasError === true) {
-      Cookies.set("token", JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" }));
-      setLoading(false);
-    } else {
-      setLoading(false);
-      alert("Network error");
-    }
+        setLoading(false);
+        navigate("/customers/accountoverview");
+      } else if (retVal?.data?.result === "error" || retVal?.data?.hasError === true) {
+        Cookies.set("token", JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" }));
+        setLoading(false);
+      } else {
+        setLoading(false);
+        alert("Network error");
+      }
+    } catch (error) {
+      ErrorLogger(" Error found in login user", error);
+    }    
   };
   //Form Submission
   const queryParams = new URLSearchParams(window.location.search);
@@ -241,9 +245,9 @@ export default function Register() {
   });
 
   const NameChange = (event) => {
-    const reg = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
-    let acc = event.target.value;
-    if (acc === "" || reg.test(acc)) {
+    const pattern = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
+    let name = event.target.value;
+    if (name === "" || pattern.test(name)) {
       formik.handleChange(event);
     }
   };
@@ -365,7 +369,7 @@ export default function Register() {
                         placeholder={ globalMessages.FirstNameEnter }
                         materialProps={ { maxLength: "30" } }
                         value={ formik.values.firstname }
-                        onChange={ (e) => NameChange(e) }
+                        onChange={ (event) => NameChange(event) }
                         onBlur={ formik.handleBlur }
                         error={
                           andLogic(formik.touched.firstname, Boolean(formik.errors.firstname))
