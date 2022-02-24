@@ -5,6 +5,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import MoreIcon from "@material-ui/icons/MoreVert";
+import { ButtonPrimary } from "../../FormsUI";
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Logo from "../../../assets/images/mf-logo.png";
@@ -73,11 +74,14 @@ const BranchLocatorHeader = () => {
           </Typography>
           <div className={ classes.grow } />
           <div className={ classes.sectionDesktop }>
-          <NavLink className="branchHeaderLinksFirst" to="/faq" style={ { textDecoration: "none" } }>
+          <NavLink className="branchHeaderLinksFirst" to="/branch/branchlocator" style={ { textDecoration: "none" } }>
               <Typography className={ classes.subtitle }>Personal Loans</Typography>
             </NavLink>
-          <NavLink className="branchHeaderLinks" to="/faq" style={ { textDecoration: "none" } }>
-              <Typography className={ classes.subtitle }>Other Loans</Typography>
+          <NavLink className="branchHeaderLinksFirst" to="/branch/branchlocator" style={ { textDecoration: "none" } }>
+              <Typography className={ classes.subtitle }>Car Loans</Typography>
+            </NavLink>
+          <NavLink className="branchHeaderLinks" to="/branch/branchlocator" style={ { textDecoration: "none" } }>
+              <Typography className={ classes.subtitle }>Home Loans</Typography>
             </NavLink>
             <NavLink className="branchHeaderLinks" to="/branch/branchlocator" style={ { textDecoration: "none" } }>
               <Typography className={ classes.subtitle }>Resources</Typography>
@@ -92,7 +96,13 @@ const BranchLocatorHeader = () => {
               <Typography className={classes.subtitle}>Login</Typography>
             </NavLink>
             <NavLink to="/customers/applyForLoan" className="nav_link branchHeaderLinksLast">
-              <Typography className={classes.subtitle}><span>Check My Offers </span></Typography>
+            <ButtonPrimary
+            id="Continue"
+            stylebutton='{"fontSize":"1rem","fontWeight":"400","color":"#151147"}'
+            target="_blank"
+            >
+            Check My Offers
+            </ButtonPrimary>
             </NavLink>
           </div>
           <div className={ classes.sectionMobile }>

@@ -12,6 +12,11 @@ const BranchHeaderLayout = ({ children }) => {
       <div className="topBarlinks" >
             <Typography className="topBarLinkOne" >
               <a href="#" className="hrefTag">
+              Careers
+              </a>
+            </Typography>
+            <Typography className="topBarLinkOne" >
+              <a href="#" className="hrefTag">
               Resume Application
               </a>
             </Typography>

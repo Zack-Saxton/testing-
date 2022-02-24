@@ -122,7 +122,8 @@
     padding: 0px;
     display: flex;
     align-items: center;
-    border-top: 3px solid #21447600 !important;
+    border-bottom: 3px solid #21447600 !important;
+    padding-top: 3px;
 }
 .branchHeaderLinks p:hover,
 .branchHeaderLinksFirst p:hover,
@@ -131,5 +132,6 @@
     padding: 0px;
     display: flex;
     align-items: center;
-    border-top: 3px solid #214476 !important;
+    border-bottom: 3px solid #214476 !important;
+    padding-top: 3px;
 }
