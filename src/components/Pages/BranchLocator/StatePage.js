@@ -154,6 +154,7 @@ export default function StatePage() {
   };
   useEffect(() => {
     apiGetBranchList(Name);
+    window.scrollTo(0,0);
     return null
   }, []);
   const handleSelect1 = async (value) => {

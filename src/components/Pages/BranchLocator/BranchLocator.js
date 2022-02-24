@@ -76,16 +76,21 @@ export default function BranchLocator() {
   const [address2, setAddress2] = React.useState("");
   const [showMapListSearch2DirectionButton, setshowMapListSearch2DirectionButton] = useState(false);
   let params = useParams();
-  const mapSection = useRef()
+  const mapSection = useRef();
   //API call
   const getBranchLists = async (search_text) => {
     try {
       setLoading(true);
       let result = await BranchLocatorController(search_text);
-      if (result.status === 400) {
-        toast.error(" Error from getBranchLists");
+      if ((result.status === 400) || (result.data.branchData[0].BranchNumber === "0001")) {
+        toast.error(" No branches within that area. Please enter a valid city and state.");
+        setshowMapListSearch2DirectionButton(false);
       } else {
         setCurrentLocation(result?.data?.searchLocation);
+        // window.scrollBy({
+        //   behavior: "smooth",
+        //   top: 695
+        // })
         setZoomDepth(
           (result?.data?.branchData[0]?.distance).replace(/[^0-9]/g, "") / 100
         );
@@ -151,12 +156,6 @@ export default function BranchLocator() {
     libraries: ["places"],
   });
 
-  // useEffect(() => {
-
-  //   // inputText1.value = "21236";
-  //   // getActivePlaces();
-  //   // return null
-  // }, []);
   const findBranchTimings = async (value) => {
     try {
       if (value) {
@@ -229,7 +228,7 @@ export default function BranchLocator() {
 
   const stateLinksandStaticText = (
     <Grid
-    ref={mapSection}
+      ref={mapSection}
       container
       item xs={12} md={10}
       style={{
@@ -361,7 +360,7 @@ export default function BranchLocator() {
                 <input id="search2" className="stateSearch" {...getInputProps({ placeholder: 'Enter city & state or zip code' })} />
                 <div className="serachResult">
                   {loading2 && <div>Loading...</div>}
-                  {suggestions.map(suggestion => {
+                  {React.Children.toArray(suggestions.map(suggestion => {
                     const style = {
                       backgroundColor: suggestion.active ? "#41b6e6" : "#fff"
                     }
@@ -372,7 +371,7 @@ export default function BranchLocator() {
                         <span>{suggestion.description}</span>
                       </div>
                     );
-                  })}
+                  }))}
                 </div>
               </div>
             )}
@@ -481,7 +480,7 @@ export default function BranchLocator() {
               <input id="search1" className="stateSearch" {...getInputProps({ placeholder: 'Enter city & state or zip code' })} />
               <div className="serachResult">
                 {loading2 && <div>Loading...</div>}
-                {suggestions.map(suggestion => {
+                {React.Children.toArray(suggestions.map(suggestion => {
                   const style = {
                     backgroundColor: suggestion.active ? "#41b6e6" : "#fff"
                   }
@@ -492,7 +491,7 @@ export default function BranchLocator() {
                       <span style={{ padding: "10px 0px" }}>{suggestion.description}</span>
                     </div>
                   );
-                })}
+                }))}
               </div>
             </div>
           )}

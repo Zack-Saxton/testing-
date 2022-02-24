@@ -131,6 +131,7 @@ export default function StatePage(props) {
   
   useEffect(() => {
     display_Branch_Times();
+    window.scrollTo(0, 0);
     return null
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getStateName])
