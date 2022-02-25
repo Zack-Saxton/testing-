@@ -11,7 +11,7 @@ import Logo from "../../../assets/images/MarinerLogo.png";
 import ConsumerDialog from "../ConsumerFooterDialog/ConsumerDialog";
 import "./BranchLocatorFooter.css";
 export default function BranchLocatorFooter() {
-  const [ consumer, setConsumer ] = React.useState(false);
+  const [consumer, setConsumer] = React.useState(false);
   // Consumer popup
   const handleOpenConsumer = () => {
     setConsumer(true);
@@ -23,23 +23,23 @@ export default function BranchLocatorFooter() {
       description: [
         {
           name: "Unexpected Expenses",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/personal-loans/unexpected-expenses/",
         },
         {
           name: "Vacation Loans",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/personal-loans/vacation-loans/",
         },
         {
           name: "Loan for Debt Consolidation",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/personal-loans/debt-consolidation-loans/",
         },
         {
           name: "Loan for Home Improvements",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/personal-loans/home-improvement-loans/",
         },
         {
           name: "Wedding Loans",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/personal-loans/wedding-loans/",
         },
       ],
     },
@@ -48,15 +48,15 @@ export default function BranchLocatorFooter() {
       description: [
         {
           name: "Facebook",
-          link: "#",
+          link: "https://www.facebook.com/MarinerFinance/",
         },
         {
           name: "Twitter",
-          link: "#",
+          link: "https://twitter.com/MarinerFinance",
         },
         {
           name: "LinkedIn",
-          link: "#",
+          link: "https://www.linkedin.com/company/mariner-finance/",
         },
       ],
     },
@@ -65,15 +65,15 @@ export default function BranchLocatorFooter() {
       description: [
         {
           name: "Auto Refinancing Loan",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/car-loans/auto-refinance/",
         },
         {
           name: "Finance Car Loan",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/car-loans/new-car-loan/",
         },
         {
           name: "Finance a Used Car",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/car-loans/used-car-loan/",
         },
       ],
     },
@@ -82,23 +82,19 @@ export default function BranchLocatorFooter() {
       description: [
         {
           name: "Mortgage Loans",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/home-loans/mortgage-loans/",
         },
         {
           name: "Home Refinance",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/home-loans/home-refinance/",
         },
         {
           name: "FHA Loans and VA Loans",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/home-loans/fha-and-va-loans/",
         },
         {
-          name: "Meet our Loan",
-          link: "#",
-        },
-        {
-          name: "Officers",
-          link: "#",
+          name: "Meet our Loan Officers",
+          link: "https://wps-qa.marinerfinance.io/home-loans/meet-our-loan-officers/",
         },
       ],
     },
@@ -107,19 +103,19 @@ export default function BranchLocatorFooter() {
       description: [
         {
           name: "How to apply for a Personal Loan",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/resources/how-to-apply/",
         },
         {
           name: "FAQ",
-          link: "#",
+          link: "/faq",
         },
         {
           name: "Blog",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/blog/",
         },
         {
           name: "Mariner States",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/state/",
         },
       ],
     },
@@ -128,19 +124,19 @@ export default function BranchLocatorFooter() {
       description: [
         {
           name: "Why Us",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/why-mariner-finance/",
         },
         {
           name: "Branch Locator",
-          link: "#",
+          link: "branch-locator",
         },
         {
           name: "Customer Support",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/customer-support/",
         },
         {
           name: "Careers",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/why-mariner-finance/careers/",
         },
       ],
     },
@@ -149,11 +145,11 @@ export default function BranchLocatorFooter() {
       description: [
         {
           name: "COVID-19",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/coronavirus-covid-19-information/",
         },
         {
           name: "Disaster Information Hurricane Dorian",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/coronavirus-covid-19-information/",
         },
       ],
     },
@@ -162,27 +158,27 @@ export default function BranchLocatorFooter() {
       description: [
         {
           name: "Community Guidelines",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/resources/legal/#fusion-tab-communityguidelines",
         },
         {
           name: "Privacy Statement",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/resources/legal/#fusion-tab-privacystatement",
         },
         {
           name: "Terms of Use",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/resources/legal/#fusion-tab-termsofuse",
         },
         {
           name: "Licensing and Disclosure",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/resources/legal/#fusion-tab-licensing&disclosures",
         },
         {
           name: "Texting Terms of Use",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/resources/legal/#fusion-tab-textingtermsofuse",
         },
         {
           name: "Website Accessibility",
-          link: "#",
+          link: "https://wps-qa.marinerfinance.io/resources/legal/#fusion-tab-websiteaccessibilitystatement",
         },
       ],
     },
@@ -193,57 +189,62 @@ export default function BranchLocatorFooter() {
       .fill("")
       .map((_, i) => arr.slice(i * perGroup, (i + 1) * perGroup));
   }
-
   const groupedFooter = createGroups(footers, 4);
 
   //View Part
   return (
-    <div style={ { background: "#d7e6ed" } }>
-      <footer style={ { width: "100%" } }>
+    <div style={{ background: "#d7e6ed" }}>
+      <footer style={{ width: "100%" }}>
         <section className="section-top-normal-footer">
-          <Grid container spacing={ 4 } justifyContent="space-evenly">
-            { groupedFooter.map((nested) => (
-              <Grid item xs={ 6 } sm={ 3 } key={ Math.random() * 1000 }>
-                { nested.map((element) => (
-                  <div key={ element.title } style={ { marginBottom: "30px" } }>
-                    <Typography className="title" gutterBottom>
-                      { element.title }
+          <Grid container spacing={4} justifyContent="space-evenly">
+            {groupedFooter.map((nested) => (
+              <Grid item xs={6} sm={3} key={Math.random() * 1000}>
+                {nested.map((element) => (
+                  <div key={element.title} style={{ marginBottom: "30px" }}>
+                    <Typography className="footerLinkstitle" gutterBottom>
+                      {element.title}
                     </Typography>
-                    { element.title === "Stay Connected" ? (
+                    {element.title === "Stay Connected" ? (
                       <Grid>
-                        <IconButton>
-                          <FacebookIcon />
-                        </IconButton>
-                        <IconButton>
-                          <TwitterIcon />
-                        </IconButton>
-                        <IconButton>
-                          <LinkedInIcon />
-                        </IconButton>
+                        <a target="_blank" href="https://www.facebook.com/MarinerFinance/">
+                          <IconButton className="socialIcons">
+                            <FacebookIcon />
+                          </IconButton>
+                        </a>
+                        <a target="_blank" href="https://twitter.com/MarinerFinance">
+                          <IconButton className="socialIcons">
+                            <TwitterIcon />
+                          </IconButton>
+                        </a>
+                        <a target="_blank" href="https://www.linkedin.com/company/mariner-finance/">
+                          <IconButton className="socialIcons">
+                            <LinkedInIcon />
+                          </IconButton>
+                        </a>
                       </Grid>
                     ) : (
                       element.description.map((item) => (
                         <ul
-                          style={ { margin: "0px", paddingLeft: "0px" } }
-                          key={ Math.random() * 1000 }
+                          style={{ margin: "0px", paddingLeft: "0px" }}
+                          key={Math.random() * 1000}
                         >
-                          <li key={ item.name } style={ { listStyleType: "none" } }>
-                            <a href="#" className="hrefTag">
-                              { item.name }
+                          <li key={item.name} style={{ listStyleType: "none" }}>
+                            <a href={item.link} className="hrefTag">
+                              {item.name}
                             </a>
                           </li>
                         </ul>
                       ))
-                    ) }
+                    )}
                   </div>
-                )) }
+                ))}
               </Grid>
-            )) }
+            ))}
           </Grid>
         </section>
         <section
           className="paragraph"
-          style={ { padding: "20px 70px 0px 70px" } }
+          style={{ padding: "20px 70px 0px 70px" }}
         >
           <p>
             <small>
@@ -294,36 +295,35 @@ export default function BranchLocatorFooter() {
               amount must be in the form of cash or certified funds.
             </small>
           </p>
-          <p style={ { textAlign: "left" } }>
+          <p style={{ textAlign: "left" }}>
             <small>
               California Residents: Loans made or arranged pursuant to a
               California Financing Law license.
             </small>
           </p>
         </section>
-
-        <Box sx={ { flexGrow: 1, justifyContent: "space-evenly" } }>
+        <Box sx={{ flexGrow: 1, justifyContent: "space-evenly" }}>
           <Grid container>
-            <Grid item xs={ 3 }>
+            <Grid item xs={3}>
               <a href="#">
                 <img
-                  src={ Logo }
-                  style={ {
+                  src={Logo}
+                  style={{
                     display: "block",
                     marginLeft: "auto",
                     marginRight: "auto",
-                  } }
+                  }}
                 />
               </a>
             </Grid>
-            <Grid item xs={ 6 }>
+            <Grid item xs={6}>
               <div className="row">
-                <div style={ { paddingTop: "15px", paddingBottom: "15px" } }>
+                <div style={{ paddingTop: "15px", paddingBottom: "15px" }}>
                   <p className="leftAlignAddress">
                     Mariner Finance, LLC, NMLS No. 166564
                     <span
-                      style={ { margin: "0", cursor: "pointer" } }
-                      onClick={ handleOpenConsumer }
+                      style={{ margin: "0", cursor: "pointer" }}
+                      onClick={handleOpenConsumer}
                     >
                       (www.nmlsconsumeraccess.com)
                     </span>
@@ -337,31 +337,30 @@ export default function BranchLocatorFooter() {
                 </div>
               </div>
             </Grid>
-            <Grid item xs={ 3 }>
+            <Grid item xs={3}>
               <a href="#">
                 <img
-                  src={ Housing }
-                  style={ {
+                  src={Housing}
+                  style={{
                     display: "block",
                     marginLeft: "auto",
                     marginRight: "auto",
-                  } }
+                  }}
                 />
               </a>
             </Grid>
           </Grid>
         </Box>
-
         <section className="section-bottom">
           <div>
-            <span style={ { color: "white" } }>
-              &copy; { new Date().getFullYear() } Mariner Finance All rights
+            <span style={{ color: "white" }}>
+              &copy; {new Date().getFullYear()} Mariner Finance All rights
               reserved.
             </span>
           </div>
         </section>
       </footer>
-      <ConsumerDialog consumer={ consumer } onChange={ setConsumer } />
+      <ConsumerDialog consumer={consumer} onChange={setConsumer} />
     </div>
   );
 }

@@ -1,31 +1,35 @@
-import { makeStyles } from "@material-ui/core";
-import Breadcrumbs from "@material-ui/core/Breadcrumbs";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Dialog from "@material-ui/core/Dialog";
 import Grid from "@material-ui/core/Grid";
-import IconButton from "@material-ui/core/IconButton";
-import Link from "@material-ui/core/Link";
-import Typography from "@material-ui/core/Typography";
+import React, { useState, useRef, useEffect } from "react";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import CloseIcon from "@material-ui/icons/Close";
-import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import PhoneIcon from "@material-ui/icons/Phone";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import SearchIcon from "@material-ui/icons/Search";
-import { useLoadScript } from "@react-google-maps/api";
-import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
-import { toast } from "react-toastify";
-import BranchImageMobile from "../../../assets/images/BranchLocatorMobile.png";
-import BranchImageWeb from "../../../assets/images/BranchLocatorWeb.png";
-import BranchDayTiming, { mapInformationBranchLocator } from "../../Controllers/BranchDayTiming";
-import BranchLocatorController from "../../Controllers/BranchLocatorController";
-import { ButtonPrimary, ButtonSecondary, TextField } from "../../FormsUI";
+import { ButtonPrimary, ButtonSecondary } from "../../FormsUI";
+import { useStylesMyBranch } from "../BranchLocator/Style";
 import { useStylesConsumer } from "../../Layout/ConsumerFooterDialog/Style";
+import { toast } from "react-toastify";
+import Dialog from "@material-ui/core/Dialog";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
+import BranchLocatorController from "../../Controllers/BranchLocatorController";
+import Typography from "@material-ui/core/Typography";
 import ErrorLogger from "../../lib/ErrorLogger";
-import CustomerRatings from "../MyBranch/CustomerRatings";
+import { useLoadScript } from "@react-google-maps/api";
 import Map from "./BranchLocatorMap";
-import { useStylesMyBranch } from "./Style";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Breadcrumbs from "@material-ui/core/Breadcrumbs";
+import NavigateNextIcon from "@material-ui/icons/NavigateNext";
+import Link from "@material-ui/core/Link";
+import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.png";
+import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile_Image.png";
+import TitleImage from "../../../assets/images/Favicon.png";
+import { makeStyles } from "@material-ui/core";
+import { NavLink, useParams} from "react-router-dom";
+import BranchDayTiming, { mapInformationBranchLocator } from "../../Controllers/BranchDayTiming";
+import PlacesAutocomplete from "react-places-autocomplete";
+import "@reach/combobox/styles.css";
+import { Helmet } from "react-helmet";
+import CustomerRatings from "../MyBranch/CustomerRatings";
 const useStyles = makeStyles({
   ptag: {
     margin: "0px",
@@ -61,16 +65,19 @@ export default function StatePage() {
   //Material UI css class
   const classes = useStylesMyBranch();
   const getDirectionsClass = useStylesConsumer();
-  const [ getDirectionModal, setgetDirectionModal ] = useState(false);
-  const [ getBranchList, setBranchList ] = useState();
-  const [ getBranchAddress, setBranchAddress ] = useState(null);
-  const [ getMap, setMap ] = useState([]);
-  const [ getCurrentLocation, setCurrentLocation ] = useState();
-  const [ loading, setLoading ] = useState(false);
-  const [ zoomDepth, setZoomDepth ] = useState();
-  const queryParams = new URLSearchParams(window.location.search);
-  const Name = queryParams.get("Name");
+  const [getDirectionModal, setgetDirectionModal] = useState(false);
+  const [getBranchList, setBranchList] = useState();
+  const [getBranchAddress, setBranchAddress] = useState(null);
+  const [getMap, setMap] = useState([]);
+  const [getCurrentLocation, setCurrentLocation] = useState();
+  const [loading, setLoading] = useState(false);
+  const [zoomDepth, setZoomDepth] = useState();
+  const params = useParams()
+  const Name = params.statename
   const clessesforptag = useStyles();
+  const [address1, setAddress1] = React.useState("");
+  const [address2, setAddress2] = React.useState("");
+  const mapSection = useRef();
   //API call
   const getBranchLists = async (search_text) => {
     try {
@@ -113,15 +120,16 @@ export default function StatePage() {
     }
   };
   const clearSearchText = () => {
-    inputText1.value = "";
-    inputText2.value = "";
-  };
+    setAddress1("");
+    setAddress2("");
+  }
   const getActivePlaces = () => {
-    if (inputText1?.value !== "") {
-      apiGetBranchList(inputText1.value);
+    if (address1 !== "") {
+      apiGetBranchList(address1);
       clearSearchText();
-    } else if (inputText2?.value !== "") {
-      apiGetBranchList(inputText2.value);
+      mapSection.current.scrollIntoView({ behavior: 'smooth' })
+    } else if (address2 !== "") {
+      apiGetBranchList(address2);
       clearSearchText();
     }
   };
@@ -133,9 +141,12 @@ export default function StatePage() {
     setgetDirectionModal(false);
     setBranchAddress(null);
   };
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.SECKey,
+  const { isLoaded, loadError } = useLoadScript({
+    id: 'google-map-script',
+    googleMapsApiKey: process.env.REACT_APP_SECKey,
+    libraries: ["places"],
   });
+
   const findBranchTimings = async (value) => {
     try {
       if (value) {
@@ -146,26 +157,37 @@ export default function StatePage() {
     }
   };
   useEffect(() => {
-    inputText1.value = Name;
-    getActivePlaces();
-    return null;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // document.title = `Personal Loans in ${Name} | Mariner Finance Branch | Discover More`;
+    apiGetBranchList(Name);
+    window.scrollTo(0,0);
+    return null
   }, []);
-
+  const handleSelect1 = async (value) => {
+    setAddress1(value);
+  }
+  const handleSelect2 = async (value) => {
+    setAddress2(value);
+  }
   //View part
   return (
     <div>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Personal Loans in {Name} | Mariner Finance Branch | Discover More</title>
+        <link rel="icon" type="image/png" href={TitleImage} sizes="16x16" />
+        <meta name="description" content={`Looking for a personal loan in ${Name}?  Mariner Finance branch employees can help. Discover a ${Name} location today.`} />
+      </Helmet>
       <Grid
         container
         justifyContent={ "center" }
         style={ { backgroundColor: "#f9f9f9" } }
       >
-        <Grid container style={ { backgroundColor: "#afdfed", width: "100%" } }>
-          <Grid className="branchImage" item md={ 6 } sm={ 12 } xs={ 12 }>
-            <img className="mobileImage" src={ BranchImageMobile } alt="MF Banner" />
-            <img className="webImage" src={ BranchImageWeb } alt="MF Banner" />
+        <Grid container style={{ width: "100%" }}>
+          <Grid className="branchImage" item md={6} sm={12} xs={12}>
+            <img className="mobileImage" src={BranchImageMobile} alt="MF Banner" />
+            <img className="webImage" src={BranchImageWeb} alt="MF Banner" />
           </Grid>
-          <Grid style={ { padding: "2% 4%" } } item md={ 6 } sm={ 12 } xs={ 12 }>
+          <Grid className="greyBackground" style={{ padding: "2% 4%" }} item md={6} sm={12} xs={12}>
             <Breadcrumbs
               className="breadcrumbWrap"
               separator={
@@ -178,13 +200,13 @@ export default function StatePage() {
             >
               <Link
                 className="breadcrumbLink"
-                onClick={ () => window.open(`/`, "_self") }
+                onClick={() => window.open(`/`, "_self")}
               >
                 Home
               </Link>
               <Link
                 className="breadcrumbLink"
-                onClick={ () => window.open(`/branch/branchlocator/`, "_self") }
+                onClick={() => window.open(`/branch-locator/`, "_self")}
               >
                 Branch Locator
               </Link>
@@ -195,18 +217,46 @@ export default function StatePage() {
               </Link>
             </Breadcrumbs>
             <Grid id="findBranchWrapTwo" >
-              <h4 className={ classes.headigText }>Find a Branch in { Name }</h4>
+              <h4 className={classes.headigText}>Personal Loan in {Name}</h4>
               <Grid id="findBranchGrid">
-                <SearchIcon className="searchIcon" style={ { color: "white" } } />
-                <TextField
+                <SearchIcon className="searchIcon" style={{ color: "white" }} />
+                <PlacesAutocomplete
+                  value={address1}
+                  onChange={setAddress1}
+                  onSelect={handleSelect1}
+                  style={{ width: '50%' }}
+                >
+                  {({ getInputProps, suggestions, getSuggestionItemProps, loading2 }) => (
+                    <div className="searchInputWrap">
+                      <input id="search1" className="stateSearch" {...getInputProps({ placeholder: 'Enter city & state or zip code' })} />
+                      <div className="serachResult">
+                        {loading2 && <div>Loading...</div>}
+                        {suggestions.map(suggestion => {
+                          const style = {
+                            backgroundColor: suggestion.active ? "#41b6e6" : "#fff"
+                          }
+                          return (
+                            <div {...getSuggestionItemProps(suggestion, {
+                              style
+                            })}>
+                              <span>{suggestion.description}</span>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+                </PlacesAutocomplete>
+                {/* <TextField
                   name="Enter City or State"
                   className="branchLocatorInput"
                   style={ { color: "white!important" } }
                   id="inputText1"
                   label="Enter city & state or zip code"
-                />
+                /> */}
                 <ButtonPrimary
-                  onClick={ getActivePlaces }
+                  className="branchSearchButton"
+                  onClick={getActivePlaces}
                   stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "padding":"0px 30px"}'
                 >
                   <ArrowForwardIcon className="goIcon" />
@@ -219,8 +269,8 @@ export default function StatePage() {
               for a personal loan near you
             </h4>
             <Typography className="branchLocatorHeading">
-              <b className="numberText">480+</b>
-              <span className="branchSmallText">Branches in 25 states</span>
+              <b className="numberText">470+</b>
+              <span className="branchSmallText">Branches in 24 states</span>
             </Typography>
             <Typography className="branchLocatorHeading">
               <b className="numberText">$1k - $25k</b>
@@ -229,13 +279,14 @@ export default function StatePage() {
             <Typography className="branchLocatorHeading">
               <b className="numberText">4.8</b>
               <span className="branchSmallText">
-                Star Rating based on over 13,000 verified reviews
+                Star Rating based on over 10,000 verified reviews
               </span>
             </Typography>
           </Grid>
         </Grid>
         <Grid
-          style={ { padding: "4% 30px 4% 30px", backgroundColor: "#f6f6f6" } }
+          ref={mapSection}
+          style={{ padding: "4% 30px 4% 30px", backgroundColor: "#f6f6f6" }}
           container
         >
           <Grid
@@ -272,8 +323,8 @@ export default function StatePage() {
                       return (
                         <Grid key={ index } item md={ 4 } className="locationInfo">
                           <NavLink
-                            to={ `/branchpage/?BranchName=${ item?.BranchName }` }
-                            state={ { Branch_Details: item } }
+                            to={`/branchpage/personal-loan-in-${item.BranchName}-${item.Address.substring(item.Address.length - 8, item.Address.length).substring(0, 2)}`}
+                            state={{ Branch_Details: item }}
                             className="nav_link"
                           >
                             <b>
@@ -378,44 +429,65 @@ export default function StatePage() {
             ) }
           </Grid>
         </Grid>
-        <Grid className={ clessesforptag.gridMargin } container>
-          <Grid className={ clessesforptag.gridPadding } item md={ 6 }>
+        <Grid id="greyBackground" className={clessesforptag.gridMargin} container>
+          <Grid id="getDirectionButton" container className={clessesforptag.gridPadding} item md={6} sm={12} xs={12}>
             <ButtonPrimary
-              href={ getBranchAddress }
+              href={getBranchAddress}
               id="Continue"
-              onClick={ () => {
-                if (inputText2.value && inputText2.value !== '') {
-                  setBranchAddress(`https://www.google.com/maps/search/${ inputText2.value }`);
-                  inputText2.value = '';
+              onClick={() => {
+                if (document.getElementById('search2').value) {
                   openGetDirectionModal();
+                  setBranchAddress(`https://www.google.com/maps/search/${document.getElementById('search2').value}`);
+                  setAddress2("");
                 } else {
-                  toast.error(' Please provide address.');
+                  toast.error(' Please provide address.')
                 }
-              } }
-              stylebutton='{"width": "100%", "padding":"0 15px", "fontSize":"0.938rem", "fontWeight":"400" }'
+              }}
+              stylebutton='{"width": "100%", "padding":"0 15px", "fontSize":"0.938rem", "fontWeight":"400", "height":"47px" }'
               target="_blank"
             >
               Get Driving Directions To Nearest Location
             </ButtonPrimary>
           </Grid>
-          <Grid id="searchBoxBottom" item md={ 6 }>
+          <Grid id="searchBoxBottom" item md={6} sm={12} xs={12}>
             <Grid id="findBranchGrid">
               <p className="zipLabel">
-                Can't find it? Try searching another{ " " }
+                Can't find it? Try searching another{" "}
               </p>
               <SearchIcon
-                className="searchIconBottom"
-                style={ { color: "white" } }
+                className="searchIconBottomTwo"
+                style={{ color: "white" }}
               />
-              <TextField
-                name="Enter City or State"
-                className="branchLocatorInput"
-                style={ { color: "white!important" } }
-                id="inputText2"
-                placeholder="Enter city & state or zip code"
-              />
+              <PlacesAutocomplete
+                value={address2}
+                onChange={setAddress2}
+                onSelect={handleSelect2}
+                style={{ width: '50%' }}
+              >
+                {({ getInputProps, suggestions, getSuggestionItemProps, loading2 }) => (
+                  <div  className="searchInputWrap">
+                    <input id="search2" className="stateSearch" {...getInputProps({ placeholder: 'Enter city & state or zip code' })} />
+                    <div className="serachResult">
+                      {loading2 && <div>Loading...</div>}
+                      {suggestions.map(suggestion => {
+                        const style = {
+                          backgroundColor: suggestion.active ? "#41b6e6" : "#fff"
+                        }
+                        return (
+                          <div {...getSuggestionItemProps(suggestion, {
+                            style
+                          })}>
+                            <span>{suggestion.description}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+              </PlacesAutocomplete>
               <ButtonPrimary
-                onClick={ getActivePlaces }
+                className="branchSearchButton"
+                onClick={getActivePlaces}
                 stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "padding":"0px 30px"}'
               >
                 <ArrowForwardIcon className="goIcon" />
@@ -424,7 +496,8 @@ export default function StatePage() {
           </Grid>
         </Grid>
         <Grid
-          style={ {
+        className="greyBackground"
+          style={{
             backgroundColor: "#f9f9f9",
             width: "100%",
             padding: "4% 2rem 4% 1rem",
