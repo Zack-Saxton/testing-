@@ -94,10 +94,7 @@ function CheckMyOffers(props) {
 				}
 				
 			} else {
-				setPageStatus();
-			if (res?.data?.offerData?.Message) {
-				navigate("/loan-purpose");
-			} else {
+				 {
 				toast.success("Your Application Code has been accepted");
 				navigate("/pre-approved");
 			}
