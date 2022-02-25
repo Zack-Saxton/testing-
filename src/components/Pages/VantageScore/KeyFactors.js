@@ -38,22 +38,22 @@ export default function ControlledAccordions(keyFactors) {
       {
         keyFactorList.map((factor, index) => (
           <Accordion expanded={ expanded === `panel${ index }` } onChange={ handleChange(`panel${ index }`) } key={ Math.random() * 1000 }>
-        <AccordionSummary
-          expandIcon={ <ExpandMoreIcon /> }
-            aria-controls={ `panel${index}bh-content` }
-            id={ `panel${index}bh-header` }
-        >
-            <Typography className={ classes.MainkeyFactorHeading }>{ factor.label }</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <div className={ classes.VantageScoreSmallText }>
-            <p className={ classes.BoldText }>Explanation</p>
-              { factor.description }
-            <p className={ classes.BoldText }>What You Can Do</p>
-              { factor.tip }
-          </div>
-        </AccordionDetails>
-      </Accordion>
+            <AccordionSummary
+              expandIcon={ <ExpandMoreIcon /> }
+              aria-controls={ `panel${ index }bh-content` }
+              id={ `panel${ index }bh-header` }
+            >
+              <Typography className={ classes.MainkeyFactorHeading }>{ factor.label }</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <div className={ classes.VantageScoreSmallText }>
+                <p className={ classes.BoldText }>Explanation</p>
+                { factor.description }
+                <p className={ classes.BoldText }>What You Can Do</p>
+                { factor.tip }
+              </div>
+            </AccordionDetails>
+          </Accordion>
         ))
       }
 

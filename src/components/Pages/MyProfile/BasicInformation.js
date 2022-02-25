@@ -48,7 +48,6 @@ async function filetoImage(file) {
 
 export default function BasicInformation(props) {
 
-
   const [ loading, setLoading ] = useState(false);
   const { dataProfile, setData } = useContext(ProfilePicture);
   const navigate = useNavigate();

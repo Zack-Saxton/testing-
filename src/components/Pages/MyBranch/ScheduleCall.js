@@ -23,7 +23,6 @@ import {
   upt_other_M_W_Thu
 } from "./WorkingHours";
 
-
 // yup validation
 const validationSchema = yup.object({
   appointmentDate: yup
