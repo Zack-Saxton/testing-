@@ -9,10 +9,11 @@ import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
+import { useQuery } from 'react-query';
+import usrAccountDetails from "../../../Controllers/AccountOverviewController";
 import * as yup from "yup";
 import { OTPInitialSubmission, verifyPasscode } from "../../../Controllers/ApplyForLoanController";
 import { ButtonPrimary, ButtonSecondary, ButtonWithIcon, TextField } from "../../../FormsUI";
-import APICall from "../../../lib/AxiosLib";
 import messages from "../../../lib/Lang/applyForLoan.json";
 
 const useStyles = makeStyles((Theme) => ({
@@ -60,13 +61,9 @@ export default function PhoneVerification(props) {
 	const [ phoneNum, setPhoneNum ] = useState("");
 	const [ open, setOpen ] = useState(false);
 	const innerClasses = useStyles();
+	const { data: accountDetials } = useQuery('loan-data', usrAccountDetails);
 
-	// get phone number from using email from api
-	const getPhone = async () => {
-		let data = {};
-		let userData = await APICall("account_overview", '', data, "GET", true);
-		setPhoneNum(userData?.data?.customer.latest_contact.phone_number_primary);
-	};
+
 
 	function phoneNumberMask(values) {
 		let phoneNumber = values.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
@@ -75,10 +72,10 @@ export default function PhoneVerification(props) {
 	}
 	// get the phone number on load
 	useEffect(() => {
-		getPhone();
+		setPhoneNum(accountDetials?.data?.customer.latest_contact.phone_number_primary);
 		return null;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [accountDetials]);
 
 	useEffect(() => {
 		formik.setFieldValue("phone", phoneNum);
