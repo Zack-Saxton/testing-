@@ -20,7 +20,6 @@ import {
 import ErrorLogger from '../../lib/ErrorLogger';
 import "./Style.css";
 
-
 const validationSchema = yup.object({
   streetAddress: yup
     .string(globalMessages.Street_Address)

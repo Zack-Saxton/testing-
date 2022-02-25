@@ -36,7 +36,7 @@ function CheckMyOffers(props) {
 	const classes = preLoginStyle();
 	const innerClasses = useStyles();
 	const navigate = useNavigate();
-    let  tempCounter = 0;
+	let tempCounter = 0;
 	const getValidValue = (selectedValue) => {
 		let validValue = (selectedValue > 5000 && (selectedValue % 500) === 250 ? selectedValue + 250 : selectedValue);
 		if (validValue < 1000) {
@@ -51,7 +51,11 @@ function CheckMyOffers(props) {
 	const [ select, setSelect ] = useState(data.loanAmount ? data.loanAmount : (selectedAmount ? parseInt(selectedAmount) : 10000));
 	let location = useLocation();
 	useEffect(() => {
-		if (selectedAmount) {
+		if (data?.isActiveUser === "closed") {
+			toast.error(globalMessages.Account_Closed_New_Apps);
+			navigate("/customers/accountOverview");
+		}
+		else if (selectedAmount) {
 			data.loanAmount = select;
 			data.formStatus = "started";
 			data.completedPage = data.page.selectAmount;
@@ -66,43 +70,40 @@ function CheckMyOffers(props) {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	if (data?.isActiveUser === "closed") {
-		toast.error(globalMessages.Account_Closed_New_Apps);
-		navigate("/customers/accountOverview");
-	}
-
 	const setPageStatus = () => {
 		data.loanAmount = select;
 		data.formStatus = "started";
 		data.completedPage = data.page.selectAmount;
 		setData({ ...data, loanAmount: select });
-	}
+	};
+
 	const handleRoute = async (event) => {
-    try{
-		if(data.offerCode === ""){
-			setPageStatus();
-			navigate("/loan-purpose");
-		}
-		let res = await offercodeValidation(data.offerCode);
-		if (res?.data?.offerData?.Message) {
-			toast.error("Please enter a valid Offer Code. If you do not have an Offer Code please select Continue");
-			tempCounter++;
-			if(tempCounter === 2){
+		try {
+			if (data.offerCode === "") {
 				setPageStatus();
-              navigate("/loan-purpose")
+				navigate("/loan-purpose");
 			}
-			
-		} else {
-			setPageStatus();
-		if (res?.data?.offerData?.Message) {
-			navigate("/loan-purpose");
-		} else {
-			toast.success("Your Application Code has been accepted");
-			navigate("/pre-approved");
+			let res = await offercodeValidation(data.offerCode);
+			if (res?.data?.offerData?.Message) {
+				toast.error("Please enter a valid Offer Code. If you do not have an Offer Code please select Continue");
+				tempCounter++;
+				if (tempCounter === 2) {
+					setPageStatus();
+					navigate("/loan-purpose");
+				}
+
+			} else {
+				setPageStatus();
+				if (res?.data?.offerData?.Message) {
+					navigate("/loan-purpose");
+				} else {
+					toast.success("Your Application Code has been accepted");
+					navigate("/pre-approved");
+				}
+			}
+		} catch (error) {
+			ErrorLogger("Error offerCode VAlidation API", error);
 		}
-	}} catch (error) {
-		ErrorLogger("Error offerCode VAlidation API", error);
-	}
 	};
 
 	// jsx part

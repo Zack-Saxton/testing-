@@ -193,7 +193,7 @@ export default function SideNav() {
   const [ checkPresenceOfLoan, setCheckPresenceOfLoan ] = useState(false);
   const [ checkPresenceOfLoanStatus, setCheckPresenceOfLoanStatus ] = useState('');
   const [ isMobileDevice, setDeviceType ] = useState(false);
-  
+
   const handleClickAway = () => {
     if (isMobileDevice) {
       setOpen(false);
@@ -229,19 +229,15 @@ export default function SideNav() {
     };
   }, [ dataAccountOverview, activeLoanData, currentLoan ]);
 
-  
   //Navigating customer according to application status
-  let NavUrlResumeApplication = ""
-  if (([ 'approved','completing_application', 'signature_complete', 'closing_process' ].includes(checkPresenceOfLoanStatus)))
-      {
-        NavUrlResumeApplication = checkPresenceOfLoanStatus === "approved" ? "/customers/receiveYourMoney" :"/customers/finalverification";
-      }
- else if (([ 'offers_available',"offer_selected" ].includes(checkPresenceOfLoanStatus)))
-     {
-       NavUrlResumeApplication = checkPresenceOfLoanStatus === "offers_available" ?   "/customers/selectOffer" :  "/customers/reviewAndSign";
-      }
-  let pageNavResumeApplication = NavUrlResumeApplication !== "" ? true : false  
-
+  let NavUrlResumeApplication = "";
+  if (([ 'approved', 'completing_application', 'signature_complete', 'closing_process' ].includes(checkPresenceOfLoanStatus))) {
+    NavUrlResumeApplication = checkPresenceOfLoanStatus === "approved" ? "/customers/receiveYourMoney" : "/customers/finalverification";
+  }
+  else if (([ 'offers_available', "offer_selected" ].includes(checkPresenceOfLoanStatus))) {
+    NavUrlResumeApplication = checkPresenceOfLoanStatus === "offers_available" ? "/customers/selectOffer" : "/customers/reviewAndSign";
+  }
+  let pageNavResumeApplication = NavUrlResumeApplication !== "" ? true : false;
 
   //Material UI media query for responsiveness
   let check = useMediaQuery("(min-width:960px)");
@@ -427,7 +423,6 @@ export default function SideNav() {
     setprofileTabNumber({ profileTabNumber: 3 });
     handleMenuClose();
   };
-
 
   function logOut() {
     setAnchorEl(null);
@@ -669,27 +664,27 @@ export default function SideNav() {
                 </NavLink>
 
                 { checkPresenceOfLoan === true ?
-                 pageNavResumeApplication === true ?
-                
-                <NavLink   to = {NavUrlResumeApplication}  className="nav_link" >
-                    <ListItem className="titleSidenav" >
-                      <ListItemIcon>
-                        { " " }
-                        <MonetizationOnRoundedIcon />{ " " }
-                      </ListItemIcon>
-                      <ListItemText> Resume Application </ListItemText>
-                    </ListItem>
-                  </NavLink>
-                  :                  
-                  <Link to = {applicationStatusRedirectPage[ checkPresenceOfLoanStatus]} className="nav_link" >
-                   <ListItem className="titleSidenav" >
-                     <ListItemIcon>
-                       { " " }
-                       <MonetizationOnRoundedIcon />{ " " }
-                     </ListItemIcon>
-                     <ListItemText> Resume Application </ListItemText>
-                   </ListItem>
-                 </Link>
+                  pageNavResumeApplication === true ?
+
+                    <NavLink to={ NavUrlResumeApplication } className="nav_link" >
+                      <ListItem className="titleSidenav" >
+                        <ListItemIcon>
+                          { " " }
+                          <MonetizationOnRoundedIcon />{ " " }
+                        </ListItemIcon>
+                        <ListItemText> Resume Application </ListItemText>
+                      </ListItem>
+                    </NavLink>
+                    :
+                    <Link to={ applicationStatusRedirectPage[ checkPresenceOfLoanStatus ] } className="nav_link" >
+                      <ListItem className="titleSidenav" >
+                        <ListItemIcon>
+                          { " " }
+                          <MonetizationOnRoundedIcon />{ " " }
+                        </ListItemIcon>
+                        <ListItemText> Resume Application </ListItemText>
+                      </ListItem>
+                    </Link>
                   :
                   <NavLink id="applyForLoanNav" to="/customers/applyForLoan" state={ { from: "user" } } onClick={ (event) => { currentLoan ? event.preventDefault() : ""; } } className={ currentLoan ? "nav_link_disabled" : "nav_link" } >
                     <ListItem className="titleSidenav" disabled={ currentLoan }>
@@ -711,7 +706,7 @@ export default function SideNav() {
                   </ListItem>
                 </NavLink>
 
-                <NavLink  id = "mybranchNav" to="/customers/myBranch" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : 'nav_link' }>
+                <NavLink id="mybranchNav" to="/customers/myBranch" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : 'nav_link' }>
                   <ListItem className="titleSidenav" disabled={ activeLoanData }>
                     <ListItemIcon>
                       { " " }
