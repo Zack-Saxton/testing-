@@ -128,7 +128,7 @@ export default function BranchLocatorFooter() {
         },
         {
           name: "Branch Locator",
-          link: "branch/branchlocator",
+          link: "branch-locator",
         },
         {
           name: "Customer Support",

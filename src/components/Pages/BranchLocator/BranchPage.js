@@ -123,6 +123,10 @@ export default function StatePage(props) {
       setBranchHours(branch_hours);
     }
   }
+  const ApplyOnlineLoan = () => {
+
+    window.open(`https://wps-qa.marinerfinance.io/`, "_self")
+  }
   useEffect(() => {
     apiGetBranchList(Branch_Details.Address);
     let State = Branch_Details.Address.substring(
@@ -483,6 +487,7 @@ export default function StatePage(props) {
           </Typography>
           <Grid container className="applyOnlineButton">
             <ButtonPrimary 
+            onClick={ApplyOnlineLoan}
             stylebutton='{"padding":"24px 34px","fontWeight":"900", "fontSize":"1.25rem","fontFamily":"Muli,sans-serif"}'
           >
             Apply Online Now
