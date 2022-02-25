@@ -164,7 +164,7 @@ export default function CreditKarma() {
 
   //Populate partner signup from API
   let populateSignupData = populatePartnerSignupState?.data?.applicant;
-  console.log("populateSignupData",populateSignupData?.state)
+
   const classes = useStyles();
   const [ failed, setFailed ] = useState("");
   const [ loading, setLoading ] = useState(false);
@@ -179,22 +179,30 @@ export default function CreditKarma() {
   const [ webTOUPopup, setwebTOUPopup ] = useState(false);
   const [ privacyPopup, setPrivacyPopup ] = useState(false);
   const [ openCA, setOpenCA ] = useState(false);
+  const [ openOhio, setOpenOhio ] = useState(false);
 
+const handlePopupCA = populateSignupData?.state === "CA" ? true : false;
+const handlePopupOhio = populateSignupData?.state === "OH" ? true : false;
 
 useEffect(() => 
 {
-  if (populateSignupData?.state === "CA") {
-    handleClickOpenCA();
-  }
-  
-},[]);
-
-  const handleClickOpenCA = () => {
+  if (handlePopupCA) {
     setOpenCA(true);
-  };
+  }
+  else if(handlePopupOhio) {
+    setOpenOhio(true);
+  }
+  return null  
+},[handlePopupCA,handlePopupOhio]);
+
   const handleCloseCA = () => {
     setOpenCA(false);
   };
+
+  const handleCloseOhio = () => {
+    setOpenOhio(false);
+  };
+
 
   const handleClickDelawareOpen = () => {
     setOpenDelaware(true);
@@ -579,7 +587,7 @@ useEffect(() =>
                             { "" } <span className="formatHref" onClick={ () => { handleOnClickPrivacy(); } }>Website Privacy Statement.</span>
                           </p>
                         }
-                        required={ utm_source ? utm_source !== "CreditKarma" ? true : false : "" }
+                        required={utm_source !== "CreditKarma" ? true : false }
                         stylelabelform='{ "color":"" }'
                         stylecheckbox='{ "color":"blue"}'
                         stylecheckboxlabel='{ "color":"" }'
@@ -611,6 +619,8 @@ useEffect(() =>
                               </span>
                             </p>
                           }
+                           required={utm_source !== "CreditKarma" && populateSignupData?.state === "Delaware" ||
+                           populateSignupData?.state === "DE" ? true : false }
                           stylelabelform='{ "color":"" }'
                           stylecheckbox='{ "color":"blue" }'
                           stylecheckboxlabel='{ "color":"" }'
@@ -619,7 +629,7 @@ useEffect(() =>
                       <div
                         className={
                           utm_source !== "CreditKarma" && populateSignupData?.state === "California" ||
-                            populateSignupData?.state === "CA"
+                            populateSignupData?.state === "CA"                              
                             ? "showCheckbox"
                             : "hideCheckbox"
                         }
@@ -648,6 +658,8 @@ useEffect(() =>
                               </a>
                             </p>
                           }
+                           required={ utm_source !== "CreditKarma" && populateSignupData?.state === "California" ||
+                           populateSignupData?.state === "CA" ? true : false }
                           stylelabelform='{ "color":"" }'
                           stylecheckbox='{ "color":"blue" }'
                           stylecheckboxlabel='{ "color":"" }'
@@ -655,7 +667,8 @@ useEffect(() =>
                       </div>
                       <div
                         className={
-                          utm_source !== "CreditKarma" && populateSignupData?.state === "New Mexico" ||
+                           utm_source !== "CreditKarma" && 
+                          populateSignupData?.state === "New Mexico" ||
                             populateSignupData?.state === "NM"
                             ? "showCheckbox"
                             : "hideCheckbox"
@@ -684,6 +697,9 @@ useEffect(() =>
                               </a>
                             </p>
                           }
+                           required={ utm_source !== "CreditKarma" && 
+                           populateSignupData?.state === "New Mexico" ||
+                             populateSignupData?.state === "NM"? true : false }
                           stylelabelform='{ "color":"" }'
                           stylecheckbox='{ "color":"blue" }'
                           stylecheckboxlabel='{ "color":"" }'
@@ -692,14 +708,14 @@ useEffect(() =>
                     </Grid>
 
                     <Grid item xs={ 12 } className={ classes.signInButtonGrid }>
+
                       <ButtonPrimary
-                        // onClick={autoFocus}
                         type="submit"
                         data-testid="submit"
                         stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
                         disabled={ loading }
                       >
-                        Continue
+                       {utm_source === "CreditKarma" ?  "Continue" : "View your offers"}
                         <i
                           className="fa fa-refresh fa-spin customSpinner"
                           style={ {
@@ -750,8 +766,38 @@ useEffect(() =>
         </DialogContent>
         <DialogActions className="modalAction">
           <ButtonPrimary
-            stylebutton='{"background": "#FFBC23", "color": "black", "border-radius": "50px"}'
+            stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
             onClick={ handleCloseCA }
+            className="modalButton"
+          >
+            <Typography align="center">Ok</Typography>
+          </ButtonPrimary>
+        </DialogActions>
+      </Dialog>
+
+
+      {/* Ohio users */}
+      <Dialog
+        onClose={ handleCloseOhio }
+        aria-labelledby="customized-dialog-title"
+        open={ openOhio }
+      >
+        <DialogTitle id="customized-dialog-title" onClose={ handleCloseOhio }>
+          Notice to OH Residents
+        </DialogTitle>
+        <DialogContent dividers>
+          <Typography align="justify" gutterBottom>
+            The Ohio laws against discrimination require that all creditors make
+            credit equally available to all credit worthy customers, and that
+            credit reporting agencies maintain separate credit histories on each
+            individual upon request. The Ohio civil rights commission
+            administers compliance with this law.
+          </Typography>
+        </DialogContent>
+        <DialogActions className="modalAction">
+          <ButtonPrimary
+            stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
+            onClick={ handleCloseOhio }
             className="modalButton"
           >
             <Typography align="center">Ok</Typography>
