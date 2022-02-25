@@ -70,25 +70,30 @@ function CheckMyOffers(props) {
 		toast.error(globalMessages.Account_Closed_New_Apps);
 		navigate("/customers/accountOverview");
 	}
+
+	const setPageStatus = () => {
+		data.loanAmount = select;
+		data.formStatus = "started";
+		data.completedPage = data.page.selectAmount;
+		setData({ ...data, loanAmount: select });
+	}
 	const handleRoute = async (event) => {
     try{
 		if(data.offerCode === ""){
+			setPageStatus();
 			navigate("/loan-purpose");
-			return null;
-	}
+		}
 		let res = await offercodeValidation(data.offerCode);
 		if (res?.data?.offerData?.Message) {
 			toast.error("Please enter a valid Offer Code. If you do not have an Offer Code please select Continue");
 			tempCounter++;
 			if(tempCounter === 2){
+				setPageStatus();
               navigate("/loan-purpose")
 			}
 			
 		} else {
-			data.loanAmount = select;
-			data.formStatus = "started";
-			data.completedPage = data.page.selectAmount;
-			setData({ ...data, loanAmount: select });
+			setPageStatus();
 		if (res?.data?.offerData?.Message) {
 			navigate("/loan-purpose");
 		} else {
