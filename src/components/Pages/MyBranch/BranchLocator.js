@@ -58,7 +58,7 @@ const useStyles = makeStyles({
   },
 });
 export default function BranchLocator() {
-  window.zeHide();
+
   //Material UI css class
   const classes = useStylesMyBranch();
   const getDirectionsClass = useStylesConsumer();

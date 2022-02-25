@@ -54,7 +54,7 @@ function a11yProps(index) {
 }
 
 export default function Faq() {
-  window.zeHide();
+
   //Material UI css class
   const classes = useStylesFaq();
 

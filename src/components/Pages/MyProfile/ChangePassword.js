@@ -16,7 +16,7 @@ import {
 import "./Style.css";
 
 export default function ChangePassword(basicInformationData) {
-  window.zeHide();
+
   const navigate = useNavigate();
   const [ loading, setLoading ] = useState(false);
   const [ , setprofileTabNumber ] = useGlobalState();

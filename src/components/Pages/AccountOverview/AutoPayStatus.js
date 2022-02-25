@@ -5,7 +5,7 @@ import { useStylesAccountOverview } from "./Style";
 export default function AutoPayStatus(acct) {
   //Material UI css class
   const classes = useStylesAccountOverview();
-  window.zeHide();
+
   //View
   if (acct.isAutoPay) {
     return (

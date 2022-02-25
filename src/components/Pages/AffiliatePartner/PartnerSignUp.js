@@ -113,7 +113,7 @@ const validationSchema = yup.object({
     .required(globalMessages.SSNRequired)
     .transform((value) => value.replace(/[^\d]/g, ""))
     .matches(/^(?!0000)\d{4}$/, globalMessages.SSNValid)
-    .min(9, globalMessages.SSNMin),
+    .min(4, globalMessages.SSNMin_four),
   callPhNo: yup
     .string(globalMessages.PhoneEnter)
     .required(globalMessages.PhoneRequired)
@@ -129,7 +129,7 @@ const validationSchema = yup.object({
 
 //Begin: Login page
 export default function CreditKarma() {
-  window.zeHide();
+
   //Decoding URL for partner signup
   const useQuery = () => new URLSearchParams(useLocation().search);
   const query = useQuery();

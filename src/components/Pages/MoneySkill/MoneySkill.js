@@ -11,7 +11,7 @@ import { useStylesMoneySkill } from "./Style";
 import "./Style.css";
 
 export default function MoneySkill(props) {
-  window.zeHide();
+
   //Material UI css class
   const classes = useStylesMoneySkill();
 

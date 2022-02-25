@@ -13,7 +13,7 @@ import { useStylesLoanHistory } from "./Style";
 import "./Style.css";
 
 export default function LoanHistory() {
-  window.zeHide();
+
   //Material UI css class
   const classes = useStylesLoanHistory();
 

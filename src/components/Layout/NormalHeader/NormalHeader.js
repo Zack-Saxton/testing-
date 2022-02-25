@@ -79,7 +79,7 @@ const NormalHeader = () => {
               </a>
             </Typography>
             <NavLink className="faqLink" to="/faq" style={ { textDecoration: "none" } }>
-              <Typography className={ classes.subtitle }>FAQ's</Typography>
+              <Typography className={ classes.subtitle }>FAQ</Typography>
             </NavLink>
             <NavLink to="/branch/branchlocator" className="nav_link branchLocatorLink">
               <Typography className={ classes.subtitle }>Branch Locator</Typography>

@@ -12,7 +12,7 @@ import { documentdownload as downloadDocument, documentprint as printDocument } 
 import { useStylesLoanDocument } from "./Style";
 
 export default function LoanDocumentTable(userLoanDocumentData) {
-  window.zeHide();
+
   //Material UI css class
   const classes = useStylesLoanDocument();
   //Loan Document data from API

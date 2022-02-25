@@ -134,6 +134,7 @@
   "SSNRequired": "Your SSN is required",
   "SSNValid": "Please enter a valid SSN",
   "SSNMin": "SSN  must contain at least 9 digits",
+  "SSNMin_four": "SSN  must contain at least 4 digits",
   "State_Required": "State is required.",
   "Street_Address": "Enter street address",
   "Street_Address_Required": "Street Address is required.",

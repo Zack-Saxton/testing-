@@ -17,7 +17,7 @@ import { useStylesLoanHistory } from "./Style";
 import "./Style.css";
 
 export default function LoanHistoryTable(historyOfLoans) {
-  window.zeHide();
+
   //Material UI css class
   const classes = useStylesLoanHistory();
 

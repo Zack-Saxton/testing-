@@ -9,7 +9,7 @@ import { useStylesFaq } from "./Style";
 import "./Style.css";
 
 export default function FaqPostLogin() {
-  window.zeHide();
+
   //Material UI css class
   const classes = useStylesFaq();
 

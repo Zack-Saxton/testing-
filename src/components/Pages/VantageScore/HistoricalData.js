@@ -5,7 +5,7 @@ import { Line } from "react-chartjs-2";
 import { useStyleVantageScore } from "./Style";
 
 export default function HistoricalData(creditData) {
-  window.zeHide();
+
   //Material UI css class
   const classes = useStyleVantageScore();
   //Vantage score

@@ -29,7 +29,7 @@ const barChart = {
 
 //View Part
 export default function PaymentHistoryChart() {
-  window.zeHide();
+
   const classes = useStylesPaymenthistory();
   //Bar chart implementation
   const barOptions = {
