@@ -113,7 +113,7 @@ const validationSchema = yup.object({
     .required(globalMessages.SSNRequired)
     .transform((value) => value.replace(/[^\d]/g, ""))
     .matches(/^(?!0000)\d{4}$/, globalMessages.SSNValid)
-    .min(9, globalMessages.SSNMin),
+    .min(4, globalMessages.SSNMin_four),
   callPhNo: yup
     .string(globalMessages.PhoneEnter)
     .required(globalMessages.PhoneRequired)
