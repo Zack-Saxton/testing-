@@ -63,7 +63,7 @@ function tabVerticalProps(verticalIndex) {
 }
 
 export default function MyProfile() {
-  window.zeHide();
+
   const classes = useStylesMyProfile();
 
   //Api call Profile Picture

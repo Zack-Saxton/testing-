@@ -229,7 +229,7 @@ export default function CreditKarma(props) {
     setPrivacyPopup(false);
   };
 
-  window.zeHide();
+  
   const validate = (personal, household) => {
     if (!isNaN(personal) && !isNaN(household)) {
       if (personal <= household) {

@@ -26,7 +26,7 @@ import LoanDocumentTable from "./DocumentTable";
 import { useStylesLoanDocument } from "./Style";
 
 export default function LoanDocument() {
-  window.zeHide();
+
   //Material UI css class
   const classes = useStylesLoanDocument();
   const [ selectedFile, setSelectedFile ] = useState(null);

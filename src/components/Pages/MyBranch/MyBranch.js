@@ -14,7 +14,7 @@ import BranchMap from "./BranchMap";
 import { useStylesMyBranch } from "./Style";
 
 export default function MyBranch() {
-  window.zeHide();
+
   //Material UI css class
   const classes = useStylesMyBranch();
 

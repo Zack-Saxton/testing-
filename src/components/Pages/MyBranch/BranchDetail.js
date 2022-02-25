@@ -34,7 +34,7 @@ const stateCA = [
 ];
 
 export default function BranchDetail(MyBranchDetail) {
-  window.zeHide();
+
   //Material UI css class
   const classes = useStylesMyBranch();
 

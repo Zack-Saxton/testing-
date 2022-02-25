@@ -14,7 +14,7 @@ import { useStyleVantageScore } from "./Style";
 import "./Style.css";
 
 export default function Credit(creditData) {
-  window.zeHide();
+
   //Material UI css class
   const classes = useStyleVantageScore();
   const navigate = useNavigate();

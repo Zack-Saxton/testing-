@@ -22,7 +22,7 @@ import "./Style.css";
 
 export default function LimitedOffer(userOfferData) {
   //Material UI css class
-  window.zeHide();
+
   // Get offers details
   let userOfferAmount = userOfferData?.offerAmount ?? 0;
   const [ initModal, setinitModal ] = useState(false);

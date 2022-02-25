@@ -115,7 +115,7 @@ const validationSchemaAddBank = yup.object({
 });
 
 export default function PaymentMethod() {
-    window.zeHide();
+
     const classes = useStylesMyProfile();
     const navigate = useNavigate();
     const [ bankRoutingCheque, setHandleBankRoutingCheque ] = useState(false);

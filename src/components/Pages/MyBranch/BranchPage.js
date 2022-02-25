@@ -53,7 +53,7 @@ const useStyles = makeStyles({
   },
 });
 export default function StatePage(props) {
-  window.zeHide();
+
   //Material UI css class
   const clessesforptag = useStyles();
   const getDirectionsClass = useStylesConsumer();
