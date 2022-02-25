@@ -54,7 +54,7 @@ const PreApproved = () => {
                                 <Grid className="floatLeft">
                                     <Link
                                         to={ {
-                                            pathname: "/loan-purpose",
+                                            pathname: "/select-amount",
                                         } }
                                     >
                                         <i className="material-icons dp48 yellowText ">
