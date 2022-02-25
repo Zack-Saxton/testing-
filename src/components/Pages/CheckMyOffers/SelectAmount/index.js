@@ -51,7 +51,11 @@ function CheckMyOffers(props) {
 	const [ select, setSelect ] = useState(data.loanAmount ? data.loanAmount : (selectedAmount ? parseInt(selectedAmount) : 10000));
 	let location = useLocation();
 	useEffect(() => {
-		if (selectedAmount) {
+		if (data?.isActiveUser === "closed") {
+			toast.error(globalMessages.Account_Closed_New_Apps);
+			navigate("/customers/accountOverview");
+		}
+		else if (selectedAmount) {
 			data.loanAmount = select;
 			data.formStatus = "started";
 			data.completedPage = data.page.selectAmount;
@@ -66,10 +70,7 @@ function CheckMyOffers(props) {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	if (data?.isActiveUser === "closed") {
-		toast.error(globalMessages.Account_Closed_New_Apps);
-		navigate("/customers/accountOverview");
-	}
+
 
 	const setPageStatus = () => {
 		data.loanAmount = select;
@@ -77,6 +78,7 @@ function CheckMyOffers(props) {
 		data.completedPage = data.page.selectAmount;
 		setData({ ...data, loanAmount: select });
 	}
+	
 	const handleRoute = async (event) => {
     try{
 		if(data.offerCode === ""){
