@@ -133,6 +133,7 @@
   "SSNEnter": "Enter a SSN",
   "SSNRequired": "Your SSN is required",
   "SSNValid": "Please enter a valid SSN",
+  "SSNValid_Min_four": "Your SSN must be 4 characters in length",
   "SSNMin": "SSN  must contain at least 9 digits",
   "SSNMin_four": "SSN  must contain at least 4 digits",
   "State_Required": "State is required.",
