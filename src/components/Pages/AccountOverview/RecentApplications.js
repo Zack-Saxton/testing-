@@ -18,7 +18,7 @@ import "./Style.css";
 export default function RecentApplications({ isLoading, userApplicationsData, userApplicantData }) {
   //Material UI css class
   const classes = useStylesAccountOverview();
-  window.zeHide();
+  
   //Recentapplications data
   let userApplications = (userApplicationsData != null) ? userApplicationsData : null;
   let userApplicant = (userApplicantData != null) ? userApplicantData : null;

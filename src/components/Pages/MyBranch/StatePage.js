@@ -57,7 +57,7 @@ const useStyles = makeStyles({
 });
 
 export default function StatePage() {
-  window.zeHide();
+
   //Material UI css class
   const classes = useStylesMyBranch();
   const getDirectionsClass = useStylesConsumer();
