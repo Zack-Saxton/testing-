@@ -30,6 +30,7 @@ import { NavLink, useNavigate, useParams } from "react-router-dom";
 import PlacesAutocomplete from "react-places-autocomplete";
 import TitleImage from "../../../assets/images/Favicon.png";
 import { Helmet } from "react-helmet";
+import CustomerRatings from "../MyBranch/CustomerRatings";
 const useStyles = makeStyles({
   ptag: {
     margin: "0px",
@@ -60,7 +61,6 @@ const useStyles = makeStyles({
   },
 });
 export default function BranchLocator() {
-  window.zeHide();
   //Material UI css class
   const classes = useStylesMyBranch();
   const getDirectionsClass = useStylesConsumer();
@@ -85,13 +85,8 @@ export default function BranchLocator() {
       let result = await BranchLocatorController(search_text);
       if ((result.status === 400) || (result.data.branchData[0].BranchNumber === "0001")) {
         toast.error(" No branches within that area. Please enter a valid city and state.");
-        // setshowMapListSearch2DirectionButton(false);
       } else {
         setCurrentLocation(result?.data?.searchLocation);
-        // window.scrollBy({
-        //   behavior: "smooth",
-        //   top: 695
-        // })
         setZoomDepth(
           (result?.data?.branchData[0]?.distance).replace(/[^0-9]/g, "") / 100
         );
@@ -607,13 +602,7 @@ export default function BranchLocator() {
         {BreadCrumsAndSearch1AndText}
         {showMapListSearch2DirectionButton && MapBranchListandSearch2Buttons}
         {stateLinksandStaticText}
-        <Grid className="blueBGColor">
-          <h4>Customer Ratings</h4>
-          <div
-            id="feefo-service-review-carousel-widgetId"
-            className="feefo-review-carousel-widget-service"
-          ></div>
-        </Grid>
+        <CustomerRatings />
       </Grid>
     </div>
   );
