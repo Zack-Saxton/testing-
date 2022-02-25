@@ -241,10 +241,13 @@ export default function LoanDocument() {
                     } }
                   />
                 </Button>
+              </Grid>
+              <Grid item xs={ 12 } sm={ 4 } style={ { paddingTop: "10px" } }></Grid>
+            </Grid>
+            <Grid container direction="row">
+              <Grid item xs={ 12 } style={ { paddingTop: "10px" } }>
                 <span style={ { marginLeft: "2px" } }>{ loading ? "Uploading..." : label }</span>
               </Grid>
-
-              <Grid item xs={ 12 } sm={ 4 } style={ { paddingTop: "10px" } }></Grid>
             </Grid>
           </Paper>
         </Grid>

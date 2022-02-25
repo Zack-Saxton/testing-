@@ -84,8 +84,8 @@ export default function FinalVerification() {
   useEffect(() => {
     return () => {
       zE('webWidget', 'hide');
-    }
-  }, [])
+    };
+  }, []);
   zE('webWidget', 'show');
   //JSX part
   return (

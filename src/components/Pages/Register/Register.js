@@ -7,7 +7,6 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import axios from "axios";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useState } from "react";
@@ -115,54 +114,54 @@ export default function Register() {
   myDate.setDate(myDate.getDate() - 6571);
 
   const loginUser = async (values) => {
-    try{
-    let retVal = await LoginController(values.email, values.password, "");
-    if (retVal?.data?.user && retVal?.data?.userFound === true) {
-      let rememberMe = false;
-      var now = new Date().getTime();
-      LogoutController();
-      Cookies.set("redirec", JSON.stringify({ to: "/select-amount" }));
-      Cookies.set(
-        "token",
-        JSON.stringify({
-          isLoggedIn: true,
-          apiKey: retVal?.data?.user?.extensionattributes?.login?.jwt_token,
-          setupTime: now,
-        })
-      );
-      Cookies.set(
-        "cred",
-        encryptAES(
-          JSON.stringify({
-            email: values.email,
-            password: values.password,
-          })
-        )
-      );
-      queryClient.removeQueries();
-      rememberMe === true
-        ? Cookies.set(
-          "rememberMe",
+    try {
+      let retVal = await LoginController(values.email, values.password, "");
+      if (retVal?.data?.user && retVal?.data?.userFound === true) {
+        let rememberMe = false;
+        var now = new Date().getTime();
+        LogoutController();
+        Cookies.set("redirec", JSON.stringify({ to: "/select-amount" }));
+        Cookies.set(
+          "token",
           JSON.stringify({
             isLoggedIn: true,
             apiKey: retVal?.data?.user?.extensionattributes?.login?.jwt_token,
             setupTime: now,
           })
-        )
-        : Cookies.set("rememberMe", JSON.stringify({ selected: false, email: "", password: "" }));
+        );
+        Cookies.set(
+          "cred",
+          encryptAES(
+            JSON.stringify({
+              email: values.email,
+              password: values.password,
+            })
+          )
+        );
+        queryClient.removeQueries();
+        rememberMe === true
+          ? Cookies.set(
+            "rememberMe",
+            JSON.stringify({
+              isLoggedIn: true,
+              apiKey: retVal?.data?.user?.extensionattributes?.login?.jwt_token,
+              setupTime: now,
+            })
+          )
+          : Cookies.set("rememberMe", JSON.stringify({ selected: false, email: "", password: "" }));
 
-      setLoading(false);
-      navigate("/customers/accountoverview");
-    } else if (retVal?.data?.result === "error" || retVal?.data?.hasError === true) {
-      Cookies.set("token", JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" }));
-      setLoading(false);
-    } else {
-      setLoading(false);
-      alert("Network error");
+        setLoading(false);
+        navigate("/customers/accountoverview");
+      } else if (retVal?.data?.result === "error" || retVal?.data?.hasError === true) {
+        Cookies.set("token", JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" }));
+        setLoading(false);
+      } else {
+        setLoading(false);
+        alert("Network error");
+      }
+    } catch (error) {
+      ErrorLogger("Error executing Login API", error);
     }
-  } catch (error) {
-		ErrorLogger("Error executing Login API", error);
-	}
   };
   //Form Submission
   const queryParams = new URLSearchParams(window.location.search);

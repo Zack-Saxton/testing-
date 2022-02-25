@@ -139,6 +139,8 @@ function PersonalInfo() {
 	const navigate = useNavigate();
 	const innerClasses = useStyles();
 	const classes = preLoginStyle();
+	const myDate = new Date();
+	myDate.setDate(myDate.getDate() - 6571);
 
 	function phoneNumberMask(values) {
 		let phoneNumber = values.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
@@ -241,9 +243,6 @@ function PersonalInfo() {
 			}
 		},
 	});
-
-	const myDate = new Date();
-	myDate.setDate(myDate.getDate() - 6571);
 
 	const checkApplicationStatus = async (event) => {
 		formik.handleBlur(event);

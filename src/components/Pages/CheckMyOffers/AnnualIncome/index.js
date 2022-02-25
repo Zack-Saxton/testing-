@@ -4,15 +4,15 @@ import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import globalMessages from "../../../../assets/data/globalMessages.json";
 import AnnualIncomeLogo from "../../../../assets/icon/I-Annual-Income.png";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, TextField } from "../../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
-import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import "./AnnualIncome.css";
-import globalMessages from "../../../../assets/data/globalMessages.json";
 
 const useStyles = makeStyles((Theme) => ({
 	boxGrid: {
