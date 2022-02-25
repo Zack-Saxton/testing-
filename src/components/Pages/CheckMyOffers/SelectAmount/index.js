@@ -85,7 +85,6 @@ function CheckMyOffers(props) {
 		}
 		if (data.offerCode !=="") {
 			let res = await offercodeValidation(data.offerCode);
-			console.log('result',res);
 			if (res?.data?.offerData?.Message || res.status!== 200) {
 				toast.error("Please enter a valid Offer Code. If you do not have an Offer Code please select Continue");
 				tempCounter++;
