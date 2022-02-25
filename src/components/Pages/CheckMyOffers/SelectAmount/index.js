@@ -83,23 +83,28 @@ function CheckMyOffers(props) {
 			setPageStatus();
 			navigate("/loan-purpose");
 		}
-		let res = await offercodeValidation(data.offerCode);
-		if (res?.data?.offerData?.Message) {
-			toast.error("Please enter a valid Offer Code. If you do not have an Offer Code please select Continue");
-			tempCounter++;
-			if(tempCounter === 2){
+		if (data.offerCode !=="") {
+			let res = await offercodeValidation(data.offerCode);
+			console.log('result',res);
+			if (res?.data?.offerData?.Message || res.status!== 200) {
+				toast.error("Please enter a valid Offer Code. If you do not have an Offer Code please select Continue");
+				tempCounter++;
+				if(tempCounter === 2){
+					setPageStatus();
+				  navigate("/loan-purpose")
+				}
+				
+			} else {
 				setPageStatus();
-              navigate("/loan-purpose")
+			if (res?.data?.offerData?.Message) {
+				navigate("/loan-purpose");
+			} else {
+				toast.success("Your Application Code has been accepted");
+				navigate("/pre-approved");
 			}
-			
-		} else {
-			setPageStatus();
-		if (res?.data?.offerData?.Message) {
-			navigate("/loan-purpose");
-		} else {
-			toast.success("Your Application Code has been accepted");
-			navigate("/pre-approved");
 		}
+		
+		
 	}} catch (error) {
 		ErrorLogger("Error offerCode VAlidation API", error);
 	}
