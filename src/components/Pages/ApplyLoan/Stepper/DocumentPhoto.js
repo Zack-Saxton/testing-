@@ -109,6 +109,7 @@ export default function DocumentPhoto(props) {
 					<span className={ classes.spanStyle }> Please upload an image or your driver‘s license, passport,
 						state-issued photo ID card, or military/federal government photo ID.
 					</span>
+					<br />
 					<span className={ classes.spanStyle }>Please ensure:</span>
 					<li className={ classes.listStyle }>Document is currently valid</li>
 					<li className={ classes.listStyle }>The entire document is visible and all information is legible</li>
