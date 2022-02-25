@@ -27,7 +27,6 @@ import { makeStyles } from "@material-ui/core";
 import { NavLink, useParams} from "react-router-dom";
 import BranchDayTiming, { mapInformationBranchLocator } from "../../Controllers/BranchDayTiming";
 import PlacesAutocomplete from "react-places-autocomplete";
-import "@reach/combobox/styles.css";
 import { Helmet } from "react-helmet";
 import CustomerRatings from "../MyBranch/CustomerRatings";
 const useStyles = makeStyles({
