@@ -93,11 +93,11 @@ function CheckMyOffers(props) {
 				  navigate("/loan-purpose")
 				}
 				
-			} else {
+			} else 
 				 {
 				toast.success("Your Application Code has been accepted");
 				navigate("/pre-approved");
-			}
+			
 		}
 		
 		
