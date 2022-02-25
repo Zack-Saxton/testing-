@@ -3,6 +3,10 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -160,16 +164,44 @@ export default function CreditKarma() {
 
   //Populate partner signup from API
   let populateSignupData = populatePartnerSignupState?.data?.applicant;
-
+  console.log("populateSignupData",populateSignupData?.state)
   const classes = useStyles();
   const [ failed, setFailed ] = useState("");
   const [ loading, setLoading ] = useState(false);
   const navigate = useNavigate();
-  const [ agree, setAgree ] = useState(false);
+  const [ openDelaware, setOpenDelaware ] = useState(false);
+  const [ agree, setAgree ] = useState(false);  
+  const [ agreeDelaware, setAgreeDelaware ] = useState("");
+  const [ agreeCalifornia, setAgreeCalifornia ] = useState("");
+  const [ agreeNewMexico, setAgreeNewMexico ] = useState("");
   const [ esignPopup, setEsignPopup ] = useState(false);
   const [ creditPopup, setCreditPopup ] = useState(false);
   const [ webTOUPopup, setwebTOUPopup ] = useState(false);
   const [ privacyPopup, setPrivacyPopup ] = useState(false);
+  const [ openCA, setOpenCA ] = useState(false);
+
+
+useEffect(() => 
+{
+  if (populateSignupData?.state === "CA") {
+    handleClickOpenCA();
+  }
+  
+},[]);
+
+  const handleClickOpenCA = () => {
+    setOpenCA(true);
+  };
+  const handleCloseCA = () => {
+    setOpenCA(false);
+  };
+
+  const handleClickDelawareOpen = () => {
+    setOpenDelaware(true);
+  };
+  const handleDelawareClose = () => {
+    setOpenDelaware(false);
+  };
 
   const handleOnClickEsign = () => {
     setEsignPopup(true);
@@ -552,6 +584,111 @@ export default function CreditKarma() {
                         stylecheckbox='{ "color":"blue"}'
                         stylecheckboxlabel='{ "color":"" }'
                       />
+                      <div
+                        className={
+                          utm_source !== "CreditKarma" && populateSignupData?.state === "Delaware" ||
+                            populateSignupData?.state === "DE"
+                            ? "showCheckbox"
+                            : "hideCheckbox"
+                        }
+                      >
+                        <Checkbox
+                          name="delaware"
+                          labelform="delaware"
+                          value={ agreeDelaware }
+                          onChange={ (event) => {
+                            setAgreeDelaware(event.target.checked);
+                          } }
+                          label={
+                            <p className="agreeCheckbox">
+                              By clicking this box you acknowledge that you have
+                              received and reviewed the{ " " }
+                              <span
+                                className="formatHref"
+                                onClick={ handleClickDelawareOpen }
+                              >
+                                Delaware Itemized Schedule Of Charges.{ " " }
+                              </span>
+                            </p>
+                          }
+                          stylelabelform='{ "color":"" }'
+                          stylecheckbox='{ "color":"blue" }'
+                          stylecheckboxlabel='{ "color":"" }'
+                        />
+                      </div>
+                      <div
+                        className={
+                          utm_source !== "CreditKarma" && populateSignupData?.state === "California" ||
+                            populateSignupData?.state === "CA"
+                            ? "showCheckbox"
+                            : "hideCheckbox"
+                        }
+                      >
+                        <Checkbox
+                          name="california"
+                          labelform="california"
+                          value={ agreeCalifornia }
+                          onChange={ (event) => {
+                            setAgreeCalifornia(event.target.checked);
+                          } }
+                          label={
+                            <p className="agreeCheckbox">
+                              By clicking this box you acknowledge that you have
+                              been offered and had the opportunity to review
+                              this{ " " }
+                              <a
+                                className="formatHref"
+                                href={
+                                  "https://lms.moneyskill.org/yourcreditrating/module/mariner/en"
+                                }
+                                target="_blank"
+                                rel="noreferrer noopener"
+                              >
+                                Credit Education Program
+                              </a>
+                            </p>
+                          }
+                          stylelabelform='{ "color":"" }'
+                          stylecheckbox='{ "color":"blue" }'
+                          stylecheckboxlabel='{ "color":"" }'
+                        />
+                      </div>
+                      <div
+                        className={
+                          utm_source !== "CreditKarma" && populateSignupData?.state === "New Mexico" ||
+                            populateSignupData?.state === "NM"
+                            ? "showCheckbox"
+                            : "hideCheckbox"
+                        }
+                      >
+                        <Checkbox
+                          name="newmexico"
+                          labelform="newmexico"
+                          value={ agreeNewMexico }
+                          onChange={ (event) => {
+                            setAgreeNewMexico(event.target.checked);
+                          } }
+                          label={
+                            <p className="agreeCheckbox">
+                              NM Residents: By clicking this box you acknowledge
+                              that you have reviewed the Important Consumer
+                              Information in Mariner’s New Mexico Consumer
+                              Brochure located at{ " " }
+                              <a
+                                className="formatHref"
+                                href={ "http://marfi.me/NMBrochure." }
+                                target="_blank"
+                                rel="noreferrer noopener"
+                              >
+                                http://marfi.me/NMBrochure
+                              </a>
+                            </p>
+                          }
+                          stylelabelform='{ "color":"" }'
+                          stylecheckbox='{ "color":"blue" }'
+                          stylecheckboxlabel='{ "color":"" }'
+                        />
+                      </div>
                     </Grid>
 
                     <Grid item xs={ 12 } className={ classes.signInButtonGrid }>
@@ -592,6 +729,36 @@ export default function CreditKarma() {
       <Popup popupFlag={ privacyPopup } closePopup={ handleOnClickPrivacyClose }>
         <RenderContent disclosureLink="/privacy" />
       </Popup>
+      
+      <Popup popupFlag={ openDelaware } closePopup={ handleDelawareClose }>
+        <RenderContent disclosureLink="/delaware" />
+        </Popup>
+
+{/* CA user */}
+<Dialog
+        onClose={ handleCloseCA }
+        aria-labelledby="customized-dialog-title"
+        open={ openCA }
+      >
+        <DialogTitle id="customized-dialog-title" onClose={ handleCloseCA }>
+          Notice to CA Residents
+        </DialogTitle>
+        <DialogContent dividers>
+          <Typography align="justify" gutterBottom>
+            If you are married, you may apply for a separate account.
+          </Typography>
+        </DialogContent>
+        <DialogActions className="modalAction">
+          <ButtonPrimary
+            stylebutton='{"background": "#FFBC23", "color": "black", "border-radius": "50px"}'
+            onClick={ handleCloseCA }
+            className="modalButton"
+          >
+            <Typography align="center">Ok</Typography>
+          </ButtonPrimary>
+        </DialogActions>
+      </Dialog>
+
     </div>
   );
 }
