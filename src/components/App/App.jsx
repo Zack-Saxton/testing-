@@ -50,14 +50,15 @@ import LoginPage from '../Pages/Login/Login';
 import ResetPassword from '../Pages/Login/ResetPassword';
 import MakePayment from "../Pages/MakePayment/MakePayment";
 import MoneySkill from "../Pages/MoneySkill/MoneySkill";
-import BranchLocator from "../Pages/MyBranch/BranchLocator";
-import BranchPage from "../Pages/MyBranch/BranchPage";
 import MyBranch from "../Pages/MyBranch/MyBranch";
-import StatePage from "../Pages/MyBranch/StatePage";
 import MyProfile from "../Pages/MyProfile/MyProfile";
 import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory";
 import RegisterPage from '../Pages/Register/Register';
 import VantageScore from "../Pages/VantageScore/VantageScore";
+import BranchLocator from "../Pages/BranchLocator/BranchLocator";
+import BranchPage from "../Pages/BranchLocator/BranchPage";
+import StatePage from "../Pages/BranchLocator/StatePage";
+
 import "./App.css";
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -139,11 +140,14 @@ function App() {
                                 <Route path='/eligible-for-offers' element={ loadGeneralUserComponent(<EligibleForOffers />) } />
                                 <Route path='/zipcode' element={ loadGeneralUserComponent(<ZipCode />) } />
                                 <Route path='/personal-info' element={ loadGeneralUserComponent(<PersonalInfo />) } />
-                                <Route path='/branch/branchlocator' element={ branchHeaderComponent(<BranchLocator />) } />
-                                <Route path='/branchPage' element={ branchHeaderComponent(<BranchPage />) } />
-                                <Route path='/StatePage' element={ branchHeaderComponent(<StatePage />) } />
-                                <Route path='/resetpassword' element={ loadGeneralUserComponent(<ResetPassword />) } />
-                                {/* <Route path='/branchlocator' element={ loadGeneralUserComponent(<BranchLocator />) } ></Route> */ }
+                                <Route path='/branch-locator' element={ branchHeaderComponent(<BranchLocator />) } />
+                                <Route path='/branchPage' element={ branchHeaderComponent(<BranchPage />) } >
+                                    <Route path=':branchname' element={branchHeaderComponent(<BranchPage />)} />
+                                </Route>
+                                <Route path='/StatePage' element={branchHeaderComponent(<StatePage />) } >
+                                    <Route path=':statename' element={branchHeaderComponent(<StatePage />)} />
+                                </Route>
+                                <Route path='/resetpassword' element={loadGeneralUserComponent(<ResetPassword />)} />
                                 <Route path='*' element={ loadGeneralUserComponent(<ErrorBeforeLogin />) } />
                                 <Route path='select-amount' element={ loadGeneralUserComponent(<SelectAmount />) } >
                                     <Route path=':amount' element={ loadGeneralUserComponent(<SelectAmount />) } />
