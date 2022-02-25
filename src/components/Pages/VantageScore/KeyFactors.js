@@ -48,9 +48,9 @@ export default function ControlledAccordions(keyFactors) {
             <AccordionDetails>
               <div className={ classes.VantageScoreSmallText }>
                 <p className={ classes.BoldText }>Explanation</p>
-                { factor.description }
+                { (factor.description).replace(/\\/g, '') }
                 <p className={ classes.BoldText }>What You Can Do</p>
-                { factor.tip }
+                { (factor.tip).replace(/\\/g, '') }
               </div>
             </AccordionDetails>
           </Accordion>
