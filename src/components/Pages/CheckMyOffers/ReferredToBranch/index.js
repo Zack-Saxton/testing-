@@ -9,6 +9,7 @@ import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary } from "../../../FormsUI";
 import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
+import PropTypes from "prop-types";
 
 //reffered to branch functional component initialization
 function ReferredToBranch(props) {
@@ -228,7 +229,7 @@ function ReferredToBranch(props) {
 										style={ { align: "left", alignItems: "left" } }
 										className=" minText bullet"
 									>
-										It's a good idea to know how much money you make a year.
+										{"It's"} a good idea to know how much money you make a year.
 									</Typography>
 									<Typography
 										style={ { align: "left", alignItems: "left" } }
@@ -261,5 +262,10 @@ function ReferredToBranch(props) {
 		</div>
 	);
 }
+
+ReferredToBranch.propTypes = {
+	location : PropTypes.object,
+  };
+
 
 export default ReferredToBranch;

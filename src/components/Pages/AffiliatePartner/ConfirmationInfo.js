@@ -20,6 +20,8 @@ import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
 import { ButtonPrimary, Checkbox, Popup, RenderContent, Select, TextField, Zipcode } from "../../FormsUI";
 import ErrorLogger from "../../lib/ErrorLogger";
 import "./Style.css";
+import PropTypes from "prop-types";
+
 
 //Styling
 const useStyles = makeStyles((theme) => ({
@@ -546,8 +548,8 @@ export default function CreditKarma(props) {
     }
   };
   const changeCitizenship = (event) => {
-    let citizenship = event.target.value;
-    if (citizenship === "Foreign Resident") {
+    let citizenshipValue = event.target.value;
+    if (citizenshipValue === "Foreign Resident") {
       setCitizenship(true);
       formik.handleChange(event);
     } else {
@@ -1236,3 +1238,7 @@ export default function CreditKarma(props) {
     </div>
   );
 }
+
+CreditKarma.propTypes = {
+  location: PropTypes.object,
+};

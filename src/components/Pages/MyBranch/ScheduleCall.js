@@ -10,6 +10,7 @@ import { useFormik } from "formik";
 import Moment from "moment";
 import momentTimeZone from "moment-timezone";
 import React from "react";
+import PropTypes from "prop-types";
 import * as yup from "yup";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import { ScheduleCallApi } from "../../Controllers/MyBranchController";
@@ -356,3 +357,8 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
     </div>
   );
 }
+
+ScheduleCall.propTypes = {
+  MyBranchCall: PropTypes.object,
+  holidayData: PropTypes.object,
+};

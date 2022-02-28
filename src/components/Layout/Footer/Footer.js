@@ -122,7 +122,7 @@ export default function Footer() {
               </Grid>
 
               <Grid
-                className="footerPadding"
+                className="footerPadding row"
                 item
                 sm={ 12 }
                 md={ 8 }

@@ -5,6 +5,7 @@ import CheckLoginStatus from "../App/CheckLoginStatus";
 import Footer from "../Layout/Footer/Footer";
 import AppBar from "./AppBar/SideNav";
 import CheckLoginTimeout from "./CheckLoginTimeout";
+import PropTypes from "prop-types";
 
 const Post = ({ children }) => {
 
@@ -29,5 +30,13 @@ const Post = ({ children }) => {
         </div>
     );
 };
+
+Post.propTypes = {
+    children: PropTypes.oneOfType([
+      PropTypes.arrayOf(PropTypes.node),
+      PropTypes.node,
+      PropTypes.func
+    ])
+  };
 
 export default Post;

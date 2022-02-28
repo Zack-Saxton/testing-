@@ -313,8 +313,8 @@ export default function TextNotification() {
                 fees for text messages that Mariner sends to me, and I agree
                 that Mariner shall have no liability for the cost of any such
                 text messages. I understand that I may unsubscribe from text
-                messages by replying "STOP" to any text message that I receive
-                from Mariner or on Mariner's behalf.
+                messages by replying &quot;STOP&quot; to any text message that I receive
+                from Mariner or on Mariner&apos;s behalf.
               </p>
             </Typography>
           </DialogContentText>

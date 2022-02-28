@@ -1,5 +1,6 @@
-import CircularProgress from '@material-ui/core/CircularProgress';
 import React from "react";
+import PropTypes from "prop-types";
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { useQuery } from 'react-query';
 import DisclosureLinkController from "../../Controllers/DisclosureLinkController";
 import "./Style.css";
@@ -18,4 +19,9 @@ const RenderContent = ({ disclosureLink }) => {
         </div>
     );
 };
+
+RenderContent.propTypes = {
+    disclosureLink: PropTypes.string.isRequired,
+};
+
 export default RenderContent;
