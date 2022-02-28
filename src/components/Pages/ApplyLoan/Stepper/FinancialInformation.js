@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useFormik } from "formik";
 import React, { useState } from "react";
 import * as yup from "yup";
+import PropTypes from "prop-types";
 import { submitFinancialInformation } from "../../../Controllers/ApplyForLoanController";
 import {
   ButtonPrimary,
@@ -202,3 +203,11 @@ export default function FinancialInformation(props) {
     </div>
   );
 }
+
+FinancialInformation.propTypes = {
+  setLoadingFlag: PropTypes.func,
+  next: PropTypes.func,
+  classes: PropTypes.object,
+  steps: PropTypes.string,
+  activeStep: PropTypes.string
+};

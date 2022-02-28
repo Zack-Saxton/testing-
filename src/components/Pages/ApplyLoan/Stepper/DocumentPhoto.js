@@ -2,6 +2,7 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import { getIframe } from "../../../Controllers/ApplyForLoanController";
 import { ButtonPrimary } from "../../../FormsUI";
@@ -149,3 +150,11 @@ export default function DocumentPhoto(props) {
 		</div>
 	);
 }
+DocumentPhoto.propTypes = {
+	next: PropTypes.func,
+	reference: PropTypes.object,
+	classes: PropTypes.object,
+	steps: PropTypes.string,
+	activeStep: PropTypes.string
+
+};

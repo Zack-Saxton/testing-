@@ -1,5 +1,6 @@
 import Grid from "@material-ui/core/Grid";
 import React from "react";
+import PropTypes from "prop-types";
 import { resendVerificationEmail } from "../../../Controllers/ApplyForLoanController";
 import { ButtonSecondary } from "../../../FormsUI";
 
@@ -47,3 +48,6 @@ export default function EmailVerification(props) {
 		</div>
 	);
 }
+EmailVerification.propTypes = {
+	classes: PropTypes.object,
+};
