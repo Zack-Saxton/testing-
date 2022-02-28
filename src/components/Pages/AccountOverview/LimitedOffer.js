@@ -24,11 +24,12 @@ export default function LimitedOffer(userOfferData) {
   //Material UI css class
 
   // Get offers details
-  let userOfferAmount = userOfferData?.offerAmount ?? 0;
+  
+  const [userOfferAmount,setuserOfferAmount] = useState(null);
   const [ initModal, setinitModal ] = useState(false);
   const [ offerCode, setOfferCode ] = useState(" ");
   const [ campaignType, setCampaignType ] = useState("");
-  const [ amount, setAmount ] = useState(" ");
+  const [ amount, setAmount ] = useState("");
   const [ expiryDate, setExpiryDate ] = useState(" ");
   const [ firstName, setfirstName ] = useState("");
 
@@ -41,11 +42,12 @@ export default function LimitedOffer(userOfferData) {
   const navigate = useNavigate();
   useEffect(() => {
     if (userOfferData) {
-      setOfferCode(userOfferData?.OfferCode);
-      setExpiryDate(userOfferData?.dateExpiration);
-      setAmount(userOfferData?.offerAmount);
-      setfirstName(userOfferData?.firstName);
-      setCampaignType(userOfferData?.CampaignTypeDesc);
+      setOfferCode(userOfferData?.userOffers?.OfferCode);
+      setExpiryDate(userOfferData?.userOffers?.dateExpiration);
+      setAmount(userOfferData?.userOffers?.offerAmount);
+      setfirstName(userOfferData?.userOffers?.firstName);
+      setCampaignType(userOfferData?.userOffers?.CampaignTypeDesc);
+      setuserOfferAmount(userOfferData?.userOffers?.offerAmount)
     }
     return null;
   }, [ userOfferData ]);
@@ -72,12 +74,12 @@ export default function LimitedOffer(userOfferData) {
   };
 
   const handleContinue = () => {
-    navigate("/pre-approved");
+    navigate("/select-amount");
   };
 
   //View
   return (
-    <div id="limitedOfferWrap" className="limitedOfferWrap">
+<div id="limitedOfferWrap" className="limitedOfferWrap">
       <Grid container id="overviewWrap" className="overviewWrap">
         <Grid className="imageholder">
           <div className="yellowBackground">
