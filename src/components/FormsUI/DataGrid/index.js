@@ -7,6 +7,8 @@ Functionality       :    To use this component to validate and get the Zip code 
 #################################################################################################################*/
 import { DataGrid } from "@material-ui/data-grid";
 import * as React from "react";
+import PropTypes from "prop-types";
+
 
 const DataGridWrapper = ({ name, rows, columns, height, width, ...otherProps }) => {
   return (
@@ -14,6 +16,14 @@ const DataGridWrapper = ({ name, rows, columns, height, width, ...otherProps }) 
       <DataGrid rows={ rows } columns={ columns } pageSize={ 15 } { ...otherProps } />
     </div>
   );
+};
+
+DataGridWrapper.propTypes = {
+  name: PropTypes.string,
+  rows: PropTypes.object,
+  columns: PropTypes.object,
+  height: PropTypes.string,
+  width: PropTypes.string
 };
 
 export default DataGridWrapper;

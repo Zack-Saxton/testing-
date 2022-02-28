@@ -10,6 +10,8 @@ Functionality       :    To use this checkbox as a default component for UI purp
 import { Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
+import PropTypes from "prop-types";
+
 const CheckboxWrapper = ({
   name,
   value,
@@ -63,6 +65,19 @@ const CheckboxWrapper = ({
       </FormGroup>
     </FormControl>
   );
+};
+
+CheckboxWrapper.propTypes = {
+  name: PropTypes.string,
+  id: PropTypes.string,
+  label: PropTypes.string,
+  value: PropTypes.string,
+  labelid: PropTypes.string,
+  formlabel: PropTypes.string,
+  stylecheckbox: PropTypes.string,
+  stylecheckboxlabel: PropTypes.string,
+  stylelabelform: PropTypes.string,
+  required: PropTypes.bool,
 };
 
 export default CheckboxWrapper;

@@ -8,6 +8,8 @@ Functionality       :    To use this component to get only valid Email address.
 import InputAdornment from "@material-ui/core/InputAdornment";
 import TextField from "@material-ui/core/TextField";
 import React, { useState } from "react";
+import PropTypes from "prop-types";
+
 
 //Initializing EmailWrapper component
 const EmailWrapper = ({ name, suffix, lable, materialProps, id, ...otherProps }) => {
@@ -46,5 +48,14 @@ const EmailWrapper = ({ name, suffix, lable, materialProps, id, ...otherProps })
     />
   );
 };
+
+EmailWrapper.propTypes = {
+  name: PropTypes.string,
+  suffix: PropTypes.string,
+  lable: PropTypes.string,
+  id: PropTypes.string,
+  materialProps: PropTypes.object
+};
+
 
 export default EmailWrapper;

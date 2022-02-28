@@ -14,7 +14,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import "./DatePicker.css";
 
-const DatePickerWrapper = ({ name, format, defaultDate, label, placeholder, maxdate, minyear, ...otherProps }) => {
+const DatePickerWrapper = ({ name, format, label, placeholder, maxdate, minyear, ...otherProps }) => {
 
 	// The first commit of Material-UI
 	//const currentDate = new Date();
@@ -59,6 +59,11 @@ const DatePickerWrapper = ({ name, format, defaultDate, label, placeholder, maxd
 
 DatePickerWrapper.propTypes = {
 	name: PropTypes.string.isRequired,
+	format: PropTypes.string, 
+	label: PropTypes.string,  
+	placeholder: PropTypes.string, 
+	maxdate: PropTypes.object, 
+	minyear: PropTypes.object
 };
 
 export default DatePickerWrapper;
