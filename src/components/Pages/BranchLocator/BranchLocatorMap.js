@@ -2,6 +2,7 @@ import { Circle, GoogleMap, InfoWindow, Marker } from "@react-google-maps/api";
 import React, { useCallback, useRef, useState } from "react";
 import icon from "../../../assets/icon/icon-google-map-marker.png";
 import mapStyles from "../../../contexts/mapStyles";
+import PropTypes from "prop-types";
 
 function BranchLocatorMap(props) {
   const [ activeMarker, setActiveMarker ] = useState(null);
@@ -88,5 +89,11 @@ function BranchLocatorMap(props) {
     </GoogleMap>
   );
 }
+
+BranchLocatorMap.propTypes = {
+  CurrentLocation : PropTypes.object,
+  Zoom : PropTypes.object,
+  getMap : PropTypes.object,
+};
 
 export default BranchLocatorMap;

@@ -7,7 +7,8 @@ import { ButtonPrimary } from "../../../FormsUI";
 import APICall from "../../../lib/AxiosLib";
 import messages from "../../../lib/Lang/applyForLoan.json";
 import DocumentUpload from "./DocumentUpload";
-
+import PropTypes from "prop-types";
+ 
 //styling part
 const useStyles = makeStyles(() => ({
 	content_grid: {
@@ -107,3 +108,10 @@ export default function IncomeVerification(props) {
 		</div>
 	);
 }
+
+IncomeVerification.propTypes = {
+	setLoadingFlag : PropTypes.bool,
+	classes : PropTypes.object,
+	steps: PropTypes.number,
+	activeStep: PropTypes.number
+  };
