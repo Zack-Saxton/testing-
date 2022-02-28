@@ -10,6 +10,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { useQueryClient } from "react-query";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import LoginController from "../../Controllers/LoginController";
@@ -371,9 +372,9 @@ export default function Login(props) {
         <ul>
           <li>
             { " " }
-            If you're a new user, click on
+            If you&apos;re a new user, click on
             <NavLink to="/register" style={ { textDecoration: "none" } }>
-              <span id="helpLogin">"Sign in help/Register"</span>
+              <span id="helpLogin">Sign in help/Register</span>
             </NavLink>{ " " }
             option and enter your registration details.
           </li>
@@ -401,3 +402,7 @@ export default function Login(props) {
     </div>
   );
 }
+
+Login.propTypes = {
+  setToken: PropTypes.string
+};

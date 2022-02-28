@@ -1325,11 +1325,10 @@ export default function PaymentMethod() {
                         </Grid>
 
                         <Grid
-                            style={ { padding: "0px 16px" } }
+                            style={ { padding: "0px 16px", width: "100%" } }
                             item
                             sm={ 4 }
                             xs={ 12 }
-                            style={ { width: "100%" } }
                             container
                             direction="row"
                             className={ editMode ? classes.hideSection : classes.showSection }

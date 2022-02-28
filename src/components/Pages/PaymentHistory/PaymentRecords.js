@@ -16,7 +16,7 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
 import Moment from "moment";
 import PropTypes from 'prop-types';
-import { useState } from "react";
+import React, { useState } from "react";
 import NumberFormat from 'react-number-format';
 import { useStylesPaymenthistory } from "./Style";
 import "./Style.css";
@@ -201,3 +201,6 @@ export default function PaymentHistoryTable({ userRecentPaymentData }) {
     </Grid>
   );
 }
+PaymentHistoryTable.propTypes = {
+  userRecentPaymentData: PropTypes.array,
+};
