@@ -10,10 +10,10 @@ Functionality       :    To use this ButtonSwitch as a default component for UI 
 import { FormControl, FormControlLabel } from "@material-ui/core";
 import Switch from "@material-ui/core/Switch";
 import React from "react";
+import PropTypes from "prop-types";
 
 const ButtonSwitchWrapper = ({
   name,
-  value,
   id,
   label,
   labelplacement,
@@ -44,6 +44,13 @@ const ButtonSwitchWrapper = ({
       />
     </FormControl>
   );
+};
+
+ButtonSwitchWrapper.propTypes = {
+  name: PropTypes.string,
+  id: PropTypes.string,
+  label: PropTypes.string,
+  labelplacement: PropTypes.string,
 };
 
 export default ButtonSwitchWrapper;

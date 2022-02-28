@@ -9,11 +9,11 @@ import { Grid } from "@material-ui/core";
 import Icon from "@material-ui/core/Icon";
 import React from "react";
 import Email from "../Email";
+import PropTypes from "prop-types";
 
 const EmailWithIconWrapper = ({
   name,
   icon,
-
   iconPosition,
   iconColor,
   customClass, //get dynamic icon name
@@ -55,6 +55,14 @@ const EmailWithIconWrapper = ({
       </Grid>
     </div>
   );
+};
+
+EmailWithIconWrapper.propTypes = {
+  name: PropTypes.string,
+  icon: PropTypes.string,
+  iconPosition: PropTypes.string,
+  iconColor: PropTypes.string,
+  customClass: PropTypes.string,
 };
 
 export default EmailWithIconWrapper;
