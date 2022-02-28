@@ -439,10 +439,10 @@ OfferTable.propTypes = {
 	selectedTerm : PropTypes.string,
 	selectedIndex : PropTypes.number,
 	setOffersToCompareChart : PropTypes.func,
-	tabVerticalProps : PropTypes.number,
+	tabVerticalProps : PropTypes.func,
 	noOfTerms : PropTypes.number,
 	handleTabChange : PropTypes.func,
-	submitSelectedOffer : PropTypes.object,
+	submitSelectedOffer : PropTypes.func,
 	onCompareOfferTabClick : PropTypes.func
   };
   

@@ -70,8 +70,8 @@ const CheckboxWrapper = ({
 CheckboxWrapper.propTypes = {
   name: PropTypes.string,
   id: PropTypes.string,
-  label: PropTypes.string,
-  value: PropTypes.bool,
+  label: PropTypes.any,
+  value: PropTypes.any,
   labelid: PropTypes.string,
   formlabel: PropTypes.string,
   stylecheckbox: PropTypes.string,
