@@ -1,3 +1,5 @@
+import React, {  useRef, useState } from "react";
+import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Dialog from "@material-ui/core/Dialog";
@@ -10,7 +12,6 @@ import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import CloseIcon from "@material-ui/icons/Close";
 import SearchIcon from "@material-ui/icons/Search";
 import { useLoadScript } from "@react-google-maps/api";
-import React, {  useRef, useState } from "react";
 import { toast } from "react-toastify";
 import BranchDayTiming, { mapInformationBranchLocator } from "../../Controllers/BranchDayTiming";
 import BranchLocatorController from "../../Controllers/BranchLocatorController";

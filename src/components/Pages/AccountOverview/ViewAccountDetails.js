@@ -207,7 +207,7 @@ export default function ViewAccountDetails() {
                               Upon completion of your application and verification of your information,
                               we may be able to extend your final offer as soon as today!
                               <br></br> <br></br>
-                              "Let's get on a call" -  <NavLink to="/customers/myBranch" style={ { textDecoration: "none", color: "#0F4EB3", cursor: "pointer" } }>
+                              {`"Let's get on a call"`} -  <NavLink to="/customers/myBranch" style={ { textDecoration: "none", color: "#0F4EB3", cursor: "pointer" } }>
                                 Please click here to contact us!
                               </NavLink>
                             </p>

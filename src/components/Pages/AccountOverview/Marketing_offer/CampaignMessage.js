@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import logo from "../../../../assets/images/mariner-finance.jpg";
 import setAccountDetails from "../../../Controllers/AccountOverviewController";
 import { ButtonPrimary } from "../../../FormsUI";
+import PropTypes from "prop-types";
 
 export default function CampaignMessage({ amount, offerCode, handleContinue, expiryDate }) {
 
@@ -18,7 +19,7 @@ export default function CampaignMessage({ amount, offerCode, handleContinue, exp
         <Grid className="checkMyOffers">
             <Grid className="leftcheckMyOffers">
                 <img src={ logo } width="120px" height="70px"></img>
-                <p className="common">Don't wait! This offer expires { expiryDate }</p>
+                <p className="common">{`Don't wait! This offer expires`} { expiryDate }</p>
             </Grid>
             <Grid className="rightcheckMyOffers">
                 <p className="common">You are prequalified up to</p>
@@ -34,3 +35,11 @@ export default function CampaignMessage({ amount, offerCode, handleContinue, exp
         </Grid>
     );
 }
+
+
+CampaignMessage.propTypes = {
+    amount: PropTypes.string,
+    offerCode: PropTypes.string,
+    handleContinue: PropTypes.func,
+    expiryDate: PropTypes.instanceOf(Date),
+  };

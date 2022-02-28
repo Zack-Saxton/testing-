@@ -54,6 +54,11 @@ const ZipCodeWrapper = ({ name, error, helperText, value, onChange, ...otherProp
 //set name prop as mandatory
 ZipCodeWrapper.propTypes = {
   name: PropTypes.string.isRequired,
+  error: PropTypes.string,
+  helperText: PropTypes.string,
+  value: PropTypes.string,
+  onChange: PropTypes.func,
+
 };
 
 export default ZipCodeWrapper;

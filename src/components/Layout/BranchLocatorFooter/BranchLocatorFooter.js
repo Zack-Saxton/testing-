@@ -206,17 +206,17 @@ export default function BranchLocatorFooter() {
                     </Typography>
                     {element.title === "Stay Connected" ? (
                       <Grid>
-                        <a target="_blank" href="https://www.facebook.com/MarinerFinance/">
+                        <a target="_blank" rel="noreferrer" href="https://www.facebook.com/MarinerFinance/">
                           <IconButton className="socialIcons">
                             <FacebookIcon />
                           </IconButton>
                         </a>
-                        <a target="_blank" href="https://twitter.com/MarinerFinance">
+                        <a target="_blank" rel="noreferrer" href="https://twitter.com/MarinerFinance">
                           <IconButton className="socialIcons">
                             <TwitterIcon />
                           </IconButton>
                         </a>
-                        <a target="_blank" href="https://www.linkedin.com/company/mariner-finance/">
+                        <a target="_blank" rel="noreferrer" href="https://www.linkedin.com/company/mariner-finance/">
                           <IconButton className="socialIcons">
                             <LinkedInIcon />
                           </IconButton>
