@@ -158,7 +158,8 @@ export default function StatePage() {
   useEffect(() => {
     apiGetBranchList(Name);
     window.scrollTo(0,0);
-    return null
+    return null;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const handleSelect1 = async (value) => {
     setAddress1(value);
