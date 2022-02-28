@@ -32,6 +32,7 @@ import PlacesAutocomplete from "react-places-autocomplete";
 import TitleImage from "../../../assets/images/Favicon.png";
 import { Helmet } from "react-helmet";
 import CustomerRatings from "../MyBranch/CustomerRatings";
+
 const useStyles = makeStyles({
   ptag: {
     margin: "0px",
