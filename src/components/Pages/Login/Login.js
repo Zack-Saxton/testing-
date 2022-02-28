@@ -10,6 +10,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { useQueryClient } from "react-query";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import LoginController from "../../Controllers/LoginController";
@@ -134,9 +135,7 @@ export default function Login(props) {
       if (retVal?.data?.user && retVal?.data?.userFound === true) {
         let login_date = retVal?.data?.user.extensionattributes?.login
           ?.last_timestamp_date
-          ? moment(
-            retVal?.data?.user.extensionattributes.login.last_timestamp_date
-          )
+          ? moment(retVal?.data?.user.extensionattributes.login.last_timestamp_date)
             .subtract(addVal, "hours")
             .format("MM/DD/YYYY")
           : "";
@@ -148,31 +147,22 @@ export default function Login(props) {
             isLoggedIn: true,
             apiKey: retVal?.data?.user?.extensionattributes?.login?.jwt_token,
             setupTime: now,
-            applicantGuid:
-              retVal?.data?.user?.attributes?.sor_data?.applicant_guid,
+            applicantGuid: retVal?.data?.user?.attributes?.sor_data?.applicant_guid,
           })
         );
-        Cookies.set(
-          "cred",
-          encryptAES(
-            JSON.stringify({ email: values.email, password: values.password })
-          )
-        );
+        Cookies.set("cred", encryptAES(JSON.stringify({ email: values.email, password: values.password })));
         Cookies.set("email", values.email);
-        Cookies.set(
-          "profile_picture",
-          retVal?.data?.user?.mobile?.profile_picture
-            ? retVal?.data?.user?.mobile?.profile_picture
-            : ""
-        );
+        Cookies.set("profile_picture", retVal?.data?.user?.mobile?.profile_picture ? retVal?.data?.user?.mobile?.profile_picture : "");
         Cookies.set("login_date", login_date);
         Cookies.set("userToken", retVal?.data?.user?.attributes?.UserToken);
         Cookies.set("temp_opted_phone_texting", "");
         queryClient.removeQueries();
         setLoading(false);
-        navigate(location.state?.redirect
-          ? location.state?.redirect
-          : "/customers/accountoverview");
+        if (retVal?.data?.user?.attributes?.password_reset) {
+          navigate("/resetpassword", { state: { Email: values.email } });
+        } else {
+          navigate(location.state?.redirect ? location.state?.redirect : "/customers/accountoverview");
+        }
         if (location.state?.activationToken) {
           navigate(0);
         }
@@ -382,11 +372,11 @@ export default function Login(props) {
         <ul>
           <li>
             { " " }
-            If you're a new user, click on
+            If you&apos;re a new user, click on
             <NavLink to="/register" style={ { textDecoration: "none" } }>
-              <span id="helpLogin">"Sign in help/Register"</span>
+              <span id="helpLogin">Sign in help/Register</span>
             </NavLink>{ " " }
-            option and enter your registrtion details.
+            option and enter your registration details.
           </li>
         </ul>
         <ul>
@@ -412,3 +402,7 @@ export default function Login(props) {
     </div>
   );
 }
+
+Login.propTypes = {
+  setToken: PropTypes.string
+};

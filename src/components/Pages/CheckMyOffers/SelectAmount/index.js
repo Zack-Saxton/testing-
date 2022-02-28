@@ -1,20 +1,42 @@
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import globalMessages from '../../../../assets/data/globalMessages.json';
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers as Check } from "../../../../contexts/CheckMyOffers";
+import offercodeValidation from "../../../Controllers/OfferCodeController";
 import { ButtonPrimary, Slider, TextField } from "../../../FormsUI";
 import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./CheckMyOffer.css";
 
+//Styling part
+const useStyles = makeStyles((theme) => ({
+	alignSmallText: {
+		paddingTop: "25px",
+		paddingBottom: "70px",
+		marginBottom: "3%"
+	},
+	cardWrapper: {
+		paddingTop: "4%",
+		marginTop: "5%",
+		marginBottom: "2%"
+	}
+}));
+
 //initializing check my offers functonal component
 function CheckMyOffers(props) {
 	const { data, setData, resetData } = useContext(Check);
 	const [ hasOfferCode, setOfferCode ] = useState("");
+	const classes = preLoginStyle();
+	const innerClasses = useStyles();
+	const navigate = useNavigate();
+	let tempCounter = 0;
 	const getValidValue = (selectedValue) => {
 		let validValue = (selectedValue > 5000 && (selectedValue % 500) === 250 ? selectedValue + 250 : selectedValue);
 		if (validValue < 1000) {
@@ -27,10 +49,13 @@ function CheckMyOffers(props) {
 	let params = useParams();
 	let selectedAmount = getValidValue(params?.amount);
 	const [ select, setSelect ] = useState(data.loanAmount ? data.loanAmount : (selectedAmount ? parseInt(selectedAmount) : 10000));
-	const navigate = useNavigate();
 	let location = useLocation();
 	useEffect(() => {
-		if (selectedAmount) {
+		if (data?.isActiveUser === "closed") {
+			toast.error(globalMessages.Account_Closed_New_Apps);
+			navigate("/customers/accountOverview");
+		}
+		else if (selectedAmount) {
 			data.loanAmount = select;
 			data.formStatus = "started";
 			data.completedPage = data.page.selectAmount;
@@ -41,27 +66,51 @@ function CheckMyOffers(props) {
 			resetData();
 			setSelect(data.loanAmount ? data.loanAmount : 10000);
 		}
-		return null
+		return null;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	if (data?.isActiveUser === "closed") {
-		toast.error("Your account is closed to new applications. Please contact us to reapply.");
-		navigate("/customers/accountOverview");
-	}
-	const handleRoute = (event) => {
+	const setPageStatus = () => {
 		data.loanAmount = select;
 		data.formStatus = "started";
 		data.completedPage = data.page.selectAmount;
 		setData({ ...data, loanAmount: select });
-		navigate("/loan-purpose");
 	};
+
+	const handleRoute = async (event) => {
+    try{
+		if(data.offerCode === ""){
+			setPageStatus();
+			navigate("/loan-purpose");
+		}
+		if (data.offerCode !=="") {
+			let res = await offercodeValidation(data.offerCode);
+			if (res?.data?.offerData?.Message || res.status!== 200) {
+				toast.error("Please enter a valid Offer Code. If you do not have an Offer Code please select Continue");
+				tempCounter++;
+				if(tempCounter === 2){
+					setPageStatus();
+				  navigate("/loan-purpose")
+				}
+				
+			} else 
+				 {
+				toast.success("Your Application Code has been accepted");
+				navigate("/pre-approved");
+			
+		}
+		
+		
+	}} catch (error) {
+		ErrorLogger("Error offerCode VAlidation API", error);
+	}
+  };
 
 	// jsx part
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className="mainDiv">
+			<div className={ classes.mainDiv }>
 				<Box>
 					<Grid
 						item
@@ -77,8 +126,7 @@ function CheckMyOffers(props) {
 							md={ 6 }
 							lg={ 6 }
 							xl={ 6 }
-							className="cardWrapper"
-							style={ { paddingTop: "4%" } }
+							className={ innerClasses.cardWrapper }
 						>
 							<Paper
 								className="checkMyOffersWrap"
@@ -208,13 +256,12 @@ function CheckMyOffers(props) {
 							lg={ 10 }
 							xl={ 10 }
 							data-testid="descriptionOutside"
-							className="alignSmallText"
+							className={ innerClasses.alignSmallText }
 							container
 							justifyContent="center"
 							alignItems="center"
-							style={ { paddingTop: "25px", paddingBottom: "70px" } }
 						>
-							<Typography className="smallText" align="center">
+							<Typography className={ classes.smallText } align="center">
 								To help the government fight the funding of terrorism and money
 								laundering activities, Federal law requires all financial
 								institutions to obtain, verify, and record information that
@@ -222,11 +269,11 @@ function CheckMyOffers(props) {
 								our customer identification program, we must ask for your name,
 								street address, mailing address, date of birth, and other
 								information that will allow us to identify you. We may also ask
-								to see your driver's license or other identifying documents.
+								to see your driver&apos;s license or other identifying documents.
 							</Typography>
 							<br />
-							<Typography className="smallText" align="center">
-								*The process uses a “soft” credit inquiry to determine whether a
+							<Typography className={ classes.smallText } align="center">
+								*The process uses a soft&quos; credit inquiry to determine whether a
 								loan offer is available, which does not impact your credit
 								score. If you continue with the application process online and
 								accept a loan offer, or are referred to a branch and continue

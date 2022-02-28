@@ -30,11 +30,11 @@ import { useQuery } from 'react-query';
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
+import globalMessages from "../../../assets/data/globalMessages.json";
 import cheque from "../../../assets/images/cheque.jpg";
 import { AddACHPaymentAPI } from "../../../components/Controllers/ACHDebitController";
 import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
-import globalMessages from "../../../assets/data/globalMessages.json";
 import {
     addCreditCard, deleteBankAccount,
     deleteCreditCard, getPaymentMethods, setDefaultPayment
@@ -92,30 +92,30 @@ const validationSchemaAddBank = yup.object({
         .string(globalMessages.Account_Nick_Name)
         .max(30, globalMessages.Account_Nick_Name_Max)
         .min(2, globalMessages.Account_Nick_Name_Min)
-        .required(globalMessages.Nick_Name_Required),        
+        .required(globalMessages.Nick_Name_Required),
     accountHolder: yup
         .string(globalMessages.Account_Holder_Name)
         .max(30, globalMessages.Account_Holder_Name_Max)
         .min(2, globalMessages.Account_Holder_Name_Min)
-        .required(globalMessages.Account_Holder_Name_Required),        
+        .required(globalMessages.Account_Holder_Name_Required),
     bankRoutingNumber: yup
         .string(globalMessages.Enter_Routing_No)
         .required(globalMessages.Routing_No_Required)
-        .min(9, globalMessages.validBankRoutingNumber),        
+        .min(9, globalMessages.validBankRoutingNumber),
     bankName: yup
         .string(globalMessages.Bank_Name)
         .max(50, globalMessages.Bank_Name_Max)
         .min(3, globalMessages.Bank_Name_Min)
-        .required(globalMessages.Bank_Name_Required),        
+        .required(globalMessages.Bank_Name_Required),
     bankAccountNumber: yup
         .string(globalMessages.Enter_Account_No)
         .required(globalMessages.Accoun_No_Required)
         .min(4, globalMessages.validAccountNumber)
-        .max(17, globalMessages.validAccountNumber)        
+        .max(17, globalMessages.validAccountNumber)
 });
 
 export default function PaymentMethod() {
-    window.zeHide();
+
     const classes = useStylesMyProfile();
     const navigate = useNavigate();
     const [ bankRoutingCheque, setHandleBankRoutingCheque ] = useState(false);
@@ -220,7 +220,7 @@ export default function PaymentMethod() {
         if (zipCode === "" || pattern.test(zipCode)) {
             fetchAddress(event);
         }
-    }
+    };
     const fetchAddress = async (event) => {
         formikAddDebitCard.handleChange(event);
         try {
@@ -236,7 +236,7 @@ export default function PaymentMethod() {
                 }
             }
             if (!isValidZip) {
-                setValidZip(false)
+                setValidZip(false);
                 formikAddDebitCard.setFieldValue("city", "");
                 formikAddDebitCard.setFieldValue("state", "");
             }
@@ -520,7 +520,42 @@ export default function PaymentMethod() {
             event.preventDefault();
         }
     };
+    const addNewAccount = async () => {
+        try {
+            setLoading(true);
+            let resBankData = await AddACHPaymentAPI(
+                addBankValues.accountNickname,
+                addBankValues.accountHolder,
+                addBankValues.bankRoutingNumber,
+                addBankValues.bankAccountNumber,
+                accountType,
+                checkedAddBank ? 1 : 0
+            );
+            if (resBankData?.data?.Success) {
+                toast.success("Payment method added successfully");
+                refetch();
+                closeBankAccountButton();
+            } else if (
+                resBankData?.data?.result === "error" ||
+                resBankData?.data?.status === 400
+            ) {
+                toast.error(resBankData?.data?.error);
+            } else if (resBankData?.data?.type === "error") {
+                let errorText = resBankData?.data?.text ? resBankData?.data?.text : resBankData?.data?.error;
+                toast.error(errorText);
+            } else {
+                if (!toast.isActive("closeToast")) {
+                    toast.error("Adding bank account failed, please try again.");
+                }
 
+            }
+            closeAddBankModal();
+            setLoading(false);
+        } catch (error) {
+            ErrorLogger(' Error in adding payment method ::', error);
+        }
+
+    };
     //  view part
     return (
         <div className={ loading ? classes.loadingOn : classes.loadingOff }>
@@ -561,7 +596,7 @@ export default function PaymentMethod() {
                                         { allPaymentMethod?.data?.paymentOptions.map((row) => (
                                             <TableRow
                                                 hover
-                                                key={ row.Nickname }
+                                                key={ Math.random() * 1000 }
                                                 className="rowProps"
                                                 height="80px"
                                             >
@@ -1067,42 +1102,16 @@ export default function PaymentMethod() {
                                 style={ { justifyContent: "center", marginBottom: "25px" } }
                             >
                                 <ButtonSecondary
+                                    disabled={ loading }
                                     stylebutton='{"background": "", "color":"" }'
                                     onClick={ closeAddBankModal }
                                 >
                                     No
                                 </ButtonSecondary>
                                 <ButtonPrimary
+                                    disabled={ loading }
                                     stylebutton='{"background": "", "color":"" }'
-                                    onClick={ async () => {
-                                        let resBankData = await AddACHPaymentAPI(
-                                            addBankValues.accountNickname,
-                                            addBankValues.accountHolder,
-                                            addBankValues.bankRoutingNumber,
-                                            addBankValues.bankAccountNumber,
-                                            accountType,
-                                            checkedAddBank ? 1 : 0
-                                        );
-                                        if (resBankData?.data?.Success) {
-                                            toast.success("Payment method added successfully");
-                                            refetch();
-                                            closeBankAccountButton();
-                                        } else if (
-                                            resBankData?.data?.result === "error" ||
-                                            resBankData?.data?.status === 400
-                                        ) {
-                                            toast.error(resBankData?.data?.error);
-                                        } else if (resBankData?.data?.type === "error") {
-                                            let errorText = resBankData?.data?.text ? resBankData?.data?.text : resBankData?.data?.error;
-                                            toast.error(errorText);
-                                        } else {
-                                            if (!toast.isActive("closeToast")) {
-                                                toast.error("Adding bank account failed, please try again.");
-                                            }
-
-                                        }
-                                        closeAddBankModal();
-                                    } }
+                                    onClick={ addNewAccount }
                                 >
                                     Yes
                                 </ButtonPrimary>
@@ -1316,11 +1325,10 @@ export default function PaymentMethod() {
                         </Grid>
 
                         <Grid
-                            style={ { padding: "0px 16px" } }
+                            style={ { padding: "0px 16px", width: "100%" } }
                             item
                             sm={ 4 }
                             xs={ 12 }
-                            style={ { width: "100%" } }
                             container
                             direction="row"
                             className={ editMode ? classes.hideSection : classes.showSection }
@@ -1629,7 +1637,6 @@ export default function PaymentMethod() {
                         stylebutton='{"background": "", "color":"" }'
                         disabled={ loading }
                         onClick={ () => {
-                            setLoading(true);
                             onClickDelete(deleteType, deleteID);
                         } }
                     >

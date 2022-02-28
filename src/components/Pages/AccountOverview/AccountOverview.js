@@ -15,7 +15,6 @@ import "./Style.css";
 
 export default function AccountOverview() {
   const classes = useStylesAccountOverview();
-  window.zeHide();
   //API Call
   const { isLoading, data: accountDetails } = useQuery('loan-data', usrAccountDetails);
   //Load data

@@ -1,32 +1,40 @@
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ReferToBranchLogo from "../../../../assets/gallery/Referred-to-Branch.png";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary } from "../../../FormsUI";
 import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
+import PropTypes from "prop-types";
 
 //reffered to branch functional component initialization
 function ReferredToBranch(props) {
 	//get context values
 	const { data } = useContext(CheckMyOffers);
 	const navigate = useNavigate();
+	const classes = preLoginStyle();
 	data.formStatus = "completed";
 
-	//redirects to select amount of directly called
-	if (data.completedPage < data.page.ssn && data.applicationStatus !== "referred" && props?.location?.formcomplete !== "yes") {
-		navigate("/select-amount");
-	}
+	useEffect(() => {
+		//redirects to select amount of directly called
+		if (data.completedPage < data.page.ssn && data.applicationStatus !== "referred" && props?.location?.formcomplete !== "yes") {
+			navigate("/select-amount");
+		}
+		return null;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
 	window.onbeforeunload = null;
 
 	//JSX part
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className="mainDiv">
+			<div className={ classes.mainDiv }>
 				<Box>
 					<Grid
 						container
@@ -85,7 +93,7 @@ function ReferredToBranch(props) {
 										justify: "center",
 										alignItems: "center",
 									} }
-									className="margin2p textWhite mainTextMsg smallLineHeight"
+									className="margin2p mainTextMsg smallLineHeight"
 								>
 									Congratulations!
 								</Typography>
@@ -117,7 +125,7 @@ function ReferredToBranch(props) {
 										justify: "center",
 										alignItems: "center",
 									} }
-									className="smallTextImgNoOffOne textWhite smallTextImg"
+									className="smallTextImgNoOffOne smallTextImg"
 								>
 									Your local representative is waiting to talk to you.
 								</Typography>
@@ -128,7 +136,7 @@ function ReferredToBranch(props) {
 										justify: "center",
 										alignItems: "center",
 									} }
-									className="smallTextImgNoOff textWhite smallTextImg "
+									className="smallTextImgNoOff smallTextImg "
 								>
 									Complete the application process from the comfort of your home
 									and you could receive your money as soon as today*
@@ -200,13 +208,13 @@ function ReferredToBranch(props) {
 										justify: "center",
 										alignItems: "center",
 									} }
-									className="textWhite smallTextImg beforeVisitOne"
+									className=" smallTextImg beforeVisitOne"
 								>
 									Things you should know before you call or visit.
 								</Typography>
 								<Typography
 									variant="h6"
-									className=" textWhite minText beforeVisit"
+									className=" minText beforeVisit"
 								>
 									Mariner Branch locations are still open and operational;
 									however, due to the health risks surrounding COVID-19, Mariner
@@ -219,14 +227,14 @@ function ReferredToBranch(props) {
 									<Typography
 										variant="h6"
 										style={ { align: "left", alignItems: "left" } }
-										className=" textWhite minText bullet"
+										className=" minText bullet"
 									>
-										It's a good idea to know how much money you make a year.
+										{"It's"} a good idea to know how much money you make a year.
 									</Typography>
 									<Typography
 										style={ { align: "left", alignItems: "left" } }
 										variant="h6"
-										className=" textWhite minText bullet"
+										className=" minText bullet"
 									>
 										pen and paper may be helpful to take note of any documents
 										you may need at loan closing.
@@ -239,7 +247,7 @@ function ReferredToBranch(props) {
 										justify: "center",
 										alignItems: "center",
 									} }
-									className=" textWhite minText"
+									className="minText"
 								>
 									*Approval of a loan and the loan disbursement process may take
 									longer if additional documentation is required. Loan terms may
@@ -254,5 +262,10 @@ function ReferredToBranch(props) {
 		</div>
 	);
 }
+
+ReferredToBranch.propTypes = {
+	location : PropTypes.object,
+  };
+
 
 export default ReferredToBranch;

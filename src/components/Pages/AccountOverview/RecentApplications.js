@@ -1,6 +1,8 @@
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import React from "react";
+import PropTypes from "prop-types";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -8,17 +10,17 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
+import Cookies from "js-cookie";
 import NumberFormat from 'react-number-format';
 import { useNavigate } from "react-router-dom";
 import { ButtonPrimary } from "../../FormsUI";
 import { useStylesAccountOverview } from "./Style";
-import Cookies from "js-cookie";
 import "./Style.css";
 
 export default function RecentApplications({ isLoading, userApplicationsData, userApplicantData }) {
   //Material UI css class
   const classes = useStylesAccountOverview();
-  window.zeHide();
+
   //Recentapplications data
   let userApplications = (userApplicationsData != null) ? userApplicationsData : null;
   let userApplicant = (userApplicantData != null) ? userApplicantData : null;
@@ -141,8 +143,8 @@ export default function RecentApplications({ isLoading, userApplicationsData, us
                         { (statusStr[ appData.status ]) ? statusStr[ appData.status ] : (appData.status) }
                       </TableCell>
                       <TableCell align="left">
-                        
-                        { appData.isActive  && appData?.status !== "referred" && appData?.status !== "contact_branch" ?
+
+                        { appData.isActive && appData?.status !== "referred" && appData?.status !== "contact_branch" ?
 
                           (
                             <ButtonPrimary stylebutton='{"color":"","width":"72%" }'
@@ -176,3 +178,8 @@ export default function RecentApplications({ isLoading, userApplicationsData, us
     </>
   );
 }
+RecentApplications.propTypes = {
+  isLoading: PropTypes.bool,
+  userApplicationsData: PropTypes.array,
+  userApplicantData: PropTypes.object,
+};

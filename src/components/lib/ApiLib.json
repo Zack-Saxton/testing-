@@ -1,6 +1,7 @@
 {
   "url": {
     "login_customer": "/customer/login",
+    "password_reset": "/customer/update_password",
     "account_overview": "/customer/account_overview",
     "payment_method": "/gps/get_payment_options",
     "enable_autopay": "/gps/make_recurring_payment",
@@ -65,6 +66,7 @@
     "error_logger": "/logger/logError",
     "branch_locator": "/branchlocator/getZipCode",
     "disclosure_link": "/customer/consents",
-    "register_customer": "/customer/register_new_user"
+    "register_customer": "/customer/register_new_user",
+    "offercode_validation": "/application/validate_offer_code"
   }
 }

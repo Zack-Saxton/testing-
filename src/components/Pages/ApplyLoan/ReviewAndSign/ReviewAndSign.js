@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "400",
     fontSize: "1.64rem",
   },
-  centerGrid:{
+  centerGrid: {
     marginTop: "20px",
     paddingRight: "23px",
     paddingLeft: "23px",
@@ -125,7 +125,7 @@ export default function ReviewAndSign(props) {
   const [ confirm, setConfirm ] = useState(false);
   const [ selectedOffer, setSelectOffer ] = useState();
   const [ loading, setLoading ] = useState(false);
-  const { refetch } = useQuery('loan-data', usrAccountDetails);
+  const { refetch, isLoading, data: accountDetials } = useQuery('loan-data', usrAccountDetails);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -137,17 +137,17 @@ export default function ReviewAndSign(props) {
     setUrl(iframeURL?.data?.iframe);
   }
 
-  // To get the selected value
-  async function getSelectedOffer() {
-    let accountDetials = await usrAccountDetails();
-    setSelectOffer(accountDetials?.data?.application?.selected_offer);
-  }
+  useEffect(() => {
+    getIframeURL();
+    setSelectOffer(null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // call the get URL funtion on page load
   useEffect(() => {
-    getSelectedOffer();
-    getIframeURL();
-  }, []);
+    setSelectOffer( !isLoading ? accountDetials?.data?.application?.selected_offer : null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [accountDetials]);
 
   //Conver the value into currency format
   const currencyFormat = (val) => {
@@ -159,6 +159,27 @@ export default function ReviewAndSign(props) {
       );
     }
   };
+
+  const submitOnClick = async (event) => {
+    setLoading(true);
+    let data = {};
+    let authenticateStatus = await APICall("esignature_complete", '', data, "POST", true);
+    if (authenticateStatus?.data?.message === "Applicant successfully updated") {
+      let hardPull = await hardPullCheck();
+      if (hardPull?.data?.status === 200 || hardPull?.data?.result === "success") {
+        setLoading(false);
+        refetch();
+        navigate("/customers/finalVerification");
+      } else {
+        setLoading(false);
+        toast.error(messages.reviewAndSignin.eSignFailed);
+      }
+    } else {
+      setLoading(false);
+      toast.error(messages.reviewAndSignin.completeEsign);
+    }
+  }
+
   //Check weather the offers is passed or not
   return (
     <div>
@@ -417,25 +438,7 @@ export default function ReviewAndSign(props) {
                       style={ { width: "100%", fontSize: "1rem" } }
                       id="review-submit-button"
                       disabled={ !confirm || loading }
-                      onClick={ async () => {
-                        setLoading(true);
-                        let data = {};
-                        let authenticateStatus = await APICall("esignature_complete", '', data, "POST", true);
-                        if (authenticateStatus?.data?.message === "Applicant successfully updated") {
-                          let hardPull = await hardPullCheck();
-                          if (hardPull?.data?.status === 200 || hardPull?.data?.result === "success") {
-                            setLoading(false);
-                            refetch();
-                            navigate("/customers/finalVerification");
-                          } else {
-                            setLoading(false);
-                            toast.error(messages.reviewAndSignin.eSignFailed);
-                          }
-                        } else {
-                          setLoading(false);
-                          toast.error(messages.reviewAndSignin.completeEsign);
-                        }
-                      } }
+                      onClick={ submitOnClick }
                     >
                       Submit
                     </ButtonWithIcon>

@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import CheckLoginStatus from "../../../App/CheckLoginStatus";
 import { ButtonWithIcon } from "../../../FormsUI";
@@ -66,22 +66,27 @@ const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 650,
   },
-  centerGrid:{
+  centerGrid: {
     marginTop: "20px",
     paddingRight: "23px",
     paddingLeft: "23px",
-    },
+  },
 }));
 
 //Initializing Final verification functional component
 export default function FinalVerification() {
   const classes = useStyles();
   const [ value, setValue ] = React.useState(2);
-  window.zeShow();
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
+  useEffect(() => {
+    return () => {
+      zE('webWidget', 'hide');
+    };
+  }, []);
+  zE('webWidget', 'show');
   //JSX part
   return (
     <div>

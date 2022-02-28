@@ -1,47 +1,80 @@
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { employmentStatusData } from "../../../../assets/data/constants";
+import globalMessages from "../../../../assets/data/globalMessages.json";
 import EmploymentStatusPNG from "../../../../assets/icon/I-Employment-Status.png";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, PhoneNumber, Select } from "../../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./EmploymentStatus.css";
 
+const useStyles = makeStyles((Theme) => ({
+	boxGrid: {
+		padding: "4% 0px 4% 0px"
+	},
+	paperStyle: {
+		justify: "center",
+		alignItems: "center",
+		textAlign: "center"
+	},
+	typoStyle: {
+		align: "center",
+		justify: "center",
+		alignItems: "center",
+		fontSize: "1.538rem",
+		margin: "10px 0px !important",
+		color: "#171717",
+		fontWeight: "400 !important",
+		lineHeight: "110% !important"
+	},
+})
+);
 //Initializing functional component CitizenshipStatus
 function EmploymentStatus() {
 	//Retrieving Context values
 	const { data, setData } = useContext(CheckMyOffers);
 	const [ employmentStatus, setEmploymentStatus ] = useState(data.employmentStatus ? data.employmentStatus : "");
 	const navigate = useNavigate();
+	const classes = preLoginStyle();
+	const innerClasses = useStyles();
 
+	useEffect(() => {
+		if (data.completedPage < data.page.existingUser || data.formStatus === "completed") {
+			navigate("/select-amount");
+		}
+		return null;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 	//initializing formik
 	const validationSchema = yup.object({
 		phone: yup
-			.string("Enter a name")
+			.string(globalMessages.NameEnter)
 			.nullable()
 			.transform((value) => value.replace(/[^\d]/g, ""))
-			.matches(/^$|^[1-9]{1}\d{2}\d{3}\d{4}$/, "Please enter a valid phone number")
-			.matches(/^$|^(\d)(?!\1+$)\d{9}$/, "Please enter a valid phone number"),
+			.matches(/^$|^[1-9]{1}\d{2}\d{3}\d{4}$/, globalMessages.PhoneValid)
+			.matches(/^$|^(\d)(?!\1+$)\d{9}$/, globalMessages.PhoneValid),
 
 		yearsAtEmployers: yup
 			.string()
 			.when("employStatus", {
 				is: employmentStatusData.employedHourly,
-				then: yup.string().required("Years at employer is required"),
+				then: yup.string().required(globalMessages.Years_At_Employer_Required),
 			})
 			.when("employStatus", {
 				is: employmentStatusData.employedSalaried,
-				then: yup.string().required("Years at employer is required"),
+				then: yup.string().required(globalMessages.Years_At_Employer_Required),
 			})
 			.when("employStatus", {
 				is: employmentStatusData.selfEmployed,
-				then: yup.string().required("Years at employer is required"),
+				then: yup.string().required(globalMessages.Years_At_Employer_Required),
 			}),
 	});
 
@@ -88,14 +121,11 @@ function EmploymentStatus() {
 		}
 	};
 
-	if (data.completedPage < data.page.existingUser || data.formStatus === "completed") {
-		navigate("/select-amount");
-	}
 	// JSX part
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className="mainDiv">
+			<div className={ classes.mainDiv }>
 				<Box>
 					<Grid
 						item
@@ -103,7 +133,7 @@ function EmploymentStatus() {
 						container
 						justifyContent="center"
 						alignItems="center"
-						style={ { padding: "4% 0px 4% 0px" } }
+						className={ innerClasses.boxGrid }
 					>
 						<Grid
 							container
@@ -116,8 +146,7 @@ function EmploymentStatus() {
 						>
 							<Paper
 								id="employmentStatusWrap"
-								className="cardWOPadding"
-								style={ { justify: "center", alignItems: "center" } }
+								className={ innerClasses.paperStyle }
 							>
 								<form onSubmit={ formik.handleSubmit }>
 									<div className="progress mt-0">
@@ -144,12 +173,7 @@ function EmploymentStatus() {
 
 									<Typography
 										variant="h5"
-										style={ {
-											align: "center",
-											justify: "center",
-											alignItems: "center",
-										} }
-										className="checkMyOfferText borrowCSSLP"
+										className={ innerClasses.typoStyle }
 									>
 										Tell us about your employment status
 									</Typography>

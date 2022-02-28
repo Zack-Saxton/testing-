@@ -16,12 +16,12 @@ const CheckLoginStatus = () => {
   useEffect(() => {
     if (!userToken?.isLoggedIn || (nowTime - actualSetupTime) > min * 60 * 1000) {
       LogoutController();
-      navigate("/login", { state: { redirect: window.location.pathname } });
+      navigate("/login", { state: { redirect: window.location.pathname !== "/login" ? window.location.pathname : null } });
     }
-    return null
+    return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-return null
+  return null;
 };
 
 export default CheckLoginStatus;

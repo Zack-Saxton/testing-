@@ -3,11 +3,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { ButtonPrimary, ButtonSecondary } from "../../../FormsUI";
+import { ButtonPrimary } from "../../../FormsUI";
 import APICall from "../../../lib/AxiosLib";
 import messages from "../../../lib/Lang/applyForLoan.json";
 import DocumentUpload from "./DocumentUpload";
-
+import PropTypes from "prop-types";
+ 
 //styling part
 const useStyles = makeStyles(() => ({
 	content_grid: {
@@ -69,14 +70,6 @@ export default function IncomeVerification(props) {
 			</Grid>
 			<div className={ props.classes.actionsContainer }>
 				<div className={ props.classes.button_div }>
-					<ButtonSecondary
-						stylebutton='{"marginRight": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
-						onClick={ props.reset }
-						id="button_stepper_reset"
-					>
-						Reset
-					</ButtonSecondary>
-
 					<ButtonPrimary
 						variant="contained"
 						color="primary"
@@ -115,3 +108,10 @@ export default function IncomeVerification(props) {
 		</div>
 	);
 }
+
+IncomeVerification.propTypes = {
+	setLoadingFlag : PropTypes.bool,
+	classes : PropTypes.object,
+	steps: PropTypes.array,
+	activeStep: PropTypes.number
+  };

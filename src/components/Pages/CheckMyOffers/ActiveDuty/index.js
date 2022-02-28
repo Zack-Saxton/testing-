@@ -1,12 +1,15 @@
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
+import globalMessages from "../../../../assets/data/globalMessages.json";
 import ActiveDutyLogo from "../../../../assets/icon/active-duty.png";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, Select } from "../../../FormsUI";
 import "../CheckMyOffer.css";
@@ -15,19 +18,43 @@ import ScrollToTopOnMount from "../ScrollToTop";
 //Yup validation schema
 const validationSchema = yup.object({
 	activeDuty: yup
-		.string("Enter your Zip")
-		.required("Select Active duty status"),
+		.string(globalMessages.ZipCodeEnter)
+		.required(globalMessages.Select_Active_Duty),
 	activeDutyRank: yup.string().when("activeDuty", {
 		is: "Active Military",
-		then: yup.string().required("Active duty rank is required"),
+		then: yup.string().required(globalMessages.Active_Duty_Rank_Required),
 	}),
 });
+
+//Styling part
+const useStyles = makeStyles((theme) => ({
+	paddingGrid: {
+		padding: "4% 0px"
+	},
+	paperStyle: {
+		width: "inherit",
+		textAlign: "center"
+	},
+	marginTop: {
+		marginTop: "-3%"
+	}
+
+}));
 
 //Initializing functional component Activity
 function ActiveDuty() {
 	//Retrieving Context values
 	const { data } = useContext(CheckMyOffers);
 	const navigate = useNavigate();
+	const classes = preLoginStyle();
+	const innerClasses = useStyles();
+	useEffect(() => {
+		if (data.completedPage < data.page.livingPlace || data.formStatus === "completed") {
+			navigate("/select-amount");
+		}
+		return null;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 	//initializing formik
 	const formik = useFormik({
 		initialValues: {
@@ -40,19 +67,16 @@ function ActiveDuty() {
 			data.militaryActiveDuty = values.activeDuty;
 			data.militaryActiveDutyRank = values.activeDutyRank;
 			data.completedPage = data.page.activeDuty;
-			navigate("/ssn");
+			navigate("/oneLastStep");
 		},
 	});
 
-	if (data.completedPage < data.page.livingPlace || data.formStatus === "completed") {
-		navigate("/select-amount");
-	}
 	let disableLoan = formik.values.activeDutyRank === "E4 and below" && formik.values.activeDuty === "Active Military" ? true : false;
 	//JSX part
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className="mainDiv">
+			<div className={ classes.mainDiv }>
 				<Box>
 					<Grid
 						item
@@ -60,7 +84,7 @@ function ActiveDuty() {
 						container
 						justifyContent="center"
 						alignItems="center"
-						style={ { padding: "4% 0px" } }
+						className={ innerClasses.paddingGrid }
 					>
 						<Grid
 							container
@@ -75,11 +99,8 @@ function ActiveDuty() {
 						>
 							<Paper
 								id="activeDutyWrap"
-								className="cardWOPadding"
 								justify="center"
-								style={ {
-									width: "inherit",
-								} }
+								className={ innerClasses.paperStyle }
 							>
 								<div className="progress mt-0">
 									<div
@@ -95,7 +116,7 @@ function ActiveDuty() {
 										</i>
 									</Link>
 								</Grid>
-								<Grid style={ { marginTop: "-3%" } }>
+								<Grid className={ innerClasses.marginTop }>
 									<img
 										alt="Active Duty"
 										src={ ActiveDutyLogo }

@@ -1,15 +1,32 @@
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import { createStyles, makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { citizenshipData } from "../../../../assets/data/constants";
 import CitizenshipStatusLogo from "../../../../assets/icon/I-Citizenship-status.png";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary } from "../../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./CitizenshipStatus.css";
+
+//styling
+const useStyles = makeStyles((Theme) =>
+	createStyles({
+		paperStyle: {
+			justify: "center",
+			alignItems: "center",
+			width: "inherit",
+			textAlign: "center"
+		},
+		gridStyle: {
+			padding: "4% 0px 4% 0px"
+		}
+	})
+);
 
 //Initializing functional component CitizenshipStatus
 function CitizenshipStatus() {
@@ -17,7 +34,16 @@ function CitizenshipStatus() {
 	const { data } = useContext(CheckMyOffers);
 	const [ citizenship, setCitizenship ] = useState(data.citizenship ? data.citizenship : "");
 	const navigate = useNavigate();
+	const classes = preLoginStyle();
+	const innerClasses = useStyles();
 
+	useEffect(() => {
+		if (data.completedPage < data.page.loanPurpose || data.formStatus === "completed") {
+			navigate("/select-amount");
+		}
+		return null;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 	//Handle the button click
 	const handleRoute = () => {
 		data.citizenship = citizenship;
@@ -35,17 +61,12 @@ function CitizenshipStatus() {
 		}
 		//redirects to select amount on direct call
 	};
-	if (
-		data.completedPage < data.page.loanPurpose ||
-		data.formStatus === "completed"
-	) {
-		navigate("/select-amount");
-	}
+
 	//JSK part
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className="mainDiv">
+			<div className={ classes.mainDiv }>
 				<Box>
 					<Grid
 						item
@@ -53,9 +74,7 @@ function CitizenshipStatus() {
 						container
 						justifyContent="center"
 						alignItems="center"
-						style={ {
-							padding: "4% 0px 4% 0px"
-						} }
+						className={ innerClasses.gridStyle }
 					>
 						<Grid
 							container
@@ -71,12 +90,7 @@ function CitizenshipStatus() {
 						>
 							<Paper
 								id="citizenshipWrap"
-								className="cardWOPadding"
-								style={ {
-									justify: "center",
-									alignItems: "center",
-									width: "inherit",
-								} }
+								className={ innerClasses.paperStyle }
 							>
 								<div className="progress mt-0">
 									<div id="determinate" className="det2 determinate slantDiv" />
@@ -99,11 +113,6 @@ function CitizenshipStatus() {
 
 								<Typography
 									variant="h6"
-									style={ {
-										align: "center",
-										justify: "center",
-										alignItems: "center",
-									} }
 									className="checkMyOfferText borrowCSSLP "
 								>
 									Describe your citizenship status

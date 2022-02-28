@@ -7,12 +7,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import CheckMyOffers from '../../contexts/CheckMyOffers';
 import ProfilePicture from '../../contexts/ProfilePicture';
 import CustomComponents from "../CustomComponent";
+import BranchHeaderLayout from "../Layout/BranchLocatorLayout/BranchLocatorLayout";
 import Disclosure from "../Layout/DisclosureLink/Disclosure";
 import ErrorAfterLogin from "../Layout/ErrorAfterLogin/ErrorAfterLogin";
 import ErrorBeforeLogin from '../Layout/ErrorBeforeLogin/ErrorBeforeLogin';
 import GeneralUser from '../Layout/General';
 import PostLogin from '../Layout/Post';
 import AccountOverview from "../Pages/AccountOverview/AccountOverview";
+import ViewAccountDetails from "../Pages/AccountOverview/ViewAccountDetails";
 import ConfirmationInfo from "../Pages/AffiliatePartner/ConfirmationInfo";
 import PartnerSignUP from "../Pages/AffiliatePartner/PartnerSignUp";
 import ApplyForLoanRedirect from "../Pages/ApplyLoan/ApplyForLoanRedirect";
@@ -34,17 +36,18 @@ import LoanPurpose from '../Pages/CheckMyOffers/LoanPurpose';
 import MarriedStatus from "../Pages/CheckMyOffers/MarriedStatus";
 import NewUser from '../Pages/CheckMyOffers/NewUser';
 import NoOffersAvailable from "../Pages/CheckMyOffers/NoOffersAvailable";
+import SSN from "../Pages/CheckMyOffers/OneLastStep";
 import PersonalInfo from '../Pages/CheckMyOffers/PersonalInfo';
 import PreApproved from "../Pages/CheckMyOffers/PreApproved";
 import ReferredToBranch from "../Pages/CheckMyOffers/ReferredToBranch";
 import SelectAmount from '../Pages/CheckMyOffers/SelectAmount';
-import SSN from "../Pages/CheckMyOffers/SSN";
 import ZipCode from '../Pages/CheckMyOffers/Zipcode';
 import FaqBeforeLogin from "../Pages/Faq/FaqBeforeLogin";
 import FaqPostLogin from "../Pages/Faq/FaqPostLogin";
 import LoanDocument from "../Pages/LoanDocument/LoanDocument";
 import LoanHistory from "../Pages/LoanHistory/LoanHistory";
 import LoginPage from '../Pages/Login/Login';
+import ResetPassword from '../Pages/Login/ResetPassword';
 import MakePayment from "../Pages/MakePayment/MakePayment";
 import MoneySkill from "../Pages/MoneySkill/MoneySkill";
 import MyBranch from "../Pages/MyBranch/MyBranch";
@@ -52,11 +55,10 @@ import MyProfile from "../Pages/MyProfile/MyProfile";
 import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory";
 import RegisterPage from '../Pages/Register/Register';
 import VantageScore from "../Pages/VantageScore/VantageScore";
-import ViewAccountDetails from "../Pages/AccountOverview/ViewAccountDetails";
-import BranchLocator from "../Pages/MyBranch/BranchLocator";
-import BranchPage from "../Pages/MyBranch/BranchPage";
-import StatePage from "../Pages/MyBranch/StatePage";
-import BranchHeaderLayout from "../Layout/BranchLocatorLayout/BranchLocatorLayout";
+import BranchLocator from "../Pages/BranchLocator/BranchLocator";
+import BranchPage from "../Pages/BranchLocator/BranchPage";
+import StatePage from "../Pages/BranchLocator/StatePage";
+
 import "./App.css";
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -85,11 +87,9 @@ const loadPostComponent = (componentName) => {
 };
 const branchHeaderComponent = (componentName) => {
     return (
-        
-            <BranchHeaderLayout>
-                { componentName }
-            </BranchHeaderLayout>
-        
+        <BranchHeaderLayout>
+            { componentName }
+        </BranchHeaderLayout>
     );
 };
 function App() {
@@ -134,16 +134,20 @@ function App() {
                                 <Route path='/living-place' element={ loadGeneralUserComponent(<LivingPlace />) } />
                                 <Route path='/active-duty' element={ loadGeneralUserComponent(<ActiveDuty />) } />
                                 <Route path='/marital-status' element={ loadGeneralUserComponent(<MarriedStatus />) } />
-                                <Route path='/ssn' element={ loadGeneralUserComponent(<SSN />) } />
+                                <Route path='/oneLastStep' element={ loadGeneralUserComponent(<SSN />) } />
                                 <Route path='/no-offers-available' element={ loadGeneralUserComponent(<NoOffersAvailable />) } />
                                 <Route path='/referred-to-branch' element={ loadGeneralUserComponent(<ReferredToBranch />) } />
                                 <Route path='/eligible-for-offers' element={ loadGeneralUserComponent(<EligibleForOffers />) } />
                                 <Route path='/zipcode' element={ loadGeneralUserComponent(<ZipCode />) } />
                                 <Route path='/personal-info' element={ loadGeneralUserComponent(<PersonalInfo />) } />
-                                <Route path='/branchlocator' element={ branchHeaderComponent(<BranchLocator />) } />
-                                <Route path='/branchPage' element={ branchHeaderComponent(<BranchPage />) } />
-                                <Route path='/StatePage' element={ branchHeaderComponent(<StatePage />) } />
-                                {/* <Route path='/branchlocator' element={ loadGeneralUserComponent(<BranchLocator />) } ></Route> */}
+                                <Route path='/branch-locator' element={ branchHeaderComponent(<BranchLocator />) } />
+                                <Route path='/branchPage' element={ branchHeaderComponent(<BranchPage />) } >
+                                    <Route path=':branchname' element={branchHeaderComponent(<BranchPage />)} />
+                                </Route>
+                                <Route path='/StatePage' element={branchHeaderComponent(<StatePage />) } >
+                                    <Route path=':statename' element={branchHeaderComponent(<StatePage />)} />
+                                </Route>
+                                <Route path='/resetpassword' element={loadGeneralUserComponent(<ResetPassword />)} />
                                 <Route path='*' element={ loadGeneralUserComponent(<ErrorBeforeLogin />) } />
                                 <Route path='select-amount' element={ loadGeneralUserComponent(<SelectAmount />) } >
                                     <Route path=':amount' element={ loadGeneralUserComponent(<SelectAmount />) } />

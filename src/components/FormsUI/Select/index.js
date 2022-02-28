@@ -13,10 +13,10 @@ import { FormControl, FormHelperText, makeStyles, MenuItem, Select } from "@mate
 import InputLabel from "@material-ui/core/InputLabel";
 import React from "react";
 import "./SelectBox.css";
+import PropTypes from "prop-types";
 
 const SelectWrapper = ({
 	name,
-	options,
 	variant,
 	required,
 	select,
@@ -97,5 +97,18 @@ const SelectWrapper = ({
 		</FormControl>
 	);
 };
+
+SelectWrapper.propTypes = {
+	name: PropTypes.string.isRequired,
+	variant: PropTypes.string,
+	required: PropTypes.bool,
+	select: PropTypes.string,
+	labelform: PropTypes.string,
+	selectTestID: PropTypes.string,
+	inputTestID: PropTypes.string,
+	value: PropTypes.string,
+	onChange: PropTypes.func,
+	helperText: PropTypes.string,
+  };
 
 export default SelectWrapper;

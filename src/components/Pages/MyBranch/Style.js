@@ -15,7 +15,7 @@ const useStylesMyBranch = makeStyles((theme) => ({
     fontWeight: "400",
     fontSize: "1.563rem",
   },
-  centerGrid:{
+  centerGrid: {
     marginTop: "20px",
     paddingRight: "23px",
     paddingLeft: "23px",
@@ -58,7 +58,7 @@ const useStylesMyBranch = makeStyles((theme) => ({
     padding: "0px 15px",
   },
   headigText: {
-    margin: "0 0 2% 0",
+    margin: "0 0 4% 0",
     fontSize: "2.125rem",
     fontWeight: "400",
   },
@@ -69,6 +69,9 @@ const useStylesMyBranch = makeStyles((theme) => ({
     opacity: 1,
     pointerEvents: "initial",
   },
+  branchClose: {
+    color: "red"
+  }
 }));
 
 export { useStylesMyBranch };

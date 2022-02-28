@@ -1,24 +1,59 @@
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import globalMessages from "../../../../assets/data/globalMessages.json";
 import AnnualIncomeLogo from "../../../../assets/icon/I-Annual-Income.png";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, TextField } from "../../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./AnnualIncome.css";
 
+const useStyles = makeStyles((Theme) => ({
+	boxGrid: {
+		padding: "4% 0px 4% 0px"
+	},
+	paperStyle: {
+		justify: "center",
+		alignItems: "center",
+		textAlign: "center"
+	},
+	typoStyle: {
+		align: "center",
+		justify: "center",
+		alignItems: "center",
+		fontSize: "1.538rem",
+		margin: "10px 0px !important",
+		color: "#171717",
+		fontWeight: "400 !important",
+		lineHeight: "110% !important"
+	},
+})
+);
 //Initializing functional component Active duty
 function NewUser() {
 	const { data } = useContext(CheckMyOffers);
 	const [ errorAnnual, setErrorAnnual ] = useState("");
 	const [ errorPersonal, setErrorPersonal ] = useState("");
+	const classes = preLoginStyle();
+	const innerClasses = useStyles();
 
 	//Retrieving Context values
 	const navigate = useNavigate();
+
+	//Redirect to select offer is the page hit direclty
+	useEffect(() => {
+		if (data.completedPage < data.page.employmentStatus || data.formStatus === "completed") {
+			navigate("/select-amount");
+		}
+		return null;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 	const validate = (personal, household) => {
 		if (!isNaN(personal) && !isNaN(household)) {
 			if (personal <= household) {
@@ -26,12 +61,12 @@ function NewUser() {
 				setErrorPersonal("");
 				return true;
 			} else {
-				setErrorAnnual("Annual household income must be greater than or equal to Annual personal income");
+				setErrorAnnual(globalMessages.Annual_Household_Equal_Personal);
 				return false;
 			}
 		} else {
-			setErrorPersonal(isNaN(personal) ? "Annual personal income is required" : "");
-			setErrorAnnual(isNaN(household) ? "Annual household income is required" : "");
+			setErrorPersonal(isNaN(personal) ? globalMessages.Annual_Personal_Income_Required : "");
+			setErrorAnnual(isNaN(household) ? globalMessages.Annual_Household_Income_Required : "");
 			return false;
 		}
 	};
@@ -73,17 +108,17 @@ function NewUser() {
 	//Restrict alphabets
 
 	const onHandleChangePersonal = (event) => {
-		const reg = /^[0-9.,$\b]+$/;
-		let acc = event.target.value;
-		if (acc === "" || reg.test(acc)) {
+		const pattern = /^[0-9.,$\b]+$/;
+		let annualPersonalIncome = event.target.value;
+		if (annualPersonalIncome === "" || pattern.test(annualPersonalIncome)) {
 			setErrorPersonal("");
 			formik.handleChange(event);
 		}
 	};
 	const onHandleChange = (event) => {
-		const reg = /^[0-9.,$\b]+$/;
-		let acc = event.target.value;
-		if (acc === "" || reg.test(acc)) {
+		const pattern = /^[0-9.,$\b]+$/;
+		let annualHouseholdIncome = event.target.value;
+		if (annualHouseholdIncome === "" || pattern.test(annualHouseholdIncome)) {
 			setErrorAnnual("");
 			formik.handleChange(event);
 		}
@@ -101,14 +136,14 @@ function NewUser() {
 		const modPersonalIncome = parseInt(formik.values.personalIncome.replace(/\$/g, "").replace(/,/g, ""));
 		const modHouseholdIncome = parseInt(formik.values.householdIncome.replace(/\$/g, "").replace(/,/g, ""));
 		if (isNaN(modHouseholdIncome)) {
-			setErrorAnnual("Annual household income is required");
+			setErrorAnnual(globalMessages.Annual_Household_Income_Required);
 		} else {
 			const numNxt = event.target.value
 				.replace(/\$/g, "")
 				.replace(/,/g, "")
 				.substr(0, 7);
 			if (numNxt.length < 4) {
-				setErrorAnnual("Annual household income should not be less than 4 digits");
+				setErrorAnnual(globalMessages.Annual_Household_Income_4_digits);
 				return false;
 			}
 			const perval = document
@@ -117,7 +152,7 @@ function NewUser() {
 				.replace(/,/g, "")
 				.substr(0, 7);
 			if (perval.length < 4) {
-				setErrorPersonal("Annual personal income should not be less than 4 digits");
+				setErrorPersonal(globalMessages.Annual_Personal_Income_4_digits);
 				return false;
 			}
 			if (!isNaN(modPersonalIncome) && !isNaN(modHouseholdIncome)) {
@@ -126,7 +161,7 @@ function NewUser() {
 					setErrorPersonal("");
 					return true;
 				} else {
-					setErrorAnnual("Annual household income must be greater than or equal to Annual personal income");
+					setErrorAnnual(globalMessages.Annual_Income_Greater_Equal);
 					return false;
 				}
 			}
@@ -150,14 +185,14 @@ function NewUser() {
 			formik.values.householdIncome.replace(/\$/g, "").replace(/,/g, "")
 		);
 		if (isNaN(modPersonalIncome)) {
-			setErrorPersonal("Annual personal income is required");
+			setErrorPersonal(globalMessages.Annual_Personal_Income_Required);
 		} else {
 			const num = event.target.value
 				.replace(/\$/g, "")
 				.replace(/,/g, "")
 				.substr(0, 7);
 			if (num.length < 4) {
-				setErrorPersonal("Annual personal income should not be less than 4 digits");
+				setErrorPersonal(globalMessages.Annual_Personal_Income_4_digits);
 				return false;
 			}
 
@@ -167,7 +202,7 @@ function NewUser() {
 					setErrorPersonal("");
 					return true;
 				} else {
-					setErrorAnnual("Annual household income must be greater than or equal to Annual personal income");
+					setErrorAnnual(globalMessages.Annual_Income_Greater_Equal);
 					return false;
 				}
 			}
@@ -191,20 +226,12 @@ function NewUser() {
 		}
 	};
 
-	//Redirect to select offer is the page hit direclty
-	if (
-		data.completedPage < data.page.employmentStatus ||
-		data.formStatus === "completed"
-	) {
-		navigate("/select-amount");
-	}
-
 	//JSX part
 
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className="mainDiv">
+			<div className={ classes.mainDiv }>
 				<Box>
 					<Grid
 						container
@@ -212,7 +239,7 @@ function NewUser() {
 						xs={ 12 }
 						justifyContent="center"
 						alignItems="center"
-						style={ { padding: "4% 0px" } }
+						className={ innerClasses.boxGrid }
 					>
 						<Grid
 							container
@@ -228,8 +255,7 @@ function NewUser() {
 						>
 							<Paper
 								id="incomeWrap"
-								className="cardWOPadding"
-								style={ { justify: "center", alignItems: "center" } }
+								className={ innerClasses.paperStyle }
 							>
 								<div className="progress mt-0">
 									<div
@@ -255,12 +281,7 @@ function NewUser() {
 
 								<Typography
 									variant="h4"
-									style={ {
-										align: "center",
-										justify: "center",
-										alignItems: "center",
-									} }
-									className="borrowCSSLP checkMyOfferText"
+									className={ innerClasses.typoStyle }
 								>
 									Tell us about your income
 								</Typography>

@@ -3,11 +3,16 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import * as yup from "yup";
+import globalMessages from "../../../assets/data/globalMessages.json";
 import Logo from "../../../assets/images/loginbg.png";
 import amonelogo from "../../../assets/partners/WelcomeAOMember.png";
 import creditkarmalogo from "../../../assets/partners/WelcomeCKMember.png";
@@ -77,58 +82,58 @@ const useStyles = makeStyles((theme) => ({
 //Yup validations for all the input fields
 const validationSchema = yup.object({
   email: yup
-    .string("Enter your email")
-    .email("A valid email address is required")
+    .string(globalMessages.EmailEnter)
+    .email(globalMessages.EmailValid)
     .matches(
       /^[a-zA-Z][a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
-      "A valid email address is required"
+      globalMessages.EmailValid
     )
-    .required("Your email address is required"),
+    .required(globalMessages.EmailRequired),
   password: yup
-    .string("Enter your password")
+    .string(globalMessages.PasswordEnter)
     .matches(
       /^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,30}$/,
-      "Your password doesn't meet the criteria"
+      globalMessages.PasswordCriteria
     )
-    .max(30, "Password can be upto 30 characters length")
-    .min(8, "Password should be minimum of 8 characters length")
-    .required("Your password is required"),
+    .max(30, globalMessages.PasswordMax)
+    .min(8, globalMessages.PasswordMin)
+    .required(globalMessages.PasswordRequired),
   confirmPassword: yup
     .string()
-    .max(30, "Password can be upto 30 characters length")
-    .min(8, "Password should be minimum of 8 characters length")
-    .required("Your password confirmation is required")
+    .max(30, globalMessages.PasswordMax)
+    .min(8, globalMessages.PasswordMin)
+    .required(globalMessages.PasswordConfirmationRequired)
     .when("password", {
       is: (password) => password && password.length > 0,
       then: yup
         .string()
         .oneOf(
           [ yup.ref("password") ],
-          "Your confirmation password must match your password"
+          globalMessages.PasswordConfirmationMatch
         ),
     }),
   ssn: yup
-    .string("Enter a SSN")
-    .required("Your SSN is required")
+    .string(globalMessages.SSNEnter)
+    .required(globalMessages.SSNRequired)
     .transform((value) => value.replace(/[^\d]/g, ""))
-    .matches(/^(?!0000)\d{4}$/, "Please enter a valid SSN")
-    .min(4, "Name must contain at least 4 digits"),
+    .matches(/^(?!0000)\d{4}$/, globalMessages.SSNValid_Min_four)
+    .min(4, globalMessages.SSNMin_four),
   callPhNo: yup
-    .string("Enter a name")
-    .required("Your Phone number is required")
+    .string(globalMessages.PhoneEnter)
+    .required(globalMessages.PhoneRequired)
     .transform((value) => value?.replace(/[^\d]/g, ""))
-    .matches(/^[1-9]{1}\d{2}[\d]{3}\d{4}$/, "Please enter a valid Phone number")
-    .matches(/^(\d)(?!\1+$)\d{9}$/, "Please enter a valid Phone number")
-    .min(10, "Name must contain at least 10 digits"),
+    .matches(/^[1-9]{1}\d{2}[\d]{3}\d{4}$/, globalMessages.PhoneValid)
+    .matches(/^(\d)(?!\1+$)\d{9}$/, globalMessages.PhoneValid)
+    .min(10, globalMessages.PhoneMin),
   phoneType: yup
-    .string("Select Phone Type")
-    .max(30, "Should be less than 30 characters")
-    .required("Your Phone Type is required"),
+    .string(globalMessages.PhoneType)
+    .max(30, globalMessages.PhoneTypeMax)
+    .required(globalMessages.PhoneTypeRequired),
 });
 
 //Begin: Login page
 export default function CreditKarma() {
-  window.zeHide();
+
   //Decoding URL for partner signup
   const useQuery = () => new URLSearchParams(useLocation().search);
   const query = useQuery();
@@ -153,7 +158,7 @@ export default function CreditKarma() {
   }
   useEffect(() => {
     AsyncEffect_PopulatePartnerSignup();
-    return null
+    return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -164,11 +169,47 @@ export default function CreditKarma() {
   const [ failed, setFailed ] = useState("");
   const [ loading, setLoading ] = useState(false);
   const navigate = useNavigate();
-  const [ agree, setAgree ] = useState(false);
+  const [ openDelaware, setOpenDelaware ] = useState(false);
+  const [ agree, setAgree ] = useState(false);  
+  const [ agreeDelaware, setAgreeDelaware ] = useState("");
+  const [ agreeCalifornia, setAgreeCalifornia ] = useState("");
+  const [ agreeNewMexico, setAgreeNewMexico ] = useState("");
   const [ esignPopup, setEsignPopup ] = useState(false);
   const [ creditPopup, setCreditPopup ] = useState(false);
   const [ webTOUPopup, setwebTOUPopup ] = useState(false);
   const [ privacyPopup, setPrivacyPopup ] = useState(false);
+  const [ openCA, setOpenCA ] = useState(false);
+  const [ openOhio, setOpenOhio ] = useState(false);
+
+const handlePopupCA = populateSignupData?.state === "CA" ? true : false;
+const handlePopupOhio = populateSignupData?.state === "OH" ? true : false;
+
+useEffect(() => 
+{
+  if (handlePopupCA) {
+    setOpenCA(true);
+  }
+  else if(handlePopupOhio) {
+    setOpenOhio(true);
+  }
+  return null  
+},[handlePopupCA,handlePopupOhio]);
+
+  const handleCloseCA = () => {
+    setOpenCA(false);
+  };
+
+  const handleCloseOhio = () => {
+    setOpenOhio(false);
+  };
+
+
+  const handleClickDelawareOpen = () => {
+    setOpenDelaware(true);
+  };
+  const handleDelawareClose = () => {
+    setOpenDelaware(false);
+  };
 
   const handleOnClickEsign = () => {
     setEsignPopup(true);
@@ -546,22 +587,135 @@ export default function CreditKarma() {
                             { "" } <span className="formatHref" onClick={ () => { handleOnClickPrivacy(); } }>Website Privacy Statement.</span>
                           </p>
                         }
-                        required={ utm_source ? utm_source !== "CreditKarma" ? true : false : "" }
+                        required={utm_source !== "CreditKarma" ? true : false }
                         stylelabelform='{ "color":"" }'
                         stylecheckbox='{ "color":"blue"}'
                         stylecheckboxlabel='{ "color":"" }'
                       />
+                      <div
+                        className={
+                          utm_source !== "CreditKarma" && populateSignupData?.state === "Delaware" ||
+                            populateSignupData?.state === "DE"
+                            ? "showCheckbox"
+                            : "hideCheckbox"
+                        }
+                      >
+                        <Checkbox
+                          name="delaware"
+                          labelform="delaware"
+                          value={ agreeDelaware }
+                          onChange={ (event) => {
+                            setAgreeDelaware(event.target.checked);
+                          } }
+                          label={
+                            <p className="agreeCheckbox">
+                              By clicking this box you acknowledge that you have
+                              received and reviewed the{ " " }
+                              <span
+                                className="formatHref"
+                                onClick={ handleClickDelawareOpen }
+                              >
+                                Delaware Itemized Schedule Of Charges.{ " " }
+                              </span>
+                            </p>
+                          }
+                           required={utm_source !== "CreditKarma" && populateSignupData?.state === "Delaware" ||
+                           populateSignupData?.state === "DE" ? true : false }
+                          stylelabelform='{ "color":"" }'
+                          stylecheckbox='{ "color":"blue" }'
+                          stylecheckboxlabel='{ "color":"" }'
+                        />
+                      </div>
+                      <div
+                        className={
+                          utm_source !== "CreditKarma" && populateSignupData?.state === "California" ||
+                            populateSignupData?.state === "CA"                              
+                            ? "showCheckbox"
+                            : "hideCheckbox"
+                        }
+                      >
+                        <Checkbox
+                          name="california"
+                          labelform="california"
+                          value={ agreeCalifornia }
+                          onChange={ (event) => {
+                            setAgreeCalifornia(event.target.checked);
+                          } }
+                          label={
+                            <p className="agreeCheckbox">
+                              By clicking this box you acknowledge that you have
+                              been offered and had the opportunity to review
+                              this{ " " }
+                              <a
+                                className="formatHref"
+                                href={
+                                  "https://lms.moneyskill.org/yourcreditrating/module/mariner/en"
+                                }
+                                target="_blank"
+                                rel="noreferrer noopener"
+                              >
+                                Credit Education Program
+                              </a>
+                            </p>
+                          }
+                           required={ utm_source !== "CreditKarma" && populateSignupData?.state === "California" ||
+                           populateSignupData?.state === "CA" ? true : false }
+                          stylelabelform='{ "color":"" }'
+                          stylecheckbox='{ "color":"blue" }'
+                          stylecheckboxlabel='{ "color":"" }'
+                        />
+                      </div>
+                      <div
+                        className={
+                           utm_source !== "CreditKarma" && 
+                          populateSignupData?.state === "New Mexico" ||
+                            populateSignupData?.state === "NM"
+                            ? "showCheckbox"
+                            : "hideCheckbox"
+                        }
+                      >
+                        <Checkbox
+                          name="newmexico"
+                          labelform="newmexico"
+                          value={ agreeNewMexico }
+                          onChange={ (event) => {
+                            setAgreeNewMexico(event.target.checked);
+                          } }
+                          label={
+                            <p className="agreeCheckbox">
+                              NM Residents: By clicking this box you acknowledge
+                              that you have reviewed the Important Consumer
+                              Information in Mariner’s New Mexico Consumer
+                              Brochure located at{ " " }
+                              <a
+                                className="formatHref"
+                                href={ "http://marfi.me/NMBrochure." }
+                                target="_blank"
+                                rel="noreferrer noopener"
+                              >
+                                http://marfi.me/NMBrochure
+                              </a>
+                            </p>
+                          }
+                           required={ utm_source !== "CreditKarma" && 
+                           populateSignupData?.state === "New Mexico" ||
+                             populateSignupData?.state === "NM"? true : false }
+                          stylelabelform='{ "color":"" }'
+                          stylecheckbox='{ "color":"blue" }'
+                          stylecheckboxlabel='{ "color":"" }'
+                        />
+                      </div>
                     </Grid>
 
                     <Grid item xs={ 12 } className={ classes.signInButtonGrid }>
+
                       <ButtonPrimary
-                        // onClick={autoFocus}
                         type="submit"
                         data-testid="submit"
                         stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
                         disabled={ loading }
                       >
-                        Continue
+                       {utm_source === "CreditKarma" ?  "Continue" : "View your offers"}
                         <i
                           className="fa fa-refresh fa-spin customSpinner"
                           style={ {
@@ -591,6 +745,66 @@ export default function CreditKarma() {
       <Popup popupFlag={ privacyPopup } closePopup={ handleOnClickPrivacyClose }>
         <RenderContent disclosureLink="/privacy" />
       </Popup>
+      
+      <Popup popupFlag={ openDelaware } closePopup={ handleDelawareClose }>
+        <RenderContent disclosureLink="/delaware" />
+        </Popup>
+
+{/* CA user */}
+<Dialog
+        onClose={ handleCloseCA }
+        aria-labelledby="customized-dialog-title"
+        open={ openCA }
+      >
+        <DialogTitle id="customized-dialog-title" onClose={ handleCloseCA }>
+          Notice to CA Residents
+        </DialogTitle>
+        <DialogContent dividers>
+          <Typography align="justify" gutterBottom>
+            If you are married, you may apply for a separate account.
+          </Typography>
+        </DialogContent>
+        <DialogActions className="modalAction">
+          <ButtonPrimary
+            stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
+            onClick={ handleCloseCA }
+            className="modalButton"
+          >
+            <Typography align="center">Ok</Typography>
+          </ButtonPrimary>
+        </DialogActions>
+      </Dialog>
+
+
+      {/* Ohio users */}
+      <Dialog
+        onClose={ handleCloseOhio }
+        aria-labelledby="customized-dialog-title"
+        open={ openOhio }
+      >
+        <DialogTitle id="customized-dialog-title" onClose={ handleCloseOhio }>
+          Notice to OH Residents
+        </DialogTitle>
+        <DialogContent dividers>
+          <Typography align="justify" gutterBottom>
+            The Ohio laws against discrimination require that all creditors make
+            credit equally available to all credit worthy customers, and that
+            credit reporting agencies maintain separate credit histories on each
+            individual upon request. The Ohio civil rights commission
+            administers compliance with this law.
+          </Typography>
+        </DialogContent>
+        <DialogActions className="modalAction">
+          <ButtonPrimary
+            stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
+            onClick={ handleCloseOhio }
+            className="modalButton"
+          >
+            <Typography align="center">Ok</Typography>
+          </ButtonPrimary>
+        </DialogActions>
+      </Dialog>
+
     </div>
   );
 }

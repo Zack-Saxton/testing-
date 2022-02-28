@@ -1,14 +1,17 @@
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
+import globalMessages from '../../../../assets/data/globalMessages.json';
 import PersonLogo from "../../../../assets/icon/I-Personal-Info.png";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { creatProspect } from "../../../Controllers/CheckMyOffersController";
 import {
@@ -26,53 +29,53 @@ import "./PersonalInfo.css";
 //Yup validation schema
 const validationSchema = yup.object({
 	firstName: yup
-		.string("Enter your firstname")
-		.max(30, "Firstname can be upto 30 characters length")
-		.min(2, "Firstname should be minimum of 2 letters")
-		.required("Your first name is required"),
+		.string(globalMessages.FirstNameEnter)
+		.max(30, globalMessages.FirstNameMax)
+		.min(2, globalMessages.FirstNameMin)
+		.required(globalMessages.FirstNameRequired),
 	lastName: yup
-		.string("Enter your Lastname")
-		.max(30, "Lastname can be upto 30 characters length")
-		.min(2, "Lastname should be minimum of 2 letters")
-		.required("Your last name is required"),
+		.string(globalMessages.LastNameEnter)
+		.max(30, globalMessages.LastNameMax)
+		.min(2, globalMessages.LastNameMin)
+		.required(globalMessages.LastNameRequired),
 	email: yup
-		.string("Enter your email")
-		.email("A valid email address is required")
+		.string(globalMessages.EmailEnter)
+		.email(globalMessages.EmailValid)
 		.matches(
 			// eslint-disable-next-line
 			/^[a-zA-Z](?!.*[+/._-][+/._-])(([^<>()|?{}='[\]\\,;:#!$%^&*\s@\"]+(\.[^<>()|?{}=/+'[\]\\.,;_:#!$%^&*-\s@\"]+)*)|(\".+\"))[a-zA-Z0-9]@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,3}))$/, //eslint-disable-line
-			"A valid email address is required"
+			globalMessages.EmailValid
 		)
-		.required("Your email address is required"),
+		.required(globalMessages.EmailRequired),
 	ssn: yup.string().when("checkSSN", {
 		is: (checkSSN) => !checkSSN,
 		then: yup
-			.string("Enter a SSN")
-			.required("Your SSN is required")
+			.string(globalMessages.SSNEnter)
+			.required(globalMessages.SSNRequired)
 			.transform((value) => value.replace(/[^\d]/g, ""))
 			//eslint-disable-next-line
 			.matches(
 				/^(?!000)[0-8]\d{2}(?!00)\d{2}(?!0000)\d{4}$/,
-				"Please enter a valid SSN"
+				globalMessages.SSNValid
 			)
-			.matches(/^(\d)(?!\1+$)\d{8}$/, "Please enter a valid SSN")
-			.min(9, "SSN must contain at least 9 digits"),
+			.matches(/^(\d)(?!\1+$)\d{8}$/, globalMessages.SSNValid)
+			.min(9, globalMessages.SSNMin),
 	}),
 	phone: yup
-		.string("Enter a name")
-		.required("Your Phone number is required")
+		.string(globalMessages.PhoneEnter)
+		.required(globalMessages.PhoneRequired)
 		.transform((value) => value.replace(/[^\d]/g, ""))
 		//eslint-disable-next-line
 		.matches(
 			/^[1-9]{1}\d{2}\d{3}\d{4}$/,
-			"Please enter a valid Phone number"
+			globalMessages.PhoneValid
 		)
-		.matches(/^(\d)(?!\1+$)\d{9}$/, "Please enter a valid Phone number")
-		.min(10, "Name must contain at least 10 digits"),
+		.matches(/^(\d)(?!\1+$)\d{9}$/, globalMessages.PhoneValid)
+		.min(10, globalMessages.PhoneMin),
 	dob: yup
-		.date("Please enter a valid date")
+		.date(globalMessages.DateOfBirthValid)
 		.nullable()
-		.required("Your date of birth is required")
+		.required(globalMessages.DateOfBirthRequired)
 		.max(
 			new Date(
 				new Date(
@@ -83,11 +86,48 @@ const validationSchema = yup.object({
 					new Date().getDate()
 				).getTime() - 567650000000
 			),
-			"You must be at least 18 years old"
+			globalMessages.DateOfBirthMinAge
 		)
-		.min(new Date(1919, 1, 1), "You are too old")
-		.typeError("Please enter a valid date"),
+		.min(new Date(1919, 1, 1), globalMessages.DateOfBirthMaxAge)
+		.typeError(globalMessages.DateOfBirthValid),
 });
+
+const useStyles = makeStyles((Theme) => ({
+	gridPadding: {
+		justifyContent: "center",
+		padding: "4% 0%"
+	},
+	paperStyle: {
+		justify: "center",
+		alignItems: "center",
+		textAlign: "center",
+		padding: "0"
+	},
+	typoStyle: {
+		align: "center",
+		justify: "center",
+		alignItems: "center",
+		fontSize: "1.538rem",
+		margin: "10px 0px !important",
+		color: "#171717",
+		fontWeight: "400 !important",
+		lineHeight: "110% !important"
+	},
+	justifyGrid: {
+		justifyContent: "center",
+		alignItems: "stretch",
+		textAlign: "center"
+	},
+	justifyGridMargin: {
+		justifyContent: "center",
+		margin: " 15px 0px 19px 0px"
+	},
+	gridAlign: {
+		justifyContent: "center",
+		padding: "4% 0%"
+	}
+})
+);
 
 //Initializing functional component Personal info
 function PersonalInfo() {
@@ -97,6 +137,10 @@ function PersonalInfo() {
 	const [ error, setError ] = useState(false);
 	const [ loading, setLoading ] = useState(false);
 	const navigate = useNavigate();
+	const innerClasses = useStyles();
+	const classes = preLoginStyle();
+	const myDate = new Date();
+	myDate.setDate(myDate.getDate() - 6571);
 
 	function phoneNumberMask(values) {
 		let phoneNumber = values.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
@@ -113,7 +157,7 @@ function PersonalInfo() {
 			ssn: data.ssn ? data.ssn : "",
 			lastSSN: data.last4SSN ? data.last4SSN : "",
 			phone: data.phone ? phoneNumberMask(data.phone) : "",
-			dob: data.dob ?? null,
+			dob: data.dob ? data.dob : null,
 			checkSSN: data.last4SSN ? true : false,
 		},
 		validationSchema: validationSchema,
@@ -200,9 +244,6 @@ function PersonalInfo() {
 		},
 	});
 
-	const myDate = new Date();
-	myDate.setDate(myDate.getDate() - 6571);
-
 	const checkApplicationStatus = async (event) => {
 		formik.handleBlur(event);
 		if (event.target.value !== "" || event.target.value !== null) {
@@ -229,10 +270,9 @@ function PersonalInfo() {
 
 	//onchange validation
 	const onNameChange = (event) => {
-		const reg = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
-		let acc = event.target.value;
-
-		if (acc === "" || reg.test(acc)) {
+		const pattern = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
+		let name = event.target.value;
+		if (name === "" || pattern.test(name)) {
 			formik.handleChange(event);
 		}
 	};
@@ -250,8 +290,8 @@ function PersonalInfo() {
 
 	//set auto focus
 	function autoFocus() {
-		var firstname = document.getElementById("firstName").value;
-		var lastname = document.getElementById("lastName").value;
+		let firstname = document.getElementById("firstName").value;
+		let lastname = document.getElementById("lastName").value;
 		if (firstname === "") {
 			document.getElementById("firstName").focus();
 		}
@@ -263,30 +303,27 @@ function PersonalInfo() {
 			}
 		}
 	}
-
-	//redirects to select amount if directly calls
-	if (
-		data.completedPage < data.page.homeAddress ||
-		data.formStatus === "completed"
-	) {
-		navigate("/select-amount");
-	}
+	useEffect(() => {
+		//redirects to select amount if directly calls
+		if (data.completedPage < data.page.homeAddress || data.formStatus === "completed") {
+			navigate("/select-amount");
+		}
+		return null;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	//JSX [part]
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className="mainDiv">
+			<div className={ classes.mainDiv }>
 				<Box>
 					<Grid
 						item
 						xs={ 12 }
 						container
 						alignItems="center"
-						style={ {
-							justifyContent: "center",
-							padding: "4% 0%"
-						} }
+						className={ innerClasses.gridAlign }
 					>
 						<Grid
 							container
@@ -301,8 +338,7 @@ function PersonalInfo() {
 						>
 							<Paper
 								id="aboutYourselfWrap"
-								className="cardWOPadding"
-								style={ { justify: "center", alignItems: "center", padding: "0" } }
+								className={ innerClasses.paperStyle }
 							>
 								<div className="progress mt-0">
 									<div
@@ -328,13 +364,7 @@ function PersonalInfo() {
 
 								<Typography
 									variant="h5"
-									style={ {
-										align: "center",
-										justify: "center",
-										alignItems: "center",
-										fontSize: "1.538rem"
-									} }
-									className="borrowCSSLP checkMyOfferText"
+									className={ innerClasses.typoStyle }
 								>
 									Tell us about yourself
 								</Typography>
@@ -342,9 +372,8 @@ function PersonalInfo() {
 									<Grid
 										item
 										md={ 12 }
-										className="blockDiv"
+										className={ innerClasses.justifyGrid }
 										container
-										style={ { justifyContent: "center" } }
 										alignItems="center"
 									>
 										<Grid
@@ -412,7 +441,6 @@ function PersonalInfo() {
 										</Grid>
 										<Grid
 											container
-											style={ { justifyContent: "center" } }
 											alignItems="center"
 											item
 											lg={ 8 }
@@ -423,9 +451,10 @@ function PersonalInfo() {
 											<DatePicker
 												name="dob"
 												label="Date of Birth *"
-												id="dob"
 												placeholder="MM/DD/YYYY"
-												format="MM/dd/yyyy"
+												id="dob"
+												autoComplete="off"
+												onKeyDown={ (event) => event.preventDefault() }
 												maxdate={ myDate }
 												minyear={ 102 }
 												value={ formik.values.dob }
@@ -433,9 +462,7 @@ function PersonalInfo() {
 													formik.setFieldValue("dob", values);
 												} }
 												onBlur={ formik.handleBlur }
-												error={
-													formik.touched.dob && Boolean(formik.errors.dob)
-												}
+												error={ formik.touched.dob && Boolean(formik.errors.dob) }
 												helperText={ formik.touched.dob && formik.errors.dob }
 											/>
 
@@ -501,7 +528,6 @@ function PersonalInfo() {
 										</Grid>
 										<Grid
 											container
-											style={ { justifyContent: "center" } }
 											alignItems="center"
 											item
 											lg={ 8 }
@@ -540,7 +566,6 @@ function PersonalInfo() {
 
 										<Grid
 											container
-											style={ { justifyContent: "center" } }
 											alignItems="center"
 											item
 											lg={ 8 }
@@ -590,13 +615,12 @@ function PersonalInfo() {
 										</Grid>
 										<Grid
 											container
-											style={ { justifyContent: "center", margin: " 15px 0px 19px 0px" } }
+											className={ innerClasses.justifyGridMargin }
 											alignItems="center"
 											item
 											lg={ 8 }
 											md={ 8 }
 											xs={ 12 }
-											className="textBlock"
 										>
 											<ButtonPrimary
 												onClick={ autoFocus }

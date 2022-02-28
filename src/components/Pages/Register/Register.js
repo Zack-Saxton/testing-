@@ -7,7 +7,6 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import axios from "axios";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useState } from "react";
@@ -16,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import Logo from "../../../assets/images/loginbg.png";
-import LoginController from "../../Controllers/LoginController";
+import LoginController, { RegisterController } from "../../Controllers/LoginController";
 import LogoutController from "../../Controllers/LogoutController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
 import {
@@ -99,7 +98,7 @@ const validationSchema = formValidation.getFormValidationRule('');
 
 //Begin: Login page
 export default function Register() {
-  window.zeHide();
+
   const classes = useStyles();
   const [ validZip, setValidZip ] = useState(true);
   const [ state, setState ] = useState("");
@@ -115,49 +114,53 @@ export default function Register() {
   myDate.setDate(myDate.getDate() - 6571);
 
   const loginUser = async (values) => {
-    let retVal = await LoginController(values.email, values.password, "");
-    if (retVal?.data?.user && retVal?.data?.userFound === true) {
-      let rememberMe = false;
-      var now = new Date().getTime();
-      LogoutController();
-      Cookies.set("redirec", JSON.stringify({ to: "/select-amount" }));
-      Cookies.set(
-        "token",
-        JSON.stringify({
-          isLoggedIn: true,
-          apiKey: retVal?.data?.user?.extensionattributes?.login?.jwt_token,
-          setupTime: now,
-        })
-      );
-      Cookies.set(
-        "cred",
-        encryptAES(
+    try {
+      let retVal = await LoginController(values.email, values.password, "");
+      if (retVal?.data?.user && retVal?.data?.userFound === true) {
+        let rememberMe = false;
+        var now = new Date().getTime();
+        LogoutController();
+        Cookies.set("redirec", JSON.stringify({ to: "/select-amount" }));
+        Cookies.set(
+          "token",
           JSON.stringify({
-            email: values.email,
-            password: values.password,
+            isLoggedIn: true,
+            apiKey: retVal?.data?.user?.extensionattributes?.login?.jwt_token,
+            setupTime: now,
           })
-        )
-      );
-      queryClient.removeQueries();
-      rememberMe === true
-        ? Cookies.set(
-          "rememberMe",
-          JSON.stringify({
-            selected: true,
-            email: values.email,
-            password: values.password,
-          })
-        )
-        : Cookies.set("rememberMe", JSON.stringify({ selected: false, email: "", password: "" }));
+        );
+        Cookies.set(
+          "cred",
+          encryptAES(
+            JSON.stringify({
+              email: values.email,
+              password: values.password,
+            })
+          )
+        );
+        queryClient.removeQueries();
+        rememberMe === true
+          ? Cookies.set(
+            "rememberMe",
+            JSON.stringify({
+              isLoggedIn: true,
+              apiKey: retVal?.data?.user?.extensionattributes?.login?.jwt_token,
+              setupTime: now,
+            })
+          )
+          : Cookies.set("rememberMe", JSON.stringify({ selected: false, email: "", password: "" }));
 
-      setLoading(false);
-      navigate("/customers/accountoverview");
-    } else if (retVal?.data?.result === "error" || retVal?.data?.hasError === true) {
-      Cookies.set("token", JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" }));
-      setLoading(false);
-    } else {
-      setLoading(false);
-      alert("Network error");
+        setLoading(false);
+        navigate("/customers/accountoverview");
+      } else if (retVal?.data?.result === "error" || retVal?.data?.hasError === true) {
+        Cookies.set("token", JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" }));
+        setLoading(false);
+      } else {
+        setLoading(false);
+        alert("Network error");
+      }
+    } catch (error) {
+      ErrorLogger("Error executing Login API", error);
     }
   };
   //Form Submission
@@ -195,18 +198,7 @@ export default function Register() {
       };
       //API call
       try {
-        let customerStatus = await axios({
-          method: "POST",
-          url: "/customer/register_new_user",
-          data: JSON.stringify(body),
-          headers: {
-            "Content-Type": "application/json",
-          },
-          transformRequest: (data, headers) => {
-            delete headers.common[ "Content-Type" ];
-            return data;
-          },
-        });
+        let customerStatus = await RegisterController(body);
 
         if (
           (customerStatus.data?.customerFound === false && customerStatus.data?.userFound === false && customerStatus.data?.is_registration_failed === false) ||
@@ -241,9 +233,9 @@ export default function Register() {
   });
 
   const NameChange = (event) => {
-    const reg = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
-    let acc = event.target.value;
-    if (acc === "" || reg.test(acc)) {
+    const pattern = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
+    let name = event.target.value;
+    if (name === "" || pattern.test(name)) {
       formik.handleChange(event);
     }
   };
@@ -365,7 +357,7 @@ export default function Register() {
                         placeholder={ globalMessages.FirstNameEnter }
                         materialProps={ { maxLength: "30" } }
                         value={ formik.values.firstname }
-                        onChange={ (e) => NameChange(e) }
+                        onChange={ (event) => NameChange(event) }
                         onBlur={ formik.handleBlur }
                         error={
                           andLogic(formik.touched.firstname, Boolean(formik.errors.firstname))
@@ -498,6 +490,8 @@ export default function Register() {
                         id="dob"
                         placeholder="MM/DD/YYYY"
                         format="MM/dd/yyyy"
+                        autoComplete="off"
+                        onKeyDown={ (event) => event.preventDefault() }
                         maxdate={ myDate }
                         minyear={ 102 }
                         value={ formik.values.dob }
@@ -594,9 +588,7 @@ export default function Register() {
                         stylebutton='{"background": "", "color":"", "fontSize" : "15px ! important", "padding" : "0px 30px" }'
                         disabled={ loading }
                       >
-                        {/* <Typography align="center" className="textCSS "> */ }
                         Sign in
-                        {/* </Typography> */ }
                         <i
                           className="fa fa-refresh fa-spin customSpinner"
                           style={ {

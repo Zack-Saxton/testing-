@@ -9,13 +9,13 @@ const useStyleVantageScore = makeStyles((theme) => ({
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary,
-  },  
+  },
   heading: {
     color: "#214476",
     fontWeight: "400",
     fontSize: "1.563rem",
   },
-  centerGrid:{
+  centerGrid: {
     marginTop: "20px",
     paddingRight: "23px",
     paddingLeft: "23px",

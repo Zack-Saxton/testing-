@@ -2,6 +2,7 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import { getIframe } from "../../../Controllers/ApplyForLoanController";
 import { ButtonPrimary } from "../../../FormsUI";
@@ -13,6 +14,22 @@ const useStyles = makeStyles((theme) => ({
 	content_grid: {
 		marginTop: "15px",
 	},
+	pTagStyle: {
+		textAlign: "justify",
+		fontSize: "0.938rem",
+		lineHeight: "1.5",
+		color: "#595959"
+	},
+	listStyle: {
+		textAlign: "justify"
+	},
+	spanStyle: {
+		paddingLeft: "21px"
+	},
+	errorStyle: {
+		textAlign: "justify",
+		color: "red"
+	}
 }));
 
 //View Part
@@ -60,6 +77,18 @@ export default function DocumentPhoto(props) {
 			toast.error("Error uploading document");
 		}
 	};
+
+	const onClickNextBtn = async () => {
+		let data = {};
+		let res = await APICall('verification_steps_cac', '', data, 'POST', true);
+		if (res?.data?.id_photo === true && res?.data?.id_document === true) {
+			props.next();
+			props.reference.current[ 4 ].current.scrollIntoView({ behavior: 'smooth' });
+		} else {
+			setError(true);
+		}
+	};
+
 	useEffect(() => {
 		if (window.addEventListener) {
 			window.addEventListener("message", onMessageHandler, false);
@@ -77,20 +106,21 @@ export default function DocumentPhoto(props) {
 	return (
 		<div>
 			<div className={ classes.content_grid }>
-				<p style={ { textAlign: "justify", fontSize: "0.938rem", lineHeight: "1.5", color: "#595959" } }>
-					<span style={ { paddingLeft: "21px", display: "block" } }> Please upload an image or your driver‘s license, passport,
+				<p className={ classes.pTagStyle }>
+					<span className={ classes.spanStyle }> Please upload an image or your driver‘s license, passport,
 						state-issued photo ID card, or military/federal government photo ID.
 					</span>
-					<span style={ { paddingLeft: "21px" } }>Please ensure:</span>
-					<li style={ { textAlign: "justify" } }>Document is currently valid</li>
-					<li style={ { textAlign: "justify" } }>The entire document is visible and all information is legible</li>
+					<br />
+					<span className={ classes.spanStyle }>Please ensure:</span>
+					<li className={ classes.listStyle }>Document is currently valid</li>
+					<li className={ classes.listStyle }>The entire document is visible and all information is legible</li>
 				</p>
 			</div>
 			<Grid item sm={ 12 }>
 				{ iframeSrc !== '' ? <iframe src={ iframeSrc } allow="camera;" id="iframeDiv" title="document upload" height="650px" width="100%" /> : null }
 			</Grid>
 			<div>
-				<p style={ { textAlign: "justify", fontSize: "0.938rem", lineHeight: "1.5", color: "#595959" } }>
+				<p className={ classes.pTagStyle }>
 					Please upload a picture of yourself in which you are holding your
 					state or federal government issued ID next to your face. Please ensure
 					that the information on the ID is legible and that your hand is
@@ -99,7 +129,7 @@ export default function DocumentPhoto(props) {
 					check)
 				</p>
 				<br />
-				<p style={ { textAlign: "justify", display: error ? "block" : "none", color: "red" } }>
+				<p style={ { display: error ? "block" : "none" } } className={ classes.errorStyle }>
 					{ messages.documentPhoto.verificationNotFound }
 				</p>
 			</div>
@@ -111,15 +141,7 @@ export default function DocumentPhoto(props) {
 						color="primary"
 						id="button_stepper_next"
 						stylebutton='{"marginRight": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
-						onClick={ async () => {
-							let data = {};
-							let res = await APICall('verification_steps_cac', '', data, 'POST', true);
-							if (res?.data?.id_photo === true && res?.data?.id_document === true) {
-								props.next();
-							} else {
-								setError(true);
-							}
-						} }
+						onClick={ () => { onClickNextBtn(); } }
 					>
 						{ props.activeStep === props?.steps.length - 1 ? "Finish" : "Next" }
 					</ButtonPrimary>
@@ -128,3 +150,11 @@ export default function DocumentPhoto(props) {
 		</div>
 	);
 }
+DocumentPhoto.propTypes = {
+	next: PropTypes.func,
+	reference: PropTypes.object,
+	classes: PropTypes.object,
+	steps: PropTypes.array,
+	activeStep: PropTypes.string
+
+};

@@ -1,13 +1,16 @@
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { maritalStatusData } from "../../../../assets/data/constants";
+import globalMessages from "../../../../assets/data/globalMessages.json";
 import MarriedStatusLogo from "../../../../assets/icon/married-status.png";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import ZipCodeLookup from "../../../Controllers/ZipCodeLookup";
 import { ButtonPrimary, Select, TextField, Zipcode } from "../../../FormsUI";
@@ -17,54 +20,77 @@ import ScrollToTopOnMount from "../ScrollToTop";
 
 //Yup validation schema
 const validationSchema = yup.object({
-	martialStatus: yup
-		.string("Enter your Martial Status")
-		.required("Please select your martial status"),
+	maritalStatus: yup
+		.string(globalMessages.Marital_Status_Enter)
+		.required(globalMessages.Marital_Status_Select),
 	add: yup
 		.string()
-		.when("martialStatus", {
+		.when("maritalStatus", {
 			is: maritalStatusData.married,
-			then: yup.string().required("Spouse Address is required"),
+			then: yup.string().required(globalMessages.Marital_Status_Select),
 		})
-		.when("martialStatus", {
+		.when("maritalStatus", {
 			is: maritalStatusData.seperated,
-			then: yup.string().required("Spouse Address is required"),
+			then: yup.string().required(globalMessages.Spouse_Address_Required),
 		}),
 	spouseZipcode: yup
 		.string()
-		.when("martialStatus", {
+		.when("maritalStatus", {
 			is: maritalStatusData.married,
-			then: yup.string().required("Your home ZIP Code is required"),
+			then: yup.string().required(globalMessages.ZipCodeRequired),
 		})
-		.when("martialStatus", {
+		.when("maritalStatus", {
 			is: maritalStatusData.seperated,
-			then: yup.string().required("Your home ZIP Code is required"),
+			then: yup.string().required(globalMessages.ZipCodeRequired),
 		}),
 	spousecity: yup
 		.string()
-		.when("martialStatus", {
+		.when("maritalStatus", {
 			is: maritalStatusData.married,
 			then: yup
 				.string()
-				.required("Your home city is required. Please re-enter your zip code to populate your city"),
+				.required(globalMessages.Address_Home_City),
 		})
-		.when("martialStatus", {
+		.when("maritalStatus", {
 			is: maritalStatusData.seperated,
 			then: yup
 				.string()
-				.required("Your home city is required. Please re-enter your zip code to populate your city"),
+				.required(globalMessages.Address_Home_City),
 		}),
 	spouseSelectState: yup
 		.string()
-		.when("martialStatus", {
+		.when("maritalStatus", {
 			is: maritalStatusData.married,
-			then: yup.string().required("Your home state is required"),
+			then: yup.string().required(globalMessages.Address_State_Required),
 		})
-		.when("martialStatus", {
+		.when("maritalStatus", {
 			is: maritalStatusData.seperated,
-			then: yup.string().required("Your home state is required"),
+			then: yup.string().required(globalMessages.Address_State_Required),
 		}),
 });
+
+const useStyles = makeStyles((Theme) => ({
+
+	typoStyle: {
+		align: "center",
+		justify: "center",
+		alignItems: "center",
+		marginBottom: "1%",
+		marginTop: "1%",
+	},
+	negativeMargin: {
+		marginTop: "-4%"
+	},
+	paperStyle: {
+		justify: "center",
+		alignItems: "center",
+		width: "inherit",
+		marginBottom: "10%",
+		marginTop: "10%",
+		textAlign: "center"
+	}
+})
+);
 
 // custom component - MarriedStatus
 function MarriedStatus() {
@@ -72,11 +98,20 @@ function MarriedStatus() {
 	const [ stateShort, setStateShort ] = useState("");
 	const [ validZip, setValidZip ] = useState(true);
 	const navigate = useNavigate();
-
+	const classes = preLoginStyle();
+	const innerClasses = useStyles();
+	useEffect(() => {
+		//redirect to select amount if page accessed directly
+		if (data.completedPage < data.page.livingPlace || data.formStatus === "completed") {
+			navigate("/select-amount");
+		}
+		return null;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 	//Configuring formik
 	const formik = useFormik({
 		initialValues: {
-			martialStatus: data.maritalStatus ?? "",
+			maritalStatus: data.maritalStatus ?? "",
 			add: data.spouse_address_street ? data.spouse_address_street : (data.streetAddress ? data.streetAddress : ""),
 			spouseZipcode: data.spouse_address_postal_code ? data.spouse_address_postal_code : (data.zip ? data.zip : ""),
 			spouseSelectState: data.spouse_address_state_full_form ? data.spouse_address_state_full_form : (data.stateFullform ? data.stateFullform : ""),
@@ -88,7 +123,7 @@ function MarriedStatus() {
 			//onsubmit store the data to context and procceds
 			setData({
 				...data,
-				maritalStatus: values.martialStatus,
+				maritalStatus: values.maritalStatus,
 				spouse_address_street: values.add,
 				spouse_address_city: values.spousecity,
 				spouse_address_state: stateShort,
@@ -96,7 +131,7 @@ function MarriedStatus() {
 				spouse_address_postal_code: values.spouseZipcode,
 				completedPage: data.page.activeDuty,
 			});
-			navigate("/ssn");
+			navigate("/oneLastStep");
 		},
 	});
 
@@ -134,16 +169,11 @@ function MarriedStatus() {
 		}
 	};
 
-	//redirect to select amount if page accessed directly
-	if (data.completedPage < data.page.livingPlace || data.formStatus === "completed") {
-		navigate("/select-amount");
-	}
-
 	//JSX part
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className="mainDiv">
+			<div className={ classes.mainDiv }>
 				<Box>
 					<Grid
 						item
@@ -166,14 +196,7 @@ function MarriedStatus() {
 						>
 							<Paper
 								id="maritalStatusWrap"
-								className="cardWOPadding"
-								style={ {
-									justify: "center",
-									alignItems: "center",
-									width: "inherit",
-									marginBottom: "10%",
-									marginTop: "10%",
-								} }
+								className={ innerClasses.paperStyle }
 							>
 								<div className="progress mt-0">
 									<div
@@ -189,7 +212,7 @@ function MarriedStatus() {
 										</i>
 									</Link>
 								</Grid>
-								<Grid style={ { marginTop: "-4%" } }>
+								<Grid className={ innerClasses.negativeMargin }>
 									<img
 										alt="marriedlogo"
 										src={ MarriedStatusLogo }
@@ -199,12 +222,7 @@ function MarriedStatus() {
 
 								<Typography
 									variant="h5"
-									style={ {
-										align: "center",
-										justify: "center",
-										alignItems: "center",
-									} }
-									className="borrowCSS"
+									className={ innerClasses.typoStyle }
 								>
 									Are you married?*
 								</Typography>
@@ -230,19 +248,19 @@ function MarriedStatus() {
 											<Select
 												id="selectMaritalStatusWrap"
 												fullWidth={ true }
-												name="martialStatus"
+												name="maritalStatus"
 												labelform="Marital Status *"
 												select={ '[{"value":"' + maritalStatusData.married + '", "label":"Married"}, {"value":"' + maritalStatusData.unmarried + '", "label":"Unmarried"}, {"label":"Separated, under decree of legal separation", "value":"' + maritalStatusData.seperated + '"}]' }
-												value={ formik.values.martialStatus }
+												value={ formik.values.maritalStatus }
 												onChange={ formik.handleChange }
 												onBlur={ formik.handleBlur }
 												error={
-													formik.touched.martialStatus &&
-													Boolean(formik.errors.martialStatus)
+													formik.touched.maritalStatus &&
+													Boolean(formik.errors.maritalStatus)
 												}
 												helperText={
-													formik.touched.martialStatus &&
-													formik.errors.martialStatus
+													formik.touched.maritalStatus &&
+													formik.errors.maritalStatus
 												}
 											/>
 										</Grid>
@@ -255,8 +273,8 @@ function MarriedStatus() {
 											md={ 8 }
 											xs={ 12 }
 											className={
-												formik.values.martialStatus === maritalStatusData.married ||
-													formik.values.martialStatus ===
+												formik.values.maritalStatus === maritalStatusData.married ||
+													formik.values.maritalStatus ===
 													maritalStatusData.seperated
 													? "showMsg space"
 													: "hideMsg space"
@@ -283,8 +301,8 @@ function MarriedStatus() {
 											md={ 8 }
 											xs={ 12 }
 											className={
-												formik.values.martialStatus === maritalStatusData.married ||
-													formik.values.martialStatus ===
+												formik.values.maritalStatus === maritalStatusData.married ||
+													formik.values.maritalStatus ===
 													maritalStatusData.seperated
 													? "showMsg "
 													: "hideMsg "
@@ -303,8 +321,8 @@ function MarriedStatus() {
 											md={ 8 }
 											xs={ 12 }
 											className={
-												formik.values.martialStatus === maritalStatusData.married ||
-													formik.values.martialStatus ===
+												formik.values.maritalStatus === maritalStatusData.married ||
+													formik.values.maritalStatus ===
 													maritalStatusData.seperated
 													? "showMsg space"
 													: "hideMsg space"
@@ -327,7 +345,7 @@ function MarriedStatus() {
 													validZip
 														? formik.touched.spouseZipcode &&
 														formik.errors.spouseZipcode
-														: "Please enter a valid Zip code"
+														: globalMessages.ZipCodeValid
 												}
 											/>
 										</Grid>
@@ -340,8 +358,8 @@ function MarriedStatus() {
 											md={ 8 }
 											xs={ 12 }
 											className={
-												formik.values.martialStatus === maritalStatusData.married ||
-													formik.values.martialStatus ===
+												formik.values.maritalStatus === maritalStatusData.married ||
+													formik.values.maritalStatus ===
 													maritalStatusData.seperated
 													? "showMsg space"
 													: "hideMsg space"
@@ -374,8 +392,8 @@ function MarriedStatus() {
 											md={ 8 }
 											xs={ 12 }
 											className={
-												formik.values.martialStatus === maritalStatusData.married ||
-													formik.values.martialStatus ===
+												formik.values.maritalStatus === maritalStatusData.married ||
+													formik.values.maritalStatus ===
 													maritalStatusData.seperated
 													? "showMsg space"
 													: "hideMsg space"

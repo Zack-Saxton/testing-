@@ -19,10 +19,11 @@ export default function ControlledAccordions(keyFactors) {
   let reasoneThree = keyFactors?.keyFactors ? keyFactors.keyFactors.reason3 : null;
   let reasoneFour = keyFactors?.keyFactors ? keyFactors.keyFactors.reason4 : null;
 
-  reasoneOne = creditScore[ reasoneOne ];
-  reasoneTwo = creditScore[ reasoneTwo ];
-  reasoneThree = creditScore[ reasoneThree ];
-  reasoneFour = creditScore[ reasoneFour ];
+  let keyFactorList = [];
+  keyFactorList.push(creditScore[ reasoneOne ]);
+  keyFactorList.push(creditScore[ reasoneTwo ]);
+  keyFactorList.push(creditScore[ reasoneThree ]);
+  keyFactorList.push(creditScore[ reasoneFour ]);
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
@@ -34,74 +35,27 @@ export default function ControlledAccordions(keyFactors) {
       <h3 className={ classes.KeyFactorsHeading }>
         Key Factors Influencing Your Credit Score
       </h3>
-      <Accordion expanded={ expanded === 'panel1' } onChange={ handleChange('panel1') }>
-        <AccordionSummary
-          expandIcon={ <ExpandMoreIcon /> }
-          aria-controls="panel1bh-content"
-          id="panel1bh-header"
-        >
-          <Typography className={ classes.MainkeyFactorHeading }>{ reasoneOne.label }</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <div className={ classes.VantageScoreSmallText }>
-            <p className={ classes.BoldText }>Explanation</p>
-            { reasoneOne.description }
-            <p className={ classes.BoldText }>What You Can Do</p>
-            { reasoneOne.tip }
-          </div>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion expanded={ expanded === 'panel2' } onChange={ handleChange('panel2') }>
-        <AccordionSummary
-          expandIcon={ <ExpandMoreIcon /> }
-          aria-controls="panel2bh-content"
-          id="panel2bh-header"
-        >
-          <Typography className={ classes.MainkeyFactorHeading }>{ reasoneTwo.label }</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <div className={ classes.VantageScoreSmallText }>
-            <p className={ classes.BoldText }>Explanation</p>
-            { reasoneTwo.description }
-            <p className={ classes.BoldText }>What You Can Do</p>
-            { reasoneTwo.tip }
-          </div>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion expanded={ expanded === 'panel3' } onChange={ handleChange('panel3') }>
-        <AccordionSummary
-          expandIcon={ <ExpandMoreIcon /> }
-          aria-controls="panel3bh-content"
-          id="panel3bh-header"
-        >
-          <Typography className={ classes.MainkeyFactorHeading }>{ reasoneThree.label }</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <div className={ classes.VantageScoreSmallText }>
-            <p className={ classes.BoldText }>Explanation</p>
-            { reasoneThree.description }
-            <p className={ classes.BoldText }>What You Can Do</p>
-            { reasoneThree.tip }
-          </div>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion expanded={ expanded === 'panel4' } onChange={ handleChange('panel4') }>
-        <AccordionSummary
-          expandIcon={ <ExpandMoreIcon /> }
-          aria-controls="panel4bh-content"
-          id="panel4bh-header"
-        >
-          <Typography className={ classes.MainkeyFactorHeading }> { reasoneFour.label }</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <div className={ classes.VantageScoreSmallText }>
-            <p className={ classes.BoldText }>Explanation</p>
-            { reasoneFour.description }
-            <p className={ classes.BoldText }>What You Can Do</p>
-            { reasoneFour.tip }
-          </div>
-        </AccordionDetails>
-      </Accordion>
+      {
+        keyFactorList.map((factor, index) => (
+          <Accordion expanded={ expanded === `panel${ index }` } onChange={ handleChange(`panel${ index }`) } key={ Math.random() * 1000 }>
+            <AccordionSummary
+              expandIcon={ <ExpandMoreIcon /> }
+              aria-controls={ `panel${ index }bh-content` }
+              id={ `panel${ index }bh-header` }
+            >
+              <Typography className={ classes.MainkeyFactorHeading }>{ factor.label }</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <div className={ classes.VantageScoreSmallText }>
+                <p className={ classes.BoldText }>Explanation</p>
+                { (factor.description).replace(/\\/g, '') }
+                <p className={ classes.BoldText }>What You Can Do</p>
+                { (factor.tip).replace(/\\/g, '') }
+              </div>
+            </AccordionDetails>
+          </Accordion>
+        ))
+      }
 
       <Grid className={ classes.VantageScoreCredit }>
         <p className={ classes.VantageScoreText }>VantageScore® Credit Score</p>

@@ -12,6 +12,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import { useFormik } from "formik";
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import { ButtonPrimary, ButtonSecondary, Radio, TextField } from "../../../FormsUI";
@@ -41,10 +42,10 @@ const validationSchema = yup.object({
 		.string(messages?.bankAccountVerification?.enterBankIfo)
 		.required(messages?.bankAccountVerification?.bankInformationRequired),
 	bankAccountNumber: yup
-		.string(messages?.bankAccountVerification?.minAccountNum)
+		.string(messages?.bankAccountVerification?.minMaxAccountNum)
 		.required(messages?.bankAccountVerification?.bankAccountNumberRequired)
-		.min(7, messages?.bankAccountVerification?.minAccountNum)
-		.max(16, messages?.bankAccountVerification?.maxAccountNum),
+		.min(4, messages?.bankAccountVerification?.minMaxAccountNum)
+		.max(17, messages?.bankAccountVerification?.minMaxAccountNum),
 	confirmBankAccountNumber: yup
 		.string(messages?.bankAccountVerification?.enterConfirmAccNum)
 		.required(messages?.bankAccountVerification?.bankAccountNumberConfirmationRequired)
@@ -55,11 +56,11 @@ const validationSchema = yup.object({
 				.string()
 				.oneOf(
 					[ yup.ref("bankAccountNumber") ],
-					messages.bankAccountNumber
+					messages?.bankAccountVerification?.matchAccountNum
 				),
 		})
-		.min(7, messages?.bankAccountVerification?.minAccountNum)
-		.max(16, messages?.bankAccountVerification?.maxAccountNum),
+		.min(7, messages?.bankAccountVerification?.minMaxAccountNum)
+		.max(16, messages?.bankAccountVerification?.minMaxAccountNum),
 });
 
 //View Part
@@ -73,16 +74,15 @@ export default function BankAccountVerification(props) {
 	const [ error, setError ] = useState("");
 	const [ invalidRN, setInvalidRN ] = useState(false);
 	const [ openAutoPayAuth, setOpenAutoPayAuth ] = useState(false);
-	function getElementByText( text, ctx)
-		{
-		return document.evaluate("//*[.='"+text+"']", 
+	function getElementByText(text, ctx) {
+		return document.evaluate("//*[.='" + text + "']",
 			ctx || document, null, XPathResult.ANY_TYPE, null).iterateNext();
-		}
+	}
 	const handleUpload = (res) => {
 		if (res?.data?.bank_account_verification) {
 			toast.success(messages?.document?.uploadSuccess);
 			props.next();
-			getElementByText( "Income Verification" ).scrollIntoView();
+			getElementByText("Income Verification").scrollIntoView();
 		} else {
 			toast.error(messages?.document?.upoloadFailed);
 		}
@@ -172,7 +172,7 @@ export default function BankAccountVerification(props) {
 						<span style={ { fontSize: "1.063rem", paddingBottom: "6px", fontWeight: "400", display: "block" } }>Funding</span>
 						Please provide your bank account information. This is the bank
 						account where you will receive your Funds Please note that this bank
-						account must be in the applicant's name
+						account must be in the applicant&apos;s name
 					</p>
 
 					<Grid sm={ 12 } item className={ classes.content_grid }>
@@ -417,7 +417,7 @@ export default function BankAccountVerification(props) {
 						<br />
 						<p style={ { marginLeft: "30px", marginTop: "-10px", fontSize: "0.938rem" } }>
 							{ " " }
-							You'll mail us a check each month.
+							You&apos;ll mail us a check each month.
 						</p>
 					</span>
 				</Grid>
@@ -548,7 +548,7 @@ export default function BankAccountVerification(props) {
 						</Typography>
 						<br />
 						<Typography align="justify" gutterBottom>
-							<span class="underline">Termination:</span> I have the right to
+							<span className="underline">Termination:</span> I have the right to
 							stop payment of preauthorized transfers from my account by
 							notifying Lender, verbally or in writing at the mailing address or
 							email address noted below; any such notification must be received
@@ -587,3 +587,11 @@ export default function BankAccountVerification(props) {
 		</div>
 	);
 }
+
+BankAccountVerification.propTypes = {
+	next: PropTypes.func,
+	setLoadingFlag: PropTypes.func,
+	steps: PropTypes.array,
+	activeStep: PropTypes.string,
+	classes: PropTypes.object
+};

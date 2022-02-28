@@ -10,6 +10,7 @@ Functionality       :    To use this TextArea as a default component for UI purp
 import { TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
+import PropTypes from "prop-types";
 
 const TextAreaWrapper = ({
   name,
@@ -67,6 +68,18 @@ const TextAreaWrapper = ({
       helperText={ `${ values.name.length }/${ CHARACTER_LIMIT }` }
     />
   );
+};
+
+TextAreaWrapper.propTypes = {
+  name: PropTypes.string,
+  value: PropTypes.string,
+  required: PropTypes.bool,
+  inputprops: PropTypes.object,
+  placeholder: PropTypes.string,
+  label: PropTypes.string,
+  variant: PropTypes.string,
+  row: PropTypes.string,
+  character_limit: PropTypes.string,
 };
 
 export default TextAreaWrapper;

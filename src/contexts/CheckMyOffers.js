@@ -1,14 +1,26 @@
+import { makeStyles } from "@material-ui/core/styles";
 import Cookies from 'js-cookie';
 import Moment from "moment";
 import React, { createContext, useState } from 'react';
+import PropTypes from "prop-types";
 import states from '../../src/assets/data/States.json';
 import usrAccountDetails from '../components/Controllers/AccountOverviewController';
 import { decryptAES } from '../components/lib/Crypto';
 
 export const CheckMyOffers = createContext();
 
+const useStyle = makeStyles((theme) => ({
+  loadingOn: {
+    pointerEvents: "none"
+  },
+  loadingOff: {
+    pointerEvents: "initial"
+  },
+}));
 function CheckMyOffersContext(props) {
   // context data initial State
+  const [ applicationLoading, setApplicationLoading ] = useState(false);
+  const classes = useStyle();
   const [ data, setData ] = useState({
     loanAmount: '',
     term: 36,
@@ -217,10 +229,20 @@ function CheckMyOffersContext(props) {
   };
 
   return (
-    <CheckMyOffers.Provider value={ { data, setData, resetData } }>
-      { props.children }
+    <CheckMyOffers.Provider value={ { data, setData, resetData, setApplicationLoading } }>
+      <div className={ applicationLoading ? classes.loadingOn : classes.loadingOff } >
+        { props.children }
+      </ div>
     </CheckMyOffers.Provider>
   );
 }
+
+CheckMyOffersContext.propTypes = {
+ children: PropTypes.oneOfType([ 
+                      PropTypes.arrayOf(PropTypes.node),
+                      PropTypes.node, 
+                      PropTypes.func]),
+}
+
 
 export default CheckMyOffersContext;

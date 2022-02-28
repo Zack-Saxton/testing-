@@ -8,12 +8,13 @@ import { NavLink } from "react-router-dom";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
 import MyBranchAPI from "../../Controllers/MyBranchController";
 import { ButtonWithIcon } from "../../FormsUI";
+import ScrollToTopOnMount from "../ScrollToTop";
 import BranchDetail from "./BranchDetail";
 import BranchMap from "./BranchMap";
 import { useStylesMyBranch } from "./Style";
 
 export default function MyBranch() {
-  window.zeHide();
+
   //Material UI css class
   const classes = useStylesMyBranch();
 
@@ -27,10 +28,11 @@ export default function MyBranch() {
   return (
     <div>
       <CheckLoginStatus />
+      <ScrollToTopOnMount />
       <Grid
         container
         justifyContent={ "center" }
-        className={ classes.centerGrid }        
+        className={ classes.centerGrid }
       >
         <Grid container style={ { paddingBottom: "10px" } }>
           <Grid item xs={ 12 }>

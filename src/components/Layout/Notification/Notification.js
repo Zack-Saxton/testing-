@@ -12,6 +12,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles } from "@material-ui/core/styles";
 import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 import React, { useEffect, useState } from "react";
+import { useQuery } from 'react-query';
 import { getNoticationData, setUnread } from "../../Controllers/NotificationController";
 import { ButtonPrimary, ButtonSecondary } from "../../FormsUI";
 import "../AppBar/SideNav.css";
@@ -37,27 +38,24 @@ export default function Notification() {
   const [ messageDelLoading, setmessageDelLoading ] = useState(false);
   const [ id, setID ] = useState('');
   const open = Boolean(anchorEl);
-
-  //API call for Notification
-  async function notificationData() {
-    let responseData = await (getNoticationData());
-    let messagesData = responseData?.data?.notificationsToShow ? responseData?.data?.notificationsToShow.message_data : [];
-    setMessages(messagesData);
-    setNotificationId(responseData?.data?.notificationsToShow ? responseData?.data?.notificationsToShow._id : '');
-    let badge = responseData?.data?.user ? responseData?.data?.user?.extensionattributes?.unread_messages : 0;
-    setbadgeCount(badge);
-    setLoading(false);
-    setmessageDelLoading(false);
-  }
+  const { data: notificationResponse, refetch } = useQuery('notification', getNoticationData);
 
   useEffect(() => {
-    notificationData();
+    if (notificationResponse) {
+      let messagesData = notificationResponse?.data?.notificationsToShow ? notificationResponse?.data?.notificationsToShow.message_data : [];
+      setMessages(messagesData);
+      setNotificationId(notificationResponse?.data?.notificationsToShow ? notificationResponse?.data?.notificationsToShow._id : '');
+      let badge = notificationResponse?.data?.user ? notificationResponse?.data?.user?.extensionattributes?.unread_messages : 0;
+      setbadgeCount(badge);
+      setLoading(false);
+      setmessageDelLoading(false);
+    }
     return () => {
       setMessages({});
       setNotificationId({});
       setbadgeCount({});
     };
-  }, []);
+  }, [ notificationResponse ]);
 
   //Open Notification content popup
   const handleClickOpen = async (title, content, mid, active) => {
@@ -69,7 +67,7 @@ export default function Notification() {
       setOpenDialog(true);
       setLoading(true);
       await setUnread(notificationId, mid, false);
-      await notificationData();
+      refetch();
     }
   };
 
@@ -82,7 +80,7 @@ export default function Notification() {
   const handleDelete = async () => {
     setmessageDelLoading(true);
     await setUnread(notificationId, id, true);
-    notificationData();
+    refetch();
     setOpenDialog(false);
   };
 
@@ -99,7 +97,7 @@ export default function Notification() {
   //View
   return (
     <div>
-      <IconButton aria-label="show 17 new notifications"  onClick={ handleClick }>
+      <IconButton aria-label="show 17 new notifications" onClick={ handleClick }>
         <Badge classes={ { badge: classes.customBadge } } badgeContent={ badgeCount ? badgeCount : 0 }>
           <NotificationsNoneIcon />
         </Badge>

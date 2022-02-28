@@ -2,19 +2,18 @@ import Box from "@material-ui/core/Box";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import { withStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
 import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 import DesktopMacIcon from "@material-ui/icons/DesktopMac";
-import Tooltip from "@material-ui/core/Tooltip";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
-import { withStyles } from "@material-ui/core/styles";
-
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import {
@@ -24,6 +23,7 @@ import {
 } from "../../../FormsUI";
 import messages from "../../../lib/Lang/applyForLoan.json";
 import LoadChart from "./loadChart";
+
 function TabVerticalPanel(props) {
 	const { children, tabValue, verticalIndex, ...other } = props;
 
@@ -51,12 +51,12 @@ TabVerticalPanel.propTypes = {
 
 const HtmlTooltip = withStyles((theme) => ({
 	tooltip: {
-	  backgroundColor: '#f5f5f9',
-	  color: 'rgba(0, 0, 0, 0.87)',
-	  maxWidth: 500,
-	  fontSize: theme.typography.pxToRem(14),
-	  border: '1px solid #dadde9',
-	  fontFamily: "Muli, sans-serif"
+		backgroundColor: '#f5f5f9',
+		color: 'rgba(0, 0, 0, 0.87)',
+		maxWidth: 500,
+		fontSize: theme.typography.pxToRem(14),
+		border: '1px solid #dadde9',
+		fontFamily: "Muli, sans-serif"
 	},
 }))(Tooltip);
 
@@ -70,7 +70,7 @@ export default function OfferTable(props) {
 	// Shows the Brnach icon
 	const branch = (
 		<Grid container direction="row" alignItems="center">
-			<AccountBalanceIcon /> In branch
+			<AccountBalanceIcon /> In Branch
 		</Grid>
 	);
 
@@ -85,7 +85,7 @@ export default function OfferTable(props) {
 		const newRecord = [ ...selectData ];
 		newRecord.push(selectedOffer);
 		setSelectData(newRecord);
-	};	
+	};
 	// Select the offers to compare : will push the selected offer value into array
 	const selectOfferToCompare = (row) => {
 		offersComp = props.offersToCompare;
@@ -100,7 +100,7 @@ export default function OfferTable(props) {
 		handleAdd(row);
 	};
 	const buildChartData = (chartData) => {
-		if (chartData.length >= 2) {			
+		if (chartData.length >= 2) {
 			setTermDataMax(
 				chartData[ 0 ]?.monthlyPayment > chartData[ 1 ]?.monthlyPayment
 					? chartData[ 0 ]?.monthlyPayment
@@ -125,7 +125,7 @@ export default function OfferTable(props) {
 			buildChartData(offersCompChart);
 		}
 		handleAdd(row);
-	};	
+	};
 	return (
 		<Grid id="loanListTable" item xs={ 12 } sm={ 9 } className={ props.loading ? props.classes.loadingOnWithoutBlur : props.classes.loadingOff } style={ { padding: "0px 0px 0px 15px", width: "100%" } }>
 			<Paper className={ props.classes.paper }>
@@ -169,13 +169,13 @@ export default function OfferTable(props) {
 											>
 												<Grid container direction="row" alignItems="center">
 													{ " " }
-													APR &nbsp;													
+													APR &nbsp;
 													<HtmlTooltip
 														title={
-														<>
-															<Typography color="inherit">What Is An APR?</Typography>
-															<p>APR stands for "annual percentage rate" and represents the effective annual cost of a loan, including both the interest rate and origination fee.</p>
-														</>
+															<>
+																<Typography color="inherit">What Is An APR?</Typography>
+																<p>APR stands for {"annual percentage rate"} and represents the effective annual cost of a loan, including both the interest rate and origination fee.</p>
+															</>
 														}
 													>
 														<InfoOutlinedIcon
@@ -422,3 +422,27 @@ export default function OfferTable(props) {
 		</Grid>
 	);
 }
+
+OfferTable.propTypes = {
+	offersToCompare : PropTypes.array,
+	setOffersToCompare : PropTypes.func,
+	classes : PropTypes.object,
+	loading : PropTypes.bool,
+	offersToCompareChart : PropTypes.array,
+	rowData : PropTypes.array,
+	value : PropTypes.number,
+	offerFlag : PropTypes.bool,
+	checkedValue : PropTypes.string,
+	setCheckedValue : PropTypes.func,
+	setSelectedIndex : PropTypes.func,
+	setSelectedTerm : PropTypes.func,
+	selectedTerm : PropTypes.string,
+	selectedIndex : PropTypes.number,
+	setOffersToCompareChart : PropTypes.func,
+	tabVerticalProps : PropTypes.func,
+	noOfTerms : PropTypes.number,
+	handleTabChange : PropTypes.func,
+	submitSelectedOffer : PropTypes.func,
+	onCompareOfferTabClick : PropTypes.func
+  };
+  

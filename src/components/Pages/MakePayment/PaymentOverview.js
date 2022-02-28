@@ -11,7 +11,7 @@ import "./MakePayment.css";
 import { useStylesMakePayment } from "./Style";
 
 export default function PaymentOverview(paymentData, status) {
-    window.zeHide();
+
     //Material UI css class
     const classes = useStylesMakePayment();
     //Payment details
@@ -24,7 +24,7 @@ export default function PaymentOverview(paymentData, status) {
                         Account Number
                     </TableCell>
                     <TableCell className={ classes.tableHead } align="right">
-                        Today's Payoff
+                        Today&apos;s Payoff
                     </TableCell>
                     <TableCell className={ classes.tableHead } align="right">
                         Regular Amount

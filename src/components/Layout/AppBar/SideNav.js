@@ -1,5 +1,6 @@
 import { Checkbox } from "@material-ui/core";
 import AppBar from "@material-ui/core/AppBar";
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
 import IconButton from "@material-ui/core/IconButton";
@@ -37,23 +38,22 @@ import { useQuery, useQueryClient } from "react-query";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import applicationStatusRedirectPage from "../../../assets/data/applicationStatusRedirectPage.json";
+import globalMessages from "../../../assets/data/globalMessages.json";
 import logoIcon from "../../../assets/images/Favicon.png";
 import logoImage from "../../../assets/images/Normallogo.png";
 import profileImg from "../../../assets/images/profile-img.jpg";
 import quickPay from "../../../assets/images/quickpay.png";
 import { CheckMyOffers } from "../../../contexts/CheckMyOffers";
+import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import { ProfilePicture } from "../../../contexts/ProfilePicture";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import LogoutController from "../../Controllers/LogoutController";
 import branchDetails from "../../Controllers/MyBranchController";
 import ProfileImageController from "../../Controllers/ProfileImageController";
-import globalMessages from "../../../assets/data/globalMessages.json";
 import MoneySkill from "../../Pages/MoneySkill/MoneySkill";
 import Notification from "../Notification/Notification";
-import applicationStatusRedirectPage from "../../../assets/data/applicationStatusRedirectPage.json";
-import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import "./SideNav.css";
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 const drawerWidth = 240;
 
@@ -229,6 +229,16 @@ export default function SideNav() {
     };
   }, [ dataAccountOverview, activeLoanData, currentLoan ]);
 
+  //Navigating customer according to application status
+  let NavUrlResumeApplication = "";
+  if (([ 'approved', 'completing_application', 'signature_complete', 'closing_process' ].includes(checkPresenceOfLoanStatus))) {
+    NavUrlResumeApplication = checkPresenceOfLoanStatus === "approved" ? "/customers/receiveYourMoney" : "/customers/finalverification";
+  }
+  else if (([ 'offers_available', "offer_selected" ].includes(checkPresenceOfLoanStatus))) {
+    NavUrlResumeApplication = checkPresenceOfLoanStatus === "offers_available" ? "/customers/selectOffer" : "/customers/reviewAndSign";
+  }
+  let pageNavResumeApplication = NavUrlResumeApplication !== "" ? true : false;
+
   //Material UI media query for responsiveness
   let check = useMediaQuery("(min-width:960px)");
 
@@ -272,15 +282,8 @@ export default function SideNav() {
   }, [ branchVal ]);
 
   //Api call Profile Picture
-  const [ profileImage, setProfileImage ] = useState(null);
-  async function AsyncEffect_profileImage() {
-    setProfileImage(await ProfileImageController());
-  }
-  useEffect(() => {
-    AsyncEffect_profileImage();
-  }, []);
-
-  let getProfImage = (profileImage != null) ? profileImage : profileImg;
+  const { data: profileImage } = useQuery('my-profile-picture', ProfileImageController);
+  let getProfImage = profileImage ?? profileImg;
 
   // Side bar branch details
   Cookies.set('branchname', ((branchVal?.data?.BranchName) ? (branchVal?.data?.BranchName) : (branchVal?.data?.branchName) ? (branchVal?.data?.branchName) : ""));
@@ -408,8 +411,10 @@ export default function SideNav() {
     }
   };
 
-  const handleMenuProfile = () => {
-    navigate('/customers/myProfile');
+  const handleMenuProfile = (navType) => {
+    if (navType === 'top') {
+      navigate('/customers/myProfile');
+    }
     setprofileTabNumber({ profileTabNumber: 0 });
     handleMenuClose();
   };
@@ -446,7 +451,6 @@ export default function SideNav() {
     setChecked(event.target.checked);
   };
 
-
   //Menu bar
   const renderMenu = (
     <Menu
@@ -455,7 +459,7 @@ export default function SideNav() {
       open={ isMenuOpen }
       onClose={ handleMenuClose }
     >
-      <MenuItem onClick={ handleMenuProfile } id="settingsMenuList">
+      <MenuItem onClick={ (menuType) => handleMenuProfile('top') } id="settingsMenuList">
         My Profile</MenuItem>
       <MenuItem
         disabled={ !disableField }
@@ -477,7 +481,7 @@ export default function SideNav() {
 
       <div id="headerWrap" className={ classes.grow }>
         <AppBar
-        id="MainHeaderWrapping"
+          id="MainHeaderWrapping"
           position="static"
           elevation={ 0 }
           className={ clsx(classes.appBar, {
@@ -516,7 +520,7 @@ export default function SideNav() {
                 <Typography className={ classes.headerAlign }>FAQ</Typography>
               </NavLink>
 
-              <NavLink to="/branchlocator" className="nav_link branchLocatorLink">
+              <NavLink to="/branch-locator" className="nav_link branchLocatorLink">
                 <Typography className={ classes.headerAlign }>Branch Locator</Typography>
               </NavLink>
 
@@ -538,7 +542,6 @@ export default function SideNav() {
                 aria-label="account of current user"
                 aria-haspopup="true"
                 onClick={ handleProfileMenuOpen }
-
               >
                 <SettingsIcon />
               </IconButton>
@@ -599,7 +602,7 @@ export default function SideNav() {
                   <List >
                     <ListItem>
                       <div id="imgWrap">
-                        <img id="sidebarProfilePic" src={ dataProfile?.profile_picture_url ? dataProfile?.profile_picture_url : getProfileImage } alt="Profile Pic" onClick={ handleMenuProfile } />
+                        <img id="sidebarProfilePic" src={ dataProfile?.profile_picture_url ? dataProfile?.profile_picture_url : getProfileImage } alt="Profile Pic" onClick={ (menuType) => handleMenuProfile('side') } />
                       </div>
                     </ListItem>
                     <ListItem id="sidemenuName">
@@ -661,17 +664,29 @@ export default function SideNav() {
                 </NavLink>
 
                 { checkPresenceOfLoan === true ?
-                  <NavLink to={ applicationStatusRedirectPage[ checkPresenceOfLoanStatus ] } state={ { from: "user" } } className="nav_link" >
-                    <ListItem className="titleSidenav" >
-                      <ListItemIcon>
-                        { " " }
-                        <MonetizationOnRoundedIcon />{ " " }
-                      </ListItemIcon>
-                      <ListItemText> Resume Application </ListItemText>
-                    </ListItem>
-                  </NavLink>
+                  pageNavResumeApplication === true ?
+
+                    <NavLink to={ NavUrlResumeApplication } className="nav_link" >
+                      <ListItem className="titleSidenav" >
+                        <ListItemIcon>
+                          { " " }
+                          <MonetizationOnRoundedIcon />{ " " }
+                        </ListItemIcon>
+                        <ListItemText> Resume Application </ListItemText>
+                      </ListItem>
+                    </NavLink>
+                    :
+                    <Link to={ applicationStatusRedirectPage[ checkPresenceOfLoanStatus ] } className="nav_link" >
+                      <ListItem className="titleSidenav" >
+                        <ListItemIcon>
+                          { " " }
+                          <MonetizationOnRoundedIcon />{ " " }
+                        </ListItemIcon>
+                        <ListItemText> Resume Application </ListItemText>
+                      </ListItem>
+                    </Link>
                   :
-                  <NavLink id="applyForLoanNav" to="/customers/applyForLoan" state={ { from: "user" } } onClick={ (event) => { currentLoan ? event.preventDefault() : "" } } className={ currentLoan ? "nav_link_disabled" : "nav_link" } >
+                  <NavLink id="applyForLoanNav" to="/customers/applyForLoan" state={ { from: "user" } } onClick={ (event) => { currentLoan ? event.preventDefault() : ""; } } className={ currentLoan ? "nav_link_disabled" : "nav_link" } >
                     <ListItem className="titleSidenav" disabled={ currentLoan }>
                       <ListItemIcon>
                         { " " }
@@ -681,7 +696,7 @@ export default function SideNav() {
                     </ListItem>
                   </NavLink> }
 
-                <NavLink to="/customers/loanDocument" onClick={ (event) => { activeLoanData && checkPresenceOfLoanStatus !== "under_review" && checkPresenceOfLoanStatus !== "final_review" && event.preventDefault(); } } className={ activeLoanData && checkPresenceOfLoanStatus !== "under_review" && checkPresenceOfLoanStatus !== "final_review" ? 'nav_link_disabled' : 'nav_link' }>
+                <NavLink to="/customers/loanDocument" onClick={ (event) => { activeLoanData && checkPresenceOfLoanStatus !== "under_review" && checkPresenceOfLoanStatus !== "final_review" && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : 'nav_link' }>
                   <ListItem className="titleSidenav" disabled={ activeLoanData === true && checkPresenceOfLoanStatus !== "under_review" && checkPresenceOfLoanStatus !== "final_review" ? true : false }>
                     <ListItemIcon>
                       { " " }
@@ -691,7 +706,7 @@ export default function SideNav() {
                   </ListItem>
                 </NavLink>
 
-                <NavLink to="/customers/myBranch" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : 'nav_link' }>
+                <NavLink id="mybranchNav" to="/customers/myBranch" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : 'nav_link' }>
                   <ListItem className="titleSidenav" disabled={ activeLoanData }>
                     <ListItemIcon>
                       { " " }
@@ -701,7 +716,7 @@ export default function SideNav() {
                   </ListItem>
                 </NavLink>
 
-                <NavLink to="/customers/myProfile" onClick={ handleMenuProfile } className="nav_link">
+                <NavLink to="/customers/myProfile" onClick={ (menuType) => handleMenuProfile('side') } className="nav_link">
                   <ListItem className="titleSidenav" >
                     <ListItemIcon>
                       { " " }

@@ -3,14 +3,13 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import setAccountDetails from "../../../Controllers/AccountOverviewController";
 import { ButtonPrimary } from "../../../FormsUI";
 
 const PreApproved = () => {
 
     const [ offerAmount, setOfferAmount ] = useState("");
-    const navigate = useNavigate();
 
     useEffect(() => {
         setAccountDetails().then((res) => {
@@ -18,10 +17,6 @@ const PreApproved = () => {
         });
         return null;
     }, []);
-
-    const handleContinue = () => {
-        navigate("/loan-purpose");
-    };
 
     return (
         <div>
@@ -54,7 +49,7 @@ const PreApproved = () => {
                                 <Grid className="floatLeft">
                                     <Link
                                         to={ {
-                                            pathname: "/loan-purpose",
+                                            pathname: "/select-amount",
                                         } }
                                     >
                                         <i className="material-icons dp48 yellowText ">
@@ -76,7 +71,7 @@ const PreApproved = () => {
                                     <Grid item xs={ 11 } sm={ 10 } md={ 8 } lg={ 8 } xl={ 8 }>
                                         <Typography align="center" style={ { color: "black", fontWeight: "400", fontFamily: "Muli, sans-serif" } }>
                                             &nbsp;We checked your offer code<br />
-                                            and your'e eligible for at least,<br />
+                                            and {"your'e"} eligible for at least,<br />
                                             ${ offerAmount }<br />
                                             and possibly more!
                                         </Typography>
@@ -173,7 +168,7 @@ const PreApproved = () => {
                                 our customer identification program, we must ask for your name,
                                 street address, mailing address, date of birth, and other
                                 information that will allow us to identify you. We may also ask
-                                to see your driver's license or other identifying documents.
+                                to see your {"driver's"} license or other identifying documents.
                             </Typography>
                             <br />
                             <Typography className="smallText" align="center">

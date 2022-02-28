@@ -1,6 +1,7 @@
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { makeStyles } from "@material-ui/core/styles";
-import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { ButtonPrimary } from "../../../FormsUI";
 import APICall from "../../../lib/AxiosLib";
@@ -50,7 +51,7 @@ export default function VerificationQuestion(props) {
   // get the function to fetch api on page load
   useEffect(() => {
     getUserAccountDetails();
-    return null
+    return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -131,3 +132,11 @@ export default function VerificationQuestion(props) {
     </div>
   );
 }
+
+VerificationQuestion.propTypes = {
+  classes: PropTypes.object,
+  setLoadingFlag: PropTypes.bool,
+  next: PropTypes.func,
+  activeStep: PropTypes.number,
+  steps: PropTypes.array
+};

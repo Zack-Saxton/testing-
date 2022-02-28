@@ -2,6 +2,7 @@ import Dialog from "@material-ui/core/Dialog";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import getMoneySkillUrl from "../../Controllers/MoneySkillController";
 import {
   ButtonPrimary,
@@ -11,7 +12,7 @@ import { useStylesMoneySkill } from "./Style";
 import "./Style.css";
 
 export default function MoneySkill(props) {
-  window.zeHide();
+
   //Material UI css class
   const classes = useStylesMoneySkill();
 
@@ -113,3 +114,7 @@ export default function MoneySkill(props) {
     </div>
   );
 }
+MoneySkill.propTypes = {
+  onChange: PropTypes.func,
+  moneySkill: PropTypes.bool,
+};
