@@ -14,6 +14,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
+import PropTypes from "prop-types";
+
 
 const MultiSelectWrapper = ({
   name,
@@ -124,3 +126,13 @@ const MultiSelectWrapper = ({
 };
 
 export default MultiSelectWrapper;
+
+MultiSelectWrapper.propTypes = {
+	name: PropTypes.string.isRequired,
+  multiselect: PropTypes.array,
+  labelform: PropTypes.string,
+  value: PropTypes.array,
+  variant: PropTypes.string,
+  checkboxcolor: PropTypes.string,
+  required: PropTypes.bool
+};

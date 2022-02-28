@@ -8,6 +8,7 @@ Functionality       :    To use this component to have icon with password Field
 import { Grid } from "@material-ui/core";
 import Icon from "@material-ui/core/Icon";
 import React from "react";
+import PropTypes from "prop-types";
 import Password from "../Password";
 
 //Initializing component
@@ -58,3 +59,12 @@ const PasswordWithIconWrapper = ({
 };
 
 export default PasswordWithIconWrapper;
+
+PasswordWithIconWrapper.propTypes = {
+	name: PropTypes.string.isRequired,
+  icon: PropTypes.string,
+  id: PropTypes.string,
+  iconPosition: PropTypes.string,
+  iconColor: PropTypes.string,
+  customClass: PropTypes.object
+};

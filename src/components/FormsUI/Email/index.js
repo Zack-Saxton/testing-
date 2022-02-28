@@ -51,7 +51,7 @@ const EmailWrapper = ({ name, suffix, lable, materialProps, id, ...otherProps })
 
 EmailWrapper.propTypes = {
   name: PropTypes.string,
-  suffix: PropTypes.string,
+  suffix: PropTypes.object,
   lable: PropTypes.string,
   id: PropTypes.string,
   materialProps: PropTypes.object
