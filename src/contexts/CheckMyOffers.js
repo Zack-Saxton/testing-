@@ -236,4 +236,12 @@ function CheckMyOffersContext(props) {
   );
 }
 
+CheckMyOffersContext.propTypes = {
+ children: PropTypes.oneOfType([ 
+                      PropTypes.arrayOf(PropTypes.node),
+                      PropTypes.node, 
+                      PropTypes.func]),
+}
+
+
 export default CheckMyOffersContext;

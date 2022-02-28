@@ -25,5 +25,11 @@ function ProfilePictureContext(props) {
     </ProfilePicture.Provider>
   );
 }
+ProfilePictureContext.propTypes = {
+  children: PropTypes.oneOfType([ 
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node, 
+    PropTypes.func]),
+}
 
 export default ProfilePictureContext;
