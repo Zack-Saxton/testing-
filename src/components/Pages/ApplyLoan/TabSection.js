@@ -1,6 +1,10 @@
+import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
+import PropTypes from "prop-types";
+
+
 export default function TabSection(props) {
 
   function a11yProps(index) {
@@ -60,3 +64,10 @@ export default function TabSection(props) {
     </Grid>
   );
 }
+
+TabSection.propTypes = {
+  classes : PropTypes.object,
+  ay : PropTypes.number,
+  handleTabChange : PropTypes.object,
+  value : PropTypes.number,
+};

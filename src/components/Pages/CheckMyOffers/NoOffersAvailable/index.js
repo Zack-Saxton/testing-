@@ -10,6 +10,8 @@ import { ButtonPrimary, ButtonSecondary } from "../../../FormsUI";
 import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./CheckMyOffer.css";
+import PropTypes from "prop-types";
+
 
 // NoOffersAvailable functional component initialization
 function NoOffersAvailable(props) {
@@ -203,5 +205,9 @@ function NoOffersAvailable(props) {
 		</div>
 	);
 }
+
+NoOffersAvailable.propTypes = {
+	location : PropTypes.object,
+  };
 
 export default NoOffersAvailable;

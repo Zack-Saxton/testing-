@@ -85,7 +85,7 @@ export default function StatePage(props) {
       } else {
         setCurrentLocation(result?.data?.searchLocation);
         setZoomDepth(
-          (result?.data?.branchData[ 0 ]?.distance).replace(/[^0-9]/g, "") / 100
+          (result?.data?.branchData[ 0 ]?.distance).replace(/[^/d]/g, "") / 100
         );
         return result.data.branchData;
       }
@@ -466,7 +466,7 @@ export default function StatePage(props) {
         <Grid item md={10}>
           <Grid className="greyBackgroundWrap">
             <Typography className="applyOnlineHeading">
-          Can't get to a branch? No worries, apply for an online loan today!
+          {"Can't get to a branch? No worries, apply for an online loan today!"}
           </Typography>
           <Typography className="applyOnlineParagraph">
           Apply now! Loans starting from $1k up to $25k | Fast Application | Quick Decision | ACH Money Transfers Available
