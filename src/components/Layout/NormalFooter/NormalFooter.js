@@ -22,7 +22,7 @@ export default function NormalFooter() {
         <Grid className="mainFooterWrap">
 
           <Grid className="footerWrap" container>
-            <Grid item sm={ 12 } md={ 4 } lg={ 4 }>
+            <Grid item xs={ 12 } sm={ 12 } md={ 4 } lg={ 4 }>
               <div className="footer-content">
                 <NavLink to="/communityGuidelines" target="_blank" className="hrefTag">
                   <Typography className="normalFooterFont">
@@ -60,7 +60,7 @@ export default function NormalFooter() {
               </div>
             </Grid>
 
-            <Grid item sm={ 12 } md={ 4 } lg={ 4 }>
+            <Grid item xs={ 12 } sm={ 12 } md={ 4 } lg={ 4 }>
 
               <div className="footer-content">
                 <NavLink to="/websiteAccessibility" target="_blank" className="hrefTag">
@@ -86,11 +86,10 @@ export default function NormalFooter() {
               </div>
             </Grid>
 
-            <Grid item sm={ 12 } md={ 4 } lg={ 4 }>
+            <Grid className="feefoBadgeWrap" item xs={ 12 } sm={ 12 } md={ 4 } lg={ 4 }>
               <img type="image"
                 src={ badge }
                 alt="photo"
-                id="badge"
               />
             </Grid>
 
@@ -98,20 +97,20 @@ export default function NormalFooter() {
 
           <Grid >
 
-            <Grid container id="mfInfo" className="row" >
-              <Grid item sm={ 12 } md={ 2 } lg={ 2 }>
+            <Grid container className="bottomSectionWrap" >
+              <Grid className="FooterLogo" item xs={ 12 } sm={ 12 } md={ 2 } lg={ 2 }>
                 <img type="image" id="mfInfoImg" src={ Logo } alt="logo image" />
               </Grid>
 
-              <Grid item sm={ 12 } md={ 8 } lg={ 8 } className="row">
-                <div style={ { paddingTop: "15px", paddingBottom: "15px", } }>
+              <Grid className="footerPadding footerTextInfo" item xs={ 12 } sm={ 12 } md={ 8 } lg={ 8 } >
+                <div>
                   <p className="leftAlignAddress">
-                    Mariner Finance, LLC, NMLS No. 166564
+                    Mariner Finance, LLC, NMLS No. 166564{' '}
                     <span style={ { margin: "0", cursor: "pointer" } } onClick={ handleOpenConsumer }>
                       (www.nmlsconsumeraccess.com)
                     </span>
-
-                    8211 Town Center Drive,<br />
+                    {' '}
+                    8211 Town Center Drive,
                     Nottingham, MD 21236;
                     Telephone Number -
                     <a href="tel:+8773102373" className="hrefTag ">
@@ -121,8 +120,8 @@ export default function NormalFooter() {
                 </div>
               </Grid>
 
-              <Grid item sm={ 12 } md={ 2 } lg={ 2 }>
-                <input type="image" id="mfInfoImg" src={ housingImage } alt="logo image" style={ { paddingRight: "25px" } } />
+              <Grid className="footerPadding FooterHousingLogo" item xs={ 12 } sm={ 12 } md={ 2 } lg={ 2 }>
+                <img type="image"  src={ housingImage } alt="logo image" />
               </Grid>
 
             </Grid>

@@ -18,7 +18,7 @@ export default function Footer() {
   return (
     <div>
       <footer id="mainFooter" style={ { width: "100%" } }>
-        <Grid className="mainFooterWrap">
+        <Grid className="FooterGridWrap">
           <Grid className="footerWrap" container>
             <Grid item sm={ 12 } md={ 4 } lg={ 4 }>
               <div className="footer-content">
@@ -110,20 +110,15 @@ export default function Footer() {
               </div>
             </Grid>
 
-            <Grid item sm={ 12 } md={ 4 } lg={ 4 }>
+            <Grid className="feefoBadgeWrap" item sm={ 12 } md={ 4 } lg={ 4 }>
               <img type="image" src={ badge } alt="photo" id="badge" />
             </Grid>
           </Grid>
 
           <Grid>
             <Grid container id="mfInfo" className="row">
-              <Grid className="footerPadding" item sm={ 12 } md={ 2 } lg={ 2 }>
-                <img
-                  type="image"
-                  id="mfInfoImgOne"
-                  src={ Logo }
-                  alt="logo image"
-                />
+            <Grid className="FooterLogo" item xs={ 12 } sm={ 12 } md={ 2 } lg={ 2 }>
+                <img type="image" id="mfInfoImg" src={ Logo } alt="logo image" />
               </Grid>
 
               <Grid
@@ -132,16 +127,15 @@ export default function Footer() {
                 sm={ 12 }
                 md={ 8 }
                 lg={ 8 }
-                className="row"
               >
-                <div style={ { paddingTop: "15px", paddingBottom: "15px" } }>
+                <div >
                   <p className="leftAlignAddress">
                     Mariner Finance, LLC, NMLS No. 166564
                     <span
                       style={ { margin: "0", cursor: "pointer" } }
                       onClick={ handleOpenConsumer }
                     >
-                      (www.nmlsconsumeraccess.com)
+                      {' '}(www.nmlsconsumeraccess.com){' '}
                     </span>
                     8211 Town Center Drive, Nottingham, MD 21236; Telephone
                     Number -
@@ -152,8 +146,8 @@ export default function Footer() {
                 </div>
               </Grid>
 
-              <Grid className="footerPadding" item sm={ 12 } md={ 2 } lg={ 2 }>
-                <input
+              <Grid className="footerPadding FooterHousingLogo" item sm={ 12 } md={ 2 } lg={ 2 }>
+                <img
                   type="image"
                   id="mfInfoImg"
                   src={ housingImage }
