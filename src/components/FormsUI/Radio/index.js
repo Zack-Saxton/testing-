@@ -70,7 +70,7 @@ const RadioButtonWrapper = ({
 };
 
 RadioButtonWrapper.propTypes = {
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   radiolabel: PropTypes.string,
   labelforform: PropTypes.string,
   value: PropTypes.string,
