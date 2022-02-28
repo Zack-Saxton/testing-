@@ -548,8 +548,8 @@ export default function CreditKarma(props) {
     }
   };
   const changeCitizenship = (event) => {
-    let citizenship = event.target.value;
-    if (citizenship === "Foreign Resident") {
+    let citizenshipValue = event.target.value;
+    if (citizenshipValue === "Foreign Resident") {
       setCitizenship(true);
       formik.handleChange(event);
     } else {

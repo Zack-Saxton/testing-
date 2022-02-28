@@ -53,7 +53,7 @@ const TableCellWrapper = ({ parseData, className, align, ...otherProps }) => {
 };
 
 TableCellWrapper.propTypes = {
-	parseData: PropTypes.object,
+	parseData: PropTypes.array,
 	className: PropTypes.object,
 	align: PropTypes.string
   };

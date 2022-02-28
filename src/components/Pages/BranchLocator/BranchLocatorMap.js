@@ -92,8 +92,8 @@ function BranchLocatorMap(props) {
 
 BranchLocatorMap.propTypes = {
   CurrentLocation : PropTypes.object,
-  Zoom : PropTypes.object,
-  getMap : PropTypes.object,
+  Zoom : PropTypes.number,
+  getMap : PropTypes.array,
 };
 
 export default BranchLocatorMap;

@@ -310,6 +310,6 @@ export default function PhoneVerification(props) {
 PhoneVerification.propTypes = {
 	next : PropTypes.func,
 	classes : PropTypes.object,
-	steps: PropTypes.number,
+	steps: PropTypes.array,
 	activeStep: PropTypes.number
   };

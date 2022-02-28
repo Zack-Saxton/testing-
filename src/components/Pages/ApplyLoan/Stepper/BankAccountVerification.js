@@ -591,7 +591,7 @@ export default function BankAccountVerification(props) {
 BankAccountVerification.propTypes = {
 	next: PropTypes.func,
 	setLoadingFlag: PropTypes.func,
-	steps: PropTypes.string,
+	steps: PropTypes.array,
 	activeStep: PropTypes.string,
 	classes: PropTypes.object
 };

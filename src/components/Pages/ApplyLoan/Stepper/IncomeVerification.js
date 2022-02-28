@@ -112,6 +112,6 @@ export default function IncomeVerification(props) {
 IncomeVerification.propTypes = {
 	setLoadingFlag : PropTypes.bool,
 	classes : PropTypes.object,
-	steps: PropTypes.number,
+	steps: PropTypes.array,
 	activeStep: PropTypes.number
   };

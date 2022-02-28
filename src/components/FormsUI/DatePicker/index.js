@@ -62,8 +62,8 @@ DatePickerWrapper.propTypes = {
 	format: PropTypes.string, 
 	label: PropTypes.string,  
 	placeholder: PropTypes.string, 
-	maxdate: PropTypes.object, 
-	minyear: PropTypes.object
+	maxdate: PropTypes.string, 
+	minyear: PropTypes.number
 };
 
 export default DatePickerWrapper;

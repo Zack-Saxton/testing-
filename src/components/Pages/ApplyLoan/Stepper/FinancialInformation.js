@@ -208,6 +208,6 @@ FinancialInformation.propTypes = {
   setLoadingFlag: PropTypes.func,
   next: PropTypes.func,
   classes: PropTypes.object,
-  steps: PropTypes.string,
+  steps: PropTypes.array,
   activeStep: PropTypes.string
 };
