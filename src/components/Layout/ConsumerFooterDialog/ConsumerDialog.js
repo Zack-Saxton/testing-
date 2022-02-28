@@ -1,7 +1,8 @@
+import React from "react";
 import Dialog from "@material-ui/core/Dialog";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
-import React from "react";
+import PropTypes from "prop-types";
 import { ButtonPrimary, ButtonSecondary } from "../../FormsUI";
 import { useStylesConsumer } from "./Style";
 import "./Style.css";
@@ -72,3 +73,8 @@ export default function ConsumerDialog(props) {
     </div>
   );
 }
+
+ConsumerDialog.propTypes = {
+  consumer: PropTypes.bool,
+  onChange: PropTypes.func
+};

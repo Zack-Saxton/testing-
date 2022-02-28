@@ -1,6 +1,8 @@
+import React from "react";
 import { Typography } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import { Radio } from "../../../FormsUI";
+import PropTypes from "prop-types";
 
 //Component to load the questions
 //To build the structure for load
@@ -47,3 +49,9 @@ export default function LoadQuestions(props) {
 		</>
 	);
 }
+
+LoadQuestions.propTypes = {
+	responseData : PropTypes.object,
+	check : PropTypes.bool,
+	setCheck : PropTypes.func
+  };

@@ -15,6 +15,8 @@ import * as yup from "yup";
 import { OTPInitialSubmission, verifyPasscode } from "../../../Controllers/ApplyForLoanController";
 import { ButtonPrimary, ButtonSecondary, ButtonWithIcon, TextField } from "../../../FormsUI";
 import messages from "../../../lib/Lang/applyForLoan.json";
+import PropTypes from "prop-types";
+
 
 const useStyles = makeStyles((Theme) => ({
 	pTagTextStyle: {
@@ -273,7 +275,7 @@ export default function PhoneVerification(props) {
 				<DialogContent dividers>
 					<Typography align="justify" className={ innerClasses.typoStyle } gutterBottom>
 						If you are currently unable to access the phone you provided, click
-						"Verify phone later" to proceed with the Remainder of the
+						{" Verify phone later "} to proceed with the Remainder of the
 						Verification process. Please note that we will need to manually
 						verify your phone number by calling and speaking with you directly.
 					</Typography>
@@ -305,3 +307,9 @@ export default function PhoneVerification(props) {
 		</div>
 	);
 }
+PhoneVerification.propTypes = {
+	next : PropTypes.func,
+	classes : PropTypes.object,
+	steps: PropTypes.array,
+	activeStep: PropTypes.number
+  };

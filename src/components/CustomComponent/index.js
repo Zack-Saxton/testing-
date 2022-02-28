@@ -403,7 +403,7 @@ export default function OutlinedCard() {
 									>
 										Date Picker
 									</Typography>
-									<DatePicker name="date" defaultDate={ new Date("2021-06-29T21:11:54") } />
+									<DatePicker name="date" />
 								</CardContent>
 							</Card>
 						</Grid>
@@ -483,6 +483,7 @@ export default function OutlinedCard() {
 									<AutoComplete
 										textfieldlabel="AutoComplete"
 										variant="outlined"
+										name="autoComplete"
 										jsonInput='[{"value":"India"}, {"value":"USA"}]'
 										placeholder="Choose Country"
 										styleAutocomplete='{"width":"300px"}'

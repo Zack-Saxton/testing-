@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const initialGlobalState = {
   profileTabNumber: 0
@@ -11,7 +12,7 @@ export const DispatchStateContext = React.createContext(undefined);
  */
 export const GlobalStateProvider = ({ children }) => {
   const [ state, setprofileTabNumber ] = React.useReducer(
-    (state, newValue) => ({ ...state, ...newValue }),
+    (newState, newValue) => ({ ...newState, ...newValue }),
     initialGlobalState
   );
   return (
@@ -22,6 +23,12 @@ export const GlobalStateProvider = ({ children }) => {
     </GlobalStateContext.Provider>
   );
 };
+GlobalStateProvider.propTypes = {
+  children: PropTypes.oneOfType([ 
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node, 
+    PropTypes.func]),
+}
 
 export const useGlobalState = () => [
   React.useContext(GlobalStateContext),

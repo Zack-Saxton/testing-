@@ -127,12 +127,11 @@ export default function Footer() {
               </Grid>
 
               <Grid
-                className="footerPadding"
+                className="footerPadding row"
                 item
                 sm={ 12 }
                 md={ 8 }
                 lg={ 8 }
-                className="row"
               >
                 <div style={ { paddingTop: "15px", paddingBottom: "15px" } }>
                   <p className="leftAlignAddress">
