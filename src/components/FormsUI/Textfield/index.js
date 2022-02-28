@@ -112,7 +112,7 @@ TextFieldWrapper.propTypes = {
   materialProps: PropTypes.object,
   setError: PropTypes.bool,
   setHelperText: PropTypes.string,
-  error: PropTypes.string,
+  error: PropTypes.bool,
   helperText: PropTypes.string,
   onChange: PropTypes.func,
   InputProps: PropTypes.object,

@@ -71,7 +71,7 @@ CheckboxWrapper.propTypes = {
   name: PropTypes.string,
   id: PropTypes.string,
   label: PropTypes.string,
-  value: PropTypes.string,
+  value: PropTypes.bool,
   labelid: PropTypes.string,
   formlabel: PropTypes.string,
   stylecheckbox: PropTypes.string,
