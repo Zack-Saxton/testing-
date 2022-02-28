@@ -203,5 +203,5 @@ export default function PaymentHistoryTable({ userRecentPaymentData }) {
 }
 
 PaymentHistoryTable.propTypes = {
-  userRecentPaymentData: PropTypes.object,
+  userRecentPaymentData: PropTypes.array,
 };
