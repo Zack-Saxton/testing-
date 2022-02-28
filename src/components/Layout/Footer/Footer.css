@@ -68,6 +68,12 @@
    .footerText{
     padding: 0 20px;
    }
+   .FooterGridWrap{
+    padding: 40px 10px;
+   }
+   #mfInfoImgOne{
+     max-width: 100%;
+   }
    @media all and (max-width: 700px){
 
     #mfInfo{
@@ -92,32 +98,3 @@
     display: unset!important;
   }
  }
-
- @media all and (max-width: 1300px){
-  #badge{
-    height: 80px!important
-  }
-}
-@media all and (max-width: 1100px){
-  #badge{
-    height: 70px!important
-  }
-}
-@media all and (max-width: 1024px){
-  .section-top-normal-footer{
-    padding: 20px 40px !important;
-
-  }
-}
-
-@media all and (max-width: 850px){
-  #badge{
-    height: 60px!important
-  }
-}
-
-@media all and (max-width: 650px){
-  #badge{
-    height: 50px!important
-  }
-}
