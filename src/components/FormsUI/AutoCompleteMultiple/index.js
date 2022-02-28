@@ -17,13 +17,13 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import { useField, useFormikContext } from "formik";
 import React from "react";
 import globalMessages from '../../../assets/data/globalMessages.json';
+import PropTypes from "prop-types";
 
 const AutoCompleteMultipleWrapper = ({
   name,
   value,
   id,
   jsonInput,
-  optionlabel,
   label,
   variant,
   placeholder,
@@ -94,6 +94,18 @@ const AutoCompleteMultipleWrapper = ({
       ) }
     />
   );
+};
+
+AutoCompleteMultipleWrapper.propTypes = {
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string,
+  id: PropTypes.string,
+  jsonInput: PropTypes.string.isRequired,
+  label: PropTypes.string,
+  stylecheckbox: PropTypes.string,
+  variant: PropTypes.string,
+  placeholder: PropTypes.string,
+  required: PropTypes.bool
 };
 
 export default AutoCompleteMultipleWrapper;

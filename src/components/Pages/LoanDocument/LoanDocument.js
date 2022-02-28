@@ -224,7 +224,6 @@ export default function LoanDocument() {
                 />
                 <Button
                   id="uploadBtn"
-                  className="file"
                   variant="contained"
                   onClick={ () => uploadDoc() }
                   className={ classes.uploadbutton }

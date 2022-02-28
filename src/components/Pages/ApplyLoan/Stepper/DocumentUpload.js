@@ -1,5 +1,6 @@
 import Grid from "@material-ui/core/Grid";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import { uploadDocument } from "../../../Controllers/ApplyForLoanController";
 import { ButtonPrimary } from "../../../FormsUI";
@@ -106,3 +107,10 @@ export default function DocumentUpload(props) {
 		</Grid>
 	);
 }
+DocumentUpload.propTypes = {
+	resetUpload: PropTypes.func,
+	setLoadingFlag: PropTypes.func,
+	docType: PropTypes.string,
+	handle: PropTypes.func,
+	multiple: PropTypes.bool
+};

@@ -10,6 +10,7 @@ Functionality       :    To use this ButtonWithIcon as a default component for U
 import { Button } from "@material-ui/core";
 import Icon from "@material-ui/core/Icon";
 import { makeStyles } from "@material-ui/core/styles";
+import PropTypes from "prop-types";
 import React from "react";
 
 const ButtonWithIcon = ({
@@ -64,6 +65,19 @@ const ButtonWithIcon = ({
       { iconposition === "right" ? <Icon style={ styleIconMF } data-testid="icon">{ icon }</Icon> : "" }
     </Button>
   );
+};
+
+ButtonWithIcon.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+    PropTypes.func
+  ]),
+  iconposition: PropTypes.string,
+  id: PropTypes.string,
+  icon: PropTypes.string,
+  stylebutton: PropTypes.string,
+  styleicon: PropTypes.string,
 };
 
 export default ButtonWithIcon;

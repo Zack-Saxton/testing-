@@ -38,7 +38,6 @@ const TextfieldWrapper = ({
   min,
   setSelect,
   max,
-  select,
   difference,
   defaultValue,
   customMarks,
@@ -141,6 +140,13 @@ const TextfieldWrapper = ({
 
 TextfieldWrapper.propTypes = {
   name: PropTypes.string.isRequired,
+  label: PropTypes.string,
+  min: PropTypes.number,
+  setSelect: PropTypes.func,
+  max: PropTypes.number,
+  difference: PropTypes.number,
+  defaultValue: PropTypes.number,
+  customMarks: PropTypes.object,
 };
 
 export default TextfieldWrapper;

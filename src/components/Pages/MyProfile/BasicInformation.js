@@ -5,6 +5,7 @@ import * as imageConversion from 'image-conversion';
 import Cookies from "js-cookie";
 import Moment from "moment";
 import React, { useContext, useState } from "react";
+import PropTypes from "prop-types";
 import { useQuery } from 'react-query';
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -464,3 +465,7 @@ export default function BasicInformation(props) {
     </div>
   );
 }
+BasicInformation.propTypes = {
+  basicInformationData: PropTypes.object,
+  getProfileImage: PropTypes.string
+};

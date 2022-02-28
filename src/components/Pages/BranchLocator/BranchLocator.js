@@ -1,3 +1,5 @@
+import React, {  useRef, useState } from "react";
+import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Dialog from "@material-ui/core/Dialog";
@@ -10,11 +12,10 @@ import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import CloseIcon from "@material-ui/icons/Close";
 import SearchIcon from "@material-ui/icons/Search";
 import { useLoadScript } from "@react-google-maps/api";
-import React, { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import BranchDayTiming, { mapInformationBranchLocator } from "../../Controllers/BranchDayTiming";
 import BranchLocatorController from "../../Controllers/BranchLocatorController";
-import { ButtonPrimary, ButtonSecondary, TextField } from "../../FormsUI";
+import { ButtonPrimary, ButtonSecondary} from "../../FormsUI";
 import { useStylesConsumer } from "../../Layout/ConsumerFooterDialog/Style";
 import ErrorLogger from "../../lib/ErrorLogger";
 import Map from "../BranchLocator/BranchLocatorMap";
@@ -31,6 +32,7 @@ import PlacesAutocomplete from "react-places-autocomplete";
 import TitleImage from "../../../assets/images/Favicon.png";
 import { Helmet } from "react-helmet";
 import CustomerRatings from "../MyBranch/CustomerRatings";
+
 const useStyles = makeStyles({
   ptag: {
     margin: "0px",
@@ -88,7 +90,7 @@ export default function BranchLocator() {
       } else {
         setCurrentLocation(result?.data?.searchLocation);
         setZoomDepth(
-          (result?.data?.branchData[0]?.distance).replace(/[^0-9]/g, "") / 100
+          (result?.data?.branchData[0]?.distance).replace(/[^\d]/g, "") / 100
         );
         return result.data.branchData;
       }
@@ -337,7 +339,7 @@ export default function BranchLocator() {
       <Grid id="getDirectionSearch" item md={6} className={classes.blueBackground}>
         <Grid id="findBranchGridBottom">
           <p className="zipLabel">
-            Can't find it? Try searching another{" "}
+          {"Can't find it? Try searching another"}
           </p>
           <SearchIcon
             className="searchIconBottom"
@@ -360,7 +362,7 @@ export default function BranchLocator() {
                       backgroundColor: suggestion.active ? "#41b6e6" : "#fff"
                     }
                     return (
-                      <div {...getSuggestionItemProps(suggestion, {
+                      <div key={ Math.random() * 1000 } {...getSuggestionItemProps(suggestion, {
                         style
                       })}>
                         <span>{suggestion.description}</span>
@@ -480,7 +482,7 @@ export default function BranchLocator() {
                     backgroundColor: suggestion.active ? "#41b6e6" : "#fff"
                   }
                   return (
-                    <div {...getSuggestionItemProps(suggestion, {
+                    <div key={ Math.random() * 1000 } {...getSuggestionItemProps(suggestion, {
                       style
                     })}>
                       <span style={{ padding: "10px 0px" }}>{suggestion.description}</span>
@@ -607,3 +609,8 @@ export default function BranchLocator() {
     </div>
   );
 }
+BranchLocator.propTypes = {
+  CurrentLocation : PropTypes.object,
+  Zoom : PropTypes.object,
+  getMap : PropTypes.object,
+};

@@ -10,11 +10,11 @@ Functionality       :    To use this button as a default component for UI purpos
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
+import PropTypes from "prop-types";
 
 const ButtonWrapper = ({
   children,
   stylebutton,
-  background,
   onClick,
   ...otherProps
 }) => {
@@ -48,5 +48,16 @@ const ButtonWrapper = ({
     </Button>
   );
 };
+
+ButtonWrapper.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+    PropTypes.func
+  ]),
+  stylebutton: PropTypes.string,
+  onClick: PropTypes.func
+};
+
 
 export default ButtonWrapper;

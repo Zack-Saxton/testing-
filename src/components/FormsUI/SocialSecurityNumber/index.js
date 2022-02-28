@@ -70,6 +70,16 @@ const SSNWrapper = ({
 
 SSNWrapper.propTypes = {
 	name: PropTypes.string.isRequired,
+	label: PropTypes.string,
+	error: PropTypes.string,
+	required: PropTypes.bool,
+	value: PropTypes.string,
+	onChange: PropTypes.func,
+	helperText: PropTypes.string,
+	setError: PropTypes.string,
+	setHelperText: PropTypes.string,
+	placeholder: PropTypes.string,
+	mask: PropTypes.string,
 };
 
 export default SSNWrapper;

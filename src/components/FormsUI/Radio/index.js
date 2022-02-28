@@ -7,10 +7,11 @@ Functionality       :    To use this RadioButton as a default component for UI p
 
 #################################################################################################################*/
 
+import React from "react";
+import PropTypes from "prop-types";
 import { FormControl, FormControlLabel, FormLabel } from "@material-ui/core";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
-import React from "react";
 
 const RadioButtonWrapper = ({
   name,
@@ -26,13 +27,6 @@ const RadioButtonWrapper = ({
   ...otherProps
 }) => {
   //To return all formik state
-  // const { setFieldValue } = useFormikContext();
-  // const [field, meta] = useField(name);
-  // const handleChange = (evt) => {
-  //   const { checked } = evt.target;
-  //   setFieldValue(value, checked);
-  // };
-
   const [ radioValue, setRadioValue ] = React.useState("");
 
   function handleRadioClick(event) {
@@ -73,6 +67,19 @@ const RadioButtonWrapper = ({
       </RadioGroup>
     </FormControl>
   );
+};
+
+RadioButtonWrapper.propTypes = {
+  name: PropTypes.string,
+  radiolabel: PropTypes.string,
+  labelforform: PropTypes.string,
+  value: PropTypes.string,
+  row: PropTypes.bool,
+  required: PropTypes.bool,
+  onClick: PropTypes.func,
+  checked: PropTypes.string,
+  labelPlacement: PropTypes.string,
+  disabled: PropTypes.bool,
 };
 
 export default RadioButtonWrapper;

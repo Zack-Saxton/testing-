@@ -1,6 +1,6 @@
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import applicationStatusRedirectPage from "../../../assets/data/applicationStatusRedirectPage.json";
 import APICall from "../../lib/AxiosLib";

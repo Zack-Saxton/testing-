@@ -9,13 +9,13 @@ Functionality       :    To use this AutoComplete SingleSelect as a default comp
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import React from "react";
+import PropTypes from "prop-types";
 
 const AutoCompleteWrapper = ({
   name,
   value,
   id,
   jsonInput,
-  optionlabel,
   textfieldlabel: textFieldLabel,
   variant,
   styleAutocomplete,
@@ -36,6 +36,16 @@ const AutoCompleteWrapper = ({
       ) }
     />
   );
+};
+
+AutoCompleteWrapper.propTypes = {
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string,
+  id: PropTypes.string,
+  jsonInput: PropTypes.string.isRequired,
+  textfieldlabel: PropTypes.string,
+  styleAutocomplete: PropTypes.string,
+  variant: PropTypes.string
 };
 
 export default AutoCompleteWrapper;
