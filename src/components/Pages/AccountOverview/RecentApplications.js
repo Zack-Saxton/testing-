@@ -180,6 +180,6 @@ export default function RecentApplications({ isLoading, userApplicationsData, us
 }
 RecentApplications.propTypes = {
   isLoading: PropTypes.bool,
-  userApplicationsData: PropTypes.object,
+  userApplicationsData: PropTypes.array,
   userApplicantData: PropTypes.object,
 };

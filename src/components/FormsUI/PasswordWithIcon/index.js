@@ -44,7 +44,7 @@ const PasswordWithIconWrapper = ({
           ""
         ) }
 
-        <Password startIcon { ...configTextfield } />
+        <Password { ...configTextfield } />
 
         { iconPosition === "right" ? (
           <Grid style={ { paddingTop: "20px", paddingLeft: "10px" } }>

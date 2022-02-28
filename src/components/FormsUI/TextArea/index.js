@@ -79,7 +79,7 @@ TextAreaWrapper.propTypes = {
   label: PropTypes.string,
   variant: PropTypes.string,
   row: PropTypes.string,
-  character_limit: PropTypes.number,
+  character_limit: PropTypes.string,
 };
 
 export default TextAreaWrapper;

@@ -20,8 +20,8 @@ const DataGridWrapper = ({ name, rows, columns, height, width, ...otherProps }) 
 
 DataGridWrapper.propTypes = {
   name: PropTypes.string,
-  rows: PropTypes.object,
-  columns: PropTypes.object,
+  rows: PropTypes.array,
+  columns: PropTypes.array,
   height: PropTypes.string,
   width: PropTypes.string
 };

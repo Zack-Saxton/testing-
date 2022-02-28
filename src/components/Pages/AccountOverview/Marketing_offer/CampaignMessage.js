@@ -41,5 +41,5 @@ CampaignMessage.propTypes = {
     amount: PropTypes.string,
     offerCode: PropTypes.string,
     handleContinue: PropTypes.func,
-    expiryDate: PropTypes.instanceOf(Date),
+    expiryDate: PropTypes.string,
   };

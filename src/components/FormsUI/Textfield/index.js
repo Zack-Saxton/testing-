@@ -110,7 +110,7 @@ TextFieldWrapper.propTypes = {
   padding: PropTypes.string,
   type: PropTypes.string,
   materialProps: PropTypes.object,
-  setError: PropTypes.string,
+  setError: PropTypes.bool,
   setHelperText: PropTypes.string,
   error: PropTypes.string,
   helperText: PropTypes.string,

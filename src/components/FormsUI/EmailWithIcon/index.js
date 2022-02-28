@@ -29,7 +29,7 @@ const EmailWithIconWrapper = ({
   //View part
   return (
     <div>
-      <Grid container item xs={ 12 } direction="row" id="em" fullWidth={ true } style={ { display: "inline-flex", width: "100%" } }>
+      <Grid container item xs={ 12 } direction="row" id="em" style={ { display: "inline-flex", width: "100%" } }>
         { iconPosition === "left" || !iconPosition ? (
           <Grid style={ { paddingTop: "20px", paddingRight: "10px" } }>
             <Icon data-test-id="icon" >
