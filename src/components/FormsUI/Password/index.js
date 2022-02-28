@@ -57,6 +57,6 @@ export default PasswordWrapper;
 PasswordWrapper.propTypes = {
 	name: PropTypes.string.isRequired,
   label: PropTypes.string,
-  materialProps: PropTypes.string,
+  materialProps: PropTypes.object,
   id: PropTypes.string
 };

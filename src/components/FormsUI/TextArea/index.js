@@ -78,7 +78,7 @@ TextAreaWrapper.propTypes = {
   placeholder: PropTypes.string,
   label: PropTypes.string,
   variant: PropTypes.string,
-  row: PropTypes.number,
+  row: PropTypes.string,
   character_limit: PropTypes.number,
 };
 

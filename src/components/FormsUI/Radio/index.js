@@ -74,7 +74,7 @@ RadioButtonWrapper.propTypes = {
   radiolabel: PropTypes.string,
   labelforform: PropTypes.string,
   value: PropTypes.string,
-  row: PropTypes.number,
+  row: PropTypes.bool,
   required: PropTypes.bool,
   onClick: PropTypes.func,
   checked: PropTypes.string,

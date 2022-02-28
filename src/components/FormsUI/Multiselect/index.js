@@ -129,7 +129,7 @@ export default MultiSelectWrapper;
 
 MultiSelectWrapper.propTypes = {
 	name: PropTypes.string.isRequired,
-  multiselect: PropTypes.array,
+  multiselect: PropTypes.string,
   labelform: PropTypes.string,
   value: PropTypes.array,
   variant: PropTypes.string,
