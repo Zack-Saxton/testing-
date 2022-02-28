@@ -174,7 +174,7 @@ export default function OfferTable(props) {
 														title={
 															<>
 																<Typography color="inherit">What Is An APR?</Typography>
-																<p>APR stands for "annual percentage rate" and represents the effective annual cost of a loan, including both the interest rate and origination fee.</p>
+																<p>APR stands for {"annual percentage rate"} and represents the effective annual cost of a loan, including both the interest rate and origination fee.</p>
 															</>
 														}
 													>
@@ -422,3 +422,27 @@ export default function OfferTable(props) {
 		</Grid>
 	);
 }
+
+OfferTable.propTypes = {
+	offersToCompare : PropTypes.array,
+	setOffersToCompare : PropTypes.func,
+	classes : PropTypes.object,
+	loading : PropTypes.bool,
+	offersToCompareChart : PropTypes.array,
+	rowData : PropTypes.array,
+	value : PropTypes.number,
+	offerFlag : PropTypes.bool,
+	checkedValue : PropTypes.string,
+	setCheckedValue : PropTypes.func,
+	setSelectedIndex : PropTypes.func,
+	setSelectedTerm : PropTypes.func,
+	selectedTerm : PropTypes.number,
+	selectedIndex : PropTypes.number,
+	setOffersToCompareChart : PropTypes.func,
+	tabVerticalProps : PropTypes.number,
+	noOfTerms : PropTypes.number,
+	handleTabChange : PropTypes.func,
+	submitSelectedOffer : PropTypes.object,
+	onCompareOfferTabClick : PropTypes.func
+  };
+  
