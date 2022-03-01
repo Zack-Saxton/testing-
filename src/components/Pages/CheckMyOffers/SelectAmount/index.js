@@ -94,17 +94,15 @@ function CheckMyOffers(props) {
 				}
 				
 			} else 
-				 {
+				{
 				toast.success("Your Application Code has been accepted");
 				navigate("/pre-approved");
-			
-		}
-		
-		
-	}} catch (error) {
-		ErrorLogger("Error offerCode VAlidation API", error);
-	}
-  };
+			}
+	    }	
+	        } catch (error) {
+		        ErrorLogger("Error offerCode VAlidation API", error);
+	    }
+    };
 
 	// jsx part
 	return (
