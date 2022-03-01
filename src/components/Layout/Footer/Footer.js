@@ -162,9 +162,9 @@ export default function Footer() {
 
       <footer className="bottomBar">
         <div className="footer-copyright">
-          <div className="footerText">
+        <div className="footerText">
             <span>
-              © 2020{ " " }
+            &#169; {new Date().getFullYear()}{' '}
               <a className="footerHomeLink" href="/customers/accountOverview" >
                 Mariner Finance
               </a>{ " " }
