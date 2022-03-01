@@ -3,7 +3,7 @@ import BranchLocatorFooter from "../BranchLocatorFooter/BranchLocatorFooter";
 import BranchLocatorHeader from "../BranchLoacatorHeader/BranchLocatorHeader";
 import { NavLink } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
-
+import PropTypes from "prop-types";
 
 const BranchHeaderLayout = ({ children }) => {
   return (
@@ -33,6 +33,14 @@ const BranchHeaderLayout = ({ children }) => {
       <BranchLocatorFooter />
     </div>
   );
+};
+
+BranchHeaderLayout.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+    PropTypes.func
+  ])
 };
 
 export default BranchHeaderLayout;

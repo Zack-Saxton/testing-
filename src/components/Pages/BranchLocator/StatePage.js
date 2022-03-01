@@ -87,7 +87,7 @@ export default function StatePage() {
       } else {
         setCurrentLocation(result?.data?.searchLocation);
         setZoomDepth(
-          (result?.data?.branchData[ 0 ]?.distance).replace(/[^0-9]/g, "") / 100
+          (result?.data?.branchData[ 0 ]?.distance).replace(/[^/d]/g, "") / 100
         );
         return result.data.branchData;
       }
@@ -140,7 +140,7 @@ export default function StatePage() {
     setgetDirectionModal(false);
     setBranchAddress(null);
   };
-  const { isLoaded, loadError } = useLoadScript({
+  const { isLoaded } = useLoadScript({
     id: 'google-map-script',
     googleMapsApiKey: process.env.REACT_APP_SECKey,
     libraries: ["places"],
@@ -156,10 +156,10 @@ export default function StatePage() {
     }
   };
   useEffect(() => {
-    // document.title = `Personal Loans in ${Name} | Mariner Finance Branch | Discover More`;
     apiGetBranchList(Name);
     window.scrollTo(0,0);
-    return null
+    return null;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const handleSelect1 = async (value) => {
     setAddress1(value);
@@ -235,7 +235,7 @@ export default function StatePage() {
                             backgroundColor: suggestion.active ? "#41b6e6" : "#fff"
                           }
                           return (
-                            <div {...getSuggestionItemProps(suggestion, {
+                            <div key={ Math.random() * 1000 } {...getSuggestionItemProps(suggestion, {
                               style
                             })}>
                               <span>{suggestion.description}</span>
@@ -451,7 +451,7 @@ export default function StatePage() {
           <Grid id="searchBoxBottom" item md={6} sm={12} xs={12}>
             <Grid id="findBranchGrid">
               <p className="zipLabel">
-                Can't find it? Try searching another{" "}
+               {" Can't find it? Try searching another "}
               </p>
               <SearchIcon
                 className="searchIconBottomTwo"
@@ -473,7 +473,7 @@ export default function StatePage() {
                           backgroundColor: suggestion.active ? "#41b6e6" : "#fff"
                         }
                         return (
-                          <div {...getSuggestionItemProps(suggestion, {
+                          <div key={ Math.random() * 1000 }{...getSuggestionItemProps(suggestion, {
                             style
                           })}>
                             <span>{suggestion.description}</span>

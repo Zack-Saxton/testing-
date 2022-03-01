@@ -10,6 +10,7 @@ import { useFormik } from "formik";
 import Moment from "moment";
 import momentTimeZone from "moment-timezone";
 import React from "react";
+import PropTypes from "prop-types";
 import * as yup from "yup";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import { ScheduleVisitApi } from "../../Controllers/MyBranchController";
@@ -365,3 +366,7 @@ export default function ScheduleAppointment({
     </div>
   );
 }
+ScheduleAppointment.propTypes = {
+  MyBranchAppointment: PropTypes.object,
+  holidayData: PropTypes.object,
+};

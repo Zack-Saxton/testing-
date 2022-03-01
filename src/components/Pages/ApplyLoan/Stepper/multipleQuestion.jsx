@@ -1,10 +1,11 @@
+import React,{ useEffect, useState } from "react";
 import { Typography } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
-import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { idVerificationAnswer } from "../../../Controllers/ApplyForLoanController";
 import { ButtonPrimary, Radio } from "../../../FormsUI";
 import messages from "../../../lib/Lang/applyForLoan.json";
+import PropTypes from "prop-types";
 
 //Component to load the questions
 //To build the structure for load
@@ -122,3 +123,10 @@ export default function MultipleQuestion(props) {
 		</>
 	);
 }
+MultipleQuestion.propTypes = {
+	responseData : PropTypes.object,
+	setLoadingFlag : PropTypes.bool,
+	transactionIdMultiple : PropTypes.string,
+	questionSetIdMultiple : PropTypes.string,
+	next : PropTypes.func,
+  };

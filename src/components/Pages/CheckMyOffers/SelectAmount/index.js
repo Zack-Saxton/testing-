@@ -78,33 +78,33 @@ function CheckMyOffers(props) {
 	};
 
 	const handleRoute = async (event) => {
-		try {
-			if (data.offerCode === "") {
-				setPageStatus();
-				navigate("/loan-purpose");
-			}
+    try{
+		if(data.offerCode === ""){
+			setPageStatus();
+			navigate("/loan-purpose");
+		}
+		if (data.offerCode !=="") {
 			let res = await offercodeValidation(data.offerCode);
-			if (res?.data?.offerData?.Message) {
+			if (res?.data?.offerData?.Message || res.status!== 200) {
 				toast.error("Please enter a valid Offer Code. If you do not have an Offer Code please select Continue");
 				tempCounter++;
-				if (tempCounter === 2) {
+				if(tempCounter === 2){
 					setPageStatus();
-					navigate("/loan-purpose");
+				  navigate("/loan-purpose")
 				}
-
-			} else {
-				setPageStatus();
-				if (res?.data?.offerData?.Message) {
-					navigate("/loan-purpose");
-				} else {
-					toast.success("Your Application Code has been accepted");
-					navigate("/pre-approved");
-				}
-			}
-		} catch (error) {
-			ErrorLogger("Error offerCode VAlidation API", error);
+				
+			} else 
+				 {
+				toast.success("Your Application Code has been accepted");
+				navigate("/pre-approved");
+			
 		}
-	};
+		
+		
+	}} catch (error) {
+		ErrorLogger("Error offerCode VAlidation API", error);
+	}
+  };
 
 	// jsx part
 	return (
@@ -269,11 +269,11 @@ function CheckMyOffers(props) {
 								our customer identification program, we must ask for your name,
 								street address, mailing address, date of birth, and other
 								information that will allow us to identify you. We may also ask
-								to see your driver's license or other identifying documents.
+								to see your driver&apos;s license or other identifying documents.
 							</Typography>
 							<br />
 							<Typography className={ classes.smallText } align="center">
-								*The process uses a “soft” credit inquiry to determine whether a
+								*The process uses a soft&quos; credit inquiry to determine whether a
 								loan offer is available, which does not impact your credit
 								score. If you continue with the application process online and
 								accept a loan offer, or are referred to a branch and continue

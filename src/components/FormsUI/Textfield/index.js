@@ -21,10 +21,7 @@ const TextFieldWrapper = ({
   margin,
   padding,
   type,
-  style,
   materialProps,
-  form,
-  emailVal,
   setError,
   setHelperText,
   error,
@@ -106,6 +103,19 @@ const TextFieldWrapper = ({
 //set name prop as mandatory
 TextFieldWrapper.propTypes = {
   name: PropTypes.string.isRequired,
+  required: PropTypes.bool,
+  color: PropTypes.string,
+  lableSize: PropTypes.string,
+  margin: PropTypes.string,
+  padding: PropTypes.string,
+  type: PropTypes.string,
+  materialProps: PropTypes.object,
+  setError: PropTypes.bool,
+  setHelperText: PropTypes.string,
+  error: PropTypes.bool,
+  helperText: PropTypes.string,
+  onChange: PropTypes.func,
+  InputProps: PropTypes.object,
 };
 
 export default TextFieldWrapper;

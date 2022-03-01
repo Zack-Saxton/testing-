@@ -4,6 +4,7 @@ import CheckLoginTimeout from "./CheckLoginTimeout";
 import "./Layout.css";
 import Footer from './NormalFooter/NormalFooter';
 import Header from './NormalHeader/NormalHeader';
+import PropTypes from "prop-types";
 
 const General = ({ children }) => {
 
@@ -20,5 +21,13 @@ const General = ({ children }) => {
         </div>
     );
 };
+
+General.propTypes = {
+    children: PropTypes.oneOfType([
+      PropTypes.arrayOf(PropTypes.node),
+      PropTypes.node,
+      PropTypes.func
+    ])
+  };
 
 export default General;

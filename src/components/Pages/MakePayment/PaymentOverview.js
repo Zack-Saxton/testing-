@@ -24,7 +24,7 @@ export default function PaymentOverview(paymentData, status) {
                         Account Number
                     </TableCell>
                     <TableCell className={ classes.tableHead } align="right">
-                        Today's Payoff
+                        Today&apos;s Payoff
                     </TableCell>
                     <TableCell className={ classes.tableHead } align="right">
                         Regular Amount

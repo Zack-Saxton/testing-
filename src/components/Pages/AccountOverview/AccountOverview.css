@@ -110,7 +110,7 @@
 }
 @media only screen and (min-width: 2000px) {
     .imageholder{
-        width: 70%;
+        width: 81%;
     }
     .yellowBackground{
         justify-content: space-between;
@@ -125,7 +125,36 @@
     .secondBannerImage{
         max-height: 222px !important;
     }
-
+}
+@media only screen and (min-width: 2398px) {
+    .imageholder{
+        width: 84% !important;
+    }
+}
+@media only screen and (min-width: 2558px) {
+    .imageholder{
+        width: 85% !important;
+    }
+}
+@media only screen and (min-width: 2878px) {
+    .imageholder{
+        width: 87% !important;
+    }
+}
+@media only screen and (min-width: 3838px) {
+    .imageholder{
+        width: 90.5% !important;
+    }
+}
+@media only screen and (min-width: 5757px) {
+    .imageholder{
+        width: 93.5% !important;
+    }
+}
+@media only screen and (min-width: 7676px) {
+    .imageholder{
+        width: 95.5% !important;
+    }
 }
 @media (min-width:1281px) {
     #imageholder{

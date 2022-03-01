@@ -9,6 +9,8 @@ import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary } from "../../../FormsUI";
 import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
+import PropTypes from "prop-types";
+
 
 //Initializing functional component EligibleForOffers
 function EligibleForOffers(props) {
@@ -200,5 +202,10 @@ function EligibleForOffers(props) {
 		</div>
 	);
 }
+
+
+EligibleForOffers.propTypes = {
+	location : PropTypes.object,
+  };
 
 export default EligibleForOffers;

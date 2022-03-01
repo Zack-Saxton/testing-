@@ -85,7 +85,7 @@ export default function StatePage(props) {
       } else {
         setCurrentLocation(result?.data?.searchLocation);
         setZoomDepth(
-          (result?.data?.branchData[ 0 ]?.distance).replace(/[^0-9]/g, "") / 100
+          (result?.data?.branchData[ 0 ]?.distance).replace(/[^/d]/g, "") / 100
         );
         return result.data.branchData;
       }
@@ -136,12 +136,15 @@ export default function StatePage(props) {
     );
     setStateName(State.substring(0, 2));
     return null
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [Branch_Details]);
+
   useEffect(() => {
     display_Branch_Times();
     window.scrollTo(0, 0);
     document.title = `Personal Loans in  ${Branch_Details.BranchName}, ${getStateName} | Mariner Finance Branch | Discover More `;
     return null
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getStateName])
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_SECKey,
@@ -466,7 +469,7 @@ export default function StatePage(props) {
         <Grid item md={10}>
           <Grid className="greyBackgroundWrap">
             <Typography className="applyOnlineHeading">
-          Can't get to a branch? No worries, apply for an online loan today!
+          {"Can't get to a branch? No worries, apply for an online loan today!"}
           </Typography>
           <Typography className="applyOnlineParagraph">
           Apply now! Loans starting from $1k up to $25k | Fast Application | Quick Decision | ACH Money Transfers Available

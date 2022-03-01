@@ -140,11 +140,13 @@ export default function ReviewAndSign(props) {
   useEffect(() => {
     getIframeURL();
     setSelectOffer(null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // call the get URL funtion on page load
   useEffect(() => {
     setSelectOffer( !isLoading ? accountDetials?.data?.application?.selected_offer : null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accountDetials]);
 
   //Conver the value into currency format
