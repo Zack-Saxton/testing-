@@ -155,6 +155,6 @@ DocumentPhoto.propTypes = {
 	reference: PropTypes.object,
 	classes: PropTypes.object,
 	steps: PropTypes.array,
-	activeStep: PropTypes.string
+	activeStep: PropTypes.number
 
 };
