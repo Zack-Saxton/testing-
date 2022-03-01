@@ -106,7 +106,10 @@ SelectWrapper.propTypes = {
 	labelform: PropTypes.string,
 	selectTestID: PropTypes.string,
 	inputTestID: PropTypes.string,
-	value: PropTypes.string,
+	value: PropTypes.oneOfType([
+		PropTypes.number,
+		PropTypes.string
+	  ]),
 	onChange: PropTypes.func,
 	helperText: PropTypes.string,
   };

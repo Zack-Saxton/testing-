@@ -209,5 +209,5 @@ FinancialInformation.propTypes = {
   next: PropTypes.func,
   classes: PropTypes.object,
   steps: PropTypes.array,
-  activeStep: PropTypes.string
+  activeStep: PropTypes.number
 };

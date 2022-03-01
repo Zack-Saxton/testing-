@@ -592,6 +592,6 @@ BankAccountVerification.propTypes = {
 	next: PropTypes.func,
 	setLoadingFlag: PropTypes.func,
 	steps: PropTypes.array,
-	activeStep: PropTypes.string,
+	activeStep: PropTypes.number,
 	classes: PropTypes.object
 };

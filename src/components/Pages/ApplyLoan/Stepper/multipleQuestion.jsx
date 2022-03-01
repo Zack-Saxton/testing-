@@ -124,8 +124,8 @@ export default function MultipleQuestion(props) {
 	);
 }
 MultipleQuestion.propTypes = {
-	responseData : PropTypes.object,
-	setLoadingFlag : PropTypes.bool,
+	responseData : PropTypes.array,
+	setLoadingFlag : PropTypes.func,
 	transactionIdMultiple : PropTypes.string,
 	questionSetIdMultiple : PropTypes.string,
 	next : PropTypes.func,
