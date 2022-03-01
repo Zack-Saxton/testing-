@@ -330,14 +330,8 @@ export default function MakePayment(props) {
   //API Request for Account Details
   function getData() {
     setshowCircularProgress(isFetching);
-    let activeLoansData1 = User?.data?.activeLoans;
-    setActiveLoansData(activeLoansData1);
-    let hasSchedulePaymentActive =
-    activeLoansData != null
-      ? activeLoansData.length
-        ? activeLoansData[ 0 ]?.loanPaymentInformation?.hasScheduledPayment
-        : false
-      : false;
+    setActiveLoansData(User?.data?.activeLoans);
+    let hasSchedulePaymentActive = activeLoansData != null ? activeLoansData.length ? activeLoansData[ 0 ]?.loanPaymentInformation?.hasScheduledPayment : false : false;
     if (accNo && activeLoansData) {
       let res = checkaccNo(activeLoansData, accNo);
       // if accno is not Valid
@@ -346,14 +340,10 @@ export default function MakePayment(props) {
         navigate("/customers/accountoverview");
       }
     } else {
-      let schedulePaymentAmount =
-       activeLoansData != null
-        ? activeLoansData.length
-          ? activeLoansData[ 0 ]?.loanPaymentInformation?.scheduledPayments[0]?.PaymentAmount
-          : false
-        : false;
+      let schedulePaymentAmount = activeLoansData != null ? activeLoansData.length ? activeLoansData[ 0 ]?.loanPaymentInformation?.scheduledPayments[0]?.PaymentAmount : false : false;
         setlatestLoanData(activeLoansData?.slice(0, 1) ?? null);
         let latestLoan = activeLoansData?.slice(0, 1) ?? null;
+
         setpaymentAmount(
           activeLoansData?.length
           ? hasSchedulePaymentActive != false          
