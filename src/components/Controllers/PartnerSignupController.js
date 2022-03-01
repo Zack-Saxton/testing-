@@ -34,14 +34,15 @@ export default async function PartnerSignup(navigate, partnerToken, applicantId,
     phone_type: partnerSignupData.phoneType,
     password: partnerSignupData.password,
     password_confirm: partnerSignupData.confirm_password,
+    isAuthenticated: true
   };
   let method = "POST";
   let addAccessToken = false;
 
   //API call
   let partnerSignupMethod = await APICall(url, param, data, method, addAccessToken);
-
-  partnerSignupMethod.data.status === 200
+  
+  partnerSignupMethod?.status === 200
     ? toast.success(partnerSignupMethod?.data?.statusText ? partnerSignupMethod?.data?.statusText
       : partnerSignupMethod?.data?.applicant?.processing?.status === "confirming_info" ? "Successfully Registered, Please confirm your information" : "Successfully Registered",
       {
@@ -86,7 +87,7 @@ export default async function PartnerSignup(navigate, partnerToken, applicantId,
         },
       }
     )
-    : toast.error(partnerSignupMethod?.data?.statusText ?? "Please check your data");
+    : toast.error(partnerSignupMethod?.statusText ?? "Please check your data");
   return partnerSignupMethod;
 }
 export async function PopulatePartnerSignup(
@@ -150,7 +151,8 @@ export async function partnerConfirmInfo(dataConfirmInfo, navigate) {
   let addAccessToken = true;
   //API call
   let PartnerConfirmationAPI = await APICall(url, param, data, method, addAccessToken);
-  PartnerConfirmationAPI.data.status === 200
+  
+  PartnerConfirmationAPI?.status === 200
     ? toast.success(PartnerConfirmationAPI?.data?.statusText ? PartnerConfirmationAPI?.data?.statusText : "Successfully registered",
       {
         onClose: () => {

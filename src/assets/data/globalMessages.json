@@ -105,7 +105,7 @@
   "PasswordResetSuccess": "Password reset successful",
   "Payment_has_Scheduled": "Payment has Scheduled",
   "PhoneEnter": "Please enter a phone number",
-  "PhoneMin": "You phone number must be at least 10 numbers",
+  "PhoneMin": "Your phone number should be 10 numbers",
   "PhoneRequired": "Your phone number is required",
   "PhoneValid": "Please enter a valid phone number",
   "PhoneType": "Select Phone Type",

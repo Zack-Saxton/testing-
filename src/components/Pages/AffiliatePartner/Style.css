@@ -12,7 +12,7 @@
     color: white;
   }
 
-  #citizenship, #employementStatus, #marriedStatus{
+  #citizenship, #employementStatus, #marriedStatus,#phoneType{
     background:transparent !important;
   }
 
@@ -136,6 +136,13 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error{
 }
 #phoneType .subOption{
     color: #171717 !important;
+}
+#phoneTypeWrap div label{
+    font-size: 0.968rem !important;
+}
+
+#phoneTypeWrap div div div:nth-child(1) {
+    padding-bottom: 15px !important;
 }
 #citizenship .subOption{
     color: #171717 !important;
