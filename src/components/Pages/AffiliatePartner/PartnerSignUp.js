@@ -22,8 +22,10 @@ import monevologo from "../../../assets/partners/WelcomeMonevoMember.png";
 import NerdWalletlogo from "../../../assets/partners/WelcomeNWMember.png";
 import OneLoanPlacelogo from "../../../assets/partners/WelcomeOLPMember.png";
 import partnerSignup, { PopulatePartnerSignup } from "../../Controllers/PartnerSignupController";
-import { ButtonPrimary, Checkbox, EmailTextField, PasswordField, PhoneNumber, Popup, RenderContent, Select, SocialSecurityNumber } from "../../FormsUI";
+import { ButtonPrimary, TextField,Checkbox, EmailTextField, PasswordField, Popup, RenderContent, Select, SocialSecurityNumber } from "../../FormsUI";
 import "./Style.css";
+import { useQuery } from 'react-query';
+
 
 //Styling
 const useStyles = makeStyles((theme) => ({
@@ -135,8 +137,8 @@ const validationSchema = yup.object({
 export default function CreditKarma() {
 
   //Decoding URL for partner signup
-  const useQuery = () => new URLSearchParams(useLocation().search);
-  const query = useQuery();
+  const useQueryURL = () => new URLSearchParams(useLocation().search);
+  const query = useQueryURL();
   const url = window.location.href;
   const splitHash = url.split("/") ? url.split("/") : "";
   const splitPartnerToken = splitHash[ 5 ] ? splitHash[ 5 ].split("?") : "";
@@ -152,15 +154,20 @@ export default function CreditKarma() {
 
   //API call
   const [ populatePartnerSignupState, SetPopulatePartnerSignupState ] = useState(null);
+  const [ populatePartnerPhone, SetPopulatePartnerPhone ] = useState("");
 
-  async function AsyncEffect_PopulatePartnerSignup() {
-    SetPopulatePartnerSignupState(await PopulatePartnerSignup(partnerToken, applicantId, requestAmt, requestApr, requestTerm));
-  }
+
+  //API Call
+  const {  data: PopulatePartnerSignupData } = useQuery(['populate-data',partnerToken, applicantId, requestAmt, requestApr, requestTerm], () => PopulatePartnerSignup(partnerToken, applicantId, requestAmt, requestApr, requestTerm))
+
   useEffect(() => {
-    AsyncEffect_PopulatePartnerSignup();
+    SetPopulatePartnerSignupState(PopulatePartnerSignupData)
+    SetPopulatePartnerPhone(PopulatePartnerSignupData?.data?.applicant?.phoneNumber)
+    formik.setFieldValue("phone", populatePartnerPhone);
     return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [PopulatePartnerSignupData,populatePartnerPhone]);
+  
 
   //Populate partner signup from API
   let populateSignupData = populatePartnerSignupState?.data?.applicant;
@@ -183,6 +190,13 @@ export default function CreditKarma() {
 
 const handlePopupCA = populateSignupData?.state === "CA" ? true : false;
 const handlePopupOhio = populateSignupData?.state === "OH" ? true : false;
+
+function phoneNumberMask(values) {
+  let phoneNumber = values.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+  values = !phoneNumber[ 2 ] ? phoneNumber[ 1 ] : '(' + phoneNumber[ 1 ] + ') ' + phoneNumber[ 2 ] + (phoneNumber[ 3 ] ? '-' + phoneNumber[ 3 ] : '');
+  return (values);
+}
+
 
 useEffect(() => 
 {
@@ -244,7 +258,7 @@ useEffect(() =>
       password: "",
       confirmPassword: "",
       ssn: "",
-      callPhNo: populateSignupData?.phoneNumber ?? "",
+      callPhNo: populatePartnerPhone ?? "",
       phoneType: "",
     },
     validationSchema: validationSchema,
@@ -265,7 +279,7 @@ useEffect(() =>
         partnerSignupData,
 
       );
-      if (partnerRes.data.status === 404) {
+      if (partnerRes.status === 404) {
         setLoading(false);
         formik.values.ssn = "";
         formik.values.phoneType = "";
@@ -458,25 +472,22 @@ useEffect(() =>
                     </Grid>
 
                     <Grid item xs={ 12 } sm={ 6 } container direction="row">
-                      <PhoneNumber
+                    <TextField
                         name="callPhNo"
-                        label="Phone Number"
+                        label="Phone number *"
                         id="phone"
                         type="text"
-                        onChange={ formik.handleChange }
-                        value={ formik.values.callPhNo }
+                        materialProps={ { maxLength: "14" } }
+                        onKeyDown={ preventSpace }
                         onBlur={ formik.handleBlur }
-                        error={
-                          formik.touched.callPhNo &&
-                          Boolean(formik.errors.callPhNo)
-                        }
-                        helperText={
-                          formik.touched.callPhNo && formik.errors.callPhNo
-                        }
+                        value={ formik.values.callPhNo ? phoneNumberMask(formik.values.callPhNo) : "" }
+                        onChange={ formik.handleChange }
+                        error={ formik.touched.callPhNo && Boolean(formik.errors.callPhNo) }
+                        helperText={ formik.touched.callPhNo && formik.errors.callPhNo }
                       />
                     </Grid>
 
-                    <Grid item xs={ 12 } sm={ 6 } container direction="row">
+                    <Grid item xs={ 12 } sm={ 6 } container direction="row" id="phoneTypeWrap">
                       <Select
                         id="phoneType"
                         name="phoneType"
@@ -594,8 +605,8 @@ useEffect(() =>
                       />
                       <div
                         className={
-                          utm_source !== "CreditKarma" && populateSignupData?.state === "Delaware" ||
-                            populateSignupData?.state === "DE"
+                          utm_source !== "CreditKarma" && (populateSignupData?.state === "Delaware" ||
+                            populateSignupData?.state === "DE")
                             ? "showCheckbox"
                             : "hideCheckbox"
                         }
@@ -619,8 +630,8 @@ useEffect(() =>
                               </span>
                             </p>
                           }
-                           required={utm_source !== "CreditKarma" && populateSignupData?.state === "Delaware" ||
-                           populateSignupData?.state === "DE" ? true : false }
+                           required={utm_source !== "CreditKarma" && (populateSignupData?.state === "Delaware" ||
+                           populateSignupData?.state === "DE") ? true : false }
                           stylelabelform='{ "color":"" }'
                           stylecheckbox='{ "color":"blue" }'
                           stylecheckboxlabel='{ "color":"" }'
@@ -628,8 +639,8 @@ useEffect(() =>
                       </div>
                       <div
                         className={
-                          utm_source !== "CreditKarma" && populateSignupData?.state === "California" ||
-                            populateSignupData?.state === "CA"                              
+                          utm_source !== "CreditKarma" && (populateSignupData?.state === "California" ||
+                            populateSignupData?.state === "CA")                              
                             ? "showCheckbox"
                             : "hideCheckbox"
                         }
@@ -658,8 +669,8 @@ useEffect(() =>
                               </a>
                             </p>
                           }
-                           required={ utm_source !== "CreditKarma" && populateSignupData?.state === "California" ||
-                           populateSignupData?.state === "CA" ? true : false }
+                           required={ utm_source !== "CreditKarma" && (populateSignupData?.state === "California" ||
+                            populateSignupData?.state === "CA") ? true : false }
                           stylelabelform='{ "color":"" }'
                           stylecheckbox='{ "color":"blue" }'
                           stylecheckboxlabel='{ "color":"" }'
@@ -698,8 +709,8 @@ useEffect(() =>
                             </p>
                           }
                            required={ utm_source !== "CreditKarma" && 
-                           populateSignupData?.state === "New Mexico" ||
-                             populateSignupData?.state === "NM"? true : false }
+                           (populateSignupData?.state === "New Mexico" ||
+                             populateSignupData?.state === "NM") ? true : false }
                           stylelabelform='{ "color":"" }'
                           stylecheckbox='{ "color":"blue" }'
                           stylecheckboxlabel='{ "color":"" }'
