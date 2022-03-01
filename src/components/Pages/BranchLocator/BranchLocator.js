@@ -19,7 +19,7 @@ import { ButtonPrimary, ButtonSecondary} from "../../FormsUI";
 import { useStylesConsumer } from "../../Layout/ConsumerFooterDialog/Style";
 import ErrorLogger from "../../lib/ErrorLogger";
 import Map from "../BranchLocator/BranchLocatorMap";
-import { MFStates } from "../../../assets/data/marinerBusinesStates";
+import { MFStates, MFStateShort } from "../../../assets/data/marinerBusinesStates";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import Link from "@material-ui/core/Link";
@@ -78,6 +78,7 @@ export default function BranchLocator() {
   const [address1, setAddress1] = React.useState("");
   const [address2, setAddress2] = React.useState("");
   const [showMapListSearch2DirectionButton, setshowMapListSearch2DirectionButton] = useState(false);
+  const [libraries] = useState(['places']);
   let params = useParams();
   const mapSection = useRef();
   //API call
@@ -146,12 +147,13 @@ export default function BranchLocator() {
 
   const MFButtonClick = (event) => {
     params.statename = event.target.innerText;
+  console.log(' STATE BUTON ::', params.statename)
     apiGetBranchList(params.statename);
-    navigate(`/StatePage/${params.statename}`);
+    navigate(`/branch-locator/personal-loans-in-${params.statename}`);
   };
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_SECKey,
-    libraries: ["places"],
+    libraries,
   });
   const findBranchTimings = async (value) => {
     try {
@@ -296,20 +298,20 @@ export default function BranchLocator() {
       <Grid>
 
         <Typography className="mainHeading">
-          Apply Online For a Personal Loan
+          Apply Online For a Personal Loans
         </Typography>
         <p className="mainParagraph">
           Do you live in one of the 27 states in which we operate and need a
-          personal loan? Can’t reach a branch or prefer to apply online? If so,
+          personal loans? Can’t reach a branch or prefer to apply online? If so,
           you’re in luck! You can apply online today*. It’s quick, easy, and secure.
         </p>
         <Typography className="mainHeading">
           Need money but don’t know much about personal loans?
         </Typography>
         <p className="mainParagraph">
-          You’re not alone. We understand taking out a personal loan may be a big decision
+          You’re not alone. We understand taking out a personal loans may be a big decision
           so we want you to be as informed as possible. To help you become a more informed
-          customer we put together a whole section to <a href="https://www.marinerfinance.com/blog/?s=personal+loans+" className="stateLinks">educate you on making a personal loan decision.</a>
+          customer we put together a whole section to <a href="https://www.marinerfinance.com/blog/?s=personal+loans+" className="stateLinks">educate you on making a personal loans decision.</a>
         </p>
       </Grid>
     </Grid>
@@ -404,7 +406,7 @@ export default function BranchLocator() {
                 return (
                   <Grid key={index} item md={4} className="locationInfo">
                     <NavLink
-                      to={`/branchpage/personal-loan-in-${item.BranchName}-${item.Address.substring(item.Address.length - 8, item.Address.length).substring(0, 2)}`}
+                      to={`/branchLocator/[${MFStates[MFStateShort.indexOf(item.Address.substring(item.Address.length - 8, item.Address.length).substring(0, 2))]}]-personal-loans-in-${item.BranchName}-${item.Address.substring(item.Address.length - 8, item.Address.length).substring(0, 2)}`}
                       state={{ Branch_Details: item }}
                       className="nav_link"
                     >
@@ -532,7 +534,7 @@ export default function BranchLocator() {
         <h4 className="branchLocatorHeadingMain">
           Get one on one support
           <br />
-          for a personal loan near you
+          for a personal loans near you
         </h4>
 
         <Typography className="branchLocatorHeading">
@@ -592,7 +594,7 @@ export default function BranchLocator() {
         <meta charSet="utf-8" />
         <title>Mariner Finance States | Personal Loans |Discover More</title>
         <link rel="icon" type="image/png" href={TitleImage} sizes="16x16" />
-        <meta name="description" content="Looking for a personal loan?  Discover which states Mariner Finance serves.  Visit a branch in one of our many states today." />
+        <meta name="description" content="Looking for a personal loans?  Discover which states Mariner Finance serves.  Visit a branch in one of our many states today." />
       </Helmet>
       <Grid
         container
