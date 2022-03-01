@@ -226,7 +226,6 @@ export default function PhoneVerification(props) {
 					<Grid item sm={ 5 }>
 						<TextField
 							name="firstName"
-							form={ true }
 							label="Enter Passcode"
 							value={ passcode }
 							onChange={ onPasscodeChange }

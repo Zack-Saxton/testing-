@@ -108,7 +108,7 @@ export default function DocumentUpload(props) {
 	);
 }
 DocumentUpload.propTypes = {
-	resetUpload: PropTypes.func,
+	resetUpload: PropTypes.string,
 	setLoadingFlag: PropTypes.func,
 	docType: PropTypes.string,
 	handle: PropTypes.func,

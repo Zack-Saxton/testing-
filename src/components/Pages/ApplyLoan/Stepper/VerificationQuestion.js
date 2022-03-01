@@ -135,7 +135,7 @@ export default function VerificationQuestion(props) {
 
 VerificationQuestion.propTypes = {
   classes: PropTypes.object,
-  setLoadingFlag: PropTypes.bool,
+  setLoadingFlag: PropTypes.func,
   next: PropTypes.func,
   activeStep: PropTypes.number,
   steps: PropTypes.array
