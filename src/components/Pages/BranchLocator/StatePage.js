@@ -29,6 +29,7 @@ import BranchDayTiming, { mapInformationBranchLocator } from "../../Controllers/
 import PlacesAutocomplete from "react-places-autocomplete";
 import { Helmet } from "react-helmet";
 import CustomerRatings from "../MyBranch/CustomerRatings";
+import { MFStates, MFStateShort} from "../../../assets/data/marinerBusinesStates";
 const useStyles = makeStyles({
   ptag: {
     margin: "0px",
@@ -72,7 +73,7 @@ export default function StatePage() {
   const [loading, setLoading] = useState(false);
   const [zoomDepth, setZoomDepth] = useState();
   const params = useParams()
-  const Name = params.statename
+  const Name = (params.statename).substring(18);
   const clessesforptag = useStyles();
   const [address1, setAddress1] = React.useState("");
   const [address2, setAddress2] = React.useState("");
@@ -80,6 +81,7 @@ export default function StatePage() {
   //API call
   const getBranchLists = async (search_text) => {
     try {
+    console.log(' LINE 84 ::: SEARCH FOR :::', search_text);
       setLoading(true);
       let result = await BranchLocatorController(search_text);
       if (result.status === 400) {
@@ -174,7 +176,7 @@ export default function StatePage() {
         <meta charSet="utf-8" />
         <title>Personal Loans in {Name} | Mariner Finance Branch | Discover More</title>
         <link rel="icon" type="image/png" href={TitleImage} sizes="16x16" />
-        <meta name="description" content={`Looking for a personal loan in ${Name}?  Mariner Finance branch employees can help. Discover a ${Name} location today.`} />
+        <meta name="description" content={`Looking for a personal loans in ${Name}?  Mariner Finance branch employees can help. Discover a ${Name} location today.`} />
       </Helmet>
       <Grid
         container
@@ -216,7 +218,7 @@ export default function StatePage() {
               </Link>
             </Breadcrumbs>
             <Grid id="findBranchWrapTwo" >
-              <h4 className={classes.headigText}>Personal Loan in {Name}</h4>
+              <h4 className={classes.headigText}>Personal Loans in {Name}</h4>
               <Grid id="findBranchGrid">
                 <SearchIcon className="searchIcon" style={{ color: "white" }} />
                 <PlacesAutocomplete
@@ -265,7 +267,7 @@ export default function StatePage() {
             <h4 className="branchLocatorHeadingMain">
               <b>Get one on one support</b>
               <br />
-              for a personal loan near you
+              for a personal loans near you
             </h4>
             <Typography className="branchLocatorHeading">
               <b className="numberText">470+</b>
@@ -322,7 +324,7 @@ export default function StatePage() {
                       return (
                         <Grid key={ index } item md={ 4 } className="locationInfo">
                           <NavLink
-                            to={`/branchpage/personal-loan-in-${item.BranchName}-${item.Address.substring(item.Address.length - 8, item.Address.length).substring(0, 2)}`}
+                            to={`/branchLocator/[${MFStates[MFStateShort.indexOf(item.Address.substring(item.Address.length - 8, item.Address.length).substring(0, 2))]}]-personal-loans-in-${item.BranchName}-${item.Address.substring(item.Address.length - 8, item.Address.length).substring(0, 2)}`}
                             state={{ Branch_Details: item }}
                             className="nav_link"
                           >
@@ -507,7 +509,7 @@ export default function StatePage() {
               <strong>Personal Loans in { Name }</strong>
             </h4>
             <p className="PesonalLoanParagraph">
-              Looking for a personal loan near you? Every one of our Maryland
+              Looking for a personal loans near you? Every one of our Maryland
               branches share a common benefit: lending professionals proud of
               the neighborhoods they live and work in, who are totally focused
               on solving your personal financial challenges. For all the reasons
