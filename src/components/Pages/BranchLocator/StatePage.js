@@ -81,7 +81,6 @@ export default function StatePage() {
   //API call
   const getBranchLists = async (search_text) => {
     try {
-    console.log(' LINE 84 ::: SEARCH FOR :::', search_text);
       setLoading(true);
       let result = await BranchLocatorController(search_text);
       if (result.status === 400) {
