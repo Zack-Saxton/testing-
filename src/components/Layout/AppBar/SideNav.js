@@ -283,7 +283,7 @@ export default function SideNav() {
 
   //Api call Profile Picture
   const { data: profileImage } = useQuery('my-profile-picture', ProfileImageController);
-  let getProfImage = (profileImage !== null) ? profileImage : profileImg;
+  let getProfImage = profileImage ?? profileImg;
 
   // Side bar branch details
   Cookies.set('branchname', ((branchVal?.data?.BranchName) ? (branchVal?.data?.BranchName) : (branchVal?.data?.branchName) ? (branchVal?.data?.branchName) : ""));
