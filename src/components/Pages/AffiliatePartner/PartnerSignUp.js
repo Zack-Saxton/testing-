@@ -158,15 +158,15 @@ export default function CreditKarma() {
 
 
   //API Call
-  const {  data: PopulatePartnerSignupDAta } = useQuery(['populate-data',partnerToken, applicantId, requestAmt, requestApr, requestTerm], () => PopulatePartnerSignup(partnerToken, applicantId, requestAmt, requestApr, requestTerm))
+  const {  data: PopulatePartnerSignupData } = useQuery(['populate-data',partnerToken, applicantId, requestAmt, requestApr, requestTerm], () => PopulatePartnerSignup(partnerToken, applicantId, requestAmt, requestApr, requestTerm))
 
   useEffect(() => {
-    SetPopulatePartnerSignupState(PopulatePartnerSignupDAta)
-    SetPopulatePartnerPhone(PopulatePartnerSignupDAta?.data?.applicant?.phoneNumber)
+    SetPopulatePartnerSignupState(PopulatePartnerSignupData)
+    SetPopulatePartnerPhone(PopulatePartnerSignupData?.data?.applicant?.phoneNumber)
     formik.setFieldValue("phone", populatePartnerPhone);
     return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [PopulatePartnerSignupDAta,populatePartnerPhone]);
+  }, [PopulatePartnerSignupData,populatePartnerPhone]);
   
 
   //Populate partner signup from API
