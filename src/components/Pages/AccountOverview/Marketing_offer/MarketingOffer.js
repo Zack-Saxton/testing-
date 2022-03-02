@@ -24,8 +24,8 @@ export default function MarketingOffer(data) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
-  const amountFormatter = (n) =>{
-    setAmount("$ " + (Math.round(n * 100) / 100).toLocaleString());
+  const amountFormatter = (number) =>{
+    setAmount("$ " + (Math.round(number * 100) / 100).toLocaleString());
  }
 
   const MarketingMessages = [
