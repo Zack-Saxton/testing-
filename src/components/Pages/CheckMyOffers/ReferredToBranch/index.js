@@ -229,7 +229,7 @@ function ReferredToBranch(props) {
 										style={ { align: "left", alignItems: "left" } }
 										className=" minText bullet"
 									>
-										{"It's"} a good idea to know how much money you make a year.
+										{ "It's" } a good idea to know how much money you make a year.
 									</Typography>
 									<Typography
 										style={ { align: "left", alignItems: "left" } }
@@ -264,8 +264,7 @@ function ReferredToBranch(props) {
 }
 
 ReferredToBranch.propTypes = {
-	location : PropTypes.object,
-  };
-
+	location: PropTypes.object,
+};
 
 export default ReferredToBranch;

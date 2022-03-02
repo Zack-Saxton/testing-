@@ -1,11 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
+import PropTypes from "prop-types";
+import React from "react";
 import { ButtonPrimary } from "../../FormsUI";
 
 const Popup = ({ children, popupFlag, openPopup, closePopup }) => {
@@ -41,14 +41,13 @@ const Popup = ({ children, popupFlag, openPopup, closePopup }) => {
 
 Popup.propTypes = {
     children: PropTypes.oneOfType([
-      PropTypes.arrayOf(PropTypes.node),
-      PropTypes.node,
-      PropTypes.func
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node,
+        PropTypes.func
     ]),
     popupFlag: PropTypes.bool,
     openPopup: PropTypes.func,
     closePopup: PropTypes.func,
-  };
-  
+};
 
 export default Popup;

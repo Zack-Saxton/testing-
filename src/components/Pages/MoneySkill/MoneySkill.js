@@ -1,8 +1,8 @@
 import Dialog from "@material-ui/core/Dialog";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
-import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import React, { useEffect, useState } from "react";
 import getMoneySkillUrl from "../../Controllers/MoneySkillController";
 import {
   ButtonPrimary,

@@ -61,7 +61,7 @@ const useStylesMyBranch = makeStyles((theme) => ({
         margin: "0 0 4% 0",
         fontSize: "2.138rem",
         fontWeight: "400",
-        color:"#214476"
+        color: "#214476"
     },
     loadingOnWithoutBlur: {
         pointerEvents: "none",

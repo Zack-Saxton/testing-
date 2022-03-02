@@ -51,7 +51,7 @@ export default function LoadQuestions(props) {
 }
 
 LoadQuestions.propTypes = {
-	responseData : PropTypes.array,
-	check : PropTypes.string,
-	setCheck : PropTypes.func
-  };
+	responseData: PropTypes.array,
+	check: PropTypes.string,
+	setCheck: PropTypes.func
+};

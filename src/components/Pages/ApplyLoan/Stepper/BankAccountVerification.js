@@ -11,8 +11,8 @@ import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import { useFormik } from "formik";
-import React, { useState } from "react";
 import PropTypes from "prop-types";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import { ButtonPrimary, ButtonSecondary, Radio, TextField } from "../../../FormsUI";
@@ -59,8 +59,8 @@ const validationSchema = yup.object({
 					messages?.bankAccountVerification?.matchAccountNum
 				),
 		})
-		.min(7, messages?.bankAccountVerification?.minMaxAccountNum)
-		.max(16, messages?.bankAccountVerification?.minMaxAccountNum),
+		.min(4, messages?.bankAccountVerification?.minMaxAccountNum)
+		.max(17, messages?.bankAccountVerification?.minMaxAccountNum),
 });
 
 //View Part

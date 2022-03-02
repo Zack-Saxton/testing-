@@ -24,10 +24,10 @@ const General = ({ children }) => {
 
 General.propTypes = {
     children: PropTypes.oneOfType([
-      PropTypes.arrayOf(PropTypes.node),
-      PropTypes.node,
-      PropTypes.func
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node,
+        PropTypes.func
     ])
-  };
+};
 
 export default General;

@@ -1,5 +1,6 @@
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
+import PropTypes from "prop-types";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -7,8 +8,7 @@ import { ButtonPrimary } from "../../../FormsUI";
 import APICall from "../../../lib/AxiosLib";
 import messages from "../../../lib/Lang/applyForLoan.json";
 import DocumentUpload from "./DocumentUpload";
-import PropTypes from "prop-types";
- 
+
 //styling part
 const useStyles = makeStyles(() => ({
 	content_grid: {
@@ -110,8 +110,8 @@ export default function IncomeVerification(props) {
 }
 
 IncomeVerification.propTypes = {
-	setLoadingFlag : PropTypes.func,
-	classes : PropTypes.object,
+	setLoadingFlag: PropTypes.func,
+	classes: PropTypes.object,
 	steps: PropTypes.array,
 	activeStep: PropTypes.number
-  };
+};

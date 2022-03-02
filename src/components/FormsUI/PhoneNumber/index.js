@@ -6,13 +6,11 @@ Functionality       :    To use this component for having Phone Number
 
 #################################################################################################################*/
 
-import React, { useState } from "react";
 import FormControl from "@material-ui/core/FormControl";
 import { createTheme, ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import PropTypes from "prop-types";
-
-
+import React, { useState } from "react";
 
 const theme = createTheme();
 const PhoneNumberWrapper = ({ name, onChange, value, label, error, disabled, helperText, ...otherProps }) => {
@@ -47,11 +45,11 @@ const PhoneNumberWrapper = ({ name, onChange, value, label, error, disabled, hel
 
 PhoneNumberWrapper.propTypes = {
   name: PropTypes.string.isRequired,
-  onChange: PropTypes.func, 
-  value: PropTypes.string, 
-  label: PropTypes.string, 
-  error: PropTypes.string, 
-  disabled: PropTypes.bool, 
+  onChange: PropTypes.func,
+  value: PropTypes.string,
+  label: PropTypes.string,
+  error: PropTypes.string,
+  disabled: PropTypes.bool,
   helperText: PropTypes.string
 };
 

@@ -9,8 +9,8 @@ Functionality       :    To use this ButtonSwitch as a default component for UI 
 
 import { FormControl, FormControlLabel } from "@material-ui/core";
 import Switch from "@material-ui/core/Switch";
-import React from "react";
 import PropTypes from "prop-types";
+import React from "react";
 
 const ButtonSwitchWrapper = ({
   name,

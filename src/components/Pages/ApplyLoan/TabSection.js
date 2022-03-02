@@ -4,7 +4,6 @@ import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import PropTypes from "prop-types";
 
-
 export default function TabSection(props) {
 
   function a11yProps(index) {
@@ -66,8 +65,8 @@ export default function TabSection(props) {
 }
 
 TabSection.propTypes = {
-  classes : PropTypes.object,
-  ay : PropTypes.number,
-  handleTabChange : PropTypes.object,
-  value : PropTypes.number,
+  classes: PropTypes.object,
+  ay: PropTypes.number,
+  handleTabChange: PropTypes.object,
+  value: PropTypes.number,
 };

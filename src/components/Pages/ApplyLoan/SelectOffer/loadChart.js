@@ -106,8 +106,7 @@ export default function LoadChart(props) {
 }
 
 LoadChart.propTypes = {
-	offersToCompareChart : PropTypes.array,
-	classes : PropTypes.object,
-	offerFlag : PropTypes.bool
-  };
-  
+	offersToCompareChart: PropTypes.array,
+	classes: PropTypes.object,
+	offerFlag: PropTypes.bool
+};

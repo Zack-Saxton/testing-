@@ -105,11 +105,11 @@ export default function NormalFooter() {
               <Grid className="footerPadding footerTextInfo" item xs={ 12 } sm={ 12 } md={ 8 } lg={ 8 } >
                 <div>
                   <p className="leftAlignAddress">
-                    Mariner Finance, LLC, NMLS No. 166564{' '}
+                    Mariner Finance, LLC, NMLS No. 166564{ ' ' }
                     <span style={ { margin: "0", cursor: "pointer" } } onClick={ handleOpenConsumer }>
                       (www.nmlsconsumeraccess.com)
                     </span>
-                    {' '}
+                    { ' ' }
                     8211 Town Center Drive,
                     Nottingham, MD 21236;
                     Telephone Number -
@@ -121,7 +121,7 @@ export default function NormalFooter() {
               </Grid>
 
               <Grid className="footerPadding FooterHousingLogo" item xs={ 12 } sm={ 12 } md={ 2 } lg={ 2 }>
-                <img type="image"  src={ housingImage } alt="logo image" />
+                <img type="image" src={ housingImage } alt="logo image" />
               </Grid>
 
             </Grid>

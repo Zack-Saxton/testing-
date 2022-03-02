@@ -1,6 +1,7 @@
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
+import PropTypes from "prop-types";
 import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import NoOffersAvailableLogo from "../../../../assets/gallery/No_Offers_Available.png";
@@ -10,8 +11,6 @@ import { ButtonPrimary, ButtonSecondary } from "../../../FormsUI";
 import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./CheckMyOffer.css";
-import PropTypes from "prop-types";
-
 
 // NoOffersAvailable functional component initialization
 function NoOffersAvailable(props) {
@@ -207,7 +206,7 @@ function NoOffersAvailable(props) {
 }
 
 NoOffersAvailable.propTypes = {
-	location : PropTypes.object,
-  };
+	location: PropTypes.object,
+};
 
 export default NoOffersAvailable;
