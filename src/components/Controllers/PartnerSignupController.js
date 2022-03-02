@@ -41,7 +41,7 @@ export default async function PartnerSignup(navigate, partnerToken, applicantId,
 
   //API call
   let partnerSignupMethod = await APICall(url, param, data, method, addAccessToken);
-  
+
   partnerSignupMethod?.status === 200
     ? toast.success(partnerSignupMethod?.data?.statusText ? partnerSignupMethod?.data?.statusText
       : partnerSignupMethod?.data?.applicant?.processing?.status === "confirming_info" ? "Successfully Registered, Please confirm your information" : "Successfully Registered",
@@ -151,7 +151,7 @@ export async function partnerConfirmInfo(dataConfirmInfo, navigate) {
   let addAccessToken = true;
   //API call
   let PartnerConfirmationAPI = await APICall(url, param, data, method, addAccessToken);
-  
+
   PartnerConfirmationAPI?.status === 200
     ? toast.success(PartnerConfirmationAPI?.data?.statusText ? PartnerConfirmationAPI?.data?.statusText : "Successfully registered",
       {

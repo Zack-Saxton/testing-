@@ -7,10 +7,10 @@ Functionality       :    To use this Radio button as a default component for UI 
 
 #################################################################################################################*/
 
-import React from "react";
-import PropTypes from "prop-types";
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import PropTypes from "prop-types";
+import React from "react";
 
 const RadioButtonBoxWrapper = ({
   children,

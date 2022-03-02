@@ -22,10 +22,9 @@ import monevologo from "../../../assets/partners/WelcomeMonevoMember.png";
 import NerdWalletlogo from "../../../assets/partners/WelcomeNWMember.png";
 import OneLoanPlacelogo from "../../../assets/partners/WelcomeOLPMember.png";
 import partnerSignup, { PopulatePartnerSignup } from "../../Controllers/PartnerSignupController";
-import { ButtonPrimary, TextField,Checkbox, EmailTextField, PasswordField, Popup, RenderContent, Select, SocialSecurityNumber } from "../../FormsUI";
+import { ButtonPrimary, TextField, Checkbox, EmailTextField, PasswordField, Popup, RenderContent, Select, SocialSecurityNumber } from "../../FormsUI";
 import "./Style.css";
 import { useQuery } from 'react-query';
-
 
 //Styling
 const useStyles = makeStyles((theme) => ({
@@ -156,18 +155,16 @@ export default function CreditKarma() {
   const [ populatePartnerSignupState, SetPopulatePartnerSignupState ] = useState(null);
   const [ populatePartnerPhone, SetPopulatePartnerPhone ] = useState("");
 
-
   //API Call
-  const {  data: PopulatePartnerSignupData } = useQuery(['populate-data',partnerToken, applicantId, requestAmt, requestApr, requestTerm], () => PopulatePartnerSignup(partnerToken, applicantId, requestAmt, requestApr, requestTerm))
+  const { data: PopulatePartnerSignupData } = useQuery([ 'populate-data', partnerToken, applicantId, requestAmt, requestApr, requestTerm ], () => PopulatePartnerSignup(partnerToken, applicantId, requestAmt, requestApr, requestTerm));
 
   useEffect(() => {
-    SetPopulatePartnerSignupState(PopulatePartnerSignupData)
-    SetPopulatePartnerPhone(PopulatePartnerSignupData?.data?.applicant?.phoneNumber)
+    SetPopulatePartnerSignupState(PopulatePartnerSignupData);
+    SetPopulatePartnerPhone(PopulatePartnerSignupData?.data?.applicant?.phoneNumber);
     formik.setFieldValue("phone", populatePartnerPhone);
     return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [PopulatePartnerSignupData,populatePartnerPhone]);
-  
+  }, [ PopulatePartnerSignupData, populatePartnerPhone ]);
 
   //Populate partner signup from API
   let populateSignupData = populatePartnerSignupState?.data?.applicant;
@@ -177,7 +174,7 @@ export default function CreditKarma() {
   const [ loading, setLoading ] = useState(false);
   const navigate = useNavigate();
   const [ openDelaware, setOpenDelaware ] = useState(false);
-  const [ agree, setAgree ] = useState(false);  
+  const [ agree, setAgree ] = useState(false);
   const [ agreeDelaware, setAgreeDelaware ] = useState("");
   const [ agreeCalifornia, setAgreeCalifornia ] = useState("");
   const [ agreeNewMexico, setAgreeNewMexico ] = useState("");
@@ -188,26 +185,24 @@ export default function CreditKarma() {
   const [ openCA, setOpenCA ] = useState(false);
   const [ openOhio, setOpenOhio ] = useState(false);
 
-const handlePopupCA = populateSignupData?.state === "CA" ? true : false;
-const handlePopupOhio = populateSignupData?.state === "OH" ? true : false;
+  const handlePopupCA = populateSignupData?.state === "CA" ? true : false;
+  const handlePopupOhio = populateSignupData?.state === "OH" ? true : false;
 
-function phoneNumberMask(values) {
-  let phoneNumber = values.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-  values = !phoneNumber[ 2 ] ? phoneNumber[ 1 ] : '(' + phoneNumber[ 1 ] + ') ' + phoneNumber[ 2 ] + (phoneNumber[ 3 ] ? '-' + phoneNumber[ 3 ] : '');
-  return (values);
-}
-
-
-useEffect(() => 
-{
-  if (handlePopupCA) {
-    setOpenCA(true);
+  function phoneNumberMask(values) {
+    let phoneNumber = values.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+    values = !phoneNumber[ 2 ] ? phoneNumber[ 1 ] : '(' + phoneNumber[ 1 ] + ') ' + phoneNumber[ 2 ] + (phoneNumber[ 3 ] ? '-' + phoneNumber[ 3 ] : '');
+    return (values);
   }
-  else if(handlePopupOhio) {
-    setOpenOhio(true);
-  }
-  return null  
-},[handlePopupCA,handlePopupOhio]);
+
+  useEffect(() => {
+    if (handlePopupCA) {
+      setOpenCA(true);
+    }
+    else if (handlePopupOhio) {
+      setOpenOhio(true);
+    }
+    return null;
+  }, [ handlePopupCA, handlePopupOhio ]);
 
   const handleCloseCA = () => {
     setOpenCA(false);
@@ -216,7 +211,6 @@ useEffect(() =>
   const handleCloseOhio = () => {
     setOpenOhio(false);
   };
-
 
   const handleClickDelawareOpen = () => {
     setOpenDelaware(true);
@@ -472,7 +466,7 @@ useEffect(() =>
                     </Grid>
 
                     <Grid item xs={ 12 } sm={ 6 } container direction="row">
-                    <TextField
+                      <TextField
                         name="callPhNo"
                         label="Phone number *"
                         id="phone"
@@ -598,7 +592,7 @@ useEffect(() =>
                             { "" } <span className="formatHref" onClick={ () => { handleOnClickPrivacy(); } }>Website Privacy Statement.</span>
                           </p>
                         }
-                        required={utm_source !== "CreditKarma" ? true : false }
+                        required={ utm_source !== "CreditKarma" ? true : false }
                         stylelabelform='{ "color":"" }'
                         stylecheckbox='{ "color":"blue"}'
                         stylecheckboxlabel='{ "color":"" }'
@@ -630,8 +624,8 @@ useEffect(() =>
                               </span>
                             </p>
                           }
-                           required={utm_source !== "CreditKarma" && (populateSignupData?.state === "Delaware" ||
-                           populateSignupData?.state === "DE") ? true : false }
+                          required={ utm_source !== "CreditKarma" && (populateSignupData?.state === "Delaware" ||
+                            populateSignupData?.state === "DE") ? true : false }
                           stylelabelform='{ "color":"" }'
                           stylecheckbox='{ "color":"blue" }'
                           stylecheckboxlabel='{ "color":"" }'
@@ -640,7 +634,7 @@ useEffect(() =>
                       <div
                         className={
                           utm_source !== "CreditKarma" && (populateSignupData?.state === "California" ||
-                            populateSignupData?.state === "CA")                              
+                            populateSignupData?.state === "CA")
                             ? "showCheckbox"
                             : "hideCheckbox"
                         }
@@ -669,7 +663,7 @@ useEffect(() =>
                               </a>
                             </p>
                           }
-                           required={ utm_source !== "CreditKarma" && (populateSignupData?.state === "California" ||
+                          required={ utm_source !== "CreditKarma" && (populateSignupData?.state === "California" ||
                             populateSignupData?.state === "CA") ? true : false }
                           stylelabelform='{ "color":"" }'
                           stylecheckbox='{ "color":"blue" }'
@@ -678,8 +672,8 @@ useEffect(() =>
                       </div>
                       <div
                         className={
-                           utm_source !== "CreditKarma" && 
-                          populateSignupData?.state === "New Mexico" ||
+                          utm_source !== "CreditKarma" &&
+                            populateSignupData?.state === "New Mexico" ||
                             populateSignupData?.state === "NM"
                             ? "showCheckbox"
                             : "hideCheckbox"
@@ -708,9 +702,9 @@ useEffect(() =>
                               </a>
                             </p>
                           }
-                           required={ utm_source !== "CreditKarma" && 
-                           (populateSignupData?.state === "New Mexico" ||
-                             populateSignupData?.state === "NM") ? true : false }
+                          required={ utm_source !== "CreditKarma" &&
+                            (populateSignupData?.state === "New Mexico" ||
+                              populateSignupData?.state === "NM") ? true : false }
                           stylelabelform='{ "color":"" }'
                           stylecheckbox='{ "color":"blue" }'
                           stylecheckboxlabel='{ "color":"" }'
@@ -726,7 +720,7 @@ useEffect(() =>
                         stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
                         disabled={ loading }
                       >
-                       {utm_source === "CreditKarma" ?  "Continue" : "View your offers"}
+                        { utm_source === "CreditKarma" ? "Continue" : "View your offers" }
                         <i
                           className="fa fa-refresh fa-spin customSpinner"
                           style={ {
@@ -756,13 +750,13 @@ useEffect(() =>
       <Popup popupFlag={ privacyPopup } closePopup={ handleOnClickPrivacyClose }>
         <RenderContent disclosureLink="/privacy" />
       </Popup>
-      
+
       <Popup popupFlag={ openDelaware } closePopup={ handleDelawareClose }>
         <RenderContent disclosureLink="/delaware" />
-        </Popup>
+      </Popup>
 
-{/* CA user */}
-<Dialog
+      {/* CA user */ }
+      <Dialog
         onClose={ handleCloseCA }
         aria-labelledby="customized-dialog-title"
         open={ openCA }
@@ -786,8 +780,7 @@ useEffect(() =>
         </DialogActions>
       </Dialog>
 
-
-      {/* Ohio users */}
+      {/* Ohio users */ }
       <Dialog
         onClose={ handleCloseOhio }
         aria-labelledby="customized-dialog-title"

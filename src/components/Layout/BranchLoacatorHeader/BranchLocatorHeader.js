@@ -3,40 +3,39 @@ import Grid from "@material-ui/core/Grid";
 import Link from "@material-ui/core/Link";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import { ButtonPrimary } from "../../FormsUI";
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Logo from "../../../assets/images/mf-logo.png";
+import { ButtonPrimary } from "../../FormsUI";
 import { useStyles } from "../BranchLoacatorHeader/BranchLocatorStyle";
-import "../Layout.css"
+import "../Layout.css";
 
 const BranchLocatorHeader = () => {
   const classes = useStyles();
   const navigate = useNavigate();
 
-  
   const redirectToAccountOverview = () => {
-    navigate("/customers/accountOverview" );
+    navigate("/customers/accountOverview");
   };
 
   //View Part
   return (
-    <div id="headerWrap" className={classes.grow}>
+    <div id="headerWrap" className={ classes.grow }>
       <AppBar id="MainHeaderWrap" position="static">
         <Toolbar className="headerToolBar">
           <Typography
-            onClick={redirectToAccountOverview}
-            className={classes.title}
+            onClick={ redirectToAccountOverview }
+            className={ classes.title }
           >
             <img
-              style={{ marginTop: "6px" }}
-              className={classes.logoFormat}
-              src={Logo}
+              style={ { marginTop: "6px" } }
+              className={ classes.logoFormat }
+              src={ Logo }
               alt="MF logo"
             />
           </Typography>
-          <div className={classes.grow} />
-          <div className={classes.sectionDesktop}>
+          <div className={ classes.grow } />
+          <div className={ classes.sectionDesktop }>
             <Grid className="personalLoanHolder">
               <Typography className="branchHeaderLinks">
                 Personal Loans
@@ -129,17 +128,17 @@ const BranchLocatorHeader = () => {
 
                 <Grid className="subLinkDropdown">
                   <Link href="https://wps-qa.marinerfinance.io/why-mariner-finance/partner-with-us/">
-                  Partner With Us
-                    </Link>
+                    Partner With Us
+                  </Link>
                   <Grid className="subLinkList">
                     <Link href="https://wps-qa.marinerfinance.io/why-mariner-finance/partner-with-us/point-of-sale-financing/">
-                    Point of Sale Financing
+                      Point of Sale Financing
                     </Link>
                     <Link href="https://wps-qa.marinerfinance.io/why-mariner-finance/partner-with-us/corporate-acquisition/">
-                    Corporate Acquisition
+                      Corporate Acquisition
                     </Link>
                     <Link href="https://wps-qa.marinerfinance.io/why-mariner-finance/partner-with-us/">
-                    Affiliate Program
+                      Affiliate Program
                     </Link>
                   </Grid>
                 </Grid>
@@ -149,24 +148,24 @@ const BranchLocatorHeader = () => {
                 </Link>
 
                 <Grid className="subLinkDropdown">
-                <Link href="https://wps-qa.marinerfinance.io/careers/">
-                  Careers
-                </Link>
+                  <Link href="https://wps-qa.marinerfinance.io/careers/">
+                    Careers
+                  </Link>
                   <Grid className="subLinkList">
                     <Link href="https://wps-qa.marinerfinance.io/careers/branch-manager-trainee-and-internship-programs/">
-                    Branch Manager Trainee and Internship programs
+                      Branch Manager Trainee and Internship programs
                     </Link>
                     <Link href="https://wps-qa.marinerfinance.io/careers/jobs-for-veterans/">
-                    Jobs For Veterans
+                      Jobs For Veterans
                     </Link>
                     <Link href="https://wps-qa.marinerfinance.io/careers/corporate-culture/">
-                    Corporate Culture
+                      Corporate Culture
                     </Link>
                     <Link href="https://wps-qa.marinerfinance.io/careers/benefits/">
-                    Benefits
+                      Benefits
                     </Link>
                     <Link href="https://wps-qa.marinerfinance.io/careers/faq/">
-                    FAQ
+                      FAQ
                     </Link>
                   </Grid>
                 </Grid>
@@ -180,10 +179,10 @@ const BranchLocatorHeader = () => {
               to="/select-amount/"
               className="nav_link branchHeaderLinks"
             >
-              <Typography className={classes.subtitle}>Mail Offer?</Typography>
+              <Typography className={ classes.subtitle }>Mail Offer?</Typography>
             </NavLink>
             <NavLink to="/login" className="nav_link branchHeaderLinks">
-              <Typography className={classes.subtitle}>Login</Typography>
+              <Typography className={ classes.subtitle }>Login</Typography>
             </NavLink>
             <NavLink
               to="/customers/applyForLoan"
@@ -197,7 +196,7 @@ const BranchLocatorHeader = () => {
                 Check My Offers
               </ButtonPrimary>
             </NavLink>
-          </div>  
+          </div>
         </Toolbar>
       </AppBar>
     </div>

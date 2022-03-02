@@ -9,7 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import React, { useState } from "react";
-import { useNavigate,useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import * as yup from "yup";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import states from '../../../assets/data/States.json';
@@ -21,7 +21,6 @@ import { ButtonPrimary, Checkbox, Popup, RenderContent, Select, TextField, Zipco
 import ErrorLogger from "../../lib/ErrorLogger";
 import "./Style.css";
 import PropTypes from "prop-types";
-
 
 //Styling
 const useStyles = makeStyles((theme) => ({

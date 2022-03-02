@@ -11,7 +11,6 @@ import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
 import PropTypes from "prop-types";
 
-
 //Initializing functional component EligibleForOffers
 function EligibleForOffers(props) {
 	const navigate = useNavigate();
@@ -203,9 +202,8 @@ function EligibleForOffers(props) {
 	);
 }
 
-
 EligibleForOffers.propTypes = {
-	location : PropTypes.object,
-  };
+	location: PropTypes.object,
+};
 
 export default EligibleForOffers;

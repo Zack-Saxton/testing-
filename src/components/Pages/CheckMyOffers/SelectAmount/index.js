@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 //initializing check my offers functonal component
 function CheckMyOffers(props) {
   const { data, setData, resetData } = useContext(Check);
-  const [hasOfferCode, setOfferCode] = useState("");
+  const [ hasOfferCode, setOfferCode ] = useState("");
   const classes = preLoginStyle();
   const innerClasses = useStyles();
   const navigate = useNavigate();
@@ -51,8 +51,8 @@ function CheckMyOffers(props) {
   };
   let params = useParams();
   let selectedAmount = getValidValue(params?.amount);
-  const [select, setSelect] = useState(
-    data.loanAmount ? data.loanAmount: selectedAmount ? parseInt(selectedAmount): 10000
+  const [ select, setSelect ] = useState(
+    data.loanAmount ? data.loanAmount : selectedAmount ? parseInt(selectedAmount) : 10000
   );
   let location = useLocation();
   useEffect(() => {
@@ -114,23 +114,23 @@ function CheckMyOffers(props) {
   return (
     <div>
       <ScrollToTopOnMount />
-      <div className={classes.mainDiv}>
+      <div className={ classes.mainDiv }>
         <Box>
           <Grid
             item
-            xs={12}
+            xs={ 12 }
             container
             justifyContent="center"
             alignItems="center"
           >
             <Grid
               item
-              xs={11}
-              sm={10}
-              md={6}
-              lg={6}
-              xl={6}
-              className={innerClasses.cardWrapper}
+              xs={ 11 }
+              sm={ 10 }
+              md={ 6 }
+              lg={ 6 }
+              xl={ 6 }
+              className={ innerClasses.cardWrapper }
             >
               <Paper
                 className="checkMyOffersWrap"
@@ -143,19 +143,19 @@ function CheckMyOffers(props) {
                 </Typography>
                 <Grid
                   item
-                  xs={12}
+                  xs={ 12 }
                   className="selectAmountGrid"
                   container
                   justifyContent="center"
                   alignItems="center"
                 >
-                  <Grid item xs={11} sm={10} md={8} lg={8} xl={8}>
+                  <Grid item xs={ 11 } sm={ 10 } md={ 8 } lg={ 8 } xl={ 8 }>
                     <Slider
                       id="sliderBar"
                       className="setSlider"
                       name="slider"
-                      defaultValue={select ? select : 10000}
-                      setSelect={setSelect}
+                      defaultValue={ select ? select : 10000 }
+                      setSelect={ setSelect }
                       label="Select Loan Amount"
                     />
                   </Grid>
@@ -163,60 +163,60 @@ function CheckMyOffers(props) {
                 <Grid
                   id="checkMyOffersText"
                   item
-                  xs={12}
+                  xs={ 12 }
                   className="alignSlider"
                   container
                   justifyContent="center"
                   alignItems="center"
                 >
-                  <Grid item xs={11} sm={10} md={8} lg={8} xl={8}>
+                  <Grid item xs={ 11 } sm={ 10 } md={ 8 } lg={ 8 } xl={ 8 }>
                     <Typography
                       data-testid="offerCodeTriggerText"
                       className="setGreenColor cursorPointer"
                       align="center"
-                      onClick={(event) => {
+                      onClick={ (event) => {
                         setOfferCode(!hasOfferCode);
-                      }}
+                      } }
                     >
                       I have an offer code
                     </Typography>
                   </Grid>
-                  <Grid item xs={11} sm={10} md={8} lg={8} xl={8}>
-                    <div className={hasOfferCode ? "open" : "close"}>
+                  <Grid item xs={ 11 } sm={ 10 } md={ 8 } lg={ 8 } xl={ 8 }>
+                    <div className={ hasOfferCode ? "open" : "close" }>
                       <TextField
                         id="offerCodeInput"
                         name="offerCode"
-                        form={true}
-                        value={data.offerCode}
-                        onChange={(event) => {
+                        form={ true }
+                        value={ data.offerCode }
+                        onChange={ (event) => {
                           setData({
                             ...data,
                             offerCode: event.target.value,
                           });
-                        }}
+                        } }
                         label="Enter Offer Code"
-                        materialProps={{
+                        materialProps={ {
                           "data-test-id": "offer",
                           maxLength: "10",
-                        }}
+                        } }
                       />
                     </div>
                   </Grid>
-                  <Grid item xs={11} sm={10} md={8} lg={8} xl={8}>
+                  <Grid item xs={ 11 } sm={ 10 } md={ 8 } lg={ 8 } xl={ 8 }>
                     <Grid className="alignButton">
                       <ButtonPrimary
                         data-testid="contButton"
                         stylebutton='{"background": "#FFBC23", "color":"black","fontSize":"15px","padding":"0px 30px"}'
-                        onClick={handleRoute}
-                        disabled={data.loading}
+                        onClick={ handleRoute }
+                        disabled={ data.loading }
                       >
                         Continue
                         <i
                           className="fa fa-refresh fa-spin customSpinner"
-                          style={{
+                          style={ {
                             marginRight: "10px",
                             display: data.loading ? "block" : "none",
-                          }}
+                          } }
                         />
                       </ButtonPrimary>
                     </Grid>
@@ -257,18 +257,18 @@ function CheckMyOffers(props) {
             </Grid>
             <Grid
               item
-              xs={11}
-              sm={10}
-              md={10}
-              lg={10}
-              xl={10}
+              xs={ 11 }
+              sm={ 10 }
+              md={ 10 }
+              lg={ 10 }
+              xl={ 10 }
               data-testid="descriptionOutside"
-              className={innerClasses.alignSmallText}
+              className={ innerClasses.alignSmallText }
               container
               justifyContent="center"
               alignItems="center"
             >
-              <Typography className={classes.smallText} align="center">
+              <Typography className={ classes.smallText } align="center">
                 To help the government fight the funding of terrorism and money
                 laundering activities, Federal law requires all financial
                 institutions to obtain, verify, and record information that
@@ -280,7 +280,7 @@ function CheckMyOffers(props) {
                 documents.
               </Typography>
               <br />
-              <Typography className={classes.smallText} align="center">
+              <Typography className={ classes.smallText } align="center">
                 *The process uses a soft&quos; credit inquiry to determine
                 whether a loan offer is available, which does not impact your
                 credit score. If you continue with the application process

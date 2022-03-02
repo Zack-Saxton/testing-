@@ -171,7 +171,7 @@ export default function MakePayment(props) {
       );
     result?.data?.deletePayment.HasNoErrors && refetch();
   }
-  
+
   //Enable scheduled payment
   async function makeuserPayment(scheduledPaymentAccountNo, scheduledPaymentCard, scheduledPaymentDatePicker, scheduledPaymentIsDebit, scheduledPaymentAmount, RemoveScheduledPayment) {
     setPaymentOpen(false);
@@ -340,15 +340,15 @@ export default function MakePayment(props) {
         navigate("/customers/accountoverview");
       }
     } else {
-      let schedulePaymentAmount = activeLoansData != null ? activeLoansData.length ? activeLoansData[ 0 ]?.loanPaymentInformation?.scheduledPayments[0]?.PaymentAmount : false : false;
-        setlatestLoanData(activeLoansData?.slice(0, 1) ?? null);
-        let latestLoan = activeLoansData?.slice(0, 1) ?? null;
+      let schedulePaymentAmount = activeLoansData != null ? activeLoansData.length ? activeLoansData[ 0 ]?.loanPaymentInformation?.scheduledPayments[ 0 ]?.PaymentAmount : false : false;
+      setlatestLoanData(activeLoansData?.slice(0, 1) ?? null);
+      let latestLoan = activeLoansData?.slice(0, 1) ?? null;
 
-        setpaymentAmount(
-          activeLoansData?.length
-          ? hasSchedulePaymentActive != false          
+      setpaymentAmount(
+        activeLoansData?.length
+          ? hasSchedulePaymentActive != false
             ? schedulePaymentAmount.toFixed(2)
-           : (
+            : (
               Math.abs(
                 latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails
                   ?.RegularPaymentAmount
@@ -362,7 +362,7 @@ export default function MakePayment(props) {
                   ?.LoanFeesAndCharges
               )
             ).toFixed(2)
-            : null
+          : null
       );
       setTotalPaymentAmount(
         activeLoansData?.length
@@ -478,11 +478,11 @@ export default function MakePayment(props) {
 
   //Storing the routingNumber,refNumber and SchedulePayments details
   let hasSchedulePayment =
-  latestLoanData != null
-    ? latestLoanData.length
-      ? latestLoanData[ 0 ]?.loanPaymentInformation?.hasScheduledPayment
-      : false
-    : false;
+    latestLoanData != null
+      ? latestLoanData.length
+        ? latestLoanData[ 0 ]?.loanPaymentInformation?.hasScheduledPayment
+        : false
+      : false;
   let routingNumber =
     latestLoanData != null
       ? latestLoanData[ 0 ]?.loanPaymentInformation?.scheduledPayments
@@ -699,7 +699,7 @@ export default function MakePayment(props) {
     isFutureDate = "yes";
   }
 
-//View
+  //View
   return (
     <div>
       <CheckLoginStatus />

@@ -9,7 +9,6 @@ import { DataGrid } from "@material-ui/data-grid";
 import * as React from "react";
 import PropTypes from "prop-types";
 
-
 const DataGridWrapper = ({ name, rows, columns, height, width, ...otherProps }) => {
   return (
     <div style={ { height: height ?? "300", width: width ?? "100%" } }>

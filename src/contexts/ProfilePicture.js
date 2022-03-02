@@ -1,5 +1,5 @@
-import React, { createContext, useState } from 'react';
 import PropTypes from "prop-types";
+import React, { createContext, useState } from 'react';
 export const ProfilePicture = createContext();
 
 function ProfilePictureContext(props) {
@@ -26,10 +26,10 @@ function ProfilePictureContext(props) {
   );
 }
 ProfilePictureContext.propTypes = {
-  children: PropTypes.oneOfType([ 
+  children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node, 
-    PropTypes.func]),
-}
+    PropTypes.node,
+    PropTypes.func ]),
+};
 
 export default ProfilePictureContext;

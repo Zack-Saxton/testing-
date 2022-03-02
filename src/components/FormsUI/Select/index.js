@@ -11,9 +11,9 @@ Functionality       :    To use this Select Box as a default component for UI pu
 
 import { FormControl, FormHelperText, makeStyles, MenuItem, Select } from "@material-ui/core";
 import InputLabel from "@material-ui/core/InputLabel";
+import PropTypes from "prop-types";
 import React from "react";
 import "./SelectBox.css";
-import PropTypes from "prop-types";
 
 const SelectWrapper = ({
 	name,
@@ -109,9 +109,9 @@ SelectWrapper.propTypes = {
 	value: PropTypes.oneOfType([
 		PropTypes.number,
 		PropTypes.string
-	  ]),
+	]),
 	onChange: PropTypes.func,
 	helperText: PropTypes.string,
-  };
+};
 
 export default SelectWrapper;

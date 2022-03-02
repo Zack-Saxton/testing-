@@ -1,6 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
 import CircularProgress from '@material-ui/core/CircularProgress';
+import PropTypes from "prop-types";
+import React from "react";
 import { useQuery } from 'react-query';
 import DisclosureLinkController from "../../Controllers/DisclosureLinkController";
 import "./Style.css";

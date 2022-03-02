@@ -6,10 +6,10 @@ Functionality       :    To use this component to validate and get the Password 
 
 #################################################################################################################*/
 import { IconButton, InputAdornment, TextField } from "@material-ui/core";
-import React, { useState } from "react";
 import PropTypes from "prop-types";
-
+import React, { useState } from "react";
 import "./Password.css";
+
 
 //Initializing component
 const PasswordWrapper = ({ name, label, materialProps, id, ...otherProps }) => {
@@ -55,7 +55,7 @@ const PasswordWrapper = ({ name, label, materialProps, id, ...otherProps }) => {
 export default PasswordWrapper;
 
 PasswordWrapper.propTypes = {
-	name: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
   label: PropTypes.string,
   materialProps: PropTypes.object,
   id: PropTypes.string

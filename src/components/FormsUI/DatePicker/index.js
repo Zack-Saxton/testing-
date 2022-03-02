@@ -59,10 +59,10 @@ const DatePickerWrapper = ({ name, format, label, placeholder, maxdate, minyear,
 
 DatePickerWrapper.propTypes = {
 	name: PropTypes.string.isRequired,
-	format: PropTypes.string, 
-	label: PropTypes.string,  
-	placeholder: PropTypes.string, 
-	maxdate: PropTypes.instanceOf(Date), 
+	format: PropTypes.string,
+	label: PropTypes.string,
+	placeholder: PropTypes.string,
+	maxdate: PropTypes.instanceOf(Date),
 	minyear: PropTypes.number
 };
 

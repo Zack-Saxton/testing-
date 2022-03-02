@@ -1,4 +1,4 @@
-import React,{ useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Typography } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import { toast } from "react-toastify";
@@ -124,9 +124,9 @@ export default function MultipleQuestion(props) {
 	);
 }
 MultipleQuestion.propTypes = {
-	responseData : PropTypes.array,
-	setLoadingFlag : PropTypes.func,
-	transactionIdMultiple : PropTypes.string,
-	questionSetIdMultiple : PropTypes.string,
-	next : PropTypes.func,
-  };
+	responseData: PropTypes.array,
+	setLoadingFlag: PropTypes.func,
+	transactionIdMultiple: PropTypes.string,
+	questionSetIdMultiple: PropTypes.string,
+	next: PropTypes.func,
+};

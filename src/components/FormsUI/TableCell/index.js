@@ -11,7 +11,6 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 
-
 //Initializing tablecellwrapper
 const TableCellWrapper = ({ parseData, className, align, ...otherProps }) => {
 	const BuildCell = (data) => {
@@ -56,7 +55,6 @@ TableCellWrapper.propTypes = {
 	parseData: PropTypes.array,
 	className: PropTypes.object,
 	align: PropTypes.string
-  };
-  
+};
 
 export default TableCellWrapper;

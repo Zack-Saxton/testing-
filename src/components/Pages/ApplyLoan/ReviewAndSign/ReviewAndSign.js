@@ -145,9 +145,9 @@ export default function ReviewAndSign(props) {
 
   // call the get URL funtion on page load
   useEffect(() => {
-    setSelectOffer( !isLoading ? accountDetials?.data?.application?.selected_offer : null);
+    setSelectOffer(!isLoading ? accountDetials?.data?.application?.selected_offer : null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [accountDetials]);
+  }, [ accountDetials ]);
 
   //Conver the value into currency format
   const currencyFormat = (val) => {
@@ -178,7 +178,7 @@ export default function ReviewAndSign(props) {
       setLoading(false);
       toast.error(messages.reviewAndSignin.completeEsign);
     }
-  }
+  };
 
   //Check weather the offers is passed or not
   return (
