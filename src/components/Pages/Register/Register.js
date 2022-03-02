@@ -491,12 +491,10 @@ export default function Register() {
                         placeholder="MM/DD/YYYY"
                         format="MM/dd/yyyy"
                         autoComplete="off"
-                        onKeyDown={ (event) => event.preventDefault() }
                         maxdate={ myDate }
                         minyear={ 102 }
                         value={ formik.values.dob }
                         onChange={ (values) => {
-                          values.setHours(0, 0, 0, 0);
                           formik.setFieldValue("dob", values);
                         } }
                         onBlur={ formik.handleBlur }
