@@ -1,8 +1,8 @@
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Cookies from "js-cookie";
-import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { getIframe } from "../../../Controllers/ApplyForLoanController";
 import { ButtonPrimary } from "../../../FormsUI";
@@ -155,6 +155,6 @@ DocumentPhoto.propTypes = {
 	reference: PropTypes.object,
 	classes: PropTypes.object,
 	steps: PropTypes.array,
-	activeStep: PropTypes.string
+	activeStep: PropTypes.number
 
 };

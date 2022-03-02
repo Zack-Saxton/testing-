@@ -74,6 +74,7 @@ const PreApproved = () => {
                                             &nbsp;We checked your offer code<br />
                                             and {"your'e"} eligible for at least,<br />
                                             { offerAmount }<br />
+                                              
                                             and possibly more!
                                         </Typography>
                                     </Grid>
@@ -169,7 +170,7 @@ const PreApproved = () => {
                                 our customer identification program, we must ask for your name,
                                 street address, mailing address, date of birth, and other
                                 information that will allow us to identify you. We may also ask
-                                to see your {"driver's"} license or other identifying documents.
+                                to see your { "driver's" } license or other identifying documents.
                             </Typography>
                             <br />
                             <Typography className="smallText" align="center">

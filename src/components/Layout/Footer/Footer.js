@@ -117,7 +117,7 @@ export default function Footer() {
 
           <Grid>
             <Grid container id="mfInfo" className="row">
-            <Grid className="FooterLogo" item xs={ 12 } sm={ 12 } md={ 2 } lg={ 2 }>
+              <Grid className="FooterLogo" item xs={ 12 } sm={ 12 } md={ 2 } lg={ 2 }>
                 <img type="image" id="mfInfoImg" src={ Logo } alt="logo image" />
               </Grid>
 
@@ -135,7 +135,7 @@ export default function Footer() {
                       style={ { margin: "0", cursor: "pointer" } }
                       onClick={ handleOpenConsumer }
                     >
-                      {' '}(www.nmlsconsumeraccess.com){' '}
+                      { ' ' }(www.nmlsconsumeraccess.com){ ' ' }
                     </span>
                     8211 Town Center Drive, Nottingham, MD 21236; Telephone
                     Number -
@@ -162,9 +162,9 @@ export default function Footer() {
 
       <footer className="bottomBar">
         <div className="footer-copyright">
-        <div className="footerText">
+          <div className="footerText">
             <span>
-            &#169; {new Date().getFullYear()}{' '}
+              &#169; { new Date().getFullYear() }{ ' ' }
               <a className="footerHomeLink" href="/customers/accountOverview" >
                 Mariner Finance
               </a>{ " " }

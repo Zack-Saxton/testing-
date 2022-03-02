@@ -16,7 +16,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
 import PropTypes from "prop-types";
 
-
 const MultiSelectWrapper = ({
   name,
   multiselect,
@@ -128,7 +127,7 @@ const MultiSelectWrapper = ({
 export default MultiSelectWrapper;
 
 MultiSelectWrapper.propTypes = {
-	name: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
   multiselect: PropTypes.string,
   labelform: PropTypes.string,
   value: PropTypes.array,

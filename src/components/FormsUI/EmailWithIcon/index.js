@@ -7,9 +7,9 @@ Functionality       :    To use this component to vad icon with the email compon
 #################################################################################################################*/
 import { Grid } from "@material-ui/core";
 import Icon from "@material-ui/core/Icon";
+import PropTypes from "prop-types";
 import React from "react";
 import Email from "../Email";
-import PropTypes from "prop-types";
 
 const EmailWithIconWrapper = ({
   name,

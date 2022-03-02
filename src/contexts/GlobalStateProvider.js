@@ -1,5 +1,5 @@
-import React from "react";
 import PropTypes from "prop-types";
+import React from "react";
 
 const initialGlobalState = {
   profileTabNumber: 0
@@ -24,11 +24,11 @@ export const GlobalStateProvider = ({ children }) => {
   );
 };
 GlobalStateProvider.propTypes = {
-  children: PropTypes.oneOfType([ 
+  children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node, 
-    PropTypes.func]),
-}
+    PropTypes.node,
+    PropTypes.func ]),
+};
 
 export const useGlobalState = () => [
   React.useContext(GlobalStateContext),

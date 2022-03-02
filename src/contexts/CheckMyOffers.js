@@ -1,8 +1,8 @@
 import { makeStyles } from "@material-ui/core/styles";
 import Cookies from 'js-cookie';
 import Moment from "moment";
-import React, { createContext, useState } from 'react';
 import PropTypes from "prop-types";
+import React, { createContext, useState } from 'react';
 import states from '../../src/assets/data/States.json';
 import usrAccountDetails from '../components/Controllers/AccountOverviewController';
 import { decryptAES } from '../components/lib/Crypto';
@@ -238,11 +238,10 @@ function CheckMyOffersContext(props) {
 }
 
 CheckMyOffersContext.propTypes = {
- children: PropTypes.oneOfType([ 
-                      PropTypes.arrayOf(PropTypes.node),
-                      PropTypes.node, 
-                      PropTypes.func]),
-}
-
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+    PropTypes.func ]),
+};
 
 export default CheckMyOffersContext;

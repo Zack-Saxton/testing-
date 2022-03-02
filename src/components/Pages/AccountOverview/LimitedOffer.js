@@ -24,8 +24,8 @@ export default function LimitedOffer(userOfferData) {
   //Material UI css class
 
   // Get offers details
-  
-  const [userOfferAmount,setuserOfferAmount] = useState(null);
+
+  const [ userOfferAmount, setuserOfferAmount ] = useState(null);
   const [ initModal, setinitModal ] = useState(false);
   const [ offerCode, setOfferCode ] = useState(" ");
   const [ campaignType, setCampaignType ] = useState("");
@@ -47,7 +47,7 @@ export default function LimitedOffer(userOfferData) {
       setAmount(userOfferData?.userOffers?.offerAmount);
       setfirstName(userOfferData?.userOffers?.firstName);
       setCampaignType(userOfferData?.userOffers?.CampaignTypeDesc);
-      setuserOfferAmount(userOfferData?.userOffers?.offerAmount)
+      setuserOfferAmount(userOfferData?.userOffers?.offerAmount);
     }
     return null;
   }, [ userOfferData ]);
@@ -79,7 +79,7 @@ export default function LimitedOffer(userOfferData) {
 
   //View
   return (
-<div id="limitedOfferWrap" className="limitedOfferWrap">
+    <div id="limitedOfferWrap" className="limitedOfferWrap">
       <Grid container id="overviewWrap" className="overviewWrap">
         <Grid className="imageholder">
           <div className="yellowBackground">

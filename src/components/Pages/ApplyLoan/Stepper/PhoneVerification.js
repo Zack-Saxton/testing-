@@ -17,7 +17,6 @@ import { ButtonPrimary, ButtonSecondary, ButtonWithIcon, TextField } from "../..
 import messages from "../../../lib/Lang/applyForLoan.json";
 import PropTypes from "prop-types";
 
-
 const useStyles = makeStyles((Theme) => ({
 	pTagTextStyle: {
 		textAlign: "justify",
@@ -65,8 +64,6 @@ export default function PhoneVerification(props) {
 	const innerClasses = useStyles();
 	const { data: accountDetials } = useQuery('loan-data', usrAccountDetails);
 
-
-
 	function phoneNumberMask(values) {
 		let phoneNumber = values.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
 		values = !phoneNumber[ 2 ] ? phoneNumber[ 1 ] : '(' + phoneNumber[ 1 ] + ') ' + phoneNumber[ 2 ] + (phoneNumber[ 3 ] ? '-' + phoneNumber[ 3 ] : '');
@@ -77,7 +74,7 @@ export default function PhoneVerification(props) {
 		setPhoneNum(accountDetials?.data?.customer.latest_contact.phone_number_primary);
 		return null;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [accountDetials]);
+	}, [ accountDetials ]);
 
 	useEffect(() => {
 		formik.setFieldValue("phone", phoneNum);
@@ -226,7 +223,6 @@ export default function PhoneVerification(props) {
 					<Grid item sm={ 5 }>
 						<TextField
 							name="firstName"
-							form={ true }
 							label="Enter Passcode"
 							value={ passcode }
 							onChange={ onPasscodeChange }
@@ -275,7 +271,7 @@ export default function PhoneVerification(props) {
 				<DialogContent dividers>
 					<Typography align="justify" className={ innerClasses.typoStyle } gutterBottom>
 						If you are currently unable to access the phone you provided, click
-						{" Verify phone later "} to proceed with the Remainder of the
+						{ " Verify phone later " } to proceed with the Remainder of the
 						Verification process. Please note that we will need to manually
 						verify your phone number by calling and speaking with you directly.
 					</Typography>
@@ -308,8 +304,8 @@ export default function PhoneVerification(props) {
 	);
 }
 PhoneVerification.propTypes = {
-	next : PropTypes.func,
-	classes : PropTypes.object,
+	next: PropTypes.func,
+	classes: PropTypes.object,
 	steps: PropTypes.array,
 	activeStep: PropTypes.number
-  };
+};

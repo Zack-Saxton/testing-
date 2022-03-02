@@ -9,7 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import * as yup from "yup";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import states from '../../../assets/data/States.json';
@@ -21,7 +21,6 @@ import { ButtonPrimary, Checkbox, Popup, RenderContent, Select, TextField, Zipco
 import ErrorLogger from "../../lib/ErrorLogger";
 import "./Style.css";
 import PropTypes from "prop-types";
-
 
 //Styling
 const useStyles = makeStyles((theme) => ({
@@ -205,6 +204,7 @@ export default function CreditKarma(props) {
   const [ creditPopup, setCreditPopup ] = useState(false);
   const [ webTOUPopup, setwebTOUPopup ] = useState(false);
   const [ privacyPopup, setPrivacyPopup ] = useState(false);
+  let location = useLocation();
 
   const handleOnClickEsign = () => {
     setEsignPopup(true);
@@ -283,36 +283,36 @@ export default function CreditKarma(props) {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      firstname: props?.location?.state?.first_name ?? "",
-      lastname: props?.location?.state?.last_name ?? "",
-      streetAddress: props?.location?.state?.address_street ?? "",
-      city: props?.location?.state?.address_city ?? "",
-      state: props?.location?.state?.address_state ? states[ props.location.state.address_state ] : "",
-      zip: props?.location?.state?.address_postal_code ?? "",
-      citizenship: props?.location?.state?.citizenship ?? "",
-      personalIncome: props?.location?.state?.annual_income
+      firstname: location?.state?.first_name ?? "",
+      lastname: location?.state?.last_name ?? "",
+      streetAddress: location?.state?.address_street ?? "",
+      city: location?.state?.address_city ?? "",
+      state: location?.state?.address_state ? states[ location.state.address_state ] : "",
+      zip: location?.state?.address_postal_code ?? "",
+      citizenship: location?.state?.citizenship ?? "",
+      personalIncome: location?.state?.annual_income
         ? "$" +
-        parseFloat(props.location.state.annual_income)
+        parseFloat(location.state.annual_income)
           .toFixed(2)
           .replace(/(\d)(?=(\d{3})+\.)/g, "$1,")
           .slice(0, -3)
         : "",
-      householdIncome: props?.location?.state?.household_annual_income
+      householdIncome: location?.state?.household_annual_income
         ? "$" +
-        parseFloat(props.location.state.household_annual_income)
+        parseFloat(location.state.household_annual_income)
           .toFixed(2)
           .replace(/(\d)(?=(\d{3})+\.)/g, "$1,")
           .slice(0, -3)
         : "",
-      employementStatus: props?.location?.state?.employment_status ?? "",
-      activeDuty: props?.location?.state?.active_duty ?? "",
-      activeDutyRank: props?.location?.state?.active_duty_rank ?? "",
-      militaryStatus: props?.location?.state?.military_status ?? "",
-      martialStatus: props?.location?.state?.marital_status ?? "",
-      spouseadd: props?.location?.state?.spouse_address_street ?? "",
-      spouseZipcode: props?.location?.state?.spouse_address_postal_code ?? "",
-      spousecity: props?.location?.state?.spouse_address_city ?? "",
-      spouseSelectState: props?.location?.state?.spouse_address_state ? states[ props.location.state.spouse_address_state ] : "",
+      employementStatus: location?.state?.employment_status ?? "",
+      activeDuty: location?.state?.active_duty ?? "",
+      activeDutyRank: location?.state?.active_duty_rank ?? "",
+      militaryStatus: location?.state?.military_status ?? "",
+      martialStatus: location?.state?.marital_status ?? "",
+      spouseadd: location?.state?.spouse_address_street ?? "",
+      spouseZipcode: location?.state?.spouse_address_postal_code ?? "",
+      spousecity: location?.state?.spouse_address_city ?? "",
+      spouseSelectState: location?.state?.spouse_address_state ? states[ location.state.spouse_address_state ] : "",
     },
 
     validationSchema: validationSchema,
@@ -343,11 +343,12 @@ export default function CreditKarma(props) {
           spouseZipcode: values.spouseZipcode,
           spousecity: values.spousecity,
           spouseSelectState: Object.keys(states).find(key => states[ key ] === values.spouseSelectState),
-          partner_token: props?.location?.state?.partner_token ?? "",
-          email: props?.location?.state?.email ?? "",
+          partner_token: location?.state?.partner_token ?? "",
+          email: location?.state?.email ?? "",
         };
+
         let partnerConfirmRes = await partnerConfirmInfo(confirmInfoData, navigate);
-        if (partnerConfirmRes.data.status !== 200) {
+        if (partnerConfirmRes.status !== 200) {
           setLoading(false);
         }
       }

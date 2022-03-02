@@ -8,8 +8,8 @@ Functionality       :    To use this AutoComplete SingleSelect as a default comp
 #################################################################################################################*/
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import React from "react";
 import PropTypes from "prop-types";
+import React from "react";
 
 const AutoCompleteWrapper = ({
   name,

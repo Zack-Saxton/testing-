@@ -174,7 +174,7 @@ export default function OfferTable(props) {
 														title={
 															<>
 																<Typography color="inherit">What Is An APR?</Typography>
-																<p>APR stands for {"annual percentage rate"} and represents the effective annual cost of a loan, including both the interest rate and origination fee.</p>
+																<p>APR stands for { "annual percentage rate" } and represents the effective annual cost of a loan, including both the interest rate and origination fee.</p>
 															</>
 														}
 													>
@@ -437,7 +437,7 @@ OfferTable.propTypes = {
 	setSelectedIndex : PropTypes.func,
 	setSelectedTerm : PropTypes.func,
 	selectedTerm : PropTypes.string,
-	selectedIndex : PropTypes.number,
+	selectedIndex : PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]),
 	setOffersToCompareChart : PropTypes.func,
 	tabVerticalProps : PropTypes.func,
 	noOfTerms : PropTypes.number,

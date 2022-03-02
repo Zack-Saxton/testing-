@@ -9,8 +9,8 @@ Functionality       :    To use this TextArea as a default component for UI purp
 
 import { TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import React from "react";
 import PropTypes from "prop-types";
+import React from "react";
 
 const TextAreaWrapper = ({
   name,
