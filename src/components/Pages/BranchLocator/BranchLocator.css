@@ -20,8 +20,8 @@
   color: #0f4eb3 !important;
 }
 .branchMap {
-  min-height: 650px !important;
-  height: 650px !important;
+  min-height: 450px !important;
+  height: 450px !important;
 }
 #branchMapWrap {
   height: 100% !important;
@@ -134,6 +134,7 @@
   padding: 0px 0px 0px 4.5%;
 }
 .locationInfo {
+  max-width: 320px;
   margin-bottom: 2% !important;
   display: flex;
   flex-direction: column;
@@ -175,9 +176,10 @@
   cursor: pointer !important;
 }
 .branchListWrap {
-  max-height: 198px;
+  justify-content: space-between;
+  /* max-height: 198px;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: scroll; */
 }
 .BlacktextColor {
   color: #171717;
@@ -287,9 +289,9 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
 .branchLocatorHeadingMain {
   font-size: 1.25rem !important;
   font-weight: 400;
-  line-height: 36px;
+  line-height: 1.25;
   color: white;
-  margin: 1% 0 4% 0;
+  margin: 1% 0 3% 0;
 }
 /* .blueBoxWrap {
   font-size: 1.25rem !important;
@@ -350,12 +352,20 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
   margin: 15px 0px;
 }
 .businessHours{
-  padding-left: 14px;
+  /* padding-left: 14px; */
+  color: white;
+}
+.businessHours {
+  padding-left: 10px;
+}
+.businessHours hr{
+  margin: 15px 0px 10px 0px;
 }
 .businessHours h4 {
-  margin: 0px 0px 12px 0px;
+  margin: 0px 0px 10px 0px;
 }
 .businessHoursSpan{
+  font-family: MuliBold !important;
   font-weight: bolder;
   padding-bottom: 5px;
   display: block;
@@ -380,6 +390,7 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
   background-color: #f6f6f6 !important;
   max-width: 1200px;
   margin: auto;
+  padding-bottom: 3%;
 }
 #inputText1-label{
   padding-left: 36px;
@@ -488,15 +499,16 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
   height: 150px; */
  }
  .branchAddressSpan{
-   margin: 0px;
+   margin: 15px 0px;
    color: white;
+   display: block;
  }
  .branchDetailsWrap{
    margin: 15px 0px;
  }
 
  .branchManager{
-  padding-left: 14px;
+   padding: 5px 0px 15px 0px;
 }
 
  .branchManager small{
@@ -509,8 +521,12 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
 }
 .secondaryButtonWrap{
   justify-content: center;
+  padding-bottom: 4%;
 }
 
+.learnMoreLinks {
+  margin-top: 10px;
+}
 .learnMoreLinks a{
   color: #214476;
 }
@@ -574,7 +590,7 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
   width: 100%;
   background-color: transparent;
   border: 1px solid #0F4EB3  !important;
-  border-right: none !important;
+  /* border-right: none !important; */
   border-radius: 50px !important;
   box-shadow: unset !important;
   border-top-right-radius: 0px !important;
@@ -615,12 +631,68 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
   margin: 3% 0% ;
   line-height: 110%;
 }
-.holidayList{
+/* .holidayList{
   width: 100%;
-}
-.workingSaturdays{
+} */
+/* .workingSaturdays{
   max-width: 1200px;
   margin: auto;
+}
+.workingSaturdaysTable{
+  padding: 0px 30px 0px 15px;
+  box-sizing: border-box;
+}
+.holidayHeading{
+  font-size: 2.125rem;
+  color: #214476;
+  font-weight: 400;
+}
+
+.tableborder table thead tr th{
+  border: 1px solid    rgba(224, 224, 224, 1);
+}
+.tableborder tbody td{
+  border: 1px solid    rgba(224, 224, 224, 1);
+}
+
+.tableheading tr th{
+  font-size: 0.938rem !important;
+  font-weight: 700;
+} */
+
+.mapContainerWrap{
+  max-width: 1200px;
+  margin: auto;
+}
+.branchMapSection{
+  padding-right: 15px;
+}
+.branchtextSection{
+  padding-left: 15px;
+}
+
+.findNearbyBranch{
+  max-width: 1200px;
+  margin: auto;
+  width: 100%;
+}
+.applyOnlineWrap{
+  max-width: 1200px;
+  width: 100%;
+  margin: 0;
+}
+.applyOnline{
+  margin: auto;
+  padding: 20px 30px;
+  border-radius: 10px;
+  margin: 60px auto 0px auto;
+  margin-top: 5%;
+  margin-bottom: 11%;
+  box-shadow: rgb(61 61 61 / 10%) 0px 8px 44px 0px;
+}
+
+.marinerFinanceBuildingImageWrap {
+  padding-right: 10px;
 }
 @media (max-width: 960px) {
   .mobileImage{

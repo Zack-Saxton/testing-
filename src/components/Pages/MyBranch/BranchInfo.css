@@ -11,14 +11,14 @@
 #phoneLink {
   color: #0f4eb3 !important;
 }
-.branchMap {
+/* .branchMap {
   min-height: 650px !important;
   height: 650px !important;
 }
 #branchMapWrap {
   height: 100% !important;
 
-}
+} */
 #branchMapWrap iframe {
   height: 100% !important;
   border-radius: 10px !important;
@@ -119,13 +119,13 @@
 #searchBoxBottom{
   padding: 0px 0px 0px 4.5%;
 }
-.locationInfo {
+/* .locationInfo {
   margin-bottom: 2% !important;
   display: flex;
   flex-direction: column;
   align-items: self-start;
   justify-content: space-between;
-}
+} */
 .locationInfo .nav_link {
   display: flex;
   align-items: center;
@@ -159,11 +159,11 @@
   text-decoration: none !important;
   cursor: pointer !important;
 }
-.branchListWrap {
+/* .branchListWrap {
   max-height: 198px;
   overflow-x: hidden;
   overflow-y: scroll;
-}
+} */
 .BlacktextColor {
   color: #171717;
   text-decoration: none;

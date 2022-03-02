@@ -218,7 +218,7 @@ export default function StatePage() {
             </Breadcrumbs>
             <Grid className="blueBoxWrap">
             <Grid id="findBranchWrapTwo" >
-              <h4 className={ classes.headigText }>Personal Loans in { Name }</h4>
+              <h4 className={ classes.headigText }>Personal Loans in <strong>{ Name }</strong></h4>
               <Grid id="findBranchGrid">
                 <SearchIcon className="searchIcon" style={ { color: "white" } } />
                 <PlacesAutocomplete
@@ -282,7 +282,7 @@ export default function StatePage() {
         <Grid
           className="mapWrap"
           ref={ mapSection }
-          style={ { padding: "4% 30px 4% 30px", backgroundColor: "#f6f6f6" } }
+          style={ { padding: "4% 0px 4% 0px", backgroundColor: "#f6f6f6" } }
           container
         >
           <Grid
@@ -425,7 +425,7 @@ export default function StatePage() {
             ) }
           </Grid>
         </Grid>
-        <Grid id="greyBackground" className={ clessesforptag.gridMargin } container>
+        <Grid id="greyBackground"  container>
           <Grid id="getDirectionButton" container className={ clessesforptag.gridPadding } item md={ 6 } sm={ 12 } xs={ 12 }>
             <ButtonPrimary
               href={ getBranchAddress }

@@ -32,7 +32,6 @@ import CustomerRatings from "../MyBranch/CustomerRatings";
 import "./BranchLocator.css";
 import Map from "./BranchLocatorMap";
 
-import BranchHolidays from "./BranchHolidyas";
 const useStyles = makeStyles({
   ptag: {
     margin: "0px",
@@ -255,11 +254,14 @@ export default function StatePage(props) {
                   return <div className="weekdays" key={ index }>{ ele } </div>;
                 })
                 : "" }
+                <hr/>
                 <Grid  className="branchManager">
               <small>Branch Manager</small>
               <br />
-            </Grid>
+              <span>
               { Branch_Details?.branchManager }
+              </span>
+            </Grid>
             </Grid>
           </Grid>
           {/* <Grid className="branchDetailsWrap" container>
@@ -289,8 +291,8 @@ export default function StatePage(props) {
     <Grid
       container
       style={ { margin: "auto", justifyContent: "space-between" } }
-      item
-      md={ 10 }
+      // item
+      // md={ 10 }
     >
       <Grid container className="branchListWrap">
         { getBranchList ? (
@@ -333,7 +335,7 @@ export default function StatePage(props) {
                     { item?.PhoneNumber }
                   </a>
                 </p>
-                <ButtonPrimary
+                <ButtonSecondary
                   onClick={ () => {
                     setBranchAddress(
                       "https://www.google.com/maps/search/" + item.Address
@@ -343,7 +345,7 @@ export default function StatePage(props) {
                   stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
                 >
                   Get Directions
-                </ButtonPrimary>
+                </ButtonSecondary>
               </Grid>
             );
           })
@@ -354,8 +356,8 @@ export default function StatePage(props) {
     </Grid>
   );
   const ApplyNowOnlineButton = (
-    <Grid item md={ 10 }>
-      <Grid className="greyBackgroundWrap">
+    <Grid className="applyOnlineWrap">
+      <Grid className="applyOnline">
         <Typography className="applyOnlineHeading">
           { "Can't get to a branch? No worries, apply for an online loan today!" }
         </Typography>
@@ -442,63 +444,70 @@ export default function StatePage(props) {
     <div>
       <Helmet>
         <meta charSet="utf-8" />
-        <link rel="icon" type="image/png" href={ TitleImage } sizes="16x16" />
-        <meta name="description" content={ `Looking for a personal loans in ${ Branch_Details.BranchName },${ getStateName } ?  Mariner Finance branch employees can help. Visit our ${ Branch_Details.BranchName }, ${ getStateName } location today.` } />
+        <link rel="icon" type="image/png" href={TitleImage} sizes="16x16" />
+        <meta
+          name="description"
+          content={`Looking for a personal loans in ${Branch_Details.BranchName},${getStateName} ?  Mariner Finance branch employees can help. Visit our ${Branch_Details.BranchName}, ${getStateName} location today.`}
+        />
       </Helmet>
       <Grid
         className="greyBackground"
         container
-        justifyContent={ "center" }
+        justifyContent={"center"}
         // style={ { backgroundColor: "#f9f9f9" } }
       >
-        <Grid className="addressCardWrap">
+        <Grid className="addressCardWrap">{BranchDetailsInCard}</Grid>
 
-          { BranchDetailsInCard }
-        </Grid>
-        
-        { DrivingDirectionPopup }
-        < BranchHolidays />
+        {DrivingDirectionPopup}
         <Grid
-          style={ {
+          style={{
             backgroundColor: "#f9f9f9",
             width: "100%",
             padding: "4% 2rem 4% 1rem",
-          } }
+          }}
         >
-          <Grid style={ { margin: "auto" } }>
-            <h4 className="PesonalLoanMapHeading">
-              <strong>
-                One-On-One Support With Your Personal Loans in{ " " }
-                { Branch_Details.BranchName }, { getStateName }
-              </strong>
-            </h4>
+          <Grid className="mapContainerWrap" container>
+            <Grid className="branchMapSection" item md={6}>
+              <Grid>
+                <h4 className="PesonalLoanMapHeading">
+                  <strong>
+                    One-On-One Support With Your Personal Loans in{" "}
+                    {Branch_Details.BranchName}, {getStateName}
+                  </strong>
+                </h4>
+              </Grid>
+              {DisplayBranchMap}
+            </Grid>
+            <Grid className="branchtextSection" item md={6}>
+              <h4 className="PesonalLoanMapHeading">
+                <strong>
+                  The {Branch_Details.BranchName}, {getStateName} Branch
+                  Welcomes You For Personal Loans That Fit Your Needs
+                </strong>
+              </h4>
+              <p className="PesonalLoanMapParagraph">
+                Our {Branch_Details.BranchName} lending professionals are proud
+                of the neighborhoods they live and work in. Ready to speak to a
+                Huntsville lending professional in person? The better we know
+                you, the more we can help. You have your own unique goals to
+                meet, and it all starts with a conversation at your local
+                branch.A personal loan can meet a variety of needs, including
+                medical emergencies, home improvement projects, vacations,
+                weddings, tuitions costs, and debt consolidation. Mariner
+                Finance has a personal loans that fits every one of those
+                situations, and more.Ready to apply for a personal loans at the{" "}
+                {Branch_Details.BranchName}, {getStateName} branch? Our
+                Huntsville branch is totally focused on solving your personal
+                financial challenges.
+              </p>
+            </Grid>
           </Grid>
-          { DisplayBranchMap }
-          <Grid style={ { margin: "auto", paddingTop: "4%" } } item md={ 10 }>
+        </Grid>
+
+        <Grid className="findNearbyBranch"> 
+          <Grid style={{ margin: "auto" }} >
             <h4 className="PesonalLoanMapHeading">
-              <strong>
-                The { Branch_Details.BranchName }, { getStateName } Branch Welcomes
-                You For Personal Loans That Fit Your Needs
-              </strong>
-            </h4>
-            <p className="PesonalLoanMapParagraph">
-              Our { Branch_Details.BranchName } lending professionals are proud of
-              the neighborhoods they live and work in. Ready to speak to a
-              Huntsville lending professional in person? The better we know you,
-              the more we can help. You have your own unique goals to meet, and
-              it all starts with a conversation at your local branch.A personal
-              loan can meet a variety of needs, including medical emergencies,
-              home improvement projects, vacations, weddings, tuitions costs,
-              and debt consolidation. Mariner Finance has a personal loans that
-              fits every one of those situations, and more.Ready to apply for a
-              personal loans at the { Branch_Details.BranchName }, { getStateName }{ " " }
-              branch? Our Huntsville branch is totally focused on solving your
-              personal financial challenges.
-            </p>
-          </Grid>
-          <Grid style={ { margin: "auto" } } item md={ 10 }>
-            <h4 className="PesonalLoanMapHeading">
-              <strong>Find nearby { StateFullName } branches</strong>
+              <strong>Find nearby {StateFullName} branches</strong>
             </h4>
             <p className="PesonalLoanMapParagraph">
               Mariner Finance operates over 480 branch locations in twenty-four
@@ -509,16 +518,38 @@ export default function StatePage(props) {
               near you below:
             </p>
           </Grid>
-          { Display3moreClosestBranchList }
+          {Display3moreClosestBranchList}
+          <Grid>
+            <Typography className="learnMoreLinks">
+              Learn more about our{" "}
+              <a href="https://www.marinerfinance.com/personal-loans/">
+                personal loans
+              </a>
+              ,{" "}
+              <a href="https://www.marinerfinance.com/car-loans/">car loans</a>,{" "}
+              <a href="https://www.marinerfinance.com/personal-loans/debt-consolidation-loans/">
+                debt consolidation loans
+              </a>
+              ,{" "}
+              <a href="https://www.marinerfinance.com/personal-loans/home-improvement-loans/">
+                home improvement loans
+              </a>
+              ,{" "}
+              <a href="https://www.marinerfinance.com/personal-loans/vacation-loans/">
+                vacation loans
+              </a>
+              , and{" "}
+              <a href="https://www.marinerfinance.com/personal-loans/wedding-loans/">
+                wedding loans
+              </a>
+              .
+            </Typography>
+          </Grid>
         </Grid>
-        <Grid item md={ 10 }>
-          <Typography className="learnMoreLinks">
-            Learn more about our <a href="https://www.marinerfinance.com/personal-loans/">personal loans</a>, <a href="https://www.marinerfinance.com/car-loans/">car loans</a>, <a href="https://www.marinerfinance.com/personal-loans/debt-consolidation-loans/">debt consolidation loans</a>, <a href="https://www.marinerfinance.com/personal-loans/home-improvement-loans/">home improvement loans</a>, <a href="https://www.marinerfinance.com/personal-loans/vacation-loans/">vacation loans</a>, and <a href="https://www.marinerfinance.com/personal-loans/wedding-loans/">wedding loans</a>.
-          </Typography>
-        </Grid>
-        { ApplyNowOnlineButton }
+
+        {ApplyNowOnlineButton}
         <Grid className="customerRatingsWrap">
-        <CustomerRatings />
+          <CustomerRatings />
         </Grid>
       </Grid>
     </div>
