@@ -22,7 +22,7 @@ const BranchLocatorHeader = () => {
   return (
     <div id="headerWrap" className={ classes.grow }>
       <AppBar id="MainHeaderWrap" position="static">
-        <Toolbar className="headerToolBar">
+        <Toolbar className="branchLocatorHeaderToolBar">
           <Typography
             onClick={ redirectToAccountOverview }
             className={ classes.title }

@@ -7,7 +7,7 @@ import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import React from "react";
 import Housing from "../../../assets/images/equal_Housing_Lender.png";
-import Logo from "../../../assets/images/MarinerLogo.png";
+import Logo from "../../../assets/images/mf-logo.png";
 import ConsumerDialog from "../ConsumerFooterDialog/ConsumerDialog";
 import "./BranchLocatorFooter.css";
 export default function BranchLocatorFooter() {
@@ -195,7 +195,8 @@ export default function BranchLocatorFooter() {
   return (
     <div style={ { background: "#d7e6ed" } }>
       <footer style={ { width: "100%" } }>
-        <section className="section-top-normal-footer">
+        <Grid className="branchLocatorFooterWrap">
+        <section className="branch-Locator-Footer">
           <Grid container spacing={ 4 } justifyContent="space-evenly">
             { groupedFooter.map((nested) => (
               <Grid item xs={ 6 } sm={ 3 } key={ Math.random() * 1000 }>
@@ -229,7 +230,7 @@ export default function BranchLocatorFooter() {
                           key={ Math.random() * 1000 }
                         >
                           <li key={ item.name } style={ { listStyleType: "none" } }>
-                            <a href={ item.link } className="hrefTag">
+                            <a href={ item.link } className="footerHrefTag">
                               { item.name }
                             </a>
                           </li>
@@ -244,7 +245,6 @@ export default function BranchLocatorFooter() {
         </section>
         <section
           className="paragraph"
-          style={ { padding: "20px 70px 0px 70px" } }
         >
           <p>
             <small>
@@ -303,23 +303,23 @@ export default function BranchLocatorFooter() {
           </p>
         </section>
         <Box sx={ { flexGrow: 1, justifyContent: "space-evenly" } }>
-          <Grid container>
-            <Grid item xs={ 3 }>
-              <a href="#">
+          <Grid container className="footerLogoLinksWrap">
+            <Grid item xs={12} sm={12} md={3}>
+              <a className="footerLogoimageWrap" href="#">
                 <img
                   src={ Logo }
-                  style={ {
-                    display: "block",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                  } }
+                  // style={ {
+                  //   display: "block",
+                  //   marginLeft: "auto",
+                  //   marginRight: "auto",
+                  // } }
                 />
               </a>
             </Grid>
-            <Grid item xs={ 6 }>
+            <Grid item xs={12} sm={12} md={6}>
               <div className="row">
                 <div style={ { paddingTop: "15px", paddingBottom: "15px" } }>
-                  <p className="leftAlignAddress">
+                  <p className="centerAlignAddress">
                     Mariner Finance, LLC, NMLS No. 166564
                     <span
                       style={ { margin: "0", cursor: "pointer" } }
@@ -327,8 +327,7 @@ export default function BranchLocatorFooter() {
                     >
                       (www.nmlsconsumeraccess.com)
                     </span>
-                    <br />
-                    8211 Town Center Drive, Nottingham, MD 21236; <br />
+                    8211 Town Center Drive, Nottingham, MD 21236;
                     Telephone Number -
                     <a href="tel:+8773102373" className="hrefTag ">
                       &nbsp; (877) 310-2373
@@ -337,8 +336,8 @@ export default function BranchLocatorFooter() {
                 </div>
               </div>
             </Grid>
-            <Grid item xs={ 3 }>
-              <a href="#">
+            <Grid item xs={12} sm={12} md={3}>
+              <a className="footerLogoimageWrap" href="#">
                 <img
                   src={ Housing }
                   style={ {
@@ -351,6 +350,8 @@ export default function BranchLocatorFooter() {
             </Grid>
           </Grid>
         </Box>
+        
+        </Grid>
         <section className="section-bottom">
           <div>
             <span style={ { color: "white" } }>

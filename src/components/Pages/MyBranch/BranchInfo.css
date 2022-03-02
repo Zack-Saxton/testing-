@@ -54,7 +54,7 @@
   align-items: center;
   position: relative;
   padding: 5px 0px;
-  margin: 0px 0px 23px 0px;
+  margin: 0px;
   position: relative;
 }
 .zipLabel {
@@ -63,13 +63,13 @@
   font-size: 12px;
   color: #171717;
 }
-.searchIconBottom {
+/* .searchIconBottom {
   color: #595959 !important;
   position: absolute;
   top: 12px;
   font-size: 25px !important;
   left: 9px;
-}
+} */
 #findBranchGrid .branchLocatorInput .MuiInput-underline:before,
 #findBranchGrid .branchLocatorInput .MuiInput-underline:after {
   border-bottom: 2px solid white !important;
@@ -80,13 +80,13 @@
   border-bottom: 2px solid white !important;
   border-bottom-color: #3f51b5 !important;
 }
-.searchIcon {
+/* .searchIcon {
   color: #595959 !important;
   position: absolute;
   top: 20px;
   font-size: 26px !important;
   left: -4px;
-}
+} */
 .goIcon {
   font-size: 20px !important;
 }
@@ -103,6 +103,18 @@
 #findBranchWrapTwo {
   margin-top: 4%;
   padding: 0 !important;
+}
+#findBranchWrapTwo h4{
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.625rem !important;
+  font-weight: 400;
+  color: #fff;
+}
+#findBranchWrapTwo h4 span{
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.625rem !important;
+  font-weight: 700;
+  color: #fff;
 }
 #searchBoxBottom{
   padding: 0px 0px 0px 4.5%;
@@ -161,14 +173,14 @@
     font-weight: 700 !important;
     color: #214476 !important;
 }
-.branchPhoneNumber{
+/* .branchPhoneNumber{
     font-size: 0.938rem !important;
     font-weight: 700 !important;
     color: #214476 !important;
     text-decoration: none;
     display: flex;
     align-items: center;
-}
+} */
 #branchLists {
   background-color: f6f6f6;
   min-height: 450px !important;
@@ -187,14 +199,19 @@
   border-right-color: #eee;
   border-bottom-color: #eee;
 }
+.customerRatingsWrap{
+  width: 100%;
+  background-color: #214476;
+}
 .blueBGColor {
   background-color: #214476;
   width: 100%;
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 4% 1% 4% 1%;
-  margin: 4% 0 0 0;
+  padding: 4% 0% 4% 0% !important;
+  margin: auto;
+  max-width: 1200px;
 }
 .blueBGColor h4 {
   font-size: 2.138rem;
@@ -243,30 +260,32 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
   color: #ffffff8a !important;
 }
 .branchLocatorHeading b {
-  font-size: 2.125rem !important;
+  font-family: MuliBold !important;
+  font-size: 1.875rem !important;
   font-weight: 700;
   line-height: 36px;
 }
-.branchLocatorHeadingMain {
-  font-size: 2.125rem !important;
+/* .branchLocatorHeadingMain {
+  font-size: 1.25rem !important;
   font-weight: 400;
-  line-height: 36px;
-  color: #214476;
-  margin: 1% 0 4% 0;
-}
+  line-height: 1.25;
+  color: white;
+  margin: 0 0 2% 0;
+} */
 .branchLocatorHeading {
   font-size: 2.125rem !important;
   font-weight: 400;
   line-height: 36px;
-  color: #214476;
+  color: white;
   margin: 3% 0 4% 0;
 }
 .numberText {
+  font-size: 1.875rem !important;
   margin: 17px 2% 14px 0%;
 }
 .branchSmallText {
   font-size: 0.938rem;
-  color: #000;
+  color: white;
   margin: 0;
   display: inline-block;
 }
@@ -294,13 +313,13 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
   line-height: 1.5;
   font-size: 0.938rem;
 }
-.PesonalLoanHeading {
+/* .PesonalLoanHeading {
   color: #214476;
   text-align: center;
   font-size: 2.125rem;
   font-weight: 500;
   margin: 0;
-}
+} */
 .black-text {
   display: block;
   margin: 15px 0px;
@@ -337,10 +356,21 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
 .feefowidget-background-white{
   background-color: rgba(255, 255, 255, 0) !important;
 }
+.mainContentWrap{
+  width: 100%;
+  background-color: white;
+}
+#mainContent{
+  text-align: center;
+  padding: 4% 0px;
+  background-color: white;
+  max-width: 1200px;
+  margin: auto;
+}
 @media (max-width: 1400px) {
-  .branchImage img {
+  /* .branchImage img {
     width: 100%;
-  }
+  } */
 }
 @media (max-width: 960px) {
   .mobileImage{
@@ -356,7 +386,7 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
     padding-top: 40px;
   }
   #getDirectionWrap{
-    justify-content: center;
+    /* justify-content: center; */
   }
   #getDirectionButton{
     width: 100%;

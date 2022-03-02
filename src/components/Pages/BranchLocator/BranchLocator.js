@@ -21,7 +21,7 @@ import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { MFStates, MFStateShort } from "../../../assets/data/marinerBusinesStates";
 import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile_Image.png";
-import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.png";
+import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.jpg";
 import TitleImage from "../../../assets/images/Favicon.png";
 import BranchDayTiming, { mapInformationBranchLocator } from "../../Controllers/BranchDayTiming";
 import BranchLocatorController from "../../Controllers/BranchLocatorController";
@@ -227,14 +227,10 @@ export default function BranchLocator() {
 
   const stateLinksandStaticText = (
     <Grid
+      id="mainContent"
       ref={ mapSection }
       container
       item xs={ 12 } md={ 10 }
-      style={ {
-        textAlign: "center",
-        padding: "4% 0px",
-        backgroundColor: "#f9f9f9",
-      } }
     >
       <Grid container item xs={ 12 } justifyContent="center">
         <Typography
@@ -356,7 +352,7 @@ export default function BranchLocator() {
           >
             { ({ getInputProps, suggestions, getSuggestionItemProps, loading2 }) => (
               <div className="searchInputWrap">
-                <input id="search2" className="stateSearch" { ...getInputProps({ placeholder: 'Enter city & state or zip code' }) } />
+                <input className="branchSearchTwo" { ...getInputProps({ placeholder: 'Enter city & state or zip code' }) } />
                 <div className="serachResult">
                   { loading2 && <div>Loading...</div> }
                   { React.Children.toArray(suggestions.map(suggestion => {
@@ -404,7 +400,7 @@ export default function BranchLocator() {
             { getBranchList ? (
               getBranchList.map((item, index) => {
                 return (
-                  <Grid key={ index } item md={ 4 } className="locationInfo">
+                  <Grid key={ index }  className="locationInfo">
                     <NavLink
                       to={ `/branchLocator/[${ MFStates[ MFStateShort.indexOf(item.Address.substring(item.Address.length - 8, item.Address.length).substring(0, 2)) ] }]-personal-loans-in-${ item.BranchName }-${ item.Address.substring(item.Address.length - 8, item.Address.length).substring(0, 2) }` }
                       state={ { Branch_Details: item } }
@@ -464,7 +460,7 @@ export default function BranchLocator() {
 
   const search1andgetList = (
     <Grid id="findBranchWrapTwo" className={ classes.blueBackground }>
-      <h4 className={ classes.headigText }>Find a <b>Branch Near You!</b></h4>
+      <h4 className={ classes.headigText }>Find a <span>Branch Near You!</span></h4>
       <Grid id="findBranchGrid">
         <SearchIcon className="searchIcon" style={ { color: "white" } } />
         <PlacesAutocomplete
@@ -522,19 +518,18 @@ export default function BranchLocator() {
     </Breadcrumbs>
   );
   const BreadCrumsAndSearch1AndText = (
-    <Grid container style={ { width: "100%" } }>
-      <Grid className="branchImage" item md={ 6 } sm={ 12 } xs={ 12 }>
+    <Grid className="branchLayoutGrid" container>
+      <Grid className="branchImage" item md={ 7 } sm={ 12 } xs={ 12 }>
         <img className="mobileImage" src={ BranchImageMobile } alt="MF Banner" />
         <img className="webImage" src={ BranchImageWeb } alt="MF Banner" />
       </Grid>
 
-      <Grid className="greyBackground" style={ { padding: "2% 4%" } } item md={ 6 } sm={ 12 } xs={ 12 }>
+      <Grid className="greyBackground" style={ { padding: "24px 0px" } } item md={ 5 } sm={ 12 } xs={ 12 }>
         { BreadCrumsDisplay }
+        <Grid className="blueBoxWrap">
         { search1andgetList }
         <h4 className="branchLocatorHeadingMain">
-          Get one on one support
-          <br />
-          for a personal loans near you
+          Get one on one support for a personal loans near you
         </h4>
 
         <Typography className="branchLocatorHeading">
@@ -556,6 +551,7 @@ export default function BranchLocator() {
             Star Rating based on over 13,000 verified reviews
           </span>
         </Typography>
+        </Grid>
 
       </Grid>
     </Grid>
@@ -575,9 +571,9 @@ export default function BranchLocator() {
   );
   const MapBranchListandSearch2Buttons = (
     <Grid
-      style={ { padding: "4% 30px 4% 30px", backgroundColor: "#f6f6f6" } }
+      style={ { padding: "4% 0px"} }
       container
-      id="Broo"
+      id="mapAndBranchList"
     >
       <Grid container>
         <h3 ref={ mapSection } className="mapTopHeading">Branches Near You</h3>
@@ -597,16 +593,21 @@ export default function BranchLocator() {
         <meta name="description" content="Looking for a personal loans?  Discover which states Mariner Finance serves.  Visit a branch in one of our many states today." />
       </Helmet>
       <Grid
+        className="greyBackground"
         container
         justifyContent={ "center" }
-        style={ {
-          backgroundColor: "#f9f9f9",
-        } }
       >
         { BreadCrumsAndSearch1AndText }
+        <Grid className="mapAndBranchListWrap">
+
         { showMapListSearch2DirectionButton && MapBranchListandSearch2Buttons }
-        { stateLinksandStaticText }
-        <CustomerRatings />
+        </Grid>
+        <Grid className="mainContentWrap">
+          { stateLinksandStaticText }
+        </Grid>
+        <Grid className="customerRatingsWrap">
+          <CustomerRatings />
+        </Grid>
       </Grid>
     </div>
   );

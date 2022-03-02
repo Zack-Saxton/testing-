@@ -20,9 +20,9 @@ import {
   MFStateShort
 } from "../../../assets/data/marinerBusinesStates";
 import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile_Image.png";
-import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.png";
+import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.jpg";
 import TitleImage from "../../../assets/images/Favicon.png";
-import MarinerFinanceBuilding from "../../../assets/images/mariner-finance-Building.jpeg";
+import MarinerFinanceBuilding from "../../../assets/images/mf-logo-white.png";
 import { mapInformationBranchLocator } from "../../Controllers/BranchDayTiming";
 import BranchLocatorController from "../../Controllers/BranchLocatorController";
 import { ButtonPrimary, ButtonSecondary } from "../../FormsUI";
@@ -31,6 +31,8 @@ import ErrorLogger from "../../lib/ErrorLogger";
 import CustomerRatings from "../MyBranch/CustomerRatings";
 import "./BranchLocator.css";
 import Map from "./BranchLocatorMap";
+
+import BranchHolidays from "./BranchHolidyas";
 const useStyles = makeStyles({
   ptag: {
     margin: "0px",
@@ -155,7 +157,7 @@ export default function StatePage(props) {
 
   const BranchDetailsInCard = (
     <Grid container style={ { width: "100%" } }>
-      <Grid className="branchImage" item md={ 6 } sm={ 12 } xs={ 12 }>
+      <Grid className="branchImage" item md={7} sm={ 12 } xs={ 12 }>
         <img
           className="mobileImage"
           src={ BranchImageMobile }
@@ -165,9 +167,9 @@ export default function StatePage(props) {
       </Grid>
       <Grid
         className="greyBackground"
-        style={ { padding: "2% 4%" } }
+        style={ { padding: "24px 0px" } }
         item
-        md={ 6 }
+        md={ 5 }
         sm={ 12 }
         xs={ 12 }
       >
@@ -206,10 +208,11 @@ export default function StatePage(props) {
             Your { Branch_Details.BranchName }, { getStateName } Branch
           </Link>
         </Breadcrumbs>
-        <Grid className="branchInfo">
-          <h4 className="branchLocatorHeadingMain">
+        <Grid className="blueBoxWrap">
+          <h4 className="branchHeading">
+            Personal Loan in {' '}
             <strong>
-              Your { Branch_Details.BranchName }, { getStateName } Branch
+               { Branch_Details.BranchName }, { getStateName } Branch
             </strong>
           </h4>
           <Grid container>
@@ -223,6 +226,18 @@ export default function StatePage(props) {
                 className="marinerFinanceBuildingImage"
                 src={ MarinerFinanceBuilding }
               />
+              <Grid >
+              <span className="branchAddressSpan">{ Branch_Details?.Address }</span>
+              <span>
+                <a
+                  href={ "tel:+1" + Branch_Details?.PhoneNumber }
+                  className="branchPhoneNumber"
+                >
+                  <PhoneIcon />
+                  { Branch_Details?.PhoneNumber }
+                </a>
+              </span>
+            </Grid>
             </Grid>
             <Grid item sm={ 6 } md={ 6 } lg={ 6 } className="businessHours">
               { Branch_Details?.BranchTime?.Value2 &&
@@ -240,27 +255,17 @@ export default function StatePage(props) {
                   return <div className="weekdays" key={ index }>{ ele } </div>;
                 })
                 : "" }
-            </Grid>
-          </Grid>
-          <Grid className="branchDetailsWrap" container>
-            <Grid item sm={ 6 } md={ 6 } lg={ 6 }>
-              <span className="branchAddressSpan">{ Branch_Details?.Address }</span>
-              <span>
-                <a
-                  href={ "tel:+1" + Branch_Details?.PhoneNumber }
-                  className="branchPhoneNumber"
-                >
-                  <PhoneIcon />
-                  { Branch_Details?.PhoneNumber }
-                </a>
-              </span>
-            </Grid>
-            <Grid item sm={ 6 } md={ 6 } lg={ 6 } className="branchManager">
+                <Grid  className="branchManager">
               <small>Branch Manager</small>
               <br />
+            </Grid>
               { Branch_Details?.branchManager }
             </Grid>
           </Grid>
+          {/* <Grid className="branchDetailsWrap" container>
+            
+           
+          </Grid> */}
           <Grid className="secondaryButtonWrap" container>
             <ButtonSecondary
               onClick={ () => {
@@ -291,7 +296,7 @@ export default function StatePage(props) {
         { getBranchList ? (
           getBranchList.map((item, index) => {
             return (
-              <Grid key={ index } item md={ 4 } className="locationInfo">
+              <Grid key={ index } className="locationInfo">
                 <NavLink
                   to={ `/branchLocator/[${ MFStates[ MFStateShort.indexOf(item.Address.substring(item.Address.length - 8, item.Address.length).substring(0, 2)) ] }]-personal-loans-in-${ item.BranchName }-${ item.Address.substring(item.Address.length - 8, item.Address.length).substring(0, 2) }` }
                   state={ { Branch_Details: item } }
@@ -441,12 +446,18 @@ export default function StatePage(props) {
         <meta name="description" content={ `Looking for a personal loans in ${ Branch_Details.BranchName },${ getStateName } ?  Mariner Finance branch employees can help. Visit our ${ Branch_Details.BranchName }, ${ getStateName } location today.` } />
       </Helmet>
       <Grid
+        className="greyBackground"
         container
         justifyContent={ "center" }
-        style={ { backgroundColor: "#f9f9f9" } }
+        // style={ { backgroundColor: "#f9f9f9" } }
       >
-        { BranchDetailsInCard }
+        <Grid className="addressCardWrap">
+
+          { BranchDetailsInCard }
+        </Grid>
+        
         { DrivingDirectionPopup }
+        < BranchHolidays />
         <Grid
           style={ {
             backgroundColor: "#f9f9f9",
@@ -506,7 +517,9 @@ export default function StatePage(props) {
           </Typography>
         </Grid>
         { ApplyNowOnlineButton }
+        <Grid className="customerRatingsWrap">
         <CustomerRatings />
+        </Grid>
       </Grid>
     </div>
   );

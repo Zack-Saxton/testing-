@@ -20,7 +20,7 @@ import { NavLink, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { MFStates, MFStateShort } from "../../../assets/data/marinerBusinesStates";
 import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile_Image.png";
-import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.png";
+import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.jpg";
 import TitleImage from "../../../assets/images/Favicon.png";
 import BranchDayTiming, { mapInformationBranchLocator } from "../../Controllers/BranchDayTiming";
 import BranchLocatorController from "../../Controllers/BranchLocatorController";
@@ -182,12 +182,12 @@ export default function StatePage() {
         justifyContent={ "center" }
         style={ { backgroundColor: "#f9f9f9" } }
       >
-        <Grid container style={ { width: "100%" } }>
-          <Grid className="branchImage" item md={ 6 } sm={ 12 } xs={ 12 }>
+        <Grid className="branchLayoutGrid" container style={ { width: "100%" } }>
+          <Grid className="branchImage" item md={ 7 } sm={ 12 } xs={ 12 }>
             <img className="mobileImage" src={ BranchImageMobile } alt="MF Banner" />
             <img className="webImage" src={ BranchImageWeb } alt="MF Banner" />
           </Grid>
-          <Grid className="greyBackground" style={ { padding: "2% 4%" } } item md={ 6 } sm={ 12 } xs={ 12 }>
+          <Grid className="greyBackground" style={ { padding: "24px 0px" } } item md={ 5 } sm={ 12 } xs={ 12 }>
             <Breadcrumbs
               className="breadcrumbWrap"
               separator={
@@ -216,6 +216,7 @@ export default function StatePage() {
                 Personal Loans In { Name }
               </Link>
             </Breadcrumbs>
+            <Grid className="blueBoxWrap">
             <Grid id="findBranchWrapTwo" >
               <h4 className={ classes.headigText }>Personal Loans in { Name }</h4>
               <Grid id="findBranchGrid">
@@ -247,13 +248,6 @@ export default function StatePage() {
                     </div>
                   ) }
                 </PlacesAutocomplete>
-                {/* <TextField
-                  name="Enter City or State"
-                  className="branchLocatorInput"
-                  style={ { color: "white!important" } }
-                  id="inputText1"
-                  label="Enter city & state or zip code"
-                /> */}
                 <ButtonPrimary
                   className="branchSearchButton"
                   onClick={ getActivePlaces }
@@ -264,9 +258,7 @@ export default function StatePage() {
               </Grid>
             </Grid>
             <h4 className="branchLocatorHeadingMain">
-              <b>Get one on one support</b>
-              <br />
-              for a personal loans near you
+              Get one on one support for a personal loans near you
             </h4>
             <Typography className="branchLocatorHeading">
               <b className="numberText">470+</b>
@@ -282,9 +274,13 @@ export default function StatePage() {
                 Star Rating based on over 10,000 verified reviews
               </span>
             </Typography>
+
+          </Grid>
           </Grid>
         </Grid>
+        <Grid className="mapAndListWrap">
         <Grid
+          className="mapWrap"
           ref={ mapSection }
           style={ { padding: "4% 30px 4% 30px", backgroundColor: "#f6f6f6" } }
           container
@@ -321,7 +317,7 @@ export default function StatePage() {
                   { getBranchList ? (
                     getBranchList.map((item, index) => {
                       return (
-                        <Grid key={ index } item md={ 4 } className="locationInfo">
+                        <Grid key={ index } className="locationInfo">
                           <NavLink
                             to={ `/branchLocator/[${ MFStates[ MFStateShort.indexOf(item.Address.substring(item.Address.length - 8, item.Address.length).substring(0, 2)) ] }]-personal-loans-in-${ item.BranchName }-${ item.Address.substring(item.Address.length - 8, item.Address.length).substring(0, 2) }` }
                             state={ { Branch_Details: item } }
@@ -466,7 +462,7 @@ export default function StatePage() {
               >
                 { ({ getInputProps, suggestions, getSuggestionItemProps, loading2 }) => (
                   <div className="searchInputWrap">
-                    <input id="search2" className="stateSearch" { ...getInputProps({ placeholder: 'Enter city & state or zip code' }) } />
+                    <input id="search2" className="branchSearchTwo" { ...getInputProps({ placeholder: 'Enter city & state or zip code' }) } />
                     <div className="serachResult">
                       { loading2 && <div>Loading...</div> }
                       { suggestions.map(suggestion => {
@@ -495,28 +491,37 @@ export default function StatePage() {
             </Grid>
           </Grid>
         </Grid>
+        </Grid>
         <Grid
-          className="greyBackground"
+          // className="greyBackground"
           style={ {
-            backgroundColor: "#f9f9f9",
+            backgroundColor: "#fff",
             width: "100%",
             padding: "4% 2rem 4% 1rem",
           } }
         >
-          <Grid style={ { margin: "auto" } } item md={ 6 }>
+          <Grid className="personalLoanText">
             <h4 className="PesonalLoanHeading">
-              <strong>Personal Loans in { Name }</strong>
+              <span>Personal Loans in { Name }</span>
             </h4>
+            <p>Mariner Finance branches are all over { Name }, from Salisbury to Frederick. Use our interactive map to locate the one closest to you.</p>
+            <h3>
+              We’re here for you.
+            </h3>
+
             <p className="PesonalLoanParagraph">
-              Looking for a personal loans near you? Every one of our Maryland
-              branches share a common benefit: lending professionals proud of
-              the neighborhoods they live and work in, who are totally focused
-              on solving your personal financial challenges. For all the reasons
-              to choose Mariner Finance, visit Why Mariner Finance.
+              Every one of our { Name } branches share a common benefit: lending professionals 
+              proud of the neighborhoods they live and work in, 
+              who are totally focused on solving your personal financial challenges.
+            </p>
+            <p className="PesonalLoanParagraph">
+            For all the reasons to choose Mariner Finance, visit <Link target="_blank" rel="link" className="Links" to="https://www.marinerfinance.com/why-mariner-finance/">Why Us </Link>.
             </p>
           </Grid>
         </Grid>
+        <Grid className="customerRatingsWrap">
         <CustomerRatings />
+        </Grid>
       </Grid>
     </div>
   );

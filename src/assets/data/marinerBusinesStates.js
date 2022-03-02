@@ -59,18 +59,18 @@ export const MFStateShort = [
     'WA'
 ];
 export const branch_hours = [
-    "Monday: 9:00 a.m. – 5:00 p.m.",
-    "Tuesday: 9:00 a.m. – 7:00 p.m.",
-    "Wednesday: 9:00 a.m. – 5:00 p.m.",
-    "Thursday: 9:00 a.m. – 5:00 p.m.",
-    "Friday: 9:00 a.m. – 5:30 p.m."
+    "Mon: 9:00 a.m. – 5:00 p.m.",
+    "Tue: 9:00 a.m. – 7:00 p.m.",
+    "Wed: 9:00 a.m. – 5:00 p.m.",
+    "Thu: 9:00 a.m. – 5:00 p.m.",
+    "Fri: 9:00 a.m. – 5:30 p.m."
 ];
 export const ca_branch_hours = [
-    "Monday: 9:00 a.m. – 5:30 p.m.",
-    "Tuesday: 10:00 a.m. – 7:00 p.m.",
-    "Wednesday: 9:00 a.m. – 5:30 p.m.",
-    "Thursday: 9:00 a.m. – 5:30 p.m.",
-    "Friday: 9:00 a.m. – 5:30 p.m."
+    "Mon: 9:00 a.m. – 5:30 p.m.",
+    "Tue: 10:00 a.m. – 7:00 p.m.",
+    "Wed: 9:00 a.m. – 5:30 p.m.",
+    "Thu: 9:00 a.m. – 5:30 p.m.",
+    "Fri: 9:00 a.m. – 5:30 p.m."
 ];
 export const tzMatch = {
     "Eastern Standard Time": "EST",
