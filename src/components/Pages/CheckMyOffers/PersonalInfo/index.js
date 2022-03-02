@@ -454,7 +454,6 @@ function PersonalInfo() {
 												placeholder="MM/DD/YYYY"
 												id="dob"
 												autoComplete="off"
-												onKeyDown={ (event) => event.preventDefault() }
 												maxdate={ myDate }
 												minyear={ 102 }
 												value={ formik.values.dob }
