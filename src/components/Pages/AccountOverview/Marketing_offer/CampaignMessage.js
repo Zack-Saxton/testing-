@@ -8,12 +8,22 @@ import PropTypes from "prop-types";
 export default function CampaignMessage({ amount, offerCode, handleContinue, expiryDate }) {
 
     const [ message, setMessage ] = useState("");
+    const [Amount,setAmount] = useState("")
 
     useEffect(() => {
         setAccountDetails().then((res) => {
-            setMessage(res.data.offerData.campaignTypeMessage);
+            setMessage(res?.data?.offerData?.campaignTypeMessage);
         });
-    }, []);
+        amountFormatter(parseInt(amount));
+    }, [amount]);
+
+
+    const amountFormatter = (n) =>{
+       setAmount("$ " + (Math.round(n * 100) / 100).toLocaleString());
+    }
+
+
+
 
     return (
         <Grid className="checkMyOffers">
@@ -24,7 +34,7 @@ export default function CampaignMessage({ amount, offerCode, handleContinue, exp
             <Grid className="rightcheckMyOffers">
                 <p className="common">You are prequalified up to</p>
                 <p className="common" style={ { color: "#0F4EB3", fontSize: "bold", textAlign: "center" } }>
-                    ${ amount }
+                    { Amount }
                 </p>
                 <p className="common">Use it to get things done.</p>
                 <p className="common">Offer Code:{ offerCode }</p>
