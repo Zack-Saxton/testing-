@@ -9,14 +9,19 @@ import Logo from "../../../assets/images/mf-logo.png";
 import { ButtonPrimary } from "../../FormsUI";
 import { useStyles } from "../BranchLoacatorHeader/BranchLocatorStyle";
 import "../Layout.css";
+import Cookies from "js-cookie";
 
 const BranchLocatorHeader = () => {
   const classes = useStyles();
   const navigate = useNavigate();
-
+  const loginToken = JSON.parse(
+    Cookies.get("token") ? Cookies.get("token") : "{ }"
+  );
   const redirectToAccountOverview = () => {
     navigate("/customers/accountOverview");
   };
+
+
 
   //View Part
   return (
@@ -181,9 +186,10 @@ const BranchLocatorHeader = () => {
             >
               <Typography className={ classes.subtitle }>Mail Offer?</Typography>
             </NavLink>
-            <NavLink to="/login" className="nav_link branchHeaderLinks">
+            {!loginToken.isLoggedIn? <NavLink to="/login" className="nav_link branchHeaderLinks">
               <Typography className={ classes.subtitle }>Login</Typography>
             </NavLink>
+            : null }
             <NavLink
               to="/customers/applyForLoan"
               className="nav_link branchHeaderLinksLast"
