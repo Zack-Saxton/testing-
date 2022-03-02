@@ -8,7 +8,7 @@ import { ButtonPrimary } from "../../../FormsUI";
 export default function CampaignMessage({ amount, offerCode, handleContinue, expiryDate }) {
 
     const [ message, setMessage ] = useState("");
-    const [Amount,setAmount] = useState("")
+    const [amount,setAmount] = useState("")
 
     useEffect(() => {
         setAccountDetails().then((res) => {
@@ -29,7 +29,7 @@ export default function CampaignMessage({ amount, offerCode, handleContinue, exp
             <Grid className="rightcheckMyOffers">
                 <p className="common">You are prequalified up to</p>
                 <p className="common" style={ { color: "#0F4EB3", fontSize: "bold", textAlign: "center" } }>
-                    { Amount }
+                    { amount }
                 </p>
                 <p className="common">Use it to get things done.</p>
                 <p className="common">Offer Code:{ offerCode }</p>
