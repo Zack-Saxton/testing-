@@ -3,18 +3,25 @@ import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
 
 export async function checkMyOfferSubmit(customer) {
+
 	//result - to store the result from api call, token - auth token, loggedIn
 	let result, token, loggedIn;
 	//response - get the required data from result
 	let response = {
-		branch_referral: "",
-		offer_id: "",
-		application_id: "",
-		skip_offer: "",
-		errors: "",
-		appSubmissionResult: "",
-	};
-
+			branch_referral: "",
+			offer_id: "",
+			application_id: "",
+			skip_offer: "",
+			errors: "",
+			appSubmissionResult: "",
+		};
+	try {
+	//creating function to load ip address from the API	 
+	let dateNow = new Date().toISOString();
+	let browserType = navigator.userAgent;
+  let ipResponse = await axios.get('https://geolocation-db.com/json/');
+	let ipAddress = ipResponse.data.IPv4
+	
 	//Data to be send to api
 	let body = {
 		"user": {
@@ -119,7 +126,7 @@ export async function checkMyOfferSubmit(customer) {
 			"submission_id": null,
 			"submission_type": "CIS",
 			"submission_paramter": null,
-			"ip_address": "65.158.22.67",
+			"ip_address":ipAddress,
 		},
 		"gclid": null,
 		"requested_product": "unsecured-individual-loan",
@@ -162,28 +169,24 @@ export async function checkMyOfferSubmit(customer) {
 			},
 			"esigns": {
 				"credit_contact_authorization": {
-					"date": "2020-09-03T20:40:37.950Z",
-					"useragent":
-						"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36",
-					"ipaddress": "127.0.0.1",
+					"date": dateNow,
+					"useragent": browserType,
+					"ipaddress": ipAddress,
 				},
 				"electronic_communications": {
-					"date": "2020-09-03T20:40:37.950Z",
-					"useragent":
-						"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36",
-					"ipaddress": "127.0.0.1",
+					"date": dateNow,
+					"useragent": browserType,
+					"ipaddress": ipAddress,
 				},
 				"privacy_policy": {
-					"date": "2020-09-03T20:40:37.950Z",
-					"useragent":
-						"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36",
-					"ipaddress": "127.0.0.1",
+					"date": dateNow,
+					"useragent": browserType,
+					"ipaddress": ipAddress,
 				},
 				"terms_of_use": {
-					"date": "2020-09-03T20:40:37.950Z",
-					"useragent":
-						"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36",
-					"ipaddress": "127.0.0.1",
+					"date": dateNow,
+					"useragent": browserType,
+					"ipaddress": ipAddress,
 				},
 				"delaware_itemized_schedule_of_charges": true,
 				"california_credit_education_program": null,
@@ -191,8 +194,7 @@ export async function checkMyOfferSubmit(customer) {
 		},
 		"headersHost": "cis-development.marinerfinance.io",
 	};
-
-	try {
+	
 		if (!loggedIn && !token) {
 			result = await axios({
 				method: "POST",
@@ -210,215 +212,6 @@ export async function checkMyOfferSubmit(customer) {
 		}
 	} catch (error) {
 		ErrorLogger("Error executing checkMyOfferSubmit API", error);
-		response.appSubmissionResult = error.response;
-	}
-	return response;
-}
-
-export async function checkMyOfferSubmitTest(customer) {
-	//result - to store the result from api call, token - auth token, loggedIn
-	let result, token, loggedIn;
-	//response - get the required data from result
-	let response = {
-		branch_referral: "",
-		offer_id: "",
-		application_id: "",
-		skip_offer: "",
-		errors: "",
-		appSubmissionResult: "",
-	};
-
-	//Data to be send to api
-	let bodyTest = {
-		"user": {
-			"password": "Mariner1",
-			"confirm_password": "Mariner1",
-			"terms_agreement": "on",
-			"create_account_get_rate_button": "Get Your Rate",
-			"Consent_Credit_Contact_Authorization_Version__c": "12",
-			"Consent_Electronic_Communication_Policy_Version__c": "14",
-			"Consent_Privacy_Policy_Version__c": "9",
-			"Consent_Terms_Of_Use_Version__c": "7"
-		},
-		"isAuthenticated": true,
-		"formData": {
-			"application": {
-				"requested_product_details": {
-					"requested_loan_amount_raw": 5000,
-					"requested_loan_amount": 5000,
-					"requested_loan_term": 36,
-					"offer_code": null
-				},
-				"contact": {
-					"address_city": "GERMANTOWN",
-					"address_postal_code": "38138",
-					"address_state": "TN",
-					"address_street": "4500 BEARCLAW ST",
-					"email": "qacustomertest1@marinerfinance.com",
-					"phone_number_primary": "4434432343",
-					"phone_type": "Cell",
-					"first_name": "DWAYNE",
-					"full_name": "DWAYNE GGDXHR",
-					"last_name": "GGDXHR"
-				},
-				"processing": {
-					"tokens": {
-						"utm_source": null,
-						"utm_campaign": null,
-						"utm_medium": null
-					}
-				},
-				"processing.tokens": {
-					"utm_source": null,
-					"utm_campaign": null,
-					"utm_medium": null
-				}
-			},
-			"applicant": {
-				"contact": {
-					"address_city": "GERMANTOWN",
-					"address_postal_code": "38138",
-					"address_state": "TN",
-					"address_street": "4500 BEARCLAW ST",
-					"email": "qacustomertest1@marinerfinance.com",
-					"phone_number_primary": "4434432343",
-					"phone_type": "Cell",
-					"first_name": "DWAYNE",
-					"full_name": "DWAYNE GGDXHR",
-					"last_name": "GGDXHR"
-				},
-				"self_reported": {
-					"annual_income": "8976890",
-					"household_annual_income": "9876543",
-					"employment_status": "Employed - Hourly",
-					"employer_phone_number": null,
-					"loan_purpose": "Home Improvement",
-					"tenure_at_employer": 10,
-					"marital_status": null,
-					"spouse_address_city": null,
-					"spouse_address_postal_code": null,
-					"spouse_address_state": null,
-					"spouse_address_street": "4500 BEARCLAW ST",
-					"citizenship": "USA Citizen",
-					"home_ownership": "Home Owner",
-					"mortgage_or_rental_payment": 0,
-					"military_status": null
-				},
-				"applicant_type": "primary"
-			},
-			"coborrower_token": null,
-			"cosigner_token": null,
-			"customer": {
-				"identification": {
-					"citizenship": "USA Citizen",
-					"date_of_birth": "1984-02-13T05:00:00.000Z",
-					"age": 39,
-					"social_security_number_backup": "666090570",
-					"social_security_number": "666090570",
-					"first_name": "DWAYNE",
-					"full_name": "DWAYNE GGDXHR",
-					"last_name": "GGDXHR"
-				},
-				"latest_contact": {
-					"address_city": "GERMANTOWN",
-					"address_postal_code": "38138",
-					"address_state": "TN",
-					"address_street": "4500 BEARCLAW ST",
-					"email": "qacustomertest1@marinerfinance.com",
-					"phone_number_primary": "4434432343",
-					"phone_type": "Cell"
-				}
-			},
-			"submission_id": null,
-			"submission_type": "CIS",
-			"submission_paramter": null,
-			"ip_address": "65.158.22.67"
-		},
-		"gclid": null,
-		"requested_product": "unsecured-individual-loan",
-		"geoip": "::ffff:127.0.0.1",
-		"sourceTracking": [
-			{
-				"referer": "https://cis-development.marinerfinance.io/application/form",
-				"date": 1599165637950,
-				"utm_source": null,
-				"utm_medium": null,
-				"utm_campaign": null
-			}
-		],
-		"update_sor_applicant_consents": {
-			"consents": {
-				"credit_contact_authorization": {
-					"consent": true,
-					"version": "12"
-				},
-				"electronic_communications": {
-					"consent": true,
-					"version": "14"
-				},
-				"privacy_policy": {
-					"consent": true,
-					"version": "9"
-				},
-				"terms_of_use": {
-					"consent": true,
-					"version": "7"
-				},
-				"delaware_itemized_schedule_of_charges": {
-					"consent": true,
-					"version": "1.0"
-				},
-				"california_credit_education_program": {
-					"consent": false,
-					"version": "1.0"
-				}
-			},
-			"esigns": {
-				"credit_contact_authorization": {
-					"date": "2020-09-03T20:40:37.950Z",
-					"useragent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36",
-					"ipaddress": "127.0.0.1"
-				},
-				"electronic_communications": {
-					"date": "2020-09-03T20:40:37.950Z",
-					"useragent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36",
-					"ipaddress": "127.0.0.1"
-				},
-				"privacy_policy": {
-					"date": "2020-09-03T20:40:37.950Z",
-					"useragent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36",
-					"ipaddress": "127.0.0.1"
-				},
-				"terms_of_use": {
-					"date": "2020-09-03T20:40:37.950Z",
-					"useragent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36",
-					"ipaddress": "127.0.0.1"
-				},
-				"delaware_itemized_schedule_of_charges": true,
-				"california_credit_education_program": null
-			}
-		},
-		"headersHost": "cis-development.marinerfinance.io"
-	};
-
-	try {
-		if (!loggedIn && !token) {
-			result = await axios({
-				method: "POST",
-				url: "/api/v2/psa_digifi",
-				data: JSON.stringify(bodyTest),
-				headers: {
-					"Content-Type": "application/json",
-				},
-				transformRequest: (data, headers) => {
-					delete headers.common[ "Content-Type" ];
-					return data;
-				},
-			});
-			response.appSubmissionResult = result;
-		}
-	} catch (error) {
-		ErrorLogger("Error executing psa_digifi API", error);
 		response.appSubmissionResult = error.response;
 	}
 	return response;
