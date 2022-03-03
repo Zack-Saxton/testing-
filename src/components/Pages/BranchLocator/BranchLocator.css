@@ -701,6 +701,9 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
   width: 100%;
   padding: 4% 2rem 4% 1rem;
 }
+.mobilePadding nav{
+  height: max-content !important;
+}
 @media (max-width: 960px) {
   .mobileImage{
     display: block;

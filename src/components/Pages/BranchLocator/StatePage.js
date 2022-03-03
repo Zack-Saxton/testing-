@@ -83,8 +83,8 @@ export default function StatePage() {
     try {
       setLoading(true);
       let result = await BranchLocatorController(search_text);
-      if (result.status === 400) {
-        toast.error(" Check your address and Try again.");
+      if ((result.status === 400) || (result.data.branchData[0].BranchNumber === "0001") || (result.data.branchData[0].BranchNumber === "1022")) {
+        toast.error(" No branches within that area. Please enter a valid city and state.");
       } else {
         setCurrentLocation(result?.data?.searchLocation);
         setZoomDepth(
