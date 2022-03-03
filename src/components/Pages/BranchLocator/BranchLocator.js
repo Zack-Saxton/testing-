@@ -86,7 +86,7 @@ export default function BranchLocator() {
     try {
       setLoading(true);
       let result = await BranchLocatorController(search_text);
-      if ((result.status === 400) || (result.data.branchData[ 0 ].BranchNumber === "0001")) {
+      if ((result.status === 400) || (result.data.branchData[0].BranchNumber === "0001") || (result.data.branchData[0].BranchNumber === "1022")) {
         toast.error(" No branches within that area. Please enter a valid city and state.");
       } else {
         setCurrentLocation(result?.data?.searchLocation);
@@ -147,7 +147,6 @@ export default function BranchLocator() {
 
   const MFButtonClick = (event) => {
     params.statename = event.target.innerText;
-    console.log(' STATE BUTON ::', params.statename);
     apiGetBranchList(params.statename);
     navigate(`/branch-locator/personal-loans-in-${ params.statename }`);
   };
@@ -401,7 +400,7 @@ export default function BranchLocator() {
                 return (
                   <Grid key={ index }  className="locationInfo">
                     <NavLink
-                      to={ `/branchLocator/[${ MFStates[ MFStateShort.indexOf(item.Address.substring(item.Address.length - 8, item.Address.length).substring(0, 2)) ] }]-personal-loans-in-${ item.BranchName }-${ item.Address.substring(item.Address.length - 8, item.Address.length).substring(0, 2) }` }
+                      to={ `/branchLocator/[${ MFStates[ MFStateShort.indexOf(item?.Address.substring(item?.Address.length - 8, item?.Address.length).substring(0, 2)) ] }]-personal-loans-in-${ item?.BranchName }-${ item?.Address?.substring(item?.Address.length - 8, item?.Address.length).substring(0, 2) }` }
                       state={ { Branch_Details: item } }
                       className="nav_link"
                     >
@@ -413,7 +412,7 @@ export default function BranchLocator() {
                       <ChevronRightIcon />
                     </NavLink>
                     <p className={ clessesforptag.ptag }>
-                      { item.distance }les away | { item?.BranchTime?.Value1 }{ " " }
+                      { item?.distance }les away | { item?.BranchTime?.Value1 }{ " " }
                       { item?.BranchTime?.Value2 }
                     </p>
                     <p
