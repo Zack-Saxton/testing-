@@ -59,8 +59,8 @@ const validationSchema = yup.object({
 					messages?.bankAccountVerification?.matchAccountNum
 				),
 		})
-		.min(7, messages?.bankAccountVerification?.minMaxAccountNum)
-		.max(16, messages?.bankAccountVerification?.minMaxAccountNum),
+		.min(4, messages?.bankAccountVerification?.minMaxAccountNum)
+		.max(17, messages?.bankAccountVerification?.minMaxAccountNum),
 });
 
 //View Part

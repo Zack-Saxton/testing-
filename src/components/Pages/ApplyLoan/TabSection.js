@@ -1,8 +1,8 @@
-import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import PropTypes from "prop-types";
+import React from "react";
 
 export default function TabSection(props) {
 

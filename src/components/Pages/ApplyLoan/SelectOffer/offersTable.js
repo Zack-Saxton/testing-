@@ -437,7 +437,7 @@ OfferTable.propTypes = {
 	setSelectedIndex: PropTypes.func,
 	setSelectedTerm: PropTypes.func,
 	selectedTerm: PropTypes.string,
-	selectedIndex: PropTypes.number,
+	selectedIndex: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]),
 	setOffersToCompareChart: PropTypes.func,
 	tabVerticalProps: PropTypes.func,
 	noOfTerms: PropTypes.number,

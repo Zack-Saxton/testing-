@@ -7,7 +7,7 @@ function Iframe(props) {
 }
 
 Iframe.propTypes = {
-  src: PropTypes.string
+  src: PropTypes.object
 };
 
 export default Iframe;

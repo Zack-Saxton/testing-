@@ -71,7 +71,7 @@ const SSNWrapper = ({
 SSNWrapper.propTypes = {
 	name: PropTypes.string.isRequired,
 	label: PropTypes.string,
-	error: PropTypes.string,
+	error: PropTypes.bool,
 	required: PropTypes.bool,
 	value: PropTypes.string,
 	onChange: PropTypes.func,

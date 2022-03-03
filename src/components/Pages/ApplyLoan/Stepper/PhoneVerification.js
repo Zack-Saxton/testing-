@@ -8,14 +8,14 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
+import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { useQuery } from 'react-query';
-import usrAccountDetails from "../../../Controllers/AccountOverviewController";
 import * as yup from "yup";
+import usrAccountDetails from "../../../Controllers/AccountOverviewController";
 import { OTPInitialSubmission, verifyPasscode } from "../../../Controllers/ApplyForLoanController";
 import { ButtonPrimary, ButtonSecondary, ButtonWithIcon, TextField } from "../../../FormsUI";
 import messages from "../../../lib/Lang/applyForLoan.json";
-import PropTypes from "prop-types";
 
 const useStyles = makeStyles((Theme) => ({
 	pTagTextStyle: {

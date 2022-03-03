@@ -13,8 +13,8 @@ import ListItemText from "@material-ui/core/ListItemText";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import { makeStyles } from "@material-ui/core/styles";
-import React from "react";
 import PropTypes from "prop-types";
+import React from "react";
 
 const MultiSelectWrapper = ({
   name,

@@ -1,14 +1,15 @@
 import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
+import { useQuery } from 'react-query';
 import { useLocation, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import * as yup from "yup";
@@ -22,9 +23,8 @@ import monevologo from "../../../assets/partners/WelcomeMonevoMember.png";
 import NerdWalletlogo from "../../../assets/partners/WelcomeNWMember.png";
 import OneLoanPlacelogo from "../../../assets/partners/WelcomeOLPMember.png";
 import partnerSignup, { PopulatePartnerSignup } from "../../Controllers/PartnerSignupController";
-import { ButtonPrimary, TextField, Checkbox, EmailTextField, PasswordField, Popup, RenderContent, Select, SocialSecurityNumber } from "../../FormsUI";
+import { ButtonPrimary, Checkbox, EmailTextField, PasswordField, Popup, RenderContent, Select, SocialSecurityNumber, TextField } from "../../FormsUI";
 import "./Style.css";
-import { useQuery } from 'react-query';
 
 //Styling
 const useStyles = makeStyles((theme) => ({
@@ -454,7 +454,6 @@ export default function CreditKarma() {
                         label="Enter your last 4 digits of SSN"
                         placeholder="Enter your SSN"
                         id="ssn"
-                        type="ssn"
                         mask="9999"
                         value={ formik.values.ssn }
                         onChange={ formik.handleChange }

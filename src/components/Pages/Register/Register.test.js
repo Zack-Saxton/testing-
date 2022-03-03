@@ -1,13 +1,11 @@
 import "@testing-library/jest-dom/extend-expect";
 import { fireEvent, render, screen } from "@testing-library/react";
-import { createMemoryHistory } from "history";
 import React from "react";
 import { Router } from "react-router-dom";
 import Register from "./Register";
 
 test("Checks the title of the page", () => {
-	const navigate = createMemoryHistory();
-
+	
 	render(
 		<Router history={ history }>
 			<Register />
@@ -18,7 +16,7 @@ test("Checks the title of the page", () => {
 });
 
 test("Checks the subtitle of the page", () => {
-	const navigate = createMemoryHistory();
+	
 
 	render(
 		<Router history={ history }>
@@ -30,7 +28,7 @@ test("Checks the subtitle of the page", () => {
 });
 
 test("Textbox Firstname", () => {
-	const navigate = createMemoryHistory();
+	
 
 	render(
 		<Router history={ history }>
@@ -43,7 +41,7 @@ test("Textbox Firstname", () => {
 });
 
 test("Invalid Firstname", () => {
-	const navigate = createMemoryHistory();
+	
 
 	render(
 		<Router history={ history }>
@@ -59,7 +57,7 @@ test("Invalid Firstname", () => {
 });
 
 test("Textbox Lastname", () => {
-	const navigate = createMemoryHistory();
+	
 
 	render(
 		<Router history={ history }>
@@ -72,7 +70,7 @@ test("Textbox Lastname", () => {
 });
 
 test("Invalid Lastname", () => {
-	const navigate = createMemoryHistory();
+	
 
 	render(
 		<Router history={ history }>
@@ -88,7 +86,7 @@ test("Invalid Lastname", () => {
 });
 
 test("Render email", () => {
-	const navigate = createMemoryHistory();
+	
 
 	render(
 		<Router history={ history }>
@@ -101,7 +99,7 @@ test("Render email", () => {
 });
 
 test("pass valid email to test email input field", () => {
-	const navigate = createMemoryHistory();
+	
 
 	render(
 		<Router history={ history }>
@@ -118,7 +116,7 @@ test("pass valid email to test email input field", () => {
 });
 
 test("pass invalid email to test input value", () => {
-	const navigate = createMemoryHistory();
+	
 
 	render(
 		<Router history={ history }>
@@ -136,7 +134,7 @@ test("pass invalid email to test input value", () => {
 });
 
 test("Zipcode availability test", () => {
-	const navigate = createMemoryHistory();
+	
 
 	render(
 		<Router history={ history }>
@@ -150,7 +148,7 @@ test("Zipcode availability test", () => {
 });
 
 test("Zipcode Input test", () => {
-	const navigate = createMemoryHistory();
+	
 
 	render(
 		<Router history={ history }>
@@ -163,7 +161,7 @@ test("Zipcode Input test", () => {
 });
 
 test("Get only numeric value for zipcode", () => {
-	const navigate = createMemoryHistory();
+	
 
 	render(
 		<Router history={ history }>
@@ -178,7 +176,7 @@ test("Get only numeric value for zipcode", () => {
 });
 
 it("zipcode should be 5 digits", () => {
-	const navigate = createMemoryHistory();
+	
 
 	render(
 		<Router history={ history }>
@@ -190,7 +188,7 @@ it("zipcode should be 5 digits", () => {
 });
 
 test("Render Date of birth", () => {
-	const navigate = createMemoryHistory();
+	
 
 	render(
 		<Router history={ history }>
@@ -204,7 +202,7 @@ test("Render Date of birth", () => {
 });
 
 test("Render password", () => {
-	const navigate = createMemoryHistory();
+	
 
 	render(
 		<Router history={ history }>
@@ -220,7 +218,7 @@ test("Render password", () => {
 });
 
 test("Render confirm  password", () => {
-	const navigate = createMemoryHistory();
+	
 
 	render(
 		<Router history={ history }>
@@ -234,7 +232,7 @@ test("Render confirm  password", () => {
 });
 
 test("button Availability", () => {
-	const navigate = createMemoryHistory();
+	
 
 	render(
 		<Router history={ history }>
@@ -247,7 +245,7 @@ test("button Availability", () => {
 });
 
 test("Button Onclick", () => {
-	const navigate = createMemoryHistory();
+	
 
 	render(
 		<Router history={ history }>

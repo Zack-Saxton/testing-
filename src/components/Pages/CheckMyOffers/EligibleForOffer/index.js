@@ -1,6 +1,7 @@
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
+import PropTypes from "prop-types";
 import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import EligibleForOffersLogo from "../../../../assets/gallery/Eligible-for-Offers.png";
@@ -9,7 +10,6 @@ import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary } from "../../../FormsUI";
 import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
-import PropTypes from "prop-types";
 
 //Initializing functional component EligibleForOffers
 function EligibleForOffers(props) {
