@@ -142,6 +142,7 @@ export default function StatePage(props) {
     );
     setStateName(State.substring(0, 2));
     return null;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ Branch_Details ]);
 
   useEffect(() => {
@@ -149,6 +150,7 @@ export default function StatePage(props) {
     window.scrollTo(0, 0);
     document.title = `Personal Loans in  ${ Branch_Details.BranchName }, ${ getStateName } | Mariner Finance Branch | Discover More `;
     return null;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ getStateName ]);
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_SECKey,
