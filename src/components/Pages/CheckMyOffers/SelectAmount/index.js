@@ -186,7 +186,6 @@ function CheckMyOffers(props) {
                       <TextField
                         id="offerCodeInput"
                         name="offerCode"
-                        form={ true }
                         value={ data.offerCode }
                         onChange={ (event) => {
                           setData({

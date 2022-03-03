@@ -207,7 +207,7 @@ const BranchLocatorHeader = () => {
                 <Typography className={classes.subtitle}>Sign out</Typography>
               </div>}
             <NavLink
-              to="/customers/applyForLoan"
+              to="/customers/resumeApplication"
               className="nav_link branchHeaderLinksLast"
             >
               <ButtonPrimary
