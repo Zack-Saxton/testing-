@@ -350,7 +350,7 @@ export default function StatePage() {
                               { item?.PhoneNumber }
                             </a>
                           </p>
-                          <ButtonPrimary
+                          <ButtonSecondary
                             onClick={ () => {
                               setBranchAddress(
                                 "https://www.google.com/maps/search/" +
@@ -361,7 +361,7 @@ export default function StatePage() {
                             stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
                           >
                             Get Directions
-                          </ButtonPrimary>
+                          </ButtonSecondary>
                         </Grid>
                       );
                     })

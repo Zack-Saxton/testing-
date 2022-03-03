@@ -369,7 +369,7 @@ export default function StatePage(props) {
         <Grid container className="applyOnlineButton">
           <ButtonPrimary
             onClick={ ApplyOnlineLoan }
-            stylebutton='{"padding":"24px 34px","fontWeight":"900", "fontSize":"1.25rem","fontFamily":"Muli,sans-serif"}'
+            stylebutton='{"padding":"0px 30px","fontWeight":"400", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
           >
             Apply Online Now
           </ButtonPrimary>

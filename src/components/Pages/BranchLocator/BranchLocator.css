@@ -529,6 +529,7 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
 }
 .learnMoreLinks a{
   color: #214476;
+  text-decoration: none;
 }
 .greyBackgroundWrap{
   margin: auto;
@@ -541,12 +542,13 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
 .applyOnlineHeading{
   text-align: center;
   font-size: 1.563rem !important;
-  font-weight: bolder !important;
+  font-weight: 400 !important;
   color: #171717;
 }
 .applyOnlineParagraph{
   text-align: center;
-  font-size: 1.1rem !important;
+  font-size: 0.938rem !important;
+  font-weight: 400;
   color: #595959;
 }
 .applyOnlineButton{
