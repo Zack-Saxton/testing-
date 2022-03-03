@@ -1,12 +1,11 @@
 import "@testing-library/jest-dom/extend-expect";
 import { fireEvent, render, screen } from "@testing-library/react";
-import { createMemoryHistory } from "history";
 import React from "react";
 import { Router } from "react-router-dom";
 import Login from "./Login";
 
 test("Checks the title of the page", () => {
-	const navigate = createMemoryHistory();
+	
 
 	render(
 		<Router history={ history }>
@@ -18,7 +17,7 @@ test("Checks the title of the page", () => {
 });
 
 test("Render email", () => {
-	const navigate = createMemoryHistory();
+	
 
 	render(
 		<Router history={ history }>
@@ -31,7 +30,7 @@ test("Render email", () => {
 });
 
 test("pass valid email to test email input field", () => {
-	const navigate = createMemoryHistory();
+	
 
 	render(
 		<Router history={ history }>
@@ -47,7 +46,7 @@ test("pass valid email to test email input field", () => {
 });
 
 test("Render password", () => {
-	const navigate = createMemoryHistory();
+	
 
 	render(
 		<Router history={ history }>
@@ -61,7 +60,7 @@ test("Render password", () => {
 });
 
 test("Render checkbox", () => {
-	const navigate = createMemoryHistory();
+	
 
 	render(
 		<Router history={ history }>
@@ -74,7 +73,7 @@ test("Render checkbox", () => {
 });
 
 test("checkbox initially unchecked", () => {
-	const navigate = createMemoryHistory();
+	
 
 	render(
 		<Router history={ history }>
@@ -86,7 +85,7 @@ test("checkbox initially unchecked", () => {
 });
 
 test("button Availability", () => {
-	const navigate = createMemoryHistory();
+	
 
 	render(
 		<Router history={ history }>
@@ -99,7 +98,7 @@ test("button Availability", () => {
 });
 
 test("Button Onclick", () => {
-	const navigate = createMemoryHistory();
+	
 
 	render(
 		<Router history={ history }>

@@ -707,7 +707,7 @@ export default function SideNav() {
                 </NavLink>
 
                 <NavLink id="mybranchNav" to="/customers/myBranch" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : 'nav_link' }>
-                  <ListItem className="titleSidenav" disabled={ activeLoanData }>
+                  <ListItem className="titleSidenav" disabled={ checkPresenceOfLoanStatus === "referred" || checkPresenceOfLoanStatus === "contact_branch"? false : activeLoanData}>
                     <ListItemIcon>
                       { " " }
                       <AccountBalanceIcon />{ " " }

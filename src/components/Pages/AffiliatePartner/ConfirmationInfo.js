@@ -184,7 +184,7 @@ const validationSchema = yup.object({
 });
 
 //Begin: Login page
-export default function CreditKarma(props) {
+export default function CreditKarma() {
   const classes = useStyles();
   const [ loading, setLoading ] = useState(false);
   const [ validZip, setValidZip ] = useState(true);
