@@ -1,26 +1,36 @@
-.section-top-normal-footer {
-  padding: 20px 70px 0px 70px !important;
+.branch-Locator-Footer {
+  padding: 20px 0px 0px 0px !important;
   display: flex;
   justify-content: space-evenly;
   padding: 20px 0;
+}
+.branchLocatorFooterWrap {
+  max-width: 1200px;
+  margin: auto;
+  padding: 40px 30px 20px 30px;
 }
 .section-bottom {
   background: linear-gradient(85deg, #264266, #0f4eb3) !important;
   text-align: left;
   padding: 15px 70px;
 }
-.leftAlignAddress {
-  font-size: 15px;
+.section-bottom div {
+  max-width: 1200px;
+  margin: auto;
+}
+.centerAlignAddress {
+  font-size: 1.078rem !important;
   line-height: 1.5;
   text-align: center;
 }
-.hrefTag {
+.footerHrefTag {
   text-decoration: none;
-  color: #4d4d4d;
+  color: #333;
   cursor: pointer;
+  line-height: 1.5;
 }
 .paragraph {
-  padding: "20px 70px 0px 70px";
+  padding: "20px 0px 0px 0px";
 }
 
 .paragraph p {
@@ -31,36 +41,54 @@
   line-height: 1.5;
 }
 .footerLinkstitle {
+  font-family: MuliBold, sans-serif !important;
+  color: #333;
   font-weight: bolder !important;
 }
-.paragraph {
-  padding: "20px 70px 0px 70px";
-}
-.socialIcons{
+
+.socialIcons {
   background-color: #214476 !important;
   border-radius: 5px !important;
   padding: 7px !important;
   color: white !important;
   margin-right: 10px !important;
 }
-.socialIcons span svg{
+.socialIcons span svg {
   font-size: 20px;
 }
+.footerLogoLinksWrap {
+  align-items: center;
+}
+.footerLogoimageWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 @media all and (max-width: 1024px) {
-  .section-top-normal-footer,
-  .paragraph,
-  .section-bottom {
-    padding: 20px 40px !important;
+  .branch-Locator-Footer,
+  .paragraph {
+    padding: 20px 0px !important;
   }
 }
 @media all and (max-width: 1024px) {
-  .section-top-normal-footer,
+  .branch-Locator-Footer,
   .paragraph {
-    padding: 20px 40px !important;
+    padding: 20px 0px !important;
   }
 }
 @media all and (max-width: 700px) {
   .row {
     display: unset !important;
+  }
+}
+@media all and (max-width: 960px) {
+  .section-bottom {
+    padding: 15px 40px !important;
+  }
+}
+@media all and (max-width: 420px) {
+  .centerAlignAddress {
+    display: flex;
+    flex-direction: column;
   }
 }
