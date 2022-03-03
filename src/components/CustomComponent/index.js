@@ -109,7 +109,6 @@ export default function OutlinedCard() {
 									</Typography>
 									<TextField
 										name="firstName"
-										form={ true }
 										label="Enter your first name"
 										required={ true }
 										type="email"

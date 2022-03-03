@@ -223,7 +223,7 @@ const BranchLocatorHeader = () => {
               </div>
             )}
             <NavLink
-              to="/customers/applyForLoan"
+              to="/customers/resumeApplication"
               className="nav_link branchHeaderLinksLast"
             >
               <ButtonPrimary
