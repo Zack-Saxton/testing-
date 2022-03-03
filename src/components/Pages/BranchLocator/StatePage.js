@@ -193,9 +193,9 @@ export default function StatePage() {
         />
       </Helmet>
       <Grid
+        className="greyBackground"
         container
         justifyContent={"center"}
-        style={{ backgroundColor: "#f9f9f9" }}
       >
         <Grid className="branchLayoutGrid" container style={{ width: "100%" }}>
           <Grid className="branchImage" item md={7} sm={12} xs={12}>

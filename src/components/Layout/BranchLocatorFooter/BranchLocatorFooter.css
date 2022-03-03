@@ -64,6 +64,9 @@
   justify-content: center;
   align-items: center;
 }
+.socialIconsWrap{
+  display: flex;
+}
 @media all and (max-width: 1024px) {
   .branch-Locator-Footer,
   .paragraph {

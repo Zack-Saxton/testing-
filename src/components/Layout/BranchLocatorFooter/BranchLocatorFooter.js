@@ -206,7 +206,7 @@ export default function BranchLocatorFooter() {
                         {element.title}
                       </Typography>
                       {element.title === "Stay Connected" ? (
-                        <Grid>
+                        <Grid className="socialIconsWrap">
                           <a
                             target="_blank"
                             rel="noreferrer"
