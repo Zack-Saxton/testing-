@@ -1,8 +1,8 @@
-import React from "react";
 import { Typography } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
-import { Radio } from "../../../FormsUI";
 import PropTypes from "prop-types";
+import React from "react";
+import { Radio } from "../../../FormsUI";
 
 //Component to load the questions
 //To build the structure for load

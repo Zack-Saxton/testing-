@@ -10,7 +10,6 @@ import PropTypes from "prop-types";
 import React, { useState } from "react";
 import "./Password.css";
 
-
 //Initializing component
 const PasswordWrapper = ({ name, label, materialProps, id, ...otherProps }) => {
   const [ showPassword, setShowPassword ] = useState({

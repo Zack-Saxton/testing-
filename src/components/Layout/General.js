@@ -1,10 +1,10 @@
 import Cookies from "js-cookie";
+import PropTypes from "prop-types";
 import React from 'react';
 import CheckLoginTimeout from "./CheckLoginTimeout";
 import "./Layout.css";
 import Footer from './NormalFooter/NormalFooter';
 import Header from './NormalHeader/NormalHeader';
-import PropTypes from "prop-types";
 
 const General = ({ children }) => {
 
