@@ -130,7 +130,7 @@ export async function checkMyOfferSubmit(customer) {
 		},
 		"gclid": null,
 		"requested_product": "unsecured-individual-loan",
-		"geoip": "::ffff:127.0.0.1",
+		"geoip": ipAddress,
 		"sourceTracking": [
 			{
 				"referer": "https://cis-development.marinerfinance.io/application/form",
