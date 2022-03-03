@@ -16,7 +16,7 @@ let statusStrLink = {
   pre_qual_referred: "/select-amount",
   pre_qual_rejected: "/select-amount",
   pre_qualified: "/select-amount",
-  referred: "/referred-to-branch",
+  referred: "/customers/myBranch",
   rejected: "/no-offers-available",
   under_review: "/customers/loanDocument",
   closing_process: "/customers/finalVerification",
