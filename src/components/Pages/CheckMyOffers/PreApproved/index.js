@@ -13,7 +13,8 @@ const PreApproved = () => {
 
     useEffect(() => {
         setAccountDetails().then((res) => {
-            setOfferAmount(res?.data?.offerData?.offerAmount);
+        setOfferAmount( "$ " + (Math.round(parseInt(res?.data?.offerData?.offerAmount) * 100) / 100).toLocaleString());
+           
         });
         return null;
     }, []);
@@ -71,8 +72,9 @@ const PreApproved = () => {
                                     <Grid item xs={ 11 } sm={ 10 } md={ 8 } lg={ 8 } xl={ 8 }>
                                         <Typography align="center" style={ { color: "black", fontWeight: "400", fontFamily: "Muli, sans-serif" } }>
                                             &nbsp;We checked your offer code<br />
-                                            and { "your'e" } eligible for at least,<br />
-                                            ${ offerAmount }<br />
+                                            and {"your'e"} eligible for at least,<br />
+                                            { offerAmount }<br />
+                                              
                                             and possibly more!
                                         </Typography>
                                     </Grid>

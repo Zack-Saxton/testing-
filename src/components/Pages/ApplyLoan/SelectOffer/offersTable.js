@@ -424,25 +424,24 @@ export default function OfferTable(props) {
 }
 
 OfferTable.propTypes = {
-	offersToCompare : PropTypes.array,
-	setOffersToCompare : PropTypes.func,
-	classes : PropTypes.object,
-	loading : PropTypes.bool,
-	offersToCompareChart : PropTypes.array,
-	rowData : PropTypes.array,
-	value : PropTypes.number,
-	offerFlag : PropTypes.bool,
-	checkedValue : PropTypes.string,
-	setCheckedValue : PropTypes.func,
-	setSelectedIndex : PropTypes.func,
-	setSelectedTerm : PropTypes.func,
-	selectedTerm : PropTypes.string,
-	selectedIndex : PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]),
-	setOffersToCompareChart : PropTypes.func,
-	tabVerticalProps : PropTypes.func,
-	noOfTerms : PropTypes.number,
-	handleTabChange : PropTypes.func,
-	submitSelectedOffer : PropTypes.func,
-	onCompareOfferTabClick : PropTypes.func
-  };
-  
+	offersToCompare: PropTypes.array,
+	setOffersToCompare: PropTypes.func,
+	classes: PropTypes.object,
+	loading: PropTypes.bool,
+	offersToCompareChart: PropTypes.array,
+	rowData: PropTypes.array,
+	value: PropTypes.number,
+	offerFlag: PropTypes.bool,
+	checkedValue: PropTypes.string,
+	setCheckedValue: PropTypes.func,
+	setSelectedIndex: PropTypes.func,
+	setSelectedTerm: PropTypes.func,
+	selectedTerm: PropTypes.string,
+	selectedIndex: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]),
+	setOffersToCompareChart: PropTypes.func,
+	tabVerticalProps: PropTypes.func,
+	noOfTerms: PropTypes.number,
+	handleTabChange: PropTypes.func,
+	submitSelectedOffer: PropTypes.func,
+	onCompareOfferTabClick: PropTypes.func
+};
