@@ -255,7 +255,7 @@ const BranchLocatorHeader = () => {
                 <a
                   target="_blank"
                   rel="noreferrer"
-                  href="https://wps-qa.marinerfinance.io/personal-loans/"
+                  href={`${ServerURL}/personal-loans/`}
                 >
                   Personal Loans
                 </a>
@@ -265,21 +265,21 @@ const BranchLocatorHeader = () => {
                   <a
                     target="_blank"
                     rel="noreferrer"
-                    href="https://wps-qa.marinerfinance.io/personal-loans/unexpected-expenses/"
+                    href={`${ServerURL}/personal-loans/unexpected-expenses/`}
                   >
                     Unexpected Expenses
                   </a>
                   <a
                     target="_blank"
                     rel="noreferrer"
-                    href="https://wps-qa.marinerfinance.io/personal-loans/vacation-loans/"
+                    href={`${ServerURL}/personal-loans/vacation-loans/`}
                   >
                     Vacation Loans
                   </a>
                   <a
                     target="_blank"
                     rel="noreferrer"
-                    href="https://wps-qa.marinerfinance.io/personal-loans/debt-consolidation-loans/"
+                    href={`${ServerURL}/personal-loans/debt-consolidation-loans/`}
                   >
                     Debt Consolidation Loans
                   </a>
@@ -287,14 +287,14 @@ const BranchLocatorHeader = () => {
                   <a
                     target="_blank"
                     rel="noreferrer"
-                    href="https://wps-qa.marinerfinance.io/personal-loans/home-improvement-loans/"
+                    href={`${ServerURL}/personal-loans/home-improvement-loans/`}
                   >
                     Home Improvement Loans
                   </a>
                   <a
                     target="_blank"
                     rel="noreferrer"
-                    href="https://wps-qa.marinerfinance.io/personal-loans/wedding-loans/"
+                    href={`${ServerURL}/personal-loans/wedding-loans/`}
                   >
                     Wedding Loans
                   </a>
@@ -309,20 +309,20 @@ const BranchLocatorHeader = () => {
                 <a
                   target="_blank"
                   rel="noreferrer"
-                  href="https://wps-qa.marinerfinance.io/car-loans/"
+                  href={`${ServerURL}/car-loans/`}
                 >
                   Car Loans
                 </a>
               </AccordionSummary>
               <AccordionDetails className="menuSubLinksWrap">
                 <Grid className="subMenuWrap">
-                  <Link href="https://wps-qa.marinerfinance.io/car-loans/auto-refinance/">
+                  <Link href={`${ServerURL}/car-loans/auto-refinance/`}>
                     Auto Refinancing Loans
                   </Link>
-                  <Link href="https://wps-qa.marinerfinance.io/car-loans/new-car-loan/">
+                  <Link href={`${ServerURL}/car-loans/new-car-loan/`}>
                     Finance Car Loans
                   </Link>
-                  <Link href="https://wps-qa.marinerfinance.io/car-loans/used-car-loan/">
+                  <Link href={`${ServerURL}/car-loans/used-car-loan/`}>
                     Finance Used Car Loan
                   </Link>
                 </Grid>
@@ -336,20 +336,20 @@ const BranchLocatorHeader = () => {
                 <a
                   target="_blank"
                   rel="noreferrer"
-                  href="https://wps-qa.marinerfinance.io/car-loans/"
+                  href={`${ServerURL}/car-loans/`}
                 >
                   Home Loans
                 </a>
               </AccordionSummary>
               <AccordionDetails className="menuSubLinksWrap">
                 <Grid className="subMenuWrap">
-                  <Link href="https://wps-qa.marinerfinance.io/home-loans/mortgage-loans/">
+                  <Link href={`${ServerURL}/home-loans/mortgage-loans/`}>
                     Home Purchase
                   </Link>
-                  <Link href="https://wps-qa.marinerfinance.io/home-loans/home-refinance/">
+                  <Link href={`${ServerURL}/home-loans/home-refinance/`}>
                     Home Refinance
                   </Link>
-                  <Link href="https://wps-qa.marinerfinance.io/home-loans/meet-our-loan-officers/">
+                  <Link href={`${ServerURL}/home-loans/meet-our-loan-officers/`}>
                     Meet Our Loan Officers
                   </Link>
                 </Grid>
@@ -363,24 +363,24 @@ const BranchLocatorHeader = () => {
                 <a
                   target="_blank"
                   rel="noreferrer"
-                  href="https://wps-qa.marinerfinance.io/resources/"
+                  href={`${ServerURL}/resources/`}
                 >
                   Resources
                 </a>
               </AccordionSummary>
               <AccordionDetails className="menuSubLinksWrap">
                 <Grid className="subMenuWrap">
-                  <Link href="https://wps-qa.marinerfinance.io/resources/how-to-apply/">
+                  <Link href={`${ServerURL}/resources/how-to-apply/`}>
                     How to Apply for a Personal loan
                   </Link>
                   <Link href="/faq">FAQ</Link>
-                  <Link href="https://wps-qa.marinerfinance.io/blog/">
+                  <Link href={`${ServerURL}/blog/`}>
                     Blog
                   </Link>
-                  <Link href="https://wps-qa.marinerfinance.io/state/">
+                  <Link href={`${ServerURL}/state/`}>
                     Mariner States
                   </Link>
-                  <Link href="https://wps-qa.marinerfinance.io/resources/legal/">
+                  <Link href={`${ServerURL}/resources/legal/`}>
                     Legal
                   </Link>
                 </Grid>
@@ -394,23 +394,23 @@ const BranchLocatorHeader = () => {
                 <a
                   target="_blank"
                   rel="noreferrer"
-                  href="https://wps-qa.marinerfinance.io/why-mariner-finance/"
+                  href={`${ServerURL}/why-mariner-finance/`}
                 >
                   Why Us?
                 </a>
               </AccordionSummary>
               <AccordionDetails className="menuSubLinksWrap">
                 <Grid className="subMenuWrap">
-                  <Link href="https://wps-qa.marinerfinance.io/testimonials/">
+                  <Link href={`${ServerURL}/testimonials/`}>
                     Testimonials
                   </Link>
-                  <Link href="https://wps-qa.marinerfinance.io/why-mariner-finance/mariner-finance-reviews/">
+                  <Link href={`${ServerURL}/why-mariner-finance/mariner-finance-reviews/`}>
                     Mariner Finance Reviews
                   </Link>
-                  <Link href="https://wps-qa.marinerfinance.io/why-mariner-finance/excellent-customer-service/">
+                  <Link href={`${ServerURL}/why-mariner-finance/excellent-customer-service/`}>
                     Excellent Customer Service
                   </Link>
-                  <Link href="https://wps-qa.marinerfinance.io/why-mariner-finance/history/">
+                  <Link href={`${ServerURL}/why-mariner-finance/history/`}>
                     Mariner Finance History
                   </Link>
                   <Accordion className="borderTop">
@@ -421,7 +421,7 @@ const BranchLocatorHeader = () => {
                       <a
                         target="_blank"
                         rel="noreferrer"
-                        href="https://wps-qa.marinerfinance.io/why-mariner-finance/partner-with-us/"
+                        href={`${ServerURL}/why-mariner-finance/partner-with-us/`}
                       >
                         Partner With Us
                       </a>
@@ -430,14 +430,14 @@ const BranchLocatorHeader = () => {
                       <Grid className="subMenuWrapTwo">
                         <Link
                           className=""
-                          href="https://wps-qa.marinerfinance.io/why-mariner-finance/partner-with-us/point-of-sale-financing/"
+                          href={`${ServerURL}/why-mariner-finance/partner-with-us/point-of-sale-financing/`}
                         >
                           Point of Sale Financing
                         </Link>
-                        <Link href="https://wps-qa.marinerfinance.io/why-mariner-finance/partner-with-us/corporate-acquisition/">
+                        <Link href={`${ServerURL}/why-mariner-finance/partner-with-us/corporate-acquisition/`}>
                           Corporate Acquisition
                         </Link>
-                        <Link href="https://wps-qa.marinerfinance.io/why-mariner-finance/partner-with-us/">
+                        <Link href={`${ServerURL}/why-mariner-finance/partner-with-us/`}>
                           Affiliate Program
                         </Link>
                       </Grid>
@@ -445,7 +445,7 @@ const BranchLocatorHeader = () => {
                   </Accordion>
                   <Link
                     className="mobileMenuLink"
-                    href="https://wps-qa.marinerfinance.io/why-mariner-finance/community-outreach/"
+                    href={`${ServerURL}/why-mariner-finance/community-outreach/`}
                   >
                     Community Outreach
                   </Link>
@@ -458,32 +458,32 @@ const BranchLocatorHeader = () => {
                         className="noBorder"
                         target="_blank"
                         rel="noreferrer"
-                        href="https://wps-qa.marinerfinance.io/careers/"
+                        href={`${ServerURL}/careers/`}
                       >
                         Careers
                       </a>
                     </AccordionSummary>
                     <AccordionDetails className="noPadding">
                       <Grid className="subMenuWrapThree">
-                        <Link href="https://wps-qa.marinerfinance.io/careers/branch-manager-trainee-and-internship-programs/">
+                        <Link href={`${ServerURL}/careers/branch-manager-trainee-and-internship-programs/`}>
                           Branch Manager Trainee and Internship programs
                         </Link>
-                        <Link href="https://wps-qa.marinerfinance.io/careers/jobs-for-veterans/">
+                        <Link href={`${ServerURL}/careers/jobs-for-veterans/`}>
                           Jobs For Veterans
                         </Link>
-                        <Link href="https://wps-qa.marinerfinance.io/careers/corporate-culture/">
+                        <Link href={`${ServerURL}/careers/corporate-culture/`}>
                           Corporate Culture
                         </Link>
-                        <Link href="https://wps-qa.marinerfinance.io/careers/benefits/">
+                        <Link href={`${ServerURL}/careers/benefits/`}>
                           Benefits
                         </Link>
-                        <Link href="https://wps-qa.marinerfinance.io/careers/faq/">
+                        <Link href={`${ServerURL}/careers/faq/`}>
                           FAQ
                         </Link>
                       </Grid>
                     </AccordionDetails>
                   </Accordion>
-                  <Link href="https://wps-qa.marinerfinance.io/sweepstakes/">
+                  <Link href={`${ServerURL}/sweepstakes/`}>
                     Sweepstakes
                   </Link>
                 </Grid>
@@ -491,7 +491,7 @@ const BranchLocatorHeader = () => {
             </Accordion>
             <Accordion className="noShadow">
               <AccordionDetails className="menuHead">
-                <Link href="https://cac-qa.marinerfinance.io/select-amount/">
+                <Link href={`${ServerURL}/select-amount/`}>
                   Mail Offer?
                 </Link>
               </AccordionDetails>
