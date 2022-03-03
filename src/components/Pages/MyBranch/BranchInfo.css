@@ -181,11 +181,11 @@
     display: flex;
     align-items: center;
 } */
-#branchLists {
+/* #branchLists {
   background-color: f6f6f6;
   min-height: 450px !important;
   padding: 0px 15px;
-}
+} */
 #timeSlotSelect .subOption {
   color: #171717 !important;
 }

@@ -199,7 +199,7 @@ export default function BranchLocatorFooter() {
         <section className="branch-Locator-Footer">
           <Grid container spacing={ 4 } justifyContent="space-evenly">
             { groupedFooter.map((nested) => (
-              <Grid item xs={ 6 } sm={ 3 } key={ Math.random() * 1000 }>
+              <Grid item xs={ 12 } sm={ 3 } key={ Math.random() * 1000 }>
                 { nested.map((element) => (
                   <div key={ element.title } style={ { marginBottom: "30px" } }>
                     <Typography className="footerLinkstitle" gutterBottom>

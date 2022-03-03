@@ -187,7 +187,7 @@ export default function StatePage() {
             <img className="mobileImage" src={ BranchImageMobile } alt="MF Banner" />
             <img className="webImage" src={ BranchImageWeb } alt="MF Banner" />
           </Grid>
-          <Grid className="greyBackground" style={ { padding: "24px 0px" } } item md={ 5 } sm={ 12 } xs={ 12 }>
+          <Grid className="greyBackground mobilePadding" style={ { padding: "24px 0px" } } item md={ 5 } sm={ 12 } xs={ 12 }>
             <Breadcrumbs
               className="breadcrumbWrap"
               separator={
@@ -285,6 +285,7 @@ export default function StatePage() {
           style={ { padding: "4% 0px 4% 0px", backgroundColor: "#f6f6f6" } }
           container
         >
+          <h3  className="mapTopHeading">Branches Near You</h3>
           <Grid
             style={ { padding: "0px" } }
             id="mapGridWrap"

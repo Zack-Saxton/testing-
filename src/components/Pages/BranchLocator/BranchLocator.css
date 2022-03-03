@@ -696,6 +696,11 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
 .marinerFinanceBuildingImageWrap {
   padding-right: 10px;
 }
+.branchPageMap{
+  background-color: #f9f9f9;
+  width: 100%;
+  padding: 4% 2rem 4% 1rem;
+}
 @media (max-width: 960px) {
   .mobileImage{
     display: block;
@@ -725,8 +730,68 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
     padding: 0;
     margin-top: 40px;
   }
+  .branchLocatorHeadingMain{
+    display: none;
+  }
+  .branchLocatorHeading{
+    display: none;
+  }
+  #branchLists{
+    padding: 0px !important;
+  }
+  #mapAndBranchList{
+    padding: 4% 15px !important;
+  }
+  .mapWrap{
+    padding: 4% 15px !important;
+  }
+  #greyBackground{
+    padding: 4% 15px !important;
+  }
+  #searchBoxBottom{
+    padding: 0 !important;
+  }
+  .branchPageMap{
+    padding: 4% 15px;
+  }
+  .branchMapSection{
+    padding: 0px;
+  }
+  .findNearbyBranch{
+    padding: 1% 15px;
+  }
+  .applyOnlineWrap{
+    padding: 4% 15px;
+  }
+  .mainHeading{
+    font-size: 1.875rem !important;
+  }
+  .mainParagraph{
+    font-size: 0.875rem !important;
+  }
+  .mainSubHeading{
+    font-size: 1.25rem !important;
+  }
+  .mapTopHeading{
+    font-size: 1.875rem !important;
+  }
+  .PesonalLoanHeading{
+    font-size: 1.875rem !important
+  }
+  .personalLoanText p{
+    font-size: 0.875rem !important;
+  }
+  .personalLoanText h3 {
+    font-size: 1.25rem !important;
+  }
 }
 @media (max-width: 599px) {
+  .mobilePadding{
+    padding: 2% 15px !important;
+  }
+  #mainContent{
+    padding: 4% 28px !important;
+  }
   #branchDiv {
     padding-right: 0px;
     margin-bottom: 30px;

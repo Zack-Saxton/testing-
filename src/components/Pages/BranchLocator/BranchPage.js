@@ -167,7 +167,7 @@ export default function StatePage(props) {
         <img className="webImage" src={ BranchImageWeb } alt="MF Banner" />
       </Grid>
       <Grid
-        className="greyBackground"
+        className="greyBackground mobilePadding"
         style={ { padding: "24px 0px" } }
         item
         md={ 5 }
@@ -462,11 +462,12 @@ export default function StatePage(props) {
 
         {DrivingDirectionPopup}
         <Grid
-          style={{
-            backgroundColor: "#f9f9f9",
-            width: "100%",
-            padding: "4% 2rem 4% 1rem",
-          }}
+          className="branchPageMap"
+          // style={{
+          //   backgroundColor: "#f9f9f9",
+          //   width: "100%",
+          //   padding: "4% 2rem 4% 1rem",
+          // }}
         >
           <Grid className="mapContainerWrap" container>
             <Grid className="branchMapSection" item md={6}>

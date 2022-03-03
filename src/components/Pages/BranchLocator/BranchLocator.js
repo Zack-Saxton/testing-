@@ -315,7 +315,7 @@ export default function BranchLocator() {
 
   const search2andDirectionfromSearch2 = (
     <Grid id="getDirectionWrap" className={ clessesforptag.gridMargin } container>
-      <Grid className={ clessesforptag.gridPadding } item md={ 6 }>
+      <Grid className={ clessesforptag.gridPadding } item xs={12} s={12} md={ 6 }>
         <ButtonPrimary
           href={ getBranchAddress }
           id="Continue"
@@ -524,7 +524,7 @@ export default function BranchLocator() {
         <img className="webImage" src={ BranchImageWeb } alt="MF Banner" />
       </Grid>
 
-      <Grid className="greyBackground" style={ { padding: "24px 0px" } } item md={ 5 } sm={ 12 } xs={ 12 }>
+      <Grid className="greyBackground mobilePadding" style={ { padding: "24px 0px" } } item md={ 5 } sm={ 12 } xs={ 12 }>
         { BreadCrumsDisplay }
         <Grid className="blueBoxWrap">
         { search1andgetList }

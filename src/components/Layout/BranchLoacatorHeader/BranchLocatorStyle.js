@@ -52,20 +52,28 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
-  sectionDesktop: {
-    display: 'none',
-
-    [ theme.breakpoints.up('md') ]: {
-      display: 'flex',
-
-    },
+  hideSection:{
+    display:"none"
   },
-  sectionMobile: {
-    display: 'flex',
-    [ theme.breakpoints.up('md') ]: {
-      display: 'none',
-    },
-  }
+  showSection:{
+    display:"block"
+  },
+  // sectionDesktop: {
+  //   // display: 'none',
+  //   // "@media (max-width: 1200px)": {
+  //   //   display: 'none',
+  //   // },
+  //   [ theme.breakpoints.up('lg') ]: {
+  //     display: 'flex',
+
+  //   },
+  // },
+  // sectionMobile: {
+  //   display: 'flex',
+  //   [ theme.breakpoints.up('lg') ]: {
+  //     display: 'none',
+  //   },
+  // }
 }));
 
 export { useStyles };

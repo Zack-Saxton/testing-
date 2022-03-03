@@ -66,8 +66,7 @@
 }
 @media all and (max-width: 1024px) {
   .branch-Locator-Footer,
-  .paragraph,
-  .section-bottom {
+  .paragraph {
     padding: 20px 0px !important;
   }
 }
@@ -80,6 +79,11 @@
 @media all and (max-width: 700px) {
   .row {
     display: unset !important;
+  }
+}
+@media all and (max-width: 960px) {
+  .section-bottom {
+    padding: 15px 40px !important;
   }
 }
 @media all and (max-width: 420px) {
