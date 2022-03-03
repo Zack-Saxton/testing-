@@ -1,8 +1,8 @@
-import AppBar from "@material-ui/core/AppBar";
-import Grid from "@material-ui/core/Grid";
-import Link from "@material-ui/core/Link";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
+import AppBar from "@mui/material/AppBar";
+import Grid from "@mui/material/Grid";
+import Link from "@mui/material/Link";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Logo from "../../../assets/images/mf-logo.png";

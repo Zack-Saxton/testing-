@@ -5,7 +5,7 @@ Component Name      :    Zipcode
 Functionality       :    To use this component to validate and get the Zip code in the correct format from the user.
 
 #################################################################################################################*/
-import { DataGrid } from "@material-ui/data-grid";
+import { DataGrid } from "@mui/x-data-grid";
 import PropTypes from "prop-types";
 import * as React from "react";
 

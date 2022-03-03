@@ -7,9 +7,9 @@ Functionality       :    To use this RadioButton as a default component for UI p
 
 #################################################################################################################*/
 
-import { FormControl, FormControlLabel, FormLabel } from "@material-ui/core";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
+import { FormControl, FormControlLabel, FormLabel } from "@mui/material";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
 import PropTypes from "prop-types";
 import React from "react";
 

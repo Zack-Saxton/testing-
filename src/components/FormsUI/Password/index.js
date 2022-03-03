@@ -5,7 +5,7 @@ Component Name      :    Password
 Functionality       :    To use this component to validate and get the Password with hide and show option.
 
 #################################################################################################################*/
-import { IconButton, InputAdornment, TextField } from "@material-ui/core";
+import { IconButton, InputAdornment, TextField } from "@mui/material";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import "./Password.css";

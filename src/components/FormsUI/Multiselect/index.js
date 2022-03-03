@@ -6,13 +6,13 @@ Functionality       :    To use this Multiselect as a default component for UI p
                           maintain same consistency.
 
 #################################################################################################################*/
-import { FormControl } from "@material-ui/core";
-import Checkbox from "@material-ui/core/Checkbox";
-import InputLabel from "@material-ui/core/InputLabel";
-import ListItemText from "@material-ui/core/ListItemText";
-import MenuItem from "@material-ui/core/MenuItem";
-import Select from "@material-ui/core/Select";
-import { makeStyles } from "@material-ui/core/styles";
+import { FormControl } from "@mui/material";
+import Checkbox from "@mui/material/Checkbox";
+import InputLabel from "@mui/material/InputLabel";
+import ListItemText from "@mui/material/ListItemText";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import { makeStyles } from "@mui/styles";
 import PropTypes from "prop-types";
 import React from "react";
 

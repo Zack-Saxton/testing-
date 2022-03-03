@@ -1,4 +1,4 @@
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 import { useFormik } from "formik";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";

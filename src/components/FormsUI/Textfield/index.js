@@ -5,9 +5,9 @@ Component Name      :    TextField
 Functionality       :    To use this component to validate and get the input from the user as text field.
 
 #################################################################################################################*/
-import { TextField } from "@material-ui/core";
-import { red } from "@material-ui/core/colors";
-import { makeStyles } from "@material-ui/core/styles";
+import { TextField } from "@mui/material";
+import { red } from "@mui/material/colors";
+import { makeStyles } from "@mui/styles";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import globalMessages from '../../../assets/data/globalMessages.json';

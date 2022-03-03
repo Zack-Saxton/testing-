@@ -9,8 +9,9 @@ Functionality       :    To use this Select Box as a default component for UI pu
 #################################################################################################################
  */
 
-import { FormControl, FormHelperText, makeStyles, MenuItem, Select } from "@material-ui/core";
-import InputLabel from "@material-ui/core/InputLabel";
+import { FormControl, FormHelperText, MenuItem, Select } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import InputLabel from "@mui/material/InputLabel";
 import PropTypes from "prop-types";
 import React from "react";
 import "./SelectBox.css";

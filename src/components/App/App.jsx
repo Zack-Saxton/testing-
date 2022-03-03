@@ -3,6 +3,9 @@ import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from "react-toastify";
+import { ThemeProvider } from '@mui/styles';
+import { createTheme } from '@mui/material/styles';
+import { StyledEngineProvider } from '@mui/material/styles';
 import 'react-toastify/dist/ReactToastify.css';
 import CheckMyOffers from '../../contexts/CheckMyOffers';
 import ProfilePicture from '../../contexts/ProfilePicture';
@@ -92,8 +95,12 @@ const branchHeaderComponent = (componentName) => {
         </BranchHeaderLayout>
     );
 };
+const theme = createTheme();
+
 function App() {
     return (
+        <ThemeProvider theme={theme}>
+            <StyledEngineProvider injectFirst>
         <QueryClientProvider client={ queryClient }>
             <div className="App">
                 <ToastContainer
@@ -191,6 +198,8 @@ function App() {
                 </BrowserRouter>
             </div>
         </QueryClientProvider>
+        </StyledEngineProvider>
+        </ThemeProvider>
     );
 }
 

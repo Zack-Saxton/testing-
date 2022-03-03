@@ -1,16 +1,16 @@
 
-import { CircularProgress } from '@material-ui/core';
-import Badge from "@material-ui/core/Badge";
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import IconButton from "@material-ui/core/IconButton";
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import { makeStyles } from "@material-ui/core/styles";
-import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
+import { CircularProgress } from '@mui/material';
+import Badge from "@mui/material/Badge";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import IconButton from "@mui/material/IconButton";
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import { makeStyles } from "@mui/styles";
+import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import React, { useEffect, useState } from "react";
 import { useQuery } from 'react-query';
 import { getNoticationData, setUnread } from "../../Controllers/NotificationController";

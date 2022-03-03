@@ -6,13 +6,11 @@ Functionality       :    To use this component for having Phone Number
 
 #################################################################################################################*/
 
-import FormControl from "@material-ui/core/FormControl";
-import { createTheme, ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
+import FormControl from "@mui/material/FormControl";
+import TextField from "@mui/material/TextField";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 
-const theme = createTheme();
 const PhoneNumberWrapper = ({ name, onChange, value, label, error, disabled, helperText, ...otherProps }) => {
   //Set Formik field
   // const [field, mata] = useField(name);
@@ -29,7 +27,6 @@ const PhoneNumberWrapper = ({ name, onChange, value, label, error, disabled, hel
 
   return (
     <FormControl style={ { width: "100%" } }>
-      <MuiThemeProvider theme={ theme }>
         <TextField label={ label }
           name={ name }
           value={ unmaskedval }
@@ -38,7 +35,6 @@ const PhoneNumberWrapper = ({ name, onChange, value, label, error, disabled, hel
           placeholder="Enter Phone Number"
           helperText={ helperText }
           inputProps={ { "data-test-id": "phone", "unmaskedval": unmaskedval, disabled: disabled } } />
-      </MuiThemeProvider>
     </FormControl>
   );
 };

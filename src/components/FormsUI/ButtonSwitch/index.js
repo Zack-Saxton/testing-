@@ -7,8 +7,8 @@ Functionality       :    To use this ButtonSwitch as a default component for UI 
 
 #################################################################################################################*/
 
-import { FormControl, FormControlLabel } from "@material-ui/core";
-import Switch from "@material-ui/core/Switch";
+import { FormControl, FormControlLabel } from "@mui/material";
+import Switch from "@mui/material/Switch";
 import PropTypes from "prop-types";
 import React from "react";
 

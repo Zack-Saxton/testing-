@@ -8,12 +8,12 @@ Functionality       :    To use this ButtonWithIcon as a default component for U
 
 #################################################################################################################
  */
-import { Checkbox } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import CheckBoxIcon from "@material-ui/icons/CheckBox";
-import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
-import Autocomplete from "@material-ui/lab/Autocomplete";
+import { Checkbox } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import TextField from "@mui/material/TextField";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import Autocomplete from '@mui/material/Autocomplete';
 import { useField, useFormikContext } from "formik";
 import PropTypes from "prop-types";
 import React from "react";
@@ -72,8 +72,8 @@ const AutoCompleteMultipleWrapper = ({
       multiple
       options={ jsonData }
       getOptionLabel={ (option) => option.value }
-      renderOption={ (option, { selected }) => (
-        <React.Fragment>
+      renderOption={ (props, option, { selected }) => (
+        <li {...props}>
           <Checkbox
             icon={ icon }
             checkedIcon={ checkedIcon }
@@ -81,7 +81,7 @@ const AutoCompleteMultipleWrapper = ({
             checked={ selected }
           />
           { option.value }
-        </React.Fragment>
+        </li>
       ) }
       // style={styleAutocompleteMF}
       renderInput={ (params) => (

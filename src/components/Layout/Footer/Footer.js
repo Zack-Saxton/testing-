@@ -1,5 +1,5 @@
-import { Grid } from "@material-ui/core";
-import Typography from "@material-ui/core/Typography";
+import { Grid } from "@mui/material";
+import Typography from "@mui/material/Typography";
 import React from "react";
 import { NavLink } from "react-router-dom";
 import housingImage from "../../../assets/images/equal_Housing_Lender.png";

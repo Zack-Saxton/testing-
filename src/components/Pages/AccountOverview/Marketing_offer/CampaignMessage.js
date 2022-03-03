@@ -1,4 +1,4 @@
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import logo from "../../../../assets/images/mariner-finance.jpg";

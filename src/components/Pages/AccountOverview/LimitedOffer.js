@@ -1,8 +1,8 @@
-import { Box, Modal, Typography } from "@material-ui/core";
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Grid from "@material-ui/core/Grid";
-import IconButton from "@material-ui/core/IconButton";
-import CloseIcon from "@material-ui/icons/Close";
+import { Box, Modal, Typography } from "@mui/material";
+import CircularProgress from '@mui/material/CircularProgress';
+import Grid from "@mui/material/Grid";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 import React, { useEffect, useState } from "react";
 import NumberFormat from "react-number-format";
 import { useQuery } from 'react-query';

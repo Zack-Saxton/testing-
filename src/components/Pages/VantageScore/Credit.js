@@ -1,6 +1,6 @@
-import { Grid } from "@material-ui/core";
-import ThumbDownIcon from "@material-ui/icons/ThumbDownAlt";
-import ThumbUpIcon from "@material-ui/icons/ThumbUpAlt";
+import { Grid } from "@mui/material";
+import ThumbDownIcon from "@mui/icons-material/ThumbDownAlt";
+import ThumbUpIcon from "@mui/icons-material/ThumbUpAlt";
 import Moment from "moment";
 import React, { useEffect, useState } from "react";
 import GaugeChart from "react-gauge-chart";

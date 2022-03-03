@@ -5,8 +5,8 @@ Component Name      :    Text fieldWithIcon
 Functionality       :    To use this component to add Icon with text field
 
 #################################################################################################################*/
-import { Grid } from "@material-ui/core";
-import Icon from "@material-ui/core/Icon";
+import { Grid } from "@mui/material";
+import Icon from "@mui/material/Icon";
 import PropTypes from "prop-types";
 import React from "react";
 import TextField from "../Textfield";

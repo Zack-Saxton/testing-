@@ -7,8 +7,13 @@ Functionality       :    To use this component to get the date with restrictions
 
 #################################################################################################################*/
 import DateFnsUtils from "@date-io/date-fns";
-import Grid from "@material-ui/core/Grid";
-import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import Grid from "@mui/material/Grid";
+//import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@mui/lab";
+import TextField from '@mui/material/TextField';
+import DatePicker from '@mui/lab/DatePicker';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+
 import "date-fns";
 import PropTypes from "prop-types";
 import React from "react";
@@ -29,9 +34,9 @@ const DatePickerWrapper = ({ name, format, label, placeholder, maxdate, minyear,
 	const minDate = new Date(year - minyear, month, day);
 
 	return (
-		<MuiPickersUtilsProvider utils={ DateFnsUtils }>
+		<LocalizationProvider dateAdapter={AdapterDateFns}>
 			<Grid container justifyContent="space-around">
-				<KeyboardDatePicker
+				<DatePicker
 					margin="normal"
 					id="date-picker-dialog"
 					label={ label }
@@ -47,13 +52,15 @@ const DatePickerWrapper = ({ name, format, label, placeholder, maxdate, minyear,
 					KeyboardButtonProps={ {
 						"aria-label": "change date",
 					} }
-
-					{ ...otherProps }
-					inputProps={ { "data-test-id": "datePicker" } }
+					renderInput={(props) => (
+						<TextField {...props} helperText="valid mask" />
+					  )}
+					// { ...otherProps }
+					// inputProps={ { "data-test-id": "datePicker" } }
 
 				/>
 			</Grid>
-		</MuiPickersUtilsProvider>
+		</LocalizationProvider>
 	);
 };
 
