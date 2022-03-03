@@ -4,7 +4,7 @@
   justify-content: space-evenly;
   padding: 20px 0;
 }
-.branchLocatorFooterWrap{
+.branchLocatorFooterWrap {
   max-width: 1200px;
   margin: auto;
   padding: 40px 30px 20px 30px;
@@ -14,7 +14,7 @@
   text-align: left;
   padding: 15px 70px;
 }
-.section-bottom div{
+.section-bottom div {
   max-width: 1200px;
   margin: auto;
 }
@@ -46,20 +46,20 @@
   font-weight: bolder !important;
 }
 
-.socialIcons{
+.socialIcons {
   background-color: #214476 !important;
   border-radius: 5px !important;
   padding: 7px !important;
   color: white !important;
   margin-right: 10px !important;
 }
-.socialIcons span svg{
+.socialIcons span svg {
   font-size: 20px;
 }
-.footerLogoLinksWrap{
+.footerLogoLinksWrap {
   align-items: center;
 }
-.footerLogoimageWrap{
+.footerLogoimageWrap {
   display: flex;
   justify-content: center;
   align-items: center;

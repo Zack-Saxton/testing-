@@ -16,8 +16,9 @@ import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
   branch_hours,
-  ca_branch_hours, MFStates,
-  MFStateShort
+  ca_branch_hours,
+  MFStates,
+  MFStateShort,
 } from "../../../assets/data/marinerBusinesStates";
 import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile_Image.png";
 import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.jpg";
@@ -59,22 +60,21 @@ const useStyles = makeStyles({
   },
 });
 export default function StatePage(props) {
-
   //Material UI css class
   const clessesforptag = useStyles();
   const getDirectionsClass = useStylesConsumer();
-  const [ getDirectionModal, setgetDirectionModal ] = useState(false);
-  const [ getBranchList, setBranchList ] = useState();
-  const [ getBranchAddress, setBranchAddress ] = useState();
-  const [ getMap, setMap ] = useState([]);
-  const [ getCurrentLocation, setCurrentLocation ] = useState();
-  const [ zoomDepth, setZoomDepth ] = useState();
-  const [ getStateName, setStateName ] = useState();
+  const [getDirectionModal, setgetDirectionModal] = useState(false);
+  const [getBranchList, setBranchList] = useState();
+  const [getBranchAddress, setBranchAddress] = useState();
+  const [getMap, setMap] = useState([]);
+  const [getCurrentLocation, setCurrentLocation] = useState();
+  const [zoomDepth, setZoomDepth] = useState();
+  const [getStateName, setStateName] = useState();
   const location = useLocation();
   const { Branch_Details } = location.state;
-  const [ branchHours, setBranchHours ] = useState();
+  const [branchHours, setBranchHours] = useState();
   const navigate = useNavigate();
-  let StateFullName = MFStates[ MFStateShort.indexOf(getStateName) ];
+  let StateFullName = MFStates[MFStateShort.indexOf(getStateName)];
 
   let params = useParams();
   //API call
@@ -87,7 +87,7 @@ export default function StatePage(props) {
       } else {
         setCurrentLocation(result?.data?.searchLocation);
         setZoomDepth(
-          (result?.data?.branchData[ 0 ]?.distance).replace(/[^/d]/g, "") / 100
+          (result?.data?.branchData[0]?.distance).replace(/[^/d]/g, "") / 100
         );
         return result.data.branchData;
       }
@@ -101,7 +101,7 @@ export default function StatePage(props) {
         setMap(await mapInformationBranchLocator(List));
       }
     } catch (error) {
-      ErrorLogger(' Error from listForMapView', error);
+      ErrorLogger(" Error from listForMapView", error);
     }
   };
   const apiGetBranchList = async (value) => {
@@ -124,14 +124,13 @@ export default function StatePage(props) {
     setgetDirectionModal(false);
   };
   const display_Branch_Times = () => {
-    if (getStateName && getStateName === 'CA') {
+    if (getStateName && getStateName === "CA") {
       setBranchHours(ca_branch_hours);
     } else {
       setBranchHours(branch_hours);
     }
   };
   const ApplyOnlineLoan = () => {
-
     window.open(`https://wps-qa.marinerfinance.io/`, "_self");
   };
   useEffect(() => {
@@ -142,143 +141,139 @@ export default function StatePage(props) {
     );
     setStateName(State.substring(0, 2));
     return null;
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ Branch_Details ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [Branch_Details]);
 
   useEffect(() => {
     display_Branch_Times();
     window.scrollTo(0, 0);
-    document.title = `Personal Loans in  ${ Branch_Details.BranchName }, ${ getStateName } | Mariner Finance Branch | Discover More `;
+    document.title = `Personal Loans in  ${Branch_Details.BranchName}, ${getStateName} | Mariner Finance Branch | Discover More `;
     return null;
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ getStateName ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getStateName]);
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_SECKey,
   });
 
   const BranchDetailsInCard = (
-    <Grid container style={ { width: "100%" } }>
-      <Grid className="branchImage" item md={7} sm={ 12 } xs={ 12 }>
-        <img
-          className="mobileImage"
-          src={ BranchImageMobile }
-          alt="MF Banner"
-        />
-        <img className="webImage" src={ BranchImageWeb } alt="MF Banner" />
+    <Grid container style={{ width: "100%" }}>
+      <Grid className="branchImage" item md={7} sm={12} xs={12}>
+        <img className="mobileImage" src={BranchImageMobile} alt="MF Banner" />
+        <img className="webImage" src={BranchImageWeb} alt="MF Banner" />
       </Grid>
       <Grid
         className="greyBackground mobilePadding"
-        style={ { padding: "24px 0px" } }
+        style={{ padding: "24px 0px" }}
         item
-        md={ 5 }
-        sm={ 12 }
-        xs={ 12 }
+        md={5}
+        sm={12}
+        xs={12}
       >
         <Breadcrumbs
           className="breadcrumbWrap"
           separator={
             <NavigateNextIcon
               className="navigateNextIcon"
-              style={ { color: "#171717" } }
+              style={{ color: "#171717" }}
             />
           }
           aria-label="breadcrumb"
         >
           <Link
             className="breadcrumbLink"
-            onClick={ () => window.open(`/`, "_self") }
+            onClick={() => window.open(`/`, "_self")}
           >
             Home
           </Link>
           <Link
             className="breadcrumbLink"
-            onClick={ () => window.open(`/branch-locator/`, "_self") }
+            onClick={() => window.open(`/branch-locator/`, "_self")}
           >
             Branch Locator
           </Link>
           <Link
             className="breadcrumbLink"
-            onClick={ () => {
+            onClick={() => {
               params.statename = StateFullName;
-              navigate(`/branch-locator/personal-loans-in-${ params.statename }`);
-            } }
+              navigate(`/branch-locator/personal-loans-in-${params.statename}`);
+            }}
           >
-            { StateFullName ?? "" }
+            {StateFullName ?? ""}
           </Link>
           <Link className="breadcrumbLink">
-            Your { Branch_Details.BranchName }, { getStateName } Branch
+            Your {Branch_Details.BranchName}, {getStateName} Branch
           </Link>
         </Breadcrumbs>
         <Grid className="blueBoxWrap">
           <h4 className="branchHeading">
-            Personal Loan in {' '}
+            Personal Loan in{" "}
             <strong>
-               { Branch_Details.BranchName }, { getStateName } Branch
+              {Branch_Details.BranchName}, {getStateName} Branch
             </strong>
           </h4>
           <Grid container>
             <Grid
               className="marinerFinanceBuildingImageWrap"
               item
-              sm={ 6 }
-              md={ 6 }
-              lg={ 6 }>
+              sm={6}
+              md={6}
+              lg={6}
+            >
               <img
                 className="marinerFinanceBuildingImage"
-                src={ MarinerFinanceBuilding }
+                src={MarinerFinanceBuilding}
               />
-              <Grid >
-              <span className="branchAddressSpan">{ Branch_Details?.Address }</span>
-              <span>
-                <a
-                  href={ "tel:+1" + Branch_Details?.PhoneNumber }
-                  className="branchPhoneNumber"
-                >
-                  <PhoneIcon />
-                  { Branch_Details?.PhoneNumber }
-                </a>
-              </span>
+              <Grid>
+                <span className="branchAddressSpan">
+                  {Branch_Details?.Address}
+                </span>
+                <span>
+                  <a
+                    href={"tel:+1" + Branch_Details?.PhoneNumber}
+                    className="branchPhoneNumber"
+                  >
+                    <PhoneIcon />
+                    {Branch_Details?.PhoneNumber}
+                  </a>
+                </span>
+              </Grid>
             </Grid>
-            </Grid>
-            <Grid item sm={ 6 } md={ 6 } lg={ 6 } className="businessHours">
-              { Branch_Details?.BranchTime?.Value2 &&
-                Branch_Details?.BranchTime?.Value3 ? (
-                <h4>{ Branch_Details?.BranchTime?.Value3 }</h4>
+            <Grid item sm={6} md={6} lg={6} className="businessHours">
+              {Branch_Details?.BranchTime?.Value2 &&
+              Branch_Details?.BranchTime?.Value3 ? (
+                <h4>{Branch_Details?.BranchTime?.Value3}</h4>
               ) : (
                 <h4>
-                  { Branch_Details?.BranchTime?.Value1 }{ " " }
-                  { Branch_Details?.BranchTime?.Value2 }{ " " }
+                  {Branch_Details?.BranchTime?.Value1}{" "}
+                  {Branch_Details?.BranchTime?.Value2}{" "}
                 </h4>
-              ) }
+              )}
               <span className="businessHoursSpan">Business Hours</span>
-              { branchHours
+              {branchHours
                 ? branchHours.map((ele, index) => {
-                  return <div className="weekdays" key={ index }>{ ele } </div>;
-                })
-                : "" }
-                <hr/>
-                <Grid  className="branchManager">
-              <small>Branch Manager</small>
-              <br />
-              <span>
-              { Branch_Details?.branchManager }
-              </span>
-            </Grid>
+                    return (
+                      <div className="weekdays" key={index}>
+                        {ele}{" "}
+                      </div>
+                    );
+                  })
+                : ""}
+              <hr />
+              <Grid className="branchManager">
+                <small>Branch Manager</small>
+                <br />
+                <span>{Branch_Details?.branchManager}</span>
+              </Grid>
             </Grid>
           </Grid>
-          {/* <Grid className="branchDetailsWrap" container>
-            
-           
-          </Grid> */}
           <Grid className="secondaryButtonWrap" container>
             <ButtonSecondary
-              onClick={ () => {
+              onClick={() => {
                 setBranchAddress(
-                  "https://www.google.com/maps/search/" +
-                  Branch_Details.Address
+                  "https://www.google.com/maps/search/" + Branch_Details.Address
                 );
                 openGetDirectionModal();
-              } }
+              }}
               stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
             >
               Get Directions
@@ -292,58 +287,77 @@ export default function StatePage(props) {
   const Display3moreClosestBranchList = (
     <Grid
       container
-      style={ { margin: "auto", justifyContent: "space-between" } }
+      style={{ margin: "auto", justifyContent: "space-between" }}
       // item
       // md={ 10 }
     >
       <Grid container className="branchListWrap">
-        { getBranchList ? (
+        {getBranchList ? (
           getBranchList.map((item, index) => {
             return (
-              <Grid key={ index } className="locationInfo">
+              <Grid key={index} className="locationInfo">
                 <NavLink
-                  to={ `/branchLocator/[${ MFStates[ MFStateShort.indexOf(item.Address.substring(item.Address.length - 8, item.Address.length).substring(0, 2)) ] }]-personal-loans-in-${ item.BranchName }-${ item.Address.substring(item.Address.length - 8, item.Address.length).substring(0, 2) }` }
-                  state={ { Branch_Details: item } }
+                  to={`/branchLocator/[${
+                    MFStates[
+                      MFStateShort.indexOf(
+                        item.Address.substring(
+                          item.Address.length - 8,
+                          item.Address.length
+                        ).substring(0, 2)
+                      )
+                    ]
+                  }]-personal-loans-in-${
+                    item.BranchName
+                  }-${item.Address.substring(
+                    item.Address.length - 8,
+                    item.Address.length
+                  ).substring(0, 2)}`}
+                  state={{ Branch_Details: item }}
                   className="nav_link"
-                  onClick={ () => {
+                  onClick={() => {
                     let State = item.Address.substring(
                       item.Address.length - 8,
                       item.Address.length
                     );
-                    document.title = `Personal Loans in ${ item.BranchName }, ${ State.substring(0, 2) } | Mariner Finance Branch | Discover More`;
-                  } }
+                    document.title = `Personal Loans in ${
+                      item.BranchName
+                    }, ${State.substring(
+                      0,
+                      2
+                    )} | Mariner Finance Branch | Discover More`;
+                  }}
                 >
                   <b>
-                    <h4 className={ clessesforptag.h4tag }>
-                      { item?.BranchName } Branch
+                    <h4 className={clessesforptag.h4tag}>
+                      {item?.BranchName} Branch
                     </h4>
                   </b>
                   <ChevronRightIcon />
                 </NavLink>
-                <p className={ clessesforptag.ptag }>
-                  { item.distance }les away | { item?.BranchTime?.Value1 }{ " " }
-                  { item?.BranchTime?.Value2 }
+                <p className={clessesforptag.ptag}>
+                  {item.distance}les away | {item?.BranchTime?.Value1}{" "}
+                  {item?.BranchTime?.Value2}
                 </p>
-                <p className={ clessesforptag.addressFont } id={ item.id }>
-                  { item.Address }
+                <p className={clessesforptag.addressFont} id={item.id}>
+                  {item.Address}
                 </p>
-                <p className={ clessesforptag.phoneNumber }>
+                <p className={clessesforptag.phoneNumber}>
                   <PhoneIcon />
                   <a
-                    href={ "tel:+1" + item?.PhoneNumber }
-                    style={ { color: "#214476" } }
+                    href={"tel:+1" + item?.PhoneNumber}
+                    style={{ color: "#214476" }}
                   >
-                    { " " }
-                    { item?.PhoneNumber }
+                    {" "}
+                    {item?.PhoneNumber}
                   </a>
                 </p>
                 <ButtonSecondary
-                  onClick={ () => {
+                  onClick={() => {
                     setBranchAddress(
                       "https://www.google.com/maps/search/" + item.Address
                     );
                     openGetDirectionModal();
-                  } }
+                  }}
                   stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
                 >
                   Get Directions
@@ -353,7 +367,7 @@ export default function StatePage(props) {
           })
         ) : (
           <p> No Branch found.</p>
-        ) }
+        )}
       </Grid>
     </Grid>
   );
@@ -361,14 +375,15 @@ export default function StatePage(props) {
     <Grid className="applyOnlineWrap">
       <Grid className="applyOnline">
         <Typography className="applyOnlineHeading">
-          { "Can't get to a branch? No worries, apply for an online loan today!" }
+          {"Can't get to a branch? No worries, apply for an online loan today!"}
         </Typography>
         <Typography className="applyOnlineParagraph">
-          Apply now! Loans starting from $1k up to $25k | Fast Application | Quick Decision | ACH Money Transfers Available
+          Apply now! Loans starting from $1k up to $25k | Fast Application |
+          Quick Decision | ACH Money Transfers Available
         </Typography>
         <Grid container className="applyOnlineButton">
           <ButtonPrimary
-            onClick={ ApplyOnlineLoan }
+            onClick={ApplyOnlineLoan}
             stylebutton='{"padding":"0px 30px","fontWeight":"400", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
           >
             Apply Online Now
@@ -381,45 +396,44 @@ export default function StatePage(props) {
   const DrivingDirectionPopup = (
     <Dialog
       id="getDirectionModal"
-      open={ getDirectionModal }
+      open={getDirectionModal}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
-      classes={ { paper: getDirectionsClass.consumerDialog } }
+      classes={{ paper: getDirectionsClass.consumerDialog }}
     >
-      <div id="closeBtn" className={ getDirectionsClass.buttonClose }>
+      <div id="closeBtn" className={getDirectionsClass.buttonClose}>
         <IconButton
           aria-label="close"
-          onClick={ closeGetDirectionModal }
-          className={ getDirectionsClass.closeButton }
+          onClick={closeGetDirectionModal}
+          className={getDirectionsClass.closeButton}
         >
           <CloseIcon />
         </IconButton>
       </div>
       <h2
         id="consumerDialogHeading"
-        className={ getDirectionsClass.consumerDialogHeading }
+        className={getDirectionsClass.consumerDialogHeading}
       >
         You are about to leave marinerfinance.com
       </h2>
       <div>
-        <p className={ getDirectionsClass.consumerParagaraph }>
+        <p className={getDirectionsClass.consumerParagaraph}>
           Mariner Finance provides this link for your convenience and is not
-          responsible for and makes no claims or representations regarding
-          the content, terms of use, or privacy policies of third party
-          websites.
+          responsible for and makes no claims or representations regarding the
+          content, terms of use, or privacy policies of third party websites.
         </p>
       </div>
       <div id="buttonWrap">
         <ButtonSecondary
           id="stayBtn"
-          onClick={ closeGetDirectionModal }
+          onClick={closeGetDirectionModal}
           stylebutton='{"float": "" }'
         >
           Stay on Marinerfinance.com
         </ButtonSecondary>
         <ButtonPrimary
-          href={ getBranchAddress }
-          onClick={ closeGetDirectionModal }
+          href={getBranchAddress}
+          onClick={closeGetDirectionModal}
           id="Continue"
           stylebutton='{"float": "" }'
           target="_blank"
@@ -432,13 +446,13 @@ export default function StatePage(props) {
 
   const DisplayBranchMap = (
     <Grid className="branchMap">
-      { isLoaded ? (
+      {isLoaded ? (
         <Map
-          getMap={ getMap }
-          CurrentLocation={ getCurrentLocation }
-          Zoom={ zoomDepth }
+          getMap={getMap}
+          CurrentLocation={getCurrentLocation}
+          Zoom={zoomDepth}
         />
-      ) : null }
+      ) : null}
     </Grid>
   );
   //View part
@@ -452,23 +466,11 @@ export default function StatePage(props) {
           content={`Looking for a personal loans in ${Branch_Details.BranchName},${getStateName} ?  Mariner Finance branch employees can help. Visit our ${Branch_Details.BranchName}, ${getStateName} location today.`}
         />
       </Helmet>
-      <Grid
-        className="greyBackground"
-        container
-        justifyContent={"center"}
-        // style={ { backgroundColor: "#f9f9f9" } }
-      >
+      <Grid className="greyBackground" container justifyContent={"center"}>
         <Grid className="addressCardWrap">{BranchDetailsInCard}</Grid>
 
         {DrivingDirectionPopup}
-        <Grid
-          className="branchPageMap"
-          // style={{
-          //   backgroundColor: "#f9f9f9",
-          //   width: "100%",
-          //   padding: "4% 2rem 4% 1rem",
-          // }}
-        >
+        <Grid className="branchPageMap">
           <Grid className="mapContainerWrap" container>
             <Grid className="branchMapSection" item md={6}>
               <Grid>
@@ -507,8 +509,8 @@ export default function StatePage(props) {
           </Grid>
         </Grid>
 
-        <Grid className="findNearbyBranch"> 
-          <Grid style={{ margin: "auto" }} >
+        <Grid className="findNearbyBranch">
+          <Grid style={{ margin: "auto" }}>
             <h4 className="PesonalLoanMapHeading">
               <strong>Find nearby {StateFullName} branches</strong>
             </h4>

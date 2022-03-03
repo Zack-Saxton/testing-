@@ -3,13 +3,13 @@ import Grid from "@material-ui/core/Grid";
 import Link from "@material-ui/core/Link";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import MenuIcon from '@material-ui/icons/Menu';
+import MenuIcon from "@material-ui/icons/Menu";
 import Logo from "../../../assets/images/mf-logo.png";
 import { ButtonPrimary } from "../../FormsUI";
 import { useStyles } from "../BranchLoacatorHeader/BranchLocatorStyle";
@@ -23,14 +23,14 @@ const BranchLocatorHeader = () => {
   const classes = useStyles();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const ServerURL = 'https://wps-qa.marinerfinance.io';
+  const ServerURL = "https://wps-qa.marinerfinance.io";
   const loginToken = JSON.parse(
     Cookies.get("token") ? Cookies.get("token") : "{ }"
   );
   const redirectToAccountOverview = () => {
     navigate("/customers/accountOverview");
   };
-  const [ display , setdisplay ] = useState(true);
+  const [display, setdisplay] = useState(true);
 
   function logOut() {
     queryClient.removeQueries();
@@ -59,7 +59,6 @@ const BranchLocatorHeader = () => {
               alt="MF logo"
             />
           </Typography>
-          {/* <div className={ classes.grow } /> */}
           <div id="desktopMenu" className={classes.sectionDesktop}>
             <Grid className="personalLoanHolder">
               <Typography className="branchHeaderLinks">
@@ -72,10 +71,14 @@ const BranchLocatorHeader = () => {
                 <Link href={`${ServerURL}/personal-loans/vacation-loans/`}>
                   Vacation Loans
                 </Link>
-                <Link href={`${ServerURL}/personal-loans/debt-consolidation-loans/`}>
+                <Link
+                  href={`${ServerURL}/personal-loans/debt-consolidation-loans/`}
+                >
                   Debt Consolidation Loans
                 </Link>
-                <Link href={`${ServerURL}/personal-loans/home-improvement-loans/`}>
+                <Link
+                  href={`${ServerURL}/personal-loans/home-improvement-loans/`}
+                >
                   Home Improvement Loans
                 </Link>
                 <Link href={`${ServerURL}/personal-loans/wedding-loans/`}>
@@ -104,7 +107,7 @@ const BranchLocatorHeader = () => {
               <Typography className="branchHeaderLinks">Home Loans</Typography>
 
               <Grid className="homeLoanSubLinks">
-              <Link href={`${ServerURL}/car-loans/auto-refinance/`}>
+                <Link href={`${ServerURL}/car-loans/auto-refinance/`}>
                   Auto Refinancing Loans
                 </Link>
                 <Link href={`${ServerURL}/car-loans/new-car-loan/`}>
@@ -125,12 +128,8 @@ const BranchLocatorHeader = () => {
                 </Link>
                 <Link href="/faq">FAQ</Link>
                 <Link href={`${ServerURL}/blog/`}>Blog</Link>
-                <Link href={`${ServerURL}/state/`}>
-                  Mariner States
-                </Link>
-                <Link href={`${ServerURL}/resources/legal/`}>
-                  Legal
-                </Link>
+                <Link href={`${ServerURL}/state/`}>Mariner States</Link>
+                <Link href={`${ServerURL}/resources/legal/`}>Legal</Link>
               </Grid>
             </Grid>
 
@@ -138,13 +137,15 @@ const BranchLocatorHeader = () => {
               <Typography className="branchHeaderLinks">Why Us?</Typography>
 
               <Grid className="whyUsSubLinks">
-                <Link href={`${ServerURL}/testimonials/`}>
-                  Testimonials
-                </Link>
-                <Link href={`${ServerURL}/why-mariner-finance/mariner-finance-reviews/`}>
+                <Link href={`${ServerURL}/testimonials/`}>Testimonials</Link>
+                <Link
+                  href={`${ServerURL}/why-mariner-finance/mariner-finance-reviews/`}
+                >
                   Mariner Finance Reviews
                 </Link>
-                <Link href={`${ServerURL}/why-mariner-finance/excellent-customer-service/`}>
+                <Link
+                  href={`${ServerURL}/why-mariner-finance/excellent-customer-service/`}
+                >
                   Excellent Customer Service
                 </Link>
                 <Link href={`${ServerURL}/why-mariner-finance/history/`}>
@@ -152,32 +153,42 @@ const BranchLocatorHeader = () => {
                 </Link>
 
                 <Grid className="subLinkDropdown">
-                  <Link href={`${ServerURL}/why-mariner-finance/partner-with-us/`}>
+                  <Link
+                    href={`${ServerURL}/why-mariner-finance/partner-with-us/`}
+                  >
                     Partner With Us
                   </Link>
                   <Grid className="subLinkList">
-                    <Link href={`${ServerURL}/why-mariner-finance/partner-with-us/point-of-sale-financing/`}>
+                    <Link
+                      href={`${ServerURL}/why-mariner-finance/partner-with-us/point-of-sale-financing/`}
+                    >
                       Point of Sale Financing
                     </Link>
-                    <Link href={`${ServerURL}/why-mariner-finance/partner-with-us/corporate-acquisition/`}>
+                    <Link
+                      href={`${ServerURL}/why-mariner-finance/partner-with-us/corporate-acquisition/`}
+                    >
                       Corporate Acquisition
                     </Link>
-                    <Link href={`${ServerURL}/why-mariner-finance/partner-with-us/`}>
+                    <Link
+                      href={`${ServerURL}/why-mariner-finance/partner-with-us/`}
+                    >
                       Affiliate Program
                     </Link>
                   </Grid>
                 </Grid>
 
-                <Link href={`${ServerURL}/why-mariner-finance/community-outreach/`}>
+                <Link
+                  href={`${ServerURL}/why-mariner-finance/community-outreach/`}
+                >
                   Community Outreach
                 </Link>
 
                 <Grid className="subLinkDropdown">
-                  <Link href={`${ServerURL}/careers/`}>
-                    Careers
-                  </Link>
+                  <Link href={`${ServerURL}/careers/`}>Careers</Link>
                   <Grid className="subLinkList">
-                    <Link href={`${ServerURL}/careers/branch-manager-trainee-and-internship-programs/`}>
+                    <Link
+                      href={`${ServerURL}/careers/branch-manager-trainee-and-internship-programs/`}
+                    >
                       Branch Manager Trainee and Internship programs
                     </Link>
                     <Link href={`${ServerURL}/careers/jobs-for-veterans/`}>
@@ -189,14 +200,10 @@ const BranchLocatorHeader = () => {
                     <Link href={`${ServerURL}/careers/benefits/`}>
                       Benefits
                     </Link>
-                    <Link href={`${ServerURL}/careers/faq/`}>
-                      FAQ
-                    </Link>
+                    <Link href={`${ServerURL}/careers/faq/`}>FAQ</Link>
                   </Grid>
                 </Grid>
-                <Link href={`${ServerURL}/sweepstakes/`}>
-                  Sweepstakes
-                </Link>
+                <Link href={`${ServerURL}/sweepstakes/`}>Sweepstakes</Link>
               </Grid>
             </Grid>
 
@@ -210,10 +217,11 @@ const BranchLocatorHeader = () => {
               <NavLink to="/login" className="nav_link branchHeaderLinks">
                 <Typography className={classes.subtitle}>Login</Typography>
               </NavLink>
-            ) 
-              : <div  onClick={logoutUser} className="nav_link branchHeaderLinks">
+            ) : (
+              <div onClick={logoutUser} className="nav_link branchHeaderLinks">
                 <Typography className={classes.subtitle}>Sign out</Typography>
-              </div> }
+              </div>
+            )}
             <NavLink
               to="/customers/applyForLoan"
               className="nav_link branchHeaderLinksLast"
@@ -235,7 +243,10 @@ const BranchLocatorHeader = () => {
           >
             <MenuIcon />
           </button>
-          <Grid id="mainMobileMenu" className={display ? classes.hideSection : classes.showSection}>
+          <Grid
+            id="mainMobileMenu"
+            className={display ? classes.hideSection : classes.showSection}
+          >
             <Accordion className="noShadow">
               <AccordionSummary
                 className="menuHead"
@@ -375,7 +386,6 @@ const BranchLocatorHeader = () => {
                 </Grid>
               </AccordionDetails>
             </Accordion>
-
             <Accordion className="noShadow">
               <AccordionSummary
                 className="menuHead"
@@ -403,9 +413,11 @@ const BranchLocatorHeader = () => {
                   <Link href="https://wps-qa.marinerfinance.io/why-mariner-finance/history/">
                     Mariner Finance History
                   </Link>
-
                   <Accordion className="borderTop">
-                    <AccordionSummary className="menuHead" expandIcon={<ExpandMoreIcon />}>
+                    <AccordionSummary
+                      className="menuHead"
+                      expandIcon={<ExpandMoreIcon />}
+                    >
                       <a
                         target="_blank"
                         rel="noreferrer"
@@ -416,28 +428,34 @@ const BranchLocatorHeader = () => {
                     </AccordionSummary>
                     <AccordionDetails className="pointOfSale">
                       <Grid className="subMenuWrapTwo">
-                        <Link className="" href="https://wps-qa.marinerfinance.io/why-mariner-finance/partner-with-us/point-of-sale-financing/">
-                        Point of Sale Financing
-                      </Link>
-                      <Link href="https://wps-qa.marinerfinance.io/why-mariner-finance/partner-with-us/corporate-acquisition/">
-                        Corporate Acquisition
-                      </Link>
-                      <Link href="https://wps-qa.marinerfinance.io/why-mariner-finance/partner-with-us/">
-                        Affiliate Program
-                      </Link>
+                        <Link
+                          className=""
+                          href="https://wps-qa.marinerfinance.io/why-mariner-finance/partner-with-us/point-of-sale-financing/"
+                        >
+                          Point of Sale Financing
+                        </Link>
+                        <Link href="https://wps-qa.marinerfinance.io/why-mariner-finance/partner-with-us/corporate-acquisition/">
+                          Corporate Acquisition
+                        </Link>
+                        <Link href="https://wps-qa.marinerfinance.io/why-mariner-finance/partner-with-us/">
+                          Affiliate Program
+                        </Link>
                       </Grid>
-                      
                     </AccordionDetails>
                   </Accordion>
-
-                  <Link className="mobileMenuLink" href="https://wps-qa.marinerfinance.io/why-mariner-finance/community-outreach/">
+                  <Link
+                    className="mobileMenuLink"
+                    href="https://wps-qa.marinerfinance.io/why-mariner-finance/community-outreach/"
+                  >
                     Community Outreach
                   </Link>
-
                   <Accordion className="careersWrap">
-                    <AccordionSummary className="menuHead" expandIcon={<ExpandMoreIcon />}>
+                    <AccordionSummary
+                      className="menuHead"
+                      expandIcon={<ExpandMoreIcon />}
+                    >
                       <a
-                      className="noBorder"
+                        className="noBorder"
                         target="_blank"
                         rel="noreferrer"
                         href="https://wps-qa.marinerfinance.io/careers/"
@@ -448,32 +466,29 @@ const BranchLocatorHeader = () => {
                     <AccordionDetails className="noPadding">
                       <Grid className="subMenuWrapThree">
                         <Link href="https://wps-qa.marinerfinance.io/careers/branch-manager-trainee-and-internship-programs/">
-                        Branch Manager Trainee and Internship programs
-                      </Link>
-                      <Link href="https://wps-qa.marinerfinance.io/careers/jobs-for-veterans/">
-                        Jobs For Veterans
-                      </Link>
-                      <Link href="https://wps-qa.marinerfinance.io/careers/corporate-culture/">
-                        Corporate Culture
-                      </Link>
-                      <Link href="https://wps-qa.marinerfinance.io/careers/benefits/">
-                        Benefits
-                      </Link>
-                      <Link href="https://wps-qa.marinerfinance.io/careers/faq/">
-                        FAQ
-                      </Link>
+                          Branch Manager Trainee and Internship programs
+                        </Link>
+                        <Link href="https://wps-qa.marinerfinance.io/careers/jobs-for-veterans/">
+                          Jobs For Veterans
+                        </Link>
+                        <Link href="https://wps-qa.marinerfinance.io/careers/corporate-culture/">
+                          Corporate Culture
+                        </Link>
+                        <Link href="https://wps-qa.marinerfinance.io/careers/benefits/">
+                          Benefits
+                        </Link>
+                        <Link href="https://wps-qa.marinerfinance.io/careers/faq/">
+                          FAQ
+                        </Link>
                       </Grid>
-                      
                     </AccordionDetails>
                   </Accordion>
-
                   <Link href="https://wps-qa.marinerfinance.io/sweepstakes/">
                     Sweepstakes
                   </Link>
                 </Grid>
               </AccordionDetails>
             </Accordion>
-
             <Accordion className="noShadow">
               <AccordionDetails className="menuHead">
                 <Link href="https://cac-qa.marinerfinance.io/select-amount/">
@@ -481,25 +496,16 @@ const BranchLocatorHeader = () => {
                 </Link>
               </AccordionDetails>
             </Accordion>
-
             <Accordion className="noShadow">
               <AccordionDetails className="menuHead">
                 <Link href="/login">Login</Link>
               </AccordionDetails>
             </Accordion>
-
             <Accordion className="noShadow">
               <AccordionDetails className="menuHead">
                 <Link href="#">Check My Offers</Link>
               </AccordionDetails>
             </Accordion>
-
-            {/* <Link href="https://cac-qa.marinerfinance.io/select-amount/">
-              Mail Offer?
-            </Link>
-
-            <Link href="/login">Login</Link>
-            <Link href="#">Check My Offers</Link> */}
           </Grid>
         </Toolbar>
       </AppBar>
