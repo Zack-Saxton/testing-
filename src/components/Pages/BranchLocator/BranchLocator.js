@@ -129,11 +129,11 @@ export default function BranchLocator() {
   const getActivePlaces = () => {
     if (document.getElementById('search1').value) {
       setshowMapListSearch2DirectionButton(true);
-      apiGetBranchList(document.getElementById('search1').value);
+      apiGetBranchList(document?.getElementById('search1').value);
       clearSearchText();
       mapSection.current.scrollIntoView({ behavior: 'smooth' });
-    } else if (document.getElementById('search2').value) {
-      apiGetBranchList(document.getElementById('search2').value);
+    } else if (document?.getElementById('search2').value) {
+      apiGetBranchList(document?.getElementById('search2').value);
       clearSearchText();
     }
   };
@@ -343,34 +343,33 @@ export default function BranchLocator() {
             className="searchIconBottom"
             style={ { color: "white" } }
           />
-          <PlacesAutocomplete
-            id="address2"
-            value={ address2 }
-            onChange={ setAddress2 }
-            onSelect={ handleSelect2 }
-            style={ { width: '50%' } }
-          >
-            { ({ getInputProps, suggestions, getSuggestionItemProps, loading2 }) => (
-              <div className="searchInputWrap">
-                <input className="branchSearchTwo" { ...getInputProps({ placeholder: 'Enter city & state or zip code' }) } />
-                <div className="serachResult">
-                  { loading2 && <div>Loading...</div> }
-                  { React.Children.toArray(suggestions.map(suggestion => {
-                    const style = {
-                      backgroundColor: suggestion.active ? "#41b6e6" : "#fff"
-                    };
-                    return (
-                      <div key={ Math.random() * 1000 } { ...getSuggestionItemProps(suggestion, {
-                        style
-                      }) }>
-                        <span>{ suggestion.description }</span>
-                      </div>
-                    );
-                  })) }
-                </div>
-              </div>
-            ) }
-          </PlacesAutocomplete>
+         <PlacesAutocomplete
+                value={ address2 }
+                onChange={ setAddress2 }
+                onSelect={ handleSelect2 }
+                style={ { width: '50%' } }
+              >
+                { ({ getInputProps, suggestions, getSuggestionItemProps, loading2 }) => (
+                  <div className="searchInputWrap">
+                    <input id="search2" className="branchSearchTwo" { ...getInputProps({ placeholder: 'Enter city & state or zip code' }) } />
+                    <div className="serachResult">
+                      { loading2 && <div>Loading...</div> }
+                      { suggestions.map(suggestion => {
+                        const style = {
+                          backgroundColor: suggestion.active ? "#41b6e6" : "#fff"
+                        };
+                        return (
+                          <div key={ Math.random() * 1000 }{ ...getSuggestionItemProps(suggestion, {
+                            style
+                          }) }>
+                            <span>{ suggestion.description }</span>
+                          </div>
+                        );
+                      }) }
+                    </div>
+                  </div>
+                ) }
+              </PlacesAutocomplete>
           <ButtonPrimary
             className="branchSearchButton"
             onClick={ getActivePlaces }
