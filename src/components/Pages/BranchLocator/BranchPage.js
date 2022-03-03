@@ -206,7 +206,7 @@ export default function StatePage(props) {
         </Breadcrumbs>
         <Grid className="blueBoxWrap">
           <h4 className="branchHeading">
-            Personal Loan in{" "}
+            Personal Loans in{" "}
             <strong>
               {Branch_Details.BranchName}, {getStateName} Branch
             </strong>
@@ -496,7 +496,7 @@ export default function StatePage(props) {
                 Huntsville lending professional in person? The better we know
                 you, the more we can help. You have your own unique goals to
                 meet, and it all starts with a conversation at your local
-                branch.A personal loan can meet a variety of needs, including
+                branch.A personal loans can meet a variety of needs, including
                 medical emergencies, home improvement projects, vacations,
                 weddings, tuitions costs, and debt consolidation. Mariner
                 Finance has a personal loans that fits every one of those
