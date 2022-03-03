@@ -454,7 +454,6 @@ export default function CreditKarma() {
                         label="Enter your last 4 digits of SSN"
                         placeholder="Enter your SSN"
                         id="ssn"
-                        type="ssn"
                         mask="9999"
                         value={ formik.values.ssn }
                         onChange={ formik.handleChange }
