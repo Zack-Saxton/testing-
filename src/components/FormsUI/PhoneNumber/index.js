@@ -44,7 +44,7 @@ PhoneNumberWrapper.propTypes = {
   onChange: PropTypes.func,
   value: PropTypes.string,
   label: PropTypes.string,
-  error: PropTypes.string,
+  error: PropTypes.bool,
   disabled: PropTypes.bool,
   helperText: PropTypes.string
 };

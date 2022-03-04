@@ -334,12 +334,10 @@ function LivingPlace() {
 											}
 											name="RentOrMortgageAmount"
 											label="Monthly Rent / Mortgage Amount *"
-											form={ true }
 											error={ error }
 											helperText={ helperText }
 											value={ (data?.rentMortgageAmount ? currencyFormat(data.rentMortgageAmount) : "") }
 											onBlur={ onBlurPayment }
-											// value={dollar }
 											onChange={ onHandleChange }
 											materialProps={ {
 												"data-test-id": "rentMortgageAmount",

@@ -103,10 +103,10 @@ export default function RecentApplications({ isLoading, userApplicationsData, us
               <TableRow>
                 <TableCell className={ classes.tableHead }>Applied on</TableCell>
                 <TableCell className={ classes.tableHead } align="left">Product Type</TableCell>
-                <TableCell className={ classes.tableHead } align="center">Requested Amount</TableCell>
+                <TableCell className={ classes.tableHead } align="right">Requested Amount</TableCell>
                 <TableCell className={ classes.tableHead } align="left">Loan Purpose</TableCell>
                 <TableCell className={ classes.tableHead } align="left">Status</TableCell>
-                <TableCell className={ classes.tableHead } align="left">Actions</TableCell>
+                <TableCell className={ classes.tableHead } align="center">Actions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -133,7 +133,7 @@ export default function RecentApplications({ isLoading, userApplicationsData, us
                       <TableCell className={ classes.tableheadrow } align="left">
                         { appData.product }
                       </TableCell>
-                      <TableCell className={ classes.tableheadrow } align="center">
+                      <TableCell className={ classes.tableheadrow } align="right">
                         <NumberFormat value={ appData.amountRequested } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
                       </TableCell>
                       <TableCell className={ classes.tableheadrow } align="left">
@@ -142,7 +142,7 @@ export default function RecentApplications({ isLoading, userApplicationsData, us
                       <TableCell className={ classes.tableheadrow } align="left">
                         { (statusStr[ appData.status ]) ? statusStr[ appData.status ] : (appData.status) }
                       </TableCell>
-                      <TableCell align="left">
+                      <TableCell align="center">
 
                         { appData.isActive && appData?.status !== "referred" && appData?.status !== "contact_branch" ?
 
