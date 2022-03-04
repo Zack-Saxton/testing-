@@ -569,14 +569,14 @@ export default function SideNav() {
             onMouseLeave={ handleDrawerleave }
           >
             <div className={ classes.toolbar }>
-              <Link to="/customers/accountOverview">
+              <a href="https://wps-qa.marinerfinance.io">
                 <input
                   type="image"
                   src={ logoImage }
                   alt="logo image"
                   style={ { height: "60px" } }
                 />
-              </ Link>
+              </a>
 
               <Checkbox
                 icon={ <RadioButtonUncheckedIcon id="sidemenuRadio" /> }
