@@ -60,7 +60,7 @@
         "verificationNotFound": "Verification not found"
     },
     "incomeVerification": {
-        "finishAllSteps": "please finish all the steps"
+        "finishAllSteps": "Please finish all the steps"
     },
     "verificationQuestions": {
         "verificationUnsuccess": "Verification unsuccessful, please try again.",

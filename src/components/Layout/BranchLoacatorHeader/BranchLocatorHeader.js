@@ -28,7 +28,7 @@ const BranchLocatorHeader = () => {
     Cookies.get("token") ? Cookies.get("token") : "{ }"
   );
   const redirectToAccountOverview = () => {
-    navigate("/customers/accountOverview");
+    window.open("https://wps-qa.marinerfinance.io/", "_self")
   };
   const [display, setdisplay] = useState(true);
 
