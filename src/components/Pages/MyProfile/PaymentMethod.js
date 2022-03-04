@@ -1537,7 +1537,7 @@ export default function PaymentMethod() {
                     >
                         <DialogTitle id="debitCardModalHeading">
                             <Typography id="deleteTxt" className={ classes.dialogHeading } style={ { textAlign: 'center' } }>
-                                Are you sure you want to add a New Debit Card Details ?
+                            Are you sure you want to add a new Debit Card?
                             </Typography>
                             <IconButton
                                 id="debitCardModalClose"
