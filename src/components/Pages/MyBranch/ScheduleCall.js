@@ -127,6 +127,11 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
     formik.touched.callTime = null;
     setScheduleCall(false);
   };
+  const dateFormatOption = {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    };
 
   //View part
   return (
@@ -158,6 +163,9 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
         <DialogTitle id="alert-dialog-title" style={ { padding: "unset" } }>
           <Typography className={ classes.dialogHeading }>
             Schedule a Call
+          </Typography>
+          <Typography className="endDate">
+          You have until <span> {scheduleDateCall.toLocaleDateString('en-us',dateFormatOption)} </span>to schedule Date & Time for your appointment
           </Typography>
         </DialogTitle>
         <form id="formCall" onSubmit={ formik.handleSubmit }>
