@@ -85,6 +85,7 @@ export default function MakePayment(props) {
   const { data: holidayCalenderData } = useQuery('holiday-calendar', HolidayCalender, {
     refetchOnMount: false
   });
+  const [ paymentTitle, setPaymentTitle ] = useState("Single Payment");
 
   //API Request for Payment methods
   async function getPaymentMethods() {
@@ -331,7 +332,12 @@ export default function MakePayment(props) {
   function getData() {
     setshowCircularProgress(isFetching);
     setActiveLoansData(User?.data?.activeLoans);
-    let hasSchedulePaymentActive = activeLoansData != null ? activeLoansData.length ? activeLoansData[ 0 ]?.loanPaymentInformation?.hasScheduledPayment : false : false;
+    let hasSchedulePaymentActive = activeLoansData?.length ? activeLoansData[ 0 ]?.loanPaymentInformation?.hasScheduledPayment : false;
+    if ( hasSchedulePaymentActive ) {
+      setPaymentTitle("Scheduled Future Payment");
+    } else {
+      setPaymentTitle("Single Payment");
+    }
     if (accNo && activeLoansData) {
       let res = checkaccNo(activeLoansData, accNo);
       // if accno is not Valid
@@ -340,13 +346,13 @@ export default function MakePayment(props) {
         navigate("/customers/accountoverview");
       }
     } else {
-      let schedulePaymentAmount = activeLoansData != null ? activeLoansData.length ? activeLoansData[ 0 ]?.loanPaymentInformation?.scheduledPayments[ 0 ]?.PaymentAmount : false : false;
+      let schedulePaymentAmount = activeLoansData?.length ? activeLoansData[ 0 ]?.loanPaymentInformation?.scheduledPayments[ 0 ]?.PaymentAmount : 0;
       setlatestLoanData(activeLoansData?.slice(0, 1) ?? null);
       let latestLoan = activeLoansData?.slice(0, 1) ?? null;
 
       setpaymentAmount(
         activeLoansData?.length
-          ? hasSchedulePaymentActive != false
+          ? hasSchedulePaymentActive
             ? schedulePaymentAmount.toFixed(2)
             : (
               Math.abs(
@@ -800,8 +806,8 @@ export default function MakePayment(props) {
             <TableContainer component={ Paper }>
               <PaymentOverview overview={ latestLoanData } status={ status } />
             </TableContainer>
-          </Grid>
-        ) }
+          </Grid>       
+        ) }       
         { latestLoanData != null ? (
           latestLoanData.length ? (
             !paymentData?.data?.error ? (
@@ -952,7 +958,7 @@ export default function MakePayment(props) {
                               style={ { paddingBottom: "10px" } }
                               className={ classes.cardHeading }
                             >
-                              Single Payment
+                              { paymentTitle }
                             </Typography>
                             <TextField
                               id="payment"
