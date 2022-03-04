@@ -60,7 +60,7 @@ const NormalHeader = () => {
   );
 
   const redirectToAccountOverview = () => {
-    navigate("/customers/accountOverview");
+    window.open("https://wps-qa.marinerfinance.io/", "_self")
   };
 
   //View Part
