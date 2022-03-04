@@ -9,7 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
-import React, { useState } from "react";
+import React, { useEffect,useState } from "react";
 import { useQueryClient } from 'react-query';
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -96,6 +96,21 @@ const useStyles = makeStyles((theme) => ({
 //Yup validations for all the input fields
 const validationSchema = formValidation.getFormValidationRule('');
 
+window.onloadCallback = function() {
+  grecaptcha.render('html_element', {
+    'sitekey' : '6LdvwrMeAAAAAAlOdK0n4vL3SLBywwV2WA-cojQ8'
+  });
+  console.log("in")
+}
+
+window.recaptchaCallback = function() {
+  grecaptcha.getResponse()
+console.log("checked")
+console.log(grecaptcha.getResponse())
+};
+
+
+
 //Begin: Login page
 export default function Register() {
 
@@ -112,6 +127,18 @@ export default function Register() {
   //Date implementation for verifying 18 years
   const myDate = new Date();
   myDate.setDate(myDate.getDate() - 6571);
+  
+  useEffect(() => {
+        
+    const script = document.createElement('script');
+    script.src = `https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit`
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
 
   const loginUser = async (values) => {
     try {
@@ -576,6 +603,11 @@ export default function Register() {
                         { " " }
                         { failed }
                       </p>
+                    </Grid>
+
+
+                    <Grid>
+                    <div className="g-recaptcha"  data-callback="recaptchaCallback"  id="html_element"></div>
                     </Grid>
 
                     <Grid item xs={ 12 } className={ classes.signInButtonGrid }>
