@@ -62,8 +62,11 @@ const BranchLocatorHeader = () => {
           <div id="desktopMenu" className={classes.sectionDesktop}>
             <Grid className="personalLoanHolder">
               <Typography className="branchHeaderLinks">
-                Personal Loans
+                <Link href={`${ServerURL}/personal-loans/`}>
+                  Personal Loans
+                </Link>
               </Typography>
+
               <Grid className="personalLoansubLinks">
                 <Link href={`${ServerURL}/personal-loans/unexpected-expenses/`}>
                   Unexpected Expenses
@@ -88,7 +91,11 @@ const BranchLocatorHeader = () => {
             </Grid>
 
             <Grid className="carLoansHolder">
-              <Typography className="branchHeaderLinks">Car Loans</Typography>
+              <Typography className="branchHeaderLinks">
+                <Link href={`${ServerURL}/car-loans/`}>
+                Car Loans
+                </Link>
+              </Typography>
 
               <Grid className="carLoanSubLinks">
                 <Link href={`${ServerURL}/car-loans/auto-refinance/`}>
@@ -104,23 +111,32 @@ const BranchLocatorHeader = () => {
             </Grid>
 
             <Grid className="homeLoansHolder">
-              <Typography className="branchHeaderLinks">Home Loans</Typography>
+              <Typography className="branchHeaderLinks">
+               
+                <Link href={`${ServerURL}/home-loans/`}>
+                Home Loans
+                </Link>
+                </Typography>
 
               <Grid className="homeLoanSubLinks">
-                <Link href={`${ServerURL}/car-loans/auto-refinance/`}>
-                  Auto Refinancing Loans
+                <Link href={`${ServerURL}/home-loans/mortgage-loans/`}>
+                Home Purchase
                 </Link>
-                <Link href={`${ServerURL}/car-loans/new-car-loan/`}>
-                  Finance Car Loans
+                <Link href={`${ServerURL}/home-loans/home-refinance/`}>
+                Home Refinance
                 </Link>
-                <Link href={`${ServerURL}/car-loans/used-car-loan/`}>
-                  Finance Used Car Loan
+                <Link href={`${ServerURL}/home-loans/meet-our-loan-officers/`}>
+                Meet Our Loan Officers
                 </Link>
               </Grid>
             </Grid>
 
             <Grid className="resourcesHolder">
-              <Typography className="branchHeaderLinks">Resources</Typography>
+              <Typography className="branchHeaderLinks">
+                <Link href={`${ServerURL}/resources//`}>
+                Resources
+                </Link>
+                </Typography>
 
               <Grid className="resourcesSubLinks">
                 <Link href={`${ServerURL}/resources/how-to-apply/`}>
@@ -128,13 +144,18 @@ const BranchLocatorHeader = () => {
                 </Link>
                 <Link href="/faq">FAQ</Link>
                 <Link href={`${ServerURL}/blog/`}>Blog</Link>
-                <Link href={`${ServerURL}/state/`}>Mariner States</Link>
+                <Link href="/branch-locator">Mariner States</Link>
                 <Link href={`${ServerURL}/resources/legal/`}>Legal</Link>
               </Grid>
             </Grid>
 
             <Grid className="whyUsHolder">
-              <Typography className="branchHeaderLinks">Why Us?</Typography>
+              <Typography className="branchHeaderLinks">
+                
+                <Link href={`${ServerURL}/why-mariner-finance/`}>
+                  Why Us?
+                </Link>
+                </Typography>
 
               <Grid className="whyUsSubLinks">
                 <Link href={`${ServerURL}/testimonials/`}>Testimonials</Link>
@@ -170,7 +191,7 @@ const BranchLocatorHeader = () => {
                       Corporate Acquisition
                     </Link>
                     <Link
-                      href={`${ServerURL}/why-mariner-finance/partner-with-us/`}
+                      href={`${ServerURL}/why-mariner-finance/partner-with-us/affiliate-program/`}
                     >
                       Affiliate Program
                     </Link>
@@ -336,7 +357,7 @@ const BranchLocatorHeader = () => {
                 <a
                   target="_blank"
                   rel="noreferrer"
-                  href={`${ServerURL}/car-loans/`}
+                  href={`${ServerURL}/home-loans`}
                 >
                   Home Loans
                 </a>
@@ -349,7 +370,9 @@ const BranchLocatorHeader = () => {
                   <Link href={`${ServerURL}/home-loans/home-refinance/`}>
                     Home Refinance
                   </Link>
-                  <Link href={`${ServerURL}/home-loans/meet-our-loan-officers/`}>
+                  <Link
+                    href={`${ServerURL}/home-loans/meet-our-loan-officers/`}
+                  >
                     Meet Our Loan Officers
                   </Link>
                 </Grid>
@@ -374,15 +397,9 @@ const BranchLocatorHeader = () => {
                     How to Apply for a Personal loan
                   </Link>
                   <Link href="/faq">FAQ</Link>
-                  <Link href={`${ServerURL}/blog/`}>
-                    Blog
-                  </Link>
-                  <Link href={`${ServerURL}/state/`}>
-                    Mariner States
-                  </Link>
-                  <Link href={`${ServerURL}/resources/legal/`}>
-                    Legal
-                  </Link>
+                  <Link href={`${ServerURL}/blog/`}>Blog</Link>
+                  <Link href={`${ServerURL}/state/`}>Mariner States</Link>
+                  <Link href={`${ServerURL}/resources/legal/`}>Legal</Link>
                 </Grid>
               </AccordionDetails>
             </Accordion>
@@ -401,13 +418,15 @@ const BranchLocatorHeader = () => {
               </AccordionSummary>
               <AccordionDetails className="menuSubLinksWrap">
                 <Grid className="subMenuWrap">
-                  <Link href={`${ServerURL}/testimonials/`}>
-                    Testimonials
-                  </Link>
-                  <Link href={`${ServerURL}/why-mariner-finance/mariner-finance-reviews/`}>
+                  <Link href={`${ServerURL}/testimonials/`}>Testimonials</Link>
+                  <Link
+                    href={`${ServerURL}/why-mariner-finance/mariner-finance-reviews/`}
+                  >
                     Mariner Finance Reviews
                   </Link>
-                  <Link href={`${ServerURL}/why-mariner-finance/excellent-customer-service/`}>
+                  <Link
+                    href={`${ServerURL}/why-mariner-finance/excellent-customer-service/`}
+                  >
                     Excellent Customer Service
                   </Link>
                   <Link href={`${ServerURL}/why-mariner-finance/history/`}>
@@ -434,10 +453,14 @@ const BranchLocatorHeader = () => {
                         >
                           Point of Sale Financing
                         </Link>
-                        <Link href={`${ServerURL}/why-mariner-finance/partner-with-us/corporate-acquisition/`}>
+                        <Link
+                          href={`${ServerURL}/why-mariner-finance/partner-with-us/corporate-acquisition/`}
+                        >
                           Corporate Acquisition
                         </Link>
-                        <Link href={`${ServerURL}/why-mariner-finance/partner-with-us/`}>
+                        <Link
+                          href={`${ServerURL}/why-mariner-finance/partner-with-us/`}
+                        >
                           Affiliate Program
                         </Link>
                       </Grid>
@@ -465,7 +488,9 @@ const BranchLocatorHeader = () => {
                     </AccordionSummary>
                     <AccordionDetails className="noPadding">
                       <Grid className="subMenuWrapThree">
-                        <Link href={`${ServerURL}/careers/branch-manager-trainee-and-internship-programs/`}>
+                        <Link
+                          href={`${ServerURL}/careers/branch-manager-trainee-and-internship-programs/`}
+                        >
                           Branch Manager Trainee and Internship programs
                         </Link>
                         <Link href={`${ServerURL}/careers/jobs-for-veterans/`}>
@@ -477,23 +502,17 @@ const BranchLocatorHeader = () => {
                         <Link href={`${ServerURL}/careers/benefits/`}>
                           Benefits
                         </Link>
-                        <Link href={`${ServerURL}/careers/faq/`}>
-                          FAQ
-                        </Link>
+                        <Link href={`${ServerURL}/careers/faq/`}>FAQ</Link>
                       </Grid>
                     </AccordionDetails>
                   </Accordion>
-                  <Link href={`${ServerURL}/sweepstakes/`}>
-                    Sweepstakes
-                  </Link>
+                  <Link href={`${ServerURL}/sweepstakes/`}>Sweepstakes</Link>
                 </Grid>
               </AccordionDetails>
             </Accordion>
             <Accordion className="noShadow">
               <AccordionDetails className="menuHead">
-                <Link href={`${ServerURL}/select-amount/`}>
-                  Mail Offer?
-                </Link>
+                <Link href={`${ServerURL}/select-amount/`}>Mail Offer?</Link>
               </AccordionDetails>
             </Accordion>
             <Accordion className="noShadow">
