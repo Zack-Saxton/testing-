@@ -240,7 +240,7 @@ export default function BranchLocator() {
         </Typography>
         <p className="mainParagraph">
           Mariner Finance operates
-          over 480 branches in twenty-seven states.
+          over 480 branches in twenty-four states.
           Find a branch in your neighborhood and explore personal loans near you.
           Our experienced team members are ready to assist with your financial needs.
         </p>
