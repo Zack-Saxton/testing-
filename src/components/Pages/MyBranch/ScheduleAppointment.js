@@ -134,6 +134,11 @@ export default function ScheduleAppointment({
     formik.touched.appointmentTime = null;
     setScheduleAppointment(false);
   };
+  const dateFormatOption = {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    };
 
   //View part
   return (
@@ -166,6 +171,9 @@ export default function ScheduleAppointment({
         <DialogTitle id="alert-dialog-title" style={ { padding: "unset" } }>
           <Typography component={ "div" } className={ classes.dialogHeading }>
             Schedule an Appointment
+          </Typography>
+          <Typography className="endDate">
+          You have until <span> {scheduleAppointmentDate.toLocaleDateString('en-us',dateFormatOption)} </span>to schedule your appointment
           </Typography>
         </DialogTitle>
         <form id="formAppointment" onSubmit={ formik.handleSubmit }>
