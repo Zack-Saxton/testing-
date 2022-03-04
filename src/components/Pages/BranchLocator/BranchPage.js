@@ -288,8 +288,6 @@ export default function StatePage(props) {
     <Grid
       container
       style={{ margin: "auto", justifyContent: "space-between" }}
-      // item
-      // md={ 10 }
     >
       <Grid container className="branchListWrap">
         {getBranchList ? (

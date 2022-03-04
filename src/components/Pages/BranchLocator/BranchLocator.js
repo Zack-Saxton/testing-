@@ -397,6 +397,7 @@ export default function BranchLocator() {
           >
             { getBranchList ? (
               getBranchList.map((item, index) => {
+                if (Number(item.distance.replace(' mi', '')) <= 60) {
                 return (
                   <Grid key={ index }  className="locationInfo">
                     <NavLink
@@ -444,7 +445,7 @@ export default function BranchLocator() {
                       Get Directions
                     </ButtonSecondary>
                   </Grid>
-                );
+                )}
               })
             ) : (
               <p> No Branch found.</p>
