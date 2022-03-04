@@ -1,3 +1,4 @@
+import { Link } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import React from "react";
@@ -11,18 +12,20 @@ const BranchHeaderLayout = ({ children }) => {
       <div className="topBar">
         <div className="topBarlinks" >
           <Typography className="topBarLinkOne" >
-            <a href="#" className="hrefTag">
+            <Link href="https://wps-qa.marinerfinance.io/careers/" className="hrefTag">
               Careers
-            </a>
+            </Link>
           </Typography>
           <Typography className="topBarLinkOne" >
-            <a href="#" className="hrefTag">
+            <Link href="/customers/applyForLoan" className="hrefTag">
               Resume Application
-            </a>
+            </Link>
           </Typography>
-          <NavLink className="topBarLinkTwo" to="/faq" style={ { textDecoration: "none" } }>
-            <Typography >Customer Support</Typography>
-          </NavLink>
+            <Typography className="topBarLinkOne">
+              <Link href="https://wps-qa.marinerfinance.io/customer-support/" className="hrefTag">
+              Customer Support
+            </Link>
+              </Typography>
           <NavLink to="/branch-locator" className="nav_link topBarLinkThree">
             <Typography >Branch Locator</Typography>
           </NavLink>
