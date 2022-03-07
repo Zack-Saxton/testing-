@@ -76,6 +76,7 @@ export default function MakePayment(props) {
   const [ scheduleDate, setscheduleDate ] = useState(null);
   const [ checkPaymentInformation, setCheckPaymentInformation ] = useState(false);
   const [ activeLoansData, setActiveLoansData ] = useState([]);
+  const [checkCard, setCheckCard] = useState(false);
   const { isFetching, data: User, refetch } = useQuery('loan-data', usrAccountDetails, {
     refetchOnMount: false
   });
@@ -86,6 +87,14 @@ export default function MakePayment(props) {
     refetchOnMount: false
   });
   const [ paymentTitle, setPaymentTitle ] = useState("Single Payment");
+  
+  useEffect(()=>{
+    if(payments){
+      payments?.data?.paymentOptions[0]?.CardType ? setCheckCard(true) : setCheckCard(false);
+    }
+    return null;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[payments])
 
   //API Request for Payment methods
   async function getPaymentMethods() {
@@ -349,7 +358,6 @@ export default function MakePayment(props) {
       let schedulePaymentAmount = activeLoansData?.length ? activeLoansData[ 0 ]?.loanPaymentInformation?.scheduledPayments[ 0 ]?.PaymentAmount : 0;
       setlatestLoanData(activeLoansData?.slice(0, 1) ?? null);
       let latestLoan = activeLoansData?.slice(0, 1) ?? null;
-
       setpaymentAmount(
         activeLoansData?.length
           ? hasSchedulePaymentActive
@@ -456,8 +464,6 @@ export default function MakePayment(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ User, activeLoansData, isFetching, payments ]);
 
-  //Holiday Calender from API
-  // let holidayCalenderData = holidayCalenderApi?.data;
 
   //Account select payment options
   let paymentData = paymentMethods?.data;
@@ -524,10 +530,15 @@ export default function MakePayment(props) {
   //Select account
   const handleChangeSelect = (event) => {
     setcard(event.target.value);
-    event.nativeEvent.target.innerText.includes("Checking") ||
-      event.nativeEvent.target.innerText.includes("Savings")
-      ? setisDebit(false)
-      : setisDebit(true); //true
+   if( event.nativeEvent.target.innerText.includes("Checking") ||
+      event.nativeEvent.target.innerText.includes("Savings")){
+        setisDebit(false);
+        setCheckCard(false)
+      }else {
+        setisDebit(true);
+        setCheckCard(true);
+      }
+     //true
     setrequiredSelect("");
   };
 
@@ -997,6 +1008,7 @@ export default function MakePayment(props) {
                                 placeholder="MM/DD/YYYY"
                                 id="date"
                                 disablePast
+                                disableFuture = {checkCard}
                                 autoComplete="off"
                                 maxdate={ paymentMaxDate }
                                 onKeyDown={ (event) => event.preventDefault() }
