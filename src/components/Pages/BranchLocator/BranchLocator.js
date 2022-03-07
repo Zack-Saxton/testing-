@@ -148,7 +148,7 @@ export default function BranchLocator() {
   const MFButtonClick = (event) => {
     params.statename = event.target.innerText;
     apiGetBranchList(params.statename);
-    navigate(`/branch-locator/personal-loans-in-${ params.statename }`);
+    navigate(`/branch-locator/personal-loans-in-${params.statename.toLowerCase() }`);
   };
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_SECKey,
@@ -240,7 +240,7 @@ export default function BranchLocator() {
         </Typography>
         <p className="mainParagraph">
           Mariner Finance operates
-          over 480 branches in twenty-four states.
+          over 470 branches in twenty-four states.
           Find a branch in your neighborhood and explore personal loans near you.
           Our experienced team members are ready to assist with your financial needs.
         </p>
@@ -296,7 +296,7 @@ export default function BranchLocator() {
           Apply Online For a Personal Loans
         </Typography>
         <p className="mainParagraph">
-          Do you live in one of the 27 states in which we operate and need a
+          Do you live in one of the 24 states in which we operate and need a
           personal loans? Can’t reach a branch or prefer to apply online? If so,
           you’re in luck! You can apply online today*. It’s quick, easy, and secure.
         </p>

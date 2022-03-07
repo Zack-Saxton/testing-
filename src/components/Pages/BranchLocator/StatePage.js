@@ -374,13 +374,13 @@ export default function StatePage() {
                                       item.Address.length
                                     ).substring(0, 2)
                                   )
-                                ]
+                              ].toLowerCase()
                               }]-personal-loans-in-${
-                                item.BranchName
+                                item.BranchName.toLowerCase()
                               }-${item.Address.substring(
                                 item.Address.length - 8,
                                 item.Address.length
-                              ).substring(0, 2)}`}
+                              ).substring(0, 2).toLowerCase() }`}
                               state={{ Branch_Details: item }}
                               className="nav_link"
                             >

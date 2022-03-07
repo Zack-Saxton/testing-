@@ -18,13 +18,14 @@ import {
   branch_hours,
   ca_branch_hours,
   MFStates,
-  MFStateShort,
+  MFStateShort
 } from "../../../assets/data/marinerBusinesStates";
 import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile_Image.png";
 import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.jpg";
+import InformationIcon from "../../../assets/icon/Information.jpeg";
 import TitleImage from "../../../assets/images/Favicon.png";
 import MarinerFinanceBuilding from "../../../assets/images/mf-logo-white.png";
-import { mapInformationBranchLocator } from "../../Controllers/BranchDayTiming";
+import { mapInformationBranchLocator, branchSaturdaySchedule } from "../../Controllers/BranchDayTiming";
 import BranchLocatorController from "../../Controllers/BranchLocatorController";
 import { ButtonPrimary, ButtonSecondary } from "../../FormsUI";
 import { useStylesConsumer } from "../../Layout/ConsumerFooterDialog/Style";
@@ -32,7 +33,7 @@ import ErrorLogger from "../../lib/ErrorLogger";
 import CustomerRatings from "../MyBranch/CustomerRatings";
 import "./BranchLocator.css";
 import Map from "./BranchLocatorMap";
-
+import YearHolidays from "./YearHolidays";
 const useStyles = makeStyles({
   ptag: {
     margin: "0px",
@@ -58,6 +59,12 @@ const useStyles = makeStyles({
     fontSize: "1.078rem",
     color: "#214476",
   },
+  InformationIcon: {
+    height: "20px", 
+    width: "20px",
+    borderRadius: 400 / 2,
+    cursor: "pointer",
+  },
 });
 export default function StatePage(props) {
   //Material UI css class
@@ -74,6 +81,7 @@ export default function StatePage(props) {
   const { Branch_Details } = location.state;
   const [branchHours, setBranchHours] = useState();
   const navigate = useNavigate();
+  const [showDialog, setShowDialog] = useState(false);
   let StateFullName = MFStates[MFStateShort.indexOf(getStateName)];
 
   let params = useParams();
@@ -133,6 +141,14 @@ export default function StatePage(props) {
   const ApplyOnlineLoan = () => {
     window.open(`https://wps-qa.marinerfinance.io/`, "_self");
   };
+  const cancel = () => {
+    setShowDialog(false);
+  }
+  const OpenYearHolidays = () => {
+    console.log(' IMAGE CLICKED>>>>');
+    setShowDialog(true)
+   
+  }
   useEffect(() => {
     apiGetBranchList(Branch_Details.Address);
     let State = Branch_Details.Address.substring(
@@ -143,7 +159,6 @@ export default function StatePage(props) {
     return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [Branch_Details]);
-
   useEffect(() => {
     display_Branch_Times();
     window.scrollTo(0, 0);
@@ -195,7 +210,7 @@ export default function StatePage(props) {
             className="breadcrumbLink"
             onClick={() => {
               params.statename = StateFullName;
-              navigate(`/branch-locator/personal-loans-in-${params.statename}`);
+              navigate(`/branch-locator/personal-loans-in-${params.statename.toLowerCase()}`);
             }}
           >
             {StateFullName ?? ""}
@@ -239,16 +254,16 @@ export default function StatePage(props) {
               </Grid>
             </Grid>
             <Grid item sm={6} md={6} lg={6} className="businessHours">
-              {Branch_Details?.BranchTime?.Value2 &&
-              Branch_Details?.BranchTime?.Value3 ? (
-                <h4>{Branch_Details?.BranchTime?.Value3}</h4>
-              ) : (
-                <h4>
-                  {Branch_Details?.BranchTime?.Value1}{" "}
-                  {Branch_Details?.BranchTime?.Value2}{" "}
-                </h4>
-              )}
-              <span className="businessHoursSpan">Business Hours</span>
+              <span className="businessHoursSpan">Business Hours  {' '}
+              <img
+                className={clessesforptag.InformationIcon}
+                src={InformationIcon}
+                data-test-id="background"
+                alt="Information"
+                onClick={OpenYearHolidays}
+              />
+                <YearHolidays show={showDialog} cancel={cancel} />
+              </span>
               {branchHours
                 ? branchHours.map((ele, index) => {
                     return (
@@ -258,6 +273,7 @@ export default function StatePage(props) {
                     );
                   })
                 : ""}
+              {branchSaturdaySchedule() ? <div className="weekdays"> Sat 9.00 am - 1:00 p.m. </div> : ""} 
               <hr />
               <Grid className="branchManager">
                 <small>Branch Manager</small>
@@ -305,13 +321,13 @@ export default function StatePage(props) {
                           item.Address.length
                         ).substring(0, 2)
                       )
-                    ]
+                  ].toLowerCase()
                   }]-personal-loans-in-${
-                    item.BranchName
+                    item.BranchName.toLowerCase()
                   }-${item.Address.substring(
                     item.Address.length - 8,
                     item.Address.length
-                  ).substring(0, 2)}`}
+                  ).substring(0, 2).toLowerCase() }`}
                   state={{ Branch_Details: item }}
                   className="nav_link"
                   onClick={() => {
@@ -463,7 +479,7 @@ export default function StatePage(props) {
         <link rel="icon" type="image/png" href={TitleImage} sizes="16x16" />
         <meta
           name="description"
-          content={`Looking for a personal loans in ${Branch_Details.BranchName},${getStateName} ?  Mariner Finance branch employees can help. Visit our ${Branch_Details.BranchName}, ${getStateName} location today.`}
+          content={`Looking for a personal loans in ${Branch_Details.BranchName},${getStateName} ?  Our ${Branch_Details.BranchName},${getStateName} branch welcomes you for personal loans that fit your needs.`}
         />
       </Helmet>
       <Grid className="greyBackground" container justifyContent={"center"}>
@@ -493,7 +509,7 @@ export default function StatePage(props) {
               <p className="PesonalLoanMapParagraph">
                 Our {Branch_Details.BranchName} lending professionals are proud
                 of the neighborhoods they live and work in. Ready to speak to a
-                Huntsville lending professional in person? The better we know
+                {Branch_Details.BranchName} lending professional in person? The better we know
                 you, the more we can help. You have your own unique goals to
                 meet, and it all starts with a conversation at your local
                 branch.A personal loans can meet a variety of needs, including
@@ -502,7 +518,7 @@ export default function StatePage(props) {
                 Finance has a personal loans that fits every one of those
                 situations, and more.Ready to apply for a personal loans at the{" "}
                 {Branch_Details.BranchName}, {getStateName} branch? Our
-                Huntsville branch is totally focused on solving your personal
+                {Branch_Details.BranchName} branch is totally focused on solving your personal
                 financial challenges.
               </p>
             </Grid>
@@ -515,7 +531,7 @@ export default function StatePage(props) {
               <strong>Find nearby {StateFullName} branches</strong>
             </h4>
             <p className="PesonalLoanMapParagraph">
-              Mariner Finance operates over 480 branch locations in twenty-four
+              Mariner Finance operates over 470 branch locations in twenty-four
               states, working and living as close to our customers as we can.
               Chances are we’re in your neighborhood, or we will be soon as we
               continue to grow. Our experienced team members are ready to assist
