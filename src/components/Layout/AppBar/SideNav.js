@@ -569,7 +569,7 @@ export default function SideNav() {
             onMouseLeave={ handleDrawerleave }
           >
             <div className={ classes.toolbar }>
-              <a href="https://wps-qa.marinerfinance.io">
+              <a href="https://wps-qa.marinerfinance.io" target="_blank" rel="noreferrer">
                 <input
                   type="image"
                   src={ logoImage }
