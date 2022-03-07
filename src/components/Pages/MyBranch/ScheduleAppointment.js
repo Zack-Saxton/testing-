@@ -192,6 +192,8 @@ export default function ScheduleAppointment({
                 value={ formik.values.appointmentDate }
                 onChange={ (values) => {
                   formik.setFieldValue("appointmentDate", values);
+                  formik.setFieldValue("appointmentTime","" )
+
                 } }
                 onBlur={ formik.handleBlur }
                 error={ formik.touched.appointmentDate && Boolean(formik.errors.appointmentDate) }
