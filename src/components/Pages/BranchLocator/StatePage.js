@@ -365,7 +365,7 @@ export default function StatePage() {
                         return (
                           <Grid key={index} className="locationInfo">
                             <NavLink
-                              to={`/branchLocator/[${
+                              to={`/branchlocator/[${
                                 MFStates[
                                   MFStateShort.indexOf(
                                     item.Address.substring(

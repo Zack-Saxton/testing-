@@ -400,7 +400,7 @@ export default function BranchLocator() {
                 return (
                   <Grid key={ index }  className="locationInfo">
                     <NavLink
-                      to={ `/branchLocator/[${ MFStates[ MFStateShort.indexOf(item?.Address.substring(item?.Address.length - 8, item?.Address.length).substring(0, 2)) ] }]-personal-loans-in-${ item?.BranchName }-${ item?.Address?.substring(item?.Address.length - 8, item?.Address.length).substring(0, 2) }` }
+                      to={ `/branchlocator/[${ MFStates[ MFStateShort.indexOf(item?.Address.substring(item?.Address.length - 8, item?.Address.length).substring(0, 2)) ] }]-personal-loans-in-${ item?.BranchName }-${ item?.Address?.substring(item?.Address.length - 8, item?.Address.length).substring(0, 2) }` }
                       state={ { Branch_Details: item } }
                       className="nav_link"
                     >
