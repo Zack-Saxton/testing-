@@ -1375,8 +1375,8 @@ export default function MakePayment(props) {
               </TableBody>
             </Table>
           </TableContainer>
-          <Typography className={classes.dialogHeading}>
-            Are you sure?
+          <Typography className={ classes.dialogHeading }>
+            Confirm Your Payment?
           </Typography>
           <IconButton
             aria-label="close"
