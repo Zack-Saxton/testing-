@@ -28,6 +28,7 @@ import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useQuery } from 'react-query';
 import { useNavigate } from "react-router-dom";
+import Moment from "moment";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import globalMessages from "../../../assets/data/globalMessages.json";
@@ -136,6 +137,7 @@ export default function PaymentMethod() {
     const [ confirmDelete, setConfirmDelete ] = useState(false);
     const [ addBankValues, setAddBankValues ] = useState(false);
     const [ routingError, setRoutingError ] = useState("");
+    const [ scheduledAccountNo, setscheduledAccountNo ] = useState("");
     const [ , setprofileTabNumber ] = useGlobalState();
     const [ validZip, setValidZip ] = useState(true);
     const [ mailingStreetAddress, setMailingStreetAddress ] = useState("");
@@ -144,7 +146,20 @@ export default function PaymentMethod() {
     const { data: allPaymentMethod, refetch } = useQuery('payment-method', getPaymentMethods, {
         refetchOnMount: false
     });
-
+    useEffect(() => {
+        let schedulePayment = dataAccountOverview?.data?.activeLoans[ 0 ]?.loanPaymentInformation?.scheduledPayments ? dataAccountOverview .data.activeLoans[ 0 ].loanPaymentInformation.scheduledPayments : null;
+        //User shouldn't be allowed to delete the payment method accounts where there is scheduled future payment  
+        if( schedulePayment !== null && schedulePayment.length > 0 ){
+            let scheduleAccountNo = schedulePayment[ 0 ]?.PaymentMethod?.AchInfo?.AccountNumber ? schedulePayment[ 0 ].PaymentMethod.AchInfo.AccountNumber : "";
+            let scheduleDate = schedulePayment[ 0 ]?.PaymentDate ? schedulePayment[ 0 ].PaymentDate : "";
+            scheduleDate = Moment(scheduleDate);
+            let dateNow = Moment().startOf('day');
+            if( (dateNow < scheduleDate) && scheduleAccountNo !== ""){
+                setscheduledAccountNo(scheduleAccountNo);
+            }
+        }
+        return null;
+      },  [ dataAccountOverview ]);
     const formikAddBankAccount = useFormik({
         initialValues: {
             accountNickname: "",
@@ -425,7 +440,11 @@ export default function PaymentMethod() {
             toast.error("Default payment update failed ");
         }
     };
-
+    const closeDeleteConfirmBox = () => {
+        setDeleteID("");
+        setDeleteType("");
+        handleDeleteConfirmClose();
+    }
     const onClickDelete = async (type, uniqueData) => {
         setLoading(true);
         try {
@@ -440,15 +459,11 @@ export default function PaymentMethod() {
                             toast.success("Card deleted successfully.");
                             refetch();
                         }
-                        setDeleteID("");
-                        setDeleteType("");
-                        handleDeleteConfirmClose();
+                        closeDeleteConfirmBox();
 
                     } else {
                         if (!toast.isActive("closeToast")) { toast.error("Error deleting your card, please try again"); }
-                        setDeleteID("");
-                        setDeleteType("");
-                        handleDeleteConfirmClose();
+                        closeDeleteConfirmBox();
 
                     }
                     setLoading(false);
@@ -462,14 +477,10 @@ export default function PaymentMethod() {
                     if (res?.data?.deletePaymentMethod?.HasNoErrors === true) {
                         if (!toast.isActive("closeToast")) { toast.success("Bank account deleted successfully."); }
                         refetch();
-                        setDeleteID("");
-                        setDeleteType("");
-                        handleDeleteConfirmClose();
+                        closeDeleteConfirmBox();
                     } else {
                         if (!toast.isActive("closeToast")) { toast.error("Error deleting your bank account, please try again"); }
-                        setDeleteID("");
-                        setDeleteType("");
-                        handleDeleteConfirmClose();
+                        closeDeleteConfirmBox();
                     }
                     setLoading(false);
                     break;
@@ -647,7 +658,7 @@ export default function PaymentMethod() {
 
                                                 <TableCell align="left">
                                                     <DeleteIcon
-                                                        className={ classes.deleteCard }
+                                                        className={ `${classes.deleteCard } ${ scheduledAccountNo === ( row.AccountNumber ? row.AccountNumber : "" ).slice(-4) ? classes.loadingOn : classes.loadingOff } `}
                                                         onClick={ () => {
                                                             setDeleteID(
                                                                 row?.AccountType
