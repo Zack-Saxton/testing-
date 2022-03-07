@@ -512,7 +512,7 @@ const BranchLocatorHeader = () => {
             </Accordion>
             <Accordion className="noShadow">
               <AccordionDetails className="menuHead">
-                <Link href={`${ServerURL}/select-amount/`}>Mail Offer?</Link>
+                <Link href='/select-amount/'>Mail Offer?</Link>
               </AccordionDetails>
             </Accordion>
             <Accordion className="noShadow">
