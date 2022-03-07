@@ -1,40 +1,20 @@
 .overlay {
-  --tw-bg-opacity: 1;
-  background-color: rgba(0, 0, 0, var(--tw-bg-opacity));
-  --tw-bg-opacity: 0.2;
   height: 100%;
-  position: absolute;
-  top: 100px;
-  right: 0px;
-  bottom: 0px;
-  left: 10px;
   width: 100%;
   z-index: 10;
 }
 
 .yearholidays {
-  --tw-bg-opacity: 1;
-  background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
   border-radius: 0.75rem;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 2.5rem;
   max-width: 100%;
-  width: 24rem;
-}
-
-.yearholidays__content {
-  padding-left: .75rem;
-  padding-right: 0.75rem;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  width: 100%;
 }
 
 .yearholidays__title {
   font-weight: 500;
   font-size: 1.125rem;
   line-height: 1.75rem;
-  margin-bottom: 0.5rem;
+  margin: 0;
   --tw-text-opacity: 1;
   color: rgba(17, 24, 39, var(--tw-text-opacity));
 }
@@ -42,7 +22,7 @@
 .yearholidays__description {
   font-size: 0.875rem;
   line-height: 1.25rem;
-  margin-bottom: 1rem;
+  margin: 0;
   --tw-text-opacity: 1;
   color: rgba(107, 114, 128, var(--tw-text-opacity));
 }
@@ -94,17 +74,14 @@
   --tw-text-opacity: 1;
   color: rgba(55, 65, 81, var(--tw-text-opacity));
 }
-@media (min-width: 640px){
+.tableHeadeing th{
+  padding: 7px 9px;
+  border: 1px solid
+    rgba(224, 224, 224, 1);
+    font-weight: bolder;
 }
-
-@media (min-width: 768px){
-}
-
-@media (min-width: 1024px){
-}
-
-@media (min-width: 1280px){
-}
-
-@media (min-width: 1536px){
+.tableContent td{
+  padding: 7px 9px;
+  border: 1px solid
+    rgba(224, 224, 224, 1);
 }

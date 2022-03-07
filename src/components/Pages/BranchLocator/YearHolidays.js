@@ -10,32 +10,19 @@ import Grid from "@material-ui/core/Grid";
 import { MFYearHolidays } from "../../../assets/data/marinerBusinesStates";
 
 export default function YearHolidays(props) {
-  YearHolidays.defaultProps = {
-    show: {},
-    cancel: () => { }
-  }
-  YearHolidays.propTypes = {
-    show: {},
-    cancel: () => { }
-  }
-  if (!props.show) {
-    return <></>
-  }
 
   return (
-    <div>
       <div className="overlay">
         <div className="yearholidays">
           <div className="yearholidays__content">
-            <h2 className="yearholidays__title">Mariner Finance Holidays Hours</h2>
             <p className="yearholidays__description">
               <Grid className="holidayList">
                 <Grid container className="workingSaturdays">
-                  <Grid item sm={12} md={8}>
+                  <Grid item xs={12} sm={12} >
                     <TableContainer>
                       <Table>
                         <TableHead>
-                          <TableRow>
+                          <TableRow className="tableHeadeing">
                             <TableCell>Date</TableCell>
                             <TableCell>Day</TableCell>
                             <TableCell>Holiday Name</TableCell>
@@ -45,7 +32,7 @@ export default function YearHolidays(props) {
                           {MFYearHolidays ? (
                             MFYearHolidays.map((element, index) => {
                               return (
-                                <TableRow key={index}>
+                                <TableRow className="tableContent" key={index}>
                                   <TableCell>{element.Date}</TableCell>
                                   <TableCell>{element.Day}</TableCell>
                                   <TableCell>{element.Holiday_Name}</TableCell>
@@ -63,12 +50,7 @@ export default function YearHolidays(props) {
               </Grid>
             </p>
           </div>
-          <hr />
-          <div className="yearholidays__footer">
-            <button className="yearholidays__cancel" onClick={props.cancel}>  OK</button>
-          </div>
         </div>
       </div>
-    </div>
   )
 }

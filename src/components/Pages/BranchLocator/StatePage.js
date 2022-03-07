@@ -324,7 +324,6 @@ export default function StatePage() {
           <Grid
             className="mapWrap"
             ref={mapSection}
-            style={{ padding: "4% 0px 4% 0px", backgroundColor: "#f6f6f6" }}
             container
           >
             <h3 className="mapTopHeading">Branches Near You</h3>
@@ -586,7 +585,7 @@ export default function StatePage() {
           style={{
             backgroundColor: "#fff",
             width: "100%",
-            padding: "4% 2rem 4% 1rem",
+            padding: "20px 2rem 35px 1rem",
           }}
         >
           <Grid className="personalLoanText">

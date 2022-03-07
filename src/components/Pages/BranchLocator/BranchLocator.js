@@ -59,7 +59,7 @@ const useStyles = makeStyles({
     color: "#214476",
   },
   gridMargin: {
-    margin: "80px 0px 0px 0px",
+    margin: "35px 0px 0px 0px",
   },
 });
 export default function BranchLocator() {
@@ -569,7 +569,7 @@ export default function BranchLocator() {
   );
   const MapBranchListandSearch2Buttons = (
     <Grid
-      style={ { padding: "4% 0px"} }
+      style={ { padding: "16px 0px 16px 0px"} }
       container
       id="mapAndBranchList"
     >

@@ -1,11 +1,15 @@
 import { makeStyles } from "@material-ui/core";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import Dialog from "@material-ui/core/Dialog";
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import Link from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import InfoIcon from '@material-ui/icons/Info';
 import CloseIcon from "@material-ui/icons/Close";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import PhoneIcon from "@material-ui/icons/Phone";
@@ -22,7 +26,6 @@ import {
 } from "../../../assets/data/marinerBusinesStates";
 import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile_Image.png";
 import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.jpg";
-import InformationIcon from "../../../assets/icon/Information.jpeg";
 import TitleImage from "../../../assets/images/Favicon.png";
 import MarinerFinanceBuilding from "../../../assets/images/mf-logo-white.png";
 import { mapInformationBranchLocator, branchSaturdaySchedule } from "../../Controllers/BranchDayTiming";
@@ -254,15 +257,23 @@ export default function StatePage(props) {
               </Grid>
             </Grid>
             <Grid item sm={6} md={6} lg={6} className="businessHours">
-              <span className="businessHoursSpan">Business Hours  {' '}
-              <img
-                className={clessesforptag.InformationIcon}
-                src={InformationIcon}
-                data-test-id="background"
-                alt="Information"
-                onClick={OpenYearHolidays}
-              />
-                <YearHolidays show={showDialog} cancel={cancel} />
+              <span className="businessHoursSpan">
+                Business Hours{" "}
+                <InfoIcon
+                  className={clessesforptag.InformationIcon}
+                  data-test-id="background"
+                  alt="Information"
+                  onClick={OpenYearHolidays}
+                />
+                <Dialog open={showDialog}>
+                  <DialogTitle className="tableTitle">Mariner Finance Holidays Hours</DialogTitle>
+                  <DialogContent>
+                    <YearHolidays />
+                  </DialogContent>
+                  <DialogActions className="okButtonWrap">
+                  <ButtonPrimary stylebutton='{"background": "", "color":"" }' onClick={cancel}>OK</ButtonPrimary>
+                  </DialogActions>
+                </Dialog>
               </span>
               {branchHours
                 ? branchHours.map((ele, index) => {
@@ -273,7 +284,11 @@ export default function StatePage(props) {
                     );
                   })
                 : ""}
-              {branchSaturdaySchedule() ? <div className="weekdays"> Sat 9.00 am - 1:00 p.m. </div> : ""} 
+              {branchSaturdaySchedule() ? (
+                <div className="weekdays"> Sat 9.00 am - 1:00 p.m. </div>
+              ) : (
+                ""
+              )}
               <hr />
               <Grid className="branchManager">
                 <small>Branch Manager</small>
@@ -525,6 +540,7 @@ export default function StatePage(props) {
           </Grid>
         </Grid>
 
+        <Grid className="fullWidth">
         <Grid className="findNearbyBranch">
           <Grid style={{ margin: "auto" }}>
             <h4 className="PesonalLoanMapHeading">
@@ -566,6 +582,7 @@ export default function StatePage(props) {
               .
             </Typography>
           </Grid>
+        </Grid>
         </Grid>
 
         {ApplyNowOnlineButton}
