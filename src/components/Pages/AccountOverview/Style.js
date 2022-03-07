@@ -117,8 +117,8 @@ const useStylesAccountOverview = makeStyles((theme) => ({
   },
   disableColor: {
     margin: "auto",
-    color: "#eb1809",
-    fontSize: 25,
+    color: "limegreen",
+    fontSize: 22,
     fontWeight: 400,
     textDecoration: "none",
   },
