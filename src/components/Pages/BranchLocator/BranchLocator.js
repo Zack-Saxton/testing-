@@ -397,7 +397,7 @@ export default function BranchLocator() {
           >
             { getBranchList ? (
               getBranchList.map((item, index) => {
-                if (Number(item.distance.replace(' mi', '')) <= 60) {
+                if (Number(item?.distance.replace(' mi', '')) <= 60) {
                 return (
                   <Grid key={ index }  className="locationInfo">
                     <NavLink
@@ -418,9 +418,9 @@ export default function BranchLocator() {
                     </p>
                     <p
                       className={ clessesforptag.addressFont }
-                      id={ item.id }
+                      id={ item?.id }
                     >
-                      { item.Address }
+                      { item?.Address }
                     </p>
                     <p className={ clessesforptag.phoneNumber }>
                       <PhoneIcon />
@@ -436,7 +436,7 @@ export default function BranchLocator() {
                       onClick={ () => {
                         setBranchAddress(
                           "https://www.google.com/maps/search/" +
-                          item.Address
+                          item?.Address
                         );
                         openGetDirectionModal();
                       } }
