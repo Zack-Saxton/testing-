@@ -531,7 +531,7 @@ export default function StatePage(props) {
               <strong>Find nearby {StateFullName} branches</strong>
             </h4>
             <p className="PesonalLoanMapParagraph">
-              Mariner Finance operates over 470 branch locations in twenty-four
+              Mariner Finance, serving communities since 1927, operates over 470 branch locations in twenty-seven
               states, working and living as close to our customers as we can.
               Chances are we’re in your neighborhood, or we will be soon as we
               continue to grow. Our experienced team members are ready to assist

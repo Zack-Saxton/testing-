@@ -239,8 +239,8 @@ export default function BranchLocator() {
           Mariner Finance Branch Near You!
         </Typography>
         <p className="mainParagraph">
-          Mariner Finance operates
-          over 470 branches in twenty-four states.
+          Mariner Finance, serving communities since 1927, operates 
+          over 470 branches in twenty-seven states.
           Find a branch in your neighborhood and explore personal loans near you.
           Our experienced team members are ready to assist with your financial needs.
         </p>
