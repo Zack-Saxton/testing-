@@ -24,8 +24,8 @@ export default function AutoPayStatus(acct) {
       <div>
         <p className={ classes.cardContent }>Auto Pay</p>
         <h5 id="nextPaymentItems" className={ classes.disableColor }>
-          <a color="#eb1809" className={ classes.disableColor } href={ "./makePayment/?accNo=" + acct.accountNumber }>
-            DISABLED</a>
+          <a className={ classes.disableColor } href={ "./makePayment/?accNo=" + acct.accountNumber }>
+            ENABLE AUTOPAY</a>
         </h5>
         <p>
           <a className={ classes.cardContent } href={ "./makePayment/?accNo=" + acct.accountNumber }>
