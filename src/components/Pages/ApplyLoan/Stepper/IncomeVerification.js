@@ -97,7 +97,7 @@ export default function IncomeVerification(props) {
 								navigate("/customers/receiveYourMoney");
 							} else {
 								props.setLoadingFlag(false);
-								alert(messages.incomeVerification.finishAllSteps);
+								toast.error(messages.incomeVerification.finishAllSteps);
 							}
 						} }
 					>

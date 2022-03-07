@@ -95,12 +95,81 @@ const useStylesMyProfile = makeStyles((theme) => ({
 		color: "#171717!important",
 		fontWeight: "400",
 		fontSize: "1.64rem",
-		textAlign: "left",
+		textAlign: "center",
 	},
 	smallText: {
 		color: "#353535",
 		fontSize: "small",
 	},
+	paymentBody: {
+		paddingBottom: "20px", 
+		width: "100%"
+	},
+	fullWidth: {
+		width: "100%"
+	},
+	dialogAction: {
+		justifyContent: "center", 
+		marginBottom: "25px"
+	},
+	accountTypeColumn: {
+		marginTop: "4px",
+    marginLeft: "-24",
+    padding: "0",
+	},
+	accountDefaultColumn: {
+		marginRight: "0", 
+		padding: "0"
+	},
+	defaultRadio: {
+		marginTop: "3px",
+    marginRight: "0px",
+    padding: "0",
+	},
+	deleteCard: {
+		color: "#0F4EB3",
+    float: "left",
+    cursor: "pointer",
+	},
+	deleteCardArrow: {
+		color: "#0F4EB3",
+    float: "right",
+    cursor: "pointer",
+	},
+	paymentMethodWrap: {
+		paddingTop: "25px"
+	},
+	debitCardAddButton: {
+		paddingBottom: "30px"
+	},
+	paymentBreadcrumbs: {
+		lineHeight: "30px",
+    height: "30px",
+    backgroundColor: "#164a9c",
+	},
+	profileLink: {
+		fontSize: "18px",
+  	color: "rgba(255, 255, 255, .7)",
+    textDecoration: "none",
+    padding: "10px",
+    cursor: "pointer",
+	},
+	paymentLink: {
+		fontSize: "18px",
+    color: "rgba(255, 255, 255, .7)",
+    textDecoration: "none",
+    cursor: "pointer"
+	},
+	paymentAccountLink: {
+		fontSize: "18px",
+    color: "#fff",
+    textDecoration: "none",
+	},
+	routingToolTip: {
+		fontSize: "large",
+    cursor: "pointer",
+    color: "blue",
+	}
 }));
 
 export { useStylesMyProfile };

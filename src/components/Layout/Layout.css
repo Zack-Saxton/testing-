@@ -44,7 +44,7 @@
   display: flex;
   align-items: center;
   margin-right: 35px;
-  border-top: 3px solid #21447600 !important;
+  border-bottom: 3px solid transparent !important;
   transition: 0.2s;
 }
 .faqLink p {
@@ -53,7 +53,7 @@
   display: flex;
   align-items: center;
   margin-right: 35px;
-  border-top: 3px solid #21447600 !important;
+  border-bottom: 3px solid transparent !important;
   transition: 0.2s;
 }
 .branchLocatorLink p {
@@ -62,20 +62,20 @@
   display: flex;
   align-items: center;
   margin-right: 35px;
-  border-top: 3px solid #21447600 !important;
+  border-bottom: 3px solid transparent !important;
   transition: 0.2s;
 }
 
 #blogsLink a:hover {
-  border-top: 3px solid #214476 !important;
+  border-bottom: 3px solid #214476 !important;
   color: #214476 !important;
 }
 .faqLink p:hover {
-  border-top: 3px solid #214476 !important;
+  border-bottom: 3px solid #214476 !important;
   color: #214476 !important;
 }
 .branchLocatorLink p:hover {
-  border-top: 3px solid #214476 !important;
+  border-bottom: 3px solid #214476 !important;
   color: #214476 !important;
 }
 
@@ -89,7 +89,6 @@
   margin: auto;
 }
 
-.topBarLinkTwo,
 .topBarLinkOne {
   height: 100%;
   display: flex;
@@ -104,22 +103,40 @@
 }
 
 .topBarLinkThree p,
-.topBarLinkTwo p,
 .topBarLinkOne a {
   color: white;
   font-size: 14px;
   font-weight: 200;
   padding: 0px 15px;
+  text-decoration: none;
+}
+.topBarLinkThree p,
+.topBarLinkOne a {
+  color: white;
+  font-size: 14px;
+  font-weight: 200;
+  padding: 0px 15px;
+  text-decoration: none;
+}
+.topBarLinkOne a:hover {
+  text-decoration: none;
 }
 
-.branchHeaderLinks,
-.branchHeaderLinksFirst {
+.branchHeaderLinks {
   height: 79px;
   padding: 0px;
   display: flex;
   align-items: center;
   margin-right: 35px;
   color: #171717;
+}
+.branchHeaderLinks a {
+  color: #171717;
+  text-decoration: none;
+}
+.branchHeaderLinks a:hover {
+  color: #171717;
+  text-decoration: none;
 }
 .branchHeaderLinksLast {
   height: 79px;
@@ -140,6 +157,7 @@
   align-items: center;
   border-bottom: 3px solid #21447600 !important;
   padding-top: 3px;
+  cursor: pointer;
 }
 .branchHeaderLinks p:hover,
 .branchHeaderLinksLast p:hover {
@@ -157,6 +175,7 @@
   margin-right: 35px;
   cursor: pointer;
   user-select: none;
+  border-bottom: 3px solid transparent !important;
 }
 .personalLoanHolder:hover {
   border-bottom: 3px solid #214476 !important;

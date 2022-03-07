@@ -105,7 +105,7 @@ const CheckLoginTimeout = () => {
 
   const handleTimer = () => {
     if (secondsTemp === 0 && minutesTemp === 0) {
-      clearTimeout(timer);
+      clearInterval(timer);
       handleOnIdleLogout();
     } else {
       if (secondsTemp === 0) {

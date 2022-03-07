@@ -562,7 +562,7 @@ export default function PaymentMethod() {
             <div
                 className={ paymentMethodDiv === true ? "showContent" : "hideContent" }
             >
-                <Grid item xs={ 12 } style={ { paddingBottom: "20px", width: "100%" } }>
+                <Grid item xs={ 12 } className={ classes.paymentBody } >
                     { allPaymentMethod ? (
                         allPaymentMethod?.data?.paymentOptions &&
                             allPaymentMethod?.data?.paymentOptions.length > 0 ? (
@@ -624,17 +624,13 @@ export default function PaymentMethod() {
 
                                                 <TableCell
                                                     align="left"
-                                                    style={ {
-                                                        marginTop: "4px",
-                                                        marginLeft: "-24",
-                                                        padding: "0",
-                                                    } }
+                                                    className={ classes.accountTypeColumn }
                                                 >
                                                     { row.AccountType ? row.AccountType : row.CardType }
                                                 </TableCell>
                                                 <TableCell
                                                     align="left"
-                                                    style={ { marginRight: "0", padding: "0" } }
+                                                    className={ classes.accountDefaultColumn }
                                                 >
                                                     <Radio
                                                         name={ row.name }
@@ -645,21 +641,13 @@ export default function PaymentMethod() {
                                                         checked={ allPaymentMethod?.data?.defaultBank }
                                                         radiolabel={ '[{ "value":"' + row.Nickname + '"}]' }
                                                         value={ allPaymentMethod?.data?.defaultBank }
-                                                        style={ {
-                                                            marginTop: "3px",
-                                                            marginRight: "0px",
-                                                            padding: "0",
-                                                        } }
+                                                        className={ classes.defaultRadio }
                                                     />
                                                 </TableCell>
 
                                                 <TableCell align="left">
                                                     <DeleteIcon
-                                                        style={ {
-                                                            color: "#0F4EB3",
-                                                            float: "left",
-                                                            cursor: "pointer",
-                                                        } }
+                                                        className={ classes.deleteCard }
                                                         onClick={ () => {
                                                             setDeleteID(
                                                                 row?.AccountType
@@ -672,11 +660,7 @@ export default function PaymentMethod() {
                                                     />
 
                                                     <ArrowForwardIcon
-                                                        style={ {
-                                                            color: "#0F4EB3",
-                                                            float: "right",
-                                                            cursor: "pointer",
-                                                        } }
+                                                        className={ classes.deleteCardArrow }
                                                         onClick={ () => {
                                                             setLoading(true);
                                                             onClickEditCard(row);
@@ -715,7 +699,7 @@ export default function PaymentMethod() {
                         </p>
                     </Grid>
 
-                    <Grid id="paymentMethodBtnWrap" style={ { paddingTop: "25px" } }>
+                    <Grid id="paymentMethodBtnWrap" className={ classes.paymentMethodWrap } >
                         <Grid id="addBankAccountbutton-grid">
                             <ButtonPrimary
                                 stylebutton='{"marginLeft": "","fontSize":""}'
@@ -733,7 +717,7 @@ export default function PaymentMethod() {
 
                         <Grid
                             id="addDebitCardbutton-grid"
-                            style={ { paddingBottom: "30px" } }
+                            className={ classes.debitCardAddButton }
                         >
                             <ButtonPrimary
                                 stylebutton='{"background": "", "float":"" }'
@@ -768,7 +752,7 @@ export default function PaymentMethod() {
                         id="addAccountGrid"
                         spacing={ 4 }
                         container
-                        style={ { paddingBottom: "20px", width: "100%" } }
+                        className={ classes.paymentBody }
                     >
                         <Grid
                             item
@@ -782,42 +766,23 @@ export default function PaymentMethod() {
                                         fontSize="small"
                                     />
                                 }
-                                style={ {
-                                    lineHeight: "30px",
-                                    height: "30px",
-                                    backgroundColor: "#164a9c",
-                                } }
+                                className={ classes.paymentBreadcrumbs }
                                 aria-label="breadcrumb"
                             >
                                 <Link
                                     onClick={ handleMenuProfile }
-                                    style={ {
-                                        fontSize: "18px",
-                                        color: "rgba(255, 255, 255, .7)",
-                                        textDecoration: "none",
-                                        padding: "10px",
-                                        cursor: "pointer",
-                                    } }
+                                    className={ classes.profileLink }
                                 >
                                     Profile settings
                                 </Link>
                                 <Link
-                                    style={ {
-                                        fontSize: "18px",
-                                        color: "rgba(255, 255, 255, .7)",
-                                        textDecoration: "none",
-                                        cursor: "pointer",
-                                    } }
+                                    className={ classes.paymentLink }
                                     onClick={ () => closeBankAccountButton() }
                                 >
                                     Payment account
                                 </Link>
                                 <Link
-                                    style={ {
-                                        fontSize: "18px",
-                                        color: "#fff",
-                                        textDecoration: "none",
-                                    } }
+                                    className={ classes.paymentAccountLink }
                                 >
                                     Add bank account
                                 </Link>
@@ -826,7 +791,7 @@ export default function PaymentMethod() {
                         <Grid
                             item
                             xs={ 12 }
-                            style={ { width: "100%" } }
+                            className={ classes.fullWidth }
                             container
                             direction="row"
                         >
@@ -853,7 +818,7 @@ export default function PaymentMethod() {
                         <Grid
                             item
                             xs={ 12 }
-                            style={ { width: "100%" } }
+                            className={ classes.fullWidth }
                             container
                             direction="row"
                         >
@@ -899,7 +864,7 @@ export default function PaymentMethod() {
                             item
                             xs={ 12 }
                             sm={ 6 }
-                            style={ { width: "100%" } }
+                            className={ classes.fullWidth }
                             container
                             direction="row"
                         >
@@ -913,11 +878,7 @@ export default function PaymentMethod() {
                                             <Tooltip title="Bank Routing Number" placement="top">
                                                 <InfoOutlinedIcon
                                                     onClick={ () => handleBankRoutingCheque() }
-                                                    style={ {
-                                                        fontSize: "large",
-                                                        cursor: "pointer",
-                                                        color: "blue",
-                                                    } }
+                                                    className={ classes.routingToolTip }
                                                 />
                                             </Tooltip>
                                         </InputAdornment>
@@ -975,7 +936,7 @@ export default function PaymentMethod() {
                             item
                             xs={ 12 }
                             sm={ 6 }
-                            style={ { width: "100%" } }
+                            className={ classes.fullWidth }
                             container
                             direction="row"
                         >
@@ -1003,7 +964,7 @@ export default function PaymentMethod() {
                         <Grid
                             item
                             xs={ 12 }
-                            style={ { width: "100%" } }
+                            className={ classes.fullWidth }
                             container
                             direction="row"
                         >
@@ -1085,7 +1046,7 @@ export default function PaymentMethod() {
                             classes={ { paper: classes.dialogPaperAddBank } }
                         >
                             <DialogTitle id="addBankModalHeading">
-                                <Typography id="deleteTxt" className={ classes.dialogHeading }>
+                                <Typography id="deleteTxt" className={ classes.dialogHeading } >
                                     Are you sure you want to add a new payment method ?
                                 </Typography>
                                 <IconButton
@@ -1099,7 +1060,7 @@ export default function PaymentMethod() {
                             </DialogTitle>
 
                             <DialogActions
-                                style={ { justifyContent: "center", marginBottom: "25px" } }
+                                className={ classes.dialogAction }
                             >
                                 <ButtonSecondary
                                     disabled={ loading }
@@ -1127,8 +1088,7 @@ export default function PaymentMethod() {
                     <Grid
                         spacing={ 4 }
                         container
-                        style={ { paddingBottom: "20px", width: "100%" } }
-                        className={ loading ? classes.loadingOn : classes.loadingOff }
+                        className={ `${ loading ? classes.loadingOn : classes.loadingOff } ${ classes.paymentBody }` }
                     >
                         <Grid
                             item
@@ -1142,42 +1102,23 @@ export default function PaymentMethod() {
                                         fontSize="small"
                                     />
                                 }
-                                style={ {
-                                    lineHeight: "30px",
-                                    height: "30px",
-                                    backgroundColor: "#164a9c",
-                                } }
+                                className={ classes.paymentBreadcrumbs }
                                 aria-label="breadcrumb"
                             >
                                 <Link
                                     onClick={ handleMenuProfile }
-                                    style={ {
-                                        fontSize: "18px",
-                                        color: "rgba(255, 255, 255, .7)",
-                                        textDecoration: "none",
-                                        padding: "10px",
-                                        cursor: "pointer",
-                                    } }
+                                    className={ classes.profileLink }
                                 >
                                     Profile settings
                                 </Link>
                                 <Link
-                                    style={ {
-                                        fontSize: "18px",
-                                        color: "rgba(255, 255, 255, .7)",
-                                        textDecoration: "none",
-                                        cursor: "pointer",
-                                    } }
+                                    className={ classes.paymentLink }
                                     onClick={ () => closeDebitCardButton() }
                                 >
                                     Payment account
                                 </Link>
                                 <Link
-                                    style={ {
-                                        fontSize: "18px",
-                                        color: "#fff",
-                                        textDecoration: "none",
-                                    } }
+                                    className={ classes.paymentAccountLink }
                                 >
                                     Add new debit card
                                 </Link>
@@ -1186,7 +1127,7 @@ export default function PaymentMethod() {
                         <Grid
                             item
                             xs={ 10 }
-                            style={ { width: "100%" } }
+                            className={ classes.fullWidth }
                             container
                             direction="row"
                         >
@@ -1237,7 +1178,7 @@ export default function PaymentMethod() {
                         <Grid
                             item
                             xs={ 12 }
-                            style={ { width: "100%" } }
+                            className={ classes.fullWidth }
                             container
                             direction="row"
                         >
@@ -1267,7 +1208,7 @@ export default function PaymentMethod() {
                             xs={ 12 }
                             sm={ 6 }
 
-                            style={ { width: "100%" } }
+                            className={ classes.fullWidth }
                             container
                             direction="row"
                         >
@@ -1298,7 +1239,7 @@ export default function PaymentMethod() {
                             item
                             xs={ 12 }
                             sm={ 6 }
-                            style={ { width: "100%" } }
+                            className={ classes.fullWidth }
                             container
                             direction="row"
                         >
@@ -1361,9 +1302,8 @@ export default function PaymentMethod() {
                         <Grid
                             item
                             xs={ 12 }
-                            style={ { width: "100%" } }
                             container
-                            className={ editMode ? classes.hideSection : classes.showSection }
+                            className={ `${ editMode ? classes.hideSection : classes.showSection } ${ classes.fullWidth }` }
                             direction="row"
                         >
                             <TextField
@@ -1390,10 +1330,9 @@ export default function PaymentMethod() {
                             item
                             xs={ 12 }
                             sm={ 4 }
-                            style={ { width: "100%" } }
                             container
                             direction="row"
-                            className={ editMode ? classes.hideSection : classes.showSection }
+                            className={ `${ editMode ? classes.hideSection : classes.showSection } ${ classes.fullWidth }` }
                         >
                             <TextField
                                 id="zipcode"
@@ -1422,10 +1361,9 @@ export default function PaymentMethod() {
                             item
                             xs={ 12 }
                             sm={ 4 }
-                            style={ { width: "100%" } }
                             container
                             direction="row"
-                            className={ editMode ? classes.hideSection : classes.showSection }
+                            className={ `${ editMode ? classes.hideSection : classes.showSection } ${ classes.fullWidth }` }
                         >
                             <TextField
                                 id="city"
@@ -1451,10 +1389,9 @@ export default function PaymentMethod() {
                             item
                             xs={ 12 }
                             sm={ 4 }
-                            style={ { width: "100%" } }
                             container
                             direction="row"
-                            className={ editMode ? classes.hideSection : classes.showSection }
+                            className={ `${ editMode ? classes.hideSection : classes.showSection } ${ classes.fullWidth }` }
                         >
                             <TextField
                                 id="state"
@@ -1536,8 +1473,8 @@ export default function PaymentMethod() {
                         classes={ { paper: classes.dialogPaperDebitCard } }
                     >
                         <DialogTitle id="debitCardModalHeading">
-                            <Typography id="deleteTxt" className={ classes.dialogHeading } style={ { textAlign: 'center' } }>
-                                Are you sure you want to add a New Debit Card Details ?
+                            <Typography id="deleteTxt" className={ classes.dialogHeading } >
+                                Are you sure you want to add a new Debit Card?
                             </Typography>
                             <IconButton
                                 id="debitCardModalClose"
@@ -1550,7 +1487,7 @@ export default function PaymentMethod() {
                         </DialogTitle>
 
                         <DialogActions
-                            style={ { justifyContent: "center", marginBottom: "25px" } }
+                            className={ classes.dialogAction }
                         >
                             <ButtonSecondary
                                 stylebutton='{"background": "", "color":"" }'
@@ -1591,7 +1528,7 @@ export default function PaymentMethod() {
                         src={ cheque }
                         alt="chequeImg"
                         id="cheque"
-                        style={ { width: "100%" } }
+                        className={ classes.fullWidth }
                     />
                 </DialogContent>
                 <DialogActions>
@@ -1613,7 +1550,7 @@ export default function PaymentMethod() {
                 classes={ { paper: classes.deletePayment } }
             >
                 <DialogTitle id="debitCardModalHeading">
-                    <Typography id="deleteTxt" className={ classes.dialogHeading } style={ { textAlign: 'center' } }>
+                    <Typography id="deleteTxt" className={ classes.dialogHeading } >
                         Are you sure you want to delete this payment method?
                     </Typography>
                     <IconButton
@@ -1625,7 +1562,7 @@ export default function PaymentMethod() {
                         <CloseIcon />
                     </IconButton>
                 </DialogTitle>
-                <DialogActions style={ { justifyContent: "center", marginBottom: "25px" } }>
+                <DialogActions className={ classes.dialogAction }>
 
                     <ButtonSecondary
                         stylebutton='{"background": "", "color":"" }'
