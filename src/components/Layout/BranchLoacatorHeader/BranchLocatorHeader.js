@@ -28,7 +28,7 @@ const BranchLocatorHeader = () => {
     Cookies.get("token") ? Cookies.get("token") : "{ }"
   );
   const redirectToAccountOverview = () => {
-    window.open(`${ServerURL}`, "_self")
+    window.open(`${ServerURL}`,  "_blank")
   };
   const [display, setdisplay] = useState(true);
 
@@ -512,7 +512,7 @@ const BranchLocatorHeader = () => {
             </Accordion>
             <Accordion className="noShadow">
               <AccordionDetails className="menuHead">
-                <Link href={`${ServerURL}/select-amount/`}>Mail Offer?</Link>
+                <Link href='/select-amount/'>Mail Offer?</Link>
               </AccordionDetails>
             </Accordion>
             <Accordion className="noShadow">

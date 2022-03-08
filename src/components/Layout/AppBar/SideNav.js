@@ -569,7 +569,7 @@ export default function SideNav() {
             onMouseLeave={ handleDrawerleave }
           >
             <div className={ classes.toolbar }>
-              <a href={`${process.env.REACT_APP_WEBSITE}`}>
+              <a href={`${process.env.REACT_APP_WEBSITE}`}  target="_blank" rel="noreferrer">
                 <input
                   type="image"
                   src={ logoImage }

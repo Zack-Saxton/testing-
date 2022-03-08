@@ -612,7 +612,7 @@ export default function StatePage() {
                 target="_blank"
                 rel="link"
                 className="Links"
-                to="https://www.marinerfinance.com/why-mariner-finance/"
+                href="https://www.marinerfinance.com/why-mariner-finance/"
               >
                 Why Us{" "}
               </Link>
