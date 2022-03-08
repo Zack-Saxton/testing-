@@ -1,6 +1,8 @@
 import Cookies from "js-cookie";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
+import globalMessages from "../../assets/data/globalMessages.json"
+
 
 /***** Login method *****/
 export default async function LoginController(email, password) {
@@ -19,7 +21,7 @@ export default async function LoginController(email, password) {
     Cookies.set("user", JSON.stringify({ user: loginMethod?.data?.user }));
     return loginMethod;
   } catch (error) {
-    ErrorLogger("Error executing LoginController API", error);
+    ErrorLogger(globalMessages.Error_executing_LoginController_API, error);
   }
 }
 
@@ -35,6 +37,6 @@ export async function RegisterController(registerData) {
     //API call
     return APICall(api, param, data, method, addAccessToken);
   } catch (error) {
-    ErrorLogger("Error executing LoginController API", error);
+    ErrorLogger(globalMessages.Error_executing_RegisterController_API, error);
   }
 }

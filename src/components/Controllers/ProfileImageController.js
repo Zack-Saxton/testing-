@@ -1,6 +1,8 @@
 import Cookies from "js-cookie";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
+import globalMessages from "../../assets/data/globalMessages.json";
+
 
 export default async function UserImageInformation() {
   try {
@@ -25,6 +27,6 @@ export default async function UserImageInformation() {
     Cookies.set("profile_picture_url", res?.data?.profile_picture_url ? res?.data?.profile_picture_url : "");
     return res?.data?.profile_picture_url;
   } catch (error) {
-    ErrorLogger("Error executing UserImageInformation API", error);
+    ErrorLogger(globalMessages.Error_executing_UserImageInformation_API, error);
   }
 }

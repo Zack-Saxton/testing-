@@ -1,6 +1,8 @@
 import moment from "moment";
 import { tzMatch } from "../../assets/data/marinerBusinesStates";
 import ErrorLogger from "../lib/ErrorLogger";
+import globalMessages from "../../assets/data/globalMessages.json"
+
 export default async function BranchDayTiming(branchLookupData) {
     let caState = (branchLookupData.Address.split(" ").find(element => element === "CA")) ? true : false;
     let holidayHourDates = [ '1121', '1123', '1128', '1205', '1212', '1219', '1226' ];
@@ -94,6 +96,6 @@ export async function mapInformationBranchLocator(List) {
             },
         })));
     } catch (error) {
-        ErrorLogger(' Error from mapInformationBranchLocator', error);
+        ErrorLogger(globalMessages.Error_executing_mapInformationBranchLocator, error);
     }
 }
