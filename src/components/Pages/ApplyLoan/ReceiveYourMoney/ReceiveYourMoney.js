@@ -67,6 +67,9 @@ const useStyles = makeStyles((theme) => ({
 		paddingRight: "23px",
 		paddingLeft: "23px",
 	},
+	greenText: {
+		color: "green !important",
+	},
 	tabLabel: {
 		background: "white",
 		margin: "0px 20px 10px 0px",

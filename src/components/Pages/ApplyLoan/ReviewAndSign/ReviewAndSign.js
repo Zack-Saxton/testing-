@@ -84,6 +84,9 @@ const useStyles = makeStyles((theme) => ({
     opacity: 1,
     pointerEvents: "initial"
   },
+  greenText: {
+    color: "green !important",
+  },
   tabLabel: {
     background: "white",
     margin: "0px 20px 10px 0px",
