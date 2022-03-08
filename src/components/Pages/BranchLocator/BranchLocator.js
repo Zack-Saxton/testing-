@@ -150,10 +150,7 @@ export default function BranchLocator() {
     apiGetBranchList(params.statename);
     navigate(`/branch-locator/personal-loans-in-${ params.statename }`);
   };
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_SECKey,
-    libraries,
-  });
+  
   const findBranchTimings = async (value) => {
     try {
       if (value) {
@@ -558,14 +555,12 @@ export default function BranchLocator() {
 
   const displayMap = (
     <Grid id="mapGridWrap" item xs={ 12 } sm={ 12 } md={ 6 } xl={ 6 }>
-      { isLoaded ? (
         <Map
           id="mapBox"
           getMap={ getMap }
           CurrentLocation={ getCurrentLocation }
           Zoom={ zoomDepth }
         />
-      ) : null }
     </Grid>
   );
   const MapBranchListandSearch2Buttons = (
