@@ -148,7 +148,6 @@ export default function StatePage(props) {
     setShowDialog(false);
   }
   const OpenYearHolidays = () => {
-    console.log(' IMAGE CLICKED>>>>');
     setShowDialog(true)
    
   }
