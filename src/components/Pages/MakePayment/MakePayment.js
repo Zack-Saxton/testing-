@@ -54,33 +54,34 @@ export default function MakePayment(props) {
   const navigate = useNavigate();
   const query = new URLSearchParams(useLocation().search);
   const accNo = query.get("accNo");
-  const [, setprofileTabNumber] = useGlobalState();
-  const [paymentMethods, setpaymentMethod] = useState(null);
-  const [latestLoanData, setlatestLoanData] = useState(null);
-  const [paymentAmount, setpaymentAmount] = useState(null);
-  const [open, setOpen] = useState(false);
-  const [openPayment, setPaymentOpen] = useState(false);
-  const [openDeleteSchedule, setopenDeleteSchedule] = useState(false);
-  const [openAutoPay, setAutoPayOpen] = useState(false);
-  const [card, setcard] = useState("");
-  const [disabledContent, setdisabledContent] = useState(false);
-  const [isDebit, setisDebit] = useState(false);
-  const [accntNo, setaccntNo] = useState(null);
-  const [paymentDate, setpaymentDate] = useState(null);
-  const [paymentDatepicker, setpaymentDatepicker] = useState(null);
-  const [requiredSelect, setrequiredSelect] = useState("");
-  const [requiredDate, setrequiredDate] = useState("");
-  const [requiredAmount, setRequiredAmount] = useState("");
-  const [showCircularProgress, setshowCircularProgress] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [accountDetails] = useState(null);
-  const [totalPaymentAmount, setTotalPaymentAmount] = useState(null);
-  const [checkAutoPay, setcheckAutoPay] = useState(false);
-  const [autopaySubmit, setAutopaySubmit] = useState(true);
-  const [scheduleDate, setscheduleDate] = useState(null);
+  const [ , setprofileTabNumber ] = useGlobalState();
+  const [ paymentMethods, setpaymentMethod ] = useState(null);
+  const [ latestLoanData, setlatestLoanData ] = useState(null);
+  const [ paymentAmount, setpaymentAmount ] = useState(null);
+  const [ open, setOpen ] = useState(false);
+  const [ openPayment, setPaymentOpen ] = useState(false);
+  const [ openDeleteSchedule, setopenDeleteSchedule ] = useState(false);
+  const [ openAutoPay, setAutoPayOpen ] = useState(false);
+  const [ card, setcard ] = useState("");
+  const [ disabledContent, setdisabledContent ] = useState(false);
+  const [ isDebit, setisDebit ] = useState(false);
+  const [ accntNo, setaccntNo ] = useState(null);
+  const [ paymentDate, setpaymentDate ] = useState(null);
+  const [ paymentDatepicker, setpaymentDatepicker ] = useState(null);
+  const [ requiredSelect, setrequiredSelect ] = useState("");
+  const [ requiredDate, setrequiredDate ] = useState("");
+  const [ requiredAmount, setRequiredAmount ] = useState("");
+  const [ showCircularProgress, setshowCircularProgress ] = useState(false);
+  const [ loading, setLoading ] = useState(false);
+  const [ accountDetails ] = useState(null);
+  const [ totalPaymentAmount, setTotalPaymentAmount ] = useState(null);
+  const [ checkAutoPay, setcheckAutoPay ] = useState(false);
+  const [ autopaySubmit, setAutopaySubmit ] = useState(true);
+  const [ scheduleDate, setscheduleDate ] = useState(null);
   const [payoff, setPayoff] = useState(false);
-  const [checkPaymentInformation, setCheckPaymentInformation] = useState(false);
-  const [activeLoansData, setActiveLoansData] = useState([]);
+  const [ checkPaymentInformation, setCheckPaymentInformation ] = useState(false);
+  const [ activeLoansData, setActiveLoansData ] = useState([]);
+  const [checkCard, setCheckCard] = useState(false);
   const {
     isFetching,
     data: User,
@@ -98,7 +99,17 @@ export default function MakePayment(props) {
       refetchOnMount: false,
     }
   );
-  const [paymentTitle, setPaymentTitle] = useState("Single Payment");
+  const [ paymentTitle, setPaymentTitle ] = useState("Single Payment");
+  
+  useEffect(() => {
+    if (payments) {
+      payments?.data?.paymentOptions[0]?.CardType
+        ? setCheckCard(true)
+        : setCheckCard(false);
+    }
+    return null;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [payments]);
 
   //API Request for Payment methods
   async function getPaymentMethods() {
@@ -405,7 +416,6 @@ export default function MakePayment(props) {
         : 0;
       setlatestLoanData(activeLoansData?.slice(0, 1) ?? null);
       let latestLoan = activeLoansData?.slice(0, 1) ?? null;
-
       setpaymentAmount(
         activeLoansData?.length
           ? hasSchedulePaymentActive
@@ -514,9 +524,6 @@ export default function MakePayment(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [User, activeLoansData, isFetching, payments]);
 
-  //Holiday Calender from API
-  // let holidayCalenderData = holidayCalenderApi?.data;
-
   //Account select payment options
   let paymentData = paymentMethods?.data;
   let paymentListAch =
@@ -593,10 +600,17 @@ export default function MakePayment(props) {
   //Select account
   const handleChangeSelect = (event) => {
     setcard(event.target.value);
-    event.nativeEvent.target.innerText.includes("Checking") ||
-    event.nativeEvent.target.innerText.includes("Savings")
-      ? setisDebit(false)
-      : setisDebit(true); //true
+    if (
+      event.nativeEvent.target.innerText.includes("Checking") ||
+      event.nativeEvent.target.innerText.includes("Savings")
+    ) {
+      setisDebit(false);
+      setCheckCard(false);
+    } else {
+      setisDebit(true);
+      setCheckCard(true);
+    }
+    //true
     setrequiredSelect("");
   };
 
@@ -1083,6 +1097,7 @@ export default function MakePayment(props) {
                                 placeholder="MM/DD/YYYY"
                                 id="date"
                                 disablePast
+                                disableFuture = {checkCard}
                                 disabled={payoff}
                                 autoComplete="off"
                                 maxdate={paymentMaxDate}
