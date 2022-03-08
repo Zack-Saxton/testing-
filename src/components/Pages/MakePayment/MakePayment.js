@@ -760,7 +760,6 @@ export default function MakePayment(props) {
   }
   //US holidays
   function disableHolidays(date) {
-    console.log(' DATA ::', holidayCalenderData )
     const holidayApiData = holidayCalenderData?.data.MFYearHolidays.map(({ Date }) => formatDate(Date));
     const holidayApiDataValues = holidayApiData.map((arrVal) => {
       return new Date(arrVal + "T00:00").getTime();
