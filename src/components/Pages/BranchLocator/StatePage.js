@@ -12,7 +12,6 @@ import CloseIcon from "@material-ui/icons/Close";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import PhoneIcon from "@material-ui/icons/Phone";
 import SearchIcon from "@material-ui/icons/Search";
-import { useLoadScript } from "@react-google-maps/api";
 import React, { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet";
 import PlacesAutocomplete from "react-places-autocomplete";
@@ -318,7 +317,6 @@ export default function StatePage() {
           <Grid
             className="mapWrap"
             ref={mapSection}
-            style={{ padding: "4% 0px 4% 0px", backgroundColor: "#f6f6f6" }}
             container
           >
             <h3 className="mapTopHeading">Branches Near You</h3>
@@ -359,7 +357,7 @@ export default function StatePage() {
                         return (
                           <Grid key={index} className="locationInfo">
                             <NavLink
-                              to={`/branchLocator/[${
+                              to={`/branchlocator/[${
                                 MFStates[
                                   MFStateShort.indexOf(
                                     item?.Address.substring(
@@ -367,13 +365,13 @@ export default function StatePage() {
                                       item?.Address.length
                                     ).substring(0, 2)
                                   )
-                                ]
+                              ].toLowerCase()
                               }]-personal-loans-in-${
-                                item?.BranchName
-                              }-${item?.Address.substring(
-                                item?.Address.length - 8,
-                                item?.Address.length
-                              ).substring(0, 2)}`}
+                                item.BranchName.toLowerCase()
+                              }-${item.Address.substring(
+                                item.Address.length - 8,
+                                item.Address.length
+                              ).substring(0, 2).toLowerCase() }`}
                               state={{ Branch_Details: item }}
                               className="nav_link"
                             >
@@ -502,8 +500,12 @@ export default function StatePage() {
                       }`
                     );
                     setAddress2("");
-                  } else {
-                    toast.error(" Please provide address.");
+                  } else if (getBranchList && getBranchList[0]?.Address) {
+                    openGetDirectionModal();
+                    setBranchAddress(`https://www.google.com/maps/search/${getBranchList[0]?.Address}`);
+                  }
+                  else {
+                    toast.error(`Please enter address in search.`);
                   }
                 }}
                 stylebutton='{"width": "100%", "padding":"0 15px", "fontSize":"0.938rem", "fontWeight":"400", "height":"47px" }'
@@ -579,7 +581,7 @@ export default function StatePage() {
           style={{
             backgroundColor: "#fff",
             width: "100%",
-            padding: "4% 2rem 4% 1rem",
+            padding: "20px 2rem 35px 1rem",
           }}
         >
           <Grid className="personalLoanText">

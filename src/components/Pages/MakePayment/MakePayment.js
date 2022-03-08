@@ -745,10 +745,22 @@ export default function MakePayment(props) {
       style: "currency",
       currency: "USD",
     }).format(value);
-
+  const formatDate = (date) => {
+    let d = new Date(date);
+    let month = (d.getMonth() + 1).toString();
+    let day = d.getDate().toString();
+    let year = d.getFullYear();
+    if (month.length < 2) {
+      month = '0' + month;
+    }
+    if (day.length < 2) {
+      day = '0' + day;
+    }
+    return [year, month, day].join('-');
+  }
   //US holidays
   function disableHolidays(date) {
-    const holidayApiData = holidayCalenderData?.data?.holidays;
+    const holidayApiData = holidayCalenderData?.data.MFYearHolidays.map(({ Date }) => formatDate(Date));
     const holidayApiDataValues = holidayApiData.map((arrVal) => {
       return new Date(arrVal + "T00:00").getTime();
     });

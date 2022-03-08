@@ -259,19 +259,6 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
 .feefowidget-read-all-reviews {
   color: #ffffff8a !important;
 }
-.branchLocatorHeading b {
-  font-family: MuliBold !important;
-  font-size: 1.875rem !important;
-  font-weight: 700;
-  line-height: 36px;
-}
-/* .branchLocatorHeadingMain {
-  font-size: 1.25rem !important;
-  font-weight: 400;
-  line-height: 1.25;
-  color: white;
-  margin: 0 0 2% 0;
-} */
 .branchLocatorHeading {
   font-size: 2.125rem !important;
   font-weight: 400;
@@ -359,13 +346,6 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
 .mainContentWrap{
   width: 100%;
   background-color: white;
-}
-#mainContent{
-  text-align: center;
-  padding: 4% 0px;
-  background-color: white;
-  max-width: 1200px;
-  margin: auto;
 }
 .endDate{
   font-size: 14px !important;

@@ -1,11 +1,13 @@
 import moment from "moment";
-import { tzMatch } from "../../assets/data/marinerBusinesStates";
+import { tzMatch, MFWorkingSaturdayDateRange } from "../../assets/data/marinerBusinesStates";
 import ErrorLogger from "../lib/ErrorLogger";
 import globalMessages from "../../assets/data/globalMessages.json"
 
 export default async function BranchDayTiming(branchLookupData) {
     let caState = (branchLookupData.Address.split(" ").find(element => element === "CA")) ? true : false;
-    let holidayHourDates = [ '1121', '1123', '1128', '1205', '1212', '1219', '1226' ];
+    let startDate = new Date(MFWorkingSaturdayDateRange.start);
+    let endDate = new Date(MFWorkingSaturdayDateRange.end);
+    let holidayHourDates = getDates(getSaturdayOfCurrentWeek(startDate), endDate)
     let currentDay = moment().format('dddd');
     let isholidayHours = holidayHourDates.includes(moment().format('MMDD'));
     let dotw = moment().day();
@@ -99,3 +101,29 @@ export async function mapInformationBranchLocator(List) {
         ErrorLogger(globalMessages.Error_executing_mapInformationBranchLocator, error);
     }
 }
+
+const  getDates = function(startDate, endDate) {
+    const dates = []
+    let currentDate = startDate
+    const addDays = function (days) {
+        const date = new Date(this.valueOf())
+        date.setDate(date.getDate() + days)
+        return date
+    }
+    while (currentDate <= endDate) {
+        dates.push(`${String(currentDate.getMonth() + 1).padStart(2, '0')}${String(currentDate.getDate()).padStart(2, '0')}`)
+        currentDate = addDays.call(currentDate, 7)
+    }
+    return dates
+}
+const  getSaturdayOfCurrentWeek = function(today) {
+    return new Date(today.setDate(((today.getDate() - today.getDay() + 1) + 5)));
+}
+export  function branchSaturdaySchedule() {
+    let startDate = new Date(MFWorkingSaturdayDateRange.start);
+    let endDate = new Date(MFWorkingSaturdayDateRange.end);
+    return isBetween(getSaturdayOfCurrentWeek(new Date()), startDate, endDate);
+}
+const isBetween = function (date, start, end) {
+    return (date.getTime() >= start.getTime() && date.getTime() <= end.getTime())
+};
