@@ -5,7 +5,7 @@ export default async function BranchDayTiming(branchLookupData) {
     let caState = (branchLookupData.Address.split(" ").find(element => element === "CA")) ? true : false;
     let startDate = new Date(MFWorkingSaturdayDateRange.start);
     let endDate = new Date(MFWorkingSaturdayDateRange.end);
-    let holidayHourDates = getDates(getSaturdayOfCurrentWeek(startDate), endDate)
+    let holidayHourDates = getDates(getSaturdayOfCurrentWeek(startDate), endDate);
     let currentDay = moment().format('dddd');
     let isholidayHours = holidayHourDates.includes(moment().format('MMDD'));
     let dotw = moment().day();

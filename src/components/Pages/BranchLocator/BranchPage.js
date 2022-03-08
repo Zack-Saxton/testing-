@@ -146,16 +146,16 @@ export default function StatePage(props) {
   };
   const cancel = () => {
     setShowDialog(false);
-  }
+  };
   const OpenYearHolidays = () => {
-    setShowDialog(true)
+    setShowDialog(true);
    
-  }
+  };
   useEffect(() => {
     apiGetBranchList(Branch_Details.Address);
-    let State = Branch_Details.Address.substring(
-      Branch_Details.Address.length - 8,
-      Branch_Details.Address.length
+    let State = Branch_Details?.Address.substring(
+      Branch_Details?.Address.length - 8,
+      Branch_Details?.Address.length
     );
     setStateName(State.substring(0, 2));
     return null;
