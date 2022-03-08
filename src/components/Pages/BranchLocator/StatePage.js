@@ -500,8 +500,12 @@ export default function StatePage() {
                       }`
                     );
                     setAddress2("");
-                  } else {
-                    toast.error(" Please provide address.");
+                  } else if (getBranchList && getBranchList[0]?.Address) {
+                    openGetDirectionModal();
+                    setBranchAddress(`https://www.google.com/maps/search/${getBranchList[0]?.Address}`);
+                  }
+                  else {
+                    toast.error(`Please enter address in search.`);
                   }
                 }}
                 stylebutton='{"width": "100%", "padding":"0 15px", "fontSize":"0.938rem", "fontWeight":"400", "height":"47px" }'

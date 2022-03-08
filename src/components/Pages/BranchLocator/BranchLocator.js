@@ -12,7 +12,6 @@ import CloseIcon from "@material-ui/icons/Close";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import PhoneIcon from "@material-ui/icons/Phone";
 import SearchIcon from "@material-ui/icons/Search";
-import { useLoadScript } from "@react-google-maps/api";
 import PropTypes from "prop-types";
 import React, { useRef, useState } from "react";
 import { Helmet } from "react-helmet";
@@ -320,8 +319,12 @@ export default function BranchLocator() {
               openGetDirectionModal();
               setBranchAddress(`https://www.google.com/maps/search/${ document.getElementById('search2').value }`);
               setAddress2("");
-            } else {
-              toast.error(' Please provide address.');
+            } else if (getBranchList && getBranchList[0]?.Address) {
+              openGetDirectionModal();
+              setBranchAddress(`https://www.google.com/maps/search/${getBranchList[0]?.Address}`);
+            }
+            else {
+              toast.error(`Please enter address in search.`);
             }
           } }
           stylebutton='{"width": "100%", "padding":"0 15px", "fontSize":"0.938rem", "fontWeight":"400", "height":"47px" }'

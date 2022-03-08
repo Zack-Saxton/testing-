@@ -514,17 +514,15 @@ export default function StatePage(props) {
               </h4>
               <p className="PesonalLoanMapParagraph">
                 Our {Branch_Details.BranchName} lending professionals are proud
-                of the neighborhoods they live and work in. Ready to speak to a
-                {Branch_Details.BranchName} lending professional in person? The better we know
+                of the neighborhoods they live and work in. Ready to speak to a {Branch_Details.BranchName} lending professional in person? The better we know
                 you, the more we can help. You have your own unique goals to
                 meet, and it all starts with a conversation at your local
-                branch.A personal loans can meet a variety of needs, including
+                branch. <br /><br />A personal loans can meet a variety of needs, including
                 medical emergencies, home improvement projects, vacations,
                 weddings, tuitions costs, and debt consolidation. Mariner
                 Finance has a personal loans that fits every one of those
-                situations, and more.Ready to apply for a personal loans at the{" "}
-                {Branch_Details.BranchName}, {getStateName} branch? Our
-                {Branch_Details.BranchName} branch is totally focused on solving your personal
+                situations, and more. Ready to apply for a personal loans at the{" "}
+                {Branch_Details.BranchName}, {getStateName} branch? Our {Branch_Details.BranchName} branch is totally focused on solving your personal
                 financial challenges.
               </p>
             </Grid>
