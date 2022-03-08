@@ -23,12 +23,12 @@ const BranchLocatorHeader = () => {
   const classes = useStyles();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const ServerURL = "https://wps-qa.marinerfinance.io";
+  const ServerURL = `${process.env.REACT_APP_WEBSITE}`;
   const loginToken = JSON.parse(
     Cookies.get("token") ? Cookies.get("token") : "{ }"
   );
   const redirectToAccountOverview = () => {
-    window.open("https://wps-qa.marinerfinance.io/", "_blank")
+    window.open(`${ServerURL}`,  "_blank")
   };
   const [display, setdisplay] = useState(true);
 

@@ -131,7 +131,7 @@ export default function StatePage(props) {
     }
   };
   const ApplyOnlineLoan = () => {
-    window.open(`https://wps-qa.marinerfinance.io/`, "_self");
+    window.open(`${process.env.REACT_APP_WEBSITE}`, "_self");
   };
   useEffect(() => {
     apiGetBranchList(Branch_Details.Address);
