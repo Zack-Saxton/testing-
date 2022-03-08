@@ -15,6 +15,7 @@ import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./CheckMyOffer.css";
 
+
 //Styling part
 const useStyles = makeStyles((theme) => ({
   alignSmallText: {
@@ -92,21 +93,19 @@ function CheckMyOffers(props) {
       if (data.offerCode !== "") {
         let res = await offercodeValidation(data.offerCode);
         if (res?.data?.offerData?.Message || res.status !== 200) {
-          toast.error(
-            "Please enter a valid Offer Code. If you do not have an Offer Code please select Continue"
-          );
+          toast.error(globalMessages.OfferCode_Valid);
           tempCounter++;
           if (tempCounter === 2) {
             setPageStatus();
             navigate("/loan-purpose");
           }
         } else {
-          toast.success("Your Application Code has been accepted");
+          toast.success(globalMessages.offerCode_Success);
           navigate("/pre-approved");
         }
       }
     } catch (error) {
-      ErrorLogger("Error offerCode VAlidation API", error);
+      ErrorLogger(globalMessages.offerCode_Error, error);
     }
   };
 

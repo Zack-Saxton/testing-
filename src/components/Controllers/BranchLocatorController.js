@@ -1,5 +1,7 @@
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
+import globalMessages from "../../assets/data/globalMessages.json"
+
 
 export default async function BranchLocatorController(zipcode) {
     try {
@@ -12,6 +14,6 @@ export default async function BranchLocatorController(zipcode) {
         //API call
         return await APICall(url, param, data, method, addAccessToken);
     } catch (error) {
-        ErrorLogger("Error executing BranchLocatorController API", error);
+        ErrorLogger(globalMessages.Error_executing_BranchLocatorController_API, error);
     }
 }
