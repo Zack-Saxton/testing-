@@ -117,7 +117,7 @@ export default function ActiveLoans(userActiveLoanData) {
                               <ButtonPrimary
                                 id="makeAPaymentButtonStyle"
                                 stylebutton='{"float": "right","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
-                                className = { (appData?.loanPaymentInformation?.scheduledPayments[ 0 ] ?  Moment.duration(Moment(appData.loanPaymentInformation.scheduledPayments[ 0 ].PaymentDate).diff(dateNow)).asDays() : 11) <  10 ? classes.greenButton : classes.normalButton }
+                                className = { (appData?.loanPaymentInformation?.scheduledPayments[ 0 ] ?  Moment.duration(Moment(appData.loanPaymentInformation.scheduledPayments[ 0 ].PaymentDate).diff(dateNow)).asDays() : 11) <  10 ? `${classes.normalButton} pulse` : classes.normalButton }
                               >
                                 Make a Payment
                               </ButtonPrimary>
