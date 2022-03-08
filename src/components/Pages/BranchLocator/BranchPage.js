@@ -151,10 +151,6 @@ export default function StatePage(props) {
     return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getStateName]);
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_SECKey,
-  });
-
   const BranchDetailsInCard = (
     <Grid container style={{ width: "100%" }}>
       <Grid className="branchImage" item md={7} sm={12} xs={12}>
@@ -444,13 +440,11 @@ export default function StatePage(props) {
 
   const DisplayBranchMap = (
     <Grid className="branchMap">
-      {isLoaded ? (
         <Map
           getMap={getMap}
           CurrentLocation={getCurrentLocation}
           Zoom={zoomDepth}
         />
-      ) : null}
     </Grid>
   );
   //View part
