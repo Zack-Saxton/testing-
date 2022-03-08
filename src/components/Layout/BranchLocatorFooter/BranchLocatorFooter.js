@@ -23,23 +23,23 @@ export default function BranchLocatorFooter() {
       description: [
         {
           name: "Unexpected Expenses",
-          link: "https://wps-qa.marinerfinance.io/personal-loans/unexpected-expenses/",
+          link: `${process.env.REACT_APP_WEBSITE}/personal-loans/unexpected-expenses/`,
         },
         {
           name: "Vacation Loans",
-          link: "https://wps-qa.marinerfinance.io/personal-loans/vacation-loans/",
+          link: `${process.env.REACT_APP_WEBSITE}/personal-loans/vacation-loans/`,
         },
         {
           name: "Loan for Debt Consolidation",
-          link: "https://wps-qa.marinerfinance.io/personal-loans/debt-consolidation-loans/",
+          link: `${process.env.REACT_APP_WEBSITE}/personal-loans/debt-consolidation-loans/`,
         },
         {
           name: "Loan for Home Improvements",
-          link: "https://wps-qa.marinerfinance.io/personal-loans/home-improvement-loans/",
+          link: `${process.env.REACT_APP_WEBSITE}/personal-loans/home-improvement-loans/`,
         },
         {
           name: "Wedding Loans",
-          link: "https://wps-qa.marinerfinance.io/personal-loans/wedding-loans/",
+          link: `${process.env.REACT_APP_WEBSITE}/personal-loans/wedding-loans/`,
         },
       ],
     },
@@ -65,15 +65,15 @@ export default function BranchLocatorFooter() {
       description: [
         {
           name: "Auto Refinancing Loan",
-          link: "https://wps-qa.marinerfinance.io/car-loans/auto-refinance/",
+          link: `${process.env.REACT_APP_WEBSITE}/car-loans/auto-refinance/`,
         },
         {
           name: "Finance Car Loan",
-          link: "https://wps-qa.marinerfinance.io/car-loans/new-car-loan/",
+          link: `${process.env.REACT_APP_WEBSITE}/car-loans/new-car-loan/`,
         },
         {
           name: "Finance a Used Car",
-          link: "https://wps-qa.marinerfinance.io/car-loans/used-car-loan/",
+          link: `${process.env.REACT_APP_WEBSITE}/car-loans/used-car-loan/`,
         },
       ],
     },
@@ -82,19 +82,19 @@ export default function BranchLocatorFooter() {
       description: [
         {
           name: "Mortgage Loans",
-          link: "https://wps-qa.marinerfinance.io/home-loans/mortgage-loans/",
+          link: `${process.env.REACT_APP_WEBSITE}/home-loans/mortgage-loans/`,
         },
         {
           name: "Home Refinance",
-          link: "https://wps-qa.marinerfinance.io/home-loans/home-refinance/",
+          link: `${process.env.REACT_APP_WEBSITE}/home-loans/home-refinance/`,
         },
         {
           name: "FHA Loans and VA Loans",
-          link: "https://wps-qa.marinerfinance.io/home-loans/fha-and-va-loans/",
+          link: `${process.env.REACT_APP_WEBSITE}/home-loans/fha-and-va-loans/`,
         },
         {
           name: "Meet our Loan Officers",
-          link: "https://wps-qa.marinerfinance.io/home-loans/meet-our-loan-officers/",
+          link: `${process.env.REACT_APP_WEBSITE}/home-loans/meet-our-loan-officers/`,
         },
       ],
     },
@@ -103,7 +103,7 @@ export default function BranchLocatorFooter() {
       description: [
         {
           name: "How to apply for a Personal Loan",
-          link: "https://wps-qa.marinerfinance.io/resources/how-to-apply/",
+          link: `${process.env.REACT_APP_WEBSITE}/resources/how-to-apply/`,
         },
         {
           name: "FAQ",
@@ -111,11 +111,11 @@ export default function BranchLocatorFooter() {
         },
         {
           name: "Blog",
-          link: "https://wps-qa.marinerfinance.io/blog/",
+          link: `${process.env.REACT_APP_WEBSITE}/blog/`,
         },
         {
           name: "Mariner States",
-          link: "https://wps-qa.marinerfinance.io/state/",
+          link: `${process.env.REACT_APP_WEBSITE}/state/`,
         },
       ],
     },
@@ -124,7 +124,7 @@ export default function BranchLocatorFooter() {
       description: [
         {
           name: "Why Us",
-          link: "https://wps-qa.marinerfinance.io/why-mariner-finance/",
+          link: `${process.env.REACT_APP_WEBSITE}/why-mariner-finance/`,
         },
         {
           name: "Branch Locator",
@@ -132,11 +132,11 @@ export default function BranchLocatorFooter() {
         },
         {
           name: "Customer Support",
-          link: "https://wps-qa.marinerfinance.io/customer-support/",
+          link: `${process.env.REACT_APP_WEBSITE}/customer-support/`,
         },
         {
           name: "Careers",
-          link: "https://wps-qa.marinerfinance.io/why-mariner-finance/careers/",
+          link: `${process.env.REACT_APP_WEBSITE}/why-mariner-finance/careers/`,
         },
       ],
     },
@@ -145,11 +145,11 @@ export default function BranchLocatorFooter() {
       description: [
         {
           name: "COVID-19",
-          link: "https://wps-qa.marinerfinance.io/coronavirus-covid-19-information/",
+          link: `${process.env.REACT_APP_WEBSITE}/coronavirus-covid-19-information/`,
         },
         {
           name: "Disaster Information Hurricane Dorian",
-          link: "https://wps-qa.marinerfinance.io/coronavirus-covid-19-information/",
+          link: `${process.env.REACT_APP_WEBSITE}/coronavirus-covid-19-information/`,
         },
       ],
     },
@@ -158,27 +158,27 @@ export default function BranchLocatorFooter() {
       description: [
         {
           name: "Community Guidelines",
-          link: "https://wps-qa.marinerfinance.io/resources/legal/#fusion-tab-communityguidelines",
+          link: `${process.env.REACT_APP_WEBSITE}/resources/legal/#fusion-tab-communityguidelines`,
         },
         {
           name: "Privacy Statement",
-          link: "https://wps-qa.marinerfinance.io/resources/legal/#fusion-tab-privacystatement",
+          link: `${process.env.REACT_APP_WEBSITE}/resources/legal/#fusion-tab-privacystatement`,
         },
         {
           name: "Terms of Use",
-          link: "https://wps-qa.marinerfinance.io/resources/legal/#fusion-tab-termsofuse",
+          link: `${process.env.REACT_APP_WEBSITE}/resources/legal/#fusion-tab-termsofuse`,
         },
         {
           name: "Licensing and Disclosure",
-          link: "https://wps-qa.marinerfinance.io/resources/legal/#fusion-tab-licensing&disclosures",
+          link: `${process.env.REACT_APP_WEBSITE}/resources/legal/#fusion-tab-licensing&disclosures`,
         },
         {
           name: "Texting Terms of Use",
-          link: "https://wps-qa.marinerfinance.io/resources/legal/#fusion-tab-textingtermsofuse",
+          link: `${process.env.REACT_APP_WEBSITE}/resources/legal/#fusion-tab-textingtermsofuse`,
         },
         {
           name: "Website Accessibility",
-          link: "https://wps-qa.marinerfinance.io/resources/legal/#fusion-tab-websiteaccessibilitystatement",
+          link: `${process.env.REACT_APP_WEBSITE}/resources/legal/#fusion-tab-websiteaccessibilitystatement`,
         },
       ],
     },
