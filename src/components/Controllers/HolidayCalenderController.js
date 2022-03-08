@@ -7,8 +7,8 @@ export default async function HolidayCalender() {
     let url = "mariner_holiday_calender";
     let param = "";
     let data = {};
-    let method = "POST";
-    let addAccessToken = true;
+    let method = "GET";
+    let addAccessToken = false;
 
     //API call
     return await APICall(url, param, data, method, addAccessToken);
