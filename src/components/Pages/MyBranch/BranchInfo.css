@@ -11,14 +11,6 @@
 #phoneLink {
   color: #0f4eb3 !important;
 }
-/* .branchMap {
-  min-height: 650px !important;
-  height: 650px !important;
-}
-#branchMapWrap {
-  height: 100% !important;
-
-} */
 #branchMapWrap iframe {
   height: 100% !important;
   border-radius: 10px !important;
@@ -63,13 +55,6 @@
   font-size: 12px;
   color: #171717;
 }
-/* .searchIconBottom {
-  color: #595959 !important;
-  position: absolute;
-  top: 12px;
-  font-size: 25px !important;
-  left: 9px;
-} */
 #findBranchGrid .branchLocatorInput .MuiInput-underline:before,
 #findBranchGrid .branchLocatorInput .MuiInput-underline:after {
   border-bottom: 2px solid white !important;
@@ -80,13 +65,6 @@
   border-bottom: 2px solid white !important;
   border-bottom-color: #3f51b5 !important;
 }
-/* .searchIcon {
-  color: #595959 !important;
-  position: absolute;
-  top: 20px;
-  font-size: 26px !important;
-  left: -4px;
-} */
 .goIcon {
   font-size: 20px !important;
 }
@@ -96,9 +74,6 @@
 .branchLocatorInput .MuiInput-underline {
   padding-left: 26px;
   padding-bottom: 7px;
-}
-.findBranchWrap {
-  padding: 0px 15px 0px 15px;
 }
 #findBranchWrapTwo {
   margin-top: 4%;
@@ -119,13 +94,6 @@
 #searchBoxBottom{
   padding: 0px 0px 0px 4.5%;
 }
-/* .locationInfo {
-  margin-bottom: 2% !important;
-  display: flex;
-  flex-direction: column;
-  align-items: self-start;
-  justify-content: space-between;
-} */
 .locationInfo .nav_link {
   display: flex;
   align-items: center;
@@ -149,21 +117,12 @@
   color: #214476 !important;
   text-decoration: none;
 }
-.addressList {
-  background-color: #f6f6f6;
-  padding: 0% 6%;
-}
 .breadcrumbLink{
   font-size: 0.75rem !important;
   color: #171717 !important;
   text-decoration: none !important;
   cursor: pointer !important;
 }
-/* .branchListWrap {
-  max-height: 198px;
-  overflow-x: hidden;
-  overflow-y: scroll;
-} */
 .BlacktextColor {
   color: #171717;
   text-decoration: none;
@@ -173,19 +132,6 @@
     font-weight: 700 !important;
     color: #214476 !important;
 }
-/* .branchPhoneNumber{
-    font-size: 0.938rem !important;
-    font-weight: 700 !important;
-    color: #214476 !important;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-} */
-/* #branchLists {
-  background-color: f6f6f6;
-  min-height: 450px !important;
-  padding: 0px 15px;
-} */
 #timeSlotSelect .subOption {
   color: #171717 !important;
 }
@@ -300,13 +246,6 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
   line-height: 1.5;
   font-size: 0.938rem;
 }
-/* .PesonalLoanHeading {
-  color: #214476;
-  text-align: center;
-  font-size: 2.125rem;
-  font-weight: 500;
-  margin: 0;
-} */
 .black-text {
   display: block;
   margin: 15px 0px;
@@ -355,11 +294,6 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
   font-size: 15px;
   font-weight: bolder;
 }
-@media (max-width: 1400px) {
-  /* .branchImage img {
-    width: 100%;
-  } */
-}
 @media (max-width: 960px) {
   .mobileImage{
     display: block;
@@ -372,9 +306,6 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
   }
   .findBranchWrapTwo {
     padding-top: 40px;
-  }
-  #getDirectionWrap{
-    /* justify-content: center; */
   }
   #getDirectionButton{
     width: 100%;

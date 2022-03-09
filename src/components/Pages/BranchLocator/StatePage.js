@@ -336,7 +336,150 @@ export default function StatePage() {
                   Zoom={zoomDepth}
                 />
             </Grid>
-            <Grid className="findBranchWrap" item xs={12} sm={12} md={6} xl={6}>
+            <Grid
+            item
+            xs={12}
+            sm={12}
+            md={6}
+            xl={6}
+          style={{
+            backgroundColor: "#f6f6f6",
+            padding: "0px 0px 0px 4.5%",
+          }}
+        >
+          <Grid className="personalLoanText">
+            <h4 className="PesonalLoanHeading">
+              <span>Personal Loans in {Name}</span>
+            </h4>
+            <p>
+              Mariner Finance branches are all over {Name}, from Salisbury to
+              Frederick. Use our interactive map to locate the one closest to
+              you.
+            </p>
+            <h3>We’re here for you.</h3>
+            <p className="PesonalLoanParagraph">
+              Every one of our {Name} branches share a common benefit: lending
+              professionals proud of the neighborhoods they live and work in,
+              who are totally focused on solving your personal financial
+              challenges.
+            </p>
+            <p className="PesonalLoanParagraph">
+              For all the reasons to choose Mariner Finance, visit{" "}
+              <Link
+                target="_blank"
+                rel="link"
+                className="Links"
+                href="https://www.marinerfinance.com/why-mariner-finance/"
+              >
+                Why Us{" "}
+              </Link>
+              .
+            </p>
+          </Grid>
+        </Grid>
+           
+          </Grid>
+          <Grid id="greyBackground" container>
+            <Grid
+              id="getDirectionButton"
+              container
+              className={clessesforptag.gridPadding}
+              item
+              md={6}
+              sm={12}
+              xs={12}
+            >
+              <ButtonPrimary
+                href={getBranchAddress}
+                id="Continue"
+                onClick={() => {
+                  if (document.getElementById("search2").value) {
+                    openGetDirectionModal();
+                    setBranchAddress(
+                      `https://www.google.com/maps/search/${
+                        document.getElementById("search2").value
+                      }`
+                    );
+                    setAddress2("");
+                  } else if (getBranchList && getBranchList[0]?.Address) {
+                    openGetDirectionModal();
+                    setBranchAddress(`https://www.google.com/maps/search/${getBranchList[0]?.Address}`);
+                  }
+                  else {
+                    toast.error(`Please enter address in search.`);
+                  }
+                }}
+                stylebutton='{"width": "100%", "padding":"0 15px", "fontSize":"0.938rem", "fontWeight":"400", "height":"47px" }'
+                target="_blank"
+              >
+                Get Driving Directions To Nearest Location
+              </ButtonPrimary>
+            </Grid>
+            <Grid id="searchBoxBottom" item md={6} sm={12} xs={12}>
+              <Grid id="findBranchGrid">
+                <p className="zipLabel">
+                  {" Can't find it? Try searching another "}
+                </p>
+                <SearchIcon
+                  className="searchIconBottomTwo"
+                  style={{ color: "white" }}
+                />
+                <PlacesAutocomplete
+                  value={address2}
+                  onChange={setAddress2}
+                  onSelect={handleSelect2}
+                  style={{ width: "50%" }}
+                >
+                  {({
+                    getInputProps,
+                    suggestions,
+                    getSuggestionItemProps,
+                    loading2,
+                  }) => (
+                    <div className="searchInputWrap">
+                      <input
+                        id="search2"
+                        className="branchSearchTwo"
+                        {...getInputProps({
+                          placeholder: "Enter city & state or zip code",
+                        })}
+                      />
+                      <div className="serachResult">
+                        {loading2 && <div>Loading...</div>}
+                        {suggestions.map((suggestion) => {
+                          const style = {
+                            backgroundColor: suggestion.active
+                              ? "#41b6e6"
+                              : "#fff",
+                          };
+                          return (
+                            <div
+                              key={Math.random() * 1000}
+                              {...getSuggestionItemProps(suggestion, {
+                                style,
+                              })}
+                            >
+                              <span>{suggestion.description}</span>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+                </PlacesAutocomplete>
+                <ButtonPrimary
+                  className="branchSearchButton"
+                  onClick={getActivePlaces}
+                  stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "padding":"0px 30px"}'
+                >
+                  <ArrowForwardIcon className="goIcon" />
+                </ButtonPrimary>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+
+        <Grid className="findBranchWrap" item xs={12} sm={12} >
               {loading ? (
                 <div align="center">
                   <CircularProgress />{" "}
@@ -345,17 +488,15 @@ export default function StatePage() {
                 <Grid
                   id="branchLists"
                   style={{
-                    width: "100%",
-                    height: "542px",
-                    overflowY: "scroll",
+                    display:"flex"
                   }}
                 >
-                  <Grid className="addressList">
+                  <Grid container className="addressList">
                     {getBranchList ? (
                       getBranchList.map((item, index) => {
                         if (Number(item?.distance.replace(' mi', '')) <= 60) {
                         return (
-                          <Grid key={index} className="locationInfo">
+                          <Grid key={index} className="locationInfo" item lg={4} md={4} sm={6} xs={12}>
                             <NavLink
                               to={`/branchlocator/[${
                                 MFStates[
@@ -477,143 +618,6 @@ export default function StatePage() {
                 </Grid>
               )}
             </Grid>
-          </Grid>
-          <Grid id="greyBackground" container>
-            <Grid
-              id="getDirectionButton"
-              container
-              className={clessesforptag.gridPadding}
-              item
-              md={6}
-              sm={12}
-              xs={12}
-            >
-              <ButtonPrimary
-                href={getBranchAddress}
-                id="Continue"
-                onClick={() => {
-                  if (document.getElementById("search2").value) {
-                    openGetDirectionModal();
-                    setBranchAddress(
-                      `https://www.google.com/maps/search/${
-                        document.getElementById("search2").value
-                      }`
-                    );
-                    setAddress2("");
-                  } else if (getBranchList && getBranchList[0]?.Address) {
-                    openGetDirectionModal();
-                    setBranchAddress(`https://www.google.com/maps/search/${getBranchList[0]?.Address}`);
-                  }
-                  else {
-                    toast.error(`Please enter address in search.`);
-                  }
-                }}
-                stylebutton='{"width": "100%", "padding":"0 15px", "fontSize":"0.938rem", "fontWeight":"400", "height":"47px" }'
-                target="_blank"
-              >
-                Get Driving Directions To Nearest Location
-              </ButtonPrimary>
-            </Grid>
-            <Grid id="searchBoxBottom" item md={6} sm={12} xs={12}>
-              <Grid id="findBranchGrid">
-                <p className="zipLabel">
-                  {" Can't find it? Try searching another "}
-                </p>
-                <SearchIcon
-                  className="searchIconBottomTwo"
-                  style={{ color: "white" }}
-                />
-                <PlacesAutocomplete
-                  value={address2}
-                  onChange={setAddress2}
-                  onSelect={handleSelect2}
-                  style={{ width: "50%" }}
-                >
-                  {({
-                    getInputProps,
-                    suggestions,
-                    getSuggestionItemProps,
-                    loading2,
-                  }) => (
-                    <div className="searchInputWrap">
-                      <input
-                        id="search2"
-                        className="branchSearchTwo"
-                        {...getInputProps({
-                          placeholder: "Enter city & state or zip code",
-                        })}
-                      />
-                      <div className="serachResult">
-                        {loading2 && <div>Loading...</div>}
-                        {suggestions.map((suggestion) => {
-                          const style = {
-                            backgroundColor: suggestion.active
-                              ? "#41b6e6"
-                              : "#fff",
-                          };
-                          return (
-                            <div
-                              key={Math.random() * 1000}
-                              {...getSuggestionItemProps(suggestion, {
-                                style,
-                              })}
-                            >
-                              <span>{suggestion.description}</span>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  )}
-                </PlacesAutocomplete>
-                <ButtonPrimary
-                  className="branchSearchButton"
-                  onClick={getActivePlaces}
-                  stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "padding":"0px 30px"}'
-                >
-                  <ArrowForwardIcon className="goIcon" />
-                </ButtonPrimary>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid
-          style={{
-            backgroundColor: "#fff",
-            width: "100%",
-            padding: "20px 2rem 35px 1rem",
-          }}
-        >
-          <Grid className="personalLoanText">
-            <h4 className="PesonalLoanHeading">
-              <span>Personal Loans in {Name}</span>
-            </h4>
-            <p>
-              Mariner Finance branches are all over {Name}, from Salisbury to
-              Frederick. Use our interactive map to locate the one closest to
-              you.
-            </p>
-            <h3>We’re here for you.</h3>
-            <p className="PesonalLoanParagraph">
-              Every one of our {Name} branches share a common benefit: lending
-              professionals proud of the neighborhoods they live and work in,
-              who are totally focused on solving your personal financial
-              challenges.
-            </p>
-            <p className="PesonalLoanParagraph">
-              For all the reasons to choose Mariner Finance, visit{" "}
-              <Link
-                target="_blank"
-                rel="link"
-                className="Links"
-                href="https://www.marinerfinance.com/why-mariner-finance/"
-              >
-                Why Us{" "}
-              </Link>
-              .
-            </p>
-          </Grid>
-        </Grid>
         <Grid className="customerRatingsWrap">
           <CustomerRatings />
         </Grid>
