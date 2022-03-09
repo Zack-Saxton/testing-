@@ -125,3 +125,12 @@ export  function branchSaturdaySchedule() {
 const isBetween = function (date, start, end) {
     return (date.getTime() >= start.getTime() && date.getTime() <= end.getTime())
 };
+
+export function formatDate(date) {
+    let MonthNameDate = new Date(date);
+    let month = (MonthNameDate.getMonth() + 1).toString().padStart(2, '0');
+    let day = MonthNameDate.getDate().toString().padStart(2, '0');
+    let year = MonthNameDate.getFullYear();
+
+    return [year, month, day].join('-');
+}
