@@ -1413,7 +1413,7 @@ export default function MakePayment(props) {
           </ButtonSecondary>
           {paymentIsScheduled === "no" ? (
             <ButtonPrimary
-              stylebutton='{"background": "", "color":"" }'
+              stylebutton='{"background": "", "color":"","marginRight": "10px" }'
               onClick={handleSchedulePaymentSubmit}
               disabled={loading}
             >
@@ -1432,7 +1432,7 @@ export default function MakePayment(props) {
 
           {paymentIsScheduled === "yes" ? (
             <ButtonPrimary
-              stylebutton='{"background": "", "color":"" }'
+              stylebutton='{"background": "", "color":"","marginRight": "10px" }'
               onClick={handleSchedulePaymentSubmit}
               disabled={loading}
             >
