@@ -41,8 +41,8 @@ const NormalHeader = () => {
     >
       <MenuItem>
         <Typography  className={ classes.headerAlign }>
-          <a href="https://www.marinerfinance.com/blog" className="hrefTag">
-            Blogs
+          <a href={`${process.env.REACT_APP_WEBSITE}/blog/`} className="hrefTag">
+            Blog
           </a>
         </Typography>
       </MenuItem>
@@ -74,8 +74,8 @@ const NormalHeader = () => {
           <div className={ classes.grow } />
           <div className={ classes.sectionDesktop }>
             <Typography id="blogsLink" className={ classes.subtitle }>
-              <a href="https://www.marinerfinance.com/blog" className="hrefTag">
-                Blogs
+              <a href={`${process.env.REACT_APP_WEBSITE}/blog/`} className="hrefTag">
+                Blog
               </a>
             </Typography>
             <NavLink className="faqLink" to="/faq" style={ { textDecoration: "none" } }>
