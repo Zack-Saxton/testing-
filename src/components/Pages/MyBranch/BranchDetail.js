@@ -50,10 +50,10 @@ export default function BranchDetail(MyBranchDetail) {
   }, []);
  
   const formatDate = (date) => {
-    let d = new Date(date);
-    let month = (d.getMonth() + 1).toString();
-    let day = d.getDate().toString();
-    let year = d.getFullYear();
+    let MonthNameDate = new Date(date);
+    let month = (MonthNameDate.getMonth() + 1).toString();
+    let day = MonthNameDate.getDate().toString();
+    let year = MonthNameDate.getFullYear();
     if (month.length < 2) {
       month = '0' + month;
     }
