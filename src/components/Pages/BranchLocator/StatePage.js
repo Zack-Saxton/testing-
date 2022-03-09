@@ -80,8 +80,8 @@ export default function StatePage() {
   const [address1, setAddress1] = React.useState("");
   const [address2, setAddress2] = React.useState("");
   const mapSection = useRef();
-  let StateNameParam = (params.statename.substring(18)).split(' ');
-  let Name = (StateNameParam.length === 1) ? `${StateNameParam[0].charAt(0).toUpperCase()}${StateNameParam[0].slice(1)}` : `${StateNameParam[0].charAt(0).toUpperCase()}${StateNameParam[0].slice(1)} ${StateNameParam[1].charAt(0).toUpperCase()}${StateNameParam[1].slice(1)}`;
+  let stateNameParam = (params.statename.substring(18)).split(' ');
+  let name = (stateNameParam.length === 1) ? `${stateNameParam[0].charAt(0).toUpperCase()}${stateNameParam[0].slice(1)}` : `${stateNameParam[0].charAt(0).toUpperCase()}${stateNameParam[0].slice(1)} ${stateNameParam[1].charAt(0).toUpperCase()}${stateNameParam[1].slice(1)}`;
   //API call
   const getBranchLists = async (search_text) => {
     try {
@@ -161,7 +161,7 @@ export default function StatePage() {
     }
   };
   useEffect(() => {
-    apiGetBranchList(Name);
+    apiGetBranchList(name);
     window.scrollTo(0, 0);
     return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -178,12 +178,12 @@ export default function StatePage() {
       <Helmet>
         <meta charSet="utf-8" />
         <title>
-          Personal Loans in {Name} | Mariner Finance Branch | Discover More
+          Personal Loans in {name} | Mariner Finance Branch | Discover More
         </title>
         <link rel="icon" type="image/png" href={TitleImage} sizes="16x16" />
         <meta
           name="description"
-          content={`Looking for a personal loans in ${Name}?  Mariner Finance branch employees can help. Discover a ${Name} location today.`}
+          content={`Looking for a personal loans in ${name}?  Mariner Finance branch employees can help. Discover a ${name} location today.`}
         />
       </Helmet>
       <Grid
@@ -230,12 +230,12 @@ export default function StatePage() {
               >
                 Branch Locator
               </Link>
-              <Link className="breadcrumbLink">Personal Loans In {Name}</Link>
+              <Link className="breadcrumbLink">Personal Loans In {name}</Link>
             </Breadcrumbs>
             <Grid className="blueBoxWrap">
               <Grid id="findBranchWrapTwo">
                 <h4 className={classes.headigText}>
-                  Personal Loans in <strong>{Name}</strong>
+                  Personal Loans in <strong>{name}</strong>
                 </h4>
                 <Grid id="findBranchGrid">
                   <SearchIcon
@@ -587,16 +587,16 @@ export default function StatePage() {
         >
           <Grid className="personalLoanText">
             <h4 className="PesonalLoanHeading">
-              <span>Personal Loans in {Name}</span>
+              <span>Personal Loans in {name}</span>
             </h4>
             <p>
-              Mariner Finance branches are all over {Name}, from Salisbury to
+              Mariner Finance branches are all over {name}, from Salisbury to
               Frederick. Use our interactive map to locate the one closest to
               you.
             </p>
             <h3>We’re here for you.</h3>
             <p className="PesonalLoanParagraph">
-              Every one of our {Name} branches share a common benefit: lending
+              Every one of our {name} branches share a common benefit: lending
               professionals proud of the neighborhoods they live and work in,
               who are totally focused on solving your personal financial
               challenges.
