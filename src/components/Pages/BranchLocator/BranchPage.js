@@ -13,7 +13,6 @@ import InfoIcon from '@material-ui/icons/Info';
 import CloseIcon from "@material-ui/icons/Close";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import PhoneIcon from "@material-ui/icons/Phone";
-import { useLoadScript } from "@react-google-maps/api";
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
