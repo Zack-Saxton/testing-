@@ -506,10 +506,10 @@ export default function SideNav() {
             >
               <Typography id="blogsLink" className={ classes.headerAlign }>
                 <a
-                  href="https://www.marinerfinance.com/blog"
+                  href={`${process.env.REACT_APP_WEBSITE}/blog/`}
                   className="hrefTag"
                 >
-                  Blogs
+                  Blog
                 </a>
               </Typography>
 
