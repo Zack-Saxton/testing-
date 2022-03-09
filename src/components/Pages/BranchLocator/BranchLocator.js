@@ -77,7 +77,6 @@ export default function BranchLocator() {
   const [ address1, setAddress1 ] = React.useState("");
   const [ address2, setAddress2 ] = React.useState("");
   const [ showMapListSearch2DirectionButton, setshowMapListSearch2DirectionButton ] = useState(false);
-  const [ libraries ] = useState([ 'places' ]);
   let params = useParams();
   const mapSection = useRef();
   //API call
@@ -149,7 +148,6 @@ export default function BranchLocator() {
     apiGetBranchList(params.statename);
     navigate(`/branch-locator/personal-loans-in-${params.statename.toLowerCase() }`);
   };
-  
   const findBranchTimings = async (value) => {
     try {
       if (value) {
@@ -319,7 +317,7 @@ export default function BranchLocator() {
               openGetDirectionModal();
               setBranchAddress(`https://www.google.com/maps/search/${ document.getElementById('search2').value }`);
               setAddress2("");
-            } else if (getBranchList && getBranchList[0]?.Address) {
+            } else if (getBranchList && getBranchList.length && getBranchList[0]?.Address) {
               openGetDirectionModal();
               setBranchAddress(`https://www.google.com/maps/search/${getBranchList[0]?.Address}`);
             }
@@ -401,7 +399,7 @@ export default function BranchLocator() {
                 return (
                   <Grid key={ index }  className="locationInfo">
                     <NavLink
-                      to={ `/branchlocator/[${ MFStates[ MFStateShort.indexOf(item?.Address.substring(item?.Address.length - 8, item?.Address.length).substring(0, 2)) ] }]-personal-loans-in-${ item?.BranchName }-${ item?.Address?.substring(item?.Address.length - 8, item?.Address.length).substring(0, 2) }` }
+                      to={ `/branchlocator/[${ (MFStates[ MFStateShort.indexOf(item?.Address.substring(item?.Address.length - 8, item?.Address.length).substring(0, 2)) ] ).toLocaleLowerCase()}]-personal-loans-in-${ item?.BranchName.toLocaleLowerCase() }-${ (item?.Address?.substring(item?.Address.length - 8, item?.Address.length).substring(0, 2)).toLocaleLowerCase() }` }
                       state={ { Branch_Details: item } }
                       className="nav_link"
                     >

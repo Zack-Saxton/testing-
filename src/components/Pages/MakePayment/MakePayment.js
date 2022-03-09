@@ -25,6 +25,7 @@ import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import HolidayCalender from "../../Controllers/HolidayCalenderController";
+import { formatDate } from "../../Controllers/BranchDayTiming";
 import {
   deleteScheduledPayment,
   disableAutoPay,
@@ -54,33 +55,33 @@ export default function MakePayment(props) {
   const navigate = useNavigate();
   const query = new URLSearchParams(useLocation().search);
   const accNo = query.get("accNo");
-  const [ , setprofileTabNumber ] = useGlobalState();
-  const [ paymentMethods, setpaymentMethod ] = useState(null);
-  const [ latestLoanData, setlatestLoanData ] = useState(null);
-  const [ paymentAmount, setpaymentAmount ] = useState(null);
-  const [ open, setOpen ] = useState(false);
-  const [ openPayment, setPaymentOpen ] = useState(false);
-  const [ openDeleteSchedule, setopenDeleteSchedule ] = useState(false);
-  const [ openAutoPay, setAutoPayOpen ] = useState(false);
-  const [ card, setcard ] = useState("");
-  const [ disabledContent, setdisabledContent ] = useState(false);
-  const [ isDebit, setisDebit ] = useState(false);
-  const [ accntNo, setaccntNo ] = useState(null);
-  const [ paymentDate, setpaymentDate ] = useState(null);
-  const [ paymentDatepicker, setpaymentDatepicker ] = useState(null);
-  const [ requiredSelect, setrequiredSelect ] = useState("");
-  const [ requiredDate, setrequiredDate ] = useState("");
-  const [ requiredAmount, setRequiredAmount ] = useState("");
-  const [ showCircularProgress, setshowCircularProgress ] = useState(false);
-  const [ loading, setLoading ] = useState(false);
-  const [ accountDetails ] = useState(null);
-  const [ totalPaymentAmount, setTotalPaymentAmount ] = useState(null);
-  const [ checkAutoPay, setcheckAutoPay ] = useState(false);
-  const [ autopaySubmit, setAutopaySubmit ] = useState(true);
-  const [ scheduleDate, setscheduleDate ] = useState(null);
+  const [, setprofileTabNumber] = useGlobalState();
+  const [paymentMethods, setpaymentMethod] = useState(null);
+  const [latestLoanData, setlatestLoanData] = useState(null);
+  const [paymentAmount, setpaymentAmount] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [openPayment, setPaymentOpen] = useState(false);
+  const [openDeleteSchedule, setopenDeleteSchedule] = useState(false);
+  const [openAutoPay, setAutoPayOpen] = useState(false);
+  const [card, setcard] = useState("");
+  const [disabledContent, setdisabledContent] = useState(false);
+  const [isDebit, setisDebit] = useState(false);
+  const [accntNo, setaccntNo] = useState(null);
+  const [paymentDate, setpaymentDate] = useState(null);
+  const [paymentDatepicker, setpaymentDatepicker] = useState(new Date());
+  const [requiredSelect, setrequiredSelect] = useState("");
+  const [requiredDate, setrequiredDate] = useState("");
+  const [requiredAmount, setRequiredAmount] = useState("");
+  const [showCircularProgress, setshowCircularProgress] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [accountDetails] = useState(null);
+  const [totalPaymentAmount, setTotalPaymentAmount] = useState(null);
+  const [checkAutoPay, setcheckAutoPay] = useState(false);
+  const [autopaySubmit, setAutopaySubmit] = useState(true);
+  const [scheduleDate, setscheduleDate] = useState(null);
   const [payoff, setPayoff] = useState(false);
-  const [ checkPaymentInformation, setCheckPaymentInformation ] = useState(false);
-  const [ activeLoansData, setActiveLoansData ] = useState([]);
+  const [checkPaymentInformation, setCheckPaymentInformation] = useState(false);
+  const [activeLoansData, setActiveLoansData] = useState([]);
   const [checkCard, setCheckCard] = useState(false);
   const {
     isFetching,
@@ -99,8 +100,8 @@ export default function MakePayment(props) {
       refetchOnMount: false,
     }
   );
-  const [ paymentTitle, setPaymentTitle ] = useState("Single Payment");
-  
+  const [paymentTitle, setPaymentTitle] = useState("Single Payment");
+
   useEffect(() => {
     if (payments) {
       payments?.data?.paymentOptions[0]?.CardType
@@ -110,6 +111,12 @@ export default function MakePayment(props) {
     return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [payments]);
+
+  useEffect(() => {
+    checkCard
+      ? setpaymentDatepicker(new Date())
+      : setpaymentDatepicker(scheduleDate);
+  }, [checkCard, scheduleDate]);
 
   //API Request for Payment methods
   async function getPaymentMethods() {
@@ -606,9 +613,11 @@ export default function MakePayment(props) {
     ) {
       setisDebit(false);
       setCheckCard(false);
+      setpaymentDatepicker(scheduleDate);
     } else {
       setisDebit(true);
       setCheckCard(true);
+      setpaymentDatepicker(new Date());
     }
     //true
     setrequiredSelect("");
@@ -666,7 +675,7 @@ export default function MakePayment(props) {
     setrequiredDate("");
     setRequiredAmount("");
     setrequiredSelect("");
-    setpaymentDatepicker(null);
+    setpaymentDatepicker(new Date());
     setopenDeleteSchedule(false);
     refetch();
   }
@@ -745,19 +754,6 @@ export default function MakePayment(props) {
       style: "currency",
       currency: "USD",
     }).format(value);
-  const formatDate = (date) => {
-    let d = new Date(date);
-    let month = (d.getMonth() + 1).toString();
-    let day = d.getDate().toString();
-    let year = d.getFullYear();
-    if (month.length < 2) {
-      month = '0' + month;
-    }
-    if (day.length < 2) {
-      day = '0' + day;
-    }
-    return [year, month, day].join('-');
-  }
   //US holidays
   function disableHolidays(date) {
     const holidayApiData = holidayCalenderData?.data.MFYearHolidays.map(({ Date }) => formatDate(Date));
@@ -1109,7 +1105,7 @@ export default function MakePayment(props) {
                                 placeholder="MM/DD/YYYY"
                                 id="date"
                                 disablePast
-                                disableFuture = {checkCard}
+                                disableFuture={checkCard}
                                 disabled={payoff}
                                 autoComplete="off"
                                 maxdate={paymentMaxDate}
@@ -1402,7 +1398,7 @@ export default function MakePayment(props) {
               </TableBody>
             </Table>
           </TableContainer>
-          <Typography className={ classes.dialogHeading }>
+          <Typography className={classes.dialogHeading}>
             Confirm Your Payment?
           </Typography>
           <IconButton
@@ -1425,7 +1421,7 @@ export default function MakePayment(props) {
           </ButtonSecondary>
           {paymentIsScheduled === "no" ? (
             <ButtonPrimary
-              stylebutton='{"background": "", "color":"" }'
+              stylebutton='{"background": "", "color":"","marginRight": "10px" }'
               onClick={handleSchedulePaymentSubmit}
               disabled={loading}
             >
@@ -1444,7 +1440,7 @@ export default function MakePayment(props) {
 
           {paymentIsScheduled === "yes" ? (
             <ButtonPrimary
-              stylebutton='{"background": "", "color":"" }'
+              stylebutton='{"background": "", "color":"","marginRight": "10px" }'
               onClick={handleSchedulePaymentSubmit}
               disabled={loading}
             >

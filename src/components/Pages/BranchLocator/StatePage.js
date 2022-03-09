@@ -76,11 +76,13 @@ export default function StatePage() {
   const [loading, setLoading] = useState(false);
   const [zoomDepth, setZoomDepth] = useState();
   const params = useParams();
-  const Name = params.statename.substring(18);
   const clessesforptag = useStyles();
   const [address1, setAddress1] = React.useState("");
   const [address2, setAddress2] = React.useState("");
   const mapSection = useRef();
+  let StateNameParam = (params.statename.substring(18)).split(' ');
+  let Name = `${StateNameParam[0].charAt(0).toUpperCase()}${StateNameParam[0].slice(1)} ${StateNameParam[1].charAt(0).toUpperCase()}${StateNameParam[1].slice(1)}`
+
   //API call
   const getBranchLists = async (search_text) => {
     try {
@@ -508,10 +510,10 @@ export default function StatePage() {
                                   )
                               ].toLowerCase()
                               }]-personal-loans-in-${
-                                item.BranchName.toLowerCase()
-                              }-${item.Address.substring(
-                                item.Address.length - 8,
-                                item.Address.length
+                                item?.BranchName.toLowerCase()
+                              }-${item?.Address.substring(
+                                item?.Address.length - 8,
+                                item?.Address.length
                               ).substring(0, 2).toLowerCase() }`}
                               state={{ Branch_Details: item }}
                               className="nav_link"

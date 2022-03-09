@@ -83,6 +83,6 @@ export const tzMatch = {
     "Pacific Daylight Time": "PDT",
 };
 export const MFWorkingSaturdayDateRange = {
-    "start": "11/23/2022 00: 00: 00",
+    "start": "11/23/2022 00:00:00",
     "end": "12/28/2022 00:00:00"
 }

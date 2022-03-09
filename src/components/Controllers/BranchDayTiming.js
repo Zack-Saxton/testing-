@@ -7,7 +7,7 @@ export default async function BranchDayTiming(branchLookupData) {
     let caState = (branchLookupData.Address.split(" ").find(element => element === "CA")) ? true : false;
     let startDate = new Date(MFWorkingSaturdayDateRange.start);
     let endDate = new Date(MFWorkingSaturdayDateRange.end);
-    let holidayHourDates = getDates(getSaturdayOfCurrentWeek(startDate), endDate)
+    let holidayHourDates = getDates(getSaturdayOfCurrentWeek(startDate), endDate);
     let currentDay = moment().format('dddd');
     let isholidayHours = holidayHourDates.includes(moment().format('MMDD'));
     let dotw = moment().day();
@@ -127,3 +127,12 @@ export  function branchSaturdaySchedule() {
 const isBetween = function (date, start, end) {
     return (date.getTime() >= start.getTime() && date.getTime() <= end.getTime())
 };
+
+export function formatDate(date) {
+    let MonthNameDate = new Date(date);
+    let month = (MonthNameDate.getMonth() + 1).toString().padStart(2, '0');
+    let day = MonthNameDate.getDate().toString().padStart(2, '0');
+    let year = MonthNameDate.getFullYear();
+
+    return [year, month, day].join('-');
+}
