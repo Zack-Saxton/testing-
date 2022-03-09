@@ -12,7 +12,6 @@ import CloseIcon from "@material-ui/icons/Close";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import PhoneIcon from "@material-ui/icons/Phone";
 import SearchIcon from "@material-ui/icons/Search";
-import { useLoadScript } from "@react-google-maps/api";
 import PropTypes from "prop-types";
 import React, { useRef, useState } from "react";
 import { Helmet } from "react-helmet";
@@ -59,7 +58,7 @@ const useStyles = makeStyles({
     color: "#214476",
   },
   gridMargin: {
-    margin: "80px 0px 0px 0px",
+    margin: "35px 0px 0px 0px",
   },
 });
 export default function BranchLocator() {
@@ -78,7 +77,6 @@ export default function BranchLocator() {
   const [ address1, setAddress1 ] = React.useState("");
   const [ address2, setAddress2 ] = React.useState("");
   const [ showMapListSearch2DirectionButton, setshowMapListSearch2DirectionButton ] = useState(false);
-  const [ libraries ] = useState([ 'places' ]);
   let params = useParams();
   const mapSection = useRef();
   //API call
@@ -148,9 +146,8 @@ export default function BranchLocator() {
   const MFButtonClick = (event) => {
     params.statename = event.target.innerText;
     apiGetBranchList(params.statename);
-    navigate(`/branch-locator/personal-loans-in-${ params.statename }`);
+    navigate(`/branch-locator/personal-loans-in-${params.statename.toLowerCase() }`);
   };
-  
   const findBranchTimings = async (value) => {
     try {
       if (value) {
@@ -236,8 +233,8 @@ export default function BranchLocator() {
           Mariner Finance Branch Near You!
         </Typography>
         <p className="mainParagraph">
-          Mariner Finance operates
-          over 480 branches in twenty-four states.
+          Mariner Finance, serving communities since 1927, operates 
+          over 470 branches in twenty-seven states.
           Find a branch in your neighborhood and explore personal loans near you.
           Our experienced team members are ready to assist with your financial needs.
         </p>
@@ -293,7 +290,7 @@ export default function BranchLocator() {
           Apply Online For a Personal Loans
         </Typography>
         <p className="mainParagraph">
-          Do you live in one of the 27 states in which we operate and need a
+          Do you live in one of the 24 states in which we operate and need a
           personal loans? Can’t reach a branch or prefer to apply online? If so,
           you’re in luck! You can apply online today*. It’s quick, easy, and secure.
         </p>
@@ -320,8 +317,12 @@ export default function BranchLocator() {
               openGetDirectionModal();
               setBranchAddress(`https://www.google.com/maps/search/${ document.getElementById('search2').value }`);
               setAddress2("");
-            } else {
-              toast.error(' Please provide address.');
+            } else if (getBranchList && getBranchList.length && getBranchList[0]?.Address) {
+              openGetDirectionModal();
+              setBranchAddress(`https://www.google.com/maps/search/${getBranchList[0]?.Address}`);
+            }
+            else {
+              toast.error(`Please enter address in search.`);
             }
           } }
           stylebutton='{"width": "100%", "padding":"0 15px", "fontSize":"0.938rem", "fontWeight":"400", "height":"47px" }'
@@ -398,7 +399,7 @@ export default function BranchLocator() {
                 return (
                   <Grid key={ index }  className="locationInfo">
                     <NavLink
-                      to={ `/branchLocator/[${ MFStates[ MFStateShort.indexOf(item?.Address.substring(item?.Address.length - 8, item?.Address.length).substring(0, 2)) ] }]-personal-loans-in-${ item?.BranchName }-${ item?.Address?.substring(item?.Address.length - 8, item?.Address.length).substring(0, 2) }` }
+                      to={ `/branchlocator/[${ (MFStates[ MFStateShort.indexOf(item?.Address.substring(item?.Address.length - 8, item?.Address.length).substring(0, 2)) ] ).toLocaleLowerCase()}]-personal-loans-in-${ item?.BranchName.toLocaleLowerCase() }-${ (item?.Address?.substring(item?.Address.length - 8, item?.Address.length).substring(0, 2)).toLocaleLowerCase() }` }
                       state={ { Branch_Details: item } }
                       className="nav_link"
                     >
@@ -565,7 +566,7 @@ export default function BranchLocator() {
   );
   const MapBranchListandSearch2Buttons = (
     <Grid
-      style={ { padding: "4% 0px"} }
+      style={ { padding: "16px 0px 16px 0px"} }
       container
       id="mapAndBranchList"
     >

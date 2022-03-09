@@ -25,6 +25,7 @@ import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import HolidayCalender from "../../Controllers/HolidayCalenderController";
+import { formatDate } from "../../Controllers/BranchDayTiming";
 import {
   deleteScheduledPayment,
   disableAutoPay,
@@ -753,10 +754,9 @@ export default function MakePayment(props) {
       style: "currency",
       currency: "USD",
     }).format(value);
-
   //US holidays
   function disableHolidays(date) {
-    const holidayApiData = holidayCalenderData?.data?.holidays ?? [];
+    const holidayApiData = holidayCalenderData?.data.MFYearHolidays.map(({ Date }) => formatDate(Date));
     const holidayApiDataValues = holidayApiData.map((arrVal) => {
       return new Date(arrVal + "T00:00").getTime();
     });

@@ -12,7 +12,7 @@ import "../MyBranch/BranchInfo.css";
 import ScheduleAppointment from "./ScheduleAppointment";
 import ScheduleCall from "./ScheduleCall";
 import { useStylesMyBranch } from "./Style";
-
+import { formatDate } from "../../Controllers/BranchDayTiming";
 //Table fields - working days
 function otherUsaState(day, monWedThur, tue, fri) {
   return { day, monWedThur, tue, fri };
@@ -48,9 +48,9 @@ export default function BranchDetail(MyBranchDetail) {
     return null
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+ 
   //Holiday Calender from API
-  let holidayCalenderData = holidayCalenderApi?.data;
+  let holidayCalenderData = Object.assign({},holidayCalenderApi?.data.MFYearHolidays.map(({ Date }) => formatDate(Date)));
 
   //Branch details from API
   let branchDetail = MyBranchDetail;
