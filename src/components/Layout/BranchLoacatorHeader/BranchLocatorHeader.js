@@ -522,7 +522,7 @@ const BranchLocatorHeader = () => {
             </Accordion>
             <Accordion className="noShadow">
               <AccordionDetails className="menuHead">
-                <Link href="#">Check My Offers</Link>
+                <Link href="/select-amount">Check My Offers</Link>
               </AccordionDetails>
             </Accordion>
           </Grid>
