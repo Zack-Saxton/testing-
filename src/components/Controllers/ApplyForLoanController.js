@@ -3,6 +3,8 @@ import { toast } from "react-toastify";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
 import messages from "../lib/Lang/applyForLoan.json";
+import globalMessages from "../../assets/data/globalMessages.json"
+
 
 /***** Get Available offer details *****/
 export async function fetchAvailableOffers() {
@@ -16,7 +18,7 @@ export async function fetchAvailableOffers() {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    ErrorLogger("Error executing fetchAvailableOffers API", error);
+    ErrorLogger(globalMessages.Error_executing_fetchAvailableOffers_API, error);
   }
 }
 
@@ -33,7 +35,7 @@ export async function submitSelectedOfferAPI(selectedOffer) {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    ErrorLogger("Error executing submitSelectedOfferAPI API", error);
+    ErrorLogger(globalMessages.Error_executing_submitSelectedOfferAPI_API, error);
   }
 }
 
@@ -49,7 +51,7 @@ export async function getSignatureIframe() {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    ErrorLogger("Error executing getSignatureIframe API", error);
+    ErrorLogger(globalMessages.Error_executing_getSignatureIframe_API, error);
   }
 }
 
@@ -65,7 +67,7 @@ export async function completeSignature() {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    ErrorLogger("Error executing completeSignature API", error);
+    ErrorLogger(globalMessages.Error_executing_completeSignature_API, error);
   }
 }
 
@@ -103,7 +105,7 @@ export async function OTPInitialSubmission(phoneNumber, deliverMethod) {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    ErrorLogger("Error executing OTPInitialSubmission API", error);
+    ErrorLogger(globalMessages.Error_executing_OTPInitialSubmission_API, error);
   }
 }
 
@@ -119,7 +121,7 @@ export async function verifyPasscode(passcode) {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    ErrorLogger("Error executing verifyPasscode API", error);
+    ErrorLogger(globalMessages.Error_executing_verifyPasscode_API, error);
   }
 }
 
@@ -134,7 +136,7 @@ export async function hardPullCheck() {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    ErrorLogger("Error executing hardPullCheck API", error);
+    ErrorLogger(globalMessages.Error_executing_hardPullCheck_API, error);
   }
 }
 
@@ -156,7 +158,7 @@ export async function verifyFinancialInformation() {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    ErrorLogger("Error executing verifyFinancialInformation API", error);
+    ErrorLogger(globalMessages.Error_executing_verifyFinancialInformation_API, error);
   }
 }
 
@@ -172,7 +174,7 @@ export async function getIDVerificationIframe() {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    ErrorLogger("Error executing getIDVerificationIframe API", error);
+    ErrorLogger(globalMessages.Error_executing_getIDVerificationIframe_API, error);
   }
 }
 
@@ -188,7 +190,7 @@ export async function saveIDVerificationResponseBefore() {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    ErrorLogger("Error executing saveIDVerificationResponseBefore API", error);
+    ErrorLogger(globalMessages.Error_executing_saveIDVerificationResponseBefore_API, error);
   }
 }
 
@@ -204,7 +206,7 @@ export async function submitFinancialInformation(body) {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    ErrorLogger("Error executing submitFinancialInformation API", error);
+    ErrorLogger(globalMessages.Error_executing_submitFinancialInformation_API, error);
   }
 }
 
@@ -220,7 +222,7 @@ export async function getIframe() {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    ErrorLogger("Error executing getIframe API", error);
+    ErrorLogger(globalMessages.Error_executing_getIframe_API, error);
   }
 }
 
@@ -247,7 +249,7 @@ export async function uploadDocument(fileData, fileName, fileType, documentType)
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    ErrorLogger("Error executing uploadDocument API", error);
+    ErrorLogger(globalMessages.Error_executing_uploadDocument_API, error);
   }
 }
 
@@ -263,6 +265,6 @@ export async function idVerificationAnswer(passData) {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    ErrorLogger("Error executing idVerificationAnswer API", error);
+    ErrorLogger(globalMessages.Error_executing_idVerificationAnswer_API, error);
   }
 }

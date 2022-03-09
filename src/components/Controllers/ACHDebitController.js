@@ -1,6 +1,7 @@
 import { toast } from "react-toastify";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
+import globalMessages from "../../assets/data/globalMessages.json"
 
 //  ========*******======== Add ACH Bank Payment                ========*******========
 export async function AddACHPaymentAPI(accountNickname, accountHolder, bankRoutingNumber, bankAccountNumber, accountType, defaultBank) {
@@ -23,7 +24,7 @@ export async function AddACHPaymentAPI(accountNickname, accountHolder, bankRouti
 
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    ErrorLogger("Error executing AddACHPaymentAPI API", error);
+    ErrorLogger(globalMessages.Ach_Error_Add_Achpayment_API, error);
   }
 }
 //  ========*******======== END of [Add ACH Bank Payment]       ========*******========
@@ -48,8 +49,8 @@ export async function AddDebitCardAPI(accountNickname, cardNumber, cardName, cvv
   //API response
   addAddDebitCardMethod.data.status === 200
     ? toast.success(
-      addAddDebitCardMethod.data("ACH Payment Added..."))
-    : toast.error("Error adding ACH Payment");
+      addAddDebitCardMethod.data(globalMessages.Ach_Add_Achpayment))
+    : toast.error(globalMessages.Ach_Error_Add_Achpayment);
   return "true";
 }
 //  ========*******======== END of [Add Debit Card Payment]     ========*******========
@@ -71,8 +72,8 @@ export async function DeleteACHPaymentAPI() {
   //API response
   deleteACHPaymentMethod.data.status === 200
     ? toast.success(
-      deleteACHPaymentMethod.data("ACH Payment Deleted..."))
-    : toast.error("Error Deleting ACH Payment...");
+      deleteACHPaymentMethod.data(globalMessages.Ach_Delete_Achpayment))
+    : toast.error(globalMessages.Ach_Error_Delete_Achpayment);
   return "true";
 }
 //  ========*******======== END of [Delete ACH Bank Payment]    ========*******========
@@ -92,8 +93,8 @@ export async function DeleteDebitCardAPI() {
   //API response
   deleteDebitCardMethod.data.status === 200
     ? toast.success(
-      deleteDebitCardMethod.data("Debit Card Payment Deleted..."))
-    : toast.error("Error Deleting Debit Card Payment...");
+      deleteDebitCardMethod.data(globalMessages.Ach_Delete_Debit_Card_payment))
+    : toast.error(globalMessages.Ach_Error_Delete_Debit_Card_payment);
   return "true";
 }
 //  ========*******======== END of [Delete Debit Card Payment]    ========*******========
@@ -111,7 +112,7 @@ export async function ShowPaymentMethodAPI() {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    ErrorLogger("Error executing ShowPaymentMethodAPI API", error);
+    ErrorLogger(globalMessages.Ach_Error_Show_Payment_API, error);
   }
 }
 //  ========*******======== END of [Delete Debit Card Payment]    ========*******========

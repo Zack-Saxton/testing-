@@ -131,7 +131,7 @@ export default function StatePage(props) {
     }
   };
   const ApplyOnlineLoan = () => {
-    window.open(`https://wps-qa.marinerfinance.io/`, "_self");
+    window.open(`${process.env.REACT_APP_WEBSITE}`, "_self");
   };
   useEffect(() => {
     apiGetBranchList(Branch_Details.Address);
@@ -151,10 +151,6 @@ export default function StatePage(props) {
     return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getStateName]);
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_SECKey,
-  });
-
   const BranchDetailsInCard = (
     <Grid container style={{ width: "100%" }}>
       <Grid className="branchImage" item md={7} sm={12} xs={12}>
@@ -288,8 +284,6 @@ export default function StatePage(props) {
     <Grid
       container
       style={{ margin: "auto", justifyContent: "space-between" }}
-      // item
-      // md={ 10 }
     >
       <Grid container className="branchListWrap">
         {getBranchList ? (
@@ -446,13 +440,11 @@ export default function StatePage(props) {
 
   const DisplayBranchMap = (
     <Grid className="branchMap">
-      {isLoaded ? (
         <Map
           getMap={getMap}
           CurrentLocation={getCurrentLocation}
           Zoom={zoomDepth}
         />
-      ) : null}
     </Grid>
   );
   //View part

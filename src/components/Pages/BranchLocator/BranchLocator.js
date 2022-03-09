@@ -150,10 +150,7 @@ export default function BranchLocator() {
     apiGetBranchList(params.statename);
     navigate(`/branch-locator/personal-loans-in-${ params.statename }`);
   };
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_SECKey,
-    libraries,
-  });
+  
   const findBranchTimings = async (value) => {
     try {
       if (value) {
@@ -397,6 +394,7 @@ export default function BranchLocator() {
           >
             { getBranchList ? (
               getBranchList.map((item, index) => {
+                if (Number(item?.distance.replace(' mi', '')) <= 60) {
                 return (
                   <Grid key={ index }  className="locationInfo">
                     <NavLink
@@ -417,9 +415,9 @@ export default function BranchLocator() {
                     </p>
                     <p
                       className={ clessesforptag.addressFont }
-                      id={ item.id }
+                      id={ item?.id }
                     >
-                      { item.Address }
+                      { item?.Address }
                     </p>
                     <p className={ clessesforptag.phoneNumber }>
                       <PhoneIcon />
@@ -435,7 +433,7 @@ export default function BranchLocator() {
                       onClick={ () => {
                         setBranchAddress(
                           "https://www.google.com/maps/search/" +
-                          item.Address
+                          item?.Address
                         );
                         openGetDirectionModal();
                       } }
@@ -444,7 +442,7 @@ export default function BranchLocator() {
                       Get Directions
                     </ButtonSecondary>
                   </Grid>
-                );
+                )}
               })
             ) : (
               <p> No Branch found.</p>
@@ -557,14 +555,12 @@ export default function BranchLocator() {
 
   const displayMap = (
     <Grid id="mapGridWrap" item xs={ 12 } sm={ 12 } md={ 6 } xl={ 6 }>
-      { isLoaded ? (
         <Map
           id="mapBox"
           getMap={ getMap }
           CurrentLocation={ getCurrentLocation }
           Zoom={ zoomDepth }
         />
-      ) : null }
     </Grid>
   );
   const MapBranchListandSearch2Buttons = (

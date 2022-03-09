@@ -60,7 +60,7 @@ const NormalHeader = () => {
   );
 
   const redirectToAccountOverview = () => {
-    navigate("/customers/accountOverview");
+    window.open(`${process.env.REACT_APP_WEBSITE}`,  "_blank")
   };
 
   //View Part

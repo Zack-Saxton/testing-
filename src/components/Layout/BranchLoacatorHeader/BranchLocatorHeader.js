@@ -23,12 +23,12 @@ const BranchLocatorHeader = () => {
   const classes = useStyles();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const ServerURL = "https://wps-qa.marinerfinance.io";
+  const ServerURL = `${process.env.REACT_APP_WEBSITE}`;
   const loginToken = JSON.parse(
     Cookies.get("token") ? Cookies.get("token") : "{ }"
   );
   const redirectToAccountOverview = () => {
-    navigate("/customers/accountOverview");
+    window.open(`${ServerURL}`,  "_blank")
   };
   const [display, setdisplay] = useState(true);
 
@@ -512,7 +512,7 @@ const BranchLocatorHeader = () => {
             </Accordion>
             <Accordion className="noShadow">
               <AccordionDetails className="menuHead">
-                <Link href={`${ServerURL}/select-amount/`}>Mail Offer?</Link>
+                <Link href='/select-amount/'>Mail Offer?</Link>
               </AccordionDetails>
             </Accordion>
             <Accordion className="noShadow">

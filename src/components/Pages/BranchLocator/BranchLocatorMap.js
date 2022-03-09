@@ -58,7 +58,7 @@ function BranchLocatorMap(props) {
       <Circle
         center={ Current }
         zoom={ zoomValue }
-        radius={ zoomValue * ZoomDepth * 4000 }
+        radius={ zoomValue * ZoomDepth * 2500 }
         strokeOpacity={ 50 }
         fillColor="#ADD8E6"
         fillOpacity={ 0 }

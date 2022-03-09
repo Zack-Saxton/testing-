@@ -15,7 +15,7 @@ export default async function MyBranchAPI() {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    ErrorLogger("Error executing MyBranchAPI API", error);
+    ErrorLogger(globalMessages.Error_executing_MyBranchAPI_API, error);
   }
 }
 

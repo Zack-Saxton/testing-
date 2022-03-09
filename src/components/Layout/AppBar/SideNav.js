@@ -569,14 +569,14 @@ export default function SideNav() {
             onMouseLeave={ handleDrawerleave }
           >
             <div className={ classes.toolbar }>
-              <Link to="/customers/accountOverview">
+              <a href={`${process.env.REACT_APP_WEBSITE}`}  target="_blank" rel="noreferrer">
                 <input
                   type="image"
                   src={ logoImage }
                   alt="logo image"
                   style={ { height: "60px" } }
                 />
-              </ Link>
+              </a>
 
               <Checkbox
                 icon={ <RadioButtonUncheckedIcon id="sidemenuRadio" /> }
@@ -602,7 +602,7 @@ export default function SideNav() {
                   <List >
                     <ListItem>
                       <div id="imgWrap">
-                        <img id="sidebarProfilePic" src={ dataProfile?.profile_picture_url ? dataProfile?.profile_picture_url : getProfileImage } alt="Profile Pic" onClick={ (menuType) => handleMenuProfile('side') } />
+                        <img id="sidebarProfilePic" src={ dataProfile?.profile_picture_url ? dataProfile?.profile_picture_url : getProfileImage } alt="Profile Pic" onClick={ (navType) => handleMenuProfile('top') } />
                       </div>
                     </ListItem>
                     <ListItem id="sidemenuName">

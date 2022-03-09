@@ -151,12 +151,6 @@ export default function StatePage() {
     setgetDirectionModal(false);
     setBranchAddress(null);
   };
-  const { isLoaded } = useLoadScript({
-    id: "google-map-script",
-    googleMapsApiKey: process.env.REACT_APP_SECKey,
-    libraries: ["places"],
-  });
-
   const findBranchTimings = async (value) => {
     try {
       if (value) {
@@ -337,14 +331,12 @@ export default function StatePage() {
               md={6}
               xl={6}
             >
-              {isLoaded ? (
                 <Map
                   id="mapBox"
                   getMap={getMap}
                   CurrentLocation={getCurrentLocation}
                   Zoom={zoomDepth}
                 />
-              ) : null}
             </Grid>
             <Grid className="findBranchWrap" item xs={12} sm={12} md={6} xl={6}>
               {loading ? (
@@ -363,23 +355,24 @@ export default function StatePage() {
                   <Grid className="addressList">
                     {getBranchList ? (
                       getBranchList.map((item, index) => {
+                        if (Number(item?.distance.replace(' mi', '')) <= 60) {
                         return (
                           <Grid key={index} className="locationInfo">
                             <NavLink
                               to={`/branchLocator/[${
                                 MFStates[
                                   MFStateShort.indexOf(
-                                    item.Address.substring(
-                                      item.Address.length - 8,
-                                      item.Address.length
+                                    item?.Address.substring(
+                                      item?.Address.length - 8,
+                                      item?.Address.length
                                     ).substring(0, 2)
                                   )
                                 ]
                               }]-personal-loans-in-${
-                                item.BranchName
-                              }-${item.Address.substring(
-                                item.Address.length - 8,
-                                item.Address.length
+                                item?.BranchName
+                              }-${item?.Address.substring(
+                                item?.Address.length - 8,
+                                item?.Address.length
                               ).substring(0, 2)}`}
                               state={{ Branch_Details: item }}
                               className="nav_link"
@@ -392,15 +385,15 @@ export default function StatePage() {
                               <ChevronRightIcon />
                             </NavLink>
                             <p className={clessesforptag.ptag}>
-                              {item.distance}les away |{" "}
+                              {item?.distance}les away |{" "}
                               {item?.BranchTime?.Value1}{" "}
                               {item?.BranchTime?.Value2}
                             </p>
                             <p
                               className={clessesforptag.addressFont}
-                              id={item.id}
+                              id={item?.id}
                             >
-                              {item.Address}
+                              {item?.Address}
                             </p>
                             <p className={clessesforptag.phoneNumber}>
                               <PhoneIcon />
@@ -425,7 +418,7 @@ export default function StatePage() {
                               Get Directions
                             </ButtonSecondary>
                           </Grid>
-                        );
+                        )};
                       })
                     ) : (
                       <p> No Branch found.</p>
@@ -611,7 +604,7 @@ export default function StatePage() {
                 target="_blank"
                 rel="link"
                 className="Links"
-                to="https://www.marinerfinance.com/why-mariner-finance/"
+                href="https://www.marinerfinance.com/why-mariner-finance/"
               >
                 Why Us{" "}
               </Link>
