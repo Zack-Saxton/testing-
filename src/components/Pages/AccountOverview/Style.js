@@ -178,23 +178,6 @@ const useStylesAccountOverview = makeStyles((theme) => ({
     lineHeight: 1.3,
     fontWeight: "400",
   },
-  greenButton: {
-    backgroundColor: "#04b533",
-    color: "#fff",
-    fontFamily: "'Muli', sans-serif !important",
-    borderRadius: "50px",
-    textTransform: "capitalize",
-    height: "36px",
-    whiteSpace: "nowrap",
-    fontWeight: "normal",
-    boxShadow: ` 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12), 0 1px 5px 0 rgba(0, 0, 0, .2)`,
-
-    width: "auto",
-    '&:hover': {
-      background: '#04b533',
-      color: '#fff',
-    },
-  },
   normalButton: {
     color: "black",
     background: "#ffbc23",
