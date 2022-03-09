@@ -40,18 +40,18 @@ const NormalHeader = () => {
       onClose={ handleMobileMenuClose }
     >
       <MenuItem>
-        <Typography id="blogsLink" className={ classes.headerAlign }>
+        <Typography  className={ classes.headerAlign }>
           <a href="https://www.marinerfinance.com/blog" className="hrefTag">
             Blogs
           </a>
         </Typography>
       </MenuItem>
-      <MenuItem className="faqLink">
+      <MenuItem >
         <NavLink to="/faq" className="nav_link ">
           <Typography className={ classes.headerAlign }>FAQ</Typography>
         </NavLink>
       </MenuItem>
-      <MenuItem className="branchLocatorLink">
+      <MenuItem >
         <NavLink to="/branch-locator" className="nav_link">
           <Typography className={ classes.headerAlign }>Branch Locator</Typography>
         </NavLink>
@@ -69,7 +69,7 @@ const NormalHeader = () => {
       <AppBar id="MainHeaderWrap" position="static">
         <Toolbar className="headerToolBar">
           <Typography onClick={ redirectToAccountOverview } className={ classes.title }>
-            <img style={ { marginTop: "6px" } } className={ classes.logoFormat } src={ Logo } alt="MF logo" />
+            <img className={ classes.logoFormat } src={ Logo } alt="MF logo" />
           </Typography>
           <div className={ classes.grow } />
           <div className={ classes.sectionDesktop }>
@@ -90,7 +90,7 @@ const NormalHeader = () => {
               aria-label="show more"
               aria-haspopup="true"
               onClick={ handleMobileMenuOpen }
-              color="inherit"
+              color="#000"
             >
               <MoreIcon />
             </IconButton>
