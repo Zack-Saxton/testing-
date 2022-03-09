@@ -9,13 +9,14 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
-import React, { useEffect,useState } from "react";
+import React, { useState } from "react";
 import { useQueryClient } from 'react-query';
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import Logo from "../../../assets/images/loginbg.png";
 import LoginController, { RegisterController } from "../../Controllers/LoginController";
+import {RecaptchaValidationController} from "../../Controllers/RecaptchaController";
 import LogoutController from "../../Controllers/LogoutController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
 import {
@@ -32,6 +33,9 @@ import { encryptAES } from "../../lib/Crypto";
 import ErrorLogger from "../../lib/ErrorLogger";
 import { FormValidationRules } from "../../lib/FormValidationRule";
 import "./Register.css";
+import  Recaptcha  from "../../Layout/Recaptcha/GenerateRecaptcha";
+import axios from "axios";
+
 let formValidation = new FormValidationRules();
 
 //Styling part
@@ -96,21 +100,6 @@ const useStyles = makeStyles((theme) => ({
 //Yup validations for all the input fields
 const validationSchema = formValidation.getFormValidationRule('');
 
-window.onloadCallback = function() {
-  grecaptcha.render('html_element', {
-    'sitekey' : '6LdvwrMeAAAAAAlOdK0n4vL3SLBywwV2WA-cojQ8'
-  });
-  console.log("in")
-}
-
-window.recaptchaCallback = function() {
-  grecaptcha.getResponse()
-console.log("checked")
-console.log(grecaptcha.getResponse())
-};
-
-
-
 //Begin: Login page
 export default function Register() {
 
@@ -121,24 +110,39 @@ export default function Register() {
   const [ success, setSuccess ] = useState(false);
   const [ failed, setFailed ] = useState("");
   const [ loading, setLoading ] = useState(false);
+  const [ disableRecaptcha, setdisableRecaptcha ] = useState(true);
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+
+  window.onReCaptchaSuccess = async function() {    
+    try {
+      let grecaptchaResponse = grecaptcha.getResponse()
+      let ipResponse = await axios.get('https://geolocation-db.com/json/');    
+      let ipAddress = ipResponse.data.IPv4
+      let recaptchaVerifyResponse  = await RecaptchaValidationController(grecaptchaResponse,ipAddress);
+
+          if (recaptchaVerifyResponse.status === 200) {
+            toast.success(globalMessages.Recaptcha_Verify)
+            setdisableRecaptcha(false);
+          }
+          else{
+            toast.error(globalMessages.Recaptcha_Error);
+            grecaptcha.reset();
+            setdisableRecaptcha(true)
+          }
+      } catch (error) {
+        ErrorLogger("Error executing geolocation API", error);
+      }
+   };
+
+   window.OnExpireCallback = function (){
+     grecaptcha.reset();
+    setdisableRecaptcha(true)
+   }
 
   //Date implementation for verifying 18 years
   const myDate = new Date();
   myDate.setDate(myDate.getDate() - 6571);
-  
-  useEffect(() => {
-        
-    const script = document.createElement('script');
-    script.src = `https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit`
-    script.async = true;
-    document.body.appendChild(script);
-
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
 
   const loginUser = async (values) => {
     try {
@@ -605,9 +609,8 @@ export default function Register() {
                       </p>
                     </Grid>
 
-
-                    <Grid>
-                    <div className="g-recaptcha"  data-callback="recaptchaCallback"  id="html_element"></div>
+                    <Grid >
+                    <Recaptcha />                   
                     </Grid>
 
                     <Grid item xs={ 12 } className={ classes.signInButtonGrid }>
@@ -616,7 +619,7 @@ export default function Register() {
                         type="submit"
                         data-testid="submit"
                         stylebutton='{"background": "", "color":"", "fontSize" : "15px ! important", "padding" : "0px 30px" }'
-                        disabled={ loading }
+                        disabled={ disableRecaptcha === true ? disableRecaptcha : loading }
                       >
                         Sign in
                         <i
