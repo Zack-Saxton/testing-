@@ -1,6 +1,8 @@
 import moment from "moment";
 import { tzMatch, MFWorkingSaturdayDateRange } from "../../assets/data/marinerBusinesStates";
 import ErrorLogger from "../lib/ErrorLogger";
+import globalMessages from "../../assets/data/globalMessages.json"
+
 export default async function BranchDayTiming(branchLookupData) {
     let caState = (branchLookupData.Address.split(" ").find(element => element === "CA")) ? true : false;
     let startDate = new Date(MFWorkingSaturdayDateRange.start);
@@ -96,7 +98,7 @@ export async function mapInformationBranchLocator(List) {
             },
         })));
     } catch (error) {
-        ErrorLogger(' Error from mapInformationBranchLocator', error);
+        ErrorLogger(globalMessages.Error_executing_mapInformationBranchLocator, error);
     }
 }
 

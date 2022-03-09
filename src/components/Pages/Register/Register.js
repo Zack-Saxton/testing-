@@ -16,6 +16,7 @@ import { toast } from "react-toastify";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import Logo from "../../../assets/images/loginbg.png";
 import LoginController, { RegisterController } from "../../Controllers/LoginController";
+import {RecaptchaValidationController} from "../../Controllers/RecaptchaController";
 import LogoutController from "../../Controllers/LogoutController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
 import {
@@ -32,6 +33,9 @@ import { encryptAES } from "../../lib/Crypto";
 import ErrorLogger from "../../lib/ErrorLogger";
 import { FormValidationRules } from "../../lib/FormValidationRule";
 import "./Register.css";
+import  Recaptcha  from "../../Layout/Recaptcha/GenerateRecaptcha";
+import axios from "axios";
+
 let formValidation = new FormValidationRules();
 
 //Styling part
@@ -106,8 +110,35 @@ export default function Register() {
   const [ success, setSuccess ] = useState(false);
   const [ failed, setFailed ] = useState("");
   const [ loading, setLoading ] = useState(false);
+  const [ disableRecaptcha, setdisableRecaptcha ] = useState(true);
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+
+  window.onReCaptchaSuccess = async function() {    
+    try {
+      let grecaptchaResponse = grecaptcha.getResponse()
+      let ipResponse = await axios.get('https://geolocation-db.com/json/');    
+      let ipAddress = ipResponse.data.IPv4
+      let recaptchaVerifyResponse  = await RecaptchaValidationController(grecaptchaResponse,ipAddress);
+
+          if (recaptchaVerifyResponse.status === 200) {
+            toast.success(globalMessages.Recaptcha_Verify)
+            setdisableRecaptcha(false);
+          }
+          else{
+            toast.error(globalMessages.Recaptcha_Error);
+            grecaptcha.reset();
+            setdisableRecaptcha(true)
+          }
+      } catch (error) {
+        ErrorLogger("Error executing geolocation API", error);
+      }
+   };
+
+   window.OnExpireCallback = function (){
+     grecaptcha.reset();
+    setdisableRecaptcha(true)
+   }
 
   //Date implementation for verifying 18 years
   const myDate = new Date();
@@ -578,13 +609,17 @@ export default function Register() {
                       </p>
                     </Grid>
 
+                    <Grid >
+                    <Recaptcha />                   
+                    </Grid>
+
                     <Grid item xs={ 12 } className={ classes.signInButtonGrid }>
                       <ButtonPrimary
                         onClick={ autoFocus }
                         type="submit"
                         data-testid="submit"
                         stylebutton='{"background": "", "color":"", "fontSize" : "15px ! important", "padding" : "0px 30px" }'
-                        disabled={ loading }
+                        disabled={ disableRecaptcha === true ? disableRecaptcha : loading }
                       >
                         Sign in
                         <i

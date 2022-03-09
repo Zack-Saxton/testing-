@@ -1,5 +1,7 @@
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
+import globalMessages from "../../assets/data/globalMessages.json";
+
 
 /***** Get vantage score details *****/
 export default async function getVantageScore() {
@@ -13,6 +15,6 @@ export default async function getVantageScore() {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    ErrorLogger("Error executing getVantageScore API", error);
+    ErrorLogger(globalMessages.Error_executing_getVantageScore_API, error);
   }
 }

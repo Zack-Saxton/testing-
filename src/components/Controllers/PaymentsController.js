@@ -1,6 +1,8 @@
 import Moment from "moment";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
+import globalMessages from "../../assets/data/globalMessages.json";
+
 
 /***** Get payment methods *****/
 export async function usrPaymentMethods() {
@@ -12,7 +14,7 @@ export async function usrPaymentMethods() {
     let addAccessToken = true;
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    ErrorLogger("Error executing usrPaymentMethods API", error);
+    ErrorLogger(globalMessages.Error_executing_usrPaymentMethods_API, error);
   }
 }
 
@@ -34,7 +36,7 @@ export async function enableAutoPay(enableAutoPayAccountNo, enableAutoPayCard, e
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    ErrorLogger("Error executing enableAutoPay API", error);
+    ErrorLogger(globalMessages.Error_executing_enableAutoPay_API, error);
   }
 }
 
@@ -51,7 +53,7 @@ export async function disableAutoPay(disableAutoPayAccountNo) {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    ErrorLogger("Error executing disableAutoPay API", error);
+    ErrorLogger(globalMessages.Error_executing_disableAutoPay_API, error);
   }
 }
 
@@ -74,7 +76,7 @@ export async function makePayment(scheduledPaymentAccountNo, scheduledPaymentCar
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    ErrorLogger("Error executing makePayment API", error);
+    ErrorLogger(globalMessages.Error_executing_makePayment_API, error);
   }
 }
 
@@ -90,6 +92,6 @@ export async function deleteScheduledPayment(accntNo, refNo, isCard) {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    ErrorLogger("Error executing deleteScheduledPayment API", error);
+    ErrorLogger(globalMessages.Error_executing_deleteScheduledPayment_API, error);
   }
 }

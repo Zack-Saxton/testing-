@@ -141,7 +141,7 @@ export default function PaymentMethod() {
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [addBankValues, setAddBankValues] = useState(false);
   const [routingError, setRoutingError] = useState("");
-  const [scheduledAccountNo, setscheduledAccountNo] = useState("");
+  const [scheduledAccountNo, setscheduledAccountNo] = useState("0");
   const [, setprofileTabNumber] = useGlobalState();
   const [validZip, setValidZip] = useState(true);
   const [mailingStreetAddress, setMailingStreetAddress] = useState("");
