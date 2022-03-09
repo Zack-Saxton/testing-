@@ -27,6 +27,7 @@ const CheckLoginTimeout = () => {
   const [ openPopUp, setOpenPopUp ] = useState(false);
   const [ seconds, setSeconds ] = useState(0);
   const [ minutes, setMinutes ] = useState(2);
+  const [ timerID, setTimerID ] = useState();
   let secondsTemp = 0;
   let minutesTemp = 2;
   let timer;
@@ -95,6 +96,7 @@ const CheckLoginTimeout = () => {
     timer = setInterval(() => {
       handleTimer();
     }, 1000);
+    setTimerID(timer);
   };
   const handleOnIdleLogout = (event) => {
     LogoutController();
@@ -120,6 +122,8 @@ const CheckLoginTimeout = () => {
   };
 
   const handleOnAction = (event) => {
+    setOpenPopUp(false);
+    clearInterval(timerID);
     nowTime = new Date().getTime();
     if (userToken?.isLoggedIn && nowTime - actualSetupTime > min * 60 * 1000) {
       backgroundLogin();
