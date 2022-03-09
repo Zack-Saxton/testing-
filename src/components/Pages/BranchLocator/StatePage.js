@@ -81,8 +81,7 @@ export default function StatePage() {
   const [address2, setAddress2] = React.useState("");
   const mapSection = useRef();
   let StateNameParam = (params.statename.substring(18)).split(' ');
-  let Name = `${StateNameParam[0].charAt(0).toUpperCase()}${StateNameParam[0].slice(1)} ${StateNameParam[1].charAt(0).toUpperCase()}${StateNameParam[1].slice(1)}`
-
+  let Name = (StateNameParam.length === 1) ? `${StateNameParam[0].charAt(0).toUpperCase()}${StateNameParam[0].slice(1)}` : `${StateNameParam[0].charAt(0).toUpperCase()}${StateNameParam[0].slice(1)} ${StateNameParam[1].charAt(0).toUpperCase()}${StateNameParam[1].slice(1)}`;
   //API call
   const getBranchLists = async (search_text) => {
     try {
