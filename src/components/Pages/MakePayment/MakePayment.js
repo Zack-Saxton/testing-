@@ -652,8 +652,10 @@ export default function MakePayment(props) {
   const handleClickSubmit = () => {
     disabledContent === true
       ? card || card === 0
+       ? !isDebit
         ? setOpen(true)
-        : setrequiredSelect("Please select any accounts")
+        : setrequiredSelect("Please select a saving or checking account")
+       : setrequiredSelect("Please select any accounts")
       : setOpen(true);
   };
 
