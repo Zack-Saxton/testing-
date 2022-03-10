@@ -501,7 +501,7 @@ export default function SideNav() {
             >
               <Typography id="blogsLink" className={ classes.headerAlign }>
                 <a
-                  href={`${process.env.REACT_APP_WEBSITE}/blog/`}
+                  href={ `${ process.env.REACT_APP_WEBSITE }/blog/` }
                   className="hrefTag"
                 >
                   Blog
@@ -565,7 +565,7 @@ export default function SideNav() {
             onMouseLeave={ handleDrawerleave }
           >
             <div className={ classes.toolbar }>
-              <a href={`${process.env.REACT_APP_WEBSITE}`}  target="_blank" rel="noreferrer">
+              <a href={ `${ process.env.REACT_APP_WEBSITE }` } target="_blank" rel="noreferrer">
                 <input
                   type="image"
                   src={ logoImage }
@@ -703,7 +703,7 @@ export default function SideNav() {
                 </NavLink>
 
                 <NavLink id="mybranchNav" to="/customers/myBranch" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : 'nav_link' }>
-                  <ListItem className="titleSidenav" disabled={ checkPresenceOfLoanStatus === "referred" || checkPresenceOfLoanStatus === "contact_branch"? false : activeLoanData}>
+                  <ListItem className="titleSidenav" disabled={ checkPresenceOfLoanStatus === "referred" || checkPresenceOfLoanStatus === "contact_branch" ? false : activeLoanData }>
                     <ListItemIcon>
                       { " " }
                       <AccountBalanceIcon />{ " " }

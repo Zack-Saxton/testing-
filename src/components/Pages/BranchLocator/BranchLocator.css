@@ -114,24 +114,13 @@
   padding-bottom: 7px;
 }
 .findBranchWrap {
+  width: 100%;
   padding: 0px 15px 0px 15px;
 }
 #findBranchWrapTwo {
   margin-top: 4%;
   padding: 0 !important;
 }
-/* #findBranchWrapTwo h4{
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1.625rem !important;
-  font-weight: 400;
-  color: #fff;
-}
-#findBranchWrapTwo h4 span{
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1.625rem !important;
-  font-weight: 700;
-  color: #fff;
-} */
 #searchBoxBottom {
   padding: 0px 0px 0px 4.5%;
 }
@@ -168,8 +157,15 @@
   text-decoration: none;
 }
 .addressList {
+  width: 100%;
   background-color: #f6f6f6;
-  padding: 0% 6%;
+  padding: 0% 0%;
+  display: flex;
+  justify-content: space-between;
+}
+.branchLocatorAddressList {
+  background-color: #f6f6f6;
+  padding: 0% 2%;
 }
 .breadcrumbLink {
   font-size: 0.75rem !important;
@@ -179,9 +175,6 @@
 }
 .branchListWrap {
   justify-content: space-between;
-  /* max-height: 198px;
-  overflow-x: hidden;
-  overflow-y: scroll; */
 }
 .BlacktextColor {
   color: #171717;
@@ -206,8 +199,12 @@
   margin-right: 4px;
 }
 #branchLists {
-  background-color: f6f6f6;
-  min-height: 450px !important;
+  background-color: #f6f6f6;
+  max-width: 1200px !important;
+  margin: auto !important;
+}
+#branchLocatorLists {
+  background-color: #f6f6f6;
   padding: 0px 15px;
 }
 #timeSlotSelect .subOption {

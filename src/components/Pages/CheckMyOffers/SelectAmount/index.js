@@ -15,7 +15,6 @@ import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./CheckMyOffer.css";
 
-
 //Styling part
 const useStyles = makeStyles((theme) => ({
   alignSmallText: {
@@ -67,7 +66,7 @@ function CheckMyOffers(props) {
       setData({ ...data, loanAmount: select, loading: false });
       navigate("/loan-purpose");
     } else if (
-      data.formStatus === "" || data.completedPage === 0 || data.formStatus === "completed" || location?.fromLoanPurpose !== "yes"
+      data.formStatus === "" || data.completedPage === 0 || data.formStatus === "completed" || location?.state?.fromLoanPurpose !== "yes"
     ) {
       setData({ ...data, loading: true });
       resetData();

@@ -68,7 +68,7 @@
     "disclosure_link": "/customer/consents",
     "register_customer": "/customer/register_new_user",
     "offercode_validation": "/application/validate_offer_code",
-    "recaptcha_generate" : "/integration/recaptcha/generateRecaptcha?format=json",
-    "recaptcha_validate" : "/integration/recaptcha/verifyRecaptcha"
+    "recaptcha_generate": "/integration/recaptcha/generateRecaptcha?format=json",
+    "recaptcha_validate": "/integration/recaptcha/verifyRecaptcha"
   }
 }
