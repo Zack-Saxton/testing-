@@ -91,6 +91,12 @@ export default function MarketingOffer(data) {
           }
         })
       }
+      why mariner Finance?
+      <ul>
+        <li>Fast - Get money as soon as the same day.</li>
+        <li>Easy - Apply online, by phone, or in a branch.*</li>
+        <li>Affordable - with a fixed monthly payment, a fixed rate, and a set payoff date.</li>
+      </ul>
     </Grid>
   );
 }
