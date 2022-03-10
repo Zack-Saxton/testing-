@@ -23,6 +23,7 @@ import { encryptAES } from "../../lib/Crypto";
 import { FormValidationRules } from "../../lib/FormValidationRule";
 import ScrollToTopOnMount from "../../Pages/ScrollToTop";
 import "./Login.css";
+import axios from "axios";
 var formValidation = new FormValidationRules();
 const moment = require("moment");
 const moment_timezone = require("moment-timezone");
@@ -115,6 +116,15 @@ export default function Login(props) {
   const [ openDeleteSchedule, setopenDeleteSchedule ] = useState(false);
   const queryClient = useQueryClient();
   let location = useLocation();
+
+  const getClientIp = async () =>{
+    try{
+    let ipResponse = await axios.get('https://geolocation-db.com/json/');
+	    return ipResponse.data.IPv4;
+    } catch (err){
+      return '127.0.0.1'
+    }
+  }
   //Form Submission
   const formik = useFormik({
     initialValues: {
@@ -125,11 +135,12 @@ export default function Login(props) {
     // On login submit
     onSubmit: async (values) => {
       setLoading(true);
-
+      let ipAddress = await getClientIp();
       //Sending value to  login controller
       let retVal = await LoginController(
         values.email,
         values.password,
+        ipAddress,
         props.setToken
       );
       if (retVal?.data?.user && retVal?.data?.userFound === true) {
