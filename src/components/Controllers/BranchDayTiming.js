@@ -1,7 +1,7 @@
 import moment from "moment";
-import { tzMatch, MFWorkingSaturdayDateRange } from "../../assets/data/marinerBusinesStates";
+import globalMessages from "../../assets/data/globalMessages.json";
+import { MFWorkingSaturdayDateRange, tzMatch } from "../../assets/data/marinerBusinesStates";
 import ErrorLogger from "../lib/ErrorLogger";
-import globalMessages from "../../assets/data/globalMessages.json"
 
 export default async function BranchDayTiming(branchLookupData) {
     let caState = (branchLookupData.Address.split(" ").find(element => element === "CA")) ? true : false;
@@ -102,30 +102,30 @@ export async function mapInformationBranchLocator(List) {
     }
 }
 
-const  getDates = function(startDate, endDate) {
-    const dates = []
-    let currentDate = startDate
+const getDates = function (startDate, endDate) {
+    const dates = [];
+    let currentDate = startDate;
     const addDays = function (days) {
-        const date = new Date(this.valueOf())
-        date.setDate(date.getDate() + days)
-        return date
-    }
+        const date = new Date(this.valueOf());
+        date.setDate(date.getDate() + days);
+        return date;
+    };
     while (currentDate <= endDate) {
-        dates.push(`${String(currentDate.getMonth() + 1).padStart(2, '0')}${String(currentDate.getDate()).padStart(2, '0')}`)
-        currentDate = addDays.call(currentDate, 7)
+        dates.push(`${ String(currentDate.getMonth() + 1).padStart(2, '0') }${ String(currentDate.getDate()).padStart(2, '0') }`);
+        currentDate = addDays.call(currentDate, 7);
     }
-    return dates
-}
-const  getSaturdayOfCurrentWeek = function(today) {
+    return dates;
+};
+const getSaturdayOfCurrentWeek = function (today) {
     return new Date(today.setDate(((today.getDate() - today.getDay() + 1) + 5)));
-}
-export  function branchSaturdaySchedule() {
+};
+export function branchSaturdaySchedule() {
     let startDate = new Date(MFWorkingSaturdayDateRange.start);
     let endDate = new Date(MFWorkingSaturdayDateRange.end);
     return isBetween(getSaturdayOfCurrentWeek(new Date()), startDate, endDate);
 }
 const isBetween = function (date, start, end) {
-    return (date.getTime() >= start.getTime() && date.getTime() <= end.getTime())
+    return (date.getTime() >= start.getTime() && date.getTime() <= end.getTime());
 };
 
 export function formatDate(date) {
@@ -134,5 +134,5 @@ export function formatDate(date) {
     let day = MonthNameDate.getDate().toString().padStart(2, '0');
     let year = MonthNameDate.getFullYear();
 
-    return [year, month, day].join('-');
+    return [ year, month, day ].join('-');
 }

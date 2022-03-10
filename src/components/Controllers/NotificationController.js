@@ -1,8 +1,7 @@
 import Cookies from "js-cookie";
+import globalMessages from "../../assets/data/globalMessages.json";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
-import globalMessages from "../../assets/data/globalMessages.json";
-
 
 /***** Get notification details *****/
 export async function getNoticationData() {

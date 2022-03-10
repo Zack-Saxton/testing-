@@ -1,7 +1,6 @@
+import globalMessages from "../../assets/data/globalMessages.json";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
-import globalMessages from "../../assets/data/globalMessages.json"
-
 
 /***** Get Loan history *****/
 export default async function LoanHistoryController() {
