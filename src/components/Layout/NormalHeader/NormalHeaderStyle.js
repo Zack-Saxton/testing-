@@ -66,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
-  moreIconButton:{
+  moreIconButton: {
     color: "#000"
   }
 }));

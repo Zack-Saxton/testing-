@@ -3,7 +3,6 @@ import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
 import globalMessages from "../../assets/data/globalMessages.json";
 
-
 export default async function UserImageInformation() {
   try {
     if (Cookies.get("profile_picture_url") && Cookies.get("profile_picture_url") !== "") {

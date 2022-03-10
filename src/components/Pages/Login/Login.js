@@ -7,6 +7,7 @@ import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
+import axios from "axios";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import PropTypes from "prop-types";
@@ -23,7 +24,6 @@ import { encryptAES } from "../../lib/Crypto";
 import { FormValidationRules } from "../../lib/FormValidationRule";
 import ScrollToTopOnMount from "../../Pages/ScrollToTop";
 import "./Login.css";
-import axios from "axios";
 var formValidation = new FormValidationRules();
 const moment = require("moment");
 const moment_timezone = require("moment-timezone");
@@ -117,14 +117,14 @@ export default function Login(props) {
   const queryClient = useQueryClient();
   let location = useLocation();
 
-  const getClientIp = async () =>{
-    try{
-    let ipResponse = await axios.get('https://geolocation-db.com/json/');
-	    return ipResponse.data.IPv4;
-    } catch (err){
-      return '127.0.0.1'
+  const getClientIp = async () => {
+    try {
+      let ipResponse = await axios.get('https://geolocation-db.com/json/');
+      return ipResponse.data.IPv4;
+    } catch (err) {
+      return '127.0.0.1';
     }
-  }
+  };
   //Form Submission
   const formik = useFormik({
     initialValues: {

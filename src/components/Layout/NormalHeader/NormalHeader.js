@@ -39,8 +39,8 @@ const NormalHeader = () => {
       onClose={ handleMobileMenuClose }
     >
       <MenuItem>
-        <Typography  className={ classes.headerAlign }>
-          <a href={`${process.env.REACT_APP_WEBSITE}/blog/`} className="hrefTag">
+        <Typography className={ classes.headerAlign }>
+          <a href={ `${ process.env.REACT_APP_WEBSITE }/blog/` } className="hrefTag">
             Blog
           </a>
         </Typography>
@@ -59,7 +59,7 @@ const NormalHeader = () => {
   );
 
   const redirectToAccountOverview = () => {
-    window.open(`${process.env.REACT_APP_WEBSITE}`,  "_blank")
+    window.open(`${ process.env.REACT_APP_WEBSITE }`, "_blank");
   };
 
   //View Part
@@ -73,7 +73,7 @@ const NormalHeader = () => {
           <div className={ classes.grow } />
           <div className={ classes.sectionDesktop }>
             <Typography id="blogsLink" className={ classes.subtitle }>
-              <a href={`${process.env.REACT_APP_WEBSITE}/blog/`} className="hrefTag">
+              <a href={ `${ process.env.REACT_APP_WEBSITE }/blog/` } className="hrefTag">
                 Blog
               </a>
             </Typography>
@@ -89,7 +89,7 @@ const NormalHeader = () => {
               aria-label="show more"
               aria-haspopup="true"
               onClick={ handleMobileMenuOpen }
-              className ={classes.moreIconButton}
+              className={ classes.moreIconButton }
             >
               <MoreIcon />
             </IconButton>

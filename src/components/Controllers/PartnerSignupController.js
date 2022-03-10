@@ -1,10 +1,9 @@
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
+import globalMessages from "../../assets/data/globalMessages.json";
 import LogoutController from "../Controllers/LogoutController";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
-import globalMessages from "../../assets/data/globalMessages.json";
-
 
 let statusStrLink = {
   approved: "/customers/finalVerification",

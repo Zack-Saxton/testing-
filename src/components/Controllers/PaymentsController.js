@@ -1,8 +1,7 @@
 import Moment from "moment";
+import globalMessages from "../../assets/data/globalMessages.json";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
-import globalMessages from "../../assets/data/globalMessages.json";
-
 
 /***** Get payment methods *****/
 export async function usrPaymentMethods() {

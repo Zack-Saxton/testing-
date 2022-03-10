@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 export default function MarketingOffer(data) {
 
   const [ message, setMessage ] = useState({});
-  const [amount,setAmount] = useState("$ " + (Math.round(data.amount * 100) / 100).toLocaleString());
+  const [ amount, setAmount ] = useState("$ " + (Math.round(data.amount * 100) / 100).toLocaleString());
 
   const findMarketingMessage = () => {
     let usermarketingMessage;
@@ -19,14 +19,14 @@ export default function MarketingOffer(data) {
 
   useEffect(() => {
     findMarketingMessage();
-    amountFormatter(parseInt(data.amount))
+    amountFormatter(parseInt(data.amount));
     return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
+  }, [ data ]);
 
-  const amountFormatter = (number) =>{
+  const amountFormatter = (number) => {
     setAmount("$ " + (Math.round(number * 100) / 100).toLocaleString());
- }
+  };
 
   const MarketingMessages = [
     {

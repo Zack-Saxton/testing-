@@ -15,7 +15,6 @@ import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./CheckMyOffer.css";
 
-
 //Styling part
 const useStyles = makeStyles((theme) => ({
   alignSmallText: {

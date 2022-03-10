@@ -100,7 +100,7 @@ export default function LimitedOffer(userOfferData) {
                     <ButtonPrimary onClick={ showModal } id="claimButton" stylebutton='{"color":""}'>
                       Check My Offer
                     </ButtonPrimary>
-                    </div>
+                  </div>
                 ) : (
                   <div id="offerText">
                     <NavLink to="/customers/applyForLoan" state={ { from: "user" } }
@@ -139,24 +139,24 @@ export default function LimitedOffer(userOfferData) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={ style }>
-        
+
           <Typography class="title">
-          <div className="title-info">
-          <h2>The money you need, when you need it!</h2>
-          <h4>When life happens, we have your back*</h4>
-          </div>
-          <div style={{width:"20px"}}>
-          <IconButton
-              id="debitCardModalClose"
-              aria-label="close"
-              onClick={ closeModal }
-      >
-              <CloseIcon />
-            </IconButton>
+            <div className="title-info">
+              <h2>The money you need, when you need it!</h2>
+              <h4>When life happens, we have your back*</h4>
             </div>
-            </Typography>
+            <div style={ { width: "20px" } }>
+              <IconButton
+                id="debitCardModalClose"
+                aria-label="close"
+                onClick={ closeModal }
+              >
+                <CloseIcon />
+              </IconButton>
+            </div>
+          </Typography>
           <Typography id="modal-modal-description" sx={ { mt: 2 } }>
-           <Grid>
+            <Grid>
               <p className="common">Dear { firstName },</p>
               <MarketingOffer promoType={ campaignType } offerCode={ offerCode } amount={ amount } branchPhone={ branchCno } branchName={ branchName } dateExpiration={ expiryDate }></MarketingOffer>
               <p>Sincerely,<br></br>
@@ -168,15 +168,15 @@ export default function LimitedOffer(userOfferData) {
             <PreScreen offerData={ userOfferData }></PreScreen>
             <Grid style={ { textAlign: "center" } } className="apply-offer">
               <p>Yes, I want to apply for this offer</p>
-              <ButtonPrimary id="ClaimButton"  stylebutton='{"color":"", "textTransform": "none"}' onClick={ handleContinue }>
+              <ButtonPrimary id="ClaimButton" stylebutton='{"color":"", "textTransform": "none"}' onClick={ handleContinue }>
                 Apply Now
               </ButtonPrimary>
               <p>We need more information from you to show you your offers.</p>
-               <p> Please click continue to tell us more about yourself.</p>
-              
+              <p> Please click continue to tell us more about yourself.</p>
+
             </Grid>
-            <Grid style={{borderBottom:"4px solid yellow"}}>
-              <h3 style={{textAlign:"center"}}>*SEE BELOW FOR IMPORTANT OFFER INFORMATION.</h3>
+            <Grid style={ { borderBottom: "4px solid yellow" } }>
+              <h3 style={ { textAlign: "center" } }>*SEE BELOW FOR IMPORTANT OFFER INFORMATION.</h3>
             </Grid>
             <AboutMariner>
             </AboutMariner>
