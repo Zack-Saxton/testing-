@@ -124,7 +124,7 @@ export async function checkMyOfferSubmit(customer) {
 					},
 				},
 				"submission_id": null,
-				"submission_type": "CIS",
+				"submission_type": "CAC",
 				"submission_paramter": null,
 				"ip_address": ipAddress,
 			},
