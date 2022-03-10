@@ -6,7 +6,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import React from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Logo from "../../../assets/images/mf-logo.png";
 import "../Layout.css";
 import { useStyles } from "./NormalHeaderStyle";
@@ -15,7 +15,6 @@ const NormalHeader = () => {
   const classes = useStyles();
   const [ mobileMoreAnchorEl, setMobileMoreAnchorEl ] = React.useState(false);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  const navigate = useNavigate();
 
   //Menu open & close
   const handleMobileMenuOpen = (event) => {
@@ -90,7 +89,7 @@ const NormalHeader = () => {
               aria-label="show more"
               aria-haspopup="true"
               onClick={ handleMobileMenuOpen }
-              color="#000"
+              className ={classes.moreIconButton}
             >
               <MoreIcon />
             </IconButton>
