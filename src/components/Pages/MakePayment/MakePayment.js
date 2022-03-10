@@ -706,6 +706,10 @@ export default function MakePayment(props) {
     } else if (paymentDatepicker === null) {
       document.getElementById("date").focus();
       setrequiredDate("Please select any date");
+    } else if (
+      Moment(User.data.loanData[0].loanOriginationDate).isAfter(Moment())) {
+      document.getElementById("payment").focus();
+      setrequiredDate('You can begin making payments on ' + Moment(User.data.loanData[0].loanOriginationDate).format('MM/DD/YYYY'));
     } else {
       setPaymentOpen(true);
     }
