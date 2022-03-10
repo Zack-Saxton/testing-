@@ -83,6 +83,7 @@ export default function MakePayment(props) {
   const [checkPaymentInformation, setCheckPaymentInformation] = useState(false);
   const [activeLoansData, setActiveLoansData] = useState([]);
   const [checkCard, setCheckCard] = useState(false);
+  const [defaultPaymentCard, setDefaultPaymentCard] = useState(false);
   const {
     isFetching,
     data: User,
@@ -113,10 +114,10 @@ export default function MakePayment(props) {
   }, [payments]);
 
   useEffect(() => {
-    checkCard
+    defaultPaymentCard || checkCard 
       ? setpaymentDatepicker(new Date())
       : setpaymentDatepicker(scheduleDate);
-  }, [checkCard, scheduleDate]);
+  }, [checkCard, scheduleDate, defaultPaymentCard]);
 
   //API Request for Payment methods
   async function getPaymentMethods() {
@@ -133,13 +134,14 @@ export default function MakePayment(props) {
         "ACH",
         defaultBank
       );
+      cardFound && setDefaultPaymentCard(false);
       if (!cardFound) {
         //set default card ACHMethods
-        defaultCardCheck(payments?.data?.CardMethods, "card", defaultBank);
+        const cardNotFound = await defaultCardCheck(payments?.data?.CardMethods, "card", defaultBank);
+        cardNotFound && setDefaultPaymentCard(true);
       }
     }
   }
-
   //set default card CardMethods
   async function defaultCardCheck(cardData, type, defaultBank) {
     let checkNickName = false;
@@ -382,7 +384,7 @@ export default function MakePayment(props) {
               ).format("MM/DD/YYYY")
             : null
           : null;
-        setpaymentDatepicker(scheduledDate ? scheduledDate : new Date());
+        setpaymentDatepicker(defaultPaymentCard ? new Date() : scheduledDate);
         setscheduleDate(scheduledDate);
         setLoading(false);
         setAutopaySubmit(true);
@@ -396,7 +398,6 @@ export default function MakePayment(props) {
     });
     return check;
   }
-
   //API Request for Account Details
   function getData() {
     setshowCircularProgress(isFetching);
@@ -507,7 +508,7 @@ export default function MakePayment(props) {
             ).format("MM/DD/YYYY")
           : null
         : null;
-      setpaymentDatepicker(scheduledDate ? scheduledDate : new Date());
+      setpaymentDatepicker(defaultPaymentCard ? new Date() : scheduledDate);
       setscheduleDate(scheduledDate);
       setLoading(false);
       setAutopaySubmit(true);
@@ -623,6 +624,11 @@ export default function MakePayment(props) {
     setrequiredSelect("");
   };
 
+  const disableFuturePayment = () => {
+   if((checkCard && defaultPaymentCard) || (checkCard && !defaultPaymentCard)) return true;
+   if((!checkCard && !defaultPaymentCard) || (!checkCard && defaultPaymentCard)) return false;
+  };
+
   //Autopay enable/disable switch
   const handleSwitchPayment = (event) => {
     setAutopaySubmit(checkAutoPay === event.target.checked ? true : false);
@@ -707,11 +713,12 @@ export default function MakePayment(props) {
   const handlePaymentcancel = () => {
     setopenDeleteSchedule(true);
   };
-  let RemoveScheduledPayment = "yes";
+  
   //Schedule Payment popup confirm and close
   const handleSchedulePaymentSubmit = () => {
     setLoading(true);
     setshowCircularProgress(true);
+    let RemoveScheduledPayment = true;
     makeuserPayment(
       accntNo,
       card,
@@ -726,7 +733,7 @@ export default function MakePayment(props) {
   const handleSchedulePaymentSubmitKeep = () => {
     setLoading(true);
     setshowCircularProgress(true);
-    RemoveScheduledPayment = "no";
+    let RemoveScheduledPayment = false;
     makeuserPayment(
       accntNo,
       card,
@@ -1105,7 +1112,7 @@ export default function MakePayment(props) {
                                 placeholder="MM/DD/YYYY"
                                 id="date"
                                 disablePast
-                                disableFuture={checkCard}
+                                disableFuture={disableFuturePayment()}
                                 disabled={payoff}
                                 autoComplete="off"
                                 maxdate={paymentMaxDate}
