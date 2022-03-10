@@ -68,13 +68,13 @@ export default function StatePage() {
   //Material UI css class
   const classes = useStylesMyBranch();
   const getDirectionsClass = useStylesConsumer();
-  const [getDirectionModal, setgetDirectionModal] = useState(false);
-  const [getBranchList, setBranchList] = useState();
-  const [getBranchAddress, setBranchAddress] = useState(null);
-  const [getMap, setMap] = useState([]);
-  const [getCurrentLocation, setCurrentLocation] = useState();
-  const [loading, setLoading] = useState(false);
-  const [zoomDepth, setZoomDepth] = useState();
+  const [ getDirectionModal, setgetDirectionModal ] = useState(false);
+  const [ getBranchList, setBranchList ] = useState();
+  const [ getBranchAddress, setBranchAddress ] = useState(null);
+  const [ getMap, setMap ] = useState([]);
+  const [ getCurrentLocation, setCurrentLocation ] = useState();
+  const [ loading, setLoading ] = useState(false);
+  const [ zoomDepth, setZoomDepth ] = useState();
   const clessesforptag = useStyles();
   const [ address1, setAddress1 ] = React.useState("");
   const [ address2, setAddress2 ] = React.useState("");
