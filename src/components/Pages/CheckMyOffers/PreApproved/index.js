@@ -21,7 +21,7 @@ const PreApproved = () => {
 
     return (
         <div>
-            <div className="mainDiv">
+            <div className="preApprovedDiv">
                 <Box>
                     <Grid
                         item
@@ -162,7 +162,7 @@ const PreApproved = () => {
                             alignItems="center"
                             style={ { paddingTop: "25px", paddingBottom: "70px" } }
                         >
-                            <Typography className="smallText" align="center">
+                            <Typography className="smallText blackText" align="center">
                                 To help the government fight the funding of terrorism and money
                                 laundering activities, Federal law requires all financial
                                 institutions to obtain, verify, and record information that
@@ -173,7 +173,7 @@ const PreApproved = () => {
                                 to see your { "driver's" } license or other identifying documents.
                             </Typography>
                             <br />
-                            <Typography className="smallText" align="center">
+                            <Typography className="smallText blackText" align="center">
                                 *The process uses a “soft” credit inquiry to determine whether a
                                 loan offer is available, which does not impact your credit
                                 score. If you continue with the application process online and
