@@ -184,7 +184,7 @@ export default function PaymentMethod() {
         setscheduledAccountNo(scheduleAccountNo);
       }
     }
-    if (autoPay !== null && autoPay > 0) {
+    if ( autoPay ) {
       setautoPayAccountNo(autoPay);
     }
     return null;
