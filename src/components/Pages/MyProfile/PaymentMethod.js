@@ -142,6 +142,7 @@ export default function PaymentMethod() {
   const [addBankValues, setAddBankValues] = useState(false);
   const [routingError, setRoutingError] = useState("");
   const [scheduledAccountNo, setscheduledAccountNo] = useState("0");
+  const [autoPayAccountNo, setautoPayAccountNo] = useState("0");
   const [, setprofileTabNumber] = useGlobalState();
   const [validZip, setValidZip] = useState(true);
   const [mailingStreetAddress, setMailingStreetAddress] = useState("");
@@ -163,6 +164,11 @@ export default function PaymentMethod() {
       ? dataAccountOverview.data.activeLoans[0].loanPaymentInformation
           .scheduledPayments
       : null;
+    let autoPay = dataAccountOverview?.data?.activeLoans[0]
+      ?.loanPaymentInformation?.appRecurringACHPayment?.LastFourOfPaymentAccount
+      ? dataAccountOverview.data.activeLoans[0].loanPaymentInformation
+          .appRecurringACHPayment.LastFourOfPaymentAccount
+      : null;
     //User shouldn't be allowed to delete the payment method accounts where there is scheduled future payment
     if (schedulePayment !== null && schedulePayment.length > 0) {
       let scheduleAccountNo = schedulePayment[0]?.PaymentMethod?.AchInfo
@@ -177,6 +183,9 @@ export default function PaymentMethod() {
       if (dateNow < scheduleDate && scheduleAccountNo !== "") {
         setscheduledAccountNo(scheduleAccountNo);
       }
+    }
+    if ( autoPay ) {
+      setautoPayAccountNo(autoPay);
     }
     return null;
   }, [dataAccountOverview]);
@@ -699,10 +708,15 @@ export default function PaymentMethod() {
                           <DeleteIcon
                             className={`${classes.deleteCard} ${
                               scheduledAccountNo ===
-                              (row.AccountNumber
-                                ? row.AccountNumber
-                                : ""
-                              ).slice(-4)
+                                (row.AccountNumber
+                                  ? row.AccountNumber
+                                  : ""
+                                ).slice(-4) ||
+                              autoPayAccountNo ===
+                                (row.AccountNumber
+                                  ? row.AccountNumber
+                                  : ""
+                                ).slice(-4)
                                 ? classes.loadingOn
                                 : classes.loadingOff
                             } `}
