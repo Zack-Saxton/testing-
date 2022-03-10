@@ -5,7 +5,6 @@ import { Router } from "react-router-dom";
 import Login from "./Login";
 
 test("Checks the title of the page", () => {
-	
 
 	render(
 		<Router history={ history }>
@@ -17,7 +16,6 @@ test("Checks the title of the page", () => {
 });
 
 test("Render email", () => {
-	
 
 	render(
 		<Router history={ history }>
@@ -30,7 +28,6 @@ test("Render email", () => {
 });
 
 test("pass valid email to test email input field", () => {
-	
 
 	render(
 		<Router history={ history }>
@@ -46,7 +43,6 @@ test("pass valid email to test email input field", () => {
 });
 
 test("Render password", () => {
-	
 
 	render(
 		<Router history={ history }>
@@ -60,7 +56,6 @@ test("Render password", () => {
 });
 
 test("Render checkbox", () => {
-	
 
 	render(
 		<Router history={ history }>
@@ -73,7 +68,6 @@ test("Render checkbox", () => {
 });
 
 test("checkbox initially unchecked", () => {
-	
 
 	render(
 		<Router history={ history }>
@@ -85,7 +79,6 @@ test("checkbox initially unchecked", () => {
 });
 
 test("button Availability", () => {
-	
 
 	render(
 		<Router history={ history }>
@@ -98,7 +91,6 @@ test("button Availability", () => {
 });
 
 test("Button Onclick", () => {
-	
 
 	render(
 		<Router history={ history }>

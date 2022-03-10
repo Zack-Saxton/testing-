@@ -1,17 +1,17 @@
 import Cookies from "js-cookie";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
-import globalMessages from "../../assets/data/globalMessages.json"
-
+import globalMessages from "../../assets/data/globalMessages.json";
 
 /***** Login method *****/
-export default async function LoginController(email, password) {
+export default async function LoginController(email, password, clientIp) {
   try {
     let url = "login_customer";
     let param = "";
     let data = {
       email: email,
       password: password,
+      clientIp: clientIp,
     };
     let method = "POST";
     let addAccessToken = false;
