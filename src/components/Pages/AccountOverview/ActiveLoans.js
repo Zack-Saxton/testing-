@@ -16,7 +16,6 @@ import AutoPayStatus from "./AutoPayStatus.js";
 import { useStylesAccountOverview } from "./Style";
 import "./Style.css";
 
-const dateNow = Moment().startOf('day');
 export default function ActiveLoans(userActiveLoanData) {
   //Material UI css class
   const classes = useStylesAccountOverview();
@@ -117,7 +116,13 @@ export default function ActiveLoans(userActiveLoanData) {
                               <ButtonPrimary
                                 id="makeAPaymentButtonStyle"
                                 stylebutton='{"float": "right","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
-                                className={ (appData?.loanPaymentInformation?.scheduledPayments[ 0 ] ? Moment.duration(Moment(appData.loanPaymentInformation.scheduledPayments[ 0 ].PaymentDate).diff(dateNow)).asDays() : 11) < 10 ? `${ classes.normalButton } pulse` : classes.normalButton }
+                                className = { (appData?.loanDetails?.NextPaymentDate ?  Math.ceil(
+                                  Moment.duration(
+                                    Moment(
+                                      appData.loanDetails.NextPaymentDate
+                                    ).diff(today)
+                                  ).asDays()
+                                ) : 11) <=  10 ? `${classes.normalButton} pulse` : classes.normalButton }
                               >
                                 Make a Payment
                               </ButtonPrimary>
