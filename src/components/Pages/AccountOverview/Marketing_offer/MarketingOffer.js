@@ -38,7 +38,7 @@ export default function MarketingOffer(data) {
     {
       "campaignType": "CONV",
       "p1": 'Are you looking to plan a vacation? Perhaps make a major purchase? Do you need to consolidate your debt? Life and expenses aren\'t always on the same schedule.',
-      "p2": `That's why we want you to know you may qualify for a loan up to ${ amount }* to help simplify your bills into one manegeable payment!`,
+      "p2": `That's why we want you to know you may qualify for a loan up to ${ amount }* to help simplify your bills into one manageable payment!`,
       "p3": `Sounds good, right?`,
     },
     {
