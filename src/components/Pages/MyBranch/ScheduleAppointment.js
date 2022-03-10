@@ -138,7 +138,7 @@ export default function ScheduleAppointment({
     year: 'numeric',
     month: '2-digit',
     day: '2-digit',
-    };
+  };
 
   //View part
   return (
@@ -173,7 +173,7 @@ export default function ScheduleAppointment({
             Schedule an Appointment
           </Typography>
           <Typography className="endDate">
-          You have until <span> {scheduleAppointmentDate.toLocaleDateString('en-us',dateFormatOption)} </span>to schedule your appointment
+            You have until <span> { scheduleAppointmentDate.toLocaleDateString('en-us', dateFormatOption) } </span>to schedule your appointment
           </Typography>
         </DialogTitle>
         <form id="formAppointment" onSubmit={ formik.handleSubmit }>
@@ -192,7 +192,7 @@ export default function ScheduleAppointment({
                 value={ formik.values.appointmentDate }
                 onChange={ (values) => {
                   formik.setFieldValue("appointmentDate", values);
-                  formik.setFieldValue("appointmentTime","" )
+                  formik.setFieldValue("appointmentTime", "");
                 } }
                 onBlur={ formik.handleBlur }
                 error={ formik.touched.appointmentDate && Boolean(formik.errors.appointmentDate) }

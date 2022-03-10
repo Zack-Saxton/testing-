@@ -18,7 +18,7 @@ function NoOffersAvailable(props) {
 	const classes = preLoginStyle();
 	//handle
 	const handleBlog = (event) => {
-		window.open("https://www.marinerfinance.com/blog/", "_self");
+		window.open(`${ process.env.REACT_APP_WEBSITE }/blog/`, "_self");
 	};
 	const handleHome = (event) => {
 		navigate("/customers/accountoverview");
@@ -174,7 +174,7 @@ function NoOffersAvailable(props) {
 										stylebutton='{"background": "", "color":"", "fontSize": "0.938rem", "padding": "5px 30px" }'
 										onClick={ handleBlog }
 									>
-										Blogs
+										Blog
 									</ButtonSecondary>
 								</Grid>
 								<Grid

@@ -7,6 +7,7 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
+import axios from "axios";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useState } from "react";
@@ -16,8 +17,8 @@ import { toast } from "react-toastify";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import Logo from "../../../assets/images/loginbg.png";
 import LoginController, { RegisterController } from "../../Controllers/LoginController";
-import {RecaptchaValidationController} from "../../Controllers/RecaptchaController";
 import LogoutController from "../../Controllers/LogoutController";
+import { RecaptchaValidationController } from "../../Controllers/RecaptchaController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
 import {
   Button,
@@ -29,12 +30,11 @@ import {
   TextField,
   Zipcode
 } from "../../FormsUI";
+import Recaptcha from "../../Layout/Recaptcha/GenerateRecaptcha";
 import { encryptAES } from "../../lib/Crypto";
 import ErrorLogger from "../../lib/ErrorLogger";
 import { FormValidationRules } from "../../lib/FormValidationRule";
 import "./Register.css";
-import  Recaptcha  from "../../Layout/Recaptcha/GenerateRecaptcha";
-import axios from "axios";
 
 let formValidation = new FormValidationRules();
 
@@ -114,31 +114,31 @@ export default function Register() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  window.onReCaptchaSuccess = async function() {    
+  window.onReCaptchaSuccess = async function () {
     try {
-      let grecaptchaResponse = grecaptcha.getResponse()
-      let ipResponse = await axios.get('https://geolocation-db.com/json/');    
-      let ipAddress = ipResponse.data.IPv4
-      let recaptchaVerifyResponse  = await RecaptchaValidationController(grecaptchaResponse,ipAddress);
+      let grecaptchaResponse = grecaptcha.getResponse();
+      let ipResponse = await axios.get('https://geolocation-db.com/json/');
+      let ipAddress = ipResponse.data.IPv4;
+      let recaptchaVerifyResponse = await RecaptchaValidationController(grecaptchaResponse, ipAddress);
 
-          if (recaptchaVerifyResponse.status === 200) {
-            toast.success(globalMessages.Recaptcha_Verify)
-            setdisableRecaptcha(false);
-          }
-          else{
-            toast.error(globalMessages.Recaptcha_Error);
-            grecaptcha.reset();
-            setdisableRecaptcha(true)
-          }
-      } catch (error) {
-        ErrorLogger("Error executing geolocation API", error);
+      if (recaptchaVerifyResponse.status === 200) {
+        toast.success(globalMessages.Recaptcha_Verify);
+        setdisableRecaptcha(false);
       }
-   };
+      else {
+        toast.error(globalMessages.Recaptcha_Error);
+        grecaptcha.reset();
+        setdisableRecaptcha(true);
+      }
+    } catch (error) {
+      ErrorLogger("Error executing geolocation API", error);
+    }
+  };
 
-   window.OnExpireCallback = function (){
-     grecaptcha.reset();
-    setdisableRecaptcha(true)
-   }
+  window.OnExpireCallback = function () {
+    grecaptcha.reset();
+    setdisableRecaptcha(true);
+  };
 
   //Date implementation for verifying 18 years
   const myDate = new Date();
@@ -610,7 +610,7 @@ export default function Register() {
                     </Grid>
 
                     <Grid >
-                    <Recaptcha />                   
+                      <Recaptcha />
                     </Grid>
 
                     <Grid item xs={ 12 } className={ classes.signInButtonGrid }>

@@ -7,12 +7,12 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import React, { useEffect, useState } from "react";
+import { formatDate } from "../../Controllers/BranchDayTiming";
 import HolidayCalender from "../../Controllers/HolidayCalenderController";
 import "../MyBranch/BranchInfo.css";
 import ScheduleAppointment from "./ScheduleAppointment";
 import ScheduleCall from "./ScheduleCall";
 import { useStylesMyBranch } from "./Style";
-import { formatDate } from "../../Controllers/BranchDayTiming";
 //Table fields - working days
 function otherUsaState(day, monWedThur, tue, fri) {
   return { day, monWedThur, tue, fri };
@@ -45,12 +45,12 @@ export default function BranchDetail(MyBranchDetail) {
   }
   useEffect(() => {
     AsyncEffect_HolidayCalender();
-    return null
+    return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
- 
+
   //Holiday Calender from API
-  let holidayCalenderData = Object.assign({},holidayCalenderApi?.data.MFYearHolidays.map(({ Date }) => formatDate(Date)));
+  let holidayCalenderData = Object.assign({}, holidayCalenderApi?.data.MFYearHolidays.map(({ Date }) => formatDate(Date)));
 
   //Branch details from API
   let branchDetail = MyBranchDetail;

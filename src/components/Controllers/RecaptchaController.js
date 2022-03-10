@@ -1,6 +1,6 @@
+import globalMessages from "../../assets/data/globalMessages.json";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
-import globalMessages from "../../assets/data/globalMessages.json"
 
 /*****Generate Recaptcha details *****/
 export default async function RecaptchaController() {
@@ -19,13 +19,13 @@ export default async function RecaptchaController() {
 }
 
 /***** Verify Recaptcha *****/
-export  async function RecaptchaValidationController(grecaptchaResponse,ipAddress) {
+export async function RecaptchaValidationController(grecaptchaResponse, ipAddress) {
   try {
     let url = "recaptcha_validate";
     let param = "";
     let data = {
-      recaptcha_response : grecaptchaResponse,
-      ip : ipAddress
+      recaptcha_response: grecaptchaResponse,
+      ip: ipAddress
     };
     let method = "POST";
     let addAccessToken = false;
@@ -35,5 +35,3 @@ export  async function RecaptchaValidationController(grecaptchaResponse,ipAddres
     ErrorLogger(globalMessages.Error_executing_RecaptchaValidationController_API, error);
   }
 }
-
-
