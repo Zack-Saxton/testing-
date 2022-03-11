@@ -92,9 +92,27 @@ centerHeading {
 .small{
   font-size: .8rem
 }
+.popupHeading{
+  padding: 20px 0px;
+}
+.popupHeading h2{
+  font-size: 26px;
+  text-align: center;
+  margin: 0;
+}
+.popupHeading h4{
+  font-size: 17px;
+  text-align: center;
+  margin: 0;
+  margin-bottom: 5px;
+}
+#debitCardDialogClose{
+  position: absolute;
+  right: 15px;
+  top: 5px;
+}
 
 .para{
-  width:58vw;
   word-break: break-all;
 }
 
@@ -183,6 +201,13 @@ centerHeading {
   #offerText {
     font-size: 20px !important;
   }
+  #debitCardDialogClose{
+    right: 1px;
+    top: 2px;
+  }
+  .popupHeading{
+    padding: 33px 0px 20px 0px !important;
+  }
 }
 #Wrapp {
   height: 100%;
@@ -226,7 +251,7 @@ centerHeading {
     margin-block-end: 15px;
   }
   #activeLoanGrid {
-    height: 100%;
+    /* height: 100%; */
   }
   #regularAmountGrid {
     margin-left: -10px;

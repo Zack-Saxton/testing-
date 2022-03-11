@@ -106,7 +106,7 @@ export default function ActiveLoans(userActiveLoanData) {
                         className={ classes.paper }
                         id="activeLoanGrid"
                         style={ {
-                          height: "81.33%",
+                          // height: "81.33%",
                           borderRadius: "2px!important",
                         } }
                       >

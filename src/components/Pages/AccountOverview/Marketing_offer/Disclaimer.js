@@ -126,7 +126,7 @@ export default function Disclaimer(offerData) {
                     return (
                         <Grid key={ disclaimer.index.toString() }>
                             <Typography className="common para">{ disclaimer.title }
-                                <p className="small">{ disclaimer.content }</p>
+                                <span className="small">{ disclaimer.content }</span>
                             </Typography>
                         </Grid>
                     );

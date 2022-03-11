@@ -80,7 +80,7 @@ export default function StatePage() {
   const [ address2, setAddress2 ] = React.useState("");
   const mapSection = useRef();
   let location = useLocation();
-  let name = location.state.value
+  let name = location.state.value;
   //API call
   const getBranchLists = async (search_text) => {
     try {
@@ -177,12 +177,12 @@ export default function StatePage() {
       <Helmet>
         <meta charSet="utf-8" />
         <title>
-          Personal Loans in { name } | Mariner Finance Branch | Discover More
+          Personal Loans in {name} | Mariner Finance Branch | Discover More
         </title>
         <link rel="icon" type="image/png" href={ TitleImage } sizes="16x16" />
         <meta
           name="description"
-          content={ `Looking for a personal loans in ${ name }?  Mariner Finance branch employees can help. Discover a ${ name } location today.` }
+          content={`Looking for a personal loans in ${name}?  Mariner Finance branch employees can help. Discover a ${name} location today.`}
         />
       </Helmet>
       <Grid
@@ -229,12 +229,12 @@ export default function StatePage() {
               >
                 Branch Locator
               </Link>
-              <Link className="breadcrumbLink">Personal Loans In { name }</Link>
+              <Link className="breadcrumbLink">Personal Loans In {name}</Link>
             </Breadcrumbs>
             <Grid className="blueBoxWrap">
               <Grid id="findBranchWrapTwo">
-                <h4 className={ classes.headigText }>
-                  Personal Loans in <strong>{ name }</strong>
+                <h4 className={classes.headigText}>
+                  Personal Loans in <strong>{name}</strong>
                 </h4>
                 <Grid id="findBranchGrid">
                   <SearchIcon
