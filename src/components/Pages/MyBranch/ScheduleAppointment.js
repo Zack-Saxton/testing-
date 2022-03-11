@@ -124,6 +124,8 @@ export default function ScheduleAppointment({
     },
   });
 
+  const appointmentDay = ["Saturday","Sunday"]
+
   //pop up open & close
   const handleScheduleAppointment = () => {
     setScheduleAppointment(true);
@@ -232,7 +234,7 @@ export default function ScheduleAppointment({
                       helperText={ formik.touched.appointmentTime && formik.errors.appointmentTime }
                     /> }
                 </Grid>
-              ) : Moment(formik.values.appointmentDate).format("dddd") !== "Saturday" && Moment(formik.values.appointmentDate).format("dddd") !== "Sunday" ? (
+              ) : !appointmentDay.includes(Moment(formik.values.appointmentDate).format("dddd")) ? (
                 <Grid>
                   { Moment(formik.values.appointmentDate).format("DD-MM-YYYY") ===
                     Moment(new Date()).format("DD-MM-YYYY")
@@ -322,7 +324,7 @@ export default function ScheduleAppointment({
                     helperText={ formik.touched.appointmentTime && formik.errors.appointmentTime }
                   /> }
               </Grid>
-            ) :  Moment(formik.values.appointmentDate).format("dddd") !== "Saturday" && Moment(formik.values.appointmentDate).format("dddd") !== "Sunday" ? (
+            ) : !appointmentDay.includes(Moment(formik.values.appointmentDate).format("dddd")) ? (
               <Grid>
                 { Moment(formik.values.appointmentDate).format("DD-MM-YYYY") ===
                   Moment(new Date()).format("DD-MM-YYYY")

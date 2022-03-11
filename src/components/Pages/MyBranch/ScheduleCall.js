@@ -63,6 +63,8 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
     );
   }
 
+  
+
   //Validating current date is holiday
   const today = new Date();
   const checkTodayDate = (Moment(today).format("YYYY-MM-DD"));
@@ -115,7 +117,9 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
     },
   });
 
-  //pop up open & close
+const appointmentDay = ["Saturday","Sunday"]
+
+    //pop up open & close
   const handleScheduleCall = () => {
     setScheduleCall(true);
   };
@@ -224,7 +228,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
                     /> }
                 </Grid>
               ) :
-              Moment(formik.values.appointmentDate).format("dddd") !== "Saturday" && Moment(formik.values.appointmentDate).format("dddd") !== "Sunday" ? (
+               !appointmentDay.includes(Moment(formik.values.appointmentDate).format("dddd")) ? (
                 <Grid>
                   { Moment(formik.values.appointmentDate).format("DD-MM-YYYY") ===
                     Moment(new Date()).format("DD-MM-YYYY")
@@ -313,7 +317,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
                     helperText={ formik.touched.callTime && formik.errors.callTime }
                   /> }
               </Grid>
-            ) : Moment(formik.values.appointmentDate).format("dddd") !== "Saturday" && Moment(formik.values.appointmentDate).format("dddd") !== "Sunday" ? (
+            ) : !appointmentDay.includes(Moment(formik.values.appointmentDate).format("dddd")) ? (
               <Grid>
                 { Moment(formik.values.appointmentDate).format("DD-MM-YYYY") ===
                   Moment(new Date()).format("DD-MM-YYYY")
