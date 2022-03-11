@@ -113,7 +113,7 @@ centerHeading {
 }
 
 .para{
-  word-break: break-all;
+  text-align: justify;
 }
 
 #recentPaymentsTable tbody tr td{

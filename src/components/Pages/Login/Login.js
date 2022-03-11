@@ -38,11 +38,13 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
+  termsText :{
+    fontSize:"0.938rem",
+  },
   linkDesign: {
-    color: "#0F4EB3 !important",
-    display: "block !important",
+    color: "#0F4EB3",
     cursor: "pointer",
-    fontSize: "0.938rem !important"
+    fontSize: "0.938rem"
 
   },
   paper: {
@@ -385,7 +387,10 @@ export default function Login(props) {
                       </ButtonPrimary>
                     </Grid>
                     <Grid className={ classes.registerGrid }>
-                    <Typography className={ classes.linkDesign } onClick={ () => { handleOnClickCacTerms(); } }>By logging into the site, you agree to CAC terms of use</Typography>
+                      <Typography className={ classes.termsText }>
+                        By logging into the site, you agree to 
+                        <span className={ classes.linkDesign } onClick={ () => { handleOnClickCacTerms(); } }>{' '}CAC terms of use</span>
+                      </Typography>
                     </Grid>
                     <Grid className={ classes.registerGrid }>
                       <NavLink
@@ -433,7 +438,7 @@ export default function Login(props) {
             { " " }
             If you&apos;re a new user, click on
             <NavLink to="/register" style={ { textDecoration: "none" } }>
-              <span id="helpLogin">Sign in help/Register</span>
+              <span id="helpLogin"> Sign in help/Register </span>
             </NavLink>{ " " }
             option and enter your registration details.
           </li>
