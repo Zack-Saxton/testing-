@@ -1,4 +1,3 @@
-import Typography from "@material-ui/core/Typography";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from '@material-ui/core/DialogContent';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -151,7 +150,7 @@ export default function LimitedOffer(userOfferData) {
           <h2>The money you need, when you need it!</h2>
           <h4>When life happens, we have your back*</h4>
         </Grid>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+          <Grid id="modal-modal-description" sx={{ mt: 2 }}>
             <Grid>
               <p className="common">Dear {firstName},</p>
               <MarketingOffer
@@ -192,7 +191,7 @@ export default function LimitedOffer(userOfferData) {
             <AboutMariner></AboutMariner>
             <OptOutNotice offerData={userOfferData}></OptOutNotice>
             <Disclaimer offerData={userOfferData}></Disclaimer>
-          </Typography>
+          </Grid>
         </DialogContent>
       </Dialog>
     </div>

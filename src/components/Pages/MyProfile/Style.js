@@ -102,39 +102,39 @@ const useStylesMyProfile = makeStyles((theme) => ({
 		fontSize: "small",
 	},
 	paymentBody: {
-		paddingBottom: "20px", 
+		paddingBottom: "20px",
 		width: "100%"
 	},
 	fullWidth: {
 		width: "100%"
 	},
 	dialogAction: {
-		justifyContent: "center", 
+		justifyContent: "center",
 		marginBottom: "25px"
 	},
 	accountTypeColumn: {
 		marginTop: "4px",
-    marginLeft: "-24",
-    padding: "0",
+		marginLeft: "-24",
+		padding: "0",
 	},
 	accountDefaultColumn: {
-		marginRight: "0", 
+		marginRight: "0",
 		padding: "0"
 	},
 	defaultRadio: {
 		marginTop: "3px",
-    marginRight: "0px",
-    padding: "0",
+		marginRight: "0px",
+		padding: "0",
 	},
 	deleteCard: {
 		color: "#0F4EB3",
-    float: "left",
-    cursor: "pointer",
+		float: "left",
+		cursor: "pointer",
 	},
 	deleteCardArrow: {
 		color: "#0F4EB3",
-    float: "right",
-    cursor: "pointer",
+		float: "right",
+		cursor: "pointer",
 	},
 	paymentMethodWrap: {
 		paddingTop: "25px"
@@ -144,31 +144,31 @@ const useStylesMyProfile = makeStyles((theme) => ({
 	},
 	paymentBreadcrumbs: {
 		lineHeight: "30px",
-    height: "30px",
-    backgroundColor: "#164a9c",
+		height: "30px",
+		backgroundColor: "#164a9c",
 	},
 	profileLink: {
 		fontSize: "18px",
-  	color: "rgba(255, 255, 255, .7)",
-    textDecoration: "none",
-    padding: "10px",
-    cursor: "pointer",
+		color: "rgba(255, 255, 255, .7)",
+		textDecoration: "none",
+		padding: "10px",
+		cursor: "pointer",
 	},
 	paymentLink: {
 		fontSize: "18px",
-    color: "rgba(255, 255, 255, .7)",
-    textDecoration: "none",
-    cursor: "pointer"
+		color: "rgba(255, 255, 255, .7)",
+		textDecoration: "none",
+		cursor: "pointer"
 	},
 	paymentAccountLink: {
 		fontSize: "18px",
-    color: "#fff",
-    textDecoration: "none",
+		color: "#fff",
+		textDecoration: "none",
 	},
 	routingToolTip: {
 		fontSize: "large",
-    cursor: "pointer",
-    color: "blue",
+		cursor: "pointer",
+		color: "blue",
 	}
 }));
 

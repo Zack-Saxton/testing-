@@ -3,6 +3,10 @@
 	background-image: linear-gradient(to right, #26436a, #104db0);
 	min-height: 500px !important;
 }
+.preApprovedDiv {
+	background-color: #f6f6f6;
+	min-height: 500px !important;
+}
 .card {
 	padding: 5% 5% 1% 5%;
 }
@@ -52,6 +56,9 @@
 	color: #fff;
 	font-family: "Muli", sans-serif;
 	font-weight: 300;
+}
+.blackText{
+	color: #4a4e57 !important;
 }
 
 .alignSmallText {
