@@ -86,9 +86,7 @@ export default function StatePage(props) {
   const [ showDialog, setShowDialog ] = useState(false);
   let StateFullName = MFStates[ MFStateShort.indexOf(getStateName) ];
 
-  let params = useParams();
   //API call
-
   const getBranchLists = async (search_text) => {
     try {
       let result = await BranchLocatorController(search_text);
@@ -205,10 +203,10 @@ export default function StatePage(props) {
           </Link>
           <Link
             className="breadcrumbLink"
-            onClick={ () => {
-              params.statename = StateFullName;
-              navigate(`/branch-locator/personal-loans-in-${ params.statename.toLowerCase() }`);
-            } }
+            onClick={() => {
+              navigate(`/branch-locator/personal-loans-in-${StateFullName.toLowerCase()}`,
+                { state: { value: StateFullName } });
+            }}
           >
             { StateFullName ?? "" }
           </Link>

@@ -146,8 +146,8 @@ export default function BranchLocator() {
   const MFButtonClick = (event) => {
     params.statename = event.target.innerText;
     apiGetBranchList(params.statename);
-    navigate(`/branch-locator/personal-loans-in-${params.statename.toLowerCase() }`,
-      { state: { value: params.statename }} );
+    navigate(`/branch-locator/personal-loans-in-${params.statename.toLowerCase()}`,
+      { state: { value: params.statename } });
   };
   const findBranchTimings = async (value) => {
     try {
