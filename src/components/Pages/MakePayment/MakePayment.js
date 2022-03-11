@@ -103,7 +103,7 @@ export default function MakePayment(props) {
   );
   const [ paymentTitle, setPaymentTitle ] = useState("Single Payment");
 
-  useEffect(() => {
+  useEffect(() => { 
     if (payments) {
       payments?.data?.paymentOptions[ 0 ]?.CardType
         ? setCheckCard(true)
@@ -111,7 +111,7 @@ export default function MakePayment(props) {
     }
     return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ payments ]);
+  }, [payments, User]);
 
   useEffect(() => {
     defaultPaymentCard || checkCard
@@ -148,19 +148,18 @@ export default function MakePayment(props) {
     cardData
       ? cardData?.length
         ? cardData?.forEach((data) => {
-          if (data.Nickname === defaultBank) {
-            type === "ACH"
-              ? setcard(data.SequenceNumber)
-              : setcard(data.ProfileId);
-            checkNickName = true;
-            return checkNickName;
-          }
-        })
+            if (data.Nickname === defaultBank) {
+              type === "ACH"
+                ? setcard(data.SequenceNumber)
+                : setcard(data.ProfileId)
+              checkNickName = true;
+              return checkNickName;
+            }
+          })
         : setcard("")
-      : setcard("");
+      : setcard("")
     return checkNickName;
   }
-
   //Enable auto payment
   async function enableAutoPayment(
     enableAutoPayAccountNo,
@@ -625,8 +624,10 @@ export default function MakePayment(props) {
   };
 
   const disableFuturePayment = () => {
-    if ((checkCard && defaultPaymentCard) || (checkCard && !defaultPaymentCard)) return true;
-    if ((!checkCard && !defaultPaymentCard) || (!checkCard && defaultPaymentCard)) return false;
+   if((checkCard && defaultPaymentCard) || (checkCard && !defaultPaymentCard)){ 
+     return true;
+   } 
+   return false;
   };
 
   //Autopay enable/disable switch
