@@ -24,18 +24,23 @@ import {
   upt_other_M_W_Thu
 } from "./WorkingHours";
 
+  //Date validation
+  const scheduleDateCall = new Date();
+  scheduleDateCall.setDate(scheduleDateCall.getDate() + 30);
+
 // yup validation
 const validationSchema = yup.object({
   appointmentDate: yup
-    .date(globalMessages.Enter_Appointment_Date)
+    .date(globalMessages.ValidDate)
     .nullable()
-    .required(globalMessages.Appointment_Date_Required),
+    .required(globalMessages.Appointment_Date_Required)
+    .typeError(globalMessages.ValidDate)
+    .max(scheduleDateCall,globalMessages.validCheckDate),
   callTime: yup
     .string(globalMessages.Enter_Appointment_Time)
     .nullable()
     .required(globalMessages.Appointment_Time_Required),
 });
-
 export default function ScheduleCall({ MyBranchCall, holidayData }) {
   //Material UI css class
   const classes = useStylesMyBranch();
@@ -43,14 +48,10 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
   //Branch details from API
   let branchDetail = MyBranchCall != null ? MyBranchCall : null;
 
-  //Date validation
-  const scheduleDateCall = new Date();
-  scheduleDateCall.setDate(scheduleDateCall.getDate() + 30);
-
   //US holidays
   function disableHolidays(appointmentDate) {
-    const holidayApiData = holidayData?.holidays;
-    const holidayApiDataValues = holidayApiData.map((arrVal) => {
+    const holidayApiData = holidayData?.holidays ?? [];
+    const holidayApiDataValues = holidayApiData?.map((arrVal) => {
       return new Date(arrVal + "T00:00").getTime();
     });
     return (
@@ -222,7 +223,8 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
                       helperText={ formik.touched.callTime && formik.errors.callTime }
                     /> }
                 </Grid>
-              ) : (
+              ) :
+              Moment(formik.values.appointmentDate).format("dddd") !== "Saturday" && Moment(formik.values.appointmentDate).format("dddd") !== "Sunday" ? (
                 <Grid>
                   { Moment(formik.values.appointmentDate).format("DD-MM-YYYY") ===
                     Moment(new Date()).format("DD-MM-YYYY")
@@ -251,7 +253,8 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
                       helperText={ formik.touched.callTime && formik.errors.callTime }
                     /> }
                 </Grid>
-              )
+              ) : <p className={ classes.branchClose }>Branch is closed, Please select a new day.</p>
+
             ) : Moment(formik.values.appointmentDate).format("dddd") === "Tuesday" ? (
               <Grid>
                 { Moment(formik.values.appointmentDate).format("DD-MM-YYYY") ===
@@ -310,7 +313,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
                     helperText={ formik.touched.callTime && formik.errors.callTime }
                   /> }
               </Grid>
-            ) : (
+            ) : Moment(formik.values.appointmentDate).format("dddd") !== "Saturday" && Moment(formik.values.appointmentDate).format("dddd") !== "Sunday" ? (
               <Grid>
                 { Moment(formik.values.appointmentDate).format("DD-MM-YYYY") ===
                   Moment(new Date()).format("DD-MM-YYYY")
@@ -340,7 +343,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
                     helperText={ formik.touched.callTime && formik.errors.callTime }
                   /> }
               </Grid>
-            ) }
+            )  : <p className={ classes.branchClose }>Branch is closed, Please select a new day.</p>  }
           </DialogContent>
 
           <DialogActions style={ { justifyContent: "center" } }>

@@ -216,6 +216,8 @@
   "validAccountNumber": "Account numbers must be between 4 and 17 digits",
   "validBankRoutingNumber": "Bank Routing Number Should be 9 digit",
   "Valid_Card": "We only accept Visa or Master card",
+  "ValidDate" : "Please enter a valid date",
+  "validCheckDate" : "Please check your date", 
   "validEmail": "Enter valid Email Address",
   "Valid_Expiry_Date": "Enter a valid date (format : MM/YY)",
   "validPassword": "Enter valid password",
