@@ -125,6 +125,8 @@ export default function MakePayment(props) {
     if (payments?.data?.error) {
       if (!toast.isActive("closedApplication")) {
         toast.error("Error retrieving loan information -- Account is Closed");
+        setLoading(false);
+        setshowCircularProgress(false);
       }
     } else {
       //get default card
@@ -568,7 +570,7 @@ export default function MakePayment(props) {
   const paymentOptions =
     paymentListAch != null
       ? JSON.stringify(paymentListAch.concat(paymentListCard))
-      : null;
+      : "[]";
 
   //Storing the routingNumber,refNumber and SchedulePayments details
   let hasSchedulePayment =
