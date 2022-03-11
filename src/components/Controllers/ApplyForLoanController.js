@@ -1,10 +1,9 @@
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
+import globalMessages from "../../assets/data/globalMessages.json";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
 import messages from "../lib/Lang/applyForLoan.json";
-import globalMessages from "../../assets/data/globalMessages.json"
-
 
 /***** Get Available offer details *****/
 export async function fetchAvailableOffers() {

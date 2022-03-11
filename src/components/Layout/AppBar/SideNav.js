@@ -151,11 +151,6 @@ const useStyles = makeStyles((theme) => ({
   },
   headerimg: {
   },
-  headerimgResp: {
-    "@media (max-width: 700px)": {
-      width: "25px",
-    },
-  },
 
   sectionMobile: {
     display: "flex",
@@ -540,6 +535,7 @@ export default function SideNav() {
               <Notification />
 
               <IconButton
+                className="noPaddingIcon"
                 edge="end"
                 aria-label="account of current user"
                 aria-haspopup="true"
@@ -571,7 +567,7 @@ export default function SideNav() {
             onMouseLeave={ handleDrawerleave }
           >
             <div className={ classes.toolbar }>
-              <a href={`${process.env.REACT_APP_WEBSITE}`}  target="_blank" rel="noreferrer">
+              <a href={ `${ process.env.REACT_APP_WEBSITE }` } target="_blank" rel="noreferrer">
                 <input
                   type="image"
                   src={ logoImage }
@@ -709,7 +705,7 @@ export default function SideNav() {
                 </NavLink>
 
                 <NavLink id="mybranchNav" to="/customers/myBranch" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : 'nav_link' }>
-                  <ListItem className="titleSidenav" disabled={ checkPresenceOfLoanStatus === "referred" || checkPresenceOfLoanStatus === "contact_branch"? false : activeLoanData}>
+                  <ListItem className="titleSidenav" disabled={ checkPresenceOfLoanStatus === "referred" || checkPresenceOfLoanStatus === "contact_branch" ? false : activeLoanData }>
                     <ListItemIcon>
                       { " " }
                       <AccountBalanceIcon />{ " " }

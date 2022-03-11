@@ -110,3 +110,8 @@
       padding-bottom: 15px !important;
     }
  }
+ @media only screen and (max-width: 360px) {
+   .feefoBadgeWrap img{
+      width: 100% !important;
+   }
+ }

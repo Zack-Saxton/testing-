@@ -131,7 +131,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
     year: 'numeric',
     month: '2-digit',
     day: '2-digit',
-    };
+  };
 
   //View part
   return (
@@ -165,7 +165,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
             Schedule a Call
           </Typography>
           <Typography className="endDate">
-          You have until <span> {scheduleDateCall.toLocaleDateString('en-us',dateFormatOption)} </span>to schedule Date & Time for your appointment
+            You have until <span> { scheduleDateCall.toLocaleDateString('en-us', dateFormatOption) } </span>to schedule Date & Time for your appointment
           </Typography>
         </DialogTitle>
         <form id="formCall" onSubmit={ formik.handleSubmit }>
@@ -184,7 +184,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
                 value={ formik.values.appointmentDate }
                 onChange={ (values) => {
                   formik.setFieldValue("appointmentDate", values);
-                  formik.setFieldValue("callTime","" )
+                  formik.setFieldValue("callTime", "");
                 } }
                 onBlur={ formik.handleBlur }
                 error={ formik.touched.appointmentDate && Boolean(formik.errors.appointmentDate) }

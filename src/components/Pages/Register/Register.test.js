@@ -5,7 +5,7 @@ import { Router } from "react-router-dom";
 import Register from "./Register";
 
 test("Checks the title of the page", () => {
-	
+
 	render(
 		<Router history={ history }>
 			<Register />
@@ -16,7 +16,6 @@ test("Checks the title of the page", () => {
 });
 
 test("Checks the subtitle of the page", () => {
-	
 
 	render(
 		<Router history={ history }>
@@ -28,7 +27,6 @@ test("Checks the subtitle of the page", () => {
 });
 
 test("Textbox Firstname", () => {
-	
 
 	render(
 		<Router history={ history }>
@@ -41,7 +39,6 @@ test("Textbox Firstname", () => {
 });
 
 test("Invalid Firstname", () => {
-	
 
 	render(
 		<Router history={ history }>
@@ -57,7 +54,6 @@ test("Invalid Firstname", () => {
 });
 
 test("Textbox Lastname", () => {
-	
 
 	render(
 		<Router history={ history }>
@@ -70,7 +66,6 @@ test("Textbox Lastname", () => {
 });
 
 test("Invalid Lastname", () => {
-	
 
 	render(
 		<Router history={ history }>
@@ -86,7 +81,6 @@ test("Invalid Lastname", () => {
 });
 
 test("Render email", () => {
-	
 
 	render(
 		<Router history={ history }>
@@ -99,7 +93,6 @@ test("Render email", () => {
 });
 
 test("pass valid email to test email input field", () => {
-	
 
 	render(
 		<Router history={ history }>
@@ -116,7 +109,6 @@ test("pass valid email to test email input field", () => {
 });
 
 test("pass invalid email to test input value", () => {
-	
 
 	render(
 		<Router history={ history }>
@@ -134,7 +126,6 @@ test("pass invalid email to test input value", () => {
 });
 
 test("Zipcode availability test", () => {
-	
 
 	render(
 		<Router history={ history }>
@@ -148,7 +139,6 @@ test("Zipcode availability test", () => {
 });
 
 test("Zipcode Input test", () => {
-	
 
 	render(
 		<Router history={ history }>
@@ -161,7 +151,6 @@ test("Zipcode Input test", () => {
 });
 
 test("Get only numeric value for zipcode", () => {
-	
 
 	render(
 		<Router history={ history }>
@@ -176,7 +165,6 @@ test("Get only numeric value for zipcode", () => {
 });
 
 it("zipcode should be 5 digits", () => {
-	
 
 	render(
 		<Router history={ history }>
@@ -188,7 +176,6 @@ it("zipcode should be 5 digits", () => {
 });
 
 test("Render Date of birth", () => {
-	
 
 	render(
 		<Router history={ history }>
@@ -202,7 +189,6 @@ test("Render Date of birth", () => {
 });
 
 test("Render password", () => {
-	
 
 	render(
 		<Router history={ history }>
@@ -218,7 +204,6 @@ test("Render password", () => {
 });
 
 test("Render confirm  password", () => {
-	
 
 	render(
 		<Router history={ history }>
@@ -232,7 +217,6 @@ test("Render confirm  password", () => {
 });
 
 test("button Availability", () => {
-	
 
 	render(
 		<Router history={ history }>
@@ -245,7 +229,6 @@ test("button Availability", () => {
 });
 
 test("Button Onclick", () => {
-	
 
 	render(
 		<Router history={ history }>

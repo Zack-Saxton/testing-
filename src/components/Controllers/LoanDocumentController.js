@@ -1,10 +1,9 @@
 import Buffer from "buffer";
 import printJS from "print-js";
 import { toast } from "react-toastify";
+import globalMessages from "../../assets/data/globalMessages.json";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
-import globalMessages from "../../assets/data/globalMessages.json"
-
 
 /***** Get loan document *****/
 export async function loanDocumentController(accNo) {
