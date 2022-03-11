@@ -105,7 +105,7 @@ export default function MakePayment(props) {
 
   useEffect(() => {
     if (payments?.data?.paymentOptions) {
-      payments?.data?.paymentOptions[0]?.CardType
+      payments.data.paymentOptions.length && payments.data.paymentOptions[0].CardType
         ? setCheckCard(true)
         : setCheckCard(false);
     }
@@ -422,8 +422,9 @@ export default function MakePayment(props) {
       }
     } else {
       let schedulePaymentAmount = activeLoansData?.length
-        ? activeLoansData[0]?.loanPaymentInformation?.scheduledPayments[0]
-            ?.PaymentAmount
+        ? activeLoansData[0]?.loanPaymentInformation?.scheduledPayments?.length
+        ? activeLoansData[0].loanPaymentInformation.scheduledPayments[0]?.PaymentAmount
+        : 0
         : 0;
       setlatestLoanData(activeLoansData?.slice(0, 1) ?? null);
       let latestLoan = activeLoansData?.slice(0, 1) ?? null;
@@ -506,7 +507,7 @@ export default function MakePayment(props) {
       let scheduledDate = latestLoan?.length
         ? latestLoan[0]?.loanPaymentInformation?.hasScheduledPayment
           ? Moment(
-              latestLoan[0]?.loanPaymentInformation?.scheduledPayments[0]
+              latestLoan[0].loanPaymentInformation.scheduledPayments[0]
                 ?.PaymentDate
             ).format("MM/DD/YYYY")
           : null
@@ -578,8 +579,8 @@ export default function MakePayment(props) {
       : false;
   let routingNumber =
     latestLoanData != null
-      ? latestLoanData[0]?.loanPaymentInformation?.scheduledPayments
-        ? latestLoanData[0]?.loanPaymentInformation?.scheduledPayments[0]
+      ? latestLoanData[0]?.loanPaymentInformation?.scheduledPayments.length
+        ? latestLoanData[0].loanPaymentInformation.scheduledPayments[0]
             ?.PaymentMethod?.AchInfo != null
           ? latestLoanData[0].loanPaymentInformation.scheduledPayments[0]
               .PaymentMethod.AchInfo.RoutingNumber
@@ -588,8 +589,8 @@ export default function MakePayment(props) {
       : 0;
   let refNumber =
     latestLoanData != null
-      ? latestLoanData[0]?.loanPaymentInformation?.scheduledPayments
-        ? latestLoanData[0]?.loanPaymentInformation?.scheduledPayments[0]
+      ? latestLoanData[0]?.loanPaymentInformation?.scheduledPayments.length
+        ? latestLoanData[0].loanPaymentInformation.scheduledPayments[0]
             ?.ReferenceNumber != null
           ? latestLoanData[0].loanPaymentInformation.scheduledPayments[0]
               .ReferenceNumber
@@ -598,8 +599,8 @@ export default function MakePayment(props) {
       : 0;
   let isCard =
     latestLoanData != null
-      ? latestLoanData[0]?.loanPaymentInformation?.scheduledPayments
-        ? latestLoanData[0]?.loanPaymentInformation?.scheduledPayments[0]
+      ? latestLoanData[0]?.loanPaymentInformation?.scheduledPayments.length
+        ? latestLoanData[0].loanPaymentInformation.scheduledPayments[0]
             ?.PaymentMethod?.IsCard === true
           ? latestLoanData[0].loanPaymentInformation.scheduledPayments[0]
               .PaymentMethod.IsCard
@@ -777,9 +778,11 @@ export default function MakePayment(props) {
     }).format(value);
   //US holidays
   function disableHolidays(date) {
-    const holidayApiData = holidayCalenderData?.data.MFYearHolidays.map(
-      ({ Date }) => formatDate(Date)
-    );
+    const holidayApiData = holidayCalenderData
+      ? holidayCalenderData.data.MFYearHolidays.map(({ Date }) =>
+          formatDate(Date)
+        )
+      : [];
     const holidayApiDataValues = holidayApiData.map((arrVal) => {
       return new Date(arrVal + "T00:00").getTime();
     });
