@@ -151,11 +151,6 @@ const useStyles = makeStyles((theme) => ({
   },
   headerimg: {
   },
-  headerimgResp: {
-    "@media (max-width: 700px)": {
-      width: "25px",
-    },
-  },
 
   sectionMobile: {
     display: "flex",
@@ -538,6 +533,7 @@ export default function SideNav() {
               <Notification />
 
               <IconButton
+                className="noPaddingIcon"
                 edge="end"
                 aria-label="account of current user"
                 aria-haspopup="true"

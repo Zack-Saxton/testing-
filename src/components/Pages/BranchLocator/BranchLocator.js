@@ -388,11 +388,11 @@ export default function BranchLocator() {
         </div>
       ) : (
         <Grid
-          id="branchLists"
+          id="branchLocatorLists"
           style={ { width: "100%", height: "450px", overflowY: "scroll" } }
         >
           <Grid
-            className="addressList"
+            className="branchLocatorAddressList"
           >
             { getBranchList ? (
               getBranchList.map((item, index) => {
