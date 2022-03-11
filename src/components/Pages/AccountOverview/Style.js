@@ -121,6 +121,7 @@ const useStylesAccountOverview = makeStyles((theme) => ({
     fontSize: 22,
     fontWeight: 400,
     textDecoration: "none",
+    paddingBottom: "15px"
   },
   cardContent: {
     color: "#171717",
