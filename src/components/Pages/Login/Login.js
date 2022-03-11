@@ -126,7 +126,6 @@ export default function Login(props) {
   const [ loading, setLoading ] = useState(false);
   const [ cacTerms, setCacTerms ] = useState(false);
   const [ counter, setCounter ] = useState(0);
-  // const [ remMe, setRemMe ] = useState(false);
   const [ openDeleteSchedule, setopenDeleteSchedule ] = useState(false);
   const queryClient = useQueryClient();
   let location = useLocation();
