@@ -793,6 +793,9 @@ export default function MakePayment(props) {
         User.data.activeLoans[ 0 ].loanPaymentInformation.accountDetails
           .CurrentPayOffAmount <= parseFloat(price)
       ) {
+        if (!toast.isActive("payoffNotSetFutureDate")) {
+          toast.success(globalMessages.PayoffCannotBeInFuture, { toastId: "payoffNotSetFutureDate" })
+        }
         setpaymentDatepicker(Moment().format("MM/DD/YYYY"));
         setPayoff(true);
       } else {

@@ -145,7 +145,7 @@ export default function Login(props) {
   const formik = useFormik({
     initialValues: {
       email: remMeData?.email ?? '',
-      password: remMeData?.password ?? ''
+      password: ''
     },
     validationSchema: validationSchema,
     // On login submit
@@ -183,7 +183,7 @@ export default function Login(props) {
         Cookies.set("login_date", login_date);
         Cookies.set("userToken", retVal?.data?.user?.attributes?.UserToken);
         Cookies.set("temp_opted_phone_texting", "");
-        Cookies.set("rememberMe", encryptAES(remMe ? JSON.stringify({ selected: true, email: values.email, password: values.password }) : JSON.stringify({ selected: false, email: '', password: '' })) );
+        Cookies.set("rememberMe", encryptAES(remMe ? JSON.stringify({ selected: true, email: values.email}) : JSON.stringify({ selected: false, email: ''})) );
         queryClient.removeQueries();
         setLoading(false);
         if (retVal?.data?.user?.attributes?.password_reset) {
