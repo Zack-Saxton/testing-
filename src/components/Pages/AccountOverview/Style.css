@@ -226,7 +226,7 @@ centerHeading {
     margin-block-end: 15px;
   }
   #activeLoanGrid {
-    height: 100%;
+    /* height: 100%; */
   }
   #regularAmountGrid {
     margin-left: -10px;
