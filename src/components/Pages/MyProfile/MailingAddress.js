@@ -144,7 +144,7 @@ export default function MailingAddress(props) {
 
   function fetchAddressValidate(result) {
     try {
-      if (result.data) {
+      if (result.status === 200) {
         formik.setFieldValue("city", result?.data?.cityName);
         formik.setFieldValue("state", result?.data?.stateCode);
         setValidZip(true);

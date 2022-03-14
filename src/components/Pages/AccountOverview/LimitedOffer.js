@@ -137,6 +137,7 @@ export default function LimitedOffer(userOfferData) {
       </Grid>
 
       <Dialog maxWidth="lg" open={initModal}>
+        <DialogContent className="dialogContentWrap">
         <IconButton
           id="debitCardDialogClose"
           aria-label="close"
@@ -144,8 +145,6 @@ export default function LimitedOffer(userOfferData) {
         >
           <CloseIcon />
         </IconButton>
-        
-        <DialogContent>
         <Grid className="popupHeading">
           <h2>The money you need, when you need it!</h2>
           <h4>When life happens, we have your back*</h4>

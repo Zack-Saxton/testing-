@@ -17,7 +17,7 @@ import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import LogoutController from "../../Controllers/LogoutController";
 import { basicInformation, uploadNewProfileImage } from "../../Controllers/MyProfileController";
 import ProfileImageController from "../../Controllers/ProfileImageController";
-import { ButtonPrimary, ButtonSecondary, EmailTextField, PhoneNumber, TextField } from "../../FormsUI";
+import { ButtonPrimary, ButtonSecondary, EmailTextField,TextField } from "../../FormsUI";
 import ErrorLogger from '../../lib/ErrorLogger';
 import "./Style.css";
 
@@ -34,8 +34,8 @@ const validationSchema = yup.object({
     .string(globalMessages.PhoneEnter)
     .required(globalMessages.PhoneRequired)
     .transform((value) => value.replace(/[^\d]/g, ""))
-    .matches(/^[1-9]{1}\d{2}\d{3}\d{4}$/, globalMessages.PhoneValid)
-    .matches(/^(\d)(?!\1+$)\d{9}$/, globalMessages.PhoneValid)
+     .matches(/^[1-9]{1}\d{2}\d{3}\d{4}$/, globalMessages.PhoneValid)
+     .matches(/^(\d)(?!\1+$)\d{9}$/, globalMessages.PhoneValid)
     .min(10, globalMessages.PhoneMin),
 });
 
@@ -98,7 +98,7 @@ export default function BasicInformation(props) {
     enableReinitialize: true,
     initialValues: {
       email: basicInfo?.email ?? "",
-      phone: basicInfo?.phone_number_primary ? phoneNumberMask(basicInfo.phone_number_primary) : "",
+      phone: basicInfo?.phone_number_primary ?? "",
     },
     validationSchema: validationSchema,
 
@@ -374,19 +374,22 @@ export default function BasicInformation(props) {
             direction="row"
             id={ disableField ? "basicPhoneNumber" : "profilePhoneNumberWrap" }
           >
-            <PhoneNumber
-              name="phone"
-              label="Primary Phone Number"
-              placeholder="Enter your phone number"
-              id="phone"
-              disabled={ !disableField }
-              onKeyDown={ preventSpace }
-              value={ formik.values.phone }
-              onChange={ formik.handleChange }
-              onBlur={ formik.handleBlur }
-              error={ formik.touched.phone && Boolean(formik.errors.phone) }
-              helperText={ formik.touched.phone && formik.errors.phone }
-            />
+            <TextField
+                        name="phone"
+                        label="Primary Phone Number"
+                        placeholder="Enter your phone number"
+                        id="phone"
+                        type="text"
+                        materialProps={ { maxLength: "14" } }
+                        onKeyDown={ preventSpace }
+                        onBlur={ formik.handleBlur }
+                        value={ formik.values.phone ? phoneNumberMask(formik.values.phone) : "" }
+                        onChange={ formik.handleChange }
+                        error={ formik.touched.phone && Boolean(formik.errors.phone) }
+                        helperText={ formik.touched.phone && formik.errors.phone }
+                        disabled={ !disableField }
+              
+                      />
           </Grid>
 
           <Grid container direction="row">
