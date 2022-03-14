@@ -10,7 +10,7 @@ function BranchLocatorMap(props) {
     : { lat: 39.3697028, lng: -76.4635839 };
   let zoomValue = props.CurrentLocation ? 7 : 6;
   let ZoomDepth = props.Zoom ? props.Zoom : 5;
-  const mapContainerStyle = { height: "90%", width: "90%" };
+  const mapContainerStyle = { height: "100%", width: "100%" };
   const options = {
     styles: mapStyles[ 3 ],
     disableDefaultUI: true,

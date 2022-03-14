@@ -15,7 +15,7 @@ import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import PhoneIcon from "@material-ui/icons/Phone";
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
   branch_hours,
