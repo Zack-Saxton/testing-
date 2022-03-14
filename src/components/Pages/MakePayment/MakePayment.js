@@ -629,8 +629,8 @@ export default function MakePayment(props) {
       }
     } else {
       setisDebit(true);
+      setCheckCard(true);
       setPayoff(true);
-      console.log("test4",payoff);
       setpaymentDatepicker(new Date());
     }
     //true
@@ -809,10 +809,8 @@ export default function MakePayment(props) {
         }
         setpaymentDatepicker(Moment().format("MM/DD/YYYY"));
         setPayoff(true);
-        console.log("813 true");
         setisPayoffSet(true);
       } else {
-        console.log("816 false");
         setPayoff(false);
       }
     }
