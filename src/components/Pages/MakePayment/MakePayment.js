@@ -124,7 +124,7 @@ export default function MakePayment(props) {
     setpaymentMethod(payments);
     if (payments?.data?.error) {
       if (!toast.isActive("closedApplication")) {
-        toast.error("Error retrieving loan information -- Account is Closed");
+        toast.error("Error retrieving loan information -- Account is Closed", { toastId: "closedApplication" });
         setLoading(false);
         setshowCircularProgress(false);
       }
