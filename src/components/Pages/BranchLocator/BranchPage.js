@@ -199,19 +199,19 @@ export default function StatePage(props) {
             className="breadcrumbLink"
             onClick={ () => window.open(`/branch-locator/`, "_self") }
           >
-            Branch Locator
+            Find a branch
           </Link>
           <Link
             className="breadcrumbLink"
             onClick={() => {
-              navigate(`/branch-locator/personal-loans-in-${StateFullName.toLowerCase()}`,
+              navigate(`/branch-locator/${StateFullName.toLowerCase()}/`,
                 { state: { value: StateFullName } });
             }}
           >
             { StateFullName ?? "" }
           </Link>
           <Link className="breadcrumbLink">
-            Your { Branch_Details.BranchName }, { getStateName } Branch
+            { Branch_Details.BranchName }
           </Link>
         </Breadcrumbs>
         <Grid className="blueBoxWrap">
@@ -318,7 +318,7 @@ export default function StatePage(props) {
             return (
               <Grid key={ index } className="locationInfo">
                 <NavLink
-                  to={ `/branchlocator/[${ MFStates[
+                  to={ `/branchlocator/${ MFStates[
                     MFStateShort.indexOf(
                       item.Address.substring(
                         item.Address.length - 8,
@@ -326,7 +326,7 @@ export default function StatePage(props) {
                       ).substring(0, 2)
                     )
                   ].toLowerCase()
-                    }]-personal-loans-in-${ item.BranchName.toLowerCase()
+                    }/personal-loans-in-${ item.BranchName.toLowerCase()
                     }-${ item.Address.substring(
                       item.Address.length - 8,
                       item.Address.length
