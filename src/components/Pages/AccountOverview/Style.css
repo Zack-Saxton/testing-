@@ -106,10 +106,13 @@ centerHeading {
   margin: 0;
   margin-bottom: 5px;
 }
+.dialogContentWrap{
+  position: relative;
+}
 #debitCardDialogClose{
   position: absolute;
-  right: 15px;
-  top: 5px;
+  right: 0px;
+  top: 0px;
 }
 
 .para{
@@ -203,7 +206,7 @@ centerHeading {
   }
   #debitCardDialogClose{
     right: 1px;
-    top: 2px;
+    top: 0px;
   }
   .popupHeading{
     padding: 33px 0px 20px 0px !important;
