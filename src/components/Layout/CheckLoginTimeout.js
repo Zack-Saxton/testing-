@@ -4,7 +4,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Typography from "@material-ui/core/Typography";
 import Cookies from "js-cookie";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useIdleTimer } from "react-idle-timer";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -21,20 +21,11 @@ const CheckLoginTimeout = () => {
   const expiryMinute = process.env.REACT_APP_SESSION_EXPIRY_MINUTES;
   const tokenString = Cookies.get("token") ? Cookies.get("token") : "{ }";
   const userToken = JSON.parse(tokenString);
-  var min = expiryMinute;
-  var actualSetupTime = userToken?.setupTime ?? 0;
-  var nowTime = new Date().getTime();
-  const [ openPopUp, setOpenPopUp ] = useState(false);
-  const [ seconds, setSeconds ] = useState(0);
-  const [ minutes, setMinutes ] = useState(2);
-  const [ timerID, setTimerID ] = useState();
-  let secondsTemp = 0;
-  let minutesTemp = 2;
-  let timer;
-
-  const handleClosePopUp = () => {
-    setOpenPopUp(false);
-  };
+  let min = expiryMinute;
+  let actualSetupTime = userToken?.setupTime ?? 0;
+  let nowTime = new Date().getTime();
+  const [openPopUp, setOpenPopUp] = useState(false);
+  const [logOutTimer, setLogOutTimer] = useState();
 
   const backgroundLogin = async () => {
     const cred = JSON.parse(
@@ -91,82 +82,84 @@ const CheckLoginTimeout = () => {
     }
     return true;
   };
-  const handleOnIdle = (event) => {
-    setOpenPopUp(true);
-    timer = setInterval(() => {
-      handleTimer();
-    }, 1000);
-    setTimerID(timer);
-  };
-  const handleOnIdleLogout = (event) => {
-    LogoutController();
-    Cookies.set("redirec", JSON.stringify({ to: "/select-amount" }));
-    navigate("/login");
-    toast.success(globalMessages.LoggedOut);
+
+  const handleClosePopUp = () => {
+    reset();
+    setOpenPopUp(false);
   };
 
-  const handleTimer = () => {
-    if (secondsTemp === 0 && minutesTemp === 0) {
-      clearInterval(timer);
-      handleOnIdleLogout();
-    } else {
-      if (secondsTemp === 0) {
-        minutesTemp = minutesTemp - 1;
-        secondsTemp = 59;
-      } else {
-        secondsTemp = secondsTemp - 1;
-      }
-    }
-    setSeconds(secondsTemp);
-    setMinutes(minutesTemp);
+  const handleOnIdleLogout = (event) => {
+    LogoutController();
+    toast.success(globalMessages.LoggedOut);
+    Cookies.set("redirec", JSON.stringify({ to: "/select-amount" }));
+    navigate("/login");
   };
 
   const handleOnAction = (event) => {
-    setOpenPopUp(false);
-    clearInterval(timerID);
     nowTime = new Date().getTime();
     if (userToken?.isLoggedIn && nowTime - actualSetupTime > min * 60 * 1000) {
       backgroundLogin();
     }
   };
 
-  useIdleTimer({
+  function millisToMinutesAndSeconds(millis) {
+    let minutes = Math.floor(millis / 60000);
+    let seconds = ((millis % 60000) / 1000).toFixed(0);
+    return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+  }
+
+  const { reset, getRemainingTime: remTime } = useIdleTimer({
     timeout: 1000 * 60 * 5,
-    onIdle: handleOnIdle,
+    onIdle: () => {
+      setOpenPopUp(true);
+    },
+    events: ["click", "dblclick", "scroll", "keydown"],
     onAction: handleOnAction,
     debounce: 500,
   });
 
-  useIdleTimer({
+  useEffect(() => {
+    setLogOutTimer(remTimeToLogout());
+    const clearUpInterval = setInterval(() => {
+      setLogOutTimer(remTimeToLogout());
+    }, 1000);
+    return () => clearInterval(clearUpInterval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const { getRemainingTime: remTimeToLogout } = useIdleTimer({
     timeout: 1000 * 60 * 7,
+    events: ["click", "dblclick"],
     onIdle: handleOnIdleLogout,
     debounce: 500,
   });
+  console.log(millisToMinutesAndSeconds(remTime()));
   const loginToken = JSON.parse(
     Cookies.get("token") ? Cookies.get("token") : "{ }"
   );
 
   return (
     <div>
-      { loginToken.isLoggedIn === true ? (
+      {loginToken.isLoggedIn === true ? (
         <>
           <Dialog
-            onClose={ handleClosePopUp }
+            onClose={handleClosePopUp}
             aria-labelledby="customized-dialog-title"
             maxWidth="xs"
-            open={ openPopUp }
+            open={openPopUp}
           >
             <div id="printableArea">
               <DialogTitle
                 id="customized-dialog-title"
-                onClose={ handleClosePopUp }
+                onClose={handleClosePopUp}
               >
                 Alert
               </DialogTitle>
               <DialogContent dividers>
                 <Typography align="justify" gutterBottom>
                   You will be logged out due to inactivity. Press Ok to remain
-                  logged into the system { minutes } : { seconds }
+                  logged into the system{" "}
+                  <span>{millisToMinutesAndSeconds(logOutTimer)}</span>
                 </Typography>
                 <br />
               </DialogContent>
@@ -174,7 +167,7 @@ const CheckLoginTimeout = () => {
             <DialogActions className="modalAction">
               <ButtonPrimary
                 stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
-                onClick={ handleClosePopUp }
+                onClick={handleClosePopUp}
               >
                 <Typography align="center">Ok</Typography>
               </ButtonPrimary>
@@ -183,7 +176,7 @@ const CheckLoginTimeout = () => {
         </>
       ) : (
         <CheckLoginStatus />
-      ) }
+      )}
     </div>
   );
 };
