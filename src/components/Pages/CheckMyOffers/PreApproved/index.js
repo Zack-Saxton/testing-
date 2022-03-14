@@ -3,19 +3,28 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import setAccountDetails from "../../../Controllers/AccountOverviewController";
+import { useLocation, Link } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
 import { ButtonPrimary } from "../../../FormsUI";
 
+const useStyles = makeStyles((theme) => ({
+    offerAmountStyle: {
+        color: "#0F4EB3",
+        lineHeight: "110%",
+        fontFamily: "'Muli', sans-serif",
+        fontWeight: "400",
+        fontSize: "1.64rem",
+        marginTop: "5px",
+        marginBottom: "5px",
+    },
+}));
+
 const PreApproved = () => {
-
+    let location = useLocation();
+    const classes = useStyles();
     const [ offerAmount, setOfferAmount ] = useState("");
-
     useEffect(() => {
-        setAccountDetails().then((res) => {
-            setOfferAmount("$ " + (Math.round(parseInt(res?.data?.offerData?.offerAmount) * 100) / 100).toLocaleString());
-
-        });
+        setOfferAmount("$ " + (Math.round(parseInt(location.state.offerData[ 0 ].offerAmount) * 100) / 100).toLocaleString());
         return null;
     }, []);
 
@@ -73,7 +82,9 @@ const PreApproved = () => {
                                         <Typography align="center" style={ { color: "black", fontWeight: "400", fontFamily: "Muli, sans-serif" } }>
                                             &nbsp;We checked your offer code<br />
                                             and { "your'e" } eligible for at least,<br />
-                                            { offerAmount }<br />
+                                            </Typography>
+                                            <h2 className={classes.offerAmountStyle}>{ offerAmount }</h2>
+                                            <Typography align="center" style={ { color: "black", fontWeight: "400", fontFamily: "Muli, sans-serif" } }>
 
                                             and possibly more!
                                         </Typography>

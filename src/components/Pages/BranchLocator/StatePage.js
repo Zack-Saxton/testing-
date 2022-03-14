@@ -227,7 +227,7 @@ export default function StatePage() {
                 className="breadcrumbLink"
                 onClick={ () => window.open(`/branch-locator/`, "_self") }
               >
-                Branch Locator
+                Find a branch
               </Link>
               <Link className="breadcrumbLink">Personal Loans In {name}</Link>
             </Breadcrumbs>
@@ -498,7 +498,7 @@ export default function StatePage() {
                         return (
                           <Grid key={index} className="locationInfo" item lg={4} md={4} sm={6} xs={12}>
                             <NavLink
-                              to={`/branchlocator/[${
+                              to={`/branchlocator/${
                                 MFStates[
                                   MFStateShort.indexOf(
                                     item?.Address.substring(
@@ -507,7 +507,7 @@ export default function StatePage() {
                                     ).substring(0, 2)
                                   )
                               ].toLowerCase()
-                              }]-personal-loans-in-${
+                              }/personal-loans-in-${
                                 item?.BranchName.toLowerCase()
                               }-${item?.Address.substring(
                                 item?.Address.length - 8,
@@ -523,32 +523,6 @@ export default function StatePage() {
                               </b>
                               <ChevronRightIcon />
                             </NavLink>
-                            {/* <p className={clessesforptag.ptag}>
-                              {item?.distance}les away |{" "}
-                              {item?.BranchTime?.Value1}{" "}
-                              {item?.BranchTime?.Value2}
-                            </p>
-                            <p
-                              className={clessesforptag.addressFont}
-                              id={item?.id}
-                            >
-                              {item?.Address}
-                            </p> */}
-                            {/* <p className={clessesforptag.phoneNumber}>
-                              <PhoneIcon />
-                              <a
-                                href={"tel:+1" + item?.PhoneNumber}
-                                style={{ color: "#214476" }}
-                              >
-                                <b>
-                                  <h4 className={ clessesforptag.h4tag }>
-                                    { item?.BranchName } Branch
-                                  </h4>
-                                </b>
-                                <ChevronRightIcon />
-
-                              </a>
-                              </p> */}
                               <p className={ clessesforptag.ptag }>
                                 { item?.distance }les away |{ " " }
                                 { item?.BranchTime?.Value1 }{ " " }
