@@ -2,10 +2,12 @@ import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-import React, { useEffect, useState } from "react";
-import { useLocation, Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { ButtonPrimary } from "../../../FormsUI";
+import { CheckMyOffers as Check } from "../../../../contexts/CheckMyOffers";
+
 
 const useStyles = makeStyles((theme) => ({
     offerAmountStyle: {
@@ -21,10 +23,19 @@ const useStyles = makeStyles((theme) => ({
 
 const PreApproved = () => {
     let location = useLocation();
+    const navigate = useNavigate();
     const classes = useStyles();
+    const { data, setData } = useContext(Check);
     const [ offerAmount, setOfferAmount ] = useState("");
+    const onClickContinuepreApproved = () => {
+        data.loanAmount = parseInt(location?.state?.offerData[ 0 ]?.offerAmount);
+        data.formStatus = "started";
+        data.completedPage = data.page.selectAmount;
+        setData({ ...data, loanAmount: parseInt(location?.state?.offerData[ 0 ]?.offerAmount), loading: false });
+        navigate("/loan-purpose");
+    }
     useEffect(() => {
-        setOfferAmount("$ " + (Math.round(parseInt(location.state.offerData[ 0 ].offerAmount) * 100) / 100).toLocaleString());
+        setOfferAmount("$ " + (Math.round(parseInt(location?.state?.offerData[ 0 ]?.offerAmount) * 100) / 100).toLocaleString());
         return null;
     }, []);
 
@@ -113,19 +124,13 @@ const PreApproved = () => {
 
                                     <Grid item xs={ 11 } sm={ 10 } md={ 8 } lg={ 8 } xl={ 8 }>
                                         <Grid className="alignButton">
-                                            <Link
-                                                to={ {
-                                                    pathname: "/loan-purpose",
-                                                } }
-                                                style={ { textDecoration: "none" } }
-                                            >
                                                 <ButtonPrimary
                                                     stylebutton='{"background": "#FFBC23", "color":"black","fontSize":"15px","padding":"0px 30px"}'
+                                                    onClick={onClickContinuepreApproved}
                                                 >
                                                     Continue
                                                 </ButtonPrimary>
 
-                                            </Link>
                                         </Grid>
                                     </Grid>
 
