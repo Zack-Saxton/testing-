@@ -30,6 +30,9 @@ export default function PaymentOverview(paymentData, status) {
                         Regular Amount
                     </TableCell>
                     <TableCell className={ classes.tableHead } align="right">
+                        Interest
+                    </TableCell>
+                    <TableCell className={ classes.tableHead } align="right">
                         Loan Fees
                     </TableCell>
                     <TableCell className={ classes.tableHead } align="right">
@@ -78,6 +81,9 @@ export default function PaymentOverview(paymentData, status) {
                                 </TableCell>
                                 <TableCell style={ { fontWeight: "700" } } className={ classes.tableHeadRow } align="right">
                                     <NumberFormat value={ Math.abs(row.loanPaymentInformation.accountDetails.RegularPaymentAmount) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
+                                </TableCell>
+                                <TableCell style={ { fontWeight: "700" } } className={ classes.tableHeadRow } align="right">
+                                    <NumberFormat value={ Math.abs(row.loanPaymentInformation.accountDetails.InterestRate) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
                                 </TableCell>
                                 <TableCell style={ { fontWeight: "700" } } className={ classes.tableHeadRow } align="right">
                                     <NumberFormat value={ Math.abs(row.loanPaymentInformation.accountDetails.LoanFeesAndCharges) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
