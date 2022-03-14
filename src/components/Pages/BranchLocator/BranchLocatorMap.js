@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import React, { useCallback, useRef, useState } from "react";
 import icon from "../../../assets/icon/icon-google-map-marker.png";
 import mapStyles from "../../../contexts/mapStyles";
-
 function BranchLocatorMap(props) {
   const [ activeMarker, setActiveMarker ] = useState(null);
   let Current = props.CurrentLocation
@@ -59,9 +58,7 @@ function BranchLocatorMap(props) {
         center={ Current }
         zoom={ zoomValue }
         radius={ zoomValue * ZoomDepth * 2500 }
-        strokeOpacity={ 50 }
-        fillColor="#ADD8E6"
-        fillOpacity={ 0 }
+        options={{ fillColor: "#9aa8b3" }} 
       />
       <Marker position={ Current } zIndex={ 8 }></Marker>
       { props.getMap.map(({ id, BranchName, BranchAddress, BranchManager, Phone, Distance, position }) => (
@@ -77,7 +74,7 @@ function BranchLocatorMap(props) {
               <div>
                 <h3>{ BranchName } Branch</h3>
                 <p>Branch Manager: { BranchManager }</p>
-                <p>BranchAddress: { BranchAddress }</p>
+                <p>BranchAddress: {BranchAddress}</p>
                 <p>Phone: { Phone }</p>
                 <p>Distance: { Distance }les</p>
                 <p>Position: [Latitude:{ position.lat }, Longitude:{ position.lng }]</p>
