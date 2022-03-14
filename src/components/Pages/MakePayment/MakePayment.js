@@ -78,7 +78,7 @@ export default function MakePayment(props) {
   const [totalPaymentAmount, setTotalPaymentAmount] = useState(null);
   const [checkAutoPay, setcheckAutoPay] = useState(false);
   const [autopaySubmit, setAutopaySubmit] = useState(true);
-  const [scheduleDate, setscheduleDate] = useState(null);
+  const [scheduleDate, setscheduleDate] = useState(new Date());
   const [payoff, setPayoff] = useState(false);
   const [checkPaymentInformation, setCheckPaymentInformation] = useState(false);
   const [activeLoansData, setActiveLoansData] = useState([]);
@@ -387,8 +387,8 @@ export default function MakePayment(props) {
             ? Moment(
                 data?.loanPaymentInformation?.scheduledPayments[0]?.PaymentDate
               ).format("MM/DD/YYYY")
-            : null
-          : null;
+            : new Date()
+          : new Date();
         setpaymentDatepicker(defaultPaymentCard ? new Date() : scheduledDate);
         setscheduleDate(scheduledDate);
         setLoading(false);
@@ -512,8 +512,8 @@ export default function MakePayment(props) {
               latestLoan[0].loanPaymentInformation.scheduledPayments[0]
                 ?.PaymentDate
             ).format("MM/DD/YYYY")
-          : null
-        : null;
+          : new Date()
+        : new Date();
       setpaymentDatepicker(defaultPaymentCard ? new Date() : scheduledDate);
       setscheduleDate(scheduledDate);
       setLoading(false);
@@ -624,6 +624,7 @@ export default function MakePayment(props) {
     } else {
       setisDebit(true);
       setCheckCard(true);
+      setPayoff(true);
       setpaymentDatepicker(new Date());
     }
     //true
@@ -644,8 +645,6 @@ export default function MakePayment(props) {
   const handleSwitchPayment = (event) => {
     setAutopaySubmit(checkAutoPay === event.target.checked ? true : false);
     setdisabledContent(event.target.checked);
-    setpaymentAmount(event.target.checked ? totalPaymentAmount : paymentAmount);
-    setpaymentDatepicker(event.target.checked ? scheduleDate : new Date());
   };
 
   let accountInfo = {};
@@ -702,7 +701,6 @@ export default function MakePayment(props) {
   const handleDeleteScheduleClose = () => {
     setopenDeleteSchedule(false);
   };
-
   //Schedule Payment
   const handleSchedulePaymentClick = () => {
     if (card === "") {
@@ -717,6 +715,9 @@ export default function MakePayment(props) {
     } else if (paymentDatepicker === null) {
       document.getElementById("date").focus();
       setrequiredDate("Please select any date");
+    } else if (isDebit && Moment(paymentDatepicker).isAfter(Moment())) {
+    document.getElementById("date").focus();
+     setrequiredDate("For debit account, please select today's date");
     } else if (
       Moment(User.data.loanData[0].loanOriginationDate).isAfter(Moment())) {
       document.getElementById("payment").focus();
@@ -913,6 +914,9 @@ export default function MakePayment(props) {
                       {globalMessages.Regular_Amount}
                     </TableCell>
                     <TableCell className={classes.tableHead} align="left">
+                      {globalMessages.Interest}
+                    </TableCell>
+                    <TableCell className={classes.tableHead} align="left">
                       {globalMessages.Loan_Fees}
                     </TableCell>
                     <TableCell className={classes.tableHead} align="left">
@@ -1044,7 +1048,7 @@ export default function MakePayment(props) {
                             </p>
                             <p style={{ margin: "auto" }}>
                               <small style={{ color: "#575757" }}>
-                                Choose auto pay
+                                Choose auto pay to make payments of ${totalPaymentAmount} on your next due date
                               </small>
                             </p>
                             <FormControlLabel
@@ -1136,7 +1140,6 @@ export default function MakePayment(props) {
                                 placeholder="MM/DD/YYYY"
                                 id="date"
                                 disablePast
-                                disableFuture={disableFuturePayment()}
                                 disabled={payoff}
                                 autoComplete="off"
                                 maxdate={paymentMaxDate}
@@ -1151,7 +1154,7 @@ export default function MakePayment(props) {
                                   );
                                   setrequiredDate("");
                                 }}
-                                value={paymentDatepicker || new Date()}
+                                value={paymentDatepicker}
                               />
                               <p
                                 className={
@@ -1177,7 +1180,7 @@ export default function MakePayment(props) {
                                   onClick={handlePaymentcancel}
                                   disabled={!hasSchedulePayment}
                                 >
-                                  Cancel Payment
+                                  Cancel Future Payment
                                 </ButtonSecondary>
                               </Grid>
                               <Grid>
@@ -1396,6 +1399,26 @@ export default function MakePayment(props) {
                     align="left"
                   ></TableCell>
                 </TableRow>
+
+                { isDebit === true ? (
+                <TableRow>
+                <TableCell
+                  className={ classes.tableheadrow }
+                  align="left"
+                  width="20%"
+                ></TableCell>
+                <TableCell align="left">
+                  Third Party Convenience fee:
+                </TableCell>
+                <TableCell align="left">$2.50</TableCell>
+                <TableCell
+                  className={ classes.tableheadrow }
+                  align="left"
+                ></TableCell>
+              </TableRow>
+              ) : ""
+              }
+
                 <TableRow>
                   <TableCell
                     className={classes.tableheadrow}
