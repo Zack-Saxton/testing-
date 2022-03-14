@@ -80,6 +80,7 @@ export default function MakePayment(props) {
   const [autopaySubmit, setAutopaySubmit] = useState(true);
   const [scheduleDate, setscheduleDate] = useState(new Date());
   const [payoff, setPayoff] = useState(false);
+  const [isPayoffSet, setisPayoffSet] = useState(false);
   const [checkPaymentInformation, setCheckPaymentInformation] = useState(false);
   const [activeLoansData, setActiveLoansData] = useState([]);
   const [checkCard, setCheckCard] = useState(false);
@@ -621,24 +622,19 @@ export default function MakePayment(props) {
       setisDebit(false);
       setCheckCard(false);
       setpaymentDatepicker(scheduleDate);
+      if (isPayoffSet === true) {
+        setPayoff(true);
+      } else {
+        setPayoff(false);
+      }
     } else {
       setisDebit(true);
-      setCheckCard(true);
       setPayoff(true);
+      console.log("test4",payoff);
       setpaymentDatepicker(new Date());
     }
     //true
     setrequiredSelect("");
-  };
-
-  const disableFuturePayment = () => {
-    if (
-      (checkCard && defaultPaymentCard) ||
-      (checkCard && !defaultPaymentCard)
-    ) {
-      return true;
-    }
-    return false;
   };
 
   //Autopay enable/disable switch
@@ -813,7 +809,10 @@ export default function MakePayment(props) {
         }
         setpaymentDatepicker(Moment().format("MM/DD/YYYY"));
         setPayoff(true);
+        console.log("813 true");
+        setisPayoffSet(true);
       } else {
+        console.log("816 false");
         setPayoff(false);
       }
     }
