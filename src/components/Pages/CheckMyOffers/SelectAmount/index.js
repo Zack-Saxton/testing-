@@ -100,7 +100,7 @@ function CheckMyOffers(props) {
           }
         } else {
           toast.success(globalMessages.offerCode_Success);
-          navigate("/pre-approved");
+          navigate("/pre-approved", {state: res?.data});
         }
       }
     } catch (error) {
