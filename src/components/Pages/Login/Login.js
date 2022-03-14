@@ -4,6 +4,8 @@ import DialogActions from "@material-ui/core/DialogActions";
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import Paper from "@material-ui/core/Paper";
+import Switch from "@material-ui/core/Switch";
+import { FormControl, FormControlLabel } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
@@ -18,9 +20,11 @@ import LoginController from "../../Controllers/LoginController";
 import {
   ButtonPrimary,
   EmailTextField,
-  PasswordField
+  PasswordField, 
+  Popup, 
+  RenderContent
 } from "../../FormsUI";
-import { encryptAES } from "../../lib/Crypto";
+import { encryptAES, decryptAES } from "../../lib/Crypto";
 import { FormValidationRules } from "../../lib/FormValidationRule";
 import ScrollToTopOnMount from "../../Pages/ScrollToTop";
 import "./Login.css";
@@ -33,6 +37,15 @@ let addVal = moment_timezone().tz("America/New_York").isDST() ? 4 : 5;
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+  },
+  termsText :{
+    fontSize:"0.938rem",
+  },
+  linkDesign: {
+    color: "#0F4EB3",
+    cursor: "pointer",
+    fontSize: "0.938rem"
+
   },
   paper: {
     padding: "30px",
@@ -51,6 +64,7 @@ const useStyles = makeStyles((theme) => ({
     justify: "center",
   },
   checkbox: {
+    marginTop: "3%",
     textAlign: "initial",
     fontFamily: "'Muli', sans-serif !important",
   },
@@ -81,7 +95,7 @@ const useStyles = makeStyles((theme) => ({
   },
   loginButton: {
     textAlign: "center",
-    margin: "50px 0px 0px 0px",
+    margin: "5% 0 0 0",
   },
   emailGrid: {
     lineHeight: "2",
@@ -93,7 +107,7 @@ const useStyles = makeStyles((theme) => ({
   registerGrid: {
     textAlign: "center",
     width: "100%",
-    margin: "40px 0px 0px 0px",
+    margin: "5% 0px 0px 0px",
   },
   loginHelpDialogHeading: {
     fontSize: "25px",
@@ -112,6 +126,7 @@ export default function Login(props) {
   const navigate = useNavigate();
   const [ loginFailed, setLoginFailed ] = useState("");
   const [ loading, setLoading ] = useState(false);
+  const [ cacTerms, setCacTerms ] = useState(false);
   const [ counter, setCounter ] = useState(0);
   const [ openDeleteSchedule, setopenDeleteSchedule ] = useState(false);
   const queryClient = useQueryClient();
@@ -125,11 +140,14 @@ export default function Login(props) {
       return '127.0.0.1';
     }
   };
+  const remMeDataRaw = Cookies.get("rememberMe") ? Cookies.get("rememberMe") : null;
+  let remMeData = remMeDataRaw ? JSON.parse(decryptAES(remMeDataRaw)) : undefined;     
+  const [remMe, setRemMe] = useState(remMeData?.selected);
   //Form Submission
   const formik = useFormik({
     initialValues: {
-      email: "",
-      password: "",
+      email: remMeData?.email ?? '',
+      password: ''
     },
     validationSchema: validationSchema,
     // On login submit
@@ -167,6 +185,7 @@ export default function Login(props) {
         Cookies.set("login_date", login_date);
         Cookies.set("userToken", retVal?.data?.user?.attributes?.UserToken);
         Cookies.set("temp_opted_phone_texting", "");
+        Cookies.set("rememberMe", encryptAES(remMe ? JSON.stringify({ selected: true, email: values.email}) : JSON.stringify({ selected: false, email: ''})) );
         queryClient.removeQueries();
         setLoading(false);
         if (retVal?.data?.user?.attributes?.password_reset) {
@@ -208,6 +227,10 @@ export default function Login(props) {
     formik.handleChange(event);
   };
 
+  const handleRemMeChange = (event) => {
+    setRemMe(event.target.checked);
+  };
+
   //Preventing space key
   const preventSpace = (event) => {
     if (event.keyCode === 32) {
@@ -222,6 +245,13 @@ export default function Login(props) {
   const handlePaymentcancel = () => {
     setopenDeleteSchedule(true);
   };
+
+  const handleOnClickCacTerms = () => {
+		setCacTerms(true);
+	};
+	const handleOnClickCacTermsClose = () => {
+		setCacTerms(false);
+	};
 
   //View Part
   return (
@@ -321,6 +351,23 @@ export default function Login(props) {
                         Sign In help/Register for help signing in.
                       </p>
                     </Grid>
+                    <Grid className={classes.checkbox}>
+                    <FormControl>
+                      <FormControlLabel
+                        control={
+                          <Switch
+                            checked={ remMe }
+                            onChange={ handleRemMeChange }
+                            // value={ state }
+                            inputProps={ { "data-test-id": "switch" } }
+                            color="primary"
+                          />
+                        }
+                        // labelPlacement={ labelplacement }
+                        label=" Remember me" 
+                      />
+                    </FormControl>            
+                    </Grid>
 
                     <Grid item xs={ 12 } className={ classes.loginButton }>
                       <ButtonPrimary
@@ -338,6 +385,12 @@ export default function Login(props) {
                           } }
                         />
                       </ButtonPrimary>
+                    </Grid>
+                    <Grid className={ classes.registerGrid }>
+                      <Typography className={ classes.termsText }>
+                        By logging into the site, you agree to 
+                        <span className={ classes.linkDesign } onClick={ () => { handleOnClickCacTerms(); } }>{' '}CAC terms of use</span>
+                      </Typography>
                     </Grid>
                     <Grid className={ classes.registerGrid }>
                       <NavLink
@@ -385,7 +438,7 @@ export default function Login(props) {
             { " " }
             If you&apos;re a new user, click on
             <NavLink to="/register" style={ { textDecoration: "none" } }>
-              <span id="helpLogin">Sign in help/Register</span>
+              <span id="helpLogin"> Sign in help/Register </span>
             </NavLink>{ " " }
             option and enter your registration details.
           </li>
@@ -410,6 +463,9 @@ export default function Login(props) {
           </ButtonPrimary>
         </DialogActions>
       </Dialog>
+      <Popup popupFlag={ cacTerms } closePopup={ handleOnClickCacTermsClose }>
+				<RenderContent disclosureLink="/cacTermsOfUse" />
+			</Popup>
     </div>
   );
 }

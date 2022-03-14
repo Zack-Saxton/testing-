@@ -15,7 +15,7 @@ import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import PhoneIcon from "@material-ui/icons/Phone";
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
   branch_hours,
@@ -86,9 +86,7 @@ export default function StatePage(props) {
   const [ showDialog, setShowDialog ] = useState(false);
   let StateFullName = MFStates[ MFStateShort.indexOf(getStateName) ];
 
-  let params = useParams();
   //API call
-
   const getBranchLists = async (search_text) => {
     try {
       let result = await BranchLocatorController(search_text);
@@ -201,19 +199,19 @@ export default function StatePage(props) {
             className="breadcrumbLink"
             onClick={ () => window.open(`/branch-locator/`, "_self") }
           >
-            Branch Locator
+            Find a branch
           </Link>
           <Link
             className="breadcrumbLink"
-            onClick={ () => {
-              params.statename = StateFullName;
-              navigate(`/branch-locator/personal-loans-in-${ params.statename.toLowerCase() }`);
-            } }
+            onClick={() => {
+              navigate(`/branch-locator/${StateFullName.toLowerCase()}/`,
+                { state: { value: StateFullName } });
+            }}
           >
             { StateFullName ?? "" }
           </Link>
           <Link className="breadcrumbLink">
-            Your { Branch_Details.BranchName }, { getStateName } Branch
+            { Branch_Details.BranchName }
           </Link>
         </Breadcrumbs>
         <Grid className="blueBoxWrap">
@@ -320,7 +318,7 @@ export default function StatePage(props) {
             return (
               <Grid key={ index } className="locationInfo">
                 <NavLink
-                  to={ `/branchlocator/[${ MFStates[
+                  to={ `/branchlocator/${ MFStates[
                     MFStateShort.indexOf(
                       item.Address.substring(
                         item.Address.length - 8,
@@ -328,7 +326,7 @@ export default function StatePage(props) {
                       ).substring(0, 2)
                     )
                   ].toLowerCase()
-                    }]-personal-loans-in-${ item.BranchName.toLowerCase()
+                    }/personal-loans-in-${ item.BranchName.toLowerCase()
                     }-${ item.Address.substring(
                       item.Address.length - 8,
                       item.Address.length

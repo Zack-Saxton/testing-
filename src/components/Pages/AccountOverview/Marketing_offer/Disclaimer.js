@@ -76,7 +76,7 @@ export default function Disclaimer(offerData) {
     {
         "title": "Check Your Offers Without Affecting Your Credit", //7
         "index": 7,
-        "content": 'The online application process uses a "soft" credit inquiry, which does not impact your credit score, to determine whether a loan offer is available. If you continue with the application process and accept a loan offer, we will pull your credit report and credit score again using a "hard" credit inquiry. This "hard" credit inquiry may impact your credit score. Applying at your local branch will result in a “hard” credit inquiry that may impact your credit score.'
+        "content": ' The online application process uses a "soft" credit inquiry, which does not impact your credit score, to determine whether a loan offer is available. If you continue with the application process and accept a loan offer, we will pull your credit report and credit score again using a "hard" credit inquiry. This "hard" credit inquiry may impact your credit score. Applying at your local branch will result in a “hard” credit inquiry that may impact your credit score.'
     },
     {
         "title": "Credit Application", //8
@@ -126,7 +126,7 @@ export default function Disclaimer(offerData) {
                     return (
                         <Grid key={ disclaimer.index.toString() }>
                             <Typography className="common para">{ disclaimer.title }
-                                <p className="small">{ disclaimer.content }</p>
+                                <span className="small">{ disclaimer.content }</span>
                             </Typography>
                         </Grid>
                     );

@@ -146,8 +146,8 @@ export default function BranchLocator() {
   const MFButtonClick = (event) => {
     params.statename = event.target.innerText;
     apiGetBranchList(params.statename);
-    navigate(`/branch-locator/personal-loans-in-${params.statename.toLowerCase() }`,
-      { state: { value: params.statename }} );
+    navigate(`/branch-locator/${params.statename.toLowerCase()}/`,
+      { state: { value: params.statename } });
   };
   const findBranchTimings = async (value) => {
     try {
@@ -400,7 +400,7 @@ export default function BranchLocator() {
                   return (
                     <Grid key={ index } className="locationInfo">
                       <NavLink
-                        to={ `/branchlocator/[${ (MFStates[ MFStateShort.indexOf(item?.Address.substring(item?.Address.length - 8, item?.Address.length).substring(0, 2)) ]).toLocaleLowerCase() }]-personal-loans-in-${ item?.BranchName.toLocaleLowerCase() }-${ (item?.Address?.substring(item?.Address.length - 8, item?.Address.length).substring(0, 2)).toLocaleLowerCase() }` }
+                        to={ `/branchlocator/${ (MFStates[ MFStateShort.indexOf(item?.Address.substring(item?.Address.length - 8, item?.Address.length).substring(0, 2)) ]).toLocaleLowerCase() }/personal-loans-in-${ item?.BranchName.toLocaleLowerCase() }-${ (item?.Address?.substring(item?.Address.length - 8, item?.Address.length).substring(0, 2)).toLocaleLowerCase() }` }
                         state={ { Branch_Details: item } }
                         className="nav_link"
                       >
@@ -513,7 +513,7 @@ export default function BranchLocator() {
       >
         Home
       </Link>
-      <Link className="breadcrumbLink">Branch Locator</Link>
+      <Link className="breadcrumbLink">Find a branch</Link>
     </Breadcrumbs>
   );
   const BreadCrumsAndSearch1AndText = (

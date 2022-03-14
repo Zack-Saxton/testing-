@@ -160,18 +160,8 @@ a.nav_link:hover .MuiListItem-root {
   height: 100%;
 }
 #quickNameIcon{
-  position: fixed;
-  bottom: 45%;
-  right: 0%;
-  z-index: 10;
+  height: 64px;
 }
-#quickNameIcon img{
-      border-radius: 0 0 2px 2px;
-      -webkit-box-shadow: 0px 0px 10px 0px rgb(0 0 0 / 75%);
-      -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
-      box-shadow: 0px 0px 10px 0px rgb(0 0 0 / 75%);
-}
-
 #settingsMenu .MuiPopover-paper{
 top: 118px !important;
 }
@@ -198,7 +188,20 @@ top: 118px !important;
   padding: 0px 25px !important;
   height: 100%;
 }
-
+@media only screen and (max-width: 599px) {
+  #quickNameIcon{
+    position: fixed;
+    bottom: 45%;
+    right: 0%;
+    z-index: 10;
+  }
+  #quickNameIcon img{
+    border-radius: 0 0 2px 2px;
+    -webkit-box-shadow: 0px 0px 10px 0px rgb(0 0 0 / 75%);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 10px 0px rgb(0 0 0 / 75%);
+}
+}
 @media only screen and (max-width: 480px) {
   #MainHeaderWrapping {
     height: unset !important;
@@ -225,7 +228,6 @@ top: 118px !important;
     box-sizing: border-box;
     margin-right: 0px;
   }
-  
 }
 @media only screen and (max-width: 360px) {
   #toolbar{

@@ -1,3 +1,6 @@
 #customeDialogBox p {
-    text-align: justify;
+  text-align: justify;
+}
+.contentWrap div p a {
+  color: #214476  !important;
 }

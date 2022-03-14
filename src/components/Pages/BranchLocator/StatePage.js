@@ -80,7 +80,7 @@ export default function StatePage() {
   const [ address2, setAddress2 ] = React.useState("");
   const mapSection = useRef();
   let location = useLocation();
-  let name = location.state.value
+  let name = location.state.value;
   //API call
   const getBranchLists = async (search_text) => {
     try {
@@ -177,12 +177,12 @@ export default function StatePage() {
       <Helmet>
         <meta charSet="utf-8" />
         <title>
-          Personal Loans in { name } | Mariner Finance Branch | Discover More
+          Personal Loans in {name} | Mariner Finance Branch | Discover More
         </title>
         <link rel="icon" type="image/png" href={ TitleImage } sizes="16x16" />
         <meta
           name="description"
-          content={ `Looking for a personal loans in ${ name }?  Mariner Finance branch employees can help. Discover a ${ name } location today.` }
+          content={`Looking for a personal loans in ${name}?  Mariner Finance branch employees can help. Discover a ${name} location today.`}
         />
       </Helmet>
       <Grid
@@ -227,14 +227,14 @@ export default function StatePage() {
                 className="breadcrumbLink"
                 onClick={ () => window.open(`/branch-locator/`, "_self") }
               >
-                Branch Locator
+                Find a branch
               </Link>
-              <Link className="breadcrumbLink">Personal Loans In { name }</Link>
+              <Link className="breadcrumbLink">Personal Loans In {name}</Link>
             </Breadcrumbs>
             <Grid className="blueBoxWrap">
               <Grid id="findBranchWrapTwo">
-                <h4 className={ classes.headigText }>
-                  Personal Loans in <strong>{ name }</strong>
+                <h4 className={classes.headigText}>
+                  Personal Loans in <strong>{name}</strong>
                 </h4>
                 <Grid id="findBranchGrid">
                   <SearchIcon
@@ -498,7 +498,7 @@ export default function StatePage() {
                         return (
                           <Grid key={index} className="locationInfo" item lg={4} md={4} sm={6} xs={12}>
                             <NavLink
-                              to={`/branchlocator/[${
+                              to={`/branchlocator/${
                                 MFStates[
                                   MFStateShort.indexOf(
                                     item?.Address.substring(
@@ -507,7 +507,7 @@ export default function StatePage() {
                                     ).substring(0, 2)
                                   )
                               ].toLowerCase()
-                              }]-personal-loans-in-${
+                              }/personal-loans-in-${
                                 item?.BranchName.toLowerCase()
                               }-${item?.Address.substring(
                                 item?.Address.length - 8,
@@ -523,32 +523,6 @@ export default function StatePage() {
                               </b>
                               <ChevronRightIcon />
                             </NavLink>
-                            {/* <p className={clessesforptag.ptag}>
-                              {item?.distance}les away |{" "}
-                              {item?.BranchTime?.Value1}{" "}
-                              {item?.BranchTime?.Value2}
-                            </p>
-                            <p
-                              className={clessesforptag.addressFont}
-                              id={item?.id}
-                            >
-                              {item?.Address}
-                            </p> */}
-                            {/* <p className={clessesforptag.phoneNumber}>
-                              <PhoneIcon />
-                              <a
-                                href={"tel:+1" + item?.PhoneNumber}
-                                style={{ color: "#214476" }}
-                              >
-                                <b>
-                                  <h4 className={ clessesforptag.h4tag }>
-                                    { item?.BranchName } Branch
-                                  </h4>
-                                </b>
-                                <ChevronRightIcon />
-
-                              </a>
-                              </p> */}
                               <p className={ clessesforptag.ptag }>
                                 { item?.distance }les away |{ " " }
                                 { item?.BranchTime?.Value1 }{ " " }
