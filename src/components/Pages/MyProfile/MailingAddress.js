@@ -258,7 +258,7 @@ export default function MailingAddress(props) {
               label="Zip Code"
               materialProps={ { "data-test-id": "zipcode" } }
               disabled={ !disableField }
-              value={ basicInfo?.address_postal_code }
+              value={ formik.values.zip }
               onChange={ fetchAddress }
               onBlur={ formik.handleBlur }
               error={
