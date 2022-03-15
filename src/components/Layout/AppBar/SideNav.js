@@ -501,8 +501,8 @@ export default function SideNav() {
             >
               <Typography id="blogsLink" className={ classes.headerAlign }>
                 <a
-                 target="_blank"
-                  href={`${process.env.REACT_APP_WEBSITE}/blog/`}
+                  target="_blank"
+                  href={ `${ process.env.REACT_APP_WEBSITE }/blog/` }
                   className="hrefTag"
                   rel="noopener noreferrer"
                 >

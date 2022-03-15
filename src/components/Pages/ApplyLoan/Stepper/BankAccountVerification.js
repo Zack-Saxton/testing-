@@ -112,31 +112,31 @@ export default function BankAccountVerification(props) {
 				bank_name: values.bankInformation,
 				repayment: paymnetMode,
 			};
-			if(verifyRequired && !fileUploadSuccess){
+			if (verifyRequired && !fileUploadSuccess) {
 				toast.error("please upload the document");
 				props.setLoadingFlag(false);
 			}
-			else{
-			let res = await APICall("bank_information_cac", '', data, "POST", true);
-			if (res?.data?.bank_account_information && res?.data?.bank_account_verification) {
-				props.setLoadingFlag(false);
-				props.next();
-			} else if (res?.data?.bank_account_information || res?.data?.bank_account_verification) {
-				setError(
-					paymnetMode === "autopayment"
-						? messages?.bankAccountVerification?.notValid
-						: messages?.bankAccountVerification?.uploadCheck
-				);
-				setVerifyRequired(true);
-				props.setLoadingFlag(false);
-			} else if (res?.data?.bank_account_information === false || res?.data?.bank_account_verification === false) {
-				props.setLoadingFlag(false);
-				alert(messages?.bankAccountVerification?.notValid);
-			} else {
-				props.setLoadingFlag(false);
-				alert("Network Error");
+			else {
+				let res = await APICall("bank_information_cac", '', data, "POST", true);
+				if (res?.data?.bank_account_information && res?.data?.bank_account_verification) {
+					props.setLoadingFlag(false);
+					props.next();
+				} else if (res?.data?.bank_account_information || res?.data?.bank_account_verification) {
+					setError(
+						paymnetMode === "autopayment"
+							? messages?.bankAccountVerification?.notValid
+							: messages?.bankAccountVerification?.uploadCheck
+					);
+					setVerifyRequired(true);
+					props.setLoadingFlag(false);
+				} else if (res?.data?.bank_account_information === false || res?.data?.bank_account_verification === false) {
+					props.setLoadingFlag(false);
+					alert(messages?.bankAccountVerification?.notValid);
+				} else {
+					props.setLoadingFlag(false);
+					alert("Network Error");
+				}
 			}
-		}
 		},
 	});
 

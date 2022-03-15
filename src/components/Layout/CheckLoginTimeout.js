@@ -24,8 +24,8 @@ const CheckLoginTimeout = () => {
   let min = expiryMinute;
   let actualSetupTime = userToken?.setupTime ?? 0;
   let nowTime = new Date().getTime();
-  const [openPopUp, setOpenPopUp] = useState(false);
-  const [logOutTimer, setLogOutTimer] = useState();
+  const [ openPopUp, setOpenPopUp ] = useState(false);
+  const [ logOutTimer, setLogOutTimer ] = useState();
 
   const backgroundLogin = async () => {
     const cred = JSON.parse(
@@ -113,7 +113,7 @@ const CheckLoginTimeout = () => {
     onIdle: () => {
       setOpenPopUp(true);
     },
-    events: ["click", "dblclick", "scroll", "keydown"],
+    events: [ "click", "dblclick", "scroll", "keydown" ],
     onAction: handleOnAction,
     debounce: 500,
   });
@@ -129,37 +129,37 @@ const CheckLoginTimeout = () => {
 
   const { getRemainingTime: remTimeToLogout } = useIdleTimer({
     timeout: 1000 * 60 * 7,
-    events: ["click", "dblclick"],
+    events: [ "click", "dblclick" ],
     onIdle: handleOnIdleLogout,
     debounce: 500,
   });
-  
+
   const loginToken = JSON.parse(
     Cookies.get("token") ? Cookies.get("token") : "{ }"
   );
 
   return (
     <div>
-      {loginToken.isLoggedIn === true ? (
+      { loginToken.isLoggedIn === true ? (
         <>
           <Dialog
-            onClose={handleClosePopUp}
+            onClose={ handleClosePopUp }
             aria-labelledby="customized-dialog-title"
             maxWidth="xs"
-            open={openPopUp}
+            open={ openPopUp }
           >
             <div id="printableArea">
               <DialogTitle
                 id="customized-dialog-title"
-                onClose={handleClosePopUp}
+                onClose={ handleClosePopUp }
               >
                 Alert
               </DialogTitle>
               <DialogContent dividers>
                 <Typography align="justify" gutterBottom>
                   You will be logged out due to inactivity. Press Ok to remain
-                  logged into the system{" "}
-                  <span>{millisToMinutesAndSeconds(logOutTimer)}</span>
+                  logged into the system{ " " }
+                  <span>{ millisToMinutesAndSeconds(logOutTimer) }</span>
                 </Typography>
                 <br />
               </DialogContent>
@@ -167,7 +167,7 @@ const CheckLoginTimeout = () => {
             <DialogActions className="modalAction">
               <ButtonPrimary
                 stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
-                onClick={handleClosePopUp}
+                onClick={ handleClosePopUp }
               >
                 <Typography align="center">Ok</Typography>
               </ButtonPrimary>
@@ -176,7 +176,7 @@ const CheckLoginTimeout = () => {
         </>
       ) : (
         <CheckLoginStatus />
-      )}
+      ) }
     </div>
   );
 };

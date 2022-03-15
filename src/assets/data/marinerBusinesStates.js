@@ -92,4 +92,4 @@ export const howManyBranchesforBranchLocatorPages = {
     StatePage: 25,
     BranchPage: 3,
     stateBranchDistanceinMiles: 350
-}
+};

@@ -26,7 +26,6 @@ import {
   upt_other_M_W_Thu
 } from "./WorkingHours";
 
-
 //Date validation
 const scheduleAppointmentDate = new Date();
 scheduleAppointmentDate.setDate(scheduleAppointmentDate.getDate() + 30);
@@ -38,7 +37,7 @@ const validationSchema = yup.object({
     .nullable()
     .required(globalMessages.Appointment_Date_Required)
     .typeError(globalMessages.ValidDate)
-    .max(scheduleAppointmentDate,globalMessages.validCheckDate),
+    .max(scheduleAppointmentDate, globalMessages.validCheckDate),
 
   appointmentTime: yup
     .string(globalMessages.Enter_Appointment_Time)
@@ -124,7 +123,7 @@ export default function ScheduleAppointment({
     },
   });
 
-  const appointmentDay = ["Saturday","Sunday"]
+  const appointmentDay = [ "Saturday", "Sunday" ];
 
   //pop up open & close
   const handleScheduleAppointment = () => {
@@ -354,7 +353,7 @@ export default function ScheduleAppointment({
                     helperText={ formik.touched.appointmentTime && formik.errors.appointmentTime }
                   /> }
               </Grid>
-            ) : <p className={ classes.branchClose }>Branch is closed, Please select a new day.</p>}
+            ) : <p className={ classes.branchClose }>Branch is closed, Please select a new day.</p> }
           </DialogContent>
 
           <DialogActions style={ { justifyContent: "center" } }>

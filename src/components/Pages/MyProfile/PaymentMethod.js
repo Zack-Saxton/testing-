@@ -25,10 +25,10 @@ import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import PaymentIcon from "@material-ui/icons/Payment";
 import { useFormik } from "formik";
+import Moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
-import Moment from "moment";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import globalMessages from "../../../assets/data/globalMessages.json";
@@ -41,7 +41,7 @@ import {
   deleteBankAccount,
   deleteCreditCard,
   getPaymentMethods,
-  setDefaultPayment,
+  setDefaultPayment
 } from "../../Controllers/MyProfileController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
 import {
@@ -50,7 +50,7 @@ import {
   Checkbox,
   DatePicker,
   Radio,
-  TextField,
+  TextField
 } from "../../FormsUI";
 import ErrorLogger from "../../lib/ErrorLogger";
 import { useStylesMyProfile } from "./Style";
