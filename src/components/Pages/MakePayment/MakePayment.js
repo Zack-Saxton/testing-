@@ -80,7 +80,7 @@ export default function MakePayment(props) {
   const [autopaySubmit, setAutopaySubmit] = useState(true);
   const [scheduleDate, setscheduleDate] = useState(new Date());
   const [payoff, setPayoff] = useState(false);
-  const [isPayoffSet, setisPayoffSet] = useState(false);
+  const [calendarDisabled, setCalendarDisabled] = useState(true);
   const [checkPaymentInformation, setCheckPaymentInformation] = useState(false);
   const [activeLoansData, setActiveLoansData] = useState([]);
   const [checkCard, setCheckCard] = useState(false);
@@ -159,7 +159,9 @@ export default function MakePayment(props) {
               type.toUpperCase() === "ACH"
                 ? setcard(data.SequenceNumber)
                 : setcard(data.ProfileId);
-              checkNickName = true;
+                setisDebit(true);
+                setCalendarDisabled(true);
+                checkNickName = true;
               return checkNickName;
             }
           })
@@ -262,7 +264,6 @@ export default function MakePayment(props) {
       ? disableAutoPaymentScheduled(accntNo, card, paymentDate, isDebit)
       : refetch();
   }
-
   //Disable scheduled payment
   async function deletePayment(
     disableScheduledPaymentAccountNo,
@@ -622,15 +623,16 @@ export default function MakePayment(props) {
       setisDebit(false);
       setCheckCard(false);
       setpaymentDatepicker(scheduleDate);
-      if (isPayoffSet === true) {
-        setPayoff(true);
+      if (payoff === true) {
+        setCalendarDisabled(true);
       } else {
+        setCalendarDisabled(false);
         setPayoff(false);
       }
     } else {
       setisDebit(true);
       setCheckCard(true);
-      setPayoff(true);
+      setCalendarDisabled(true);
       setpaymentDatepicker(new Date());
     }
     //true
@@ -809,11 +811,11 @@ export default function MakePayment(props) {
         }
         setpaymentDatepicker(Moment().format("MM/DD/YYYY"));
         setPayoff(true);
-        setisPayoffSet(true);
+        setCalendarDisabled(true);
       } else {
         setPayoff(false);
-        if (isPayoffSet) {
-          setisPayoffSet(false);
+        if (!isDebit) {
+          setCalendarDisabled(false);
         }
       }
     }
@@ -1140,7 +1142,7 @@ export default function MakePayment(props) {
                                 placeholder="MM/DD/YYYY"
                                 id="date"
                                 disablePast
-                                disabled={payoff}
+                                disabled={calendarDisabled} 
                                 autoComplete="off"
                                 maxdate={paymentMaxDate}
                                 onKeyDown={(event) => event.preventDefault()}

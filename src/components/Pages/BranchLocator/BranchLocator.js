@@ -18,7 +18,7 @@ import { Helmet } from "react-helmet";
 import PlacesAutocomplete from "react-places-autocomplete";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { MFStates, MFStateShort } from "../../../assets/data/marinerBusinesStates";
+import { MFStates, MFStateShort, howManyBranchesforBranchLocatorPages } from "../../../assets/data/marinerBusinesStates";
 import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile_Image.png";
 import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.jpg";
 import TitleImage from "../../../assets/images/Favicon.png";
@@ -83,7 +83,7 @@ export default function BranchLocator() {
   const getBranchLists = async (search_text) => {
     try {
       setLoading(true);
-      let result = await BranchLocatorController(search_text);
+      let result = await BranchLocatorController(search_text, howManyBranchesforBranchLocatorPages.BranchLocator);
       if ((result.status === 400) || (result.data.branchData[ 0 ].BranchNumber === "0001") || (result.data.branchData[ 0 ].BranchNumber === "1022")) {
         if (!toast.isActive("closeToast")) { 
           toast.error(" No branches within that area. Please enter a valid city and state.", { toastId: "closeToast" }); 
@@ -148,7 +148,7 @@ export default function BranchLocator() {
   const MFButtonClick = (event) => {
     params.statename = event.target.innerText;
     apiGetBranchList(params.statename);
-    navigate(`/branch-locator/${params.statename.toLowerCase()}/`,
+    navigate(`/branch-locator/${params.statename.replace(/\s+/g, '-').toLowerCase()}/`,
       { state: { value: params.statename } });
   };
   const findBranchTimings = async (value) => {
@@ -402,7 +402,7 @@ export default function BranchLocator() {
                   return (
                     <Grid key={ index } className="locationInfo">
                       <NavLink
-                        to={ `/branchlocator/${ (MFStates[ MFStateShort.indexOf(item?.Address.substring(item?.Address.length - 8, item?.Address.length).substring(0, 2)) ]).toLocaleLowerCase() }/personal-loans-in-${ item?.BranchName.toLocaleLowerCase() }-${ (item?.Address?.substring(item?.Address.length - 8, item?.Address.length).substring(0, 2)).toLocaleLowerCase() }` }
+                        to={`/branch-locator/${(MFStates[MFStateShort.indexOf(item?.Address.substring(item?.Address.length - 8, item?.Address.length).substring(0, 2))]).replace(/\s+/g, '-').toLocaleLowerCase()}/personal-loans-in-${item?.BranchName.replace(/\s+/g, '-').toLocaleLowerCase()}-${(item?.Address?.substring(item?.Address.length - 8, item?.Address.length).substring(0, 2)).replace(/\s+/g, '-').toLocaleLowerCase() }` }
                         state={ { Branch_Details: item } }
                         className="nav_link"
                       >

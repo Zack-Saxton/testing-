@@ -21,7 +21,8 @@ import {
   branch_hours,
   ca_branch_hours,
   MFStates,
-  MFStateShort
+  MFStateShort,
+  howManyBranchesforBranchLocatorPages
 } from "../../../assets/data/marinerBusinesStates";
 import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile_Image.png";
 import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.jpg";
@@ -89,7 +90,7 @@ export default function StatePage(props) {
   //API call
   const getBranchLists = async (search_text) => {
     try {
-      let result = await BranchLocatorController(search_text);
+      let result = await BranchLocatorController(search_text, howManyBranchesforBranchLocatorPages.BranchPage );
       if (result.status === 400) {
         toast.error(" Check your address and Try again.");
       } else {
@@ -204,7 +205,7 @@ export default function StatePage(props) {
           <Link
             className="breadcrumbLink"
             onClick={() => {
-              navigate(`/branch-locator/${StateFullName.toLowerCase()}/`,
+              navigate(`/branch-locator/${StateFullName.replace(/\s+/g, '-').toLowerCase()}/`,
                 { state: { value: StateFullName } });
             }}
           >
@@ -318,19 +319,19 @@ export default function StatePage(props) {
             return (
               <Grid key={ index } className="locationInfo">
                 <NavLink
-                  to={ `/branchlocator/${ MFStates[
+                  to={ `/branch-locator/${ MFStates[
                     MFStateShort.indexOf(
                       item.Address.substring(
                         item.Address.length - 8,
                         item.Address.length
                       ).substring(0, 2)
                     )
-                  ].toLowerCase()
-                    }/personal-loans-in-${ item.BranchName.toLowerCase()
+                  ].replace(/\s+/g, '-').toLowerCase()
+                    }/personal-loans-in-${item.BranchName.replace(/\s+/g, '-').toLowerCase()
                     }-${ item.Address.substring(
                       item.Address.length - 8,
                       item.Address.length
-                    ).substring(0, 2).toLowerCase() }` }
+                  ).substring(0, 2).replace(/\s+/g, '-').toLowerCase() }` }
                   state={ { Branch_Details: item } }
                   className="nav_link"
                   onClick={ () => {
