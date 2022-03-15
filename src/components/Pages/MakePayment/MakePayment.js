@@ -16,7 +16,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import Moment from "moment";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useQuery } from "react-query";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -709,14 +709,14 @@ export default function MakePayment(props) {
       document.getElementById("payment").focus();
       setRequiredAmount("Please enter minimum amount of $10");
     } else if (paymentDatepicker === null) {
-      document.getElementById("date").focus();
+    document.getElementById("date").focus();
       setrequiredDate("Please select any date");
     } else if (isDebit && Moment(paymentDatepicker).isAfter(Moment())) {
     document.getElementById("date").focus();
      setrequiredDate("For debit account, please select today's date");
     } else if (
       Moment(User.data.loanData[0].loanOriginationDate).isAfter(Moment())) {
-      document.getElementById("payment").focus();
+    document.getElementById("payment").focus();
       setrequiredDate('You can begin making payments on ' + Moment(User.data.loanData[0].loanOriginationDate).format('MM/DD/YYYY'));
     } else {
       setPaymentOpen(true);
@@ -1231,7 +1231,7 @@ export default function MakePayment(props) {
         </Grid>
       </Grid>
 
-      {/* **************Auto pay submit modal******************* */}
+      {/* ************** Auto pay submit modal ******************* */}
 
       <Dialog
         id="autopayDialogBox"
@@ -1362,7 +1362,7 @@ export default function MakePayment(props) {
         </DialogActions>
       </Dialog>
 
-      {/* **************Auto pay schedule payment modal******************* */}
+      {/* ************** Schedule payment modal ******************* */}
 
       <Dialog
         open={openPayment}
@@ -1422,7 +1422,9 @@ export default function MakePayment(props) {
                     align="left"
                     width="20%"
                   ></TableCell>
-                  <TableCell align="left">Payment Date:</TableCell>
+                  <TableCell align="left">
+                    Payment Date:
+                  </TableCell>
                   <TableCell align="left">
                     {Moment(paymentDatepicker).format("MM/DD/YYYY")}
                   </TableCell>
