@@ -53,12 +53,12 @@ export default function PaymentHistory() {
     if (paymentHistoryStatus) {
       setfileName(
         paymentHistoryStatus?.data?.activeLoans?.length
-          ? paymentHistoryStatus?.data?.activeLoans[0].loanDetails.AccountNumber
+          ? paymentHistoryStatus.data.activeLoans[0].loanDetails.AccountNumber
           : null
       );
       setHistoryOfLoans(
         paymentHistoryStatus?.data?.loanHistory?.length
-          ? paymentHistoryStatus?.data?.loanHistory[0].AppAccountHistory
+          ? paymentHistoryStatus.data.loanHistory[0].AppAccountHistory
           : []
       );
     }
