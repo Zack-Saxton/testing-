@@ -14,7 +14,6 @@ import MyBranchAPI from "../../Controllers/MyBranchController";
 import { ButtonPrimary } from "../../FormsUI";
 import "./AccountOverview.css";
 import AboutMariner from "./Marketing_offer/AboutMariner";
-import CampaignMessage from "./Marketing_offer/CampaignMessage";
 import Disclaimer from "./Marketing_offer/Disclaimer";
 import MarketingOffer from "./Marketing_offer/MarketingOffer";
 import OptOutNotice from "./Marketing_offer/OptOutNotice";

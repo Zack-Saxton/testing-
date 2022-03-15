@@ -85,7 +85,9 @@ export default function BranchLocator() {
       setLoading(true);
       let result = await BranchLocatorController(search_text);
       if ((result.status === 400) || (result.data.branchData[ 0 ].BranchNumber === "0001") || (result.data.branchData[ 0 ].BranchNumber === "1022")) {
-        toast.error(" No branches within that area. Please enter a valid city and state.");
+        if (!toast.isActive("closeToast")) { 
+          toast.error(" No branches within that area. Please enter a valid city and state.", { toastId: "closeToast" }); 
+        }
       } else {
         setCurrentLocation(result?.data?.searchLocation);
         setZoomDepth(
