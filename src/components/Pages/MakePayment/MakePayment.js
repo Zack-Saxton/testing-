@@ -811,7 +811,10 @@ export default function MakePayment(props) {
         setPayoff(true);
         setisPayoffSet(true);
       } else {
-        setPayoff(false);
+        if (isPayoffSet) {
+          setPayoff(false);
+          setisPayoffSet(false);
+        }
       }
     }
   };
