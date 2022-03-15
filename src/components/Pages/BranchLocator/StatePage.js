@@ -79,7 +79,7 @@ export default function StatePage() {
   const clessesforptag = useStyles();
   const [ address1, setAddress1 ] = React.useState("");
   const [ address2, setAddress2 ] = React.useState("");
-  const [branchDistance, setBranchDistance] = useState(() => howManyBranchesforBranchLocatorPages.stateBranchDistanceinMiles);
+  const [branchDistance, setBranchDistance] = useState(() => Math.abs(parseInt(howManyBranchesforBranchLocatorPages?.stateBranchDistanceinMiles, 10)));
   const mapSection = useRef();
   let location = useLocation();
   let name = location.state.value;
