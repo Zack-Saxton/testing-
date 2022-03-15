@@ -21,12 +21,11 @@ export default function DocumentUpload(props) {
 		setSelectedFile(null);
 		document.getElementById("file").value = null;
 	}, [ props.resetUpload ]);
-
 	//upload doc functionality
 	const uploadDoc = () => {
 		if (selectedFile === null) {
 			if (!toast.isActive("selectFileToUpload")) {
-				toast.error(messages?.document?.selectFile);
+				toast.error(messages?.document?.selectFile, { toastId: "selectFileToUpload" });
 			}
 			props.setLoadingFlag(false);
 			setLoader(false);
