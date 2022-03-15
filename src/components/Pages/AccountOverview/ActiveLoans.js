@@ -25,15 +25,15 @@ export default function ActiveLoans(userActiveLoanData) {
   let today = Moment(new Date());
   // If the customer's payment is due within 10 days of current date, highlight the 'Make a Payment' button on the Account Overview page
   let numberDaysForDueDate = (appData) => {
-    let numberOfDays =  (appData?.loanDetails?.NextPaymentDate ? Math.ceil(
+    let numberOfDays = (appData?.loanDetails?.NextPaymentDate ? Math.ceil(
       Moment.duration(
         Moment(
           appData.loanDetails.NextPaymentDate
         ).diff(today)
       ).asDays()
     ) : 11);
-    return (numberOfDays >=  0 && numberOfDays <=  10);
-  }
+    return (numberOfDays >= 0 && numberOfDays <= 10);
+  };
   //View
   return (
     <>
@@ -126,7 +126,7 @@ export default function ActiveLoans(userActiveLoanData) {
                               <ButtonPrimary
                                 id="makeAPaymentButtonStyle"
                                 stylebutton='{"float": "right","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
-                                className = {  numberDaysForDueDate(appData) ? `${classes.normalButton} pulse` : classes.normalButton }
+                                className={ numberDaysForDueDate(appData) ? `${ classes.normalButton } pulse` : classes.normalButton }
                               >
                                 Make a Payment
                               </ButtonPrimary>

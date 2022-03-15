@@ -1,12 +1,12 @@
+import { FormControl, FormControlLabel } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import Paper from "@material-ui/core/Paper";
-import Switch from "@material-ui/core/Switch";
-import { FormControl, FormControlLabel } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import Switch from "@material-ui/core/Switch";
 import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import axios from "axios";
@@ -20,11 +20,11 @@ import LoginController from "../../Controllers/LoginController";
 import {
   ButtonPrimary,
   EmailTextField,
-  PasswordField, 
-  Popup, 
+  PasswordField,
+  Popup,
   RenderContent
 } from "../../FormsUI";
-import { encryptAES, decryptAES } from "../../lib/Crypto";
+import { decryptAES, encryptAES } from "../../lib/Crypto";
 import { FormValidationRules } from "../../lib/FormValidationRule";
 import ScrollToTopOnMount from "../../Pages/ScrollToTop";
 import "./Login.css";
@@ -38,8 +38,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-  termsText :{
-    fontSize:"0.938rem",
+  termsText: {
+    fontSize: "0.938rem",
   },
   linkDesign: {
     color: "#0F4EB3",
@@ -141,8 +141,8 @@ export default function Login(props) {
     }
   };
   const remMeDataRaw = Cookies.get("rememberMe") ? Cookies.get("rememberMe") : null;
-  let remMeData = remMeDataRaw ? JSON.parse(decryptAES(remMeDataRaw)) : undefined;     
-  const [remMe, setRemMe] = useState(remMeData?.selected);
+  let remMeData = remMeDataRaw ? JSON.parse(decryptAES(remMeDataRaw)) : undefined;
+  const [ remMe, setRemMe ] = useState(remMeData?.selected);
   //Form Submission
   const formik = useFormik({
     initialValues: {
@@ -161,7 +161,7 @@ export default function Login(props) {
         ipAddress,
         props.setToken
       );
-      if (retVal?.data?.user && retVal?.data?.userFound === true) {
+      if (retVal?.data?.user && retVal?.data?.userFound ) {
         let login_date = retVal?.data?.user.extensionattributes?.login
           ?.last_timestamp_date
           ? moment(retVal?.data?.user.extensionattributes.login.last_timestamp_date)
@@ -185,7 +185,7 @@ export default function Login(props) {
         Cookies.set("login_date", login_date);
         Cookies.set("userToken", retVal?.data?.user?.attributes?.UserToken);
         Cookies.set("temp_opted_phone_texting", "");
-        Cookies.set("rememberMe", encryptAES(remMe ? JSON.stringify({ selected: true, email: values.email}) : JSON.stringify({ selected: false, email: ''})) );
+        Cookies.set("rememberMe", encryptAES(remMe ? JSON.stringify({ selected: true, email: values.email }) : JSON.stringify({ selected: false, email: '' })));
         queryClient.removeQueries();
         setLoading(false);
         if (retVal?.data?.user?.attributes?.password_reset) {
@@ -198,7 +198,7 @@ export default function Login(props) {
         }
       } else if (
         retVal?.data?.result === "error" ||
-        retVal?.data?.hasError === true
+        retVal?.data?.hasError
       ) {
         Cookies.set(
           "token",
@@ -247,11 +247,11 @@ export default function Login(props) {
   };
 
   const handleOnClickCacTerms = () => {
-		setCacTerms(true);
-	};
-	const handleOnClickCacTermsClose = () => {
-		setCacTerms(false);
-	};
+    setCacTerms(true);
+  };
+  const handleOnClickCacTermsClose = () => {
+    setCacTerms(false);
+  };
 
   //View Part
   return (
@@ -351,22 +351,22 @@ export default function Login(props) {
                         Sign In help/Register for help signing in.
                       </p>
                     </Grid>
-                    <Grid className={classes.checkbox}>
-                    <FormControl>
-                      <FormControlLabel
-                        control={
-                          <Switch
-                            checked={ remMe }
-                            onChange={ handleRemMeChange }
-                            // value={ state }
-                            inputProps={ { "data-test-id": "switch" } }
-                            color="primary"
-                          />
-                        }
-                        // labelPlacement={ labelplacement }
-                        label=" Remember me" 
-                      />
-                    </FormControl>            
+                    <Grid className={ classes.checkbox }>
+                      <FormControl>
+                        <FormControlLabel
+                          control={
+                            <Switch
+                              checked={ remMe }
+                              onChange={ handleRemMeChange }
+                              // value={ state }
+                              inputProps={ { "data-test-id": "switch" } }
+                              color="primary"
+                            />
+                          }
+                          // labelPlacement={ labelplacement }
+                          label=" Remember me"
+                        />
+                      </FormControl>
                     </Grid>
 
                     <Grid item xs={ 12 } className={ classes.loginButton }>
@@ -388,8 +388,8 @@ export default function Login(props) {
                     </Grid>
                     <Grid className={ classes.registerGrid }>
                       <Typography className={ classes.termsText }>
-                        By logging into the site, you agree to 
-                        <span className={ classes.linkDesign } onClick={ () => { handleOnClickCacTerms(); } }>{' '}CAC terms of use</span>
+                        By logging into the site, you agree to
+                        <span className={ classes.linkDesign } onClick={ () => { handleOnClickCacTerms(); } }>{ ' ' }CAC terms of use</span>
                       </Typography>
                     </Grid>
                     <Grid className={ classes.registerGrid }>
@@ -464,8 +464,8 @@ export default function Login(props) {
         </DialogActions>
       </Dialog>
       <Popup popupFlag={ cacTerms } closePopup={ handleOnClickCacTermsClose }>
-				<RenderContent disclosureLink="/cacTermsOfUse" />
-			</Popup>
+        <RenderContent disclosureLink="/cacTermsOfUse" />
+      </Popup>
     </div>
   );
 }

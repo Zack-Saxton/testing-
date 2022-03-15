@@ -82,7 +82,7 @@ export async function makePayment(scheduledPaymentAccountNo, scheduledPaymentCar
 /***** Cancel the Scheduled payment *****/
 export async function deleteScheduledPayment(accntNo, refNo, isCard) {
   try {
-    let url = isCard === true ? "delete_scheduled_debit_payment" : "delete_scheduled_payment";
+    let url = isCard ? "delete_scheduled_debit_payment" : "delete_scheduled_payment";
     let param = "/" + accntNo + "/" + refNo;
     let data = {};
     let method = "POST";

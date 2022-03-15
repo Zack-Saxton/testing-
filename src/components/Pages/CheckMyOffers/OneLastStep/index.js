@@ -106,7 +106,7 @@ function SSN() {
 		setLoading(true);
 		setApplicationLoading(true);
 		let result = await getCustomerByEmail(data.email);
-		if (result && result?.data?.AppSubmittedInLast30Days === true) {
+		if (result && result?.data?.AppSubmittedInLast30Days) {
 			stopLoading();
 		} else if (result && result?.data?.AppSubmittedInLast30Days === false) {
 			response = await submitApplication(data);

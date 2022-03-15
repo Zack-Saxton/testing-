@@ -195,7 +195,7 @@ function PersonalInfo() {
 					isAuthenticated: true,
 				};
 
-				if (loginToken?.isLoggedIn === true) {
+				if (loginToken?.isLoggedIn) {
 					data.completedPage = data.page.existingUser;
 					navigate("/employment-status");
 					setError(false);
@@ -210,9 +210,9 @@ function PersonalInfo() {
 						},
 					});
 
-					if (customerStatus.data.customerFound === true) {
+					if (customerStatus.data.customerFound) {
 						if (customerStatus.data.user.email === values.email) {
-							if (customerStatus.data?.ssnLookupFails === true) {
+							if (customerStatus.data?.ssnLookupFails) {
 								setSsnEmailMatch(false);
 								setError(false);
 								setLoading(false);
@@ -259,7 +259,7 @@ function PersonalInfo() {
 						"Content-Type": "application/json",
 					},
 				});
-				if (result && result.data.AppSubmittedInLast30Days === true) {
+				if (result?.data?.AppSubmittedInLast30Days) {
 					setAppliedInLast30Days(true);
 				} else {
 					setAppliedInLast30Days(false);

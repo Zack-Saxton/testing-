@@ -51,12 +51,12 @@ const ApplyForLoanRedirect = (props) => {
 				navigate("/customers/accountOverview");
 			} else if (res?.data?.applicants.length === 0) {
 				redirectToCMO();
-			} else if (res?.data?.applicants[ 0 ]?.isActive === true) {
+			} else if (res?.data?.applicants[ 0 ]?.isActive) {
 				navigate(statusStrLink[ res?.data?.applicants[ 0 ]?.status ]);
 			} else {
 				let isActiveApplicationAvailable = false;
 				res?.data?.applicants.map((item, index) => {
-					if (item.isActive === true) {
+					if (item.isActive) {
 						isActiveApplicationAvailable = true;
 						navigate(statusStrLink[ item.status ]);
 					}

@@ -206,7 +206,7 @@ export default function OfferTable(props) {
 												align="left"
 											>
 												Compare
-												{/* {props.offerFlag === true ? "Compare" : "Term"} */ }
+												{/* {props.offerFlag ? "Compare" : "Term"} */ }
 											</TableCell>
 										</TableRow>
 									</TableHead>
@@ -270,7 +270,7 @@ export default function OfferTable(props) {
 														className={ props.classes.tableHeadRow }
 														align="left"
 													>
-														{ props.offerFlag === true ? (
+														{ props.offerFlag ? (
 															<Checkbox
 																name="offerToCompare"
 																label="Add"

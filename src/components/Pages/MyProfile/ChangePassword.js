@@ -92,7 +92,7 @@ export default function ChangePassword(basicInformationData) {
             values.newPassword,
             email
           );
-          if (response?.data?.change_password?.passwordReset === true) {
+          if (response?.data?.change_password?.passwordReset) {
             if (!toast.isActive("closeToast")) {
               toast.success(response?.data?.change_password?.message ?? globalMessages.PasswordChangedSuccessfully, {
                 toastId: "closeToast",

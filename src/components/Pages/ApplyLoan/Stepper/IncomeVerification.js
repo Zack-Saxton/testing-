@@ -84,14 +84,14 @@ export default function IncomeVerification(props) {
 
 							//To check all the steps are completed or not
 							if (
-								res?.data?.email === true &&
-								res?.data?.financial_information === true &&
-								res?.data?.id_document === true &&
-								res?.data?.id_questions === true &&
-								res?.data?.id_photo === true &&
-								res?.data?.bank_account_information === true &&
-								res?.data?.bank_account_verification === true &&
-								res?.data?.income_verification === true
+								res?.data?.email &&
+								res?.data?.financial_information &&
+								res?.data?.id_document &&
+								res?.data?.id_questions &&
+								res?.data?.id_photo &&
+								res?.data?.bank_account_information &&
+								res?.data?.bank_account_verification &&
+								res?.data?.income_verification
 							) {
 								props.setLoadingFlag(false);
 								navigate("/customers/receiveYourMoney");
