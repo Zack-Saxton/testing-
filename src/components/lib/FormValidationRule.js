@@ -21,13 +21,13 @@ export class FormValidationRules {
                 is: (isRegisterForm) => isRegisterForm == 1,
                 then: yup
                     .string()
+                    .min(8, globalMessages.PasswordMin)
                     .matches(
                         /^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,30}$/,
                         globalMessages.PasswordCriteria
                     )
             })
-            .max(30, globalMessages.PasswordMax)
-            .min(8, globalMessages.PasswordMin)
+            .max(30, globalMessages.PasswordMax)            
             .required(globalMessages.PasswordRequired);
     }
 
