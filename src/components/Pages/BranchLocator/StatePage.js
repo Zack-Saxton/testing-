@@ -19,7 +19,8 @@ import { NavLink, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
   MFStates,
-  MFStateShort
+  MFStateShort,
+  howManyBranchesforBranchLocatorPages
 } from "../../../assets/data/marinerBusinesStates";
 import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile_Image.png";
 import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.jpg";
@@ -78,6 +79,7 @@ export default function StatePage() {
   const clessesforptag = useStyles();
   const [ address1, setAddress1 ] = React.useState("");
   const [ address2, setAddress2 ] = React.useState("");
+  const [branchDistance, setBranchDistance] = useState(() => howManyBranchesforBranchLocatorPages.stateBranchDistanceinMiles);
   const mapSection = useRef();
   let location = useLocation();
   let name = location.state.value;
@@ -85,7 +87,7 @@ export default function StatePage() {
   const getBranchLists = async (search_text) => {
     try {
       setLoading(true);
-      let result = await BranchLocatorController(search_text);
+      let result = await BranchLocatorController(search_text, howManyBranchesforBranchLocatorPages.StatePage );
       if (
         result.status === 400 ||
         result.data.branchData[ 0 ].BranchNumber === "0001" ||
@@ -133,6 +135,7 @@ export default function StatePage() {
     setAddress2("");
   };
   const getActivePlaces = () => {
+    setBranchDistance(60);
     if (address1 !== "") {
       apiGetBranchList(address1);
       clearSearchText();
@@ -162,6 +165,7 @@ export default function StatePage() {
   useEffect(() => {
     apiGetBranchList(name);
     window.scrollTo(0, 0);
+
     return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -494,11 +498,11 @@ export default function StatePage() {
                   <Grid container className="addressList">
                     {getBranchList ? (
                       getBranchList.map((item, index) => {
-                        if (Number(item?.distance.replace(' mi', '')) <= 60) {
+                        if (Number(item?.distance.replace(' mi', '')) <= branchDistance) {
                         return (
                           <Grid key={index} className="locationInfo" item lg={4} md={4} sm={6} xs={12}>
                             <NavLink
-                              to={`/branchlocator/${
+                              to={`/branch-locator/${
                                 MFStates[
                                   MFStateShort.indexOf(
                                     item?.Address.substring(
@@ -506,13 +510,13 @@ export default function StatePage() {
                                       item?.Address.length
                                     ).substring(0, 2)
                                   )
-                              ].toLowerCase()
+                              ].replace(/\s+/g, '-').toLowerCase()
                               }/personal-loans-in-${
-                                item?.BranchName.toLowerCase()
+                                item?.BranchName.replace(/\s+/g, '-').toLowerCase()
                               }-${item?.Address.substring(
                                 item?.Address.length - 8,
                                 item?.Address.length
-                              ).substring(0, 2).toLowerCase() }`}
+                              ).substring(0, 2).replace(/\s+/g, '-').toLowerCase() }`}
                               state={{ Branch_Details: item }}
                               className="nav_link"
                             >
