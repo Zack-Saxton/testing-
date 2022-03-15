@@ -108,7 +108,7 @@ const CheckLoginTimeout = () => {
     return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
   }
 
-  const { reset, getRemainingTime: remTime } = useIdleTimer({
+  const { reset } = useIdleTimer({
     timeout: 1000 * 60 * 5,
     onIdle: () => {
       setOpenPopUp(true);
@@ -133,7 +133,7 @@ const CheckLoginTimeout = () => {
     onIdle: handleOnIdleLogout,
     debounce: 500,
   });
-  console.log(millisToMinutesAndSeconds(remTime()));
+  
   const loginToken = JSON.parse(
     Cookies.get("token") ? Cookies.get("token") : "{ }"
   );
