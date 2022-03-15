@@ -183,7 +183,7 @@ export default function MakePayment(props) {
       enableAutoPayIsDebit
     );
     result.status === 200
-      ? result?.data?.paymentResult.HasNoErrors === true
+      ? result?.data?.paymentResult.HasNoErrors
         ? toast.success(globalMessages.Auto_Payment_Mode_Enabled, {
           autoClose: 5000,
         })
@@ -209,7 +209,7 @@ export default function MakePayment(props) {
   async function disableAutoPayment(disableAutoPayAccountNo) {
     let result = await disableAutoPay(disableAutoPayAccountNo);
     result.status === 200
-      ? result?.data?.deletePayment.HasNoErrors === true
+      ? result?.data?.deletePayment.HasNoErrors
         ? toast.success(globalMessages.Auto_Payment_Mode_Disabled, {
           autoClose: 5000,
         })
@@ -276,7 +276,7 @@ export default function MakePayment(props) {
       disableScheduledPaymentIsCard
     );
     result.status === 200
-      ? result?.data?.deletePaymentMethod.HasNoErrors === true
+      ? result?.data?.deletePaymentMethod.HasNoErrors
         ? toast.success("Scheduled Payment cancelled", {
           autoClose: 5000,
         }) && refetch()
@@ -605,7 +605,7 @@ export default function MakePayment(props) {
     latestLoanData != null
       ? latestLoanData[ 0 ]?.loanPaymentInformation?.scheduledPayments.length
         ? latestLoanData[ 0 ].loanPaymentInformation.scheduledPayments[ 0 ]
-          ?.PaymentMethod?.IsCard === true
+          ?.PaymentMethod?.IsCard
           ? latestLoanData[ 0 ].loanPaymentInformation.scheduledPayments[ 0 ]
             .PaymentMethod.IsCard
           : false
@@ -623,7 +623,7 @@ export default function MakePayment(props) {
       setisDebit(false);
       setCheckCard(false);
       setpaymentDatepicker(scheduleDate);
-      if (payoff === true) {
+      if (payoff) {
         setCalendarDisabled(true);
       } else {
         setCalendarDisabled(false);
@@ -658,7 +658,7 @@ export default function MakePayment(props) {
 
   //Autopay submit
   const handleClickSubmit = () => {
-    disabledContent === true
+    disabledContent
       ? card || card === 0
         ? !isDebit
           ? setOpen(true)
@@ -671,7 +671,7 @@ export default function MakePayment(props) {
   function handleAutoPayConfirm() {
     setLoading(true);
     setshowCircularProgress(true);
-    disabledContent === true
+    disabledContent
       ? enableAutoPayment(accntNo, card, paymentDate, isDebit)
       : disableAutoPayment(accntNo);
     setOpen(false);
@@ -685,9 +685,7 @@ export default function MakePayment(props) {
   function handleDeleteSchedule() {
     setLoading(true);
     setshowCircularProgress(true);
-    isCard === true
-      ? deletePayment(accntNo, refNumber)
-      : deletePayment(accntNo, routingNumber);
+    isCard ? deletePayment(accntNo, refNumber) : deletePayment(accntNo, routingNumber);
     setrequiredDate("");
     setRequiredAmount("");
     setrequiredSelect("");
@@ -896,7 +894,7 @@ export default function MakePayment(props) {
             </Typography>
           </Grid>
         </Grid>
-        { showCircularProgress === true ? (
+        { showCircularProgress ? (
           <Grid
             item
             xs={ 12 }
@@ -1253,7 +1251,7 @@ export default function MakePayment(props) {
           </Typography>
           {/* <Typography id="autoTxt" className={ classes.autoPayContent }> */ }
           <>
-            { disabledContent === true ? (
+            { disabledContent ? (
               <TableContainer>
                 <Table
                   className={ classes.table }
@@ -1402,7 +1400,7 @@ export default function MakePayment(props) {
                   ></TableCell>
                 </TableRow>
 
-                { isDebit === true ? (
+                { isDebit ? (
                   <TableRow>
                     <TableCell
                       className={ classes.tableheadrow }

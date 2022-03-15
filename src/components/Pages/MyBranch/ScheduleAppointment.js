@@ -102,19 +102,14 @@ export default function ScheduleAppointment({
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       var visitDate = Moment(values.appointmentDate).format("YYYY-MM-DD");
-
       var visitTime = values.appointmentTime;
       let visitTimeZone = momentTimeZone
         .tz(momentTimeZone.tz.guess())
         .zoneAbbr();
 
       setLoading(true);
-      let response = await ScheduleVisitApi(
-        visitDate,
-        visitTime,
-        visitTimeZone
-      );
-      if (response === "true") {
+      let response = await ScheduleVisitApi(visitDate, visitTime, visitTimeZone);
+      if (response) {
         formik.values.appointmentDate = null;
         formik.values.appointmentTime = "";
         setLoading(false);

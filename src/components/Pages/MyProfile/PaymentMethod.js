@@ -491,7 +491,7 @@ export default function PaymentMethod() {
             profileId: uniqueData,
           };
           let res = await deleteCreditCard(passData);
-          if (res?.data?.deletePaymentMethod?.HasNoErrors === true) {
+          if (res?.data?.deletePaymentMethod?.HasNoErrors) {
             if (!toast.isActive("closeToast")) {
               toast.success("Card deleted successfully.");
               refetch();
@@ -511,7 +511,7 @@ export default function PaymentMethod() {
             accountNumber: uniqueData,
           };
           let res = await deleteBankAccount(passData);
-          if (res?.data?.deletePaymentMethod?.HasNoErrors === true) {
+          if (res?.data?.deletePaymentMethod?.HasNoErrors) {
             if (!toast.isActive("closeToast")) {
               toast.success("Bank account deleted successfully.");
             }
@@ -548,7 +548,7 @@ export default function PaymentMethod() {
       cardType
     );
 
-    if (creditCardResponse?.data?.addPaymentResult?.HasNoErrors === true) {
+    if (creditCardResponse?.data?.addPaymentResult?.HasNoErrors) {
       setLoading(false);
       toast.success("Payment method added successfully ");
       refetch();
@@ -619,7 +619,7 @@ export default function PaymentMethod() {
   return (
     <div className={ loading ? classes.loadingOn : classes.loadingOff }>
       <div
-        className={ paymentMethodDiv === true ? "showContent" : "hideContent" }
+        className={ paymentMethodDiv ? "showContent" : "hideContent" }
       >
         <Grid item xs={ 12 } className={ classes.paymentBody }>
           { allPaymentMethod ? (
@@ -833,7 +833,7 @@ export default function PaymentMethod() {
       </div>
       {/* ******************************************Add Bank account begin*********************************************************** */ }
 
-      <div className={ addBankAccount === true ? "showContent" : "hideContent" }>
+      <div className={ addBankAccount ? "showContent" : "hideContent" }>
         <form onSubmit={ formikAddBankAccount.handleSubmit }>
           <Grid
             id="addAccountGrid"
@@ -1167,7 +1167,7 @@ export default function PaymentMethod() {
       </div>
 
       {/* *********************************************DEbit card begins*************************************************************************                    */ }
-      <div className={ addDebitCard === true ? "showContent" : "hideContent" }>
+      <div className={ addDebitCard ? "showContent" : "hideContent" }>
         <form onSubmit={ formikAddDebitCard.handleSubmit }>
           <Grid
             spacing={ 4 }

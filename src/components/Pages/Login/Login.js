@@ -161,7 +161,7 @@ export default function Login(props) {
         ipAddress,
         props.setToken
       );
-      if (retVal?.data?.user && retVal?.data?.userFound === true) {
+      if (retVal?.data?.user && retVal?.data?.userFound ) {
         let login_date = retVal?.data?.user.extensionattributes?.login
           ?.last_timestamp_date
           ? moment(retVal?.data?.user.extensionattributes.login.last_timestamp_date)
@@ -198,7 +198,7 @@ export default function Login(props) {
         }
       } else if (
         retVal?.data?.result === "error" ||
-        retVal?.data?.hasError === true
+        retVal?.data?.hasError
       ) {
         Cookies.set(
           "token",

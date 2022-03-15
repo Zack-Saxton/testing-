@@ -37,7 +37,7 @@ const CheckLoginTimeout = () => {
       navigate("/login", { state: { redirect: window.location.pathname } });
     } else {
       let retVal = await LoginController(cred.email, cred.password, "");
-      if (retVal?.data?.user && retVal?.data?.userFound === true) {
+      if (retVal?.data?.user && retVal?.data?.userFound) {
         // On login success storing the needed data in the local storage
         let nowTimeStamp = new Date().getTime();
         Cookies.set(
@@ -57,10 +57,7 @@ const CheckLoginTimeout = () => {
           )
         );
         actualSetupTime = now;
-      } else if (
-        retVal?.data?.result === "error" ||
-        retVal?.data?.hasError === true
-      ) {
+      } else if (retVal?.data?.result === "error" || retVal?.data?.hasError) {
         Cookies.set(
           "token",
           JSON.stringify({
@@ -140,7 +137,7 @@ const CheckLoginTimeout = () => {
 
   return (
     <div>
-      { loginToken.isLoggedIn === true ? (
+      { loginToken.isLoggedIn ? (
         <>
           <Dialog
             onClose={ handleClosePopUp }

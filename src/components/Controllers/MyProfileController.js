@@ -70,7 +70,7 @@ export async function textNotification(body, sub) {
   try {
     const email = Cookies.get("email");
     let cleanednumber = body.phone.replace(/\D/g, "");
-    let allLoansClosed = Cookies.get("hasActiveLoan") === "true" ? false : true;
+    let allLoansClosed = !(/true/i).test(Cookies.get("hasActiveLoan"));
     let url = "text_unsubscribe";
     let textingOn = false;
     if (sub) {
@@ -124,7 +124,7 @@ export default async function getTextNotify() {
     let appGUID = token.applicantGuid;
     let opted_phone_texting = Cookies.get("opted_phone_texting");
     let cleanednumber = opted_phone_texting.replace(/\D/g, "");
-    let allLoansClosed = Cookies.get("hasActiveLoan") === "true" ? false : true;
+    let allLoansClosed = !(/true/i).test(Cookies.get("hasActiveLoan"));
     let url = "sbt_getInfo";
     let param = "";
     let data = {

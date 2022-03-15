@@ -42,7 +42,7 @@ export default function MultipleQuestion(props) {
 		props.setLoadingFlag(true);
 		let allset = true;
 		props.responseData.forEach(myFunction);
-		if (allset === true) {
+		if (allset) {
 			let questionsArrayData = [];
 			props.responseData.forEach((val, ind) => {
 				let tempArr = {};
@@ -61,7 +61,7 @@ export default function MultipleQuestion(props) {
 			};
 
 			let result = await idVerificationAnswer(passData);
-			if (result?.data?.id_questions === true) {
+			if (result?.data?.id_questions) {
 				props.setLoadingFlag(false);
 				props.next();
 			} else {

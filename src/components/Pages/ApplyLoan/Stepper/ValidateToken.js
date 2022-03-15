@@ -46,7 +46,7 @@ const ValidateToken = () => {
 				activation_token: activationToken,
 			};
 			getResponse(result).then((res) => {
-				if (res?.data === true) {
+				if (res?.data) {
 					navigate("/customers/finalVerification");
 				} else if (
 					res?.data?.result === "error" &&

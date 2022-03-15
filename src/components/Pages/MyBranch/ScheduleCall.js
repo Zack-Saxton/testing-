@@ -106,7 +106,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
 
       let response = await ScheduleCallApi(callDate, callingTime, callTimeZone);
 
-      if (response === "true") {
+      if (response) {
         formik.values.appointmentDate = null;
         formik.values.callTime = "";
         setLoading(false);

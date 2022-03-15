@@ -58,7 +58,7 @@ export default function BasicInformation(props) {
   let basicData = props?.basicInformationData?.identification;
   let basicInfo = props?.basicInformationData?.latest_contact;
   let profileImageData = props?.getProfileImage ?? profileImg;
-  let hasActiveLoan = Cookies.get("hasActiveLoan") === "true" ? true : false;
+  let hasActiveLoan = (/true/i).test(Cookies.get("hasActiveLoan"));
   let hasApplicationStatus = Cookies.get("hasApplicationStatus");
   var appStatus = [ "rejected", "referred", "expired" ];
   let checkAppStatus = appStatus.includes(hasApplicationStatus);
@@ -259,12 +259,12 @@ export default function BasicInformation(props) {
           uploadBasicInfoImageChange();
         }
         else if (formik.initialValues.phone !== values.phone && formik.initialValues.email === values.email) {
-          if (res?.data?.notes.length !== 0 && res?.data?.emailUpdate === true) {
+          if (res?.data?.notes.length !== 0 && res?.data?.emailUpdate) {
             uploadBasicInfoChange();
           }
         }
         else if (formik.initialValues.email !== values.email || (formik.initialValues.phone !== values.phone && formik.initialValues.email !== values.email)) {
-          if (res?.data?.notes.length !== 0 && res?.data?.emailUpdate === true) {
+          if (res?.data?.notes.length !== 0 && res?.data?.emailUpdate) {
             uploadBasicInfoChangeLogOut();
           }
         }

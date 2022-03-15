@@ -264,7 +264,7 @@ export default function BankAccountVerification(props) {
 									formik.errors.bankRoutingNumber
 									? formik.touched.bankRoutingNumber &&
 									formik.errors.bankRoutingNumber
-									: invalidRN === true
+									: invalidRN
 										? messages?.bankAccountVerification?.enterValidRoutingNum
 										: ""
 							}
