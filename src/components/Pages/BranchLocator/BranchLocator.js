@@ -95,9 +95,9 @@ export default function BranchLocator() {
         setZoomDepth(
           (result?.data?.branchData[ 0 ]?.distance).replace(/[^\d]/g, "") / 100
         );
-        setStateLongName(result.data.stateLongName);
-        setStateShortName(result.data.stateShortName);
-        return result.data.branchData;
+        setStateLongName(result?.data?.stateLongName);
+        setStateShortName(result?.data?.stateShortName);
+        return result?.data?.branchData;
       }
     } catch (error) {
       ErrorLogger(" Error occured, can't retrive Branch list. ", error);
