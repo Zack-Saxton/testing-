@@ -184,6 +184,7 @@ export default function ScheduleAppointment({
                 placeholder="MM/DD/YYYY"
                 id="appointmentDate"
                 disablePast
+                onKeyDown={ (event) => event.preventDefault() }
                 autoComplete="off"
                 shouldDisableDate={ disableHolidays }
                 maxdate={ scheduleAppointmentDate }

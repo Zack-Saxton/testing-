@@ -17,11 +17,7 @@ import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import {
-  branch_hours,
-  ca_branch_hours, howManyBranchesforBranchLocatorPages, MFStates,
-  MFStateShort
-} from "../../../assets/data/marinerBusinesStates";
+import {branch_hours, ca_branch_hours, howManyBranchesforBranchLocatorPages} from "../../../assets/data/marinerBusinesStates";
 import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile_Image.png";
 import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.jpg";
 import TitleImage from "../../../assets/images/Favicon.png";
@@ -77,14 +73,13 @@ export default function StatePage(props) {
   const [ getMap, setMap ] = useState([]);
   const [ getCurrentLocation, setCurrentLocation ] = useState();
   const [ zoomDepth, setZoomDepth ] = useState();
-  const [ getStateName, setStateName ] = useState();
   const location = useLocation();
-  const { Branch_Details } = location.state;
+  const { Branch_Details, stateLongNm, stateShortNm } = location.state;
   const [ branchHours, setBranchHours ] = useState();
   const navigate = useNavigate();
   const [ showDialog, setShowDialog ] = useState(false);
-  let StateFullName = MFStates[ MFStateShort.indexOf(getStateName) ];
-
+  const [stateLongName, setStateLongName] = useState();
+  const [stateShortName, setStateShortName] = useState();
   //API call
   const getBranchLists = async (search_text) => {
     try {
@@ -96,7 +91,9 @@ export default function StatePage(props) {
         setZoomDepth(
           (result?.data?.branchData[ 0 ]?.distance).replace(/[^/d]/g, "") / 100
         );
-        return result.data.branchData;
+        setStateLongName(result?.data?.stateLongName);
+        setStateShortName(result?.data?.stateShortName);
+        return result?.data?.branchData;
       }
     } catch (error) {
       ErrorLogger(" Error from getBranchList ", error);
@@ -131,7 +128,7 @@ export default function StatePage(props) {
     setgetDirectionModal(false);
   };
   const display_Branch_Times = () => {
-    if (getStateName && getStateName === "CA") {
+    if (stateShortNm === "CA") {
       setBranchHours(ca_branch_hours);
     } else {
       setBranchHours(branch_hours);
@@ -149,21 +146,16 @@ export default function StatePage(props) {
   };
   useEffect(() => {
     apiGetBranchList(Branch_Details.Address);
-    let State = Branch_Details?.Address.substring(
-      Branch_Details?.Address.length - 8,
-      Branch_Details?.Address.length
-    );
-    setStateName(State.substring(0, 2));
     return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ Branch_Details ]);
   useEffect(() => {
     display_Branch_Times();
     window.scrollTo(0, 0);
-    document.title = `Personal Loans in  ${ Branch_Details.BranchName }, ${ getStateName } | Mariner Finance Branch | Discover More `;
+    document.title = `Personal Loans in  ${Branch_Details.BranchName}, ${stateShortNm } | Mariner Finance Branch | Discover More `;
     return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ getStateName ]);
+  }, [  ]);
   const BranchDetailsInCard = (
     <Grid container style={ { width: "100%" } }>
       <Grid className="branchImage" item md={ 7 } sm={ 12 } xs={ 12 }>
@@ -203,11 +195,11 @@ export default function StatePage(props) {
           <Link
             className="breadcrumbLink"
             onClick={ () => {
-              navigate(`/branch-locator/${ StateFullName.replace(/\s+/g, '-').toLowerCase() }/`,
-                { state: { value: StateFullName } });
+              navigate(`/branch-locator/${stateLongNm.toLowerCase() }/`,
+                { state: { value: stateLongNm } });
             } }
           >
-            { StateFullName ?? "" }
+            {stateLongNm ?? "" }
           </Link>
           <Link className="breadcrumbLink">
             { Branch_Details.BranchName }
@@ -217,7 +209,7 @@ export default function StatePage(props) {
           <h4 className="branchHeading">
             Personal Loans in{ " " }
             <strong>
-              { Branch_Details.BranchName }, { getStateName } Branch
+              {Branch_Details.BranchName}, {stateShortNm } Branch
             </strong>
           </h4>
           <Grid container>
@@ -317,31 +309,11 @@ export default function StatePage(props) {
             return (
               <Grid key={ index } className="locationInfo">
                 <NavLink
-                  to={ `/branch-locator/${ MFStates[
-                    MFStateShort.indexOf(
-                      item.Address.substring(
-                        item.Address.length - 8,
-                        item.Address.length
-                      ).substring(0, 2)
-                    )
-                  ].replace(/\s+/g, '-').toLowerCase()
-                    }/personal-loans-in-${ item.BranchName.replace(/\s+/g, '-').toLowerCase()
-                    }-${ item.Address.substring(
-                      item.Address.length - 8,
-                      item.Address.length
-                    ).substring(0, 2).replace(/\s+/g, '-').toLowerCase() }` }
-                  state={ { Branch_Details: item } }
+                  to={`/branch-locator/${stateLongName.toLocaleLowerCase()}/personal-loans-in-${item?.BranchName.replace(/-/g, "").replace(/\s+/, '-').toLocaleLowerCase() }-${stateShortName.toLocaleLowerCase() }`}
+                  state={{ Branch_Details: item, stateLongNm: stateLongName, stateShortNm: stateShortName }}
                   className="nav_link"
                   onClick={ () => {
-                    let State = item.Address.substring(
-                      item.Address.length - 8,
-                      item.Address.length
-                    );
-                    document.title = `Personal Loans in ${ item.BranchName
-                      }, ${ State.substring(
-                        0,
-                        2
-                      ) } | Mariner Finance Branch | Discover More`;
+                    document.title = `Personal Loans in ${ item.BranchName}, ${ stateShortName } | Mariner Finance Branch | Discover More`;
                   } }
                 >
                   <b>
@@ -478,7 +450,7 @@ export default function StatePage(props) {
         <link rel="icon" type="image/png" href={ TitleImage } sizes="16x16" />
         <meta
           name="description"
-          content={ `Looking for a personal loans in ${ Branch_Details.BranchName },${ getStateName } ?  Our ${ Branch_Details.BranchName },${ getStateName } branch welcomes you for personal loans that fit your needs.` }
+          content={`Looking for a personal loans in ${Branch_Details.BranchName},${stateShortNm} ?  Our ${Branch_Details.BranchName},${stateShortNm } branch welcomes you for personal loans that fit your needs.` }
         />
       </Helmet>
       <Grid className="greyBackground" container justifyContent={ "center" }>
@@ -492,7 +464,7 @@ export default function StatePage(props) {
                 <h4 className="PesonalLoanMapHeading">
                   <strong>
                     One-On-One Support With Your Personal Loans in{ " " }
-                    { Branch_Details.BranchName }, { getStateName }
+                    {Branch_Details.BranchName}, {stateShortNm }
                   </strong>
                 </h4>
               </Grid>
@@ -501,7 +473,7 @@ export default function StatePage(props) {
             <Grid className="branchtextSection" item md={ 6 }>
               <h4 className="PesonalLoanMapHeading">
                 <strong>
-                  The { Branch_Details.BranchName }, { getStateName } Branch
+                  The {Branch_Details.BranchName}, {stateShortNm } Branch
                   Welcomes You For Personal Loans That Fit Your Needs
                 </strong>
               </h4>
@@ -515,7 +487,7 @@ export default function StatePage(props) {
                 weddings, tuitions costs, and debt consolidation. Mariner
                 Finance has a personal loans that fits every one of those
                 situations, and more. Ready to apply for a personal loans at the{ " " }
-                { Branch_Details.BranchName }, { getStateName } branch? Our { Branch_Details.BranchName } branch is totally focused on solving your personal
+                {Branch_Details.BranchName}, {stateShortNm } branch? Our { Branch_Details.BranchName } branch is totally focused on solving your personal
                 financial challenges.
               </p>
             </Grid>
@@ -526,7 +498,7 @@ export default function StatePage(props) {
           <Grid className="findNearbyBranch">
             <Grid style={ { margin: "auto" } }>
               <h4 className="PesonalLoanMapHeading">
-                <strong>Find nearby { StateFullName } branches</strong>
+                <strong>Find nearby { stateLongNm } branches</strong>
               </h4>
               <p className="PesonalLoanMapParagraph">
                 Mariner Finance, serving communities since 1927, operates over 470 branch locations in twenty-seven
