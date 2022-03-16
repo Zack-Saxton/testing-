@@ -1024,7 +1024,7 @@ export default function MakePayment(props) {
                   >
                     <Paper className={ classes.paper }>
                       { paymentOptions !== null &&
-                        showCircularProgress !== true ? (
+                        !showCircularProgress ? (
                         <div>
                           <Grid item xs={ 12 }>
                             <Typography

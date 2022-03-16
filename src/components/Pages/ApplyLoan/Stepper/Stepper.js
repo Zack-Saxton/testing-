@@ -102,7 +102,7 @@ export default function VerticalLinearStepper() {
 			navigate("/customers/receiveYourMoney");
 		} else if (!res?.data?.email) {
 			tabPosition = 0;
-		} else if (!res?.data?.phone_verification && tabPosition === "" && skip?.phone !== true) {
+		} else if (!res?.data?.phone_verification && tabPosition === "" && !skip?.phone) {
 			tabPosition = 1;
 		} else if (!res?.data?.financial_information  && tabPosition === "") {
 			tabPosition = 2;

@@ -84,7 +84,7 @@ export default function LoanHistoryCard(historyOfLoans) {
               </Paper>
             </Grid>
             :
-            <Grid item xs={ 12 } sm={ 4 } className={ currentLoan !== true ? "cardLoanHistory" : "disableCardLoanHistory" } >
+            <Grid item xs={ 12 } sm={ 4 } className={ !currentLoan ? "cardLoanHistory" : "disableCardLoanHistory" } >
               <Paper className={ classes.paperPointer } onClick={ redirectToApplyForLoan } style={ { height: "70%" } }>
                 <Grid style={ { textAlign: "center" } }>
                   <MonetizationOnRoundedIcon id="dolor-icon_loan-history" className="material-icons background-round mt-5 yelloWBG" />

@@ -23,7 +23,7 @@ const APICall = async (api, param, data, method, addAccessToken) => {
         "x-access-token": addAccessToken ? loginToken.apiKey : "",
       },
       transformRequest: (data, headers) => {
-        if (addAccessToken !== true) {
+        if (!addAccessToken) {
           delete headers.common[ "x-access-token" ];
         }
         return data;
