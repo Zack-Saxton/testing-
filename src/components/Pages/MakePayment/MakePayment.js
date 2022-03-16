@@ -151,10 +151,10 @@ export default function MakePayment(props) {
             type.toUpperCase() === "ACH"
               ? setcard(data.SequenceNumber)
               : setcard(data.ProfileId);
-            setisDebit(true);
-            setCalendarDisabled(true);
-            checkNickName = true;
-            return checkNickName;
+              setisDebit(true);
+              setCalendarDisabled(true);
+              checkNickName = true;
+              return checkNickName;
           } else {
               setisDebit(false);
               setCalendarDisabled(false);
@@ -164,7 +164,9 @@ export default function MakePayment(props) {
       : setcard("");
     return checkNickName;
   }
-  //Enable auto payment
+
+let totalPaymentAmountWithFees = parseFloat(totalPaymentAmount) + parseFloat(2.50);
+//Enable auto payment
   async function enableAutoPayment(enableAutoPayAccountNo, enableAutoPayCard, enableAutoPayDate, enableAutoPayIsDebit) {
     let result = await enableAutoPay(enableAutoPayAccountNo, enableAutoPayCard, enableAutoPayDate, enableAutoPayIsDebit);
     result.status === 200
@@ -268,6 +270,7 @@ export default function MakePayment(props) {
     });
     return check;
   }
+
   //API Request for Account Details
   function getData() {
     setshowCircularProgress(isFetching);
@@ -394,7 +397,10 @@ export default function MakePayment(props) {
   //Select account
   const handleChangeSelect = (event) => {
     setcard(event.target.value);
-    if ([ "Checking", "Savings" ].includes(event.nativeEvent.target.innerText)) {
+    if (
+      event.nativeEvent.target.innerText.includes("Checking") ||
+      event.nativeEvent.target.innerText.includes("Savings")
+    ) {
       setisDebit(false);
       setCheckCard(false);
       setpaymentDatepicker(scheduleDate);
@@ -1148,25 +1154,42 @@ export default function MakePayment(props) {
                 </TableRow>
 
                 { isDebit ? (
-                  <TableRow>
-                    <TableCell
-                      className={ classes.tableheadrow }
-                      align="left"
-                      width="20%"
-                    ></TableCell>
-                    <TableCell align="left">
-                      Third Party Convenience fee:
-                    </TableCell>
-                    <TableCell align="left">$2.50</TableCell>
-                    <TableCell
-                      className={ classes.tableheadrow }
-                      align="left"
-                    ></TableCell>
-                  </TableRow>
-                ) : ""
-                }
-
                 <TableRow>
+                <TableCell
+                  className={ classes.tableheadrow }
+                  align="left"
+                  width="20%"
+                ></TableCell>
+                <TableCell align="left">
+                  Third Party Convenience fee:
+                </TableCell>
+                <TableCell align="left">$2.50</TableCell>
+                <TableCell
+                  className={ classes.tableheadrow }
+                  align="left"
+                ></TableCell>
+              </TableRow>
+              ) : ""
+              }
+            { isDebit ? (
+                <TableRow>
+                <TableCell
+                  className={ classes.tableheadrow }
+                  align="left"
+                  width="20%"
+                ></TableCell>
+                <TableCell align="left">
+                Total Amount:
+                </TableCell>
+                <TableCell align="left">{numberFormat(totalPaymentAmountWithFees)}</TableCell>
+                <TableCell
+                  className={ classes.tableheadrow }
+                  align="left"
+                ></TableCell>
+              </TableRow>
+              ) : ""
+              }
+               <TableRow>
                   <TableCell
                     className={ classes.tableheadrow }
                     align="left"
