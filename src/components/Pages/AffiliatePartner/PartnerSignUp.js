@@ -218,13 +218,18 @@ export default function CreditKarma() {
         partnerSignupData,
 
       );
-      if (partnerRes.status === 404) {
-        setLoading(false);
+      if (partnerRes.status === 404 && partnerRes.statusText === "Last four SSN do not match") {
+        setLoading(false)
+        formik.values.ssn = ""
+       }
+       else if (partnerRes.status === 404)
+         {            
+        setLoading(false)
         formik.values.ssn = "";
         formik.values.phoneType = "";
         formik.values.password = "";
-        formik.values.confirmPassword = "";
-      }
+        formik.values.confirmPassword = ""; 
+         }      
     },
   });
   //Preventing space key
