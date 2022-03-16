@@ -41,6 +41,13 @@ const useStyleVantageScore = makeStyles((theme) => ({
     color: "#212121",
   },
 
+  vantageScore:{
+    padding:"10px",
+  },
+  textDecoration:{
+    textDecoration: "none",
+  },
+
   texts: {
     display: "flex",
     flexDirection: "column",
