@@ -227,7 +227,7 @@ function PersonalInfo() {
 							setError(false);
 							setLoading(false);
 						}
-					} else if (customerStatus.data.customerFound === false) {
+					} else if (!customerStatus.data.customerFound) {
 						setError(false);
 						setLoading(false);
 						navigate("/new-user");

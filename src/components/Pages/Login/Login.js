@@ -135,14 +135,14 @@ export default function Login(props) {
   const getClientIp = async () => {
     try {
       let ipResponse = await axios.get('https://geolocation-db.com/json/');
-      return ipResponse.data.IPv4;
+      return ipResponse?.data?.IPv4;
     } catch (err) {
       return '127.0.0.1';
     }
   };
-  const remMeDataRaw = Cookies.get("rememberMe") ? Cookies.get("rememberMe") : null;
+  const remMeDataRaw = Cookies.get("rememberMe") ?? null;
   let remMeData = remMeDataRaw ? JSON.parse(decryptAES(remMeDataRaw)) : undefined;
-  const [ remMe, setRemMe ] = useState(remMeData?.selected);
+  const [remMe, setRemMe] = useState(remMeData?.selected);
   //Form Submission
   const formik = useFormik({
     initialValues: {
@@ -156,15 +156,15 @@ export default function Login(props) {
       let ipAddress = await getClientIp();
       //Sending value to  login controller
       let retVal = await LoginController(
-        values.email,
-        values.password,
+        values?.email,
+        values?.password,
         ipAddress,
-        props.setToken
+        props?.setToken
       );
-      if (retVal?.data?.user && retVal?.data?.userFound ) {
-        let login_date = retVal?.data?.user.extensionattributes?.login
+      if (retVal?.data?.user && retVal?.data?.userFound) {
+        let login_date = retVal?.data?.user?.extensionattributes?.login
           ?.last_timestamp_date
-          ? moment(retVal?.data?.user.extensionattributes.login.last_timestamp_date)
+          ? moment(retVal?.data?.user?.extensionattributes?.login?.last_timestamp_date)
             .subtract(addVal, "hours")
             .format("MM/DD/YYYY")
           : "";
@@ -179,17 +179,17 @@ export default function Login(props) {
             applicantGuid: retVal?.data?.user?.attributes?.sor_data?.applicant_guid,
           })
         );
-        Cookies.set("cred", encryptAES(JSON.stringify({ email: values.email, password: values.password })));
-        Cookies.set("email", values.email);
+        Cookies.set("cred", encryptAES(JSON.stringify({ email: values?.email, password: values?.password })));
+        Cookies.set("email", values?.email);
         Cookies.set("profile_picture", retVal?.data?.user?.mobile?.profile_picture ? retVal?.data?.user?.mobile?.profile_picture : "");
         Cookies.set("login_date", login_date);
         Cookies.set("userToken", retVal?.data?.user?.attributes?.UserToken);
         Cookies.set("temp_opted_phone_texting", "");
-        Cookies.set("rememberMe", encryptAES(remMe ? JSON.stringify({ selected: true, email: values.email }) : JSON.stringify({ selected: false, email: '' })));
+        Cookies.set("rememberMe", encryptAES(remMe ? JSON.stringify({ selected: true, email: values?.email}) : JSON.stringify({ selected: false, email: ''})) );
         queryClient.removeQueries();
         setLoading(false);
         if (retVal?.data?.user?.attributes?.password_reset) {
-          navigate("/resetpassword", { state: { Email: values.email } });
+          navigate("/resetpassword", { state: { Email: values?.email } });
         } else {
           navigate(location.state?.redirect ? location.state?.redirect : "/customers/accountoverview");
         }
@@ -213,7 +213,7 @@ export default function Login(props) {
         setLoading(false);
         setLoginFailed(retVal?.data?.errorMessage);
         if (counter >= 1) {
-          navigate("/register?email=" + values.email);
+          navigate("/register?email=" + values?.email);
         }
       } else {
         setLoading(false);
@@ -306,13 +306,13 @@ export default function Login(props) {
                           </p>
                         }
                         onKeyDown={ preventSpace }
-                        value={ formik.values.email }
+                        value={ formik.values?.email }
                         onChange={ passwordOnChange }
                         onBlur={ formik.handleBlur }
                         error={
-                          formik.touched.email && Boolean(formik.errors.email)
+                          formik.touched?.email && Boolean(formik.errors?.email)
                         }
-                        helperText={ formik.touched.email && formik.errors.email }
+                        helperText={ formik.touched?.email && formik.errors?.email }
                       />
                     </Grid>
 
@@ -329,15 +329,15 @@ export default function Login(props) {
                         type="password"
                         onKeyDown={ preventSpace }
                         materialProps={ { maxLength: "100" } }
-                        value={ formik.values.password }
+                        value={ formik.values?.password }
                         onChange={ passwordOnChange }
                         onBlur={ formik.handleBlur }
                         error={
-                          formik.touched.password &&
-                          Boolean(formik.errors.password)
+                          formik.touched?.password &&
+                          Boolean(formik.errors?.password)
                         }
                         helperText={
-                          formik.touched.password && formik.errors.password
+                          formik.touched?.password && formik.errors?.password
                         }
                       />
                       <p
@@ -351,22 +351,20 @@ export default function Login(props) {
                         Sign In help/Register for help signing in.
                       </p>
                     </Grid>
-                    <Grid className={ classes.checkbox }>
-                      <FormControl>
-                        <FormControlLabel
-                          control={
-                            <Switch
-                              checked={ remMe }
-                              onChange={ handleRemMeChange }
-                              // value={ state }
-                              inputProps={ { "data-test-id": "switch" } }
-                              color="primary"
-                            />
-                          }
-                          // labelPlacement={ labelplacement }
-                          label=" Remember me"
-                        />
-                      </FormControl>
+                    <Grid className={classes.checkbox}>
+                    <FormControl>
+                      <FormControlLabel
+                        control={
+                          <Switch
+                            checked={ remMe }
+                            onChange={ handleRemMeChange }
+                            inputProps={ { "data-test-id": "switch" } }
+                            color="primary"
+                          />
+                        }
+                        label=" Remember me"
+                      />
+                    </FormControl>
                     </Grid>
 
                     <Grid item xs={ 12 } className={ classes.loginButton }>

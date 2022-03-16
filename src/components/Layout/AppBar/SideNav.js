@@ -303,7 +303,7 @@ export default function SideNav() {
     const closeElementId = "close";
     const valueQualifiedName = "value";
 
-    if (checked === false || check === false) {
+    if (!checked || !check) {
       var profiledetailTag = document.getElementById("profileDetails");
       profiledetailTag.style.display = "block";
 
@@ -328,7 +328,7 @@ export default function SideNav() {
       } else {
         child.style.display = "none";
       }
-      if (checked === false || check === false) {
+      if (!checked || !check) {
         document.getElementById("main").style.marginLeft = "73px";
       } else {
         document.getElementById("main").style.marginLeft = "240px";
@@ -342,7 +342,7 @@ export default function SideNav() {
     const closeElementId = "close";
     const valueQualifiedName = "value";
 
-    if (checked === false || check === false) {
+    if (!checked || !check) {
       var profiledetailTag = document.getElementById("profileDetails");
       profiledetailTag.style.display = "none";
 
@@ -368,7 +368,7 @@ export default function SideNav() {
       } else {
         child.style.display = "none";
       }
-      if (checked === false || check === false) {
+      if (!checked || !check) {
         document.getElementById("main").style.marginLeft = "73px";
       } else {
         document.getElementById("main").style.marginLeft = "240px";
@@ -379,7 +379,7 @@ export default function SideNav() {
   //Menu button on mouse view
   const handleMenuButtonOpen = () => {
 
-    if (check === false) {
+    if (!check) {
       document.getElementById("close2").style.display = "block ";
       setOpen(true);
       var profiledetailTag = document.getElementById("profileDetails");
@@ -401,7 +401,7 @@ export default function SideNav() {
   };
 
   const handleMobileMenuClose = () => {
-    if (checked === false || check === false) {
+    if (!checked || !check) {
       setOpen(false);
     }
   };

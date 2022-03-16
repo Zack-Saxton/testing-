@@ -420,7 +420,7 @@ export default function MakePayment(props) {
     if (accNo && activeLoansData) {
       let res = checkaccNo(activeLoansData, accNo);
       // if accno is not Valid
-      if (res === false) {
+      if (!res) {
         toast.error(globalMessages.Invalid_Account_Number, { autoClose: 5000 });
         navigate("/customers/accountoverview");
       }
@@ -1245,7 +1245,7 @@ export default function MakePayment(props) {
       >
         <DialogTitle id="autopayText">
           <Typography id="autoTxt" className={ classes.dialogHeading }>
-            { disabledContent === false
+            { !disabledContent
               ? "Are you sure you want to disable auto pay?"
               : "Auto Pay Confirmation" }
           </Typography>
@@ -1266,10 +1266,10 @@ export default function MakePayment(props) {
                         width="20%"
                       ></TableCell>
                       <TableCell className={ classes.tableheadrow } align="left">
-                        { disabledContent === false ? "" : "Auto pay Amount: " }
+                        { !disabledContent ? "" : "Auto pay Amount: " }
                       </TableCell>
                       <TableCell align="left">
-                        { disabledContent === false
+                        { !disabledContent
                           ? ""
                           : numberFormat(paymentAmount) }
                       </TableCell>
@@ -1285,10 +1285,10 @@ export default function MakePayment(props) {
                         width="20%"
                       ></TableCell>
                       <TableCell align="left">
-                        { disabledContent === false ? "" : "Bank/Card: " }
+                        { !disabledContent ? "" : "Bank/Card: " }
                       </TableCell>
                       <TableCell align="left">
-                        { disabledContent === false ? "" : cardLabel }
+                        { !disabledContent ? "" : cardLabel }
                       </TableCell>
                       <TableCell
                         className={ classes.tableheadrow }
@@ -1302,14 +1302,10 @@ export default function MakePayment(props) {
                         width="20%"
                       ></TableCell>
                       <TableCell align="left">
-                        { disabledContent === false
-                          ? ""
-                          : "First Auto Pay Date:  " }
+                        { !disabledContent ? "" : "First Auto Pay Date:  " }
                       </TableCell>
                       <TableCell align="left">
-                        { disabledContent === false
-                          ? ""
-                          : Moment(paymentDate).format("MM/DD/YYYY") }
+                        { !disabledContent ? "" : Moment(paymentDate).format("MM/DD/YYYY") }
                       </TableCell>
                       <TableCell
                         className={ classes.tableheadrow }
@@ -1349,10 +1345,7 @@ export default function MakePayment(props) {
             onClick={ handleAutoPayConfirm }
             disabled={ loading }
           >
-            { disabledContent === false
-              ? "Disable Auto Pay"
-              : "Complete Auto Pay Setup" }
-
+            { !disabledContent ? "Disable Auto Pay" : "Complete Auto Pay Setup" }
             <i
               className="fa fa-refresh fa-spin customSpinner"
               style={ {

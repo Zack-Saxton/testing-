@@ -41,7 +41,7 @@ const ApplyForLoanRedirect = (props) => {
 		};
 
 		let res = await APICall("account_overview", '', data, "GET", true);
-		let checkStatus = location?.state?.statusCheck === false ? location.state.statusCheck : true;
+		let checkStatus = location?.state?.statusCheck ?? true;
 		if (location?.state?.from === "user") {
 			navigate({ state: { from: "ended" }, });
 			if (res?.data?.customer?.user_account?.status === "closed" && checkStatus !== false) {
@@ -62,7 +62,7 @@ const ApplyForLoanRedirect = (props) => {
 					}
 					return null;
 				});
-				if (isActiveApplicationAvailable === false) {
+				if (!isActiveApplicationAvailable) {
 					navigate("/select-amount");
 				}
 				return null;

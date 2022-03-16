@@ -232,8 +232,8 @@ export default function Register() {
         let customerStatus = await RegisterController(body);
 
         if (
-          (customerStatus.data?.customerFound === false && customerStatus.data?.userFound === false && customerStatus.data?.is_registration_failed === false) ||
-          (customerStatus.data?.result === "success" && customerStatus.data?.hasError === false)
+          (!customerStatus.data?.customerFound && !customerStatus.data?.userFound && !customerStatus.data?.is_registration_failed) ||
+          (customerStatus.data?.result === "success" && !customerStatus.data?.hasError)
         ) {
           //On succes, calls the login API to the JWT token and save it in storage, and make the user logged in and redirecting to home page
           loginUser(values);

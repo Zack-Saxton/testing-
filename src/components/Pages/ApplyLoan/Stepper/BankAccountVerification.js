@@ -129,7 +129,7 @@ export default function BankAccountVerification(props) {
 					);
 					setVerifyRequired(true);
 					props.setLoadingFlag(false);
-				} else if (res?.data?.bank_account_information === false || res?.data?.bank_account_verification === false) {
+				} else if (!res?.data?.bank_account_information || !res?.data?.bank_account_verification) {
 					props.setLoadingFlag(false);
 					alert(messages?.bankAccountVerification?.notValid);
 				} else {
