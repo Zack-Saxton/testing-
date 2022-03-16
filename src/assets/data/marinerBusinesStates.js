@@ -28,36 +28,6 @@ export const MFStates = [
     'Wisconsin',
     'Washington'
 ];
-export const MFStateShort = [
-    'AL',
-    'AZ',
-    'CA',
-    'DE',
-    'FL',
-    'GA',
-    'IL',
-    'IN',
-    'KY',
-    'LA',
-    'MD',
-    'MS',
-    'MO',
-    'NJ',
-    'NM',
-    'NY',
-    'NC',
-    'OH',
-    'OK',
-    'OR',
-    'PA',
-    'SC',
-    'TN',
-    'TX',
-    'UT',
-    'VA',
-    'WI',
-    'WA'
-];
 export const branch_hours = [
     "Mon: 9:00 a.m. – 5:00 p.m.",
     "Tue: 9:00 a.m. – 7:00 p.m.",
@@ -86,7 +56,6 @@ export const MFWorkingSaturdayDateRange = {
     "start": "11/23/2022 00:00:00",
     "end": "12/28/2022 00:00:00"
 };
-
 export const howManyBranchesforBranchLocatorPages = {
     BranchLocator: 10,
     StatePage: 25,
