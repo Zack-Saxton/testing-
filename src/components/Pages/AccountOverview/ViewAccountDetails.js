@@ -76,7 +76,6 @@ export default function ViewAccountDetails() {
             <Typography variant="h5" className={ classes.titleHeading }>
               <NavLink
                 to="/customers/accountOverview"
-                style={ { textDecoration: "none" } }
               >
                 <ButtonWithIcon
                   icon="arrow_backwardIcon"
@@ -95,11 +94,12 @@ export default function ViewAccountDetails() {
         </Grid>
 
         {/* Left Side Nav */ }
-        <Grid item xs={ 12 } style={ { paddingTop: "20px" } }>
+        <Grid className="applicationDetailsWrap" item xs={ 12 }>
           <Grid container item xs={ 12 }>
-            <Grid item xs={ 12 } sm={ 4 } style={ { padding: "5px", width: "100%" } }>
+            <Grid className="applicationDetailsGrid" item xs={ 12 } sm={ 4 }>
               <Paper className={ classes.paperVerticalTabViewDetail }>
                 <Tabs
+                  id="tabWarp"
                   value={ values }
                   onChange={ handleTabChange }
                   classes={ {
@@ -109,13 +109,12 @@ export default function ViewAccountDetails() {
                   scrollButtons="auto"
                   orientation="vertical"
                   variant="scrollable"
-                  style={ { paddingTop: "5px" } }
                   aria-label="scrollable auto tabs example"
                 >
                   <Tab
 
                     label={
-                      <span style={ { float: "left", textTransform: "none" } }>
+                      <span >
                         Status
                       </span>
                     }
@@ -125,7 +124,7 @@ export default function ViewAccountDetails() {
 
                   <Tab
                     label={
-                      <span style={ { float: "left", textTransform: "none" } }>
+                      <span>
                         Information
                       </span>
                     }
@@ -138,7 +137,7 @@ export default function ViewAccountDetails() {
             {/* End Left Side Nav */ }
 
             {/* Main Content */ }
-            <Grid item xs={ 12 } sm={ 8 } style={ { padding: "5px", width: "100%" } }>
+            <Grid className="weAreSorryWrap" item xs={ 12 } sm={ 8 }>
               <Paper className={ classes.paper } style={ values === 0 ? { marginBottom: "500px" } : { marginBottom: "0px" } }>
                 <TabPanelViewApplication value={ values } verticalIndex={ 0 } >
                   { viewAppApplicantInfo?.status ? (viewAppApplicantInfo?.status === "rejected") ?
@@ -181,11 +180,11 @@ export default function ViewAccountDetails() {
                             You will receive additional information regarding your account number and due date shortly.
                             If you signed up for automatic payments they will be deducted on your due date.
                             <br></br> <br></br>
-                            <NavLink to="'/customers/myBranch'" style={ { textDecoration: "none", color: "#0F4EB3", cursor: "pointer" } }>
+                            <NavLink to="'/customers/myBranch'" className={classes.loanDetailsLink} >
                               Please click here to contact us!
                             </NavLink>
                             <br></br> <br></br>
-                            <NavLink to="/customers/applyForLoan" state={ { from: "user" } } style={ { textDecoration: "none", color: "#0F4EB3", cursor: "pointer" } }>
+                            <NavLink to="/customers/applyForLoan" className={classes.loanDetailsLink} state={ { from: "user" } } >
                               Please click here to start a new application.
                             </NavLink>
                           </p>
@@ -207,7 +206,7 @@ export default function ViewAccountDetails() {
                               Upon completion of your application and verification of your information,
                               we may be able to extend your final offer as soon as today!
                               <br></br> <br></br>
-                              { `"Let's get on a call"` } -  <NavLink to="/customers/myBranch" style={ { textDecoration: "none", color: "#0F4EB3", cursor: "pointer" } }>
+                              { `"Let's get on a call"` } -  <NavLink to="/customers/myBranch" className={classes.loanDetailsLink} >
                                 Please click here to contact us!
                               </NavLink>
                             </p>
@@ -223,7 +222,7 @@ export default function ViewAccountDetails() {
                         </Grid>
                           <Grid>
                             <p className={ classes.viewAppStatusDisplay }>
-                              <NavLink to="/customers/myBranch" style={ { textDecoration: "none", color: "#0F4EB3", cursor: "pointer" } }>
+                              <NavLink to="/customers/myBranch" className={classes.loanDetailsLink}>
                                 Please click here to contact us!
                               </NavLink>
                             </p>
@@ -287,9 +286,9 @@ export default function ViewAccountDetails() {
                   </Grid>
 
                   <Grid
+                    className="loanRequestedText"
                     item
                     xs={ 12 }
-                    style={ { paddingBottom: "5px", paddingTop: "40px" } }
                   >
                     <Typography variant="h6" className={ classes.viewAppHeading }>
                       Loan Requested
