@@ -10,6 +10,7 @@ import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import CloseIcon from "@mui/icons-material/Close";
+import InfoIcon from '@mui/icons-material/Info';
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import PhoneIcon from "@mui/icons-material/Phone";
 import React, { useEffect, useState } from "react";
