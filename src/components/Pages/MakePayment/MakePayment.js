@@ -89,35 +89,21 @@ export default function MakePayment(props) {
     isFetching,
     data: User,
     refetch,
-  } = useQuery("loan-data", usrAccountDetails, {
-    refetchOnMount: false,
-  });
-  const { data: payments } = useQuery("payment-method", usrPaymentMethods, {
-    refetchOnMount: false,
-  });
-  const { data: holidayCalenderData } = useQuery(
-    "holiday-calendar",
-    HolidayCalender,
-    {
-      refetchOnMount: false,
-    }
-  );
+  } = useQuery("loan-data", usrAccountDetails, { refetchOnMount: false, });
+  const { data: payments } = useQuery("payment-method", usrPaymentMethods, { refetchOnMount: false, });
+  const { data: holidayCalenderData } = useQuery("holiday-calendar", HolidayCalender, { refetchOnMount: false, });
   const [ paymentTitle, setPaymentTitle ] = useState("Single Payment");
 
   useEffect(() => {
     if (payments?.data?.paymentOptions) {
-      payments.data.paymentOptions.length && payments.data.paymentOptions[ 0 ].CardType
-        ? setCheckCard(true)
-        : setCheckCard(false);
+      setCheckCard(payments.data.paymentOptions.length && payments.data.paymentOptions[ 0 ].CardType);
     }
     return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ payments, User ]);
 
   useEffect(() => {
-    defaultPaymentCard || checkCard
-      ? setpaymentDatepicker(new Date())
-      : setpaymentDatepicker(scheduleDate);
+    setpaymentDatepicker(defaultPaymentCard || checkCard ? new Date() : scheduleDate);
   }, [ checkCard, scheduleDate, defaultPaymentCard ]);
 
   //API Request for Payment methods
@@ -133,70 +119,66 @@ export default function MakePayment(props) {
       //get default card
       let defaultBank = payments?.data?.defaultBank;
       let cardFound = await defaultCardCheck(payments?.data?.ACHMethods, "ACH", defaultBank);
-      cardFound && setDefaultPaymentCard(false);
-      if (!cardFound) {
+      if (cardFound) {
+        setDefaultPaymentCard(false);
+      } else {
         //set default card ACHMethods
         const cardNotFound = await defaultCardCheck(payments?.data?.CardMethods, "card", defaultBank);
-        cardNotFound && setDefaultPaymentCard(true);
+        if (cardNotFound) {
+          setDefaultPaymentCard(true);
+        }
       }
     }
   }
   //set default card CardMethods
   async function defaultCardCheck(cardData, type, defaultBank) {
     let checkNickName = false;
-    cardData
-      ? cardData?.length
-        ? cardData?.forEach((data) => {
-          if (data.Nickname === defaultBank) {
-              if (type.toUpperCase() === "ACH") {
-                setcard(data.SequenceNumber);
-                setisDebit(false);
-                setCalendarDisabled(false);
-              } else {
-                setcard(data.ProfileId);
-                setisDebit(true);
-                setCalendarDisabled(true);
-              }
-              checkNickName = true;
-              return checkNickName;
+    setcard("");
+    cardData?.forEach((data) => {
+      if (data.Nickname === defaultBank) {
+        if (type.toUpperCase() === "ACH") {
+          setcard(data.SequenceNumber);
+          setisDebit(false);
+          setCalendarDisabled(false);
+        } else {
+          setcard(data.ProfileId);
+          setisDebit(true);
+          setCalendarDisabled(true);
         }
-        })
-        : setcard("")
-      : setcard("");
+        checkNickName = true;
+        return checkNickName;
+      }
+    });
     return checkNickName;
   }
 
-let totalPaymentAmountWithFees = parseFloat(totalPaymentAmount) + parseFloat(2.50);
-//Enable auto payment
+  let totalPaymentAmountWithFees = parseFloat(totalPaymentAmount) + parseFloat(2.50);
+  //Enable auto payment
   async function enableAutoPayment(enableAutoPayAccountNo, enableAutoPayCard, enableAutoPayDate, enableAutoPayIsDebit) {
     let result = await enableAutoPay(enableAutoPayAccountNo, enableAutoPayCard, enableAutoPayDate, enableAutoPayIsDebit);
     result.status === 200
       ? result?.data?.paymentResult.HasNoErrors
-        ? toast.success(globalMessages.Auto_Payment_Mode_Enabled, {autoClose: 5000,})
-        : toast.error(globalMessages.Failed_Payment_mode, {autoClose: 5000,})
-      : toast.error(result?.data?.message ? result?.data?.message: globalMessages.Failed_Payment_mode, {autoClose: 5000, });
+        ? toast.success(globalMessages.Auto_Payment_Mode_Enabled, { autoClose: 5000, })
+        : toast.error(globalMessages.Failed_Payment_mode, { autoClose: 5000, })
+      : toast.error(result?.data?.message ? result?.data?.message : globalMessages.Failed_Payment_mode, { autoClose: 5000, });
 
-    hasSchedulePayment
-      ? result.status === 900
-        ? deleteSchedule(accntNo, routingNumber)
-        : refetch()
-      : refetch();
+    hasSchedulePayment && result.status === 900 ? deleteSchedule(accntNo, routingNumber) : refetch();
   }
   //Disable auto payment
   async function disableAutoPayment(disableAutoPayAccountNo) {
     let result = await disableAutoPay(disableAutoPayAccountNo);
     result.status === 200
       ? result?.data?.deletePayment.HasNoErrors
-        ? toast.success(globalMessages.Auto_Payment_Mode_Disabled, {autoClose: 5000,})
-        : toast.error(globalMessages.Failed_Payment_mode, {autoClose: 5000,})
-      : toast.error(result?.data?.message ? result?.data?.message : "Failed Payment mode", {autoClose: 5000,});
+        ? toast.success(globalMessages.Auto_Payment_Mode_Disabled, { autoClose: 5000, })
+        : toast.error(globalMessages.Failed_Payment_mode, { autoClose: 5000, })
+      : toast.error(result?.data?.message ? result?.data?.message : "Failed Payment mode", { autoClose: 5000, });
     result?.data?.deletePayment.HasNoErrors && refetch();
   }
 
   //Enable scheduled payment
-  async function makeuserPayment(scheduledPaymentAccountNo, scheduledPaymentCard, scheduledPaymentDatePicker, scheduledPaymentIsDebit, scheduledPaymentAmount,RemoveScheduledPayment) {
+  async function makeuserPayment(scheduledPaymentAccountNo, scheduledPaymentCard, scheduledPaymentDatePicker, scheduledPaymentIsDebit, scheduledPaymentAmount, RemoveScheduledPayment) {
     setPaymentOpen(false);
-    let result = await makePayment(scheduledPaymentAccountNo,scheduledPaymentCard,scheduledPaymentDatePicker, scheduledPaymentIsDebit,scheduledPaymentAmount, RemoveScheduledPayment);
+    let result = await makePayment(scheduledPaymentAccountNo, scheduledPaymentCard, scheduledPaymentDatePicker, scheduledPaymentIsDebit, scheduledPaymentAmount, RemoveScheduledPayment);
     let message =
       paymentDatepicker === Moment().format("YYYY/MM/DD")
         ? globalMessages.We_Received_Your_Payment_Successfully
@@ -209,16 +191,16 @@ let totalPaymentAmountWithFees = parseFloat(totalPaymentAmount) + parseFloat(2.5
         : toast.error(globalMessages.Failed_Payment_mode, { autoClose: 5000 })
       : toast.error(result?.data?.message ? result?.data?.message : "Failed Payment mode", { autoClose: 5000, });
 
-    result.status === 900 ? disableAutoPaymentScheduled(accntNo, card, paymentDate, isDebit) : refetch();
+    // result.status === 900 ? disableAutoPaymentScheduled(accntNo, card, paymentDate, isDebit) : refetch();
   }
   //Disable scheduled payment
   async function deletePayment(disableScheduledPaymentAccountNo, disableScheduledPaymentRefNo, disableScheduledPaymentIsCard) {
     let result = await deleteScheduledPayment(disableScheduledPaymentAccountNo, disableScheduledPaymentRefNo, disableScheduledPaymentIsCard);
     result.status === 200
       ? result?.data?.deletePaymentMethod.HasNoErrors
-        ? toast.success("Scheduled Payment cancelled", {autoClose: 5000,}) && refetch()
-        : toast.error(globalMessages.Failed_Payment_mode, {autoClose: 5000, })
-      : toast.error(result?.data?.message ? result?.data?.message : "Failed Payment mode", { autoClose: 5000,});
+        ? toast.success("Scheduled Payment cancelled", { autoClose: 5000, }) && refetch()
+        : toast.error(globalMessages.Failed_Payment_mode, { autoClose: 5000, })
+      : toast.error(result?.data?.message ? result?.data?.message : "Failed Payment mode", { autoClose: 5000, });
   }
 
   // Disable auto payment while make payment
@@ -235,28 +217,19 @@ let totalPaymentAmountWithFees = parseFloat(totalPaymentAmount) + parseFloat(2.5
 
   //Validating ACCNO
   async function checkaccNo(checkAccNoActiveLoansData, checkAccNo) {
-    let check = false;
     checkAccNoActiveLoansData?.forEach((data) => {
       if (data?.loanData?.accountNumber === checkAccNo) {
         let loan = [];
         loan.push(data);
         setlatestLoanData(loan);
-        setpaymentAmount((
-                Math.abs(data?.loanPaymentInformation?.accountDetails?.RegularPaymentAmount) +
-                Math.abs(data?.loanPaymentInformation?.accountDetails?.InterestRate) +
-                Math.abs(data?.loanPaymentInformation?.accountDetails?.LoanFeesAndCharges)
-              ).toFixed(2)
-        );
-        setTotalPaymentAmount((
-                Math.abs(data?.loanPaymentInformation?.accountDetails?.RegularPaymentAmount) +
-                Math.abs(data?.loanPaymentInformation?.accountDetails?.InterestRate) +
-                Math.abs(data?.loanPaymentInformation?.accountDetails?.LoanFeesAndCharges)
-              ).toFixed(2)
-        );
+        let totalAmount = (Math.abs(data?.loanPaymentInformation?.accountDetails?.RegularPaymentAmount) + Math.abs(data?.loanPaymentInformation?.accountDetails?.InterestRate) +
+          Math.abs(data?.loanPaymentInformation?.accountDetails?.LoanFeesAndCharges)).toFixed(2);
+        setpaymentAmount(totalAmount);
+        setTotalPaymentAmount(totalAmount);
         setaccntNo(data.loanData?.accountNumber);
         getPaymentMethods();
-        setdisabledContent(data?.loanPaymentInformation?.appRecurringACHPayment ? true : false);
-        setcheckAutoPay(data?.loanPaymentInformation?.appRecurringACHPayment ? true : false);
+        setdisabledContent(data?.loanPaymentInformation?.appRecurringACHPayment);
+        setcheckAutoPay(data?.loanPaymentInformation?.appRecurringACHPayment);
         setpaymentDate(Moment(data?.loanPaymentInformation?.accountDetails?.NextDueDate).format("YYYY-MM-DD"));
         let scheduledDate = data?.loanPaymentInformation?.hasScheduledPayment ? Moment(data?.loanPaymentInformation?.scheduledPayments[ 0 ]?.PaymentDate).format("MM/DD/YYYY") : new Date();
         setpaymentDatepicker(defaultPaymentCard ? new Date() : scheduledDate);
@@ -264,12 +237,11 @@ let totalPaymentAmountWithFees = parseFloat(totalPaymentAmount) + parseFloat(2.5
         setLoading(false);
         setAutopaySubmit(true);
         setshowCircularProgress(isFetching);
-        setCheckPaymentInformation(data?.loanPaymentInformation?.errorMessage ? true : false);
-        check = true;
-        return check;
+        setCheckPaymentInformation(data?.loanPaymentInformation?.errorMessage);
+        return true;
       }
     });
-    return check;
+    return false;
   }
 
   //API Request for Account Details
@@ -279,11 +251,7 @@ let totalPaymentAmountWithFees = parseFloat(totalPaymentAmount) + parseFloat(2.5
     let hasSchedulePaymentActive = activeLoansData?.length
       ? activeLoansData[ 0 ]?.loanPaymentInformation?.hasScheduledPayment
       : false;
-    if (hasSchedulePaymentActive) {
-      setPaymentTitle("Scheduled Future Payment");
-    } else {
-      setPaymentTitle("Single Payment");
-    }
+    setPaymentTitle(hasSchedulePaymentActive ? "Scheduled Future Payment" : "Single Payment");
     if (accNo && activeLoansData) {
       let res = checkaccNo(activeLoansData, accNo);
       // if accno is not Valid
@@ -292,52 +260,28 @@ let totalPaymentAmountWithFees = parseFloat(totalPaymentAmount) + parseFloat(2.5
         navigate("/customers/accountoverview");
       }
     } else {
-      let schedulePaymentAmount = activeLoansData?.length
-        ? activeLoansData[ 0 ]?.loanPaymentInformation?.scheduledPayments?.length
-          ? activeLoansData[ 0 ].loanPaymentInformation.scheduledPayments[ 0 ]?.PaymentAmount
-          : 0
+      let schedulePaymentAmount = activeLoansData?.length && activeLoansData[ 0 ]?.loanPaymentInformation?.scheduledPayments?.length
+        ? activeLoansData[ 0 ].loanPaymentInformation.scheduledPayments[ 0 ]?.PaymentAmount
         : 0;
+      let totalAmount = latestLoan?.length ? (Math.abs(latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails?.RegularPaymentAmount) + Math.abs(latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails?.InterestRate) +
+        Math.abs(latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails?.LoanFeesAndCharges)
+      ).toFixed(2) : null;
       setlatestLoanData(activeLoansData?.slice(0, 1) ?? null);
       let latestLoan = activeLoansData?.slice(0, 1) ?? null;
-      setpaymentAmount(
-        activeLoansData?.length
-          ? hasSchedulePaymentActive
-            ? schedulePaymentAmount.toFixed(2)
-            : (Math.abs(latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails?.RegularPaymentAmount) +
-              Math.abs(latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails?.InterestRate) +
-              Math.abs(latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails?.LoanFeesAndCharges)
-            ).toFixed(2)
-          : null
-      );
-      setTotalPaymentAmount(
-        activeLoansData?.length && latestLoan != null
-            ? (
-              Math.abs(latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails?.RegularPaymentAmount) +
-              Math.abs(latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails?.InterestRate) +
-              Math.abs(latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails?.LoanFeesAndCharges)
-            ).toFixed(2)
-            : null
-      );
-      setaccntNo(activeLoansData?.length && latestLoan != null ? latestLoan[ 0 ].loanData.accountNumber : null);
+      setpaymentAmount(hasSchedulePaymentActive ? schedulePaymentAmount.toFixed(2) : totalAmount);
+      setTotalPaymentAmount(totalAmount);
+      setaccntNo(latestLoan?.length ? latestLoan[ 0 ]?.loanData?.accountNumber : null);
       getPaymentMethods();
-      setdisabledContent(activeLoansData?.length && latestLoan != null && latestLoan[ 0 ]?.loanPaymentInformation?.appRecurringACHPayment ? true : false);
-      setcheckAutoPay(activeLoansData?.length && latestLoan != null && latestLoan[ 0 ]?.loanPaymentInformation?.appRecurringACHPayment ? true : false);
-      setpaymentDate(activeLoansData?.length && latestLoan != null ? Moment(latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails?.NextDueDate).format("YYYY-MM-DD"): "NONE");
+      setdisabledContent(latestLoan?.length && latestLoan[ 0 ]?.loanPaymentInformation?.appRecurringACHPayment);
+      setcheckAutoPay(latestLoan?.length && latestLoan[ 0 ]?.loanPaymentInformation?.appRecurringACHPayment);
+      setpaymentDate(latestLoan?.length ? Moment(latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails?.NextDueDate).format("YYYY-MM-DD") : "NONE");
       let scheduledDate = latestLoan?.length && latestLoan[ 0 ]?.loanPaymentInformation?.hasScheduledPayment ? Moment(latestLoan[ 0 ].loanPaymentInformation.scheduledPayments[ 0 ]?.PaymentDate).format("MM/DD/YYYY") : new Date();
       setpaymentDatepicker(defaultPaymentCard ? new Date() : scheduledDate);
       setscheduleDate(scheduledDate);
       setLoading(false);
       setAutopaySubmit(true);
       setshowCircularProgress(isFetching);
-      setCheckPaymentInformation(
-        activeLoansData?.length
-          ? latestLoan != null
-            ? latestLoan[ 0 ]?.loanPaymentInformation?.errorMessage
-              ? true
-              : false
-            : null
-          : null
-      );
+      setCheckPaymentInformation(latestLoan?.length && latestLoan[ 0 ]?.loanPaymentInformation?.errorMessage);
     }
   }
 
@@ -350,37 +294,16 @@ let totalPaymentAmountWithFees = parseFloat(totalPaymentAmount) + parseFloat(2.5
 
   //Account select payment options
   let paymentData = paymentMethods?.data;
-  let paymentListAch =
-    paymentData && paymentData.ACHMethods != null
-      ? paymentData.ACHMethods.map((pdata) => ({
-        value: pdata.SequenceNumber,
-        label:
-          pdata.AccountType +
-          " (" +
-          pdata.Nickname +
-          ") (****" +
-          pdata.AccountNumber.substr(-4) +
-          ")",
-      }))
-      : null;
-  let paymentListCard =
-    paymentData && paymentData.ACHMethods != null
-      ? paymentData.CardMethods.map((pdata) => ({
-        value: pdata.ProfileId,
-        label:
-          pdata.CardType +
-          " (" +
-          pdata.OwnerName +
-          ") (****" +
-          pdata.LastFour +
-          ")",
-      }))
-      : null;
+  let paymentListAch = paymentData?.ACHMethods?.map((pdata) => ({
+    value: pdata.SequenceNumber,
+    label: `${ pdata.AccountType } (${ pdata.Nickname }) (****${ pdata.AccountNumber.substr(-4) })`,
+  }));
+  let paymentListCard = paymentData?.CardMethods?.map((pdata) => ({
+    value: pdata.ProfileId,
+    label: `${ pdata.CardType } (${ pdata.OwnerName }) (****${ pdata.LastFour })`
+  }));
 
-  const paymentOptions =
-    paymentListAch != null
-      ? JSON.stringify(paymentListAch.concat(paymentListCard))
-      : "[]";
+  const paymentOptions = paymentListAch ? JSON.stringify(paymentListAch.concat(paymentListCard)) : "[]";
 
   //Storing the routingNumber,refNumber and SchedulePayments details
   let hasSchedulePayment = latestLoanData?.length ? latestLoanData[ 0 ]?.loanPaymentInformation?.hasScheduledPayment : false;
@@ -393,15 +316,12 @@ let totalPaymentAmountWithFees = parseFloat(totalPaymentAmount) + parseFloat(2.5
   let isCard = latestLoanData?.length && latestLoanData[ 0 ]?.loanPaymentInformation?.scheduledPayments?.length && latestLoanData[ 0 ].loanPaymentInformation.scheduledPayments[ 0 ]?.PaymentMethod?.IsCard
     ? latestLoanData[ 0 ].loanPaymentInformation.scheduledPayments[ 0 ].PaymentMethod.IsCard
     : false;
-  let status = accountDetails != null ? accountDetails.data.status : null;
+  let status = accountDetails?.data?.status;
 
   //Select account
   const handleChangeSelect = (event) => {
     setcard(event.target.value);
-    if (
-      event.nativeEvent.target.innerText.includes("Checking") ||
-      event.nativeEvent.target.innerText.includes("Savings")
-    ) {
+    if (event.nativeEvent.target.innerText.includes("Checking") || event.nativeEvent.target.innerText.includes("Savings")) {
       setisDebit(false);
       setCheckCard(false);
       setpaymentDatepicker(scheduleDate);
@@ -423,7 +343,7 @@ let totalPaymentAmountWithFees = parseFloat(totalPaymentAmount) + parseFloat(2.5
 
   //Autopay enable/disable switch
   const handleSwitchPayment = (event) => {
-    setAutopaySubmit(checkAutoPay === event.target.checked ? true : false);
+    setAutopaySubmit(checkAutoPay === event.target.checked);
     setdisabledContent(event.target.checked);
   };
 
@@ -453,9 +373,7 @@ let totalPaymentAmountWithFees = parseFloat(totalPaymentAmount) + parseFloat(2.5
   function handleAutoPayConfirm() {
     setLoading(true);
     setshowCircularProgress(true);
-    disabledContent
-      ? enableAutoPayment(accntNo, card, paymentDate, isDebit)
-      : disableAutoPayment(accntNo);
+    disabledContent ? enableAutoPayment(accntNo, card, paymentDate, isDebit) : disableAutoPayment(accntNo);
     setOpen(false);
   }
 
@@ -539,13 +457,10 @@ let totalPaymentAmountWithFees = parseFloat(totalPaymentAmount) + parseFloat(2.5
     setAutoPayOpen(false);
   };
   const numberFormat = (value) =>
-    new Intl.NumberFormat("en-IN", {
-      style: "currency",
-      currency: "USD",
-    }).format(value);
+    new Intl.NumberFormat("en-IN", {style: "currency", currency: "USD" }).format(value);
   //US holidays
   function disableHolidays(date) {
-    const holidayApiData =  holidayCalenderData?.data?.MFYearHolidays?.map(({ Date }) => formatDate(Date)) ?? [];
+    const holidayApiData = holidayCalenderData?.data?.MFYearHolidays?.map(({ Date }) => formatDate(Date)) ?? [];
     const holidayApiDataValues = holidayApiData.map((arrVal) => {
       return new Date(arrVal + "T00:00").getTime();
     });
@@ -557,14 +472,10 @@ let totalPaymentAmountWithFees = parseFloat(totalPaymentAmount) + parseFloat(2.5
     let price = event.target.value.replace("$", "");
     const reg = /^\d{0,5}(\.\d{0,2})?$/;
     if (price === "" || reg.test(price)) {
-      price =
-        price.indexOf(".") >= 0
-          ? price.substr(0, price.indexOf(".")) +
-          price.substr(price.indexOf("."), 3)
-          : price;
+      price = Math.trunc(Number(price)*100)/100;
       setpaymentAmount(price);
       setRequiredAmount("");
-      if (User.data.activeLoans[ 0 ].loanPaymentInformation.accountDetails.CurrentPayOffAmount <= parseFloat(price)) {
+      if (User?.data?.activeLoans?.length && User.data.activeLoans[ 0 ].loanPaymentInformation?.accountDetails?.CurrentPayOffAmount <= parseFloat(price)) {
         if (!toast.isActive("payoffNotSetFutureDate")) {
           toast.success(globalMessages.PayoffCannotBeInFuture, { toastId: "payoffNotSetFutureDate" });
         }
@@ -1155,42 +1066,42 @@ let totalPaymentAmountWithFees = parseFloat(totalPaymentAmount) + parseFloat(2.5
                 </TableRow>
 
                 { isDebit ? (
+                  <TableRow>
+                    <TableCell
+                      className={ classes.tableheadrow }
+                      align="left"
+                      width="20%"
+                    ></TableCell>
+                    <TableCell align="left">
+                      Third Party Convenience fee:
+                    </TableCell>
+                    <TableCell align="left">$2.50</TableCell>
+                    <TableCell
+                      className={ classes.tableheadrow }
+                      align="left"
+                    ></TableCell>
+                  </TableRow>
+                ) : ""
+                }
+                { isDebit ? (
+                  <TableRow>
+                    <TableCell
+                      className={ classes.tableheadrow }
+                      align="left"
+                      width="20%"
+                    ></TableCell>
+                    <TableCell align="left">
+                      Total Amount:
+                    </TableCell>
+                    <TableCell align="left">{ numberFormat(totalPaymentAmountWithFees) }</TableCell>
+                    <TableCell
+                      className={ classes.tableheadrow }
+                      align="left"
+                    ></TableCell>
+                  </TableRow>
+                ) : ""
+                }
                 <TableRow>
-                <TableCell
-                  className={ classes.tableheadrow }
-                  align="left"
-                  width="20%"
-                ></TableCell>
-                <TableCell align="left">
-                  Third Party Convenience fee:
-                </TableCell>
-                <TableCell align="left">$2.50</TableCell>
-                <TableCell
-                  className={ classes.tableheadrow }
-                  align="left"
-                ></TableCell>
-              </TableRow>
-              ) : ""
-              }
-            { isDebit ? (
-                <TableRow>
-                <TableCell
-                  className={ classes.tableheadrow }
-                  align="left"
-                  width="20%"
-                ></TableCell>
-                <TableCell align="left">
-                Total Amount:
-                </TableCell>
-                <TableCell align="left">{numberFormat(totalPaymentAmountWithFees)}</TableCell>
-                <TableCell
-                  className={ classes.tableheadrow }
-                  align="left"
-                ></TableCell>
-              </TableRow>
-              ) : ""
-              }
-               <TableRow>
                   <TableCell
                     className={ classes.tableheadrow }
                     align="left"
