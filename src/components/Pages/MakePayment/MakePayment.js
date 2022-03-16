@@ -132,19 +132,11 @@ export default function MakePayment(props) {
     } else {
       //get default card
       let defaultBank = payments?.data?.defaultBank;
-      let cardFound = await defaultCardCheck(
-        payments?.data?.ACHMethods,
-        "ACH",
-        defaultBank
-      );
+      let cardFound = await defaultCardCheck(payments?.data?.ACHMethods, "ACH", defaultBank);
       cardFound && setDefaultPaymentCard(false);
       if (!cardFound) {
         //set default card ACHMethods
-        const cardNotFound = await defaultCardCheck(
-          payments?.data?.CardMethods,
-          "card",
-          defaultBank
-        );
+        const cardNotFound = await defaultCardCheck(payments?.data?.CardMethods, "card", defaultBank);
         cardNotFound && setDefaultPaymentCard(true);
       }
     }
@@ -170,34 +162,13 @@ export default function MakePayment(props) {
     return checkNickName;
   }
   //Enable auto payment
-  async function enableAutoPayment(
-    enableAutoPayAccountNo,
-    enableAutoPayCard,
-    enableAutoPayDate,
-    enableAutoPayIsDebit
-  ) {
-    let result = await enableAutoPay(
-      enableAutoPayAccountNo,
-      enableAutoPayCard,
-      enableAutoPayDate,
-      enableAutoPayIsDebit
-    );
+  async function enableAutoPayment(enableAutoPayAccountNo, enableAutoPayCard, enableAutoPayDate, enableAutoPayIsDebit) {
+    let result = await enableAutoPay(enableAutoPayAccountNo, enableAutoPayCard, enableAutoPayDate, enableAutoPayIsDebit);
     result.status === 200
       ? result?.data?.paymentResult.HasNoErrors
-        ? toast.success(globalMessages.Auto_Payment_Mode_Enabled, {
-          autoClose: 5000,
-        })
-        : toast.error(globalMessages.Failed_Payment_mode, {
-          autoClose: 5000,
-        })
-      : toast.error(
-        result?.data?.message
-          ? result?.data?.message
-          : globalMessages.Failed_Payment_mode,
-        {
-          autoClose: 5000,
-        }
-      );
+        ? toast.success(globalMessages.Auto_Payment_Mode_Enabled, {autoClose: 5000,})
+        : toast.error(globalMessages.Failed_Payment_mode, {autoClose: 5000,})
+      : toast.error(result?.data?.message ? result?.data?.message: globalMessages.Failed_Payment_mode, {autoClose: 5000, });
 
     hasSchedulePayment
       ? result.status === 900
@@ -210,39 +181,16 @@ export default function MakePayment(props) {
     let result = await disableAutoPay(disableAutoPayAccountNo);
     result.status === 200
       ? result?.data?.deletePayment.HasNoErrors
-        ? toast.success(globalMessages.Auto_Payment_Mode_Disabled, {
-          autoClose: 5000,
-        })
-        : toast.error(globalMessages.Failed_Payment_mode, {
-          autoClose: 5000,
-        })
-      : toast.error(
-        result?.data?.message ? result?.data?.message : "Failed Payment mode",
-        {
-          autoClose: 5000,
-        }
-      );
+        ? toast.success(globalMessages.Auto_Payment_Mode_Disabled, {autoClose: 5000,})
+        : toast.error(globalMessages.Failed_Payment_mode, {autoClose: 5000,})
+      : toast.error(result?.data?.message ? result?.data?.message : "Failed Payment mode", {autoClose: 5000,});
     result?.data?.deletePayment.HasNoErrors && refetch();
   }
 
   //Enable scheduled payment
-  async function makeuserPayment(
-    scheduledPaymentAccountNo,
-    scheduledPaymentCard,
-    scheduledPaymentDatePicker,
-    scheduledPaymentIsDebit,
-    scheduledPaymentAmount,
-    RemoveScheduledPayment
-  ) {
+  async function makeuserPayment(scheduledPaymentAccountNo, scheduledPaymentCard, scheduledPaymentDatePicker, scheduledPaymentIsDebit, scheduledPaymentAmount,RemoveScheduledPayment) {
     setPaymentOpen(false);
-    let result = await makePayment(
-      scheduledPaymentAccountNo,
-      scheduledPaymentCard,
-      scheduledPaymentDatePicker,
-      scheduledPaymentIsDebit,
-      scheduledPaymentAmount,
-      RemoveScheduledPayment
-    );
+    let result = await makePayment(scheduledPaymentAccountNo,scheduledPaymentCard,scheduledPaymentDatePicker, scheduledPaymentIsDebit,scheduledPaymentAmount, RemoveScheduledPayment);
     let message =
       paymentDatepicker === Moment().format("YYYY/MM/DD")
         ? globalMessages.We_Received_Your_Payment_Successfully
@@ -253,42 +201,18 @@ export default function MakePayment(props) {
       ? result?.data?.paymentResult?.PaymentCompleted !== undefined
         ? toast.success(message, { autoClose: 5000 }) && refetch()
         : toast.error(globalMessages.Failed_Payment_mode, { autoClose: 5000 })
-      : toast.error(
-        result?.data?.message ? result?.data?.message : "Failed Payment mode",
-        {
-          autoClose: 5000,
-        }
-      );
+      : toast.error(result?.data?.message ? result?.data?.message : "Failed Payment mode", { autoClose: 5000, });
 
-    result.status === 900
-      ? disableAutoPaymentScheduled(accntNo, card, paymentDate, isDebit)
-      : refetch();
+    result.status === 900 ? disableAutoPaymentScheduled(accntNo, card, paymentDate, isDebit) : refetch();
   }
   //Disable scheduled payment
-  async function deletePayment(
-    disableScheduledPaymentAccountNo,
-    disableScheduledPaymentRefNo,
-    disableScheduledPaymentIsCard
-  ) {
-    let result = await deleteScheduledPayment(
-      disableScheduledPaymentAccountNo,
-      disableScheduledPaymentRefNo,
-      disableScheduledPaymentIsCard
-    );
+  async function deletePayment(disableScheduledPaymentAccountNo, disableScheduledPaymentRefNo, disableScheduledPaymentIsCard) {
+    let result = await deleteScheduledPayment(disableScheduledPaymentAccountNo, disableScheduledPaymentRefNo, disableScheduledPaymentIsCard);
     result.status === 200
       ? result?.data?.deletePaymentMethod.HasNoErrors
-        ? toast.success("Scheduled Payment cancelled", {
-          autoClose: 5000,
-        }) && refetch()
-        : toast.error(globalMessages.Failed_Payment_mode, {
-          autoClose: 5000,
-        })
-      : toast.error(
-        result?.data?.message ? result?.data?.message : "Failed Payment mode",
-        {
-          autoClose: 5000,
-        }
-      );
+        ? toast.success("Scheduled Payment cancelled", {autoClose: 5000,}) && refetch()
+        : toast.error(globalMessages.Failed_Payment_mode, {autoClose: 5000, })
+      : toast.error(result?.data?.message ? result?.data?.message : "Failed Payment mode", { autoClose: 5000,});
   }
 
   // Disable auto payment while make payment
@@ -311,94 +235,30 @@ export default function MakePayment(props) {
         let loan = [];
         loan.push(data);
         setlatestLoanData(loan);
-        setpaymentAmount(
-          checkAccNoActiveLoansData?.length
-            ? data != null
-              ? (
-                Math.abs(
-                  data?.loanPaymentInformation?.accountDetails
-                    ?.RegularPaymentAmount
-                ) +
-                Math.abs(
-                  data?.loanPaymentInformation?.accountDetails?.InterestRate
-                ) +
-                Math.abs(
-                  data?.loanPaymentInformation?.accountDetails
-                    ?.LoanFeesAndCharges
-                )
+        setpaymentAmount((
+                Math.abs(data?.loanPaymentInformation?.accountDetails?.RegularPaymentAmount) +
+                Math.abs(data?.loanPaymentInformation?.accountDetails?.InterestRate) +
+                Math.abs(data?.loanPaymentInformation?.accountDetails?.LoanFeesAndCharges)
               ).toFixed(2)
-              : null
-            : null
         );
-        setTotalPaymentAmount(
-          checkAccNoActiveLoansData?.length
-            ? data != null
-              ? (
-                Math.abs(
-                  data?.loanPaymentInformation?.accountDetails
-                    ?.RegularPaymentAmount
-                ) +
-                Math.abs(
-                  data?.loanPaymentInformation?.accountDetails?.InterestRate
-                ) +
-                Math.abs(
-                  data?.loanPaymentInformation?.accountDetails
-                    ?.LoanFeesAndCharges
-                )
+        setTotalPaymentAmount((
+                Math.abs(data?.loanPaymentInformation?.accountDetails?.RegularPaymentAmount) +
+                Math.abs(data?.loanPaymentInformation?.accountDetails?.InterestRate) +
+                Math.abs(data?.loanPaymentInformation?.accountDetails?.LoanFeesAndCharges)
               ).toFixed(2)
-              : null
-            : null
         );
-        setaccntNo(
-          checkAccNoActiveLoansData?.length
-            ? data != null
-              ? data.loanData?.accountNumber
-              : null
-            : null
-        );
+        setaccntNo(data.loanData?.accountNumber);
         getPaymentMethods();
-        setdisabledContent(
-          checkAccNoActiveLoansData?.length
-            ? data != null
-              ? data?.loanPaymentInformation?.appRecurringACHPayment
-                ? true
-                : false
-              : false
-            : false
-        );
-        setcheckAutoPay(
-          checkAccNoActiveLoansData?.length
-            ? data != null
-              ? data?.loanPaymentInformation?.appRecurringACHPayment
-                ? true
-                : false
-              : false
-            : false
-        );
-        setpaymentDate(
-          checkAccNoActiveLoansData?.length
-            ? data != null
-              ? Moment(
-                data?.loanPaymentInformation?.accountDetails?.NextDueDate
-              ).format("YYYY-MM-DD")
-              : "NONE"
-            : "NONE"
-        );
-        let scheduledDate = checkAccNoActiveLoansData?.length
-          ? data?.loanPaymentInformation?.hasScheduledPayment
-            ? Moment(
-              data?.loanPaymentInformation?.scheduledPayments[ 0 ]?.PaymentDate
-            ).format("MM/DD/YYYY")
-            : new Date()
-          : new Date();
+        setdisabledContent(data?.loanPaymentInformation?.appRecurringACHPayment ? true : false);
+        setcheckAutoPay(data?.loanPaymentInformation?.appRecurringACHPayment ? true : false);
+        setpaymentDate(Moment(data?.loanPaymentInformation?.accountDetails?.NextDueDate).format("YYYY-MM-DD"));
+        let scheduledDate = data?.loanPaymentInformation?.hasScheduledPayment ? Moment(data?.loanPaymentInformation?.scheduledPayments[ 0 ]?.PaymentDate).format("MM/DD/YYYY") : new Date();
         setpaymentDatepicker(defaultPaymentCard ? new Date() : scheduledDate);
         setscheduleDate(scheduledDate);
         setLoading(false);
         setAutopaySubmit(true);
         setshowCircularProgress(isFetching);
-        setCheckPaymentInformation(
-          data?.loanPaymentInformation?.errorMessage ? true : false
-        );
+        setCheckPaymentInformation(data?.loanPaymentInformation?.errorMessage ? true : false);
         check = true;
         return check;
       }
@@ -436,86 +296,27 @@ export default function MakePayment(props) {
         activeLoansData?.length
           ? hasSchedulePaymentActive
             ? schedulePaymentAmount.toFixed(2)
-            : (
-              Math.abs(
-                latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails
-                  ?.RegularPaymentAmount
-              ) +
-              Math.abs(
-                latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails
-                  ?.InterestRate
-              ) +
-              Math.abs(
-                latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails
-                  ?.LoanFeesAndCharges
-              )
+            : (Math.abs(latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails?.RegularPaymentAmount) +
+              Math.abs(latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails?.InterestRate) +
+              Math.abs(latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails?.LoanFeesAndCharges)
             ).toFixed(2)
           : null
       );
       setTotalPaymentAmount(
-        activeLoansData?.length
-          ? latestLoan != null
+        activeLoansData?.length && latestLoan != null
             ? (
-              Math.abs(
-                latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails
-                  ?.RegularPaymentAmount
-              ) +
-              Math.abs(
-                latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails
-                  ?.InterestRate
-              ) +
-              Math.abs(
-                latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails
-                  ?.LoanFeesAndCharges
-              )
+              Math.abs(latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails?.RegularPaymentAmount) +
+              Math.abs(latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails?.InterestRate) +
+              Math.abs(latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails?.LoanFeesAndCharges)
             ).toFixed(2)
             : null
-          : null
       );
-      setaccntNo(
-        activeLoansData?.length
-          ? latestLoan != null
-            ? latestLoan[ 0 ].loanData.accountNumber
-            : null
-          : null
-      );
+      setaccntNo(activeLoansData?.length && latestLoan != null ? latestLoan[ 0 ].loanData.accountNumber : null);
       getPaymentMethods();
-      setdisabledContent(
-        activeLoansData?.length
-          ? latestLoan != null
-            ? latestLoan[ 0 ]?.loanPaymentInformation?.appRecurringACHPayment
-              ? true
-              : false
-            : false
-          : false
-      );
-      setcheckAutoPay(
-        activeLoansData?.length
-          ? latestLoan != null
-            ? latestLoan[ 0 ]?.loanPaymentInformation?.appRecurringACHPayment
-              ? true
-              : false
-            : false
-          : false
-      );
-      setpaymentDate(
-        activeLoansData?.length
-          ? latestLoan != null
-            ? Moment(
-              latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails
-                ?.NextDueDate
-            ).format("YYYY-MM-DD")
-            : "NONE"
-          : "NONE"
-      );
-      let scheduledDate = latestLoan?.length
-        ? latestLoan[ 0 ]?.loanPaymentInformation?.hasScheduledPayment
-          ? Moment(
-            latestLoan[ 0 ].loanPaymentInformation.scheduledPayments[ 0 ]
-              ?.PaymentDate
-          ).format("MM/DD/YYYY")
-          : new Date()
-        : new Date();
+      setdisabledContent(activeLoansData?.length && latestLoan != null && latestLoan[ 0 ]?.loanPaymentInformation?.appRecurringACHPayment ? true : false);
+      setcheckAutoPay(activeLoansData?.length && latestLoan != null && latestLoan[ 0 ]?.loanPaymentInformation?.appRecurringACHPayment ? true : false);
+      setpaymentDate(activeLoansData?.length && latestLoan != null ? Moment(latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails?.NextDueDate).format("YYYY-MM-DD"): "NONE");
+      let scheduledDate = latestLoan?.length && latestLoan[ 0 ]?.loanPaymentInformation?.hasScheduledPayment ? Moment(latestLoan[ 0 ].loanPaymentInformation.scheduledPayments[ 0 ]?.PaymentDate).format("MM/DD/YYYY") : new Date();
       setpaymentDatepicker(defaultPaymentCard ? new Date() : scheduledDate);
       setscheduleDate(scheduledDate);
       setLoading(false);
@@ -575,51 +376,22 @@ export default function MakePayment(props) {
       : "[]";
 
   //Storing the routingNumber,refNumber and SchedulePayments details
-  let hasSchedulePayment =
-    latestLoanData != null
-      ? latestLoanData.length
-        ? latestLoanData[ 0 ]?.loanPaymentInformation?.hasScheduledPayment
-        : false
-      : false;
-  let routingNumber =
-    latestLoanData != null
-      ? latestLoanData[ 0 ]?.loanPaymentInformation?.scheduledPayments.length
-        ? latestLoanData[ 0 ].loanPaymentInformation.scheduledPayments[ 0 ]
-          ?.PaymentMethod?.AchInfo != null
-          ? latestLoanData[ 0 ].loanPaymentInformation.scheduledPayments[ 0 ]
-            .PaymentMethod.AchInfo.RoutingNumber
-          : 0
-        : 0
-      : 0;
-  let refNumber =
-    latestLoanData != null
-      ? latestLoanData[ 0 ]?.loanPaymentInformation?.scheduledPayments.length
-        ? latestLoanData[ 0 ].loanPaymentInformation.scheduledPayments[ 0 ]
-          ?.ReferenceNumber != null
-          ? latestLoanData[ 0 ].loanPaymentInformation.scheduledPayments[ 0 ]
-            .ReferenceNumber
-          : 0
-        : 0
-      : 0;
-  let isCard =
-    latestLoanData != null
-      ? latestLoanData[ 0 ]?.loanPaymentInformation?.scheduledPayments.length
-        ? latestLoanData[ 0 ].loanPaymentInformation.scheduledPayments[ 0 ]
-          ?.PaymentMethod?.IsCard
-          ? latestLoanData[ 0 ].loanPaymentInformation.scheduledPayments[ 0 ]
-            .PaymentMethod.IsCard
-          : false
-        : false
-      : false;
+  let hasSchedulePayment = latestLoanData?.length ? latestLoanData[ 0 ]?.loanPaymentInformation?.hasScheduledPayment : false;
+  let routingNumber = latestLoanData?.length && latestLoanData[ 0 ]?.loanPaymentInformation?.scheduledPayments?.length && latestLoanData[ 0 ].loanPaymentInformation.scheduledPayments[ 0 ]?.PaymentMethod?.AchInfo
+    ? latestLoanData[ 0 ].loanPaymentInformation.scheduledPayments[ 0 ].PaymentMethod.AchInfo.RoutingNumber
+    : 0;
+  let refNumber = latestLoanData?.length && latestLoanData[ 0 ]?.loanPaymentInformation?.scheduledPayments?.length && latestLoanData[ 0 ].loanPaymentInformation.scheduledPayments[ 0 ]?.ReferenceNumber
+    ? latestLoanData[ 0 ].loanPaymentInformation.scheduledPayments[ 0 ].ReferenceNumber
+    : 0;
+  let isCard = latestLoanData?.length && latestLoanData[ 0 ]?.loanPaymentInformation?.scheduledPayments?.length && latestLoanData[ 0 ].loanPaymentInformation.scheduledPayments[ 0 ]?.PaymentMethod?.IsCard
+    ? latestLoanData[ 0 ].loanPaymentInformation.scheduledPayments[ 0 ].PaymentMethod.IsCard
+    : false;
   let status = accountDetails != null ? accountDetails.data.status : null;
 
   //Select account
   const handleChangeSelect = (event) => {
     setcard(event.target.value);
-    if (
-      event.nativeEvent.target.innerText.includes("Checking") ||
-      event.nativeEvent.target.innerText.includes("Savings")
-    ) {
+    if ([ "Checking", "Savings" ].includes(event.nativeEvent.target.innerText)) {
       setisDebit(false);
       setCheckCard(false);
       setpaymentDatepicker(scheduleDate);
@@ -733,14 +505,7 @@ export default function MakePayment(props) {
     setLoading(true);
     setshowCircularProgress(true);
     let RemoveScheduledPayment = true;
-    makeuserPayment(
-      accntNo,
-      card,
-      paymentDatepicker,
-      isDebit,
-      paymentAmount,
-      RemoveScheduledPayment
-    );
+    makeuserPayment(accntNo, card, paymentDatepicker, isDebit, paymentAmount, RemoveScheduledPayment);
   };
 
   // Keep Schedule Payment popup confirm and close
@@ -748,14 +513,7 @@ export default function MakePayment(props) {
     setLoading(true);
     setshowCircularProgress(true);
     let RemoveScheduledPayment = false;
-    makeuserPayment(
-      accntNo,
-      card,
-      paymentDatepicker,
-      isDebit,
-      paymentAmount,
-      RemoveScheduledPayment
-    );
+    makeuserPayment(accntNo, card, paymentDatepicker, isDebit, paymentAmount, RemoveScheduledPayment);
   };
 
   const handlePaymentClose = () => {
@@ -777,11 +535,7 @@ export default function MakePayment(props) {
     }).format(value);
   //US holidays
   function disableHolidays(date) {
-    const holidayApiData = holidayCalenderData
-      ? holidayCalenderData.data.MFYearHolidays.map(({ Date }) =>
-        formatDate(Date)
-      )
-      : [];
+    const holidayApiData =  holidayCalenderData?.data?.MFYearHolidays?.map(({ Date }) => formatDate(Date)) ?? [];
     const holidayApiDataValues = holidayApiData.map((arrVal) => {
       return new Date(arrVal + "T00:00").getTime();
     });
@@ -800,10 +554,7 @@ export default function MakePayment(props) {
           : price;
       setpaymentAmount(price);
       setRequiredAmount("");
-      if (
-        User.data.activeLoans[ 0 ].loanPaymentInformation.accountDetails
-          .CurrentPayOffAmount <= parseFloat(price)
-      ) {
+      if (User.data.activeLoans[ 0 ].loanPaymentInformation.accountDetails.CurrentPayOffAmount <= parseFloat(price)) {
         if (!toast.isActive("payoffNotSetFutureDate")) {
           toast.success(globalMessages.PayoffCannotBeInFuture, { toastId: "payoffNotSetFutureDate" });
         }
