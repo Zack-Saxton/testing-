@@ -155,6 +155,9 @@ export default function MakePayment(props) {
             setCalendarDisabled(true);
             checkNickName = true;
             return checkNickName;
+          } else {
+              setisDebit(false);
+              setCalendarDisabled(false);
           }
         })
         : setcard("")
