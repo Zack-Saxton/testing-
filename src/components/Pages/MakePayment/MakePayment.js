@@ -260,14 +260,14 @@ export default function MakePayment(props) {
         navigate("/customers/accountoverview");
       }
     } else {
+      setlatestLoanData(activeLoansData?.slice(0, 1) ?? null);
+      let latestLoan = activeLoansData?.slice(0, 1) ?? null;
       let schedulePaymentAmount = activeLoansData?.length && activeLoansData[ 0 ]?.loanPaymentInformation?.scheduledPayments?.length
         ? activeLoansData[ 0 ].loanPaymentInformation.scheduledPayments[ 0 ]?.PaymentAmount
         : 0;
       let totalAmount = latestLoan?.length ? (Math.abs(latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails?.RegularPaymentAmount) + Math.abs(latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails?.InterestRate) +
         Math.abs(latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails?.LoanFeesAndCharges)
       ).toFixed(2) : null;
-      setlatestLoanData(activeLoansData?.slice(0, 1) ?? null);
-      let latestLoan = activeLoansData?.slice(0, 1) ?? null;
       setpaymentAmount(hasSchedulePaymentActive ? schedulePaymentAmount.toFixed(2) : totalAmount);
       setTotalPaymentAmount(totalAmount);
       setaccntNo(latestLoan?.length ? latestLoan[ 0 ]?.loanData?.accountNumber : null);
