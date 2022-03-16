@@ -55,36 +55,36 @@ export default function MakePayment(props) {
   const navigate = useNavigate();
   const query = new URLSearchParams(useLocation().search);
   const accNo = query.get("accNo");
-  const [, setprofileTabNumber] = useGlobalState();
-  const [paymentMethods, setpaymentMethod] = useState(null);
-  const [latestLoanData, setlatestLoanData] = useState(null);
-  const [paymentAmount, setpaymentAmount] = useState(null);
-  const [open, setOpen] = useState(false);
-  const [openPayment, setPaymentOpen] = useState(false);
-  const [openDeleteSchedule, setopenDeleteSchedule] = useState(false);
-  const [openAutoPay, setAutoPayOpen] = useState(false);
-  const [card, setcard] = useState("");
-  const [disabledContent, setdisabledContent] = useState(false);
-  const [isDebit, setisDebit] = useState(false);
-  const [accntNo, setaccntNo] = useState(null);
-  const [paymentDate, setpaymentDate] = useState(null);
-  const [paymentDatepicker, setpaymentDatepicker] = useState(new Date());
-  const [requiredSelect, setrequiredSelect] = useState("");
-  const [requiredDate, setrequiredDate] = useState("");
-  const [requiredAmount, setRequiredAmount] = useState("");
-  const [showCircularProgress, setshowCircularProgress] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [accountDetails] = useState(null);
-  const [totalPaymentAmount, setTotalPaymentAmount] = useState(null);
-  const [checkAutoPay, setcheckAutoPay] = useState(false);
-  const [autopaySubmit, setAutopaySubmit] = useState(true);
-  const [scheduleDate, setscheduleDate] = useState(new Date());
-  const [payoff, setPayoff] = useState(false);
-  const [calendarDisabled, setCalendarDisabled] = useState(true);
-  const [checkPaymentInformation, setCheckPaymentInformation] = useState(false);
-  const [activeLoansData, setActiveLoansData] = useState([]);
-  const [checkCard, setCheckCard] = useState(false);
-  const [defaultPaymentCard, setDefaultPaymentCard] = useState(false);
+  const [ , setprofileTabNumber ] = useGlobalState();
+  const [ paymentMethods, setpaymentMethod ] = useState(null);
+  const [ latestLoanData, setlatestLoanData ] = useState(null);
+  const [ paymentAmount, setpaymentAmount ] = useState(null);
+  const [ open, setOpen ] = useState(false);
+  const [ openPayment, setPaymentOpen ] = useState(false);
+  const [ openDeleteSchedule, setopenDeleteSchedule ] = useState(false);
+  const [ openAutoPay, setAutoPayOpen ] = useState(false);
+  const [ card, setcard ] = useState("");
+  const [ disabledContent, setdisabledContent ] = useState(false);
+  const [ isDebit, setisDebit ] = useState(false);
+  const [ accntNo, setaccntNo ] = useState(null);
+  const [ paymentDate, setpaymentDate ] = useState(null);
+  const [ paymentDatepicker, setpaymentDatepicker ] = useState(new Date());
+  const [ requiredSelect, setrequiredSelect ] = useState("");
+  const [ requiredDate, setrequiredDate ] = useState("");
+  const [ requiredAmount, setRequiredAmount ] = useState("");
+  const [ showCircularProgress, setshowCircularProgress ] = useState(false);
+  const [ loading, setLoading ] = useState(false);
+  const [ accountDetails ] = useState(null);
+  const [ totalPaymentAmount, setTotalPaymentAmount ] = useState(null);
+  const [ checkAutoPay, setcheckAutoPay ] = useState(false);
+  const [ autopaySubmit, setAutopaySubmit ] = useState(true);
+  const [ scheduleDate, setscheduleDate ] = useState(new Date());
+  const [ payoff, setPayoff ] = useState(false);
+  const [ calendarDisabled, setCalendarDisabled ] = useState(true);
+  const [ checkPaymentInformation, setCheckPaymentInformation ] = useState(false);
+  const [ activeLoansData, setActiveLoansData ] = useState([]);
+  const [ checkCard, setCheckCard ] = useState(false);
+  const [ defaultPaymentCard, setDefaultPaymentCard ] = useState(false);
   const {
     isFetching,
     data: User,
@@ -147,24 +147,23 @@ export default function MakePayment(props) {
     cardData
       ? cardData?.length
         ? cardData?.forEach((data) => {
-            if (data.Nickname === defaultBank) {
-              type.toUpperCase() === "ACH"
-                ? setcard(data.SequenceNumber)
-                : setcard(data.ProfileId);
-                setisDebit(true);
-                setCalendarDisabled(true);
-                checkNickName = true;
-              return checkNickName;
-            } else {
+          if (data.Nickname === defaultBank) {
+            type.toUpperCase() === "ACH"
+              ? setcard(data.SequenceNumber)
+              : setcard(data.ProfileId);
+              setisDebit(true);
+              setCalendarDisabled(true);
+              checkNickName = true;
+            return checkNickName;
+          } else {
               setisDebit(false);
               setCalendarDisabled(false);
-            }
-          })
+          }
+        })
         : setcard("")
       : setcard("");
     return checkNickName;
   }
-
 
 let totalPaymentAmountWithFees = parseFloat(totalPaymentAmount) + parseFloat(2.50);
 //Enable auto payment
