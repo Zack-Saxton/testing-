@@ -17,11 +17,7 @@ import { Helmet } from "react-helmet";
 import PlacesAutocomplete from "react-places-autocomplete";
 import { NavLink, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
-import {
-  MFStates,
-  MFStateShort,
-  howManyBranchesforBranchLocatorPages
-} from "../../../assets/data/marinerBusinesStates";
+import { howManyBranchesforBranchLocatorPages } from "../../../assets/data/marinerBusinesStates";
 import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile_Image.png";
 import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.jpg";
 import TitleImage from "../../../assets/images/Favicon.png";
@@ -81,6 +77,8 @@ export default function StatePage() {
   const [ address2, setAddress2 ] = React.useState("");
   const [ branchDistance, setBranchDistance ] = useState(() => Math.abs(parseInt(howManyBranchesforBranchLocatorPages?.stateBranchDistanceinMiles, 10)));
   const mapSection = useRef();
+  const [stateLongName, setStateLongName] = useState();
+  const [stateShortName, setStateShortName] = useState();
   let location = useLocation();
   let name = location.state.value;
   //API call
@@ -101,6 +99,8 @@ export default function StatePage() {
         setZoomDepth(
           (result?.data?.branchData[ 0 ]?.distance).replace(/[^/d]/g, "") / 100
         );
+        setStateLongName(result.data.stateLongName);
+        setStateShortName(result.data.stateShortName);
         return result.data.branchData;
       }
     } catch (error) {
@@ -501,20 +501,8 @@ export default function StatePage() {
                       return (
                         <Grid key={ index } className="locationInfo" item lg={ 4 } md={ 4 } sm={ 6 } xs={ 12 }>
                           <NavLink
-                            to={ `/branch-locator/${ MFStates[
-                              MFStateShort.indexOf(
-                                item?.Address.substring(
-                                  item?.Address.length - 8,
-                                  item?.Address.length
-                                ).substring(0, 2)
-                              )
-                            ].replace(/\s+/g, '-').toLowerCase()
-                              }/personal-loans-in-${ item?.BranchName.replace(/\s+/g, '-').toLowerCase()
-                              }-${ item?.Address.substring(
-                                item?.Address.length - 8,
-                                item?.Address.length
-                              ).substring(0, 2).replace(/\s+/g, '-').toLowerCase() }` }
-                            state={ { Branch_Details: item } }
+                            to={`/branch-locator/${stateLongName.toLocaleLowerCase()}/personal-loans-in-${item?.BranchName.replace(/-/g, "").replace(/\s+/, '-').toLocaleLowerCase()}-${stateShortName.toLocaleLowerCase() }`}
+                            state={{ Branch_Details: item, stateLongNm: stateLongName, stateShortNm: stateShortName }}
                             className="nav_link"
                           >
                             <b>
