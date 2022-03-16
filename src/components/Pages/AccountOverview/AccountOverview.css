@@ -89,6 +89,10 @@
     flex-direction: column;
     justify-content: center;
 }
+.secondBannerWrap a{
+    text-decoration: none;
+    height: 100%;
+}
 
 @media (min-width:1400px) {
     #claimButton{

@@ -42,7 +42,7 @@ export default function AccountOverview() {
         <Grid
           item
           xs={ 12 }
-          style={ { width: "100%", paddingBottom: "10px" } }
+          className={ classes.accountOverviewWrap }
           container
           direction="row"
         >

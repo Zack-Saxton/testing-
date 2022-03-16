@@ -148,17 +148,18 @@ export default function MakePayment(props) {
       ? cardData?.length
         ? cardData?.forEach((data) => {
           if (data.Nickname === defaultBank) {
-            type.toUpperCase() === "ACH"
-              ? setcard(data.SequenceNumber)
-              : setcard(data.ProfileId);
-              setisDebit(true);
-              setCalendarDisabled(true);
+              if (type.toUpperCase() === "ACH") {
+                setcard(data.SequenceNumber);
+                setisDebit(false);
+                setCalendarDisabled(false);
+              } else {
+                setcard(data.ProfileId);
+                setisDebit(true);
+                setCalendarDisabled(true);
+              }
               checkNickName = true;
               return checkNickName;
-          } else {
-              setisDebit(false);
-              setCalendarDisabled(false);
-          }
+        }
         })
         : setcard("")
       : setcard("");
