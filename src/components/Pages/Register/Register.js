@@ -188,7 +188,7 @@ export default function Register() {
         setLoading(false);
       } else {
         setLoading(false);
-        alert("Network error");
+        alert(globalMessages.Network_Error);
       }
     } catch (error) {
       ErrorLogger("Error executing Login API", error);

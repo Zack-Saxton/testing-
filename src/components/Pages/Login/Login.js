@@ -27,6 +27,7 @@ import {
 import { decryptAES, encryptAES } from "../../lib/Crypto";
 import { FormValidationRules } from "../../lib/FormValidationRule";
 import ScrollToTopOnMount from "../../Pages/ScrollToTop";
+import globalMessages from "../../../assets/data/globalMessages.json";
 import "./Login.css";
 var formValidation = new FormValidationRules();
 const moment = require("moment");
@@ -217,7 +218,7 @@ export default function Login(props) {
         }
       } else {
         setLoading(false);
-        alert("Network error");
+        alert(globalMessages.Network_Error);
       }
     },
   });
