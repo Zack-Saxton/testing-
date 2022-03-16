@@ -104,7 +104,6 @@ export default function LimitedOffer(userOfferData) {
                   <NavLink
                     to="/customers/applyForLoan"
                     state={{ from: "user" }}
-                    style={{ textDecoration: "none" }}
                   >
                     <ButtonPrimary
                       id="claimButton"
@@ -123,7 +122,6 @@ export default function LimitedOffer(userOfferData) {
             target="_blank"
             rel="noreferrer"
             href="https://www.marinerfinance.com/apply-home-loan/?utm_source=CAC&utm_medium=panel&utm_campaign=Mrktoffer_Mortgage"
-            style={{ textDecoration: "none", height: "100%" }}
           >
             <img
               className="secondBannerImage"
@@ -169,7 +167,7 @@ export default function LimitedOffer(userOfferData) {
               </p>
             </Grid>
             <PreScreen offerData={userOfferData}></PreScreen>
-            <Grid style={{ textAlign: "center" }} className="apply-offer">
+            <Grid className="apply-offer">
               <p>Yes, I want to apply for this offer</p>
               <ButtonPrimary
                 id="ClaimButton"
@@ -181,8 +179,8 @@ export default function LimitedOffer(userOfferData) {
               <p>We need more information from you to show you your offers.</p>
               <p> Please click continue to tell us more about yourself.</p>
             </Grid>
-            <Grid style={{ borderBottom: "4px solid yellow" }}>
-              <h3 style={{ textAlign: "center" }}>
+            <Grid className="offerInfo">
+              <h3>
                 *SEE BELOW FOR IMPORTANT OFFER INFORMATION.
               </h3>
             </Grid>

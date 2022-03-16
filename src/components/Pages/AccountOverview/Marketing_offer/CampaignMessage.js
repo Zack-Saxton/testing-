@@ -28,7 +28,7 @@ export default function CampaignMessage({ amount, offerCode, handleContinue, exp
             </Grid>
             <Grid className="rightcheckMyOffers">
                 <p className="common">You are prequalified up to</p>
-                <p className="common" style={ { color: "#0F4EB3", fontSize: "bold", textAlign: "center" } }>
+                <p className="common commonBoldText">
                     { formattedAmount }
                 </p>
                 <p className="common">Use it to get things done.</p>

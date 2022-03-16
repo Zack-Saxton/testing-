@@ -161,6 +161,7 @@ a.nav_link:hover .MuiListItem-root {
 }
 #quickNameIcon{
   height: 64px;
+  margin-right: 10px;
 }
 #settingsMenu .MuiPopover-paper{
 top: 118px !important;
