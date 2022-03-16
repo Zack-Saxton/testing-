@@ -97,5 +97,5 @@ export async function uploadDocument(test, fileName, fileType, documentType) {
     ? toast.success(uploadData?.data?.message ?? globalMessages.Document_upload)
     : toast.error(uploadData?.data?.message ?? globalMessages.Document_upload_error);
 
-  return "true";
+  return true;
 }

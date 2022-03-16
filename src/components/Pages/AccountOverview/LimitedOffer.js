@@ -1,6 +1,6 @@
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from '@material-ui/core/DialogContent';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
@@ -60,7 +60,6 @@ export default function LimitedOffer(userOfferData) {
     setinitModal(false);
   };
 
-
   const handleContinue = () => {
     navigate("/select-amount");
   };
@@ -73,26 +72,26 @@ export default function LimitedOffer(userOfferData) {
           <div className="yellowBackground">
             <img
               className="bannerImage"
-              src={adBanner}
+              src={ adBanner }
               data-testid="background"
               alt="ad_banner"
             />
             <div className="secondGrid">
-              {userOfferData.isLoading ? (
+              { userOfferData.isLoading ? (
                 <CircularProgress />
               ) : userOfferAmount ? (
                 <div id="offerText">
                   <p id="loanText">You may have money available now! Up to </p>
                   <p id="loanPercent">
                     <NumberFormat
-                      value={userOfferAmount}
-                      displayType={"text"}
-                      thousandSeparator={true}
-                      prefix={"$"}
+                      value={ userOfferAmount }
+                      displayType={ "text" }
+                      thousandSeparator={ true }
+                      prefix={ "$" }
                     />
                   </p>
                   <ButtonPrimary
-                    onClick={showModal}
+                    onClick={ showModal }
                     id="claimButton"
                     stylebutton='{"color":""}'
                   >
@@ -113,7 +112,7 @@ export default function LimitedOffer(userOfferData) {
                     </ButtonPrimary>
                   </NavLink>
                 </div>
-              )}
+              ) }
             </div>
           </div>
         </Grid>
@@ -125,7 +124,7 @@ export default function LimitedOffer(userOfferData) {
           >
             <img
               className="secondBannerImage"
-              src={MortgageBanner}
+              src={ MortgageBanner }
               data-testid="background"
               alt="mortgage_banner"
             />
@@ -133,37 +132,37 @@ export default function LimitedOffer(userOfferData) {
         </Grid>
       </Grid>
 
-      <Dialog maxWidth="lg" open={initModal}>
+      <Dialog maxWidth="lg" open={ initModal }>
         <DialogContent className="dialogContentWrap">
-        <IconButton
-          id="debitCardDialogClose"
-          aria-label="close"
-          onClick={closeModal}
-        >
-          <CloseIcon />
-        </IconButton>
-        <Grid className="popupHeading">
-          <h2>The money you need, when you need it!</h2>
-          <h4>When life happens, we have your back*</h4>
-        </Grid>
-          <Grid id="modal-modal-description" sx={{ mt: 2 }}>
+          <IconButton
+            id="debitCardDialogClose"
+            aria-label="close"
+            onClick={ closeModal }
+          >
+            <CloseIcon />
+          </IconButton>
+          <Grid className="popupHeading">
+            <h2>The money you need, when you need it!</h2>
+            <h4>When life happens, we have your back*</h4>
+          </Grid>
+          <Grid id="modal-modal-description" sx={ { mt: 2 } }>
             <Grid>
-              <p className="common">Dear {firstName},</p>
+              <p className="common">Dear { firstName },</p>
               <MarketingOffer
-                promoType={campaignType}
-                offerCode={offerCode}
-                amount={amount}
-                branchPhone={branchCno}
-                branchName={branchName}
-                dateExpiration={expiryDate}
+                promoType={ campaignType }
+                offerCode={ offerCode }
+                amount={ amount }
+                branchPhone={ branchCno }
+                branchName={ branchName }
+                dateExpiration={ expiryDate }
               ></MarketingOffer>
               <p>
                 Sincerely,<br></br>
-                {branchManager}
+                { branchManager }
                 <br></br>
-                {branchName}
+                { branchName }
                 <br></br>
-                {branchCno}
+                { branchCno }
               </p>
             </Grid>
             <PreScreen offerData={userOfferData}></PreScreen>
@@ -172,7 +171,7 @@ export default function LimitedOffer(userOfferData) {
               <ButtonPrimary
                 id="ClaimButton"
                 stylebutton='{"color":"", "textTransform": "none"}'
-                onClick={handleContinue}
+                onClick={ handleContinue }
               >
                 Apply Now
               </ButtonPrimary>
@@ -185,8 +184,8 @@ export default function LimitedOffer(userOfferData) {
               </h3>
             </Grid>
             <AboutMariner></AboutMariner>
-            <OptOutNotice offerData={userOfferData}></OptOutNotice>
-            <Disclaimer offerData={userOfferData}></Disclaimer>
+            <OptOutNotice offerData={ userOfferData }></OptOutNotice>
+            <Disclaimer offerData={ userOfferData }></Disclaimer>
           </Grid>
         </DialogContent>
       </Dialog>

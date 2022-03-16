@@ -141,19 +141,6 @@ export default function BranchLocatorFooter() {
       ],
     },
     {
-      title: "Updates",
-      description: [
-        {
-          name: "COVID-19",
-          link: `${ process.env.REACT_APP_WEBSITE }/coronavirus-covid-19-information/`,
-        },
-        {
-          name: "Disaster Information Hurricane Dorian",
-          link: `${ process.env.REACT_APP_WEBSITE }/coronavirus-covid-19-information/`,
-        },
-      ],
-    },
-    {
       title: "Legal",
       description: [
         {
@@ -329,7 +316,7 @@ export default function BranchLocatorFooter() {
                     <p className="centerAlignAddress">
                       Mariner Finance, LLC, NMLS No. 166564
                       <span
-                        style={{ margin: "0", cursor: "pointer", overflowWrap: "break-word"}}
+                        style={ { margin: "0", cursor: "pointer", overflowWrap: "break-word" } }
                         onClick={ handleOpenConsumer }
                       >
                         (www.nmlsconsumeraccess.com)

@@ -92,7 +92,7 @@ export default function ChangePassword(basicInformationData) {
             values.newPassword,
             email
           );
-          if (response?.data?.change_password?.passwordReset === true) {
+          if (response?.data?.change_password?.passwordReset) {
             if (!toast.isActive("closeToast")) {
               toast.success(response?.data?.change_password?.message ?? globalMessages.PasswordChangedSuccessfully, {
                 toastId: "closeToast",
@@ -103,7 +103,7 @@ export default function ChangePassword(basicInformationData) {
                 }
               });
             }
-          } else if (response?.data?.change_password?.passwordReset === false) {
+          } else if (!response?.data?.change_password?.passwordReset) {
             if (!toast.isActive("closeToast")) {
               toast.error(response?.data?.change_password?.message ?? globalMessages.PasswordCheckOld, {
                 toastId: "closeToast",

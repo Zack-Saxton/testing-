@@ -202,12 +202,12 @@ export default function SideNav() {
     let noOfLoans = dataAccountOverview?.data?.activeLoans?.length;
     let activeLoan = dataAccountOverview?.data?.applicants;
     //logic to check if atleast one active initiated Loan is there or not
-    const presenceOfLoan = activeLoan?.some((applicant) => applicant.isActive === true && applicant?.status !== "referred" && applicant?.status !== "contact_branch");
-    const presenceOfLoanStatus = activeLoan?.find((applicant) => applicant.isActive === true);
+    const presenceOfLoan = activeLoan?.some((applicant) => applicant.isActive && applicant?.status !== "referred" && applicant?.status !== "contact_branch");
+    const presenceOfLoanStatus = activeLoan?.find((applicant) => applicant?.isActive);
     const userAccountStatus = dataAccountOverview?.data?.customer?.user_account?.status;
 
     setCheckPresenceOfLoanStatus(presenceOfLoanStatus?.status);
-    setCurrentLoan(presenceOfLoan === true || userAccountStatus === "closed" ? true : false);
+    setCurrentLoan(presenceOfLoan || userAccountStatus === "closed" ? true : false);
     setCheckPresenceOfLoan(presenceOfLoan);
 
     //logic to if there is any active Loan Data is there or not
@@ -238,7 +238,7 @@ export default function SideNav() {
   let check = useMediaQuery("(min-width:960px)");
 
   React.useEffect(() => {
-    if (check === true && checked === true) {
+    if (check && checked) {
       setChecked(true);
       setOpen(true);
       handleDeviceType(false);
@@ -285,11 +285,11 @@ export default function SideNav() {
   Cookies.set('branchphone', branchVal?.data?.PhoneNumber);
   Cookies.set('getProfileImage', getProfImage);
 
-  let hasActiveLoan = Cookies.get("hasActiveLoan") === "true" ? true : false;
+  let hasActiveLoan = (/true/i).test(Cookies.get("hasActiveLoan"));
   let hasApplicationStatus = Cookies.get("hasApplicationStatus");
   var appStatus = [ "rejected", "referred", "expired" ];
   let checkAppStatus = appStatus.includes(hasApplicationStatus);
-  let disableField = (checkAppStatus === true || hasActiveLoan === true) ? true : false;
+  let disableField = (checkAppStatus || hasActiveLoan) ? true : false;
   const branchName = Cookies.get("branchname");
   const branchPhone = Cookies.get('branchphone');
   const getProfileImage = Cookies.get('getProfileImage');
@@ -303,7 +303,7 @@ export default function SideNav() {
     const closeElementId = "close";
     const valueQualifiedName = "value";
 
-    if (checked === false || check === false) {
+    if (!checked || !check) {
       var profiledetailTag = document.getElementById("profileDetails");
       profiledetailTag.style.display = "block";
 
@@ -328,7 +328,7 @@ export default function SideNav() {
       } else {
         child.style.display = "none";
       }
-      if (checked === false || check === false) {
+      if (!checked || !check) {
         document.getElementById("main").style.marginLeft = "73px";
       } else {
         document.getElementById("main").style.marginLeft = "240px";
@@ -342,7 +342,7 @@ export default function SideNav() {
     const closeElementId = "close";
     const valueQualifiedName = "value";
 
-    if (checked === false || check === false) {
+    if (!checked || !check) {
       var profiledetailTag = document.getElementById("profileDetails");
       profiledetailTag.style.display = "none";
 
@@ -368,7 +368,7 @@ export default function SideNav() {
       } else {
         child.style.display = "none";
       }
-      if (checked === false || check === false) {
+      if (!checked || !check) {
         document.getElementById("main").style.marginLeft = "73px";
       } else {
         document.getElementById("main").style.marginLeft = "240px";
@@ -379,7 +379,7 @@ export default function SideNav() {
   //Menu button on mouse view
   const handleMenuButtonOpen = () => {
 
-    if (check === false) {
+    if (!check) {
       document.getElementById("close2").style.display = "block ";
       setOpen(true);
       var profiledetailTag = document.getElementById("profileDetails");
@@ -401,7 +401,7 @@ export default function SideNav() {
   };
 
   const handleMobileMenuClose = () => {
-    if (checked === false || check === false) {
+    if (!checked || !check) {
       setOpen(false);
     }
   };
@@ -501,8 +501,8 @@ export default function SideNav() {
             >
               <Typography id="blogsLink" className={ classes.headerAlign }>
                 <a
-                 target="_blank"
-                  href={`${process.env.REACT_APP_WEBSITE}/blog/`}
+                  target="_blank"
+                  href={ `${ process.env.REACT_APP_WEBSITE }/blog/` }
                   className="hrefTag"
                   rel="noopener noreferrer"
                 >
@@ -661,8 +661,8 @@ export default function SideNav() {
                   </ListItem>
                 </NavLink>
 
-                { checkPresenceOfLoan === true ?
-                  pageNavResumeApplication === true ?
+                { checkPresenceOfLoan ?
+                  pageNavResumeApplication ?
 
                     <NavLink to={ NavUrlResumeApplication } className="nav_link" >
                       <ListItem className="titleSidenav" >
@@ -695,7 +695,7 @@ export default function SideNav() {
                   </NavLink> }
 
                 <NavLink to="/customers/loanDocument" onClick={ (event) => { activeLoanData && checkPresenceOfLoanStatus !== "under_review" && checkPresenceOfLoanStatus !== "final_review" && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : 'nav_link' }>
-                  <ListItem className="titleSidenav" disabled={ activeLoanData === true && checkPresenceOfLoanStatus !== "under_review" && checkPresenceOfLoanStatus !== "final_review" ? true : false }>
+                  <ListItem className="titleSidenav" disabled={ activeLoanData && checkPresenceOfLoanStatus !== "under_review" && checkPresenceOfLoanStatus !== "final_review" ? true : false }>
                     <ListItemIcon>
                       { " " }
                       <DescriptionOutlinedIcon />{ " " }

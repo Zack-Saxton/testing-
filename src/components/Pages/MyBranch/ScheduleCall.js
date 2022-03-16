@@ -10,7 +10,7 @@ import { useFormik } from "formik";
 import Moment from "moment";
 import momentTimeZone from "moment-timezone";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState, useRef } from "react";
 import * as yup from "yup";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import { ScheduleCallApi } from "../../Controllers/MyBranchController";
@@ -18,15 +18,20 @@ import { ButtonPrimary, DatePicker, Select } from "../../FormsUI";
 import { useStylesMyBranch } from "./Style";
 import {
   ca_M_W_Th_F,
-  ca_Tue, Other_Fri,
-  other_M_W_Thu, other_Tue, updated_other_Tue, upt_ca_M_W_TH_F,
-  upt_ca_Tue, upt_other_Fri,
-  upt_other_M_W_Thu
+  ca_Tue,
+  Other_Fri,
+  other_M_W_Thu,
+  other_Tue,
+  updated_other_Tue,
+  upt_ca_M_W_TH_F,
+  upt_ca_Tue,
+  upt_other_Fri,
+  upt_other_M_W_Thu,
 } from "./WorkingHours";
 
-  //Date validation
-  const scheduleDateCall = new Date();
-  scheduleDateCall.setDate(scheduleDateCall.getDate() + 30);
+//Date validation
+const scheduleDateCall = new Date();
+scheduleDateCall.setDate(scheduleDateCall.getDate() + 30);
 
 // yup validation
 const validationSchema = yup.object({
@@ -35,19 +40,20 @@ const validationSchema = yup.object({
     .nullable()
     .required(globalMessages.Appointment_Date_Required)
     .typeError(globalMessages.ValidDate)
-    .max(scheduleDateCall,globalMessages.validCheckDate),
+    .max(scheduleDateCall, globalMessages.validCheckDate),
   callTime: yup
     .string(globalMessages.Enter_Appointment_Time)
     .nullable()
     .required(globalMessages.Appointment_Time_Required),
 });
+const dateFormat = "YYYY-MM-DD";
 export default function ScheduleCall({ MyBranchCall, holidayData }) {
   //Material UI css class
   const classes = useStylesMyBranch();
-
+  const formCallRef = useRef();
   //Branch details from API
-  let branchDetail = MyBranchCall != null ? MyBranchCall : null;
-
+  let branchDetail = MyBranchCall ?? null;
+  let commonHoliday = [0, 6]; //Sunday and Saturday
   //US holidays
   function disableHolidays(appointmentDate) {
     const holidayApiData = holidayData?.holidays ?? [];
@@ -55,20 +61,17 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
       return new Date(arrVal + "T00:00").getTime();
     });
     return (
-
-      appointmentDate.getDay() === 0 ||
-      appointmentDate.getDay() === 6 ||
+      commonHoliday.includes(appointmentDate.getDay()) ||
       holidayApiDataValues.includes(appointmentDate.getTime())
-
     );
   }
 
-  
-
   //Validating current date is holiday
   const today = new Date();
-  const checkTodayDate = (Moment(today).format("YYYY-MM-DD"));
-  const checkToday = holidayData?.holidays?.find((holidays) => holidays === checkTodayDate);
+  const checkTodayDate = Moment(today).format(dateFormat);
+  const checkToday = holidayData?.holidays?.find(
+    (holidays) => holidays === checkTodayDate
+  );
 
   //Spliting statename
   let stateName = branchDetail?.MyBranchCall?.MyBranchDetail
@@ -86,8 +89,8 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
           : null
     : null;
 
-  const [ scheduleCall, setScheduleCall ] = React.useState(false);
-  const [ loading, setLoading ] = React.useState(false);
+  const [scheduleCall, setScheduleCall] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   //Formik implementation
   const formik = useFormik({
@@ -97,18 +100,15 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      var callDate = Moment(values.appointmentDate).format("YYYY-MM-DD");
-      var callingTime = values.callTime;
-
+      let callDate = Moment(values.appointmentDate).format(dateFormat);
+      let callingTime = values.callTime;
       let callTimeZone = momentTimeZone
         .tz(momentTimeZone.tz.guess())
         .zoneAbbr();
 
       setLoading(true);
-
       let response = await ScheduleCallApi(callDate, callingTime, callTimeZone);
-
-      if (response === "true") {
+      if (response) {
         formik.values.appointmentDate = null;
         formik.values.callTime = "";
         setLoading(false);
@@ -117,15 +117,15 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
     },
   });
 
-const appointmentDay = ["Saturday","Sunday"]
+  const appointmentDay = ["Saturday", "Sunday"];
 
-    //pop up open & close
+  //pop up open & close
   const handleScheduleCall = () => {
     setScheduleCall(true);
   };
 
   const handleScheduleCallClose = () => {
-    document.getElementById("formCall").remove();
+    formCallRef.current.remove();
     formik.values.appointmentDate = null;
     formik.values.callTime = "";
     formik.touched.appointmentDate = null;
@@ -133,237 +133,172 @@ const appointmentDay = ["Saturday","Sunday"]
     setScheduleCall(false);
   };
   const dateFormatOption = {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
   };
+  const getTimeSlotOption = (timeList, convertString) => {
+    let inputOptions = convertString ? JSON.stringify(timeList) : timeList;
+    return (
+      <Select
+        id="timeSlotSelect"
+        name="callTime"
+        labelform="Time Slot"
+        select={inputOptions}
+        onChange={formik.handleChange}
+        value={formik.values.callTime}
+        onBlur={formik.handleBlur}
+        error={formik.touched.callTime && Boolean(formik.errors.callTime)}
+        helperText={formik.touched.callTime && formik.errors.callTime}
+      />
+    );
+  };
+  const showBranchClosedMessage = () => {
+    return (
+      <p className={classes.branchClose}>
+        Branch is closed, Please select a new day.
+      </p>
+    );
+  };
+  let selectedAppointmentDate = Moment(formik.values.appointmentDate).format(dateFormat);
+  let selectedAppointmentDay = Moment(formik.values.appointmentDate).format("dddd");
 
   //View part
   return (
     <div>
-      <Grid item xs={ 12 } style={ { paddingTop: "10px", textAlign: "left" } }>
+      <Grid item xs={12} style={{ paddingTop: "10px", textAlign: "left" }}>
         <ButtonPrimary
           stylebutton='{"float": "", "padding":"0px 30px", "fontSize":"0.938rem" }'
-          onClick={ handleScheduleCall }
+          onClick={handleScheduleCall}
         >
           Schedule a call
         </ButtonPrimary>
       </Grid>
 
       <Dialog
-        open={ scheduleCall }
+        open={scheduleCall}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
-        classes={ { paper: classes.dialogPaper } }
+        classes={{ paper: classes.dialogPaper }}
       >
-        <div className={ classes.buttonClose }>
+        <div className={classes.buttonClose}>
           <IconButton
             aria-label="close"
-            onClick={ handleScheduleCallClose }
-            className={ classes.closeButton }
+            onClick={handleScheduleCallClose}
+            className={classes.closeButton}
           >
             <CloseIcon />
           </IconButton>
         </div>
-        <DialogTitle id="alert-dialog-title" style={ { padding: "unset" } }>
-          <Typography className={ classes.dialogHeading }>
+        <DialogTitle id="alert-dialog-title" style={{ padding: "unset" }}>
+          <Typography className={classes.dialogHeading}>
             Schedule a Call
           </Typography>
           <Typography className="endDate">
             You have until <span> { scheduleDateCall.toLocaleDateString('en-us', dateFormatOption) } </span>to schedule Date & Time for your appointment
           </Typography>
         </DialogTitle>
-        <form id="formCall" onSubmit={ formik.handleSubmit }>
+        <form id="formCall" ref={formCallRef} onSubmit={formik.handleSubmit}>
           <DialogContent>
-            <Grid style={ { paddingBottom: "10px" } }>
+            <Grid style={{ paddingBottom: "10px" }}>
               <DatePicker
                 name="appointmentDate"
                 label="Date"
                 placeholder="MM/DD/YYYY"
                 id="appointmentDate"
                 disablePast
+                onKeyDown={ (event) => event.preventDefault() }
                 autoComplete="off"
-                shouldDisableDate={ disableHolidays }
-                maxdate={ scheduleDateCall }
-                minyear={ 4 }
-                value={ formik.values.appointmentDate }
-                onChange={ (values) => {
+                shouldDisableDate={disableHolidays}
+                maxdate={scheduleDateCall}
+                minyear={4}
+                value={formik.values.appointmentDate}
+                onChange={(values) => {
                   formik.setFieldValue("appointmentDate", values);
                   formik.setFieldValue("callTime", "");
-                } }
-                onBlur={ formik.handleBlur }
-                error={ formik.touched.appointmentDate && Boolean(formik.errors.appointmentDate) }
-                helperText={ formik.touched.appointmentDate && formik.errors.appointmentDate }
+                }}
+                onBlur={formik.handleBlur}
+                error={
+                  formik.touched.appointmentDate &&
+                  Boolean(formik.errors.appointmentDate)
+                }
+                helperText={
+                  formik.touched.appointmentDate &&
+                  formik.errors.appointmentDate
+                }
               />
             </Grid>
 
-            { stateName === "CA" ? (
-              Moment(formik.values.appointmentDate).format("dddd") === "Tuesday" ? (
+            {stateName === "CA" ? (
+              selectedAppointmentDay === "Tuesday" ? (
                 <Grid>
-                  { Moment(formik.values.appointmentDate).format("DD-MM-YYYY") ===
-                    Moment(new Date()).format("DD-MM-YYYY")
-                    ? upt_ca_Tue.length !== 0 && Moment(formik.values.appointmentDate).format("YYYY-MM-DD") !== checkToday ?
-                      <Select
-                        id="timeSlotSelect"
-                        name="callTime"
-                        labelform="Time Slot"
-                        select={ JSON.stringify(upt_ca_Tue) }
-                        onChange={ formik.handleChange }
-                        value={ formik.values.callTime }
-                        onBlur={ formik.handleBlur }
-                        error={ formik.touched.callTime && Boolean(formik.errors.callTime) }
-                        helperText={ formik.touched.callTime && formik.errors.callTime }
-                      /> : <p className={ classes.branchClose }>Branch is closed, Please select a new day.</p>
-                    :
-                    <Select
-                      id="timeSlotSelect"
-                      name="callTime"
-                      labelform="Time Slot"
-                      select={ ca_Tue }
-                      onChange={ formik.handleChange }
-                      value={ formik.values.callTime }
-                      onBlur={ formik.handleBlur }
-                      error={ formik.touched.callTime && Boolean(formik.errors.callTime) }
-                      helperText={ formik.touched.callTime && formik.errors.callTime }
-                    /> }
+                  {selectedAppointmentDate === checkTodayDate
+                    ? upt_ca_Tue.length !== 0 &&
+                      selectedAppointmentDate !== checkToday
+                      ? getTimeSlotOption(upt_ca_Tue, true)
+                      : showBranchClosedMessage()
+                    : getTimeSlotOption(ca_Tue, false)}
                 </Grid>
-              ) :
-               !appointmentDay.includes(Moment(formik.values.appointmentDate).format("dddd")) ? (
-                <Grid>
-                  { Moment(formik.values.appointmentDate).format("DD-MM-YYYY") ===
-                    Moment(new Date()).format("DD-MM-YYYY")
-                    ? upt_ca_M_W_TH_F.length !== 0 && Moment(formik.values.appointmentDate).format("YYYY-MM-DD") !== checkToday ?
-                      <Select
-                        id="timeSlotSelect"
-                        name="callTime"
-                        labelform="Time Slot"
-                        select={ JSON.stringify(upt_ca_M_W_TH_F) }
-                        onChange={ formik.handleChange }
-                        value={ formik.values.callTime }
-                        onBlur={ formik.handleBlur }
-                        error={ formik.touched.callTime && Boolean(formik.errors.callTime) }
-                        helperText={ formik.touched.callTime && formik.errors.callTime }
-                      /> : <p className={ classes.branchClose }>Branch is closed, Please select a new day.</p>
-                    :
-                    <Select
-                      id="timeSlotSelect"
-                      name="callTime"
-                      labelform="Time Slot"
-                      select={ ca_M_W_Th_F }
-                      onChange={ formik.handleChange }
-                      value={ formik.values.callTime }
-                      onBlur={ formik.handleBlur }
-                      error={ formik.touched.callTime && Boolean(formik.errors.callTime) }
-                      helperText={ formik.touched.callTime && formik.errors.callTime }
-                    /> }
-                </Grid>
-              ) : <p className={ classes.branchClose }>Branch is closed, Please select a new day.</p>
-
-            ) : Moment(formik.values.appointmentDate).format("dddd") === "Tuesday" ? (
+              ) : !appointmentDay.includes(selectedAppointmentDay) ? (
+                  <Grid>
+                  {selectedAppointmentDate === checkTodayDate
+                    ? upt_ca_M_W_TH_F.length !== 0 &&
+                      Moment(formik.values.appointmentDate).format(
+                        "YYYY-MM-DD"
+                      ) !== checkToday
+                      ? getTimeSlotOption(upt_ca_M_W_TH_F, true)
+                      : showBranchClosedMessage()
+                    : getTimeSlotOption(ca_M_W_Th_F, false)}
+                  </Grid>
+              ) : (
+                showBranchClosedMessage()
+              )
+            ) : selectedAppointmentDay === "Tuesday" ? (
               <Grid>
-                { Moment(formik.values.appointmentDate).format("DD-MM-YYYY") ===
-                  Moment(new Date()).format("DD-MM-YYYY")
-                  ? updated_other_Tue.length !== 0 && Moment(formik.values.appointmentDate).format("YYYY-MM-DD") !== checkToday ?
-                    <Select
-                      id="timeSlotSelect"
-                      name="callTime"
-                      labelform="Time Slot"
-                      select={ JSON.stringify(updated_other_Tue) }
-                      onChange={ formik.handleChange }
-                      value={ formik.values.callTime }
-                      onBlur={ formik.handleBlur }
-                      error={ formik.touched.callTime && Boolean(formik.errors.callTime) }
-                      helperText={ formik.touched.callTime && formik.errors.callTime }
-                    /> : <p className={ classes.branchClose }>Branch is closed, Please select a new day.</p>
-                  :
-                  <Select
-                    id="timeSlotSelect"
-                    name="callTime"
-                    labelform="Time Slot"
-                    select={ other_Tue }
-                    onChange={ formik.handleChange }
-                    value={ formik.values.callTime }
-                    onBlur={ formik.handleBlur }
-                    error={ formik.touched.callTime && Boolean(formik.errors.callTime) }
-                    helperText={ formik.touched.callTime && formik.errors.callTime }
-                  /> }
+                {selectedAppointmentDate === checkTodayDate
+                  ? updated_other_Tue.length !== 0 &&
+                    selectedAppointmentDate !== checkToday
+                    ? getTimeSlotOption(updated_other_Tue, true)
+                    : showBranchClosedMessage()
+                  : getTimeSlotOption(other_Tue, false)}
               </Grid>
-            ) : Moment(formik.values.appointmentDate).format("dddd") === "Friday" ? (
+            ) : selectedAppointmentDay === "Friday" ? (
               <Grid>
-                { Moment(formik.values.appointmentDate).format("DD-MM-YYYY") ===
-                  Moment(new Date()).format("DD-MM-YYYY")
-                  ? upt_other_Fri.length !== 0 && Moment(formik.values.appointmentDate).format("YYYY-MM-DD") !== checkToday ?
-                    <Select
-                      id="timeSlotSelect"
-                      name="callTime"
-                      labelform="Time Slot"
-                      select={ JSON.stringify(upt_other_Fri) }
-                      onChange={ formik.handleChange }
-                      value={ formik.values.callTime }
-                      onBlur={ formik.handleBlur }
-                      error={ formik.touched.callTime && Boolean(formik.errors.callTime) }
-                      helperText={ formik.touched.callTime && formik.errors.callTime }
-                    /> : <p className={ classes.branchClose }>Branch is closed, Please select a new day.</p>
-                  :
-                  <Select
-                    id="timeSlotSelect"
-                    name="callTime"
-                    labelform="Time Slot"
-                    select={ Other_Fri }
-                    onChange={ formik.handleChange }
-                    value={ formik.values.callTime }
-                    onBlur={ formik.handleBlur }
-                    error={ formik.touched.callTime && Boolean(formik.errors.callTime) }
-                    helperText={ formik.touched.callTime && formik.errors.callTime }
-                  /> }
+                {selectedAppointmentDate === checkTodayDate
+                  ? upt_other_Fri.length !== 0 &&
+                    selectedAppointmentDate !== checkToday
+                    ? getTimeSlotOption(upt_other_Fri, true)
+                    : showBranchClosedMessage()
+                  : getTimeSlotOption(Other_Fri, false)}
               </Grid>
-            ) : !appointmentDay.includes(Moment(formik.values.appointmentDate).format("dddd")) ? (
+            ) : !appointmentDay.includes(selectedAppointmentDay) ? (
               <Grid>
-                { Moment(formik.values.appointmentDate).format("DD-MM-YYYY") ===
-                  Moment(new Date()).format("DD-MM-YYYY")
-                  ? upt_other_M_W_Thu.length !== 0 && Moment(formik.values.appointmentDate).format("YYYY-MM-DD") !== checkToday ?
-                    <Select
-                      id="timeSlotSelect"
-                      name="callTime"
-                      labelform="Time Slot"
-                      select={ JSON.stringify(upt_other_M_W_Thu) }
-                      onChange={ formik.handleChange }
-                      value={ formik.values.callTime }
-                      onBlur={ formik.handleBlur }
-                      error={ formik.touched.callTime && Boolean(formik.errors.callTime) }
-                      helperText={ formik.touched.callTime && formik.errors.callTime }
-                    />
-                    : <p className={ classes.branchClose }>Branch is closed, Please select a new day.</p>
-                  :
-                  <Select
-                    id="timeSlotSelect"
-                    name="callTime"
-                    labelform="Time Slot"
-                    select={ other_M_W_Thu }
-                    onChange={ formik.handleChange }
-                    value={ formik.values.callTime }
-                    onBlur={ formik.handleBlur }
-                    error={ formik.touched.callTime && Boolean(formik.errors.callTime) }
-                    helperText={ formik.touched.callTime && formik.errors.callTime }
-                  /> }
+                {selectedAppointmentDate === checkTodayDate
+                  ? upt_other_M_W_Thu.length !== 0 &&
+                    selectedAppointmentDate !== checkToday
+                    ? getTimeSlotOption(upt_other_M_W_Thu, true)
+                    : showBranchClosedMessage()
+                  : getTimeSlotOption(other_M_W_Thu, false)}
               </Grid>
-            )  : <p className={ classes.branchClose }>Branch is closed, Please select a new day.</p>  }
+            ) : (
+              showBranchClosedMessage()
+            )}
           </DialogContent>
 
-          <DialogActions style={ { justifyContent: "center" } }>
+          <DialogActions style={{ justifyContent: "center" }}>
             <ButtonPrimary
               type="submit"
               stylebutton='{"background": "","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
-              disabled={ loading }
+              disabled={loading}
             >
               Call Back
               <i
                 className="fa fa-refresh fa-spin customSpinner"
-                style={ {
+                style={{
                   marginRight: "10px",
                   color: "blue",
                   display: loading ? "block" : "none",
-                } }
+                }}
               />
             </ButtonPrimary>
           </DialogActions>

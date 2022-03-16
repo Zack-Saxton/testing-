@@ -27,7 +27,7 @@ export class FormValidationRules {
                         globalMessages.PasswordCriteria
                     )
             })
-            .max(30, globalMessages.PasswordMax)            
+            .max(30, globalMessages.PasswordMax)
             .required(globalMessages.PasswordRequired);
     }
 

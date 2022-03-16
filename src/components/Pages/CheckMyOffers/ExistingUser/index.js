@@ -114,12 +114,12 @@ function ExistingUser() {
 				} else {
 					navigate("/employment-status");
 				}
-			} else if (retVal?.data?.result === "error" || retVal?.data?.hasError === true) {
+			} else if (retVal?.data?.result === "error" || retVal?.data?.hasError) {
 				Cookies.set("token", JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" }));
 				setLoading(false);
 				setLoginFailed(retVal?.data?.errorMessage);
 			} else {
-				alert("Network error");
+				alert(globalMessages.Network_Error);
 				setLoading(false);
 			}
 		},

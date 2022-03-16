@@ -8,7 +8,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import { ButtonPrimary } from "../../../FormsUI";
 import { CheckMyOffers as Check } from "../../../../contexts/CheckMyOffers";
 
-
 const useStyles = makeStyles((theme) => ({
     offerAmountStyle: {
         color: "#0F4EB3",
@@ -33,11 +32,12 @@ const PreApproved = () => {
         data.completedPage = data.page.selectAmount;
         setData({ ...data, loanAmount: parseInt(location?.state?.offerData[ 0 ]?.offerAmount), loading: false });
         navigate("/loan-purpose");
-    }
+    };
     useEffect(() => {
-        setOfferAmount("$ " + (Math.round(parseInt(location?.state?.offerData[ 0 ]?.offerAmount) * 100) / 100).toLocaleString());
+        setOfferAmount("$ " + (location?.state?.offerData?.length ? (Math.round(parseInt(location.state.offerData[ 0 ].offerAmount) * 100) / 100) : 0 ).toLocaleString());
         return null;
-    }, []);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []); 
 
     return (
         <div>
@@ -93,9 +93,9 @@ const PreApproved = () => {
                                         <Typography align="center" style={ { color: "black", fontWeight: "400", fontFamily: "Muli, sans-serif" } }>
                                             &nbsp;We checked your offer code<br />
                                             and { "your'e" } eligible for at least,<br />
-                                            </Typography>
-                                            <h2 className={classes.offerAmountStyle}>{ offerAmount }</h2>
-                                            <Typography align="center" style={ { color: "black", fontWeight: "400", fontFamily: "Muli, sans-serif" } }>
+                                        </Typography>
+                                        <h2 className={ classes.offerAmountStyle }>{ offerAmount }</h2>
+                                        <Typography align="center" style={ { color: "black", fontWeight: "400", fontFamily: "Muli, sans-serif" } }>
 
                                             and possibly more!
                                         </Typography>
@@ -124,12 +124,12 @@ const PreApproved = () => {
 
                                     <Grid item xs={ 11 } sm={ 10 } md={ 8 } lg={ 8 } xl={ 8 }>
                                         <Grid className="alignButton">
-                                                <ButtonPrimary
-                                                    stylebutton='{"background": "#FFBC23", "color":"black","fontSize":"15px","padding":"0px 30px"}'
-                                                    onClick={onClickContinuepreApproved}
-                                                >
-                                                    Continue
-                                                </ButtonPrimary>
+                                            <ButtonPrimary
+                                                stylebutton='{"background": "#FFBC23", "color":"black","fontSize":"15px","padding":"0px 30px"}'
+                                                onClick={ onClickContinuepreApproved }
+                                            >
+                                                Continue
+                                            </ButtonPrimary>
 
                                         </Grid>
                                     </Grid>

@@ -107,11 +107,10 @@ export default function VerificationQuestion(props) {
                       setSetOneFinished(true);
                       props.setLoadingFlag(false);
                     }
-                    else if (nxtRes?.data?.result === "success" && !nxtRes?.data?.kba && nxtRes?.data?.kba?.failed === true) {
+                    else if (nxtRes?.data?.result === "success" && !nxtRes?.data?.kba && nxtRes?.data?.kba?.failed) {
                       props.setLoadingFlag(false);
                       props.next();
-                    }
-                    else {
+                    } else {
                       props.setLoadingFlag(false);
                       toast.error(messages?.unHandledError);
                     }

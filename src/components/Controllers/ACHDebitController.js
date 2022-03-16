@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
+import globalMessages from "../../assets/data/globalMessages.json";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
-import globalMessages from "../../assets/data/globalMessages.json";
 
 //  ========*******======== Add ACH Bank Payment                ========*******========
 export async function AddACHPaymentAPI(accountNickname, accountHolder, bankRoutingNumber, bankAccountNumber, accountType, defaultBank) {
@@ -51,7 +51,7 @@ export async function AddDebitCardAPI(accountNickname, cardNumber, cardName, cvv
     ? toast.success(
       addAddDebitCardMethod.data(globalMessages.Ach_Add_Achpayment))
     : toast.error(globalMessages.Ach_Error_Add_Achpayment);
-  return "true";
+  return true;
 }
 //  ========*******======== END of [Add Debit Card Payment]     ========*******========
 
@@ -74,7 +74,7 @@ export async function DeleteACHPaymentAPI() {
     ? toast.success(
       deleteACHPaymentMethod.data(globalMessages.Ach_Delete_Achpayment))
     : toast.error(globalMessages.Ach_Error_Delete_Achpayment);
-  return "true";
+  return true;
 }
 //  ========*******======== END of [Delete ACH Bank Payment]    ========*******========
 
@@ -95,7 +95,7 @@ export async function DeleteDebitCardAPI() {
     ? toast.success(
       deleteDebitCardMethod.data(globalMessages.Ach_Delete_Debit_Card_payment))
     : toast.error(globalMessages.Ach_Error_Delete_Debit_Card_payment);
-  return "true";
+  return true;
 }
 //  ========*******======== END of [Delete Debit Card Payment]    ========*******========
 

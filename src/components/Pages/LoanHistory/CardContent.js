@@ -24,11 +24,11 @@ export default function LoanHistoryCard(historyOfLoans) {
   useEffect(() => {
     let activeLoan = dataAccountOverview?.data?.applicants;
 
-    const presenceOfLoan = activeLoan?.some((applicant) => applicant.isActive === true && applicant?.status !== "referred" && applicant?.status !== "contact_branch");
-    const presenceOfLoanStatus = activeLoan?.find((applicant) => applicant.isActive === true);
+    const presenceOfLoan = activeLoan?.some((applicant) => applicant?.isActive  && applicant?.status !== "referred" && applicant?.status !== "contact_branch");
+    const presenceOfLoanStatus = activeLoan?.find((applicant) => applicant?.isActive);
     const userAccountStatus = dataAccountOverview?.data?.customer?.user_account?.status;
 
-    setCurrentLoan(presenceOfLoan === true || userAccountStatus === "closed" ? true : false);
+    setCurrentLoan(presenceOfLoan || userAccountStatus === "closed" ? true : false);
     setCheckPresenceOfLoanStatus(presenceOfLoanStatus?.status);
     setCheckPresenceOfLoan(presenceOfLoan);
   }, [ dataAccountOverview ]);
@@ -74,7 +74,7 @@ export default function LoanHistoryCard(historyOfLoans) {
               </Grid>
             </Paper>
           </Grid>
-          { checkPresenceOfLoan === true ?
+          { checkPresenceOfLoan ?
             <Grid item xs={ 12 } sm={ 4 } className={ classes.cardLoanHistory }>
               <Paper className={ classes.paperPointer } onClick={ redirectToResumeApplication } style={ { height: "70%" } }>
                 <Grid style={ { textAlign: "center" } }>
@@ -84,7 +84,7 @@ export default function LoanHistoryCard(historyOfLoans) {
               </Paper>
             </Grid>
             :
-            <Grid item xs={ 12 } sm={ 4 } className={ currentLoan !== true ? "cardLoanHistory" : "disableCardLoanHistory" } >
+            <Grid item xs={ 12 } sm={ 4 } className={ !currentLoan ? "cardLoanHistory" : "disableCardLoanHistory" } >
               <Paper className={ classes.paperPointer } onClick={ redirectToApplyForLoan } style={ { height: "70%" } }>
                 <Grid style={ { textAlign: "center" } }>
                   <MonetizationOnRoundedIcon id="dolor-icon_loan-history" className="material-icons background-round mt-5 yelloWBG" />

@@ -1,12 +1,12 @@
+import { FormControl, FormControlLabel } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import Paper from "@material-ui/core/Paper";
-import Switch from "@material-ui/core/Switch";
-import { FormControl, FormControlLabel } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import Switch from "@material-ui/core/Switch";
 import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import axios from "axios";
@@ -20,13 +20,14 @@ import LoginController from "../../Controllers/LoginController";
 import {
   ButtonPrimary,
   EmailTextField,
-  PasswordField, 
-  Popup, 
+  PasswordField,
+  Popup,
   RenderContent
 } from "../../FormsUI";
-import { encryptAES, decryptAES } from "../../lib/Crypto";
+import { decryptAES, encryptAES } from "../../lib/Crypto";
 import { FormValidationRules } from "../../lib/FormValidationRule";
 import ScrollToTopOnMount from "../../Pages/ScrollToTop";
+import globalMessages from "../../../assets/data/globalMessages.json";
 import "./Login.css";
 var formValidation = new FormValidationRules();
 const moment = require("moment");
@@ -38,8 +39,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-  termsText :{
-    fontSize:"0.938rem",
+  termsText: {
+    fontSize: "0.938rem",
   },
   linkDesign: {
     color: "#0F4EB3",
@@ -135,13 +136,13 @@ export default function Login(props) {
   const getClientIp = async () => {
     try {
       let ipResponse = await axios.get('https://geolocation-db.com/json/');
-      return ipResponse.data.IPv4;
+      return ipResponse?.data?.IPv4;
     } catch (err) {
       return '127.0.0.1';
     }
   };
-  const remMeDataRaw = Cookies.get("rememberMe") ? Cookies.get("rememberMe") : null;
-  let remMeData = remMeDataRaw ? JSON.parse(decryptAES(remMeDataRaw)) : undefined;     
+  const remMeDataRaw = Cookies.get("rememberMe") ?? null;
+  let remMeData = remMeDataRaw ? JSON.parse(decryptAES(remMeDataRaw)) : undefined;
   const [remMe, setRemMe] = useState(remMeData?.selected);
   //Form Submission
   const formik = useFormik({
@@ -156,15 +157,15 @@ export default function Login(props) {
       let ipAddress = await getClientIp();
       //Sending value to  login controller
       let retVal = await LoginController(
-        values.email,
-        values.password,
+        values?.email,
+        values?.password,
         ipAddress,
-        props.setToken
+        props?.setToken
       );
-      if (retVal?.data?.user && retVal?.data?.userFound === true) {
-        let login_date = retVal?.data?.user.extensionattributes?.login
+      if (retVal?.data?.user && retVal?.data?.userFound) {
+        let login_date = retVal?.data?.user?.extensionattributes?.login
           ?.last_timestamp_date
-          ? moment(retVal?.data?.user.extensionattributes.login.last_timestamp_date)
+          ? moment(retVal?.data?.user?.extensionattributes?.login?.last_timestamp_date)
             .subtract(addVal, "hours")
             .format("MM/DD/YYYY")
           : "";
@@ -179,17 +180,17 @@ export default function Login(props) {
             applicantGuid: retVal?.data?.user?.attributes?.sor_data?.applicant_guid,
           })
         );
-        Cookies.set("cred", encryptAES(JSON.stringify({ email: values.email, password: values.password })));
-        Cookies.set("email", values.email);
+        Cookies.set("cred", encryptAES(JSON.stringify({ email: values?.email, password: values?.password })));
+        Cookies.set("email", values?.email);
         Cookies.set("profile_picture", retVal?.data?.user?.mobile?.profile_picture ? retVal?.data?.user?.mobile?.profile_picture : "");
         Cookies.set("login_date", login_date);
         Cookies.set("userToken", retVal?.data?.user?.attributes?.UserToken);
         Cookies.set("temp_opted_phone_texting", "");
-        Cookies.set("rememberMe", encryptAES(remMe ? JSON.stringify({ selected: true, email: values.email}) : JSON.stringify({ selected: false, email: ''})) );
+        Cookies.set("rememberMe", encryptAES(remMe ? JSON.stringify({ selected: true, email: values?.email}) : JSON.stringify({ selected: false, email: ''})) );
         queryClient.removeQueries();
         setLoading(false);
         if (retVal?.data?.user?.attributes?.password_reset) {
-          navigate("/resetpassword", { state: { Email: values.email } });
+          navigate("/resetpassword", { state: { Email: values?.email } });
         } else {
           navigate(location.state?.redirect ? location.state?.redirect : "/customers/accountoverview");
         }
@@ -198,7 +199,7 @@ export default function Login(props) {
         }
       } else if (
         retVal?.data?.result === "error" ||
-        retVal?.data?.hasError === true
+        retVal?.data?.hasError
       ) {
         Cookies.set(
           "token",
@@ -213,11 +214,11 @@ export default function Login(props) {
         setLoading(false);
         setLoginFailed(retVal?.data?.errorMessage);
         if (counter >= 1) {
-          navigate("/register?email=" + values.email);
+          navigate("/register?email=" + values?.email);
         }
       } else {
         setLoading(false);
-        alert("Network error");
+        alert(globalMessages.Network_Error);
       }
     },
   });
@@ -247,11 +248,11 @@ export default function Login(props) {
   };
 
   const handleOnClickCacTerms = () => {
-		setCacTerms(true);
-	};
-	const handleOnClickCacTermsClose = () => {
-		setCacTerms(false);
-	};
+    setCacTerms(true);
+  };
+  const handleOnClickCacTermsClose = () => {
+    setCacTerms(false);
+  };
 
   //View Part
   return (
@@ -306,13 +307,13 @@ export default function Login(props) {
                           </p>
                         }
                         onKeyDown={ preventSpace }
-                        value={ formik.values.email }
+                        value={ formik.values?.email }
                         onChange={ passwordOnChange }
                         onBlur={ formik.handleBlur }
                         error={
-                          formik.touched.email && Boolean(formik.errors.email)
+                          formik.touched?.email && Boolean(formik.errors?.email)
                         }
-                        helperText={ formik.touched.email && formik.errors.email }
+                        helperText={ formik.touched?.email && formik.errors?.email }
                       />
                     </Grid>
 
@@ -329,15 +330,15 @@ export default function Login(props) {
                         type="password"
                         onKeyDown={ preventSpace }
                         materialProps={ { maxLength: "100" } }
-                        value={ formik.values.password }
+                        value={ formik.values?.password }
                         onChange={ passwordOnChange }
                         onBlur={ formik.handleBlur }
                         error={
-                          formik.touched.password &&
-                          Boolean(formik.errors.password)
+                          formik.touched?.password &&
+                          Boolean(formik.errors?.password)
                         }
                         helperText={
-                          formik.touched.password && formik.errors.password
+                          formik.touched?.password && formik.errors?.password
                         }
                       />
                       <p
@@ -358,15 +359,13 @@ export default function Login(props) {
                           <Switch
                             checked={ remMe }
                             onChange={ handleRemMeChange }
-                            // value={ state }
                             inputProps={ { "data-test-id": "switch" } }
                             color="primary"
                           />
                         }
-                        // labelPlacement={ labelplacement }
-                        label=" Remember me" 
+                        label=" Remember me"
                       />
-                    </FormControl>            
+                    </FormControl>
                     </Grid>
 
                     <Grid item xs={ 12 } className={ classes.loginButton }>
@@ -388,8 +387,8 @@ export default function Login(props) {
                     </Grid>
                     <Grid className={ classes.registerGrid }>
                       <Typography className={ classes.termsText }>
-                        By logging into the site, you agree to 
-                        <span className={ classes.linkDesign } onClick={ () => { handleOnClickCacTerms(); } }>{' '}CAC terms of use</span>
+                        By logging into the site, you agree to
+                        <span className={ classes.linkDesign } onClick={ () => { handleOnClickCacTerms(); } }>{ ' ' }CAC terms of use</span>
                       </Typography>
                     </Grid>
                     <Grid className={ classes.registerGrid }>
@@ -464,8 +463,8 @@ export default function Login(props) {
         </DialogActions>
       </Dialog>
       <Popup popupFlag={ cacTerms } closePopup={ handleOnClickCacTermsClose }>
-				<RenderContent disclosureLink="/cacTermsOfUse" />
-			</Popup>
+        <RenderContent disclosureLink="/cacTermsOfUse" />
+      </Popup>
     </div>
   );
 }

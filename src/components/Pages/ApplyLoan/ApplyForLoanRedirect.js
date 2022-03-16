@@ -41,28 +41,28 @@ const ApplyForLoanRedirect = (props) => {
 		};
 
 		let res = await APICall("account_overview", '', data, "GET", true);
-		let checkStatus = location?.state?.statusCheck === false ? location.state.statusCheck : true;
+		let checkStatus = location?.state?.statusCheck ?? true;
 		if (location?.state?.from === "user") {
 			navigate({ state: { from: "ended" }, });
-			if (res?.data?.customer?.user_account?.status === "closed" && checkStatus !== false) {
+			if (res?.data?.customer?.user_account?.status === "closed" && checkStatus) {
 				if (!toast.isActive("closedApplication")) {
 					toast.error(messages?.accountClosed);
 				}
 				navigate("/customers/accountOverview");
 			} else if (res?.data?.applicants.length === 0) {
 				redirectToCMO();
-			} else if (res?.data?.applicants[ 0 ]?.isActive === true) {
+			} else if (res?.data?.applicants[ 0 ]?.isActive) {
 				navigate(statusStrLink[ res?.data?.applicants[ 0 ]?.status ]);
 			} else {
 				let isActiveApplicationAvailable = false;
 				res?.data?.applicants.map((item, index) => {
-					if (item.isActive === true) {
+					if (item.isActive) {
 						isActiveApplicationAvailable = true;
 						navigate(statusStrLink[ item.status ]);
 					}
 					return null;
 				});
-				if (isActiveApplicationAvailable === false) {
+				if (!isActiveApplicationAvailable) {
 					navigate("/select-amount");
 				}
 				return null;

@@ -26,7 +26,6 @@ import {
   upt_other_M_W_Thu
 } from "./WorkingHours";
 
-
 //Date validation
 const scheduleAppointmentDate = new Date();
 scheduleAppointmentDate.setDate(scheduleAppointmentDate.getDate() + 30);
@@ -38,7 +37,7 @@ const validationSchema = yup.object({
     .nullable()
     .required(globalMessages.Appointment_Date_Required)
     .typeError(globalMessages.ValidDate)
-    .max(scheduleAppointmentDate,globalMessages.validCheckDate),
+    .max(scheduleAppointmentDate, globalMessages.validCheckDate),
 
   appointmentTime: yup
     .string(globalMessages.Enter_Appointment_Time)
@@ -103,19 +102,14 @@ export default function ScheduleAppointment({
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       var visitDate = Moment(values.appointmentDate).format("YYYY-MM-DD");
-
       var visitTime = values.appointmentTime;
       let visitTimeZone = momentTimeZone
         .tz(momentTimeZone.tz.guess())
         .zoneAbbr();
 
       setLoading(true);
-      let response = await ScheduleVisitApi(
-        visitDate,
-        visitTime,
-        visitTimeZone
-      );
-      if (response === "true") {
+      let response = await ScheduleVisitApi(visitDate, visitTime, visitTimeZone);
+      if (response) {
         formik.values.appointmentDate = null;
         formik.values.appointmentTime = "";
         setLoading(false);
@@ -124,7 +118,7 @@ export default function ScheduleAppointment({
     },
   });
 
-  const appointmentDay = ["Saturday","Sunday"]
+  const appointmentDay = [ "Saturday", "Sunday" ];
 
   //pop up open & close
   const handleScheduleAppointment = () => {
@@ -190,6 +184,7 @@ export default function ScheduleAppointment({
                 placeholder="MM/DD/YYYY"
                 id="appointmentDate"
                 disablePast
+                onKeyDown={ (event) => event.preventDefault() }
                 autoComplete="off"
                 shouldDisableDate={ disableHolidays }
                 maxdate={ scheduleAppointmentDate }
@@ -354,7 +349,7 @@ export default function ScheduleAppointment({
                     helperText={ formik.touched.appointmentTime && formik.errors.appointmentTime }
                   /> }
               </Grid>
-            ) : <p className={ classes.branchClose }>Branch is closed, Please select a new day.</p>}
+            ) : <p className={ classes.branchClose }>Branch is closed, Please select a new day.</p> }
           </DialogContent>
 
           <DialogActions style={ { justifyContent: "center" } }>

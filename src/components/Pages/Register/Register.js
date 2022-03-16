@@ -147,7 +147,7 @@ export default function Register() {
   const loginUser = async (values) => {
     try {
       let retVal = await LoginController(values.email, values.password, "");
-      if (retVal?.data?.user && retVal?.data?.userFound === true) {
+      if (retVal?.data?.user && retVal?.data?.userFound) {
         let rememberMe = false;
         var now = new Date().getTime();
         LogoutController();
@@ -170,7 +170,7 @@ export default function Register() {
           )
         );
         queryClient.removeQueries();
-        rememberMe === true
+        rememberMe
           ? Cookies.set(
             "rememberMe",
             JSON.stringify({
@@ -183,12 +183,12 @@ export default function Register() {
 
         setLoading(false);
         navigate("/customers/accountoverview");
-      } else if (retVal?.data?.result === "error" || retVal?.data?.hasError === true) {
+      } else if (retVal?.data?.result === "error" || retVal?.data?.hasError) {
         Cookies.set("token", JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" }));
         setLoading(false);
       } else {
         setLoading(false);
-        alert("Network error");
+        alert(globalMessages.Network_Error);
       }
     } catch (error) {
       ErrorLogger("Error executing Login API", error);
@@ -232,8 +232,8 @@ export default function Register() {
         let customerStatus = await RegisterController(body);
 
         if (
-          (customerStatus.data?.customerFound === false && customerStatus.data?.userFound === false && customerStatus.data?.is_registration_failed === false) ||
-          (customerStatus.data?.result === "success" && customerStatus.data?.hasError === false)
+          (!customerStatus.data?.customerFound && !customerStatus.data?.userFound && !customerStatus.data?.is_registration_failed) ||
+          (customerStatus.data?.result === "success" && !customerStatus.data?.hasError)
         ) {
           //On succes, calls the login API to the JWT token and save it in storage, and make the user logged in and redirecting to home page
           loginUser(values);
@@ -244,7 +244,7 @@ export default function Register() {
         }
         else if (
           customerStatus.data?.result === "error" &&
-          customerStatus.data?.hasError === true
+          customerStatus.data?.hasError
         ) {
           setFailed(customerStatus.data?.errorMessage);
           setSuccess(false);
@@ -619,7 +619,7 @@ export default function Register() {
                         type="submit"
                         data-testid="submit"
                         stylebutton='{"background": "", "color":"", "fontSize" : "15px ! important", "padding" : "0px 30px" }'
-                        disabled={ disableRecaptcha === true ? disableRecaptcha : loading }
+                        disabled={ disableRecaptcha ? disableRecaptcha : loading }
                       >
                         Sign in
                         <i

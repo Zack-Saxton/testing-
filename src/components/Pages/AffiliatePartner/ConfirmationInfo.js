@@ -5,7 +5,6 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import PropTypes from "prop-types";
@@ -15,67 +14,13 @@ import * as yup from "yup";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import states from '../../../assets/data/States.json';
 import creditkarmalogo from "../../../assets/images/ck_logo.png";
-import Logo from "../../../assets/images/loginbg.png";
 import { partnerConfirmInfo } from "../../Controllers/PartnerSignupController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
 import { ButtonPrimary, Checkbox, Popup, RenderContent, Select, TextField, Zipcode } from "../../FormsUI";
 import ErrorLogger from "../../lib/ErrorLogger";
 import "./Style.css";
+import {useStylesPartner} from "./style"
 
-//Styling
-const useStyles = makeStyles((theme) => ({
-  mainContentBackground: {
-    backgroundImage: "url(" + Logo + ")",
-    backgroundSize: "cover",
-  },
-  root: {
-    flexGrow: 1,
-  },
-  mainGrid: {
-    boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%),
-    0 6px 30px 5px rgb(0 0 0 / 12%),
-    0 8px 10px -7px rgb(0 0 0 / 20%)`,
-    background: "#f5f2f2",
-  },
-  title: {
-    fontSize: "20px",
-    textAlign: "center",
-    fontWeight: 400,
-    color: "black",
-  },
-  subtitle: {
-    textAlign: "center",
-  },
-  passwordTitle: {
-    fontSize: "14px",
-    textAlign: "justify",
-  },
-  dobTitle: {
-    fontSize: "12px",
-    textAlign: "justify",
-  },
-  paper: {
-    padding: theme.spacing(3),
-    display: "flex",
-    flexDirection: "column",
-    backgroundColor: `rgba(255, 255, 255, .8)`,
-    color: theme.palette.text.secondary,
-    boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%),
-  0 6px 30px 5px rgb(0 0 0 / 12%),
-  0 8px 10px -7px rgb(0 0 0 / 20%)`,
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-  signInButtonGrid: {
-    textAlign: "center",
-    paddingTop: "20px!important",
-  },
-}));
 
 //Yup validations for all the input fields
 const validationSchema = yup.object({
@@ -185,7 +130,7 @@ const validationSchema = yup.object({
 
 //Begin: Login page
 export default function CreditKarma() {
-  const classes = useStyles();
+  const classes = useStylesPartner();
   const [ loading, setLoading ] = useState(false);
   const [ validZip, setValidZip ] = useState(true);
   const [ errorMsg, setErrorMsg ] = useState("");
@@ -750,7 +695,7 @@ export default function CreditKarma() {
                         onBlur={ currencyFormat }
                         onKeyDown={ preventUnwanted }
                         error={ errorPersonal !== "" }
-                        helperText={ errorPersonal !== "" ? errorPersonal : "" }
+                        helperText={ errorPersonal ?? "" }
                       />
                     </Grid>
                     <Grid item xs={ 12 } sm={ 4 } container direction="row">
@@ -768,7 +713,7 @@ export default function CreditKarma() {
                         onBlur={ currencyFormat }
                         onKeyDown={ preventUnwanted }
                         error={ errorAnnual !== "" }
-                        helperText={ errorAnnual !== "" ? errorAnnual : "" }
+                        helperText={ errorAnnual ??  "" }
                       />
                     </Grid>
 

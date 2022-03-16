@@ -187,7 +187,7 @@ export default function OfferTable(props) {
 													</HtmlTooltip>
 												</Grid>
 											</TableCell>
-											{ props.offerFlag === false ? (
+											{ !props.offerFlag ? (
 												<TableCell
 													className={ props.classes.tableHead }
 													align="right"
@@ -206,7 +206,7 @@ export default function OfferTable(props) {
 												align="left"
 											>
 												Compare
-												{/* {props.offerFlag === true ? "Compare" : "Term"} */ }
+												{/* {props.offerFlag ? "Compare" : "Term"} */ }
 											</TableCell>
 										</TableRow>
 									</TableHead>
@@ -251,7 +251,7 @@ export default function OfferTable(props) {
 														{ row.apr + "%" }
 													</TableCell>
 
-													{ props.offerFlag === false ? (
+													{ !props.offerFlag ? (
 														<TableCell
 															className={ props.classes.tableHeadRow }
 															align="right"
@@ -270,7 +270,7 @@ export default function OfferTable(props) {
 														className={ props.classes.tableHeadRow }
 														align="left"
 													>
-														{ props.offerFlag === true ? (
+														{ props.offerFlag ? (
 															<Checkbox
 																name="offerToCompare"
 																label="Add"

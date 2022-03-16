@@ -52,11 +52,11 @@ export default function MailingAddress(props) {
   const { refetch } = useQuery('loan-data', usrAccountDetails);
 
   let basicInfo = props?.basicInformationData?.latest_contact != null ? props.basicInformationData.latest_contact : null;
-  let hasActiveLoan = Cookies.get("hasActiveLoan") === "true" ? true : false;
+  let hasActiveLoan = (/true/i).test(Cookies.get("hasActiveLoan"));
   let hasApplicationStatus = Cookies.get("hasApplicationStatus");
   var appStatus = [ "rejected", "referred", "expired" ];
   let checkAppStatus = appStatus.includes(hasApplicationStatus);
-  let disableField = (checkAppStatus === true || hasActiveLoan === true) ? true : false;
+  let disableField = (checkAppStatus || hasActiveLoan) ;
 
   const onClickCancelChange = () => {
     formik.resetForm();
@@ -258,7 +258,7 @@ export default function MailingAddress(props) {
               label="Zip Code"
               materialProps={ { "data-test-id": "zipcode" } }
               disabled={ !disableField }
-              value={ basicInfo?.address_postal_code }
+              value={ formik.values.zip }
               onChange={ fetchAddress }
               onBlur={ formik.handleBlur }
               error={

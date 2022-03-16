@@ -1,8 +1,8 @@
+import Typography from "@material-ui/core/Typography";
 import React from "react";
+import { NavLink } from "react-router-dom";
 import enabled from "../../../assets/images/Enabled.png";
 import { useStylesAccountOverview } from "./Style";
-import Typography from "@material-ui/core/Typography";
-import { NavLink } from "react-router-dom";
 import "./Style.css";
 
 export default function AutoPayStatus(acct) {

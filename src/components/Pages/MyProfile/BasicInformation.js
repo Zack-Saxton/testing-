@@ -17,7 +17,7 @@ import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import LogoutController from "../../Controllers/LogoutController";
 import { basicInformation, uploadNewProfileImage } from "../../Controllers/MyProfileController";
 import ProfileImageController from "../../Controllers/ProfileImageController";
-import { ButtonPrimary, ButtonSecondary, EmailTextField,TextField } from "../../FormsUI";
+import { ButtonPrimary, ButtonSecondary, EmailTextField, TextField } from "../../FormsUI";
 import ErrorLogger from '../../lib/ErrorLogger';
 import "./Style.css";
 
@@ -34,8 +34,8 @@ const validationSchema = yup.object({
     .string(globalMessages.PhoneEnter)
     .required(globalMessages.PhoneRequired)
     .transform((value) => value.replace(/[^\d]/g, ""))
-     .matches(/^[1-9]{1}\d{2}\d{3}\d{4}$/, globalMessages.PhoneValid)
-     .matches(/^(\d)(?!\1+$)\d{9}$/, globalMessages.PhoneValid)
+    .matches(/^[1-9]{1}\d{2}\d{3}\d{4}$/, globalMessages.PhoneValid)
+    .matches(/^(\d)(?!\1+$)\d{9}$/, globalMessages.PhoneValid)
     .min(10, globalMessages.PhoneMin),
 });
 
@@ -58,7 +58,7 @@ export default function BasicInformation(props) {
   let basicData = props?.basicInformationData?.identification;
   let basicInfo = props?.basicInformationData?.latest_contact;
   let profileImageData = props?.getProfileImage ?? profileImg;
-  let hasActiveLoan = Cookies.get("hasActiveLoan") === "true" ? true : false;
+  let hasActiveLoan = (/true/i).test(Cookies.get("hasActiveLoan"));
   let hasApplicationStatus = Cookies.get("hasApplicationStatus");
   var appStatus = [ "rejected", "referred", "expired" ];
   let checkAppStatus = appStatus.includes(hasApplicationStatus);
@@ -259,12 +259,12 @@ export default function BasicInformation(props) {
           uploadBasicInfoImageChange();
         }
         else if (formik.initialValues.phone !== values.phone && formik.initialValues.email === values.email) {
-          if (res?.data?.notes.length !== 0 && res?.data?.emailUpdate === true) {
+          if (res?.data?.notes.length !== 0 && res?.data?.emailUpdate) {
             uploadBasicInfoChange();
           }
         }
         else if (formik.initialValues.email !== values.email || (formik.initialValues.phone !== values.phone && formik.initialValues.email !== values.email)) {
-          if (res?.data?.notes.length !== 0 && res?.data?.emailUpdate === true) {
+          if (res?.data?.notes.length !== 0 && res?.data?.emailUpdate) {
             uploadBasicInfoChangeLogOut();
           }
         }
@@ -375,21 +375,21 @@ export default function BasicInformation(props) {
             id={ disableField ? "basicPhoneNumber" : "profilePhoneNumberWrap" }
           >
             <TextField
-                        name="phone"
-                        label="Primary Phone Number"
-                        placeholder="Enter your phone number"
-                        id="phone"
-                        type="text"
-                        materialProps={ { maxLength: "14" } }
-                        onKeyDown={ preventSpace }
-                        onBlur={ formik.handleBlur }
-                        value={ formik.values.phone ? phoneNumberMask(formik.values.phone) : "" }
-                        onChange={ formik.handleChange }
-                        error={ formik.touched.phone && Boolean(formik.errors.phone) }
-                        helperText={ formik.touched.phone && formik.errors.phone }
-                        disabled={ !disableField }
-              
-                      />
+              name="phone"
+              label="Primary Phone Number"
+              placeholder="Enter your phone number"
+              id="phone"
+              type="text"
+              materialProps={ { maxLength: "14" } }
+              onKeyDown={ preventSpace }
+              onBlur={ formik.handleBlur }
+              value={ formik.values.phone ? phoneNumberMask(formik.values.phone) : "" }
+              onChange={ formik.handleChange }
+              error={ formik.touched.phone && Boolean(formik.errors.phone) }
+              helperText={ formik.touched.phone && formik.errors.phone }
+              disabled={ !disableField }
+
+            />
           </Grid>
 
           <Grid container direction="row">

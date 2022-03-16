@@ -58,7 +58,7 @@ function BranchLocatorMap(props) {
         center={ Current }
         zoom={ zoomValue }
         radius={ zoomValue * ZoomDepth * 2500 }
-        options={{ fillColor: "#9aa8b3" }} 
+        options={ { fillColor: "#9aa8b3" } }
       />
       <Marker position={ Current } zIndex={ 8 }></Marker>
       { props.getMap.map(({ id, BranchName, BranchAddress, BranchManager, Phone, Distance, position }) => (
@@ -74,7 +74,7 @@ function BranchLocatorMap(props) {
               <div>
                 <h3>{ BranchName } Branch</h3>
                 <p>Branch Manager: { BranchManager }</p>
-                <p>BranchAddress: {BranchAddress}</p>
+                <p>BranchAddress: { BranchAddress }</p>
                 <p>Phone: { Phone }</p>
                 <p>Distance: { Distance }les</p>
                 <p>Position: [Latitude:{ position.lat }, Longitude:{ position.lng }]</p>
