@@ -14,8 +14,8 @@ import React from "react";
 //Initializing tablecellwrapper
 const TableCellWrapper = ({ parseData, className, align, ...otherProps }) => {
 	const BuildCell = (data) => {
-		var dom_content = [];
-		for (var key in data.data) {
+		let dom_content = [];
+		for (let key in data.data) {
 			dom_content.push(
 				<TableCell
 					key={ Math.random() * 1000 }
@@ -30,7 +30,7 @@ const TableCellWrapper = ({ parseData, className, align, ...otherProps }) => {
 	};
 
 	const BuildTable = (data) => {
-		var dom_content = [];
+		let dom_content = [];
 		if (data) {
 			data.data.forEach(function (arrayItem) {
 				dom_content.push(
@@ -40,10 +40,8 @@ const TableCellWrapper = ({ parseData, className, align, ...otherProps }) => {
 				);
 			});
 		}
-
 		return dom_content;
 	};
-
 	return (
 		<TableBody>
 			<BuildTable data={ parseData } />

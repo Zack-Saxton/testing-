@@ -192,14 +192,14 @@ export default function CreditKarma() {
     return returnValue;
   };
   const autoFocus = () => {
-    var firstname = document.getElementById("firstname").value;
-    var lastname = document.getElementById("lastname").value;
-    var streetAddress = document.getElementById("streetAddress").value;
-    var zip = document.getElementById("zip").value;
-    var citizenshipCnf = document.getElementById("citizenship").value;
-    var personalIncome = document.getElementById("personalIncome").value;
-    var employementStatus = document.getElementById("employementStatus").value;
-    var annualhousehold = document.getElementById("annualhousehold").value;
+    let firstname = document.getElementById("firstname").value;
+    let lastname = document.getElementById("lastname").value;
+    let streetAddress = document.getElementById("streetAddress").value;
+    let zip = document.getElementById("zip").value;
+    let citizenshipCnf = document.getElementById("citizenship").value;
+    let personalIncome = document.getElementById("personalIncome").value;
+    let employementStatus = document.getElementById("employementStatus").value;
+    let annualhousehold = document.getElementById("annualhousehold").value;
 
     if (firstname === "") {
       document.getElementById("firstname").focus();

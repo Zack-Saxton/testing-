@@ -44,7 +44,7 @@ export default function FinancialInformation(props) {
   //Initiaizing state variable
   const [ error, setError ] = useState('');
   const classes = useStyles();
-  var formik = useFormik({
+  let formik = useFormik({
     enableReinitialize: true,
     initialValues: {
       employerName: "",

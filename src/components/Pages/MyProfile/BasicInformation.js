@@ -60,7 +60,7 @@ export default function BasicInformation(props) {
   let profileImageData = props?.getProfileImage ?? profileImg;
   let hasActiveLoan = (/true/i).test(Cookies.get("hasActiveLoan"));
   let hasApplicationStatus = Cookies.get("hasApplicationStatus");
-  var appStatus = [ "rejected", "referred", "expired" ];
+  let appStatus = [ "rejected", "referred", "expired" ];
   let checkAppStatus = appStatus.includes(hasApplicationStatus);
   let disableField = (checkAppStatus || hasActiveLoan) ? true : false;
   const [ selectedFile, setSelectedFile ] = useState(null);
@@ -141,8 +141,8 @@ export default function BasicInformation(props) {
 
       const uploadBasicInfoImageChange = async () => {
         if (selectedFile !== null) {
-          var filePath = selectedFile.value;
-          var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+          let filePath = selectedFile.value;
+          let allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
           if (!allowedExtensions.exec(filePath)) {
             toast.error(globalMessages.ImageExtentions);
             setLoading(false);

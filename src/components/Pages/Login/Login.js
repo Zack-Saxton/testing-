@@ -29,7 +29,7 @@ import { FormValidationRules } from "../../lib/FormValidationRule";
 import ScrollToTopOnMount from "../../Pages/ScrollToTop";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import "./Login.css";
-var formValidation = new FormValidationRules();
+let formValidation = new FormValidationRules();
 const moment = require("moment");
 const moment_timezone = require("moment-timezone");
 let addVal = moment_timezone().tz("America/New_York").isDST() ? 4 : 5;
@@ -169,7 +169,7 @@ export default function Login(props) {
             .subtract(addVal, "hours")
             .format("MM/DD/YYYY")
           : "";
-        var now = new Date().getTime();
+        let now = new Date().getTime();
         // On login success storing the needed data in the local storage
         Cookies.set(
           "token",

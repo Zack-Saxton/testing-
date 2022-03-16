@@ -54,7 +54,7 @@ export default function MailingAddress(props) {
   let basicInfo = props?.basicInformationData?.latest_contact != null ? props.basicInformationData.latest_contact : null;
   let hasActiveLoan = (/true/i).test(Cookies.get("hasActiveLoan"));
   let hasApplicationStatus = Cookies.get("hasApplicationStatus");
-  var appStatus = [ "rejected", "referred", "expired" ];
+  let appStatus = [ "rejected", "referred", "expired" ];
   let checkAppStatus = appStatus.includes(hasApplicationStatus);
   let disableField = (checkAppStatus || hasActiveLoan) ;
 

@@ -149,7 +149,7 @@ export default function Register() {
       let retVal = await LoginController(values.email, values.password, "");
       if (retVal?.data?.user && retVal?.data?.userFound) {
         let rememberMe = false;
-        var now = new Date().getTime();
+        let now = new Date().getTime();
         LogoutController();
         Cookies.set("redirec", JSON.stringify({ to: "/select-amount" }));
         Cookies.set(
@@ -289,8 +289,8 @@ export default function Register() {
 
   //Auto focus on name field if it has any error on submit
   function autoFocus() {
-    var firstname = document.getElementById("firstname").value;
-    var lastname = document.getElementById("lastname").value;
+    let firstname = document.getElementById("firstname").value;
+    let lastname = document.getElementById("lastname").value;
     if (firstname === "") {
       document.getElementById("firstname").focus();
     }

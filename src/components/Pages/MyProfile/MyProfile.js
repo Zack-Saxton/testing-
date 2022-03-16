@@ -95,7 +95,7 @@ export default function MyProfile() {
   let textnotify = (/true/i).test(cookieTextNotify) ? "On" : "Off";
   let hasActiveLoan = (/true/i).test(Cookies.get("hasActiveLoan"));
   let hasApplicationStatus = Cookies.get("hasApplicationStatus");
-  var appStatus = [ "rejected", "referred", "expired" ];
+  let appStatus = [ "rejected", "referred", "expired" ];
   let checkAppStatus = appStatus.includes(hasApplicationStatus);
   let disableField = (checkAppStatus || hasActiveLoan);
 

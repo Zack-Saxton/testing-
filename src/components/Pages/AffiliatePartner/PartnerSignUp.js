@@ -30,17 +30,11 @@ const validationSchema = yup.object({
   email: yup
     .string(globalMessages.EmailEnter)
     .email(globalMessages.EmailValid)
-    .matches(
-      /^[a-zA-Z][a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
-      globalMessages.EmailValid
-    )
+    .matches(/^[a-zA-Z][a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/, globalMessages.EmailValid)
     .required(globalMessages.EmailRequired),
   password: yup
     .string(globalMessages.PasswordEnter)
-    .matches(
-      /^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,30}$/,
-      globalMessages.PasswordCriteria
-    )
+    .matches(/^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,30}$/, globalMessages.PasswordCriteria)
     .max(30, globalMessages.PasswordMax)
     .min(8, globalMessages.PasswordMin)
     .required(globalMessages.PasswordRequired),
@@ -79,7 +73,6 @@ const validationSchema = yup.object({
 
 //Begin: Login page
 export default function CreditKarma() {
-
   //Decoding URL for partner signup
   const useQueryURL = () => new URLSearchParams(useLocation().search);
   const query = useQueryURL();
@@ -223,13 +216,13 @@ export default function CreditKarma() {
         formik.values.ssn = ""
        }
        else if (partnerRes.status === 404)
-         {            
+         {
         setLoading(false)
         formik.values.ssn = "";
         formik.values.phoneType = "";
         formik.values.password = "";
-        formik.values.confirmPassword = ""; 
-         }      
+        formik.values.confirmPassword = "";
+         }
     },
   });
   //Preventing space key

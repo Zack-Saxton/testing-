@@ -287,7 +287,7 @@ export default function SideNav() {
 
   let hasActiveLoan = (/true/i).test(Cookies.get("hasActiveLoan"));
   let hasApplicationStatus = Cookies.get("hasApplicationStatus");
-  var appStatus = [ "rejected", "referred", "expired" ];
+  let appStatus = [ "rejected", "referred", "expired" ];
   let checkAppStatus = appStatus.includes(hasApplicationStatus);
   let disableField = (checkAppStatus || hasActiveLoan) ? true : false;
   const branchName = Cookies.get("branchname");
@@ -304,7 +304,7 @@ export default function SideNav() {
     const valueQualifiedName = "value";
 
     if (!checked || !check) {
-      var profiledetailTag = document.getElementById("profileDetails");
+      let profiledetailTag = document.getElementById("profileDetails");
       profiledetailTag.style.display = "block";
 
       let menuValue = document
@@ -343,7 +343,7 @@ export default function SideNav() {
     const valueQualifiedName = "value";
 
     if (!checked || !check) {
-      var profiledetailTag = document.getElementById("profileDetails");
+      let profiledetailTag = document.getElementById("profileDetails");
       profiledetailTag.style.display = "none";
 
       let menuValue = document
@@ -382,7 +382,7 @@ export default function SideNav() {
     if (!check) {
       document.getElementById("close2").style.display = "block ";
       setOpen(true);
-      var profiledetailTag = document.getElementById("profileDetails");
+      let profiledetailTag = document.getElementById("profileDetails");
       profiledetailTag.style.display = "block";
     }
   };
