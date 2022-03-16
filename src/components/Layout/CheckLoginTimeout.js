@@ -73,7 +73,7 @@ const CheckLoginTimeout = () => {
         );
         navigate("/login", { state: { redirect: window.location.pathname } });
       } else {
-        alert("Network error");
+        alert(globalMessages.Network_Error);
         navigate("/login", { state: { redirect: window.location.pathname } });
       }
     }

@@ -141,19 +141,6 @@ export default function BranchLocatorFooter() {
       ],
     },
     {
-      title: "Updates",
-      description: [
-        {
-          name: "COVID-19",
-          link: `${ process.env.REACT_APP_WEBSITE }/coronavirus-covid-19-information/`,
-        },
-        {
-          name: "Disaster Information Hurricane Dorian",
-          link: `${ process.env.REACT_APP_WEBSITE }/coronavirus-covid-19-information/`,
-        },
-      ],
-    },
-    {
       title: "Legal",
       description: [
         {

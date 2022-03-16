@@ -119,7 +119,7 @@ function ExistingUser() {
 				setLoading(false);
 				setLoginFailed(retVal?.data?.errorMessage);
 			} else {
-				alert("Network error");
+				alert(globalMessages.Network_Error);
 				setLoading(false);
 			}
 		},

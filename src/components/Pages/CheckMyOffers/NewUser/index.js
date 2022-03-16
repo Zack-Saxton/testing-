@@ -143,7 +143,7 @@ function NewUser() {
 						setLoading(false);
 					} else {
 						setLoading(false);
-						alert("Network error");
+						alert(globalMessages.Network_Error);
 					}
 				}
 				else if (customerStatus.data?.result === "error" && customerStatus.data?.statusCode === 400) {

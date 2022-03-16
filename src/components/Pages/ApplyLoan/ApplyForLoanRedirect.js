@@ -44,7 +44,7 @@ const ApplyForLoanRedirect = (props) => {
 		let checkStatus = location?.state?.statusCheck ?? true;
 		if (location?.state?.from === "user") {
 			navigate({ state: { from: "ended" }, });
-			if (res?.data?.customer?.user_account?.status === "closed" && checkStatus !== false) {
+			if (res?.data?.customer?.user_account?.status === "closed" && checkStatus) {
 				if (!toast.isActive("closedApplication")) {
 					toast.error(messages?.accountClosed);
 				}
