@@ -1,3 +1,4 @@
+import globalMessages from "../../assets/data/globalMessages.json";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
 
@@ -7,12 +8,12 @@ export default async function HolidayCalender() {
     let url = "mariner_holiday_calender";
     let param = "";
     let data = {};
-    let method = "POST";
-    let addAccessToken = true;
+    let method = "GET";
+    let addAccessToken = false;
 
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    ErrorLogger("Error executing HolidayCalender API", error);
+    ErrorLogger(globalMessages.Error_executing_HolidayCalender_API, error);
   }
 }

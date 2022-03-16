@@ -15,7 +15,7 @@ export default async function MyBranchAPI() {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    ErrorLogger("Error executing MyBranchAPI API", error);
+    ErrorLogger(globalMessages.Error_executing_MyBranchAPI_API, error);
   }
 }
 
@@ -44,7 +44,7 @@ export async function ScheduleCallApi(callDate, callingTime, callTimeZone) {
   myBranch.status === 200
     ? toast.success(globalMessages?.Schedule_Call)
     : toast.error(globalMessages?.Schedule_Call_Error);
-  return "true";
+  return true;
 }
 
 /***** Schedule appoitment *****/
@@ -72,5 +72,5 @@ export async function ScheduleVisitApi(visitDate, visitTime, visitTimeZone) {
   myBranch.status === 200
     ? toast.success(globalMessages?.Schedule_Appointment)
     : toast.error(globalMessages?.Schedule_Appointment_Error);
-  return "true";
+  return true;
 }

@@ -82,3 +82,14 @@ export const tzMatch = {
     "Pacific Standard Time": "PST",
     "Pacific Daylight Time": "PDT",
 };
+export const MFWorkingSaturdayDateRange = {
+    "start": "11/23/2022 00:00:00",
+    "end": "12/28/2022 00:00:00"
+};
+
+export const howManyBranchesforBranchLocatorPages = {
+    BranchLocator: 10,
+    StatePage: 25,
+    BranchPage: 3,
+    stateBranchDistanceinMiles: 350
+};

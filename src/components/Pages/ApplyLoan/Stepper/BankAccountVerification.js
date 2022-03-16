@@ -72,6 +72,7 @@ export default function BankAccountVerification(props) {
 	const [ paymnetMode, setPaymentMode ] = useState("autopayment");
 	const [ verifyRequired, setVerifyRequired ] = useState(false);
 	const [ error, setError ] = useState("");
+	const [ fileUploadSuccess, setFileUploadSuccess ] = useState(false);
 	const [ invalidRN, setInvalidRN ] = useState(false);
 	const [ openAutoPayAuth, setOpenAutoPayAuth ] = useState(false);
 	function getElementByText(text, ctx) {
@@ -81,9 +82,11 @@ export default function BankAccountVerification(props) {
 	const handleUpload = (res) => {
 		if (res?.data?.bank_account_verification) {
 			toast.success(messages?.document?.uploadSuccess);
+			setFileUploadSuccess(true);
 			props.next();
 			getElementByText("Income Verification").scrollIntoView();
 		} else {
+			props.setLoadingFlag(false);
 			toast.error(messages?.document?.upoloadFailed);
 		}
 	};
@@ -109,24 +112,30 @@ export default function BankAccountVerification(props) {
 				bank_name: values.bankInformation,
 				repayment: paymnetMode,
 			};
-			let res = await APICall("bank_information_cac", '', data, "POST", true);
-			if (res?.data?.bank_account_information && res?.data?.bank_account_verification) {
+			if (verifyRequired && !fileUploadSuccess) {
+				toast.error("please upload the document");
 				props.setLoadingFlag(false);
-				props.next();
-			} else if (res?.data?.bank_account_information || res?.data?.bank_account_verification) {
-				setError(
-					paymnetMode === "autopayment"
-						? messages?.bankAccountVerification?.notValid
-						: messages?.bankAccountVerification?.uploadCheck
-				);
-				setVerifyRequired(true);
-				props.setLoadingFlag(false);
-			} else if (res?.data?.bank_account_information === false || res?.data?.bank_account_verification === false) {
-				props.setLoadingFlag(false);
-				alert(messages?.bankAccountVerification?.notValid);
-			} else {
-				props.setLoadingFlag(false);
-				alert("Network Error");
+			}
+			else {
+				let res = await APICall("bank_information_cac", '', data, "POST", true);
+				if (res?.data?.bank_account_information && res?.data?.bank_account_verification) {
+					props.setLoadingFlag(false);
+					props.next();
+				} else if (res?.data?.bank_account_information || res?.data?.bank_account_verification) {
+					setError(
+						paymnetMode === "autopayment"
+							? messages?.bankAccountVerification?.notValid
+							: messages?.bankAccountVerification?.uploadCheck
+					);
+					setVerifyRequired(true);
+					props.setLoadingFlag(false);
+				} else if (res?.data?.bank_account_information === false || res?.data?.bank_account_verification === false) {
+					props.setLoadingFlag(false);
+					alert(messages?.bankAccountVerification?.notValid);
+				} else {
+					props.setLoadingFlag(false);
+					alert("Network Error");
+				}
 			}
 		},
 	});
@@ -255,7 +264,7 @@ export default function BankAccountVerification(props) {
 									formik.errors.bankRoutingNumber
 									? formik.touched.bankRoutingNumber &&
 									formik.errors.bankRoutingNumber
-									: invalidRN === true
+									: invalidRN
 										? messages?.bankAccountVerification?.enterValidRoutingNum
 										: ""
 							}

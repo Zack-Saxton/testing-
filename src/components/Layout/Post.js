@@ -15,7 +15,7 @@ const Post = ({ children }) => {
         <div>
             <CheckLoginTimeout />
             {
-                loginToken.isLoggedIn === true ?
+                loginToken.isLoggedIn ?
                     <>
                         <div id="body">
                             <div className='topBar'></div>

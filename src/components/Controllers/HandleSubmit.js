@@ -1,6 +1,7 @@
 const loggedIn = true;
 const token = "";
 let invalidLogin, forceChangePasswordToken, loginUserSuccess, errors;
+import globalMessages from "../../assets/data/globalMessages.json";
 import ErrorLogger from "../lib/ErrorLogger";
 
 const getClientIp = function (req) {
@@ -65,7 +66,7 @@ const HandleSubmit = async (formValues) => {
             }
         }
     } catch (error) {
-        ErrorLogger("Error executing HandleSubmit API", error);
+        ErrorLogger(globalMessages.Error_executing_HandleSubmit_API, error);
         errors = error;
     }
 };

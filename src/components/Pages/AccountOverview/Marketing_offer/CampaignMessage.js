@@ -8,18 +8,18 @@ import { ButtonPrimary } from "../../../FormsUI";
 export default function CampaignMessage({ amount, offerCode, handleContinue, expiryDate }) {
 
     const [ message, setMessage ] = useState("");
-    const [ formattedAmount, setAmount] = useState("")
+    const [ formattedAmount, setAmount ] = useState("");
 
     useEffect(() => {
         setAccountDetails().then((res) => {
             setMessage(res?.data?.offerData?.campaignTypeMessage);
         });
         amountFormatter(parseInt(amount));
-    }, [amount]);
+    }, [ amount ]);
 
-    const amountFormatter = (number) =>{
-       setAmount("$ " + (Math.round(number * 100) / 100).toLocaleString());
-    }
+    const amountFormatter = (number) => {
+        setAmount("$ " + (Math.round(number * 100) / 100).toLocaleString());
+    };
     return (
         <Grid className="checkMyOffers">
             <Grid className="leftcheckMyOffers">

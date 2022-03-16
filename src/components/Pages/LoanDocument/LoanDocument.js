@@ -82,7 +82,7 @@ export default function LoanDocument() {
         let documentType = docType;
         setLoading(true);
         let response = await uploadDocument(test, fileName, fileType, documentType);
-        if (response === "true") {
+        if (response) {
           setLoading(false);
           setDocType("");
           selectedFile.value = "";

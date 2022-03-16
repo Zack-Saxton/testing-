@@ -123,7 +123,7 @@ function HomeAddress() {
 			setErrorMsg(event.target.value === "" ? "Please enter a zipcode" : errorMsg);
 			if (event.target.value !== "" && event.target.value.length === 5) {
 				let result = await ZipCodeLookup(event.target.value);
-				if (result) {
+				if (result.status === 200) {
 					formik.setFieldValue("city", result?.data.cityName);
 					formik.setFieldValue("state", result?.data.stateCode);
 					setStateShort(result?.data?.stateCode);

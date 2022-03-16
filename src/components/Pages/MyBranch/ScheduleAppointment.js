@@ -26,12 +26,18 @@ import {
   upt_other_M_W_Thu
 } from "./WorkingHours";
 
+//Date validation
+const scheduleAppointmentDate = new Date();
+scheduleAppointmentDate.setDate(scheduleAppointmentDate.getDate() + 30);
+
 // yup validation
 const validationSchema = yup.object({
   appointmentDate: yup
-    .date(globalMessages.Enter_Appointment_Date)
+    .date(globalMessages.ValidDate)
     .nullable()
-    .required(globalMessages.Appointment_Date_Required),
+    .required(globalMessages.Appointment_Date_Required)
+    .typeError(globalMessages.ValidDate)
+    .max(scheduleAppointmentDate, globalMessages.validCheckDate),
 
   appointmentTime: yup
     .string(globalMessages.Enter_Appointment_Time)
@@ -49,13 +55,9 @@ export default function ScheduleAppointment({
   //API call
   let branchDetail = MyBranchAppointment != null ? MyBranchAppointment : null;
 
-  //Date validation
-  const scheduleAppointmentDate = new Date();
-  scheduleAppointmentDate.setDate(scheduleAppointmentDate.getDate() + 30);
-
   //US holidays
   function disableHolidays(appointmentDate) {
-    const holidayApiData = holidayData?.holidays;
+    const holidayApiData = holidayData?.holidays ?? [];
     const holidayApiDataValues = holidayApiData.map((arrVal) => {
       return new Date(arrVal + "T00:00").getTime();
     });
@@ -100,19 +102,14 @@ export default function ScheduleAppointment({
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       var visitDate = Moment(values.appointmentDate).format("YYYY-MM-DD");
-
       var visitTime = values.appointmentTime;
       let visitTimeZone = momentTimeZone
         .tz(momentTimeZone.tz.guess())
         .zoneAbbr();
 
       setLoading(true);
-      let response = await ScheduleVisitApi(
-        visitDate,
-        visitTime,
-        visitTimeZone
-      );
-      if (response === "true") {
+      let response = await ScheduleVisitApi(visitDate, visitTime, visitTimeZone);
+      if (response) {
         formik.values.appointmentDate = null;
         formik.values.appointmentTime = "";
         setLoading(false);
@@ -120,6 +117,8 @@ export default function ScheduleAppointment({
       }
     },
   });
+
+  const appointmentDay = [ "Saturday", "Sunday" ];
 
   //pop up open & close
   const handleScheduleAppointment = () => {
@@ -138,7 +137,7 @@ export default function ScheduleAppointment({
     year: 'numeric',
     month: '2-digit',
     day: '2-digit',
-    };
+  };
 
   //View part
   return (
@@ -173,7 +172,7 @@ export default function ScheduleAppointment({
             Schedule an Appointment
           </Typography>
           <Typography className="endDate">
-          You have until <span> {scheduleAppointmentDate.toLocaleDateString('en-us',dateFormatOption)} </span>to schedule your appointment
+            You have until <span> { scheduleAppointmentDate.toLocaleDateString('en-us', dateFormatOption) } </span>to schedule your appointment
           </Typography>
         </DialogTitle>
         <form id="formAppointment" onSubmit={ formik.handleSubmit }>
@@ -192,6 +191,7 @@ export default function ScheduleAppointment({
                 value={ formik.values.appointmentDate }
                 onChange={ (values) => {
                   formik.setFieldValue("appointmentDate", values);
+                  formik.setFieldValue("appointmentTime", "");
                 } }
                 onBlur={ formik.handleBlur }
                 error={ formik.touched.appointmentDate && Boolean(formik.errors.appointmentDate) }
@@ -228,7 +228,7 @@ export default function ScheduleAppointment({
                       helperText={ formik.touched.appointmentTime && formik.errors.appointmentTime }
                     /> }
                 </Grid>
-              ) : (
+              ) : !appointmentDay.includes(Moment(formik.values.appointmentDate).format("dddd")) ? (
                 <Grid>
                   { Moment(formik.values.appointmentDate).format("DD-MM-YYYY") ===
                     Moment(new Date()).format("DD-MM-YYYY")
@@ -257,7 +257,7 @@ export default function ScheduleAppointment({
                       helperText={ formik.touched.appointmentTime && formik.errors.appointmentTime }
                     /> }
                 </Grid>
-              )
+              ) : <p className={ classes.branchClose }>Branch is closed, Please select a new day.</p>
             ) : Moment(formik.values.appointmentDate).format("dddd") === "Tuesday" ? (
               <Grid>
                 { Moment(formik.values.appointmentDate).format("DD-MM-YYYY") ===
@@ -318,7 +318,7 @@ export default function ScheduleAppointment({
                     helperText={ formik.touched.appointmentTime && formik.errors.appointmentTime }
                   /> }
               </Grid>
-            ) : (
+            ) : !appointmentDay.includes(Moment(formik.values.appointmentDate).format("dddd")) ? (
               <Grid>
                 { Moment(formik.values.appointmentDate).format("DD-MM-YYYY") ===
                   Moment(new Date()).format("DD-MM-YYYY")
@@ -348,7 +348,7 @@ export default function ScheduleAppointment({
                     helperText={ formik.touched.appointmentTime && formik.errors.appointmentTime }
                   /> }
               </Grid>
-            ) }
+            ) : <p className={ classes.branchClose }>Branch is closed, Please select a new day.</p> }
           </DialogContent>
 
           <DialogActions style={ { justifyContent: "center" } }>

@@ -97,7 +97,7 @@ export default function Notification() {
   //View
   return (
     <div>
-      <IconButton aria-label="show 17 new notifications" onClick={ handleClick }>
+      <IconButton className="noPaddingIcon" aria-label="show 17 new notifications" onClick={ handleClick }>
         <Badge classes={ { badge: classes.customBadge } } badgeContent={ badgeCount ? badgeCount : 0 }>
           <NotificationsNoneIcon />
         </Badge>

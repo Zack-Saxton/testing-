@@ -1,6 +1,9 @@
+import Typography from "@material-ui/core/Typography";
 import React from "react";
+import { NavLink } from "react-router-dom";
 import enabled from "../../../assets/images/Enabled.png";
 import { useStylesAccountOverview } from "./Style";
+import "./Style.css";
 
 export default function AutoPayStatus(acct) {
   //Material UI css class
@@ -23,15 +26,16 @@ export default function AutoPayStatus(acct) {
     return (
       <div>
         <p className={ classes.cardContent }>Auto Pay</p>
-        <h5 id="nextPaymentItems" className={ classes.disableColor }>
-          <a color="#eb1809" className={ classes.disableColor } href={ "./makePayment/?accNo=" + acct.accountNumber }>
-            DISABLED</a>
-        </h5>
-        <p>
-          <a className={ classes.cardContent } href={ "./makePayment/?accNo=" + acct.accountNumber }>
+        <Typography variant="h5" id="nextPaymentItems" className={ classes.disableColor }>
+          <NavLink to={ `/customers/makePayment/?accNo=${ acct.accountNumber }` } style={ { textDecoration: 'none', color: 'inherit' } } key={ Math.random() * 1000 }>
+            ENABLE AUTOPAY
+          </NavLink>
+        </Typography>
+        <Typography variant="body1" className={ classes.cardContent }>
+          <NavLink to={ `/customers/makePayment/?accNo=${ acct.accountNumber }` } style={ { textDecoration: 'none', color: 'inherit' } } >
             Enable AUTOPAY and be stress free!
-          </a>
-        </p>
+          </NavLink>
+        </Typography>
       </div>
     );
   }

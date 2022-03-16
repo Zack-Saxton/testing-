@@ -123,7 +123,7 @@ export default function PhoneVerification(props) {
 
 	const onNextClick = async () => {
 		let res = await verifyPasscode(passcode);
-		if (res?.data?.phone_verification === true) {
+		if (res?.data?.phone_verification) {
 			setError("");
 			props.next();
 		} else {

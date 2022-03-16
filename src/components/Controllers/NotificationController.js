@@ -1,4 +1,5 @@
 import Cookies from "js-cookie";
+import globalMessages from "../../assets/data/globalMessages.json";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
 
@@ -20,7 +21,7 @@ export async function getNoticationData() {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    ErrorLogger("Error executing getNoticationData API", error);
+    ErrorLogger(globalMessages.Error_executing_getNoticationData_API, error);
   }
 }
 
@@ -41,6 +42,6 @@ export async function setUnread(notificationId, id, isDelete,) {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    ErrorLogger("Error executing setUnread API", error);
+    ErrorLogger(globalMessages.Error_executing_setUnread_API, error);
   }
 }

@@ -81,7 +81,7 @@ export default function DocumentPhoto(props) {
 	const onClickNextBtn = async () => {
 		let data = {};
 		let res = await APICall('verification_steps_cac', '', data, 'POST', true);
-		if (res?.data?.id_photo === true && res?.data?.id_document === true) {
+		if (res?.data?.id_photo && res?.data?.id_document) {
 			props.next();
 			props.reference.current[ 4 ].current.scrollIntoView({ behavior: 'smooth' });
 		} else {

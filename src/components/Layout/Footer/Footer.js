@@ -132,7 +132,7 @@ export default function Footer() {
                   <p className="leftAlignAddress">
                     Mariner Finance, LLC, NMLS No. 166564
                     <span
-                      style={ { margin: "0", cursor: "pointer" } }
+                      style={ { margin: "0", cursor: "pointer", overflowWrap: "break-word" } }
                       onClick={ handleOpenConsumer }
                     >
                       { ' ' }(www.nmlsconsumeraccess.com){ ' ' }

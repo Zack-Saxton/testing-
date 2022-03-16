@@ -38,26 +38,26 @@ export default function TabSection(props) {
           label="1. Select Offer"
           { ...a11yProps(0) }
           disabled={ props.ay === 0 ? false : true }
-          className={ props?.classes.tabLabel }
+          className={ `${ props.ay <= 0 ? null : props?.classes.greenText } ${ props?.classes.tabLabel }` }
         />
         <Tab
           label="2. Review & Sign"
           { ...a11yProps(1) }
-          className={ props?.classes.tabLabel }
+          className={ `${ props.ay <= 1 ? null : props?.classes.greenText } ${ props?.classes.tabLabel }` }
           disabled={ props.ay === 1 ? false : true }
-
         />
         <Tab
           label="3. Final Verification"
           { ...a11yProps(2) }
           disabled={ props.ay === 2 ? false : true }
-          className={ props?.classes.tabLabel }
+          className={ `${ props.ay <= 2 ? null : props?.classes.greenText } ${ props?.classes.tabLabel }` }
+
         />
         <Tab
           label="4. Receive your money"
           { ...a11yProps(3) }
           disabled={ props.ay === 3 ? false : true }
-          className={ props?.classes.tabLabel }
+          className={ `${ props.ay <= 3 ? null : props?.classes.greenText } ${ props?.classes.tabLabel }` }
         />
       </Tabs>
     </Grid>

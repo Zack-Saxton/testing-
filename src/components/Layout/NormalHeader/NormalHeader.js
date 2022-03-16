@@ -6,7 +6,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import React from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Logo from "../../../assets/images/mf-logo.png";
 import "../Layout.css";
 import { useStyles } from "./NormalHeaderStyle";
@@ -15,7 +15,6 @@ const NormalHeader = () => {
   const classes = useStyles();
   const [ mobileMoreAnchorEl, setMobileMoreAnchorEl ] = React.useState(false);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  const navigate = useNavigate();
 
   //Menu open & close
   const handleMobileMenuOpen = (event) => {
@@ -40,18 +39,18 @@ const NormalHeader = () => {
       onClose={ handleMobileMenuClose }
     >
       <MenuItem>
-        <Typography id="blogsLink" className={ classes.headerAlign }>
-          <a href="https://www.marinerfinance.com/blog" className="hrefTag">
-            Blogs
+        <Typography className={ classes.headerAlign }>
+          <a href={ `${ process.env.REACT_APP_WEBSITE }/blog/` } className="hrefTag">
+            Blog
           </a>
         </Typography>
       </MenuItem>
-      <MenuItem className="faqLink">
+      <MenuItem >
         <NavLink to="/faq" className="nav_link ">
           <Typography className={ classes.headerAlign }>FAQ</Typography>
         </NavLink>
       </MenuItem>
-      <MenuItem className="branchLocatorLink">
+      <MenuItem >
         <NavLink to="/branch-locator" className="nav_link">
           <Typography className={ classes.headerAlign }>Branch Locator</Typography>
         </NavLink>
@@ -60,7 +59,7 @@ const NormalHeader = () => {
   );
 
   const redirectToAccountOverview = () => {
-    window.open("https://wps-qa.marinerfinance.io/", "_self")
+    window.open(`${ process.env.REACT_APP_WEBSITE }`, "_blank");
   };
 
   //View Part
@@ -69,13 +68,13 @@ const NormalHeader = () => {
       <AppBar id="MainHeaderWrap" position="static">
         <Toolbar className="headerToolBar">
           <Typography onClick={ redirectToAccountOverview } className={ classes.title }>
-            <img style={ { marginTop: "6px" } } className={ classes.logoFormat } src={ Logo } alt="MF logo" />
+            <img className={ classes.logoFormat } src={ Logo } alt="MF logo" />
           </Typography>
           <div className={ classes.grow } />
           <div className={ classes.sectionDesktop }>
             <Typography id="blogsLink" className={ classes.subtitle }>
-              <a href="https://www.marinerfinance.com/blog" className="hrefTag">
-                Blogs
+              <a href={ `${ process.env.REACT_APP_WEBSITE }/blog/` } className="hrefTag">
+                Blog
               </a>
             </Typography>
             <NavLink className="faqLink" to="/faq" style={ { textDecoration: "none" } }>
@@ -90,7 +89,7 @@ const NormalHeader = () => {
               aria-label="show more"
               aria-haspopup="true"
               onClick={ handleMobileMenuOpen }
-              color="inherit"
+              className={ classes.moreIconButton }
             >
               <MoreIcon />
             </IconButton>

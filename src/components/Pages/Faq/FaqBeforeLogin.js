@@ -13,7 +13,7 @@ export default function FaqBeforeLogin() {
   //view part
   return (
     <div>
-      <div className="mainDiv">
+      <div className="mainFaqDiv">
         <Grid item xs={ 12 }>
           <Typography variant="h3" className={ classes.titleHeading }>
             Frequently Asked Questions

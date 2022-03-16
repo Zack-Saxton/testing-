@@ -12,7 +12,7 @@ const General = ({ children }) => {
     return (
         <div id="BG">
             {
-                loginToken.isLoggedIn === true ? <CheckLoginTimeout /> : null
+                loginToken.isLoggedIn ? <CheckLoginTimeout /> : null
             }
             <div className='topBar'></div>
             <Header />

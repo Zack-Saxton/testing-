@@ -1,3 +1,4 @@
+import globalMessages from "../../assets/data/globalMessages.json";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
 
@@ -13,6 +14,6 @@ export default async function setAccountDetails() {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    ErrorLogger("Error executing setAccountDetails API", error);
+    ErrorLogger(globalMessages.Error_executing_AccountDetails_API, error);
   }
 }

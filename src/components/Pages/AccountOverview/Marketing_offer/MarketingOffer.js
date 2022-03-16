@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 export default function MarketingOffer(data) {
 
   const [ message, setMessage ] = useState({});
-  const [amount,setAmount] = useState("$ " + (Math.round(data.amount * 100) / 100).toLocaleString());
+  const [ amount, setAmount ] = useState("$ " + (Math.round(data.amount * 100) / 100).toLocaleString());
 
   const findMarketingMessage = () => {
     let usermarketingMessage;
@@ -19,26 +19,26 @@ export default function MarketingOffer(data) {
 
   useEffect(() => {
     findMarketingMessage();
-    amountFormatter(parseInt(data.amount))
+    amountFormatter(parseInt(data.amount));
     return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
+  }, [ data ]);
 
-  const amountFormatter = (number) =>{
+  const amountFormatter = (number) => {
     setAmount("$ " + (Math.round(number * 100) / 100).toLocaleString());
- }
+  };
 
   const MarketingMessages = [
     {
       "campaignType": "PRES",
       "p1": 'Are you looking to plan a vacation? Perhaps make a major purchase? Do you need to consolidate your debt? Life and expenses aren\'t always on the same schedule.',
-      "p2": `That's why we want you to know you are prequalified for a loan from $1000 to ${ amount }* to help simplify your bills into one manegable payment!`,
+      "p2": `That's why we want you to know you are prequalified for a loan from $1,000 to ${ amount }* to help simplify your bills into one manageable payment!`,
       "p3": `Sounds good, right?`,
     },
     {
       "campaignType": "CONV",
       "p1": 'Are you looking to plan a vacation? Perhaps make a major purchase? Do you need to consolidate your debt? Life and expenses aren\'t always on the same schedule.',
-      "p2": `That's why we want you to know you may qualify for a loan up to ${ amount }* to help simplify your bills into one manegable payment!`,
+      "p2": `That's why we want you to know you may qualify for a loan up to ${ amount }* to help simplify your bills into one manageable payment!`,
       "p3": `Sounds good, right?`,
     },
     {
@@ -50,13 +50,13 @@ export default function MarketingOffer(data) {
     {
       "campaignType": "BTO",
       "p1": 'Are you looking to plan a vacation? Perhaps make a major purchase? Do you need to consolidate your debt? Life and expenses aren\'t always on the same schedule.',
-      "p2": `That's why we want you to know you may qualify for a loan up to ${ amount }* to help simplify your bills into one manegable payment!`,
+      "p2": `That's why we want you to know you may qualify for a loan up to ${ amount }* to help simplify your bills into one manageable payment!`,
       "p3": `Sounds good, right?`,
     },
     {
       "campaignType": "GRIDS",
       "p1": 'Are you looking to plan a vacation? Perhaps make a major purchase? Do you need to consolidate your debt? Life and expenses aren\'t always on the same schedule.',
-      "p2": `That's why we want you to know you are prequalified for a loan up to ${ amount }* to help simplify your bills into one manegable payment!`,
+      "p2": `That's why we want you to know you are prequalified for a loan up to ${ amount }* to help simplify your bills into one manageable payment!`,
       "p3": 'Sounds good, right?'
     },
     {
@@ -91,6 +91,12 @@ export default function MarketingOffer(data) {
           }
         })
       }
+      why mariner Finance?
+      <ul>
+        <li>Fast - Get money as soon as the same day.</li>
+        <li>Easy - Apply online, by phone, or in a branch.*</li>
+        <li>Affordable - with a fixed monthly payment, a fixed rate, and a set payoff date.</li>
+      </ul>
     </Grid>
   );
 }

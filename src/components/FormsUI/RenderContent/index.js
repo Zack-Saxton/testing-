@@ -13,7 +13,7 @@ const RenderContent = ({ disclosureLink }) => {
     return (
         <div>
             {
-                !isLoading ? <div dangerouslySetInnerHTML={ { __html: accountDetails.data } } /> : <CircularProgress />
+                !isLoading ? <div className='contentWrap' dangerouslySetInnerHTML={ { __html: accountDetails.data } } /> : <CircularProgress />
             }
 
         </div>

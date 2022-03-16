@@ -1,3 +1,4 @@
+import globalMessages from "../../assets/data/globalMessages.json";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
 
@@ -14,6 +15,6 @@ export default async function LoanHistoryController() {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    ErrorLogger("Error executing LoanHistoryController API", error);
+    ErrorLogger(globalMessages.Error_executing_LoanHistoryController_API, error);
   }
 }

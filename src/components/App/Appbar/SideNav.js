@@ -183,7 +183,7 @@ export default function SideNav() {
                     <div className={ classes.grow } />
                     <div className={ classes.sectionDesktop }>
                         <Typography className={ classes.headerAlign }>
-                            Blogs
+                            Blog
                         </Typography>
 
                         <Typography className={ classes.headerAlign }>

@@ -12,14 +12,13 @@ import CloseIcon from "@mui/icons-material/Close";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import PhoneIcon from "@mui/icons-material/Phone";
 import SearchIcon from "@mui/icons-material/Search";
-import { useLoadScript } from "@react-google-maps/api";
 import PropTypes from "prop-types";
 import React, { useRef, useState } from "react";
 import { Helmet } from "react-helmet";
 import PlacesAutocomplete from "react-places-autocomplete";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { MFStates, MFStateShort } from "../../../assets/data/marinerBusinesStates";
+import { howManyBranchesforBranchLocatorPages, MFStates, MFStateShort } from "../../../assets/data/marinerBusinesStates";
 import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile_Image.png";
 import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.jpg";
 import TitleImage from "../../../assets/images/Favicon.png";
@@ -59,7 +58,7 @@ const useStyles = makeStyles({
     color: "#214476",
   },
   gridMargin: {
-    margin: "80px 0px 0px 0px",
+    margin: "35px 0px 0px 0px",
   },
 });
 export default function BranchLocator() {
@@ -78,16 +77,17 @@ export default function BranchLocator() {
   const [ address1, setAddress1 ] = React.useState("");
   const [ address2, setAddress2 ] = React.useState("");
   const [ showMapListSearch2DirectionButton, setshowMapListSearch2DirectionButton ] = useState(false);
-  const [ libraries ] = useState([ 'places' ]);
   let params = useParams();
   const mapSection = useRef();
   //API call
   const getBranchLists = async (search_text) => {
     try {
       setLoading(true);
-      let result = await BranchLocatorController(search_text);
-      if ((result.status === 400) || (result.data.branchData[0].BranchNumber === "0001") || (result.data.branchData[0].BranchNumber === "1022")) {
-        toast.error(" No branches within that area. Please enter a valid city and state.");
+      let result = await BranchLocatorController(search_text, howManyBranchesforBranchLocatorPages.BranchLocator);
+      if ((result.status === 400) || (result.data.branchData[ 0 ].BranchNumber === "0001") || (result.data.branchData[ 0 ].BranchNumber === "1022")) {
+        if (!toast.isActive("closeToast")) {
+          toast.error(" No branches within that area. Please enter a valid city and state.", { toastId: "closeToast" });
+        }
       } else {
         setCurrentLocation(result?.data?.searchLocation);
         setZoomDepth(
@@ -148,12 +148,9 @@ export default function BranchLocator() {
   const MFButtonClick = (event) => {
     params.statename = event.target.innerText;
     apiGetBranchList(params.statename);
-    navigate(`/branch-locator/personal-loans-in-${ params.statename }`);
+    navigate(`/branch-locator/${ params.statename.replace(/\s+/g, '-').toLowerCase() }/`,
+      { state: { value: params.statename } });
   };
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_SECKey,
-    libraries,
-  });
   const findBranchTimings = async (value) => {
     try {
       if (value) {
@@ -239,8 +236,8 @@ export default function BranchLocator() {
           Mariner Finance Branch Near You!
         </Typography>
         <p className="mainParagraph">
-          Mariner Finance operates
-          over 480 branches in twenty-four states.
+          Mariner Finance, serving communities since 1927, operates
+          over 470 branches in twenty-seven states.
           Find a branch in your neighborhood and explore personal loans near you.
           Our experienced team members are ready to assist with your financial needs.
         </p>
@@ -296,7 +293,7 @@ export default function BranchLocator() {
           Apply Online For a Personal Loans
         </Typography>
         <p className="mainParagraph">
-          Do you live in one of the 27 states in which we operate and need a
+          Do you live in one of the 24 states in which we operate and need a
           personal loans? Can’t reach a branch or prefer to apply online? If so,
           you’re in luck! You can apply online today*. It’s quick, easy, and secure.
         </p>
@@ -314,7 +311,7 @@ export default function BranchLocator() {
 
   const search2andDirectionfromSearch2 = (
     <Grid id="getDirectionWrap" className={ clessesforptag.gridMargin } container>
-      <Grid className={ clessesforptag.gridPadding } item xs={12} s={12} md={ 6 }>
+      <Grid className={ clessesforptag.gridPadding } item xs={ 12 } s={ 12 } md={ 6 }>
         <ButtonPrimary
           href={ getBranchAddress }
           id="Continue"
@@ -323,8 +320,12 @@ export default function BranchLocator() {
               openGetDirectionModal();
               setBranchAddress(`https://www.google.com/maps/search/${ document.getElementById('search2').value }`);
               setAddress2("");
-            } else {
-              toast.error(' Please provide address.');
+            } else if (getBranchList && getBranchList.length && getBranchList[ 0 ]?.Address) {
+              openGetDirectionModal();
+              setBranchAddress(`https://www.google.com/maps/search/${ getBranchList[ 0 ]?.Address }`);
+            }
+            else {
+              toast.error(`Please enter address in search.`);
             }
           } }
           stylebutton='{"width": "100%", "padding":"0 15px", "fontSize":"0.938rem", "fontWeight":"400", "height":"47px" }'
@@ -342,33 +343,33 @@ export default function BranchLocator() {
             className="searchIconBottom"
             style={ { color: "white" } }
           />
-         <PlacesAutocomplete
-                value={ address2 }
-                onChange={ setAddress2 }
-                onSelect={ handleSelect2 }
-                style={ { width: '50%' } }
-              >
-                { ({ getInputProps, suggestions, getSuggestionItemProps, loading2 }) => (
-                  <div className="searchInputWrap">
-                    <input id="search2" className="branchSearchTwo" { ...getInputProps({ placeholder: 'Enter city & state or zip code' }) } />
-                    <div className="serachResult">
-                      { loading2 && <div>Loading...</div> }
-                      { suggestions.map(suggestion => {
-                        const style = {
-                          backgroundColor: suggestion.active ? "#41b6e6" : "#fff"
-                        };
-                        return (
-                          <div key={ Math.random() * 1000 }{ ...getSuggestionItemProps(suggestion, {
-                            style
-                          }) }>
-                            <span>{ suggestion.description }</span>
-                          </div>
-                        );
-                      }) }
-                    </div>
-                  </div>
-                ) }
-              </PlacesAutocomplete>
+          <PlacesAutocomplete
+            value={ address2 }
+            onChange={ setAddress2 }
+            onSelect={ handleSelect2 }
+            style={ { width: '50%' } }
+          >
+            { ({ getInputProps, suggestions, getSuggestionItemProps, loading2 }) => (
+              <div className="searchInputWrap">
+                <input id="search2" className="branchSearchTwo" { ...getInputProps({ placeholder: 'Enter city & state or zip code' }) } />
+                <div className="serachResult">
+                  { loading2 && <div>Loading...</div> }
+                  { suggestions.map(suggestion => {
+                    const style = {
+                      backgroundColor: suggestion.active ? "#41b6e6" : "#fff"
+                    };
+                    return (
+                      <div key={ Math.random() * 1000 }{ ...getSuggestionItemProps(suggestion, {
+                        style
+                      }) }>
+                        <span>{ suggestion.description }</span>
+                      </div>
+                    );
+                  }) }
+                </div>
+              </div>
+            ) }
+          </PlacesAutocomplete>
           <ButtonPrimary
             className="branchSearchButton"
             onClick={ getActivePlaces }
@@ -389,62 +390,64 @@ export default function BranchLocator() {
         </div>
       ) : (
         <Grid
-          id="branchLists"
+          id="branchLocatorLists"
           style={ { width: "100%", height: "450px", overflowY: "scroll" } }
         >
           <Grid
-            className="addressList"
+            className="branchLocatorAddressList"
           >
             { getBranchList ? (
               getBranchList.map((item, index) => {
-                return (
-                  <Grid key={ index }  className="locationInfo">
-                    <NavLink
-                      to={ `/branchLocator/[${ MFStates[ MFStateShort.indexOf(item?.Address.substring(item?.Address.length - 8, item?.Address.length).substring(0, 2)) ] }]-personal-loans-in-${ item?.BranchName }-${ item?.Address?.substring(item?.Address.length - 8, item?.Address.length).substring(0, 2) }` }
-                      state={ { Branch_Details: item } }
-                      className="nav_link"
-                    >
-                      <b>
-                        <h4 className={ clessesforptag.h4tag }>
-                          { item?.BranchName } Branch
-                        </h4>
-                      </b>
-                      <ChevronRightIcon />
-                    </NavLink>
-                    <p className={ clessesforptag.ptag }>
-                      { item?.distance }les away | { item?.BranchTime?.Value1 }{ " " }
-                      { item?.BranchTime?.Value2 }
-                    </p>
-                    <p
-                      className={ clessesforptag.addressFont }
-                      id={ item.id }
-                    >
-                      { item.Address }
-                    </p>
-                    <p className={ clessesforptag.phoneNumber }>
-                      <PhoneIcon />
-                      <a
-                        href={ "tel:+1" + item?.PhoneNumber }
-                        style={ { color: "#214476" } }
+                if (Number(item?.distance.replace(' mi', '')) <= 60) {
+                  return (
+                    <Grid key={ index } className="locationInfo">
+                      <NavLink
+                        to={ `/branch-locator/${ (MFStates[ MFStateShort.indexOf(item?.Address.substring(item?.Address.length - 8, item?.Address.length).substring(0, 2)) ]).replace(/\s+/g, '-').toLocaleLowerCase() }/personal-loans-in-${ item?.BranchName.replace(/\s+/g, '-').toLocaleLowerCase() }-${ (item?.Address?.substring(item?.Address.length - 8, item?.Address.length).substring(0, 2)).replace(/\s+/g, '-').toLocaleLowerCase() }` }
+                        state={ { Branch_Details: item } }
+                        className="nav_link"
                       >
-                        { " " }
-                        { item?.PhoneNumber }
-                      </a>
-                    </p>
-                    <ButtonSecondary
-                      onClick={ () => {
-                        setBranchAddress(
-                          "https://www.google.com/maps/search/" +
-                          item.Address
-                        );
-                        openGetDirectionModal();
-                      } }
-                      stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
-                    >
-                      Get Directions
-                    </ButtonSecondary>
-                  </Grid>
-                );
+                        <b>
+                          <h4 className={ clessesforptag.h4tag }>
+                            { item?.BranchName } Branch
+                          </h4>
+                        </b>
+                        <ChevronRightIcon />
+                      </NavLink>
+                      <p className={ clessesforptag.ptag }>
+                        { item?.distance }les away | { item?.BranchTime?.Value1 }{ " " }
+                        { item?.BranchTime?.Value2 }
+                      </p>
+                      <p
+                        className={ clessesforptag.addressFont }
+                        id={ item?.id }
+                      >
+                        { item?.Address }
+                      </p>
+                      <p className={ clessesforptag.phoneNumber }>
+                        <PhoneIcon />
+                        <a
+                          href={ "tel:+1" + item?.PhoneNumber }
+                          style={ { color: "#214476" } }
+                        >
+                          { " " }
+                          { item?.PhoneNumber }
+                        </a>
+                      </p>
+                      <ButtonSecondary
+                        onClick={ () => {
+                          setBranchAddress(
+                            "https://www.google.com/maps/search/" +
+                            item?.Address
+                          );
+                          openGetDirectionModal();
+                        } }
+                        stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
+                      >
+                        Get Directions
+                      </ButtonSecondary>
+                    </Grid>
+                  );
+                }
               })
             ) : (
               <p> No Branch found.</p>
@@ -512,7 +515,7 @@ export default function BranchLocator() {
       >
         Home
       </Link>
-      <Link className="breadcrumbLink">Branch Locator</Link>
+      <Link className="breadcrumbLink">Find a branch</Link>
     </Breadcrumbs>
   );
   const BreadCrumsAndSearch1AndText = (
@@ -525,30 +528,30 @@ export default function BranchLocator() {
       <Grid className="greyBackground mobilePadding" style={ { padding: "24px 0px" } } item md={ 5 } sm={ 12 } xs={ 12 }>
         { BreadCrumsDisplay }
         <Grid className="blueBoxWrap">
-        { search1andgetList }
-        <h4 className="branchLocatorHeadingMain">
-          Get one on one support for a personal loans near you
-        </h4>
+          { search1andgetList }
+          <h4 className="branchLocatorHeadingMain">
+            Get one on one support for a personal loans near you
+          </h4>
 
-        <Typography className="branchLocatorHeading">
-          <b className="numberText">470+</b>
+          <Typography className="branchLocatorHeading">
+            <b className="numberText">470+</b>
 
-          <span className="branchSmallText">Branches in 24 states</span>
-        </Typography>
+            <span className="branchSmallText">Branches in 24 states</span>
+          </Typography>
 
-        <Typography className="branchLocatorHeading">
-          <b className="numberText">$1k - $25k</b>
+          <Typography className="branchLocatorHeading">
+            <b className="numberText">$1k - $25k</b>
 
-          <span className="branchSmallText">Available loan amount</span>
-        </Typography>
+            <span className="branchSmallText">Available loan amount</span>
+          </Typography>
 
-        <Typography className="branchLocatorHeading">
-          <b className="numberText">4.8</b>
+          <Typography className="branchLocatorHeading">
+            <b className="numberText">4.8</b>
 
-          <span className="branchSmallText">
-            Star Rating based on over 13,000 verified reviews
-          </span>
-        </Typography>
+            <span className="branchSmallText">
+              Star Rating based on over 13,000 verified reviews
+            </span>
+          </Typography>
         </Grid>
 
       </Grid>
@@ -557,19 +560,17 @@ export default function BranchLocator() {
 
   const displayMap = (
     <Grid id="mapGridWrap" item xs={ 12 } sm={ 12 } md={ 6 } xl={ 6 }>
-      { isLoaded ? (
-        <Map
-          id="mapBox"
-          getMap={ getMap }
-          CurrentLocation={ getCurrentLocation }
-          Zoom={ zoomDepth }
-        />
-      ) : null }
+      <Map
+        id="mapBox"
+        getMap={ getMap }
+        CurrentLocation={ getCurrentLocation }
+        Zoom={ zoomDepth }
+      />
     </Grid>
   );
   const MapBranchListandSearch2Buttons = (
     <Grid
-      style={ { padding: "4% 0px"} }
+      style={ { padding: "16px 0px 16px 0px" } }
       container
       id="mapAndBranchList"
     >
@@ -598,7 +599,7 @@ export default function BranchLocator() {
         { BreadCrumsAndSearch1AndText }
         <Grid className="mapAndBranchListWrap">
 
-        { showMapListSearch2DirectionButton && MapBranchListandSearch2Buttons }
+          { showMapListSearch2DirectionButton && MapBranchListandSearch2Buttons }
         </Grid>
         <Grid className="mainContentWrap">
           { stateLinksandStaticText }

@@ -108,7 +108,7 @@ function NewUser() {
 				//login the user if registerd successfully and stores the JWT token
 				if ((customerStatus.data?.customerFound === false && customerStatus.data?.userFound === false && customerStatus.data?.is_registration_failed === false) || (customerStatus?.data?.statusCode === 200 && customerStatus?.data?.result === "succcces")) {
 					let retVal = await LoginController(data.email, values.newPassword, "");
-					if (retVal?.data?.user && retVal?.data?.userFound === true) {
+					if (retVal?.data?.user && retVal?.data?.userFound) {
 						let rememberMe = false;
 						let now = new Date().getTime();
 						Cookies.set(
@@ -132,13 +132,13 @@ function NewUser() {
 						);
 						queryClient.removeQueries();
 
-						rememberMe === true
+						rememberMe
 							? Cookies.set("rememberMe", JSON.stringify({ selected: true, email: values.email, password: values.password, }))
 							: Cookies.set("rememberMe", JSON.stringify({ selected: false, email: "", password: "" }));
 
 						setLoading(false);
 						navigate("/employment-status");
-					} else if (retVal?.data?.result === "error" || retVal?.data?.hasError === true) {
+					} else if (retVal?.data?.result === "error" || retVal?.data?.hasError) {
 						Cookies.set("token", JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" }));
 						setLoading(false);
 					} else {

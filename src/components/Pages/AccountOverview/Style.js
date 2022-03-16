@@ -117,10 +117,11 @@ const useStylesAccountOverview = makeStyles((theme) => ({
   },
   disableColor: {
     margin: "auto",
-    color: "#eb1809",
-    fontSize: 25,
+    color: "limegreen",
+    fontSize: 22,
     fontWeight: 400,
     textDecoration: "none",
+    paddingBottom: "15px"
   },
   cardContent: {
     color: "#171717",
@@ -177,6 +178,23 @@ const useStylesAccountOverview = makeStyles((theme) => ({
     color: "#171717",
     lineHeight: 1.3,
     fontWeight: "400",
+  },
+  normalButton: {
+    color: "black",
+    background: "#ffbc23",
+    fontFamily: "'Muli', sans-serif !important",
+    borderRadius: "50px",
+    textTransform: "capitalize",
+    height: "36px",
+    whiteSpace: "nowrap",
+    fontWeight: "normal",
+    boxShadow: ` 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12), 0 1px 5px 0 rgba(0, 0, 0, .2)`,
+
+    width: "auto",
+    '&:hover': {
+      background: '#ffbc23',
+      color: 'black',
+    },
   },
 
 }));

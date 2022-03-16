@@ -66,7 +66,7 @@ function CheckMyOffers(props) {
       setData({ ...data, loanAmount: select, loading: false });
       navigate("/loan-purpose");
     } else if (
-      data.formStatus === "" || data.completedPage === 0 || data.formStatus === "completed" || location?.fromLoanPurpose !== "yes"
+      data.formStatus === "" || data.completedPage === 0 || data.formStatus === "completed" || location?.state?.fromLoanPurpose !== "yes"
     ) {
       setData({ ...data, loading: true });
       resetData();
@@ -92,21 +92,19 @@ function CheckMyOffers(props) {
       if (data.offerCode !== "") {
         let res = await offercodeValidation(data.offerCode);
         if (res?.data?.offerData?.Message || res.status !== 200) {
-          toast.error(
-            "Please enter a valid Offer Code. If you do not have an Offer Code please select Continue"
-          );
+          toast.error(globalMessages.OfferCode_Valid);
           tempCounter++;
           if (tempCounter === 2) {
             setPageStatus();
             navigate("/loan-purpose");
           }
         } else {
-          toast.success("Your Application Code has been accepted");
-          navigate("/pre-approved");
+          toast.success(globalMessages.offerCode_Success);
+          navigate("/pre-approved", { state: res?.data });
         }
       }
     } catch (error) {
-      ErrorLogger("Error offerCode VAlidation API", error);
+      ErrorLogger(globalMessages.offerCode_Error, error);
     }
   };
 

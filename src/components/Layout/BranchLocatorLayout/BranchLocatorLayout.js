@@ -12,7 +12,7 @@ const BranchHeaderLayout = ({ children }) => {
       <div className="topBar">
         <div className="topBarlinks" >
           <Typography className="topBarLinkOne" >
-            <Link href="https://wps-qa.marinerfinance.io/careers/" className="hrefTag">
+            <Link href={ `${ process.env.REACT_APP_WEBSITE }/careers/` } className="hrefTag">
               Careers
             </Link>
           </Typography>
@@ -21,11 +21,11 @@ const BranchHeaderLayout = ({ children }) => {
               Resume Application
             </Link>
           </Typography>
-            <Typography className="topBarLinkOne">
-              <Link href="https://wps-qa.marinerfinance.io/customer-support/" className="hrefTag">
+          <Typography className="topBarLinkOne">
+            <Link href={ `${ process.env.REACT_APP_WEBSITE }/customer-support/` } className="hrefTag">
               Customer Support
             </Link>
-              </Typography>
+          </Typography>
           <NavLink to="/branch-locator" className="nav_link topBarLinkThree">
             <Typography >Branch Locator</Typography>
           </NavLink>

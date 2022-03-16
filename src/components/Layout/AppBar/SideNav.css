@@ -161,9 +161,7 @@ a.nav_link:hover .MuiListItem-root {
 }
 #quickNameIcon{
   height: 64px;
-  margin-right: 10px;
 }
-
 #settingsMenu .MuiPopover-paper{
 top: 118px !important;
 }
@@ -190,21 +188,77 @@ top: 118px !important;
   padding: 0px 25px !important;
   height: 100%;
 }
-
-@media (max-width: 480px) {
-  #toolbar {
-    display: block !important;
+@media only screen and (max-width: 599px) {
+  #quickNameIcon{
+    position: fixed;
+    bottom: 45%;
+    right: 0%;
+    z-index: 10;
   }
-
-  #toolBarList {
-    font-size: 3vw !important;
+  #quickNameIcon img{
+    border-radius: 0 0 2px 2px;
+    -webkit-box-shadow: 0px 0px 10px 0px rgb(0 0 0 / 75%);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 10px 0px rgb(0 0 0 / 75%);
+}
+}
+@media only screen and (max-width: 480px) {
+  #MainHeaderWrapping {
+    height: unset !important;
+  }
+  #toolbar {
+    display: flex !important;
+    padding: 0px 15px !important;
+  }
+  div#tool-bar-list p{
+    font-size: 0.938rem !important;
+  }
+  #blogsLink a{
+    margin-right: 20px;
+    padding-top: 3px;
+    box-sizing: border-box;
+  }
+  .faqLink p{
+    padding-top: 3px;
+    box-sizing: border-box;
+    margin-right: 20px;
+  }
+  .branchLocatorLink p{
+    padding-top: 3px;
+    box-sizing: border-box;
+    margin-right: 0px;
   }
 }
-
-@media (max-width: 355px) {
-  #toolbar {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+@media only screen and (max-width: 360px) {
+  #toolbar{
+    padding: 0px 10px !important;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  #blogsLink a{
+    height: 60px;
+    margin: 0 !important;
+  }
+  .faqLink p{
+    height: 60px;
+    margin: 0 !important;
+  }
+  .branchLocatorLink p{
+    height: 60px;
+    margin: 0 !important;
+  }
+  .MuiIconButton-edgeEnd{
+    margin: 0 !important;
+  }
+  #tool-bar-list{
+    width: 100%;
+    justify-content: space-between;
+  }
+  .noPaddingIcon{
+    padding: 10px 0px !important;
+  }
+  #close1{
+    margin-top: 10px;
   }
 }
 

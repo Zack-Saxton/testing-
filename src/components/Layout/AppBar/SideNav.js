@@ -151,11 +151,6 @@ const useStyles = makeStyles((theme) => ({
   },
   headerimg: {
   },
-  headerimgResp: {
-    "@media (max-width: 700px)": {
-      width: "25px",
-    },
-  },
 
   sectionMobile: {
     display: "flex",
@@ -207,12 +202,12 @@ export default function SideNav() {
     let noOfLoans = dataAccountOverview?.data?.activeLoans?.length;
     let activeLoan = dataAccountOverview?.data?.applicants;
     //logic to check if atleast one active initiated Loan is there or not
-    const presenceOfLoan = activeLoan?.some((applicant) => applicant.isActive === true && applicant?.status !== "referred" && applicant?.status !== "contact_branch");
-    const presenceOfLoanStatus = activeLoan?.find((applicant) => applicant.isActive === true);
+    const presenceOfLoan = activeLoan?.some((applicant) => applicant.isActive && applicant?.status !== "referred" && applicant?.status !== "contact_branch");
+    const presenceOfLoanStatus = activeLoan?.find((applicant) => applicant?.isActive);
     const userAccountStatus = dataAccountOverview?.data?.customer?.user_account?.status;
 
     setCheckPresenceOfLoanStatus(presenceOfLoanStatus?.status);
-    setCurrentLoan(presenceOfLoan === true || userAccountStatus === "closed" ? true : false);
+    setCurrentLoan(presenceOfLoan || userAccountStatus === "closed" ? true : false);
     setCheckPresenceOfLoan(presenceOfLoan);
 
     //logic to if there is any active Loan Data is there or not
@@ -243,7 +238,7 @@ export default function SideNav() {
   let check = useMediaQuery("(min-width:960px)");
 
   React.useEffect(() => {
-    if (check === true && checked === true) {
+    if (check && checked) {
       setChecked(true);
       setOpen(true);
       handleDeviceType(false);
@@ -290,11 +285,11 @@ export default function SideNav() {
   Cookies.set('branchphone', branchVal?.data?.PhoneNumber);
   Cookies.set('getProfileImage', getProfImage);
 
-  let hasActiveLoan = Cookies.get("hasActiveLoan") === "true" ? true : false;
+  let hasActiveLoan = (/true/i).test(Cookies.get("hasActiveLoan"));
   let hasApplicationStatus = Cookies.get("hasApplicationStatus");
   var appStatus = [ "rejected", "referred", "expired" ];
   let checkAppStatus = appStatus.includes(hasApplicationStatus);
-  let disableField = (checkAppStatus === true || hasActiveLoan === true) ? true : false;
+  let disableField = (checkAppStatus || hasActiveLoan) ? true : false;
   const branchName = Cookies.get("branchname");
   const branchPhone = Cookies.get('branchphone');
   const getProfileImage = Cookies.get('getProfileImage');
@@ -506,10 +501,12 @@ export default function SideNav() {
             >
               <Typography id="blogsLink" className={ classes.headerAlign }>
                 <a
-                  href="https://www.marinerfinance.com/blog"
+                  target="_blank"
+                  href={ `${ process.env.REACT_APP_WEBSITE }/blog/` }
                   className="hrefTag"
+                  rel="noopener noreferrer"
                 >
-                  Blogs
+                  Blog
                 </a>
               </Typography>
 
@@ -538,6 +535,7 @@ export default function SideNav() {
               <Notification />
 
               <IconButton
+                className="noPaddingIcon"
                 edge="end"
                 aria-label="account of current user"
                 aria-haspopup="true"
@@ -569,7 +567,7 @@ export default function SideNav() {
             onMouseLeave={ handleDrawerleave }
           >
             <div className={ classes.toolbar }>
-              <a href="https://wps-qa.marinerfinance.io">
+              <a href={ `${ process.env.REACT_APP_WEBSITE }` } target="_blank" rel="noreferrer">
                 <input
                   type="image"
                   src={ logoImage }
@@ -602,7 +600,7 @@ export default function SideNav() {
                   <List >
                     <ListItem>
                       <div id="imgWrap">
-                        <img id="sidebarProfilePic" src={ dataProfile?.profile_picture_url ? dataProfile?.profile_picture_url : getProfileImage } alt="Profile Pic" onClick={ (menuType) => handleMenuProfile('side') } />
+                        <img id="sidebarProfilePic" src={ dataProfile?.profile_picture_url ? dataProfile?.profile_picture_url : getProfileImage } alt="Profile Pic" onClick={ (navType) => handleMenuProfile('top') } />
                       </div>
                     </ListItem>
                     <ListItem id="sidemenuName">
@@ -663,8 +661,8 @@ export default function SideNav() {
                   </ListItem>
                 </NavLink>
 
-                { checkPresenceOfLoan === true ?
-                  pageNavResumeApplication === true ?
+                { checkPresenceOfLoan ?
+                  pageNavResumeApplication ?
 
                     <NavLink to={ NavUrlResumeApplication } className="nav_link" >
                       <ListItem className="titleSidenav" >
@@ -697,7 +695,7 @@ export default function SideNav() {
                   </NavLink> }
 
                 <NavLink to="/customers/loanDocument" onClick={ (event) => { activeLoanData && checkPresenceOfLoanStatus !== "under_review" && checkPresenceOfLoanStatus !== "final_review" && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : 'nav_link' }>
-                  <ListItem className="titleSidenav" disabled={ activeLoanData === true && checkPresenceOfLoanStatus !== "under_review" && checkPresenceOfLoanStatus !== "final_review" ? true : false }>
+                  <ListItem className="titleSidenav" disabled={ activeLoanData && checkPresenceOfLoanStatus !== "under_review" && checkPresenceOfLoanStatus !== "final_review" ? true : false }>
                     <ListItemIcon>
                       { " " }
                       <DescriptionOutlinedIcon />{ " " }
@@ -707,7 +705,7 @@ export default function SideNav() {
                 </NavLink>
 
                 <NavLink id="mybranchNav" to="/customers/myBranch" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : 'nav_link' }>
-                  <ListItem className="titleSidenav" disabled={ checkPresenceOfLoanStatus === "referred" || checkPresenceOfLoanStatus === "contact_branch"? false : activeLoanData}>
+                  <ListItem className="titleSidenav" disabled={ checkPresenceOfLoanStatus === "referred" || checkPresenceOfLoanStatus === "contact_branch" ? false : activeLoanData }>
                     <ListItemIcon>
                       { " " }
                       <AccountBalanceIcon />{ " " }

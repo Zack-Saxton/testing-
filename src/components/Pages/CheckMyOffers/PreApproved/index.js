@@ -2,26 +2,45 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import setAccountDetails from "../../../Controllers/AccountOverviewController";
+import React, { useContext, useEffect, useState } from "react";
+import { useLocation, Link, useNavigate } from "react-router-dom";
+import { makeStyles } from "@mui/styles";
 import { ButtonPrimary } from "../../../FormsUI";
+import { CheckMyOffers as Check } from "../../../../contexts/CheckMyOffers";
+
+const useStyles = makeStyles((theme) => ({
+    offerAmountStyle: {
+        color: "#0F4EB3",
+        lineHeight: "110%",
+        fontFamily: "'Muli', sans-serif",
+        fontWeight: "400",
+        fontSize: "1.64rem",
+        marginTop: "5px",
+        marginBottom: "5px",
+    },
+}));
 
 const PreApproved = () => {
-
+    let location = useLocation();
+    const navigate = useNavigate();
+    const classes = useStyles();
+    const { data, setData } = useContext(Check);
     const [ offerAmount, setOfferAmount ] = useState("");
-
+    const onClickContinuepreApproved = () => {
+        data.loanAmount = parseInt(location?.state?.offerData[ 0 ]?.offerAmount);
+        data.formStatus = "started";
+        data.completedPage = data.page.selectAmount;
+        setData({ ...data, loanAmount: parseInt(location?.state?.offerData[ 0 ]?.offerAmount), loading: false });
+        navigate("/loan-purpose");
+    };
     useEffect(() => {
-        setAccountDetails().then((res) => {
-        setOfferAmount( "$ " + (Math.round(parseInt(res?.data?.offerData?.offerAmount) * 100) / 100).toLocaleString());
-           
-        });
+        setOfferAmount("$ " + (Math.round(parseInt(location?.state?.offerData[ 0 ]?.offerAmount) * 100) / 100).toLocaleString());
         return null;
     }, []);
 
     return (
         <div>
-            <div className="mainDiv">
+            <div className="preApprovedDiv">
                 <Box>
                     <Grid
                         item
@@ -72,9 +91,11 @@ const PreApproved = () => {
                                     <Grid item xs={ 11 } sm={ 10 } md={ 8 } lg={ 8 } xl={ 8 }>
                                         <Typography align="center" style={ { color: "black", fontWeight: "400", fontFamily: "Muli, sans-serif" } }>
                                             &nbsp;We checked your offer code<br />
-                                            and {"your'e"} eligible for at least,<br />
-                                            { offerAmount }<br />
-                                              
+                                            and { "your'e" } eligible for at least,<br />
+                                        </Typography>
+                                        <h2 className={ classes.offerAmountStyle }>{ offerAmount }</h2>
+                                        <Typography align="center" style={ { color: "black", fontWeight: "400", fontFamily: "Muli, sans-serif" } }>
+
                                             and possibly more!
                                         </Typography>
                                     </Grid>
@@ -102,19 +123,13 @@ const PreApproved = () => {
 
                                     <Grid item xs={ 11 } sm={ 10 } md={ 8 } lg={ 8 } xl={ 8 }>
                                         <Grid className="alignButton">
-                                            <Link
-                                                to={ {
-                                                    pathname: "/loan-purpose",
-                                                } }
-                                                style={ { textDecoration: "none" } }
+                                            <ButtonPrimary
+                                                stylebutton='{"background": "#FFBC23", "color":"black","fontSize":"15px","padding":"0px 30px"}'
+                                                onClick={ onClickContinuepreApproved }
                                             >
-                                                <ButtonPrimary
-                                                    stylebutton='{"background": "#FFBC23", "color":"black","fontSize":"15px","padding":"0px 30px"}'
-                                                >
-                                                    Continue
-                                                </ButtonPrimary>
+                                                Continue
+                                            </ButtonPrimary>
 
-                                            </Link>
                                         </Grid>
                                     </Grid>
 
@@ -162,7 +177,7 @@ const PreApproved = () => {
                             alignItems="center"
                             style={ { paddingTop: "25px", paddingBottom: "70px" } }
                         >
-                            <Typography className="smallText" align="center">
+                            <Typography className="smallText blackText" align="center">
                                 To help the government fight the funding of terrorism and money
                                 laundering activities, Federal law requires all financial
                                 institutions to obtain, verify, and record information that
@@ -173,7 +188,7 @@ const PreApproved = () => {
                                 to see your { "driver's" } license or other identifying documents.
                             </Typography>
                             <br />
-                            <Typography className="smallText" align="center">
+                            <Typography className="smallText blackText" align="center">
                                 *The process uses a “soft” credit inquiry to determine whether a
                                 loan offer is available, which does not impact your credit
                                 score. If you continue with the application process online and

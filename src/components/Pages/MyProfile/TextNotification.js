@@ -35,7 +35,7 @@ export default function TextNotification() {
   const navigate = useNavigate();
   const [ , setprofileTabNumber ] = useGlobalState();
   let phone = Cookies.get("opted_phone_texting");
-  let textnotifybool = Cookies.get("isTextNotify") === "true" ? true : false;
+  let textnotifybool = (/true/i).test(Cookies.get("isTextNotify"));
   let [ disabledContent, setdisabledContent ] = useState(textnotifybool);
 
   const onClickCancelChange = () => {
@@ -83,7 +83,7 @@ export default function TextNotification() {
         };
 
         let result = await textNotification(body, disabledContent);
-        if (result.data?.sbt_subscribe_details?.HasNoErrors === true || result.data?.sbt_getInfo?.HasNoErrors === true) {
+        if (result.data?.sbt_subscribe_details?.HasNoErrors || result.data?.sbt_getInfo?.HasNoErrors) {
           toast.success("Updated successfully");
           onClickCancelChange();
         } else {

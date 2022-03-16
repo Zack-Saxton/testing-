@@ -7,6 +7,7 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { makeStyles } from "@mui/styles";
 import Typography from "@mui/material/Typography";
+import axios from "axios";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useState } from "react";
@@ -17,6 +18,7 @@ import globalMessages from "../../../assets/data/globalMessages.json";
 import Logo from "../../../assets/images/loginbg.png";
 import LoginController, { RegisterController } from "../../Controllers/LoginController";
 import LogoutController from "../../Controllers/LogoutController";
+import { RecaptchaValidationController } from "../../Controllers/RecaptchaController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
 import {
   Button,
@@ -28,10 +30,12 @@ import {
   TextField,
   Zipcode
 } from "../../FormsUI";
+import Recaptcha from "../../Layout/Recaptcha/GenerateRecaptcha";
 import { encryptAES } from "../../lib/Crypto";
 import ErrorLogger from "../../lib/ErrorLogger";
 import { FormValidationRules } from "../../lib/FormValidationRule";
 import "./Register.css";
+
 let formValidation = new FormValidationRules();
 
 //Styling part
@@ -106,8 +110,35 @@ export default function Register() {
   const [ success, setSuccess ] = useState(false);
   const [ failed, setFailed ] = useState("");
   const [ loading, setLoading ] = useState(false);
+  const [ disableRecaptcha, setdisableRecaptcha ] = useState(true);
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+
+  window.onReCaptchaSuccess = async function () {
+    try {
+      let grecaptchaResponse = grecaptcha.getResponse();
+      let ipResponse = await axios.get('https://geolocation-db.com/json/');
+      let ipAddress = ipResponse.data.IPv4;
+      let recaptchaVerifyResponse = await RecaptchaValidationController(grecaptchaResponse, ipAddress);
+
+      if (recaptchaVerifyResponse.status === 200) {
+        toast.success(globalMessages.Recaptcha_Verify);
+        setdisableRecaptcha(false);
+      }
+      else {
+        toast.error(globalMessages.Recaptcha_Error);
+        grecaptcha.reset();
+        setdisableRecaptcha(true);
+      }
+    } catch (error) {
+      ErrorLogger("Error executing geolocation API", error);
+    }
+  };
+
+  window.OnExpireCallback = function () {
+    grecaptcha.reset();
+    setdisableRecaptcha(true);
+  };
 
   //Date implementation for verifying 18 years
   const myDate = new Date();
@@ -116,7 +147,7 @@ export default function Register() {
   const loginUser = async (values) => {
     try {
       let retVal = await LoginController(values.email, values.password, "");
-      if (retVal?.data?.user && retVal?.data?.userFound === true) {
+      if (retVal?.data?.user && retVal?.data?.userFound) {
         let rememberMe = false;
         var now = new Date().getTime();
         LogoutController();
@@ -139,7 +170,7 @@ export default function Register() {
           )
         );
         queryClient.removeQueries();
-        rememberMe === true
+        rememberMe
           ? Cookies.set(
             "rememberMe",
             JSON.stringify({
@@ -152,7 +183,7 @@ export default function Register() {
 
         setLoading(false);
         navigate("/customers/accountoverview");
-      } else if (retVal?.data?.result === "error" || retVal?.data?.hasError === true) {
+      } else if (retVal?.data?.result === "error" || retVal?.data?.hasError) {
         Cookies.set("token", JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" }));
         setLoading(false);
       } else {
@@ -213,7 +244,7 @@ export default function Register() {
         }
         else if (
           customerStatus.data?.result === "error" &&
-          customerStatus.data?.hasError === true
+          customerStatus.data?.hasError
         ) {
           setFailed(customerStatus.data?.errorMessage);
           setSuccess(false);
@@ -578,13 +609,17 @@ export default function Register() {
                       </p>
                     </Grid>
 
+                    <Grid >
+                      <Recaptcha />
+                    </Grid>
+
                     <Grid item xs={ 12 } className={ classes.signInButtonGrid }>
                       <ButtonPrimary
                         onClick={ autoFocus }
                         type="submit"
                         data-testid="submit"
                         stylebutton='{"background": "", "color":"", "fontSize" : "15px ! important", "padding" : "0px 30px" }'
-                        disabled={ loading }
+                        disabled={ disableRecaptcha ? disableRecaptcha : loading }
                       >
                         Sign in
                         <i

@@ -1,3 +1,4 @@
+import globalMessages from "../../assets/data/globalMessages.json";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
 
@@ -15,6 +16,6 @@ export default async function ZipCodeLookup(zipCode) {
         //API call
         return await APICall(url, param, data, method, addAccessToken);
     } catch (error) {
-        ErrorLogger("Error executing ZipCodeLookup API", error);
+        ErrorLogger(globalMessages.Error_executing_ZipCodeLookup_API, error);
     }
 }

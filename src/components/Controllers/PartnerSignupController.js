@@ -1,5 +1,6 @@
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
+import globalMessages from "../../assets/data/globalMessages.json";
 import LogoutController from "../Controllers/LogoutController";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
@@ -114,7 +115,7 @@ export async function PopulatePartnerSignup(
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    ErrorLogger("Error executing PopulatePartnerSignup API", error);
+    ErrorLogger(globalMessages.Error_executing_PopulatePartnerSignup_API, error);
   }
 }
 export async function partnerConfirmInfo(dataConfirmInfo, navigate) {
