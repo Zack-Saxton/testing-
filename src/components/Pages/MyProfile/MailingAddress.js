@@ -116,9 +116,10 @@ export default function MailingAddress(props) {
 
   const fetchAddress = async (event) => {
     try {
-      setErrorMsg(event.target.value === "" ? "Please enter a zipcode" : errorMsg);
-      if (event.target.value.toString().length === 5) {
-        let result = await ZipCodeLookup(event.target.value);
+      let eventValue = event.target.value.trim();
+      setErrorMsg(eventValue ? errorMsg : "Please enter a zipcode");
+      if (eventValue?.length === 5) {
+        let result = await ZipCodeLookup(eventValue);
         if (result) {
           fetchAddressValidate(result);
         } else {
@@ -127,7 +128,7 @@ export default function MailingAddress(props) {
           setValidZip(false);
           setErrorMsg("Please enter a valid Zipcode");
         }
-        if (event.target.name !== "") {
+        if (event.target.name.trim()) {
           formik.handleChange(event);
         }
       }
