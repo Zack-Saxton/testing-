@@ -5,7 +5,6 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
@@ -14,7 +13,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import * as yup from "yup";
 import globalMessages from "../../../assets/data/globalMessages.json";
-import Logo from "../../../assets/images/loginbg.png";
 import amonelogo from "../../../assets/partners/WelcomeAOMember.png";
 import creditkarmalogo from "../../../assets/partners/WelcomeCKMember.png";
 import GTLlogo from "../../../assets/partners/WelcomeGTLMember.png";
@@ -23,62 +21,9 @@ import monevologo from "../../../assets/partners/WelcomeMonevoMember.png";
 import NerdWalletlogo from "../../../assets/partners/WelcomeNWMember.png";
 import OneLoanPlacelogo from "../../../assets/partners/WelcomeOLPMember.png";
 import partnerSignup, { PopulatePartnerSignup } from "../../Controllers/PartnerSignupController";
+import {useStylesPartner} from "./style"
 import { ButtonPrimary, Checkbox, EmailTextField, PasswordField, Popup, RenderContent, Select, SocialSecurityNumber, TextField } from "../../FormsUI";
 import "./Style.css";
-
-//Styling
-const useStyles = makeStyles((theme) => ({
-  mainContentBackground: {
-    backgroundImage: "url(" + Logo + ")",
-    backgroundSize: "cover",
-  },
-  root: {
-    flexGrow: 1,
-  },
-  mainGrid: {
-    boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%),
-    0 6px 30px 5px rgb(0 0 0 / 12%),
-    0 8px 10px -7px rgb(0 0 0 / 20%)`,
-    background: "#f5f2f2",
-  },
-  title: {
-    fontSize: "20px",
-    textAlign: "center",
-    fontWeight: 400,
-    color: "black",
-  },
-  subtitle: {
-    textAlign: "center",
-  },
-  passwordTitle: {
-    fontSize: "14px",
-    textAlign: "justify",
-  },
-  dobTitle: {
-    fontSize: "12px",
-    textAlign: "justify",
-  },
-  paper: {
-    padding: theme.spacing(3),
-    display: "flex",
-    flexDirection: "column",
-    color: theme.palette.text.secondary,
-    boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%),
-  0 6px 30px 5px rgb(0 0 0 / 12%),
-  0 8px 10px -7px rgb(0 0 0 / 20%)`,
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-  signInButtonGrid: {
-    textAlign: "center",
-    paddingTop: "20px!important",
-  },
-}));
 
 //Yup validations for all the input fields
 const validationSchema = yup.object({
@@ -139,9 +84,9 @@ export default function CreditKarma() {
   const useQueryURL = () => new URLSearchParams(useLocation().search);
   const query = useQueryURL();
   const url = window.location.href;
-  const splitHash = url.split("/") ? url.split("/") : "";
+  const splitHash = url.split("/") ?? "";
   const splitPartnerToken = splitHash[ 5 ] ? splitHash[ 5 ].split("?") : "";
-  const partnerToken = splitPartnerToken[ 0 ] ? splitPartnerToken[ 0 ] : "";
+  const partnerToken = splitPartnerToken[ 0 ] ?? "";
   const utm_source = query.get("utm_source");
   const offer = query.get("offer");
   const useQueryOffer = () => new URLSearchParams(offer);
@@ -169,7 +114,7 @@ export default function CreditKarma() {
   //Populate partner signup from API
   let populateSignupData = populatePartnerSignupState?.data?.applicant;
 
-  const classes = useStyles();
+  const classes = useStylesPartner();
   const [ failed, setFailed ] = useState("");
   const [ loading, setLoading ] = useState(false);
   const navigate = useNavigate();
