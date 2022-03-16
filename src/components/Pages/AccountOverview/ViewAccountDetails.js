@@ -55,10 +55,10 @@ export default function ViewAccountDetails() {
     setValues(newValues);
   };
 
-  var viewAppContact = Cookies.get("viewAppContact") ? Cookies.get("viewAppContact") : '{ }';
-  var viewApplicationContact = JSON.parse(viewAppContact);
-  var viewAppApplicant = Cookies.get("viewAppApplicant") ? Cookies.get("viewAppApplicant") : '{ }';
-  var viewAppApplicantInfo = JSON.parse(viewAppApplicant);
+  let viewAppContact = Cookies.get("viewAppContact") ? Cookies.get("viewAppContact") : '{ }';
+  let viewApplicationContact = JSON.parse(viewAppContact);
+  let viewAppApplicant = Cookies.get("viewAppApplicant") ? Cookies.get("viewAppApplicant") : '{ }';
+  let viewAppApplicantInfo = JSON.parse(viewAppApplicant);
 
   //View part
   return (

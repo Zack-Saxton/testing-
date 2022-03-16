@@ -124,8 +124,8 @@ function LivingPlace() {
 
 	const onHandleChange = (event) => {
 		const reg = /^[0-9\b]+$/;
-		let inputValue = event.target.value.replace(/\$/g, "").replace(",", "");
-		if (inputValue === "" || reg.test(inputValue)) {
+		let inputValue = event.target.value.replace(/\$/g, "").replace(",", "").trim();
+		if (!inputValue || reg.test(inputValue)) {
 			inputValue =
 				inputValue.indexOf(".") >= 0
 					? inputValue.substr(0, inputValue.indexOf(".")) +
@@ -133,15 +133,13 @@ function LivingPlace() {
 					: inputValue;
 			setData({
 				...data,
-				rentMortgageAmount: parseInt(
-					inputValue
-				),
+				rentMortgageAmount: parseInt(inputValue),
 			});
 		}
-		if (inputValue !== '' && inputValue >= 100) {
+		if (inputValue && inputValue >= 100) {
 			setError(false);
 			setHelperText("");
-		} else if (event.target.value === "") {
+		} else if (!event.target.value.trim()) {
 			setError(true);
 			setHelperText(globalMessages.Rent_Mortgage_Zero);
 		} else {

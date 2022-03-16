@@ -30,9 +30,8 @@ export default function DocumentUpload(props) {
 			props.setLoadingFlag(false);
 			setLoader(false);
 		} else {
-			var filePath = selectedFile.value;
-
-			var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.pdf)$/i;
+			let filePath = selectedFile.value;
+			let allowedExtensions = /(\.jpg|\.jpeg|\.png|\.pdf)$/i;
 
 			if (!allowedExtensions.exec(filePath)) {
 				if (!toast.isActive("extensionError")) {

@@ -101,8 +101,8 @@ export default function ScheduleAppointment({
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      var visitDate = Moment(values.appointmentDate).format("YYYY-MM-DD");
-      var visitTime = values.appointmentTime;
+      let visitDate = Moment(values.appointmentDate).format("YYYY-MM-DD");
+      let visitTime = values.appointmentTime;
       let visitTimeZone = momentTimeZone
         .tz(momentTimeZone.tz.guess())
         .zoneAbbr();

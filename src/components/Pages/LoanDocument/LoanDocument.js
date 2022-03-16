@@ -102,8 +102,8 @@ export default function LoanDocument() {
         toast.error(globalMessages.Please_Select_A_Document_Type, { toastId: "closeToast" });
       }
     } else {
-      var filePath = selectedFile.value;
-      var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.pdf)$/i;
+      let filePath = selectedFile.value;
+      let allowedExtensions = /(\.jpg|\.jpeg|\.png|\.pdf)$/i;
       if (!allowedExtensions.exec(filePath)) {
         if (!toast.isActive("closeToast")) {
           toast.error("Please upload file having extensions .jpeg .jpg .png .pdf only. ");

@@ -53,8 +53,8 @@ export async function documentdownload(id, name) {
 function print(data) {
   Buffer = require("buffer/").Buffer; // note: the trailing slash is important!
   const buff = Buffer.from(data?.data?.bufferFile.data);
-  var pdfFile = new Blob([ buff ]);
-  var pdfUrl = URL.createObjectURL(pdfFile);
+  let pdfFile = new Blob([ buff ]);
+  let pdfUrl = URL.createObjectURL(pdfFile);
   printJS(pdfUrl);
 }
 

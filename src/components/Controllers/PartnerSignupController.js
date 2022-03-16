@@ -48,7 +48,7 @@ export default async function PartnerSignup(navigate, partnerToken, applicantId,
       : partnerSignupMethod?.data?.applicant?.processing?.status === "confirming_info" ? "Successfully Registered, Please confirm your information" : "Successfully Registered",
       {
         onClose: () => {
-          var now = new Date().getTime();
+          let now = new Date().getTime();
           LogoutController();
           Cookies.set("redirec", JSON.stringify({ to: "/select-amount" }));
           Cookies.set(

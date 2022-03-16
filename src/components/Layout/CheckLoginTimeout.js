@@ -31,7 +31,7 @@ const CheckLoginTimeout = () => {
     const cred = JSON.parse(
       Cookies.get("cred") ? decryptAES(Cookies.get("cred")) : "{ }"
     );
-    var now = new Date().getTime();
+    let now = new Date().getTime();
     actualSetupTime = now;
     if (!cred) {
       navigate("/login", { state: { redirect: window.location.pathname } });

@@ -21,7 +21,6 @@ import ErrorLogger from "../../lib/ErrorLogger";
 import "./Style.css";
 import {useStylesPartner} from "./style"
 
-
 //Yup validations for all the input fields
 const validationSchema = yup.object({
   firstname: yup
@@ -177,30 +176,30 @@ export default function CreditKarma() {
   };
 
   const validate = (personal, household) => {
+    let returnValue = false;
     if (!isNaN(personal) && !isNaN(household)) {
       if (personal <= household) {
         setErrorAnnual("");
         setErrorPersonal("");
-        return true;
+        returnValue = true;
       } else {
         setErrorAnnual(globalMessages.Annual_Household_Equal_Personal);
-        return false;
       }
     } else {
       setErrorPersonal(isNaN(personal) ? globalMessages.Annual_Personal_Income_Required : "");
       setErrorAnnual(isNaN(household) ? globalMessages.Annual_Household_Income_Required : "");
-      return false;
     }
+    return returnValue;
   };
   const autoFocus = () => {
-    var firstname = document.getElementById("firstname").value;
-    var lastname = document.getElementById("lastname").value;
-    var streetAddress = document.getElementById("streetAddress").value;
-    var zip = document.getElementById("zip").value;
-    var citizenshipCnf = document.getElementById("citizenship").value;
-    var personalIncome = document.getElementById("personalIncome").value;
-    var employementStatus = document.getElementById("employementStatus").value;
-    var annualhousehold = document.getElementById("annualhousehold").value;
+    let firstname = document.getElementById("firstname").value;
+    let lastname = document.getElementById("lastname").value;
+    let streetAddress = document.getElementById("streetAddress").value;
+    let zip = document.getElementById("zip").value;
+    let citizenshipCnf = document.getElementById("citizenship").value;
+    let personalIncome = document.getElementById("personalIncome").value;
+    let employementStatus = document.getElementById("employementStatus").value;
+    let annualhousehold = document.getElementById("annualhousehold").value;
 
     if (firstname === "") {
       document.getElementById("firstname").focus();
@@ -264,11 +263,9 @@ export default function CreditKarma() {
     onSubmit: async (values) => {
       const modPersonalIncome = parseInt(values.personalIncome.replace(/\$/g, "").replace(/,/g, ""));
       const modHouseholdIncome = parseInt(values.householdIncome.replace(/\$/g, "").replace(/,/g, ""));
-
       if (errorPersonal === "" && errorAnnual === "" && validate(modPersonalIncome, modHouseholdIncome)) {
         values.personalIncome = modPersonalIncome;
         values.householdIncome = modHouseholdIncome;
-
         setLoading(true);
         let confirmInfoData = {
           firstname: values.firstname,
@@ -307,9 +304,10 @@ export default function CreditKarma() {
 
   const fetchAddress = async (event) => {
     try {
-      setErrorMsg(event.target.value === "" ? globalMessages.ZipCodeEnter : errorMsg);
-      if (event.target.value !== "" && event.target.value.length === 5) {
-        let result = await ZipCodeLookup(event.target.value);
+      let eventValue = event.target.value.trim();
+      setErrorMsg(eventValue ? errorMsg : globalMessages.ZipCodeEnter);
+      if (eventValue?.length === 5) {
+        let result = await ZipCodeLookup(eventValue);
         if (result) {
           fetchAddressValidate(result);
         } else {
@@ -319,7 +317,7 @@ export default function CreditKarma() {
           setErrorMsg(globalMessages.ZipCodeValid);
         }
       }
-      if (event.target.name !== "") {
+      if (event.target.name.trim()) {
         formik.handleChange(event);
       }
     } catch (error) {
