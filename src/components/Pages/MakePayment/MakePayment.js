@@ -168,11 +168,11 @@ export default function MakePayment(props) {
   async function disableAutoPayment(disableAutoPayAccountNo) {
     let result = await disableAutoPay(disableAutoPayAccountNo);
     result.status === 200
-      ? result?.data?.deletePayment.HasNoErrors
+      ? result?.data?.deletePayment?.HasNoErrors
         ? toast.success(globalMessages.Auto_Payment_Mode_Disabled, { autoClose: 5000, })
         : toast.error(globalMessages.Failed_Payment_mode, { autoClose: 5000, })
       : toast.error(result?.data?.message ? result?.data?.message : "Failed Payment mode", { autoClose: 5000, });
-    if (result?.data?.deletePayment.HasNoErrors) {
+    if (result?.data?.deletePayment?.HasNoErrors) {
       refetch();
     }
   }
@@ -199,7 +199,7 @@ export default function MakePayment(props) {
   async function deletePayment(disableScheduledPaymentAccountNo, disableScheduledPaymentRefNo, disableScheduledPaymentIsCard) {
     let result = await deleteScheduledPayment(disableScheduledPaymentAccountNo, disableScheduledPaymentRefNo, disableScheduledPaymentIsCard);
     result.status === 200
-      ? result?.data?.deletePaymentMethod.HasNoErrors
+      ? result?.data?.deletePaymentMethod?.HasNoErrors
         ? toast.success("Scheduled Payment cancelled", { autoClose: 5000, }) && refetch()
         : toast.error(globalMessages.Failed_Payment_mode, { autoClose: 5000, })
       : toast.error(result?.data?.message ? result?.data?.message : "Failed Payment mode", { autoClose: 5000, });
