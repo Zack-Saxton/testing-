@@ -185,7 +185,7 @@ export default function TextNotification() {
             onLoad={ formikTextNote.handleChange }
             onChange={ formikTextNote.handleChange }
             onBlur={ formikTextNote.handleBlur }
-            disabled={ disabledContent === false ? true : false }
+            disabled={ !disabledContent }
             error={
               formikTextNote.touched.phone &&
               Boolean(formikTextNote.errors.phone)
@@ -212,7 +212,7 @@ export default function TextNotification() {
         >
           <Checkbox
             name="textingterms"
-            disabled={ disabledContent === false ? true : false }
+            disabled={ !disabledContent }
             id="textingterms"
             labelid="texting-terms"
             testid="checkbox"

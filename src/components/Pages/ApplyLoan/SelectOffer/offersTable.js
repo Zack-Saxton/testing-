@@ -187,7 +187,7 @@ export default function OfferTable(props) {
 													</HtmlTooltip>
 												</Grid>
 											</TableCell>
-											{ props.offerFlag === false ? (
+											{ !props.offerFlag ? (
 												<TableCell
 													className={ props.classes.tableHead }
 													align="right"
@@ -251,7 +251,7 @@ export default function OfferTable(props) {
 														{ row.apr + "%" }
 													</TableCell>
 
-													{ props.offerFlag === false ? (
+													{ !props.offerFlag ? (
 														<TableCell
 															className={ props.classes.tableHeadRow }
 															align="right"

@@ -554,9 +554,7 @@ export default function PaymentMethod() {
       refetch();
       setCardType("");
       closeDebitCardButton();
-    } else if (
-      creditCardResponse?.data?.addPaymentResult?.HasNoErrors === false
-    ) {
+    } else if (!creditCardResponse?.data?.addPaymentResult?.HasNoErrors) {
       setLoading(false);
       toast.error(
         creditCardResponse?.data?.addPaymentResult?.Errors[ 0 ].ErrorMessage

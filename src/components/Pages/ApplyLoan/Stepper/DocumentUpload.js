@@ -98,7 +98,7 @@ export default function DocumentUpload(props) {
 					style={ { padding: "0px 15px" } }
 					accept="image/png, image/jpeg, application/pdf, image/jpg "
 					id="file"
-					multiple={ props?.multiple === false ? false : true }
+					multiple={ props?.multiple }
 					type="file"
 					onChange={ handleInputChange }
 				/>

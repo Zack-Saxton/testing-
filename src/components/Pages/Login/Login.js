@@ -141,7 +141,7 @@ export default function Login(props) {
     }
   };
   const remMeDataRaw = Cookies.get("rememberMe") ?? null;
-  let remMeData = remMeDataRaw ? JSON.parse(decryptAES(remMeDataRaw)) : undefined;     
+  let remMeData = remMeDataRaw ? JSON.parse(decryptAES(remMeDataRaw)) : undefined;
   const [remMe, setRemMe] = useState(remMeData?.selected);
   //Form Submission
   const formik = useFormik({
@@ -161,7 +161,7 @@ export default function Login(props) {
         ipAddress,
         props?.setToken
       );
-      if (retVal?.data?.user && retVal?.data?.userFound === true) {
+      if (retVal?.data?.user && retVal?.data?.userFound) {
         let login_date = retVal?.data?.user?.extensionattributes?.login
           ?.last_timestamp_date
           ? moment(retVal?.data?.user?.extensionattributes?.login?.last_timestamp_date)
@@ -362,9 +362,9 @@ export default function Login(props) {
                             color="primary"
                           />
                         }
-                        label=" Remember me" 
+                        label=" Remember me"
                       />
-                    </FormControl>            
+                    </FormControl>
                     </Grid>
 
                     <Grid item xs={ 12 } className={ classes.loginButton }>

@@ -106,7 +106,7 @@ function NewUser() {
 			try {
 				let customerStatus = await RegisterController(body);
 				//login the user if registerd successfully and stores the JWT token
-				if ((customerStatus.data?.customerFound === false && customerStatus.data?.userFound === false && customerStatus.data?.is_registration_failed === false) || (customerStatus?.data?.statusCode === 200 && customerStatus?.data?.result === "succcces")) {
+				if ((!customerStatus.data?.customerFound && !customerStatus.data?.userFound && !customerStatus.data?.is_registration_failed) || (customerStatus?.data?.statusCode === 200 && customerStatus?.data?.result === "succcces")) {
 					let retVal = await LoginController(data.email, values.newPassword, "");
 					if (retVal?.data?.user && retVal?.data?.userFound) {
 						let rememberMe = false;
