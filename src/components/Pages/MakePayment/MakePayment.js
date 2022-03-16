@@ -172,7 +172,9 @@ export default function MakePayment(props) {
         ? toast.success(globalMessages.Auto_Payment_Mode_Disabled, { autoClose: 5000, })
         : toast.error(globalMessages.Failed_Payment_mode, { autoClose: 5000, })
       : toast.error(result?.data?.message ? result?.data?.message : "Failed Payment mode", { autoClose: 5000, });
-    result?.data?.deletePayment.HasNoErrors && refetch();
+    if (result?.data?.deletePayment.HasNoErrors) {
+      refetch();
+    }
   }
 
   //Enable scheduled payment
