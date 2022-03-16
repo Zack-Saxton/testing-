@@ -34,9 +34,10 @@ const PreApproved = () => {
         navigate("/loan-purpose");
     };
     useEffect(() => {
-        setOfferAmount("$ " + (Math.round(parseInt(location?.state?.offerData[ 0 ]?.offerAmount) * 100) / 100).toLocaleString());
+        setOfferAmount("$ " + (location?.state?.offerData?.length ? (Math.round(parseInt(location.state.offerData[ 0 ].offerAmount) * 100) / 100) : 0 ).toLocaleString());
         return null;
-    }, []);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []); 
 
     return (
         <div>
