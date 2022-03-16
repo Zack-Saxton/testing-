@@ -21,7 +21,7 @@ export default function ActiveLoans(userActiveLoanData) {
   const classes = useStylesAccountOverview();
 
   //Activeloans data
-  let userActiveLoans = userActiveLoanData != null ? userActiveLoanData : null;
+  let userActiveLoans = userActiveLoanData ?? null;
   let today = Moment(new Date());
   // If the customer's payment is due within 10 days of current date, highlight the 'Make a Payment' button on the Account Overview page
   let numberDaysForDueDate = (appData) => {
@@ -32,7 +32,7 @@ export default function ActiveLoans(userActiveLoanData) {
         ).diff(today)
       ).asDays()
     ) : 11);
-    return (numberOfDays >= 0 && numberOfDays <= 10);
+    return ( numberOfDays <= 10);
   };
   //View
   return (
