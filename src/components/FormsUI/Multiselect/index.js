@@ -14,7 +14,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
 
 const MultiSelectWrapper = ({
   name,
@@ -28,7 +28,7 @@ const MultiSelectWrapper = ({
 }) => {
   //To return all formik state
   // const [field, meta] = useField(name);
-  const [ multiSelect, setMultiSelect ] = React.useState([]);
+  const [ multiSelect, setMultiSelect ] = useState([]);
   const handleChange = (event) => {
     setMultiSelect(event.target.value);
   };

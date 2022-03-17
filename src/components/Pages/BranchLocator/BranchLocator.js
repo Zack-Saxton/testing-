@@ -74,8 +74,8 @@ export default function BranchLocator() {
   const [ zoomDepth, setZoomDepth ] = useState(10);
   const clessesforptag = useStyles();
   const navigate = useNavigate();
-  const [ address1, setAddress1 ] = React.useState("");
-  const [ address2, setAddress2 ] = React.useState("");
+  const [ address1, setAddress1 ] = useState("");
+  const [ address2, setAddress2 ] = useState("");
   const [ showMapListSearch2DirectionButton, setshowMapListSearch2DirectionButton ] = useState(false);
   const [stateLongName, setStateLongName] = useState();
   const [stateShortName, setStateShortName] = useState();
