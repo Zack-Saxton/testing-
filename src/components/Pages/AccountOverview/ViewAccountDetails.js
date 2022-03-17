@@ -6,7 +6,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Typography from "@material-ui/core/Typography";
 import Cookies from "js-cookie";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
 import NumberFormat from 'react-number-format';
 import { NavLink } from "react-router-dom";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
@@ -49,7 +49,7 @@ function tabVerticalProps(verticalIndex) {
 
 export default function ViewAccountDetails() {
   const classes = useStylesAccountOverview();
-  const [ values, setValues ] = React.useState(0);
+  const [ values, setValues ] = useState(0);
 
   const handleTabChange = (event, newValues) => {
     setValues(newValues);

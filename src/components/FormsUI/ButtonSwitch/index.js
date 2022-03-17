@@ -10,7 +10,7 @@ Functionality       :    To use this ButtonSwitch as a default component for UI 
 import { FormControl, FormControlLabel } from "@material-ui/core";
 import Switch from "@material-ui/core/Switch";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
 
 const ButtonSwitchWrapper = ({
   name,
@@ -20,7 +20,7 @@ const ButtonSwitchWrapper = ({
   ...otherProps
 }) => {
   //Validation
-  const [ state, setState ] = React.useState(true);
+  const [ state, setState ] = useState(true);
 
   let handleChange = (event) => {
     setState(event.target.checked);

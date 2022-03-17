@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import { NavLink } from "react-router-dom";
 import CheckLoginStatus from "../../../App/CheckLoginStatus";
 import { ButtonWithIcon } from "../../../FormsUI";
@@ -79,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
 //Initializing Final verification functional component
 export default function FinalVerification() {
   const classes = useStyles();
-  const [ value, setValue ] = React.useState(2);
+  const [ value, setValue ] = useState(2);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

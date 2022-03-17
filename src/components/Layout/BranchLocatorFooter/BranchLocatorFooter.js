@@ -5,13 +5,13 @@ import Typography from "@material-ui/core/Typography";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import TwitterIcon from "@material-ui/icons/Twitter";
-import React from "react";
+import React, { useState } from "react";
 import Housing from "../../../assets/images/equal_Housing_Lender.png";
 import Logo from "../../../assets/images/mf-logo.png";
 import ConsumerDialog from "../ConsumerFooterDialog/ConsumerDialog";
 import "./BranchLocatorFooter.css";
 export default function BranchLocatorFooter() {
-  const [ consumer, setConsumer ] = React.useState(false);
+  const [ consumer, setConsumer ] = useState(false);
   // Consumer popup
   const handleOpenConsumer = () => {
     setConsumer(true);

@@ -5,7 +5,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import MoreIcon from "@material-ui/icons/MoreVert";
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import Logo from "../../../assets/images/mf-logo.png";
 import "../Layout.css";
@@ -13,7 +13,7 @@ import { useStyles } from "./NormalHeaderStyle";
 
 const NormalHeader = () => {
   const classes = useStyles();
-  const [ mobileMoreAnchorEl, setMobileMoreAnchorEl ] = React.useState(false);
+  const [ mobileMoreAnchorEl, setMobileMoreAnchorEl ] = useState(false);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   //Menu open & close
