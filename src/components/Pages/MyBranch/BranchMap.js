@@ -13,7 +13,7 @@ export default function BranchMap(MyBranchDetail) {
   //View part
   return (
     <div id="branchMapWrap">
-      { !branchDetail.MyBranchDetail ? (
+      { !(branchDetail?.MyBranchDetail) ? (
         <Paper className={ classes.paper }>
           { " " }
           <CircularProgress />{ " " }

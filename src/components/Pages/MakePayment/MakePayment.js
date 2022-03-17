@@ -650,7 +650,7 @@ export default function MakePayment(props) {
                       <Typography className={ classes.cardHeading }>
                         Pay From
                       </Typography>
-                      { paymentOptions != null ? (
+                      { paymentOptions ? (
                         <Select
                           id="select"
                           name="select"
