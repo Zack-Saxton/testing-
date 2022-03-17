@@ -34,21 +34,23 @@ export default function BranchLocator() {
   //Material UI css class
   const classes = useStylesMyBranch();
   const getDirectionsClass = useStylesConsumer();
-  const [getDirectionModal, setgetDirectionModal] = useState(() => false);
+  const params = useParams();
+  const mapSection = useRef();
+  const navigate = useNavigate();
+  
+  const [ getDirectionModal, setDirectionModal ] = useState(() => false);
   const [ getBranchList, setBranchList ] = useState();
   const [ getBranchAddress, setBranchAddress ] = useState(() => null);
   const [ getMap, setMap ] = useState([]);
   const [ getCurrentLocation, setCurrentLocation ] = useState();
-  const [loading, setLoading] = useState(() => false);
+  const [ loading, setLoading ] = useState(() => false);
   const [ zoomDepth, setZoomDepth ] = useState(10);
-  const navigate = useNavigate();
   const [ address1, setAddress1 ] = useState(() => "");
   const [ address2, setAddress2 ] = useState(() => "");
-  const [ showMapListSearch2DirectionButton, setshowMapListSearch2DirectionButton ] = useState(() => false);
-  const [stateLongName, setStateLongName] = useState();
-  const [stateShortName, setStateShortName] = useState();
-  let params = useParams();
-  const mapSection = useRef();
+  const [ showMapListSearch2DirectionButton, setShowMapListSearch2DirectionButton ] = useState(() => false);
+  const [ stateLongName, setStateLongName ] = useState();
+  const [ stateShortName, setStateShortName ] = useState();
+  
   //API call
   const getBranchLists = async (search_text) => {
     try {
@@ -100,7 +102,7 @@ export default function BranchLocator() {
   };
   const getActivePlaces = () => {
     if (document.getElementById('search1').value) {
-      setshowMapListSearch2DirectionButton(true);
+      setShowMapListSearch2DirectionButton(true);
       apiGetBranchList(document?.getElementById('search1').value);
       clearSearchText();
       mapSection.current.scrollIntoView({ behavior: 'smooth' });
@@ -110,10 +112,10 @@ export default function BranchLocator() {
     }
   };
   const openGetDirectionModal = () => {
-    setgetDirectionModal(true);
+    setDirectionModal(true);
   };
   const closeGetDirectionModal = () => {
-    setgetDirectionModal(false);
+    setDirectionModal(false);
     setBranchAddress(null);
   };
   const MFButtonClick = (event) => {

@@ -33,10 +33,13 @@ import CustomerRatings from "../MyBranch/CustomerRatings";
 import Map from "./BranchLocatorMap";
 
 export default function StatePage() {
-  //Material UI css class
   const classes = useStylesMyBranch();
+  const location = useLocation();
+  const name = location.state.value;
   const getDirectionsClass = useStylesConsumer();
-  const [getDirectionModal, setgetDirectionModal] = useState(() => false);
+  const mapSection = useRef();
+  
+  const [ getDirectionModal, setDirectionModal ] = useState(() => false);
   const [ getBranchList, setBranchList ] = useState();
   const [ getBranchAddress, setBranchAddress ] = useState(() => null);
   const [ getMap, setMap ] = useState([]);
@@ -44,13 +47,11 @@ export default function StatePage() {
   const [ loading, setLoading ] = useState(() => false);
   const [ zoomDepth, setZoomDepth ] = useState();
   const [ address1, setAddress1 ] = useState(() => "");
-  const [address2, setAddress2] = useState(() => "");
+  const [ address2, setAddress2 ] = useState(() => "");
   const [ branchDistance, setBranchDistance ] = useState(() => Math.abs(parseInt(howManyBranchesforBranchLocatorPages?.stateBranchDistanceinMiles, 10)));
-  const mapSection = useRef();
-  const [stateLongName, setStateLongName] = useState();
-  const [stateShortName, setStateShortName] = useState();
-  let location = useLocation();
-  let name = location.state.value;
+  const [ stateLongName, setStateLongName ] = useState();
+  const [ stateShortName, setStateShortName ] = useState();
+  
   //API call
   const getBranchLists = async (search_text) => {
     try {
@@ -117,10 +118,10 @@ export default function StatePage() {
   };
   // -------- To Display Dialog to get Directions of Address.......
   const openGetDirectionModal = () => {
-    setgetDirectionModal(true);
+    setDirectionModal(true);
   };
   const closeGetDirectionModal = () => {
-    setgetDirectionModal(false);
+    setDirectionModal(false);
     setBranchAddress(null);
   };
   const findBranchTimings = async (value) => {

@@ -33,22 +33,22 @@ import YearHolidays from "./YearHolidays";
 import { useStylesMyBranch } from "./Style";
 
 export default function StatePage(props) {
-  //Material UI css class
   const classes = useStylesMyBranch();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { Branch_Details, stateLongNm, stateShortNm } = location.state;
   const getDirectionsClass = useStylesConsumer();
-  const [getDirectionModal, setgetDirectionModal] = useState(() => false);
+
+  const [ getDirectionModal, setDirectionModal ] = useState(() => false);
   const [ getBranchList, setBranchList ] = useState();
   const [ getBranchAddress, setBranchAddress ] = useState();
   const [ getMap, setMap ] = useState([]);
   const [ getCurrentLocation, setCurrentLocation ] = useState();
   const [ zoomDepth, setZoomDepth ] = useState();
-  const location = useLocation();
-  const { Branch_Details, stateLongNm, stateShortNm } = location.state;
   const [ branchHours, setBranchHours ] = useState();
-  const navigate = useNavigate();
-  const [showDialog, setShowDialog] = useState(() => false);
-  const [stateLongName, setStateLongName] = useState();
-  const [stateShortName, setStateShortName] = useState();
+  const [ showDialog, setShowDialog ] = useState(() => false);
+  const [ stateLongName, setStateLongName ] = useState();
+  const [ stateShortName, setStateShortName ] = useState();
   //API call
   const getBranchLists = async (search_text) => {
     try {
@@ -91,10 +91,10 @@ export default function StatePage(props) {
     }
   };
   const openGetDirectionModal = () => {
-    setgetDirectionModal(true);
+    setDirectionModal(true);
   };
   const closeGetDirectionModal = () => {
-    setgetDirectionModal(false);
+    setDirectionModal(false);
   };
   const display_Branch_Times = () => {
     if (stateShortNm === "CA") {
