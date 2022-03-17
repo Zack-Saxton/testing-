@@ -755,7 +755,7 @@ export default function MakePayment(props) {
                               stylebutton='{"background": "", "color":"" }'
                               id="submitBtn"
                               onClick={ handleClickSubmit }
-                              disabled={ disabledContent }
+                              disabled={ !disabledContent }
                             >
                               Submit
                             </ButtonPrimary>
@@ -776,7 +776,8 @@ export default function MakePayment(props) {
                             autoComplete="off"
                             onChange={ onHandlepaymentAmount }
                             value={ "$" + paymentAmount }
-                            onBlur={ onBlurPayment }
+                              onBlur={ onBlurPayment }
+                              disabled={ disabledContent }
                           />
                           <p
                             className={
@@ -819,7 +820,8 @@ export default function MakePayment(props) {
                                 );
                                 setRequiredDate("");
                               } }
-                              value={ paymentDatepicker }
+                                value={ paymentDatepicker }
+                                disabled={ disabledContent }
                             />
                             <p
                               className={
@@ -843,7 +845,7 @@ export default function MakePayment(props) {
                                 styleicon='{ "color":"" }'
                                 id="cancelPaymentBtn"
                                 onClick={ handlePaymentcancel }
-                                disabled={ !hasSchedulePayment }
+                                  disabled={ disabledContent }
                               >
                                 Cancel Future Payment
                               </ButtonSecondary>
@@ -852,7 +854,8 @@ export default function MakePayment(props) {
                               <ButtonPrimary
                                 stylebutton='{"marginRight": "" }'
                                 id="make-payment-schedule-button"
-                                onClick={ handleSchedulePaymentClick }
+                                  onClick={ handleSchedulePaymentClick }
+                                  disabled={ disabledContent }
                               >
                                 Schedule Payment
                               </ButtonPrimary>
