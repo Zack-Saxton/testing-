@@ -628,7 +628,7 @@ export default function MakePayment(props) {
             </TableContainer>
           </Grid>
         ) }
-        {latestLoanData.length ? (
+        {latestLoanData?.length ? (
             !paymentData?.data?.error ? (
               !checkPaymentInformation ? (
                 <>
@@ -650,7 +650,7 @@ export default function MakePayment(props) {
                       <Typography className={ classes.cardHeading }>
                         Pay From
                       </Typography>
-                      { paymentOption ? (
+                      { paymentOptions ? (
                         <Select
                           id="select"
                           name="select"
