@@ -25,7 +25,7 @@ import "./SelectOffer.css";
 export default function ApplyLoan() {
 	//Initializing state variables
 	const [ rowData, setRowData ] = useState();
-	const [ value, setValue ] = React.useState(0);
+	const [ value, setValue ] = useState(0);
 	const [ accountDetails, setAccountDetails ] = useState(null);
 	const [ offersToCompare, setOffersToCompare ] = useState([]);
 	const [ offersToCompareChart, setOffersToCompareChart ] = useState([]);
@@ -278,7 +278,7 @@ export default function ApplyLoan() {
 		setValue(newValue);
 	};
 
-	const [ values, setValues ] = React.useState(0);
+	const [ values, setValues ] = useState(0);
 	const handleTabChange = (event, newValues) => {
 		setValues(newValues);
 	};

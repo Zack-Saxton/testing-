@@ -98,7 +98,7 @@ export default function PhoneVerification(props) {
 			await OTPInitialSubmission(values.phone, value);
 		},
 	});
-	const [ value, setValue ] = React.useState("T");
+	const [ value, setValue ] = useState("T");
 
 	const handleChange = (event) => {
 		setValue(event.target.value);

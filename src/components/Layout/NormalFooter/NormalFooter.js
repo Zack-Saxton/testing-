@@ -1,6 +1,6 @@
 import { Grid } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import housingImage from "../../../assets/images/equal_Housing_Lender.png";
 import badge from "../../../assets/images/FeefoRatting.png";
@@ -9,7 +9,7 @@ import ConsumerDialog from "../ConsumerFooterDialog/ConsumerDialog";
 import "./NormalFooter.css";
 
 export default function NormalFooter() {
-  const [ consumer, setConsumer ] = React.useState(false);
+  const [ consumer, setConsumer ] = useState(false);
   //Consumer popup
   const handleOpenConsumer = () => {
     setConsumer(true);

@@ -11,14 +11,14 @@ import Grid from "@material-ui/core/Grid";
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import "date-fns";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
 import "./DatePicker.css";
 
 const DatePickerWrapper = ({ name, format, label, placeholder, maxdate, minyear, ...otherProps }) => {
 
 	// The first commit of Material-UI
 	//const currentDate = new Date();
-	const [ selectedDate, setSelectedDate ] = React.useState(null);
+	const [ selectedDate, setSelectedDate ] = useState(null);
 	const handleDateChange = (date) => {
 		setSelectedDate(date);
 	};

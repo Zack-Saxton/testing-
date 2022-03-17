@@ -12,11 +12,11 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import InputLabel from "@material-ui/core/InputLabel";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import React from "react";
+import React, { useState } from "react";
 
 //Initializing component
 const PasswordWrapper = ({ name, id, onChange, value, label, ...otherProps }) => {
-  const [ values, setValues ] = React.useState({
+  const [ values, setValues ] = useState({
     password: "",
     showPassword: false,
   });

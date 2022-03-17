@@ -78,7 +78,7 @@ function getSteps() {
 export default function VerticalLinearStepper() {
 	const navigate = useNavigate();
 	const classes = useStyles();
-	const [ activeStep, setActiveStep ] = React.useState();
+	const [ activeStep, setActiveStep ] = useState();
 	const [ loadingFlag, setLoadingFlag ] = useState(false);
 	const steps = getSteps();
 	const elementsRef = useRef(steps.map(() => createRef()));

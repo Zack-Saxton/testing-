@@ -628,7 +628,7 @@ export default function MakePayment(props) {
             </TableContainer>
           </Grid>
         ) }
-        {latestLoanData.length ? (
+        {latestLoanData?.length ? (
             !paymentData?.data?.error ? (
               !checkPaymentInformation ? (
                 <>

@@ -171,13 +171,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SideNav() {
   const classes = useStyles();
-  const [ open, setOpen ] = React.useState(true);
-  const [ anchorEl, setAnchorEl ] = React.useState(null);
+  const [ open, setOpen ] = useState(true);
+  const [ anchorEl, setAnchorEl ] = useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const navigate = useNavigate();
-  const [ disable, setDisable ] = React.useState(false);
-  const [ skill, setSkill ] = React.useState(false);
-  const [ checked, setChecked ] = React.useState(true);
+  const [ disable, setDisable ] = useState(false);
+  const [ skill, setSkill ] = useState(false);
+  const [ checked, setChecked ] = useState(true);
   const [ , setprofileTabNumber ] = useGlobalState();
   const { dataProfile, resetProfilePicture } = useContext(ProfilePicture);
   const { resetData } = useContext(CheckMyOffers);
@@ -237,7 +237,7 @@ export default function SideNav() {
   //Material UI media query for responsiveness
   let check = useMediaQuery("(min-width:960px)");
 
-  React.useEffect(() => {
+    useEffect(() => {
     if (check && checked) {
       setChecked(true);
       setOpen(true);

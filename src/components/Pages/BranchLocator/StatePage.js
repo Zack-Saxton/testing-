@@ -11,7 +11,6 @@ import CloseIcon from "@material-ui/icons/Close";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import PhoneIcon from "@material-ui/icons/Phone";
 import SearchIcon from "@material-ui/icons/Search";
-import { mergeClasses } from "@material-ui/styles";
 import React, { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet";
 import PlacesAutocomplete from "react-places-autocomplete";
@@ -475,7 +474,7 @@ export default function StatePage() {
                             className="nav_link"
                           >
                             <b>
-                              <h4 className={ mergeClasses.h4tag }>
+                              <h4 className={ classes.h4tag }>
                                 { item?.BranchName } Branch
                               </h4>
                             </b>
