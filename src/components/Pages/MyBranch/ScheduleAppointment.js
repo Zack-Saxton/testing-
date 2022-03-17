@@ -226,7 +226,7 @@ export default function ScheduleAppointment({
                 helperText={ formik.touched.appointmentDate && formik.errors.appointmentDate }
               />
             </Grid>
-            {stateName.toUpperCase() === "CA" ? (
+            {stateName === "CA" ? (
               selectedAppointmentDay === "Tuesday" ? (
                 <Grid>
                   { isTodayAppointment
