@@ -1,4 +1,3 @@
-import { makeStyles } from "@material-ui/core";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from '@material-ui/core/DialogActions';
@@ -31,43 +30,13 @@ import CustomerRatings from "../MyBranch/CustomerRatings";
 import "./BranchLocator.css";
 import Map from "./BranchLocatorMap";
 import YearHolidays from "./YearHolidays";
-const useStyles = makeStyles({
-  ptag: {
-    margin: "0px",
-    lineHeight: "1.5",
-    fontSize: "0.938rem",
-  },
-  addressFont: {
-    color: "#595959",
-    margin: "0px",
-    lineHeight: "1.5",
-    fontSize: "0.938rem",
-  },
-  phoneNumber: {
-    color: "#595959",
-    margin: "0px 0px 15px 0px",
-    lineHeight: "1.5",
-    fontSize: "0.938rem",
-  },
-  h4tag: {
-    margin: ".575rem 0 .46rem 0",
-    lineHeight: "1.5",
-    fontWeight: "700",
-    fontSize: "1.078rem",
-    color: "#214476",
-  },
-  InformationIcon: {
-    height: "20px",
-    width: "20px",
-    borderRadius: 400 / 2,
-    cursor: "pointer",
-  },
-});
+import { useStylesMyBranch } from "./Style";
+
 export default function StatePage(props) {
   //Material UI css class
-  const clessesforptag = useStyles();
+  const classes = useStylesMyBranch();
   const getDirectionsClass = useStylesConsumer();
-  const [ getDirectionModal, setgetDirectionModal ] = useState(false);
+  const [getDirectionModal, setgetDirectionModal] = useState(() => false);
   const [ getBranchList, setBranchList ] = useState();
   const [ getBranchAddress, setBranchAddress ] = useState();
   const [ getMap, setMap ] = useState([]);
@@ -77,7 +46,7 @@ export default function StatePage(props) {
   const { Branch_Details, stateLongNm, stateShortNm } = location.state;
   const [ branchHours, setBranchHours ] = useState();
   const navigate = useNavigate();
-  const [ showDialog, setShowDialog ] = useState(false);
+  const [showDialog, setShowDialog] = useState(() => false);
   const [stateLongName, setStateLongName] = useState();
   const [stateShortName, setStateShortName] = useState();
   //API call
@@ -195,7 +164,7 @@ export default function StatePage(props) {
           <Link
             className="breadcrumbLink"
             onClick={ () => {
-              navigate(`/branch-locator/${stateLongNm.toLowerCase() }/`,
+              navigate(`/branch-locator/${stateLongNm.replace(/\s+/, '-').toLowerCase() }/`,
                 { state: { value: stateLongNm } });
             } }
           >
@@ -243,7 +212,7 @@ export default function StatePage(props) {
               <span className="businessHoursSpan">
                 Business Hours{ " " }
                 <InfoIcon
-                  className={ clessesforptag.InformationIcon }
+                  className={ classes.InformationIcon }
                   data-test-id="background"
                   alt="Information"
                   onClick={ OpenYearHolidays }
@@ -309,7 +278,7 @@ export default function StatePage(props) {
             return (
               <Grid key={ index } className="locationInfo">
                 <NavLink
-                  to={`/branch-locator/${stateLongName.toLocaleLowerCase()}/personal-loans-in-${item?.BranchName.replace(/-/g, "").replace(/\s+/, '-').toLocaleLowerCase() }-${stateShortName.toLocaleLowerCase() }`}
+                  to={`/branch-locator/${stateLongName.replace(/\s+/, '-').toLocaleLowerCase()}/personal-loans-in-${item?.BranchName.replace(/-/g, "").replace(/\s+/, '-').toLocaleLowerCase() }-${stateShortName.toLocaleLowerCase() }`}
                   state={{ Branch_Details: item, stateLongNm: stateLongName, stateShortNm: stateShortName }}
                   className="nav_link"
                   onClick={ () => {
@@ -317,20 +286,20 @@ export default function StatePage(props) {
                   } }
                 >
                   <b>
-                    <h4 className={ clessesforptag.h4tag }>
+                    <h4 className={ classes.h4tag }>
                       { item?.BranchName } Branch
                     </h4>
                   </b>
                   <ChevronRightIcon />
                 </NavLink>
-                <p className={ clessesforptag.ptag }>
+                <p className={ classes.ptag }>
                   { item.distance }les away | { item?.BranchTime?.Value1 }{ " " }
                   { item?.BranchTime?.Value2 }
                 </p>
-                <p className={ clessesforptag.addressFont } id={ item.id }>
+                <p className={ classes.addressFont } id={ item.id }>
                   { item.Address }
                 </p>
-                <p className={ clessesforptag.phoneNumber }>
+                <p className={ classes.phoneNumber }>
                   <PhoneIcon />
                   <a
                     href={ "tel:+1" + item?.PhoneNumber }

@@ -1,4 +1,3 @@
-import { makeStyles } from "@material-ui/core";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Dialog from "@material-ui/core/Dialog";
@@ -31,52 +30,21 @@ import Map from "../BranchLocator/BranchLocatorMap";
 import { useStylesMyBranch } from "../BranchLocator/Style";
 import CustomerRatings from "../MyBranch/CustomerRatings";
 import "./BranchLocator.css";
-
-const useStyles = makeStyles({
-  ptag: {
-    margin: "0px",
-    lineHeight: "1.5",
-    fontSize: "0.938rem",
-  },
-  addressFont: {
-    color: "#595959",
-    margin: "0px",
-    lineHeight: "1.5",
-    fontSize: "0.938rem",
-  },
-  phoneNumber: {
-    color: "#595959",
-    margin: "0px 0px 15px 0px",
-    lineHeight: "1.5",
-    fontSize: "0.938rem",
-  },
-  h4tag: {
-    margin: ".575rem 0 .46rem 0",
-    lineHeight: "1.5",
-    fontWeight: "700",
-    fontSize: "1.078rem",
-    color: "#214476",
-  },
-  gridMargin: {
-    margin: "35px 0px 0px 0px",
-  },
-});
 export default function BranchLocator() {
   //Material UI css class
   const classes = useStylesMyBranch();
   const getDirectionsClass = useStylesConsumer();
-  const [ getDirectionModal, setgetDirectionModal ] = useState(false);
+  const [getDirectionModal, setgetDirectionModal] = useState(() => false);
   const [ getBranchList, setBranchList ] = useState();
-  const [ getBranchAddress, setBranchAddress ] = useState(null);
+  const [ getBranchAddress, setBranchAddress ] = useState(() => null);
   const [ getMap, setMap ] = useState([]);
   const [ getCurrentLocation, setCurrentLocation ] = useState();
-  const [ loading, setLoading ] = useState(false);
+  const [loading, setLoading] = useState(() => false);
   const [ zoomDepth, setZoomDepth ] = useState(10);
-  const clessesforptag = useStyles();
   const navigate = useNavigate();
-  const [ address1, setAddress1 ] = React.useState("");
-  const [ address2, setAddress2 ] = React.useState("");
-  const [ showMapListSearch2DirectionButton, setshowMapListSearch2DirectionButton ] = useState(false);
+  const [ address1, setAddress1 ] = React.useState(() => "");
+  const [ address2, setAddress2 ] = React.useState(() => "");
+  const [ showMapListSearch2DirectionButton, setshowMapListSearch2DirectionButton ] = useState(() => false);
   const [stateLongName, setStateLongName] = useState();
   const [stateShortName, setStateShortName] = useState();
   let params = useParams();
@@ -148,7 +116,6 @@ export default function BranchLocator() {
     setgetDirectionModal(false);
     setBranchAddress(null);
   };
-
   const MFButtonClick = (event) => {
     params.statename = event.target.innerText;
     apiGetBranchList(params.statename);
@@ -248,12 +215,7 @@ export default function BranchLocator() {
       </Grid>
       <Grid container item xs={ 12 } justifyContent="center">
         <Typography
-          className="mainParagraph"
-          style={ {
-            margin: "15px 0px 15px 0px",
-            fontSize: "0.938rem",
-            fontWeight: "400",
-          } }
+          className="mainParagraph findBranchNear"
           variant="h6"
         >
           To find a branch near you select your state below
@@ -272,7 +234,7 @@ export default function BranchLocator() {
           return (
             <Grid
               key={ index }
-              style={ { padding: "0px 15px 15px 15px", textAlign: "left", fontSize: "1.125rem", color: "#214476" } }
+              className="branchList"
               item
               xs={ 6 }
               sm={ 3 }
@@ -314,8 +276,8 @@ export default function BranchLocator() {
   );
 
   const search2andDirectionfromSearch2 = (
-    <Grid id="getDirectionWrap" className={ clessesforptag.gridMargin } container>
-      <Grid className={ clessesforptag.gridPadding } item xs={ 12 } s={ 12 } md={ 6 }>
+    <Grid id="getDirectionWrap" className={ classes.gridMargin } container>
+      <Grid className={ classes.gridPadding } item xs={ 12 } s={ 12 } md={ 6 }>
         <ButtonPrimary
           href={ getBranchAddress }
           id="Continue"
@@ -395,7 +357,6 @@ export default function BranchLocator() {
       ) : (
         <Grid
           id="branchLocatorLists"
-          style={ { width: "100%", height: "450px", overflowY: "scroll" } }
         >
           <Grid
             className="branchLocatorAddressList"
@@ -406,28 +367,28 @@ export default function BranchLocator() {
                   return (
                     <Grid key={ index } className="locationInfo">
                       <NavLink
-                        to={`/branch-locator/${stateLongName.toLocaleLowerCase()}/personal-loans-in-${item?.BranchName.replace(/-/g, "").replace(/\s+/, '-').toLocaleLowerCase() }-${stateShortName.toLocaleLowerCase() }`}
+                        to={`/branch-locator/${stateLongName.replace(/\s+/, '-').toLocaleLowerCase()}/personal-loans-in-${item?.BranchName.replace(/-/g, "").replace(/\s+/, '-').toLocaleLowerCase() }-${stateShortName.toLocaleLowerCase() }`}
                         state={ { Branch_Details: item, stateLongNm: stateLongName, stateShortNm: stateShortName }  }
                         className="nav_link"
                       >
                         <b>
-                          <h4 className={ clessesforptag.h4tag }>
+                          <h4 className={ classes.h4tag }>
                             { item?.BranchName } Branch
                           </h4>
                         </b>
                         <ChevronRightIcon />
                       </NavLink>
-                      <p className={ clessesforptag.ptag }>
+                      <p className={ classes.ptag }>
                         { item?.distance }les away | { item?.BranchTime?.Value1 }{ " " }
                         { item?.BranchTime?.Value2 }
                       </p>
                       <p
-                        className={ clessesforptag.addressFont }
+                        className={ classes.addressFont }
                         id={ item?.id }
                       >
                         { item?.Address }
                       </p>
-                      <p className={ clessesforptag.phoneNumber }>
+                      <p className={ classes.phoneNumber }>
                         <PhoneIcon />
                         <a
                           href={ "tel:+1" + item?.PhoneNumber }

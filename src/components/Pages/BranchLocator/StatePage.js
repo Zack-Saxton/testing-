@@ -1,4 +1,3 @@
-import { makeStyles } from "@material-ui/core";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Dialog from "@material-ui/core/Dialog";
@@ -12,6 +11,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import PhoneIcon from "@material-ui/icons/Phone";
 import SearchIcon from "@material-ui/icons/Search";
+import { mergeClasses } from "@material-ui/styles";
 import React, { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet";
 import PlacesAutocomplete from "react-places-autocomplete";
@@ -31,50 +31,20 @@ import ErrorLogger from "../../lib/ErrorLogger";
 import { useStylesMyBranch } from "../BranchLocator/Style";
 import CustomerRatings from "../MyBranch/CustomerRatings";
 import Map from "./BranchLocatorMap";
-const useStyles = makeStyles({
-  ptag: {
-    margin: "0px",
-    lineHeight: "1.5",
-    fontSize: "0.938rem",
-  },
-  addressFont: {
-    color: "#595959",
-    margin: "0px",
-    lineHeight: "1.5",
-    fontSize: "0.938rem",
-  },
-  phoneNumber: {
-    color: "#595959",
-    margin: "0px 0px 15px 0px",
-    lineHeight: "1.5",
-    fontSize: "0.938rem",
-  },
-  h4tag: {
-    margin: ".575rem 0 .46rem 0",
-    lineHeight: "1.5",
-    fontWeight: "700",
-    fontSize: "1.078rem",
-    color: "#214476",
-  },
-  gridMargin: {
-    padding: "0px 30px",
-  },
-});
 
 export default function StatePage() {
   //Material UI css class
   const classes = useStylesMyBranch();
   const getDirectionsClass = useStylesConsumer();
-  const [ getDirectionModal, setgetDirectionModal ] = useState(false);
+  const [getDirectionModal, setgetDirectionModal] = useState(() => false);
   const [ getBranchList, setBranchList ] = useState();
-  const [ getBranchAddress, setBranchAddress ] = useState(null);
+  const [ getBranchAddress, setBranchAddress ] = useState(() => null);
   const [ getMap, setMap ] = useState([]);
   const [ getCurrentLocation, setCurrentLocation ] = useState();
-  const [ loading, setLoading ] = useState(false);
+  const [ loading, setLoading ] = useState(() => false);
   const [ zoomDepth, setZoomDepth ] = useState();
-  const clessesforptag = useStyles();
-  const [ address1, setAddress1 ] = React.useState("");
-  const [ address2, setAddress2 ] = React.useState("");
+  const [ address1, setAddress1 ] = React.useState(() => "");
+  const [address2, setAddress2] = React.useState(() => "");
   const [ branchDistance, setBranchDistance ] = useState(() => Math.abs(parseInt(howManyBranchesforBranchLocatorPages?.stateBranchDistanceinMiles, 10)));
   const mapSection = useRef();
   const [stateLongName, setStateLongName] = useState();
@@ -136,11 +106,11 @@ export default function StatePage() {
   };
   const getActivePlaces = () => {
     setBranchDistance(60);
-    if (address1 !== "") {
+    if (address1.trim()) {
       apiGetBranchList(address1);
       clearSearchText();
       mapSection.current.scrollIntoView({ behavior: "smooth" });
-    } else if (address2 !== "") {
+    } else if (address2.trim()) {
       apiGetBranchList(address2);
       clearSearchText();
     }
@@ -346,22 +316,19 @@ export default function StatePage() {
               sm={ 12 }
               md={ 6 }
               xl={ 6 }
-              style={ {
-                backgroundColor: "#f6f6f6",
-                padding: "0px 0px 0px 4.5%",
-              } }
+              className="personalLoanGrid"
             >
               <Grid className="personalLoanText">
                 <h4 className="PesonalLoanHeading">
                   <span>Personal Loans in { name }</span>
                 </h4>
-                <p>
+                <p className="PesonalLoanParagraph">
                   Mariner Finance branches are all over { name }, from Salisbury to
                   Frederick. Use our interactive map to locate the one closest to
                   you.
                 </p>
                 <h3>We’re here for you.</h3>
-                <p classame="PesonalLoanParagraph">
+                <p className="PesonalLoanParagraph">
                   Every one of our { name } branches share a common benefit: lending
                   professionals proud of the neighborhoods they live and work in,
                   who are totally focused on solving your personal financial
@@ -387,7 +354,7 @@ export default function StatePage() {
             <Grid
               id="getDirectionButton"
               container
-              className={ clessesforptag.gridPadding }
+              className={ classes.gridPadding }
               item
               md={ 6 }
               sm={ 12 }
@@ -501,29 +468,29 @@ export default function StatePage() {
                       return (
                         <Grid key={ index } className="locationInfo" item lg={ 4 } md={ 4 } sm={ 6 } xs={ 12 }>
                           <NavLink
-                            to={`/branch-locator/${stateLongName.toLocaleLowerCase()}/personal-loans-in-${item?.BranchName.replace(/-/g, "").replace(/\s+/, '-').toLocaleLowerCase()}-${stateShortName.toLocaleLowerCase() }`}
+                            to={`/branch-locator/${stateLongName.replace(/\s+/, '-').toLocaleLowerCase()}/personal-loans-in-${item?.BranchName.replace(/-/g, "").replace(/\s+/, '-').toLocaleLowerCase()}-${stateShortName.toLocaleLowerCase() }`}
                             state={{ Branch_Details: item, stateLongNm: stateLongName, stateShortNm: stateShortName }}
                             className="nav_link"
                           >
                             <b>
-                              <h4 className={ clessesforptag.h4tag }>
+                              <h4 className={ mergeClasses.h4tag }>
                                 { item?.BranchName } Branch
                               </h4>
                             </b>
                             <ChevronRightIcon />
                           </NavLink>
-                          <p className={ clessesforptag.ptag }>
+                          <p className={ classes.ptag }>
                             { item?.distance }les away |{ " " }
                             { item?.BranchTime?.Value1 }{ " " }
                             { item?.BranchTime?.Value2 }
                           </p>
                           <p
-                            className={ clessesforptag.addressFont }
+                            className={ classes.addressFont }
                             id={ item?.id }
                           >
                             { item?.Address }
                           </p>
-                          <p className={ clessesforptag.phoneNumber }>
+                          <p className={ classes.phoneNumber }>
                             <PhoneIcon />
                             <a
                               href={ "tel:+1" + item?.PhoneNumber }
