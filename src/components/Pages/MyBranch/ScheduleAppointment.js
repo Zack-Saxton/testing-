@@ -10,7 +10,7 @@ import { useFormik } from "formik";
 import Moment from "moment";
 import momentTimeZone from "moment-timezone";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
 import * as yup from "yup";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import { ScheduleVisitApi } from "../../Controllers/MyBranchController";
@@ -90,8 +90,8 @@ export default function ScheduleAppointment({
           : null
     : null;
 
-  const [ scheduleAppointment, setScheduleAppointment ] = React.useState(false);
-  const [ loading, setLoading ] = React.useState(false);
+  const [ scheduleAppointment, setScheduleAppointment ] = useState(false);
+  const [ loading, setLoading ] = useState(false);
 
   //Formik implementation
   const formik = useFormik({
