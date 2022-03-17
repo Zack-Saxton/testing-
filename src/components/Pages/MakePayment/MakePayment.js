@@ -473,7 +473,6 @@ export default function MakePayment(props) {
     let price = event.target.value.replace("$", "");
     const reg = /^\d{0,5}(\.\d{0,2})?$/;
     if (!price || reg.test(price)) {
-      price = Number(price).toFixed(2);
       setPaymentAmount(price);
       setRequiredAmount("");
       if (User?.data?.activeLoans?.length && User.data.activeLoans[ 0 ].loanPaymentInformation?.accountDetails?.CurrentPayOffAmount <= parseFloat(price)) {
