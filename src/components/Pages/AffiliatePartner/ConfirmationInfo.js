@@ -8,7 +8,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import globalMessages from "../../../assets/data/globalMessages.json";
@@ -19,7 +19,7 @@ import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
 import { ButtonPrimary, Checkbox, Popup, RenderContent, Select, TextField, Zipcode } from "../../FormsUI";
 import ErrorLogger from "../../lib/ErrorLogger";
 import "./Style.css";
-import {useStylesPartner} from "./style"
+import { useStylesPartner } from "./style";
 
 //Yup validations for all the input fields
 const validationSchema = yup.object({
@@ -149,7 +149,14 @@ export default function CreditKarma() {
   const [ webTOUPopup, setwebTOUPopup ] = useState(false);
   const [ privacyPopup, setPrivacyPopup ] = useState(false);
   let location = useLocation();
-
+  let refFirstName = useRef();
+  let refLastName = useRef();
+  let refStreetAddress = useRef();
+  let refZip = useRef();
+  let refCitizenship = useRef();
+  let refPersonalIncome = useRef();
+  let refEmployementStatus = useRef();
+  let refAnnualhousehold = useRef();
   const handleOnClickEsign = () => {
     setEsignPopup(true);
   };
@@ -192,33 +199,24 @@ export default function CreditKarma() {
     return returnValue;
   };
   const autoFocus = () => {
-    let firstname = document.getElementById("firstname").value;
-    let lastname = document.getElementById("lastname").value;
-    let streetAddress = document.getElementById("streetAddress").value;
-    let zip = document.getElementById("zip").value;
-    let citizenshipCnf = document.getElementById("citizenship").value;
-    let personalIncome = document.getElementById("personalIncome").value;
-    let employementStatus = document.getElementById("employementStatus").value;
-    let annualhousehold = document.getElementById("annualhousehold").value;
-
-    if (!firstname) {
-      document.getElementById("firstname").focus();
-    } else if (!lastname) {
-      document.getElementById("lastname").focus();
-    } else if (!streetAddress) {
-      document.getElementById("streetAddress").focus();
-    } else if (!zip) {
-      document.getElementById("zip").focus();
-    } else if (!citizenshipCnf) {
-      document.getElementById("citizenship").focus();
-    } else if (!employementStatus) {
-      document.getElementById("employementStatus").focus();
-    } else if (!personalIncome) {
-      document.getElementById("personalIncome").focus();
+    if (!refFirstName.current.value) {
+      refFirstName.current.focus();
+    } else if (!refLastName.current.value) {
+      refLastName.current.focus();
+    } else if (!refStreetAddress.current.value) {
+      refStreetAddress.current.focus();
+    } else if (!refZip.current.value) {
+      refZip.current.focus();
+    } else if (!refCitizenship.current.value) {
+      refCitizenship.current.focus();
+    } else if (!refPersonalIncome.current.value) {
+      refPersonalIncome.current.focus();
+    } else if (!refEmployementStatus.current.value) {
+      refEmployementStatus.current.focus();
       validate();
-    } else if (!annualhousehold) {
+    } else if (!refAnnualhousehold.current.value) {
       validate();
-      document.getElementById("annualhousehold").focus();
+      refAnnualhousehold.current.focus();
     } else {
       return false;
     }
@@ -508,7 +506,7 @@ export default function CreditKarma() {
       <div className={ classes.mainContentBackground } id="mainContentBackground">
         <Box>
           <Grid
-            className={classes.confirmationGrid}
+            className={ classes.confirmationGrid }
             xs={ 12 }
             item
           >
@@ -535,7 +533,7 @@ export default function CreditKarma() {
                 >
                   Welcome to Mariner Finance{ " " }
                 </Typography>
-                <p className={classes.introText}>
+                <p className={ classes.introText }>
                   Please review and confirm the information that{ " " }
                   <a href="https://www.creditkarma.com/" target="blank">
                     { " " }
@@ -551,9 +549,10 @@ export default function CreditKarma() {
 
                 <form onSubmit={ formik.handleSubmit }>
                   <Grid container spacing={ 4 }>
-                    <Grid item xs={ 12 } sm={ 6 } className={classes.fullWidth} >
+                    <Grid item xs={ 12 } sm={ 6 } className={ classes.fullWidth } >
                       <TextField
                         id="firstname"
+                        ref={ refFirstName }
                         name="firstname"
                         label="First Name"
                         materialProps={ {
@@ -568,9 +567,10 @@ export default function CreditKarma() {
                       />
                     </Grid>
 
-                    <Grid item xs={ 12 } sm={ 6 } className={classes.fullWidth}>
+                    <Grid item xs={ 12 } sm={ 6 } className={ classes.fullWidth }>
                       <TextField
                         id="lastname"
+                        ref={ refLastName }
                         name="lastname"
                         label="Last Name"
                         materialProps={ {
@@ -589,6 +589,7 @@ export default function CreditKarma() {
                       <TextField
                         fullWidth
                         id="streetAddress"
+                        ref={ refStreetAddress }
                         name="streetAddress"
                         label="Address"
                         materialProps={ {
@@ -607,6 +608,7 @@ export default function CreditKarma() {
                       <Zipcode
                         fullWidth
                         id="zip"
+                        ref={ refZip }
                         name="zip"
                         label="Zip Code *"
                         materialProps={ { "data-test-id": "zipcode" } }
@@ -657,6 +659,7 @@ export default function CreditKarma() {
                       >
                         <Select
                           id="citizenship"
+                          ref={ refCitizenship }
                           name="citizenship"
                           labelform="Citizenship"
                           value={ formik.values.citizenship }
@@ -676,6 +679,7 @@ export default function CreditKarma() {
                         name="personalIncome"
                         label="Annual Personal Income"
                         id="personalIncome"
+                        ref={ refPersonalIncome }
                         value={ formik.values.personalIncome }
                         onChange={ onHandleChangePersonal }
                         materialProps={ {
@@ -694,6 +698,7 @@ export default function CreditKarma() {
                         name="householdIncome"
                         label="Annual Household Income"
                         id="annualhousehold"
+                        ref={ refAnnualhousehold }
                         value={ formik.values.householdIncome }
                         materialProps={ {
                           "data-testid": "annualIncome",
@@ -704,7 +709,7 @@ export default function CreditKarma() {
                         onBlur={ currencyFormat }
                         onKeyDown={ preventUnwanted }
                         error={ errorAnnual !== "" }
-                        helperText={ errorAnnual ??  "" }
+                        helperText={ errorAnnual ?? "" }
                       />
                     </Grid>
 
@@ -718,6 +723,7 @@ export default function CreditKarma() {
                     >
                       <Select
                         id="employementStatus"
+                        ref={ refEmployementStatus }
                         name="employementStatus"
                         labelform="Employement Status"
                         value={ formik.values.employementStatus }

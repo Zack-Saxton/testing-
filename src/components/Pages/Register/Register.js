@@ -10,7 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import axios from "axios";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useQueryClient } from 'react-query';
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -98,7 +98,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 //Yup validations for all the input fields
-const validationSchema = formValidation.getFormValidationRule('');
+const validationSchema = formValidation.getFormValidationRule("");
 
 //Begin: Login page
 export default function Register() {
@@ -113,6 +113,8 @@ export default function Register() {
   const [ disableRecaptcha, setdisableRecaptcha ] = useState(true);
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  let refFirstName = useRef();
+  let refLastName = useRef();
 
   window.onReCaptchaSuccess = async function () {
     try {
@@ -289,17 +291,10 @@ export default function Register() {
 
   //Auto focus on name field if it has any error on submit
   function autoFocus() {
-    let firstname = document.getElementById("firstname").value;
-    let lastname = document.getElementById("lastname").value;
-    if (!firstname) {
-      document.getElementById("firstname").focus();
-    }
-    if (!lastname) {
-      if (!firstname) {
-        document.getElementById("firstname").focus();
-      } else {
-        document.getElementById("lastname").focus();
-      }
+    if (!refFirstName.current.value) {
+      refFirstName.current.focus();
+    } else if (!refLastName.current.value) {
+      refLastName.current.focus();
     }
   }
 
@@ -384,6 +379,7 @@ export default function Register() {
                       <TextField
                         name="firstname"
                         id="firstname"
+                        ref={ refFirstName }
                         label="First Name *"
                         placeholder={ globalMessages.FirstNameEnter }
                         materialProps={ { maxLength: "30" } }
@@ -412,6 +408,7 @@ export default function Register() {
                       <TextField
                         name="lastname"
                         id="lastname"
+                        ref={ refLastName }
                         label="Last Name *"
                         placeholder={ globalMessages.LastNameEnter }
                         materialProps={ { maxLength: "30" } }

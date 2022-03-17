@@ -140,7 +140,7 @@ export default function BasicInformation(props) {
       };
 
       const uploadBasicInfoImageChange = async () => {
-        if (selectedFile !== null) {
+        if (selectedFile) {
           let filePath = selectedFile.value;
           let allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
           if (!allowedExtensions.exec(filePath)) {
@@ -186,7 +186,7 @@ export default function BasicInformation(props) {
                       {
                         toastId: "closeToast",
                         onClose: () => {
-                          if ((formik.initialValues.email !== values.email && selectedFile !== null) || (formik.initialValues.phone !== values.phone && formik.initialValues.email !== values.email && selectedFile !== null)) {
+                          if ((formik.initialValues.email !== values.email && selectedFile || (formik.initialValues.phone !== values.phone && formik.initialValues.email !== values.email && selectedFile)) {
                             setuploadedImage(uploadData?.data?.profile_picture_url);
                             refetchProfilePicture();
                             refetch();
@@ -194,7 +194,7 @@ export default function BasicInformation(props) {
                             onClickCancelChange();
                             logoutUser();
                           }
-                          else if ((formik.initialValues.phone !== values.phone && selectedFile !== null)) {
+                          else if ((formik.initialValues.phone !== values.phone && selectedFile)) {
                             setuploadedImage(uploadData?.data?.profile_picture_url);
                             refetchProfilePicture();
                             refetch();
@@ -231,7 +231,7 @@ export default function BasicInformation(props) {
             if (selectedFile.files[ 0 ].size > 819200) {
               toast.error(globalMessages.FileUploadMax);
               setLoading(false);
-            } else if (docType == null) {
+            } else if (!docType) {
               toast.error(globalMessages.FileUploadTypeImage);
               setLoading(false);
             }
@@ -249,26 +249,21 @@ export default function BasicInformation(props) {
       }
       else {
         let res = await basicInformation(body);
-
-        if ((formik.initialValues.email !== values.email && selectedFile !== null) || (formik.initialValues.phone !== values.phone && formik.initialValues.email !== values.email && selectedFile !== null) || (formik.initialValues.phone !== values.phone && selectedFile !== null)) {
-          if (res?.data?.notes.length !== 0 && selectedFile !== null) {
+        if (selectedFile && (formik.initialValues.email !== values.email) || (formik.initialValues.phone !== values.phone && formik.initialValues.email !== values.email ) || (formik.initialValues.phone !== values.phone)) {
+          if (res?.data?.notes.length !== 0) {
             uploadBasicInfoImageChange();
           }
-        }
-        else if (selectedFile !== null) {
+        } else if (selectedFile) {
           uploadBasicInfoImageChange();
-        }
-        else if (formik.initialValues.phone !== values.phone && formik.initialValues.email === values.email) {
+        } else if (formik.initialValues.phone !== values.phone && formik.initialValues.email === values.email) {
           if (res?.data?.notes.length !== 0 && res?.data?.emailUpdate) {
             uploadBasicInfoChange();
           }
-        }
-        else if (formik.initialValues.email !== values.email || (formik.initialValues.phone !== values.phone && formik.initialValues.email !== values.email)) {
+        } else if (formik.initialValues.email !== values.email || (formik.initialValues.phone !== values.phone && formik.initialValues.email !== values.email)) {
           if (res?.data?.notes.length !== 0 && res?.data?.emailUpdate) {
             uploadBasicInfoChangeLogOut();
           }
-        }
-        else {
+        } else {
           if (!toast.isActive("closeToast")) {
             toast.error(globalMessages.TryAgain, {
               toastId: "closeToast",
