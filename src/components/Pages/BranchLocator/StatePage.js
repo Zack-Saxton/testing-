@@ -471,7 +471,7 @@ export default function StatePage() {
                         <Grid key={ index } className="locationInfo" item lg={ 4 } md={ 4 } sm={ 6 } xs={ 12 }>
                           <NavLink
                             to={`/branch-locator/${stateLongName.replace(/\s+/, '-').toLocaleLowerCase()}/personal-loans-in-${item?.BranchName.replace(/-/g, "").replace(/\s+/, '-').toLocaleLowerCase()}-${stateShortName.toLocaleLowerCase() }`}
-                            state={{ Branch_Details: item, stateLongNm: stateLongName, stateShortNm: stateShortName }}
+                            state={{ branch_Details: item, stateLongNm: stateLongName, stateShortNm: stateShortName }}
                             className="nav_link"
                           >
                             <b>

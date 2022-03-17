@@ -36,7 +36,7 @@ export default function StatePage(props) {
   const classes = useStylesMyBranch();
   const location = useLocation();
   const navigate = useNavigate();
-  const { Branch_Details, stateLongNm, stateShortNm } = location.state;
+  const { branch_Details, stateLongNm, stateShortNm } = location.state;
   const directionsClass = useStylesConsumer();
 
   const [ directionModal, setDirectionModal ] = useState(() => false);
@@ -114,14 +114,14 @@ export default function StatePage(props) {
 
   };
   useEffect(() => {
-    apiGetBranchList(Branch_Details.Address);
+    apiGetBranchList(branch_Details.Address);
     return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ Branch_Details ]);
+  }, [ branch_Details ]);
   useEffect(() => {
     display_Branch_Times();
     window.scrollTo(0, 0);
-    document.title = `Personal Loans in  ${Branch_Details.BranchName}, ${stateShortNm } | Mariner Finance Branch | Discover More `;
+    document.title = `Personal Loans in  ${branch_Details.BranchName}, ${stateShortNm } | Mariner Finance Branch | Discover More `;
     return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [  ]);
@@ -171,14 +171,14 @@ export default function StatePage(props) {
             {stateLongNm ?? "" }
           </Link>
           <Link className="breadcrumbLink">
-            { Branch_Details.BranchName }
+            { branch_Details.BranchName }
           </Link>
         </Breadcrumbs>
         <Grid className="blueBoxWrap">
           <h4 className="branchHeading">
             Personal Loans in{ " " }
             <strong>
-              {Branch_Details.BranchName}, {stateShortNm } Branch
+              {branch_Details.BranchName}, {stateShortNm } Branch
             </strong>
           </h4>
           <Grid container>
@@ -195,15 +195,15 @@ export default function StatePage(props) {
               />
               <Grid>
                 <span className="branchAddressSpan">
-                  { Branch_Details?.Address }
+                  { branch_Details?.Address }
                 </span>
                 <span>
                   <a
-                    href={ "tel:+1" + Branch_Details?.PhoneNumber }
+                    href={ "tel:+1" + branch_Details?.PhoneNumber }
                     className="branchPhoneNumber"
                   >
                     <PhoneIcon />
-                    { Branch_Details?.PhoneNumber }
+                    { branch_Details?.PhoneNumber }
                   </a>
                 </span>
               </Grid>
@@ -245,7 +245,7 @@ export default function StatePage(props) {
               <Grid className="branchManager">
                 <small>Branch Manager</small>
                 <br />
-                <span>{ Branch_Details?.branchManager }</span>
+                <span>{ branch_Details?.branchManager }</span>
               </Grid>
             </Grid>
           </Grid>
@@ -253,7 +253,7 @@ export default function StatePage(props) {
             <ButtonSecondary
               onClick={ () => {
                 setBranchAddress(
-                  "https://www.google.com/maps/search/" + Branch_Details.Address
+                  "https://www.google.com/maps/search/" + branch_Details.Address
                 );
                 openGetDirectionModal();
               } }
@@ -279,7 +279,7 @@ export default function StatePage(props) {
               <Grid key={ index } className="locationInfo">
                 <NavLink
                   to={`/branch-locator/${stateLongName.replace(/\s+/, '-').toLocaleLowerCase()}/personal-loans-in-${item?.BranchName.replace(/-/g, "").replace(/\s+/, '-').toLocaleLowerCase() }-${stateShortName.toLocaleLowerCase() }`}
-                  state={{ Branch_Details: item, stateLongNm: stateLongName, stateShortNm: stateShortName }}
+                  state={{ branch_Details: item, stateLongNm: stateLongName, stateShortNm: stateShortName }}
                   className="nav_link"
                   onClick={ () => {
                     document.title = `Personal Loans in ${ item.BranchName}, ${ stateShortName } | Mariner Finance Branch | Discover More`;
@@ -419,7 +419,7 @@ export default function StatePage(props) {
         <link rel="icon" type="image/png" href={ TitleImage } sizes="16x16" />
         <meta
           name="description"
-          content={`Looking for a personal loans in ${Branch_Details.BranchName},${stateShortNm} ?  Our ${Branch_Details.BranchName},${stateShortNm } branch welcomes you for personal loans that fit your needs.` }
+          content={`Looking for a personal loans in ${branch_Details.BranchName},${stateShortNm} ?  Our ${branch_Details.BranchName},${stateShortNm } branch welcomes you for personal loans that fit your needs.` }
         />
       </Helmet>
       <Grid className="greyBackground" container justifyContent={ "center" }>
@@ -433,7 +433,7 @@ export default function StatePage(props) {
                 <h4 className="PesonalLoanMapHeading">
                   <strong>
                     One-On-One Support With Your Personal Loans in{ " " }
-                    {Branch_Details.BranchName}, {stateShortNm }
+                    {branch_Details.BranchName}, {stateShortNm }
                   </strong>
                 </h4>
               </Grid>
@@ -442,13 +442,13 @@ export default function StatePage(props) {
             <Grid className="branchtextSection" item md={ 6 }>
               <h4 className="PesonalLoanMapHeading">
                 <strong>
-                  The {Branch_Details.BranchName}, {stateShortNm } Branch
+                  The {branch_Details.BranchName}, {stateShortNm } Branch
                   Welcomes You For Personal Loans That Fit Your Needs
                 </strong>
               </h4>
               <p className="PesonalLoanMapParagraph">
-                Our { Branch_Details.BranchName } lending professionals are proud
-                of the neighborhoods they live and work in. Ready to speak to a { Branch_Details.BranchName } lending professional in person? The better we know
+                Our { branch_Details.BranchName } lending professionals are proud
+                of the neighborhoods they live and work in. Ready to speak to a { branch_Details.BranchName } lending professional in person? The better we know
                 you, the more we can help. You have your own unique goals to
                 meet, and it all starts with a conversation at your local
                 branch. <br /><br />A personal loans can meet a variety of needs, including
@@ -456,7 +456,7 @@ export default function StatePage(props) {
                 weddings, tuitions costs, and debt consolidation. Mariner
                 Finance has a personal loans that fits every one of those
                 situations, and more. Ready to apply for a personal loans at the{ " " }
-                {Branch_Details.BranchName}, {stateShortNm } branch? Our { Branch_Details.BranchName } branch is totally focused on solving your personal
+                {branch_Details.BranchName}, {stateShortNm } branch? Our { branch_Details.BranchName } branch is totally focused on solving your personal
                 financial challenges.
               </p>
             </Grid>
