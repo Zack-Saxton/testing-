@@ -227,7 +227,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
               />
             </Grid>
 
-            {stateName === "CA" ? (
+            {stateName.toUpperCase() === "CA" ? (
               selectedAppointmentDay === "Tuesday" ? (
                 <Grid>
                   { isTodayAppointment
