@@ -72,13 +72,13 @@ export default function MakePayment(props) {
   const [ requiredSelect, setRequiredSelect ] = useState("");
   const [ requiredDate, setRequiredDate ] = useState("");
   const [ requiredAmount, setRequiredAmount ] = useState("");
-  const [ showCircularProgress, setshowCircularProgress ] = useState(false);
+  const [ showCircularProgress, setShowCircularProgress ] = useState(false);
   const [ loading, setLoading ] = useState(false);
   const [ accountDetails ] = useState(null);
   const [ totalPaymentAmount, setTotalPaymentAmount ] = useState(null);
-  const [ checkAutoPay, setcheckAutoPay ] = useState(false);
+  const [ checkAutoPay, setCheckAutoPay ] = useState(false);
   const [ autopaySubmit, setAutopaySubmit ] = useState(true);
-  const [ scheduleDate, setscheduleDate ] = useState(new Date());
+  const [ scheduleDate, setScheduleDate ] = useState(new Date());
   const [ payoff, setPayoff ] = useState(false);
   const [ calendarDisabled, setCalendarDisabled ] = useState(true);
   const [ checkPaymentInformation, setCheckPaymentInformation ] = useState(false);
@@ -103,17 +103,17 @@ export default function MakePayment(props) {
   }, [ payments, User ]);
 
   useEffect(() => {
-    setpaymentDatepicker(defaultPaymentCard || checkCard ? new Date() : scheduleDate);
+    setPaymentDatepicker(defaultPaymentCard || checkCard ? new Date() : scheduleDate);
   }, [ checkCard, scheduleDate, defaultPaymentCard ]);
 
   //API Request for Payment methods
   async function getPaymentMethods() {
-    setpaymentMethod(payments);
+    setPaymentMethod(payments);
     if (payments?.data?.error) {
       if (!toast.isActive("closedApplication")) {
         toast.error("Error retrieving loan information -- Account is Closed", { toastId: "closedApplication" });
         setLoading(false);
-        setshowCircularProgress(false);
+        setShowCircularProgress(false);
       }
     } else {
       //get default card
@@ -133,16 +133,16 @@ export default function MakePayment(props) {
   //set default card CardMethods
   async function defaultCardCheck(cardData, type, defaultBank) {
     let checkNickName = false;
-    setcard("");
+    setCard("");
     cardData?.forEach((data) => {
       if (data.Nickname === defaultBank) {
         if (type.toUpperCase() === "ACH") {
-          setcard(data.SequenceNumber);
-          setisDebit(false);
+          setCard(data.SequenceNumber);
+          setIsDebit(false);
           setCalendarDisabled(false);
         } else {
-          setcard(data.ProfileId);
-          setisDebit(true);
+          setCard(data.ProfileId);
+          setIsDebit(true);
           setCalendarDisabled(true);
         }
         checkNickName = true;
@@ -179,7 +179,7 @@ export default function MakePayment(props) {
 
   //Enable scheduled payment
   async function makeuserPayment(scheduledPaymentAccountNo, scheduledPaymentCard, scheduledPaymentDatePicker, scheduledPaymentIsDebit, scheduledPaymentAmount, RemoveScheduledPayment) {
-    setPaymentOpen(false);
+    setOpenPayment(false);
     let result = await makePayment(scheduledPaymentAccountNo, scheduledPaymentCard, scheduledPaymentDatePicker, scheduledPaymentIsDebit, scheduledPaymentAmount, RemoveScheduledPayment);
     let message =
       paymentDatepicker === Moment().format("YYYY/MM/DD")
@@ -222,22 +222,22 @@ export default function MakePayment(props) {
       if (data?.loanData?.accountNumber === checkAccNo) {
         let loan = [];
         loan.push(data);
-        setlatestLoanData(loan);
+        setLatestLoanData(loan);
         let totalAmount = (Math.abs(data?.loanPaymentInformation?.accountDetails?.RegularPaymentAmount) + Math.abs(data?.loanPaymentInformation?.accountDetails?.InterestRate) +
           Math.abs(data?.loanPaymentInformation?.accountDetails?.LoanFeesAndCharges)).toFixed(2);
-        setpaymentAmount(totalAmount);
+        setPaymentAmount(totalAmount);
         setTotalPaymentAmount(totalAmount);
-        setaccntNo(data.loanData?.accountNumber);
+        setAccntNo(data.loanData?.accountNumber);
         getPaymentMethods();
-        setdisabledContent(data?.loanPaymentInformation?.appRecurringACHPayment);
-        setcheckAutoPay(data?.loanPaymentInformation?.appRecurringACHPayment);
-        setpaymentDate(Moment(data?.loanPaymentInformation?.accountDetails?.NextDueDate).format("YYYY-MM-DD"));
+        setDisabledContent(data?.loanPaymentInformation?.appRecurringACHPayment);
+        setCheckAutoPay(data?.loanPaymentInformation?.appRecurringACHPayment);
+        setPaymentDate(Moment(data?.loanPaymentInformation?.accountDetails?.NextDueDate).format("YYYY-MM-DD"));
         let scheduledDate = data?.loanPaymentInformation?.hasScheduledPayment ? Moment(data?.loanPaymentInformation?.scheduledPayments[ 0 ]?.PaymentDate).format("MM/DD/YYYY") : new Date();
-        setpaymentDatepicker(defaultPaymentCard ? new Date() : scheduledDate);
-        setscheduleDate(scheduledDate);
+        setPaymentDatepicker(defaultPaymentCard ? new Date() : scheduledDate);
+        setScheduleDate(scheduledDate);
         setLoading(false);
         setAutopaySubmit(true);
-        setshowCircularProgress(isFetching);
+        setShowCircularProgress(isFetching);
         setCheckPaymentInformation(data?.loanPaymentInformation?.errorMessage);
         return true;
       }
@@ -247,7 +247,7 @@ export default function MakePayment(props) {
 
   //API Request for Account Details
   function getData() {
-    setshowCircularProgress(isFetching);
+    setShowCircularProgress(isFetching);
     setActiveLoansData(User?.data?.activeLoans);
     let hasSchedulePaymentActive = activeLoansData?.length
       ? activeLoansData[ 0 ]?.loanPaymentInformation?.hasScheduledPayment
@@ -261,7 +261,7 @@ export default function MakePayment(props) {
         navigate("/customers/accountoverview");
       }
     } else {
-      setlatestLoanData(activeLoansData?.slice(0, 1) ?? null);
+      setLatestLoanData(activeLoansData?.slice(0, 1) ?? null);
       let latestLoan = activeLoansData?.slice(0, 1) ?? null;
       let schedulePaymentAmount = activeLoansData?.length && activeLoansData[ 0 ]?.loanPaymentInformation?.scheduledPayments?.length
         ? activeLoansData[ 0 ].loanPaymentInformation.scheduledPayments[ 0 ]?.PaymentAmount
@@ -269,19 +269,19 @@ export default function MakePayment(props) {
       let totalAmount = latestLoan?.length ? (Math.abs(latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails?.RegularPaymentAmount) + Math.abs(latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails?.InterestRate) +
         Math.abs(latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails?.LoanFeesAndCharges)
       ).toFixed(2) : null;
-      setpaymentAmount(hasSchedulePaymentActive ? schedulePaymentAmount.toFixed(2) : totalAmount);
+      setPaymentAmount(hasSchedulePaymentActive ? schedulePaymentAmount.toFixed(2) : totalAmount);
       setTotalPaymentAmount(totalAmount);
-      setaccntNo(latestLoan?.length ? latestLoan[ 0 ]?.loanData?.accountNumber : null);
+      setAccntNo(latestLoan?.length ? latestLoan[ 0 ]?.loanData?.accountNumber : null);
       getPaymentMethods();
-      setdisabledContent(latestLoan?.length && latestLoan[ 0 ]?.loanPaymentInformation?.appRecurringACHPayment);
-      setcheckAutoPay(latestLoan?.length && latestLoan[ 0 ]?.loanPaymentInformation?.appRecurringACHPayment);
-      setpaymentDate(latestLoan?.length ? Moment(latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails?.NextDueDate).format("YYYY-MM-DD") : "NONE");
+      setDisabledContent(latestLoan?.length && latestLoan[ 0 ]?.loanPaymentInformation?.appRecurringACHPayment);
+      setCheckAutoPay(latestLoan?.length && latestLoan[ 0 ]?.loanPaymentInformation?.appRecurringACHPayment);
+      setPaymentDate(latestLoan?.length ? Moment(latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails?.NextDueDate).format("YYYY-MM-DD") : "NONE");
       let scheduledDate = latestLoan?.length && latestLoan[ 0 ]?.loanPaymentInformation?.hasScheduledPayment ? Moment(latestLoan[ 0 ].loanPaymentInformation.scheduledPayments[ 0 ]?.PaymentDate).format("MM/DD/YYYY") : new Date();
-      setpaymentDatepicker(defaultPaymentCard ? new Date() : scheduledDate);
-      setscheduleDate(scheduledDate);
+      setPaymentDatepicker(defaultPaymentCard ? new Date() : scheduledDate);
+      setScheduleDate(scheduledDate);
       setLoading(false);
       setAutopaySubmit(true);
-      setshowCircularProgress(isFetching);
+      setShowCircularProgress(isFetching);
       setCheckPaymentInformation(latestLoan?.length && latestLoan[ 0 ]?.loanPaymentInformation?.errorMessage);
     }
   }
@@ -321,11 +321,11 @@ export default function MakePayment(props) {
 
   //Select account
   const handleChangeSelect = (event) => {
-    setcard(event.target.value);
+    setCard(event.target.value);
     if (event.nativeEvent.target.innerText.includes("Checking") || event.nativeEvent.target.innerText.includes("Savings")) {
-      setisDebit(false);
+      setIsDebit(false);
       setCheckCard(false);
-      setpaymentDatepicker(scheduleDate);
+      setPaymentDatepicker(scheduleDate);
       if (payoff) {
         setCalendarDisabled(true);
       } else {
@@ -333,19 +333,19 @@ export default function MakePayment(props) {
         setPayoff(false);
       }
     } else {
-      setisDebit(true);
+      setIsDebit(true);
       setCheckCard(true);
       setCalendarDisabled(true);
-      setpaymentDatepicker(new Date());
+      setPaymentDatepicker(new Date());
     }
     //true
-    setrequiredSelect("");
+    setRequiredSelect("");
   };
 
   //Autopay enable/disable switch
   const handleSwitchPayment = (event) => {
     setAutopaySubmit(checkAutoPay === event.target.checked);
-    setdisabledContent(event.target.checked);
+    setDisabledContent(event.target.checked);
   };
 
   let accountInfo = {};
@@ -365,15 +365,15 @@ export default function MakePayment(props) {
       ? card || card === 0
         ? !isDebit
           ? setOpen(true)
-          : setrequiredSelect("Please select a saving or checking account")
-        : setrequiredSelect("Please select any accounts")
+          : setRequiredSelect("Please select a saving or checking account")
+        : setRequiredSelect("Please select any accounts")
       : setOpen(true);
   };
 
   //Autopay popup confirm and close
   function handleAutoPayConfirm() {
     setLoading(true);
-    setshowCircularProgress(true);
+    setShowCircularProgress(true);
     disabledContent ? enableAutoPayment(accntNo, card, paymentDate, isDebit) : disableAutoPayment(accntNo);
     setOpen(false);
   }
@@ -385,24 +385,24 @@ export default function MakePayment(props) {
   //Cancel Schedule popup confirm and close
   function handleDeleteSchedule() {
     setLoading(true);
-    setshowCircularProgress(true);
+    setShowCircularProgress(true);
     isCard ? deletePayment(accntNo, refNumber) : deletePayment(accntNo, routingNumber);
-    setrequiredDate("");
+    setRequiredDate("");
     setRequiredAmount("");
-    setrequiredSelect("");
-    setpaymentDatepicker(new Date());
-    setopenDeleteSchedule(false);
+    setRequiredSelect("");
+    setPaymentDatepicker(new Date());
+    setOpenDeleteSchedule(false);
     refetch();
   }
 
   const handleDeleteScheduleClose = () => {
-    setopenDeleteSchedule(false);
+    setOpenDeleteSchedule(false);
   };
   //Schedule Payment
   const handleSchedulePaymentClick = () => {
     if (!card) {
       document.getElementById("select").focus();
-      setrequiredSelect("Please select any account");
+      setRequiredSelect("Please select any account");
     } else if (!paymentAmount) {
       document.getElementById("payment").focus();
       setRequiredAmount("Please enter payment amount");
@@ -411,28 +411,28 @@ export default function MakePayment(props) {
       setRequiredAmount("Please enter minimum amount of $10");
     } else if (!paymentDatepicker) {
       document.getElementById("date").focus();
-      setrequiredDate("Please select any date");
+      setRequiredDate("Please select any date");
     } else if (isDebit && Moment(paymentDatepicker).isAfter(Moment())) {
       document.getElementById("date").focus();
-      setrequiredDate("For debit account, please select today's date");
+      setRequiredDate("For debit account, please select today's date");
     } else if (
       Moment(User.data.loanData[ 0 ].loanOriginationDate).isAfter(Moment())) {
       document.getElementById("payment").focus();
-      setrequiredDate('You can begin making payments on ' + Moment(User.data.loanData[ 0 ].loanOriginationDate).format('MM/DD/YYYY'));
+      setRequiredDate('You can begin making payments on ' + Moment(User.data.loanData[ 0 ].loanOriginationDate).format('MM/DD/YYYY'));
     } else {
-      setPaymentOpen(true);
+      setOpenPayment(true);
     }
   };
 
   //Cancel Payment
   const handlePaymentcancel = () => {
-    setopenDeleteSchedule(true);
+    setOpenDeleteSchedule(true);
   };
 
   //Schedule Payment popup confirm and close
   const handleSchedulePaymentSubmit = () => {
     setLoading(true);
-    setshowCircularProgress(true);
+    setShowCircularProgress(true);
     let RemoveScheduledPayment = true;
     makeuserPayment(accntNo, card, paymentDatepicker, isDebit, paymentAmount, RemoveScheduledPayment);
   };
@@ -440,13 +440,13 @@ export default function MakePayment(props) {
   // Keep Schedule Payment popup confirm and close
   const handleSchedulePaymentSubmitKeep = () => {
     setLoading(true);
-    setshowCircularProgress(true);
+    setShowCircularProgress(true);
     let RemoveScheduledPayment = false;
     makeuserPayment(accntNo, card, paymentDatepicker, isDebit, paymentAmount, RemoveScheduledPayment);
   };
 
   const handlePaymentClose = () => {
-    setPaymentOpen(false);
+    setOpenPayment(false);
   };
 
   //AUTO PAY AUTHORIZATION pop up open and close
@@ -474,13 +474,13 @@ export default function MakePayment(props) {
     const reg = /^\d{0,5}(\.\d{0,2})?$/;
     if (!price || reg.test(price)) {
       price = Number(price).toFixed(2);
-      setpaymentAmount(price);
+      setPaymentAmount(price);
       setRequiredAmount("");
       if (User?.data?.activeLoans?.length && User.data.activeLoans[ 0 ].loanPaymentInformation?.accountDetails?.CurrentPayOffAmount <= parseFloat(price)) {
         if (!toast.isActive("payoffNotSetFutureDate")) {
           toast.success(globalMessages.PayoffCannotBeInFuture, { toastId: "payoffNotSetFutureDate" });
         }
-        setpaymentDatepicker(Moment().format("MM/DD/YYYY"));
+        setPaymentDatepicker(Moment().format("MM/DD/YYYY"));
         setPayoff(true);
         setCalendarDisabled(true);
       } else {
@@ -496,7 +496,7 @@ export default function MakePayment(props) {
   const onBlurPayment = (event) => {
     let price = event.target.value.replace("$", "");
     price = Number(price).toFixed(2);
-    setpaymentAmount(price);
+    setPaymentAmount(price);
     setRequiredAmount("");
   };
   let paymentIsScheduled = hasSchedulePayment ? "yes" : "no";
@@ -813,12 +813,12 @@ export default function MakePayment(props) {
                               shouldDisableDate={ disableHolidays }
                               minyear={ 4 }
                               onChange={ (paymentDatepickerOnChange) => {
-                                setpaymentDatepicker(
+                                setPaymentDatepicker(
                                   Moment(paymentDatepickerOnChange).format(
                                     "YYYY/MM/DD"
                                   )
                                 );
-                                setrequiredDate("");
+                                setRequiredDate("");
                               } }
                               value={ paymentDatepicker }
                             />
