@@ -21,7 +21,7 @@ export default function ChangePassword(basicInformationData) {
   const [ loading, setLoading ] = useState(false);
   const [ , setprofileTabNumber ] = useGlobalState();
 
-  let basicInfo = basicInformationData?.basicInformationData?.latest_contact != null ? basicInformationData.basicInformationData.latest_contact : null;
+  let basicInfo = basicInformationData?.basicInformationData?.latest_contact;
   const passwordvalidationSchema = yup.object().shape({
     oldPassword: yup
       .string(globalMessages.PasswordEnter)
