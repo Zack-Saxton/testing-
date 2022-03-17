@@ -59,7 +59,7 @@ function BranchLocatorMap(props) {
         options={ { fillColor: "#9aa8b3" } }
       />
       <Marker position={ Current } zIndex={ 8 }></Marker>
-      { props.getMap.map(({ id, BranchName, BranchAddress, BranchManager, Phone, Distance, position }) => (
+      { props.googleMap.map(({ id, BranchName, BranchAddress, BranchManager, Phone, Distance, position }) => (
         <Marker
           key={ id }
           icon={ icon }
@@ -88,7 +88,7 @@ function BranchLocatorMap(props) {
 BranchLocatorMap.propTypes = {
   CurrentLocation: PropTypes.object,
   Zoom: PropTypes.number,
-  getMap: PropTypes.array,
+  googleMap: PropTypes.array,
 };
 
 export default BranchLocatorMap;

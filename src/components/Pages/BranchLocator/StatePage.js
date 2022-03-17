@@ -37,15 +37,15 @@ export default function StatePage() {
   const location = useLocation();
   const name = location.state.value;
   const getDirectionsClass = useStylesConsumer();
-  const mapSection = useRef();
+  const refMapSection = useRef();
   const refSearch1 = useRef();
   const refSearch2 = useRef();
 
-  const [ getDirectionModal, setDirectionModal ] = useState(() => false);
-  const [ getBranchList, setBranchList ] = useState();
-  const [ getBranchAddress, setBranchAddress ] = useState(() => null);
-  const [ getMap, setMap ] = useState([]);
-  const [ getCurrentLocation, setCurrentLocation ] = useState();
+  const [ directionModal, setDirectionModal ] = useState(() => false);
+  const [ branchList, setBranchList ] = useState();
+  const [ branchAddress, setBranchAddress ] = useState(() => null);
+  const [ googleMap, setGoogleMap ] = useState([]);
+  const [ currentLocation, setCurrentLocation ] = useState();
   const [ loading, setLoading ] = useState(() => false);
   const [ zoomDepth, setZoomDepth ] = useState();
   const [ address1, setAddress1 ] = useState(() => "");
@@ -77,13 +77,13 @@ export default function StatePage() {
         return result?.data?.branchData;
       }
     } catch (error) {
-      ErrorLogger(" Error from getBranchList ", error);
+      ErrorLogger(" Error from branchList ", error);
     }
   };
   const listForMapView = async (List) => {
     try {
       if (List) {
-        setMap(await mapInformationBranchLocator(List));
+        setGoogleMap(await mapInformationBranchLocator(List));
       }
     } catch (error) {
       ErrorLogger(" Error from listForMapView", error);
@@ -112,7 +112,7 @@ export default function StatePage() {
     if (address1.trim()) {
       apiGetBranchList(address1);
       clearSearchText();
-      mapSection.current.scrollIntoView({ behavior: "smooth" });
+      refMapSection.current.scrollIntoView({ behavior: "smooth" });
     } else if (address2.trim()) {
       apiGetBranchList(address2);
       clearSearchText();
@@ -294,7 +294,7 @@ export default function StatePage() {
         <Grid className="mapAndListWrap">
           <Grid
             className="mapWrap"
-            ref={ mapSection }
+            ref={ refMapSection }
             container
           >
             <h3 className="mapTopHeading">Branches Near You</h3>
@@ -309,8 +309,8 @@ export default function StatePage() {
             >
               <Map
                 id="mapBox"
-                getMap={ getMap }
-                CurrentLocation={ getCurrentLocation }
+                googleMap={ googleMap }
+                CurrentLocation={ currentLocation }
                 Zoom={ zoomDepth }
               />
             </Grid>
@@ -365,16 +365,16 @@ export default function StatePage() {
               xs={ 12 }
             >
               <ButtonPrimary
-                href={ getBranchAddress }
+                href={ branchAddress }
                 id="Continue"
                 onClick={ () => {
                   if (refSearch2.current.value) {
                     openGetDirectionModal();
                     setBranchAddress(`https://www.google.com/maps/search/${refSearch2.current.value}`);
                     setAddress2("");
-                  } else if (getBranchList && getBranchList[ 0 ]?.Address) {
+                  } else if (branchList && branchList[ 0 ]?.Address) {
                     openGetDirectionModal();
-                    setBranchAddress(`https://www.google.com/maps/search/${ getBranchList[ 0 ]?.Address }`);
+                    setBranchAddress(`https://www.google.com/maps/search/${ branchList[ 0 ]?.Address }`);
                   }
                   else {
                     toast.error(`Please enter address in search.`);
@@ -464,8 +464,8 @@ export default function StatePage() {
               } }
             >
               <Grid container className="addressList">
-                { getBranchList ? (
-                  getBranchList.map((item, index) => {
+                { branchList ? (
+                  branchList.map((item, index) => {
                     if (Number(item?.distance.replace(' mi', '')) <= branchDistance) {
                       return (
                         <Grid key={ index } className="locationInfo" item lg={ 4 } md={ 4 } sm={ 6 } xs={ 12 }>
@@ -522,8 +522,8 @@ export default function StatePage() {
                   <p> No Branch found.</p>
                 ) }
                 <Dialog
-                  id="getDirectionModal"
-                  open={ getDirectionModal }
+                  id="directionModal"
+                  open={ directionModal }
                   aria-labelledby="alert-dialog-title"
                   aria-describedby="alert-dialog-description"
                   classes={ { paper: getDirectionsClass.consumerDialog } }
@@ -563,7 +563,7 @@ export default function StatePage() {
                       Stay on Marinerfinance.com
                     </ButtonSecondary>
                     <ButtonPrimary
-                      href={ getBranchAddress }
+                      href={ branchAddress }
                       onClick={ closeGetDirectionModal }
                       id="Continue"
                       stylebutton='{"float": "" }'

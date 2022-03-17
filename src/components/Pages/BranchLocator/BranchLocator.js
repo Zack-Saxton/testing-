@@ -35,16 +35,16 @@ export default function BranchLocator() {
   const classes = useStylesMyBranch();
   const getDirectionsClass = useStylesConsumer();
   const params = useParams();
-  const mapSection = useRef();
+  const refMapSection = useRef();
   const refSearch1 = useRef();
   const refSearch2 = useRef();
   const navigate = useNavigate();
   
-  const [ getDirectionModal, setDirectionModal ] = useState(() => false);
-  const [ getBranchList, setBranchList ] = useState();
-  const [ getBranchAddress, setBranchAddress ] = useState(() => null);
-  const [ getMap, setMap ] = useState([]);
-  const [ getCurrentLocation, setCurrentLocation ] = useState();
+  const [ directionModal, setDirectionModal ] = useState(() => false);
+  const [ branchList, setBranchList ] = useState();
+  const [ branchAddress, setBranchAddress ] = useState(() => null);
+  const [ googleMap, setGoogleMap ] = useState([]);
+  const [ currentLocation, setCurrentLocation ] = useState();
   const [ loading, setLoading ] = useState(() => false);
   const [ zoomDepth, setZoomDepth ] = useState(() => 10);
   const [ address1, setAddress1 ] = useState(() => "");
@@ -78,7 +78,7 @@ export default function BranchLocator() {
   const listForMapView = async (List) => {
     try {
       if (List) {
-        setMap(await mapInformationBranchLocator(List));
+        setGoogleMap(await mapInformationBranchLocator(List));
       }
     } catch (error) {
       ErrorLogger(' Error from listForMapView', error);
@@ -108,7 +108,7 @@ export default function BranchLocator() {
       setShowMapListSearch2DirectionButton(true);
       apiGetBranchList(refSearch1.current.value);
       clearSearchText();
-      mapSection.current.scrollIntoView({ behavior: 'smooth' });
+      refMapSection.current.scrollIntoView({ behavior: 'smooth' });
     } else if (refSearch2.current.value) {
       apiGetBranchList(refSearch2.current.value);
       clearSearchText();
@@ -144,8 +144,8 @@ export default function BranchLocator() {
   };
   const showDialogforDrivingDirection = (
     <Dialog
-      id="getDirectionModal"
-      open={ getDirectionModal }
+      id="directionModal"
+      open={ directionModal }
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
       classes={ { paper: getDirectionsClass.consumerDialog } }
@@ -185,7 +185,7 @@ export default function BranchLocator() {
           Stay on Marinerfinance.com
         </ButtonSecondary>
         <ButtonPrimary
-          href={ getBranchAddress }
+          href={ branchAddress }
           onClick={ closeGetDirectionModal }
           id="Continue"
           stylebutton='{"float": "" }'
@@ -200,7 +200,7 @@ export default function BranchLocator() {
   const stateLinksandStaticText = (
     <Grid
       id="mainContent"
-      ref={ mapSection }
+      ref={ refMapSection }
       container
       item xs={ 12 } md={ 10 }
     >
@@ -284,16 +284,16 @@ export default function BranchLocator() {
     <Grid id="getDirectionWrap" className={ classes.gridMargin } container>
       <Grid className={ classes.gridPadding } item xs={ 12 } s={ 12 } md={ 6 }>
         <ButtonPrimary
-          href={ getBranchAddress }
+          href={ branchAddress }
           id="Continue"
           onClick={ () => {
             if (refSearch2.current.value) {
               openGetDirectionModal();
               setBranchAddress(`https://www.google.com/maps/search/${refSearch2.current.value }`);
               setAddress2("");
-            } else if (getBranchList && getBranchList.length && getBranchList[ 0 ]?.Address) {
+            } else if (branchList && branchList.length && branchList[ 0 ]?.Address) {
               openGetDirectionModal();
-              setBranchAddress(`https://www.google.com/maps/search/${ getBranchList[ 0 ]?.Address }`);
+              setBranchAddress(`https://www.google.com/maps/search/${ branchList[ 0 ]?.Address }`);
             }
             else {
               toast.error(`Please enter address in search.`);
@@ -366,8 +366,8 @@ export default function BranchLocator() {
           <Grid
             className="branchLocatorAddressList"
           >
-            { getBranchList ? (
-              getBranchList.map((item, index) => {
+            { branchList ? (
+              branchList.map((item, index) => {
                 if (Number(item?.distance.replace(' mi', '')) <= 60) {
                   return (
                     <Grid key={ index } className="locationInfo">
@@ -532,8 +532,8 @@ export default function BranchLocator() {
     <Grid id="mapGridWrap" item xs={ 12 } sm={ 12 } md={ 6 } xl={ 6 }>
       <Map
         id="mapBox"
-        getMap={ getMap }
-        CurrentLocation={ getCurrentLocation }
+        googleMap={ googleMap }
+        CurrentLocation={ currentLocation }
         Zoom={ zoomDepth }
       />
     </Grid>
@@ -545,7 +545,7 @@ export default function BranchLocator() {
       id="mapAndBranchList"
     >
       <Grid container>
-        <h3 ref={ mapSection } className="mapTopHeading">Branches Near You</h3>
+        <h3 ref={ refMapSection } className="mapTopHeading">Branches Near You</h3>
       </Grid>
       { displayMap }
       { displayBranchListinDropDown }
@@ -584,5 +584,5 @@ export default function BranchLocator() {
 BranchLocator.propTypes = {
   CurrentLocation: PropTypes.object,
   Zoom: PropTypes.object,
-  getMap: PropTypes.object,
+  googleMap: PropTypes.object,
 };

@@ -39,11 +39,11 @@ export default function StatePage(props) {
   const { Branch_Details, stateLongNm, stateShortNm } = location.state;
   const getDirectionsClass = useStylesConsumer();
 
-  const [ getDirectionModal, setDirectionModal ] = useState(() => false);
-  const [ getBranchList, setBranchList ] = useState();
-  const [ getBranchAddress, setBranchAddress ] = useState();
-  const [ getMap, setMap ] = useState([]);
-  const [ getCurrentLocation, setCurrentLocation ] = useState();
+  const [ directionModal, setDirectionModal ] = useState(() => false);
+  const [ branchList, setBranchList ] = useState();
+  const [ branchAddress, setBranchAddress ] = useState();
+  const [ googleMap, setGoogleMap ] = useState([]);
+  const [ currentLocation, setCurrentLocation ] = useState();
   const [ zoomDepth, setZoomDepth ] = useState();
   const [ branchHours, setBranchHours ] = useState();
   const [ showDialog, setShowDialog ] = useState(() => false);
@@ -65,13 +65,13 @@ export default function StatePage(props) {
         return result?.data?.branchData;
       }
     } catch (error) {
-      ErrorLogger(" Error from getBranchList ", error);
+      ErrorLogger(" Error from branchList ", error);
     }
   };
   const listForMapView = async (List) => {
     try {
       if (List) {
-        setMap(await mapInformationBranchLocator(List));
+        setGoogleMap(await mapInformationBranchLocator(List));
       }
     } catch (error) {
       ErrorLogger(" Error from listForMapView", error);
@@ -273,8 +273,8 @@ export default function StatePage(props) {
       style={ { margin: "auto", justifyContent: "space-between" } }
     >
       <Grid container className="branchListWrap">
-        { getBranchList ? (
-          getBranchList.map((item, index) => {
+        { branchList ? (
+          branchList.map((item, index) => {
             return (
               <Grid key={ index } className="locationInfo">
                 <NavLink
@@ -353,8 +353,8 @@ export default function StatePage(props) {
 
   const DrivingDirectionPopup = (
     <Dialog
-      id="getDirectionModal"
-      open={ getDirectionModal }
+      id="directionModal"
+      open={ directionModal }
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
       classes={ { paper: getDirectionsClass.consumerDialog } }
@@ -390,7 +390,7 @@ export default function StatePage(props) {
           Stay on Marinerfinance.com
         </ButtonSecondary>
         <ButtonPrimary
-          href={ getBranchAddress }
+          href={ branchAddress }
           onClick={ closeGetDirectionModal }
           id="Continue"
           stylebutton='{"float": "" }'
@@ -405,8 +405,8 @@ export default function StatePage(props) {
   const DisplayBranchMap = (
     <Grid className="branchMap">
       <Map
-        getMap={ getMap }
-        CurrentLocation={ getCurrentLocation }
+        googleMap={ googleMap }
+        CurrentLocation={ currentLocation }
         Zoom={ zoomDepth }
       />
     </Grid>
