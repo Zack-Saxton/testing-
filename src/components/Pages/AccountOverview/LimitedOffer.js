@@ -23,13 +23,13 @@ import "./Style.css";
 export default function LimitedOffer(userOfferData) {
 
   // Get offers details
-  const [ userOfferAmount, setuserOfferAmount ] = useState(null);
-  const [ initModal, setinitModal ] = useState(false);
+  const [ userOfferAmount, setUserOfferAmount ] = useState(null);
+  const [ initModal, setInitModal ] = useState(false);
   const [ offerCode, setOfferCode ] = useState(" ");
   const [ campaignType, setCampaignType ] = useState("");
   const [ amount, setAmount ] = useState("");
   const [ expiryDate, setExpiryDate ] = useState(" ");
-  const [ firstName, setfirstName ] = useState("");
+  const [ firstName, setFirstName ] = useState("");
   // Get Branch API data
   const { data: branchApiStatus } = useQuery('my-branch', MyBranchAPI);
   let myBranchData = branchApiStatus?.data;
@@ -43,19 +43,19 @@ export default function LimitedOffer(userOfferData) {
       setOfferCode(userOfferData?.userOffers?.OfferCode);
       setExpiryDate(userOfferData?.userOffers?.dateExpiration);
       setAmount(userOfferData?.userOffers?.offerAmount);
-      setfirstName(userOfferData?.userOffers?.firstName);
+      setFirstName(userOfferData?.userOffers?.firstName);
       setCampaignType(userOfferData?.userOffers?.CampaignTypeDesc);
-      setuserOfferAmount(userOfferData?.userOffers?.offerAmount);
+      setUserOfferAmount(userOfferData?.userOffers?.offerAmount);
     }
     return null;
   }, [ userOfferData ]);
 
   const showModal = () => {
-    setinitModal(true);
+    setInitModal(true);
   };
 
   const closeModal = () => {
-    setinitModal(false);
+    setInitModal(false);
   };
 
   const handleContinue = () => {
