@@ -36,6 +36,8 @@ export default function BranchLocator() {
   const getDirectionsClass = useStylesConsumer();
   const params = useParams();
   const mapSection = useRef();
+  const refSearch1 = useRef();
+  const refSearch2 = useRef();
   const navigate = useNavigate();
   
   const [ getDirectionModal, setDirectionModal ] = useState(() => false);
@@ -44,7 +46,7 @@ export default function BranchLocator() {
   const [ getMap, setMap ] = useState([]);
   const [ getCurrentLocation, setCurrentLocation ] = useState();
   const [ loading, setLoading ] = useState(() => false);
-  const [ zoomDepth, setZoomDepth ] = useState(10);
+  const [ zoomDepth, setZoomDepth ] = useState(() => 10);
   const [ address1, setAddress1 ] = useState(() => "");
   const [ address2, setAddress2 ] = useState(() => "");
   const [ showMapListSearch2DirectionButton, setShowMapListSearch2DirectionButton ] = useState(() => false);
@@ -101,13 +103,14 @@ export default function BranchLocator() {
     setAddress2("");
   };
   const getActivePlaces = () => {
-    if (document.getElementById('search1').value) {
+    if (refSearch1.current.value) {
+      console.log(' 11::', refSearch1.current.value)
       setShowMapListSearch2DirectionButton(true);
-      apiGetBranchList(document?.getElementById('search1').value);
+      apiGetBranchList(refSearch1.current.value);
       clearSearchText();
       mapSection.current.scrollIntoView({ behavior: 'smooth' });
-    } else if (document?.getElementById('search2').value) {
-      apiGetBranchList(document?.getElementById('search2').value);
+    } else if (refSearch2.current.value) {
+      apiGetBranchList(refSearch2.current.value);
       clearSearchText();
     }
   };
@@ -284,9 +287,9 @@ export default function BranchLocator() {
           href={ getBranchAddress }
           id="Continue"
           onClick={ () => {
-            if (document.getElementById('search2').value) {
+            if (refSearch2.current.value) {
               openGetDirectionModal();
-              setBranchAddress(`https://www.google.com/maps/search/${ document.getElementById('search2').value }`);
+              setBranchAddress(`https://www.google.com/maps/search/${refSearch2.current.value }`);
               setAddress2("");
             } else if (getBranchList && getBranchList.length && getBranchList[ 0 ]?.Address) {
               openGetDirectionModal();
@@ -319,7 +322,7 @@ export default function BranchLocator() {
           >
             { ({ getInputProps, suggestions, getSuggestionItemProps, loading2 }) => (
               <div className="searchInputWrap">
-                <input id="search2" className="branchSearchTwo" { ...getInputProps({ placeholder: 'Enter city & state or zip code' }) } />
+                <input id="search2" ref={refSearch2} className="branchSearchTwo" { ...getInputProps({ placeholder: 'Enter city & state or zip code' }) } />
                 <div className="serachResult">
                   { loading2 && <div>Loading...</div> }
                   { suggestions.map(suggestion => {
@@ -440,7 +443,7 @@ export default function BranchLocator() {
         >
           { ({ getInputProps, suggestions, getSuggestionItemProps, loading2 }) => (
             <div className="searchInputWrap">
-              <input id="search1" className="stateSearch" { ...getInputProps({ placeholder: 'Enter city & state or zip code' }) } />
+              <input id="search1" ref={refSearch1} className="stateSearch" { ...getInputProps({ placeholder: 'Enter city & state or zip code' }) } />
               <div className="serachResult">
                 { loading2 && <div>Loading...</div> }
                 { React.Children.toArray(suggestions.map(suggestion => {

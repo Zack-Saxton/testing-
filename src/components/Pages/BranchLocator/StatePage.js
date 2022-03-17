@@ -38,7 +38,9 @@ export default function StatePage() {
   const name = location.state.value;
   const getDirectionsClass = useStylesConsumer();
   const mapSection = useRef();
-  
+  const refSearch1 = useRef();
+  const refSearch2 = useRef();
+
   const [ getDirectionModal, setDirectionModal ] = useState(() => false);
   const [ getBranchList, setBranchList ] = useState();
   const [ getBranchAddress, setBranchAddress ] = useState(() => null);
@@ -231,6 +233,7 @@ export default function StatePage() {
                       <div className="searchInputWrap">
                         <input
                           id="search1"
+                          ref={refSearch1}
                           className="stateSearch"
                           { ...getInputProps({
                             placeholder: "Enter city & state or zip code",
@@ -365,12 +368,9 @@ export default function StatePage() {
                 href={ getBranchAddress }
                 id="Continue"
                 onClick={ () => {
-                  if (document.getElementById("search2").value) {
+                  if (refSearch2.current.value) {
                     openGetDirectionModal();
-                    setBranchAddress(
-                      `https://www.google.com/maps/search/${ document.getElementById("search2").value
-                      }`
-                    );
+                    setBranchAddress(`https://www.google.com/maps/search/${refSearch2.current.value}`);
                     setAddress2("");
                   } else if (getBranchList && getBranchList[ 0 ]?.Address) {
                     openGetDirectionModal();
@@ -410,6 +410,7 @@ export default function StatePage() {
                     <div className="searchInputWrap">
                       <input
                         id="search2"
+                        ref={refSearch2}
                         className="branchSearchTwo"
                         { ...getInputProps({
                           placeholder: "Enter city & state or zip code",
