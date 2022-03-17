@@ -458,7 +458,7 @@ export default function MakePayment(props) {
     setOpenAutoPay(false);
   };
   const numberFormat = (value) =>
-    new Intl.NumberFormat("en-IN", {style: "currency", currency: "USD" }).format(value);
+    new Intl.NumberFormat("en-IN", { style: "currency", currency: "USD" }).format(value);
   //US holidays
   function disableHolidays(date) {
     const holidayApiData = holidayCalenderData?.data?.MFYearHolidays?.map(({ Date }) => formatDate(Date)) ?? [];
@@ -473,7 +473,7 @@ export default function MakePayment(props) {
     let price = event.target.value.replace("$", "");
     const reg = /^\d{0,5}(\.\d{0,2})?$/;
     if (!price || reg.test(price)) {
-      price = Math.trunc(Number(price)*100)/100;
+      price = Number(price).toFixed(2);
       setpaymentAmount(price);
       setRequiredAmount("");
       if (User?.data?.activeLoans?.length && User.data.activeLoans[ 0 ].loanPaymentInformation?.accountDetails?.CurrentPayOffAmount <= parseFloat(price)) {
@@ -495,15 +495,9 @@ export default function MakePayment(props) {
   //payment onblur
   const onBlurPayment = (event) => {
     let price = event.target.value.replace("$", "");
-    let s = price.split(".");
-    let afterDecimal = s[ 1 ];
-    if (!afterDecimal) {
-      price = event.target.value.replace(".", "");
-      price = price.replace("$", "");
-      price = Math.abs(price).toFixed(2);
-      setpaymentAmount(price);
-      setRequiredAmount("");
-    }
+    price = Number(price).toFixed(2);
+    setpaymentAmount(price);
+    setRequiredAmount("");
   };
   let paymentIsScheduled = hasSchedulePayment ? "yes" : "no";
   let chosenDate = new Date(paymentDatepicker);
@@ -627,260 +621,260 @@ export default function MakePayment(props) {
             </TableContainer>
           </Grid>
         ) }
-        {latestLoanData?.length ? (
-            !paymentData?.data?.error ? (
-              !checkPaymentInformation ? (
-                <>
-                  <Grid
-                    id="payFromWrap"
-                    item
-                    xs={ 12 }
-                    sm={ 5 }
-                    style={ {
-                      width: "100%",
-                      paddingTop: "10px",
-                      paddingRight: "15px",
-                    } }
+        { latestLoanData?.length ? (
+          !paymentData?.data?.error ? (
+            !checkPaymentInformation ? (
+              <>
+                <Grid
+                  id="payFromWrap"
+                  item
+                  xs={ 12 }
+                  sm={ 5 }
+                  style={ {
+                    width: "100%",
+                    paddingTop: "10px",
+                    paddingRight: "15px",
+                  } }
+                >
+                  <Paper
+                    style={ { borderRadius: "2px" } }
+                    className={ classes.paper }
                   >
-                    <Paper
-                      style={ { borderRadius: "2px" } }
-                      className={ classes.paper }
-                    >
-                      <Typography className={ classes.cardHeading }>
-                        Pay From
-                      </Typography>
-                      { paymentOptions ? (
-                        <Select
-                          id="select"
-                          name="select"
-                          labelform="Accounts"
-                          select={ paymentOptions }
-                          onChange={ handleChangeSelect }
-                          value={ card }
-                        />
-                      ) : (
-                        <div
-                          style={ { display: "flex", justifyContent: "center" } }
-                        >
-                          <CircularProgress size={ 30 } />
-                        </div>
-                      ) }
-                      <p
-                        className={
-                          requiredSelect !== ""
-                            ? "showError add Pad"
-                            : "hideError"
-                        }
-                        data-testid="subtitle"
+                    <Typography className={ classes.cardHeading }>
+                      Pay From
+                    </Typography>
+                    { paymentOptions ? (
+                      <Select
+                        id="select"
+                        name="select"
+                        labelform="Accounts"
+                        select={ paymentOptions }
+                        onChange={ handleChangeSelect }
+                        value={ card }
+                      />
+                    ) : (
+                      <div
+                        style={ { display: "flex", justifyContent: "center" } }
                       >
-                        { " " }
-                        { requiredSelect }.
-                      </p>
+                        <CircularProgress size={ 30 } />
+                      </div>
+                    ) }
+                    <p
+                      className={
+                        requiredSelect !== ""
+                          ? "showError add Pad"
+                          : "hideError"
+                      }
+                      data-testid="subtitle"
+                    >
+                      { " " }
+                      { requiredSelect }.
+                    </p>
 
-                      <Grid item xs={ 12 } style={ { paddingTop: "20px" } }>
-                        <ButtonSecondary
-                          stylebutton='{"background": "", "color":"" }'
-                          onClick={ handleMenuPaymentProfile }
-                        >
-                          Add a payment method
-                        </ButtonSecondary>
-                      </Grid>
-                    </Paper>
-                  </Grid>
+                    <Grid item xs={ 12 } style={ { paddingTop: "20px" } }>
+                      <ButtonSecondary
+                        stylebutton='{"background": "", "color":"" }'
+                        onClick={ handleMenuPaymentProfile }
+                      >
+                        Add a payment method
+                      </ButtonSecondary>
+                    </Grid>
+                  </Paper>
+                </Grid>
 
-                  <Grid
-                    item
-                    xs={ 12 }
-                    sm={ 7 }
-                    style={ { width: "100%", paddingTop: "10px" } }
-                  >
-                    <Paper className={ classes.paper }>
-                      { paymentOptions !== null &&
-                        !showCircularProgress ? (
-                        <div>
-                          <Grid item xs={ 12 }>
-                            <Typography
-                              style={ { paddingBottom: "10px" } }
-                              className={ classes.cardHeading }
+                <Grid
+                  item
+                  xs={ 12 }
+                  sm={ 7 }
+                  style={ { width: "100%", paddingTop: "10px" } }
+                >
+                  <Paper className={ classes.paper }>
+                    { paymentOptions !== null &&
+                      !showCircularProgress ? (
+                      <div>
+                        <Grid item xs={ 12 }>
+                          <Typography
+                            style={ { paddingBottom: "10px" } }
+                            className={ classes.cardHeading }
+                          >
+                            Payment Mode
+                          </Typography>
+                          <p style={ { margin: "auto" } }>
+                            <small
+                              style={ {
+                                fontSize: "0.938rem",
+                                color: "#595959",
+                              } }
                             >
-                              Payment Mode
-                            </Typography>
-                            <p style={ { margin: "auto" } }>
-                              <small
-                                style={ {
-                                  fontSize: "0.938rem",
-                                  color: "#595959",
-                                } }
-                              >
-                                { " " }
-                                { disabledContent
-                                  ? "Auto Pay - On"
-                                  : "Auto Pay - Off" }
-                              </small>
-                            </p>
-                            <p style={ { margin: "auto" } }>
-                              <small style={ { color: "#575757" } }>
-                                Choose auto pay to make payments of ${ totalPaymentAmount } on your next due date
-                              </small>
-                            </p>
-                            <FormControlLabel
-                              id="autoPaySpan"
-                              control={
-                                <Switch
-                                  checked={ disabledContent }
-                                  onChange={ handleSwitchPayment }
-                                  value={ disabledContent }
-                                  inputProps={ { "data-test-id": "switch" } }
-                                  color="primary"
-                                />
-                              }
-                              labelPlacement="end"
-                              label={
-                                disabledContent
-                                  ? "Auto pay is On"
-                                  : "Auto pay is Off"
-                              }
-                            />
-                            <p style={ { fontSize: "0.938rem" } }>
-                              By enabling Auto Pay mode, I acknowledge to have
-                              read, understood, and agree to the terms of the
-                              &nbsp;
-                              <Link
-                                to="#"
-                                onClick={ handleAutoPayClickOpen }
-                                className={ classes.autoPayLink }
-                              >
-                                Auto Pay Authorization
-                              </Link>
-                            </p>
-                            <Grid
-                              item
-                              xs={ 12 }
-                              style={ { paddingBottom: "20px" } }
+                              { " " }
+                              { disabledContent
+                                ? "Auto Pay - On"
+                                : "Auto Pay - Off" }
+                            </small>
+                          </p>
+                          <p style={ { margin: "auto" } }>
+                            <small style={ { color: "#575757" } }>
+                              Choose auto pay to make payments of ${ totalPaymentAmount } on your next due date
+                            </small>
+                          </p>
+                          <FormControlLabel
+                            id="autoPaySpan"
+                            control={
+                              <Switch
+                                checked={ disabledContent }
+                                onChange={ handleSwitchPayment }
+                                value={ disabledContent }
+                                inputProps={ { "data-test-id": "switch" } }
+                                color="primary"
+                              />
+                            }
+                            labelPlacement="end"
+                            label={
+                              disabledContent
+                                ? "Auto pay is On"
+                                : "Auto pay is Off"
+                            }
+                          />
+                          <p style={ { fontSize: "0.938rem" } }>
+                            By enabling Auto Pay mode, I acknowledge to have
+                            read, understood, and agree to the terms of the
+                            &nbsp;
+                            <Link
+                              to="#"
+                              onClick={ handleAutoPayClickOpen }
+                              className={ classes.autoPayLink }
                             >
-                              <ButtonPrimary
-                                stylebutton='{"background": "", "color":"" }'
-                                id="submitBtn"
-                                onClick={ handleClickSubmit }
-                                disabled={ autopaySubmit }
-                              >
-                                Submit
-                              </ButtonPrimary>
-                            </Grid>
+                              Auto Pay Authorization
+                            </Link>
+                          </p>
+                          <Grid
+                            item
+                            xs={ 12 }
+                            style={ { paddingBottom: "20px" } }
+                          >
+                            <ButtonPrimary
+                              stylebutton='{"background": "", "color":"" }'
+                              id="submitBtn"
+                              onClick={ handleClickSubmit }
+                              disabled={ autopaySubmit }
+                            >
+                              Submit
+                            </ButtonPrimary>
                           </Grid>
-                          <Grid item xs={ 12 }>
-                            <Typography
-                              style={ { paddingBottom: "10px" } }
-                              className={ classes.cardHeading }
-                            >
-                              { paymentTitle }
-                            </Typography>
-                            <TextField
-                              id="payment"
-                              name="payment"
-                              label="Payment Amount"
-                              type="text"
+                        </Grid>
+                        <Grid item xs={ 12 }>
+                          <Typography
+                            style={ { paddingBottom: "10px" } }
+                            className={ classes.cardHeading }
+                          >
+                            { paymentTitle }
+                          </Typography>
+                          <TextField
+                            id="payment"
+                            name="payment"
+                            label="Payment Amount"
+                            type="text"
+                            autoComplete="off"
+                            onChange={ onHandlepaymentAmount }
+                            value={ "$" + paymentAmount }
+                            onBlur={ onBlurPayment }
+                          />
+                          <p
+                            className={
+                              requiredAmount !== ""
+                                ? "showError add Pad"
+                                : "hideError"
+                            }
+                            data-testid="subtitle"
+                          >
+                            { " " }
+                            { requiredAmount }
+                          </p>
+                          <Grid
+                            item
+                            xs={ 12 }
+                            container
+                            direction="row"
+                            style={ {
+                              display: "inline-flex",
+                              paddingTop: "10px",
+                            } }
+                          >
+                            <DatePicker
+                              name="date"
+                              label="Payment Date"
+                              placeholder="MM/DD/YYYY"
+                              id="date"
+                              disablePast
+                              disabled={ calendarDisabled }
                               autoComplete="off"
-                              onChange={ onHandlepaymentAmount }
-                              value={ "$" + paymentAmount }
-                              onBlur={ onBlurPayment }
+                              maxdate={ paymentMaxDate }
+                              onKeyDown={ (event) => event.preventDefault() }
+                              shouldDisableDate={ disableHolidays }
+                              minyear={ 4 }
+                              onChange={ (paymentDatepickerOnChange) => {
+                                setpaymentDatepicker(
+                                  Moment(paymentDatepickerOnChange).format(
+                                    "YYYY/MM/DD"
+                                  )
+                                );
+                                setrequiredDate("");
+                              } }
+                              value={ paymentDatepicker }
                             />
                             <p
                               className={
-                                requiredAmount !== ""
+                                requiredDate !== ""
                                   ? "showError add Pad"
                                   : "hideError"
                               }
                               data-testid="subtitle"
                             >
                               { " " }
-                              { requiredAmount }
+                              { requiredDate }
                             </p>
-                            <Grid
-                              item
-                              xs={ 12 }
-                              container
-                              direction="row"
-                              style={ {
-                                display: "inline-flex",
-                                paddingTop: "10px",
-                              } }
-                            >
-                              <DatePicker
-                                name="date"
-                                label="Payment Date"
-                                placeholder="MM/DD/YYYY"
-                                id="date"
-                                disablePast
-                                disabled={ calendarDisabled }
-                                autoComplete="off"
-                                maxdate={ paymentMaxDate }
-                                onKeyDown={ (event) => event.preventDefault() }
-                                shouldDisableDate={ disableHolidays }
-                                minyear={ 4 }
-                                onChange={ (paymentDatepickerOnChange) => {
-                                  setpaymentDatepicker(
-                                    Moment(paymentDatepickerOnChange).format(
-                                      "YYYY/MM/DD"
-                                    )
-                                  );
-                                  setrequiredDate("");
-                                } }
-                                value={ paymentDatepicker }
-                              />
-                              <p
-                                className={
-                                  requiredDate !== ""
-                                    ? "showError add Pad"
-                                    : "hideError"
-                                }
-                                data-testid="subtitle"
+                          </Grid>
+                          <Grid
+                            id="paymentBtnWrap"
+                            style={ { paddingTop: "25px" } }
+                          >
+                            <Grid id="make-payment-cancel-button-grid">
+                              <ButtonSecondary
+                                stylebutton="{}"
+                                styleicon='{ "color":"" }'
+                                id="cancelPaymentBtn"
+                                onClick={ handlePaymentcancel }
+                                disabled={ !hasSchedulePayment }
                               >
-                                { " " }
-                                { requiredDate }
-                              </p>
+                                Cancel Future Payment
+                              </ButtonSecondary>
                             </Grid>
-                            <Grid
-                              id="paymentBtnWrap"
-                              style={ { paddingTop: "25px" } }
-                            >
-                              <Grid id="make-payment-cancel-button-grid">
-                                <ButtonSecondary
-                                  stylebutton="{}"
-                                  styleicon='{ "color":"" }'
-                                  id="cancelPaymentBtn"
-                                  onClick={ handlePaymentcancel }
-                                  disabled={ !hasSchedulePayment }
-                                >
-                                  Cancel Future Payment
-                                </ButtonSecondary>
-                              </Grid>
-                              <Grid>
-                                <ButtonPrimary
-                                  stylebutton='{"marginRight": "" }'
-                                  id="make-payment-schedule-button"
-                                  onClick={ handleSchedulePaymentClick }
-                                >
-                                  Schedule Payment
-                                </ButtonPrimary>
-                              </Grid>
+                            <Grid>
+                              <ButtonPrimary
+                                stylebutton='{"marginRight": "" }'
+                                id="make-payment-schedule-button"
+                                onClick={ handleSchedulePaymentClick }
+                              >
+                                Schedule Payment
+                              </ButtonPrimary>
                             </Grid>
                           </Grid>
-                        </div>
-                      ) : (
-                        <div
-                          style={ { display: "flex", justifyContent: "center" } }
-                        >
-                          <CircularProgress />
-                        </div>
-                      ) }
-                    </Paper>
-                  </Grid>
-                </>
-                 ) : ("")
-                 ) : ("")
-               ) : ("")
-              }
+                        </Grid>
+                      </div>
+                    ) : (
+                      <div
+                        style={ { display: "flex", justifyContent: "center" } }
+                      >
+                        <CircularProgress />
+                      </div>
+                    ) }
+                  </Paper>
+                </Grid>
+              </>
+            ) : ("")
+          ) : ("")
+        ) : ("")
+        }
         <Grid item xs={ 12 }>
           <p className={ classes.endMessage }>
             { " " }
