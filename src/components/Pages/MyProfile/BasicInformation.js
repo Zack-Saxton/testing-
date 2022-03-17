@@ -239,7 +239,7 @@ export default function BasicInformation(props) {
         }
       };
 
-      if (formik.initialValues.phone === phone && formik.initialValues.email === values.email && selectedFile === null) {
+      if (formik.initialValues.phone === phone && formik.initialValues.email === values.email && !selectedFile) {
         if (!toast.isActive("closeToast")) {
           toast.error(globalMessages.NoChange, {
             toastId: "closeToast",
@@ -292,7 +292,7 @@ export default function BasicInformation(props) {
         opacity: loading ? 0.55 : 1,
         pointerEvents: loading ? "none" : "initial"
       } }>
-        { props?.basicInformationData === null ? (
+        { !props?.basicInformationData ? (
           <Grid align="center"><CircularProgress /></Grid>
         ) : <>
           <Grid

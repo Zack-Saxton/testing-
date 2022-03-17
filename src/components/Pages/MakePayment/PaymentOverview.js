@@ -50,7 +50,7 @@ export default function PaymentOverview(paymentData, status) {
                 </TableRow>
             </TableHead>
             <TableBody>
-                { (status === null)
+                { (!status)
                     ?
                     <TableRow>
                         <TableCell

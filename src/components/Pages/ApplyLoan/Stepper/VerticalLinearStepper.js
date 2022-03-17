@@ -92,7 +92,7 @@ export default function VerticalLinearStepper() {
 	};
 
 	const handleReset = () => {
-		if (activeStep === 0) {
+		if (!activeStep) {
 			setActiveStep(0);
 		}
 		if (activeStep === 1) {
@@ -137,7 +137,7 @@ export default function VerticalLinearStepper() {
 									</ButtonSecondary>
 
 									<ButtonSecondary
-										disabled={ activeStep === 0 }
+										disabled={ !activeStep }
 										onClick={ handleBack }
 										id="button_stepper_prev"
 										stylebutton='{"margin-right": "10px", "color":"" }'

@@ -93,11 +93,11 @@ export default function LoanDocument() {
     }
   };
   const uploadDoc = () => {
-    if (selectedFile === null) {
+    if (!selectedFile) {
       if (!toast.isActive("closeToast")) {
         toast.error(globalMessages.Please_Select_File_Upload, { toastId: "closeToast" });
       }
-    } else if (docType === null || docType === "") {
+    } else if (!docType) {
       if (!toast.isActive("closeToast")) {
         toast.error(globalMessages.Please_Select_A_Document_Type, { toastId: "closeToast" });
       }
@@ -162,7 +162,7 @@ export default function LoanDocument() {
 
         <Grid item xs={ 12 } style={ { paddingTop: "10px", paddingBottom: "30%" } }>
           <Paper className={ classes.paper }>
-            { loanDocumentData === null ? (
+            { !loanDocumentData ? (
               <TableContainer>
                 <Table aria-label="simple table">
                   <TableHead>

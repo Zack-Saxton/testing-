@@ -55,14 +55,14 @@ function TablePaginationActions(props) {
     <div className={classes.root}>
       <IconButton
         onClick={handleFirstPageButtonClick}
-        disabled={page === 0}
+        disabled={!page}
         aria-label="first page"
       >
         {theme.direction === "rtl" ? <LastPageIcon /> : <FirstPageIcon />}
       </IconButton>
       <IconButton
         onClick={handleBackButtonClick}
-        disabled={page === 0}
+        disabled={!page}
         aria-label="previous page"
       >
         {theme.direction === "rtl" ? (

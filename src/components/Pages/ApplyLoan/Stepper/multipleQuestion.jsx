@@ -74,10 +74,7 @@ export default function MultipleQuestion(props) {
 			props.setLoadingFlag(false);
 		}
 		function myFunction(value, index, array) {
-			if (
-				!questionArray[ value.questionId ] ||
-				questionArray[ value.questionId ] === ""
-			) {
+			if (!questionArray[ value.questionId ]) {
 				allset = false;
 			}
 		}
