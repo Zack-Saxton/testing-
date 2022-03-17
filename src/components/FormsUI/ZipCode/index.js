@@ -21,7 +21,7 @@ const ZipCodeWrapper = ({ name, error, helperText, value, onChange, ...otherProp
     const reg = /^[0-9\b]+$/;
     let zipcode = event.target.value;
 
-    if (zipcode === "" || reg.test(zipcode)) {
+    if (!zipcode || reg.test(zipcode)) {
       setZipCode(zipcode);
     }
     const isValid = /(^\d{5}$)/.test(zipcode);

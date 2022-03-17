@@ -272,7 +272,7 @@ function PersonalInfo() {
 	const onNameChange = (event) => {
 		const pattern = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
 		let name = event.target.value;
-		if (name === "" || pattern.test(name)) {
+		if (!name || pattern.test(name)) {
 			formik.handleChange(event);
 		}
 	};
@@ -292,11 +292,11 @@ function PersonalInfo() {
 	function autoFocus() {
 		let firstname = document.getElementById("firstName").value;
 		let lastname = document.getElementById("lastName").value;
-		if (firstname === "") {
+		if (!firstname) {
 			document.getElementById("firstName").focus();
 		}
-		if (lastname === "") {
-			if (firstname === "") {
+		if (!lastname) {
+			if (!firstname) {
 				document.getElementById("firstName").focus();
 			} else {
 				document.getElementById("lastName").focus();

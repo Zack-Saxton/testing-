@@ -266,7 +266,7 @@ export default function Register() {
   const NameChange = (event) => {
     const pattern = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
     let name = event.target.value;
-    if (name === "" || pattern.test(name)) {
+    if (!name || pattern.test(name)) {
       formik.handleChange(event);
     }
   };
@@ -291,11 +291,11 @@ export default function Register() {
   function autoFocus() {
     let firstname = document.getElementById("firstname").value;
     let lastname = document.getElementById("lastname").value;
-    if (firstname === "") {
+    if (!firstname) {
       document.getElementById("firstname").focus();
     }
-    if (lastname === "") {
-      if (firstname === "") {
+    if (!lastname) {
+      if (!firstname) {
         document.getElementById("firstname").focus();
       } else {
         document.getElementById("lastname").focus();

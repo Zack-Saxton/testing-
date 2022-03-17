@@ -391,7 +391,7 @@ function EmploymentStatus() {
 											<ButtonPrimary
 												data-testid="cntButton"
 												type="submit"
-												disabled={ employmentStatus === "" }
+												disabled={ !employmentStatus }
 												stylebutton='{"background": "#FFBC23", "color": "black","fontSize":"0.938rem","padding": "0px 30px"}'
 											>
 												Continue
