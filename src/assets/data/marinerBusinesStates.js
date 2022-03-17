@@ -1,4 +1,4 @@
-const MFStates = [
+const businesStates = [
     'Alabama',
     'Arizona',
     'California',
@@ -52,7 +52,7 @@ const tzMatch = {
     "Pacific Standard Time": "PST",
     "Pacific Daylight Time": "PDT",
 };
-const MFWorkingSaturdayDateRange = {
+const marinerWorkingSaturdayDateRange = {
     "start": "11/23/2022 00:00:00",
     "end": "12/28/2022 00:00:00"
 };
@@ -64,10 +64,10 @@ const howManyBranchesforBranchLocatorPages = {
 };
 
 export {
-    MFStates,
+    businesStates,
     branch_hours,
     ca_branch_hours, 
     tzMatch,
-    MFWorkingSaturdayDateRange, 
+    marinerWorkingSaturdayDateRange, 
     howManyBranchesforBranchLocatorPages 
 }

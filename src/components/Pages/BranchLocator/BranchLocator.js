@@ -17,7 +17,7 @@ import { Helmet } from "react-helmet";
 import PlacesAutocomplete from "react-places-autocomplete";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { howManyBranchesforBranchLocatorPages, MFStates } from "../../../assets/data/marinerBusinesStates";
+import { howManyBranchesforBranchLocatorPages, businesStates } from "../../../assets/data/marinerBusinesStates";
 import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile_Image.png";
 import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.jpg";
 import TitleImage from "../../../assets/images/Favicon.png";
@@ -234,7 +234,7 @@ export default function BranchLocator() {
           loading ? classes.loadingOnWithoutBlur : classes.loadingOff
         }
       >
-        { MFStates.map((item, index) => {
+        { businesStates.map((item, index) => {
           return (
             <Grid
               key={ index }
