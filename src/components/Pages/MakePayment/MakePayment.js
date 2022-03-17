@@ -55,22 +55,22 @@ export default function MakePayment(props) {
   const navigate = useNavigate();
   const query = new URLSearchParams(useLocation().search);
   const accNo = query.get("accNo");
-  const [ , setprofileTabNumber ] = useGlobalState();
-  const [ paymentMethods, setpaymentMethod ] = useState(null);
-  const [ latestLoanData, setlatestLoanData ] = useState(null);
-  const [ paymentAmount, setpaymentAmount ] = useState(null);
+  const [ , setProfileTabNumber ] = useGlobalState();
+  const [ paymentMethods, setPaymentMethod ] = useState(null);
+  const [ latestLoanData, setLatestLoanData ] = useState(null);
+  const [ paymentAmount, setPaymentAmount ] = useState(null);
   const [ open, setOpen ] = useState(false);
-  const [ openPayment, setPaymentOpen ] = useState(false);
-  const [ openDeleteSchedule, setopenDeleteSchedule ] = useState(false);
-  const [ openAutoPay, setAutoPayOpen ] = useState(false);
-  const [ card, setcard ] = useState("");
-  const [ disabledContent, setdisabledContent ] = useState(false);
-  const [ isDebit, setisDebit ] = useState(false);
-  const [ accntNo, setaccntNo ] = useState(null);
-  const [ paymentDate, setpaymentDate ] = useState(null);
-  const [ paymentDatepicker, setpaymentDatepicker ] = useState(new Date());
-  const [ requiredSelect, setrequiredSelect ] = useState("");
-  const [ requiredDate, setrequiredDate ] = useState("");
+  const [ openPayment, setOpenPayment ] = useState(false);
+  const [ openDeleteSchedule, setOpenDeleteSchedule ] = useState(false);
+  const [ openAutoPay, setOpenAutoPay ] = useState(false);
+  const [ card, setCard ] = useState("");
+  const [ disabledContent, setDisabledContent ] = useState(false);
+  const [ isDebit, setIsDebit ] = useState(false);
+  const [ accntNo, setAccntNo ] = useState(null);
+  const [ paymentDate, setPaymentDate ] = useState(null);
+  const [ paymentDatepicker, setPaymentDatepicker ] = useState(new Date());
+  const [ requiredSelect, setRequiredSelect ] = useState("");
+  const [ requiredDate, setRequiredDate ] = useState("");
   const [ requiredAmount, setRequiredAmount ] = useState("");
   const [ showCircularProgress, setshowCircularProgress ] = useState(false);
   const [ loading, setLoading ] = useState(false);
@@ -152,7 +152,7 @@ export default function MakePayment(props) {
     return checkNickName;
   }
 
-  let totalPaymentAmountWithFees = parseFloat(totalPaymentAmount) + parseFloat(2.50);
+  let paymentAmountWithFees = parseFloat(paymentAmount) + parseFloat(2.50);
   //Enable auto payment
   async function enableAutoPayment(enableAutoPayAccountNo, enableAutoPayCard, enableAutoPayDate, enableAutoPayIsDebit) {
     let result = await enableAutoPay(enableAutoPayAccountNo, enableAutoPayCard, enableAutoPayDate, enableAutoPayIsDebit);
@@ -193,7 +193,6 @@ export default function MakePayment(props) {
         : toast.error(globalMessages.Failed_Payment_mode, { autoClose: 5000 })
       : toast.error(result?.data?.message ? result?.data?.message : "Failed Payment mode", { autoClose: 5000, });
 
-    // result.status === 900 ? disableAutoPaymentScheduled(accntNo, card, paymentDate, isDebit) : refetch();
   }
   //Disable scheduled payment
   async function deletePayment(disableScheduledPaymentAccountNo, disableScheduledPaymentRefNo, disableScheduledPaymentIsCard) {
@@ -208,7 +207,7 @@ export default function MakePayment(props) {
   // Disable auto payment while make payment
   const handleMenuPaymentProfile = () => {
     navigate("/customers/myProfile");
-    setprofileTabNumber({ profileTabNumber: 3 });
+    setProfileTabNumber({ profileTabNumber: 3 });
   };
 
   // Disable Sheduled payment while make recuiring payment
@@ -452,11 +451,11 @@ export default function MakePayment(props) {
 
   //AUTO PAY AUTHORIZATION pop up open and close
   const handleAutoPayClickOpen = () => {
-    setAutoPayOpen(true);
+    setOpenAutoPay(true);
   };
 
   const handleAutoPayClose = () => {
-    setAutoPayOpen(false);
+    setOpenAutoPay(false);
   };
   const numberFormat = (value) =>
     new Intl.NumberFormat("en-IN", {style: "currency", currency: "USD" }).format(value);
@@ -936,7 +935,7 @@ export default function MakePayment(props) {
                       <TableCell align="left">
                         { !disabledContent
                           ? ""
-                          : numberFormat(paymentAmount) }
+                          : numberFormat(totalPaymentAmount) }
                       </TableCell>
                       <TableCell
                         className={ classes.tableheadrow }
@@ -1086,7 +1085,7 @@ export default function MakePayment(props) {
                     <TableCell align="left">
                       Total Amount:
                     </TableCell>
-                    <TableCell align="left">{ numberFormat(totalPaymentAmountWithFees) }</TableCell>
+                    <TableCell align="left">{ numberFormat(paymentAmountWithFees) }</TableCell>
                     <TableCell
                       className={ classes.tableheadrow }
                       align="left"
