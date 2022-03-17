@@ -19,10 +19,10 @@ export default function MyBranch() {
   const classes = useStylesMyBranch();
 
   //API call
-  const { data: branchApiStatus } = useQuery('my-branch', MyBranchAPI);
+  const { data: branchAPIStatus } = useQuery('my-branch', MyBranchAPI);
 
   //Branch details from API
-  let myBranchData = branchApiStatus?.data;
+  let myBranchData = branchAPIStatus?.data;
 
   //View part
   return (
