@@ -473,22 +473,22 @@ export default function MakePayment(props) {
     let price = event.target.value.replace("$", "");
     const reg = /^\d{0,5}(\.\d{0,2})?$/;
     if (!price || reg.test(price)) {
-      price = Number(price).toFixed(2);
-      // setPaymentAmount(price);
-      // setRequiredAmount("");
-      // if (User?.data?.activeLoans?.length && User.data.activeLoans[ 0 ].loanPaymentInformation?.accountDetails?.CurrentPayOffAmount <= parseFloat(price)) {
-      //   if (!toast.isActive("payoffNotSetFutureDate")) {
-      //     toast.success(globalMessages.PayoffCannotBeInFuture, { toastId: "payoffNotSetFutureDate" });
-      //   }
-      //   setPaymentDatepicker(Moment().format("MM/DD/YYYY"));
-      //   setPayoff(true);
-      //   setCalendarDisabled(true);
-      // } else {
-      //   setPayoff(false);
-      //   if (!isDebit) {
-      //     setCalendarDisabled(false);
-      //   }
-      // }
+      console.log('Price Info OnChange:: ', price);
+      setPaymentAmount(price);
+      setRequiredAmount("");
+      if (User?.data?.activeLoans?.length && User.data.activeLoans[ 0 ].loanPaymentInformation?.accountDetails?.CurrentPayOffAmount <= parseFloat(price)) {
+        if (!toast.isActive("payoffNotSetFutureDate")) {
+          toast.success(globalMessages.PayoffCannotBeInFuture, { toastId: "payoffNotSetFutureDate" });
+        }
+        setPaymentDatepicker(Moment().format("MM/DD/YYYY"));
+        setPayoff(true);
+        setCalendarDisabled(true);
+      } else {
+        setPayoff(false);
+        if (!isDebit) {
+          setCalendarDisabled(false);
+        }
+      }
     }
   };
 
@@ -496,6 +496,7 @@ export default function MakePayment(props) {
   const onBlurPayment = (event) => {
     let price = event.target.value.replace("$", "");
     price = Number(price).toFixed(2);
+    console.log('Price Info OnBlur:: ', price);
     setPaymentAmount(price);
     setRequiredAmount("");
   };
