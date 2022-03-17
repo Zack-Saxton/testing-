@@ -50,16 +50,16 @@ export default function BranchDetail(MyBranchDetail) {
   }, []);
 
   //Holiday Calender from API
-  let holidayCalenderData = Object.assign({}, holidayCalenderApi?.data.MFYearHolidays.map(({ Date }) => formatDate(Date)));
+  let holidayCalenderData = Object.assign({}, holidayCalenderApi?.data?.MFYearHolidays.map(({ Date }) => formatDate(Date)));
 
   //Branch details from API
   let branchDetail = MyBranchDetail;
 
   //Spliting statename
   let stateName = branchDetail?.MyBranchDetail
-    ? branchDetail.MyBranchDetail?.result
+    ? branchDetail?.MyBranchDetail?.result
       ? null
-      : branchDetail.MyBranchDetail?.message
+      : branchDetail?.MyBranchDetail?.message
         ? null
         : branchDetail?.MyBranchDetail
           ? branchDetail?.MyBranchDetail?.Address?.split(",")
@@ -71,14 +71,14 @@ export default function BranchDetail(MyBranchDetail) {
   //Formating Phone Number
   function formatPhoneNumber(phoneNumber) {
     if (phoneNumber) {
-      const cleanNum = phoneNumber.toString().replace(/\D/g, "");
-      const match = cleanNum.match(/^(\d{3})(\d{0,3})(\d{0,4})$/);
+      const cleanNumber = phoneNumber.toString().replace(/\D/g, "");
+      const match = cleanNumber.match(/^(\d{3})(\d{0,3})(\d{0,4})$/);
       if (match) {
         return (
           "(" + match[ 1 ] + ") " + (match[ 2 ] ? match[ 2 ] + "-" : "") + match[ 3 ]
         );
       }
-      return cleanNum;
+      return cleanNumber;
     } else {
       return false;
     }

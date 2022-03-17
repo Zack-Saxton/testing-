@@ -56,22 +56,20 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
   let commonHoliday = [0, 6]; //Sunday and Saturday
   //US holidays
   function disableHolidays(appointmentDate) {
-    const holidayApiData = holidayData?.holidays ?? [];
-    const holidayApiDataValues = holidayApiData?.map((arrVal) => {
+    const holidayAPIData = holidayData?.holidays ?? [];
+    const holidayAPIDataValues = holidayAPIData?.map((arrVal) => {
       return new Date(arrVal + "T00:00").getTime();
     });
     return (
       commonHoliday.includes(appointmentDate.getDay()) ||
-      holidayApiDataValues.includes(appointmentDate.getTime())
+      holidayAPIDataValues.includes(appointmentDate.getTime())
     );
   }
 
   //Validating current date is holiday
   const today = new Date();
-  const checkTodayDate = Moment(today).format(dateFormat);
-  const checkToday = holidayData?.holidays?.find(
-    (holidays) => holidays === checkTodayDate
-  );
+  const todayDate = (Moment(today).format(dateFormat));
+  const checkToday = holidayData?.holidays?.find((holidays) => holidays === todayDate);
 
   //Spliting statename
   let stateName = branchDetail?.MyBranchCall?.MyBranchDetail
@@ -137,14 +135,13 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
     month: "2-digit",
     day: "2-digit",
   };
-  const getTimeSlotOption = (timeList, convertString) => {
-    let inputOptions = convertString ? JSON.stringify(timeList) : timeList;
+  const getTimeSlotOption = (timeList) => {
     return (
       <Select
         id="timeSlotSelect"
         name="callTime"
         labelform="Time Slot"
-        select={inputOptions}
+        select={ JSON.stringify(timeList) }
         onChange={formik.handleChange}
         value={formik.values.callTime}
         onBlur={formik.handleBlur}
@@ -162,7 +159,8 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
   };
   let selectedAppointmentDate = Moment(formik.values.appointmentDate).format(dateFormat);
   let selectedAppointmentDay = Moment(formik.values.appointmentDate).format("dddd");
-
+  let isTodayAppointment = (selectedAppointmentDate === todayDate);
+  let isNotHolidayAppointment = (selectedAppointmentDate !== checkToday);
   //View part
   return (
     <div>
@@ -232,53 +230,46 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
             {stateName === "CA" ? (
               selectedAppointmentDay === "Tuesday" ? (
                 <Grid>
-                  {selectedAppointmentDate === checkTodayDate
-                    ? upt_ca_Tue.length !== 0 &&
-                      selectedAppointmentDate !== checkToday
-                      ? getTimeSlotOption(upt_ca_Tue, true)
+                  { isTodayAppointment
+                    ? upt_ca_Tue.length !== 0 && isNotHolidayAppointment
+                      ? getTimeSlotOption(upt_ca_Tue)
                       : showBranchClosedMessage()
-                    : getTimeSlotOption(ca_Tue, false)}
+                    : getTimeSlotOption(ca_Tue)}
                 </Grid>
               ) : !appointmentDay.includes(selectedAppointmentDay) ? (
                   <Grid>
-                  {selectedAppointmentDate === checkTodayDate
-                    ? upt_ca_M_W_TH_F.length !== 0 &&
-                      Moment(formik.values.appointmentDate).format(
-                        "YYYY-MM-DD"
-                      ) !== checkToday
-                      ? getTimeSlotOption(upt_ca_M_W_TH_F, true)
+                  { isTodayAppointment
+                    ? upt_ca_M_W_TH_F.length !== 0 && isNotHolidayAppointment
+                      ? getTimeSlotOption(upt_ca_M_W_TH_F)
                       : showBranchClosedMessage()
-                    : getTimeSlotOption(ca_M_W_Th_F, false)}
+                    : getTimeSlotOption(ca_M_W_Th_F)}
                   </Grid>
               ) : (
                 showBranchClosedMessage()
               )
             ) : selectedAppointmentDay === "Tuesday" ? (
               <Grid>
-                {selectedAppointmentDate === checkTodayDate
-                  ? updated_other_Tue.length !== 0 &&
-                    selectedAppointmentDate !== checkToday
-                    ? getTimeSlotOption(updated_other_Tue, true)
+                { isTodayAppointment
+                  ? updated_other_Tue.length !== 0 && isNotHolidayAppointment
+                    ? getTimeSlotOption(updated_other_Tue)
                     : showBranchClosedMessage()
-                  : getTimeSlotOption(other_Tue, false)}
+                  : getTimeSlotOption(other_Tue)}
               </Grid>
             ) : selectedAppointmentDay === "Friday" ? (
               <Grid>
-                {selectedAppointmentDate === checkTodayDate
-                  ? upt_other_Fri.length !== 0 &&
-                    selectedAppointmentDate !== checkToday
-                    ? getTimeSlotOption(upt_other_Fri, true)
+                { isTodayAppointment
+                  ? upt_other_Fri.length !== 0 && isNotHolidayAppointment
+                    ? getTimeSlotOption(upt_other_Fri)
                     : showBranchClosedMessage()
-                  : getTimeSlotOption(Other_Fri, false)}
+                  : getTimeSlotOption(Other_Fri)}
               </Grid>
             ) : !appointmentDay.includes(selectedAppointmentDay) ? (
               <Grid>
-                {selectedAppointmentDate === checkTodayDate
-                  ? upt_other_M_W_Thu.length !== 0 &&
-                    selectedAppointmentDate !== checkToday
-                    ? getTimeSlotOption(upt_other_M_W_Thu, true)
+                { isTodayAppointment
+                  ? upt_other_M_W_Thu.length !== 0 && isNotHolidayAppointment
+                    ? getTimeSlotOption(upt_other_M_W_Thu)
                     : showBranchClosedMessage()
-                  : getTimeSlotOption(other_M_W_Thu, false)}
+                  : getTimeSlotOption(other_M_W_Thu)}
               </Grid>
             ) : (
               showBranchClosedMessage()
