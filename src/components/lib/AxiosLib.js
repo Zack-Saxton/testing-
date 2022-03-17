@@ -12,7 +12,7 @@ const APICall = async (api, param, data, method, addAccessToken) => {
     data: "",
   };
 
-  let url = !param ? apiUrl.url[ api ] : apiUrl.url[ api ] + param;
+  let url = apiUrl.url[ api ] + (param ? param : '');
   try {
     await axios({
       method: method,

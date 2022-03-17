@@ -97,7 +97,7 @@ export default function MoneySkill(props) {
             id="Continue"
             stylebutton='{"float": "" }'
             target="_blank"
-            disabled={ !status ? true : false }
+            disabled={ !status }
             onClick={ handleCloseMoneySkill }
           >
             Continue

@@ -434,7 +434,7 @@ export default function BankAccountVerification(props) {
 					<div>
 						<p
 							style={ {
-								display: error && !error ? "none" : "block",
+								display: !error ? "none" : "block",
 								fontWeight: "bold",
 							} }
 						>

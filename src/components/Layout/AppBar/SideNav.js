@@ -213,8 +213,6 @@ export default function SideNav() {
     //logic to if there is any active Loan Data is there or not
     if (!noOfLoans) {
       setActiveLoanData(true);
-    } else if (!noOfLoans) {
-      setActiveLoanData(true);
     } else {
       setActiveLoanData(false);
     }

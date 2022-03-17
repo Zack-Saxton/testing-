@@ -113,10 +113,10 @@ export default function PhoneVerification(props) {
 
 	const onPasscodeChange = (event) => {
 		const reg = /^\d*$/;
-		let acc = event.target.value;
+		let firstName = event.target.value;
 		setError("");
 
-		if (!acc || reg.test(acc)) {
+		if (!firstName || reg.test(firstName)) {
 			setPasscode(event.target.value);
 		}
 	};
