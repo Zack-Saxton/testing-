@@ -50,7 +50,7 @@ const dateFormat = "YYYY-MM-DD";
 export default function ScheduleCall({ MyBranchCall, holidayData }) {
   //Material UI css class
   const classes = useStylesMyBranch();
-  const formCallRef = useRef();
+  const refFormCall = useRef();
   //Branch details from API
   let branchDetail = MyBranchCall ?? null;
   let commonHoliday = [0, 6]; //Sunday and Saturday
@@ -123,7 +123,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
   };
 
   const handleScheduleCallClose = () => {
-    formCallRef.current.remove();
+    refFormCall.current.remove();
     formik.values.appointmentDate = null;
     formik.values.callTime = "";
     formik.touched.appointmentDate = null;
@@ -196,7 +196,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
             You have until <span> { scheduleDateCall.toLocaleDateString('en-us', dateFormatOption) } </span>to schedule Date & Time for your appointment
           </Typography>
         </DialogTitle>
-        <form id="formCall" ref={formCallRef} onSubmit={formik.handleSubmit}>
+        <form id="formCall" ref={refFormCall} onSubmit={formik.handleSubmit}>
           <DialogContent>
             <Grid style={{ paddingBottom: "10px" }}>
               <DatePicker
@@ -227,7 +227,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
               />
             </Grid>
 
-            {stateName === "CA" ? (
+            {stateName.toUpperCase() === "CA" ? (
               selectedAppointmentDay === "Tuesday" ? (
                 <Grid>
                   { isTodayAppointment
