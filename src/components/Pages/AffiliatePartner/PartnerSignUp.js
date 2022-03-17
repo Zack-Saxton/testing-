@@ -237,14 +237,9 @@ export default function CreditKarma() {
       <div className={ classes.mainContentBackground } id="mainContentBackground">
         <Box>
           <Grid
+            className={classes.partnerSignUpGrid}
             xs={ 10 }
             item
-            style={ {
-              paddingTop: "30px",
-              paddingBottom: "40px",
-              margin: "auto",
-              width: "100%",
-            } }
           >
             <Grid
               xs={ 11 }
@@ -252,9 +247,8 @@ export default function CreditKarma() {
               md={ 8 }
               lg={ 6 }
               xl={ 7 }
-              className="cardWrapper"
+              className="partnerSignUpCard"
               item
-              style={ { margin: "auto" } }
             >
               <Paper className={ classes.paper }
                 style={ {
@@ -268,9 +262,9 @@ export default function CreditKarma() {
                     color="textSecondary"
                   >
                     <a href="https://www.creditkarma.com/" target="blank">
-                      <img
+                      <img 
+                        className={classes.fullWidth}
                         src={ creditkarmalogo }
-                        style={ { width: "100%" } }
                         alt="creditkarmalogo"
                       />
                     </a>
@@ -283,8 +277,8 @@ export default function CreditKarma() {
                   >
                     <a href="/#" target="blank">
                       <img
+                        className={classes.fullWidth}
                         src={ OneLoanPlacelogo }
-                        style={ { width: "100%" } }
                         alt="OneLoanPlacelogo"
                       />
                     </a>
@@ -297,8 +291,8 @@ export default function CreditKarma() {
                   >
                     <a href="/#" target="blank">
                       <img
+                        className={classes.fullWidth}
                         src={ GTLlogo }
-                        style={ { width: "100%" } }
                         alt="GTLlogo"
                       />
                     </a>
@@ -311,8 +305,8 @@ export default function CreditKarma() {
                   >
                     <a href="/#" target="blank">
                       <img
+                        className={classes.fullWidth}
                         src={ amonelogo }
-                        style={ { width: "100%" } }
                         alt="amonelogo"
                       />
                     </a>
@@ -325,8 +319,8 @@ export default function CreditKarma() {
                   >
                     <a href="/#" target="blank">
                       <img
+                        className={classes.fullWidth}
                         src={ monevologo }
-                        style={ { width: "100%" } }
                         alt="monevologo"
                       />
                     </a>
@@ -339,8 +333,8 @@ export default function CreditKarma() {
                   >
                     <a href="/#" target="blank">
                       <img
+                        className={classes.fullWidth}
                         src={ NerdWalletlogo }
-                        style={ { width: "100%" } }
                         alt="NerdWalletlogo"
                       />
                     </a>
@@ -353,8 +347,8 @@ export default function CreditKarma() {
                   >
                     <a href="/#" target="blank">
                       <img
+                        className={classes.fullWidth}
                         src={ LendingTreelogo }
-                        style={ { width: "100%" } }
                         alt="LendingTreelogo"
                       />
                     </a>
@@ -362,7 +356,7 @@ export default function CreditKarma() {
                 ) : (
                   ""
                 ) }
-                <p style={ { textAlign: "center" } }>
+                <p className={classes.introText}>
                   Thank you for choosing Mariner Finance. Please provide the
                   following information to view your offers.
                 </p>
@@ -372,7 +366,7 @@ export default function CreditKarma() {
                     container
                     spacing={ 4 }
                   >
-                    <Grid item xs={ 12 } style={ { width: "100%" } }>
+                    <Grid className={classes.fullWidth} item xs={ 12 }>
                       <EmailTextField
                         id="email"
                         name="email"

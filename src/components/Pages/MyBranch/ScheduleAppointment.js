@@ -53,7 +53,7 @@ export default function ScheduleAppointment({
   const classes = useStylesMyBranch();
 
   //API call
-  let branchDetail = MyBranchAppointment != null ? MyBranchAppointment : null;
+  let branchDetail = MyBranchAppointment;
 
   //US holidays
   function disableHolidays(appointmentDate) {

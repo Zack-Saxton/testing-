@@ -32,7 +32,7 @@ export default function ActiveLoans(userActiveLoanData) {
         ).diff(today)
       ).asDays()
     ) : 11);
-    return ( numberOfDays <= 10);
+    return (numberOfDays <= 10);
   };
   //View
   return (
@@ -78,7 +78,7 @@ export default function ActiveLoans(userActiveLoanData) {
                   className={classes.subheading}
                   data-testid="subtitle"
                 >
-                  Active Loanss
+                  Active Loans
                 </Typography>
               </Grid>
               <Grid  container>

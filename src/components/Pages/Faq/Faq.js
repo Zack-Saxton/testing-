@@ -99,7 +99,7 @@ export default function Faq() {
               </>
             }
             className={ classes.tabLabel }
-            style={ { backgroundColor: "#eee" } }
+            
             { ...a11yProps(0) }
           />
           <Tab
@@ -115,7 +115,7 @@ export default function Faq() {
             }
             disabled={ false }
             className={ classes.tabLabel }
-            style={ { backgroundColor: "#eee" } }
+            
             { ...a11yProps(1) }
           />
 
@@ -131,7 +131,7 @@ export default function Faq() {
             }
             disabled={ false }
             className={ classes.tabLabel }
-            style={ { backgroundColor: "#eee" } }
+            
             { ...a11yProps(2) }
           />
           <Tab
@@ -148,7 +148,7 @@ export default function Faq() {
             }
             disabled={ false }
             className={ classes.tabLabel }
-            style={ { backgroundColor: "#eee" } }
+            
             { ...a11yProps(3) }
           />
           <Tab
@@ -164,7 +164,7 @@ export default function Faq() {
             }
             disabled={ false }
             className={ classes.tabLabel }
-            style={ { backgroundColor: "#eee" } }
+            
             { ...a11yProps(4) }
           />
         </Tabs>

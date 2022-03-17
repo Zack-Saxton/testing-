@@ -51,7 +51,7 @@ export default function MailingAddress(props) {
   const [ , setprofileTabNumber ] = useGlobalState();
   const { refetch } = useQuery('loan-data', usrAccountDetails);
 
-  let basicInfo = props?.basicInformationData?.latest_contact != null ? props.basicInformationData.latest_contact : null;
+  let basicInfo = props?.basicInformationData?.latest_contact;
   let hasActiveLoan = (/true/i).test(Cookies.get("hasActiveLoan"));
   let hasApplicationStatus = Cookies.get("hasApplicationStatus");
   let appStatus = [ "rejected", "referred", "expired" ];
