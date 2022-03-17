@@ -78,7 +78,7 @@ export default function ActiveLoans(userActiveLoanData) {
                   className={classes.subheading}
                   data-testid="subtitle"
                 >
-                  Active Loanss
+                  Active Loans
                 </Typography>
               </Grid>
               <Grid  container>
