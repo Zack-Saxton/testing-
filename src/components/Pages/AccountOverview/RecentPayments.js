@@ -22,7 +22,7 @@ export default function RecentPayments(paymentHistory) {
 	//Recentpayments data
 	let parData = [];
 	if (paymentHistory?.userRecentPaymentData?.length) {
-		paymentHistory?.userRecentPaymentData.slice(0, 1).forEach(function (arrayItem) {
+		paymentHistory.userRecentPaymentData.slice(0, 1).forEach(function (arrayItem) {
 			arrayItem?.AppAccountHistory?.slice(0, 3).forEach(function (row) {
 				parData.push(
 					{
