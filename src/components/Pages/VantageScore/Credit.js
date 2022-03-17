@@ -98,7 +98,7 @@ export default function Credit(creditData) {
           { status }
         </p>
         <p>{ compareLastmnth }</p>
-        { (loanstatus != "closed" && loanstatus != null) &&
+        { (loanstatus && loanstatus?.tolowerCase() !== "closed") &&
           <>
             <ButtonPrimary onClick={ navigateCheckMyOffers } stylebutton='{"background": ""}' >
               { " " }

@@ -628,8 +628,7 @@ export default function MakePayment(props) {
             </TableContainer>
           </Grid>
         ) }
-        { latestLoanData != null ? (
-          latestLoanData.length ? (
+        {latestLoanData.length ? (
             !paymentData?.data?.error ? (
               !checkPaymentInformation ? (
                 <>
@@ -651,7 +650,7 @@ export default function MakePayment(props) {
                       <Typography className={ classes.cardHeading }>
                         Pay From
                       </Typography>
-                      { paymentOptions != null ? (
+                      { paymentOption ? (
                         <Select
                           id="select"
                           name="select"
@@ -879,18 +878,10 @@ export default function MakePayment(props) {
                     </Paper>
                   </Grid>
                 </>
-              ) : (
-                ""
-              )
-            ) : (
-              ""
-            )
-          ) : (
-            ""
-          )
-        ) : (
-          ""
-        ) }
+              ) : ("")
+            ) : ("")
+          ) : ("")
+         }
         <Grid item xs={ 12 }>
           <p className={ classes.endMessage }>
             { " " }

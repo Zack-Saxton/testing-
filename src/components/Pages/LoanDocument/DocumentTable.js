@@ -16,7 +16,7 @@ export default function LoanDocumentTable(userLoanDocumentData) {
   //Material UI css class
   const classes = useStylesLoanDocument();
   //Loan Document data from API
-  let userLoanDocument = userLoanDocumentData != null ? userLoanDocumentData : null;
+  let userLoanDocument = userLoanDocumentData;
   //Download loan document
   const downloadDoc = (id, name) => {
     downloadDocument(id, name);

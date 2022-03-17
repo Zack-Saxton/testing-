@@ -47,7 +47,7 @@ export default function LoanDocument() {
   }, []);
 
   //Loan Document data from API
-  let loanDocumentData = loanDocumentStatus != null ? loanDocumentStatus?.data : null;
+  let loanDocumentData = loanDocumentStatus?.data;
 
   //Selecting file for upload
   const handleInputChange = () => {
