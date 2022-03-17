@@ -25,14 +25,14 @@ export default function ActiveLoans(userActiveLoanData) {
   let today = Moment(new Date());
   // If the customer's payment is due within 10 days of current date, highlight the 'Make a Payment' button on the Account Overview page
   let numberDaysForDueDate = (appData) => {
-    let numberOfDays = appData?.loanDetails?.NextPaymentDate
-      ? Math.ceil(
-          Moment.duration(
-            Moment(appData.loanDetails.NextPaymentDate).diff(today)
-          ).asDays()
-        )
-      : 11;
-    return numberOfDays <= 10;
+    let numberOfDays = (appData?.loanDetails?.NextPaymentDate ? Math.ceil(
+      Moment.duration(
+        Moment(
+          appData.loanDetails.NextPaymentDate
+        ).diff(today)
+      ).asDays()
+    ) : 11);
+    return (numberOfDays <= 10);
   };
   //View
   return (
@@ -81,20 +81,24 @@ export default function ActiveLoans(userActiveLoanData) {
                   Active Loans
                 </Typography>
               </Grid>
-              <Grid container>
+              <Grid  container>
                 {userActiveLoans.userActiveLoanData.map(
                   (appData, activeIndex) => (
-                    <Grid
-                      className={classes.activeLoancardwrap}
+                    <Grid className={classes.activeLoancardwrap}
                       container
                       key={activeIndex}
                     >
-                      <Grid id="activeLoanWrap" item xs={12} sm={9}>
-                        <Paper className={classes.paper} id="activeLoanGrid">
-                          <Grid
-                            container
-                            className={classes.activeLoanHeadingWrap}
-                          >
+                      <Grid
+                        id="activeLoanWrap"
+                        item
+                        xs={12}
+                        sm={9}
+                      >
+                        <Paper
+                          className={classes.paper}
+                          id="activeLoanGrid"
+                        >
+                          <Grid container className={classes.activeLoanHeadingWrap}>
                             <Grid item xs={12} sm={6}>
                               <Typography
                                 variant="h5"
@@ -251,7 +255,12 @@ export default function ActiveLoans(userActiveLoanData) {
                           </Grid>
                         </Paper>
                       </Grid>
-                      <Grid id="overviewContainer" item xs={12} sm={3}>
+                      <Grid
+                        id="overviewContainer"
+                        item
+                        xs={12}
+                        sm={3}
+                      >
                         <Paper id="overviewWrap" className={classes.paper}>
                           <Grid item xs={12}>
                             <Typography
@@ -266,7 +275,8 @@ export default function ActiveLoans(userActiveLoanData) {
                               >
                                 Account Number
                               </p>
-                              <p>
+                              <p
+                              >
                                 <b>{appData.loanDetails.AccountNumber}</b>
                               </p>
 
@@ -275,7 +285,7 @@ export default function ActiveLoans(userActiveLoanData) {
                               >
                                 Opened On
                               </p>
-                              <p>
+                              <p >
                                 <b>
                                   {Moment(
                                     appData.loanDetails.LoanOriginationDate

@@ -1,12 +1,12 @@
-import CircularProgress from "@material-ui/core/CircularProgress";
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
+import DialogContent from '@material-ui/core/DialogContent';
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import React, { useEffect, useState } from "react";
 import NumberFormat from "react-number-format";
-import { useQuery } from "react-query";
+import { useQuery } from 'react-query';
 import { NavLink, useNavigate } from "react-router-dom";
 import adBanner from "../../../assets/gallery/AdBanner.jpg";
 import MortgageBanner from "../../../assets/images/Latest_Mortgage_Banner.png";
@@ -21,21 +21,20 @@ import PreScreen from "./Marketing_offer/PreScreen";
 import "./Style.css";
 
 export default function LimitedOffer(userOfferData) {
+
   // Get offers details
-  const [userOfferAmount, setuserOfferAmount] = useState(null);
-  const [initModal, setinitModal] = useState(false);
-  const [offerCode, setOfferCode] = useState(" ");
-  const [campaignType, setCampaignType] = useState("");
-  const [amount, setAmount] = useState("");
-  const [expiryDate, setExpiryDate] = useState(" ");
-  const [firstName, setfirstName] = useState("");
-  // Get Branch API details
-  const { data: branchApiStatus } = useQuery("my-branch", MyBranchAPI);
+  const [ userOfferAmount, setuserOfferAmount ] = useState(null);
+  const [ initModal, setinitModal ] = useState(false);
+  const [ offerCode, setOfferCode ] = useState(" ");
+  const [ campaignType, setCampaignType ] = useState("");
+  const [ amount, setAmount ] = useState("");
+  const [ expiryDate, setExpiryDate ] = useState(" ");
+  const [ firstName, setfirstName ] = useState("");
+  // Get Branch API data
+  const { data: branchApiStatus } = useQuery('my-branch', MyBranchAPI);
   let myBranchData = branchApiStatus?.data;
   const branchCno = myBranchData?.PhoneNumber ?? "";
-  const branchName = myBranchData?.branchName
-    ? `${myBranchData?.branchName} Branch`
-    : "";
+  const branchName = myBranchData?.branchName ? (`${ myBranchData?.branchName } Branch`) : "";
   const branchManager = myBranchData?.branchmanager ?? "";
 
   const navigate = useNavigate();
@@ -49,7 +48,7 @@ export default function LimitedOffer(userOfferData) {
       setuserOfferAmount(userOfferData?.userOffers?.offerAmount);
     }
     return null;
-  }, [userOfferData]);
+  }, [ userOfferData ]);
 
   const showModal = () => {
     setinitModal(true);
@@ -71,26 +70,26 @@ export default function LimitedOffer(userOfferData) {
           <div className="yellowBackground">
             <img
               className="bannerImage"
-              src={adBanner}
+              src={ adBanner }
               data-testid="background"
               alt="ad_banner"
             />
             <div className="secondGrid">
-              {userOfferData.isLoading ? (
+              { userOfferData.isLoading ? (
                 <CircularProgress />
               ) : userOfferAmount ? (
                 <div id="offerText">
                   <p id="loanText">You may have money available now! Up to </p>
                   <p id="loanPercent">
                     <NumberFormat
-                      value={userOfferAmount}
-                      displayType={"text"}
-                      thousandSeparator={true}
-                      prefix={"$"}
+                      value={ userOfferAmount }
+                      displayType={ "text" }
+                      thousandSeparator={ true }
+                      prefix={ "$" }
                     />
                   </p>
                   <ButtonPrimary
-                    onClick={showModal}
+                    onClick={ showModal }
                     id="claimButton"
                     stylebutton='{"color":""}'
                   >
@@ -111,7 +110,7 @@ export default function LimitedOffer(userOfferData) {
                     </ButtonPrimary>
                   </NavLink>
                 </div>
-              )}
+              ) }
             </div>
           </div>
         </Grid>
@@ -123,7 +122,7 @@ export default function LimitedOffer(userOfferData) {
           >
             <img
               className="secondBannerImage"
-              src={MortgageBanner}
+              src={ MortgageBanner }
               data-testid="background"
               alt="mortgage_banner"
             />
@@ -131,12 +130,12 @@ export default function LimitedOffer(userOfferData) {
         </Grid>
       </Grid>
 
-      <Dialog maxWidth="lg" open={initModal}>
+      <Dialog maxWidth="lg" open={ initModal }>
         <DialogContent className="dialogContentWrap">
           <IconButton
             id="debitCardDialogClose"
             aria-label="close"
-            onClick={closeModal}
+            onClick={ closeModal }
           >
             <CloseIcon />
           </IconButton>
@@ -144,24 +143,24 @@ export default function LimitedOffer(userOfferData) {
             <h2>The money you need, when you need it!</h2>
             <h4>When life happens, we have your back*</h4>
           </Grid>
-          <Grid id="modal-modal-description" sx={{ mt: 2 }}>
+          <Grid id="modal-modal-description" sx={ { mt: 2 } }>
             <Grid>
-              <p className="common">Dear {firstName},</p>
+              <p className="common">Dear { firstName },</p>
               <MarketingOffer
-                promoType={campaignType}
-                offerCode={offerCode}
-                amount={amount}
-                branchPhone={branchCno}
-                branchName={branchName}
-                dateExpiration={expiryDate}
+                promoType={ campaignType }
+                offerCode={ offerCode }
+                amount={ amount }
+                branchPhone={ branchCno }
+                branchName={ branchName }
+                dateExpiration={ expiryDate }
               ></MarketingOffer>
               <p>
                 Sincerely,<br></br>
-                {branchManager}
+                { branchManager }
                 <br></br>
-                {branchName}
+                { branchName }
                 <br></br>
-                {branchCno}
+                { branchCno }
               </p>
             </Grid>
             <PreScreen offerData={userOfferData}></PreScreen>
@@ -170,7 +169,7 @@ export default function LimitedOffer(userOfferData) {
               <ButtonPrimary
                 id="ClaimButton"
                 stylebutton='{"color":"", "textTransform": "none"}'
-                onClick={handleContinue}
+                onClick={ handleContinue }
               >
                 Apply Now
               </ButtonPrimary>
@@ -178,11 +177,13 @@ export default function LimitedOffer(userOfferData) {
               <p> Please click continue to tell us more about yourself.</p>
             </Grid>
             <Grid className="offerInfo">
-              <h3>*SEE BELOW FOR IMPORTANT OFFER INFORMATION.</h3>
+              <h3>
+                *SEE BELOW FOR IMPORTANT OFFER INFORMATION.
+              </h3>
             </Grid>
             <AboutMariner></AboutMariner>
-            <OptOutNotice offerData={userOfferData}></OptOutNotice>
-            <Disclaimer offerData={userOfferData}></Disclaimer>
+            <OptOutNotice offerData={ userOfferData }></OptOutNotice>
+            <Disclaimer offerData={ userOfferData }></Disclaimer>
           </Grid>
         </DialogContent>
       </Dialog>
