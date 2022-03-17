@@ -53,6 +53,24 @@ const useStylesPartner = makeStyles((theme) => ({
     textAlign: "center",
     paddingTop: "20px!important",
   },
+  introText: {
+    textAlign:"center"
+  },
+  partnerSignUpGrid: {
+    paddingTop: "30px",
+    paddingBottom: "40px",
+    margin: "auto",
+    width:"100%"
+  },
+  fullWidth: {
+    width:"100%"
+  },
+  confirmationGrid:{
+    paddingTop: "30px",
+    paddingBottom: "40px",
+    margin: "auto",
+    width:"100%"
+  },
 
 }));
 

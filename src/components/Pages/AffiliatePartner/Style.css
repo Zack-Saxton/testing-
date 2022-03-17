@@ -25,9 +25,11 @@
     text-align: center;
 }
 
-.cardWrapper{
-    margin-top: 5%;
-    margin-bottom: 2%;
+.partnerSignUpCard,.confirmationCard{
+    margin: 0% auto 1% auto !important;
+}
+#spouseZipWrap,#spouseCityWrap{
+    padding-right: 10px;
 }
 
 @media (max-width:400px){
@@ -126,7 +128,9 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error{
 #citizenshipWrap div label{
     font-size: 0.968rem !important;
 }
-
+.creditkarmaLogoImage{
+    height: 13px;
+}
 #marriedStatusWrap div label{
     font-size: 0.968rem !important;
 }

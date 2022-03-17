@@ -508,14 +508,9 @@ export default function CreditKarma() {
       <div className={ classes.mainContentBackground } id="mainContentBackground">
         <Box>
           <Grid
+            className={classes.confirmationGrid}
             xs={ 12 }
             item
-            style={ {
-              paddingTop: "30px",
-              paddingBottom: "40px",
-              margin: "auto",
-              width: "100%",
-            } }
           >
             <Grid
               xs={ 11 }
@@ -523,9 +518,8 @@ export default function CreditKarma() {
               md={ 6 }
               lg={ 6 }
               xl={ 6 }
-              className="cardWrapper"
+              className="confirmationCard"
               item
-              style={ { margin: "auto" } }
             >
               <Paper
                 className={ classes.paper }
@@ -541,13 +535,13 @@ export default function CreditKarma() {
                 >
                   Welcome to Mariner Finance{ " " }
                 </Typography>
-                <p style={ { textAlign: "center" } }>
+                <p className={classes.introText}>
                   Please review and confirm the information that{ " " }
                   <a href="https://www.creditkarma.com/" target="blank">
                     { " " }
                     <img
+                      className="creditkarmaLogoImage"
                       src={ creditkarmalogo }
-                      style={ { height: "13px" } }
                       alt="creditkarmalogo"
                     />
                   </a>{ " " }
@@ -557,7 +551,7 @@ export default function CreditKarma() {
 
                 <form onSubmit={ formik.handleSubmit }>
                   <Grid container spacing={ 4 }>
-                    <Grid item xs={ 12 } sm={ 6 } style={ { width: "100%" } }>
+                    <Grid item xs={ 12 } sm={ 6 } className={classes.fullWidth} >
                       <TextField
                         id="firstname"
                         name="firstname"
@@ -574,7 +568,7 @@ export default function CreditKarma() {
                       />
                     </Grid>
 
-                    <Grid item xs={ 12 } sm={ 6 } style={ { width: "100%" } }>
+                    <Grid item xs={ 12 } sm={ 6 } className={classes.fullWidth}>
                       <TextField
                         id="lastname"
                         name="lastname"
@@ -659,7 +653,6 @@ export default function CreditKarma() {
                       <Grid
                         item
                         xs={ 12 }
-                        style={ { paddingTop: "10px" } }
                         id="citizenshipWrap"
                       >
                         <Select
@@ -867,7 +860,6 @@ export default function CreditKarma() {
                                 ? "showCheckbox"
                                 : "hideCheckbox"
                             }
-                            style={ { paddingRight: "10px" } }
                           >
                             <Zipcode
                               id="spouseZip"
@@ -885,7 +877,6 @@ export default function CreditKarma() {
                             xs={ 12 }
                             sm={ 4 }
                             id="spouseCityWrap"
-                            style={ { paddingRight: "10px" } }
                             className={
                               formik.values.martialStatus === "Married" ||
                                 formik.values.martialStatus ===
