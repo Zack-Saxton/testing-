@@ -70,7 +70,7 @@ export default function MyProfile() {
   const { data: profileImage } = useQuery('my-profile-picture', ProfileImageController);
 
   const { data: accountDetails } = useQuery('loan-data', usrAccountDetails);
-  if (Cookies.get("temp_opted_phone_texting") === undefined || Cookies.get("temp_opted_phone_texting") === "") {
+  if (!Cookies.get("temp_opted_phone_texting")) {
     Cookies.set("opted_phone_texting", accountDetails?.data?.customer?.latest_contact?.opted_phone_texting);
   } else {
     Cookies.set("opted_phone_texting", Cookies.get("temp_opted_phone_texting"));
@@ -87,7 +87,7 @@ export default function MyProfile() {
   const { data: textNotifyData } = useQuery('text-notification', getTextNotify);
   let textNotifyDetails = textNotifyData;
   let cookieTextNotify = Cookies.get("isTextNotify");
-  if (Cookies.get("isTextNotify" === undefined)) {
+  if (!Cookies.get("isTextNotify")) {
     let textNotifyStatus = textNotifyDetails?.data?.sbt_getInfo?.SubscriptionInfo[ 0 ]?.SubscriptionOptions[ 0 ]?.OptInAccount;
     Cookies.set('isTextNotify', textNotifyStatus);
     cookieTextNotify = textNotifyStatus;

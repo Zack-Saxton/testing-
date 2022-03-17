@@ -12,17 +12,17 @@ import TextBox from "../Textfield";
 
 const AccountNumberWrapper = ({ name, ...otherProps }) => {
   //Set Formik field
-  const [ accNum, setAccNum ] = useState("");
+  const [ accountNum, setAccountNum ] = useState("");
   const [ isError, setIsError ] = useState(false);
   const [ helperText, setHelperText ] = useState("");
 
   //Account Number field onChange handle
   const onHandleAccountChange = (event) => {
     const reg = /^[0-9\b]+$/;
-    let acc = event.target.value;
+    let account = event.target.value;
 
-    if (acc === "" || reg.test(acc)) {
-      setAccNum(event.target.value);
+    if (!account || reg.test(account)) {
+      setAccountNum(event.target.value);
     }
     const isValid = /(^\d{6,17}$)/.test(event.target.value);
     (!isValid && event.target.value) ? setIsError(true) : setIsError(false);
@@ -45,7 +45,7 @@ const AccountNumberWrapper = ({ name, ...otherProps }) => {
     <TextBox
       { ...configTextField }
       materialProps={ { maxLength: "17", minLength: "6", "data-test-id": "accountNum" } }
-      value={ accNum }
+      value={ accountNum }
       onChange={ onHandleAccountChange }
       required={ true }
     />

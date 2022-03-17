@@ -6,7 +6,7 @@ import StepLabel from "@material-ui/core/StepLabel";
 import Stepper from "@material-ui/core/Stepper";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { ButtonPrimary, ButtonSecondary } from "../../../FormsUI";
 import BankAccountVerification from "./BankAccountVerification";
@@ -78,7 +78,7 @@ function getStepContent(step) {
 //Component for vertical linear stepper
 export default function VerticalLinearStepper() {
 	const classes = useStyles();
-	const [ activeStep, setActiveStep ] = React.useState(0);
+	const [ activeStep, setActiveStep ] = useState(0);
 	const steps = getSteps();
 
 	//next, prev and reset functionality
@@ -92,7 +92,7 @@ export default function VerticalLinearStepper() {
 	};
 
 	const handleReset = () => {
-		if (activeStep === 0) {
+		if (!activeStep) {
 			setActiveStep(0);
 		}
 		if (activeStep === 1) {
@@ -137,7 +137,7 @@ export default function VerticalLinearStepper() {
 									</ButtonSecondary>
 
 									<ButtonSecondary
-										disabled={ activeStep === 0 }
+										disabled={ !activeStep }
 										onClick={ handleBack }
 										id="button_stepper_prev"
 										stylebutton='{"margin-right": "10px", "color":"" }'

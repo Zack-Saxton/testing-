@@ -26,7 +26,7 @@ import MonetizationOnRoundedIcon from "@material-ui/icons/MonetizationOnRounded"
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import SettingsIcon from "@material-ui/icons/Settings";
 import clsx from "clsx";
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../../../assets/images/MarinerLogo.png";
 import Notification from "../../Layout/Notification/Notification";
@@ -120,8 +120,8 @@ const useStyles = makeStyles((theme) => ({
 export default function SideNav() {
     const classes = useStyles();
     const theme = useTheme();
-    const [ open, setOpen ] = React.useState(false);
-    const [ anchorEl, setAnchorEl ] = React.useState(null);
+    const [ open, setOpen ] = useState(false);
+    const [ anchorEl, setAnchorEl ] = useState(null);
     const isMenuOpen = Boolean(anchorEl);
 
     const handleDrawerOpen = () => {

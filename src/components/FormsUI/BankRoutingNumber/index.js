@@ -12,17 +12,17 @@ import TextBox from "../Textfield";
 
 const BankRoutingNumberWrapper = ({ name, ...otherProps }) => {
   //Set Formik field
-  const [ BRNum, setBRNum ] = useState("");
+  const [ bankRoutingNumber, setBankRoutingNumber ] = useState("");
   const [ isError, setIsError ] = useState(false);
   const [ helperText, setHelperText ] = useState("");
 
   //Account Number field onChange handle
   const onHandleBRNChange = (event) => {
     const reg = /^[0-9\b]+$/;
-    let acc = event.target.value;
+    let account = event.target.value;
 
-    if (acc === "" || reg.test(acc)) {
-      setBRNum(event.target.value);
+    if (!account || reg.test(account)) {
+      setBankRoutingNumber(event.target.value);
     }
     const isValid = /(^\d{9}$)/.test(event.target.value);
     (!isValid && event.target.value) ? setIsError(true) : setIsError(false);
@@ -45,7 +45,7 @@ const BankRoutingNumberWrapper = ({ name, ...otherProps }) => {
     <TextBox
       { ...configTextfield }
       materialProps={ { maxLength: "9", "data-test-id": "BRN" } }
-      value={ BRNum }
+      value={ bankRoutingNumber }
       onChange={ onHandleBRNChange }
       required={ true }
     />

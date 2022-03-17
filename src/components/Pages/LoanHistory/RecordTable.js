@@ -36,7 +36,7 @@ export default function LoanHistoryTable(historyOfLoans) {
             </TableRow>
           </TableHead>
           <TableBody>
-            { historyOfLoans?.userLoanHistoryData === null ? (
+            { !historyOfLoans?.userLoanHistoryData ? (
               <TableRow>
                 <TableCell colSpan="7" align="center"><CircularProgress /></TableCell>
               </TableRow>

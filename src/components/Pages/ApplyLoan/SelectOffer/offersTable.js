@@ -369,7 +369,7 @@ export default function OfferTable(props) {
 									} }
 									disabled={
 										props.selectedTerm &&
-											(props.selectedIndex || props.selectedIndex === 0)
+											(props.selectedIndex || !(props.selectedIndex))
 											? props.loading
 											: true
 									}

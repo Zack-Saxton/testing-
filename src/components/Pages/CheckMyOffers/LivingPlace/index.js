@@ -348,7 +348,7 @@ function LivingPlace() {
 										<ButtonPrimary
 											onClick={ handleRoute }
 											data-testid="cntButton"
-											disabled={ livingPlace === "" }
+											disabled={ !livingPlace }
 											stylebutton='{"background": "#FFBC23", "black": "white","fontSize":"0.938rem", "padding": "0px 30px"}'
 										>
 											Continue

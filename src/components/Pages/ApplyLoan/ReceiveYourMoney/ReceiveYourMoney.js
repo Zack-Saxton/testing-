@@ -4,7 +4,7 @@ import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import CheckLoginStatus from "../../../App/CheckLoginStatus";
 import { ButtonWithIcon } from "../../../FormsUI";
@@ -105,7 +105,7 @@ export default function ReceiveYourMoney() {
 	const classes = useStyles();
 
 	//Initializing state variables
-	const [ value, setValue ] = React.useState(3);
+	const [ value, setValue ] = useState(3);
 	const handleChange = (event, newValue) => {
 		setValue(newValue);
 	};
