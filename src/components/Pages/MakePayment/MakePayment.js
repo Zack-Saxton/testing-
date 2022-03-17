@@ -401,10 +401,10 @@ export default function MakePayment(props) {
   };
   //Schedule Payment
   const handleSchedulePaymentClick = () => {
-    if (card === "") {
+    if (!card) {
       document.getElementById("select").focus();
       setRequiredSelect("Please select any account");
-    } else if (paymentAmount === "") {
+    } else if (!paymentAmount) {
       document.getElementById("payment").focus();
       setRequiredAmount("Please enter payment amount");
     } else if (paymentAmount < 10) {
@@ -473,7 +473,7 @@ export default function MakePayment(props) {
   const onHandlepaymentAmount = (event) => {
     let price = event.target.value.replace("$", "");
     const reg = /^\d{0,5}(\.\d{0,2})?$/;
-    if (price === "" || reg.test(price)) {
+    if (!price || reg.test(price)) {
       price = Math.trunc(Number(price)*100)/100;
       setPaymentAmount(price);
       setRequiredAmount("");
