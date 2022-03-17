@@ -37,7 +37,7 @@ export default function StatePage(props) {
   const location = useLocation();
   const navigate = useNavigate();
   const { Branch_Details, stateLongNm, stateShortNm } = location.state;
-  const getDirectionsClass = useStylesConsumer();
+  const directionsClass = useStylesConsumer();
 
   const [ directionModal, setDirectionModal ] = useState(() => false);
   const [ branchList, setBranchList ] = useState();
@@ -357,25 +357,25 @@ export default function StatePage(props) {
       open={ directionModal }
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
-      classes={ { paper: getDirectionsClass.consumerDialog } }
+      classes={ { paper: directionsClass.consumerDialog } }
     >
-      <div id="closeBtn" className={ getDirectionsClass.buttonClose }>
+      <div id="closeBtn" className={ directionsClass.buttonClose }>
         <IconButton
           aria-label="close"
           onClick={ closeGetDirectionModal }
-          className={ getDirectionsClass.closeButton }
+          className={ directionsClass.closeButton }
         >
           <CloseIcon />
         </IconButton>
       </div>
       <h2
         id="consumerDialogHeading"
-        className={ getDirectionsClass.consumerDialogHeading }
+        className={ directionsClass.consumerDialogHeading }
       >
         You are about to leave marinerfinance.com
       </h2>
       <div>
-        <p className={ getDirectionsClass.consumerParagaraph }>
+        <p className={ directionsClass.consumerParagaraph }>
           Mariner Finance provides this link for your convenience and is not
           responsible for and makes no claims or representations regarding the
           content, terms of use, or privacy policies of third party websites.

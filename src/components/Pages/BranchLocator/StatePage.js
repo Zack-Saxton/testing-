@@ -36,7 +36,7 @@ export default function StatePage() {
   const classes = useStylesMyBranch();
   const location = useLocation();
   const name = location.state.value;
-  const getDirectionsClass = useStylesConsumer();
+  const directionsClass = useStylesConsumer();
   const refMapSection = useRef();
   const refSearch1 = useRef();
   const refSearch2 = useRef();
@@ -526,28 +526,28 @@ export default function StatePage() {
                   open={ directionModal }
                   aria-labelledby="alert-dialog-title"
                   aria-describedby="alert-dialog-description"
-                  classes={ { paper: getDirectionsClass.consumerDialog } }
+                  classes={ { paper: directionsClass.consumerDialog } }
                 >
                   <div
                     id="closeBtn"
-                    className={ getDirectionsClass.buttonClose }
+                    className={ directionsClass.buttonClose }
                   >
                     <IconButton
                       aria-label="close"
                       onClick={ closeGetDirectionModal }
-                      className={ getDirectionsClass.closeButton }
+                      className={ directionsClass.closeButton }
                     >
                       <CloseIcon />
                     </IconButton>
                   </div>
                   <h2
                     id="consumerDialogHeading"
-                    className={ getDirectionsClass.consumerDialogHeading }
+                    className={ directionsClass.consumerDialogHeading }
                   >
                     You are about to leave marinerfinance.com
                   </h2>
                   <div>
-                    <p className={ getDirectionsClass.consumerParagaraph }>
+                    <p className={ directionsClass.consumerParagaraph }>
                       Mariner Finance provides this link for your
                       convenience and is not responsible for and makes no
                       claims or representations regarding the content, terms
