@@ -9,7 +9,7 @@ export default function BranchMap(MyBranchDetail) {
   const classes = useStylesMyBranch();
 
   //Branch details from API
-  let branchDetail = MyBranchDetail;
+  let branchDetail = MyBranchDetail ?? null;
   //View part
   return (
     <div id="branchMapWrap">

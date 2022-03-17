@@ -231,7 +231,7 @@ export default function PaymentHistory() {
             </Menu>
           </Grid>
         </Grid>
-        { historyOfLoans === null ? (
+        { !historyOfLoans ? (
           <Grid
             item
             xs={ 12 }

@@ -109,7 +109,7 @@ export default function MailingAddress(props) {
   });
 
   const preventSpace = (event) => {
-    if (event.keyCode === 32 && formik.values.streetAddress === "") {
+    if (event.keyCode === 32 && !formik.values.streetAddress) {
       event.preventDefault();
     }
   };
@@ -169,7 +169,7 @@ export default function MailingAddress(props) {
         opacity: loading ? 0.55 : 1,
         pointerEvents: loading ? "none" : "initial"
       } }>
-        { props?.basicInformationData === null ? (
+        { !props?.basicInformationData ? (
           <Grid align="center"><CircularProgress /></Grid>
         ) : <>
           <Grid

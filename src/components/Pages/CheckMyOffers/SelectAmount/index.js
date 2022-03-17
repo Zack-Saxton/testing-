@@ -66,7 +66,7 @@ function CheckMyOffers(props) {
       setData({ ...data, loanAmount: select, loading: false });
       navigate("/loan-purpose");
     } else if (
-      data.formStatus === "" || data.completedPage === 0 || data.formStatus === "completed" || location?.state?.fromLoanPurpose !== "yes"
+      !data.formStatus || !data.completedPage || data.formStatus === "completed" || location?.state?.fromLoanPurpose !== "yes"
     ) {
       setData({ ...data, loading: true });
       resetData();
@@ -85,11 +85,11 @@ function CheckMyOffers(props) {
 
   const handleRoute = async (event) => {
     try {
-      if (data.offerCode === "") {
+      if (!data.offerCode) {
         setPageStatus();
         navigate("/loan-purpose");
       }
-      if (data.offerCode !== "") {
+      if (data.offerCode) {
         let res = await offercodeValidation(data.offerCode);
         if (res?.data?.offerData?.Message || res.status !== 200) {
           toast.error(globalMessages.OfferCode_Valid);

@@ -97,7 +97,7 @@ export default function MoneySkill(props) {
             id="Continue"
             stylebutton='{"float": "" }'
             target="_blank"
-            disabled={ status === null ? true : false }
+            disabled={ !status }
             onClick={ handleCloseMoneySkill }
           >
             Continue
@@ -105,7 +105,7 @@ export default function MoneySkill(props) {
               className="fa fa-refresh fa-spin customSpinner"
               style={ {
                 marginRight: "10px",
-                display: status === null ? "block" : "none",
+                display: !status ? "block" : "none",
               } }
             />
           </ButtonPrimary>
