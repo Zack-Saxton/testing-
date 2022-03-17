@@ -43,8 +43,8 @@ export default function StatePage() {
   const [ getCurrentLocation, setCurrentLocation ] = useState();
   const [ loading, setLoading ] = useState(() => false);
   const [ zoomDepth, setZoomDepth ] = useState();
-  const [ address1, setAddress1 ] = React.useState(() => "");
-  const [address2, setAddress2] = React.useState(() => "");
+  const [ address1, setAddress1 ] = useState(() => "");
+  const [address2, setAddress2] = useState(() => "");
   const [ branchDistance, setBranchDistance ] = useState(() => Math.abs(parseInt(howManyBranchesforBranchLocatorPages?.stateBranchDistanceinMiles, 10)));
   const mapSection = useRef();
   const [stateLongName, setStateLongName] = useState();
