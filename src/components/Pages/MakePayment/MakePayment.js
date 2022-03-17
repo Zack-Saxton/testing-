@@ -806,7 +806,7 @@ export default function MakePayment(props) {
                               placeholder="MM/DD/YYYY"
                               id="date"
                               disablePast
-                              disabled={ calendarDisabled }
+                                disabled={ calendarDisabled || disabledContent }
                               autoComplete="off"
                               maxdate={ paymentMaxDate }
                               onKeyDown={ (event) => event.preventDefault() }
@@ -821,7 +821,6 @@ export default function MakePayment(props) {
                                 setRequiredDate("");
                               } }
                                 value={ paymentDatepicker }
-                                disabled={ disabledContent }
                             />
                             <p
                               className={
