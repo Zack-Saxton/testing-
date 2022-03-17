@@ -4,12 +4,10 @@ import React, { useCallback, useRef, useState } from "react";
 import icon from "../../../assets/icon/icon-google-map-marker.png";
 import mapStyles from "../../../contexts/mapStyles";
 function BranchLocatorMap(props) {
-  const [ activeMarker, setActiveMarker ] = useState(null);
-  let Current = props.CurrentLocation
-    ? props.CurrentLocation
-    : { lat: 39.3697028, lng: -76.4635839 };
+  const [ activeMarker, setActiveMarker ] = useState(() => null);
+  let Current = props.CurrentLocation ?? { lat: 39.3697028, lng: -76.4635839 };
   let zoomValue = props.CurrentLocation ? 7 : 6;
-  let ZoomDepth = props.Zoom ? props.Zoom : 5;
+  let ZoomDepth = props.Zoom ?? 5;
   const mapContainerStyle = { height: "100%", width: "100%" };
   const options = {
     styles: mapStyles[ 3 ],
@@ -61,7 +59,7 @@ function BranchLocatorMap(props) {
         options={ { fillColor: "#9aa8b3" } }
       />
       <Marker position={ Current } zIndex={ 8 }></Marker>
-      { props.getMap.map(({ id, BranchName, BranchAddress, BranchManager, Phone, Distance, position }) => (
+      { props.googleMap.map(({ id, BranchName, BranchAddress, BranchManager, Phone, Distance, position }) => (
         <Marker
           key={ id }
           icon={ icon }
@@ -90,7 +88,7 @@ function BranchLocatorMap(props) {
 BranchLocatorMap.propTypes = {
   CurrentLocation: PropTypes.object,
   Zoom: PropTypes.number,
-  getMap: PropTypes.array,
+  googleMap: PropTypes.array,
 };
 
 export default BranchLocatorMap;

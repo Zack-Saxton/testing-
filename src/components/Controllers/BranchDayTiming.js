@@ -1,12 +1,12 @@
 import moment from "moment";
 import globalMessages from "../../assets/data/globalMessages.json";
-import { MFWorkingSaturdayDateRange, tzMatch } from "../../assets/data/marinerBusinesStates";
+import { marinerWorkingSaturdayDateRange, tzMatch } from "../../assets/data/marinerBusinesStates";
 import ErrorLogger from "../lib/ErrorLogger";
 
 export default async function BranchDayTiming(branchLookupData) {
     let caState = (branchLookupData.Address.split(" ").find(element => element === "CA")) ? true : false;
-    let startDate = new Date(MFWorkingSaturdayDateRange.start);
-    let endDate = new Date(MFWorkingSaturdayDateRange.end);
+    let startDate = new Date(marinerWorkingSaturdayDateRange.start);
+    let endDate = new Date(marinerWorkingSaturdayDateRange.end);
     let holidayHourDates = getDates(getSaturdayOfCurrentWeek(startDate), endDate);
     let currentDay = moment().format('dddd');
     let isholidayHours = holidayHourDates.includes(moment().format('MMDD'));
@@ -120,8 +120,8 @@ const getSaturdayOfCurrentWeek = function (today) {
     return new Date(today.setDate(((today.getDate() - today.getDay() + 1) + 5)));
 };
 export function branchSaturdaySchedule() {
-    let startDate = new Date(MFWorkingSaturdayDateRange.start);
-    let endDate = new Date(MFWorkingSaturdayDateRange.end);
+    let startDate = new Date(marinerWorkingSaturdayDateRange.start);
+    let endDate = new Date(marinerWorkingSaturdayDateRange.end);
     return isBetween(getSaturdayOfCurrentWeek(new Date()), startDate, endDate);
 }
 const isBetween = function (date, start, end) {
