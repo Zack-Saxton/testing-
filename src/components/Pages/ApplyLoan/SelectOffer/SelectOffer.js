@@ -150,7 +150,7 @@ export default function ApplyLoan() {
 		if (val?.data !== "Access token has expired" && val?.data) {
 			setAccountDetails(val);
 			term = Object.keys(val?.data?.Offers);
-			setNoOffers(Object.keys(val?.data?.Offers).length === 0 ? true : false);
+			setNoOffers(!(Object.keys(val?.data?.Offers).length) ? true : false);
 			setTerms(term);
 			if (term[ 0 ] !== undefined) {
 				initialTabLoad(term[ 0 ], 0, val);

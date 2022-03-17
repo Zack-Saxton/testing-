@@ -8,7 +8,7 @@ import ErrorLogger from "../lib/ErrorLogger";
 /***** Get loan document *****/
 export async function loanDocumentController(accNo) {
   try {
-    let url = accNo === null ? "active_loan_document" : "loan_document";
+    let url = !accNo ? "active_loan_document" : "loan_document";
     let param = url === "loan_document" ? "/" + accNo : "";
     let data = {};
     let method = "GET";

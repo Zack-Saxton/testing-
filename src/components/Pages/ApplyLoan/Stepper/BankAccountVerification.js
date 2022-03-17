@@ -145,7 +145,7 @@ export default function BankAccountVerification(props) {
 		const reg = /^[0-9\b]+$/;
 		let acc = event.target.value;
 
-		if (acc === "" || reg.test(acc)) {
+		if (!acc || reg.test(acc)) {
 			formik.handleChange(event);
 		}
 	};
@@ -155,7 +155,7 @@ export default function BankAccountVerification(props) {
 		const reg = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
 		let acc = event.target.value;
 		//Checking non null and accepting reg ex
-		if (acc === "" || reg.test(acc)) {
+		if (!acc || reg.test(acc)) {
 			formik.handleChange(event);
 		}
 	};
@@ -219,7 +219,7 @@ export default function BankAccountVerification(props) {
 						style={ { fontWeight: "normal", fontSize: "10px" } }
 					/>
 					<FormHelperText error={ true }>
-						{ accountType === "" ? "Account type required" : "" }
+						{ !accountType ? "Account type required" : "" }
 					</FormHelperText>
 				</Grid>
 				<Grid container spacing={ 4 } direction="row">
@@ -387,7 +387,7 @@ export default function BankAccountVerification(props) {
 						style={ { fontWeight: "normal" } }
 					/>
 					<FormHelperText style={ { paddingLeft: "28px" } } error={ true }>
-						{ paymnetMode === "" ? messages?.bankAccountVerification?.accountTypeRequired : "" }
+						{ !paymnetMode ? messages?.bankAccountVerification?.accountTypeRequired : "" }
 					</FormHelperText>
 					<span>
 						<p
@@ -434,7 +434,7 @@ export default function BankAccountVerification(props) {
 					<div>
 						<p
 							style={ {
-								display: error && error === "" ? "none" : "block",
+								display: error && !error ? "none" : "block",
 								fontWeight: "bold",
 							} }
 						>

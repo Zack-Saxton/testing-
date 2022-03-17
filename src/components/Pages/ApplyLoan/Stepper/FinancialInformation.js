@@ -77,7 +77,7 @@ export default function FinancialInformation(props) {
   const nameChange = (event) => {
     const reg = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
     let acc = event.target.value;
-    if (acc === "" || reg.test(acc)) {
+    if (!acc || reg.test(acc)) {
       formik.handleChange(event);
     }
   };

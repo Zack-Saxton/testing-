@@ -198,7 +198,7 @@ function CitizenshipStatus() {
 											onClick={ handleRoute }
 											data-test-id="citizenshipContButton"
 											disabled={
-												citizenship === "" || citizenship === citizenshipData.foreignResident
+												!citizenship || citizenship === citizenshipData.foreignResident
 											}
 											stylebutton='{"background": "#FFBC23", "color": "black","fontSize":"0.938rem" , "padding": "0px 30px"}'
 										>

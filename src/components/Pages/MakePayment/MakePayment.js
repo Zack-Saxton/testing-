@@ -410,7 +410,7 @@ export default function MakePayment(props) {
     } else if (paymentAmount < 10) {
       document.getElementById("payment").focus();
       setRequiredAmount("Please enter minimum amount of $10");
-    } else if (paymentDatepicker === null) {
+    } else if (!paymentDatepicker) {
       document.getElementById("date").focus();
       setRequiredDate("Please select any date");
     } else if (isDebit && Moment(paymentDatepicker).isAfter(Moment())) {

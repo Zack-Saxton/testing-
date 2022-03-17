@@ -94,7 +94,7 @@ function NewUser() {
 		onSubmit: (values) => {
 			const modPersonalIncome = parseInt(values.personalIncome.replace(/\$/g, "").replace(/,/g, ""));
 			const modHouseholdIncome = parseInt(values.householdIncome.replace(/\$/g, "").replace(/,/g, ""));
-			if (errorPersonal === "" && errorAnnual === "") {
+			if (!errorPersonal && !errorAnnual) {
 				if (validate(modPersonalIncome, modHouseholdIncome)) {
 					data.annualIncome = modPersonalIncome ? modPersonalIncome : "0";
 					data.householdAnnualIncome = modHouseholdIncome ? modHouseholdIncome : "0";
@@ -110,7 +110,7 @@ function NewUser() {
 	const onHandleChangePersonal = (event) => {
 		const pattern = /^[0-9.,$\b]+$/;
 		let annualPersonalIncome = event.target.value;
-		if (annualPersonalIncome === "" || pattern.test(annualPersonalIncome)) {
+		if (!annualPersonalIncome || pattern.test(annualPersonalIncome)) {
 			setErrorPersonal("");
 			formik.handleChange(event);
 		}
@@ -118,7 +118,7 @@ function NewUser() {
 	const onHandleChange = (event) => {
 		const pattern = /^[0-9.,$\b]+$/;
 		let annualHouseholdIncome = event.target.value;
-		if (annualHouseholdIncome === "" || pattern.test(annualHouseholdIncome)) {
+		if (!annualHouseholdIncome || pattern.test(annualHouseholdIncome)) {
 			setErrorAnnual("");
 			formik.handleChange(event);
 		}

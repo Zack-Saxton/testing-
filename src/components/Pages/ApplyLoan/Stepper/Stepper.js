@@ -102,21 +102,21 @@ export default function VerticalLinearStepper() {
 			navigate("/customers/receiveYourMoney");
 		} else if (!res?.data?.email) {
 			tabPosition = 0;
-		} else if (!res?.data?.phone_verification && tabPosition === "" && !skip?.phone) {
+		} else if (!res?.data?.phone_verification && !tabPosition && !skip?.phone) {
 			tabPosition = 1;
-		} else if (!res?.data?.financial_information  && tabPosition === "") {
+		} else if (!res?.data?.financial_information  && !tabPosition) {
 			tabPosition = 2;
-		} else if (!res?.data?.id_document  && tabPosition === "") {
+		} else if (!res?.data?.id_document  && !tabPosition) {
 			tabPosition = 3;
-		} else if (!res?.data?.id_photo  && tabPosition === "") {
+		} else if (!res?.data?.id_photo  && !tabPosition) {
 			tabPosition = 3;
-		} else if (!res?.data?.id_questions && tabPosition === "") {
+		} else if (!res?.data?.id_questions && !tabPosition) {
 			tabPosition = 4;
-		} else if (!res?.data?.bank_account_information && tabPosition === "") {
+		} else if (!res?.data?.bank_account_information && !tabPosition) {
 			tabPosition = 5;
-		} else if (!res?.data?.bank_account_verification && tabPosition === "") {
+		} else if (!res?.data?.bank_account_verification && !tabPosition) {
 			tabPosition = 5;
-		} else if (!res?.data?.income_verification && tabPosition === "") {
+		} else if (!res?.data?.income_verification && !tabPosition) {
 			tabPosition = 6;
 		}
 		setActiveStep(tabPosition ?? 0);
@@ -135,7 +135,7 @@ export default function VerticalLinearStepper() {
 	};
 
 	const handleReset = () => {
-		if (activeStep === 0) {
+		if (!activeStep) {
 			setActiveStep(0);
 		}
 		if (activeStep === 1) {

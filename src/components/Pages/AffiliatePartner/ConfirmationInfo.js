@@ -201,22 +201,22 @@ export default function CreditKarma() {
     let employementStatus = document.getElementById("employementStatus").value;
     let annualhousehold = document.getElementById("annualhousehold").value;
 
-    if (firstname === "") {
+    if (!firstname) {
       document.getElementById("firstname").focus();
-    } else if (lastname === "") {
+    } else if (!lastname) {
       document.getElementById("lastname").focus();
-    } else if (streetAddress === "") {
+    } else if (!streetAddress) {
       document.getElementById("streetAddress").focus();
-    } else if (zip === "") {
+    } else if (!zip) {
       document.getElementById("zip").focus();
-    } else if (citizenshipCnf === "" || citizenshipCnf === undefined) {
+    } else if (!citizenshipCnf) {
       document.getElementById("citizenship").focus();
-    } else if (employementStatus === "" || employementStatus === undefined) {
+    } else if (!employementStatus) {
       document.getElementById("employementStatus").focus();
-    } else if (personalIncome === "") {
+    } else if (!personalIncome) {
       document.getElementById("personalIncome").focus();
       validate();
-    } else if (annualhousehold === "") {
+    } else if (!annualhousehold) {
       validate();
       document.getElementById("annualhousehold").focus();
     } else {
@@ -263,7 +263,7 @@ export default function CreditKarma() {
     onSubmit: async (values) => {
       const modPersonalIncome = parseInt(values.personalIncome.replace(/\$/g, "").replace(/,/g, ""));
       const modHouseholdIncome = parseInt(values.householdIncome.replace(/\$/g, "").replace(/,/g, ""));
-      if (errorPersonal === "" && errorAnnual === "" && validate(modPersonalIncome, modHouseholdIncome)) {
+      if (!errorPersonal && !errorAnnual && validate(modPersonalIncome, modHouseholdIncome)) {
         values.personalIncome = modPersonalIncome;
         values.householdIncome = modHouseholdIncome;
         setLoading(true);
@@ -394,7 +394,7 @@ export default function CreditKarma() {
   const onHandleChangePersonal = (event) => {
     const reg = /^[0-9.,$\b]+$/;
     let income = event.target.value;
-    if (income === "" || reg.test(income)) {
+    if (!income || reg.test(income)) {
       setErrorPersonal("");
       formik.handleChange(event);
     }
@@ -402,7 +402,7 @@ export default function CreditKarma() {
   const onHandleChangeHouse = (event) => {
     const reg = /^[0-9.,$\b]+$/;
     let income = event.target.value;
-    if (income === "" || reg.test(income)) {
+    if (!income || reg.test(income)) {
       setErrorAnnual("");
       formik.handleChange(event);
     }
@@ -487,7 +487,7 @@ export default function CreditKarma() {
   const onNameChange = (event) => {
     const reg = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
     let acc = event.target.value;
-    if (acc === "" || reg.test(acc)) {
+    if (!acc || reg.test(acc)) {
       formik.handleChange(event);
     }
   };

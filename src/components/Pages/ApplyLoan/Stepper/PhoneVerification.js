@@ -116,7 +116,7 @@ export default function PhoneVerification(props) {
 		let acc = event.target.value;
 		setError("");
 
-		if (acc === "" || reg.test(acc)) {
+		if (!acc || reg.test(acc)) {
 			setPasscode(event.target.value);
 		}
 	};

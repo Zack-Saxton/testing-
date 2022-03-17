@@ -211,9 +211,9 @@ export default function SideNav() {
     setCheckPresenceOfLoan(presenceOfLoan);
 
     //logic to if there is any active Loan Data is there or not
-    if (noOfLoans === undefined) {
+    if (!noOfLoans) {
       setActiveLoanData(true);
-    } else if (noOfLoans === 0) {
+    } else if (!noOfLoans) {
       setActiveLoanData(true);
     } else {
       setActiveLoanData(false);
@@ -606,28 +606,26 @@ export default function SideNav() {
                     <ListItem id="sidemenuName">
                       { (dataAccountOverview?.data?.applicant?.contact?.first_name) ? 'Welcome ' + dataAccountOverview?.data?.applicant?.contact?.first_name : "" }
                     </ListItem>
-                    { (branchName === '' || branchName === 'undefined') || (branchPhone === '' || branchPhone === 'undefined')
+                    { !branchName || !branchPhone
                       ?
                       <>
-
                         <ListItem id="sidemenuLastLogin">
-                          { lastLogin === '' || undefined ? '' : 'Last Login : ' + lastLogin }
+                          { !lastLogin ? '' : `Last Login : ${ lastLogin }` }
                         </ListItem>
-
                       </>
                       :
 
                       <>
                         <ListItem id="sidemenuLastLogin">
-                          { lastLogin === '' || undefined ? '' : 'Last Login : ' + lastLogin }
+                          { !lastLogin ? '' : `Last Login : ${ lastLogin }`}
                         </ListItem>
                         <ListItem id="sidemenuBranch">
-                          { branchName === '' || undefined ? '' : 'Branch : ' + branchName }
+                          { !branchName ? '' : `Branch :  ${ branchName }`}
                         </ListItem>
                         <ListItem id={ branchAvailability ? 'sidemenuOpenNow' : 'sidemenuCloseNow' }>
                           { branchAvailability ? 'Open now' : 'Closed now' }
                         </ListItem>
-                        { formatPhoneNumber(branchPhone) === '' || undefined ? '' :
+                        { !formatPhoneNumber(branchPhone) ? '' :
                           <ListItem id="sidemenuPhone">
                             <CallIcon />
                             <a href="tel:" className="hrefPhoneNo">

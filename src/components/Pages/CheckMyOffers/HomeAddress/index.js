@@ -113,7 +113,7 @@ function HomeAddress() {
 	});
 
 	const preventSpace = (event) => {
-		if (event.keyCode === 32 && formik.values.streetAddress === "") {
+		if (event.keyCode === 32 && !formik.values.streetAddress) {
 			event.preventDefault();
 		}
 	};

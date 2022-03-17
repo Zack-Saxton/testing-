@@ -138,7 +138,7 @@ export default function ViewAccountDetails() {
 
             {/* Main Content */ }
             <Grid className="weAreSorryWrap" item xs={ 12 } sm={ 8 }>
-              <Paper className={ classes.paper } style={ values === 0 ? { marginBottom: "500px" } : { marginBottom: "0px" } }>
+              <Paper className={ classes.paper } style={ !values ? { marginBottom: "500px" } : { marginBottom: "0px" } }>
                 <TabPanelViewApplication value={ values } verticalIndex={ 0 } >
                   { viewAppApplicantInfo?.status ? (viewAppApplicantInfo?.status === "rejected") ?
                     <>

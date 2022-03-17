@@ -566,7 +566,7 @@ function LoanPurpose(props) {
 										<ButtonPrimary
 											data-testid="contButton"
 											onClick={ handleRoute }
-											disabled={ purpose === "" }
+											disabled={ !purpose }
 											stylebutton='{"background": "#FFBC23","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
 										>
 											Continue
