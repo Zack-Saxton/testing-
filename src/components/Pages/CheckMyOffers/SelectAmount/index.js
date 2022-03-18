@@ -188,7 +188,7 @@ function CheckMyOffers(props) {
                         onChange={ (event) => {
                           setData({
                             ...data,
-                            offerCode: event.target.value,
+                            offerCode: event.target.value.trim(),
                           });
                         } }
                         label="Enter Offer Code"

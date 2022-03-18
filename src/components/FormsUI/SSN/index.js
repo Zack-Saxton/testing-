@@ -26,7 +26,7 @@ const PasswordWrapper = ({ name, id, onChange, value, label, ...otherProps }) =>
     event.preventDefault();
   };
   const handleChange = (prop) => (event) => {
-    setValues({ ...values, [ prop ]: event.target.value });
+    setValues({ ...values, [ prop ]: event.target.value.trim() });
     if (onChange) {
       onChange(event);
     }

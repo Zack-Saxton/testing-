@@ -16,7 +16,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import Moment from "moment";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useQuery } from "react-query";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -315,7 +315,7 @@ export default function MakePayment(props) {
 
   //Select account
   const handleChangeSelect = (event) => {
-    setCard(event.target.value);
+    setCard(event.target.value.trim());
     if (event.nativeEvent.target.innerText.includes("Checking") || event.nativeEvent.target.innerText.includes("Savings")) {
       setIsDebit(false);
       setCheckCard(false);
@@ -391,26 +391,31 @@ export default function MakePayment(props) {
   const handleDeleteScheduleClose = () => {
     setOpenDeleteSchedule(false);
   };
+
+  let refSelectPaymentOption = useRef();
+  let refPaymentAmount = useRef();
+  let refpaymentDatepicker = useRef();
+
   //Schedule Payment
   const handleSchedulePaymentClick = () => {
     if (!card) {
-      document.getElementById("select").focus();
+      refSelectPaymentOption.current.focus();
       setRequiredSelect("Please select any account");
     } else if (!paymentAmount) {
-      document.getElementById("payment").focus();
+      refPaymentAmount.current.focus();
       setRequiredAmount("Please enter payment amount");
     } else if (paymentAmount < 10) {
-      document.getElementById("payment").focus();
+      refPaymentAmount.current.focus();
       setRequiredAmount("Please enter minimum amount of $10");
     } else if (!paymentDatepicker) {
-      document.getElementById("date").focus();
+      refpaymentDatepicker.current.focus();
       setRequiredDate("Please select any date");
     } else if (isDebit && Moment(paymentDatepicker).isAfter(Moment())) {
-      document.getElementById("date").focus();
+      refpaymentDatepicker.current.focus();
       setRequiredDate("For debit account, please select today's date");
     } else if (
       Moment(User.data.loanData[ 0 ].loanOriginationDate).isAfter(Moment())) {
-      document.getElementById("payment").focus();
+      refPaymentAmount.current.focus();
       setRequiredDate('You can begin making payments on ' + Moment(User.data.loanData[ 0 ].loanOriginationDate).format('MM/DD/YYYY'));
     } else {
       setOpenPayment(true);
@@ -486,7 +491,7 @@ export default function MakePayment(props) {
 
   //payment onblur
   const onBlurPayment = (event) => {
-    let price = event.target.value.replace("$", "");
+    let price = event.target.value.trim().replace("$", "");
     price = Number(price).toFixed(2);
     setPaymentAmount(price);
     setRequiredAmount("");
@@ -639,6 +644,7 @@ export default function MakePayment(props) {
                       <Select
                         id="select"
                         name="select"
+                        refId={refSelectPaymentOption}
                         labelform="Accounts"
                         select={ paymentOptions }
                         onChange={ handleChangeSelect }
@@ -747,7 +753,7 @@ export default function MakePayment(props) {
                               stylebutton='{"background": "", "color":"" }'
                               id="submitBtn"
                               onClick={ handleClickSubmit }
-                              disabled={ !disabledContent }
+                              disabled={ disabledContent }
                             >
                               Submit
                             </ButtonPrimary>
@@ -766,6 +772,7 @@ export default function MakePayment(props) {
                             name="payment"
                             label="Payment Amount"
                             type="text"
+                            materialProps={ { ref : refPaymentAmount } }
                             autoComplete="off"
                             onChange={ onHandlepaymentAmount }
                             value={ "$" + paymentAmount }
@@ -797,10 +804,11 @@ export default function MakePayment(props) {
                               name="date"
                               label="Payment Date"
                               placeholder="MM/DD/YYYY"
-                              id="date"
+                              id="date"                          
                               disablePast
                                 disabled={ calendarDisabled  }
                               autoComplete="off"
+                              refID = {refpaymentDatepicker}
                               maxdate={ paymentMaxDate }
                               onKeyDown={ (event) => event.preventDefault() }
                               shouldDisableDate={ disableHolidays }

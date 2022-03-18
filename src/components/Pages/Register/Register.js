@@ -124,7 +124,7 @@ export default function Register() {
       let recaptchaVerifyResponse = await RecaptchaValidationController(grecaptchaResponse, ipAddress);
 
       if (recaptchaVerifyResponse.status === 200) {
-        toast.success(globalMessages.Recaptcha_Verify);
+        toast.success(globalMessages?.Recaptcha_Verify);
         setdisableRecaptcha(false);
       }
       else {
@@ -197,7 +197,7 @@ export default function Register() {
     }
   };
   //Form Submission
-  const queryParams = new URLSearchParams(window.location.search);
+  const queryParams = new URLSearchParams(window.location?.search);
   const formik = useFormik({
     initialValues: {
       firstname: "",
@@ -267,7 +267,7 @@ export default function Register() {
 
   const NameChange = (event) => {
     const pattern = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
-    let name = event.target.value;
+    let name = event.target.value.trim();
     if (!name || pattern.test(name)) {
       formik.handleChange(event);
     }
@@ -307,7 +307,7 @@ export default function Register() {
       setState("");
       setCity("");
       if (event.target.value !== "" && event.target.value.length === 5) {
-        let result = await ZipCodeLookup(event.target.value);
+        let result = await ZipCodeLookup(event.target.value.trim());
         if (result) {
           setValidZip(true);
           setState(result?.data.stateCode);

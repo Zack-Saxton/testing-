@@ -110,7 +110,7 @@ export default function PaymentHistoryTable({ userRecentPaymentData }) {
   };
 
   const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
+    setRowsPerPage(parseInt(event.target.value.trim(), 10));
     setPage(0);
   };
 
