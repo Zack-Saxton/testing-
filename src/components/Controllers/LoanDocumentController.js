@@ -23,7 +23,7 @@ export async function loanDocumentController(accNo) {
 
 /***** Download and converting bufferdata *****/
 function downloadFileData(fileData) {
-  // Buffer = require("buffer/").Buffer; // note: the trailing slash is important!
+  Buffer = require("buffer/").Buffer; // note: the trailing slash is important!
   const buff = Buffer.from(fileData?.data?.bufferFile.data);
   const url = window.URL.createObjectURL(new Blob([ buff ]));
   const link = document.createElement("a");
@@ -51,7 +51,7 @@ export async function documentdownload(id, name) {
 
 /***** Print file *****/
 function print(data) {
-  // Buffer = require("buffer/").Buffer; // note: the trailing slash is important!
+  Buffer = require("buffer/").Buffer; // note: the trailing slash is important!
   const buff = Buffer.from(data?.data?.bufferFile.data);
   let pdfFile = new Blob([ buff ]);
   let pdfUrl = URL.createObjectURL(pdfFile);
