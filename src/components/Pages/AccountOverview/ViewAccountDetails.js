@@ -56,9 +56,9 @@ export default function ViewAccountDetails() {
   };
 
   let viewAppContact = Cookies.get("viewAppContact") ?? '{}'
-  let viewApplicationContact = JSON.parse(viewAppContact);
+  let viewApplicationContact = typeof viewAppContact === "object" ? JSON.parse(viewAppContact) : viewAppContact;
   let viewAppApplicant = Cookies.get("viewAppApplicant") ?? '{}'
-  let viewAppApplicantInfo = JSON.parse(viewAppApplicant);
+  let viewAppApplicantInfo = typeof viewAppApplicant === "object" ? JSON.parse(viewAppApplicant) : viewAppApplicant;
 
   //View part
   return (
