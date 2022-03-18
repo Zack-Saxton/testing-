@@ -688,8 +688,7 @@ export default function MakePayment(props) {
                   style={ { width: "100%", paddingTop: "10px" } }
                 >
                   <Paper className={ classes.paper }>
-                    { paymentOptions !== null &&
-                      !showCircularProgress ? (
+                    { paymentOptions && !showCircularProgress ? (
                       <div>
                         <Grid item xs={ 12 }>
                           <Typography

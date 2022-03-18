@@ -44,7 +44,7 @@ const validationSchema = yup.object({
     .min(8, globalMessages.PasswordMin)
     .required(globalMessages.PasswordConfirmationRequired)
     .when("password", {
-      is: (password) => password && password.length > 0,
+      is: (password) => password?.length > 0,
       then: yup
         .string()
         .oneOf(
@@ -262,7 +262,7 @@ export default function CreditKarma() {
                     color="textSecondary"
                   >
                     <a href="https://www.creditkarma.com/" target="blank">
-                      <img 
+                      <img
                         className={classes.fullWidth}
                         src={ creditkarmalogo }
                         alt="creditkarmalogo"

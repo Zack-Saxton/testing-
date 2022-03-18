@@ -6,7 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import axios from "axios";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import globalMessages from '../../../../assets/data/globalMessages.json';
@@ -141,7 +141,8 @@ function PersonalInfo() {
 	const classes = preLoginStyle();
 	const myDate = new Date();
 	myDate.setDate(myDate.getDate() - 6571);
-
+	let refFirstName = useRef();
+	let refLastName = useRef();
 	function phoneNumberMask(values) {
 		let phoneNumber = values.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
 		values = !phoneNumber[ 2 ] ? phoneNumber[ 1 ] : '(' + phoneNumber[ 1 ] + ') ' + phoneNumber[ 2 ] + (phoneNumber[ 3 ] ? '-' + phoneNumber[ 3 ] : '');
@@ -186,7 +187,7 @@ function PersonalInfo() {
 			//Prospect
 			creatProspect(data);
 
-			if (values.email !== null && values.ssn !== null) {
+			if (values.email && values.ssn) {
 				let body = {
 					email: values.email,
 					ssn: data.last4SSN
@@ -246,7 +247,7 @@ function PersonalInfo() {
 
 	const checkApplicationStatus = async (event) => {
 		formik.handleBlur(event);
-		if (event.target.value !== "" || event.target.value !== null) {
+		if (event.target.value) {
 			let body = {
 				email: event.target.value,
 			};
@@ -290,17 +291,10 @@ function PersonalInfo() {
 
 	//set auto focus
 	function autoFocus() {
-		let firstname = document.getElementById("firstName").value;
-		let lastname = document.getElementById("lastName").value;
-		if (!firstname) {
-			document.getElementById("firstName").focus();
-		}
-		if (!lastname) {
-			if (!firstname) {
-				document.getElementById("firstName").focus();
-			} else {
-				document.getElementById("lastName").focus();
-			}
+		if (!refFirstName.current.value) {
+			refFirstName.current.focus();
+		} else if (!refLastName.current.value) {
+			refLastName.current.focus();
 		}
 	}
 	useEffect(() => {
@@ -389,6 +383,7 @@ function PersonalInfo() {
 												fullWidth
 												autoFocus
 												id="firstName"
+												ref={ refFirstName }
 												name="firstName"
 												label="First Name *"
 												materialProps={ { maxLength: "30" } }
@@ -418,6 +413,7 @@ function PersonalInfo() {
 											<TextField
 												fullWidth
 												id="lastName"
+												ref={ refLastName }
 												name="lastName"
 												label="Last Name *"
 												materialProps={ { maxLength: "30" } }

@@ -170,7 +170,7 @@ export default function PaymentMethod() {
         .appRecurringACHPayment.LastFourOfPaymentAccount
       : null;
     //User shouldn't be allowed to delete the payment method accounts where there is scheduled future payment
-    if (schedulePayment !== null && schedulePayment.length > 0) {
+    if (schedulePayment?.length > 0) {
       let scheduleAccountNo = schedulePayment[ 0 ]?.PaymentMethod?.AchInfo
         ?.AccountNumber
         ? schedulePayment[ 0 ].PaymentMethod.AchInfo.AccountNumber
@@ -620,9 +620,7 @@ export default function PaymentMethod() {
         className={ paymentMethodDiv ? "showContent" : "hideContent" }
       >
         <Grid item xs={ 12 } className={ classes.paymentBody }>
-          { allPaymentMethod ? (
-            allPaymentMethod?.data?.paymentOptions &&
-              allPaymentMethod?.data?.paymentOptions.length > 0 ? (
+          { allPaymentMethod ? ( allPaymentMethod?.data?.paymentOptions?.length > 0 ? (
               <TableContainer>
                 <Table className={ classes.table } aria-label="simple table">
                   <TableHead>
@@ -727,7 +725,6 @@ export default function PaymentMethod() {
                               handleDeleteConfirmOpen();
                             } }
                           />
-
                           <ArrowForwardIcon
                             className={ classes.deleteCardArrow }
                             onClick={ () => {

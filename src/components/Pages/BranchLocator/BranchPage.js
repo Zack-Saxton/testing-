@@ -81,7 +81,7 @@ export default function StatePage(props) {
     try {
       let result = await getBranchLists(value);
 
-      if (result.length > 2) {
+      if (result?.length > 2) {
         result = result.slice(0, 3);
       }
       setBranchList(result);
