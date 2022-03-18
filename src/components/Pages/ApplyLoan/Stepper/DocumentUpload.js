@@ -11,15 +11,16 @@ export default function DocumentUpload(props) {
 	//Set State
 	const [ selectedFile, setSelectedFile ] = useState(null);
 	const [ loader, setLoader ] = useState(null);
-const refFile = useRef();
+  let refSelectedFile = useRef();
+
 	//To handle the file select change
 	const handleInputChange = () => {
-		setSelectedFile(refFile.current);
+		setSelectedFile(refSelectedFile.current);
 	};
 
 	useEffect(() => {
 		setSelectedFile(null);
-		refFile.current.value = null;
+		refSelectedFile.current.value = null;
 	}, [ props.resetUpload ]);
 	//upload doc functionality
 	const uploadDoc = () => {
@@ -97,9 +98,10 @@ const refFile = useRef();
 					style={ { padding: "0px 15px" } }
 					accept="image/png, image/jpeg, application/pdf, image/jpg "
 					id="file"
-					ref={ refFile }
 					multiple={ props?.multiple }
 					type="file"
+					ref={ refSelectedFile }
+
 					onChange={ handleInputChange }
 				/>
 			</Grid>
