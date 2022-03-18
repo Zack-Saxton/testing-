@@ -4,12 +4,12 @@ export const ProfilePicture = createContext();
 
 function ProfilePictureContext(props) {
   const [ dataProfile, setData ] = useState({
-    profile_picture_url: '',
+    profilePictureURL: '',
   });
 
   const resetProfilePicture = () => {
     setData({
-      profile_picture_url: '',
+      profilePictureURL: '',
     });
   };
 

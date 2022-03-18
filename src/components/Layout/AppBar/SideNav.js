@@ -598,7 +598,7 @@ export default function SideNav() {
                   <List >
                     <ListItem>
                       <div id="imgWrap">
-                        <img id="sidebarProfilePic" src={ dataProfile?.profile_picture_url ? dataProfile?.profile_picture_url : getProfileImage } alt="Profile Pic" onClick={ (navType) => handleMenuProfile('top') } />
+                        <img id="sidebarProfilePic" src={ dataProfile?.profilePictureURL ? dataProfile?.profilePictureURL : getProfileImage } alt="Profile Pic" onClick={ (navType) => handleMenuProfile('top') } />
                       </div>
                     </ListItem>
                     <ListItem id="sidemenuName">

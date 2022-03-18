@@ -5,7 +5,7 @@ import * as imageConversion from 'image-conversion';
 import Cookies from "js-cookie";
 import Moment from "moment";
 import PropTypes from "prop-types";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useRef } from "react";
 import { useQuery } from 'react-query';
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -50,11 +50,12 @@ async function filetoImage(file) {
 export default function BasicInformation(props) {
 
   const [ loading, setLoading ] = useState(false);
-  const { dataProfile, setData } = useContext(ProfilePicture);
+  const { data, setData } = useContext(ProfilePicture);
   const navigate = useNavigate();
   const { refetch } = useQuery('loan-data', usrAccountDetails);
   const { refetch: refetchProfilePicture } = useQuery('my-profile-picture', ProfileImageController);
 
+  let refSelectImage = useRef();
   let basicData = props?.basicInformationData?.identification;
   let basicInfo = props?.basicInformationData?.latest_contact;
   let profileImageData = props?.getProfileImage ?? profileImg;
@@ -65,11 +66,11 @@ export default function BasicInformation(props) {
   let disableField = (checkAppStatus || hasActiveLoan) ? true : false;
   const [ selectedFile, setSelectedFile ] = useState(null);
   const [ docType ] = useState("");
-  const [ uploadedImage, setuploadedImage ] = useState(null);
+  const [ uploadedImage, setUploadedImage ] = useState(null);
 
   const handleInputChange = () => {
-    document.getElementById("selectImage").click();
-    setSelectedFile(document.getElementById("selectImage"));
+    refSelectImage.current.click();
+    setSelectedFile(refSelectImage.current);
   };
 
   const onClickCancelChange = () => {
@@ -152,7 +153,7 @@ export default function BasicInformation(props) {
             let reader = new FileReader();
             if (selectedFile.files && selectedFile.files[ 0 ]) {
               reader.onload = async () => {
-                const compress_file = await imageConversion.compressAccurately(selectedFile.files[ 0 ], {
+                const compressFile = await imageConversion.compressAccurately(selectedFile.files[ 0 ], {
                   size: 80,
                   accuracy: '',
                   type: "image/jpeg",
@@ -161,25 +162,25 @@ export default function BasicInformation(props) {
                   scale: 0.5,
                   orientation: 2
                 });
-                const compress_image = await filetoImage(compress_file);
-                const buffer2 = Buffer.from(compress_image, "base64");
+                const compressImage = await filetoImage(compressFile);
+                const buffer2 = Buffer.from(compressImage, "base64");
                 let encodedFile = Buffer.from(buffer2).toString("base64");
                 let imageData = encodedFile
                   .toString()
                   .replace(/^dataimage\/[a-z]+base64/, "");
                 let fileName = selectedFile.files[ 0 ].name;
                 fileName = fileName.substr(0, fileName.lastIndexOf(".")) + ".jpeg";
-                let fileType = compress_file.type;
+                let fileType = compressFile.type;
                 let documentType = docType;
                 let email = basicInfo?.email === values.email ? basicInfo?.email : values.email;
 
                 let uploadData = await uploadNewProfileImage(imageData, fileName, fileType, documentType, email);
                 if (uploadData.status === 200) {
                   setData({
-                    ...dataProfile, "profile_picture_url": uploadData?.data?.profile_picture_url ?? ""
+                    ...data, "profilePictureURL": uploadData?.data?.profile_picture_url ?? ""
                   });
 
-                  Cookies.set("profile_picture_url", uploadData?.data?.profile_picture_url ? uploadData?.data?.profile_picture_url : "");
+                  Cookies.set("profilePictureURL", uploadData?.data?.profile_picture_url ?? "");
                   if (!toast.isActive("closeToast")) {
                     toast.success(
                       globalMessages.UpdatedSuccessfully,
@@ -187,7 +188,7 @@ export default function BasicInformation(props) {
                         toastId: "closeToast",
                         onClose: () => {
                           if ((formik.initialValues.email !== values.email && selectedFile) || (formik.initialValues.phone !== values.phone && formik.initialValues.email !== values.email && selectedFile)) {
-                            setuploadedImage(uploadData?.data?.profile_picture_url);
+                            setUploadedImage(uploadData?.data?.profile_picture_url);
                             refetchProfilePicture();
                             refetch();
                             setLoading(false);
@@ -195,7 +196,7 @@ export default function BasicInformation(props) {
                             logoutUser();
                           }
                           else if ((formik.initialValues.phone !== values.phone && selectedFile)) {
-                            setuploadedImage(uploadData?.data?.profile_picture_url);
+                            setUploadedImage(uploadData?.data?.profile_picture_url);
                             refetchProfilePicture();
                             refetch();
                             setLoading(false);
@@ -203,7 +204,7 @@ export default function BasicInformation(props) {
                           }
                           else {
                             setLoading(false);
-                            setuploadedImage(uploadData?.data?.profile_picture_url);
+                            setUploadedImage(uploadData?.data?.profile_picture_url);
                             refetchProfilePicture();
                             onClickCancelChange();
                           }
@@ -416,6 +417,7 @@ export default function BasicInformation(props) {
                 hidden
                 id="selectImage"
                 type="file"
+                ref={ refSelectImage }
               />
               <br></br>
               <small style={ { fontSize: "12px", color: "#595959" } }>
