@@ -10,9 +10,7 @@ export default function MarketingOffer(data) {
   const findMarketingMessage = () => {
     let usermarketingMessage;
     MarketingMessages.map(promo => {
-      if (promo.campaignType === data.promoType) {
-        usermarketingMessage = promo;
-      }
+      if (promo.campaignType === data.promoType) usermarketingMessage = promo;
     });
     setMessage(usermarketingMessage);
   };

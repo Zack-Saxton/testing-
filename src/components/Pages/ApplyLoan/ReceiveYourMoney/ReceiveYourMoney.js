@@ -88,7 +88,6 @@ const useStyles = makeStyles((theme) => ({
 		fontSize: 25,
 		fontWeight: 400,
 	},
-
 	rightBorder: {
 		padding: "0px 15px",
 		borderRight: "1px solid",
@@ -103,12 +102,9 @@ const useStyles = makeStyles((theme) => ({
 // Initializing Recive your money component
 export default function ReceiveYourMoney() {
 	const classes = useStyles();
-
 	//Initializing state variables
 	const [ value, setValue ] = useState(3);
-	const handleChange = (event, newValue) => {
-		setValue(newValue);
-	};
+	const handleChange = (event, newValue) => setValue(newValue);
 
 	//JSX part
 	return (
@@ -148,7 +144,6 @@ export default function ReceiveYourMoney() {
 				</Grid>
 				<Grid item xs={ 12 }>
 					<TabSection value={ value } handleChange={ handleChange } classes={ classes } ay={ 3 } />
-
 					<TabPanel value={ value } index={ 3 } style={ { paddingBottom: "300px", marginTop: "10px" } }>
 						<Grid item xs={ 12 } style={ { width: "100%" } } container direction="row">
 							<Paper className={ classes.paper }>

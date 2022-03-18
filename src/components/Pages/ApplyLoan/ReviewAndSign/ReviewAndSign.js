@@ -129,9 +129,7 @@ export default function ReviewAndSign(props) {
   const [ selectedOffer, setSelectOffer ] = useState();
   const [ loading, setLoading ] = useState(false);
   const { refetch, isLoading, data: accountDetials } = useQuery('loan-data', usrAccountDetails);
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+  const handleChange = (event, newValue) => setValue(newValue);
 
   // To get the iframe url from the API
   async function getIframeURL() {
