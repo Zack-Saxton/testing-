@@ -32,7 +32,7 @@ function SSN() {
 	const [ loading, setLoading ] = useState(false);
 	const [ esignPopup, setEsignPopup ] = useState(false);
 	const [ creditPopup, setCreditPopup ] = useState(false);
-	const [ webTOUPopup, setwebTOUPopup ] = useState(false);
+	const [ webTOUPopup, setWebTOUPopup ] = useState(false);
 	const [ privacyPopup, setPrivacyPopup ] = useState(false);
 	const { refetch } = useQuery('loan-data', usrAccountDetails);
 	const navigate = useNavigate();
@@ -72,10 +72,10 @@ function SSN() {
 		setCreditPopup(false);
 	};
 	const handleOnClickwebTOU = () => {
-		setwebTOUPopup(true);
+		setWebTOUPopup(true);
 	};
 	const handleOnClickwebTOUClose = () => {
-		setwebTOUPopup(false);
+		setWebTOUPopup(false);
 	};
 	const handleOnClickPrivacy = () => {
 		setPrivacyPopup(true);
