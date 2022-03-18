@@ -148,14 +148,6 @@ export default function CreditKarma() {
   const [ creditPopup, setCreditPopup ] = useState(false);
   const [ webTOUPopup, setWebTOUPopup ] = useState(false);
   const [ privacyPopup, setPrivacyPopup ] = useState(false);
-  const refFirstName = useRef();
-  const refLastName = useRef();
-  const refStreetAddress = useRef();
-  const refZip = useRef();
-  const refCitizenship = useRef();
-  const refPersonalIncome = useRef();
-  const refEmployementStatus = useRef();
-  const refAnnualHousehold = useRef();
   let location = useLocation();
   const handleOnClickEsign = () => setEsignPopup(true);
   const handleOnClickEsignClose = () => setEsignPopup(false);
