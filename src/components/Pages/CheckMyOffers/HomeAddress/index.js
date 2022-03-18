@@ -71,7 +71,7 @@ function HomeAddress() {
 	const [ errorMsg, setErrorMsg ] = useState("");
 	const navigate = useNavigate();
 	useEffect(() => {
-		if (data.completedPage < data.page.citizenship || data.formStatus === "completed") {
+		if (data?.completedPage < data?.page?.citizenship || data?.formStatus?.toLowerCase() === "completed") {
 			navigate("/select-amount");
 		}
 		return null;

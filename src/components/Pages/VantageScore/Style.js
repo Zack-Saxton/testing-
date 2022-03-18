@@ -89,6 +89,7 @@ const useStyleVantageScore = makeStyles((theme) => ({
   },
 
   VantageScoreSmallText: {
+    width:"100%",
     fontSize: "13.5px",
     borderTop: "1px solid #949494",
     borderBottom: "1px solid #949494",

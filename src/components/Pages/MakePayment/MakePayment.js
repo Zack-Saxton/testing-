@@ -76,8 +76,6 @@ export default function MakePayment(props) {
   const [ loading, setLoading ] = useState(false);
   const [ accountDetails ] = useState(null);
   const [ totalPaymentAmount, setTotalPaymentAmount ] = useState(null);
-  const [ checkAutoPay, setCheckAutoPay ] = useState(false);
-  const [ autopaySubmit, setAutopaySubmit ] = useState(true);
   const [ scheduleDate, setScheduleDate ] = useState(new Date());
   const [ payoff, setPayoff ] = useState(false);
   const [ calendarDisabled, setCalendarDisabled ] = useState(true);
@@ -192,7 +190,7 @@ export default function MakePayment(props) {
         ? toast.success(message, { autoClose: 5000 }) && refetch()
         : toast.error(globalMessages.Failed_Payment_mode, { autoClose: 5000 })
       : toast.error(result?.data?.message ? result?.data?.message : "Failed Payment mode", { autoClose: 5000, });
-
+    refetch();
   }
   //Disable scheduled payment
   async function deletePayment(disableScheduledPaymentAccountNo, disableScheduledPaymentRefNo, disableScheduledPaymentIsCard) {
@@ -230,13 +228,11 @@ export default function MakePayment(props) {
         setAccntNo(data.loanData?.accountNumber);
         getPaymentMethods();
         setDisabledContent(data?.loanPaymentInformation?.appRecurringACHPayment);
-        setCheckAutoPay(data?.loanPaymentInformation?.appRecurringACHPayment);
         setPaymentDate(Moment(data?.loanPaymentInformation?.accountDetails?.NextDueDate).format("YYYY-MM-DD"));
         let scheduledDate = data?.loanPaymentInformation?.hasScheduledPayment ? Moment(data?.loanPaymentInformation?.scheduledPayments[ 0 ]?.PaymentDate).format("MM/DD/YYYY") : new Date();
         setPaymentDatepicker(defaultPaymentCard ? new Date() : scheduledDate);
         setScheduleDate(scheduledDate);
         setLoading(false);
-        setAutopaySubmit(true);
         setShowCircularProgress(isFetching);
         setCheckPaymentInformation(data?.loanPaymentInformation?.errorMessage);
         return true;
@@ -274,13 +270,11 @@ export default function MakePayment(props) {
       setAccntNo(latestLoan?.length ? latestLoan[ 0 ]?.loanData?.accountNumber : null);
       getPaymentMethods();
       setDisabledContent(latestLoan?.length && latestLoan[ 0 ]?.loanPaymentInformation?.appRecurringACHPayment);
-      setCheckAutoPay(latestLoan?.length && latestLoan[ 0 ]?.loanPaymentInformation?.appRecurringACHPayment);
       setPaymentDate(latestLoan?.length ? Moment(latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails?.NextDueDate).format("YYYY-MM-DD") : "NONE");
       let scheduledDate = latestLoan?.length && latestLoan[ 0 ]?.loanPaymentInformation?.hasScheduledPayment ? Moment(latestLoan[ 0 ].loanPaymentInformation.scheduledPayments[ 0 ]?.PaymentDate).format("MM/DD/YYYY") : new Date();
       setPaymentDatepicker(defaultPaymentCard ? new Date() : scheduledDate);
       setScheduleDate(scheduledDate);
       setLoading(false);
-      setAutopaySubmit(true);
       setShowCircularProgress(isFetching);
       setCheckPaymentInformation(latestLoan?.length && latestLoan[ 0 ]?.loanPaymentInformation?.errorMessage);
     }
@@ -344,7 +338,6 @@ export default function MakePayment(props) {
 
   //Autopay enable/disable switch
   const handleSwitchPayment = (event) => {
-    setAutopaySubmit(checkAutoPay === event.target.checked);
     setDisabledContent(event.target.checked);
   };
 
@@ -766,6 +759,7 @@ export default function MakePayment(props) {
                             </ButtonPrimary>
                           </Grid>
                         </Grid>
+               
                         <Grid item xs={ 12 }>
                           <Typography
                             style={ { paddingBottom: "10px" } }
@@ -783,7 +777,7 @@ export default function MakePayment(props) {
                             onChange={ onHandlepaymentAmount }
                             value={ "$" + paymentAmount }
                               onBlur={ onBlurPayment }
-                              disabled={ disabledContent }
+                              // disabled={ disabledContent }
                           />
                           <p
                             className={
@@ -812,7 +806,7 @@ export default function MakePayment(props) {
                               placeholder="MM/DD/YYYY"
                               id="date"                          
                               disablePast
-                                disabled={ calendarDisabled || disabledContent }
+                                disabled={ calendarDisabled  }
                               autoComplete="off"
                               refID = {refpaymentDatepicker}
                               maxdate={ paymentMaxDate }
@@ -851,7 +845,7 @@ export default function MakePayment(props) {
                                 styleicon='{ "color":"" }'
                                 id="cancelPaymentBtn"
                                 onClick={ handlePaymentcancel }
-                                  disabled={ disabledContent }
+                                disabled={ !hasSchedulePayment }
                               >
                                 Cancel Future Payment
                               </ButtonSecondary>
@@ -861,7 +855,7 @@ export default function MakePayment(props) {
                                 stylebutton='{"marginRight": "" }'
                                 id="make-payment-schedule-button"
                                   onClick={ handleSchedulePaymentClick }
-                                  disabled={ disabledContent }
+                                //  disabled={ disabledContent }
                               >
                                 Schedule Payment
                               </ButtonPrimary>

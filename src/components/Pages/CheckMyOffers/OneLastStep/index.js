@@ -32,7 +32,7 @@ function SSN() {
 	const [ loading, setLoading ] = useState(false);
 	const [ esignPopup, setEsignPopup ] = useState(false);
 	const [ creditPopup, setCreditPopup ] = useState(false);
-	const [ webTOUPopup, setwebTOUPopup ] = useState(false);
+	const [ webTOUPopup, setWebTOUPopup ] = useState(false);
 	const [ privacyPopup, setPrivacyPopup ] = useState(false);
 	const { refetch } = useQuery('loan-data', usrAccountDetails);
 	const navigate = useNavigate();
@@ -72,10 +72,10 @@ function SSN() {
 		setCreditPopup(false);
 	};
 	const handleOnClickwebTOU = () => {
-		setwebTOUPopup(true);
+		setWebTOUPopup(true);
 	};
 	const handleOnClickwebTOUClose = () => {
-		setwebTOUPopup(false);
+		setWebTOUPopup(false);
 	};
 	const handleOnClickPrivacy = () => {
 		setPrivacyPopup(true);
@@ -137,7 +137,7 @@ function SSN() {
 	};
 	useEffect(() => {
 		//redirect to select amount if accessed directly
-		if (data.completedPage < data.page.livingPlace || data.completedPage < data.page.activeDuty || data.formStatus === "completed") {
+		if (data.completedPage < data?.page?.livingPlace || data?.completedPage < data?.page?.activeDuty || data?.formStatus?.toLowerCase() === "completed") {
 			navigate("/select-amount");
 		}
 		return null;
@@ -455,7 +455,7 @@ function SSN() {
 			<Popup popupFlag={ privacyPopup } closePopup={ handleOnClickPrivacyClose }>
 				<RenderContent disclosureLink="/privacy" />
 			</Popup>
-			<Popup popupFlag={ open } closePopup={ handleClose }>
+			<Popup popupFlag={ open } closePopup={ handleClose }  title="Delaware Itemized Schedule of Charges" >
 				<RenderContent disclosureLink="/delaware" />
 			</Popup>
 		</div>
