@@ -75,7 +75,7 @@ function LoanPurpose(props) {
 	const preLoginStyles = preLoginStyle();
 	useEffect(() => {
 		//redirect to select offers if directly called
-		if (data.completedPage < data.page.selectAmount || data.formStatus === "completed") {
+		if (data?.completedPage < data?.page?.selectAmount || data?.formStatus?.toLowerCase() === "completed") {
 			navigate("/select-amount");
 		}
 		return null;
@@ -84,7 +84,7 @@ function LoanPurpose(props) {
 	//handle the user data nd store it into context and procced next step
 	const handleRoute = () => {
 		data.loanPurpose = purpose;
-		data.completedPage = data.completedPage > data.page.loanPurpose ? data.completedPage : data.page.loanPurpose;
+		data.completedPage = data?.completedPage > data?.page?.loanPurpose ? data?.completedPage : data?.page?.loanPurpose;
 		navigate("/citizenship-status");
 	};
 
@@ -93,7 +93,7 @@ function LoanPurpose(props) {
 		data.loanPurpose = val;
 		setPurpose(val);
 		if (data.completedPage < data.page.loanPurpose) {
-			data.completedPage = data.completedPage > data.page.loanPurpose ? data.completedPage : data.page.loanPurpose;
+			data.completedPage = data?.completedPage > data?.page?.loanPurpose ? data?.completedPage : data?.page?.loanPurpose;
 			navigate("/citizenship-status");
 		}
 	};

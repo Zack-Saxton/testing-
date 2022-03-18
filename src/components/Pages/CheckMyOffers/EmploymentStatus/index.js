@@ -47,7 +47,7 @@ function EmploymentStatus() {
 	const innerClasses = useStyles();
 
 	useEffect(() => {
-		if (data.completedPage < data.page.existingUser || data.formStatus === "completed") {
+		if (data?.completedPage < data?.page?.existingUser || data?.formStatus?.toLowerCase() === "completed") {
 			navigate("/select-amount");
 		}
 		return null;

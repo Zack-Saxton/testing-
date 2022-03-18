@@ -67,7 +67,7 @@ function NewUser() {
 
 	useEffect(() => {
 		//redirects to select amount on direct call
-		if (data.completedPage < data.page.personalInfo || data.formStatus === "completed") {
+		if (data?.completedPage < data?.page?.personalInfo || data?.formStatus?.toLowerCase() === "completed") {
 			navigate("/select-amount");
 		}
 		return null;

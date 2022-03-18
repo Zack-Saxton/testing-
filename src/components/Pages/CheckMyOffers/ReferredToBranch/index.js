@@ -21,7 +21,7 @@ function ReferredToBranch(props) {
 
 	useEffect(() => {
 		//redirects to select amount of directly called
-		if (data.completedPage < data.page.ssn && data.applicationStatus !== "referred" && props?.location?.formcomplete !== "yes") {
+		if (data?.completedPage < data?.page?.ssn && data?.applicationStatus?.toLowerCase() !== "referred" && props?.location?.formcomplete?.toLowerCase() !== "yes") {
 			navigate("/select-amount");
 		}
 		return null;

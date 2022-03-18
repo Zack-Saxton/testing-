@@ -27,7 +27,7 @@ function NoOffersAvailable(props) {
 	data.formStatus = "completed";
 	useEffect(() => {
 		//Redirect to select amount if directly called
-		if (data.completedPage < data.page.ssn && data.applicationStatus !== "rejected" && props?.location?.formcomplete !== "yes") {
+		if (data.completedPage < data?.page?.ssn && data?.applicationStatus?.toLowerCase() !== "rejected" && props?.location?.formcomplete?.toLowerCase() !== "yes") {
 			navigate("/select-amount");
 		}
 		return null;

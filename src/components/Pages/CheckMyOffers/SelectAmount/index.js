@@ -66,7 +66,7 @@ function CheckMyOffers(props) {
       setData({ ...data, loanAmount: select, loading: false });
       navigate("/loan-purpose");
     } else if (
-      !data.formStatus || !data.completedPage || data.formStatus === "completed" || location?.state?.fromLoanPurpose !== "yes"
+      !data.formStatus || !data.completedPage || data.formStatus?.toLowerCase() === "completed" || location?.state?.fromLoanPurpose?.toLowerCase() !== "yes"
     ) {
       setData({ ...data, loading: true });
       resetData();
