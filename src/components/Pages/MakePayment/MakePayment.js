@@ -753,7 +753,7 @@ export default function MakePayment(props) {
                               stylebutton='{"background": "", "color":"" }'
                               id="submitBtn"
                               onClick={ handleClickSubmit }
-                              disabled={ !disabledContent }
+                              disabled={ disabledContent }
                             >
                               Submit
                             </ButtonPrimary>
