@@ -660,7 +660,7 @@ export default function CreditKarma() {
         <RenderContent disclosureLink="/privacy" />
       </Popup>
 
-      <Popup popupFlag={ openDelaware } closePopup={ handleDelawareClose }>
+      <Popup popupFlag={ openDelaware } closePopup={ handleDelawareClose } title="Delaware Itemized Schedule of Charges">
         <RenderContent disclosureLink="/delaware" />
       </Popup>
 
