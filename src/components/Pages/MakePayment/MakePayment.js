@@ -315,7 +315,7 @@ export default function MakePayment(props) {
 
   //Select account
   const handleChangeSelect = (event) => {
-    setCard(event.target.value);
+    setCard(event.target.value.trim());
     if (event.nativeEvent.target.innerText.includes("Checking") || event.nativeEvent.target.innerText.includes("Savings")) {
       setIsDebit(false);
       setCheckCard(false);
@@ -486,7 +486,7 @@ export default function MakePayment(props) {
 
   //payment onblur
   const onBlurPayment = (event) => {
-    let price = event.target.value.replace("$", "");
+    let price = event.target.value.trim().replace("$", "");
     price = Number(price).toFixed(2);
     setPaymentAmount(price);
     setRequiredAmount("");

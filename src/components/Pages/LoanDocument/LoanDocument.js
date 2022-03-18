@@ -60,7 +60,7 @@ export default function LoanDocument() {
   };
   //Document type
   const handleDocType = (event) => {
-    setDocType(event.target.value);
+    setDocType(event.target.value.trim());
     changeEvent.current.click();
     event.target.value = '';
   };

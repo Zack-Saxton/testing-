@@ -19,14 +19,14 @@ const BankRoutingNumberWrapper = ({ name, ...otherProps }) => {
   //Account Number field onChange handle
   const onHandleBRNChange = (event) => {
     const reg = /^[0-9\b]+$/;
-    let account = event.target.value;
+    let account = event.target.value.trim();
 
     if (!account || reg.test(account)) {
       setBankRoutingNumber(event.target.value);
     }
-    const isValid = /(^\d{9}$)/.test(event.target.value);
-    (!isValid && event.target.value) ? setIsError(true) : setIsError(false);
-    (!isValid && event.target.value) ? setHelperText("Bank Routing number should be 9 digits") : setHelperText("");
+    const isValid = /(^\d{9}$)/.test(account);
+    (!isValid && account) ? setIsError(true) : setIsError(false);
+    (!isValid && account) ? setHelperText("Bank Routing number should be 9 digits") : setHelperText("");
 
   };
 

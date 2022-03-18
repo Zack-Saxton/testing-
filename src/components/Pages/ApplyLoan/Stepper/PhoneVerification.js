@@ -101,7 +101,7 @@ export default function PhoneVerification(props) {
 	const [ value, setValue ] = useState("T");
 
 	const handleChange = (event) => {
-		setValue(event.target.value);
+		setValue(event.target.value.trim());
 	};
 
 	//To prevent spaces
@@ -113,11 +113,11 @@ export default function PhoneVerification(props) {
 
 	const onPasscodeChange = (event) => {
 		const reg = /^\d*$/;
-		let firstName = event.target.value;
+		let firstName = event.target.value.trim();
 		setError("");
 
 		if (!firstName || reg.test(firstName)) {
-			setPasscode(event.target.value);
+			setPasscode(firstName);
 		}
 	};
 

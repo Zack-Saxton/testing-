@@ -19,7 +19,7 @@ const MobileNumberWrapper = ({ name, ...otherProps }) => {
   const [ mobile, setMobile ] = useState("");
 
   const handleChange = (event) => {
-    setMobile(event.target.value);
+    setMobile(event.target.value.trim());
   };
 
   // Check validity

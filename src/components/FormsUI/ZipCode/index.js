@@ -19,7 +19,7 @@ const ZipCodeWrapper = ({ name, error, helperText, value, onChange, refID, ...ot
   //Account Number field onChange handle
   const onHandleZipcodeChange = (event) => {
     const reg = /^[0-9\b]+$/;
-    let zipcode = event.target.value;
+    let zipcode = event.target.value.trim();
 
     if (!zipcode || reg.test(zipcode)) {
       setZipCode(zipcode);

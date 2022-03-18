@@ -215,7 +215,7 @@ export default function PaymentMethod() {
 
   const addBankOnChange = (event) => {
     const pattern = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
-    let enteredName = event.target.value; //Holder name, account name, bank name
+    let enteredName = event.target.value.trim(); //Holder name, account name, bank name
     if (!enteredName || enteredName.match(pattern)) {
       formikAddBankAccount.handleChange(event);
     }
@@ -223,7 +223,7 @@ export default function PaymentMethod() {
 
   const addBankOnChangeNumber = (event) => {
     const pattern = /^[0-9\b]+$/;
-    let accountNumber = event.target.value;
+    let accountNumber = event.target.value.trim();
     if (!accountNumber || accountNumber.match(pattern)) {
       formikAddBankAccount.handleChange(event);
     }
@@ -253,7 +253,7 @@ export default function PaymentMethod() {
 
   const addDebitOnChange = (event) => {
     const pattern = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
-    let cardHolderName = event.target.value;
+    let cardHolderName = event.target.value.trim();
     if (!cardHolderName || cardHolderName.match(pattern)) {
       formikAddDebitCard.handleChange(event);
     }
@@ -1221,7 +1221,7 @@ export default function PaymentMethod() {
                 onChange={ (event) => addDebitOnChangeNumber(event) }
                 // onBlur={formikAddDebitCard.handleBlur}
                 onBlur={ (event) => {
-                  detectCardType(event, event.target.value);
+                  detectCardType(event, event.target.value.trim());
                 } }
                 error={
                   formikAddDebitCard.touched.cardNumber &&

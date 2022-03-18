@@ -142,9 +142,9 @@ export default function BankAccountVerification(props) {
 	//restrictTextOnChange
 	const restrictTextOnChange = (event) => {
 		const reg = /^[0-9\b]+$/;
-		let acc = event.target.value;
+		let account = event.target.value.trim();
 
-		if (!acc || reg.test(acc)) {
+		if (!account || reg.test(account)) {
 			formik.handleChange(event);
 		}
 	};
@@ -152,9 +152,9 @@ export default function BankAccountVerification(props) {
 	// restrict Account Holder On Change
 	const restrictAccountHolderOnChange = (event) => {
 		const reg = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
-		let acc = event.target.value;
+		let account = event.target.value.trim();
 		//Checking non null and accepting reg ex
-		if (!acc || reg.test(acc)) {
+		if (!account || reg.test(account)) {
 			formik.handleChange(event);
 		}
 	};
@@ -240,7 +240,7 @@ export default function BankAccountVerification(props) {
 								) {
 									fetch(
 										"https://www.routingnumbers.info/api/data.json?rn=" +
-										event.target.value
+										event.target.value.trim()
 									)
 										.then((res) => res.json())
 										.then((result) => {
