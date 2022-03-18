@@ -377,7 +377,7 @@ export default function CreditKarma() {
 
   const onHandleChangePersonal = (event) => {
     const reg = /^[0-9.,$\b]+$/;
-    let income = event.target.value;
+    let income = event.target.value.trim();
     if (!income || reg.test(income)) {
       setErrorPersonal("");
       formik.handleChange(event);
@@ -385,7 +385,7 @@ export default function CreditKarma() {
   };
   const onHandleChangeHouse = (event) => {
     const reg = /^[0-9.,$\b]+$/;
-    let income = event.target.value;
+    let income = event.target.value.trim();
     if (!income || reg.test(income)) {
       setErrorAnnual("");
       formik.handleChange(event);
@@ -402,7 +402,7 @@ export default function CreditKarma() {
   const currencyFormat = (event) => {
     const inputName = event.target.name;
     if (inputName === "personalIncome") {
-      const income = event.target.value
+      const income = event.target.value.trim()
         .replace(/\$/g, "")
         .replace(/,/g, "")
         .substr(0, 7);
@@ -430,7 +430,7 @@ export default function CreditKarma() {
         }
       }
     } else if (inputName === "householdIncome") {
-      const income = event.target.value
+      const income = event.target.value.trim()
         .replace(/\$/g, "")
         .replace(/,/g, "")
         .substr(0, 7);
@@ -1165,7 +1165,7 @@ export default function CreditKarma() {
       <Popup popupFlag={ privacyPopup } closePopup={ handleOnClickPrivacyClose }>
         <RenderContent disclosureLink="/privacy" />
       </Popup>
-      <Popup popupFlag={ openDelaware } closePopup={ handleDelawareClose }>
+      <Popup popupFlag={ openDelaware } closePopup={ handleDelawareClose } title="Delaware Itemized Schedule of Charges">
         <RenderContent disclosureLink="/delaware" />
       </Popup>
 
