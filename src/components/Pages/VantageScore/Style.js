@@ -41,10 +41,10 @@ const useStyleVantageScore = makeStyles((theme) => ({
     color: "#212121",
   },
 
-  vantageScore:{
-    padding:"10px",
+  vantageScore: {
+    padding: "10px",
   },
-  textDecoration:{
+  textDecoration: {
     textDecoration: "none",
   },
 
@@ -89,7 +89,7 @@ const useStyleVantageScore = makeStyles((theme) => ({
   },
 
   VantageScoreSmallText: {
-    width:"100%",
+    width: "100%",
     fontSize: "13.5px",
     borderTop: "1px solid #949494",
     borderBottom: "1px solid #949494",

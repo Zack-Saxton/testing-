@@ -11,7 +11,7 @@ export default function DocumentUpload(props) {
 	//Set State
 	const [ selectedFile, setSelectedFile ] = useState(null);
 	const [ loader, setLoader ] = useState(null);
-  let refSelectedFile = useRef();
+	let refSelectedFile = useRef();
 
 	//To handle the file select change
 	const handleInputChange = () => {

@@ -52,7 +52,7 @@ export default function StatePage() {
   const [ branchDistance, setBranchDistance ] = useState(() => Math.abs(parseInt(howManyBranchesforBranchLocatorPages?.stateBranchDistanceinMiles, 10)));
   const [ stateLongName, setStateLongName ] = useState();
   const [ stateShortName, setStateShortName ] = useState();
-  
+
   //API call
   const getBranchLists = async (search_text) => {
     try {
@@ -232,7 +232,7 @@ export default function StatePage() {
                       <div className="searchInputWrap">
                         <input
                           id="search1"
-                          ref={refSearch1}
+                          ref={ refSearch1 }
                           className="stateSearch"
                           { ...getInputProps({
                             placeholder: "Enter city & state or zip code",
@@ -369,7 +369,7 @@ export default function StatePage() {
                 onClick={ () => {
                   if (refSearch2.current.value) {
                     openGetDirectionModal();
-                    setBranchAddress(`https://www.google.com/maps/search/${refSearch2.current.value}`);
+                    setBranchAddress(`https://www.google.com/maps/search/${ refSearch2.current.value }`);
                     setAddress2("");
                   } else if (branchList && branchList[ 0 ]?.Address) {
                     openGetDirectionModal();
@@ -409,7 +409,7 @@ export default function StatePage() {
                     <div className="searchInputWrap">
                       <input
                         id="search2"
-                        ref={refSearch2}
+                        ref={ refSearch2 }
                         className="branchSearchTwo"
                         { ...getInputProps({
                           placeholder: "Enter city & state or zip code",
@@ -469,8 +469,8 @@ export default function StatePage() {
                       return (
                         <Grid key={ index } className="locationInfo" item lg={ 4 } md={ 4 } sm={ 6 } xs={ 12 }>
                           <NavLink
-                            to={`/branch-locator/${stateLongName.replace(/\s+/, '-').toLocaleLowerCase()}/personal-loans-in-${item?.BranchName.replace(/[- .]/g, "").replace(/\s+/g, '-').toLocaleLowerCase()}-${stateShortName.toLocaleLowerCase() }`}
-                            state={{ branch_Details: item, stateLongNm: stateLongName, stateShortNm: stateShortName }}
+                            to={ `/branch-locator/${ stateLongName.replace(/\s+/, '-').toLocaleLowerCase() }/personal-loans-in-${ item?.BranchName.replace(/[- .]/g, "").replace(/\s+/g, '-').toLocaleLowerCase() }-${ stateShortName.toLocaleLowerCase() }` }
+                            state={ { branch_Details: item, stateLongNm: stateLongName, stateShortNm: stateShortName } }
                             className="nav_link"
                           >
                             <b>

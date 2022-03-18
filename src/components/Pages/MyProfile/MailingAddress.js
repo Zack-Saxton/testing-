@@ -56,7 +56,7 @@ export default function MailingAddress(props) {
   let hasApplicationStatus = Cookies.get("hasApplicationStatus");
   let appStatus = [ "rejected", "referred", "expired" ];
   let checkAppStatus = appStatus.includes(hasApplicationStatus);
-  let disableField = (checkAppStatus || hasActiveLoan) ;
+  let disableField = (checkAppStatus || hasActiveLoan);
 
   const onClickCancelChange = () => {
     formik.resetForm();

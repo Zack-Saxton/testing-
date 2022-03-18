@@ -7,39 +7,37 @@ export default function Disclaimer(offerData) {
     const filterDisclaimers = (data) => {
         let campaignType = data?.offerData?.userOffers?.CampaignTypeDesc?.toLowerCase();
         let disclaimers = [];
-        let disclaimerIndecies
+        let disclaimerIndecies;
         if (campaignType)
-             switch(campaignType) {
+            switch (campaignType) {
                 case "bci":
                 case "ita":
-                        disclaimerIndecies = [8, 5, 2, 7, 3, 4, 6];
-                        break;
-                case "pres": 
+                    disclaimerIndecies = [ 8, 5, 2, 7, 3, 4, 6 ];
+                    break;
+                case "pres":
                 case "trigger":
-                        disclaimerIndecies = [1, 7, 2, 3, 4, 5, 6];
-                        break;
+                    disclaimerIndecies = [ 1, 7, 2, 3, 4, 5, 6 ];
+                    break;
                 case "conv":
                 case "bto":
-                        disclaimerIndecies = [8, 5, 2, 3, 4, 6];
-                        break;
+                    disclaimerIndecies = [ 8, 5, 2, 3, 4, 6 ];
+                    break;
                 case "auto":
                 case "dacc":
-                        disclaimerIndecies = [9, 10, 11, 12, 13, 14, 3, 4, 6];
-                        break;
+                    disclaimerIndecies = [ 9, 10, 11, 12, 13, 14, 3, 4, 6 ];
+                    break;
                 case "grids":
-                        disclaimerIndecies = [1, 2, 3, 4, 5, 6];
-                        break;
+                    disclaimerIndecies = [ 1, 2, 3, 4, 5, 6 ];
+                    break;
                 case "rbo":
-                        disclaimerIndecies = [1, 3, 4, 6];
-                        break;
+                    disclaimerIndecies = [ 1, 3, 4, 6 ];
+                    break;
                 case "glo":
-                        disclaimerIndecies = [1, 5, 4, 2, 6];
-                        break;
-                default: 
-                    disclaimerIndecies = [8, 5, 2, 7, 3, 4, 6];
+                    disclaimerIndecies = [ 1, 5, 4, 2, 6 ];
+                    break;
+                default:
+                    disclaimerIndecies = [ 8, 5, 2, 7, 3, 4, 6 ];
             }
-      
-
 
         disclaimerIndecies.forEach(index => {
             disclaimers.push(allDisclaimers[ index ]);

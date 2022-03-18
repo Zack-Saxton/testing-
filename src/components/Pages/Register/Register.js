@@ -10,7 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import axios from "axios";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
-import React, { useState, useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useQueryClient } from 'react-query';
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -382,7 +382,7 @@ export default function Register() {
                         id="firstname"
                         label="First Name *"
                         placeholder={ globalMessages.FirstNameEnter }
-                        materialProps={ { maxLength: "30",ref :refFirstName, } }
+                        materialProps={ { maxLength: "30", ref: refFirstName, } }
                         value={ formik.values.firstname }
                         onChange={ (event) => NameChange(event) }
                         onBlur={ formik.handleBlur }
@@ -410,7 +410,7 @@ export default function Register() {
                         id="lastname"
                         label="Last Name *"
                         placeholder={ globalMessages.LastNameEnter }
-                        materialProps={ { maxLength: "30", ref : refLastName } }
+                        materialProps={ { maxLength: "30", ref: refLastName } }
                         value={ formik.values.lastname }
                         onChange={ NameChange }
                         onBlur={ formik.handleBlur }

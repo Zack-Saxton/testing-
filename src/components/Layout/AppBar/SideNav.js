@@ -235,7 +235,7 @@ export default function SideNav() {
   //Material UI media query for responsiveness
   let check = useMediaQuery("(min-width:960px)");
 
-    useEffect(() => {
+  useEffect(() => {
     if (check && checked) {
       setChecked(true);
       setOpen(true);
@@ -615,10 +615,10 @@ export default function SideNav() {
 
                       <>
                         <ListItem id="sidemenuLastLogin">
-                          { !lastLogin ? '' : `Last Login : ${ lastLogin }`}
+                          { !lastLogin ? '' : `Last Login : ${ lastLogin }` }
                         </ListItem>
                         <ListItem id="sidemenuBranch">
-                          { !branchName ? '' : `Branch :  ${ branchName }`}
+                          { !branchName ? '' : `Branch :  ${ branchName }` }
                         </ListItem>
                         <ListItem id={ branchAvailability ? 'sidemenuOpenNow' : 'sidemenuCloseNow' }>
                           { branchAvailability ? 'Open now' : 'Closed now' }

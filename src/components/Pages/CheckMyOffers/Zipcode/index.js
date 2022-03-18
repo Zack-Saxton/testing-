@@ -134,7 +134,7 @@ function Zipcode() {
 												type="submit"
 												data-testid="zipcodeCntuButton"
 												stylebutton='{"background": "#FFBC23", "color": "black","fontSize":"0.938rem", "padding": "0px 30px"}'
-												disabled={Boolean(formik.errors.zip)}
+												disabled={ Boolean(formik.errors.zip) }
 											>
 												Continue
 											</ButtonPrimary>

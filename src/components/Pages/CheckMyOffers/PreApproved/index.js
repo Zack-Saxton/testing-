@@ -1,12 +1,12 @@
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import React, { useContext, useEffect, useState } from "react";
-import { useLocation, Link, useNavigate } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
-import { ButtonPrimary } from "../../../FormsUI";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { CheckMyOffers as Check } from "../../../../contexts/CheckMyOffers";
+import { ButtonPrimary } from "../../../FormsUI";
 
 const useStyles = makeStyles((theme) => ({
     offerAmountStyle: {
@@ -34,10 +34,10 @@ const PreApproved = () => {
         navigate("/loan-purpose");
     };
     useEffect(() => {
-        setOfferAmount("$ " + (location?.state?.offerData?.length ? (Math.round(parseInt(location.state.offerData[ 0 ].offerAmount) * 100) / 100) : 0 ).toLocaleString());
+        setOfferAmount("$ " + (location?.state?.offerData?.length ? (Math.round(parseInt(location.state.offerData[ 0 ].offerAmount) * 100) / 100) : 0).toLocaleString());
         return null;
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []); 
+    }, []);
 
     return (
         <div>

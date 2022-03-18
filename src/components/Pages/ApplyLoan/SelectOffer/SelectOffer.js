@@ -56,7 +56,7 @@ export default function ApplyLoan() {
 	// Submit the offer selected, It calls the API for select offer and redirecr to sign and review page
 	const submitSelectedOffer = async (selTerm, selIndex) => {
 		setLoading(true);
-		if (accountDetails && selTerm  && selIndex ) {
+		if (accountDetails && selTerm && selIndex) {
 			let selectedOfferResponse = await submitSelectedOfferAPI(accountDetails?.data?.Offers[ selTerm ][ selIndex ]);
 			if (selectedOfferResponse?.data?.selected_offer) {
 				setLoading(false);

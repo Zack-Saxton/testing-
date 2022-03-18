@@ -6,7 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import axios from "axios";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
-import React, { useContext, useEffect, useState, useRef } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import globalMessages from '../../../../assets/data/globalMessages.json';
@@ -385,7 +385,7 @@ function PersonalInfo() {
 												id="firstName"
 												name="firstName"
 												label="First Name *"
-												materialProps={ { maxLength: "30",ref :refFirstName, } }
+												materialProps={ { maxLength: "30", ref: refFirstName, } }
 												value={ formik.values.firstName }
 												onChange={ onNameChange }
 												onBlur={ formik.handleBlur }
@@ -414,7 +414,7 @@ function PersonalInfo() {
 												id="lastName"
 												name="lastName"
 												label="Last Name *"
-												materialProps={ { maxLength: "30",ref :refLastName, } }
+												materialProps={ { maxLength: "30", ref: refLastName, } }
 												value={ formik.values.lastName }
 												onChange={ onNameChange }
 												onBlur={ formik.handleBlur }

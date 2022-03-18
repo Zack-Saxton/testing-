@@ -455,7 +455,7 @@ function SSN() {
 			<Popup popupFlag={ privacyPopup } closePopup={ handleOnClickPrivacyClose }>
 				<RenderContent disclosureLink="/privacy" />
 			</Popup>
-			<Popup popupFlag={ open } closePopup={ handleClose }  title="Delaware Itemized Schedule of Charges" >
+			<Popup popupFlag={ open } closePopup={ handleClose } title="Delaware Itemized Schedule of Charges" >
 				<RenderContent disclosureLink="/delaware" />
 			</Popup>
 		</div>

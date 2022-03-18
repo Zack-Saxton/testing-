@@ -16,7 +16,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import Moment from "moment";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useQuery } from "react-query";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -651,7 +651,7 @@ export default function MakePayment(props) {
                       <Select
                         id="select"
                         name="select"
-                        refId={refSelectPaymentOption}
+                        refId={ refSelectPaymentOption }
                         labelform="Accounts"
                         select={ paymentOptions }
                         onChange={ handleChangeSelect }
@@ -779,12 +779,12 @@ export default function MakePayment(props) {
                             name="payment"
                             label="Payment Amount"
                             type="text"
-                            materialProps={ { ref : refPaymentAmount } }
+                            materialProps={ { ref: refPaymentAmount } }
                             autoComplete="off"
                             onChange={ onHandlepaymentAmount }
                             value={ "$" + paymentAmount }
-                              onBlur={ onBlurPayment }
-                              // disabled={ disabledContent }
+                            onBlur={ onBlurPayment }
+                          // disabled={ disabledContent }
                           />
                           <p
                             className={
@@ -813,9 +813,9 @@ export default function MakePayment(props) {
                               placeholder="MM/DD/YYYY"
                               id="date"
                               disablePast
-                                disabled={ calendarDisabled  }
+                              disabled={ calendarDisabled }
                               autoComplete="off"
-                              refId = {refpaymentDatepicker}
+                              refId={ refpaymentDatepicker }
                               maxdate={ paymentMaxDate }
                               onKeyDown={ (event) => event.preventDefault() }
                               shouldDisableDate={ disableHolidays }
@@ -828,7 +828,7 @@ export default function MakePayment(props) {
                                 );
                                 setRequiredDate("");
                               } }
-                                value={ paymentDatepicker }
+                              value={ paymentDatepicker }
                             />
                             <p
                               className={
@@ -861,8 +861,8 @@ export default function MakePayment(props) {
                               <ButtonPrimary
                                 stylebutton='{"marginRight": "" }'
                                 id="make-payment-schedule-button"
-                                  onClick={ handleSchedulePaymentClick }
-                                //  disabled={ disabledContent }
+                                onClick={ handleSchedulePaymentClick }
+                              //  disabled={ disabledContent }
                               >
                                 Schedule Payment
                               </ButtonPrimary>

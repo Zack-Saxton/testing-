@@ -5,7 +5,7 @@ import * as imageConversion from 'image-conversion';
 import Cookies from "js-cookie";
 import Moment from "moment";
 import PropTypes from "prop-types";
-import React, { useContext, useState, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { useQuery } from 'react-query';
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -254,7 +254,7 @@ export default function BasicInformation(props) {
           if (res?.data?.notes.length !== 0 && selectedFile !== null) {
             uploadBasicInfoImageChange();
           }
-        }else if (selectedFile !== null) {
+        } else if (selectedFile !== null) {
           uploadBasicInfoImageChange();
         } else if (formik.initialValues.phone !== values.phone && formik.initialValues.email === values.email) {
           if (res?.data?.notes.length !== 0 && res?.data?.emailUpdate) {

@@ -14,7 +14,6 @@ import HistoricalData from "./HistoricalData";
 import KeyFactors from "./KeyFactors";
 import { useStyleVantageScore } from "./Style";
 
-
 export default function VantageScore() {
   //Material UI css class
   const classes = useStyleVantageScore();
@@ -45,12 +44,12 @@ export default function VantageScore() {
         justifyContent={ "center" }
         className={ classes.centerGrid }
       >
-        <Grid className={classes.vantageScore} container>
+        <Grid className={ classes.vantageScore } container>
           <Grid item xs={ 12 }>
             <Typography variant="h5" className={ classes.heading }>
               <NavLink
                 to="/customers/accountOverview"
-                className={classes.textDecoration}
+                className={ classes.textDecoration }
               >
                 <ButtonWithIcon
                   icon="arrow_backwardIcon"
@@ -82,7 +81,7 @@ export default function VantageScore() {
 
         <div id="HistoricalDataContainer">
           <Grid item xs={ 12 }>
-            <Paper style={ { padding: "36px" } }  className={ classes.paper }>
+            <Paper style={ { padding: "36px" } } className={ classes.paper }>
               { creditData ? (
                 creditData[ 0 ]?.parsed.vantage_score ? (
                   <HistoricalData creditData={ creditData } />) : <div>You do not have any historical data </div>
