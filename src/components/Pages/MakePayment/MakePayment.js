@@ -766,7 +766,7 @@ export default function MakePayment(props) {
                             </ButtonPrimary>
                           </Grid>
                         </Grid>
-               
+
                         <Grid item xs={ 12 }>
                           <Typography
                             style={ { paddingBottom: "10px" } }
@@ -811,11 +811,11 @@ export default function MakePayment(props) {
                               name="date"
                               label="Payment Date"
                               placeholder="MM/DD/YYYY"
-                              id="date"                          
+                              id="date"
                               disablePast
                                 disabled={ calendarDisabled  }
                               autoComplete="off"
-                              refID = {refpaymentDatepicker}
+                              refId = {refpaymentDatepicker}
                               maxdate={ paymentMaxDate }
                               onKeyDown={ (event) => event.preventDefault() }
                               shouldDisableDate={ disableHolidays }
