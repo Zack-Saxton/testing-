@@ -26,7 +26,7 @@ const validationSchema = yup.object({
   firstName: yup
     .string(globalMessages?.FirstNameEnter)
     .trim()
-    .max(30, globalMessages?.firstNameMax)
+    .max(30, globalMessages?.FirstNameMax)
     .matches(/^(?!\s+$).*/g, globalMessages?.No_Backspace_Only)
     .required(globalMessages?.FirstNameRequired),
   lastName: yup
