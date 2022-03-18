@@ -55,9 +55,9 @@ export default function ViewAccountDetails() {
     setValues(newValues);
   };
 
-  let viewAppContact = Cookies.get("viewAppContact") ?? '{ }';
+  let viewAppContact = Cookies.get("viewAppContact") ?? '{}'
   let viewApplicationContact = JSON.parse(viewAppContact);
-  let viewAppApplicant = Cookies.get("viewAppApplicant") ?? '{ }';
+  let viewAppApplicant = Cookies.get("viewAppApplicant") ?? '{}'
   let viewAppApplicantInfo = JSON.parse(viewAppApplicant);
 
   //View part
@@ -69,7 +69,6 @@ export default function ViewAccountDetails() {
         container
         justifyContent={ "center" }
         className={ classes.centerGrid }
-
       >
         <Grid container spacing={ 3 }>
           <Grid item xs={ 12 }>

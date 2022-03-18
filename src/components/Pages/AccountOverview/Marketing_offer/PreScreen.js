@@ -19,7 +19,7 @@ export default function PreScreen(offerData) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    if (preScreenMessage !== "") {
+    if (preScreenMessage) {
         return (
             <Grid className="content">
                 { preScreenMessage }
