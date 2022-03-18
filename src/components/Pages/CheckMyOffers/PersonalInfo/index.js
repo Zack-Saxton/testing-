@@ -383,10 +383,9 @@ function PersonalInfo() {
 												fullWidth
 												autoFocus
 												id="firstName"
-												ref={ refFirstName }
 												name="firstName"
 												label="First Name *"
-												materialProps={ { maxLength: "30" } }
+												materialProps={ { maxLength: "30",ref :refFirstName, } }
 												value={ formik.values.firstName }
 												onChange={ onNameChange }
 												onBlur={ formik.handleBlur }
@@ -413,10 +412,9 @@ function PersonalInfo() {
 											<TextField
 												fullWidth
 												id="lastName"
-												ref={ refLastName }
 												name="lastName"
 												label="Last Name *"
-												materialProps={ { maxLength: "30" } }
+												materialProps={ { maxLength: "30",ref :refLastName, } }
 												value={ formik.values.lastName }
 												onChange={ onNameChange }
 												onBlur={ formik.handleBlur }
