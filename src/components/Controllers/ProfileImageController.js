@@ -5,8 +5,8 @@ import ErrorLogger from "../lib/ErrorLogger";
 
 export default async function UserImageInformation() {
   try {
-    if (Cookies.get("profile_picture_url") && Cookies.get("profile_picture_url") !== "") {
-      return Cookies.get("profile_picture_url");
+    if (Cookies.get("profilePictureURL") && Cookies.get("profilePictureURL") !== "") {
+      return Cookies.get("profilePictureURL");
     }
     const email = Cookies.get("email");
     let url = "get_profile_picture";
@@ -23,7 +23,7 @@ export default async function UserImageInformation() {
     let method = "POST";
     let addAccessToken = true;
     let res = await APICall(url, param, data, method, addAccessToken);
-    Cookies.set("profile_picture_url", res?.data?.profile_picture_url ? res?.data?.profile_picture_url : "");
+    Cookies.set("profilePictureURL", res?.data?.profile_picture_url ? res?.data?.profile_picture_url : "");
     return res?.data?.profile_picture_url;
   } catch (error) {
     ErrorLogger(globalMessages.Error_executing_UserImageInformation_API, error);

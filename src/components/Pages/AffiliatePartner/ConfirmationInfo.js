@@ -157,7 +157,7 @@ export default function CreditKarma() {
   const handleOnClickwebTOUClose = () => setWebTOUPopup(false);
   const handleOnClickPrivacy = () => setPrivacyPopup(true);
   const handleOnClickPrivacyClose = () => setPrivacyPopup(false);
-  
+
   const validate = (personal, household) => {
     let returnValue = false;
     if (!isNaN(personal) && !isNaN(household)) {
@@ -182,7 +182,7 @@ export default function CreditKarma() {
   let refCitizenship = useRef();
   let refPersonalIncome = useRef();
   let refEmployementStatus = useRef();
-  let refAnnualhousehold = useRef();
+  let refAnnualHousehold = useRef();
 
   const autoFocus = () => {
     if (!refFirstName.current.value) {
@@ -200,8 +200,8 @@ export default function CreditKarma() {
       validate();
     } else if (!refEmployementStatus.current.value) {
       refEmployementStatus.current.focus();
-    } else if (!refAnnualhousehold.current.value) {
-      refAnnualhousehold.current.focus();
+    } else if (!refAnnualHousehold.current.value) {
+      refAnnualHousehold.current.focus();
       validate();
     } else {
       return false;
@@ -377,7 +377,7 @@ export default function CreditKarma() {
 
   const onHandleChangePersonal = (event) => {
     const reg = /^[0-9.,$\b]+$/;
-    let income = event.target.value;
+    let income = event.target.value.trim();
     if (!income || reg.test(income)) {
       setErrorPersonal("");
       formik.handleChange(event);
@@ -385,7 +385,7 @@ export default function CreditKarma() {
   };
   const onHandleChangeHouse = (event) => {
     const reg = /^[0-9.,$\b]+$/;
-    let income = event.target.value;
+    let income = event.target.value.trim();
     if (!income || reg.test(income)) {
       setErrorAnnual("");
       formik.handleChange(event);
@@ -402,7 +402,7 @@ export default function CreditKarma() {
   const currencyFormat = (event) => {
     const inputName = event.target.name;
     if (inputName === "personalIncome") {
-      const income = event.target.value
+      const income = event.target.value.trim()
         .replace(/\$/g, "")
         .replace(/,/g, "")
         .substr(0, 7);
@@ -430,7 +430,7 @@ export default function CreditKarma() {
         }
       }
     } else if (inputName === "householdIncome") {
-      const income = event.target.value
+      const income = event.target.value.trim()
         .replace(/\$/g, "")
         .replace(/,/g, "")
         .substr(0, 7);
@@ -653,7 +653,7 @@ export default function CreditKarma() {
                           labelform="Citizenship"
                           value={ formik.values.citizenship }
                           onChange={ changeCitizenship }
-                          refId = {refCitizenship } 
+                          refId = {refCitizenship }
                           onBlur={ formik.handleBlur }
                           error={ (formik.touched.citizenship && Boolean(formik.errors.citizenship)) || citizenship }
                           helperText={ !citizenship ? formik.touched.citizenship && formik.errors.citizenship : "We are sorry. We do not offer loans to foreign residents." }
@@ -694,7 +694,7 @@ export default function CreditKarma() {
                         materialProps={ {
                           "data-testid": "annualIncome",
                           maxLength: "10",
-                          ref: refAnnualhousehold
+                          ref: refAnnualHousehold
                         } }
                         autoComplete="off"
                         onChange={ onHandleChangeHouse }
@@ -1165,7 +1165,7 @@ export default function CreditKarma() {
       <Popup popupFlag={ privacyPopup } closePopup={ handleOnClickPrivacyClose }>
         <RenderContent disclosureLink="/privacy" />
       </Popup>
-      <Popup popupFlag={ openDelaware } closePopup={ handleDelawareClose }>
+      <Popup popupFlag={ openDelaware } closePopup={ handleDelawareClose } title="Delaware Itemized Schedule of Charges">
         <RenderContent disclosureLink="/delaware" />
       </Popup>
 
