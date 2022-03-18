@@ -157,24 +157,15 @@ export default function CreditKarma() {
   const refEmployementStatus = useRef();
   const refAnnualHousehold = useRef();
   let location = useLocation();
-
   const handleOnClickEsign = () => setEsignPopup(true);
-  
   const handleOnClickEsignClose = () => setEsignPopup(false);
-
   const handleOnClickCredit = () => setCreditPopup(true);
-  
   const handleOnClickCreditClose = () => setCreditPopup(false);
-  
   const handleOnClickwebTOU = () => setWebTOUPopup(true);
-  
   const handleOnClickwebTOUClose = () => setWebTOUPopup(false);
-  
   const handleOnClickPrivacy = () => setPrivacyPopup(true);
-  
   const handleOnClickPrivacyClose = () => setPrivacyPopup(false);
   
-
   const validate = (personal, household) => {
     let returnValue = false;
     if (!isNaN(personal) && !isNaN(household)) {
