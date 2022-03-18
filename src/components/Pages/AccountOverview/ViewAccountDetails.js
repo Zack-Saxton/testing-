@@ -13,10 +13,8 @@ import CheckLoginStatus from "../../App/CheckLoginStatus";
 import { ButtonWithIcon } from "../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
 import { useStylesAccountOverview } from "./Style";
-
 function TabPanelViewApplication(props) {
   const { children, value, verticalIndex, ...other } = props;
-
   return (
     <div
       role="tabpanel"
@@ -50,15 +48,11 @@ function tabVerticalProps(verticalIndex) {
 export default function ViewAccountDetails() {
   const classes = useStylesAccountOverview();
   const [ values, setValues ] = useState(0);
-
-  const handleTabChange = (event, newValues) => {
-    setValues(newValues);
-  };
-
+  const handleTabChange = (event, newValues) => setValues(newValues);
   let viewAppContact = Cookies.get("viewAppContact") ?? '{}'
-  let viewApplicationContact = JSON.parse(viewAppContact);
+  let viewApplicationContact = typeof viewAppContact === "object" ? JSON.parse(viewAppContact) : viewAppContact;
   let viewAppApplicant = Cookies.get("viewAppApplicant") ?? '{}'
-  let viewAppApplicantInfo = JSON.parse(viewAppApplicant);
+  let viewAppApplicantInfo = typeof viewAppApplicant === "object" ? JSON.parse(viewAppApplicant) : viewAppApplicant;
 
   //View part
   return (

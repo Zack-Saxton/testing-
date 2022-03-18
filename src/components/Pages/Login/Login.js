@@ -142,8 +142,8 @@ export default function Login(props) {
     }
   };
   const remMeDataRaw = Cookies.get("rememberMe") ?? '{}';
-  let remMeData =JSON.parse(remMeDataRaw);
-  const [remMe, setRemMe] = useState(remMeData?.selected);
+  let remMeData = typeof remMeDataRaw === "object" ? JSON.parse(remMeDataRaw) : remMeDataRaw;
+  const [ remMe, setRemMe ] = useState(remMeData?.selected);
   //Form Submission
   const formik = useFormik({
     initialValues: {
@@ -186,7 +186,7 @@ export default function Login(props) {
         Cookies.set("login_date", login_date);
         Cookies.set("userToken", retVal?.data?.user?.attributes?.UserToken);
         Cookies.set("temp_opted_phone_texting", "");
-        Cookies.set("rememberMe", remMe ? JSON.stringify({ selected: true, email: values?.email}) : JSON.stringify({ selected: false, email: ''}) );
+        Cookies.set("rememberMe", remMe ? JSON.stringify({ selected: true, email: values?.email }) : JSON.stringify({ selected: false, email: '' }));
         queryClient.removeQueries();
         setLoading(false);
         if (retVal?.data?.user?.attributes?.password_reset) {
@@ -352,20 +352,20 @@ export default function Login(props) {
                         Sign In help/Register for help signing in.
                       </p>
                     </Grid>
-                    <Grid className={classes.checkbox}>
-                    <FormControl>
-                      <FormControlLabel
-                        control={
-                          <Switch
-                            checked={ remMe }
-                            onChange={ handleRemMeChange }
-                            inputProps={ { "data-test-id": "switch" } }
-                            color="primary"
-                          />
-                        }
-                        label=" Remember me"
-                      />
-                    </FormControl>
+                    <Grid className={ classes.checkbox }>
+                      <FormControl>
+                        <FormControlLabel
+                          control={
+                            <Switch
+                              checked={ remMe }
+                              onChange={ handleRemMeChange }
+                              inputProps={ { "data-test-id": "switch" } }
+                              color="primary"
+                            />
+                          }
+                          label=" Remember me"
+                        />
+                      </FormControl>
                     </Grid>
 
                     <Grid item xs={ 12 } className={ classes.loginButton }>

@@ -351,27 +351,12 @@ export default function CreditKarma() {
       ErrorLogger("Error from fetchSpouseAddress.",);
     }
   };
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleClickOpenOhio = () => {
-    setOpenOhio(true);
-  };
-
-  const handleCloseOhio = () => {
-    setOpenOhio(false);
-  };
-
-  const handleClickDelawareOpen = () => {
-    setOpenDelaware(true);
-  };
-  const handleDelawareClose = () => {
-    setOpenDelaware(false);
-  };
+  const handleClickOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const handleClickOpenOhio = () => setOpenOhio(true);
+  const handleCloseOhio = () => setOpenOhio(false);
+  const handleClickDelawareOpen = () => setOpenDelaware(true);
+  const handleDelawareClose = () => setOpenDelaware(false);
 
   //Restrict alphabets
 
@@ -471,19 +456,13 @@ export default function CreditKarma() {
   const onNameChange = (event) => {
     const reg = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
     let acc = event.target.value;
-    if (!acc || reg.test(acc)) {
-      formik.handleChange(event);
-    }
+    if (!acc || reg.test(acc)) formik.handleChange(event);
   };
   const changeCitizenship = (event) => {
     let citizenshipValue = event.target.value;
-    if (citizenshipValue === "Foreign Resident") {
-      setCitizenship(true);
-      formik.handleChange(event);
-    } else {
-      setCitizenship(false);
-      formik.handleChange(event);
-    }
+    if (citizenshipValue === "Foreign Resident") setCitizenship(true);
+    else setCitizenship(false);
+    formik.handleChange(event);
   };
 
   //View Part

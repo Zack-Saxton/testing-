@@ -50,17 +50,9 @@ export default function LimitedOffer(userOfferData) {
     return null;
   }, [ userOfferData ]);
 
-  const showModal = () => {
-    setInitModal(true);
-  };
-
-  const closeModal = () => {
-    setInitModal(false);
-  };
-
-  const handleContinue = () => {
-    navigate("/select-amount");
-  };
+  const showModal = () => setInitModal(true);
+  const closeModal = () => setInitModal(false);
+  const handleContinue = () => navigate("/select-amount");
 
   //View
   return (
