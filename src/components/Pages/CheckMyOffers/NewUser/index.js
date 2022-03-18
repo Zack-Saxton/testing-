@@ -34,7 +34,7 @@ const validationSchema = yup.object({
 		.max(30, globalMessages.PasswordMax)
 		.min(8, globalMessages.PasswordMin)
 		.when("newPassword", {
-			is: (newPassword) => newPassword && newPassword.length > 0,
+			is: (newPassword) => newPassword?.length > 0,
 			then: yup
 				.string()
 				.oneOf([ yup.ref("newPassword") ], globalMessages.PasswordConfirmationMatch),

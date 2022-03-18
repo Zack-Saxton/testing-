@@ -19,7 +19,7 @@ import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
 import { ButtonPrimary, Checkbox, Popup, RenderContent, Select, TextField, Zipcode } from "../../FormsUI";
 import ErrorLogger from "../../lib/ErrorLogger";
 import "./Style.css";
-import {useStylesPartner} from "./style"
+import { useStylesPartner } from "./style";
 
 //Yup validations for all the input fields
 const validationSchema = yup.object({
@@ -182,34 +182,35 @@ export default function CreditKarma() {
     }
     return returnValue;
   };
-  const autoFocus = () => {
-    let firstName = refFirstName.current.value;
-    let lastName = refLastName.current.value;
-    let streetAddress = refStreetAddress.current.value;
-    let zip = refZip.current.value;
-    let citizenshipCnf = refCitizenship.current.value;
-    let personalIncome = refPersonalIncome.current.value;
-    let employementStatus = refEmployementStatus.current.value;
-    let annualHousehold = refAnnualHousehold.current.value;
 
-    if (!firstName) {
+  let refFirstName = useRef();
+  let refLastName = useRef();
+  let refStreetAddress = useRef();
+  let refZip = useRef();
+  let refCitizenship = useRef();
+  let refPersonalIncome = useRef();
+  let refEmployementStatus = useRef();
+  let refAnnualhousehold = useRef();
+
+  const autoFocus = () => {
+    if (!refFirstName.current.value) {
       refFirstName.current.focus();
-    } else if (!lastName) {
+    } else if (!refLastName.current.value) {
       refLastName.current.focus();
-    } else if (!streetAddress) {
+    } else if (!refStreetAddress.current.value) {
       refStreetAddress.current.focus();
-    } else if (!zip) {
+    } else if (!refZip.current.value) {
       refZip.current.focus();
-    } else if (!citizenshipCnf) {
+    } else if (!refCitizenship.current.value) {
       refCitizenship.current.focus();
-    } else if (!employementStatus) {
-      refEmployementStatus.current.focus();
-    } else if (!personalIncome) {
+    } else if (!refPersonalIncome.current.value) {
       refPersonalIncome.current.focus();
       validate();
-    } else if (!annualHousehold) {
+    } else if (!refEmployementStatus.current.value) {
+      refEmployementStatus.current.focus();
+    } else if (!refAnnualhousehold.current.value) {
+      refAnnualhousehold.current.focus();
       validate();
-      refAnnualHousehold.current.focus();
     } else {
       return false;
     }
@@ -499,7 +500,7 @@ export default function CreditKarma() {
       <div className={ classes.mainContentBackground } id="mainContentBackground">
         <Box>
           <Grid
-            className={classes.confirmationGrid}
+            className={ classes.confirmationGrid }
             xs={ 12 }
             item
           >
@@ -526,7 +527,7 @@ export default function CreditKarma() {
                 >
                   Welcome to Mariner Finance{ " " }
                 </Typography>
-                <p className={classes.introText}>
+                <p className={ classes.introText }>
                   Please review and confirm the information that{ " " }
                   <a href="https://www.creditkarma.com/" target="blank">
                     { " " }
@@ -542,7 +543,7 @@ export default function CreditKarma() {
 
                 <form onSubmit={ formik.handleSubmit }>
                   <Grid container spacing={ 4 }>
-                    <Grid item xs={ 12 } sm={ 6 } className={classes.fullWidth} >
+                    <Grid item xs={ 12 } sm={ 6 } className={ classes.fullWidth } >
                       <TextField
                         id="firstName"
                         name="firstName"
@@ -551,6 +552,7 @@ export default function CreditKarma() {
                         materialProps={ {
                           "data-test-id": "name",
                           maxLength: "30",
+                          ref :refFirstName,
                         } }
                         value={ formik.values.firstName }
                         onChange={ onNameChange }
@@ -560,7 +562,7 @@ export default function CreditKarma() {
                       />
                     </Grid>
 
-                    <Grid item xs={ 12 } sm={ 6 } className={classes.fullWidth}>
+                    <Grid item xs={ 12 } sm={ 6 } className={ classes.fullWidth }>
                       <TextField
                         id="lastName"
                         name="lastName"
@@ -569,6 +571,7 @@ export default function CreditKarma() {
                         materialProps={ {
                           "data-test-id": "lastName",
                           maxLength: "30",
+                          ref : refLastName,
                         } }
                         value={ formik.values.lastName }
                         onChange={ onNameChange }
@@ -588,6 +591,7 @@ export default function CreditKarma() {
                         materialProps={ {
                           "data-test-id": "streetAddress",
                           maxLength: "100",
+                          ref : refStreetAddress,
                         } }
                         value={ formik.values.streetAddress }
                         onChange={ formik.handleChange }
@@ -604,7 +608,7 @@ export default function CreditKarma() {
                         name="zip"
                         ref={ refZip }
                         label="Zip Code *"
-                        materialProps={ { "data-test-id": "zipcode" } }
+                        refID={ refZip  }
                         value={ formik.values.zip }
                         onChange={ fetchAddress }
                         onBlur={ formik.handleBlur }
@@ -657,6 +661,7 @@ export default function CreditKarma() {
                           labelform="Citizenship"
                           value={ formik.values.citizenship }
                           onChange={ changeCitizenship }
+                          refId = {refCitizenship } 
                           onBlur={ formik.handleBlur }
                           error={ (formik.touched.citizenship && Boolean(formik.errors.citizenship)) || citizenship }
                           helperText={ !citizenship ? formik.touched.citizenship && formik.errors.citizenship : "We are sorry. We do not offer loans to foreign residents." }
@@ -678,6 +683,7 @@ export default function CreditKarma() {
                         materialProps={ {
                           "data-testid": "personalIncome",
                           maxLength: "10",
+                          ref: refPersonalIncome
                         } }
                         autoComplete="off"
                         onBlur={ currencyFormat }
@@ -696,13 +702,14 @@ export default function CreditKarma() {
                         materialProps={ {
                           "data-testid": "annualIncome",
                           maxLength: "10",
+                          ref: refAnnualhousehold
                         } }
                         autoComplete="off"
                         onChange={ onHandleChangeHouse }
                         onBlur={ currencyFormat }
                         onKeyDown={ preventUnwanted }
                         error={ errorAnnual !== "" }
-                        helperText={ errorAnnual ??  "" }
+                        helperText={ errorAnnual ?? "" }
                       />
                     </Grid>
 
@@ -720,6 +727,7 @@ export default function CreditKarma() {
                         ref={ refEmployementStatus }
                         labelform="Employement Status"
                         value={ formik.values.employementStatus }
+                        refId={ refEmployementStatus }
                         onChange={ formik.handleChange }
                         onBlur={ formik.handleBlur }
                         error={ formik.touched.employementStatus && Boolean(formik.errors.employementStatus) }

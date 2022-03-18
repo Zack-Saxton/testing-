@@ -103,7 +103,7 @@ function EmploymentStatus() {
 			data.completedPage = data.page.employmentStatus;
 
 			if (employmentStatus === employmentStatusData.employedHourly || employmentStatus === employmentStatusData.employedSalaried || employmentStatus === employmentStatusData.selfEmployed) {
-				if (data.yearsAtEmployers !== "" && data.yearsAtEmployers !== 0 && data.yearsAtEmployers !== null) {
+				if (data.yearsAtEmployers) {
 					data.employmentStatus = employmentStatus;
 					navigate("/annual-income");
 				}

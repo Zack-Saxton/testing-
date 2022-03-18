@@ -3,8 +3,6 @@
 }
 
 .mainDiv {
-  background-color: #124ca8;
-  background-image: linear-gradient(to right, #26436a, #104db0);
   min-height: 500px !important;
   padding: 15px 11px !important;
 }

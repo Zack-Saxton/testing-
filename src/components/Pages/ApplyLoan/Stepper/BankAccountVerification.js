@@ -50,8 +50,7 @@ const validationSchema = yup.object({
 		.string(messages?.bankAccountVerification?.enterConfirmAccNum)
 		.required(messages?.bankAccountVerification?.bankAccountNumberConfirmationRequired)
 		.when("bankAccountNumber", {
-			is: (bankAccountNumber) =>
-				bankAccountNumber && bankAccountNumber.length > 0,
+			is: (bankAccountNumber) => bankAccountNumber?.length > 0,
 			then: yup
 				.string()
 				.oneOf(
