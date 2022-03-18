@@ -51,7 +51,7 @@ export default function LoanDocument() {
 
   //Selecting file for upload
   const handleInputChange = () => {
-    setSelectedFile(document.getElementById("file"));
+    setSelectedFile(changeEvent.current);
   };
 
   const handleChange = (event) => {
