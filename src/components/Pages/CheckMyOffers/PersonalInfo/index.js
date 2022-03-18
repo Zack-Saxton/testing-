@@ -249,7 +249,7 @@ function PersonalInfo() {
 		formik.handleBlur(event);
 		if (event.target.value) {
 			let body = {
-				email: event.target.value,
+				email: event.target.value.trim(),
 			};
 			if (event.target.value !== "") {
 				let result = await axios({
@@ -272,7 +272,7 @@ function PersonalInfo() {
 	//onchange validation
 	const onNameChange = (event) => {
 		const pattern = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
-		let name = event.target.value;
+		let name = event.target.value.trim();
 		if (!name || pattern.test(name)) {
 			formik.handleChange(event);
 		}

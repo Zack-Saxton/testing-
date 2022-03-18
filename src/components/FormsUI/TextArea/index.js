@@ -31,7 +31,7 @@ const TextAreaWrapper = ({
   });
 
   const handleChange = (nam) => (event) => {
-    setValues({ ...values, [ nam ]: event.target.value });
+    setValues({ ...values, [ nam ]: event.target.value.trim() });
   };
 
   //Styling Part

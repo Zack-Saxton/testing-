@@ -109,7 +109,7 @@ function NewUser() {
 
 	const onHandleChangePersonal = (event) => {
 		const pattern = /^[0-9.,$\b]+$/;
-		let annualPersonalIncome = event.target.value;
+		let annualPersonalIncome = event.target.value.trim();
 		if (!annualPersonalIncome || pattern.test(annualPersonalIncome)) {
 			setErrorPersonal("");
 			formik.handleChange(event);
@@ -117,7 +117,7 @@ function NewUser() {
 	};
 	const onHandleChange = (event) => {
 		const pattern = /^[0-9.,$\b]+$/;
-		let annualHouseholdIncome = event.target.value;
+		let annualHouseholdIncome = event.target.value.trim();
 		if (!annualHouseholdIncome || pattern.test(annualHouseholdIncome)) {
 			setErrorAnnual("");
 			formik.handleChange(event);
@@ -125,7 +125,7 @@ function NewUser() {
 	};
 
 	const handleHouseHoldIncomeValue = (event) => {
-		const num = event.target.value
+		const num = event.target.value.trim()
 			.replace(/\$/g, "")
 			.replace(/,/g, "")
 			.substr(0, 7);
@@ -138,7 +138,7 @@ function NewUser() {
 		if (isNaN(modHouseholdIncome)) {
 			setErrorAnnual(globalMessages?.Annual_Household_Income_Required);
 		} else {
-			const numNxt = event.target.value
+			const numNxt = event.target.value.trim()
 				.replace(/\$/g, "")
 				.replace(/,/g, "")
 				.substr(0, 7);
@@ -169,11 +169,11 @@ function NewUser() {
 	};
 
 	const handlePeronalIncomeValue = (event) => {
-		const n = event.target.value
+		const personalIncomeValue = event.target.value.trim()
 			.replace(/\$/g, "")
 			.replace(/,/g, "")
 			.substr(0, 7);
-		const formated = parseFloat(n);
+		const formated = parseFloat(personalIncomeValue);
 		const currency = "$";
 		const forCur =
 			currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
@@ -187,7 +187,7 @@ function NewUser() {
 		if (isNaN(modPersonalIncome)) {
 			setErrorPersonal(globalMessages?.Annual_Personal_Income_Required);
 		} else {
-			const num = event.target.value
+			const num = event.target.value.trim()
 				.replace(/\$/g, "")
 				.replace(/,/g, "")
 				.substr(0, 7);

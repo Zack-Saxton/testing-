@@ -19,15 +19,14 @@ const AccountNumberWrapper = ({ name, ...otherProps }) => {
   //Account Number field onChange handle
   const onHandleAccountChange = (event) => {
     const reg = /^[0-9\b]+$/;
-    let account = event.target.value;
+    let account = event.target.value.trim();
 
     if (!account || reg.test(account)) {
       setAccountNum(event.target.value);
     }
-    const isValid = /(^\d{6,17}$)/.test(event.target.value);
-    (!isValid && event.target.value) ? setIsError(true) : setIsError(false);
-    (!isValid && event.target.value) ? setHelperText("Account number should be between 6 to 17 digits") : setHelperText("");
-
+    const isValid = /(^\d{6,17}$)/.test(account);
+    (!isValid && account) ? setIsError(true) : setIsError(false);
+    (!isValid && account) ? setHelperText("Account number should be between 6 to 17 digits") : setHelperText("");
   };
 
   //Configuring the field with properties
@@ -44,7 +43,7 @@ const AccountNumberWrapper = ({ name, ...otherProps }) => {
   return (
     <TextBox
       { ...configTextField }
-      materialProps={ { maxLength: "17", minLength: "6", "data-test-id": "accountNum" } }
+      materialProps={ { maxLength: "17", minLength: "6", "data-testid": "accountNum" } }
       value={ accountNum }
       onChange={ onHandleAccountChange }
       required={ true }

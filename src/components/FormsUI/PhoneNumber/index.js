@@ -19,7 +19,7 @@ const PhoneNumberWrapper = ({ name, onChange, value, label, error, disabled, hel
   const [ unmaskedval, setUnMaskedVal ] = useState(value);
 
   const handleChange = (event) => {
-    let phoneNumber = event.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+    let phoneNumber = event.target.value.trim().replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
     event.target.value = !phoneNumber[ 2 ] ? phoneNumber[ 1 ] : '(' + phoneNumber[ 1 ] + ') ' + phoneNumber[ 2 ] + (phoneNumber[ 3 ] ? '-' + phoneNumber[ 3 ] : '');
     setUnMaskedVal(event.target.value);
     if (onChange) {

@@ -141,8 +141,8 @@ export default function Login(props) {
       return '127.0.0.1';
     }
   };
-  const remMeDataRaw = Cookies.get("rememberMe") ?? null;
-  let remMeData = remMeDataRaw ? JSON.parse(decryptAES(remMeDataRaw)) : undefined;
+  const remMeDataRaw = Cookies.get("rememberMe") ?? '{}';
+  let remMeData =JSON.parse(remMeDataRaw);
   const [remMe, setRemMe] = useState(remMeData?.selected);
   //Form Submission
   const formik = useFormik({
@@ -186,7 +186,7 @@ export default function Login(props) {
         Cookies.set("login_date", login_date);
         Cookies.set("userToken", retVal?.data?.user?.attributes?.UserToken);
         Cookies.set("temp_opted_phone_texting", "");
-        Cookies.set("rememberMe", encryptAES(remMe ? JSON.stringify({ selected: true, email: values?.email}) : JSON.stringify({ selected: false, email: ''})) );
+        Cookies.set("rememberMe", remMe ? JSON.stringify({ selected: true, email: values?.email}) : JSON.stringify({ selected: false, email: ''}) );
         queryClient.removeQueries();
         setLoading(false);
         if (retVal?.data?.user?.attributes?.password_reset) {
