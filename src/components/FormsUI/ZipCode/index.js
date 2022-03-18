@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 import React, { useState } from "react";
 import TextBox from "../Textfield";
 
-const ZipCodeWrapper = ({ name, error, helperText, value, onChange, ...otherProps }) => {
+const ZipCodeWrapper = ({ name, error, helperText, value, onChange, refID, ...otherProps }) => {
   //Set Formik field
   const [ zipCode, setZipCode ] = useState(value ? value : "");
   const [ isError, setIsError ] = useState(false);
@@ -44,7 +44,7 @@ const ZipCodeWrapper = ({ name, error, helperText, value, onChange, ...otherProp
   return (
     <TextBox
       { ...configTextField }
-      materialProps={ { maxLength: "5", "data-test-id": "zipcode" } }
+      materialProps={ { maxLength: "5", "data-test-id": "zipcode", ref : refID } }
       value={ zipCode }
       onChange={ onHandleZipcodeChange }
     />
@@ -58,6 +58,8 @@ ZipCodeWrapper.propTypes = {
   helperText: PropTypes.string,
   value: PropTypes.string,
   onChange: PropTypes.func,
+  refID: PropTypes.object,
+
 
 };
 
