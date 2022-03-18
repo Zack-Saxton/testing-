@@ -186,7 +186,7 @@ export default function BasicInformation(props) {
                       {
                         toastId: "closeToast",
                         onClose: () => {
-                          if ((formik.initialValues.email !== values.email && selectedFile || (formik.initialValues.phone !== values.phone && formik.initialValues.email !== values.email && selectedFile)) {
+                          if ((formik.initialValues.email !== values.email && selectedFile) || (formik.initialValues.phone !== values.phone && formik.initialValues.email !== values.email && selectedFile)) {
                             setuploadedImage(uploadData?.data?.profile_picture_url);
                             refetchProfilePicture();
                             refetch();
@@ -249,11 +249,11 @@ export default function BasicInformation(props) {
       }
       else {
         let res = await basicInformation(body);
-        if (selectedFile && (formik.initialValues.email !== values.email) || (formik.initialValues.phone !== values.phone && formik.initialValues.email !== values.email ) || (formik.initialValues.phone !== values.phone)) {
-          if (res?.data?.notes.length !== 0) {
+        if ((formik.initialValues.email !== values.email && selectedFile !== null) || (formik.initialValues.phone !== values.phone && formik.initialValues.email !== values.email && selectedFile !== null) || (formik.initialValues.phone !== values.phone && selectedFile !== null)) {
+          if (res?.data?.notes.length !== 0 && selectedFile !== null) {
             uploadBasicInfoImageChange();
           }
-        } else if (selectedFile) {
+        }else if (selectedFile !== null) {
           uploadBasicInfoImageChange();
         } else if (formik.initialValues.phone !== values.phone && formik.initialValues.email === values.email) {
           if (res?.data?.notes.length !== 0 && res?.data?.emailUpdate) {

@@ -289,14 +289,15 @@ export default function Register() {
     }
   };
 
-  //Auto focus on name field if it has any error on submit
-  function autoFocus() {
+  const autoFocus = () => {
     if (!refFirstName.current.value) {
       refFirstName.current.focus();
     } else if (!refLastName.current.value) {
       refLastName.current.focus();
+    } else {
+      return false;
     }
-  }
+  };
 
   //Fetching valid zipcode
   const fetchAddress = async (event) => {
@@ -379,10 +380,9 @@ export default function Register() {
                       <TextField
                         name="firstname"
                         id="firstname"
-                        ref={ refFirstName }
                         label="First Name *"
                         placeholder={ globalMessages.FirstNameEnter }
-                        materialProps={ { maxLength: "30" } }
+                        materialProps={ { maxLength: "30",ref :refFirstName, } }
                         value={ formik.values.firstname }
                         onChange={ (event) => NameChange(event) }
                         onBlur={ formik.handleBlur }
@@ -408,10 +408,9 @@ export default function Register() {
                       <TextField
                         name="lastname"
                         id="lastname"
-                        ref={ refLastName }
                         label="Last Name *"
                         placeholder={ globalMessages.LastNameEnter }
-                        materialProps={ { maxLength: "30" } }
+                        materialProps={ { maxLength: "30", ref : refLastName } }
                         value={ formik.values.lastname }
                         onChange={ NameChange }
                         onBlur={ formik.handleBlur }
