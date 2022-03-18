@@ -201,22 +201,22 @@ export default function CreditKarma() {
     let employementStatus = document.getElementById("employementStatus").value;
     let annualhousehold = document.getElementById("annualhousehold").value;
 
-    if (firstname === "") {
+    if (!firstname) {
       document.getElementById("firstname").focus();
-    } else if (lastname === "") {
+    } else if (!lastname) {
       document.getElementById("lastname").focus();
-    } else if (streetAddress === "") {
+    } else if (!streetAddress) {
       document.getElementById("streetAddress").focus();
-    } else if (zip === "") {
+    } else if (!zip) {
       document.getElementById("zip").focus();
-    } else if (citizenshipCnf === "" || citizenshipCnf === undefined) {
+    } else if (!citizenshipCnf) {
       document.getElementById("citizenship").focus();
-    } else if (employementStatus === "" || employementStatus === undefined) {
+    } else if (!employementStatus) {
       document.getElementById("employementStatus").focus();
-    } else if (personalIncome === "") {
+    } else if (!personalIncome) {
       document.getElementById("personalIncome").focus();
       validate();
-    } else if (annualhousehold === "") {
+    } else if (!annualhousehold) {
       validate();
       document.getElementById("annualhousehold").focus();
     } else {
@@ -263,7 +263,7 @@ export default function CreditKarma() {
     onSubmit: async (values) => {
       const modPersonalIncome = parseInt(values.personalIncome.replace(/\$/g, "").replace(/,/g, ""));
       const modHouseholdIncome = parseInt(values.householdIncome.replace(/\$/g, "").replace(/,/g, ""));
-      if (errorPersonal === "" && errorAnnual === "" && validate(modPersonalIncome, modHouseholdIncome)) {
+      if (!errorPersonal && !errorAnnual && validate(modPersonalIncome, modHouseholdIncome)) {
         values.personalIncome = modPersonalIncome;
         values.householdIncome = modHouseholdIncome;
         setLoading(true);
@@ -394,7 +394,7 @@ export default function CreditKarma() {
   const onHandleChangePersonal = (event) => {
     const reg = /^[0-9.,$\b]+$/;
     let income = event.target.value;
-    if (income === "" || reg.test(income)) {
+    if (!income || reg.test(income)) {
       setErrorPersonal("");
       formik.handleChange(event);
     }
@@ -402,7 +402,7 @@ export default function CreditKarma() {
   const onHandleChangeHouse = (event) => {
     const reg = /^[0-9.,$\b]+$/;
     let income = event.target.value;
-    if (income === "" || reg.test(income)) {
+    if (!income || reg.test(income)) {
       setErrorAnnual("");
       formik.handleChange(event);
     }
@@ -487,7 +487,7 @@ export default function CreditKarma() {
   const onNameChange = (event) => {
     const reg = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
     let acc = event.target.value;
-    if (acc === "" || reg.test(acc)) {
+    if (!acc || reg.test(acc)) {
       formik.handleChange(event);
     }
   };
@@ -508,14 +508,9 @@ export default function CreditKarma() {
       <div className={ classes.mainContentBackground } id="mainContentBackground">
         <Box>
           <Grid
+            className={classes.confirmationGrid}
             xs={ 12 }
             item
-            style={ {
-              paddingTop: "30px",
-              paddingBottom: "40px",
-              margin: "auto",
-              width: "100%",
-            } }
           >
             <Grid
               xs={ 11 }
@@ -523,9 +518,8 @@ export default function CreditKarma() {
               md={ 6 }
               lg={ 6 }
               xl={ 6 }
-              className="cardWrapper"
+              className="confirmationCard"
               item
-              style={ { margin: "auto" } }
             >
               <Paper
                 className={ classes.paper }
@@ -541,13 +535,13 @@ export default function CreditKarma() {
                 >
                   Welcome to Mariner Finance{ " " }
                 </Typography>
-                <p style={ { textAlign: "center" } }>
+                <p className={classes.introText}>
                   Please review and confirm the information that{ " " }
                   <a href="https://www.creditkarma.com/" target="blank">
                     { " " }
                     <img
+                      className="creditkarmaLogoImage"
                       src={ creditkarmalogo }
-                      style={ { height: "13px" } }
                       alt="creditkarmalogo"
                     />
                   </a>{ " " }
@@ -557,7 +551,7 @@ export default function CreditKarma() {
 
                 <form onSubmit={ formik.handleSubmit }>
                   <Grid container spacing={ 4 }>
-                    <Grid item xs={ 12 } sm={ 6 } style={ { width: "100%" } }>
+                    <Grid item xs={ 12 } sm={ 6 } className={classes.fullWidth} >
                       <TextField
                         id="firstname"
                         name="firstname"
@@ -574,7 +568,7 @@ export default function CreditKarma() {
                       />
                     </Grid>
 
-                    <Grid item xs={ 12 } sm={ 6 } style={ { width: "100%" } }>
+                    <Grid item xs={ 12 } sm={ 6 } className={classes.fullWidth}>
                       <TextField
                         id="lastname"
                         name="lastname"
@@ -659,7 +653,6 @@ export default function CreditKarma() {
                       <Grid
                         item
                         xs={ 12 }
-                        style={ { paddingTop: "10px" } }
                         id="citizenshipWrap"
                       >
                         <Select
@@ -867,7 +860,6 @@ export default function CreditKarma() {
                                 ? "showCheckbox"
                                 : "hideCheckbox"
                             }
-                            style={ { paddingRight: "10px" } }
                           >
                             <Zipcode
                               id="spouseZip"
@@ -885,7 +877,6 @@ export default function CreditKarma() {
                             xs={ 12 }
                             sm={ 4 }
                             id="spouseCityWrap"
-                            style={ { paddingRight: "10px" } }
                             className={
                               formik.values.martialStatus === "Married" ||
                                 formik.values.martialStatus ===

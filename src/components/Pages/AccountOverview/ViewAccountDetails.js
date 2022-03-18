@@ -6,7 +6,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Typography from "@material-ui/core/Typography";
 import Cookies from "js-cookie";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
 import NumberFormat from 'react-number-format';
 import { NavLink } from "react-router-dom";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
@@ -49,15 +49,15 @@ function tabVerticalProps(verticalIndex) {
 
 export default function ViewAccountDetails() {
   const classes = useStylesAccountOverview();
-  const [ values, setValues ] = React.useState(0);
+  const [ values, setValues ] = useState(0);
 
   const handleTabChange = (event, newValues) => {
     setValues(newValues);
   };
 
-  let viewAppContact = Cookies.get("viewAppContact") ? Cookies.get("viewAppContact") : '{ }';
+  let viewAppContact = Cookies.get("viewAppContact") ?? '{}'
   let viewApplicationContact = JSON.parse(viewAppContact);
-  let viewAppApplicant = Cookies.get("viewAppApplicant") ? Cookies.get("viewAppApplicant") : '{ }';
+  let viewAppApplicant = Cookies.get("viewAppApplicant") ?? '{}'
   let viewAppApplicantInfo = JSON.parse(viewAppApplicant);
 
   //View part
@@ -69,7 +69,6 @@ export default function ViewAccountDetails() {
         container
         justifyContent={ "center" }
         className={ classes.centerGrid }
-
       >
         <Grid container spacing={ 3 }>
           <Grid item xs={ 12 }>
@@ -138,7 +137,7 @@ export default function ViewAccountDetails() {
 
             {/* Main Content */ }
             <Grid className="weAreSorryWrap" item xs={ 12 } sm={ 8 }>
-              <Paper className={ classes.paper } style={ values === 0 ? { marginBottom: "500px" } : { marginBottom: "0px" } }>
+              <Paper className={ classes.paper } style={ !values ? { marginBottom: "500px" } : { marginBottom: "0px" } }>
                 <TabPanelViewApplication value={ values } verticalIndex={ 0 } >
                   { viewAppApplicantInfo?.status ? (viewAppApplicantInfo?.status === "rejected") ?
                     <>

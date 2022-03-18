@@ -18,18 +18,15 @@ export default function MoneySkill(props) {
 
   //API Call
   const [ moneySkillUrl, setMoneySkillUrl ] = useState(null);
-  const [ status, setStatus ] = useState(null);
 
   async function getMoneySkillAPI() {
     let response = await getMoneySkillUrl();
-    setStatus(response?.data?.status);
     setMoneySkillUrl(response?.data?.moneyskillurl ?? "https://lms.moneyskill.org/students/login");
   }
 
   useEffect(() => {
     getMoneySkillAPI();
     return () => {
-      setStatus({});
       setMoneySkillUrl({});
     };
   }, []);
@@ -44,7 +41,7 @@ export default function MoneySkill(props) {
     <div>
       <Dialog
         id="moneySkillDialogBox"
-        open={ props.moneySkill }
+        open={ props?.moneySkill }
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
         classes={ { paper: classes.moneySkillDialog } }
@@ -97,7 +94,7 @@ export default function MoneySkill(props) {
             id="Continue"
             stylebutton='{"float": "" }'
             target="_blank"
-            disabled={ status === null ? true : false }
+            disabled={ !moneySkillUrl }
             onClick={ handleCloseMoneySkill }
           >
             Continue
@@ -105,7 +102,7 @@ export default function MoneySkill(props) {
               className="fa fa-refresh fa-spin customSpinner"
               style={ {
                 marginRight: "10px",
-                display: status === null ? "block" : "none",
+                display: !moneySkillUrl ? "block" : "none",
               } }
             />
           </ButtonPrimary>

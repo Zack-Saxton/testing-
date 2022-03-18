@@ -30,7 +30,7 @@ export default function Notification() {
   const [ anchorEl, setAnchorEl ] = useState(null);
   const [ messages, setMessages ] = useState([]);
   const [ badgeCount, setbadgeCount ] = useState(0);
-  const [ openDialog, setOpenDialog ] = React.useState(false);
+  const [ openDialog, setOpenDialog ] = useState(false);
   const [ messageTitle, setMessageTitle ] = useState([]);
   const [ messageContent, setMessageContent ] = useState([]);
   const [ notificationId, setNotificationId ] = useState('');

@@ -181,13 +181,12 @@ export default function PaymentHistory() {
                 />
               </NavLink>{ " " }
               Active Loan{ " " }
-              { fileName != null ? (
+              { fileName ? (
                 <span style={ { fontSize: "70%", fontWeight: "100" } }>
                   ({ fileName })
                 </span>
-              ) : (
-                ""
-              ) }{ " " }
+              ) : ("") }
+              { " " }
               / Payment History
             </Typography>
           </Grid>
@@ -232,7 +231,7 @@ export default function PaymentHistory() {
             </Menu>
           </Grid>
         </Grid>
-        { historyOfLoans === null ? (
+        { !historyOfLoans ? (
           <Grid
             item
             xs={ 12 }

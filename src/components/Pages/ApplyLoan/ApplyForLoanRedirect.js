@@ -49,10 +49,10 @@ const ApplyForLoanRedirect = (props) => {
 					toast.error(messages?.accountClosed);
 				}
 				navigate("/customers/accountOverview");
-			} else if (res?.data?.applicants.length === 0) {
+			} else if (!(res?.data?.applicants?.length)) {
 				redirectToCMO();
-			} else if (res?.data?.applicants[ 0 ]?.isActive) {
-				navigate(statusStrLink[ res?.data?.applicants[ 0 ]?.status ]);
+			} else if (res?.data?.applicants?.length && res.data.applicants[ 0 ].isActive) {
+				navigate(statusStrLink[ res.data.applicants[ 0 ].status ]);
 			} else {
 				let isActiveApplicationAvailable = false;
 				res?.data?.applicants.map((item, index) => {

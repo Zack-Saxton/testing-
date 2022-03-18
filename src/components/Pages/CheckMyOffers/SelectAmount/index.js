@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import globalMessages from "../../../../assets/data/globalMessages.json";
 import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers as Check } from "../../../../contexts/CheckMyOffers";
-import offercodeValidation from "../../../Controllers/OfferCodeController";
+import OfferCodeValidation from "../../../Controllers/OfferCodeController";
 import { ButtonPrimary, Slider, TextField } from "../../../FormsUI";
 import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 //initializing check my offers functonal component
 function CheckMyOffers(props) {
   const { data, setData, resetData } = useContext(Check);
-  const [ hasOfferCode, setOfferCode ] = useState("");
+  const [ hasOfferCode, setHasOfferCode ] = useState("");
   const classes = preLoginStyle();
   const innerClasses = useStyles();
   const navigate = useNavigate();
@@ -66,7 +66,7 @@ function CheckMyOffers(props) {
       setData({ ...data, loanAmount: select, loading: false });
       navigate("/loan-purpose");
     } else if (
-      data.formStatus === "" || data.completedPage === 0 || data.formStatus === "completed" || location?.state?.fromLoanPurpose !== "yes"
+      !data.formStatus || !data.completedPage || data.formStatus === "completed" || location?.state?.fromLoanPurpose !== "yes"
     ) {
       setData({ ...data, loading: true });
       resetData();
@@ -85,13 +85,13 @@ function CheckMyOffers(props) {
 
   const handleRoute = async (event) => {
     try {
-      if (data.offerCode === "") {
+      if (!data.offerCode) {
         setPageStatus();
         navigate("/loan-purpose");
       }
-      if (data.offerCode !== "") {
-        let res = await offercodeValidation(data.offerCode);
-        if (res?.data?.offerData?.Message || res.status !== 200) {
+      if (data.offerCode) {
+        let offerCodeResponse = await OfferCodeValidation(data.offerCode);
+        if (offerCodeResponse?.data?.offerData?.Message || offerCodeResponse.status !== 200) {
           toast.error(globalMessages.OfferCode_Valid);
           tempCounter++;
           if (tempCounter === 2) {
@@ -100,7 +100,7 @@ function CheckMyOffers(props) {
           }
         } else {
           toast.success(globalMessages.offerCode_Success);
-          navigate("/pre-approved", { state: res?.data });
+          navigate("/pre-approved", { state: offerCodeResponse?.data });
         }
       }
     } catch (error) {
@@ -173,7 +173,7 @@ function CheckMyOffers(props) {
                       className="setGreenColor cursorPointer"
                       align="center"
                       onClick={ (event) => {
-                        setOfferCode(!hasOfferCode);
+                        setHasOfferCode(!hasOfferCode);
                       } }
                     >
                       I have an offer code

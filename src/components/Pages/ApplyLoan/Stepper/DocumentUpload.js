@@ -23,7 +23,7 @@ export default function DocumentUpload(props) {
 	}, [ props.resetUpload ]);
 	//upload doc functionality
 	const uploadDoc = () => {
-		if (selectedFile === null) {
+		if (!selectedFile) {
 			if (!toast.isActive("selectFileToUpload")) {
 				toast.error(messages?.document?.selectFile, { toastId: "selectFileToUpload" });
 			}

@@ -216,7 +216,7 @@ export default function PaymentMethod() {
   const addBankOnChange = (event) => {
     const pattern = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
     let enteredName = event.target.value; //Holder name, account name, bank name
-    if (enteredName === "" || enteredName.match(pattern)) {
+    if (!enteredName || enteredName.match(pattern)) {
       formikAddBankAccount.handleChange(event);
     }
   };
@@ -224,7 +224,7 @@ export default function PaymentMethod() {
   const addBankOnChangeNumber = (event) => {
     const pattern = /^[0-9\b]+$/;
     let accountNumber = event.target.value;
-    if (accountNumber === "" || accountNumber.match(pattern)) {
+    if (!accountNumber || accountNumber.match(pattern)) {
       formikAddBankAccount.handleChange(event);
     }
   };
@@ -254,14 +254,14 @@ export default function PaymentMethod() {
   const addDebitOnChange = (event) => {
     const pattern = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
     let cardHolderName = event.target.value;
-    if (cardHolderName === "" || cardHolderName.match(pattern)) {
+    if (!cardHolderName || cardHolderName.match(pattern)) {
       formikAddDebitCard.handleChange(event);
     }
   };
   const getAddressOnChange = (event) => {
     const pattern = /^[0-9\b]+$/;
     let zipCode = event.target.value;
-    if (zipCode === "" || pattern.test(zipCode)) {
+    if (!zipCode || pattern.test(zipCode)) {
       fetchAddress(event);
     }
   };
@@ -355,7 +355,7 @@ export default function PaymentMethod() {
   const addDebitOnChangeNumber = (event) => {
     const pattern = /^[0-9\b]+$/;
     let cardNumber = event.target.value;
-    if (cardNumber === "" || pattern.test(cardNumber)) {
+    if (!cardNumber || pattern.test(cardNumber)) {
       formikAddDebitCard.handleChange(event);
     }
   };
@@ -940,7 +940,7 @@ export default function PaymentMethod() {
                 style={ { fontWeight: "normal" } }
               />
               <FormHelperText error={ true }>
-                { accountType === "" ? "Account type required" : "" }
+                { !accountType ? "Account type required" : "" }
               </FormHelperText>
             </Grid>
             <Grid
@@ -1003,7 +1003,7 @@ export default function PaymentMethod() {
                 error={
                   (formikAddBankAccount.touched.bankRoutingNumber &&
                     Boolean(formikAddBankAccount.errors.bankRoutingNumber)) ||
-                  (routingError === "" ? false : true)
+                  (!routingError ? false : true)
                 }
                 helperText={
                   routingError

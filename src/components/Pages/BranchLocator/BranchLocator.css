@@ -206,6 +206,9 @@
 #branchLocatorLists {
   background-color: #f6f6f6;
   padding: 0px 15px;
+  width: 100%;
+  height: 450px;
+  overflow-Y: scroll
 }
 #timeSlotSelect .subOption {
   color: #171717 !important;
@@ -467,6 +470,21 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
   width: 100%;
   margin: 15px 0px 0px 0px;
   line-height: 23px;
+}
+.findBranchNear {
+  margin: 15px 0px 15px 0px;
+  font-size: 0.938rem;
+  font-weight: 400;
+}
+.personalLoanGrid {
+  background-Color: #f6f6f6;
+  padding: 0px 0px 0px 4.5%;
+}
+.branchList {
+  padding: 0px 15px 15px 15px;
+  text-align: left;
+  font-size: 1.125rem;
+  color: #214476
 }
 .stateLinks {
   color: #214476 !important;

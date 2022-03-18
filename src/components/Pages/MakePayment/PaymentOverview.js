@@ -15,7 +15,7 @@ export default function PaymentOverview(paymentData, status) {
     //Material UI css class
     const classes = useStylesMakePayment();
     //Payment details
-    let paymentDetails = (paymentData != null) ? paymentData : null;
+    let paymentDetails = paymentData;
     return (
         <Table id="paymentTableWrap" className={ classes.table } aria-label="simple table">
             <TableHead>
@@ -50,7 +50,7 @@ export default function PaymentOverview(paymentData, status) {
                 </TableRow>
             </TableHead>
             <TableBody>
-                { (status === null)
+                { (!status)
                     ?
                     <TableRow>
                         <TableCell

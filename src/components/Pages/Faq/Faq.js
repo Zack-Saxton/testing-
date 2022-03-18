@@ -13,7 +13,7 @@ import QuestionAnswerIcon from "@material-ui/icons/QuestionAnswer";
 import ReceiptIcon from "@material-ui/icons/Receipt";
 import SettingsApplicationsIcon from "@material-ui/icons/SettingsApplications";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
 import questionFaq from "./questions.json";
 import { useStylesFaq } from "./Style";
 import "./Style.css";
@@ -59,14 +59,14 @@ export default function Faq() {
   const classes = useStylesFaq();
 
   //Accordian implementation
-  const [ expanded, setExpanded ] = React.useState(false);
+  const [ expanded, setExpanded ] = useState(false);
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
 
   //Tab implementation
-  const [ values, setValues ] = React.useState(0);
+  const [ values, setValues ] = useState(0);
   const handleTabChange = (event, value) => {
     setValues(value);
   };

@@ -171,13 +171,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SideNav() {
   const classes = useStyles();
-  const [ open, setOpen ] = React.useState(true);
-  const [ anchorEl, setAnchorEl ] = React.useState(null);
+  const [ open, setOpen ] = useState(true);
+  const [ anchorEl, setAnchorEl ] = useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const navigate = useNavigate();
-  const [ disable, setDisable ] = React.useState(false);
-  const [ skill, setSkill ] = React.useState(false);
-  const [ checked, setChecked ] = React.useState(true);
+  const [ disable, setDisable ] = useState(false);
+  const [ skill, setSkill ] = useState(false);
+  const [ checked, setChecked ] = useState(true);
   const [ , setprofileTabNumber ] = useGlobalState();
   const { dataProfile, resetProfilePicture } = useContext(ProfilePicture);
   const { resetData } = useContext(CheckMyOffers);
@@ -211,9 +211,7 @@ export default function SideNav() {
     setCheckPresenceOfLoan(presenceOfLoan);
 
     //logic to if there is any active Loan Data is there or not
-    if (noOfLoans === undefined) {
-      setActiveLoanData(true);
-    } else if (noOfLoans === 0) {
+    if (!noOfLoans) {
       setActiveLoanData(true);
     } else {
       setActiveLoanData(false);
@@ -237,7 +235,7 @@ export default function SideNav() {
   //Material UI media query for responsiveness
   let check = useMediaQuery("(min-width:960px)");
 
-  React.useEffect(() => {
+    useEffect(() => {
     if (check && checked) {
       setChecked(true);
       setOpen(true);
@@ -606,28 +604,26 @@ export default function SideNav() {
                     <ListItem id="sidemenuName">
                       { (dataAccountOverview?.data?.applicant?.contact?.first_name) ? 'Welcome ' + dataAccountOverview?.data?.applicant?.contact?.first_name : "" }
                     </ListItem>
-                    { (branchName === '' || branchName === 'undefined') || (branchPhone === '' || branchPhone === 'undefined')
+                    { !branchName || !branchPhone
                       ?
                       <>
-
                         <ListItem id="sidemenuLastLogin">
-                          { lastLogin === '' || undefined ? '' : 'Last Login : ' + lastLogin }
+                          { !lastLogin ? '' : `Last Login : ${ lastLogin }` }
                         </ListItem>
-
                       </>
                       :
 
                       <>
                         <ListItem id="sidemenuLastLogin">
-                          { lastLogin === '' || undefined ? '' : 'Last Login : ' + lastLogin }
+                          { !lastLogin ? '' : `Last Login : ${ lastLogin }`}
                         </ListItem>
                         <ListItem id="sidemenuBranch">
-                          { branchName === '' || undefined ? '' : 'Branch : ' + branchName }
+                          { !branchName ? '' : `Branch :  ${ branchName }`}
                         </ListItem>
                         <ListItem id={ branchAvailability ? 'sidemenuOpenNow' : 'sidemenuCloseNow' }>
                           { branchAvailability ? 'Open now' : 'Closed now' }
                         </ListItem>
-                        { formatPhoneNumber(branchPhone) === '' || undefined ? '' :
+                        { !formatPhoneNumber(branchPhone) ? '' :
                           <ListItem id="sidemenuPhone">
                             <CallIcon />
                             <a href="tel:" className="hrefPhoneNo">
