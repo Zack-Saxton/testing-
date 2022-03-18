@@ -24,54 +24,54 @@ import {useStylesPartner} from "./style"
 //Yup validations for all the input fields
 const validationSchema = yup.object({
   firstName: yup
-    .string(globalMessages.firstNameEnter)
+    .string(globalMessages?.FirstNameEnter)
     .trim()
-    .max(30, globalMessages.firstNameMax)
-    .matches(/^(?!\s+$).*/g, globalMessages.No_Backspace_Only)
-    .required(globalMessages.firstNameRequired),
+    .max(30, globalMessages?.firstNameMax)
+    .matches(/^(?!\s+$).*/g, globalMessages?.No_Backspace_Only)
+    .required(globalMessages?.FirstNameRequired),
   lastName: yup
-    .string(globalMessages.lastNameEnter)
+    .string(globalMessages?.LastNameEnter)
     .trim()
-    .max(30, globalMessages.lastNameMax)
-    .matches(/^(?!\s+$).*/g, globalMessages.No_Backspace_Only)
-    .required(globalMessages.lastNameRequired),
+    .max(30, globalMessages?.LastNameMax)
+    .matches(/^(?!\s+$).*/g, globalMessages?.No_Backspace_Only)
+    .required(globalMessages?.LastNameRequired),
   streetAddress: yup
-    .string(globalMessages.Address_Street)
+    .string(globalMessages?.Address_Street)
     .trim()
-    .max(100, globalMessages.Address_Street_Max)
-    .matches(/^(?!\s+$).*/g, globalMessages.No_Backspace_Only)
-    .required(globalMessages.Address_Street_Required),
+    .max(100, globalMessages?.Address_Street_Max)
+    .matches(/^(?!\s+$).*/g, globalMessages?.No_Backspace_Only)
+    .required(globalMessages?.Address_Street_Required),
   city: yup
-    .string(globalMessages.Address_City)
-    .max(30, globalMessages.Address_City_Max)
-    .required(globalMessages.Address_Home_City),
+    .string(globalMessages?.Address_City)
+    .max(30, globalMessages?.Address_City_Max)
+    .required(globalMessages?.Address_Home_City),
   state: yup
-    .string(globalMessages.Address_State)
-    .max(30, globalMessages.Address_State_Max)
-    .required(globalMessages.Address_State_Required),
+    .string(globalMessages?.Address_State)
+    .max(30, globalMessages?.Address_State_Max)
+    .required(globalMessages?.Address_State_Required),
   zip: yup
-    .string(globalMessages.ZipCodeEnter)
-    .min(5, globalMessages.ZipCodeMax)
-    .required(globalMessages.ZipCodeRequired),
+    .string(globalMessages?.ZipCodeEnter)
+    .min(5, globalMessages?.ZipCodeMax)
+    .required(globalMessages?.ZipCodeRequired),
   citizenship: yup
-    .string(globalMessages.CitizenshipEnter)
-    .max(30, globalMessages.CitizenshipMax)
-    .required(globalMessages.CitizenshipRequired),
+    .string(globalMessages?.CitizenshipEnter)
+    .max(30, globalMessages?.CitizenshipMax)
+    .required(globalMessages?.CitizenshipRequired),
   employementStatus: yup
-    .string(globalMessages.EmploymentEnter)
-    .max(30, globalMessages.EmploymentMax)
-    .required(globalMessages.EmploymentRequired),
+    .string(globalMessages?.EmploymentEnter)
+    .max(30, globalMessages?.EmploymentMax)
+    .required(globalMessages?.EmploymentRequired),
   activeDuty: yup.string().when("state", {
     is: "NC",
-    then: yup.string().required(globalMessages.Active_DutyRequired),
+    then: yup.string().required(globalMessages?.Active_DutyRequired),
   }),
   activeDutyRank: yup.string().when("activeDuty", {
     is: "Yes",
-    then: yup.string().required(globalMessages.Active_Duty_Rank_Required),
+    then: yup.string().required(globalMessages?.Active_Duty_Rank_Required),
   }),
   martialStatus: yup.string().when("state", {
     is: "Wisconsin",
-    then: yup.string().required(globalMessages.Marital_Status_Required),
+    then: yup.string().required(globalMessages?.Marital_Status_Required),
   }),
   spouseadd: yup
     .string()
@@ -80,26 +80,26 @@ const validationSchema = yup.object({
       then: yup
         .string()
         .trim()
-        .max(100, globalMessages.Marital_Status_Max)
-        .matches(/^(?!\s+$).*/g, globalMessages.No_Backspace_Only),
+        .max(100, globalMessages?.Marital_Status_Max)
+        .matches(/^(?!\s+$).*/g, globalMessages?.No_Backspace_Only),
     })
     .when("martialStatus", {
       is: "Separated, under decree of legal separation",
       then: yup
         .string()
         .trim()
-        .max(100, globalMessages.Marital_Status_Max)
-        .matches(/^(?!\s+$).*/g, globalMessages.No_Backspace_Only),
+        .max(100, globalMessages?.Marital_Status_Max)
+        .matches(/^(?!\s+$).*/g, globalMessages?.No_Backspace_Only),
     }),
   spouseZipcode: yup
     .string()
     .when("martialStatus", {
       is: "Married",
-      then: yup.string().required(globalMessages.ZipCodeRequired),
+      then: yup.string().required(globalMessages?.ZipCodeRequired),
     })
     .when("martialStatus", {
       is: "Separated, under decree of legal separation",
-      then: yup.string().required(globalMessages.ZipCodeRequired),
+      then: yup.string().required(globalMessages?.ZipCodeRequired),
     }),
   spousecity: yup
     .string()
@@ -107,23 +107,23 @@ const validationSchema = yup.object({
       is: "Married",
       then: yup
         .string()
-        .required(globalMessages.Address_Home_City),
+        .required(globalMessages?.Address_Home_City),
     })
     .when("martialStatus", {
       is: "Separated, under decree of legal separation",
       then: yup
         .string()
-        .required(globalMessages.Address_Home_City),
+        .required(globalMessages?.Address_Home_City),
     }),
   spouseSelectState: yup
     .string()
     .when("martialStatus", {
       is: "Married",
-      then: yup.string().required(globalMessages.Address_State_Required),
+      then: yup.string().required(globalMessages?.Address_State_Required),
     })
     .when("martialStatus", {
       is: "Separated, under decree of legal separation",
-      then: yup.string().required(globalMessages.Address_State_Required),
+      then: yup.string().required(globalMessages?.Address_State_Required),
     }),
 });
 
