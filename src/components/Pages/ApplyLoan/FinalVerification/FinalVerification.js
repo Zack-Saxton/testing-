@@ -80,14 +80,9 @@ const useStyles = makeStyles((theme) => ({
 export default function FinalVerification() {
   const classes = useStyles();
   const [ value, setValue ] = useState(2);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+  const handleChange = (event, newValue) => setValue(newValue);
   useEffect(() => {
-    return () => {
-      zE('webWidget', 'hide');
-    };
+    return () => zE('webWidget', 'hide');
   }, []);
   zE('webWidget', 'show');
   //JSX part
@@ -137,7 +132,6 @@ export default function FinalVerification() {
             style={ { paddingBottom: "30px", marginTop: "10px" } }
           >
             <Stepper />
-
             <Grid item style={ { width: "100%" } }>
               <p
                 style={ {
