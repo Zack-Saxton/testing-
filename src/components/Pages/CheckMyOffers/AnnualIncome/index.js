@@ -48,7 +48,7 @@ function NewUser() {
 
 	//Redirect to select offer is the page hit direclty
 	useEffect(() => {
-		if (data.completedPage < data.page.employmentStatus || data.formStatus === "completed") {
+		if (data?.completedPage < data?.page?.employmentStatus || data?.formStatus?.toLowerCase() === "completed") {
 			navigate("/select-amount");
 		}
 		return null;
@@ -136,14 +136,14 @@ function NewUser() {
 		const modPersonalIncome = parseInt(formik.values.personalIncome.replace(/\$/g, "").replace(/,/g, ""));
 		const modHouseholdIncome = parseInt(formik.values.householdIncome.replace(/\$/g, "").replace(/,/g, ""));
 		if (isNaN(modHouseholdIncome)) {
-			setErrorAnnual(globalMessages.Annual_Household_Income_Required);
+			setErrorAnnual(globalMessages?.Annual_Household_Income_Required);
 		} else {
 			const numNxt = event.target.value
 				.replace(/\$/g, "")
 				.replace(/,/g, "")
 				.substr(0, 7);
 			if (numNxt.length < 4) {
-				setErrorAnnual(globalMessages.Annual_Household_Income_4_digits);
+				setErrorAnnual(globalMessages?.Annual_Household_Income_4_digits);
 				return false;
 			}
 			const perval = document
@@ -161,7 +161,7 @@ function NewUser() {
 					setErrorPersonal("");
 					return true;
 				} else {
-					setErrorAnnual(globalMessages.Annual_Income_Greater_Equal);
+					setErrorAnnual(globalMessages?.Annual_Income_Greater_Equal);
 					return false;
 				}
 			}
@@ -185,14 +185,14 @@ function NewUser() {
 			formik.values.householdIncome.replace(/\$/g, "").replace(/,/g, "")
 		);
 		if (isNaN(modPersonalIncome)) {
-			setErrorPersonal(globalMessages.Annual_Personal_Income_Required);
+			setErrorPersonal(globalMessages?.Annual_Personal_Income_Required);
 		} else {
 			const num = event.target.value
 				.replace(/\$/g, "")
 				.replace(/,/g, "")
 				.substr(0, 7);
 			if (num.length < 4) {
-				setErrorPersonal(globalMessages.Annual_Personal_Income_4_digits);
+				setErrorPersonal(globalMessages?.Annual_Personal_Income_4_digits);
 				return false;
 			}
 
@@ -202,7 +202,7 @@ function NewUser() {
 					setErrorPersonal("");
 					return true;
 				} else {
-					setErrorAnnual(globalMessages.Annual_Income_Greater_Equal);
+					setErrorAnnual(globalMessages?.Annual_Income_Greater_Equal);
 					return false;
 				}
 			}

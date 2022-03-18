@@ -137,7 +137,7 @@ function SSN() {
 	};
 	useEffect(() => {
 		//redirect to select amount if accessed directly
-		if (data.completedPage < data.page.livingPlace || data.completedPage < data.page.activeDuty || data.formStatus === "completed") {
+		if (data.completedPage < data?.page?.livingPlace || data?.completedPage < data?.page?.activeDuty || data?.formStatus?.toLowerCase() === "completed") {
 			navigate("/select-amount");
 		}
 		return null;

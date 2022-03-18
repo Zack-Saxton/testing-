@@ -54,7 +54,7 @@ function LivingPlace() {
 	};
 
 	useEffect(() => {
-		if (data.completedPage < data.page.annualIncome || data.formStatus === "completed") {
+		if (data?.completedPage < data?.page?.annualIncome || data?.formStatus?.toLowerCase() === "completed") {
 			navigate("/select-amount");
 		}
 		return null;
@@ -141,10 +141,10 @@ function LivingPlace() {
 			setHelperText("");
 		} else if (!event.target.value.trim()) {
 			setError(true);
-			setHelperText(globalMessages.Rent_Mortgage_Zero);
+			setHelperText(globalMessages?.Rent_Mortgage_Zero);
 		} else {
 			setError(true);
-			setHelperText(globalMessages.Rent_Mortgage_Min);
+			setHelperText(globalMessages?.Rent_Mortgage_Min);
 		}
 	};
 
