@@ -579,7 +579,7 @@ export default function CreditKarma() {
                         name="zip"
                         ref={ refZip }
                         label="Zip Code *"
-                        refID={ refZip  }
+                        refId={ refZip  }
                         value={ formik.values.zip }
                         onChange={ fetchAddress }
                         onBlur={ formik.handleBlur }
