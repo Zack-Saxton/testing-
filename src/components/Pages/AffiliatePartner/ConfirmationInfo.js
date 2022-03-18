@@ -8,7 +8,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import globalMessages from "../../../assets/data/globalMessages.json";
@@ -23,18 +23,18 @@ import {useStylesPartner} from "./style"
 
 //Yup validations for all the input fields
 const validationSchema = yup.object({
-  firstname: yup
-    .string(globalMessages.FirstNameEnter)
+  firstName: yup
+    .string(globalMessages.firstNameEnter)
     .trim()
-    .max(30, globalMessages.FirstNameMax)
+    .max(30, globalMessages.firstNameMax)
     .matches(/^(?!\s+$).*/g, globalMessages.No_Backspace_Only)
-    .required(globalMessages.FirstNameRequired),
-  lastname: yup
-    .string(globalMessages.LastNameEnter)
+    .required(globalMessages.firstNameRequired),
+  lastName: yup
+    .string(globalMessages.lastNameEnter)
     .trim()
-    .max(30, globalMessages.LastNameMax)
+    .max(30, globalMessages.lastNameMax)
     .matches(/^(?!\s+$).*/g, globalMessages.No_Backspace_Only)
-    .required(globalMessages.LastNameRequired),
+    .required(globalMessages.lastNameRequired),
   streetAddress: yup
     .string(globalMessages.Address_Street)
     .trim()
@@ -146,34 +146,34 @@ export default function CreditKarma() {
   const navigate = useNavigate();
   const [ esignPopup, setEsignPopup ] = useState(false);
   const [ creditPopup, setCreditPopup ] = useState(false);
-  const [ webTOUPopup, setwebTOUPopup ] = useState(false);
+  const [ webTOUPopup, setWebTOUPopup ] = useState(false);
   const [ privacyPopup, setPrivacyPopup ] = useState(false);
+  const refFirstName = useRef();
+  const refLastName = useRef();
+  const refStreetAddress = useRef();
+  const refZip = useRef();
+  const refCitizenship = useRef();
+  const refPersonalIncome = useRef();
+  const refEmployementStatus = useRef();
+  const refAnnualHousehold = useRef();
   let location = useLocation();
 
-  const handleOnClickEsign = () => {
-    setEsignPopup(true);
-  };
-  const handleOnClickEsignClose = () => {
-    setEsignPopup(false);
-  };
-  const handleOnClickCredit = () => {
-    setCreditPopup(true);
-  };
-  const handleOnClickCreditClose = () => {
-    setCreditPopup(false);
-  };
-  const handleOnClickwebTOU = () => {
-    setwebTOUPopup(true);
-  };
-  const handleOnClickwebTOUClose = () => {
-    setwebTOUPopup(false);
-  };
-  const handleOnClickPrivacy = () => {
-    setPrivacyPopup(true);
-  };
-  const handleOnClickPrivacyClose = () => {
-    setPrivacyPopup(false);
-  };
+  const handleOnClickEsign = () => setEsignPopup(true);
+  
+  const handleOnClickEsignClose = () => setEsignPopup(false);
+
+  const handleOnClickCredit = () => setCreditPopup(true);
+  
+  const handleOnClickCreditClose = () => setCreditPopup(false);
+  
+  const handleOnClickwebTOU = () => setWebTOUPopup(true);
+  
+  const handleOnClickwebTOUClose = () => setWebTOUPopup(false);
+  
+  const handleOnClickPrivacy = () => setPrivacyPopup(true);
+  
+  const handleOnClickPrivacyClose = () => setPrivacyPopup(false);
+  
 
   const validate = (personal, household) => {
     let returnValue = false;
@@ -192,33 +192,33 @@ export default function CreditKarma() {
     return returnValue;
   };
   const autoFocus = () => {
-    let firstname = document.getElementById("firstname").value;
-    let lastname = document.getElementById("lastname").value;
-    let streetAddress = document.getElementById("streetAddress").value;
-    let zip = document.getElementById("zip").value;
-    let citizenshipCnf = document.getElementById("citizenship").value;
-    let personalIncome = document.getElementById("personalIncome").value;
-    let employementStatus = document.getElementById("employementStatus").value;
-    let annualhousehold = document.getElementById("annualhousehold").value;
+    let firstName = refFirstName.current.value;
+    let lastName = refLastName.current.value;
+    let streetAddress = refStreetAddress.current.value;
+    let zip = refZip.current.value;
+    let citizenshipCnf = refCitizenship.current.value;
+    let personalIncome = refPersonalIncome.current.value;
+    let employementStatus = refEmployementStatus.current.value;
+    let annualHousehold = refAnnualHousehold.current.value;
 
-    if (!firstname) {
-      document.getElementById("firstname").focus();
-    } else if (!lastname) {
-      document.getElementById("lastname").focus();
+    if (!firstName) {
+      refFirstName.current.focus();
+    } else if (!lastName) {
+      refLastName.current.focus();
     } else if (!streetAddress) {
-      document.getElementById("streetAddress").focus();
+      refStreetAddress.current.focus();
     } else if (!zip) {
-      document.getElementById("zip").focus();
+      refZip.current.focus();
     } else if (!citizenshipCnf) {
-      document.getElementById("citizenship").focus();
+      refCitizenship.current.focus();
     } else if (!employementStatus) {
-      document.getElementById("employementStatus").focus();
+      refEmployementStatus.current.focus();
     } else if (!personalIncome) {
-      document.getElementById("personalIncome").focus();
+      refPersonalIncome.current.focus();
       validate();
-    } else if (!annualhousehold) {
+    } else if (!annualHousehold) {
       validate();
-      document.getElementById("annualhousehold").focus();
+      refAnnualHousehold.current.focus();
     } else {
       return false;
     }
@@ -227,8 +227,8 @@ export default function CreditKarma() {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      firstname: location?.state?.first_name ?? "",
-      lastname: location?.state?.last_name ?? "",
+      firstName: location?.state?.first_name ?? "",
+      lastName: location?.state?.last_name ?? "",
       streetAddress: location?.state?.address_street ?? "",
       city: location?.state?.address_city ?? "",
       state: location?.state?.address_state ? states[ location.state.address_state ] : "",
@@ -268,8 +268,8 @@ export default function CreditKarma() {
         values.householdIncome = modHouseholdIncome;
         setLoading(true);
         let confirmInfoData = {
-          firstname: values.firstname,
-          lastname: values.lastname,
+          firstName: values.firstname,
+          lastName: values.lastname,
           streetAddress: values.streetAddress,
           city: values.city,
           state: Object.keys(states).find(key => states[ key ] === values.state),
@@ -553,35 +553,37 @@ export default function CreditKarma() {
                   <Grid container spacing={ 4 }>
                     <Grid item xs={ 12 } sm={ 6 } className={classes.fullWidth} >
                       <TextField
-                        id="firstname"
-                        name="firstname"
+                        id="firstName"
+                        name="firstName"
+                        ref={ refFirstName }
                         label="First Name"
                         materialProps={ {
                           "data-test-id": "name",
                           maxLength: "30",
                         } }
-                        value={ formik.values.firstname }
+                        value={ formik.values.firstName }
                         onChange={ onNameChange }
                         onBlur={ formik.handleBlur }
-                        error={ formik.touched.firstname && Boolean(formik.errors.firstname) }
-                        helperText={ formik.touched.firstname && formik.errors.firstname }
+                        error={ formik.touched.firstName && Boolean(formik.errors.firstName) }
+                        helperText={ formik.touched.firstName && formik.errors.firstName }
                       />
                     </Grid>
 
                     <Grid item xs={ 12 } sm={ 6 } className={classes.fullWidth}>
                       <TextField
-                        id="lastname"
-                        name="lastname"
+                        id="lastName"
+                        name="lastName"
+                        ref={ refLastName }
                         label="Last Name"
                         materialProps={ {
-                          "data-test-id": "lastname",
+                          "data-test-id": "lastName",
                           maxLength: "30",
                         } }
-                        value={ formik.values.lastname }
+                        value={ formik.values.lastName }
                         onChange={ onNameChange }
                         onBlur={ formik.handleBlur }
-                        error={ formik.touched.lastname && Boolean(formik.errors.lastname) }
-                        helperText={ formik.touched.lastname && formik.errors.lastname }
+                        error={ formik.touched.lastName && Boolean(formik.errors.lastName) }
+                        helperText={ formik.touched.lastName && formik.errors.lastName }
                       />
                     </Grid>
 
@@ -590,6 +592,7 @@ export default function CreditKarma() {
                         fullWidth
                         id="streetAddress"
                         name="streetAddress"
+                        ref={ refStreetAddress }
                         label="Address"
                         materialProps={ {
                           "data-test-id": "streetAddress",
@@ -608,6 +611,7 @@ export default function CreditKarma() {
                         fullWidth
                         id="zip"
                         name="zip"
+                        ref={ refZip }
                         label="Zip Code *"
                         materialProps={ { "data-test-id": "zipcode" } }
                         value={ formik.values.zip }
@@ -658,6 +662,7 @@ export default function CreditKarma() {
                         <Select
                           id="citizenship"
                           name="citizenship"
+                          ref={ refCitizenship }
                           labelform="Citizenship"
                           value={ formik.values.citizenship }
                           onChange={ changeCitizenship }
@@ -674,6 +679,7 @@ export default function CreditKarma() {
                     <Grid item xs={ 12 } sm={ 4 } container direction="row">
                       <TextField
                         name="personalIncome"
+                        ref={ refPersonalIncome }
                         label="Annual Personal Income"
                         id="personalIncome"
                         value={ formik.values.personalIncome }
@@ -692,8 +698,9 @@ export default function CreditKarma() {
                     <Grid item xs={ 12 } sm={ 4 } container direction="row">
                       <TextField
                         name="householdIncome"
+                        ref={ refAnnualHousehold }
                         label="Annual Household Income"
-                        id="annualhousehold"
+                        id="annualHousehold"
                         value={ formik.values.householdIncome }
                         materialProps={ {
                           "data-testid": "annualIncome",
@@ -719,6 +726,7 @@ export default function CreditKarma() {
                       <Select
                         id="employementStatus"
                         name="employementStatus"
+                        ref={ refEmployementStatus }
                         labelform="Employement Status"
                         value={ formik.values.employementStatus }
                         onChange={ formik.handleChange }

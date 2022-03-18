@@ -82,37 +82,16 @@ export default function VerticalLinearStepper() {
 	const steps = getSteps();
 
 	//next, prev and reset functionality
-
-	const handleNext = () => {
-		setActiveStep((prevActiveStep) => prevActiveStep + 1);
-	};
-
-	const handleBack = () => {
-		setActiveStep((prevActiveStep) => prevActiveStep - 1);
-	};
-
+	const handleNext = () => setActiveStep((prevActiveStep) => prevActiveStep + 1);
+	const handleBack = () => setActiveStep((prevActiveStep) => prevActiveStep - 1);
 	const handleReset = () => {
-		if (!activeStep) {
-			setActiveStep(0);
-		}
-		if (activeStep === 1) {
-			setActiveStep(1);
-		}
-		if (activeStep === 2) {
-			setActiveStep(2);
-		}
-		if (activeStep === 3) {
-			setActiveStep(3);
-		}
-		if (activeStep === 4) {
-			setActiveStep(4);
-		}
-		if (activeStep === 5) {
-			setActiveStep(5);
-		}
-		if (activeStep === 6) {
-			setActiveStep(6);
-		}
+		if (!activeStep) setActiveStep(0);
+		if (activeStep === 1) setActiveStep(1);
+		if (activeStep === 2) setActiveStep(2);
+		if (activeStep === 3) setActiveStep(3);
+		if (activeStep === 4) setActiveStep(4);
+		if (activeStep === 5) setActiveStep(5);
+		if (activeStep === 6) setActiveStep(6);
 	};
 
 	//view part
