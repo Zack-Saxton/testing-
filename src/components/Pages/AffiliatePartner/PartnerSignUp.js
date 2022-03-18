@@ -44,7 +44,7 @@ const validationSchema = yup.object({
     .min(8, globalMessages.PasswordMin)
     .required(globalMessages.PasswordConfirmationRequired)
     .when("password", {
-      is: (password) => password && password.length > 0,
+      is: (password) => password?.length > 0,
       then: yup
         .string()
         .oneOf(
@@ -142,45 +142,18 @@ export default function CreditKarma() {
     return null;
   }, [ handlePopupCA, handlePopupOhio ]);
 
-  const handleCloseCA = () => {
-    setOpenCA(false);
-  };
-
-  const handleCloseOhio = () => {
-    setOpenOhio(false);
-  };
-
-  const handleClickDelawareOpen = () => {
-    setOpenDelaware(true);
-  };
-  const handleDelawareClose = () => {
-    setOpenDelaware(false);
-  };
-
-  const handleOnClickEsign = () => {
-    setEsignPopup(true);
-  };
-  const handleOnClickEsignClose = () => {
-    setEsignPopup(false);
-  };
-  const handleOnClickCredit = () => {
-    setCreditPopup(true);
-  };
-  const handleOnClickCreditClose = () => {
-    setCreditPopup(false);
-  };
-  const handleOnClickwebTOU = () => {
-    setwebTOUPopup(true);
-  };
-  const handleOnClickwebTOUClose = () => {
-    setwebTOUPopup(false);
-  };
-  const handleOnClickPrivacy = () => {
-    setPrivacyPopup(true);
-  };
-  const handleOnClickPrivacyClose = () => {
-    setPrivacyPopup(false);
-  };
+  const handleCloseCA = () => setOpenCA(false);
+  const handleCloseOhio = () => setOpenOhio(false);
+  const handleClickDelawareOpen = () => setOpenDelaware(true);
+  const handleDelawareClose = () => setOpenDelaware(false);
+  const handleOnClickEsign = () => setEsignPopup(true);
+  const handleOnClickEsignClose = () => setEsignPopup(false);
+  const handleOnClickCredit = () => setCreditPopup(true);
+  const handleOnClickCreditClose = () => setCreditPopup(false);
+  const handleOnClickwebTOU = () => setwebTOUPopup(true);
+  const handleOnClickwebTOUClose = () => setwebTOUPopup(false);
+  const handleOnClickPrivacy = () => setPrivacyPopup(true);
+  const handleOnClickPrivacyClose = () => setPrivacyPopup(false);
 
   //Form Submission
   const formik = useFormik({
@@ -262,7 +235,7 @@ export default function CreditKarma() {
                     color="textSecondary"
                   >
                     <a href="https://www.creditkarma.com/" target="blank">
-                      <img 
+                      <img
                         className={classes.fullWidth}
                         src={ creditkarmalogo }
                         alt="creditkarmalogo"

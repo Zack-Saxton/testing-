@@ -10,7 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import axios from "axios";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useQueryClient } from 'react-query';
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -98,7 +98,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 //Yup validations for all the input fields
-const validationSchema = formValidation.getFormValidationRule('');
+const validationSchema = formValidation.getFormValidationRule("");
 
 //Begin: Login page
 export default function Register() {
@@ -113,6 +113,8 @@ export default function Register() {
   const [ disableRecaptcha, setdisableRecaptcha ] = useState(true);
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  let refFirstName = useRef();
+  let refLastName = useRef();
 
   window.onReCaptchaSuccess = async function () {
     try {
@@ -287,21 +289,15 @@ export default function Register() {
     }
   };
 
-  //Auto focus on name field if it has any error on submit
-  function autoFocus() {
-    let firstname = document.getElementById("firstname").value;
-    let lastname = document.getElementById("lastname").value;
-    if (!firstname) {
-      document.getElementById("firstname").focus();
+  const autoFocus = () => {
+    if (!refFirstName.current.value) {
+      refFirstName.current.focus();
+    } else if (!refLastName.current.value) {
+      refLastName.current.focus();
+    } else {
+      return false;
     }
-    if (!lastname) {
-      if (!firstname) {
-        document.getElementById("firstname").focus();
-      } else {
-        document.getElementById("lastname").focus();
-      }
-    }
-  }
+  };
 
   //Fetching valid zipcode
   const fetchAddress = async (event) => {
@@ -386,7 +382,7 @@ export default function Register() {
                         id="firstname"
                         label="First Name *"
                         placeholder={ globalMessages.FirstNameEnter }
-                        materialProps={ { maxLength: "30" } }
+                        materialProps={ { maxLength: "30",ref :refFirstName, } }
                         value={ formik.values.firstname }
                         onChange={ (event) => NameChange(event) }
                         onBlur={ formik.handleBlur }
@@ -414,7 +410,7 @@ export default function Register() {
                         id="lastname"
                         label="Last Name *"
                         placeholder={ globalMessages.LastNameEnter }
-                        materialProps={ { maxLength: "30" } }
+                        materialProps={ { maxLength: "30", ref : refLastName } }
                         value={ formik.values.lastname }
                         onChange={ NameChange }
                         onBlur={ formik.handleBlur }

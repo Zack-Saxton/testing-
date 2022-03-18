@@ -38,7 +38,7 @@ function CitizenshipStatus() {
 	const innerClasses = useStyles();
 
 	useEffect(() => {
-		if (data.completedPage < data.page.loanPurpose || data.formStatus === "completed") {
+		if (data.completedPage < data?.page?.loanPurpose || data?.formStatus?.toLowerCase() === "completed") {
 			navigate("/select-amount");
 		}
 		return null;

@@ -135,27 +135,7 @@ export default function VerticalLinearStepper() {
 	};
 
 	const handleReset = () => {
-		if (!activeStep) {
-			setActiveStep(0);
-		}
-		if (activeStep === 1) {
-			setActiveStep(1);
-		}
-		if (activeStep === 2) {
-			setActiveStep(2);
-		}
-		if (activeStep === 3) {
-			setActiveStep(3);
-		}
-		if (activeStep === 4) {
-			setActiveStep(4);
-		}
-		if (activeStep === 5) {
-			setActiveStep(5);
-		}
-		if (activeStep === 6) {
-			setActiveStep(6);
-		}
+		if (activeStep >= 0 && activeStep < 7) setActiveStep(activeStep);
 	};
 
 	//To load the component based on the step selected

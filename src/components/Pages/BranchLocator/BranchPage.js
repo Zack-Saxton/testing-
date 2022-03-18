@@ -81,7 +81,7 @@ export default function StatePage(props) {
     try {
       let result = await getBranchLists(value);
 
-      if (result.length > 2) {
+      if (result?.length > 2) {
         result = result.slice(0, 3);
       }
       setBranchList(result);
@@ -278,7 +278,7 @@ export default function StatePage(props) {
             return (
               <Grid key={ index } className="locationInfo">
                 <NavLink
-                  to={`/branch-locator/${stateLongName.replace(/\s+/, '-').toLocaleLowerCase()}/personal-loans-in-${item?.BranchName.replace(/-/g, "").replace(/\s+/, '-').toLocaleLowerCase() }-${stateShortName.toLocaleLowerCase() }`}
+                  to={`/branch-locator/${stateLongName.replace(/\s+/, '-').toLocaleLowerCase()}/personal-loans-in-${item?.BranchName.replace(/[- .]/g, "").replace(/\s+/g, '-').toLocaleLowerCase() }-${stateShortName.toLocaleLowerCase() }`}
                   state={{ branch_Details: item, stateLongNm: stateLongName, stateShortNm: stateShortName }}
                   className="nav_link"
                   onClick={ () => {
