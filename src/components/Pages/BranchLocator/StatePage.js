@@ -107,20 +107,14 @@ export default function StatePage() {
     setAddress2("");
   };
   const getActivePlaces = () => {
+    let searchText = refSearch1?.current?.value.trim().length ? refSearch1?.current?.value.trim() : refSearch2?.current?.value.trim();
     setBranchDistance(60);
-    if (address1.trim()) {
-      apiGetBranchList(address1);
-      clearSearchText();
-      refMapSection.current.scrollIntoView({ behavior: "smooth" });
-    } else if (address2.trim()) {
-      apiGetBranchList(address2);
-      clearSearchText();
-    }
+    apiGetBranchList(searchText);
+    refMapSection.current.scrollIntoView({ behavior: 'smooth' });
+    clearSearchText();
   };
   // -------- To Display Dialog to get Directions of Address.......
-  const openGetDirectionModal = () => {
-    setDirectionModal(true);
-  };
+  const openGetDirectionModal = () => setDirectionModal(true);
   const closeGetDirectionModal = () => {
     setDirectionModal(false);
     setBranchAddress(null);
@@ -137,16 +131,11 @@ export default function StatePage() {
   useEffect(() => {
     apiGetBranchList(name);
     window.scrollTo(0, 0);
-
     return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const handleSelect1 = async (value) => {
-    setAddress1(value);
-  };
-  const handleSelect2 = async (value) => {
-    setAddress2(value);
-  };
+  const handleSelect1 = async (value) => setAddress1(value);
+  const handleSelect2 = async (value) => setAddress2(value);
   //View part
   return (
     <div>

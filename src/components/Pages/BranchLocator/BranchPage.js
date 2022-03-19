@@ -53,9 +53,8 @@ export default function StatePage(props) {
   const getBranchLists = async (search_text) => {
     try {
       let result = await BranchLocatorController(search_text, howManyBranchesforBranchLocatorPages.BranchPage);
-      if (result.status === 400) {
-        toast.error(" Check your address and Try again.");
-      } else {
+      if (result.status === 400) toast.error(" Check your address and Try again.");
+      else {
         setCurrentLocation(result?.data?.searchLocation);
         setZoomDepth(
           (result?.data?.branchData[ 0 ]?.distance).replace(/[^/d]/g, "") / 100
@@ -70,9 +69,7 @@ export default function StatePage(props) {
   };
   const listForMapView = async (List) => {
     try {
-      if (List) {
-        setGoogleMap(await mapInformationBranchLocator(List));
-      }
+      if (List) setGoogleMap(await mapInformationBranchLocator(List));
     } catch (error) {
       ErrorLogger(" Error from listForMapView", error);
     }
@@ -80,39 +77,19 @@ export default function StatePage(props) {
   const apiGetBranchList = async (value) => {
     try {
       let result = await getBranchLists(value);
-
-      if (result?.length > 2) {
-        result = result.slice(0, 3);
-      }
+      if (result?.length > 2) result = result.slice(0, 3);
       setBranchList(result);
       listForMapView(result);
     } catch (error) {
       ErrorLogger(" Error from apiGetBranchList ", error);
     }
   };
-  const openGetDirectionModal = () => {
-    setDirectionModal(true);
-  };
-  const closeGetDirectionModal = () => {
-    setDirectionModal(false);
-  };
-  const display_Branch_Times = () => {
-    if (stateShortNm === "CA") {
-      setBranchHours(ca_branch_hours);
-    } else {
-      setBranchHours(branch_hours);
-    }
-  };
-  const ApplyOnlineLoan = () => {
-    window.open(`${ process.env.REACT_APP_WEBSITE }`, "_self");
-  };
-  const cancel = () => {
-    setShowDialog(false);
-  };
-  const OpenYearHolidays = () => {
-    setShowDialog(true);
-
-  };
+  const openGetDirectionModal = () => setDirectionModal(true);
+  const closeGetDirectionModal = () => setDirectionModal(false);
+  const display_Branch_Times = () => (stateShortNm === "CA") ? setBranchHours(ca_branch_hours) : setBranchHours(branch_hours);
+  const ApplyOnlineLoan = () => window.open(`${ process.env.REACT_APP_WEBSITE }`, "_self");
+  const cancel = () => setShowDialog(false);
+  const OpenYearHolidays = () => setShowDialog(true);
   useEffect(() => {
     apiGetBranchList(branch_Details.Address);
     return null;
