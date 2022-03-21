@@ -77,12 +77,10 @@ export default function BranchLocator() {
   };
   const listForMapView = async (List) => {
     try {
-      if (List) {
-        setGoogleMap(await mapInformationBranchLocator(List));
-      }
-    } catch (error) {
+      if (List) setGoogleMap(await mapInformationBranchLocator(List));
+    } catch  (error) { 
       ErrorLogger(' Error from listForMapView', error);
-    }
+  }
   };
   const apiGetBranchList = async (value) => {
     try {
@@ -103,19 +101,13 @@ export default function BranchLocator() {
     setAddress2("");
   };
   const getActivePlaces = () => {
-    if (refSearch1.current.value) {
-      setShowMapListSearch2DirectionButton(true);
-      apiGetBranchList(refSearch1.current.value);
-      clearSearchText();
-      refMapSection.current.scrollIntoView({ behavior: 'smooth' });
-    } else if (refSearch2.current.value) {
-      apiGetBranchList(refSearch2.current.value);
-      clearSearchText();
-    }
+    let searchText = refSearch1?.current?.value.trim().length ? refSearch1?.current?.value.trim() : refSearch2?.current?.value.trim()
+    setShowMapListSearch2DirectionButton(true);
+    apiGetBranchList(searchText);
+    refMapSection.current.scrollIntoView({ behavior: 'smooth' });
+    clearSearchText();
   };
-  const openGetDirectionModal = () => {
-    setDirectionModal(true);
-  };
+  const openGetDirectionModal = () => setDirectionModal(true);
   const closeGetDirectionModal = () => {
     setDirectionModal(false);
     setBranchAddress(null);
@@ -123,24 +115,16 @@ export default function BranchLocator() {
   const MFButtonClick = (event) => {
     params.statename = event.target.innerText;
     apiGetBranchList(params.statename);
-    navigate(`/branch-locator/${ params.statename.replace(/\s+/g, '-').toLowerCase() }/`,
-      { state: { value: params.statename } });
-  };
+    navigate(`/branch-locator/${ params.statename.replace(/\s+/g, '-').toLowerCase() }/`, { state: { value: params.statename } });};
   const findBranchTimings = async (value) => {
     try {
-      if (value) {
-        return await BranchDayTiming(value);
-      }
+      if (value) return await BranchDayTiming(value);
     } catch (error) {
       ErrorLogger(" Error from findBranchTimings", error);
     }
   };
-  const handleSelect1 = async (value) => {
-    setAddress1(value);
-  };
-  const handleSelect2 = async (value) => {
-    setAddress2(value);
-  };
+  const handleSelect1 = async (value) => setAddress1(value);
+  const handleSelect2 = async (value) => setAddress2(value);
   const showDialogforDrivingDirection = (
     <Dialog
       id="directionModal"
