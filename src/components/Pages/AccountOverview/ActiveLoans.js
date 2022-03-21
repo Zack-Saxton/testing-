@@ -75,12 +75,12 @@ export default function ActiveLoans(userActiveLoanData) {
                   Active Loans
                 </Typography>
               </Grid>
-              <Grid container>
-                { userActiveLoans.userActiveLoanData.map(
-                  (appData, activeIndex) => (
-                    <Grid className={ classes.activeLoancardwrap }
+              <Grid  container>
+                {userActiveLoans.userActiveLoanData.map(
+                  (appData) => (
+                    <Grid className={classes.activeLoancardwrap}
                       container
-                      key={ activeIndex }
+                      key={Math.random() * 1000}
                     >
                       <Grid
                         id="activeLoanWrap"
@@ -264,6 +264,8 @@ export default function ActiveLoans(userActiveLoanData) {
                                   { Moment(appData.loanDetails.LoanOriginationDate).format("MM/DD/YYYY") }
                                 </b>
                               </p>
+                              <p className={classes.activeLoanSubHeading_content}>APR</p>
+                              <b>{`${appData.loanDetails.OriginalAPR}%`}</b>
                             </div>
                           </Grid>
                         </Paper>
