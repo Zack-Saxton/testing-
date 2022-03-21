@@ -49,3 +49,5 @@ export const offerTypeData = {
         "online": "/customers/reviewAndSign",
         "branch": "/customers/myBranch"
 };
+
+export const validStates = ['AL', 'AZ', 'CA', 'DE', 'FL', 'GA', 'IN', 'IL', 'KY', 'LA', 'MD', 'MS', 'MO', 'NJ', 'NM', 'NY', 'NC', 'OH', 'OR', 'PA', 'SC', 'TN', 'TX', 'UT', 'VA', 'WA', 'WI'];
