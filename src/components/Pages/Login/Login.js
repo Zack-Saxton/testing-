@@ -2,6 +2,7 @@ import { FormControl, FormControlLabel } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import Paper from "@material-ui/core/Paper";
@@ -425,13 +426,14 @@ export default function Login(props) {
             <CloseIcon />
           </IconButton>
         </div>
-
-        <h2
+        <DialogTitle>
+           <h2
           id="loginHelpDialogHeading"
           className={ classes.loginHelpDialogHeading }
         >
           Having Trouble Logging In?{ " " }
         </h2>
+        </DialogTitle>
         <ul>
           <li>
             { " " }
