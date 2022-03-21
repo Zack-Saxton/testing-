@@ -108,8 +108,8 @@ export class FormValidationRules {
             });
         } else {
             return yup.object({
-                firstname: this.firstName(),
-                lastname: this.lastName(),
+                firstName: this.firstName(),
+                lastName: this.lastName(),
                 email: this.email(),
                 dob: this.dobDate(),
                 password: this.password(),
