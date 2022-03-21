@@ -195,6 +195,7 @@ top: 118px !important;
     bottom: 45%;
     right: 0%;
     z-index: 10;
+    margin-right: 0px;
   }
   #quickNameIcon img{
     border-radius: 0 0 2px 2px;

@@ -24,6 +24,15 @@
   color: #171717 !important;
 }
 
+@media only screen and (max-width: 350px) {
+  .actionButtons{
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+  #cancelButton{
+    margin-top: 15px;
+  }
+}
 @media (max-width: 599px) {
   #paymentBtnWrap {
     flex-direction: column-reverse;

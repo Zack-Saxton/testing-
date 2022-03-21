@@ -916,7 +916,6 @@ export default function MakePayment(props) {
               ? "Are you sure you want to disable auto pay?"
               : "Auto Pay Confirmation" }
           </Typography>
-          {/* <Typography id="autoTxt" className={ classes.autoPayContent }> */ }
           <>
             { disabledContent ? (
               <TableContainer>
@@ -927,12 +926,8 @@ export default function MakePayment(props) {
                 >
                   <TableBody>
                     <TableRow>
-                      <TableCell
-                        className={ classes.tableheadrow }
-                        align="left"
-                        width="20%"
-                      ></TableCell>
-                      <TableCell className={ classes.tableheadrow } align="left">
+                      
+                      <TableCell className={ classes.autoPayTableheadrow } align="right">
                         { !disabledContent ? "" : "Auto pay Amount: " }
                       </TableCell>
                       <TableCell align="left">
@@ -940,44 +935,27 @@ export default function MakePayment(props) {
                           ? ""
                           : numberFormat(totalPaymentAmount) }
                       </TableCell>
-                      <TableCell
-                        className={ classes.tableheadrow }
-                        align="left"
-                      ></TableCell>
+                      
                     </TableRow>
                     <TableRow>
-                      <TableCell
-                        className={ classes.tableheadrow }
-                        align="left"
-                        width="20%"
-                      ></TableCell>
-                      <TableCell align="left">
+                      
+                      <TableCell align="right">
                         { !disabledContent ? "" : "Bank/Card: " }
                       </TableCell>
                       <TableCell align="left">
                         { !disabledContent ? "" : cardLabel }
                       </TableCell>
-                      <TableCell
-                        className={ classes.tableheadrow }
-                        align="left"
-                      ></TableCell>
+                      
                     </TableRow>
                     <TableRow>
-                      <TableCell
-                        className={ classes.tableheadrow }
-                        align="left"
-                        width="20%"
-                      ></TableCell>
-                      <TableCell align="left">
+                      
+                      <TableCell align="right">
                         { !disabledContent ? "" : "First Auto Pay Date:  " }
                       </TableCell>
                       <TableCell align="left">
                         { !disabledContent ? "" : Moment(paymentDate).format("MM/DD/YYYY") }
                       </TableCell>
-                      <TableCell
-                        className={ classes.tableheadrow }
-                        align="left"
-                      ></TableCell>
+                      
                     </TableRow>
                   </TableBody>
                 </Table>
@@ -998,9 +976,11 @@ export default function MakePayment(props) {
         </DialogTitle>
 
         <DialogActions
+          className="actionButtons"
           style={ { justifyContent: "center", marginBottom: "25px" } }
         >
           <ButtonSecondary
+            id="cancelButton"
             stylebutton='{"background": "", "color":"" }'
             onClick={ handleCloseAutoPayPopup }
             disabled={ loading }
