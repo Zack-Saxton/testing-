@@ -66,8 +66,9 @@ const howManyBranchesforBranchLocatorPages = {
 export {
     businesStates,
     branch_hours,
-    ca_branch_hours, 
+    ca_branch_hours,
     tzMatch,
-    marinerWorkingSaturdayDateRange, 
-    howManyBranchesforBranchLocatorPages 
-}
+    marinerWorkingSaturdayDateRange,
+    howManyBranchesforBranchLocatorPages
+};
+;

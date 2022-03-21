@@ -24,7 +24,7 @@ export default function LoanHistoryCard(historyOfLoans) {
   useEffect(() => {
     let activeLoan = dataAccountOverview?.data?.applicants;
 
-    const presenceOfLoan = activeLoan?.some((applicant) => applicant?.isActive  && applicant?.status !== "referred" && applicant?.status !== "contact_branch");
+    const presenceOfLoan = activeLoan?.some((applicant) => applicant?.isActive && applicant?.status !== "referred" && applicant?.status !== "contact_branch");
     const presenceOfLoanStatus = activeLoan?.find((applicant) => applicant?.isActive);
     const userAccountStatus = dataAccountOverview?.data?.customer?.user_account?.status;
 

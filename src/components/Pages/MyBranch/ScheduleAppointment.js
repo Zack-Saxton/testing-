@@ -10,7 +10,7 @@ import { useFormik } from "formik";
 import Moment from "moment";
 import momentTimeZone from "moment-timezone";
 import PropTypes from "prop-types";
-import React, { useState, useRef } from "react";
+import React, { useRef, useState } from "react";
 import * as yup from "yup";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import { ScheduleVisitApi } from "../../Controllers/MyBranchController";
@@ -54,7 +54,7 @@ export default function ScheduleAppointment({
   const refFormCall = useRef();
   //API call
   let branchDetail = MyBranchAppointment;
-  let commonHoliday = [0, 6]; //Sunday and Saturday
+  let commonHoliday = [ 0, 6 ]; //Sunday and Saturday
   //US holidays
   function disableHolidays(appointmentDate) {
     const holidayAPIData = holidayData?.holidays ?? [];
@@ -132,13 +132,13 @@ export default function ScheduleAppointment({
     formik.touched.appointmentTime = null;
     setScheduleAppointment(false);
   };
-  
+
   const dateFormatOption = {
     year: "numeric",
     month: "2-digit",
     day: "2-digit",
   };
-  
+
   const getTimeSlotOption = (timeList) => {
     return (
       <Select
@@ -156,7 +156,7 @@ export default function ScheduleAppointment({
   };
   const showBranchClosedMessage = () => {
     return (
-      <p className={classes.branchClose}>
+      <p className={ classes.branchClose }>
         Branch is closed, Please select a new day.
       </p>
     );
@@ -226,23 +226,23 @@ export default function ScheduleAppointment({
                 helperText={ formik.touched.appointmentDate && formik.errors.appointmentDate }
               />
             </Grid>
-            {stateName === "CA" ? (
+            { stateName === "CA" ? (
               selectedAppointmentDay === "Tuesday" ? (
                 <Grid>
                   { isTodayAppointment
                     ? upt_ca_Tue.length !== 0 && isNotHolidayAppointment
                       ? getTimeSlotOption(upt_ca_Tue)
                       : showBranchClosedMessage()
-                    : getTimeSlotOption(ca_Tue)}
+                    : getTimeSlotOption(ca_Tue) }
                 </Grid>
               ) : !appointmentDay.includes(selectedAppointmentDay) ? (
-                  <Grid>
+                <Grid>
                   { isTodayAppointment
                     ? upt_ca_M_W_TH_F.length !== 0 && isNotHolidayAppointment
                       ? getTimeSlotOption(upt_ca_M_W_TH_F)
                       : showBranchClosedMessage()
-                    : getTimeSlotOption(ca_M_W_Th_F)}
-                  </Grid>
+                    : getTimeSlotOption(ca_M_W_Th_F) }
+                </Grid>
               ) : (
                 showBranchClosedMessage()
               )
@@ -252,7 +252,7 @@ export default function ScheduleAppointment({
                   ? updated_other_Tue.length !== 0 && isNotHolidayAppointment
                     ? getTimeSlotOption(updated_other_Tue)
                     : showBranchClosedMessage()
-                  : getTimeSlotOption(other_Tue)}
+                  : getTimeSlotOption(other_Tue) }
               </Grid>
             ) : selectedAppointmentDay === "Friday" ? (
               <Grid>
@@ -260,7 +260,7 @@ export default function ScheduleAppointment({
                   ? upt_other_Fri.length !== 0 && isNotHolidayAppointment
                     ? getTimeSlotOption(upt_other_Fri)
                     : showBranchClosedMessage()
-                  : getTimeSlotOption(Other_Fri)}
+                  : getTimeSlotOption(Other_Fri) }
               </Grid>
             ) : !appointmentDay.includes(selectedAppointmentDay) ? (
               <Grid>
@@ -268,11 +268,11 @@ export default function ScheduleAppointment({
                   ? upt_other_M_W_Thu.length !== 0 && isNotHolidayAppointment
                     ? getTimeSlotOption(upt_other_M_W_Thu)
                     : showBranchClosedMessage()
-                  : getTimeSlotOption(other_M_W_Thu)}
+                  : getTimeSlotOption(other_M_W_Thu) }
               </Grid>
             ) : (
               showBranchClosedMessage()
-            )}
+            ) }
           </DialogContent>
 
           <DialogActions style={ { justifyContent: "center" } }>

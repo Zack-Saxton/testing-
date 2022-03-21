@@ -16,6 +16,7 @@ import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { useQueryClient } from "react-query";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import globalMessages from "../../../assets/data/globalMessages.json";
 import LoginController from "../../Controllers/LoginController";
 import {
   ButtonPrimary,
@@ -24,10 +25,9 @@ import {
   Popup,
   RenderContent
 } from "../../FormsUI";
-import { decryptAES, encryptAES } from "../../lib/Crypto";
+import { encryptAES } from "../../lib/Crypto";
 import { FormValidationRules } from "../../lib/FormValidationRule";
 import ScrollToTopOnMount from "../../Pages/ScrollToTop";
-import globalMessages from "../../../assets/data/globalMessages.json";
 import "./Login.css";
 let formValidation = new FormValidationRules();
 const moment = require("moment");

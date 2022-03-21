@@ -25,9 +25,7 @@ export default function AccountOverview() {
   let activeLoansData = accountDetails?.data?.activeLoans;
   let recentPaymentData = accountDetails?.data?.loanHistory;
   Cookies.set("hasActiveLoan", true);
-  if (Array.isArray(activeLoansData) && !(activeLoansData.length)) {
-    Cookies.set("hasActiveLoan", false);
-  }
+  if (Array.isArray(activeLoansData) && !(activeLoansData.length)) Cookies.set("hasActiveLoan", false);
   Cookies.set("hasApplicationStatus", accountDetails?.data?.applicant?.processing?.status);
 
   return (

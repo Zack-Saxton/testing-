@@ -8,7 +8,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import PropTypes from "prop-types";
-import React, { useState, useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import globalMessages from "../../../assets/data/globalMessages.json";
@@ -18,8 +18,8 @@ import { partnerConfirmInfo } from "../../Controllers/PartnerSignupController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
 import { ButtonPrimary, Checkbox, Popup, RenderContent, Select, TextField, Zipcode } from "../../FormsUI";
 import ErrorLogger from "../../lib/ErrorLogger";
-import "./Style.css";
 import { useStylesPartner } from "./style";
+import "./Style.css";
 
 //Yup validations for all the input fields
 const validationSchema = yup.object({
@@ -523,7 +523,7 @@ export default function CreditKarma() {
                         materialProps={ {
                           "data-test-id": "name",
                           maxLength: "30",
-                          ref :refFirstName,
+                          ref: refFirstName,
                         } }
                         value={ formik.values.firstName }
                         onChange={ onNameChange }
@@ -542,7 +542,7 @@ export default function CreditKarma() {
                         materialProps={ {
                           "data-test-id": "lastName",
                           maxLength: "30",
-                          ref : refLastName,
+                          ref: refLastName,
                         } }
                         value={ formik.values.lastName }
                         onChange={ onNameChange }
@@ -562,7 +562,7 @@ export default function CreditKarma() {
                         materialProps={ {
                           "data-test-id": "streetAddress",
                           maxLength: "100",
-                          ref : refStreetAddress,
+                          ref: refStreetAddress,
                         } }
                         value={ formik.values.streetAddress }
                         onChange={ formik.handleChange }
@@ -579,7 +579,7 @@ export default function CreditKarma() {
                         name="zip"
                         ref={ refZip }
                         label="Zip Code *"
-                        refId={ refZip  }
+                        refId={ refZip }
                         value={ formik.values.zip }
                         onChange={ fetchAddress }
                         onBlur={ formik.handleBlur }
@@ -632,7 +632,7 @@ export default function CreditKarma() {
                           labelform="Citizenship"
                           value={ formik.values.citizenship }
                           onChange={ changeCitizenship }
-                          refId = {refCitizenship }
+                          refId={ refCitizenship }
                           onBlur={ formik.handleBlur }
                           error={ (formik.touched.citizenship && Boolean(formik.errors.citizenship)) || citizenship }
                           helperText={ !citizenship ? formik.touched.citizenship && formik.errors.citizenship : "We are sorry. We do not offer loans to foreign residents." }

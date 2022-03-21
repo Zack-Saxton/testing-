@@ -49,9 +49,9 @@ export default function ViewAccountDetails() {
   const classes = useStylesAccountOverview();
   const [ values, setValues ] = useState(0);
   const handleTabChange = (event, newValues) => setValues(newValues);
-  let viewAppContact = Cookies.get("viewAppContact") ?? '{}'
+  let viewAppContact = Cookies.get("viewAppContact") ?? '{}';
   let viewApplicationContact = typeof viewAppContact === "object" ? JSON.parse(viewAppContact) : viewAppContact;
-  let viewAppApplicant = Cookies.get("viewAppApplicant") ?? '{}'
+  let viewAppApplicant = Cookies.get("viewAppApplicant") ?? '{}';
   let viewAppApplicantInfo = typeof viewAppApplicant === "object" ? JSON.parse(viewAppApplicant) : viewAppApplicant;
 
   //View part
@@ -173,11 +173,11 @@ export default function ViewAccountDetails() {
                             You will receive additional information regarding your account number and due date shortly.
                             If you signed up for automatic payments they will be deducted on your due date.
                             <br></br> <br></br>
-                            <NavLink to="'/customers/myBranch'" className={classes.loanDetailsLink} >
+                            <NavLink to="'/customers/myBranch'" className={ classes.loanDetailsLink } >
                               Please click here to contact us!
                             </NavLink>
                             <br></br> <br></br>
-                            <NavLink to="/customers/applyForLoan" className={classes.loanDetailsLink} state={ { from: "user" } } >
+                            <NavLink to="/customers/applyForLoan" className={ classes.loanDetailsLink } state={ { from: "user" } } >
                               Please click here to start a new application.
                             </NavLink>
                           </p>
@@ -199,7 +199,7 @@ export default function ViewAccountDetails() {
                               Upon completion of your application and verification of your information,
                               we may be able to extend your final offer as soon as today!
                               <br></br> <br></br>
-                              { `"Let's get on a call"` } -  <NavLink to="/customers/myBranch" className={classes.loanDetailsLink} >
+                              { `"Let's get on a call"` } -  <NavLink to="/customers/myBranch" className={ classes.loanDetailsLink } >
                                 Please click here to contact us!
                               </NavLink>
                             </p>
@@ -215,7 +215,7 @@ export default function ViewAccountDetails() {
                         </Grid>
                           <Grid>
                             <p className={ classes.viewAppStatusDisplay }>
-                              <NavLink to="/customers/myBranch" className={classes.loanDetailsLink}>
+                              <NavLink to="/customers/myBranch" className={ classes.loanDetailsLink }>
                                 Please click here to contact us!
                               </NavLink>
                             </p>

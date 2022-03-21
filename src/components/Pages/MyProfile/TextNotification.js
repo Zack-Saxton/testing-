@@ -101,7 +101,7 @@ export default function TextNotification() {
     formikTextNote.resetForm();
   };
   const handleDisclosureClickOpen = () => {
-     setOpenDisclosur(true);
+    setOpenDisclosur(true);
   };
   const preventSpace = (event) => {
     if (event.keyCode === 32) {
@@ -109,7 +109,7 @@ export default function TextNotification() {
     }
   };
   const handleDisclosureClose = () => {
-     setOpenDisclosur(false);
+    setOpenDisclosur(false);
   };
 
   return (

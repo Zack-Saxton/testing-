@@ -20,15 +20,15 @@ const Popup = ({ children, popupFlag, openPopup, title, closePopup }) => {
         >
             <DialogTitle id="customized-dialog-title" onClose={ closePopup }>
                 <Grid container>
-                    <Grid item sm={10} >
-                    <Typography>
-                        {title ?? ""}
-                    </Typography> 
+                    <Grid item sm={ 10 } >
+                        <Typography>
+                            { title ?? "" }
+                        </Typography>
                     </Grid>
-                    <Grid item sm={2} >
-                         <CloseIcon
-                        style={ { float: "right", cursor: "pointer" } }
-                        onClick={ closePopup }
+                    <Grid item sm={ 2 } >
+                        <CloseIcon
+                            style={ { float: "right", cursor: "pointer" } }
+                            onClick={ closePopup }
                         />
                     </Grid>
                 </Grid>

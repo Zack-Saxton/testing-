@@ -104,11 +104,11 @@ export default function VerticalLinearStepper() {
 			tabPosition = 0;
 		} else if (!res?.data?.phone_verification && !tabPosition && !skip?.phone) {
 			tabPosition = 1;
-		} else if (!res?.data?.financial_information  && !tabPosition) {
+		} else if (!res?.data?.financial_information && !tabPosition) {
 			tabPosition = 2;
-		} else if (!res?.data?.id_document  && !tabPosition) {
+		} else if (!res?.data?.id_document && !tabPosition) {
 			tabPosition = 3;
-		} else if (!res?.data?.id_photo  && !tabPosition) {
+		} else if (!res?.data?.id_photo && !tabPosition) {
 			tabPosition = 3;
 		} else if (!res?.data?.id_questions && !tabPosition) {
 			tabPosition = 4;

@@ -92,7 +92,7 @@ export default function LimitedOffer(userOfferData) {
                 <div id="offerText">
                   <NavLink
                     to="/customers/applyForLoan"
-                    state={{ from: "user" }}
+                    state={ { from: "user" } }
                   >
                     <ButtonPrimary
                       id="claimButton"
@@ -155,7 +155,7 @@ export default function LimitedOffer(userOfferData) {
                 { branchCno }
               </p>
             </Grid>
-            <PreScreen offerData={userOfferData}></PreScreen>
+            <PreScreen offerData={ userOfferData }></PreScreen>
             <Grid className="apply-offer">
               <p>Yes, I want to apply for this offer</p>
               <ButtonPrimary

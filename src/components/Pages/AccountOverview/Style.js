@@ -66,11 +66,11 @@ const useStylesAccountOverview = makeStyles((theme) => ({
     paddingLeft: "23px",
   },
   accountOverviewWrap: {
-    width: "100%", 
+    width: "100%",
     paddingBottom: "10px"
   },
   activeLoanWrap: {
-    width: "100%", 
+    width: "100%",
     paddingTop: "10px"
   },
   subheading: {
@@ -91,8 +91,8 @@ const useStylesAccountOverview = makeStyles((theme) => ({
     marginBottom: "20px"
   },
   loanDetailsLink: {
-    textDecoration: "none", 
-    color: "#0F4EB3", 
+    textDecoration: "none",
+    color: "#0F4EB3",
     cursor: "pointer"
   },
   table: {
@@ -146,13 +146,13 @@ const useStylesAccountOverview = makeStyles((theme) => ({
     paddingBottom: "15px"
   },
   autoPayEnableLinkOne: {
-    textDecoration : 'none', 
-    color : 'inherit',
-    fontSize:"1.563rem"
+    textDecoration: 'none',
+    color: 'inherit',
+    fontSize: "1.563rem"
   },
   autoPayEnableLink: {
-    textDecoration : 'none', 
-    color : 'inherit'
+    textDecoration: 'none',
+    color: 'inherit'
   },
   cardContent: {
     color: "#171717",
@@ -220,14 +220,12 @@ const useStylesAccountOverview = makeStyles((theme) => ({
     whiteSpace: "nowrap",
     fontWeight: "normal",
     boxShadow: ` 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12), 0 1px 5px 0 rgba(0, 0, 0, .2)`,
-
     width: "auto",
     '&:hover': {
       background: '#ffbc23',
       color: 'black',
     },
   },
-
 }));
 
 export { useStylesAccountOverview };

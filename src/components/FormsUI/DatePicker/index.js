@@ -14,7 +14,7 @@ import PropTypes from "prop-types";
 import React, { useState } from "react";
 import "./DatePicker.css";
 
-const DatePickerWrapper = ({ name, format, label,	refId,
+const DatePickerWrapper = ({ name, format, label, refId,
 	placeholder, maxdate, minyear, ...otherProps }) => {
 
 	// The first commit of Material-UI
@@ -50,7 +50,7 @@ const DatePickerWrapper = ({ name, format, label,	refId,
 					} }
 
 					{ ...otherProps }
-					inputProps={ { "data-test-id": "datePicker",ref : refId } }
+					inputProps={ { "data-test-id": "datePicker", ref: refId } }
 
 				/>
 			</Grid>
@@ -65,7 +65,7 @@ DatePickerWrapper.propTypes = {
 	placeholder: PropTypes.string,
 	maxdate: PropTypes.instanceOf(Date),
 	minyear: PropTypes.number,
-	refId : PropTypes.object
+	refId: PropTypes.object
 
 };
 

@@ -5,13 +5,13 @@
 import Moment from "moment";
 
 const skipPastTime = (timeList) => {
-    return timeList.filter((time, index) => {
-      if (parseInt(time.value.split(":")[0]) > Moment(new Date()).format("HH")) {
-        return time;
-      }
-      return null;
-    });
-  };
+  return timeList.filter((time, index) => {
+    if (parseInt(time.value.split(":")[ 0 ]) > Moment(new Date()).format("HH")) {
+      return time;
+    }
+    return null;
+  });
+};
 
 export const ca_M_W_Th_F = [
   { value: "09:30", label: "09:30 AM" },

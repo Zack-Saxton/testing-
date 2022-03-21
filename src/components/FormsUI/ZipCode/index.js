@@ -44,7 +44,7 @@ const ZipCodeWrapper = ({ name, error, helperText, value, onChange, refId, ...ot
   return (
     <TextBox
       { ...configTextField }
-      materialProps={ { maxLength: "5", "data-test-id": "zipcode", ref : refId } }
+      materialProps={ { maxLength: "5", "data-test-id": "zipcode", ref: refId } }
       value={ zipCode }
       onChange={ onHandleZipcodeChange }
     />
@@ -59,7 +59,6 @@ ZipCodeWrapper.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func,
   refId: PropTypes.object,
-
 
 };
 
