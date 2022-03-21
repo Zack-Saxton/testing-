@@ -21,6 +21,7 @@ import ErrorLogger from "../../../lib/ErrorLogger";
 import "../CheckMyOffer.css";
 import "../HomeAddress/HomeAdress.css";
 import ScrollToTopOnMount from "../ScrollToTop";
+import { validStates } from "../../../../assets/data/constants"
 
 //yup validation schema
 const validationSchema = yup.object({
@@ -53,6 +54,21 @@ const useStyles = makeStyles((Theme) => ({
 		justify: "center",
 		alignItems: "center",
 		textAlign: "center"
+	},
+	subPaper: {
+		margin: "15px",
+		padding: "10px 15px",
+		boxShadow: "0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%)",
+		position: "relative",
+		borderRadius: "4px !important",
+    transition: "box-shadow .25s",
+    backgroundColor: "#fff",
+		textAlign: "justify"
+	},
+	paraInsideSubPaper: {
+		fontFamily: "'Muli', sans-serif",
+		color: "#595959",
+		fontSize: "15px"
 	}
 })
 );
@@ -67,6 +83,7 @@ function HomeAddress() {
 	const [ stateShort, setStateShort ] = useState(data.state ?? "");
 	const [ validZip, setValidZip ] = useState(true);
 	const [ open, setOpen ] = useState(false);
+	const [ notAvailInCity, setNotAvailInCity ] = useState(false);
 	const [ openOhio, setOpenOhio ] = useState(false);
 	const [ errorMsg, setErrorMsg ] = useState("");
 	const navigate = useNavigate();
@@ -129,6 +146,14 @@ function HomeAddress() {
 					formik.setFieldValue("state", result?.data.stateCode);
 					setStateShort(result?.data?.stateCode);
 					setValidZip(true);
+					if(validStates.indexOf(result?.data?.stateCode.toUpperCase()) === -1)  
+					{ 
+						setValidZip(false);
+						setErrorMsg(globalMessages.WeDoNotServeArea); 
+						setNotAvailInCity(true);
+					} else {
+						setNotAvailInCity(false);
+					}
 					if (result?.data?.stateCode === "CA") {
 						handleClickOpen();
 					}
@@ -156,7 +181,6 @@ function HomeAddress() {
 	const onBlurAddress = (event) => {
 		formik.setFieldValue("streetAddress", event.target.value.trim());
 	};
-
 	return (
 		<div>
 			<ScrollToTopOnMount />
@@ -280,7 +304,7 @@ function HomeAddress() {
 												helperText={
 													validZip
 														? formik.touched.zip && formik.errors.zip
-														: globalMessages.ZipCodeValid
+														: errorMsg
 												}
 											/>
 										</Grid>
@@ -367,6 +391,14 @@ function HomeAddress() {
 										</Grid>
 									</Grid>
 								</form>
+								<Paper className={ innerClasses.subPaper } style={{display: notAvailInCity ? "block" : "none" }}>
+									<div >
+											<p className={ innerClasses.paraInsideSubPaper } >
+													Mariner Finance does not operate in your state. Mariner Finance currently operates in Alabama, California, Delaware, Florida, Georgia, Indiana, Illinois, Kentucky, Louisiana, Maryland, Mississippi,
+													Missouri, New Jersey, New York, North Carolina, Ohio, Pennsylvania, South Carolina, Tennessee, Texas, Utah, Virginia, Washington, and Wisconsin.
+											</p>
+									</div> 
+							</Paper>
 							</Paper>
 						</Grid>
 					</Grid>
