@@ -34,7 +34,7 @@ const validationSchema = yup.object({
 		.max(30, globalMessages.PasswordMax)
 		.min(8, globalMessages.PasswordMin)
 		.when("newPassword", {
-			is: (newPassword) => newPassword && newPassword.length > 0,
+			is: (newPassword) => newPassword?.length > 0,
 			then: yup
 				.string()
 				.oneOf([ yup.ref("newPassword") ], globalMessages.PasswordConfirmationMatch),
@@ -67,7 +67,7 @@ function NewUser() {
 
 	useEffect(() => {
 		//redirects to select amount on direct call
-		if (data.completedPage < data.page.personalInfo || data.formStatus === "completed") {
+		if (data?.completedPage < data?.page?.personalInfo || data?.formStatus?.toLowerCase() === "completed") {
 			navigate("/select-amount");
 		}
 		return null;

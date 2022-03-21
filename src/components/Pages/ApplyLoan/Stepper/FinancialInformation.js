@@ -76,7 +76,7 @@ export default function FinancialInformation(props) {
   });
   const nameChange = (event) => {
     const reg = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
-    let employerName = event.target.value;
+    let employerName = event.target.value.trim();
     if (!employerName || reg.test(employerName)) {
       formik.handleChange(event);
     }

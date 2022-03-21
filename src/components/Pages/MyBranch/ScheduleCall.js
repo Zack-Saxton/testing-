@@ -53,7 +53,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
   const refFormCall = useRef();
   //Branch details from API
   let branchDetail = MyBranchCall ?? null;
-  let commonHoliday = [0, 6]; //Sunday and Saturday
+  let commonHoliday = [ 0, 6 ]; //Sunday and Saturday
   //US holidays
   function disableHolidays(appointmentDate) {
     const holidayAPIData = holidayData?.holidays ?? [];
@@ -87,8 +87,8 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
           : null
     : null;
 
-  const [scheduleCall, setScheduleCall] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [ scheduleCall, setScheduleCall ] = useState(false);
+  const [ loading, setLoading ] = useState(false);
 
   //Formik implementation
   const formik = useFormik({
@@ -115,7 +115,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
     },
   });
 
-  const appointmentDay = ["Saturday", "Sunday"];
+  const appointmentDay = [ "Saturday", "Sunday" ];
 
   //pop up open & close
   const handleScheduleCall = () => {
@@ -142,17 +142,17 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
         name="callTime"
         labelform="Time Slot"
         select={ JSON.stringify(timeList) }
-        onChange={formik.handleChange}
-        value={formik.values.callTime}
-        onBlur={formik.handleBlur}
-        error={formik.touched.callTime && Boolean(formik.errors.callTime)}
-        helperText={formik.touched.callTime && formik.errors.callTime}
+        onChange={ formik.handleChange }
+        value={ formik.values.callTime }
+        onBlur={ formik.handleBlur }
+        error={ formik.touched.callTime && Boolean(formik.errors.callTime) }
+        helperText={ formik.touched.callTime && formik.errors.callTime }
       />
     );
   };
   const showBranchClosedMessage = () => {
     return (
-      <p className={classes.branchClose}>
+      <p className={ classes.branchClose }>
         Branch is closed, Please select a new day.
       </p>
     );
@@ -164,41 +164,41 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
   //View part
   return (
     <div>
-      <Grid item xs={12} style={{ paddingTop: "10px", textAlign: "left" }}>
+      <Grid item xs={ 12 } style={ { paddingTop: "10px", textAlign: "left" } }>
         <ButtonPrimary
           stylebutton='{"float": "", "padding":"0px 30px", "fontSize":"0.938rem" }'
-          onClick={handleScheduleCall}
+          onClick={ handleScheduleCall }
         >
           Schedule a call
         </ButtonPrimary>
       </Grid>
 
       <Dialog
-        open={scheduleCall}
+        open={ scheduleCall }
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
-        classes={{ paper: classes.dialogPaper }}
+        classes={ { paper: classes.dialogPaper } }
       >
-        <div className={classes.buttonClose}>
+        <div className={ classes.buttonClose }>
           <IconButton
             aria-label="close"
-            onClick={handleScheduleCallClose}
-            className={classes.closeButton}
+            onClick={ handleScheduleCallClose }
+            className={ classes.closeButton }
           >
             <CloseIcon />
           </IconButton>
         </div>
-        <DialogTitle id="alert-dialog-title" style={{ padding: "unset" }}>
-          <Typography className={classes.dialogHeading}>
+        <DialogTitle id="alert-dialog-title" style={ { padding: "unset" } }>
+          <Typography className={ classes.dialogHeading }>
             Schedule a Call
           </Typography>
           <Typography className="endDate">
             You have until <span> { scheduleDateCall.toLocaleDateString('en-us', dateFormatOption) } </span>to schedule Date & Time for your appointment
           </Typography>
         </DialogTitle>
-        <form id="formCall" ref={refFormCall} onSubmit={formik.handleSubmit}>
+        <form id="formCall" ref={ refFormCall } onSubmit={ formik.handleSubmit }>
           <DialogContent>
-            <Grid style={{ paddingBottom: "10px" }}>
+            <Grid style={ { paddingBottom: "10px" } }>
               <DatePicker
                 name="appointmentDate"
                 label="Date"
@@ -207,15 +207,15 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
                 disablePast
                 onKeyDown={ (event) => event.preventDefault() }
                 autoComplete="off"
-                shouldDisableDate={disableHolidays}
-                maxdate={scheduleDateCall}
-                minyear={4}
-                value={formik.values.appointmentDate}
-                onChange={(values) => {
+                shouldDisableDate={ disableHolidays }
+                maxdate={ scheduleDateCall }
+                minyear={ 4 }
+                value={ formik.values.appointmentDate }
+                onChange={ (values) => {
                   formik.setFieldValue("appointmentDate", values);
                   formik.setFieldValue("callTime", "");
-                }}
-                onBlur={formik.handleBlur}
+                } }
+                onBlur={ formik.handleBlur }
                 error={
                   formik.touched.appointmentDate &&
                   Boolean(formik.errors.appointmentDate)
@@ -227,23 +227,23 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
               />
             </Grid>
 
-            {stateName === "CA" ? (
+            { stateName === "CA" ? (
               selectedAppointmentDay === "Tuesday" ? (
                 <Grid>
                   { isTodayAppointment
                     ? upt_ca_Tue.length !== 0 && isNotHolidayAppointment
                       ? getTimeSlotOption(upt_ca_Tue)
                       : showBranchClosedMessage()
-                    : getTimeSlotOption(ca_Tue)}
+                    : getTimeSlotOption(ca_Tue) }
                 </Grid>
               ) : !appointmentDay.includes(selectedAppointmentDay) ? (
-                  <Grid>
+                <Grid>
                   { isTodayAppointment
                     ? upt_ca_M_W_TH_F.length !== 0 && isNotHolidayAppointment
                       ? getTimeSlotOption(upt_ca_M_W_TH_F)
                       : showBranchClosedMessage()
-                    : getTimeSlotOption(ca_M_W_Th_F)}
-                  </Grid>
+                    : getTimeSlotOption(ca_M_W_Th_F) }
+                </Grid>
               ) : (
                 showBranchClosedMessage()
               )
@@ -253,7 +253,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
                   ? updated_other_Tue.length !== 0 && isNotHolidayAppointment
                     ? getTimeSlotOption(updated_other_Tue)
                     : showBranchClosedMessage()
-                  : getTimeSlotOption(other_Tue)}
+                  : getTimeSlotOption(other_Tue) }
               </Grid>
             ) : selectedAppointmentDay === "Friday" ? (
               <Grid>
@@ -261,7 +261,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
                   ? upt_other_Fri.length !== 0 && isNotHolidayAppointment
                     ? getTimeSlotOption(upt_other_Fri)
                     : showBranchClosedMessage()
-                  : getTimeSlotOption(Other_Fri)}
+                  : getTimeSlotOption(Other_Fri) }
               </Grid>
             ) : !appointmentDay.includes(selectedAppointmentDay) ? (
               <Grid>
@@ -269,27 +269,27 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
                   ? upt_other_M_W_Thu.length !== 0 && isNotHolidayAppointment
                     ? getTimeSlotOption(upt_other_M_W_Thu)
                     : showBranchClosedMessage()
-                  : getTimeSlotOption(other_M_W_Thu)}
+                  : getTimeSlotOption(other_M_W_Thu) }
               </Grid>
             ) : (
               showBranchClosedMessage()
-            )}
+            ) }
           </DialogContent>
 
-          <DialogActions style={{ justifyContent: "center" }}>
+          <DialogActions style={ { justifyContent: "center" } }>
             <ButtonPrimary
               type="submit"
               stylebutton='{"background": "","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
-              disabled={loading}
+              disabled={ loading }
             >
               Call Back
               <i
                 className="fa fa-refresh fa-spin customSpinner"
-                style={{
+                style={ {
                   marginRight: "10px",
                   color: "blue",
                   display: loading ? "block" : "none",
-                }}
+                } }
               />
             </ButtonPrimary>
           </DialogActions>

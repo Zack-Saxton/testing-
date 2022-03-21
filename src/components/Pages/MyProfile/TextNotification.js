@@ -31,20 +31,20 @@ import "./Style.css";
 export default function TextNotification() {
   const classes = useStylesMyProfile();
   const [ loading, setLoading ] = useState(false);
-  const [ openDisclosure, setDisclosureOpen ] = useState(false);
+  const [ openDisclosure, setOpenDisclosur ] = useState(false);
   const navigate = useNavigate();
-  const [ , setprofileTabNumber ] = useGlobalState();
+  const [ , setProfileTabNumber ] = useGlobalState();
   let phone = Cookies.get("opted_phone_texting");
-  let textnotifybool = (/true/i).test(Cookies.get("isTextNotify"));
-  let [ disabledContent, setdisabledContent ] = useState(textnotifybool);
+  let isTextNotify = (/true/i).test(Cookies.get("isTextNotify"));
+  let [ disabledContent, setDisabledContent ] = useState(isTextNotify);
 
   const onClickCancelChange = () => {
     formikTextNote.resetForm();
     navigate("/customers/myProfile");
-    setprofileTabNumber({ profileTabNumber: 0 });
+    setProfileTabNumber({ profileTabNumber: 0 });
   };
 
-  const phonevalidationSchema = yup.object().shape({
+  const phoneValidationSchema = yup.object().shape({
     phone: yup
       .string(globalMessages.NameEnter)
       .required(globalMessages.PhoneRequired)
@@ -53,7 +53,7 @@ export default function TextNotification() {
       .matches(/^(\d)(?!\1+$)\d{9}$/, globalMessages.PhoneValid)
       .min(10, globalMessages.PhoneMin),
 
-    acceptterms: yup
+    acceptTerms: yup
       .boolean()
       .oneOf([ true ], globalMessages.Accept_Text_Terms)
       .oneOf([ false ], `False ${ globalMessages.Accept_Text_Terms }`),
@@ -69,21 +69,21 @@ export default function TextNotification() {
     initialValues: {
       phone: phone ? phoneNumberMask(phone) : "",
       textingterms: phone ? true : false,
-      acceptterms: phone ? true : false,
+      acceptTerms: phone ? true : false,
     },
     enableReinitialize: true,
-    validationSchema: phonevalidationSchema,
+    validationSchema: phoneValidationSchema,
 
     onSubmit: async (values) => {
       setLoading(true);
-      setdisabledContent(false);
+      setDisabledContent(false);
       try {
         let body = {
           phone: values.phone,
         };
 
         let result = await textNotification(body, disabledContent);
-        if (result.data?.sbt_subscribe_details?.HasNoErrors || result.data?.sbt_getInfo?.HasNoErrors) {
+        if (result?.data?.sbt_subscribe_details?.HasNoErrors || result?.data?.sbt_getInfo?.HasNoErrors) {
           toast.success("Updated successfully");
           onClickCancelChange();
         } else {
@@ -97,11 +97,11 @@ export default function TextNotification() {
   });
 
   const handleSwitchNotification = (event) => {
-    setdisabledContent(event.target.checked);
+    setDisabledContent(event.target.checked);
     formikTextNote.resetForm();
   };
   const handleDisclosureClickOpen = () => {
-    setDisclosureOpen(true);
+    setOpenDisclosur(true);
   };
   const preventSpace = (event) => {
     if (event.keyCode === 32) {
@@ -109,7 +109,7 @@ export default function TextNotification() {
     }
   };
   const handleDisclosureClose = () => {
-    setDisclosureOpen(false);
+    setOpenDisclosur(false);
   };
 
   return (

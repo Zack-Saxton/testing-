@@ -26,6 +26,7 @@ const SelectWrapper = ({
 	value,
 	onChange,
 	helperText,
+	refId,
 	...otherProps
 }) => {
 	//To return all formik state
@@ -85,7 +86,7 @@ const SelectWrapper = ({
 	return (
 		<FormControl { ...configFormControl }>
 			<InputLabel>{ labelform }</InputLabel>
-			<Select { ...configSelect } name={ name } value={ value } onChange={ onChange } MenuProps={ MenuProps } data-test-id={ selectTestID ?? "selectBox" } inputProps={ { "data-test-id": inputTestID ?? "selectInput" } }>
+			<Select { ...configSelect } name={ name } value={ value } onChange={ onChange } inputRef={ refId } data-test-id={ selectTestID ?? "selectBox" } inputProps={ { "data-test-id": inputTestID ?? "selectInput" } }>
 				{ selectMF.map((nam) => (
 					<MenuItem key={ nam.value } value={ nam.value }>
 						<span className="subOption" value={ nam.value }>{ nam.label ? nam.label : nam.value }</span>
@@ -106,6 +107,7 @@ SelectWrapper.propTypes = {
 	labelform: PropTypes.string,
 	selectTestID: PropTypes.string,
 	inputTestID: PropTypes.string,
+	refId: PropTypes.object,
 	value: PropTypes.oneOfType([
 		PropTypes.number,
 		PropTypes.string

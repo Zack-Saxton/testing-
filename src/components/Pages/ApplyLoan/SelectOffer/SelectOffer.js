@@ -56,7 +56,7 @@ export default function ApplyLoan() {
 	// Submit the offer selected, It calls the API for select offer and redirecr to sign and review page
 	const submitSelectedOffer = async (selTerm, selIndex) => {
 		setLoading(true);
-		if (accountDetails && selTerm !== "" && selIndex !== "") {
+		if (accountDetails && selTerm && selIndex) {
 			let selectedOfferResponse = await submitSelectedOfferAPI(accountDetails?.data?.Offers[ selTerm ][ selIndex ]);
 			if (selectedOfferResponse?.data?.selected_offer) {
 				setLoading(false);
@@ -152,7 +152,7 @@ export default function ApplyLoan() {
 			term = Object.keys(val?.data?.Offers);
 			setNoOffers(!(Object.keys(val?.data?.Offers).length) ? true : false);
 			setTerms(term);
-			if (term[ 0 ] !== undefined) {
+			if (term[ 0 ]) {
 				initialTabLoad(term[ 0 ], 0, val);
 			}
 		}

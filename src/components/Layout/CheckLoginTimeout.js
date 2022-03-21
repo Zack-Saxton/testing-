@@ -4,7 +4,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Typography from "@material-ui/core/Typography";
 import Cookies from "js-cookie";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useIdleTimer } from "react-idle-timer";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";

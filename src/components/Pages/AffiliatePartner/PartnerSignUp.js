@@ -21,8 +21,8 @@ import monevologo from "../../../assets/partners/WelcomeMonevoMember.png";
 import NerdWalletlogo from "../../../assets/partners/WelcomeNWMember.png";
 import OneLoanPlacelogo from "../../../assets/partners/WelcomeOLPMember.png";
 import partnerSignup, { PopulatePartnerSignup } from "../../Controllers/PartnerSignupController";
-import {useStylesPartner} from "./style"
 import { ButtonPrimary, Checkbox, EmailTextField, PasswordField, Popup, RenderContent, Select, SocialSecurityNumber, TextField } from "../../FormsUI";
+import { useStylesPartner } from "./style";
 import "./Style.css";
 
 //Yup validations for all the input fields
@@ -44,7 +44,7 @@ const validationSchema = yup.object({
     .min(8, globalMessages.PasswordMin)
     .required(globalMessages.PasswordConfirmationRequired)
     .when("password", {
-      is: (password) => password && password.length > 0,
+      is: (password) => password?.length > 0,
       then: yup
         .string()
         .oneOf(
@@ -142,45 +142,18 @@ export default function CreditKarma() {
     return null;
   }, [ handlePopupCA, handlePopupOhio ]);
 
-  const handleCloseCA = () => {
-    setOpenCA(false);
-  };
-
-  const handleCloseOhio = () => {
-    setOpenOhio(false);
-  };
-
-  const handleClickDelawareOpen = () => {
-    setOpenDelaware(true);
-  };
-  const handleDelawareClose = () => {
-    setOpenDelaware(false);
-  };
-
-  const handleOnClickEsign = () => {
-    setEsignPopup(true);
-  };
-  const handleOnClickEsignClose = () => {
-    setEsignPopup(false);
-  };
-  const handleOnClickCredit = () => {
-    setCreditPopup(true);
-  };
-  const handleOnClickCreditClose = () => {
-    setCreditPopup(false);
-  };
-  const handleOnClickwebTOU = () => {
-    setwebTOUPopup(true);
-  };
-  const handleOnClickwebTOUClose = () => {
-    setwebTOUPopup(false);
-  };
-  const handleOnClickPrivacy = () => {
-    setPrivacyPopup(true);
-  };
-  const handleOnClickPrivacyClose = () => {
-    setPrivacyPopup(false);
-  };
+  const handleCloseCA = () => setOpenCA(false);
+  const handleCloseOhio = () => setOpenOhio(false);
+  const handleClickDelawareOpen = () => setOpenDelaware(true);
+  const handleDelawareClose = () => setOpenDelaware(false);
+  const handleOnClickEsign = () => setEsignPopup(true);
+  const handleOnClickEsignClose = () => setEsignPopup(false);
+  const handleOnClickCredit = () => setCreditPopup(true);
+  const handleOnClickCreditClose = () => setCreditPopup(false);
+  const handleOnClickwebTOU = () => setwebTOUPopup(true);
+  const handleOnClickwebTOUClose = () => setwebTOUPopup(false);
+  const handleOnClickPrivacy = () => setPrivacyPopup(true);
+  const handleOnClickPrivacyClose = () => setPrivacyPopup(false);
 
   //Form Submission
   const formik = useFormik({
@@ -212,17 +185,16 @@ export default function CreditKarma() {
 
       );
       if (partnerRes.status === 404 && partnerRes.statusText === "Last four SSN do not match") {
-        setLoading(false)
-        formik.values.ssn = ""
-       }
-       else if (partnerRes.status === 404)
-         {
-        setLoading(false)
+        setLoading(false);
+        formik.values.ssn = "";
+      }
+      else if (partnerRes.status === 404) {
+        setLoading(false);
         formik.values.ssn = "";
         formik.values.phoneType = "";
         formik.values.password = "";
         formik.values.confirmPassword = "";
-         }
+      }
     },
   });
   //Preventing space key
@@ -237,7 +209,7 @@ export default function CreditKarma() {
       <div className={ classes.mainContentBackground } id="mainContentBackground">
         <Box>
           <Grid
-            className={classes.partnerSignUpGrid}
+            className={ classes.partnerSignUpGrid }
             xs={ 10 }
             item
           >
@@ -262,8 +234,8 @@ export default function CreditKarma() {
                     color="textSecondary"
                   >
                     <a href="https://www.creditkarma.com/" target="blank">
-                      <img 
-                        className={classes.fullWidth}
+                      <img
+                        className={ classes.fullWidth }
                         src={ creditkarmalogo }
                         alt="creditkarmalogo"
                       />
@@ -277,7 +249,7 @@ export default function CreditKarma() {
                   >
                     <a href="/#" target="blank">
                       <img
-                        className={classes.fullWidth}
+                        className={ classes.fullWidth }
                         src={ OneLoanPlacelogo }
                         alt="OneLoanPlacelogo"
                       />
@@ -291,7 +263,7 @@ export default function CreditKarma() {
                   >
                     <a href="/#" target="blank">
                       <img
-                        className={classes.fullWidth}
+                        className={ classes.fullWidth }
                         src={ GTLlogo }
                         alt="GTLlogo"
                       />
@@ -305,7 +277,7 @@ export default function CreditKarma() {
                   >
                     <a href="/#" target="blank">
                       <img
-                        className={classes.fullWidth}
+                        className={ classes.fullWidth }
                         src={ amonelogo }
                         alt="amonelogo"
                       />
@@ -319,7 +291,7 @@ export default function CreditKarma() {
                   >
                     <a href="/#" target="blank">
                       <img
-                        className={classes.fullWidth}
+                        className={ classes.fullWidth }
                         src={ monevologo }
                         alt="monevologo"
                       />
@@ -333,7 +305,7 @@ export default function CreditKarma() {
                   >
                     <a href="/#" target="blank">
                       <img
-                        className={classes.fullWidth}
+                        className={ classes.fullWidth }
                         src={ NerdWalletlogo }
                         alt="NerdWalletlogo"
                       />
@@ -347,7 +319,7 @@ export default function CreditKarma() {
                   >
                     <a href="/#" target="blank">
                       <img
-                        className={classes.fullWidth}
+                        className={ classes.fullWidth }
                         src={ LendingTreelogo }
                         alt="LendingTreelogo"
                       />
@@ -356,7 +328,7 @@ export default function CreditKarma() {
                 ) : (
                   ""
                 ) }
-                <p className={classes.introText}>
+                <p className={ classes.introText }>
                   Thank you for choosing Mariner Finance. Please provide the
                   following information to view your offers.
                 </p>
@@ -366,7 +338,7 @@ export default function CreditKarma() {
                     container
                     spacing={ 4 }
                   >
-                    <Grid className={classes.fullWidth} item xs={ 12 }>
+                    <Grid className={ classes.fullWidth } item xs={ 12 }>
                       <EmailTextField
                         id="email"
                         name="email"
@@ -687,7 +659,7 @@ export default function CreditKarma() {
         <RenderContent disclosureLink="/privacy" />
       </Popup>
 
-      <Popup popupFlag={ openDelaware } closePopup={ handleDelawareClose }>
+      <Popup popupFlag={ openDelaware } closePopup={ handleDelawareClose } title="Delaware Itemized Schedule of Charges">
         <RenderContent disclosureLink="/delaware" />
       </Popup>
 

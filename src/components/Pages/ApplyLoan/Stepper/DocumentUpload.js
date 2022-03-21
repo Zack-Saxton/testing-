@@ -1,6 +1,6 @@
 import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { toast } from "react-toastify";
 import { uploadDocument } from "../../../Controllers/ApplyForLoanController";
 import { ButtonPrimary } from "../../../FormsUI";
@@ -11,15 +11,16 @@ export default function DocumentUpload(props) {
 	//Set State
 	const [ selectedFile, setSelectedFile ] = useState(null);
 	const [ loader, setLoader ] = useState(null);
+	let refSelectedFile = useRef();
 
 	//To handle the file select change
 	const handleInputChange = () => {
-		setSelectedFile(document.getElementById("file"));
+		setSelectedFile(refSelectedFile.current);
 	};
 
 	useEffect(() => {
 		setSelectedFile(null);
-		document.getElementById("file").value = null;
+		refSelectedFile.current.value = null;
 	}, [ props.resetUpload ]);
 	//upload doc functionality
 	const uploadDoc = () => {
@@ -99,6 +100,8 @@ export default function DocumentUpload(props) {
 					id="file"
 					multiple={ props?.multiple }
 					type="file"
+					ref={ refSelectedFile }
+
 					onChange={ handleInputChange }
 				/>
 			</Grid>

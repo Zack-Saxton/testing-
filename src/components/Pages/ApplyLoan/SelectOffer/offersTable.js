@@ -63,10 +63,8 @@ const HtmlTooltip = withStyles((theme) => ({
 export default function OfferTable(props) {
 	const [ termDataMax, setTermDataMax ] = useState();
 	const [ selectData, setSelectData ] = useState([]);
-	let offersComp = props.offersToCompare ? props.offersToCompare : [];
-	let offersCompChart = props.offersToCompareChart
-		? props.offersToCompareChart
-		: [];
+	let offersComp = props.offersToCompare ?? [];
+	let offersCompChart = props.offersToCompareChart ?? [];
 	// Shows the Brnach icon
 	const branch = (
 		<Grid container direction="row" alignItems="center">

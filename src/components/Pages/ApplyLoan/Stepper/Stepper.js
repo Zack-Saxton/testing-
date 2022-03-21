@@ -104,11 +104,11 @@ export default function VerticalLinearStepper() {
 			tabPosition = 0;
 		} else if (!res?.data?.phone_verification && !tabPosition && !skip?.phone) {
 			tabPosition = 1;
-		} else if (!res?.data?.financial_information  && !tabPosition) {
+		} else if (!res?.data?.financial_information && !tabPosition) {
 			tabPosition = 2;
-		} else if (!res?.data?.id_document  && !tabPosition) {
+		} else if (!res?.data?.id_document && !tabPosition) {
 			tabPosition = 3;
-		} else if (!res?.data?.id_photo  && !tabPosition) {
+		} else if (!res?.data?.id_photo && !tabPosition) {
 			tabPosition = 3;
 		} else if (!res?.data?.id_questions && !tabPosition) {
 			tabPosition = 4;
@@ -135,27 +135,7 @@ export default function VerticalLinearStepper() {
 	};
 
 	const handleReset = () => {
-		if (!activeStep) {
-			setActiveStep(0);
-		}
-		if (activeStep === 1) {
-			setActiveStep(1);
-		}
-		if (activeStep === 2) {
-			setActiveStep(2);
-		}
-		if (activeStep === 3) {
-			setActiveStep(3);
-		}
-		if (activeStep === 4) {
-			setActiveStep(4);
-		}
-		if (activeStep === 5) {
-			setActiveStep(5);
-		}
-		if (activeStep === 6) {
-			setActiveStep(6);
-		}
+		if (activeStep >= 0 && activeStep < 7) setActiveStep(activeStep);
 	};
 
 	//To load the component based on the step selected

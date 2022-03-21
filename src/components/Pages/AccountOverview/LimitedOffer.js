@@ -50,17 +50,9 @@ export default function LimitedOffer(userOfferData) {
     return null;
   }, [ userOfferData ]);
 
-  const showModal = () => {
-    setInitModal(true);
-  };
-
-  const closeModal = () => {
-    setInitModal(false);
-  };
-
-  const handleContinue = () => {
-    navigate("/select-amount");
-  };
+  const showModal = () => setInitModal(true);
+  const closeModal = () => setInitModal(false);
+  const handleContinue = () => navigate("/select-amount");
 
   //View
   return (
@@ -100,7 +92,7 @@ export default function LimitedOffer(userOfferData) {
                 <div id="offerText">
                   <NavLink
                     to="/customers/applyForLoan"
-                    state={{ from: "user" }}
+                    state={ { from: "user" } }
                   >
                     <ButtonPrimary
                       id="claimButton"
@@ -163,7 +155,7 @@ export default function LimitedOffer(userOfferData) {
                 { branchCno }
               </p>
             </Grid>
-            <PreScreen offerData={userOfferData}></PreScreen>
+            <PreScreen offerData={ userOfferData }></PreScreen>
             <Grid className="apply-offer">
               <p>Yes, I want to apply for this offer</p>
               <ButtonPrimary

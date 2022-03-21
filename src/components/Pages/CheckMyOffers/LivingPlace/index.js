@@ -54,7 +54,7 @@ function LivingPlace() {
 	};
 
 	useEffect(() => {
-		if (data.completedPage < data.page.annualIncome || data.formStatus === "completed") {
+		if (data?.completedPage < data?.page?.annualIncome || data?.formStatus?.toLowerCase() === "completed") {
 			navigate("/select-amount");
 		}
 		return null;
@@ -108,7 +108,7 @@ function LivingPlace() {
 
 	//Mortgage Rent onblur
 	const onBlurPayment = (event) => {
-		let inputValue = event.target.value.replace("$", "");
+		let inputValue = event.target.value.trim().replace("$", "");
 		let amountDetails = inputValue.split(".");
 		let afterDecimal = amountDetails[ 1 ];
 		if (!afterDecimal) {
@@ -124,7 +124,7 @@ function LivingPlace() {
 
 	const onHandleChange = (event) => {
 		const reg = /^[0-9\b]+$/;
-		let inputValue = event.target.value.replace(/\$/g, "").replace(",", "").trim();
+		let inputValue = event.target.value.trim().replace(/\$/g, "").replace(",", "");
 		if (!inputValue || reg.test(inputValue)) {
 			inputValue =
 				inputValue.indexOf(".") >= 0
@@ -141,10 +141,10 @@ function LivingPlace() {
 			setHelperText("");
 		} else if (!event.target.value.trim()) {
 			setError(true);
-			setHelperText(globalMessages.Rent_Mortgage_Zero);
+			setHelperText(globalMessages?.Rent_Mortgage_Zero);
 		} else {
 			setError(true);
-			setHelperText(globalMessages.Rent_Mortgage_Min);
+			setHelperText(globalMessages?.Rent_Mortgage_Min);
 		}
 	};
 

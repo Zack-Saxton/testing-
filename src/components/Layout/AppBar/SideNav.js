@@ -235,7 +235,7 @@ export default function SideNav() {
   //Material UI media query for responsiveness
   let check = useMediaQuery("(min-width:960px)");
 
-    useEffect(() => {
+  useEffect(() => {
     if (check && checked) {
       setChecked(true);
       setOpen(true);
@@ -598,7 +598,7 @@ export default function SideNav() {
                   <List >
                     <ListItem>
                       <div id="imgWrap">
-                        <img id="sidebarProfilePic" src={ dataProfile?.profile_picture_url ? dataProfile?.profile_picture_url : getProfileImage } alt="Profile Pic" onClick={ (navType) => handleMenuProfile('top') } />
+                        <img id="sidebarProfilePic" src={ dataProfile?.profilePictureURL ? dataProfile?.profilePictureURL : getProfileImage } alt="Profile Pic" onClick={ (navType) => handleMenuProfile('top') } />
                       </div>
                     </ListItem>
                     <ListItem id="sidemenuName">
@@ -615,10 +615,10 @@ export default function SideNav() {
 
                       <>
                         <ListItem id="sidemenuLastLogin">
-                          { !lastLogin ? '' : `Last Login : ${ lastLogin }`}
+                          { !lastLogin ? '' : `Last Login : ${ lastLogin }` }
                         </ListItem>
                         <ListItem id="sidemenuBranch">
-                          { !branchName ? '' : `Branch :  ${ branchName }`}
+                          { !branchName ? '' : `Branch :  ${ branchName }` }
                         </ListItem>
                         <ListItem id={ branchAvailability ? 'sidemenuOpenNow' : 'sidemenuCloseNow' }>
                           { branchAvailability ? 'Open now' : 'Closed now' }

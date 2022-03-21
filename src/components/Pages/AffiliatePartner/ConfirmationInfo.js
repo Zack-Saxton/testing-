@@ -8,7 +8,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { useFormik } from "formik";
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import globalMessages from "../../../assets/data/globalMessages.json";
@@ -18,60 +18,60 @@ import { partnerConfirmInfo } from "../../Controllers/PartnerSignupController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
 import { ButtonPrimary, Checkbox, Popup, RenderContent, Select, TextField, Zipcode } from "../../FormsUI";
 import ErrorLogger from "../../lib/ErrorLogger";
+import { useStylesPartner } from "./style";
 import "./Style.css";
-import {useStylesPartner} from "./style"
 
 //Yup validations for all the input fields
 const validationSchema = yup.object({
-  firstname: yup
-    .string(globalMessages.FirstNameEnter)
+  firstName: yup
+    .string(globalMessages?.FirstNameEnter)
     .trim()
-    .max(30, globalMessages.FirstNameMax)
-    .matches(/^(?!\s+$).*/g, globalMessages.No_Backspace_Only)
-    .required(globalMessages.FirstNameRequired),
-  lastname: yup
-    .string(globalMessages.LastNameEnter)
+    .max(30, globalMessages?.FirstNameMax)
+    .matches(/^(?!\s+$).*/g, globalMessages?.No_Backspace_Only)
+    .required(globalMessages?.FirstNameRequired),
+  lastName: yup
+    .string(globalMessages?.LastNameEnter)
     .trim()
-    .max(30, globalMessages.LastNameMax)
-    .matches(/^(?!\s+$).*/g, globalMessages.No_Backspace_Only)
-    .required(globalMessages.LastNameRequired),
+    .max(30, globalMessages?.LastNameMax)
+    .matches(/^(?!\s+$).*/g, globalMessages?.No_Backspace_Only)
+    .required(globalMessages?.LastNameRequired),
   streetAddress: yup
-    .string(globalMessages.Address_Street)
+    .string(globalMessages?.Address_Street)
     .trim()
-    .max(100, globalMessages.Address_Street_Max)
-    .matches(/^(?!\s+$).*/g, globalMessages.No_Backspace_Only)
-    .required(globalMessages.Address_Street_Required),
+    .max(100, globalMessages?.Address_Street_Max)
+    .matches(/^(?!\s+$).*/g, globalMessages?.No_Backspace_Only)
+    .required(globalMessages?.Address_Street_Required),
   city: yup
-    .string(globalMessages.Address_City)
-    .max(30, globalMessages.Address_City_Max)
-    .required(globalMessages.Address_Home_City),
+    .string(globalMessages?.Address_City)
+    .max(30, globalMessages?.Address_City_Max)
+    .required(globalMessages?.Address_Home_City),
   state: yup
-    .string(globalMessages.Address_State)
-    .max(30, globalMessages.Address_State_Max)
-    .required(globalMessages.Address_State_Required),
+    .string(globalMessages?.Address_State)
+    .max(30, globalMessages?.Address_State_Max)
+    .required(globalMessages?.Address_State_Required),
   zip: yup
-    .string(globalMessages.ZipCodeEnter)
-    .min(5, globalMessages.ZipCodeMax)
-    .required(globalMessages.ZipCodeRequired),
+    .string(globalMessages?.ZipCodeEnter)
+    .min(5, globalMessages?.ZipCodeMax)
+    .required(globalMessages?.ZipCodeRequired),
   citizenship: yup
-    .string(globalMessages.CitizenshipEnter)
-    .max(30, globalMessages.CitizenshipMax)
-    .required(globalMessages.CitizenshipRequired),
+    .string(globalMessages?.CitizenshipEnter)
+    .max(30, globalMessages?.CitizenshipMax)
+    .required(globalMessages?.CitizenshipRequired),
   employementStatus: yup
-    .string(globalMessages.EmploymentEnter)
-    .max(30, globalMessages.EmploymentMax)
-    .required(globalMessages.EmploymentRequired),
+    .string(globalMessages?.EmploymentEnter)
+    .max(30, globalMessages?.EmploymentMax)
+    .required(globalMessages?.EmploymentRequired),
   activeDuty: yup.string().when("state", {
     is: "NC",
-    then: yup.string().required(globalMessages.Active_DutyRequired),
+    then: yup.string().required(globalMessages?.Active_DutyRequired),
   }),
   activeDutyRank: yup.string().when("activeDuty", {
     is: "Yes",
-    then: yup.string().required(globalMessages.Active_Duty_Rank_Required),
+    then: yup.string().required(globalMessages?.Active_Duty_Rank_Required),
   }),
   martialStatus: yup.string().when("state", {
     is: "Wisconsin",
-    then: yup.string().required(globalMessages.Marital_Status_Required),
+    then: yup.string().required(globalMessages?.Marital_Status_Required),
   }),
   spouseadd: yup
     .string()
@@ -80,26 +80,26 @@ const validationSchema = yup.object({
       then: yup
         .string()
         .trim()
-        .max(100, globalMessages.Marital_Status_Max)
-        .matches(/^(?!\s+$).*/g, globalMessages.No_Backspace_Only),
+        .max(100, globalMessages?.Marital_Status_Max)
+        .matches(/^(?!\s+$).*/g, globalMessages?.No_Backspace_Only),
     })
     .when("martialStatus", {
       is: "Separated, under decree of legal separation",
       then: yup
         .string()
         .trim()
-        .max(100, globalMessages.Marital_Status_Max)
-        .matches(/^(?!\s+$).*/g, globalMessages.No_Backspace_Only),
+        .max(100, globalMessages?.Marital_Status_Max)
+        .matches(/^(?!\s+$).*/g, globalMessages?.No_Backspace_Only),
     }),
   spouseZipcode: yup
     .string()
     .when("martialStatus", {
       is: "Married",
-      then: yup.string().required(globalMessages.ZipCodeRequired),
+      then: yup.string().required(globalMessages?.ZipCodeRequired),
     })
     .when("martialStatus", {
       is: "Separated, under decree of legal separation",
-      then: yup.string().required(globalMessages.ZipCodeRequired),
+      then: yup.string().required(globalMessages?.ZipCodeRequired),
     }),
   spousecity: yup
     .string()
@@ -107,23 +107,23 @@ const validationSchema = yup.object({
       is: "Married",
       then: yup
         .string()
-        .required(globalMessages.Address_Home_City),
+        .required(globalMessages?.Address_Home_City),
     })
     .when("martialStatus", {
       is: "Separated, under decree of legal separation",
       then: yup
         .string()
-        .required(globalMessages.Address_Home_City),
+        .required(globalMessages?.Address_Home_City),
     }),
   spouseSelectState: yup
     .string()
     .when("martialStatus", {
       is: "Married",
-      then: yup.string().required(globalMessages.Address_State_Required),
+      then: yup.string().required(globalMessages?.Address_State_Required),
     })
     .when("martialStatus", {
       is: "Separated, under decree of legal separation",
-      then: yup.string().required(globalMessages.Address_State_Required),
+      then: yup.string().required(globalMessages?.Address_State_Required),
     }),
 });
 
@@ -146,34 +146,17 @@ export default function CreditKarma() {
   const navigate = useNavigate();
   const [ esignPopup, setEsignPopup ] = useState(false);
   const [ creditPopup, setCreditPopup ] = useState(false);
-  const [ webTOUPopup, setwebTOUPopup ] = useState(false);
+  const [ webTOUPopup, setWebTOUPopup ] = useState(false);
   const [ privacyPopup, setPrivacyPopup ] = useState(false);
   let location = useLocation();
-
-  const handleOnClickEsign = () => {
-    setEsignPopup(true);
-  };
-  const handleOnClickEsignClose = () => {
-    setEsignPopup(false);
-  };
-  const handleOnClickCredit = () => {
-    setCreditPopup(true);
-  };
-  const handleOnClickCreditClose = () => {
-    setCreditPopup(false);
-  };
-  const handleOnClickwebTOU = () => {
-    setwebTOUPopup(true);
-  };
-  const handleOnClickwebTOUClose = () => {
-    setwebTOUPopup(false);
-  };
-  const handleOnClickPrivacy = () => {
-    setPrivacyPopup(true);
-  };
-  const handleOnClickPrivacyClose = () => {
-    setPrivacyPopup(false);
-  };
+  const handleOnClickEsign = () => setEsignPopup(true);
+  const handleOnClickEsignClose = () => setEsignPopup(false);
+  const handleOnClickCredit = () => setCreditPopup(true);
+  const handleOnClickCreditClose = () => setCreditPopup(false);
+  const handleOnClickwebTOU = () => setWebTOUPopup(true);
+  const handleOnClickwebTOUClose = () => setWebTOUPopup(false);
+  const handleOnClickPrivacy = () => setPrivacyPopup(true);
+  const handleOnClickPrivacyClose = () => setPrivacyPopup(false);
 
   const validate = (personal, household) => {
     let returnValue = false;
@@ -191,34 +174,35 @@ export default function CreditKarma() {
     }
     return returnValue;
   };
-  const autoFocus = () => {
-    let firstname = document.getElementById("firstname").value;
-    let lastname = document.getElementById("lastname").value;
-    let streetAddress = document.getElementById("streetAddress").value;
-    let zip = document.getElementById("zip").value;
-    let citizenshipCnf = document.getElementById("citizenship").value;
-    let personalIncome = document.getElementById("personalIncome").value;
-    let employementStatus = document.getElementById("employementStatus").value;
-    let annualhousehold = document.getElementById("annualhousehold").value;
 
-    if (!firstname) {
-      document.getElementById("firstname").focus();
-    } else if (!lastname) {
-      document.getElementById("lastname").focus();
-    } else if (!streetAddress) {
-      document.getElementById("streetAddress").focus();
-    } else if (!zip) {
-      document.getElementById("zip").focus();
-    } else if (!citizenshipCnf) {
-      document.getElementById("citizenship").focus();
-    } else if (!employementStatus) {
-      document.getElementById("employementStatus").focus();
-    } else if (!personalIncome) {
-      document.getElementById("personalIncome").focus();
+  let refFirstName = useRef();
+  let refLastName = useRef();
+  let refStreetAddress = useRef();
+  let refZip = useRef();
+  let refCitizenship = useRef();
+  let refPersonalIncome = useRef();
+  let refEmployementStatus = useRef();
+  let refAnnualHousehold = useRef();
+
+  const autoFocus = () => {
+    if (!refFirstName.current.value) {
+      refFirstName.current.focus();
+    } else if (!refLastName.current.value) {
+      refLastName.current.focus();
+    } else if (!refStreetAddress.current.value) {
+      refStreetAddress.current.focus();
+    } else if (!refZip.current.value) {
+      refZip.current.focus();
+    } else if (!refCitizenship.current.value) {
+      refCitizenship.current.focus();
+    } else if (!refPersonalIncome.current.value) {
+      refPersonalIncome.current.focus();
       validate();
-    } else if (!annualhousehold) {
+    } else if (!refEmployementStatus.current.value) {
+      refEmployementStatus.current.focus();
+    } else if (!refAnnualHousehold.current.value) {
+      refAnnualHousehold.current.focus();
       validate();
-      document.getElementById("annualhousehold").focus();
     } else {
       return false;
     }
@@ -227,8 +211,8 @@ export default function CreditKarma() {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      firstname: location?.state?.first_name ?? "",
-      lastname: location?.state?.last_name ?? "",
+      firstName: location?.state?.first_name ?? "",
+      lastName: location?.state?.last_name ?? "",
       streetAddress: location?.state?.address_street ?? "",
       city: location?.state?.address_city ?? "",
       state: location?.state?.address_state ? states[ location.state.address_state ] : "",
@@ -268,8 +252,8 @@ export default function CreditKarma() {
         values.householdIncome = modHouseholdIncome;
         setLoading(true);
         let confirmInfoData = {
-          firstname: values.firstname,
-          lastname: values.lastname,
+          firstName: values.firstname,
+          lastName: values.lastname,
           streetAddress: values.streetAddress,
           city: values.city,
           state: Object.keys(states).find(key => states[ key ] === values.state),
@@ -367,33 +351,18 @@ export default function CreditKarma() {
       ErrorLogger("Error from fetchSpouseAddress.",);
     }
   };
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleClickOpenOhio = () => {
-    setOpenOhio(true);
-  };
-
-  const handleCloseOhio = () => {
-    setOpenOhio(false);
-  };
-
-  const handleClickDelawareOpen = () => {
-    setOpenDelaware(true);
-  };
-  const handleDelawareClose = () => {
-    setOpenDelaware(false);
-  };
+  const handleClickOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const handleClickOpenOhio = () => setOpenOhio(true);
+  const handleCloseOhio = () => setOpenOhio(false);
+  const handleClickDelawareOpen = () => setOpenDelaware(true);
+  const handleDelawareClose = () => setOpenDelaware(false);
 
   //Restrict alphabets
 
   const onHandleChangePersonal = (event) => {
     const reg = /^[0-9.,$\b]+$/;
-    let income = event.target.value;
+    let income = event.target.value.trim();
     if (!income || reg.test(income)) {
       setErrorPersonal("");
       formik.handleChange(event);
@@ -401,7 +370,7 @@ export default function CreditKarma() {
   };
   const onHandleChangeHouse = (event) => {
     const reg = /^[0-9.,$\b]+$/;
-    let income = event.target.value;
+    let income = event.target.value.trim();
     if (!income || reg.test(income)) {
       setErrorAnnual("");
       formik.handleChange(event);
@@ -418,7 +387,7 @@ export default function CreditKarma() {
   const currencyFormat = (event) => {
     const inputName = event.target.name;
     if (inputName === "personalIncome") {
-      const income = event.target.value
+      const income = event.target.value.trim()
         .replace(/\$/g, "")
         .replace(/,/g, "")
         .substr(0, 7);
@@ -446,7 +415,7 @@ export default function CreditKarma() {
         }
       }
     } else if (inputName === "householdIncome") {
-      const income = event.target.value
+      const income = event.target.value.trim()
         .replace(/\$/g, "")
         .replace(/,/g, "")
         .substr(0, 7);
@@ -487,19 +456,13 @@ export default function CreditKarma() {
   const onNameChange = (event) => {
     const reg = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
     let acc = event.target.value;
-    if (!acc || reg.test(acc)) {
-      formik.handleChange(event);
-    }
+    if (!acc || reg.test(acc)) formik.handleChange(event);
   };
   const changeCitizenship = (event) => {
     let citizenshipValue = event.target.value;
-    if (citizenshipValue === "Foreign Resident") {
-      setCitizenship(true);
-      formik.handleChange(event);
-    } else {
-      setCitizenship(false);
-      formik.handleChange(event);
-    }
+    if (citizenshipValue === "Foreign Resident") setCitizenship(true);
+    else setCitizenship(false);
+    formik.handleChange(event);
   };
 
   //View Part
@@ -508,7 +471,7 @@ export default function CreditKarma() {
       <div className={ classes.mainContentBackground } id="mainContentBackground">
         <Box>
           <Grid
-            className={classes.confirmationGrid}
+            className={ classes.confirmationGrid }
             xs={ 12 }
             item
           >
@@ -535,7 +498,7 @@ export default function CreditKarma() {
                 >
                   Welcome to Mariner Finance{ " " }
                 </Typography>
-                <p className={classes.introText}>
+                <p className={ classes.introText }>
                   Please review and confirm the information that{ " " }
                   <a href="https://www.creditkarma.com/" target="blank">
                     { " " }
@@ -551,37 +514,41 @@ export default function CreditKarma() {
 
                 <form onSubmit={ formik.handleSubmit }>
                   <Grid container spacing={ 4 }>
-                    <Grid item xs={ 12 } sm={ 6 } className={classes.fullWidth} >
+                    <Grid item xs={ 12 } sm={ 6 } className={ classes.fullWidth } >
                       <TextField
-                        id="firstname"
-                        name="firstname"
+                        id="firstName"
+                        name="firstName"
+                        ref={ refFirstName }
                         label="First Name"
                         materialProps={ {
                           "data-test-id": "name",
                           maxLength: "30",
+                          ref: refFirstName,
                         } }
-                        value={ formik.values.firstname }
+                        value={ formik.values.firstName }
                         onChange={ onNameChange }
                         onBlur={ formik.handleBlur }
-                        error={ formik.touched.firstname && Boolean(formik.errors.firstname) }
-                        helperText={ formik.touched.firstname && formik.errors.firstname }
+                        error={ formik.touched.firstName && Boolean(formik.errors.firstName) }
+                        helperText={ formik.touched.firstName && formik.errors.firstName }
                       />
                     </Grid>
 
-                    <Grid item xs={ 12 } sm={ 6 } className={classes.fullWidth}>
+                    <Grid item xs={ 12 } sm={ 6 } className={ classes.fullWidth }>
                       <TextField
-                        id="lastname"
-                        name="lastname"
+                        id="lastName"
+                        name="lastName"
+                        ref={ refLastName }
                         label="Last Name"
                         materialProps={ {
-                          "data-test-id": "lastname",
+                          "data-test-id": "lastName",
                           maxLength: "30",
+                          ref: refLastName,
                         } }
-                        value={ formik.values.lastname }
+                        value={ formik.values.lastName }
                         onChange={ onNameChange }
                         onBlur={ formik.handleBlur }
-                        error={ formik.touched.lastname && Boolean(formik.errors.lastname) }
-                        helperText={ formik.touched.lastname && formik.errors.lastname }
+                        error={ formik.touched.lastName && Boolean(formik.errors.lastName) }
+                        helperText={ formik.touched.lastName && formik.errors.lastName }
                       />
                     </Grid>
 
@@ -590,10 +557,12 @@ export default function CreditKarma() {
                         fullWidth
                         id="streetAddress"
                         name="streetAddress"
+                        ref={ refStreetAddress }
                         label="Address"
                         materialProps={ {
                           "data-test-id": "streetAddress",
                           maxLength: "100",
+                          ref: refStreetAddress,
                         } }
                         value={ formik.values.streetAddress }
                         onChange={ formik.handleChange }
@@ -608,8 +577,9 @@ export default function CreditKarma() {
                         fullWidth
                         id="zip"
                         name="zip"
+                        ref={ refZip }
                         label="Zip Code *"
-                        materialProps={ { "data-test-id": "zipcode" } }
+                        refId={ refZip }
                         value={ formik.values.zip }
                         onChange={ fetchAddress }
                         onBlur={ formik.handleBlur }
@@ -658,9 +628,11 @@ export default function CreditKarma() {
                         <Select
                           id="citizenship"
                           name="citizenship"
+                          ref={ refCitizenship }
                           labelform="Citizenship"
                           value={ formik.values.citizenship }
                           onChange={ changeCitizenship }
+                          refId={ refCitizenship }
                           onBlur={ formik.handleBlur }
                           error={ (formik.touched.citizenship && Boolean(formik.errors.citizenship)) || citizenship }
                           helperText={ !citizenship ? formik.touched.citizenship && formik.errors.citizenship : "We are sorry. We do not offer loans to foreign residents." }
@@ -674,6 +646,7 @@ export default function CreditKarma() {
                     <Grid item xs={ 12 } sm={ 4 } container direction="row">
                       <TextField
                         name="personalIncome"
+                        ref={ refPersonalIncome }
                         label="Annual Personal Income"
                         id="personalIncome"
                         value={ formik.values.personalIncome }
@@ -681,6 +654,7 @@ export default function CreditKarma() {
                         materialProps={ {
                           "data-testid": "personalIncome",
                           maxLength: "10",
+                          ref: refPersonalIncome
                         } }
                         autoComplete="off"
                         onBlur={ currencyFormat }
@@ -692,19 +666,21 @@ export default function CreditKarma() {
                     <Grid item xs={ 12 } sm={ 4 } container direction="row">
                       <TextField
                         name="householdIncome"
+                        ref={ refAnnualHousehold }
                         label="Annual Household Income"
-                        id="annualhousehold"
+                        id="annualHousehold"
                         value={ formik.values.householdIncome }
                         materialProps={ {
                           "data-testid": "annualIncome",
                           maxLength: "10",
+                          ref: refAnnualHousehold
                         } }
                         autoComplete="off"
                         onChange={ onHandleChangeHouse }
                         onBlur={ currencyFormat }
                         onKeyDown={ preventUnwanted }
                         error={ errorAnnual !== "" }
-                        helperText={ errorAnnual ??  "" }
+                        helperText={ errorAnnual ?? "" }
                       />
                     </Grid>
 
@@ -719,8 +695,10 @@ export default function CreditKarma() {
                       <Select
                         id="employementStatus"
                         name="employementStatus"
+                        ref={ refEmployementStatus }
                         labelform="Employement Status"
                         value={ formik.values.employementStatus }
+                        refId={ refEmployementStatus }
                         onChange={ formik.handleChange }
                         onBlur={ formik.handleBlur }
                         error={ formik.touched.employementStatus && Boolean(formik.errors.employementStatus) }
@@ -1166,7 +1144,7 @@ export default function CreditKarma() {
       <Popup popupFlag={ privacyPopup } closePopup={ handleOnClickPrivacyClose }>
         <RenderContent disclosureLink="/privacy" />
       </Popup>
-      <Popup popupFlag={ openDelaware } closePopup={ handleDelawareClose }>
+      <Popup popupFlag={ openDelaware } closePopup={ handleDelawareClose } title="Delaware Itemized Schedule of Charges">
         <RenderContent disclosureLink="/delaware" />
       </Popup>
 

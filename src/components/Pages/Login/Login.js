@@ -16,6 +16,7 @@ import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { useQueryClient } from "react-query";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import globalMessages from "../../../assets/data/globalMessages.json";
 import LoginController from "../../Controllers/LoginController";
 import {
   ButtonPrimary,
@@ -24,10 +25,9 @@ import {
   Popup,
   RenderContent
 } from "../../FormsUI";
-import { decryptAES, encryptAES } from "../../lib/Crypto";
+import { encryptAES } from "../../lib/Crypto";
 import { FormValidationRules } from "../../lib/FormValidationRule";
 import ScrollToTopOnMount from "../../Pages/ScrollToTop";
-import globalMessages from "../../../assets/data/globalMessages.json";
 import "./Login.css";
 let formValidation = new FormValidationRules();
 const moment = require("moment");
@@ -141,9 +141,9 @@ export default function Login(props) {
       return '127.0.0.1';
     }
   };
-  const remMeDataRaw = Cookies.get("rememberMe") ?? null;
-  let remMeData = remMeDataRaw ? JSON.parse(decryptAES(remMeDataRaw)) : undefined;
-  const [remMe, setRemMe] = useState(remMeData?.selected);
+  const remMeDataRaw = Cookies.get("rememberMe") ?? '{}';
+  let remMeData = typeof remMeDataRaw === "object" ? JSON.parse(remMeDataRaw) : remMeDataRaw;
+  const [ remMe, setRemMe ] = useState(remMeData?.selected);
   //Form Submission
   const formik = useFormik({
     initialValues: {
@@ -186,7 +186,7 @@ export default function Login(props) {
         Cookies.set("login_date", login_date);
         Cookies.set("userToken", retVal?.data?.user?.attributes?.UserToken);
         Cookies.set("temp_opted_phone_texting", "");
-        Cookies.set("rememberMe", encryptAES(remMe ? JSON.stringify({ selected: true, email: values?.email}) : JSON.stringify({ selected: false, email: ''})) );
+        Cookies.set("rememberMe", remMe ? JSON.stringify({ selected: true, email: values?.email }) : JSON.stringify({ selected: false, email: '' }));
         queryClient.removeQueries();
         setLoading(false);
         if (retVal?.data?.user?.attributes?.password_reset) {
@@ -352,20 +352,20 @@ export default function Login(props) {
                         Sign In help/Register for help signing in.
                       </p>
                     </Grid>
-                    <Grid className={classes.checkbox}>
-                    <FormControl>
-                      <FormControlLabel
-                        control={
-                          <Switch
-                            checked={ remMe }
-                            onChange={ handleRemMeChange }
-                            inputProps={ { "data-test-id": "switch" } }
-                            color="primary"
-                          />
-                        }
-                        label=" Remember me"
-                      />
-                    </FormControl>
+                    <Grid className={ classes.checkbox }>
+                      <FormControl>
+                        <FormControlLabel
+                          control={
+                            <Switch
+                              checked={ remMe }
+                              onChange={ handleRemMeChange }
+                              inputProps={ { "data-test-id": "switch" } }
+                              color="primary"
+                            />
+                          }
+                          label=" Remember me"
+                        />
+                      </FormControl>
                     </Grid>
 
                     <Grid item xs={ 12 } className={ classes.loginButton }>

@@ -18,7 +18,7 @@ export class FormValidationRules {
         return yup
             .string(globalMessages.PasswordEnter)
             .when('isRegisterForm', {
-                is: (isRegisterForm) => isRegisterForm == 1,
+                is: (isRegisterForm) => isRegisterForm === 1,
                 then: yup
                     .string()
                     .min(8, globalMessages.PasswordMin)
@@ -38,7 +38,7 @@ export class FormValidationRules {
             .min(8, globalMessages.PasswordMin)
             .required(globalMessages.PasswordRequired)
             .when("password", {
-                is: (password) => password && password.length > 0,
+                is: (password) => password?.length > 0,
                 then: yup
                     .string()
                     .oneOf(
@@ -100,16 +100,16 @@ export class FormValidationRules {
             .matches(/^(\d)(?!\1+$)\d{8}$/, globalMessages.SSNValid)
             .min(9, globalMessages.SSNMin);
     }
-    getFormValidationRule(type = 'login') {
-        if (type == 'login') {
+    getFormValidationRule(type = "login") {
+        if (type === 'login') {
             return yup.object({
                 email: this.email(),
                 password: this.password(),
             });
         } else {
             return yup.object({
-                firstname: this.firstName(),
-                lastname: this.lastName(),
+                firstName: this.firstName(),
+                lastName: this.lastName(),
                 email: this.email(),
                 dob: this.dobDate(),
                 password: this.password(),
