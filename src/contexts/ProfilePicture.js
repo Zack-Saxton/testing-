@@ -3,7 +3,7 @@ import React, { createContext, useState } from 'react';
 export const ProfilePicture = createContext();
 
 function ProfilePictureContext(props) {
-  const [ dataProfile, setData ] = useState({
+  const [ data, setData ] = useState({
     profilePictureURL: '',
   });
 
@@ -16,7 +16,7 @@ function ProfilePictureContext(props) {
   return (
     <ProfilePicture.Provider
       value={ {
-        dataProfile,
+        dataProfile: data,
         setData,
         resetProfilePicture,
       } }
