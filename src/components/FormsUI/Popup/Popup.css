@@ -1,0 +1,5 @@
+@media print{    
+  .modalButton { 
+    display: none !important; 
+  }
+}

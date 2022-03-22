@@ -143,7 +143,7 @@ export default function Login(props) {
     }
   };
   const remMeDataRaw = Cookies.get("rememberMe") ?? '{}';
-  let remMeData = typeof remMeDataRaw === "object" ? JSON.parse(remMeDataRaw) : remMeDataRaw;
+  let remMeData = JSON.parse(remMeDataRaw);
   const [ remMe, setRemMe ] = useState(remMeData?.selected);
   //Form Submission
   const formik = useFormik({
