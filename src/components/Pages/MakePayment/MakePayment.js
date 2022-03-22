@@ -498,7 +498,7 @@ export default function MakePayment(props) {
 
   //payment onblur
   const onBlurPayment = (event) => {
-    let price = event.target.value.trim().replace("$", "");
+    let price = event.target.value.replace("$", "");
     price = Number(price).toFixed(2);
     setPaymentAmount(price);
     setRequiredAmount("");
