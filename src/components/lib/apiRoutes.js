@@ -20,7 +20,7 @@ export default (() => {
         "set_default_payment": "/gps/set_Payment_Method_Default_cac",
         "myBranch_detail": "/customer/find_closest_branch_cac",
         "myBranch_scheduleMeet": "/application/schedule_branch_appointment_cac",
-        "get_notification": "../customer/get_notification_data_cac",
+        "get_notification": "/customer/get_notification_data_cac",
         "get_customer_by_email": "/customer/get_customer_by_email",
         "vantagescore_credit_monitoring": "/creditmonitoring/get_credit_reports_cac",
         "fetch_available_offers": "/application/get_offers_cac",
