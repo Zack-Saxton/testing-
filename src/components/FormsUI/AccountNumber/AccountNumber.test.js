@@ -10,7 +10,7 @@ test('Availability test', () => {
       type="text"
       name="text"
       label="test"
-      materialProps={ { "data-test-id": "accountNum" } }
+      materialProps={ { "data-testid": "accountNum" } }
     />);
   const input = container.getByTestId('accountNum');
   expect(input).toBeTruthy();
@@ -24,7 +24,7 @@ test('Input test', () => {
       type="text"
       name="accountNum"
       label="accountNum"
-      materialProps={ { "data-test-id": "accountNum" } }
+      materialProps={ { "data-testid": "accountNum" } }
     />);
   const input = container.getByTestId('accountNum');
   fireEvent.change(input, { target: { value: "123" } });
@@ -37,7 +37,7 @@ test('Get only numeric value', () => {
       type="text"
       name="accountNum"
       label="accountNum"
-      materialProps={ { "data-test-id": "accountNum", maxLength: 10 } }
+      materialProps={ { "data-testid": "accountNum", maxLength: 10 } }
     />);
   const input = container.getByTestId('accountNum');
   fireEvent.change(input, { target: { value: "abc" } });
@@ -51,7 +51,7 @@ it('should be between 6 to 17 characters', () => {
     type="text"
     name="accountNum"
     label="accountNum"
-    materialProps={ { "data-test-id": "accountNum" } }
+    materialProps={ { "data-testid": "accountNum" } }
   />);
   const input = wrapper.getByTestId('accountNum');
   expect(input.maxLength).toBe(17);
@@ -63,7 +63,7 @@ test('should match the snapshot', () => {
     type="text"
     name="accountNum"
     label="accountNum"
-    materialProps={ { "data-test-id": "accountNum" } }
+    materialProps={ { "data-testid": "accountNum" } }
   />);
   expect(asFragment).toMatchSnapshot();
 });
