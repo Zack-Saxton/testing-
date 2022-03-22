@@ -93,57 +93,25 @@ function CheckMyOffersContext(props) {
         Cookies.get('cred') ? decryptAES(Cookies.get('cred')) : '{ }'
       );
 
-      const identification =
-        accountDetail !== ''
-          ? accountDetail?.data?.customer?.identification
-          : '';
-      const latestContact =
-        accountDetail !== ''
-          ? accountDetail?.data?.customer?.latest_contact
-          : '';
-      const statesFullForm =
-        accountDetail !== ''
-          ? accountDetail?.data?.customer?.latest_contact.address_state
-          : '';
-      const userStatus =
-        accountDetail !== ''
-          ? accountDetail?.data?.customer?.user_account?.status
-          : '';
-      data.citizenship = identification?.citizenship
-        ? identification?.citizenship
-        : '';
-      data.zip = latestContact?.address_postal_code
-        ? latestContact?.address_postal_code
-        : '';
-      data.firstName = identification?.first_name
-        ? identification?.first_name
-        : '';
-      data.lastName = identification?.last_name
-        ? identification?.last_name
-        : '';
-      data.phone = latestContact?.phone_number_primary
-        ? latestContact?.phone_number_primary
-        : '';
+      const identification = accountDetail?.data?.customer?.identification ?? '';
+      const latestContact = accountDetail?.data?.customer?.latest_contact ?? '';
+      const statesFullForm = accountDetail?.data?.customer?.latest_contact.address_state ?? '';
+      const userStatus = accountDetail?.data?.customer?.user_account?.status ?? '';
+      data.citizenship = identification?.citizenship  ?? '';
+      data.zip = latestContact?.address_postal_code ?? '';
+      data.firstName = identification?.first_name ?? '';
+      data.lastName = identification?.last_name ?? '';
+      data.phone = latestContact?.phone_number_primary ?? '';
       data.email = latestContact?.email ? latestContact?.email : '';
-      data.dob = identification?.date_of_birth
-        ? Moment(identification?.date_of_birth).format("MM/DD/YYYY")
-        : '';
-      data.streetAddress = latestContact?.address_street
-        ? latestContact?.address_street
-        : '';
-      data.city = latestContact?.address_city
-        ? latestContact?.address_city
-        : '';
-      data.state = latestContact?.address_state
-        ? latestContact.address_state
-        : '';
+      data.dob = identification?.date_of_birth ? Moment(identification?.date_of_birth).format("MM/DD/YYYY") : '';
+      data.streetAddress = latestContact?.address_street ?? '';
+      data.city = latestContact?.address_city ?? '';
+      data.state = latestContact?.address_state ?? '';
       data.stateFullform =
         statesFullForm.length === 2 ? states[ statesFullForm ] : statesFullForm;
       data.last4SSN = identification?.last4SSN ? identification?.last4SSN : '';
       data.loanPurpose = '';
-      data.ssn = identification?.social_security_number
-        ? identification?.social_security_number
-        : '';
+      data.ssn = identification?.social_security_number ?? '';
       data.loading = false;
       data.password = cred.password;
       data.confirmPassword = cred.password;
