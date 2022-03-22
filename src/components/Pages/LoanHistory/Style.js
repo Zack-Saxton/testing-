@@ -55,7 +55,8 @@ const useStylesLoanHistory = makeStyles((theme) => ({
     color: "#171717!important",
     fontWeight: "600",
     fontSize: "1rem",
-  },
+    minWidth: "140px"
+   },
   tableHeadRow: {
     color: "#171717!important",
     fontSize: "15px",
