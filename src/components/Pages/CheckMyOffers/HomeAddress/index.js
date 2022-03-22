@@ -94,6 +94,20 @@ function HomeAddress() {
 		return null;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
+	const handlePopupCA = data.state === "CA" ? true : false;
+  const handlePopupOhio = data.state === "OH" ? true : false;
+
+  useEffect(() => {
+    if (handlePopupCA) {
+      setOpen(true);
+    }
+    else if (handlePopupOhio) {
+      setOpenOhio(true);
+    }
+    return null;
+  }, [ handlePopupCA, handlePopupOhio ]);
+
 	//Handle modal open and close
 	const handleClickOpen = () => {
 		setOpen(true);
@@ -148,7 +162,7 @@ function HomeAddress() {
 					setValidZip(true);
 					if(validStates.indexOf(result?.data?.stateCode.toUpperCase()) === -1)  
 					{ 
-						setValidZip(false);
+						setValidZip(false);  
 						setErrorMsg(globalMessages.WeDoNotServeArea); 
 						setNotAvailInCity(true);
 					} else {
