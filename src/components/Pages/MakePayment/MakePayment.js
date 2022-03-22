@@ -76,7 +76,7 @@ export default function MakePayment(props) {
   const [ loading, setLoading ] = useState(false);
   const [ accountDetails ] = useState(null);
   const [ totalPaymentAmount, setTotalPaymentAmount ] = useState(null);
-  const [ checkAutoPay, setCheckAutoPay ] = useState(false);
+  const [ checkAutoPay, setCheckAutoPay ] = useState(true);
   const [ autopaySubmit, setAutopaySubmit ] = useState(true);
   const [ scheduleDate, setScheduleDate ] = useState(new Date());
   const [ payoff, setPayoff ] = useState(false);
@@ -176,7 +176,7 @@ export default function MakePayment(props) {
       refetch();
     }
   }
-
+  
   //Enable scheduled payment
   async function makeuserPayment(scheduledPaymentAccountNo, scheduledPaymentCard, scheduledPaymentDatePicker, scheduledPaymentIsDebit, scheduledPaymentAmount, RemoveScheduledPayment) {
     setOpenPayment(false);
@@ -215,7 +215,6 @@ export default function MakePayment(props) {
     await deleteScheduledPayment(deleteScheduleAccNo, deleteScheduleRefNo);
     refetch();
   }
-
   //Validating ACCNO
   async function checkaccNo(checkAccNoActiveLoansData, checkAccNo) {
     checkAccNoActiveLoansData?.forEach((data) => {
@@ -229,8 +228,8 @@ export default function MakePayment(props) {
         setTotalPaymentAmount(totalAmount);
         setAccntNo(data.loanData?.accountNumber);
         getPaymentMethods();
-        setDisabledContent(data?.loanPaymentInformation?.appRecurringACHPayment);
-        setCheckAutoPay(data?.loanPaymentInformation?.appRecurringACHPayment);
+        setDisabledContent(data?.loanPaymentInformation?.appRecurringACHPayment ? true : false);
+        setCheckAutoPay(data?.loanPaymentInformation?.appRecurringACHPayment ? true : false);
         setPaymentDate(Moment(data?.loanPaymentInformation?.accountDetails?.NextDueDate).format("YYYY-MM-DD"));
         let scheduledDate = data?.loanPaymentInformation?.hasScheduledPayment ? Moment(data?.loanPaymentInformation?.scheduledPayments[ 0 ]?.PaymentDate).format("MM/DD/YYYY") : new Date();
         setPaymentDatepicker(defaultPaymentCard ? new Date() : scheduledDate);
@@ -273,8 +272,8 @@ export default function MakePayment(props) {
       setTotalPaymentAmount(totalAmount);
       setAccntNo(latestLoan?.length ? latestLoan[ 0 ]?.loanData?.accountNumber : null);
       getPaymentMethods();
-      setDisabledContent(latestLoan?.length && latestLoan[ 0 ]?.loanPaymentInformation?.appRecurringACHPayment);
-      setCheckAutoPay(latestLoan?.length && latestLoan[ 0 ]?.loanPaymentInformation?.appRecurringACHPayment);
+      setDisabledContent(latestLoan?.length && latestLoan[ 0 ]?.loanPaymentInformation?.appRecurringACHPayment ? true : false);
+      setCheckAutoPay(latestLoan?.length && latestLoan[ 0 ]?.loanPaymentInformation?.appRecurringACHPayment ? true : false);
       setPaymentDate(latestLoan?.length ? Moment(latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails?.NextDueDate).format("YYYY-MM-DD") : "NONE");
       let scheduledDate = latestLoan?.length && latestLoan[ 0 ]?.loanPaymentInformation?.hasScheduledPayment ? Moment(latestLoan[ 0 ].loanPaymentInformation.scheduledPayments[ 0 ]?.PaymentDate).format("MM/DD/YYYY") : new Date();
       setPaymentDatepicker(defaultPaymentCard ? new Date() : scheduledDate);
@@ -345,6 +344,7 @@ export default function MakePayment(props) {
   //Autopay enable/disable switch
   const handleSwitchPayment = (event) => {
     setAutopaySubmit(checkAutoPay === event.target.checked ? true : false);
+    
     setDisabledContent(event.target.checked);
   };
 
