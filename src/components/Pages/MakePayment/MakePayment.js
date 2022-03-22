@@ -321,7 +321,7 @@ export default function MakePayment(props) {
 
   //Select account
   const handleChangeSelect = (event) => {
-    setCard(event.target.value.trim());
+    setCard(event.target.value); // this value is a number sand trim() only works on string. If converted to string this will not work
     if (event.nativeEvent.target.innerText.includes("Checking") || event.nativeEvent.target.innerText.includes("Savings")) {
       setIsDebit(false);
       setCheckCard(false);
