@@ -113,7 +113,7 @@ export default function TextNotification() {
   };
 
   return (
-    <div style={ { padding: 20 } }>
+    <div className="textNotificationWrap" >
       <form
         onSubmit={ formikTextNote.handleSubmit }
         name="formTextNotify"
@@ -206,11 +206,12 @@ export default function TextNotification() {
         <Grid
           item
           xs={ 12 }
-          style={ { width: "100%", gap: 15, marginBottom: 20 } }
+          style={ { marginBottom: 20 } }
           container
-          direction="row"
         >
           <Checkbox
+            item
+            xs={ 1 }
             name="textingterms"
             disabled={ !disabledContent }
             id="textingterms"
@@ -221,11 +222,12 @@ export default function TextNotification() {
             stylecheckboxlabel='{ "fontSize":"12px" }'
             required
           />
-          <span
+          <Grid
+            item
+            xs={ 10 }
             style={ {
               fontSize: "0.938rem",
               paddingTop: "8px",
-              marginLeft: "-30px",
             } }
           >
             I have read, understand, and agree to the &nbsp;
@@ -237,7 +239,7 @@ export default function TextNotification() {
             >
               Texting Terms of Use.
             </Link>
-          </span>
+          </Grid>
         </Grid>
 
         <Grid container direction="row">

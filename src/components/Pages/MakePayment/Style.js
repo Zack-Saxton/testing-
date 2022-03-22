@@ -57,7 +57,8 @@ const useStylesMakePayment = makeStyles((theme) => ({
     color: "#171717!important",
   },
   dialogPaper: {
-    maxWidth: "unset"
+    maxWidth: "unset",
+    margin:"10px"
   },
   dialogHeading: {
     color: "#171717!important",
