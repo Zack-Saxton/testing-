@@ -8,6 +8,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import PropTypes from "prop-types";
 import React from "react";
 import { ButtonPrimary } from "../../FormsUI";
+import './Popup.css';
 
 const Popup = ({ children, popupFlag, openPopup, title, closePopup }) => {
 
@@ -21,7 +22,7 @@ const Popup = ({ children, popupFlag, openPopup, title, closePopup }) => {
             <DialogTitle id="customized-dialog-title" onClose={ closePopup }>
                 <Grid container>
                     <Grid item sm={ 10 } >
-                        <Typography>
+                        <Typography style={{fontSize: '1.56rem', fontWeight: 'bolder'}} >
                             { title ?? "" }
                         </Typography>
                     </Grid>

@@ -443,19 +443,24 @@ function SSN() {
 				</Box>
 			</div>
 
-			<Popup popupFlag={ esignPopup } closePopup={ handleOnClickEsignClose }>
+			<Popup popupFlag={ esignPopup } closePopup={ handleOnClickEsignClose } title="E-Signature Disclosure and Consent">
+				<Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
 				<RenderContent disclosureLink="/eSign" />
 			</Popup>
-			<Popup popupFlag={ creditPopup } closePopup={ handleOnClickCreditClose }>
+			<Popup popupFlag={ creditPopup } closePopup={ handleOnClickCreditClose } title="Credit and Contact Authorization">
+				<Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
 				<RenderContent disclosureLink="/credit" />
 			</Popup>
-			<Popup popupFlag={ webTOUPopup } closePopup={ handleOnClickwebTOUClose }>
+			<Popup popupFlag={ webTOUPopup } closePopup={ handleOnClickwebTOUClose } title="Terms of Use">
+				<Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
 				<RenderContent disclosureLink="/websiteTermsOfUse" />
 			</Popup>
-			<Popup popupFlag={ privacyPopup } closePopup={ handleOnClickPrivacyClose }>
+			<Popup popupFlag={ privacyPopup } closePopup={ handleOnClickPrivacyClose } title="Privacy Statement">
+				<Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
 				<RenderContent disclosureLink="/privacy" />
 			</Popup>
 			<Popup popupFlag={ open } closePopup={ handleClose } title="Delaware Itemized Schedule of Charges" >
+				<Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
 				<RenderContent disclosureLink="/delaware" />
 			</Popup>
 		</div>
