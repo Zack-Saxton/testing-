@@ -1,9 +1,5 @@
 #BG {
-  background-image: url(../../assets/images/loginbg.png);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  background-color: #f6f6f6 ;
 }
 .headerWrap {
   position: sticky !important;

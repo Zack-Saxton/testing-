@@ -1,11 +1,8 @@
 import { makeStyles } from "@material-ui/core/styles";
-import Logo from "../../../assets/images/loginbg.png";
-
 //Styling
 const useStylesPartner = makeStyles((theme) => ({
   mainContentBackground: {
-    backgroundImage: "url(" + Logo + ")",
-    backgroundSize: "cover",
+    backgroundColor:"#f6f6f6"
   },
   root: {
     flexGrow: 1,
