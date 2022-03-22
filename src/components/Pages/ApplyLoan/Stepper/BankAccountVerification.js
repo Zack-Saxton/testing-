@@ -73,6 +73,7 @@ export default function BankAccountVerification(props) {
 	const [ error, setError ] = useState("");
 	const [ fileUploadSuccess, setFileUploadSuccess ] = useState(false);
 	const [ invalidRN, setInvalidRN ] = useState(false);
+	const [ resetUpload, setResetUpload ] = useState(false);
 	const [ openAutoPayAuth, setOpenAutoPayAuth ] = useState(false);
 	function getElementByText(text, ctx) {
 		return document.evaluate("//*[.='" + text + "']",
@@ -455,7 +456,7 @@ export default function BankAccountVerification(props) {
 					</div>
 					<DocumentUpload
 						classes={ classes }
-						resetUpload={ paymnetMode }
+						resetUpload={ resetUpload }
 						docType={ "bank information" }
 						handle={ handleUpload }
 						setLoadingFlag={ props.setLoadingFlag }
@@ -469,6 +470,7 @@ export default function BankAccountVerification(props) {
 							onClick={ (event) => {
 								formik.resetForm();
 								setVerifyRequired(false);
+								setResetUpload(!resetUpload)
 							} }
 							id="button_stepper_reset"
 						>

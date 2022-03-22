@@ -270,6 +270,7 @@ export default function MailingAddress(props) {
               }
             />
           </Grid>
+          <Grid className="mailingButtons">
           <ButtonSecondary
             stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
             styleicon='{ "color":"" }'
@@ -284,6 +285,7 @@ export default function MailingAddress(props) {
             styleicon='{ "color":"" }'
             type="submit"
             disabled={ loading }
+            id="mailingSaveButton"
           >
             Save Changes
             <i
@@ -295,6 +297,7 @@ export default function MailingAddress(props) {
               } }
             />
           </ButtonPrimary>
+          </Grid>
         </> }
       </form>
 

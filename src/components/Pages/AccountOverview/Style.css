@@ -23,6 +23,10 @@
   border-radius: 10px !important;
 }
 
+#loans .subOption{
+  color: #171717 !important;
+}
+
 .checkMyOffers{
   display:flex;
   justify-content: space-around;
@@ -49,6 +53,10 @@
 .title-info{
   flex:1;
   text-align: center;
+}
+
+#loans.subOption{
+  color: #171717 !important;
 }
 
 #ClaimButton{

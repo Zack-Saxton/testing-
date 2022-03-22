@@ -261,8 +261,8 @@ export default function MakePayment(props) {
         navigate("/customers/accountoverview");
       }
     } else {
-      setLatestLoanData(activeLoansData?.slice(0, 1) ?? null);
-      let latestLoan = activeLoansData?.slice(0, 1) ?? null;
+      setLatestLoanData(activeLoansData?.slice(0, 1) ?? []);
+      let latestLoan = activeLoansData?.slice(0, 1) ?? [];
       let schedulePaymentAmount = activeLoansData?.length && activeLoansData[ 0 ]?.loanPaymentInformation?.scheduledPayments?.length
         ? activeLoansData[ 0 ].loanPaymentInformation.scheduledPayments[ 0 ]?.PaymentAmount
         : 0;
@@ -926,7 +926,7 @@ export default function MakePayment(props) {
                 >
                   <TableBody>
                     <TableRow>
-                      
+
                       <TableCell className={ classes.autoPayTableheadrow } align="right">
                         { !disabledContent ? "" : "Auto pay Amount: " }
                       </TableCell>
@@ -935,27 +935,27 @@ export default function MakePayment(props) {
                           ? ""
                           : numberFormat(totalPaymentAmount) }
                       </TableCell>
-                      
+
                     </TableRow>
                     <TableRow>
-                      
+
                       <TableCell align="right">
                         { !disabledContent ? "" : "Bank/Card: " }
                       </TableCell>
                       <TableCell align="left">
                         { !disabledContent ? "" : cardLabel }
                       </TableCell>
-                      
+
                     </TableRow>
                     <TableRow>
-                      
+
                       <TableCell align="right">
                         { !disabledContent ? "" : "First Auto Pay Date:  " }
                       </TableCell>
                       <TableCell align="left">
                         { !disabledContent ? "" : Moment(paymentDate).format("MM/DD/YYYY") }
                       </TableCell>
-                      
+
                     </TableRow>
                   </TableBody>
                 </Table>
