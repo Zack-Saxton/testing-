@@ -155,7 +155,7 @@ export default function StatePage() {
         container
         justifyContent={ "center" }
       >
-        <Grid className="branchLayoutGrid" container style={ { width: "100%" } }>
+        <Grid className="branchLayoutGrid" container>
           <Grid className="branchImage" item md={ 7 } sm={ 12 } xs={ 12 }>
             <img
               className="mobileImage"
@@ -166,7 +166,6 @@ export default function StatePage() {
           </Grid>
           <Grid
             className="greyBackground mobilePadding"
-            style={ { padding: "24px 0px" } }
             item
             md={ 5 }
             sm={ 12 }
@@ -177,7 +176,6 @@ export default function StatePage() {
               separator={
                 <NavigateNextIcon
                   className="navigateNextIcon"
-                  style={ { color: "#171717" } }
                 />
               }
               aria-label="breadcrumb"
@@ -204,13 +202,12 @@ export default function StatePage() {
                 <Grid id="findBranchGrid">
                   <SearchIcon
                     className="searchIcon"
-                    style={ { color: "white" } }
                   />
                   <PlacesAutocomplete
+                    id="address1"
                     value={ address1 }
                     onChange={ setAddress1 }
                     onSelect={ handleSelect1 }
-                    style={ { width: "50%" } }
                   >
                     { ({
                       getInputProps,
@@ -287,7 +284,6 @@ export default function StatePage() {
           >
             <h3 className="mapTopHeading">Branches Near You</h3>
             <Grid
-              style={ { padding: "0px" } }
               id="mapGridWrap"
               item
               xs={ 12 }
@@ -381,13 +377,12 @@ export default function StatePage() {
                 </p>
                 <SearchIcon
                   className="searchIconBottomTwo"
-                  style={ { color: "white" } }
                 />
                 <PlacesAutocomplete
+                  id="address1"
                   value={ address2 }
                   onChange={ setAddress2 }
                   onSelect={ handleSelect2 }
-                  style={ { width: "50%" } }
                 >
                   { ({
                     getInputProps,
@@ -447,9 +442,6 @@ export default function StatePage() {
           ) : (
             <Grid
               id="branchLists"
-              style={ {
-                display: "flex"
-              } }
             >
               <Grid container className="addressList">
                 { branchList ? (
@@ -483,8 +475,8 @@ export default function StatePage() {
                           <p className={ classes.phoneNumber }>
                             <PhoneIcon />
                             <a
+                              className="blueColorLink"
                               href={ "tel:+1" + item?.PhoneNumber }
-                              style={ { color: "#214476" } }
                             >
                               { " " }
                               { item?.PhoneNumber }

@@ -199,6 +199,7 @@
   margin-right: 4px;
 }
 #branchLists {
+  display: flex;
   background-color: #f6f6f6;
   max-width: 1200px !important;
   margin: auto !important;
@@ -217,6 +218,7 @@
   color: #171717 !important;
 }
 #mapGridWrap {
+  padding: 0 !important;
   min-height: 450px;
   border: 2px solid #9a9a9a;
   overflow: hidden;
@@ -687,6 +689,19 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
 }
 .fullWidth{
   width: 100%;
+}
+.address1{
+  width: 50%;
+}
+.blueColorLink{
+  color: #214476 !important;
+}
+.mobilePadding{
+  padding: 24px 0px;
+}
+.branchListGrid{
+  margin: auto;
+  justify-content: space-between;
 }
 @media (max-width: 960px) {
   .mobileImage {
