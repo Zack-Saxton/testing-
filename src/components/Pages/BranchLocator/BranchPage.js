@@ -255,7 +255,7 @@ export default function StatePage(props) {
             return (
               <Grid key={ index } className="locationInfo">
                 <NavLink
-                  to={ `/branch-locator/${ stateLongName.replace(/\s+/, '-').toLocaleLowerCase() }/personal-loans-in-${ item?.BranchName.replace(/[- .]/g, "").replace(/\s+/g, '-').toLocaleLowerCase() }-${ stateShortName.toLocaleLowerCase() }` }
+                  to={ `/branch-locator/${ stateLongName.replace(/\s+/, '-').toLocaleLowerCase() }/personal-loans-in-${ item?.BranchName.replace(/[.]/g, "").replace(/\s+/g, '-').toLocaleLowerCase() }-${ stateShortName.toLocaleLowerCase() }` }
                   state={ { branch_Details: item, stateLongNm: stateLongName, stateShortNm: stateShortName } }
                   className="nav_link"
                   onClick={ () => {
