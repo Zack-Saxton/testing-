@@ -18,7 +18,7 @@ export async function usrPaymentMethods() {
 }
 
 /***** Enable AutoPay mode *****/
-export async function enableAutoPay(enableAutoPayAccountNo, enableAutoPayCard, enableAutoPayDate, enableAutoPayIsDebit) {
+export async function enableAutoPay(enableAutoPayAccountNo, enableAutoPayCard, enableAutoPayDate, enableAutoPayIsDebit, removeScheduledPayment) {
   try {
     let cards = enableAutoPayCard.toString();
     let url = "enable_autopay";
@@ -28,6 +28,7 @@ export async function enableAutoPay(enableAutoPayAccountNo, enableAutoPayCard, e
       payment_option: "recurring_payment",
       payment_date: enableAutoPayDate,
       is_debit_payment: enableAutoPayIsDebit,
+      RemoveScheduledPayment: removeScheduledPayment,
     };
     let method = "POST";
     let addAccessToken = true;
