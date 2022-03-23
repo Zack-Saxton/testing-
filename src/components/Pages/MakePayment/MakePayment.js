@@ -967,7 +967,7 @@ export default function MakePayment(props) {
                 </Table>
               </TableContainer>
             ) : (
-              ""
+              null
             ) }
             {/* </Typography> */ }
           </>
@@ -1011,7 +1011,7 @@ export default function MakePayment(props) {
             />
           </ButtonPrimary>
            ) : (  
-             ""
+             null
           ) }
 
 
@@ -1032,7 +1032,7 @@ export default function MakePayment(props) {
             />
           </ButtonPrimary>
            ) : (  
-             ""
+             null
           ) }
 
           { disabledContent && paymentIsScheduled === "yes"  ? (
@@ -1051,7 +1051,7 @@ export default function MakePayment(props) {
               />
             </ButtonSecondary>
           ) : (
-            ""
+            null
           ) }
         </DialogActions>
       </Dialog>
@@ -1107,7 +1107,7 @@ export default function MakePayment(props) {
                       align="left"
                     ></TableCell>
                   </TableRow>
-                ) : ""
+                ) : null
                 }
                 { isDebit ? (
                   <TableRow>
@@ -1125,10 +1125,10 @@ export default function MakePayment(props) {
                       align="left"
                     ></TableCell>
                   </TableRow>
-                ) : ""
+                ) : null
                 }
                 <TableRow>
-                  <TableCell
+                <TableCell
                     className={ classes.tableheadrow }
                     align="left"
                     width="20%"
@@ -1199,7 +1199,7 @@ export default function MakePayment(props) {
               />
             </ButtonPrimary>
           ) : (
-            ""
+            null
           ) }
 
           { paymentIsScheduled === "yes" ? (
@@ -1218,7 +1218,7 @@ export default function MakePayment(props) {
               />
             </ButtonPrimary>
           ) : (
-            ""
+            null
           ) }
 
           { paymentIsScheduled === "yes" && isFutureDate === "no" ? (
@@ -1237,7 +1237,7 @@ export default function MakePayment(props) {
               />
             </ButtonSecondary>
           ) : (
-            ""
+            null
           ) }
         </DialogActions>
       </Dialog>
