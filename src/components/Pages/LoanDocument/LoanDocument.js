@@ -141,7 +141,7 @@ export default function LoanDocument() {
               <h3 id="pageHeading" className={ classes.heading }>
                 <NavLink
                   to="/customers/accountOverview"
-                  className={textdecoration}
+                  className={classes.textDecoration}
                 >
                   <ButtonWithIcon
                     icon="arrow_backwardIcon"
