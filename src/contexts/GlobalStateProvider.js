@@ -1,5 +1,5 @@
-import PropTypes from "prop-types";
 import React, { createContext, useContext, useReducer } from "react";
+import PropTypes from "prop-types";
 
 const initialGlobalState = {
   profileTabNumber: 0

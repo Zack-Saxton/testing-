@@ -1,4 +1,5 @@
 import React, { createContext, useState } from 'react';
+import PropTypes from "prop-types";
 
 export const ActiveLoanAccNO = createContext();
 
@@ -15,5 +16,13 @@ function ActiveLoanAccNOContext(props) {
     </ActiveLoanAccNO.Provider>
   );
 }
+
+ActiveLoanAccNOContext.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+    PropTypes.func
+  ]),
+};
 
 export default ActiveLoanAccNOContext;

@@ -15,7 +15,6 @@ import Cookies from "js-cookie";
 import { useQueryClient } from 'react-query';
 import { toast } from "react-toastify";
 import globalMessages from "../../../assets/data/globalMessages.json";
-import Logo from "../../../assets/images/loginbg.png";
 import LoginController, { RegisterController } from "../../Controllers/LoginController";
 import LogoutController from "../../Controllers/LogoutController";
 import { RecaptchaValidationController } from "../../Controllers/RecaptchaController";
@@ -41,11 +40,7 @@ let formValidation = new FormValidationRules();
 //Styling part
 const useStyles = makeStyles((theme) => ({
   mainContentBackground: {
-    backgroundImage: "url(" + Logo + ")",
-    backgroundRepeat: "noRepeat",
-    backgroundPosition: "center",
-    backgroundSize: "cover",
-    backgroundAttachment: "fixed",
+    backgroundColor:"#f6f6f6"
   },
   root: {
     flexGrow: 1,

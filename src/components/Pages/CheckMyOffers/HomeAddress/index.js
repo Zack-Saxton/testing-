@@ -94,6 +94,20 @@ function HomeAddress() {
 		return null;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
+	const handlePopupCA = data.state === "CA" ? true : false;
+  const handlePopupOhio = data.state === "OH" ? true : false;
+
+  useEffect(() => {
+    if (handlePopupCA) {
+      setOpen(true);
+    }
+    else if (handlePopupOhio) {
+      setOpenOhio(true);
+    }
+    return null;
+  }, [ handlePopupCA, handlePopupOhio ]);
+
 	//Handle modal open and close
 	const handleClickOpen = () => {
 		setOpen(true);
@@ -148,7 +162,7 @@ function HomeAddress() {
 					setValidZip(true);
 					if(validStates.indexOf(result?.data?.stateCode.toUpperCase()) === -1)  
 					{ 
-						setValidZip(false);
+						setValidZip(false);  
 						setErrorMsg(globalMessages.WeDoNotServeArea); 
 						setNotAvailInCity(true);
 					} else {
@@ -394,8 +408,10 @@ function HomeAddress() {
 								<Paper className={ innerClasses.subPaper } style={{display: notAvailInCity ? "block" : "none" }}>
 									<div >
 											<p className={ innerClasses.paraInsideSubPaper } >
-													Mariner Finance does not operate in your state. Mariner Finance currently operates in Alabama, California, Delaware, Florida, Georgia, Indiana, Illinois, Kentucky, Louisiana, Maryland, Mississippi,
-													Missouri, New Jersey, New York, North Carolina, Ohio, Pennsylvania, South Carolina, Tennessee, Texas, Utah, Virginia, Washington, and Wisconsin.
+											If your state is not listed, it means that Mariner Finance does not operate in your state.
+											</p>
+											<p className={ innerClasses.paraInsideSubPaper } >
+											Mariner Finance currently operates in Alabama, Arizona, California, Delaware, Florida, Georgia, Indiana, Illinois, Kentucky, Louisiana, Maryland, Mississippi, Missouri, New Jersey, New Mexico, New York, North Carolina, Ohio, Oklahoma, Oregon, Pennsylvania, South Carolina, Tennessee, Texas, Utah, Virginia, Washington, and Wisconsin.
 											</p>
 									</div> 
 							</Paper>

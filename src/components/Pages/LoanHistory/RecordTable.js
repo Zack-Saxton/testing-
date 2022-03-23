@@ -28,11 +28,11 @@ export default function LoanHistoryTable(historyOfLoans) {
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell style={ { minWidth: "140px" } } className={ classes.tableHead } align="left" >Account Number</TableCell>
-              <TableCell style={ { minWidth: "140px" } } className={ classes.tableHead } align="left" >Date Opened</TableCell>
-              <TableCell style={ { minWidth: "140px" } } className={ classes.tableHead } align="left" >Date Closed</TableCell>
-              <TableCell style={ { minWidth: "140px", padding: "16px 60px 16px 0px" } } className={ classes.tableHead } align="right" >Amount Financed</TableCell>
-              <TableCell style={ { minWidth: "140px", padding: "16px 16px 16px 0px" } } className={ classes.tableHead } align="center" >Documents</TableCell>
+              <TableCell  className={ classes.tableHead } align="left" >Account Number</TableCell>
+              <TableCell className={ classes.tableHead } align="left" >Date Opened</TableCell>
+              <TableCell  className={ classes.tableHead } align="left" >Date Closed</TableCell>
+              <TableCell style={ { padding: "16px 60px 16px 0px" } } className={ classes.tableHead } align="right" >Amount Financed</TableCell>
+              <TableCell style={ {padding: "16px 16px 16px 0px" } } className={ classes.tableHead } align="center" >Documents</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -51,10 +51,10 @@ export default function LoanHistoryTable(historyOfLoans) {
                       <NumberFormat value={ row.loanPaymentInformation?.accountDetails?.OriginalFinancedAmount ? Math.abs(row.loanPaymentInformation.accountDetails.OriginalFinancedAmount) : '' } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
                     }
                   </TableCell>
-                  <TableCell style={ { padding: "16px 16px 16px 0px" } } align="center">
-                    <NavLink to="/customers/loanDocument" state={ { accNo: row.loanData.accountNumber } } style={ { textDecoration: "none" } }>
+                  <TableCell className={loanDocuments} align="center">
+                    <NavLink to="/customers/loanDocument" state={ { accNo: row.loanData.accountNumber } } className={textdecoration}>
                       <Tooltip title="View Loan Documents" placement="top">
-                        <FindInPageIcon style={ { color: "#0F4EB3", cursor: "pointer" } } />
+                        <FindInPageIcon className={findInPageIcon} />
                       </Tooltip>
                     </NavLink>
                   </TableCell>

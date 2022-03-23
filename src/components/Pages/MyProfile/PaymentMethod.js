@@ -547,28 +547,26 @@ export default function PaymentMethod() {
       formikAddDebitCard.values,
       cardType
     );
+    if ( creditCardResponse?.status === 400) {
+      setLoading(false);
+      toast.error(creditCardResponse?.data?.error);
+      closeDebitCardModal();
 
-    if (creditCardResponse?.data?.addPaymentResult?.HasNoErrors) {
+    }
+    else if (creditCardResponse?.data?.addPaymentResult?.HasNoErrors) {
       setLoading(false);
       toast.success("Payment method added successfully ");
       refetch();
       setCardType("");
+      closeDebitCardModal();
       closeDebitCardButton();
     } else if (!creditCardResponse?.data?.addPaymentResult?.HasNoErrors) {
       setLoading(false);
       toast.error(
         creditCardResponse?.data?.addPaymentResult?.Errors[ 0 ].ErrorMessage
       );
-    } else if (creditCardResponse?.data?.result === "error") {
-      setLoading(false);
-      toast.error(creditCardResponse?.data?.error);
-    } else {
-      setLoading(false);
-      toast.error(
-        "Payment method already exists, please add a different method"
-      );
-    }
-    closeDebitCardModal();
+      closeDebitCardModal();
+    } 
   };
 
   //Preventing space key

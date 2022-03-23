@@ -25,6 +25,11 @@ const useStylesLoanDocument = makeStyles((theme) => ({
     fontWeight: "600",
     fontSize: "1rem",
   },
+ appIcon:{
+  color: "#104eb3", 
+  cursor: "pointer"
+ },
+
   tableHeadRow: {
     color: "#171717!important",
     fontSize: "15px",
