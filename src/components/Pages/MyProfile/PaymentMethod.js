@@ -44,6 +44,7 @@ import {
   setDefaultPayment
 } from "../../Controllers/MyProfileController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
+import BankNameLookup from "../../Controllers/BankNameLookup";
 import {
   ButtonPrimary,
   ButtonSecondary,
@@ -123,7 +124,7 @@ const validationSchemaAddBank = yup.object({
 export default function PaymentMethod() {
   const classes = useStylesMyProfile();
   const navigate = useNavigate();
-  const [ bankRoutingCheque, setHandleBankRoutingCheque ] = useState(false);
+  const [ bankRoutingCheque, setBankRoutingCheque ] = useState(false);
   const [ addBankAccount, setAddBankAccount ] = useState(false);
   const [ addDebitCard, setAddDebitCard ] = useState(false);
   const [ paymentMethodDiv, setPaymentMethodDiv ] = useState(true);
@@ -141,9 +142,9 @@ export default function PaymentMethod() {
   const [ confirmDelete, setConfirmDelete ] = useState(false);
   const [ addBankValues, setAddBankValues ] = useState(false);
   const [ routingError, setRoutingError ] = useState("");
-  const [ scheduledAccountNo, setscheduledAccountNo ] = useState("0");
-  const [ autoPayAccountNo, setautoPayAccountNo ] = useState("0");
-  const [ , setprofileTabNumber ] = useGlobalState();
+  const [ scheduledAccountNo, setScheduledAccountNo ] = useState("0");
+  const [ autoPayAccountNo, setAutoPayAccountNo ] = useState("0");
+  const [ , setProfileTabNumber ] = useGlobalState();
   const [ validZip, setValidZip ] = useState(true);
   const [ mailingStreetAddress, setMailingStreetAddress ] = useState("");
   const [ mailingZipcode, setMailingZipcode ] = useState("");
@@ -159,15 +160,11 @@ export default function PaymentMethod() {
     }
   );
   useEffect(() => {
-    let schedulePayment = dataAccountOverview?.data?.activeLoans[ 0 ]
-      ?.loanPaymentInformation?.scheduledPayments
-      ? dataAccountOverview.data.activeLoans[ 0 ].loanPaymentInformation
-        .scheduledPayments
+    let schedulePayment = dataAccountOverview?.data?.activeLoans?.length
+      ? dataAccountOverview.data.activeLoans[ 0 ].loanPaymentInformation?.scheduledPayments
       : null;
-    let autoPay = dataAccountOverview?.data?.activeLoans[ 0 ]
-      ?.loanPaymentInformation?.appRecurringACHPayment?.LastFourOfPaymentAccount
-      ? dataAccountOverview.data.activeLoans[ 0 ].loanPaymentInformation
-        .appRecurringACHPayment.LastFourOfPaymentAccount
+    let autoPay = dataAccountOverview?.data?.activeLoans?.length
+      ? dataAccountOverview.data.activeLoans[ 0 ].loanPaymentInformation?.appRecurringACHPayment?.LastFourOfPaymentAccount
       : null;
     //User shouldn't be allowed to delete the payment method accounts where there is scheduled future payment
     if (schedulePayment?.length > 0) {
@@ -181,11 +178,11 @@ export default function PaymentMethod() {
       scheduleDate = Moment(scheduleDate);
       let dateNow = Moment().startOf("day");
       if (dateNow < scheduleDate && scheduleAccountNo !== "") {
-        setscheduledAccountNo(scheduleAccountNo);
+        setScheduledAccountNo(scheduleAccountNo);
       }
     }
     if (autoPay) {
-      setautoPayAccountNo(autoPay);
+      setAutoPayAccountNo(autoPay);
     }
     return null;
   }, [ dataAccountOverview ]);
@@ -213,19 +210,18 @@ export default function PaymentMethod() {
     setAddBankModal(false);
   };
 
-  const addBankOnChange = (event) => {
+  const addBankOnChange = (event, type) => {
     const pattern = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
     let enteredName = event.target.value.trim(); //Holder name, account name, bank name
     if (!enteredName || enteredName.match(pattern)) {
-      formikAddBankAccount.handleChange(event);
+      type === 1 ? formikAddBankAccount.handleChange(event) : formikAddDebitCard.handleChange(event) ;
     }
   };
-
-  const addBankOnChangeNumber = (event) => {
+  const validateCardAndAccountNumber = (event, type) => {
     const pattern = /^[0-9\b]+$/;
-    let accountNumber = event.target.value.trim();
-    if (!accountNumber || accountNumber.match(pattern)) {
-      formikAddBankAccount.handleChange(event);
+    let cardAccountNumber = event.target.value.trim();
+    if (!cardAccountNumber || cardAccountNumber.match(pattern)) {
+      type === 1 ? formikAddBankAccount.handleChange(event) : formikAddDebitCard.handleChange(event);
     }
   };
 
@@ -251,13 +247,6 @@ export default function PaymentMethod() {
     setCheckedDebitCard(event.target.checked);
   };
 
-  const addDebitOnChange = (event) => {
-    const pattern = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
-    let cardHolderName = event.target.value.trim();
-    if (!cardHolderName || cardHolderName.match(pattern)) {
-      formikAddDebitCard.handleChange(event);
-    }
-  };
   const getAddressOnChange = (event) => {
     const pattern = /^[0-9\b]+$/;
     let zipCode = event.target.value;
@@ -305,16 +294,8 @@ export default function PaymentMethod() {
       );
       formikAddBankAccount.setFieldValue("accountHolder", row.OwnerName);
       setAccountType(row.AccountType);
-      await fetch(
-        "https://www.routingnumbers.info/api/data.json?rn=" + row.RoutingNumber
-      )
-        .then((res) => res.json())
-        .then((result) => {
-          formikAddBankAccount.setFieldValue(
-            "bankName",
-            result?.customer_name ?? ""
-          );
-        });
+      let bankName = await BankNameLookup(row.RoutingNumber);
+      formikAddBankAccount.setFieldValue("bankName", bankName);      
       setLoading(false);
     } else {
       setEditMode(true);
@@ -327,8 +308,6 @@ export default function PaymentMethod() {
       formikAddDebitCard.setFieldValue("expiryDate", row.ExpirationDate);
       formikAddDebitCard.setFieldValue("cvv", "***");
       setCardType(row.CardType);
-      setEditMode(true);
-      addDebitCardButton();
       setLoading(false);
     }
   };
@@ -338,27 +317,19 @@ export default function PaymentMethod() {
       Visa: /^4\d{12}(?:\d{3})?$/,
       MasterCard: /^5[1-5]\d{14}$/,
     };
-    let _valid = false;
+    let isValidCard = false;
     for (let key in cardPattern) {
       if (cardPattern[ key ].test(number)) {
         setCardType(key);
-        _valid = true;
+        isValidCard = true;
         return key;
       }
     }
-    if (!_valid) {
+    if (!isValidCard) {
       setCardType(false);
     }
     formikAddDebitCard.handleBlur(event);
   }
-
-  const addDebitOnChangeNumber = (event) => {
-    const pattern = /^[0-9\b]+$/;
-    let cardNumber = event.target.value;
-    if (!cardNumber || pattern.test(cardNumber)) {
-      formikAddDebitCard.handleChange(event);
-    }
-  };
 
   const openDebitCardModal = () => {
     formikAddDebitCard.handleSubmit();
@@ -372,11 +343,11 @@ export default function PaymentMethod() {
 
   //pop up open & close
   const handleBankRoutingCheque = () => {
-    setHandleBankRoutingCheque(true);
+    setBankRoutingCheque(true);
   };
 
   const handleBankRoutingChequeClose = () => {
-    setHandleBankRoutingCheque(false);
+    setBankRoutingCheque(false);
   };
 
   const handleDeleteConfirmClose = () => {
@@ -458,7 +429,7 @@ export default function PaymentMethod() {
 
   const handleMenuProfile = () => {
     navigate("/customers/myProfile");
-    setprofileTabNumber({ profileTabNumber: 0 });
+    setProfileTabNumber({ profileTabNumber: 0 });
   };
 
   const setDefaultPaymentOnChange = async (nickname) => {
@@ -880,7 +851,7 @@ export default function PaymentMethod() {
                 disabled={ editMode }
                 placeholder="Enter your Account Nickname "
                 materialProps={ { maxLength: "30" } }
-                onChange={ (event) => addBankOnChange(event) }
+                onChange={ (event) => addBankOnChange(event, 1) }
                 value={ formikAddBankAccount.values.accountNickname }
                 onBlur={ formikAddBankAccount.handleBlur }
                 error={
@@ -908,7 +879,7 @@ export default function PaymentMethod() {
                 placeholder="Enter the Account Holder Name"
                 materialProps={ { maxLength: "30" } }
                 value={ formikAddBankAccount.values.accountHolder }
-                onChange={ (event) => addBankOnChange(event) }
+                onChange={ (event) => addBankOnChange(event, 1) }
                 onBlur={ formikAddBankAccount.handleBlur }
                 error={
                   formikAddBankAccount.touched.accountHolder &&
@@ -966,35 +937,18 @@ export default function PaymentMethod() {
                 label="Bank Routing Number"
                 placeholder="Enter your Bank Routing Number"
                 value={ formikAddBankAccount.values.bankRoutingNumber }
-                // onBlur={formikAddBankAccount.handleBlur}
                 onBlur={ async (event) => {
                   if (
                     event.target.value !== "" &&
                     event.target.value.length === 9
                   ) {
-                    fetch(
-                      "https://www.routingnumbers.info/api/data.json?rn=" +
-                      event.target.value
-                    )
-                      .then((res) => res.json())
-                      .then((result) => {
-                        if (result.message === "OK") {
-                          setRoutingError("");
-                          formikAddBankAccount.setFieldValue(
-                            "bankName",
-                            result?.customer_name ?? ""
-                          );
-                        } else {
-                          setRoutingError(
-                            "Please enter a valid routing number"
-                          );
-                          formikAddBankAccount.setFieldValue("bankName", "");
-                        }
-                      });
+                    let bankName = await BankNameLookup(event.target.value);
+                    formikAddBankAccount.setFieldValue("bankName", bankName);
+                    setRoutingError(bankName ? "" : globalMessages.Enter_Valid_Routing_No);
                     formikAddBankAccount.handleBlur(event);
                   }
                 } }
-                onChange={ (event) => addBankOnChangeNumber(event) }
+                onChange={ (event) => validateCardAndAccountNumber(event, 1) }
                 error={
                   (formikAddBankAccount.touched.bankRoutingNumber &&
                     Boolean(formikAddBankAccount.errors.bankRoutingNumber)) ||
@@ -1026,7 +980,7 @@ export default function PaymentMethod() {
                 materialProps={ { maxLength: "100" } }
                 value={ formikAddBankAccount.values.bankName }
                 onBlur={ formikAddBankAccount.handleBlur }
-                onChange={ (event) => addBankOnChange(event) }
+                onChange={ (event) => addBankOnChange(event, 1) }
                 error={
                   formikAddBankAccount.touched.bankName &&
                   Boolean(formikAddBankAccount.errors.bankName)
@@ -1054,7 +1008,7 @@ export default function PaymentMethod() {
                 materialProps={ { maxLength: "16" } }
                 onKeyDown={ preventSpace }
                 value={ formikAddBankAccount.values.bankAccountNumber }
-                onChange={ (event) => addBankOnChangeNumber(event) }
+                onChange={ (event) => validateCardAndAccountNumber(event, 1) }
                 onBlur={ formikAddBankAccount.handleBlur }
                 error={
                   formikAddBankAccount.touched.bankAccountNumber &&
@@ -1216,7 +1170,7 @@ export default function PaymentMethod() {
                 disabled={ editMode }
                 onKeyDown={ preventSpace }
                 value={ formikAddDebitCard.values.cardNumber }
-                onChange={ (event) => addDebitOnChangeNumber(event) }
+                onChange={ (event) => validateCardAndAccountNumber(event, 2) }
                 // onBlur={formikAddDebitCard.handleBlur}
                 onBlur={ (event) => {
                   detectCardType(event, event.target.value.trim());
@@ -1266,7 +1220,7 @@ export default function PaymentMethod() {
                 materialProps={ { maxLength: "30" } }
                 disabled={ editMode }
                 value={ formikAddDebitCard.values.cardName }
-                onChange={ (event) => addDebitOnChange(event) }
+                onChange={ (event) => addBankOnChange(event, 2) }
                 onBlur={ formikAddDebitCard.handleBlur }
                 error={
                   formikAddDebitCard.touched.cardName &&
@@ -1325,7 +1279,7 @@ export default function PaymentMethod() {
                 disabled={ editMode }
                 materialProps={ { maxLength: "3" } }
                 value={ formikAddDebitCard.values.cvv }
-                onChange={ (event) => addDebitOnChangeNumber(event) }
+                onChange={ (event) => validateCardAndAccountNumber(event, 2) }
                 onBlur={ formikAddDebitCard.handleBlur }
                 error={
                   formikAddDebitCard.touched.cvv &&
@@ -1451,7 +1405,7 @@ export default function PaymentMethod() {
                 disabled
                 materialProps={ { maxLength: "30" } }
                 value={ formikAddDebitCard.values.city }
-                onChange={ (event) => addDebitOnChange(event) }
+                onChange={ (event) => addBankOnChange(event, 2) }
                 onBlur={ formikAddDebitCard.handleBlur }
                 error={
                   formikAddDebitCard.touched.city &&
@@ -1480,7 +1434,7 @@ export default function PaymentMethod() {
                 materialProps={ { maxLength: "30" } }
                 value={ formikAddDebitCard.values.state }
                 disabled
-                onChange={ (event) => addDebitOnChange(event) }
+                onChange={ (event) => addBankOnChange(event, 2) }
                 onBlur={ formikAddDebitCard.handleBlur }
                 error={
                   formikAddDebitCard.touched.state &&

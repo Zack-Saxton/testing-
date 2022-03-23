@@ -48,7 +48,7 @@ export default function MailingAddress(props) {
   const [ validZip, setValidZip ] = useState(true);
   const [ errorMsg, setErrorMsg ] = useState("");
   const navigate = useNavigate();
-  const [ , setprofileTabNumber ] = useGlobalState();
+  const [ , setProfileTabNumber ] = useGlobalState();
   const { refetch } = useQuery('loan-data', usrAccountDetails);
 
   let basicInfo = props?.basicInformationData?.latest_contact;
@@ -61,21 +61,19 @@ export default function MailingAddress(props) {
   const onClickCancelChange = () => {
     formik.resetForm();
     navigate('/customers/myProfile');
-    setprofileTabNumber({ profileTabNumber: 0 });
+    setProfileTabNumber({ profileTabNumber: 0 });
   };
 
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      streetAddress: basicInfo?.address_street ? basicInfo?.address_street : "",
-      zip: basicInfo?.address_postal_code ? basicInfo?.address_postal_code : "",
-      city: basicInfo?.address_city ? basicInfo?.address_city : "",
-      state: basicInfo?.address_state ? basicInfo?.address_state : "",
-
+      streetAddress: basicInfo?.address_street ?? "",
+      zip: basicInfo?.address_postal_code ?? "",
+      city: basicInfo?.address_city ??  "",
+      state: basicInfo?.address_state ?? "",
     },
 
     validationSchema: validationSchema,
-
     onSubmit: async (values) => {
       setLoading(true);
       let body = {
@@ -92,7 +90,7 @@ export default function MailingAddress(props) {
       }
       else {
         let res = await mailingAddress(body);
-        if (res?.data?.notes.length !== 0) {
+        if (res?.data?.notes?.length) {
           refetch().then(() => toast.success("Updated successfully", {
             onClose: () => {
               setLoading(false);
@@ -117,7 +115,7 @@ export default function MailingAddress(props) {
   const fetchAddress = async (event) => {
     try {
       let eventValue = event.target.value.trim();
-      setErrorMsg(eventValue ? errorMsg : "Please enter a zipcode");
+      setErrorMsg(eventValue ? errorMsg : globalMessages.ZipCodeEnter);
       if (eventValue?.length === 5) {
         let result = await ZipCodeLookup(eventValue);
         if (result) {
@@ -126,7 +124,7 @@ export default function MailingAddress(props) {
           formik.setFieldValue("city", "");
           formik.setFieldValue("state", "");
           setValidZip(false);
-          setErrorMsg("Please enter a valid Zipcode");
+          setErrorMsg(globalMessages.ZipCodeValid);
         }
         if (event.target.name.trim()) {
           formik.handleChange(event);
@@ -136,7 +134,7 @@ export default function MailingAddress(props) {
         formik.setFieldValue("city", "");
         formik.setFieldValue("state", "");
         setValidZip(false);
-        setErrorMsg("Please enter a valid Zipcode");
+        setErrorMsg(globalMessages.ZipCodeValid);
       }
     } catch (error) {
       ErrorLogger("Error from fetchAddress", error);
@@ -153,7 +151,7 @@ export default function MailingAddress(props) {
         formik.setFieldValue("city", "");
         formik.setFieldValue("state", "");
         setValidZip(false);
-        setErrorMsg("Please enter a valid Zipcode");
+        setErrorMsg(globalMessages.ZipCodeValid);
       }
     } catch (error) {
       ErrorLogger(" Error from fetchAddressValidate", error);

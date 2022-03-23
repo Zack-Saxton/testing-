@@ -178,7 +178,7 @@ export default function SideNav() {
   const [ disable, setDisable ] = useState(false);
   const [ skill, setSkill ] = useState(false);
   const [ checked, setChecked ] = useState(true);
-  const [ , setprofileTabNumber ] = useGlobalState();
+  const [ , setProfileTabNumber ] = useGlobalState();
   const { dataProfile, resetProfilePicture } = useContext(ProfilePicture);
   const { resetData } = useContext(CheckMyOffers);
   const { data: dataAccountOverview } = useQuery('loan-data', usrAccountDetails);
@@ -408,12 +408,12 @@ export default function SideNav() {
     if (navType === 'top') {
       navigate('/customers/myProfile');
     }
-    setprofileTabNumber({ profileTabNumber: 0 });
+    setProfileTabNumber({ profileTabNumber: 0 });
     handleMenuClose();
   };
   const handleMenuPaymentProfile = () => {
     navigate('/customers/myProfile');
-    setprofileTabNumber({ profileTabNumber: 3 });
+    setProfileTabNumber({ profileTabNumber: 3 });
     handleMenuClose();
   };
 
