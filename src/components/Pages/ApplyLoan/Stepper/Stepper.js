@@ -120,6 +120,7 @@ export default function VerticalLinearStepper() {
 			tabPosition = 6;
 		}
 		setActiveStep(tabPosition ?? 0);
+		setLoadingFlag(false);
 	};
 
 	useEffect(() => {
