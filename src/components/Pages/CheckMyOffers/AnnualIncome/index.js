@@ -10,9 +10,10 @@ import globalMessages from "../../../../assets/data/globalMessages.json";
 import AnnualIncomeLogo from "../../../../assets/icon/I-Annual-Income.png";
 import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
-import { ButtonPrimary, TextField } from "../../../FormsUI";
+import { ButtonPrimary, TextField, Popup } from "../../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./AnnualIncome.css";
+import Income from "./Income";
 
 const useStyles = makeStyles((Theme) => ({
 	boxGrid: {
@@ -33,6 +34,12 @@ const useStyles = makeStyles((Theme) => ({
 		fontWeight: "400 !important",
 		lineHeight: "110% !important"
 	},
+	linkDesign: {
+		textDecoration: "underline !important",
+		color: "#0F4EB3 !important",
+		display: "block !important",
+		cursor: "pointer",
+	},
 })
 );
 //Initializing functional component Active duty
@@ -40,6 +47,7 @@ function NewUser() {
 	const { data } = useContext(CheckMyOffers);
 	const [ errorAnnual, setErrorAnnual ] = useState("");
 	const [ errorPersonal, setErrorPersonal ] = useState("");
+	const [ moreInformation, setMoreInformation ] = useState(false);
 	const classes = preLoginStyle();
 	const innerClasses = useStyles();
 
@@ -106,7 +114,6 @@ function NewUser() {
 	});
 
 	//Restrict alphabets
-
 	const onHandleChangePersonal = (event) => {
 		const pattern = /^[0-9.,$\b]+$/;
 		let annualPersonalIncome = event.target.value.trim();
@@ -208,6 +215,15 @@ function NewUser() {
 			}
 		}
 	};
+
+	//To Get Pop Up regarding Income Related Information
+	const handleOnClickMoreInformation = () => {
+		setMoreInformation(true);
+	};
+
+	const handleOnClickMoreInformationClose = () => {
+		setMoreInformation(false);
+	}
 
 	// To change text to currency format and check for validations
 	const currencyFormat = (event) => {
@@ -329,7 +345,7 @@ function NewUser() {
 												bank statements, or other records. Alimony, child
 												support, or separate maintenance income need not be
 												revealed if you do not wish to have it considered as a
-												basis for repaying this loan.
+												basis for repaying this loan. <span className={ innerClasses.linkDesign } onClick={ () => { handleOnClickMoreInformation(); } }>More Information</span>
 											</p>
 											<TextField
 												name="householdIncome"
@@ -374,6 +390,9 @@ function NewUser() {
 					</Grid>
 				</Box>
 			</div>
+			<Popup popupFlag={moreInformation} closePopup={handleOnClickMoreInformationClose} title='What Is Considered "Income"?'>
+					<Income/>
+			</Popup>
 		</div>
 	);
 }
