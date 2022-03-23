@@ -136,8 +136,10 @@ export default function Login(props) {
 
   const getClientIp = async () => {
     try {
-      let ipResponse = await axios.get('https://geolocation-db.com/json/');
-      return ipResponse?.data?.IPv4;
+      let ipResponse = await fetch("https://www.cloudflare.com/cdn-cgi/trace");
+      ipResponse = await ipResponse.text();
+      let ipRegex = /\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/;
+      return ipResponse.match(ipRegex)[ 0 ] ?? '127.0.0.1';
     } catch (err) {
       return '127.0.0.1';
     }
