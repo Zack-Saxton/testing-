@@ -4,13 +4,13 @@ import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
 
 //  ========*******======== Add ACH Bank Payment                ========*******========
-export async function AddACHPaymentAPI(accountNickname, accountHolder, bankRoutingNumber, bankAccountNumber, accountType, defaultBank) {
+export async function AddACHPaymentAPI(accountNickName, accountHolder, bankRoutingNumber, bankAccountNumber, accountType, defaultBank) {
   try {
     //API
     let url = "add_ach_payment_method";
     let param = "";
     let data = {
-      nickname: accountNickname,
+      nickname: accountNickName,
       account_holder: accountHolder,
       routing_number: bankRoutingNumber,
       account_number: bankAccountNumber,
@@ -30,12 +30,12 @@ export async function AddACHPaymentAPI(accountNickname, accountHolder, bankRouti
 //  ========*******======== END of [Add ACH Bank Payment]       ========*******========
 
 //  ========*******======== Add Debit Card Payment              ========*******========
-export async function AddDebitCardAPI(accountNickname, cardNumber, cardName, cvv, expiryDate) {
+export async function AddDebitCardAPI(accountNickName, cardNumber, cardName, cvv, expiryDate) {
   //API
   let url = "add_debit_card_payment_method";
   let param = "";
   let data = {
-    accountNickname: accountNickname,
+    accountNickname: accountNickName,
     cardNumber: cardNumber,
     cardName: cardName,
     cvv: cvv,

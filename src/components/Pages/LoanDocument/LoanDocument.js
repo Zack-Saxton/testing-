@@ -76,12 +76,12 @@ export default function LoanDocument() {
     if (selectedFile.files && selectedFile.files[ 0 ]) {
       reader.onload = async () => {
         const buffer2 = Buffer.from(reader.result, "base64");
-        let test = Buffer.from(buffer2).toJSON().data;
+        let fileData = Buffer.from(buffer2).toJSON().data;
         let fileName = selectedFile.files[ 0 ].name;
         let fileType = selectedFile.files[ 0 ].type;
         let documentType = docType;
         setLoading(true);
-        let response = await uploadDocument(test, fileName, fileType, documentType);
+        let response = await uploadDocument(fileData, fileName, fileType, documentType);
         if (response) {
           setLoading(false);
           setDocType("");
