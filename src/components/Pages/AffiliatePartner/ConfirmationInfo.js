@@ -518,13 +518,13 @@ export default function CreditKarma() {
                       <TextField
                         id="firstName"
                         name="firstName"
-                        ref={ refFirstName }
                         label="First Name"
                         materialProps={ {
                           "data-test-id": "name",
                           maxLength: "30",
                           ref: refFirstName,
                         } }
+                        disabled = {true}
                         value={ formik.values.firstName }
                         onChange={ onNameChange }
                         onBlur={ formik.handleBlur }
@@ -537,13 +537,13 @@ export default function CreditKarma() {
                       <TextField
                         id="lastName"
                         name="lastName"
-                        ref={ refLastName }
                         label="Last Name"
                         materialProps={ {
                           "data-test-id": "lastName",
                           maxLength: "30",
                           ref: refLastName,
                         } }
+                        disabled = {true}
                         value={ formik.values.lastName }
                         onChange={ onNameChange }
                         onBlur={ formik.handleBlur }
@@ -557,7 +557,6 @@ export default function CreditKarma() {
                         fullWidth
                         id="streetAddress"
                         name="streetAddress"
-                        ref={ refStreetAddress }
                         label="Address"
                         materialProps={ {
                           "data-test-id": "streetAddress",
@@ -577,7 +576,6 @@ export default function CreditKarma() {
                         fullWidth
                         id="zip"
                         name="zip"
-                        ref={ refZip }
                         label="Zip Code *"
                         refId={ refZip }
                         value={ formik.values.zip }
@@ -628,7 +626,6 @@ export default function CreditKarma() {
                         <Select
                           id="citizenship"
                           name="citizenship"
-                          ref={ refCitizenship }
                           labelform="Citizenship"
                           value={ formik.values.citizenship }
                           onChange={ changeCitizenship }
@@ -646,7 +643,6 @@ export default function CreditKarma() {
                     <Grid item xs={ 12 } sm={ 4 } container direction="row">
                       <TextField
                         name="personalIncome"
-                        ref={ refPersonalIncome }
                         label="Annual Personal Income"
                         id="personalIncome"
                         value={ formik.values.personalIncome }
@@ -666,7 +662,6 @@ export default function CreditKarma() {
                     <Grid item xs={ 12 } sm={ 4 } container direction="row">
                       <TextField
                         name="householdIncome"
-                        ref={ refAnnualHousehold }
                         label="Annual Household Income"
                         id="annualHousehold"
                         value={ formik.values.householdIncome }
@@ -695,7 +690,6 @@ export default function CreditKarma() {
                       <Select
                         id="employementStatus"
                         name="employementStatus"
-                        ref={ refEmployementStatus }
                         labelform="Employement Status"
                         value={ formik.values.employementStatus }
                         refId={ refEmployementStatus }
