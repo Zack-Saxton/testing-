@@ -154,8 +154,8 @@ export default function MakePayment(props) {
 
   let paymentAmountWithFees = parseFloat(paymentAmount) + parseFloat(2.50);
   //Enable auto payment
-  async function enableAutoPayment(enableAutoPayAccountNo, enableAutoPayCard, enableAutoPayDate, enableAutoPayIsDebit) {
-    let result = await enableAutoPay(enableAutoPayAccountNo, enableAutoPayCard, enableAutoPayDate, enableAutoPayIsDebit);
+  async function enableAutoPayment(enableAutoPayAccountNo, enableAutoPayCard, enableAutoPayDate, enableAutoPayIsDebit, removeScheduledPayment) {
+    let result = await enableAutoPay(enableAutoPayAccountNo, enableAutoPayCard, enableAutoPayDate, enableAutoPayIsDebit, removeScheduledPayment);
     result.status === 200
       ? result?.data?.paymentResult.HasNoErrors
         ? toast.success(globalMessages.Auto_Payment_Mode_Enabled, { autoClose: 5000, })
@@ -374,10 +374,17 @@ export default function MakePayment(props) {
   function handleAutoPayConfirm() {
     setLoading(true);
     setShowCircularProgress(true);
-    disabledContent ? enableAutoPayment(accntNo, card, paymentDate, isDebit) : disableAutoPayment(accntNo);
+    disabledContent ? enableAutoPayment(accntNo, card, paymentDate, isDebit, false) : disableAutoPayment(accntNo);
+    setDisabledContent(event.target.checked);
     setOpen(false);
   }
-
+  function handleAutoPayConfirmRemove() {
+    setLoading(true);
+    setShowCircularProgress(true);
+    disabledContent ? enableAutoPayment(accntNo, card, paymentDate, isDebit, true) : disableAutoPayment(accntNo);
+    setDisabledContent(event.target.checked);
+    setOpen(false);
+  }
   const handleCloseAutoPayPopup = () => {
     setOpen(false);
   };
@@ -518,7 +525,6 @@ export default function MakePayment(props) {
   if (pickedDate > thisDay) {
     isFutureDate = "yes";
   }
-
   //View
   return (
     <div>
@@ -961,7 +967,7 @@ export default function MakePayment(props) {
                 </Table>
               </TableContainer>
             ) : (
-              ""
+              null
             ) }
             {/* </Typography> */ }
           </>
@@ -987,12 +993,14 @@ export default function MakePayment(props) {
           >
             Cancel
           </ButtonSecondary>
-          <ButtonPrimary
-            stylebutton='{"background": "", "color":"" }'
+
+          { checkAutoPay ? (
+            <ButtonPrimary
+            stylebutton='{ "background": "", "color":"" }'
             onClick={ handleAutoPayConfirm }
             disabled={ loading }
           >
-            { !disabledContent ? "Disable Auto Pay" : "Complete Auto Pay Setup" }
+           yes
             <i
               className="fa fa-refresh fa-spin customSpinner"
               style={ {
@@ -1002,6 +1010,49 @@ export default function MakePayment(props) {
               } }
             />
           </ButtonPrimary>
+           ) : (  
+             null
+          ) }
+
+
+        { disabledContent ? (
+            <ButtonPrimary
+            stylebutton='{"background": "", "color":"" }'
+            onClick={ handleAutoPayConfirm }
+            disabled={ loading }
+          >
+            { paymentIsScheduled === "yes" ? "Keep the future payment and turn on Autopay" : "Complete Auto Pay Setup" }
+            <i
+              className="fa fa-refresh fa-spin customSpinner"
+              style={ {
+                marginRight: "10px",
+                color: "blue",
+                display: loading ? "block" : "none",
+              } }
+            />
+          </ButtonPrimary>
+           ) : (  
+             null
+          ) }
+
+          { disabledContent && paymentIsScheduled === "yes"  ? (
+            <ButtonSecondary
+              stylebutton='{"background": "", "color":"" }'
+              onClick={ handleAutoPayConfirmRemove }
+              disabled={ loading }
+            >
+              Remove the future payment and turn on Autopay
+              <i
+                className="fa fa-refresh fa-spin customSpinner"
+                style={ {
+                  marginRight: "10px",
+                  display: loading ? "block" : "none",
+                } }
+              />
+            </ButtonSecondary>
+          ) : (
+            null
+          ) }
         </DialogActions>
       </Dialog>
 
@@ -1056,7 +1107,7 @@ export default function MakePayment(props) {
                       align="left"
                     ></TableCell>
                   </TableRow>
-                ) : ""
+                ) : null
                 }
                 { isDebit ? (
                   <TableRow>
@@ -1074,10 +1125,10 @@ export default function MakePayment(props) {
                       align="left"
                     ></TableCell>
                   </TableRow>
-                ) : ""
+                ) : null
                 }
                 <TableRow>
-                  <TableCell
+                <TableCell
                     className={ classes.tableheadrow }
                     align="left"
                     width="20%"
@@ -1148,7 +1199,7 @@ export default function MakePayment(props) {
               />
             </ButtonPrimary>
           ) : (
-            ""
+            null
           ) }
 
           { paymentIsScheduled === "yes" ? (
@@ -1167,7 +1218,7 @@ export default function MakePayment(props) {
               />
             </ButtonPrimary>
           ) : (
-            ""
+            null
           ) }
 
           { paymentIsScheduled === "yes" && isFutureDate === "no" ? (
@@ -1186,7 +1237,7 @@ export default function MakePayment(props) {
               />
             </ButtonSecondary>
           ) : (
-            ""
+            null
           ) }
         </DialogActions>
       </Dialog>

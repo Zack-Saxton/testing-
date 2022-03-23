@@ -19,8 +19,12 @@ export async function checkMyOfferSubmit(customer) {
 		//creating function to load ip address from the API
 		let dateNow = new Date().toISOString();
 		let browserType = navigator.userAgent;
-		let ipResponse = await axios.get('https://geolocation-db.com/json/');
-		let ipAddress = ipResponse.data.IPv4;
+		// let ipResponse = await axios.get('https://geolocation-db.com/json/');
+		// let ipAddress = ipResponse.data.IPv4;
+		let ipResponse = await fetch("https://www.cloudflare.com/cdn-cgi/trace");
+		ipResponse = await ipResponse.text();
+		let ipRegex = /\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/;
+		let ipAddress = ipResponse.match(ipRegex)[ 0 ] ?? '127.0.0.1';
 
 		//Data to be send to api
 		let body = {

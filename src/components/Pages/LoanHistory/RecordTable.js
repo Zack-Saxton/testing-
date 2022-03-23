@@ -51,10 +51,10 @@ export default function LoanHistoryTable(historyOfLoans) {
                       <NumberFormat value={ row.loanPaymentInformation?.accountDetails?.OriginalFinancedAmount ? Math.abs(row.loanPaymentInformation.accountDetails.OriginalFinancedAmount) : '' } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
                     }
                   </TableCell>
-                  <TableCell className={loanDocuments} align="center">
-                    <NavLink to="/customers/loanDocument" state={ { accNo: row.loanData.accountNumber } } className={textdecoration}>
+                  <TableCell className={classes.loanDocumentsTableCell} align="center">
+                    <NavLink to="/customers/loanDocument" state={ { accNo: row.loanData.accountNumber } } className={classes.textDecoration}>
                       <Tooltip title="View Loan Documents" placement="top">
-                        <FindInPageIcon className={findInPageIcon} />
+                        <FindInPageIcon className={classes.findInPageIcon} />
                       </Tooltip>
                     </NavLink>
                   </TableCell>

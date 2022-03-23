@@ -39,9 +39,7 @@ const CheckboxWrapper = ({
   const configCheckbox = {
     required,
     id,
-
     ...otherProps,
-
   };
 
   //parsing data using json
@@ -56,11 +54,9 @@ const CheckboxWrapper = ({
       <FormGroup >
         <FormControlLabel
           control={ <Checkbox id={ id } { ...configCheckbox } className={ classes.checkboxStyle } style={ styleCheckBoxMF } /> }
-
           label={ label }
           style={ styleCheckBoxLabelMF }
           id={ labelid }
-
         />
       </FormGroup>
     </FormControl>

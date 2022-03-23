@@ -44,17 +44,17 @@ case $env in
   "qa")
     dockerNetwork="qaNetwork"
     server="ubuntu@cis-app1-qa.marinerfinance.io"
-    printf "REACT_APP_PSA_URL=https://psa-qa.marinerfinance.io" >> .env
+    #printf "REACT_APP_PSA_URL=https://psa-qa.marinerfinance.io" >> .env
     ;;
   "dev")
     dockerNetwork="devNetwork"
     server="ubuntu@cis-app1-dev.marinerfinance.io"
-    printf "REACT_APP_PSA_URL=https://psa-development.marinerfinance.io" >> .env
+    #printf "REACT_APP_PSA_URL=https://psa-development.marinerfinance.io" >> .env
     ;;
   "staging")
     dockerNetwork="stagingNetwork"
     server="ubuntu@cis-app1-staging.marinerfinance.io"
-    printf "REACT_APP_PSA_URL=https://psa-staging.marinerfinance.io" >> .env
+    #printf "REACT_APP_PSA_URL=https://psa-staging.marinerfinance.io" >> .env
     ;;
   *)
     dockerNetwork="qaNetwork"

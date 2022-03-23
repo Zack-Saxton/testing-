@@ -78,9 +78,9 @@ export default function MyProfile() {
 
   let basicInfoData = accountDetails?.data?.customer;
   let getProfImage = profileImage;
-  const [ globalState, setprofileTabNumber ] = useGlobalState();
+  const [ tabNumber, setProfileTabNumber ] = useGlobalState();
   const handleTabChange = (event, newValues) => {
-    setprofileTabNumber({ profileTabNumber: newValues });
+    setProfileTabNumber({ profileTabNumber: newValues });
   };
 
   //API call text notification
@@ -88,7 +88,9 @@ export default function MyProfile() {
   let textNotifyDetails = textNotifyData;
   let cookieTextNotify = Cookies.get("isTextNotify");
   if (!Cookies.get("isTextNotify")) {
-    let textNotifyStatus = textNotifyDetails?.data?.sbt_getInfo?.SubscriptionInfo[ 0 ]?.SubscriptionOptions[ 0 ]?.OptInAccount;
+    let textNotifyStatus = textNotifyDetails?.data?.sbt_getInfo?.SubscriptionInfo.length && textNotifyDetails?.data?.sbt_getInfo?.SubscriptionInfo[ 0 ]?.SubscriptionOptions.length 
+                           ? textNotifyDetails?.data?.sbt_getInfo?.SubscriptionInfo[ 0 ]?.SubscriptionOptions[ 0 ]?.OptInAccount 
+                           : false ;
     Cookies.set('isTextNotify', textNotifyStatus);
     cookieTextNotify = textNotifyStatus;
   }
@@ -146,7 +148,7 @@ export default function MyProfile() {
             >
               <Paper id="basicInfo" className={ classes.cardHeading }>
                 <Tabs
-                  value={ globalState.profileTabNumber }
+                  value={ tabNumber.profileTabNumber }
                   onChange={ handleTabChange }
                   classes={ {
                     indicator: classes.indicator,
@@ -234,31 +236,31 @@ export default function MyProfile() {
             >
               <Paper id="mainContentTab" className={ classes.paper }>
                 {/* Basic Information */ }
-                <TabVerticalPanel value={ globalState.profileTabNumber } verticalIndex={ 0 }>
+                <TabVerticalPanel value={ tabNumber.profileTabNumber } verticalIndex={ 0 }>
                   <BasicInformationCard basicInformationData={ basicInfoData } getUserAccountDetails={ accountDetails } getProfileImage={ getProfImage } />
                 </TabVerticalPanel>
                 {/* //END Basic Information */ }
 
                 {/* Mailing Address */ }
-                <TabVerticalPanel value={ globalState.profileTabNumber } verticalIndex={ 1 }>
+                <TabVerticalPanel value={ tabNumber.profileTabNumber } verticalIndex={ 1 }>
                   <MailingAddressCard basicInformationData={ basicInfoData } getUserAccountDetails={ accountDetails } />
                 </TabVerticalPanel>
                 {/* END Mailing Address */ }
 
                 {/* Start Text Notification */ }
-                <TabVerticalPanel value={ globalState.profileTabNumber } verticalIndex={ 2 }>
+                <TabVerticalPanel value={ tabNumber.profileTabNumber } verticalIndex={ 2 }>
                   <TextNotificationCard />
                 </TabVerticalPanel>
                 {/* END Text Notification */ }
 
                 {/* Payment Method */ }
-                <TabVerticalPanel value={ globalState.profileTabNumber } verticalIndex={ 3 }>
+                <TabVerticalPanel value={ tabNumber.profileTabNumber } verticalIndex={ 3 }>
                   <PaymentMethodCard />
                 </TabVerticalPanel>
                 {/* END Payment Method */ }
 
                 {/* Change Poassword */ }
-                <TabVerticalPanel value={ globalState.profileTabNumber } verticalIndex={ 4 }>
+                <TabVerticalPanel value={ tabNumber.profileTabNumber } verticalIndex={ 4 }>
                   <ChangePassword basicInformationData={ basicInfoData } />
                 </TabVerticalPanel>
                 {/* END Change Poassword */ }

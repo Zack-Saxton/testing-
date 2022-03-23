@@ -13,6 +13,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 //Initializing component
 const PasswordWrapper = ({ name, id, onChange, value, label, ...otherProps }) => {
@@ -69,6 +70,14 @@ const PasswordWrapper = ({ name, id, onChange, value, label, ...otherProps }) =>
       />
     </FormControl>
   );
+};
+
+PasswordWrapper.propTypes = {
+	name: PropTypes.string.isRequired,
+	label: PropTypes.string,
+  id: PropTypes.string,
+	value: PropTypes.string,
+	onChange: PropTypes.func,
 };
 
 export default PasswordWrapper;

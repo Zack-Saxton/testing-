@@ -11,7 +11,7 @@
     "delete_scheduled_payment": "/gps/delete_scheduled_payment",
     "loan_document": "/gps/get_loan_documents",
     "active_loan_document": "/gps/get_active_loan_documents",
-    "download_document": "/gps/download_document",
+    "cac_download_document": "/gps/cac_download_document",
     "upload_document": "/gps/upload_loan_document",
     "add_new_card_payment": "/gps/add_new_card_payment_method_cac",
     "get_payment_methods": "/gps/get_payment_method_options_cac",

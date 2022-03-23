@@ -52,7 +52,7 @@ export default function StatePage(props) {
   //API call
   const getBranchLists = async (search_text) => {
     try {
-      let result = await BranchLocatorController(search_text, howManyBranchesforBranchLocatorPages.BranchPage);
+      let result = await BranchLocatorController(search_text, howManyBranchesforBranchLocatorPages.BranchPage, false);
       if (result.status === 400) toast.error(" Check your address and Try again.");
       else {
         setCurrentLocation(result?.data?.searchLocation);
@@ -140,7 +140,7 @@ export default function StatePage(props) {
             className="breadcrumbLink"
             onClick={ () => {
               navigate(`/branch-locator/${ stateLongNm.replace(/\s+/, '-').toLowerCase() }/`,
-                { state: { value: stateLongNm } });
+                { state: { value: stateLongNm, flag: true } });
             } }
           >
             { stateLongNm ?? "" }
@@ -253,7 +253,7 @@ export default function StatePage(props) {
             return (
               <Grid key={ index } className="locationInfo">
                 <NavLink
-                  to={ `/branch-locator/${ stateLongName.replace(/\s+/, '-').toLocaleLowerCase() }/personal-loans-in-${ item?.BranchName.replace(/[- .]/g, "").replace(/\s+/g, '-').toLocaleLowerCase() }-${ stateShortName.toLocaleLowerCase() }` }
+                  to={ `/branch-locator/${ stateLongName.replace(/\s+/, '-').toLocaleLowerCase() }/personal-loans-in-${ item?.BranchName.replace(/[.]/g, "").replace(/\s+/g, '-').toLocaleLowerCase() }-${ stateShortName.toLocaleLowerCase() }` }
                   state={ { branch_Details: item, stateLongNm: stateLongName, stateShortNm: stateShortName } }
                   className="nav_link"
                   onClick={ () => {

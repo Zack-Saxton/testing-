@@ -19,10 +19,10 @@ export default function ChangePassword(basicInformationData) {
 
   const navigate = useNavigate();
   const [ loading, setLoading ] = useState(false);
-  const [ , setprofileTabNumber ] = useGlobalState();
+  const [ , setProfileTabNumber ] = useGlobalState();
 
   let basicInfo = basicInformationData?.basicInformationData?.latest_contact;
-  const passwordvalidationSchema = yup.object().shape({
+  const passwordValidationSchema = yup.object().shape({
     oldPassword: yup
       .string(globalMessages.PasswordEnter)
       .required(globalMessages.PasswordOld),
@@ -63,7 +63,7 @@ export default function ChangePassword(basicInformationData) {
   const onClickCancelChange = () => {
     formikPassword.resetForm();
     navigate('/customers/myProfile');
-    setprofileTabNumber({ profileTabNumber: 0 });
+    setProfileTabNumber({ profileTabNumber: 0 });
   };
 
   const initialValues = {
@@ -74,7 +74,7 @@ export default function ChangePassword(basicInformationData) {
   const formikPassword = useFormik({
     initialValues: initialValues,
     enableReinitialize: true,
-    validationSchema: passwordvalidationSchema,
+    validationSchema: passwordValidationSchema,
     onSubmit: async (values) => {
       setLoading(true);
       try {
@@ -123,7 +123,7 @@ export default function ChangePassword(basicInformationData) {
   const handleCancelButton = () => {
     formikPassword.resetForm();
     navigate("/customers/myProfile");
-    setprofileTabNumber({ profileTabNumber: 0 });
+    setProfileTabNumber({ profileTabNumber: 0 });
   };
   //Preventing space key
   const preventSpace = (event) => {

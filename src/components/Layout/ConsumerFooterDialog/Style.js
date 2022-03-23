@@ -12,7 +12,6 @@ const useStylesConsumer = makeStyles((theme) => ({
   heading: {
     color: "white",
   },
-
   consumerDialogHeading: {
     fontSize: "25px",
     color: "#171717",

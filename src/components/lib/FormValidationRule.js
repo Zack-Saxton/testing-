@@ -2,8 +2,6 @@ import * as yup from "yup";
 import globalMessages from "../../assets/data/globalMessages.json";
 export class FormValidationRules {
 
-    constructor() {
-    }
     email() {
         return yup
             .string(globalMessages.EmailRequired)

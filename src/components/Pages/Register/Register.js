@@ -90,9 +90,9 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     paddingTop: "20px!important",
   },
-  gridInsideBox: { 
-    paddingTop: "30px", 
-    paddingBottom: "40px" 
+  gridInsideBox: {
+    paddingTop: "30px",
+    paddingBottom: "40px"
   }
 }));
 
@@ -118,8 +118,10 @@ export default function Register() {
   window.onReCaptchaSuccess = async function () {
     try {
       let grecaptchaResponse = grecaptcha.getResponse();
-      let ipResponse = await axios.get('https://geolocation-db.com/json/');
-      let ipAddress = ipResponse.data.IPv4;
+      let ipResponse = await fetch("https://www.cloudflare.com/cdn-cgi/trace");
+      ipResponse = await ipResponse.text();
+      let ipRegex = /\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/;
+      let ipAddress = ipResponse.match(ipRegex)[ 0 ] ?? '127.0.0.1';
       let recaptchaVerifyResponse = await RecaptchaValidationController(grecaptchaResponse, ipAddress);
 
       if (recaptchaVerifyResponse.status === 200) {
