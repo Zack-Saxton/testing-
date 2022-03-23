@@ -142,7 +142,7 @@ export default function StatePage(props) {
             className="breadcrumbLink"
             onClick={ () => {
               navigate(`/branch-locator/${ stateLongNm.replace(/\s+/, '-').toLowerCase() }/`,
-                { state: { value: stateLongNm } });
+                { state: { value: stateLongNm, flag: true } });
             } }
           >
             { stateLongNm ?? "" }
