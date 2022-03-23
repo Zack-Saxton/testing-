@@ -52,7 +52,7 @@ export default function StatePage(props) {
   //API call
   const getBranchLists = async (search_text) => {
     try {
-      let result = await BranchLocatorController(search_text, howManyBranchesforBranchLocatorPages.BranchPage);
+      let result = await BranchLocatorController(search_text, howManyBranchesforBranchLocatorPages.BranchPage, false);
       if (result.status === 400) toast.error(" Check your address and Try again.");
       else {
         setCurrentLocation(result?.data?.searchLocation);
