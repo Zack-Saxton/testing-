@@ -18,12 +18,12 @@ export default function LoanDocumentTable(userLoanDocumentData) {
   //Loan Document data from API
   let userLoanDocument = userLoanDocumentData;
   //Download loan document
-  const downloadDoc = (id, name) => {
-    downloadDocument(id, name);
+  const downloadDoc = (id, name, fileURL) => {
+    downloadDocument(id, name, fileURL);
   };
   //Print loan document
-  const printDoc = (id, name) => {
-    printDocument(id, name);
+  const printDoc = (id, name, fileURL) => {
+    printDocument(id, name, fileURL);
   };
   const outputDateFormat = 'MM/DD/YYYY';
 
@@ -55,15 +55,12 @@ export default function LoanDocumentTable(userLoanDocumentData) {
                 <TableCell className={ classes.tableHeadRow }>
                   <PrintIcon className={classes.appIcon}
                     onClick={ () =>
-                      printDoc(row.downloadProp.file_id, row.downloadProp.name)
+                      printDoc(row.downloadProp.file_id, row.downloadProp.name, row.downloadProp.fileURL)
                     }
                   />{ " " }
                   <GetAppIcon className={classes.appIcon}
                     onClick={ () =>
-                      downloadDoc(
-                        row.downloadProp.file_id,
-                        row.downloadProp.name
-                      )
+                      downloadDoc(row.downloadProp.file_id, row.downloadProp.name, row.downloadProp.fileURL)
                     }
                   />
                 </TableCell>
