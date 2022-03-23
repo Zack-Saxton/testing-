@@ -111,7 +111,12 @@ export default function MailingAddress(props) {
       event.preventDefault();
     }
   };
-
+  const resetFormField = () => {
+    formik.setFieldValue("city", "");
+    formik.setFieldValue("state", "");
+    setValidZip(false);
+    setErrorMsg(globalMessages.ZipCodeValid);
+  }
   const fetchAddress = async (event) => {
     try {
       let eventValue = event.target.value.trim();
@@ -121,20 +126,14 @@ export default function MailingAddress(props) {
         if (result) {
           fetchAddressValidate(result);
         } else {
-          formik.setFieldValue("city", "");
-          formik.setFieldValue("state", "");
-          setValidZip(false);
-          setErrorMsg(globalMessages.ZipCodeValid);
+          resetFormField();
         }
         if (event.target.name.trim()) {
           formik.handleChange(event);
         }
       }
       else {
-        formik.setFieldValue("city", "");
-        formik.setFieldValue("state", "");
-        setValidZip(false);
-        setErrorMsg(globalMessages.ZipCodeValid);
+        resetFormField();
       }
     } catch (error) {
       ErrorLogger("Error from fetchAddress", error);
@@ -148,10 +147,7 @@ export default function MailingAddress(props) {
         formik.setFieldValue("state", result?.data?.stateCode);
         setValidZip(true);
       } else {
-        formik.setFieldValue("city", "");
-        formik.setFieldValue("state", "");
-        setValidZip(false);
-        setErrorMsg(globalMessages.ZipCodeValid);
+        resetFormField();
       }
     } catch (error) {
       ErrorLogger(" Error from fetchAddressValidate", error);
