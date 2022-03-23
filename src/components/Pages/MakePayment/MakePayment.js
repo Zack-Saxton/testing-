@@ -525,10 +525,6 @@ export default function MakePayment(props) {
   if (pickedDate > thisDay) {
     isFutureDate = "yes";
   }
-
-  console.log("checkAutoPay",checkAutoPay);
-  console.log("disabledContent",disabledContent);
-
   //View
   return (
     <div>
