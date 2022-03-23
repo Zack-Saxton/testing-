@@ -41,6 +41,16 @@ const useStylesLoanHistory = makeStyles((theme) => ({
     fontWeight: "600",
     fontSize: "18px",
   },
+  loanDocumentsTableCell: {
+    padding: "16px 16px 16px 0px" 
+  },
+  textDecoration: {
+    textDecoration: "none"
+  },
+  findInPageIcon: {
+    color: "#0F4EB3",
+    cursor: "pointer"
+  },
   cardAmountLoanHistory: {
     fontSize: "1.563rem",
     marginTop: "10px",
