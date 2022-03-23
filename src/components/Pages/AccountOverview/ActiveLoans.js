@@ -265,7 +265,7 @@ export default function ActiveLoans(userActiveLoanData) {
                                 </b>
                               </p>
                               <p className={classes.activeLoanSubHeading_content}>APR</p>
-                              <b>{`${(appData.loanDetails.OriginalAPR).toFixed(2)}%`}</b>
+                              <b>{`${(appData.loanDetails.OriginalAPR)?.toFixed(2)}%`}</b>
                             </div>
                           </Grid>
                         </Paper>
