@@ -51,6 +51,7 @@ import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import LogoutController from "../../Controllers/LogoutController";
 import branchDetails from "../../Controllers/MyBranchController";
 import ProfileImageController from "../../Controllers/ProfileImageController";
+import APICall from "../../lib/AxiosLib";
 import MoneySkill from "../../Pages/MoneySkill/MoneySkill";
 import Notification from "../Notification/Notification";
 import "./SideNav.css";
@@ -188,7 +189,7 @@ export default function SideNav() {
   const [ checkPresenceOfLoan, setCheckPresenceOfLoan ] = useState(false);
   const [ checkPresenceOfLoanStatus, setCheckPresenceOfLoanStatus ] = useState('');
   const [ isMobileDevice, setDeviceType ] = useState(false);
-
+  const [ checkFinalVerificationStatus, setCheckFinalVerificationStatus ] = useState(false);
   const handleClickAway = () => {
     if (isMobileDevice) {
       setOpen(false);
@@ -216,16 +217,38 @@ export default function SideNav() {
     } else {
       setActiveLoanData(false);
     }
-
     return () => {
       setCurrentLoan({});
     };
   }, [ dataAccountOverview, activeLoanData, currentLoan ]);
 
+  const getFinalApplicationStatus = async () => {
+	let data = {};	
+		let res = await APICall("verification_steps_cac", '', data, "POST", true);
+		if (
+			res?.data?.email &&
+			res?.data?.financial_information &&
+			res?.data?.id_document &&
+			res?.data?.id_photo &&
+			res?.data?.id_questions &&
+			res?.data?.bank_account_information &&
+			res?.data?.bank_account_verification &&
+			res?.data?.income_verification
+		) {
+      setCheckFinalVerificationStatus(true)
+		} 
+  };
+
+  useEffect(() => {
+		getFinalApplicationStatus();
+		return null;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
   //Navigating customer according to application status
   let NavUrlResumeApplication = "";
   if (([ 'approved', 'completing_application', 'signature_complete', 'closing_process' ].includes(checkPresenceOfLoanStatus))) {
-    NavUrlResumeApplication = checkPresenceOfLoanStatus === "approved" ? "/customers/receiveYourMoney" : "/customers/finalverification";
+    NavUrlResumeApplication = checkFinalVerificationStatus  ? "/customers/receiveYourMoney" : "/customers/finalverification";
   }
   else if (([ 'offers_available', "offer_selected" ].includes(checkPresenceOfLoanStatus))) {
     NavUrlResumeApplication = checkPresenceOfLoanStatus === "offers_available" ? "/customers/selectOffer" : "/customers/reviewAndSign";

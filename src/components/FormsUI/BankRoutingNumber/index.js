@@ -27,7 +27,6 @@ const BankRoutingNumberWrapper = ({ name, ...otherProps }) => {
     const isValid = /(^\d{9}$)/.test(account);
     (!isValid && account) ? setIsError(true) : setIsError(false);
     (!isValid && account) ? setHelperText("Bank Routing number should be 9 digits") : setHelperText("");
-
   };
 
   //Configuring the field with properties
