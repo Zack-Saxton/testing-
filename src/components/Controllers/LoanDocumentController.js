@@ -35,18 +35,22 @@ function downloadFileData(fileData) {
 }
 
 /****** Document Download method *****/
-export async function documentdownload(id, name) {
-  let url = "download_document";
-  let param = "/" + id + "/" + name;
-  let data = {};
-  let method = "GET";
+export async function documentdownload(id, name, fileURL) {
+  let url = "cac_download_document";
+  let param = "";
+  let data = {
+     file_id: id,
+     name: name,
+     fileURL: fileURL,
+  };  
+  let method = "POST";
   let addAccessToken = true;
 
   //API call
   let loanDocumentDownload = await APICall(url, param, data, method, addAccessToken);
   loanDocumentDownload.status === 200
     ? downloadFileData(loanDocumentDownload)
-    : toast.error(loanDocumentDownload?.data?.message ?? globalMessages.Document_download_error);
+    : toast.error(loanDocumentDownload?.data?.message ?? globalMessages.Document_download_error); 
 }
 
 /***** Print file *****/
@@ -59,11 +63,15 @@ function print(data) {
 }
 
 /***** Print Document method *****/
-export async function documentprint(id, name) {
-  let url = "download_document";
-  let param = "/" + id + "/" + name;
-  let data = {};
-  let method = "GET";
+export async function documentprint(id, name, fileURL) {
+  let url = "cac_download_document";
+  let param = "";
+  let data = {
+    file_id: id,
+    name: name,
+    fileURL: fileURL
+  };
+  let method = "POST";
   let addAccessToken = true;
 
   //API call
