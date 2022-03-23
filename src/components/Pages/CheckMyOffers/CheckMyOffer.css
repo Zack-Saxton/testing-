@@ -340,9 +340,13 @@
 .bottomSpace {
 	margin-bottom: 5% !important;
 }
+.noOffersButtonWrap {
+	margin: 1% !important;
+	margin-bottom: 5% !important;
+}
 
 .paddingButton {
-	padding: 10px;
+	padding: 6px;
 }
 .minText {
 	text-align: justify;

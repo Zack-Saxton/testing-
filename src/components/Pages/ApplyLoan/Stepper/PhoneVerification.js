@@ -261,6 +261,7 @@ export default function PhoneVerification(props) {
 				</div>
 			</div>
 			<Dialog
+				className="confirmationDialog"
 				onClose={ handleClose }
 				aria-labelledby="customized-dialog-title"
 				open={ open }
@@ -279,8 +280,8 @@ export default function PhoneVerification(props) {
 				<DialogActions className="modalAction">
 					<br />
 
-					<Grid container>
-						<Grid item lg={ 5 }>
+					<Grid className="confirmationButtons" container>
+						<Grid className="returnButton" item lg={ 5 }>
 							<ButtonSecondary
 								stylebutton='{"background": "", "color": "black", "borderRadius": "50px"}'
 								onClick={ handleClose }
