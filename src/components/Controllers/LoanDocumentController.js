@@ -6,10 +6,10 @@ import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
 
 /***** Get loan document *****/
-export async function loanDocumentController(accNo) {
+export async function loanDocumentController(accountNumber) {
   try {
-    let url = !accNo ? "active_loan_document" : "loan_document";
-    let param = url === "loan_document" ? "/" + accNo : "";
+    let url = !accountNumber ? "active_loan_document" : "loan_document";
+    let param = url === "loan_document" ? "/" + accountNumber : "";
     let data = {};
     let method = "GET";
     let addAccessToken = true;
@@ -82,13 +82,13 @@ export async function documentprint(id, name, fileURL) {
 }
 
 /***** upload document method *****/
-export async function uploadDocument(test, fileName, fileType, documentType) {
+export async function uploadDocument(fileData, fileName, fileType, documentType) {
   let url = "upload_document";
   let param = "";
   let data = {
     compressedFile: [
       {
-        data: test,
+        data: fileData,
         mimetype: fileType,
         documentType: documentType,
         fileName: fileName,

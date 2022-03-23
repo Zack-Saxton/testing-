@@ -66,14 +66,14 @@ export async function mailingAddress(body) {
   }
 }
 
-export async function textNotification(body, sub) {
+export async function textNotification(body, subscribe) {
   try {
     const email = Cookies.get("email");
     let cleanednumber = body.phone.replace(/\D/g, "");
     let allLoansClosed = !(/true/i).test(Cookies.get("hasActiveLoan"));
     let url = "text_unsubscribe";
     let textingOn = false;
-    if (sub) {
+    if (subscribe) {
       url = "text_subscribe";
       textingOn = true;
     }
@@ -157,7 +157,7 @@ export default async function getTextNotify() {
   }
 }
 
-export async function uploadNewProfileImage(imgData, fileName, fileType, documentType, email) {
+export async function uploadNewProfileImage(fileData, fileName, fileType, documentType, email) {
   try {
     let url = "upload_profile_picture";
     let param = "";
@@ -168,7 +168,7 @@ export async function uploadNewProfileImage(imgData, fileName, fileType, documen
         profile_picture: {
           data: {
             type: "Buffer",
-            data: imgData,
+            data: fileData,
           },
           mimetype: fileType,
           documentType: documentType,
