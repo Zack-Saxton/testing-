@@ -268,8 +268,6 @@ export async function idVerificationAnswer(passData) {
   }
 }
 
-
-
 /***** Get verificationSteps details *****/
 export  async function verificationSteps() {
   try {
