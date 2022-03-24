@@ -5,9 +5,10 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ButtonPrimary } from "../../../FormsUI";
-import APICall from "../../../lib/AxiosLib";
+import { useQuery } from "react-query";
 import messages from "../../../lib/Lang/applyForLoan.json";
 import DocumentUpload from "./DocumentUpload";
+import {verificationSteps} from "../../../Controllers/ApplyForLoanController"
 
 //styling part
 const useStyles = makeStyles(() => ({
@@ -21,6 +22,8 @@ const useStyles = makeStyles(() => ({
 export default function IncomeVerification(props) {
 	const navigate = useNavigate();
 	const classes = useStyles();
+	const { data: verificationStepsApplyforLoan, refetch } = useQuery('verification-data',verificationSteps );
+
 	const handleUpload = (res) => {
 		if (res?.data?.income_verification) {
 			toast.success("Document uploaded successfully!");
@@ -76,23 +79,19 @@ export default function IncomeVerification(props) {
 						id="button_stepper_next"
 						stylebutton='{"marginRight": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
 						onClick={ async () => {
-							let data = {};
 							props.setLoadingFlag(true);
-
-							// API call
-							let res = await APICall("verification_steps_cac", '', data, "POST", true);
-
+							refetch()
 							//To check all the steps are completed or not
 							if (
-								res?.data?.email &&
-								res?.data?.financial_information &&
-								res?.data?.id_document &&
-								res?.data?.id_questions &&
-								res?.data?.id_photo &&
-								res?.data?.bank_account_information &&
-								res?.data?.bank_account_verification &&
-								res?.data?.income_verification
-							) {
+								verificationStepsApplyforLoan?.data?.email &&
+								verificationStepsApplyforLoan?.data?.financial_information &&
+								verificationStepsApplyforLoan?.data?.id_document &&
+								verificationStepsApplyforLoan?.data?.id_questions &&
+								verificationStepsApplyforLoan?.data?.id_photo &&
+								verificationStepsApplyforLoan?.data?.bank_account_information &&
+								verificationStepsApplyforLoan?.data?.bank_account_verification &&
+								verificationStepsApplyforLoan?.data?.income_verification
+							) { 
 								props.setLoadingFlag(false);
 								navigate("/customers/receiveYourMoney");
 							} else {

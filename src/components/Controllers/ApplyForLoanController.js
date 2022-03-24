@@ -267,3 +267,21 @@ export async function idVerificationAnswer(passData) {
     ErrorLogger(globalMessages.Error_executing_idVerificationAnswer_API, error);
   }
 }
+
+
+
+/***** Get verificationSteps details *****/
+export  async function verificationSteps() {
+  try {
+    let url = "verification_steps_cac";
+    let param = "";
+    let data = {};
+    let method = "POST";
+    let addAccessToken = true;
+
+    //API call
+    return await APICall(url, param, data, method, addAccessToken);
+  } catch (error) {
+    ErrorLogger(globalMessages.Error_executing_AccountDetails_API, error);
+  }
+}
