@@ -51,7 +51,7 @@ import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import LogoutController from "../../Controllers/LogoutController";
 import branchDetails from "../../Controllers/MyBranchController";
 import ProfileImageController from "../../Controllers/ProfileImageController";
-import APICall from "../../lib/AxiosLib";
+import {verificationSteps} from "../../Controllers/ApplyForLoanController";
 import MoneySkill from "../../Pages/MoneySkill/MoneySkill";
 import Notification from "../Notification/Notification";
 import "./SideNav.css";
@@ -222,28 +222,28 @@ export default function SideNav() {
     };
   }, [ dataAccountOverview, activeLoanData, currentLoan ]);
 
+	const { data: verificationStepsApplyforLoan } = useQuery('verification-data',verificationSteps );
+
   const getFinalApplicationStatus = async () => {
-	let data = {};	
-		let res = await APICall("verification_steps_cac", '', data, "POST", true);
-		if (
-			res?.data?.email &&
-			res?.data?.financial_information &&
-			res?.data?.id_document &&
-			res?.data?.id_photo &&
-			res?.data?.id_questions &&
-			res?.data?.bank_account_information &&
-			res?.data?.bank_account_verification &&
-			res?.data?.income_verification
+			if (
+			verificationStepsApplyforLoan?.data?.email &&
+			verificationStepsApplyforLoan?.data?.financial_information &&
+			verificationStepsApplyforLoan?.data?.id_document &&
+			verificationStepsApplyforLoan?.data?.id_photo &&
+			verificationStepsApplyforLoan?.data?.id_questions &&
+			verificationStepsApplyforLoan?.data?.bank_account_information &&
+			verificationStepsApplyforLoan?.data?.bank_account_verification &&
+			verificationStepsApplyforLoan?.data?.income_verification
 		) {
       setCheckFinalVerificationStatus(true)
 		} 
   };
 
-  useEffect(() => {
+  useEffect(() => {    
 		getFinalApplicationStatus();
 		return null;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [verificationStepsApplyforLoan]);
 
   //Navigating customer according to application status
   let NavUrlResumeApplication = "";
@@ -539,9 +539,9 @@ export default function SideNav() {
                 <Typography className={ classes.headerAlign }>FAQ</Typography>
               </NavLink>
 
-              <NavLink to="/branch-locator" className="nav_link branchLocatorLink">
+              {/* <NavLink to="/branch-locator" className="nav_link branchLocatorLink">
                 <Typography className={ classes.headerAlign }>Branch Locator</Typography>
-              </NavLink>
+              </NavLink> */}
 
               <NavLink id="quickNameIcon" to="/customers/makePayment" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : '' }>
                 <Tooltip title="Quick Pay" placement="bottom">
@@ -716,7 +716,7 @@ export default function SideNav() {
 
                 <NavLink to="/customers/loanDocument" onClick={ (event) => { activeLoanData && loanStatus.includes(checkPresenceOfLoanStatus) && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : 'nav_link' }>
                   <ListItem className="titleSidenav" disabled={ activeLoanData && loanStatus.includes(checkPresenceOfLoanStatus) ? true : false }>
-                    <ListItemIcon>
+.                    <ListItemIcon>
                       { " " }
                       <DescriptionOutlinedIcon />{ " " }
                     </ListItemIcon>

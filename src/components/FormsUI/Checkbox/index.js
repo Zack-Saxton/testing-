@@ -43,19 +43,19 @@ const CheckboxWrapper = ({
   };
 
   //parsing data using json
-  let styleCheckBoxMF = JSON.parse(stylecheckbox);
-  let styleCheckBoxLabelMF = JSON.parse(stylecheckboxlabel);
-  let styleLabelFormMF = JSON.parse(stylelabelform);
+  let styleCheckBox = JSON.parse(stylecheckbox);
+  let styleCheckBoxLabel = JSON.parse(stylecheckboxlabel);
+  let styleLabelForm = JSON.parse(stylelabelform);
 
   //view Part
   return (
     <FormControl>
-      <FormLabel style={ styleLabelFormMF }>{ formlabel }</FormLabel>
+      <FormLabel style={ styleLabelForm }>{ formlabel }</FormLabel>
       <FormGroup >
         <FormControlLabel
-          control={ <Checkbox id={ id } { ...configCheckbox } className={ classes.checkboxStyle } style={ styleCheckBoxMF } /> }
+          control={ <Checkbox id={ id } { ...configCheckbox } className={ classes.checkboxStyle } style={ styleCheckBox } /> }
           label={ label }
-          style={ styleCheckBoxLabelMF }
+          style={ styleCheckBoxLabel }
           id={ labelid }
         />
       </FormGroup>

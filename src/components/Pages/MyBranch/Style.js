@@ -71,6 +71,10 @@ const useStylesMyBranch = makeStyles((theme) => ({
   },
   branchClose: {
     color: "red"
+  },
+  branchlocatorStyle: {
+    alignItem: "flex-end",
+    justifyContent: "space-between"
   }
 }));
 

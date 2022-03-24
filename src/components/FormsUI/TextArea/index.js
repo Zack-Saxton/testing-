@@ -25,7 +25,6 @@ const TextAreaWrapper = ({
   ...otherProps
 }) => {
 
-  const CHARACTER_LIMIT = character_limit;
   const [ values, setValues ] = useState({
     name: "",
   });
@@ -61,11 +60,11 @@ const TextAreaWrapper = ({
       className={ classes.textarea }
       multiline
       inputProps={ {
-        maxLength: CHARACTER_LIMIT ?? 20,
+        maxLength: character_limit ?? 20,
         "data-test-id": "textarea"
       } }
       value={ values.name }
-      helperText={ `${ values.name.length }/${ CHARACTER_LIMIT }` }
+      helperText={ `${ values.name.length }/${ character_limit }` }
     />
   );
 };
