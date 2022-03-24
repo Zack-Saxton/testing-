@@ -9,6 +9,7 @@ Functionality       :    To use this component to validate and get the Bank rout
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import TextBox from "../Textfield";
+import globalMessages from "../../../assets/data/globalMessages.json";
 
 const BankRoutingNumberWrapper = ({ name, ...otherProps }) => {
   //Set Formik field
@@ -26,7 +27,7 @@ const BankRoutingNumberWrapper = ({ name, ...otherProps }) => {
     }
     const isValid = /(^\d{9}$)/.test(account);
     (!isValid && account) ? setIsError(true) : setIsError(false);
-    (!isValid && account) ? setHelperText("Bank Routing number should be 9 digits") : setHelperText("");
+    (!isValid && account) ? setHelperText(globalMessages.validBankRoutingNumber) : setHelperText("");
   };
 
   //Configuring the field with properties

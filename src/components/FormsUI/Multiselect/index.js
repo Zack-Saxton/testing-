@@ -59,12 +59,12 @@ const MultiSelectWrapper = ({
   }));
 
   const classes = useStyles();
-  const ITEM_HEIGHT = 48;
-  const ITEM_PADDING_TOP = 8;
+  const itemHeight = 48;
+  const paddingTop = 8;
   const MenuProps = {
     PaperProps: {
       style: {
-        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+        maxHeight: itemHeight * 4.5 + paddingTop,
         width: 150,
       },
     },

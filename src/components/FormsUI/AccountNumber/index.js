@@ -8,11 +8,12 @@ Functionality       :    To use this component to validate and get the account n
 
 import PropTypes from "prop-types";
 import React, { useState } from "react";
+import globalMessages from "../../../assets/data/globalMessages.json";
 import TextBox from "../Textfield";
 
 const AccountNumberWrapper = ({ name, ...otherProps }) => {
   //Set Formik field
-  const [ accountNum, setAccountNum ] = useState("");
+  const [ accountNumber, setAccountNumber ] = useState("");
   const [ isError, setIsError ] = useState(false);
   const [ helperText, setHelperText ] = useState("");
 
@@ -22,11 +23,11 @@ const AccountNumberWrapper = ({ name, ...otherProps }) => {
     let account = event.target.value.trim();
 
     if (!account || reg.test(account)) {
-      setAccountNum(event.target.value);
+      setAccountNumber(event.target.value);
     }
     const isValid = /(^\d{6,17}$)/.test(account);
     (!isValid && account) ? setIsError(true) : setIsError(false);
-    (!isValid && account) ? setHelperText("Account number should be between 6 to 17 digits") : setHelperText("");
+    (!isValid && account) ? setHelperText(globalMessages.validAccountNumber) : setHelperText("");
   };
 
   //Configuring the field with properties
@@ -43,8 +44,8 @@ const AccountNumberWrapper = ({ name, ...otherProps }) => {
   return (
     <TextBox
       { ...configTextField }
-      materialProps={ { maxLength: "17", minLength: "6", "data-testid": "accountNum" } }
-      value={ accountNum }
+      materialProps={ { maxLength: "17", minLength: "6", "data-testid": "accountNumber" } }
+      value={ accountNumber }
       onChange={ onHandleAccountChange }
       required={ true }
     />
