@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import CheckMyOffers from '../../contexts/CheckMyOffers';
 import ProfilePicture from '../../contexts/ProfilePicture';
+import LoanAccount from '../../contexts/LoanAccount';
 import CustomComponents from "../CustomComponent";
 import BranchHeaderLayout from "../Layout/BranchLocatorLayout/BranchLocatorLayout";
 import Disclosure from "../Layout/DisclosureLink/Disclosure";
@@ -109,7 +110,8 @@ function App() {
                 <BrowserRouter>
                     <CheckMyOffers>
                         <ProfilePicture>
-                            <Routes>
+                            <LoanAccount>
+                                <Routes>
                                 <Route path='/' element={ <Navigate replace to="/customers/accountOverview" /> } />
                                 <Route path='/components' element={ loadGeneralUserComponent(<CustomComponents />) } />
                                 <Route path='/login' element={ loadGeneralUserComponent(<LoginPage />) } />
@@ -151,8 +153,9 @@ function App() {
                                     <Route path=':amount' element={ loadGeneralUserComponent(<SelectAmount />) } />
                                 </Route>
                                 <Route path='customers' >
+                                   
                                     <Route path='accountOverview' element={ loadPostComponent(<AccountOverview />) } />
-                                    <Route path='paymentHistory' element={ loadPostComponent(<PaymentHistory />) } />
+                                    <Route path='paymentHistory' element={ loadPostComponent(<PaymentHistory />) } />  
                                     <Route path='selectOffer' element={ loadPostComponent(<ApplyLoan />) } />
                                     <Route path='applyForLoan' element={ loadPostComponent(<ApplyForLoanRedirect />) } />
                                     <Route path='resumeApplication' element={ loadPostComponent(<ResumeApplication />) } />
@@ -183,7 +186,8 @@ function App() {
                                     <Route path='confirm-signup' element={ loadGeneralUserComponent(<ConfirmationInfo />) } />
                                     <Route path='*' element={ loadGeneralUserComponent(<ErrorBeforeLogin />) } />
                                 </Route>
-                            </Routes>
+                                </Routes>
+                            </LoanAccount>
                         </ProfilePicture>
                     </CheckMyOffers>
                 </BrowserRouter>
