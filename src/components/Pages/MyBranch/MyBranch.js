@@ -35,7 +35,7 @@ export default function MyBranch() {
         className={ classes.centerGrid }
       >
         <Grid container style={ { paddingBottom: "10px" } }>
-          <Grid item xs={ 12 }>
+          <Grid container className={classes.branchlocatorStyle}item xs={ 12 }>
             <Typography variant="h3" className={ classes.heading }>
               <NavLink
                 to="/customers/accountOverview"
@@ -53,6 +53,13 @@ export default function MyBranch() {
                 />
               </NavLink>{ " " }
               My Branch
+            </Typography>
+            <Typography variant="h3" className={classes.heading}>
+              Need to find another branch location? Click
+              <NavLink to="/branch-locator"
+                style={{ textDecoration: "none" }} >
+                here
+              </NavLink>
             </Typography>
           </Grid>
         </Grid>

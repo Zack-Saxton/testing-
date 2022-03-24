@@ -539,9 +539,9 @@ export default function SideNav() {
                 <Typography className={ classes.headerAlign }>FAQ</Typography>
               </NavLink>
 
-              <NavLink to="/branch-locator" className="nav_link branchLocatorLink">
+              {/* <NavLink to="/branch-locator" className="nav_link branchLocatorLink">
                 <Typography className={ classes.headerAlign }>Branch Locator</Typography>
-              </NavLink>
+              </NavLink> */}
 
               <NavLink id="quickNameIcon" to="/customers/makePayment" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : '' }>
                 <Tooltip title="Quick Pay" placement="bottom">
