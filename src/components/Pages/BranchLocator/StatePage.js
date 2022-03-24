@@ -206,7 +206,7 @@ export default function StatePage() {
                     className="searchIcon"
                   />
                   <PlacesAutocomplete
-                    id="address1"
+                    id="addressOne"
                     value={ address1 }
                     onChange={ setAddress1 }
                     onSelect={ handleSelect1 }
@@ -381,7 +381,7 @@ export default function StatePage() {
                   className="searchIconBottomTwo"
                 />
                 <PlacesAutocomplete
-                  id="address1"
+                  id="addressOne"
                   value={ address2 }
                   onChange={ setAddress2 }
                   onSelect={ handleSelect2 }

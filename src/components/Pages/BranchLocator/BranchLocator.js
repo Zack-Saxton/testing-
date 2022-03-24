@@ -297,7 +297,7 @@ export default function BranchLocator() {
             className="searchIconBottom"
           />
           <PlacesAutocomplete
-            id="address1"
+            id="addressOne"
             value={ address2 }
             onChange={ setAddress2 }
             onSelect={ handleSelect2 }
@@ -417,7 +417,7 @@ export default function BranchLocator() {
       <Grid id="findBranchGrid">
         <SearchIcon className="searchIcon"/>
         <PlacesAutocomplete
-          id="address1"
+          id="addressOne"
           value={ address1 }
           onChange={ setAddress1 }
           onSelect={ handleSelect1 }
