@@ -237,5 +237,6 @@
   "Appointment_Date_Required": "Date is required",
   "Appointment_Time_Required": "Time is required",
   "Enter_Appointment_Date": "Please enter a valid date",
-  "Enter_Appointment_Time": "Select Time"
+  "Enter_Appointment_Time": "Select Time",
+  "Invalid_Login_Message":"Invalid email or password. Please try again or click on Sign In help/Register for help signing in."
 }
