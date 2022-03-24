@@ -295,13 +295,12 @@ export default function BranchLocator() {
           </p>
           <SearchIcon
             className="searchIconBottom"
-            style={ { color: "white" } }
           />
           <PlacesAutocomplete
+            id="addressOne"
             value={ address2 }
             onChange={ setAddress2 }
             onSelect={ handleSelect2 }
-            style={ { width: '50%' } }
           >
             { ({ getInputProps, suggestions, getSuggestionItemProps, loading2 }) => (
               <div className="searchInputWrap">
@@ -379,8 +378,8 @@ export default function BranchLocator() {
                       <p className={ classes.phoneNumber }>
                         <PhoneIcon />
                         <a
+                          className="blueColorLink"
                           href={ "tel:+1" + item?.PhoneNumber }
-                          style={ { color: "#214476" } }
                         >
                           { " " }
                           { item?.PhoneNumber }
@@ -416,13 +415,12 @@ export default function BranchLocator() {
     <Grid id="findBranchWrapTwo" className={ classes.blueBackground }>
       <h4 className={ classes.headigText }>Find a <span>Branch Near You!</span></h4>
       <Grid id="findBranchGrid">
-        <SearchIcon className="searchIcon" style={ { color: "white" } } />
+        <SearchIcon className="searchIcon"/>
         <PlacesAutocomplete
-          id="address1"
+          id="addressOne"
           value={ address1 }
           onChange={ setAddress1 }
           onSelect={ handleSelect1 }
-          style={ { width: '50%' } }
         >
           { ({ getInputProps, suggestions, getSuggestionItemProps, loading2 }) => (
             <div className="searchInputWrap">
@@ -478,7 +476,7 @@ export default function BranchLocator() {
         <img className="webImage" src={ BranchImageWeb } alt="MF Banner" />
       </Grid>
 
-      <Grid className="greyBackground mobilePadding" style={ { padding: "24px 0px" } } item md={ 5 } sm={ 12 } xs={ 12 }>
+      <Grid className="greyBackground mobilePadding" item md={ 5 } sm={ 12 } xs={ 12 }>
         { BreadCrumsDisplay }
         <Grid className="blueBoxWrap">
           { search1andgetList }
@@ -523,7 +521,6 @@ export default function BranchLocator() {
   );
   const MapBranchListandSearch2Buttons = (
     <Grid
-      style={ { padding: "16px 0px 16px 0px" } }
       container
       id="mapAndBranchList"
     >

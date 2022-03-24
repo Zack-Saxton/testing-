@@ -103,14 +103,13 @@ export default function StatePage(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const BranchDetailsInCard = (
-    <Grid container style={ { width: "100%" } }>
+    <Grid container className="fullWidth">
       <Grid className="branchImage" item md={ 7 } sm={ 12 } xs={ 12 }>
         <img className="mobileImage" src={ BranchImageMobile } alt="MF Banner" />
         <img className="webImage" src={ BranchImageWeb } alt="MF Banner" />
       </Grid>
       <Grid
         className="greyBackground mobilePadding"
-        style={ { padding: "24px 0px" } }
         item
         md={ 5 }
         sm={ 12 }
@@ -121,7 +120,6 @@ export default function StatePage(props) {
           separator={
             <NavigateNextIcon
               className="navigateNextIcon"
-              style={ { color: "#171717" } }
             />
           }
           aria-label="breadcrumb"
@@ -246,8 +244,8 @@ export default function StatePage(props) {
 
   const Display3moreClosestBranchList = (
     <Grid
+      className="branchListGrid"
       container
-      style={ { margin: "auto", justifyContent: "space-between" } }
     >
       <Grid container className="branchListWrap">
         { branchList ? (
@@ -279,8 +277,8 @@ export default function StatePage(props) {
                 <p className={ classes.phoneNumber }>
                   <PhoneIcon />
                   <a
+                    className="blueColorLink"
                     href={ "tel:+1" + item?.PhoneNumber }
-                    style={ { color: "#214476" } }
                   >
                     { " " }
                     { item?.PhoneNumber }
