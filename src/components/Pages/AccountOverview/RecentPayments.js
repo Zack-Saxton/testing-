@@ -9,23 +9,28 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
 import Moment from "moment";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import NumberFormat from "react-number-format";
 import { NavLink } from "react-router-dom";
 import { ButtonPrimary, TableCellWrapper, Select } from "../../FormsUI";
 import { useStylesAccountOverview } from "./Style";
+import { LoanAccount } from "../../../contexts/LoanAccount"
 import "./Style.css";
 export default function RecentPayments(paymentHistory) {
 	//Material UI css class
 	const classes = useStylesAccountOverview();
-	const [defaultLoanAccount, setDefaultLoanAccount] = useState();
-	const [loanAccountsList, setLoanAccountsList] = useState([]);
+ 	const { selectedLoanAccount, setSelectedLoanAccount } = useContext(LoanAccount);
+ 	const [ defaultLoanAccount, setDefaultLoanAccount ] = useState();
+	const [ loanAccountsList, setLoanAccountsList ] = useState([]);
 
 	useEffect(()=>{
 		if(paymentHistory?.userRecentPaymentData?.length){
-				setDefaultLoanAccount( paymentHistory.userRecentPaymentData[0] )
+			  setDefaultLoanAccount( selectedLoanAccount ?? paymentHistory.userRecentPaymentData[0] )
+				setSelectedLoanAccount( selectedLoanAccount ?? paymentHistory.userRecentPaymentData[0])
 				setLoanAccountsList( paymentHistory.userRecentPaymentData )
 		}
+		return null;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
 	},[paymentHistory]);
 
 	let loanOptions = loanAccountsList
@@ -39,13 +44,14 @@ const handleChange =(event) =>{
 	if (loanAccountsList){
 		let selectedLoan = loanAccountsList.find((loan) => loan.accountNumber === event.target.value);
 		setDefaultLoanAccount(selectedLoan);
+		setSelectedLoanAccount(selectedLoan);
 	}
 }
 
 	//Recentpayments data
 	let parData = [];
-		if(defaultLoanAccount?.AppAccountHistory?.length) {
-			defaultLoanAccount.AppAccountHistory.slice(0, 3).forEach(function (row) {
+		if(selectedLoanAccount?.AppAccountHistory?.length) {
+			selectedLoanAccount.AppAccountHistory.slice(0, 3).forEach(function (row) {
 				parData.push(
 					{
 						date: {
