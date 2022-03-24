@@ -12,6 +12,11 @@
     color: white;
   }
 
+  .printPage {
+	cursor: pointer;
+	text-decoration: underline;
+  }
+
   #citizenship, #employementStatus, #marriedStatus,#phoneType{
     background:transparent !important;
   }
