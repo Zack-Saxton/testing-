@@ -78,7 +78,8 @@ export default function MakePayment(props) {
   const [ accountDetails ] = useState(null);
   const [ totalPaymentAmount, setTotalPaymentAmount ] = useState(null);
   const [ checkAutoPay, setCheckAutoPay ] = useState(true);
-  const [ autopaySubmit, setAutopaySubmit ] = useState(true);
+  const [ autopaySubmitDisabled, setAutopaySubmitDisabled ] = useState(true);
+  const [ autopaySwitchDisabled, setAutopaySwitchDisabled ] = useState(false);
   const [ scheduleDate, setScheduleDate ] = useState(new Date());
   const [ payoff, setPayoff ] = useState(false);
   const [ calendarDisabled, setCalendarDisabled ] = useState(false);
@@ -121,14 +122,15 @@ export default function MakePayment(props) {
     } else {
       //get default card
       let defaultBank = payments?.data?.defaultBank;
-      let cardFound = await defaultCardCheck(payments?.data?.ACHMethods, "ACH", defaultBank);
-      if (cardFound) {
+      let isACH = await defaultCardCheck(payments?.data?.ACHMethods, "ACH", defaultBank);
+      if (isACH) {
         setDefaultPaymentCard(false);
       } else {
-        //set default card ACHMethods
-        const cardNotFound = await defaultCardCheck(payments?.data?.CardMethods, "card", defaultBank);
-        if (cardNotFound) {
+        //set default card 
+        const cardFound = await defaultCardCheck(payments?.data?.CardMethods, "card", defaultBank);
+        if (cardFound) { 
           setDefaultPaymentCard(true);
+          setAutopaySwitchDisabled(true);
         }
       }
     }
@@ -237,7 +239,7 @@ export default function MakePayment(props) {
         setPaymentDatepicker(scheduledDate ? scheduledDate : new Date() );
         setScheduleDate(scheduledDate);
         setLoading(false);
-        setAutopaySubmit(true);
+        setAutopaySubmitDisabled(true);
         setShowCircularProgress(isFetching);
         setCheckPaymentInformation(data?.loanPaymentInformation?.errorMessage);
         return true;
@@ -281,7 +283,7 @@ export default function MakePayment(props) {
       setPaymentDatepicker(scheduledDate ? scheduledDate : new Date() );
       setScheduleDate(scheduledDate);
       setLoading(false);
-      setAutopaySubmit(true);
+      setAutopaySubmitDisabled(true);
       setShowCircularProgress(isFetching);
       setCheckPaymentInformation(latestLoan?.length && latestLoan[ 0 ]?.loanPaymentInformation?.errorMessage);
     }
@@ -336,9 +338,13 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
         setCalendarDisabled(false);
         setPayoff(false);
       }
-    } else {
+      setAutopaySwitchDisabled(false);
+      setAutopaySubmitDisabled(checkAutoPay === disabledContent ? true : false);
+    } else { //isDebit
       setIsDebit(true);
       setCheckCard(true);
+      setAutopaySubmitDisabled(true);
+      setAutopaySwitchDisabled(true);
     }
     //true
     setRequiredSelect("");
@@ -348,10 +354,15 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
 
   //Autopay enable/disable switch
   const handleSwitchPayment = (event) => {
-    setAutopaySubmit(checkAutoPay === event.target.checked ? true : false);
+    if ( isDebit ) {
+      setAutopaySubmitDisabled(true);
+    } else {
+      setAutopaySubmitDisabled(checkAutoPay ? true : false);
+    }
     setDisabledContent(event.target.checked);
-    if ( !autopaySubmit ) {
+    if ( !autopaySubmitDisabled ) {
       setRequiredAutoPay("");
+      setAutopaySubmitDisabled(checkAutoPay ? false : true);
     }
   };
 
@@ -368,16 +379,14 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
 
   //Autopay submit
   const handleClickSubmit = () => {
-    if (nextDueDateCheck < todaysDate && !autopaySubmit) {
+    if (nextDueDateCheck < todaysDate && !autopaySubmitDisabled) {
       setRequiredAutoPay("Sorry, your account is delinquent. In order to make this payment type, contact your branch")
       setOpen(false);
       return;
     }
     disabledContent
       ? card || card === 0
-        ? !isDebit
           ? setOpen(true)
-          : setRequiredSelect("Please select a saving or checking account")
         : setRequiredSelect("Please select any accounts")
       : setOpen(true);
   };
@@ -436,9 +445,6 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
     } else if (!paymentDatepicker) {
       refpaymentDatepicker.current.focus();
       setRequiredDate("Please select any date");
-    } else if (isDebit && Moment(paymentDatepicker).isAfter(Moment())) {
-      refpaymentDatepicker.current.focus();
-      setRequiredDate("For debit account, please select today's date");
     } else if (
       Moment(User.data.loanData[ 0 ].loanOriginationDate).isAfter(Moment())) {
       refPaymentAmount.current.focus();
@@ -751,6 +757,7 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
                                 value={ disabledContent }
                                 inputProps={ { "data-test-id": "switch" } }
                                 color="primary"
+                                disabled={ autopaySwitchDisabled }
                               />
                             }
                             labelPlacement="end"
@@ -781,7 +788,7 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
                               stylebutton='{"background": "", "color":"" }'
                               id="submitBtn"
                               onClick={ handleClickSubmit }
-                              disabled={ autopaySubmit }
+                              disabled={ autopaySubmitDisabled }
                             >
                               Submit
                             </ButtonPrimary>
