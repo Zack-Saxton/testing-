@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import React from "react";
+import React, {useRef} from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from "react-toastify";
@@ -77,10 +77,13 @@ const loadGeneralUserComponent = (componentName) => {
         </GeneralUser>
     );
 };
-const loadPostComponent = (componentName) => {
+
+const LoadPostComponent = (componentName) => {
+    let refMainDiv = useRef()
     return (
-        <div id="main" style={ { marginLeft: "240px" } }>
-            <PostLogin>
+        
+        <div id="main"  ref = {refMainDiv} style={ { marginLeft: "240px" } }>
+            <PostLogin referenceID = {refMainDiv}>
                 { componentName }
             </PostLogin>
         </div>
@@ -93,7 +96,7 @@ const branchHeaderComponent = (componentName) => {
         </BranchHeaderLayout>
     );
 };
-function App() {
+function App() {    
     return (
         <QueryClientProvider client={ queryClient }>
             <div className="App">
@@ -154,25 +157,25 @@ function App() {
                                 </Route>
                                 <Route path='customers' >
                                    
-                                    <Route path='accountOverview' element={ loadPostComponent(<AccountOverview />) } />
-                                    <Route path='paymentHistory' element={ loadPostComponent(<PaymentHistory />) } />  
-                                    <Route path='selectOffer' element={ loadPostComponent(<ApplyLoan />) } />
-                                    <Route path='applyForLoan' element={ loadPostComponent(<ApplyForLoanRedirect />) } />
-                                    <Route path='resumeApplication' element={ loadPostComponent(<ResumeApplication />) } />
-                                    <Route path='reviewAndSign' element={ loadPostComponent(<ReviewAndSign />) } />
-                                    <Route path='finalVerification' element={ loadPostComponent(<FinalVerification />) } />
-                                    <Route path='receiveYourMoney' element={ loadPostComponent(<ReceiveYourMoney />) } />
-                                    <Route path='loanDocument' element={ loadPostComponent(<LoanDocument />) } />
-                                    <Route path='loanHistory' element={ loadPostComponent(<LoanHistory />) } />
-                                    <Route path='makePayment' element={ loadPostComponent(<MakePayment />) }>
-                                        <Route path=':accNo' element={ loadPostComponent(<MakePayment />) } />
+                                    <Route path='accountOverview' element={ LoadPostComponent(<AccountOverview />) } />
+                                    <Route path='paymentHistory' element={ LoadPostComponent(<PaymentHistory />) } />  
+                                    <Route path='selectOffer' element={ LoadPostComponent(<ApplyLoan />) } />
+                                    <Route path='applyForLoan' element={ LoadPostComponent(<ApplyForLoanRedirect />) } />
+                                    <Route path='resumeApplication' element={ LoadPostComponent(<ResumeApplication />) } />
+                                    <Route path='reviewAndSign' element={ LoadPostComponent(<ReviewAndSign />) } />
+                                    <Route path='finalVerification' element={ LoadPostComponent(<FinalVerification />) } />
+                                    <Route path='receiveYourMoney' element={ LoadPostComponent(<ReceiveYourMoney />) } />
+                                    <Route path='loanDocument' element={ LoadPostComponent(<LoanDocument />) } />
+                                    <Route path='loanHistory' element={ LoadPostComponent(<LoanHistory />) } />
+                                    <Route path='makePayment' element={ LoadPostComponent(<MakePayment />) }>
+                                        <Route path=':accNo' element={ LoadPostComponent(<MakePayment />) } />
                                     </Route>
-                                    <Route path='moneySkill' element={ loadPostComponent(<MoneySkill />) } />
-                                    <Route path='myBranch' element={ loadPostComponent(<MyBranch />) } />
-                                    <Route path='myProfile' element={ loadPostComponent(<MyProfile />) } />
-                                    <Route path='vantageScore' element={ loadPostComponent(<VantageScore />) } />
-                                    <Route path='faq' element={ loadPostComponent(<FaqPostLogin />) } />
-                                    <Route path='viewaccount' element={ loadPostComponent(<ViewAccountDetails />) } />
+                                    <Route path='moneySkill' element={ LoadPostComponent(<MoneySkill />) } />
+                                    <Route path='myBranch' element={ LoadPostComponent(<MyBranch />) } />
+                                    <Route path='myProfile' element={ LoadPostComponent(<MyProfile />) } />
+                                    <Route path='vantageScore' element={ LoadPostComponent(<VantageScore />) } />
+                                    <Route path='faq' element={ LoadPostComponent(<FaqPostLogin />) } />
+                                    <Route path='viewaccount' element={ LoadPostComponent(<ViewAccountDetails />) } />
                                     <Route path='verification'>
                                         <Route path='email' element={ <ValidateToken /> } />
                                     </Route>
