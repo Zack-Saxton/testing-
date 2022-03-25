@@ -306,11 +306,8 @@ export default function MakePayment(props) {
   }));
 
 const paymentOptions = paymentListAch ? JSON.stringify(paymentListAch.concat(paymentListCard)) : "[]";
-if  (latestLoanData) {
-   nextDueDateCheck = JSON.stringify(latestLoanData?.[0]?.loanData?.dueDate);
-   nextDueDateCheck = String(nextDueDateCheck);
-   nextDueDateCheck = nextDueDateCheck.slice(1,11);
-   nextDueDateCheck = Moment(nextDueDateCheck).format('DD MMM, YYYY'); 
+if  (latestLoanData?.[0]?.loanData?.dueDate) {
+  nextDueDateCheck = Moment(latestLoanData?.[0]?.loanData?.dueDate).format("YYYYMMDD");
 };
 
   //Storing the routingNumber,refNumber and SchedulePayments details
@@ -347,7 +344,7 @@ if  (latestLoanData) {
     setRequiredSelect("");
   };
   let todaysDate = new Date();
-  todaysDate = Moment(todaysDate).format('DD MMM, YYYY')
+  todaysDate = Moment(todaysDate).format('YYYYMMDD')
 
   //Autopay enable/disable switch
   const handleSwitchPayment = (event) => {
@@ -371,9 +368,8 @@ if  (latestLoanData) {
 
   //Autopay submit
   const handleClickSubmit = () => {
-    let dueDate = Moment(nextDueDateCheck).format('DD MMM, YYYY');
-    if (dueDate < todaysDate && !autopaySubmit) {
-      setRequiredAutoPay("Sorry, your account is delinquent. In order to make this payment type, contact your branch.")
+    if (nextDueDateCheck < todaysDate && !autopaySubmit) {
+      setRequiredAutoPay("Sorry, your account is delinquent. In order to make this payment type, contact your branch")
       setOpen(false);
       return;
     }
@@ -529,7 +525,7 @@ if  (latestLoanData) {
   let paymentIsScheduled = hasSchedulePayment ? "yes" : "no";
   let pickedDate = new Date(paymentDatepicker);
   let isFutureDate = "no";
-  if (Moment(pickedDate).format('DD MMM, YYYY') > todaysDate) {
+  if (Moment(pickedDate).format('YYYYMMDD') > todaysDate) {
     isFutureDate = "yes";
   }
 //View
