@@ -373,7 +373,7 @@ if  (latestLoanData) {
   const handleClickSubmit = () => {
     let dueDate = Moment(nextDueDateCheck).format('DD MMM, YYYY');
     if (dueDate < todaysDate && !autopaySubmit) {
-      setRequiredAutoPay("You cannot set up Autopay with a past due payment")
+      setRequiredAutoPay("Sorry, your account is delinquent. In order to make this payment type, contact your branch.")
       setOpen(false);
       return;
     }
