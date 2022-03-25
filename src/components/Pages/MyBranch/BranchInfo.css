@@ -1,3 +1,13 @@
+.blueBGColor #feefo-service-review-carousel-widgetId 
+feefowidget-container-carousel 
+feefowidget-container-main 
+.feefowidget-standard .feefowidget-desktop-wrapper
+feefowidget-carousel-summary 
+.feefowidget-carousel-summary 
+.feefowidget-top-row 
+span{
+  color: white !important;
+}
 #workingHoursTableWrap thead tr th {
   border: 1px solid rgba(224, 224, 224, 1) !important;
 }
@@ -163,12 +173,6 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
 .feefowidget-content-row {
   color: white !important;
 }
-.feefowidget-carousel-summary.feefowidget-carousel-summary-average-customer-rating
-  .feefowidget-average-customer-rating,
-.feefowidget-carousel-summary.feefowidget-carousel-summary-media-integration
-  .feefowidget-average-customer-rating {
-  color: white !important;
-}
 #feefo-service-review-carousel-widgetId {
   background-color: transparent !important;
 }
@@ -180,13 +184,6 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
 }
 .feefowidget-meta-row {
   color: #ffffff8a !important;
-}
-#feefo-service-review-carousel-widgetId
-  feefowidget-container-carousel
-  feefowidget-container-main
-  div
-  span {
-  color: white !important;
 }
 .feefowidget-carousel-summary-average-customer-rating div span {
   color: #ffffff8a !important;
