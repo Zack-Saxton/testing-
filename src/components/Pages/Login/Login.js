@@ -18,6 +18,7 @@ import { useQueryClient } from "react-query";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import LoginController from "../../Controllers/LoginController";
+import getClientIp from "../../Controllers/CommonController";
 import {
   ButtonPrimary,
   EmailTextField,
@@ -133,16 +134,6 @@ export default function Login(props) {
   const queryClient = useQueryClient();
   let location = useLocation();
 
-  const getClientIp = async () => {
-    try {
-      let ipResponse = await fetch("https://www.cloudflare.com/cdn-cgi/trace");
-      ipResponse = await ipResponse.text();
-      let ipRegex = /\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/;
-      return ipResponse.match(ipRegex)[ 0 ] ?? '127.0.0.1';
-    } catch (err) {
-      return '127.0.0.1';
-    }
-  };
   const remMeDataRaw = Cookies.get("rememberMe") ?? '{}';
   let remMeData = JSON.parse(remMeDataRaw);
   const [ remMe, setRemMe ] = useState(remMeData?.selected);

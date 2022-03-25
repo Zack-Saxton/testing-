@@ -9,7 +9,6 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import axios from "axios";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import { useQueryClient } from 'react-query';
@@ -19,6 +18,7 @@ import LoginController, { RegisterController } from "../../Controllers/LoginCont
 import LogoutController from "../../Controllers/LogoutController";
 import { RecaptchaValidationController } from "../../Controllers/RecaptchaController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
+import getClientIp from "../../Controllers/CommonController"
 import {
   Button,
   ButtonPrimary,
@@ -118,10 +118,7 @@ export default function Register() {
   window.onReCaptchaSuccess = async function () {
     try {
       let grecaptchaResponse = grecaptcha.getResponse();
-      let ipResponse = await fetch("https://www.cloudflare.com/cdn-cgi/trace");
-      ipResponse = await ipResponse.text();
-      let ipRegex = /\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/;
-      let ipAddress = ipResponse.match(ipRegex)[ 0 ] ?? '127.0.0.1';
+      let ipAddress = await getClientIp();
       let recaptchaVerifyResponse = await RecaptchaValidationController(grecaptchaResponse, ipAddress);
 
       if (recaptchaVerifyResponse.status === 200) {

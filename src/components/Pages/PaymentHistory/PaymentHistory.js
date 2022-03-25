@@ -112,7 +112,7 @@ export default function PaymentHistory() {
       theme: "plain",
     };
     document.autoTable(content);
-    document.save("" + selectedLoanAccount?.accountNumber + ".pdf");
+    document.save(`${ selectedLoanAccount?.accountNumber }.pdf`);
     setAnchorEl(null);
   };
 
