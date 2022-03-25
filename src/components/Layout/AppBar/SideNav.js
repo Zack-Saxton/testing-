@@ -31,7 +31,7 @@ import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
 import SettingsIcon from "@material-ui/icons/Settings";
 import clsx from "clsx";
 import Cookies from "js-cookie";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState,useRef } from "react";
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import { useQuery, useQueryClient } from "react-query";
@@ -170,7 +170,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SideNav() {
+export default function SideNav(refID) {
   const classes = useStyles();
   const [ open, setOpen ] = useState(true);
   const [ anchorEl, setAnchorEl ] = useState(null);
@@ -190,6 +190,13 @@ export default function SideNav() {
   const [ checkPresenceOfLoanStatus, setCheckPresenceOfLoanStatus ] = useState('');
   const [ isMobileDevice, setDeviceType ] = useState(false);
   const [ checkFinalVerificationStatus, setCheckFinalVerificationStatus ] = useState(false);
+  const { data: verificationStepsApplyforLoan } = useQuery('verification-data',verificationSteps );
+  let refProfileDetails = useRef();
+  let refApplyForLoanNav = useRef();
+  let refClose2 = useRef();
+  let refClose = useRef();
+  let refMainDiv = refID.refIdProp.referenceID.current
+
   const handleClickAway = () => {
     if (isMobileDevice) {
       setOpen(false);
@@ -222,8 +229,6 @@ export default function SideNav() {
     };
   }, [ dataAccountOverview, activeLoanData, currentLoan ]);
 
-	const { data: verificationStepsApplyforLoan } = useQuery('verification-data',verificationSteps );
-
   const getFinalApplicationStatus = async () => {
 			if (
 			verificationStepsApplyforLoan?.data?.email &&
@@ -238,7 +243,6 @@ export default function SideNav() {
       setCheckFinalVerificationStatus(true)
 		} 
   };
-
   useEffect(() => {    
 		getFinalApplicationStatus();
 		return null;
@@ -257,19 +261,20 @@ export default function SideNav() {
 
   //Material UI media query for responsiveness
   let check = useMediaQuery("(min-width:960px)");
+  let refCloseValue = refClose.current
 
   useEffect(() => {
     if (check && checked) {
       setChecked(true);
       setOpen(true);
       handleDeviceType(false);
-      document.getElementById("main").style.marginLeft = "240px";
-      document.getElementById("close").style.display = "none";
+      refMainDiv.style.marginLeft = "240px";
+      refCloseValue.style.display = "none";
     } else {
       setOpen(false);
       handleDeviceType(true);
     }
-  }, [ checked, check ]);
+  }, [ checked, check,refCloseValue,refMainDiv ]);
 
   //Formating Phone Number
   function formatPhoneNumber(phoneNumber) {
@@ -318,92 +323,82 @@ export default function SideNav() {
   const lastLoginRaw = JSON.parse(Cookies.get("user") ? Cookies.get("user") : '{ }')?.user?.extensionattributes?.login?.timestamp_date;
   const loginDate = lastLoginRaw ? new Date(lastLoginRaw) : new Date();
   const lastLogin = ((loginDate.getMonth() > 8) ? (loginDate.getMonth() + 1) : ('0' + (loginDate.getMonth() + 1))) + '/' + ((loginDate.getDate() > 9) ? loginDate.getDate() : ('0' + loginDate.getDate())) + '/' + loginDate.getFullYear();
-
+ 
+ 
   //Side bar open on mouse event
   const handleDrawer = () => {
     const closeElementId = "close";
     const valueQualifiedName = "value";
 
     if (!checked || !check) {
-      let profiledetailTag = document.getElementById("profileDetails");
+      let profiledetailTag = refProfileDetails.current;
       profiledetailTag.style.display = "block";
+      let menuValue = refClose.current.getAttribute(valueQualifiedName);
 
-      let menuValue = document
-        .getElementById(closeElementId)
-        .getAttribute(valueQualifiedName);
       if (menuValue === closeElementId) {
         setOpen(true);
-        document
-          .getElementById(closeElementId)
-          .setAttribute(valueQualifiedName, "open");
+        refClose.current.setAttribute(valueQualifiedName,"open")
       } else {
         setOpen(false);
-        document
-          .getElementById(closeElementId)
-          .setAttribute(valueQualifiedName, closeElementId);
+        refClose.current.setAttribute(valueQualifiedName,closeElementId)
       }
-      const child = document.getElementById(closeElementId);
-      const parent = document.getElementById("close2");
+      const child = refClose.current
+      const parent = refClose2.current
       if (parent.offsetWidth > 73) {
         child.style.display = "block";
       } else {
         child.style.display = "none";
       }
       if (!checked || !check) {
-        document.getElementById("main").style.marginLeft = "73px";
+        refMainDiv.style.marginLeft = "73px";
       } else {
-        document.getElementById("main").style.marginLeft = "240px";
+        refMainDiv.style.marginLeft = "240px";
       }
 
     }
   };
 
+
   //Side bar close on mouse event
   const handleDrawerleave = () => {
-    const closeElementId = "close";
+    const closeElementId = "close"
     const valueQualifiedName = "value";
 
     if (!checked || !check) {
-      let profiledetailTag = document.getElementById("profileDetails");
-      profiledetailTag.style.display = "none";
-
-      let menuValue = document
-        .getElementById(closeElementId)
-        .getAttribute(valueQualifiedName);
+      let profiledetailTag = refProfileDetails.current;
+      profiledetailTag.style.display = "none";      
+      let menuValue = refClose.current.getAttribute(valueQualifiedName);
 
       if (menuValue === closeElementId) {
         setOpen(true);
-        document
-          .getElementById(closeElementId)
-          .setAttribute(valueQualifiedName, "close");
+        refClose.current.setAttribute(valueQualifiedName,"close")
       } else {
         setOpen(false);
-        document
-          .getElementById(closeElementId)
-          .setAttribute(valueQualifiedName, closeElementId);
+        refClose.current.setAttribute(valueQualifiedName,closeElementId)
       }
-      const child = document.getElementById(closeElementId);
-      const parent = document.getElementById("close2");
+      const child = refClose.current
+      const parent = refClose2.current
+
       if (parent.offsetWidth > 73) {
         child.style.display = "block";
       } else {
         child.style.display = "none";
       }
       if (!checked || !check) {
-        document.getElementById("main").style.marginLeft = "73px";
+        refMainDiv.style.marginLeft = "73px";
       } else {
-        document.getElementById("main").style.marginLeft = "240px";
+        refMainDiv.style.marginLeft = "240px";
       }
     }
   };
 
   //Menu button on mouse view
   const handleMenuButtonOpen = () => {
-
     if (!check) {
-      document.getElementById("close2").style.display = "block ";
+      let drawerRefClose2 = refClose2.current
+      drawerRefClose2.style.display = "block ";
       setOpen(true);
-      let profiledetailTag = document.getElementById("profileDetails");
+      let profiledetailTag = refProfileDetails.current;
       profiledetailTag.style.display = "block";
     }
   };
@@ -459,11 +454,10 @@ export default function SideNav() {
   //Side bar enable and disable
   const handleChangeCheckbox = (event) => {
     if (event.target.checked === "false") {
-      document.getElementById("main").style.marginLeft = "73px";
+      refMainDiv.style.marginLeft = "73px";
     } else {
-      document.getElementById("main").style.marginLeft = "240px";
+      refMainDiv.style.marginLeft = "240px";
     }
-
     setChecked(event.target.checked);
   };
 
@@ -486,9 +480,9 @@ export default function SideNav() {
       </MenuItem>
     </Menu>
   );
-  let navElement = document.getElementById("applyForLoanNav");
+  let navElement = refApplyForLoanNav.current
   if (navElement) {
-    document.getElementById("applyForLoanNav").removeAttribute("href");
+    navElement.removeAttribute("href");
   }
 
   let loanStatus = ["under_review", "final_review"]; 
@@ -573,6 +567,7 @@ export default function SideNav() {
         <div className={ classes.sectionDrawer }>
           <Drawer
             id="close2"
+            ref = {refClose2}
             variant="permanent"
             onClick={ handleMobileMenuClose }
             className={ clsx(classes.drawer, {
@@ -606,7 +601,7 @@ export default function SideNav() {
                 checked={ checked }
               />
 
-              <div id="close" style={ { display: "none" } }>
+              <div id="close" ref = {refClose} style={ { display: "none" } }>
                 <img
                   src={ logoIcon }
                   alt="logo icon"
@@ -618,8 +613,8 @@ export default function SideNav() {
             <Divider />
             <PerfectScrollbar options={ { suppressScrollX: true, wheelSpeed: 2, wheelPropagation: false, minScrollbarLength: 20 } }>
               <List id="listItemWrap" onClick={ handleMobileMenuClose }>
-                <ListItem id="profileDetails">
-                  <List >
+                <ListItem id="profileDetails" ref = {refProfileDetails}>
+                  <List >  
                     <ListItem>
                       <div id="imgWrap">
                         <img id="sidebarProfilePic" src={ dataProfile?.profilePictureURL ? dataProfile?.profilePictureURL : getProfileImage } alt="Profile Pic" onClick={ (navType) => handleMenuProfile('top') } />
@@ -704,7 +699,7 @@ export default function SideNav() {
                       </ListItem>
                     </Link>
                   :
-                  <NavLink id="applyForLoanNav" to="/customers/applyForLoan" state={ { from: "user" } } onClick={ (event) => { currentLoan ? event.preventDefault() : ""; } } className={ currentLoan ? "nav_link_disabled" : "nav_link" } >
+                  <NavLink id="applyForLoanNav" ref = {refApplyForLoanNav} to="/customers/applyForLoan" state={ { from: "user" } } onClick={ (event) => { currentLoan ? event.preventDefault() : ""; } } className={ currentLoan ? "nav_link_disabled" : "nav_link" } >
                     <ListItem className="titleSidenav" disabled={ currentLoan }>
                       <ListItemIcon>
                         { " " }
@@ -716,7 +711,7 @@ export default function SideNav() {
 
                 <NavLink to="/customers/loanDocument" onClick={ (event) => { activeLoanData && loanStatus.includes(checkPresenceOfLoanStatus) && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : 'nav_link' }>
                   <ListItem className="titleSidenav" disabled={ activeLoanData && loanStatus.includes(checkPresenceOfLoanStatus) ? true : false }>
-.                    <ListItemIcon>
+                    <ListItemIcon>
                       { " " }
                       <DescriptionOutlinedIcon />{ " " }
                     </ListItemIcon>

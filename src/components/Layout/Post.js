@@ -7,7 +7,7 @@ import Footer from "../Layout/Footer/Footer";
 import AppBar from "./AppBar/SideNav";
 import CheckLoginTimeout from "./CheckLoginTimeout";
 
-const Post = ({ children }) => {
+const Post = ({ children, ...referenceID  }) => {
 
     const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : '{ }');
 
@@ -19,7 +19,7 @@ const Post = ({ children }) => {
                     <>
                         <div id="body">
                             <div className='topBar'></div>
-                            <AppBar />
+                            <AppBar refIdProp = {referenceID} />
                             { children }
                             <Footer />
                         </div>
