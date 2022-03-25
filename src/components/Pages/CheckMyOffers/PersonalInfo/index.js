@@ -136,6 +136,7 @@ function PersonalInfo() {
 	const [ ssnEmailMatch, setSsnEmailMatch ] = useState(true);
 	const [ error, setError ] = useState(false);
 	const [ loading, setLoading ] = useState(false);
+	const componentMounted = useRef(true);                                               //
 	const navigate = useNavigate();
 	const innerClasses = useStyles();
 	const classes = preLoginStyle();
@@ -167,6 +168,8 @@ function PersonalInfo() {
 		onSubmit: async (values) => {
 			const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : "{ }");
 			setLoading(true);
+			//To check the component is mounted or not to update the state
+			if (componentMounted.current){
 			data.firstName = values.firstName.trim();
 			data.lastName = values.lastName.trim();
 			data.email = values.email;
@@ -198,9 +201,9 @@ function PersonalInfo() {
 
 				if (loginToken?.isLoggedIn) {
 					data.completedPage = data.page.existingUser;
-					navigate("/employment-status");
 					setError(false);
 					setLoading(false);
+					navigate("/employment-status");
 				} else {
 					let customerStatus = await axios({
 						method: "POST",
@@ -219,9 +222,9 @@ function PersonalInfo() {
 								setLoading(false);
 							} else {
 								setSsnEmailMatch(true);
-								navigate("/existing-user");
 								setError(false);
 								setLoading(false);
+								navigate("/existing-user");
 							}
 						} else {
 							setSsnEmailMatch(false);
@@ -242,6 +245,7 @@ function PersonalInfo() {
 					}
 				}
 			}
+		}
 		},
 	});
 
@@ -302,7 +306,10 @@ function PersonalInfo() {
 		if (data.completedPage < data.page.homeAddress || data.formStatus === "completed") {
 			navigate("/select-amount");
 		}
-		return null;
+		// return null;
+		return () => { // This code runs when component is unmounted
+			componentMounted.current = false; // set it to false when we leave the page
+	}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
