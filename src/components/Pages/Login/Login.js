@@ -263,8 +263,7 @@ export default function Login(props) {
                         data-testid="subtitle"
                       >
                         { " " }
-                        Invalid email or password. Please try again or click on
-                        Sign In help/Register for help signing in.
+                        { loginFailed === "Invalid Email or Password" ? globalMessages.Invalid_Login_Message :  loginFailed}
                       </p>
                     </Grid>
                     <Grid className={ classes.checkbox }>

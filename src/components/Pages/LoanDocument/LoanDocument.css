@@ -15,3 +15,20 @@
 .textdecoration{
     text-decoration: none;
 }
+.gridPadding{
+    padding-top: 10px;
+}
+.loanDocumentWrap{
+    padding-top: 10px;
+    padding-bottom: 30%;
+}
+.selectDocument{
+    padding-top: 10px;
+    width: 225px;
+}
+.loanDocumentGrid{
+    padding-bottom: 10px
+}
+.documentInput{
+    padding-top: 20px;
+}

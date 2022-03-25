@@ -114,8 +114,9 @@ export default function BranchLocator() {
   };
   const MFButtonClick = (event) => {
     params.statename = event.target.innerText;
-    apiGetBranchList(params.statename);
-    navigate(`/branch-locator/${ params.statename.replace(/\s+/g, '-').toLowerCase() }/`, { state: { value: params.statename, flag: true } });};
+    navigate(`/branch-locator/${ params.statename.replace(/\s+/g, '-').toLowerCase() }/`, { state: { value: params.statename } });
+  };
+  
   const findBranchTimings = async (value) => {
     try {
       if (value) return await BranchDayTiming(value);
