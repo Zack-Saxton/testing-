@@ -199,7 +199,7 @@ export default function StatePage(props) {
                 </span>
                 <span>
                   <a
-                    href={"tel:+1" + branch_Details?.current?.PhoneNumber ? branch_Details?.current?.PhoneNumber : branchList && branchList[0]?.PhoneNumber }
+                    href={`tel:+1${branch_Details?.current?.PhoneNumber ? branch_Details?.current?.PhoneNumber : branchList && branchList[0]?.PhoneNumber}` }
                     className="branchPhoneNumber"
                   >
                     <PhoneIcon />
