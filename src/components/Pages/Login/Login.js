@@ -6,7 +6,6 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import Paper from "@material-ui/core/Paper";
-import { makeStyles } from "@material-ui/core/styles";
 import Switch from "@material-ui/core/Switch";
 import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
@@ -28,102 +27,19 @@ import {
 import { encryptAES } from "../../lib/Crypto";
 import { FormValidationRules } from "../../lib/FormValidationRule";
 import ScrollToTopOnMount from "../../Pages/ScrollToTop";
+import { useStylesLogin } from "./style"
 import "./Login.css";
 let formValidation = new FormValidationRules();
 const moment = require("moment");
 const moment_timezone = require("moment-timezone");
 let addVal = moment_timezone().tz("America/New_York").isDST() ? 4 : 5;
 
-//Styling part
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  termsText: {
-    fontSize: "0.938rem",
-  },
-  linkDesign: {
-    color: "#0F4EB3",
-    cursor: "pointer",
-    fontSize: "0.938rem"
-
-  },
-  paper: {
-    padding: "30px",
-    margin: "70px 0px",
-    borderRadius: "6px !important",
-    display: "flex",
-    flexDirection: "column",
-    backgroundColor: `rgba(255, 255, 255, .8)`,
-    color: theme.palette.text.secondary,
-    boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%),
-		0 6px 30px 5px rgb(0 0 0 / 12%),
-		0 8px 10px -7px rgb(0 0 0 / 20%)`,
-  },
-  heading: {
-    color: "white",
-    justify: "center",
-  },
-  checkbox: {
-    marginTop: "3%",
-    textAlign: "initial",
-    fontFamily: "'Muli', sans-serif !important",
-  },
-  title: {
-    fontSize: "25px",
-    textAlign: "center",
-    color: "#171717",
-    fontWeight: "400",
-  },
-  register: {
-    fontSize: "0.844rem",
-    textDecoration: "none",
-    color: "#0F4EB3",
-    fontFamily: "'Muli', sans-serif !important",
-    marginBottom: "0px",
-  },
-  mainGrid: {
-    boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%),
-		0 6px 30px 5px rgb(0 0 0 / 12%),
-		0 8px 10px -7px rgb(0 0 0 / 20%)`,
-    background: "#f5f2f2",
-  },
-  mainContentGrid: {
-    margin: "auto",
-    display: "flex",
-    alignItems: "center",
-    minHeight: "93vh",
-  },
-  loginButton: {
-    textAlign: "center",
-    margin: "5% 0 0 0",
-  },
-  emailGrid: {
-    lineHeight: "2",
-    margin: "0px 0px 30px 0px",
-  },
-  passwordGrid: {
-    margin: "0px 0px 30px 0px",
-  },
-  registerGrid: {
-    textAlign: "center",
-    width: "100%",
-    margin: "5% 0px 0px 0px",
-  },
-  loginHelpDialogHeading: {
-    fontSize: "25px",
-    textAlign: "center",
-    color: "#171717",
-    fontWeight: "400",
-  },
-}));
-
 //Yup validations for all the input fields
 const validationSchema = formValidation.getFormValidationRule("login");
 
 //Begin: Login page
 export default function Login(props) {
-  const classes = useStyles();
+  const classes = useStylesLogin();
   const navigate = useNavigate();
   const [ loginFailed, setLoginFailed ] = useState("");
   const [ loading, setLoading ] = useState(false);
@@ -288,10 +204,9 @@ export default function Login(props) {
                 </Typography>
 
                 <form onSubmit={ formik.handleSubmit }>
-                  <Grid style={ { paddingTop: "30px" } }>
+                  <Grid className={ classes.logInGrid }>
                     <Grid
-                      style={ { width: "100%" } }
-                      // direction="row"
+                      id="fullWidth"
                       className={ classes.emailGrid }
                     >
                       <EmailTextField
@@ -320,9 +235,7 @@ export default function Login(props) {
                     </Grid>
 
                     <Grid
-                      style={ { width: "100%" } }
-
-                    // direction="row"
+                      className="fullWidth"
                     >
                       <PasswordField
                         name="password"
@@ -395,8 +308,8 @@ export default function Login(props) {
                     </Grid>
                     <Grid className={ classes.registerGrid }>
                       <NavLink
+                        className="nonDecoratedLink"
                         to="/register"
-                        style={ { textDecoration: "none" } }
                       >
                         <p className={ classes.register }>
                           Sign in Help / Register
@@ -439,7 +352,7 @@ export default function Login(props) {
           <li>
             { " " }
             If you&apos;re a new user, click on
-            <NavLink to="/register" style={ { textDecoration: "none" } }>
+            <NavLink to="/register" className="nonDecoratedLink">
               <span id="helpLogin"> Sign in help/Register </span>
             </NavLink>{ " " }
             option and enter your registration details.
@@ -455,7 +368,7 @@ export default function Login(props) {
         </ul>
 
         <DialogActions
-          style={ { justifyContent: "center", marginBottom: "25px" } }
+          className="dialogActionsWrap"
         >
           <ButtonPrimary
             stylebutton='{"background": "", "color":"" }'

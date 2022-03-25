@@ -32,6 +32,19 @@
 	border-radius: 6px !important;
 	padding: 30px;
 }
+.fullWidth{
+  width: 100%;
+}
+#fullWidth{
+  width: 100%;
+}
+.nonDecoratedLink{
+	text-decoration: none;
+}
+.dialogActionsWrap{
+	justify-content: center !important;
+	margin-bottom: 25px;
+}
 @media (max-width: 600px) {
 	#mainContentBackground{
 		padding: 0px 25px;
