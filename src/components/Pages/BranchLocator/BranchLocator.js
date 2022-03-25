@@ -114,7 +114,7 @@ export default function BranchLocator() {
   };
   const MFButtonClick = (event) => {
     params.statename = event.target.innerText;
-    navigate(`/branch-locator/${ params.statename.replace(/\s+/g, '-').toLowerCase() }/`, { state: { value: params.statename } });
+    navigate(`/branch-locator/${ params.statename.replace(/\s+/g, '-').toLowerCase() }/`, { state: { value: params.statename, flag: true } });
   };
   
   const findBranchTimings = async (value) => {

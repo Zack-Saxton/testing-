@@ -34,7 +34,8 @@ import Map from "./BranchLocatorMap";
 export default function StatePage() {
   const classes = useStylesMyBranch();
   const location = useLocation();
-  const name = location.state.value;
+  let stateNamefromUrl = location?.pathname?.split('/');
+  const name = location?.state?.value ?? stateNamefromUrl[2];
   const directionsClass = useStylesConsumer();
   const refMapSection = useRef();
   const refSearch1 = useRef();
@@ -52,16 +53,15 @@ export default function StatePage() {
   const [ branchDistance, setBranchDistance ] = useState(() => Math.abs(parseInt(howManyBranchesforBranchLocatorPages?.stateBranchDistanceinMiles, 10)));
   const [ stateLongName, setStateLongName ] = useState();
   const [ stateShortName, setStateShortName ] = useState();
-  let stateSearchFlag = location.state.flag;
-
+  let stateSearchFlag = location?.state?.flag ?? false;
   //API call
   const getBranchLists = async (search_text) => {
     try {
       setLoading(true);
       let result = await BranchLocatorController(search_text, howManyBranchesforBranchLocatorPages.StatePage, stateSearchFlag );
-      location.state.flag = false;
+      stateSearchFlag = false;
       if (
-        result.status === 400 ||
+        result.status == 400 ||
         result.data.branchData[ 0 ].BranchNumber === "0001" ||
         result.data.branchData[ 0 ].BranchNumber === "1022"
       ) {
@@ -75,6 +75,7 @@ export default function StatePage() {
         );
         setStateLongName(result?.data?.stateLongName);
         setStateShortName(result?.data?.stateShortName);
+        console.log('[0]', result?.data?.branchData[0] )
         return result?.data?.branchData;
       }
     } catch (error) {
