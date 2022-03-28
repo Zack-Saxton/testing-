@@ -12,6 +12,7 @@
 
 #main {
   transition: 0.5s;
+  margin-left: 240px
 }
 
 @media (max-width:959px) {

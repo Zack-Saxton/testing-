@@ -195,7 +195,6 @@ export default function SideNav(refID) {
   let refApplyForLoanNav = useRef();
   let refClose2 = useRef();
   let refClose = useRef();
-  let refMainDiv = refID.refIdProp.referenceID.current
 
   const handleClickAway = () => {
     if (isMobileDevice) {
@@ -268,13 +267,13 @@ export default function SideNav(refID) {
       setChecked(true);
       setOpen(true);
       handleDeviceType(false);
-      refMainDiv.style.marginLeft = "240px";
+      document.getElementById("main").style.marginLeft = "240px";
       refCloseValue.style.display = "none";
     } else {
       setOpen(false);
       handleDeviceType(true);
     }
-  }, [ checked, check,refCloseValue,refMainDiv ]);
+  }, [ checked, check,refCloseValue ]);
 
   //Formating Phone Number
   function formatPhoneNumber(phoneNumber) {
@@ -350,9 +349,9 @@ export default function SideNav(refID) {
         child.style.display = "none";
       }
       if (!checked || !check) {
-        refMainDiv.style.marginLeft = "73px";
+        document.getElementById("main").style.marginLeft = "73px";
       } else {
-        refMainDiv.style.marginLeft = "240px";
+        document.getElementById("main").style.marginLeft = "240px";
       }
 
     }
@@ -385,9 +384,9 @@ export default function SideNav(refID) {
         child.style.display = "none";
       }
       if (!checked || !check) {
-        refMainDiv.style.marginLeft = "73px";
+        document.getElementById("main").style.marginLeft = "73px";
       } else {
-        refMainDiv.style.marginLeft = "240px";
+        document.getElementById("main").style.marginLeft = "240px";
       }
     }
   };
@@ -454,9 +453,9 @@ export default function SideNav(refID) {
   //Side bar enable and disable
   const handleChangeCheckbox = (event) => {
     if (event.target.checked === "false") {
-      refMainDiv.style.marginLeft = "73px";
+      document.getElementById("main").style.marginLeft = "73px";
     } else {
-      refMainDiv.style.marginLeft = "240px";
+      document.getElementById("main").style.marginLeft = "240px";
     }
     setChecked(event.target.checked);
   };
