@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import React, {useRef} from "react";
+import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from "react-toastify";
@@ -79,11 +79,10 @@ const loadGeneralUserComponent = (componentName) => {
 };
 
 const LoadPostComponent = (componentName) => {
-    let refMainDiv = useRef()
     return (
         
-        <div id="main"  ref = {refMainDiv} style={ { marginLeft: "240px" } }>
-            <PostLogin referenceID = {refMainDiv}>
+        <div id="main" >
+            <PostLogin >
                 { componentName }
             </PostLogin>
         </div>
