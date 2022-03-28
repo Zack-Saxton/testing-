@@ -103,17 +103,18 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error{
 
 }
 
+
 .formatHref{
     color: #0F4EB3;
     text-align: justify;
     text-decoration: underline;
 }
 
-#annualhousehold, #personalIncome, #spouseState , #spouseCity, #spouseZip{
+#annualHousehold, #personalIncome, #spouseState , #spouseCity, #spouseZip{
     padding-bottom: 15px !important;
 }
 
-#annualhousehold-label, #personalIncome-label, #spouseState-label, #spouseCity-label, #spouseZip-label {
+#annualHousehold-label, #personalIncome-label, #spouseState-label, #spouseCity-label, #spouseZip-label {
     font-size: 0.938rem !important;
     padding-bottom:10px !important ;
 }
