@@ -1038,6 +1038,7 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
 
         { disabledContent ? (
             <ButtonPrimary
+            id="autoPayButton"
             stylebutton='{"background": "", "color":"" }'
             onClick={ handleAutoPayConfirm }
             disabled={ loading }
