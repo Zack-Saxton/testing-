@@ -413,7 +413,7 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
   function handleDeleteSchedule() {
     setLoading(true);
     setShowCircularProgress(true);
-    isCard ? deletePayment(accntNo, refNumber) : deletePayment(accntNo, routingNumber);
+    isCard ? deletePayment(accntNo, refNumber, true) : deletePayment(accntNo, routingNumber, false);
     setRequiredDate("");
     setRequiredAmount("");
     setRequiredSelect("");
