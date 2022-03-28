@@ -354,15 +354,14 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
 
   //Autopay enable/disable switch
   const handleSwitchPayment = (event) => {
+    setDisabledContent(event.target.checked);
     if ( isDebit ) {
       setAutopaySubmitDisabled(true);
     } else {
-      setAutopaySubmitDisabled(checkAutoPay ? true : false);
+      setAutopaySubmitDisabled(checkAutoPay  === event.target.checked ? true : false);
     }
-    setDisabledContent(event.target.checked);
     if ( !autopaySubmitDisabled ) {
       setRequiredAutoPay("");
-      setAutopaySubmitDisabled(checkAutoPay ? false : true);
     }
   };
 
