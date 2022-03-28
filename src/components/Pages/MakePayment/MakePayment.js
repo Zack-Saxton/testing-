@@ -115,7 +115,7 @@ export default function MakePayment(props) {
     setPaymentMethod(payments);
     if (payments?.data?.error) {
       if (!toast.isActive("closedApplication")) {
-        toast.error("Error retrieving loan information -- Account is Closed", { toastId: "closedApplication" });
+        toast.error(globalMessages.Error_retieving_loan_info, { toastId: "closedApplication" });
         setLoading(false);
         setShowCircularProgress(false);
       }
@@ -175,7 +175,7 @@ export default function MakePayment(props) {
       ? result?.data?.deletePayment?.HasNoErrors
         ? toast.success(globalMessages.Auto_Payment_Mode_Disabled, { autoClose: 5000, })
         : toast.error(globalMessages.Failed_Payment_mode, { autoClose: 5000, })
-      : toast.error(result?.data?.message ? result?.data?.message : "Failed Payment mode", { autoClose: 5000, });
+      : toast.error(result?.data?.message ? result?.data?.message : globalMessages.Failed_Payment_mode, { autoClose: 5000, });
     if (result?.data?.deletePayment?.HasNoErrors) {
       refetch();
     }
@@ -195,7 +195,7 @@ export default function MakePayment(props) {
       ? result?.data?.paymentResult?.PaymentCompleted !== undefined
         ? toast.success(message, { autoClose: 5000 }) && refetch()
         : toast.error(globalMessages.Failed_Payment_mode, { autoClose: 5000 })
-      : toast.error(result?.data?.message ? result?.data?.message : "Failed Payment mode", { autoClose: 5000, });
+      : toast.error(result?.data?.message ? result?.data?.message : globalMessages.Failed_Payment_mode, { autoClose: 5000, });
     refetch();
   }
   //Disable scheduled payment
@@ -203,9 +203,9 @@ export default function MakePayment(props) {
     let result = await deleteScheduledPayment(disableScheduledPaymentAccountNo, disableScheduledPaymentRefNo, disableScheduledPaymentIsCard);
     result.status === 200
       ? result?.data?.deletePaymentMethod?.HasNoErrors
-        ? toast.success("Scheduled Payment cancelled", { autoClose: 5000, }) && refetch()
+        ? toast.success(globalMessages.Schedule_Payment_Cancelled, { autoClose: 5000, }) && refetch()
         : toast.error(globalMessages.Failed_Payment_mode, { autoClose: 5000, })
-      : toast.error(result?.data?.message ? result?.data?.message : "Failed Payment mode", { autoClose: 5000, });
+      : toast.error(result?.data?.message ? result?.data?.message : globalMessages.Failed_Payment_mode, { autoClose: 5000, });
   }
 
   // Disable auto payment while make payment
@@ -255,7 +255,7 @@ export default function MakePayment(props) {
     let hasSchedulePaymentActive = activeLoansData?.length
       ? activeLoansData[ 0 ]?.loanPaymentInformation?.hasScheduledPayment
       : false;
-    setPaymentTitle(hasSchedulePaymentActive ? "Scheduled Future Payment" : "Single Payment");
+    setPaymentTitle(hasSchedulePaymentActive ? globalMessages.Scheduled_Future_Payment : globalMessages.Single_Payment);
     if (accNo && activeLoansData) {
       let res = checkaccNo(activeLoansData, accNo);
       // if accno is not Valid
@@ -378,15 +378,15 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
 
   //Autopay submit
   const handleClickSubmit = () => {
-    if (nextDueDateCheck < todaysDate && !autopaySubmitDisabled) {
-      setRequiredAutoPay("Sorry, your account is delinquent. In order to make this payment type, contact your branch")
+    if (nextDueDateCheck < todaysDate && !autopaySubmit) {
+      setRequiredAutoPay(globalMessages.Sorry_Account_Delinquent)
       setOpen(false);
       return;
     }
     disabledContent
       ? card || card === 0
           ? setOpen(true)
-        : setRequiredSelect("Please select any accounts")
+        : setRequiredSelect(globalMessages.Please_Select_Any_Account)
       : setOpen(true);
   };
 
@@ -434,20 +434,23 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
   const handleSchedulePaymentClick = () => {
     if (!card) {
       refSelectPaymentOption.current.focus();
-      setRequiredSelect("Please select any account");
+      setRequiredSelect(globalMessages.Please_Select_Any_Account);
     } else if (!paymentAmount) {
       refPaymentAmount.current.focus();
-      setRequiredAmount("Please enter payment amount");
+      setRequiredAmount(globalMessages.Please_Enter_Payment_Amount);
     } else if (paymentAmount < 10) {
       refPaymentAmount.current.focus();
-      setRequiredAmount("Please enter minimum amount of $10");
+      setRequiredAmount(globalMessages.Please_Enter_Minimum_Amount);
     } else if (!paymentDatepicker) {
       refpaymentDatepicker.current.focus();
-      setRequiredDate("Please select any date");
+      setRequiredDate(globalMessages.Please_Select_Any_Date);
+    } else if (isDebit && Moment(paymentDatepicker).isAfter(Moment())) {
+      refpaymentDatepicker.current.focus();
+      setRequiredDate(globalMessages.For_Debit_Account);
     } else if (
       Moment(User.data.loanData[ 0 ].loanOriginationDate).isAfter(Moment())) {
       refPaymentAmount.current.focus();
-      setRequiredDate('You can begin making payments on ' + Moment(User.data.loanData[ 0 ].loanOriginationDate).format('MM/DD/YYYY'));
+      setRequiredDate(globalMessages.You_Can_Begin_Making_Payments_on + Moment(User.data.loanData[ 0 ].loanOriginationDate).format('MM/DD/YYYY'));
     } else {
       setOpenPayment(true);
     }
@@ -940,8 +943,8 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
         <DialogTitle id="autopayText">
           <Typography id="autoTxt" className={ classes.dialogHeading }>
             { !disabledContent
-              ? "Are you sure you want to disable auto pay?"
-              : "Auto Pay Confirmation" }
+              ? globalMessages.Are_You_Sure_Disable_Autopay
+              : globalMessages.Auto_Pay_Confirmation }
           </Typography>
           <>
             { disabledContent ? (
@@ -955,7 +958,7 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
                     <TableRow>
 
                       <TableCell className={ classes.autoPayTableheadrow } align="right">
-                        { !disabledContent ? "" : "Auto pay Amount: " }
+                        { !disabledContent ? "" : globalMessages.Auto_Pay_Amount }
                       </TableCell>
                       <TableCell align="left">
                         { !disabledContent
@@ -977,7 +980,7 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
                     <TableRow>
 
                       <TableCell align="right">
-                        { !disabledContent ? "" : "First Auto Pay Date:  " }
+                        { !disabledContent ? "" : globalMessages.First_Autopay_Date }
                       </TableCell>
                       <TableCell align="left">
                         { !disabledContent ? "" : Moment(paymentDate).format("MM/DD/YYYY") }
@@ -1043,7 +1046,7 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
             onClick={ handleAutoPayConfirm }
             disabled={ loading }
           >
-            { paymentIsScheduled === "yes" ? "Keep the future payment and turn on Autopay" : "Complete Auto Pay Setup" }
+            { paymentIsScheduled === "yes" ? globalMessages.Keep_Future_Add_Autopay : globalMessages.Complete_Autopay_Setup }
             <i
               className="fa fa-refresh fa-spin customSpinner"
               style={ {
