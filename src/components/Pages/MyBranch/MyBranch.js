@@ -55,7 +55,7 @@ export default function MyBranch() {
               My Branch
             </Typography>
             <Typography variant="h3" className={classes.heading}>
-              Need to find another branch location? Click
+              Need to find another branch location? Click&nbsp;
               <NavLink to="/branch-locator"
                 style={{ textDecoration: "none" }} >
                 here
