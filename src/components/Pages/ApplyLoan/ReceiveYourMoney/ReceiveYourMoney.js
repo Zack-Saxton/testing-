@@ -11,40 +11,7 @@ import { ButtonWithIcon } from "../../../FormsUI";
 import ScrollToTopOnMount from "../../ScrollToTop";
 import "../SelectOffer/SelectOffer.css";
 import TabSection from "../TabSection";
-
-//Initializing the Tab panel section
-function TabPanel(props) {
-	const { children, value, index, ...other } = props;
-
-	return (
-		<div
-			role="tabpanel"
-			hidden={ value !== index }
-			id={ `scrollable-auto-tab-panel-${ index }` }
-			aria-labelledby={ `scrollable-auto-tab-${ index }` }
-			{ ...other }
-		>
-			{ value === index && (
-				<Box>
-					<div>{ children }</div>
-				</Box>
-			) }
-		</div>
-	);
-}
-
-TabPanel.propTypes = {
-	children: PropTypes.node,
-	index: PropTypes.any.isRequired,
-	value: PropTypes.any.isRequired,
-};
-
-function a11yProps(index) {
-	return {
-		id: `scrollable-auto-tab-${ index }`,
-		"aria-controls": `scrollable-auto-tab-panel-${ index }`,
-	};
-}
+import TabPanel from "../TabPanel"
 
 //Styling part
 const useStyles = makeStyles((theme) => ({
@@ -97,6 +64,25 @@ const useStyles = makeStyles((theme) => ({
 		fontSize: "14px",
 		color: "#171717",
 	},
+	gridStyle: {
+		width: "100%", 
+		marginBottom: "20px"
+	},
+	textDecor: {
+		textDecoration: "none"
+	},
+	tabPanelStyle: {
+		paddingBottom: "300px", 
+		marginTop: "10px"
+	},
+	paraTagStyle: {
+		textAlign: "justify", 
+		fontSize: "0.938rem", 
+		lineHeight: "1.5"
+	},
+	fullWidth: {
+		width: "100%"
+	}
 }));
 
 // Initializing Recive your money component
@@ -113,7 +99,7 @@ export default function ReceiveYourMoney() {
 			<ScrollToTopOnMount />
 			<Grid
 				container
-				justifyContent={ "center" }
+				justifyContent="center"
 				className={ classes.centerGrid }
 			>
 				<Grid
@@ -121,12 +107,12 @@ export default function ReceiveYourMoney() {
 					xs={ 12 }
 					container
 					direction="row"
-					style={ { width: "100%", marginBottom: "20px" } }
+					className={classes.gridStyle}
 				>
 					<Typography className={ classes.heading } variant="h3">
 						<NavLink
 							to="/customers/accountOverview"
-							style={ { textDecoration: "none" } }
+							className={classes.textDecor}
 						>
 							<ButtonWithIcon
 								icon="arrow_backwardIcon"
@@ -144,12 +130,12 @@ export default function ReceiveYourMoney() {
 				</Grid>
 				<Grid item xs={ 12 }>
 					<TabSection value={ value } handleChange={ handleChange } classes={ classes } ay={ 3 } />
-					<TabPanel value={ value } index={ 3 } style={ { paddingBottom: "300px", marginTop: "10px" } }>
-						<Grid item xs={ 12 } style={ { width: "100%" } } container direction="row">
+					<TabPanel value={ value } index={ 3 } className={classes.tabPanelStyle}>
+						<Grid item xs={ 12 } className={classes.fullWidth} container direction="row">
 							<Paper className={ classes.paper }>
 								<div>
 									<h3>Your Application is Complete</h3>
-									<p style={ { textAlign: "justify", fontSize: "0.938rem", lineHeight: "1.5" } }>
+									<p className={classes.paraTagStyle}>
 										<b>
 											Thank you for submitting your verification information!
 										</b>

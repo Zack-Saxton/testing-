@@ -75,7 +75,7 @@ export default function BankAccountVerification(props) {
 	const [ invalidRN, setInvalidRN ] = useState(false);
 	const [ resetUpload, setResetUpload ] = useState(false);
 	const [ openAutoPayAuth, setOpenAutoPayAuth ] = useState(false);
-	function getElementByText(text, ctx) {
+	function getValueByLable(text, ctx) {
 		return document.evaluate("//*[.='" + text + "']",
 			ctx || document, null, XPathResult.ANY_TYPE, null).iterateNext();
 	}
@@ -84,7 +84,7 @@ export default function BankAccountVerification(props) {
 			toast.success(messages?.document?.uploadSuccess);
 			setFileUploadSuccess(true);
 			props.next();
-			getElementByText("Income Verification").scrollIntoView();
+			getValueByLable("Income Verification").scrollIntoView();
 		} else {
 			props.setLoadingFlag(false);
 			toast.error(messages?.document?.upoloadFailed);
@@ -113,7 +113,7 @@ export default function BankAccountVerification(props) {
 				repayment: paymnetMode,
 			};
 			if (verifyRequired && !fileUploadSuccess) {
-				toast.error("please upload the document");
+				toast.error(messages?.bankAccountVerification?.pleaseUploadDoc);
 				props.setLoadingFlag(false);
 			}
 			else {
