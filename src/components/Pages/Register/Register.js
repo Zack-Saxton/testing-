@@ -7,9 +7,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import axios from "axios";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import { useQueryClient } from 'react-query';
@@ -19,6 +17,7 @@ import LoginController, { RegisterController } from "../../Controllers/LoginCont
 import LogoutController from "../../Controllers/LogoutController";
 import { RecaptchaValidationController } from "../../Controllers/RecaptchaController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
+import getClientIp from "../../Controllers/CommonController"
 import {
   Button,
   ButtonPrimary,
@@ -33,68 +32,10 @@ import Recaptcha from "../../Layout/Recaptcha/GenerateRecaptcha";
 import { encryptAES } from "../../lib/Crypto";
 import ErrorLogger from "../../lib/ErrorLogger";
 import { FormValidationRules } from "../../lib/FormValidationRule";
+import { useStylesRegister } from "./Style"
 import "./Register.css";
 
 let formValidation = new FormValidationRules();
-
-//Styling part
-const useStyles = makeStyles((theme) => ({
-  mainContentBackground: {
-    backgroundColor:"#f6f6f6"
-  },
-  root: {
-    flexGrow: 1,
-  },
-  mainGrid: {
-    boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%),
-    0 6px 30px 5px rgb(0 0 0 / 12%),
-    0 8px 10px -7px rgb(0 0 0 / 20%)`,
-    background: "#f5f2f2",
-  },
-  title: {
-    fontSize: "25px",
-    textAlign: "center",
-    fontWeight: 400,
-    color: "black",
-  },
-  subtitle: {
-    textAlign: "center",
-  },
-  passwordTitle: {
-    fontSize: "14px",
-    textAlign: "justify",
-  },
-  dobTitle: {
-    fontSize: "12px",
-    textAlign: "justify",
-  },
-  paper: {
-    padding: theme.spacing(3),
-    borderRadius: "6px !important",
-    display: "flex",
-    flexDirection: "column",
-    backgroundColor: `rgba(255, 255, 255, .8)`,
-    color: theme.palette.text.secondary,
-    boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%),
-  0 6px 30px 5px rgb(0 0 0 / 12%),
-  0 8px 10px -7px rgb(0 0 0 / 20%)`,
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-  signInButtonGrid: {
-    textAlign: "center",
-    paddingTop: "20px!important",
-  },
-  gridInsideBox: {
-    paddingTop: "30px",
-    paddingBottom: "40px"
-  }
-}));
 
 //Yup validations for all the input fields
 const validationSchema = formValidation.getFormValidationRule("");
@@ -102,7 +43,7 @@ const validationSchema = formValidation.getFormValidationRule("");
 //Begin: Login page
 export default function Register() {
 
-  const classes = useStyles();
+  const classes = useStylesRegister();
   const [ validZip, setValidZip ] = useState(true);
   const [ state, setState ] = useState("");
   const [ city, setCity ] = useState("");
@@ -118,10 +59,7 @@ export default function Register() {
   window.onReCaptchaSuccess = async function () {
     try {
       let grecaptchaResponse = grecaptcha.getResponse();
-      let ipResponse = await fetch("https://www.cloudflare.com/cdn-cgi/trace");
-      ipResponse = await ipResponse.text();
-      let ipRegex = /\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/;
-      let ipAddress = ipResponse.match(ipRegex)[ 0 ] ?? '127.0.0.1';
+      let ipAddress = await getClientIp();
       let recaptchaVerifyResponse = await RecaptchaValidationController(grecaptchaResponse, ipAddress);
 
       if (recaptchaVerifyResponse.status === 200) {
@@ -372,10 +310,10 @@ export default function Register() {
                     spacing={ 4 }
                   >
                     <Grid
+                      className="fullWidth"
                       item
                       xs={ 12 }
                       sm={ 6 }
-                      style={ { width: "100%" } }
                       container
                       direction="row"
                     >
@@ -400,10 +338,10 @@ export default function Register() {
                     </Grid>
 
                     <Grid
+                      className="fullWidth"
                       item
                       xs={ 12 }
                       sm={ 6 }
-                      style={ { width: "100%" } }
                       container
                       direction="row"
                     >
@@ -430,9 +368,9 @@ export default function Register() {
                     </Grid>
 
                     <Grid
+                      className="fullWidth"
                       item
                       xs={ 12 }
-                      style={ { width: "100%" } }
                       container
                       direction="row"
                     >
@@ -523,9 +461,9 @@ export default function Register() {
                     </Grid>
 
                     <Grid
+                      className="fullWidth"
                       item
                       xs={ 12 }
-                      style={ { width: "100%" } }
                       container
                       direction="row"
                     >
@@ -556,9 +494,9 @@ export default function Register() {
                       </p>
                     </Grid>
                     <Grid
+                      className="fullWidth"
                       item
                       xs={ 12 }
-                      style={ { width: "100%" } }
                       container
                       direction="row"
                     >

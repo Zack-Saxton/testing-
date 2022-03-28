@@ -23,10 +23,10 @@ const DatePickerWrapper = ({ name, format, label, refId,
 	const handleDateChange = (date) => {
 		setSelectedDate(date);
 	};
-	const d = new Date();
-	const year = d.getFullYear();
-	const month = d.getMonth();
-	const day = d.getDate();
+	const dateNow = new Date();
+	const year = dateNow.getFullYear();
+	const month = dateNow.getMonth();
+	const day = dateNow.getDate();
 	const minDate = new Date(year - minyear, month, day);
 
 	return (
@@ -44,14 +44,9 @@ const DatePickerWrapper = ({ name, format, label, refId,
 					minDate={ minDate }
 					maxDate={ new Date(maxdate) }
 					placeholder={ placeholder }
-
-					KeyboardButtonProps={ {
-						"aria-label": "change date",
-					} }
-
+					KeyboardButtonProps={ {	"aria-label": "change date"} }
 					{ ...otherProps }
 					inputProps={ { "data-test-id": "datePicker", ref: refId } }
-
 				/>
 			</Grid>
 		</MuiPickersUtilsProvider>

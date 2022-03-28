@@ -15,24 +15,23 @@ import PictureAsPdfIcon from "@material-ui/icons/PictureAsPdf";
 import { jsPDF } from "jspdf";
 import "jspdf-autotable";
 import Moment from "moment";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { CSVLink } from "react-csv";
-import { useQuery } from "react-query";
 import { NavLink } from "react-router-dom";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
-import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import { ButtonPrimary, ButtonWithIcon } from "../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
 import PaymentHistoryTable from "./PaymentRecords";
 import { useStylesPaymenthistory } from "./Style";
+import { LoanAccount } from "../../../contexts/LoanAccount"
 import "./Style.css";
 
 //Main function
 export default function PaymentHistory() {
   //Material UI css class
   const classes = useStylesPaymenthistory();
+  const { selectedLoanAccount } = useContext(LoanAccount);
   const [ anchorEl, setAnchorEl ] = useState(null);
-  const [ fileName, setfileName ] = useState(null);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -43,27 +42,18 @@ export default function PaymentHistory() {
   };
 
   //Api implementation for table
-  const { data: paymentHistoryStatus } = useQuery(
-    "loan-data",
-    usrAccountDetails
-  );
   const [ historyOfLoans, setHistoryOfLoans ] = useState([]);
 
   useEffect(() => {
-    if (paymentHistoryStatus) {
-      setfileName(
-        paymentHistoryStatus?.data?.activeLoans?.length
-          ? paymentHistoryStatus.data.activeLoans[ 0 ].loanDetails.AccountNumber
-          : null
-      );
+    if (selectedLoanAccount) {
       setHistoryOfLoans(
-        paymentHistoryStatus?.data?.loanHistory?.length
-          ? paymentHistoryStatus.data.loanHistory[ 0 ].AppAccountHistory
+        selectedLoanAccount?.AppAccountHistory?.length
+          ? selectedLoanAccount.AppAccountHistory
           : []
       );
     }
     return null;
-  }, [ paymentHistoryStatus ]);
+  }, [ selectedLoanAccount ]);
 
   const headersCSV = [
     { label: "Date", key: "TransactionDate" },
@@ -114,7 +104,7 @@ export default function PaymentHistory() {
       currencyFormat(Math.abs(dataItem.RunningPrincipalBalance)),
     ]);
     document.setFontSize(15);
-    document.text(`Active Loan / Payment History(${ fileName })`, 40, 30);
+    document.text(`Active Loan / Payment History(${ selectedLoanAccount?.accountNumber })`, 40, 30);
     let content = {
       startY: 50,
       head: headerPDF,
@@ -122,7 +112,7 @@ export default function PaymentHistory() {
       theme: "plain",
     };
     document.autoTable(content);
-    document.save("" + fileName + ".pdf");
+    document.save(`${ selectedLoanAccount?.accountNumber }.pdf`);
     setAnchorEl(null);
   };
 
@@ -181,9 +171,9 @@ export default function PaymentHistory() {
                 />
               </NavLink>{ " " }
               Active Loan{ " " }
-              { fileName ? (
+              { selectedLoanAccount ? (
                 <span style={ { fontSize: "70%", fontWeight: "100" } }>
-                  ({ fileName })
+                  ({ selectedLoanAccount.accountNumber })
                 </span>
               ) : ("") }
               { " " }
@@ -212,7 +202,7 @@ export default function PaymentHistory() {
                   style={ { textDecoration: "none", color: "#757575" } }
                   onClick={ handleClose }
                   headers={ headersCSV }
-                  filename={ "" + fileName + ".csv" }
+                  filename={ "" + selectedLoanAccount?.accountNumber + ".csv" }
                   data={ dataCSV }
                 >
                   <InsertDriveFileIcon

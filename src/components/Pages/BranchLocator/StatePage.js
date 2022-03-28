@@ -34,7 +34,8 @@ import Map from "./BranchLocatorMap";
 export default function StatePage() {
   const classes = useStylesMyBranch();
   const location = useLocation();
-  const name = location.state.value;
+  let stateNamefromUrl = location?.pathname?.split('/');
+  const name = location?.state?.value ?? stateNamefromUrl[2];
   const directionsClass = useStylesConsumer();
   const refMapSection = useRef();
   const refSearch1 = useRef();
@@ -52,16 +53,15 @@ export default function StatePage() {
   const [ branchDistance, setBranchDistance ] = useState(() => Math.abs(parseInt(howManyBranchesforBranchLocatorPages?.stateBranchDistanceinMiles, 10)));
   const [ stateLongName, setStateLongName ] = useState();
   const [ stateShortName, setStateShortName ] = useState();
-  let stateSearchFlag = location.state.flag;
-
+  let stateSearchFlag = location?.state?.flag ?? false;
   //API call
   const getBranchLists = async (search_text) => {
     try {
       setLoading(true);
       let result = await BranchLocatorController(search_text, howManyBranchesforBranchLocatorPages.StatePage, stateSearchFlag );
-      location.state.flag = false;
+      stateSearchFlag = false;
       if (
-        result.status === 400 ||
+        result.status == 400 ||
         result.data.branchData[ 0 ].BranchNumber === "0001" ||
         result.data.branchData[ 0 ].BranchNumber === "1022"
       ) {
@@ -75,6 +75,7 @@ export default function StatePage() {
         );
         setStateLongName(result?.data?.stateLongName);
         setStateShortName(result?.data?.stateShortName);
+        console.log('[0]', result?.data?.branchData[0] )
         return result?.data?.branchData;
       }
     } catch (error) {
@@ -157,7 +158,7 @@ export default function StatePage() {
         container
         justifyContent={ "center" }
       >
-        <Grid className="branchLayoutGrid" container style={ { width: "100%" } }>
+        <Grid className="branchLayoutGrid" container>
           <Grid className="branchImage" item md={ 7 } sm={ 12 } xs={ 12 }>
             <img
               className="mobileImage"
@@ -168,7 +169,6 @@ export default function StatePage() {
           </Grid>
           <Grid
             className="greyBackground mobilePadding"
-            style={ { padding: "24px 0px" } }
             item
             md={ 5 }
             sm={ 12 }
@@ -179,7 +179,6 @@ export default function StatePage() {
               separator={
                 <NavigateNextIcon
                   className="navigateNextIcon"
-                  style={ { color: "#171717" } }
                 />
               }
               aria-label="breadcrumb"
@@ -206,13 +205,12 @@ export default function StatePage() {
                 <Grid id="findBranchGrid">
                   <SearchIcon
                     className="searchIcon"
-                    style={ { color: "white" } }
                   />
                   <PlacesAutocomplete
+                    id="addressOne"
                     value={ address1 }
                     onChange={ setAddress1 }
                     onSelect={ handleSelect1 }
-                    style={ { width: "50%" } }
                   >
                     { ({
                       getInputProps,
@@ -289,7 +287,6 @@ export default function StatePage() {
           >
             <h3 className="mapTopHeading">Branches Near You</h3>
             <Grid
-              style={ { padding: "0px" } }
               id="mapGridWrap"
               item
               xs={ 12 }
@@ -383,13 +380,12 @@ export default function StatePage() {
                 </p>
                 <SearchIcon
                   className="searchIconBottomTwo"
-                  style={ { color: "white" } }
                 />
                 <PlacesAutocomplete
+                  id="addressOne"
                   value={ address2 }
                   onChange={ setAddress2 }
                   onSelect={ handleSelect2 }
-                  style={ { width: "50%" } }
                 >
                   { ({
                     getInputProps,
@@ -449,9 +445,6 @@ export default function StatePage() {
           ) : (
             <Grid
               id="branchLists"
-              style={ {
-                display: "flex"
-              } }
             >
               <Grid container className="addressList">
                 { branchList ? (
@@ -485,8 +478,8 @@ export default function StatePage() {
                           <p className={ classes.phoneNumber }>
                             <PhoneIcon />
                             <a
+                              className="blueColorLink"
                               href={ "tel:+1" + item?.PhoneNumber }
-                              style={ { color: "#214476" } }
                             >
                               { " " }
                               { item?.PhoneNumber }

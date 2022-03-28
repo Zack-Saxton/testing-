@@ -11,6 +11,7 @@ import Cookies from "js-cookie";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { useQuery } from 'react-query';
+import { toast } from "react-toastify";
 import * as yup from "yup";
 import usrAccountDetails from "../../../Controllers/AccountOverviewController";
 import { OTPInitialSubmission, verifyPasscode } from "../../../Controllers/ApplyForLoanController";
@@ -122,16 +123,20 @@ export default function PhoneVerification(props) {
 	};
 
 	const onNextClick = async () => {
-		let res = await verifyPasscode(passcode);
-		if (res?.data?.phone_verification) {
-			setError("");
-			props.next();
-		} else {
-			setError(
-				messages.phoneVerification
-					.verificationNotFound
-			);
-		}
+		if(!passcode){
+			toast.error("Enter Passcode");
+		}else{
+			let res = await verifyPasscode(passcode);
+			if (res?.data?.phone_verification) {
+				setError("");
+				props.next();
+			} else {
+				setError(
+					messages.phoneVerification
+						.verificationNotFound
+				);
+			}
+		}		
 	};
 
 	const skipPhoneVerification = (event) => {

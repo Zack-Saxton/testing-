@@ -130,7 +130,7 @@ export default function LoanDocument() {
         className={ classes.centerGrid }
       >
         <Grid
-          style={ { paddingBottom: "10px" } }
+          className="loanDocumentGrid"
           container
           direction="row"
           item
@@ -160,7 +160,7 @@ export default function LoanDocument() {
           </Grid>
         </Grid>
 
-        <Grid item xs={ 12 } style={ { paddingTop: "10px", paddingBottom: "30%" } }>
+        <Grid className="loanDocumentWrap" item xs={ 12 }>
           <Paper className={ classes.paper }>
             { !loanDocumentData ? (
               <TableContainer>
@@ -192,10 +192,10 @@ export default function LoanDocument() {
             ) }
 
             <Grid
+              className="selectDocument"
               item
               xs={ 12 }
               sm={ 3 }
-              style={ { paddingTop: "10px", width: "225px" } }
             >
               <Select
                 id="selectDoccumentWrap"
@@ -210,7 +210,7 @@ export default function LoanDocument() {
               />
             </Grid>
             <Grid container direction="row">
-              <Grid item xs={ 12 } sm={ 3 } style={ { paddingTop: "20px" } }>
+              <Grid className="documentInput" item xs={ 12 } sm={ 3 }>
                 <input
                   accept="image/png, image/jpeg, application/pdf, image/jpg "
                   multiple
@@ -241,10 +241,10 @@ export default function LoanDocument() {
                   />
                 </Button>
               </Grid>
-              <Grid item xs={ 12 } sm={ 4 } style={ { paddingTop: "10px" } }></Grid>
+              <Grid className="gridPadding" item xs={ 12 } sm={ 4 }></Grid>
             </Grid>
             <Grid container direction="row">
-              <Grid item xs={ 12 } style={ { paddingTop: "10px" } }>
+              <Grid className="gridPadding" item xs={ 12 }>
                 <span style={ { marginLeft: "2px" } }>{ loading ? "Uploading..." : label }</span>
               </Grid>
             </Grid>

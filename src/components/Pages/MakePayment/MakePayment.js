@@ -70,6 +70,7 @@ export default function MakePayment(props) {
   const [ paymentDate, setPaymentDate ] = useState(null);
   const [ paymentDatepicker, setPaymentDatepicker ] = useState(new Date());
   const [ requiredSelect, setRequiredSelect ] = useState("");
+  const [ requiredAutoPay, setRequiredAutoPay ] = useState("");  
   const [ requiredDate, setRequiredDate ] = useState("");
   const [ requiredAmount, setRequiredAmount ] = useState("");
   const [ showCircularProgress, setShowCircularProgress ] = useState(false);
@@ -77,10 +78,11 @@ export default function MakePayment(props) {
   const [ accountDetails ] = useState(null);
   const [ totalPaymentAmount, setTotalPaymentAmount ] = useState(null);
   const [ checkAutoPay, setCheckAutoPay ] = useState(true);
-  const [ autopaySubmit, setAutopaySubmit ] = useState(true);
+  const [ autopaySubmitDisabled, setAutopaySubmitDisabled ] = useState(true);
+  const [ autopaySwitchDisabled, setAutopaySwitchDisabled ] = useState(false);
   const [ scheduleDate, setScheduleDate ] = useState(new Date());
   const [ payoff, setPayoff ] = useState(false);
-  const [ calendarDisabled, setCalendarDisabled ] = useState(true);
+  const [ calendarDisabled, setCalendarDisabled ] = useState(false);
   const [ checkPaymentInformation, setCheckPaymentInformation ] = useState(false);
   const [ activeLoansData, setActiveLoansData ] = useState([]);
   const [ checkCard, setCheckCard ] = useState(false);
@@ -94,6 +96,8 @@ export default function MakePayment(props) {
   const { data: holidayCalenderData } = useQuery("holiday-calendar", HolidayCalender, { refetchOnMount: false, });
   const [ paymentTitle, setPaymentTitle ] = useState("Single Payment");
 
+  let nextDueDateCheck = new Date();
+
   useEffect(() => {
     if (payments?.data?.paymentOptions) {
       setCheckCard(payments.data.paymentOptions.length && payments.data.paymentOptions[ 0 ].CardType);
@@ -103,7 +107,7 @@ export default function MakePayment(props) {
   }, [ payments, User ]);
 
   useEffect(() => {
-    setPaymentDatepicker(defaultPaymentCard || checkCard ? new Date() : scheduleDate);
+    setPaymentDatepicker(scheduleDate ? scheduleDate : new Date() );
   }, [ checkCard, scheduleDate, defaultPaymentCard ]);
 
   //API Request for Payment methods
@@ -118,14 +122,15 @@ export default function MakePayment(props) {
     } else {
       //get default card
       let defaultBank = payments?.data?.defaultBank;
-      let cardFound = await defaultCardCheck(payments?.data?.ACHMethods, "ACH", defaultBank);
-      if (cardFound) {
+      let isACH = await defaultCardCheck(payments?.data?.ACHMethods, "ACH", defaultBank);
+      if (isACH) {
         setDefaultPaymentCard(false);
       } else {
-        //set default card ACHMethods
-        const cardNotFound = await defaultCardCheck(payments?.data?.CardMethods, "card", defaultBank);
-        if (cardNotFound) {
+        //set default card 
+        const cardFound = await defaultCardCheck(payments?.data?.CardMethods, "card", defaultBank);
+        if (cardFound) { 
           setDefaultPaymentCard(true);
+          setAutopaySwitchDisabled(true);
         }
       }
     }
@@ -143,7 +148,6 @@ export default function MakePayment(props) {
         } else {
           setCard(data.ProfileId);
           setIsDebit(true);
-          setCalendarDisabled(true);
         }
         checkNickName = true;
         return checkNickName;
@@ -232,10 +236,10 @@ export default function MakePayment(props) {
         setCheckAutoPay(data?.loanPaymentInformation?.appRecurringACHPayment ? true : false);
         setPaymentDate(Moment(data?.loanPaymentInformation?.accountDetails?.NextDueDate).format("YYYY-MM-DD"));
         let scheduledDate = data?.loanPaymentInformation?.hasScheduledPayment ? Moment(data?.loanPaymentInformation?.scheduledPayments[ 0 ]?.PaymentDate).format("MM/DD/YYYY") : new Date();
-        setPaymentDatepicker(defaultPaymentCard ? new Date() : scheduledDate);
+        setPaymentDatepicker(scheduledDate ? scheduledDate : new Date() );
         setScheduleDate(scheduledDate);
         setLoading(false);
-        setAutopaySubmit(true);
+        setAutopaySubmitDisabled(true);
         setShowCircularProgress(isFetching);
         setCheckPaymentInformation(data?.loanPaymentInformation?.errorMessage);
         return true;
@@ -276,10 +280,10 @@ export default function MakePayment(props) {
       setCheckAutoPay(latestLoan?.length && latestLoan[ 0 ]?.loanPaymentInformation?.appRecurringACHPayment ? true : false);
       setPaymentDate(latestLoan?.length ? Moment(latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails?.NextDueDate).format("YYYY-MM-DD") : "NONE");
       let scheduledDate = latestLoan?.length && latestLoan[ 0 ]?.loanPaymentInformation?.hasScheduledPayment ? Moment(latestLoan[ 0 ].loanPaymentInformation.scheduledPayments[ 0 ]?.PaymentDate).format("MM/DD/YYYY") : new Date();
-      setPaymentDatepicker(defaultPaymentCard ? new Date() : scheduledDate);
+      setPaymentDatepicker(scheduledDate ? scheduledDate : new Date() );
       setScheduleDate(scheduledDate);
       setLoading(false);
-      setAutopaySubmit(true);
+      setAutopaySubmitDisabled(true);
       setShowCircularProgress(isFetching);
       setCheckPaymentInformation(latestLoan?.length && latestLoan[ 0 ]?.loanPaymentInformation?.errorMessage);
     }
@@ -303,7 +307,10 @@ export default function MakePayment(props) {
     label: `${ pdata.CardType } (${ pdata.OwnerName }) (****${ pdata.LastFour })`
   }));
 
-  const paymentOptions = paymentListAch ? JSON.stringify(paymentListAch.concat(paymentListCard)) : "[]";
+const paymentOptions = paymentListAch ? JSON.stringify(paymentListAch.concat(paymentListCard)) : "[]";
+if  (latestLoanData?.[0]?.loanData?.dueDate) {
+  nextDueDateCheck = Moment(latestLoanData?.[0]?.loanData?.dueDate).format("YYYYMMDD");
+};
 
   //Storing the routingNumber,refNumber and SchedulePayments details
   let hasSchedulePayment = latestLoanData?.length ? latestLoanData[ 0 ]?.loanPaymentInformation?.hasScheduledPayment : false;
@@ -331,21 +338,32 @@ export default function MakePayment(props) {
         setCalendarDisabled(false);
         setPayoff(false);
       }
-    } else {
+      setAutopaySwitchDisabled(false);
+      setAutopaySubmitDisabled(checkAutoPay === disabledContent ? true : false);
+    } else { //isDebit
       setIsDebit(true);
       setCheckCard(true);
-      setCalendarDisabled(true);
-      setPaymentDatepicker(new Date());
+      setAutopaySubmitDisabled(true);
+      setAutopaySwitchDisabled(true);
     }
     //true
     setRequiredSelect("");
   };
+  let todaysDate = new Date();
+  todaysDate = Moment(todaysDate).format('YYYYMMDD')
 
   //Autopay enable/disable switch
   const handleSwitchPayment = (event) => {
-    setAutopaySubmit(checkAutoPay === event.target.checked ? true : false);
-    
+    if ( isDebit ) {
+      setAutopaySubmitDisabled(true);
+    } else {
+      setAutopaySubmitDisabled(checkAutoPay ? true : false);
+    }
     setDisabledContent(event.target.checked);
+    if ( !autopaySubmitDisabled ) {
+      setRequiredAutoPay("");
+      setAutopaySubmitDisabled(checkAutoPay ? false : true);
+    }
   };
 
   let accountInfo = {};
@@ -361,11 +379,14 @@ export default function MakePayment(props) {
 
   //Autopay submit
   const handleClickSubmit = () => {
+    if (nextDueDateCheck < todaysDate && !autopaySubmitDisabled) {
+      setRequiredAutoPay("Sorry, your account is delinquent. In order to make this payment type, contact your branch")
+      setOpen(false);
+      return;
+    }
     disabledContent
       ? card || card === 0
-        ? !isDebit
           ? setOpen(true)
-          : setRequiredSelect("Please select a saving or checking account")
         : setRequiredSelect("Please select any accounts")
       : setOpen(true);
   };
@@ -424,9 +445,6 @@ export default function MakePayment(props) {
     } else if (!paymentDatepicker) {
       refpaymentDatepicker.current.focus();
       setRequiredDate("Please select any date");
-    } else if (isDebit && Moment(paymentDatepicker).isAfter(Moment())) {
-      refpaymentDatepicker.current.focus();
-      setRequiredDate("For debit account, please select today's date");
     } else if (
       Moment(User.data.loanData[ 0 ].loanOriginationDate).isAfter(Moment())) {
       refPaymentAmount.current.focus();
@@ -511,21 +529,12 @@ export default function MakePayment(props) {
     setRequiredAmount("");
   };
   let paymentIsScheduled = hasSchedulePayment ? "yes" : "no";
-  let chosenDate = new Date(paymentDatepicker);
-  let todaysDate = new Date();
-  let todaysDay = todaysDate.getDate();
-  let todaysMonth = todaysDate.getMonth();
-  let todaysYear = todaysDate.getFullYear();
-  let chosenDay = chosenDate.getDate();
-  let chosenMonth = chosenDate.getMonth();
-  let chosenYear = chosenDate.getFullYear();
-  let thisDay = new Date(todaysYear, todaysMonth, todaysDay);
-  let pickedDate = new Date(chosenYear, chosenMonth, chosenDay);
+  let pickedDate = new Date(paymentDatepicker);
   let isFutureDate = "no";
-  if (pickedDate > thisDay) {
+  if (Moment(pickedDate).format('YYYYMMDD') > todaysDate) {
     isFutureDate = "yes";
   }
-  //View
+//View
   return (
     <div>
       <CheckLoginStatus />
@@ -722,6 +731,18 @@ export default function MakePayment(props) {
                                 : "Auto Pay - Off" }
                             </small>
                           </p>
+                          <p
+                      className={
+                        requiredAutoPay !== ""
+                          ? "showError add Pad"
+                          : "hideError"
+                      }
+                      data-testid="subtitle"
+                    >
+                      { " " }
+                      { requiredAutoPay }.
+                    </p>
+
                           <p style={ { margin: "auto" } }>
                             <small style={ { color: "#575757" } }>
                               Choose auto pay to make payments of ${ totalPaymentAmount } on your next due date
@@ -736,6 +757,7 @@ export default function MakePayment(props) {
                                 value={ disabledContent }
                                 inputProps={ { "data-test-id": "switch" } }
                                 color="primary"
+                                disabled={ autopaySwitchDisabled }
                               />
                             }
                             labelPlacement="end"
@@ -766,7 +788,7 @@ export default function MakePayment(props) {
                               stylebutton='{"background": "", "color":"" }'
                               id="submitBtn"
                               onClick={ handleClickSubmit }
-                              disabled={ autopaySubmit }
+                              disabled={ autopaySubmitDisabled }
                             >
                               Submit
                             </ButtonPrimary>
@@ -967,7 +989,7 @@ export default function MakePayment(props) {
                 </Table>
               </TableContainer>
             ) : (
-              ""
+              null
             ) }
             {/* </Typography> */ }
           </>
@@ -1011,7 +1033,7 @@ export default function MakePayment(props) {
             />
           </ButtonPrimary>
            ) : (  
-             ""
+             null
           ) }
 
 
@@ -1032,7 +1054,7 @@ export default function MakePayment(props) {
             />
           </ButtonPrimary>
            ) : (  
-             ""
+             null
           ) }
 
           { disabledContent && paymentIsScheduled === "yes"  ? (
@@ -1051,7 +1073,7 @@ export default function MakePayment(props) {
               />
             </ButtonSecondary>
           ) : (
-            ""
+            null
           ) }
         </DialogActions>
       </Dialog>
@@ -1107,7 +1129,7 @@ export default function MakePayment(props) {
                       align="left"
                     ></TableCell>
                   </TableRow>
-                ) : ""
+                ) : null
                 }
                 { isDebit ? (
                   <TableRow>
@@ -1125,10 +1147,10 @@ export default function MakePayment(props) {
                       align="left"
                     ></TableCell>
                   </TableRow>
-                ) : ""
+                ) : null
                 }
                 <TableRow>
-                  <TableCell
+                <TableCell
                     className={ classes.tableheadrow }
                     align="left"
                     width="20%"
@@ -1199,7 +1221,7 @@ export default function MakePayment(props) {
               />
             </ButtonPrimary>
           ) : (
-            ""
+            null
           ) }
 
           { paymentIsScheduled === "yes" ? (
@@ -1218,7 +1240,7 @@ export default function MakePayment(props) {
               />
             </ButtonPrimary>
           ) : (
-            ""
+            null
           ) }
 
           { paymentIsScheduled === "yes" && isFutureDate === "no" ? (
@@ -1237,7 +1259,7 @@ export default function MakePayment(props) {
               />
             </ButtonSecondary>
           ) : (
-            ""
+            null
           ) }
         </DialogActions>
       </Dialog>

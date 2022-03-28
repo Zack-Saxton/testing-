@@ -8,7 +8,6 @@ Functionality       :    To use this Select Box as a default component for UI pu
 
 #################################################################################################################
  */
-
 import { FormControl, FormHelperText, makeStyles, MenuItem, Select } from "@material-ui/core";
 import InputLabel from "@material-ui/core/InputLabel";
 import PropTypes from "prop-types";
@@ -34,52 +33,23 @@ const SelectWrapper = ({
 	const useStyles = makeStyles((theme) => ({
 		formControl: {
 			margin: theme.spacing(1),
-
-		},
-
-		menu: {
-
-		},
+		}
 	}));
 
-	const classes = useStyles();
-	const ITEM_HEIGHT = 48;
-	const ITEM_PADDING_TOP = 8;
-	const MenuProps = {
-		PaperProps: {
-			style: {
-				maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-				width: 150,
-			},
-		},
-		anchorOrigin: {
-			vertical: "bottom",
-			horizontal: "left",
-		},
-		transformOrigin: {
-			vertical: "top",
-			horizontal: "left",
-		},
-		getContentAnchorEl: null,
-	};
+	const classes = useStyles();	
 
 	//Configuring Field with Properties
 	const configSelect = {
 		...otherProps,
 		fullWidth: true,
 		variant: variant,
-		className: classes.menu,
-
-		// onChange: handleChange,
-	};
+		};
 	const configFormControl = {
 		className: classes.formControl,
-		// required: true,
 		fullWidth: true,
 	};
 
 	//Validation Part
-
 	let selectMF = JSON.parse(select);
 
 	//View Part
@@ -91,7 +61,6 @@ const SelectWrapper = ({
 					<MenuItem key={ nam.value } value={ nam.value }>
 						<span className="subOption" value={ nam.value }>{ nam.label ? nam.label : nam.value }</span>
 					</MenuItem>
-					// <option value={nam.value}>{nam.value}</option>
 				)) }
 			</Select>
 			<FormHelperText error={ true }>{ helperText }</FormHelperText>

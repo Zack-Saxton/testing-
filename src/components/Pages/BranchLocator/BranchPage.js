@@ -12,7 +12,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import InfoIcon from '@material-ui/icons/Info';
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import PhoneIcon from "@material-ui/icons/Phone";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Helmet } from "react-helmet";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -36,9 +36,7 @@ export default function StatePage(props) {
   const classes = useStylesMyBranch();
   const location = useLocation();
   const navigate = useNavigate();
-  const { branch_Details, stateLongNm, stateShortNm } = location.state;
   const directionsClass = useStylesConsumer();
-
   const [ directionModal, setDirectionModal ] = useState(() => false);
   const [ branchList, setBranchList ] = useState();
   const [ branchAddress, setBranchAddress ] = useState();
@@ -49,20 +47,31 @@ export default function StatePage(props) {
   const [ showDialog, setShowDialog ] = useState(() => false);
   const [ stateLongName, setStateLongName ] = useState();
   const [ stateShortName, setStateShortName ] = useState();
+  let branch_Details = useRef();
+  let stateLongNm = useRef();
+  let stateShortNm = useRef();
+  branch_Details.current = location?.state ? location?.state?.branch_Details : "";
+  stateLongNm.current = location?.state ? location?.state?.stateLongNm : "";
+  stateShortNm.current = location?.state ? location?.state?.stateShortNm : "";
+ 
   //API call
   const getBranchLists = async (search_text) => {
     try {
-      let result = await BranchLocatorController(search_text, howManyBranchesforBranchLocatorPages.BranchPage, false);
-      if (result.status === 400) toast.error(" Check your address and Try again.");
-      else {
-        setCurrentLocation(result?.data?.searchLocation);
-        setZoomDepth(
-          (result?.data?.branchData[ 0 ]?.distance).replace(/[^/d]/g, "") / 100
-        );
-        setStateLongName(result?.data?.stateLongName);
-        setStateShortName(result?.data?.stateShortName);
-        return result?.data?.branchData;
+      if (search_text) {
+        let result = await BranchLocatorController(search_text, howManyBranchesforBranchLocatorPages.BranchPage, true);
+        if (result.status === 400) toast.error(" Check your address and Try again.");
+        else {
+          setCurrentLocation(result?.data?.searchLocation);
+          setZoomDepth(
+            (result?.data?.branchData[0]?.distance).replace(/[^/d]/g, "") / 100
+          );
+          setStateLongName(result?.data?.stateLongName);
+          setStateShortName(result?.data?.stateShortName);
+          return result?.data?.branchData;
+        }
       }
+      return null;
+      
     } catch (error) {
       ErrorLogger(" Error from branchList ", error);
     }
@@ -86,31 +95,46 @@ export default function StatePage(props) {
   };
   const openGetDirectionModal = () => setDirectionModal(true);
   const closeGetDirectionModal = () => setDirectionModal(false);
-  const display_Branch_Times = () => (stateShortNm === "CA") ? setBranchHours(ca_branch_hours) : setBranchHours(branch_hours);
+  const display_Branch_Times = () => (stateShortNm.current === "CA") ? setBranchHours(ca_branch_hours) : setBranchHours(branch_hours);
   const ApplyOnlineLoan = () => window.open(`${ process.env.REACT_APP_WEBSITE }`, "_self");
   const cancel = () => setShowDialog(false);
   const OpenYearHolidays = () => setShowDialog(true);
+  const formatString = (str) => {
+    return  str
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  }
   useEffect(() => {
-    apiGetBranchList(branch_Details.Address);
+    if (!branch_Details.current) {
+      let pathName = location.pathname.split('/');
+      let FixString = 'personal-loans-in-'.length;
+      let branchNm =  pathName[3].substring(FixString).split(pathName[3].substring(FixString).slice(-3));
+      stateLongNm.current = formatString(pathName[2]);
+      stateShortNm.current = pathName[3].substring(FixString).slice(-2).toUpperCase();
+      branch_Details.current = { BranchName: formatString(branchNm[0])};
+      apiGetBranchList(pathName[3].substring(FixString));
+    } else {
+      apiGetBranchList(branch_Details.current.Address);    
+    }
     return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ branch_Details ]);
+  }, [location.pathname, stateShortNm, stateLongNm]);
   useEffect(() => {
     display_Branch_Times();
     window.scrollTo(0, 0);
-    document.title = `Personal Loans in  ${ branch_Details.BranchName }, ${ stateShortNm } | Mariner Finance Branch | Discover More `;
+    document.title = `Personal Loans in  ${ branch_Details?.current?.BranchName }, ${ stateShortName ?? stateShortNm?.current } | Mariner Finance Branch | Discover More `;
     return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const BranchDetailsInCard = (
-    <Grid container style={ { width: "100%" } }>
+    <Grid container className="fullWidth">
       <Grid className="branchImage" item md={ 7 } sm={ 12 } xs={ 12 }>
         <img className="mobileImage" src={ BranchImageMobile } alt="MF Banner" />
         <img className="webImage" src={ BranchImageWeb } alt="MF Banner" />
       </Grid>
       <Grid
         className="greyBackground mobilePadding"
-        style={ { padding: "24px 0px" } }
         item
         md={ 5 }
         sm={ 12 }
@@ -121,7 +145,6 @@ export default function StatePage(props) {
           separator={
             <NavigateNextIcon
               className="navigateNextIcon"
-              style={ { color: "#171717" } }
             />
           }
           aria-label="breadcrumb"
@@ -141,21 +164,21 @@ export default function StatePage(props) {
           <Link
             className="breadcrumbLink"
             onClick={ () => {
-              navigate(`/branch-locator/${ stateLongNm.replace(/\s+/, '-').toLowerCase() }/`,
-                { state: { value: stateLongNm, flag: true } });
+              navigate(`/branch-locator/${(stateLongName ?? stateLongNm.current).replace(/\s+/, '-').toLowerCase()}/`,
+                { state: { value: stateLongName ?? stateLongNm.current, flag: true } });
             } }
           >
-            { stateLongNm ?? "" }
+            { stateLongName ?? stateLongNm.current }
           </Link>
           <Link className="breadcrumbLink">
-            { branch_Details.BranchName }
+            {branch_Details?.current?.BranchName ? branch_Details?.current?.BranchName : branchList && branchList[0]?.BranchName }
           </Link>
         </Breadcrumbs>
         <Grid className="blueBoxWrap">
           <h4 className="branchHeading">
             Personal Loans in{ " " }
             <strong>
-              { branch_Details.BranchName }, { stateShortNm } Branch
+              {branch_Details?.current?.BranchName ? branch_Details?.current?.BranchName : branchList && branchList[0]?.BranchName }, { stateShortName ?? stateShortNm?.current } Branch
             </strong>
           </h4>
           <Grid container>
@@ -172,15 +195,15 @@ export default function StatePage(props) {
               />
               <Grid>
                 <span className="branchAddressSpan">
-                  { branch_Details?.Address }
+                  {branch_Details?.current?.Address ? branch_Details?.current?.Address : branchList && branchList[0]?.Address } 
                 </span>
                 <span>
                   <a
-                    href={ "tel:+1" + branch_Details?.PhoneNumber }
+                    href={`tel:+1${branch_Details?.current?.PhoneNumber ? branch_Details?.current?.PhoneNumber : branchList && branchList[0]?.PhoneNumber}` }
                     className="branchPhoneNumber"
                   >
                     <PhoneIcon />
-                    { branch_Details?.PhoneNumber }
+                    {branch_Details?.current?.PhoneNumber ? branch_Details?.current?.PhoneNumber : branchList && branchList[0]?.PhoneNumber }
                   </a>
                 </span>
               </Grid>
@@ -222,7 +245,7 @@ export default function StatePage(props) {
               <Grid className="branchManager">
                 <small>Branch Manager</small>
                 <br />
-                <span>{ branch_Details?.branchManager }</span>
+                <span>{branch_Details?.current?.branchManager ? branch_Details?.current?.branchManager : branchList && branchList[0]?.branchManager }</span>
               </Grid>
             </Grid>
           </Grid>
@@ -230,7 +253,7 @@ export default function StatePage(props) {
             <ButtonSecondary
               onClick={ () => {
                 setBranchAddress(
-                  "https://www.google.com/maps/search/" + branch_Details.Address
+                  `https://www.google.com/maps/search/${branch_Details?.current?.Address ? branch_Details?.current?.Address : branchList && branchList[0]?.Address}` 
                 );
                 openGetDirectionModal();
               } }
@@ -246,8 +269,8 @@ export default function StatePage(props) {
 
   const Display3moreClosestBranchList = (
     <Grid
+      className="branchListGrid"
       container
-      style={ { margin: "auto", justifyContent: "space-between" } }
     >
       <Grid container className="branchListWrap">
         { branchList ? (
@@ -279,8 +302,8 @@ export default function StatePage(props) {
                 <p className={ classes.phoneNumber }>
                   <PhoneIcon />
                   <a
+                    className="blueColorLink"
                     href={ "tel:+1" + item?.PhoneNumber }
-                    style={ { color: "#214476" } }
                   >
                     { " " }
                     { item?.PhoneNumber }
@@ -396,7 +419,7 @@ export default function StatePage(props) {
         <link rel="icon" type="image/png" href={ TitleImage } sizes="16x16" />
         <meta
           name="description"
-          content={ `Looking for a personal loans in ${ branch_Details.BranchName },${ stateShortNm } ?  Our ${ branch_Details.BranchName },${ stateShortNm } branch welcomes you for personal loans that fit your needs.` }
+          content={ `Looking for a personal loans in ${ branch_Details?.current?.BranchName },${ stateShortName ?? stateShortNm?.current } ?  Our ${ branch_Details?.current.BranchName },${ stateShortNm.current } branch welcomes you for personal loans that fit your needs.` }
         />
       </Helmet>
       <Grid className="greyBackground" container justifyContent={ "center" }>
@@ -410,7 +433,7 @@ export default function StatePage(props) {
                 <h4 className="PesonalLoanMapHeading">
                   <strong>
                     One-On-One Support With Your Personal Loans in{ " " }
-                    { branch_Details.BranchName }, { stateShortNm }
+                    {branch_Details?.current?.BranchName ? branch_Details?.current?.BranchName : branchList && branchList[0]?.BranchName }, { stateShortNm.current }
                   </strong>
                 </h4>
               </Grid>
@@ -419,13 +442,13 @@ export default function StatePage(props) {
             <Grid className="branchtextSection" item md={ 6 }>
               <h4 className="PesonalLoanMapHeading">
                 <strong>
-                  The { branch_Details.BranchName }, { stateShortNm } Branch
+                  The {branch_Details?.current?.BranchName ? branch_Details?.current?.BranchName : branchList && branchList[0]?.BranchName }, { stateShortNm.current } Branch
                   Welcomes You For Personal Loans That Fit Your Needs
                 </strong>
               </h4>
               <p className="PesonalLoanMapParagraph">
-                Our { branch_Details.BranchName } lending professionals are proud
-                of the neighborhoods they live and work in. Ready to speak to a { branch_Details.BranchName } lending professional in person? The better we know
+                Our {branch_Details?.current?.BranchName ? branch_Details?.current?.BranchName : branchList && branchList[0]?.BranchName } lending professionals are proud
+                of the neighborhoods they live and work in. Ready to speak to a {branch_Details?.current?.BranchName ? branch_Details?.current?.BranchName : branchList && branchList[0]?.BranchName } lending professional in person? The better we know
                 you, the more we can help. You have your own unique goals to
                 meet, and it all starts with a conversation at your local
                 branch. <br /><br />A personal loans can meet a variety of needs, including
@@ -433,7 +456,7 @@ export default function StatePage(props) {
                 weddings, tuitions costs, and debt consolidation. Mariner
                 Finance has a personal loans that fits every one of those
                 situations, and more. Ready to apply for a personal loans at the{ " " }
-                { branch_Details.BranchName }, { stateShortNm } branch? Our { branch_Details.BranchName } branch is totally focused on solving your personal
+                {branch_Details?.current?.BranchName ? branch_Details?.current?.BranchName : branchList && branchList[0]?.BranchName}, {stateShortNm.current} branch? Our {branch_Details?.current?.BranchName ? branch_Details?.current?.BranchName : branchList && branchList[0]?.BranchName } branch is totally focused on solving your personal
                 financial challenges.
               </p>
             </Grid>
@@ -444,7 +467,7 @@ export default function StatePage(props) {
           <Grid className="findNearbyBranch">
             <Grid style={ { margin: "auto" } }>
               <h4 className="PesonalLoanMapHeading">
-                <strong>Find nearby { stateLongNm } branches</strong>
+                <strong>Find nearby { stateLongNm?.current } branches</strong>
               </h4>
               <p className="PesonalLoanMapParagraph">
                 Mariner Finance, serving communities since 1927, operates over 470 branch locations in twenty-seven
