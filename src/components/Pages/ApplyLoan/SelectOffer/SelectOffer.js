@@ -1,4 +1,3 @@
-import Box from "@material-ui/core/Box";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
@@ -6,7 +5,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import Typography from "@material-ui/core/Typography";
-import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { useQuery } from 'react-query';
 import { NavLink, useNavigate } from "react-router-dom";
@@ -19,7 +17,9 @@ import messages from "../../../lib/Lang/applyForLoan.json";
 import ScrollToTopOnMount from "../../ScrollToTop";
 import TabSection from "../TabSection";
 import OfferTable from "./offersTable";
+import TabPanel from "../TabPanel"
 import "./SelectOffer.css";
+import { toast } from "react-toastify";
 
 //Initializing functional component Apply for loan
 export default function ApplyLoan() {
@@ -45,10 +45,10 @@ export default function ApplyLoan() {
 	//To change the value to currency formate
 	const currencyFormat = (currencyValue) => {
 		if (currencyValue) {
-			let formated = parseFloat(currencyValue);
+			let formatedCurrencyValue = parseFloat(currencyValue);
 			let currency = "$";
 			return (
-				currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,")
+				currency + formatedCurrencyValue.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,")
 			);
 		}
 	};
@@ -64,7 +64,7 @@ export default function ApplyLoan() {
 				navigate(offerTypeData[ accountDetails?.data?.Offers[ selTerm ][ selIndex ]?.offerType ], { selectedIndexOffer: selectedOfferResponse?.data?.selected_offer, });
 			} else {
 				setLoading(false);
-				alert("Network Error");
+				toast.error(messages.unHandledError)
 			}
 		}
 	};
@@ -147,7 +147,7 @@ export default function ApplyLoan() {
 
 	// To fetch the available offers for the logged in user
 	function getAvailableOffers() {
-		if (val?.data !== "Access token has expired" && val?.data) {
+		if (val?.data !== "Access token has expired" && val?.data?.Offers) {
 			setAccountDetails(val);
 			term = Object.keys(val?.data?.Offers);
 			setNoOffers(!(Object.keys(val?.data?.Offers).length) ? true : false);
@@ -164,34 +164,6 @@ export default function ApplyLoan() {
 		return null;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [ val ]);
-
-	//Initializing the tab implementation
-	function TabPanel(props) {
-		const { children, tabPanelValue, index, ...other } = props;
-
-		// Returns the JSX part depends on parameter value
-		return (
-			<div
-				role="tabpanel"
-				hidden={ tabPanelValue !== index }
-				id={ `scrollable-auto-tab-panel-${ index }` }
-				aria-labelledby={ `scrollable-auto-tab-${ index }` }
-				{ ...other }
-			>
-				{ tabPanelValue === index && (
-					<Box>
-						<div>{ children }</div>
-					</Box>
-				) }
-			</div>
-		);
-	}
-
-	TabPanel.propTypes = {
-		children: PropTypes.node,
-		index: PropTypes.any.isRequired,
-		tabPanelValue: PropTypes.any.isRequired,
-	};
 
 	function tabVerticalProps(verticalIndex) {
 		return {
@@ -230,7 +202,6 @@ export default function ApplyLoan() {
 	function tabOnChange(termNum, tabIndex) {
 		setOffersToCompareChart([]);
 		setOfferFlag(true);
-
 		let rowsterm = [];
 		accountDetails?.data?.Offers[ termNum ].map((item, index) => {
 			return structureBuildData(item, termNum, tabIndex, rowsterm);
@@ -258,8 +229,8 @@ export default function ApplyLoan() {
 			tabIndex: tabIndex,
 			checked: "false",
 		};
-		let temp = createData(buildData);
-		rowsterm.push(temp);
+		let formatedBuildData = createData(buildData);
+		rowsterm.push(formatedBuildData);
 		return null;
 
 	};
@@ -326,7 +297,7 @@ export default function ApplyLoan() {
 				<Grid item xs={ 12 }>
 					<TabSection value={ value } handleChange={ handleChange } classes={ classes } ay={ 0 } />
 
-					<TabPanel tabPanelValue={ value } index={ 0 } style={ { marginTop: "10px" } }>
+					<TabPanel value={ value } index={ 0 } style={ { marginTop: "10px" } }>
 						<Grid container item xs={ 12 }>
 							{ noOffers ? (
 								<Grid item xs={ 12 } style={ { width: "100%" } }>
@@ -396,8 +367,7 @@ export default function ApplyLoan() {
 												</Tabs>
 											) : (
 												<Grid
-													className="circleprog"
-													style={ { width: "100%", textAlign: "center" } }
+													className={classes.gridInner}
 												>
 													<CircularProgress />
 												</Grid>
