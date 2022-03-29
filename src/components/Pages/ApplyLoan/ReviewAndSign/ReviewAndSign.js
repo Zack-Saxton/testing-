@@ -219,7 +219,6 @@ export default function ReviewAndSign(props) {
                       <ButtonSecondary
                         stylebutton='{"float": "right", "color":"" }'
                         styleicon='{ "color":"" }'
-                        className={ classes.fullWidth }
                         id="reselect-button"
                       >
                         Re-Select Offer
