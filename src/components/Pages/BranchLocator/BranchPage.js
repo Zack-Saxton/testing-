@@ -433,7 +433,7 @@ export default function StatePage(props) {
                 <h4 className="PesonalLoanMapHeading">
                   <strong>
                     One-On-One Support With Your Personal Loans in{ " " }
-                    {branch_Details?.current?.BranchName ? branch_Details?.current?.BranchName : branchList && branchList[0]?.BranchName }, { stateShortNm.current }
+                    {branch_Details?.current?.BranchName ? branch_Details?.current?.BranchName : branchList && branchList[0]?.BranchName}, {stateShortName ?? stateShortNm?.current }
                   </strong>
                 </h4>
               </Grid>
@@ -442,7 +442,7 @@ export default function StatePage(props) {
             <Grid className="branchtextSection" item md={ 6 }>
               <h4 className="PesonalLoanMapHeading">
                 <strong>
-                  The {branch_Details?.current?.BranchName ? branch_Details?.current?.BranchName : branchList && branchList[0]?.BranchName }, { stateShortNm.current } Branch
+                  The {branch_Details?.current?.BranchName ? branch_Details?.current?.BranchName : branchList && branchList[0]?.BranchName}, {stateShortName ?? stateShortNm?.current } Branch
                   Welcomes You For Personal Loans That Fit Your Needs
                 </strong>
               </h4>
@@ -456,7 +456,7 @@ export default function StatePage(props) {
                 weddings, tuitions costs, and debt consolidation. Mariner
                 Finance has a personal loans that fits every one of those
                 situations, and more. Ready to apply for a personal loans at the{ " " }
-                {branch_Details?.current?.BranchName ? branch_Details?.current?.BranchName : branchList && branchList[0]?.BranchName}, {stateShortNm.current} branch? Our {branch_Details?.current?.BranchName ? branch_Details?.current?.BranchName : branchList && branchList[0]?.BranchName } branch is totally focused on solving your personal
+                {branch_Details?.current?.BranchName ? branch_Details?.current?.BranchName : branchList && branchList[0]?.BranchName}, {stateShortName ?? stateShortNm?.current} branch? Our {branch_Details?.current?.BranchName ? branch_Details?.current?.BranchName : branchList && branchList[0]?.BranchName } branch is totally focused on solving your personal
                 financial challenges.
               </p>
             </Grid>
