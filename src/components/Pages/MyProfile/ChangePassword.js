@@ -29,9 +29,9 @@ export default function ChangePassword(basicInformationData) {
     newPassword: yup
       .string(globalMessages.PasswordEnter)
       .max(30, globalMessages.PasswordMax)
-      .min(8, globalMessages.PasswordMin)
+      .min(10, globalMessages.PasswordMin)
       .matches(
-        /^((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,30})$/,
+        /^((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{10,30})$/,
         globalMessages.PasswordCriteria
       )
       .required(globalMessages.PasswordNewRequired),
@@ -42,9 +42,9 @@ export default function ChangePassword(basicInformationData) {
         globalMessages.PasswordConfirmationMatch
       )
       .max(30, globalMessages.PasswordMax)
-      .min(8, globalMessages.PasswordMin)
+      .min(10, globalMessages.PasswordMin)
       .matches(
-        /^((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,30})$/,
+        /^((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{10,30})$/,
         globalMessages.PasswordCriteria
       )
       .required(globalMessages.PasswordConfirmationRequired),
@@ -191,7 +191,7 @@ export default function ChangePassword(basicInformationData) {
               disabled={ false }
             />
             <p style={ { textAlign: "justify", fontSize: "0.938rem" } }>
-              Please ensure your password meets the following criteria: between 8 and 30 characters in length, at least 1 uppercase letter, at least 1 lowercase letter, at least 1 number, at least 1 special character.
+              Please ensure your password meets the following criteria: between 10 and 30 characters in length, at least 1 uppercase letter, at least 1 lowercase letter, at least 1 number, at least 1 special character.
             </p>
           </Grid>
           <Grid

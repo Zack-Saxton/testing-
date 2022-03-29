@@ -24,15 +24,15 @@ import "./NewUser.css";
 const validationSchema = yup.object({
 	newPassword: yup
 		.string(globalMessages.PasswordEnter)
-		.matches(/^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,30}$/, "Your password doesn't meet the criteria")
+		.matches(/^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,30}$/, "Your password doesn't meet the criteria")
 		.max(30, globalMessages.PasswordMax)
-		.min(8, globalMessages.PasswordMin)
+		.min(10, globalMessages.PasswordMin)
 		.required(globalMessages.PasswordRequired),
 	confirmPassword: yup
 		.string()
 		.required(globalMessages.PasswordConfirmationRequired)
 		.max(30, globalMessages.PasswordMax)
-		.min(8, globalMessages.PasswordMin)
+		.min(10, globalMessages.PasswordMin)
 		.when("newPassword", {
 			is: (newPassword) => newPassword?.length > 0,
 			then: yup

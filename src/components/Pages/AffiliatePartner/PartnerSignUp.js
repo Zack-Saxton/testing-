@@ -34,14 +34,14 @@ const validationSchema = yup.object({
     .required(globalMessages.EmailRequired),
   password: yup
     .string(globalMessages.PasswordEnter)
-    .matches(/^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,30}$/, globalMessages.PasswordCriteria)
+    .matches(/^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,30}$/, globalMessages.PasswordCriteria)
     .max(30, globalMessages.PasswordMax)
-    .min(8, globalMessages.PasswordMin)
+    .min(10, globalMessages.PasswordMin)
     .required(globalMessages.PasswordRequired),
   confirmPassword: yup
     .string()
     .max(30, globalMessages.PasswordMax)
-    .min(8, globalMessages.PasswordMin)
+    .min(10, globalMessages.PasswordMin)
     .required(globalMessages.PasswordConfirmationRequired)
     .when("password", {
       is: (password) => password?.length > 0,
@@ -431,7 +431,7 @@ export default function CreditKarma() {
                       />
                       <p id="passwordTitle" className={ classes.passwordTitle }>
                         Please ensure your password meets the following
-                        criteria: between 8 and 30 characters in length, at
+                        criteria: between 10 and 30 characters in length, at
                         least 1 uppercase letter, at least 1 lowercase letter,
                         at least 1 symbol and at least 1 number.
                       </p>
