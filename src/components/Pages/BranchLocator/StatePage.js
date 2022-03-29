@@ -35,7 +35,7 @@ export default function StatePage() {
   const classes = useStylesMyBranch();
   const location = useLocation();
   let stateNamefromUrl = location?.pathname?.split('/');
-  const name = location?.state?.value ?? stateNamefromUrl[2];
+  const name = location?.state?.value ?? formatString(stateNamefromUrl[2]);
   const directionsClass = useStylesConsumer();
   const refMapSection = useRef();
   const refSearch1 = useRef();
@@ -53,13 +53,19 @@ export default function StatePage() {
   const [ branchDistance, setBranchDistance ] = useState(() => Math.abs(parseInt(howManyBranchesforBranchLocatorPages?.stateBranchDistanceinMiles, 10)));
   const [ stateLongName, setStateLongName ] = useState();
   const [ stateShortName, setStateShortName ] = useState();
-  let stateSearchFlag = location?.state?.flag ?? false;
+  // let stateSearchFlag = location?.state?.flag ?? false;
+  const [stateSearchFlag, setStateSearchFlag] = useState(() => location?.state?.flag ?? false);
+  const showBranchesWithin60Miles = 60;
+
   //API call
   const getBranchLists = async (search_text) => {
     try {
       setLoading(true);
+      console.log(' FLAG', stateSearchFlag,'TEXT:', search_text)
       let result = await BranchLocatorController(search_text, howManyBranchesforBranchLocatorPages.StatePage, stateSearchFlag );
-      stateSearchFlag = false;
+      
+
+      console.log(' RESULT =', result)
       if (
         result.status == 400 ||
         result.data.branchData[ 0 ].BranchNumber === "0001" ||
@@ -111,7 +117,8 @@ export default function StatePage() {
   };
   const getActivePlaces = () => {
     let searchText = refSearch1?.current?.value.trim().length ? refSearch1?.current?.value.trim() : refSearch2?.current?.value.trim();
-    setBranchDistance(60);
+
+    setBranchDistance(showBranchesWithin60Miles);
     apiGetBranchList(searchText);
     refMapSection.current.scrollIntoView({ behavior: 'smooth' });
     clearSearchText();
@@ -133,6 +140,8 @@ export default function StatePage() {
   };
   useEffect(() => {
     apiGetBranchList(name);
+    setStateSearchFlag(false);
+    console.log(' FLAG :::', stateSearchFlag)
     window.scrollTo(0, 0);
     return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -566,4 +575,10 @@ export default function StatePage() {
       </Grid>
     </div>
   );
+}
+const formatString = (str) => {
+  return str
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
 }
