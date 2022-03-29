@@ -170,7 +170,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SideNav(refID) {
+export default function SideNav() {
   const classes = useStyles();
   const [ open, setOpen ] = useState(true);
   const [ anchorEl, setAnchorEl ] = useState(null);
