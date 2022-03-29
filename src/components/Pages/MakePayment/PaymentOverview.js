@@ -35,11 +35,8 @@ export default function PaymentOverview(paymentData, status) {
                     <TableCell className={ classes.tableHead } align="right">
                         Loan Fees
                     </TableCell>
-                    <TableCell className={ classes.tableHead } align="right">
-                        Total
-                    </TableCell>
                     <TableCell className={ classes.tableHead } align="left">
-                        Next Due Date
+                        Due Date
                     </TableCell>
                     <TableCell className={ classes.tableHead } align="left">
                         Scheduled Payment
@@ -87,9 +84,6 @@ export default function PaymentOverview(paymentData, status) {
                                 </TableCell>
                                 <TableCell style={ { fontWeight: "700" } } className={ classes.tableHeadRow } align="right">
                                     <NumberFormat value={ Math.abs(row.loanPaymentInformation.accountDetails.LoanFeesAndCharges) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
-                                </TableCell>
-                                <TableCell style={ { fontWeight: "700" } } className={ classes.tableHeadRow } align="right">
-                                    <NumberFormat value={ Math.abs(row.loanPaymentInformation.accountDetails.RegularPaymentAmount) + Math.abs(row.loanPaymentInformation.accountDetails.InterestRate) + Math.abs(row.loanPaymentInformation.accountDetails.LoanFeesAndCharges) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
                                 </TableCell>
                                 <TableCell className={ classes.tableHeadRow } align="left">
                                     { Moment(row.loanPaymentInformation.accountDetails.NextDueDate).format("MM/DD/YYYY") }
