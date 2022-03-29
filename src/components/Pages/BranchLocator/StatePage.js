@@ -53,7 +53,6 @@ export default function StatePage() {
   const [ branchDistance, setBranchDistance ] = useState(() => Math.abs(parseInt(howManyBranchesforBranchLocatorPages?.stateBranchDistanceinMiles, 10)));
   const [ stateLongName, setStateLongName ] = useState();
   const [ stateShortName, setStateShortName ] = useState();
-  // let stateSearchFlag = location?.state?.flag ?? false;
   const [stateSearchFlag, setStateSearchFlag] = useState(() => location?.state?.flag ?? false);
   const showBranchesWithin60Miles = 60;
 
