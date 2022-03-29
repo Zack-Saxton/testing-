@@ -61,11 +61,7 @@ export default function StatePage() {
   const getBranchLists = async (search_text) => {
     try {
       setLoading(true);
-      console.log(' FLAG', stateSearchFlag,'TEXT:', search_text)
       let result = await BranchLocatorController(search_text, howManyBranchesforBranchLocatorPages.StatePage, stateSearchFlag );
-      
-
-      console.log(' RESULT =', result)
       if (
         result.status == 400 ||
         result.data.branchData[ 0 ].BranchNumber === "0001" ||
@@ -81,7 +77,6 @@ export default function StatePage() {
         );
         setStateLongName(result?.data?.stateLongName);
         setStateShortName(result?.data?.stateShortName);
-        console.log('[0]', result?.data?.branchData[0] )
         return result?.data?.branchData;
       }
     } catch (error) {
@@ -141,7 +136,6 @@ export default function StatePage() {
   useEffect(() => {
     apiGetBranchList(name);
     setStateSearchFlag(false);
-    console.log(' FLAG :::', stateSearchFlag)
     window.scrollTo(0, 0);
     return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
