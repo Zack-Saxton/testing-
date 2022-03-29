@@ -378,7 +378,7 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
 
   //Autopay submit
   const handleClickSubmit = () => {
-    if (nextDueDateCheck < todaysDate && !autopaySubmit) {
+    if (nextDueDateCheck < todaysDate && !autopaySubmitDisabled) {
       setRequiredAutoPay(globalMessages.Sorry_Account_Delinquent)
       setOpen(false);
       return;
@@ -444,9 +444,6 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
     } else if (!paymentDatepicker) {
       refpaymentDatepicker.current.focus();
       setRequiredDate(globalMessages.Please_Select_Any_Date);
-    } else if (isDebit && Moment(paymentDatepicker).isAfter(Moment())) {
-      refpaymentDatepicker.current.focus();
-      setRequiredDate(globalMessages.For_Debit_Account);
     } else if (
       Moment(User.data.loanData[ 0 ].loanOriginationDate).isAfter(Moment())) {
       refPaymentAmount.current.focus();
