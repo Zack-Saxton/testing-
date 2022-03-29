@@ -22,9 +22,9 @@ const ResetPasswordvalidationSchema = yup.object().shape({
     password: yup
         .string(globalValidation.PasswordEnter)
         .max(30, globalValidation.PasswordMax)
-        .min(8, globalValidation.PasswordMin)
+        .min(10, globalValidation.PasswordMin)
         .matches(
-            /^((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,30})$/,
+            /^((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{10,30})$/,
             globalValidation.PasswordCriteria
         )
         .required(globalValidation.PasswordNewRequired),
@@ -35,9 +35,9 @@ const ResetPasswordvalidationSchema = yup.object().shape({
             globalValidation.PasswordConfirmationMatch
         )
         .max(30, globalValidation.PasswordMax)
-        .min(8, globalValidation.PasswordMin)
+        .min(10, globalValidation.PasswordMin)
         .matches(
-            /^((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,30})$/,
+            /^((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{10,30})$/,
             globalValidation.PasswordCriteria
         )
         .required(globalValidation.PasswordConfirmationRequired),

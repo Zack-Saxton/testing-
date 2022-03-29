@@ -183,7 +183,7 @@
   "PasswordCriteria": "Your password does not meet the criteria",
   "PasswordEnter": "Enter your password",
   "PasswordMax": "Password can be up to 30 characters in length",
-  "PasswordMin": "Password should be minimum of 8 characters in length",
+  "PasswordMin": "Password should be minimum of 10 characters in length",
   "PasswordNewRequired": "Your new password is required",
   "PasswordOld": "Your old password is required",
   "PasswordOldNewMatch": "Old and New Password must be different",

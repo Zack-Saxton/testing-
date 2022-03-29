@@ -72,7 +72,7 @@ export default function Register() {
         setDisableRecaptcha(true);
       }
     } catch (error) {
-      ErrorLogger("Error executing geolocation API", error);
+      ErrorLogger("Error executing reCaptcha", error);
     }
   };
 
@@ -246,7 +246,6 @@ export default function Register() {
       setState("");
       setCity("");
       if (event.target.value && event.target.value.length === 5) {
-        // if (event.target.value !== "" && event.target.value.length === 5) {
         let result = await ZipCodeLookup(event.target.value.trim());
         if (result) {
           setValidZip(true);
@@ -488,7 +487,7 @@ export default function Register() {
                       />
                       <p id="passwordTitle" className={ classes.passwordTitle }>
                         Please ensure your password meets the following
-                        criteria: between 8 and 30 characters in length, at
+                        criteria: between 10 and 30 characters in length, at
                         least 1 uppercase letter, at least 1 lowercase letter,
                         at least 1 symbol and at least 1 number.
                       </p>
@@ -536,7 +535,7 @@ export default function Register() {
                     <Grid >
                       <Recaptcha />
                     </Grid>
-
+ 
                     <Grid item xs={ 12 } className={ classes.signInButtonGrid }>
                       <ButtonPrimary
                         onClick={ autoFocus }

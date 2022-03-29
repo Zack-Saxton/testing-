@@ -17,7 +17,11 @@ import { useQueryClient } from "react-query";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import LoginController from "../../Controllers/LoginController";
+import Recaptcha from "../../Layout/Recaptcha/GenerateRecaptcha";
+import { RecaptchaValidationController } from "../../Controllers/RecaptchaController";
 import getClientIp from "../../Controllers/CommonController";
+import ErrorLogger from "../../lib/ErrorLogger";
+import { toast } from "react-toastify";
 import {
   ButtonPrimary,
   EmailTextField,
@@ -47,12 +51,42 @@ export default function Login(props) {
   const [ cacTerms, setCacTerms ] = useState(false);
   const [ counter, setCounter ] = useState(0);
   const [ openDeleteSchedule, setopenDeleteSchedule ] = useState(false);
+  const [ disableRecaptcha, setDisableRecaptcha ] = useState(true);
   const queryClient = useQueryClient();
   let location = useLocation();
 
   const remMeDataRaw = Cookies.get("rememberMe") ?? '{}';
   let remMeData = JSON.parse(remMeDataRaw);
   const [ remMe, setRemMe ] = useState(remMeData?.selected);
+
+//reCaptcha validation
+  window.onReCaptchaSuccess = async function () {
+    try {
+      let grecaptchaResponse = grecaptcha.getResponse();
+      let ipAddress = await getClientIp();
+      let recaptchaVerifyResponse = await RecaptchaValidationController(grecaptchaResponse, ipAddress);
+      console.log("recaptchaVerifyResponse",recaptchaVerifyResponse)
+
+      if (recaptchaVerifyResponse.status === 200) {
+        console.log("inside if")
+        toast.success(globalMessages.Recaptcha_Verify);
+        setDisableRecaptcha(false);
+      }
+      else {
+        toast.error(globalMessages.Recaptcha_Error);
+        grecaptcha.reset();
+        setDisableRecaptcha(true);
+      }
+    } catch (error) {
+      ErrorLogger("Error executing reCaptcha", error);
+    }
+  };
+
+  window.OnExpireCallback = function () {
+    grecaptcha.reset();
+    setDisableRecaptcha(true);
+  };
+
   //Form Submission
   const formik = useFormik({
     initialValues: {
@@ -273,12 +307,16 @@ export default function Login(props) {
                       </FormControl>
                     </Grid>
 
+                    <Grid className ={classes.loginRecaptcha} >
+                      <Recaptcha />
+                    </Grid>
+
                     <Grid item xs={ 12 } className={ classes.loginButton }>
                       <ButtonPrimary
                         type="submit"
                         data-testid="submit"
                         stylebutton='{"background": "", "color":"" , "fontSize" : "15px", "padding" : "0px 30px"}'
-                        disabled={ loading }
+                        disabled={ disableRecaptcha ? disableRecaptcha : loading }
                       >
                         Sign In
                         <i

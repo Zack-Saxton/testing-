@@ -105,6 +105,11 @@ passwordWrap: {
   width: "100%", 
   gap: 15, 
   marginBottom: 10 
+},
+loginRecaptcha: {
+  display: "flex",
+  justifyContent : "center",
+  paddingTop: "10px"
 }
 
 }));
