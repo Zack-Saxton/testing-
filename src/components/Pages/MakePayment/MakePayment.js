@@ -125,6 +125,7 @@ export default function MakePayment(props) {
       let isACH = await defaultCardCheck(payments?.data?.ACHMethods, "ACH", defaultBank);
       if (isACH) {
         setDefaultPaymentCard(false);
+        setAutopaySwitchDisabled(false);
       } else {
         //set default card 
         const cardFound = await defaultCardCheck(payments?.data?.CardMethods, "card", defaultBank);
