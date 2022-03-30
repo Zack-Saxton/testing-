@@ -195,6 +195,7 @@ export default function SideNav() {
   let refApplyForLoanNav = useRef();
   let refClose2 = useRef();
   let refClose = useRef();
+  let loanStatus = ["under_review", "final_review"]; 
 
   const handleClickAway = () => {
     if (isMobileDevice) {
@@ -216,7 +217,6 @@ export default function SideNav() {
     setCheckPresenceOfLoanStatus(presenceOfLoanStatus?.status);
     setCurrentLoan(presenceOfLoan || userAccountStatus === "closed" ? true : false);
     setCheckPresenceOfLoan(presenceOfLoan);
-
     //logic to if there is any active Loan Data is there or not
     if (!noOfLoans) {
       setActiveLoanData(true);
@@ -483,9 +483,7 @@ export default function SideNav() {
   if (navElement) {
     navElement.removeAttribute("href");
   }
-
-  let loanStatus = ["under_review", "final_review"]; 
-  //View part
+    //View part
   return (
     <ClickAwayListener onClickAway={ handleClickAway }>
 
@@ -709,7 +707,7 @@ export default function SideNav() {
                   </NavLink> }
 
                 <NavLink to="/customers/loanDocument" onClick={ (event) => { activeLoanData && loanStatus.includes(checkPresenceOfLoanStatus) && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : 'nav_link' }>
-                  <ListItem className="titleSidenav" disabled={ activeLoanData && loanStatus.includes(checkPresenceOfLoanStatus) ? true : false }>
+                  <ListItem className="titleSidenav" disabled={ activeLoanData && !loanStatus.includes(checkPresenceOfLoanStatus) ? true : false }>
                     <ListItemIcon>
                       { " " }
                       <DescriptionOutlinedIcon />{ " " }
