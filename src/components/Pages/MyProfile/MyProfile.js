@@ -115,12 +115,12 @@ export default function MyProfile() {
           item
           xs={ 12 }
           direction="row"
-          style={ { width: "100%", paddingBottom: "10px" } }
+          className={ classes.profileSetting }
         >
           <Typography className={ classes.heading } variant="h3">
             <NavLink
               to="/customers/accountOverview"
-              style={ { textDecoration: "none" } }
+              className={ classes.sideNavLink }
             >
               <ButtonWithIcon
                 icon="arrow_backwardIcon"
@@ -138,13 +138,13 @@ export default function MyProfile() {
           </Typography>
         </Grid>
         {/* Left Side Nav */ }
-        <Grid item xs={ 12 } style={ { paddingBottom: "200px", paddingTop: "10px" } }>
+        <Grid item xs={ 12 } className={ classes.profileSideNav }>
           <Grid container item xs={ 12 }>
             <Grid
               item
               xs={ 12 }
               sm={ 4 }
-              style={ { width: "100%" } }
+              className={ classes.leftSideNav }
             >
               <Paper id="basicInfo" className={ classes.cardHeading }>
                 <Tabs
@@ -157,21 +157,13 @@ export default function MyProfile() {
                   scrollButtons="auto"
                   orientation="vertical"
                   variant="scrollable"
-                  style={ { padding: "20px 0px" } }
+                  className={ classes.leftMenu }
                   aria-label="scrollable auto tabs example"
                 >
                   <Tab
                     label={
-                      <span
-                        style={ {
-                          float: "left",
-                          width: "100%",
-                          verticalAlign: "top",
-                          "fontSize": "0.938rem",
-                          "fontFamily": "Muli,sans-serif", fontWeight: "700"
-                        } }
-                      >
-                        <SettingsIcon style={ { verticalAlign: "top", paddingRight: "10px" } } />{ " " }
+                      <span className={ classes.firstMenuLabel } >
+                        <SettingsIcon className={ classes.menuIconStyle } />{ " " }
                         Basic Information
                       </span>
                     }
@@ -180,8 +172,8 @@ export default function MyProfile() {
                   />
                   <Tab
                     label={
-                      <span style={ { float: "left", width: "100%", "fontSize": "0.938rem", "fontFamily": "Muli,sans-serif", fontWeight: "700" } }>
-                        <RoomIcon style={ { verticalAlign: "top", paddingRight: "10px" } } />{ " " }
+                      <span className={ classes.menuLabel } >
+                        <RoomIcon className={ classes.menuIconStyle } />{ " " }
                         Mailing Address
                       </span>
                     }
@@ -192,8 +184,8 @@ export default function MyProfile() {
                     id="tab-vertical"
                     disabled={ !disableField }
                     label={
-                      <span style={ { float: "left", width: "100%", "fontSize": "0.938rem", "fontFamily": "Muli,sans-serif", fontWeight: "700" } }>
-                        <TextsmsIcon style={ { verticalAlign: "top", paddingRight: "10px" } } />
+                      <span className={ classes.menuLabel } >
+                        <TextsmsIcon className={ classes.menuIconStyle } />
                         Text Notification - { textnotify }
                       </span>
                     }
@@ -203,8 +195,8 @@ export default function MyProfile() {
                   <Tab
                     disabled={ !disableField }
                     label={
-                      <span style={ { float: "left", width: "100%", "fontSize": "0.938rem", "fontFamily": "Muli,sans-serif", fontWeight: "700" } }>
-                        <PaymentsIcon style={ { verticalAlign: "top", paddingRight: "10px" } } />{ " " }
+                      <span className={ classes.menuLabel } >
+                        <PaymentsIcon className={ classes.menuIconStyle } />{ " " }
                         Payment Method
                       </span>
                     }
@@ -213,8 +205,8 @@ export default function MyProfile() {
                   />
                   <Tab
                     label={
-                      <span style={ { float: "left", width: "100%", "fontSize": "0.938rem", "fontFamily": "Muli,sans-serif", fontWeight: "700" } }>
-                        <LockOpenIcon style={ { verticalAlign: "top", paddingRight: "10px" } } />{ " " }
+                      <span className={ classes.menuLabel } >
+                        <LockOpenIcon className={ classes.menuIconStyle } />{ " " }
                         Change Password
                       </span>
                     }
@@ -232,7 +224,7 @@ export default function MyProfile() {
               item
               xs={ 12 }
               sm={ 8 }
-              style={ { paddingLeft: "15px", width: "100%" } }
+              className={ classes.profileMainContent }
             >
               <Paper id="mainContentTab" className={ classes.paper }>
                 {/* Basic Information */ }
