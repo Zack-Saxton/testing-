@@ -12,26 +12,37 @@ import Moment from "moment";
 import React, { useEffect, useState, useContext } from "react";
 import NumberFormat from "react-number-format";
 import { NavLink } from "react-router-dom";
+import { useQuery } from 'react-query';
+import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import { ButtonPrimary, TableCellWrapper, Select } from "../../FormsUI";
 import { useStylesAccountOverview } from "./Style";
 import { LoanAccount } from "../../../contexts/LoanAccount"
 import "./Style.css";
-export default function RecentPayments(paymentHistory) {
+export default function RecentPayments() {
 	//Material UI css class
 	const classes = useStylesAccountOverview();
+	const { isLoading, data: accountDetails } = useQuery('loan-data', usrAccountDetails);
  	const { selectedLoanAccount, setSelectedLoanAccount } = useContext(LoanAccount);
  	const [ defaultLoanAccount, setDefaultLoanAccount ] = useState();
 	const [ loanAccountsList, setLoanAccountsList ] = useState([]);
+	const [ paymentList, setPaymentList ] = useState();
+
+	useEffect(() => {
+		if(accountDetails?.data?.loanHistory?.length){
+			let respectiveList = accountDetails.data.loanHistory.find((loan) => loan.accountNumber === defaultLoanAccount)
+			setPaymentList(respectiveList);
+		}
+	},[accountDetails, defaultLoanAccount])
 
 	useEffect(()=>{
-		if(paymentHistory?.userRecentPaymentData?.length){
-			  setDefaultLoanAccount( selectedLoanAccount ?? paymentHistory.userRecentPaymentData[0] )
-				setSelectedLoanAccount( selectedLoanAccount ?? paymentHistory.userRecentPaymentData[0])
-				setLoanAccountsList( paymentHistory.userRecentPaymentData )
+		if(accountDetails?.data?.loanHistory?.length){
+			  setDefaultLoanAccount( selectedLoanAccount ?? accountDetails.data.loanHistory[0].accountNumber )
+				setSelectedLoanAccount( selectedLoanAccount ?? accountDetails.data.loanHistory[0].accountNumber)
+				setLoanAccountsList( accountDetails.data.loanHistory );
 		}
 		return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-	},[paymentHistory]);
+	},[accountDetails, selectedLoanAccount, setSelectedLoanAccount]);
 
 	let loanOptions = loanAccountsList
     ? loanAccountsList.map((loanAccount) => ({
@@ -41,17 +52,14 @@ export default function RecentPayments(paymentHistory) {
 	let loanMenu = loanOptions ? JSON.stringify(loanOptions) : '[]';
 
 const handleChange =(event) =>{
-	if (loanAccountsList){
-		let selectedLoan = loanAccountsList.find((loan) => loan.accountNumber === event.target.value);
-		setDefaultLoanAccount(selectedLoan);
-		setSelectedLoanAccount(selectedLoan);
-	}
+		setDefaultLoanAccount(event.target.value);
+		setSelectedLoanAccount(event.target.value);	
 }
 
 	//Recentpayments data
 	let parData = [];
-		if(selectedLoanAccount?.AppAccountHistory?.length) {
-			selectedLoanAccount.AppAccountHistory.slice(0, 3).forEach(function (row) {
+		if(paymentList?.AppAccountHistory?.length) {
+			paymentList.AppAccountHistory.slice(0, 3).forEach(function (row) {
 				parData.push(
 					{
 						date: {
@@ -160,7 +168,7 @@ const handleChange =(event) =>{
               labelform="Select Loan Accounts"
               select={loanMenu}
               onChange={handleChange}
-              value={defaultLoanAccount ? defaultLoanAccount.accountNumber : ""}
+              value={defaultLoanAccount ?? ''}
             />
           </Grid>
         </Grid>
@@ -192,7 +200,7 @@ const handleChange =(event) =>{
                   </TableCell>
                 </TableRow>
               </TableHead>
-              {paymentHistory?.isLoading ? (
+              {isLoading ? (
                 <TableBody>
                   <TableRow>
                     <TableCell colSpan="7" align="center">
@@ -200,7 +208,7 @@ const handleChange =(event) =>{
                     </TableCell>
                   </TableRow>
                 </TableBody>
-              ) : paymentHistory?.userRecentPaymentData?.length ? (
+              ) : accountDetails?.data?.loanHistory?.length ? (
                 <TableCellWrapper parseData={parData} />
               ) : (
                 <TableBody>

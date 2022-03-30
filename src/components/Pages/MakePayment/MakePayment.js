@@ -125,6 +125,7 @@ export default function MakePayment(props) {
       let isACH = await defaultCardCheck(payments?.data?.ACHMethods, "ACH", defaultBank);
       if (isACH) {
         setDefaultPaymentCard(false);
+        setAutopaySwitchDisabled(false);
       } else {
         //set default card 
         const cardFound = await defaultCardCheck(payments?.data?.CardMethods, "card", defaultBank);
@@ -226,8 +227,7 @@ export default function MakePayment(props) {
         let loan = [];
         loan.push(data);
         setLatestLoanData(loan);
-        let totalAmount = (Math.abs(data?.loanPaymentInformation?.accountDetails?.RegularPaymentAmount) + Math.abs(data?.loanPaymentInformation?.accountDetails?.InterestRate) +
-          Math.abs(data?.loanPaymentInformation?.accountDetails?.LoanFeesAndCharges)).toFixed(2);
+        let totalAmount = data?.loanPaymentInformation?.accountDetails?.RegularPaymentAmount.toFixed(2);
         setPaymentAmount(totalAmount);
         setTotalPaymentAmount(totalAmount);
         setAccntNo(data.loanData?.accountNumber);
@@ -269,9 +269,7 @@ export default function MakePayment(props) {
       let schedulePaymentAmount = activeLoansData?.length && activeLoansData[ 0 ]?.loanPaymentInformation?.scheduledPayments?.length
         ? activeLoansData[ 0 ].loanPaymentInformation.scheduledPayments[ 0 ]?.PaymentAmount
         : 0;
-      let totalAmount = latestLoan?.length ? (Math.abs(latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails?.RegularPaymentAmount) + Math.abs(latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails?.InterestRate) +
-        Math.abs(latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails?.LoanFeesAndCharges)
-      ).toFixed(2) : null;
+      let totalAmount = latestLoan?.length ? latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails?.RegularPaymentAmount.toFixed(2) : null;
       setPaymentAmount(hasSchedulePaymentActive ? schedulePaymentAmount.toFixed(2) : totalAmount);
       setTotalPaymentAmount(totalAmount);
       setAccntNo(latestLoan?.length ? latestLoan[ 0 ]?.loanData?.accountNumber : null);
@@ -378,7 +376,7 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
 
   //Autopay submit
   const handleClickSubmit = () => {
-    if (nextDueDateCheck < todaysDate && !autopaySubmit) {
+    if (nextDueDateCheck < todaysDate && !autopaySubmitDisabled) {
       setRequiredAutoPay(globalMessages.Sorry_Account_Delinquent)
       setOpen(false);
       return;
@@ -444,9 +442,6 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
     } else if (!paymentDatepicker) {
       refpaymentDatepicker.current.focus();
       setRequiredDate(globalMessages.Please_Select_Any_Date);
-    } else if (isDebit && Moment(paymentDatepicker).isAfter(Moment())) {
-      refpaymentDatepicker.current.focus();
-      setRequiredDate(globalMessages.For_Debit_Account);
     } else if (
       Moment(User.data.loanData[ 0 ].loanOriginationDate).isAfter(Moment())) {
       refPaymentAmount.current.focus();

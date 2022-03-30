@@ -45,6 +45,7 @@ import logoImage from "../../../assets/images/Normallogo.png";
 import profileImg from "../../../assets/images/profile-img.jpg";
 import quickPay from "../../../assets/images/quickpay.png";
 import { CheckMyOffers } from "../../../contexts/CheckMyOffers";
+import { LoanAccount } from "../../../contexts/LoanAccount"
 import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import { ProfilePicture } from "../../../contexts/ProfilePicture";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
@@ -170,7 +171,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SideNav(refID) {
+export default function SideNav() {
   const classes = useStyles();
   const [ open, setOpen ] = useState(true);
   const [ anchorEl, setAnchorEl ] = useState(null);
@@ -182,6 +183,7 @@ export default function SideNav(refID) {
   const [ , setProfileTabNumber ] = useGlobalState();
   const { dataProfile, resetProfilePicture } = useContext(ProfilePicture);
   const { resetData } = useContext(CheckMyOffers);
+  const { resetLoanAccount } = useContext(LoanAccount);
   const { data: dataAccountOverview } = useQuery('loan-data', usrAccountDetails);
   const queryClient = useQueryClient();
   const [ activeLoanData, setActiveLoanData ] = useState(true);
@@ -195,6 +197,7 @@ export default function SideNav(refID) {
   let refApplyForLoanNav = useRef();
   let refClose2 = useRef();
   let refClose = useRef();
+  let loanStatus = ["under_review", "final_review"]; 
 
   const handleClickAway = () => {
     if (isMobileDevice) {
@@ -216,7 +219,6 @@ export default function SideNav(refID) {
     setCheckPresenceOfLoanStatus(presenceOfLoanStatus?.status);
     setCurrentLoan(presenceOfLoan || userAccountStatus === "closed" ? true : false);
     setCheckPresenceOfLoan(presenceOfLoan);
-
     //logic to if there is any active Loan Data is there or not
     if (!noOfLoans) {
       setActiveLoanData(true);
@@ -439,6 +441,7 @@ export default function SideNav(refID) {
     queryClient.removeQueries();
     LogoutController();
     resetData();
+    resetLoanAccount();
     resetProfilePicture();
     navigate("/login");
   }
@@ -483,9 +486,7 @@ export default function SideNav(refID) {
   if (navElement) {
     navElement.removeAttribute("href");
   }
-
-  let loanStatus = ["under_review", "final_review"]; 
-  //View part
+    //View part
   return (
     <ClickAwayListener onClickAway={ handleClickAway }>
 
@@ -709,7 +710,7 @@ export default function SideNav(refID) {
                   </NavLink> }
 
                 <NavLink to="/customers/loanDocument" onClick={ (event) => { activeLoanData && loanStatus.includes(checkPresenceOfLoanStatus) && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : 'nav_link' }>
-                  <ListItem className="titleSidenav" disabled={ activeLoanData && loanStatus.includes(checkPresenceOfLoanStatus) ? true : false }>
+                  <ListItem className="titleSidenav" disabled={ activeLoanData && !loanStatus.includes(checkPresenceOfLoanStatus) ? true : false }>
                     <ListItemIcon>
                       { " " }
                       <DescriptionOutlinedIcon />{ " " }

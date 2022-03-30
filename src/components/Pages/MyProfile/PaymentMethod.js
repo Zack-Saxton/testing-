@@ -626,11 +626,10 @@ export default function PaymentMethod() {
                     >
                       <TableCell
                         align="left"
-                        style={ { width: "15px", padding: "1px" } }
+                        className={ classes.nameList }
                       >
                         <span
-                          className="posRelativeWidthAuto"
-                          style={ { float: "left", marginRight: "8px" } }
+                          className={ `posRelativeWidthAuto ${ classes.nickName }` }
                         >
                           { row.AccountType ? (
                             <AccountBalanceIcon />
@@ -709,12 +708,7 @@ export default function PaymentMethod() {
             </TableContainer>
           ) : allPaymentMethod?.data?.message ? (
             <Grid
-              className="circleprog"
-              style={ {
-                width: "100%",
-                textAlign: "center",
-                marginTop: "20px",
-              } }
+              className={ `circleprog ${ classes.paymentMessage }` }
               item
               xs={ 12 }
             >
@@ -722,12 +716,7 @@ export default function PaymentMethod() {
             </Grid>
           ) : (
             <Grid
-              className="circleprog"
-              style={ {
-                width: "100%",
-                textAlign: "center",
-                marginTop: "20px",
-              } }
+              className={ `circleprog ${ classes.paymentMessage }` }
               item
               xs={ 12 }
             >
@@ -736,8 +725,7 @@ export default function PaymentMethod() {
           )
           ) : (
             <Grid
-              className="circleprog"
-              style={ { width: "100%", textAlign: "center" } }
+              className={ `circleprog ${ classes.loaderWidth }` }
             >
               <CircularProgress />
             </Grid>
@@ -813,7 +801,7 @@ export default function PaymentMethod() {
               <Breadcrumbs
                 separator={
                   <NavigateNextIcon
-                    style={ { color: "rgba(255, 255, 255, .7)" } }
+                    className={ classes.navigationLink }
                     fontSize="small"
                   />
                 }
@@ -1130,7 +1118,7 @@ export default function PaymentMethod() {
               <Breadcrumbs
                 separator={
                   <NavigateNextIcon
-                    style={ { color: "rgba(255, 255, 255, .7)" } }
+                    className={ classes.navigationLink }
                     fontSize="small"
                   />
                 }
@@ -1188,7 +1176,7 @@ export default function PaymentMethod() {
             <Grid
               item
               xs={ 2 }
-              style={ { width: "100%", padding: "0px" } }
+              className={ classes.cardType }
               container
               direction="row"
             >
@@ -1292,13 +1280,12 @@ export default function PaymentMethod() {
               />
             </Grid>
             <Grid
-              style={ { padding: "0px 16px", width: "100%" } }
+              className={ `${classes.sameMailAddress} ${ editMode ? classes.hideSection : classes.showSection }` }
               item
               sm={ 4 }
               xs={ 12 }
               container
               direction="row"
-              className={ editMode ? classes.hideSection : classes.showSection }
             >
               <Checkbox
                 name="sameAsMailAddress"

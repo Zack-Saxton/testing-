@@ -16,6 +16,11 @@
 	cursor: pointer;
 	text-decoration: underline;
   }
+  @media print{    
+    .printPage { 
+      display: none !important; 
+    }
+  }
 
   #citizenship, #employementStatus, #marriedStatus,#phoneType{
     background:transparent !important;

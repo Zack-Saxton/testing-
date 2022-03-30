@@ -19,6 +19,7 @@ import {
   Zipcode
 } from "../../FormsUI";
 import ErrorLogger from '../../lib/ErrorLogger';
+import { useStylesMyProfile } from "./Style";
 import "./Style.css";
 
 const validationSchema = yup.object({
@@ -43,7 +44,7 @@ const validationSchema = yup.object({
 });
 
 export default function MailingAddress(props) {
-
+  const classes = useStylesMyProfile();
   const [ loading, setLoading ] = useState(false);
   const [ validZip, setValidZip ] = useState(true);
   const [ errorMsg, setErrorMsg ] = useState("");
@@ -169,7 +170,7 @@ export default function MailingAddress(props) {
           <Grid
             item
             xs={ 12 }
-            style={ { width: "100%", gap: 15, marginBottom: 20 } }
+            className={ classes.addressInfoGrid }
             container
             direction="row"
           >
@@ -200,7 +201,7 @@ export default function MailingAddress(props) {
           <Grid
             item
             xs={ 12 }
-            style={ { width: "100%", gap: 15, marginBottom: 20 } }
+            className={ classes.addressInfoGrid }
             container
             direction="row"
           >
@@ -221,7 +222,7 @@ export default function MailingAddress(props) {
           <Grid
             item
             xs={ 12 }
-            style={ { width: "100%", gap: 15, marginBottom: 20 } }
+            className={ classes.addressInfoGrid }
             container
             direction="row"
           >
@@ -242,7 +243,7 @@ export default function MailingAddress(props) {
           <Grid
             item
             xs={ 12 }
-            style={ { width: "100%", gap: 15, marginBottom: 20 } }
+            className={ classes.addressInfoGrid }
             container
             direction="row"
           >

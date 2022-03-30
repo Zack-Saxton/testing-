@@ -17,7 +17,6 @@ import amonelogo from "../../../assets/partners/WelcomeAOMember.png";
 import creditkarmalogo from "../../../assets/partners/WelcomeCKMember.png";
 import GTLlogo from "../../../assets/partners/WelcomeGTLMember.png";
 import LendingTreelogo from "../../../assets/partners/WelcomeLTMember.png";
-import monevologo from "../../../assets/partners/WelcomeMonevoMember.png";
 import NerdWalletlogo from "../../../assets/partners/WelcomeNWMember.png";
 import OneLoanPlacelogo from "../../../assets/partners/WelcomeOLPMember.png";
 import partnerSignup, { PopulatePartnerSignup } from "../../Controllers/PartnerSignupController";
@@ -34,14 +33,14 @@ const validationSchema = yup.object({
     .required(globalMessages.EmailRequired),
   password: yup
     .string(globalMessages.PasswordEnter)
-    .matches(/^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,30}$/, globalMessages.PasswordCriteria)
+    .matches(/^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,30}$/, globalMessages.PasswordCriteria)
     .max(30, globalMessages.PasswordMax)
-    .min(8, globalMessages.PasswordMin)
+    .min(10, globalMessages.PasswordMin)
     .required(globalMessages.PasswordRequired),
   confirmPassword: yup
     .string()
     .max(30, globalMessages.PasswordMax)
-    .min(8, globalMessages.PasswordMin)
+    .min(10, globalMessages.PasswordMin)
     .required(globalMessages.PasswordConfirmationRequired)
     .when("password", {
       is: (password) => password?.length > 0,
@@ -283,20 +282,6 @@ export default function CreditKarma() {
                       />
                     </a>
                   </Typography>
-                ) : utm_source === "monevo" || utm_source === "monevoN" ? (
-                  <Typography
-                    className={ classes.title }
-                    data-testid="title"
-                    color="textSecondary"
-                  >
-                    <a href="/#" target="blank">
-                      <img
-                        className={ classes.fullWidth }
-                        src={ monevologo }
-                        alt="monevologo"
-                      />
-                    </a>
-                  </Typography>
                 ) : utm_source === "NerdWallet" ? (
                   <Typography
                     className={ classes.title }
@@ -431,7 +416,7 @@ export default function CreditKarma() {
                       />
                       <p id="passwordTitle" className={ classes.passwordTitle }>
                         Please ensure your password meets the following
-                        criteria: between 8 and 30 characters in length, at
+                        criteria: between 10 and 30 characters in length, at
                         least 1 uppercase letter, at least 1 lowercase letter,
                         at least 1 symbol and at least 1 number.
                       </p>

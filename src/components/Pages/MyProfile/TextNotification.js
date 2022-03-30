@@ -122,13 +122,12 @@ export default function TextNotification() {
         <Grid
           item
           xs={ 12 }
-          style={ { width: "100%", gap: 15, marginBottom: 20 } }
+          className={ classes.textNotificationTitle }
           container
           direction="row"
         >
           <Typography
-            style={ { fontSize: "0.75rem" } }
-            className={ classes.cardHeading }
+            className={ classes.textLabel }
           >
             Enable Text Notifications
           </Typography>
@@ -136,7 +135,7 @@ export default function TextNotification() {
         <Grid
           item
           xs={ 12 }
-          style={ { width: "100%", gap: 15, marginBottom: -10 } }
+          className={ classes.textFormRow }
           container
           direction="row"
         >
@@ -163,7 +162,7 @@ export default function TextNotification() {
           id="txtPhoneNumber"
           item
           xs={ 12 }
-          style={ { width: "100%", gap: 15, marginBottom: 20 } }
+          className={ classes.textNotificationTitle }
           container
           direction="row"
         >
@@ -198,7 +197,6 @@ export default function TextNotification() {
             to="#"
             onClick={ handleDisclosureClickOpen }
             className={ classes.linkStyle }
-            style={ { textDecoration: "none", color: "#0F4EB3" } }
           >
             Disclosure
           </Link>
@@ -225,17 +223,13 @@ export default function TextNotification() {
           <Grid
             item
             xs={ 10 }
-            style={ {
-              fontSize: "0.938rem",
-              paddingTop: "8px",
-            } }
+            className={ classes.termsGrid }
           >
             I have read, understand, and agree to the &nbsp;
             <Link
               to={ `/textingTermsOfUse` }
               target="_blank"
               className={ classes.linkStyle }
-              style={ { textDecoration: "none", color: "#0F4EB3" } }
             >
               Texting Terms of Use.
             </Link>
@@ -294,7 +288,7 @@ export default function TextNotification() {
           <DialogContentText id="alert-dialog-description">
             <Typography
               align="justify"
-              style={ { fontSize: "15px", color: "black" } }
+              className={ classes.discosureText }
               gutterBottom
             >
               <p className={ classes.discosureContent }>

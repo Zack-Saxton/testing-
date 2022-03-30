@@ -68,7 +68,7 @@ export async function makePayment(scheduledPaymentAccountNo, scheduledPaymentCar
       payment_account: cards,
       payment_amount: paymentAmounts,
       payment_date: Moment(scheduledPaymentDatePicker).format("YYYY-MM-DD"),
-      is_debit_payment: scheduledPaymentIsDebit,
+      isDebitPayment: scheduledPaymentIsDebit,
       RemoveScheduledPayment: RemoveScheduledPayment,
     };
     let method = "POST";

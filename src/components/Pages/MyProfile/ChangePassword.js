@@ -13,10 +13,11 @@ import {
   ButtonSecondary,
   PasswordField
 } from "../../FormsUI";
+import { useStylesMyProfile } from "./Style";
 import "./Style.css";
 
 export default function ChangePassword(basicInformationData) {
-
+  const classes = useStylesMyProfile();
   const navigate = useNavigate();
   const [ loading, setLoading ] = useState(false);
   const [ , setProfileTabNumber ] = useGlobalState();
@@ -29,9 +30,9 @@ export default function ChangePassword(basicInformationData) {
     newPassword: yup
       .string(globalMessages.PasswordEnter)
       .max(30, globalMessages.PasswordMax)
-      .min(8, globalMessages.PasswordMin)
+      .min(10, globalMessages.PasswordMin)
       .matches(
-        /^((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,30})$/,
+        /^((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{10,30})$/,
         globalMessages.PasswordCriteria
       )
       .required(globalMessages.PasswordNewRequired),
@@ -42,9 +43,9 @@ export default function ChangePassword(basicInformationData) {
         globalMessages.PasswordConfirmationMatch
       )
       .max(30, globalMessages.PasswordMax)
-      .min(8, globalMessages.PasswordMin)
+      .min(10, globalMessages.PasswordMin)
       .matches(
-        /^((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,30})$/,
+        /^((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{10,30})$/,
         globalMessages.PasswordCriteria
       )
       .required(globalMessages.PasswordConfirmationRequired),
@@ -142,7 +143,7 @@ export default function ChangePassword(basicInformationData) {
           <Grid
             item
             xs={ 12 }
-            style={ { width: "100%", gap: 15, marginBottom: 18 } }
+            className={ classes.basicInfoGrid }
             container
             direction="row"
           >
@@ -168,7 +169,7 @@ export default function ChangePassword(basicInformationData) {
           <Grid
             item
             xs={ 12 }
-            style={ { width: "100%", gap: 15, marginBottom: 18 } }
+            className={ classes.basicInfoGrid }
             container
             direction="row"
           >
@@ -190,14 +191,14 @@ export default function ChangePassword(basicInformationData) {
               helperText={ formikPassword.touched.newPassword && formikPassword.errors.newPassword }
               disabled={ false }
             />
-            <p style={ { textAlign: "justify", fontSize: "0.938rem" } }>
-              Please ensure your password meets the following criteria: between 8 and 30 characters in length, at least 1 uppercase letter, at least 1 lowercase letter, at least 1 number, at least 1 special character.
+            <p className={ classes.passwordText }>
+            Please ensure your password meets the following criteria: between 10 and 30 characters in length, at least 1 uppercase letter, at least 1 lowercase letter, at least 1 number, at least 1 special character.
             </p>
           </Grid>
           <Grid
             item
             xs={ 12 }
-            style={ { width: "100%", gap: 15, marginBottom: 18 } }
+            className={ classes.basicInfoGrid }
             container
             direction="row"
           >
@@ -230,7 +231,7 @@ export default function ChangePassword(basicInformationData) {
             lg={ 2 }
             xl={ 1 }
             direction="row"
-            style={ { padding: "10px 0px" } }
+            className={ classes.passwordButtonGrid }
             id="reEnterUpdate"
           >
             <ButtonSecondary
@@ -251,7 +252,7 @@ export default function ChangePassword(basicInformationData) {
             lg={ 2 }
             xl={ 1 }
             direction="row"
-            style={ { padding: "10px 0px " } }
+            className={ classes.passwordButtonGrid }
             id="reEnterCancel"
           >
             <ButtonPrimary
