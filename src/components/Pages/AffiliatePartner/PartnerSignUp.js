@@ -17,7 +17,6 @@ import amonelogo from "../../../assets/partners/WelcomeAOMember.png";
 import creditkarmalogo from "../../../assets/partners/WelcomeCKMember.png";
 import GTLlogo from "../../../assets/partners/WelcomeGTLMember.png";
 import LendingTreelogo from "../../../assets/partners/WelcomeLTMember.png";
-import monevologo from "../../../assets/partners/WelcomeMonevoMember.png";
 import NerdWalletlogo from "../../../assets/partners/WelcomeNWMember.png";
 import OneLoanPlacelogo from "../../../assets/partners/WelcomeOLPMember.png";
 import partnerSignup, { PopulatePartnerSignup } from "../../Controllers/PartnerSignupController";
@@ -280,20 +279,6 @@ export default function CreditKarma() {
                         className={ classes.fullWidth }
                         src={ amonelogo }
                         alt="amonelogo"
-                      />
-                    </a>
-                  </Typography>
-                ) : utm_source === "monevo" || utm_source === "monevoN" ? (
-                  <Typography
-                    className={ classes.title }
-                    data-testid="title"
-                    color="textSecondary"
-                  >
-                    <a href="/#" target="blank">
-                      <img
-                        className={ classes.fullWidth }
-                        src={ monevologo }
-                        alt="monevologo"
                       />
                     </a>
                   </Typography>

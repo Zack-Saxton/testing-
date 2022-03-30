@@ -65,10 +65,8 @@ export default function Login(props) {
       let grecaptchaResponse = grecaptcha.getResponse();
       let ipAddress = await getClientIp();
       let recaptchaVerifyResponse = await RecaptchaValidationController(grecaptchaResponse, ipAddress);
-      console.log("recaptchaVerifyResponse",recaptchaVerifyResponse)
 
       if (recaptchaVerifyResponse.status === 200) {
-        console.log("inside if")
         toast.success(globalMessages.Recaptcha_Verify);
         setDisableRecaptcha(false);
       }
