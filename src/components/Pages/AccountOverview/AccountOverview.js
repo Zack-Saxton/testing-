@@ -23,7 +23,6 @@ export default function AccountOverview() {
   let applicantData = accountDetails?.data?.applicant?.contact;
   let status = accountDetails?.data?.status;
   let activeLoansData = accountDetails?.data?.activeLoans;
-  let recentPaymentData = accountDetails?.data?.loanHistory;
   Cookies.set("hasActiveLoan", true);
   if (Array.isArray(activeLoansData) && !(activeLoansData.length)) Cookies.set("hasActiveLoan", false);
   Cookies.set("hasApplicationStatus", accountDetails?.data?.applicant?.processing?.status);
@@ -51,7 +50,7 @@ export default function AccountOverview() {
         {/* ****************components************ */ }
         <LimitedOffer isLoading={ isLoading } userOffers={ offerData } />
         <ActiveLoans isLoading={ isLoading } userActiveLoanData={ activeLoansData } />
-        <RecentPayments isLoading={ isLoading } userRecentPaymentData={ recentPaymentData } />
+        <RecentPayments/>
         <RecentApplications isLoading={ isLoading } userApplicationsData={ applicationsData } UserAccountStatus={ status } userApplicantData={ applicantData } />
       </Grid>
     </div>

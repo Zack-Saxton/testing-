@@ -45,6 +45,7 @@ import logoImage from "../../../assets/images/Normallogo.png";
 import profileImg from "../../../assets/images/profile-img.jpg";
 import quickPay from "../../../assets/images/quickpay.png";
 import { CheckMyOffers } from "../../../contexts/CheckMyOffers";
+import { LoanAccount } from "../../../contexts/LoanAccount"
 import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import { ProfilePicture } from "../../../contexts/ProfilePicture";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
@@ -182,6 +183,7 @@ export default function SideNav() {
   const [ , setProfileTabNumber ] = useGlobalState();
   const { dataProfile, resetProfilePicture } = useContext(ProfilePicture);
   const { resetData } = useContext(CheckMyOffers);
+  const { resetLoanAccount } = useContext(LoanAccount);
   const { data: dataAccountOverview } = useQuery('loan-data', usrAccountDetails);
   const queryClient = useQueryClient();
   const [ activeLoanData, setActiveLoanData ] = useState(true);
@@ -439,6 +441,7 @@ export default function SideNav() {
     queryClient.removeQueries();
     LogoutController();
     resetData();
+    resetLoanAccount();
     resetProfilePicture();
     navigate("/login");
   }
