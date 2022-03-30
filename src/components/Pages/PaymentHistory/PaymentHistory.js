@@ -18,6 +18,8 @@ import Moment from "moment";
 import React, { useEffect, useState, useContext } from "react";
 import { CSVLink } from "react-csv";
 import { NavLink } from "react-router-dom";
+import { useQuery } from 'react-query';
+import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
 import { ButtonPrimary, ButtonWithIcon } from "../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
@@ -31,6 +33,7 @@ export default function PaymentHistory() {
   //Material UI css class
   const classes = useStylesPaymenthistory();
   const { selectedLoanAccount } = useContext(LoanAccount);
+  const { data: accountDetails } = useQuery('loan-data', usrAccountDetails);
   const [ anchorEl, setAnchorEl ] = useState(null);
 
   const handleClick = (event) => {
@@ -42,18 +45,22 @@ export default function PaymentHistory() {
   };
 
   //Api implementation for table
-  const [ historyOfLoans, setHistoryOfLoans ] = useState([]);
+  const [ historyOfLoans, setHistoryOfLoans ] = useState();
+  const [ tableData, setTableData ] = useState([])
 
   useEffect(() => {
-    if (selectedLoanAccount) {
-      setHistoryOfLoans(
-        selectedLoanAccount?.AppAccountHistory?.length
-          ? selectedLoanAccount.AppAccountHistory
-          : []
-      );
-    }
+    if(accountDetails?.data?.loanHistory?.length){
+			let respectiveList = accountDetails.data.loanHistory.find((loan) => loan.accountNumber === selectedLoanAccount)
+			setHistoryOfLoans(respectiveList);
+		}
     return null;
-  }, [ selectedLoanAccount ]);
+  }, [ selectedLoanAccount, accountDetails ]);
+
+  useEffect(() => {
+    if(historyOfLoans?.AppAccountHistory?.length){
+      setTableData(historyOfLoans.AppAccountHistory);
+    }
+  }, [historyOfLoans])
 
   const headersCSV = [
     { label: "Date", key: "TransactionDate" },
@@ -88,7 +95,7 @@ export default function PaymentHistory() {
         "Balance",
       ],
     ];
-    const data = historyOfLoans?.map((dataItem) => [
+    const data = historyOfLoans?.AppAccountHistory?.map((dataItem) => [
       Moment(dataItem.TransactionDate).format("MM-DD-YYYY"),
       dataItem.TransactionDescription,
       currencyFormat(Math.abs(dataItem.PrincipalAmount)),
@@ -104,7 +111,7 @@ export default function PaymentHistory() {
       currencyFormat(Math.abs(dataItem.RunningPrincipalBalance)),
     ]);
     document.setFontSize(15);
-    document.text(`Active Loan / Payment History(${ selectedLoanAccount?.accountNumber })`, 40, 30);
+    document.text(`Active Loan / Payment History(${ selectedLoanAccount })`, 40, 30);
     let content = {
       startY: 50,
       head: headerPDF,
@@ -112,13 +119,13 @@ export default function PaymentHistory() {
       theme: "plain",
     };
     document.autoTable(content);
-    document.save(`${ selectedLoanAccount?.accountNumber }.pdf`);
+    document.save("" + selectedLoanAccount + ".pdf");
     setAnchorEl(null);
   };
 
   //Data for csv file
-  const dataCSV = historyOfLoans
-    ? historyOfLoans.map((item) => {
+  const dataCSV = historyOfLoans?.AppAccountHistory?.length
+    ? historyOfLoans.AppAccountHistory.map((item) => {
       return {
         ...item,
         ...{
@@ -173,7 +180,7 @@ export default function PaymentHistory() {
               Active Loan{ " " }
               { selectedLoanAccount ? (
                 <span style={ { fontSize: "70%", fontWeight: "100" } }>
-                  ({ selectedLoanAccount.accountNumber })
+                  ({ selectedLoanAccount })
                 </span>
               ) : ("") }
               { " " }
@@ -202,7 +209,7 @@ export default function PaymentHistory() {
                   style={ { textDecoration: "none", color: "#757575" } }
                   onClick={ handleClose }
                   headers={ headersCSV }
-                  filename={ "" + selectedLoanAccount?.accountNumber + ".csv" }
+                  filename={ "" + selectedLoanAccount + ".csv" }
                   data={ dataCSV }
                 >
                   <InsertDriveFileIcon
@@ -265,7 +272,7 @@ export default function PaymentHistory() {
             </TableContainer>
           </Grid>
         ) : (
-          <PaymentHistoryTable userRecentPaymentData={ historyOfLoans } />
+          <PaymentHistoryTable userRecentPaymentData={ tableData } />
         ) }
       </Grid>
     </div>
