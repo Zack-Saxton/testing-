@@ -129,6 +129,12 @@
     top: 0 !important;
     right: 0 !important;
   }
+  .replacePaymentBox{
+    flex-direction: column-reverse;
+  }
+  #replaceCurrentButton{
+    margin: 15px 0px;
+  }
 }
 
 #autopayDialogBox .makeStyles-dialogPaper-40 {
