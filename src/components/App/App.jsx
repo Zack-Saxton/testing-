@@ -59,6 +59,7 @@ import MyProfile from "../Pages/MyProfile/MyProfile";
 import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory";
 import RegisterPage from '../Pages/Register/Register';
 import VantageScore from "../Pages/VantageScore/VantageScore";
+import EmailVerification from "../Pages/EmailVerification/EmailVerification";
 import "./App.css";
 
 const queryClient = new QueryClient({
@@ -119,6 +120,7 @@ function App() {
                                 <Route path='/login' element={ loadGeneralUserComponent(<LoginPage />) } />
                                 <Route path='/register' element={ loadGeneralUserComponent(<RegisterPage />) } />
                                 <Route path='/faq' element={ loadGeneralUserComponent(<FaqBeforeLogin />) } />
+                                <Route path='/EmailVerification' element={ loadGeneralUserComponent(<EmailVerification />) } />
                                 <Route path='/privacyStatement' element={ loadGeneralUserComponent(<Disclosure URL="/privacy" />) } />
                                 <Route path='/communityGuidelines' element={ loadGeneralUserComponent(<Disclosure URL="/communityGuidelines" />) } />
                                 <Route path='/termsofuse' element={ loadGeneralUserComponent(<Disclosure URL="/termsOfUse" />) } />
