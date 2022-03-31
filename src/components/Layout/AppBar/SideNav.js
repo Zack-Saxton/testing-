@@ -24,6 +24,8 @@ import DataUsageOutlinedIcon from "@material-ui/icons/DataUsageOutlined";
 import DescriptionOutlinedIcon from "@material-ui/icons/DescriptionOutlined";
 import ListIcon from "@material-ui/icons/List";
 import MenuIcon from "@material-ui/icons/Menu";
+import BookIcon from '@material-ui/icons/Book';
+import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 import MonetizationOnRoundedIcon from "@material-ui/icons/MonetizationOnRounded";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
@@ -512,31 +514,11 @@ export default function SideNav() {
             </IconButton>
 
             <div className={ classes.grow } />
-            <div
-              id="tool-bar-list"
-            >
-              {/* <Typography id="blogsLink" className={ classes.headerAlign }>
-                <a
-                  target="_blank"
-                  href={ `${ process.env.REACT_APP_WEBSITE }/blog/` }
-                  className="hrefTag"
-                  rel="noopener noreferrer"
-                >
-                  Blog
-                </a>
-              </Typography>
-
-              <NavLink
-                to="/customers/faq"
-                className="nav_link faqLink"
-              >
-                <Typography className={ classes.headerAlign }>FAQ</Typography>
-              </NavLink> */}
-
-              {/* <NavLink to="/branch-locator" className="nav_link branchLocatorLink">
+            <div id="tool-bar-list">
+              <NavLink to="/branch-locator" className="nav_link branchLocatorLink">
                 <Typography className={ classes.headerAlign }>Branch Locator</Typography>
-              </NavLink> */}
-
+              </NavLink>
+              
               <NavLink id="quickNameIcon" to="/customers/makePayment" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : '' }>
                 <Tooltip title="Quick Pay" placement="bottom">
                   <img
@@ -769,21 +751,23 @@ export default function SideNav() {
                     MoneySKILL &reg;{ " " }
                   </ListItemText>
                 </ListItem>
-                <NavLink to={ `${ process.env.REACT_APP_WEBSITE }/blog/` }>
-                <ListItem>
-                 <ListItemText className="titleSidenav">
-                    { " " }
-                   Blog{ " " }
-                  </ListItemText>
-                </ListItem>
-                </NavLink>
-                <NavLink to="/customers/faq">
-                <ListItem>
-                 <ListItemText className="titleSidenav">
-                    { " " }
-                   FAQ{ " " }
-                  </ListItemText>
-                </ListItem>
+                <a href={ `${ process.env.REACT_APP_WEBSITE }/blog/` } className="titleSidenav">
+                  <ListItem>
+                    <ListItemIcon>
+                      { " " }
+                      <BookIcon />{ " " }
+                    </ListItemIcon>
+                    <ListItemText> Blog </ListItemText>
+                  </ListItem>
+                </a>
+                <NavLink to="/customers/faq" className="titleSidenav">
+                  <ListItem>
+                    <ListItemIcon>
+                      { " " }
+                      <LiveHelpIcon />{ " " }
+                    </ListItemIcon>
+                    <ListItemText> FAQ </ListItemText>
+                  </ListItem>
                 </NavLink>
               </List>
             </PerfectScrollbar>
