@@ -515,7 +515,7 @@ export default function SideNav() {
             <div
               id="tool-bar-list"
             >
-              <Typography id="blogsLink" className={ classes.headerAlign }>
+              {/* <Typography id="blogsLink" className={ classes.headerAlign }>
                 <a
                   target="_blank"
                   href={ `${ process.env.REACT_APP_WEBSITE }/blog/` }
@@ -531,7 +531,7 @@ export default function SideNav() {
                 className="nav_link faqLink"
               >
                 <Typography className={ classes.headerAlign }>FAQ</Typography>
-              </NavLink>
+              </NavLink> */}
 
               {/* <NavLink to="/branch-locator" className="nav_link branchLocatorLink">
                 <Typography className={ classes.headerAlign }>Branch Locator</Typography>
@@ -769,6 +769,22 @@ export default function SideNav() {
                     MoneySKILL &reg;{ " " }
                   </ListItemText>
                 </ListItem>
+                <NavLink to={ `${ process.env.REACT_APP_WEBSITE }/blog/` }>
+                <ListItem>
+                 <ListItemText className="titleSidenav">
+                    { " " }
+                   Blog{ " " }
+                  </ListItemText>
+                </ListItem>
+                </NavLink>
+                <NavLink to="/customers/faq">
+                <ListItem>
+                 <ListItemText className="titleSidenav">
+                    { " " }
+                   FAQ{ " " }
+                  </ListItemText>
+                </ListItem>
+                </NavLink>
               </List>
             </PerfectScrollbar>
           </Drawer>
