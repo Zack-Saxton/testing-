@@ -119,9 +119,7 @@ export default function BranchDetail(MyBranchDetail) {
                 <a
                   id="phoneLink"
                   href="tel:"
-                  style={ { textDecoration: "none" } }
-                >
-                  { " " }
+                  className={classes.navLinkMyBranch} >
                   { formatPhoneNumber(branchDetail.MyBranchDetail.PhoneNumber) }
                 </a>
               </p>
@@ -192,7 +190,7 @@ export default function BranchDetail(MyBranchDetail) {
             <Grid
               item
               xs={ 12 }
-              style={ { paddingTop: "10px", textAlign: "left" } }
+              className={classes.gridSchedule}
             >
               <ScheduleCall
                 MyBranchCall={ MyBranchDetail }
@@ -203,7 +201,7 @@ export default function BranchDetail(MyBranchDetail) {
             <Grid
               item
               xs={ 12 }
-              style={ { paddingTop: "10px", textAlign: "left" } }
+              className={classes.gridSchedule}
             >
               <ScheduleAppointment
                 MyBranchAppointment={ MyBranchDetail }

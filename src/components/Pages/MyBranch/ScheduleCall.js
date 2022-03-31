@@ -164,7 +164,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
   //View part
   return (
     <div>
-      <Grid item xs={ 12 } style={ { paddingTop: "10px", textAlign: "left" } }>
+      <Grid item xs={ 12 } className={classes.gridSchedule}>
         <ButtonPrimary
           stylebutton='{"float": "", "padding":"0px 30px", "fontSize":"0.938rem" }'
           onClick={ handleScheduleCall }
@@ -188,7 +188,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
             <CloseIcon />
           </IconButton>
         </div>
-        <DialogTitle id="alert-dialog-title" style={ { padding: "unset" } }>
+        <DialogTitle id="alert-dialog-title" className = {classes.scheduleDialog}>
           <Typography className={ classes.dialogHeading }>
             Schedule a Call
           </Typography>
@@ -198,7 +198,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
         </DialogTitle>
         <form id="formCall" ref={ refFormCall } onSubmit={ formik.handleSubmit }>
           <DialogContent>
-            <Grid style={ { paddingBottom: "10px" } }>
+            <Grid className={classes.gridDatepicker}>
               <DatePicker
                 name="appointmentDate"
                 label="Date"
@@ -276,7 +276,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
             ) }
           </DialogContent>
 
-          <DialogActions style={ { justifyContent: "center" } }>
+          <DialogActions className={classes.scheduleDialogAction}>
             <ButtonPrimary
               type="submit"
               stylebutton='{"background": "","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
