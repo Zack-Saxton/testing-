@@ -77,8 +77,8 @@ export default function Credit(creditData) {
           arcPadding={ -0.5 }
           cornerRadius={ 0 }
           textColor={ "#212121" }
+          className={classes.guageChart}
           percent={ percent }
-          style={ { width: '60%', margin: 'auto' } }
           formatTextValue={ (value) => score }
           colors={ [ "#a50100", "#e05534", "#f2d82b", "#BCEA78", "#85c900" ] }
         />

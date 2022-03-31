@@ -112,6 +112,10 @@ const useStyleVantageScore = makeStyles((theme) => ({
     lineHeight: "20px",
     textAlign: "justify",
   },
+  guageChart:{
+    width: '60%',
+    margin: 'auto'
+  }
 }));
 
 export { useStyleVantageScore };
