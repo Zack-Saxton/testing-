@@ -68,7 +68,7 @@ export default function VantageScore() {
         </Grid>
         <div id="creditContainer">
           <Grid item xs={ 12 }>
-            <Paper lstyle={ { padding: "36px", borderRadius: "2px !important" } } className={ classes.paper }>
+            <Paper id="vantageScorePaper" className={ classes.paper }>
               { creditData ? (
                 creditData[ 0 ]?.parsed.vantage_score ?
                   (<Credit creditData={ creditData } />) : <div>You do not have any credit score</div>
