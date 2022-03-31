@@ -25,7 +25,7 @@ export default function BranchMap(MyBranchDetail) {
       ) : branchDetail?.MyBranchDetail?.Address ? (
         <iframe
           title="branchLocation"
-          style={ { height: "530px", width: "100%" } }
+          className={classes.iframeBranchMap}
           id="gmap_canvas"
           src={
             "https://maps.google.com/maps?q=" +

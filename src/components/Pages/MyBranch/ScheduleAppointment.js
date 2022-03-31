@@ -169,7 +169,7 @@ export default function ScheduleAppointment({
   //View part
   return (
     <div>
-      <Grid item xs={ 12 } style={ { paddingTop: "10px", textAlign: "left" } }>
+      <Grid item xs={ 12 } className={classes.gridSchedule}>
         <ButtonPrimary
           id="scheduleAppointmentBtn"
           stylebutton='{"float": "","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
@@ -194,7 +194,7 @@ export default function ScheduleAppointment({
             <CloseIcon />
           </IconButton>
         </div>
-        <DialogTitle id="alert-dialog-title" style={ { padding: "unset" } }>
+        <DialogTitle id="alert-dialog-title" className={classes.scheduleDialog}>
           <Typography component={ "div" } className={ classes.dialogHeading }>
             Schedule an Appointment
           </Typography>
@@ -204,7 +204,7 @@ export default function ScheduleAppointment({
         </DialogTitle>
         <form id="formAppointment" ref={ refFormCall } onSubmit={ formik.handleSubmit }>
           <DialogContent>
-            <Grid style={ { paddingBottom: "10px" } }>
+            <Grid className={classes.gridDatepicker} >
               <DatePicker
                 name="appointmentDate"
                 label="Date"
@@ -275,7 +275,7 @@ export default function ScheduleAppointment({
             ) }
           </DialogContent>
 
-          <DialogActions style={ { justifyContent: "center" } }>
+          <DialogActions className={classes.scheduleDialogAction} >
             <ButtonPrimary
               type="submit"
               stylebutton='{"background": "","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
