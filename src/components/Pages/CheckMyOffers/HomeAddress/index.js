@@ -242,9 +242,6 @@ function HomeAddress() {
 									variant="h5"
 									id="homeAddressTxt"
 									className="borrowCSSLP checkMyOfferText"
-									style={ {
-
-									} }
 								>
 									Enter your home address
 								</Typography>

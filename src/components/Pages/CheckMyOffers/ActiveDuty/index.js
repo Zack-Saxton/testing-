@@ -125,11 +125,6 @@ function ActiveDuty() {
 								</Grid>
 								<Typography
 									variant="h5"
-									style={ {
-										align: "center",
-										justify: "center",
-										alignItems: "center",
-									} }
 									className="borrowCSS"
 								>
 									Are you active duty military or <br />

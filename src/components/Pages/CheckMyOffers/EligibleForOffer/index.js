@@ -88,11 +88,6 @@ function EligibleForOffers(props) {
 								<Typography
 									id="CongratsTxt"
 									variant="h3"
-									style={ {
-										align: "center",
-										justify: "center",
-										alignItems: "center",
-									} }
 									className="margin2p mainTextMsg"
 								>
 									Congratulations!
@@ -120,11 +115,6 @@ function EligibleForOffers(props) {
 							>
 								<Typography
 									variant="h6"
-									style={ {
-										align: "center",
-										justify: "center",
-										alignItems: "center",
-									} }
 									className="smalTextImg smalTextImgNoOff"
 								>
 									You are eligible for a loan offer*. <br />
