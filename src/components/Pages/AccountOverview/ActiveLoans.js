@@ -111,9 +111,11 @@ export default function ActiveLoans(userActiveLoanData) {
                                   id="makeAPaymentButtonStyle"
                                   stylebutton='{"float": "right","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
                                   className={
-                                    numberDaysForDueDate(appData)
-                                      ? `${ classes.normalButton } pulse`
-                                      : classes.normalButton
+                                    today.isBefore(appData.loanDetails.NextDueDate)
+                                      ? numberDaysForDueDate(appData)
+                                        ? `${ classes.normalButton } pulse`
+                                        : classes.normalButton
+                                      : `${classes.buttonColorPastDate} pulse`
                                   }
                                 >
                                   Make a Payment
