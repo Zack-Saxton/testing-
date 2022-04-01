@@ -158,13 +158,12 @@ export default function PaymentHistory() {
     <div>
       <CheckLoginStatus />
       <ScrollToTopOnMount />
-      <Grid container justifyContent={ "center" } className={ classes.centerGrid }>
-        <Grid style={ { paddingBottom: "10px" } } container>
+      <Grid container className={ classes.centerGrid }>
+        <Grid className={ classes.gridStyle } container>
           <Grid item xs={ 12 } sm={ 8 }>
             <Typography variant="h3" className={ classes.heading }>
               <NavLink
                 to="/customers/accountOverview"
-                style={ { textDecoration: "none" } }
               >
                 <ButtonWithIcon
                   icon="arrow_backwardIcon"
@@ -179,7 +178,7 @@ export default function PaymentHistory() {
               </NavLink>{ " " }
               Active Loan{ " " }
               { selectedLoanAccount ? (
-                <span style={ { fontSize: "70%", fontWeight: "100" } }>
+                <span className={ classes.spanStyle }>
                   ({ selectedLoanAccount })
                 </span>
               ) : ("") }
@@ -204,40 +203,34 @@ export default function PaymentHistory() {
               open={ Boolean(anchorEl) }
               onClose={ handleClose }
             >
-              <MenuItem key={ "csv" } style={ { color: "#757575" } }>
+              <MenuItem key={ "csv" } >
                 <CSVLink
-                  style={ { textDecoration: "none", color: "#757575" } }
+                  className={`${classes.linkStyle} ${classes.menuColor}`}
                   onClick={ handleClose }
                   headers={ headersCSV }
                   filename={ "" + selectedLoanAccount + ".csv" }
                   data={ dataCSV }
                 >
-                  <InsertDriveFileIcon
-                    style={ { paddingRight: "7px", marginBottom: "-4px" } }
-                  />{ " " }
+                  <InsertDriveFileIcon className={ classes.csvStyle }/>{ " " }
                   CSV
                 </CSVLink>
               </MenuItem>
               <MenuItem
                 key={ "pdf" }
                 onClick={ downloadPDF }
-                style={ { color: "#757575" } }
+                className={ classes.menuColor }
               >
-                <PictureAsPdfIcon style={ { paddingRight: "12px" } } /> PDF
+                <PictureAsPdfIcon className={ classes.pdfStyle } /> PDF
               </MenuItem>
             </Menu>
           </Grid>
         </Grid>
         { !historyOfLoans ? (
-          <Grid
-            item
-            xs={ 12 }
-            style={ { paddingTop: "10px", paddingBottom: "30px" } }
-          >
+          <Grid item xs={ 12 }>
             <TableContainer id="pdfdiv" component={ Paper }>
               <Table className={ classes.table } aria-label="simple table">
                 <TableHead>
-                  <TableRow key={ Math.random() * 1000 }>
+                  <TableRow>
                     <TableCell className={ classes.tableHead } align="left">
                       Date
                     </TableCell>
