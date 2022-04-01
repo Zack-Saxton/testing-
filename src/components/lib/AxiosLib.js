@@ -2,6 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import ErrorLogger from "../lib/ErrorLogger";
 import apiUrl from "./ApiLib.json";
+import getClientIp from "../Controllers/CommonController"
 
 /***** API Calling function *****/
 const APICall = async (api, param, data, method, addAccessToken) => {
@@ -11,6 +12,7 @@ const APICall = async (api, param, data, method, addAccessToken) => {
     statusText: "",
     data: "",
   };
+  let userIP = await getClientIp();
 
   let url = apiUrl.url[ api ] + (param ? param : '');
   try {
@@ -21,6 +23,7 @@ const APICall = async (api, param, data, method, addAccessToken) => {
       headers: {
         "Content-Type": "application/json",
         "x-access-token": addAccessToken ? loginToken.apiKey : "",
+        "user-ip": userIP
       },
       transformRequest: (data, headers) => {
         if (!addAccessToken) {
