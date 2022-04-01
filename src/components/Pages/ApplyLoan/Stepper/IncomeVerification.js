@@ -31,6 +31,29 @@ export default function IncomeVerification(props) {
 			toast.error("Document submission failed. Please try again");
 		}
 	};
+
+	const handleFinishOnClick = async () => {
+							props.setLoadingFlag(true);
+							await refetch()
+							let verifySteps = await verificationSteps();
+							//To check all the steps are completed or not
+							if (
+								verifySteps?.data?.email &&
+								verifySteps?.data?.financial_information &&
+								verifySteps?.data?.id_document &&
+								verifySteps?.data?.id_questions &&
+								verifySteps?.data?.id_photo &&
+								verifySteps?.data?.bank_account_information &&
+								verifySteps?.data?.bank_account_verification &&
+								verifySteps?.data?.income_verification
+							) { 
+								props.setLoadingFlag(false);
+								navigate("/customers/receiveYourMoney");
+							} else {
+								props.setLoadingFlag(false);
+								toast.error(messages.incomeVerification.finishAllSteps);
+							}
+	}
 	//JSX part
 	return (
 		<div>
@@ -78,26 +101,8 @@ export default function IncomeVerification(props) {
 						color="primary"
 						id="button_stepper_next"
 						stylebutton='{"marginRight": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
-						onClick={ async () => {
-							props.setLoadingFlag(true);
-							refetch()
-							//To check all the steps are completed or not
-							if (
-								verificationStepsApplyforLoan?.data?.email &&
-								verificationStepsApplyforLoan?.data?.financial_information &&
-								verificationStepsApplyforLoan?.data?.id_document &&
-								verificationStepsApplyforLoan?.data?.id_questions &&
-								verificationStepsApplyforLoan?.data?.id_photo &&
-								verificationStepsApplyforLoan?.data?.bank_account_information &&
-								verificationStepsApplyforLoan?.data?.bank_account_verification &&
-								verificationStepsApplyforLoan?.data?.income_verification
-							) { 
-								props.setLoadingFlag(false);
-								navigate("/customers/receiveYourMoney");
-							} else {
-								props.setLoadingFlag(false);
-								toast.error(messages.incomeVerification.finishAllSteps);
-							}
+						onClick={ () => {
+							handleFinishOnClick();
 						} }
 					>
 						{ props.activeStep === props?.steps.length - 1 ? "Finish" : "Next" }
