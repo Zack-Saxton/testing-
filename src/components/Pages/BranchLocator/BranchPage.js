@@ -21,7 +21,7 @@ import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile_Imag
 import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.jpg";
 import TitleImage from "../../../assets/images/Favicon.png";
 import MarinerFinanceBuilding from "../../../assets/images/mf-logo-white.png";
-import { branchSaturdaySchedule, mapInformationBranchLocator } from "../../Controllers/BranchDayTiming";
+import BranchDayTiming, { convertDistanceUnit, branchSaturdaySchedule, mapInformationBranchLocator } from "../../Controllers/BranchDayTiming";
 import BranchLocatorController from "../../Controllers/BranchLocatorController";
 import { ButtonPrimary, ButtonSecondary } from "../../FormsUI";
 import { useStylesConsumer } from "../../Layout/ConsumerFooterDialog/Style";
@@ -76,6 +76,15 @@ export default function StatePage(props) {
       ErrorLogger(" Error from branchList ", error);
     }
   };
+  const findBranchTimings = async (value) => {
+    try {
+      if (value) {
+        return await BranchDayTiming(value);
+      }
+    } catch (error) {
+      ErrorLogger(" Error from findBranchTimings", error);
+    }
+  };
   const listForMapView = async (List) => {
     try {
       if (List) setGoogleMap(await mapInformationBranchLocator(List));
@@ -87,6 +96,10 @@ export default function StatePage(props) {
     try {
       let result = await getBranchLists(value);
       if (result?.length > 2) result = result.slice(0, 3);
+      for (let ele in result) {
+        let BranchTime = await findBranchTimings(result[ele]);
+        result[ele] = Object.assign(result[ele], { BranchTime: BranchTime });
+      }
       setBranchList(result);
       listForMapView(result);
     } catch (error) {
@@ -293,7 +306,7 @@ export default function StatePage(props) {
                   <ChevronRightIcon />
                 </NavLink>
                 <p className={ classes.ptag }>
-                  { item.distance }les away | { item?.BranchTime?.Value1 }{ " " }
+                  {convertDistanceUnit(item.distance) } away | { item?.BranchTime?.Value1 }{ " " }
                   { item?.BranchTime?.Value2 }
                 </p>
                 <p className={ classes.addressFont } id={ item.id }>
