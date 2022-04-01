@@ -965,6 +965,7 @@ export default function CreditKarma() {
                               </span>
                             </p>
                           }
+                          required={ formik.values.state === "Delaware" || formik.values.state === "DE" ? true : false}
                           stylelabelform='{ "color":"" }'
                           stylecheckbox='{ "color":"blue" }'
                           stylecheckboxlabel='{ "color":"" }'
@@ -1002,6 +1003,7 @@ export default function CreditKarma() {
                               </a>
                             </p>
                           }
+                          required={ formik.values.state === "California" || formik.values.state === "CA" ? true : false}
                           stylelabelform='{ "color":"" }'
                           stylecheckbox='{ "color":"blue" }'
                           stylecheckboxlabel='{ "color":"" }'
@@ -1038,6 +1040,7 @@ export default function CreditKarma() {
                               </a>
                             </p>
                           }
+                          required={ formik.values.state === "New Mexico" || formik.values.state === "NM" ? true : false}
                           stylelabelform='{ "color":"" }'
                           stylecheckbox='{ "color":"blue" }'
                           stylecheckboxlabel='{ "color":"" }'

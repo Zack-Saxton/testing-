@@ -316,7 +316,7 @@ export default function SideNav() {
   let hasApplicationStatus = Cookies.get("hasApplicationStatus");
   let appStatus = [ "rejected", "referred", "expired" ];
   let checkAppStatus = appStatus.includes(hasApplicationStatus);
-  let disableField = (checkAppStatus || hasActiveLoan) ? true : false;
+  let disableField = (checkAppStatus && !hasActiveLoan ? true : checkAppStatus || !hasActiveLoan ? true : false );
   const branchName = Cookies.get("branchname");
   const branchPhone = Cookies.get('branchphone');
   const getProfileImage = Cookies.get('getProfileImage');
@@ -474,7 +474,7 @@ export default function SideNav() {
       <MenuItem onClick={ (menuType) => handleMenuProfile('top') } id="settingsMenuList">
         My Profile</MenuItem>
       <MenuItem
-        disabled={ !disableField }
+        disabled={ disableField }
         onClick={ handleMenuPaymentProfile } id="settingsMenuList">
         Payment Methods</MenuItem>
       <MenuItem onClick={ logoutUser } id="settingsMenuListLogout" disabled={ disable }>
