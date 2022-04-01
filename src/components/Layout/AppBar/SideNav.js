@@ -701,10 +701,9 @@ export default function SideNav() {
                   </ListItem>
                 </NavLink>
 
-                <NavLink 
-                to="/customers/myBranch" 
-                onClick={ (event) => { activeLoanData && (!checkPresenceOfLoanStatus === "referred" || !checkPresenceOfLoanStatus === "contact_branch" ) && event.preventDefault(); } } 
-                className={ activeLoanData && (!checkPresenceOfLoanStatus === "referred" || !checkPresenceOfLoanStatus === "contact_branch") ? 'nav_link_disabled' : 'nav_link' }>
+                <NavLink to="/customers/myBranch" 
+                         onClick={ (event) => { activeLoanData && (!checkPresenceOfLoanStatus === "referred" || !checkPresenceOfLoanStatus === "contact_branch" ) && event.preventDefault(); } } 
+                         className={ activeLoanData && (!checkPresenceOfLoanStatus === "referred" || !checkPresenceOfLoanStatus === "contact_branch") ? 'nav_link_disabled' : 'nav_link' }>
                   <ListItem className="titleSidenav">
                     <ListItemIcon>
                       { " " }
