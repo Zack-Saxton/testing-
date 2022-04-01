@@ -12,7 +12,7 @@ import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import PhoneIcon from "@material-ui/icons/Phone";
 import SearchIcon from "@material-ui/icons/Search";
 import PropTypes from "prop-types";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, Suspense } from "react";
 import { Helmet } from "react-helmet";
 import PlacesAutocomplete from "react-places-autocomplete";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
@@ -26,10 +26,11 @@ import BranchLocatorController from "../../Controllers/BranchLocatorController";
 import { ButtonPrimary, ButtonSecondary } from "../../FormsUI";
 import { useStylesConsumer } from "../../Layout/ConsumerFooterDialog/Style";
 import ErrorLogger from "../../lib/ErrorLogger";
-import Map from "../BranchLocator/BranchLocatorMap";
 import { useStylesMyBranch } from "../BranchLocator/Style";
 import CustomerRatings from "../MyBranch/CustomerRatings";
 import "./BranchLocator.css";
+const Map = React.lazy(() => import("../BranchLocator/BranchLocatorMap"));
+
 export default function BranchLocator() {
   //Material UI css class
   const classes = useStylesMyBranch();
@@ -512,12 +513,15 @@ export default function BranchLocator() {
 
   const displayMap = (
     <Grid id="mapGridWrap" item xs={ 12 } sm={ 12 } md={ 6 } xl={ 6 }>
-      <Map
-        id="mapBox"
-        googleMap={ googleMap }
-        CurrentLocation={ currentLocation }
-        Zoom={ zoomDepth }
-      />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Map
+          id="mapBox"
+          googleMap={googleMap}
+          CurrentLocation={currentLocation}
+          Zoom={zoomDepth}
+        />
+      </Suspense>
+      
     </Grid>
   );
   const MapBranchListandSearch2Buttons = (

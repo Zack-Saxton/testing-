@@ -139,7 +139,6 @@ export function formatDate(date) {
 
 export const convertDistanceUnit = (value) => {
     if (!value) return null;
-    value = value.replace("ft", "Feet")
-    return value.replace('mi', 'Miles')
-    
+    value = value.replace("ft", "Feet");
+    return value.replace('mi', 'Miles');
 }
