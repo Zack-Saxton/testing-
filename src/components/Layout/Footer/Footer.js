@@ -17,7 +17,7 @@ export default function Footer() {
   //View Part
   return (
     <div>
-      <footer id="mainFooter" style={ { width: "100%" } }>
+      <footer id="mainFooter">
         <Grid className="FooterGridWrap">
           <Grid className="footerWrap" container>
             <Grid item sm={ 12 } md={ 4 } lg={ 4 }>
@@ -132,7 +132,7 @@ export default function Footer() {
                   <p className="leftAlignAddress">
                     Mariner Finance, LLC, NMLS No. 166564
                     <span
-                      style={ { margin: "0", cursor: "pointer", overflowWrap: "break-word" } }
+                    className="spanLeftAlignAddress"
                       onClick={ handleOpenConsumer }
                     >
                       { ' ' }(www.nmlsconsumeraccess.com){ ' ' }
@@ -152,7 +152,6 @@ export default function Footer() {
                   id="mfInfoImg"
                   src={ housingImage }
                   alt="logo image"
-                  style={ { paddingRight: "25px" } }
                 />
               </Grid>
             </Grid>

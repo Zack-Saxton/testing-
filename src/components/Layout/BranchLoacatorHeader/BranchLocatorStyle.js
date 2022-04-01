@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
   logoFormat: {
     height: 62,
     cursor: "pointer",
+    marginTop: "6px"
   },
   subtitle: {
     color: "#171717",

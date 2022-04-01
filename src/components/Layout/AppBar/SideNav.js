@@ -137,8 +137,9 @@ const useStyles = makeStyles((theme) => ({
     color: "black",
   },
 
-  logo: {
+  logoIcon: {
     maxWidth: 40,
+    margin: "13px"
   },
   inputRoot: {
     color: "inherit",
@@ -169,6 +170,12 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "0 5px 5px 0",
     boxShadow: `3px 3px 10px 0 rgb(123 31 162 / 50%)`,
   },
+  logoIconDiv:{
+    display: "none"
+  },
+  textDecoration:{
+    textDecoration: "none" 
+  }
 }));
 
 export default function SideNav() {
@@ -589,7 +596,7 @@ export default function SideNav() {
                   type="image"
                   src={ logoImage }
                   alt="logo image"
-                  style={ { height: "60px" } }
+                  id = "logoImage"
                 />
               </a>
 
@@ -601,12 +608,11 @@ export default function SideNav() {
                 checked={ checked }
               />
 
-              <div id="close" ref = {refClose} style={ { display: "none" } }>
+              <div id="close" ref = {refClose} className={classes.logoIconDiv}>
                 <img
                   src={ logoIcon }
                   alt="logo icon"
-                  className={ classes.logo }
-                  style={ { margin: "13px" } }
+                  className={ classes.logoIcon }
                 />
               </div>
             </div>
@@ -658,7 +664,7 @@ export default function SideNav() {
                       { " " }
                       <AssignmentTurnedInOutlinedIcon />{ " " }
                     </ListItemIcon>
-                    <ListItemText style={ { textDecoration: "none" } }>
+                    <ListItemText className = {classes.textDecoration}>
                       Account Overview
                     </ListItemText>
                   </ListItem>
@@ -670,7 +676,7 @@ export default function SideNav() {
                       { " " }
                       <AccountBalanceWalletIcon />{ " " }
                     </ListItemIcon>
-                    <ListItemText style={ { textDecoration: "none" } }>
+                    <ListItemText className = {classes.textDecoration}>
                       Make a Payment{ " " }
                     </ListItemText>
                   </ListItem>
