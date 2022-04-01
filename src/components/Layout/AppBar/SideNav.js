@@ -691,7 +691,7 @@ export default function SideNav() {
                     </ListItem>
                   </NavLink> }
 
-                <NavLink to="/customers/loanDocument" onClick={ (event) => { activeLoanData && loanStatus.includes(checkPresenceOfLoanStatus) && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : 'nav_link' }>
+                <NavLink to="/customers/loanDocument" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : 'nav_link' }>
                   <ListItem className="titleSidenav" disabled={ activeLoanData && !loanStatus.includes(checkPresenceOfLoanStatus) ? true : false }>
                     <ListItemIcon>
                       { " " }
@@ -701,8 +701,11 @@ export default function SideNav() {
                   </ListItem>
                 </NavLink>
 
-                <NavLink id="mybranchNav" to="/customers/myBranch" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : 'nav_link' }>
-                  <ListItem className="titleSidenav" disabled={ checkPresenceOfLoanStatus === "referred" || checkPresenceOfLoanStatus === "contact_branch" ? false : activeLoanData }>
+                <NavLink 
+                to="/customers/myBranch" 
+                onClick={ (event) => { activeLoanData && (!checkPresenceOfLoanStatus === "referred" || !checkPresenceOfLoanStatus === "contact_branch" ) && event.preventDefault(); } } 
+                className={ activeLoanData && (!checkPresenceOfLoanStatus === "referred" || !checkPresenceOfLoanStatus === "contact_branch") ? 'nav_link_disabled' : 'nav_link' }>
+                  <ListItem className="titleSidenav">
                     <ListItemIcon>
                       { " " }
                       <AccountBalanceIcon />{ " " }
