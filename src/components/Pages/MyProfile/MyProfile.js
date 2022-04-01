@@ -97,9 +97,9 @@ export default function MyProfile() {
   let textnotify = (/true/i).test(cookieTextNotify) ? "On" : "Off";
   let hasActiveLoan = (/true/i).test(Cookies.get("hasActiveLoan"));
   let hasApplicationStatus = Cookies.get("hasApplicationStatus");
-  let appStatus = [ "rejected", "referred", "expired" ];
+  let appStatus = [ "rejected", "referred", "expired", "contact_branch" ];
   let checkAppStatus = appStatus.includes(hasApplicationStatus);
-  let disableField = (checkAppStatus || hasActiveLoan);
+  let disableField = (checkAppStatus && !hasActiveLoan ? true : checkAppStatus || !hasActiveLoan ? true : false );
 
   return (
     <div>
@@ -182,7 +182,7 @@ export default function MyProfile() {
                   />
                   <Tab
                     id="tab-vertical"
-                    disabled={ !disableField }
+                    disabled={ disableField }
                     label={
                       <span className={ classes.menuLabel } >
                         <TextsmsIcon className={ classes.menuIconStyle } />
@@ -193,7 +193,7 @@ export default function MyProfile() {
                     { ...tabVerticalProps(2) }
                   />
                   <Tab
-                    disabled={ !disableField }
+                    disabled={ disableField }
                     label={
                       <span className={ classes.menuLabel } >
                         <PaymentsIcon className={ classes.menuIconStyle } />{ " " }
