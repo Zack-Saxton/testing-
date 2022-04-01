@@ -21,7 +21,7 @@ import { businesStates, howManyBranchesforBranchLocatorPages } from "../../../as
 import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile_Image.png";
 import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.jpg";
 import TitleImage from "../../../assets/images/Favicon.png";
-import BranchDayTiming, { mapInformationBranchLocator } from "../../Controllers/BranchDayTiming";
+import BranchDayTiming, { convertDistanceUnit, mapInformationBranchLocator } from "../../Controllers/BranchDayTiming";
 import BranchLocatorController from "../../Controllers/BranchLocatorController";
 import { ButtonPrimary, ButtonSecondary } from "../../FormsUI";
 import { useStylesConsumer } from "../../Layout/ConsumerFooterDialog/Style";
@@ -367,7 +367,7 @@ export default function BranchLocator() {
                         <ChevronRightIcon />
                       </NavLink>
                       <p className={ classes.ptag }>
-                        { item?.distance }les away | { item?.BranchTime?.Value1 }{ " " }
+                        {convertDistanceUnit(item.distance)} away | { item?.BranchTime?.Value1 }{ " " }
                         { item?.BranchTime?.Value2 }
                       </p>
                       <p

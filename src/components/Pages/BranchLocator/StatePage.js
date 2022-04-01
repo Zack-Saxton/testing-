@@ -20,9 +20,7 @@ import { howManyBranchesforBranchLocatorPages } from "../../../assets/data/marin
 import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile_Image.png";
 import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.jpg";
 import TitleImage from "../../../assets/images/Favicon.png";
-import BranchDayTiming, {
-  mapInformationBranchLocator
-} from "../../Controllers/BranchDayTiming";
+import BranchDayTiming, { convertDistanceUnit, mapInformationBranchLocator } from "../../Controllers/BranchDayTiming";
 import BranchLocatorController from "../../Controllers/BranchLocatorController";
 import { ButtonPrimary, ButtonSecondary } from "../../FormsUI";
 import { useStylesConsumer } from "../../Layout/ConsumerFooterDialog/Style";
@@ -141,6 +139,21 @@ export default function StatePage() {
   }, []);
   const handleSelect1 = async (value) => setAddress1(value);
   const handleSelect2 = async (value) => setAddress2(value);
+
+const ShowFirstandLastBranch = (val) => {
+  return (
+    <>
+   {branchList &&
+    <NavLink
+      to={`/branch-locator/${stateLongName.replace(/\s+/, '-').toLocaleLowerCase()}/personal-loans-in-${val.BranchInformation.BranchName.replace(/[.]/g, "").replace(/\s+/g, '-').toLocaleLowerCase()}-${stateShortName.toLocaleLowerCase()}`}
+      state={{ branch_Details: val.BranchInformation, stateLongNm: stateLongName, stateShortNm: stateShortName }}
+      className="nav_link"
+    >
+    <b>{val.BranchInformation.BranchName}</b>
+    </NavLink>}
+   </>
+  )
+}
   //View part
   return (
     <div>
@@ -316,8 +329,11 @@ export default function StatePage() {
                   <span>Personal Loans in { name }</span>
                 </h4>
                 <p className="PesonalLoanParagraph">
-                  Mariner Finance branches are all over { name }, from Salisbury to
-                  Frederick. Use our interactive map to locate the one closest to
+                  Mariner Finance branches are all over { name }, from {" "}
+                  {branchList && <ShowFirstandLastBranch BranchInformation={branchList[0]}/>}
+                   {" "} to {" "}
+                  {branchList && <ShowFirstandLastBranch BranchInformation={branchList[branchList.length - 1]} />}
+                  . Use our interactive map to locate the one closest to
                   you.
                 </p>
                 <h3>We’re here for you.</h3>
@@ -467,7 +483,7 @@ export default function StatePage() {
                             <ChevronRightIcon />
                           </NavLink>
                           <p className={ classes.ptag }>
-                            { item?.distance }les away |{ " " }
+                            {convertDistanceUnit(item.distance)} away |{ " " }
                             { item?.BranchTime?.Value1 }{ " " }
                             { item?.BranchTime?.Value2 }
                           </p>
