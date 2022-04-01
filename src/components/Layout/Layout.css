@@ -84,6 +84,10 @@
   color: #214476 !important;
 }
 
+.faqLink{
+  text-decoration: none
+}
+
 .topBarlinks {
   display: flex;
   height: 100%;

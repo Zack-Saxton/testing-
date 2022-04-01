@@ -208,8 +208,6 @@ export default function TextNotification() {
           container
         >
           <Checkbox
-            item
-            xs={ 1 }
             name="textingterms"
             disabled={ !disabledContent }
             id="textingterms"

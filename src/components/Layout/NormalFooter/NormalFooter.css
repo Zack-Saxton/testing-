@@ -115,3 +115,16 @@
       width: 100% !important;
    }
  }
+
+ .mainDivNormalFooter{
+  background: #d7e6ed
+ }
+ .mivNormalFooter{
+  width: 100%
+ }
+ .spanLeftAlignAddress{
+  margin: 0;
+  cursor: pointer;
+  overflow-wrap: break-word
+ }
+ 
