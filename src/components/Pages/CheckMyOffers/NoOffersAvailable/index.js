@@ -92,11 +92,6 @@ function NoOffersAvailable(props) {
 							>
 								<Typography
 									variant="h4"
-									style={ {
-										align: "center",
-										justify: "center",
-										alignItems: "center",
-									} }
 									className="mobileFontSize lessBorrowCSS margin2p"
 								>
 									We are sorry!
@@ -124,12 +119,6 @@ function NoOffersAvailable(props) {
 							>
 								<Typography
 									variant="h6"
-									style={ {
-										align: "center",
-										justify: "center",
-										alignItems: "center",
-										textAlign: "justify",
-									} }
 									className="mobileFontParagraph lessBorrowCSS "
 								>
 									Unfortunately, we could not provide an offer for you at this

@@ -41,6 +41,10 @@ const useStyles = makeStyles((Theme) =>
 			color: Theme.palette.text.secondary,
 			boxSizing: "border-box",
 		},
+		gridPadding:  { 
+			paddingTop: "7px", 
+			paddingBottom: "15px" 
+		},
 		gridItem: {
 			boxSizing: "border-box",
 			padding: Theme.spacing(1),
@@ -57,10 +61,6 @@ const useStyles = makeStyles((Theme) =>
 		},
 		mainGridPadding: {
 			padding: "4% 0%"
-		},
-		gridPadding: {
-			paddingTop: "7px",
-			paddingBottom: "15px"
 		},
 		gridMargin: {
 			margin: "15px 0px 19px 0 !important"
@@ -530,7 +530,6 @@ function LoanPurpose(props) {
 										md={ 12 }
 										xs={ 12 }
 										className={ `${ classes.masonryItemFirst } ${ classes.gridPadding }` }
-										style={ { paddingTop: "7px", paddingBottom: "15px" } }
 									>
 										<Paper
 											data-testid="others"

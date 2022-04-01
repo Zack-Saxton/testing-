@@ -190,7 +190,6 @@ function NewUser() {
 							item
 							className="cardWrapper"
 							justifyContent="center"
-						// style={ { width: "100%" } }
 						>
 							<Paper
 								className="cardWOPadding"
@@ -241,12 +240,10 @@ function NewUser() {
 										className="blockDiv"
 										container
 										justifyContent="center"
-									// style={ { width: "100%" } }
 									>
 										<Grid
 											container
 											justifyContent="center"
-											// style={ { width: "100%" } }
 											item
 											lg={ 8 }
 											md={ 8 }
@@ -308,7 +305,6 @@ function NewUser() {
 										</Grid>
 										<Grid
 											justifyContent="center"
-											// style={ { width: "100%" } }
 											item
 											container
 											lg={ 8 }

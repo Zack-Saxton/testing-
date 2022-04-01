@@ -7,6 +7,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { CheckMyOffers as Check } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary } from "../../../FormsUI";
+import "../CheckMyOffer.css";
 
 const useStyles = makeStyles((theme) => ({
     offerAmountStyle: {
@@ -18,6 +19,16 @@ const useStyles = makeStyles((theme) => ({
         marginTop: "5px",
         marginBottom: "5px",
     },
+    typoStyle: {
+        color: "black", 
+        fontWeight: "400", 
+        fontFamily: "Muli, sans-serif"
+    },
+    smallTextStyle: {
+        paddingTop: "25px", 
+        paddingBottom: "70px",
+        marginBottom: "3%"
+    }
 }));
 
 const PreApproved = () => {
@@ -57,8 +68,7 @@ const PreApproved = () => {
                             md={ 6 }
                             lg={ 6 }
                             xl={ 6 }
-                            className="cardWrapper"
-                            style={ { paddingTop: "70px" } }
+                            className="cardWrapper cardPadTop"
                         >
 
                             <Paper
@@ -90,12 +100,12 @@ const PreApproved = () => {
                                     alignItems="center"
                                 >
                                     <Grid item xs={ 11 } sm={ 10 } md={ 8 } lg={ 8 } xl={ 8 }>
-                                        <Typography align="center" style={ { color: "black", fontWeight: "400", fontFamily: "Muli, sans-serif" } }>
+                                        <Typography align="center" className={classes.typoStyle} >
                                             &nbsp;We checked your offer code<br />
                                             and { "your'e" } eligible for at least,<br />
                                         </Typography>
                                         <h2 className={ classes.offerAmountStyle }>{ offerAmount }</h2>
-                                        <Typography align="center" style={ { color: "black", fontWeight: "400", fontFamily: "Muli, sans-serif" } }>
+                                        <Typography align="center" className={classes.typoStyle} >
 
                                             and possibly more!
                                         </Typography>
@@ -172,11 +182,10 @@ const PreApproved = () => {
                             lg={ 10 }
                             xl={ 10 }
                             data-testid="descriptionOutside"
-                            className="alignSmallText"
+                            className={classes.smallTextStyle}
                             container
                             justifyContent="center"
                             alignItems="center"
-                            style={ { paddingTop: "25px", paddingBottom: "70px" } }
                         >
                             <Typography className="smallText blackText" align="center">
                                 To help the government fight the funding of terrorism and money

@@ -88,11 +88,6 @@ function ReferredToBranch(props) {
 								<Typography
 									id="referCongratsTxt"
 									variant="h3"
-									style={ {
-										align: "center",
-										justify: "center",
-										alignItems: "center",
-									} }
 									className="margin2p mainTextMsg smallLineHeight"
 								>
 									Congratulations!
@@ -120,22 +115,12 @@ function ReferredToBranch(props) {
 							>
 								<Typography
 									variant="h6"
-									style={ {
-										align: "center",
-										justify: "center",
-										alignItems: "center",
-									} }
 									className="smallTextImgNoOffOne smallTextImg"
 								>
 									Your local representative is waiting to talk to you.
 								</Typography>
 								<Typography
 									variant="h6"
-									style={ {
-										align: "center",
-										justify: "center",
-										alignItems: "center",
-									} }
 									className="smallTextImgNoOff smallTextImg "
 								>
 									Complete the application process from the comfort of your home
@@ -203,11 +188,6 @@ function ReferredToBranch(props) {
 								<br />
 								<Typography
 									variant="h6"
-									style={ {
-										align: "center",
-										justify: "center",
-										alignItems: "center",
-									} }
 									className=" smallTextImg beforeVisitOne"
 								>
 									Things you should know before you call or visit.
@@ -226,15 +206,13 @@ function ReferredToBranch(props) {
 								<div className="leftAlign">
 									<Typography
 										variant="h6"
-										style={ { align: "left", alignItems: "left" } }
-										className=" minText bullet"
+										className=" minText bullet leftAlignment"
 									>
 										{ "It's" } a good idea to know how much money you make a year.
 									</Typography>
 									<Typography
-										style={ { align: "left", alignItems: "left" } }
 										variant="h6"
-										className=" minText bullet"
+										className=" minText bullet leftAlignment"
 									>
 										pen and paper may be helpful to take note of any documents
 										you may need at loan closing.
@@ -242,11 +220,6 @@ function ReferredToBranch(props) {
 								</div>
 								<Typography
 									variant="h6"
-									style={ {
-										align: "center",
-										justify: "center",
-										alignItems: "center",
-									} }
 									className="minText"
 								>
 									*Approval of a loan and the loan disbursement process may take
