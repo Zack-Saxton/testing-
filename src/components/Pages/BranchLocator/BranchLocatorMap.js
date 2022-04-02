@@ -41,7 +41,6 @@ function BranchLocatorMap(props) {
   const onMapClick = useCallback(() => {
     setActiveMarker(null);
   }, []);
-
   return (
     <GoogleMap
       zoom={ zoomValue }
@@ -91,4 +90,5 @@ BranchLocatorMap.propTypes = {
   googleMap: PropTypes.array,
 };
 
-export default BranchLocatorMap;
+export default React.memo(BranchLocatorMap);
+
