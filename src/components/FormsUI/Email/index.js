@@ -11,7 +11,7 @@ import PropTypes from "prop-types";
 import React, { useState } from "react";
 
 //Initializing EmailWrapper component
-const EmailWrapper = ({ name, suffix, lable, materialProps, id, ...otherProps }) => {
+const EmailWrapper = ({ name, suffix, lable, materialProps, id, disablePaste, ...otherProps }) => {
 
   //Basic Configuration for Email field
   const configTextfield = {
@@ -33,6 +33,11 @@ const EmailWrapper = ({ name, suffix, lable, materialProps, id, ...otherProps })
   const handleChange = (event) => {
     setValues(event.target.value.trim() + suffix);
   };
+  const disablePasteOption = (event) => {    
+    if(disablePaste){
+      event.preventDefault();
+    }  
+  };
 
   return (
     <TextField
@@ -43,6 +48,9 @@ const EmailWrapper = ({ name, suffix, lable, materialProps, id, ...otherProps })
       // value= {value}
       inputProps={ materialProps }
       onChange={ handleChange }
+      onCut={ disablePasteOption }
+      onCopy={ disablePasteOption }
+      onPaste={ disablePasteOption }
       { ...configTextfield }
     />
   );
@@ -53,6 +61,7 @@ EmailWrapper.propTypes = {
   suffix: PropTypes.object,
   lable: PropTypes.string,
   id: PropTypes.string,
+  disablePaste: PropTypes.bool,
   materialProps: PropTypes.object
 };
 
