@@ -50,9 +50,9 @@ const DatePickerWrapper = ({ name, format, label, refId,
 					maxDate={ new Date(maxdate) }
 					placeholder={ placeholder }
 
-					// renderInput={(props) => (
-					// 	<TextField {...props} helperText="valid mask" />
-					//   )}
+					renderInput={(props) => (
+						<TextField {...props} variant="standard" helperText="valid mask" />
+					  )}
 					// { ...otherProps }
 					// inputProps={ { "data-test-id": "datePicker" } }
 

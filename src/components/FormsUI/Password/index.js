@@ -25,6 +25,7 @@ const PasswordWrapper = ({ name, label, materialProps, id, ...otherProps }) => {
     <TextField
       fullWidth={ true }
       label={ label }
+      variant="standard"
       id={ id } name={ name } { ...otherProps }
       type={ !showPassword ? "text" : "password" }
       onCut={ handleEdit }

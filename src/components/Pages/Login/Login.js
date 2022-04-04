@@ -202,16 +202,24 @@ export default function Login(props) {
       <div className={ classes.mainContentBackground } id="mainContentBackground">
         <Box>
           <Grid
-            className={ classes.mainContentGrid }
-            item
-            xl={ 4 }
-            lg={ 4 }
-            md={ 4 }
-            sm={ 10 }
+            className={ classes.mainContentGrid }            
             xs={ 12 }
+            item
+            container
+            justifyContent="center"
+            alignItems="center"
           >
             <Grid
               id="main-content"
+              item
+              xs={ 11 }
+              sm={ 10 }
+              md={ 8 }
+              lg={ 6 }
+              xl={ 6 }
+              justifyContent="center"
+              alignItems="center"
+              container
               style={ {
                 opacity: loading ? 0.55 : 1,
                 pointerEvents: loading ? "none" : "initial",

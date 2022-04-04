@@ -29,7 +29,7 @@ const TextFieldWrapper = ({
   onChange,
   InputProps,
   ...otherProps
-}) => {
+}) => { 
 
   //Configure it with Formik
 
@@ -56,11 +56,12 @@ const TextFieldWrapper = ({
         backgroundColor: "yellow",
       },
     },
-    cssFocused: {},
+    cssFocused: { color: 'black'},
     notchedOutline: {
       borderWidth: "1px",
       borderColor: "blue !important",
     },
+   
   }));
 
   const classes = useStyles();
@@ -94,7 +95,7 @@ const TextFieldWrapper = ({
     }
   };
 
-  return <TextField { ...configTextField } onChange={ handleOnchange } InputProps={ InputProps } inputProps={ materialProps } />;
+  return <TextField { ...configTextField } variant="standard" onChange={ handleOnchange } InputProps={ InputProps } inputProps={ materialProps } />;
 };
 
 //set name prop as mandatory

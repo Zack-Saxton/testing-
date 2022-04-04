@@ -56,6 +56,7 @@ const SSNWrapper = ({
 							error={ error }
 							placeholder={ placeholder }
 							helperText={ helperText }
+							variant="standard"
 							inputProps={ { "data-test-id": "ssn", unmaskedval: unmaskedval } }
 						/>
 					) }

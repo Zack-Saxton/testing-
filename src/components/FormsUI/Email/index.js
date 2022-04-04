@@ -40,12 +40,12 @@ const EmailWrapper = ({ name, suffix, lable, materialProps, id, ...otherProps })
       lable="email"
       type="email"
       fullWidth={ true }
-      // value= {value}
+      variant="standard"
       inputProps={ materialProps }
       onChange={ handleChange }
       { ...configTextfield }
     />
-  );
+  ); 
 };
 
 EmailWrapper.propTypes = {
