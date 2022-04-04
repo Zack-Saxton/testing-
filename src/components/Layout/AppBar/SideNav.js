@@ -325,7 +325,7 @@ export default function SideNav() {
   let hasApplicationStatus = Cookies.get("hasApplicationStatus");
   let appStatus = [ "rejected", "referred", "expired" ];
   let checkAppStatus = appStatus.includes(hasApplicationStatus);
-  let disableField = (checkAppStatus && !hasActiveLoan ? true : checkAppStatus || !hasActiveLoan ? true : false );
+  let disableField = (checkAppStatus && !hasActiveLoan ? true : !checkAppStatus && !hasActiveLoan ? true : false );
   const branchName = Cookies.get("branchname");
   const branchPhone = Cookies.get('branchphone');
   const getProfileImage = Cookies.get('getProfileImage');
