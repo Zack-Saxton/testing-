@@ -4,13 +4,13 @@
 #columnHeading{
 	font-size: 0.938rem !important;
 }
+#review-submit-button{
+	font-size: 1rem;
+}
 @media (max-width: 800px) {
 	#column-heading {
 		font-size: 12px;
 	}
-}
-
-@media (max-width: 800px) {
 	#column-content {
 		font-size: 20px;
 	}
