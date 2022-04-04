@@ -19,6 +19,7 @@ import TabSection from "../TabSection";
 import OfferTable from "./offersTable";
 import TabPanel from "../TabPanel"
 import "./SelectOffer.css";
+import { useStylesApplyForLoan } from "../Style"
 import { toast } from "react-toastify";
 
 //Initializing functional component Apply for loan
@@ -69,81 +70,7 @@ export default function ApplyLoan() {
 		}
 	};
 
-	// Styling part
-	const useStyles = makeStyles((theme) => ({
-		paper: {
-			padding: theme.spacing(2),
-			display: "flex",
-			flexDirection: "column",
-			color: theme.palette.text.secondary,
-		},
-		loadingOn: {
-			opacity: 0.55,
-			pointerEvents: "none",
-		},
-		loadingOnWithoutBlur: {
-			pointerEvents: "none",
-		},
-		loadingOff: {
-			opacity: 1,
-			pointerEvents: "initial",
-		},
-		paperVerticalTab: {
-			paddingTop: "20px",
-			paddingBottom: "20px",
-			display: "flex",
-			flexDirection: "column",
-			color: theme.palette.text.secondary,
-		},
-		heading: {
-			color: "#214476",
-			fontWeight: "400",
-			fontSize: "1.563rem",
-			paddingBottom: "10px",
-		},
-		centerGrid: {
-			marginTop: "20px",
-			paddingRight: "23px",
-			paddingLeft: "23px",
-		},
-		greenText: {
-			color: "green !important",
-		},
-		tabLabel: {
-			background: "white",
-			margin: "0px 20px 10px 0px",
-			color: "#3f51b5",
-			fontFamily: "'Muli', sans-serif !important",
-			fontSize: "0.938rem",
-			textTransform: "none",
-			fontWeight: "700",
-		},
-		tabVerticalLabel: {
-			color: "#3f51b5",
-			textTransform: "none",
-			fontWeight: "600",
-			fontFamily: "'Muli', sans-serif !important",
-			fontSize: "1rem",
-			textAlign: "start",
-		},
-		table: {
-			minWidth: 650,
-		},
-		tableHead: {
-			color: "#171717!important",
-			fontWeight: "600",
-			fontSize: "1rem",
-		},
-		tableHeadRow: {
-			color: "#171717!important",
-			fontSize: "15px",
-		},
-		indicator: {
-			left: "0px",
-			background: "unset",
-		},
-	}));
-	const classes = useStyles();
+		const classes = useStylesApplyForLoan();
 
 	// To fetch the available offers for the logged in user
 	function getAvailableOffers() {
@@ -269,12 +196,12 @@ export default function ApplyLoan() {
 					item
 					xs={ 12 }
 					direction="row"
-					style={ { width: "100%" } }
+					className={classes.fullWidth}
 				>
 					<Typography className={ classes.heading } variant="h3">
 						<NavLink
+							className={classes.noDecoration}
 							to="/customers/accountOverview"
-							style={ { textDecoration: "none" } }
 						>
 							<ButtonWithIcon
 								icon="arrow_backwardIcon"
@@ -297,11 +224,11 @@ export default function ApplyLoan() {
 				<Grid item xs={ 12 }>
 					<TabSection value={ value } handleChange={ handleChange } classes={ classes } ay={ 0 } />
 
-					<TabPanel value={ value } index={ 0 } style={ { marginTop: "10px" } }>
+					<TabPanel value={ value } index={ 0 } className={classes.tabPanelWrap}>
 						<Grid container item xs={ 12 }>
 							{ noOffers ? (
-								<Grid item xs={ 12 } style={ { width: "100%" } }>
-									<Paper style={ { padding: "20px" } } className={ classes.paper }>
+								<Grid item xs={ 12 } className={classes.fullWidth}>
+									<Paper className={`${classes.noOffersWrap} ${ classes.paper }`} >
 										<Typography>
 											{ messages.selectAmount.noOffersAvailable }
 										</Typography>
@@ -313,8 +240,7 @@ export default function ApplyLoan() {
 										item
 										xs={ 12 }
 										sm={ 3 }
-										style={ { width: "100%" } }
-										className={ loading ? classes.loadingOnWithoutBlur : classes.loadingOff }
+										className={`${ loading ? classes.loadingOnWithoutBlur : classes.loadingOff } ${classes.fullWidth}`}
 									>
 										<Paper className={ classes.paperVerticalTab }>
 											{ terms ? (
@@ -328,7 +254,6 @@ export default function ApplyLoan() {
 													scrollButtons="auto"
 													orientation="vertical"
 													variant="scrollable"
-													style={ { paddingTop: "5px" } }
 													aria-label="scrollable auto tabs example"
 													className={ classes.tabsvertical }
 												>
@@ -341,7 +266,7 @@ export default function ApplyLoan() {
 																	key={ index }
 																	label={
 																		<span
-																			style={ { float: "left", width: "100%", fontSize: "0.938rem", fontWeight: "700" } }
+																			className={classes.monthTerm}
 																		>
 																			{ item + " Month Term" }
 																		</span>
@@ -355,7 +280,7 @@ export default function ApplyLoan() {
 														: "null" }
 													<Tab
 														label={
-															<span style={ { float: "left", width: "100%" } }>
+															<span className={classes.comparisonChartLabel}>
 																{ " " }
 																Comparison Chart
 															</span>
@@ -403,20 +328,10 @@ export default function ApplyLoan() {
 
 						<Grid
 							item
-							style={ {
-								width: "100%",
-								paddingTop: "25px",
-								paddingBottom: "70px",
-							} }
+							className={classes.bottomTextWrap}
 						>
 							<Typography
-								style={ {
-									textAlign: "justify",
-									fontSize: ".8rem",
-									color: "#6b6f82",
-									lineHeight: "20px",
-									paddingBottom: "20px",
-								} }
+								className={classes.bottomText}
 							>
 								*Loan funding subject to normal lending requirements, including,
 								but not limited to, verification of applicant identity,
@@ -429,13 +344,7 @@ export default function ApplyLoan() {
 								any illegal purpose.
 							</Typography>
 							<Typography
-								style={ {
-									textAlign: "justify",
-									fontSize: ".8rem",
-									color: "#6b6f82",
-									lineHeight: "20px",
-									paddingBottom: "20px",
-								} }
+								className={classes.bottomText}
 							>
 								†The stated APR represents the cost of credit as a yearly rate
 								and will be determined based upon the applicant’s credit at the
@@ -447,13 +356,7 @@ export default function ApplyLoan() {
 								application process.
 							</Typography>
 							<Typography
-								style={ {
-									textAlign: "justify",
-									fontSize: ".8rem",
-									color: "#6b6f82",
-									lineHeight: "20px",
-									paddingBottom: "20px",
-								} }
+								className={classes.bottomText}
 							>
 								*The process uses a “soft” credit inquiry to determine whether a
 								loan offer is available, which does not impact your credit
