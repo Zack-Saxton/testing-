@@ -17,8 +17,8 @@ export default function NormalFooter() {
 
   //View Part
   return (
-    <div style={ { background: "#d7e6ed" } }>
-      <footer style={ { width: "100%" } }>
+    <div className="mainDivNormalFooter" >
+      <footer className="mivNormalFooter">
         <Grid className="mainFooterWrap">
 
           <Grid className="footerWrap" container>
@@ -106,7 +106,7 @@ export default function NormalFooter() {
                 <div>
                   <p className="leftAlignAddress">
                     Mariner Finance, LLC, NMLS No. 166564{ ' ' }
-                    <span style={ { margin: "0", cursor: "pointer", overflowWrap: "break-word" } } onClick={ handleOpenConsumer }>
+                    <span className="spanLeftAlignAddress" onClick={ handleOpenConsumer }>
                       (www.nmlsconsumeraccess.com)
                     </span>
                     { ' ' }

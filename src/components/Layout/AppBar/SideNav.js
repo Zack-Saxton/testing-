@@ -24,6 +24,8 @@ import DataUsageOutlinedIcon from "@material-ui/icons/DataUsageOutlined";
 import DescriptionOutlinedIcon from "@material-ui/icons/DescriptionOutlined";
 import ListIcon from "@material-ui/icons/List";
 import MenuIcon from "@material-ui/icons/Menu";
+import BookIcon from '@material-ui/icons/Book';
+import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 import MonetizationOnRoundedIcon from "@material-ui/icons/MonetizationOnRounded";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
@@ -137,8 +139,9 @@ const useStyles = makeStyles((theme) => ({
     color: "black",
   },
 
-  logo: {
+  logoIcon: {
     maxWidth: 40,
+    margin: "13px"
   },
   inputRoot: {
     color: "inherit",
@@ -169,6 +172,12 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "0 5px 5px 0",
     boxShadow: `3px 3px 10px 0 rgb(123 31 162 / 50%)`,
   },
+  logoIconDiv:{
+    display: "none"
+  },
+  textDecoration:{
+    textDecoration: "none" 
+  }
 }));
 
 export default function SideNav() {
@@ -316,7 +325,7 @@ export default function SideNav() {
   let hasApplicationStatus = Cookies.get("hasApplicationStatus");
   let appStatus = [ "rejected", "referred", "expired" ];
   let checkAppStatus = appStatus.includes(hasApplicationStatus);
-  let disableField = (checkAppStatus || hasActiveLoan) ? true : false;
+  let disableField = (checkAppStatus && !hasActiveLoan ? true : !checkAppStatus && !hasActiveLoan ? true : false );
   const branchName = Cookies.get("branchname");
   const branchPhone = Cookies.get('branchphone');
   const getProfileImage = Cookies.get('getProfileImage');
@@ -474,7 +483,7 @@ export default function SideNav() {
       <MenuItem onClick={ (menuType) => handleMenuProfile('top') } id="settingsMenuList">
         My Profile</MenuItem>
       <MenuItem
-        disabled={ !disableField }
+        disabled={ disableField }
         onClick={ handleMenuPaymentProfile } id="settingsMenuList">
         Payment Methods</MenuItem>
       <MenuItem onClick={ logoutUser } id="settingsMenuListLogout" disabled={ disable }>
@@ -512,31 +521,11 @@ export default function SideNav() {
             </IconButton>
 
             <div className={ classes.grow } />
-            <div
-              id="tool-bar-list"
-            >
-              {/* <Typography id="blogsLink" className={ classes.headerAlign }>
-                <a
-                  target="_blank"
-                  href={ `${ process.env.REACT_APP_WEBSITE }/blog/` }
-                  className="hrefTag"
-                  rel="noopener noreferrer"
-                >
-                  Blog
-                </a>
-              </Typography>
-
-              <NavLink
-                to="/customers/faq"
-                className="nav_link faqLink"
-              >
-                <Typography className={ classes.headerAlign }>FAQ</Typography>
-              </NavLink> */}
-
-              {/* <NavLink to="/branch-locator" className="nav_link branchLocatorLink">
+            <div id="tool-bar-list">
+              <NavLink to="/branch-locator" className="nav_link branchLocatorLink">
                 <Typography className={ classes.headerAlign }>Branch Locator</Typography>
-              </NavLink> */}
-
+              </NavLink>
+              
               <NavLink id="quickNameIcon" to="/customers/makePayment" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : '' }>
                 <Tooltip title="Quick Pay" placement="bottom">
                   <img
@@ -589,7 +578,7 @@ export default function SideNav() {
                   type="image"
                   src={ logoImage }
                   alt="logo image"
-                  style={ { height: "60px" } }
+                  id = "logoImage"
                 />
               </a>
 
@@ -601,12 +590,11 @@ export default function SideNav() {
                 checked={ checked }
               />
 
-              <div id="close" ref = {refClose} style={ { display: "none" } }>
+              <div id="close" ref = {refClose} className={classes.logoIconDiv}>
                 <img
                   src={ logoIcon }
                   alt="logo icon"
-                  className={ classes.logo }
-                  style={ { margin: "13px" } }
+                  className={ classes.logoIcon }
                 />
               </div>
             </div>
@@ -658,7 +646,7 @@ export default function SideNav() {
                       { " " }
                       <AssignmentTurnedInOutlinedIcon />{ " " }
                     </ListItemIcon>
-                    <ListItemText style={ { textDecoration: "none" } }>
+                    <ListItemText className = {classes.textDecoration}>
                       Account Overview
                     </ListItemText>
                   </ListItem>
@@ -670,7 +658,7 @@ export default function SideNav() {
                       { " " }
                       <AccountBalanceWalletIcon />{ " " }
                     </ListItemIcon>
-                    <ListItemText style={ { textDecoration: "none" } }>
+                    <ListItemText className = {classes.textDecoration}>
                       Make a Payment{ " " }
                     </ListItemText>
                   </ListItem>
@@ -709,7 +697,7 @@ export default function SideNav() {
                     </ListItem>
                   </NavLink> }
 
-                <NavLink to="/customers/loanDocument" onClick={ (event) => { activeLoanData && loanStatus.includes(checkPresenceOfLoanStatus) && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : 'nav_link' }>
+                <NavLink to="/customers/loanDocument" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : 'nav_link' }>
                   <ListItem className="titleSidenav" disabled={ activeLoanData && !loanStatus.includes(checkPresenceOfLoanStatus) ? true : false }>
                     <ListItemIcon>
                       { " " }
@@ -719,8 +707,10 @@ export default function SideNav() {
                   </ListItem>
                 </NavLink>
 
-                <NavLink id="mybranchNav" to="/customers/myBranch" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : 'nav_link' }>
-                  <ListItem className="titleSidenav" disabled={ checkPresenceOfLoanStatus === "referred" || checkPresenceOfLoanStatus === "contact_branch" ? false : activeLoanData }>
+                <NavLink to="/customers/myBranch" 
+                         onClick={ (event) => { activeLoanData && (!checkPresenceOfLoanStatus === "referred" || !checkPresenceOfLoanStatus === "contact_branch" ) && event.preventDefault(); } } 
+                         className={ activeLoanData && (!checkPresenceOfLoanStatus === "referred" || !checkPresenceOfLoanStatus === "contact_branch") ? 'nav_link_disabled' : 'nav_link' }>
+                  <ListItem className="titleSidenav">
                     <ListItemIcon>
                       { " " }
                       <AccountBalanceIcon />{ " " }
@@ -769,21 +759,23 @@ export default function SideNav() {
                     MoneySKILL &reg;{ " " }
                   </ListItemText>
                 </ListItem>
-                <NavLink to={ `${ process.env.REACT_APP_WEBSITE }/blog/` }>
-                <ListItem>
-                 <ListItemText className="titleSidenav">
-                    { " " }
-                   Blog{ " " }
-                  </ListItemText>
-                </ListItem>
-                </NavLink>
-                <NavLink to="/customers/faq">
-                <ListItem>
-                 <ListItemText className="titleSidenav">
-                    { " " }
-                   FAQ{ " " }
-                  </ListItemText>
-                </ListItem>
+                <a href={ `${ process.env.REACT_APP_WEBSITE }/blog/` } className="titleSidenav">
+                  <ListItem>
+                    <ListItemIcon>
+                      { " " }
+                      <BookIcon />{ " " }
+                    </ListItemIcon>
+                    <ListItemText> Blog </ListItemText>
+                  </ListItem>
+                </a>
+                <NavLink to="/customers/faq" className="titleSidenav">
+                  <ListItem>
+                    <ListItemIcon>
+                      { " " }
+                      <LiveHelpIcon />{ " " }
+                    </ListItemIcon>
+                    <ListItemText> FAQ </ListItemText>
+                  </ListItem>
                 </NavLink>
               </List>
             </PerfectScrollbar>

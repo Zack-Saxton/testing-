@@ -62,7 +62,6 @@ const howManyBranchesforBranchLocatorPages = {
     BranchPage: 3,
     stateBranchDistanceinMiles: 350
 };
-
 export {
     businesStates,
     branch_hours,
@@ -71,4 +70,3 @@ export {
     marinerWorkingSaturdayDateRange,
     howManyBranchesforBranchLocatorPages
 };
-;

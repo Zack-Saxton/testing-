@@ -13,6 +13,7 @@ export default function LogoutController() {
   Cookies.set("user", emptyString);
   Cookies.set("branchphone", emptyString);
   Cookies.set("profile_picture", emptyString);
+  Cookies.set("skip", emptyString);
   Cookies.set("getProfileImage", '');
   Cookies.set("profilePictureURL", '');
 }

@@ -44,6 +44,17 @@ function SSN() {
 			color: "#0F4EB3 !important",
 			display: "block !important"
 		},
+		paddingOneSide: {
+			padding: "4% 0px"
+		},
+		fullWidth: {
+			width: "100%"
+		},
+		typoAlign: {
+			textAlign: "left",
+			marginLeft: "8%",
+			marginTop: "2%",
+		}
 	}));
 	const classes = useStyles();
 
@@ -169,7 +180,7 @@ function SSN() {
 						item
 						container
 						justifyContent="center"
-						style={ { width: "100%", padding: "4% 0px" } }
+						className={ `${ classes.fullWidth } ${ classes.paddingOneSide } ` }
 					>
 						<Grid
 							xs={ 11 }
@@ -179,9 +190,8 @@ function SSN() {
 							xl={ 6 }
 							item
 							container
-							className="cardWrapper"
+							className="cardWrapper fullWidth"
 							justifyContent="center"
-							style={ { width: "100%" } }
 						>
 							<Paper
 								id="oneLastStepWrap"
@@ -215,39 +225,35 @@ function SSN() {
 									align="center"
 									justify="center"
 									alignitems="center"
-									className="borrowCSSLP checkMyOfferText "
-									style={ { margin: "0px" } }
+									className="borrowCSSLP checkMyOfferText zeroMargin"
 								>
 									One last step
 								</Typography>
 								<Grid
 									id="signDiv"
 									md={ 12 }
-									className="blockDiv"
+									className="blockDiv fullWidth"
 									container
 									item
 									justifyContent="center"
-									style={ { width: "100%" } }
 								>
 									<Grid
 										justifyContent="center"
-										style={ { width: "100%" } }
 										container
 										item
 										lg={ 8 }
 										md={ 8 }
 										xs={ 12 }
-										className="textBlockWithLessMargin"
+										className="textBlockWithLessMargin fullWidth"
 									></Grid>
 									<Grid
 										container
 										justifyContent="center"
-										style={ { width: "100%" } }
 										item
 										lg={ 8 }
 										md={ 8 }
 										xs={ 12 }
-										className="textBlockWithLessMargin"
+										className="textBlockWithLessMargin fullWidth"
 									></Grid>
 									<Grid
 										justifyContent="flex-start"
@@ -391,12 +397,7 @@ function SSN() {
 											/>
 										</div>
 										<Typography
-											className={ submit ? "showMsg" : "hideMsg" }
-											style={ {
-												textAlign: "left",
-												marginLeft: "8%",
-												marginTop: "2%",
-											} }
+											className={ `typegraphAlignment ${ submit ? "showMsg" : "hideMsg" }`  }
 										>
 											It looks like you have already submitted an application
 											within the last 30 days.
@@ -404,13 +405,12 @@ function SSN() {
 									</Grid>
 									<Grid
 										justifyContent="center"
-										style={ { width: "100%" } }
 										item
 										container
 										lg={ 8 }
 										md={ 8 }
 										xs={ 12 }
-										className="textBlockWithLessMargin alignButtonExtra alignButton"
+										className="textBlockWithLessMargin alignButtonExtra alignButton fullWidth"
 									>
 										<ButtonPrimary
 											disabled={

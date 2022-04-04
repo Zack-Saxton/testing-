@@ -10,6 +10,22 @@
 	margin-bottom: 1% !important;
 }
 
+.leftAlignment{
+	align-items: "left"
+}
+.fullWidth {
+	width: "100%";
+}
+
+.typegraphAlignment {
+	text-align: "left";
+	margin-left: "8%";
+	margin-top: "2%";
+}
+.zeroMargin {
+	margin: "0px";
+}
+
 .alignButtonExtra {
 	margin-top: 6% !important;
 	margin-bottom: 5% !important;
@@ -542,6 +558,10 @@
 .checkMyoffersSubHeading{
 	font-size: 1.078rem !important;
 	color: #171717 !important;
+}
+
+.cardPadTop {
+	padding-top: "70px"
 }
 
 .disclosuresWrap{

@@ -12,7 +12,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import InfoIcon from '@material-ui/icons/Info';
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import PhoneIcon from "@material-ui/icons/Phone";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, Suspense } from "react";
 import { Helmet } from "react-helmet";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -21,7 +21,7 @@ import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile_Imag
 import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.jpg";
 import TitleImage from "../../../assets/images/Favicon.png";
 import MarinerFinanceBuilding from "../../../assets/images/mf-logo-white.png";
-import { branchSaturdaySchedule, mapInformationBranchLocator } from "../../Controllers/BranchDayTiming";
+import BranchDayTiming, { convertDistanceUnit, branchSaturdaySchedule, mapInformationBranchLocator } from "../../Controllers/BranchDayTiming";
 import BranchLocatorController from "../../Controllers/BranchLocatorController";
 import { ButtonPrimary, ButtonSecondary } from "../../FormsUI";
 import { useStylesConsumer } from "../../Layout/ConsumerFooterDialog/Style";
@@ -30,7 +30,7 @@ import CustomerRatings from "../MyBranch/CustomerRatings";
 import "./BranchLocator.css";
 import Map from "./BranchLocatorMap";
 import { useStylesMyBranch } from "./Style";
-import YearHolidays from "./YearHolidays";
+const YearHolidays = React.lazy(() => import("./YearHolidays")) ;
 
 export default function StatePage(props) {
   const classes = useStylesMyBranch();
@@ -50,10 +50,13 @@ export default function StatePage(props) {
   let branch_Details = useRef();
   let stateLongNm = useRef();
   let stateShortNm = useRef();
-  branch_Details.current = location?.state ? location?.state?.branch_Details : "";
-  stateLongNm.current = location?.state ? location?.state?.stateLongNm : "";
-  stateShortNm.current = location?.state ? location?.state?.stateShortNm : "";
- 
+
+  if (location?.state) {
+    branch_Details.current = location?.state ? location?.state?.branch_Details : "";
+    stateLongNm.current = location?.state ? location?.state?.stateLongNm : "";
+    stateShortNm.current = location?.state ? location?.state?.stateShortNm : "";
+  } 
+  
   //API call
   const getBranchLists = async (search_text) => {
     try {
@@ -76,6 +79,15 @@ export default function StatePage(props) {
       ErrorLogger(" Error from branchList ", error);
     }
   };
+  const findBranchTimings = async (value) => {
+    try {
+      if (value) {
+        return await BranchDayTiming(value);
+      }
+    } catch (error) {
+      ErrorLogger(" Error from findBranchTimings", error);
+    }
+  };
   const listForMapView = async (List) => {
     try {
       if (List) setGoogleMap(await mapInformationBranchLocator(List));
@@ -87,6 +99,10 @@ export default function StatePage(props) {
     try {
       let result = await getBranchLists(value);
       if (result?.length > 2) result = result.slice(0, 3);
+      for (let ele in result) {
+        let BranchTime = await findBranchTimings(result[ele]);
+        result[ele] = Object.assign(result[ele], { BranchTime: BranchTime });
+      }
       setBranchList(result);
       listForMapView(result);
     } catch (error) {
@@ -100,14 +116,15 @@ export default function StatePage(props) {
   const cancel = () => setShowDialog(false);
   const OpenYearHolidays = () => setShowDialog(true);
   const formatString = (str) => {
+    if (!str) return "";
     return  str
       .split('-')
       .map(word => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ');
   }
   useEffect(() => {
-    if (!branch_Details.current) {
-      let pathName = location.pathname.split('/');
+    if (!location?.state) {
+      let pathName = location?.pathname.split('/');
       let FixString = 'personal-loans-in-'.length;
       let branchNm =  pathName[3].substring(FixString).split(pathName[3].substring(FixString).slice(-3));
       stateLongNm.current = formatString(pathName[2]);
@@ -115,7 +132,7 @@ export default function StatePage(props) {
       branch_Details.current = { BranchName: formatString(branchNm[0])};
       apiGetBranchList(pathName[3].substring(FixString));
     } else {
-      apiGetBranchList(branch_Details.current.Address);    
+      apiGetBranchList(branch_Details?.current?.Address);    
     }
     return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -164,8 +181,8 @@ export default function StatePage(props) {
           <Link
             className="breadcrumbLink"
             onClick={ () => {
-              navigate(`/branch-locator/${(stateLongName ?? stateLongNm.current).replace(/\s+/, '-').toLowerCase()}/`,
-                { state: { value: stateLongName ?? stateLongNm.current, flag: true } });
+              navigate(`/branch-locator/${(stateLongName ?? stateLongNm?.current).replace(/\s+/, '-').toLowerCase()}/`,
+                { state: { value: stateLongName ?? stateLongNm?.current, flag: true } });
             } }
           >
             { stateLongName ?? stateLongNm.current }
@@ -220,7 +237,9 @@ export default function StatePage(props) {
                 <Dialog open={ showDialog }>
                   <DialogTitle className="tableTitle">Mariner Finance Holidays Hours</DialogTitle>
                   <DialogContent>
+                    <Suspense fallback={<div>Loading...</div>}>
                     <YearHolidays />
+                    </Suspense>
                   </DialogContent>
                   <DialogActions className="okButtonWrap">
                     <ButtonPrimary stylebutton='{"background": "", "color":"" }' onClick={ cancel }>OK</ButtonPrimary>
@@ -293,7 +312,7 @@ export default function StatePage(props) {
                   <ChevronRightIcon />
                 </NavLink>
                 <p className={ classes.ptag }>
-                  { item.distance }les away | { item?.BranchTime?.Value1 }{ " " }
+                  {convertDistanceUnit(item.distance) } away | { item?.BranchTime?.Value1 }{ " " }
                   { item?.BranchTime?.Value2 }
                 </p>
                 <p className={ classes.addressFont } id={ item.id }>
@@ -419,7 +438,7 @@ export default function StatePage(props) {
         <link rel="icon" type="image/png" href={ TitleImage } sizes="16x16" />
         <meta
           name="description"
-          content={ `Looking for a personal loans in ${ branch_Details?.current?.BranchName },${ stateShortName ?? stateShortNm?.current } ?  Our ${ branch_Details?.current.BranchName },${ stateShortNm.current } branch welcomes you for personal loans that fit your needs.` }
+          content={ `Looking for a personal loans in ${ branch_Details?.current?.BranchName },${ stateShortName ?? stateShortNm?.current } ?  Our ${ branch_Details?.current?.BranchName },${ stateShortNm?.current } branch welcomes you for personal loans that fit your needs.` }
         />
       </Helmet>
       <Grid className="greyBackground" container justifyContent={ "center" }>

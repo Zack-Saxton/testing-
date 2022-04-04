@@ -1195,6 +1195,7 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
         </DialogTitle>
 
         <DialogActions
+          className="replacePaymentBox"
           style={ { justifyContent: "center", marginBottom: "25px" } }
         >
           <ButtonSecondary
@@ -1224,6 +1225,7 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
 
           { paymentIsScheduled === "yes" ? (
             <ButtonPrimary
+              id="replaceCurrentButton"
               stylebutton='{"background": "", "color":"","marginRight": "10px" }'
               onClick={ handleSchedulePaymentSubmit }
               disabled={ loading }

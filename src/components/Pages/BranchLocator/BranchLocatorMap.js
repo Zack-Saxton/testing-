@@ -5,7 +5,7 @@ import icon from "../../../assets/icon/icon-google-map-marker.png";
 import mapStyles from "../../../contexts/mapStyles";
 function BranchLocatorMap(props) {
   const [ activeMarker, setActiveMarker ] = useState(() => null);
-  let Current = props.CurrentLocation ?? { lat: 39.3697028, lng: -76.4635839 };
+  let Current = props?.googleMap[0]?.position ?? { lat: 39.3697028, lng: -76.4635839 };
   let zoomValue = props.CurrentLocation ? 7 : 6;
   let ZoomDepth = props.Zoom ?? 5;
   const mapContainerStyle = { height: "100%", width: "100%" };
@@ -41,7 +41,6 @@ function BranchLocatorMap(props) {
   const onMapClick = useCallback(() => {
     setActiveMarker(null);
   }, []);
-
   return (
     <GoogleMap
       zoom={ zoomValue }
@@ -91,4 +90,5 @@ BranchLocatorMap.propTypes = {
   googleMap: PropTypes.array,
 };
 
-export default BranchLocatorMap;
+export default React.memo(BranchLocatorMap);
+

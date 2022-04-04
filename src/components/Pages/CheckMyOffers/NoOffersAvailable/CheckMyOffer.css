@@ -6,6 +6,12 @@
 .card {
 	padding: 5% 5% 1% 5%;
 }
+
+.mobileFontParagraph{
+	text-align: justify;
+	align-items: center;
+}
+
 .cardWrapper {
 	margin-top: 5%;
 	margin-bottom: 2%;

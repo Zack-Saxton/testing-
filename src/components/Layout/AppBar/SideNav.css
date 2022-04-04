@@ -359,3 +359,7 @@ top: 118px !important;
 #listItemWrap .active li .MuiListItemText-root span {
   color: white !important;
 }
+
+#logoImage {
+  height: 60px
+}

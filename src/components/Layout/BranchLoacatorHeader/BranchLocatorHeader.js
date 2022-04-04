@@ -43,6 +43,11 @@ const BranchLocatorHeader = () => {
       onClose: () => logOut(),
     });
   };
+  const logoutMobileUser = () => {
+    toast.success(globalMessages.LoggedOut, {
+      onClose: () => logOut(),
+    });
+  };
   //View Part
   return (
     <div id="headerWrap" className={ classes.grow }>
@@ -53,12 +58,11 @@ const BranchLocatorHeader = () => {
             className={ classes.title }
           >
             <img
-              style={ { marginTop: "6px" } }
               className={ classes.logoFormat }
               src={ Logo }
               alt="MF logo"
             />
-          </Typography>
+          </Typography> 
           <div id="desktopMenu" className={ classes.sectionDesktop }>
             <Grid className="personalLoanHolder">
               <Typography className="branchHeaderLinks">
@@ -517,7 +521,13 @@ const BranchLocatorHeader = () => {
             </Accordion>
             <Accordion className="noShadow">
               <AccordionDetails className="menuHead">
-                <Link href="/login">Login</Link>
+                 { !loginToken.isLoggedIn ? (
+              <Link href="/login">Login</Link>
+            ) : (
+                <div onClick={ logoutMobileUser } > 
+                  <span className={classes.signOutSpan}>Sign out</span>
+                </div>
+            ) }
               </AccordionDetails>
             </Accordion>
             <Accordion className="noShadow">
