@@ -73,9 +73,6 @@ const TextFieldWrapper = ({
     required: required,
     ...otherProps,
     fullWidth: true,
-    // error: setError ? setError : errorTF,
-    // helperText: setError ? setHelperText : helperTextTF,
-
     error: setError ? setError : errorTF,
     helperText: setError ? setHelperText : helperTextTF,
     classes: {

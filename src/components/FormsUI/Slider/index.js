@@ -83,7 +83,7 @@ const TextfieldWrapper = ({
   const handleSliderChange = (event, newValue) => {
 
     if (newValue > 5000) {
-      if (newValue % 500 === 0) {
+      if (!(newValue % 500)) {
         setValue(newValue);
         setSelect(newValue);
       }

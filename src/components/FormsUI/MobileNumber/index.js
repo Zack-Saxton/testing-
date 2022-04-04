@@ -9,16 +9,16 @@ import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import { useField } from "formik";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
 import InputMask from "react-input-mask";
 
 const MobileNumberWrapper = ({ name, ...otherProps }) => {
   //Set Formik field
   const [ field ] = useField(name);
-  const [ mobile, setMobile ] = React.useState("");
+  const [ mobile, setMobile ] = useState("");
 
   const handleChange = (event) => {
-    setMobile(event.target.value);
+    setMobile(event.target.value.trim());
   };
 
   // Check validity

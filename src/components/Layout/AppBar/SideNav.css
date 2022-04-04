@@ -161,6 +161,7 @@ a.nav_link:hover .MuiListItem-root {
 }
 #quickNameIcon{
   height: 64px;
+  margin-right: 10px;
 }
 #settingsMenu .MuiPopover-paper{
 top: 118px !important;
@@ -194,6 +195,7 @@ top: 118px !important;
     bottom: 45%;
     right: 0%;
     z-index: 10;
+    margin-right: 0px;
   }
   #quickNameIcon img{
     border-radius: 0 0 2px 2px;
@@ -356,4 +358,8 @@ top: 118px !important;
 }
 #listItemWrap .active li .MuiListItemText-root span {
   color: white !important;
+}
+
+#logoImage {
+  height: 60px
 }

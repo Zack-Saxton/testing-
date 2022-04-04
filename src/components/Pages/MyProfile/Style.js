@@ -90,6 +90,7 @@ const useStylesMyProfile = makeStyles((theme) => ({
 	},
 	linkStyle: {
 		color: "#0F4EB3 !important",
+		textDecoration: "none"
 	},
 	dialogHeading: {
 		color: "#171717!important",
@@ -169,6 +170,124 @@ const useStylesMyProfile = makeStyles((theme) => ({
 		fontSize: "large",
 		cursor: "pointer",
 		color: "blue",
+	},
+	//Text Notification
+	textNotificationTitle: {
+		width: "100%", 
+		gap: 15, 
+		marginBottom: "20px"
+	},
+	textLabel: {
+		fontSize: "0.75rem"
+	},
+	textFormRow: {
+		width: "100%", 
+		gap: 15, 
+		marginBottom: -10
+	},
+	termsGrid: {
+		fontSize: "0.938rem",
+    paddingTop: "8px"
+	},
+	discosureText: {
+		fontSize: "15px", 
+		color: "black"
+	},
+	//Basic information
+	basicInfoGrid: {
+		width: "100%", 
+		gap: 15, 
+		marginBottom: 18
+	},
+	addressInfoGrid: {
+		width: "100%", 
+		gap: 15, 
+		marginBottom: 20
+	},
+	imgWidth: {
+		width: "100%"
+	},
+	fileAllowedText: {
+		fontSize: "12px", 
+		color: "#595959"
+	},
+	buttonGrid: {
+		justifyContent: "left"
+	},
+	passwordText: {
+		textAlign: "justify", 
+		fontSize: "0.938rem"
+	},
+	passwordButtonGrid: {
+		padding: "10px 0px"
+	},
+	menuIconStyle: {
+		verticalAlign: "top", 
+		paddingRight: "10px"
+	},
+	menuLabel: {
+		float: "left", 
+		width: "100%", 
+		fontSize: "0.938rem", 
+		fontFamily: "Muli,sans-serif", 
+		fontWeight: "700"
+	},
+	firstMenuLabel: {
+		float: "left",
+    width: "100%",
+    verticalAlign: "top",
+    fontSize: "0.938rem",
+    fontFamily: "Muli,sans-serif", 
+		fontWeight: "700"
+	},
+	profileSetting: {
+		width: "100%", 
+		paddingBottom: "10px"
+	},
+	profileSideNav: {
+		paddingBottom: "4%", 
+		paddingTop: "10px"
+	},
+	profileMainContent: {
+		paddingLeft: "15px", 
+		width: "100%"
+	},
+	leftSideNav: {
+		width: "100%"
+	},
+	sideNavLink: {
+		textDecoration: "none"
+	},
+	leftMenu: {
+		padding: "20px 0px"
+	},
+	sameMailAddress: {
+		padding: "0px 16px", 
+		width: "100%"
+	},
+	nameList: {
+		width: "15px", 
+		padding: "1px"
+	},
+	nickName: {
+		float: "left", 
+		marginRight: "8px"
+	},
+	paymentMessage: {
+		width: "100%",
+    textAlign: "center",
+    marginTop: "20px",
+	},
+	loaderWidth: {
+		width: "100%", 
+		textAlign: "center"
+	},
+	navigationLink: {
+		color: "rgba(255, 255, 255, .7)"
+	},
+	cardType: {
+		width: "100%", 
+		padding: "0px"
 	}
 }));
 

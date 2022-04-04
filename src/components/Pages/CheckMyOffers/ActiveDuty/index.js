@@ -49,7 +49,7 @@ function ActiveDuty() {
 	const classes = preLoginStyle();
 	const innerClasses = useStyles();
 	useEffect(() => {
-		if (data.completedPage < data.page.livingPlace || data.formStatus === "completed") {
+		if (data?.completedPage < data?.page?.livingPlace || data?.formStatus?.toLowerCase() === "completed") {
 			navigate("/select-amount");
 		}
 		return null;
@@ -125,11 +125,6 @@ function ActiveDuty() {
 								</Grid>
 								<Typography
 									variant="h5"
-									style={ {
-										align: "center",
-										justify: "center",
-										alignItems: "center",
-									} }
 									className="borrowCSS"
 								>
 									Are you active duty military or <br />

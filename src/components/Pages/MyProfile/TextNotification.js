@@ -31,20 +31,20 @@ import "./Style.css";
 export default function TextNotification() {
   const classes = useStylesMyProfile();
   const [ loading, setLoading ] = useState(false);
-  const [ openDisclosure, setDisclosureOpen ] = useState(false);
+  const [ openDisclosure, setOpenDisclosur ] = useState(false);
   const navigate = useNavigate();
-  const [ , setprofileTabNumber ] = useGlobalState();
+  const [ , setProfileTabNumber ] = useGlobalState();
   let phone = Cookies.get("opted_phone_texting");
-  let textnotifybool = (/true/i).test(Cookies.get("isTextNotify"));
-  let [ disabledContent, setdisabledContent ] = useState(textnotifybool);
+  let isTextNotify = (/true/i).test(Cookies.get("isTextNotify"));
+  let [ disabledContent, setDisabledContent ] = useState(isTextNotify);
 
   const onClickCancelChange = () => {
     formikTextNote.resetForm();
     navigate("/customers/myProfile");
-    setprofileTabNumber({ profileTabNumber: 0 });
+    setProfileTabNumber({ profileTabNumber: 0 });
   };
 
-  const phonevalidationSchema = yup.object().shape({
+  const phoneValidationSchema = yup.object().shape({
     phone: yup
       .string(globalMessages.NameEnter)
       .required(globalMessages.PhoneRequired)
@@ -53,7 +53,7 @@ export default function TextNotification() {
       .matches(/^(\d)(?!\1+$)\d{9}$/, globalMessages.PhoneValid)
       .min(10, globalMessages.PhoneMin),
 
-    acceptterms: yup
+    acceptTerms: yup
       .boolean()
       .oneOf([ true ], globalMessages.Accept_Text_Terms)
       .oneOf([ false ], `False ${ globalMessages.Accept_Text_Terms }`),
@@ -69,21 +69,21 @@ export default function TextNotification() {
     initialValues: {
       phone: phone ? phoneNumberMask(phone) : "",
       textingterms: phone ? true : false,
-      acceptterms: phone ? true : false,
+      acceptTerms: phone ? true : false,
     },
     enableReinitialize: true,
-    validationSchema: phonevalidationSchema,
+    validationSchema: phoneValidationSchema,
 
     onSubmit: async (values) => {
       setLoading(true);
-      setdisabledContent(false);
+      setDisabledContent(false);
       try {
         let body = {
           phone: values.phone,
         };
 
         let result = await textNotification(body, disabledContent);
-        if (result.data?.sbt_subscribe_details?.HasNoErrors || result.data?.sbt_getInfo?.HasNoErrors) {
+        if (result?.data?.sbt_subscribe_details?.HasNoErrors || result?.data?.sbt_getInfo?.HasNoErrors) {
           toast.success("Updated successfully");
           onClickCancelChange();
         } else {
@@ -97,11 +97,11 @@ export default function TextNotification() {
   });
 
   const handleSwitchNotification = (event) => {
-    setdisabledContent(event.target.checked);
+    setDisabledContent(event.target.checked);
     formikTextNote.resetForm();
   };
   const handleDisclosureClickOpen = () => {
-    setDisclosureOpen(true);
+    setOpenDisclosur(true);
   };
   const preventSpace = (event) => {
     if (event.keyCode === 32) {
@@ -109,11 +109,11 @@ export default function TextNotification() {
     }
   };
   const handleDisclosureClose = () => {
-    setDisclosureOpen(false);
+    setOpenDisclosur(false);
   };
 
   return (
-    <div style={ { padding: 20 } }>
+    <div className="textNotificationWrap" >
       <form
         onSubmit={ formikTextNote.handleSubmit }
         name="formTextNotify"
@@ -122,13 +122,12 @@ export default function TextNotification() {
         <Grid
           item
           xs={ 12 }
-          style={ { width: "100%", gap: 15, marginBottom: 20 } }
+          className={ classes.textNotificationTitle }
           container
           direction="row"
         >
           <Typography
-            style={ { fontSize: "0.75rem" } }
-            className={ classes.cardHeading }
+            className={ classes.textLabel }
           >
             Enable Text Notifications
           </Typography>
@@ -136,7 +135,7 @@ export default function TextNotification() {
         <Grid
           item
           xs={ 12 }
-          style={ { width: "100%", gap: 15, marginBottom: -10 } }
+          className={ classes.textFormRow }
           container
           direction="row"
         >
@@ -163,7 +162,7 @@ export default function TextNotification() {
           id="txtPhoneNumber"
           item
           xs={ 12 }
-          style={ { width: "100%", gap: 15, marginBottom: 20 } }
+          className={ classes.textNotificationTitle }
           container
           direction="row"
         >
@@ -185,7 +184,7 @@ export default function TextNotification() {
             onLoad={ formikTextNote.handleChange }
             onChange={ formikTextNote.handleChange }
             onBlur={ formikTextNote.handleBlur }
-            disabled={ disabledContent === false ? true : false }
+            disabled={ !disabledContent }
             error={
               formikTextNote.touched.phone &&
               Boolean(formikTextNote.errors.phone)
@@ -198,7 +197,6 @@ export default function TextNotification() {
             to="#"
             onClick={ handleDisclosureClickOpen }
             className={ classes.linkStyle }
-            style={ { textDecoration: "none", color: "#0F4EB3" } }
           >
             Disclosure
           </Link>
@@ -206,13 +204,12 @@ export default function TextNotification() {
         <Grid
           item
           xs={ 12 }
-          style={ { width: "100%", gap: 15, marginBottom: 20 } }
+          style={ { marginBottom: 20 } }
           container
-          direction="row"
         >
           <Checkbox
             name="textingterms"
-            disabled={ disabledContent === false ? true : false }
+            disabled={ !disabledContent }
             id="textingterms"
             labelid="texting-terms"
             testid="checkbox"
@@ -221,23 +218,20 @@ export default function TextNotification() {
             stylecheckboxlabel='{ "fontSize":"12px" }'
             required
           />
-          <span
-            style={ {
-              fontSize: "0.938rem",
-              paddingTop: "8px",
-              marginLeft: "-30px",
-            } }
+          <Grid
+            item
+            xs={ 10 }
+            className={ classes.termsGrid }
           >
             I have read, understand, and agree to the &nbsp;
             <Link
               to={ `/textingTermsOfUse` }
               target="_blank"
               className={ classes.linkStyle }
-              style={ { textDecoration: "none", color: "#0F4EB3" } }
             >
               Texting Terms of Use.
             </Link>
-          </span>
+          </Grid>
         </Grid>
 
         <Grid container direction="row">
@@ -292,7 +286,7 @@ export default function TextNotification() {
           <DialogContentText id="alert-dialog-description">
             <Typography
               align="justify"
-              style={ { fontSize: "15px", color: "black" } }
+              className={ classes.discosureText }
               gutterBottom
             >
               <p className={ classes.discosureContent }>

@@ -4,7 +4,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Typography from "@mui/material/Typography";
 import Cookies from "js-cookie";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useIdleTimer } from "react-idle-timer";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -31,7 +31,7 @@ const CheckLoginTimeout = () => {
     const cred = JSON.parse(
       Cookies.get("cred") ? decryptAES(Cookies.get("cred")) : "{ }"
     );
-    var now = new Date().getTime();
+    let now = new Date().getTime();
     actualSetupTime = now;
     if (!cred) {
       navigate("/login", { state: { redirect: window.location.pathname } });
@@ -73,7 +73,7 @@ const CheckLoginTimeout = () => {
         );
         navigate("/login", { state: { redirect: window.location.pathname } });
       } else {
-        alert("Network error");
+        alert(globalMessages.Network_Error);
         navigate("/login", { state: { redirect: window.location.pathname } });
       }
     }

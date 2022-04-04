@@ -70,6 +70,39 @@ const useStylesMyBranch = makeStyles((theme) => ({
         opacity: 1,
         pointerEvents: "initial",
     },
+    ptag: {
+        margin: "0px",
+        lineHeight: "1.5",
+        fontSize: "0.938rem",
+    },
+    addressFont: {
+        color: "#595959",
+        margin: "0px",
+        lineHeight: "1.5",
+        fontSize: "0.938rem",
+    },
+    phoneNumber: {
+        color: "#595959",
+        margin: "0px 0px 15px 0px",
+        lineHeight: "1.5",
+        fontSize: "0.938rem",
+    },
+    h4tag: {
+        margin: ".575rem 0 .46rem 0",
+        lineHeight: "1.5",
+        fontWeight: "700",
+        fontSize: "1.078rem",
+        color: "#214476",
+    },
+    gridMargin: {
+        margin: "35px 0px 0px 0px",
+    },
+    InformationIcon: {
+        height: "20px",
+        width: "20px",
+        borderRadius: 400 / 2,
+        cursor: "pointer",
+    },
 }));
 
 export { useStylesMyBranch };

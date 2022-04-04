@@ -24,17 +24,17 @@ import "./NewUser.css";
 const validationSchema = yup.object({
 	newPassword: yup
 		.string(globalMessages.PasswordEnter)
-		.matches(/^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,30}$/, "Your password doesn't meet the criteria")
+		.matches(/^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,30}$/, "Your password doesn't meet the criteria")
 		.max(30, globalMessages.PasswordMax)
-		.min(8, globalMessages.PasswordMin)
+		.min(10, globalMessages.PasswordMin)
 		.required(globalMessages.PasswordRequired),
 	confirmPassword: yup
 		.string()
 		.required(globalMessages.PasswordConfirmationRequired)
 		.max(30, globalMessages.PasswordMax)
-		.min(8, globalMessages.PasswordMin)
+		.min(10, globalMessages.PasswordMin)
 		.when("newPassword", {
-			is: (newPassword) => newPassword && newPassword.length > 0,
+			is: (newPassword) => newPassword?.length > 0,
 			then: yup
 				.string()
 				.oneOf([ yup.ref("newPassword") ], globalMessages.PasswordConfirmationMatch),
@@ -67,7 +67,7 @@ function NewUser() {
 
 	useEffect(() => {
 		//redirects to select amount on direct call
-		if (data.completedPage < data.page.personalInfo || data.formStatus === "completed") {
+		if (data?.completedPage < data?.page?.personalInfo || data?.formStatus?.toLowerCase() === "completed") {
 			navigate("/select-amount");
 		}
 		return null;
@@ -106,7 +106,7 @@ function NewUser() {
 			try {
 				let customerStatus = await RegisterController(body);
 				//login the user if registerd successfully and stores the JWT token
-				if ((customerStatus.data?.customerFound === false && customerStatus.data?.userFound === false && customerStatus.data?.is_registration_failed === false) || (customerStatus?.data?.statusCode === 200 && customerStatus?.data?.result === "succcces")) {
+				if ((!customerStatus.data?.customerFound && !customerStatus.data?.userFound && !customerStatus.data?.is_registration_failed) || (customerStatus?.data?.statusCode === 200 && customerStatus?.data?.result === "succcces")) {
 					let retVal = await LoginController(data.email, values.newPassword, "");
 					if (retVal?.data?.user && retVal?.data?.userFound) {
 						let rememberMe = false;
@@ -143,7 +143,7 @@ function NewUser() {
 						setLoading(false);
 					} else {
 						setLoading(false);
-						alert("Network error");
+						alert(globalMessages.Network_Error);
 					}
 				}
 				else if (customerStatus.data?.result === "error" && customerStatus.data?.statusCode === 400) {
@@ -190,7 +190,6 @@ function NewUser() {
 							item
 							className="cardWrapper"
 							justifyContent="center"
-						// style={ { width: "100%" } }
 						>
 							<Paper
 								className="cardWOPadding"
@@ -241,12 +240,10 @@ function NewUser() {
 										className="blockDiv"
 										container
 										justifyContent="center"
-									// style={ { width: "100%" } }
 									>
 										<Grid
 											container
 											justifyContent="center"
-											// style={ { width: "100%" } }
 											item
 											lg={ 8 }
 											md={ 8 }
@@ -308,7 +305,6 @@ function NewUser() {
 										</Grid>
 										<Grid
 											justifyContent="center"
-											// style={ { width: "100%" } }
 											item
 											container
 											lg={ 8 }

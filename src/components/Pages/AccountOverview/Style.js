@@ -65,13 +65,35 @@ const useStylesAccountOverview = makeStyles((theme) => ({
     paddingRight: "23px",
     paddingLeft: "23px",
   },
+  accountOverviewWrap: {
+    width: "100%",
+    paddingBottom: "10px"
+  },
+  activeLoanWrap: {
+    width: "100%",
+    paddingTop: "10px"
+  },
   subheading: {
     color: "#171717",
     fontWeight: "400",
     fontSize: "1.563rem",
-    paddingBottom: "10px",
+    paddingBottom: "5px",
+    paddingTop: "20px",
+  },
+  activeLoanTable: {
+    paddingTop: "10px"
+  },
+  activeLoancardwrap: {
     paddingTop: "10px",
-    marginTop: "5px"
+    paddingBottom: "10px"
+  },
+  activeLoanHeadingWrap: {
+    marginBottom: "20px"
+  },
+  loanDetailsLink: {
+    textDecoration: "none",
+    color: "#0F4EB3",
+    cursor: "pointer"
   },
   table: {
     minWidth: 650,
@@ -117,11 +139,20 @@ const useStylesAccountOverview = makeStyles((theme) => ({
   },
   disableColor: {
     margin: "auto",
-    color: "limegreen",
+    color: "#a5ce3b",
     fontSize: 22,
     fontWeight: 400,
     textDecoration: "none",
     paddingBottom: "15px"
+  },
+  autoPayEnableLinkOne: {
+    textDecoration: 'none',
+    color: 'inherit',
+    fontSize: "1.563rem"
+  },
+  autoPayEnableLink: {
+    textDecoration: 'none',
+    color: 'inherit'
   },
   cardContent: {
     color: "#171717",
@@ -189,14 +220,28 @@ const useStylesAccountOverview = makeStyles((theme) => ({
     whiteSpace: "nowrap",
     fontWeight: "normal",
     boxShadow: ` 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12), 0 1px 5px 0 rgba(0, 0, 0, .2)`,
-
     width: "auto",
     '&:hover': {
-      background: '#ffbc23',
+      background: "#ffbc23",
       color: 'black',
     },
   },
-
+  buttonColorPastDate: {
+    color: "black",
+    background: "#f15d48",
+    fontFamily: "'Muli', sans-serif !important",
+    borderRadius: "50px",
+    textTransform: "capitalize",
+    height: "36px",
+    whiteSpace: "nowrap",
+    fontWeight: "normal",
+    boxShadow: ` 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12), 0 1px 5px 0 rgba(0, 0, 0, .2)`,
+    width: "auto",
+    '&:hover': {
+      background: "#f15d48",
+      color: 'black',
+    },
+  },
 }));
 
 export { useStylesAccountOverview };

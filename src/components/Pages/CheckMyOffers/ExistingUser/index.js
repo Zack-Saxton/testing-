@@ -64,7 +64,7 @@ function ExistingUser() {
 	const queryClient = useQueryClient();
 	useEffect(() => {
 		//redirects to select amount on directr page call
-		if (data.completedPage < data.page.personalInfo || data.formStatus === "completed") {
+		if (data.completedPage < data?.page?.personalInfo || data?.formStatus?.toLowerCase() === "completed") {
 			navigate("/select-amount");
 		}
 		return null;
@@ -107,19 +107,19 @@ function ExistingUser() {
 				setLoading(false);
 				let accountDetail = await usrAccountDetails();
 
-				if (accountDetail?.data?.customer?.user_account?.status === "closed") {
+				if (accountDetail?.data?.customer?.user_account?.status?.toLowerCase() === "closed") {
 					data.isActiveUser = false;
 					toast.error(globalMessages.Account_Closed_New_Apps);
 					navigate("/customers/accountOverview");
 				} else {
 					navigate("/employment-status");
 				}
-			} else if (retVal?.data?.result === "error" || retVal?.data?.hasError) {
+			} else if (retVal?.data?.result?.toLowerCase() === "error" || retVal?.data?.hasError) {
 				Cookies.set("token", JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" }));
 				setLoading(false);
 				setLoginFailed(retVal?.data?.errorMessage);
 			} else {
-				alert("Network error");
+				alert(globalMessages.Network_Error);
 				setLoading(false);
 			}
 		},

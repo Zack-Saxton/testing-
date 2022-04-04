@@ -9,11 +9,11 @@ export default function BranchMap(MyBranchDetail) {
   const classes = useStylesMyBranch();
 
   //Branch details from API
-  let branchDetail = MyBranchDetail != null ? MyBranchDetail : null;
+  let branchDetail = MyBranchDetail ?? null;
   //View part
   return (
     <div id="branchMapWrap">
-      { branchDetail.MyBranchDetail === null ? (
+      { !(branchDetail?.MyBranchDetail) ? (
         <Paper className={ classes.paper }>
           { " " }
           <CircularProgress />{ " " }
@@ -25,7 +25,7 @@ export default function BranchMap(MyBranchDetail) {
       ) : branchDetail?.MyBranchDetail?.Address ? (
         <iframe
           title="branchLocation"
-          style={ { height: "530px", width: "100%" } }
+          className={classes.iframeBranchMap}
           id="gmap_canvas"
           src={
             "https://maps.google.com/maps?q=" +

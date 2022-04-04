@@ -1,10 +1,8 @@
-import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { makeStyles } from "@mui/styles";
 import Typography from "@mui/material/Typography";
-import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { useQuery } from 'react-query';
 import { NavLink, useNavigate } from "react-router-dom";
@@ -18,42 +16,8 @@ import APICall from "../../../lib/AxiosLib";
 import messages from '../../../lib/Lang/applyForLoan.json';
 import ScrollToTopOnMount from "../../ScrollToTop";
 import TabSection from "../TabSection";
+import TabPanel from "../TabPanel"
 import "./ReviewAndSign.css";
-
-// initializing Tab panel section
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  //return the JSX part for tab
-  return (
-    <div
-      role="tabpanel"
-      hidden={ value !== index }
-      id={ `scrollable-auto-tab-panel-${ index }` }
-      aria-labelledby={ `scrollable-auto-tab-${ index }` }
-      { ...other }
-    >
-      { value === index && (
-        <Box>
-          <div>{ children }</div>
-        </Box>
-      ) }
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `scrollable-auto-tab-${ index }`,
-    "aria-controls": `scrollable-auto-tab-panel-${ index }`,
-  };
-}
 
 //Styling part
 const useStyles = makeStyles((theme) => ({
@@ -107,7 +71,6 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
   },
   rightBorder: {
-    // padding: "0px 15px",
     borderRight: "1px solid",
     lineHeight: 1,
   },
@@ -116,6 +79,21 @@ const useStyles = makeStyles((theme) => ({
     color: "#171717",
     textAlign: "center",
   },
+  gridStyle: {
+    marginBottom: "20px", 
+    width: "100%" 
+  },
+  fullWidth: {
+    width: "100%"
+  },
+  typoStyle: {
+    color: "#171717",
+    fontSize: "18px",
+  },
+  innerGrid:{
+    width: "100%", 
+    textAlign: "center"
+  }
 }));
 
 //Initializing the Review and sign functional component
@@ -129,9 +107,7 @@ export default function ReviewAndSign(props) {
   const [ selectedOffer, setSelectOffer ] = useState();
   const [ loading, setLoading ] = useState(false);
   const { refetch, isLoading, data: accountDetials } = useQuery('loan-data', usrAccountDetails);
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+  const handleChange = (event, newValue) => setValue(newValue);
 
   // To get the iframe url from the API
   async function getIframeURL() {
@@ -198,7 +174,7 @@ export default function ReviewAndSign(props) {
           item
           xs={ 12 }
           direction="row"
-          style={ { marginBottom: "20px", width: "100%" } }
+          className = { classes.gridStyle }
         >
           <Typography className={ classes.heading } variant="h3">
             <NavLink
@@ -226,14 +202,11 @@ export default function ReviewAndSign(props) {
 
           {/* ##############################################Review And Sign################################################################################################# */ }
           <TabPanel value={ value } index={ 1 } style={ { marginTop: "10px" } }>
-            <Grid item xs={ 12 } style={ { width: "100%" } } >
+            <Grid item xs={ 12 } className={ classes.fullWidth } >
               <Paper className={ classes.paper }>
                 <Grid container>
-                  <Grid item xs={ 12 } sm={ 6 } style={ { width: "100%" } } >
-                    <Typography style={ {
-                      color: "#171717",
-                      fontSize: "18px",
-                    } }>
+                  <Grid item xs={ 12 } sm={ 6 } className={ classes.fullWidth } >
+                    <Typography className={classes.typoStyle}>
                       Selected Loan Offer
                     </Typography>
                   </Grid>
@@ -246,7 +219,6 @@ export default function ReviewAndSign(props) {
                       <ButtonSecondary
                         stylebutton='{"float": "right", "color":"" }'
                         styleicon='{ "color":"" }'
-                        style={ { width: "100%" } }
                         id="reselect-button"
                       >
                         Re-Select Offer

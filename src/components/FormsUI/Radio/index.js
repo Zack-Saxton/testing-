@@ -11,7 +11,7 @@ import { FormControl, FormControlLabel, FormLabel } from "@mui/material";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
 
 const RadioButtonWrapper = ({
   name,
@@ -27,7 +27,7 @@ const RadioButtonWrapper = ({
   ...otherProps
 }) => {
   //To return all formik state
-  const [ radioValue, setRadioValue ] = React.useState("");
+  const [ radioValue, setRadioValue ] = useState("");
 
   function handleRadioClick(event) {
     if (event.target.value === radioValue) {

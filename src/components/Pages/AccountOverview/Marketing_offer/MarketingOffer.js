@@ -10,9 +10,7 @@ export default function MarketingOffer(data) {
   const findMarketingMessage = () => {
     let usermarketingMessage;
     MarketingMessages.map(promo => {
-      if (promo.campaignType === data.promoType) {
-        usermarketingMessage = promo;
-      }
+      if (promo.campaignType === data.promoType) usermarketingMessage = promo;
     });
     setMessage(usermarketingMessage);
   };
@@ -24,10 +22,7 @@ export default function MarketingOffer(data) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ data ]);
 
-  const amountFormatter = (number) => {
-    setAmount("$ " + (Math.round(number * 100) / 100).toLocaleString());
-  };
-
+  const amountFormatter = (number) => setAmount("$ " + (Math.round(number * 100) / 100).toLocaleString());
   const MarketingMessages = [
     {
       "campaignType": "PRES",

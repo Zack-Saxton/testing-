@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import React from "react";
+import React, {useState} from "react";
 import { NavLink } from "react-router-dom";
 import housingImage from "../../../assets/images/equal_Housing_Lender.png";
 import badge from "../../../assets/images/FeefoRatting.png";
@@ -9,7 +9,7 @@ import ConsumerDialog from "../ConsumerFooterDialog/ConsumerDialog";
 import "./NormalFooter.css";
 
 export default function NormalFooter() {
-  const [ consumer, setConsumer ] = React.useState(false);
+  const [ consumer, setConsumer ] = useState(false);
   //Consumer popup
   const handleOpenConsumer = () => {
     setConsumer(true);
@@ -17,8 +17,8 @@ export default function NormalFooter() {
 
   //View Part
   return (
-    <div style={ { background: "#d7e6ed" } }>
-      <footer style={ { width: "100%" } }>
+    <div className="mainDivNormalFooter" >
+      <footer className="mivNormalFooter">
         <Grid className="mainFooterWrap">
 
           <Grid className="footerWrap" container>
@@ -106,7 +106,7 @@ export default function NormalFooter() {
                 <div>
                   <p className="leftAlignAddress">
                     Mariner Finance, LLC, NMLS No. 166564{ ' ' }
-                    <span style={ { margin: "0", cursor: "pointer", overflowWrap: "break-word" } } onClick={ handleOpenConsumer }>
+                    <span className="spanLeftAlignAddress" onClick={ handleOpenConsumer }>
                       (www.nmlsconsumeraccess.com)
                     </span>
                     { ' ' }

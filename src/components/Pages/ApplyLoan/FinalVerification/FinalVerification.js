@@ -1,42 +1,15 @@
-import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { makeStyles } from "@mui/styles";
 import Typography from "@mui/material/Typography";
-import PropTypes from "prop-types";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import CheckLoginStatus from "../../../App/CheckLoginStatus";
 import { ButtonWithIcon } from "../../../FormsUI";
 import ScrollToTopOnMount from "../../ScrollToTop";
 import "../SelectOffer/SelectOffer.css";
 import Stepper from "../Stepper/Stepper";
+import TabPanel from "../TabPanel"
 import TabSection from "../TabSection";
-
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={ value !== index }
-      id={ `scrollable-auto-tab-panel-${ index }` }
-      aria-labelledby={ `scrollable-auto-tab-${ index }` }
-      { ...other }
-    >
-      { value === index && (
-        <Box>
-          <div>{ children }</div>
-        </Box>
-      ) }
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
-};
 
 //Styling
 const useStyles = makeStyles((theme) => ({
@@ -74,20 +47,34 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: "23px",
     paddingLeft: "23px",
   },
+  gridContainer: { 
+    width: "100%", 
+    marginBottom: "20px" 
+  },
+  textDecoration: {
+    textDecoration: "none"
+  },
+  tabPanelStyle: { 
+    paddingBottom: "30px", 
+    marginTop: "10px" 
+  },
+  fullWidth: {
+     width: "100%" 
+  },
+  paraTagStyle: {
+    textAlign: "justify",
+    fontSize: "0.938rem",
+    color: "#6b6f82",
+  }
 }));
 
 //Initializing Final verification functional component
 export default function FinalVerification() {
   const classes = useStyles();
-  const [ value, setValue ] = React.useState(2);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+  const [ value, setValue ] = useState(2);
+  const handleChange = (event, newValue) => setValue(newValue);
   useEffect(() => {
-    return () => {
-      zE('webWidget', 'hide');
-    };
+    return () => zE('webWidget', 'hide');
   }, []);
   zE('webWidget', 'show');
   //JSX part
@@ -105,12 +92,12 @@ export default function FinalVerification() {
           xs={ 12 }
           container
           direction="row"
-          style={ { width: "100%", marginBottom: "20px" } }
+          className={ classes.gridContainer }
         >
           <Typography className={ classes.heading } variant="h3">
             <NavLink
               to="/customers/accountOverview"
-              style={ { textDecoration: "none" } }
+              className={ classes.textDecoration }
             >
               <ButtonWithIcon
                 icon="arrow_backwardIcon"
@@ -130,21 +117,15 @@ export default function FinalVerification() {
         {/* Tab section started */ }
         <Grid item xs={ 12 }>
           <TabSection value={ value } handleChange={ handleChange } classes={ classes } ay={ 2 } />
-
           <TabPanel
             value={ value }
             index={ 2 }
-            style={ { paddingBottom: "30px", marginTop: "10px" } }
+            className={ classes.tabPanelStyle }
           >
             <Stepper />
-
-            <Grid item style={ { width: "100%" } }>
+            <Grid item className={ classes.fullWidth }>
               <p
-                style={ {
-                  textAlign: "justify",
-                  fontSize: "0.938rem",
-                  color: "#6b6f82",
-                } }
+              className={ classes.paraTagStyle }
               >
                 Loan funding and disbursement is conditioned upon our
                 satisfactory review of any documents and other information that

@@ -21,18 +21,12 @@ export default function ActiveLoans(userActiveLoanData) {
   const classes = useStylesAccountOverview();
 
   //Activeloans data
-  let userActiveLoans = userActiveLoanData != null ? userActiveLoanData : null;
+  let userActiveLoans = userActiveLoanData ?? null;
   let today = Moment(new Date());
   // If the customer's payment is due within 10 days of current date, highlight the 'Make a Payment' button on the Account Overview page
   let numberDaysForDueDate = (appData) => {
-    let numberOfDays = (appData?.loanDetails?.NextPaymentDate ? Math.ceil(
-      Moment.duration(
-        Moment(
-          appData.loanDetails.NextPaymentDate
-        ).diff(today)
-      ).asDays()
-    ) : 11);
-    return (numberOfDays >= 0 && numberOfDays <= 10);
+    let numberOfDays = (appData?.loanDetails?.NextPaymentDate ? Math.ceil(Moment.duration(Moment(appData.loanDetails.NextPaymentDate).diff(today)).asDays()) : 11);
+    return (numberOfDays <= 10);
   };
   //View
   return (
@@ -40,14 +34,13 @@ export default function ActiveLoans(userActiveLoanData) {
       { userActiveLoanData?.isLoading ? (
         <>
           <Grid
-            item
-            xs={ 12 }
-            style={ { width: "100%", paddingTop: "10px" } }
             container
+            item
             direction="row"
+            xs={ 12 }
+            className={ classes.activeLoanWrap }
           >
             <Typography
-              style={ { padding: "0" } }
               variant="h5"
               className={ classes.subheading }
               data-testid="subtitle"
@@ -55,7 +48,7 @@ export default function ActiveLoans(userActiveLoanData) {
               Active Loan
             </Typography>
           </Grid>
-          <Grid style={ { paddingTop: "10px" } } container>
+          <Grid className={ classes.activeLoanTable } container>
             <TableContainer component={ Paper }>
               <Table>
                 <TableBody>
@@ -73,231 +66,215 @@ export default function ActiveLoans(userActiveLoanData) {
         <>
           { userActiveLoans?.userActiveLoanData?.length ? (
             <>
-              <Grid
-                item
-                xs={ 12 }
-                style={ { width: "100%" } }
-                container
-                direction="row"
-              >
+              <Grid item xs={ 12 } container direction="row">
                 <Typography
-
                   variant="h5"
                   className={ classes.subheading }
                   data-testid="subtitle"
                 >
-                  Active Loan
+                  Active Loans
                 </Typography>
               </Grid>
-              <Grid
-                style={ { paddingTop: "10px" } }
-                container
-              >
-                { userActiveLoans.userActiveLoanData.map((appData, activeIndex) => (
-                  <Grid style={ { paddingBottom: "10px" } } container key={ activeIndex }>
-                    <Grid
-                      id="activeLoanWrap"
-                      item
-                      xs={ 12 }
-                      sm={ 9 }
-                      style={ { width: "100%" } }
+              <Grid  container>
+                {userActiveLoans.userActiveLoanData.map(
+                  (appData) => (
+                    <Grid className={classes.activeLoancardwrap}
+                      container
+                      key={Math.random() * 1000}
                     >
-                      <Paper
-                        className={ classes.paper }
-                        id="activeLoanGrid"
-                        style={ {
-                          // height: "81.33%",
-                          borderRadius: "2px!important",
-                        } }
+                      <Grid
+                        id="activeLoanWrap"
+                        item
+                        xs={ 12 }
+                        sm={ 9 }
                       >
-                        <Grid container style={ { marginBottom: "20px" } }>
-                          <Grid item xs={ 12 } sm={ 6 } >
-                            <Typography
-                              style={ { fontSize: "1.125rem" } }
-                              variant="h5"
-                              className={ classes.activeLoanHeading }
-                              data-testid="subtitle"
-                            >
-                              Next Payment Details
-                            </Typography>
-                          </Grid>
-                          <Grid item xs={ 12 } sm={ 6 }>
-                            <NavLink to={ `/customers/makePayment/?accNo=${ appData.loanDetails.AccountNumber }` } key={ Math.random() * 1000 }>
-                              <ButtonPrimary
-                                id="makeAPaymentButtonStyle"
-                                stylebutton='{"float": "right","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
-                                className={ numberDaysForDueDate(appData) ? `${ classes.normalButton } pulse` : classes.normalButton }
+                        <Paper
+                          className={ classes.paper }
+                          id="activeLoanGrid"
+                        >
+                          <Grid container className={ classes.activeLoanHeadingWrap }>
+                            <Grid item xs={ 12 } sm={ 6 }>
+                              <Typography
+                                variant="h5"
+                                className={ classes.activeLoanHeading }
+                                data-testid="subtitle"
                               >
-                                Make a Payment
-                              </ButtonPrimary>
-                            </NavLink>
-                          </Grid>
-                        </Grid>
-
-                        <Grid container>
-                          <Grid item xs={ 12 } sm={ 3 }>
-                            <AutoPayStatus
-                              isAutoPay={ appData?.loanPaymentInformation?.appRecurringACHPayment ? true : false }
-                              accountNumber={ appData?.loanDetails?.AccountNumber }
-                            />
-                          </Grid>
-
-                          <Grid id="regularAmountGrid" item xs={ 12 } sm={ 3 }>
-                            <p
-                              id="RegularAmmountText"
-                              className={ classes.cardContent }
-                            >
-                              { " " }
-                              Regular Amount
-                            </p>
-                            <h5
-                              id="nextPaymentItems"
-                              className={ classes.brandColor }
-                            >
-                              <span className="addCommaAmount">
-                                <NumberFormat
-                                  value={
-                                    appData.loanDetails.RegularPaymentAmount
+                                Next Payment Details
+                              </Typography>
+                            </Grid>
+                            <Grid item xs={ 12 } sm={ 6 }>
+                              <NavLink
+                                to={ `/customers/makePayment/?accNo=${ appData.loanDetails.AccountNumber }` }
+                                key={ Math.random() * 1000 }
+                              >
+                                <ButtonPrimary
+                                  id="makeAPaymentButtonStyle"
+                                  stylebutton='{"float": "right","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
+                                  className={
+                                    today.isBefore(appData.loanDetails.NextDueDate)
+                                      ? numberDaysForDueDate(appData)
+                                        ? `${ classes.normalButton } pulse`
+                                        : classes.normalButton
+                                      : `${classes.buttonColorPastDate} pulse`
                                   }
-                                  displayType={ "text" }
-                                  thousandSeparator={ true }
-                                  decimalScale={ 2 }
-                                  fixedDecimalScale={ true }
-                                  prefix={ "$" }
-                                />
-                              </span>
-                            </h5>
-                            <p className={ classes.cardContent }>
-                              * Amount may not <br></br> include all fees!
-                            </p>
-                          </Grid>
-                          <Grid item xs={ 12 } sm={ 3 }>
-                            <p id="dueDate" className={ classes.cardcontent }>
-                              Due Date
-                            </p>
-                            <h5
-                              id="nextPaymentItems"
-                              className={ classes.brandColor }
-                            >
-                              { Moment(
-                                appData.loanDetails.NextPaymentDate
-                              ).format("MM/DD/YYYY") }
-                            </h5>
-
-                            { today.isBefore(appData.loanDetails.NextPaymentDate) ?
-                              <p className={ classes.cardcontent }>
-                                { " " } Due in { " " }
-                                { Math.ceil(
-                                  Moment.duration(
-                                    Moment(
-                                      appData.loanDetails.NextPaymentDate
-                                    ).diff(today)
-                                  ).asDays()
-                                ) }{ " " }
-                                days
-                              </p>
-                              :
-                              <p className={ classes.cardcontent }>
-                                Your payment is <br></br> overdue
-                              </p> }
-
-                          </Grid>
-                          { appData.loanPaymentInformation
-                            .hasScheduledPayment ? (
-                            <Grid id="scheduledPaymentGrid" item xs={ 12 } sm={ 3 }>
-                              <p
-                                id="ScheduledPaymentText"
-                                className={ classes.cardcontent }
-                              >
-                                Scheduled Payment
-                              </p>
-                              <h5
-                                id="nextPaymentItems"
-                                className={ classes.brandColor }
-                              >
-                                { Moment(
-                                  appData.loanPaymentInformation
-                                    .scheduledPayments[ 0 ].PaymentDate
-                                ).format("MM/DD/YYYY") }
-                              </h5>
-                              <p className={ classes.cardcontent }>
-                                Future payment is scheduled
-                              </p>
+                                >
+                                  Make a Payment
+                                </ButtonPrimary>
+                              </NavLink>
                             </Grid>
-                          ) : (
+                          </Grid>
+
+                          <Grid container>
                             <Grid item xs={ 12 } sm={ 3 }>
+                              <AutoPayStatus
+                                isAutoPay={ appData?.loanPaymentInformation?.appRecurringACHPayment ? true : false }
+                                accountNumber={ appData?.loanDetails?.AccountNumber }
+                              />
+                            </Grid>
+
+                            <Grid id="regularAmountGrid" item xs={ 12 } sm={ 3 }>
                               <p
-                                id="ScheduledPaymentText"
-                                className={ classes.cardcontent }
+                                id="RegularAmmountText"
+                                className={ classes.cardContent }
                               >
-                                Scheduled Payment
+                                { " " }
+                                Regular Amount
                               </p>
                               <h5
                                 id="nextPaymentItems"
                                 className={ classes.brandColor }
                               >
-                                NONE
+                                <span className="addCommaAmount">
+                                  <NumberFormat
+                                    value={ appData?.loanDetails?.RegularPaymentAmount }
+                                    displayType={ "text" }
+                                    thousandSeparator={ true }
+                                    decimalScale={ 2 }
+                                    fixedDecimalScale={ true }
+                                    prefix={ "$" }
+                                  />
+                                </span>
                               </h5>
-                              <p className={ classes.cardcontent }>
-                                No future payment is scheduled
+                              <p className={ classes.cardContent }>
+                                * Amount may not <br></br> include all fees!
                               </p>
                             </Grid>
-                          ) }
-                        </Grid>
-                      </Paper>
-                    </Grid>
-                    <Grid
-                      id="overviewContainer"
-                      item
-                      xs={ 12 }
-                      sm={ 3 }
-                      style={ {
-                        width: "100%",
-                        paddingLeft: "15px",
-                        borderRadius: "2px",
-                      } }
-                    >
-                      <Paper
-                        id="overviewWrap"
-                        className={ classes.paper }
-                      >
-                        <Grid item xs={ 12 }>
-                          <Typography
-                            variant="h5"
-                            className={ classes.activeLoanSubHeading }
-                          >
-                            Overview
-                          </Typography>
-                          <div style={ { paddingTop: "20px" } }>
-                            <p
-                              style={ { paddingBottom: "2px" } }
-                              className={ classes.activeLoanSubHeading_content }
-                            >
-                              Account Number
-                            </p>
-                            <p style={ { margin: "auto", paddingBottom: "5px" } }>
-                              <b>{ appData.loanDetails.AccountNumber }</b>
-                            </p>
+                            <Grid item xs={ 12 } sm={ 3 }>
+                              <p id="dueDate" className={ classes.cardcontent }>
+                                Due Date
+                              </p>
+                              <h5
+                                id="nextPaymentItems"
+                                className={ classes.brandColor }
+                              >
+                                { Moment(appData?.loanDetails?.NextPaymentDate).format("MM/DD/YYYY") }
+                              </h5>
 
-                            <p
-                              style={ { paddingBottom: "2px" } }
-                              className={ classes.activeLoanSubHeading_content }
+                              { today.isBefore(
+                                appData.loanDetails.NextPaymentDate
+                              ) ? (
+                                <p className={ classes.cardcontent }>
+                                  { " " }
+                                  Due in{ " " }
+                                  { Math.ceil(Moment.duration(Moment(appData?.loanDetails?.NextPaymentDate).diff(today)).asDays()) }{ " " }
+                                  days
+                                </p>
+                              ) : (
+                                <p className={ classes.cardcontent }>
+                                  Your payment is <br></br> overdue
+                                </p>
+                              ) }
+                            </Grid>
+                            { appData.loanPaymentInformation
+                              .hasScheduledPayment ? (
+                              <Grid
+                                id="scheduledPaymentGrid"
+                                item
+                                xs={ 12 }
+                                sm={ 3 }
+                              >
+                                <p
+                                  id="ScheduledPaymentText"
+                                  className={ classes.cardcontent }
+                                >
+                                  Scheduled Payment
+                                </p>
+                                <h5
+                                  id="nextPaymentItems"
+                                  className={ classes.brandColor }
+                                >
+                                  { Moment(appData?.loanPaymentInformation?.scheduledPayments[ 0 ]?.PaymentDate).format("MM/DD/YYYY") }
+                                </h5>
+                                <p className={ classes.cardcontent }>
+                                  Future payment is scheduled
+                                </p>
+                              </Grid>
+                            ) : (
+                              <Grid item xs={ 12 } sm={ 3 }>
+                                <p
+                                  id="ScheduledPaymentText"
+                                  className={ classes.cardcontent }
+                                >
+                                  Scheduled Payment
+                                </p>
+                                <h5
+                                  id="nextPaymentItems"
+                                  className={ classes.brandColor }
+                                >
+                                  NONE
+                                </h5>
+                                <p className={ classes.cardcontent }>
+                                  No future payment is scheduled
+                                </p>
+                              </Grid>
+                            ) }
+                          </Grid>
+                        </Paper>
+                      </Grid>
+                      <Grid
+                        id="overviewContainer"
+                        item
+                        xs={ 12 }
+                        sm={ 3 }
+                      >
+                        <Paper id="overviewWrap" className={ classes.paper }>
+                          <Grid item xs={ 12 }>
+                            <Typography
+                              variant="h5"
+                              className={ classes.activeLoanSubHeading }
                             >
-                              Opened On
-                            </p>
-                            <p style={ { margin: "auto" } }>
-                              <b>
-                                { Moment(
-                                  appData.loanDetails.LoanOriginationDate
-                                ).format("MM/DD/YYYY") }
-                              </b>
-                            </p>
-                          </div>
-                        </Grid>
-                      </Paper>
+                              Overview
+                            </Typography>
+                            <div className="OverviewAccountNumberText">
+                              <p
+                                className={ classes.activeLoanSubHeading_content }
+                              >
+                                Account Number
+                              </p>
+                              <p
+                              >
+                                <b>{ appData.loanDetails.AccountNumber }</b>
+                              </p>
+
+                              <p
+                                className={ classes.activeLoanSubHeading_content }
+                              >
+                                Opened On
+                              </p>
+                              <p >
+                                <b>
+                                  { Moment(appData.loanDetails.LoanOriginationDate).format("MM/DD/YYYY") }
+                                </b>
+                              </p>
+                              <p className={classes.activeLoanSubHeading_content}>APR</p>
+                              <b>{`${(appData.loanDetails.OriginalAPR)?.toFixed(2)}%`}</b>
+                            </div>
+                          </Grid>
+                        </Paper>
+                      </Grid>
                     </Grid>
-                  </Grid>
-                )) }
+                  )
+                ) }
               </Grid>
             </>
           ) : (

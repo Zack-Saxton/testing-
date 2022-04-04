@@ -5,13 +5,13 @@ import Typography from "@mui/material/Typography";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TwitterIcon from "@mui/icons-material/Twitter";
-import React from "react";
+import React, {useState} from "react";
 import Housing from "../../../assets/images/equal_Housing_Lender.png";
 import Logo from "../../../assets/images/mf-logo.png";
 import ConsumerDialog from "../ConsumerFooterDialog/ConsumerDialog";
 import "./BranchLocatorFooter.css";
 export default function BranchLocatorFooter() {
-  const [ consumer, setConsumer ] = React.useState(false);
+  const [ consumer, setConsumer ] = useState(false);
   // Consumer popup
   const handleOpenConsumer = () => {
     setConsumer(true);
@@ -141,19 +141,6 @@ export default function BranchLocatorFooter() {
       ],
     },
     {
-      title: "Updates",
-      description: [
-        {
-          name: "COVID-19",
-          link: `${ process.env.REACT_APP_WEBSITE }/coronavirus-covid-19-information/`,
-        },
-        {
-          name: "Disaster Information Hurricane Dorian",
-          link: `${ process.env.REACT_APP_WEBSITE }/coronavirus-covid-19-information/`,
-        },
-      ],
-    },
-    {
       title: "Legal",
       description: [
         {
@@ -193,15 +180,15 @@ export default function BranchLocatorFooter() {
 
   //View Part
   return (
-    <div style={ { background: "#d7e6ed" } }>
-      <footer style={ { width: "100%" } }>
+    <div className="mainDivBranchLocatorFooter">
+      <footer className= "footeBranchLocator">
         <Grid className="branchLocatorFooterWrap">
           <section className="branch-Locator-Footer">
             <Grid container spacing={ 4 } justifyContent="space-evenly">
               { groupedFooter.map((nested) => (
                 <Grid item xs={ 12 } sm={ 3 } key={ Math.random() * 1000 }>
                   { nested.map((element) => (
-                    <div key={ element.title } style={ { marginBottom: "30px" } }>
+                    <div key={ element.title } className="divFooterLinkTitle">
                       <Typography className="footerLinkstitle" gutterBottom>
                         { element.title }
                       </Typography>
@@ -238,12 +225,12 @@ export default function BranchLocatorFooter() {
                       ) : (
                         element.description.map((item) => (
                           <ul
-                            style={ { margin: "0px", paddingLeft: "0px" } }
+                            className="branchfooterUl"
                             key={ Math.random() * 1000 }
                           >
                             <li
                               key={ item.name }
-                              style={ { listStyleType: "none" } }
+                              className="branchfooterLi"
                             >
                               <a href={ item.link } className="footerHrefTag">
                                 { item.name }
@@ -309,7 +296,7 @@ export default function BranchLocatorFooter() {
                 repayment amount must be in the form of cash or certified funds.
               </small>
             </p>
-            <p style={ { textAlign: "left" } }>
+            <p className="californiaPara" >
               <small>
                 California Residents: Loans made or arranged pursuant to a
                 California Financing Law license.
@@ -325,11 +312,11 @@ export default function BranchLocatorFooter() {
               </Grid>
               <Grid item xs={ 12 } sm={ 12 } md={ 6 }>
                 <div className="row">
-                  <div style={ { paddingTop: "15px", paddingBottom: "15px" } }>
+                  <div className="alignAddressDiv">
                     <p className="centerAlignAddress">
                       Mariner Finance, LLC, NMLS No. 166564
                       <span
-                        style={ { margin: "0", cursor: "pointer", overflowWrap: "break-word" } }
+                      className="alignAddressSpan"
                         onClick={ handleOpenConsumer }
                       >
                         (www.nmlsconsumeraccess.com)
@@ -347,11 +334,7 @@ export default function BranchLocatorFooter() {
                 <a className="footerLogoimageWrap" href="#">
                   <img
                     src={ Housing }
-                    style={ {
-                      display: "block",
-                      marginLeft: "auto",
-                      marginRight: "auto",
-                    } }
+                    className="imgHousing"
                   />
                 </a>
               </Grid>
@@ -360,7 +343,7 @@ export default function BranchLocatorFooter() {
         </Grid>
         <section className="section-bottom">
           <div>
-            <span style={ { color: "white" } }>
+            <span className="copyrightSpan">
               &copy; { new Date().getFullYear() } Mariner Finance All rights
               reserved.
             </span>

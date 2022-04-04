@@ -13,7 +13,7 @@ import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import ReceiptIcon from "@mui/icons-material/Receipt";
 import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
 import questionFaq from "./questions.json";
 import { useStylesFaq } from "./Style";
 import "./Style.css";
@@ -59,14 +59,14 @@ export default function Faq() {
   const classes = useStylesFaq();
 
   //Accordian implementation
-  const [ expanded, setExpanded ] = React.useState(false);
+  const [ expanded, setExpanded ] = useState(false);
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
 
   //Tab implementation
-  const [ values, setValues ] = React.useState(0);
+  const [ values, setValues ] = useState(0);
   const handleTabChange = (event, value) => {
     setValues(value);
   };
@@ -99,7 +99,7 @@ export default function Faq() {
               </>
             }
             className={ classes.tabLabel }
-            style={ { backgroundColor: "#eee" } }
+
             { ...a11yProps(0) }
           />
           <Tab
@@ -115,7 +115,7 @@ export default function Faq() {
             }
             disabled={ false }
             className={ classes.tabLabel }
-            style={ { backgroundColor: "#eee" } }
+
             { ...a11yProps(1) }
           />
 
@@ -131,7 +131,7 @@ export default function Faq() {
             }
             disabled={ false }
             className={ classes.tabLabel }
-            style={ { backgroundColor: "#eee" } }
+
             { ...a11yProps(2) }
           />
           <Tab
@@ -148,7 +148,7 @@ export default function Faq() {
             }
             disabled={ false }
             className={ classes.tabLabel }
-            style={ { backgroundColor: "#eee" } }
+
             { ...a11yProps(3) }
           />
           <Tab
@@ -164,7 +164,7 @@ export default function Faq() {
             }
             disabled={ false }
             className={ classes.tabLabel }
-            style={ { backgroundColor: "#eee" } }
+
             { ...a11yProps(4) }
           />
         </Tabs>

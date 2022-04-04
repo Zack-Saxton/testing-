@@ -9,25 +9,25 @@ Functionality       :    To use this component to validate and get the Bank rout
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import TextBox from "../Textfield";
+import globalMessages from "../../../assets/data/globalMessages.json";
 
 const BankRoutingNumberWrapper = ({ name, ...otherProps }) => {
   //Set Formik field
-  const [ BRNum, setBRNum ] = useState("");
+  const [ bankRoutingNumber, setBankRoutingNumber ] = useState("");
   const [ isError, setIsError ] = useState(false);
   const [ helperText, setHelperText ] = useState("");
 
   //Account Number field onChange handle
   const onHandleBRNChange = (event) => {
     const reg = /^[0-9\b]+$/;
-    let acc = event.target.value;
+    let account = event.target.value.trim();
 
-    if (acc === "" || reg.test(acc)) {
-      setBRNum(event.target.value);
+    if (!account || reg.test(account)) {
+      setBankRoutingNumber(event.target.value);
     }
-    const isValid = /(^\d{9}$)/.test(event.target.value);
-    (!isValid && event.target.value) ? setIsError(true) : setIsError(false);
-    (!isValid && event.target.value) ? setHelperText("Bank Routing number should be 9 digits") : setHelperText("");
-
+    const isValid = /(^\d{9}$)/.test(account);
+    (!isValid && account) ? setIsError(true) : setIsError(false);
+    (!isValid && account) ? setHelperText(globalMessages.validBankRoutingNumber) : setHelperText("");
   };
 
   //Configuring the field with properties
@@ -45,7 +45,7 @@ const BankRoutingNumberWrapper = ({ name, ...otherProps }) => {
     <TextBox
       { ...configTextfield }
       materialProps={ { maxLength: "9", "data-test-id": "BRN" } }
-      value={ BRNum }
+      value={ bankRoutingNumber }
       onChange={ onHandleBRNChange }
       required={ true }
     />

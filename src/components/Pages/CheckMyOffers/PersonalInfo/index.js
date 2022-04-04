@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import axios from "axios";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import globalMessages from '../../../../assets/data/globalMessages.json';
@@ -136,12 +136,14 @@ function PersonalInfo() {
 	const [ ssnEmailMatch, setSsnEmailMatch ] = useState(true);
 	const [ error, setError ] = useState(false);
 	const [ loading, setLoading ] = useState(false);
+	const componentMounted = useRef(true);                                               //
 	const navigate = useNavigate();
 	const innerClasses = useStyles();
 	const classes = preLoginStyle();
 	const myDate = new Date();
 	myDate.setDate(myDate.getDate() - 6571);
-
+	let refFirstName = useRef();
+	let refLastName = useRef();
 	function phoneNumberMask(values) {
 		let phoneNumber = values.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
 		values = !phoneNumber[ 2 ] ? phoneNumber[ 1 ] : '(' + phoneNumber[ 1 ] + ') ' + phoneNumber[ 2 ] + (phoneNumber[ 3 ] ? '-' + phoneNumber[ 3 ] : '');
@@ -166,6 +168,8 @@ function PersonalInfo() {
 		onSubmit: async (values) => {
 			const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : "{ }");
 			setLoading(true);
+			//To check the component is mounted or not to update the state
+			if (componentMounted.current){
 			data.firstName = values.firstName.trim();
 			data.lastName = values.lastName.trim();
 			data.email = values.email;
@@ -186,7 +190,7 @@ function PersonalInfo() {
 			//Prospect
 			creatProspect(data);
 
-			if (values.email !== null && values.ssn !== null) {
+			if (values.email && values.ssn) {
 				let body = {
 					email: values.email,
 					ssn: data.last4SSN
@@ -197,9 +201,9 @@ function PersonalInfo() {
 
 				if (loginToken?.isLoggedIn) {
 					data.completedPage = data.page.existingUser;
-					navigate("/employment-status");
 					setError(false);
 					setLoading(false);
+					navigate("/employment-status");
 				} else {
 					let customerStatus = await axios({
 						method: "POST",
@@ -218,16 +222,16 @@ function PersonalInfo() {
 								setLoading(false);
 							} else {
 								setSsnEmailMatch(true);
-								navigate("/existing-user");
 								setError(false);
 								setLoading(false);
+								navigate("/existing-user");
 							}
 						} else {
 							setSsnEmailMatch(false);
 							setError(false);
 							setLoading(false);
 						}
-					} else if (customerStatus.data.customerFound === false) {
+					} else if (!customerStatus.data.customerFound) {
 						setError(false);
 						setLoading(false);
 						navigate("/new-user");
@@ -241,14 +245,15 @@ function PersonalInfo() {
 					}
 				}
 			}
+		}
 		},
 	});
 
 	const checkApplicationStatus = async (event) => {
 		formik.handleBlur(event);
-		if (event.target.value !== "" || event.target.value !== null) {
+		if (event.target.value) {
 			let body = {
-				email: event.target.value,
+				email: event.target.value.trim(),
 			};
 			if (event.target.value !== "") {
 				let result = await axios({
@@ -271,8 +276,8 @@ function PersonalInfo() {
 	//onchange validation
 	const onNameChange = (event) => {
 		const pattern = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
-		let name = event.target.value;
-		if (name === "" || pattern.test(name)) {
+		let name = event.target.value.trim();
+		if (!name || pattern.test(name)) {
 			formik.handleChange(event);
 		}
 	};
@@ -290,17 +295,10 @@ function PersonalInfo() {
 
 	//set auto focus
 	function autoFocus() {
-		let firstname = document.getElementById("firstName").value;
-		let lastname = document.getElementById("lastName").value;
-		if (firstname === "") {
-			document.getElementById("firstName").focus();
-		}
-		if (lastname === "") {
-			if (firstname === "") {
-				document.getElementById("firstName").focus();
-			} else {
-				document.getElementById("lastName").focus();
-			}
+		if (!refFirstName.current.value) {
+			refFirstName.current.focus();
+		} else if (!refLastName.current.value) {
+			refLastName.current.focus();
 		}
 	}
 	useEffect(() => {
@@ -308,7 +306,10 @@ function PersonalInfo() {
 		if (data.completedPage < data.page.homeAddress || data.formStatus === "completed") {
 			navigate("/select-amount");
 		}
-		return null;
+		// return null;
+		return () => { // This code runs when component is unmounted
+			componentMounted.current = false; // set it to false when we leave the page
+	}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -391,7 +392,7 @@ function PersonalInfo() {
 												id="firstName"
 												name="firstName"
 												label="First Name *"
-												materialProps={ { maxLength: "30" } }
+												materialProps={ { maxLength: "30", ref: refFirstName, } }
 												value={ formik.values.firstName }
 												onChange={ onNameChange }
 												onBlur={ formik.handleBlur }
@@ -420,7 +421,7 @@ function PersonalInfo() {
 												id="lastName"
 												name="lastName"
 												label="Last Name *"
-												materialProps={ { maxLength: "30" } }
+												materialProps={ { maxLength: "30", ref: refLastName, } }
 												value={ formik.values.lastName }
 												onChange={ onNameChange }
 												onBlur={ formik.handleBlur }

@@ -41,6 +41,13 @@ const useStyleVantageScore = makeStyles((theme) => ({
     color: "#212121",
   },
 
+  vantageScore: {
+    padding: "10px",
+  },
+  textDecoration: {
+    textDecoration: "none",
+  },
+
   texts: {
     display: "flex",
     flexDirection: "column",
@@ -82,6 +89,7 @@ const useStyleVantageScore = makeStyles((theme) => ({
   },
 
   VantageScoreSmallText: {
+    width: "100%",
     fontSize: "13.5px",
     borderTop: "1px solid #949494",
     borderBottom: "1px solid #949494",
@@ -104,6 +112,10 @@ const useStyleVantageScore = makeStyles((theme) => ({
     lineHeight: "20px",
     textAlign: "justify",
   },
+  guageChart:{
+    width: '60%',
+    margin: 'auto'
+  }
 }));
 
 export { useStyleVantageScore };

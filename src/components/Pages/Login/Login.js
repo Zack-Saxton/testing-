@@ -2,21 +2,26 @@ import { FormControl, FormControlLabel } from "@mui/material";
 import Box from "@mui/material/Box";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
+import DialogTitle from "@mui/material/DialogTitle";
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import Paper from "@mui/material/Paper";
-import { makeStyles } from "@mui/styles";
 import Switch from "@mui/material/Switch";
 import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
-import axios from "axios";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { useQueryClient } from "react-query";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import globalMessages from "../../../assets/data/globalMessages.json";
 import LoginController from "../../Controllers/LoginController";
+import Recaptcha from "../../Layout/Recaptcha/GenerateRecaptcha";
+import { RecaptchaValidationController } from "../../Controllers/RecaptchaController";
+import getClientIp from "../../Controllers/CommonController";
+import ErrorLogger from "../../lib/ErrorLogger";
+import { toast } from "react-toastify";
 import {
   ButtonPrimary,
   EmailTextField,
@@ -24,125 +29,62 @@ import {
   Popup,
   RenderContent
 } from "../../FormsUI";
-import { decryptAES, encryptAES } from "../../lib/Crypto";
+import { encryptAES } from "../../lib/Crypto";
 import { FormValidationRules } from "../../lib/FormValidationRule";
 import ScrollToTopOnMount from "../../Pages/ScrollToTop";
+import { useStylesLogin } from "./style"
 import "./Login.css";
-var formValidation = new FormValidationRules();
+let formValidation = new FormValidationRules();
 const moment = require("moment");
 const moment_timezone = require("moment-timezone");
 let addVal = moment_timezone().tz("America/New_York").isDST() ? 4 : 5;
-
-//Styling part
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  termsText: {
-    fontSize: "0.938rem",
-  },
-  linkDesign: {
-    color: "#0F4EB3",
-    cursor: "pointer",
-    fontSize: "0.938rem"
-
-  },
-  paper: {
-    padding: "30px",
-    margin: "70px 0px",
-    borderRadius: "6px !important",
-    display: "flex",
-    flexDirection: "column",
-    backgroundColor: `rgba(255, 255, 255, .8)`,
-    color: theme.palette.text.secondary,
-    boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%),
-		0 6px 30px 5px rgb(0 0 0 / 12%),
-		0 8px 10px -7px rgb(0 0 0 / 20%)`,
-  },
-  heading: {
-    color: "white",
-    justify: "center",
-  },
-  checkbox: {
-    marginTop: "3%",
-    textAlign: "initial",
-    fontFamily: "'Muli', sans-serif !important",
-  },
-  title: {
-    fontSize: "25px",
-    textAlign: "center",
-    color: "#171717",
-    fontWeight: "400",
-  },
-  register: {
-    fontSize: "0.844rem",
-    textDecoration: "none",
-    color: "#0F4EB3",
-    fontFamily: "'Muli', sans-serif !important",
-    marginBottom: "0px",
-  },
-  mainGrid: {
-    boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%),
-		0 6px 30px 5px rgb(0 0 0 / 12%),
-		0 8px 10px -7px rgb(0 0 0 / 20%)`,
-    background: "#f5f2f2",
-  },
-  mainContentGrid: {
-    margin: "auto",
-    display: "flex",
-    alignItems: "center",
-    minHeight: "93vh",
-  },
-  loginButton: {
-    textAlign: "center",
-    margin: "5% 0 0 0",
-  },
-  emailGrid: {
-    lineHeight: "2",
-    margin: "0px 0px 30px 0px",
-  },
-  passwordGrid: {
-    margin: "0px 0px 30px 0px",
-  },
-  registerGrid: {
-    textAlign: "center",
-    width: "100%",
-    margin: "5% 0px 0px 0px",
-  },
-  loginHelpDialogHeading: {
-    fontSize: "25px",
-    textAlign: "center",
-    color: "#171717",
-    fontWeight: "400",
-  },
-}));
 
 //Yup validations for all the input fields
 const validationSchema = formValidation.getFormValidationRule("login");
 
 //Begin: Login page
 export default function Login(props) {
-  const classes = useStyles();
+  const classes = useStylesLogin();
   const navigate = useNavigate();
   const [ loginFailed, setLoginFailed ] = useState("");
   const [ loading, setLoading ] = useState(false);
   const [ cacTerms, setCacTerms ] = useState(false);
   const [ counter, setCounter ] = useState(0);
   const [ openDeleteSchedule, setopenDeleteSchedule ] = useState(false);
+  const [ disableRecaptcha, setDisableRecaptcha ] = useState(true);
   const queryClient = useQueryClient();
   let location = useLocation();
 
-  const getClientIp = async () => {
+  const remMeDataRaw = Cookies.get("rememberMe") ?? '{}';
+  let remMeData = JSON.parse(remMeDataRaw);
+  const [ remMe, setRemMe ] = useState(remMeData?.selected);
+
+//reCaptcha validation
+  window.onReCaptchaSuccess = async function () {
     try {
-      let ipResponse = await axios.get('https://geolocation-db.com/json/');
-      return ipResponse.data.IPv4;
-    } catch (err) {
-      return '127.0.0.1';
+      let grecaptchaResponse = grecaptcha.getResponse();
+      let ipAddress = await getClientIp();
+      let recaptchaVerifyResponse = await RecaptchaValidationController(grecaptchaResponse, ipAddress);
+
+      if (recaptchaVerifyResponse.status === 200) {
+        toast.success(globalMessages.Recaptcha_Verify);
+        setDisableRecaptcha(false);
+      }
+      else {
+        toast.error(globalMessages.Recaptcha_Error);
+        grecaptcha.reset();
+        setDisableRecaptcha(true);
+      }
+    } catch (error) {
+      ErrorLogger("Error executing reCaptcha", error);
     }
   };
-  const remMeDataRaw = Cookies.get("rememberMe") ? Cookies.get("rememberMe") : null;
-  let remMeData = remMeDataRaw ? JSON.parse(decryptAES(remMeDataRaw)) : undefined;
-  const [ remMe, setRemMe ] = useState(remMeData?.selected);
+
+  window.OnExpireCallback = function () {
+    grecaptcha.reset();
+    setDisableRecaptcha(true);
+  };
+
   //Form Submission
   const formik = useFormik({
     initialValues: {
@@ -156,19 +98,19 @@ export default function Login(props) {
       let ipAddress = await getClientIp();
       //Sending value to  login controller
       let retVal = await LoginController(
-        values.email,
-        values.password,
+        values?.email,
+        values?.password,
         ipAddress,
-        props.setToken
+        props?.setToken
       );
-      if (retVal?.data?.user && retVal?.data?.userFound ) {
-        let login_date = retVal?.data?.user.extensionattributes?.login
+      if (retVal?.data?.user && retVal?.data?.userFound) {
+        let login_date = retVal?.data?.user?.extensionattributes?.login
           ?.last_timestamp_date
-          ? moment(retVal?.data?.user.extensionattributes.login.last_timestamp_date)
+          ? moment(retVal?.data?.user?.extensionattributes?.login?.last_timestamp_date)
             .subtract(addVal, "hours")
             .format("MM/DD/YYYY")
           : "";
-        var now = new Date().getTime();
+        let now = new Date().getTime();
         // On login success storing the needed data in the local storage
         Cookies.set(
           "token",
@@ -179,17 +121,17 @@ export default function Login(props) {
             applicantGuid: retVal?.data?.user?.attributes?.sor_data?.applicant_guid,
           })
         );
-        Cookies.set("cred", encryptAES(JSON.stringify({ email: values.email, password: values.password })));
-        Cookies.set("email", values.email);
+        Cookies.set("cred", encryptAES(JSON.stringify({ email: values?.email, password: values?.password })));
+        Cookies.set("email", values?.email);
         Cookies.set("profile_picture", retVal?.data?.user?.mobile?.profile_picture ? retVal?.data?.user?.mobile?.profile_picture : "");
         Cookies.set("login_date", login_date);
         Cookies.set("userToken", retVal?.data?.user?.attributes?.UserToken);
         Cookies.set("temp_opted_phone_texting", "");
-        Cookies.set("rememberMe", encryptAES(remMe ? JSON.stringify({ selected: true, email: values.email }) : JSON.stringify({ selected: false, email: '' })));
+        Cookies.set("rememberMe", remMe ? JSON.stringify({ selected: true, email: values?.email }) : JSON.stringify({ selected: false, email: '' }));
         queryClient.removeQueries();
         setLoading(false);
         if (retVal?.data?.user?.attributes?.password_reset) {
-          navigate("/resetpassword", { state: { Email: values.email } });
+          navigate("/resetpassword", { state: { Email: values?.email } });
         } else {
           navigate(location.state?.redirect ? location.state?.redirect : "/customers/accountoverview");
         }
@@ -213,11 +155,11 @@ export default function Login(props) {
         setLoading(false);
         setLoginFailed(retVal?.data?.errorMessage);
         if (counter >= 1) {
-          navigate("/register?email=" + values.email);
+          navigate("/register?email=" + values?.email);
         }
       } else {
         setLoading(false);
-        alert("Network error");
+        alert(globalMessages.Network_Error);
       }
     },
   });
@@ -285,10 +227,9 @@ export default function Login(props) {
                 </Typography>
 
                 <form onSubmit={ formik.handleSubmit }>
-                  <Grid style={ { paddingTop: "30px" } }>
+                  <Grid className={ classes.logInGrid }>
                     <Grid
-                      style={ { width: "100%" } }
-                      // direction="row"
+                      id="fullWidth"
                       className={ classes.emailGrid }
                     >
                       <EmailTextField
@@ -306,20 +247,18 @@ export default function Login(props) {
                           </p>
                         }
                         onKeyDown={ preventSpace }
-                        value={ formik.values.email }
+                        value={ formik.values?.email }
                         onChange={ passwordOnChange }
                         onBlur={ formik.handleBlur }
                         error={
-                          formik.touched.email && Boolean(formik.errors.email)
+                          formik.touched?.email && Boolean(formik.errors?.email)
                         }
-                        helperText={ formik.touched.email && formik.errors.email }
+                        helperText={ formik.touched?.email && formik.errors?.email }
                       />
                     </Grid>
 
                     <Grid
-                      style={ { width: "100%" } }
-
-                    // direction="row"
+                      className="fullWidth"
                     >
                       <PasswordField
                         name="password"
@@ -329,15 +268,15 @@ export default function Login(props) {
                         type="password"
                         onKeyDown={ preventSpace }
                         materialProps={ { maxLength: "100" } }
-                        value={ formik.values.password }
+                        value={ formik.values?.password }
                         onChange={ passwordOnChange }
                         onBlur={ formik.handleBlur }
                         error={
-                          formik.touched.password &&
-                          Boolean(formik.errors.password)
+                          formik.touched?.password &&
+                          Boolean(formik.errors?.password)
                         }
                         helperText={
-                          formik.touched.password && formik.errors.password
+                          formik.touched?.password && formik.errors?.password
                         }
                       />
                       <p
@@ -347,8 +286,7 @@ export default function Login(props) {
                         data-testid="subtitle"
                       >
                         { " " }
-                        Invalid email or password. Please try again or click on
-                        Sign In help/Register for help signing in.
+                        { loginFailed === "Invalid Email or Password" ? globalMessages.Invalid_Login_Message :  loginFailed}
                       </p>
                     </Grid>
                     <Grid className={ classes.checkbox }>
@@ -358,15 +296,17 @@ export default function Login(props) {
                             <Switch
                               checked={ remMe }
                               onChange={ handleRemMeChange }
-                              // value={ state }
                               inputProps={ { "data-test-id": "switch" } }
                               color="primary"
                             />
                           }
-                          // labelPlacement={ labelplacement }
                           label=" Remember me"
                         />
                       </FormControl>
+                    </Grid>
+
+                    <Grid className ={classes.loginRecaptcha} >
+                      <Recaptcha />
                     </Grid>
 
                     <Grid item xs={ 12 } className={ classes.loginButton }>
@@ -374,7 +314,7 @@ export default function Login(props) {
                         type="submit"
                         data-testid="submit"
                         stylebutton='{"background": "", "color":"" , "fontSize" : "15px", "padding" : "0px 30px"}'
-                        disabled={ loading }
+                        disabled={ disableRecaptcha ? disableRecaptcha : loading }
                       >
                         Sign In
                         <i
@@ -394,8 +334,8 @@ export default function Login(props) {
                     </Grid>
                     <Grid className={ classes.registerGrid }>
                       <NavLink
+                        className="nonDecoratedLink"
                         to="/register"
-                        style={ { textDecoration: "none" } }
                       >
                         <p className={ classes.register }>
                           Sign in Help / Register
@@ -426,18 +366,19 @@ export default function Login(props) {
             <CloseIcon />
           </IconButton>
         </div>
-
-        <h2
+        <DialogTitle>
+           <h2
           id="loginHelpDialogHeading"
           className={ classes.loginHelpDialogHeading }
         >
           Having Trouble Logging In?{ " " }
         </h2>
+        </DialogTitle>
         <ul>
           <li>
             { " " }
             If you&apos;re a new user, click on
-            <NavLink to="/register" style={ { textDecoration: "none" } }>
+            <NavLink to="/register" className="nonDecoratedLink">
               <span id="helpLogin"> Sign in help/Register </span>
             </NavLink>{ " " }
             option and enter your registration details.
@@ -453,7 +394,7 @@ export default function Login(props) {
         </ul>
 
         <DialogActions
-          style={ { justifyContent: "center", marginBottom: "25px" } }
+          className="dialogActionsWrap"
         >
           <ButtonPrimary
             stylebutton='{"background": "", "color":"" }'
@@ -463,8 +404,8 @@ export default function Login(props) {
           </ButtonPrimary>
         </DialogActions>
       </Dialog>
-      <Popup popupFlag={ cacTerms } closePopup={ handleOnClickCacTermsClose }>
-        <RenderContent disclosureLink="/cacTermsOfUse" />
+      <Popup popupFlag={ cacTerms } title='Terms Of Use' closePopup={ handleOnClickCacTermsClose }>
+        <RenderContent disclosureLink="/cacTermsOfUse" findContent="<h2>Terms Of Use</h2>" replaceContent='' />
       </Popup>
     </div>
     

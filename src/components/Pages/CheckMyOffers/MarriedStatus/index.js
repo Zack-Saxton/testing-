@@ -137,7 +137,7 @@ function MarriedStatus() {
 
 	//prevent the space in key down
 	const preventSpace = (event) => {
-		if (event.keyCode === 32 && formik.values.streetAddress === "") {
+		if (event.keyCode === 32 && !formik.values.streetAddress) {
 			event.preventDefault();
 		}
 	};

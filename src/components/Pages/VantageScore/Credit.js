@@ -18,12 +18,12 @@ export default function Credit(creditData) {
   //Material UI css class
   const classes = useStyleVantageScore();
   const navigate = useNavigate();
-  const [ loanstatus, setloanstatus ] = useState(null);
+  const [ loanStatus, setLoanStatus ] = useState(null);
   const { data: accountDetails } = useQuery('loan-data', setAccountDetails);
   let percent;
   let score = creditData.creditData[ 0 ].parsed.vantage_score;
   let creditDate = Moment(creditData.creditData[ 0 ].createdat).format("MMMM Y");
-  let lastMnthScore = creditData?.creditData[ 1 ] ? creditData.creditData[ 1 ].parsed.vantage_score : 0;
+  let lastMonthScore = creditData?.creditData[ 1 ] ? creditData.creditData[ 1 ].parsed.vantage_score : 0;
   let status;
   let compareLastmnth;
 
@@ -46,17 +46,17 @@ export default function Credit(creditData) {
   }
 
   //Credit score comparison vs lastmnth
-  if (score > lastMnthScore) {
+  if (score > lastMonthScore) {
     compareLastmnth = "Your credit score has increased since last month.";
-  } else if (score === lastMnthScore) {
+  } else if (score === lastMonthScore) {
     compareLastmnth = "Your credit score has not changed since last month.";
-  } else if (score < lastMnthScore) {
+  } else if (score < lastMonthScore) {
     compareLastmnth = "Your credit score has decreased since last month.";
   }
 
   useEffect(() => {
     if (accountDetails) {
-      setloanstatus(accountDetails?.data?.customer?.user_account?.status);
+      setLoanStatus(accountDetails?.data?.customer?.user_account?.status);
     }
     return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -77,8 +77,8 @@ export default function Credit(creditData) {
           arcPadding={ -0.5 }
           cornerRadius={ 0 }
           textColor={ "#212121" }
+          className={classes.guageChart}
           percent={ percent }
-          style={ { width: '60%', margin: 'auto' } }
           formatTextValue={ (value) => score }
           colors={ [ "#a50100", "#e05534", "#f2d82b", "#BCEA78", "#85c900" ] }
         />
@@ -98,7 +98,7 @@ export default function Credit(creditData) {
           { status }
         </p>
         <p>{ compareLastmnth }</p>
-        { (loanstatus != "closed" && loanstatus != null) &&
+        { (loanStatus && loanStatus?.toLowerCase() !== "closed") &&
           <>
             <ButtonPrimary onClick={ navigateCheckMyOffers } stylebutton='{"background": ""}' >
               { " " }

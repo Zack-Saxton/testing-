@@ -18,7 +18,6 @@ const useStylesMakePayment = makeStyles((theme) => ({
     paddingLeft: "23px",
   },
   table: {
-    minWidth: 650,
     paddingBottom: "5px",
     paddingTop: "5px"
   },
@@ -28,6 +27,11 @@ const useStylesMakePayment = makeStyles((theme) => ({
     fontSize: "0.938rem",
   },
   tableHeadRow: {
+    color: "#171717!important",
+    fontSize: "15px",
+  },
+  autoPayTableheadrow: {
+    width:"50% !important",
     color: "#171717!important",
     fontSize: "15px",
   },
@@ -53,8 +57,8 @@ const useStylesMakePayment = makeStyles((theme) => ({
     color: "#171717!important",
   },
   dialogPaper: {
-    width: "60%",
-    maxWidth: "unset"
+    maxWidth: "unset",
+    margin:"10px"
   },
   dialogHeading: {
     color: "#171717!important",

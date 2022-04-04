@@ -37,7 +37,7 @@ export default function TabSection(props) {
           style={ { fontSize: "0.938rem", fontWeight: "700" } }
           label="1. Select Offer"
           { ...a11yProps(0) }
-          disabled={ props.ay === 0 ? false : true }
+          disabled={ !(props.ay) ? false : true }
           className={ `${ props.ay <= 0 ? null : props?.classes.greenText } ${ props?.classes.tabLabel }` }
         />
         <Tab

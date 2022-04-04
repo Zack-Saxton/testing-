@@ -4,14 +4,14 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import React from 'react';
+import React, { useState } from "react";
 import creditScore from "./CreditScore.json";
 import { useStyleVantageScore } from "./Style";
 
 export default function ControlledAccordions(keyFactors) {
   //Material UI css class
   const classes = useStyleVantageScore();
-  const [ expanded, setExpanded ] = React.useState(false);
+  const [ expanded, setExpanded ] = useState(false);
 
   //Key factors for the Credit score
   let reasoneOne = keyFactors?.keyFactors ? keyFactors.keyFactors.reason1 : null;

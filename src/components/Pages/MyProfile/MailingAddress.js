@@ -19,6 +19,7 @@ import {
   Zipcode
 } from "../../FormsUI";
 import ErrorLogger from '../../lib/ErrorLogger';
+import { useStylesMyProfile } from "./Style";
 import "./Style.css";
 
 const validationSchema = yup.object({
@@ -43,39 +44,37 @@ const validationSchema = yup.object({
 });
 
 export default function MailingAddress(props) {
-
+  const classes = useStylesMyProfile();
   const [ loading, setLoading ] = useState(false);
   const [ validZip, setValidZip ] = useState(true);
   const [ errorMsg, setErrorMsg ] = useState("");
   const navigate = useNavigate();
-  const [ , setprofileTabNumber ] = useGlobalState();
+  const [ , setProfileTabNumber ] = useGlobalState();
   const { refetch } = useQuery('loan-data', usrAccountDetails);
 
-  let basicInfo = props?.basicInformationData?.latest_contact != null ? props.basicInformationData.latest_contact : null;
+  let basicInfo = props?.basicInformationData?.latest_contact;
   let hasActiveLoan = (/true/i).test(Cookies.get("hasActiveLoan"));
   let hasApplicationStatus = Cookies.get("hasApplicationStatus");
-  var appStatus = [ "rejected", "referred", "expired" ];
+  let appStatus = [ "rejected", "referred", "expired" ];
   let checkAppStatus = appStatus.includes(hasApplicationStatus);
-  let disableField = (checkAppStatus || hasActiveLoan) ;
+  let disableField = (checkAppStatus || hasActiveLoan);
 
   const onClickCancelChange = () => {
     formik.resetForm();
     navigate('/customers/myProfile');
-    setprofileTabNumber({ profileTabNumber: 0 });
+    setProfileTabNumber({ profileTabNumber: 0 });
   };
 
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      streetAddress: basicInfo?.address_street ? basicInfo?.address_street : "",
-      zip: basicInfo?.address_postal_code ? basicInfo?.address_postal_code : "",
-      city: basicInfo?.address_city ? basicInfo?.address_city : "",
-      state: basicInfo?.address_state ? basicInfo?.address_state : "",
-
+      streetAddress: basicInfo?.address_street ?? "",
+      zip: basicInfo?.address_postal_code ?? "",
+      city: basicInfo?.address_city ??  "",
+      state: basicInfo?.address_state ?? "",
     },
 
     validationSchema: validationSchema,
-
     onSubmit: async (values) => {
       setLoading(true);
       let body = {
@@ -92,7 +91,7 @@ export default function MailingAddress(props) {
       }
       else {
         let res = await mailingAddress(body);
-        if (res?.data?.notes.length !== 0) {
+        if (res?.data?.notes?.length) {
           refetch().then(() => toast.success("Updated successfully", {
             onClose: () => {
               setLoading(false);
@@ -109,33 +108,33 @@ export default function MailingAddress(props) {
   });
 
   const preventSpace = (event) => {
-    if (event.keyCode === 32 && formik.values.streetAddress === "") {
+    if (event.keyCode === 32 && !formik.values.streetAddress) {
       event.preventDefault();
     }
   };
-
+  const resetFormField = () => {
+    formik.setFieldValue("city", "");
+    formik.setFieldValue("state", "");
+    setValidZip(false);
+    setErrorMsg(globalMessages.ZipCodeValid);
+  }
   const fetchAddress = async (event) => {
     try {
-      setErrorMsg(event.target.value === "" ? "Please enter a zipcode" : errorMsg);
-      if (event.target.value.toString().length === 5) {
-        let result = await ZipCodeLookup(event.target.value);
+      let eventValue = event.target.value.trim();
+      setErrorMsg(eventValue ? errorMsg : globalMessages.ZipCodeEnter);
+      if (eventValue?.length === 5) {
+        let result = await ZipCodeLookup(eventValue);
         if (result) {
           fetchAddressValidate(result);
         } else {
-          formik.setFieldValue("city", "");
-          formik.setFieldValue("state", "");
-          setValidZip(false);
-          setErrorMsg("Please enter a valid Zipcode");
+          resetFormField();
         }
-        if (event.target.name !== "") {
+        if (event.target.name.trim()) {
           formik.handleChange(event);
         }
       }
       else {
-        formik.setFieldValue("city", "");
-        formik.setFieldValue("state", "");
-        setValidZip(false);
-        setErrorMsg("Please enter a valid Zipcode");
+        resetFormField();
       }
     } catch (error) {
       ErrorLogger("Error from fetchAddress", error);
@@ -149,10 +148,7 @@ export default function MailingAddress(props) {
         formik.setFieldValue("state", result?.data?.stateCode);
         setValidZip(true);
       } else {
-        formik.setFieldValue("city", "");
-        formik.setFieldValue("state", "");
-        setValidZip(false);
-        setErrorMsg("Please enter a valid Zipcode");
+        resetFormField();
       }
     } catch (error) {
       ErrorLogger(" Error from fetchAddressValidate", error);
@@ -168,13 +164,13 @@ export default function MailingAddress(props) {
         opacity: loading ? 0.55 : 1,
         pointerEvents: loading ? "none" : "initial"
       } }>
-        { props?.basicInformationData === null ? (
+        { !props?.basicInformationData ? (
           <Grid align="center"><CircularProgress /></Grid>
         ) : <>
           <Grid
             item
             xs={ 12 }
-            style={ { width: "100%", gap: 15, marginBottom: 20 } }
+            className={ classes.addressInfoGrid }
             container
             direction="row"
           >
@@ -205,7 +201,7 @@ export default function MailingAddress(props) {
           <Grid
             item
             xs={ 12 }
-            style={ { width: "100%", gap: 15, marginBottom: 20 } }
+            className={ classes.addressInfoGrid }
             container
             direction="row"
           >
@@ -226,7 +222,7 @@ export default function MailingAddress(props) {
           <Grid
             item
             xs={ 12 }
-            style={ { width: "100%", gap: 15, marginBottom: 20 } }
+            className={ classes.addressInfoGrid }
             container
             direction="row"
           >
@@ -247,7 +243,7 @@ export default function MailingAddress(props) {
           <Grid
             item
             xs={ 12 }
-            style={ { width: "100%", gap: 15, marginBottom: 20 } }
+            className={ classes.addressInfoGrid }
             container
             direction="row"
           >
@@ -269,6 +265,7 @@ export default function MailingAddress(props) {
               }
             />
           </Grid>
+          <Grid className="mailingButtons">
           <ButtonSecondary
             stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
             styleicon='{ "color":"" }'
@@ -283,6 +280,7 @@ export default function MailingAddress(props) {
             styleicon='{ "color":"" }'
             type="submit"
             disabled={ loading }
+            id="mailingSaveButton"
           >
             Save Changes
             <i
@@ -294,6 +292,7 @@ export default function MailingAddress(props) {
               } }
             />
           </ButtonPrimary>
+          </Grid>
         </> }
       </form>
 

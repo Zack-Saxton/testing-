@@ -1,9 +1,3 @@
-centerHeading {
-  color: #181818;
-  font-size: 24px;
-  font-family: "Muli", sans-serif;
-  font-weight: 400;
-}
 
 #mainContainer {
   padding-top: 10px;
@@ -29,6 +23,10 @@ centerHeading {
   border-radius: 10px !important;
 }
 
+#loans .subOption{
+  color: #171717 !important;
+}
+
 .checkMyOffers{
   display:flex;
   justify-content: space-around;
@@ -41,6 +39,11 @@ centerHeading {
   flex-direction: column;
   justify-content: space-evenly;
 }
+.commonBoldText{
+  color: #0F4EB3;
+  font-size: bold;
+  text-align: center;
+}
 .title{
   display:flex;
   flex-direction:row;
@@ -52,11 +55,16 @@ centerHeading {
   text-align: center;
 }
 
+#loans.subOption{
+  color: #171717 !important;
+}
+
 #ClaimButton{
   padding:20px;
   box-shadow: 0px 5px;
 }
 .apply-offer{
+  text-align: center;
   background-color: #E7E9EB;
   border-radius: 15px;
 }
@@ -131,6 +139,43 @@ centerHeading {
 #summaryOfApplicationsTable  tbody tr td{
   font-weight: 700 !important;
   font-size: 0.938rem !important;
+}
+#overviewContainer{
+  width: 100%;
+  padding-left: 15px;
+}
+.OverviewAccountNumberText{
+  padding-top: 20px;
+}
+.OverviewAccountNumberText p{
+  margin: 0;
+  line-height: 1.5;
+}
+#offerText a{
+  text-decoration: none;
+}
+
+.offerInfo{
+  border-bottom: 4px solid yellow;
+}
+.offerInfo h3{
+  text-align: center;
+}
+.applicationDetailsWrap{
+  padding-top: 20px;
+  padding-bottom: 30px;
+}
+.applicationDetailsGrid,
+.weAreSorryWrap{
+  padding: 5px;
+}
+.loanRequestedText{
+  padding-top:40px;
+  padding-bottom:5px;
+}
+
+#tabWarp{
+  padding: 0;
 }
 
 @media (max-width: 599px) {
@@ -252,9 +297,6 @@ centerHeading {
     font-size: 15px !important;
     margin-block-start: 15px;
     margin-block-end: 15px;
-  }
-  #activeLoanGrid {
-    /* height: 100%; */
   }
   #regularAmountGrid {
     margin-left: -10px;

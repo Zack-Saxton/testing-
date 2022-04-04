@@ -22,8 +22,8 @@ export default function RecentApplications({ isLoading, userApplicationsData, us
   const classes = useStylesAccountOverview();
 
   //Recentapplications data
-  let userApplications = (userApplicationsData != null) ? userApplicationsData : null;
-  let userApplicant = (userApplicantData != null) ? userApplicantData : null;
+  let userApplications = userApplicationsData ?? [];
+  let userApplicant = userApplicantData ?? null;
   let statusStr = {
     "approved": "Approved",
     "completing_application": "Completing Application",
@@ -67,9 +67,7 @@ export default function RecentApplications({ isLoading, userApplicationsData, us
   const navigate = useNavigate();
 
   //resumebtn click
-  const resumeNavigate = (appData) => {
-    navigate(statusStrLink[ appData ]);
-  };
+  const resumeNavigate = (appData) => navigate(statusStrLink[ appData ]);
 
   //viewBtn click
   const viewAppData = (contactdata, appData) => {
@@ -143,9 +141,7 @@ export default function RecentApplications({ isLoading, userApplicationsData, us
                         { (statusStr[ appData.status ]) ? statusStr[ appData.status ] : (appData.status) }
                       </TableCell>
                       <TableCell align="center">
-
                         { appData.isActive && appData?.status !== "referred" && appData?.status !== "contact_branch" ?
-
                           (
                             <ButtonPrimary stylebutton='{"color":"","width":"72%" }'
                               onClick={ () => resumeNavigate(appData.status) }

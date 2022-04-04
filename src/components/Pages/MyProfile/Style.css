@@ -203,6 +203,7 @@
 }
 #reEnterUpdate{
 	margin-right: 10px;
+	padding: 10px 0px;
 }
 
 #accountNickname-label{
@@ -265,7 +266,15 @@
 #NotificationsTxt .MuiFormControlLabel-label{
 	font-size: 0.75rem;
 }
-
+.mailingButtons{
+	display: flex;
+}
+.textNotificationWrap{
+	padding: 20px;
+}
+#reEnterCancel{
+	padding: 10px 0px; 
+}
 @media (max-width:425px) {
 	#reEnterCancel{
 		justify-content: center !important;
@@ -282,6 +291,16 @@
 	#reEnterUpdate button{
 		width: 100% !important;
 	}
+	.mailingButtons{
+		flex-direction: column-reverse;
+	}
+	#mailingSaveButton{
+		margin-left: 0px !important;
+		margin-bottom: 12px;
+	}
+	.textNotificationWrap{
+		padding: 9px;
+}
 }
 @media (max-width: 599px) {
 	#myProfileMainContent{

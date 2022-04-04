@@ -22,7 +22,6 @@ const EmailWithIconWrapper = ({
   //Configuring the field properties
   const configTextfield = {
     name,
-
     ...otherProps,
   };
 

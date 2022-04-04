@@ -7,10 +7,10 @@ const CheckLoginStatus = () => {
   const navigate = useNavigate();
   const tokenString = Cookies.get("token") ? Cookies.get("token") : '{ }';
   const userToken = JSON.parse(tokenString);
-  var nowTime = new Date().getTime();
-  var actualSetupTime = userToken?.setupTime ?? '';
+  let nowTime = new Date().getTime();
+  let actualSetupTime = userToken?.setupTime ?? '';
   const expiryMinute = process.env.REACT_APP_SESSION_EXPIRY_MINUTES;
-  var min = expiryMinute;
+  let min = expiryMinute;
 
   // check whether the userToken available
   useEffect(() => {

@@ -38,7 +38,7 @@ function CitizenshipStatus() {
 	const innerClasses = useStyles();
 
 	useEffect(() => {
-		if (data.completedPage < data.page.loanPurpose || data.formStatus === "completed") {
+		if (data.completedPage < data?.page?.loanPurpose || data?.formStatus?.toLowerCase() === "completed") {
 			navigate("/select-amount");
 		}
 		return null;
@@ -198,7 +198,7 @@ function CitizenshipStatus() {
 											onClick={ handleRoute }
 											data-test-id="citizenshipContButton"
 											disabled={
-												citizenship === "" || citizenship === citizenshipData.foreignResident
+												!citizenship || citizenship === citizenshipData.foreignResident
 											}
 											stylebutton='{"background": "#FFBC23", "color": "black","fontSize":"0.938rem" , "padding": "0px 30px"}'
 										>

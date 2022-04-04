@@ -1,6 +1,6 @@
 import Grid from "@mui/material/Grid";
 import PropTypes from "prop-types";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { toast } from "react-toastify";
 import { uploadDocument } from "../../../Controllers/ApplyForLoanController";
 import { ButtonPrimary } from "../../../FormsUI";
@@ -11,28 +11,28 @@ export default function DocumentUpload(props) {
 	//Set State
 	const [ selectedFile, setSelectedFile ] = useState(null);
 	const [ loader, setLoader ] = useState(null);
+	let refSelectedFile = useRef();
 
 	//To handle the file select change
 	const handleInputChange = () => {
-		setSelectedFile(document.getElementById("file"));
+		setSelectedFile(refSelectedFile.current);
 	};
 
 	useEffect(() => {
 		setSelectedFile(null);
-		document.getElementById("file").value = null;
+		refSelectedFile.current.value = null;
 	}, [ props.resetUpload ]);
 	//upload doc functionality
 	const uploadDoc = () => {
-		if (selectedFile === null) {
+		if (!selectedFile) {
 			if (!toast.isActive("selectFileToUpload")) {
 				toast.error(messages?.document?.selectFile, { toastId: "selectFileToUpload" });
 			}
 			props.setLoadingFlag(false);
 			setLoader(false);
 		} else {
-			var filePath = selectedFile.value;
-
-			var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.pdf)$/i;
+			let filePath = selectedFile.value;
+			let allowedExtensions = /(\.jpg|\.jpeg|\.png|\.pdf)$/i;
 
 			if (!allowedExtensions.exec(filePath)) {
 				if (!toast.isActive("extensionError")) {
@@ -98,8 +98,10 @@ export default function DocumentUpload(props) {
 					style={ { padding: "0px 15px" } }
 					accept="image/png, image/jpeg, application/pdf, image/jpg "
 					id="file"
-					multiple={ props?.multiple === false ? false : true }
+					multiple={ props?.multiple }
 					type="file"
+					ref={ refSelectedFile }
+
 					onChange={ handleInputChange }
 				/>
 			</Grid>
@@ -107,7 +109,7 @@ export default function DocumentUpload(props) {
 	);
 }
 DocumentUpload.propTypes = {
-	resetUpload: PropTypes.string,
+	resetUpload: PropTypes.bool,
 	setLoadingFlag: PropTypes.func,
 	docType: PropTypes.string,
 	handle: PropTypes.func,

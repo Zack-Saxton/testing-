@@ -50,8 +50,7 @@ const validationSchema = yup.object({
 		.string(messages?.bankAccountVerification?.enterConfirmAccNum)
 		.required(messages?.bankAccountVerification?.bankAccountNumberConfirmationRequired)
 		.when("bankAccountNumber", {
-			is: (bankAccountNumber) =>
-				bankAccountNumber && bankAccountNumber.length > 0,
+			is: (bankAccountNumber) => bankAccountNumber?.length > 0,
 			then: yup
 				.string()
 				.oneOf(
@@ -74,8 +73,9 @@ export default function BankAccountVerification(props) {
 	const [ error, setError ] = useState("");
 	const [ fileUploadSuccess, setFileUploadSuccess ] = useState(false);
 	const [ invalidRN, setInvalidRN ] = useState(false);
+	const [ resetUpload, setResetUpload ] = useState(false);
 	const [ openAutoPayAuth, setOpenAutoPayAuth ] = useState(false);
-	function getElementByText(text, ctx) {
+	function getValueByLable(text, ctx) {
 		return document.evaluate("//*[.='" + text + "']",
 			ctx || document, null, XPathResult.ANY_TYPE, null).iterateNext();
 	}
@@ -83,8 +83,7 @@ export default function BankAccountVerification(props) {
 		if (res?.data?.bank_account_verification) {
 			toast.success(messages?.document?.uploadSuccess);
 			setFileUploadSuccess(true);
-			props.next();
-			getElementByText("Income Verification").scrollIntoView();
+			getValueByLable("Income Verification").scrollIntoView();
 		} else {
 			props.setLoadingFlag(false);
 			toast.error(messages?.document?.upoloadFailed);
@@ -113,8 +112,11 @@ export default function BankAccountVerification(props) {
 				repayment: paymnetMode,
 			};
 			if (verifyRequired && !fileUploadSuccess) {
-				toast.error("please upload the document");
+				toast.error(messages?.bankAccountVerification?.pleaseUploadDoc);
 				props.setLoadingFlag(false);
+			}
+			else if (verifyRequired && fileUploadSuccess) {
+				props.next();
 			}
 			else {
 				let res = await APICall("bank_information_cac", '', data, "POST", true);
@@ -129,7 +131,7 @@ export default function BankAccountVerification(props) {
 					);
 					setVerifyRequired(true);
 					props.setLoadingFlag(false);
-				} else if (res?.data?.bank_account_information === false || res?.data?.bank_account_verification === false) {
+				} else if (!res?.data?.bank_account_information || !res?.data?.bank_account_verification) {
 					props.setLoadingFlag(false);
 					alert(messages?.bankAccountVerification?.notValid);
 				} else {
@@ -143,9 +145,9 @@ export default function BankAccountVerification(props) {
 	//restrictTextOnChange
 	const restrictTextOnChange = (event) => {
 		const reg = /^[0-9\b]+$/;
-		let acc = event.target.value;
+		let account = event.target.value.trim();
 
-		if (acc === "" || reg.test(acc)) {
+		if (!account || reg.test(account)) {
 			formik.handleChange(event);
 		}
 	};
@@ -153,9 +155,9 @@ export default function BankAccountVerification(props) {
 	// restrict Account Holder On Change
 	const restrictAccountHolderOnChange = (event) => {
 		const reg = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
-		let acc = event.target.value;
+		let account = event.target.value.trim();
 		//Checking non null and accepting reg ex
-		if (acc === "" || reg.test(acc)) {
+		if (!account || reg.test(account)) {
 			formik.handleChange(event);
 		}
 	};
@@ -219,7 +221,7 @@ export default function BankAccountVerification(props) {
 						style={ { fontWeight: "normal", fontSize: "10px" } }
 					/>
 					<FormHelperText error={ true }>
-						{ accountType === "" ? "Account type required" : "" }
+						{ !accountType ? "Account type required" : "" }
 					</FormHelperText>
 				</Grid>
 				<Grid container spacing={ 4 } direction="row">
@@ -241,7 +243,7 @@ export default function BankAccountVerification(props) {
 								) {
 									fetch(
 										"https://www.routingnumbers.info/api/data.json?rn=" +
-										event.target.value
+										event.target.value.trim()
 									)
 										.then((res) => res.json())
 										.then((result) => {
@@ -387,7 +389,7 @@ export default function BankAccountVerification(props) {
 						style={ { fontWeight: "normal" } }
 					/>
 					<FormHelperText style={ { paddingLeft: "28px" } } error={ true }>
-						{ paymnetMode === "" ? messages?.bankAccountVerification?.accountTypeRequired : "" }
+						{ !paymnetMode ? messages?.bankAccountVerification?.accountTypeRequired : "" }
 					</FormHelperText>
 					<span>
 						<p
@@ -434,7 +436,7 @@ export default function BankAccountVerification(props) {
 					<div>
 						<p
 							style={ {
-								display: error && error === "" ? "none" : "block",
+								display: !error ? "none" : "block",
 								fontWeight: "bold",
 							} }
 						>
@@ -456,7 +458,7 @@ export default function BankAccountVerification(props) {
 					</div>
 					<DocumentUpload
 						classes={ classes }
-						resetUpload={ paymnetMode }
+						resetUpload={ resetUpload }
 						docType={ "bank information" }
 						handle={ handleUpload }
 						setLoadingFlag={ props.setLoadingFlag }
@@ -470,6 +472,7 @@ export default function BankAccountVerification(props) {
 							onClick={ (event) => {
 								formik.resetForm();
 								setVerifyRequired(false);
+								setResetUpload(!resetUpload)
 							} }
 							id="button_stepper_reset"
 						>

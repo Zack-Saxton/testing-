@@ -1,7 +1,6 @@
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import { makeStyles } from "@mui/styles";
 import Typography from "@mui/material/Typography";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
@@ -14,34 +13,8 @@ import ResetPasswordController from "../../Controllers/ResetPasswordController";
 import { ButtonPrimary, EmailTextField, PasswordField } from "../../FormsUI";
 import ErrorLogger from "../../lib/ErrorLogger";
 import ScrollToTopOnMount from "../../Pages/ScrollToTop";
+import { useStylesLogin } from "./style"
 import "./Login.css";
-//Styling part
-const useStyles = makeStyles((theme) => ({
-    paper: {
-        padding: theme.spacing(3),
-        display: "flex",
-        flexDirection: "column",
-        backgroundColor: `rgba(255, 255, 255, .8)`,
-        color: theme.palette.text.secondary,
-        boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%),
-		0 6px 30px 5px rgb(0 0 0 / 12%),
-		0 8px 10px -7px rgb(0 0 0 / 20%)`,
-    },
-    title: {
-        fontSize: "25px",
-        textAlign: "center",
-        color: "#171717",
-        fontWeight: "400",
-    },
-
-    loginButton: {
-        textAlign: "center",
-    },
-    emailGrid: {
-        lineHeight: "2",
-        padding: "8px"
-    },
-}));
 
 //Yup validations for all the input fields
 const email = Cookies.get("email");
@@ -49,9 +22,9 @@ const ResetPasswordvalidationSchema = yup.object().shape({
     password: yup
         .string(globalValidation.PasswordEnter)
         .max(30, globalValidation.PasswordMax)
-        .min(8, globalValidation.PasswordMin)
+        .min(10, globalValidation.PasswordMin)
         .matches(
-            /^((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,30})$/,
+            /^((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{10,30})$/,
             globalValidation.PasswordCriteria
         )
         .required(globalValidation.PasswordNewRequired),
@@ -62,16 +35,16 @@ const ResetPasswordvalidationSchema = yup.object().shape({
             globalValidation.PasswordConfirmationMatch
         )
         .max(30, globalValidation.PasswordMax)
-        .min(8, globalValidation.PasswordMin)
+        .min(10, globalValidation.PasswordMin)
         .matches(
-            /^((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,30})$/,
+            /^((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{10,30})$/,
             globalValidation.PasswordCriteria
         )
         .required(globalValidation.PasswordConfirmationRequired),
 });
 //Begin: Login page
 export default function Login(props) {
-    const classes = useStyles();
+    const classes = useStylesLogin();
     const navigate = useNavigate();
     const [ loading, setLoading ] = useState(false);
     let location = useLocation();
@@ -96,7 +69,7 @@ export default function Login(props) {
                 } else {
                     toast.error(globalValidation.TryAgain);
                     navigate("/login");
-                };
+                }
             } catch (error) {
                 ErrorLogger(' Error Reseting Password ::', error);
             }
@@ -128,7 +101,7 @@ export default function Login(props) {
                                 pointerEvents: loading ? "none" : "initial",
                             } }
                         >
-                            <Paper className={ classes.paper } id="signInContainer">
+                            <Paper className={ classes.createPasswordPaper } id="signInContainer">
                                 <Typography
                                     className={ classes.title }
                                     data-testid="title"
@@ -137,10 +110,10 @@ export default function Login(props) {
                                     Create New Password
                                 </Typography>
                                 <form onSubmit={ formik.handleSubmit }>
-                                    <Grid container spacing={ 2 } style={ { paddingTop: "30px" } }>
+                                    <Grid container spacing={ 2 } className={ classes.logInGrid }>
                                         <Grid
-                                            style={ { width: "100%" } }
-                                            className={ classes.emailGrid }
+                                            id="fullWidth"
+                                            className={ classes.emailInputGrid }
                                         >
                                             <EmailTextField
                                                 id="email"
@@ -155,9 +128,9 @@ export default function Login(props) {
                                             />
                                         </Grid>
                                         <Grid
+                                            className="fullWidth"
                                             item
                                             xs={ 12 }
-                                            style={ { width: "100%" } }
                                             container
                                             direction="row"
                                         >
@@ -182,9 +155,9 @@ export default function Login(props) {
                                             />
                                         </Grid>
                                         <Grid
+                                            className={ classes.passwordWrap }
                                             item
                                             xs={ 12 }
-                                            style={ { width: "100%", gap: 15, marginBottom: 10 } }
                                             container
                                             direction="row"
                                         >
@@ -207,7 +180,7 @@ export default function Login(props) {
                                                 disabled={ false }
                                             />
                                         </Grid>
-                                        <Grid item xs={ 12 } className={ classes.loginButton }>
+                                        <Grid item xs={ 12 } className={ classes.resetButton }>
                                             <ButtonPrimary
                                                 type="submit"
                                                 data-testid="submit"

@@ -14,7 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import { makeStyles } from "@mui/styles";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
 
 const MultiSelectWrapper = ({
   name,
@@ -28,7 +28,7 @@ const MultiSelectWrapper = ({
 }) => {
   //To return all formik state
   // const [field, meta] = useField(name);
-  const [ multiSelect, setMultiSelect ] = React.useState([]);
+  const [ multiSelect, setMultiSelect ] = useState([]);
   const handleChange = (event) => {
     setMultiSelect(event.target.value);
   };
@@ -59,12 +59,12 @@ const MultiSelectWrapper = ({
   }));
 
   const classes = useStyles();
-  const ITEM_HEIGHT = 48;
-  const ITEM_PADDING_TOP = 8;
+  const itemHeight = 48;
+  const paddingTop = 8;
   const MenuProps = {
     PaperProps: {
       style: {
-        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+        maxHeight: itemHeight * 4.5 + paddingTop,
         width: 150,
       },
     },

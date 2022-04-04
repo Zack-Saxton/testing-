@@ -63,10 +63,8 @@ const HtmlTooltip = withStyles((theme) => ({
 export default function OfferTable(props) {
 	const [ termDataMax, setTermDataMax ] = useState();
 	const [ selectData, setSelectData ] = useState([]);
-	let offersComp = props.offersToCompare ? props.offersToCompare : [];
-	let offersCompChart = props.offersToCompareChart
-		? props.offersToCompareChart
-		: [];
+	let offersComp = props.offersToCompare ?? [];
+	let offersCompChart = props.offersToCompareChart ?? [];
 	// Shows the Brnach icon
 	const branch = (
 		<Grid container direction="row" alignItems="center">
@@ -92,9 +90,10 @@ export default function OfferTable(props) {
 		if (offersComp.findIndex((offerInfo) => offerInfo._id === row._id) === -1) {
 			offersComp.push(row);
 		} else {
-			offersComp.findIndex((offerInfo) => offerInfo._id === row._id) === -1
-				? offersComp.push(row)
-				: offersComp.splice(offersComp.indexOf(row), 1);
+			// offersComp.findIndex((offerInfo) => offerInfo._id === row._id) === -1
+			// 	? offersComp.push(row)
+				// :
+				 offersComp.splice(offersComp.indexOf(row), 1);
 		}
 		props.setOffersToCompare(offersComp);
 		handleAdd(row);
@@ -119,13 +118,31 @@ export default function OfferTable(props) {
 			buildChartData(offersCompChart);
 		} else {
 			let index = offersCompChart.indexOf(row);
-			if (index !== -1) {
-				offersCompChart.splice(index, 1);
-			}
+			offersCompChart.splice(index, 1);
 			buildChartData(offersCompChart);
 		}
 		handleAdd(row);
 	};
+
+	const handleRadioOnClick = (row, ind) => {
+		props.setCheckedValue(row._id);
+		props.setSelectedIndex(ind);
+		props.setSelectedTerm(row.termNum);
+	};
+
+	const handleResetOnClick = () => {
+		props.setCheckedValue("");
+		props.setSelectedTerm("");
+		props.setSelectedIndex("");
+		props.setOffersToCompareChart([]);
+		props.setOffersToCompare([]);
+	}
+
+	const onClickViewCompare = () => {
+		props.onCompareOfferTabClick();
+		props.handleTabChange(props.noOfTerms, props.noOfTerms);
+		window.scrollTo(0, 0);
+	}
 	return (
 		<Grid id="loanListTable" item xs={ 12 } sm={ 9 } className={ props.loading ? props.classes.loadingOnWithoutBlur : props.classes.loadingOff } style={ { padding: "0px 0px 0px 15px", width: "100%" } }>
 			<Paper className={ props.classes.paper }>
@@ -187,7 +204,7 @@ export default function OfferTable(props) {
 													</HtmlTooltip>
 												</Grid>
 											</TableCell>
-											{ props.offerFlag === false ? (
+											{ !props.offerFlag ? (
 												<TableCell
 													className={ props.classes.tableHead }
 													align="right"
@@ -206,7 +223,6 @@ export default function OfferTable(props) {
 												align="left"
 											>
 												Compare
-												{/* {props.offerFlag ? "Compare" : "Term"} */ }
 											</TableCell>
 										</TableRow>
 									</TableHead>
@@ -226,9 +242,7 @@ export default function OfferTable(props) {
 															checked={ props.checkedValue }
 															value={ row._id }
 															onClick={ () => {
-																props.setCheckedValue(row._id);
-																props.setSelectedIndex(ind);
-																props.setSelectedTerm(row.termNum);
+																handleRadioOnClick(row, ind)
 															} }
 														/>
 													</TableCell>
@@ -251,7 +265,7 @@ export default function OfferTable(props) {
 														{ row.apr + "%" }
 													</TableCell>
 
-													{ props.offerFlag === false ? (
+													{ !props.offerFlag ? (
 														<TableCell
 															className={ props.classes.tableHeadRow }
 															align="right"
@@ -342,11 +356,7 @@ export default function OfferTable(props) {
 									styleicon='{ "color":"" }'
 									id="apply-loan-reset-button"
 									onClick={ () => {
-										props.setCheckedValue("");
-										props.setSelectedTerm("");
-										props.setSelectedIndex("");
-										props.setOffersToCompareChart([]);
-										props.setOffersToCompare([]);
+										handleResetOnClick()
 									} }
 									{ ...props.tabVerticalProps(0) }
 								>
@@ -369,7 +379,7 @@ export default function OfferTable(props) {
 									} }
 									disabled={
 										props.selectedTerm &&
-											(props.selectedIndex || props.selectedIndex === 0)
+											(props.selectedIndex || !(props.selectedIndex))
 											? props.loading
 											: true
 									}
@@ -399,9 +409,7 @@ export default function OfferTable(props) {
 									styleicon='{ "color":"" }'
 									id="apply-loan-comparison-button"
 									onClick={ () => {
-										props.onCompareOfferTabClick();
-										props.handleTabChange(props.noOfTerms, props.noOfTerms);
-										window.scrollTo(0, 0);
+										onClickViewCompare();
 									} }
 									{ ...props.tabVerticalProps(4) }
 								>

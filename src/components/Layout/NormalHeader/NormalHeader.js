@@ -5,7 +5,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import MoreIcon from "@mui/icons-material/MoreVert";
-import React from "react";
+import React, {useState} from "react";
 import { NavLink } from "react-router-dom";
 import Logo from "../../../assets/images/mf-logo.png";
 import "../Layout.css";
@@ -13,7 +13,7 @@ import { useStyles } from "./NormalHeaderStyle";
 
 const NormalHeader = () => {
   const classes = useStyles();
-  const [ mobileMoreAnchorEl, setMobileMoreAnchorEl ] = React.useState(false);
+  const [ mobileMoreAnchorEl, setMobileMoreAnchorEl ] = useState(false);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   //Menu open & close
@@ -77,7 +77,7 @@ const NormalHeader = () => {
                 Blog
               </a>
             </Typography>
-            <NavLink className="faqLink" to="/faq" style={ { textDecoration: "none" } }>
+            <NavLink className="faqLink" to="/faq"  >
               <Typography className={ classes.subtitle }>FAQ</Typography>
             </NavLink>
             <NavLink to="/branch-locator" className="nav_link branchLocatorLink">

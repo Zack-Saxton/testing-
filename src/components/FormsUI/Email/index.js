@@ -31,7 +31,7 @@ const EmailWrapper = ({ name, suffix, lable, materialProps, id, ...otherProps })
 
   const [ setValues ] = useState("");
   const handleChange = (event) => {
-    setValues(event.target.value + suffix);
+    setValues(event.target.value.trim() + suffix);
   };
 
   return (

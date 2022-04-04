@@ -11,6 +11,7 @@ import Cookies from "js-cookie";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { useQuery } from 'react-query';
+import { toast } from "react-toastify";
 import * as yup from "yup";
 import usrAccountDetails from "../../../Controllers/AccountOverviewController";
 import { OTPInitialSubmission, verifyPasscode } from "../../../Controllers/ApplyForLoanController";
@@ -71,7 +72,7 @@ export default function PhoneVerification(props) {
 	}
 	// get the phone number on load
 	useEffect(() => {
-		setPhoneNum(accountDetials?.data?.customer.latest_contact.phone_number_primary);
+		setPhoneNum(accountDetials?.data?.customer?.latest_contact?.phone_number_primary);
 		return null;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [ accountDetials ]);
@@ -98,10 +99,10 @@ export default function PhoneVerification(props) {
 			await OTPInitialSubmission(values.phone, value);
 		},
 	});
-	const [ value, setValue ] = React.useState("T");
+	const [ value, setValue ] = useState("T");
 
 	const handleChange = (event) => {
-		setValue(event.target.value);
+		setValue(event.target.value.trim());
 	};
 
 	//To prevent spaces
@@ -113,30 +114,37 @@ export default function PhoneVerification(props) {
 
 	const onPasscodeChange = (event) => {
 		const reg = /^\d*$/;
-		let acc = event.target.value;
+		let firstName = event.target.value.trim();
 		setError("");
 
-		if (acc === "" || reg.test(acc)) {
-			setPasscode(event.target.value);
+		if (!firstName || reg.test(firstName)) {
+			setPasscode(firstName);
 		}
 	};
 
 	const onNextClick = async () => {
-		let res = await verifyPasscode(passcode);
-		if (res?.data?.phone_verification) {
-			setError("");
+		const skip = JSON.parse(Cookies.get("skip") ? Cookies.get("skip") : "{ }");
+		if(skip?.phone && !passcode){
 			props.next();
-		} else {
-			setError(
-				messages.phoneVerification
-					.verificationNotFound
-			);
-		}
+		}else if(!passcode){
+			toast.error("Enter Passcode");
+		}else{
+			let res = await verifyPasscode(passcode);
+			if (res?.data?.phone_verification) {
+				setError("");
+				props.next();
+			} else {
+				setError(
+					messages.phoneVerification
+						.verificationNotFound
+				);
+			}
+		}		
 	};
 
 	const skipPhoneVerification = (event) => {
 		Cookies.set("skip", JSON.stringify({ phone: true }));
-		props.next();
+		handleClose();
 	};
 
 	const handleClose = () => {
@@ -261,6 +269,7 @@ export default function PhoneVerification(props) {
 				</div>
 			</div>
 			<Dialog
+				className="confirmationDialog"
 				onClose={ handleClose }
 				aria-labelledby="customized-dialog-title"
 				open={ open }
@@ -279,8 +288,8 @@ export default function PhoneVerification(props) {
 				<DialogActions className="modalAction">
 					<br />
 
-					<Grid container>
-						<Grid item lg={ 5 }>
+					<Grid className="confirmationButtons" container>
+						<Grid className="returnButton" item lg={ 5 }>
 							<ButtonSecondary
 								stylebutton='{"background": "", "color": "black", "borderRadius": "50px"}'
 								onClick={ handleClose }

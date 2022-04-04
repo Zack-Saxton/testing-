@@ -16,14 +16,14 @@ export default function LoanDocumentTable(userLoanDocumentData) {
   //Material UI css class
   const classes = useStylesLoanDocument();
   //Loan Document data from API
-  let userLoanDocument = userLoanDocumentData != null ? userLoanDocumentData : null;
+  let userLoanDocument = userLoanDocumentData;
   //Download loan document
-  const downloadDoc = (id, name) => {
-    downloadDocument(id, name);
+  const downloadDoc = (id, name, fileURL) => {
+    downloadDocument(id, name, fileURL);
   };
   //Print loan document
-  const printDoc = (id, name) => {
-    printDocument(id, name);
+  const printDoc = (id, name, fileURL) => {
+    printDocument(id, name, fileURL);
   };
   const outputDateFormat = 'MM/DD/YYYY';
 
@@ -53,17 +53,14 @@ export default function LoanDocumentTable(userLoanDocumentData) {
                   { Moment(new Date(row.date_uploaded)).format(outputDateFormat) }
                 </TableCell>
                 <TableCell className={ classes.tableHeadRow }>
-                  <PrintIcon style={ { color: "#104eb3", cursor: "pointer" } }
+                  <PrintIcon className={classes.appIcon}
                     onClick={ () =>
-                      printDoc(row.downloadProp.file_id, row.downloadProp.name)
+                      printDoc(row.downloadProp.file_id, row.downloadProp.name, row.downloadProp.fileURL)
                     }
                   />{ " " }
-                  <GetAppIcon style={ { color: "#104eb3", cursor: "pointer" } }
+                  <GetAppIcon className={classes.appIcon}
                     onClick={ () =>
-                      downloadDoc(
-                        row.downloadProp.file_id,
-                        row.downloadProp.name
-                      )
+                      downloadDoc(row.downloadProp.file_id, row.downloadProp.name, row.downloadProp.fileURL)
                     }
                   />
                 </TableCell>

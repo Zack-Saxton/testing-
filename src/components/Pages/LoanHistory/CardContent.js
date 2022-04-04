@@ -24,7 +24,7 @@ export default function LoanHistoryCard(historyOfLoans) {
   useEffect(() => {
     let activeLoan = dataAccountOverview?.data?.applicants;
 
-    const presenceOfLoan = activeLoan?.some((applicant) => applicant?.isActive  && applicant?.status !== "referred" && applicant?.status !== "contact_branch");
+    const presenceOfLoan = activeLoan?.some((applicant) => applicant?.isActive && applicant?.status !== "referred" && applicant?.status !== "contact_branch");
     const presenceOfLoanStatus = activeLoan?.find((applicant) => applicant?.isActive);
     const userAccountStatus = dataAccountOverview?.data?.customer?.user_account?.status;
 
@@ -46,14 +46,14 @@ export default function LoanHistoryCard(historyOfLoans) {
 
   //  view part
   return (
-    <Grid item xs={ 12 } style={ { paddingBottom: "20px", paddingTop: "10px" } }>
+    <Grid item xs={ 12 } className={ classes.gridCardContent}>
       <Paper className={ classes.paper }>
         <Grid container direction="row">
           <Grid item xs={ 12 } sm={ 4 } className={ classes.cardLoanHistory }>
             <Paper className={ classes.papertotal } id="cardLoanHistory-bg">
               <div className={ classes.cardContentLoanHistory }>
                 Total Number of Loans
-                { historyOfLoans?.userLoanHistoryCard === null ? (
+                { !historyOfLoans?.userLoanHistoryCard ? (
                   <p>0</p>
                 ) : (
                   <p id="numberOfLoans" className={ classes.cardAmountLoanHistory }>
@@ -67,8 +67,8 @@ export default function LoanHistoryCard(historyOfLoans) {
           </Grid>
 
           <Grid item xs={ 12 } sm={ 4 } className={ classes.cardLoanHistory }>
-            <Paper className={ classes.paperPointer } onClick={ redirectToMakeAPayment } style={ { height: "70%" } }>
-              <Grid style={ { textAlign: "center" } }>
+            <Paper className={ classes.paperPointer } onClick={ redirectToMakeAPayment } >
+              <Grid className={ classes.gridCenter} >
                 <AccountBalanceWalletIcon id="dolor-icon_loan-history" className="material-icons background-round mt-5 yelloWBG" />
                 <p className={ classes.cardApplyLoan }>Make a Payment</p>
               </Grid>
@@ -76,17 +76,17 @@ export default function LoanHistoryCard(historyOfLoans) {
           </Grid>
           { checkPresenceOfLoan ?
             <Grid item xs={ 12 } sm={ 4 } className={ classes.cardLoanHistory }>
-              <Paper className={ classes.paperPointer } onClick={ redirectToResumeApplication } style={ { height: "70%" } }>
-                <Grid style={ { textAlign: "center" } }>
+              <Paper className={ classes.paperPointer } onClick={ redirectToResumeApplication } >
+                <Grid className={ classes.gridCenter} >
                   <MonetizationOnRoundedIcon id="dolor-icon_loan-history" className="material-icons background-round mt-5 yelloWBG" />
                   <p className={ classes.cardApplyLoan }>Resume Application</p>
                 </Grid>
               </Paper>
             </Grid>
             :
-            <Grid item xs={ 12 } sm={ 4 } className={ currentLoan !== true ? "cardLoanHistory" : "disableCardLoanHistory" } >
-              <Paper className={ classes.paperPointer } onClick={ redirectToApplyForLoan } style={ { height: "70%" } }>
-                <Grid style={ { textAlign: "center" } }>
+            <Grid item xs={ 12 } sm={ 4 } className={ !currentLoan ? "cardLoanHistory" : "disableCardLoanHistory" } >
+              <Paper className={ classes.paperPointer } onClick={ redirectToApplyForLoan } >
+                <Grid className={ classes.gridCenter} >
                   <MonetizationOnRoundedIcon id="dolor-icon_loan-history" className="material-icons background-round mt-5 yelloWBG" />
                   <p className={ classes.cardApplyLoan }>Apply for a Loan</p>
                 </Grid>

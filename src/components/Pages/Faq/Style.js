@@ -19,6 +19,9 @@ const useStylesFaq = makeStyles((theme) => ({
     paddingLeft: "30px",
     paddingBottom: "30px",
   },
+  tabLabel: {
+    backgroundColor: "#eee"
+  },
   secondaryHeading: {
     fontSize: theme.typography.pxToRem(15),
     color: theme.palette.text.secondary,

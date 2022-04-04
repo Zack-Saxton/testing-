@@ -39,7 +39,7 @@ export default function LoanHistory() {
               <h3 className={ classes.heading }>
                 <NavLink
                   to="/customers/accountOverview"
-                  style={ { textDecoration: "none" } }
+                  className={classes.loanHistoryNavLink}
                 >
                   <ButtonWithIcon
                     icon="arrow_backwardIcon"

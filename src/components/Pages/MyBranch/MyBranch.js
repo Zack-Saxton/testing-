@@ -19,10 +19,10 @@ export default function MyBranch() {
   const classes = useStylesMyBranch();
 
   //API call
-  const { data: branchApiStatus } = useQuery('my-branch', MyBranchAPI);
+  const { data: branchAPIStatus } = useQuery('my-branch', MyBranchAPI);
 
   //Branch details from API
-  let myBranchData = branchApiStatus?.data;
+  let myBranchData = branchAPIStatus?.data;
 
   //View part
   return (
@@ -34,13 +34,12 @@ export default function MyBranch() {
         justifyContent={ "center" }
         className={ classes.centerGrid }
       >
-        <Grid container style={ { paddingBottom: "10px" } }>
-          <Grid item xs={ 12 }>
+        <Grid container className={classes.gridMyBranch}>
+          <Grid container className={classes.branchlocatorStyle}item xs={ 12 }>
             <Typography variant="h3" className={ classes.heading }>
               <NavLink
                 to="/customers/accountOverview"
-                style={ { textDecoration: "none" } }
-              >
+                className={classes.navLinkMyBranch} >
                 <ButtonWithIcon
                   icon="arrow_backwardIcon"
                   iconposition="left"
@@ -53,6 +52,13 @@ export default function MyBranch() {
                 />
               </NavLink>{ " " }
               My Branch
+            </Typography>
+            <Typography variant="h3" className={classes.heading}>
+              Need to find another branch location? Click&nbsp;
+              <NavLink to="/branch-locator"
+              className={classes.navLinkMyBranch} >
+                here
+              </NavLink>
             </Typography>
           </Grid>
         </Grid>

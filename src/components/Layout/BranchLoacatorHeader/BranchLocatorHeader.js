@@ -53,12 +53,11 @@ const BranchLocatorHeader = () => {
             className={ classes.title }
           >
             <img
-              style={ { marginTop: "6px" } }
               className={ classes.logoFormat }
               src={ Logo }
               alt="MF logo"
             />
-          </Typography>
+          </Typography> 
           <div id="desktopMenu" className={ classes.sectionDesktop }>
             <Grid className="personalLoanHolder">
               <Typography className="branchHeaderLinks">

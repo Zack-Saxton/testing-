@@ -30,7 +30,7 @@ export default function Notification() {
   const [ anchorEl, setAnchorEl ] = useState(null);
   const [ messages, setMessages ] = useState([]);
   const [ badgeCount, setbadgeCount ] = useState(0);
-  const [ openDialog, setOpenDialog ] = React.useState(false);
+  const [ openDialog, setOpenDialog ] = useState(false);
   const [ messageTitle, setMessageTitle ] = useState([]);
   const [ messageContent, setMessageContent ] = useState([]);
   const [ notificationId, setNotificationId ] = useState('');
@@ -103,13 +103,12 @@ export default function Notification() {
         </Badge>
       </IconButton>
 
-      < Menu id="notification-menu" anchorEl={ anchorEl } open={ open } onClose={ handleClose } MenuListProps={ { 'aria-labelledby': 'basic-button' } } style={ { top: "4%", minWidth: "200px" } } >
+      < Menu id="notification-menu" anchorEl={ anchorEl } open={ open } onClose={ handleClose } MenuListProps={ { 'aria-labelledby': 'basic-button' } } >
         { messages.length ?
           messages.map((val, index) => (
             val.message_id ?
-              <MenuItem key={ index } style={ val?.active ? { fontWeight: "bold" } : { fontWeight: "normal", minWidth: "200px" } } onClick={ () => { handleClickOpen(val.message_id.message_title, val.message_id.message, val.message_id._id, val.active); } }><span
-                style={ { marginRight: "2%", background: "#0F4EB3 !important" } }
-                className="material-icons icon-bg-circle brandColorBG small">stars</span> { val?.message_id.message_title }</MenuItem>
+              <MenuItem key={ index }  className = { val?.active ? "notificationMenuItem" : "notificationMenuItemNormal"}  onClick={ () => { handleClickOpen(val.message_id.message_title, val.message_id.message, val.message_id._id, val.active); } }>
+                <span id = "spanNotificationMenu" className="material-icons icon-bg-circle brandColorBG small">stars</span> { val?.message_id.message_title }</MenuItem>
               : <MenuItem> You have no New Notifications </MenuItem>)) : <MenuItem> You have no New Notifications</MenuItem>
         }
       </Menu>
@@ -117,13 +116,13 @@ export default function Notification() {
         <DialogTitle id="alert-dialog-title">
           { messageTitle }
         </DialogTitle>
-        <DialogContent style={ { textAlign: 'justify' } }>
+        <DialogContent className="notificationDialogContent">
           <DialogContentText id="alert-dialog-description" >
             { messageContent }
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          { loading ? <CircularProgress style={ { width: "25px", height: "25px", marginRight: "31px" } } /> :
+          { loading ? <CircularProgress className = "notificationCircular" /> :
             <>
               <ButtonSecondary
                 stylebutton='{"background": "", "color":"" }'

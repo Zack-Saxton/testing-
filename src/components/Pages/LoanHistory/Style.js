@@ -12,7 +12,8 @@ const useStylesLoanHistory = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     color: theme.palette.text.secondary,
-    cursor: "pointer"
+    cursor: "pointer",
+    height: "70%"
   },
   papertotal: {
     padding: theme.spacing(2),
@@ -41,6 +42,16 @@ const useStylesLoanHistory = makeStyles((theme) => ({
     fontWeight: "600",
     fontSize: "18px",
   },
+  loanDocumentsTableCell: {
+    padding: "16px 16px 16px 0px" 
+  },
+  textDecoration: {
+    textDecoration: "none"
+  },
+  findInPageIcon: {
+    color: "#0F4EB3",
+    cursor: "pointer"
+  },
   cardAmountLoanHistory: {
     fontSize: "1.563rem",
     marginTop: "10px",
@@ -55,11 +66,46 @@ const useStylesLoanHistory = makeStyles((theme) => ({
     color: "#171717!important",
     fontWeight: "600",
     fontSize: "1rem",
+    minWidth: "140px"
+   },
+  tableHeadLast:{
+    color: "#171717!important",
+    fontWeight: "600",
+    fontSize: "1rem",
+    minWidth: "140px",
+    padding: "16px 60px 16px 0px"
+  },
+  tableHeadLast2:{
+    color: "#171717!important",
+    fontWeight: "600",
+    fontSize: "1rem",
+    minWidth: "140px",
+    padding: "16px 16px 16px 0px"
   },
   tableHeadRow: {
     color: "#171717!important",
     fontSize: "15px",
   },
+  tableHeadRowLast:{
+    minWidth: "140px", 
+    width: "150px", 
+    padding: "16px 60px 16px 0px",
+    color: "#171717!important",
+    fontSize: "15px"
+  },
+  loanHistoryNavLink : {
+    textDecoration: "none"
+  },
+  gridRecordTable : {
+    paddingBottom: "30%" 
+  },
+  gridCardContent : {
+    paddingBottom: "20px",
+    paddingTop: "10px" 
+  },
+  gridCenter : {
+    textAlign: "center"
+  }
 }));
 
 export { useStylesLoanHistory };

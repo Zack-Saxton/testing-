@@ -12,6 +12,16 @@
     color: white;
   }
 
+  .printPage {
+	cursor: pointer;
+	text-decoration: underline;
+  }
+  @media print{    
+    .printPage { 
+      display: none !important; 
+    }
+  }
+
   #citizenship, #employementStatus, #marriedStatus,#phoneType{
     background:transparent !important;
   }
@@ -25,9 +35,11 @@
     text-align: center;
 }
 
-.cardWrapper{
-    margin-top: 5%;
-    margin-bottom: 2%;
+.partnerSignUpCard,.confirmationCard{
+    margin: 0% auto 1% auto !important;
+}
+#spouseZipWrap,#spouseCityWrap{
+    padding-right: 10px;
 }
 
 @media (max-width:400px){
@@ -96,17 +108,18 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error{
 
 }
 
+
 .formatHref{
     color: #0F4EB3;
     text-align: justify;
     text-decoration: underline;
 }
 
-#annualhousehold, #personalIncome, #spouseState , #spouseCity, #spouseZip{
+#annualHousehold, #personalIncome, #spouseState , #spouseCity, #spouseZip{
     padding-bottom: 15px !important;
 }
 
-#annualhousehold-label, #personalIncome-label, #spouseState-label, #spouseCity-label, #spouseZip-label {
+#annualHousehold-label, #personalIncome-label, #spouseState-label, #spouseCity-label, #spouseZip-label {
     font-size: 0.938rem !important;
     padding-bottom:10px !important ;
 }
@@ -126,7 +139,9 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error{
 #citizenshipWrap div label{
     font-size: 0.968rem !important;
 }
-
+.creditkarmaLogoImage{
+    height: 13px;
+}
 #marriedStatusWrap div label{
     font-size: 0.968rem !important;
 }

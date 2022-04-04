@@ -47,11 +47,11 @@ export default function LoanDocument() {
   }, []);
 
   //Loan Document data from API
-  let loanDocumentData = loanDocumentStatus != null ? loanDocumentStatus?.data : null;
+  let loanDocumentData = loanDocumentStatus?.data;
 
   //Selecting file for upload
   const handleInputChange = () => {
-    setSelectedFile(document.getElementById("file"));
+    setSelectedFile(changeEvent.current);
   };
 
   const handleChange = (event) => {
@@ -60,7 +60,7 @@ export default function LoanDocument() {
   };
   //Document type
   const handleDocType = (event) => {
-    setDocType(event.target.value);
+    setDocType(event.target.value.trim());
     changeEvent.current.click();
     event.target.value = '';
   };
@@ -76,12 +76,12 @@ export default function LoanDocument() {
     if (selectedFile.files && selectedFile.files[ 0 ]) {
       reader.onload = async () => {
         const buffer2 = Buffer.from(reader.result, "base64");
-        let test = Buffer.from(buffer2).toJSON().data;
+        let fileData = Buffer.from(buffer2).toJSON().data;
         let fileName = selectedFile.files[ 0 ].name;
         let fileType = selectedFile.files[ 0 ].type;
         let documentType = docType;
         setLoading(true);
-        let response = await uploadDocument(test, fileName, fileType, documentType);
+        let response = await uploadDocument(fileData, fileName, fileType, documentType);
         if (response) {
           setLoading(false);
           setDocType("");
@@ -93,17 +93,17 @@ export default function LoanDocument() {
     }
   };
   const uploadDoc = () => {
-    if (selectedFile === null) {
+    if (!selectedFile) {
       if (!toast.isActive("closeToast")) {
         toast.error(globalMessages.Please_Select_File_Upload, { toastId: "closeToast" });
       }
-    } else if (docType === null || docType === "") {
+    } else if (!docType) {
       if (!toast.isActive("closeToast")) {
         toast.error(globalMessages.Please_Select_A_Document_Type, { toastId: "closeToast" });
       }
     } else {
-      var filePath = selectedFile.value;
-      var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.pdf)$/i;
+      let filePath = selectedFile.value;
+      let allowedExtensions = /(\.jpg|\.jpeg|\.png|\.pdf)$/i;
       if (!allowedExtensions.exec(filePath)) {
         if (!toast.isActive("closeToast")) {
           toast.error("Please upload file having extensions .jpeg .jpg .png .pdf only. ");
@@ -130,7 +130,7 @@ export default function LoanDocument() {
         className={ classes.centerGrid }
       >
         <Grid
-          style={ { paddingBottom: "10px" } }
+          className="loanDocumentGrid"
           container
           direction="row"
           item
@@ -141,7 +141,7 @@ export default function LoanDocument() {
               <h3 id="pageHeading" className={ classes.heading }>
                 <NavLink
                   to="/customers/accountOverview"
-                  style={ { textDecoration: "none" } }
+                  className={classes.textDecoration}
                 >
                   <ButtonWithIcon
                     icon="arrow_backwardIcon"
@@ -160,9 +160,9 @@ export default function LoanDocument() {
           </Grid>
         </Grid>
 
-        <Grid item xs={ 12 } style={ { paddingTop: "10px", paddingBottom: "30%" } }>
+        <Grid className="loanDocumentWrap" item xs={ 12 }>
           <Paper className={ classes.paper }>
-            { loanDocumentData === null ? (
+            { !loanDocumentData ? (
               <TableContainer>
                 <Table aria-label="simple table">
                   <TableHead>
@@ -192,10 +192,10 @@ export default function LoanDocument() {
             ) }
 
             <Grid
+              className="selectDocument"
               item
               xs={ 12 }
               sm={ 3 }
-              style={ { paddingTop: "10px", width: "225px" } }
             >
               <Select
                 id="selectDoccumentWrap"
@@ -210,7 +210,7 @@ export default function LoanDocument() {
               />
             </Grid>
             <Grid container direction="row">
-              <Grid item xs={ 12 } sm={ 3 } style={ { paddingTop: "20px" } }>
+              <Grid className="documentInput" item xs={ 12 } sm={ 3 }>
                 <input
                   accept="image/png, image/jpeg, application/pdf, image/jpg "
                   multiple
@@ -241,10 +241,10 @@ export default function LoanDocument() {
                   />
                 </Button>
               </Grid>
-              <Grid item xs={ 12 } sm={ 4 } style={ { paddingTop: "10px" } }></Grid>
+              <Grid className="gridPadding" item xs={ 12 } sm={ 4 }></Grid>
             </Grid>
             <Grid container direction="row">
-              <Grid item xs={ 12 } style={ { paddingTop: "10px" } }>
+              <Grid className="gridPadding" item xs={ 12 }>
                 <span style={ { marginLeft: "2px" } }>{ loading ? "Uploading..." : label }</span>
               </Grid>
             </Grid>

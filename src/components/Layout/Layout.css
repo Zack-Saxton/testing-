@@ -1,9 +1,5 @@
 #BG {
-  background-image: url(../../assets/images/loginbg.png);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  background-color: #f6f6f6 ;
 }
 .headerWrap {
   position: sticky !important;
@@ -70,7 +66,7 @@
   padding: 0px;
   display: flex;
   align-items: center;
-  margin-right: 35px;
+  margin-right: 20px;
   border-bottom: 3px solid transparent !important;
   transition: 0.2s;
 }
@@ -86,6 +82,10 @@
 .branchLocatorLink p:hover {
   border-bottom: 3px solid #214476 !important;
   color: #214476 !important;
+}
+
+.faqLink{
+  text-decoration: none
 }
 
 .topBarlinks {

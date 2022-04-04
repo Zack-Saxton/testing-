@@ -2,8 +2,6 @@ import * as yup from "yup";
 import globalMessages from "../../assets/data/globalMessages.json";
 export class FormValidationRules {
 
-    constructor() {
-    }
     email() {
         return yup
             .string(globalMessages.EmailRequired)
@@ -18,12 +16,12 @@ export class FormValidationRules {
         return yup
             .string(globalMessages.PasswordEnter)
             .when('isRegisterForm', {
-                is: (isRegisterForm) => isRegisterForm == 1,
+                is: (isRegisterForm) => isRegisterForm === 1,
                 then: yup
                     .string()
-                    .min(8, globalMessages.PasswordMin)
+                    .min(10, globalMessages.PasswordMin)
                     .matches(
-                        /^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,30}$/,
+                        /^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,30}$/,
                         globalMessages.PasswordCriteria
                     )
             })
@@ -35,10 +33,10 @@ export class FormValidationRules {
         return yup
             .string()
             .max(30, globalMessages.PasswordMax)
-            .min(8, globalMessages.PasswordMin)
+            .min(10, globalMessages.PasswordMin)
             .required(globalMessages.PasswordRequired)
             .when("password", {
-                is: (password) => password && password.length > 0,
+                is: (password) => password?.length > 0,
                 then: yup
                     .string()
                     .oneOf(
@@ -100,16 +98,16 @@ export class FormValidationRules {
             .matches(/^(\d)(?!\1+$)\d{8}$/, globalMessages.SSNValid)
             .min(9, globalMessages.SSNMin);
     }
-    getFormValidationRule(type = 'login') {
-        if (type == 'login') {
+    getFormValidationRule(type = "login") {
+        if (type === 'login') {
             return yup.object({
                 email: this.email(),
                 password: this.password(),
             });
         } else {
             return yup.object({
-                firstname: this.firstName(),
-                lastname: this.lastName(),
+                firstName: this.firstName(),
+                lastName: this.lastName(),
                 email: this.email(),
                 dob: this.dobDate(),
                 password: this.password(),

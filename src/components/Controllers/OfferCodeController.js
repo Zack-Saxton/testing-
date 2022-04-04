@@ -3,11 +3,11 @@ import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
 
 /***** Get Account overview details *****/
-export default async function offercodeValidation(OfferCode) {
+export default async function OfferCodeValidation(offerCode) {
   try {
     let url = "offercode_validation";
     let param = "";
-    let data = { "offerCode": OfferCode };
+    let data = { "offerCode": offerCode };
     let method = "POST";
     let addAccessToken = true;
 

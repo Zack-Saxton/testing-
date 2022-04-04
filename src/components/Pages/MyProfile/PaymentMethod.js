@@ -44,6 +44,7 @@ import {
   setDefaultPayment
 } from "../../Controllers/MyProfileController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
+import BankNameLookup from "../../Controllers/BankNameLookup";
 import {
   ButtonPrimary,
   ButtonSecondary,
@@ -123,7 +124,7 @@ const validationSchemaAddBank = yup.object({
 export default function PaymentMethod() {
   const classes = useStylesMyProfile();
   const navigate = useNavigate();
-  const [ bankRoutingCheque, setHandleBankRoutingCheque ] = useState(false);
+  const [ bankRoutingCheque, setBankRoutingCheque ] = useState(false);
   const [ addBankAccount, setAddBankAccount ] = useState(false);
   const [ addDebitCard, setAddDebitCard ] = useState(false);
   const [ paymentMethodDiv, setPaymentMethodDiv ] = useState(true);
@@ -141,9 +142,9 @@ export default function PaymentMethod() {
   const [ confirmDelete, setConfirmDelete ] = useState(false);
   const [ addBankValues, setAddBankValues ] = useState(false);
   const [ routingError, setRoutingError ] = useState("");
-  const [ scheduledAccountNo, setscheduledAccountNo ] = useState("0");
-  const [ autoPayAccountNo, setautoPayAccountNo ] = useState("0");
-  const [ , setprofileTabNumber ] = useGlobalState();
+  const [ scheduledAccountNo, setScheduledAccountNo ] = useState("0");
+  const [ autoPayAccountNo, setAutoPayAccountNo ] = useState("0");
+  const [ , setProfileTabNumber ] = useGlobalState();
   const [ validZip, setValidZip ] = useState(true);
   const [ mailingStreetAddress, setMailingStreetAddress ] = useState("");
   const [ mailingZipcode, setMailingZipcode ] = useState("");
@@ -159,18 +160,14 @@ export default function PaymentMethod() {
     }
   );
   useEffect(() => {
-    let schedulePayment = dataAccountOverview?.data?.activeLoans[ 0 ]
-      ?.loanPaymentInformation?.scheduledPayments
-      ? dataAccountOverview.data.activeLoans[ 0 ].loanPaymentInformation
-        .scheduledPayments
+    let schedulePayment = dataAccountOverview?.data?.activeLoans?.length
+      ? dataAccountOverview.data.activeLoans[ 0 ].loanPaymentInformation?.scheduledPayments
       : null;
-    let autoPay = dataAccountOverview?.data?.activeLoans[ 0 ]
-      ?.loanPaymentInformation?.appRecurringACHPayment?.LastFourOfPaymentAccount
-      ? dataAccountOverview.data.activeLoans[ 0 ].loanPaymentInformation
-        .appRecurringACHPayment.LastFourOfPaymentAccount
+    let autoPay = dataAccountOverview?.data?.activeLoans?.length
+      ? dataAccountOverview.data.activeLoans[ 0 ].loanPaymentInformation?.appRecurringACHPayment?.LastFourOfPaymentAccount
       : null;
     //User shouldn't be allowed to delete the payment method accounts where there is scheduled future payment
-    if (schedulePayment !== null && schedulePayment.length > 0) {
+    if (schedulePayment?.length > 0) {
       let scheduleAccountNo = schedulePayment[ 0 ]?.PaymentMethod?.AchInfo
         ?.AccountNumber
         ? schedulePayment[ 0 ].PaymentMethod.AchInfo.AccountNumber
@@ -181,11 +178,11 @@ export default function PaymentMethod() {
       scheduleDate = Moment(scheduleDate);
       let dateNow = Moment().startOf("day");
       if (dateNow < scheduleDate && scheduleAccountNo !== "") {
-        setscheduledAccountNo(scheduleAccountNo);
+        setScheduledAccountNo(scheduleAccountNo);
       }
     }
     if (autoPay) {
-      setautoPayAccountNo(autoPay);
+      setAutoPayAccountNo(autoPay);
     }
     return null;
   }, [ dataAccountOverview ]);
@@ -213,19 +210,18 @@ export default function PaymentMethod() {
     setAddBankModal(false);
   };
 
-  const addBankOnChange = (event) => {
+  const addBankOnChange = (event, type) => {
     const pattern = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
-    let enteredName = event.target.value; //Holder name, account name, bank name
-    if (enteredName === "" || enteredName.match(pattern)) {
-      formikAddBankAccount.handleChange(event);
+    let enteredName = event.target.value.trim(); //Holder name, account name, bank name
+    if (!enteredName || enteredName.match(pattern)) {
+      type === 1 ? formikAddBankAccount.handleChange(event) : formikAddDebitCard.handleChange(event) ;
     }
   };
-
-  const addBankOnChangeNumber = (event) => {
+  const validateCardAndAccountNumber = (event, type) => {
     const pattern = /^[0-9\b]+$/;
-    let accountNumber = event.target.value;
-    if (accountNumber === "" || accountNumber.match(pattern)) {
-      formikAddBankAccount.handleChange(event);
+    let cardAccountNumber = event.target.value.trim();
+    if (!cardAccountNumber || cardAccountNumber.match(pattern)) {
+      type === 1 ? formikAddBankAccount.handleChange(event) : formikAddDebitCard.handleChange(event);
     }
   };
 
@@ -251,17 +247,10 @@ export default function PaymentMethod() {
     setCheckedDebitCard(event.target.checked);
   };
 
-  const addDebitOnChange = (event) => {
-    const pattern = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
-    let cardHolderName = event.target.value;
-    if (cardHolderName === "" || cardHolderName.match(pattern)) {
-      formikAddDebitCard.handleChange(event);
-    }
-  };
   const getAddressOnChange = (event) => {
     const pattern = /^[0-9\b]+$/;
     let zipCode = event.target.value;
-    if (zipCode === "" || pattern.test(zipCode)) {
+    if (!zipCode || pattern.test(zipCode)) {
       fetchAddress(event);
     }
   };
@@ -305,16 +294,8 @@ export default function PaymentMethod() {
       );
       formikAddBankAccount.setFieldValue("accountHolder", row.OwnerName);
       setAccountType(row.AccountType);
-      await fetch(
-        "https://www.routingnumbers.info/api/data.json?rn=" + row.RoutingNumber
-      )
-        .then((res) => res.json())
-        .then((result) => {
-          formikAddBankAccount.setFieldValue(
-            "bankName",
-            result?.customer_name ?? ""
-          );
-        });
+      let bankName = await BankNameLookup(row.RoutingNumber);
+      formikAddBankAccount.setFieldValue("bankName", bankName);      
       setLoading(false);
     } else {
       setEditMode(true);
@@ -327,8 +308,6 @@ export default function PaymentMethod() {
       formikAddDebitCard.setFieldValue("expiryDate", row.ExpirationDate);
       formikAddDebitCard.setFieldValue("cvv", "***");
       setCardType(row.CardType);
-      setEditMode(true);
-      addDebitCardButton();
       setLoading(false);
     }
   };
@@ -338,27 +317,19 @@ export default function PaymentMethod() {
       Visa: /^4\d{12}(?:\d{3})?$/,
       MasterCard: /^5[1-5]\d{14}$/,
     };
-    let _valid = false;
+    let isValidCard = false;
     for (let key in cardPattern) {
       if (cardPattern[ key ].test(number)) {
         setCardType(key);
-        _valid = true;
+        isValidCard = true;
         return key;
       }
     }
-    if (!_valid) {
+    if (!isValidCard) {
       setCardType(false);
     }
     formikAddDebitCard.handleBlur(event);
   }
-
-  const addDebitOnChangeNumber = (event) => {
-    const pattern = /^[0-9\b]+$/;
-    let cardNumber = event.target.value;
-    if (cardNumber === "" || pattern.test(cardNumber)) {
-      formikAddDebitCard.handleChange(event);
-    }
-  };
 
   const openDebitCardModal = () => {
     formikAddDebitCard.handleSubmit();
@@ -372,11 +343,11 @@ export default function PaymentMethod() {
 
   //pop up open & close
   const handleBankRoutingCheque = () => {
-    setHandleBankRoutingCheque(true);
+    setBankRoutingCheque(true);
   };
 
   const handleBankRoutingChequeClose = () => {
-    setHandleBankRoutingCheque(false);
+    setBankRoutingCheque(false);
   };
 
   const handleDeleteConfirmClose = () => {
@@ -458,7 +429,7 @@ export default function PaymentMethod() {
 
   const handleMenuProfile = () => {
     navigate("/customers/myProfile");
-    setprofileTabNumber({ profileTabNumber: 0 });
+    setProfileTabNumber({ profileTabNumber: 0 });
   };
 
   const setDefaultPaymentOnChange = async (nickname) => {
@@ -547,30 +518,26 @@ export default function PaymentMethod() {
       formikAddDebitCard.values,
       cardType
     );
+    if ( creditCardResponse?.status === 400) {
+      setLoading(false);
+      toast.error(creditCardResponse?.data?.error);
+      closeDebitCardModal();
 
-    if (creditCardResponse?.data?.addPaymentResult?.HasNoErrors) {
+    }
+    else if (creditCardResponse?.data?.addPaymentResult?.HasNoErrors) {
       setLoading(false);
       toast.success("Payment method added successfully ");
       refetch();
       setCardType("");
+      closeDebitCardModal();
       closeDebitCardButton();
-    } else if (
-      creditCardResponse?.data?.addPaymentResult?.HasNoErrors === false
-    ) {
+    } else if (!creditCardResponse?.data?.addPaymentResult?.HasNoErrors) {
       setLoading(false);
       toast.error(
         creditCardResponse?.data?.addPaymentResult?.Errors[ 0 ].ErrorMessage
       );
-    } else if (creditCardResponse?.data?.result === "error") {
-      setLoading(false);
-      toast.error(creditCardResponse?.data?.error);
-    } else {
-      setLoading(false);
-      toast.error(
-        "Payment method already exists, please add a different method"
-      );
-    }
-    closeDebitCardModal();
+      closeDebitCardModal();
+    } 
   };
 
   //Preventing space key
@@ -622,158 +589,143 @@ export default function PaymentMethod() {
         className={ paymentMethodDiv ? "showContent" : "hideContent" }
       >
         <Grid item xs={ 12 } className={ classes.paymentBody }>
-          { allPaymentMethod ? (
-            allPaymentMethod?.data?.paymentOptions &&
-              allPaymentMethod?.data?.paymentOptions.length > 0 ? (
-              <TableContainer>
-                <Table className={ classes.table } aria-label="simple table">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell width="40%" align="left" className="rowFont">
-                        Account / Card
+          { allPaymentMethod ? (allPaymentMethod?.data?.paymentOptions?.length > 0 ? (
+            <TableContainer>
+              <Table className={ classes.table } aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell width="40%" align="left" className="rowFont">
+                      Account / Card
+                    </TableCell>
+                    <TableCell
+                      width="20%"
+                      align="left"
+                      className="paddingLeftZero rowFont"
+                    >
+                      Account Type
+                    </TableCell>
+                    <TableCell
+                      width="20%"
+                      align="left"
+                      className="paddingLeftZero rowFont"
+                    >
+                      Set As Default
+                    </TableCell>
+                    <TableCell width="20%" align="left" className="rowFont">
+                      Delete
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  { allPaymentMethod?.data?.paymentOptions.map((row) => (
+                    <TableRow
+                      hover
+                      key={ Math.random() * 1000 }
+                      className="rowProps"
+                      height="80px"
+                    >
+                      <TableCell
+                        align="left"
+                        className={ classes.nameList }
+                      >
+                        <span
+                          className={ `posRelativeWidthAuto ${ classes.nickName }` }
+                        >
+                          { row.AccountType ? (
+                            <AccountBalanceIcon />
+                          ) : (
+                            <PaymentIcon />
+                          ) }
+                        </span>
+                        <span>{ row.OwnerName }</span>
+                        { row.AccountType ? <br /> : null }
+                        <span>
+                          { " " }
+                          { row.AccountType ? "(" + row.Nickname + ")" : "" }
+                        </span>
+                      </TableCell>
+
+                      <TableCell
+                        align="left"
+                        className={ classes.accountTypeColumn }
+                      >
+                        { row.AccountType ? row.AccountType : row.CardType }
                       </TableCell>
                       <TableCell
-                        width="20%"
                         align="left"
-                        className="paddingLeftZero rowFont"
+                        className={ classes.accountDefaultColumn }
                       >
-                        Account Type
+                        <Radio
+                          name={ row.name }
+                          label="Set as Default"
+                          onChange={ () => {
+                            setDefaultPaymentOnChange(row.Nickname);
+                          } }
+                          checked={ allPaymentMethod?.data?.defaultBank }
+                          radiolabel={ '[{ "value":"' + row.Nickname + '"}]' }
+                          value={ allPaymentMethod?.data?.defaultBank }
+                          className={ classes.defaultRadio }
+                        />
                       </TableCell>
-                      <TableCell
-                        width="20%"
-                        align="left"
-                        className="paddingLeftZero rowFont"
-                      >
-                        Set As Default
-                      </TableCell>
-                      <TableCell width="20%" align="left" className="rowFont">
-                        Delete
+
+                      <TableCell align="left">
+                        <DeleteIcon
+                          className={ `${ classes.deleteCard } ${ scheduledAccountNo ===
+                            (row.AccountNumber
+                              ? row.AccountNumber
+                              : ""
+                            ).slice(-4) ||
+                            autoPayAccountNo ===
+                            (row.AccountNumber
+                              ? row.AccountNumber
+                              : ""
+                            ).slice(-4)
+                            ? classes.loadingOn
+                            : classes.loadingOff
+                            } ` }
+                          onClick={ () => {
+                            setDeleteID(
+                              row?.AccountType
+                                ? row.SequenceNumber
+                                : row.ProfileId
+                            );
+                            setDeleteType(row?.AccountType ? "bank" : "card");
+                            handleDeleteConfirmOpen();
+                          } }
+                        />
+                        <ArrowForwardIcon
+                          className={ classes.deleteCardArrow }
+                          onClick={ () => {
+                            setLoading(true);
+                            onClickEditCard(row);
+                          } }
+                        />
                       </TableCell>
                     </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    { allPaymentMethod?.data?.paymentOptions.map((row) => (
-                      <TableRow
-                        hover
-                        key={ Math.random() * 1000 }
-                        className="rowProps"
-                        height="80px"
-                      >
-                        <TableCell
-                          align="left"
-                          style={ { width: "15px", padding: "1px" } }
-                        >
-                          <span
-                            className="posRelativeWidthAuto"
-                            style={ { float: "left", marginRight: "8px" } }
-                          >
-                            { row.AccountType ? (
-                              <AccountBalanceIcon />
-                            ) : (
-                              <PaymentIcon />
-                            ) }
-                          </span>
-                          <span>{ row.OwnerName }</span>
-                          { row.AccountType ? <br /> : null }
-                          <span>
-                            { " " }
-                            { row.AccountType ? "(" + row.Nickname + ")" : "" }
-                          </span>
-                        </TableCell>
-
-                        <TableCell
-                          align="left"
-                          className={ classes.accountTypeColumn }
-                        >
-                          { row.AccountType ? row.AccountType : row.CardType }
-                        </TableCell>
-                        <TableCell
-                          align="left"
-                          className={ classes.accountDefaultColumn }
-                        >
-                          <Radio
-                            name={ row.name }
-                            label="Set as Default"
-                            onChange={ () => {
-                              setDefaultPaymentOnChange(row.Nickname);
-                            } }
-                            checked={ allPaymentMethod?.data?.defaultBank }
-                            radiolabel={ '[{ "value":"' + row.Nickname + '"}]' }
-                            value={ allPaymentMethod?.data?.defaultBank }
-                            className={ classes.defaultRadio }
-                          />
-                        </TableCell>
-
-                        <TableCell align="left">
-                          <DeleteIcon
-                            className={ `${ classes.deleteCard } ${ scheduledAccountNo ===
-                              (row.AccountNumber
-                                ? row.AccountNumber
-                                : ""
-                              ).slice(-4) ||
-                              autoPayAccountNo ===
-                              (row.AccountNumber
-                                ? row.AccountNumber
-                                : ""
-                              ).slice(-4)
-                              ? classes.loadingOn
-                              : classes.loadingOff
-                              } ` }
-                            onClick={ () => {
-                              setDeleteID(
-                                row?.AccountType
-                                  ? row.SequenceNumber
-                                  : row.ProfileId
-                              );
-                              setDeleteType(row?.AccountType ? "bank" : "card");
-                              handleDeleteConfirmOpen();
-                            } }
-                          />
-
-                          <ArrowForwardIcon
-                            className={ classes.deleteCardArrow }
-                            onClick={ () => {
-                              setLoading(true);
-                              onClickEditCard(row);
-                            } }
-                          />
-                        </TableCell>
-                      </TableRow>
-                    )) }
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            ) : allPaymentMethod?.data?.message ? (
-              <Grid
-                className="circleprog"
-                style={ {
-                  width: "100%",
-                  textAlign: "center",
-                  marginTop: "20px",
-                } }
-                item
-                xs={ 12 }
-              >
-                <Typography>{ allPaymentMethod?.data?.message }</Typography>
-              </Grid>
-            ) : (
-              <Grid
-                className="circleprog"
-                style={ {
-                  width: "100%",
-                  textAlign: "center",
-                  marginTop: "20px",
-                } }
-                item
-                xs={ 12 }
-              >
-                <Typography>No Payment methods available</Typography>
-              </Grid>
-            )
+                  )) }
+                </TableBody>
+              </Table>
+            </TableContainer>
+          ) : allPaymentMethod?.data?.message ? (
+            <Grid
+              className={ `circleprog ${ classes.paymentMessage }` }
+              item
+              xs={ 12 }
+            >
+              <Typography>{ allPaymentMethod?.data?.message }</Typography>
+            </Grid>
           ) : (
             <Grid
-              className="circleprog"
-              style={ { width: "100%", textAlign: "center" } }
+              className={ `circleprog ${ classes.paymentMessage }` }
+              item
+              xs={ 12 }
+            >
+              <Typography>No Payment methods available</Typography>
+            </Grid>
+          )
+          ) : (
+            <Grid
+              className={ `circleprog ${ classes.loaderWidth }` }
             >
               <CircularProgress />
             </Grid>
@@ -849,7 +801,7 @@ export default function PaymentMethod() {
               <Breadcrumbs
                 separator={
                   <NavigateNextIcon
-                    style={ { color: "rgba(255, 255, 255, .7)" } }
+                    className={ classes.navigationLink }
                     fontSize="small"
                   />
                 }
@@ -887,7 +839,7 @@ export default function PaymentMethod() {
                 disabled={ editMode }
                 placeholder="Enter your Account Nickname "
                 materialProps={ { maxLength: "30" } }
-                onChange={ (event) => addBankOnChange(event) }
+                onChange={ (event) => addBankOnChange(event, 1) }
                 value={ formikAddBankAccount.values.accountNickname }
                 onBlur={ formikAddBankAccount.handleBlur }
                 error={
@@ -915,7 +867,7 @@ export default function PaymentMethod() {
                 placeholder="Enter the Account Holder Name"
                 materialProps={ { maxLength: "30" } }
                 value={ formikAddBankAccount.values.accountHolder }
-                onChange={ (event) => addBankOnChange(event) }
+                onChange={ (event) => addBankOnChange(event, 1) }
                 onBlur={ formikAddBankAccount.handleBlur }
                 error={
                   formikAddBankAccount.touched.accountHolder &&
@@ -942,7 +894,7 @@ export default function PaymentMethod() {
                 style={ { fontWeight: "normal" } }
               />
               <FormHelperText error={ true }>
-                { accountType === "" ? "Account type required" : "" }
+                { !accountType ? "Account type required" : "" }
               </FormHelperText>
             </Grid>
             <Grid
@@ -973,39 +925,22 @@ export default function PaymentMethod() {
                 label="Bank Routing Number"
                 placeholder="Enter your Bank Routing Number"
                 value={ formikAddBankAccount.values.bankRoutingNumber }
-                // onBlur={formikAddBankAccount.handleBlur}
                 onBlur={ async (event) => {
                   if (
                     event.target.value !== "" &&
                     event.target.value.length === 9
                   ) {
-                    fetch(
-                      "https://www.routingnumbers.info/api/data.json?rn=" +
-                      event.target.value
-                    )
-                      .then((res) => res.json())
-                      .then((result) => {
-                        if (result.message === "OK") {
-                          setRoutingError("");
-                          formikAddBankAccount.setFieldValue(
-                            "bankName",
-                            result?.customer_name ?? ""
-                          );
-                        } else {
-                          setRoutingError(
-                            "Please enter a valid routing number"
-                          );
-                          formikAddBankAccount.setFieldValue("bankName", "");
-                        }
-                      });
+                    let bankName = await BankNameLookup(event.target.value);
+                    formikAddBankAccount.setFieldValue("bankName", bankName);
+                    setRoutingError(bankName ? "" : globalMessages.Enter_Valid_Routing_No);
                     formikAddBankAccount.handleBlur(event);
                   }
                 } }
-                onChange={ (event) => addBankOnChangeNumber(event) }
+                onChange={ (event) => validateCardAndAccountNumber(event, 1) }
                 error={
                   (formikAddBankAccount.touched.bankRoutingNumber &&
                     Boolean(formikAddBankAccount.errors.bankRoutingNumber)) ||
-                  (routingError === "" ? false : true)
+                  (!routingError ? false : true)
                 }
                 helperText={
                   routingError
@@ -1033,7 +968,7 @@ export default function PaymentMethod() {
                 materialProps={ { maxLength: "100" } }
                 value={ formikAddBankAccount.values.bankName }
                 onBlur={ formikAddBankAccount.handleBlur }
-                onChange={ (event) => addBankOnChange(event) }
+                onChange={ (event) => addBankOnChange(event, 1) }
                 error={
                   formikAddBankAccount.touched.bankName &&
                   Boolean(formikAddBankAccount.errors.bankName)
@@ -1061,7 +996,7 @@ export default function PaymentMethod() {
                 materialProps={ { maxLength: "16" } }
                 onKeyDown={ preventSpace }
                 value={ formikAddBankAccount.values.bankAccountNumber }
-                onChange={ (event) => addBankOnChangeNumber(event) }
+                onChange={ (event) => validateCardAndAccountNumber(event, 1) }
                 onBlur={ formikAddBankAccount.handleBlur }
                 error={
                   formikAddBankAccount.touched.bankAccountNumber &&
@@ -1183,7 +1118,7 @@ export default function PaymentMethod() {
               <Breadcrumbs
                 separator={
                   <NavigateNextIcon
-                    style={ { color: "rgba(255, 255, 255, .7)" } }
+                    className={ classes.navigationLink }
                     fontSize="small"
                   />
                 }
@@ -1223,10 +1158,10 @@ export default function PaymentMethod() {
                 disabled={ editMode }
                 onKeyDown={ preventSpace }
                 value={ formikAddDebitCard.values.cardNumber }
-                onChange={ (event) => addDebitOnChangeNumber(event) }
+                onChange={ (event) => validateCardAndAccountNumber(event, 2) }
                 // onBlur={formikAddDebitCard.handleBlur}
                 onBlur={ (event) => {
-                  detectCardType(event, event.target.value);
+                  detectCardType(event, event.target.value.trim());
                 } }
                 error={
                   formikAddDebitCard.touched.cardNumber &&
@@ -1241,7 +1176,7 @@ export default function PaymentMethod() {
             <Grid
               item
               xs={ 2 }
-              style={ { width: "100%", padding: "0px" } }
+              className={ classes.cardType }
               container
               direction="row"
             >
@@ -1273,7 +1208,7 @@ export default function PaymentMethod() {
                 materialProps={ { maxLength: "30" } }
                 disabled={ editMode }
                 value={ formikAddDebitCard.values.cardName }
-                onChange={ (event) => addDebitOnChange(event) }
+                onChange={ (event) => addBankOnChange(event, 2) }
                 onBlur={ formikAddDebitCard.handleBlur }
                 error={
                   formikAddDebitCard.touched.cardName &&
@@ -1332,7 +1267,7 @@ export default function PaymentMethod() {
                 disabled={ editMode }
                 materialProps={ { maxLength: "3" } }
                 value={ formikAddDebitCard.values.cvv }
-                onChange={ (event) => addDebitOnChangeNumber(event) }
+                onChange={ (event) => validateCardAndAccountNumber(event, 2) }
                 onBlur={ formikAddDebitCard.handleBlur }
                 error={
                   formikAddDebitCard.touched.cvv &&
@@ -1345,13 +1280,12 @@ export default function PaymentMethod() {
               />
             </Grid>
             <Grid
-              style={ { padding: "0px 16px", width: "100%" } }
+              className={ `${classes.sameMailAddress} ${ editMode ? classes.hideSection : classes.showSection }` }
               item
               sm={ 4 }
               xs={ 12 }
               container
               direction="row"
-              className={ editMode ? classes.hideSection : classes.showSection }
             >
               <Checkbox
                 name="sameAsMailAddress"
@@ -1458,7 +1392,7 @@ export default function PaymentMethod() {
                 disabled
                 materialProps={ { maxLength: "30" } }
                 value={ formikAddDebitCard.values.city }
-                onChange={ (event) => addDebitOnChange(event) }
+                onChange={ (event) => addBankOnChange(event, 2) }
                 onBlur={ formikAddDebitCard.handleBlur }
                 error={
                   formikAddDebitCard.touched.city &&
@@ -1487,7 +1421,7 @@ export default function PaymentMethod() {
                 materialProps={ { maxLength: "30" } }
                 value={ formikAddDebitCard.values.state }
                 disabled
-                onChange={ (event) => addDebitOnChange(event) }
+                onChange={ (event) => addBankOnChange(event, 2) }
                 onBlur={ formikAddDebitCard.handleBlur }
                 error={
                   formikAddDebitCard.touched.state &&

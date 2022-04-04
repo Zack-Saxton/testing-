@@ -15,9 +15,9 @@ import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import Moment from "moment";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import React, { useState } from "react";
-import NumberFormat from 'react-number-format';
+import NumberFormat from "react-number-format";
 import { useStylesPaymenthistory } from "./Style";
 import "./Style.css";
 
@@ -55,27 +55,39 @@ function TablePaginationActions(props) {
     <div className={ classes.root }>
       <IconButton
         onClick={ handleFirstPageButtonClick }
-        disabled={ page === 0 }
+        disabled={ !page }
         aria-label="first page"
       >
-        { theme.direction === 'rtl' ? <LastPageIcon /> : <FirstPageIcon /> }
+        { theme.direction === "rtl" ? <LastPageIcon /> : <FirstPageIcon /> }
       </IconButton>
-      <IconButton onClick={ handleBackButtonClick } disabled={ page === 0 } aria-label="previous page">
-        { theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft /> }
+      <IconButton
+        onClick={ handleBackButtonClick }
+        disabled={ !page }
+        aria-label="previous page"
+      >
+        { theme.direction === "rtl" ? (
+          <KeyboardArrowRight />
+        ) : (
+          <KeyboardArrowLeft />
+        ) }
       </IconButton>
       <IconButton
         onClick={ handleNextButtonClick }
         disabled={ page >= Math.ceil(count / rowsPerPage) - 1 }
         aria-label="next page"
       >
-        { theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight /> }
+        { theme.direction === "rtl" ? (
+          <KeyboardArrowLeft />
+        ) : (
+          <KeyboardArrowRight />
+        ) }
       </IconButton>
       <IconButton
         onClick={ handleLastPageButtonClick }
         disabled={ page >= Math.ceil(count / rowsPerPage) - 1 }
         aria-label="last page"
       >
-        { theme.direction === 'rtl' ? <FirstPageIcon /> : <LastPageIcon /> }
+        { theme.direction === "rtl" ? <FirstPageIcon /> : <LastPageIcon /> }
       </IconButton>
     </div>
   );
@@ -98,30 +110,47 @@ export default function PaymentHistoryTable({ userRecentPaymentData }) {
   };
 
   const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
+    setRowsPerPage(parseInt(event.target.value.trim(), 10));
     setPage(0);
   };
 
   //View part
   return (
-    <Grid item xs={ 12 } style={ { paddingTop: "10px", paddingBottom: "30px" } }>
+    <Grid item xs={ 12 } className={ classes.tableStyle }>
       <TableContainer id="pdfdiv" component={ Paper }>
         <Table className={ classes.table } aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell className={ classes.tableHead } align="left">Date</TableCell>
-              <TableCell className={ classes.tableHead } align="left">Description</TableCell>
-              <TableCell className={ classes.tableHead } align="right">Principal</TableCell>
-              <TableCell className={ classes.tableHead } align="right">Interest</TableCell>
-              <TableCell className={ classes.tableHead } align="right">Other</TableCell>
-              <TableCell className={ classes.tableHead } align="right">Total</TableCell>
-              <TableCell className={ classes.tableHead } align="right">Balance</TableCell>
+              <TableCell className={ classes.tableHead } align="left">
+                Date
+              </TableCell>
+              <TableCell className={ classes.tableHead } align="left">
+                Description
+              </TableCell>
+              <TableCell className={ classes.tableHead } align="right">
+                Principal
+              </TableCell>
+              <TableCell className={ classes.tableHead } align="right">
+                Interest
+              </TableCell>
+              <TableCell className={ classes.tableHead } align="right">
+                Other
+              </TableCell>
+              <TableCell className={ classes.tableHead } align="right">
+                Total
+              </TableCell>
+              <TableCell className={ classes.tableHead } align="right">
+                Balance
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             { userRecentPaymentData ? (
               (rowsPerPage > 0
-                ? userRecentPaymentData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                ? userRecentPaymentData.slice(
+                  page * rowsPerPage,
+                  page * rowsPerPage + rowsPerPage
+                )
                 : userRecentPaymentData
               ).map((row) => (
                 <TableRow key={ Math.random() * 1000 }>
@@ -133,41 +162,62 @@ export default function PaymentHistoryTable({ userRecentPaymentData }) {
                   >
                     { Moment(row.TransactionDate).format("MM/DD/YYYY") }
                   </TableCell>
-                  <TableCell
-                    className={ classes.tableHeadRow }
-                    align="left"
-                  >
+                  <TableCell className={ classes.tableHeadRow } align="left">
                     { row.TransactionDescription }
                   </TableCell>
-                  <TableCell
-                    className={ classes.tableHeadRow }
-                    align="right"
-                  >
-                    <NumberFormat value={ Math.abs(row.PrincipalAmount) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
+                  <TableCell className={ classes.tableHeadRow } align="right">
+                    <NumberFormat
+                      value={ Math.abs(row.PrincipalAmount) }
+                      displayType={ "text" }
+                      thousandSeparator={ true }
+                      decimalScale={ 2 }
+                      fixedDecimalScale={ true }
+                      prefix={ "$" }
+                    />
                   </TableCell>
-                  <TableCell
-                    className={ classes.tableHeadRow }
-                    align="right"
-                  >
-                    <NumberFormat value={ Math.abs(row.InterestAmount) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
+                  <TableCell className={ classes.tableHeadRow } align="right">
+                    <NumberFormat
+                      value={ Math.abs(row.InterestAmount) }
+                      displayType={ "text" }
+                      thousandSeparator={ true }
+                      decimalScale={ 2 }
+                      fixedDecimalScale={ true }
+                      prefix={ "$" }
+                    />
                   </TableCell>
-                  <TableCell
-                    className={ classes.tableHeadRow }
-                    align="right"
-                  >
-                    <NumberFormat value={ Math.abs(row.OtherAmount) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
+                  <TableCell className={ classes.tableHeadRow } align="right">
+                    <NumberFormat
+                      value={ Math.abs(row.OtherAmount) }
+                      displayType={ "text" }
+                      thousandSeparator={ true }
+                      decimalScale={ 2 }
+                      fixedDecimalScale={ true }
+                      prefix={ "$" }
+                    />
                   </TableCell>
-                  <TableCell
-                    className={ classes.tableHeadRow }
-                    align="right"
-                  >
-                    <NumberFormat value={ Math.abs(row.InterestAmount) + Math.abs(row.OtherAmount) + Math.abs(row.PrincipalAmount) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
+                  <TableCell className={ classes.tableHeadRow } align="right">
+                    <NumberFormat
+                      value={
+                        Math.abs(row.InterestAmount) +
+                        Math.abs(row.OtherAmount) +
+                        Math.abs(row.PrincipalAmount)
+                      }
+                      displayType={ "text" }
+                      thousandSeparator={ true }
+                      decimalScale={ 2 }
+                      fixedDecimalScale={ true }
+                      prefix={ "$" }
+                    />
                   </TableCell>
-                  <TableCell
-                    className={ classes.tableHeadRow }
-                    align="right"
-                  >
-                    <NumberFormat value={ Math.abs(row.RunningPrincipalBalance) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
+                  <TableCell className={ classes.tableHeadRow } align="right">
+                    <NumberFormat
+                      value={ Math.abs(row.RunningPrincipalBalance) }
+                      displayType={ "text" }
+                      thousandSeparator={ true }
+                      decimalScale={ 2 }
+                      fixedDecimalScale={ true }
+                      prefix={ "$" }
+                    />
                   </TableCell>
                 </TableRow>
               ))
@@ -182,12 +232,12 @@ export default function PaymentHistoryTable({ userRecentPaymentData }) {
           <TableFooter>
             <TableRow>
               <TablePagination
-                rowsPerPageOptions={ [ 5, 10, { label: 'All', value: -1 } ] }
+                rowsPerPageOptions={ [ 5, 10, { label: "All", value: -1 } ] }
                 count={ userRecentPaymentData?.length }
                 rowsPerPage={ rowsPerPage }
                 page={ page }
                 SelectProps={ {
-                  inputProps: { 'aria-label': 'rows per page' },
+                  inputProps: { "aria-label": "rows per page" },
                   native: true,
                 } }
                 onPageChange={ handleChangePage }

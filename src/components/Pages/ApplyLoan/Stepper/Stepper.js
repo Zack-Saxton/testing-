@@ -78,7 +78,7 @@ function getSteps() {
 export default function VerticalLinearStepper() {
 	const navigate = useNavigate();
 	const classes = useStyles();
-	const [ activeStep, setActiveStep ] = React.useState();
+	const [ activeStep, setActiveStep ] = useState();
 	const [ loadingFlag, setLoadingFlag ] = useState(false);
 	const steps = getSteps();
 	const elementsRef = useRef(steps.map(() => createRef()));
@@ -102,24 +102,25 @@ export default function VerticalLinearStepper() {
 			navigate("/customers/receiveYourMoney");
 		} else if (!res?.data?.email) {
 			tabPosition = 0;
-		} else if (!res?.data?.phone_verification && tabPosition === "" && skip?.phone !== true) {
+		} else if (!res?.data?.phone_verification && !tabPosition && !skip?.phone) {
 			tabPosition = 1;
-		} else if (!res?.data?.financial_information  && tabPosition === "") {
+		} else if (!res?.data?.financial_information && !tabPosition) {
 			tabPosition = 2;
-		} else if (!res?.data?.id_document  && tabPosition === "") {
+		} else if (!res?.data?.id_document && !tabPosition) {
 			tabPosition = 3;
-		} else if (!res?.data?.id_photo  && tabPosition === "") {
+		} else if (!res?.data?.id_photo && !tabPosition) {
 			tabPosition = 3;
-		} else if (!res?.data?.id_questions && tabPosition === "") {
+		} else if (!res?.data?.id_questions && !tabPosition) {
 			tabPosition = 4;
-		} else if (!res?.data?.bank_account_information && tabPosition === "") {
+		} else if (!res?.data?.bank_account_information && !tabPosition) {
 			tabPosition = 5;
-		} else if (!res?.data?.bank_account_verification && tabPosition === "") {
+		} else if (!res?.data?.bank_account_verification && !tabPosition) {
 			tabPosition = 5;
-		} else if (!res?.data?.income_verification && tabPosition === "") {
+		} else if (!res?.data?.income_verification && !tabPosition) {
 			tabPosition = 6;
 		}
 		setActiveStep(tabPosition ?? 0);
+		setLoadingFlag(false);
 	};
 
 	useEffect(() => {
@@ -135,27 +136,7 @@ export default function VerticalLinearStepper() {
 	};
 
 	const handleReset = () => {
-		if (activeStep === 0) {
-			setActiveStep(0);
-		}
-		if (activeStep === 1) {
-			setActiveStep(1);
-		}
-		if (activeStep === 2) {
-			setActiveStep(2);
-		}
-		if (activeStep === 3) {
-			setActiveStep(3);
-		}
-		if (activeStep === 4) {
-			setActiveStep(4);
-		}
-		if (activeStep === 5) {
-			setActiveStep(5);
-		}
-		if (activeStep === 6) {
-			setActiveStep(6);
-		}
+		if (activeStep >= 0 && activeStep < 7) setActiveStep(activeStep);
 	};
 
 	//To load the component based on the step selected

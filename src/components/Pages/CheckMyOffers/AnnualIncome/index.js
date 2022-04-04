@@ -10,9 +10,10 @@ import globalMessages from "../../../../assets/data/globalMessages.json";
 import AnnualIncomeLogo from "../../../../assets/icon/I-Annual-Income.png";
 import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
-import { ButtonPrimary, TextField } from "../../../FormsUI";
+import { ButtonPrimary, TextField, Popup } from "../../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./AnnualIncome.css";
+import Income from "./Income";
 
 const useStyles = makeStyles((Theme) => ({
 	boxGrid: {
@@ -33,6 +34,12 @@ const useStyles = makeStyles((Theme) => ({
 		fontWeight: "400 !important",
 		lineHeight: "110% !important"
 	},
+	linkDesign: {
+		textDecoration: "underline !important",
+		color: "#0F4EB3 !important",
+		display: "block !important",
+		cursor: "pointer",
+	},
 })
 );
 //Initializing functional component Active duty
@@ -40,6 +47,7 @@ function NewUser() {
 	const { data } = useContext(CheckMyOffers);
 	const [ errorAnnual, setErrorAnnual ] = useState("");
 	const [ errorPersonal, setErrorPersonal ] = useState("");
+	const [ moreInformation, setMoreInformation ] = useState(false);
 	const classes = preLoginStyle();
 	const innerClasses = useStyles();
 
@@ -48,7 +56,7 @@ function NewUser() {
 
 	//Redirect to select offer is the page hit direclty
 	useEffect(() => {
-		if (data.completedPage < data.page.employmentStatus || data.formStatus === "completed") {
+		if (data?.completedPage < data?.page?.employmentStatus || data?.formStatus?.toLowerCase() === "completed") {
 			navigate("/select-amount");
 		}
 		return null;
@@ -94,7 +102,7 @@ function NewUser() {
 		onSubmit: (values) => {
 			const modPersonalIncome = parseInt(values.personalIncome.replace(/\$/g, "").replace(/,/g, ""));
 			const modHouseholdIncome = parseInt(values.householdIncome.replace(/\$/g, "").replace(/,/g, ""));
-			if (errorPersonal === "" && errorAnnual === "") {
+			if (!errorPersonal && !errorAnnual) {
 				if (validate(modPersonalIncome, modHouseholdIncome)) {
 					data.annualIncome = modPersonalIncome ? modPersonalIncome : "0";
 					data.householdAnnualIncome = modHouseholdIncome ? modHouseholdIncome : "0";
@@ -106,26 +114,25 @@ function NewUser() {
 	});
 
 	//Restrict alphabets
-
 	const onHandleChangePersonal = (event) => {
 		const pattern = /^[0-9.,$\b]+$/;
-		let annualPersonalIncome = event.target.value;
-		if (annualPersonalIncome === "" || pattern.test(annualPersonalIncome)) {
+		let annualPersonalIncome = event.target.value.trim();
+		if (!annualPersonalIncome || pattern.test(annualPersonalIncome)) {
 			setErrorPersonal("");
 			formik.handleChange(event);
 		}
 	};
 	const onHandleChange = (event) => {
 		const pattern = /^[0-9.,$\b]+$/;
-		let annualHouseholdIncome = event.target.value;
-		if (annualHouseholdIncome === "" || pattern.test(annualHouseholdIncome)) {
+		let annualHouseholdIncome = event.target.value.trim();
+		if (!annualHouseholdIncome || pattern.test(annualHouseholdIncome)) {
 			setErrorAnnual("");
 			formik.handleChange(event);
 		}
 	};
 
 	const handleHouseHoldIncomeValue = (event) => {
-		const num = event.target.value
+		const num = event.target.value.trim()
 			.replace(/\$/g, "")
 			.replace(/,/g, "")
 			.substr(0, 7);
@@ -136,14 +143,14 @@ function NewUser() {
 		const modPersonalIncome = parseInt(formik.values.personalIncome.replace(/\$/g, "").replace(/,/g, ""));
 		const modHouseholdIncome = parseInt(formik.values.householdIncome.replace(/\$/g, "").replace(/,/g, ""));
 		if (isNaN(modHouseholdIncome)) {
-			setErrorAnnual(globalMessages.Annual_Household_Income_Required);
+			setErrorAnnual(globalMessages?.Annual_Household_Income_Required);
 		} else {
-			const numNxt = event.target.value
+			const numNxt = event.target.value.trim()
 				.replace(/\$/g, "")
 				.replace(/,/g, "")
 				.substr(0, 7);
 			if (numNxt.length < 4) {
-				setErrorAnnual(globalMessages.Annual_Household_Income_4_digits);
+				setErrorAnnual(globalMessages?.Annual_Household_Income_4_digits);
 				return false;
 			}
 			const perval = document
@@ -161,7 +168,7 @@ function NewUser() {
 					setErrorPersonal("");
 					return true;
 				} else {
-					setErrorAnnual(globalMessages.Annual_Income_Greater_Equal);
+					setErrorAnnual(globalMessages?.Annual_Income_Greater_Equal);
 					return false;
 				}
 			}
@@ -169,11 +176,11 @@ function NewUser() {
 	};
 
 	const handlePeronalIncomeValue = (event) => {
-		const n = event.target.value
+		const personalIncomeValue = event.target.value.trim()
 			.replace(/\$/g, "")
 			.replace(/,/g, "")
 			.substr(0, 7);
-		const formated = parseFloat(n);
+		const formated = parseFloat(personalIncomeValue);
 		const currency = "$";
 		const forCur =
 			currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
@@ -185,14 +192,14 @@ function NewUser() {
 			formik.values.householdIncome.replace(/\$/g, "").replace(/,/g, "")
 		);
 		if (isNaN(modPersonalIncome)) {
-			setErrorPersonal(globalMessages.Annual_Personal_Income_Required);
+			setErrorPersonal(globalMessages?.Annual_Personal_Income_Required);
 		} else {
-			const num = event.target.value
+			const num = event.target.value.trim()
 				.replace(/\$/g, "")
 				.replace(/,/g, "")
 				.substr(0, 7);
 			if (num.length < 4) {
-				setErrorPersonal(globalMessages.Annual_Personal_Income_4_digits);
+				setErrorPersonal(globalMessages?.Annual_Personal_Income_4_digits);
 				return false;
 			}
 
@@ -202,12 +209,21 @@ function NewUser() {
 					setErrorPersonal("");
 					return true;
 				} else {
-					setErrorAnnual(globalMessages.Annual_Income_Greater_Equal);
+					setErrorAnnual(globalMessages?.Annual_Income_Greater_Equal);
 					return false;
 				}
 			}
 		}
 	};
+
+	//To Get Pop Up regarding Income Related Information
+	const handleOnClickMoreInformation = () => {
+		setMoreInformation(true);
+	};
+
+	const handleOnClickMoreInformationClose = () => {
+		setMoreInformation(false);
+	}
 
 	// To change text to currency format and check for validations
 	const currencyFormat = (event) => {
@@ -329,7 +345,7 @@ function NewUser() {
 												bank statements, or other records. Alimony, child
 												support, or separate maintenance income need not be
 												revealed if you do not wish to have it considered as a
-												basis for repaying this loan.
+												basis for repaying this loan. <span className={ innerClasses.linkDesign } onClick={ () => { handleOnClickMoreInformation(); } }>More Information</span>
 											</p>
 											<TextField
 												name="householdIncome"
@@ -374,6 +390,9 @@ function NewUser() {
 					</Grid>
 				</Box>
 			</div>
+			<Popup popupFlag={moreInformation} closePopup={handleOnClickMoreInformationClose} title='What Is Considered "Income"?'>
+					<Income/>
+			</Popup>
 		</div>
 	);
 }

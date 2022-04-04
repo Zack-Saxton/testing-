@@ -41,6 +41,10 @@ const useStyles = makeStyles((Theme) =>
 			color: Theme.palette.text.secondary,
 			boxSizing: "border-box",
 		},
+		gridPadding:  { 
+			paddingTop: "7px", 
+			paddingBottom: "15px" 
+		},
 		gridItem: {
 			boxSizing: "border-box",
 			padding: Theme.spacing(1),
@@ -58,10 +62,6 @@ const useStyles = makeStyles((Theme) =>
 		mainGridPadding: {
 			padding: "4% 0%"
 		},
-		gridPadding: {
-			paddingTop: "7px",
-			paddingBottom: "15px"
-		},
 		gridMargin: {
 			margin: "15px 0px 19px 0 !important"
 		}
@@ -75,7 +75,7 @@ function LoanPurpose(props) {
 	const preLoginStyles = preLoginStyle();
 	useEffect(() => {
 		//redirect to select offers if directly called
-		if (data.completedPage < data.page.selectAmount || data.formStatus === "completed") {
+		if (data?.completedPage < data?.page?.selectAmount || data?.formStatus?.toLowerCase() === "completed") {
 			navigate("/select-amount");
 		}
 		return null;
@@ -84,7 +84,7 @@ function LoanPurpose(props) {
 	//handle the user data nd store it into context and procced next step
 	const handleRoute = () => {
 		data.loanPurpose = purpose;
-		data.completedPage = data.completedPage > data.page.loanPurpose ? data.completedPage : data.page.loanPurpose;
+		data.completedPage = data?.completedPage > data?.page?.loanPurpose ? data?.completedPage : data?.page?.loanPurpose;
 		navigate("/citizenship-status");
 	};
 
@@ -93,7 +93,7 @@ function LoanPurpose(props) {
 		data.loanPurpose = val;
 		setPurpose(val);
 		if (data.completedPage < data.page.loanPurpose) {
-			data.completedPage = data.completedPage > data.page.loanPurpose ? data.completedPage : data.page.loanPurpose;
+			data.completedPage = data?.completedPage > data?.page?.loanPurpose ? data?.completedPage : data?.page?.loanPurpose;
 			navigate("/citizenship-status");
 		}
 	};
@@ -530,7 +530,6 @@ function LoanPurpose(props) {
 										md={ 12 }
 										xs={ 12 }
 										className={ `${ classes.masonryItemFirst } ${ classes.gridPadding }` }
-										style={ { paddingTop: "7px", paddingBottom: "15px" } }
 									>
 										<Paper
 											data-testid="others"
@@ -566,7 +565,7 @@ function LoanPurpose(props) {
 										<ButtonPrimary
 											data-testid="contButton"
 											onClick={ handleRoute }
-											disabled={ purpose === "" }
+											disabled={ !purpose }
 											stylebutton='{"background": "#FFBC23","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
 										>
 											Continue

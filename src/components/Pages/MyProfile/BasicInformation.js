@@ -5,7 +5,7 @@ import * as imageConversion from 'image-conversion';
 import Cookies from "js-cookie";
 import Moment from "moment";
 import PropTypes from "prop-types";
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { useQuery } from 'react-query';
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -19,6 +19,7 @@ import { basicInformation, uploadNewProfileImage } from "../../Controllers/MyPro
 import ProfileImageController from "../../Controllers/ProfileImageController";
 import { ButtonPrimary, ButtonSecondary, EmailTextField, TextField } from "../../FormsUI";
 import ErrorLogger from '../../lib/ErrorLogger';
+import { useStylesMyProfile } from "./Style";
 import "./Style.css";
 
 const validationSchema = yup.object({
@@ -48,28 +49,29 @@ async function filetoImage(file) {
 }
 
 export default function BasicInformation(props) {
-
+  const classes = useStylesMyProfile();
   const [ loading, setLoading ] = useState(false);
-  const { dataProfile, setData } = useContext(ProfilePicture);
+  const { data, setData } = useContext(ProfilePicture);
   const navigate = useNavigate();
   const { refetch } = useQuery('loan-data', usrAccountDetails);
   const { refetch: refetchProfilePicture } = useQuery('my-profile-picture', ProfileImageController);
 
+  let refSelectImage = useRef();
   let basicData = props?.basicInformationData?.identification;
   let basicInfo = props?.basicInformationData?.latest_contact;
   let profileImageData = props?.getProfileImage ?? profileImg;
   let hasActiveLoan = (/true/i).test(Cookies.get("hasActiveLoan"));
   let hasApplicationStatus = Cookies.get("hasApplicationStatus");
-  var appStatus = [ "rejected", "referred", "expired" ];
+  let appStatus = [ "rejected", "referred", "expired" ];
   let checkAppStatus = appStatus.includes(hasApplicationStatus);
   let disableField = (checkAppStatus || hasActiveLoan) ? true : false;
   const [ selectedFile, setSelectedFile ] = useState(null);
   const [ docType ] = useState("");
-  const [ uploadedImage, setuploadedImage ] = useState(null);
+  const [ uploadedImage, setUploadedImage ] = useState(null);
 
   const handleInputChange = () => {
-    document.getElementById("selectImage").click();
-    setSelectedFile(document.getElementById("selectImage"));
+    refSelectImage.current.click();
+    setSelectedFile(refSelectImage.current);
   };
 
   const onClickCancelChange = () => {
@@ -140,9 +142,9 @@ export default function BasicInformation(props) {
       };
 
       const uploadBasicInfoImageChange = async () => {
-        if (selectedFile !== null) {
-          var filePath = selectedFile.value;
-          var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+        if (selectedFile) {
+          let filePath = selectedFile.value;
+          let allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
           if (!allowedExtensions.exec(filePath)) {
             toast.error(globalMessages.ImageExtentions);
             setLoading(false);
@@ -152,7 +154,7 @@ export default function BasicInformation(props) {
             let reader = new FileReader();
             if (selectedFile.files && selectedFile.files[ 0 ]) {
               reader.onload = async () => {
-                const compress_file = await imageConversion.compressAccurately(selectedFile.files[ 0 ], {
+                const compressFile = await imageConversion.compressAccurately(selectedFile.files[ 0 ], {
                   size: 80,
                   accuracy: '',
                   type: "image/jpeg",
@@ -161,41 +163,41 @@ export default function BasicInformation(props) {
                   scale: 0.5,
                   orientation: 2
                 });
-                const compress_image = await filetoImage(compress_file);
-                const buffer2 = Buffer.from(compress_image, "base64");
+                const compressImage = await filetoImage(compressFile);
+                const buffer2 = Buffer.from(compressImage, "base64");
                 let encodedFile = Buffer.from(buffer2).toString("base64");
                 let imageData = encodedFile
                   .toString()
                   .replace(/^dataimage\/[a-z]+base64/, "");
                 let fileName = selectedFile.files[ 0 ].name;
                 fileName = fileName.substr(0, fileName.lastIndexOf(".")) + ".jpeg";
-                let fileType = compress_file.type;
+                let fileType = compressFile.type;
                 let documentType = docType;
                 let email = basicInfo?.email === values.email ? basicInfo?.email : values.email;
 
                 let uploadData = await uploadNewProfileImage(imageData, fileName, fileType, documentType, email);
                 if (uploadData.status === 200) {
                   setData({
-                    ...dataProfile, "profile_picture_url": uploadData?.data?.profile_picture_url ?? ""
+                    ...data, "profilePictureURL": uploadData?.data?.profile_picture_url ?? ""
                   });
 
-                  Cookies.set("profile_picture_url", uploadData?.data?.profile_picture_url ? uploadData?.data?.profile_picture_url : "");
+                  Cookies.set("profilePictureURL", uploadData?.data?.profile_picture_url ?? "");
                   if (!toast.isActive("closeToast")) {
                     toast.success(
                       globalMessages.UpdatedSuccessfully,
                       {
                         toastId: "closeToast",
                         onClose: () => {
-                          if ((formik.initialValues.email !== values.email && selectedFile !== null) || (formik.initialValues.phone !== values.phone && formik.initialValues.email !== values.email && selectedFile !== null)) {
-                            setuploadedImage(uploadData?.data?.profile_picture_url);
+                          if ((formik.initialValues.email !== values.email && selectedFile) || (formik.initialValues.phone !== values.phone && formik.initialValues.email !== values.email && selectedFile)) {
+                            setUploadedImage(uploadData?.data?.profile_picture_url);
                             refetchProfilePicture();
                             refetch();
                             setLoading(false);
                             onClickCancelChange();
                             logoutUser();
                           }
-                          else if ((formik.initialValues.phone !== values.phone && selectedFile !== null)) {
-                            setuploadedImage(uploadData?.data?.profile_picture_url);
+                          else if ((formik.initialValues.phone !== values.phone && selectedFile)) {
+                            setUploadedImage(uploadData?.data?.profile_picture_url);
                             refetchProfilePicture();
                             refetch();
                             setLoading(false);
@@ -203,7 +205,7 @@ export default function BasicInformation(props) {
                           }
                           else {
                             setLoading(false);
-                            setuploadedImage(uploadData?.data?.profile_picture_url);
+                            setUploadedImage(uploadData?.data?.profile_picture_url);
                             refetchProfilePicture();
                             onClickCancelChange();
                           }
@@ -231,7 +233,7 @@ export default function BasicInformation(props) {
             if (selectedFile.files[ 0 ].size > 819200) {
               toast.error(globalMessages.FileUploadMax);
               setLoading(false);
-            } else if (docType == null) {
+            } else if (!docType) {
               toast.error(globalMessages.FileUploadTypeImage);
               setLoading(false);
             }
@@ -239,7 +241,7 @@ export default function BasicInformation(props) {
         }
       };
 
-      if (formik.initialValues.phone === phone && formik.initialValues.email === values.email && selectedFile === null) {
+      if (formik.initialValues.phone === phone && formik.initialValues.email === values.email && !selectedFile) {
         if (!toast.isActive("closeToast")) {
           toast.error(globalMessages.NoChange, {
             toastId: "closeToast",
@@ -249,26 +251,21 @@ export default function BasicInformation(props) {
       }
       else {
         let res = await basicInformation(body);
-
         if ((formik.initialValues.email !== values.email && selectedFile !== null) || (formik.initialValues.phone !== values.phone && formik.initialValues.email !== values.email && selectedFile !== null) || (formik.initialValues.phone !== values.phone && selectedFile !== null)) {
           if (res?.data?.notes.length !== 0 && selectedFile !== null) {
             uploadBasicInfoImageChange();
           }
-        }
-        else if (selectedFile !== null) {
+        } else if (selectedFile !== null) {
           uploadBasicInfoImageChange();
-        }
-        else if (formik.initialValues.phone !== values.phone && formik.initialValues.email === values.email) {
+        } else if (formik.initialValues.phone !== values.phone && formik.initialValues.email === values.email) {
           if (res?.data?.notes.length !== 0 && res?.data?.emailUpdate) {
             uploadBasicInfoChange();
           }
-        }
-        else if (formik.initialValues.email !== values.email || (formik.initialValues.phone !== values.phone && formik.initialValues.email !== values.email)) {
+        } else if (formik.initialValues.email !== values.email || (formik.initialValues.phone !== values.phone && formik.initialValues.email !== values.email)) {
           if (res?.data?.notes.length !== 0 && res?.data?.emailUpdate) {
             uploadBasicInfoChangeLogOut();
           }
-        }
-        else {
+        } else {
           if (!toast.isActive("closeToast")) {
             toast.error(globalMessages.TryAgain, {
               toastId: "closeToast",
@@ -292,13 +289,13 @@ export default function BasicInformation(props) {
         opacity: loading ? 0.55 : 1,
         pointerEvents: loading ? "none" : "initial"
       } }>
-        { props?.basicInformationData === null ? (
+        { !props?.basicInformationData ? (
           <Grid align="center"><CircularProgress /></Grid>
         ) : <>
           <Grid
             item
             xs={ 12 }
-            style={ { width: "100%", gap: 15, marginBottom: 18 } }
+            className={ classes.basicInfoGrid }
             container
             direction="row"
           >
@@ -314,7 +311,7 @@ export default function BasicInformation(props) {
           <Grid
             item
             xs={ 12 }
-            style={ { width: "100%", gap: 15, marginBottom: 18 } }
+            className={ classes.basicInfoGrid }
             container
             direction="row"
           >
@@ -330,7 +327,7 @@ export default function BasicInformation(props) {
           <Grid
             item
             xs={ 12 }
-            style={ { width: "100%", gap: 15, marginBottom: 18 } }
+            className={ classes.basicInfoGrid }
             container
             direction="row"
           >
@@ -347,7 +344,7 @@ export default function BasicInformation(props) {
           <Grid
             item
             xs={ 12 }
-            style={ { width: "100%", gap: 15, marginBottom: 18 } }
+            className={ classes.basicInfoGrid }
             container
             direction="row"
           >
@@ -369,7 +366,7 @@ export default function BasicInformation(props) {
           <Grid
             item
             xs={ 12 }
-            style={ { width: "100%", gap: 15, marginBottom: 18 } }
+            className={ classes.basicInfoGrid }
             container
             direction="row"
             id={ disableField ? "basicPhoneNumber" : "profilePhoneNumberWrap" }
@@ -421,22 +418,22 @@ export default function BasicInformation(props) {
                 hidden
                 id="selectImage"
                 type="file"
+                ref={ refSelectImage }
               />
               <br></br>
-              <small style={ { fontSize: "12px", color: "#595959" } }>
+              <small className={ classes.fileAllowedText }>
                 Allowed jpg, gif or png. Max size of 800kb
               </small>
             </Grid>
           </Grid>
           <Grid
             container
-            style={ { justifyContent: "left" } }
             alignItems="center"
             item
             lg={ 8 }
             md={ 8 }
             xs={ 12 }
-            className="textBlock alignButton"
+            className={ `${ classes.buttonGrid } textBlock alignButton` } 
           >
             <ButtonSecondary
               stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
