@@ -250,6 +250,7 @@ export default function Login(props) {
                         value={ formik.values?.email }
                         onChange={ passwordOnChange }
                         onBlur={ formik.handleBlur }
+                        disablePaste= { true }
                         error={
                           formik.touched?.email && Boolean(formik.errors?.email)
                         }
