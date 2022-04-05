@@ -43,22 +43,27 @@ const DatePickerWrapper = ({ name, format, label, refId,
 					label={ label }
 					fullWidth={ true }
 					format={ format ?? 'MM/dd/yyyy' }
-					value={ selectedDate }
+					
 					onChange={ handleDateChange }
 					InputAdornmentProps={ { position: 'start' } }
 					minDate={ minDate }
 					maxDate={ new Date(maxdate) }
-					placeholder={ placeholder }
 
 					renderInput={(props) => (
-						<TextField {...props} variant="standard" helperText="valid mask" />
-					  )}
+					<TextField 
+						{...props} 
+						{ ...otherProps }
+						value={ selectedDate }
+						placeholder={ placeholder }
+						inputProps={ { "data-test-id": "datePicker", ref: refId } } 
+						variant="standard" />
+					  )} 
 					// { ...otherProps }
 					// inputProps={ { "data-test-id": "datePicker" } }
 
 					KeyboardButtonProps={ {	"aria-label": "change date"} }
-					{ ...otherProps }
-					inputProps={ { "data-test-id": "datePicker", ref: refId } }
+					// { ...otherProps }
+					// inputProps={ { "data-test-id": "datePicker", ref: refId } }
 				/>
 			</Grid>
 		</LocalizationProvider>

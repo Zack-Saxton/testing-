@@ -1,4 +1,4 @@
-import Typography from "@material-ui/core/Typography";
+import Typography from "@mui/material/Typography";
 import React from "react";
 import { NavLink } from "react-router-dom";
 import enabled from "../../../assets/images/Enabled.png";
