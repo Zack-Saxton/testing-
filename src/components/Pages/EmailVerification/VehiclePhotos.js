@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
-import { ButtonPrimary } from "../../../components/FormsUI";
 import { useStylesEmailVerification } from "./Style";
+import UploadDocument from "./UploadDocument";
 
 function VehiclePhotos() {
   const classes = useStylesEmailVerification();
@@ -12,10 +12,8 @@ function VehiclePhotos() {
         Officer. Please take clear, wide angle photos from 6 feet away for
         exterior pictures.
       </span>
-      <Grid className={classes.nextButton}>
-        <ButtonPrimary stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'>
-          Take Vehicle Photo
-        </ButtonPrimary>
+      <Grid  item sm={12} md={6}  className={classes.nextButton}>
+        <UploadDocument title="Upload Vehicle Photo" documentType="vehiclePhoto" />
       </Grid>
     </Grid>
   );

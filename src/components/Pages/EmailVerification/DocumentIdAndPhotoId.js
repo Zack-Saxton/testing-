@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { Grid } from "@material-ui/core";
 import {
   ButtonPrimary,
@@ -7,31 +8,19 @@ import {
 } from "../../../components/FormsUI";
 import Selfielicense from "../../../assets/gallery/selfielicense.png";
 import { useStylesEmailVerification } from "./Style";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import Typography from "@material-ui/core/Typography";
+import UploadDocument from "./UploadDocument";
 
-function DocumentIdAndPhotoId() {
-  const [docType, setDocType] = useState("");
-  const [selectDocument, setSelectDocument] = useState(false);
 
-  const isMenuOpen = Boolean(selectDocument);
 
-  const handleMenuOpen = (event) => {
-    setSelectDocument(event.currentTarget);
-  };
-
-  const handleMenuClose = () => {
-    setSelectDocument(null);
-  };
-
+function DocumentIdAndPhotoId(props) {
+  const [docType, setDocType] = useState("");   
+  const [ loading, setLoading ] = useState(false);  
   const classes = useStylesEmailVerification();
 
   const handleDocType = (event) => {
-    setDocType(event.target.value.trim());
-    changeEvent.current.click();
-    event.target.value = "";
-  };
+    setDocType(event.target.value.trim());    
+    event.target.value = '';
+  };  
   return (
     <Grid>
       <span>
@@ -60,40 +49,8 @@ function DocumentIdAndPhotoId() {
             value={docType}
           />
         </Grid>
-        <ButtonPrimary
-          onClick={handleMenuOpen}
-          stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
-        >
-          Upload a Document
-        </ButtonPrimary>
-
-        <Menu
-          anchorEl={selectDocument}
-          anchorOrigin={{ vertical: "top", horizontal: "right" }}
-          // id={ mobileMenuId }
-          keepMounted
-          transformOrigin={{ vertical: "top", horizontal: "right" }}
-          open={isMenuOpen}
-          onClose={handleMenuClose}
-        >
-          <MenuItem>
-            <Typography className={classes.dropdownMenu}>
-              Select from Existing Files
-              <input
-                id="selectFile"
-                style={{ display: "none" }}
-                type="file"
-              ></input>
-            </Typography>
-          </MenuItem>
-          <MenuItem>
-            <a to="/faq" className="nav_link ">
-              <Typography className={classes.dropdownMenu}>
-                Upload from Camera
-              </Typography>
-            </a>
-          </MenuItem>
-        </Menu>
+        <UploadDocument />
+                
       </Grid>
 
       <Grid className={classes.uploadDocumentText}>
@@ -112,13 +69,11 @@ function DocumentIdAndPhotoId() {
           <span>Sample Photograph</span>
         </Grid>
       </Grid>
-      <Grid>
-        <ButtonPrimary
-          onClick={handleMenuOpen}
-          stylebutton='{"background": "#FFBC23","padding":"0px 30px", "color": "black"}'
-        >
-          Upload your Picture
-        </ButtonPrimary>
+      <Grid item sm={12} md={6} >
+        <UploadDocument 
+          title="Upload your Picture" 
+          documentType="idDocumentPhoto" 
+          docType={ docType }/>
 
         <Grid className={classes.nextButton} container>
           <ButtonSecondary
@@ -128,7 +83,7 @@ function DocumentIdAndPhotoId() {
             Reset
           </ButtonSecondary>
 
-          <ButtonPrimary stylebutton='{"color": ""}'>Next</ButtonPrimary>
+          <ButtonPrimary stylebutton='{"color": ""}' onClick={ props.next }>Next</ButtonPrimary>
         </Grid>
       </Grid>
     </Grid>
@@ -136,3 +91,9 @@ function DocumentIdAndPhotoId() {
 }
 
 export default DocumentIdAndPhotoId;
+
+DocumentIdAndPhotoId.propTypes = {
+  applicationNumber: PropTypes.string,
+  customerEmail: PropTypes.string,
+	next: PropTypes.func,
+};

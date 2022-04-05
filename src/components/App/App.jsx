@@ -79,6 +79,14 @@ const loadGeneralUserComponent = (componentName) => {
     );
 };
 
+const loadGeneralUserWithoutHeader = (componentName) => {
+    return (
+        <GeneralUser skipHeaderMenu={ true }>
+            { componentName }
+        </GeneralUser>
+    );
+};
+
 const LoadPostComponent = (componentName) => {
     return (
         
@@ -120,7 +128,6 @@ function App() {
                                 <Route path='/login' element={ loadGeneralUserComponent(<LoginPage />) } />
                                 <Route path='/register' element={ loadGeneralUserComponent(<RegisterPage />) } />
                                 <Route path='/faq' element={ loadGeneralUserComponent(<FaqBeforeLogin />) } />
-                                <Route path='/EmailVerification' element={ loadGeneralUserComponent(<EmailVerification />) } />
                                 <Route path='/privacyStatement' element={ loadGeneralUserComponent(<Disclosure URL="/privacy" />) } />
                                 <Route path='/communityGuidelines' element={ loadGeneralUserComponent(<Disclosure URL="/communityGuidelines" />) } />
                                 <Route path='/termsofuse' element={ loadGeneralUserComponent(<Disclosure URL="/termsOfUse" />) } />
@@ -188,6 +195,10 @@ function App() {
                                         <Route path='*' element={ loadGeneralUserComponent(<PartnerSignUP />) } />
                                     </Route>
                                     <Route path='confirm-signup' element={ loadGeneralUserComponent(<ConfirmationInfo />) } />
+                                    <Route path='*' element={ loadGeneralUserComponent(<ErrorBeforeLogin />) } />
+                                </Route>
+                                <Route path='EmailVerification' >
+                                    <Route path='verifyemail' element={ loadGeneralUserWithoutHeader(<EmailVerification />) } />
                                     <Route path='*' element={ loadGeneralUserComponent(<ErrorBeforeLogin />) } />
                                 </Route>
                                 </Routes>

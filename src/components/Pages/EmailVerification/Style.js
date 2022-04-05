@@ -49,6 +49,12 @@ const useStylesEmailVerification = makeStyles((theme) => ({
   dropdownMenu: {
     color: "#0F4EB3",
   },
+  showCheckbox: {
+    display: "block",
+  },
+  hideCheckbox: {
+      display: "none"
+  }
 }));
 
 export { useStylesEmailVerification };
