@@ -9,8 +9,22 @@ import PropTypes from "prop-types";
 import React from "react";
 import { ButtonPrimary } from "../../FormsUI";
 import './Popup.css';
+import { makeStyles } from "@material-ui/core/styles";
+
+const usePopUp = makeStyles((theme) => ({
+    paragraph: {
+        fontSize: '1.56rem', 
+        fontWeight: 'bolder'
+    },
+    closeIconStyle: {
+        float: "right", 
+        cursor: "pointer"
+    }
+}))
 
 const Popup = ({ children, popupFlag, openPopup, title, closePopup }) => {
+
+    const classes = usePopUp();
 
     return (
         <Dialog
@@ -22,13 +36,13 @@ const Popup = ({ children, popupFlag, openPopup, title, closePopup }) => {
             <DialogTitle id="customized-dialog-title" onClose={ closePopup }>
                 <Grid container>
                     <Grid item sm={ 10 } >
-                        <Typography style={{fontSize: '1.56rem', fontWeight: 'bolder'}} >
+                        <Typography className={ classes.paragraph } >
                             { title ?? "" }
                         </Typography>
                     </Grid>
                     <Grid item sm={ 2 } >
                         <CloseIcon
-                            style={ { float: "right", cursor: "pointer" } }
+                            className= { classes.closeIconStyle }
                             onClick={ closePopup }
                         />
                     </Grid>
