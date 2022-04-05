@@ -30,6 +30,7 @@ const PhoneNumberWrapper = ({ name, onChange, value, label, error, disabled, hel
         <TextField label={ label }
           name={ name }
           value={ unmaskedval }
+          variant="standard"
           error={ error }
           onChange={ handleChange }
           placeholder="Enter Phone Number"

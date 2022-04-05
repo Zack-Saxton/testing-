@@ -460,7 +460,7 @@ export default function Register() {
                     </Grid>
 
                     <Grid
-                      className="fullWidth"
+                      className="passwordGrid"
                       item
                       xs={ 12 }
                       container
@@ -493,7 +493,7 @@ export default function Register() {
                       </p>
                     </Grid>
                     <Grid
-                      className="fullWidth"
+                      className="confirmPasswordGrid"
                       item
                       xs={ 12 }
                       container
