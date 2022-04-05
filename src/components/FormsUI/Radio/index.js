@@ -12,6 +12,17 @@ import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useRadio = makeStyles((theme) => ({
+  formLabelStyle: {
+    fontFamily: "system-ui", 
+    fontWeight: "normal",
+  },
+  radioStyle: {
+    color: "#0F4EB3",
+  }
+}))
 
 const RadioButtonWrapper = ({
   name,
@@ -28,6 +39,7 @@ const RadioButtonWrapper = ({
 }) => {
   //To return all formik state
   const [ radioValue, setRadioValue ] = useState("");
+  const classes = useRadio();
 
   function handleRadioClick(event) {
     if (event.target.value === radioValue) {
@@ -52,7 +64,7 @@ const RadioButtonWrapper = ({
   //View Part
   return (
     <FormControl >
-      <FormLabel disabled={ disabled ?? false } style={ { fontFamily: "system-ui", fontWeight: "normal", } }>{ labelforform }</FormLabel>
+      <FormLabel disabled={ disabled ?? false } className={ classes.formLabelStyle }>{ labelforform }</FormLabel>
       <RadioGroup value={ radioValue } { ...configRadioButton }>
         { radioLabelMF.map((radio) => (
           <FormControlLabel
@@ -61,7 +73,7 @@ const RadioButtonWrapper = ({
             key={ radio.value }
             disabled={ disabled ?? false }
             label={ radio.label }
-            control={ <Radio style={ { color: "#0F4EB3" } } checked={ checked === radio.value ? true : false } onClick={ handleRadioClick } /> }
+            control={ <Radio className={ classes.radioStyle } checked={ checked === radio.value ? true : false } onClick={ handleRadioClick } /> }
           />
         )) }
       </RadioGroup>

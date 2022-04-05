@@ -11,6 +11,7 @@ import { createTheme, ThemeProvider as MuiThemeProvider } from "@material-ui/cor
 import TextField from "@material-ui/core/TextField";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
+import './PhoneNumber.css'
 
 const theme = createTheme();
 const PhoneNumberWrapper = ({ name, onChange, value, label, error, disabled, helperText, ...otherProps }) => {
@@ -28,7 +29,7 @@ const PhoneNumberWrapper = ({ name, onChange, value, label, error, disabled, hel
   };
 
   return (
-    <FormControl style={ { width: "100%" } }>
+    <FormControl className="formStyle">
       <MuiThemeProvider theme={ theme }>
         <TextField label={ label }
           name={ name }
