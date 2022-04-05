@@ -53,16 +53,16 @@ function EligibleForOffers(props) {
 							<Grid
 								item
 								xs={ 11 }
-								sm={ 10 }
-								md={ 7 }
-								lg={ 7 }
-								xl={ 7 }
+								sm={ 5 }
+								md={ 4 }
+								lg={ 4 }
+								xl={ 4 }
 								className="cardWrapperImg row"
 								container
 								justifyContent="center"
 								alignItems="center"
 							>
-								<img src={ EligibleForOffersLogo } alt="EligibleForOffers" />
+								<img src={ EligibleForOffersLogo } className="imgFullWidth" alt="EligibleForOffers" />
 							</Grid>
 						</Grid>
 						<br />
@@ -80,7 +80,7 @@ function EligibleForOffers(props) {
 								md={ 6 }
 								lg={ 6 }
 								xl={ 6 }
-								className=" row"
+								className="alignCenter row"
 								container
 								justifyContent="center"
 								alignItems="center"
