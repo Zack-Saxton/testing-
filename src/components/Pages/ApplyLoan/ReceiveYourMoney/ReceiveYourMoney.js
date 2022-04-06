@@ -56,7 +56,7 @@ export default function ReceiveYourMoney() {
 						Apply for a Loan
 					</Typography>
 				</Grid>
-				<Grid item xs={ 12 }>
+				<Grid className={classes.receiveMoneyGrid} item xs={ 12 }>
 					<TabSection value={ value } handleChange={ handleChange } classes={ classes } ay={ 3 } />
 					<TabPanel value={ value } index={ 3 } className={classes.tabPanelStyle}>
 						<Grid item xs={ 12 } className={classes.fullWidth} container direction="row">
