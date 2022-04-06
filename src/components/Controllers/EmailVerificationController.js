@@ -81,8 +81,28 @@ export async function saveConsentStatus(customerEmail, applicationNumber) {
   let uploadData = await APICall(url, param, data, method, addAccessToken);
   //API response
   uploadData.status === 200
-    ? toast.success(uploadData?.data?.message ?? globalMessages.Document_upload)
+    ? ""
     : toast.error(uploadData?.data?.message ?? globalMessages.ConsentStatusUpdateError);
 
   return uploadData.status === 200;
+}
+
+export async function saveAcquireClick(customerEmail, applicationNumber){
+  let url = "save_acquire_click";
+  let param = "";  
+  let acquireClickedat = new Date().toLocaleString("en-US", {
+    timeZone: 'America/New_York',
+    hour12: false
+  })
+  let data = {
+    customer_email: customerEmail,
+    applicationNumber: applicationNumber,
+    acquireClickedat
+  }
+  let method = "POST";
+  let addAccessToken = true;
+
+  //API call
+  let uploadData = await APICall(url, param, data, method, addAccessToken);
+
 }

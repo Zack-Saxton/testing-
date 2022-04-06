@@ -12,13 +12,17 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { useLocation } from "react-router-dom";
 import { useQuery } from 'react-query';
 import "./EmailVerification.css";
+import { toast } from "react-toastify";
 import DocumentIdAndPhotoId from "./DocumentIdAndPhotoId";
 import IncomeVerification from "./IncomeVerification";
 import BankAccountVerification from "./BankAccountVerification";
 import VehiclePhotos from "./VehiclePhotos";
-import { ButtonPrimary } from "../../../components/FormsUI";
+import { 
+  ButtonPrimary, 
+  Popup,
+  RenderContent } from "../../../components/FormsUI";
 import { useStylesEmailVerification } from "./Style";
-import { validateActivationToken, saveConsentStatus } from "../../Controllers/EmailVerificationController";
+import { validateActivationToken, saveConsentStatus, saveAcquireClick } from "../../Controllers/EmailVerificationController";
 
 function getSteps() {
   return [
@@ -44,7 +48,12 @@ export default function EmailVerification() {
   const [ loading, setLoading ] = useState(false);
   const [ consentLoading, setConsentLoading ] = useState(false);
   const [ verificationInfo, setVerificationInfo ] = useState(null);
-  const steps = getSteps();
+  const [ eSign, seteSign ] = useState(false);
+  const [ creditTerms, setCreditTerms ] = useState(false);
+  const [ cacTerms, setCacTerms ] = useState(false);
+  const [ websiteTerms, setWebsiteTerms ] = useState(false);
+  let steps = getSteps();  
+    
   const { isLoading, data: verificationData } = useQuery([ 'branch-mail-verification-data', activationToken, email, applicationNumber ], () => validateActivationToken(activationToken, email, applicationNumber));
   useEffect(() => {
     setVerificationInfo(verificationData);
@@ -54,11 +63,23 @@ export default function EmailVerification() {
       });
     if(currentApplication.length && currentApplication[0]?.consents){
       setAgreeTerms(true);
-    }
+    }    
     return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ verificationData ]);
-
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = "https://s.acquire.io/a-4db8e/init.js?full";
+    script.async = true;
+    document.body.appendChild(script);
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+  //debugger;
+  if(autoVerification !== 'on'){
+    steps.pop();
+  }
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
@@ -71,7 +92,7 @@ export default function EmailVerification() {
     setConsentLoading(true);
     let response = await saveConsentStatus(email, applicationNumber);
     if (response) {
-      setAgreeTerms(event.target.checked);
+      setAgreeTerms(true);
       setLoading(false);
     }
     setConsentLoading(false);
@@ -80,7 +101,39 @@ export default function EmailVerification() {
   const handleReset = () => {
     setActiveStep(0);
   };
-
+  const handleOnClickeSign = () => {
+    seteSign(true);
+  };
+  const handleOnClickeSignClose = () => {
+    seteSign(false);
+  };
+  const handleOnClickCreditTerms = () => {
+    setCreditTerms(true);
+  };
+  const handleOnClickCreditTermsClose = () => {
+    setCreditTerms(false);
+  };
+  const handleOnClickCacTerms = () => {
+    setCacTerms(true);
+  };
+  const handleOnClickCacTermsClose = () => {
+    setCacTerms(false);
+  };
+  const handleOnClickWebsiteTerms = () => {
+    setWebsiteTerms(true);
+  };
+  const handleOnClickWebsiteTermsClose = () => {
+    setWebsiteTerms(false);
+  };
+  const showCoBrowseCodeBox = async () => {        
+    window.location = "javascript:acquireIO.startCoBrowseCodeBox()";
+    let response = await saveAcquireClick(email, applicationNumber);
+    if (response) {
+      setAgreeTerms(true);
+      setLoading(false);
+    }
+    setConsentLoading(false);
+  }
   function getStepContent(step) {
     switch (step) {
       case 0:
@@ -127,7 +180,7 @@ export default function EmailVerification() {
         return "Unknown step";
     }
   }
-
+  
   return (    
     <Grid>
       { isLoading ? 
@@ -158,35 +211,18 @@ export default function EmailVerification() {
               acknowledge and sign our disclosures to proceed.
             </Typography>
             <Grid container>            
-              { agreeTerms ? 
+              { agreeTerms || verificationData?.data?.messageType === 'error' ? 
                   <Grid className="acknowledgeText">
                   <Typography>
                     Consent documents that were acknowledged  
                     <br />
-                    <a
-                      href="https://loans.marinerfinance.com/application/form"
-                      target="blank"
-                    >
-                      E-Signature Disclosure and Consent
-                    </a>
-                    <a
-                      href="https://loans.marinerfinance.com/application/form"
-                      target="blank"
-                    >
-                      Credit and Contact Authorization
-                    </a>
-                    <a
-                      href="https://loans.marinerfinance.com/application/form"
-                      target="blank"
-                    >
-                      Website Terms of Use
-                    </a>
-                    <a
-                      href="https://loans.marinerfinance.com/application/form"
-                      target="blank"
-                    >
-                      Website Privacy Statement
-                    </a>
+                    <a><span className={ classes.linkDesign } onClick={ () => { handleOnClickeSign(); } }>{ ' ' }E-Signature Disclosure and Consent</span></a>
+                    <a><span className={ classes.linkDesign } onClick={ () => { handleOnClickCreditTerms(); } }>{ ' ' }Credit and Contact Authorization</span></a>
+                    <a><span className={ classes.linkDesign } onClick={ () => { handleOnClickCacTerms(); } }>{ ' ' }Website Terms of Use</span></a>
+                    <a><span className={ classes.linkDesign } onClick={ () => { handleOnClickWebsiteTerms(); } }>{ ' ' }Website Privacy Statement</span></a>
+                  </Typography>
+                  <Typography>
+                    { verificationData?.data?.errorMessage }
                   </Typography>
                 </Grid> 
               : 
@@ -210,30 +246,11 @@ export default function EmailVerification() {
                       By clicking this box you acknowledge that you have received,
                       reviewed and agree to the following terms and conditions:
                       <br />
-                      <a
-                        href="https://loans.marinerfinance.com/application/form"
-                        target="blank"
-                      >
-                        E-Signature Disclosure and Consent
-                      </a>
-                      <a
-                        href="https://loans.marinerfinance.com/application/form"
-                        target="blank"
-                      >
-                        Credit and Contact Authorization
-                      </a>
-                      <a
-                        href="https://loans.marinerfinance.com/application/form"
-                        target="blank"
-                      >
-                        Website Terms of Use
-                      </a>
-                      <a
-                        href="https://loans.marinerfinance.com/application/form"
-                        target="blank"
-                      >
-                        Website Privacy Statement
-                      </a>
+                      <a><span className={ classes.linkDesign } onClick={ () => { handleOnClickeSign(); } }>{ ' ' }E-Signature Disclosure and Consent</span></a>
+                      <a><span className={ classes.linkDesign } onClick={ () => { handleOnClickCreditTerms(); } }>{ ' ' }Credit and Contact Authorization</span></a>
+                      <a><span className={ classes.linkDesign } onClick={ () => { handleOnClickCacTerms(); } }>{ ' ' }Website Terms of Use</span></a>
+                      <a><span className={ classes.linkDesign } onClick={ () => { handleOnClickWebsiteTerms(); } }>{ ' ' }Website Privacy Statement</span></a>
+                      
                     </Typography>
                   </Grid>
                 </>                
@@ -255,11 +272,13 @@ export default function EmailVerification() {
                 ))}
               </Stepper>
 
-              <Grid className={classes.secureLoanButton}>
+              <Grid className={`${classes.secureLoanButton} ${ collaborateOption === 'on' ? classes.showCheckbox : classes.hideCheckbox }`}>
                 <Typography className={classes.secureLoanText}>
                   Click the Button below to begin the secure loan closing process
                 </Typography>
-                <ButtonPrimary stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'>
+                <ButtonPrimary 
+                  onClick={ showCoBrowseCodeBox }
+                  stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'>
                   Secure Closing Portal
                 </ButtonPrimary>
               </Grid>
@@ -275,6 +294,22 @@ export default function EmailVerification() {
               </Paper>
             )}
           </Grid>
+          <Popup popupFlag={ eSign } title='E-Signature Disclosure and Consent' closePopup={ handleOnClickeSignClose }>
+            <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
+            <RenderContent disclosureLink="/eSign" />
+          </Popup>    
+          <Popup popupFlag={ creditTerms } title='Credit and Contact Authorization' closePopup={ handleOnClickCreditTermsClose }>
+            <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
+            <RenderContent disclosureLink="/credit" findContent="<h2>Credit and Contact Authorization</h2>" replaceContent=''/>
+          </Popup> 
+          <Popup popupFlag={ cacTerms } title='Website Terms of Use' closePopup={ handleOnClickCacTermsClose }>
+            <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography> 
+            <RenderContent disclosureLink="/cacTermsOfUse" findContent="<h2>Terms Of Use</h2>" replaceContent=''/>
+          </Popup> 
+          <Popup popupFlag={ websiteTerms } title='Website Privacy Statement' closePopup={ handleOnClickWebsiteTermsClose }>
+            <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
+            <RenderContent disclosureLink="/websiteAccessibility" findContent="<h2>Website Privacy Statement</h2>" replaceContent=''/>
+          </Popup>  
         </Grid>
       }      
     </Grid>

@@ -49,7 +49,12 @@ function DocumentIdAndPhotoId(props) {
             value={docType}
           />
         </Grid>
-        <UploadDocument />
+        <UploadDocument 
+          documentType="idDocumentPhoto" 
+          docType={ docType }
+          applicationNumber={ props.applicationNumber }
+          customerEmail={ props.customerEmail }
+        />
                 
       </Grid>
 
@@ -72,8 +77,9 @@ function DocumentIdAndPhotoId(props) {
       <Grid item sm={12} md={6} >
         <UploadDocument 
           title="Upload your Picture" 
-          documentType="idDocumentPhoto" 
-          docType={ docType }/>
+          applicationNumber={ props.applicationNumber }
+          customerEmail={ props.customerEmail }
+          />
 
         <Grid className={classes.nextButton} container>
           <ButtonSecondary

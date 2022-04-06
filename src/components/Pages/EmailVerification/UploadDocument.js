@@ -25,10 +25,15 @@ function UploadDocument(props) {
   const isMenuOpen = Boolean(selectDocument);
   const changeEvent = useRef("");
   const webcamRef = useRef(null);
-  const docType = props.docType ?? '';
+  const docType = props.docType ? props.docType : "";
+  const typeOfDocument = props.documentType ? props.documentType : "";
 
-  const handleMenuOpen = (event) => {
-    setSelectDocument(event.currentTarget);
+  const handleMenuOpen = (event) => {    
+    if(!checkFileTypeExist()){
+      toast.error("Select ID type");
+    }else{
+      setSelectDocument(event.currentTarget);
+    }
   };  
   const capture = React.useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
@@ -59,9 +64,12 @@ function UploadDocument(props) {
     }
 
   };
+  const checkFileTypeExist = () => {
+    return !(typeOfDocument === "idDocumentPhoto" && docType === '');
+  }
   const handleElseTwo = () => {
     let reader = new FileReader();
-    if (selectedFile.files && selectedFile.files[ 0 ]) {
+    if (selectedFile.files && selectedFile.files[ 0 ] && checkFileTypeExist()) {
       reader.onload = async () => {
         const buffer2 = Buffer.from(reader.result, "base64");
         let fileData = Buffer.from(buffer2).toJSON().data;
@@ -96,10 +104,12 @@ function UploadDocument(props) {
         //Passing data to API
       };
       reader.readAsDataURL(selectedFile.files[ 0 ]);
+    }else if(!checkFileTypeExist()){
+      toast.error("Select ID type");
     }
   };
-  const openFileWindow = () => {
-    changeEvent.current.click();
+  const openFileWindow = () => {   
+    changeEvent.current.click();     
   }
   const enableCameraOption = () => {
     setShowCamera(true);
@@ -108,7 +118,7 @@ function UploadDocument(props) {
   }
   //Selecting file for upload
   const handleInputChange = () => {
-    setSelectedFile(changeEvent.current);
+    setSelectedFile(changeEvent.current);  
     setShowCamera(false);
     setImgSrc(null);
     handleMenuClose();

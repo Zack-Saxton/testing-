@@ -72,6 +72,7 @@
     "recaptcha_validate": "/integration/recaptcha/verifyRecaptcha",
     "branch_mail_verification": "/verification/branchemail",
     "upload_email_verification_document": "/gps/send_email_attachment",
-    "save_consents": "/verification/save_LBP_consents"
+    "save_consents": "/verification/save_LBP_consents",
+    "save_acquire_click": "/psa/save_acquire_click_info"
   }
 }
