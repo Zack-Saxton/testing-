@@ -14,7 +14,17 @@ import { makeStyles } from "@material-ui/core/styles";
 const usePopUp = makeStyles((theme) => ({
     paragraph: {
         fontSize: '1.56rem', 
-        fontWeight: 'bolder'
+        fontWeight: 'bolder',
+        textAlign:"left !important",
+        "@media (max-width: 480px)": {
+            fontSize: '1.4rem',
+            textAlign:"left !important"
+          },
+    },
+    closeIconGrid: {
+          position: "absolute",
+            top:"15px",
+            right:"15px"
     },
     closeIconStyle: {
         float: "right", 
@@ -33,14 +43,14 @@ const Popup = ({ children, popupFlag, openPopup, title, closePopup }) => {
             open={ popupFlag }
             id="customeDialogBox"
         >
-            <DialogTitle id="customized-dialog-title" onClose={ closePopup }>
+            <DialogTitle className="dialogTitleWrap" id="customized-dialog-title" onClose={ closePopup }>
                 <Grid container>
                     <Grid item sm={ 10 } >
                         <Typography className={ classes.paragraph } >
                             { title ?? "" }
                         </Typography>
                     </Grid>
-                    <Grid item sm={ 2 } >
+                    <Grid className={classes.closeIconGrid}>
                         <CloseIcon
                             className= { classes.closeIconStyle }
                             onClick={ closePopup }
