@@ -166,6 +166,10 @@
 	transition: width 0.3s linear;
 }
 
+.imgFullWidth{
+	width: 100%;
+}
+
 .progress {
 	position: relative;
 	display: block;
@@ -596,4 +600,8 @@
 	.buttonStart {
 		justify-content: flex-end !important;
 	}
+}
+
+.alignCenter{
+		text-align: center !important;
 }

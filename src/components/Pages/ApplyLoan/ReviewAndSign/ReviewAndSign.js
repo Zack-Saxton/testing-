@@ -1,7 +1,6 @@
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import React, { useEffect, useState } from "react";
 import { useQuery } from 'react-query';
@@ -18,87 +17,11 @@ import ScrollToTopOnMount from "../../ScrollToTop";
 import TabSection from "../TabSection";
 import TabPanel from "../TabPanel"
 import "./ReviewAndSign.css";
-
-//Styling part
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(2),
-    display: "flex",
-    flexDirection: "column",
-    color: theme.palette.text.secondary,
-  },
-  heading: {
-    color: "#214476",
-    fontWeight: "400",
-    fontSize: "1.64rem",
-  },
-  centerGrid: {
-    marginTop: "20px",
-    paddingRight: "23px",
-    paddingLeft: "23px",
-  },
-  loadingOn: {
-    opacity: 0.55,
-    pointerEvents: "none"
-  },
-  loadingOff: {
-    opacity: 1,
-    pointerEvents: "initial"
-  },
-  greenText: {
-    color: "green !important",
-  },
-  tabLabel: {
-    background: "white",
-    margin: "0px 20px 10px 0px",
-    color: "#3f51b5",
-    fontFamily: "'Muli', sans-serif !important",
-    fontSize: "1rem",
-    textTransform: "none",
-    fontWeight: "600",
-  },
-  table: {
-    minWidth: 650,
-  },
-  columnColor: {
-    lineHeight: 0,
-    color: "#0f4eb3",
-    fontSize: 25,
-    fontWeight: 400,
-    textAlign: "center",
-  },
-  rightBorder: {
-    borderRight: "1px solid",
-    lineHeight: 1,
-  },
-  columnHeading: {
-    fontSize: "14px",
-    color: "#171717",
-    textAlign: "center",
-  },
-  gridStyle: {
-    marginBottom: "20px", 
-    width: "100%" 
-  },
-  fullWidth: {
-    width: "100%"
-  },
-  typoStyle: {
-    color: "#171717",
-    fontSize: "18px",
-  },
-  innerGrid:{
-    width: "100%", 
-    textAlign: "center"
-  }
-}));
+import { useStylesApplyForLoan } from "../Style"
 
 //Initializing the Review and sign functional component
 export default function ReviewAndSign(props) {
-  const classes = useStyles();
+  const classes = useStylesApplyForLoan();
   //Initializing state variable
   const [ value, setValue ] = useState(1);
   const navigate = useNavigate();
@@ -176,10 +99,10 @@ export default function ReviewAndSign(props) {
           direction="row"
           className = { classes.gridStyle }
         >
-          <Typography className={ classes.heading } variant="h3">
+          <Typography className={ classes.applyLoanHeading } variant="h3">
             <NavLink
+              className={ classes.noDecoration }
               to="/customers/accountOverview"
-              style={ { textDecoration: "none" } }
             >
               <ButtonWithIcon
                 icon="arrow_backwardIcon"
@@ -201,7 +124,7 @@ export default function ReviewAndSign(props) {
           <TabSection value={ value } handleChange={ handleChange } classes={ classes } ay={ 1 } />
 
           {/* ##############################################Review And Sign################################################################################################# */ }
-          <TabPanel value={ value } index={ 1 } style={ { marginTop: "10px" } }>
+          <TabPanel value={ value } index={ 1 } className={classes.TabPanelGrid}>
             <Grid item xs={ 12 } className={ classes.fullWidth } >
               <Paper className={ classes.paper }>
                 <Grid container>
@@ -214,7 +137,7 @@ export default function ReviewAndSign(props) {
                   <Grid item xs={ 12 } sm={ 6 } className={ loading ? classes.loadingOn : classes.loadingOff }>
                     <NavLink
                       to="/customers/selectOffer"
-                      style={ { textDecoration: "none" } }
+                      className={ classes.noDecoration }
                     >
                       <ButtonSecondary
                         stylebutton='{"float": "right", "color":"" }'
@@ -228,8 +151,7 @@ export default function ReviewAndSign(props) {
                 </Grid>
                 { !selectedOffer ?
                   <Grid
-                    className="circleprog"
-                    style={ { width: "100%", textAlign: "center" } }
+                    className="circleprog loadingCircle"
                   >
                     <CheckLoginStatus />
                     <CircularProgress />
@@ -307,10 +229,10 @@ export default function ReviewAndSign(props) {
                       </h2>
                     </Grid>
                     <Grid
+                      className={ classes.monthlyPaymentGrid }
                       item
                       xs={ 12 }
                       sm={ 2 }
-                      style={ { lineHeight: "1" } }
                       id="rightBorder"
                     >
                       <p className={ classes.columnHeading } id="columnHeading">
@@ -323,13 +245,9 @@ export default function ReviewAndSign(props) {
                   </Grid>
                 }
               </Paper>
-              <Grid item style={ { width: "100%" } }>
+              <Grid item className={ classes.fullWidth }>
                 <p
-                  style={ {
-                    textAlign: "justify",
-                    fontSize: "15px",
-                    color: "#6b6f82",
-                  } }
+                 className="infoText"
                 >
                   Please confirm your selected loan before proceeding. Please
                   note that if you wish to change your loan amount after you
@@ -337,44 +255,32 @@ export default function ReviewAndSign(props) {
                   re-apply.
                 </p>
                 <p
-                  style={ {
-                    textAlign: "justify",
-                    fontSize: "15px",
-                    color: "#6b6f82",
-                  } }
+                 className="infoText"
                 >
                   To accept your loan offer, please complete the following:
                 </p>
                 <ol
-                  style={ {
-                    textAlign: "justify",
-                    fontSize: "15px",
-                    color: "#6b6f82",
-                  } }
+                  className="infoText"
                 >
                   <li>Review all presented disclosures and loan terms in detail.</li>
                   <li>Electronically sign the loan agreement using our digital signature process.</li>
                   <li>After signing, click the ‘Submit’ button.</li>
                 </ol>
               </Grid>
-              <Grid item xs={ 12 } style={ { width: "100%" } }>
+              <Grid item xs={ 12 } className={ classes.fullWidth }>
                 <Paper className={ classes.paper }>
                   <Grid item xs={ 12 } md={ 12 } lg={ 12 }>
                     { url ? <Iframe src={ url } /> : <p>Loading...</p> }
                   </Grid>
                 </Paper>
-                <Paper className={ classes.paper }>
+                <Paper className={`${ classes.paper } ${classes.gridMargintop}`}>
                   <Grid item xs={ 12 }>
                     <Checkbox
                       name="confirm"
                       disabled={ loading }
                       label={
                         <span
-                          style={ {
-                            fontSize: "15px",
-                            paddingTop: "15px",
-                            textAlign: "justify",
-                          } }
+                          className="pleaseClickText"
                         >
                           Please click this box to confirm you would like to
                           submit your application. Please note that we will make
@@ -395,22 +301,19 @@ export default function ReviewAndSign(props) {
                   </Grid>
                   <Grid container direction="row">
                     <Grid
-                      className="circleprog"
+                      className="circleprog loadingCircle"
                       style={ {
-                        display: loading ? "block" : "none",
-                        width: "100%",
-                        textAlign: "center",
+                        display: loading ? "block" : "none"
                       } }
                     >
                       <CircularProgress />
                     </Grid>
                   </Grid>
 
-                  <Grid item xs={ 12 } style={ { lineHeight: 6 } }>
+                  <Grid item xs={ 12 } className={classes.buttonGridLineHeight}>
                     <ButtonWithIcon
                       stylebutton='{ "color":"" }'
                       styleicon='{ "color":"" }'
-                      style={ { width: "100%", fontSize: "1rem" } }
                       id="review-submit-button"
                       disabled={ !confirm || loading }
                       onClick={ submitOnClick }
@@ -420,13 +323,9 @@ export default function ReviewAndSign(props) {
                   </Grid>
                 </Paper>
               </Grid>
-              <Grid item style={ { width: "100%" } }>
+              <Grid item className={ classes.fullWidth }>
                 <p
-                  style={ {
-                    textAlign: "justify",
-                    fontSize: "15px",
-                    color: "#6b6f82",
-                  } }
+                  className="infoText"
                 >
                   After you accept your loan, you will be required to provide
                   your bank information and verify information that you have

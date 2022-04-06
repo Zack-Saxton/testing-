@@ -23,6 +23,7 @@ import {
 } from "../../../FormsUI";
 import messages from "../../../lib/Lang/applyForLoan.json";
 import LoadChart from "./loadChart";
+import { useStylesApplyForLoan } from "../Style"
 
 function TabVerticalPanel(props) {
 	const { children, tabValue, verticalIndex, ...other } = props;
@@ -65,6 +66,7 @@ export default function OfferTable(props) {
 	const [ selectData, setSelectData ] = useState([]);
 	let offersComp = props.offersToCompare ?? [];
 	let offersCompChart = props.offersToCompareChart ?? [];
+	const classes = useStylesApplyForLoan();
 	// Shows the Brnach icon
 	const branch = (
 		<Grid container direction="row" alignItems="center">
@@ -144,11 +146,11 @@ export default function OfferTable(props) {
 		window.scrollTo(0, 0);
 	}
 	return (
-		<Grid id="loanListTable" item xs={ 12 } sm={ 9 } className={ props.loading ? props.classes.loadingOnWithoutBlur : props.classes.loadingOff } style={ { padding: "0px 0px 0px 15px", width: "100%" } }>
+		<Grid id="loanListTable" item xs={ 12 } sm={ 9 } className={ props.loading ? props.classes.loadingOnWithoutBlur : props.classes.loadingOff } >
 			<Paper className={ props.classes.paper }>
 				{ props.rowData ? (
 					<TabVerticalPanel tabValue={ props.value } verticalIndex={ props.value }>
-						<Grid item xs={ 12 } style={ { paddingBottom: "10px", width: "100%" } }>
+						<Grid item xs={ 12 } className={classes.chartGrid}>
 							<LoadChart
 								termDataMax={ termDataMax }
 								classes={ props.classes }
@@ -157,7 +159,7 @@ export default function OfferTable(props) {
 								offerFlag={ props.offerFlag }
 							/>
 						</Grid>
-						<Grid item xs={ 12 } style={ { paddingBottom: "10px", width: "100%" } }>
+						<Grid item xs={ 12 } className={classes.chartGrid}>
 							<TableContainer>
 								<Table
 									className={ props.classes.table }
@@ -196,10 +198,7 @@ export default function OfferTable(props) {
 														}
 													>
 														<InfoOutlinedIcon
-															style={ {
-																fontSize: "small",
-																color: "blue",
-															} }
+															className={classes.infoIcon}
 														/>
 													</HtmlTooltip>
 												</Grid>
@@ -337,19 +336,16 @@ export default function OfferTable(props) {
 						</Grid>
 						<Grid container direction="row">
 							<Grid
-								className="circleprog"
+								className="circleprog loadingCircle"
 								style={ {
-									display: props.loading ? "block" : "none",
-									width: "100%",
-									textAlign: "center",
+									display: props.loading ? "block" : "none"
 								} }
 							>
 								<CircularProgress />
 							</Grid>
 						</Grid>
-						<Grid style={ { padding: "10px 0px" } } container direction="row">
+						<Grid className={classes.bottomButtonGrid} container direction="row">
 							<Grid
-								style={ { float: "left" } }
 							>
 								<ButtonSecondary
 									stylebutton='{"marginRight": "","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
@@ -365,7 +361,6 @@ export default function OfferTable(props) {
 							</Grid>
 
 							<Grid
-								style={ { float: "left" } }
 								id="apply-loan-continue-button-grid"
 							>
 								<ButtonPrimary
@@ -420,8 +415,7 @@ export default function OfferTable(props) {
 					</TabVerticalPanel>
 				) : (
 					<Grid
-						className="circleprog"
-						style={ { width: "100%", textAlign: "center" } }
+						className="circleprog loadingCircle"
 					>
 						<CircularProgress />
 					</Grid>

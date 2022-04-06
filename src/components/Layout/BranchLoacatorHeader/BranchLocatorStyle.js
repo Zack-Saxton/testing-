@@ -59,6 +59,14 @@ const useStyles = makeStyles((theme) => ({
   showSection: {
     display: "block",
   },
+  signOutSpan: {
+    fontSize:"12px",
+    padding:"5px 20px",
+    cursor:"pointer",
+    '&:hover': {
+      textDecoration:"underline"
+    },
+  },
 }));
 
 export { useStyles };
