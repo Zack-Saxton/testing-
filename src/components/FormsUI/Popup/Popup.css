@@ -1,5 +1,15 @@
+#customeDialogBox 
+.MuiDialog-container 
+.MuiDialog-paper{
+margin: 20px !important;
+}
 @media print{    
   .modalButton { 
     display: none !important; 
+  }
+}
+@media (max-width: 480px){
+  .dialogTitleWrap{
+    padding-top: 35px !important;
   }
 }
