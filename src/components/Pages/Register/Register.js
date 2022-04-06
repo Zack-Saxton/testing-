@@ -261,6 +261,7 @@ export default function Register() {
   const andLogic = (valueOne, valueTwo) => {
     return (valueOne && valueTwo);
   };
+  console.log(formik.values.dob)
 
   //View Part
   return (

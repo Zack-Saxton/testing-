@@ -1067,9 +1067,7 @@ export default function PaymentMethod() {
               classes={ { paper: classes.dialogPaperAddBank } }
             >
               <DialogTitle id="addBankModalHeading">
-                <Typography id="deleteTxt" className={ classes.dialogHeading }>
-                  Are you sure you want to add a new payment method ?
-                </Typography>
+                
                 <IconButton
                   id="addBankModalClose"
                   aria-label="close"
@@ -1079,6 +1077,11 @@ export default function PaymentMethod() {
                   <CloseIcon />
                 </IconButton>
               </DialogTitle>
+              <DialogContent >
+              <Typography id="deleteTxt" className={ classes.dialogHeading }>
+                  Are you sure you want to add a new payment method ?
+                </Typography>
+            </DialogContent>
 
               <DialogActions className={ classes.dialogAction }>
                 <ButtonSecondary
@@ -1493,9 +1496,7 @@ export default function PaymentMethod() {
             classes={ { paper: classes.dialogPaperDebitCard } }
           >
             <DialogTitle id="debitCardModalHeading">
-              <Typography id="deleteTxt" className={ classes.dialogHeading }>
-                Are you sure you want to add a new Debit Card?
-              </Typography>
+             
               <IconButton
                 id="debitCardModalClose"
                 aria-label="close"
@@ -1505,6 +1506,11 @@ export default function PaymentMethod() {
                 <CloseIcon />
               </IconButton>
             </DialogTitle>
+            <DialogContent >
+            <Typography id="deleteTxt" className={ classes.dialogHeading }>
+                Are you sure you want to add a new Debit Card?
+              </Typography>
+            </DialogContent>
 
             <DialogActions className={ classes.dialogAction }>
               <ButtonSecondary
@@ -1567,10 +1573,8 @@ export default function PaymentMethod() {
         aria-describedby="alert-dialog-description"
         classes={ { paper: classes.deletePayment } }
       >
-        <DialogTitle id="debitCardModalHeading">
-          <Typography id="deleteTxt" className={ classes.dialogHeading }>
-            Are you sure you want to delete this payment method?
-          </Typography>
+        <DialogTitle id="debitCardModalHeading"> 
+          
           <IconButton
             id="debitCardModalClose"
             aria-label="close"
@@ -1580,6 +1584,11 @@ export default function PaymentMethod() {
             <CloseIcon />
           </IconButton>
         </DialogTitle>
+        <DialogContent >
+        <Typography id="deleteTxt" className={ classes.dialogHeading }>
+            Are you sure you want to delete this payment method?
+          </Typography>
+            </DialogContent>
         <DialogActions className={ classes.dialogAction }>
           <ButtonSecondary
             stylebutton='{"background": "", "color":"" }'

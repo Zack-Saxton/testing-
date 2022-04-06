@@ -29,7 +29,7 @@ const PhoneNumberWrapper = ({ name, onChange, value, label, error, disabled, hel
   };
 
   return (
-    <FormControl className="formStyle">
+    <FormControl className="formStyle" fullWidth>
       <MuiThemeProvider theme={ theme }>
         <TextField label={ label }
           name={ name }
