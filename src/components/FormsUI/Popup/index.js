@@ -18,7 +18,7 @@ const usePopUp = makeStyles((theme) => ({
     },
     closeIconStyle: {
         float: "right", 
-        cursor: "pointer"
+        cursor: "pointer",
     }
 }))
 
