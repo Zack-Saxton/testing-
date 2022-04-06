@@ -79,16 +79,32 @@
 	font-size: 0.938rem;
 	font-weight: 700;
 }
+.compareChartButtons{
+	display: flex;
+}
 @media (max-width: 600px) {
   #apply-loan-comparison-button{
    float: unset!important;
   }
 }
 
-@media (max-width: 600px) {
-  #apply-loan-comparison-button-grid, #apply-loan-continue-button-grid{
-    padding: 0!important;
-  }
+@media only screen and (max-width: 520px){
+	#apply-loan-comparison-button-grid{
+		margin-left: unset !important;
+		margin-top: 15px;
+	 }
+	 #apply-loan-continue-button{
+		 margin-left: 0 !important;
+		 margin-bottom: 15px;
+	 }
+	.compareChartButtons{
+		flex-direction: column-reverse;
+		align-items: center;
+	}
+	#compareChartButtonsWrap{
+		flex-direction: column;
+    align-items: center;
+	}
 }
 
 @media (max-width:599px) {

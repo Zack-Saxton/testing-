@@ -44,7 +44,7 @@ export default function LoadChart(props) {
 	return (
 		<div>
 			{ finArray?.length >= 2 ? (
-				<Table className={ props.classes.table } aria-label="simple table">
+				<Table aria-label="simple table">
 					<TableHead>
 						<TableRow>
 							<TableCell width="15%" className={ props.classes.tableHead }>
