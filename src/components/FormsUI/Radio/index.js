@@ -19,9 +19,6 @@ const useRadio = makeStyles((theme) => ({
     fontFamily: "system-ui", 
     fontWeight: "normal",
   },
-  radioStyle: {
-    color: "#0F4EB3",
-  }
 }))
 
 const RadioButtonWrapper = ({
@@ -73,7 +70,7 @@ const RadioButtonWrapper = ({
             key={ radio.value }
             disabled={ disabled ?? false }
             label={ radio.label }
-            control={ <Radio className={ classes.radioStyle } checked={ checked === radio.value ? true : false } onClick={ handleRadioClick } /> }
+            control={ <Radio color="primary" checked={ checked === radio.value ? true : false } onClick={ handleRadioClick } /> }
           />
         )) }
       </RadioGroup>
