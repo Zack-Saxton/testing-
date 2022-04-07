@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Grid } from "@mui/material";
+import PropTypes from "prop-types";
 import {
   ButtonPrimary,
   ButtonSecondary,
@@ -7,38 +8,23 @@ import {
 } from "../../../components/FormsUI";
 import Selfielicense from "../../../assets/gallery/selfielicense.png";
 import { useStylesEmailVerification } from "./Style";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import Typography from "@mui/material/Typography";
+import UploadDocument from "./UploadDocument";
 
-function DocumentIdAndPhotoId() {
-  const [docType, setDocType] = useState("");
-  const [selectDocument, setSelectDocument] = useState(false);
-
-  const isMenuOpen = Boolean(selectDocument);
-
-  const handleMenuOpen = (event) => {
-    setSelectDocument(event.currentTarget);
-  };
-
-  const handleMenuClose = () => {
-    setSelectDocument(null);
-  };
-
+function DocumentIdAndPhotoId(props) {
+  const [docType, setDocType] = useState("");  
   const classes = useStylesEmailVerification();
 
   const handleDocType = (event) => {
-    setDocType(event.target.value.trim());
-    changeEvent.current.click();
-    event.target.value = "";
-  };
+    setDocType(event.target.value.trim());    
+    event.target.value = '';
+  };  
   return (
     <Grid>
-      <span>
+      <span className={classes.ensureTitle}>
         Please upload an image of your driver’s license, passport, state-issued
         photo ID card, or military/federal government photo ID.
       </span>
-      <span>Please ensure:</span>
+      <span className={classes.ensureText}>Please ensure:</span>
       <ul className={classes.PleaseEnsureList}>
         <li>The image is in color.</li>
         <li>The document is currently valid.</li>
@@ -47,7 +33,7 @@ function DocumentIdAndPhotoId() {
       </ul>
 
       <Grid item sm={12} md={6} className={classes.selectDocumentType}>
-        <Grid className={classes.selectInput}>
+        <Grid id="selectInputGrid" className={classes.selectInput}>
           <Select
             id="selectDoccumentWrap"
             name="selectDocument"
@@ -60,43 +46,16 @@ function DocumentIdAndPhotoId() {
             value={docType}
           />
         </Grid>
-        <ButtonPrimary
-          onClick={handleMenuOpen}
-          stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
-        >
-          Upload a Document
-        </ButtonPrimary>
-
-        <Menu
-          anchorEl={selectDocument}
-          anchorOrigin={{ vertical: "top", horizontal: "right" }}
-          // id={ mobileMenuId }
-          keepMounted
-          transformOrigin={{ vertical: "top", horizontal: "right" }}
-          open={isMenuOpen}
-          onClose={handleMenuClose}
-        >
-          <MenuItem>
-            <Typography className={classes.dropdownMenu}>
-              Select from Existing Files
-              <input
-                id="selectFile"
-                style={{ display: "none" }}
-                type="file"
-              ></input>
-            </Typography>
-          </MenuItem>
-          <MenuItem>
-            <a to="/faq" className="nav_link ">
-              <Typography className={classes.dropdownMenu}>
-                Upload from Camera
-              </Typography>
-            </a>
-          </MenuItem>
-        </Menu>
+        <UploadDocument 
+          documentType="customer_identification_license" 
+          docType={ docType }
+          applicationNumber={ props.applicationNumber }
+          customerEmail={ props.customerEmail }
+        />
+                
       </Grid>
 
-      <Grid className={classes.uploadDocumentText}>
+      <Grid item md={12} sm={12} className={classes.uploadDocumentText}>
         <span className={classes.uploadDocumentParagraph}>
           Please upload a picture of yourself, in which you are holding your
           state or federal government issued ID next to your face. Please ensure
@@ -105,20 +64,22 @@ function DocumentIdAndPhotoId() {
           your ID document matches your appearance (similar to an in-person ID
           check).
           <br />
-          To see an example, please look at the image below.
         </span>
+          <span className={classes.exampleText}>
+            To see an example, please look at the image below.
+            </span>
         <Grid className="SelfieLicenseImage">
           <img src={Selfielicense} alt="Selfielicense" />
           <span>Sample Photograph</span>
         </Grid>
       </Grid>
-      <Grid>
-        <ButtonPrimary
-          onClick={handleMenuOpen}
-          stylebutton='{"background": "#FFBC23","padding":"0px 30px", "color": "black"}'
-        >
-          Upload your Picture
-        </ButtonPrimary>
+      <Grid item sm={12} md={6} >
+        <UploadDocument 
+          title="Select Your Picture" 
+          applicationNumber={ props.applicationNumber }
+          customerEmail={ props.customerEmail }
+          documentType="other_verification_doc" 
+          />
 
         <Grid className={classes.nextButton} container>
           <ButtonSecondary
@@ -128,7 +89,7 @@ function DocumentIdAndPhotoId() {
             Reset
           </ButtonSecondary>
 
-          <ButtonPrimary stylebutton='{"color": ""}'>Next</ButtonPrimary>
+          <ButtonPrimary stylebutton='{"color": ""}' onClick={ props.next }>Next</ButtonPrimary>
         </Grid>
       </Grid>
     </Grid>
@@ -136,3 +97,9 @@ function DocumentIdAndPhotoId() {
 }
 
 export default DocumentIdAndPhotoId;
+
+DocumentIdAndPhotoId.propTypes = {
+  applicationNumber: PropTypes.string,
+  customerEmail: PropTypes.string,
+	next: PropTypes.func,
+};

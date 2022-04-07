@@ -536,32 +536,11 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
     <div>
       <CheckLoginStatus />
       <ScrollToTopOnMount />
-      <Grid
-        id="makePaymentWrap"
-        container
-        justifyContent={ "center" }
-        className={ classes.centerGrid }
-      >
-        <Grid
-          style={ { paddingBottom: "10px" } }
-          container
-          direction="row"
-          item
-          xs={ 12 }
-        >
-          <Grid
-            item
-            xs={ 12 }
-            sm={ 6 }
-            style={ { width: "100%" } }
-            container
-            direction="row"
-          >
+      <Grid id="makePaymentWrap" container className={ classes.centerGrid }>
+        <Grid className={ classes.gridStyle } container direction="row" item xs={ 12 }>
+          <Grid item xs={ 12 } sm={ 6 } container direction="row">
             <Typography className={ classes.heading } variant="h3">
-              <NavLink
-                to="/customers/accountOverview"
-                style={ { textDecoration: "none" } }
-              >
+              <NavLink to="/customers/accountOverview">
                 <ButtonWithIcon
                   icon="arrow_backwardIcon"
                   iconposition="left"
@@ -578,11 +557,7 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
           </Grid>
         </Grid>
         { showCircularProgress ? (
-          <Grid
-            item
-            xs={ 12 }
-            style={ { paddingTop: "10px", paddingBottom: "10px" } }
-          >
+          <Grid item xs={ 12 } className={ classes.tableStyle }>
             <TableContainer id="pdfdiv" component={ Paper }>
               <Table className={ classes.table } aria-label="simple table">
                 <TableHead>
@@ -627,11 +602,7 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
             </TableContainer>
           </Grid>
         ) : (
-          <Grid
-            item
-            xs={ 12 }
-            style={ { paddingBottom: "10px", paddingTop: "10px" } }
-          >
+          <Grid item xs={ 12 } className={ classes.tableStyle }>
             <TableContainer component={ Paper }>
               <PaymentOverview overview={ latestLoanData } status={ status } />
             </TableContainer>
@@ -641,21 +612,8 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
           !paymentData?.data?.error ? (
             !checkPaymentInformation ? (
               <>
-                <Grid
-                  id="payFromWrap"
-                  item
-                  xs={ 12 }
-                  sm={ 5 }
-                  style={ {
-                    width: "100%",
-                    paddingTop: "10px",
-                    paddingRight: "15px",
-                  } }
-                >
-                  <Paper
-                    style={ { borderRadius: "2px" } }
-                    className={ classes.paper }
-                  >
+                <Grid id="payFromWrap" item xs={ 12 } sm={ 5 } className={ classes.payFromStyle }>
+                  <Paper className={ classes.paper }>
                     <Typography className={ classes.cardHeading }>
                       Pay From
                     </Typography>
@@ -670,9 +628,7 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
                         value={ card }
                       />
                     ) : (
-                      <div
-                        style={ { display: "flex", justifyContent: "center" } }
-                      >
+                      <div className={ classes.circularProgressStyle }>
                         <CircularProgress size={ 30 } />
                       </div>
                     ) }
@@ -688,7 +644,7 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
                       { requiredSelect }.
                     </p>
 
-                    <Grid item xs={ 12 } style={ { paddingTop: "20px" } }>
+                    <Grid item xs={ 12 } className={ classes.paymentMethodStyle }>
                       <ButtonSecondary
                         stylebutton='{"background": "", "color":"" }'
                         onClick={ handleMenuPaymentProfile }
@@ -699,52 +655,35 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
                   </Paper>
                 </Grid>
 
-                <Grid
-                  item
-                  xs={ 12 }
-                  sm={ 7 }
-                  style={ { width: "100%", paddingTop: "10px" } }
-                >
+                <Grid item xs={ 12 } sm={ 7 } className={ classes.paymentModeStyle }>
                   <Paper className={ classes.paper }>
                     { paymentOptions && !showCircularProgress ? (
                       <div>
                         <Grid item xs={ 12 }>
-                          <Typography
-                            style={ { paddingBottom: "10px" } }
-                            className={ classes.cardHeading }
-                          >
+                          <Typography className={ classes.cardHeading }>
                             Payment Mode
                           </Typography>
-                          <p style={ { margin: "auto" } }>
-                            <small
-                              style={ {
-                                fontSize: "0.938rem",
-                                color: "#595959",
-                              } }
-                            >
+                          <p className={ classes.autoPayStyle }>
+                            <small className={ `${classes.autoPayTitle} ${classes.autoPayFontStyle }` }>
                               { " " }
                               { disabledContent
                                 ? "Auto Pay - On"
                                 : "Auto Pay - Off" }
                             </small>
                           </p>
-                          <p
-                      className={
-                        requiredAutoPay !== ""
-                          ? "showError add Pad"
-                          : "hideError"
-                      }
-                      data-testid="subtitle"
-                    >
-                      { " " }
-                      { requiredAutoPay }.
-                    </p>
-
-                          <p style={ { margin: "auto" } }>
-                            <small style={ { color: "#575757" } }>
-                              Choose auto pay to make payments of ${ totalPaymentAmount } on your next due date
-                            </small>
+                          <p data-testid="subtitle"
+                             className={ requiredAutoPay !== ""  //
+                                           ? "showError add Pad"
+                                           : "hideError" }>
+                                          { " " }
+                                          { requiredAutoPay }
                           </p>
+
+                          <p className={ classes.autoPayStyle }>
+                            <small className={ classes.autoPayColor }> 
+                              Choose auto pay to make payments of ${ totalPaymentAmount } on your next due date
+                            </small>   
+                          </p> 
                           <FormControlLabel
                             id="autoPaySpan"
                             control={
@@ -764,7 +703,7 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
                                 : "Auto pay is Off"
                             }
                           />
-                          <p style={ { fontSize: "0.938rem" } }>
+                          <p className={ classes.autoPayFontStyle }>
                             By enabling Auto Pay mode, I acknowledge to have
                             read, understood, and agree to the terms of the
                             &nbsp;
@@ -779,7 +718,7 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
                           <Grid
                             item
                             xs={ 12 }
-                            style={ { paddingBottom: "20px" } }
+                            className={ classes.submitGridStyle }
                           >
                             <ButtonPrimary
                               stylebutton='{"background": "", "color":"" }'
@@ -793,10 +732,7 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
                         </Grid>
 
                         <Grid item xs={ 12 }>
-                          <Typography
-                            style={ { paddingBottom: "10px" } }
-                            className={ classes.cardHeading }
-                          >
+                          <Typography className={ classes.cardHeading }>
                             { paymentTitle }
                           </Typography>
                           <TextField
@@ -822,16 +758,7 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
                             { " " }
                             { requiredAmount }
                           </p>
-                          <Grid
-                            item
-                            xs={ 12 }
-                            container
-                            direction="row"
-                            style={ {
-                              display: "inline-flex",
-                              paddingTop: "10px",
-                            } }
-                          >
+                          <Grid item xs={ 12 } container direction="row" className={ classes.datePickerStyle }>
                             <DatePicker
                               name="date"
                               label="Payment Date"
@@ -867,10 +794,7 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
                               { requiredDate }
                             </p>
                           </Grid>
-                          <Grid
-                            id="paymentBtnWrap"
-                            style={ { paddingTop: "25px" } }
-                          >
+                          <Grid id="paymentBtnWrap" className={ classes.paymentButtonStyle }>
                             <Grid id="make-payment-cancel-button-grid">
                               <ButtonSecondary
                                 stylebutton="{}"
@@ -887,7 +811,6 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
                                 stylebutton='{"marginRight": "" }'
                                 id="make-payment-schedule-button"
                                 onClick={ handleSchedulePaymentClick }
-                              //  disabled={ disabledContent }
                               >
                                 Schedule Payment
                               </ButtonPrimary>
@@ -896,9 +819,7 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
                         </Grid>
                       </div>
                     ) : (
-                      <div
-                        style={ { display: "flex", justifyContent: "center" } }
-                      >
+                      <div className={ classes.circularProgressStyle }>
                         <CircularProgress />
                       </div>
                     ) }
@@ -1000,10 +921,7 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
           </IconButton>
         </DialogTitle>
 
-        <DialogActions
-          className="actionButtons"
-          style={ { justifyContent: "center", marginBottom: "25px" } }
-        >
+        <DialogActions className={`actionButtons ${ classes.dialogActionStyle }`}>
           <ButtonSecondary
             id="cancelButton"
             stylebutton='{"background": "", "color":"" }'
@@ -1194,10 +1112,7 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
           </IconButton>
         </DialogTitle>
 
-        <DialogActions
-          className="replacePaymentBox"
-          style={ { justifyContent: "center", marginBottom: "25px" } }
-        >
+        <DialogActions className={`replacePaymentBox ${ classes.dialogActionStyle }`}>
           <ButtonSecondary
             stylebutton='{"background": "", "color":"" }'
             onClick={ handlePaymentClose }
@@ -1287,13 +1202,8 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
           </IconButton>
         </DialogTitle>
 
-        <DialogActions
-          style={ { justifyContent: "center", marginBottom: "25px" } }
-        >
-          <ButtonSecondary
-            stylebutton='{"background": "", "color":"" }'
-            onClick={ handleDeleteScheduleClose }
-          >
+        <DialogActions className={ classes.dialogActionStyle }>
+          <ButtonSecondary stylebutton='{"background": "", "color":"" }' onClick={ handleDeleteScheduleClose }>
             No
           </ButtonSecondary>
           <ButtonPrimary

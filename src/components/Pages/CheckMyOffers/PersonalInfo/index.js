@@ -101,7 +101,7 @@ const useStyles = makeStyles((Theme) => ({
 		justify: "center",
 		alignItems: "center",
 		textAlign: "center",
-		padding: "0"
+		padding: "4%",
 	},
 	typoStyle: {
 		align: "center",
@@ -335,7 +335,7 @@ function PersonalInfo() {
 							lg={ 6 }
 							xl={ 6 }
 							className="cardWrapper"
-							alignItems="center"
+						  alignItems="center"
 						>
 							<Paper
 								id="aboutYourselfWrap"

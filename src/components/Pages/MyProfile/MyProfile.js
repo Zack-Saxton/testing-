@@ -75,8 +75,8 @@ export default function MyProfile() {
   } else {
     Cookies.set("opted_phone_texting", Cookies.get("temp_opted_phone_texting"));
   }
-
-  let basicInfoData = accountDetails?.data?.customer;
+ 
+  let basicInfoData = accountDetails?.data?.customer; 
   let getProfImage = profileImage;
   const [ tabNumber, setProfileTabNumber ] = useGlobalState();
   const handleTabChange = (event, newValues) => {
@@ -99,7 +99,8 @@ export default function MyProfile() {
   let hasApplicationStatus = Cookies.get("hasApplicationStatus");
   let appStatus = [ "rejected", "referred", "expired", "contact_branch" ];
   let checkAppStatus = appStatus.includes(hasApplicationStatus);
-  let disableField = (checkAppStatus && !hasActiveLoan ? true : checkAppStatus || !hasActiveLoan ? true : false );
+  let disableField = (checkAppStatus && !hasActiveLoan ? true : !checkAppStatus && !hasActiveLoan ? true : false );
+
 
   return (
     <div>

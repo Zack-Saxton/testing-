@@ -23,6 +23,7 @@ import {
 } from "../../../FormsUI";
 import messages from "../../../lib/Lang/applyForLoan.json";
 import LoadChart from "./loadChart";
+import { useStylesApplyForLoan } from "../Style"
 
 function TabVerticalPanel(props) {
 	const { children, tabValue, verticalIndex, ...other } = props;
@@ -65,6 +66,7 @@ export default function OfferTable(props) {
 	const [ selectData, setSelectData ] = useState([]);
 	let offersComp = props.offersToCompare ?? [];
 	let offersCompChart = props.offersToCompareChart ?? [];
+	const classes = useStylesApplyForLoan();
 	// Shows the Brnach icon
 	const branch = (
 		<Grid container direction="row" alignItems="center">
@@ -144,291 +146,302 @@ export default function OfferTable(props) {
 		window.scrollTo(0, 0);
 	}
 	return (
-		<Grid id="loanListTable" item xs={ 12 } sm={ 9 } className={ props.loading ? props.classes.loadingOnWithoutBlur : props.classes.loadingOff } style={ { padding: "0px 0px 0px 15px", width: "100%" } }>
-			<Paper className={ props.classes.paper }>
-				{ props.rowData ? (
-					<TabVerticalPanel tabValue={ props.value } verticalIndex={ props.value }>
-						<Grid item xs={ 12 } style={ { paddingBottom: "10px", width: "100%" } }>
-							<LoadChart
-								termDataMax={ termDataMax }
-								classes={ props.classes }
-								offersToCompareChart={ props.offersToCompareChart }
-								offersToCompare={ props.offersToCompare }
-								offerFlag={ props.offerFlag }
-							/>
-						</Grid>
-						<Grid item xs={ 12 } style={ { paddingBottom: "10px", width: "100%" } }>
-							<TableContainer>
-								<Table
-									className={ props.classes.table }
-									aria-label="simple table"
-								>
-									<TableHead>
-										<TableRow>
-											<TableCell width="8%" className={ props.classes.tableHead }>
-												Select
-											</TableCell>
-											<TableCell
-												className={ props.classes.tableHead }
-												align="right"
-											>
-												Loan Amount
-											</TableCell>
-											<TableCell
-												className={ props.classes.tableHead }
-												align="left"
-											>
-												Availability
-											</TableCell>
-											<TableCell
-												className={ props.classes.tableHead }
-												align="left"
-											>
-												<Grid container direction="row" alignItems="center">
-													{ " " }
-													APR &nbsp;
-													<HtmlTooltip
-														title={
-															<>
-																<Typography color="inherit">What Is An APR?</Typography>
-																<p>APR stands for { "annual percentage rate" } and represents the effective annual cost of a loan, including both the interest rate and origination fee.</p>
-															</>
-														}
-													>
-														<InfoOutlinedIcon
-															style={ {
-																fontSize: "small",
-																color: "blue",
-															} }
-														/>
-													</HtmlTooltip>
-												</Grid>
-											</TableCell>
-											{ !props.offerFlag ? (
-												<TableCell
-													className={ props.classes.tableHead }
-													align="right"
-												>
-													Term
-												</TableCell>
-											) : null }
-											<TableCell
-												className={ props.classes.tableHead }
-												align="right"
-											>
-												Monthly Payment
-											</TableCell>
-											<TableCell
-												className={ props.classes.tableHead }
-												align="left"
-											>
-												Compare
-											</TableCell>
-										</TableRow>
-									</TableHead>
+    <Grid
+      id="loanListTable"
+      item
+      xs={12}
+      sm={9}
+      className={
+        props.loading
+          ? props.classes.loadingOnWithoutBlur
+          : props.classes.loadingOff
+      }
+    >
+      <Paper className={props.classes.paper}>
+        {props.rowData ? (
+          <TabVerticalPanel tabValue={props.value} verticalIndex={props.value}>
+            <Grid item xs={12} className={classes.chartGrid}>
+              <LoadChart
+                termDataMax={termDataMax}
+                classes={props.classes}
+                offersToCompareChart={props.offersToCompareChart}
+                offersToCompare={props.offersToCompare}
+                offerFlag={props.offerFlag}
+              />
+            </Grid>
+            <Grid item xs={12} className={classes.chartGrid}>
+              <TableContainer>
+                <Table
+                  className={props.classes.table}
+                  aria-label="simple table"
+                >
+                  <TableHead>
+                    <TableRow>
+                      <TableCell width="8%" className={props.classes.tableHead}>
+                        Select
+                      </TableCell>
+                      <TableCell
+                        className={props.classes.tableHead}
+                        align="right"
+                      >
+                        Loan Amount
+                      </TableCell>
+                      <TableCell
+                        className={props.classes.tableHead}
+                        align="left"
+                      >
+                        Availability
+                      </TableCell>
+                      <TableCell
+                        className={props.classes.tableHead}
+                        align="left"
+                      >
+                        <Grid container direction="row" alignItems="center">
+                          {" "}
+                          APR &nbsp;
+                          <HtmlTooltip
+                            title={
+                              <>
+                                <Typography color="inherit">
+                                  What Is An APR?
+                                </Typography>
+                                <p>
+                                  APR stands for {"annual percentage rate"} and
+                                  represents the effective annual cost of a
+                                  loan, including both the interest rate and
+                                  origination fee.
+                                </p>
+                              </>
+                            }
+                          >
+                            <InfoOutlinedIcon className={classes.infoIcon} />
+                          </HtmlTooltip>
+                        </Grid>
+                      </TableCell>
+                      {!props.offerFlag ? (
+                        <TableCell
+                          className={props.classes.tableHead}
+                          align="right"
+                        >
+                          Term
+                        </TableCell>
+                      ) : null}
+                      <TableCell
+                        className={props.classes.tableHead}
+                        align="right"
+                      >
+                        Monthly Payment
+                      </TableCell>
+                      <TableCell
+                        className={props.classes.tableHead}
+                        align="left"
+                      >
+                        Compare
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
 
-									{ props.rowData ? (
-										<TableBody>
-											{ props.rowData.map((row, ind) => (
-												<TableRow key={ ind }>
-													<TableCell
-														component="th"
-														className={ props.classes.tableHeadRow }
-														scope="row"
-													>
-														<Radio
-															name="select"
-															radiolabel={ '[{ "value":"' + row._id + '"}]' }
-															checked={ props.checkedValue }
-															value={ row._id }
-															onClick={ () => {
-																handleRadioOnClick(row, ind)
-															} }
-														/>
-													</TableCell>
-													<TableCell
-														className={ props.classes.tableHeadRow }
-														align="right"
-													>
-														{ row.loanAmount }
-													</TableCell>
-													<TableCell
-														className={ props.classes.tableHeadRow }
-														align="left"
-													>
-														{ row.availability === "online" ? online : branch }
-													</TableCell>
-													<TableCell
-														className={ props.classes.tableHeadRow }
-														align="left"
-													>
-														{ row.apr + "%" }
-													</TableCell>
+                  {props.rowData ? (
+                    <TableBody>
+                      {props.rowData.map((row, ind) => (
+                        <TableRow key={ind}>
+                          <TableCell
+                            component="th"
+                            className={props.classes.tableHeadRow}
+                            scope="row"
+                          >
+                            <Radio
+                              name="select"
+                              radiolabel={'[{ "value":"' + row._id + '"}]'}
+                              checked={props.checkedValue}
+                              value={row._id}
+                              onClick={() => {
+                                handleRadioOnClick(row, ind);
+                              }}
+                            />
+                          </TableCell>
+                          <TableCell
+                            className={props.classes.tableHeadRow}
+                            align="right"
+                          >
+                            {row.loanAmount}
+                          </TableCell>
+                          <TableCell
+                            className={props.classes.tableHeadRow}
+                            align="left"
+                          >
+                            {row.availability === "online" ? online : branch}
+                          </TableCell>
+                          <TableCell
+                            className={props.classes.tableHeadRow}
+                            align="left"
+                          >
+                            {row.apr + "%"}
+                          </TableCell>
 
-													{ !props.offerFlag ? (
-														<TableCell
-															className={ props.classes.tableHeadRow }
-															align="right"
-														>
-															{ row.termNum + "Mo" }
-														</TableCell>
-													) : null }
+                          {!props.offerFlag ? (
+                            <TableCell
+                              className={props.classes.tableHeadRow}
+                              align="right"
+                            >
+                              {row.termNum + "Mo"}
+                            </TableCell>
+                          ) : null}
 
-													<TableCell
-														className={ props.classes.tableHeadRow }
-														align="right"
-													>
-														{ row.monthlyPayment }
-													</TableCell>
-													<TableCell
-														className={ props.classes.tableHeadRow }
-														align="left"
-													>
-														{ props.offerFlag ? (
-															<Checkbox
-																name="offerToCompare"
-																label="Add"
-																labelid="offerToCompare"
-																testid="checkbox"
-																value={ row._id }
-																checked={
-																	props.offersToCompare.findIndex(
-																		(x) => x._id === row._id
-																	) === -1
-																		? false
-																		: true
-																}
-																onChange={ () => {
-																	selectOfferToCompare(row);
-																} }
-																stylelabelform='{ "color":"" }'
-																stylecheckbox='{ "color":"" }'
-																stylecheckboxlabel='{ "color":"" }'
-															/>
-														) : (
-															<Checkbox
-																name="chartData"
-																label="Add"
-																labelid="chartData"
-																testid="checkbox"
-																value={ row._id }
-																checked={
-																	props.offersToCompareChart.indexOf(row) === -1
-																		? false
-																		: true
-																}
-																onChange={ () => {
-																	selectOfferToCompareChart(row);
-																} }
-																stylelabelform='{ "color":"" }'
-																stylecheckbox='{ "color":"" }'
-																stylecheckboxlabel='{ "color":"" }'
-															/>
-														) }
-													</TableCell>
-												</TableRow>
-											)) }
-										</TableBody>
-									) : (
-										<Typography>{ messages.selectAmount.noOffersAvailable } </Typography>
-									) }
-								</Table>
-							</TableContainer>
-						</Grid>
-						<Grid container direction="row">
-							<Grid
-								className="circleprog"
-								style={ {
-									display: props.loading ? "block" : "none",
-									width: "100%",
-									textAlign: "center",
-								} }
-							>
-								<CircularProgress />
-							</Grid>
-						</Grid>
-						<Grid style={ { padding: "10px 0px" } } container direction="row">
-							<Grid
-								style={ { float: "left" } }
-							>
-								<ButtonSecondary
-									stylebutton='{"marginRight": "","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
-									styleicon='{ "color":"" }'
-									id="apply-loan-reset-button"
-									onClick={ () => {
-										handleResetOnClick()
-									} }
-									{ ...props.tabVerticalProps(0) }
-								>
-									Reset
-								</ButtonSecondary>
-							</Grid>
+                          <TableCell
+                            className={props.classes.tableHeadRow}
+                            align="right"
+                          >
+                            {row.monthlyPayment}
+                          </TableCell>
+                          <TableCell
+                            className={props.classes.tableHeadRow}
+                            align="left"
+                          >
+                            {props.offerFlag ? (
+                              <Checkbox
+                                name="offerToCompare"
+                                label="Add"
+                                labelid="offerToCompare"
+                                testid="checkbox"
+                                value={row._id}
+                                checked={
+                                  props.offersToCompare.findIndex(
+                                    (x) => x._id === row._id
+                                  ) === -1
+                                    ? false
+                                    : true
+                                }
+                                onChange={() => {
+                                  selectOfferToCompare(row);
+                                }}
+                                stylelabelform='{ "color":"" }'
+                                stylecheckbox='{ "color":"" }'
+                                stylecheckboxlabel='{ "color":"" }'
+                              />
+                            ) : (
+                              <Checkbox
+                                name="chartData"
+                                label="Add"
+                                labelid="chartData"
+                                testid="checkbox"
+                                value={row._id}
+                                checked={
+                                  props.offersToCompareChart.indexOf(row) === -1
+                                    ? false
+                                    : true
+                                }
+                                onChange={() => {
+                                  selectOfferToCompareChart(row);
+                                }}
+                                stylelabelform='{ "color":"" }'
+                                stylecheckbox='{ "color":"" }'
+                                stylecheckboxlabel='{ "color":"" }'
+                              />
+                            )}
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  ) : (
+                    <Typography>
+                      {messages.selectAmount.noOffersAvailable}{" "}
+                    </Typography>
+                  )}
+                </Table>
+              </TableContainer>
+            </Grid>
+            <Grid container direction="row">
+              <Grid
+                className="circleprog loadingCircle"
+                style={{
+                  display: props.loading ? "block" : "none",
+                }}
+              >
+                <CircularProgress />
+              </Grid>
+            </Grid>
+            <Grid
+              id="compareChartButtonsWrap"
+              className={classes.bottomButtonGrid}
+              container
+              direction="row"
+            >
+              <Grid className="compareChartButtons">
+                <Grid>
+                  <ButtonSecondary
+                    stylebutton='{"marginRight": "","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
+                    styleicon='{ "color":"" }'
+                    id="apply-loan-reset-button"
+                    onClick={() => {
+                      handleResetOnClick();
+                    }}
+                    {...props.tabVerticalProps(0)}
+                  >
+                    Reset
+                  </ButtonSecondary>
+                </Grid>
 
-							<Grid
-								style={ { float: "left" } }
-								id="apply-loan-continue-button-grid"
-							>
-								<ButtonPrimary
-									stylebutton='{"marginLeft": "10px" ,"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
-									id="apply-loan-continue-button"
-									onClick={ () => {
-										props.submitSelectedOffer(
-											props.selectedTerm,
-											props.selectedIndex
-										);
-									} }
-									disabled={
-										props.selectedTerm &&
-											(props.selectedIndex || !(props.selectedIndex))
-											? props.loading
-											: true
-									}
-								>
-									Continue
-									<i
-										className="fa fa-refresh fa-spin customSpinner"
-										style={ {
-											marginRight: "10px",
-											display: props.loading ? "block" : "none",
-										} }
-									/>
-								</ButtonPrimary>
-							</Grid>
+                <Grid id="apply-loan-continue-button-grid">
+                  <ButtonPrimary
+                    stylebutton='{"marginLeft": "10px" ,"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
+                    id="apply-loan-continue-button"
+                    onClick={() => {
+                      props.submitSelectedOffer(
+                        props.selectedTerm,
+                        props.selectedIndex
+                      );
+                    }}
+                    disabled={
+                      props.selectedTerm &&
+                      (props.selectedIndex || !props.selectedIndex)
+                        ? props.loading
+                        : true
+                    }
+                  >
+                    Continue
+                    <i
+                      className="fa fa-refresh fa-spin customSpinner"
+                      style={{
+                        marginRight: "10px",
+                        display: props.loading ? "block" : "none",
+                      }}
+                    />
+                  </ButtonPrimary>
+                </Grid>
+              </Grid>
 
-							<Grid
-								style={ {
-									float: "right",
-									justifyContent: "end",
-									display: props.offerFlag ? "block" : "none",
-								} }
-								id="apply-loan-comparison-button-grid"
-							>
-								<ButtonSecondary
-									fullWidth={ true }
-									stylebutton='{"background": "", "float":"right"  }'
-									styleicon='{ "color":"" }'
-									id="apply-loan-comparison-button"
-									onClick={ () => {
-										onClickViewCompare();
-									} }
-									{ ...props.tabVerticalProps(4) }
-								>
-									View Comparison
-								</ButtonSecondary>
-							</Grid>
-						</Grid>
-					</TabVerticalPanel>
-				) : (
-					<Grid
-						className="circleprog"
-						style={ { width: "100%", textAlign: "center" } }
-					>
-						<CircularProgress />
-					</Grid>
-				) }
-			</Paper>
-		</Grid>
-	);
+              <Grid
+                style={{
+                  float: "right",
+                  justifyContent: "end",
+                  display: props.offerFlag ? "block" : "none",
+                }}
+                id="apply-loan-comparison-button-grid"
+              >
+                <ButtonSecondary
+                  fullWidth={true}
+                  stylebutton='{"background": "", "float":"right"  }'
+                  styleicon='{ "color":"" }'
+                  id="apply-loan-comparison-button"
+                  onClick={() => {
+                    onClickViewCompare();
+                  }}
+                  {...props.tabVerticalProps(4)}
+                >
+                  View Comparison
+                </ButtonSecondary>
+              </Grid>
+            </Grid>
+          </TabVerticalPanel>
+        ) : (
+          <Grid className="circleprog loadingCircle">
+            <CircularProgress />
+          </Grid>
+        )}
+      </Paper>
+    </Grid>
+  );
 }
 
 OfferTable.propTypes = {

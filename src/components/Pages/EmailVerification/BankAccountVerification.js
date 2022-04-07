@@ -1,74 +1,33 @@
-import React, { useState } from "react";
+import React from "react";
 import { Grid } from "@mui/material";
 import { ButtonPrimary, ButtonSecondary } from "../../../components/FormsUI";
 import { useStylesEmailVerification } from "./Style";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import Typography from "@mui/material/Typography";
+import PropTypes from "prop-types";
+import UploadDocument from "./UploadDocument";
 
-function BankAccountVerification() {
-  const [selectDocument, setSelectDocument] = useState(false);
-
-  const isMenuOpen = Boolean(selectDocument);
-
-  const handleMenuOpen = (event) => {
-    setSelectDocument(event.currentTarget);
-  };
-
-  const handleMenuClose = () => {
-    setSelectDocument(null);
-  };
+function BankAccountVerification(props) {
   const classes = useStylesEmailVerification();
+
   return (
     <Grid>
-      <ul>
-        <li>
+      <ul className={classes.ulText}>
+        <li className={classes.exampleText}>
           Please upload a voided personal check for the bank account you
           provided. If you do not have a personal check, please upload your most
           recent bank statement.
         </li>
       </ul>
-      <span>Please ensure:</span>
-      <ul>
-        <li>Your full account number and name are visible.</li>
-        <li>Acceptable file formats are PDF, JPG, JPEG and PNG.</li>
+      <span className={classes.exampleText}>Please ensure:</span>
+      <ul className={classes.ulText}>
+        <li className={classes.exampleText}>Your full account number and name are visible.</li>
+        <li className={classes.exampleText}>Acceptable file formats are PDF, JPG, JPEG and PNG.</li>
       </ul>
-      <Grid>
-        <ButtonPrimary
-          onClick={handleMenuOpen}
-          stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
-        >
-          Upload Your Document
-        </ButtonPrimary>
-
-        <Menu
-          anchorEl={selectDocument}
-          anchorOrigin={{ vertical: "top", horizontal: "right" }}
-          // id={ mobileMenuId }
-          keepMounted
-          transformOrigin={{ vertical: "top", horizontal: "right" }}
-          open={isMenuOpen}
-          onClose={handleMenuClose}
-        >
-          <MenuItem>
-            <Typography className={classes.dropdownMenu}>
-              Select from Existing Files
-              <input
-                id="selectFile"
-                style={{ display: "none" }}
-                type="file"
-              ></input>
-            </Typography>
-          </MenuItem>
-          <MenuItem>
-            <a to="/faq" className="nav_link ">
-              <Typography className={classes.dropdownMenu}>
-                Upload from Camera
-              </Typography>
-            </a>
-          </MenuItem>
-        </Menu>
-
+      <Grid  item sm={12} md={6} >
+        <UploadDocument 
+          title="Select Your Document" 
+          applicationNumber={ props.applicationNumber }
+          customerEmail={ props.customerEmail }
+          documentType="proof_of_income"/>
         <Grid className={classes.nextButton} container>
           <ButtonSecondary
             id="buttonMarginRight"
@@ -79,11 +38,20 @@ function BankAccountVerification() {
           <ButtonSecondary
             id="buttonMarginRight"
             stylebutton='{"color": "black", "borderRadius": "50px"}'
+            onClick={ props.prev }
           >
             Prev
           </ButtonSecondary>
-
-          <ButtonPrimary stylebutton='{"color": ""}'>Next</ButtonPrimary>
+          { props.isLastStep ? ""
+            :
+            <ButtonPrimary 
+              stylebutton='{"color": ""}' 
+              onClick={ props.next }
+              >
+              Next
+            </ButtonPrimary>
+          }
+          
         </Grid>
       </Grid>
     </Grid>
@@ -91,3 +59,10 @@ function BankAccountVerification() {
 }
 
 export default BankAccountVerification;
+BankAccountVerification.propTypes = {
+  applicationNumber: PropTypes.string,
+  customerEmail: PropTypes.string,
+	next: PropTypes.func,
+  prev: PropTypes.func,
+  isLastStep: PropTypes.bool
+};

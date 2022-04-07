@@ -69,6 +69,10 @@
     "register_customer": "/customer/register_new_user",
     "offercode_validation": "/application/validate_offer_code",
     "recaptcha_generate": "/integration/recaptcha/generateRecaptcha?format=json",
-    "recaptcha_validate": "/integration/recaptcha/verifyRecaptcha"
+    "recaptcha_validate": "/integration/recaptcha/verifyRecaptcha",
+    "branch_mail_verification": "/verification/branchemail",
+    "upload_email_verification_document": "/gps/send_email_attachment",
+    "save_consents": "/verification/save_LBP_consents",
+    "save_acquire_click": "/verification/saveAcquireClickInfo"
   }
 }

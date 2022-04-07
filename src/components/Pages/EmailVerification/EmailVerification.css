@@ -56,3 +56,27 @@
 #dropdownMenu {
   color: #0f4eb3;
 }
+.MuiStepLabel-labelContainer .MuiStepLabel-label{
+  padding: 12px 0px 12px 10px !important;
+  font-size: 0.938rem !important;
+  color: #595959 !important;
+}
+.MuiStepConnector-lineVertical{
+  min-height: 16px !important;
+}
+#checkBoxGrid .MuiStepper-vertical{
+  padding: 0 !important;
+}
+#checkBoxGrid .MuiStepper-vertical .MuiStep-root .MuiStepContent-root{
+  padding-left: 30px !important;
+}
+#selectInputGrid div label{
+  font-size: 0.938rem;
+  color: #595959;
+}
+#selectInputGrid .MuiFormControl-root .MuiInput-underline .MuiSelect-select{
+  padding-bottom: 15px !important;
+}  
+#selectInputGrid .MuiFormControl-root .MuiInput-underline .MuiSelect-select .subOption{
+  color: #171717 !important;
+}

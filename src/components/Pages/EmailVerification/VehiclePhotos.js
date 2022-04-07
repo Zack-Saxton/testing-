@@ -1,24 +1,34 @@
 import React from "react";
 import { Grid } from "@mui/material";
-import { ButtonPrimary } from "../../../components/FormsUI";
+import PropTypes from "prop-types";
 import { useStylesEmailVerification } from "./Style";
+import UploadDocument from "./UploadDocument";
 
-function VehiclePhotos() {
+function VehiclePhotos(props) {
   const classes = useStylesEmailVerification();
   return (
     <Grid>
-      <span>
+      <span className={classes.exampleText}>
         Click Below To Take Vehicle Pictures If Discussed With Your Loan
-        Officer. Please take clear, wide angle photos from 6 feet away for
+        Officer. 
+        <br/>
+        Please take clear, wide angle photos from 6 feet away for
         exterior pictures.
       </span>
-      <Grid className={classes.nextButton}>
-        <ButtonPrimary stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'>
-          Take Vehicle Photo
-        </ButtonPrimary>
+      <Grid  item sm={12} md={6}  className={classes.nextButton}>
+        <UploadDocument 
+          title="Select Vehicle Photo" 
+          applicationNumber={ props.applicationNumber }
+          customerEmail={ props.customerEmail }
+          documentType="other_verification_doc" />
       </Grid>
     </Grid>
   );
 }
 
 export default VehiclePhotos;
+
+VehiclePhotos.propTypes = {
+  applicationNumber: PropTypes.string,
+  customerEmail: PropTypes.string
+};

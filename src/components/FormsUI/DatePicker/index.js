@@ -6,7 +6,7 @@ Functionality       :    To use this component to get the date with restrictions
 												 restrict future, past dates, select between given range of dates like that.
 
 #################################################################################################################*/
-import DateFnsUtils from "@date-io/date-fns";
+// import DateFnsUtils from "@date-io/date-fns";
 import Grid from "@mui/material/Grid";
 //import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@mui/lab";
 import TextField from '@mui/material/TextField';

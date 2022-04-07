@@ -442,7 +442,7 @@ export default function BankAccountVerification(props) {
 						>
 							{ error }
 						</p>
-						<p style={ { textAlign: "justify" } }>
+						<p className={classes.exampleText} style={ { textAlign: "justify" } }>
 							<b>Upload Voided Personal Check:</b>
 							<br />
 							Please upload a voided personal check for the bank account you
@@ -450,10 +450,10 @@ export default function BankAccountVerification(props) {
 							most recent bank statement.
 						</p>
 
-						<p>
+						<p className={classes.exampleText}>
 							Please ensure:
-							<li>Your full account number and name are visible</li>
-							<li>Acceptable file formats are PDF, JPG, JPEG, GIF and PNG</li>
+							<li className={classes.exampleText}>Your full account number and name are visibless</li>
+							<li className={classes.exampleText}>Acceptable file formats are PDF, JPG, JPEG, GIF and PNG</li>
 						</p>
 					</div>
 					<DocumentUpload

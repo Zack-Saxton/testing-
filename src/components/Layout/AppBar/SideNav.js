@@ -155,6 +155,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   headerimg: {
+    height:"55px",
+    width:"55px"
   },
 
   sectionMobile: {
@@ -325,7 +327,7 @@ export default function SideNav() {
   let hasApplicationStatus = Cookies.get("hasApplicationStatus");
   let appStatus = [ "rejected", "referred", "expired" ];
   let checkAppStatus = appStatus.includes(hasApplicationStatus);
-  let disableField = (checkAppStatus && !hasActiveLoan ? true : checkAppStatus || !hasActiveLoan ? true : false );
+  let disableField = (checkAppStatus && !hasActiveLoan ? true : !checkAppStatus && !hasActiveLoan ? true : false );
   const branchName = Cookies.get("branchname");
   const branchPhone = Cookies.get('branchphone');
   const getProfileImage = Cookies.get('getProfileImage');
@@ -522,10 +524,10 @@ export default function SideNav() {
 
             <div className={ classes.grow } />
             <div id="tool-bar-list">
-              <NavLink to="/branch-locator" className="nav_link branchLocatorLink">
+              {/* <NavLink to="/branch-locator" className="nav_link branchLocatorLink">
                 <Typography className={ classes.headerAlign }>Branch Locator</Typography>
               </NavLink>
-              
+               */}
               <NavLink id="quickNameIcon" to="/customers/makePayment" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : '' }>
                 <Tooltip title="Quick Pay" placement="bottom">
                   <img
@@ -533,7 +535,7 @@ export default function SideNav() {
                     src={ quickPay }
                     data-test-id="background"
                     alt="quick pay"
-                  />
+                    />
                 </Tooltip>
               </NavLink>
 

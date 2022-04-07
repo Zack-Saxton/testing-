@@ -18,7 +18,7 @@ const ResumeApplication = (props) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	return (
-		<Grid className="circleprog" style={ { width: "100%", textAlign: "center" } }>
+		<Grid className="circleprog loadingCircle">
 			<CircularProgress />
 		</Grid>
 	);

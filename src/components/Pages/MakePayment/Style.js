@@ -28,7 +28,7 @@ const useStylesMakePayment = makeStyles((theme) => ({
   },
   tableHeadRow: {
     color: "#171717!important",
-    fontSize: "15px",
+    fontSize: "0.938rem",
   },
   autoPayTableheadrow: {
     width:"50% !important",
@@ -39,6 +39,7 @@ const useStylesMakePayment = makeStyles((theme) => ({
     color: "#171717!important",
     fontSize: "1.125rem",
     fontWeight: "400",
+    paddingBottom: "10px"
   },
   autoPayLink: {
     fontSize: "15px",
@@ -70,7 +71,55 @@ const useStylesMakePayment = makeStyles((theme) => ({
     color: "#595959",
     paddingTop: "40px",
   },
-
+  gridStyle: {
+    paddingBottom: "10px",
+  },
+  tableStyle: {
+    paddingTop: "10px", 
+    paddingBottom: "10px",
+  },
+  payFromStyle: {
+    width: "100%",
+    paddingTop: "10px",
+    paddingRight: "15px",
+  },
+  circularProgressStyle: {
+    display: "flex", 
+    justifyContent: "center",
+  },
+  paymentMethodStyle: {
+    paddingTop: "20px",
+  },
+  paymentModeStyle: {
+    width: "100%", 
+    paddingTop: "10px"
+  },
+  autoPayColor: {
+    color: "#575757"
+  },
+  autoPayStyle: {
+    margin: "auto",
+  },
+  autoPayTitle: {
+    color: "#595959",
+  },
+  autoPayFontStyle: {
+    fontSize: "0.938rem",
+  },
+  submitGridStyle: {
+    paddingBottom: "20px"
+  },
+  datePickerStyle: {
+    display: "inline-flex",
+    paddingTop: "10px",
+  },
+  paymentButtonStyle: {
+    paddingTop: "25px"
+  },
+  dialogActionStyle: {
+    justifyContent: "center", 
+    marginBottom: "25px",
+  }
 }));
 
 export { useStylesMakePayment };
