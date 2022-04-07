@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Grid } from "@material-ui/core";
+import { Grid } from "@mui/material";
 import { ButtonPrimary, ButtonSecondary } from "../../../components/FormsUI";
 import { useStylesEmailVerification } from "./Style";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import Typography from "@material-ui/core/Typography";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Typography from "@mui/material/Typography";
 
 function BankAccountVerification() {
   const [selectDocument, setSelectDocument] = useState(false);

@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from "react-toastify";
 import { ThemeProvider } from '@mui/styles';
-import { createTheme, StyledEngineProvider } from '@mui/material/styles';
+import { createTheme, StyledEngineProvider } from '@mui/material/styles'
 import 'react-toastify/dist/ReactToastify.css';
 import CheckMyOffers from '../../contexts/CheckMyOffers';
 import ProfilePicture from '../../contexts/ProfilePicture';
