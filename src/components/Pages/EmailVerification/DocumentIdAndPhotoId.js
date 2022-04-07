@@ -10,8 +10,6 @@ import Selfielicense from "../../../assets/gallery/selfielicense.png";
 import { useStylesEmailVerification } from "./Style";
 import UploadDocument from "./UploadDocument";
 
-
-
 function DocumentIdAndPhotoId(props) {
   const [docType, setDocType] = useState("");   
   const [ loading, setLoading ] = useState(false);  
@@ -50,7 +48,7 @@ function DocumentIdAndPhotoId(props) {
           />
         </Grid>
         <UploadDocument 
-          documentType="idDocumentPhoto" 
+          documentType="customer_identification_license" 
           docType={ docType }
           applicationNumber={ props.applicationNumber }
           customerEmail={ props.customerEmail }
@@ -76,9 +74,10 @@ function DocumentIdAndPhotoId(props) {
       </Grid>
       <Grid item sm={12} md={6} >
         <UploadDocument 
-          title="Upload your Picture" 
+          title="Select Your Picture" 
           applicationNumber={ props.applicationNumber }
           customerEmail={ props.customerEmail }
+          documentType="other_verification_doc" 
           />
 
         <Grid className={classes.nextButton} container>

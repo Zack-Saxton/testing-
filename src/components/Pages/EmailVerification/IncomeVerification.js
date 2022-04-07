@@ -18,7 +18,11 @@ function IncomeVerification(props) {
         </li>
       </ul>
       <Grid  item sm={12} md={6} >
-        <UploadDocument title="Upload Your Document" documentType="incomePhoto"/>
+        <UploadDocument 
+          title="Select Your Document" 
+          applicationNumber={ props.applicationNumber }
+          customerEmail={ props.customerEmail }
+          documentType="proof_of_income"/>
         <Grid className={classes.nextButton} container>
           <ButtonSecondary
             id="buttonMarginRight"

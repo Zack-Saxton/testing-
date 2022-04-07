@@ -23,7 +23,11 @@ function BankAccountVerification(props) {
         <li>Acceptable file formats are PDF, JPG, JPEG and PNG.</li>
       </ul>
       <Grid  item sm={12} md={6} >
-        <UploadDocument title="Upload Your Document" documentType="bankDocumentPhoto"/>
+        <UploadDocument 
+          title="Select Your Document" 
+          applicationNumber={ props.applicationNumber }
+          customerEmail={ props.customerEmail }
+          documentType="proof_of_income"/>
         <Grid className={classes.nextButton} container>
           <ButtonSecondary
             id="buttonMarginRight"
@@ -38,7 +42,16 @@ function BankAccountVerification(props) {
           >
             Prev
           </ButtonSecondary>
-          <ButtonPrimary stylebutton='{"color": ""}' onClick={ props.next }>Next</ButtonPrimary>
+          { props.isLastStep ? ""
+            :
+            <ButtonPrimary 
+              stylebutton='{"color": ""}' 
+              onClick={ props.next }
+              >
+              Next
+            </ButtonPrimary>
+          }
+          
         </Grid>
       </Grid>
     </Grid>
@@ -50,5 +63,6 @@ BankAccountVerification.propTypes = {
   applicationNumber: PropTypes.string,
   customerEmail: PropTypes.string,
 	next: PropTypes.func,
-  prev: PropTypes.func
+  prev: PropTypes.func,
+  isLastStep: PropTypes.bool
 };

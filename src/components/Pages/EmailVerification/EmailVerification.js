@@ -12,7 +12,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { useLocation } from "react-router-dom";
 import { useQuery } from 'react-query';
 import "./EmailVerification.css";
-import { toast } from "react-toastify";
 import DocumentIdAndPhotoId from "./DocumentIdAndPhotoId";
 import IncomeVerification from "./IncomeVerification";
 import BankAccountVerification from "./BankAccountVerification";
@@ -47,7 +46,6 @@ export default function EmailVerification() {
   const [agreeTerms, setAgreeTerms] = useState(false);
   const [ loading, setLoading ] = useState(false);
   const [ consentLoading, setConsentLoading ] = useState(false);
-  const [ verificationInfo, setVerificationInfo ] = useState(null);
   const [ eSign, seteSign ] = useState(false);
   const [ creditTerms, setCreditTerms ] = useState(false);
   const [ cacTerms, setCacTerms ] = useState(false);
@@ -56,7 +54,6 @@ export default function EmailVerification() {
     
   const { isLoading, data: verificationData } = useQuery([ 'branch-mail-verification-data', activationToken, email, applicationNumber ], () => validateActivationToken(activationToken, email, applicationNumber));
   useEffect(() => {
-    setVerificationInfo(verificationData);
     let applicationData = verificationData?.data?.emailVerificationRecord?.sorad?.applcationData ?? [];
     let currentApplication = applicationData.filter((application, index) => {
         return application.applicationNumber === applicationNumber;
@@ -76,7 +73,6 @@ export default function EmailVerification() {
       document.body.removeChild(script);
     };
   }, []);
-  //debugger;
   if(autoVerification !== 'on'){
     steps.pop();
   }
@@ -89,13 +85,17 @@ export default function EmailVerification() {
   };
 
   const handleChange = async (event) => {    
-    setConsentLoading(true);
-    let response = await saveConsentStatus(email, applicationNumber);
-    if (response) {
-      setAgreeTerms(true);
-      setLoading(false);
-    }
-    setConsentLoading(false);
+    try {
+      setConsentLoading(true);
+      let response = await saveConsentStatus(email, applicationNumber);
+      if (response) {
+        setAgreeTerms(true);
+        setLoading(false);
+      }
+      setConsentLoading(false);
+    } catch (error) {
+      ErrorLogger(" Error from saveConsentStatus API", error);
+    }    
   };
 
   const handleReset = () => {
@@ -127,12 +127,11 @@ export default function EmailVerification() {
   };
   const showCoBrowseCodeBox = async () => {        
     window.location = "javascript:acquireIO.startCoBrowseCodeBox()";
-    let response = await saveAcquireClick(email, applicationNumber);
-    if (response) {
-      setAgreeTerms(true);
-      setLoading(false);
-    }
-    setConsentLoading(false);
+    try {
+      await saveAcquireClick(email, applicationNumber);   
+    } catch (error) {
+      ErrorLogger(" Error in saveAcquireClick API", error);
+    }           
   }
   function getStepContent(step) {
     switch (step) {
@@ -165,6 +164,7 @@ export default function EmailVerification() {
           reset={ handleReset }
           steps={ steps }
           activeStep={ activeStep }
+          isLastStep= { autoVerification !== 'on' }
           />;
       case 3:
         return <VehiclePhotos 
@@ -181,6 +181,17 @@ export default function EmailVerification() {
     }
   }
   
+  const showConsentsLinks = () => {
+    return (
+      <>
+        <a><span className={ classes.linkDesign } onClick={ () => { handleOnClickeSign(); } }>{ ' ' }E-Signature Disclosure and Consent</span></a>
+        <a><span className={ classes.linkDesign } onClick={ () => { handleOnClickCreditTerms(); } }>{ ' ' }Credit and Contact Authorization</span></a>
+        <a><span className={ classes.linkDesign } onClick={ () => { handleOnClickCacTerms(); } }>{ ' ' }Website Terms of Use</span></a>
+        <a><span className={ classes.linkDesign } onClick={ () => { handleOnClickWebsiteTerms(); } }>{ ' ' }Website Privacy Statement</span></a>
+      </>
+    );
+  }
+
   return (    
     <Grid>
       { isLoading ? 
@@ -211,15 +222,12 @@ export default function EmailVerification() {
               acknowledge and sign our disclosures to proceed.
             </Typography>
             <Grid container>            
-              { agreeTerms || verificationData?.data?.messageType === 'error' ? 
+              { agreeTerms || verificationData?.data?.messageType !== 'error' ? 
                   <Grid className="acknowledgeText">
                   <Typography>
                     Consent documents that were acknowledged  
                     <br />
-                    <a><span className={ classes.linkDesign } onClick={ () => { handleOnClickeSign(); } }>{ ' ' }E-Signature Disclosure and Consent</span></a>
-                    <a><span className={ classes.linkDesign } onClick={ () => { handleOnClickCreditTerms(); } }>{ ' ' }Credit and Contact Authorization</span></a>
-                    <a><span className={ classes.linkDesign } onClick={ () => { handleOnClickCacTerms(); } }>{ ' ' }Website Terms of Use</span></a>
-                    <a><span className={ classes.linkDesign } onClick={ () => { handleOnClickWebsiteTerms(); } }>{ ' ' }Website Privacy Statement</span></a>
+                    { showConsentsLinks() }
                   </Typography>
                   <Typography>
                     { verificationData?.data?.errorMessage }
@@ -246,11 +254,7 @@ export default function EmailVerification() {
                       By clicking this box you acknowledge that you have received,
                       reviewed and agree to the following terms and conditions:
                       <br />
-                      <a><span className={ classes.linkDesign } onClick={ () => { handleOnClickeSign(); } }>{ ' ' }E-Signature Disclosure and Consent</span></a>
-                      <a><span className={ classes.linkDesign } onClick={ () => { handleOnClickCreditTerms(); } }>{ ' ' }Credit and Contact Authorization</span></a>
-                      <a><span className={ classes.linkDesign } onClick={ () => { handleOnClickCacTerms(); } }>{ ' ' }Website Terms of Use</span></a>
-                      <a><span className={ classes.linkDesign } onClick={ () => { handleOnClickWebsiteTerms(); } }>{ ' ' }Website Privacy Statement</span></a>
-                      
+                      { showConsentsLinks() }
                     </Typography>
                   </Grid>
                 </>                

@@ -62,7 +62,7 @@ export async function uploadEmailVerificationDocument(compressedFile, filesInfo,
     ? toast.success(uploadData?.data?.message ?? globalMessages.Document_upload)
     : toast.error(uploadData?.data?.message ?? globalMessages.Document_upload_error);
 
-  return true;
+  return (uploadData.status === 200);
 }
 
 export async function saveConsentStatus(customerEmail, applicationNumber) {
@@ -104,5 +104,5 @@ export async function saveAcquireClick(customerEmail, applicationNumber){
 
   //API call
   let uploadData = await APICall(url, param, data, method, addAccessToken);
-
+  return uploadData.status === 200;
 }

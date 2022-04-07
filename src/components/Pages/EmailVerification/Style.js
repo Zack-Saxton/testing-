@@ -54,6 +54,14 @@ const useStylesEmailVerification = makeStyles((theme) => ({
   },
   hideCheckbox: {
       display: "none"
+  },
+  showNextButton: {
+    display: "block",
+    color: ""
+  },
+  hideNextButton: {
+      display: "none",
+      color: ""
   }
 }));
 
