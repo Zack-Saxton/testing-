@@ -1,8 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import Webcam from "react-webcam";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
 import { Grid } from "@material-ui/core";
+import FlipCameraIosIcon from '@material-ui/icons/FlipCameraIos';
 import globalMessages from "../../../assets/data/globalMessages.json";
 import {
   ButtonPrimary
@@ -12,6 +13,12 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Typography from "@material-ui/core/Typography";
 import { uploadEmailVerificationDocument } from "../../Controllers/EmailVerificationController";
+const FACING_MODE_USER = "user";
+const FACING_MODE_ENVIRONMENT = "environment";
+
+const videoConstraints = {
+  facingMode: FACING_MODE_ENVIRONMENT
+};
 
 function UploadDocument(props) {
   const classes = useStylesEmailVerification();
@@ -26,7 +33,15 @@ function UploadDocument(props) {
   const refWebCam = useRef(null);
   const docType = props.docType ? props.docType : "";
   const typeOfDocument = props.documentType ? props.documentType : "";
-  
+  const [facingMode, setFacingMode] = useState(FACING_MODE_ENVIRONMENT);
+  const switchCamera = useCallback(() => {
+    setFacingMode(
+      prevState =>
+        prevState === FACING_MODE_USER
+          ? FACING_MODE_ENVIRONMENT
+          : FACING_MODE_USER
+    );
+  }, []);
   const handleMenuOpen = (event) => {    
     if(!checkFileTypeExist()){
       toast.error("Select ID type");
@@ -37,7 +52,7 @@ function UploadDocument(props) {
   const capture = React.useCallback(() => {
     const imageSrc =  refWebCam.current.getScreenshot();
     setImgSrc(imageSrc);
-  }, [ refWebCam, setImgSrc]);
+  }, [ refWebCam, setImgSrc]);  
 
   const handleChange = (event) => {
     let allowedExtensions = /(\.jpg|\.jpeg|\.png|\.pdf)$/i;
@@ -226,7 +241,15 @@ function UploadDocument(props) {
               screenshotFormat="image/jpeg"
               height={360}
               width={640}
-            />            
+              videoConstraints={{
+                ...videoConstraints,
+                facingMode
+              }}
+            />     
+            <FlipCameraIosIcon 
+              onClick={ switchCamera }
+              style={{ color: "black", background: "rgb(255, 188, 35)", borderRadius: "50px",fontSize: 40, margin: "10px" } }
+            ></FlipCameraIosIcon>       
             <ButtonPrimary
               onClick={capture}
               stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "margin":"10px 0px"}'
