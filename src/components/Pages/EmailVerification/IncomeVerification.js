@@ -9,7 +9,7 @@ function IncomeVerification(props) {
   const classes = useStylesEmailVerification();
   return (
     <Grid>
-      <ul>
+      <ul className={classes.ulText}>
         <li>
           Recent Pay Statements (your most recent), or most recent Benefits
           Statement from current calendar year (if you are retired or not

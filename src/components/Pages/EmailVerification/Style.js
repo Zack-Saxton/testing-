@@ -15,9 +15,28 @@ const useStylesEmailVerification = makeStyles((theme) => ({
   resetContainer: {
     padding: theme.spacing(3),
   },
+  ensureText: {
+    lineHeight:"1.5",
+    color:"#595959",
+    fontSize: "0.906rem",
+    paddingTop:"10px",
+    paddingLeft:"0px",
+    display:"block",
+  },
+  ensureTitle: {
+    lineHeight:"1.5",
+    color:"#595959",
+    fontSize: "0.938rem",
+    paddingLeft:"0px",
+    display:"block"
+  },
   PleaseEnsureList: {
-    paddingLeft: "10px",
-    fontSize: "0.875rem",
+    paddingLeft: "0px",
+    fontSize: "0.938rem",
+    color:"#595959",
+    lineHeight:"1.5",
+    margin:"0px",
+    listStylePosition: "inside"
   },
   uploadDocumentText: {
     display: "block",
@@ -26,7 +45,9 @@ const useStylesEmailVerification = makeStyles((theme) => ({
   },
   uploadDocumentParagraph: {
     display: "block",
-    fontSize: "0.875rem",
+    color:"#595959",
+    fontSize: "0.938rem",
+    lineHeight:"1.5"
   },
   nextButton: {
     marginTop: "20px",
@@ -62,6 +83,19 @@ const useStylesEmailVerification = makeStyles((theme) => ({
   hideNextButton: {
       display: "none",
       color: ""
+  },
+  exampleText: {
+    color:"#595959",
+    fontSize: "0.938rem",
+    lineHeight:"1.5",
+  },
+  ulText: {
+    color:"#595959",
+    fontSize: "0.938rem",
+    lineHeight:"1.5",
+    paddingLeft:"0px !important",
+    margin:"0px 0px 10px 0px",
+    listStylePosition: "inside"
   }
 }));
 

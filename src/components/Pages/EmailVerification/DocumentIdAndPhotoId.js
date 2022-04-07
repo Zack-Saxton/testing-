@@ -21,11 +21,11 @@ function DocumentIdAndPhotoId(props) {
   };  
   return (
     <Grid>
-      <span>
+      <span className={classes.ensureTitle}>
         Please upload an image of your driver’s license, passport, state-issued
         photo ID card, or military/federal government photo ID.
       </span>
-      <span>Please ensure:</span>
+      <span className={classes.ensureText}>Please ensure:</span>
       <ul className={classes.PleaseEnsureList}>
         <li>The image is in color.</li>
         <li>The document is currently valid.</li>
@@ -34,7 +34,7 @@ function DocumentIdAndPhotoId(props) {
       </ul>
 
       <Grid item sm={12} md={6} className={classes.selectDocumentType}>
-        <Grid className={classes.selectInput}>
+        <Grid id="selectInputGrid" className={classes.selectInput}>
           <Select
             id="selectDoccumentWrap"
             name="selectDocument"
@@ -56,7 +56,7 @@ function DocumentIdAndPhotoId(props) {
                 
       </Grid>
 
-      <Grid className={classes.uploadDocumentText}>
+      <Grid item md={12} sm={12} className={classes.uploadDocumentText}>
         <span className={classes.uploadDocumentParagraph}>
           Please upload a picture of yourself, in which you are holding your
           state or federal government issued ID next to your face. Please ensure
@@ -65,8 +65,10 @@ function DocumentIdAndPhotoId(props) {
           your ID document matches your appearance (similar to an in-person ID
           check).
           <br />
-          To see an example, please look at the image below.
         </span>
+          <span className={classes.exampleText}>
+            To see an example, please look at the image below.
+            </span>
         <Grid className="SelfieLicenseImage">
           <img src={Selfielicense} alt="Selfielicense" />
           <span>Sample Photograph</span>

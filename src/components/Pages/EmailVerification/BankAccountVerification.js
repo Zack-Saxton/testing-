@@ -10,17 +10,17 @@ function BankAccountVerification(props) {
 
   return (
     <Grid>
-      <ul>
-        <li>
+      <ul className={classes.ulText}>
+        <li className={classes.exampleText}>
           Please upload a voided personal check for the bank account you
           provided. If you do not have a personal check, please upload your most
           recent bank statement.
         </li>
       </ul>
-      <span>Please ensure:</span>
-      <ul>
-        <li>Your full account number and name are visible.</li>
-        <li>Acceptable file formats are PDF, JPG, JPEG and PNG.</li>
+      <span className={classes.exampleText}>Please ensure:</span>
+      <ul className={classes.ulText}>
+        <li className={classes.exampleText}>Your full account number and name are visible.</li>
+        <li className={classes.exampleText}>Acceptable file formats are PDF, JPG, JPEG and PNG.</li>
       </ul>
       <Grid  item sm={12} md={6} >
         <UploadDocument 

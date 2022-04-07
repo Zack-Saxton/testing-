@@ -184,9 +184,9 @@ export default function EmailVerification() {
   const showConsentsLinks = () => {
     return (
       <>
-        <a><span className={ classes.linkDesign } onClick={ () => { handleOnClickeSign(); } }>{ ' ' }E-Signature Disclosure and Consent</span></a>
-        <a><span className={ classes.linkDesign } onClick={ () => { handleOnClickCreditTerms(); } }>{ ' ' }Credit and Contact Authorization</span></a>
-        <a><span className={ classes.linkDesign } onClick={ () => { handleOnClickCacTerms(); } }>{ ' ' }Website Terms of Use</span></a>
+        <a><span className={ classes.linkDesign } onClick={ () => { handleOnClickeSign(); } }>{ ' ' }E-Signature Disclosure and Consent,</span></a>
+        <a><span className={ classes.linkDesign } onClick={ () => { handleOnClickCreditTerms(); } }>{ ' ' }Credit and Contact Authorization,</span></a>
+        <a><span className={ classes.linkDesign } onClick={ () => { handleOnClickCacTerms(); } }>{ ' ' }Website Terms of Use,</span></a>
         <a><span className={ classes.linkDesign } onClick={ () => { handleOnClickWebsiteTerms(); } }>{ ' ' }Website Privacy Statement</span></a>
       </>
     );
@@ -225,7 +225,7 @@ export default function EmailVerification() {
               { agreeTerms || verificationData?.data?.messageType !== 'error' ? 
                   <Grid className="acknowledgeText">
                   <Typography>
-                    Consent documents that were acknowledged  
+                    Consent documents that were acknowledged
                     <br />
                     { showConsentsLinks() }
                   </Typography>
@@ -263,7 +263,7 @@ export default function EmailVerification() {
               }
               
             </Grid>
-            <Grid className={ agreeTerms ? classes.showCheckbox : classes.hideCheckbox }>
+            <Grid id="checkBoxGrid" className={ agreeTerms ? classes.showCheckbox : classes.hideCheckbox }>
               <Stepper activeStep={activeStep} orientation="vertical">
                 {steps.map((label, index) => (
                   <Step key={Math.random() * 1000}>

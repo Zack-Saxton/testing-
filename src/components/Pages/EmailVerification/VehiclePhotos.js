@@ -8,9 +8,11 @@ function VehiclePhotos(props) {
   const classes = useStylesEmailVerification();
   return (
     <Grid>
-      <span>
+      <span className={classes.exampleText}>
         Click Below To Take Vehicle Pictures If Discussed With Your Loan
-        Officer. Please take clear, wide angle photos from 6 feet away for
+        Officer. 
+        <br/>
+        Please take clear, wide angle photos from 6 feet away for
         exterior pictures.
       </span>
       <Grid  item sm={12} md={6}  className={classes.nextButton}>
