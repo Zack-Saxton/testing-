@@ -191,6 +191,9 @@ const useStylesApplyForLoan = makeStyles((theme) => ({
   },
   applicationPapper: {
     width:"100%"
+  },
+  receiveMoneyGrid: {
+    height:"80vh"
   }
 }));
 
