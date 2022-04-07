@@ -50,14 +50,8 @@ const useStyles = makeStyles((Theme) =>
 			padding: Theme.spacing(1),
 		},
 		masonryItemFirst: {
-			boxSizing: "border-box",
-			padding: `${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(1) }px`,
-			[ Theme.breakpoints.up("lg") ]: {
-				padding: `${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(1) }px`,
-			},
-			[ Theme.breakpoints.down("sm") ]: {
-				padding: `${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(1) }px`,
-			},
+			padding: Theme.spacing(1),
+			boxSizing: "border-box",			
 		},
 		mainGridPadding: {
 			padding: "4% 0%"

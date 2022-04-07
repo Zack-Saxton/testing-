@@ -174,10 +174,6 @@
   padding-bottom:5px;
 }
 
-#tabWarp{
-  padding: 0;
-}
-
 @media (max-width: 599px) {
   #activeLoanGrid {
     height: 100% !important;

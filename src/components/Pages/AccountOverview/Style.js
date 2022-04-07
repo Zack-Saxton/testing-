@@ -165,7 +165,7 @@ const useStylesAccountOverview = makeStyles((theme) => ({
     fontWeight: 700,
     fontFamily: "'Muli', sans-serif !important",
     fontSize: "1rem",
-    textAlign: "start",
+    alignItems: "start",
   },
   viewAppindicator: {
     left: "0px",

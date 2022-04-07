@@ -16,12 +16,12 @@
   padding-top: 20px !important;
   border-radius: 10px;
 }
-#tabsWrap > .MuiTabs-scroller > .MuiTabs-flexContainer button span svg {
+#tabsWrap > .MuiTabs-scroller > .MuiTabs-flexContainer button svg {
   color: #0f4eb3;
   font-size: 45px;
   border-radius: 2.5px;
 }
-#tabsWrap > .MuiTabs-scroller > .MuiTabs-flexContainer button span p {
+#tabsWrap > .MuiTabs-scroller > .MuiTabs-flexContainer button p{
   font-family: "Muli", sans-serif;
   font-weight: bolder;
   font-size: 15px;

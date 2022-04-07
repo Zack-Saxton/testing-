@@ -40,10 +40,8 @@ const DatePickerWrapper = ({ name, format, label, refId,
 				<DatePicker
 					margin="normal"
 					id="date-picker-dialog"
-					label={ label }
-					fullWidth={ true }
-					format={ format ?? 'MM/dd/yyyy' }
-					
+					label={ label }					
+					format={ format ?? 'MM/dd/yyyy' }					
 					onChange={ handleDateChange }
 					InputAdornmentProps={ { position: 'start' } }
 					minDate={ minDate }
@@ -52,6 +50,7 @@ const DatePickerWrapper = ({ name, format, label, refId,
 					renderInput={(props) => (
 					<TextField 
 						{...props} 
+						fullWidth={ true }
 						{ ...otherProps }
 						value={ selectedDate }
 						placeholder={ placeholder }

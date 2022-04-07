@@ -92,7 +92,6 @@ export default function ViewAccountDetails() {
             <Grid className="applicationDetailsGrid" item xs={ 12 } sm={ 4 }>
               <Paper className={ classes.paperVerticalTabViewDetail }>
                 <Tabs
-                  id="tabWarp"
                   value={ values }
                   onChange={ handleTabChange }
                   classes={ {
