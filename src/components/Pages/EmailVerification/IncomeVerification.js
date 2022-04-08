@@ -23,13 +23,7 @@ function IncomeVerification(props) {
           applicationNumber={ props.applicationNumber }
           customerEmail={ props.customerEmail }
           documentType="proof_of_income"/>
-        <Grid className={classes.nextButton} container>
-          <ButtonSecondary
-            id="buttonMarginRight"
-            stylebutton='{"color": "black","padding":"0px 30px"}'
-          >
-            Reset
-          </ButtonSecondary>
+        <Grid className={classes.nextButton} container>          
           <ButtonSecondary
             id="buttonMarginRight"
             stylebutton='{"color": "black", "borderRadius": "50px"}'

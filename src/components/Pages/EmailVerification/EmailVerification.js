@@ -287,16 +287,13 @@ export default function EmailVerification() {
                 </ButtonPrimary>
               </Grid>
             </Grid>
-            {activeStep === steps.length && (
+            {activeStep === steps.length ? (
               <Paper square elevation={0} className={classes.resetContainer}>
                 <Typography>
                   All steps completed - you&apos;re finished
-                </Typography>
-                <Button onClick={handleReset} className={classes.button}>
-                  Reset
-                </Button>
+                </Typography> 
               </Paper>
-            )}
+            ) : "" }
           </Grid>
           <Popup popupFlag={ eSign } title='E-Signature Disclosure and Consent' closePopup={ handleOnClickeSignClose }>
             <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
