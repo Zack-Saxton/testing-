@@ -257,7 +257,6 @@ export default function SideNav() {
   };
   useEffect(() => {    
 		getFinalApplicationStatus();
-		return null;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [verificationStepsApplyforLoan]);
 
@@ -311,7 +310,6 @@ export default function SideNav() {
     if (branchVal) {
       setBranchAvailability(branchVal?.data?.branchIsOpen);
     }
-    return null;
   }, [ branchVal ]);
 
   //Api call Profile Picture

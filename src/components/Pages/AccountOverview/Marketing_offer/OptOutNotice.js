@@ -15,7 +15,6 @@ export default function OptOutNotice(offerData) {
 
     useEffect(() => {
         determineOptOut(offerData);
-        return null;
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

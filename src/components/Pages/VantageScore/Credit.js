@@ -58,7 +58,6 @@ export default function Credit(creditData) {
     if (accountDetails) {
       setLoanStatus(accountDetails?.data?.customer?.user_account?.status);
     }
-    return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ accountDetails ]);
 

@@ -73,13 +73,11 @@ export default function PhoneVerification(props) {
 	// get the phone number on load
 	useEffect(() => {
 		setPhoneNum(accountDetials?.data?.customer?.latest_contact?.phone_number_primary);
-		return null;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [ accountDetials ]);
 
 	useEffect(() => {
 		formik.setFieldValue("phone", phoneNum);
-		return null;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [ phoneNum ]);
 

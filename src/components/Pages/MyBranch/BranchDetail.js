@@ -45,7 +45,6 @@ export default function BranchDetail(MyBranchDetail) {
   }
   useEffect(() => {
     AsyncEffect_HolidayCalender();
-    return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

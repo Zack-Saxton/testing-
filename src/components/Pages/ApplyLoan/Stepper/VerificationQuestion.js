@@ -51,7 +51,6 @@ export default function VerificationQuestion(props) {
   // get the function to fetch api on page load
   useEffect(() => {
     getUserAccountDetails();
-    return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

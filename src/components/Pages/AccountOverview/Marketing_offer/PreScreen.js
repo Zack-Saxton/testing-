@@ -15,7 +15,6 @@ export default function PreScreen(offerData) {
 
     useEffect(() => {
         determinePreScreen(offerData);
-        return null;
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

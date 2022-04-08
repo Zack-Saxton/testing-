@@ -59,7 +59,6 @@ function NewUser() {
 		if (data?.completedPage < data?.page?.employmentStatus || data?.formStatus?.toLowerCase() === "completed") {
 			navigate("/select-amount");
 		}
-		return null;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	const validate = (personal, household) => {
