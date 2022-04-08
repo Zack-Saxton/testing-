@@ -46,6 +46,20 @@
     display: flex;
     box-shadow: rgb(61 61 61 / 10%) 0px 8px 44px 0px;
 }
+.imageholdernew{
+    /* width: 66%; */
+    background-color: white;
+    border-radius: 10px;
+    padding: 24px;
+    border-right: 10px !important;
+    display: flex;
+    box-shadow: rgb(61 61 61 / 10%) 0px 8px 44px 0px;
+}
+
+.imageholdernewtop{
+    padding: 10px;
+    display: flex;
+}
 
 .yellowBackground{
     background-color: #ffbc24;
@@ -54,7 +68,7 @@
 }
 
 .bannerImage{
-    width: 60%;
+    width: 50%;
     height: 100%;
 }
 
@@ -67,6 +81,24 @@
     justify-content: center;
     padding: 24px;
     box-shadow: rgb(61 61 61 / 10%) 0px 8px 44px 0px;
+}
+
+.secondBannerWrapNew{
+    /* width: 23%; */
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: 10px;
+    padding: 24px;
+    box-shadow: rgb(61 61 61 / 10%) 0px 8px 44px 0px;
+}
+
+.secondBannerWrapNewtop{
+    border-radius: 10px;
+    display: flex;
+    padding: 10px;
 }
 
 .secondBannerImage{
@@ -83,7 +115,7 @@
 }
 
 .secondGrid{
-    min-width: 40%;
+    min-width: 50%;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -199,9 +231,9 @@
     .bannerImage{
         width: 100%;
     }
-    .secondGrid{
+    /* .secondGrid{
         margin: 30px 0px;
-    }
+    } */
     #claimButton{
         font-size: 30px;
         padding: 0px 30px !important;

@@ -8,8 +8,8 @@ import React, { useEffect, useState } from "react";
 import NumberFormat from "react-number-format";
 import { useQuery } from 'react-query';
 import { NavLink, useNavigate } from "react-router-dom";
-import adBanner from "../../../assets/gallery/AdBanner.jpg";
-import MortgageBanner from "../../../assets/images/Latest_Mortgage_Banner.png";
+import adBanner from "../../../assets/gallery/adBanner3.jpg";
+import MortgageBanner from "../../../assets/gallery/mortgageBanner3.jpg";
 import MyBranchAPI from "../../Controllers/MyBranchController";
 import { ButtonPrimary } from "../../FormsUI";
 import "./AccountOverview.css";
@@ -58,7 +58,9 @@ export default function LimitedOffer(userOfferData) {
   return (
     <div id="limitedOfferWrap" className="limitedOfferWrap">
       <Grid container id="overviewWrap" className="overviewWrap">
-        <Grid className="imageholder">
+      <Grid  item  sm={6} md={6} xs={12} lg={6} className="imageholdernewtop">
+
+        <Grid className="imageholdernew">
           <div className="yellowBackground">
             <img
               className="bannerImage"
@@ -106,7 +108,10 @@ export default function LimitedOffer(userOfferData) {
             </div>
           </div>
         </Grid>
-        <Grid className="secondBannerWrap">
+        </Grid>
+        <Grid className="secondBannerWrapNewtop" item sm={6} md={6} xs={12} lg={6}>
+
+        <Grid className="secondBannerWrapNew" >
           <a
             target="_blank"
             rel="noreferrer"
@@ -119,6 +124,7 @@ export default function LimitedOffer(userOfferData) {
               alt="mortgage_banner"
             />
           </a>
+        </Grid>
         </Grid>
       </Grid>
 
