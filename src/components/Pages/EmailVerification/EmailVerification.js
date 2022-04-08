@@ -184,10 +184,10 @@ export default function EmailVerification() {
   const showConsentsLinks = () => {
     return (
       <>
-        <a><span className={ classes.linkDesign } onClick={ () => { handleOnClickeSign(); } }>{ ' ' }E-Signature Disclosure and Consent,</span></a>
-        <a><span className={ classes.linkDesign } onClick={ () => { handleOnClickCreditTerms(); } }>{ ' ' }Credit and Contact Authorization,</span></a>
-        <a><span className={ classes.linkDesign } onClick={ () => { handleOnClickCacTerms(); } }>{ ' ' }Website Terms of Use,</span></a>
-        <a><span className={ classes.linkDesign } onClick={ () => { handleOnClickWebsiteTerms(); } }>{ ' ' }Website Privacy Statement</span></a>
+        <a>{ ' ' }<span className={ classes.linkDesign } onClick={ () => { handleOnClickeSign(); } }>E-Signature Disclosure and Consent,</span></a>
+        <a>{ ' ' }<span className={ classes.linkDesign } onClick={ () => { handleOnClickCreditTerms(); } }>Credit and Contact Authorization,</span></a>
+        <a>{ ' ' }<span className={ classes.linkDesign } onClick={ () => { handleOnClickCacTerms(); } }>Website Terms of Use,</span></a>
+        <a>{ ' ' }<span className={ classes.linkDesign } onClick={ () => { handleOnClickWebsiteTerms(); } }>Website Privacy Statement</span></a>
       </>
     );
   }

@@ -10,6 +10,9 @@
   line-height: 25px;
   color: #0f4eb3 !important;
 }
+.acknowledgeText p a span{
+  text-decoration: underline !important;
+}
 .documetVirificationHeading {
   font-size: 2rem;
 }
