@@ -40,7 +40,6 @@ export default function RecentPayments() {
 				setSelectedLoanAccount( selectedLoanAccount ?? accountDetails.data.loanHistory[0].accountNumber)
 				setLoanAccountsList( accountDetails.data.loanHistory );
 		}
-		return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
 	},[accountDetails, selectedLoanAccount, setSelectedLoanAccount]);
 

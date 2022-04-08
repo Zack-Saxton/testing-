@@ -53,7 +53,6 @@ export default function PaymentHistory() {
 			let respectiveList = accountDetails.data.loanHistory.find((loan) => loan.accountNumber === selectedLoanAccount)
 			setHistoryOfLoans(respectiveList);
 		}
-    return null;
   }, [ selectedLoanAccount, accountDetails ]);
 
   useEffect(() => {

@@ -47,7 +47,6 @@ export default function LimitedOffer(userOfferData) {
       setCampaignType(userOfferData?.userOffers?.CampaignTypeDesc);
       setUserOfferAmount(userOfferData?.userOffers?.offerAmount);
     }
-    return null;
   }, [ userOfferData ]);
 
   const showModal = () => setInitModal(true);

@@ -91,7 +91,6 @@ function HomeAddress() {
 		if (data?.completedPage < data?.page?.citizenship || data?.formStatus?.toLowerCase() === "completed") {
 			navigate("/select-amount");
 		}
-		return null;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -105,7 +104,6 @@ function HomeAddress() {
     else if (handlePopupOhio) {
       setOpenOhio(true);
     }
-    return null;
   }, [ handlePopupCA, handlePopupOhio ]);
 
 	//Handle modal open and close

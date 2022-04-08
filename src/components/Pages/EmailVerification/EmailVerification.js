@@ -61,7 +61,6 @@ export default function EmailVerification() {
     if(currentApplication.length && currentApplication[0]?.consents){
       setAgreeTerms(true);
     }    
-    return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ verificationData ]);
   useEffect(() => {

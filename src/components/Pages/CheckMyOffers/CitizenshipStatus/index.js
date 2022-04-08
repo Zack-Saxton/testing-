@@ -41,7 +41,6 @@ function CitizenshipStatus() {
 		if (data.completedPage < data?.page?.loanPurpose || data?.formStatus?.toLowerCase() === "completed") {
 			navigate("/select-amount");
 		}
-		return null;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	//Handle the button click

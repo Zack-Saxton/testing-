@@ -99,7 +99,6 @@ export default function CreditKarma() {
     SetPopulatePartnerSignupState(PopulatePartnerSignupData);
     SetPopulatePartnerPhone(PopulatePartnerSignupData?.data?.applicant?.phoneNumber);
     formik.setFieldValue("phone", populatePartnerPhone);
-    return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ PopulatePartnerSignupData, populatePartnerPhone ]);
 
@@ -138,7 +137,6 @@ export default function CreditKarma() {
     else if (handlePopupOhio) {
       setOpenOhio(true);
     }
-    return null;
   }, [ handlePopupCA, handlePopupOhio ]);
 
   const handleCloseCA = () => setOpenCA(false);

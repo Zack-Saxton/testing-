@@ -46,7 +46,6 @@ const PreApproved = () => {
     };
     useEffect(() => {
         setOfferAmount("$ " + (location?.state?.offerData?.length ? (Math.round(parseInt(location.state.offerData[ 0 ].offerAmount) * 100) / 100) : 0).toLocaleString());
-        return null;
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

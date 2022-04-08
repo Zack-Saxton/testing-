@@ -14,7 +14,6 @@ const ResumeApplication = (props) => {
 	};
 	useEffect(() => {
 		redirect();
-		return null;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	return (
