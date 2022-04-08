@@ -3,7 +3,6 @@ import Webcam from "react-webcam";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
 import { Grid } from "@material-ui/core";
-import FlipCameraIosIcon from '@material-ui/icons/FlipCameraIos';
 import globalMessages from "../../../assets/data/globalMessages.json";
 import {
   ButtonPrimary
@@ -33,7 +32,7 @@ function UploadDocument(props) {
   const refWebCam = useRef(null);
   const docType = props.docType ? props.docType : "";
   const typeOfDocument = props.documentType ? props.documentType : "";
-  const [facingMode, setFacingMode] = useState(FACING_MODE_ENVIRONMENT);
+  const [facingMode, setFacingMode] = useState(docType === 'Selfie' ? FACING_MODE_USER : FACING_MODE_ENVIRONMENT);
   const switchCamera = useCallback(() => {
     setFacingMode(
       prevState =>
@@ -245,11 +244,7 @@ function UploadDocument(props) {
                 ...videoConstraints,
                 facingMode
               }}
-            />     
-            <FlipCameraIosIcon 
-              onClick={ switchCamera }
-              style={{ color: "black", background: "rgb(255, 188, 35)", borderRadius: "50px",fontSize: 40, margin: "10px" } }
-            ></FlipCameraIosIcon>       
+            />       
             <ButtonPrimary
               onClick={capture}
               stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "margin":"10px 0px"}'
