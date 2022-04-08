@@ -10,8 +10,7 @@ const useStylesLogin = makeStyles((theme) => ({
   linkDesign: {
     color: "#0F4EB3",
     cursor: "pointer",
-    fontSize: "0.938rem"
-
+    fontSize: "0.938rem"  
   },
   paper: {
     padding: "30px",
