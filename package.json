@@ -93,6 +93,5 @@
     "eslint-plugin-react": "7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
     "husky": "^7.0.2"
-  },
-  "proxy": "https://psa-development.marinerfinance.io"
+  }
 }
