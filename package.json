@@ -28,7 +28,7 @@
     "js-cookie": "^3.0.1",
     "jspdf": "^2.4.0",
     "jspdf-autotable": "^3.5.20",
-    "moment": "^2.29.1",
+    "moment": "^2.29.2",
     "moment-timezone": "^0.5.33",
     "print-js": "^1.6.0",
     "prop-types": "^15.7.2",
