@@ -759,7 +759,7 @@ export default function SideNav() {
                     MoneySKILL &reg;{ " " }
                   </ListItemText>
                 </ListItem>
-                <a href={ `${ process.env.REACT_APP_WEBSITE }/blog/` } className="titleSidenav">
+                <a href={ `${ process.env.REACT_APP_WEBSITE }/blog/` } className="titleSidenav" target="_blank" rel="noreferrer">
                   <ListItem>
                     <ListItemIcon>
                       { " " }
