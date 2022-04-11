@@ -40,7 +40,7 @@ const NormalHeader = () => {
     >
       <MenuItem>
         <Typography className={ classes.headerAlign }>
-          <a href={ `${ process.env.REACT_APP_WEBSITE }/blog/` } className="hrefTag">
+          <a href={ `${ process.env.REACT_APP_WEBSITE }/blog/` } target="_blank"  className="hrefTag" rel="noreferrer">
             Blog
           </a>
         </Typography>
@@ -73,7 +73,7 @@ const NormalHeader = () => {
           <div className={ classes.grow } />
           <div className={ classes.sectionDesktop }>
             <Typography id="blogsLink" className={ classes.subtitle }>
-              <a href={ `${ process.env.REACT_APP_WEBSITE }/blog/` } className="hrefTag">
+              <a href={ `${ process.env.REACT_APP_WEBSITE }/blog/` } target="_blank"  className="hrefTag" rel="noreferrer">
                 Blog
               </a>
             </Typography>
