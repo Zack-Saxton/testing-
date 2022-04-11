@@ -184,7 +184,6 @@ export default function PaymentMethod() {
     if (autoPay) {
       setAutoPayAccountNo(autoPay);
     }
-    return null;
   }, [ dataAccountOverview ]);
   const formikAddBankAccount = useFormik({
     initialValues: {
