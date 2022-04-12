@@ -247,7 +247,6 @@ export default function Register() {
       setCity("");
       if (event.target.value && event.target.value.length === 5) {
         let result = await ZipCodeLookup(event.target.value.trim());
-        console.log(result);
         if (result?.data?.cityName) {
           setValidZip(true);
           setState(result.data.stateCode);
