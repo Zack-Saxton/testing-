@@ -210,10 +210,10 @@ export default function ScheduleAppointment({
                 label="Date"
                 placeholder="MM/DD/YYYY"
                 id="appointmentDate"
-                disablePast
+                disablePastDate = "true"
                 onKeyDown={ (event) => event.preventDefault() }
                 autoComplete="off"
-                shouldDisableDate={ disableHolidays }
+                disableDate={ disableHolidays }
                 maxdate={ scheduleAppointmentDate }
                 minyear={ 4 }
                 value={ formik.values.appointmentDate }

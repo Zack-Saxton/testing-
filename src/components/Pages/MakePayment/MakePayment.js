@@ -764,13 +764,13 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
                               label="Payment Date"
                               placeholder="MM/DD/YYYY"
                               id="date"
-                              disablePast
+                              disablePastDate = "true"
                               disabled={ calendarDisabled }
                               autoComplete="off"
                               refId={ refpaymentDatepicker }
                               maxdate={ paymentMaxDate }
                               onKeyDown={ (event) => event.preventDefault() }
-                              shouldDisableDate={ disableHolidays }
+                              disableDate={ disableHolidays }
                               minyear={ 4 }
                               onChange={ (paymentDatepickerOnChange) => {
                                 setPaymentDatepicker(

@@ -204,10 +204,10 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
                 label="Date"
                 placeholder="MM/DD/YYYY"
                 id="appointmentDate"
-                disablePast
+                disablePastDate = "true"
                 onKeyDown={ (event) => event.preventDefault() }
                 autoComplete="off"
-                shouldDisableDate={ disableHolidays }
+                disableDate={ disableHolidays }
                 maxdate={ scheduleDateCall }
                 minyear={ 4 }
                 value={ formik.values.appointmentDate }
