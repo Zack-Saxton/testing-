@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, createRef } from "react";
 import PropTypes from "prop-types";
 import { Grid } from "@material-ui/core";
 import {
@@ -13,12 +13,24 @@ import UploadDocument from "./UploadDocument";
 function DocumentIdAndPhotoId(props) {
   const [docType, setDocType] = useState("");   
   const [ loading, setLoading ] = useState(false);  
+  const [ IDDocument, setIDDocument ] = useState(false); 
+  const [ selfPhoto, setSelfPhoto ] = useState(false); 
+  const refIDDocument = createRef();
+  const refSelfPhoto = createRef();
+
   const classes = useStylesEmailVerification();
 
   const handleDocType = (event) => {
     setDocType(event.target.value.trim());    
     event.target.value = '';
   };  
+  const uploadFiles = async () => {
+    refIDDocument.current.uploadDocumentNow();
+    refSelfPhoto.current.uploadDocumentNow();
+    props.next();
+  }
+  console.log("IDDocument"+ IDDocument +" selfPhoto:"+ selfPhoto)
+  
   return (
     <Grid>
       <span className={classes.ensureTitle}>
@@ -52,6 +64,8 @@ function DocumentIdAndPhotoId(props) {
           docType={ docType }
           applicationNumber={ props.applicationNumber }
           customerEmail={ props.customerEmail }
+          changeDocument = { setIDDocument }
+          ref = { refIDDocument }
         />
                 
       </Grid>
@@ -81,10 +95,15 @@ function DocumentIdAndPhotoId(props) {
           customerEmail={ props.customerEmail }
           documentType="other_verification_doc" 
           docType="Selfie"
+          changeDocument = { setSelfPhoto }
+          ref={ refSelfPhoto }
           />
 
         <Grid className={classes.nextButton} container>
-          <ButtonPrimary stylebutton='{"color": ""}' onClick={ props.next }>Next</ButtonPrimary>
+          <ButtonPrimary 
+            stylebutton='{"color": ""}' 
+            onClick={ uploadFiles }
+            >Next</ButtonPrimary>
         </Grid>
       </Grid>
     </Grid>

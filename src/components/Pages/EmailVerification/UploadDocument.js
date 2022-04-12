@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback, forwardRef, useImperativeHandle } from "react";
 import Webcam from "react-webcam";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
@@ -19,7 +19,7 @@ const videoConstraints = {
   facingMode: FACING_MODE_ENVIRONMENT
 };
 
-function UploadDocument(props) {
+function UploadDocument(props, ref) {
   const classes = useStylesEmailVerification();
   const [ showCamera, setShowCamera ] = useState(false);
   const [ label, setLabel ] = useState([]);
@@ -33,14 +33,7 @@ function UploadDocument(props) {
   const docType = props.docType ? props.docType : "";
   const typeOfDocument = props.documentType ? props.documentType : "";
   const [facingMode, setFacingMode] = useState(docType === 'Selfie' ? FACING_MODE_USER : FACING_MODE_ENVIRONMENT);
-  const switchCamera = useCallback(() => {
-    setFacingMode(
-      prevState =>
-        prevState === FACING_MODE_USER
-          ? FACING_MODE_ENVIRONMENT
-          : FACING_MODE_USER
-    );
-  }, []);
+  
   const handleMenuOpen = (event) => {    
     if(!checkFileTypeExist()){
       toast.error("Select ID type");
@@ -52,7 +45,16 @@ function UploadDocument(props) {
     const imageSrc =  refWebCam.current.getScreenshot();
     setImgSrc(imageSrc);
   }, [ refWebCam, setImgSrc]);  
-
+  
+  useImperativeHandle(ref, () => ({
+    uploadDocumentNow() {      
+      if(imgSrc){
+        return uploadCameraPhoto();
+      }else {
+        return handleElseTwo();
+      }
+    }
+  }));
   const handleChange = (event) => {
     let allowedExtensions = /(\.jpg|\.jpeg|\.png|\.pdf)$/i;
     let uploadedFile = selectedFile.files;
@@ -81,14 +83,16 @@ function UploadDocument(props) {
       selectedFile.value = "";
     }else{
       setLabel(uploadedFileList);
-      handleElseTwo();
+      props.changeDocument(true);
+      //handleElseTwo();
     }
   };
   const checkFileTypeExist = () => {
     return !(typeOfDocument === "customer_identification_license" && docType === '');
   }
-  const handleElseTwo = () => {
+  const handleElseTwo = async () => {
     let reader = new FileReader();
+    let responseStatus = false;
     try {
       if (selectedFile.files && selectedFile.files[ 0 ] && checkFileTypeExist()) {
         reader.onload = async () => {
@@ -111,14 +115,14 @@ function UploadDocument(props) {
             setLoading(false);
             selectedFile.value = "";
           }
+          responseStatus = response;
         };
         reader.readAsDataURL(selectedFile.files[ 0 ]);
-      }else if(!checkFileTypeExist()){
-        toast.error("Select ID type");
       }
     } catch (error) {
       ErrorLogger(" Error in emailVerificationDocument", error);
-    }    
+    } 
+    return responseStatus;   
   };
   const openFileWindow = () => {   
      refChangeEvent.current.click();     
@@ -178,9 +182,11 @@ function UploadDocument(props) {
         setImgSrc(null);
         handleMenuClose();
       }
+      return response;
     } catch (error) {
       ErrorLogger(" Error in emailVerificationDocument", error);
     }  
+    return false;
   } 
   
   return (
@@ -261,14 +267,7 @@ function UploadDocument(props) {
                 />
               )}
             </Grid> 
-              <Grid>
-                <ButtonPrimary
-                  onClick={ uploadCameraPhoto }
-                  stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "margin":"0px 10px 10px 0px"}'
-                >
-                  Upload
-                </ButtonPrimary>
-              </Grid>
+              
               <Grid>
                 <ButtonPrimary
                   onClick={ enableCameraOption }
@@ -286,12 +285,13 @@ function UploadDocument(props) {
     </>
   );
 }
-export default UploadDocument;
+export default forwardRef(UploadDocument);
 
 UploadDocument.propTypes = {
   applicationNumber: PropTypes.string,
   customerEmail: PropTypes.string,
   title: PropTypes.string,
   documentType: PropTypes.string,
-  docType: PropTypes.string
+  docType: PropTypes.string,
+  changeDocument: PropTypes.func,
 };
