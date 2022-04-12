@@ -292,7 +292,6 @@ export default function CreditKarma() {
       setErrorMsg(eventValue ? errorMsg : globalMessages.ZipCodeEnter);
       if (eventValue?.length === 5) {
         let result = await ZipCodeLookup(eventValue);
-        console.log(result);
         if (result) {
           fetchAddressValidate(result);
         } else {
