@@ -292,6 +292,7 @@ export default function CreditKarma() {
       setErrorMsg(eventValue ? errorMsg : globalMessages.ZipCodeEnter);
       if (eventValue?.length === 5) {
         let result = await ZipCodeLookup(eventValue);
+        console.log(result);
         if (result) {
           fetchAddressValidate(result);
         } else {
@@ -311,7 +312,7 @@ export default function CreditKarma() {
 
   function fetchAddressValidate(result) {
     try {
-      if (result.data) {
+      if (result?.data?.cityName) {
         formik.setFieldValue("city", result?.data?.cityName);
         formik.setFieldValue("state", result?.data?.stateCode);
         setValidZip(true);
@@ -336,7 +337,7 @@ export default function CreditKarma() {
     try {
       if (event.target.value !== "" && event.target.value.length === 5) {
         let result = await ZipCodeLookup(event.target.value);
-        if (result) {
+        if (result?.data?.cityName) {
           formik.setFieldValue("spousecity", result?.data?.cityName);
           formik.setFieldValue("spouseSelectState", result?.data?.stateCode);
           setValidZip(true);
