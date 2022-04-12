@@ -18,7 +18,6 @@ export default function MarketingOffer(data) {
   useEffect(() => {
     findMarketingMessage();
     amountFormatter(parseInt(data.amount));
-    return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ data ]);
 

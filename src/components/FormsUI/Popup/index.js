@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { ButtonPrimary } from "../../FormsUI";
 import './Popup.css';
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 
 const usePopUp = makeStyles((theme) => ({
     paragraph: {

@@ -88,7 +88,6 @@ export default function ApplyLoan() {
 	// to call the fetch offers api on page load
 	useEffect(() => {
 		getAvailableOffers();
-		return null;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [ val ]);
 

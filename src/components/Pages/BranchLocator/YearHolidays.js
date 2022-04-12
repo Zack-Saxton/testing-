@@ -24,7 +24,6 @@ export default function YearHolidays(props) {
   }
   useEffect(() => {
     AsyncEffect_HolidayCalender();
-    return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (

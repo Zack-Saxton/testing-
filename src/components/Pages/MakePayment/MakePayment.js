@@ -102,7 +102,6 @@ export default function MakePayment(props) {
     if (payments?.data?.paymentOptions) {
       setCheckCard(payments.data.paymentOptions.length && payments.data.paymentOptions[ 0 ].CardType);
     }
-    return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ payments, User ]);
 
@@ -290,7 +289,6 @@ export default function MakePayment(props) {
   useEffect(() => {
     getData();
     getPaymentMethods();
-    return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ User, activeLoansData, isFetching, payments ]);
 
@@ -308,7 +306,7 @@ export default function MakePayment(props) {
 const paymentOptions = paymentListAch ? JSON.stringify(paymentListAch.concat(paymentListCard)) : "[]";
 if  (latestLoanData?.[0]?.loanData?.dueDate) {
   nextDueDateCheck = Moment(latestLoanData?.[0]?.loanData?.dueDate).format("YYYYMMDD");
-};
+}
 
   //Storing the routingNumber,refNumber and SchedulePayments details
   let hasSchedulePayment = latestLoanData?.length ? latestLoanData[ 0 ]?.loanPaymentInformation?.hasScheduledPayment : false;

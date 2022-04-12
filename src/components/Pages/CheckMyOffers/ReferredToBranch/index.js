@@ -24,7 +24,6 @@ function ReferredToBranch(props) {
 		if (data?.completedPage < data?.page?.ssn && data?.applicationStatus?.toLowerCase() !== "referred" && props?.location?.formcomplete?.toLowerCase() !== "yes") {
 			navigate("/select-amount");
 		}
-		return null;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 

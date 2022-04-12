@@ -59,7 +59,6 @@ export default function EmailVerification() {
     if(currentApplication.length && currentApplication[0]?.consents){
       setAgreeTerms(true);
     }    
-    return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ verificationData ]);
   useEffect(() => {
@@ -182,10 +181,10 @@ export default function EmailVerification() {
   const showConsentsLinks = () => {
     return (
       <>
-        <a><span className={ classes.linkDesign } onClick={ () => { handleOnClickeSign(); } }>{ ' ' }E-Signature Disclosure and Consent,</span></a>
-        <a><span className={ classes.linkDesign } onClick={ () => { handleOnClickCreditTerms(); } }>{ ' ' }Credit and Contact Authorization,</span></a>
-        <a><span className={ classes.linkDesign } onClick={ () => { handleOnClickCacTerms(); } }>{ ' ' }Website Terms of Use,</span></a>
-        <a><span className={ classes.linkDesign } onClick={ () => { handleOnClickWebsiteTerms(); } }>{ ' ' }Website Privacy Statement</span></a>
+        <a>{ ' ' }<span className={ classes.linkDesign } onClick={ () => { handleOnClickeSign(); } }>E-Signature Disclosure and Consent,</span></a>
+        <a>{ ' ' }<span className={ classes.linkDesign } onClick={ () => { handleOnClickCreditTerms(); } }>Credit and Contact Authorization,</span></a>
+        <a>{ ' ' }<span className={ classes.linkDesign } onClick={ () => { handleOnClickCacTerms(); } }>Website Terms of Use,</span></a>
+        <a>{ ' ' }<span className={ classes.linkDesign } onClick={ () => { handleOnClickWebsiteTerms(); } }>Website Privacy Statement</span></a>
       </>
     );
   }
@@ -285,16 +284,13 @@ export default function EmailVerification() {
                 </ButtonPrimary>
               </Grid>
             </Grid>
-            {activeStep === steps.length && (
+            {activeStep === steps.length ? (
               <Paper square elevation={0} className={classes.resetContainer}>
                 <Typography>
                   All steps completed - you&apos;re finished
-                </Typography>
-                <Button onClick={handleReset} className={classes.button}>
-                  Reset
-                </Button>
+                </Typography> 
               </Paper>
-            )}
+            ) : "" }
           </Grid>
           <Popup popupFlag={ eSign } title='E-Signature Disclosure and Consent' closePopup={ handleOnClickeSignClose }>
             <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>

@@ -172,6 +172,12 @@ export default function PaymentMethod() {
         ?.AccountNumber
         ? schedulePayment[ 0 ].PaymentMethod.AchInfo.AccountNumber
         : "";
+      if(scheduleAccountNo === ""){
+        scheduleAccountNo = schedulePayment[ 0 ]?.PaymentMethod?.CardInfo
+        ?.CardNumber
+        ? schedulePayment[ 0 ].PaymentMethod.CardInfo.CardNumber
+        : "";
+      }
       let scheduleDate = schedulePayment[ 0 ]?.PaymentDate
         ? schedulePayment[ 0 ].PaymentDate
         : "";
@@ -184,7 +190,6 @@ export default function PaymentMethod() {
     if (autoPay) {
       setAutoPayAccountNo(autoPay);
     }
-    return null;
   }, [ dataAccountOverview ]);
   const formikAddBankAccount = useFormik({
     initialValues: {
@@ -673,6 +678,11 @@ export default function PaymentMethod() {
                           className={ `${ classes.deleteCard } ${ scheduledAccountNo ===
                             (row.AccountNumber
                               ? row.AccountNumber
+                              : ""
+                            ).slice(-4) ||
+                            scheduledAccountNo ===
+                            (row.LastFour
+                              ? row.LastFour
                               : ""
                             ).slice(-4) ||
                             autoPayAccountNo ===

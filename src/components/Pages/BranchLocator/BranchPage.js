@@ -134,14 +134,12 @@ export default function StatePage(props) {
     } else {
       apiGetBranchList(branch_Details?.current?.Address);    
     }
-    return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname, stateShortNm, stateLongNm]);
   useEffect(() => {
     display_Branch_Times();
     window.scrollTo(0, 0);
     document.title = `Personal Loans in  ${ branch_Details?.current?.BranchName }, ${ stateShortName ?? stateShortNm?.current } | Mariner Finance Branch | Discover More `;
-    return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const BranchDetailsInCard = (

@@ -47,7 +47,6 @@ export default function Disclaimer(offerData) {
 
     useEffect(() => {
         filterDisclaimers(offerData);
-        return null;
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

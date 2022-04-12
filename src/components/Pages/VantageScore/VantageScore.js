@@ -30,7 +30,6 @@ export default function VantageScore() {
 
   useEffect(() => {
     vantageScoreData();
-    return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ responseData ]);
 

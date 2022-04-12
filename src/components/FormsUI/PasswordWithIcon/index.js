@@ -10,7 +10,7 @@ import Icon from "@mui/material/Icon";
 import PropTypes from "prop-types";
 import React from "react";
 import Password from "../Password";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 
 const usePasswordWithIcon = makeStyles((theme) => ({
   outerGrid: {

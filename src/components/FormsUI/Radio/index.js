@@ -12,7 +12,7 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 
 const useRadio = makeStyles((theme) => ({
   formLabelStyle: {

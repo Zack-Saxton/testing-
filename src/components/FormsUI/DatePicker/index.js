@@ -21,12 +21,10 @@ const DatePickerWrapper = ({ name, format, label, views, refId,
 	placeholder,required,  onChange, disableDate, disablePastDate,
 	maxdate, minyear,error, helperText, ...otherProps }) => {
 
-	// The first commit of Material-UI
-	//const currentDate = new Date();
-	const [ selectedDate, setSelectedDate ] = useState(null);
-	
+	const [ selectedDate, setSelectedDate ] = useState(null);	
   const [ errorTF, setErrorTF ] = useState(false);
   const [ helperTextTF, setHelperTextTF ] = useState("");
+	
 	const handleDateChange = (event) => {
 		setSelectedDate(event);
 		setErrorTF((required && !event.target.value));

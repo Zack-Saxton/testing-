@@ -79,16 +79,10 @@ function DocumentIdAndPhotoId(props) {
           applicationNumber={ props.applicationNumber }
           customerEmail={ props.customerEmail }
           documentType="other_verification_doc" 
+          docType="Selfie"
           />
 
         <Grid className={classes.nextButton} container>
-          <ButtonSecondary
-            id="buttonMarginRight"
-            stylebutton='{"color": "black","padding":"0px 30px"}'
-          >
-            Reset
-          </ButtonSecondary>
-
           <ButtonPrimary stylebutton='{"color": ""}' onClick={ props.next }>Next</ButtonPrimary>
         </Grid>
       </Grid>

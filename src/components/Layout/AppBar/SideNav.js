@@ -257,7 +257,6 @@ export default function SideNav() {
   };
   useEffect(() => {    
 		getFinalApplicationStatus();
-		return null;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [verificationStepsApplyforLoan]);
 
@@ -273,7 +272,7 @@ export default function SideNav() {
 
   //Material UI media query for responsiveness
   let check = useMediaQuery("(min-width:960px)");
-  let refCloseValue = refClose.current
+  const refCloseValue = refClose.current
 
   useEffect(() => {
     if (check && checked) {
@@ -311,7 +310,6 @@ export default function SideNav() {
     if (branchVal) {
       setBranchAvailability(branchVal?.data?.branchIsOpen);
     }
-    return null;
   }, [ branchVal ]);
 
   //Api call Profile Picture
@@ -761,7 +759,7 @@ export default function SideNav() {
                     MoneySKILL &reg;{ " " }
                   </ListItemText>
                 </ListItem>
-                <a href={ `${ process.env.REACT_APP_WEBSITE }/blog/` } className="titleSidenav">
+                <a href={ `${ process.env.REACT_APP_WEBSITE }/blog/` } className="titleSidenav" target="_blank" rel="noreferrer">
                   <ListItem>
                     <ListItemIcon>
                       { " " }
