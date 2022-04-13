@@ -295,7 +295,7 @@ export default function CreditKarma() {
     try {
       let eventValue = event.target.value.trim();
       setErrorMsg(eventValue ? errorMsg : globalMessages.ZipCodeEnter);
-      if (eventValue?.length === 5) {
+      if (eventValue?.length === 5 || !(eventValue?.length)) {
         let result = await ZipCodeLookup(eventValue);
         if (result) {
           fetchAddressValidate(result);
@@ -346,9 +346,9 @@ export default function CreditKarma() {
           formik.setFieldValue("spouseSelectState", result?.data?.stateCode);
           setValidZip(true);
         } else {
-          formik.setFieldValue("spouseSelectState", "");
-          formik.setFieldValue("spousecity", "");
           setValidZip(false);
+          formik.setFieldValue("spouseSelectState", "");
+          formik.setFieldValue("spousecity", "");     
         }
         formik.handleChange(event);
       }
@@ -601,8 +601,8 @@ export default function CreditKarma() {
                         value={ formik.values.city }
                         onChange={ formik.handleChange }
                         onBlur={ formik.handleBlur }
-                        error={ formik.touched.city && Boolean(formik.errors.city) }
-                        helperText={ formik.touched.city && formik.errors.city }
+                        error={ (formik.touched.city && Boolean(formik.errors.city)) || !validZip }
+                        helperText={ validZip ? formik.touched.city && formik.errors.city : globalMessages.Address_Home_City }
                       />
                     </Grid>
 
@@ -617,8 +617,8 @@ export default function CreditKarma() {
                         value={ formik.values.state }
                         onChange={ formik.handleChange }
                         onBlur={ formik.handleBlur }
-                        error={ formik.touched.state && Boolean(formik.errors.state) }
-                        helperText={ formik.touched.state && formik.errors.state }
+                        error={ (formik.touched.state && Boolean(formik.errors.state)) || !validZip }
+                        helperText={ validZip ? formik.touched.state && formik.errors.state : globalMessages.Address_State_Required }
                       />
                     </Grid>
 
@@ -854,7 +854,7 @@ export default function CreditKarma() {
                               onChange={ fetchSpouseAddress }
                               onBlur={ formik.handleBlur }
                               error={ (formik.touched.spouseZipcode && Boolean(formik.errors.spouseZipcode)) || !validZip }
-                              helperText={ validZip ? formik.touched.spouseZipcode && formik.errors.spouseZipcode : "Please enter a valid Zip code" }
+                              helperText={ validZip ? formik.touched.spouseZipcode && formik.errors.spouseZipcode : globalMessages.ZipCodeValid }
                             />
                           </Grid>
                           <Grid
@@ -880,11 +880,12 @@ export default function CreditKarma() {
                               disabled={ true }
                               error={
                                 formik.touched.spousecity &&
-                                Boolean(formik.errors.spousecity)
+                                Boolean(formik.errors.spousecity) || !validZip
                               }
                               helperText={
-                                formik.touched.spousecity &&
-                                formik.errors.spousecity
+                                validZip
+                                ? (formik.touched.spousecity && formik.errors.spousecity )
+                                : globalMessages.Address_Home_City
                               }
                             />
                           </Grid>
@@ -911,12 +912,13 @@ export default function CreditKarma() {
                               onBlur={ formik.handleBlur }
                               disabled={ true }
                               error={
-                                formik.touched.spouseSelectState &&
-                                Boolean(formik.errors.spouseSelectState)
+                                (formik.touched.spouseSelectState &&
+                                Boolean(formik.errors.spouseSelectState)) || !validZip
                               }
                               helperText={
-                                formik.touched.spouseSelectState &&
-                                formik.errors.spouseSelectState
+                                validZip
+                                ? (formik.touched.spouseSelectState && formik.errors.spouseSelectState)
+                                : globalMessages.Address_State_Required
                               }
                             />
                           </Grid>
