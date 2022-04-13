@@ -61,10 +61,15 @@ const validationSchema = yup.object({
     .string(globalMessages?.EmploymentEnter)
     .max(30, globalMessages?.EmploymentMax)
     .required(globalMessages?.EmploymentRequired),
-  activeDuty: yup.string().when("state", {
-    is: "NC",
+  activeDuty: yup.string().when("state", {  
+    is:  "North Carolina" ,
     then: yup.string().required(globalMessages?.Active_DutyRequired),
-  }),
+  })
+  .when("state", {  
+    is:   "NC",
+    then: yup.string().required(globalMessages?.Active_DutyRequired),
+  }
+  ),
   activeDutyRank: yup.string().when("activeDuty", {
     is: "Yes",
     then: yup.string().required(globalMessages?.Active_Duty_Rank_Required),
@@ -464,7 +469,7 @@ export default function CreditKarma() {
     else setCitizenship(false);
     formik.handleChange(event);
   };
-
+  
   //View Part
   return (
     <div>
@@ -755,7 +760,15 @@ export default function CreditKarma() {
                           error={ formik.touched.activeDutyRank && Boolean(formik.errors.activeDutyRank) }
                           helperText={ formik.touched.activeDutyRank && formik.errors.activeDutyRank }
                         />
+                        <Grid
+                        item
+                        xs={ 12 }
+											className={ formik.values.activeDutyRank === "E4 and below" ? "showCheckbox" : "hideCheckbox" }
+										>
+											Unfortunately, based on the application information provided, you do not meet our application requirements.
+										</Grid>
                       </Grid>
+                      
                     </Grid>
 
                     {/* ****************************************************Married Statue ***************************************** */ }
