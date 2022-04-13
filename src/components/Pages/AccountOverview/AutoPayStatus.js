@@ -27,7 +27,7 @@ export default function AutoPayStatus(account) {
       <div>
         <p className={ classes.cardContent }>Auto Pay</p>
         <Typography variant="h5" id="nextPaymentItems" className={ classes.disableColor }>
-          <NavLink to={ `/customers/makePayment/?accNo=${ account.accountNumber }` } className={ classes.autoPayEnableLinkOne } key={ Math.random() * 1000 }>
+          <NavLink to={ `/customers/makePayment/?accNo=${ window.btoa(account.accountNumber) }` } className={ classes.autoPayEnableLinkOne } key={ Math.random() * 1000 }>
             ENABLE AUTOPAY
           </NavLink>
         </Typography>
