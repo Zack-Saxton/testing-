@@ -266,7 +266,6 @@ export default function Register() {
   const andLogic = (valueOne, valueTwo) => {
     return (valueOne && valueTwo);
   };
-  console.log(formik.values.dob)
 
   //View Part
   return (
@@ -541,7 +540,7 @@ export default function Register() {
                     <Grid >
                       <Recaptcha />
                     </Grid>
- 
+
                     <Grid item xs={ 12 } className={ classes.signInButtonGrid }>
                       <ButtonPrimary
                         onClick={ autoFocus }
