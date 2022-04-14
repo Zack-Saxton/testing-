@@ -48,7 +48,7 @@ export default function DocumentUpload(props) {
 				let reader = new FileReader();
 				if (selectedFile.files && selectedFile.files[ 0 ]) {
 					reader.onload = async () => {
-						const buffer2 = Buffer.from(reader.result, "base64");
+					const buffer2 = Buffer.from(reader.result.split(",")[1], "base64");
 						let fileData = Buffer.from(buffer2).toJSON().data;
 						let fileName = selectedFile.files[ 0 ].name;
 						let fileType = selectedFile.files[ 0 ].type;
