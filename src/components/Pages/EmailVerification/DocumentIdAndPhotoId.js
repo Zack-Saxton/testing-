@@ -32,8 +32,8 @@ function DocumentIdAndPhotoId(props) {
   const refWebCamPhoto = useRef(null);
   const [ label, setLabel ] = useState("");
   const [ selfieLabel, setSelfieLabel ] = useState("");
-  const [ selectDocument, setSelectDocument ] = useState(false);
-  const [ selectSelfieDocument, setSelectSelfieDocument ] = useState(false);
+  const [ selectDocument, setSelectDocument ] = useState(null);
+  const [ selectSelfieDocument, setSelectSelfieDocument ] = useState(null);
   const [ imgSrc, setImgSrc ] = useState(null); 
   const [ selfieImageSrc, setSelfieImageSrc ] = useState(null); 
   const [ selectedFile, setSelectedFile ] = useState(null);
@@ -56,15 +56,15 @@ function DocumentIdAndPhotoId(props) {
     event.target.value = '';
   };  
   
-  const handleMenuOpen = () => { 
+  const handleMenuOpen = (event) => { 
     if(docType === ''){
       toast.error("Select ID type");
     }else{
-      setSelectDocument(true);
+      setSelectDocument(event.currentTarget);
     }
   };  
-  const handleSelfieMenuOpen = () => {
-    setSelectSelfieDocument(true);
+  const handleSelfieMenuOpen = (event) => {
+    setSelectSelfieDocument(event.currentTarget);
   }
 
   const checkSelectedAllDocument = () => {
@@ -193,18 +193,18 @@ function DocumentIdAndPhotoId(props) {
     setImgSrc(null);
     handleMenuClose();
   };
-  const handleSelfieInputChange = () => {
+  const handleSelfieInputChange = (event) => {
     setSelectedSelfieFile(refSelfieChangeEvent.current)
     SetShowSelfieCamera(false);
     setSelfieImageSrc(null);
     handleSelfieMenuClose();
   };
-  const handleMenuClose = () => {
-    setSelectDocument(false);
+  const handleMenuClose = (event) => {
+    setSelectDocument(null);
   };
   
-  const handleSelfieMenuClose = () => {
-    setSelectSelfieDocument(false);
+  const handleSelfieMenuClose = (event) => {
+    setSelectSelfieDocument(null);
   }
 
   const getFileInfo = (fileName, fileType, fileExtension, fileSize) => {
@@ -287,11 +287,11 @@ function DocumentIdAndPhotoId(props) {
       handleElseTwo(selectedSelfieFile, false);
     }
   }
-  const fileOptionDesign = (  selectDocument, refChangeEvent, facingMode) => {
+  const fileOptionDesign = ( refChangeEvent, facingMode) => {
     return (
       <>
         <ButtonPrimary
-            onClick={ ()=>handleMenuOpen() }
+            onClick={ handleMenuOpen }
             stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
           >
            Select Your Documents
@@ -340,7 +340,7 @@ function DocumentIdAndPhotoId(props) {
           </Menu>          
           {showCamera  ?
             (!imgSrc ? 
-              <Grid container style={ { margin: "10px 0px"} } >              
+              <Grid style={ { margin: "10px 0px"} } item sm={12} md={6}  >              
               <Webcam
                 audio={false}
                 ref={ refWebCam}
@@ -360,16 +360,18 @@ function DocumentIdAndPhotoId(props) {
               </ButtonPrimary>      
               
             </Grid> : 
-            <Grid container style={ { margin: "10px 0px"} }>
+            <Grid style={ { margin: "10px 0px"} } item sm={12} md={6} >
               <Grid style={{ margin: "0px 10px"}}>
                 {imgSrc && (
                   <img
                     src={ imgSrc }
+                    height={360}
+                    width={640}
                   />
                 )}
               </Grid> 
                 
-                <Grid>
+                <Grid container>
                   <ButtonPrimary
                     onClick={ ()=> enableCameraOption() }
                     stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "margin":"0px 0px 10px 0px"}'
@@ -387,11 +389,11 @@ function DocumentIdAndPhotoId(props) {
     );
   }
   
-  const fileOptionDesignSelfie = (  selectSelfieDocument, refSelfieChangeEvent, facingMode) => {
+  const fileOptionDesignSelfie = ( refSelfieChangeEvent, facingMode) => {
     return (
       <>
         <ButtonPrimary
-            onClick={ ()=>handleSelfieMenuOpen() }
+            onClick={ handleSelfieMenuOpen }
             stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
           >
            Select Your Picture
@@ -424,7 +426,7 @@ function DocumentIdAndPhotoId(props) {
                   style={{ display: "none" }}
                   type="file"
                   ref={  refSelfieChangeEvent }
-                  onClick={ ()=> handleSelfieInputChange() }
+                  onClick={ handleSelfieInputChange }
                   onChange={ (event) => handleSelfieChange(event) }
                 ></input>
               </Typography>
@@ -439,7 +441,7 @@ function DocumentIdAndPhotoId(props) {
           </Menu>
           {showSelfieCamera  ?
             (!selfieImageSrc ? 
-              <Grid container style={ { margin: "10px 0px"} } >              
+              <Grid style={ { margin: "10px 0px"} } item sm={12} md={6} >              
               <Webcam
                 audio={false}
                 ref={ refWebCamPhoto }
@@ -459,15 +461,17 @@ function DocumentIdAndPhotoId(props) {
               </ButtonPrimary>      
               
             </Grid> : 
-            <Grid container style={ { margin: "10px 0px"} }>
+            <Grid style={ { margin: "10px 0px"} } item sm={12} md={6} >
               <Grid style={{ margin: "0px 10px"}}>
                 {selfieImageSrc && (
                   <img
                     src={ selfieImageSrc }
+                    height={360}
+                    width={640}
                   />
                 )}
               </Grid>                 
-                <Grid>
+                <Grid container>
                   <ButtonPrimary
                     onClick={ ()=> enableSelfieCameraOption() }
                     stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "margin":"0px 0px 10px 0px"}'
@@ -521,7 +525,7 @@ function DocumentIdAndPhotoId(props) {
         </Grid>
       </Grid>
       <Grid item md={12} sm={12}>
-        { fileOptionDesign( selectDocument, refChangeEvent, "environment") }
+        { fileOptionDesign( refChangeEvent, "environment") }
       </Grid>
       <Grid item md={12} sm={12} className={classes.uploadDocumentText}>
         <span className={classes.uploadDocumentParagraph}>
@@ -542,7 +546,7 @@ function DocumentIdAndPhotoId(props) {
         </Grid>
       </Grid>
       <Grid item sm={12} md={12} >
-        { fileOptionDesignSelfie( selectSelfieDocument, refSelfieChangeEvent, "user") }
+        { fileOptionDesignSelfie( refSelfieChangeEvent, "user") }
         <Grid className={classes.nextButton} container>
           <ButtonPrimary 
             stylebutton='{"color": ""}' 
