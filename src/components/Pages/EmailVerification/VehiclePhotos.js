@@ -20,7 +20,10 @@ function VehiclePhotos(props) {
           title="Select Vehicle Photo" 
           applicationNumber={ props.applicationNumber }
           customerEmail={ props.customerEmail }
-          documentType="other_verification_doc" />
+          documentType="other_verification_doc" 
+          prev={ props.prev}
+          next={ props.next }
+          />
       </Grid>
     </Grid>
   );
@@ -30,5 +33,7 @@ export default VehiclePhotos;
 
 VehiclePhotos.propTypes = {
   applicationNumber: PropTypes.string,
-  customerEmail: PropTypes.string
+  customerEmail: PropTypes.string,
+  next: PropTypes.func,
+  prev: PropTypes.func,
 };

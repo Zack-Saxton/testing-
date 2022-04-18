@@ -22,18 +22,10 @@ function IncomeVerification(props) {
           title="Select Your Document" 
           applicationNumber={ props.applicationNumber }
           customerEmail={ props.customerEmail }
-          documentType="proof_of_income"/>
-        <Grid className={classes.nextButton} container>          
-          <ButtonSecondary
-            id="buttonMarginRight"
-            stylebutton='{"color": "black", "borderRadius": "50px"}'
-            onClick={ props.prev }
-          >
-            Prev
-          </ButtonSecondary>
-
-          <ButtonPrimary stylebutton='{"color": ""}'  onClick={ props.next }>Next</ButtonPrimary>
-        </Grid>
+          documentType="proof_of_income"
+          prev={ props.prev}
+          next={ props.next }
+          />
       </Grid>
     </Grid>
   );

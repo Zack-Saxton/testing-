@@ -81,7 +81,7 @@ export default function EmailVerification() {
 	} 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    if(!activeStep){
+    if(activeStep <= 1){
       getValueByLable("ID Document & Photo").scrollIntoView();
     }    
   };
@@ -170,7 +170,6 @@ export default function EmailVerification() {
           reset={ handleReset }
           steps={ steps }
           activeStep={ activeStep }
-          isLastStep= { autoVerification !== 'on' }
           />;
       case 3:
         return <VehiclePhotos 
@@ -281,7 +280,15 @@ export default function EmailVerification() {
                   </Step>
                 ))}
               </Stepper>
-
+              <Grid>
+                {activeStep === steps.length ? (
+                <Paper square elevation={0} className={classes.resetContainer}>
+                  <Typography>
+                    All steps completed - you&apos;re finished
+                  </Typography> 
+                </Paper>
+              ) : "" }
+              </Grid>
               <Grid className={`${classes.secureLoanButton} ${ collaborateOption === 'on' ? classes.showCheckbox : classes.hideCheckbox }`}>
                 <Typography className={classes.secureLoanText}>
                   Click the Button below to begin the secure loan closing process
@@ -292,14 +299,7 @@ export default function EmailVerification() {
                   Secure Closing Portal
                 </ButtonPrimary>
               </Grid>
-            </Grid>
-            {activeStep === steps.length ? (
-              <Paper square elevation={0} className={classes.resetContainer}>
-                <Typography>
-                  All steps completed - you&apos;re finished
-                </Typography> 
-              </Paper>
-            ) : "" }
+            </Grid>            
           </Grid>
           <Popup popupFlag={ eSign } title='E-Signature Disclosure and Consent' closePopup={ handleOnClickeSignClose }>
             <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
