@@ -1,14 +1,14 @@
-import { FormControl, FormControlLabel } from "@material-ui/core";
-import Box from "@material-ui/core/Box";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Grid from "@material-ui/core/Grid";
-import IconButton from "@material-ui/core/IconButton";
-import Paper from "@material-ui/core/Paper";
-import Switch from "@material-ui/core/Switch";
-import Typography from "@material-ui/core/Typography";
-import CloseIcon from "@material-ui/icons/Close";
+import { FormControl, FormControlLabel } from "@mui/material";
+import Box from "@mui/material/Box";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogTitle from "@mui/material/DialogTitle";
+import Grid from "@mui/material/Grid";
+import IconButton from "@mui/material/IconButton";
+import Paper from "@mui/material/Paper";
+import Switch from "@mui/material/Switch";
+import Typography from "@mui/material/Typography";
+import CloseIcon from "@mui/icons-material/Close";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import PropTypes from "prop-types";
@@ -202,16 +202,24 @@ export default function Login(props) {
       <div className={ classes.mainContentBackground } id="mainContentBackground">
         <Box>
           <Grid
-            className={ classes.mainContentGrid }
-            item
-            xl={ 4 }
-            lg={ 4 }
-            md={ 4 }
-            sm={ 10 }
+            className={ classes.mainContentGrid }            
             xs={ 12 }
+            item
+            container
+            justifyContent="center"
+            alignItems="center"
           >
             <Grid
               id="main-content"
+              item
+              xs={ 11 }
+              sm={ 10 }
+              md={ 8 }
+              lg={ 6 }
+              xl={ 6 }
+              justifyContent="center"
+              alignItems="center"
+              container
               style={ {
                 opacity: loading ? 0.55 : 1,
                 pointerEvents: loading ? "none" : "initial",
@@ -409,6 +417,7 @@ export default function Login(props) {
         <RenderContent disclosureLink="/cacTermsOfUse" findContent="<h2>Terms Of Use</h2>" replaceContent='' />
       </Popup>
     </div>
+    
   );
 }
 

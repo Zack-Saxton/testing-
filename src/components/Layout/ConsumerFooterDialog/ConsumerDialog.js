@@ -1,6 +1,6 @@
-import Dialog from "@material-ui/core/Dialog";
-import IconButton from "@material-ui/core/IconButton";
-import CloseIcon from "@material-ui/icons/Close";
+import Dialog from "@mui/material/Dialog";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 import PropTypes from "prop-types";
 import React from "react";
 import { ButtonPrimary, ButtonSecondary } from "../../FormsUI";

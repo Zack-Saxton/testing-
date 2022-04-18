@@ -5,8 +5,8 @@ Component Name      :    Email
 Functionality       :    To use this component to get only valid Email address.
 
 #################################################################################################################*/
-import InputAdornment from "@material-ui/core/InputAdornment";
-import TextField from "@material-ui/core/TextField";
+import InputAdornment from "@mui/material/InputAdornment";
+import TextField from "@mui/material/TextField";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 
@@ -45,7 +45,7 @@ const EmailWrapper = ({ name, suffix, lable, materialProps, id, disablePaste, ..
       lable="email"
       type="email"
       fullWidth={ true }
-      // value= {value}
+      variant="standard"
       inputProps={ materialProps }
       onChange={ handleChange }
       onCut={ disablePasteOption }
@@ -53,7 +53,7 @@ const EmailWrapper = ({ name, suffix, lable, materialProps, id, disablePaste, ..
       onPaste={ disablePasteOption }
       { ...configTextfield }
     />
-  );
+  ); 
 };
 
 EmailWrapper.propTypes = {

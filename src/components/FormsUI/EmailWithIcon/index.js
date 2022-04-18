@@ -5,12 +5,12 @@ Component Name      :    EmailWithIcon
 Functionality       :    To use this component to vad icon with the email component
 
 #################################################################################################################*/
-import { Grid } from "@material-ui/core";
-import Icon from "@material-ui/core/Icon";
+import { Grid } from "@mui/material";
+import Icon from "@mui/material/Icon";
 import PropTypes from "prop-types";
 import React from "react";
 import Email from "../Email";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 
 const useEmailWithIcon = makeStyles((theme) => ({
   outerGrid: {

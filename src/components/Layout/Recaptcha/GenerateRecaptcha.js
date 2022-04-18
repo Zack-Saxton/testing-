@@ -1,4 +1,4 @@
-import CircularProgress from "@material-ui/core/CircularProgress";
+import CircularProgress from "@mui/material/CircularProgress";
 import React, { useEffect } from "react";
 import { useQuery } from "react-query";
 import RecaptchaController from "../../Controllers/RecaptchaController";
@@ -17,7 +17,7 @@ const Recaptcha = () => {
     };
   }, [ recaptchaData ]);
 
-  return (
+  return ( 
     <div>
       { !isLoading && recaptchaData.status === 200 ? (
         <div

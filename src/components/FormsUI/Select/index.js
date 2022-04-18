@@ -8,8 +8,10 @@ Functionality       :    To use this Select Box as a default component for UI pu
 
 #################################################################################################################
  */
-import { FormControl, FormHelperText, makeStyles, MenuItem, Select } from "@material-ui/core";
-import InputLabel from "@material-ui/core/InputLabel";
+
+import { FormControl, FormHelperText, MenuItem, Select } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import InputLabel from "@mui/material/InputLabel";
 import PropTypes from "prop-types";
 import React from "react";
 import "./SelectBox.css";
@@ -56,7 +58,7 @@ const SelectWrapper = ({
 	return (
 		<FormControl { ...configFormControl }>
 			<InputLabel>{ labelform }</InputLabel>
-			<Select { ...configSelect } name={ name } value={ value } onChange={ onChange } inputRef={ refId } data-test-id={ selectTestID ?? "selectBox" } inputProps={ { "data-test-id": inputTestID ?? "selectInput" } }>
+			<Select { ...configSelect } name={ name }  variant="standard" value={ value } onChange={ onChange } inputRef={ refId } data-test-id={ selectTestID ?? "selectBox" } inputProps={ { "data-test-id": inputTestID ?? "selectInput" } }>
 				{ selectMF.map((nam) => (
 					<MenuItem key={ nam.value } value={ nam.value }>
 						<span className="subOption" value={ nam.value }>{ nam.label ? nam.label : nam.value }</span>

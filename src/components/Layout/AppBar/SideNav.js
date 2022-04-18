@@ -1,36 +1,35 @@
-import { Checkbox } from "@material-ui/core";
-import AppBar from "@material-ui/core/AppBar";
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Divider from "@material-ui/core/Divider";
-import Drawer from "@material-ui/core/Drawer";
-import IconButton from "@material-ui/core/IconButton";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import { makeStyles } from "@material-ui/core/styles";
-import Toolbar from "@material-ui/core/Toolbar";
-import Tooltip from "@material-ui/core/Tooltip";
-import Typography from "@material-ui/core/Typography";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
-import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
-import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import AssignmentTurnedInOutlinedIcon from "@material-ui/icons/AssignmentTurnedInOutlined";
-import CallIcon from "@material-ui/icons/Call";
-import DataUsageOutlinedIcon from "@material-ui/icons/DataUsageOutlined";
-import DescriptionOutlinedIcon from "@material-ui/icons/DescriptionOutlined";
-import ListIcon from "@material-ui/icons/List";
-import MenuIcon from "@material-ui/icons/Menu";
-import BookIcon from '@material-ui/icons/Book';
-import LiveHelpIcon from '@material-ui/icons/LiveHelp';
-import MonetizationOnRoundedIcon from "@material-ui/icons/MonetizationOnRounded";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
-import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
-import SettingsIcon from "@material-ui/icons/Settings";
+import { Checkbox } from "@mui/material";
+import AppBar from "@mui/material/AppBar";
+import ClickAwayListener from '@mui/material/ClickAwayListener';
+import Divider from "@mui/material/Divider";
+import Drawer from "@mui/material/Drawer";
+import IconButton from "@mui/material/IconButton";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import { makeStyles } from "@mui/styles";
+import Toolbar from "@mui/material/Toolbar";
+import Tooltip from "@mui/material/Tooltip";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import AssignmentTurnedInOutlinedIcon from "@mui/icons-material/AssignmentTurnedInOutlined";
+import CallIcon from "@mui/icons-material/Call";
+import DataUsageOutlinedIcon from "@mui/icons-material/DataUsageOutlined";
+import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
+import ListIcon from "@mui/icons-material/List";
+import MenuIcon from "@mui/icons-material/Menu";
+import BookIcon from '@mui/icons-material/Book';
+import LiveHelpIcon from '@mui/icons-material/LiveHelp';
+import MonetizationOnRoundedIcon from "@mui/icons-material/MonetizationOnRounded";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
+import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
+import SettingsIcon from "@mui/icons-material/Settings";
 import clsx from "clsx";
 import Cookies from "js-cookie";
 import React, { useContext, useEffect, useState,useRef } from "react";
@@ -102,7 +101,7 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
     overflowX: "hidden",
-    width: theme.spacing(7) + 1,
+    width: theme.spacing(7) ,
     [ theme.breakpoints.up("xs") ]: {
       width: "0px",
     },
@@ -110,13 +109,13 @@ const useStyles = makeStyles((theme) => ({
       width: "0px",
     },
     [ theme.breakpoints.up("md") ]: {
-      width: theme.spacing(9) + 1,
+      width: theme.spacing(9) ,
     },
     [ theme.breakpoints.up("lg") ]: {
-      width: theme.spacing(9) + 1,
+      width: theme.spacing(9) ,
     },
     [ theme.breakpoints.up("xl") ]: {
-      width: theme.spacing(9) + 1,
+      width: theme.spacing(9) ,
     },
   },
   toolbar: {
@@ -272,20 +271,20 @@ export default function SideNav() {
 
   //Material UI media query for responsiveness
   let check = useMediaQuery("(min-width:960px)");
-  let refCloseValue = refClose.current
 
   useEffect(() => {
-    if (check && checked) {
+    if (check && checked ) {
       setChecked(true);
       setOpen(true);
       handleDeviceType(false);
       document.getElementById("main").style.marginLeft = "240px";
-      refCloseValue.style.display = "none";
+      document.getElementById("close").style.display = "none";
+
     } else {
       setOpen(false);
       handleDeviceType(true);
     }
-  }, [ checked, check,refCloseValue ]);
+  }, [ checked, check ]);
 
   //Formating Phone Number
   function formatPhoneNumber(phoneNumber) {

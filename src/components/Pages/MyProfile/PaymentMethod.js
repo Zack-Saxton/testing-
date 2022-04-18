@@ -1,29 +1,29 @@
-import { InputAdornment } from "@material-ui/core";
-import Breadcrumbs from "@material-ui/core/Breadcrumbs";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import Grid from "@material-ui/core/Grid";
-import IconButton from "@material-ui/core/IconButton";
-import Link from "@material-ui/core/Link";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Tooltip from "@material-ui/core/Tooltip";
-import Typography from "@material-ui/core/Typography";
-import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
-import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-import CloseIcon from "@material-ui/icons/Close";
-import DeleteIcon from "@material-ui/icons/DeleteForever";
-import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
-import NavigateNextIcon from "@material-ui/icons/NavigateNext";
-import PaymentIcon from "@material-ui/icons/Payment";
+import { InputAdornment } from "@mui/material";
+import Breadcrumbs from "@mui/material/Breadcrumbs";
+import CircularProgress from "@mui/material/CircularProgress";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import FormHelperText from "@mui/material/FormHelperText";
+import Grid from "@mui/material/Grid";
+import IconButton from "@mui/material/IconButton";
+import Link from "@mui/material/Link";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
+import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import CloseIcon from "@mui/icons-material/Close";
+import DeleteIcon from "@mui/icons-material/DeleteForever";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import PaymentIcon from "@mui/icons-material/Payment";
 import { useFormik } from "formik";
 import Moment from "moment";
 import React, { useEffect, useState } from "react";
@@ -1248,6 +1248,7 @@ export default function PaymentMethod() {
                 className="expiryDate"
                 placeholder="MM/YY"
                 format="MM/yy"
+                views={['month', 'year']}
                 disabled={ editMode }
                 value={ formikAddDebitCard.values.expiryDate }
                 onChange={ (values) => {

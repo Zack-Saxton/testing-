@@ -1,4 +1,4 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 
 const useStylesApplyForLoan = makeStyles((theme) => ({
   paper: {

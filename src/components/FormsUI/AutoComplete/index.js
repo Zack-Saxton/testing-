@@ -6,8 +6,8 @@ Functionality       :    To use this AutoComplete SingleSelect as a default comp
                           maintain same consistency.
 
 #################################################################################################################*/
-import TextField from "@material-ui/core/TextField";
-import Autocomplete from "@material-ui/lab/Autocomplete";
+import TextField from "@mui/material/TextField";
+import Autocomplete from '@mui/material/Autocomplete';
 import PropTypes from "prop-types";
 import React from "react";
 

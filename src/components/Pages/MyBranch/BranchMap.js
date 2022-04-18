@@ -1,5 +1,5 @@
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Paper from "@material-ui/core/Paper";
+import CircularProgress from "@mui/material/CircularProgress";
+import Paper from "@mui/material/Paper";
 import React from "react";
 import { useStylesMyBranch } from "./Style";
 

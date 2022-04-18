@@ -1,20 +1,20 @@
-import { CircularProgress, FormControlLabel } from "@material-ui/core";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Grid from "@material-ui/core/Grid";
-import IconButton from "@material-ui/core/IconButton";
-import Paper from "@material-ui/core/Paper";
-import Switch from "@material-ui/core/Switch";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Typography from "@material-ui/core/Typography";
-import CloseIcon from "@material-ui/icons/Close";
+import { CircularProgress, FormControlLabel } from "@mui/material";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import Grid from "@mui/material/Grid";
+import IconButton from "@mui/material/IconButton";
+import Paper from "@mui/material/Paper";
+import Switch from "@mui/material/Switch";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Typography from "@mui/material/Typography";
+import CloseIcon from "@mui/icons-material/Close";
 import Moment from "moment";
 import React, { useEffect, useRef, useState } from "react";
 import { useQuery } from "react-query";
@@ -306,7 +306,7 @@ export default function MakePayment(props) {
 const paymentOptions = paymentListAch ? JSON.stringify(paymentListAch.concat(paymentListCard)) : "[]";
 if  (latestLoanData?.[0]?.loanData?.dueDate) {
   nextDueDateCheck = Moment(latestLoanData?.[0]?.loanData?.dueDate).format("YYYYMMDD");
-};
+}
 
   //Storing the routingNumber,refNumber and SchedulePayments details
   let hasSchedulePayment = latestLoanData?.length ? latestLoanData[ 0 ]?.loanPaymentInformation?.hasScheduledPayment : false;
@@ -759,13 +759,13 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
                               label="Payment Date"
                               placeholder="MM/DD/YYYY"
                               id="date"
-                              disablePast
+                              disablePastDate = "true"
                               disabled={ calendarDisabled }
                               autoComplete="off"
                               refId={ refpaymentDatepicker }
                               maxdate={ paymentMaxDate }
                               onKeyDown={ (event) => event.preventDefault() }
-                              shouldDisableDate={ disableHolidays }
+                              disableDate={ disableHolidays }
                               minyear={ 4 }
                               onChange={ (paymentDatepickerOnChange) => {
                                 setPaymentDatepicker(

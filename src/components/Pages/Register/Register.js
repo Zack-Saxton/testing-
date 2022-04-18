@@ -1,13 +1,13 @@
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Box from "@material-ui/core/Box";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
+import Box from "@mui/material/Box";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import { useQueryClient } from 'react-query';
@@ -465,7 +465,7 @@ export default function Register() {
                     </Grid>
 
                     <Grid
-                      className="fullWidth"
+                      className="passwordGrid"
                       item
                       xs={ 12 }
                       container
@@ -498,7 +498,7 @@ export default function Register() {
                       </p>
                     </Grid>
                     <Grid
-                      className="fullWidth"
+                      className="confirmPasswordGrid"
                       item
                       xs={ 12 }
                       container

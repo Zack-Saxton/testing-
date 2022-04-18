@@ -1,7 +1,7 @@
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
+import CircularProgress from "@mui/material/CircularProgress";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
 import React, { useEffect, useState } from "react";
 import { useQuery } from 'react-query';
 import { NavLink, useNavigate } from "react-router-dom";

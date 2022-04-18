@@ -1,4 +1,4 @@
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 import React, { useEffect } from "react";
 export default function CustomerRatings() {
   useEffect(() => {

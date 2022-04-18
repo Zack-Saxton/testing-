@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import Webcam from "react-webcam";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
-import { Grid } from "@material-ui/core";
+import Grid from "@mui/material/Grid";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import {
   ButtonPrimary,
