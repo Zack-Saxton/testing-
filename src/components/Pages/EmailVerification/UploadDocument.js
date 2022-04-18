@@ -205,6 +205,7 @@ function UploadDocument(props) {
               Select from Existing Files
               <input
                 id="selectFile"
+                accept="image/png, image/jpeg, application/pdf, image/jpg "
                 style={{ display: "none" }}
                 type="file"
                 ref={  refChangeEvent }

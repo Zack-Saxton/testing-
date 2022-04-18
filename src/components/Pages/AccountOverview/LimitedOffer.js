@@ -57,7 +57,7 @@ export default function LimitedOffer(userOfferData) {
   return (
     <div id="limitedOfferWrap" className="limitedOfferWrap">
       <Grid container id="overviewWrap" className="overviewWrap">
-      <Grid  item  sm={6} md={6} xs={12} lg={6} className="imageholdernewtop">
+      <Grid  item  sm={6} md={6} xs={12} lg={6} xl={6} className="imageholdernewtop">
 
         <Grid className="imageholdernew">
           <div className="yellowBackground">
@@ -108,7 +108,7 @@ export default function LimitedOffer(userOfferData) {
           </div>
         </Grid>
         </Grid>
-        <Grid className="secondBannerWrapNewtop" item sm={6} md={6} xs={12} lg={6}>
+        <Grid className="secondBannerWrapNewtop" item sm={6} md={6} xs={12} lg={6} xl={6}>
 
         <Grid className="secondBannerWrapNew" >
           <a

@@ -64,7 +64,6 @@
     "lint": "eslint src/**/*.js",
     "lint-fix": "npm run lint -- --fix"
   },
-  "proxy": "https://psa-development.marinerfinance.io",
   "eslintConfig": {
     "extends": "react-app"
   },

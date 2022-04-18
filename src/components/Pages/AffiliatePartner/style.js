@@ -69,6 +69,9 @@ const useStylesPartner = makeStyles((theme) => ({
     margin: "auto",
     width: "100%"
   },
+  redText:{
+    color:"#ff0000"
+  }
 
 }));
 

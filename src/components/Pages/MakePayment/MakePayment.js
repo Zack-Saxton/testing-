@@ -256,7 +256,7 @@ export default function MakePayment(props) {
       : false;
     setPaymentTitle(hasSchedulePaymentActive ? globalMessages.Scheduled_Future_Payment : globalMessages.Single_Payment);
     if (accNo && activeLoansData) {
-      let res = checkaccNo(activeLoansData, accNo);
+      let res = checkaccNo(activeLoansData, window.atob(accNo));
       // if accno is not Valid
       if (!res) {
         toast.error(globalMessages.Invalid_Account_Number, { autoClose: 5000 });
@@ -574,9 +574,6 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
                     </TableCell>
                     <TableCell className={ classes.tableHead } align="left">
                       { globalMessages.Loan_Fees }
-                    </TableCell>
-                    <TableCell className={ classes.tableHead } align="left">
-                      { globalMessages.Total }
                     </TableCell>
                     <TableCell className={ classes.tableHead } align="left">
                       { globalMessages.Next_Due_Date }

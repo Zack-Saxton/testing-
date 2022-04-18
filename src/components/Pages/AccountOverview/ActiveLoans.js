@@ -104,7 +104,7 @@ export default function ActiveLoans(userActiveLoanData) {
                             </Grid>
                             <Grid item xs={ 12 } sm={ 6 }>
                               <NavLink
-                                to={ `/customers/makePayment/?accNo=${ appData.loanDetails.AccountNumber }` }
+                                to={ `/customers/makePayment/?accNo=${ window.btoa(appData.loanDetails.AccountNumber) }` }
                                 key={ Math.random() * 1000 }
                               >
                                 <ButtonPrimary
