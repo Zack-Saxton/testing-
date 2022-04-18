@@ -1,14 +1,14 @@
+import Stepper from "@mui/material/Stepper";
+import Step from "@mui/material/Step";
+import StepLabel from "@mui/material/StepLabel";
+import StepContent from "@mui/material/StepContent";
+import Button from "@mui/material/Button";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import { Grid } from "@mui/material";
+import Checkbox from "@mui/material/Checkbox";
 import React, { useEffect, useState } from "react";
-import Stepper from "@material-ui/core/Stepper";
-import Step from "@material-ui/core/Step";
-import StepLabel from "@material-ui/core/StepLabel";
-import StepContent from "@material-ui/core/StepContent";
-import Button from "@material-ui/core/Button";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import { Grid } from "@material-ui/core";
-import Checkbox from "@material-ui/core/Checkbox";
-import CircularProgress from '@material-ui/core/CircularProgress';
+import CircularProgress from "@mui/material/CircularProgress";
 import { useLocation } from "react-router-dom";
 import { useQuery } from 'react-query';
 import "./EmailVerification.css";
@@ -41,10 +41,8 @@ export default function EmailVerification() {
   const applicationNumber = queryString.get("applicationNumber");
   const autoVerification = queryString.get("autoVerification");
   const collaborateOption = queryString.get("collaborateOption");
-
   const [activeStep, setActiveStep] = useState(0);
   const [agreeTerms, setAgreeTerms] = useState(false);
-  const [ loading, setLoading ] = useState(false);
   const [ consentLoading, setConsentLoading ] = useState(false);
   const [ eSign, seteSign ] = useState(false);
   const [ creditTerms, setCreditTerms ] = useState(false);

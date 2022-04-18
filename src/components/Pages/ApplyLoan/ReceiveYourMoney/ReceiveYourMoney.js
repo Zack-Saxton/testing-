@@ -1,8 +1,6 @@
-import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import PropTypes from "prop-types";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import CheckLoginStatus from "../../../App/CheckLoginStatus";

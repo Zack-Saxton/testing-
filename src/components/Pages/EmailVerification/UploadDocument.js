@@ -2,15 +2,15 @@ import React, { useState, useRef, useCallback } from "react";
 import Webcam from "react-webcam";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
-import { Grid } from "@material-ui/core";
+import Grid from "@mui/material/Grid";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import {
   ButtonPrimary
 } from "../../../components/FormsUI";
 import { useStylesEmailVerification } from "./Style";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import Typography from "@material-ui/core/Typography";
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Typography from "@mui/material/Typography";
 import { uploadEmailVerificationDocument } from "../../Controllers/EmailVerificationController";
 const FACING_MODE_USER = "user";
 const FACING_MODE_ENVIRONMENT = "environment";

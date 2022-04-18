@@ -1,7 +1,7 @@
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
-import MonetizationOnRoundedIcon from "@material-ui/icons/MonetizationOnRounded";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
+import MonetizationOnRoundedIcon from "@mui/icons-material/MonetizationOnRounded";
 import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";

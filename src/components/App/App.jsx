@@ -3,12 +3,14 @@ import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from "react-toastify";
+import { ThemeProvider } from '@mui/styles';
+import { createTheme, StyledEngineProvider } from '@mui/material/styles'
 import 'react-toastify/dist/ReactToastify.css';
 import CheckMyOffers from '../../contexts/CheckMyOffers';
 import ProfilePicture from '../../contexts/ProfilePicture';
 import LoanAccount from '../../contexts/LoanAccount';
 import CustomComponents from "../CustomComponent";
-import BranchHeaderLayout from "../Layout/BranchLocatorLayout/BranchLocatorLayout";
+import BranchLocatorLayout from "../Layout/BranchLocatorLayout/BranchLocatorLayout";
 import Disclosure from "../Layout/DisclosureLink/Disclosure";
 import ErrorAfterLogin from "../Layout/ErrorAfterLogin/ErrorAfterLogin";
 import ErrorBeforeLogin from '../Layout/ErrorBeforeLogin/ErrorBeforeLogin';
@@ -99,13 +101,17 @@ const LoadPostComponent = (componentName) => {
 };
 const branchHeaderComponent = (componentName) => {
     return (
-        <BranchHeaderLayout>
+        <BranchLocatorLayout>
             { componentName }
-        </BranchHeaderLayout>
+        </BranchLocatorLayout>
     );
 };
-function App() {    
+const theme = createTheme();
+
+function App() {
     return (
+        <ThemeProvider theme={theme}>
+            <StyledEngineProvider injectFirst>
         <QueryClientProvider client={ queryClient }>
             <div className="App">
                 <ToastContainer
@@ -208,6 +214,8 @@ function App() {
                 </BrowserRouter>
             </div>
         </QueryClientProvider>
+        </StyledEngineProvider>
+        </ThemeProvider>
     );
 }
 

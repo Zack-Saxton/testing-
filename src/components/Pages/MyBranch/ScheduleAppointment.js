@@ -1,11 +1,11 @@
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Grid from "@material-ui/core/Grid";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import CloseIcon from "@material-ui/icons/Close";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import Grid from "@mui/material/Grid";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import CloseIcon from "@mui/icons-material/Close";
 import { useFormik } from "formik";
 import Moment from "moment";
 import momentTimeZone from "moment-timezone";
@@ -210,10 +210,10 @@ export default function ScheduleAppointment({
                 label="Date"
                 placeholder="MM/DD/YYYY"
                 id="appointmentDate"
-                disablePast
+                disablePastDate = "true"
                 onKeyDown={ (event) => event.preventDefault() }
                 autoComplete="off"
-                shouldDisableDate={ disableHolidays }
+                disableDate={ disableHolidays }
                 maxdate={ scheduleAppointmentDate }
                 minyear={ 4 }
                 value={ formik.values.appointmentDate }

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
+import { Grid } from "@mui/material";
 import PropTypes from "prop-types";
-import { Grid } from "@material-ui/core";
 import {
   ButtonPrimary,
   ButtonSecondary,
@@ -11,8 +11,7 @@ import { useStylesEmailVerification } from "./Style";
 import UploadDocument from "./UploadDocument";
 
 function DocumentIdAndPhotoId(props) {
-  const [docType, setDocType] = useState("");   
-  const [ loading, setLoading ] = useState(false);  
+  const [docType, setDocType] = useState("");  
   const classes = useStylesEmailVerification();
 
   const handleDocType = (event) => {

@@ -1,4 +1,4 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 
 //Styling
 const useStylesAccountOverview = makeStyles((theme) => ({
@@ -165,7 +165,7 @@ const useStylesAccountOverview = makeStyles((theme) => ({
     fontWeight: 700,
     fontFamily: "'Muli', sans-serif !important",
     fontSize: "1rem",
-    textAlign: "start",
+    alignItems: "start",
   },
   viewAppindicator: {
     left: "0px",

@@ -1,4 +1,4 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 import Cookies from 'js-cookie';
 import Moment from "moment";
 import PropTypes from "prop-types";

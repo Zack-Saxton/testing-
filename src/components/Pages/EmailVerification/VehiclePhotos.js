@@ -1,6 +1,6 @@
 import React from "react";
+import { Grid } from "@mui/material";
 import PropTypes from "prop-types";
-import { Grid } from "@material-ui/core";
 import { useStylesEmailVerification } from "./Style";
 import UploadDocument from "./UploadDocument";
 

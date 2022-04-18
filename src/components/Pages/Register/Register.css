@@ -28,7 +28,11 @@
 #dateWrap label {
 	font-size: 16px !important;
 }
-.fullWidth{
+.confirmPasswordGrid{
+	width: 100% !important;
+	padding-bottom: 20px;
+}
+.passwordGrid{
 	width: 100% !important;
 }
 

@@ -5,9 +5,8 @@ Component Name      :    PhoneNumber
 Functionality       :    To use this component to validate and get the Phone Number in the correct format from the user.
 
 #################################################################################################################*/
-import FormControl from "@material-ui/core/FormControl";
-import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
+import FormControl from "@mui/material/FormControl";
+import TextField from "@mui/material/TextField";
 import { useField } from "formik";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
@@ -26,8 +25,7 @@ const MobileNumberWrapper = ({ name, ...otherProps }) => {
 
   return (
     <FormControl fullWidth={ true }>
-      <MuiThemeProvider>
-        <InputMask
+       <InputMask
           fullWidth={ true }
           mask="(+1)- 9"
           value={ mobile }
@@ -40,7 +38,6 @@ const MobileNumberWrapper = ({ name, ...otherProps }) => {
         >
           { () => <TextField label="Enter " /> }
         </InputMask>
-      </MuiThemeProvider>
     </FormControl>
   );
 };

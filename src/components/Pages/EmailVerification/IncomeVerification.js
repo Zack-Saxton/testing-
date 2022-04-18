@@ -1,8 +1,8 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { Grid } from "@material-ui/core";
+import { Grid } from "@mui/material";
 import { ButtonPrimary, ButtonSecondary } from "../../../components/FormsUI";
 import { useStylesEmailVerification } from "./Style";
+import PropTypes from "prop-types";
 import UploadDocument from "./UploadDocument";
 
 function IncomeVerification(props) {
