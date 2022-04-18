@@ -13,7 +13,6 @@ import MenuItem from "@mui/material/MenuItem";
 import { makeStyles } from "@mui/styles";
 import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
-import Typography from "@mui/material/Typography";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
@@ -102,7 +101,7 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
     overflowX: "hidden",
-    width: theme.spacing(7) + 1,
+    width: theme.spacing(7) ,
     [ theme.breakpoints.up("xs") ]: {
       width: "0px",
     },
@@ -110,13 +109,13 @@ const useStyles = makeStyles((theme) => ({
       width: "0px",
     },
     [ theme.breakpoints.up("md") ]: {
-      width: theme.spacing(9) + 1,
+      width: theme.spacing(9) ,
     },
     [ theme.breakpoints.up("lg") ]: {
-      width: theme.spacing(9) + 1,
+      width: theme.spacing(9) ,
     },
     [ theme.breakpoints.up("xl") ]: {
-      width: theme.spacing(9) + 1,
+      width: theme.spacing(9) ,
     },
   },
   toolbar: {
@@ -272,20 +271,20 @@ export default function SideNav() {
 
   //Material UI media query for responsiveness
   let check = useMediaQuery("(min-width:960px)");
-  const refCloseValue = refClose.current
 
   useEffect(() => {
-    if (check && checked) {
+    if (check && checked ) {
       setChecked(true);
       setOpen(true);
       handleDeviceType(false);
       document.getElementById("main").style.marginLeft = "240px";
-      refCloseValue.style.display = "none";
+      document.getElementById("close").style.display = "none";
+
     } else {
       setOpen(false);
       handleDeviceType(true);
     }
-  }, [ checked, check,refCloseValue ]);
+  }, [ checked, check ]);
 
   //Formating Phone Number
   function formatPhoneNumber(phoneNumber) {
