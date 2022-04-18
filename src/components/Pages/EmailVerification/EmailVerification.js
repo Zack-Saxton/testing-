@@ -75,8 +75,15 @@ export default function EmailVerification() {
   if(autoVerification !== 'on'){
     steps.pop();
   }
+  function getValueByLable(text, ctx) {
+		return document.evaluate("//*[.='" + text + "']",
+			ctx || document, null, XPathResult.ANY_TYPE, null).iterateNext();
+	} 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if(!activeStep){
+      getValueByLable("ID Document & Photo").scrollIntoView();
+    }    
   };
 
   const handleBack = () => {

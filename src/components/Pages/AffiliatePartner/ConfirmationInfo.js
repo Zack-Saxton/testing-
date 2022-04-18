@@ -61,10 +61,15 @@ const validationSchema = yup.object({
     .string(globalMessages?.EmploymentEnter)
     .max(30, globalMessages?.EmploymentMax)
     .required(globalMessages?.EmploymentRequired),
-  activeDuty: yup.string().when("state", {
-    is: "NC",
+  activeDuty: yup.string().when("state", {  
+    is:  "North Carolina" ,
     then: yup.string().required(globalMessages?.Active_DutyRequired),
-  }),
+  })
+  .when("state", {  
+    is:   "NC",
+    then: yup.string().required(globalMessages?.Active_DutyRequired),
+  }
+  ),
   activeDutyRank: yup.string().when("activeDuty", {
     is: "Yes",
     then: yup.string().required(globalMessages?.Active_Duty_Rank_Required),
@@ -290,7 +295,7 @@ export default function CreditKarma() {
     try {
       let eventValue = event.target.value.trim();
       setErrorMsg(eventValue ? errorMsg : globalMessages.ZipCodeEnter);
-      if (eventValue?.length === 5) {
+      if (eventValue?.length === 5 || !(eventValue?.length)) {
         let result = await ZipCodeLookup(eventValue);
         if (result) {
           fetchAddressValidate(result);
@@ -311,7 +316,7 @@ export default function CreditKarma() {
 
   function fetchAddressValidate(result) {
     try {
-      if (result.data) {
+      if (result?.data?.cityName) {
         formik.setFieldValue("city", result?.data?.cityName);
         formik.setFieldValue("state", result?.data?.stateCode);
         setValidZip(true);
@@ -336,14 +341,14 @@ export default function CreditKarma() {
     try {
       if (event.target.value !== "" && event.target.value.length === 5) {
         let result = await ZipCodeLookup(event.target.value);
-        if (result) {
+        if (result?.data?.cityName) {
           formik.setFieldValue("spousecity", result?.data?.cityName);
           formik.setFieldValue("spouseSelectState", result?.data?.stateCode);
           setValidZip(true);
         } else {
-          formik.setFieldValue("spouseSelectState", "");
-          formik.setFieldValue("spousecity", "");
           setValidZip(false);
+          formik.setFieldValue("spouseSelectState", "");
+          formik.setFieldValue("spousecity", "");     
         }
         formik.handleChange(event);
       }
@@ -464,7 +469,7 @@ export default function CreditKarma() {
     else setCitizenship(false);
     formik.handleChange(event);
   };
-
+  
   //View Part
   return (
     <div>
@@ -596,8 +601,8 @@ export default function CreditKarma() {
                         value={ formik.values.city }
                         onChange={ formik.handleChange }
                         onBlur={ formik.handleBlur }
-                        error={ formik.touched.city && Boolean(formik.errors.city) }
-                        helperText={ formik.touched.city && formik.errors.city }
+                        error={ (formik.touched.city && Boolean(formik.errors.city)) || !validZip }
+                        helperText={ validZip ? formik.touched.city && formik.errors.city : globalMessages.Address_Home_City }
                       />
                     </Grid>
 
@@ -612,8 +617,8 @@ export default function CreditKarma() {
                         value={ formik.values.state }
                         onChange={ formik.handleChange }
                         onBlur={ formik.handleBlur }
-                        error={ formik.touched.state && Boolean(formik.errors.state) }
-                        helperText={ formik.touched.state && formik.errors.state }
+                        error={ (formik.touched.state && Boolean(formik.errors.state)) || !validZip }
+                        helperText={ validZip ? formik.touched.state && formik.errors.state : globalMessages.Address_State_Required }
                       />
                     </Grid>
 
@@ -755,7 +760,15 @@ export default function CreditKarma() {
                           error={ formik.touched.activeDutyRank && Boolean(formik.errors.activeDutyRank) }
                           helperText={ formik.touched.activeDutyRank && formik.errors.activeDutyRank }
                         />
+                        <Grid
+                        item
+                        xs={ 12 }
+											className={ formik.values.activeDutyRank === "E4 and below" ? "showCheckbox" : "hideCheckbox" }
+										>
+											Unfortunately, based on the application information provided, you do not meet our application requirements.
+										</Grid>
                       </Grid>
+                      
                     </Grid>
 
                     {/* ****************************************************Married Statue ***************************************** */ }
@@ -841,7 +854,7 @@ export default function CreditKarma() {
                               onChange={ fetchSpouseAddress }
                               onBlur={ formik.handleBlur }
                               error={ (formik.touched.spouseZipcode && Boolean(formik.errors.spouseZipcode)) || !validZip }
-                              helperText={ validZip ? formik.touched.spouseZipcode && formik.errors.spouseZipcode : "Please enter a valid Zip code" }
+                              helperText={ validZip ? formik.touched.spouseZipcode && formik.errors.spouseZipcode : globalMessages.ZipCodeValid }
                             />
                           </Grid>
                           <Grid
@@ -867,11 +880,12 @@ export default function CreditKarma() {
                               disabled={ true }
                               error={
                                 formik.touched.spousecity &&
-                                Boolean(formik.errors.spousecity)
+                                Boolean(formik.errors.spousecity) || !validZip
                               }
                               helperText={
-                                formik.touched.spousecity &&
-                                formik.errors.spousecity
+                                validZip
+                                ? (formik.touched.spousecity && formik.errors.spousecity )
+                                : globalMessages.Address_Home_City
                               }
                             />
                           </Grid>
@@ -898,12 +912,13 @@ export default function CreditKarma() {
                               onBlur={ formik.handleBlur }
                               disabled={ true }
                               error={
-                                formik.touched.spouseSelectState &&
-                                Boolean(formik.errors.spouseSelectState)
+                                (formik.touched.spouseSelectState &&
+                                Boolean(formik.errors.spouseSelectState)) || !validZip
                               }
                               helperText={
-                                formik.touched.spouseSelectState &&
-                                formik.errors.spouseSelectState
+                                validZip
+                                ? (formik.touched.spouseSelectState && formik.errors.spouseSelectState)
+                                : globalMessages.Address_State_Required
                               }
                             />
                           </Grid>

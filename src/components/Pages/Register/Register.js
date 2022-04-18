@@ -247,10 +247,15 @@ export default function Register() {
       setCity("");
       if (event.target.value && event.target.value.length === 5) {
         let result = await ZipCodeLookup(event.target.value.trim());
-        if (result) {
+        if (result?.data?.cityName) {
           setValidZip(true);
-          setState(result?.data.stateCode);
-          setCity(result?.data.cityName);
+          setState(result.data.stateCode);
+          setCity(result.data.cityName);
+        }else {
+          formik.setFieldValue("city", "");
+          formik.setFieldValue("state", "");
+          setValidZip(false);
+          setErrorMsg("Please enter a valid Zipcode");
         }
       }
     } catch (error) {
@@ -261,7 +266,6 @@ export default function Register() {
   const andLogic = (valueOne, valueTwo) => {
     return (valueOne && valueTwo);
   };
-  console.log(formik.values.dob)
 
   //View Part
   return (
@@ -536,7 +540,7 @@ export default function Register() {
                     <Grid >
                       <Recaptcha />
                     </Grid>
- 
+
                     <Grid item xs={ 12 } className={ classes.signInButtonGrid }>
                       <ButtonPrimary
                         onClick={ autoFocus }
