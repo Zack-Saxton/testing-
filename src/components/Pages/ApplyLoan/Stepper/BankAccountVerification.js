@@ -83,7 +83,7 @@ export default function BankAccountVerification(props) {
 		if (res?.data?.bank_account_verification) {
 			toast.success(messages?.document?.uploadSuccess);
 			setFileUploadSuccess(true);
-			getValueByLable("Income Verification").scrollIntoView();
+			getValueByLable("Bank Account Verification").scrollIntoView();
 		} else {
 			props.setLoadingFlag(false);
 			toast.error(messages?.document?.upoloadFailed);
@@ -116,12 +116,14 @@ export default function BankAccountVerification(props) {
 				props.setLoadingFlag(false);
 			}
 			else if (verifyRequired && fileUploadSuccess) {
+				getValueByLable("Bank Account Verification").scrollIntoView();
 				props.next();
 			}
 			else {
 				let res = await APICall("bank_information_cac", '', data, "POST", true);
 				if (res?.data?.bank_account_information && res?.data?.bank_account_verification) {
 					props.setLoadingFlag(false);
+					getValueByLable("Bank Account Verification").scrollIntoView();
 					props.next();
 				} else if (res?.data?.bank_account_information || res?.data?.bank_account_verification) {
 					setError(
