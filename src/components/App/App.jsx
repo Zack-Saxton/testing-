@@ -10,7 +10,7 @@ import CheckMyOffers from '../../contexts/CheckMyOffers';
 import ProfilePicture from '../../contexts/ProfilePicture';
 import LoanAccount from '../../contexts/LoanAccount';
 import CustomComponents from "../CustomComponent";
-import BranchHeaderLayout from "../Layout/BranchLocatorLayout/BranchLocatorLayout";
+import BranchLocatorLayout from "../Layout/BranchLocatorLayout/BranchLocatorLayout";
 import Disclosure from "../Layout/DisclosureLink/Disclosure";
 import ErrorAfterLogin from "../Layout/ErrorAfterLogin/ErrorAfterLogin";
 import ErrorBeforeLogin from '../Layout/ErrorBeforeLogin/ErrorBeforeLogin';
@@ -101,9 +101,9 @@ const LoadPostComponent = (componentName) => {
 };
 const branchHeaderComponent = (componentName) => {
     return (
-        <BranchHeaderLayout>
+        <BranchLocatorLayout>
             { componentName }
-        </BranchHeaderLayout>
+        </BranchLocatorLayout>
     );
 };
 const theme = createTheme();

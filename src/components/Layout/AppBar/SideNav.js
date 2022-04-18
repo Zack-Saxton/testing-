@@ -13,7 +13,6 @@ import MenuItem from "@mui/material/MenuItem";
 import { makeStyles } from "@mui/styles";
 import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
-import Typography from "@mui/material/Typography";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
@@ -272,20 +271,28 @@ export default function SideNav() {
 
   //Material UI media query for responsiveness
   let check = useMediaQuery("(min-width:960px)");
-  const refCloseValue = refClose.current
+  // const refCloseValue = refClose.current
+  // console.log(refCloseValue)
 
   useEffect(() => {
+  // const refCloseValue = refClose.current
+  // console.log(refCloseValue)
+
     if (check && checked) {
+
       setChecked(true);
       setOpen(true);
       handleDeviceType(false);
       document.getElementById("main").style.marginLeft = "240px";
-      refCloseValue.style.display = "none";
+      document.getElementById("close").style.display = "none";
+      // refCloseValue.style.display = "none";
+      console.log("hiii")
+
     } else {
       setOpen(false);
       handleDeviceType(true);
     }
-  }, [ checked, check,refCloseValue ]);
+  }, [ checked, check ]);
 
   //Formating Phone Number
   function formatPhoneNumber(phoneNumber) {

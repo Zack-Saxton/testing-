@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 import BranchLocatorHeader from "../BranchLoacatorHeader/BranchLocatorHeader";
 import BranchLocatorFooter from "../BranchLocatorFooter/BranchLocatorFooter";
 
-const BranchHeaderLayout = ({ children }) => {
+const BranchLocatorLayout = ({ children }) => {
   return (
     <div id="BG">
       <div className="topBar">
@@ -38,7 +38,7 @@ const BranchHeaderLayout = ({ children }) => {
   );
 };
 
-BranchHeaderLayout.propTypes = {
+BranchLocatorLayout.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
@@ -46,4 +46,4 @@ BranchHeaderLayout.propTypes = {
   ])
 };
 
-export default BranchHeaderLayout;
+export default BranchLocatorLayout;
