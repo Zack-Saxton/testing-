@@ -101,7 +101,7 @@ const useStyles = makeStyles((Theme) => ({
 		justify: "center",
 		alignItems: "center",
 		textAlign: "center",
-		padding: "4%",
+		// padding: "0% 4%",
 	},
 	typoStyle: {
 		align: "center",
@@ -116,7 +116,8 @@ const useStyles = makeStyles((Theme) => ({
 	justifyGrid: {
 		justifyContent: "center",
 		alignItems: "stretch",
-		textAlign: "center"
+		textAlign: "center",
+		padding:"0% 4%"
 	},
 	justifyGridMargin: {
 		justifyContent: "center",

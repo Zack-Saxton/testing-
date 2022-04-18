@@ -47,7 +47,7 @@
     box-shadow: rgb(61 61 61 / 10%) 0px 8px 44px 0px;
 }
 .imageholdernew{
-    /* width: 66%; */
+    width: 100%;
     background-color: white;
     border-radius: 10px;
     padding: 24px;
@@ -84,7 +84,7 @@
 }
 
 .secondBannerWrapNew{
-    /* width: 23%; */
+    width: auto;
     background-color: white;
     border-radius: 10px;
     display: flex;
@@ -145,21 +145,14 @@
 
 }
 @media only screen and (min-width: 2000px) {
-    .imageholder{
-        width: 81%;
-    }
     .yellowBackground{
         justify-content: space-between;
     }
     .bannerImage{
-        max-height: 227px !important;
         width: unset;
     }
     .secondBannerWrap{
         width: unset;
-    }
-    .secondBannerImage{
-        max-height: 222px !important;
     }
 }
 @media only screen and (min-width: 2398px) {

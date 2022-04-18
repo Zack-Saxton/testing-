@@ -763,7 +763,7 @@ export default function CreditKarma() {
                         <Grid
                         item
                         xs={ 12 }
-											className={ formik.values.activeDutyRank === "E4 and below" ? "showCheckbox" : "hideCheckbox" }
+											className={`${ formik.values.activeDutyRank === "E4 and below" ? "showCheckbox" : "hideCheckbox" } ${classes.redText}`}
 										>
 											Unfortunately, based on the application information provided, you do not meet our application requirements.
 										</Grid>
