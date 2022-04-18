@@ -234,7 +234,7 @@ const BranchLocatorHeader = () => {
 
             <NavLink
               to="/select-amount/"
-              className="nav_link branchHeaderLinks"
+              className="nav_link branchHeaderLinks mailOffer"
             >
               <Typography className={ classes.subtitle }>Mail Offer?</Typography>
             </NavLink>
