@@ -137,6 +137,7 @@ export default function ConfirmationInfo() {
   const classes = useStylesPartner();
   const [ loading, setLoading ] = useState(false);
   const [ validZip, setValidZip ] = useState(true);
+  const [ validSpouseZip, setValidSpouseZip ] = useState(true);
   const [ errorMsg, setErrorMsg ] = useState("");
   const [ open, setOpen ] = useState(false);
   const [ openDelaware, setOpenDelaware ] = useState(false);
@@ -339,14 +340,14 @@ export default function ConfirmationInfo() {
   //fetch the state and city based in zip code
   const fetchSpouseAddress = async (event) => {
     try {
-      if (event.target.value !== "" && event.target.value.length === 5) {
+      if ( event.target.value.length === 5 || !(event.target.value?.length) ) {
         let result = await ZipCodeLookup(event.target.value);
         if (result?.data?.cityName) {
           formik.setFieldValue("spousecity", result?.data?.cityName);
           formik.setFieldValue("spouseSelectState", result?.data?.stateCode);
-          setValidZip(true);
+          setValidSpouseZip(true);
         } else {
-          setValidZip(false);
+          setValidSpouseZip(false);
           formik.setFieldValue("spouseSelectState", "");
           formik.setFieldValue("spousecity", "");     
         }
@@ -856,8 +857,8 @@ export default function ConfirmationInfo() {
                               value={ formik.values.spouseZipcode }
                               onChange={ fetchSpouseAddress }
                               onBlur={ formik.handleBlur }
-                              error={ (formik.touched.spouseZipcode && Boolean(formik.errors.spouseZipcode)) || !validZip }
-                              helperText={ validZip ? formik.touched.spouseZipcode && formik.errors.spouseZipcode : globalMessages.ZipCodeValid }
+                              error={ (formik.touched.spouseZipcode && Boolean(formik.errors.spouseZipcode)) || !validSpouseZip }
+                              helperText={ validSpouseZip ? formik.touched.spouseZipcode && formik.errors.spouseZipcode : globalMessages.ZipCodeValid }
                             />
                           </Grid>
                           <Grid
@@ -883,10 +884,10 @@ export default function ConfirmationInfo() {
                               disabled={ true }
                               error={
                                 formik.touched.spousecity &&
-                                Boolean(formik.errors.spousecity) || !validZip
+                                Boolean(formik.errors.spousecity) || !validSpouseZip
                               }
                               helperText={
-                                validZip
+                                validSpouseZip
                                 ? (formik.touched.spousecity && formik.errors.spousecity )
                                 : globalMessages.Address_Home_City
                               }
@@ -916,10 +917,10 @@ export default function ConfirmationInfo() {
                               disabled={ true }
                               error={
                                 (formik.touched.spouseSelectState &&
-                                Boolean(formik.errors.spouseSelectState)) || !validZip
+                                Boolean(formik.errors.spouseSelectState)) || !validSpouseZip
                               }
                               helperText={
-                                validZip
+                                validSpouseZip
                                 ? (formik.touched.spouseSelectState && formik.errors.spouseSelectState)
                                 : globalMessages.Address_State_Required
                               }
