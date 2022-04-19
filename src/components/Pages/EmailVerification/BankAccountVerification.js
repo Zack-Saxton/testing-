@@ -27,26 +27,10 @@ function BankAccountVerification(props) {
           title="Select Your Document" 
           applicationNumber={ props.applicationNumber }
           customerEmail={ props.customerEmail }
-          documentType="proof_of_income"/>
-        <Grid className={classes.nextButton} container>          
-          <ButtonSecondary
-            id="buttonMarginRight"
-            stylebutton='{"color": "black", "borderRadius": "50px"}'
-            onClick={ props.prev }
-          >
-            Prev
-          </ButtonSecondary>
-          { props.isLastStep ? ""
-            :
-            <ButtonPrimary 
-              stylebutton='{"color": ""}' 
-              onClick={ props.next }
-              >
-              Next
-            </ButtonPrimary>
-          }
-          
-        </Grid>
+          documentType="proof_of_income"
+          prev={ props.prev}
+          next={ props.next }
+          />        
       </Grid>
     </Grid>
   );
@@ -58,5 +42,4 @@ BankAccountVerification.propTypes = {
   customerEmail: PropTypes.string,
 	next: PropTypes.func,
   prev: PropTypes.func,
-  isLastStep: PropTypes.bool
 };

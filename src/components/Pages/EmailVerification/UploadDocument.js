@@ -1,16 +1,19 @@
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState, useRef } from "react";
 import Webcam from "react-webcam";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
 import Grid from "@mui/material/Grid";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import {
-  ButtonPrimary
+  ButtonPrimary,
+  ButtonSecondary
 } from "../../../components/FormsUI";
 import { useStylesEmailVerification } from "./Style";
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 import Typography from "@mui/material/Typography";
+import Chip from "@mui/material/Chip";
+import CloseIcon from '@mui/icons-material/Close';
 import { uploadEmailVerificationDocument } from "../../Controllers/EmailVerificationController";
 const FACING_MODE_USER = "user";
 const FACING_MODE_ENVIRONMENT = "environment";
@@ -22,7 +25,8 @@ const videoConstraints = {
 function UploadDocument(props) {
   const classes = useStylesEmailVerification();
   const [ showCamera, setShowCamera ] = useState(false);
-  const [ label, setLabel ] = useState([]);
+  const [ disableNext, setDisableNext ] = useState(true);
+  const [ label, setLabel ] = useState("");
   const [ loading, setLoading ] = useState(false); 
   const [ imgSrc, setImgSrc ] = useState(null);
   const [ selectDocument, setSelectDocument ] = useState(false);
@@ -33,64 +37,40 @@ function UploadDocument(props) {
   const docType = props.docType ? props.docType : "";
   const typeOfDocument = props.documentType ? props.documentType : "";
   const [facingMode, setFacingMode] = useState(docType === 'Selfie' ? FACING_MODE_USER : FACING_MODE_ENVIRONMENT);
-  const switchCamera = useCallback(() => {
-    setFacingMode(
-      prevState =>
-        prevState === FACING_MODE_USER
-          ? FACING_MODE_ENVIRONMENT
-          : FACING_MODE_USER
-    );
-  }, []);
+  
   const handleMenuOpen = (event) => {    
-    if(!checkFileTypeExist()){
-      toast.error("Select ID type");
-    }else{
-      setSelectDocument(event.currentTarget);
-    }
-  };  
+    setSelectDocument(event.currentTarget);
+  }  
   const capture = React.useCallback(() => {
     const imageSrc =  refWebCam.current.getScreenshot();
     setImgSrc(imageSrc);
+    setDisableNext(false);
   }, [ refWebCam, setImgSrc]);  
-
+  
   const handleChange = (event) => {
     let allowedExtensions = /(\.jpg|\.jpeg|\.png|\.pdf)$/i;
-    let uploadedFile = selectedFile.files;
-    let uploadedFileList = [];
-    let isOtherFileExtension = false;
-    let isSizeExceed = false;
-    for(let index=0; index < uploadedFile.length; index++){
-      let fileName = uploadedFile[ index ].name;
-      uploadedFileList.push(fileName);      
-      if (!allowedExtensions.exec(fileName)) {
-        isOtherFileExtension = true;
+    if(selectedFile?.files[ 0 ]?.name){
+      let fileName = selectedFile.files[ 0 ].name
+      if(!allowedExtensions.exec(fileName)){
+        if (!toast.isActive("closeToast")) {
+          toast.error("Please upload file having extensions .jpeg .jpg .png .pdf only. ", { toastId: "closeToast" });
+        }
+        selectedFile.value = "";
+      }else if(selectedFile.files[ 0 ].size > 10240000){
+        if (!toast.isActive("closeToast")) {
+          toast.error(globalMessages.Please_Upload_File_Below_Size, { toastId: "closeToast" });
+        }
+        selectedFile.value = "";
+      }else{
+        setLabel(fileName);
+        setDisableNext(false);
       }
-      if (selectedFile.files[ index ].size > 10240000) {
-        isSizeExceed = true;
-      }
-    }
-    if(isOtherFileExtension){
-      if (!toast.isActive("closeToast")) {
-        toast.error("Please upload file having extensions .jpeg .jpg .png .pdf only. ", { toastId: "closeToast" });
-      }
-      selectedFile.value = "";
-    }else if(isSizeExceed){
-      if (!toast.isActive("closeToast")) {
-        toast.error(globalMessages.Please_Upload_File_Below_Size, { toastId: "closeToast" });
-      }
-      selectedFile.value = "";
-    }else{
-      setLabel(uploadedFileList);
-      handleElseTwo();
-    }
+    }    
   };
-  const checkFileTypeExist = () => {
-    return !(typeOfDocument === "customer_identification_license" && docType === '');
-  }
-  const handleElseTwo = () => {
+  const handleElseTwo = async () => {
     let reader = new FileReader();
     try {
-      if (selectedFile.files && selectedFile.files[ 0 ] && checkFileTypeExist()) {
+      if (selectedFile.files && selectedFile.files[ 0 ]) {
         reader.onload = async () => {
           const buffer2 = Buffer.from(reader.result, "base64");
           let fileData = Buffer.from(buffer2).toJSON().data;
@@ -110,11 +90,11 @@ function UploadDocument(props) {
           if (response) {
             setLoading(false);
             selectedFile.value = "";
+            toast.success(response?.data?.message ?? globalMessages.Document_upload);
+            props.next();
           }
         };
         reader.readAsDataURL(selectedFile.files[ 0 ]);
-      }else if(!checkFileTypeExist()){
-        toast.error("Select ID type");
       }
     } catch (error) {
       ErrorLogger(" Error in emailVerificationDocument", error);
@@ -126,14 +106,16 @@ function UploadDocument(props) {
   const enableCameraOption = () => {
     setShowCamera(true);
     setImgSrc(null);
+    setDisableNext(true);
     handleMenuClose();
-    setLabel([]);
+    setLabel("");
   }
   //Selecting file for upload
   const handleInputChange = () => {
     setSelectedFile( refChangeEvent.current);  
     setShowCamera(false);
     setImgSrc(null);
+    setDisableNext(true);
     handleMenuClose();
   };
   const handleMenuClose = () => {
@@ -177,12 +159,27 @@ function UploadDocument(props) {
         setShowCamera(false);
         setImgSrc(null);
         handleMenuClose();
+        toast.success(response?.data?.message ?? globalMessages.Document_upload);
+        props.next();
       }
+      return response;
     } catch (error) {
       ErrorLogger(" Error in emailVerificationDocument", error);
     }  
+    return false;
   } 
-  
+  const UploadDocument = () => {
+    if(imgSrc){
+      uploadCameraPhoto();
+    }else if(selectedFile.files && selectedFile.files[ 0 ]){
+      handleElseTwo();
+    }
+  }
+  const deleteSelectedFile = () => {
+    setSelectedFile(null);
+    setLabel("");
+    setDisableNext(true);
+  }
   return (
     <>
       <ButtonPrimary
@@ -191,6 +188,17 @@ function UploadDocument(props) {
         >
           { props.title ?? 'Select Your Document' }
         </ButtonPrimary>
+        {
+            label ?
+              <Chip
+              className={classes.chipButton}
+                label={ label }
+                onDelete={ ()=> deleteSelectedFile() }
+                deleteIcon={<CloseIcon />}
+              />
+            :
+            ""
+          }
         <Menu
           anchorEl={selectDocument}
           anchorOrigin={{ vertical: "top", horizontal: "right" }}
@@ -221,17 +229,7 @@ function UploadDocument(props) {
               </Typography>
             </a>
           </MenuItem>
-        </Menu>
-        <Grid container direction="row">
-          <Grid className="gridPadding" item xs={ 12 }>
-            {
-              label.map((fileName, key) => (
-                <Grid key={Math.random() * 1000} style={ { marginLeft: "2px" } }>{ loading ? "Uploading..." : "" }</Grid>
-              ))
-            }
-            
-          </Grid>
-        </Grid>
+        </Menu>        
         {showCamera  ?
           (!imgSrc ? 
             <Grid container style={ { margin: "10px 0px"} } >              
@@ -240,40 +238,36 @@ function UploadDocument(props) {
               ref={ refWebCam}
               screenshotFormat="image/jpeg"
               height={360}
-              width={640}
+              width={500}
               videoConstraints={{
                 ...videoConstraints,
                 facingMode
               }}
-            />       
-            <ButtonPrimary
-              onClick={capture}
-              stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "margin":"10px 0px"}'
-            >
-              Capture Photo
-            </ButtonPrimary>      
-            
+            />  
+            <Grid container>
+              <ButtonPrimary
+                onClick={capture}
+                stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "margin":"10px 0px"}'
+              >
+                Capture Photo
+              </ButtonPrimary> 
+            </Grid> 
           </Grid> : 
           <Grid container style={ { margin: "10px 0px"} }>
             <Grid style={{ margin: "0px 10px"}}>
               {imgSrc && (
                 <img
                   src={imgSrc}
+                  height={360}
+                  width={480}
                 />
               )}
             </Grid> 
-              <Grid>
-                <ButtonPrimary
-                  onClick={ uploadCameraPhoto }
-                  stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "margin":"0px 10px 10px 0px"}'
-                >
-                  Upload
-                </ButtonPrimary>
-              </Grid>
-              <Grid>
+              
+              <Grid container>
                 <ButtonPrimary
                   onClick={ enableCameraOption }
-                  stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "margin":"0px 0px 10px 0px"}'
+                  stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "margin":"10px 0px"}'
                 >
                   Take another picture
                 </ButtonPrimary>
@@ -284,6 +278,22 @@ function UploadDocument(props) {
           <>
           </>
         }
+      <Grid className={classes.nextButton} container>          
+          <ButtonSecondary
+            id="buttonMarginRight"
+            stylebutton='{"color": "black", "borderRadius": "50px"}'
+            onClick={ props.prev }
+          >
+            Prev
+          </ButtonSecondary>
+          <ButtonPrimary 
+              stylebutton='{"color": ""}' 
+              disabled = { disableNext }
+              onClick={ UploadDocument }
+              >
+              Next
+            </ButtonPrimary>
+      </Grid>
     </>
   );
 }
@@ -294,5 +304,7 @@ UploadDocument.propTypes = {
   customerEmail: PropTypes.string,
   title: PropTypes.string,
   documentType: PropTypes.string,
-  docType: PropTypes.string
+  docType: PropTypes.string,
+  prev: PropTypes.func,
+  next: PropTypes.func,
 };

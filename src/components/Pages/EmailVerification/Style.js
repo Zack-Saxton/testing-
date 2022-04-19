@@ -96,7 +96,13 @@ const useStylesEmailVerification = makeStyles((theme) => ({
     paddingLeft:"0px !important",
     margin:"0px 0px 10px 0px",
     listStylePosition: "inside"
+  },
+  chipButton:{
+    borderRadius:3,
+    border:"none",
+    background:"transparent !important"
   }
+
 }));
 
 export { useStylesEmailVerification };
