@@ -2,12 +2,12 @@ import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import StepContent from "@mui/material/StepContent";
-import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import { Grid } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
 import React, { useEffect, useState } from "react";
+import ErrorLogger from "../../lib/ErrorLogger";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useLocation } from "react-router-dom";
 import { useQuery } from 'react-query';
@@ -94,7 +94,6 @@ export default function EmailVerification() {
       let response = await saveConsentStatus(email, applicationNumber);
       if (response) {
         setAgreeTerms(true);
-        setLoading(false);
       }
       setConsentLoading(false);
     } catch (error) {

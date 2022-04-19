@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import Webcam from "react-webcam";
 import PropTypes from "prop-types";
 import { toast } from "react-toastify";
+import ErrorLogger from "../../lib/ErrorLogger";
 import { Grid } from "@mui/material";
 import {
   ButtonPrimary,
