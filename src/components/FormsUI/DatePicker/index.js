@@ -19,9 +19,9 @@ import "./DatePicker.css";
 
 const DatePickerWrapper = ({ format, label, views,
 	placeholder,required,  onChange, disableDate, disablePastDate,
-	maxdate, minyear,error, helperText, ...otherProps }) => {
+	maxdate, minyear,error, helperText, value, ...otherProps }) => {
 
-	const [ selectedDate, setSelectedDate ] = useState(null);	
+	const [ selectedDate, setSelectedDate ] = useState(value ?? null);	
   const [ errorTF, setErrorTF ] = useState(false);
   const [ helperTextTF, setHelperTextTF ] = useState("");
 	
@@ -83,9 +83,9 @@ DatePickerWrapper.propTypes = {
 	format: PropTypes.string,
 	label: PropTypes.string,
 	placeholder: PropTypes.string,
+	value: PropTypes.instanceOf(Date),
 	maxdate: PropTypes.instanceOf(Date),
 	minyear: PropTypes.number,
-	refId: PropTypes.object,
 	helperText: PropTypes.string,
 	error: PropTypes.bool,
 	required: PropTypes.string,
