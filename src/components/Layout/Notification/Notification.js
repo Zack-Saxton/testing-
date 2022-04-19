@@ -7,15 +7,21 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from "@mui/material/IconButton";
-import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { makeStyles } from "@mui/styles";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useQuery } from 'react-query';
 import { getNoticationData, setUnread } from "../../Controllers/NotificationController";
 import { ButtonPrimary, ButtonSecondary } from "../../FormsUI";
 import "../AppBar/SideNav.css";
+
+import Grow from '@mui/material/Grow';
+import Paper from '@mui/material/Paper';
+import Popper from '@mui/material/Popper';
+import Stack from '@mui/material/Stack';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
+
 
 //Material UI css class
 const useStyles = makeStyles(() => ({
@@ -84,34 +90,95 @@ export default function Notification() {
     setOpenDialog(false);
   };
 
-  //Menu close
-  const handleClose = () => {
-    setAnchorEl(null);
+
+  const [option, setOpenOption] = useState(false);
+  const anchorRef = useRef(null);
+
+  const handleToggle = () => {
+    setOpenOption((prevOpen) => !prevOpen);
   };
 
-  //Badge onclick
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+  const handleClose = (event) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+      return;
+    }
+
+    setOpenOption(false);
   };
+  
+  // return focus to the button when we transitioned from !open -> open
+  const prevOpen = useRef(option);
+      useEffect(() => {
+    if (prevOpen.current === true && option === false) {
+      anchorRef.current.focus();
+    }
+
+    prevOpen.current = option;
+  }, [option]);
+
 
   //View
   return (
     <div>
-      <IconButton className="noPaddingIcon" aria-label="show 17 new notifications" onClick={ handleClick }>
+      <Stack direction="row" spacing={2}>
+      <div>
+
+      <IconButton 
+       ref={anchorRef}
+       id="composition-button"
+       aria-controls={open ? "composition-menu" : undefined}
+       aria-expanded={open ? "true" : undefined}
+       aria-haspopup="true"
+       onClick={handleToggle}
+       className="noPaddingIcon" aria-label="show 17 new notifications" 
+      // onClick={ handleClick }
+      >
         <Badge overlap="rectangular" classes={ { badge: classes.customBadge } } badgeContent={ badgeCount ? badgeCount : 0 }>
           <NotificationsNoneIcon />
         </Badge>
       </IconButton>
 
-      < Menu id="notification-menu" anchorEl={ anchorEl } open={ open } onClose={ handleClose } MenuListProps={ { 'aria-labelledby': 'basic-button' } } >
-        { messages.length ?
-          messages.map((val, index) => (
-            val.message_id ?
-              <MenuItem key={ index }  className = { val?.active ? "notificationMenuItem" : "notificationMenuItemNormal"}  onClick={ () => { handleClickOpen(val.message_id.message_title, val.message_id.message, val.message_id._id, val.active); } }>
-                <span id = "spanNotificationMenu" className="material-icons icon-bg-circle brandColorBG small">stars</span> { val?.message_id.message_title }</MenuItem>
-              : <MenuItem> You have no New Notifications </MenuItem>)) : <MenuItem> You have no New Notifications</MenuItem>
-        }
-      </Menu>
+
+      <Popper
+        open={option}
+        anchorEl={anchorRef.current}
+        role={undefined}
+        placement="bottom-start"
+        transition
+        disablePortal
+      >
+        {({ TransitionProps, placement }) => (
+          <Grow
+            {...TransitionProps}
+            style={{
+              transformOrigin:
+                placement === "bottom-start"
+                  ? "left top"
+                  : "left bottom",
+            }}
+          >
+            <Paper>
+            <ClickAwayListener onClickAway={handleClose}>
+              <div id="notification-menu"  >
+                { messages.length ?
+                  messages.map((val, index) => (
+                    val.message_id ?
+                      <MenuItem key={ index }  className = { val?.active ? "notificationMenuItem" : "notificationMenuItemNormal"}  onClick={ () => { handleClickOpen(val.message_id.message_title, val.message_id.message, val.message_id._id, val.active); } }>
+                        <span id = "spanNotificationMenu" className="material-icons icon-bg-circle brandColorBG small">stars</span> { val?.message_id.message_title }</MenuItem>
+                      : <MenuItem> You have no New Notifications </MenuItem>)) : <MenuItem> You have no New Notifications</MenuItem>
+                }
+              </div>
+            </ClickAwayListener>
+            </Paper>
+          </Grow>
+        )}
+      </Popper>
+      </div>
+
+      </Stack>
+      
+
+     
       <Dialog open={ openDialog } onClose={ handleCloseDialog } aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
         <DialogTitle id="alert-dialog-title">
           { messageTitle }
