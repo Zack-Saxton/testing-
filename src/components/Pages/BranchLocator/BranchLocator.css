@@ -115,7 +115,6 @@
 }
 .findBranchWrap {
   width: 100%;
-  padding: 0px 15px 0px 15px;
 }
 #findBranchWrapTwo {
   margin-top: 4%;
@@ -165,7 +164,7 @@
 }
 .branchLocatorAddressList {
   background-color: #f6f6f6;
-  padding: 0% 2%;
+  justify-content: space-between;
 }
 .breadcrumbLink {
   font-size: 0.75rem !important;
@@ -206,10 +205,8 @@
 }
 #branchLocatorLists {
   background-color: #f6f6f6;
-  padding: 0px 15px;
   width: 100%;
-  height: 450px;
-  overflow-Y: scroll
+  padding-top: 15px !important;
 }
 #timeSlotSelect .subOption {
   color: #171717 !important;
@@ -684,6 +681,7 @@
 }
 .blueColorLink{
   color: #214476 !important;
+  text-decoration: none;
 }
 .mobilePadding{
   padding: 24px 0px;

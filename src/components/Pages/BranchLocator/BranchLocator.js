@@ -189,7 +189,7 @@ export default function BranchLocator() {
       container
       item xs={ 12 } md={ 10 }
     >
-      <Grid container item xs={ 12 } justifyContent="center">
+      {/* <Grid container item xs={ 12 } justifyContent="center">
         <Typography
           className="mainHeading"
           variant="h4"
@@ -202,7 +202,7 @@ export default function BranchLocator() {
           Find a branch in your neighborhood and explore personal loans near you.
           Our experienced team members are ready to assist with your financial needs.
         </p>
-      </Grid>
+      </Grid> */}
       <Grid container item xs={ 12 } justifyContent="center">
         <Typography
           className="mainParagraph findBranchNear"
@@ -338,7 +338,7 @@ export default function BranchLocator() {
   );
 
   const displayBranchListinDropDown = (
-    <Grid className="findBranchWrap" item xs={ 12 } sm={ 12 } md={ 6 } xl={ 6 }>
+    <Grid className="findBranchWrap" >
       { loading ? (
         <div align="center">
           <CircularProgress />{ " " }
@@ -347,7 +347,7 @@ export default function BranchLocator() {
         <Grid
           id="branchLocatorLists"
         >
-          <Grid
+          <Grid container
             className="branchLocatorAddressList"
           >
             { branchList ? (
@@ -512,6 +512,7 @@ export default function BranchLocator() {
   );
 
   const displayMap = (
+    <Grid container>
     <Grid id="mapGridWrap" item xs={ 12 } sm={ 12 } md={ 6 } xl={ 6 }>
       <Suspense fallback={<div>Loading...</div>}>
         <Map
@@ -523,6 +524,21 @@ export default function BranchLocator() {
       </Suspense>
       
     </Grid>
+      <Grid item xs={12} sm={12} md={6} xl={6} className="personalLoanGrid">
+        <Typography
+          className="mainHeading"
+          variant="h4"
+        >
+          Mariner Finance Branch Near You!
+        </Typography>
+        <p className="mainParagraph">
+          Mariner Finance, serving communities since 1927, operates
+          over 470 branches in twenty-seven states.
+          Find a branch in your neighborhood and explore personal loans near you.
+          Our experienced team members are ready to assist with your financial needs.
+        </p>
+      </Grid>
+    </Grid>
   );
   const MapBranchListandSearch2Buttons = (
     <Grid
@@ -533,8 +549,8 @@ export default function BranchLocator() {
         <h3 ref={ refMapSection } className="mapTopHeading">Branches Near You</h3>
       </Grid>
       { displayMap }
-      { displayBranchListinDropDown }
       { search2andDirectionfromSearch2 }
+      {displayBranchListinDropDown}
     </Grid>
   );
   //View part
