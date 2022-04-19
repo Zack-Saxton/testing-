@@ -133,7 +133,7 @@ const validationSchema = yup.object({
 });
 
 //Begin: Login page
-export default function CreditKarma() {
+export default function ConfirmationInfo() {
   const classes = useStylesPartner();
   const [ loading, setLoading ] = useState(false);
   const [ validZip, setValidZip ] = useState(true);
@@ -479,13 +479,16 @@ export default function CreditKarma() {
             className={ classes.confirmationGrid }
             xs={ 12 }
             item
+            container
+            justifyContent="center"
+            alignItems="center"
           >
             <Grid
               xs={ 11 }
               sm={ 10 }
               md={ 6 }
               lg={ 6 }
-              xl={ 6 }
+              xl={ 6 } 
               className="confirmationCard"
               item
             >
@@ -1069,7 +1072,7 @@ export default function CreditKarma() {
                         data-testid="submit"
                         stylebutton='{"background": "","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
                         disabled={
-                          formik.values.citizenship === "Foreign Resident"
+                          formik.values.citizenship === "Foreign Resident" || formik.values.activeDutyRank === "E4 and below"
                             ? true
                             : loading
                         }

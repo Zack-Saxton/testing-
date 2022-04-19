@@ -17,7 +17,7 @@ import PropTypes from "prop-types";
 import React, { useState } from "react";
 import "./DatePicker.css";
 
-const DatePickerWrapper = ({ name, format, label, views, refId,
+const DatePickerWrapper = ({ format, label, views,
 	placeholder,required,  onChange, disableDate, disablePastDate,
 	maxdate, minyear,error, helperText, ...otherProps }) => {
 
@@ -59,7 +59,6 @@ const DatePickerWrapper = ({ name, format, label, views, refId,
 					InputAdornmentProps={ { position: 'start' } }
 					minDate={ minDate }
 					maxDate={ new Date(maxdate) }
-					openTo="year"
 					shouldDisableDate = {disableCustomDate}
 					disablePast = {disablePastDate === "true" ? true : false}
           views={views ?? ['year', 'month', 'day']}
