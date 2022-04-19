@@ -71,7 +71,7 @@ const validationSchema = yup.object({
 });
 
 //Begin: Login page
-export default function CreditKarma() {
+export default function PartnerSignUp() {
   //Decoding URL for partner signup
   const useQueryURL = () => new URLSearchParams(useLocation().search);
   const query = useQueryURL();
@@ -208,7 +208,10 @@ export default function CreditKarma() {
           <Grid
             className={ classes.partnerSignUpGrid }
             xs={ 10 }
-            item
+            item            
+            container
+            justifyContent="center"
+            alignItems="center"
           >
             <Grid
               xs={ 11 }
