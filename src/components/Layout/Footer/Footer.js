@@ -1,6 +1,6 @@
-import { Grid } from "@material-ui/core";
-import Typography from "@material-ui/core/Typography";
-import React, { useState } from "react";
+import { Grid } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import React, {useState} from "react";
 import { NavLink } from "react-router-dom";
 import housingImage from "../../../assets/images/equal_Housing_Lender.png";
 import badge from "../../../assets/images/FeefoRatting.png";
@@ -17,7 +17,7 @@ export default function Footer() {
   //View Part
   return (
     <div>
-      <footer id="mainFooter" style={ { width: "100%" } }>
+      <footer id="mainFooter">
         <Grid className="FooterGridWrap">
           <Grid className="footerWrap" container>
             <Grid item sm={ 12 } md={ 4 } lg={ 4 }>
@@ -132,7 +132,7 @@ export default function Footer() {
                   <p className="leftAlignAddress">
                     Mariner Finance, LLC, NMLS No. 166564
                     <span
-                      style={ { margin: "0", cursor: "pointer", overflowWrap: "break-word" } }
+                    className="spanLeftAlignAddress"
                       onClick={ handleOpenConsumer }
                     >
                       { ' ' }(www.nmlsconsumeraccess.com){ ' ' }
@@ -152,7 +152,6 @@ export default function Footer() {
                   id="mfInfoImg"
                   src={ housingImage }
                   alt="logo image"
-                  style={ { paddingRight: "25px" } }
                 />
               </Grid>
             </Grid>

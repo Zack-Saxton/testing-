@@ -1,8 +1,8 @@
-import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import { makeStyles } from "@mui/styles";
+import Typography from "@mui/material/Typography";
 import axios from "axios";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
@@ -101,7 +101,7 @@ const useStyles = makeStyles((Theme) => ({
 		justify: "center",
 		alignItems: "center",
 		textAlign: "center",
-		padding: "0"
+		// padding: "0% 4%",
 	},
 	typoStyle: {
 		align: "center",
@@ -116,7 +116,8 @@ const useStyles = makeStyles((Theme) => ({
 	justifyGrid: {
 		justifyContent: "center",
 		alignItems: "stretch",
-		textAlign: "center"
+		textAlign: "center",
+		padding:"0% 4%"
 	},
 	justifyGridMargin: {
 		justifyContent: "center",
@@ -136,6 +137,7 @@ function PersonalInfo() {
 	const [ ssnEmailMatch, setSsnEmailMatch ] = useState(true);
 	const [ error, setError ] = useState(false);
 	const [ loading, setLoading ] = useState(false);
+	const componentMounted = useRef(true);                                               //
 	const navigate = useNavigate();
 	const innerClasses = useStyles();
 	const classes = preLoginStyle();
@@ -167,6 +169,8 @@ function PersonalInfo() {
 		onSubmit: async (values) => {
 			const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : "{ }");
 			setLoading(true);
+			//To check the component is mounted or not to update the state
+			if (componentMounted.current){
 			data.firstName = values.firstName.trim();
 			data.lastName = values.lastName.trim();
 			data.email = values.email;
@@ -198,9 +202,9 @@ function PersonalInfo() {
 
 				if (loginToken?.isLoggedIn) {
 					data.completedPage = data.page.existingUser;
-					navigate("/employment-status");
 					setError(false);
 					setLoading(false);
+					navigate("/employment-status");
 				} else {
 					let customerStatus = await axios({
 						method: "POST",
@@ -219,9 +223,9 @@ function PersonalInfo() {
 								setLoading(false);
 							} else {
 								setSsnEmailMatch(true);
-								navigate("/existing-user");
 								setError(false);
 								setLoading(false);
+								navigate("/existing-user");
 							}
 						} else {
 							setSsnEmailMatch(false);
@@ -242,6 +246,7 @@ function PersonalInfo() {
 					}
 				}
 			}
+		}
 		},
 	});
 
@@ -302,7 +307,10 @@ function PersonalInfo() {
 		if (data.completedPage < data.page.homeAddress || data.formStatus === "completed") {
 			navigate("/select-amount");
 		}
-		return null;
+		// return null;
+		return () => { // This code runs when component is unmounted
+			componentMounted.current = false; // set it to false when we leave the page
+	}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -328,7 +336,7 @@ function PersonalInfo() {
 							lg={ 6 }
 							xl={ 6 }
 							className="cardWrapper"
-							alignItems="center"
+						  alignItems="center"
 						>
 							<Paper
 								id="aboutYourselfWrap"

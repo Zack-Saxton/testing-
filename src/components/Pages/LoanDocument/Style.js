@@ -1,4 +1,4 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 
 const useStylesLoanDocument = makeStyles((theme) => ({
   root: {
@@ -25,6 +25,14 @@ const useStylesLoanDocument = makeStyles((theme) => ({
     fontWeight: "600",
     fontSize: "1rem",
   },
+  textDecoration:{
+    textDecoration: "none"
+  },
+ appIcon:{
+  color: "#104eb3", 
+  cursor: "pointer"
+ },
+
   tableHeadRow: {
     color: "#171717!important",
     fontSize: "15px",

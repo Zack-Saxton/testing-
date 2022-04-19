@@ -1,5 +1,5 @@
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Grid from "@material-ui/core/Grid";
+import CircularProgress from "@mui/material/CircularProgress";
+import Grid from "@mui/material/Grid";
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -77,13 +77,12 @@ const ApplyForLoanRedirect = (props) => {
 	};
 	useEffect(() => {
 		redirect();
-		return null;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	//View part
 	return (
-		<Grid className="circleprog" style={ { width: "100%", textAlign: "center" } }>
+		<Grid className="circleprog loadingCircle">
 			<CircularProgress />
 		</Grid>
 	);

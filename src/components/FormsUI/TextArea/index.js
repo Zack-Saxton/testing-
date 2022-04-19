@@ -7,8 +7,8 @@ Functionality       :    To use this TextArea as a default component for UI purp
 
 #################################################################################################################*/
 
-import { TextField } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { TextField } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 
@@ -25,7 +25,6 @@ const TextAreaWrapper = ({
   ...otherProps
 }) => {
 
-  const CHARACTER_LIMIT = character_limit;
   const [ values, setValues ] = useState({
     name: "",
   });
@@ -61,11 +60,11 @@ const TextAreaWrapper = ({
       className={ classes.textarea }
       multiline
       inputProps={ {
-        maxLength: CHARACTER_LIMIT ?? 20,
+        maxLength: character_limit ?? 20,
         "data-test-id": "textarea"
       } }
       value={ values.name }
-      helperText={ `${ values.name.length }/${ CHARACTER_LIMIT }` }
+      helperText={ `${ values.name.length }/${ character_limit }` }
     />
   );
 };

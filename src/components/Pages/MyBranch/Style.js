@@ -1,4 +1,4 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 
 //Styling Part
 const useStylesMyBranch = makeStyles((theme) => ({
@@ -71,6 +71,33 @@ const useStylesMyBranch = makeStyles((theme) => ({
   },
   branchClose: {
     color: "red"
+  },
+  branchlocatorStyle: {
+    alignItem: "flex-end",
+    justifyContent: "space-between"
+  },
+  gridMyBranch:{
+    paddingBottom: "10px"
+  },
+  navLinkMyBranch:{
+    textDecoration: "none"
+  },
+  gridSchedule:{
+    paddingTop: "10px", 
+    textAlign: "left"
+  },
+  iframeBranchMap: {
+    height: "530px",
+    width: "100%"
+  },
+  gridDatepicker:{
+    paddingBottom: "10px"
+  },
+  scheduleDialog: {
+    padding: "unset"
+  },
+  scheduleDialogAction:{
+    justifyContent: "center"
   }
 }));
 

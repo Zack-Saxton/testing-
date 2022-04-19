@@ -1,12 +1,12 @@
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableRow from "@material-ui/core/TableRow";
-import Typography from "@material-ui/core/Typography";
+import CircularProgress from "@mui/material/CircularProgress";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableRow from "@mui/material/TableRow";
+import Typography from "@mui/material/Typography";
 import Moment from "moment";
 import React from "react";
 import NumberFormat from "react-number-format";
@@ -104,16 +104,18 @@ export default function ActiveLoans(userActiveLoanData) {
                             </Grid>
                             <Grid item xs={ 12 } sm={ 6 }>
                               <NavLink
-                                to={ `/customers/makePayment/?accNo=${ appData.loanDetails.AccountNumber }` }
+                                to={ `/customers/makePayment/?accNo=${ window.btoa(appData.loanDetails.AccountNumber) }` }
                                 key={ Math.random() * 1000 }
                               >
                                 <ButtonPrimary
                                   id="makeAPaymentButtonStyle"
                                   stylebutton='{"float": "right","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
                                   className={
-                                    numberDaysForDueDate(appData)
-                                      ? `${ classes.normalButton } pulse`
-                                      : classes.normalButton
+                                    today.isBefore(appData.loanDetails.NextDueDate)
+                                      ? numberDaysForDueDate(appData)
+                                        ? `${ classes.normalButton } pulse`
+                                        : classes.normalButton
+                                      : `${classes.buttonColorPastDate} pulse`
                                   }
                                 >
                                   Make a Payment
@@ -265,7 +267,7 @@ export default function ActiveLoans(userActiveLoanData) {
                                 </b>
                               </p>
                               <p className={classes.activeLoanSubHeading_content}>APR</p>
-                              <b>{`${appData.loanDetails.OriginalAPR}%`}</b>
+                              <b>{`${(appData.loanDetails.OriginalAPR)?.toFixed(2)}%`}</b>
                             </div>
                           </Grid>
                         </Paper>

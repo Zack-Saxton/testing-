@@ -1,9 +1,5 @@
 #BG {
-  background-image: url(../../assets/images/loginbg.png);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  background-color: #f6f6f6 ;
 }
 .headerWrap {
   position: sticky !important;
@@ -88,6 +84,10 @@
   color: #214476 !important;
 }
 
+.faqLink{
+  text-decoration: none
+}
+
 .topBarlinks {
   display: flex;
   height: 100%;
@@ -136,7 +136,7 @@
   padding: 0px;
   display: flex;
   align-items: center;
-  margin-right: 35px;
+  /* margin-right: 35px; */
   color: #171717;
 }
 .branchHeaderLinks a {
@@ -152,6 +152,7 @@
   padding: 0px;
   display: flex;
   align-items: center;
+  margin-left: 10px;
 }
 .branchHeaderLinksLast p span {
   background-color: #efefef;
@@ -177,7 +178,9 @@
   border-bottom: 3px solid #214476 !important;
   padding-top: 3px;
 }
-
+.mailOffer,.loginLink{
+  margin-right: 35px !important;
+}
 /* personal Loan dropdown */
 .personalLoanHolder {
   position: relative;

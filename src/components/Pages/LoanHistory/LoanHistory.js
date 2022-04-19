@@ -1,5 +1,5 @@
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
 import React from "react";
 import { useQuery } from 'react-query';
 import { NavLink } from "react-router-dom";
@@ -39,7 +39,7 @@ export default function LoanHistory() {
               <h3 className={ classes.heading }>
                 <NavLink
                   to="/customers/accountOverview"
-                  style={ { textDecoration: "none" } }
+                  className={classes.loanHistoryNavLink}
                 >
                   <ButtonWithIcon
                     icon="arrow_backwardIcon"

@@ -1,11 +1,11 @@
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Grid from "@material-ui/core/Grid";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import CloseIcon from "@material-ui/icons/Close";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import Grid from "@mui/material/Grid";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import CloseIcon from "@mui/icons-material/Close";
 import { useFormik } from "formik";
 import Moment from "moment";
 import momentTimeZone from "moment-timezone";
@@ -169,7 +169,7 @@ export default function ScheduleAppointment({
   //View part
   return (
     <div>
-      <Grid item xs={ 12 } style={ { paddingTop: "10px", textAlign: "left" } }>
+      <Grid item xs={ 12 } className={classes.gridSchedule}>
         <ButtonPrimary
           id="scheduleAppointmentBtn"
           stylebutton='{"float": "","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
@@ -194,7 +194,7 @@ export default function ScheduleAppointment({
             <CloseIcon />
           </IconButton>
         </div>
-        <DialogTitle id="alert-dialog-title" style={ { padding: "unset" } }>
+        <DialogTitle id="alert-dialog-title" className={classes.scheduleDialog}>
           <Typography component={ "div" } className={ classes.dialogHeading }>
             Schedule an Appointment
           </Typography>
@@ -204,16 +204,16 @@ export default function ScheduleAppointment({
         </DialogTitle>
         <form id="formAppointment" ref={ refFormCall } onSubmit={ formik.handleSubmit }>
           <DialogContent>
-            <Grid style={ { paddingBottom: "10px" } }>
+            <Grid className={classes.gridDatepicker} >
               <DatePicker
                 name="appointmentDate"
                 label="Date"
                 placeholder="MM/DD/YYYY"
                 id="appointmentDate"
-                disablePast
+                disablePastDate = "true"
                 onKeyDown={ (event) => event.preventDefault() }
                 autoComplete="off"
-                shouldDisableDate={ disableHolidays }
+                disableDate={ disableHolidays }
                 maxdate={ scheduleAppointmentDate }
                 minyear={ 4 }
                 value={ formik.values.appointmentDate }
@@ -275,7 +275,7 @@ export default function ScheduleAppointment({
             ) }
           </DialogContent>
 
-          <DialogActions style={ { justifyContent: "center" } }>
+          <DialogActions className={classes.scheduleDialogAction} >
             <ButtonPrimary
               type="submit"
               stylebutton='{"background": "","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'

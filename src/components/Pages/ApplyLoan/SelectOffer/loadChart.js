@@ -1,8 +1,8 @@
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
 import PropTypes from "prop-types";
 import React from "react";
 import HSBar from "react-horizontal-stacked-bar-chart";
@@ -44,7 +44,7 @@ export default function LoadChart(props) {
 	return (
 		<div>
 			{ finArray?.length >= 2 ? (
-				<Table className={ props.classes.table } aria-label="simple table">
+				<Table aria-label="simple table">
 					<TableHead>
 						<TableRow>
 							<TableCell width="15%" className={ props.classes.tableHead }>

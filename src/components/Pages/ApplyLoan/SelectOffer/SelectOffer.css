@@ -54,17 +54,57 @@
 	border-radius: 0 5px 5px 0;
 	box-shadow: 3px 3px 10px 0 rgb(123, 31, 162, 50%);
 }
-
+.loadingCircle{
+	width: 100%;
+	text-align: center;
+}
+#loanListTable{
+	padding: 0px 0px 0px 15px;
+	width: 100%;
+}
+.infoText{
+	text-align: justify;
+	font-size: 15px;
+	color: #6b6f82;
+}
+.pleaseClickText{
+	text-align: justify;
+	font-size: 15px;
+	padding-top: 15px;
+}
+#termsTabs{
+	padding-bottom: 10px;
+}
+#tabText{
+	font-size: 0.938rem;
+	font-weight: 700;
+}
+.compareChartButtons{
+	display: flex;
+}
 @media (max-width: 600px) {
   #apply-loan-comparison-button{
    float: unset!important;
   }
 }
 
-@media (max-width: 600px) {
-  #apply-loan-comparison-button-grid, #apply-loan-continue-button-grid{
-    padding: 0!important;
-  }
+@media only screen and (max-width: 520px){
+	#apply-loan-comparison-button-grid{
+		margin-left: unset !important;
+		margin-top: 15px;
+	 }
+	 #apply-loan-continue-button{
+		 margin-left: 0 !important;
+		 margin-bottom: 15px;
+	 }
+	.compareChartButtons{
+		flex-direction: column-reverse;
+		align-items: center;
+	}
+	#compareChartButtonsWrap{
+		flex-direction: column;
+    align-items: center;
+	}
 }
 
 @media (max-width:599px) {

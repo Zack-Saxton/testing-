@@ -1,12 +1,12 @@
-import Box from "@material-ui/core/Box";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
+import Box from "@mui/material/Box";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import { makeStyles } from "@mui/styles";
+import Typography from "@mui/material/Typography";
 import { useFormik } from "formik";
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -91,9 +91,21 @@ function HomeAddress() {
 		if (data?.completedPage < data?.page?.citizenship || data?.formStatus?.toLowerCase() === "completed") {
 			navigate("/select-amount");
 		}
-		return null;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
+	const handlePopupCA = data.state === "CA" ? true : false;
+  const handlePopupOhio = data.state === "OH" ? true : false;
+
+  useEffect(() => {
+    if (handlePopupCA) {
+      setOpen(true);
+    }
+    else if (handlePopupOhio) {
+      setOpenOhio(true);
+    }
+  }, [ handlePopupCA, handlePopupOhio ]);
+
 	//Handle modal open and close
 	const handleClickOpen = () => {
 		setOpen(true);
@@ -148,7 +160,7 @@ function HomeAddress() {
 					setValidZip(true);
 					if(validStates.indexOf(result?.data?.stateCode.toUpperCase()) === -1)  
 					{ 
-						setValidZip(false);
+						setValidZip(false);  
 						setErrorMsg(globalMessages.WeDoNotServeArea); 
 						setNotAvailInCity(true);
 					} else {
@@ -228,9 +240,6 @@ function HomeAddress() {
 									variant="h5"
 									id="homeAddressTxt"
 									className="borrowCSSLP checkMyOfferText"
-									style={ {
-
-									} }
 								>
 									Enter your home address
 								</Typography>
@@ -394,8 +403,10 @@ function HomeAddress() {
 								<Paper className={ innerClasses.subPaper } style={{display: notAvailInCity ? "block" : "none" }}>
 									<div >
 											<p className={ innerClasses.paraInsideSubPaper } >
-													Mariner Finance does not operate in your state. Mariner Finance currently operates in Alabama, California, Delaware, Florida, Georgia, Indiana, Illinois, Kentucky, Louisiana, Maryland, Mississippi,
-													Missouri, New Jersey, New York, North Carolina, Ohio, Pennsylvania, South Carolina, Tennessee, Texas, Utah, Virginia, Washington, and Wisconsin.
+											If your state is not listed, it means that Mariner Finance does not operate in your state.
+											</p>
+											<p className={ innerClasses.paraInsideSubPaper } >
+											Mariner Finance currently operates in Alabama, Arizona, California, Delaware, Florida, Georgia, Indiana, Illinois, Kentucky, Louisiana, Maryland, Mississippi, Missouri, New Jersey, New Mexico, New York, North Carolina, Ohio, Oklahoma, Oregon, Pennsylvania, South Carolina, Tennessee, Texas, Utah, Virginia, Washington, and Wisconsin.
 											</p>
 									</div> 
 							</Paper>
@@ -419,7 +430,7 @@ function HomeAddress() {
 				</DialogContent>
 				<DialogActions className="modalAction">
 					<ButtonPrimary
-						stylebutton='{"background": "#FFBC23", "color": "black", "border-radius": "50px"}'
+						stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
 						onClick={ handleClose }
 						className="modalButton"
 					>

@@ -5,8 +5,9 @@ import CheckLoginTimeout from "./CheckLoginTimeout";
 import "./Layout.css";
 import Footer from './NormalFooter/NormalFooter';
 import Header from './NormalHeader/NormalHeader';
+import HeaderWithoutMenu from './NormalHeader/HeaderWithoutMenu';
 
-const General = ({ children }) => {
+const General = ({ children, skipHeaderMenu }) => {
 
     const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : '{ }');
     return (
@@ -15,7 +16,7 @@ const General = ({ children }) => {
                 loginToken.isLoggedIn ? <CheckLoginTimeout /> : null
             }
             <div className='topBar'></div>
-            <Header />
+            {skipHeaderMenu ? <HeaderWithoutMenu /> :  <Header /> }
             { children }
             <Footer />
         </div>
@@ -27,7 +28,8 @@ General.propTypes = {
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node,
         PropTypes.func
-    ])
+    ]),
+    skipHeaderMenu: PropTypes.bool
 };
 
 export default General;

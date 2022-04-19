@@ -1,7 +1,7 @@
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
+import CircularProgress from "@mui/material/CircularProgress";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
 import React from "react";
 import { useQuery } from 'react-query';
 import { NavLink } from "react-router-dom";
@@ -34,13 +34,12 @@ export default function MyBranch() {
         justifyContent={ "center" }
         className={ classes.centerGrid }
       >
-        <Grid container style={ { paddingBottom: "10px" } }>
-          <Grid item xs={ 12 }>
+        <Grid container className={classes.gridMyBranch}>
+          <Grid container className={classes.branchlocatorStyle}item xs={ 12 }>
             <Typography variant="h3" className={ classes.heading }>
               <NavLink
                 to="/customers/accountOverview"
-                style={ { textDecoration: "none" } }
-              >
+                className={classes.navLinkMyBranch} >
                 <ButtonWithIcon
                   icon="arrow_backwardIcon"
                   iconposition="left"
@@ -53,6 +52,13 @@ export default function MyBranch() {
                 />
               </NavLink>{ " " }
               My Branch
+            </Typography>
+            <Typography variant="h3" className={classes.heading}>
+              Need to find another branch location? Click&nbsp;
+              <NavLink to="/branch-locator"
+              className={classes.navLinkMyBranch} >
+                here
+              </NavLink>
             </Typography>
           </Grid>
         </Grid>

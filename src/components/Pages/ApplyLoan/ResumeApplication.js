@@ -1,5 +1,5 @@
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Grid from "@material-ui/core/Grid";
+import CircularProgress from "@mui/material/CircularProgress";
+import Grid from "@mui/material/Grid";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import applicationStatusRedirectPage from "../../../assets/data/applicationStatusRedirectPage.json";
@@ -14,11 +14,10 @@ const ResumeApplication = (props) => {
 	};
 	useEffect(() => {
 		redirect();
-		return null;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	return (
-		<Grid className="circleprog" style={ { width: "100%", textAlign: "center" } }>
+		<Grid className="circleprog loadingCircle">
 			<CircularProgress />
 		</Grid>
 	);

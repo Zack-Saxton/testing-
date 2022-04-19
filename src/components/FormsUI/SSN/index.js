@@ -5,18 +5,18 @@ Component Name      :    password
 Functionality       :    To use this component to validate and get the password with hide and show option.
 
 #################################################################################################################*/
-import FormControl from "@material-ui/core/FormControl";
-import IconButton from "@material-ui/core/IconButton";
-import Input from "@material-ui/core/Input";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import InputLabel from "@material-ui/core/InputLabel";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import React, { useState } from "react";
+import FormControl from "@mui/material/FormControl";
+import IconButton from "@mui/material/IconButton";
+import Input from "@mui/material/Input";
+import InputAdornment from "@mui/material/InputAdornment";
+import InputLabel from "@mui/material/InputLabel";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import React from "react";
 
 //Initializing component
 const PasswordWrapper = ({ name, id, onChange, value, label, ...otherProps }) => {
-  const [ values, setValues ] = useState({
+  const [ values, setValues ] = React.useState({
     password: "",
     showPassword: false,
   });
@@ -26,7 +26,7 @@ const PasswordWrapper = ({ name, id, onChange, value, label, ...otherProps }) =>
     event.preventDefault();
   };
   const handleChange = (prop) => (event) => {
-    setValues({ ...values, [ prop ]: event.target.value.trim() });
+    setValues({ ...values, [ prop ]: event.target.value });
     if (onChange) {
       onChange(event);
     }

@@ -1,4 +1,4 @@
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 import Moment from "moment";
 import React from "react";
 import { Line } from "react-chartjs-2";

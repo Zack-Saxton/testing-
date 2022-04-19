@@ -1,5 +1,5 @@
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
 import PropTypes from "prop-types";
 import React from "react";
 import { RenderContent } from "../../FormsUI";

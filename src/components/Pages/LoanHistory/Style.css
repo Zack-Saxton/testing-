@@ -36,9 +36,18 @@
   font-feature-settings: 'liga';
 }
 
+
 .background-round {
   padding: 15px;
   border-radius: 50%;
+}
+
+.textdecoration{
+  text-decoration: none;
+}
+
+.loanDocuments{
+  padding: "16px 16px 16px 0px" 
 }
 
 #loanHistoryTxt{

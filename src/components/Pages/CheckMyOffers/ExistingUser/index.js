@@ -1,8 +1,8 @@
-import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import { makeStyles } from "@mui/styles";
+import Typography from "@mui/material/Typography";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useContext, useEffect, useState } from "react";
@@ -67,7 +67,6 @@ function ExistingUser() {
 		if (data.completedPage < data?.page?.personalInfo || data?.formStatus?.toLowerCase() === "completed") {
 			navigate("/select-amount");
 		}
-		return null;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	// Formik configuraion

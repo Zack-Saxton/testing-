@@ -1,5 +1,5 @@
-import PropTypes from "prop-types";
 import React, { createContext, useContext, useReducer } from "react";
+import PropTypes from "prop-types";
 
 const initialGlobalState = {
   profileTabNumber: 0
@@ -11,13 +11,13 @@ export const DispatchStateContext = createContext(undefined);
  * Global State provider & hooks
  */
 export const GlobalStateProvider = ({ children }) => {
-  const [ state, setprofileTabNumber ] = useReducer(
+  const [ state, setProfileTabNumber ] = useReducer(
     (newState, newValue) => ({ ...newState, ...newValue }),
     initialGlobalState
   );
   return (
     <GlobalStateContext.Provider value={ state }>
-      <DispatchStateContext.Provider value={ setprofileTabNumber }>
+      <DispatchStateContext.Provider value={ setProfileTabNumber }>
         { children }
       </DispatchStateContext.Provider>
     </GlobalStateContext.Provider>

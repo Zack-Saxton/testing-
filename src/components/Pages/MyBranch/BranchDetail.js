@@ -1,11 +1,11 @@
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
 import React, { useEffect, useState } from "react";
 import { formatDate } from "../../Controllers/BranchDayTiming";
 import HolidayCalender from "../../Controllers/HolidayCalenderController";
@@ -45,7 +45,6 @@ export default function BranchDetail(MyBranchDetail) {
   }
   useEffect(() => {
     AsyncEffect_HolidayCalender();
-    return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -119,9 +118,7 @@ export default function BranchDetail(MyBranchDetail) {
                 <a
                   id="phoneLink"
                   href="tel:"
-                  style={ { textDecoration: "none" } }
-                >
-                  { " " }
+                  className={classes.navLinkMyBranch} >
                   { formatPhoneNumber(branchDetail.MyBranchDetail.PhoneNumber) }
                 </a>
               </p>
@@ -192,7 +189,7 @@ export default function BranchDetail(MyBranchDetail) {
             <Grid
               item
               xs={ 12 }
-              style={ { paddingTop: "10px", textAlign: "left" } }
+              className={classes.gridSchedule}
             >
               <ScheduleCall
                 MyBranchCall={ MyBranchDetail }
@@ -203,7 +200,7 @@ export default function BranchDetail(MyBranchDetail) {
             <Grid
               item
               xs={ 12 }
-              style={ { paddingTop: "10px", textAlign: "left" } }
+              className={classes.gridSchedule}
             >
               <ScheduleAppointment
                 MyBranchAppointment={ MyBranchDetail }

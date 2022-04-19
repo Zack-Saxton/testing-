@@ -1,4 +1,4 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 
 //Styling
 const useStylesAccountOverview = makeStyles((theme) => ({
@@ -165,7 +165,7 @@ const useStylesAccountOverview = makeStyles((theme) => ({
     fontWeight: 700,
     fontFamily: "'Muli', sans-serif !important",
     fontSize: "1rem",
-    textAlign: "start",
+    alignItems: "start",
   },
   viewAppindicator: {
     left: "0px",
@@ -222,7 +222,23 @@ const useStylesAccountOverview = makeStyles((theme) => ({
     boxShadow: ` 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12), 0 1px 5px 0 rgba(0, 0, 0, .2)`,
     width: "auto",
     '&:hover': {
-      background: '#ffbc23',
+      background: "#ffbc23",
+      color: 'black',
+    },
+  },
+  buttonColorPastDate: {
+    color: "black",
+    background: "#f15d48",
+    fontFamily: "'Muli', sans-serif !important",
+    borderRadius: "50px",
+    textTransform: "capitalize",
+    height: "36px",
+    whiteSpace: "nowrap",
+    fontWeight: "normal",
+    boxShadow: ` 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12), 0 1px 5px 0 rgba(0, 0, 0, .2)`,
+    width: "auto",
+    '&:hover': {
+      background: "#f15d48",
       color: 'black',
     },
   },

@@ -1,38 +1,40 @@
-import { CircularProgress } from "@material-ui/core";
-import Grid from "@material-ui/core/Grid";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import Paper from "@material-ui/core/Paper";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Typography from "@material-ui/core/Typography";
-import InsertDriveFileIcon from "@material-ui/icons/InsertDriveFile";
-import PictureAsPdfIcon from "@material-ui/icons/PictureAsPdf";
+import { CircularProgress } from '@mui/material';
+import Grid from "@mui/material/Grid";
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Paper from "@mui/material/Paper";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Typography from "@mui/material/Typography";
+import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import { jsPDF } from "jspdf";
 import "jspdf-autotable";
 import Moment from "moment";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { CSVLink } from "react-csv";
-import { useQuery } from "react-query";
 import { NavLink } from "react-router-dom";
-import CheckLoginStatus from "../../App/CheckLoginStatus";
+import { useQuery } from 'react-query';
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
+import CheckLoginStatus from "../../App/CheckLoginStatus";
 import { ButtonPrimary, ButtonWithIcon } from "../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
 import PaymentHistoryTable from "./PaymentRecords";
 import { useStylesPaymenthistory } from "./Style";
+import { LoanAccount } from "../../../contexts/LoanAccount"
 import "./Style.css";
 
 //Main function
 export default function PaymentHistory() {
   //Material UI css class
   const classes = useStylesPaymenthistory();
+  const { selectedLoanAccount } = useContext(LoanAccount);
+  const { data: accountDetails } = useQuery('loan-data', usrAccountDetails);
   const [ anchorEl, setAnchorEl ] = useState(null);
-  const [ fileName, setfileName ] = useState(null);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -43,27 +45,21 @@ export default function PaymentHistory() {
   };
 
   //Api implementation for table
-  const { data: paymentHistoryStatus } = useQuery(
-    "loan-data",
-    usrAccountDetails
-  );
-  const [ historyOfLoans, setHistoryOfLoans ] = useState([]);
+  const [ historyOfLoans, setHistoryOfLoans ] = useState();
+  const [ tableData, setTableData ] = useState([])
 
   useEffect(() => {
-    if (paymentHistoryStatus) {
-      setfileName(
-        paymentHistoryStatus?.data?.activeLoans?.length
-          ? paymentHistoryStatus.data.activeLoans[ 0 ].loanDetails.AccountNumber
-          : null
-      );
-      setHistoryOfLoans(
-        paymentHistoryStatus?.data?.loanHistory?.length
-          ? paymentHistoryStatus.data.loanHistory[ 0 ].AppAccountHistory
-          : []
-      );
+    if(accountDetails?.data?.loanHistory?.length){
+			let respectiveList = accountDetails.data.loanHistory.find((loan) => loan.accountNumber === selectedLoanAccount)
+			setHistoryOfLoans(respectiveList);
+		}
+  }, [ selectedLoanAccount, accountDetails ]);
+
+  useEffect(() => {
+    if(historyOfLoans?.AppAccountHistory?.length){
+      setTableData(historyOfLoans.AppAccountHistory);
     }
-    return null;
-  }, [ paymentHistoryStatus ]);
+  }, [historyOfLoans])
 
   const headersCSV = [
     { label: "Date", key: "TransactionDate" },
@@ -98,7 +94,7 @@ export default function PaymentHistory() {
         "Balance",
       ],
     ];
-    const data = historyOfLoans?.map((dataItem) => [
+    const data = historyOfLoans?.AppAccountHistory?.map((dataItem) => [
       Moment(dataItem.TransactionDate).format("MM-DD-YYYY"),
       dataItem.TransactionDescription,
       currencyFormat(Math.abs(dataItem.PrincipalAmount)),
@@ -114,7 +110,7 @@ export default function PaymentHistory() {
       currencyFormat(Math.abs(dataItem.RunningPrincipalBalance)),
     ]);
     document.setFontSize(15);
-    document.text(`Active Loan / Payment History(${ fileName })`, 40, 30);
+    document.text(`Active Loan / Payment History(${ selectedLoanAccount })`, 40, 30);
     let content = {
       startY: 50,
       head: headerPDF,
@@ -122,13 +118,13 @@ export default function PaymentHistory() {
       theme: "plain",
     };
     document.autoTable(content);
-    document.save("" + fileName + ".pdf");
+    document.save("" + selectedLoanAccount + ".pdf");
     setAnchorEl(null);
   };
 
   //Data for csv file
-  const dataCSV = historyOfLoans
-    ? historyOfLoans.map((item) => {
+  const dataCSV = historyOfLoans?.AppAccountHistory?.length
+    ? historyOfLoans.AppAccountHistory.map((item) => {
       return {
         ...item,
         ...{
@@ -161,13 +157,12 @@ export default function PaymentHistory() {
     <div>
       <CheckLoginStatus />
       <ScrollToTopOnMount />
-      <Grid container justifyContent={ "center" } className={ classes.centerGrid }>
-        <Grid style={ { paddingBottom: "10px" } } container>
+      <Grid container className={ classes.centerGrid }>
+        <Grid className={ classes.gridStyle } container>
           <Grid item xs={ 12 } sm={ 8 }>
             <Typography variant="h3" className={ classes.heading }>
               <NavLink
                 to="/customers/accountOverview"
-                style={ { textDecoration: "none" } }
               >
                 <ButtonWithIcon
                   icon="arrow_backwardIcon"
@@ -181,9 +176,9 @@ export default function PaymentHistory() {
                 />
               </NavLink>{ " " }
               Active Loan{ " " }
-              { fileName ? (
-                <span style={ { fontSize: "70%", fontWeight: "100" } }>
-                  ({ fileName })
+              { selectedLoanAccount ? (
+                <span className={ classes.spanStyle }>
+                  ({ selectedLoanAccount })
                 </span>
               ) : ("") }
               { " " }
@@ -207,40 +202,34 @@ export default function PaymentHistory() {
               open={ Boolean(anchorEl) }
               onClose={ handleClose }
             >
-              <MenuItem key={ "csv" } style={ { color: "#757575" } }>
+              <MenuItem key={ "csv" } >
                 <CSVLink
-                  style={ { textDecoration: "none", color: "#757575" } }
+                  className={`${classes.linkStyle} ${classes.menuColor}`}
                   onClick={ handleClose }
                   headers={ headersCSV }
-                  filename={ "" + fileName + ".csv" }
+                  filename={ "" + selectedLoanAccount + ".csv" }
                   data={ dataCSV }
                 >
-                  <InsertDriveFileIcon
-                    style={ { paddingRight: "7px", marginBottom: "-4px" } }
-                  />{ " " }
+                  <InsertDriveFileIcon className={ classes.csvStyle }/>{ " " }
                   CSV
                 </CSVLink>
               </MenuItem>
               <MenuItem
                 key={ "pdf" }
                 onClick={ downloadPDF }
-                style={ { color: "#757575" } }
+                className={ classes.menuColor }
               >
-                <PictureAsPdfIcon style={ { paddingRight: "12px" } } /> PDF
+                <PictureAsPdfIcon className={ classes.pdfStyle } /> PDF
               </MenuItem>
             </Menu>
           </Grid>
         </Grid>
         { !historyOfLoans ? (
-          <Grid
-            item
-            xs={ 12 }
-            style={ { paddingTop: "10px", paddingBottom: "30px" } }
-          >
+          <Grid item xs={ 12 }>
             <TableContainer id="pdfdiv" component={ Paper }>
               <Table className={ classes.table } aria-label="simple table">
                 <TableHead>
-                  <TableRow key={ Math.random() * 1000 }>
+                  <TableRow>
                     <TableCell className={ classes.tableHead } align="left">
                       Date
                     </TableCell>
@@ -275,7 +264,7 @@ export default function PaymentHistory() {
             </TableContainer>
           </Grid>
         ) : (
-          <PaymentHistoryTable userRecentPaymentData={ historyOfLoans } />
+          <PaymentHistoryTable userRecentPaymentData={ tableData } />
         ) }
       </Grid>
     </div>

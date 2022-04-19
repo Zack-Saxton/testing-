@@ -1,14 +1,14 @@
-import Button from "@material-ui/core/Button";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Typography from "@material-ui/core/Typography";
+import Button from "@mui/material/Button";
+import CircularProgress from "@mui/material/CircularProgress";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Typography from "@mui/material/Typography";
 import React, { useEffect, useRef, useState } from "react";
 import { useQuery } from 'react-query';
 import { NavLink, useLocation } from "react-router-dom";
@@ -42,7 +42,6 @@ export default function LoanDocument() {
     if (refetch) {
       refetch();
     }
-    return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -76,12 +75,12 @@ export default function LoanDocument() {
     if (selectedFile.files && selectedFile.files[ 0 ]) {
       reader.onload = async () => {
         const buffer2 = Buffer.from(reader.result, "base64");
-        let test = Buffer.from(buffer2).toJSON().data;
+        let fileData = Buffer.from(buffer2).toJSON().data;
         let fileName = selectedFile.files[ 0 ].name;
         let fileType = selectedFile.files[ 0 ].type;
         let documentType = docType;
         setLoading(true);
-        let response = await uploadDocument(test, fileName, fileType, documentType);
+        let response = await uploadDocument(fileData, fileName, fileType, documentType);
         if (response) {
           setLoading(false);
           setDocType("");
@@ -130,7 +129,7 @@ export default function LoanDocument() {
         className={ classes.centerGrid }
       >
         <Grid
-          style={ { paddingBottom: "10px" } }
+          className="loanDocumentGrid"
           container
           direction="row"
           item
@@ -141,7 +140,7 @@ export default function LoanDocument() {
               <h3 id="pageHeading" className={ classes.heading }>
                 <NavLink
                   to="/customers/accountOverview"
-                  style={ { textDecoration: "none" } }
+                  className={classes.textDecoration}
                 >
                   <ButtonWithIcon
                     icon="arrow_backwardIcon"
@@ -160,7 +159,7 @@ export default function LoanDocument() {
           </Grid>
         </Grid>
 
-        <Grid item xs={ 12 } style={ { paddingTop: "10px", paddingBottom: "30%" } }>
+        <Grid className="loanDocumentWrap" item xs={ 12 }>
           <Paper className={ classes.paper }>
             { !loanDocumentData ? (
               <TableContainer>
@@ -192,10 +191,10 @@ export default function LoanDocument() {
             ) }
 
             <Grid
+              className="selectDocument"
               item
               xs={ 12 }
               sm={ 3 }
-              style={ { paddingTop: "10px", width: "225px" } }
             >
               <Select
                 id="selectDoccumentWrap"
@@ -210,7 +209,7 @@ export default function LoanDocument() {
               />
             </Grid>
             <Grid container direction="row">
-              <Grid item xs={ 12 } sm={ 3 } style={ { paddingTop: "20px" } }>
+              <Grid className="documentInput" item xs={ 12 } sm={ 3 }>
                 <input
                   accept="image/png, image/jpeg, application/pdf, image/jpg "
                   multiple
@@ -241,10 +240,10 @@ export default function LoanDocument() {
                   />
                 </Button>
               </Grid>
-              <Grid item xs={ 12 } sm={ 4 } style={ { paddingTop: "10px" } }></Grid>
+              <Grid className="gridPadding" item xs={ 12 } sm={ 4 }></Grid>
             </Grid>
             <Grid container direction="row">
-              <Grid item xs={ 12 } style={ { paddingTop: "10px" } }>
+              <Grid className="gridPadding" item xs={ 12 }>
                 <span style={ { marginLeft: "2px" } }>{ loading ? "Uploading..." : label }</span>
               </Grid>
             </Grid>

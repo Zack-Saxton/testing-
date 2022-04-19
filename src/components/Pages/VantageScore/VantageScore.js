@@ -1,7 +1,7 @@
-import { CircularProgress } from '@material-ui/core';
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
+import { CircularProgress } from '@mui/material';
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
 import React, { useEffect, useState } from "react";
 import { useQuery } from 'react-query';
 import { NavLink } from 'react-router-dom';
@@ -30,7 +30,6 @@ export default function VantageScore() {
 
   useEffect(() => {
     vantageScoreData();
-    return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ responseData ]);
 
@@ -68,7 +67,7 @@ export default function VantageScore() {
         </Grid>
         <div id="creditContainer">
           <Grid item xs={ 12 }>
-            <Paper lstyle={ { padding: "36px", borderRadius: "2px !important" } } className={ classes.paper }>
+            <Paper id="vantageScorePaper" className={ classes.paper }>
               { creditData ? (
                 creditData[ 0 ]?.parsed.vantage_score ?
                   (<Credit creditData={ creditData } />) : <div>You do not have any credit score</div>

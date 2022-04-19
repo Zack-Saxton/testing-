@@ -1,4 +1,4 @@
-import { Grid, Typography } from "@material-ui/core";
+import { Grid, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
 export default function OptOutNotice(offerData) {
@@ -15,7 +15,6 @@ export default function OptOutNotice(offerData) {
 
     useEffect(() => {
         determineOptOut(offerData);
-        return null;
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

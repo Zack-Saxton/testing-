@@ -1,6 +1,7 @@
 import axios from "axios";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
+import getClientIp from "../Controllers/CommonController";
 
 export async function checkMyOfferSubmit(customer) {
 
@@ -19,9 +20,7 @@ export async function checkMyOfferSubmit(customer) {
 		//creating function to load ip address from the API
 		let dateNow = new Date().toISOString();
 		let browserType = navigator.userAgent;
-		let ipResponse = await axios.get('https://geolocation-db.com/json/');
-		let ipAddress = ipResponse.data.IPv4;
-
+		let ipAddress = await getClientIp();
 		//Data to be send to api
 		let body = {
 			"user": {

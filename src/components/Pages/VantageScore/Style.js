@@ -1,4 +1,4 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 
 const useStyleVantageScore = makeStyles((theme) => ({
   root: {
@@ -112,6 +112,10 @@ const useStyleVantageScore = makeStyles((theme) => ({
     lineHeight: "20px",
     textAlign: "justify",
   },
+  guageChart:{
+    width: '60%',
+    margin: 'auto'
+  }
 }));
 
 export { useStyleVantageScore };

@@ -1,29 +1,29 @@
-import { InputAdornment } from "@material-ui/core";
-import Breadcrumbs from "@material-ui/core/Breadcrumbs";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import Grid from "@material-ui/core/Grid";
-import IconButton from "@material-ui/core/IconButton";
-import Link from "@material-ui/core/Link";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Tooltip from "@material-ui/core/Tooltip";
-import Typography from "@material-ui/core/Typography";
-import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
-import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-import CloseIcon from "@material-ui/icons/Close";
-import DeleteIcon from "@material-ui/icons/DeleteForever";
-import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
-import NavigateNextIcon from "@material-ui/icons/NavigateNext";
-import PaymentIcon from "@material-ui/icons/Payment";
+import { InputAdornment } from "@mui/material";
+import Breadcrumbs from "@mui/material/Breadcrumbs";
+import CircularProgress from "@mui/material/CircularProgress";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import FormHelperText from "@mui/material/FormHelperText";
+import Grid from "@mui/material/Grid";
+import IconButton from "@mui/material/IconButton";
+import Link from "@mui/material/Link";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
+import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import CloseIcon from "@mui/icons-material/Close";
+import DeleteIcon from "@mui/icons-material/DeleteForever";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import PaymentIcon from "@mui/icons-material/Payment";
 import { useFormik } from "formik";
 import Moment from "moment";
 import React, { useEffect, useState } from "react";
@@ -44,6 +44,7 @@ import {
   setDefaultPayment
 } from "../../Controllers/MyProfileController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
+import BankNameLookup from "../../Controllers/BankNameLookup";
 import {
   ButtonPrimary,
   ButtonSecondary,
@@ -123,7 +124,7 @@ const validationSchemaAddBank = yup.object({
 export default function PaymentMethod() {
   const classes = useStylesMyProfile();
   const navigate = useNavigate();
-  const [ bankRoutingCheque, setHandleBankRoutingCheque ] = useState(false);
+  const [ bankRoutingCheque, setBankRoutingCheque ] = useState(false);
   const [ addBankAccount, setAddBankAccount ] = useState(false);
   const [ addDebitCard, setAddDebitCard ] = useState(false);
   const [ paymentMethodDiv, setPaymentMethodDiv ] = useState(true);
@@ -141,9 +142,9 @@ export default function PaymentMethod() {
   const [ confirmDelete, setConfirmDelete ] = useState(false);
   const [ addBankValues, setAddBankValues ] = useState(false);
   const [ routingError, setRoutingError ] = useState("");
-  const [ scheduledAccountNo, setscheduledAccountNo ] = useState("0");
-  const [ autoPayAccountNo, setautoPayAccountNo ] = useState("0");
-  const [ , setprofileTabNumber ] = useGlobalState();
+  const [ scheduledAccountNo, setScheduledAccountNo ] = useState("0");
+  const [ autoPayAccountNo, setAutoPayAccountNo ] = useState("0");
+  const [ , setProfileTabNumber ] = useGlobalState();
   const [ validZip, setValidZip ] = useState(true);
   const [ mailingStreetAddress, setMailingStreetAddress ] = useState("");
   const [ mailingZipcode, setMailingZipcode ] = useState("");
@@ -159,15 +160,11 @@ export default function PaymentMethod() {
     }
   );
   useEffect(() => {
-    let schedulePayment = dataAccountOverview?.data?.activeLoans[ 0 ]
-      ?.loanPaymentInformation?.scheduledPayments
-      ? dataAccountOverview.data.activeLoans[ 0 ].loanPaymentInformation
-        .scheduledPayments
+    let schedulePayment = dataAccountOverview?.data?.activeLoans?.length
+      ? dataAccountOverview.data.activeLoans[ 0 ].loanPaymentInformation?.scheduledPayments
       : null;
-    let autoPay = dataAccountOverview?.data?.activeLoans[ 0 ]
-      ?.loanPaymentInformation?.appRecurringACHPayment?.LastFourOfPaymentAccount
-      ? dataAccountOverview.data.activeLoans[ 0 ].loanPaymentInformation
-        .appRecurringACHPayment.LastFourOfPaymentAccount
+    let autoPay = dataAccountOverview?.data?.activeLoans?.length
+      ? dataAccountOverview.data.activeLoans[ 0 ].loanPaymentInformation?.appRecurringACHPayment?.LastFourOfPaymentAccount
       : null;
     //User shouldn't be allowed to delete the payment method accounts where there is scheduled future payment
     if (schedulePayment?.length > 0) {
@@ -175,19 +172,24 @@ export default function PaymentMethod() {
         ?.AccountNumber
         ? schedulePayment[ 0 ].PaymentMethod.AchInfo.AccountNumber
         : "";
+      if(scheduleAccountNo === ""){
+        scheduleAccountNo = schedulePayment[ 0 ]?.PaymentMethod?.CardInfo
+        ?.CardNumber
+        ? schedulePayment[ 0 ].PaymentMethod.CardInfo.CardNumber
+        : "";
+      }
       let scheduleDate = schedulePayment[ 0 ]?.PaymentDate
         ? schedulePayment[ 0 ].PaymentDate
         : "";
       scheduleDate = Moment(scheduleDate);
       let dateNow = Moment().startOf("day");
       if (dateNow < scheduleDate && scheduleAccountNo !== "") {
-        setscheduledAccountNo(scheduleAccountNo);
+        setScheduledAccountNo(scheduleAccountNo);
       }
     }
     if (autoPay) {
-      setautoPayAccountNo(autoPay);
+      setAutoPayAccountNo(autoPay);
     }
-    return null;
   }, [ dataAccountOverview ]);
   const formikAddBankAccount = useFormik({
     initialValues: {
@@ -213,19 +215,18 @@ export default function PaymentMethod() {
     setAddBankModal(false);
   };
 
-  const addBankOnChange = (event) => {
+  const addBankOnChange = (event, type) => {
     const pattern = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
     let enteredName = event.target.value.trim(); //Holder name, account name, bank name
     if (!enteredName || enteredName.match(pattern)) {
-      formikAddBankAccount.handleChange(event);
+      type === 1 ? formikAddBankAccount.handleChange(event) : formikAddDebitCard.handleChange(event) ;
     }
   };
-
-  const addBankOnChangeNumber = (event) => {
+  const validateCardAndAccountNumber = (event, type) => {
     const pattern = /^[0-9\b]+$/;
-    let accountNumber = event.target.value.trim();
-    if (!accountNumber || accountNumber.match(pattern)) {
-      formikAddBankAccount.handleChange(event);
+    let cardAccountNumber = event.target.value.trim();
+    if (!cardAccountNumber || cardAccountNumber.match(pattern)) {
+      type === 1 ? formikAddBankAccount.handleChange(event) : formikAddDebitCard.handleChange(event);
     }
   };
 
@@ -251,13 +252,6 @@ export default function PaymentMethod() {
     setCheckedDebitCard(event.target.checked);
   };
 
-  const addDebitOnChange = (event) => {
-    const pattern = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
-    let cardHolderName = event.target.value.trim();
-    if (!cardHolderName || cardHolderName.match(pattern)) {
-      formikAddDebitCard.handleChange(event);
-    }
-  };
   const getAddressOnChange = (event) => {
     const pattern = /^[0-9\b]+$/;
     let zipCode = event.target.value;
@@ -305,16 +299,8 @@ export default function PaymentMethod() {
       );
       formikAddBankAccount.setFieldValue("accountHolder", row.OwnerName);
       setAccountType(row.AccountType);
-      await fetch(
-        "https://www.routingnumbers.info/api/data.json?rn=" + row.RoutingNumber
-      )
-        .then((res) => res.json())
-        .then((result) => {
-          formikAddBankAccount.setFieldValue(
-            "bankName",
-            result?.customer_name ?? ""
-          );
-        });
+      let bankName = await BankNameLookup(row.RoutingNumber);
+      formikAddBankAccount.setFieldValue("bankName", bankName);      
       setLoading(false);
     } else {
       setEditMode(true);
@@ -327,8 +313,6 @@ export default function PaymentMethod() {
       formikAddDebitCard.setFieldValue("expiryDate", row.ExpirationDate);
       formikAddDebitCard.setFieldValue("cvv", "***");
       setCardType(row.CardType);
-      setEditMode(true);
-      addDebitCardButton();
       setLoading(false);
     }
   };
@@ -338,27 +322,19 @@ export default function PaymentMethod() {
       Visa: /^4\d{12}(?:\d{3})?$/,
       MasterCard: /^5[1-5]\d{14}$/,
     };
-    let _valid = false;
+    let isValidCard = false;
     for (let key in cardPattern) {
       if (cardPattern[ key ].test(number)) {
         setCardType(key);
-        _valid = true;
+        isValidCard = true;
         return key;
       }
     }
-    if (!_valid) {
+    if (!isValidCard) {
       setCardType(false);
     }
     formikAddDebitCard.handleBlur(event);
   }
-
-  const addDebitOnChangeNumber = (event) => {
-    const pattern = /^[0-9\b]+$/;
-    let cardNumber = event.target.value;
-    if (!cardNumber || pattern.test(cardNumber)) {
-      formikAddDebitCard.handleChange(event);
-    }
-  };
 
   const openDebitCardModal = () => {
     formikAddDebitCard.handleSubmit();
@@ -372,11 +348,11 @@ export default function PaymentMethod() {
 
   //pop up open & close
   const handleBankRoutingCheque = () => {
-    setHandleBankRoutingCheque(true);
+    setBankRoutingCheque(true);
   };
 
   const handleBankRoutingChequeClose = () => {
-    setHandleBankRoutingCheque(false);
+    setBankRoutingCheque(false);
   };
 
   const handleDeleteConfirmClose = () => {
@@ -458,7 +434,7 @@ export default function PaymentMethod() {
 
   const handleMenuProfile = () => {
     navigate("/customers/myProfile");
-    setprofileTabNumber({ profileTabNumber: 0 });
+    setProfileTabNumber({ profileTabNumber: 0 });
   };
 
   const setDefaultPaymentOnChange = async (nickname) => {
@@ -547,28 +523,26 @@ export default function PaymentMethod() {
       formikAddDebitCard.values,
       cardType
     );
+    if ( creditCardResponse?.status === 400) {
+      setLoading(false);
+      toast.error(creditCardResponse?.data?.error);
+      closeDebitCardModal();
 
-    if (creditCardResponse?.data?.addPaymentResult?.HasNoErrors) {
+    }
+    else if (creditCardResponse?.data?.addPaymentResult?.HasNoErrors) {
       setLoading(false);
       toast.success("Payment method added successfully ");
       refetch();
       setCardType("");
+      closeDebitCardModal();
       closeDebitCardButton();
     } else if (!creditCardResponse?.data?.addPaymentResult?.HasNoErrors) {
       setLoading(false);
       toast.error(
         creditCardResponse?.data?.addPaymentResult?.Errors[ 0 ].ErrorMessage
       );
-    } else if (creditCardResponse?.data?.result === "error") {
-      setLoading(false);
-      toast.error(creditCardResponse?.data?.error);
-    } else {
-      setLoading(false);
-      toast.error(
-        "Payment method already exists, please add a different method"
-      );
-    }
-    closeDebitCardModal();
+      closeDebitCardModal();
+    } 
   };
 
   //Preventing space key
@@ -657,11 +631,10 @@ export default function PaymentMethod() {
                     >
                       <TableCell
                         align="left"
-                        style={ { width: "15px", padding: "1px" } }
+                        className={ classes.nameList }
                       >
                         <span
-                          className="posRelativeWidthAuto"
-                          style={ { float: "left", marginRight: "8px" } }
+                          className={ `posRelativeWidthAuto ${ classes.nickName }` }
                         >
                           { row.AccountType ? (
                             <AccountBalanceIcon />
@@ -707,6 +680,11 @@ export default function PaymentMethod() {
                               ? row.AccountNumber
                               : ""
                             ).slice(-4) ||
+                            scheduledAccountNo ===
+                            (row.LastFour
+                              ? row.LastFour
+                              : ""
+                            ).slice(-4) ||
                             autoPayAccountNo ===
                             (row.AccountNumber
                               ? row.AccountNumber
@@ -740,12 +718,7 @@ export default function PaymentMethod() {
             </TableContainer>
           ) : allPaymentMethod?.data?.message ? (
             <Grid
-              className="circleprog"
-              style={ {
-                width: "100%",
-                textAlign: "center",
-                marginTop: "20px",
-              } }
+              className={ `circleprog ${ classes.paymentMessage }` }
               item
               xs={ 12 }
             >
@@ -753,12 +726,7 @@ export default function PaymentMethod() {
             </Grid>
           ) : (
             <Grid
-              className="circleprog"
-              style={ {
-                width: "100%",
-                textAlign: "center",
-                marginTop: "20px",
-              } }
+              className={ `circleprog ${ classes.paymentMessage }` }
               item
               xs={ 12 }
             >
@@ -767,8 +735,7 @@ export default function PaymentMethod() {
           )
           ) : (
             <Grid
-              className="circleprog"
-              style={ { width: "100%", textAlign: "center" } }
+              className={ `circleprog ${ classes.loaderWidth }` }
             >
               <CircularProgress />
             </Grid>
@@ -844,7 +811,7 @@ export default function PaymentMethod() {
               <Breadcrumbs
                 separator={
                   <NavigateNextIcon
-                    style={ { color: "rgba(255, 255, 255, .7)" } }
+                    className={ classes.navigationLink }
                     fontSize="small"
                   />
                 }
@@ -882,7 +849,7 @@ export default function PaymentMethod() {
                 disabled={ editMode }
                 placeholder="Enter your Account Nickname "
                 materialProps={ { maxLength: "30" } }
-                onChange={ (event) => addBankOnChange(event) }
+                onChange={ (event) => addBankOnChange(event, 1) }
                 value={ formikAddBankAccount.values.accountNickname }
                 onBlur={ formikAddBankAccount.handleBlur }
                 error={
@@ -910,7 +877,7 @@ export default function PaymentMethod() {
                 placeholder="Enter the Account Holder Name"
                 materialProps={ { maxLength: "30" } }
                 value={ formikAddBankAccount.values.accountHolder }
-                onChange={ (event) => addBankOnChange(event) }
+                onChange={ (event) => addBankOnChange(event, 1) }
                 onBlur={ formikAddBankAccount.handleBlur }
                 error={
                   formikAddBankAccount.touched.accountHolder &&
@@ -968,35 +935,18 @@ export default function PaymentMethod() {
                 label="Bank Routing Number"
                 placeholder="Enter your Bank Routing Number"
                 value={ formikAddBankAccount.values.bankRoutingNumber }
-                // onBlur={formikAddBankAccount.handleBlur}
                 onBlur={ async (event) => {
                   if (
                     event.target.value !== "" &&
                     event.target.value.length === 9
                   ) {
-                    fetch(
-                      "https://www.routingnumbers.info/api/data.json?rn=" +
-                      event.target.value
-                    )
-                      .then((res) => res.json())
-                      .then((result) => {
-                        if (result.message === "OK") {
-                          setRoutingError("");
-                          formikAddBankAccount.setFieldValue(
-                            "bankName",
-                            result?.customer_name ?? ""
-                          );
-                        } else {
-                          setRoutingError(
-                            "Please enter a valid routing number"
-                          );
-                          formikAddBankAccount.setFieldValue("bankName", "");
-                        }
-                      });
+                    let bankName = await BankNameLookup(event.target.value);
+                    formikAddBankAccount.setFieldValue("bankName", bankName);
+                    setRoutingError(bankName ? "" : globalMessages.Enter_Valid_Routing_No);
                     formikAddBankAccount.handleBlur(event);
                   }
                 } }
-                onChange={ (event) => addBankOnChangeNumber(event) }
+                onChange={ (event) => validateCardAndAccountNumber(event, 1) }
                 error={
                   (formikAddBankAccount.touched.bankRoutingNumber &&
                     Boolean(formikAddBankAccount.errors.bankRoutingNumber)) ||
@@ -1028,7 +978,7 @@ export default function PaymentMethod() {
                 materialProps={ { maxLength: "100" } }
                 value={ formikAddBankAccount.values.bankName }
                 onBlur={ formikAddBankAccount.handleBlur }
-                onChange={ (event) => addBankOnChange(event) }
+                onChange={ (event) => addBankOnChange(event, 1) }
                 error={
                   formikAddBankAccount.touched.bankName &&
                   Boolean(formikAddBankAccount.errors.bankName)
@@ -1056,7 +1006,7 @@ export default function PaymentMethod() {
                 materialProps={ { maxLength: "16" } }
                 onKeyDown={ preventSpace }
                 value={ formikAddBankAccount.values.bankAccountNumber }
-                onChange={ (event) => addBankOnChangeNumber(event) }
+                onChange={ (event) => validateCardAndAccountNumber(event, 1) }
                 onBlur={ formikAddBankAccount.handleBlur }
                 error={
                   formikAddBankAccount.touched.bankAccountNumber &&
@@ -1127,9 +1077,7 @@ export default function PaymentMethod() {
               classes={ { paper: classes.dialogPaperAddBank } }
             >
               <DialogTitle id="addBankModalHeading">
-                <Typography id="deleteTxt" className={ classes.dialogHeading }>
-                  Are you sure you want to add a new payment method ?
-                </Typography>
+                
                 <IconButton
                   id="addBankModalClose"
                   aria-label="close"
@@ -1139,6 +1087,11 @@ export default function PaymentMethod() {
                   <CloseIcon />
                 </IconButton>
               </DialogTitle>
+              <DialogContent >
+              <Typography id="deleteTxt" className={ classes.dialogHeading }>
+                  Are you sure you want to add a new payment method ?
+                </Typography>
+            </DialogContent>
 
               <DialogActions className={ classes.dialogAction }>
                 <ButtonSecondary
@@ -1178,7 +1131,7 @@ export default function PaymentMethod() {
               <Breadcrumbs
                 separator={
                   <NavigateNextIcon
-                    style={ { color: "rgba(255, 255, 255, .7)" } }
+                    className={ classes.navigationLink }
                     fontSize="small"
                   />
                 }
@@ -1218,7 +1171,7 @@ export default function PaymentMethod() {
                 disabled={ editMode }
                 onKeyDown={ preventSpace }
                 value={ formikAddDebitCard.values.cardNumber }
-                onChange={ (event) => addDebitOnChangeNumber(event) }
+                onChange={ (event) => validateCardAndAccountNumber(event, 2) }
                 // onBlur={formikAddDebitCard.handleBlur}
                 onBlur={ (event) => {
                   detectCardType(event, event.target.value.trim());
@@ -1236,7 +1189,7 @@ export default function PaymentMethod() {
             <Grid
               item
               xs={ 2 }
-              style={ { width: "100%", padding: "0px" } }
+              className={ classes.cardType }
               container
               direction="row"
             >
@@ -1268,7 +1221,7 @@ export default function PaymentMethod() {
                 materialProps={ { maxLength: "30" } }
                 disabled={ editMode }
                 value={ formikAddDebitCard.values.cardName }
-                onChange={ (event) => addDebitOnChange(event) }
+                onChange={ (event) => addBankOnChange(event, 2) }
                 onBlur={ formikAddDebitCard.handleBlur }
                 error={
                   formikAddDebitCard.touched.cardName &&
@@ -1295,6 +1248,7 @@ export default function PaymentMethod() {
                 className="expiryDate"
                 placeholder="MM/YY"
                 format="MM/yy"
+                views={['month', 'year']}
                 disabled={ editMode }
                 value={ formikAddDebitCard.values.expiryDate }
                 onChange={ (values) => {
@@ -1327,7 +1281,7 @@ export default function PaymentMethod() {
                 disabled={ editMode }
                 materialProps={ { maxLength: "3" } }
                 value={ formikAddDebitCard.values.cvv }
-                onChange={ (event) => addDebitOnChangeNumber(event) }
+                onChange={ (event) => validateCardAndAccountNumber(event, 2) }
                 onBlur={ formikAddDebitCard.handleBlur }
                 error={
                   formikAddDebitCard.touched.cvv &&
@@ -1340,13 +1294,12 @@ export default function PaymentMethod() {
               />
             </Grid>
             <Grid
-              style={ { padding: "0px 16px", width: "100%" } }
+              className={ `${classes.sameMailAddress} ${ editMode ? classes.hideSection : classes.showSection }` }
               item
               sm={ 4 }
               xs={ 12 }
               container
               direction="row"
-              className={ editMode ? classes.hideSection : classes.showSection }
             >
               <Checkbox
                 name="sameAsMailAddress"
@@ -1453,7 +1406,7 @@ export default function PaymentMethod() {
                 disabled
                 materialProps={ { maxLength: "30" } }
                 value={ formikAddDebitCard.values.city }
-                onChange={ (event) => addDebitOnChange(event) }
+                onChange={ (event) => addBankOnChange(event, 2) }
                 onBlur={ formikAddDebitCard.handleBlur }
                 error={
                   formikAddDebitCard.touched.city &&
@@ -1482,7 +1435,7 @@ export default function PaymentMethod() {
                 materialProps={ { maxLength: "30" } }
                 value={ formikAddDebitCard.values.state }
                 disabled
-                onChange={ (event) => addDebitOnChange(event) }
+                onChange={ (event) => addBankOnChange(event, 2) }
                 onBlur={ formikAddDebitCard.handleBlur }
                 error={
                   formikAddDebitCard.touched.state &&
@@ -1554,9 +1507,7 @@ export default function PaymentMethod() {
             classes={ { paper: classes.dialogPaperDebitCard } }
           >
             <DialogTitle id="debitCardModalHeading">
-              <Typography id="deleteTxt" className={ classes.dialogHeading }>
-                Are you sure you want to add a new Debit Card?
-              </Typography>
+             
               <IconButton
                 id="debitCardModalClose"
                 aria-label="close"
@@ -1566,6 +1517,11 @@ export default function PaymentMethod() {
                 <CloseIcon />
               </IconButton>
             </DialogTitle>
+            <DialogContent >
+            <Typography id="deleteTxt" className={ classes.dialogHeading }>
+                Are you sure you want to add a new Debit Card?
+              </Typography>
+            </DialogContent>
 
             <DialogActions className={ classes.dialogAction }>
               <ButtonSecondary
@@ -1628,10 +1584,8 @@ export default function PaymentMethod() {
         aria-describedby="alert-dialog-description"
         classes={ { paper: classes.deletePayment } }
       >
-        <DialogTitle id="debitCardModalHeading">
-          <Typography id="deleteTxt" className={ classes.dialogHeading }>
-            Are you sure you want to delete this payment method?
-          </Typography>
+        <DialogTitle id="debitCardModalHeading"> 
+          
           <IconButton
             id="debitCardModalClose"
             aria-label="close"
@@ -1641,6 +1595,11 @@ export default function PaymentMethod() {
             <CloseIcon />
           </IconButton>
         </DialogTitle>
+        <DialogContent >
+        <Typography id="deleteTxt" className={ classes.dialogHeading }>
+            Are you sure you want to delete this payment method?
+          </Typography>
+            </DialogContent>
         <DialogActions className={ classes.dialogAction }>
           <ButtonSecondary
             stylebutton='{"background": "", "color":"" }'

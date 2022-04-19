@@ -1,4 +1,4 @@
-import { Grid, Typography } from "@material-ui/core";
+import { Grid, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
 export default function Disclaimer(offerData) {
@@ -47,7 +47,6 @@ export default function Disclaimer(offerData) {
 
     useEffect(() => {
         filterDisclaimers(offerData);
-        return null;
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

@@ -1,4 +1,4 @@
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 
@@ -18,7 +18,6 @@ export default function MarketingOffer(data) {
   useEffect(() => {
     findMarketingMessage();
     amountFormatter(parseInt(data.amount));
-    return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ data ]);
 

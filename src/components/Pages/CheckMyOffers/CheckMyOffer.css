@@ -10,6 +10,22 @@
 	margin-bottom: 1% !important;
 }
 
+.leftAlignment{
+	align-items: "left"
+}
+.fullWidth {
+	width: "100%";
+}
+
+.typegraphAlignment {
+	text-align: "left";
+	margin-left: "8%";
+	margin-top: "2%";
+}
+.zeroMargin {
+	margin: "0px";
+}
+
 .alignButtonExtra {
 	margin-top: 6% !important;
 	margin-bottom: 5% !important;
@@ -148,6 +164,10 @@
 	left: 0;
 	-webkit-transition: width 0.3s linear;
 	transition: width 0.3s linear;
+}
+
+.imgFullWidth{
+	width: 100%;
 }
 
 .progress {
@@ -340,9 +360,13 @@
 .bottomSpace {
 	margin-bottom: 5% !important;
 }
+.noOffersButtonWrap {
+	margin: 1% !important;
+	margin-bottom: 5% !important;
+}
 
 .paddingButton {
-	padding: 10px;
+	padding: 6px;
 }
 .minText {
 	text-align: justify;
@@ -540,6 +564,10 @@
 	color: #171717 !important;
 }
 
+.cardPadTop {
+	padding-top: "70px"
+}
+
 .disclosuresWrap{
 	margin-bottom: 15px !important;
 }
@@ -572,4 +600,8 @@
 	.buttonStart {
 		justify-content: flex-end !important;
 	}
+}
+
+.alignCenter{
+		text-align: center !important;
 }

@@ -1,9 +1,9 @@
-import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Tab from "@material-ui/core/Tab";
-import Tabs from "@material-ui/core/Tabs";
-import Typography from "@material-ui/core/Typography";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Tab from "@mui/material/Tab";
+import Tabs from "@mui/material/Tabs";
+import Typography from "@mui/material/Typography";
 import Cookies from "js-cookie";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
@@ -50,9 +50,9 @@ export default function ViewAccountDetails() {
   const [ values, setValues ] = useState(0);
   const handleTabChange = (event, newValues) => setValues(newValues);
   let viewAppContact = Cookies.get("viewAppContact") ?? '{}';
-  let viewApplicationContact = typeof viewAppContact === "object" ? JSON.parse(viewAppContact) : viewAppContact;
+  let viewApplicationContact = JSON.parse(viewAppContact);
   let viewAppApplicant = Cookies.get("viewAppApplicant") ?? '{}';
-  let viewAppApplicantInfo = typeof viewAppApplicant === "object" ? JSON.parse(viewAppApplicant) : viewAppApplicant;
+  let viewAppApplicantInfo = JSON.parse(viewAppApplicant);
 
   //View part
   return (
@@ -92,7 +92,6 @@ export default function ViewAccountDetails() {
             <Grid className="applicationDetailsGrid" item xs={ 12 } sm={ 4 }>
               <Paper className={ classes.paperVerticalTabViewDetail }>
                 <Tabs
-                  id="tabWarp"
                   value={ values }
                   onChange={ handleTabChange }
                   classes={ {

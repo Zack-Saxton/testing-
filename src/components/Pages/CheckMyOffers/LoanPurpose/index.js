@@ -1,8 +1,8 @@
-import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import { createStyles, makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import { createStyles, makeStyles } from "@mui/styles";
+import Typography from "@mui/material/Typography";
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { loanPurposeData } from "../../../../assets/data/constants";
@@ -41,26 +41,20 @@ const useStyles = makeStyles((Theme) =>
 			color: Theme.palette.text.secondary,
 			boxSizing: "border-box",
 		},
+		gridPadding:  { 
+			paddingTop: "7px", 
+			paddingBottom: "15px" 
+		},
 		gridItem: {
 			boxSizing: "border-box",
 			padding: Theme.spacing(1),
 		},
 		masonryItemFirst: {
-			boxSizing: "border-box",
-			padding: `${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(1) }px`,
-			[ Theme.breakpoints.up("lg") ]: {
-				padding: `${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(1) }px`,
-			},
-			[ Theme.breakpoints.down("sm") ]: {
-				padding: `${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(1) }px ${ Theme.spacing(1) }px`,
-			},
+			padding: Theme.spacing(1),
+			boxSizing: "border-box",			
 		},
 		mainGridPadding: {
 			padding: "4% 0%"
-		},
-		gridPadding: {
-			paddingTop: "7px",
-			paddingBottom: "15px"
 		},
 		gridMargin: {
 			margin: "15px 0px 19px 0 !important"
@@ -78,7 +72,6 @@ function LoanPurpose(props) {
 		if (data?.completedPage < data?.page?.selectAmount || data?.formStatus?.toLowerCase() === "completed") {
 			navigate("/select-amount");
 		}
-		return null;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	//handle the user data nd store it into context and procced next step
@@ -530,7 +523,6 @@ function LoanPurpose(props) {
 										md={ 12 }
 										xs={ 12 }
 										className={ `${ classes.masonryItemFirst } ${ classes.gridPadding }` }
-										style={ { paddingTop: "7px", paddingBottom: "15px" } }
 									>
 										<Paper
 											data-testid="others"

@@ -28,6 +28,13 @@
 #dateWrap label {
 	font-size: 16px !important;
 }
+.confirmPasswordGrid{
+	width: 100% !important;
+	padding-bottom: 20px;
+}
+.passwordGrid{
+	width: 100% !important;
+}
 
 @media (max-width: 599px) {
 	#socialNum {

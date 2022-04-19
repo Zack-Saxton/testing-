@@ -1,5 +1,5 @@
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Grid from "@material-ui/core/Grid";
+import CircularProgress from '@mui/material/CircularProgress';
+import Grid from "@mui/material/Grid";
 import { useFormik } from "formik";
 import * as imageConversion from 'image-conversion';
 import Cookies from "js-cookie";
@@ -19,6 +19,7 @@ import { basicInformation, uploadNewProfileImage } from "../../Controllers/MyPro
 import ProfileImageController from "../../Controllers/ProfileImageController";
 import { ButtonPrimary, ButtonSecondary, EmailTextField, TextField } from "../../FormsUI";
 import ErrorLogger from '../../lib/ErrorLogger';
+import { useStylesMyProfile } from "./Style";
 import "./Style.css";
 
 const validationSchema = yup.object({
@@ -48,7 +49,7 @@ async function filetoImage(file) {
 }
 
 export default function BasicInformation(props) {
-
+  const classes = useStylesMyProfile();
   const [ loading, setLoading ] = useState(false);
   const { data, setData } = useContext(ProfilePicture);
   const navigate = useNavigate();
@@ -294,7 +295,7 @@ export default function BasicInformation(props) {
           <Grid
             item
             xs={ 12 }
-            style={ { width: "100%", gap: 15, marginBottom: 18 } }
+            className={ classes.basicInfoGrid }
             container
             direction="row"
           >
@@ -310,7 +311,7 @@ export default function BasicInformation(props) {
           <Grid
             item
             xs={ 12 }
-            style={ { width: "100%", gap: 15, marginBottom: 18 } }
+            className={ classes.basicInfoGrid }
             container
             direction="row"
           >
@@ -326,7 +327,7 @@ export default function BasicInformation(props) {
           <Grid
             item
             xs={ 12 }
-            style={ { width: "100%", gap: 15, marginBottom: 18 } }
+            className={ classes.basicInfoGrid }
             container
             direction="row"
           >
@@ -343,7 +344,7 @@ export default function BasicInformation(props) {
           <Grid
             item
             xs={ 12 }
-            style={ { width: "100%", gap: 15, marginBottom: 18 } }
+            className={ classes.basicInfoGrid }
             container
             direction="row"
           >
@@ -365,7 +366,7 @@ export default function BasicInformation(props) {
           <Grid
             item
             xs={ 12 }
-            style={ { width: "100%", gap: 15, marginBottom: 18 } }
+            className={ classes.basicInfoGrid }
             container
             direction="row"
             id={ disableField ? "basicPhoneNumber" : "profilePhoneNumberWrap" }
@@ -420,20 +421,19 @@ export default function BasicInformation(props) {
                 ref={ refSelectImage }
               />
               <br></br>
-              <small style={ { fontSize: "12px", color: "#595959" } }>
+              <small className={ classes.fileAllowedText }>
                 Allowed jpg, gif or png. Max size of 800kb
               </small>
             </Grid>
           </Grid>
           <Grid
             container
-            style={ { justifyContent: "left" } }
             alignItems="center"
             item
             lg={ 8 }
             md={ 8 }
             xs={ 12 }
-            className="textBlock alignButton"
+            className={ `${ classes.buttonGrid } textBlock alignButton` } 
           >
             <ButtonSecondary
               stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'

@@ -1,11 +1,11 @@
-import AppBar from "@material-ui/core/AppBar";
-import IconButton from "@material-ui/core/IconButton";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import MoreIcon from "@material-ui/icons/MoreVert";
-import React, { useState } from "react";
+import AppBar from "@mui/material/AppBar";
+import IconButton from "@mui/material/IconButton";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import MoreIcon from "@mui/icons-material/MoreVert";
+import React, {useState} from "react";
 import { NavLink } from "react-router-dom";
 import Logo from "../../../assets/images/mf-logo.png";
 import "../Layout.css";
@@ -40,7 +40,7 @@ const NormalHeader = () => {
     >
       <MenuItem>
         <Typography className={ classes.headerAlign }>
-          <a href={ `${ process.env.REACT_APP_WEBSITE }/blog/` } className="hrefTag">
+          <a href={ `${ process.env.REACT_APP_WEBSITE }/blog/` } target="_blank"  className="hrefTag" rel="noreferrer">
             Blog
           </a>
         </Typography>
@@ -73,11 +73,11 @@ const NormalHeader = () => {
           <div className={ classes.grow } />
           <div className={ classes.sectionDesktop }>
             <Typography id="blogsLink" className={ classes.subtitle }>
-              <a href={ `${ process.env.REACT_APP_WEBSITE }/blog/` } className="hrefTag">
+              <a href={ `${ process.env.REACT_APP_WEBSITE }/blog/` } target="_blank"  className="hrefTag" rel="noreferrer">
                 Blog
               </a>
             </Typography>
-            <NavLink className="faqLink" to="/faq" style={ { textDecoration: "none" } }>
+            <NavLink className="faqLink" to="/faq"  >
               <Typography className={ classes.subtitle }>FAQ</Typography>
             </NavLink>
             <NavLink to="/branch-locator" className="nav_link branchLocatorLink">

@@ -7,11 +7,19 @@ Functionality       :    To use this RadioButton as a default component for UI p
 
 #################################################################################################################*/
 
-import { FormControl, FormControlLabel, FormLabel } from "@material-ui/core";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
+import { FormControl, FormControlLabel, FormLabel } from "@mui/material";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
+import { makeStyles } from "@mui/styles";
+
+const useRadio = makeStyles((theme) => ({
+  formLabelStyle: {
+    fontFamily: "system-ui", 
+    fontWeight: "normal",
+  },
+}))
 
 const RadioButtonWrapper = ({
   name,
@@ -28,6 +36,7 @@ const RadioButtonWrapper = ({
 }) => {
   //To return all formik state
   const [ radioValue, setRadioValue ] = useState("");
+  const classes = useRadio();
 
   function handleRadioClick(event) {
     if (event.target.value === radioValue) {
@@ -52,7 +61,7 @@ const RadioButtonWrapper = ({
   //View Part
   return (
     <FormControl >
-      <FormLabel disabled={ disabled ?? false } style={ { fontFamily: "system-ui", fontWeight: "normal", } }>{ labelforform }</FormLabel>
+      <FormLabel disabled={ disabled ?? false } className={ classes.formLabelStyle }>{ labelforform }</FormLabel>
       <RadioGroup value={ radioValue } { ...configRadioButton }>
         { radioLabelMF.map((radio) => (
           <FormControlLabel
@@ -61,7 +70,7 @@ const RadioButtonWrapper = ({
             key={ radio.value }
             disabled={ disabled ?? false }
             label={ radio.label }
-            control={ <Radio style={ { color: "#0F4EB3" } } checked={ checked === radio.value ? true : false } onClick={ handleRadioClick } /> }
+            control={ <Radio color="primary" checked={ checked === radio.value ? true : false } onClick={ handleRadioClick } /> }
           />
         )) }
       </RadioGroup>

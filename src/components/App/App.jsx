@@ -3,11 +3,14 @@ import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from "react-toastify";
+import { ThemeProvider } from '@mui/styles';
+import { createTheme, StyledEngineProvider } from '@mui/material/styles'
 import 'react-toastify/dist/ReactToastify.css';
 import CheckMyOffers from '../../contexts/CheckMyOffers';
 import ProfilePicture from '../../contexts/ProfilePicture';
+import LoanAccount from '../../contexts/LoanAccount';
 import CustomComponents from "../CustomComponent";
-import BranchHeaderLayout from "../Layout/BranchLocatorLayout/BranchLocatorLayout";
+import BranchLocatorLayout from "../Layout/BranchLocatorLayout/BranchLocatorLayout";
 import Disclosure from "../Layout/DisclosureLink/Disclosure";
 import ErrorAfterLogin from "../Layout/ErrorAfterLogin/ErrorAfterLogin";
 import ErrorBeforeLogin from '../Layout/ErrorBeforeLogin/ErrorBeforeLogin';
@@ -58,6 +61,7 @@ import MyProfile from "../Pages/MyProfile/MyProfile";
 import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory";
 import RegisterPage from '../Pages/Register/Register';
 import VantageScore from "../Pages/VantageScore/VantageScore";
+import EmailVerification from "../Pages/EmailVerification/EmailVerification";
 import "./App.css";
 
 const queryClient = new QueryClient({
@@ -76,10 +80,20 @@ const loadGeneralUserComponent = (componentName) => {
         </GeneralUser>
     );
 };
-const loadPostComponent = (componentName) => {
+
+const loadGeneralUserWithoutHeader = (componentName) => {
     return (
-        <div id="main" style={ { marginLeft: "240px" } }>
-            <PostLogin>
+        <GeneralUser skipHeaderMenu={ true }>
+            { componentName }
+        </GeneralUser>
+    );
+};
+
+const LoadPostComponent = (componentName) => {
+    return (
+        
+        <div id="main" >
+            <PostLogin >
                 { componentName }
             </PostLogin>
         </div>
@@ -87,13 +101,17 @@ const loadPostComponent = (componentName) => {
 };
 const branchHeaderComponent = (componentName) => {
     return (
-        <BranchHeaderLayout>
+        <BranchLocatorLayout>
             { componentName }
-        </BranchHeaderLayout>
+        </BranchLocatorLayout>
     );
 };
+const theme = createTheme();
+
 function App() {
     return (
+        <ThemeProvider theme={theme}>
+            <StyledEngineProvider injectFirst>
         <QueryClientProvider client={ queryClient }>
             <div className="App">
                 <ToastContainer
@@ -109,7 +127,8 @@ function App() {
                 <BrowserRouter>
                     <CheckMyOffers>
                         <ProfilePicture>
-                            <Routes>
+                            <LoanAccount>
+                                <Routes>
                                 <Route path='/' element={ <Navigate replace to="/customers/accountOverview" /> } />
                                 <Route path='/components' element={ loadGeneralUserComponent(<CustomComponents />) } />
                                 <Route path='/login' element={ loadGeneralUserComponent(<LoginPage />) } />
@@ -151,25 +170,26 @@ function App() {
                                     <Route path=':amount' element={ loadGeneralUserComponent(<SelectAmount />) } />
                                 </Route>
                                 <Route path='customers' >
-                                    <Route path='accountOverview' element={ loadPostComponent(<AccountOverview />) } />
-                                    <Route path='paymentHistory' element={ loadPostComponent(<PaymentHistory />) } />
-                                    <Route path='selectOffer' element={ loadPostComponent(<ApplyLoan />) } />
-                                    <Route path='applyForLoan' element={ loadPostComponent(<ApplyForLoanRedirect />) } />
-                                    <Route path='resumeApplication' element={ loadPostComponent(<ResumeApplication />) } />
-                                    <Route path='reviewAndSign' element={ loadPostComponent(<ReviewAndSign />) } />
-                                    <Route path='finalVerification' element={ loadPostComponent(<FinalVerification />) } />
-                                    <Route path='receiveYourMoney' element={ loadPostComponent(<ReceiveYourMoney />) } />
-                                    <Route path='loanDocument' element={ loadPostComponent(<LoanDocument />) } />
-                                    <Route path='loanHistory' element={ loadPostComponent(<LoanHistory />) } />
-                                    <Route path='makePayment' element={ loadPostComponent(<MakePayment />) }>
-                                        <Route path=':accNo' element={ loadPostComponent(<MakePayment />) } />
+                                   
+                                    <Route path='accountOverview' element={ LoadPostComponent(<AccountOverview />) } />
+                                    <Route path='paymentHistory' element={ LoadPostComponent(<PaymentHistory />) } />  
+                                    <Route path='selectOffer' element={ LoadPostComponent(<ApplyLoan />) } />
+                                    <Route path='applyForLoan' element={ LoadPostComponent(<ApplyForLoanRedirect />) } />
+                                    <Route path='resumeApplication' element={ LoadPostComponent(<ResumeApplication />) } />
+                                    <Route path='reviewAndSign' element={ LoadPostComponent(<ReviewAndSign />) } />
+                                    <Route path='finalVerification' element={ LoadPostComponent(<FinalVerification />) } />
+                                    <Route path='receiveYourMoney' element={ LoadPostComponent(<ReceiveYourMoney />) } />
+                                    <Route path='loanDocument' element={ LoadPostComponent(<LoanDocument />) } />
+                                    <Route path='loanHistory' element={ LoadPostComponent(<LoanHistory />) } />
+                                    <Route path='makePayment' element={ LoadPostComponent(<MakePayment />) }>
+                                        <Route path=':accNo' element={ LoadPostComponent(<MakePayment />) } />
                                     </Route>
-                                    <Route path='moneySkill' element={ loadPostComponent(<MoneySkill />) } />
-                                    <Route path='myBranch' element={ loadPostComponent(<MyBranch />) } />
-                                    <Route path='myProfile' element={ loadPostComponent(<MyProfile />) } />
-                                    <Route path='vantageScore' element={ loadPostComponent(<VantageScore />) } />
-                                    <Route path='faq' element={ loadPostComponent(<FaqPostLogin />) } />
-                                    <Route path='viewaccount' element={ loadPostComponent(<ViewAccountDetails />) } />
+                                    <Route path='moneySkill' element={ LoadPostComponent(<MoneySkill />) } />
+                                    <Route path='myBranch' element={ LoadPostComponent(<MyBranch />) } />
+                                    <Route path='myProfile' element={ LoadPostComponent(<MyProfile />) } />
+                                    <Route path='vantageScore' element={ LoadPostComponent(<VantageScore />) } />
+                                    <Route path='faq' element={ LoadPostComponent(<FaqPostLogin />) } />
+                                    <Route path='viewaccount' element={ LoadPostComponent(<ViewAccountDetails />) } />
                                     <Route path='verification'>
                                         <Route path='email' element={ <ValidateToken /> } />
                                     </Route>
@@ -183,12 +203,19 @@ function App() {
                                     <Route path='confirm-signup' element={ loadGeneralUserComponent(<ConfirmationInfo />) } />
                                     <Route path='*' element={ loadGeneralUserComponent(<ErrorBeforeLogin />) } />
                                 </Route>
-                            </Routes>
+                                <Route path='EmailVerification' >
+                                    <Route path='verifyemail' element={ loadGeneralUserWithoutHeader(<EmailVerification />) } />
+                                    <Route path='*' element={ loadGeneralUserComponent(<ErrorBeforeLogin />) } />
+                                </Route>
+                                </Routes>
+                            </LoanAccount>
                         </ProfilePicture>
                     </CheckMyOffers>
                 </BrowserRouter>
             </div>
         </QueryClientProvider>
+        </StyledEngineProvider>
+        </ThemeProvider>
     );
 }
 

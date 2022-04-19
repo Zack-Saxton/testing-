@@ -1,6 +1,6 @@
-import Grid from "@material-ui/core/Grid";
-import Tab from "@material-ui/core/Tab";
-import Tabs from "@material-ui/core/Tabs";
+import Grid from "@mui/material/Grid";
+import Tab from "@mui/material/Tab";
+import Tabs from "@mui/material/Tabs";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -30,11 +30,10 @@ export default function TabSection(props) {
         variant="scrollable"
         scrollButtons="auto"
         id="termsTabs"
-        style={ { paddingBottom: "10px" } }
         aria-label="scrollable auto tabs example"
       >
         <Tab
-          style={ { fontSize: "0.938rem", fontWeight: "700" } }
+          id="tabText"
           label="1. Select Offer"
           { ...a11yProps(0) }
           disabled={ !(props.ay) ? false : true }

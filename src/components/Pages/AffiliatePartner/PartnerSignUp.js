@@ -1,11 +1,11 @@
-import Box from "@material-ui/core/Box";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useQuery } from 'react-query';
@@ -17,7 +17,6 @@ import amonelogo from "../../../assets/partners/WelcomeAOMember.png";
 import creditkarmalogo from "../../../assets/partners/WelcomeCKMember.png";
 import GTLlogo from "../../../assets/partners/WelcomeGTLMember.png";
 import LendingTreelogo from "../../../assets/partners/WelcomeLTMember.png";
-import monevologo from "../../../assets/partners/WelcomeMonevoMember.png";
 import NerdWalletlogo from "../../../assets/partners/WelcomeNWMember.png";
 import OneLoanPlacelogo from "../../../assets/partners/WelcomeOLPMember.png";
 import partnerSignup, { PopulatePartnerSignup } from "../../Controllers/PartnerSignupController";
@@ -34,14 +33,14 @@ const validationSchema = yup.object({
     .required(globalMessages.EmailRequired),
   password: yup
     .string(globalMessages.PasswordEnter)
-    .matches(/^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,30}$/, globalMessages.PasswordCriteria)
+    .matches(/^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,30}$/, globalMessages.PasswordCriteria)
     .max(30, globalMessages.PasswordMax)
-    .min(8, globalMessages.PasswordMin)
+    .min(10, globalMessages.PasswordMin)
     .required(globalMessages.PasswordRequired),
   confirmPassword: yup
     .string()
     .max(30, globalMessages.PasswordMax)
-    .min(8, globalMessages.PasswordMin)
+    .min(10, globalMessages.PasswordMin)
     .required(globalMessages.PasswordConfirmationRequired)
     .when("password", {
       is: (password) => password?.length > 0,
@@ -72,7 +71,7 @@ const validationSchema = yup.object({
 });
 
 //Begin: Login page
-export default function CreditKarma() {
+export default function PartnerSignUp() {
   //Decoding URL for partner signup
   const useQueryURL = () => new URLSearchParams(useLocation().search);
   const query = useQueryURL();
@@ -100,7 +99,6 @@ export default function CreditKarma() {
     SetPopulatePartnerSignupState(PopulatePartnerSignupData);
     SetPopulatePartnerPhone(PopulatePartnerSignupData?.data?.applicant?.phoneNumber);
     formik.setFieldValue("phone", populatePartnerPhone);
-    return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ PopulatePartnerSignupData, populatePartnerPhone ]);
 
@@ -139,7 +137,6 @@ export default function CreditKarma() {
     else if (handlePopupOhio) {
       setOpenOhio(true);
     }
-    return null;
   }, [ handlePopupCA, handlePopupOhio ]);
 
   const handleCloseCA = () => setOpenCA(false);
@@ -211,7 +208,10 @@ export default function CreditKarma() {
           <Grid
             className={ classes.partnerSignUpGrid }
             xs={ 10 }
-            item
+            item            
+            container
+            justifyContent="center"
+            alignItems="center"
           >
             <Grid
               xs={ 11 }
@@ -280,20 +280,6 @@ export default function CreditKarma() {
                         className={ classes.fullWidth }
                         src={ amonelogo }
                         alt="amonelogo"
-                      />
-                    </a>
-                  </Typography>
-                ) : utm_source === "monevo" || utm_source === "monevoN" ? (
-                  <Typography
-                    className={ classes.title }
-                    data-testid="title"
-                    color="textSecondary"
-                  >
-                    <a href="/#" target="blank">
-                      <img
-                        className={ classes.fullWidth }
-                        src={ monevologo }
-                        alt="monevologo"
                       />
                     </a>
                   </Typography>
@@ -431,7 +417,7 @@ export default function CreditKarma() {
                       />
                       <p id="passwordTitle" className={ classes.passwordTitle }>
                         Please ensure your password meets the following
-                        criteria: between 8 and 30 characters in length, at
+                        criteria: between 10 and 30 characters in length, at
                         least 1 uppercase letter, at least 1 lowercase letter,
                         at least 1 symbol and at least 1 number.
                       </p>
@@ -646,20 +632,25 @@ export default function CreditKarma() {
         </Box>
       </div>
 
-      <Popup popupFlag={ esignPopup } closePopup={ handleOnClickEsignClose }>
+      <Popup popupFlag={ esignPopup } closePopup={ handleOnClickEsignClose } title="E-Signature Disclosure and Consent">
+        <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
         <RenderContent disclosureLink="/eSign" />
       </Popup>
-      <Popup popupFlag={ creditPopup } closePopup={ handleOnClickCreditClose }>
+      <Popup popupFlag={ creditPopup } closePopup={ handleOnClickCreditClose } title="Credit and Contact Authorization">
+        <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
         <RenderContent disclosureLink="/credit" />
       </Popup>
-      <Popup popupFlag={ webTOUPopup } closePopup={ handleOnClickwebTOUClose }>
+      <Popup popupFlag={ webTOUPopup } closePopup={ handleOnClickwebTOUClose } title="Terms of Use">
+        <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
         <RenderContent disclosureLink="/websiteTermsOfUse" />
       </Popup>
-      <Popup popupFlag={ privacyPopup } closePopup={ handleOnClickPrivacyClose }>
+      <Popup popupFlag={ privacyPopup } closePopup={ handleOnClickPrivacyClose } title="Privacy Statement">
+        <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
         <RenderContent disclosureLink="/privacy" />
       </Popup>
 
       <Popup popupFlag={ openDelaware } closePopup={ handleDelawareClose } title="Delaware Itemized Schedule of Charges">
+        <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
         <RenderContent disclosureLink="/delaware" />
       </Popup>
 

@@ -1,8 +1,8 @@
-import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import { makeStyles } from "@mui/styles";
+import Typography from "@mui/material/Typography";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useContext, useEffect, useState } from "react";
@@ -24,15 +24,15 @@ import "./NewUser.css";
 const validationSchema = yup.object({
 	newPassword: yup
 		.string(globalMessages.PasswordEnter)
-		.matches(/^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,30}$/, "Your password doesn't meet the criteria")
+		.matches(/^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,30}$/, "Your password doesn't meet the criteria")
 		.max(30, globalMessages.PasswordMax)
-		.min(8, globalMessages.PasswordMin)
+		.min(10, globalMessages.PasswordMin)
 		.required(globalMessages.PasswordRequired),
 	confirmPassword: yup
 		.string()
 		.required(globalMessages.PasswordConfirmationRequired)
 		.max(30, globalMessages.PasswordMax)
-		.min(8, globalMessages.PasswordMin)
+		.min(10, globalMessages.PasswordMin)
 		.when("newPassword", {
 			is: (newPassword) => newPassword?.length > 0,
 			then: yup
@@ -70,7 +70,6 @@ function NewUser() {
 		if (data?.completedPage < data?.page?.personalInfo || data?.formStatus?.toLowerCase() === "completed") {
 			navigate("/select-amount");
 		}
-		return null;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	//configuring formik
@@ -190,7 +189,6 @@ function NewUser() {
 							item
 							className="cardWrapper"
 							justifyContent="center"
-						// style={ { width: "100%" } }
 						>
 							<Paper
 								className="cardWOPadding"
@@ -241,12 +239,10 @@ function NewUser() {
 										className="blockDiv"
 										container
 										justifyContent="center"
-									// style={ { width: "100%" } }
 									>
 										<Grid
 											container
 											justifyContent="center"
-											// style={ { width: "100%" } }
 											item
 											lg={ 8 }
 											md={ 8 }
@@ -308,7 +304,6 @@ function NewUser() {
 										</Grid>
 										<Grid
 											justifyContent="center"
-											// style={ { width: "100%" } }
 											item
 											container
 											lg={ 8 }

@@ -1,18 +1,18 @@
-import Breadcrumbs from "@material-ui/core/Breadcrumbs";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Dialog from "@material-ui/core/Dialog";
-import Grid from "@material-ui/core/Grid";
-import IconButton from "@material-ui/core/IconButton";
-import Link from "@material-ui/core/Link";
-import Typography from "@material-ui/core/Typography";
-import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import CloseIcon from "@material-ui/icons/Close";
-import NavigateNextIcon from "@material-ui/icons/NavigateNext";
-import PhoneIcon from "@material-ui/icons/Phone";
-import SearchIcon from "@material-ui/icons/Search";
+import Breadcrumbs from "@mui/material/Breadcrumbs";
+import CircularProgress from "@mui/material/CircularProgress";
+import Dialog from "@mui/material/Dialog";
+import Grid from "@mui/material/Grid";
+import IconButton from "@mui/material/IconButton";
+import Link from "@mui/material/Link";
+import Typography from "@mui/material/Typography";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import CloseIcon from "@mui/icons-material/Close";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import PhoneIcon from "@mui/icons-material/Phone";
+import SearchIcon from "@mui/icons-material/Search";
 import PropTypes from "prop-types";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, Suspense } from "react";
 import { Helmet } from "react-helmet";
 import PlacesAutocomplete from "react-places-autocomplete";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
@@ -21,15 +21,16 @@ import { businesStates, howManyBranchesforBranchLocatorPages } from "../../../as
 import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile_Image.png";
 import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.jpg";
 import TitleImage from "../../../assets/images/Favicon.png";
-import BranchDayTiming, { mapInformationBranchLocator } from "../../Controllers/BranchDayTiming";
+import BranchDayTiming, { convertDistanceUnit, mapInformationBranchLocator } from "../../Controllers/BranchDayTiming";
 import BranchLocatorController from "../../Controllers/BranchLocatorController";
 import { ButtonPrimary, ButtonSecondary } from "../../FormsUI";
 import { useStylesConsumer } from "../../Layout/ConsumerFooterDialog/Style";
 import ErrorLogger from "../../lib/ErrorLogger";
-import Map from "../BranchLocator/BranchLocatorMap";
 import { useStylesMyBranch } from "../BranchLocator/Style";
 import CustomerRatings from "../MyBranch/CustomerRatings";
 import "./BranchLocator.css";
+const Map = React.lazy(() => import("../BranchLocator/BranchLocatorMap"));
+
 export default function BranchLocator() {
   //Material UI css class
   const classes = useStylesMyBranch();
@@ -57,7 +58,7 @@ export default function BranchLocator() {
   const getBranchLists = async (search_text) => {
     try {
       setLoading(true);
-      let result = await BranchLocatorController(search_text, howManyBranchesforBranchLocatorPages.BranchLocator);
+      let result = await BranchLocatorController(search_text, howManyBranchesforBranchLocatorPages.BranchLocator, false);
       if ((result.status === 400) || (result.data.branchData[ 0 ].BranchNumber === "0001") || (result.data.branchData[ 0 ].BranchNumber === "1022")) {
         if (!toast.isActive("closeToast")) {
           toast.error(" No branches within that area. Please enter a valid city and state.", { toastId: "closeToast" });
@@ -114,8 +115,9 @@ export default function BranchLocator() {
   };
   const MFButtonClick = (event) => {
     params.statename = event.target.innerText;
-    apiGetBranchList(params.statename);
-    navigate(`/branch-locator/${ params.statename.replace(/\s+/g, '-').toLowerCase() }/`, { state: { value: params.statename } });};
+    navigate(`/branch-locator/${ params.statename.replace(/\s+/g, '-').toLowerCase() }/`, { state: { value: params.statename, flag: true } });
+  };
+  
   const findBranchTimings = async (value) => {
     try {
       if (value) return await BranchDayTiming(value);
@@ -295,13 +297,12 @@ export default function BranchLocator() {
           </p>
           <SearchIcon
             className="searchIconBottom"
-            style={ { color: "white" } }
           />
           <PlacesAutocomplete
+            id="addressOne"
             value={ address2 }
             onChange={ setAddress2 }
             onSelect={ handleSelect2 }
-            style={ { width: '50%' } }
           >
             { ({ getInputProps, suggestions, getSuggestionItemProps, loading2 }) => (
               <div className="searchInputWrap">
@@ -355,7 +356,7 @@ export default function BranchLocator() {
                   return (
                     <Grid key={ index } className="locationInfo">
                       <NavLink
-                        to={ `/branch-locator/${ stateLongName.replace(/\s+/, '-').toLocaleLowerCase() }/personal-loans-in-${ item?.BranchName.replace(/[- .]/g, "").replace(/\s+/g, '-').toLocaleLowerCase() }-${ stateShortName.toLocaleLowerCase() }` }
+                        to={ `/branch-locator/${ stateLongName.replace(/\s+/, '-').toLocaleLowerCase() }/personal-loans-in-${ item?.BranchName.replace(/[.]/g, "").replace(/\s+/g, '-').toLocaleLowerCase() }-${ stateShortName.toLocaleLowerCase() }` }
                         state={ { branch_Details: item, stateLongNm: stateLongName, stateShortNm: stateShortName } }
                         className="nav_link"
                       >
@@ -367,7 +368,7 @@ export default function BranchLocator() {
                         <ChevronRightIcon />
                       </NavLink>
                       <p className={ classes.ptag }>
-                        { item?.distance }les away | { item?.BranchTime?.Value1 }{ " " }
+                        {convertDistanceUnit(item.distance)} away | { item?.BranchTime?.Value1 }{ " " }
                         { item?.BranchTime?.Value2 }
                       </p>
                       <p
@@ -379,8 +380,8 @@ export default function BranchLocator() {
                       <p className={ classes.phoneNumber }>
                         <PhoneIcon />
                         <a
+                          className="blueColorLink"
                           href={ "tel:+1" + item?.PhoneNumber }
-                          style={ { color: "#214476" } }
                         >
                           { " " }
                           { item?.PhoneNumber }
@@ -416,13 +417,12 @@ export default function BranchLocator() {
     <Grid id="findBranchWrapTwo" className={ classes.blueBackground }>
       <h4 className={ classes.headigText }>Find a <span>Branch Near You!</span></h4>
       <Grid id="findBranchGrid">
-        <SearchIcon className="searchIcon" style={ { color: "white" } } />
+        <SearchIcon className="searchIcon"/>
         <PlacesAutocomplete
-          id="address1"
+          id="addressOne"
           value={ address1 }
           onChange={ setAddress1 }
           onSelect={ handleSelect1 }
-          style={ { width: '50%' } }
         >
           { ({ getInputProps, suggestions, getSuggestionItemProps, loading2 }) => (
             <div className="searchInputWrap">
@@ -478,7 +478,7 @@ export default function BranchLocator() {
         <img className="webImage" src={ BranchImageWeb } alt="MF Banner" />
       </Grid>
 
-      <Grid className="greyBackground mobilePadding" style={ { padding: "24px 0px" } } item md={ 5 } sm={ 12 } xs={ 12 }>
+      <Grid className="greyBackground mobilePadding" item md={ 5 } sm={ 12 } xs={ 12 }>
         { BreadCrumsDisplay }
         <Grid className="blueBoxWrap">
           { search1andgetList }
@@ -513,17 +513,19 @@ export default function BranchLocator() {
 
   const displayMap = (
     <Grid id="mapGridWrap" item xs={ 12 } sm={ 12 } md={ 6 } xl={ 6 }>
-      <Map
-        id="mapBox"
-        googleMap={ googleMap }
-        CurrentLocation={ currentLocation }
-        Zoom={ zoomDepth }
-      />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Map
+          id="mapBox"
+          googleMap={googleMap}
+          CurrentLocation={currentLocation}
+          Zoom={zoomDepth}
+        />
+      </Suspense>
+      
     </Grid>
   );
   const MapBranchListandSearch2Buttons = (
     <Grid
-      style={ { padding: "16px 0px 16px 0px" } }
       container
       id="mapAndBranchList"
     >

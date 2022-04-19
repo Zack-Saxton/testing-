@@ -5,9 +5,9 @@ Component Name      :    TextField
 Functionality       :    To use this component to validate and get the input from the user as text field.
 
 #################################################################################################################*/
-import { TextField } from "@material-ui/core";
-import { red } from "@material-ui/core/colors";
-import { makeStyles } from "@material-ui/core/styles";
+import { TextField } from "@mui/material";
+import { red } from "@mui/material/colors";
+import { makeStyles } from "@mui/styles";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import globalMessages from '../../../assets/data/globalMessages.json';
@@ -29,7 +29,7 @@ const TextFieldWrapper = ({
   onChange,
   InputProps,
   ...otherProps
-}) => {
+}) => { 
 
   //Configure it with Formik
 
@@ -56,11 +56,12 @@ const TextFieldWrapper = ({
         backgroundColor: "yellow",
       },
     },
-    cssFocused: {},
+    cssFocused: { color: 'black'},
     notchedOutline: {
       borderWidth: "1px",
       borderColor: "blue !important",
     },
+   
   }));
 
   const classes = useStyles();
@@ -73,9 +74,6 @@ const TextFieldWrapper = ({
     required: required,
     ...otherProps,
     fullWidth: true,
-    // error: setError ? setError : errorTF,
-    // helperText: setError ? setHelperText : helperTextTF,
-
     error: setError ? setError : errorTF,
     helperText: setError ? setHelperText : helperTextTF,
     classes: {
@@ -97,7 +95,7 @@ const TextFieldWrapper = ({
     }
   };
 
-  return <TextField { ...configTextField } onChange={ handleOnchange } InputProps={ InputProps } inputProps={ materialProps } />;
+  return <TextField { ...configTextField } variant="standard" onChange={ handleOnchange } InputProps={ InputProps } inputProps={ materialProps } />;
 };
 
 //set name prop as mandatory

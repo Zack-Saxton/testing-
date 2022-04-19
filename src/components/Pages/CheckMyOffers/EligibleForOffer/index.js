@@ -1,8 +1,8 @@
-import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import PropTypes from "prop-types";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
 import React, { useContext, useEffect } from "react";
+import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import EligibleForOffersLogo from "../../../../assets/gallery/Eligible-for-Offers.png";
 import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
@@ -27,7 +27,6 @@ function EligibleForOffers(props) {
 		if (data?.completedPage < data?.page?.ssn && data?.applicationStatus?.toLowerCase() !== "referred" && props?.location?.formcomplete?.toLowerCase() !== "yes") {
 			navigate("/select-amount");
 		}
-		return null;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	//JSX part
@@ -53,16 +52,16 @@ function EligibleForOffers(props) {
 							<Grid
 								item
 								xs={ 11 }
-								sm={ 10 }
-								md={ 7 }
-								lg={ 7 }
-								xl={ 7 }
+								sm={ 5 }
+								md={ 4 }
+								lg={ 4 }
+								xl={ 4 }
 								className="cardWrapperImg row"
 								container
 								justifyContent="center"
 								alignItems="center"
 							>
-								<img src={ EligibleForOffersLogo } alt="EligibleForOffers" />
+								<img src={ EligibleForOffersLogo } className="imgFullWidth" alt="EligibleForOffers" />
 							</Grid>
 						</Grid>
 						<br />
@@ -80,7 +79,7 @@ function EligibleForOffers(props) {
 								md={ 6 }
 								lg={ 6 }
 								xl={ 6 }
-								className=" row"
+								className="alignCenter row"
 								container
 								justifyContent="center"
 								alignItems="center"
@@ -88,11 +87,6 @@ function EligibleForOffers(props) {
 								<Typography
 									id="CongratsTxt"
 									variant="h3"
-									style={ {
-										align: "center",
-										justify: "center",
-										alignItems: "center",
-									} }
 									className="margin2p mainTextMsg"
 								>
 									Congratulations!
@@ -120,11 +114,6 @@ function EligibleForOffers(props) {
 							>
 								<Typography
 									variant="h6"
-									style={ {
-										align: "center",
-										justify: "center",
-										alignItems: "center",
-									} }
 									className="smalTextImg smalTextImgNoOff"
 								>
 									You are eligible for a loan offer*. <br />

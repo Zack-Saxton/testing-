@@ -1,12 +1,12 @@
-import { Grid } from "@material-ui/core";
-import Paper from "@material-ui/core/Paper";
-import Step from "@material-ui/core/Step";
-import StepContent from "@material-ui/core/StepContent";
-import StepLabel from "@material-ui/core/StepLabel";
-import Stepper from "@material-ui/core/Stepper";
-import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import React, { useState } from "react";
+import { Grid } from "@mui/material";
+import Paper from "@mui/material/Paper";
+import Step from "@mui/material/Step";
+import StepContent from "@mui/material/StepContent";
+import StepLabel from "@mui/material/StepLabel";
+import Stepper from "@mui/material/Stepper";
+import { makeStyles } from "@mui/styles";
+import Typography from "@mui/material/Typography";
+import React from "react";
 import { NavLink } from "react-router-dom";
 import { ButtonPrimary, ButtonSecondary } from "../../../FormsUI";
 import BankAccountVerification from "./BankAccountVerification";
@@ -78,14 +78,41 @@ function getStepContent(step) {
 //Component for vertical linear stepper
 export default function VerticalLinearStepper() {
 	const classes = useStyles();
-	const [ activeStep, setActiveStep ] = useState(0);
+	const [ activeStep, setActiveStep ] = React.useState(0);
 	const steps = getSteps();
 
 	//next, prev and reset functionality
-	const handleNext = () => setActiveStep((prevActiveStep) => prevActiveStep + 1);
-	const handleBack = () => setActiveStep((prevActiveStep) => prevActiveStep - 1);
+
+	const handleNext = () => {
+		setActiveStep((prevActiveStep) => prevActiveStep + 1);
+	};
+
+	const handleBack = () => {
+		setActiveStep((prevActiveStep) => prevActiveStep - 1);
+	};
+
 	const handleReset = () => {
-		if (activeStep >= 0 && activeStep < 7) setActiveStep(activeStep);
+		if (activeStep === 0) {
+			setActiveStep(0);
+		}
+		if (activeStep === 1) {
+			setActiveStep(1);
+		}
+		if (activeStep === 2) {
+			setActiveStep(2);
+		}
+		if (activeStep === 3) {
+			setActiveStep(3);
+		}
+		if (activeStep === 4) {
+			setActiveStep(4);
+		}
+		if (activeStep === 5) {
+			setActiveStep(5);
+		}
+		if (activeStep === 6) {
+			setActiveStep(6);
+		}
 	};
 
 	//view part
@@ -110,7 +137,7 @@ export default function VerticalLinearStepper() {
 									</ButtonSecondary>
 
 									<ButtonSecondary
-										disabled={ !activeStep }
+										disabled={ activeStep === 0 }
 										onClick={ handleBack }
 										id="button_stepper_prev"
 										stylebutton='{"margin-right": "10px", "color":"" }'

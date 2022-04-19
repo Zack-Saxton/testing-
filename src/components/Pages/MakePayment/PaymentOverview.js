@@ -1,9 +1,9 @@
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
+import CircularProgress from '@mui/material/CircularProgress';
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
 import Moment from "moment";
 import React from "react";
 import NumberFormat from 'react-number-format';
@@ -35,11 +35,8 @@ export default function PaymentOverview(paymentData, status) {
                     <TableCell className={ classes.tableHead } align="right">
                         Loan Fees
                     </TableCell>
-                    <TableCell className={ classes.tableHead } align="right">
-                        Total
-                    </TableCell>
                     <TableCell className={ classes.tableHead } align="left">
-                        Next Due Date
+                        Due Date
                     </TableCell>
                     <TableCell className={ classes.tableHead } align="left">
                         Scheduled Payment
@@ -69,27 +66,23 @@ export default function PaymentOverview(paymentData, status) {
                         paymentDetails.overview.map((row) => (
                             <TableRow key={ (Math.random() * 1000) }>
                                 <TableCell
-                                    style={ { fontSize: "0.938rem" } }
                                     component="th"
-                                    className={ row.tableHeadRow }
+                                    className={ classes.tableHeadRow }
                                     scope="row"
                                 >
                                     { row.loanDetails.AccountNumber }
                                 </TableCell>
-                                <TableCell style={ { fontWeight: "700" } } className={ classes.tableHeadRow } align="right">
+                                <TableCell className={ `${classes.tableHeadRow} ${classes.tableHead}` } align="right">
                                     <NumberFormat value={ Math.abs(row.loanPaymentInformation.accountDetails.CurrentPayOffAmount) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
                                 </TableCell>
-                                <TableCell style={ { fontWeight: "700" } } className={ classes.tableHeadRow } align="right">
+                                <TableCell className={ `${classes.tableHeadRow} ${classes.tableHead}` } align="right">
                                     <NumberFormat value={ Math.abs(row.loanPaymentInformation.accountDetails.RegularPaymentAmount) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
                                 </TableCell>
-                                <TableCell style={ { fontWeight: "700" } } className={ classes.tableHeadRow } align="right">
+                                <TableCell className={ `${classes.tableHeadRow} ${classes.tableHead}` } align="right">
                                     <NumberFormat value={ Math.abs(row.loanPaymentInformation.accountDetails.InterestRate) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
                                 </TableCell>
-                                <TableCell style={ { fontWeight: "700" } } className={ classes.tableHeadRow } align="right">
+                                <TableCell className={ `${classes.tableHeadRow} ${classes.tableHead}` } align="right">
                                     <NumberFormat value={ Math.abs(row.loanPaymentInformation.accountDetails.LoanFeesAndCharges) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
-                                </TableCell>
-                                <TableCell style={ { fontWeight: "700" } } className={ classes.tableHeadRow } align="right">
-                                    <NumberFormat value={ Math.abs(row.loanPaymentInformation.accountDetails.RegularPaymentAmount) + Math.abs(row.loanPaymentInformation.accountDetails.InterestRate) + Math.abs(row.loanPaymentInformation.accountDetails.LoanFeesAndCharges) } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
                                 </TableCell>
                                 <TableCell className={ classes.tableHeadRow } align="left">
                                     { Moment(row.loanPaymentInformation.accountDetails.NextDueDate).format("MM/DD/YYYY") }
@@ -97,7 +90,7 @@ export default function PaymentOverview(paymentData, status) {
                                 <TableCell className={ classes.tableHeadRow } align="left">
                                     { (row.loanPaymentInformation.hasScheduledPayment) ? Moment(row.loanPaymentInformation.scheduledPayments[ 0 ].PaymentDate).format("MM/DD/YYYY") : "NONE" }
                                 </TableCell>
-                                <TableCell style={ { fontWeight: "700" } } className={ classes.tableHeadRow } align="left">
+                                <TableCell className={ `${classes.tableHeadRow} ${classes.tableHead}` } align="left">
                                     { (row.loanPaymentInformation.appRecurringACHPayment) ? "On Due Date" : "Disabled" }
                                 </TableCell>
                             </TableRow>

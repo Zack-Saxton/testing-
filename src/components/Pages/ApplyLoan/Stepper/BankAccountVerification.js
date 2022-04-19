@@ -1,15 +1,15 @@
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import Grid from "@material-ui/core/Grid";
-import { makeStyles } from "@material-ui/core/styles";
-import TextFieldWithToolTip from "@material-ui/core/TextField";
-import Tooltip from "@material-ui/core/Tooltip";
-import Typography from "@material-ui/core/Typography";
-import CloseIcon from "@material-ui/icons/Close";
-import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import FormHelperText from "@mui/material/FormHelperText";
+import Grid from "@mui/material/Grid";
+import { makeStyles } from "@mui/styles";
+import TextFieldWithToolTip from "@mui/material/TextField";
+import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
+import CloseIcon from "@mui/icons-material/Close";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useFormik } from "formik";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
@@ -75,7 +75,7 @@ export default function BankAccountVerification(props) {
 	const [ invalidRN, setInvalidRN ] = useState(false);
 	const [ resetUpload, setResetUpload ] = useState(false);
 	const [ openAutoPayAuth, setOpenAutoPayAuth ] = useState(false);
-	function getElementByText(text, ctx) {
+	function getValueByLable(text, ctx) {
 		return document.evaluate("//*[.='" + text + "']",
 			ctx || document, null, XPathResult.ANY_TYPE, null).iterateNext();
 	}
@@ -83,8 +83,7 @@ export default function BankAccountVerification(props) {
 		if (res?.data?.bank_account_verification) {
 			toast.success(messages?.document?.uploadSuccess);
 			setFileUploadSuccess(true);
-			props.next();
-			getElementByText("Income Verification").scrollIntoView();
+			getValueByLable("Bank Account Verification").scrollIntoView();
 		} else {
 			props.setLoadingFlag(false);
 			toast.error(messages?.document?.upoloadFailed);
@@ -113,13 +112,18 @@ export default function BankAccountVerification(props) {
 				repayment: paymnetMode,
 			};
 			if (verifyRequired && !fileUploadSuccess) {
-				toast.error("please upload the document");
+				toast.error(messages?.bankAccountVerification?.pleaseUploadDoc);
 				props.setLoadingFlag(false);
+			}
+			else if (verifyRequired && fileUploadSuccess) {
+				getValueByLable("Bank Account Verification").scrollIntoView();
+				props.next();
 			}
 			else {
 				let res = await APICall("bank_information_cac", '', data, "POST", true);
 				if (res?.data?.bank_account_information && res?.data?.bank_account_verification) {
 					props.setLoadingFlag(false);
+					getValueByLable("Bank Account Verification").scrollIntoView();
 					props.next();
 				} else if (res?.data?.bank_account_information || res?.data?.bank_account_verification) {
 					setError(
@@ -440,7 +444,7 @@ export default function BankAccountVerification(props) {
 						>
 							{ error }
 						</p>
-						<p style={ { textAlign: "justify" } }>
+						<p className={classes.exampleText} style={ { textAlign: "justify" } }>
 							<b>Upload Voided Personal Check:</b>
 							<br />
 							Please upload a voided personal check for the bank account you
@@ -448,10 +452,10 @@ export default function BankAccountVerification(props) {
 							most recent bank statement.
 						</p>
 
-						<p>
+						<p className={classes.exampleText}>
 							Please ensure:
-							<li>Your full account number and name are visible</li>
-							<li>Acceptable file formats are PDF, JPG, JPEG, GIF and PNG</li>
+							<li className={classes.exampleText}>Your full account number and name are visibless</li>
+							<li className={classes.exampleText}>Acceptable file formats are PDF, JPG, JPEG, GIF and PNG</li>
 						</p>
 					</div>
 					<DocumentUpload

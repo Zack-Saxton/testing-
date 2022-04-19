@@ -1,14 +1,14 @@
-import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Tab from "@material-ui/core/Tab";
-import Tabs from "@material-ui/core/Tabs";
-import Typography from "@material-ui/core/Typography";
-import SettingsIcon from "@material-ui/icons/Brightness5";
-import TextsmsIcon from "@material-ui/icons/ChatBubbleOutlineOutlined";
-import PaymentsIcon from "@material-ui/icons/LinkOutlined";
-import LockOpenIcon from "@material-ui/icons/LockOpen";
-import RoomIcon from "@material-ui/icons/Room";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Tab from "@mui/material/Tab";
+import Tabs from "@mui/material/Tabs";
+import Typography from "@mui/material/Typography";
+import SettingsIcon from "@mui/icons-material/Brightness5";
+import TextsmsIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
+import PaymentsIcon from "@mui/icons-material/LinkOutlined";
+import LockOpenIcon from "@mui/icons-material/LockOpen";
+import RoomIcon from "@mui/icons-material/Room";
 import Cookies from "js-cookie";
 import PropTypes from "prop-types";
 import React from "react";
@@ -75,12 +75,12 @@ export default function MyProfile() {
   } else {
     Cookies.set("opted_phone_texting", Cookies.get("temp_opted_phone_texting"));
   }
-
-  let basicInfoData = accountDetails?.data?.customer;
+ 
+  let basicInfoData = accountDetails?.data?.customer; 
   let getProfImage = profileImage;
-  const [ globalState, setprofileTabNumber ] = useGlobalState();
+  const [ tabNumber, setProfileTabNumber ] = useGlobalState();
   const handleTabChange = (event, newValues) => {
-    setprofileTabNumber({ profileTabNumber: newValues });
+    setProfileTabNumber({ profileTabNumber: newValues });
   };
 
   //API call text notification
@@ -88,16 +88,19 @@ export default function MyProfile() {
   let textNotifyDetails = textNotifyData;
   let cookieTextNotify = Cookies.get("isTextNotify");
   if (!Cookies.get("isTextNotify")) {
-    let textNotifyStatus = textNotifyDetails?.data?.sbt_getInfo?.SubscriptionInfo[ 0 ]?.SubscriptionOptions[ 0 ]?.OptInAccount;
+    let textNotifyStatus = textNotifyDetails?.data?.sbt_getInfo?.SubscriptionInfo.length && textNotifyDetails?.data?.sbt_getInfo?.SubscriptionInfo[ 0 ]?.SubscriptionOptions.length 
+                           ? textNotifyDetails?.data?.sbt_getInfo?.SubscriptionInfo[ 0 ]?.SubscriptionOptions[ 0 ]?.OptInAccount 
+                           : false ;
     Cookies.set('isTextNotify', textNotifyStatus);
     cookieTextNotify = textNotifyStatus;
   }
   let textnotify = (/true/i).test(cookieTextNotify) ? "On" : "Off";
   let hasActiveLoan = (/true/i).test(Cookies.get("hasActiveLoan"));
   let hasApplicationStatus = Cookies.get("hasApplicationStatus");
-  let appStatus = [ "rejected", "referred", "expired" ];
+  let appStatus = [ "rejected", "referred", "expired", "contact_branch" ];
   let checkAppStatus = appStatus.includes(hasApplicationStatus);
-  let disableField = (checkAppStatus || hasActiveLoan);
+  let disableField = (checkAppStatus && !hasActiveLoan ? true : !checkAppStatus && !hasActiveLoan ? true : false );
+
 
   return (
     <div>
@@ -113,12 +116,12 @@ export default function MyProfile() {
           item
           xs={ 12 }
           direction="row"
-          style={ { width: "100%", paddingBottom: "10px" } }
+          className={ classes.profileSetting }
         >
           <Typography className={ classes.heading } variant="h3">
             <NavLink
               to="/customers/accountOverview"
-              style={ { textDecoration: "none" } }
+              className={ classes.sideNavLink }
             >
               <ButtonWithIcon
                 icon="arrow_backwardIcon"
@@ -136,17 +139,17 @@ export default function MyProfile() {
           </Typography>
         </Grid>
         {/* Left Side Nav */ }
-        <Grid item xs={ 12 } style={ { paddingBottom: "200px", paddingTop: "10px" } }>
+        <Grid item xs={ 12 } className={ classes.profileSideNav }>
           <Grid container item xs={ 12 }>
             <Grid
               item
               xs={ 12 }
               sm={ 4 }
-              style={ { width: "100%" } }
+              className={ classes.leftSideNav }
             >
               <Paper id="basicInfo" className={ classes.cardHeading }>
                 <Tabs
-                  value={ globalState.profileTabNumber }
+                  value={ tabNumber.profileTabNumber }
                   onChange={ handleTabChange }
                   classes={ {
                     indicator: classes.indicator,
@@ -155,21 +158,13 @@ export default function MyProfile() {
                   scrollButtons="auto"
                   orientation="vertical"
                   variant="scrollable"
-                  style={ { padding: "20px 0px" } }
+                  className={ classes.leftMenu }
                   aria-label="scrollable auto tabs example"
                 >
                   <Tab
                     label={
-                      <span
-                        style={ {
-                          float: "left",
-                          width: "100%",
-                          verticalAlign: "top",
-                          "fontSize": "0.938rem",
-                          "fontFamily": "Muli,sans-serif", fontWeight: "700"
-                        } }
-                      >
-                        <SettingsIcon style={ { verticalAlign: "top", paddingRight: "10px" } } />{ " " }
+                      <span className={ classes.firstMenuLabel } >
+                        <SettingsIcon className={ classes.menuIconStyle } />{ " " }
                         Basic Information
                       </span>
                     }
@@ -178,8 +173,8 @@ export default function MyProfile() {
                   />
                   <Tab
                     label={
-                      <span style={ { float: "left", width: "100%", "fontSize": "0.938rem", "fontFamily": "Muli,sans-serif", fontWeight: "700" } }>
-                        <RoomIcon style={ { verticalAlign: "top", paddingRight: "10px" } } />{ " " }
+                      <span className={ classes.menuLabel } >
+                        <RoomIcon className={ classes.menuIconStyle } />{ " " }
                         Mailing Address
                       </span>
                     }
@@ -188,10 +183,10 @@ export default function MyProfile() {
                   />
                   <Tab
                     id="tab-vertical"
-                    disabled={ !disableField }
+                    disabled={ disableField }
                     label={
-                      <span style={ { float: "left", width: "100%", "fontSize": "0.938rem", "fontFamily": "Muli,sans-serif", fontWeight: "700" } }>
-                        <TextsmsIcon style={ { verticalAlign: "top", paddingRight: "10px" } } />
+                      <span className={ classes.menuLabel } >
+                        <TextsmsIcon className={ classes.menuIconStyle } />
                         Text Notification - { textnotify }
                       </span>
                     }
@@ -199,10 +194,10 @@ export default function MyProfile() {
                     { ...tabVerticalProps(2) }
                   />
                   <Tab
-                    disabled={ !disableField }
+                    disabled={ disableField }
                     label={
-                      <span style={ { float: "left", width: "100%", "fontSize": "0.938rem", "fontFamily": "Muli,sans-serif", fontWeight: "700" } }>
-                        <PaymentsIcon style={ { verticalAlign: "top", paddingRight: "10px" } } />{ " " }
+                      <span className={ classes.menuLabel } >
+                        <PaymentsIcon className={ classes.menuIconStyle } />{ " " }
                         Payment Method
                       </span>
                     }
@@ -211,8 +206,8 @@ export default function MyProfile() {
                   />
                   <Tab
                     label={
-                      <span style={ { float: "left", width: "100%", "fontSize": "0.938rem", "fontFamily": "Muli,sans-serif", fontWeight: "700" } }>
-                        <LockOpenIcon style={ { verticalAlign: "top", paddingRight: "10px" } } />{ " " }
+                      <span className={ classes.menuLabel } >
+                        <LockOpenIcon className={ classes.menuIconStyle } />{ " " }
                         Change Password
                       </span>
                     }
@@ -230,35 +225,35 @@ export default function MyProfile() {
               item
               xs={ 12 }
               sm={ 8 }
-              style={ { paddingLeft: "15px", width: "100%" } }
+              className={ classes.profileMainContent }
             >
               <Paper id="mainContentTab" className={ classes.paper }>
                 {/* Basic Information */ }
-                <TabVerticalPanel value={ globalState.profileTabNumber } verticalIndex={ 0 }>
+                <TabVerticalPanel value={ tabNumber.profileTabNumber } verticalIndex={ 0 }>
                   <BasicInformationCard basicInformationData={ basicInfoData } getUserAccountDetails={ accountDetails } getProfileImage={ getProfImage } />
                 </TabVerticalPanel>
                 {/* //END Basic Information */ }
 
                 {/* Mailing Address */ }
-                <TabVerticalPanel value={ globalState.profileTabNumber } verticalIndex={ 1 }>
+                <TabVerticalPanel value={ tabNumber.profileTabNumber } verticalIndex={ 1 }>
                   <MailingAddressCard basicInformationData={ basicInfoData } getUserAccountDetails={ accountDetails } />
                 </TabVerticalPanel>
                 {/* END Mailing Address */ }
 
                 {/* Start Text Notification */ }
-                <TabVerticalPanel value={ globalState.profileTabNumber } verticalIndex={ 2 }>
+                <TabVerticalPanel value={ tabNumber.profileTabNumber } verticalIndex={ 2 }>
                   <TextNotificationCard />
                 </TabVerticalPanel>
                 {/* END Text Notification */ }
 
                 {/* Payment Method */ }
-                <TabVerticalPanel value={ globalState.profileTabNumber } verticalIndex={ 3 }>
+                <TabVerticalPanel value={ tabNumber.profileTabNumber } verticalIndex={ 3 }>
                   <PaymentMethodCard />
                 </TabVerticalPanel>
                 {/* END Payment Method */ }
 
                 {/* Change Poassword */ }
-                <TabVerticalPanel value={ globalState.profileTabNumber } verticalIndex={ 4 }>
+                <TabVerticalPanel value={ tabNumber.profileTabNumber } verticalIndex={ 4 }>
                   <ChangePassword basicInformationData={ basicInfoData } />
                 </TabVerticalPanel>
                 {/* END Change Poassword */ }

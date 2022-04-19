@@ -1,11 +1,11 @@
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import GetAppIcon from "@material-ui/icons/GetApp";
-import PrintIcon from "@material-ui/icons/Print";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import GetAppIcon from "@mui/icons-material/GetApp";
+import PrintIcon from "@mui/icons-material/Print";
 import Moment from "moment";
 import React from "react";
 import { documentdownload as downloadDocument, documentprint as printDocument } from "../../Controllers/LoanDocumentController";
@@ -18,12 +18,12 @@ export default function LoanDocumentTable(userLoanDocumentData) {
   //Loan Document data from API
   let userLoanDocument = userLoanDocumentData;
   //Download loan document
-  const downloadDoc = (id, name) => {
-    downloadDocument(id, name);
+  const downloadDoc = (id, name, fileURL) => {
+    downloadDocument(id, name, fileURL);
   };
   //Print loan document
-  const printDoc = (id, name) => {
-    printDocument(id, name);
+  const printDoc = (id, name, fileURL) => {
+    printDocument(id, name, fileURL);
   };
   const outputDateFormat = 'MM/DD/YYYY';
 
@@ -53,17 +53,14 @@ export default function LoanDocumentTable(userLoanDocumentData) {
                   { Moment(new Date(row.date_uploaded)).format(outputDateFormat) }
                 </TableCell>
                 <TableCell className={ classes.tableHeadRow }>
-                  <PrintIcon style={ { color: "#104eb3", cursor: "pointer" } }
+                  <PrintIcon className={classes.appIcon}
                     onClick={ () =>
-                      printDoc(row.downloadProp.file_id, row.downloadProp.name)
+                      printDoc(row.downloadProp.file_id, row.downloadProp.name, row.downloadProp.fileURL)
                     }
                   />{ " " }
-                  <GetAppIcon style={ { color: "#104eb3", cursor: "pointer" } }
+                  <GetAppIcon className={classes.appIcon}
                     onClick={ () =>
-                      downloadDoc(
-                        row.downloadProp.file_id,
-                        row.downloadProp.name
-                      )
+                      downloadDoc(row.downloadProp.file_id, row.downloadProp.name, row.downloadProp.fileURL)
                     }
                   />
                 </TableCell>

@@ -1,25 +1,23 @@
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Box from "@material-ui/core/Box";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import axios from "axios";
+import Box from "@mui/material/Box";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import { useQueryClient } from 'react-query';
 import { toast } from "react-toastify";
 import globalMessages from "../../../assets/data/globalMessages.json";
-import Logo from "../../../assets/images/loginbg.png";
 import LoginController, { RegisterController } from "../../Controllers/LoginController";
 import LogoutController from "../../Controllers/LogoutController";
 import { RecaptchaValidationController } from "../../Controllers/RecaptchaController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
+import getClientIp from "../../Controllers/CommonController"
 import {
   Button,
   ButtonPrimary,
@@ -34,72 +32,10 @@ import Recaptcha from "../../Layout/Recaptcha/GenerateRecaptcha";
 import { encryptAES } from "../../lib/Crypto";
 import ErrorLogger from "../../lib/ErrorLogger";
 import { FormValidationRules } from "../../lib/FormValidationRule";
+import { useStylesRegister } from "./Style"
 import "./Register.css";
 
 let formValidation = new FormValidationRules();
-
-//Styling part
-const useStyles = makeStyles((theme) => ({
-  mainContentBackground: {
-    backgroundImage: "url(" + Logo + ")",
-    backgroundRepeat: "noRepeat",
-    backgroundPosition: "center",
-    backgroundSize: "cover",
-    backgroundAttachment: "fixed",
-  },
-  root: {
-    flexGrow: 1,
-  },
-  mainGrid: {
-    boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%),
-    0 6px 30px 5px rgb(0 0 0 / 12%),
-    0 8px 10px -7px rgb(0 0 0 / 20%)`,
-    background: "#f5f2f2",
-  },
-  title: {
-    fontSize: "25px",
-    textAlign: "center",
-    fontWeight: 400,
-    color: "black",
-  },
-  subtitle: {
-    textAlign: "center",
-  },
-  passwordTitle: {
-    fontSize: "14px",
-    textAlign: "justify",
-  },
-  dobTitle: {
-    fontSize: "12px",
-    textAlign: "justify",
-  },
-  paper: {
-    padding: theme.spacing(3),
-    borderRadius: "6px !important",
-    display: "flex",
-    flexDirection: "column",
-    backgroundColor: `rgba(255, 255, 255, .8)`,
-    color: theme.palette.text.secondary,
-    boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%),
-  0 6px 30px 5px rgb(0 0 0 / 12%),
-  0 8px 10px -7px rgb(0 0 0 / 20%)`,
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-  signInButtonGrid: {
-    textAlign: "center",
-    paddingTop: "20px!important",
-  },
-  gridInsideBox: { 
-    paddingTop: "30px", 
-    paddingBottom: "40px" 
-  }
-}));
 
 //Yup validations for all the input fields
 const validationSchema = formValidation.getFormValidationRule("");
@@ -107,7 +43,7 @@ const validationSchema = formValidation.getFormValidationRule("");
 //Begin: Login page
 export default function Register() {
 
-  const classes = useStyles();
+  const classes = useStylesRegister();
   const [ validZip, setValidZip ] = useState(true);
   const [ state, setState ] = useState("");
   const [ city, setCity ] = useState("");
@@ -123,8 +59,7 @@ export default function Register() {
   window.onReCaptchaSuccess = async function () {
     try {
       let grecaptchaResponse = grecaptcha.getResponse();
-      let ipResponse = await axios.get('https://geolocation-db.com/json/');
-      let ipAddress = ipResponse.data.IPv4;
+      let ipAddress = await getClientIp();
       let recaptchaVerifyResponse = await RecaptchaValidationController(grecaptchaResponse, ipAddress);
 
       if (recaptchaVerifyResponse.status === 200) {
@@ -137,7 +72,7 @@ export default function Register() {
         setDisableRecaptcha(true);
       }
     } catch (error) {
-      ErrorLogger("Error executing geolocation API", error);
+      ErrorLogger("Error executing reCaptcha", error);
     }
   };
 
@@ -311,12 +246,16 @@ export default function Register() {
       setState("");
       setCity("");
       if (event.target.value && event.target.value.length === 5) {
-        // if (event.target.value !== "" && event.target.value.length === 5) {
         let result = await ZipCodeLookup(event.target.value.trim());
-        if (result) {
+        if (result?.data?.cityName) {
           setValidZip(true);
-          setState(result?.data.stateCode);
-          setCity(result?.data.cityName);
+          setState(result.data.stateCode);
+          setCity(result.data.cityName);
+        }else {
+          formik.setFieldValue("city", "");
+          formik.setFieldValue("state", "");
+          setValidZip(false);
+          setErrorMsg("Please enter a valid Zipcode");
         }
       }
     } catch (error) {
@@ -375,10 +314,10 @@ export default function Register() {
                     spacing={ 4 }
                   >
                     <Grid
+                      className="fullWidth"
                       item
                       xs={ 12 }
                       sm={ 6 }
-                      style={ { width: "100%" } }
                       container
                       direction="row"
                     >
@@ -403,10 +342,10 @@ export default function Register() {
                     </Grid>
 
                     <Grid
+                      className="fullWidth"
                       item
                       xs={ 12 }
                       sm={ 6 }
-                      style={ { width: "100%" } }
                       container
                       direction="row"
                     >
@@ -433,9 +372,9 @@ export default function Register() {
                     </Grid>
 
                     <Grid
+                      className="fullWidth"
                       item
                       xs={ 12 }
-                      style={ { width: "100%" } }
                       container
                       direction="row"
                     >
@@ -526,9 +465,9 @@ export default function Register() {
                     </Grid>
 
                     <Grid
+                      className="passwordGrid"
                       item
                       xs={ 12 }
-                      style={ { width: "100%" } }
                       container
                       direction="row"
                     >
@@ -553,15 +492,15 @@ export default function Register() {
                       />
                       <p id="passwordTitle" className={ classes.passwordTitle }>
                         Please ensure your password meets the following
-                        criteria: between 8 and 30 characters in length, at
+                        criteria: between 10 and 30 characters in length, at
                         least 1 uppercase letter, at least 1 lowercase letter,
                         at least 1 symbol and at least 1 number.
                       </p>
                     </Grid>
                     <Grid
+                      className="confirmPasswordGrid"
                       item
                       xs={ 12 }
-                      style={ { width: "100%" } }
                       container
                       direction="row"
                     >

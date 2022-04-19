@@ -1,5 +1,5 @@
-import { Typography } from "@material-ui/core";
-import Grid from "@material-ui/core/Grid";
+import { Typography } from "@mui/material";
+import Grid from "@mui/material/Grid";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -34,7 +34,6 @@ export default function MultipleQuestion(props) {
 			qarr[ x.questionId ] = "";
 		}
 		setQuestionArray(qarr);
-		return null;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 

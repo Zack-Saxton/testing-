@@ -5,13 +5,13 @@ Component Name      :    Email
 Functionality       :    To use this component to get only valid Email address.
 
 #################################################################################################################*/
-import InputAdornment from "@material-ui/core/InputAdornment";
-import TextField from "@material-ui/core/TextField";
+import InputAdornment from "@mui/material/InputAdornment";
+import TextField from "@mui/material/TextField";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 
 //Initializing EmailWrapper component
-const EmailWrapper = ({ name, suffix, lable, materialProps, id, ...otherProps }) => {
+const EmailWrapper = ({ name, suffix, lable, materialProps, id, disablePaste, ...otherProps }) => {
 
   //Basic Configuration for Email field
   const configTextfield = {
@@ -33,6 +33,11 @@ const EmailWrapper = ({ name, suffix, lable, materialProps, id, ...otherProps })
   const handleChange = (event) => {
     setValues(event.target.value.trim() + suffix);
   };
+  const disablePasteOption = (event) => {    
+    if(disablePaste){
+      event.preventDefault();
+    }  
+  };
 
   return (
     <TextField
@@ -40,12 +45,15 @@ const EmailWrapper = ({ name, suffix, lable, materialProps, id, ...otherProps })
       lable="email"
       type="email"
       fullWidth={ true }
-      // value= {value}
+      variant="standard"
       inputProps={ materialProps }
       onChange={ handleChange }
+      onCut={ disablePasteOption }
+      onCopy={ disablePasteOption }
+      onPaste={ disablePasteOption }
       { ...configTextfield }
     />
-  );
+  ); 
 };
 
 EmailWrapper.propTypes = {
@@ -53,6 +61,7 @@ EmailWrapper.propTypes = {
   suffix: PropTypes.object,
   lable: PropTypes.string,
   id: PropTypes.string,
+  disablePaste: PropTypes.bool,
   materialProps: PropTypes.object
 };
 

@@ -1,4 +1,4 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 
 const drawerWidth = 240;
 
@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
   logoFormat: {
     height: 62,
     cursor: "pointer",
+    marginTop: "6px"
   },
   subtitle: {
     color: "#171717",
@@ -57,6 +58,14 @@ const useStyles = makeStyles((theme) => ({
   },
   showSection: {
     display: "block",
+  },
+  signOutSpan: {
+    fontSize:"12px",
+    padding:"5px 20px",
+    cursor:"pointer",
+    '&:hover': {
+      textDecoration:"underline"
+    },
   },
 }));
 

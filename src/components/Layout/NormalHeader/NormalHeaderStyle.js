@@ -1,4 +1,4 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 
 const drawerWidth = 240;
 
@@ -9,7 +9,6 @@ const useStyles = makeStyles((theme) => ({
   pointerCSS: {
     cursor: "pointer",
   },
-
   toolbar: {
     backgroundColor: "#d2e1e766",
     display: 'flex',
@@ -20,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
   },
-
   title: {
     flexGrow: 1,
     lineHeight: "normal",

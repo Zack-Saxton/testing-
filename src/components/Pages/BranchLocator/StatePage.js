@@ -1,16 +1,16 @@
-import Breadcrumbs from "@material-ui/core/Breadcrumbs";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Dialog from "@material-ui/core/Dialog";
-import Grid from "@material-ui/core/Grid";
-import IconButton from "@material-ui/core/IconButton";
-import Link from "@material-ui/core/Link";
-import Typography from "@material-ui/core/Typography";
-import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import CloseIcon from "@material-ui/icons/Close";
-import NavigateNextIcon from "@material-ui/icons/NavigateNext";
-import PhoneIcon from "@material-ui/icons/Phone";
-import SearchIcon from "@material-ui/icons/Search";
+import Breadcrumbs from "@mui/material/Breadcrumbs";
+import CircularProgress from "@mui/material/CircularProgress";
+import Dialog from "@mui/material/Dialog";
+import Grid from "@mui/material/Grid";
+import IconButton from "@mui/material/IconButton";
+import Link from "@mui/material/Link";
+import Typography from "@mui/material/Typography";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import CloseIcon from "@mui/icons-material/Close";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import PhoneIcon from "@mui/icons-material/Phone";
+import SearchIcon from "@mui/icons-material/Search";
 import React, { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet";
 import PlacesAutocomplete from "react-places-autocomplete";
@@ -20,9 +20,7 @@ import { howManyBranchesforBranchLocatorPages } from "../../../assets/data/marin
 import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile_Image.png";
 import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.jpg";
 import TitleImage from "../../../assets/images/Favicon.png";
-import BranchDayTiming, {
-  mapInformationBranchLocator
-} from "../../Controllers/BranchDayTiming";
+import BranchDayTiming, { convertDistanceUnit, mapInformationBranchLocator } from "../../Controllers/BranchDayTiming";
 import BranchLocatorController from "../../Controllers/BranchLocatorController";
 import { ButtonPrimary, ButtonSecondary } from "../../FormsUI";
 import { useStylesConsumer } from "../../Layout/ConsumerFooterDialog/Style";
@@ -34,7 +32,8 @@ import Map from "./BranchLocatorMap";
 export default function StatePage() {
   const classes = useStylesMyBranch();
   const location = useLocation();
-  const name = location.state.value;
+  let stateNamefromUrl = location?.pathname?.split('/');
+  const name = location?.state?.value ?? formatString(stateNamefromUrl[2]);
   const directionsClass = useStylesConsumer();
   const refMapSection = useRef();
   const refSearch1 = useRef();
@@ -52,14 +51,16 @@ export default function StatePage() {
   const [ branchDistance, setBranchDistance ] = useState(() => Math.abs(parseInt(howManyBranchesforBranchLocatorPages?.stateBranchDistanceinMiles, 10)));
   const [ stateLongName, setStateLongName ] = useState();
   const [ stateShortName, setStateShortName ] = useState();
+  const [stateSearchFlag, setStateSearchFlag] = useState(() => location?.state?.flag ?? false);
+  const showBranchesWithin60Miles = 60;
 
   //API call
   const getBranchLists = async (search_text) => {
     try {
       setLoading(true);
-      let result = await BranchLocatorController(search_text, howManyBranchesforBranchLocatorPages.StatePage);
+      let result = await BranchLocatorController(search_text, howManyBranchesforBranchLocatorPages.StatePage, stateSearchFlag );
       if (
-        result.status === 400 ||
+        result.status == 400 ||
         result.data.branchData[ 0 ].BranchNumber === "0001" ||
         result.data.branchData[ 0 ].BranchNumber === "1022"
       ) {
@@ -108,7 +109,8 @@ export default function StatePage() {
   };
   const getActivePlaces = () => {
     let searchText = refSearch1?.current?.value.trim().length ? refSearch1?.current?.value.trim() : refSearch2?.current?.value.trim();
-    setBranchDistance(60);
+
+    setBranchDistance(showBranchesWithin60Miles);
     apiGetBranchList(searchText);
     refMapSection.current.scrollIntoView({ behavior: 'smooth' });
     clearSearchText();
@@ -130,12 +132,27 @@ export default function StatePage() {
   };
   useEffect(() => {
     apiGetBranchList(name);
+    setStateSearchFlag(false);
     window.scrollTo(0, 0);
-    return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const handleSelect1 = async (value) => setAddress1(value);
   const handleSelect2 = async (value) => setAddress2(value);
+
+const ShowFirstandLastBranch = (val) => {
+  return (
+    <>
+   {branchList &&
+    <NavLink
+      to={`/branch-locator/${stateLongName.replace(/\s+/, '-').toLocaleLowerCase()}/personal-loans-in-${val.BranchInformation.BranchName.replace(/[.]/g, "").replace(/\s+/g, '-').toLocaleLowerCase()}-${stateShortName.toLocaleLowerCase()}`}
+      state={{ branch_Details: val.BranchInformation, stateLongNm: stateLongName, stateShortNm: stateShortName }}
+      className="nav_link"
+    >
+    <b>{val.BranchInformation.BranchName}</b>
+    </NavLink>}
+   </>
+  )
+}
   //View part
   return (
     <div>
@@ -155,7 +172,7 @@ export default function StatePage() {
         container
         justifyContent={ "center" }
       >
-        <Grid className="branchLayoutGrid" container style={ { width: "100%" } }>
+        <Grid className="branchLayoutGrid" container>
           <Grid className="branchImage" item md={ 7 } sm={ 12 } xs={ 12 }>
             <img
               className="mobileImage"
@@ -166,7 +183,6 @@ export default function StatePage() {
           </Grid>
           <Grid
             className="greyBackground mobilePadding"
-            style={ { padding: "24px 0px" } }
             item
             md={ 5 }
             sm={ 12 }
@@ -177,7 +193,6 @@ export default function StatePage() {
               separator={
                 <NavigateNextIcon
                   className="navigateNextIcon"
-                  style={ { color: "#171717" } }
                 />
               }
               aria-label="breadcrumb"
@@ -204,13 +219,12 @@ export default function StatePage() {
                 <Grid id="findBranchGrid">
                   <SearchIcon
                     className="searchIcon"
-                    style={ { color: "white" } }
                   />
                   <PlacesAutocomplete
+                    id="addressOne"
                     value={ address1 }
                     onChange={ setAddress1 }
                     onSelect={ handleSelect1 }
-                    style={ { width: "50%" } }
                   >
                     { ({
                       getInputProps,
@@ -287,7 +301,6 @@ export default function StatePage() {
           >
             <h3 className="mapTopHeading">Branches Near You</h3>
             <Grid
-              style={ { padding: "0px" } }
               id="mapGridWrap"
               item
               xs={ 12 }
@@ -315,8 +328,11 @@ export default function StatePage() {
                   <span>Personal Loans in { name }</span>
                 </h4>
                 <p className="PesonalLoanParagraph">
-                  Mariner Finance branches are all over { name }, from Salisbury to
-                  Frederick. Use our interactive map to locate the one closest to
+                  Mariner Finance branches are all over { name }, from {" "}
+                  {branchList && <ShowFirstandLastBranch BranchInformation={branchList[0]}/>}
+                   {" "} to {" "}
+                  {branchList && <ShowFirstandLastBranch BranchInformation={branchList[branchList.length - 1]} />}
+                  . Use our interactive map to locate the one closest to
                   you.
                 </p>
                 <h3>We’re here for you.</h3>
@@ -381,13 +397,12 @@ export default function StatePage() {
                 </p>
                 <SearchIcon
                   className="searchIconBottomTwo"
-                  style={ { color: "white" } }
                 />
                 <PlacesAutocomplete
+                  id="addressOne"
                   value={ address2 }
                   onChange={ setAddress2 }
                   onSelect={ handleSelect2 }
-                  style={ { width: "50%" } }
                 >
                   { ({
                     getInputProps,
@@ -447,9 +462,6 @@ export default function StatePage() {
           ) : (
             <Grid
               id="branchLists"
-              style={ {
-                display: "flex"
-              } }
             >
               <Grid container className="addressList">
                 { branchList ? (
@@ -458,7 +470,7 @@ export default function StatePage() {
                       return (
                         <Grid key={ index } className="locationInfo" item lg={ 4 } md={ 4 } sm={ 6 } xs={ 12 }>
                           <NavLink
-                            to={ `/branch-locator/${ stateLongName.replace(/\s+/, '-').toLocaleLowerCase() }/personal-loans-in-${ item?.BranchName.replace(/[- .]/g, "").replace(/\s+/g, '-').toLocaleLowerCase() }-${ stateShortName.toLocaleLowerCase() }` }
+                            to={ `/branch-locator/${ stateLongName.replace(/\s+/, '-').toLocaleLowerCase() }/personal-loans-in-${ item?.BranchName.replace(/[.]/g, "").replace(/\s+/g, '-').toLocaleLowerCase() }-${ stateShortName.toLocaleLowerCase() }` }
                             state={ { branch_Details: item, stateLongNm: stateLongName, stateShortNm: stateShortName } }
                             className="nav_link"
                           >
@@ -470,7 +482,7 @@ export default function StatePage() {
                             <ChevronRightIcon />
                           </NavLink>
                           <p className={ classes.ptag }>
-                            { item?.distance }les away |{ " " }
+                            {convertDistanceUnit(item.distance)} away |{ " " }
                             { item?.BranchTime?.Value1 }{ " " }
                             { item?.BranchTime?.Value2 }
                           </p>
@@ -483,8 +495,8 @@ export default function StatePage() {
                           <p className={ classes.phoneNumber }>
                             <PhoneIcon />
                             <a
+                              className="blueColorLink"
                               href={ "tel:+1" + item?.PhoneNumber }
-                              style={ { color: "#214476" } }
                             >
                               { " " }
                               { item?.PhoneNumber }
@@ -504,7 +516,7 @@ export default function StatePage() {
                           </ButtonSecondary>
                         </Grid>
                       );
-                    };
+                    }
                   })
                 ) : (
                   <p> No Branch found.</p>
@@ -571,4 +583,10 @@ export default function StatePage() {
       </Grid>
     </div>
   );
+}
+const formatString = (str) => {
+  return str
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
 }

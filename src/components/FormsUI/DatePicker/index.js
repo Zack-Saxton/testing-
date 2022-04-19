@@ -6,55 +6,75 @@ Functionality       :    To use this component to get the date with restrictions
 												 restrict future, past dates, select between given range of dates like that.
 
 #################################################################################################################*/
-import DateFnsUtils from "@date-io/date-fns";
-import Grid from "@material-ui/core/Grid";
-import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import Grid from "@mui/material/Grid";
+import TextField from '@mui/material/TextField';
+import DatePicker from '@mui/lab/DatePicker';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import globalMessages from '../../../assets/data/globalMessages.json';
 import "date-fns";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import "./DatePicker.css";
 
-const DatePickerWrapper = ({ name, format, label, refId,
-	placeholder, maxdate, minyear, ...otherProps }) => {
+const DatePickerWrapper = ({ format, label, views,
+	placeholder,required,  onChange, disableDate, disablePastDate,
+	maxdate, minyear,error, helperText, ...otherProps }) => {
 
-	// The first commit of Material-UI
-	//const currentDate = new Date();
-	const [ selectedDate, setSelectedDate ] = useState(null);
-	const handleDateChange = (date) => {
-		setSelectedDate(date);
+	const [ selectedDate, setSelectedDate ] = useState(null);	
+  const [ errorTF, setErrorTF ] = useState(false);
+  const [ helperTextTF, setHelperTextTF ] = useState("");
+	
+	const handleDateChange = (event) => {
+		setSelectedDate(event);
+		setErrorTF((required && !event.target.value));
+    setHelperTextTF((required && !event.target.value) ? globalMessages.required : '');
+    if (onChange) {
+      onChange(event);
+    }
 	};
-	const d = new Date();
-	const year = d.getFullYear();
-	const month = d.getMonth();
-	const day = d.getDate();
+
+	const disableCustomDate = (event) => {
+		if (disableDate)
+		{
+			disableDate(event)
+		}
+	}
+	const dateNow = new Date();
+	const year = dateNow.getFullYear();
+	const month = dateNow.getMonth();
+	const day = dateNow.getDate();
 	const minDate = new Date(year - minyear, month, day);
 
 	return (
-		<MuiPickersUtilsProvider utils={ DateFnsUtils }>
+		<LocalizationProvider dateAdapter={AdapterDateFns}>
 			<Grid container justifyContent="space-around">
-				<KeyboardDatePicker
+				<DatePicker
 					margin="normal"
 					id="date-picker-dialog"
-					label={ label }
-					fullWidth={ true }
-					format={ format ?? 'MM/dd/yyyy' }
-					value={ selectedDate }
+					label={ label }					
+					inputFormat={ format ?? 'MM/dd/yyyy' }	
 					onChange={ handleDateChange }
+					value={ selectedDate }
 					InputAdornmentProps={ { position: 'start' } }
 					minDate={ minDate }
 					maxDate={ new Date(maxdate) }
-					placeholder={ placeholder }
-
-					KeyboardButtonProps={ {
-						"aria-label": "change date",
-					} }
-
-					{ ...otherProps }
-					inputProps={ { "data-test-id": "datePicker", ref: refId } }
-
+					shouldDisableDate = {disableCustomDate}
+					disablePast = {disablePastDate === "true" ? true : false}
+          views={views ?? ['year', 'month', 'day']}
+					renderInput={(props) => (
+					<TextField 
+						{...props} 
+						 { ...otherProps }
+						fullWidth={ true }
+						placeholder={ placeholder }						
+    				error={ error ? error : errorTF}
+    				helperText= {error ? helperText : helperTextTF}						
+						variant="standard" />
+					  )} 
 				/>
 			</Grid>
-		</MuiPickersUtilsProvider>
+		</LocalizationProvider>
 	);
 };
 
@@ -65,8 +85,17 @@ DatePickerWrapper.propTypes = {
 	placeholder: PropTypes.string,
 	maxdate: PropTypes.instanceOf(Date),
 	minyear: PropTypes.number,
-	refId: PropTypes.object
-
+	refId: PropTypes.object,
+	helperText: PropTypes.string,
+	error: PropTypes.bool,
+	required: PropTypes.string,
+	onChange: PropTypes.func,
+	views : PropTypes.array,
+	disablePastDate : PropTypes.string,
+	disableDate : PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.func
+  ]),
 };
 
 export default DatePickerWrapper;

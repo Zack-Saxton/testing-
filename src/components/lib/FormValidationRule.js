@@ -2,8 +2,6 @@ import * as yup from "yup";
 import globalMessages from "../../assets/data/globalMessages.json";
 export class FormValidationRules {
 
-    constructor() {
-    }
     email() {
         return yup
             .string(globalMessages.EmailRequired)
@@ -21,9 +19,9 @@ export class FormValidationRules {
                 is: (isRegisterForm) => isRegisterForm === 1,
                 then: yup
                     .string()
-                    .min(8, globalMessages.PasswordMin)
+                    .min(10, globalMessages.PasswordMin)
                     .matches(
-                        /^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,30}$/,
+                        /^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,30}$/,
                         globalMessages.PasswordCriteria
                     )
             })
@@ -35,7 +33,7 @@ export class FormValidationRules {
         return yup
             .string()
             .max(30, globalMessages.PasswordMax)
-            .min(8, globalMessages.PasswordMin)
+            .min(10, globalMessages.PasswordMin)
             .required(globalMessages.PasswordRequired)
             .when("password", {
                 is: (password) => password?.length > 0,

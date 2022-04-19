@@ -24,15 +24,6 @@
   color: #171717 !important;
 }
 
-@media only screen and (max-width: 350px) {
-  .actionButtons{
-    flex-direction: column-reverse;
-    align-items: center;
-  }
-  #cancelButton{
-    margin-top: 15px;
-  }
-}
 @media (max-width: 599px) {
   #paymentBtnWrap {
     flex-direction: column-reverse;
@@ -138,6 +129,12 @@
     top: 0 !important;
     right: 0 !important;
   }
+  .replacePaymentBox{
+    flex-direction: column-reverse;
+  }
+  #replaceCurrentButton{
+    margin: 15px 0px;
+  }
 }
 
 #autopayDialogBox .makeStyles-dialogPaper-40 {
@@ -198,4 +195,17 @@
 
 #select{
   padding-bottom: 15px;
+}
+@media only screen and (max-width: 960px){
+  .actionButtons{
+    flex-direction: column-reverse !important;
+    align-items: center;
+  }
+  #autoPayButton{
+    margin-top: 15px;
+    white-space: normal !important;
+  }
+  #cancelButton{
+    margin-top: 15px !important;
+  }
 }

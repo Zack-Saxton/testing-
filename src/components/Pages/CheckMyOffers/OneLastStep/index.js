@@ -1,8 +1,8 @@
-import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import { makeStyles } from "@mui/styles";
+import Typography from "@mui/material/Typography";
 import React, { useContext, useEffect, useState } from "react";
 import { useQuery } from 'react-query';
 import { Link, useNavigate } from "react-router-dom";
@@ -44,6 +44,17 @@ function SSN() {
 			color: "#0F4EB3 !important",
 			display: "block !important"
 		},
+		paddingOneSide: {
+			padding: "4% 0px"
+		},
+		fullWidth: {
+			width: "100%"
+		},
+		typoAlign: {
+			textAlign: "left",
+			marginLeft: "8%",
+			marginTop: "2%",
+		}
 	}));
 	const classes = useStyles();
 
@@ -140,7 +151,6 @@ function SSN() {
 		if (data.completedPage < data?.page?.livingPlace || data?.completedPage < data?.page?.activeDuty || data?.formStatus?.toLowerCase() === "completed") {
 			navigate("/select-amount");
 		}
-		return null;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -169,7 +179,7 @@ function SSN() {
 						item
 						container
 						justifyContent="center"
-						style={ { width: "100%", padding: "4% 0px" } }
+						className={ `${ classes.fullWidth } ${ classes.paddingOneSide } ` }
 					>
 						<Grid
 							xs={ 11 }
@@ -179,9 +189,8 @@ function SSN() {
 							xl={ 6 }
 							item
 							container
-							className="cardWrapper"
+							className="cardWrapper fullWidth"
 							justifyContent="center"
-							style={ { width: "100%" } }
 						>
 							<Paper
 								id="oneLastStepWrap"
@@ -215,39 +224,35 @@ function SSN() {
 									align="center"
 									justify="center"
 									alignitems="center"
-									className="borrowCSSLP checkMyOfferText "
-									style={ { margin: "0px" } }
+									className="borrowCSSLP checkMyOfferText zeroMargin"
 								>
 									One last step
 								</Typography>
 								<Grid
 									id="signDiv"
 									md={ 12 }
-									className="blockDiv"
+									className="blockDiv fullWidth"
 									container
 									item
 									justifyContent="center"
-									style={ { width: "100%" } }
 								>
 									<Grid
 										justifyContent="center"
-										style={ { width: "100%" } }
 										container
 										item
 										lg={ 8 }
 										md={ 8 }
 										xs={ 12 }
-										className="textBlockWithLessMargin"
+										className="textBlockWithLessMargin fullWidth"
 									></Grid>
 									<Grid
 										container
 										justifyContent="center"
-										style={ { width: "100%" } }
 										item
 										lg={ 8 }
 										md={ 8 }
 										xs={ 12 }
-										className="textBlockWithLessMargin"
+										className="textBlockWithLessMargin fullWidth"
 									></Grid>
 									<Grid
 										justifyContent="flex-start"
@@ -391,12 +396,7 @@ function SSN() {
 											/>
 										</div>
 										<Typography
-											className={ submit ? "showMsg" : "hideMsg" }
-											style={ {
-												textAlign: "left",
-												marginLeft: "8%",
-												marginTop: "2%",
-											} }
+											className={ `typegraphAlignment ${ submit ? "showMsg" : "hideMsg" }`  }
 										>
 											It looks like you have already submitted an application
 											within the last 30 days.
@@ -404,13 +404,12 @@ function SSN() {
 									</Grid>
 									<Grid
 										justifyContent="center"
-										style={ { width: "100%" } }
 										item
 										container
 										lg={ 8 }
 										md={ 8 }
 										xs={ 12 }
-										className="textBlockWithLessMargin alignButtonExtra alignButton"
+										className="textBlockWithLessMargin alignButtonExtra alignButton fullWidth"
 									>
 										<ButtonPrimary
 											disabled={
@@ -443,19 +442,24 @@ function SSN() {
 				</Box>
 			</div>
 
-			<Popup popupFlag={ esignPopup } closePopup={ handleOnClickEsignClose }>
+			<Popup popupFlag={ esignPopup } closePopup={ handleOnClickEsignClose } title="E-Signature Disclosure and Consent">
+				<Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
 				<RenderContent disclosureLink="/eSign" />
 			</Popup>
-			<Popup popupFlag={ creditPopup } closePopup={ handleOnClickCreditClose }>
+			<Popup popupFlag={ creditPopup } closePopup={ handleOnClickCreditClose } title="Credit and Contact Authorization">
+				<Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
 				<RenderContent disclosureLink="/credit" />
 			</Popup>
-			<Popup popupFlag={ webTOUPopup } closePopup={ handleOnClickwebTOUClose }>
+			<Popup popupFlag={ webTOUPopup } closePopup={ handleOnClickwebTOUClose } title="Terms of Use">
+				<Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
 				<RenderContent disclosureLink="/websiteTermsOfUse" />
 			</Popup>
-			<Popup popupFlag={ privacyPopup } closePopup={ handleOnClickPrivacyClose }>
+			<Popup popupFlag={ privacyPopup } closePopup={ handleOnClickPrivacyClose } title="Privacy Statement">
+				<Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
 				<RenderContent disclosureLink="/privacy" />
 			</Popup>
 			<Popup popupFlag={ open } closePopup={ handleClose } title="Delaware Itemized Schedule of Charges" >
+				<Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
 				<RenderContent disclosureLink="/delaware" />
 			</Popup>
 		</div>

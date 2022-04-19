@@ -1,4 +1,4 @@
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import logo from "../../../../assets/images/mariner-finance.jpg";
@@ -28,7 +28,7 @@ export default function CampaignMessage({ amount, offerCode, handleContinue, exp
             </Grid>
             <Grid className="rightcheckMyOffers">
                 <p className="common">You are prequalified up to</p>
-                <p className="common commonBoldText">
+                <p className="common" style={ { color: "#0F4EB3", fontSize: "bold", textAlign: "center" } }>
                     { formattedAmount }
                 </p>
                 <p className="common">Use it to get things done.</p>

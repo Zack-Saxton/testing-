@@ -1,14 +1,14 @@
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Tooltip from "@material-ui/core/Tooltip";
-import FindInPageIcon from "@material-ui/icons/FindInPage";
+import CircularProgress from "@mui/material/CircularProgress";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Tooltip from "@mui/material/Tooltip";
+import FindInPageIcon from "@mui/icons-material/FindInPage";
 import Moment from "moment";
 import React from "react";
 import NumberFormat from 'react-number-format';
@@ -23,16 +23,16 @@ export default function LoanHistoryTable(historyOfLoans) {
 
   //View part
   return (
-    <Grid item xs={ 12 } style={ { paddingBottom: "30%" } }>
+    <Grid item xs={ 12 } className={classes.gridRecordTable}>
       <TableContainer component={ Paper }>
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell style={ { minWidth: "140px" } } className={ classes.tableHead } align="left" >Account Number</TableCell>
-              <TableCell style={ { minWidth: "140px" } } className={ classes.tableHead } align="left" >Date Opened</TableCell>
-              <TableCell style={ { minWidth: "140px" } } className={ classes.tableHead } align="left" >Date Closed</TableCell>
-              <TableCell style={ { minWidth: "140px", padding: "16px 60px 16px 0px" } } className={ classes.tableHead } align="right" >Amount Financed</TableCell>
-              <TableCell style={ { minWidth: "140px", padding: "16px 16px 16px 0px" } } className={ classes.tableHead } align="center" >Documents</TableCell>
+              <TableCell className={ classes.tableHead } align="left" >Account Number</TableCell>
+              <TableCell className={ classes.tableHead } align="left" >Date Opened</TableCell>
+              <TableCell className={ classes.tableHead } align="left" >Date Closed</TableCell>
+              <TableCell className={ classes.tableHeadLast } align="right" >Amount Financed</TableCell>
+              <TableCell className={ classes.tableHeadLast2 } align="center" >Documents</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -46,15 +46,15 @@ export default function LoanHistoryTable(historyOfLoans) {
                   <TableCell component="th" className={ classes.tableHeadRow } scope="row" align="left">{ row.loanData.accountNumber }</TableCell>
                   <TableCell className={ classes.tableHeadRow } align="left" >{ row.loanData?.loanOriginationDate ? Moment(row.loanData.loanOriginationDate).format("MM/DD/YYYY") : '' }</TableCell>
                   <TableCell className={ classes.tableHeadRow } align="left" >{ row.loanData.dueDate ? Moment(row.loanData.dueDate).format("MM/DD/YYYY") : '' }</TableCell>
-                  <TableCell style={ { minWidth: "140px", width: "150px", padding: "16px 60px 16px 0px" } } className={ classes.tableHeadRow } align="right" >
+                  <TableCell className={ classes.tableHeadRowLast } align="right" >
                     {
                       <NumberFormat value={ row.loanPaymentInformation?.accountDetails?.OriginalFinancedAmount ? Math.abs(row.loanPaymentInformation.accountDetails.OriginalFinancedAmount) : '' } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
                     }
                   </TableCell>
-                  <TableCell style={ { padding: "16px 16px 16px 0px" } } align="center">
-                    <NavLink to="/customers/loanDocument" state={ { accNo: row.loanData.accountNumber } } style={ { textDecoration: "none" } }>
+                  <TableCell className={classes.loanDocumentsTableCell} align="center">
+                    <NavLink to="/customers/loanDocument" state={ { accNo: row.loanData.accountNumber } } className={classes.textDecoration}>
                       <Tooltip title="View Loan Documents" placement="top">
-                        <FindInPageIcon style={ { color: "#0F4EB3", cursor: "pointer" } } />
+                        <FindInPageIcon className={classes.findInPageIcon} />
                       </Tooltip>
                     </NavLink>
                   </TableCell>

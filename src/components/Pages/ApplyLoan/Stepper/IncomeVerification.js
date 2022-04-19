@@ -1,13 +1,14 @@
-import Grid from "@material-ui/core/Grid";
-import { makeStyles } from "@material-ui/core/styles";
+import Grid from "@mui/material/Grid";
+import { makeStyles } from "@mui/styles";
 import PropTypes from "prop-types";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ButtonPrimary } from "../../../FormsUI";
-import APICall from "../../../lib/AxiosLib";
+import { useQuery } from "react-query";
 import messages from "../../../lib/Lang/applyForLoan.json";
 import DocumentUpload from "./DocumentUpload";
+import {verificationSteps} from "../../../Controllers/ApplyForLoanController"
 
 //styling part
 const useStyles = makeStyles(() => ({
@@ -21,6 +22,8 @@ const useStyles = makeStyles(() => ({
 export default function IncomeVerification(props) {
 	const navigate = useNavigate();
 	const classes = useStyles();
+	const { data: verificationStepsApplyforLoan, refetch } = useQuery('verification-data',verificationSteps );
+
 	const handleUpload = (res) => {
 		if (res?.data?.income_verification) {
 			toast.success("Document uploaded successfully!");
@@ -28,6 +31,29 @@ export default function IncomeVerification(props) {
 			toast.error("Document submission failed. Please try again");
 		}
 	};
+
+	const handleFinishOnClick = async () => {
+							props.setLoadingFlag(true);
+							await refetch()
+							let verifySteps = await verificationSteps();
+							//To check all the steps are completed or not
+							if (
+								verifySteps?.data?.email &&
+								verifySteps?.data?.financial_information &&
+								verifySteps?.data?.id_document &&
+								verifySteps?.data?.id_questions &&
+								verifySteps?.data?.id_photo &&
+								verifySteps?.data?.bank_account_information &&
+								verifySteps?.data?.bank_account_verification &&
+								verifySteps?.data?.income_verification
+							) { 
+								props.setLoadingFlag(false);
+								navigate("/customers/receiveYourMoney");
+							} else {
+								props.setLoadingFlag(false);
+								toast.error(messages.incomeVerification.finishAllSteps);
+							}
+	}
 	//JSX part
 	return (
 		<div>
@@ -75,30 +101,8 @@ export default function IncomeVerification(props) {
 						color="primary"
 						id="button_stepper_next"
 						stylebutton='{"marginRight": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
-						onClick={ async () => {
-							let data = {};
-							props.setLoadingFlag(true);
-
-							// API call
-							let res = await APICall("verification_steps_cac", '', data, "POST", true);
-
-							//To check all the steps are completed or not
-							if (
-								res?.data?.email &&
-								res?.data?.financial_information &&
-								res?.data?.id_document &&
-								res?.data?.id_questions &&
-								res?.data?.id_photo &&
-								res?.data?.bank_account_information &&
-								res?.data?.bank_account_verification &&
-								res?.data?.income_verification
-							) {
-								props.setLoadingFlag(false);
-								navigate("/customers/receiveYourMoney");
-							} else {
-								props.setLoadingFlag(false);
-								toast.error(messages.incomeVerification.finishAllSteps);
-							}
+						onClick={ () => {
+							handleFinishOnClick();
 						} }
 					>
 						{ props.activeStep === props?.steps.length - 1 ? "Finish" : "Next" }

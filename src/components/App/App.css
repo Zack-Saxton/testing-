@@ -12,6 +12,7 @@
 
 #main {
   transition: 0.5s;
+  margin-left: 240px
 }
 
 @media (max-width:959px) {
@@ -30,4 +31,8 @@
 .toast_message_box {
     font-size: 30px;
     width: auto;
+}
+
+.MuiInputBase-root{
+  color: black !important;
 }

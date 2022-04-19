@@ -1,4 +1,4 @@
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 import React, { useEffect, useState } from "react";
 
 export default function PreScreen(offerData) {
@@ -15,7 +15,6 @@ export default function PreScreen(offerData) {
 
     useEffect(() => {
         determinePreScreen(offerData);
-        return null;
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

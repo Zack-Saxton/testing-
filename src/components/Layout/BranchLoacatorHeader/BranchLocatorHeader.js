@@ -1,17 +1,17 @@
-import Accordion from "@material-ui/core/Accordion";
-import AccordionDetails from "@material-ui/core/AccordionDetails";
-import AccordionSummary from "@material-ui/core/AccordionSummary";
-import AppBar from "@material-ui/core/AppBar";
-import Grid from "@material-ui/core/Grid";
-import Link from "@material-ui/core/Link";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import MenuIcon from "@material-ui/icons/Menu";
-import Cookies from "js-cookie";
-import React, { useState } from "react";
-import { useQueryClient } from "react-query";
+import AppBar from "@mui/material/AppBar";
+import Grid from "@mui/material/Grid";
+import Link from "@mui/material/Link";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import React, { useState } from "react"; 
 import { NavLink, useNavigate } from "react-router-dom";
+import Accordion from "@mui/material/Accordion";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import MenuIcon from "@mui/icons-material/Menu";
+import Cookies from "js-cookie";
+import { useQueryClient } from "react-query";
 import { toast } from "react-toastify";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import Logo from "../../../assets/images/mf-logo.png";
@@ -43,6 +43,11 @@ const BranchLocatorHeader = () => {
       onClose: () => logOut(),
     });
   };
+  const logoutMobileUser = () => {
+    toast.success(globalMessages.LoggedOut, {
+      onClose: () => logOut(),
+    });
+  };
   //View Part
   return (
     <div id="headerWrap" className={ classes.grow }>
@@ -53,12 +58,11 @@ const BranchLocatorHeader = () => {
             className={ classes.title }
           >
             <img
-              style={ { marginTop: "6px" } }
               className={ classes.logoFormat }
               src={ Logo }
               alt="MF logo"
             />
-          </Typography>
+          </Typography> 
           <div id="desktopMenu" className={ classes.sectionDesktop }>
             <Grid className="personalLoanHolder">
               <Typography className="branchHeaderLinks">
@@ -230,7 +234,7 @@ const BranchLocatorHeader = () => {
 
             <NavLink
               to="/select-amount/"
-              className="nav_link branchHeaderLinks"
+              className="nav_link branchHeaderLinks mailOffer"
             >
               <Typography className={ classes.subtitle }>Mail Offer?</Typography>
             </NavLink>
@@ -517,7 +521,13 @@ const BranchLocatorHeader = () => {
             </Accordion>
             <Accordion className="noShadow">
               <AccordionDetails className="menuHead">
-                <Link href="/login">Login</Link>
+                 { !loginToken.isLoggedIn ? (
+              <Link href="/login">Login</Link>
+            ) : (
+                <div onClick={ logoutMobileUser } > 
+                  <span className={classes.signOutSpan}>Sign out</span>
+                </div>
+            ) }
               </AccordionDetails>
             </Accordion>
             <Accordion className="noShadow">

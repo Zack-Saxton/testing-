@@ -1,5 +1,8 @@
 Mariner Finance Website Development
 
+## Running locally on your computer
+  `npm run start:local`
+
 1. Introduction
    This document briefs on the technical aspect of the project. It covers the technical stack used and the best practices being followed by a development team at the time of development.
    Technical implementation will focus on the UI design development and integration with the API.

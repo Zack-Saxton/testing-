@@ -1,0 +1,85 @@
+.acknowledgeText {
+  width: 90%;
+}
+.acknowledgeText p {
+  font-size: 0.875rem;
+  line-height: 25px;
+}
+.acknowledgeText p a {
+  font-size: 0.875rem;
+  line-height: 25px;
+  color: #0f4eb3 !important;
+}
+.acknowledgeText p a span{
+  text-decoration: underline !important;
+}
+.documetVirificationHeading {
+  font-size: 2rem;
+}
+.documetVirificationParagraph {
+  font-size: 0.875rem;
+  color: #595959;
+  margin-bottom: 14px !important;
+}
+.emailVirificationWrap {
+  padding: 2% 4%;
+}
+.stepperWrap {
+  background-color: white;
+  padding: 24px 38px;
+  margin-top: 28px !important;
+  border-radius: 10px !important;
+}
+.stepperHeading {
+  font-size: 1.063rem !important;
+  color: #595959 !important;
+  margin-bottom: 1% !important;
+}
+.stepperParagraph {
+  font-size: 1.063rem !important;
+  color: #595959 !important;
+  text-align: justify !important;
+  margin-bottom: 4% !important;
+}
+.SelfieLicenseImage {
+  margin-top: 10px;
+}
+.SelfieLicenseImage img {
+  width: 200px;
+}
+.SelfieLicenseImage span {
+  display: block;
+}
+#buttonMarginRight {
+  margin-right: 10px;
+}
+#selectDoccument {
+  margin-bottom: 15px !important;
+}
+#dropdownMenu {
+  color: #0f4eb3;
+}
+.MuiStepLabel-labelContainer .MuiStepLabel-label{
+  padding: 12px 0px 12px 10px !important;
+  font-size: 0.938rem !important;
+  color: #595959 !important;
+}
+.MuiStepConnector-lineVertical{
+  min-height: 16px !important;
+}
+#checkBoxGrid .MuiStepper-vertical{
+  padding: 0 !important;
+}
+#checkBoxGrid .MuiStepper-vertical .MuiStep-root .MuiStepContent-root{
+  padding-left: 30px !important;
+}
+#selectInputGrid div label{
+  font-size: 0.938rem;
+  color: #595959;
+}
+#selectInputGrid .MuiFormControl-root .MuiInput-underline .MuiSelect-select{
+  padding-bottom: 15px !important;
+}  
+#selectInputGrid .MuiFormControl-root .MuiInput-underline .MuiSelect-select .subOption{
+  color: #171717 !important;
+}

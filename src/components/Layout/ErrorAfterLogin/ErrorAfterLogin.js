@@ -1,11 +1,11 @@
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 import React from "react";
 import error_alert from "../../../assets/images/error_alert.png";
 
 export default function ErrorAfterLogin() {
   //View part
   return (
-    <Grid container justifyContent="center" style={ { marginTop: "-150px", paddingRight: "30px", paddingLeft: "30px", } }>
+    <Grid container justifyContent="center" >
       <div id="error">
         <img src={ error_alert } alt="error_alert" />
         <h1 className="notFoundTitle">Oops! The page can’t be found.</h1>

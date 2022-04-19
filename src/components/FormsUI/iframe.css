@@ -1,3 +1,7 @@
 #insideIframe iframe{
     position: relative !important;
 }
+
+.iframeStyle {
+    height: 500px
+}
