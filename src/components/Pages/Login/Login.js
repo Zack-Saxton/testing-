@@ -375,13 +375,11 @@ export default function Login(props) {
             <CloseIcon />
           </IconButton>
         </div>
-        <DialogTitle>
-           <h2
-          id="loginHelpDialogHeading"
-          className={ classes.loginHelpDialogHeading }
-        >
-          Having Trouble Logging In?{ " " }
-        </h2>
+        <DialogTitle id="alert-dialog-title">        
+          <Typography id="loginHelpDialogHeading"
+            className={ classes.loginHelpDialogHeading }>
+            Having Trouble Logging In?{ " " }
+          </Typography>
         </DialogTitle>
         <ul>
           <li>
