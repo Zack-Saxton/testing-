@@ -146,7 +146,7 @@ const ShowFirstandLastBranch = (val) => {
     <NavLink
       to={`/branch-locator/${stateLongName.replace(/\s+/, '-').toLocaleLowerCase()}/personal-loans-in-${val.BranchInformation.BranchName.replace(/[.]/g, "").replace(/\s+/g, '-').toLocaleLowerCase()}-${stateShortName.toLocaleLowerCase()}`}
       state={{ branch_Details: val.BranchInformation, stateLongNm: stateLongName, stateShortNm: stateShortName }}
-      className="nav_link"
+          className="blueColorLink"
     >
     <b>{val.BranchInformation.BranchName}</b>
     </NavLink>}

@@ -98,7 +98,9 @@ export default function StatePage(props) {
   const apiGetBranchList = async (value) => {
     try {
       let result = await getBranchLists(value);
-      if (result?.length > 2) result = result.slice(0, 3);
+      console.log(' BEFORE ::', result)
+      if (result?.length > 2) result = result.slice(0, 4);
+      console.log(' AFTER ::', result)
       for (let ele in result) {
         let BranchTime = await findBranchTimings(result[ele]);
         result[ele] = Object.assign(result[ele], { BranchTime: BranchTime });
@@ -291,7 +293,7 @@ export default function StatePage(props) {
     >
       <Grid container className="branchListWrap">
         { branchList ? (
-          branchList.map((item, index) => {
+          branchList.slice(1).map((item, index) => {
             return (
               <Grid key={ index } className="locationInfo">
                 <NavLink
@@ -436,7 +438,7 @@ export default function StatePage(props) {
         <link rel="icon" type="image/png" href={ TitleImage } sizes="16x16" />
         <meta
           name="description"
-          content={ `Looking for a personal loans in ${ branch_Details?.current?.BranchName },${ stateShortName ?? stateShortNm?.current } ?  Our ${ branch_Details?.current?.BranchName },${ stateShortNm?.current } branch welcomes you for personal loans that fit your needs.` }
+          content={`Looking for a personal loans in ${branch_Details?.current?.BranchName},${stateShortName ?? stateShortNm?.current} ?  Our ${branch_Details?.current?.BranchName}, ${stateLongNm?.current } branch welcomes you for personal loans that fit your needs.` }
         />
       </Helmet>
       <Grid className="greyBackground" container justifyContent={ "center" }>
