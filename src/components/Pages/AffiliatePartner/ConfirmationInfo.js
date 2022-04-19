@@ -1172,6 +1172,6 @@ export default function ConfirmationInfo() {
   );
 }
 
-CreditKarma.propTypes = {
+ConfirmationInfo.propTypes = {
   location: PropTypes.object,
 };
