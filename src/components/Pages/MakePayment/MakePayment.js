@@ -324,7 +324,11 @@ if  (latestLoanData?.[0]?.loanData?.dueDate) {
   //Select account
   const handleChangeSelect = (event) => {
     setCard(event.target.value); // this value is a number sand trim() only works on string. If converted to string this will not work
-    if (event.nativeEvent.target.innerText.includes("Checking") || event.nativeEvent.target.innerText.includes("Savings")) {
+    let selectedPaymentMethod =  JSON.parse(paymentOptions).filter(paymentMethod => {
+      return paymentMethod.value === event.target.value;
+    }); 
+    let selectedPaymentType = selectedPaymentMethod.length ? selectedPaymentMethod[0].label : "";
+    if (selectedPaymentType.includes("Checking") || selectedPaymentType.includes("Savings")) {
       setIsDebit(false);
       setCheckCard(false);
       setPaymentDatepicker(scheduleDate);
