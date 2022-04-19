@@ -2,17 +2,17 @@ import React, { useState, useRef, useEffect } from "react";
 import Webcam from "react-webcam";
 import PropTypes from "prop-types";
 import { toast } from "react-toastify";
-import { Grid } from "@material-ui/core";
+import { Grid } from "@mui/material";
 import {
   ButtonPrimary,
   Select,
 } from "../../../components/FormsUI";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import Typography from "@material-ui/core/Typography";
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Chip from "@material-ui/core/Chip";
-import CloseIcon from '@material-ui/icons/Close';
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Typography from "@mui/material/Typography";
+import CircularProgress from '@mui/material/CircularProgress';
+import Chip from "@mui/material/Chip";
+import CloseIcon from '@mui/icons-material/Close';
 import Selfielicense from "../../../assets/gallery/selfielicense.png";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import { useStylesEmailVerification } from "./Style";
@@ -277,9 +277,6 @@ function DocumentIdAndPhotoId(props) {
     }  
   }
 
-  const testUpload = () => {
-    props.next();
-  }
   const uploadSelfieDocument  = () => {
     if(selfieImageSrc){
       uploadCameraPhoto(selfieImageSrc, "selfie_photo", false);
@@ -346,19 +343,20 @@ function DocumentIdAndPhotoId(props) {
                 ref={ refWebCam}
                 screenshotFormat="image/jpeg"
                 height={360}
-                width={640}
+                width={500}
                 videoConstraints={{
                   ...videoConstraints,
                   facingMode
                 }}
-              />       
-              <ButtonPrimary
-                onClick={ capture }
-                stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "margin":"10px 0px"}'
-              >
-                Capture Photo
-              </ButtonPrimary>      
-              
+              />      
+              <Grid container>
+                <ButtonPrimary
+                  onClick={ capture }
+                  stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "margin":"10px 0px"}'
+                >
+                  Capture Photo
+                </ButtonPrimary>  
+              </Grid> 
             </Grid> : 
             <Grid style={ { margin: "10px 0px"} } item sm={12} md={6} >
               <Grid style={{ margin: "0px 10px"}}>
@@ -366,7 +364,7 @@ function DocumentIdAndPhotoId(props) {
                   <img
                     src={ imgSrc }
                     height={360}
-                    width={640}
+                    width={480}
                   />
                 )}
               </Grid> 
@@ -374,7 +372,7 @@ function DocumentIdAndPhotoId(props) {
                 <Grid container>
                   <ButtonPrimary
                     onClick={ ()=> enableCameraOption() }
-                    stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "margin":"0px 0px 10px 0px"}'
+                    stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "margin":"10px 0px"}'
                   >
                     Take another picture
                   </ButtonPrimary>
@@ -447,19 +445,20 @@ function DocumentIdAndPhotoId(props) {
                 ref={ refWebCamPhoto }
                 screenshotFormat="image/jpeg"
                 height={360}
-                width={640}
+                width={500}
                 videoConstraints={{
                   ...videoConstraints,
                   facingMode
                 }}
-              />       
-              <ButtonPrimary
-                onClick={ captureSelfie }
-                stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "margin":"10px 0px"}'
-              >
-                Capture Photo
-              </ButtonPrimary>      
-              
+              />     
+              <Grid container>
+                <ButtonPrimary
+                  onClick={ captureSelfie }
+                  stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "margin":"10px 0px"}'
+                >
+                  Capture Photo
+                </ButtonPrimary>
+              </Grid> 
             </Grid> : 
             <Grid style={ { margin: "10px 0px"} } item sm={12} md={6} >
               <Grid style={{ margin: "0px 10px"}}>
@@ -467,14 +466,14 @@ function DocumentIdAndPhotoId(props) {
                   <img
                     src={ selfieImageSrc }
                     height={360}
-                    width={640}
+                    width={480}
                   />
                 )}
               </Grid>                 
                 <Grid container>
                   <ButtonPrimary
                     onClick={ ()=> enableSelfieCameraOption() }
-                    stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "margin":"0px 0px 10px 0px"}'
+                    stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "margin":"10px 0px"}'
                   >
                     Take another picture
                   </ButtonPrimary>

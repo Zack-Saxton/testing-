@@ -274,7 +274,6 @@ export default function EmailVerification() {
                     <StepContent>
                       <span>{getStepContent(index)}</span>                    
                     </StepContent>
-                    ``
                   </Step>
                 ))}
               </Stepper>

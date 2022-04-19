@@ -9,11 +9,11 @@ import {
   ButtonSecondary
 } from "../../../components/FormsUI";
 import { useStylesEmailVerification } from "./Style";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import Typography from "@material-ui/core/Typography";
-import Chip from "@material-ui/core/Chip";
-import CloseIcon from '@material-ui/icons/Close';
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Typography from "@mui/material/Typography";
+import Chip from "@mui/material/Chip";
+import CloseIcon from '@mui/icons-material/Close';
 import { uploadEmailVerificationDocument } from "../../Controllers/EmailVerificationController";
 const FACING_MODE_USER = "user";
 const FACING_MODE_ENVIRONMENT = "environment";
@@ -26,7 +26,7 @@ function UploadDocument(props) {
   const classes = useStylesEmailVerification();
   const [ showCamera, setShowCamera ] = useState(false);
   const [ disableNext, setDisableNext ] = useState(true);
-  const [ label, setLabel ] = useState();
+  const [ label, setLabel ] = useState("");
   const [ loading, setLoading ] = useState(false); 
   const [ imgSrc, setImgSrc ] = useState(null);
   const [ selectDocument, setSelectDocument ] = useState(false);
@@ -108,7 +108,7 @@ function UploadDocument(props) {
     setImgSrc(null);
     setDisableNext(true);
     handleMenuClose();
-    setLabel([]);
+    setLabel("");
   }
   //Selecting file for upload
   const handleInputChange = () => {
@@ -238,33 +238,36 @@ function UploadDocument(props) {
               ref={ refWebCam}
               screenshotFormat="image/jpeg"
               height={360}
-              width={640}
+              width={500}
               videoConstraints={{
                 ...videoConstraints,
                 facingMode
               }}
-            />       
-            <ButtonPrimary
-              onClick={capture}
-              stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "margin":"10px 0px"}'
-            >
-              Capture Photo
-            </ButtonPrimary>      
-            
+            />  
+            <Grid container>
+              <ButtonPrimary
+                onClick={capture}
+                stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "margin":"10px 0px"}'
+              >
+                Capture Photo
+              </ButtonPrimary> 
+            </Grid> 
           </Grid> : 
           <Grid container style={ { margin: "10px 0px"} }>
             <Grid style={{ margin: "0px 10px"}}>
               {imgSrc && (
                 <img
                   src={imgSrc}
+                  height={360}
+                  width={480}
                 />
               )}
             </Grid> 
               
-              <Grid>
+              <Grid container>
                 <ButtonPrimary
                   onClick={ enableCameraOption }
-                  stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "margin":"0px 0px 10px 0px"}'
+                  stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "margin":"10px 0px"}'
                 >
                   Take another picture
                 </ButtonPrimary>
