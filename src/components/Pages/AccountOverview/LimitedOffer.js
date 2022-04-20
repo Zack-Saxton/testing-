@@ -19,6 +19,7 @@ import MarketingOffer from "./Marketing_offer/MarketingOffer";
 import OptOutNotice from "./Marketing_offer/OptOutNotice";
 import PreScreen from "./Marketing_offer/PreScreen";
 import "./Style.css";
+import usrAccountDetails from "../../Controllers/AccountOverviewController";
 
 export default function LimitedOffer(userOfferData) {
 
@@ -30,12 +31,14 @@ export default function LimitedOffer(userOfferData) {
   const [ amount, setAmount ] = useState("");
   const [ expiryDate, setExpiryDate ] = useState(" ");
   const [ firstName, setFirstName ] = useState("");
+  const [ currentLoan, setCurrentLoan ] = useState(true);
   // Get Branch API data
   const { data: branchApiStatus } = useQuery('my-branch', MyBranchAPI);
   let myBranchData = branchApiStatus?.data;
   const branchCno = myBranchData?.PhoneNumber ?? "";
   const branchName = myBranchData?.branchName ? (`${ myBranchData?.branchName } Branch`) : "";
   const branchManager = myBranchData?.branchmanager ?? "";
+  const { data: dataAccountOverview } = useQuery('loan-data', usrAccountDetails);
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -48,6 +51,15 @@ export default function LimitedOffer(userOfferData) {
       setUserOfferAmount(userOfferData?.userOffers?.offerAmount);
     }
   }, [ userOfferData ]);
+
+
+  useEffect(()=>{
+    const userAccountStatus = dataAccountOverview?.data?.customer?.user_account?.status;
+    let activeLoan = dataAccountOverview?.data?.applicants;
+    const presenceOfLoan = activeLoan?.some((applicant) => applicant.isActive && applicant?.status !== "referred" && applicant?.status !== "contact_branch");
+    setCurrentLoan(presenceOfLoan || userAccountStatus === "closed" ? true : false);
+    },[dataAccountOverview,currentLoan])
+
 
   const showModal = () => setInitModal(true);
   const closeModal = () => setInitModal(false);
@@ -94,10 +106,14 @@ export default function LimitedOffer(userOfferData) {
                   <NavLink
                     to="/customers/applyForLoan"
                     state={ { from: "user" } }
+                    onClick={(event) => {
+                      currentLoan ? event.preventDefault() : "";
+                    }}
                   >
                     <ButtonPrimary
                       id="claimButton"
                       stylebutton='{"color":"", "textTransform": "none"}'
+                      disabled={currentLoan}
                     >
                       Apply for a Loan
                     </ButtonPrimary>
