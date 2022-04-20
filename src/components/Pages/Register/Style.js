@@ -55,6 +55,23 @@ const useStylesRegister = makeStyles((theme) => ({
   gridInsideBox: {
     paddingTop: "30px",
     paddingBottom: "40px"
+  },
+  paddingRight: {
+    paddingRight: "32px",
+    paddingBottom: "32px",
+    "@media (max-width: 599px)": {
+      paddingRight: "0px",
+    },
+  },
+  paddingBottom: {
+    paddingBottom: "32px"
+  },
+  paddingLeft: {
+    paddingLeft: "32px",
+    paddingBottom: "32px",
+    "@media (max-width: 599px)": {
+      paddingLeft: "0px",
+    },
   }
 }));
 
