@@ -65,7 +65,7 @@ const PasswordWithIconWrapper = ({
 
         { iconPosition === "right" ? (
           <Grid className={ classes.passwordGrid }>
-            <Icon data-test-id="icon">{ icon }</Icon>
+            <Icon data-testid="icon">{ icon }</Icon>
           </Grid>
         ) : (
           ""

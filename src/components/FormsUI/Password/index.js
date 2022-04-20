@@ -33,7 +33,7 @@ const PasswordWrapper = ({ name, label, materialProps, id, ...otherProps }) => {
       onPaste={ handleEdit }
       inputProps={ materialProps }
       InputProps={ {
-        "data-test-id": "passProps",
+        "data-testid": "passProps",
         endAdornment: (
           <InputAdornment position="end">
             <IconButton
