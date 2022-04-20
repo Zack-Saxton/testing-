@@ -36,7 +36,7 @@ const PhoneNumberWrapper = ({ name, onChange, value, label, error, disabled, hel
           onChange={ handleChange }
           placeholder="Enter Phone Number"
           helperText={ helperText }
-          inputProps={ { "data-test-id": "phone", "unmaskedval": unmaskedval, disabled: disabled } } />
+          inputProps={ { "data-testid": "phone", "unmaskedval": unmaskedval, disabled: disabled } } />
     </FormControl>
   );
 };
