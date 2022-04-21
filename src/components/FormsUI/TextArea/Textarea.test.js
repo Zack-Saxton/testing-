@@ -4,7 +4,7 @@ import TextArea from './index.js';
 
 afterEach(cleanup);
 
-test('TextField availability', () => {
+test('TextArea availability', () => {
   const container = render(
     <TextArea
       placeholder="Enter here..."

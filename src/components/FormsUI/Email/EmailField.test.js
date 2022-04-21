@@ -23,7 +23,7 @@ test('Render DEmail field', () => {
   expect(input.hasAttribute('name')).toBe(true);
 });
 
-test('Render DEmail field', () => {
+test('Check email input field', () => {
   const container = render(
     <EmailWrapper
       name="firstName"
