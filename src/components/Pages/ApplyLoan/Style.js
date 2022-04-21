@@ -181,8 +181,12 @@ const useStylesApplyForLoan = makeStyles((theme) => ({
     textDecoration: "none"
   },
   tabPanelStyle: { 
+    padding:"24px",
     paddingBottom: "30px", 
-    marginTop: "10px" 
+    marginTop: "10px",
+    boxShadow: "rgb(61 61 61 / 10%) 0px 8px 44px 0px",
+    backgroundColor:"#fff",
+    borderRadius:"10px" 
   },
   paraTagStyle: {
     textAlign: "justify",
