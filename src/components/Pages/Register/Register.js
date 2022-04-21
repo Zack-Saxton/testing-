@@ -311,7 +311,6 @@ export default function Register() {
                     container
                     justifyContent="center"
                     alignItems="center"
-                    spacing={ 4 }
                   >
                     <Grid
                       className="fullWidth"
@@ -322,6 +321,7 @@ export default function Register() {
                       direction="row"
                     >
                       <TextField
+                        className={classes.paddingRight}
                         name="firstName"
                         id="firstName"
                         label="First Name *"
@@ -350,6 +350,7 @@ export default function Register() {
                       direction="row"
                     >
                       <TextField
+                        className={classes.paddingBottom}
                         name="lastName"
                         id="lastName"
                         label="Last Name *"
@@ -379,6 +380,7 @@ export default function Register() {
                       direction="row"
                     >
                       <EmailTextField
+                        className={classes.paddingBottom}
                         id="email"
                         name="email"
                         label="Email *"
@@ -394,6 +396,7 @@ export default function Register() {
                     </Grid>
 
                     <Grid
+                      className={ classes.paddingBottom }
                       id="socialNum"
                       item
                       xs={ 12 }
@@ -402,7 +405,6 @@ export default function Register() {
                       direction="row"
                     >
                       <SocialSecurityNumber
-                        className={ classes.socialNum }
                         name="ssn"
                         label="Social Security Number *"
                         placeholder={ globalMessages.SSNEnter }
@@ -416,6 +418,7 @@ export default function Register() {
                       />
                     </Grid>
                     <Grid
+                      className={ classes.paddingLeft }
                       id="ZipcodeWrap"
                       item
                       xs={ 12 }
@@ -438,6 +441,7 @@ export default function Register() {
                     </Grid>
 
                     <Grid
+                      className={ classes.paddingLeft }
                       id="dateWrap"
                       item
                       xs={ 12 }
