@@ -71,11 +71,16 @@ label + .MuiInput-formControl{
     display: none;
 
 }
-
-label.MuiFormLabel-root.MuiInputLabel-root.MuiInputLabel-formControl.MuiInputLabel-animated{
-    font-size: 0.8rem;
+#activeDutyRankGrid .MuiFormControl-fullWidth label{
+    margin-left: -14px;
 }
 
+label.MuiFormLabel-root.MuiInputLabel-root.MuiInputLabel-formControl.MuiInputLabel-animated{
+    font-size: 0.862rem;
+}
+#activeDutyGrid .MuiFormControl-fullWidth label{
+margin-left: -14px;
+}
 p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error{
     margin-bottom: -38px;
 }
@@ -125,6 +130,7 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error{
 
 #employementStatusWrap div label{
     font-size: 0.968rem !important;
+    margin-left: -14px;
 }
 
 #employementStatusWrap div div div:nth-child(1) {
@@ -137,12 +143,16 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error{
 
 #citizenshipWrap div label{
     font-size: 0.968rem !important;
+    margin-left: -14px;
 }
 .creditkarmaLogoImage{
     height: 13px;
 }
 #marriedStatusWrap div label{
     font-size: 0.968rem !important;
+}
+#marriedStatusWrap .MuiFormControl-fullWidth label{
+    margin-left: -14px;
 }
 
 #marriedStatusWrap div div div:nth-child(1) {

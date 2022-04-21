@@ -163,10 +163,12 @@
 }
 #employementWrap{
 	margin-bottom: 15px !important;
+	margin-top: 15px !important;
 }
 
 #employementWrap div label {
 	font-size: 0.968rem !important;
+	margin-left: -14px;
 }
 
 #employementWrap div div div {
@@ -197,4 +199,7 @@
 
 #yearsAtEmployersSelect .subOption{
 	color: #171717 !important;
+	display: block;
+	padding: 0 !important;
+	text-align: left;
 }

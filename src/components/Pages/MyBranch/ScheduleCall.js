@@ -229,7 +229,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
 
             { stateName === "CA" ? (
               selectedAppointmentDay === "Tuesday" ? (
-                <Grid>
+                <Grid className="timeSlotWrap">
                   { isTodayAppointment
                     ? upt_ca_Tue.length !== 0 && isNotHolidayAppointment
                       ? getTimeSlotOption(upt_ca_Tue)
@@ -237,7 +237,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
                     : getTimeSlotOption(ca_Tue) }
                 </Grid>
               ) : !appointmentDay.includes(selectedAppointmentDay) ? (
-                <Grid>
+                <Grid className="timeSlotWrap">
                   { isTodayAppointment
                     ? upt_ca_M_W_TH_F.length !== 0 && isNotHolidayAppointment
                       ? getTimeSlotOption(upt_ca_M_W_TH_F)
@@ -248,7 +248,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
                 showBranchClosedMessage()
               )
             ) : selectedAppointmentDay === "Tuesday" ? (
-              <Grid>
+              <Grid className="timeSlotWrap">
                 { isTodayAppointment
                   ? updated_other_Tue.length !== 0 && isNotHolidayAppointment
                     ? getTimeSlotOption(updated_other_Tue)
@@ -256,7 +256,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
                   : getTimeSlotOption(other_Tue) }
               </Grid>
             ) : selectedAppointmentDay === "Friday" ? (
-              <Grid>
+              <Grid className="timeSlotWrap">
                 { isTodayAppointment
                   ? upt_other_Fri.length !== 0 && isNotHolidayAppointment
                     ? getTimeSlotOption(upt_other_Fri)
@@ -264,7 +264,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
                   : getTimeSlotOption(Other_Fri) }
               </Grid>
             ) : !appointmentDay.includes(selectedAppointmentDay) ? (
-              <Grid>
+              <Grid className="timeSlotWrap">
                 { isTodayAppointment
                   ? upt_other_M_W_Thu.length !== 0 && isNotHolidayAppointment
                     ? getTimeSlotOption(upt_other_M_W_Thu)

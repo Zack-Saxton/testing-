@@ -142,6 +142,19 @@ span{
     font-weight: 700 !important;
     color: #214476 !important;
 }
+.timeSlotWrap{
+  margin-top: 0px;
+}
+#timeSlotSelect, #appointmentDate, #ScheduleAppointmentSelect{
+  padding-bottom: 14px;
+}
+.timeSlotWrap div label{
+  font-size: 0.862rem !important;
+  margin-left: -14px;
+}
+.timeSlotWrap div .MuiInput-underline{
+  margin-top: 10px !important;
+}
 #timeSlotSelect .subOption {
   color: #171717 !important;
 }
