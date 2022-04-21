@@ -1,11 +1,10 @@
-import { cleanup, render } from '@testing-library/react';
+import { cleanup, render, fireEvent } from '@testing-library/react';
 import React from 'react';
 import TextArea from './index.js';
 
 afterEach(cleanup);
-
-test('TextArea availability', () => {
-  const container = render(
+const component = () => {
+  return(
     <TextArea
       placeholder="Enter here..."
       row="4"
@@ -15,42 +14,28 @@ test('TextArea availability', () => {
       character_limit="20"
       name="TextArea"
       value="TextArea"
-    />);
-
+    />
+  );
+}
+test('Check the textArea availability', () => {
+  const container = render(component());
   const input = container.getByTestId('textarea');
   expect(input).toBeTruthy();
-  expect(input.value).toBe('');
-  expect(input.hasAttribute('name')).toBe(true);
 });
 
-test('Initially empty', () => {
-  const container = render(
-    <TextArea
-      placeholder="Enter here..."
-      row="4"
-      label="TextArea"
-      variant="outlined"
-      required={ true }
-      character_limit="20"
-      name="TextArea"
-      value="TextArea"
-    />);
-
+test('Initially the value should be empty', () => {
+  const container = render(component());
   const input = container.getByTestId('textarea');
   expect(input.value).toBe('');
+});
+test("Check can able to enter value", () => {
+  const container = render(component());
+  const input = container.getByTestId('textarea');
+  fireEvent.change(input, { target: { value: "Mariner" } });
+  expect(input.value).toBe('Mariner');
 });
 
 test('should match the snapshot', () => {
-  const { asFragment } = render(<TextArea
-    placeholder="Enter here..."
-    row="4"
-    label="TextArea"
-    variant="outlined"
-    required={ true }
-    character_limit="20"
-    name="TextArea"
-    value="TextArea"
-  />);
-
+  const { asFragment } = render(component());
   expect(asFragment).toMatchSnapshot();
 });
