@@ -26,6 +26,11 @@ const useStyles = makeStyles((theme) => ({
 	content_grid: {
 		marginTop: "15px",
 	},
+	InfoOutlinedIcon:{
+		fontSize: "small", 
+		color: "#004e9c",
+		cursor:"pointer"
+	},
 	open: {},
 }));
 
@@ -230,6 +235,7 @@ export default function BankAccountVerification(props) {
 					<Grid item xs={ 12 } sm={ 6 } style={ { width: "100%" } }>
 						<TextFieldWithToolTip
 							id="bankRoutingNumberInput"
+							variant="standard"
 							name="bankRoutingNumber"
 							style={ { width: "100%" } }
 							value={ formik.values.bankRoutingNumber }
@@ -279,7 +285,7 @@ export default function BankAccountVerification(props) {
 									Bank Routing number *
 									<Tooltip title="Bank Routing Number" placement="top-start">
 										<InfoOutlinedIcon
-											style={ { fontSize: "small", color: "blue" } }
+											className={classes.InfoOutlinedIcon}
 										/>
 									</Tooltip>
 								</div>
@@ -290,6 +296,7 @@ export default function BankAccountVerification(props) {
 					<Grid item xs={ 12 } sm={ 6 } style={ { width: "100%" } }>
 						<TextFieldWithToolTip
 							id="bankInformationInput"
+							variant="standard"
 							name="bankInformation"
 							style={ { width: "100%" } }
 							value={ formik.values.bankInformation }
@@ -314,7 +321,7 @@ export default function BankAccountVerification(props) {
 									Bank Information *
 									<Tooltip title="Bank Information" placement="top-start">
 										<InfoOutlinedIcon
-											style={ { fontSize: "small", color: "blue" } }
+											className={classes.InfoOutlinedIcon}
 										/>
 									</Tooltip>
 								</div>
