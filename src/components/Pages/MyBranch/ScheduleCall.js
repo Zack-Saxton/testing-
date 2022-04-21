@@ -212,6 +212,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
                 minyear={ 4 }
                 value={ formik.values.appointmentDate }
                 onChange={ (values) => {
+                  formik.values.appointmentDate= values;
                   formik.setFieldValue("appointmentDate", values);
                   formik.setFieldValue("callTime", "");
                 } }

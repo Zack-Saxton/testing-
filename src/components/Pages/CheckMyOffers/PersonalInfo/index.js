@@ -460,6 +460,7 @@ function PersonalInfo() {
 												minyear={ 102 }
 												value={ formik.values.dob }
 												onChange={ (values) => {
+													formik.values.dob = values;
 													formik.setFieldValue("dob", values);
 												} }
 												onBlur={ formik.handleBlur }
