@@ -731,7 +731,7 @@ export default function ConfirmationInfo() {
                           active duty date?
                         </b>
                       </p>
-                      <Grid>
+                      <Grid id="activeDutyGrid">
                         <Select
                           name="activeDuty"
                           labelform="Active Duty *"
@@ -746,6 +746,7 @@ export default function ConfirmationInfo() {
                         />
                       </Grid>
                       <Grid
+                        id="activeDutyRankGrid"
                         item
                         xs={ 12 }
                         className={

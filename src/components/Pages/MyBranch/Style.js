@@ -91,7 +91,7 @@ const useStylesMyBranch = makeStyles((theme) => ({
     width: "100%"
   },
   gridDatepicker:{
-    paddingBottom: "10px"
+    paddingBottom: "15px"
   },
   scheduleDialog: {
     padding: "unset"

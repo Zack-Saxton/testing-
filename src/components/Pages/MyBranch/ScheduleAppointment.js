@@ -204,7 +204,7 @@ export default function ScheduleAppointment({
         </DialogTitle>
         <form id="formAppointment" ref={ refFormCall } onSubmit={ formik.handleSubmit }>
           <DialogContent>
-            <Grid className={classes.gridDatepicker} >
+            <Grid className={classes.gridDatepicker}>
               <DatePicker
                 name="appointmentDate"
                 label="Date"
@@ -228,7 +228,7 @@ export default function ScheduleAppointment({
             </Grid>
             { stateName === "CA" ? (
               selectedAppointmentDay === "Tuesday" ? (
-                <Grid>
+                <Grid className="timeSlotWrap">
                   { isTodayAppointment
                     ? upt_ca_Tue.length !== 0 && isNotHolidayAppointment
                       ? getTimeSlotOption(upt_ca_Tue)
@@ -236,7 +236,7 @@ export default function ScheduleAppointment({
                     : getTimeSlotOption(ca_Tue) }
                 </Grid>
               ) : !appointmentDay.includes(selectedAppointmentDay) ? (
-                <Grid>
+                <Grid className="timeSlotWrap">
                   { isTodayAppointment
                     ? upt_ca_M_W_TH_F.length !== 0 && isNotHolidayAppointment
                       ? getTimeSlotOption(upt_ca_M_W_TH_F)
@@ -247,7 +247,7 @@ export default function ScheduleAppointment({
                 showBranchClosedMessage()
               )
             ) : selectedAppointmentDay === "Tuesday" ? (
-              <Grid>
+              <Grid className="timeSlotWrap">
                 { isTodayAppointment
                   ? updated_other_Tue.length !== 0 && isNotHolidayAppointment
                     ? getTimeSlotOption(updated_other_Tue)
@@ -255,7 +255,7 @@ export default function ScheduleAppointment({
                   : getTimeSlotOption(other_Tue) }
               </Grid>
             ) : selectedAppointmentDay === "Friday" ? (
-              <Grid>
+              <Grid className="timeSlotWrap">
                 { isTodayAppointment
                   ? upt_other_Fri.length !== 0 && isNotHolidayAppointment
                     ? getTimeSlotOption(upt_other_Fri)
@@ -263,7 +263,7 @@ export default function ScheduleAppointment({
                   : getTimeSlotOption(Other_Fri) }
               </Grid>
             ) : !appointmentDay.includes(selectedAppointmentDay) ? (
-              <Grid>
+              <Grid className="timeSlotWrap">
                 { isTodayAppointment
                   ? upt_other_M_W_Thu.length !== 0 && isNotHolidayAppointment
                     ? getTimeSlotOption(upt_other_M_W_Thu)
