@@ -1,17 +1,18 @@
 import { cleanup, render } from '@testing-library/react';
 import React from 'react';
-import PasswordWithIcon from './index.js';
+import EmailWithIconWrapper from './index.js';
 
  afterEach(cleanup);
 
 const component = () => {
   return(
-    <PasswordWithIcon
+    <EmailWithIconWrapper
     name="userName"
     label="Enter Username"
     icon="lock"
     iconColor="#595E6E"
     iconPosition="left"
+    materialProps={ { "data-testid": "test" } }
   />
   )
 }
@@ -24,6 +25,6 @@ test("renders icon", ()=>{
 
 test("renders icon", ()=>{
   const container = render(component());
-  const input = container.getByTestId('passProps');
+  const input = container.getByTestId('test');
   expect(input).toBeTruthy();
 })

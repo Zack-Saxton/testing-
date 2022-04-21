@@ -220,7 +220,7 @@ export default function EmailVerification() {
             </Typography>
             <Typography className="stepperParagraph">
               As discussed with your Mariner Finance team member, your application
-              requires that your verify identity as well as your income. Please
+              requires that you verify your identity as well as your income. Please
               acknowledge and sign our disclosures to proceed.
             </Typography>
             <Grid container>            

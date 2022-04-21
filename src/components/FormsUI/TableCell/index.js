@@ -43,7 +43,9 @@ const TableCellWrapper = ({ parseData, className, align, ...otherProps }) => {
 		return dom_content;
 	};
 	return (
-		<TableBody>
+		<TableBody 
+			data-testid="test-table-body"
+			>
 			<BuildTable data={ parseData } />
 		</TableBody>
 	);
