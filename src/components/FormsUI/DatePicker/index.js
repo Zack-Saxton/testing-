@@ -14,17 +14,20 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import globalMessages from '../../../assets/data/globalMessages.json';
 import "date-fns";
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./DatePicker.css";
 
 const DatePickerWrapper = ({ format, label, views,
 	placeholder,required,  onChange, disableDate, disablePastDate,
 	maxdate, minyear,error, helperText, value, ...otherProps }) => {
-
+	
 	const [ selectedDate, setSelectedDate ] = useState(value ?? null);	
   const [ errorTF, setErrorTF ] = useState(false);
   const [ helperTextTF, setHelperTextTF ] = useState("");
-	
+	useEffect(() => {
+    setSelectedDate(value);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ value ]);
 	const handleDateChange = (event) => {
 		setSelectedDate(event);
 		setErrorTF((required && !event.target.value));
