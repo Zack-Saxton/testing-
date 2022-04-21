@@ -12,7 +12,7 @@ test('Render DatePicker', () => {
       label="Enter your first name"
       required={ true }
       type="email"
-      materialProps={ { "data-test-id": "test" } }
+      materialProps={ { "data-testid": "test" } }
     />);
 
   const input = container.getByTestId('test');
@@ -29,7 +29,7 @@ test('Initially empty', () => {
       label="Enter your first name"
       required={ true }
       type="email"
-      materialProps={ { "data-test-id": "test" } }
+      materialProps={ { "data-testid": "test" } }
     />);
 
   const input = container.getByTestId('test');
@@ -44,7 +44,7 @@ test('Changing value', () => {
       label="Enter your first name"
       required={ true }
       type="email"
-      materialProps={ { "data-test-id": "test" } }
+      materialProps={ { "data-testid": "test" } }
     />);
 
   const input = container.getByTestId('test');
@@ -61,7 +61,7 @@ it('should match  snapshot', () => {
     label="Enter your first name"
     required={ true }
     type="email"
-    materialProps={ { "data-test-id": "test" } }
+    materialProps={ { "data-testid": "test" } }
   />);
 
   expect(asFragment(<TextField
@@ -70,6 +70,6 @@ it('should match  snapshot', () => {
     label="Enter your first name"
     required={ true }
     type="email"
-    materialProps={ { "data-test-id": "test" } }
+    materialProps={ { "data-testid": "test" } }
   />)).toMatchSnapshot();
 });

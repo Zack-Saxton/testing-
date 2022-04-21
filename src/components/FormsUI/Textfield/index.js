@@ -48,14 +48,6 @@ const TextFieldWrapper = ({
       padding: padding,
       webkitTextSecurity: "square",
     },
-    cssOutlinedInput: {
-      "&$cssFocused $notchedOutline": {
-        borderColor: `${ theme.palette.primary.main } !important`,
-        webkitTextSecurity: "square",
-        color: red,
-        backgroundColor: "yellow",
-      },
-    },
     cssFocused: { color: 'black'},
     notchedOutline: {
       borderWidth: "1px",
