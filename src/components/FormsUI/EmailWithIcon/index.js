@@ -48,7 +48,7 @@ const EmailWithIconWrapper = ({
       <Grid container item xs={ 12 } direction="row" id="em" className={classes.outerGrid}>
         { iconPosition === "left" || !iconPosition ? (
           <Grid className={ classes.innerGrid }>
-            <Icon data-test-id="icon" >
+            <Icon data-testid="icon" >
               { " " }
               { icon }
             </Icon>
@@ -60,7 +60,7 @@ const EmailWithIconWrapper = ({
         <Email { ...configTextfield } />
         { iconPosition === "right" ? (
           <Grid className={ classes.emailGrid }>
-            <Icon data-test-id="icon">
+            <Icon data-testid="icon">
               { " " }
               { icon }
             </Icon>
