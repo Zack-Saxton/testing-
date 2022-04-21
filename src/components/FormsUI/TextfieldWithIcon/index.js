@@ -59,7 +59,7 @@ const TextFieldWithIconWrapper = ({
         <TextField { ...configTextField } />
         { iconPosition === "right" ? (
           <Grid className={ classes.textFieldGrid }>
-            <Icon data-test-id="icon" >{ icon }</Icon>
+            <Icon data-testid="icon" >{ icon }</Icon>
           </Grid>
         ) : (
           ""
