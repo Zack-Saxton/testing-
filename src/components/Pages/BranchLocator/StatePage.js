@@ -251,7 +251,7 @@ const ShowFirstandLastBranch = (val) => {
                             };
                             return (
                               <div
-                                key={ Math.random() * 1000 }
+                                key={ suggestion.placeId }
                                 { ...getSuggestionItemProps(suggestion, {
                                   style,
                                 }) }
@@ -429,7 +429,7 @@ const ShowFirstandLastBranch = (val) => {
                           };
                           return (
                             <div
-                              key={ Math.random() * 1000 }
+                              key={ suggestion.placeId }
                               { ...getSuggestionItemProps(suggestion, {
                                 style,
                               }) }
