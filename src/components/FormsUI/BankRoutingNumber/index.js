@@ -44,7 +44,7 @@ const BankRoutingNumberWrapper = ({ name, ...otherProps }) => {
   return (
     <TextBox
       { ...configTextfield }
-      materialProps={ { maxLength: "9", "data-test-id": "BRN" } }
+      materialProps={ { maxLength: "9", "data-testid": "BRN" } }
       value={ bankRoutingNumber }
       onChange={ onHandleBRNChange }
       required={ true }
