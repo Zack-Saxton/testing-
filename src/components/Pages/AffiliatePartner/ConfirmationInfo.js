@@ -733,6 +733,7 @@ export default function ConfirmationInfo() {
                       </p>
                       <Grid id="activeDutyGrid">
                         <Select
+                          id="confirmActiveDuty"
                           name="activeDuty"
                           labelform="Active Duty *"
                           select='[{"value":"Yes"}, {"value":"No"}]'
@@ -756,6 +757,7 @@ export default function ConfirmationInfo() {
                         }
                       >
                         <Select
+                          id="confirmactiveDutyRank"
                           name="activeDutyRank"
                           labelform="Active duty rank *"
                           select='[{"value":"E4 and below"}, {"value":"E5 and above"}]'
