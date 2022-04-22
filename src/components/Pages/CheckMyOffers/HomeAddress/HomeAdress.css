@@ -4,6 +4,8 @@
 #state,
 #zipcode {
 	padding-bottom: 15px !important;
+	color: #171717;
+	-webkit-text-fill-color: #000000 !important;
 }
 
 #streetAddress-label,

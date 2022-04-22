@@ -81,6 +81,13 @@ label.MuiFormLabel-root.MuiInputLabel-root.MuiInputLabel-formControl.MuiInputLab
 #activeDutyGrid .MuiFormControl-fullWidth label{
 margin-left: -14px;
 }
+#activeDutyGrid, #activeDutyRankGrid{
+    margin-top: 20px;
+}
+#confirmActiveDuty .subOption, 
+#confirmactiveDutyRank .subOption{
+    color:#171717 !important;
+}
 p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error{
     margin-bottom: -38px;
 }
