@@ -60,7 +60,7 @@ const howManyBranchesforBranchLocatorPages = {
     BranchLocator: 10,
     StatePage: 50,
     BranchPage: 4,
-    stateBranchDistanceinMiles: 450
+    stateBranchDistanceinMiles: 500
 };
 export {
     businesStates,

@@ -314,7 +314,7 @@ export default function BranchLocator() {
                       backgroundColor: suggestion.active ? "#41b6e6" : "#fff"
                     };
                     return (
-                      <div key={ Math.random() * 1000 }{ ...getSuggestionItemProps(suggestion, {
+                      <div key={ suggestion.placeId }{ ...getSuggestionItemProps(suggestion, {
                         style
                       }) }>
                         <span>{ suggestion.description }</span>
@@ -434,7 +434,7 @@ export default function BranchLocator() {
                     backgroundColor: suggestion.active ? "#41b6e6" : "#fff"
                   };
                   return (
-                    <div key={ Math.random() * 1000 } { ...getSuggestionItemProps(suggestion, {
+                    <div key={ suggestion.placeId } { ...getSuggestionItemProps(suggestion, {
                       style
                     }) }>
                       <span style={ { padding: "10px 0px" } }>{ suggestion.description }</span>
