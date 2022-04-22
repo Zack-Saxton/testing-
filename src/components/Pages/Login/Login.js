@@ -225,7 +225,7 @@ export default function Login(props) {
                 pointerEvents: loading ? "none" : "initial",
               } }
             >
-              <Paper className={ classes.paper }>
+              <Paper id="loginPaperCard" className={ classes.paper }>
                 <Typography
                   className={ classes.title }
                   data-testid="title"

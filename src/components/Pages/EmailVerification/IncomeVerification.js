@@ -10,7 +10,7 @@ function IncomeVerification(props) {
   return (
     <Grid>
       <ul className={classes.ulText}>
-        <li>
+        <li className={classes.exampleText}>
           Recent Pay Statements (your most recent), or most recent Benefits
           Statement from current calendar year (if you are retired or not
           employed), or 1099 Income Statement as discussed with your loan

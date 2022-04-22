@@ -159,7 +159,7 @@ const handleChange =(event) =>{
               </ButtonPrimary>
             </NavLink>
           </Grid>
-          <Grid item xs={12} sm={4}>
+          <Grid id="selectLoanAccountsGrid" item xs={12} sm={4}>
             <Select
               id="loans"
               fullWidth={true}

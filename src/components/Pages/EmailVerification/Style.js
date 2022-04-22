@@ -47,7 +47,8 @@ const useStylesEmailVerification = makeStyles((theme) => ({
     display: "block",
     color:"#595959",
     fontSize: "0.938rem",
-    lineHeight:"1.5"
+    lineHeight:"1.5",
+    textAlign: "justify"
   },
   nextButton: {
     marginTop: "20px",
@@ -88,6 +89,7 @@ const useStylesEmailVerification = makeStyles((theme) => ({
     color:"#595959",
     fontSize: "0.938rem",
     lineHeight:"1.5",
+    textAlign:"justify"
   },
   ulText: {
     color:"#595959",
@@ -101,7 +103,23 @@ const useStylesEmailVerification = makeStyles((theme) => ({
     borderRadius:3,
     border:"none",
     background:"transparent !important"
+  },
+  selfieImage:{
+    margin: "0px 10px",
+    "@media (max-width: 700px)": {
+      width: "100%",
+      height: "auto",
+      margin: "0"
+    }
+  },
+  selfieCamera:{
+    "@media (max-width: 700px)": {
+      width: "100%",
+      height: "auto",
+      margin: "0"
+    }
   }
+
 
 }));
 

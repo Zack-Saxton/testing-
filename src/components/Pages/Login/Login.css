@@ -45,6 +45,9 @@
 	justify-content: center !important;
 	margin-bottom: 25px;
 }
+#loginPaperCard{
+	max-width: 385px !important;
+}
 @media (max-width: 600px) {
 	#mainContentBackground{
 		padding: 0px 25px;

@@ -20,6 +20,7 @@
   font-size: 0.875rem;
   color: #595959;
   margin-bottom: 14px !important;
+  text-align: justify;
 }
 .emailVirificationWrap {
   padding: 2% 4%;
@@ -40,6 +41,7 @@
   color: #595959 !important;
   text-align: justify !important;
   margin-bottom: 4% !important;
+  text-align: justify;
 }
 .SelfieLicenseImage {
   margin-top: 10px;
