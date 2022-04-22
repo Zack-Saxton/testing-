@@ -15,7 +15,7 @@ test('Checks Auto complete based on entered value', () => {
       styleAutocomplete='{"width":"300px"}'
       data-test-id="autoComplete"
     />);
-  const autocomplete = container.getByRole('textbox');
+  const autocomplete = container.getByRole('combobox');
   expect(autocomplete).toBeTruthy();
   autocomplete.focus();
   fireEvent.change(document.activeElement, { target: { value: 'I' } });

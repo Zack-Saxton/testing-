@@ -504,7 +504,7 @@ export default function OutlinedCard() {
 										name="autoCompleteMultiple"
 										label="AutoComplete"
 										variant="outlined"
-										jsonInput='[{"value":"India"}, {"value":"USA"}]'
+										jsonInput='[{"value":"India"}, {"value":"USA"}, {"value":"Indonesia"}, {"value":"Italy"}]'
 										placeholder="Choose Country"
 										stylecheckbox='{ "color":""}'
 									/>
