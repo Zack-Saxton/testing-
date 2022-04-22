@@ -240,6 +240,7 @@ function UploadDocument(props) {
               screenshotFormat="image/jpeg"
               height={360}
               width={500}
+              className={ classes.selfieCamera}
               videoConstraints={{
                 ...videoConstraints,
                 facingMode
@@ -255,16 +256,14 @@ function UploadDocument(props) {
             </Grid> 
           </Grid> : 
           <Grid container style={ { margin: "10px 0px"} }>
-            <Grid style={{ margin: "0px 10px"}}>
               {imgSrc && (
                 <img
                   src={imgSrc}
                   height={360}
                   width={480}
+                  className={ classes.selfieImage}
                 />
-              )}
-            </Grid> 
-              
+              )}              
               <Grid container>
                 <ButtonPrimary
                   onClick={ enableCameraOption }

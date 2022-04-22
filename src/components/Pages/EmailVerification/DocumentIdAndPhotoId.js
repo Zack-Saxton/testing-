@@ -345,6 +345,7 @@ function DocumentIdAndPhotoId(props) {
                 screenshotFormat="image/jpeg"
                 height={360}
                 width={500}
+                className={ classes.selfieCamera}
                 videoConstraints={{
                   ...videoConstraints,
                   facingMode
@@ -360,15 +361,14 @@ function DocumentIdAndPhotoId(props) {
               </Grid> 
             </Grid> : 
             <Grid style={ { margin: "10px 0px"} } item sm={12} md={6} >
-              <Grid style={{ margin: "0px 10px"}}>
                 {imgSrc && (
                   <img
                     src={ imgSrc }
                     height={360}
                     width={480}
+                    className={ classes.selfieImage}
                   />
                 )}
-              </Grid> 
                 
                 <Grid container>
                   <ButtonPrimary
@@ -447,6 +447,7 @@ function DocumentIdAndPhotoId(props) {
                 screenshotFormat="image/jpeg"
                 height={360}
                 width={500}
+                className={ classes.selfieCamera}
                 videoConstraints={{
                   ...videoConstraints,
                   facingMode
@@ -462,15 +463,14 @@ function DocumentIdAndPhotoId(props) {
               </Grid> 
             </Grid> : 
             <Grid style={ { margin: "10px 0px"} } item sm={12} md={6} >
-              <Grid style={{ margin: "0px 10px"}}>
-                {selfieImageSrc && (
+               {selfieImageSrc && (
                   <img
                     src={ selfieImageSrc }
                     height={360}
                     width={480}
+                    className={ classes.selfieImage}
                   />
                 )}
-              </Grid>                 
                 <Grid container>
                   <ButtonPrimary
                     onClick={ ()=> enableSelfieCameraOption() }
