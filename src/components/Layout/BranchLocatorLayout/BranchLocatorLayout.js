@@ -1,5 +1,5 @@
-import Typography from "@mui/material/Typography";
 import Link from '@mui/material/Link';
+import Typography from "@mui/material/Typography";
 import PropTypes from "prop-types";
 import React from "react";
 import { NavLink } from "react-router-dom";
@@ -12,7 +12,7 @@ const BranchLocatorLayout = ({ children }) => {
       <div className="topBar">
         <div className="topBarlinks" >
           <Typography className="topBarLinkOne" >
-            <Link href={ `${ process.env.REACT_APP_WEBSITE }/careers/` } className="hrefTag">
+            <Link href={`${ process.env.REACT_APP_WEBSITE }/careers/`} className="hrefTag">
               Careers
             </Link>
           </Typography>
@@ -22,7 +22,7 @@ const BranchLocatorLayout = ({ children }) => {
             </Link>
           </Typography>
           <Typography className="topBarLinkOne">
-            <Link href={ `${ process.env.REACT_APP_WEBSITE }/customer-support/` } className="hrefTag">
+            <Link href={`${ process.env.REACT_APP_WEBSITE }/customer-support/`} className="hrefTag">
               Customer Support
             </Link>
           </Typography>
@@ -32,7 +32,7 @@ const BranchLocatorLayout = ({ children }) => {
         </div>
       </div>
       <BranchLocatorHeader />
-      { children }
+      {children}
       <BranchLocatorFooter />
     </div>
   );

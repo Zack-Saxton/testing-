@@ -1,7 +1,7 @@
 import axios from "axios";
+import getClientIp from "../Controllers/CommonController";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
-import getClientIp from "../Controllers/CommonController";
 
 export async function checkMyOfferSubmit(customer) {
 

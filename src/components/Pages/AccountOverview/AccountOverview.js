@@ -34,24 +34,24 @@ export default function AccountOverview() {
       <Grid
         container
         justifyContent="center"
-        className={ classes.centerGrid }
+        className={classes.centerGrid}
       >
         <Grid
           item
-          xs={ 12 }
-          className={ classes.accountOverviewWrap }
+          xs={12}
+          className={classes.accountOverviewWrap}
           container
           direction="row"
         >
-          <Typography variant="h5" className={ classes.heading } data-testid="subtitle">
+          <Typography variant="h5" className={classes.heading} data-testid="subtitle">
             Account Overview
           </Typography>
         </Grid>
-        {/* ****************components************ */ }
-        <LimitedOffer isLoading={ isLoading } userOffers={ offerData } />
-        <ActiveLoans isLoading={ isLoading } userActiveLoanData={ activeLoansData } />
-        <RecentPayments/>
-        <RecentApplications isLoading={ isLoading } userApplicationsData={ applicationsData } UserAccountStatus={ status } userApplicantData={ applicantData } />
+        {/* ****************components************ */}
+        <LimitedOffer isLoading={isLoading} userOffers={offerData} />
+        <ActiveLoans isLoading={isLoading} userActiveLoanData={activeLoansData} />
+        <RecentPayments />
+        <RecentApplications isLoading={isLoading} userApplicationsData={applicationsData} UserAccountStatus={status} userApplicantData={applicantData} />
       </Grid>
     </div>
   );

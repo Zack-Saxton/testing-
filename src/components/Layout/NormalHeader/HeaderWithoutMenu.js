@@ -12,16 +12,16 @@ const HeaderWithoutMenu = () => {
   const redirectToAccountOverview = () => {
     window.open(`${ process.env.REACT_APP_WEBSITE }`, "_blank");
   };
- 
+
   //View Part
   return (
-    <div id="headerWrap" className={ classes.grow }>
+    <div id="headerWrap" className={classes.grow}>
       <AppBar id="MainHeaderWrap" position="static">
         <Toolbar className="headerToolBar">
-          <Typography onClick={ redirectToAccountOverview } className={ classes.title }>
-            <img className={ classes.logoFormat } src={ Logo } alt="MF logo" />
+          <Typography onClick={redirectToAccountOverview} className={classes.title}>
+            <img className={classes.logoFormat} src={Logo} alt="MF logo" />
           </Typography>
-          <div className={ classes.grow } />
+          <div className={classes.grow} />
         </Toolbar>
       </AppBar>
     </div>

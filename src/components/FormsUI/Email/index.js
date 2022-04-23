@@ -22,7 +22,7 @@ const EmailWrapper = ({ name, suffix, lable, materialProps, id, disablePaste, ..
     InputProps: suffix
       ? {
         endAdornment: (
-          <InputAdornment position="end">{ suffix }</InputAdornment>
+          <InputAdornment position="end">{suffix}</InputAdornment>
         ),
       }
       : {},
@@ -33,27 +33,27 @@ const EmailWrapper = ({ name, suffix, lable, materialProps, id, disablePaste, ..
   const handleChange = (event) => {
     setValues(event.target.value.trim() + suffix);
   };
-  const disablePasteOption = (event) => {    
-    if(disablePaste){
+  const disablePasteOption = (event) => {
+    if (disablePaste) {
       event.preventDefault();
-    }  
+    }
   };
 
   return (
     <TextField
-      id={ id }
+      id={id}
       lable="email"
       type="email"
-      fullWidth={ true }
+      fullWidth={true}
       variant="standard"
-      inputProps={ materialProps }
-      onChange={ handleChange }
-      onCut={ disablePasteOption }
-      onCopy={ disablePasteOption }
-      onPaste={ disablePasteOption }
-      { ...configTextfield }
+      inputProps={materialProps}
+      onChange={handleChange}
+      onCut={disablePasteOption}
+      onCopy={disablePasteOption}
+      onPaste={disablePasteOption}
+      {...configTextfield}
     />
-  ); 
+  );
 };
 
 EmailWrapper.propTypes = {

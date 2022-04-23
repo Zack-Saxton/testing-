@@ -1,8 +1,8 @@
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import React, { useContext, useEffect } from "react";
 import PropTypes from "prop-types";
+import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import EligibleForOffersLogo from "../../../../assets/gallery/Eligible-for-Offers.png";
 import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
@@ -33,52 +33,52 @@ function EligibleForOffers(props) {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className={ classes.mainDiv }>
+			<div className={classes.mainDiv}>
 				<Box>
 					<Grid
 						item
-						xs={ 12 }
+						xs={12}
 						container
 						justifyContent="center"
 						alignItems="center"
 					>
 						<Grid
 							item
-							xs={ 12 }
+							xs={12}
 							container
 							justifyContent="center"
 							alignItems="center"
 						>
 							<Grid
 								item
-								xs={ 11 }
-								sm={ 5 }
-								md={ 4 }
-								lg={ 4 }
-								xl={ 4 }
+								xs={11}
+								sm={5}
+								md={4}
+								lg={4}
+								xl={4}
 								className="cardWrapperImg row"
 								container
 								justifyContent="center"
 								alignItems="center"
 							>
-								<img src={ EligibleForOffersLogo } className="imgFullWidth" alt="EligibleForOffers" />
+								<img src={EligibleForOffersLogo} className="imgFullWidth" alt="EligibleForOffers" />
 							</Grid>
 						</Grid>
 						<br />
 						<Grid
 							item
-							xs={ 12 }
+							xs={12}
 							container
 							justifyContent="center"
 							alignItems="center"
 						>
 							<Grid
 								item
-								xs={ 11 }
-								sm={ 10 }
-								md={ 6 }
-								lg={ 6 }
-								xl={ 6 }
+								xs={11}
+								sm={10}
+								md={6}
+								lg={6}
+								xl={6}
 								className="alignCenter row"
 								container
 								justifyContent="center"
@@ -95,18 +95,18 @@ function EligibleForOffers(props) {
 						</Grid>
 						<Grid
 							item
-							xs={ 12 }
+							xs={12}
 							container
 							justifyContent="center"
 							alignItems="center"
 						>
 							<Grid
 								item
-								xs={ 11 }
-								sm={ 10 }
-								md={ 6 }
-								lg={ 6 }
-								xl={ 6 }
+								xs={11}
+								sm={10}
+								md={6}
+								lg={6}
+								xl={6}
 								className=" row"
 								container
 								justifyContent="center"
@@ -123,7 +123,7 @@ function EligibleForOffers(props) {
 							</Grid>
 						</Grid>
 						<Grid
-							xs={ 12 }
+							xs={12}
 							item
 							container
 							justifyContent="center"
@@ -131,11 +131,11 @@ function EligibleForOffers(props) {
 						>
 							<Grid
 								item
-								xs={ 11 }
-								sm={ 10 }
-								md={ 6 }
-								lg={ 6 }
-								xl={ 6 }
+								xs={11}
+								sm={10}
+								md={6}
+								lg={6}
+								xl={6}
 								className="bottomSpace "
 								container
 								justifyContent="center"
@@ -143,11 +143,11 @@ function EligibleForOffers(props) {
 							>
 								<Grid
 									item
-									xs={ 7 }
-									sm={ 6 }
-									md={ 3 }
-									lg={ 3 }
-									xl={ 3 }
+									xs={7}
+									sm={6}
+									md={3}
+									lg={3}
+									xl={3}
 									className="  buttonWithSmallMargin"
 									container
 									justifyContent="center"
@@ -155,7 +155,7 @@ function EligibleForOffers(props) {
 								>
 									<ButtonPrimary
 										stylebutton='{"background": "", "color":"", "fontSize": "0.938rem","padding":"0px 30px"}'
-										onClick={ handleRoute }
+										onClick={handleRoute}
 									>
 										View Offers
 									</ButtonPrimary>

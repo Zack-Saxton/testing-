@@ -7,175 +7,190 @@
 	display: none;
 }
 
-.linkStyle{
-	color:#0f4eb3 !important;
+.linkStyle {
+	color: #0f4eb3 !important;
 	cursor: pointer !important;
 }
 
 .underline {
 	text-decoration: underline !important;
 }
-.MuiTabs-indicator{
+
+.MuiTabs-indicator {
 	display: none !important;
 }
 
-#applyForLoanPhone .MuiFormControl-root .MuiTextField-root label{
+#applyForLoanPhone .MuiFormControl-root .MuiTextField-root label {
 	font-size: 0.938rem;
 }
 
-#applyForLoanPhone .MuiFormControl-root .MuiTextField-root div input{
+#applyForLoanPhone .MuiFormControl-root .MuiTextField-root div input {
 	padding-bottom: 12px !important;
 }
 
-#textAndCall label .MuiFormControlLabel-label{
+#textAndCall label .MuiFormControlLabel-label {
 	font-size: 0.938rem !important;
 }
 
 /* Financial Information */
-#employerNameInput-label{
+#employerNameInput-label {
 	font-size: 0.938rem !important;
 }
 
-#employerNameInput{
+#employerNameInput {
 	padding-bottom: 12px;
 }
 
-#currentJobTitleInput-label{
+#currentJobTitleInput-label {
 	font-size: 0.938rem !important;
 }
 
-#currentJobTitleInput{
+#currentJobTitleInput {
 	padding-bottom: 12px;
 }
 
-#currentAddressSelectWrap div .MuiInputLabel-formControl{
+#currentAddressSelectWrap div .MuiInputLabel-formControl {
 	font-size: 0.938rem !important;
 	margin-left: -14px;
 }
 
-#currentAddressSelectWrap, 
-#heardUsSelectWrap{
+#currentAddressSelectWrap,
+#heardUsSelectWrap {
 	margin-top: 20px;
 }
+
 #currentAddressSelectWrap .MuiFormControl-fullWidth p {
 	margin: 3px 0px 0px 0px;
 }
+
 #heardUsSelectWrap .MuiFormControl-fullWidth p {
 	margin: 3px 0px 0px 0px;
 }
-#heardUsSelectWrap div .MuiInputLabel-formControl{
+
+#heardUsSelectWrap div .MuiInputLabel-formControl {
 	font-size: 0.938rem !important;
 	margin-left: -14px;
 }
 
-#heardUsSelect{
-	padding-bottom: 12px;
-}
-#currentAddressSelect{
+#heardUsSelect {
 	padding-bottom: 12px;
 }
 
-#currentAddressSelect .subOption{
+#currentAddressSelect {
+	padding-bottom: 12px;
+}
+
+#currentAddressSelect .subOption {
 	color: #171717 !important;
 }
-#heardUsSelect .subOption{
+
+#heardUsSelect .subOption {
 	color: #171717 !important;
 }
 
 /* ID Verification Questions */
-#IdQuestionsTxt{
+#IdQuestionsTxt {
 	font-size: 0.938rem !important;
 }
 
-#radioSelectTxt label .MuiFormControlLabel-label{
+#radioSelectTxt label .MuiFormControlLabel-label {
 	font-size: 0.938rem !important;
 }
 
 /* Bank Account Verification */
 
-#accountHolderInput-label{
+#accountHolderInput-label {
 	font-size: 0.938rem !important;
 }
 
-#accountHolderInput{
+#accountHolderInput {
 	padding-bottom: 12px;
 }
 
-#accountTypeTxt{
+#accountTypeTxt {
 	margin-top: 25px;
 }
-#accountTypeTxt .MuiFormControl-root label .MuiFormControlLabel-label{
+
+#accountTypeTxt .MuiFormControl-root label .MuiFormControlLabel-label {
 	font-size: 0.938rem !important;
 }
 
-#bankRoutingNumberInput-label{
+#bankRoutingNumberInput-label {
 	font-size: 0.938rem !important;
 }
 
-#bankRoutingNumberInput{
+#bankRoutingNumberInput {
 	padding-bottom: 12px;
 }
 
-#bankInformationInput-label{
+#bankInformationInput-label {
 	font-size: 0.938rem !important;
 }
 
-#bankInformationInput{
+#bankInformationInput {
 	padding-bottom: 12px;
 }
 
-#bankAccountNumberInput-label{
+#bankAccountNumberInput-label {
 	font-size: 0.938rem !important;
 }
 
-#bankAccountNumberInput{
+#bankAccountNumberInput {
 	padding-bottom: 12px;
 }
 
-#confirmAccountNumberInput-label{
+#confirmAccountNumberInput-label {
 	font-size: 0.938rem !important;
 }
 
-#confirmAccountNumberInput{
+#confirmAccountNumberInput {
 	padding-bottom: 12px;
 }
 
-#paymentbyCheckTxt .MuiFormControlLabel-root .MuiFormControlLabel-label{
+#paymentbyCheckTxt .MuiFormControlLabel-root .MuiFormControlLabel-label {
 	font-size: 00.938rem !important;
 }
+
 .mobileFontSize {
 	text-align: center;
 }
-.mobileFontParagraph{
+
+.mobileFontParagraph {
 	font-size: 1.125rem !important;
 	font-weight: 400 !important;
 	text-align: center !important;
 	line-height: 26px !important;
 }
 
-@media only screen and (max-width: 599px){
-	.confirmationButtons{
+@media only screen and (max-width: 599px) {
+	.confirmationButtons {
 		margin: 0 !important;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		flex-direction: column-reverse;
-}
-.returnButton{
-	margin-top: 15px !important;
-}
-.confirmationDialog .MuiDialog-container .MuiDialog-paper{
-	margin: 15px !important;
-}
-.noOffersAvailableImage{
-	width: 100%;
-}
-.mobileFontSize{
-	font-size: 1.625rem !important;
-	text-align: center;
-	font-weight: bolder;;
-}
-.mobileFontParagraph{
-	font-size: 1rem !important;
-}
+	}
+
+	.returnButton {
+		margin-top: 15px !important;
+	}
+
+	.confirmationDialog .MuiDialog-container .MuiDialog-paper {
+		margin: 15px !important;
+	}
+
+	.noOffersAvailableImage {
+		width: 100%;
+	}
+
+	.mobileFontSize {
+		font-size: 1.625rem !important;
+		text-align: center;
+		font-weight: bolder;
+		;
+	}
+
+	.mobileFontParagraph {
+		font-size: 1rem !important;
+	}
 }

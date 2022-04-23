@@ -43,35 +43,35 @@ export default function LoadChart(props) {
 
 	return (
 		<div>
-			{ finArray?.length >= 2 ? (
+			{finArray?.length >= 2 ? (
 				<Table aria-label="simple table">
 					<TableHead>
 						<TableRow>
-							<TableCell width="15%" className={ props.classes.tableHead }>
+							<TableCell width="15%" className={props.classes.tableHead}>
 								Term
 							</TableCell>
-							<TableCell width="65%" className={ props.classes.tableHead }>
+							<TableCell width="65%" className={props.classes.tableHead}>
 								Monthly Payment
 							</TableCell>
 							<TableCell
 								width="20%"
-								className={ props.classes.tableHead }
+								className={props.classes.tableHead}
 							></TableCell>
 						</TableRow>
 					</TableHead>
 
 					<TableBody>
-						{ finArray.map((compareOffer, ind) => (
-							<TableRow hover key={ compareOffer.term + compareOffer.loanAmount.toString() }>
-								<TableCell className={ props.classes.tableHead }>
-									{ compareOffer.term } Mo
+						{finArray.map((compareOffer, ind) => (
+							<TableRow hover key={compareOffer.term + compareOffer.loanAmount.toString()}>
+								<TableCell className={props.classes.tableHead}>
+									{compareOffer.term} Mo
 								</TableCell>
-								<TableCell className={ props.classes.tableHead }>
+								<TableCell className={props.classes.tableHead}>
 									<HSBar
-										height={ 20 }
+										height={20}
 										id="new_id"
 										fontColor="rgb(50,20,100)"
-										data={ [
+										data={[
 											{
 												name: "Monthly payment",
 												value: maxMonthly,
@@ -82,25 +82,25 @@ export default function LoadChart(props) {
 												value: maxMonthly - compareOffer.monthlyPaymentConverted,
 												color: "#49CFAE",
 											},
-										] }
+										]}
 									/>
 								</TableCell>
 								<TableCell>
-									{ currencyFormat(compareOffer.monthlyPaymentConverted) }
+									{currencyFormat(compareOffer.monthlyPaymentConverted)}
 								</TableCell>
 							</TableRow>
-						)) }
+						))}
 					</TableBody>
 				</Table>
 			) : (
 				<div className="chartGrid">
-					{ props.offerFlag ? (
+					{props.offerFlag ? (
 						null
 					) : (
-						<p>{ messages.selectAmount.selectTwoToCompare }</p>
-					) }
+						<p>{messages.selectAmount.selectTwoToCompare}</p>
+					)}
 				</div>
-			) }
+			)}
 		</div>
 	);
 }

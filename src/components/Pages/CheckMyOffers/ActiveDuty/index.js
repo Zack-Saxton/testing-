@@ -75,31 +75,31 @@ function ActiveDuty() {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className={ classes.mainDiv }>
+			<div className={classes.mainDiv}>
 				<Box>
 					<Grid
 						item
-						xs={ 12 }
+						xs={12}
 						container
 						justifyContent="center"
 						alignItems="center"
-						className={ innerClasses.paddingGrid }
+						className={innerClasses.paddingGrid}
 					>
 						<Grid
 							container
 							item
-							xs={ 11 }
-							sm={ 10 }
-							md={ 6 }
-							lg={ 6 }
-							xl={ 6 }
+							xs={11}
+							sm={10}
+							md={6}
+							lg={6}
+							xl={6}
 							className="cardWrapper"
 							justifyContent="center"
 						>
 							<Paper
 								id="activeDutyWrap"
 								justify="center"
-								className={ innerClasses.paperStyle }
+								className={innerClasses.paperStyle}
 							>
 								<div className="progress mt-0">
 									<div
@@ -115,10 +115,10 @@ function ActiveDuty() {
 										</i>
 									</Link>
 								</Grid>
-								<Grid className={ innerClasses.marginTop }>
+								<Grid className={innerClasses.marginTop}>
 									<img
 										alt="Active Duty"
-										src={ ActiveDutyLogo }
+										src={ActiveDutyLogo}
 										className="spinAnimation"
 									/>
 								</Grid>
@@ -129,10 +129,10 @@ function ActiveDuty() {
 									Are you active duty military or <br />
 									do you have a future active duty date?
 								</Typography>
-								<form onSubmit={ formik.handleSubmit }>
+								<form onSubmit={formik.handleSubmit}>
 									<Grid
 										item
-										md={ 12 }
+										md={12}
 										className="blockDiv"
 										container
 										justifyContent="center"
@@ -144,19 +144,19 @@ function ActiveDuty() {
 											justifyContent="center"
 											alignItems="center"
 											item
-											lg={ 8 }
-											md={ 8 }
-											xs={ 12 }
+											lg={8}
+											md={8}
+											xs={12}
 										>
 											<Select
 												id="activeDutySelect"
-												fullWidth={ true }
+												fullWidth={true}
 												name="activeDuty"
 												labelform="Active Duty *"
 												select='[{"label":"Yes", "value":"Active Military"}, {"label":"No", "value":"Not Active Military"}]'
-												value={ formik.values.activeDuty }
-												onChange={ formik.handleChange }
-												onBlur={ formik.handleBlur }
+												value={formik.values.activeDuty}
+												onChange={formik.handleChange}
+												onBlur={formik.handleBlur}
 												error={
 													formik.touched.activeDuty &&
 													Boolean(formik.errors.activeDuty)
@@ -179,19 +179,19 @@ function ActiveDuty() {
 											alignItems="center"
 											container
 											item
-											lg={ 8 }
-											md={ 8 }
-											xs={ 12 }
+											lg={8}
+											md={8}
+											xs={12}
 										>
 											<Select
 												id="activeDutyRank"
-												fullWidth={ true }
+												fullWidth={true}
 												name="activeDutyRank"
 												labelform="Thank you for your service. What is your rank? *"
 												select='[{"value":"E4 and below"}, {"value":"E5 and above"}]'
-												value={ formik.values.activeDutyRank }
-												onChange={ formik.handleChange }
-												onBlur={ formik.handleBlur }
+												value={formik.values.activeDutyRank}
+												onChange={formik.handleChange}
+												onBlur={formik.handleBlur}
 												error={
 													formik.touched.activeDutyRank &&
 													Boolean(formik.errors.activeDutyRank)
@@ -203,15 +203,15 @@ function ActiveDuty() {
 											/>
 										</Grid>
 										<h4
-											className={ disableLoan ? "showMsg" : "hideMsg" }
+											className={disableLoan ? "showMsg" : "hideMsg"}
 										>
 											Unfortunately, based on the application information provided, <br />you do not meet our application requirements.
 										</h4>
-										<Grid item lg={ 8 } md={ 8 } xs={ 12 } className="alignButton">
+										<Grid item lg={8} md={8} xs={12} className="alignButton">
 											<ButtonPrimary
 												type="submit"
 												data-testid="contButton"
-												disabled={ disableLoan }
+												disabled={disableLoan}
 												stylebutton='{"background": "#FFBC23","fontSize": "0.938rem", "padding": "0px 30px", "color": "black","fontSize":"1rem"}'
 											>
 												Continue

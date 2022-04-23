@@ -1,35 +1,41 @@
 .stroke-blue {
     stroke: #274367;
 }
+
 .stroke {
     stroke: rgb(220, 220, 224);
 }
+
 .centerHeading {
     color: #181818;
     font-size: 24px;
     font-family: 'Muli', sans-serif;
     font-weight: 400;
 }
+
 .donutChart {
     height: 170px;
     -webkit-filter: drop-shadow(0px 10px 4px rgba(133, 3, 168, .2));
     filter: drop-shadow(0px 10px 4px rgba(133, 3, 168, .2));
 }
 
-.limitedOfferWrap{
+.limitedOfferWrap {
     width: 100%;
 }
-#limitedOfferWrap{
+
+#limitedOfferWrap {
     width: 100%;
 }
-.overviewWrap{
+
+.overviewWrap {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     box-sizing: border-box;
     justify-content: space-between;
 }
-#overviewWrap{
+
+#overviewWrap {
     width: 100%;
     height: 100%;
     display: flex;
@@ -38,7 +44,7 @@
     justify-content: space-between;
 }
 
-.imageholder{
+.imageholder {
     width: 66%;
     background-color: white;
     border-radius: 10px;
@@ -46,7 +52,8 @@
     display: flex;
     box-shadow: rgb(61 61 61 / 10%) 0px 8px 44px 0px;
 }
-.imageholdernew{
+
+.imageholdernew {
     width: 100%;
     background-color: white;
     border-radius: 10px;
@@ -56,23 +63,23 @@
     box-shadow: rgb(61 61 61 / 10%) 0px 8px 44px 0px;
 }
 
-.imageholdernewtop{
+.imageholdernewtop {
     padding: 10px;
     display: flex;
 }
 
-.yellowBackground{
+.yellowBackground {
     background-color: #ffbc24;
     display: flex;
     width: 100%;
 }
 
-.bannerImage{
+.bannerImage {
     width: 50%;
     height: 100%;
 }
 
-.secondBannerWrap{
+.secondBannerWrap {
     width: 23%;
     background-color: white;
     border-radius: 10px;
@@ -83,7 +90,7 @@
     box-shadow: rgb(61 61 61 / 10%) 0px 8px 44px 0px;
 }
 
-.secondBannerWrapNew{
+.secondBannerWrapNew {
     width: auto;
     background-color: white;
     border-radius: 10px;
@@ -95,139 +102,160 @@
     box-shadow: rgb(61 61 61 / 10%) 0px 8px 44px 0px;
 }
 
-.secondBannerWrapNewtop{
+.secondBannerWrapNewtop {
     border-radius: 10px;
     display: flex;
     padding: 10px;
 }
 
-.secondBannerImage{
+.secondBannerImage {
     width: 100%;
     height: 100%;
 }
 
-.overviewOfferText{
+.overviewOfferText {
     font-size: 1.538rem;
 }
 
-.overviewOfferAmountText{
+.overviewOfferAmountText {
     font-size: 34.5px;
 }
 
-.secondGrid{
+.secondGrid {
     min-width: 50%;
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: center;
 }
-.secondBannerWrap a{
+
+.secondBannerWrap a {
     text-decoration: none;
     height: 100%;
 }
 
 @media (min-width:1400px) {
-    #claimButton{
+    #claimButton {
         height: 32px;
         font-size: 18px;
     }
 }
 
 @media only screen and (max-width: 1366px) {
-    .imageholder{
+    .imageholder {
         width: 66%;
     }
 }
+
 @media only screen and (min-width: 1441px) {
-    .imageholder{
+    .imageholder {
         width: 68%;
     }
 
 }
+
 @media only screen and (min-width: 2000px) {
-    .yellowBackground{
+    .yellowBackground {
         justify-content: space-between;
     }
-    .bannerImage{
+
+    .bannerImage {
         width: unset;
     }
-    .secondBannerWrap{
+
+    .secondBannerWrap {
         width: unset;
     }
 }
+
 @media only screen and (min-width: 2398px) {
-    .imageholder{
+    .imageholder {
         width: 84% !important;
     }
 }
+
 @media only screen and (min-width: 2558px) {
-    .imageholder{
+    .imageholder {
         width: 85% !important;
     }
 }
+
 @media only screen and (min-width: 2878px) {
-    .imageholder{
+    .imageholder {
         width: 87% !important;
     }
 }
+
 @media only screen and (min-width: 3838px) {
-    .imageholder{
+    .imageholder {
         width: 90.5% !important;
     }
 }
+
 @media only screen and (min-width: 5757px) {
-    .imageholder{
+    .imageholder {
         width: 93.5% !important;
     }
 }
+
 @media only screen and (min-width: 7676px) {
-    .imageholder{
+    .imageholder {
         width: 95.5% !important;
     }
 }
+
 @media (min-width:1281px) {
-    #imageholder{
+    #imageholder {
         width: 64%;
     }
 }
 
 @media (max-width:1093px) {
-    .imageholder{
+    .imageholder {
         width: 64%;
     }
-    .secondBannerWrap{
+
+    .secondBannerWrap {
         width: 21%;
     }
 }
+
 @media (max-width:960px) {
-    .imageholder{
+    .imageholder {
         width: 64%;
     }
-    .secondBannerWrap{
+
+    .secondBannerWrap {
         width: 21%;
     }
-    .secondBannerWrap{
+
+    .secondBannerWrap {
         align-items: unset !important;
     }
 }
+
 @media (max-width:760px) {
-    .imageholder{
+    .imageholder {
         width: 100% !important;
     }
-    .secondBannerWrap{
+
+    .secondBannerWrap {
         width: 100% !important;
         margin-top: 40px;
     }
-    .yellowBackground{
+
+    .yellowBackground {
         flex-direction: column;
     }
-    .bannerImage{
+
+    .bannerImage {
         width: 100%;
     }
+
     /* .secondGrid{
         margin: 30px 0px;
     } */
-    #claimButton{
+    #claimButton {
         font-size: 30px;
         padding: 0px 30px !important;
         height: 26px;

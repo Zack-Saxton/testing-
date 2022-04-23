@@ -43,11 +43,11 @@ const AccountNumberWrapper = ({ name, ...otherProps }) => {
   //return the view block
   return (
     <TextBox
-      { ...configTextField }
-      materialProps={ { maxLength: "17", minLength: "6", "data-testid": "accountNumber" } }
-      value={ accountNumber }
-      onChange={ onHandleAccountChange }
-      required={ true }
+      {...configTextField}
+      materialProps={{ maxLength: "17", minLength: "6", "data-testid": "accountNumber" }}
+      value={accountNumber}
+      onChange={onHandleAccountChange}
+      required={true}
     />
   );
 };

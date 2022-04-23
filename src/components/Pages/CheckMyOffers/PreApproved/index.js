@@ -2,11 +2,11 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import React, { useContext, useEffect, useState } from "react";
-import { useLocation, Link, useNavigate } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
-import { ButtonPrimary } from "../../../FormsUI";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { CheckMyOffers as Check } from "../../../../contexts/CheckMyOffers";
+import { ButtonPrimary } from "../../../FormsUI";
 import "../CheckMyOffer.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -20,12 +20,12 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: "5px",
     },
     typoStyle: {
-        color: "black", 
-        fontWeight: "400", 
+        color: "black",
+        fontWeight: "400",
         fontFamily: "Muli, sans-serif"
     },
     smallTextStyle: {
-        paddingTop: "25px", 
+        paddingTop: "25px",
         paddingBottom: "70px",
         marginBottom: "3%"
     }
@@ -55,18 +55,18 @@ const PreApproved = () => {
                 <Box>
                     <Grid
                         item
-                        xs={ 12 }
+                        xs={12}
                         container
                         justifyContent="center"
                         alignItems="center"
                     >
                         <Grid
                             item
-                            xs={ 11 }
-                            sm={ 10 }
-                            md={ 6 }
-                            lg={ 6 }
-                            xl={ 6 }
+                            xs={11}
+                            sm={10}
+                            md={6}
+                            lg={6}
+                            xl={6}
                             className="cardWrapper cardPadTop"
                         >
 
@@ -78,9 +78,9 @@ const PreApproved = () => {
                             >
                                 <Grid className="floatLeft">
                                     <Link
-                                        to={ {
+                                        to={{
                                             pathname: "/select-amount",
-                                        } }
+                                        }}
                                     >
                                         <i className="material-icons dp48 yellowText ">
                                             arrow_back
@@ -92,18 +92,18 @@ const PreApproved = () => {
                                 </Typography>
                                 <Grid
                                     item
-                                    xs={ 12 }
+                                    xs={12}
                                     className="alignSlider"
                                     container
                                     justifyContent="center"
                                     alignItems="center"
                                 >
-                                    <Grid item xs={ 11 } sm={ 10 } md={ 8 } lg={ 8 } xl={ 8 }>
+                                    <Grid item xs={11} sm={10} md={8} lg={8} xl={8}>
                                         <Typography align="center" className={classes.typoStyle} >
                                             &nbsp;We checked your offer code<br />
-                                            and { "your'e" } eligible for at least,<br />
+                                            and {"your'e"} eligible for at least,<br />
                                         </Typography>
-                                        <h2 className={ classes.offerAmountStyle }>{ offerAmount }</h2>
+                                        <h2 className={classes.offerAmountStyle}>{offerAmount}</h2>
                                         <Typography align="center" className={classes.typoStyle} >
 
                                             and possibly more!
@@ -113,7 +113,7 @@ const PreApproved = () => {
                                 <Grid
                                     id="checkMyOffersText"
                                     item
-                                    xs={ 12 }
+                                    xs={12}
                                     className="alignSlider"
                                     container
                                     justifyContent="center"
@@ -131,11 +131,11 @@ const PreApproved = () => {
                                         </Typography>
                                     </Grid>
 
-                                    <Grid item xs={ 11 } sm={ 10 } md={ 8 } lg={ 8 } xl={ 8 }>
+                                    <Grid item xs={11} sm={10} md={8} lg={8} xl={8}>
                                         <Grid className="alignButton">
                                             <ButtonPrimary
                                                 stylebutton='{"background": "#FFBC23", "color":"black","fontSize":"15px","padding":"0px 30px"}'
-                                                onClick={ onClickContinuepreApproved }
+                                                onClick={onClickContinuepreApproved}
                                             >
                                                 Continue
                                             </ButtonPrimary>
@@ -175,11 +175,11 @@ const PreApproved = () => {
                         </Grid>
                         <Grid
                             item
-                            xs={ 11 }
-                            sm={ 10 }
-                            md={ 10 }
-                            lg={ 10 }
-                            xl={ 10 }
+                            xs={11}
+                            sm={10}
+                            md={10}
+                            lg={10}
+                            xl={10}
                             data-testid="descriptionOutside"
                             className={classes.smallTextStyle}
                             container
@@ -194,7 +194,7 @@ const PreApproved = () => {
                                 our customer identification program, we must ask for your name,
                                 street address, mailing address, date of birth, and other
                                 information that will allow us to identify you. We may also ask
-                                to see your { "driver's" } license or other identifying documents.
+                                to see your {"driver's"} license or other identifying documents.
                             </Typography>
                             <br />
                             <Typography className="smallText blackText" align="center">

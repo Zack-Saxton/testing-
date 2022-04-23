@@ -1,8 +1,8 @@
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import { makeStyles } from "@mui/styles";
 import Typography from "@mui/material/Typography";
+import { makeStyles } from "@mui/styles";
 import axios from "axios";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
@@ -117,7 +117,7 @@ const useStyles = makeStyles((Theme) => ({
 		justifyContent: "center",
 		alignItems: "stretch",
 		textAlign: "center",
-		padding:"0% 4%"
+		padding: "0% 4%"
 	},
 	justifyGridMargin: {
 		justifyContent: "center",
@@ -170,83 +170,83 @@ function PersonalInfo() {
 			const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : "{ }");
 			setLoading(true);
 			//To check the component is mounted or not to update the state
-			if (componentMounted.current){
-			data.firstName = values.firstName.trim();
-			data.lastName = values.lastName.trim();
-			data.email = values.email;
-			data.phone = values.phone;
-			data.ssn = data.last4SSN
-				? data.ssn
-				: values.ssn.replace(/-/g, "").replace(/ /g, "") || "";
-			const phone =
-				values.phone
-					.replace(/-/g, "")
-					.replace(/\)/g, "")
-					.replace(/\(/g, "")
-					.replace(/ /g, "") || "";
-			data.phone = phone;
-			data.dob = values.dob;
-			data.completedPage = data.page.personalInfo;
+			if (componentMounted.current) {
+				data.firstName = values.firstName.trim();
+				data.lastName = values.lastName.trim();
+				data.email = values.email;
+				data.phone = values.phone;
+				data.ssn = data.last4SSN
+					? data.ssn
+					: values.ssn.replace(/-/g, "").replace(/ /g, "") || "";
+				const phone =
+					values.phone
+						.replace(/-/g, "")
+						.replace(/\)/g, "")
+						.replace(/\(/g, "")
+						.replace(/ /g, "") || "";
+				data.phone = phone;
+				data.dob = values.dob;
+				data.completedPage = data.page.personalInfo;
 
-			//Prospect
-			creatProspect(data);
+				//Prospect
+				creatProspect(data);
 
-			if (values.email && values.ssn) {
-				let body = {
-					email: values.email,
-					ssn: data.last4SSN
-						? data.ssn
-						: values.ssn.replace(/-/g, "").replace(/ /g, "") || "",
-					isAuthenticated: true,
-				};
+				if (values.email && values.ssn) {
+					let body = {
+						email: values.email,
+						ssn: data.last4SSN
+							? data.ssn
+							: values.ssn.replace(/-/g, "").replace(/ /g, "") || "",
+						isAuthenticated: true,
+					};
 
-				if (loginToken?.isLoggedIn) {
-					data.completedPage = data.page.existingUser;
-					setError(false);
-					setLoading(false);
-					navigate("/employment-status");
-				} else {
-					let customerStatus = await axios({
-						method: "POST",
-						url: "/customer/check_customer_user",
-						data: JSON.stringify(body),
-						headers: {
-							"Content-Type": "application/json",
-						},
-					});
+					if (loginToken?.isLoggedIn) {
+						data.completedPage = data.page.existingUser;
+						setError(false);
+						setLoading(false);
+						navigate("/employment-status");
+					} else {
+						let customerStatus = await axios({
+							method: "POST",
+							url: "/customer/check_customer_user",
+							data: JSON.stringify(body),
+							headers: {
+								"Content-Type": "application/json",
+							},
+						});
 
-					if (customerStatus.data.customerFound) {
-						if (customerStatus.data.user.email === values.email) {
-							if (customerStatus.data?.ssnLookupFails) {
+						if (customerStatus.data.customerFound) {
+							if (customerStatus.data.user.email === values.email) {
+								if (customerStatus.data?.ssnLookupFails) {
+									setSsnEmailMatch(false);
+									setError(false);
+									setLoading(false);
+								} else {
+									setSsnEmailMatch(true);
+									setError(false);
+									setLoading(false);
+									navigate("/existing-user");
+								}
+							} else {
 								setSsnEmailMatch(false);
 								setError(false);
 								setLoading(false);
-							} else {
-								setSsnEmailMatch(true);
-								setError(false);
-								setLoading(false);
-								navigate("/existing-user");
 							}
-						} else {
-							setSsnEmailMatch(false);
+						} else if (!customerStatus.data.customerFound) {
 							setError(false);
 							setLoading(false);
+							navigate("/new-user");
+						} else if (
+							customerStatus.data.errorMessage ===
+							"More than 1 customer record retrieved "
+						) {
+							setSsnEmailMatch(true);
+							setError(true);
+							setLoading(false);
 						}
-					} else if (!customerStatus.data.customerFound) {
-						setError(false);
-						setLoading(false);
-						navigate("/new-user");
-					} else if (
-						customerStatus.data.errorMessage ===
-						"More than 1 customer record retrieved "
-					) {
-						setSsnEmailMatch(true);
-						setError(true);
-						setLoading(false);
 					}
 				}
 			}
-		}
 		},
 	});
 
@@ -310,7 +310,7 @@ function PersonalInfo() {
 		// return null;
 		return () => { // This code runs when component is unmounted
 			componentMounted.current = false; // set it to false when we leave the page
-	}
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -318,29 +318,29 @@ function PersonalInfo() {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className={ classes.mainDiv }>
+			<div className={classes.mainDiv}>
 				<Box>
 					<Grid
 						item
-						xs={ 12 }
+						xs={12}
 						container
 						alignItems="center"
-						className={ innerClasses.gridAlign }
+						className={innerClasses.gridAlign}
 					>
 						<Grid
 							container
 							item
-							xs={ 11 }
-							sm={ 10 }
-							md={ 6 }
-							lg={ 6 }
-							xl={ 6 }
+							xs={11}
+							sm={10}
+							md={6}
+							lg={6}
+							xl={6}
 							className="cardWrapper"
-						  alignItems="center"
+							alignItems="center"
 						>
 							<Paper
 								id="aboutYourselfWrap"
-								className={ innerClasses.paperStyle }
+								className={innerClasses.paperStyle}
 							>
 								<div className="progress mt-0">
 									<div
@@ -359,22 +359,22 @@ function PersonalInfo() {
 								<Grid>
 									<img
 										alt="person logo"
-										src={ PersonLogo }
+										src={PersonLogo}
 										className="spinAnimation"
 									/>
 								</Grid>
 
 								<Typography
 									variant="h5"
-									className={ innerClasses.typoStyle }
+									className={innerClasses.typoStyle}
 								>
 									Tell us about yourself
 								</Typography>
-								<form onSubmit={ formik.handleSubmit }>
+								<form onSubmit={formik.handleSubmit}>
 									<Grid
 										item
-										md={ 12 }
-										className={ innerClasses.justifyGrid }
+										md={12}
+										className={innerClasses.justifyGrid}
 										container
 										alignItems="center"
 									>
@@ -382,9 +382,9 @@ function PersonalInfo() {
 											container
 											alignItems="center"
 											item
-											lg={ 8 }
-											md={ 8 }
-											xs={ 12 }
+											lg={8}
+											md={8}
+											xs={12}
 											className="textBlock"
 										>
 											<TextField
@@ -393,10 +393,10 @@ function PersonalInfo() {
 												id="firstName"
 												name="firstName"
 												label="First Name *"
-												materialProps={ { maxLength: "30", ref: refFirstName, } }
-												value={ formik.values.firstName }
-												onChange={ onNameChange }
-												onBlur={ formik.handleBlur }
+												materialProps={{ maxLength: "30", ref: refFirstName, }}
+												value={formik.values.firstName}
+												onChange={onNameChange}
+												onBlur={formik.handleBlur}
 												error={
 													formik.touched.firstName &&
 													Boolean(formik.errors.firstName)
@@ -404,7 +404,7 @@ function PersonalInfo() {
 												helperText={
 													formik.touched.firstName && formik.errors.firstName
 												}
-												disabled={ data.disabled }
+												disabled={data.disabled}
 											/>
 										</Grid>
 										<Grid
@@ -412,9 +412,9 @@ function PersonalInfo() {
 											justifyContent="flex-start"
 											alignItems="flex-start"
 											item
-											lg={ 8 }
-											md={ 8 }
-											xs={ 12 }
+											lg={8}
+											md={8}
+											xs={12}
 											className="textBlock"
 										>
 											<TextField
@@ -422,10 +422,10 @@ function PersonalInfo() {
 												id="lastName"
 												name="lastName"
 												label="Last Name *"
-												materialProps={ { maxLength: "30", ref: refLastName, } }
-												value={ formik.values.lastName }
-												onChange={ onNameChange }
-												onBlur={ formik.handleBlur }
+												materialProps={{ maxLength: "30", ref: refLastName, }}
+												value={formik.values.lastName}
+												onChange={onNameChange}
+												onBlur={formik.handleBlur}
 												error={
 													formik.touched.lastName &&
 													Boolean(formik.errors.lastName)
@@ -433,7 +433,7 @@ function PersonalInfo() {
 												helperText={
 													formik.touched.lastName && formik.errors.lastName
 												}
-												disabled={ data.disabled }
+												disabled={data.disabled}
 											/>
 											<div className="MuiTypography-alignLeft">
 												<Typography className="smallTextLeft">
@@ -445,9 +445,9 @@ function PersonalInfo() {
 											container
 											alignItems="center"
 											item
-											lg={ 8 }
-											md={ 8 }
-											xs={ 12 }
+											lg={8}
+											md={8}
+											xs={12}
 											className="textBlock"
 										>
 											<DatePicker
@@ -456,16 +456,16 @@ function PersonalInfo() {
 												placeholder="MM/DD/YYYY"
 												id="dob"
 												autoComplete="off"
-												maxdate={ myDate }
-												minyear={ 102 }
-												value={ formik.values.dob }
-												onChange={ (values) => {
+												maxdate={myDate}
+												minyear={102}
+												value={formik.values.dob}
+												onChange={(values) => {
 													formik.values.dob = values;
 													formik.setFieldValue("dob", values);
-												} }
-												onBlur={ formik.handleBlur }
-												error={ formik.touched.dob && Boolean(formik.errors.dob) }
-												helperText={ formik.touched.dob && formik.errors.dob }
+												}}
+												onBlur={formik.handleBlur}
+												error={formik.touched.dob && Boolean(formik.errors.dob)}
+												helperText={formik.touched.dob && formik.errors.dob}
 											/>
 
 											<div className="MuiTypography-alignLeft">
@@ -480,22 +480,22 @@ function PersonalInfo() {
 											justifyContent="flex-start"
 											alignItems="flex-start"
 											item
-											lg={ 8 }
-											md={ 8 }
-											xs={ 12 }
+											lg={8}
+											md={8}
+											xs={12}
 											direction="row"
 											className="textBlock"
 											id="tellUs"
 										>
-											{ data.last4SSN ? (
+											{data.last4SSN ? (
 												<TextField
 													fullWidth
 													id="last4ssn"
 													name="last4ssn"
 													label="Social Security Number *"
-													materialProps={ { maxLength: "30" } }
-													value={ formik.values.lastSSN }
-													onBlur={ formik.handleBlur }
+													materialProps={{ maxLength: "30" }}
+													value={formik.values.lastSSN}
+													onBlur={formik.handleBlur}
 													error={
 														formik.touched.lastSSN &&
 														Boolean(formik.errors.lastSSN)
@@ -503,7 +503,7 @@ function PersonalInfo() {
 													helperText={
 														formik.touched.lastSSN && formik.errors.lastSSN
 													}
-													disabled={ data.disabled }
+													disabled={data.disabled}
 												/>
 											) : (
 												<SocialSecurityNumber
@@ -512,15 +512,15 @@ function PersonalInfo() {
 													placeholder="Enter your Social Security Number"
 													id="ssn"
 													type="ssn"
-													value={ formik.values.ssn }
-													onChange={ emailOnChange }
-													onBlur={ formik.handleBlur }
+													value={formik.values.ssn}
+													onChange={emailOnChange}
+													onBlur={formik.handleBlur}
 													error={
 														formik.touched.ssn && Boolean(formik.errors.ssn)
 													}
-													helperText={ formik.touched.ssn && formik.errors.ssn }
+													helperText={formik.touched.ssn && formik.errors.ssn}
 												/>
-											) }
+											)}
 
 											<div className="MuiTypography-alignLeft">
 												<Typography className="smallTextLeft" align="left">
@@ -532,9 +532,9 @@ function PersonalInfo() {
 											container
 											alignItems="center"
 											item
-											lg={ 8 }
-											md={ 8 }
-											xs={ 12 }
+											lg={8}
+											md={8}
+											xs={12}
 											className="textBlock"
 										>
 											<EmailTextField
@@ -542,17 +542,17 @@ function PersonalInfo() {
 												id="email"
 												name="email"
 												label="Email *"
-												onKeyDown={ preventSpace }
-												value={ formik.values.email }
-												materialProps={ { maxLength: "100" } }
-												onLoad={ checkApplicationStatus }
-												onChange={ emailOnChange }
-												onBlur={ checkApplicationStatus }
+												onKeyDown={preventSpace}
+												value={formik.values.email}
+												materialProps={{ maxLength: "100" }}
+												onLoad={checkApplicationStatus}
+												onChange={emailOnChange}
+												onBlur={checkApplicationStatus}
 												error={
 													formik.touched.email && Boolean(formik.errors.email)
 												}
-												helperText={ formik.touched.email && formik.errors.email }
-												disabled={ data.disabled }
+												helperText={formik.touched.email && formik.errors.email}
+												disabled={data.disabled}
 											/>
 											<p
 												className={
@@ -570,9 +570,9 @@ function PersonalInfo() {
 											container
 											alignItems="center"
 											item
-											lg={ 8 }
-											md={ 8 }
-											xs={ 12 }
+											lg={8}
+											md={8}
+											xs={12}
 											className="textBlock"
 											id="phoneInput"
 										>
@@ -582,14 +582,14 @@ function PersonalInfo() {
 												placeholder="Enter your phone number"
 												id="phone"
 												type="text"
-												onKeyDown={ preventSpace }
-												value={ formik.values.phone }
-												onChange={ formik.handleChange }
-												onBlur={ formik.handleBlur }
+												onKeyDown={preventSpace}
+												value={formik.values.phone}
+												onChange={formik.handleChange}
+												onBlur={formik.handleBlur}
 												error={
 													formik.touched.phone && Boolean(formik.errors.phone)
 												}
-												helperText={ formik.touched.phone && formik.errors.phone }
+												helperText={formik.touched.phone && formik.errors.phone}
 											/>
 											<div className="alignErrorLeft">
 												<Typography
@@ -600,7 +600,7 @@ function PersonalInfo() {
 													}
 													align="left"
 												>
-													It looks like you already have an account. Please{ " " }
+													It looks like you already have an account. Please{" "}
 													<a href="/login">sign in.</a>
 												</Typography>
 												<Typography
@@ -617,26 +617,26 @@ function PersonalInfo() {
 										</Grid>
 										<Grid
 											container
-											className={ innerClasses.justifyGridMargin }
+											className={innerClasses.justifyGridMargin}
 											alignItems="center"
 											item
-											lg={ 8 }
-											md={ 8 }
-											xs={ 12 }
+											lg={8}
+											md={8}
+											xs={12}
 										>
 											<ButtonPrimary
-												onClick={ autoFocus }
+												onClick={autoFocus}
 												type="submit"
 												stylebutton='{"background": "#FFBC23", "color": "black","fontSize":"0.938rem", "padding":"0px 30px"}'
-												disabled={ appliedInLast30Days || error || loading }
+												disabled={appliedInLast30Days || error || loading}
 											>
 												Continue
 												<i
 													className="fa fa-refresh fa-spin customSpinner"
-													style={ {
+													style={{
 														marginRight: "10px",
 														display: loading ? "block" : "none",
-													} }
+													}}
 												/>
 											</ButtonPrimary>
 										</Grid>

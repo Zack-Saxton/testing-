@@ -70,7 +70,7 @@ export default function MailingAddress(props) {
     initialValues: {
       streetAddress: basicInfo?.address_street ?? "",
       zip: basicInfo?.address_postal_code ?? "",
-      city: basicInfo?.address_city ??  "",
+      city: basicInfo?.address_city ?? "",
       state: basicInfo?.address_state ?? "",
     },
 
@@ -159,18 +159,18 @@ export default function MailingAddress(props) {
   };
 
   return (
-    <div style={ { padding: 20 } }>
-      <form onSubmit={ formik.handleSubmit } id="mailing" style={ {
+    <div style={{ padding: 20 }}>
+      <form onSubmit={formik.handleSubmit} id="mailing" style={{
         opacity: loading ? 0.55 : 1,
         pointerEvents: loading ? "none" : "initial"
-      } }>
-        { !props?.basicInformationData ? (
+      }}>
+        {!props?.basicInformationData ? (
           <Grid align="center"><CircularProgress /></Grid>
         ) : <>
           <Grid
             item
-            xs={ 12 }
-            className={ classes.addressInfoGrid }
+            xs={12}
+            className={classes.addressInfoGrid}
             container
             direction="row"
           >
@@ -180,15 +180,15 @@ export default function MailingAddress(props) {
               id="streetAddress"
               name="streetAddress"
               label="Street Address"
-              materialProps={ {
+              materialProps={{
                 "data-test-id": "streetAddress",
                 maxLength: "100",
-              } }
-              disabled={ !disableField }
-              onKeyDown={ preventSpace }
-              value={ formik.values.streetAddress }
-              onChange={ formik.handleChange }
-              onBlur={ onBlurAddress }
+              }}
+              disabled={!disableField}
+              onKeyDown={preventSpace}
+              value={formik.values.streetAddress}
+              onChange={formik.handleChange}
+              onBlur={onBlurAddress}
               error={
                 formik.touched.streetAddress &&
                 Boolean(formik.errors.streetAddress)
@@ -200,8 +200,8 @@ export default function MailingAddress(props) {
           </Grid>
           <Grid
             item
-            xs={ 12 }
-            className={ classes.addressInfoGrid }
+            xs={12}
+            className={classes.addressInfoGrid}
             container
             direction="row"
           >
@@ -210,19 +210,19 @@ export default function MailingAddress(props) {
               id="city"
               name="city"
               label="City"
-              disabled={ true }
-              materialProps={ { "data-test-id": "city" } }
-              value={ formik.values.city }
-              onChange={ formik.handleChange }
-              onBlur={ formik.handleBlur }
-              error={ formik.touched.city && Boolean(formik.errors.city) }
-              helperText={ formik.touched.city && formik.errors.city }
+              disabled={true}
+              materialProps={{ "data-test-id": "city" }}
+              value={formik.values.city}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.city && Boolean(formik.errors.city)}
+              helperText={formik.touched.city && formik.errors.city}
             />
           </Grid>
           <Grid
             item
-            xs={ 12 }
-            className={ classes.addressInfoGrid }
+            xs={12}
+            className={classes.addressInfoGrid}
             container
             direction="row"
           >
@@ -231,19 +231,19 @@ export default function MailingAddress(props) {
               id="state"
               name="state"
               label="State"
-              disabled={ true }
-              materialProps={ { "data-test-id": "state" } }
-              value={ formik.values.state }
-              onChange={ formik.handleChange }
-              onBlur={ formik.handleBlur }
-              error={ formik.touched.state && Boolean(formik.errors.state) }
-              helperText={ formik.touched.state && formik.errors.state }
+              disabled={true}
+              materialProps={{ "data-test-id": "state" }}
+              value={formik.values.state}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.state && Boolean(formik.errors.state)}
+              helperText={formik.touched.state && formik.errors.state}
             />
           </Grid>
           <Grid
             item
-            xs={ 12 }
-            className={ classes.addressInfoGrid }
+            xs={12}
+            className={classes.addressInfoGrid}
             container
             direction="row"
           >
@@ -252,11 +252,11 @@ export default function MailingAddress(props) {
               id="zip"
               name="zip"
               label="Zip Code"
-              materialProps={ { "data-test-id": "zipcode" } }
-              disabled={ !disableField }
-              value={ formik.values.zip }
-              onChange={ fetchAddress }
-              onBlur={ formik.handleBlur }
+              materialProps={{ "data-test-id": "zipcode" }}
+              disabled={!disableField}
+              value={formik.values.zip}
+              onChange={fetchAddress}
+              onBlur={formik.handleBlur}
               error={
                 (formik.touched.zip && Boolean(formik.errors.zip)) || !validZip
               }
@@ -266,34 +266,34 @@ export default function MailingAddress(props) {
             />
           </Grid>
           <Grid className="mailingButtons">
-          <ButtonSecondary
-            stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
-            styleicon='{ "color":"" }'
-            onClick={ onClickCancelChange }
-            disabled={ !disableField }
+            <ButtonSecondary
+              stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
+              styleicon='{ "color":"" }'
+              onClick={onClickCancelChange}
+              disabled={!disableField}
 
-          >
-            Cancel
-          </ButtonSecondary>
-          <ButtonPrimary
-            stylebutton='{"marginLeft": "5px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
-            styleicon='{ "color":"" }'
-            type="submit"
-            disabled={ loading }
-            id="mailingSaveButton"
-          >
-            Save Changes
-            <i
-              className="fa fa-refresh fa-spin customSpinner"
-              style={ {
-                marginRight: "10px",
-                display: loading ? "block" : "none",
-                color: 'blue'
-              } }
-            />
-          </ButtonPrimary>
+            >
+              Cancel
+            </ButtonSecondary>
+            <ButtonPrimary
+              stylebutton='{"marginLeft": "5px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
+              styleicon='{ "color":"" }'
+              type="submit"
+              disabled={loading}
+              id="mailingSaveButton"
+            >
+              Save Changes
+              <i
+                className="fa fa-refresh fa-spin customSpinner"
+                style={{
+                  marginRight: "10px",
+                  display: loading ? "block" : "none",
+                  color: 'blue'
+                }}
+              />
+            </ButtonPrimary>
           </Grid>
-        </> }
+        </>}
       </form>
 
     </div>

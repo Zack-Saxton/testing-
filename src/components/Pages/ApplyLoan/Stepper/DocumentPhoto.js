@@ -105,22 +105,22 @@ export default function DocumentPhoto(props) {
 	//View part - JSX
 	return (
 		<div>
-			<div className={ classes.content_grid }>
-				<p className={ classes.pTagStyle }>
-					<span className={ classes.spanStyle }> Please upload an image or your driver‘s license, passport,
+			<div className={classes.content_grid}>
+				<p className={classes.pTagStyle}>
+					<span className={classes.spanStyle}> Please upload an image or your driver‘s license, passport,
 						state-issued photo ID card, or military/federal government photo ID.
 					</span>
 					<br />
-					<span className={ classes.spanStyle }>Please ensure:</span>
-					<li className={ classes.listStyle }>Document is currently valid</li>
-					<li className={ classes.listStyle }>The entire document is visible and all information is legible</li>
+					<span className={classes.spanStyle}>Please ensure:</span>
+					<li className={classes.listStyle}>Document is currently valid</li>
+					<li className={classes.listStyle}>The entire document is visible and all information is legible</li>
 				</p>
 			</div>
-			<Grid item sm={ 12 }>
-				{ iframeSrc !== '' ? <iframe src={ iframeSrc } allow="camera;" id="iframeDiv" title="document upload" height="650px" width="100%" /> : null }
+			<Grid item sm={12}>
+				{iframeSrc !== '' ? <iframe src={iframeSrc} allow="camera;" id="iframeDiv" title="document upload" height="650px" width="100%" /> : null}
 			</Grid>
 			<div>
-				<p className={ classes.pTagStyle }>
+				<p className={classes.pTagStyle}>
 					Please upload a picture of yourself in which you are holding your
 					state or federal government issued ID next to your face. Please ensure
 					that the information on the ID is legible and that your hand is
@@ -129,21 +129,21 @@ export default function DocumentPhoto(props) {
 					check)
 				</p>
 				<br />
-				<p style={ { display: error ? "block" : "none" } } className={ classes.errorStyle }>
-					{ messages.documentPhoto.verificationNotFound }
+				<p style={{ display: error ? "block" : "none" }} className={classes.errorStyle}>
+					{messages.documentPhoto.verificationNotFound}
 				</p>
 			</div>
 
-			<div className={ props.classes.actionsContainer }>
-				<div className={ props.classes.button_div } >
+			<div className={props.classes.actionsContainer}>
+				<div className={props.classes.button_div} >
 					<ButtonPrimary
 						variant="contained"
 						color="primary"
 						id="button_stepper_next"
 						stylebutton='{"marginRight": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
-						onClick={ () => { onClickNextBtn(); } }
+						onClick={() => { onClickNextBtn(); }}
 					>
-						{ props.activeStep === props?.steps.length - 1 ? "Finish" : "Next" }
+						{props.activeStep === props?.steps.length - 1 ? "Finish" : "Next"}
 					</ButtonPrimary>
 				</div>
 			</div>

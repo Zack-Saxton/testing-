@@ -1,34 +1,40 @@
-#uploadBtn{
+#uploadBtn {
     padding: 0px 30px !important;
     font-size: 0.938rem;
     font-family: 'Muli', sans-serif !important;
 }
-#pageHeading{
-   margin: 0 !important;
-   line-height: 0 !important;
+
+#pageHeading {
+    margin: 0 !important;
+    line-height: 0 !important;
 }
 
-#selectDoccumentWrap .subOption{
+#selectDoccumentWrap .subOption {
     color: #171717;
 }
 
-.textdecoration{
+.textdecoration {
     text-decoration: none;
 }
-.gridPadding{
+
+.gridPadding {
     padding-top: 10px;
 }
-.loanDocumentWrap{
+
+.loanDocumentWrap {
     padding-top: 10px;
     padding-bottom: 30%;
 }
-.selectDocument{
+
+.selectDocument {
     padding-top: 10px;
     width: 225px;
 }
-.loanDocumentGrid{
+
+.loanDocumentGrid {
     padding-bottom: 10px
 }
-.documentInput{
+
+.documentInput {
     padding-top: 20px;
 }

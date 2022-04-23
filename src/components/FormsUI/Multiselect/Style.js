@@ -1,10 +1,10 @@
-import { makeStyles } from "@mui/styles";
 import { useTheme } from '@mui/material/styles';
+import { makeStyles } from "@mui/styles";
 
 
 //Styling
 const useStylesMultiSelectComponent = makeStyles(() => ({
-  
+
   formControl: {
     margin: useTheme().spacing(1),
     minWidth: 120,
@@ -20,7 +20,7 @@ const useStylesMultiSelectComponent = makeStyles(() => ({
   noLabel: {
     marginTop: useTheme().spacing(3),
   },
-    menu: {
+  menu: {
     width: 200,
   },
 

@@ -6,9 +6,9 @@ import CheckLoginStatus from "../../../App/CheckLoginStatus";
 import { ButtonWithIcon } from "../../../FormsUI";
 import ScrollToTopOnMount from "../../ScrollToTop";
 import "../SelectOffer/SelectOffer.css";
-import { useStylesApplyForLoan } from "../Style"
 import Stepper from "../Stepper/Stepper";
-import TabPanel from "../TabPanel"
+import { useStylesApplyForLoan } from "../Style";
+import TabPanel from "../TabPanel";
 import TabSection from "../TabSection";
 
 
@@ -28,20 +28,20 @@ export default function FinalVerification() {
       <ScrollToTopOnMount />
       <Grid
         container
-        justifyContent={ "center" }
-        className={ classes.centerGrid }
+        justifyContent={"center"}
+        className={classes.centerGrid}
       >
         <Grid
           item
-          xs={ 12 }
+          xs={12}
           container
           direction="row"
-          className={ classes.gridContainer }
+          className={classes.gridContainer}
         >
-          <Typography className={ classes.applyLoanHeadingText } variant="h3">
+          <Typography className={classes.applyLoanHeadingText} variant="h3">
             <NavLink
               to="/customers/accountOverview"
-              className={ classes.textDecoration }
+              className={classes.textDecoration}
             >
               <ButtonWithIcon
                 icon="arrow_backwardIcon"
@@ -53,23 +53,23 @@ export default function FinalVerification() {
 												"marginRight": "5px", "marginTop":"unset" }'
                 styleicon='{ "color":"" }'
               />
-            </NavLink>{ " " }
+            </NavLink>{" "}
             Apply for a Loan
           </Typography>
         </Grid>
 
-        {/* Tab section started */ }
-        <Grid item xs={ 12 }>
-          <TabSection value={ value } handleChange={ handleChange } classes={ classes } ay={ 2 } />
+        {/* Tab section started */}
+        <Grid item xs={12}>
+          <TabSection value={value} handleChange={handleChange} classes={classes} ay={2} />
           <TabPanel
-            value={ value }
-            index={ 2 }
-            className={ classes.tabPanelStyle }
+            value={value}
+            index={2}
+            className={classes.tabPanelStyle}
           >
             <Stepper />
-            <Grid item className={ classes.fullWidth }>
+            <Grid item className={classes.fullWidth}>
               <p
-              className={ classes.paraTagStyle }
+                className={classes.paraTagStyle}
               >
                 Loan funding and disbursement is conditioned upon our
                 satisfactory review of any documents and other information that

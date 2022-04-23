@@ -43,7 +43,7 @@ const useStylesLoanHistory = makeStyles((theme) => ({
     fontSize: "18px",
   },
   loanDocumentsTableCell: {
-    padding: "16px 16px 16px 0px" 
+    padding: "16px 16px 16px 0px"
   },
   textDecoration: {
     textDecoration: "none"
@@ -67,15 +67,15 @@ const useStylesLoanHistory = makeStyles((theme) => ({
     fontWeight: "600",
     fontSize: "1rem",
     minWidth: "140px"
-   },
-  tableHeadLast:{
+  },
+  tableHeadLast: {
     color: "#171717!important",
     fontWeight: "600",
     fontSize: "1rem",
     minWidth: "140px",
     padding: "16px 60px 16px 0px"
   },
-  tableHeadLast2:{
+  tableHeadLast2: {
     color: "#171717!important",
     fontWeight: "600",
     fontSize: "1rem",
@@ -86,24 +86,24 @@ const useStylesLoanHistory = makeStyles((theme) => ({
     color: "#171717!important",
     fontSize: "15px",
   },
-  tableHeadRowLast:{
-    minWidth: "140px", 
-    width: "150px", 
+  tableHeadRowLast: {
+    minWidth: "140px",
+    width: "150px",
     padding: "16px 60px 16px 0px",
     color: "#171717!important",
     fontSize: "15px"
   },
-  loanHistoryNavLink : {
+  loanHistoryNavLink: {
     textDecoration: "none"
   },
-  gridRecordTable : {
-    paddingBottom: "30%" 
+  gridRecordTable: {
+    paddingBottom: "30%"
   },
-  gridCardContent : {
+  gridCardContent: {
     paddingBottom: "20px",
-    paddingTop: "10px" 
+    paddingTop: "10px"
   },
-  gridCenter : {
+  gridCenter: {
     textAlign: "center"
   }
 }));

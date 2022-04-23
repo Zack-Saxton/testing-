@@ -23,30 +23,30 @@ const PasswordWrapper = ({ name, label, materialProps, id, ...otherProps }) => {
   return (
     // <FormControl fullWidth={true} >
     <TextField
-      fullWidth={ true }
-      label={ label }
+      fullWidth={true}
+      label={label}
       variant="standard"
-      id={ id } name={ name } { ...otherProps }
-      type={ !showPassword ? "text" : "password" }
-      onCut={ handleEdit }
-      onCopy={ handleEdit }
-      onPaste={ handleEdit }
-      inputProps={ materialProps }
-      InputProps={ {
+      id={id} name={name} {...otherProps}
+      type={!showPassword ? "text" : "password"}
+      onCut={handleEdit}
+      onCopy={handleEdit}
+      onPaste={handleEdit}
+      inputProps={materialProps}
+      InputProps={{
         "data-testid": "passProps",
         endAdornment: (
           <InputAdornment position="end">
             <IconButton
               aria-label="toggle password visibility"
-              onClick={ handleClickShowPassword }
+              onClick={handleClickShowPassword}
               data-testid="passButton"
               className="rem1FSize"
             >
-              { !showPassword ? "Hide" : "Show" }
+              {!showPassword ? "Hide" : "Show"}
             </IconButton>
           </InputAdornment>
         )
-      } }
+      }}
     />
     // </FormControl>
   );

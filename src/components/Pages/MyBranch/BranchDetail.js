@@ -86,52 +86,52 @@ export default function BranchDetail(MyBranchDetail) {
   //View part
   return (
     <div>
-      <Paper id="branchNameBox" className={ classes.paper }>
-        { branchDetail?.MyBranchDetail?.result ? (
+      <Paper id="branchNameBox" className={classes.paper}>
+        {branchDetail?.MyBranchDetail?.result ? (
           <p>No branch information</p>
         ) : branchDetail?.MyBranchDetail?.BranchName ||
           branchDetail?.MyBranchDetail?.branchName ? (
           <>
-            <Grid className={ classes.branchDetailGrid }>
-              <h4 className={ classes.branchDetailHeading }>Branch Name</h4>
-              <p className={ classes.branchDetailInput }>
-                { branchDetail?.MyBranchDetail?.BranchName
+            <Grid className={classes.branchDetailGrid}>
+              <h4 className={classes.branchDetailHeading}>Branch Name</h4>
+              <p className={classes.branchDetailInput}>
+                {branchDetail?.MyBranchDetail?.BranchName
                   ? branchDetail.MyBranchDetail.BranchName
                   : branchDetail?.MyBranchDetail?.branchName
                     ? branchDetail.MyBranchDetail.branchName
-                    : "" }
+                    : ""}
               </p>
             </Grid>
 
-            <Grid className={ classes.branchDetailGrid }>
-              <h4 className={ classes.branchDetailHeading }>Address</h4>
-              <p className={ classes.branchDetailInput }>
-                { branchDetail?.MyBranchDetail?.Address
+            <Grid className={classes.branchDetailGrid}>
+              <h4 className={classes.branchDetailHeading}>Address</h4>
+              <p className={classes.branchDetailInput}>
+                {branchDetail?.MyBranchDetail?.Address
                   ? branchDetail.MyBranchDetail.Address
-                  : "" }
+                  : ""}
               </p>
             </Grid>
 
-            <Grid className={ classes.branchDetailGrid }>
-              <h4 className={ classes.branchDetailHeading }>Phone Number</h4>
-              <p className={ classes.branchDetailInput }>
+            <Grid className={classes.branchDetailGrid}>
+              <h4 className={classes.branchDetailHeading}>Phone Number</h4>
+              <p className={classes.branchDetailInput}>
                 <a
                   id="phoneLink"
                   href="tel:"
                   className={classes.navLinkMyBranch} >
-                  { formatPhoneNumber(branchDetail.MyBranchDetail.PhoneNumber) }
+                  {formatPhoneNumber(branchDetail.MyBranchDetail.PhoneNumber)}
                 </a>
               </p>
             </Grid>
 
-            { stateName !== "CA" ? (
+            {stateName !== "CA" ? (
               <TableContainer>
-                <Grid className={ classes.branchDetailGrid }>
-                  <h4 className={ classes.branchDetailHeading }>Branch Hours</h4>
+                <Grid className={classes.branchDetailGrid}>
+                  <h4 className={classes.branchDetailHeading}>Branch Hours</h4>
                 </Grid>
                 <Table
                   id="workingHoursTableWrap"
-                  className={ classes.table }
+                  className={classes.table}
                   aria-label="simple table"
                 >
                   <TableHead>
@@ -143,25 +143,25 @@ export default function BranchDetail(MyBranchDetail) {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    { otherState.map((row) => (
-                      <TableRow key={ (Math.random() * 1000) }>
+                    {otherState.map((row) => (
+                      <TableRow key={(Math.random() * 1000)}>
                         <TableCell component="th" scope="row">
-                          { row.day }
+                          {row.day}
                         </TableCell>
-                        <TableCell align="center">{ row.monWedThur }</TableCell>
-                        <TableCell align="center">{ row.tue }</TableCell>
-                        <TableCell align="center">{ row.fri }</TableCell>
+                        <TableCell align="center">{row.monWedThur}</TableCell>
+                        <TableCell align="center">{row.tue}</TableCell>
+                        <TableCell align="center">{row.fri}</TableCell>
                       </TableRow>
-                    )) }
+                    ))}
                   </TableBody>
                 </Table>
               </TableContainer>
             ) : (
               <TableContainer>
-                <Grid className={ classes.branchDetailGrid }>
-                  <h4 className={ classes.branchDetailHeading }>Working Hours</h4>
+                <Grid className={classes.branchDetailGrid}>
+                  <h4 className={classes.branchDetailHeading}>Working Hours</h4>
                 </Grid>
-                <Table className={ classes.table } aria-label="simple table">
+                <Table className={classes.table} aria-label="simple table">
                   <TableHead>
                     <TableRow>
                       <TableCell>Day</TableCell>
@@ -170,47 +170,47 @@ export default function BranchDetail(MyBranchDetail) {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    { stateCA.map((row) => (
-                      <TableRow key={ (Math.random() * 1000) }>
+                    {stateCA.map((row) => (
+                      <TableRow key={(Math.random() * 1000)}>
                         <TableCell component="th" scope="row">
-                          { row.day }
+                          {row.day}
                         </TableCell>
                         <TableCell align="center">
-                          { row.monWedThurFri }
+                          {row.monWedThurFri}
                         </TableCell>
-                        <TableCell align="center">{ row.tue }</TableCell>
+                        <TableCell align="center">{row.tue}</TableCell>
                       </TableRow>
-                    )) }
+                    ))}
                   </TableBody>
                 </Table>
               </TableContainer>
-            ) }
+            )}
 
             <Grid
               item
-              xs={ 12 }
+              xs={12}
               className={classes.gridSchedule}
             >
               <ScheduleCall
-                MyBranchCall={ MyBranchDetail }
-                holidayData={ holidayCalenderData }
+                MyBranchCall={MyBranchDetail}
+                holidayData={holidayCalenderData}
               />
             </Grid>
 
             <Grid
               item
-              xs={ 12 }
+              xs={12}
               className={classes.gridSchedule}
             >
               <ScheduleAppointment
-                MyBranchAppointment={ MyBranchDetail }
-                holidayData={ holidayCalenderData }
+                MyBranchAppointment={MyBranchDetail}
+                holidayData={holidayCalenderData}
               />
             </Grid>
           </>
         ) : (
           <p>No branch information </p>
-        ) }
+        )}
       </Paper>
     </div>
   );

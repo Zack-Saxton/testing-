@@ -1,17 +1,3 @@
-import AppBar from "@mui/material/AppBar";
-import CssBaseline from "@mui/material/CssBaseline";
-import Divider from "@mui/material/Divider";
-import Drawer from "@mui/material/Drawer";
-import IconButton from "@mui/material/IconButton";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import { makeStyles, useTheme } from "@mui/styles";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import AccountCircle from "@mui/icons-material/AccountCircle";
@@ -25,6 +11,20 @@ import MenuIcon from "@mui/icons-material/Menu";
 import MonetizationOnRoundedIcon from "@mui/icons-material/MonetizationOnRounded";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import SettingsIcon from "@mui/icons-material/Settings";
+import AppBar from "@mui/material/AppBar";
+import CssBaseline from "@mui/material/CssBaseline";
+import Divider from "@mui/material/Divider";
+import Drawer from "@mui/material/Drawer";
+import IconButton from "@mui/material/IconButton";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import { makeStyles, useTheme } from "@mui/styles";
 import clsx from "clsx";
 import React from "react";
 import { NavLink } from "react-router-dom";
@@ -143,54 +143,54 @@ export default function SideNav() {
     const menuId = "primary-search-account-menu";
     const renderMenu = (
         <Menu
-            anchorEl={ anchorEl }
-            anchorOrigin={ { vertical: "top", horizontal: "right" } }
-            id={ menuId }
+            anchorEl={anchorEl}
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
+            id={menuId}
             keepMounted
-            transformOrigin={ { vertical: "top", horizontal: "right" } }
-            open={ isMenuOpen }
-            onClose={ handleMenuClose }
+            transformOrigin={{ vertical: "top", horizontal: "right" }}
+            open={isMenuOpen}
+            onClose={handleMenuClose}
         >
-            <MenuItem onClick={ handleMenuClose }>Profile</MenuItem>
-            <MenuItem onClick={ handleMenuClose }>My account</MenuItem>
+            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
         </Menu>
     );
 
     return (
-        <div className={ classes.root }>
+        <div className={classes.root}>
             <CssBaseline />
             <AppBar
                 position="fixed"
-                className={ clsx(classes.appBar, {
+                className={clsx(classes.appBar, {
                     [ classes.appBarShift ]: open,
-                }) }
+                })}
             >
                 <Toolbar>
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
-                        onClick={ handleDrawerOpen }
+                        onClick={handleDrawerOpen}
                         edge="start"
-                        className={ clsx(classes.menuButton, {
+                        className={clsx(classes.menuButton, {
                             [ classes.hide ]: open,
-                        }) }
+                        })}
                     >
                         <MenuIcon />
                     </IconButton>
 
-                    <img src={ logo } alt="logo" className={ classes.logo } />
+                    <img src={logo} alt="logo" className={classes.logo} />
 
-                    <div className={ classes.grow } />
-                    <div className={ classes.sectionDesktop }>
-                        <Typography className={ classes.headerAlign }>
+                    <div className={classes.grow} />
+                    <div className={classes.sectionDesktop}>
+                        <Typography className={classes.headerAlign}>
                             Blog
                         </Typography>
 
-                        <Typography className={ classes.headerAlign }>
+                        <Typography className={classes.headerAlign}>
                             FAQ
                         </Typography>
 
-                        <Typography className={ classes.headerAlign }>
+                        <Typography className={classes.headerAlign}>
                             Branch Locator
                         </Typography>
 
@@ -203,9 +203,9 @@ export default function SideNav() {
                         <IconButton
                             edge="end"
                             aria-label="account of current user"
-                            aria-controls={ menuId }
+                            aria-controls={menuId}
                             aria-haspopup="true"
-                            onClick={ handleProfileMenuOpen }
+                            onClick={handleProfileMenuOpen}
                             color="inherit"
                         >
                             <AccountCircle />
@@ -213,27 +213,27 @@ export default function SideNav() {
                     </div>
                 </Toolbar>
             </AppBar>
-            { renderMenu }
+            {renderMenu}
             <Drawer
                 variant="permanent"
-                className={ clsx(classes.drawer, {
+                className={clsx(classes.drawer, {
                     [ classes.drawerOpen ]: open,
                     [ classes.drawerClose ]: !open,
-                }) }
-                classes={ {
+                })}
+                classes={{
                     paper: clsx({
                         [ classes.drawerOpen ]: open,
                         [ classes.drawerClose ]: !open,
                     }),
-                } }
+                }}
             >
-                <div className={ classes.toolbar }>
-                    <IconButton onClick={ handleDrawerClose }>
-                        { theme.direction === "rtl" ? (
+                <div className={classes.toolbar}>
+                    <IconButton onClick={handleDrawerClose}>
+                        {theme.direction === "rtl" ? (
                             <ChevronRightIcon />
                         ) : (
                             <ChevronLeftIcon />
-                        ) }
+                        )}
                     </IconButton>
                 </div>
                 <Divider />
@@ -241,8 +241,8 @@ export default function SideNav() {
                     <NavLink to="/customers/accountOverview">
                         <ListItem>
                             <ListItemIcon>
-                                { " " }
-                                <AssignmentTurnedInOutlinedIcon />{ " " }
+                                {" "}
+                                <AssignmentTurnedInOutlinedIcon />{" "}
                             </ListItemIcon>
                             <ListItemText>Account Overview </ListItemText>
                         </ListItem>
@@ -250,64 +250,64 @@ export default function SideNav() {
 
                     <ListItem>
                         <ListItemIcon>
-                            { " " }
-                            <AccountBalanceWalletIcon />{ " " }
+                            {" "}
+                            <AccountBalanceWalletIcon />{" "}
                         </ListItemIcon>
                         <ListItemText>Make a Payment </ListItemText>
                     </ListItem>
 
                     <ListItem>
                         <ListItemIcon>
-                            { " " }
-                            <MonetizationOnRoundedIcon />{ " " }
+                            {" "}
+                            <MonetizationOnRoundedIcon />{" "}
                         </ListItemIcon>
                         <ListItemText> Apply for a Loan </ListItemText>
                     </ListItem>
 
                     <ListItem>
                         <ListItemIcon>
-                            { " " }
-                            <DescriptionOutlinedIcon />{ " " }
+                            {" "}
+                            <DescriptionOutlinedIcon />{" "}
                         </ListItemIcon>
                         <ListItemText> Loan Document </ListItemText>
                     </ListItem>
 
                     <ListItem>
                         <ListItemIcon>
-                            { " " }
-                            <AccountBalanceIcon />{ " " }
+                            {" "}
+                            <AccountBalanceIcon />{" "}
                         </ListItemIcon>
                         <ListItemText> My Branch</ListItemText>
                     </ListItem>
 
                     <ListItem>
                         <ListItemIcon>
-                            { " " }
-                            <AccountCircle />{ " " }
+                            {" "}
+                            <AccountCircle />{" "}
                         </ListItemIcon>
                         <ListItemText> My Profile</ListItemText>
                     </ListItem>
 
                     <ListItem>
                         <ListItemIcon>
-                            { " " }
-                            <ListIcon />{ " " }
+                            {" "}
+                            <ListIcon />{" "}
                         </ListItemIcon>
                         <ListItemText> Loan History</ListItemText>
                     </ListItem>
 
                     <ListItem>
                         <ListItemIcon>
-                            { " " }
-                            <InboxIcon />{ " " }
+                            {" "}
+                            <InboxIcon />{" "}
                         </ListItemIcon>
                         <ListItemText> VantageScore</ListItemText>
                     </ListItem>
 
                     <ListItem>
                         <ListItemIcon>
-                            { " " }
-                            <DataUsageOutlinedIcon />{ " " }
+                            {" "}
+                            <DataUsageOutlinedIcon />{" "}
                         </ListItemIcon>
                         <ListItemText> MoneySkill </ListItemText>
                     </ListItem>

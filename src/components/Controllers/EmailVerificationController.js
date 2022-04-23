@@ -1,18 +1,17 @@
+import { toast } from "react-toastify";
 import globalMessages from "../../assets/data/globalMessages.json";
+import getClientIp from "../Controllers/CommonController";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
-import getClientIp from "../Controllers/CommonController";
-import { toast } from "react-toastify";
-import { func } from "prop-types";
 
 const getOSName = (userAgent) => {
-    var osName="Unknown OS";
-    if (navigator.userAgent.indexOf("Win")!=-1) osName="Windows";
-    if (navigator.userAgent.indexOf("Mac")!=-1) osName="MacOS";
-    if (navigator.userAgent.indexOf("X11")!=-1) osName="UNIX";
-    if (navigator.userAgent.indexOf("Linux")!=-1) osName="Linux";
-    return osName;
-} 
+  var osName = "Unknown OS";
+  if (navigator.userAgent.indexOf("Win") != -1) osName = "Windows";
+  if (navigator.userAgent.indexOf("Mac") != -1) osName = "MacOS";
+  if (navigator.userAgent.indexOf("X11") != -1) osName = "UNIX";
+  if (navigator.userAgent.indexOf("Linux") != -1) osName = "Linux";
+  return osName;
+}
 /***** Get loan document *****/
 export async function validateActivationToken(activationToken, customerMail, applicationNumber) {
   try {
@@ -21,19 +20,19 @@ export async function validateActivationToken(activationToken, customerMail, app
     let userAgent = navigator.userAgent;
     let capturedInfo = {
       click_timestamp: new Date().toISOString(),
-      ip_address: await getClientIp(), 
-      user_agent: userAgent, 
-      browser: userAgent, 
-      os: getOSName(userAgent)  
+      ip_address: await getClientIp(),
+      user_agent: userAgent,
+      browser: userAgent,
+      os: getOSName(userAgent)
     }
     let data = {
       captured_info: capturedInfo,
       user_activation_token_link: activationToken,
       customer_email: customerMail,
       applicationNumber: applicationNumber
-    };  
+    };
     let method = "POST";
-    let addAccessToken = true;    
+    let addAccessToken = true;
 
     //API call
     return await APICall(url, param, data, method, addAccessToken);
@@ -84,9 +83,9 @@ export async function saveConsentStatus(customerEmail, applicationNumber) {
   return uploadData.status === 200;
 }
 
-export async function saveAcquireClick(customerEmail, applicationNumber){
+export async function saveAcquireClick(customerEmail, applicationNumber) {
   let url = "save_acquire_click";
-  let param = "";  
+  let param = "";
   let acquireClickedat = new Date().toLocaleString("en-US", {
     timeZone: 'America/New_York',
     hour12: false

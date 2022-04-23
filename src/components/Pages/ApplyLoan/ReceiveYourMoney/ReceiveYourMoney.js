@@ -7,9 +7,9 @@ import CheckLoginStatus from "../../../App/CheckLoginStatus";
 import { ButtonWithIcon } from "../../../FormsUI";
 import ScrollToTopOnMount from "../../ScrollToTop";
 import "../SelectOffer/SelectOffer.css";
-import { useStylesApplyForLoan } from "../Style"
+import { useStylesApplyForLoan } from "../Style";
+import TabPanel from "../TabPanel";
 import TabSection from "../TabSection";
-import TabPanel from "../TabPanel"
 
 // Initializing Recive your money component
 export default function ReceiveYourMoney() {
@@ -26,16 +26,16 @@ export default function ReceiveYourMoney() {
 			<Grid
 				container
 				justifyContent="center"
-				className={ classes.centerGrid }
+				className={classes.centerGrid}
 			>
 				<Grid
 					item
-					xs={ 12 }
+					xs={12}
 					container
 					direction="row"
 					className={classes.gridStyle}
 				>
-					<Typography className={ classes.applyLoanHeadingText } variant="h3">
+					<Typography className={classes.applyLoanHeadingText} variant="h3">
 						<NavLink
 							to="/customers/accountOverview"
 							className={classes.textDecoration}
@@ -50,15 +50,15 @@ export default function ReceiveYourMoney() {
                         "marginRight": "5px", "marginTop":"unset" }'
 								styleicon='{ "color":"" }'
 							/>
-						</NavLink>{ " " }
+						</NavLink>{" "}
 						Apply for a Loan
 					</Typography>
 				</Grid>
-				<Grid className={classes.receiveMoneyGrid} item xs={ 12 }>
-					<TabSection value={ value } handleChange={ handleChange } classes={ classes } ay={ 3 } />
-					<TabPanel value={ value } index={ 3 } className={classes.tabPanelStyle}>
-						<Grid item xs={ 12 } className={classes.fullWidth} container direction="row">
-							<Paper className={`${classes.applicationPapper} ${ classes.paper }`}>
+				<Grid className={classes.receiveMoneyGrid} item xs={12}>
+					<TabSection value={value} handleChange={handleChange} classes={classes} ay={3} />
+					<TabPanel value={value} index={3} className={classes.tabPanelStyle}>
+						<Grid item xs={12} className={classes.fullWidth} container direction="row">
+							<Paper className={`${ classes.applicationPapper } ${ classes.paper }`}>
 								<div>
 									<h3>Your Application is Complete</h3>
 									<p className={classes.paraTagStyle}>

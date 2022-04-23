@@ -1,17 +1,17 @@
-import { cleanup, render, fireEvent } from '@testing-library/react';
+import { cleanup, fireEvent, render } from '@testing-library/react';
 import React from 'react';
 import TextFieldWithIcon from './index.js';
 
 afterEach(cleanup);
-const component = () =>{
-    return(<TextFieldWithIcon
+const component = () => {
+    return (<TextFieldWithIcon
         name="userName1"
         label="Enter Username"
         icon="cloud"
         iconColor="#595E6E"
         iconPosition="right"
-        materialProps={ { "data-testid": "test" } }
-        required={ true }
+        materialProps={{ "data-testid": "test" }}
+        required={true}
     />);
 }
 
@@ -33,7 +33,7 @@ test("Check can able to enter value", () => {
     fireEvent.change(input, { target: { value: "Mariner" } });
     expect(input.value).toBe('Mariner');
 });
-  
+
 
 test('should match the snapshot', () => {
     const { asFragment } = render(component());

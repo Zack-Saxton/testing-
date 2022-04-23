@@ -1,3 +1,4 @@
+import CloseIcon from "@mui/icons-material/Close";
 import { FormControl, FormControlLabel } from "@mui/material";
 import Box from "@mui/material/Box";
 import Dialog from "@mui/material/Dialog";
@@ -8,20 +9,17 @@ import IconButton from "@mui/material/IconButton";
 import Paper from "@mui/material/Paper";
 import Switch from "@mui/material/Switch";
 import Typography from "@mui/material/Typography";
-import CloseIcon from "@mui/icons-material/Close";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { useQueryClient } from "react-query";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import globalMessages from "../../../assets/data/globalMessages.json";
-import LoginController from "../../Controllers/LoginController";
-import Recaptcha from "../../Layout/Recaptcha/GenerateRecaptcha";
-import { RecaptchaValidationController } from "../../Controllers/RecaptchaController";
-import getClientIp from "../../Controllers/CommonController";
-import ErrorLogger from "../../lib/ErrorLogger";
 import { toast } from "react-toastify";
+import globalMessages from "../../../assets/data/globalMessages.json";
+import getClientIp from "../../Controllers/CommonController";
+import LoginController from "../../Controllers/LoginController";
+import { RecaptchaValidationController } from "../../Controllers/RecaptchaController";
 import {
   ButtonPrimary,
   EmailTextField,
@@ -29,11 +27,13 @@ import {
   Popup,
   RenderContent
 } from "../../FormsUI";
+import Recaptcha from "../../Layout/Recaptcha/GenerateRecaptcha";
 import { encryptAES } from "../../lib/Crypto";
+import ErrorLogger from "../../lib/ErrorLogger";
 import { FormValidationRules } from "../../lib/FormValidationRule";
 import ScrollToTopOnMount from "../../Pages/ScrollToTop";
-import { useStylesLogin } from "./style"
 import "./Login.css";
+import { useStylesLogin } from "./style";
 let formValidation = new FormValidationRules();
 const moment = require("moment");
 const moment_timezone = require("moment-timezone");
@@ -59,7 +59,7 @@ export default function Login(props) {
   let remMeData = JSON.parse(remMeDataRaw);
   const [ remMe, setRemMe ] = useState(remMeData?.selected);
 
-//reCaptcha validation
+  //reCaptcha validation
   window.onReCaptchaSuccess = async function () {
     try {
       let grecaptchaResponse = grecaptcha.getResponse();
@@ -199,11 +199,11 @@ export default function Login(props) {
   return (
     <div>
       <ScrollToTopOnMount />
-      <div className={ classes.mainContentBackground } id="mainContentBackground">
+      <div className={classes.mainContentBackground} id="mainContentBackground">
         <Box>
           <Grid
-            className={ classes.mainContentGrid }            
-            xs={ 12 }
+            className={classes.mainContentGrid}
+            xs={12}
             item
             container
             justifyContent="center"
@@ -212,33 +212,33 @@ export default function Login(props) {
             <Grid
               id="main-content"
               item
-              xs={ 11 }
-              sm={ 10 }
-              md={ 8 }
-              lg={ 6 }
-              xl={ 6 }
+              xs={11}
+              sm={10}
+              md={8}
+              lg={6}
+              xl={6}
               justifyContent="center"
               alignItems="center"
               container
-              style={ {
+              style={{
                 opacity: loading ? 0.55 : 1,
                 pointerEvents: loading ? "none" : "initial",
-              } }
+              }}
             >
-              <Paper id="loginPaperCard" className={ classes.paper }>
+              <Paper id="loginPaperCard" className={classes.paper}>
                 <Typography
-                  className={ classes.title }
+                  className={classes.title}
                   data-testid="title"
                   color="textSecondary"
                 >
                   Sign in
                 </Typography>
 
-                <form onSubmit={ formik.handleSubmit }>
-                  <Grid className={ classes.logInGrid }>
+                <form onSubmit={formik.handleSubmit}>
+                  <Grid className={classes.logInGrid}>
                     <Grid
                       id="fullWidth"
-                      className={ classes.emailGrid }
+                      className={classes.emailGrid}
                     >
                       <EmailTextField
                         id="email"
@@ -247,22 +247,22 @@ export default function Login(props) {
                         testid="email-input"
                         placeholder="Enter your email address"
                         label="Email Address *"
-                        materialProps={ { maxLength: "100" } }
+                        materialProps={{ maxLength: "100" }}
                         suffix={
-                          <p id="helpLogin" onClick={ handlePaymentcancel }>
-                            { " " }
+                          <p id="helpLogin" onClick={handlePaymentcancel}>
+                            {" "}
                             Help
                           </p>
                         }
-                        onKeyDown={ preventSpace }
-                        value={ formik.values?.email }
-                        onChange={ passwordOnChange }
-                        onBlur={ formik.handleBlur }
-                        disablePaste= { true }
+                        onKeyDown={preventSpace}
+                        value={formik.values?.email}
+                        onChange={passwordOnChange}
+                        onBlur={formik.handleBlur}
+                        disablePaste={true}
                         error={
                           formik.touched?.email && Boolean(formik.errors?.email)
                         }
-                        helperText={ formik.touched?.email && formik.errors?.email }
+                        helperText={formik.touched?.email && formik.errors?.email}
                       />
                     </Grid>
 
@@ -275,11 +275,11 @@ export default function Login(props) {
                         placeholder="Enter your password"
                         id="password"
                         type="password"
-                        onKeyDown={ preventSpace }
-                        materialProps={ { maxLength: "100" } }
-                        value={ formik.values?.password }
-                        onChange={ passwordOnChange }
-                        onBlur={ formik.handleBlur }
+                        onKeyDown={preventSpace}
+                        materialProps={{ maxLength: "100" }}
+                        value={formik.values?.password}
+                        onChange={passwordOnChange}
+                        onBlur={formik.handleBlur}
                         error={
                           formik.touched?.password &&
                           Boolean(formik.errors?.password)
@@ -294,18 +294,18 @@ export default function Login(props) {
                         }
                         data-testid="subtitle"
                       >
-                        { " " }
-                        { loginFailed === "Invalid Email or Password" ? globalMessages.Invalid_Login_Message :  loginFailed}
+                        {" "}
+                        {loginFailed === "Invalid Email or Password" ? globalMessages.Invalid_Login_Message : loginFailed}
                       </p>
                     </Grid>
-                    <Grid className={ classes.checkbox }>
+                    <Grid className={classes.checkbox}>
                       <FormControl>
                         <FormControlLabel
                           control={
                             <Switch
-                              checked={ remMe }
-                              onChange={ handleRemMeChange }
-                              inputProps={ { "data-test-id": "switch" } }
+                              checked={remMe}
+                              onChange={handleRemMeChange}
+                              inputProps={{ "data-test-id": "switch" }}
                               color="primary"
                             />
                           }
@@ -314,39 +314,39 @@ export default function Login(props) {
                       </FormControl>
                     </Grid>
 
-                    <Grid className ={classes.loginRecaptcha} >
+                    <Grid className={classes.loginRecaptcha} >
                       <Recaptcha />
                     </Grid>
 
-                    <Grid item xs={ 12 } className={ classes.loginButton }>
+                    <Grid item xs={12} className={classes.loginButton}>
                       <ButtonPrimary
                         type="submit"
                         data-testid="submit"
                         stylebutton='{"background": "", "color":"" , "fontSize" : "15px", "padding" : "0px 30px"}'
-                        disabled={ disableRecaptcha ? disableRecaptcha : loading }
+                        disabled={disableRecaptcha ? disableRecaptcha : loading}
                       >
                         Sign In
                         <i
                           className="fa fa-refresh fa-spin customSpinner"
-                          style={ {
+                          style={{
                             marginRight: "10px",
                             display: loading ? "block" : "none",
-                          } }
+                          }}
                         />
                       </ButtonPrimary>
                     </Grid>
-                    <Grid className={ classes.registerGrid }>
-                      <Typography className={ classes.termsText }>
+                    <Grid className={classes.registerGrid}>
+                      <Typography className={classes.termsText}>
                         By logging into the site, you agree to
-                        <span className={ classes.linkDesign } onClick={ () => { handleOnClickCacTerms(); } }>{ ' ' }CAC terms of use</span>
+                        <span className={classes.linkDesign} onClick={() => { handleOnClickCacTerms(); }}>{' '}CAC terms of use</span>
                       </Typography>
                     </Grid>
-                    <Grid className={ classes.registerGrid }>
+                    <Grid className={classes.registerGrid}>
                       <NavLink
                         className="nonDecoratedLink"
                         to="/register"
                       >
-                        <p className={ classes.register }>
+                        <p className={classes.register}>
                           Sign in Help / Register
                         </p>
                       </NavLink>
@@ -361,39 +361,39 @@ export default function Login(props) {
 
       <Dialog
         id="deletePayment"
-        open={ openDeleteSchedule }
+        open={openDeleteSchedule}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
-        classes={ { paper: classes.dialogPaper } }
+        classes={{ paper: classes.dialogPaper }}
       >
-        <div id="closeBtn" className={ classes.buttonClose }>
+        <div id="closeBtn" className={classes.buttonClose}>
           <IconButton
             aria-label="close"
-            onClick={ handleHelpLoginClose }
-            className={ classes.closeButton }
+            onClick={handleHelpLoginClose}
+            className={classes.closeButton}
           >
             <CloseIcon />
           </IconButton>
         </div>
-        <DialogTitle id="alert-dialog-title">        
+        <DialogTitle id="alert-dialog-title">
           <Typography id="loginHelpDialogHeading"
-            className={ classes.loginHelpDialogHeading }>
-            Having Trouble Logging In?{ " " }
+            className={classes.loginHelpDialogHeading}>
+            Having Trouble Logging In?{" "}
           </Typography>
         </DialogTitle>
         <ul>
           <li>
-            { " " }
+            {" "}
             If you&apos;re a new user, click on
             <NavLink to="/register" className="nonDecoratedLink">
               <span id="helpLogin"> Sign in help/Register </span>
-            </NavLink>{ " " }
+            </NavLink>{" "}
             option and enter your registration details.
           </li>
         </ul>
         <ul>
           <li>
-            { " " }
+            {" "}
             If you have been making payments with our existing customer
             account center user your email address in place of your userid and
             existing password
@@ -405,17 +405,17 @@ export default function Login(props) {
         >
           <ButtonPrimary
             stylebutton='{"background": "", "color":"" }'
-            onClick={ handleHelpLoginClose }
+            onClick={handleHelpLoginClose}
           >
             ok
           </ButtonPrimary>
         </DialogActions>
       </Dialog>
-      <Popup popupFlag={ cacTerms } title='Terms Of Use' closePopup={ handleOnClickCacTermsClose }>
+      <Popup popupFlag={cacTerms} title='Terms Of Use' closePopup={handleOnClickCacTermsClose}>
         <RenderContent disclosureLink="/cacTermsOfUse" findContent="<h2>Terms Of Use</h2>" replaceContent='' />
       </Popup>
     </div>
-    
+
   );
 }
 

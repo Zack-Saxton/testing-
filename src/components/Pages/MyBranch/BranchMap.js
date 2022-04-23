@@ -13,14 +13,14 @@ export default function BranchMap(MyBranchDetail) {
   //View part
   return (
     <div id="branchMapWrap">
-      { !(branchDetail?.MyBranchDetail) ? (
-        <Paper className={ classes.paper }>
-          { " " }
-          <CircularProgress />{ " " }
+      {!(branchDetail?.MyBranchDetail) ? (
+        <Paper className={classes.paper}>
+          {" "}
+          <CircularProgress />{" "}
         </Paper>
       ) : branchDetail?.MyBranchDetail?.result ? (
-        <Paper className={ classes.paper }>
-          <p>Location not available</p>{ " " }
+        <Paper className={classes.paper}>
+          <p>Location not available</p>{" "}
         </Paper>
       ) : branchDetail?.MyBranchDetail?.Address ? (
         <iframe
@@ -38,11 +38,11 @@ export default function BranchMap(MyBranchDetail) {
           marginWidth="0"
         ></iframe>
       ) : (
-        <Paper className={ classes.paper }>
-          { " " }
-          <p>Location not available</p>{ " " }
+        <Paper className={classes.paper}>
+          {" "}
+          <p>Location not available</p>{" "}
         </Paper>
-      ) }
+      )}
     </div>
   );
 }

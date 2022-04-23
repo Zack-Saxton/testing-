@@ -33,52 +33,52 @@ function ReferredToBranch(props) {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className={ classes.mainDiv }>
+			<div className={classes.mainDiv}>
 				<Box>
 					<Grid
 						container
 						item
-						xs={ 12 }
+						xs={12}
 						justifyContent="center"
 						alignItems="center"
 					>
 						<Grid
 							item
-							xs={ 12 }
+							xs={12}
 							container
 							justifyContent="center"
 							alignItems="center"
 						>
 							<Grid
 								item
-								xs={ 11 }
-								sm={ 10 }
-								md={ 7 }
-								lg={ 7 }
-								xl={ 7 }
+								xs={11}
+								sm={10}
+								md={7}
+								lg={7}
+								xl={7}
 								className="cardWrapperImg row"
 								container
 								justifyContent="center"
 								alignItems="center"
 							>
-								<img src={ ReferToBranchLogo } alt="NoOffersAvailable" />
+								<img src={ReferToBranchLogo} alt="NoOffersAvailable" />
 							</Grid>
 						</Grid>
 						<br />
 						<Grid
 							item
-							xs={ 12 }
+							xs={12}
 							container
 							justifyContent="center"
 							alignItems="center"
 						>
 							<Grid
 								item
-								xs={ 11 }
-								sm={ 10 }
-								md={ 6 }
-								lg={ 6 }
-								xl={ 6 }
+								xs={11}
+								sm={10}
+								md={6}
+								lg={6}
+								xl={6}
 								className=" row"
 								container
 								justifyContent="center"
@@ -95,18 +95,18 @@ function ReferredToBranch(props) {
 						</Grid>
 						<Grid
 							item
-							xs={ 12 }
+							xs={12}
 							container
 							justifyContent="center"
 							alignItems="center"
 						>
 							<Grid
 								item
-								xs={ 11 }
-								sm={ 10 }
-								md={ 6 }
-								lg={ 6 }
-								xl={ 6 }
+								xs={11}
+								sm={10}
+								md={6}
+								lg={6}
+								xl={6}
 								className=" row"
 								container
 								justifyContent="center"
@@ -129,18 +129,18 @@ function ReferredToBranch(props) {
 						</Grid>
 						<Grid
 							item
-							xs={ 12 }
+							xs={12}
 							container
 							justifyContent="center"
 							alignItems="center"
 						>
 							<Grid
 								item
-								xs={ 11 }
-								sm={ 10 }
-								md={ 6 }
-								lg={ 6 }
-								xl={ 6 }
+								xs={11}
+								sm={10}
+								md={6}
+								lg={6}
+								xl={6}
 								className="bottomSpace "
 								container
 								justifyContent="center"
@@ -148,11 +148,11 @@ function ReferredToBranch(props) {
 							>
 								<Grid
 									item
-									xs={ 9 }
-									sm={ 6 }
-									md={ 5 }
-									lg={ 4 }
-									xl={ 4 }
+									xs={9}
+									sm={6}
+									md={5}
+									lg={4}
+									xl={4}
 									className="alignButton paddingButton buttonStart"
 									container
 									justifyContent="center"
@@ -167,11 +167,11 @@ function ReferredToBranch(props) {
 								</Grid>
 								<Grid
 									item
-									xs={ 9 }
-									sm={ 6 }
-									md={ 5 }
-									lg={ 4 }
-									xl={ 4 }
+									xs={9}
+									sm={6}
+									md={5}
+									lg={4}
+									xl={4}
 									className="alignButton paddingButton buttonEnd"
 									container
 									justifyContent="center"
@@ -207,7 +207,7 @@ function ReferredToBranch(props) {
 										variant="h6"
 										className=" minText bullet leftAlignment"
 									>
-										{ "It's" } a good idea to know how much money you make a year.
+										{"It's"} a good idea to know how much money you make a year.
 									</Typography>
 									<Typography
 										variant="h6"

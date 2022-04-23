@@ -8,8 +8,8 @@ export default function ErrorBeforeLogin() {
   //View part
   return (
     <div id="error">
-      <div className={ classes.mainDiv }>
-        <img src={ error_alert } alt="error_alert" />
+      <div className={classes.mainDiv}>
+        <img src={error_alert} alt="error_alert" />
         <h1 className="notFoundTitle">Oops! The page can’t be found.</h1>
         <p className="notFoundDesc">It looks like nothing was found at this location.</p>
         <p className="notFoundDesc">Please check your Url.</p>

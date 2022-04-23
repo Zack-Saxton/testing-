@@ -1,7 +1,7 @@
-import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import MonetizationOnRoundedIcon from "@mui/icons-material/MonetizationOnRounded";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
 import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
@@ -46,52 +46,52 @@ export default function LoanHistoryCard(historyOfLoans) {
 
   //  view part
   return (
-    <Grid item xs={ 12 } className={ classes.gridCardContent}>
-      <Paper className={ classes.paper }>
+    <Grid item xs={12} className={classes.gridCardContent}>
+      <Paper className={classes.paper}>
         <Grid container direction="row">
-          <Grid item xs={ 12 } sm={ 4 } className={ classes.cardLoanHistory }>
-            <Paper className={ classes.papertotal } id="cardLoanHistory-bg">
-              <div className={ classes.cardContentLoanHistory }>
+          <Grid item xs={12} sm={4} className={classes.cardLoanHistory}>
+            <Paper className={classes.papertotal} id="cardLoanHistory-bg">
+              <div className={classes.cardContentLoanHistory}>
                 Total Number of Loans
-                { !historyOfLoans?.userLoanHistoryCard ? (
+                {!historyOfLoans?.userLoanHistoryCard ? (
                   <p>0</p>
                 ) : (
-                  <p id="numberOfLoans" className={ classes.cardAmountLoanHistory }>
-                    { historyOfLoans?.userLoanHistoryCard?.length
+                  <p id="numberOfLoans" className={classes.cardAmountLoanHistory}>
+                    {historyOfLoans?.userLoanHistoryCard?.length
                       ? ('0' + historyOfLoans.userLoanHistoryCard.length).slice(-2)
-                      : 0 }
+                      : 0}
                   </p>
-                ) }
+                )}
               </div>
             </Paper>
           </Grid>
 
-          <Grid item xs={ 12 } sm={ 4 } className={ classes.cardLoanHistory }>
-            <Paper className={ classes.paperPointer } onClick={ redirectToMakeAPayment } >
-              <Grid className={ classes.gridCenter} >
+          <Grid item xs={12} sm={4} className={classes.cardLoanHistory}>
+            <Paper className={classes.paperPointer} onClick={redirectToMakeAPayment} >
+              <Grid className={classes.gridCenter} >
                 <AccountBalanceWalletIcon id="dolor-icon_loan-history" className="material-icons background-round mt-5 yelloWBG" />
-                <p className={ classes.cardApplyLoan }>Make a Payment</p>
+                <p className={classes.cardApplyLoan}>Make a Payment</p>
               </Grid>
             </Paper>
           </Grid>
-          { checkPresenceOfLoan ?
-            <Grid item xs={ 12 } sm={ 4 } className={ classes.cardLoanHistory }>
-              <Paper className={ classes.paperPointer } onClick={ redirectToResumeApplication } >
-                <Grid className={ classes.gridCenter} >
+          {checkPresenceOfLoan ?
+            <Grid item xs={12} sm={4} className={classes.cardLoanHistory}>
+              <Paper className={classes.paperPointer} onClick={redirectToResumeApplication} >
+                <Grid className={classes.gridCenter} >
                   <MonetizationOnRoundedIcon id="dolor-icon_loan-history" className="material-icons background-round mt-5 yelloWBG" />
-                  <p className={ classes.cardApplyLoan }>Resume Application</p>
+                  <p className={classes.cardApplyLoan}>Resume Application</p>
                 </Grid>
               </Paper>
             </Grid>
             :
-            <Grid item xs={ 12 } sm={ 4 } className={ !currentLoan ? "cardLoanHistory" : "disableCardLoanHistory" } >
-              <Paper className={ classes.paperPointer } onClick={ redirectToApplyForLoan } >
-                <Grid className={ classes.gridCenter} >
+            <Grid item xs={12} sm={4} className={!currentLoan ? "cardLoanHistory" : "disableCardLoanHistory"} >
+              <Paper className={classes.paperPointer} onClick={redirectToApplyForLoan} >
+                <Grid className={classes.gridCenter} >
                   <MonetizationOnRoundedIcon id="dolor-icon_loan-history" className="material-icons background-round mt-5 yelloWBG" />
-                  <p className={ classes.cardApplyLoan }>Apply for a Loan</p>
+                  <p className={classes.cardApplyLoan}>Apply for a Loan</p>
                 </Grid>
               </Paper>
-            </Grid> }
+            </Grid>}
         </Grid>
       </Paper>
     </Grid>

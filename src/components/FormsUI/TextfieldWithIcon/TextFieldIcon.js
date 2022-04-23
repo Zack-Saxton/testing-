@@ -12,7 +12,7 @@ test("renders icon", () => {
             icon="cloud"
             iconColor="#595E6E"
             iconPosition="right"
-            required={ true }
+            required={true}
         />);
     const input = container.getByTestId('icon');
     expect(input).toBeTruthy();
@@ -26,8 +26,8 @@ test("renders input field", () => {
             icon="cloud"
             iconColor="#595E6E"
             iconPosition="right"
-            required={ true }
-            materialProps={ { "data-testid": "test" } }
+            required={true}
+            materialProps={{ "data-testid": "test" }}
         />);
     const input = container.getByTestId('test');
     expect(input).toBeTruthy();
@@ -40,8 +40,8 @@ test('should match the snapshot', () => {
         icon="cloud"
         iconColor="#595E6E"
         iconPosition="right"
-        required={ true }
-        materialProps={ { "data-testid": "test" } }
+        required={true}
+        materialProps={{ "data-testid": "test" }}
     />);
 
     expect(asFragment(<TextFieldWithIcon
@@ -50,7 +50,7 @@ test('should match the snapshot', () => {
         icon="cloud"
         iconColor="#595E6E"
         iconPosition="right"
-        required={ true }
-        materialProps={ { "data-testid": "test" } }
+        required={true}
+        materialProps={{ "data-testid": "test" }}
     />)).toMatchSnapshot();
 });

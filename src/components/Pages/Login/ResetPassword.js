@@ -13,8 +13,8 @@ import ResetPasswordController from "../../Controllers/ResetPasswordController";
 import { ButtonPrimary, EmailTextField, PasswordField } from "../../FormsUI";
 import ErrorLogger from "../../lib/ErrorLogger";
 import ScrollToTopOnMount from "../../Pages/ScrollToTop";
-import { useStylesLogin } from "./style"
 import "./Login.css";
+import { useStylesLogin } from "./style";
 
 //Yup validations for all the input fields
 const email = Cookies.get("email");
@@ -85,35 +85,35 @@ export default function Login(props) {
     return (
         <div>
             <ScrollToTopOnMount />
-            <div className={ classes.mainContentBackground } id="resetPasswordWrap">
+            <div className={classes.mainContentBackground} id="resetPasswordWrap">
                 <Box>
                     <Grid container>
                         <Grid container
                             item
-                            xl={ 6 }
-                            lg={ 6 }
-                            md={ 6 }
-                            sm={ 10 }
-                            xs={ 12 }
+                            xl={6}
+                            lg={6}
+                            md={6}
+                            sm={10}
+                            xs={12}
                             id="reset-main-content"
-                            style={ {
+                            style={{
                                 opacity: loading ? 0.55 : 1,
                                 pointerEvents: loading ? "none" : "initial",
-                            } }
+                            }}
                         >
-                            <Paper className={ classes.createPasswordPaper } id="signInContainer">
+                            <Paper className={classes.createPasswordPaper} id="signInContainer">
                                 <Typography
-                                    className={ classes.title }
+                                    className={classes.title}
                                     data-testid="title"
                                     color="textSecondary"
                                 >
                                     Create New Password
                                 </Typography>
-                                <form onSubmit={ formik.handleSubmit }>
-                                    <Grid container spacing={ 2 } className={ classes.logInGrid }>
+                                <form onSubmit={formik.handleSubmit}>
+                                    <Grid container spacing={2} className={classes.logInGrid}>
                                         <Grid
                                             id="fullWidth"
-                                            className={ classes.emailInputGrid }
+                                            className={classes.emailInputGrid}
                                         >
                                             <EmailTextField
                                                 id="email"
@@ -121,16 +121,16 @@ export default function Login(props) {
                                                 type="email"
                                                 testid="email-input"
                                                 disabled="true"
-                                                InputLabelProps={ { style: { fontSize: 40 } } }
+                                                InputLabelProps={{ style: { fontSize: 40 } }}
                                                 label="Create new password for"
-                                                materialProps={ { maxLength: "100" } }
-                                                value={ location.state.Email }
+                                                materialProps={{ maxLength: "100" }}
+                                                value={location.state.Email}
                                             />
                                         </Grid>
                                         <Grid
                                             className="fullWidth"
                                             item
-                                            xs={ 12 }
+                                            xs={12}
                                             container
                                             direction="row"
                                         >
@@ -140,11 +140,11 @@ export default function Login(props) {
                                                 placeholder="Enter your password"
                                                 id="password"
                                                 type="password"
-                                                onKeyDown={ preventSpace }
-                                                materialProps={ { maxLength: "100" } }
-                                                value={ formik.values.password }
-                                                onChange={ formik.handleChange }
-                                                onBlur={ formik.handleBlur }
+                                                onKeyDown={preventSpace}
+                                                materialProps={{ maxLength: "100" }}
+                                                value={formik.values.password}
+                                                onChange={formik.handleChange}
+                                                onBlur={formik.handleBlur}
                                                 error={
                                                     formik.touched.password &&
                                                     Boolean(formik.errors.password)
@@ -155,9 +155,9 @@ export default function Login(props) {
                                             />
                                         </Grid>
                                         <Grid
-                                            className={ classes.passwordWrap }
+                                            className={classes.passwordWrap}
                                             item
-                                            xs={ 12 }
+                                            xs={12}
                                             container
                                             direction="row"
                                         >
@@ -166,34 +166,34 @@ export default function Login(props) {
                                                 name="confirmPassword"
                                                 type="password"
                                                 label="Confirm New Password"
-                                                onKeyDown={ preventSpace }
+                                                onKeyDown={preventSpace}
                                                 autoComplete="new-password"
-                                                materialProps={ { maxLength: "30", autoComplete: "off" } }
-                                                value={ formik.values.confirmPassword }
-                                                onChange={ formik.handleChange }
-                                                onBlur={ formik.handleBlur }
+                                                materialProps={{ maxLength: "30", autoComplete: "off" }}
+                                                value={formik.values.confirmPassword}
+                                                onChange={formik.handleChange}
+                                                onBlur={formik.handleBlur}
                                                 error={
                                                     formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)
                                                 }
-                                                helperText={ formik.touched.confirmPassword && formik.errors.confirmPassword }
+                                                helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
                                                 variant="standard"
-                                                disabled={ false }
+                                                disabled={false}
                                             />
                                         </Grid>
-                                        <Grid item xs={ 12 } className={ classes.resetButton }>
+                                        <Grid item xs={12} className={classes.resetButton}>
                                             <ButtonPrimary
                                                 type="submit"
                                                 data-testid="submit"
                                                 stylebutton='{"background": "", "color":"" , "fontSize" : "15px", "padding" : "0px 30px"}'
-                                                disabled={ loading }
+                                                disabled={loading}
                                             >
                                                 Reset Password
                                                 <i
                                                     className="fa fa-refresh fa-spin customSpinner"
-                                                    style={ {
+                                                    style={{
                                                         marginRight: "10px",
                                                         display: loading ? "block" : "none",
-                                                    } }
+                                                    }}
                                                 />
                                             </ButtonPrimary>
                                         </Grid>

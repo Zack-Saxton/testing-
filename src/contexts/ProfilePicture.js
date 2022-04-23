@@ -15,13 +15,13 @@ function ProfilePictureContext(props) {
 
   return (
     <ProfilePicture.Provider
-      value={ {
+      value={{
         dataProfile: data,
         setData,
         resetProfilePicture,
-      } }
+      }}
     >
-      { props.children }
+      {props.children}
     </ProfilePicture.Provider>
   );
 }

@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom";
-import { fireEvent, render, logRoles, debug, screen, getAllByRole, within } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import React from "react";
 import TableCellWrapper from "./index";
 //Test Data
@@ -80,20 +80,20 @@ const parData = [
   }
 ]
 
-const component = () =>{
+const component = () => {
   return (
     <table>
-      <TableCellWrapper parseData={ parData } />
-    </table>    
+      <TableCellWrapper parseData={parData} />
+    </table>
   );
 }
-test("Check the TableCell is available", ()=>{
+test("Check the TableCell is available", () => {
   render(component());
   const element = screen.getByTestId('test-table-body');
   expect(element).toBeTruthy();
 });
 
-test("Check number of rows rendered", ()=>{
+test("Check number of rows rendered", () => {
   render(component());
   expect(screen.getAllByRole('row')).toHaveLength(2);
 });

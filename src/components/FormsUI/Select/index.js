@@ -33,14 +33,14 @@ const SelectWrapper = ({
 
 
 
-	const classes = useStylesSelectComponent();	
+	const classes = useStylesSelectComponent();
 
 	//Configuring Field with Properties
 	const configSelect = {
 		...otherProps,
 		fullWidth: true,
 		variant: variant,
-		};
+	};
 	const configFormControl = {
 		className: classes.formControl,
 		fullWidth: true,
@@ -51,16 +51,16 @@ const SelectWrapper = ({
 
 	//View Part
 	return (
-		<FormControl { ...configFormControl }>
-			<InputLabel>{ labelform }</InputLabel>
-			<Select { ...configSelect } name={ name }  variant="standard" value={ value } onChange={ onChange } inputRef={ refId } data-testid={ selectTestID ?? "selectBox" } inputProps={ { "data-testid": inputTestID ?? "selectInput" } }>
-				{ selectMF.map((nam) => (
-					<MenuItem key={ nam.value } value={ nam.value }>
-						<span className="subOption" value={ nam.value }>{ nam.label ? nam.label : nam.value }</span>
+		<FormControl {...configFormControl}>
+			<InputLabel>{labelform}</InputLabel>
+			<Select {...configSelect} name={name} variant="standard" value={value} onChange={onChange} inputRef={refId} data-testid={selectTestID ?? "selectBox"} inputProps={{ "data-testid": inputTestID ?? "selectInput" }}>
+				{selectMF.map((nam) => (
+					<MenuItem key={nam.value} value={nam.value}>
+						<span className="subOption" value={nam.value}>{nam.label ? nam.label : nam.value}</span>
 					</MenuItem>
-				)) }
+				))}
 			</Select>
-			<FormHelperText error={ true }>{ helperText }</FormHelperText>
+			<FormHelperText error={true}>{helperText}</FormHelperText>
 		</FormControl>
 	);
 };

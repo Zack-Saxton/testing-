@@ -8,12 +8,12 @@ Functionality       :    To use this ButtonWithIcon as a default component for U
 
 #################################################################################################################
  */
-import { Checkbox } from "@mui/material";
-import { makeStyles } from "@mui/styles";
-import TextField from "@mui/material/TextField";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import { Checkbox } from "@mui/material";
 import Autocomplete from '@mui/material/Autocomplete';
+import TextField from "@mui/material/TextField";
+import { makeStyles } from "@mui/styles";
 import { useField, useFormikContext } from "formik";
 import PropTypes from "prop-types";
 import React from "react";
@@ -67,31 +67,31 @@ const AutoCompleteMultipleWrapper = ({
   //View Part
   return (
     <Autocomplete
-      id={ id }
+      id={id}
       disableCloseOnSelect
       multiple
-      options={ jsonData }
-      getOptionLabel={ (option) => option.value }
-      renderOption={ (props, option, { selected }) => (
+      options={jsonData}
+      getOptionLabel={(option) => option.value}
+      renderOption={(props, option, { selected }) => (
         <li {...props}>
           <Checkbox
-            icon={ icon }
-            checkedIcon={ checkedIcon }
-            style={ styleCheckBoxMF }
-            checked={ selected }
+            icon={icon}
+            checkedIcon={checkedIcon}
+            style={styleCheckBoxMF}
+            checked={selected}
           />
-          { option.value }
+          {option.value}
         </li>
-      ) }
+      )}
       // style={styleAutocompleteMF}
-      renderInput={ (params) => (
+      renderInput={(params) => (
         <TextField
-          { ...params }
-          label={ label }
-          variant={ variant }
-          placeholder={ placeholder }
+          {...params}
+          label={label}
+          variant={variant}
+          placeholder={placeholder}
         />
-      ) }
+      )}
     />
   );
 };

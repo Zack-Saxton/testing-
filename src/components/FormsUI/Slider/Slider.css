@@ -1,15 +1,15 @@
-.MuiSlider-markLabel{
+.MuiSlider-markLabel {
     font-weight: 400 !important;
     font-size: 0.938rem !important;
     font-family: 'Muli', sans-serif !important;
     color: #595959 !important;
 }
 
-#discrete-slider-always{
+#discrete-slider-always {
     font-size: 1.078rem !important;
 }
 
-#discrete-slider-always-amount{
+#discrete-slider-always-amount {
     font-size: 1.438rem !important;
     color: #134ca7 !important;
     font-weight: 700 !important;

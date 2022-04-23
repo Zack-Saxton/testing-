@@ -8,10 +8,10 @@ export default function Disclosure(props) {
   const classes = useStylesDisclosure();
   return (
     <div>
-      <div className={ classes.mainDivDynamicPage }>
-        <Grid item xs={ 12 }>
-          <Paper className={ classes.paper }>
-            <RenderContent disclosureLink={ props.URL } />
+      <div className={classes.mainDivDynamicPage}>
+        <Grid item xs={12}>
+          <Paper className={classes.paper}>
+            <RenderContent disclosureLink={props.URL} />
           </Paper>
         </Grid>
       </div>

@@ -21,7 +21,7 @@ export default function PreScreen(offerData) {
     if (preScreenMessage) {
         return (
             <Grid className="content">
-                { preScreenMessage }
+                {preScreenMessage}
             </Grid>
         );
     } else {

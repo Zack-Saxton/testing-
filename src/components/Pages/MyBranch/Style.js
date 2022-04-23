@@ -76,27 +76,27 @@ const useStylesMyBranch = makeStyles((theme) => ({
     alignItem: "flex-end",
     justifyContent: "space-between"
   },
-  gridMyBranch:{
+  gridMyBranch: {
     paddingBottom: "10px"
   },
-  navLinkMyBranch:{
+  navLinkMyBranch: {
     textDecoration: "none"
   },
-  gridSchedule:{
-    paddingTop: "10px", 
+  gridSchedule: {
+    paddingTop: "10px",
     textAlign: "left"
   },
   iframeBranchMap: {
     height: "530px",
     width: "100%"
   },
-  gridDatepicker:{
+  gridDatepicker: {
     paddingBottom: "15px"
   },
   scheduleDialog: {
     padding: "unset"
   },
-  scheduleDialogAction:{
+  scheduleDialogAction: {
     justifyContent: "center"
   }
 }));

@@ -1,3 +1,4 @@
+import CloseIcon from "@mui/icons-material/Close";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -5,7 +6,6 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import CloseIcon from "@mui/icons-material/Close";
 import { useFormik } from "formik";
 import Moment from "moment";
 import momentTimeZone from "moment-timezone";
@@ -145,18 +145,18 @@ export default function ScheduleAppointment({
         id="ScheduleAppointmentSelect"
         name="appointmentTime"
         labelform="Time Slot"
-        select={ JSON.stringify(timeList) }
-        onChange={ formik.handleChange }
-        value={ formik.values.appointmentTime }
-        onBlur={ formik.handleBlur }
-        error={ formik.touched.appointmentTime && Boolean(formik.errors.appointmentTime) }
-        helperText={ formik.touched.appointmentTime && formik.errors.appointmentTime }
+        select={JSON.stringify(timeList)}
+        onChange={formik.handleChange}
+        value={formik.values.appointmentTime}
+        onBlur={formik.handleBlur}
+        error={formik.touched.appointmentTime && Boolean(formik.errors.appointmentTime)}
+        helperText={formik.touched.appointmentTime && formik.errors.appointmentTime}
       />
     );
   };
   const showBranchClosedMessage = () => {
     return (
-      <p className={ classes.branchClose }>
+      <p className={classes.branchClose}>
         Branch is closed, Please select a new day.
       </p>
     );
@@ -169,40 +169,40 @@ export default function ScheduleAppointment({
   //View part
   return (
     <div>
-      <Grid item xs={ 12 } className={classes.gridSchedule}>
+      <Grid item xs={12} className={classes.gridSchedule}>
         <ButtonPrimary
           id="scheduleAppointmentBtn"
           stylebutton='{"float": "","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
-          onClick={ handleScheduleAppointment }
+          onClick={handleScheduleAppointment}
         >
           Schedule An Appointment
         </ButtonPrimary>
       </Grid>
 
       <Dialog
-        open={ scheduleAppointment }
+        open={scheduleAppointment}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
-        classes={ { paper: classes.dialogPaper } }
+        classes={{ paper: classes.dialogPaper }}
       >
-        <div className={ classes.buttonClose }>
+        <div className={classes.buttonClose}>
           <IconButton
             aria-label="close"
-            onClick={ handleScheduleAppointmentClose }
-            className={ classes.closeButton }
+            onClick={handleScheduleAppointmentClose}
+            className={classes.closeButton}
           >
             <CloseIcon />
           </IconButton>
         </div>
         <DialogTitle id="alert-dialog-title" className={classes.scheduleDialog}>
-          <Typography component={ "div" } className={ classes.dialogHeading }>
+          <Typography component={"div"} className={classes.dialogHeading}>
             Schedule an Appointment
           </Typography>
           <Typography className="endDate">
-            You have until <span> { scheduleAppointmentDate.toLocaleDateString('en-us', dateFormatOption) } </span>to schedule your appointment
+            You have until <span> {scheduleAppointmentDate.toLocaleDateString('en-us', dateFormatOption)} </span>to schedule your appointment
           </Typography>
         </DialogTitle>
-        <form id="formAppointment" ref={ refFormCall } onSubmit={ formik.handleSubmit }>
+        <form id="formAppointment" ref={refFormCall} onSubmit={formik.handleSubmit}>
           <DialogContent>
             <Grid className={classes.gridDatepicker}>
               <DatePicker
@@ -210,86 +210,86 @@ export default function ScheduleAppointment({
                 label="Date"
                 placeholder="MM/DD/YYYY"
                 id="appointmentDate"
-                disablePastDate = "true"
-                onKeyDown={ (event) => event.preventDefault() }
+                disablePastDate="true"
+                onKeyDown={(event) => event.preventDefault()}
                 autoComplete="off"
-                disableDate={ disableHolidays }
-                maxdate={ scheduleAppointmentDate }
-                minyear={ 4 }
-                value={ formik.values.appointmentDate }
-                onChange={ (values) => {
-                  formik.values.appointmentDate= values;
+                disableDate={disableHolidays}
+                maxdate={scheduleAppointmentDate}
+                minyear={4}
+                value={formik.values.appointmentDate}
+                onChange={(values) => {
+                  formik.values.appointmentDate = values;
                   formik.setFieldValue("appointmentDate", values);
                   formik.setFieldValue("appointmentTime", "");
-                } }
-                onBlur={ formik.handleBlur }
-                error={ formik.touched.appointmentDate && Boolean(formik.errors.appointmentDate) }
-                helperText={ formik.touched.appointmentDate && formik.errors.appointmentDate }
+                }}
+                onBlur={formik.handleBlur}
+                error={formik.touched.appointmentDate && Boolean(formik.errors.appointmentDate)}
+                helperText={formik.touched.appointmentDate && formik.errors.appointmentDate}
               />
             </Grid>
-            { stateName === "CA" ? (
+            {stateName === "CA" ? (
               selectedAppointmentDay === "Tuesday" ? (
                 <Grid className="timeSlotWrap">
-                  { isTodayAppointment
+                  {isTodayAppointment
                     ? upt_ca_Tue.length !== 0 && isNotHolidayAppointment
                       ? getTimeSlotOption(upt_ca_Tue)
                       : showBranchClosedMessage()
-                    : getTimeSlotOption(ca_Tue) }
+                    : getTimeSlotOption(ca_Tue)}
                 </Grid>
               ) : !appointmentDay.includes(selectedAppointmentDay) ? (
                 <Grid className="timeSlotWrap">
-                  { isTodayAppointment
+                  {isTodayAppointment
                     ? upt_ca_M_W_TH_F.length !== 0 && isNotHolidayAppointment
                       ? getTimeSlotOption(upt_ca_M_W_TH_F)
                       : showBranchClosedMessage()
-                    : getTimeSlotOption(ca_M_W_Th_F) }
+                    : getTimeSlotOption(ca_M_W_Th_F)}
                 </Grid>
               ) : (
                 showBranchClosedMessage()
               )
             ) : selectedAppointmentDay === "Tuesday" ? (
               <Grid className="timeSlotWrap">
-                { isTodayAppointment
+                {isTodayAppointment
                   ? updated_other_Tue.length !== 0 && isNotHolidayAppointment
                     ? getTimeSlotOption(updated_other_Tue)
                     : showBranchClosedMessage()
-                  : getTimeSlotOption(other_Tue) }
+                  : getTimeSlotOption(other_Tue)}
               </Grid>
             ) : selectedAppointmentDay === "Friday" ? (
               <Grid className="timeSlotWrap">
-                { isTodayAppointment
+                {isTodayAppointment
                   ? upt_other_Fri.length !== 0 && isNotHolidayAppointment
                     ? getTimeSlotOption(upt_other_Fri)
                     : showBranchClosedMessage()
-                  : getTimeSlotOption(Other_Fri) }
+                  : getTimeSlotOption(Other_Fri)}
               </Grid>
             ) : !appointmentDay.includes(selectedAppointmentDay) ? (
               <Grid className="timeSlotWrap">
-                { isTodayAppointment
+                {isTodayAppointment
                   ? upt_other_M_W_Thu.length !== 0 && isNotHolidayAppointment
                     ? getTimeSlotOption(upt_other_M_W_Thu)
                     : showBranchClosedMessage()
-                  : getTimeSlotOption(other_M_W_Thu) }
+                  : getTimeSlotOption(other_M_W_Thu)}
               </Grid>
             ) : (
               showBranchClosedMessage()
-            ) }
+            )}
           </DialogContent>
 
           <DialogActions className={classes.scheduleDialogAction} >
             <ButtonPrimary
               type="submit"
               stylebutton='{"background": "","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
-              disabled={ loading }
+              disabled={loading}
             >
               Schedule an appointment
               <i
                 className="fa fa-refresh fa-spin customSpinner"
-                style={ {
+                style={{
                   marginRight: "10px",
                   color: "blue",
                   display: loading ? "block" : "none",
-                } }
+                }}
               />
             </ButtonPrimary>
           </DialogActions>

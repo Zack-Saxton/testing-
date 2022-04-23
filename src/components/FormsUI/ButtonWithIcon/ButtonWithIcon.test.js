@@ -4,7 +4,7 @@ import ButtonWithIcon from './index.js';
 
 afterEach(cleanup);
 let component = () => {
-    return ( <ButtonWithIcon
+    return (<ButtonWithIcon
         icon="close"
         iconposition="left"
         stylebutton='{"background": "", "color":"" }'

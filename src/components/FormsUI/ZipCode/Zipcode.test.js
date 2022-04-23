@@ -1,14 +1,14 @@
-import { cleanup, fireEvent, render, } from '@testing-library/react';
+import { cleanup, fireEvent, render } from '@testing-library/react';
 import React from 'react';
 import Zipcode from './index.js';
 
 afterEach(cleanup);
 const component = () => {
-  return(<Zipcode
+  return (<Zipcode
     type="text"
     name="text"
     label="test"
-    materialProps={ { "data-testid": "zipcode" } }
+    materialProps={{ "data-testid": "zipcode" }}
   />);
 }
 test('Check the input filed is rendered', () => {

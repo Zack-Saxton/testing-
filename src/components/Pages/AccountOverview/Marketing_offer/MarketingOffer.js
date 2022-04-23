@@ -81,7 +81,7 @@ export default function MarketingOffer(data) {
       {
         Object.keys(message).map(key => {
           if (key !== "campaignType") {
-            return <p key={ key }>{ message[ key ] }</p>;
+            return <p key={key}>{message[ key ]}</p>;
           }
         })
       }

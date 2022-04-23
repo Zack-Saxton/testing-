@@ -1,16 +1,16 @@
-import { cleanup, render, fireEvent } from '@testing-library/react';
+import { cleanup, fireEvent, render } from '@testing-library/react';
 import React from 'react';
 import TextArea from './index.js';
 
 afterEach(cleanup);
 const component = () => {
-  return(
+  return (
     <TextArea
       placeholder="Enter here..."
       row="4"
       label="TextArea"
       variant="outlined"
-      required={ true }
+      required={true}
       character_limit="20"
       name="TextArea"
       value="TextArea"

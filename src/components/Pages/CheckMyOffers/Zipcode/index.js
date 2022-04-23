@@ -43,13 +43,13 @@ function Zipcode() {
 			<ScrollToTopOnMount />
 			<div className="mainDiv">
 				<Box>
-					<Grid xs={ 12 } container justifyContent="center" alignItems="center">
+					<Grid xs={12} container justifyContent="center" alignItems="center">
 						<Grid
-							xs={ 11 }
-							sm={ 10 }
-							md={ 6 }
-							lg={ 6 }
-							xl={ 6 }
+							xs={11}
+							sm={10}
+							md={6}
+							lg={6}
+							xl={6}
 							className="cardWrapper"
 							justifyContent="center"
 							alignItems="center"
@@ -76,7 +76,7 @@ function Zipcode() {
 								<Grid className="liftImage">
 									<img
 										alt="Zipcode"
-										src={ ZipcodeLogo }
+										src={ZipcodeLogo}
 										className="spinAnimation"
 									/>
 								</Grid>
@@ -91,9 +91,9 @@ function Zipcode() {
 									Enter your zip code
 								</Typography>
 
-								<form onSubmit={ formik.handleSubmit }>
+								<form onSubmit={formik.handleSubmit}>
 									<Grid
-										md={ 12 }
+										md={12}
 										className="blockDiv"
 										container
 										justifyContent="center"
@@ -103,9 +103,9 @@ function Zipcode() {
 											justifyContent="center"
 											alignItems="center"
 											item
-											lg={ 8 }
-											md={ 8 }
-											xs={ 12 }
+											lg={8}
+											md={8}
+											xs={12}
 											className="textBlock"
 										>
 											<ZipcodeField
@@ -113,28 +113,28 @@ function Zipcode() {
 												id="zip"
 												name="zip"
 												label="zip"
-												materialProps={ { "data-testid": "zipcode" } }
-												value={ formik.values.zip }
-												onChange={ formik.handleChange }
-												onBlur={ formik.handleBlur }
-												error={ formik.touched.zip && Boolean(formik.errors.zip) }
-												helperText={ formik.touched.zip && formik.errors.zip }
+												materialProps={{ "data-testid": "zipcode" }}
+												value={formik.values.zip}
+												onChange={formik.handleChange}
+												onBlur={formik.handleBlur}
+												error={formik.touched.zip && Boolean(formik.errors.zip)}
+												helperText={formik.touched.zip && formik.errors.zip}
 											/>
 										</Grid>
 										<Grid
 											justifyContent="center"
 											alignItems="center"
 											item
-											lg={ 8 }
-											md={ 8 }
-											xs={ 12 }
+											lg={8}
+											md={8}
+											xs={12}
 											className="alignButton"
 										>
 											<ButtonPrimary
 												type="submit"
 												data-testid="zipcodeCntuButton"
 												stylebutton='{"background": "#FFBC23", "color": "black","fontSize":"0.938rem", "padding": "0px 30px"}'
-												disabled={ Boolean(formik.errors.zip) }
+												disabled={Boolean(formik.errors.zip)}
 											>
 												Continue
 											</ButtonPrimary>

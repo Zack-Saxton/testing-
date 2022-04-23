@@ -10,13 +10,13 @@ Functionality       :    To use this RadioButton as a default component for UI p
 import { FormControl, FormControlLabel, FormLabel } from "@mui/material";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
+import { makeStyles } from "@mui/styles";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
-import { makeStyles } from "@mui/styles";
 
 const useRadio = makeStyles((theme) => ({
   formLabelStyle: {
-    fontFamily: "system-ui", 
+    fontFamily: "system-ui",
     fontWeight: "normal",
   },
 }))
@@ -61,18 +61,18 @@ const RadioButtonWrapper = ({
   //View Part
   return (
     <FormControl >
-      <FormLabel disabled={ disabled ?? false } className={ classes.formLabelStyle }>{ labelforform }</FormLabel>
-      <RadioGroup value={ radioValue } { ...configRadioButton }>
-        { radioLabelMF.map((radio) => (
+      <FormLabel disabled={disabled ?? false} className={classes.formLabelStyle}>{labelforform}</FormLabel>
+      <RadioGroup value={radioValue} {...configRadioButton}>
+        {radioLabelMF.map((radio) => (
           <FormControlLabel
-            labelPlacement={ labelPlacement }
-            value={ radio.value }
-            key={ radio.value }
-            disabled={ disabled ?? false }
-            label={ radio.label }
-            control={ <Radio color="primary" checked={ checked === radio.value ? true : false } onClick={ handleRadioClick } /> }
+            labelPlacement={labelPlacement}
+            value={radio.value}
+            key={radio.value}
+            disabled={disabled ?? false}
+            label={radio.label}
+            control={<Radio color="primary" checked={checked === radio.value ? true : false} onClick={handleRadioClick} />}
           />
-        )) }
+        ))}
       </RadioGroup>
     </FormControl>
   );

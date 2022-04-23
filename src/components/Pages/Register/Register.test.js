@@ -7,7 +7,7 @@ import Register from "./Register";
 test("Checks the title of the page", () => {
 
 	render(
-		<Router history={ history }>
+		<Router history={history}>
 			<Register />
 		</Router>
 	);
@@ -18,7 +18,7 @@ test("Checks the title of the page", () => {
 test("Checks the subtitle of the page", () => {
 
 	render(
-		<Router history={ history }>
+		<Router history={history}>
 			<Register />
 		</Router>
 	);
@@ -29,7 +29,7 @@ test("Checks the subtitle of the page", () => {
 test("Textbox Firstname", () => {
 
 	render(
-		<Router history={ history }>
+		<Router history={history}>
 			<Register />
 		</Router>
 	);
@@ -41,7 +41,7 @@ test("Textbox Firstname", () => {
 test("Invalid Firstname", () => {
 
 	render(
-		<Router history={ history }>
+		<Router history={history}>
 			<Register />
 		</Router>
 	);
@@ -56,7 +56,7 @@ test("Invalid Firstname", () => {
 test("Textbox Lastname", () => {
 
 	render(
-		<Router history={ history }>
+		<Router history={history}>
 			<Register />
 		</Router>
 	);
@@ -68,7 +68,7 @@ test("Textbox Lastname", () => {
 test("Invalid Lastname", () => {
 
 	render(
-		<Router history={ history }>
+		<Router history={history}>
 			<Register />
 		</Router>
 	);
@@ -83,7 +83,7 @@ test("Invalid Lastname", () => {
 test("Render email", () => {
 
 	render(
-		<Router history={ history }>
+		<Router history={history}>
 			<Register />
 		</Router>
 	);
@@ -95,7 +95,7 @@ test("Render email", () => {
 test("pass valid email to test email input field", () => {
 
 	render(
-		<Router history={ history }>
+		<Router history={history}>
 			<Register />
 		</Router>
 	);
@@ -111,7 +111,7 @@ test("pass valid email to test email input field", () => {
 test("pass invalid email to test input value", () => {
 
 	render(
-		<Router history={ history }>
+		<Router history={history}>
 			<Register />
 		</Router>
 	);
@@ -128,7 +128,7 @@ test("pass invalid email to test input value", () => {
 test("Zipcode availability test", () => {
 
 	render(
-		<Router history={ history }>
+		<Router history={history}>
 			<Register />
 		</Router>
 	);
@@ -141,7 +141,7 @@ test("Zipcode availability test", () => {
 test("Zipcode Input test", () => {
 
 	render(
-		<Router history={ history }>
+		<Router history={history}>
 			<Register />
 		</Router>
 	);
@@ -153,7 +153,7 @@ test("Zipcode Input test", () => {
 test("Get only numeric value for zipcode", () => {
 
 	render(
-		<Router history={ history }>
+		<Router history={history}>
 			<Register />
 		</Router>
 	);
@@ -167,7 +167,7 @@ test("Get only numeric value for zipcode", () => {
 it("zipcode should be 5 digits", () => {
 
 	render(
-		<Router history={ history }>
+		<Router history={history}>
 			<Register />
 		</Router>
 	);
@@ -178,7 +178,7 @@ it("zipcode should be 5 digits", () => {
 test("Render Date of birth", () => {
 
 	render(
-		<Router history={ history }>
+		<Router history={history}>
 			<Register />
 		</Router>
 	);
@@ -191,7 +191,7 @@ test("Render Date of birth", () => {
 test("Render password", () => {
 
 	render(
-		<Router history={ history }>
+		<Router history={history}>
 			<Register />
 		</Router>
 	);
@@ -206,7 +206,7 @@ test("Render password", () => {
 test("Render confirm  password", () => {
 
 	render(
-		<Router history={ history }>
+		<Router history={history}>
 			<Register />
 		</Router>
 	);
@@ -219,7 +219,7 @@ test("Render confirm  password", () => {
 test("button Availability", () => {
 
 	render(
-		<Router history={ history }>
+		<Router history={history}>
 			<Register />
 		</Router>
 	);
@@ -231,7 +231,7 @@ test("button Availability", () => {
 test("Button Onclick", () => {
 
 	render(
-		<Router history={ history }>
+		<Router history={history}>
 			<Register />
 		</Router>
 	);

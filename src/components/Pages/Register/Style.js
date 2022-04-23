@@ -2,7 +2,7 @@ import { makeStyles } from "@mui/styles";
 
 const useStylesRegister = makeStyles((theme) => ({
   mainContentBackground: {
-    backgroundColor:"#f6f6f6"
+    backgroundColor: "#f6f6f6"
   },
   root: {
     flexGrow: 1,

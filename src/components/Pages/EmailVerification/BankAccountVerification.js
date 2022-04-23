@@ -1,8 +1,7 @@
-import React from "react";
 import { Grid } from "@mui/material";
-import { ButtonPrimary, ButtonSecondary } from "../../../components/FormsUI";
-import { useStylesEmailVerification } from "./Style";
 import PropTypes from "prop-types";
+import React from "react";
+import { useStylesEmailVerification } from "./Style";
 import UploadDocument from "./UploadDocument";
 
 function BankAccountVerification(props) {
@@ -22,15 +21,15 @@ function BankAccountVerification(props) {
         <li className={classes.exampleText}>Your full account number and name are visible.</li>
         <li className={classes.exampleText}>Acceptable file formats are PDF, JPG, JPEG and PNG.</li>
       </ul>
-      <Grid  item sm={12} md={6} >
-        <UploadDocument 
-          title="Select Your Document" 
-          applicationNumber={ props.applicationNumber }
-          customerEmail={ props.customerEmail }
+      <Grid item sm={12} md={6} >
+        <UploadDocument
+          title="Select Your Document"
+          applicationNumber={props.applicationNumber}
+          customerEmail={props.customerEmail}
           documentType="proof_of_income"
-          prev={ props.prev}
-          next={ props.next }
-          />        
+          prev={props.prev}
+          next={props.next}
+        />
       </Grid>
     </Grid>
   );
@@ -40,6 +39,6 @@ export default BankAccountVerification;
 BankAccountVerification.propTypes = {
   applicationNumber: PropTypes.string,
   customerEmail: PropTypes.string,
-	next: PropTypes.func,
+  next: PropTypes.func,
   prev: PropTypes.func,
 };
