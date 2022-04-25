@@ -97,7 +97,7 @@ function CheckMyOffersContext(props) {
       const latestContact = accountDetail?.data?.customer?.latest_contact ?? '';
       const statesFullForm = accountDetail?.data?.customer?.latest_contact.address_state ?? '';
       const userStatus = accountDetail?.data?.customer?.user_account?.status ?? '';
-      data.citizenship = identification?.citizenship  ?? '';
+      data.citizenship = identification?.citizenship ?? '';
       data.zip = latestContact?.address_postal_code ?? '';
       data.firstName = identification?.first_name ?? '';
       data.lastName = identification?.last_name ?? '';
@@ -197,9 +197,9 @@ function CheckMyOffersContext(props) {
   };
 
   return (
-    <CheckMyOffers.Provider value={ { data, setData, resetData, setApplicationLoading } }>
-      <div className={ applicationLoading ? classes.loadingOn : classes.loadingOff } >
-        { props.children }
+    <CheckMyOffers.Provider value={{ data, setData, resetData, setApplicationLoading }}>
+      <div className={applicationLoading ? classes.loadingOn : classes.loadingOff} >
+        {props.children}
       </ div>
     </CheckMyOffers.Provider>
   );

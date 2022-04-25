@@ -18,16 +18,16 @@ function TabPanelViewApplication(props) {
   return (
     <div
       role="tabpanel"
-      hidden={ value !== verticalIndex }
-      id={ `scrollable-auto-tab-panel-${ verticalIndex }` }
-      aria-labelledby={ `scrollable-auto-tab-${ verticalIndex }` }
-      { ...other }
+      hidden={value !== verticalIndex}
+      id={`scrollable-auto-tab-panel-${ verticalIndex }`}
+      aria-labelledby={`scrollable-auto-tab-${ verticalIndex }`}
+      {...other}
     >
-      { value === verticalIndex && (
+      {value === verticalIndex && (
         <Box>
-          { children }
+          {children}
         </Box>
-      ) }
+      )}
     </div>
   );
 }
@@ -61,12 +61,12 @@ export default function ViewAccountDetails() {
       <ScrollToTopOnMount />
       <Grid
         container
-        justifyContent={ "center" }
-        className={ classes.centerGrid }
+        justifyContent={"center"}
+        className={classes.centerGrid}
       >
-        <Grid container spacing={ 3 }>
-          <Grid item xs={ 12 }>
-            <Typography variant="h5" className={ classes.titleHeading }>
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <Typography variant="h5" className={classes.titleHeading}>
               <NavLink
                 to="/customers/accountOverview"
               >
@@ -80,23 +80,23 @@ export default function ViewAccountDetails() {
                       "marginRight": "5px", "marginTop":"unset" }'
                   styleicon='{ "color":"" }'
                 />
-              </NavLink>{ " " }
+              </NavLink>{" "}
               Application Details
             </Typography>
           </Grid>
         </Grid>
 
-        {/* Left Side Nav */ }
-        <Grid className="applicationDetailsWrap" item xs={ 12 }>
-          <Grid container item xs={ 12 }>
-            <Grid className="applicationDetailsGrid" item xs={ 12 } sm={ 4 }>
-              <Paper className={ classes.paperVerticalTabViewDetail }>
+        {/* Left Side Nav */}
+        <Grid className="applicationDetailsWrap" item xs={12}>
+          <Grid container item xs={12}>
+            <Grid className="applicationDetailsGrid" item xs={12} sm={4}>
+              <Paper className={classes.paperVerticalTabViewDetail}>
                 <Tabs
-                  value={ values }
-                  onChange={ handleTabChange }
-                  classes={ {
+                  value={values}
+                  onChange={handleTabChange}
+                  classes={{
                     indicator: classes.viewAppindicator,
-                  } }
+                  }}
                   textColor="primary"
                   scrollButtons="auto"
                   orientation="vertical"
@@ -110,8 +110,8 @@ export default function ViewAccountDetails() {
                         Status
                       </span>
                     }
-                    className={ classes.tabVerticalLabel }
-                    { ...tabVerticalProps(0) }
+                    className={classes.tabVerticalLabel}
+                    {...tabVerticalProps(0)}
                   />
 
                   <Tab
@@ -120,30 +120,30 @@ export default function ViewAccountDetails() {
                         Information
                       </span>
                     }
-                    className={ classes.tabVerticalLabel }
-                    { ...tabVerticalProps(1) }
+                    className={classes.tabVerticalLabel}
+                    {...tabVerticalProps(1)}
                   />
                 </Tabs>
               </Paper>
             </Grid>
-            {/* End Left Side Nav */ }
+            {/* End Left Side Nav */}
 
-            {/* Main Content */ }
-            <Grid className="weAreSorryWrap" item xs={ 12 } sm={ 8 }>
-              <Paper className={ classes.paper } style={ !values ? { marginBottom: "500px" } : { marginBottom: "0px" } }>
-                <TabPanelViewApplication value={ values } verticalIndex={ 0 } >
-                  { viewAppApplicantInfo?.status ? (viewAppApplicantInfo?.status === "rejected") ?
+            {/* Main Content */}
+            <Grid className="weAreSorryWrap" item xs={12} sm={8}>
+              <Paper className={classes.paper} style={!values ? { marginBottom: "500px" } : { marginBottom: "0px" }}>
+                <TabPanelViewApplication value={values} verticalIndex={0} >
+                  {viewAppApplicantInfo?.status ? (viewAppApplicantInfo?.status === "rejected") ?
                     <>
-                      <Grid item xs={ 12 }>
+                      <Grid item xs={12}>
                         <Typography
                           variant="h6"
-                          className={ classes.viewAppStatusHeading }
+                          className={classes.viewAppStatusHeading}
                         >
-                          We are Sorry! { viewAppApplicantInfo?.status }
+                          We are Sorry! {viewAppApplicantInfo?.status}
                         </Typography>
                       </Grid>
                       <Grid>
-                        <p className={ classes.viewAppStatusDisplay }>
+                        <p className={classes.viewAppStatusDisplay}>
                           Unfortunately, we could not provide an offer for you at
                           this time. However, you may reapply in 30 days if you feel
                           that your circumstances have changed. Feel free to read
@@ -155,16 +155,16 @@ export default function ViewAccountDetails() {
 
                     (viewAppApplicantInfo?.status === "approved") ?
 
-                      <>  <Grid item xs={ 12 }>
+                      <>  <Grid item xs={12}>
                         <Typography
                           variant="h6"
-                          className={ classes.viewAppStatusHeading }
+                          className={classes.viewAppStatusHeading}
                         >
-                          Dear { viewApplicationContact?.first_name },
+                          Dear {viewApplicationContact?.first_name},
                         </Typography>
                       </Grid>
                         <Grid>
-                          <p className={ classes.viewAppStatusDisplay }>
+                          <p className={classes.viewAppStatusDisplay}>
                             Congratulations! We have reviewed your information and are happy to inform you
                             that your loan proceeds are on the way.
                             <br></br> <br></br>
@@ -172,146 +172,146 @@ export default function ViewAccountDetails() {
                             You will receive additional information regarding your account number and due date shortly.
                             If you signed up for automatic payments they will be deducted on your due date.
                             <br></br> <br></br>
-                            <NavLink to="'/customers/myBranch'" className={ classes.loanDetailsLink } >
+                            <NavLink to="'/customers/myBranch'" className={classes.loanDetailsLink} >
                               Please click here to contact us!
                             </NavLink>
                             <br></br> <br></br>
-                            <NavLink to="/customers/applyForLoan" className={ classes.loanDetailsLink } state={ { from: "user" } } >
+                            <NavLink to="/customers/applyForLoan" className={classes.loanDetailsLink} state={{ from: "user" }} >
                               Please click here to start a new application.
                             </NavLink>
                           </p>
                         </Grid> </> :
 
                       (viewAppApplicantInfo?.status === "refered" || viewAppApplicantInfo?.status === "contact_branch") ?
-                        <> <Grid item xs={ 12 }>
+                        <> <Grid item xs={12}>
                           <Typography
                             variant="h6"
-                            className={ classes.viewAppStatusHeading }
+                            className={classes.viewAppStatusHeading}
                           >
-                            Congratulations! { viewApplicationContact?.first_name },
+                            Congratulations! {viewApplicationContact?.first_name},
                           </Typography>
                         </Grid>
                           <Grid>
-                            <p className={ classes.viewAppStatusDisplay }>
+                            <p className={classes.viewAppStatusDisplay}>
                               We believe we have a solution for you.
                               <br></br><br></br>
                               Upon completion of your application and verification of your information,
                               we may be able to extend your final offer as soon as today!
                               <br></br> <br></br>
-                              { `"Let's get on a call"` } -  <NavLink to="/customers/myBranch" className={ classes.loanDetailsLink } >
+                              {`"Let's get on a call"`} -  <NavLink to="/customers/myBranch" className={classes.loanDetailsLink} >
                                 Please click here to contact us!
                               </NavLink>
                             </p>
                           </Grid> </> :
 
-                        <> <Grid item xs={ 12 }>
+                        <> <Grid item xs={12}>
                           <Typography
                             variant="h6"
-                            className={ classes.viewAppStatusHeading }
+                            className={classes.viewAppStatusHeading}
                           >
-                            Dear { viewApplicationContact?.first_name },
+                            Dear {viewApplicationContact?.first_name},
                           </Typography>
                         </Grid>
                           <Grid>
-                            <p className={ classes.viewAppStatusDisplay }>
-                              <NavLink to="/customers/myBranch" className={ classes.loanDetailsLink }>
+                            <p className={classes.viewAppStatusDisplay}>
+                              <NavLink to="/customers/myBranch" className={classes.loanDetailsLink}>
                                 Please click here to contact us!
                               </NavLink>
                             </p>
-                          </Grid> </> : <Grid /> }
+                          </Grid> </> : <Grid />}
 
                 </TabPanelViewApplication>
-                <TabPanelViewApplication value={ values } verticalIndex={ 1 }>
-                  <Grid item xs={ 12 }>
-                    <Typography variant="h6" className={ classes.viewAppHeading }>
+                <TabPanelViewApplication value={values} verticalIndex={1}>
+                  <Grid item xs={12}>
+                    <Typography variant="h6" className={classes.viewAppHeading}>
                       Application Information
                     </Typography>
                   </Grid>
 
-                  <Grid className={ classes.viewAppInputGrid }>
-                    <h4 className={ classes.viewAppInputDisplay }>First Name</h4>
-                    <h4 className={ classes.viewAppInputDisplay }>
-                      { viewApplicationContact?.first_name }{ " " }
+                  <Grid className={classes.viewAppInputGrid}>
+                    <h4 className={classes.viewAppInputDisplay}>First Name</h4>
+                    <h4 className={classes.viewAppInputDisplay}>
+                      {viewApplicationContact?.first_name}{" "}
                     </h4>
                   </Grid>
 
-                  <Grid className={ classes.viewAppInputGrid }>
-                    <h4 className={ classes.viewAppInputDisplay }>Last Name</h4>
-                    <h4 className={ classes.viewAppInputDisplay }>
-                      { " " }
-                      { viewApplicationContact?.last_name }
+                  <Grid className={classes.viewAppInputGrid}>
+                    <h4 className={classes.viewAppInputDisplay}>Last Name</h4>
+                    <h4 className={classes.viewAppInputDisplay}>
+                      {" "}
+                      {viewApplicationContact?.last_name}
                     </h4>
                   </Grid>
 
-                  <Grid className={ classes.viewAppInputGrid }>
-                    <h4 className={ classes.viewAppInputDisplay }>
+                  <Grid className={classes.viewAppInputGrid}>
+                    <h4 className={classes.viewAppInputDisplay}>
                       Street Address
                     </h4>
-                    <h4 className={ classes.viewAppInputDisplay }>
-                      { " " }
-                      { viewApplicationContact?.address_street }
+                    <h4 className={classes.viewAppInputDisplay}>
+                      {" "}
+                      {viewApplicationContact?.address_street}
                     </h4>
                   </Grid>
 
-                  <Grid className={ classes.viewAppInputGrid }>
-                    <h4 className={ classes.viewAppInputDisplay }>City</h4>
-                    <h4 className={ classes.viewAppInputDisplay }>
-                      { " " }
-                      { viewApplicationContact?.address_city }
+                  <Grid className={classes.viewAppInputGrid}>
+                    <h4 className={classes.viewAppInputDisplay}>City</h4>
+                    <h4 className={classes.viewAppInputDisplay}>
+                      {" "}
+                      {viewApplicationContact?.address_city}
                     </h4>
                   </Grid>
 
-                  <Grid className={ classes.viewAppInputGrid }>
-                    <h4 className={ classes.viewAppInputDisplay }>State</h4>
-                    <h4 className={ classes.viewAppInputDisplay }>
-                      { " " }
-                      { viewApplicationContact?.address_state }
+                  <Grid className={classes.viewAppInputGrid}>
+                    <h4 className={classes.viewAppInputDisplay}>State</h4>
+                    <h4 className={classes.viewAppInputDisplay}>
+                      {" "}
+                      {viewApplicationContact?.address_state}
                     </h4>
                   </Grid>
 
-                  <Grid className={ classes.viewAppInputGrid }>
-                    <h4 className={ classes.viewAppInputDisplay }>Zip</h4>
-                    <h4 className={ classes.viewAppInputDisplay }>
-                      { " " }
-                      { viewApplicationContact?.address_postal_code }
+                  <Grid className={classes.viewAppInputGrid}>
+                    <h4 className={classes.viewAppInputDisplay}>Zip</h4>
+                    <h4 className={classes.viewAppInputDisplay}>
+                      {" "}
+                      {viewApplicationContact?.address_postal_code}
                     </h4>
                   </Grid>
 
                   <Grid
                     className="loanRequestedText"
                     item
-                    xs={ 12 }
+                    xs={12}
                   >
-                    <Typography variant="h6" className={ classes.viewAppHeading }>
+                    <Typography variant="h6" className={classes.viewAppHeading}>
                       Loan Requested
                     </Typography>
                   </Grid>
 
-                  <Grid className={ classes.viewAppInputGrid }>
-                    <h4 className={ classes.viewAppInputDisplay }>
+                  <Grid className={classes.viewAppInputGrid}>
+                    <h4 className={classes.viewAppInputDisplay}>
                       Application Date
                     </h4>
-                    <h4 className={ classes.viewAppInputDisplay }>
-                      { " " }
-                      { viewAppApplicantInfo?.submissionDate }
+                    <h4 className={classes.viewAppInputDisplay}>
+                      {" "}
+                      {viewAppApplicantInfo?.submissionDate}
                     </h4>
                   </Grid>
-                  <Grid className={ classes.viewAppInputGrid }>
-                    <h4 className={ classes.viewAppInputDisplay }>
+                  <Grid className={classes.viewAppInputGrid}>
+                    <h4 className={classes.viewAppInputDisplay}>
                       Product Type
                     </h4>
-                    <h4 className={ classes.viewAppInputDisplay }>
-                      { " " }
-                      { viewAppApplicantInfo?.product }
+                    <h4 className={classes.viewAppInputDisplay}>
+                      {" "}
+                      {viewAppApplicantInfo?.product}
                     </h4>
                   </Grid>
-                  <Grid className={ classes.viewAppInputGrid }>
-                    <h4 className={ classes.viewAppInputDisplay }>
+                  <Grid className={classes.viewAppInputGrid}>
+                    <h4 className={classes.viewAppInputDisplay}>
                       Requested Amount
                     </h4>
-                    <h4 className={ classes.viewAppInputDisplay }>
-                      { " " }
-                      <NumberFormat value={ viewAppApplicantInfo?.amountRequested } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 2 } fixedDecimalScale={ true } prefix={ '$' } />
+                    <h4 className={classes.viewAppInputDisplay}>
+                      {" "}
+                      <NumberFormat value={viewAppApplicantInfo?.amountRequested} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
                     </h4>
                   </Grid>
                 </TabPanelViewApplication>

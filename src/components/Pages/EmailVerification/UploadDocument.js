@@ -1,20 +1,21 @@
-import React, { useState, useRef } from "react";
-import Webcam from "react-webcam";
-import { toast } from "react-toastify";
-import PropTypes from "prop-types";
+import CloseIcon from '@mui/icons-material/Close';
+import Chip from "@mui/material/Chip";
 import Grid from "@mui/material/Grid";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Typography from "@mui/material/Typography";
+import PropTypes from "prop-types";
+import React, { useRef, useState } from "react";
+import { toast } from "react-toastify";
+import Webcam from "react-webcam";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import {
   ButtonPrimary,
   ButtonSecondary
 } from "../../../components/FormsUI";
-import { useStylesEmailVerification } from "./Style";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import Typography from "@mui/material/Typography";
-import Chip from "@mui/material/Chip";
-import CloseIcon from '@mui/icons-material/Close';
 import { uploadEmailVerificationDocument } from "../../Controllers/EmailVerificationController";
+import ErrorLogger from "../../lib/ErrorLogger";
+import { useStylesEmailVerification } from "./Style";
 const FACING_MODE_USER = "user";
 const FACING_MODE_ENVIRONMENT = "environment";
 
@@ -27,7 +28,7 @@ function UploadDocument(props) {
   const [ showCamera, setShowCamera ] = useState(false);
   const [ disableNext, setDisableNext ] = useState(true);
   const [ label, setLabel ] = useState("");
-  const [ loading, setLoading ] = useState(false); 
+  const [ loading, setLoading ] = useState(false);
   const [ imgSrc, setImgSrc ] = useState(null);
   const [ selectDocument, setSelectDocument ] = useState(false);
   const [ selectedFile, setSelectedFile ] = useState(null);
@@ -36,36 +37,36 @@ function UploadDocument(props) {
   const refWebCam = useRef(null);
   const docType = props.docType ? props.docType : "";
   const typeOfDocument = props.documentType ? props.documentType : "";
-  const [facingMode, setFacingMode] = useState(docType === 'Selfie' ? FACING_MODE_USER : FACING_MODE_ENVIRONMENT);
-  
-  const handleMenuOpen = (event) => {    
+  const [ facingMode, setFacingMode ] = useState(docType === 'Selfie' ? FACING_MODE_USER : FACING_MODE_ENVIRONMENT);
+
+  const handleMenuOpen = (event) => {
     setSelectDocument(event.currentTarget);
-  }  
+  }
   const capture = React.useCallback(() => {
-    const imageSrc =  refWebCam.current.getScreenshot();
+    const imageSrc = refWebCam.current.getScreenshot();
     setImgSrc(imageSrc);
     setDisableNext(false);
-  }, [ refWebCam, setImgSrc]);  
-  
+  }, [ refWebCam, setImgSrc ]);
+
   const handleChange = (event) => {
     let allowedExtensions = /(\.jpg|\.jpeg|\.png|\.pdf)$/i;
-    if(selectedFile?.files[ 0 ]?.name){
+    if (selectedFile?.files[ 0 ]?.name) {
       let fileName = selectedFile.files[ 0 ].name
-      if(!allowedExtensions.exec(fileName)){
+      if (!allowedExtensions.exec(fileName)) {
         if (!toast.isActive("closeToast")) {
           toast.error("Please upload file having extensions .jpeg .jpg .png .pdf only. ", { toastId: "closeToast" });
         }
         selectedFile.value = "";
-      }else if(selectedFile.files[ 0 ].size > 10240000){
+      } else if (selectedFile.files[ 0 ].size > 10240000) {
         if (!toast.isActive("closeToast")) {
           toast.error(globalMessages.Please_Upload_File_Below_Size, { toastId: "closeToast" });
         }
         selectedFile.value = "";
-      }else{
+      } else {
         setLabel(fileName);
         setDisableNext(false);
       }
-    }    
+    }
   };
   const handleElseTwo = async () => {
     let reader = new FileReader();
@@ -78,11 +79,11 @@ function UploadDocument(props) {
           let fileType = selectedFile.files[ 0 ].type;
           let documentType = typeOfDocument;
           setLoading(true);
-          let compressedFile = [{
+          let compressedFile = [ {
             sourcePath: "",
             data: fileData,
             fileName: fileName
-          }];
+          } ];
           let fileExtension = fileName.split('.').pop();
           let fileSize = selectedFile.files[ 0 ].size;
           let filesInfo = getFileInfo(fileName, fileType, fileExtension, fileSize);
@@ -98,10 +99,10 @@ function UploadDocument(props) {
       }
     } catch (error) {
       ErrorLogger(" Error in emailVerificationDocument", error);
-    }    
+    }
   };
-  const openFileWindow = () => {   
-     refChangeEvent.current.click();     
+  const openFileWindow = () => {
+    refChangeEvent.current.click();
   }
   const enableCameraOption = () => {
     setShowCamera(true);
@@ -112,7 +113,7 @@ function UploadDocument(props) {
   }
   //Selecting file for upload
   const handleInputChange = () => {
-    setSelectedFile( refChangeEvent.current);  
+    setSelectedFile(refChangeEvent.current);
     setShowCamera(false);
     setImgSrc(null);
     setDisableNext(true);
@@ -127,7 +128,7 @@ function UploadDocument(props) {
       "fieldname": "file",
       "originalname": fileName,
       "name": fileName,
-      "encoding":"7bit",
+      "encoding": "7bit",
       "mimetype": fileType,
       "path": "",
       "extension": fileExtension,
@@ -138,20 +139,20 @@ function UploadDocument(props) {
     };
   }
 
-  const uploadCameraPhoto = async () => {    
+  const uploadCameraPhoto = async () => {
     try {
       let documentType = typeOfDocument;
       let imageData = imgSrc;
       let fileName = "Passport.jpeg"
       let fileData = imageData
-                    .toString()
-                    .replace(/^data:image\/[a-z]+base64/, "");
-      let compressedFile = [{
+        .toString()
+        .replace(/^data:image\/[a-z]+base64/, "");
+      let compressedFile = [ {
         sourcePath: "",
         data: fileData,
         fileName: fileName
-      }];
-      
+      } ];
+
       let filesInfo = getFileInfo(fileName, "image/jpeg", "jpeg", "0");
       let response = await uploadEmailVerificationDocument(compressedFile, filesInfo, props.applicationNumber, props.customerEmail, documentType);
       if (response) {
@@ -165,13 +166,13 @@ function UploadDocument(props) {
       return response;
     } catch (error) {
       ErrorLogger(" Error in emailVerificationDocument", error);
-    }  
+    }
     return false;
-  } 
+  }
   const UploadDocument = () => {
-    if(imgSrc){
+    if (imgSrc) {
       uploadCameraPhoto();
-    }else if(selectedFile.files && selectedFile.files[ 0 ]){
+    } else if (selectedFile.files && selectedFile.files[ 0 ]) {
       handleElseTwo();
     }
   }
@@ -183,116 +184,115 @@ function UploadDocument(props) {
   return (
     <>
       <ButtonPrimary
-          onClick={handleMenuOpen}
-          stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
-        >
-          { props.title ?? 'Select Your Document' }
-        </ButtonPrimary>
-        {
-            label ?
-              <Chip
-              className={classes.chipButton}
-                label={ label }
-                onDelete={ ()=> deleteSelectedFile() }
-                deleteIcon={<CloseIcon />}
-              />
-            :
-            ""
-          }
-        <Menu
-          anchorEl={selectDocument}
-          anchorOrigin={{ vertical: "top", horizontal: "right" }}
-          // id={ mobileMenuId }
-          keepMounted
-          transformOrigin={{ vertical: "top", horizontal: "right" }}
-          open={isMenuOpen}
-          onClose={handleMenuClose}
-        >
-          <MenuItem>
-            <Typography className={classes.dropdownMenu} onClick={ openFileWindow }>
-              Select from Existing Files
-              <input
-                id="selectFile"
-                accept="image/png, image/jpeg, application/pdf, image/jpg "
-                style={{ display: "none" }}
-                type="file"
-                ref={  refChangeEvent }
-                onClick={ handleInputChange }
-                onChange={ (event) => handleChange(event) }
-              ></input>
+        onClick={handleMenuOpen}
+        stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
+      >
+        {props.title ?? 'Select Your Document'}
+      </ButtonPrimary>
+      {
+        label ?
+          <Chip
+            className={classes.chipButton}
+            label={label}
+            onDelete={() => deleteSelectedFile()}
+            deleteIcon={<CloseIcon />}
+          />
+          :
+          ""
+      }
+      <Menu
+        anchorEl={selectDocument}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        // id={ mobileMenuId }
+        keepMounted
+        transformOrigin={{ vertical: "top", horizontal: "right" }}
+        open={isMenuOpen}
+        onClose={handleMenuClose}
+      >
+        <MenuItem>
+          <Typography className={classes.dropdownMenu} onClick={openFileWindow}>
+            Select from Existing Files
+            <input
+              id="selectFile"
+              accept="image/png, image/jpeg, application/pdf, image/jpg "
+              style={{ display: "none" }}
+              type="file"
+              ref={refChangeEvent}
+              onClick={handleInputChange}
+              onChange={(event) => handleChange(event)}
+            ></input>
+          </Typography>
+        </MenuItem>
+        <MenuItem>
+          <a to="/faq" className="nav_link ">
+            <Typography className={classes.dropdownMenu} onClick={enableCameraOption}>
+              Upload from Camera
             </Typography>
-          </MenuItem>
-          <MenuItem>
-            <a to="/faq" className="nav_link ">
-              <Typography className={classes.dropdownMenu} onClick={ enableCameraOption }>
-                Upload from Camera
-              </Typography>
-            </a>
-          </MenuItem>
-        </Menu>        
-        {showCamera  ?
-          (!imgSrc ? 
-            <Grid container style={ { margin: "10px 0px"} } >              
+          </a>
+        </MenuItem>
+      </Menu>
+      {showCamera ?
+        (!imgSrc ?
+          <Grid container style={{ margin: "10px 0px" }} >
             <Webcam
               audio={false}
-              ref={ refWebCam}
+              ref={refWebCam}
               screenshotFormat="image/jpeg"
               height={360}
               width={500}
+              className={classes.selfieCamera}
               videoConstraints={{
                 ...videoConstraints,
                 facingMode
               }}
-            />  
+            />
             <Grid container>
               <ButtonPrimary
                 onClick={capture}
                 stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "margin":"10px 0px"}'
               >
                 Capture Photo
-              </ButtonPrimary> 
-            </Grid> 
-          </Grid> : 
-          <Grid container style={ { margin: "10px 0px"} }>
-            <Grid style={{ margin: "0px 10px"}}>
-              {imgSrc && (
-                <img
-                  src={imgSrc}
-                  height={360}
-                  width={480}
-                />
-              )}
-            </Grid> 
-              
-              <Grid container>
-                <ButtonPrimary
-                  onClick={ enableCameraOption }
-                  stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "margin":"10px 0px"}'
-                >
-                  Take another picture
-                </ButtonPrimary>
-              </Grid>
-          </Grid>
-          )          
-        : 
-          <>
-          </>
-        }
-      <Grid className={classes.nextButton} container>          
-          <ButtonSecondary
-            id="buttonMarginRight"
-            stylebutton='{"color": "black", "borderRadius": "50px"}'
-            onClick={ props.prev }
-          >
-            Prev
-          </ButtonSecondary>
-          <ButtonPrimary 
-              stylebutton='{"color": ""}' 
-              disabled = { disableNext }
-              onClick={ UploadDocument }
+              </ButtonPrimary>
+            </Grid>
+          </Grid> :
+          <Grid container style={{ margin: "10px 0px" }}>
+            {imgSrc && (
+              <img
+                src={imgSrc}
+                height={360}
+                width={480}
+                className={classes.selfieImage}
+              />
+            )}
+            <Grid container>
+              <ButtonPrimary
+                onClick={enableCameraOption}
+                stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "margin":"10px 0px"}'
               >
-              Next
-            </ButtonPrimary>
+                Take another picture
+              </ButtonPrimary>
+            </Grid>
+          </Grid>
+        )
+        :
+        <>
+        </>
+      }
+      <Grid className={classes.nextButton} container>
+        <ButtonSecondary
+          id="buttonMarginRight"
+          stylebutton='{"color": "black", "borderRadius": "50px"}'
+          onClick={props.prev}
+        >
+          Prev
+        </ButtonSecondary>
+        <ButtonPrimary
+          stylebutton='{"color": ""}'
+          disabled={disableNext}
+          onClick={UploadDocument}
+        >
+          Next
+        </ButtonPrimary>
       </Grid>
     </>
   );

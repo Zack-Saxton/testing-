@@ -11,55 +11,71 @@
 
 }
 
-#resetPasswordWrap{
+#resetPasswordWrap {
 	display: flex;
-    align-items: center;
-    justify-content: center;
+	align-items: center;
+	justify-content: center;
 	min-height: 93vh;
 	background-color: #f6f6f6 !important;
 }
+
 #main-content {
 	width: 100%;
 }
 
-#reset-main-content{
+#reset-main-content {
 	margin: auto;
 }
+
 #remember-me {
 	padding-left: 12px;
 }
-#signInContainer{
+
+#signInContainer {
 	border-radius: 6px !important;
 	padding: 30px;
 }
-.fullWidth{
-  width: 100%;
+
+.fullWidth {
+	width: 100%;
 }
-#fullWidth{
-  width: 100%;
+
+#fullWidth {
+	width: 100%;
 }
-.nonDecoratedLink{
+
+.nonDecoratedLink {
 	text-decoration: none;
 }
-.dialogActionsWrap{
+
+.dialogActionsWrap {
 	justify-content: center !important;
 	margin-bottom: 25px;
 }
+
+#loginPaperCard {
+	max-width: 385px !important;
+}
+
 @media (max-width: 600px) {
-	#mainContentBackground{
+	#mainContentBackground {
 		padding: 0px 25px;
 	}
-	#resetPasswordWrap{
+
+	#resetPasswordWrap {
 		padding: 0px 25px;
 	}
 }
+
 @media (max-width: 400px) {
 	#email-label {
 		font-size: 4vw;
 	}
+
 	#password-label {
 		font-size: 4vw;
 	}
+
 	#remember-me span {
 		font-size: 4vw;
 	}
@@ -100,11 +116,11 @@
 #email-label,
 #password-label {
 	font-size: 0.938rem !important;
-	padding-bottom: 10px !important ;
+	padding-bottom: 10px !important;
 }
 
-#helpLogin{
+#helpLogin {
 	font-size: 1rem !important;
-	color: #214476  !important;
+	color: #214476 !important;
 	cursor: pointer;
 }

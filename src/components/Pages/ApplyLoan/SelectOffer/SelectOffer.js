@@ -1,13 +1,13 @@
 import CircularProgress from "@mui/material/CircularProgress";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import { makeStyles } from "@mui/styles";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import Typography from "@mui/material/Typography";
 import React, { useEffect, useState } from "react";
 import { useQuery } from 'react-query';
 import { NavLink, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { offerTypeData } from "../../../../assets/data/constants";
 import CheckLoginStatus from "../../../App/CheckLoginStatus";
 import usrAccountDetails from "../../../Controllers/AccountOverviewController";
@@ -15,12 +15,11 @@ import { fetchAvailableOffers, submitSelectedOfferAPI } from "../../../Controlle
 import { ButtonWithIcon } from "../../../FormsUI";
 import messages from "../../../lib/Lang/applyForLoan.json";
 import ScrollToTopOnMount from "../../ScrollToTop";
+import { useStylesApplyForLoan } from "../Style";
+import TabPanel from "../TabPanel";
 import TabSection from "../TabSection";
 import OfferTable from "./offersTable";
-import TabPanel from "../TabPanel"
 import "./SelectOffer.css";
-import { useStylesApplyForLoan } from "../Style"
-import { toast } from "react-toastify";
 
 //Initializing functional component Apply for loan
 export default function ApplyLoan() {
@@ -70,7 +69,7 @@ export default function ApplyLoan() {
 		}
 	};
 
-		const classes = useStylesApplyForLoan();
+	const classes = useStylesApplyForLoan();
 
 	// To fetch the available offers for the logged in user
 	function getAvailableOffers() {
@@ -187,17 +186,17 @@ export default function ApplyLoan() {
 			<CheckLoginStatus />
 			<Grid
 				container
-				justifyContent={ "center" }
-				className={ classes.centerGrid }
+				justifyContent={"center"}
+				className={classes.centerGrid}
 			>
 				<Grid
 					container
 					item
-					xs={ 12 }
+					xs={12}
 					direction="row"
 					className={classes.fullWidth}
 				>
-					<Typography className={ classes.heading } variant="h3">
+					<Typography className={classes.heading} variant="h3">
 						<NavLink
 							className={classes.noDecoration}
 							to="/customers/accountOverview"
@@ -213,23 +212,23 @@ export default function ApplyLoan() {
 								"marginTop":"unset" }'
 								styleicon='{ "color":"" }'
 							/>
-						</NavLink>{ " " }
+						</NavLink>{" "}
 						Apply for a Loan
 					</Typography>
 				</Grid>
 
-				{/* Tab section */ }
+				{/* Tab section */}
 
-				<Grid item xs={ 12 }>
-					<TabSection value={ value } handleChange={ handleChange } classes={ classes } ay={ 0 } />
+				<Grid item xs={12}>
+					<TabSection value={value} handleChange={handleChange} classes={classes} ay={0} />
 
-					<TabPanel value={ value } index={ 0 } className={classes.tabPanelWrap}>
-						<Grid container item xs={ 12 }>
-							{ noOffers ? (
-								<Grid item xs={ 12 } className={classes.fullWidth}>
-									<Paper className={`${classes.noOffersWrap} ${ classes.paper }`} >
+					<TabPanel value={value} index={0} className={classes.tabPanelWrap}>
+						<Grid container item xs={12}>
+							{noOffers ? (
+								<Grid item xs={12} className={classes.fullWidth}>
+									<Paper className={`${ classes.noOffersWrap } ${ classes.paper }`} >
 										<Typography>
-											{ messages.selectAmount.noOffersAvailable }
+											{messages.selectAmount.noOffersAvailable}
 										</Typography>
 									</Paper>
 								</Grid>
@@ -237,56 +236,56 @@ export default function ApplyLoan() {
 								<>
 									<Grid
 										item
-										xs={ 12 }
-										sm={ 3 }
-										className={`${ loading ? classes.loadingOnWithoutBlur : classes.loadingOff } ${classes.fullWidth}`}
+										xs={12}
+										sm={3}
+										className={`${ loading ? classes.loadingOnWithoutBlur : classes.loadingOff } ${ classes.fullWidth }`}
 									>
-										<Paper className={ classes.paperVerticalTab }>
-											{ terms ? (
+										<Paper className={classes.paperVerticalTab}>
+											{terms ? (
 												<Tabs
-													value={ values }
-													onChange={ handleTabChange }
-													classes={ {
+													value={values}
+													onChange={handleTabChange}
+													classes={{
 														indicator: classes.indicator,
-													} }
+													}}
 													textColor="primary"
 													scrollButtons="auto"
 													orientation="vertical"
 													variant="scrollable"
 													aria-label="scrollable auto tabs example"
-													className={ classes.tabsvertical }
+													className={classes.tabsvertical}
 												>
-													{ terms &&
+													{terms &&
 														accountDetails.data.data !==
 														"Access token has expired"
 														? terms.map((item, index) => {
 															return (
 																<Tab
-																	key={ index }
+																	key={index}
 																	label={
 																		<span
 																			className={classes.monthTerm}
 																		>
-																			{ item + " Month Term" }
+																			{item + " Month Term"}
 																		</span>
 																	}
-																	className={ classes.tabVerticalLabel }
-																	onClick={ () => tabOnChange(item, index) }
-																	{ ...tabVerticalProps(index) }
+																	className={classes.tabVerticalLabel}
+																	onClick={() => tabOnChange(item, index)}
+																	{...tabVerticalProps(index)}
 																/>
 															);
 														})
-														: "null" }
+														: "null"}
 													<Tab
 														label={
 															<span className={classes.comparisonChartLabel}>
-																{ " " }
+																{" "}
 																Comparison Chart
 															</span>
 														}
-														className={ classes.tabVerticalLabel }
-														onClick={ () => onCompareOfferTabClick() }
-														{ ...tabVerticalProps(4) }
+														className={classes.tabVerticalLabel}
+														onClick={() => onCompareOfferTabClick()}
+														{...tabVerticalProps(4)}
 													/>
 												</Tabs>
 											) : (
@@ -295,34 +294,34 @@ export default function ApplyLoan() {
 												>
 													<CircularProgress />
 												</Grid>
-											) }
+											)}
 										</Paper>
 									</Grid>
 
 									<OfferTable
-										classes={ classes }
-										value={ value }
-										offerFlag={ offerFlag }
-										rowData={ rowData }
-										loading={ loading }
-										noOfTerms={ terms ? terms.length : 0 }
-										handleTabChange={ handleTabChange }
-										offersToCompare={ offersToCompare }
-										submitSelectedOffer={ submitSelectedOffer }
-										setOffersToCompare={ setOffersToCompare }
-										setOffersToCompareChart={ setOffersToCompareChart }
-										tabVerticalProps={ tabVerticalProps }
-										onCompareOfferTabClick={ onCompareOfferTabClick }
-										offersToCompareChart={ offersToCompareChart }
-										checkedValue={ checkedValue }
-										setCheckedValue={ setCheckedValue }
-										selectedTerm={ selectedTerm }
-										setSelectedTerm={ setSelectedTerm }
-										selectedIndex={ selectedIndex }
-										setSelectedIndex={ setSelectedIndex }
+										classes={classes}
+										value={value}
+										offerFlag={offerFlag}
+										rowData={rowData}
+										loading={loading}
+										noOfTerms={terms ? terms.length : 0}
+										handleTabChange={handleTabChange}
+										offersToCompare={offersToCompare}
+										submitSelectedOffer={submitSelectedOffer}
+										setOffersToCompare={setOffersToCompare}
+										setOffersToCompareChart={setOffersToCompareChart}
+										tabVerticalProps={tabVerticalProps}
+										onCompareOfferTabClick={onCompareOfferTabClick}
+										offersToCompareChart={offersToCompareChart}
+										checkedValue={checkedValue}
+										setCheckedValue={setCheckedValue}
+										selectedTerm={selectedTerm}
+										setSelectedTerm={setSelectedTerm}
+										selectedIndex={selectedIndex}
+										setSelectedIndex={setSelectedIndex}
 									/>
 								</>
-							) }
+							)}
 						</Grid>
 
 						<Grid

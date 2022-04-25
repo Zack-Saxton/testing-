@@ -6,8 +6,8 @@ Functionality       :    To use this AutoComplete SingleSelect as a default comp
                           maintain same consistency.
 
 #################################################################################################################*/
-import TextField from "@mui/material/TextField";
 import Autocomplete from '@mui/material/Autocomplete';
+import TextField from "@mui/material/TextField";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -27,13 +27,13 @@ const AutoCompleteWrapper = ({
   //View Part
   return (
     <Autocomplete
-      id={ id }
-      options={ jsonData }
-      getOptionLabel={ (option) => option.value }
-      style={ styleAutocompleteMF }
-      renderInput={ (params) => (
-        <TextField { ...params } label={ textFieldLabel } variant={ variant } />
-      ) }
+      id={id}
+      options={jsonData}
+      getOptionLabel={(option) => option.value}
+      style={styleAutocompleteMF}
+      renderInput={(params) => (
+        <TextField {...params} label={textFieldLabel} variant={variant} />
+      )}
     />
   );
 };

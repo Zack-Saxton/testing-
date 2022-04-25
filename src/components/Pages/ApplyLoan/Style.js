@@ -145,44 +145,48 @@ const useStylesApplyForLoan = makeStyles((theme) => ({
     textAlign: "center",
   },
   gridStyle: {
-    marginBottom: "20px", 
-    width: "100%" 
+    marginBottom: "20px",
+    width: "100%"
   },
   typoStyle: {
     color: "#171717",
     fontSize: "18px",
   },
-  innerGrid:{
-    width: "100%", 
+  innerGrid: {
+    width: "100%",
     textAlign: "center"
   },
-  buttonGridLineHeight:{
+  buttonGridLineHeight: {
     lineHeight: 6
   },
-  TabPanelGrid:{
+  TabPanelGrid: {
     marginTop: "10px"
   },
-  gridMargintop:{
+  gridMargintop: {
     marginTop: "15px"
   },
-  monthlyPaymentGrid:{
-    lineHeight:"1"
+  monthlyPaymentGrid: {
+    lineHeight: "1"
   },
   applyLoanHeadingText: {
     color: "#214476",
     fontWeight: "400",
     fontSize: "1.64rem",
   },
-  gridContainer: { 
-    width: "100%", 
-    marginBottom: "20px" 
+  gridContainer: {
+    width: "100%",
+    marginBottom: "20px"
   },
   textDecoration: {
     textDecoration: "none"
   },
-  tabPanelStyle: { 
-    paddingBottom: "30px", 
-    marginTop: "10px" 
+  tabPanelStyle: {
+    padding: "24px",
+    paddingBottom: "30px",
+    marginTop: "10px",
+    boxShadow: "rgb(61 61 61 / 10%) 0px 8px 44px 0px",
+    backgroundColor: "#fff",
+    borderRadius: "10px"
   },
   paraTagStyle: {
     textAlign: "justify",
@@ -190,10 +194,10 @@ const useStylesApplyForLoan = makeStyles((theme) => ({
     color: "#6b6f82",
   },
   applicationPapper: {
-    width:"100%"
+    width: "100%"
   },
   receiveMoneyGrid: {
-    height:"80vh"
+    height: "80vh"
   }
 }));
 

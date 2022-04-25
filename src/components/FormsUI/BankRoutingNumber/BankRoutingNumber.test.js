@@ -10,7 +10,7 @@ test('Availability test', () => {
       type="text"
       name="BRN"
       label="BRN"
-      materialProps={ { "data-testid": "BRN" } }
+      materialProps={{ "data-testid": "BRN" }}
     />);
 
   const input = container.getByTestId('BRN');
@@ -26,7 +26,7 @@ test('IRender Bank routing Number', () => {
       type="text"
       name="BRN"
       label="BRN"
-      materialProps={ { "data-testid": "BRN" } }
+      materialProps={{ "data-testid": "BRN" }}
     />);
 
   const input = container.getByTestId('BRN');
@@ -40,7 +40,7 @@ test('Get only numeric value', () => {
       type="text"
       name="BRN"
       label="BRN"
-      materialProps={ { "data-testid": "BRN", maxLength: 10 } }
+      materialProps={{ "data-testid": "BRN", maxLength: 10 }}
     />);
 
   const input = container.getByTestId('BRN');
@@ -55,7 +55,7 @@ it('should be between 6 to 17 characters', () => {
     type="text"
     name="BRN"
     label="BRN"
-    materialProps={ { "data-testid": "BRN" } }
+    materialProps={{ "data-testid": "BRN" }}
   />);
   const input = wrapper.getByTestId('BRN');
   expect(input.maxLength).toBe(9);
@@ -66,7 +66,7 @@ test('should match the snapshot', () => {
     type="text"
     name="BRN"
     label="BRN"
-    materialProps={ { "data-testid": "BRN" } }
+    materialProps={{ "data-testid": "BRN" }}
   />);
   expect(asFragment).toMatchSnapshot();
 });

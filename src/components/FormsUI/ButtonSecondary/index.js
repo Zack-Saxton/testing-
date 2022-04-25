@@ -9,8 +9,8 @@ Functionality       :    To use this button as a default component for UI purpos
 
 import { Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import React from "react";
 import PropTypes from "prop-types";
+import React from "react";
 
 const ButtonSecondary = ({
   children,
@@ -52,8 +52,8 @@ const ButtonSecondary = ({
 
   //View Part
   return (
-    <Button { ...configButton } style={ styleButtonMF }>
-      { children }
+    <Button {...configButton} style={styleButtonMF}>
+      {children}
     </Button>
   );
 };

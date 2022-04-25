@@ -1,23 +1,28 @@
-#notification-menu{
+#notification-menu {
   top: 4%;
   min-width: 200px
 }
-.notificationMenuItem{
+
+.notificationMenuItem {
   font-weight: bold
 }
-.notificationMenuItemNormal{
+
+.notificationMenuItemNormal {
   font-weight: normal;
   min-width: 200px
 }
-#spanNotificationMenu{
-  margin-right: 2%; 
+
+#spanNotificationMenu {
+  margin-right: 2%;
   background: #0F4EB3 !important
 }
-.notificationDialogContent{
+
+.notificationDialogContent {
   text-align: justify
 }
-.notificationCircular{
-   width: 25px;
-    height: 25px; 
-    margin-right: 31px
- }
+
+.notificationCircular {
+  width: 25px;
+  height: 25px;
+  margin-right: 31px
+}

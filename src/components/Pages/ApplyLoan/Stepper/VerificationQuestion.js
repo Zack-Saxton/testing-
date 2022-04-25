@@ -57,15 +57,15 @@ export default function VerificationQuestion(props) {
   //Purposly commented
   return (
     <div>
-      <p style={ { textAlign: "justify", fontSize: "0.938rem" } }>
+      <p style={{ textAlign: "justify", fontSize: "0.938rem" }}>
         Please answer the questions below to help verify your identity. Please
         provide your response within 5 minutes.
       </p>
-      <div className={ props.classes.actionsContainer }>
-        <div className={ props.classes.button_div } >
-          { responseData ? <LoadQuestions responseData={ responseData } setResponseData={ setResponseData } classes={ classes } check={ check } setCheck={ setCheck } /> : <CircularProgress /> }
+      <div className={props.classes.actionsContainer}>
+        <div className={props.classes.button_div} >
+          {responseData ? <LoadQuestions responseData={responseData} setResponseData={setResponseData} classes={classes} check={check} setCheck={setCheck} /> : <CircularProgress />}
           <div>
-            { setOneFinished ? <MultipleQuestion setLoadingFlag={ props.setLoadingFlag } next={ props.next } transactionIdMultiple={ transactionIdMultiple } questionSetIdMultiple={ questionSetIdMultiple } responseData={ responseDataMultipleQ } setResponseData={ setResponseDataMultipleQ } classes={ classes } check={ check } setCheck={ setCheck } /> : null }
+            {setOneFinished ? <MultipleQuestion setLoadingFlag={props.setLoadingFlag} next={props.next} transactionIdMultiple={transactionIdMultiple} questionSetIdMultiple={questionSetIdMultiple} responseData={responseDataMultipleQ} setResponseData={setResponseDataMultipleQ} classes={classes} check={check} setCheck={setCheck} /> : null}
           </div>
           {
             !setOneFinished ?
@@ -74,7 +74,7 @@ export default function VerificationQuestion(props) {
                 color="primary"
                 id="button_stepper_next"
                 stylebutton='{"marginRight": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
-                onClick={ async () => {
+                onClick={async () => {
                   if (check) {
                     props.setLoadingFlag(true);
                     let sendData = {
@@ -118,9 +118,9 @@ export default function VerificationQuestion(props) {
                     props.setLoadingFlag(false);
                     toast.error(messages?.verificationQuestions?.selectToContinue);
                   }
-                } }
+                }}
               >
-                { props.activeStep === props?.steps.length - 1 ? "Finish" : "Continue" }
+                {props.activeStep === props?.steps.length - 1 ? "Finish" : "Continue"}
               </ButtonPrimary>
               :
               null

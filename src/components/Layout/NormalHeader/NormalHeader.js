@@ -1,11 +1,11 @@
+import MoreIcon from "@mui/icons-material/MoreVert";
 import AppBar from "@mui/material/AppBar";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import MoreIcon from "@mui/icons-material/MoreVert";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import Logo from "../../../assets/images/mf-logo.png";
 import "../Layout.css";
@@ -30,29 +30,29 @@ const NormalHeader = () => {
   //Menu button on mobile view
   const renderMobileMenu = (
     <Menu
-      anchorEl={ mobileMoreAnchorEl }
-      anchorOrigin={ { vertical: "top", horizontal: "right" } }
-      id={ mobileMenuId }
+      anchorEl={mobileMoreAnchorEl}
+      anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      id={mobileMenuId}
       keepMounted
-      transformOrigin={ { vertical: "top", horizontal: "right" } }
-      open={ isMobileMenuOpen }
-      onClose={ handleMobileMenuClose }
+      transformOrigin={{ vertical: "top", horizontal: "right" }}
+      open={isMobileMenuOpen}
+      onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <Typography className={ classes.headerAlign }>
-          <a href={ `${ process.env.REACT_APP_WEBSITE }/blog/` } target="_blank"  className="hrefTag" rel="noreferrer">
+        <Typography className={classes.headerAlign}>
+          <a href={`${ process.env.REACT_APP_WEBSITE }/blog/`} target="_blank" className="hrefTag" rel="noreferrer">
             Blog
           </a>
         </Typography>
       </MenuItem>
       <MenuItem >
         <NavLink to="/faq" className="nav_link ">
-          <Typography className={ classes.headerAlign }>FAQ</Typography>
+          <Typography className={classes.headerAlign}>FAQ</Typography>
         </NavLink>
       </MenuItem>
       <MenuItem >
         <NavLink to="/branch-locator" className="nav_link">
-          <Typography className={ classes.headerAlign }>Branch Locator</Typography>
+          <Typography className={classes.headerAlign}>Branch Locator</Typography>
         </NavLink>
       </MenuItem>
     </Menu>
@@ -64,39 +64,39 @@ const NormalHeader = () => {
 
   //View Part
   return (
-    <div id="headerWrap" className={ classes.grow }>
+    <div id="headerWrap" className={classes.grow}>
       <AppBar id="MainHeaderWrap" position="static">
         <Toolbar className="headerToolBar">
-          <Typography onClick={ redirectToAccountOverview } className={ classes.title }>
-            <img className={ classes.logoFormat } src={ Logo } alt="MF logo" />
+          <Typography onClick={redirectToAccountOverview} className={classes.title}>
+            <img className={classes.logoFormat} src={Logo} alt="MF logo" />
           </Typography>
-          <div className={ classes.grow } />
-          <div className={ classes.sectionDesktop }>
-            <Typography id="blogsLink" className={ classes.subtitle }>
-              <a href={ `${ process.env.REACT_APP_WEBSITE }/blog/` } target="_blank"  className="hrefTag" rel="noreferrer">
+          <div className={classes.grow} />
+          <div className={classes.sectionDesktop}>
+            <Typography id="blogsLink" className={classes.subtitle}>
+              <a href={`${ process.env.REACT_APP_WEBSITE }/blog/`} target="_blank" className="hrefTag" rel="noreferrer">
                 Blog
               </a>
             </Typography>
             <NavLink className="faqLink" to="/faq"  >
-              <Typography className={ classes.subtitle }>FAQ</Typography>
+              <Typography className={classes.subtitle}>FAQ</Typography>
             </NavLink>
             <NavLink to="/branch-locator" className="nav_link branchLocatorLink">
-              <Typography className={ classes.subtitle }>Branch Locator</Typography>
+              <Typography className={classes.subtitle}>Branch Locator</Typography>
             </NavLink>
           </div>
-          <div className={ classes.sectionMobile }>
+          <div className={classes.sectionMobile}>
             <IconButton
               aria-label="show more"
               aria-haspopup="true"
-              onClick={ handleMobileMenuOpen }
-              className={ classes.moreIconButton }
+              onClick={handleMobileMenuOpen}
+              className={classes.moreIconButton}
             >
               <MoreIcon />
             </IconButton>
           </div>
         </Toolbar>
       </AppBar>
-      { renderMobileMenu }
+      {renderMobileMenu}
     </div>
   );
 };

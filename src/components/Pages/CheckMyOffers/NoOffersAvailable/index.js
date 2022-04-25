@@ -38,52 +38,52 @@ function NoOffersAvailable(props) {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className={ classes.mainDiv }>
+			<div className={classes.mainDiv}>
 				<Box>
 					<Grid
 						item
-						xs={ 12 }
+						xs={12}
 						container
 						justifyContent="center"
 						alignItems="center"
 					>
 						<Grid
 							item
-							xs={ 12 }
+							xs={12}
 							container
 							justifyContent="center"
 							alignItems="center"
 						>
 							<Grid
 								item
-								xs={ 11 }
-								sm={ 10 }
-								md={ 7 }
-								lg={ 7 }
-								xl={ 7 }
+								xs={11}
+								sm={10}
+								md={7}
+								lg={7}
+								xl={7}
 								className="cardWrapperImg row"
 								container
 								justifyContent="center"
 								alignItems="center"
 							>
-								<img className="noOffersAvailableImage" src={ NoOffersAvailableLogo } alt="NoOffersAvailable" />
+								<img className="noOffersAvailableImage" src={NoOffersAvailableLogo} alt="NoOffersAvailable" />
 							</Grid>
 						</Grid>
 						<br />
 						<Grid
 							item
-							xs={ 12 }
+							xs={12}
 							container
 							justifyContent="center"
 							alignItems="center"
 						>
 							<Grid
 								item
-								xs={ 11 }
-								sm={ 10 }
-								md={ 6 }
-								lg={ 6 }
-								xl={ 6 }
+								xs={11}
+								sm={10}
+								md={6}
+								lg={6}
+								xl={6}
 								className=" row"
 								container
 								justifyContent="center"
@@ -99,18 +99,18 @@ function NoOffersAvailable(props) {
 						</Grid>
 						<Grid
 							item
-							xs={ 12 }
+							xs={12}
 							container
 							justifyContent="center"
 							alignItems="center"
 						>
 							<Grid
 								item
-								xs={ 11 }
-								sm={ 10 }
-								md={ 6 }
-								lg={ 7 }
-								xl={ 7 }
+								xs={11}
+								sm={10}
+								md={6}
+								lg={7}
+								xl={7}
 								className=" row"
 								container
 								justifyContent="center"
@@ -129,18 +129,18 @@ function NoOffersAvailable(props) {
 						</Grid>
 						<Grid
 							item
-							xs={ 12 }
+							xs={12}
 							container
 							justifyContent="center"
 							alignItems="center"
 						>
 							<Grid
 								item
-								xs={ 11 }
-								sm={ 10 }
-								md={ 6 }
-								lg={ 6 }
-								xl={ 6 }
+								xs={11}
+								sm={10}
+								md={6}
+								lg={6}
+								xl={6}
 								className="noOffersButtonWrap "
 								container
 								justifyContent="center"
@@ -148,11 +148,11 @@ function NoOffersAvailable(props) {
 							>
 								<Grid
 									item
-									xs={ 7 }
-									sm={ 6 }
-									md={ 4 }
-									lg={ 4 }
-									xl={ 4 }
+									xs={7}
+									sm={6}
+									md={4}
+									lg={4}
+									xl={4}
 									className="paddingButton buttonStart"
 									container
 									justifyContent="center"
@@ -160,18 +160,18 @@ function NoOffersAvailable(props) {
 								>
 									<ButtonSecondary
 										stylebutton='{"background": "", "color":"", "fontSize": "0.938rem", "padding": "5px 30px" }'
-										onClick={ handleBlog }
+										onClick={handleBlog}
 									>
 										Blog
 									</ButtonSecondary>
 								</Grid>
 								<Grid
 									item
-									xs={ 7 }
-									sm={ 6 }
-									md={ 4 }
-									lg={ 4 }
-									xl={ 4 }
+									xs={7}
+									sm={6}
+									md={4}
+									lg={4}
+									xl={4}
 									className="paddingButton buttonEnd"
 									container
 									justifyContent="center"
@@ -179,7 +179,7 @@ function NoOffersAvailable(props) {
 								>
 									<ButtonPrimary
 										stylebutton='{"background": "", "color":"", "fontSize": "0.938rem", "padding": "5px 30px"}'
-										onClick={ handleHome }
+										onClick={handleHome}
 									>
 										Back to Home
 									</ButtonPrimary>

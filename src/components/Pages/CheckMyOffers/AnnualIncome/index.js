@@ -246,31 +246,31 @@ function NewUser() {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className={ classes.mainDiv }>
+			<div className={classes.mainDiv}>
 				<Box>
 					<Grid
 						container
 						item
-						xs={ 12 }
+						xs={12}
 						justifyContent="center"
 						alignItems="center"
-						className={ innerClasses.boxGrid }
+						className={innerClasses.boxGrid}
 					>
 						<Grid
 							container
 							item
-							xs={ 11 }
-							sm={ 10 }
-							md={ 6 }
-							lg={ 6 }
-							xl={ 6 }
+							xs={11}
+							sm={10}
+							md={6}
+							lg={6}
+							xl={6}
 							className="cardWrapper"
 							justifyContent="center"
 							alignItems="center"
 						>
 							<Paper
 								id="incomeWrap"
-								className={ innerClasses.paperStyle }
+								className={innerClasses.paperStyle}
 							>
 								<div className="progress mt-0">
 									<div
@@ -289,22 +289,22 @@ function NewUser() {
 								<Grid className="liftImage">
 									<img
 										alt="AnnualIncome"
-										src={ AnnualIncomeLogo }
+										src={AnnualIncomeLogo}
 										className="spinAnimation"
 									/>
 								</Grid>
 
 								<Typography
 									variant="h4"
-									className={ innerClasses.typoStyle }
+									className={innerClasses.typoStyle}
 								>
 									Tell us about your income
 								</Typography>
 
-								<form onSubmit={ formik.handleSubmit }>
+								<form onSubmit={formik.handleSubmit}>
 									<Grid
 										item
-										md={ 12 }
+										md={12}
 										className="blockDiv"
 										container
 										justifyContent="center"
@@ -315,26 +315,26 @@ function NewUser() {
 											justifyContent="center"
 											alignItems="center"
 											item
-											lg={ 8 }
-											md={ 8 }
-											xs={ 12 }
+											lg={8}
+											md={8}
+											xs={12}
 											className="textBlock"
 										>
 											<TextField
 												name="personalIncome"
 												label="Annual Personal Income *"
 												id="personalIncome"
-												value={ formik.values.personalIncome }
-												onChange={ onHandleChangePersonal }
-												materialProps={ {
+												value={formik.values.personalIncome}
+												onChange={onHandleChangePersonal}
+												materialProps={{
 													"data-testid": "personalIncome",
 													maxLength: "10",
-												} }
+												}}
 												autoComplete="off"
-												onBlur={ currencyFormat }
-												onKeyDown={ preventUnwanted }
-												error={ errorPersonal !== "" }
-												helperText={ errorPersonal !== "" ? errorPersonal : "" }
+												onBlur={currencyFormat}
+												onKeyDown={preventUnwanted}
+												error={errorPersonal !== ""}
+												helperText={errorPersonal !== "" ? errorPersonal : ""}
 											/>
 
 											<p className="subText incomeText">
@@ -344,24 +344,24 @@ function NewUser() {
 												bank statements, or other records. Alimony, child
 												support, or separate maintenance income need not be
 												revealed if you do not wish to have it considered as a
-												basis for repaying this loan. <span className={ innerClasses.linkDesign } onClick={ () => { handleOnClickMoreInformation(); } }>More Information</span>
+												basis for repaying this loan. <span className={innerClasses.linkDesign} onClick={() => { handleOnClickMoreInformation(); }}>More Information</span>
 											</p>
 											<TextField
 												name="householdIncome"
 												label="Annual Household Income *"
 												id="householdIncome"
-												value={ formik.values.householdIncome }
+												value={formik.values.householdIncome}
 												// startAdornment={<InputAdornment position="start">$</InputAdornment>}
-												materialProps={ {
+												materialProps={{
 													"data-testid": "annualIncome",
 													maxLength: "10",
-												} }
+												}}
 												autoComplete="off"
-												onChange={ onHandleChange }
-												onBlur={ currencyFormat }
-												onKeyDown={ preventUnwanted }
-												error={ errorAnnual !== "" }
-												helperText={ errorAnnual !== "" ? errorAnnual : "" }
+												onChange={onHandleChange}
+												onBlur={currencyFormat}
+												onKeyDown={preventUnwanted}
+												error={errorAnnual !== ""}
+												helperText={errorAnnual !== "" ? errorAnnual : ""}
 											/>
 										</Grid>
 										<Grid
@@ -369,9 +369,9 @@ function NewUser() {
 											justifyContent="center"
 											alignItems="center"
 											item
-											lg={ 8 }
-											md={ 8 }
-											xs={ 12 }
+											lg={8}
+											md={8}
+											xs={12}
 											className="textBlock alignButton"
 										>
 											<ButtonPrimary
@@ -390,7 +390,7 @@ function NewUser() {
 				</Box>
 			</div>
 			<Popup popupFlag={moreInformation} closePopup={handleOnClickMoreInformationClose} title='What Is Considered "Income"?'>
-					<Income/>
+				<Income />
 			</Popup>
 		</div>
 	);

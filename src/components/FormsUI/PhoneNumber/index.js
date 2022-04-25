@@ -10,7 +10,7 @@ import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
-import './PhoneNumber.css'
+import './PhoneNumber.css';
 
 const PhoneNumberWrapper = ({ name, onChange, value, label, error, disabled, helperText, ...otherProps }) => {
   //Set Formik field
@@ -27,16 +27,16 @@ const PhoneNumberWrapper = ({ name, onChange, value, label, error, disabled, hel
   };
 
   return (
-    <FormControl style={ { width: "100%" } }>
-        <TextField label={ label }
-          name={ name }
-          value={ unmaskedval }
-          variant="standard"
-          error={ error }
-          onChange={ handleChange }
-          placeholder="Enter Phone Number"
-          helperText={ helperText }
-          inputProps={ { "data-test-id": "phone", "unmaskedval": unmaskedval, disabled: disabled } } />
+    <FormControl style={{ width: "100%" }}>
+      <TextField label={label}
+        name={name}
+        value={unmaskedval}
+        variant="standard"
+        error={error}
+        onChange={handleChange}
+        placeholder="Enter Phone Number"
+        helperText={helperText}
+        inputProps={{ "data-testid": "phone", "unmaskedval": unmaskedval, disabled: disabled }} />
     </FormControl>
   );
 };

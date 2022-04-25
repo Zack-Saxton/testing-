@@ -26,6 +26,11 @@ const useStyles = makeStyles((theme) => ({
 	content_grid: {
 		marginTop: "15px",
 	},
+	InfoOutlinedIcon: {
+		fontSize: "small",
+		color: "#004e9c",
+		cursor: "pointer"
+	},
 	open: {},
 }));
 
@@ -179,24 +184,24 @@ export default function BankAccountVerification(props) {
 	//View part - JSX part
 	return (
 		<div>
-			<form onSubmit={ formik.handleSubmit }>
+			<form onSubmit={formik.handleSubmit}>
 				<div>
-					<p style={ { textAlign: "justify", fontSize: "0.938rem" } }>
-						<span style={ { fontSize: "1.063rem", paddingBottom: "6px", fontWeight: "400", display: "block" } }>Funding</span>
+					<p style={{ textAlign: "justify", fontSize: "0.938rem" }}>
+						<span style={{ fontSize: "1.063rem", paddingBottom: "6px", fontWeight: "400", display: "block" }}>Funding</span>
 						Please provide your bank account information. This is the bank
 						account where you will receive your Funds Please note that this bank
 						account must be in the applicant&apos;s name
 					</p>
 
-					<Grid sm={ 12 } item className={ classes.content_grid }>
+					<Grid sm={12} item className={classes.content_grid}>
 						<TextField
 							id="accountHolderInput"
 							name="accountHolder"
 							placeholder="Account Holder"
 							label="Account Holder *"
-							value={ formik.values.accountHolder }
-							onChange={ restrictAccountHolderOnChange }
-							onBlur={ formik.handleBlur }
+							value={formik.values.accountHolder}
+							onChange={restrictAccountHolderOnChange}
+							onBlur={formik.handleBlur}
 							error={
 								formik.touched.accountHolder &&
 								Boolean(formik.errors.accountHolder)
@@ -208,37 +213,38 @@ export default function BankAccountVerification(props) {
 					</Grid>
 				</div>
 
-				<Grid id="accountTypeTxt" item xs={ 12 } className={ classes.content_grid }>
+				<Grid id="accountTypeTxt" item xs={12} className={classes.content_grid}>
 					<Radio
 						id="accountTypeRadioTxt"
 						name="accountType"
 						labelforform="Account Type"
 						radiolabel='[{"label":"Savings", "value":"saving"},{"label":"Checking", "value":"checking"}]'
-						checked={ accountType }
-						onClick={ (event) => {
+						checked={accountType}
+						onClick={(event) => {
 							setAccountType(event);
-						} }
-						row={ true }
-						labelplacement={ "end" }
-						style={ { fontWeight: "normal", fontSize: "10px" } }
+						}}
+						row={true}
+						labelplacement={"end"}
+						style={{ fontWeight: "normal", fontSize: "10px" }}
 					/>
-					<FormHelperText error={ true }>
-						{ !accountType ? "Account type required" : "" }
+					<FormHelperText error={true}>
+						{!accountType ? "Account type required" : ""}
 					</FormHelperText>
 				</Grid>
-				<Grid container spacing={ 4 } direction="row">
-					<Grid item xs={ 12 } sm={ 6 } style={ { width: "100%" } }>
+				<Grid container spacing={4} direction="row">
+					<Grid item xs={12} sm={6} style={{ width: "100%" }}>
 						<TextFieldWithToolTip
 							id="bankRoutingNumberInput"
+							variant="standard"
 							name="bankRoutingNumber"
-							style={ { width: "100%" } }
-							value={ formik.values.bankRoutingNumber }
-							inputProps={ { maxLength: "9", "data-test-id": "BRN" } }
-							onChange={ (event) => {
+							style={{ width: "100%" }}
+							value={formik.values.bankRoutingNumber}
+							inputProps={{ maxLength: "9", "data-test-id": "BRN" }}
+							onChange={(event) => {
 								setInvalidRN(false);
 								restrictTextOnChange(event);
-							} }
-							onBlur={ async (event) => {
+							}}
+							onBlur={async (event) => {
 								if (
 									event.target.value !== "" &&
 									event.target.value.length === 9
@@ -257,7 +263,7 @@ export default function BankAccountVerification(props) {
 										});
 									formik.handleBlur(event);
 								}
-							} }
+							}}
 							error={
 								(formik.touched.bankRoutingNumber &&
 									Boolean(formik.errors.bankRoutingNumber)) ||
@@ -279,7 +285,7 @@ export default function BankAccountVerification(props) {
 									Bank Routing number *
 									<Tooltip title="Bank Routing Number" placement="top-start">
 										<InfoOutlinedIcon
-											style={ { fontSize: "small", color: "blue" } }
+											className={classes.InfoOutlinedIcon}
 										/>
 									</Tooltip>
 								</div>
@@ -287,19 +293,20 @@ export default function BankAccountVerification(props) {
 						/>
 					</Grid>
 
-					<Grid item xs={ 12 } sm={ 6 } style={ { width: "100%" } }>
+					<Grid item xs={12} sm={6} style={{ width: "100%" }}>
 						<TextFieldWithToolTip
 							id="bankInformationInput"
+							variant="standard"
 							name="bankInformation"
-							style={ { width: "100%" } }
-							value={ formik.values.bankInformation }
-							onChange={ formik.handleChange }
-							disabled={ true }
-							inputProps={ {
+							style={{ width: "100%" }}
+							value={formik.values.bankInformation}
+							onChange={formik.handleChange}
+							disabled={true}
+							inputProps={{
 								maxLength: "100",
 								"data-test-id": "bankInformation",
-							} }
-							onBlur={ formik.handleBlur }
+							}}
+							onBlur={formik.handleBlur}
 							error={
 								formik.touched.bankInformation &&
 								Boolean(formik.errors.bankInformation)
@@ -314,7 +321,7 @@ export default function BankAccountVerification(props) {
 									Bank Information *
 									<Tooltip title="Bank Information" placement="top-start">
 										<InfoOutlinedIcon
-											style={ { fontSize: "small", color: "blue" } }
+											className={classes.InfoOutlinedIcon}
 										/>
 									</Tooltip>
 								</div>
@@ -322,17 +329,17 @@ export default function BankAccountVerification(props) {
 						/>
 					</Grid>
 				</Grid>
-				<Grid item sm={ 12 } className={ classes.content_grid }>
+				<Grid item sm={12} className={classes.content_grid}>
 					<TextField
 						id="bankAccountNumberInput"
 						name="bankAccountNumber"
 						placeholder="Bank Account Number"
 						label="Bank Account Number *"
-						value={ formik.values.bankAccountNumber }
-						materialProps={ { maxLength: "16", "data-test-id": "BRN" } }
-						onChange={ restrictTextOnChange }
-						onBlur={ formik.handleBlur }
-						inputProps={ { maxLength: "16", "data-test-id": "BankAccnum" } }
+						value={formik.values.bankAccountNumber}
+						materialProps={{ maxLength: "16", "data-test-id": "BRN" }}
+						onChange={restrictTextOnChange}
+						onBlur={formik.handleBlur}
+						inputProps={{ maxLength: "16", "data-test-id": "BankAccnum" }}
 						error={
 							formik.touched.bankAccountNumber &&
 							Boolean(formik.errors.bankAccountNumber)
@@ -343,24 +350,24 @@ export default function BankAccountVerification(props) {
 						}
 					/>
 				</Grid>
-				<Grid item sm={ 12 } className={ classes.content_grid }>
+				<Grid item sm={12} className={classes.content_grid}>
 					<TextField
 						id="confirmAccountNumberInput"
 						name="confirmBankAccountNumber"
 						placeholder="Confirm Account Number"
 						label="Confirm Account Number *"
-						value={ formik.values.confirmBankAccountNumber }
-						onCut={ handleEdit }
-						onCopy={ handleEdit }
-						onPaste={ handleEdit }
-						materialProps={ {
+						value={formik.values.confirmBankAccountNumber}
+						onCut={handleEdit}
+						onCopy={handleEdit}
+						onPaste={handleEdit}
+						materialProps={{
 							maxLength: "16",
 							"data-test-id": "BRN",
 							autoComplete: "off",
-						} }
-						onChange={ restrictTextOnChange }
-						onBlur={ formik.handleBlur }
-						inputProps={ { maxLength: "16", "data-test-id": "BankAccnum" } }
+						}}
+						onChange={restrictTextOnChange}
+						onBlur={formik.handleBlur}
+						inputProps={{ maxLength: "16", "data-test-id": "BankAccnum" }}
 						error={
 							formik.touched.confirmBankAccountNumber &&
 							Boolean(formik.errors.confirmBankAccountNumber)
@@ -372,79 +379,79 @@ export default function BankAccountVerification(props) {
 					/>
 				</Grid>
 				<div>
-					<p style={ { fontSize: "0.938rem" } }>
-						<span style={ { fontSize: "1.063rem", paddingBottom: "6px", marginTop: "30px", fontWeight: "500", display: "block" } }>Repayment</span>
+					<p style={{ fontSize: "0.938rem" }}>
+						<span style={{ fontSize: "1.063rem", paddingBottom: "6px", marginTop: "30px", fontWeight: "500", display: "block" }}>Repayment</span>
 						Please choose your preferred repayment method.
 					</p>
 				</div>
-				<Grid item xs={ 12 } className={ classes.content_grid }>
+				<Grid item xs={12} className={classes.content_grid}>
 					<Radio
 						name="paymnetMode"
 						radiolabel='[{"label":"Automatic Payment", "value":"autopayment"}]'
-						row={ true }
-						checked={ paymnetMode }
-						value={ "autopayment" }
-						onClick={ () => {
+						row={true}
+						checked={paymnetMode}
+						value={"autopayment"}
+						onClick={() => {
 							setPaymentMode("autopayment");
-						} }
-						labelplacement={ "end" }
-						style={ { fontWeight: "normal" } }
+						}}
+						labelplacement={"end"}
+						style={{ fontWeight: "normal" }}
 					/>
-					<FormHelperText style={ { paddingLeft: "28px" } } error={ true }>
-						{ !paymnetMode ? messages?.bankAccountVerification?.accountTypeRequired : "" }
+					<FormHelperText style={{ paddingLeft: "28px" }} error={true}>
+						{!paymnetMode ? messages?.bankAccountVerification?.accountTypeRequired : ""}
 					</FormHelperText>
 					<span>
 						<p
-							style={ {
+							style={{
 								margin: "0px",
 								paddingLeft: "28px",
 								textAlign: "justify",
 								fontSize: "0.938rem"
-							} }
+							}}
 						>
 							We electronically debit your bank account each month. You can
 							cancel or change the bank account at any time. By clicking the box
 							you are electronically signing and acknowledging and agreeing to
-							the{ " " }
-							<span onClick={ handleClickOpenAutoPayAuth } className="linkStyle">
+							the{" "}
+							<span onClick={handleClickOpenAutoPayAuth} className="linkStyle">
 								Auto Pay Authorization
-							</span>{ " " }
+							</span>{" "}
 						</p>
 					</span>
 				</Grid>
-				<Grid item xs={ 12 }>
+				<Grid item xs={12}>
 					<Radio
 						id="paymentbyCheckTxt"
 						name="question"
 						radiolabel='[{"label":"Payment by Check", "value":"checkpayment"}]'
-						row={ true }
-						checked={ paymnetMode }
-						value={ "checkpayment" }
-						onClick={ () => {
+						row={true}
+						checked={paymnetMode}
+						value={"checkpayment"}
+						onClick={() => {
 							setPaymentMode("checkpayment");
-						} }
-						labelplacement={ "end" }
-						style={ { fontWeight: "normal" } }
+						}}
+						labelplacement={"end"}
+						style={{ fontWeight: "normal" }}
 					/>
 					<span>
 						<br />
-						<p style={ { marginLeft: "30px", marginTop: "-10px", fontSize: "0.938rem" } }>
-							{ " " }
+						<p style={{ marginLeft: "30px", marginTop: "-10px", fontSize: "0.938rem" }}>
+							{" "}
 							You&apos;ll mail us a check each month.
 						</p>
 					</span>
 				</Grid>
-				<div style={ { display: verifyRequired ? "block" : "none" } }>
+				<div style={{ display: verifyRequired ? "block" : "none" }}>
 					<div>
 						<p
-							style={ {
+							style={{
 								display: !error ? "none" : "block",
 								fontWeight: "bold",
-							} }
+							}}
 						>
-							{ error }
+							{error}
 						</p>
-						<p className={classes.exampleText} style={ { textAlign: "justify" } }>
+						<p className={classes.exampleText} style={{ textAlign: "justify" }}>
 							<b>Upload Voided Personal Check:</b>
 							<br />
 							Please upload a voided personal check for the bank account you
@@ -459,23 +466,23 @@ export default function BankAccountVerification(props) {
 						</p>
 					</div>
 					<DocumentUpload
-						classes={ classes }
-						resetUpload={ resetUpload }
-						docType={ "bank information" }
-						handle={ handleUpload }
-						setLoadingFlag={ props.setLoadingFlag }
-						multiple={ paymnetMode === "checkpayment" ? false : true }
+						classes={classes}
+						resetUpload={resetUpload}
+						docType={"bank information"}
+						handle={handleUpload}
+						setLoadingFlag={props.setLoadingFlag}
+						multiple={paymnetMode === "checkpayment" ? false : true}
 					/>
 				</div>
-				<div className={ props.classes.actionsContainer }>
-					<div className={ props.classes.button_div }>
+				<div className={props.classes.actionsContainer}>
+					<div className={props.classes.button_div}>
 						<ButtonSecondary
 							stylebutton='{"marginRight": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
-							onClick={ (event) => {
+							onClick={(event) => {
 								formik.resetForm();
 								setVerifyRequired(false);
 								setResetUpload(!resetUpload)
-							} }
+							}}
 							id="button_stepper_reset"
 						>
 							Reset
@@ -486,29 +493,29 @@ export default function BankAccountVerification(props) {
 							id="button_stepper_next"
 							stylebutton='{"marginRight": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
 							type="submit"
-							disabled={ invalidRN }
+							disabled={invalidRN}
 						>
-							{ props.activeStep === props?.steps.length - 1 ? "Finish" : "Next" }
+							{props.activeStep === props?.steps.length - 1 ? "Finish" : "Next"}
 						</ButtonPrimary>
 					</div>
 				</div>
 			</form>
 
 			<Dialog
-				onClose={ handleCloseAutoPayAuth }
+				onClose={handleCloseAutoPayAuth}
 				aria-labelledby="customized-dialog-title"
 				maxWidth="md"
-				open={ openAutoPayAuth }
+				open={openAutoPayAuth}
 			>
 				<div id="printableArea">
 					<DialogTitle
 						id="customized-dialog-title"
-						onClose={ handleCloseAutoPayAuth }
+						onClose={handleCloseAutoPayAuth}
 					>
 						Auto Pay Authorization
 						<CloseIcon
-							style={ { float: "right", cursor: "pointer" } }
-							onClick={ handleCloseAutoPayAuth }
+							style={{ float: "right", cursor: "pointer" }}
+							onClick={handleCloseAutoPayAuth}
 						/>
 					</DialogTitle>
 					<DialogContent dividers>
@@ -591,7 +598,7 @@ export default function BankAccountVerification(props) {
 				<DialogActions className="modalAction">
 					<ButtonPrimary
 						stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
-						onClick={ handleCloseAutoPayAuth }
+						onClick={handleCloseAutoPayAuth}
 						className="modalButton"
 					>
 						<Typography align="center">Close</Typography>

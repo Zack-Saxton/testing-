@@ -48,7 +48,7 @@ export default function DocumentUpload(props) {
 				let reader = new FileReader();
 				if (selectedFile.files && selectedFile.files[ 0 ]) {
 					reader.onload = async () => {
-					const buffer2 = Buffer.from(reader.result.split(",")[1], "base64");
+						const buffer2 = Buffer.from(reader.result.split(",")[ 1 ], "base64");
 						let fileData = Buffer.from(buffer2).toJSON().data;
 						let fileName = selectedFile.files[ 0 ].name;
 						let fileType = selectedFile.files[ 0 ].type;
@@ -77,13 +77,13 @@ export default function DocumentUpload(props) {
 	//JSX part
 	return (
 		<Grid container direction="row">
-			<Grid style={ { paddingTop: "20px" } }>
+			<Grid style={{ paddingTop: "20px" }}>
 				<ButtonPrimary
 					variant="contained"
 					component="span"
-					disabled={ loader }
+					disabled={loader}
 					margin-right="300px"
-					onClick={ () => {
+					onClick={() => {
 						props.setLoadingFlag(true);
 						setLoader(true);
 						uploadDoc();
@@ -95,14 +95,14 @@ export default function DocumentUpload(props) {
 					Upload
 				</ButtonPrimary>
 				<input
-					style={ { padding: "0px 15px" } }
+					style={{ padding: "0px 15px" }}
 					accept="image/png, image/jpeg, application/pdf, image/jpg "
 					id="file"
-					multiple={ props?.multiple }
+					multiple={props?.multiple}
 					type="file"
-					ref={ refSelectedFile }
+					ref={refSelectedFile}
 
-					onChange={ handleInputChange }
+					onChange={handleInputChange}
 				/>
 			</Grid>
 		</Grid>

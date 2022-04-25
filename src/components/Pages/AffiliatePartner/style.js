@@ -3,7 +3,7 @@ import { makeStyles } from "@mui/styles";
 //Styling
 const useStylesPartner = makeStyles((theme) => ({
   mainContentBackground: {
-    backgroundColor:"#f6f6f6"
+    backgroundColor: "#f6f6f6"
   },
   root: {
     flexGrow: 1,
@@ -69,8 +69,8 @@ const useStylesPartner = makeStyles((theme) => ({
     margin: "auto",
     width: "100%"
   },
-  redText:{
-    color:"#ff0000"
+  redText: {
+    color: "#ff0000"
   }
 
 }));

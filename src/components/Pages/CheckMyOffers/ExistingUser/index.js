@@ -139,11 +139,11 @@ function ExistingUser() {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className={ classes.mainDiv }>
+			<div className={classes.mainDiv}>
 				<Box>
 					<Grid
 						item
-						xs={ 12 }
+						xs={12}
 						container
 						justifyContent="center"
 						alignItems="center"
@@ -151,17 +151,17 @@ function ExistingUser() {
 						<Grid
 							container
 							item
-							xs={ 11 }
-							sm={ 10 }
-							md={ 6 }
-							lg={ 6 }
-							xl={ 6 }
+							xs={11}
+							sm={10}
+							md={6}
+							lg={6}
+							xl={6}
 							className="cardWrapper"
 							justifyContent="center"
 							alignItems="center"
 						>
 							<Paper
-								className={ innerClasses.paperStyle }
+								className={innerClasses.paperStyle}
 							>
 								<span className="floatLeft detNum5" />
 								<Grid className="floatLeft">
@@ -171,32 +171,32 @@ function ExistingUser() {
 										</i>
 									</Link>
 								</Grid>
-								<Grid className={ innerClasses.negativeMargin }>
+								<Grid className={innerClasses.negativeMargin}>
 									<img
-										src={ PasswordLogo }
+										src={PasswordLogo}
 										alt="password"
 										className="spinAnimation"
 									/>
 								</Grid>
 								<Typography
 
-									className={ innerClasses.typoStyle }
+									className={innerClasses.typoStyle}
 								>
 									We have detected you already have an account with us.
 								</Typography>
 
 								<Typography
 									variant="h5"
-									className={ innerClasses.typoStyle }
+									className={innerClasses.typoStyle}
 								>
 									Please enter a password and continue.
 								</Typography>
 
-								<form onSubmit={ formik.handleSubmit }>
+								<form onSubmit={formik.handleSubmit}>
 									<Grid
 										container
 										item
-										md={ 12 }
+										md={12}
 										className="blockDiv"
 										justifyContent="center"
 										alignItems="center"
@@ -206,9 +206,9 @@ function ExistingUser() {
 											justifyContent="flex-start"
 											alignItems="flex-start"
 											item
-											lg={ 8 }
-											md={ 8 }
-											xs={ 12 }
+											lg={8}
+											md={8}
+											xs={12}
 											className="textBlock"
 										>
 											<PasswordField
@@ -216,11 +216,11 @@ function ExistingUser() {
 												label="Password *"
 												type="password"
 												data-testid="password"
-												onKeyDown={ preventSpace }
-												materialProps={ { maxLength: "30" } }
-												value={ formik.values.password }
-												onChange={ passwordOnChange }
-												onBlur={ formik.handleBlur }
+												onKeyDown={preventSpace}
+												materialProps={{ maxLength: "30" }}
+												value={formik.values.password}
+												onChange={passwordOnChange}
+												onBlur={formik.handleBlur}
 												error={
 													formik.touched.password &&
 													Boolean(formik.errors.password)
@@ -235,10 +235,10 @@ function ExistingUser() {
 												}
 												data-testid="subtitle"
 											>
-												{ " " }
-												{ loginFailed === "Invalid Email or Password"
+												{" "}
+												{loginFailed === "Invalid Email or Password"
 													? "Please enter a valid password"
-													: loginFailed }
+													: loginFailed}
 											</p>
 										</Grid>
 										<Grid
@@ -246,26 +246,26 @@ function ExistingUser() {
 											justifyContent="center"
 											alignItems="center"
 											item
-											lg={ 8 }
-											md={ 8 }
-											xs={ 12 }
+											lg={8}
+											md={8}
+											xs={12}
 											className="textBlock alignButton"
 										>
 											<ButtonPrimary
 												type="submit"
 												data-testid="contButton"
 												stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black"}'
-												disabled={ loading }
+												disabled={loading}
 											>
 												<Typography align="center" className="textCSS ">
 													Sign In
 												</Typography>
 												<i
 													className="fa fa-refresh fa-spin customSpinner"
-													style={ {
+													style={{
 														marginRight: "10px",
 														display: loading ? "block" : "none",
-													} }
+													}}
 												/>
 											</ButtonPrimary>
 										</Grid>
@@ -274,9 +274,9 @@ function ExistingUser() {
 											justifyContent="center"
 											alignItems="center"
 											item
-											lg={ 8 }
-											md={ 8 }
-											xs={ 12 }
+											lg={8}
+											md={8}
+											xs={12}
 											className="linkBlock"
 										>
 											<Link to="/register" className="link">

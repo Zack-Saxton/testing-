@@ -58,9 +58,9 @@ const marinerWorkingSaturdayDateRange = {
 };
 const howManyBranchesforBranchLocatorPages = {
     BranchLocator: 10,
-    StatePage: 25,
-    BranchPage: 3,
-    stateBranchDistanceinMiles: 350
+    StatePage: 50,
+    BranchPage: 4,
+    stateBranchDistanceinMiles: 500
 };
 export {
     businesStates,

@@ -4,8 +4,8 @@ import React from 'react';
 import CheckLoginTimeout from "./CheckLoginTimeout";
 import "./Layout.css";
 import Footer from './NormalFooter/NormalFooter';
-import Header from './NormalHeader/NormalHeader';
 import HeaderWithoutMenu from './NormalHeader/HeaderWithoutMenu';
+import Header from './NormalHeader/NormalHeader';
 
 const General = ({ children, skipHeaderMenu }) => {
 
@@ -16,8 +16,8 @@ const General = ({ children, skipHeaderMenu }) => {
                 loginToken.isLoggedIn ? <CheckLoginTimeout /> : null
             }
             <div className='topBar'></div>
-            {skipHeaderMenu ? <HeaderWithoutMenu /> :  <Header /> }
-            { children }
+            {skipHeaderMenu ? <HeaderWithoutMenu /> : <Header />}
+            {children}
             <Footer />
         </div>
     );

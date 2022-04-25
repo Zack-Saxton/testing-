@@ -1,8 +1,8 @@
 import axios from "axios";
 import Cookies from "js-cookie";
+import getClientIp from "../Controllers/CommonController";
 import ErrorLogger from "../lib/ErrorLogger";
 import apiUrl from "./ApiLib.json";
-import getClientIp from "../Controllers/CommonController"
 
 /***** API Calling function *****/
 const APICall = async (api, param, data, method, addAccessToken) => {

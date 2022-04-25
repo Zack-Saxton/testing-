@@ -31,12 +31,12 @@ export default function MyBranch() {
       <ScrollToTopOnMount />
       <Grid
         container
-        justifyContent={ "center" }
-        className={ classes.centerGrid }
+        justifyContent={"center"}
+        className={classes.centerGrid}
       >
         <Grid container className={classes.gridMyBranch}>
-          <Grid container className={classes.branchlocatorStyle}item xs={ 12 }>
-            <Typography variant="h3" className={ classes.heading }>
+          <Grid container className={classes.branchlocatorStyle} item xs={12}>
+            <Typography variant="h3" className={classes.heading}>
               <NavLink
                 to="/customers/accountOverview"
                 className={classes.navLinkMyBranch} >
@@ -50,13 +50,13 @@ export default function MyBranch() {
                         "marginRight": "5px", "marginTop":"unset" }'
                   styleicon='{ "color":"" }'
                 />
-              </NavLink>{ " " }
+              </NavLink>{" "}
               My Branch
             </Typography>
             <Typography variant="h3" className={classes.heading}>
               Need to find another branch location? Click&nbsp;
               <NavLink to="/branch-locator"
-              className={classes.navLinkMyBranch} >
+                className={classes.navLinkMyBranch} >
                 here
               </NavLink>
             </Typography>
@@ -64,18 +64,18 @@ export default function MyBranch() {
         </Grid>
 
         <Grid container id="branchMainDiv">
-          <Grid id="branchDiv" item xs={ 12 } sm={ 5 }>
-            { myBranchData ? (
-              <BranchDetail MyBranchDetail={ myBranchData } />
+          <Grid id="branchDiv" item xs={12} sm={5}>
+            {myBranchData ? (
+              <BranchDetail MyBranchDetail={myBranchData} />
             ) : (
-              <Paper className={ classes.paper }>
-                { " " }
-                <CircularProgress />{ " " }
+              <Paper className={classes.paper}>
+                {" "}
+                <CircularProgress />{" "}
               </Paper>
-            ) }
+            )}
           </Grid>
-          <Grid item xs={ 12 } sm={ 7 }>
-            <BranchMap MyBranchDetail={ myBranchData } />
+          <Grid item xs={12} sm={7}>
+            <BranchMap MyBranchDetail={myBranchData} />
           </Grid>
         </Grid>
       </Grid>

@@ -4,8 +4,8 @@ import Step from "@mui/material/Step";
 import StepContent from "@mui/material/StepContent";
 import StepLabel from "@mui/material/StepLabel";
 import Stepper from "@mui/material/Stepper";
-import { makeStyles } from "@mui/styles";
 import Typography from "@mui/material/Typography";
+import { makeStyles } from "@mui/styles";
 import Cookies from "js-cookie";
 import React, { createRef, useEffect, useRef, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -144,86 +144,86 @@ export default function VerticalLinearStepper() {
 			case 0:
 				return (
 					<EmailVerification
-						next={ getApplicationStatus }
-						prev={ handleBack }
-						reset={ handleReset }
-						steps={ steps }
-						activeStep={ activeStep }
-						classes={ classes }
-						setLoadingFlag={ setLoadingFlag }
+						next={getApplicationStatus}
+						prev={handleBack}
+						reset={handleReset}
+						steps={steps}
+						activeStep={activeStep}
+						classes={classes}
+						setLoadingFlag={setLoadingFlag}
 					/>
 				);
 			case 1:
 				return (
 					<PhoneVerification
-						next={ getApplicationStatus }
-						prev={ handleBack }
-						reset={ handleReset }
-						steps={ steps }
-						activeStep={ activeStep }
-						classes={ classes }
-						setLoadingFlag={ setLoadingFlag }
+						next={getApplicationStatus}
+						prev={handleBack}
+						reset={handleReset}
+						steps={steps}
+						activeStep={activeStep}
+						classes={classes}
+						setLoadingFlag={setLoadingFlag}
 					/>
 				);
 			case 2:
 				return (
 					<FinancialInformation
-						next={ getApplicationStatus }
-						prev={ handleBack }
-						reset={ handleReset }
-						steps={ steps }
-						activeStep={ activeStep }
-						classes={ classes }
-						setLoadingFlag={ setLoadingFlag }
+						next={getApplicationStatus}
+						prev={handleBack}
+						reset={handleReset}
+						steps={steps}
+						activeStep={activeStep}
+						classes={classes}
+						setLoadingFlag={setLoadingFlag}
 					/>
 				);
 			case 3:
 				return (
 					<DocumentPhoto
-						next={ getApplicationStatus }
-						prev={ handleBack }
-						reset={ handleReset }
-						steps={ steps }
-						activeStep={ activeStep }
-						classes={ classes }
-						setLoadingFlag={ setLoadingFlag }
-						reference={ elementsRef }
+						next={getApplicationStatus}
+						prev={handleBack}
+						reset={handleReset}
+						steps={steps}
+						activeStep={activeStep}
+						classes={classes}
+						setLoadingFlag={setLoadingFlag}
+						reference={elementsRef}
 					/>
 				);
 			case 4:
 				return (
 					<VerificationQuestion
-						next={ getApplicationStatus }
-						prev={ handleBack }
-						reset={ handleReset }
-						steps={ steps }
-						activeStep={ activeStep }
-						classes={ classes }
-						setLoadingFlag={ setLoadingFlag }
+						next={getApplicationStatus}
+						prev={handleBack}
+						reset={handleReset}
+						steps={steps}
+						activeStep={activeStep}
+						classes={classes}
+						setLoadingFlag={setLoadingFlag}
 					/>
 				);
 			case 5:
 				return (
 					<BankAccountVerification
-						next={ getApplicationStatus }
-						prev={ handleBack }
-						reset={ handleReset }
-						steps={ steps }
-						activeStep={ activeStep }
-						classes={ classes }
-						setLoadingFlag={ setLoadingFlag }
+						next={getApplicationStatus}
+						prev={handleBack}
+						reset={handleReset}
+						steps={steps}
+						activeStep={activeStep}
+						classes={classes}
+						setLoadingFlag={setLoadingFlag}
 					/>
 				);
 			case 6:
 				return (
 					<IncomeVerification
-						next={ getApplicationStatus }
-						prev={ handleBack }
-						reset={ handleReset }
-						steps={ steps }
-						activeStep={ activeStep }
-						classes={ classes }
-						setLoadingFlag={ setLoadingFlag }
+						next={getApplicationStatus}
+						prev={handleBack}
+						reset={handleReset}
+						steps={steps}
+						activeStep={activeStep}
+						classes={classes}
+						setLoadingFlag={setLoadingFlag}
 					/>
 				);
 			default:
@@ -233,29 +233,29 @@ export default function VerticalLinearStepper() {
 
 	// view part
 	return (
-		<div className={ classes.root }>
-			<Stepper activeStep={ activeStep } orientation="vertical">
-				{ steps.map((label, index) => (
-					<Step key={ label }>
+		<div className={classes.root}>
+			<Stepper activeStep={activeStep} orientation="vertical">
+				{steps.map((label, index) => (
+					<Step key={label}>
 						<StepLabel>
-							{ <span className={ classes.steplabel } ref={ elementsRef.current[ index ] } id={ label }>{ label }</span> }
+							{<span className={classes.steplabel} ref={elementsRef.current[ index ]} id={label}>{label}</span>}
 						</StepLabel>
 						<StepContent
-							className={ loadingFlag ? classes.loadingOn : classes.loadingOff }
+							className={loadingFlag ? classes.loadingOn : classes.loadingOff}
 						>
-							<div>{ getStepContent(index) }</div>
-							<div className={ classes.actionsContainer }></div>
+							<div>{getStepContent(index)}</div>
+							<div className={classes.actionsContainer}></div>
 						</StepContent>
 					</Step>
-				)) }
+				))}
 			</Stepper>
-			{ activeStep === steps.length && (
-				<Paper square elevation={ 0 } className={ classes.resetContainer }>
+			{activeStep === steps.length && (
+				<Paper square elevation={0} className={classes.resetContainer}>
 					<Typography>All steps completed - you&apos;re finished</Typography>
-					<Grid className={ classes.padTop }>
+					<Grid className={classes.padTop}>
 						<NavLink
 							to="/customers/receiveYourMoney"
-							style={ { textDecoration: "none" } }
+							style={{ textDecoration: "none" }}
 						>
 							<ButtonPrimary stylebutton='{ "color":"" }'>
 								Click here for application status
@@ -263,7 +263,7 @@ export default function VerticalLinearStepper() {
 						</NavLink>
 					</Grid>
 				</Paper>
-			) }
+			)}
 		</div>
 	);
 }

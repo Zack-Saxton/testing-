@@ -1,12 +1,14 @@
 .onTimePayment {
     stroke: #31CA70;
 
-   }
-   .latePayment {
+}
+
+.latePayment {
     stroke: #FF4141;
 
-   }
-   .ct-bar {
+}
+
+.ct-bar {
     fill: none;
     stroke-width: 40;
 

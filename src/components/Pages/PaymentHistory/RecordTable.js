@@ -21,22 +21,22 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
 
   //View part
   return (
-    <Grid item xs={ 12 } style={ { paddingTop: "10px", paddingBottom: "20px" } }>
-      <TableContainer component={ Paper }>
-        <Table className={ classes.table } aria-label="simple table">
+    <Grid item xs={12} style={{ paddingTop: "10px", paddingBottom: "20px" }}>
+      <TableContainer component={Paper}>
+        <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell className={ classes.tableHead } align="left">Date</TableCell>
-              <TableCell className={ classes.tableHead } align="left">Description</TableCell>
-              <TableCell className={ classes.tableHead } align="right">Principal</TableCell>
-              <TableCell className={ classes.tableHead } align="right">Interest</TableCell>
-              <TableCell className={ classes.tableHead } align="right">Other</TableCell>
-              <TableCell className={ classes.tableHead } align="right">Total</TableCell>
-              <TableCell className={ classes.tableHead } align="right">Balance</TableCell>
+              <TableCell className={classes.tableHead} align="left">Date</TableCell>
+              <TableCell className={classes.tableHead} align="left">Description</TableCell>
+              <TableCell className={classes.tableHead} align="right">Principal</TableCell>
+              <TableCell className={classes.tableHead} align="right">Interest</TableCell>
+              <TableCell className={classes.tableHead} align="right">Other</TableCell>
+              <TableCell className={classes.tableHead} align="right">Total</TableCell>
+              <TableCell className={classes.tableHead} align="right">Balance</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            { userRecentPayment?.userRecentPaymentData === null ? (
+            {userRecentPayment?.userRecentPaymentData === null ? (
               <TableRow>
                 <TableCell colSpan="7" align="center">
                   Please wait...
@@ -44,56 +44,56 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
               </TableRow>
             ) : userRecentPayment?.userRecentPaymentData?.length ? (
               userRecentPayment?.userRecentPaymentData.map((val) => (
-                <div key={ (Math.random() * 1000) }>
-                  { val?.loanHistory[ 0 ]?.AppAccountHistory.map((row) => (
+                <div key={(Math.random() * 1000)}>
+                  {val?.loanHistory[ 0 ]?.AppAccountHistory.map((row) => (
                     <>
-                      <TableRow key={ (Math.random() * 1000) }>
+                      <TableRow key={(Math.random() * 1000)}>
                         <TableCell
                           component="th"
-                          className={ classes.tableHeadRow }
+                          className={classes.tableHeadRow}
                           scope="row"
                         >
-                          { Moment(row.TransactionDate).format("MM/DD/YYYY") }
+                          {Moment(row.TransactionDate).format("MM/DD/YYYY")}
                         </TableCell>
                         <TableCell
-                          className={ classes.tableHeadRow }
+                          className={classes.tableHeadRow}
                           align="center"
                         >
-                          { row.TransactionDescription }
+                          {row.TransactionDescription}
                         </TableCell>
                         <TableCell
-                          className={ classes.tableHeadRow }
+                          className={classes.tableHeadRow}
                           align="center"
                         >
-                          { row.PrincipalAmount }
+                          {row.PrincipalAmount}
                         </TableCell>
                         <TableCell
-                          className={ classes.tableHeadRow }
+                          className={classes.tableHeadRow}
                           align="center"
                         >
-                          { row.InterestAmount }
+                          {row.InterestAmount}
                         </TableCell>
                         <TableCell
-                          className={ classes.tableHeadRow }
+                          className={classes.tableHeadRow}
                           align="center"
                         >
-                          { row.OtherAmount }
+                          {row.OtherAmount}
                         </TableCell>
                         <TableCell
-                          className={ classes.tableHeadRow }
+                          className={classes.tableHeadRow}
                           align="center"
                         >
                           -
                         </TableCell>
                         <TableCell
-                          className={ classes.tableHeadRow }
+                          className={classes.tableHeadRow}
                           align="center"
                         >
-                          { row.RunningPrincipalBalance }
+                          {row.RunningPrincipalBalance}
                         </TableCell>
                       </TableRow>
                     </>
-                  )) }
+                  ))}
                 </div>
               ))
             ) : (
@@ -103,7 +103,7 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
                   You do not have any recent applications
                 </TableCell>
               </TableRow>
-            ) }
+            )}
           </TableBody>
         </Table>
       </TableContainer>

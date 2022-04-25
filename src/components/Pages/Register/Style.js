@@ -2,7 +2,7 @@ import { makeStyles } from "@mui/styles";
 
 const useStylesRegister = makeStyles((theme) => ({
   mainContentBackground: {
-    backgroundColor:"#f6f6f6"
+    backgroundColor: "#f6f6f6"
   },
   root: {
     flexGrow: 1,
@@ -55,6 +55,23 @@ const useStylesRegister = makeStyles((theme) => ({
   gridInsideBox: {
     paddingTop: "30px",
     paddingBottom: "40px"
+  },
+  paddingRight: {
+    paddingRight: "32px",
+    paddingBottom: "32px",
+    "@media (max-width: 599px)": {
+      paddingRight: "0px",
+    },
+  },
+  paddingBottom: {
+    paddingBottom: "32px"
+  },
+  paddingLeft: {
+    paddingLeft: "32px",
+    paddingBottom: "32px",
+    "@media (max-width: 599px)": {
+      paddingLeft: "0px",
+    },
   }
 }));
 

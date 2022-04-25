@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import housingImage from "../../../assets/images/equal_Housing_Lender.png";
 import badge from "../../../assets/images/FeefoRatting.png";
@@ -20,7 +20,7 @@ export default function Footer() {
       <footer id="mainFooter">
         <Grid className="FooterGridWrap">
           <Grid className="footerWrap" container>
-            <Grid item sm={ 12 } md={ 4 } lg={ 4 }>
+            <Grid item sm={12} md={4} lg={4}>
               <div className="footer-content">
                 <NavLink
                   to="/communityGuidelines"
@@ -74,7 +74,7 @@ export default function Footer() {
               </div>
             </Grid>
 
-            <Grid item sm={ 12 } md={ 4 } lg={ 4 }>
+            <Grid item sm={12} md={4} lg={4}>
               <div className="footer-content">
                 <NavLink
                   to="/websiteAccessibility"
@@ -110,32 +110,32 @@ export default function Footer() {
               </div>
             </Grid>
 
-            <Grid className="feefoBadgeWrap" item sm={ 12 } md={ 4 } lg={ 4 }>
-              <img type="image" src={ badge } alt="photo" id="badge" />
+            <Grid className="feefoBadgeWrap" item sm={12} md={4} lg={4}>
+              <img type="image" src={badge} alt="photo" id="badge" />
             </Grid>
           </Grid>
 
           <Grid>
             <Grid container id="mfInfo" className="row">
-              <Grid className="FooterLogo" item xs={ 12 } sm={ 12 } md={ 2 } lg={ 2 }>
-                <img type="image" id="mfInfoImg" src={ Logo } alt="logo image" />
+              <Grid className="FooterLogo" item xs={12} sm={12} md={2} lg={2}>
+                <img type="image" id="mfInfoImg" src={Logo} alt="logo image" />
               </Grid>
 
               <Grid
                 className="footerPadding row"
                 item
-                sm={ 12 }
-                md={ 8 }
-                lg={ 8 }
+                sm={12}
+                md={8}
+                lg={8}
               >
                 <div >
                   <p className="leftAlignAddress">
                     Mariner Finance, LLC, NMLS No. 166564
                     <span
-                    className="spanLeftAlignAddress"
-                      onClick={ handleOpenConsumer }
+                      className="spanLeftAlignAddress"
+                      onClick={handleOpenConsumer}
                     >
-                      { ' ' }(www.nmlsconsumeraccess.com){ ' ' }
+                      {' '}(www.nmlsconsumeraccess.com){' '}
                     </span>
                     8211 Town Center Drive, Nottingham, MD 21236; Telephone
                     Number -
@@ -146,11 +146,11 @@ export default function Footer() {
                 </div>
               </Grid>
 
-              <Grid className="footerPadding FooterHousingLogo" item sm={ 12 } md={ 2 } lg={ 2 }>
+              <Grid className="footerPadding FooterHousingLogo" item sm={12} md={2} lg={2}>
                 <img
                   type="image"
                   id="mfInfoImg"
-                  src={ housingImage }
+                  src={housingImage}
                   alt="logo image"
                 />
               </Grid>
@@ -163,17 +163,17 @@ export default function Footer() {
         <div className="footer-copyright">
           <div className="footerText">
             <span>
-              &#169; { new Date().getFullYear() }{ ' ' }
+              &#169; {new Date().getFullYear()}{' '}
               <a className="footerHomeLink" href="/customers/accountOverview" >
                 Mariner Finance
-              </a>{ " " }
+              </a>{" "}
               All rights reserved.
             </span>
           </div>
         </div>
       </footer>
 
-      <ConsumerDialog consumer={ consumer } onChange={ setConsumer } />
+      <ConsumerDialog consumer={consumer} onChange={setConsumer} />
     </div>
   );
 }

@@ -39,10 +39,10 @@ export async function documentdownload(id, name, fileURL) {
   let url = "cac_download_document";
   let param = "";
   let data = {
-     file_id: id,
-     name: name,
-     fileURL: fileURL,
-  };  
+    file_id: id,
+    name: name,
+    fileURL: fileURL,
+  };
   let method = "POST";
   let addAccessToken = true;
 
@@ -50,7 +50,7 @@ export async function documentdownload(id, name, fileURL) {
   let loanDocumentDownload = await APICall(url, param, data, method, addAccessToken);
   loanDocumentDownload.status === 200
     ? downloadFileData(loanDocumentDownload)
-    : toast.error(loanDocumentDownload?.data?.message ?? globalMessages.Document_download_error); 
+    : toast.error(loanDocumentDownload?.data?.message ?? globalMessages.Document_download_error);
 }
 
 /***** Print file *****/

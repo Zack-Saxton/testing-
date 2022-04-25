@@ -2,10 +2,12 @@
 	margin-top: 5%;
 	margin-bottom: 2%;
 }
+
 .borrowCSSLP {
 	font-size: 1.538rem !important;
 	line-height: 110% !important;
 }
+
 .setSlider {
 	margin-bottom: 0 !important;
 }
@@ -14,6 +16,7 @@
 	margin-bottom: 7% !important;
 	text-align: center;
 }
+
 .setGreenColor {
 	color: green;
 }
@@ -28,6 +31,7 @@
 .alignSmallText {
 	margin-bottom: 3%;
 }
+
 .alignText {
 	color: #595959;
 	font-size: 0.9rem;
@@ -164,12 +168,13 @@
 #purposeTxt08,
 #purposeTxt09,
 #purposeTxt10 {
-	font-size: 1.078rem !important ;
+	font-size: 1.078rem !important;
 }
-#otherText{
+
+#otherText {
 	font-size: 1.12rem !important;
 }
 
-#purposeTxt07 span{
+#purposeTxt07 span {
 	font-size: 0.938rem !important;
 }

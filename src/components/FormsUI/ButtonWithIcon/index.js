@@ -59,10 +59,10 @@ const ButtonWithIcon = ({
 
   //View Part
   return (
-    <Button { ...configButton } style={ styleButtonMF }>
-      { iconposition === "left" ? <Icon style={ styleIconMF } data-testid="icon">{ icon }</Icon> : "" }
-      { children }
-      { iconposition === "right" ? <Icon style={ styleIconMF } data-testid="icon">{ icon }</Icon> : "" }
+    <Button {...configButton} style={styleButtonMF}>
+      {iconposition === "left" ? <Icon style={styleIconMF} data-testid="icon">{icon}</Icon> : ""}
+      {children}
+      {iconposition === "right" ? <Icon style={styleIconMF} data-testid="icon">{icon}</Icon> : ""}
     </Button>
   );
 };

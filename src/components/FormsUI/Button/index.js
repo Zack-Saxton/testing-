@@ -43,8 +43,8 @@ const ButtonWrapper = ({
 
   //View Part
   return (
-    <Button { ...configButton } onClick={ onClick } style={ styleButtonMF }>
-      { children }
+    <Button {...configButton} onClick={onClick} style={styleButtonMF}>
+      {children}
     </Button>
   );
 };

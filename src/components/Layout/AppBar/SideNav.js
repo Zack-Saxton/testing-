@@ -1,8 +1,25 @@
+import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import AssignmentTurnedInOutlinedIcon from "@mui/icons-material/AssignmentTurnedInOutlined";
+import BookIcon from '@mui/icons-material/Book';
+import CallIcon from "@mui/icons-material/Call";
+import DataUsageOutlinedIcon from "@mui/icons-material/DataUsageOutlined";
+import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
+import ListIcon from "@mui/icons-material/List";
+import LiveHelpIcon from '@mui/icons-material/LiveHelp';
+import MenuIcon from "@mui/icons-material/Menu";
+import MonetizationOnRoundedIcon from "@mui/icons-material/MonetizationOnRounded";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
+import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
+import SettingsIcon from "@mui/icons-material/Settings";
 import { Checkbox } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
+import Grow from '@mui/material/Grow';
 import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -10,29 +27,17 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { makeStyles } from "@mui/styles";
+import MenuList from '@mui/material/MenuList';
+import Paper from '@mui/material/Paper';
+import Popper from '@mui/material/Popper';
+import Stack from '@mui/material/Stack';
 import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
-import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import AssignmentTurnedInOutlinedIcon from "@mui/icons-material/AssignmentTurnedInOutlined";
-import CallIcon from "@mui/icons-material/Call";
-import DataUsageOutlinedIcon from "@mui/icons-material/DataUsageOutlined";
-import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
-import ListIcon from "@mui/icons-material/List";
-import MenuIcon from "@mui/icons-material/Menu";
-import BookIcon from '@mui/icons-material/Book';
-import LiveHelpIcon from '@mui/icons-material/LiveHelp';
-import MonetizationOnRoundedIcon from "@mui/icons-material/MonetizationOnRounded";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
-import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
-import SettingsIcon from "@mui/icons-material/Settings";
+import { makeStyles } from "@mui/styles";
 import clsx from "clsx";
 import Cookies from "js-cookie";
-import React, { useContext, useEffect, useState,useRef } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import { useQuery, useQueryClient } from "react-query";
@@ -46,17 +51,18 @@ import logoImage from "../../../assets/images/Normallogo.png";
 import profileImg from "../../../assets/images/profile-img.jpg";
 import quickPay from "../../../assets/images/quickpay.png";
 import { CheckMyOffers } from "../../../contexts/CheckMyOffers";
-import { LoanAccount } from "../../../contexts/LoanAccount"
 import { useGlobalState } from "../../../contexts/GlobalStateProvider";
+import { LoanAccount } from "../../../contexts/LoanAccount";
 import { ProfilePicture } from "../../../contexts/ProfilePicture";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
+import { verificationSteps } from "../../Controllers/ApplyForLoanController";
 import LogoutController from "../../Controllers/LogoutController";
 import branchDetails from "../../Controllers/MyBranchController";
 import ProfileImageController from "../../Controllers/ProfileImageController";
-import {verificationSteps} from "../../Controllers/ApplyForLoanController";
 import MoneySkill from "../../Pages/MoneySkill/MoneySkill";
 import Notification from "../Notification/Notification";
 import "./SideNav.css";
+
 
 const drawerWidth = 240;
 
@@ -101,7 +107,7 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
     overflowX: "hidden",
-    width: theme.spacing(7) ,
+    width: theme.spacing(7),
     [ theme.breakpoints.up("xs") ]: {
       width: "0px",
     },
@@ -109,13 +115,13 @@ const useStyles = makeStyles((theme) => ({
       width: "0px",
     },
     [ theme.breakpoints.up("md") ]: {
-      width: theme.spacing(9) ,
+      width: theme.spacing(9),
     },
     [ theme.breakpoints.up("lg") ]: {
-      width: theme.spacing(9) ,
+      width: theme.spacing(9),
     },
     [ theme.breakpoints.up("xl") ]: {
-      width: theme.spacing(9) ,
+      width: theme.spacing(9),
     },
   },
   toolbar: {
@@ -154,8 +160,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   headerimg: {
-    height:"55px",
-    width:"55px"
+    height: "55px",
+    width: "55px"
   },
 
   sectionMobile: {
@@ -173,11 +179,11 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "0 5px 5px 0",
     boxShadow: `3px 3px 10px 0 rgb(123 31 162 / 50%)`,
   },
-  logoIconDiv:{
+  logoIconDiv: {
     display: "none"
   },
-  textDecoration:{
-    textDecoration: "none" 
+  textDecoration: {
+    textDecoration: "none"
   }
 }));
 
@@ -202,12 +208,14 @@ export default function SideNav() {
   const [ checkPresenceOfLoanStatus, setCheckPresenceOfLoanStatus ] = useState('');
   const [ isMobileDevice, setDeviceType ] = useState(false);
   const [ checkFinalVerificationStatus, setCheckFinalVerificationStatus ] = useState(false);
-  const { data: verificationStepsApplyforLoan } = useQuery('verification-data',verificationSteps );
+  const { data: verificationStepsApplyforLoan } = useQuery('verification-data', verificationSteps);
+  const [ option, setOpenOption ] = React.useState(false);
+  const anchorRef = React.useRef(null);
   let refProfileDetails = useRef();
   let refApplyForLoanNav = useRef();
   let refClose2 = useRef();
   let refClose = useRef();
-  let loanStatus = ["under_review", "final_review"]; 
+  let loanStatus = [ "under_review", "final_review" ];
 
   const handleClickAway = () => {
     if (isMobileDevice) {
@@ -241,28 +249,28 @@ export default function SideNav() {
   }, [ dataAccountOverview, activeLoanData, currentLoan ]);
 
   const getFinalApplicationStatus = async () => {
-			if (
-			verificationStepsApplyforLoan?.data?.email &&
-			verificationStepsApplyforLoan?.data?.financial_information &&
-			verificationStepsApplyforLoan?.data?.id_document &&
-			verificationStepsApplyforLoan?.data?.id_photo &&
-			verificationStepsApplyforLoan?.data?.id_questions &&
-			verificationStepsApplyforLoan?.data?.bank_account_information &&
-			verificationStepsApplyforLoan?.data?.bank_account_verification &&
-			verificationStepsApplyforLoan?.data?.income_verification
-		) {
+    if (
+      verificationStepsApplyforLoan?.data?.email &&
+      verificationStepsApplyforLoan?.data?.financial_information &&
+      verificationStepsApplyforLoan?.data?.id_document &&
+      verificationStepsApplyforLoan?.data?.id_photo &&
+      verificationStepsApplyforLoan?.data?.id_questions &&
+      verificationStepsApplyforLoan?.data?.bank_account_information &&
+      verificationStepsApplyforLoan?.data?.bank_account_verification &&
+      verificationStepsApplyforLoan?.data?.income_verification
+    ) {
       setCheckFinalVerificationStatus(true)
-		} 
+    }
   };
-  useEffect(() => {    
-		getFinalApplicationStatus();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [verificationStepsApplyforLoan]);
+  useEffect(() => {
+    getFinalApplicationStatus();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ verificationStepsApplyforLoan ]);
 
   //Navigating customer according to application status
   let NavUrlResumeApplication = "";
   if (([ 'approved', 'completing_application', 'signature_complete', 'closing_process' ].includes(checkPresenceOfLoanStatus))) {
-    NavUrlResumeApplication = checkFinalVerificationStatus  ? "/customers/receiveYourMoney" : "/customers/finalverification";
+    NavUrlResumeApplication = checkFinalVerificationStatus ? "/customers/receiveYourMoney" : "/customers/finalverification";
   }
   else if (([ 'offers_available', "offer_selected" ].includes(checkPresenceOfLoanStatus))) {
     NavUrlResumeApplication = checkPresenceOfLoanStatus === "offers_available" ? "/customers/selectOffer" : "/customers/reviewAndSign";
@@ -273,7 +281,7 @@ export default function SideNav() {
   let check = useMediaQuery("(min-width:960px)");
 
   useEffect(() => {
-    if (check && checked ) {
+    if (check && checked) {
       setChecked(true);
       setOpen(true);
       handleDeviceType(false);
@@ -324,7 +332,7 @@ export default function SideNav() {
   let hasApplicationStatus = Cookies.get("hasApplicationStatus");
   let appStatus = [ "rejected", "referred", "expired" ];
   let checkAppStatus = appStatus.includes(hasApplicationStatus);
-  let disableField = (checkAppStatus && !hasActiveLoan ? true : !checkAppStatus && !hasActiveLoan ? true : false );
+  let disableField = (checkAppStatus && !hasActiveLoan ? true : !checkAppStatus && !hasActiveLoan ? true : false);
   const branchName = Cookies.get("branchname");
   const branchPhone = Cookies.get('branchphone');
   const getProfileImage = Cookies.get('getProfileImage');
@@ -332,8 +340,8 @@ export default function SideNav() {
   const lastLoginRaw = JSON.parse(Cookies.get("user") ? Cookies.get("user") : '{ }')?.user?.extensionattributes?.login?.timestamp_date;
   const loginDate = lastLoginRaw ? new Date(lastLoginRaw) : new Date();
   const lastLogin = ((loginDate.getMonth() > 8) ? (loginDate.getMonth() + 1) : ('0' + (loginDate.getMonth() + 1))) + '/' + ((loginDate.getDate() > 9) ? loginDate.getDate() : ('0' + loginDate.getDate())) + '/' + loginDate.getFullYear();
- 
- 
+
+
   //Side bar open on mouse event
   const handleDrawer = () => {
     const closeElementId = "close";
@@ -346,10 +354,10 @@ export default function SideNav() {
 
       if (menuValue === closeElementId) {
         setOpen(true);
-        refClose.current.setAttribute(valueQualifiedName,"open")
+        refClose.current.setAttribute(valueQualifiedName, "open")
       } else {
         setOpen(false);
-        refClose.current.setAttribute(valueQualifiedName,closeElementId)
+        refClose.current.setAttribute(valueQualifiedName, closeElementId)
       }
       const child = refClose.current
       const parent = refClose2.current
@@ -375,15 +383,15 @@ export default function SideNav() {
 
     if (!checked || !check) {
       let profiledetailTag = refProfileDetails.current;
-      profiledetailTag.style.display = "none";      
+      profiledetailTag.style.display = "none";
       let menuValue = refClose.current.getAttribute(valueQualifiedName);
 
       if (menuValue === closeElementId) {
         setOpen(true);
-        refClose.current.setAttribute(valueQualifiedName,"close")
+        refClose.current.setAttribute(valueQualifiedName, "close")
       } else {
         setOpen(false);
-        refClose.current.setAttribute(valueQualifiedName,closeElementId)
+        refClose.current.setAttribute(valueQualifiedName, closeElementId)
       }
       const child = refClose.current
       const parent = refClose2.current
@@ -417,9 +425,6 @@ export default function SideNav() {
     setSkill(true);
   };
 
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
 
   const handleMenuClose = () => {
     setAnchorEl(null);
@@ -475,17 +480,17 @@ export default function SideNav() {
   const renderMenu = (
     <Menu
       id="settingsMenu"
-      anchorEl={ anchorEl }
-      open={ isMenuOpen }
-      onClose={ handleMenuClose }
+      anchorEl={anchorEl}
+      open={isMenuOpen}
+      onClose={handleMenuClose}
     >
-      <MenuItem onClick={ (menuType) => handleMenuProfile('top') } id="settingsMenuList">
+      <MenuItem onClick={(menuType) => handleMenuProfile('top')} id="settingsMenuList">
         My Profile</MenuItem>
       <MenuItem
-        disabled={ disableField }
-        onClick={ handleMenuPaymentProfile } id="settingsMenuList">
+        disabled={disableField}
+        onClick={handleMenuPaymentProfile} id="settingsMenuList">
         Payment Methods</MenuItem>
-      <MenuItem onClick={ logoutUser } id="settingsMenuListLogout" disabled={ disable }>
+      <MenuItem onClick={logoutUser} id="settingsMenuListLogout" disabled={disable}>
         Logout
       </MenuItem>
     </Menu>
@@ -494,275 +499,460 @@ export default function SideNav() {
   if (navElement) {
     navElement.removeAttribute("href");
   }
-    //View part
-  return (
-    <ClickAwayListener onClickAway={ handleClickAway }>
 
-      <div id="headerWrap" className={ classes.grow }>
+
+
+  const handleToggle = () => {
+    setOpenOption((prevOpen) => !prevOpen);
+  };
+
+  const handleClose = (event) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+      return;
+    }
+
+    setOpenOption(false);
+  };
+
+  // return focus to the button when we transitioned from !open -> open
+  const prevOpen = useRef(option);
+  useEffect(() => {
+    if (prevOpen.current === true && option === false) {
+      anchorRef.current.focus();
+    }
+
+    prevOpen.current = option;
+  }, [ option ]);
+
+  //View part
+  return (
+    <ClickAwayListener onClickAway={handleClickAway}>
+      <div id="headerWrap" className={classes.grow}>
         <AppBar
           id="MainHeaderWrapping"
           position="static"
-          elevation={ 0 }
-          className={ clsx(classes.appBar, {
+          elevation={0}
+          className={clsx(classes.appBar, {
             [ classes.appBarShift ]: open,
-          }) }
+          })}
         >
           <Toolbar id="toolbar">
             <IconButton
               aria-label="open drawer"
-              onClick={ handleMenuButtonOpen }
+              onClick={handleMenuButtonOpen}
               id="close1"
-              className={ clsx(classes.menuButton, {
+              className={clsx(classes.menuButton, {
                 [ classes.hide ]: open,
-              }) }
+              })}
             >
               <MenuIcon />
             </IconButton>
 
-            <div className={ classes.grow } />
+            <div className={classes.grow} />
             <div id="tool-bar-list">
-              {/* <NavLink to="/branch-locator" className="nav_link branchLocatorLink">
-                <Typography className={ classes.headerAlign }>Branch Locator</Typography>
-              </NavLink>
-               */}
-              <NavLink id="quickNameIcon" to="/customers/makePayment" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : '' }>
+              <NavLink
+                id="quickNameIcon"
+                to="/customers/makePayment"
+                onClick={(event) => {
+                  activeLoanData && event.preventDefault();
+                }}
+                className={activeLoanData ? "nav_link_disabled" : ""}
+              >
                 <Tooltip title="Quick Pay" placement="bottom">
                   <img
-                    className={ clsx(classes.headerimg, classes.headerimgResp) }
-                    src={ quickPay }
+                    className={clsx(classes.headerimg, classes.headerimgResp)}
+                    src={quickPay}
                     data-test-id="background"
                     alt="quick pay"
-                    />
+                  />
                 </Tooltip>
               </NavLink>
 
               <Notification />
 
-              <IconButton
-                className="noPaddingIcon"
-                edge="end"
-                aria-label="account of current user"
-                aria-haspopup="true"
-                onClick={ handleProfileMenuOpen }
-              >
-                <SettingsIcon />
-              </IconButton>
+              <Stack direction="row" spacing={2}>
+                <div>
+                  <IconButton
+                    ref={anchorRef}
+                    id="composition-button"
+                    aria-controls={open ? "composition-menu" : undefined}
+                    aria-expanded={open ? "true" : undefined}
+                    aria-haspopup="true"
+                    onClick={handleToggle}
+                  >
+                    <SettingsIcon />
+                  </IconButton>
+                  <Popper
+                    open={option}
+                    anchorEl={anchorRef.current}
+                    role={undefined}
+                    placement="bottom-start"
+                    transition
+                    disablePortal
+                  >
+                    {({ TransitionProps, placement }) => (
+                      <Grow
+                        {...TransitionProps}
+                        style={{
+                          transformOrigin:
+                            placement === "bottom-start"
+                              ? "left top"
+                              : "left bottom",
+                        }}
+                      >
+                        <Paper>
+                          <ClickAwayListener onClickAway={handleClose}>
+                            <MenuList
+                              autoFocusItem={open}
+                              id="composition-menu"
+                              aria-labelledby="composition-button"
+                            // onKeyDown={handleListKeyDown}
+                            >
+                              <MenuItem
+                                onClick={(menuType) => handleMenuProfile("top")}
+                                id="settingsMenuList"
+                              >
+                                My Profile
+                              </MenuItem>
+                              <MenuItem
+                                disabled={disableField}
+                                onClick={handleMenuPaymentProfile}
+                                id="settingsMenuList"
+                              >
+                                Payment Methods
+                              </MenuItem>
+                              <MenuItem
+                                onClick={logoutUser}
+                                id="settingsMenuListLogout"
+                                disabled={disable}
+                              >
+                                Logout
+                              </MenuItem>
+                            </MenuList>
+                          </ClickAwayListener>
+                        </Paper>
+                      </Grow>
+                    )}
+                  </Popper>
+                </div>
+              </Stack>
             </div>
           </Toolbar>
         </AppBar>
 
-        { renderMenu }
-        <div className={ classes.sectionDrawer }>
+        {renderMenu}
+        <div className={classes.sectionDrawer}>
           <Drawer
             id="close2"
-            ref = {refClose2}
+            ref={refClose2}
             variant="permanent"
-            onClick={ handleMobileMenuClose }
-            className={ clsx(classes.drawer, {
+            onClick={handleMobileMenuClose}
+            className={clsx(classes.drawer, {
               [ classes.drawerOpen ]: open,
               [ classes.drawerClose ]: !open,
-            }) }
-            classes={ {
+            })}
+            classes={{
               paper: clsx({
                 [ classes.drawerOpen ]: open,
                 [ classes.drawerClose ]: !open,
               }),
-            } }
-            onMouseEnter={ handleDrawer }
-            onMouseLeave={ handleDrawerleave }
+            }}
+            onMouseEnter={handleDrawer}
+            onMouseLeave={handleDrawerleave}
           >
-            <div className={ classes.toolbar }>
-              <a href={ `${ process.env.REACT_APP_WEBSITE }` } target="_blank" rel="noreferrer">
+            <div className={classes.toolbar}>
+              <a
+                href={`${ process.env.REACT_APP_WEBSITE }`}
+                target="_blank"
+                rel="noreferrer"
+              >
                 <input
                   type="image"
-                  src={ logoImage }
+                  src={logoImage}
                   alt="logo image"
-                  id = "logoImage"
+                  id="logoImage"
                 />
               </a>
 
               <Checkbox
-                icon={ <RadioButtonUncheckedIcon id="sidemenuRadio" /> }
-                checkedIcon={ <RadioButtonCheckedIcon id="sidemenuRadio" /> }
-                onClick={ handleChangeCheckbox }
+                icon={<RadioButtonUncheckedIcon id="sidemenuRadio" />}
+                checkedIcon={<RadioButtonCheckedIcon id="sidemenuRadio" />}
+                onClick={handleChangeCheckbox}
                 name="sidemenuradio"
-                checked={ checked }
+                checked={checked}
               />
 
-              <div id="close" ref = {refClose} className={classes.logoIconDiv}>
+              <div id="close" ref={refClose} className={classes.logoIconDiv}>
                 <img
-                  src={ logoIcon }
+                  src={logoIcon}
                   alt="logo icon"
-                  className={ classes.logoIcon }
+                  className={classes.logoIcon}
                 />
               </div>
             </div>
             <Divider />
-            <PerfectScrollbar options={ { suppressScrollX: true, wheelSpeed: 2, wheelPropagation: false, minScrollbarLength: 20 } }>
-              <List id="listItemWrap" onClick={ handleMobileMenuClose }>
-                <ListItem id="profileDetails" ref = {refProfileDetails}>
-                  <List >  
+            <PerfectScrollbar
+              options={{
+                suppressScrollX: true,
+                wheelSpeed: 2,
+                wheelPropagation: false,
+                minScrollbarLength: 20,
+              }}
+            >
+              <List id="listItemWrap" onClick={handleMobileMenuClose}>
+                <ListItem id="profileDetails" ref={refProfileDetails}>
+                  <List>
                     <ListItem>
                       <div id="imgWrap">
-                        <img id="sidebarProfilePic" src={ dataProfile?.profilePictureURL ? dataProfile?.profilePictureURL : getProfileImage } alt="Profile Pic" onClick={ (navType) => handleMenuProfile('top') } />
+                        <img
+                          id="sidebarProfilePic"
+                          src={
+                            dataProfile?.profilePictureURL
+                              ? dataProfile?.profilePictureURL
+                              : getProfileImage
+                          }
+                          alt="Profile Pic"
+                          onClick={(navType) => handleMenuProfile("top")}
+                        />
                       </div>
                     </ListItem>
                     <ListItem id="sidemenuName">
-                      { (dataAccountOverview?.data?.applicant?.contact?.first_name) ? 'Welcome ' + dataAccountOverview?.data?.applicant?.contact?.first_name : "" }
+                      {dataAccountOverview?.data?.applicant?.contact?.first_name
+                        ? "Welcome " +
+                        dataAccountOverview?.data?.applicant?.contact
+                          ?.first_name
+                        : ""}
                     </ListItem>
-                    { !branchName || !branchPhone
-                      ?
+                    {!branchName || !branchPhone ? (
                       <>
                         <ListItem id="sidemenuLastLogin">
-                          { !lastLogin ? '' : `Last Login : ${ lastLogin }` }
+                          {!lastLogin ? "" : `Last Login : ${ lastLogin }`}
                         </ListItem>
                       </>
-                      :
-
+                    ) : (
                       <>
                         <ListItem id="sidemenuLastLogin">
-                          { !lastLogin ? '' : `Last Login : ${ lastLogin }` }
+                          {!lastLogin ? "" : `Last Login : ${ lastLogin }`}
                         </ListItem>
                         <ListItem id="sidemenuBranch">
-                          { !branchName ? '' : `Branch :  ${ branchName }` }
+                          {!branchName ? "" : `Branch :  ${ branchName }`}
                         </ListItem>
-                        <ListItem id={ branchAvailability ? 'sidemenuOpenNow' : 'sidemenuCloseNow' }>
-                          { branchAvailability ? 'Open now' : 'Closed now' }
+                        <ListItem
+                          id={
+                            branchAvailability
+                              ? "sidemenuOpenNow"
+                              : "sidemenuCloseNow"
+                          }
+                        >
+                          {branchAvailability ? "Open now" : "Closed now"}
                         </ListItem>
-                        { !formatPhoneNumber(branchPhone) ? '' :
+                        {!formatPhoneNumber(branchPhone) ? (
+                          ""
+                        ) : (
                           <ListItem id="sidemenuPhone">
                             <CallIcon />
                             <a href="tel:" className="hrefPhoneNo">
-                              { formatPhoneNumber(branchPhone) }
+                              {formatPhoneNumber(branchPhone)}
                             </a>
                           </ListItem>
-                        }  </> }
+                        )}{" "}
+                      </>
+                    )}
                   </List>
                 </ListItem>
                 <NavLink to="/customers/accountOverview" className="nav_link">
                   <ListItem className="titleSidenav">
                     <ListItemIcon>
-                      { " " }
-                      <AssignmentTurnedInOutlinedIcon />{ " " }
+                      {" "}
+                      <AssignmentTurnedInOutlinedIcon />{" "}
                     </ListItemIcon>
-                    <ListItemText className = {classes.textDecoration}>
+                    <ListItemText className={classes.textDecoration}>
                       Account Overview
                     </ListItemText>
                   </ListItem>
                 </NavLink>
 
-                <NavLink to="/customers/makePayment" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : 'nav_link' }>
-                  <ListItem className="titleSidenav" disabled={ activeLoanData }>
+                <NavLink
+                  to="/customers/makePayment"
+                  onClick={(event) => {
+                    activeLoanData && event.preventDefault();
+                  }}
+                  className={activeLoanData ? "nav_link_disabled" : "nav_link"}
+                >
+                  <ListItem className="titleSidenav" disabled={activeLoanData}>
                     <ListItemIcon>
-                      { " " }
-                      <AccountBalanceWalletIcon />{ " " }
+                      {" "}
+                      <AccountBalanceWalletIcon />{" "}
                     </ListItemIcon>
-                    <ListItemText className = {classes.textDecoration}>
-                      Make a Payment{ " " }
+                    <ListItemText className={classes.textDecoration}>
+                      Make a Payment{" "}
                     </ListItemText>
                   </ListItem>
                 </NavLink>
 
-                { checkPresenceOfLoan ?
-                  pageNavResumeApplication ?
-
-                    <NavLink to={ NavUrlResumeApplication } className="nav_link" >
-                      <ListItem className="titleSidenav" >
+                {checkPresenceOfLoan ? (
+                  pageNavResumeApplication ? (
+                    <NavLink to={NavUrlResumeApplication} className="nav_link">
+                      <ListItem className="titleSidenav">
                         <ListItemIcon>
-                          { " " }
-                          <MonetizationOnRoundedIcon />{ " " }
+                          {" "}
+                          <MonetizationOnRoundedIcon />{" "}
                         </ListItemIcon>
                         <ListItemText> Resume Application </ListItemText>
                       </ListItem>
                     </NavLink>
-                    :
-                    <Link to={ applicationStatusRedirectPage[ checkPresenceOfLoanStatus ] } className="nav_link" >
-                      <ListItem className="titleSidenav" >
+                  ) : (
+                    <Link
+                      to={
+                        applicationStatusRedirectPage[ checkPresenceOfLoanStatus ]
+                      }
+                      className="nav_link"
+                    >
+                      <ListItem className="titleSidenav">
                         <ListItemIcon>
-                          { " " }
-                          <MonetizationOnRoundedIcon />{ " " }
+                          {" "}
+                          <MonetizationOnRoundedIcon />{" "}
                         </ListItemIcon>
                         <ListItemText> Resume Application </ListItemText>
                       </ListItem>
                     </Link>
-                  :
-                  <NavLink id="applyForLoanNav" ref = {refApplyForLoanNav} to="/customers/applyForLoan" state={ { from: "user" } } onClick={ (event) => { currentLoan ? event.preventDefault() : ""; } } className={ currentLoan ? "nav_link_disabled" : "nav_link" } >
-                    <ListItem className="titleSidenav" disabled={ currentLoan }>
+                  )
+                ) : (
+                  <NavLink
+                    id="applyForLoanNav"
+                    ref={refApplyForLoanNav}
+                    to="/customers/applyForLoan"
+                    state={{ from: "user" }}
+                    onClick={(event) => {
+                      currentLoan ? event.preventDefault() : "";
+                    }}
+                    className={currentLoan ? "nav_link_disabled" : "nav_link"}
+                  >
+                    <ListItem className="titleSidenav" disabled={currentLoan}>
                       <ListItemIcon>
-                        { " " }
-                        <MonetizationOnRoundedIcon />{ " " }
+                        {" "}
+                        <MonetizationOnRoundedIcon />{" "}
                       </ListItemIcon>
                       <ListItemText> Apply for a Loan </ListItemText>
                     </ListItem>
-                  </NavLink> }
+                  </NavLink>
+                )}
 
-                <NavLink to="/customers/loanDocument" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : 'nav_link' }>
-                  <ListItem className="titleSidenav" disabled={ activeLoanData && !loanStatus.includes(checkPresenceOfLoanStatus) ? true : false }>
+                <NavLink
+                  to="/customers/loanDocument"
+                  onClick={(event) => {
+                    activeLoanData && event.preventDefault();
+                  }}
+                  className={activeLoanData ? "nav_link_disabled" : "nav_link"}
+                >
+                  <ListItem
+                    className="titleSidenav"
+                    disabled={
+                      activeLoanData &&
+                        !loanStatus.includes(checkPresenceOfLoanStatus)
+                        ? true
+                        : false
+                    }
+                  >
                     <ListItemIcon>
-                      { " " }
-                      <DescriptionOutlinedIcon />{ " " }
+                      {" "}
+                      <DescriptionOutlinedIcon />{" "}
                     </ListItemIcon>
                     <ListItemText> Loan Documents </ListItemText>
                   </ListItem>
                 </NavLink>
 
-                <NavLink to="/customers/myBranch" 
-                         onClick={ (event) => { activeLoanData && (!checkPresenceOfLoanStatus === "referred" || !checkPresenceOfLoanStatus === "contact_branch" ) && event.preventDefault(); } } 
-                         className={ activeLoanData && (!checkPresenceOfLoanStatus === "referred" || !checkPresenceOfLoanStatus === "contact_branch") ? 'nav_link_disabled' : 'nav_link' }>
+                <NavLink
+                  to="/customers/myBranch"
+                  onClick={(event) => {
+                    activeLoanData &&
+                      (!checkPresenceOfLoanStatus === "referred" ||
+                        !checkPresenceOfLoanStatus === "contact_branch") &&
+                      event.preventDefault();
+                  }}
+                  className={
+                    activeLoanData &&
+                      (!checkPresenceOfLoanStatus === "referred" ||
+                        !checkPresenceOfLoanStatus === "contact_branch")
+                      ? "nav_link_disabled"
+                      : "nav_link"
+                  }
+                >
                   <ListItem className="titleSidenav">
                     <ListItemIcon>
-                      { " " }
-                      <AccountBalanceIcon />{ " " }
+                      {" "}
+                      <AccountBalanceIcon />{" "}
                     </ListItemIcon>
                     <ListItemText> My Branch</ListItemText>
                   </ListItem>
                 </NavLink>
 
-                <NavLink to="/customers/myProfile" onClick={ (menuType) => handleMenuProfile('side') } className="nav_link">
-                  <ListItem className="titleSidenav" >
+                <NavLink
+                  to="/customers/myProfile"
+                  onClick={(menuType) => handleMenuProfile("side")}
+                  className="nav_link"
+                >
+                  <ListItem className="titleSidenav">
                     <ListItemIcon>
-                      { " " }
-                      <AccountCircleIcon />{ " " }
+                      {" "}
+                      <AccountCircleIcon />{" "}
                     </ListItemIcon>
                     <ListItemText> My Profile</ListItemText>
                   </ListItem>
                 </NavLink>
 
-                <NavLink to="/customers/loanHistory" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : 'nav_link' }>
-                  <ListItem className="titleSidenav" disabled={ activeLoanData }>
+                <NavLink
+                  to="/customers/loanHistory"
+                  onClick={(event) => {
+                    activeLoanData && event.preventDefault();
+                  }}
+                  className={activeLoanData ? "nav_link_disabled" : "nav_link"}
+                >
+                  <ListItem className="titleSidenav" disabled={activeLoanData}>
                     <ListItemIcon>
-                      { " " }
-                      <ListIcon />{ " " }
+                      {" "}
+                      <ListIcon />{" "}
                     </ListItemIcon>
                     <ListItemText> Loan History</ListItemText>
                   </ListItem>
                 </NavLink>
 
-                <NavLink to="/customers/vantageScore" onClick={ (event) => { activeLoanData && event.preventDefault(); } } className={ activeLoanData ? 'nav_link_disabled' : 'nav_link' }>
-                  <ListItem className="titleSidenav" disabled={ activeLoanData }>
+                <NavLink
+                  to="/customers/vantageScore"
+                  onClick={(event) => {
+                    activeLoanData && event.preventDefault();
+                  }}
+                  className={activeLoanData ? "nav_link_disabled" : "nav_link"}
+                >
+                  <ListItem className="titleSidenav" disabled={activeLoanData}>
                     <ListItemIcon>
-                      { " " }
-                      <InboxIcon />{ " " }
+                      {" "}
+                      <InboxIcon />{" "}
                     </ListItemIcon>
                     <ListItemText> VantageScore &reg;</ListItemText>
                   </ListItem>
                 </NavLink>
 
-                <ListItem id="moneySkillNavLink" onClick={ handleMoneySkillNav }>
+                <ListItem id="moneySkillNavLink" onClick={handleMoneySkillNav}>
                   <ListItemIcon>
-                    { " " }
-                    <DataUsageOutlinedIcon />{ " " }
+                    {" "}
+                    <DataUsageOutlinedIcon />{" "}
                   </ListItemIcon>
                   <ListItemText className="titleSidenav">
-                    { " " }
-                    MoneySKILL &reg;{ " " }
+                    {" "}
+                    MoneySKILL &reg;{" "}
                   </ListItemText>
                 </ListItem>
-                <a href={ `${ process.env.REACT_APP_WEBSITE }/blog/` } className="titleSidenav" target="_blank" rel="noreferrer">
+                <a
+                  href={`${ process.env.REACT_APP_WEBSITE }/blog/`}
+                  className="titleSidenav"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <ListItem>
                     <ListItemIcon>
-                      { " " }
-                      <BookIcon />{ " " }
+                      {" "}
+                      <BookIcon />{" "}
                     </ListItemIcon>
                     <ListItemText> Blog </ListItemText>
                   </ListItem>
@@ -770,8 +960,8 @@ export default function SideNav() {
                 <NavLink to="/customers/faq" className="titleSidenav">
                   <ListItem>
                     <ListItemIcon>
-                      { " " }
-                      <LiveHelpIcon />{ " " }
+                      {" "}
+                      <LiveHelpIcon />{" "}
                     </ListItemIcon>
                     <ListItemText> FAQ </ListItemText>
                   </ListItem>
@@ -780,7 +970,7 @@ export default function SideNav() {
             </PerfectScrollbar>
           </Drawer>
         </div>
-        <MoneySkill moneySkill={ skill } onChange={ setSkill } />
+        <MoneySkill moneySkill={skill} onChange={setSkill} />
       </div>
     </ClickAwayListener>
   );

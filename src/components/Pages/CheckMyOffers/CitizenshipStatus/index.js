@@ -65,31 +65,31 @@ function CitizenshipStatus() {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className={ classes.mainDiv }>
+			<div className={classes.mainDiv}>
 				<Box>
 					<Grid
 						item
-						xs={ 12 }
+						xs={12}
 						container
 						justifyContent="center"
 						alignItems="center"
-						className={ innerClasses.gridStyle }
+						className={innerClasses.gridStyle}
 					>
 						<Grid
 							container
 							item
-							xs={ 11 }
-							sm={ 10 }
-							md={ 6 }
-							lg={ 6 }
-							xl={ 6 }
+							xs={11}
+							sm={10}
+							md={6}
+							lg={6}
+							xl={6}
 							className="cardWrapper"
 							justifyContent="center"
 							alignItems="center"
 						>
 							<Paper
 								id="citizenshipWrap"
-								className={ innerClasses.paperStyle }
+								className={innerClasses.paperStyle}
 							>
 								<div className="progress mt-0">
 									<div id="determinate" className="det2 determinate slantDiv" />
@@ -105,7 +105,7 @@ function CitizenshipStatus() {
 								<Grid>
 									<img
 										alt="Citizenship"
-										src={ CitizenshipStatusLogo }
+										src={CitizenshipStatusLogo}
 										className="spinAnimation"
 									/>
 								</Grid>
@@ -118,7 +118,7 @@ function CitizenshipStatus() {
 								</Typography>
 								<Grid
 									item
-									md={ 12 }
+									md={12}
 									className="blockDiv"
 									container
 									justifyContent="center"
@@ -129,56 +129,56 @@ function CitizenshipStatus() {
 										justifyContent="center"
 										alignItems="center"
 										item
-										lg={ 8 }
-										md={ 8 }
-										xs={ 12 }
+										lg={8}
+										md={8}
+										xs={12}
 									>
 										<Paper
 											id="usButton"
-											elevation={ 3 }
+											elevation={3}
 											data-test-id="usCitizen"
 											className={
 												citizenship === citizenshipData.USCitizen
 													? "activeBorder radioBlock "
 													: "radioBlock "
 											}
-											onClick={ () => {
+											onClick={() => {
 												goNext(citizenshipData.USCitizen);
-											} }
+											}}
 										>
 											U.S Citizen
 										</Paper>
 									</Grid>
-									<Grid item lg={ 8 } md={ 8 } xs={ 12 }>
+									<Grid item lg={8} md={8} xs={12}>
 										<Paper
 											id="permanentResidentButton"
-											elevation={ 3 }
+											elevation={3}
 											data-test-id="permanentResident"
 											className={
 												citizenship === citizenshipData.permanentResident
 													? "activeBorder radioBlock "
 													: "radioBlock "
 											}
-											onClick={ () => {
+											onClick={() => {
 												goNext(citizenshipData.permanentResident);
-											} }
+											}}
 										>
 											Permanent Resident
 										</Paper>
 									</Grid>
-									<Grid item lg={ 8 } md={ 8 } xs={ 12 }>
+									<Grid item lg={8} md={8} xs={12}>
 										<Paper
 											id="foreignResidentButton"
-											elevation={ 3 }
+											elevation={3}
 											data-test-id="foreignResident"
 											className={
 												citizenship === citizenshipData.foreignResident
 													? "activeBorder radioBlock "
 													: "radioBlock "
 											}
-											onClick={ () => {
+											onClick={() => {
 												setCitizenship(citizenshipData.foreignResident);
-											} }
+											}}
 										>
 											Foreign Resident
 										</Paper>
@@ -192,9 +192,9 @@ function CitizenshipStatus() {
 										We are sorry. We do not offer loans to foreign residents.
 									</h4>
 
-									<Grid item lg={ 8 } md={ 8 } xs={ 12 } className="alignButton">
+									<Grid item lg={8} md={8} xs={12} className="alignButton">
 										<ButtonPrimary
-											onClick={ handleRoute }
+											onClick={handleRoute}
 											data-test-id="citizenshipContButton"
 											disabled={
 												!citizenship || citizenship === citizenshipData.foreignResident

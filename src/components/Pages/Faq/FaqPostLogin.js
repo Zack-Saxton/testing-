@@ -19,15 +19,15 @@ export default function FaqPostLogin() {
       <CheckLoginStatus />
       <Grid
         container
-        justifyContent={ "center" }
-        className={ classes.centerGrid }
+        justifyContent={"center"}
+        className={classes.centerGrid}
       >
-        <Grid container spacing={ 3 }>
-          <Grid item xs={ 12 }>
-            <Typography variant="h3" className={ classes.titleHeading }>
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <Typography variant="h3" className={classes.titleHeading}>
               <NavLink
                 to="/customers/accountOverview"
-                style={ { textDecoration: "none" } }
+                style={{ textDecoration: "none" }}
               >
                 <ButtonWithIcon
                   icon="arrow_backwardIcon"
@@ -39,13 +39,13 @@ export default function FaqPostLogin() {
                         "marginRight": "5px", "marginTop":"unset" }'
                   styleicon='{ "color":"" }'
                 />
-              </NavLink>{ " " }
+              </NavLink>{" "}
               Frequently Asked Questions
             </Typography>
           </Grid>
         </Grid>
 
-        <Grid item xs={ 12 }>
+        <Grid item xs={12}>
           <Faq />
         </Grid>
       </Grid>

@@ -3,8 +3,8 @@ import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
-import TableRow from "@mui/material/TableRow";
 import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import React, { useEffect, useState } from "react";
 import MFYearHolidaysAPI from "../../Controllers/HolidayCalenderController";
@@ -33,7 +33,7 @@ export default function YearHolidays(props) {
           <Typography component="span" className="yearholidays__description">
             <Grid className="holidayList">
               <Grid container className="workingSaturdays">
-                <Grid item xs={ 12 } sm={ 12 } >
+                <Grid item xs={12} sm={12} >
                   <TableContainer>
                     <Table>
                       <TableHead>
@@ -44,19 +44,19 @@ export default function YearHolidays(props) {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        { MFYearHolidays ? (
+                        {MFYearHolidays ? (
                           MFYearHolidays.map((element, index) => {
                             return (
-                              <TableRow className="tableContent" key={ index }>
-                                <TableCell>{ element.Date }</TableCell>
-                                <TableCell>{ element.Day }</TableCell>
-                                <TableCell>{ element.Holiday_Name }</TableCell>
+                              <TableRow className="tableContent" key={index}>
+                                <TableCell>{element.Date}</TableCell>
+                                <TableCell>{element.Day}</TableCell>
+                                <TableCell>{element.Holiday_Name}</TableCell>
                               </TableRow>
                             );
                           })
                         ) : (
                           <Typography component="span">No Holiday List found.</Typography>
-                        ) }
+                        )}
                       </TableBody>
                     </Table>
                   </TableContainer>

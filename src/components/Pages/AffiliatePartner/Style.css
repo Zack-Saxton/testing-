@@ -1,4 +1,4 @@
-  #main-content-background{
+#main-content-background {
     min-height: 500px;
 
     /* Create the parallax scrolling effect */
@@ -6,60 +6,77 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-  }
-  .Mui-focused{
-    background-color:transparent !important;
+}
+
+.Mui-focused {
+    background-color: transparent !important;
     color: white;
-  }
+}
 
-  .printPage {
-	cursor: pointer;
-	text-decoration: underline;
-  }
-  @media print{    
-    .printPage { 
-      display: none !important; 
+.printPage {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+@media print {
+    .printPage {
+        display: none !important;
     }
-  }
+}
 
-  #citizenship, #employementStatus, #marriedStatus,#phoneType{
-    background:transparent !important;
-  }
+#citizenship,
+#employementStatus,
+#marriedStatus,
+#phoneType {
+    background: transparent !important;
+}
 
-.MuiInput-underline:before{
+.MuiInput-underline:before {
     border-bottom: 2px solid #0F4EB3 !important;
 }
 
-.cardWOPadding{
+.cardWOPadding {
     padding-bottom: 1%;
     text-align: center;
 }
 
-.partnerSignUpCard,.confirmationCard{
+.partnerSignUpCard,
+.confirmationCard {
     margin: 0% auto 1% auto !important;
 }
-#spouseZipWrap,#spouseCityWrap{
+
+#spouseZipWrap,
+#spouseCityWrap {
     padding-right: 10px;
 }
 
-@media (max-width:400px){
-    #email-label, #password-label, #c-pass-label, #firstname-label, #lastname-label, #zip-label{
+@media (max-width:400px) {
+
+    #email-label,
+    #password-label,
+    #c-pass-label,
+    #firstname-label,
+    #lastname-label,
+    #zip-label {
         font-size: 4vw;
 
     }
 }
-@media (max-width:400px){
-#dob-title,#password-title{
-    font-size: 3vw;
 
-}
+@media (max-width:400px) {
+
+    #dob-title,
+    #password-title {
+        font-size: 3vw;
+
+    }
 }
 
-label + .MuiInput-formControl{
+label+.MuiInput-formControl {
     background: transparent;
 }
 
-.showError{
+.showError {
     display: block;
     color: red;
     text-align: left;
@@ -67,100 +84,139 @@ label + .MuiInput-formControl{
     margin-bottom: 0;
 }
 
-.hideError{
+.hideError {
     display: none;
 
 }
 
-label.MuiFormLabel-root.MuiInputLabel-root.MuiInputLabel-formControl.MuiInputLabel-animated{
-    font-size: 0.8rem;
+#activeDutyRankGrid .MuiFormControl-fullWidth label {
+    margin-left: -14px;
 }
 
-p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error{
+label.MuiFormLabel-root.MuiInputLabel-root.MuiInputLabel-formControl.MuiInputLabel-animated {
+    font-size: 0.862rem;
+}
+
+#activeDutyGrid .MuiFormControl-fullWidth label {
+    margin-left: -14px;
+}
+
+#activeDutyGrid,
+#activeDutyRankGrid {
+    margin-top: 20px;
+}
+
+#confirmActiveDuty .subOption,
+#confirmactiveDutyRank .subOption {
+    color: #171717 !important;
+}
+
+p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error {
     margin-bottom: -38px;
 }
 
-.Mui-focused{
-  background-color:transparent !important;
-  color: white;
+.Mui-focused {
+    background-color: transparent !important;
+    color: white;
 }
 
-.add-pad{
+.add-pad {
     margin-left: -1px !important;
     padding-top: 20px !important;
-    font-size: 14px!important;
+    font-size: 14px !important;
 }
 
-.showCheckbox{
+.showCheckbox {
     display: block;
     font-family: 'Muli', sans-serif;
     font-weight: 400;
 }
-.hideCheckbox{
+
+.hideCheckbox {
     display: none;
 }
 
-.agreeCheckbox{
+.agreeCheckbox {
     text-align: justify;
-      cursor: pointer;
+    cursor: pointer;
     color: #595959;
 
 }
 
 
-.formatHref{
+.formatHref {
     color: #0F4EB3;
     text-align: justify;
     text-decoration: underline;
 }
 
-#annualHousehold, #personalIncome, #spouseState , #spouseCity, #spouseZip{
+#annualHousehold,
+#personalIncome,
+#spouseState,
+#spouseCity,
+#spouseZip {
     padding-bottom: 15px !important;
 }
 
-#annualHousehold-label, #personalIncome-label, #spouseState-label, #spouseCity-label, #spouseZip-label {
+#annualHousehold-label,
+#personalIncome-label,
+#spouseState-label,
+#spouseCity-label,
+#spouseZip-label {
     font-size: 0.938rem !important;
-    padding-bottom:10px !important ;
+    padding-bottom: 10px !important;
 }
 
-#employementStatusWrap div label{
+#employementStatusWrap div label {
     font-size: 0.968rem !important;
+    margin-left: -14px;
 }
 
 #employementStatusWrap div div div:nth-child(1) {
     padding-bottom: 15px !important;
 }
 
-#citizenshipWrap{
+#citizenshipWrap {
     padding: 0 !important;
 }
 
-#citizenshipWrap div label{
+#citizenshipWrap div label {
     font-size: 0.968rem !important;
+    margin-left: -14px;
 }
-.creditkarmaLogoImage{
+
+.creditkarmaLogoImage {
     height: 13px;
 }
-#marriedStatusWrap div label{
+
+#marriedStatusWrap div label {
     font-size: 0.968rem !important;
+}
+
+#marriedStatusWrap .MuiFormControl-fullWidth label {
+    margin-left: -14px;
 }
 
 #marriedStatusWrap div div div:nth-child(1) {
     padding-bottom: 15px !important;
 }
-#phoneType .subOption{
+
+#phoneType .subOption {
     color: #171717 !important;
 }
-#phoneTypeWrap div label{
+
+#phoneTypeWrap div label {
     font-size: 0.968rem !important;
 }
 
 #phoneTypeWrap div div div:nth-child(1) {
     padding-bottom: 15px !important;
 }
-#citizenship .subOption{
+
+#citizenship .subOption {
     color: #171717 !important;
 }
-#employementStatus .subOption{
+
+#employementStatus .subOption {
     color: #171717 !important;
 }

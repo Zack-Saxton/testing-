@@ -1,130 +1,142 @@
+.section-top-normal-footer {
+  padding: 20px 70px 0px 70px !important;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 20px 0;
+}
 
-.section-top-normal-footer{
-   padding: 20px 70px 0px 70px !important;
-    display: flex;
-    justify-content: space-evenly;
-    padding: 20px 0;
-    }
-    .section-bottom{
-        background: linear-gradient(
-            85deg
-            , #264266, #0F4EB3) !important;
-         text-align: center;
-         padding: 15px 0;
+.section-bottom {
+  background: linear-gradient(85deg, #264266, #0F4EB3) !important;
+  text-align: center;
+  padding: 15px 0;
 
-       }
+}
 
-       .leftAlignAddress{
-        font-size: 1rem !important;
-        font-weight: 600;
-        color: #333;
-        line-height: 1.5;
-        text-align: left !important;
-        margin: 0 !important;
-       }
+.leftAlignAddress {
+  font-size: 1rem !important;
+  font-weight: 600;
+  color: #333;
+  line-height: 1.5;
+  text-align: left !important;
+  margin: 0 !important;
+}
 
-       .col{
-        margin: 0 15px;
-        width: 50%;
-        word-wrap: break-word;
-      }
-      .col2{
-        margin: 0 15px;
-        width: 100%;
-        word-wrap: break-word;
-      }
-      .footer-content{
-        font-size: 15px;
-        padding: 0px 15px 0.5% 15px;
-        word-wrap: break-word;
+.col {
+  margin: 0 15px;
+  width: 50%;
+  word-wrap: break-word;
+}
 
-      }
-   .hrefTag{
-    text-decoration: none;
-    color: black;
-    cursor: pointer;
+.col2 {
+  margin: 0 15px;
+  width: 100%;
+  word-wrap: break-word;
+}
 
-   }
-   #mfInfoImg{
-    max-width: 100%;
-    padding: 0px !important;
+.footer-content {
+  font-size: 15px;
+  padding: 0px 15px 0.5% 15px;
+  word-wrap: break-word;
 
-   }
+}
 
-   .footerWrap{
-    padding-bottom: 30px;
-  }
-   .mainFooterWrap{
+.hrefTag {
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
 
-      padding: 40px 30px;
+}
 
-   }
+#mfInfoImg {
+  max-width: 100%;
+  padding: 0px !important;
 
-   .footerPadding{
-     padding: 0px 15px;
-   }
+}
 
-   .FooterHousingLogo{
-     display: flex;
-     justify-content: flex-end;
-   }
- .bottomSectionWrap{
-   align-items: center;
- }
+.footerWrap {
+  padding-bottom: 30px;
+}
 
- .normalFooterFont{
-   font-size: 1rem !important;
-   color: #333 !important;
- }
- .FooterLogo{
-   padding: 0px 15px;
- }
+.mainFooterWrap {
 
- @media all and (max-width: 960px){
-  .feefoBadgeWrap{
+  padding: 40px 30px;
+
+}
+
+.footerPadding {
+  padding: 0px 15px;
+}
+
+.FooterHousingLogo {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.bottomSectionWrap {
+  align-items: center;
+}
+
+.normalFooterFont {
+  font-size: 1rem !important;
+  color: #333 !important;
+}
+
+.FooterLogo {
+  padding: 0px 15px;
+}
+
+@media all and (max-width: 960px) {
+  .feefoBadgeWrap {
     align-items: center;
     justify-content: center;
     display: flex;
     padding-top: 20px;
-}
-    .FooterLogo{
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding-top: 20px !important;
-      padding-bottom: 15px !important;
-    }
-    .footerTextInfo{
-      padding-top: 20px;
-      display: inline-block !important;
-    }
-    .FooterHousingLogo{
-      align-items: center;
-      justify-content: center;
-      padding-top: 20px;
-    }
-    .footerWrap {
-      padding-bottom: 15px ;
-    }
-    .footerPadding {
-      padding-bottom: 15px !important;
-    }
- }
- @media only screen and (max-width: 360px) {
-   .feefoBadgeWrap img{
-      width: 100% !important;
-   }
- }
+  }
 
- .mainDivNormalFooter{
+  .FooterLogo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 20px !important;
+    padding-bottom: 15px !important;
+  }
+
+  .footerTextInfo {
+    padding-top: 20px;
+    display: inline-block !important;
+  }
+
+  .FooterHousingLogo {
+    align-items: center;
+    justify-content: center;
+    padding-top: 20px;
+  }
+
+  .footerWrap {
+    padding-bottom: 15px;
+  }
+
+  .footerPadding {
+    padding-bottom: 15px !important;
+  }
+}
+
+@media only screen and (max-width: 360px) {
+  .feefoBadgeWrap img {
+    width: 100% !important;
+  }
+}
+
+.mainDivNormalFooter {
   background: #d7e6ed
- }
- .mivNormalFooter{
+}
+
+.mivNormalFooter {
   width: 100%
- }
- .spanLeftAlignAddress{
+}
+
+.spanLeftAlignAddress {
   margin: 0;
   cursor: pointer;
   overflow-wrap: break-word
- }
- 
+}

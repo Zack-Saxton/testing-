@@ -21,8 +21,8 @@ export default function OptOutNotice(offerData) {
     if (optOutNotice !== "") {
         return (
             <Grid className="content">
-                <Typography align={ 'center' }><u>PRESCREEN & OPT-OUT NOTICE</u></Typography>
-                <p>{ optOutNotice }</p>
+                <Typography align={'center'}><u>PRESCREEN & OPT-OUT NOTICE</u></Typography>
+                <p>{optOutNotice}</p>
             </Grid>
         );
     } else {

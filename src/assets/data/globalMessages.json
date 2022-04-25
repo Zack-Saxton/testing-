@@ -86,7 +86,6 @@
   "Error_executing_deleteBankAccount_API": "Error executing deleteBankAccount API",
   "Error_executing_deleteCreditCard_API": "Error executing deleteCreditCard API",
   "Error_executing_DisclosureLinkController_API": "Error executing DisclosureLinkController API",
-
   "Error_executing_fetchAvailableOffers_API": "Error executing fetchAvailableOffers API",
   "Error_executing_getIDVerificationIframe_API": "Error executing getIDVerificationIframe API",
   "Error_executing_getIframe_API": "Error executing getIframe API",
@@ -132,7 +131,7 @@
   "Error_executing_BankNameLookup_API": "Error executing BankNameLookup API",
   "Error_executing_RecaptchaController_API": "Error executing RecaptchaController API",
   "Error_executing_RecaptchaValidationController_API": "Error executing RecaptchaValidationController API",
-  "Error_retieving_loan_info": "Error retrieving loan information -- Account is Closed",  
+  "Error_retieving_loan_info": "Error retrieving loan information -- Account is Closed",
   "Expired_Card": "Your debit card has expired",
   "DateOfBirthMaxAge": "You are too old",
   "DateOfBirthMinAge": "You must be at least 18 years old",
@@ -150,8 +149,8 @@
   "ImageExtentions": "Valid File types are .jpeg .jpg .png only.",
   "Interest": "Interest",
   "Invalid_Account_Number": "Invalid Account Number",
-  "Invalid_Login_Message":"Invalid email or password. Please try again or click on Sign In help/Register for help signing in.",
-  "Keep_Future_Add_Autopay":"Keep the future payment and turn on Auto Pay",
+  "Invalid_Login_Message": "Invalid email or password. Please try again or click on Sign In help/Register for help signing in.",
+  "Keep_Future_Add_Autopay": "Keep the future payment and turn on Auto Pay",
   "LastNameEnter": "Enter your last name",
   "LastNameMax": "Last name can be up to 30 characters in length",
   "LastNameMin": "Last name should be minimum of 2 characters",
@@ -256,5 +255,5 @@
   "ZipCodeMax": "Zip Code should be 5 characters in length",
   "ZipCodeRequired": "Your home Zip Code is required",
   "Zipcode_Required": "Zipcode is required",
-  "ConsentStatusUpdateError":"Error executing save consent API"
+  "ConsentStatusUpdateError": "Error executing save consent API"
 }

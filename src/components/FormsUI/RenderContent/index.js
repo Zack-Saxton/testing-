@@ -11,13 +11,13 @@ const RenderContent = ({ disclosureLink, findContent, replaceContent }) => {
     };
     const { isLoading, data: accountDetails } = useQuery(disclosureLink, loadData);
     let content = "";
-    if(accountDetails?.data){
-        content = findContent !== "" ? accountDetails.data.replace(findContent,replaceContent) : accountDetails.data;
-    }    
+    if (accountDetails?.data) {
+        content = findContent !== "" ? accountDetails.data.replace(findContent, replaceContent) : accountDetails.data;
+    }
     return (
         <div>
             {
-                !isLoading ? <div className='contentWrap' dangerouslySetInnerHTML={ { __html: content } } /> : <CircularProgress />
+                !isLoading ? <div className='contentWrap' dangerouslySetInnerHTML={{ __html: content }} /> : <CircularProgress />
             }
 
         </div>

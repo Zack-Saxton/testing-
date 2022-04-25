@@ -30,13 +30,13 @@ export default function LoanHistory() {
       <ScrollToTopOnMount />
       <Grid
         container
-        justifyContent={ "center" }
-        className={ classes.centerGrid }
+        justifyContent={"center"}
+        className={classes.centerGrid}
       >
-        <Grid id="loanHistoryTxt" container direction="row" item xs={ 12 }>
-          <Grid item xs={ 12 }>
-            <Typography component={ "div" }>
-              <h3 className={ classes.heading }>
+        <Grid id="loanHistoryTxt" container direction="row" item xs={12}>
+          <Grid item xs={12}>
+            <Typography component={"div"}>
+              <h3 className={classes.heading}>
                 <NavLink
                   to="/customers/accountOverview"
                   className={classes.loanHistoryNavLink}
@@ -51,15 +51,15 @@ export default function LoanHistory() {
                         "marginRight": "5px", "marginTop":"unset" }'
                     styleicon='{ "color":"" }'
                   />
-                </NavLink>{ " " }
+                </NavLink>{" "}
                 Loan History
               </h3>
             </Typography>
           </Grid>
         </Grid>
 
-        <LoanHistoryCard userLoanHistoryCard={ loanHistoryData } />
-        <LoanHistoryTable userLoanHistoryData={ loanHistoryData } />
+        <LoanHistoryCard userLoanHistoryCard={loanHistoryData} />
+        <LoanHistoryTable userLoanHistoryData={loanHistoryData} />
       </Grid>
     </div>
   );

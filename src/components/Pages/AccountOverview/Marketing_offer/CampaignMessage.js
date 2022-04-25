@@ -23,17 +23,17 @@ export default function CampaignMessage({ amount, offerCode, handleContinue, exp
     return (
         <Grid className="checkMyOffers">
             <Grid className="leftcheckMyOffers">
-                <img src={ logo } width="120px" height="70px"></img>
-                <p className="common">{ `Don't wait! This offer expires` } { expiryDate }</p>
+                <img src={logo} width="120px" height="70px"></img>
+                <p className="common">{`Don't wait! This offer expires`} {expiryDate}</p>
             </Grid>
             <Grid className="rightcheckMyOffers">
                 <p className="common">You are prequalified up to</p>
-                <p className="common" style={ { color: "#0F4EB3", fontSize: "bold", textAlign: "center" } }>
-                    { formattedAmount }
+                <p className="common" style={{ color: "#0F4EB3", fontSize: "bold", textAlign: "center" }}>
+                    {formattedAmount}
                 </p>
                 <p className="common">Use it to get things done.</p>
-                <p className="common">Offer Code:{ offerCode }</p>
-                <ButtonPrimary id="ClaimButton" stylebutton='{"color":"", "textTransform": "none","marginLeft":"40px"}' onClick={ handleContinue }>
+                <p className="common">Offer Code:{offerCode}</p>
+                <ButtonPrimary id="ClaimButton" stylebutton='{"color":"", "textTransform": "none","marginLeft":"40px"}' onClick={handleContinue}>
                     Continue
                 </ButtonPrimary>
             </Grid>

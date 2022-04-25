@@ -1,30 +1,30 @@
 import "@testing-library/jest-dom/extend-expect";
 import { fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
 import Login from "./Login";
-import { QueryClient, QueryClientProvider } from 'react-query';
 
 
 const queryClient = new QueryClient({
 	defaultOptions: {
-			queries: {
-					refetchOnWindowFocus: false,
-					retry: false,
-					staleTime: 500000,
-			},
+		queries: {
+			refetchOnWindowFocus: false,
+			retry: false,
+			staleTime: 500000,
+		},
 	},
 });
 
 test("Checks the title of the page", () => {
 
 	render(
-		<QueryClientProvider client={ queryClient }>
+		<QueryClientProvider client={queryClient}>
 			<BrowserRouter>
 				<Login />
 			</BrowserRouter>
-		 </QueryClientProvider>
-			
+		</QueryClientProvider>
+
 	);
 	const titleEl = screen.getByTestId("title");
 	expect(titleEl).toBeTruthy();
@@ -33,11 +33,11 @@ test("Checks the title of the page", () => {
 test("Render email", () => {
 
 	render(
-		<QueryClientProvider client={ queryClient }>
+		<QueryClientProvider client={queryClient}>
 			<BrowserRouter>
 				<Login />
 			</BrowserRouter>
-		 </QueryClientProvider>
+		</QueryClientProvider>
 	);
 	const inputEl = screen.getByLabelText("Email Address *");
 	expect(inputEl).toBeTruthy();
@@ -47,11 +47,11 @@ test("Render email", () => {
 test("pass valid email to test email input field", () => {
 
 	render(
-		<QueryClientProvider client={ queryClient }>
-		<BrowserRouter>
-			<Login />
-		</BrowserRouter>
-	 </QueryClientProvider>
+		<QueryClientProvider client={queryClient}>
+			<BrowserRouter>
+				<Login />
+			</BrowserRouter>
+		</QueryClientProvider>
 	);
 
 	const inputEl = screen.getByLabelText("Email Address *");
@@ -64,11 +64,11 @@ test("pass valid email to test email input field", () => {
 test("Render password", () => {
 
 	render(
-		<QueryClientProvider client={ queryClient }>
-		<BrowserRouter>
-			<Login />
-		</BrowserRouter>
-	 </QueryClientProvider>
+		<QueryClientProvider client={queryClient}>
+			<BrowserRouter>
+				<Login />
+			</BrowserRouter>
+		</QueryClientProvider>
 	);
 
 	const inputEl = screen.getByLabelText("Password *");
@@ -81,11 +81,11 @@ test("Render password", () => {
 test("button Availability", () => {
 
 	render(
-		<QueryClientProvider client={ queryClient }>
-		<BrowserRouter>
-			<Login />
-		</BrowserRouter>
-	 </QueryClientProvider>
+		<QueryClientProvider client={queryClient}>
+			<BrowserRouter>
+				<Login />
+			</BrowserRouter>
+		</QueryClientProvider>
 	);
 	const button = screen.getByTestId("submit");
 
@@ -95,11 +95,11 @@ test("button Availability", () => {
 test("Button Onclick", () => {
 
 	render(
-		<QueryClientProvider client={ queryClient }>
-		<BrowserRouter>
-			<Login />
-		</BrowserRouter>
-	 </QueryClientProvider>
+		<QueryClientProvider client={queryClient}>
+			<BrowserRouter>
+				<Login />
+			</BrowserRouter>
+		</QueryClientProvider>
 	);
 	const button = screen.getByTestId("submit");
 	fireEvent.click(button);
@@ -108,11 +108,11 @@ test("Button Onclick", () => {
 
 
 test('should match the snapshot', () => {
-	const { asFragment } = render(<QueryClientProvider client={ queryClient }>
+	const { asFragment } = render(<QueryClientProvider client={queryClient}>
 		<BrowserRouter>
 			<Login />
 		</BrowserRouter>
-	 </QueryClientProvider>);
+	</QueryClientProvider>);
 	expect(asFragment).toMatchSnapshot();
 });
 

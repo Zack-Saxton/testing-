@@ -8,11 +8,11 @@ test('Render DatePicker', () => {
   const container = render(
     <TextField
       name="firstName"
-      form={ true }
+      form={true}
       label="Enter your first name"
-      required={ true }
+      required={true}
       type="email"
-      materialProps={ { "data-testid": "test" } }
+      materialProps={{ "data-testid": "test" }}
     />);
 
   const input = container.getByTestId('test');
@@ -25,11 +25,11 @@ test('Initially empty', () => {
   const container = render(
     <TextField
       name="firstName"
-      form={ true }
+      form={true}
       label="Enter your first name"
-      required={ true }
+      required={true}
       type="email"
-      materialProps={ { "data-testid": "test" } }
+      materialProps={{ "data-testid": "test" }}
     />);
 
   const input = container.getByTestId('test');
@@ -40,11 +40,11 @@ test('Changing value', () => {
   const container = render(
     <TextField
       name="firstName"
-      form={ true }
+      form={true}
       label="Enter your first name"
-      required={ true }
+      required={true}
       type="email"
-      materialProps={ { "data-testid": "test" } }
+      materialProps={{ "data-testid": "test" }}
     />);
 
   const input = container.getByTestId('test');
@@ -57,19 +57,19 @@ test('Changing value', () => {
 it('should match  snapshot', () => {
   const { asFragment } = render(<TextField
     name="firstName"
-    form={ true }
+    form={true}
     label="Enter your first name"
-    required={ true }
+    required={true}
     type="email"
-    materialProps={ { "data-testid": "test" } }
+    materialProps={{ "data-testid": "test" }}
   />);
 
   expect(asFragment(<TextField
     name="firstName"
-    form={ true }
+    form={true}
     label="Enter your first name"
-    required={ true }
+    required={true}
     type="email"
-    materialProps={ { "data-testid": "test" } }
+    materialProps={{ "data-testid": "test" }}
   />)).toMatchSnapshot();
 });
