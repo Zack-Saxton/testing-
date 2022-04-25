@@ -7,8 +7,8 @@ Functionality       :    To use this component to select a value using the slide
 #################################################################################################################*/
 import FormControl from "@mui/material/FormControl";
 import Slider from "@mui/material/Slider";
-import { makeStyles } from "@mui/styles";
 import Typography from "@mui/material/Typography";
+import { makeStyles } from "@mui/styles";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import NumberFormat from 'react-number-format';
@@ -115,23 +115,23 @@ const TextfieldWrapper = ({
   };
 
   return (
-    <div className={ classes.FormControlWrap }>
-      <FormControl fullWidth={ true }>
-        <div className={ classes.center }>
+    <div className={classes.FormControlWrap}>
+      <FormControl fullWidth={true}>
+        <div className={classes.center}>
           <Typography
-            className={ classes.label }
+            className={classes.label}
             id="discrete-slider-always"
             gutterBottom
           >
-            { label }
+            {label}
           </Typography>
         </div>
-        <Slider { ...config } { ...otherProps } name={ name }
+        <Slider {...config} {...otherProps} name={name}
         />
       </FormControl>
-      <div className={ classes.center }>
-        <Typography id="discrete-slider-always-amount" variant='h6' className={ classes.OutputText }>
-          <NumberFormat value={ value } displayType={ 'text' } thousandSeparator={ true } decimalScale={ 0 } fixedDecimalScale={ true } prefix={ '$' } />
+      <div className={classes.center}>
+        <Typography id="discrete-slider-always-amount" variant='h6' className={classes.OutputText}>
+          <NumberFormat value={value} displayType={'text'} thousandSeparator={true} decimalScale={0} fixedDecimalScale={true} prefix={'$'} />
         </Typography>
       </div>
     </div>

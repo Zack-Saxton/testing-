@@ -25,7 +25,7 @@ const useStylesPaymenthistory = makeStyles((theme) => ({
     paddingBottom: "10px",
   },
   spanStyle: {
-    fontSize: "70%", 
+    fontSize: "70%",
     fontWeight: "100",
   },
   menuColor: {
@@ -35,14 +35,14 @@ const useStylesPaymenthistory = makeStyles((theme) => ({
     textDecoration: "none",
   },
   csvStyle: {
-    paddingRight: "7px", 
+    paddingRight: "7px",
     marginBottom: "-4px",
   },
   pdfStyle: {
     paddingRight: "12px",
   },
   tableStyle: {
-    paddingTop: "10px", 
+    paddingTop: "10px",
     paddingBottom: "1.875rem",
   },
   table: {

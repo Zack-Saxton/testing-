@@ -1,15 +1,16 @@
+import CloseIcon from "@mui/icons-material/Close";
 import CircularProgress from '@mui/material/CircularProgress';
 import Dialog from "@mui/material/Dialog";
 import DialogContent from '@mui/material/DialogContent';
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
 import React, { useEffect, useState } from "react";
 import NumberFormat from "react-number-format";
 import { useQuery } from 'react-query';
 import { NavLink, useNavigate } from "react-router-dom";
 import adBanner from "../../../assets/gallery/adBanner3.jpg";
 import MortgageBanner from "../../../assets/gallery/mortgageBanner3.jpg";
+import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import MyBranchAPI from "../../Controllers/MyBranchController";
 import { ButtonPrimary } from "../../FormsUI";
 import "./AccountOverview.css";
@@ -30,12 +31,14 @@ export default function LimitedOffer(userOfferData) {
   const [ amount, setAmount ] = useState("");
   const [ expiryDate, setExpiryDate ] = useState(" ");
   const [ firstName, setFirstName ] = useState("");
+  const [ currentLoan, setCurrentLoan ] = useState(true);
   // Get Branch API data
   const { data: branchApiStatus } = useQuery('my-branch', MyBranchAPI);
   let myBranchData = branchApiStatus?.data;
   const branchCno = myBranchData?.PhoneNumber ?? "";
   const branchName = myBranchData?.branchName ? (`${ myBranchData?.branchName } Branch`) : "";
   const branchManager = myBranchData?.branchmanager ?? "";
+  const { data: dataAccountOverview } = useQuery('loan-data', usrAccountDetails);
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -49,6 +52,15 @@ export default function LimitedOffer(userOfferData) {
     }
   }, [ userOfferData ]);
 
+
+  useEffect(() => {
+    const userAccountStatus = dataAccountOverview?.data?.customer?.user_account?.status;
+    let activeLoan = dataAccountOverview?.data?.applicants;
+    const presenceOfLoan = activeLoan?.some((applicant) => applicant.isActive && applicant?.status !== "referred" && applicant?.status !== "contact_branch");
+    setCurrentLoan(presenceOfLoan || userAccountStatus === "closed" ? true : false);
+  }, [ dataAccountOverview, currentLoan ])
+
+
   const showModal = () => setInitModal(true);
   const closeModal = () => setInitModal(false);
   const handleContinue = () => navigate("/select-amount");
@@ -57,82 +69,86 @@ export default function LimitedOffer(userOfferData) {
   return (
     <div id="limitedOfferWrap" className="limitedOfferWrap">
       <Grid container id="overviewWrap" className="overviewWrap">
-      <Grid  item  sm={6} md={6} xs={12} lg={6} xl={6} className="imageholdernewtop">
+        <Grid item sm={6} md={6} xs={12} lg={6} xl={6} className="imageholdernewtop">
 
-        <Grid className="imageholdernew">
-          <div className="yellowBackground">
-            <img
-              className="bannerImage"
-              src={ adBanner }
-              data-testid="background"
-              alt="ad_banner"
-            />
-            <div className="secondGrid">
-              { userOfferData.isLoading ? (
-                <CircularProgress />
-              ) : userOfferAmount ? (
-                <div id="offerText">
-                  <p id="loanText">You may have money available now! Up to </p>
-                  <p id="loanPercent">
-                    <NumberFormat
-                      value={ userOfferAmount }
-                      displayType={ "text" }
-                      thousandSeparator={ true }
-                      prefix={ "$" }
-                    />
-                  </p>
-                  <ButtonPrimary
-                    onClick={ showModal }
-                    id="claimButton"
-                    stylebutton='{"color":""}'
-                  >
-                    Check My Offer
-                  </ButtonPrimary>
-                </div>
-              ) : (
-                <div id="offerText">
-                  <NavLink
-                    to="/customers/applyForLoan"
-                    state={ { from: "user" } }
-                  >
+          <Grid className="imageholdernew">
+            <div className="yellowBackground">
+              <img
+                className="bannerImage"
+                src={adBanner}
+                data-testid="background"
+                alt="ad_banner"
+              />
+              <div className="secondGrid">
+                {userOfferData.isLoading ? (
+                  <CircularProgress />
+                ) : userOfferAmount ? (
+                  <div id="offerText">
+                    <p id="loanText">You may have money available now! Up to </p>
+                    <p id="loanPercent">
+                      <NumberFormat
+                        value={userOfferAmount}
+                        displayType={"text"}
+                        thousandSeparator={true}
+                        prefix={"$"}
+                      />
+                    </p>
                     <ButtonPrimary
+                      onClick={showModal}
                       id="claimButton"
-                      stylebutton='{"color":"", "textTransform": "none"}'
+                      stylebutton='{"color":""}'
                     >
-                      Apply for a Loan
+                      Check My Offer
                     </ButtonPrimary>
-                  </NavLink>
-                </div>
-              ) }
+                  </div>
+                ) : (
+                  <div id="offerText">
+                    <NavLink
+                      to="/customers/applyForLoan"
+                      state={{ from: "user" }}
+                      onClick={(event) => {
+                        currentLoan ? event.preventDefault() : "";
+                      }}
+                    >
+                      <ButtonPrimary
+                        id="claimButton"
+                        stylebutton='{"color":"", "textTransform": "none"}'
+                        disabled={currentLoan}
+                      >
+                        Apply for a Loan
+                      </ButtonPrimary>
+                    </NavLink>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
-        </Grid>
+          </Grid>
         </Grid>
         <Grid className="secondBannerWrapNewtop" item sm={6} md={6} xs={12} lg={6} xl={6}>
 
-        <Grid className="secondBannerWrapNew" >
-          <a
-            target="_blank"
-            rel="noreferrer"
-            href="https://www.marinerfinance.com/apply-home-loan/?utm_source=CAC&utm_medium=panel&utm_campaign=Mrktoffer_Mortgage"
-          >
-            <img
-              className="secondBannerImage"
-              src={ MortgageBanner }
-              data-testid="background"
-              alt="mortgage_banner"
-            />
-          </a>
-        </Grid>
+          <Grid className="secondBannerWrapNew" >
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href="https://www.marinerfinance.com/apply-home-loan/?utm_source=CAC&utm_medium=panel&utm_campaign=Mrktoffer_Mortgage"
+            >
+              <img
+                className="secondBannerImage"
+                src={MortgageBanner}
+                data-testid="background"
+                alt="mortgage_banner"
+              />
+            </a>
+          </Grid>
         </Grid>
       </Grid>
 
-      <Dialog maxWidth="lg" open={ initModal }>
+      <Dialog maxWidth="lg" open={initModal}>
         <DialogContent className="dialogContentWrap">
           <IconButton
             id="debitCardDialogClose"
             aria-label="close"
-            onClick={ closeModal }
+            onClick={closeModal}
           >
             <CloseIcon />
           </IconButton>
@@ -140,33 +156,33 @@ export default function LimitedOffer(userOfferData) {
             <h2>The money you need, when you need it!</h2>
             <h4>When life happens, we have your back*</h4>
           </Grid>
-          <Grid id="modal-modal-description" sx={ { mt: 2 } }>
+          <Grid id="modal-modal-description" sx={{ mt: 2 }}>
             <Grid>
-              <p className="common">Dear { firstName },</p>
+              <p className="common">Dear {firstName},</p>
               <MarketingOffer
-                promoType={ campaignType }
-                offerCode={ offerCode }
-                amount={ amount }
-                branchPhone={ branchCno }
-                branchName={ branchName }
-                dateExpiration={ expiryDate }
+                promoType={campaignType}
+                offerCode={offerCode}
+                amount={amount}
+                branchPhone={branchCno}
+                branchName={branchName}
+                dateExpiration={expiryDate}
               ></MarketingOffer>
               <p>
                 Sincerely,<br></br>
-                { branchManager }
+                {branchManager}
                 <br></br>
-                { branchName }
+                {branchName}
                 <br></br>
-                { branchCno }
+                {branchCno}
               </p>
             </Grid>
-            <PreScreen offerData={ userOfferData }></PreScreen>
+            <PreScreen offerData={userOfferData}></PreScreen>
             <Grid className="apply-offer">
               <p>Yes, I want to apply for this offer</p>
               <ButtonPrimary
                 id="ClaimButton"
                 stylebutton='{"color":"", "textTransform": "none"}'
-                onClick={ handleContinue }
+                onClick={handleContinue}
               >
                 Apply Now
               </ButtonPrimary>
@@ -179,8 +195,8 @@ export default function LimitedOffer(userOfferData) {
               </h3>
             </Grid>
             <AboutMariner></AboutMariner>
-            <OptOutNotice offerData={ userOfferData }></OptOutNotice>
-            <Disclaimer offerData={ userOfferData }></Disclaimer>
+            <OptOutNotice offerData={userOfferData}></OptOutNotice>
+            <Disclaimer offerData={userOfferData}></Disclaimer>
           </Grid>
         </DialogContent>
       </Dialog>

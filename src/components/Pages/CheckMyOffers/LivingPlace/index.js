@@ -151,28 +151,28 @@ function LivingPlace() {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className={ classes.mainDiv }>
+			<div className={classes.mainDiv}>
 				<Box>
 					<Grid
 						container
 						item
-						xs={ 12 }
+						xs={12}
 						justifyContent="center"
 						alignItems="center"
-						className={ innerClasses.boxGrid }
+						className={innerClasses.boxGrid}
 					>
 						<Grid
 							// containe
 							item
-							xs={ 11 }
-							sm={ 10 }
-							md={ 6 }
-							lg={ 6 }
-							xl={ 6 }
+							xs={11}
+							sm={10}
+							md={6}
+							lg={6}
+							xl={6}
 						>
 							<Paper
 								id="ownOrRentWrap"
-								className={ innerClasses.paperStyle }
+								className={innerClasses.paperStyle}
 							>
 								<div className="progress mt-0">
 									<div
@@ -190,7 +190,7 @@ function LivingPlace() {
 								</Grid>
 								<Grid>
 									<img
-										src={ CitizenshipStatusLogo }
+										src={CitizenshipStatusLogo}
 										alt="citizenship logo"
 										className="spinAnimation"
 									/>
@@ -198,13 +198,13 @@ function LivingPlace() {
 
 								<Typography
 									variant="h5"
-									className={ innerClasses.typoStyle }
+									className={innerClasses.typoStyle}
 								>
 									Do you own or rent?
 								</Typography>
 								<Grid
 									item
-									md={ 12 }
+									md={12}
 									className="blockDiv"
 									container
 									justifyContent="center"
@@ -215,98 +215,98 @@ function LivingPlace() {
 										justifyContent="center"
 										alignItems="center"
 										item
-										lg={ 8 }
-										md={ 8 }
-										xs={ 12 }
+										lg={8}
+										md={8}
+										xs={12}
 									>
 										<Paper
 											id="ownOrRentBoxOne"
-											elevation={ 3 }
-											data-testid={ homeData.renting }
+											elevation={3}
+											data-testid={homeData.renting}
 											className={
 												livingPlace === homeData.renting
 													? "activeBorder radioBlock "
 													: "radioBlock "
 											}
-											onClick={ () => {
+											onClick={() => {
 												setLivingPlace(homeData.renting);
-											} }
+											}}
 										>
 											Renting
 										</Paper>
 									</Grid>
-									<Grid item lg={ 8 } md={ 8 } xs={ 12 }>
+									<Grid item lg={8} md={8} xs={12}>
 										<Paper
 											id="ownOrRentBoxTwo"
-											elevation={ 3 }
+											elevation={3}
 											data-testid="HomeWithMortgage"
 											className={
 												livingPlace === homeData.withMortage
 													? "activeBorder radioBlock "
 													: "radioBlock "
 											}
-											onClick={ () => {
+											onClick={() => {
 												setLivingPlace(homeData.withMortage);
-											} }
+											}}
 										>
 											Own a home with mortgage
 										</Paper>
 									</Grid>
-									<Grid item lg={ 8 } md={ 8 } xs={ 12 }>
+									<Grid item lg={8} md={8} xs={12}>
 										<Paper
 											id="ownOrRentBoxThree"
-											elevation={ 3 }
+											elevation={3}
 											data-testid="HomeWithNoMortgage"
 											className={
 												livingPlace === homeData.noMortage
 													? "activeBorder radioBlock "
 													: "radioBlock "
 											}
-											onClick={ () => {
+											onClick={() => {
 												setLivingPlace(homeData.noMortage);
 												data.rentMortgageAmount = 0;
 												data.homeOwnership = homeData.noMortage;
 												if (data.completedPage < data.page.livingPlace) {
 													setDataState(homeData.noMortage);
 												}
-											} }
+											}}
 										>
 											Own a home with no mortgage
 										</Paper>
 									</Grid>
-									<Grid item lg={ 8 } md={ 8 } xs={ 12 }>
+									<Grid item lg={8} md={8} xs={12}>
 										<Paper
 											id="ownOrRentBoxFour"
-											elevation={ 3 }
+											elevation={3}
 											data-testid="MobileHome"
 											className={
 												livingPlace === homeData.mobile
 													? "activeBorder radioBlock "
 													: "radioBlock "
 											}
-											onClick={ () => {
+											onClick={() => {
 												setLivingPlace(homeData.mobile);
 												data.rentMortgageAmount = 0;
 												data.homeOwnership = homeData.mobile;
 												if (data.completedPage < data.page.livingPlace) {
 													setDataState(homeData.mobile);
 												}
-											} }
+											}}
 										>
 											Own a mobile home
 										</Paper>
 									</Grid>
-									<Grid item lg={ 8 } md={ 8 } xs={ 12 }>
+									<Grid item lg={8} md={8} xs={12}>
 										<Paper
 											id="ownOrRentBoxFive"
-											elevation={ 3 }
+											elevation={3}
 											data-testid="LivingWithRelatives"
 											className={
 												livingPlace === homeData.withRelative
 													? "activeBorder radioBlock "
 													: "radioBlock "
 											}
-											onClick={ () => {
+											onClick={() => {
 												setLivingPlace(homeData.withRelative);
 												data.rentMortgageAmount = 0;
 												data.homeOwnership = homeData.withRelative;
@@ -314,13 +314,13 @@ function LivingPlace() {
 												if (data.completedPage < data.page.livingPlace) {
 													setDataState(homeData.withRelative);
 												}
-											} }
+											}}
 										>
 											Living with relatives
 										</Paper>
 									</Grid>
 
-									<Grid item lg={ 8 } md={ 8 } xs={ 12 }>
+									<Grid item lg={8} md={8} xs={12}>
 										<TextField
 											id="rentOrMortage"
 											className={
@@ -331,23 +331,23 @@ function LivingPlace() {
 											}
 											name="RentOrMortgageAmount"
 											label="Monthly Rent / Mortgage Amount *"
-											error={ error }
-											helperText={ helperText }
-											value={ (data?.rentMortgageAmount ? currencyFormat(data.rentMortgageAmount) : "") }
-											onBlur={ onBlurPayment }
-											onChange={ onHandleChange }
-											materialProps={ {
+											error={error}
+											helperText={helperText}
+											value={(data?.rentMortgageAmount ? currencyFormat(data.rentMortgageAmount) : "")}
+											onBlur={onBlurPayment}
+											onChange={onHandleChange}
+											materialProps={{
 												"data-test-id": "rentMortgageAmount",
 												maxLength: "7",
-											} }
+											}}
 										/>
 									</Grid>
 
-									<Grid item lg={ 8 } md={ 8 } xs={ 12 } className="alignButton ContinueButton">
+									<Grid item lg={8} md={8} xs={12} className="alignButton ContinueButton">
 										<ButtonPrimary
-											onClick={ handleRoute }
+											onClick={handleRoute}
 											data-testid="cntButton"
-											disabled={ !livingPlace }
+											disabled={!livingPlace}
 											stylebutton='{"background": "#FFBC23", "black": "white","fontSize":"0.938rem", "padding": "0px 30px"}'
 										>
 											Continue

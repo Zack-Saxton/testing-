@@ -1,12 +1,14 @@
 #BG {
-  background-color: #f6f6f6 ;
+  background-color: #f6f6f6;
 }
+
 .headerWrap {
   position: sticky !important;
   width: 100%;
   top: 0;
   z-index: 1000;
 }
+
 .topBar {
   height: 36px;
   background: linear-gradient(to left, #264266, #0f4eb3);
@@ -19,11 +21,13 @@
   top: 0;
   z-index: 9;
 }
+
 .headerToolBar {
   height: 82px;
   padding: 0px 25px !important;
   align-items: center !important;
 }
+
 .branchLocatorHeaderToolBar {
   max-width: 1200px;
   width: 100%;
@@ -37,12 +41,15 @@
 #mobileBlogsLink a:hover {
   color: #214476 !important;
 }
+
 .mobileFaqLink a:hover {
   color: #214476 !important;
 }
+
 .mobileBranchLocatorLink a:hover {
   color: #214476 !important;
 }
+
 #blogsLink a {
   height: 79px;
   padding: 0px;
@@ -52,6 +59,7 @@
   border-bottom: 3px solid transparent !important;
   transition: 0.2s;
 }
+
 .faqLink p {
   height: 79px;
   padding: 0px;
@@ -61,6 +69,7 @@
   border-bottom: 3px solid transparent !important;
   transition: 0.2s;
 }
+
 .branchLocatorLink p {
   height: 79px;
   padding: 0px;
@@ -75,16 +84,18 @@
   border-bottom: 3px solid #214476 !important;
   color: #214476 !important;
 }
+
 .faqLink p:hover {
   border-bottom: 3px solid #214476 !important;
   color: #214476 !important;
 }
+
 .branchLocatorLink p:hover {
   border-bottom: 3px solid #214476 !important;
   color: #214476 !important;
 }
 
-.faqLink{
+.faqLink {
   text-decoration: none
 }
 
@@ -104,6 +115,7 @@
   align-items: center;
   border-right: 1px solid #fff;
 }
+
 .topBarLinkThree {
   height: 100%;
   display: flex;
@@ -119,6 +131,7 @@
   padding: 0px 15px;
   text-decoration: none;
 }
+
 .topBarLinkThree p,
 .topBarLinkOne a {
   color: white;
@@ -127,6 +140,7 @@
   padding: 0px 15px;
   text-decoration: none;
 }
+
 .topBarLinkOne a:hover {
   text-decoration: none;
 }
@@ -139,14 +153,17 @@
   /* margin-right: 35px; */
   color: #171717;
 }
+
 .branchHeaderLinks a {
   color: #171717;
   text-decoration: none;
 }
+
 .branchHeaderLinks a:hover {
   color: #171717;
   text-decoration: none;
 }
+
 .branchHeaderLinksLast {
   height: 79px;
   padding: 0px;
@@ -154,11 +171,13 @@
   align-items: center;
   margin-left: 10px;
 }
+
 .branchHeaderLinksLast p span {
   background-color: #efefef;
   padding: 0px 6px;
   line-height: 1.15;
 }
+
 .branchHeaderLinks p,
 .branchHeaderLinksLast p {
   height: 79px;
@@ -169,6 +188,7 @@
   padding-top: 3px;
   cursor: pointer;
 }
+
 .branchHeaderLinks p:hover,
 .branchHeaderLinksLast p:hover {
   height: 79px;
@@ -178,9 +198,12 @@
   border-bottom: 3px solid #214476 !important;
   padding-top: 3px;
 }
-.mailOffer,.loginLink{
+
+.mailOffer,
+.loginLink {
   margin-right: 35px !important;
 }
+
 /* personal Loan dropdown */
 .personalLoanHolder {
   position: relative;
@@ -189,13 +212,16 @@
   user-select: none;
   border-bottom: 3px solid transparent !important;
 }
+
 .personalLoanHolder:hover {
   border-bottom: 3px solid #214476 !important;
 }
+
 .personalLoanHolder:hover .personalLoansubLinks {
   text-decoration: none !important;
   display: flex;
 }
+
 .personalLoansubLinks {
   background-color: #fff;
   border-top-width: 3px;
@@ -210,6 +236,7 @@
   top: 104%;
   transition: 0.3s;
 }
+
 .personalLoansubLinks a {
   font-size: 14px !important;
   padding: 12px 20px !important;
@@ -220,9 +247,11 @@
   text-decoration: none !important;
   color: #212934e0;
 }
+
 .personalLoansubLinks a:hover {
   background-color: #f9f9fb;
 }
+
 /* personal Loan dropdown end*/
 
 /* Car Loan dropdown */
@@ -232,13 +261,16 @@
   cursor: pointer;
   user-select: none;
 }
+
 .carLoansHolder:hover {
   border-bottom: 3px solid #214476 !important;
 }
+
 .carLoansHolder:hover .carLoanSubLinks {
   text-decoration: none !important;
   display: flex;
 }
+
 .carLoanSubLinks {
   background-color: #fff;
   border-top-width: 3px;
@@ -253,6 +285,7 @@
   top: 104%;
   transition: 0.3s;
 }
+
 .carLoanSubLinks a {
   font-size: 14px !important;
   padding: 12px 20px !important;
@@ -263,6 +296,7 @@
   text-decoration: none !important;
   color: #212934e0;
 }
+
 .carLoanSubLinks a:hover {
   background-color: #f9f9fb;
 }
@@ -276,13 +310,16 @@
   cursor: pointer;
   user-select: none;
 }
+
 .homeLoansHolder:hover {
   border-bottom: 3px solid #214476 !important;
 }
+
 .homeLoansHolder:hover .homeLoanSubLinks {
   text-decoration: none !important;
   display: flex;
 }
+
 .homeLoanSubLinks {
   background-color: #fff;
   border-top-width: 3px;
@@ -297,6 +334,7 @@
   top: 104%;
   transition: 0.3s;
 }
+
 .homeLoanSubLinks a {
   font-size: 14px !important;
   padding: 12px 20px !important;
@@ -307,6 +345,7 @@
   text-decoration: none !important;
   color: #212934e0;
 }
+
 .homeLoanSubLinks a:hover {
   background-color: #f9f9fb;
 }
@@ -320,13 +359,16 @@
   cursor: pointer;
   user-select: none;
 }
+
 .resourcesHolder:hover {
   border-bottom: 3px solid #214476 !important;
 }
+
 .resourcesHolder:hover .resourcesSubLinks {
   text-decoration: none !important;
   display: flex;
 }
+
 .resourcesSubLinks {
   background-color: #fff;
   border-top-width: 3px;
@@ -341,6 +383,7 @@
   top: 104%;
   transition: 0.3s;
 }
+
 .resourcesSubLinks a {
   font-size: 14px !important;
   padding: 12px 20px !important;
@@ -365,13 +408,16 @@
   cursor: pointer;
   user-select: none;
 }
+
 .whyUsHolder:hover {
   border-bottom: 3px solid #214476 !important;
 }
+
 .whyUsHolder:hover .whyUsSubLinks {
   text-decoration: none !important;
   display: flex;
 }
+
 .whyUsSubLinks {
   background-color: #fff;
   border-top-width: 3px;
@@ -386,6 +432,7 @@
   top: 104%;
   transition: 0.3s;
 }
+
 .whyUsSubLinks a {
   font-size: 14px !important;
   padding: 12px 20px !important;
@@ -396,12 +443,15 @@
   text-decoration: none !important;
   color: #212934e0;
 }
+
 .whyUsSubLinks a:hover {
   background-color: #f9f9fb;
 }
+
 .subLinkDropdown {
   position: relative;
 }
+
 .subLinkDropdown a {
   font-size: 14px !important;
   padding: 12px 20px !important;
@@ -413,6 +463,7 @@
   color: #212934e0;
   display: block;
 }
+
 .subLinkList {
   display: none;
   background-color: #fff;
@@ -425,6 +476,7 @@
   left: 100%;
   flex-direction: column;
 }
+
 .subLinkDropdown:hover .subLinkList {
   text-decoration: none !important;
   display: flex;
@@ -438,20 +490,25 @@
   border: none;
   display: none;
 }
+
 #desktopMenu {
   display: flex;
 }
+
 @media only screen and (max-width: 1200px) {
   #desktopMenu {
     display: none;
   }
+
   .menuHamburger {
     display: block;
   }
 }
+
 .menuHamburger svg {
   color: #9ea0a4;
 }
+
 #mainMobileMenu {
   position: absolute;
   background-color: white;
@@ -460,24 +517,28 @@
   max-height: 520px;
   overflow: scroll;
 }
+
 #mainMobileMenu div {
   border-radius: 0px !important;
   min-height: unset !important;
   box-shadow: none;
   margin: 0 !important;
 }
+
 .borderTop {
   border-radius: 0px !important;
   min-height: unset !important;
   box-shadow: none;
   border-top: 1px solid #e2e2e2 !important;
 }
+
 .borderTop a {
   border-radius: 0px !important;
   min-height: unset !important;
   box-shadow: none;
   border-top: none !important;
 }
+
 .noShadow {
   box-shadow: none !important;
   border-radius: 0px !important;
@@ -490,38 +551,47 @@
   flex-direction: column;
   width: 100%;
 }
+
 .subMenuWrapThree a {
   padding: 11px 0px 11px 50px !important;
   box-sizing: border-box;
 }
+
 .careersWrap {
   border-top: 1px solid #e2e2e2 !important;
 }
+
 .noBorder {
   border: none !important;
 }
+
 .noPadding {
   padding: 0 !important;
 }
+
 .pointOfSale {
   padding: 0 !important;
 }
+
 .menuHead a {
   padding: 5px 20px !important;
   text-decoration: none;
   color: #212934e0;
   font-size: 0.75rem;
 }
+
 .subMenuWrap {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
+
 .subMenuWrapTwo {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
+
 .subMenuWrapTwo a {
   display: flex;
   flex-direction: column;
@@ -530,9 +600,11 @@
   box-sizing: border-box !important;
   border-top: 1px solid #e2e2e2 !important;
 }
+
 .borderTop {
   border-top: 1px solid #e2e2e2 !important;
 }
+
 .mobileMenuLink {
   display: block;
   color: #212934e0 !important;
@@ -541,9 +613,11 @@
   border-top: none;
   padding: 11px 45px;
 }
+
 .menuSubLinksWrap {
   padding: 0px !important;
 }
+
 .subMenuWrap a {
   display: block;
   color: #212934e0 !important;

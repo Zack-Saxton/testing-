@@ -1,11 +1,11 @@
+import FacebookIcon from "@mui/icons-material/Facebook";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import TwitterIcon from "@mui/icons-material/Twitter";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Housing from "../../../assets/images/equal_Housing_Lender.png";
 import Logo from "../../../assets/images/mf-logo.png";
 import ConsumerDialog from "../ConsumerFooterDialog/ConsumerDialog";
@@ -181,18 +181,18 @@ export default function BranchLocatorFooter() {
   //View Part
   return (
     <div className="mainDivBranchLocatorFooter">
-      <footer className= "footeBranchLocator">
+      <footer className="footeBranchLocator">
         <Grid className="branchLocatorFooterWrap">
           <section className="branch-Locator-Footer">
-            <Grid container spacing={ 4 } justifyContent="space-evenly">
-              { groupedFooter.map((nested) => (
-                <Grid item xs={ 12 } sm={ 3 } key={ Math.random() * 1000 }>
-                  { nested.map((element) => (
-                    <div key={ element.title } className="divFooterLinkTitle">
+            <Grid container spacing={4} justifyContent="space-evenly">
+              {groupedFooter.map((nested) => (
+                <Grid item xs={12} sm={3} key={Math.random() * 1000}>
+                  {nested.map((element) => (
+                    <div key={element.title} className="divFooterLinkTitle">
                       <Typography className="footerLinkstitle" gutterBottom>
-                        { element.title }
+                        {element.title}
                       </Typography>
-                      { element.title === "Stay Connected" ? (
+                      {element.title === "Stay Connected" ? (
                         <Grid className="socialIconsWrap">
                           <a
                             target="_blank"
@@ -226,23 +226,23 @@ export default function BranchLocatorFooter() {
                         element.description.map((item) => (
                           <ul
                             className="branchfooterUl"
-                            key={ Math.random() * 1000 }
+                            key={Math.random() * 1000}
                           >
                             <li
-                              key={ item.name }
+                              key={item.name}
                               className="branchfooterLi"
                             >
-                              <a href={ item.link } className="footerHrefTag">
-                                { item.name }
+                              <a href={item.link} className="footerHrefTag">
+                                {item.name}
                               </a>
                             </li>
                           </ul>
                         ))
-                      ) }
+                      )}
                     </div>
-                  )) }
+                  ))}
                 </Grid>
-              )) }
+              ))}
             </Grid>
           </section>
           <section className="paragraph">
@@ -303,21 +303,21 @@ export default function BranchLocatorFooter() {
               </small>
             </p>
           </section>
-          <Box sx={ { flexGrow: 1, justifyContent: "space-evenly" } }>
+          <Box sx={{ flexGrow: 1, justifyContent: "space-evenly" }}>
             <Grid container className="footerLogoLinksWrap">
-              <Grid item xs={ 12 } sm={ 12 } md={ 3 }>
+              <Grid item xs={12} sm={12} md={3}>
                 <a className="footerLogoimageWrap" href="#">
-                  <img src={ Logo } />
+                  <img src={Logo} />
                 </a>
               </Grid>
-              <Grid item xs={ 12 } sm={ 12 } md={ 6 }>
+              <Grid item xs={12} sm={12} md={6}>
                 <div className="row">
                   <div className="alignAddressDiv">
                     <p className="centerAlignAddress">
                       Mariner Finance, LLC, NMLS No. 166564
                       <span
-                      className="alignAddressSpan"
-                        onClick={ handleOpenConsumer }
+                        className="alignAddressSpan"
+                        onClick={handleOpenConsumer}
                       >
                         (www.nmlsconsumeraccess.com)
                       </span>
@@ -330,10 +330,10 @@ export default function BranchLocatorFooter() {
                   </div>
                 </div>
               </Grid>
-              <Grid item xs={ 12 } sm={ 12 } md={ 3 }>
+              <Grid item xs={12} sm={12} md={3}>
                 <a className="footerLogoimageWrap" href="#">
                   <img
-                    src={ Housing }
+                    src={Housing}
                     className="imgHousing"
                   />
                 </a>
@@ -344,13 +344,13 @@ export default function BranchLocatorFooter() {
         <section className="section-bottom">
           <div>
             <span className="copyrightSpan">
-              &copy; { new Date().getFullYear() } Mariner Finance All rights
+              &copy; {new Date().getFullYear()} Mariner Finance All rights
               reserved.
             </span>
           </div>
         </section>
       </footer>
-      <ConsumerDialog consumer={ consumer } onChange={ setConsumer } />
+      <ConsumerDialog consumer={consumer} onChange={setConsumer} />
     </div>
   );
 }

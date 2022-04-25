@@ -5,7 +5,8 @@
 .gridStyle {
   margin: 30px;
 }
-.topBar{
+
+.topBar {
   height: 36px;
   background: linear-gradient(to left, #264266, #0F4EB3);
 }
@@ -16,8 +17,8 @@
 }
 
 @media (max-width:959px) {
-  #main{
-    margin-left: unset!important
+  #main {
+    margin-left: unset !important
   }
 }
 
@@ -26,13 +27,14 @@
 }
 
 .MuiButton-root {
-  line-height: 1!important;
-}
-.toast_message_box {
-    font-size: 30px;
-    width: auto;
+  line-height: 1 !important;
 }
 
-.MuiInputBase-root{
+.toast_message_box {
+  font-size: 30px;
+  width: auto;
+}
+
+.MuiInputBase-root {
   color: black !important;
 }

@@ -2,17 +2,20 @@
 	background-color: #f6f6f6;
 	min-height: 500px !important;
 }
+
 .card {
 	padding: 5% 5% 1% 5%;
 }
+
 .borrowCSS {
 	margin-top: 1% !important;
 	margin-bottom: 1% !important;
 }
 
-.leftAlignment{
+.leftAlignment {
 	align-items: "left"
 }
+
 .fullWidth {
 	width: "100%";
 }
@@ -22,6 +25,7 @@
 	margin-left: "8%";
 	margin-top: "2%";
 }
+
 .zeroMargin {
 	margin: "0px";
 }
@@ -40,6 +44,7 @@
 .cardWOPadding {
 	text-align: center;
 }
+
 .cardWrapper {
 	margin-top: 5%;
 	margin-bottom: 2%;
@@ -53,6 +58,7 @@
 	margin-bottom: 7% !important;
 	text-align: center;
 }
+
 .setGreenColor {
 	color: green;
 }
@@ -63,7 +69,8 @@
 	font-family: "Muli", sans-serif;
 	font-weight: 300;
 }
-.blackText{
+
+.blackText {
 	color: #4a4e57 !important;
 }
 
@@ -125,6 +132,7 @@
 	font-family: "Muli", sans-serif;
 	font-weight: 400;
 }
+
 .showCB {
 	display: block;
 	margin: 0;
@@ -135,6 +143,7 @@
 .MT5 {
 	margin-top: 2% !important;
 }
+
 .hideMsg {
 	display: none;
 }
@@ -166,7 +175,7 @@
 	transition: width 0.3s linear;
 }
 
-.imgFullWidth{
+.imgFullWidth {
 	width: 100%;
 }
 
@@ -227,6 +236,7 @@
 	font-weight: 600;
 	color: #134ca8;
 }
+
 .det83 {
 	width: 83%;
 }
@@ -250,6 +260,7 @@
 .det100 {
 	width: 100%;
 }
+
 .Mui-disabled {
 	opacity: 0.7;
 }
@@ -264,6 +275,7 @@
 	from {
 		-webkit-transform: rotate(0deg);
 	}
+
 	to {
 		-webkit-transform: rotate(359deg);
 	}
@@ -272,6 +284,7 @@
 .padding-left-1 {
 	padding-left: 5%;
 }
+
 .padding-right-1 {
 	padding-right: 5%;
 }
@@ -320,13 +333,16 @@
 	margin-left: 7%;
 	margin-top: 0;
 }
+
 .agreeText a {
 	text-decoration: underline !important;
 	color: #0f4eb3 !important;
 }
+
 .positionHead {
 	text-align: left;
 }
+
 .agreeTextHead {
 	font-size: 0.938rem;
 	text-align: justify;
@@ -354,12 +370,15 @@
 	color: #595959;
 	margin-top: 10px !important;
 }
+
 .textWhite {
 	color: white;
 }
+
 .bottomSpace {
 	margin-bottom: 5% !important;
 }
+
 .noOffersButtonWrap {
 	margin: 1% !important;
 	margin-bottom: 5% !important;
@@ -368,18 +387,21 @@
 .paddingButton {
 	padding: 6px;
 }
+
 .minText {
 	text-align: justify;
 	font-size: 1rem !important;
 	font-weight: 400 !important;
 	font-family: "Muli", sans-serif !important;
 }
+
 .vMinText {
 	text-align: justify;
 	font-size: 0.8rem !important;
 	font-weight: 400 !important;
 	font-family: "Muli", sans-serif !important;
 }
+
 .listFormat {
 	text-align: left;
 	font-size: medium !important;
@@ -409,6 +431,7 @@
 .MuiSelect-selectMenu {
 	text-align: left;
 }
+
 .justifyText {
 	text-align: justify !important;
 }
@@ -427,7 +450,7 @@
 .formatURLStyle {
 	text-align: justify;
 	text-decoration: none;
-    text-decoration: underline !important;
+	text-decoration: underline !important;
 	color: #0f4eb3 !important;
 }
 
@@ -446,6 +469,7 @@
 .MarginUpDown10 {
 	margin: 10px 0;
 }
+
 .cursorPointer {
 	cursor: pointer;
 	font-size: 0.938rem !important;
@@ -501,6 +525,7 @@
 .cardWrapperImg {
 	margin-top: 4%;
 }
+
 .smallTextImg {
 	font-size: 1.15rem !important;
 	line-height: 150% !important;
@@ -531,35 +556,43 @@
 	margin-bottom: 2% !important;
 }
 
-.checkMyOfferText{
+.checkMyOfferText {
 	margin: 10px 0px !important;
 	color: #171717;
 }
 
-#employedHourly{
-	margin: 15px 0px 15px 0px  !important;
+#employedHourly {
+	margin: 15px 0px 15px 0px !important;
 	padding: 3px 0px !important;
 	border-radius: 2px !important;
 	font-size: 0.938rem;
 }
-#employedSalaried,#selfEmployed,#Unemployed,#Retired {
-	margin: 0px 0px 15px 0px  !important;
+
+#employedSalaried,
+#selfEmployed,
+#Unemployed,
+#Retired {
+	margin: 0px 0px 15px 0px !important;
 	padding: 3px 0px !important;
 	border-radius: 2px !important;
 	font-size: 0.938rem;
 }
-#checkMyOffersText{
-	margin:0 !important;
+
+#checkMyOffersText {
+	margin: 0 !important;
 }
-.checkMyOffersText{
+
+.checkMyOffersText {
 	font-size: 0.938rem !important;
 	padding-top: 30px !important;
 }
-.checkMyOffersHeading{
+
+.checkMyOffersHeading {
 	font-size: 1.538rem !important;
 	margin: 40px 0px !important;
 }
-.checkMyoffersSubHeading{
+
+.checkMyoffersSubHeading {
 	font-size: 1.078rem !important;
 	color: #171717 !important;
 }
@@ -568,30 +601,34 @@
 	padding-top: "70px"
 }
 
-.disclosuresWrap{
+.disclosuresWrap {
 	margin-bottom: 15px !important;
 }
+
 .checkBoxClass {
 	position: absolute !important;
 	top: 0 !important;
 }
+
 #signDiv {
 	margin: 25px 0px 0px 0px !important;
 }
 
-#selectMaritalStatusWrap .subOption{
+#selectMaritalStatusWrap .subOption {
 	color: #171717 !important;
 
 }
 
-#activeDutySelect .subOption{
+#activeDutySelect .subOption {
 	color: #171717 !important;
 
 }
-#activeDutyRank .subOption{
+
+#activeDutyRank .subOption {
 	color: #171717 !important;
 
 }
+
 @media (min-width: 600px) {
 	.buttonEnd {
 		justify-content: flex-start !important;
@@ -602,6 +639,6 @@
 	}
 }
 
-.alignCenter{
-		text-align: center !important;
+.alignCenter {
+	text-align: center !important;
 }

@@ -134,16 +134,16 @@ export default function ChangePassword(basicInformationData) {
   };
   return (
     <div>
-      <form onSubmit={ formikPassword.handleSubmit } name="formPassword" id="formPassword">
+      <form onSubmit={formikPassword.handleSubmit} name="formPassword" id="formPassword">
         <Grid container
           item
-          xs={ 12 }
+          xs={12}
           direction="row"
         >
           <Grid
             item
-            xs={ 12 }
-            className={ classes.basicInfoGrid }
+            xs={12}
+            className={classes.basicInfoGrid}
             container
             direction="row"
           >
@@ -152,24 +152,24 @@ export default function ChangePassword(basicInformationData) {
               name="oldPassword"
               type="password"
               label="Old Password"
-              onKeyDown={ preventSpace }
+              onKeyDown={preventSpace}
               autoComplete="off"
-              materialProps={ { maxLength: "30", autoComplete: "off" } }
-              value={ formikPassword.values.oldPassword }
-              onChange={ formikPassword.handleChange }
-              onBlur={ formikPassword.handleBlur }
+              materialProps={{ maxLength: "30", autoComplete: "off" }}
+              value={formikPassword.values.oldPassword}
+              onChange={formikPassword.handleChange}
+              onBlur={formikPassword.handleBlur}
               error={
                 formikPassword.touched.oldPassword && Boolean(formikPassword.errors.oldPassword)
               }
-              helperText={ formikPassword.touched.oldPassword && formikPassword.errors.oldPassword }
+              helperText={formikPassword.touched.oldPassword && formikPassword.errors.oldPassword}
               variant="standard"
-              disabled={ false }
+              disabled={false}
             />
           </Grid>
           <Grid
             item
-            xs={ 12 }
-            className={ classes.basicInfoGrid }
+            xs={12}
+            className={classes.basicInfoGrid}
             container
             direction="row"
           >
@@ -179,26 +179,26 @@ export default function ChangePassword(basicInformationData) {
               type="password"
               label="New Password"
               autoComplete="new-password"
-              onKeyDown={ preventSpace }
-              materialProps={ { maxLength: "30", autoComplete: "new-password" } }
+              onKeyDown={preventSpace}
+              materialProps={{ maxLength: "30", autoComplete: "new-password" }}
               variant="standard"
-              value={ formikPassword.values.newPassword }
-              onChange={ formikPassword.handleChange }
-              onBlur={ formikPassword.handleBlur }
+              value={formikPassword.values.newPassword}
+              onChange={formikPassword.handleChange}
+              onBlur={formikPassword.handleBlur}
               error={
                 formikPassword.touched.newPassword && Boolean(formikPassword.errors.newPassword)
               }
-              helperText={ formikPassword.touched.newPassword && formikPassword.errors.newPassword }
-              disabled={ false }
+              helperText={formikPassword.touched.newPassword && formikPassword.errors.newPassword}
+              disabled={false}
             />
-            <p className={ classes.passwordText }>
-            Please ensure your password meets the following criteria: between 10 and 30 characters in length, at least 1 uppercase letter, at least 1 lowercase letter, at least 1 number, at least 1 special character.
+            <p className={classes.passwordText}>
+              Please ensure your password meets the following criteria: between 10 and 30 characters in length, at least 1 uppercase letter, at least 1 lowercase letter, at least 1 number, at least 1 special character.
             </p>
           </Grid>
           <Grid
             item
-            xs={ 12 }
-            className={ classes.basicInfoGrid }
+            xs={12}
+            className={classes.basicInfoGrid}
             container
             direction="row"
           >
@@ -207,38 +207,38 @@ export default function ChangePassword(basicInformationData) {
               name="confirmPassword"
               type="password"
               label="Confirm New Password"
-              onKeyDown={ preventSpace }
+              onKeyDown={preventSpace}
               autoComplete="new-password"
-              materialProps={ { maxLength: "30", autoComplete: "new-password" } }
-              value={ formikPassword.values.confirmPassword }
-              onChange={ formikPassword.handleChange }
-              onBlur={ formikPassword.handleBlur }
+              materialProps={{ maxLength: "30", autoComplete: "new-password" }}
+              value={formikPassword.values.confirmPassword}
+              onChange={formikPassword.handleChange}
+              onBlur={formikPassword.handleBlur}
               error={
                 formikPassword.touched.confirmPassword && Boolean(formikPassword.errors.confirmPassword)
               }
-              helperText={ formikPassword.touched.confirmPassword && formikPassword.errors.confirmPassword }
+              helperText={formikPassword.touched.confirmPassword && formikPassword.errors.confirmPassword}
               variant="standard"
-              disabled={ false }
+              disabled={false}
             />
           </Grid>
         </Grid>
         <Grid container direction="row">
           <Grid container
             item
-            xs={ 12 }
-            sm={ 4 }
-            md={ 3 }
-            lg={ 2 }
-            xl={ 1 }
+            xs={12}
+            sm={4}
+            md={3}
+            lg={2}
+            xl={1}
             direction="row"
-            className={ classes.passwordButtonGrid }
+            className={classes.passwordButtonGrid}
             id="reEnterUpdate"
           >
             <ButtonSecondary
               stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
               styleicon='{ "color":"" }'
 
-              onClick={ handleCancelButton }
+              onClick={handleCancelButton}
 
             >
               Cancel
@@ -246,13 +246,13 @@ export default function ChangePassword(basicInformationData) {
           </Grid>
           <Grid container
             item
-            xs={ 12 }
-            sm={ 4 }
-            md={ 3 }
-            lg={ 2 }
-            xl={ 1 }
+            xs={12}
+            sm={4}
+            md={3}
+            lg={2}
+            xl={1}
             direction="row"
-            className={ classes.passwordButtonGrid }
+            className={classes.passwordButtonGrid}
             id="reEnterCancel"
           >
             <ButtonPrimary
@@ -260,16 +260,16 @@ export default function ChangePassword(basicInformationData) {
               styleicon='{ "color":"" }'
 
               type="submit"
-              disabled={ loading }
+              disabled={loading}
             >
               Update
               <i
                 className="fa fa-refresh fa-spin customSpinner"
-                style={ {
+                style={{
                   marginRight: "10px",
                   display: loading ? "block" : "none",
                   color: 'blue'
-                } }
+                }}
               />
             </ButtonPrimary>
           </Grid>

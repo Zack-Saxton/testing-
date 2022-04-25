@@ -1,5 +1,5 @@
 import { makeStyles } from "@mui/styles";
-
+import { useTheme } from '@mui/material/styles'
 const useStylesLogin = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -10,7 +10,7 @@ const useStylesLogin = makeStyles((theme) => ({
   linkDesign: {
     color: "#0F4EB3",
     cursor: "pointer",
-    fontSize: "0.938rem"  
+    fontSize: "0.938rem"
   },
   paper: {
     padding: "30px",
@@ -19,7 +19,7 @@ const useStylesLogin = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     backgroundColor: `rgba(255, 255, 255, .8)`,
-    color: theme.palette.text.secondary,
+    color: useTheme().palette.text.secondary,
     boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%),
 		0 6px 30px 5px rgb(0 0 0 / 12%),
 		0 8px 10px -7px rgb(0 0 0 / 20%)`,
@@ -81,35 +81,35 @@ const useStylesLogin = makeStyles((theme) => ({
     fontWeight: "400",
   },
   createPasswordPaper: {
-    padding: theme.spacing(3),
+    padding: useTheme().spacing(3),
     display: "flex",
     flexDirection: "column",
     backgroundColor: `rgba(255, 255, 255, .8)`,
-    color: theme.palette.text.secondary,
+    color: useTheme().palette.text.secondary,
     boxShadow: `0 16px 24px 2px rgb(0 0 0 / 14%),
 0 6px 30px 5px rgb(0 0 0 / 12%),
 0 8px 10px -7px rgb(0 0 0 / 20%)`,
-},
-resetButton: {
+  },
+  resetButton: {
     textAlign: "center",
-},
-emailInputGrid: {
+  },
+  emailInputGrid: {
     lineHeight: "2",
     padding: "8px"
-},
-logInGrid: {
-  paddingTop: "30px"
-},
-passwordWrap: {
-  width: "100%", 
-  gap: 15, 
-  marginBottom: 10 
-},
-loginRecaptcha: {
-  display: "flex",
-  justifyContent : "center",
-  paddingTop: "10px"
-}
+  },
+  logInGrid: {
+    paddingTop: "30px"
+  },
+  passwordWrap: {
+    width: "100%",
+    gap: 15,
+    marginBottom: 10
+  },
+  loginRecaptcha: {
+    display: "flex",
+    justifyContent: "center",
+    paddingTop: "10px"
+  }
 
 }));
 

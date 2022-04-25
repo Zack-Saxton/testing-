@@ -4,15 +4,15 @@ import React from "react";
 import Button from './index';
 
 const handleClick = jest.fn();
-const component = (enableFlag = false) =>{  
+const component = (enableFlag = false) => {
   return (<Button
-    onClick={ handleClick }
+    onClick={handleClick}
     data-testid="submit"
-    disabled = { enableFlag }
+    disabled={enableFlag}
     stylebutton='{"background": "","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
-    >
+  >
     submit
-    </Button>);
+  </Button>);
 };
 
 test('button Availability', () => {

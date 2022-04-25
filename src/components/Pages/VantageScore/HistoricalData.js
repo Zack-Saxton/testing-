@@ -56,9 +56,9 @@ export default function HistoricalData(creditData) {
   //View
   return (
     <div>
-      <h5 className={ classes.HistoricalDataHeading }>Historical Data</h5>
+      <h5 className={classes.HistoricalDataHeading}>Historical Data</h5>
       <Grid>
-        <Line data={ data } options={ option } />
+        <Line data={data} options={option} />
       </Grid>
     </div>
   );

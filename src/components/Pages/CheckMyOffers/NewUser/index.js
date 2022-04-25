@@ -170,22 +170,22 @@ function NewUser() {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className={ classes.mainDiv }>
+			<div className={classes.mainDiv}>
 				<Box>
 					<Grid
 						item
-						xs={ 12 }
+						xs={12}
 						container
 						justifyContent="center"
-						className={ innerClasses.boxGrid }
+						className={innerClasses.boxGrid}
 					>
 						<Grid
 							container
-							xs={ 11 }
-							sm={ 10 }
-							md={ 6 }
-							lg={ 6 }
-							xl={ 6 }
+							xs={11}
+							sm={10}
+							md={6}
+							lg={6}
+							xl={6}
 							item
 							className="cardWrapper"
 							justifyContent="center"
@@ -208,7 +208,7 @@ function NewUser() {
 								</Grid>
 								<Grid className="liftImage">
 									<img
-										src={ PasswordLogo }
+										src={PasswordLogo}
 										alt="passwordlogo"
 										className="spinAnimation"
 									/>
@@ -217,7 +217,7 @@ function NewUser() {
 									align="center"
 									justify="center"
 									alignitems="center"
-									className={ innerClasses.typoStyle }
+									className={innerClasses.typoStyle}
 								>
 									We have detected you are a new customer.
 								</Typography>
@@ -232,9 +232,9 @@ function NewUser() {
 									Please create a secure account with us.
 								</Typography>
 
-								<form onSubmit={ formik.handleSubmit }>
+								<form onSubmit={formik.handleSubmit}>
 									<Grid
-										md={ 12 }
+										md={12}
 										item
 										className="blockDiv"
 										container
@@ -244,9 +244,9 @@ function NewUser() {
 											container
 											justifyContent="center"
 											item
-											lg={ 8 }
-											md={ 8 }
-											xs={ 12 }
+											lg={8}
+											md={8}
+											xs={12}
 											className="textBlock"
 										>
 											<PasswordField
@@ -255,11 +255,11 @@ function NewUser() {
 												label="Create Password *"
 												type="password"
 												data-testid="password"
-												materialProps={ { maxLength: "30" } }
-												onKeyDown={ preventSpace }
-												value={ formik.values.newPassword }
-												onChange={ formik.handleChange }
-												onBlur={ formik.handleBlur }
+												materialProps={{ maxLength: "30" }}
+												onKeyDown={preventSpace}
+												value={formik.values.newPassword}
+												onChange={formik.handleChange}
+												onBlur={formik.handleBlur}
 												error={
 													formik.touched.newPassword &&
 													Boolean(formik.errors.newPassword)
@@ -279,11 +279,11 @@ function NewUser() {
 												label="Confirm Password *"
 												type="confirmPassword"
 												data-testid="confirmpassword"
-												materialProps={ { maxLength: "30" } }
-												onKeyDown={ preventSpace }
-												value={ formik.values.confirmPassword }
-												onChange={ formik.handleChange }
-												onBlur={ formik.handleBlur }
+												materialProps={{ maxLength: "30" }}
+												onKeyDown={preventSpace}
+												value={formik.values.confirmPassword}
+												onChange={formik.handleChange}
+												onBlur={formik.handleBlur}
 												error={
 													formik.touched.confirmPassword &&
 													Boolean(formik.errors.confirmPassword)
@@ -294,10 +294,10 @@ function NewUser() {
 												}
 											/>
 											<p
-												className={ failed ? "showError" : "hideError" }
+												className={failed ? "showError" : "hideError"}
 												data-testid="subtitle"
 											>
-												{ " " }
+												{" "}
 												Account not created. For help please contact us at (844)
 												306-7300
 											</p>
@@ -306,24 +306,24 @@ function NewUser() {
 											justifyContent="center"
 											item
 											container
-											lg={ 8 }
-											md={ 8 }
-											xs={ 12 }
+											lg={8}
+											md={8}
+											xs={12}
 											className="textBlock alignButton"
 										>
 											<ButtonPrimary
 												type="submit"
 												data-testid="contButton"
-												disabled={ loading }
+												disabled={loading}
 												stylebutton='{"background": "#FFBC23", "fontSize": "0.938rem", "padding": "0px 30px", "color": "black"}'
 											>
 												Sign In
 												<i
 													className="fa fa-refresh fa-spin customSpinner"
-													style={ {
+													style={{
 														marginRight: "10px",
 														display: loading ? "block" : "none",
-													} }
+													}}
 												/>
 											</ButtonPrimary>
 										</Grid>

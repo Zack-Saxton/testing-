@@ -1,8 +1,8 @@
-
 #mainContainer {
   padding-top: 10px;
   width: 100%;
 }
+
 #paperPropertiesLimitedOffer {
   border-radius: 10px !important;
   box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%),
@@ -23,47 +23,51 @@
   border-radius: 10px !important;
 }
 
-#loans .subOption{
+#loans .subOption {
   color: #171717 !important;
 }
 
-.checkMyOffers{
-  display:flex;
+.checkMyOffers {
+  display: flex;
   justify-content: space-around;
-  height:220px;
-  border:solid 1px #0F4EB3;
+  height: 220px;
+  border: solid 1px #0F4EB3;
   border-radius: 10px;
 }
-.leftcheckMyOffers{
-  display:flex;
+
+.leftcheckMyOffers {
+  display: flex;
   flex-direction: column;
   justify-content: space-evenly;
 }
-.commonBoldText{
+
+.commonBoldText {
   color: #0F4EB3;
   font-size: bold;
   text-align: center;
 }
-.title{
-  display:flex;
-  flex-direction:row;
+
+.title {
+  display: flex;
+  flex-direction: row;
   justify-content: space-evenly;
 }
 
-.title-info{
-  flex:1;
+.title-info {
+  flex: 1;
   text-align: center;
 }
 
-#loans.subOption{
+#loans.subOption {
   color: #171717 !important;
 }
 
-#ClaimButton{
-  padding:20px;
+#ClaimButton {
+  padding: 20px;
   box-shadow: 0px 5px;
 }
-.apply-offer{
+
+.apply-offer {
   text-align: center;
   background-color: #E7E9EB;
   border-radius: 15px;
@@ -81,150 +85,180 @@
   border-radius: 10px !important;
 }
 
-#recentPaymentsTable thead tr th{
+#recentPaymentsTable thead tr th {
   font-weight: 700 !important;
   font-size: 0.938rem !important;
 }
-.content{
-  border:solid 1px black;
-  padding:15px;
+
+.content {
+  border: solid 1px black;
+  padding: 15px;
   border-radius: 3px;
 }
 
-.common{
-      font-family: 'Muli', sans-serif;
-      color:#6b6f82;
-      font-weight:normal
+.common {
+  font-family: 'Muli', sans-serif;
+  color: #6b6f82;
+  font-weight: normal
 }
 
-.small{
+.small {
   font-size: .8rem
 }
-.popupHeading{
+
+.popupHeading {
   padding: 20px 0px;
 }
-.popupHeading h2{
+
+.popupHeading h2 {
   font-size: 26px;
   text-align: center;
   margin: 0;
 }
-.popupHeading h4{
+
+.popupHeading h4 {
   font-size: 17px;
   text-align: center;
   margin: 0;
   margin-bottom: 5px;
 }
-.dialogContentWrap{
+
+.dialogContentWrap {
   position: relative;
 }
-#debitCardDialogClose{
+
+#debitCardDialogClose {
   position: absolute;
   right: 0px;
   top: 0px;
 }
 
-.para{
+.para {
   text-align: justify;
 }
 
-#recentPaymentsTable tbody tr td{
+#recentPaymentsTable tbody tr td {
   font-size: 0.938rem !important;
 }
 
-#summaryOfApplicationsTable  thead tr th{
+#summaryOfApplicationsTable thead tr th {
   font-weight: 700 !important;
   font-size: 0.938rem !important;
 }
 
-#summaryOfApplicationsTable  tbody tr td{
+#summaryOfApplicationsTable tbody tr td {
   font-weight: 700 !important;
   font-size: 0.938rem !important;
 }
-#overviewContainer{
+
+#overviewContainer {
   width: 100%;
   padding-left: 15px;
 }
-.OverviewAccountNumberText{
+
+.OverviewAccountNumberText {
   padding-top: 20px;
 }
-.OverviewAccountNumberText p{
+
+.OverviewAccountNumberText p {
   margin: 0;
   line-height: 1.5;
 }
-#offerText a{
+
+#offerText a {
   text-decoration: none;
 }
 
-.offerInfo{
+.offerInfo {
   border-bottom: 4px solid yellow;
 }
-.offerInfo h3{
+
+.offerInfo h3 {
   text-align: center;
 }
-.applicationDetailsWrap{
+
+.applicationDetailsWrap {
   padding-top: 20px;
   padding-bottom: 30px;
 }
+
 .applicationDetailsGrid,
-.weAreSorryWrap{
+.weAreSorryWrap {
   padding: 5px;
 }
-.loanRequestedText{
-  padding-top:40px;
-  padding-bottom:5px;
+
+.loanRequestedText {
+  padding-top: 40px;
+  padding-bottom: 5px;
+}
+
+#selectLoanAccountsGrid .MuiFormControl-fullWidth label {
+  margin-left: -14px;
 }
 
 @media (max-width: 599px) {
   #activeLoanGrid {
     height: 100% !important;
   }
+
   #overviewContainer {
     padding: 0px !important;
   }
+
   #overviewWrap {
     height: 90% !important;
     margin: 60px 0px 40px 0px;
   }
 }
+
 @media (max-width: 425px) {
   #overviewWrap {
     margin: 5px 0px 40px 0px !important;
   }
 }
+
 @media only screen and (max-width: 1024px) {
   #loanText {
     font-size: 16px !important;
   }
+
   #offerText {
     font-size: 25px !important;
   }
+
   #loanPercent {
     font-size: 18px !important;
   }
+
   #claimButton {
     padding: 0px 12px !important;
   }
 }
+
 #yellowBg {
   background-color: #febb26;
   display: flex;
   align-items: center;
   height: 221px;
 }
+
 #offerText {
   text-align: center;
 }
+
 #loanText {
   font-size: 20px;
   color: #171717;
   margin-bottom: 7px;
 }
+
 #loanPercent {
   font-weight: bolder;
   font-size: 34.2px;
   color: #171717;
   margin: 0px 0px 10px 0px;
 }
+
 #claimButton {
   color: white;
   background-color: #0f4fb3;
@@ -239,26 +273,32 @@
   #offerText button {
     font-size: 12px;
   }
+
   #loanText {
     font-size: 14px !important;
   }
+
   #offerText {
     font-size: 20px !important;
   }
-  #debitCardDialogClose{
+
+  #debitCardDialogClose {
     right: 1px;
     top: 0px;
   }
-  .popupHeading{
+
+  .popupHeading {
     padding: 33px 0px 20px 0px !important;
   }
 }
+
 #Wrapp {
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 #Wrapp img {
   height: 100%;
   width: 100%;
@@ -268,17 +308,21 @@
   #yellowBg {
     flex-direction: column;
   }
+
   #yellowBg img {
     width: 100% !important;
   }
+
   #offerText {
     margin: 15px 0px !important;
   }
 }
+
 #dueDate {
   margin-block-start: 15px;
   margin-block-end: 15px;
 }
+
 #ScheduledPaymentText {
   margin-block-start: 15px;
   margin-block-end: 15px;
@@ -289,20 +333,25 @@
     font-size: 18px !important;
     font-weight: 600;
   }
+
   #dueDate {
     font-size: 15px !important;
     margin-block-start: 15px;
     margin-block-end: 15px;
   }
+
   #regularAmountGrid {
     margin-left: -10px;
   }
+
   #scheduledPaymentGrid {
     margin-left: -15px !important;
   }
+
   #RegularAmmountText {
     width: 116px;
   }
+
   #ScheduledPaymentText {
     width: 149px !important;
     font-size: 15px;
@@ -315,12 +364,15 @@
   #activeLoanGrid {
     height: 100% !important;
   }
+
   #activeLoanWrap {
     margin-bottom: 60px;
   }
+
   #regularAmountGrid {
     margin-left: 0;
   }
+
   #scheduledPaymentGrid {
     margin-left: 0 !important;
   }
@@ -346,6 +398,7 @@
   border-radius: 0 5px 5px 0;
   box-shadow: 3px 3px 10px 0 rgb(123, 31, 162, 50%);
 }
+
 #scrollable-auto-tab-vertical-viewApplication-1.Mui-selected {
   background: linear-gradient(85deg, #264266, #0f4eb3) !important;
   color: white !important;
@@ -361,6 +414,7 @@
   }
 
 }
+
 .pulse {
   animation: pulse-animation 1.5s infinite;
 }

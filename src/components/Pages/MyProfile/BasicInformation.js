@@ -285,17 +285,17 @@ export default function BasicInformation(props) {
 
   return (
     <div>
-      <form onSubmit={ formik.handleSubmit } style={ {
+      <form onSubmit={formik.handleSubmit} style={{
         opacity: loading ? 0.55 : 1,
         pointerEvents: loading ? "none" : "initial"
-      } }>
-        { !props?.basicInformationData ? (
+      }}>
+        {!props?.basicInformationData ? (
           <Grid align="center"><CircularProgress /></Grid>
         ) : <>
           <Grid
             item
-            xs={ 12 }
-            className={ classes.basicInfoGrid }
+            xs={12}
+            className={classes.basicInfoGrid}
             container
             direction="row"
           >
@@ -304,14 +304,14 @@ export default function BasicInformation(props) {
               label="First Name"
               name="firstname"
               type="text"
-              value={ basicData?.first_name ? basicData?.first_name : "" }
-              disabled={ true }
+              value={basicData?.first_name ? basicData?.first_name : ""}
+              disabled={true}
             />
           </Grid>
           <Grid
             item
-            xs={ 12 }
-            className={ classes.basicInfoGrid }
+            xs={12}
+            className={classes.basicInfoGrid}
             container
             direction="row"
           >
@@ -320,14 +320,14 @@ export default function BasicInformation(props) {
               label="Last Name"
               name="lastname"
               type="text"
-              disabled={ true }
-              value={ basicData?.last_name ? basicData?.last_name : "" }
+              disabled={true}
+              value={basicData?.last_name ? basicData?.last_name : ""}
             />
           </Grid>
           <Grid
             item
-            xs={ 12 }
-            className={ classes.basicInfoGrid }
+            xs={12}
+            className={classes.basicInfoGrid}
             container
             direction="row"
           >
@@ -336,15 +336,15 @@ export default function BasicInformation(props) {
               label="Date of Birth"
               name="dob"
               type="date"
-              format={ "DD/MM/YYYY" }
-              disabled={ true }
-              value={ basicData?.date_of_birth ? Moment(basicData?.date_of_birth).format("MM/DD/YYYY") : "" }
+              format={"DD/MM/YYYY"}
+              disabled={true}
+              value={basicData?.date_of_birth ? Moment(basicData?.date_of_birth).format("MM/DD/YYYY") : ""}
             />
           </Grid>
           <Grid
             item
-            xs={ 12 }
-            className={ classes.basicInfoGrid }
+            xs={12}
+            className={classes.basicInfoGrid}
             container
             direction="row"
           >
@@ -353,23 +353,23 @@ export default function BasicInformation(props) {
               id="email"
               name="email"
               label="Email Address"
-              disabled={ !disableField }
-              onKeyDown={ preventSpace }
-              value={ formik.values.email }
-              materialProps={ { maxLength: "100" } }
-              onChange={ formik.handleChange }
-              onBlur={ formik.handleBlur }
-              error={ formik.touched.email && Boolean(formik.errors.email) }
-              helperText={ formik.touched.email && formik.errors.email }
+              disabled={!disableField}
+              onKeyDown={preventSpace}
+              value={formik.values.email}
+              materialProps={{ maxLength: "100" }}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.email && Boolean(formik.errors.email)}
+              helperText={formik.touched.email && formik.errors.email}
             />
           </Grid>
           <Grid
             item
-            xs={ 12 }
-            className={ classes.basicInfoGrid }
+            xs={12}
+            className={classes.basicInfoGrid}
             container
             direction="row"
-            id={ disableField ? "basicPhoneNumber" : "profilePhoneNumberWrap" }
+            id={disableField ? "basicPhoneNumber" : "profilePhoneNumberWrap"}
           >
             <TextField
               name="phone"
@@ -377,37 +377,37 @@ export default function BasicInformation(props) {
               placeholder="Enter your phone number"
               id="phone"
               type="text"
-              materialProps={ { maxLength: "14" } }
-              onKeyDown={ preventSpace }
-              onBlur={ formik.handleBlur }
-              value={ formik.values.phone ? phoneNumberMask(formik.values.phone) : "" }
-              onChange={ formik.handleChange }
-              error={ formik.touched.phone && Boolean(formik.errors.phone) }
-              helperText={ formik.touched.phone && formik.errors.phone }
-              disabled={ !disableField }
+              materialProps={{ maxLength: "14" }}
+              onKeyDown={preventSpace}
+              onBlur={formik.handleBlur}
+              value={formik.values.phone ? phoneNumberMask(formik.values.phone) : ""}
+              onChange={formik.handleChange}
+              error={formik.touched.phone && Boolean(formik.errors.phone)}
+              helperText={formik.touched.phone && formik.errors.phone}
+              disabled={!disableField}
 
             />
           </Grid>
 
           <Grid container direction="row">
-            <Grid id="imgUploadWrap" item xs={ 8 } sm={ 3 }>
+            <Grid id="imgUploadWrap" item xs={8} sm={3}>
               <img
-                style={ { width: "100%" } }
-                src={ uploadedImage ?? profileImageData }
+                style={{ width: "100%" }}
+                src={uploadedImage ?? profileImageData}
                 align="left"
                 alt="Profile Pic"
               />
 
             </Grid>
 
-            <Grid item xs={ 12 } sm={ 6 } style={ { paddingTop: "10px" } }>
+            <Grid item xs={12} sm={6} style={{ paddingTop: "10px" }}>
               <ButtonSecondary
                 stylebutton='{"background": "#FFFFFF", "padding":"0px 30px","fontWeight":"700","color": "#214476","fontSize":"0.938rem","borderWidth":"1","borderStyle": "solid"}'
                 id="uploadProfileImage"
                 variant="contained"
                 component="span"
-                onClick={ handleInputChange }
-                disabled={ !disableField }
+                onClick={handleInputChange}
+                disabled={!disableField}
               >
                 Upload New Photo
               </ButtonSecondary>
@@ -418,10 +418,10 @@ export default function BasicInformation(props) {
                 hidden
                 id="selectImage"
                 type="file"
-                ref={ refSelectImage }
+                ref={refSelectImage}
               />
               <br></br>
-              <small className={ classes.fileAllowedText }>
+              <small className={classes.fileAllowedText}>
                 Allowed jpg, gif or png. Max size of 800kb
               </small>
             </Grid>
@@ -430,16 +430,16 @@ export default function BasicInformation(props) {
             container
             alignItems="center"
             item
-            lg={ 8 }
-            md={ 8 }
-            xs={ 12 }
-            className={ `${ classes.buttonGrid } textBlock alignButton` } 
+            lg={8}
+            md={8}
+            xs={12}
+            className={`${ classes.buttonGrid } textBlock alignButton`}
           >
             <ButtonSecondary
               stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
               styleicon='{ "color":"" }'
-              onClick={ onClickCancelChange }
-              disabled={ !disableField }
+              onClick={onClickCancelChange}
+              disabled={!disableField}
             >
               Cancel
             </ButtonSecondary>
@@ -447,20 +447,20 @@ export default function BasicInformation(props) {
               stylebutton='{"marginLeft": "", "color":"#171717", "fontWeight":"700", "marginLeft": "5px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
               styleicon='{ "color":"" }'
               type="submit"
-              disabled={ loading }
+              disabled={loading}
             >
               Save Changes
               <i
                 className="fa fa-refresh fa-spin customSpinner"
-                style={ {
+                style={{
                   marginRight: "10px",
                   display: loading ? "block" : "none",
                   color: "blue"
-                } }
+                }}
               />
             </ButtonPrimary>
           </Grid>
-        </> }
+        </>}
       </form>
     </div>
   );

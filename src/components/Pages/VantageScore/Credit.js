@@ -1,6 +1,6 @@
-import { Grid } from "@mui/material";
 import ThumbDownIcon from "@mui/icons-material/ThumbDownAlt";
 import ThumbUpIcon from "@mui/icons-material/ThumbUpAlt";
+import { Grid } from "@mui/material";
 import Moment from "moment";
 import React, { useEffect, useState } from "react";
 import GaugeChart from "react-gauge-chart";
@@ -68,42 +68,42 @@ export default function Credit(creditData) {
 
   //View
   return (
-    <Grid container direction="row" spacing={ 3 }>
-      <Grid className={ classes.graph } item xs={ 12 } sm={ 6 }>
+    <Grid container direction="row" spacing={3}>
+      <Grid className={classes.graph} item xs={12} sm={6}>
         <GaugeChart
           id="gauge-chart4"
-          nrOfLevels={ 5 }
-          arcPadding={ -0.5 }
-          cornerRadius={ 0 }
-          textColor={ "#212121" }
+          nrOfLevels={5}
+          arcPadding={-0.5}
+          cornerRadius={0}
+          textColor={"#212121"}
           className={classes.guageChart}
-          percent={ percent }
-          formatTextValue={ (value) => score }
-          colors={ [ "#a50100", "#e05534", "#f2d82b", "#BCEA78", "#85c900" ] }
+          percent={percent}
+          formatTextValue={(value) => score}
+          colors={[ "#a50100", "#e05534", "#f2d82b", "#BCEA78", "#85c900" ]}
         />
-        <p id="date">{ creditDate }</p>
-        <img id="VantageScoreImg" src={ VantageScore } alt="VantageScore-logo" ></img>
+        <p id="date">{creditDate}</p>
+        <img id="VantageScoreImg" src={VantageScore} alt="VantageScore-logo" ></img>
         <p id="ProvidedBy">Provided by</p>
-        <img id="Equifax" src={ Equifax } alt="EquifaxLogo"></img>
+        <img id="Equifax" src={Equifax} alt="EquifaxLogo"></img>
       </Grid>
-      <Grid className={ classes.texts } item xs={ 12 } sm={ 6 }>
-        <p className={ classes.flex }>
-          { " " }
-          { score >= 640 ? (
-            <ThumbUpIcon className={ classes.thumb } />
+      <Grid className={classes.texts} item xs={12} sm={6}>
+        <p className={classes.flex}>
+          {" "}
+          {score >= 640 ? (
+            <ThumbUpIcon className={classes.thumb} />
           ) : (
-            <ThumbDownIcon className={ classes.thumb } />
-          ) }{ " " }
-          { status }
+            <ThumbDownIcon className={classes.thumb} />
+          )}{" "}
+          {status}
         </p>
-        <p>{ compareLastmnth }</p>
-        { (loanStatus && loanStatus?.toLowerCase() !== "closed") &&
+        <p>{compareLastmnth}</p>
+        {(loanStatus && loanStatus?.toLowerCase() !== "closed") &&
           <>
-            <ButtonPrimary onClick={ navigateCheckMyOffers } stylebutton='{"background": ""}' >
-              { " " }
+            <ButtonPrimary onClick={navigateCheckMyOffers} stylebutton='{"background": ""}' >
+              {" "}
               Check My Offers
             </ButtonPrimary>
-            <p className={ classes.smallText }>
+            <p className={classes.smallText}>
               See if you qualify for a loan offer, it won’t affect your credit
               score.
             </p>

@@ -8,8 +8,8 @@ Functionality       :    To use this component to validate and get the Bank rout
 
 import PropTypes from "prop-types";
 import React, { useState } from "react";
-import TextBox from "../Textfield";
 import globalMessages from "../../../assets/data/globalMessages.json";
+import TextBox from "../Textfield";
 
 const BankRoutingNumberWrapper = ({ name, ...otherProps }) => {
   //Set Formik field
@@ -43,11 +43,11 @@ const BankRoutingNumberWrapper = ({ name, ...otherProps }) => {
   //return the view block
   return (
     <TextBox
-      { ...configTextfield }
-      materialProps={ { maxLength: "9", "data-test-id": "BRN" } }
-      value={ bankRoutingNumber }
-      onChange={ onHandleBRNChange }
-      required={ true }
+      {...configTextfield}
+      materialProps={{ maxLength: "9", "data-testid": "BRN" }}
+      value={bankRoutingNumber}
+      onChange={onHandleBRNChange}
+      required={true}
     />
   );
 };

@@ -78,9 +78,9 @@ export default function OutlinedCard() {
 	return (
 		<div>
 			<Grid>
-				<Grid item xs={ 4 }>
+				<Grid item xs={4}>
 					<Typography
-						className={ classes.title }
+						className={classes.title}
 						color="textSecondary"
 						gutterBottom
 					>
@@ -91,17 +91,17 @@ export default function OutlinedCard() {
 
 			<Formik
 				className="form"
-				initialValues={ {
+				initialValues={{
 					...INITIAL_FORM_STATE,
-				} }
+				}}
 			>
 				<Form className="form">
-					<Grid container spacing={ 2 }>
-						<Grid item xs={ 4 }>
-							<Card className={ classes.root } variant="outlined">
+					<Grid container spacing={2}>
+						<Grid item xs={4}>
+							<Card className={classes.root} variant="outlined">
 								<CardContent>
 									<Typography
-										className={ classes.title }
+										className={classes.title}
 										color="textSecondary"
 										gutterBottom
 									>
@@ -110,20 +110,20 @@ export default function OutlinedCard() {
 									<TextField
 										name="firstName"
 										label="Enter your first name"
-										required={ true }
+										required={true}
 										type="email"
-										materialProps={ {
+										materialProps={{
 											pattern: "[0-9]+",
-										} }
+										}}
 									/>
 								</CardContent>
 							</Card>
 						</Grid>
-						<Grid item xs={ 4 }>
-							<Card className={ classes.root } variant="outlined">
+						<Grid item xs={4}>
+							<Card className={classes.root} variant="outlined">
 								<CardContent>
 									<Typography
-										className={ classes.title }
+										className={classes.title}
 										color="textSecondary"
 										gutterBottom
 									>
@@ -135,18 +135,18 @@ export default function OutlinedCard() {
 										icon="cloud"
 										iconColor="#595E6E"
 										iconPosition="right"
-										required={ true }
+										required={true}
 
 									// customClass='fa fa-plus-circle'
 									/>
 								</CardContent>
 							</Card>
 						</Grid>
-						<Grid item xs={ 4 }>
-							<Card className={ classes.root } variant="outlined">
+						<Grid item xs={4}>
+							<Card className={classes.root} variant="outlined">
 								<CardContent>
 									<Typography
-										className={ classes.title }
+										className={classes.title}
 										color="textSecondary"
 										gutterBottom
 									>
@@ -161,11 +161,11 @@ export default function OutlinedCard() {
 								</CardContent>
 							</Card>
 						</Grid>
-						<Grid item xs={ 4 }>
-							<Card className={ classes.root } variant="outlined">
+						<Grid item xs={4}>
+							<Card className={classes.root} variant="outlined">
 								<CardContent>
 									<Typography
-										className={ classes.title }
+										className={classes.title}
 										color="textSecondary"
 										gutterBottom
 									>
@@ -182,11 +182,11 @@ export default function OutlinedCard() {
 								</CardContent>
 							</Card>
 						</Grid>
-						<Grid item xs={ 4 }>
-							<Card className={ classes.root } variant="outlined">
+						<Grid item xs={4}>
+							<Card className={classes.root} variant="outlined">
 								<CardContent>
 									<Typography
-										className={ classes.title }
+										className={classes.title}
 										color="textSecondary"
 										gutterBottom
 									>
@@ -199,11 +199,11 @@ export default function OutlinedCard() {
 								</CardContent>
 							</Card>
 						</Grid>
-						<Grid item xs={ 4 }>
-							<Card className={ classes.root } variant="outlined">
+						<Grid item xs={4}>
+							<Card className={classes.root} variant="outlined">
 								<CardContent>
 									<Typography
-										className={ classes.title }
+										className={classes.title}
 										color="textSecondary"
 										gutterBottom
 									>
@@ -219,11 +219,11 @@ export default function OutlinedCard() {
 								</CardContent>
 							</Card>
 						</Grid>
-						<Grid item xs={ 4 }>
-							<Card className={ classes.root } variant="outlined">
+						<Grid item xs={4}>
+							<Card className={classes.root} variant="outlined">
 								<CardContent>
 									<Typography
-										className={ classes.title }
+										className={classes.title}
 										color="textSecondary"
 										gutterBottom
 									>
@@ -238,11 +238,11 @@ export default function OutlinedCard() {
 								</CardContent>
 							</Card>
 						</Grid>
-						<Grid item xs={ 4 }>
-							<Card className={ classes.root } variant="outlined">
+						<Grid item xs={4}>
+							<Card className={classes.root} variant="outlined">
 								<CardContent>
 									<Typography
-										className={ classes.title }
+										className={classes.title}
 										color="textSecondary"
 										gutterBottom
 									>
@@ -258,11 +258,11 @@ export default function OutlinedCard() {
 								</CardContent>
 							</Card>
 						</Grid>
-						<Grid item xs={ 4 }>
-							<Card className={ classes.root } variant="outlined">
+						<Grid item xs={4}>
+							<Card className={classes.root} variant="outlined">
 								<CardContent>
 									<Typography
-										className={ classes.title }
+										className={classes.title}
 										color="textSecondary"
 										gutterBottom
 									>
@@ -272,11 +272,11 @@ export default function OutlinedCard() {
 								</CardContent>
 							</Card>
 						</Grid>
-						<Grid item xs={ 4 }>
-							<Card className={ classes.root } variant="outlined">
+						<Grid item xs={4}>
+							<Card className={classes.root} variant="outlined">
 								<CardContent>
 									<Typography
-										className={ classes.title }
+										className={classes.title}
 										color="textSecondary"
 										gutterBottom
 									>
@@ -286,7 +286,7 @@ export default function OutlinedCard() {
 										name="termsOfService"
 										labelform="Terms & Service"
 										label="I agree"
-										required={ true }
+										required={true}
 										stylelabelform='{ "color":"" }'
 										stylecheckbox='{ "color":"blue" }'
 										stylecheckboxlabel='{ "color":"" }'
@@ -294,11 +294,11 @@ export default function OutlinedCard() {
 								</CardContent>
 							</Card>
 						</Grid>
-						<Grid item xs={ 4 }>
-							<Card className={ classes.root } variant="outlined">
+						<Grid item xs={4}>
+							<Card className={classes.root} variant="outlined">
 								<CardContent>
 									<Typography
-										className={ classes.title }
+										className={classes.title}
 										color="textSecondary"
 										gutterBottom
 									>
@@ -307,17 +307,17 @@ export default function OutlinedCard() {
 									<Select
 										name="select"
 										labelform="Language Known"
-										required={ true }
+										required={true}
 										select='[{"value":"Tamil"}, {"value":"Eng"}]'
 									/>
 								</CardContent>
 							</Card>
 						</Grid>
-						<Grid item xs={ 4 }>
-							<Card className={ classes.root } variant="outlined">
+						<Grid item xs={4}>
+							<Card className={classes.root} variant="outlined">
 								<CardContent>
 									<Typography
-										className={ classes.title }
+										className={classes.title}
 										color="textSecondary"
 										gutterBottom
 									>
@@ -328,18 +328,18 @@ export default function OutlinedCard() {
 										labelforform="Gender"
 										radiolabel='[{"label":"Male", "value":"male"}, {"label":"Female", "value":"female"}]'
 										value="male"
-										row={ true }
-										required={ true }
-										labelplacement={ "end" }
+										row={true}
+										required={true}
+										labelplacement={"end"}
 									/>
 								</CardContent>
 							</Card>
 						</Grid>
-						<Grid item xs={ 4 }>
-							<Card className={ classes.root } variant="outlined">
+						<Grid item xs={4}>
+							<Card className={classes.root} variant="outlined">
 								<CardContent>
 									<Typography
-										className={ classes.title }
+										className={classes.title}
 										color="textSecondary"
 										gutterBottom
 									>
@@ -354,11 +354,11 @@ export default function OutlinedCard() {
 								</CardContent>
 							</Card>
 						</Grid>
-						<Grid item xs={ 4 }>
-							<Card className={ classes.root } variant="outlined">
+						<Grid item xs={4}>
+							<Card className={classes.root} variant="outlined">
 								<CardContent>
 									<Typography
-										className={ classes.title }
+										className={classes.title}
 										color="textSecondary"
 										gutterBottom
 									>
@@ -369,7 +369,7 @@ export default function OutlinedCard() {
 										row="4"
 										label="TextArea"
 										variant="outlined"
-										required={ true }
+										required={true}
 										character_limit="20"
 										name="TextArea"
 										value="TextArea"
@@ -377,11 +377,11 @@ export default function OutlinedCard() {
 								</CardContent>
 							</Card>
 						</Grid>
-						<Grid item xs={ 4 }>
-							<Card className={ classes.root } variant="outlined">
+						<Grid item xs={4}>
+							<Card className={classes.root} variant="outlined">
 								<CardContent>
 									<Typography
-										className={ classes.title }
+										className={classes.title}
 										color="textSecondary"
 										gutterBottom
 									>
@@ -392,11 +392,11 @@ export default function OutlinedCard() {
 								</CardContent>
 							</Card>
 						</Grid>
-						<Grid item xs={ 4 }>
-							<Card className={ classes.root } variant="outlined">
+						<Grid item xs={4}>
+							<Card className={classes.root} variant="outlined">
 								<CardContent>
 									<Typography
-										className={ classes.title }
+										className={classes.title}
 										color="textSecondary"
 										gutterBottom
 									>
@@ -406,11 +406,11 @@ export default function OutlinedCard() {
 								</CardContent>
 							</Card>
 						</Grid>
-						<Grid item xs={ 4 }>
-							<Card className={ classes.root } variant="outlined">
+						<Grid item xs={4}>
+							<Card className={classes.root} variant="outlined">
 								<CardContent>
 									<Typography
-										className={ classes.title }
+										className={classes.title}
 										color="textSecondary"
 										gutterBottom
 									>
@@ -420,11 +420,11 @@ export default function OutlinedCard() {
 								</CardContent>
 							</Card>
 						</Grid>
-						<Grid item xs={ 4 }>
-							<Card className={ classes.root } variant="outlined">
+						<Grid item xs={4}>
+							<Card className={classes.root} variant="outlined">
 								<CardContent>
 									<Typography
-										className={ classes.title }
+										className={classes.title}
 										color="textSecondary"
 										gutterBottom
 									>
@@ -434,11 +434,11 @@ export default function OutlinedCard() {
 								</CardContent>
 							</Card>
 						</Grid>
-						<Grid item xs={ 4 }>
-							<Card className={ classes.root } variant="outlined">
+						<Grid item xs={4}>
+							<Card className={classes.root} variant="outlined">
 								<CardContent>
 									<Typography
-										className={ classes.title }
+										className={classes.title}
 										color="textSecondary"
 										gutterBottom
 									>
@@ -447,16 +447,16 @@ export default function OutlinedCard() {
 									<AccountNumber
 										name="acc"
 										label="Enter Account number"
-										required={ true }
+										required={true}
 									/>
 								</CardContent>
 							</Card>
 						</Grid>
-						<Grid item xs={ 4 }>
-							<Card className={ classes.root } variant="outlined">
+						<Grid item xs={4}>
+							<Card className={classes.root} variant="outlined">
 								<CardContent>
 									<Typography
-										className={ classes.title }
+										className={classes.title}
 										color="textSecondary"
 										gutterBottom
 									>
@@ -469,11 +469,11 @@ export default function OutlinedCard() {
 								</CardContent>
 							</Card>
 						</Grid>
-						<Grid item xs={ 4 }>
-							<Card className={ classes.root } variant="outlined">
+						<Grid item xs={4}>
+							<Card className={classes.root} variant="outlined">
 								<CardContent>
 									<Typography
-										className={ classes.title }
+										className={classes.title}
 										color="textSecondary"
 										gutterBottom
 									>
@@ -490,11 +490,11 @@ export default function OutlinedCard() {
 								</CardContent>
 							</Card>
 						</Grid>
-						<Grid item xs={ 4 }>
-							<Card className={ classes.root } variant="outlined">
+						<Grid item xs={4}>
+							<Card className={classes.root} variant="outlined">
 								<CardContent>
 									<Typography
-										className={ classes.title }
+										className={classes.title}
 										color="textSecondary"
 										gutterBottom
 									>
@@ -504,18 +504,18 @@ export default function OutlinedCard() {
 										name="autoCompleteMultiple"
 										label="AutoComplete"
 										variant="outlined"
-										jsonInput='[{"value":"India"}, {"value":"USA"}]'
+										jsonInput='[{"value":"India"}, {"value":"USA"}, {"value":"Indonesia"}, {"value":"Italy"}]'
 										placeholder="Choose Country"
 										stylecheckbox='{ "color":""}'
 									/>
 								</CardContent>
 							</Card>
 						</Grid>
-						<Grid item xs={ 4 }>
-							<Card className={ classes.root } variant="outlined">
+						<Grid item xs={4}>
+							<Card className={classes.root} variant="outlined">
 								<CardContent>
 									<Typography
-										className={ classes.title }
+										className={classes.title}
 										color="textSecondary"
 										gutterBottom
 									>
@@ -529,11 +529,11 @@ export default function OutlinedCard() {
 								</CardContent>
 							</Card>
 						</Grid>
-						<Grid item xs={ 4 }>
-							<Card className={ classes.root } variant="outlined">
+						<Grid item xs={4}>
+							<Card className={classes.root} variant="outlined">
 								<CardContent>
 									<Typography
-										className={ classes.title }
+										className={classes.title}
 										color="textSecondary"
 										gutterBottom
 									>
@@ -549,19 +549,19 @@ export default function OutlinedCard() {
 								</CardContent>
 							</Card>
 						</Grid>
-						<Grid item xs={ 8 }>
-							<Card className={ classes.root } variant="outlined">
+						<Grid item xs={8}>
+							<Card className={classes.root} variant="outlined">
 								<CardContent>
 									<Typography
-										className={ classes.title }
+										className={classes.title}
 										color="textSecondary"
 										gutterBottom
 									>
 										Data grid
 									</Typography>
 									<DataGrid
-										rows={ rows }
-										columns={ columns }
+										rows={rows}
+										columns={columns}
 										height="300px"
 										width="100%"
 									/>

@@ -1,11 +1,11 @@
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useQuery } from 'react-query';
@@ -203,186 +203,186 @@ export default function PartnerSignUp() {
   //View Part
   return (
     <div>
-      <div className={ classes.mainContentBackground } id="mainContentBackground">
+      <div className={classes.mainContentBackground} id="mainContentBackground">
         <Box>
           <Grid
-            className={ classes.partnerSignUpGrid }
-            xs={ 10 }
-            item            
+            className={classes.partnerSignUpGrid}
+            xs={10}
+            item
             container
             justifyContent="center"
             alignItems="center"
           >
             <Grid
-              xs={ 11 }
-              sm={ 10 }
-              md={ 8 }
-              lg={ 6 }
-              xl={ 7 }
+              xs={11}
+              sm={10}
+              md={8}
+              lg={6}
+              xl={7}
               className="partnerSignUpCard"
               item
             >
-              <Paper className={ classes.paper }
-                style={ {
+              <Paper className={classes.paper}
+                style={{
                   opacity: loading ? 0.55 : 1,
                   pointerEvents: loading ? "none" : "initial"
-                } }>
-                { utm_source === "CreditKarma" ? (
+                }}>
+                {utm_source === "CreditKarma" ? (
                   <Typography
-                    className={ classes.title }
+                    className={classes.title}
                     data-testid="title"
                     color="textSecondary"
                   >
                     <a href="https://www.creditkarma.com/" target="blank">
                       <img
-                        className={ classes.fullWidth }
-                        src={ creditkarmalogo }
+                        className={classes.fullWidth}
+                        src={creditkarmalogo}
                         alt="creditkarmalogo"
                       />
                     </a>
                   </Typography>
                 ) : utm_source === "OneLoanPlace" ? (
                   <Typography
-                    className={ classes.title }
+                    className={classes.title}
                     data-testid="title"
                     color="textSecondary"
                   >
                     <a href="/#" target="blank">
                       <img
-                        className={ classes.fullWidth }
-                        src={ OneLoanPlacelogo }
+                        className={classes.fullWidth}
+                        src={OneLoanPlacelogo}
                         alt="OneLoanPlacelogo"
                       />
                     </a>
                   </Typography>
                 ) : utm_source === "GTL" ? (
                   <Typography
-                    className={ classes.title }
+                    className={classes.title}
                     data-testid="title"
                     color="textSecondary"
                   >
                     <a href="/#" target="blank">
                       <img
-                        className={ classes.fullWidth }
-                        src={ GTLlogo }
+                        className={classes.fullWidth}
+                        src={GTLlogo}
                         alt="GTLlogo"
                       />
                     </a>
                   </Typography>
                 ) : utm_source === "amone" ? (
                   <Typography
-                    className={ classes.title }
+                    className={classes.title}
                     data-testid="title"
                     color="textSecondary"
                   >
                     <a href="/#" target="blank">
                       <img
-                        className={ classes.fullWidth }
-                        src={ amonelogo }
+                        className={classes.fullWidth}
+                        src={amonelogo}
                         alt="amonelogo"
                       />
                     </a>
                   </Typography>
                 ) : utm_source === "NerdWallet" ? (
                   <Typography
-                    className={ classes.title }
+                    className={classes.title}
                     data-testid="title"
                     color="textSecondary"
                   >
                     <a href="/#" target="blank">
                       <img
-                        className={ classes.fullWidth }
-                        src={ NerdWalletlogo }
+                        className={classes.fullWidth}
+                        src={NerdWalletlogo}
                         alt="NerdWalletlogo"
                       />
                     </a>
                   </Typography>
                 ) : utm_source === "LendingTree" ? (
                   <Typography
-                    className={ classes.title }
+                    className={classes.title}
                     data-testid="title"
                     color="textSecondary"
                   >
                     <a href="/#" target="blank">
                       <img
-                        className={ classes.fullWidth }
-                        src={ LendingTreelogo }
+                        className={classes.fullWidth}
+                        src={LendingTreelogo}
                         alt="LendingTreelogo"
                       />
                     </a>
                   </Typography>
                 ) : (
                   ""
-                ) }
-                <p className={ classes.introText }>
+                )}
+                <p className={classes.introText}>
                   Thank you for choosing Mariner Finance. Please provide the
                   following information to view your offers.
                 </p>
-                {/* </div> */ }
-                <form onSubmit={ formik.handleSubmit }>
+                {/* </div> */}
+                <form onSubmit={formik.handleSubmit}>
                   <Grid
                     container
-                    spacing={ 4 }
+                    spacing={4}
                   >
-                    <Grid className={ classes.fullWidth } item xs={ 12 }>
+                    <Grid className={classes.fullWidth} item xs={12}>
                       <EmailTextField
                         id="email"
                         name="email"
                         label="Email Address"
                         placeholder="Enter your email address"
-                        materialProps={ { maxLength: "100" } }
-                        onKeyDown={ preventSpace }
-                        value={ formik.values.email }
-                        onChange={ formik.handleChange }
-                        onBlur={ formik.handleBlur }
+                        materialProps={{ maxLength: "100" }}
+                        onKeyDown={preventSpace}
+                        value={formik.values.email}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
                         error={
                           formik.touched.email && Boolean(formik.errors.email)
                         }
-                        helperText={ formik.touched.email && formik.errors.email }
-                        disabled={ true }
+                        helperText={formik.touched.email && formik.errors.email}
+                        disabled={true}
                       />
                     </Grid>
 
-                    <Grid item xs={ 12 }>
+                    <Grid item xs={12}>
                       <SocialSecurityNumber
                         name="ssn"
                         label="Enter your last 4 digits of SSN"
                         placeholder="Enter your SSN"
                         id="ssn"
                         mask="9999"
-                        value={ formik.values.ssn }
-                        onChange={ formik.handleChange }
-                        materialProps={ { maxLength: "4" } }
-                        onBlur={ formik.handleBlur }
-                        error={ formik.touched.ssn && Boolean(formik.errors.ssn) }
-                        helperText={ formik.touched.ssn && formik.errors.ssn }
+                        value={formik.values.ssn}
+                        onChange={formik.handleChange}
+                        materialProps={{ maxLength: "4" }}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.ssn && Boolean(formik.errors.ssn)}
+                        helperText={formik.touched.ssn && formik.errors.ssn}
                       />
                     </Grid>
 
-                    <Grid item xs={ 12 } sm={ 6 } container direction="row">
+                    <Grid item xs={12} sm={6} container direction="row">
                       <TextField
                         name="callPhNo"
                         label="Phone number *"
                         id="phone"
                         type="text"
-                        materialProps={ { maxLength: "14" } }
-                        onKeyDown={ preventSpace }
-                        onBlur={ formik.handleBlur }
-                        value={ formik.values.callPhNo ? phoneNumberMask(formik.values.callPhNo) : "" }
-                        onChange={ formik.handleChange }
-                        error={ formik.touched.callPhNo && Boolean(formik.errors.callPhNo) }
-                        helperText={ formik.touched.callPhNo && formik.errors.callPhNo }
+                        materialProps={{ maxLength: "14" }}
+                        onKeyDown={preventSpace}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.callPhNo ? phoneNumberMask(formik.values.callPhNo) : ""}
+                        onChange={formik.handleChange}
+                        error={formik.touched.callPhNo && Boolean(formik.errors.callPhNo)}
+                        helperText={formik.touched.callPhNo && formik.errors.callPhNo}
                       />
                     </Grid>
 
-                    <Grid item xs={ 12 } sm={ 6 } container direction="row" id="phoneTypeWrap">
+                    <Grid item xs={12} sm={6} container direction="row" id="phoneTypeWrap">
                       <Select
                         id="phoneType"
                         name="phoneType"
                         labelform="Phone Type"
-                        value={ formik.values.phoneType }
-                        onChange={ formik.handleChange }
-                        onBlur={ formik.handleBlur }
+                        value={formik.values.phoneType}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
                         error={
                           formik.touched.phoneType &&
                           Boolean(formik.errors.phoneType)
@@ -395,18 +395,18 @@ export default function PartnerSignUp() {
                       />
                     </Grid>
 
-                    <Grid item xs={ 12 }>
+                    <Grid item xs={12}>
                       <PasswordField
                         name="password"
                         label="Create New Password *"
                         placeholder="Enter your password"
                         id="password"
                         type="password"
-                        onKeyDown={ preventSpace }
-                        materialProps={ { maxLength: "30" } }
-                        value={ formik.values.password }
-                        onChange={ formik.handleChange }
-                        onBlur={ formik.handleBlur }
+                        onKeyDown={preventSpace}
+                        materialProps={{ maxLength: "30" }}
+                        value={formik.values.password}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
                         error={
                           formik.touched.password &&
                           Boolean(formik.errors.password)
@@ -415,25 +415,25 @@ export default function PartnerSignUp() {
                           formik.touched.password && formik.errors.password
                         }
                       />
-                      <p id="passwordTitle" className={ classes.passwordTitle }>
+                      <p id="passwordTitle" className={classes.passwordTitle}>
                         Please ensure your password meets the following
                         criteria: between 10 and 30 characters in length, at
                         least 1 uppercase letter, at least 1 lowercase letter,
                         at least 1 symbol and at least 1 number.
                       </p>
                     </Grid>
-                    <Grid item xs={ 12 }>
+                    <Grid item xs={12}>
                       <PasswordField
                         name="confirmPassword"
                         label="Re-enter Your Password *"
                         placeholder="Enter your confirm password"
                         id="cpass"
                         type="password"
-                        onKeyDown={ preventSpace }
-                        materialProps={ { maxLength: "30" } }
-                        value={ formik.values.confirmPassword }
-                        onChange={ formik.handleChange }
-                        onBlur={ formik.handleBlur }
+                        onKeyDown={preventSpace}
+                        materialProps={{ maxLength: "30" }}
+                        value={formik.values.confirmPassword}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
                         error={
                           formik.touched.confirmPassword &&
                           Boolean(formik.errors.confirmPassword)
@@ -452,14 +452,14 @@ export default function PartnerSignUp() {
                         }
                         data-testid="subtitle"
                       >
-                        { " " }
-                        { failed }
+                        {" "}
+                        {failed}
                       </p>
                     </Grid>
 
                     <Grid
                       item
-                      xs={ 12 }
+                      xs={12}
                       className={
                         utm_source !== "CreditKarma"
                           ? "showCheckbox"
@@ -472,21 +472,21 @@ export default function PartnerSignUp() {
                       <Checkbox
                         name="termsOfService"
                         labelform="Terms & Service"
-                        value={ agree }
-                        onChange={ (event) => {
+                        value={agree}
+                        onChange={(event) => {
                           setAgree(event.target.checked);
-                        } }
+                        }}
                         label={
                           <p className="agreeCheckbox">
                             By clicking this box you acknowledge that you have
-                            received, reviewed and agree to the { "" }
-                            <span className="formatHref" onClick={ () => { handleOnClickEsign(); } }>E-Signature Disclosure and Consent,</span>
-                            { "" } <span className="formatHref" onClick={ () => { handleOnClickCredit(); } }>Credit and Contact Authorization,</span>
-                            { "" } <span className="formatHref" onClick={ () => { handleOnClickwebTOU(); } }>Website Terms of Use,</span>
-                            { "" } <span className="formatHref" onClick={ () => { handleOnClickPrivacy(); } }>Website Privacy Statement.</span>
+                            received, reviewed and agree to the {""}
+                            <span className="formatHref" onClick={() => { handleOnClickEsign(); }}>E-Signature Disclosure and Consent,</span>
+                            {""} <span className="formatHref" onClick={() => { handleOnClickCredit(); }}>Credit and Contact Authorization,</span>
+                            {""} <span className="formatHref" onClick={() => { handleOnClickwebTOU(); }}>Website Terms of Use,</span>
+                            {""} <span className="formatHref" onClick={() => { handleOnClickPrivacy(); }}>Website Privacy Statement.</span>
                           </p>
                         }
-                        required={ utm_source !== "CreditKarma" ? true : false }
+                        required={utm_source !== "CreditKarma" ? true : false}
                         stylelabelform='{ "color":"" }'
                         stylecheckbox='{ "color":"blue"}'
                         stylecheckboxlabel='{ "color":"" }'
@@ -502,24 +502,24 @@ export default function PartnerSignUp() {
                         <Checkbox
                           name="delaware"
                           labelform="delaware"
-                          value={ agreeDelaware }
-                          onChange={ (event) => {
+                          value={agreeDelaware}
+                          onChange={(event) => {
                             setAgreeDelaware(event.target.checked);
-                          } }
+                          }}
                           label={
                             <p className="agreeCheckbox">
                               By clicking this box you acknowledge that you have
-                              received and reviewed the{ " " }
+                              received and reviewed the{" "}
                               <span
                                 className="formatHref"
-                                onClick={ handleClickDelawareOpen }
+                                onClick={handleClickDelawareOpen}
                               >
-                                Delaware Itemized Schedule Of Charges.{ " " }
+                                Delaware Itemized Schedule Of Charges.{" "}
                               </span>
                             </p>
                           }
-                          required={ utm_source !== "CreditKarma" && (populateSignupData?.state === "Delaware" ||
-                            populateSignupData?.state === "DE") ? true : false }
+                          required={utm_source !== "CreditKarma" && (populateSignupData?.state === "Delaware" ||
+                            populateSignupData?.state === "DE") ? true : false}
                           stylelabelform='{ "color":"" }'
                           stylecheckbox='{ "color":"blue" }'
                           stylecheckboxlabel='{ "color":"" }'
@@ -536,15 +536,15 @@ export default function PartnerSignUp() {
                         <Checkbox
                           name="california"
                           labelform="california"
-                          value={ agreeCalifornia }
-                          onChange={ (event) => {
+                          value={agreeCalifornia}
+                          onChange={(event) => {
                             setAgreeCalifornia(event.target.checked);
-                          } }
+                          }}
                           label={
                             <p className="agreeCheckbox">
                               By clicking this box you acknowledge that you have
                               been offered and had the opportunity to review
-                              this{ " " }
+                              this{" "}
                               <a
                                 className="formatHref"
                                 href={
@@ -557,8 +557,8 @@ export default function PartnerSignUp() {
                               </a>
                             </p>
                           }
-                          required={ utm_source !== "CreditKarma" && (populateSignupData?.state === "California" ||
-                            populateSignupData?.state === "CA") ? true : false }
+                          required={utm_source !== "CreditKarma" && (populateSignupData?.state === "California" ||
+                            populateSignupData?.state === "CA") ? true : false}
                           stylelabelform='{ "color":"" }'
                           stylecheckbox='{ "color":"blue" }'
                           stylecheckboxlabel='{ "color":"" }'
@@ -576,19 +576,19 @@ export default function PartnerSignUp() {
                         <Checkbox
                           name="newmexico"
                           labelform="newmexico"
-                          value={ agreeNewMexico }
-                          onChange={ (event) => {
+                          value={agreeNewMexico}
+                          onChange={(event) => {
                             setAgreeNewMexico(event.target.checked);
-                          } }
+                          }}
                           label={
                             <p className="agreeCheckbox">
                               NM Residents: By clicking this box you acknowledge
                               that you have reviewed the Important Consumer
                               Information in Mariner’s New Mexico Consumer
-                              Brochure located at{ " " }
+                              Brochure located at{" "}
                               <a
                                 className="formatHref"
-                                href={ "http://marfi.me/NMBrochure." }
+                                href={"http://marfi.me/NMBrochure."}
                                 target="_blank"
                                 rel="noreferrer noopener"
                               >
@@ -596,9 +596,9 @@ export default function PartnerSignUp() {
                               </a>
                             </p>
                           }
-                          required={ utm_source !== "CreditKarma" &&
+                          required={utm_source !== "CreditKarma" &&
                             (populateSignupData?.state === "New Mexico" ||
-                              populateSignupData?.state === "NM") ? true : false }
+                              populateSignupData?.state === "NM") ? true : false}
                           stylelabelform='{ "color":"" }'
                           stylecheckbox='{ "color":"blue" }'
                           stylecheckboxlabel='{ "color":"" }'
@@ -606,21 +606,21 @@ export default function PartnerSignUp() {
                       </div>
                     </Grid>
 
-                    <Grid item xs={ 12 } className={ classes.signInButtonGrid }>
+                    <Grid item xs={12} className={classes.signInButtonGrid}>
 
                       <ButtonPrimary
                         type="submit"
                         data-testid="submit"
                         stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
-                        disabled={ loading }
+                        disabled={loading}
                       >
-                        { utm_source === "CreditKarma" ? "Continue" : "View your offers" }
+                        {utm_source === "CreditKarma" ? "Continue" : "View your offers"}
                         <i
                           className="fa fa-refresh fa-spin customSpinner"
-                          style={ {
+                          style={{
                             marginRight: "10px",
                             display: loading ? "block" : "none",
-                          } }
+                          }}
                         />
                       </ButtonPrimary>
                     </Grid>
@@ -632,35 +632,35 @@ export default function PartnerSignUp() {
         </Box>
       </div>
 
-      <Popup popupFlag={ esignPopup } closePopup={ handleOnClickEsignClose } title="E-Signature Disclosure and Consent">
+      <Popup popupFlag={esignPopup} closePopup={handleOnClickEsignClose} title="E-Signature Disclosure and Consent">
         <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
         <RenderContent disclosureLink="/eSign" />
       </Popup>
-      <Popup popupFlag={ creditPopup } closePopup={ handleOnClickCreditClose } title="Credit and Contact Authorization">
+      <Popup popupFlag={creditPopup} closePopup={handleOnClickCreditClose} title="Credit and Contact Authorization">
         <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
         <RenderContent disclosureLink="/credit" />
       </Popup>
-      <Popup popupFlag={ webTOUPopup } closePopup={ handleOnClickwebTOUClose } title="Terms of Use">
+      <Popup popupFlag={webTOUPopup} closePopup={handleOnClickwebTOUClose} title="Terms of Use">
         <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
         <RenderContent disclosureLink="/websiteTermsOfUse" />
       </Popup>
-      <Popup popupFlag={ privacyPopup } closePopup={ handleOnClickPrivacyClose } title="Privacy Statement">
+      <Popup popupFlag={privacyPopup} closePopup={handleOnClickPrivacyClose} title="Privacy Statement">
         <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
         <RenderContent disclosureLink="/privacy" />
       </Popup>
 
-      <Popup popupFlag={ openDelaware } closePopup={ handleDelawareClose } title="Delaware Itemized Schedule of Charges">
+      <Popup popupFlag={openDelaware} closePopup={handleDelawareClose} title="Delaware Itemized Schedule of Charges">
         <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
         <RenderContent disclosureLink="/delaware" />
       </Popup>
 
-      {/* CA user */ }
+      {/* CA user */}
       <Dialog
-        onClose={ handleCloseCA }
+        onClose={handleCloseCA}
         aria-labelledby="customized-dialog-title"
-        open={ openCA }
+        open={openCA}
       >
-        <DialogTitle id="customized-dialog-title" onClose={ handleCloseCA }>
+        <DialogTitle id="customized-dialog-title" onClose={handleCloseCA}>
           Notice to CA Residents
         </DialogTitle>
         <DialogContent dividers>
@@ -671,7 +671,7 @@ export default function PartnerSignUp() {
         <DialogActions className="modalAction">
           <ButtonPrimary
             stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
-            onClick={ handleCloseCA }
+            onClick={handleCloseCA}
             className="modalButton"
           >
             <Typography align="center">Ok</Typography>
@@ -679,13 +679,13 @@ export default function PartnerSignUp() {
         </DialogActions>
       </Dialog>
 
-      {/* Ohio users */ }
+      {/* Ohio users */}
       <Dialog
-        onClose={ handleCloseOhio }
+        onClose={handleCloseOhio}
         aria-labelledby="customized-dialog-title"
-        open={ openOhio }
+        open={openOhio}
       >
-        <DialogTitle id="customized-dialog-title" onClose={ handleCloseOhio }>
+        <DialogTitle id="customized-dialog-title" onClose={handleCloseOhio}>
           Notice to OH Residents
         </DialogTitle>
         <DialogContent dividers>
@@ -700,7 +700,7 @@ export default function PartnerSignUp() {
         <DialogActions className="modalAction">
           <ButtonPrimary
             stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
-            onClick={ handleCloseOhio }
+            onClick={handleCloseOhio}
             className="modalButton"
           >
             <Typography align="center">Ok</Typography>

@@ -7,7 +7,7 @@ afterEach(cleanup);
 
 test('Render DatePicker', () => {
   const container = render(
-    <DatePicker name="date" defaultDate={ new Date() } />);
+    <DatePicker name="date" defaultDate={new Date()} />);
 
   const input = container.getByTestId('datePicker');
   expect(input).toBeTruthy();
@@ -17,6 +17,6 @@ test('Render DatePicker', () => {
 });
 
 test('should match the snapshot', () => {
-  const { asFragment } = render(<DatePicker name="date" defaultDate={ new Date() } />);
+  const { asFragment } = render(<DatePicker name="date" defaultDate={new Date()} />);
   expect(asFragment).toMatchSnapshot();
 });

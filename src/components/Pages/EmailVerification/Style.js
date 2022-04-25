@@ -16,26 +16,26 @@ const useStylesEmailVerification = makeStyles((theme) => ({
     padding: theme.spacing(3),
   },
   ensureText: {
-    lineHeight:"1.5",
-    color:"#595959",
+    lineHeight: "1.5",
+    color: "#595959",
     fontSize: "0.906rem",
-    paddingTop:"10px",
-    paddingLeft:"0px",
-    display:"block",
+    paddingTop: "10px",
+    paddingLeft: "0px",
+    display: "block",
   },
   ensureTitle: {
-    lineHeight:"1.5",
-    color:"#595959",
+    lineHeight: "1.5",
+    color: "#595959",
     fontSize: "0.938rem",
-    paddingLeft:"0px",
-    display:"block"
+    paddingLeft: "0px",
+    display: "block"
   },
   PleaseEnsureList: {
     paddingLeft: "0px",
     fontSize: "0.938rem",
-    color:"#595959",
-    lineHeight:"1.5",
-    margin:"0px",
+    color: "#595959",
+    lineHeight: "1.5",
+    margin: "0px",
     listStylePosition: "inside"
   },
   uploadDocumentText: {
@@ -45,9 +45,10 @@ const useStylesEmailVerification = makeStyles((theme) => ({
   },
   uploadDocumentParagraph: {
     display: "block",
-    color:"#595959",
+    color: "#595959",
     fontSize: "0.938rem",
-    lineHeight:"1.5"
+    lineHeight: "1.5",
+    textAlign: "justify"
   },
   nextButton: {
     marginTop: "20px",
@@ -74,34 +75,51 @@ const useStylesEmailVerification = makeStyles((theme) => ({
     display: "block",
   },
   hideCheckbox: {
-      display: "none"
+    display: "none"
   },
   showNextButton: {
     display: "block",
     color: ""
   },
   hideNextButton: {
-      display: "none",
-      color: ""
+    display: "none",
+    color: ""
   },
   exampleText: {
-    color:"#595959",
+    color: "#595959",
     fontSize: "0.938rem",
-    lineHeight:"1.5",
+    lineHeight: "1.5",
+    textAlign: "justify"
   },
   ulText: {
-    color:"#595959",
+    color: "#595959",
     fontSize: "0.938rem",
-    lineHeight:"1.5",
-    paddingLeft:"0px !important",
-    margin:"0px 0px 10px 0px",
+    lineHeight: "1.5",
+    paddingLeft: "0px !important",
+    margin: "0px 0px 10px 0px",
     listStylePosition: "inside"
   },
-  chipButton:{
-    borderRadius:3,
-    border:"none",
-    background:"transparent !important"
+  chipButton: {
+    borderRadius: 3,
+    border: "none",
+    background: "transparent !important"
+  },
+  selfieImage: {
+    margin: "0px 10px",
+    "@media (max-width: 700px)": {
+      width: "100%",
+      height: "auto",
+      margin: "0"
+    }
+  },
+  selfieCamera: {
+    "@media (max-width: 700px)": {
+      width: "100%",
+      height: "auto",
+      margin: "0"
+    }
   }
+
 
 }));
 

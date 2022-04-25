@@ -43,10 +43,10 @@ const ZipCodeWrapper = ({ name, error, helperText, value, onChange, refId, ...ot
   //return the view block
   return (
     <TextBox
-      { ...configTextField }
-      materialProps={ { maxLength: "5", "data-test-id": "zipcode", ref: refId } }
-      value={ zipCode }
-      onChange={ onHandleZipcodeChange }
+      {...configTextField}
+      materialProps={{ maxLength: "5", "data-testid": "zipcode", ref: refId }}
+      value={zipCode}
+      onChange={onHandleZipcodeChange}
     />
   );
 };

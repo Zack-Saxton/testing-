@@ -17,19 +17,19 @@ const Recaptcha = () => {
     };
   }, [ recaptchaData ]);
 
-  return ( 
+  return (
     <div>
-      { !isLoading && recaptchaData.status === 200 ? (
+      {!isLoading && recaptchaData.status === 200 ? (
         <div
-          className={ recaptchaData?.data?.recaptcha?.class }
+          className={recaptchaData?.data?.recaptcha?.class}
           data-expired-callback="OnExpireCallback"
-          data-sitekey={ recaptchaData.data.recaptcha.dataSitekey }
+          data-sitekey={recaptchaData.data.recaptcha.dataSitekey}
           id="html_element"
-          data-callback={ recaptchaData.data.recaptcha.dataCallback }
+          data-callback={recaptchaData.data.recaptcha.dataCallback}
         ></div>
       ) : (
         <CircularProgress />
-      ) }
+      )}
     </div>
   );
 };

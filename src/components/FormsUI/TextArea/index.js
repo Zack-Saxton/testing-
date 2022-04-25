@@ -56,15 +56,15 @@ const TextAreaWrapper = ({
   //View Part
   return (
     <TextField
-      { ...config }
-      className={ classes.textarea }
+      {...config}
+      className={classes.textarea}
       multiline
-      inputProps={ {
+      inputProps={{
         maxLength: character_limit ?? 20,
-        "data-test-id": "textarea"
-      } }
-      value={ values.name }
-      helperText={ `${ values.name.length }/${ character_limit }` }
+        "data-testid": "textarea"
+      }}
+      value={values.name}
+      helperText={`${ values.name.length }/${ character_limit }`}
     />
   );
 };

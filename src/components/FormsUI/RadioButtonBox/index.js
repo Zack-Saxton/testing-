@@ -50,8 +50,8 @@ const RadioButtonBoxWrapper = ({
 
   //View Part
   return (
-    <Button { ...configRadioButtonBox } style={ styleButtonMF }>
-      { children }
+    <Button {...configRadioButtonBox} style={styleButtonMF}>
+      {children}
     </Button>
   );
 };

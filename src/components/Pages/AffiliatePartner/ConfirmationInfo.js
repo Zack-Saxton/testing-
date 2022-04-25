@@ -61,15 +61,15 @@ const validationSchema = yup.object({
     .string(globalMessages?.EmploymentEnter)
     .max(30, globalMessages?.EmploymentMax)
     .required(globalMessages?.EmploymentRequired),
-  activeDuty: yup.string().when("state", {  
-    is:  "North Carolina" ,
+  activeDuty: yup.string().when("state", {
+    is: "North Carolina",
     then: yup.string().required(globalMessages?.Active_DutyRequired),
   })
-  .when("state", {  
-    is:   "NC",
-    then: yup.string().required(globalMessages?.Active_DutyRequired),
-  }
-  ),
+    .when("state", {
+      is: "NC",
+      then: yup.string().required(globalMessages?.Active_DutyRequired),
+    }
+    ),
   activeDutyRank: yup.string().when("activeDuty", {
     is: "Yes",
     then: yup.string().required(globalMessages?.Active_Duty_Rank_Required),
@@ -340,7 +340,7 @@ export default function ConfirmationInfo() {
   //fetch the state and city based in zip code
   const fetchSpouseAddress = async (event) => {
     try {
-      if ( event.target.value.length === 5 || !(event.target.value?.length) ) {
+      if (event.target.value.length === 5 || !(event.target.value?.length)) {
         let result = await ZipCodeLookup(event.target.value);
         if (result?.data?.cityName) {
           formik.setFieldValue("spousecity", result?.data?.cityName);
@@ -349,7 +349,7 @@ export default function ConfirmationInfo() {
         } else {
           setValidSpouseZip(false);
           formik.setFieldValue("spouseSelectState", "");
-          formik.setFieldValue("spousecity", "");     
+          formik.setFieldValue("spousecity", "");
         }
         formik.handleChange(event);
       }
@@ -470,178 +470,178 @@ export default function ConfirmationInfo() {
     else setCitizenship(false);
     formik.handleChange(event);
   };
-  
+
   //View Part
   return (
     <div>
-      <div className={ classes.mainContentBackground } id="mainContentBackground">
+      <div className={classes.mainContentBackground} id="mainContentBackground">
         <Box>
           <Grid
-            className={ classes.confirmationGrid }
-            xs={ 12 }
+            className={classes.confirmationGrid}
+            xs={12}
             item
             container
             justifyContent="center"
             alignItems="center"
           >
             <Grid
-              xs={ 11 }
-              sm={ 10 }
-              md={ 6 }
-              lg={ 6 }
-              xl={ 6 } 
+              xs={11}
+              sm={10}
+              md={6}
+              lg={6}
+              xl={6}
               className="confirmationCard"
               item
             >
               <Paper
-                className={ classes.paper }
-                style={ {
+                className={classes.paper}
+                style={{
                   opacity: loading ? 0.55 : 1,
                   pointerEvents: loading ? "none" : "initial",
-                } }
+                }}
               >
                 <Typography
-                  className={ classes.title }
+                  className={classes.title}
                   data-testid="title"
                   color="textSecondary"
                 >
-                  Welcome to Mariner Finance{ " " }
+                  Welcome to Mariner Finance{" "}
                 </Typography>
-                <p className={ classes.introText }>
-                  Please review and confirm the information that{ " " }
+                <p className={classes.introText}>
+                  Please review and confirm the information that{" "}
                   <a href="https://www.creditkarma.com/" target="blank">
-                    { " " }
+                    {" "}
                     <img
                       className="creditkarmaLogoImage"
-                      src={ creditkarmalogo }
+                      src={creditkarmalogo}
                       alt="creditkarmalogo"
                     />
-                  </a>{ " " }
+                  </a>{" "}
                   provided about you, it will only take a minute.
                 </p>
-                {/* </div> */ }
+                {/* </div> */}
 
-                <form onSubmit={ formik.handleSubmit }>
-                  <Grid container spacing={ 4 }>
-                    <Grid item xs={ 12 } sm={ 6 } className={ classes.fullWidth } >
+                <form onSubmit={formik.handleSubmit}>
+                  <Grid container spacing={4}>
+                    <Grid item xs={12} sm={6} className={classes.fullWidth} >
                       <TextField
                         id="firstName"
                         name="firstName"
                         label="First Name"
-                        materialProps={ {
+                        materialProps={{
                           "data-test-id": "name",
                           maxLength: "30",
                           ref: refFirstName,
-                        } }
-                        disabled = {true}
-                        value={ formik.values.firstName }
-                        onChange={ onNameChange }
-                        onBlur={ formik.handleBlur }
-                        error={ formik.touched.firstName && Boolean(formik.errors.firstName) }
-                        helperText={ formik.touched.firstName && formik.errors.firstName }
+                        }}
+                        disabled={true}
+                        value={formik.values.firstName}
+                        onChange={onNameChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.firstName && Boolean(formik.errors.firstName)}
+                        helperText={formik.touched.firstName && formik.errors.firstName}
                       />
                     </Grid>
 
-                    <Grid item xs={ 12 } sm={ 6 } className={ classes.fullWidth }>
+                    <Grid item xs={12} sm={6} className={classes.fullWidth}>
                       <TextField
                         id="lastName"
                         name="lastName"
                         label="Last Name"
-                        materialProps={ {
+                        materialProps={{
                           "data-test-id": "lastName",
                           maxLength: "30",
                           ref: refLastName,
-                        } }
-                        disabled = {true}
-                        value={ formik.values.lastName }
-                        onChange={ onNameChange }
-                        onBlur={ formik.handleBlur }
-                        error={ formik.touched.lastName && Boolean(formik.errors.lastName) }
-                        helperText={ formik.touched.lastName && formik.errors.lastName }
+                        }}
+                        disabled={true}
+                        value={formik.values.lastName}
+                        onChange={onNameChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.lastName && Boolean(formik.errors.lastName)}
+                        helperText={formik.touched.lastName && formik.errors.lastName}
                       />
                     </Grid>
 
-                    <Grid item xs={ 12 }>
+                    <Grid item xs={12}>
                       <TextField
                         fullWidth
                         id="streetAddress"
                         name="streetAddress"
                         label="Address"
-                        materialProps={ {
+                        materialProps={{
                           "data-test-id": "streetAddress",
                           maxLength: "100",
                           ref: refStreetAddress,
-                        } }
-                        value={ formik.values.streetAddress }
-                        onChange={ formik.handleChange }
-                        onBlur={ onBlurAddress }
-                        error={ formik.touched.streetAddress && Boolean(formik.errors.streetAddress) }
-                        helperText={ formik.touched.streetAddress && formik.errors.streetAddress }
+                        }}
+                        value={formik.values.streetAddress}
+                        onChange={formik.handleChange}
+                        onBlur={onBlurAddress}
+                        error={formik.touched.streetAddress && Boolean(formik.errors.streetAddress)}
+                        helperText={formik.touched.streetAddress && formik.errors.streetAddress}
                       />
                     </Grid>
 
-                    <Grid item xs={ 12 } sm={ 4 } container direction="row">
+                    <Grid item xs={12} sm={4} container direction="row">
                       <Zipcode
                         fullWidth
                         id="zip"
                         name="zip"
                         label="Zip Code *"
-                        refId={ refZip }
-                        value={ formik.values.zip }
-                        onChange={ fetchAddress }
-                        onBlur={ formik.handleBlur }
-                        error={ (formik.touched.zip && Boolean(formik.errors.zip)) || !validZip }
-                        helperText={ validZip ? formik.touched.zip && formik.errors.zip : globalMessages.ZipCodeValid }
+                        refId={refZip}
+                        value={formik.values.zip}
+                        onChange={fetchAddress}
+                        onBlur={formik.handleBlur}
+                        error={(formik.touched.zip && Boolean(formik.errors.zip)) || !validZip}
+                        helperText={validZip ? formik.touched.zip && formik.errors.zip : globalMessages.ZipCodeValid}
                       />
                     </Grid>
-                    <Grid item xs={ 12 } sm={ 4 } container direction="row">
+                    <Grid item xs={12} sm={4} container direction="row">
                       <TextField
                         fullWidth
                         id="city"
                         name="city"
                         label="City"
-                        disabled={ true }
-                        materialProps={ { "data-test-id": "city" } }
-                        value={ formik.values.city }
-                        onChange={ formik.handleChange }
-                        onBlur={ formik.handleBlur }
-                        error={ (formik.touched.city && Boolean(formik.errors.city)) || !validZip }
-                        helperText={ validZip ? formik.touched.city && formik.errors.city : globalMessages.Address_Home_City }
+                        disabled={true}
+                        materialProps={{ "data-test-id": "city" }}
+                        value={formik.values.city}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={(formik.touched.city && Boolean(formik.errors.city)) || !validZip}
+                        helperText={validZip ? formik.touched.city && formik.errors.city : globalMessages.Address_Home_City}
                       />
                     </Grid>
 
-                    <Grid item xs={ 12 } sm={ 4 } container direction="row">
+                    <Grid item xs={12} sm={4} container direction="row">
                       <TextField
                         fullWidth
                         id="state"
                         name="state"
                         label="State"
-                        disabled={ true }
-                        materialProps={ { "data-test-id": "state" } }
-                        value={ formik.values.state }
-                        onChange={ formik.handleChange }
-                        onBlur={ formik.handleBlur }
-                        error={ (formik.touched.state && Boolean(formik.errors.state)) || !validZip }
-                        helperText={ validZip ? formik.touched.state && formik.errors.state : globalMessages.Address_State_Required }
+                        disabled={true}
+                        materialProps={{ "data-test-id": "state" }}
+                        value={formik.values.state}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={(formik.touched.state && Boolean(formik.errors.state)) || !validZip}
+                        helperText={validZip ? formik.touched.state && formik.errors.state : globalMessages.Address_State_Required}
                       />
                     </Grid>
 
-                    <Grid item xs={ 12 }>
+                    <Grid item xs={12}>
                       <Grid
                         item
-                        xs={ 12 }
+                        xs={12}
                         id="citizenshipWrap"
                       >
                         <Select
                           id="citizenship"
                           name="citizenship"
                           labelform="Citizenship"
-                          value={ formik.values.citizenship }
-                          onChange={ changeCitizenship }
-                          refId={ refCitizenship }
-                          onBlur={ formik.handleBlur }
-                          error={ (formik.touched.citizenship && Boolean(formik.errors.citizenship)) || citizenship }
-                          helperText={ !citizenship ? formik.touched.citizenship && formik.errors.citizenship : "We are sorry. We do not offer loans to foreign residents." }
+                          value={formik.values.citizenship}
+                          onChange={changeCitizenship}
+                          refId={refCitizenship}
+                          onBlur={formik.handleBlur}
+                          error={(formik.touched.citizenship && Boolean(formik.errors.citizenship)) || citizenship}
+                          helperText={!citizenship ? formik.touched.citizenship && formik.errors.citizenship : "We are sorry. We do not offer loans to foreign residents."}
                           select='[{"label": "USA Citizen", "value": "USA Citizen"},
                                   {"label": "Permanent Resident", "value": "Permanent Resident"},
                                   {"label": "Foreign Resident", "value": "Foreign Resident"}]'
@@ -649,49 +649,49 @@ export default function ConfirmationInfo() {
                       </Grid>
                     </Grid>
 
-                    <Grid item xs={ 12 } sm={ 4 } container direction="row">
+                    <Grid item xs={12} sm={4} container direction="row">
                       <TextField
                         name="personalIncome"
                         label="Annual Personal Income"
                         id="personalIncome"
-                        value={ formik.values.personalIncome }
-                        onChange={ onHandleChangePersonal }
-                        materialProps={ {
+                        value={formik.values.personalIncome}
+                        onChange={onHandleChangePersonal}
+                        materialProps={{
                           "data-testid": "personalIncome",
                           maxLength: "10",
                           ref: refPersonalIncome
-                        } }
+                        }}
                         autoComplete="off"
-                        onBlur={ currencyFormat }
-                        onKeyDown={ preventUnwanted }
-                        error={ errorPersonal !== "" }
-                        helperText={ errorPersonal ?? "" }
+                        onBlur={currencyFormat}
+                        onKeyDown={preventUnwanted}
+                        error={errorPersonal !== ""}
+                        helperText={errorPersonal ?? ""}
                       />
                     </Grid>
-                    <Grid item xs={ 12 } sm={ 4 } container direction="row">
+                    <Grid item xs={12} sm={4} container direction="row">
                       <TextField
                         name="householdIncome"
                         label="Annual Household Income"
                         id="annualHousehold"
-                        value={ formik.values.householdIncome }
-                        materialProps={ {
+                        value={formik.values.householdIncome}
+                        materialProps={{
                           "data-testid": "annualIncome",
                           maxLength: "10",
                           ref: refAnnualHousehold
-                        } }
+                        }}
                         autoComplete="off"
-                        onChange={ onHandleChangeHouse }
-                        onBlur={ currencyFormat }
-                        onKeyDown={ preventUnwanted }
-                        error={ errorAnnual !== "" }
-                        helperText={ errorAnnual ?? "" }
+                        onChange={onHandleChangeHouse}
+                        onBlur={currencyFormat}
+                        onKeyDown={preventUnwanted}
+                        error={errorAnnual !== ""}
+                        helperText={errorAnnual ?? ""}
                       />
                     </Grid>
 
                     <Grid
                       item
-                      xs={ 12 }
-                      sm={ 4 }
+                      xs={12}
+                      sm={4}
                       container
                       direction="row"
                       id="employementStatusWrap"
@@ -700,12 +700,12 @@ export default function ConfirmationInfo() {
                         id="employementStatus"
                         name="employementStatus"
                         labelform="Employement Status"
-                        value={ formik.values.employementStatus }
-                        refId={ refEmployementStatus }
-                        onChange={ formik.handleChange }
-                        onBlur={ formik.handleBlur }
-                        error={ formik.touched.employementStatus && Boolean(formik.errors.employementStatus) }
-                        helperText={ formik.touched.employementStatus && formik.errors.employementStatus }
+                        value={formik.values.employementStatus}
+                        refId={refEmployementStatus}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.employementStatus && Boolean(formik.errors.employementStatus)}
+                        helperText={formik.touched.employementStatus && formik.errors.employementStatus}
                         select='[{"label": "Employed - Hourly", "value": "Employed - Hourly"},
                                 {"label": "Employed Salaried", "value": "Employed Salaried"},
                                 {"label": "Self Employed / 1099", "value": "Self Employed / 1099"},
@@ -713,10 +713,10 @@ export default function ConfirmationInfo() {
                                 {"label": "Retired", "value": "Retired"}]'
                       />
                     </Grid>
-                    {/* **************************************************active duty***************************************************** */ }
+                    {/* **************************************************active duty***************************************************** */}
                     <Grid
                       item
-                      xs={ 12 }
+                      xs={12}
                       className={
                         formik.values.state === "North Carolina" ||
                           formik.values.state === "NC"
@@ -725,29 +725,31 @@ export default function ConfirmationInfo() {
                       }
                     >
                       <p>
-                        { " " }
+                        {" "}
                         <b>
                           Are you active duty military or do you have a future
                           active duty date?
                         </b>
                       </p>
-                      <Grid>
+                      <Grid id="activeDutyGrid">
                         <Select
+                          id="confirmActiveDuty"
                           name="activeDuty"
                           labelform="Active Duty *"
                           select='[{"value":"Yes"}, {"value":"No"}]'
-                          value={ formik.values.activeDuty }
-                          onChange={ formik.handleChange }
-                          onBlur={ formik.handleBlur }
-                          error={ formik.touched.activeDuty && Boolean(formik.errors.activeDuty) }
-                          helperText={ formik.touched.activeDuty && formik.errors.activeDuty }
+                          value={formik.values.activeDuty}
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          error={formik.touched.activeDuty && Boolean(formik.errors.activeDuty)}
+                          helperText={formik.touched.activeDuty && formik.errors.activeDuty}
                           inputTestID="ADinput"
                           selectTestID="ADselect"
                         />
                       </Grid>
                       <Grid
+                        id="activeDutyRankGrid"
                         item
-                        xs={ 12 }
+                        xs={12}
                         className={
                           formik.values.activeDuty === "Yes"
                             ? "showCheckbox"
@@ -755,31 +757,32 @@ export default function ConfirmationInfo() {
                         }
                       >
                         <Select
+                          id="confirmactiveDutyRank"
                           name="activeDutyRank"
                           labelform="Active duty rank *"
                           select='[{"value":"E4 and below"}, {"value":"E5 and above"}]'
-                          value={ formik.values.activeDutyRank }
-                          onChange={ formik.handleChange }
-                          onBlur={ formik.handleBlur }
-                          error={ formik.touched.activeDutyRank && Boolean(formik.errors.activeDutyRank) }
-                          helperText={ formik.touched.activeDutyRank && formik.errors.activeDutyRank }
+                          value={formik.values.activeDutyRank}
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          error={formik.touched.activeDutyRank && Boolean(formik.errors.activeDutyRank)}
+                          helperText={formik.touched.activeDutyRank && formik.errors.activeDutyRank}
                         />
                         <Grid
-                        item
-                        xs={ 12 }
-											className={`${ formik.values.activeDutyRank === "E4 and below" ? "showCheckbox" : "hideCheckbox" } ${classes.redText}`}
-										>
-											Unfortunately, based on the application information provided, you do not meet our application requirements.
-										</Grid>
+                          item
+                          xs={12}
+                          className={`${ formik.values.activeDutyRank === "E4 and below" ? "showCheckbox" : "hideCheckbox" } ${ classes.redText }`}
+                        >
+                          Unfortunately, based on the application information provided, you do not meet our application requirements.
+                        </Grid>
                       </Grid>
-                      
+
                     </Grid>
 
-                    {/* ****************************************************Married Statue ***************************************** */ }
+                    {/* ****************************************************Married Statue ***************************************** */}
 
                     <Grid
                       item
-                      xs={ 12 }
+                      xs={12}
                       className={
                         formik.values.state === "Wisconsin" ||
                           formik.values.state === "WI"
@@ -787,7 +790,7 @@ export default function ConfirmationInfo() {
                           : "hideCheckbox"
                       }
                     >
-                      <Grid item xs={ 12 } id="marriedStatusWrap">
+                      <Grid item xs={12} id="marriedStatusWrap">
                         <p>
                           <b>Are you married?*</b>
                         </p>
@@ -796,16 +799,16 @@ export default function ConfirmationInfo() {
                           labelform="Marital Status *"
                           id="marriedStatus"
                           select='[{"value":"Married"}, {"value":"Unmarried"}, {"value":"Separated, under decree of legal separation"}]'
-                          value={ formik.values.martialStatus }
-                          onChange={ formik.handleChange }
-                          onBlur={ formik.handleBlur }
-                          error={ formik.touched.martialStatus && Boolean(formik.errors.martialStatus) }
-                          helperText={ formik.touched.martialStatus && formik.errors.martialStatus }
+                          value={formik.values.martialStatus}
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          error={formik.touched.martialStatus && Boolean(formik.errors.martialStatus)}
+                          helperText={formik.touched.martialStatus && formik.errors.martialStatus}
                         />
                       </Grid>
                       <Grid
                         item
-                        xs={ 12 }
+                        xs={12}
                         className={
                           formik.values.martialStatus === "Married" ||
                             formik.values.martialStatus ===
@@ -817,13 +820,13 @@ export default function ConfirmationInfo() {
                         <TextField
                           name="spouseadd"
                           label="Spouse's Address (if different)"
-                          value={ formik.values.spouseadd }
-                          onChange={ formik.handleChange }
+                          value={formik.values.spouseadd}
+                          onChange={formik.handleChange}
                         />
                       </Grid>
                       <Grid
                         item
-                        xs={ 12 }
+                        xs={12}
                         className={
                           formik.values.martialStatus === "Married" ||
                             formik.values.martialStatus ===
@@ -833,14 +836,14 @@ export default function ConfirmationInfo() {
                         }
                       >
                         <p>
-                          <b>Location</b>{ " " }
+                          <b>Location</b>{" "}
                         </p>
 
                         <Grid container direction="row">
                           <Grid
                             item
-                            xs={ 12 }
-                            sm={ 4 }
+                            xs={12}
+                            sm={4}
                             id="spouseZipWrap"
                             className={
                               formik.values.martialStatus === "Married" ||
@@ -854,17 +857,17 @@ export default function ConfirmationInfo() {
                               id="spouseZip"
                               name="spouseZipcode"
                               label="Zipcode *"
-                              value={ formik.values.spouseZipcode }
-                              onChange={ fetchSpouseAddress }
-                              onBlur={ formik.handleBlur }
-                              error={ (formik.touched.spouseZipcode && Boolean(formik.errors.spouseZipcode)) || !validSpouseZip }
-                              helperText={ validSpouseZip ? formik.touched.spouseZipcode && formik.errors.spouseZipcode : globalMessages.ZipCodeValid }
+                              value={formik.values.spouseZipcode}
+                              onChange={fetchSpouseAddress}
+                              onBlur={formik.handleBlur}
+                              error={(formik.touched.spouseZipcode && Boolean(formik.errors.spouseZipcode)) || !validSpouseZip}
+                              helperText={validSpouseZip ? formik.touched.spouseZipcode && formik.errors.spouseZipcode : globalMessages.ZipCodeValid}
                             />
                           </Grid>
                           <Grid
                             item
-                            xs={ 12 }
-                            sm={ 4 }
+                            xs={12}
+                            sm={4}
                             id="spouseCityWrap"
                             className={
                               formik.values.martialStatus === "Married" ||
@@ -878,26 +881,26 @@ export default function ConfirmationInfo() {
                               name="spousecity"
                               label="City"
                               id="spouseCity"
-                              value={ formik.values.spousecity }
-                              onChange={ formik.handleChange }
-                              onBlur={ formik.handleBlur }
-                              disabled={ true }
+                              value={formik.values.spousecity}
+                              onChange={formik.handleChange}
+                              onBlur={formik.handleBlur}
+                              disabled={true}
                               error={
                                 formik.touched.spousecity &&
                                 Boolean(formik.errors.spousecity) || !validSpouseZip
                               }
                               helperText={
                                 validSpouseZip
-                                ? (formik.touched.spousecity && formik.errors.spousecity )
-                                : globalMessages.Address_Home_City
+                                  ? (formik.touched.spousecity && formik.errors.spousecity)
+                                  : globalMessages.Address_Home_City
                               }
                             />
                           </Grid>
 
                           <Grid
                             item
-                            xs={ 12 }
-                            sm={ 4 }
+                            xs={12}
+                            sm={4}
                             id="spouseStateWrap"
                             className={
                               formik.values.martialStatus === "Married" ||
@@ -911,18 +914,18 @@ export default function ConfirmationInfo() {
                               name="spouseSelectState"
                               id="spouseState"
                               label="State"
-                              value={ formik.values.spouseSelectState }
-                              onChange={ formik.handleChange }
-                              onBlur={ formik.handleBlur }
-                              disabled={ true }
+                              value={formik.values.spouseSelectState}
+                              onChange={formik.handleChange}
+                              onBlur={formik.handleBlur}
+                              disabled={true}
                               error={
                                 (formik.touched.spouseSelectState &&
-                                Boolean(formik.errors.spouseSelectState)) || !validSpouseZip
+                                  Boolean(formik.errors.spouseSelectState)) || !validSpouseZip
                               }
                               helperText={
                                 validSpouseZip
-                                ? (formik.touched.spouseSelectState && formik.errors.spouseSelectState)
-                                : globalMessages.Address_State_Required
+                                  ? (formik.touched.spouseSelectState && formik.errors.spouseSelectState)
+                                  : globalMessages.Address_State_Required
                               }
                             />
                           </Grid>
@@ -930,29 +933,29 @@ export default function ConfirmationInfo() {
                       </Grid>
                     </Grid>
 
-                    {/* **********************************************Disclosures******************************************************** */ }
-                    <Grid item xs={ 12 }>
+                    {/* **********************************************Disclosures******************************************************** */}
+                    <Grid item xs={12}>
                       <p>
                         <b>Please acknowledge and sign our disclosures.</b>
                       </p>
                       <Checkbox
                         name="termsOfService"
                         labelform="Terms & Service"
-                        value={ agree }
-                        onChange={ (event) => {
+                        value={agree}
+                        onChange={(event) => {
                           setAgree(event.target.checked);
-                        } }
+                        }}
                         label={
                           <p className="agreeCheckbox">
                             By clicking this box you acknowledge that you have
-                            received, reviewed and agree to the { "" }
-                            <span className="formatHref" onClick={ () => { handleOnClickEsign(); } }>E-Signature Disclosure and Consent,</span>
-                            { "" } <span className="formatHref" onClick={ () => { handleOnClickCredit(); } }>Credit and Contact Authorization,</span>
-                            { "" } <span className="formatHref" onClick={ () => { handleOnClickwebTOU(); } }>Website Terms of Use,</span>
-                            { "" } <span className="formatHref" onClick={ () => { handleOnClickPrivacy(); } }>Website Privacy Statement.</span>
+                            received, reviewed and agree to the {""}
+                            <span className="formatHref" onClick={() => { handleOnClickEsign(); }}>E-Signature Disclosure and Consent,</span>
+                            {""} <span className="formatHref" onClick={() => { handleOnClickCredit(); }}>Credit and Contact Authorization,</span>
+                            {""} <span className="formatHref" onClick={() => { handleOnClickwebTOU(); }}>Website Terms of Use,</span>
+                            {""} <span className="formatHref" onClick={() => { handleOnClickPrivacy(); }}>Website Privacy Statement.</span>
                           </p>
                         }
-                        required={ true }
+                        required={true}
                         stylelabelform='{ "color":"" }'
                         stylecheckbox='{ "color":"blue"}'
                         stylecheckboxlabel='{ "color":"" }'
@@ -968,23 +971,23 @@ export default function ConfirmationInfo() {
                         <Checkbox
                           name="delaware"
                           labelform="delaware"
-                          value={ agreeDelaware }
-                          onChange={ (event) => {
+                          value={agreeDelaware}
+                          onChange={(event) => {
                             setAgreeDelaware(event.target.checked);
-                          } }
+                          }}
                           label={
                             <p className="agreeCheckbox">
                               By clicking this box you acknowledge that you have
-                              received and reviewed the{ " " }
+                              received and reviewed the{" "}
                               <span
                                 className="formatHref"
-                                onClick={ handleClickDelawareOpen }
+                                onClick={handleClickDelawareOpen}
                               >
-                                Delaware Itemized Schedule Of Charges.{ " " }
+                                Delaware Itemized Schedule Of Charges.{" "}
                               </span>
                             </p>
                           }
-                          required={ formik.values.state === "Delaware" || formik.values.state === "DE" ? true : false}
+                          required={formik.values.state === "Delaware" || formik.values.state === "DE" ? true : false}
                           stylelabelform='{ "color":"" }'
                           stylecheckbox='{ "color":"blue" }'
                           stylecheckboxlabel='{ "color":"" }'
@@ -1001,15 +1004,15 @@ export default function ConfirmationInfo() {
                         <Checkbox
                           name="california"
                           labelform="california"
-                          value={ agreeCalifornia }
-                          onChange={ (event) => {
+                          value={agreeCalifornia}
+                          onChange={(event) => {
                             setAgreeCalifornia(event.target.checked);
-                          } }
+                          }}
                           label={
                             <p className="agreeCheckbox">
                               By clicking this box you acknowledge that you have
                               been offered and had the opportunity to review
-                              this{ " " }
+                              this{" "}
                               <a
                                 className="formatHref"
                                 href={
@@ -1022,7 +1025,7 @@ export default function ConfirmationInfo() {
                               </a>
                             </p>
                           }
-                          required={ formik.values.state === "California" || formik.values.state === "CA" ? true : false}
+                          required={formik.values.state === "California" || formik.values.state === "CA" ? true : false}
                           stylelabelform='{ "color":"" }'
                           stylecheckbox='{ "color":"blue" }'
                           stylecheckboxlabel='{ "color":"" }'
@@ -1039,19 +1042,19 @@ export default function ConfirmationInfo() {
                         <Checkbox
                           name="newmexico"
                           labelform="newmexico"
-                          value={ agreeNewMexico }
-                          onChange={ (event) => {
+                          value={agreeNewMexico}
+                          onChange={(event) => {
                             setAgreeNewMexico(event.target.checked);
-                          } }
+                          }}
                           label={
                             <p className="agreeCheckbox">
                               NM Residents: By clicking this box you acknowledge
                               that you have reviewed the Important Consumer
                               Information in Mariner’s New Mexico Consumer
-                              Brochure located at{ " " }
+                              Brochure located at{" "}
                               <a
                                 className="formatHref"
-                                href={ "http://marfi.me/NMBrochure." }
+                                href={"http://marfi.me/NMBrochure."}
                                 target="_blank"
                                 rel="noreferrer noopener"
                               >
@@ -1059,7 +1062,7 @@ export default function ConfirmationInfo() {
                               </a>
                             </p>
                           }
-                          required={ formik.values.state === "New Mexico" || formik.values.state === "NM" ? true : false}
+                          required={formik.values.state === "New Mexico" || formik.values.state === "NM" ? true : false}
                           stylelabelform='{ "color":"" }'
                           stylecheckbox='{ "color":"blue" }'
                           stylecheckboxlabel='{ "color":"" }'
@@ -1067,7 +1070,7 @@ export default function ConfirmationInfo() {
                       </div>
                     </Grid>
 
-                    <Grid item xs={ 12 } className={ classes.signInButtonGrid }>
+                    <Grid item xs={12} className={classes.signInButtonGrid}>
                       <ButtonPrimary
                         type="submit"
                         data-testid="submit"
@@ -1077,15 +1080,15 @@ export default function ConfirmationInfo() {
                             ? true
                             : loading
                         }
-                        onClick={ () => autoFocus() }
+                        onClick={() => autoFocus()}
                       >
                         Continue
                         <i
                           className="fa fa-refresh fa-spin customSpinner"
-                          style={ {
+                          style={{
                             marginRight: "10px",
                             display: loading ? "block" : "none",
-                          } }
+                          }}
                         />
                       </ButtonPrimary>
                     </Grid>
@@ -1097,11 +1100,11 @@ export default function ConfirmationInfo() {
         </Box>
       </div>
       <Dialog
-        onClose={ handleClose }
+        onClose={handleClose}
         aria-labelledby="customized-dialog-title"
-        open={ open }
+        open={open}
       >
-        <DialogTitle id="customized-dialog-title" onClose={ handleClose }>
+        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
           Notice to CA Residents
         </DialogTitle>
         <DialogContent dividers>
@@ -1112,7 +1115,7 @@ export default function ConfirmationInfo() {
         <DialogActions className="modalAction">
           <ButtonPrimary
             stylebutton='{"background": "#FFBC23", "color": "black", "border-radius": "50px"}'
-            onClick={ handleClose }
+            onClick={handleClose}
             className="modalButton"
           >
             <Typography align="center">Ok</Typography>
@@ -1121,11 +1124,11 @@ export default function ConfirmationInfo() {
       </Dialog>
 
       <Dialog
-        onClose={ handleCloseOhio }
+        onClose={handleCloseOhio}
         aria-labelledby="customized-dialog-title"
-        open={ openOhio }
+        open={openOhio}
       >
-        <DialogTitle id="customized-dialog-title" onClose={ handleCloseOhio }>
+        <DialogTitle id="customized-dialog-title" onClose={handleCloseOhio}>
           Notice to OH Residents
         </DialogTitle>
         <DialogContent dividers>
@@ -1140,7 +1143,7 @@ export default function ConfirmationInfo() {
         <DialogActions className="modalAction">
           <ButtonPrimary
             stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
-            onClick={ handleCloseOhio }
+            onClick={handleCloseOhio}
             className="modalButton"
           >
             <Typography align="center">Ok</Typography>
@@ -1148,26 +1151,26 @@ export default function ConfirmationInfo() {
         </DialogActions>
       </Dialog>
 
-      <Popup popupFlag={ esignPopup } closePopup={ handleOnClickEsignClose } title="E-Signature Disclosure and Consent">
-				<Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
-				<RenderContent disclosureLink="/eSign" />
-			</Popup>
-      <Popup popupFlag={ creditPopup } closePopup={ handleOnClickCreditClose } title="Credit and Contact Authorization">
-				<Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
-				<RenderContent disclosureLink="/credit" />
-			</Popup>
-			<Popup popupFlag={ webTOUPopup } closePopup={ handleOnClickwebTOUClose } title="Terms of Use">
-				<Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
-				<RenderContent disclosureLink="/websiteTermsOfUse" />
-			</Popup>
-			<Popup popupFlag={ privacyPopup } closePopup={ handleOnClickPrivacyClose } title="Privacy Statement">
-				<Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
-				<RenderContent disclosureLink="/privacy" />
-			</Popup>
-			<Popup popupFlag={ openDelaware } closePopup={ handleDelawareClose } title="Delaware Itemized Schedule of Charges" >
-				<Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
-				<RenderContent disclosureLink="/delaware" />
-			</Popup>
+      <Popup popupFlag={esignPopup} closePopup={handleOnClickEsignClose} title="E-Signature Disclosure and Consent">
+        <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
+        <RenderContent disclosureLink="/eSign" />
+      </Popup>
+      <Popup popupFlag={creditPopup} closePopup={handleOnClickCreditClose} title="Credit and Contact Authorization">
+        <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
+        <RenderContent disclosureLink="/credit" />
+      </Popup>
+      <Popup popupFlag={webTOUPopup} closePopup={handleOnClickwebTOUClose} title="Terms of Use">
+        <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
+        <RenderContent disclosureLink="/websiteTermsOfUse" />
+      </Popup>
+      <Popup popupFlag={privacyPopup} closePopup={handleOnClickPrivacyClose} title="Privacy Statement">
+        <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
+        <RenderContent disclosureLink="/privacy" />
+      </Popup>
+      <Popup popupFlag={openDelaware} closePopup={handleDelawareClose} title="Delaware Itemized Schedule of Charges" >
+        <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
+        <RenderContent disclosureLink="/delaware" />
+      </Popup>
 
     </div>
   );

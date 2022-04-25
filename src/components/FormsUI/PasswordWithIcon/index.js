@@ -7,22 +7,22 @@ Functionality       :    To use this component to have icon with password Field
 #################################################################################################################*/
 import { Grid } from "@mui/material";
 import Icon from "@mui/material/Icon";
+import { makeStyles } from "@mui/styles";
 import PropTypes from "prop-types";
 import React from "react";
 import Password from "../Password";
-import { makeStyles } from "@mui/styles";
 
 const usePasswordWithIcon = makeStyles((theme) => ({
   outerGrid: {
-    display: "inline-flex", 
+    display: "inline-flex",
     width: "100%"
   },
   innerGrid: {
-    paddingTop: "20px", 
+    paddingTop: "20px",
     paddingRight: "10px"
   },
   passwordGrid: {
-    paddingTop: "20px", 
+    paddingTop: "20px",
     paddingLeft: "10px"
   }
 }))
@@ -49,27 +49,27 @@ const PasswordWithIconWrapper = ({
   //View part
   return (
     <div>
-      <Grid container item xs={ 12 } direction="row" className={classes.outerGrid}>
-        { iconPosition === "left" || !iconPosition ? (
-          <Grid className={ classes.innerGrid }>
+      <Grid container item xs={12} direction="row" className={classes.outerGrid}>
+        {iconPosition === "left" || !iconPosition ? (
+          <Grid className={classes.innerGrid}>
             <Icon data-test-id="icon">
-              { " " }
-              { icon }
+              {" "}
+              {icon}
             </Icon>
           </Grid>
         ) : (
           ""
-        ) }
+        )}
 
-        <Password { ...configTextfield } />
+        <Password {...configTextfield} />
 
-        { iconPosition === "right" ? (
-          <Grid className={ classes.passwordGrid }>
-            <Icon data-test-id="icon">{ icon }</Icon>
+        {iconPosition === "right" ? (
+          <Grid className={classes.passwordGrid}>
+            <Icon data-testid="icon">{icon}</Icon>
           </Grid>
         ) : (
           ""
-        ) }
+        )}
       </Grid>
     </div>
   );

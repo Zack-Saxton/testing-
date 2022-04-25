@@ -1,8 +1,8 @@
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import { makeStyles } from "@mui/styles";
 import Typography from "@mui/material/Typography";
+import { makeStyles } from "@mui/styles";
 import React, { useContext, useEffect, useState } from "react";
 import { useQuery } from 'react-query';
 import { Link, useNavigate } from "react-router-dom";
@@ -172,21 +172,21 @@ function SSN() {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className={ preLoginClasses.mainDiv }>
+			<div className={preLoginClasses.mainDiv}>
 				<Box>
 					<Grid
-						xs={ 12 }
+						xs={12}
 						item
 						container
 						justifyContent="center"
-						className={ `${ classes.fullWidth } ${ classes.paddingOneSide } ` }
+						className={`${ classes.fullWidth } ${ classes.paddingOneSide } `}
 					>
 						<Grid
-							xs={ 11 }
-							sm={ 10 }
-							md={ 6 }
-							lg={ 6 }
-							xl={ 6 }
+							xs={11}
+							sm={10}
+							md={6}
+							lg={6}
+							xl={6}
 							item
 							container
 							className="cardWrapper fullWidth"
@@ -197,10 +197,10 @@ function SSN() {
 								className="cardWOPadding"
 								justify="center"
 								alignitems="center"
-								style={ {
+								style={{
 									opacity: loading ? 0.55 : 1,
 									pointerEvents: loading ? "none" : "initial",
-								} }
+								}}
 							>
 								<div className="progress mt-0">
 									<div id="determinate" className="det100  determinate " />
@@ -209,7 +209,7 @@ function SSN() {
 								<Grid className="floatLeft">
 									<Link
 										id="arrowBack"
-										to={ data.state === "WI" ? "/marital-status" : redirectNC }
+										to={data.state === "WI" ? "/marital-status" : redirectNC}
 									>
 										<i className="material-icons dp48 yellowText  floatingButton">
 											arrow_back
@@ -217,7 +217,7 @@ function SSN() {
 									</Link>
 								</Grid>
 								<Grid className="liftImage">
-									<img alt="ssn" src={ SSNLogo } className="spinAnimation" />
+									<img alt="ssn" src={SSNLogo} className="spinAnimation" />
 								</Grid>
 								<Typography
 									variant="h5"
@@ -230,7 +230,7 @@ function SSN() {
 								</Typography>
 								<Grid
 									id="signDiv"
-									md={ 12 }
+									md={12}
 									className="blockDiv fullWidth"
 									container
 									item
@@ -240,18 +240,18 @@ function SSN() {
 										justifyContent="center"
 										container
 										item
-										lg={ 8 }
-										md={ 8 }
-										xs={ 12 }
+										lg={8}
+										md={8}
+										xs={12}
 										className="textBlockWithLessMargin fullWidth"
 									></Grid>
 									<Grid
 										container
 										justifyContent="center"
 										item
-										lg={ 8 }
-										md={ 8 }
-										xs={ 12 }
+										lg={8}
+										md={8}
+										xs={12}
 										className="textBlockWithLessMargin fullWidth"
 									></Grid>
 									<Grid
@@ -259,9 +259,9 @@ function SSN() {
 										alignItems="flex-start"
 										container
 										item
-										lg={ 8 }
-										md={ 8 }
-										xs={ 12 }
+										lg={8}
+										md={8}
+										xs={12}
 										className="positionHead"
 									>
 										<p className="agreeTextHead">
@@ -273,56 +273,56 @@ function SSN() {
 										alignItems="flex-start"
 										container
 										item
-										lg={ 8 }
-										md={ 8 }
-										xs={ 12 }
+										lg={8}
+										md={8}
+										xs={12}
 										className="textBlockWithLessMargin disclosuresWrap"
 									>
 										<Checkbox
 											name="termsOfService"
 											labelform="Terms & Service"
-											value={ agree }
+											value={agree}
 											className="checkBoxClass"
-											onChange={ (event) => {
+											onChange={(event) => {
 												setAgree(event.target.checked);
-											} }
+											}}
 											label={
 												<p className="agreeText">
 													By clicking this box, you acknowledge that you have received,
 													reviewed and agree to the following disclosures and consents:
 													<br />
 
-													<span className={ classes.linkDesign } onClick={ () => { handleOnClickEsign(); } }>E-Signature Disclosure and Consent,</span>
-													<span className={ classes.linkDesign } onClick={ () => { handleOnClickCredit(); } }>Credit and Contact Authorization,</span>
-													<span className={ classes.linkDesign } onClick={ () => { handleOnClickwebTOU(); } }>Website Terms of Use,</span>
-													<span className={ classes.linkDesign } onClick={ () => { handleOnClickPrivacy(); } }>Website Privacy Statement.</span>
+													<span className={classes.linkDesign} onClick={() => { handleOnClickEsign(); }}>E-Signature Disclosure and Consent,</span>
+													<span className={classes.linkDesign} onClick={() => { handleOnClickCredit(); }}>Credit and Contact Authorization,</span>
+													<span className={classes.linkDesign} onClick={() => { handleOnClickwebTOU(); }}>Website Terms of Use,</span>
+													<span className={classes.linkDesign} onClick={() => { handleOnClickPrivacy(); }}>Website Privacy Statement.</span>
 												</p>
 											}
-											required={ true }
+											required={true}
 											stylelabelform='{ "color":"" }'
 											stylecheckbox='{ "color":"blue", "top": "0", "position": "absolute"}'
 											stylecheckboxlabel='{ "color":"" }'
 										/>
 										<div
-											className={ data.state === "DE" ? "showCB " : "hideMsg " }
+											className={data.state === "DE" ? "showCB " : "hideMsg "}
 										>
 											<Checkbox
 												name="delaware"
 												labelform="delaware"
-												value={ agreeDelaware }
-												onChange={ (event) => {
+												value={agreeDelaware}
+												onChange={(event) => {
 													setAgreeDelaware(event.target.checked);
-												} }
-												className={ "space checkBoxClass" }
+												}}
+												className={"space checkBoxClass"}
 												label={
 													<p className="agreeText MT5">
 														By clicking this box you acknowledge that you have
-														received and reviewed the{ " " }
+														received and reviewed the{" "}
 														<span
 															className="formatURLStyle"
-															onClick={ handleClickOpen }
+															onClick={handleClickOpen}
 														>
-															Delaware Itemized Schedule Of Charges.,{ " " }
+															Delaware Itemized Schedule Of Charges.,{" "}
 														</span>
 													</p>
 												}
@@ -332,20 +332,20 @@ function SSN() {
 											/>
 										</div>
 										<div
-											className={ data.state === "CA" ? "showCB " : "hideMsg " }
+											className={data.state === "CA" ? "showCB " : "hideMsg "}
 										>
 											<Checkbox
 												name="california"
 												labelform="california"
-												className={ "space checkBoxClass" }
-												value={ agreeCalifornia }
-												onChange={ (event) => {
+												className={"space checkBoxClass"}
+												value={agreeCalifornia}
+												onChange={(event) => {
 													setAgreeCalifornia(event.target.checked);
-												} }
+												}}
 												label={
 													<p className="agreeText MT5">
 														By clicking this box you acknowledge that you have
-														been offered and had the opportunity to review this{ " " }
+														been offered and had the opportunity to review this{" "}
 														<a
 															className="formatURL"
 															href={
@@ -364,25 +364,25 @@ function SSN() {
 											/>
 										</div>
 										<div
-											className={ data.state === "NM" ? "showCB " : "hideMsg " }
+											className={data.state === "NM" ? "showCB " : "hideMsg "}
 										>
 											<Checkbox
 												name="newmexico"
 												labelform="newmexico"
-												className={ "space checkBoxClass" }
-												value={ agreeNewMexico }
-												onChange={ (event) => {
+												className={"space checkBoxClass"}
+												value={agreeNewMexico}
+												onChange={(event) => {
 													setAgreeNewMexico(event.target.checked);
-												} }
+												}}
 												label={
 													<p className="agreeText MT5">
 														NM Residents: By clicking this box you acknowledge
 														that you have reviewed the Important Consumer
 														Information in Mariner’s New Mexico Consumer
-														Brochure located at{ " " }
+														Brochure located at{" "}
 														<a
 															className="formatURL"
-															href={ "http://marfi.me/NMBrochure." }
+															href={"http://marfi.me/NMBrochure."}
 															target="_blank"
 															rel="noreferrer noopener"
 														>
@@ -396,7 +396,7 @@ function SSN() {
 											/>
 										</div>
 										<Typography
-											className={ `typegraphAlignment ${ submit ? "showMsg" : "hideMsg" }`  }
+											className={`typegraphAlignment ${ submit ? "showMsg" : "hideMsg" }`}
 										>
 											It looks like you have already submitted an application
 											within the last 30 days.
@@ -406,9 +406,9 @@ function SSN() {
 										justifyContent="center"
 										item
 										container
-										lg={ 8 }
-										md={ 8 }
-										xs={ 12 }
+										lg={8}
+										md={8}
+										xs={12}
 										className="textBlockWithLessMargin alignButtonExtra alignButton fullWidth"
 									>
 										<ButtonPrimary
@@ -422,16 +422,16 @@ function SSN() {
 														agreeNewMexico
 													)
 											}
-											onClick={ handleOnClick }
+											onClick={handleOnClick}
 											stylebutton='{"background": "#FFBC23", "fontSize": "0.938rem","color": "black", "padding": "0px 30px"}'
 										>
 											Submit Application
 											<i
 												className="fa fa-refresh fa-spin customSpinner"
-												style={ {
+												style={{
 													marginRight: "10px",
 													display: loading ? "block" : "none",
-												} }
+												}}
 											/>
 										</ButtonPrimary>
 									</Grid>
@@ -442,23 +442,23 @@ function SSN() {
 				</Box>
 			</div>
 
-			<Popup popupFlag={ esignPopup } closePopup={ handleOnClickEsignClose } title="E-Signature Disclosure and Consent">
+			<Popup popupFlag={esignPopup} closePopup={handleOnClickEsignClose} title="E-Signature Disclosure and Consent">
 				<Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
 				<RenderContent disclosureLink="/eSign" />
 			</Popup>
-			<Popup popupFlag={ creditPopup } closePopup={ handleOnClickCreditClose } title="Credit and Contact Authorization">
+			<Popup popupFlag={creditPopup} closePopup={handleOnClickCreditClose} title="Credit and Contact Authorization">
 				<Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
 				<RenderContent disclosureLink="/credit" />
 			</Popup>
-			<Popup popupFlag={ webTOUPopup } closePopup={ handleOnClickwebTOUClose } title="Terms of Use">
+			<Popup popupFlag={webTOUPopup} closePopup={handleOnClickwebTOUClose} title="Terms of Use">
 				<Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
 				<RenderContent disclosureLink="/websiteTermsOfUse" />
 			</Popup>
-			<Popup popupFlag={ privacyPopup } closePopup={ handleOnClickPrivacyClose } title="Privacy Statement">
+			<Popup popupFlag={privacyPopup} closePopup={handleOnClickPrivacyClose} title="Privacy Statement">
 				<Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
 				<RenderContent disclosureLink="/privacy" />
 			</Popup>
-			<Popup popupFlag={ open } closePopup={ handleClose } title="Delaware Itemized Schedule of Charges" >
+			<Popup popupFlag={open} closePopup={handleClose} title="Delaware Itemized Schedule of Charges" >
 				<Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
 				<RenderContent disclosureLink="/delaware" />
 			</Popup>

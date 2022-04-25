@@ -61,8 +61,8 @@ const useStyles = makeStyles((Theme) => ({
 		boxShadow: "0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%)",
 		position: "relative",
 		borderRadius: "4px !important",
-    transition: "box-shadow .25s",
-    backgroundColor: "#fff",
+		transition: "box-shadow .25s",
+		backgroundColor: "#fff",
 		textAlign: "justify"
 	},
 	paraInsideSubPaper: {
@@ -95,16 +95,16 @@ function HomeAddress() {
 	}, []);
 
 	const handlePopupCA = data.state === "CA" ? true : false;
-  const handlePopupOhio = data.state === "OH" ? true : false;
+	const handlePopupOhio = data.state === "OH" ? true : false;
 
-  useEffect(() => {
-    if (handlePopupCA) {
-      setOpen(true);
-    }
-    else if (handlePopupOhio) {
-      setOpenOhio(true);
-    }
-  }, [ handlePopupCA, handlePopupOhio ]);
+	useEffect(() => {
+		if (handlePopupCA) {
+			setOpen(true);
+		}
+		else if (handlePopupOhio) {
+			setOpenOhio(true);
+		}
+	}, [ handlePopupCA, handlePopupOhio ]);
 
 	//Handle modal open and close
 	const handleClickOpen = () => {
@@ -158,10 +158,9 @@ function HomeAddress() {
 					formik.setFieldValue("state", result?.data.stateCode);
 					setStateShort(result?.data?.stateCode);
 					setValidZip(true);
-					if(validStates.indexOf(result?.data?.stateCode.toUpperCase()) === -1)  
-					{ 
-						setValidZip(false);  
-						setErrorMsg(globalMessages.WeDoNotServeArea); 
+					if (validStates.indexOf(result?.data?.stateCode.toUpperCase()) === -1) {
+						setValidZip(false);
+						setErrorMsg(globalMessages.WeDoNotServeArea);
 						setNotAvailInCity(true);
 					} else {
 						setNotAvailInCity(false);
@@ -196,14 +195,14 @@ function HomeAddress() {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className={ classes.mainDiv }>
+			<div className={classes.mainDiv}>
 				<Box>
 					<Grid
-						item xs={ 12 } sm={ 10 } md={ 6 } lg={ 6 }
+						item xs={12} sm={10} md={6} lg={6}
 						justifyContent="center"
 						container
 						alignItems="center"
-						className={ innerClasses.gridStyle }
+						className={innerClasses.gridStyle}
 					>
 						<Grid
 							container
@@ -212,7 +211,7 @@ function HomeAddress() {
 						>
 							<Paper
 								id="enterZipWrap"
-								className={ innerClasses.paperStyle }
+								className={innerClasses.paperStyle}
 							>
 								<div className="progress mt-0">
 									<div
@@ -231,7 +230,7 @@ function HomeAddress() {
 								<Grid className="liftImage">
 									<img
 										alt="Address"
-										src={ AddressLogo }
+										src={AddressLogo}
 										className="spinAnimation"
 									/>
 								</Grid>
@@ -244,10 +243,10 @@ function HomeAddress() {
 									Enter your home address
 								</Typography>
 
-								<form onSubmit={ formik.handleSubmit }>
+								<form onSubmit={formik.handleSubmit}>
 									<Grid
 										item
-										md={ 12 }
+										md={12}
 										className="blockDiv"
 										container
 										justifyContent="center"
@@ -258,9 +257,9 @@ function HomeAddress() {
 											justifyContent="center"
 											alignItems="center"
 											item
-											lg={ 8 }
-											md={ 8 }
-											xs={ 12 }
+											lg={8}
+											md={8}
+											xs={12}
 											className="textBlockShort"
 										>
 											<TextField
@@ -269,14 +268,14 @@ function HomeAddress() {
 												id="streetAddress"
 												name="streetAddress"
 												label="Street Address *"
-												materialProps={ {
+												materialProps={{
 													"data-test-id": "streetAddress",
 													maxLength: "100",
-												} }
-												onKeyDown={ preventSpace }
-												value={ formik.values.streetAddress }
-												onChange={ formik.handleChange }
-												onBlur={ onBlurAddress }
+												}}
+												onKeyDown={preventSpace}
+												value={formik.values.streetAddress}
+												onChange={formik.handleChange}
+												onBlur={onBlurAddress}
 												error={
 													formik.touched.streetAddress &&
 													Boolean(formik.errors.streetAddress)
@@ -292,9 +291,9 @@ function HomeAddress() {
 											justifyContent="center"
 											alignItems="center"
 											item
-											lg={ 8 }
-											md={ 8 }
-											xs={ 12 }
+											lg={8}
+											md={8}
+											xs={12}
 											className="textBlockShort"
 										>
 											<Zipcode
@@ -302,10 +301,10 @@ function HomeAddress() {
 												id="zip"
 												name="zip"
 												label="Zipcode *"
-												materialProps={ { "data-test-id": "zipcode" } }
-												value={ formik.values.zip }
-												onChange={ fetchAddress }
-												onBlur={ formik.handleBlur }
+												materialProps={{ "data-test-id": "zipcode" }}
+												value={formik.values.zip}
+												onChange={fetchAddress}
+												onBlur={formik.handleBlur}
 												error={
 													(formik.touched.zip && Boolean(formik.errors.zip)) ||
 													!validZip
@@ -321,16 +320,16 @@ function HomeAddress() {
 											item
 											justifyContent="flex-start"
 											container
-											md={ 8 }
-											lg={ 8 }
-											xs={ 12 }
+											md={8}
+											lg={8}
+											xs={12}
 											className="textBlockShort"
 										>
 											<Grid
 												item
-												lg={ 6 }
-												md={ 6 }
-												xs={ 6 }
+												lg={6}
+												md={6}
+												xs={6}
 												className=" padding-right-1"
 											>
 												<TextField
@@ -338,15 +337,15 @@ function HomeAddress() {
 													id="city"
 													name="city"
 													label="City"
-													disabled={ true }
-													materialProps={ { "data-test-id": "city" } }
-													value={ formik.values.city }
-													onChange={ formik.handleChange }
-													onBlur={ formik.handleBlur }
+													disabled={true}
+													materialProps={{ "data-test-id": "city" }}
+													value={formik.values.city}
+													onChange={formik.handleChange}
+													onBlur={formik.handleBlur}
 													error={
 														formik.touched.city && Boolean(formik.errors.city)
 													}
-													helperText={ formik.touched.city && formik.errors.city }
+													helperText={formik.touched.city && formik.errors.city}
 												/>
 											</Grid>
 											<Grid
@@ -354,9 +353,9 @@ function HomeAddress() {
 												justifyContent="center"
 												alignItems="center"
 												item
-												lg={ 6 }
-												md={ 6 }
-												xs={ 6 }
+												lg={6}
+												md={6}
+												xs={6}
 												className=" padding-left-1"
 											>
 												<TextField
@@ -364,11 +363,11 @@ function HomeAddress() {
 													id="state"
 													name="state"
 													label="State"
-													disabled={ true }
-													materialProps={ { "data-test-id": "state" } }
-													value={ formik.values.state }
-													onChange={ formik.handleChange }
-													onBlur={ formik.handleBlur }
+													disabled={true}
+													materialProps={{ "data-test-id": "state" }}
+													value={formik.values.state}
+													onChange={formik.handleChange}
+													onBlur={formik.handleBlur}
 													error={
 														formik.touched.state && Boolean(formik.errors.state)
 													}
@@ -383,16 +382,16 @@ function HomeAddress() {
 											container
 											justifyContent="center"
 											item
-											lg={ 8 }
-											md={ 8 }
-											xs={ 12 }
+											lg={8}
+											md={8}
+											xs={12}
 											alignItems="center"
 											className="textBlock alignButton"
 										>
 											<ButtonPrimary
 												type="submit"
 												stylebutton='{"fontSize":"0.938rem","background": "#FFBC23", "padding": "0px 30px", "color": "black"}'
-												disabled={ !validZip }
+												disabled={!validZip}
 												data-test-id="homeAddressCntBtn"
 											>
 												Continue
@@ -400,27 +399,27 @@ function HomeAddress() {
 										</Grid>
 									</Grid>
 								</form>
-								<Paper className={ innerClasses.subPaper } style={{display: notAvailInCity ? "block" : "none" }}>
+								<Paper className={innerClasses.subPaper} style={{ display: notAvailInCity ? "block" : "none" }}>
 									<div >
-											<p className={ innerClasses.paraInsideSubPaper } >
+										<p className={innerClasses.paraInsideSubPaper} >
 											If your state is not listed, it means that Mariner Finance does not operate in your state.
-											</p>
-											<p className={ innerClasses.paraInsideSubPaper } >
+										</p>
+										<p className={innerClasses.paraInsideSubPaper} >
 											Mariner Finance currently operates in Alabama, Arizona, California, Delaware, Florida, Georgia, Indiana, Illinois, Kentucky, Louisiana, Maryland, Mississippi, Missouri, New Jersey, New Mexico, New York, North Carolina, Ohio, Oklahoma, Oregon, Pennsylvania, South Carolina, Tennessee, Texas, Utah, Virginia, Washington, and Wisconsin.
-											</p>
-									</div> 
-							</Paper>
+										</p>
+									</div>
+								</Paper>
 							</Paper>
 						</Grid>
 					</Grid>
 				</Box>
 			</div>
 			<Dialog
-				onClose={ handleClose }
+				onClose={handleClose}
 				aria-labelledby="customized-dialog-title"
-				open={ open }
+				open={open}
 			>
-				<DialogTitle id="customized-dialog-title" onClose={ handleClose }>
+				<DialogTitle id="customized-dialog-title" onClose={handleClose}>
 					Notice to CA Residents
 				</DialogTitle>
 				<DialogContent dividers>
@@ -431,7 +430,7 @@ function HomeAddress() {
 				<DialogActions className="modalAction">
 					<ButtonPrimary
 						stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
-						onClick={ handleClose }
+						onClick={handleClose}
 						className="modalButton"
 					>
 						<Typography align="center">Ok</Typography>
@@ -440,11 +439,11 @@ function HomeAddress() {
 			</Dialog>
 
 			<Dialog
-				onClose={ handleCloseOhio }
+				onClose={handleCloseOhio}
 				aria-labelledby="customized-dialog-title"
-				open={ openOhio }
+				open={openOhio}
 			>
-				<DialogTitle id="customized-dialog-title" onClose={ handleCloseOhio }>
+				<DialogTitle id="customized-dialog-title" onClose={handleCloseOhio}>
 					Notice to OH Residents
 				</DialogTitle>
 				<DialogContent dividers>
@@ -459,7 +458,7 @@ function HomeAddress() {
 				<DialogActions className="modalAction">
 					<ButtonPrimary
 						stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
-						onClick={ handleCloseOhio }
+						onClick={handleCloseOhio}
 						className="modalButton"
 					>
 						<Typography align="center">Ok</Typography>

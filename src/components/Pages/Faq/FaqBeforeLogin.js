@@ -14,8 +14,8 @@ export default function FaqBeforeLogin() {
   return (
     <div>
       <div className="mainFaqDiv">
-        <Grid item xs={ 12 }>
-          <Typography variant="h3" className={ classes.titleHeading }>
+        <Grid item xs={12}>
+          <Typography variant="h3" className={classes.titleHeading}>
             Frequently Asked Questions
           </Typography>
         </Grid>

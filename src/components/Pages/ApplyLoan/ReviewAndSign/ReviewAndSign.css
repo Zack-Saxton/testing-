@@ -1,22 +1,27 @@
-.MuiTabs-indicator{
+.MuiTabs-indicator {
 	display: none !important;
 }
-#columnHeading{
+
+#columnHeading {
 	font-size: 0.938rem !important;
 }
-#review-submit-button{
+
+#review-submit-button {
 	font-size: 1rem;
 }
+
 @media (max-width: 800px) {
 	#column-heading {
 		font-size: 12px;
 	}
+
 	#column-content {
 		font-size: 20px;
 	}
 }
 
 @media (max-width: 600px) {
+
 	#right-border,
 	#right-border-loan-term,
 	#right-border-apr {
@@ -25,6 +30,7 @@
 }
 
 @media (max-width: 600px) {
+
 	#reselect-button,
 	#review-submit-button {
 		width: 100%;

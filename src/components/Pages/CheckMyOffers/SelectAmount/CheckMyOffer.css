@@ -1,14 +1,17 @@
 .card {
 	padding: 5% 5% 1% 5%;
 }
+
 .cardWrapper {
 	margin-top: 5%;
 	margin-bottom: 2%;
 }
+
 .borrowCSS {
 	margin-top: 4% !important;
 	margin-bottom: 4% !important;
 }
+
 .setSlider {
 	margin-bottom: 0 !important;
 }
@@ -17,6 +20,7 @@
 	margin-bottom: 7% !important;
 	text-align: center;
 }
+
 .setGreenColor {
 	color: green;
 }
@@ -33,6 +37,7 @@
 .alignSmallText {
 	margin-bottom: 3%;
 }
+
 .alignText {
 	color: #595959;
 	font-size: 0.9rem;
@@ -53,6 +58,7 @@
 	transition: 0.5s;
 	overflow: hidden;
 }
+
 .CMOHeading {
 	font-size: 1.563rem !important;
 	line-height: 110% !important;
@@ -62,7 +68,8 @@
 #selectAmountWrap {
 	border-radius: 10px !important;
 }
-.checkMyOffersWrap{
+
+.checkMyOffersWrap {
 	padding: 24px;
 }
 
@@ -146,27 +153,28 @@
 	padding-bottom: 15px !important;
 }
 
-#sliderBar{
+#sliderBar {
 	margin-top: 35px;
 }
 
 #sliderBar .MuiSlider-rail,
-#sliderBar .MuiSlider-mark{
+#sliderBar .MuiSlider-mark {
 	height: 3px !important;
 }
 
-#sliderBar .MuiSlider-thumb{
+#sliderBar .MuiSlider-thumb {
 	width: 13px !important;
-    height: 13px !important;
+	height: 13px !important;
 }
 
-#offerCodeInput-label{
+#offerCodeInput-label {
 	font-size: 0.968rem !important;
 }
+
 #offerCodeInput {
 	padding-bottom: 15px !important;
 }
 
-.selectAmountGrid{
+.selectAmountGrid {
 	margin-bottom: 5% !important;
 }

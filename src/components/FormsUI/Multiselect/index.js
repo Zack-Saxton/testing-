@@ -31,7 +31,7 @@ const MultiSelectWrapper = ({
     setMultiSelect(event.target.value);
   };
 
-  
+
   const classes = useStylesMultiSelectComponent();
   const itemHeight = 48;
   const paddingTop = 8;
@@ -72,28 +72,28 @@ const MultiSelectWrapper = ({
   let multiselect1 = JSON.parse(multiselect);
 
   return (
-    <FormControl { ...configFormControl }>
-      <InputLabel className={ classes.formControl }>{ labelform }</InputLabel>
+    <FormControl {...configFormControl}>
+      <InputLabel className={classes.formControl}>{labelform}</InputLabel>
       <Select
-        { ...configMultiSelect }
-        { ...otherProps }
-        value={ multiSelect }
+        {...configMultiSelect}
+        {...otherProps}
+        value={multiSelect}
         multiple
-        MenuProps={ MenuProps }
+        MenuProps={MenuProps}
         data-test-id="multiSelectBox"
-        inputProps={ { "data-testid": "multiSelectInput" } }
-        renderValue={ (selected) => selected.join(", ") }
+        inputProps={{ "data-testid": "multiSelectInput" }}
+        renderValue={(selected) => selected.join(", ")}
       >
-        { multiselect1.map((nam) => (
-          <MenuItem key={ nam.value } value={ nam.value }>
+        {multiselect1.map((nam) => (
+          <MenuItem key={nam.value} value={nam.value}>
             <Checkbox
-              refvalue={ nam.value }
-              checked={ multiSelect.indexOf(nam.value) > -1 }
-              className={ classes.check }
+              refvalue={nam.value}
+              checked={multiSelect.indexOf(nam.value) > -1}
+              className={classes.check}
             />
-            <ListItemText primary={ nam.value } />
+            <ListItemText primary={nam.value} />
           </MenuItem>
-        )) }
+        ))}
       </Select>
     </FormControl>
   );

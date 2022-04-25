@@ -31,25 +31,25 @@ export default function ActiveLoans(userActiveLoanData) {
   //View
   return (
     <>
-      { userActiveLoanData?.isLoading ? (
+      {userActiveLoanData?.isLoading ? (
         <>
           <Grid
             container
             item
             direction="row"
-            xs={ 12 }
-            className={ classes.activeLoanWrap }
+            xs={12}
+            className={classes.activeLoanWrap}
           >
             <Typography
               variant="h5"
-              className={ classes.subheading }
+              className={classes.subheading}
               data-testid="subtitle"
             >
               Active Loan
             </Typography>
           </Grid>
-          <Grid className={ classes.activeLoanTable } container>
-            <TableContainer component={ Paper }>
+          <Grid className={classes.activeLoanTable} container>
+            <TableContainer component={Paper}>
               <Table>
                 <TableBody>
                   <TableRow>
@@ -64,18 +64,18 @@ export default function ActiveLoans(userActiveLoanData) {
         </>
       ) : (
         <>
-          { userActiveLoans?.userActiveLoanData?.length ? (
+          {userActiveLoans?.userActiveLoanData?.length ? (
             <>
-              <Grid item xs={ 12 } container direction="row">
+              <Grid item xs={12} container direction="row">
                 <Typography
                   variant="h5"
-                  className={ classes.subheading }
+                  className={classes.subheading}
                   data-testid="subtitle"
                 >
                   Active Loans
                 </Typography>
               </Grid>
-              <Grid  container>
+              <Grid container>
                 {userActiveLoans.userActiveLoanData.map(
                   (appData) => (
                     <Grid className={classes.activeLoancardwrap}
@@ -85,27 +85,27 @@ export default function ActiveLoans(userActiveLoanData) {
                       <Grid
                         id="activeLoanWrap"
                         item
-                        xs={ 12 }
-                        sm={ 9 }
+                        xs={12}
+                        sm={9}
                       >
                         <Paper
-                          className={ classes.paper }
+                          className={classes.paper}
                           id="activeLoanGrid"
                         >
-                          <Grid container className={ classes.activeLoanHeadingWrap }>
-                            <Grid item xs={ 12 } sm={ 6 }>
+                          <Grid container className={classes.activeLoanHeadingWrap}>
+                            <Grid item xs={12} sm={6}>
                               <Typography
                                 variant="h5"
-                                className={ classes.activeLoanHeading }
+                                className={classes.activeLoanHeading}
                                 data-testid="subtitle"
                               >
                                 Next Payment Details
                               </Typography>
                             </Grid>
-                            <Grid item xs={ 12 } sm={ 6 }>
+                            <Grid item xs={12} sm={6}>
                               <NavLink
-                                to={ `/customers/makePayment/?accNo=${ window.btoa(appData.loanDetails.AccountNumber) }` }
-                                key={ Math.random() * 1000 }
+                                to={`/customers/makePayment/?accNo=${ window.btoa(appData.loanDetails.AccountNumber) }`}
+                                key={Math.random() * 1000}
                               >
                                 <ButtonPrimary
                                   id="makeAPaymentButtonStyle"
@@ -115,7 +115,7 @@ export default function ActiveLoans(userActiveLoanData) {
                                       ? numberDaysForDueDate(appData)
                                         ? `${ classes.normalButton } pulse`
                                         : classes.normalButton
-                                      : `${classes.buttonColorPastDate} pulse`
+                                      : `${ classes.buttonColorPastDate } pulse`
                                   }
                                 >
                                   Make a Payment
@@ -125,163 +125,163 @@ export default function ActiveLoans(userActiveLoanData) {
                           </Grid>
 
                           <Grid container>
-                            <Grid item xs={ 12 } sm={ 3 }>
+                            <Grid item xs={12} sm={3}>
                               <AutoPayStatus
-                                isAutoPay={ appData?.loanPaymentInformation?.appRecurringACHPayment ? true : false }
-                                accountNumber={ appData?.loanDetails?.AccountNumber }
+                                isAutoPay={appData?.loanPaymentInformation?.appRecurringACHPayment ? true : false}
+                                accountNumber={appData?.loanDetails?.AccountNumber}
                               />
                             </Grid>
 
-                            <Grid id="regularAmountGrid" item xs={ 12 } sm={ 3 }>
+                            <Grid id="regularAmountGrid" item xs={12} sm={3}>
                               <p
                                 id="RegularAmmountText"
-                                className={ classes.cardContent }
+                                className={classes.cardContent}
                               >
-                                { " " }
+                                {" "}
                                 Regular Amount
                               </p>
                               <h5
                                 id="nextPaymentItems"
-                                className={ classes.brandColor }
+                                className={classes.brandColor}
                               >
                                 <span className="addCommaAmount">
                                   <NumberFormat
-                                    value={ appData?.loanDetails?.RegularPaymentAmount }
-                                    displayType={ "text" }
-                                    thousandSeparator={ true }
-                                    decimalScale={ 2 }
-                                    fixedDecimalScale={ true }
-                                    prefix={ "$" }
+                                    value={appData?.loanDetails?.RegularPaymentAmount}
+                                    displayType={"text"}
+                                    thousandSeparator={true}
+                                    decimalScale={2}
+                                    fixedDecimalScale={true}
+                                    prefix={"$"}
                                   />
                                 </span>
                               </h5>
-                              <p className={ classes.cardContent }>
+                              <p className={classes.cardContent}>
                                 * Amount may not <br></br> include all fees!
                               </p>
                             </Grid>
-                            <Grid item xs={ 12 } sm={ 3 }>
-                              <p id="dueDate" className={ classes.cardcontent }>
+                            <Grid item xs={12} sm={3}>
+                              <p id="dueDate" className={classes.cardcontent}>
                                 Due Date
                               </p>
                               <h5
                                 id="nextPaymentItems"
-                                className={ classes.brandColor }
+                                className={classes.brandColor}
                               >
-                                { Moment(appData?.loanDetails?.NextPaymentDate).format("MM/DD/YYYY") }
+                                {Moment(appData?.loanDetails?.NextPaymentDate).format("MM/DD/YYYY")}
                               </h5>
 
-                              { today.isBefore(
+                              {today.isBefore(
                                 appData.loanDetails.NextPaymentDate
                               ) ? (
-                                <p className={ classes.cardcontent }>
-                                  { " " }
-                                  Due in{ " " }
-                                  { Math.ceil(Moment.duration(Moment(appData?.loanDetails?.NextPaymentDate).diff(today)).asDays()) }{ " " }
+                                <p className={classes.cardcontent}>
+                                  {" "}
+                                  Due in{" "}
+                                  {Math.ceil(Moment.duration(Moment(appData?.loanDetails?.NextPaymentDate).diff(today)).asDays())}{" "}
                                   days
                                 </p>
                               ) : (
-                                <p className={ classes.cardcontent }>
+                                <p className={classes.cardcontent}>
                                   Your payment is <br></br> overdue
                                 </p>
-                              ) }
+                              )}
                             </Grid>
-                            { appData.loanPaymentInformation
+                            {appData.loanPaymentInformation
                               .hasScheduledPayment ? (
                               <Grid
                                 id="scheduledPaymentGrid"
                                 item
-                                xs={ 12 }
-                                sm={ 3 }
+                                xs={12}
+                                sm={3}
                               >
                                 <p
                                   id="ScheduledPaymentText"
-                                  className={ classes.cardcontent }
+                                  className={classes.cardcontent}
                                 >
                                   Scheduled Payment
                                 </p>
                                 <h5
                                   id="nextPaymentItems"
-                                  className={ classes.brandColor }
+                                  className={classes.brandColor}
                                 >
-                                  { Moment(appData?.loanPaymentInformation?.scheduledPayments[ 0 ]?.PaymentDate).format("MM/DD/YYYY") }
+                                  {Moment(appData?.loanPaymentInformation?.scheduledPayments[ 0 ]?.PaymentDate).format("MM/DD/YYYY")}
                                 </h5>
-                                <p className={ classes.cardcontent }>
+                                <p className={classes.cardcontent}>
                                   Future payment is scheduled
                                 </p>
                               </Grid>
                             ) : (
-                              <Grid item xs={ 12 } sm={ 3 }>
+                              <Grid item xs={12} sm={3}>
                                 <p
                                   id="ScheduledPaymentText"
-                                  className={ classes.cardcontent }
+                                  className={classes.cardcontent}
                                 >
                                   Scheduled Payment
                                 </p>
                                 <h5
                                   id="nextPaymentItems"
-                                  className={ classes.brandColor }
+                                  className={classes.brandColor}
                                 >
                                   NONE
                                 </h5>
-                                <p className={ classes.cardcontent }>
+                                <p className={classes.cardcontent}>
                                   No future payment is scheduled
                                 </p>
                               </Grid>
-                            ) }
+                            )}
                           </Grid>
                         </Paper>
                       </Grid>
                       <Grid
                         id="overviewContainer"
                         item
-                        xs={ 12 }
-                        sm={ 3 }
+                        xs={12}
+                        sm={3}
                       >
-                        <Paper id="overviewWrap" className={ classes.paper }>
-                          <Grid item xs={ 12 }>
+                        <Paper id="overviewWrap" className={classes.paper}>
+                          <Grid item xs={12}>
                             <Typography
                               variant="h5"
-                              className={ classes.activeLoanSubHeading }
+                              className={classes.activeLoanSubHeading}
                             >
                               Overview
                             </Typography>
                             <div className="OverviewAccountNumberText">
                               <p
-                                className={ classes.activeLoanSubHeading_content }
+                                className={classes.activeLoanSubHeading_content}
                               >
                                 Account Number
                               </p>
                               <p
                               >
-                                <b>{ appData.loanDetails.AccountNumber }</b>
+                                <b>{appData.loanDetails.AccountNumber}</b>
                               </p>
 
                               <p
-                                className={ classes.activeLoanSubHeading_content }
+                                className={classes.activeLoanSubHeading_content}
                               >
                                 Opened On
                               </p>
                               <p >
                                 <b>
-                                  { Moment(appData.loanDetails.LoanOriginationDate).format("MM/DD/YYYY") }
+                                  {Moment(appData.loanDetails.LoanOriginationDate).format("MM/DD/YYYY")}
                                 </b>
                               </p>
                               <p className={classes.activeLoanSubHeading_content}>APR</p>
-                              <b>{`${(appData.loanDetails.OriginalAPR)?.toFixed(2)}%`}</b>
+                              <b>{`${ (appData.loanDetails.OriginalAPR)?.toFixed(2) }%`}</b>
                             </div>
                           </Grid>
                         </Paper>
                       </Grid>
                     </Grid>
                   )
-                ) }
+                )}
               </Grid>
             </>
           ) : (
             <> </>
-          ) }
+          )}
         </>
-      ) }
+      )}
     </>
   );
 }

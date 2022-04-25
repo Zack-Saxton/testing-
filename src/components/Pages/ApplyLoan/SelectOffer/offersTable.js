@@ -17,9 +17,9 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import PropTypes from "prop-types";
 import React, { useState,useContext } from "react";
 import {
-	ButtonPrimary,
-	ButtonSecondary, Checkbox,
-	Radio
+  ButtonPrimary,
+  ButtonSecondary, Checkbox,
+  Radio
 } from "../../../FormsUI";
 import messages from "../../../lib/Lang/applyForLoan.json";
 import LoadChart from "./loadChart";
@@ -28,39 +28,39 @@ import { NavContext } from "../../../../contexts/NavContext";
 
 
 function TabVerticalPanel(props) {
-	const { children, tabValue, verticalIndex, ...other } = props;
+  const { children, tabValue, verticalIndex, ...other } = props;
 
-	return (
-		<div
-			hidden={ tabValue !== verticalIndex }
-			id={ `scrollable-auto-tab-panel-${ verticalIndex }` }
-			aria-labelledby={ `scrollable-auto-tab-${ verticalIndex }` }
-			{ ...other }
-		>
-			{ tabValue === verticalIndex && (
-				<Box>
-					<div>{ children }</div>
-				</Box>
-			) }
-		</div>
-	);
+  return (
+    <div
+      hidden={tabValue !== verticalIndex}
+      id={`scrollable-auto-tab-panel-${ verticalIndex }`}
+      aria-labelledby={`scrollable-auto-tab-${ verticalIndex }`}
+      {...other}
+    >
+      {tabValue === verticalIndex && (
+        <Box>
+          <div>{children}</div>
+        </Box>
+      )}
+    </div>
+  );
 }
 
 TabVerticalPanel.propTypes = {
-	children: PropTypes.node,
-	verticalIndex: PropTypes.any.isRequired,
-	tabValue: PropTypes.any.isRequired,
+  children: PropTypes.node,
+  verticalIndex: PropTypes.any.isRequired,
+  tabValue: PropTypes.any.isRequired,
 };
 
 const HtmlTooltip = withStyles((theme) => ({
-	tooltip: {
-		backgroundColor: '#f5f5f9',
-		color: 'rgba(0, 0, 0, 0.87)',
-		maxWidth: 500,
-		fontSize: theme.typography.pxToRem(14),
-		border: '1px solid #dadde9',
-		fontFamily: "Muli, sans-serif"
-	},
+  tooltip: {
+    backgroundColor: '#f5f5f9',
+    color: 'rgba(0, 0, 0, 0.87)',
+    maxWidth: 500,
+    fontSize: theme.typography.pxToRem(14),
+    border: '1px solid #dadde9',
+    fontFamily: "Muli, sans-serif"
+  },
 }))(Tooltip);
 
 export default function OfferTable(props) {
@@ -78,71 +78,71 @@ export default function OfferTable(props) {
 		</Grid>
 	);
 
-	//Shows the Online icon
-	const online = (
-		<Grid container direction="row" alignItems="center">
-			<DesktopMacIcon /> Online
-		</Grid>
-	);
+  //Shows the Online icon
+  const online = (
+    <Grid container direction="row" alignItems="center">
+      <DesktopMacIcon /> Online
+    </Grid>
+  );
 
-	const handleAdd = (selectedOffer) => {
-		const newRecord = [ ...selectData ];
-		newRecord.push(selectedOffer);
-		setSelectData(newRecord);
-	};
-	// Select the offers to compare : will push the selected offer value into array
-	const selectOfferToCompare = (row) => {
-		offersComp = props.offersToCompare;
-		if (offersComp.findIndex((offerInfo) => offerInfo._id === row._id) === -1) {
-			offersComp.push(row);
-		} else {
-			// offersComp.findIndex((offerInfo) => offerInfo._id === row._id) === -1
-			// 	? offersComp.push(row)
-				// :
-				 offersComp.splice(offersComp.indexOf(row), 1);
-		}
-		props.setOffersToCompare(offersComp);
-		handleAdd(row);
-	};
-	const buildChartData = (chartData) => {
-		if (chartData.length >= 2) {
-			setTermDataMax(
-				chartData[ 0 ]?.monthlyPayment > chartData[ 1 ]?.monthlyPayment
-					? chartData[ 0 ]?.monthlyPayment
-					: chartData[ 1 ].monthlyPayment
-			);
-		}
-	};
-	const selectOfferToCompareChart = (row) => {
-		if (offersCompChart.indexOf(row) === -1) {
-			if (offersCompChart.length < 2) {
-				offersCompChart.push(row);
-			} else {
-				offersCompChart.shift();
-				offersCompChart.push(row);
-			}
-			buildChartData(offersCompChart);
-		} else {
-			let index = offersCompChart.indexOf(row);
-			offersCompChart.splice(index, 1);
-			buildChartData(offersCompChart);
-		}
-		handleAdd(row);
-	};
+  const handleAdd = (selectedOffer) => {
+    const newRecord = [ ...selectData ];
+    newRecord.push(selectedOffer);
+    setSelectData(newRecord);
+  };
+  // Select the offers to compare : will push the selected offer value into array
+  const selectOfferToCompare = (row) => {
+    offersComp = props.offersToCompare;
+    if (offersComp.findIndex((offerInfo) => offerInfo._id === row._id) === -1) {
+      offersComp.push(row);
+    } else {
+      // offersComp.findIndex((offerInfo) => offerInfo._id === row._id) === -1
+      // 	? offersComp.push(row)
+      // :
+      offersComp.splice(offersComp.indexOf(row), 1);
+    }
+    props.setOffersToCompare(offersComp);
+    handleAdd(row);
+  };
+  const buildChartData = (chartData) => {
+    if (chartData.length >= 2) {
+      setTermDataMax(
+        chartData[ 0 ]?.monthlyPayment > chartData[ 1 ]?.monthlyPayment
+          ? chartData[ 0 ]?.monthlyPayment
+          : chartData[ 1 ].monthlyPayment
+      );
+    }
+  };
+  const selectOfferToCompareChart = (row) => {
+    if (offersCompChart.indexOf(row) === -1) {
+      if (offersCompChart.length < 2) {
+        offersCompChart.push(row);
+      } else {
+        offersCompChart.shift();
+        offersCompChart.push(row);
+      }
+      buildChartData(offersCompChart);
+    } else {
+      let index = offersCompChart.indexOf(row);
+      offersCompChart.splice(index, 1);
+      buildChartData(offersCompChart);
+    }
+    handleAdd(row);
+  };
 
-	const handleRadioOnClick = (row, ind) => {
-		props.setCheckedValue(row._id);
-		props.setSelectedIndex(ind);
-		props.setSelectedTerm(row.termNum);
-	};
+  const handleRadioOnClick = (row, ind) => {
+    props.setCheckedValue(row._id);
+    props.setSelectedIndex(ind);
+    props.setSelectedTerm(row.termNum);
+  };
 
-	const handleResetOnClick = () => {
-		props.setCheckedValue("");
-		props.setSelectedTerm("");
-		props.setSelectedIndex("");
-		props.setOffersToCompareChart([]);
-		props.setOffersToCompare([]);
-	}
+  const handleResetOnClick = () => {
+    props.setCheckedValue("");
+    props.setSelectedTerm("");
+    props.setSelectedIndex("");
+    props.setOffersToCompareChart([]);
+    props.setOffersToCompare([]);
+  }
 
 	const onClickViewCompare = () => {
 		props.onCompareOfferTabClick();
@@ -403,7 +403,7 @@ export default function OfferTable(props) {
                     }}
                     disabled={
                       props.selectedTerm &&
-                      (props.selectedIndex || !props.selectedIndex)
+                        (props.selectedIndex || !props.selectedIndex)
                         ? props.loading
                         : true
                     }
@@ -455,24 +455,24 @@ export default function OfferTable(props) {
 }
 
 OfferTable.propTypes = {
-	offersToCompare: PropTypes.array,
-	setOffersToCompare: PropTypes.func,
-	classes: PropTypes.object,
-	loading: PropTypes.bool,
-	offersToCompareChart: PropTypes.array,
-	rowData: PropTypes.array,
-	value: PropTypes.number,
-	offerFlag: PropTypes.bool,
-	checkedValue: PropTypes.string,
-	setCheckedValue: PropTypes.func,
-	setSelectedIndex: PropTypes.func,
-	setSelectedTerm: PropTypes.func,
-	selectedTerm: PropTypes.string,
-	selectedIndex: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]),
-	setOffersToCompareChart: PropTypes.func,
-	tabVerticalProps: PropTypes.func,
-	noOfTerms: PropTypes.number,
-	handleTabChange: PropTypes.func,
-	submitSelectedOffer: PropTypes.func,
-	onCompareOfferTabClick: PropTypes.func
+  offersToCompare: PropTypes.array,
+  setOffersToCompare: PropTypes.func,
+  classes: PropTypes.object,
+  loading: PropTypes.bool,
+  offersToCompareChart: PropTypes.array,
+  rowData: PropTypes.array,
+  value: PropTypes.number,
+  offerFlag: PropTypes.bool,
+  checkedValue: PropTypes.string,
+  setCheckedValue: PropTypes.func,
+  setSelectedIndex: PropTypes.func,
+  setSelectedTerm: PropTypes.func,
+  selectedTerm: PropTypes.string,
+  selectedIndex: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]),
+  setOffersToCompareChart: PropTypes.func,
+  tabVerticalProps: PropTypes.func,
+  noOfTerms: PropTypes.number,
+  handleTabChange: PropTypes.func,
+  submitSelectedOffer: PropTypes.func,
+  onCompareOfferTabClick: PropTypes.func
 };

@@ -77,25 +77,25 @@ const queryClient = new QueryClient({
 const loadGeneralUserComponent = (componentName) => {
     return (
         <GeneralUser>
-            { componentName }
+            {componentName}
         </GeneralUser>
     );
 };
 
 const loadGeneralUserWithoutHeader = (componentName) => {
     return (
-        <GeneralUser skipHeaderMenu={ true }>
-            { componentName }
+        <GeneralUser skipHeaderMenu={true}>
+            {componentName}
         </GeneralUser>
     );
 };
 
 const LoadPostComponent = (componentName) => {
     return (
-        
+
         <div id="main" >
             <PostLogin >
-                { componentName }
+                {componentName}
             </PostLogin>
         </div>
     );
@@ -103,7 +103,7 @@ const LoadPostComponent = (componentName) => {
 const branchHeaderComponent = (componentName) => {
     return (
         <BranchLocatorLayout>
-            { componentName }
+            {componentName}
         </BranchLocatorLayout>
     );
 };

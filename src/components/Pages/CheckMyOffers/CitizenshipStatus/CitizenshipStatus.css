@@ -1,14 +1,17 @@
 .cardWOPadding {
 	text-align: center;
 }
+
 .cardWrapper {
 	margin-top: 5%;
 	margin-bottom: 2%;
 }
+
 .borrowCSS {
 	margin-top: 4% !important;
 	margin-bottom: 4% !important;
 }
+
 .setSlider {
 	margin-bottom: 0 !important;
 }
@@ -17,6 +20,7 @@
 	margin-bottom: 7% !important;
 	text-align: center;
 }
+
 .setGreenColor {
 	color: green;
 }
@@ -31,6 +35,7 @@
 .alignSmallText {
 	margin-bottom: 3%;
 }
+
 .alignText {
 	color: #595959;
 	font-size: 0.9rem;
@@ -87,6 +92,7 @@
 	font-family: "Muli", sans-serif;
 	font-weight: 400;
 }
+
 .hideMsg {
 	display: none;
 }
@@ -101,6 +107,7 @@
 	from {
 		-webkit-transform: rotate(0deg);
 	}
+
 	to {
 		-webkit-transform: rotate(359deg);
 	}
@@ -152,32 +159,37 @@
 .floatLeft {
 	text-align: left;
 }
+
 .borrowCSSLP {
 	font-size: 1.538rem !important;
 	font-weight: 400 !important;
 	line-height: 110% !important;
 }
-#usButton{
-		margin: 15px 0px 15px 0px  !important;
-		padding: 3px 0px !important;
-		border-radius: 2px !important;
-		font-size: 0.938rem;
-}
-#permanentResidentButton,#foreignResidentButton{
-	margin: 0px 0px 15px 0px  !important;
+
+#usButton {
+	margin: 15px 0px 15px 0px !important;
 	padding: 3px 0px !important;
 	border-radius: 2px !important;
 	font-size: 0.938rem;
 }
-.checkMyOfferText{
+
+#permanentResidentButton,
+#foreignResidentButton {
+	margin: 0px 0px 15px 0px !important;
+	padding: 3px 0px !important;
+	border-radius: 2px !important;
+	font-size: 0.938rem;
+}
+
+.checkMyOfferText {
 	margin: 10px 0px !important;
 }
 
-.arrowBack{
+.arrowBack {
 	position: relative;
 }
 
-.floatingButton{
+.floatingButton {
 	position: absolute;
 }
 

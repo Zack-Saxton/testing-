@@ -4,8 +4,8 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Grid from "@mui/material/Grid";
-import { makeStyles } from "@mui/styles";
 import Typography from "@mui/material/Typography";
+import { makeStyles } from "@mui/styles";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import PropTypes from "prop-types";
@@ -122,11 +122,11 @@ export default function PhoneVerification(props) {
 
 	const onNextClick = async () => {
 		const skip = JSON.parse(Cookies.get("skip") ? Cookies.get("skip") : "{ }");
-		if(skip?.phone && !passcode){
+		if (skip?.phone && !passcode) {
 			props.next();
-		}else if(!passcode){
+		} else if (!passcode) {
 			toast.error("Enter Passcode");
-		}else{
+		} else {
 			let res = await verifyPasscode(passcode);
 			if (res?.data?.phone_verification) {
 				setError("");
@@ -137,7 +137,7 @@ export default function PhoneVerification(props) {
 						.verificationNotFound
 				);
 			}
-		}		
+		}
 	};
 
 	const skipPhoneVerification = (event) => {
@@ -151,18 +151,18 @@ export default function PhoneVerification(props) {
 	//view part
 	return (
 		<div>
-			<Grid item sm={ 12 } lg={ 12 }>
+			<Grid item sm={12} lg={12}>
 				<p
-					className={ innerClasses.pTagTextStyle }
+					className={innerClasses.pTagTextStyle}
 				>
 					To verify your phone number we will deliver a passcode to your phone.
 					Please select how you would like to receive this passcode.
 				</p>
 			</Grid>
-			<form onSubmit={ formik.handleSubmit }>
+			<form onSubmit={formik.handleSubmit}>
 				<Grid
 					item
-					sm={ 5 }
+					sm={5}
 					className="textBlock"
 					id="applyForLoanPhone"
 				>
@@ -171,40 +171,40 @@ export default function PhoneVerification(props) {
 						label="Phone number *"
 						id="phone"
 						type="text"
-						onKeyDown={ preventSpace }
-						value={ formik.values.phone ? phoneNumberMask(formik.values.phone) : "" }
-						onChange={ formik.handleChange }
-						disabled={ true }
-						error={ formik.touched.phone && Boolean(formik.errors.phone) }
-						helperText={ formik.touched.phone && formik.errors.phone }
+						onKeyDown={preventSpace}
+						value={formik.values.phone ? phoneNumberMask(formik.values.phone) : ""}
+						onChange={formik.handleChange}
+						disabled={true}
+						error={formik.touched.phone && Boolean(formik.errors.phone)}
+						helperText={formik.touched.phone && formik.errors.phone}
 					/>
 					<div className="MuiTypography-alignLeft">
 						<Typography
-							className={ innerClasses.smallTextLeft }
+							className={innerClasses.smallTextLeft}
 							align="left"
 						>
 							This is the Phone number you provided in your application
 						</Typography>
 					</div>
 				</Grid>
-				<Grid item xs={ 12 } className={ innerClasses.lineHightStyle }>
+				<Grid item xs={12} className={innerClasses.lineHightStyle}>
 					<FormControl component="fieldset">
-						<FormLabel className={ innerClasses.fontLableStyle } component="legend">Delivery Method</FormLabel>
+						<FormLabel className={innerClasses.fontLableStyle} component="legend">Delivery Method</FormLabel>
 						<RadioGroup
 							id="textAndCall"
 							aria-label="method"
 							name="method"
-							value={ value }
-							onChange={ handleChange }
-							row={ true }
+							value={value}
+							onChange={handleChange}
+							row={true}
 						>
-							<FormControlLabel value="T" control={ <Radio color='primary' /> } label="Text" />
-							<FormControlLabel value="M" control={ <Radio color='primary' /> } label="Call" />
+							<FormControlLabel value="T" control={<Radio color='primary' />} label="Text" />
+							<FormControlLabel value="M" control={<Radio color='primary' />} label="Call" />
 						</RadioGroup>
 					</FormControl>
 					<div className="MuiTypography-alignLeft">
 						<Typography
-							className={ innerClasses.smallTextLeft }
+							className={innerClasses.smallTextLeft}
 							align="left"
 						>
 							Standard text message and voice rates apply.
@@ -212,32 +212,32 @@ export default function PhoneVerification(props) {
 					</div>
 				</Grid>
 
-				<Grid item xs={ 12 } className={ innerClasses.lineHightStyle }>
+				<Grid item xs={12} className={innerClasses.lineHightStyle}>
 					<ButtonWithIcon
 						stylebutton='{ "fontWeight":"normal" }'
 						styleicon='{ "color":"" }'
 						type="submit"
-						fullWidth={ true }
-						onClick={ () => {
+						fullWidth={true}
+						onClick={() => {
 							setOfferCode(!hasPasscode);
-						} }
+						}}
 					>
 						Send Passcode
 					</ButtonWithIcon>
 				</Grid>
-				<div className={ hasPasscode ? "open" : "close" }>
-					<Grid item sm={ 5 }>
+				<div className={hasPasscode ? "open" : "close"}>
+					<Grid item sm={5}>
 						<TextField
 							name="firstName"
 							label="Enter Passcode"
-							value={ passcode }
-							onChange={ onPasscodeChange }
-							materialProps={ {
+							value={passcode}
+							onChange={onPasscodeChange}
+							materialProps={{
 								"data-test-id": "offer",
 								maxLength: "4",
-							} }
-							error={ error ? true : false }
-							helperText={ error }
+							}}
+							error={error ? true : false}
+							helperText={error}
 						/>
 					</Grid>
 				</div>
@@ -245,40 +245,40 @@ export default function PhoneVerification(props) {
 			<br />
 			<div>
 				<Typography
-					onClick={ () => {
+					onClick={() => {
 						setOpen(true);
-					} }
-					className={ props.classes.linkStyle }
+					}}
+					className={props.classes.linkStyle}
 				>
 					I do not have access to this phone
 				</Typography>
 			</div>
-			<div className={ props.classes.actionsContainer }>
-				<div className={ props.classes.button_div }>
+			<div className={props.classes.actionsContainer}>
+				<div className={props.classes.button_div}>
 					<ButtonPrimary
 						variant="contained"
 						color="primary"
 						id="button_stepper_next"
 						stylebutton='{"marginRight": "10px", "color":"" }'
-						onClick={ () => { onNextClick(); } }
+						onClick={() => { onNextClick(); }}
 					>
-						{ props.activeStep === props?.steps.length - 1 ? "Finish" : "Next" }
+						{props.activeStep === props?.steps.length - 1 ? "Finish" : "Next"}
 					</ButtonPrimary>
 				</div>
 			</div>
 			<Dialog
 				className="confirmationDialog"
-				onClose={ handleClose }
+				onClose={handleClose}
 				aria-labelledby="customized-dialog-title"
-				open={ open }
+				open={open}
 			>
-				<DialogTitle id="customized-dialog-title" onClose={ handleClose }>
+				<DialogTitle id="customized-dialog-title" onClose={handleClose}>
 					Confirmation
 				</DialogTitle>
 				<DialogContent dividers>
-					<Typography align="justify" className={ innerClasses.typoStyle } gutterBottom>
+					<Typography align="justify" className={innerClasses.typoStyle} gutterBottom>
 						If you are currently unable to access the phone you provided, click
-						{ " Verify phone later " } to proceed with the Remainder of the
+						{" Verify phone later "} to proceed with the Remainder of the
 						Verification process. Please note that we will need to manually
 						verify your phone number by calling and speaking with you directly.
 					</Typography>
@@ -287,18 +287,18 @@ export default function PhoneVerification(props) {
 					<br />
 
 					<Grid className="confirmationButtons" container>
-						<Grid className="returnButton" item lg={ 5 }>
+						<Grid className="returnButton" item lg={5}>
 							<ButtonSecondary
 								stylebutton='{"background": "", "color": "black", "borderRadius": "50px"}'
-								onClick={ handleClose }
+								onClick={handleClose}
 							>
 								<Typography align="center">Return To Selection</Typography>
 							</ButtonSecondary>
 						</Grid>
-						<Grid item lg={ 5 }>
+						<Grid item lg={5}>
 							<ButtonPrimary
 								stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
-								onClick={ skipPhoneVerification }
+								onClick={skipPhoneVerification}
 							>
 								<Typography align="center">Verify Phone Later</Typography>
 							</ButtonPrimary>

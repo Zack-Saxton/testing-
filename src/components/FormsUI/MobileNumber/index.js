@@ -24,20 +24,20 @@ const MobileNumberWrapper = ({ name, ...otherProps }) => {
   // Check validity
 
   return (
-    <FormControl fullWidth={ true }>
-       <InputMask
-          fullWidth={ true }
-          mask="(+1)- 9"
-          value={ mobile }
-          name={ name }
-          onChange={ handleChange }
-          disabled={ false }
-          maskChar=" "
-          { ...otherProps }
-          { ...field }
-        >
-          { () => <TextField label="Enter " /> }
-        </InputMask>
+    <FormControl fullWidth={true}>
+      <InputMask
+        fullWidth={true}
+        mask="(+1)- 9"
+        value={mobile}
+        name={name}
+        onChange={handleChange}
+        disabled={false}
+        maskChar=" "
+        {...otherProps}
+        {...field}
+      >
+        {() => <TextField label="Enter " />}
+      </InputMask>
     </FormControl>
   );
 };

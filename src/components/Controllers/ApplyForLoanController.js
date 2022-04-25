@@ -269,7 +269,7 @@ export async function idVerificationAnswer(passData) {
 }
 
 /***** Get verificationSteps details *****/
-export  async function verificationSteps() {
+export async function verificationSteps() {
   try {
     let url = "verification_steps_cac";
     let param = "";

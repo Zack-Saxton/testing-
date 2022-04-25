@@ -136,9 +136,9 @@ export default function Disclaimer(offerData) {
             {
                 filteredDisclaimers.map((disclaimer) => {
                     return (
-                        <Grid key={ disclaimer.index.toString() }>
-                            <Typography className="common para">{ disclaimer.title }
-                                <span className="small">{ disclaimer.content }</span>
+                        <Grid key={disclaimer.index.toString()}>
+                            <Typography className="common para">{disclaimer.title}
+                                <span className="small">{disclaimer.content}</span>
                             </Typography>
                         </Grid>
                     );

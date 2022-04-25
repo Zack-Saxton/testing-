@@ -1,20 +1,20 @@
 #card_loanhistory-bg {
-    background: linear-gradient(85deg, #0f4eb3, #264266) !important;
-    box-shadow: 0 6px 20px 0 rgba(57, 73, 171, 0.5) !important;
-  }
+  background: linear-gradient(85deg, #0f4eb3, #264266) !important;
+  box-shadow: 0 6px 20px 0 rgba(57, 73, 171, 0.5) !important;
+}
 
-  #dolor-icon-loan-history {
-    height: 25px;
-    width: 25px;
-    border-radius: 50%;
-    padding: 15px;
-    background: #ffbc23 !important;
-    color: #171717 !important;
-  }
+#dolor-icon-loan-history {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  padding: 15px;
+  background: #ffbc23 !important;
+  color: #171717 !important;
+}
 
-  .yelloWBG {
-    background: #ffbc23 !important;
-    color: #171717 !important;
+.yelloWBG {
+  background: #ffbc23 !important;
+  color: #171717 !important;
 }
 
 .material-icons {
@@ -42,32 +42,32 @@
   border-radius: 50%;
 }
 
-.textdecoration{
+.textdecoration {
   text-decoration: none;
 }
 
-.loanDocuments{
-  padding: "16px 16px 16px 0px" 
+.loanDocuments {
+  padding: "16px 16px 16px 0px"
 }
 
-#loanHistoryTxt{
+#loanHistoryTxt {
   padding-bottom: 10px;
 }
 
-#numberOfLoans{
+#numberOfLoans {
   font-size: 1.563rem;
   margin-bottom: 20px;
 }
 
-.cardLoanHistory{
+.cardLoanHistory {
   padding: 10px;
 }
 
-.disableCardLoanHistory{
+.disableCardLoanHistory {
   opacity: 0.5;
-cursor: no-drop;
-pointer-events: none;
-user-select: none;
-padding: 10px;
+  cursor: no-drop;
+  pointer-events: none;
+  user-select: none;
+  padding: 10px;
 
 }

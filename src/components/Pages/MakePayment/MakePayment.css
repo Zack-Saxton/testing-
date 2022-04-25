@@ -4,23 +4,26 @@
   color: #171717;
   padding: 0px 25px;
 }
+
 #paymentBtnWrap {
   display: flex;
   margin-bottom: 10px;
 }
+
 #cancelPaymentBtn {
   margin-right: 20px;
   padding: 0 35px;
   font-family: "Muli", sans-serif !important;
   font-size: 15px !important;
 }
+
 #submitBtn {
   font-family: "Muli", sans-serif !important;
   font-size: 15px !important;
   padding: 0px 30px;
 }
 
-#select .subOption{
+#select .subOption {
   color: #171717 !important;
 }
 
@@ -30,9 +33,11 @@
     align-items: center;
     justify-content: center;
   }
+
   #make-payment-cancel-button {
     margin: 0 !important;
   }
+
   #cancelPaymentBtn {
     margin-right: 0px;
     margin-top: 20px;
@@ -58,6 +63,7 @@
 #scheduleDialogBox .MuiDialog-paperWidthSm {
   border-radius: 2px !important;
 }
+
 #scheduleDialogHeading {
   padding: 35px 15px 18px 15px !important;
   justify-content: normal;
@@ -73,6 +79,7 @@
 #deletePayment .makeStyles-dialogPaper-40 {
   border-radius: 2px !important;
 }
+
 #deleteDialogHeading {
   padding: 35px 15px 18px 15px !important;
   justify-content: normal;
@@ -83,17 +90,21 @@
     width: 100% !important;
     max-width: 100% !important;
   }
+
   #scheduleCloseBtn {
     top: 0;
     right: 0;
   }
+
   #scheduleDialogHeading {
     padding: 35px 15px 18px 15px !important;
     justify-content: normal;
   }
+
   #dialogActionsBtn {
     margin-bottom: 25px;
   }
+
   #scheduleTxt {
     font-size: 25px !important;
   }
@@ -112,6 +123,7 @@
   #autoTxt {
     font-size: 25px !important;
   }
+
   #autopayDialogBox .makeStyles-dialogPaper-107 {
     width: 100% !important;
     max-width: 100% !important;
@@ -122,17 +134,21 @@
     width: 100% !important;
     max-width: 100% !important;
   }
+
   #deleteTxt {
     font-size: 25px !important;
   }
+
   #deleteClose {
     top: 0 !important;
     right: 0 !important;
   }
-  .replacePaymentBox{
+
+  .replacePaymentBox {
     flex-direction: column-reverse;
   }
-  #replaceCurrentButton{
+
+  #replaceCurrentButton {
     margin: 15px 0px;
   }
 }
@@ -143,69 +159,72 @@
   left: unset;
 }
 
-#deletePayment .makeStyles-dialogPaper-40{
+#deletePayment .makeStyles-dialogPaper-40 {
   bottom: unset;
   left: unset;
 }
 
-#scheduleDialogBox .MuiDialog-paperWidthSm{
+#scheduleDialogBox .MuiDialog-paperWidthSm {
   bottom: unset;
   left: unset;
 }
 
-#paymentTableWrap{
-  font-family: "Muli",sans-serif;
+#paymentTableWrap {
+  font-family: "Muli", sans-serif;
   font-size: 0.938rem !important;
 }
 
-#autoPaySpan .MuiSwitch-thumb{
+#autoPaySpan .MuiSwitch-thumb {
   color: #fafafa !important;
 }
 
-#autoPaySpan :nth-child(2){
+#autoPaySpan :nth-child(2) {
   font-size: 0.875rem;
   color: #575757;
 }
 
-#payment-label{
+#payment-label {
   font-size: 0.938rem;
   color: #595959;
 }
 
-#date-label{
+#date-label {
   font-size: 0.938rem;
   color: #595959;
 }
 
-#payment{
+#payment {
   padding-bottom: 15px;
 }
 
-#makePaymentWrap div:nth-child(2) .MuiPaper-rounded{
+#makePaymentWrap div:nth-child(2) .MuiPaper-rounded {
   border-radius: 10px !important;
 }
 
-#pdfdiv{
+#pdfdiv {
   border-radius: 2px !important;
 }
 
-#payFromWrap div div label{
+#payFromWrap div div label {
   font-size: 0.938rem !important;
 }
 
-#select{
+#select {
   padding-bottom: 15px;
 }
-@media only screen and (max-width: 960px){
-  .actionButtons{
+
+@media only screen and (max-width: 960px) {
+  .actionButtons {
     flex-direction: column-reverse !important;
     align-items: center;
   }
-  #autoPayButton{
+
+  #autoPayButton {
     margin-top: 15px;
     white-space: normal !important;
   }
-  #cancelButton{
+
+  #cancelButton {
     margin-top: 15px !important;
   }
 }

@@ -8,7 +8,7 @@ import { ButtonPrimary } from "../../../FormsUI";
 import { useQuery } from "react-query";
 import messages from "../../../lib/Lang/applyForLoan.json";
 import DocumentUpload from "./DocumentUpload";
-import {verificationSteps} from "../../../Controllers/ApplyForLoanController"
+import { verificationSteps } from "../../../Controllers/ApplyForLoanController"
 
 //styling part
 const useStyles = makeStyles(() => ({
@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => ({
 export default function IncomeVerification(props) {
 	const navigate = useNavigate();
 	const classes = useStyles();
-	const { data: verificationStepsApplyforLoan, refetch } = useQuery('verification-data',verificationSteps );
+	const { data: verificationStepsApplyforLoan, refetch } = useQuery('verification-data', verificationSteps);
 
 	const handleUpload = (res) => {
 		if (res?.data?.income_verification) {
@@ -33,36 +33,36 @@ export default function IncomeVerification(props) {
 	};
 
 	const handleFinishOnClick = async () => {
-							props.setLoadingFlag(true);
-							await refetch()
-							let verifySteps = await verificationSteps();
-							//To check all the steps are completed or not
-							if (
-								verifySteps?.data?.email &&
-								verifySteps?.data?.financial_information &&
-								verifySteps?.data?.id_document &&
-								verifySteps?.data?.id_questions &&
-								verifySteps?.data?.id_photo &&
-								verifySteps?.data?.bank_account_information &&
-								verifySteps?.data?.bank_account_verification &&
-								verifySteps?.data?.income_verification
-							) { 
-								props.setLoadingFlag(false);
-								navigate("/customers/receiveYourMoney");
-							} else {
-								props.setLoadingFlag(false);
-								toast.error(messages.incomeVerification.finishAllSteps);
-							}
+		props.setLoadingFlag(true);
+		await refetch()
+		let verifySteps = await verificationSteps();
+		//To check all the steps are completed or not
+		if (
+			verifySteps?.data?.email &&
+			verifySteps?.data?.financial_information &&
+			verifySteps?.data?.id_document &&
+			verifySteps?.data?.id_questions &&
+			verifySteps?.data?.id_photo &&
+			verifySteps?.data?.bank_account_information &&
+			verifySteps?.data?.bank_account_verification &&
+			verifySteps?.data?.income_verification
+		) {
+			props.setLoadingFlag(false);
+			navigate("/customers/receiveYourMoney");
+		} else {
+			props.setLoadingFlag(false);
+			toast.error(messages.incomeVerification.finishAllSteps);
+		}
 	}
 	//JSX part
 	return (
 		<div>
 			<div>
-				<p style={ { textAlign: "justify", fontSize: "0.938rem" } }>
+				<p style={{ textAlign: "justify", fontSize: "0.938rem" }}>
 					<span>
 						To finalize our review, we need to verify the income that you have stated.
 					</span>
-					<li style={ { fontSize: "0.938rem" } }>
+					<li style={{ fontSize: "0.938rem" }}>
 						Please upload your most recent, complete pay statement (dated inside
 						of 30 days) or your most recent benefits statement from the current
 						calendar year if you are retired or not employed.
@@ -73,39 +73,39 @@ export default function IncomeVerification(props) {
 					verification steps.
 				</p>
 
-				<p style={ { textAlign: "justify", fontSize: "0.938rem" } }>
+				<p style={{ textAlign: "justify", fontSize: "0.938rem" }}>
 					Acceptable ﬁle Formats are PDF, JPG, JPEG, GIF, 81 PNG (please note
 					that we are unable to accept screenshots or photos of a computer
 					screen).
 				</p>
 
-				<p style={ { textAlign: "justify", fontSize: "0.938rem" } }>
+				<p style={{ textAlign: "justify", fontSize: "0.938rem" }}>
 					Feel Free to chat with us or give us a call at 877-310-2373 if you
 					have a question about what is an acceptable form of proof of income!
 				</p>
 			</div>
 
-			<Grid className={ classes.content_grid }></Grid>
-			<Grid className={ classes.content_grid }>
+			<Grid className={classes.content_grid}></Grid>
+			<Grid className={classes.content_grid}>
 				<DocumentUpload
-					classes={ classes }
-					docType={ "income information" }
-					handle={ handleUpload }
-					setLoadingFlag={ props.setLoadingFlag }
+					classes={classes}
+					docType={"income information"}
+					handle={handleUpload}
+					setLoadingFlag={props.setLoadingFlag}
 				/>
 			</Grid>
-			<div className={ props.classes.actionsContainer }>
-				<div className={ props.classes.button_div }>
+			<div className={props.classes.actionsContainer}>
+				<div className={props.classes.button_div}>
 					<ButtonPrimary
 						variant="contained"
 						color="primary"
 						id="button_stepper_next"
 						stylebutton='{"marginRight": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
-						onClick={ () => {
+						onClick={() => {
 							handleFinishOnClick();
-						} }
+						}}
 					>
-						{ props.activeStep === props?.steps.length - 1 ? "Finish" : "Next" }
+						{props.activeStep === props?.steps.length - 1 ? "Finish" : "Next"}
 					</ButtonPrimary>
 				</div>
 			</div>

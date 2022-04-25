@@ -60,11 +60,11 @@ const useStyles = makeStyles((theme) => ({
     display: "block",
   },
   signOutSpan: {
-    fontSize:"12px",
-    padding:"5px 20px",
-    cursor:"pointer",
+    fontSize: "12px",
+    padding: "5px 20px",
+    cursor: "pointer",
     '&:hover': {
-      textDecoration:"underline"
+      textDecoration: "underline"
     },
   },
 }));

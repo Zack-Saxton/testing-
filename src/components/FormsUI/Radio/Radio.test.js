@@ -3,7 +3,7 @@ import { Form, Formik } from 'formik';
 import React from "react";
 import Radio from './index.js';
 
-const component = () =>{  
+const component = () => {
     return (
         <Formik>
             <Form>
@@ -12,23 +12,23 @@ const component = () =>{
                     labelforform="Gender"
                     radiolabel='[{"label":"Male", "value":"male"}, {"label":"Female", "value":"female"}]'
                     value="male"
-                    row={ true }
-                    required={ true }
-                    labelplacement={ "end" }
+                    row={true}
+                    required={true}
+                    labelplacement={"end"}
                 > Gender
                 </Radio>
             </Form>
         </Formik>
     );
-  };
+};
 
 test('radio Button Availability', () => {
     const container = render(component());
     const input = container.getByText('Gender');
     expect(input).toBeTruthy();
-  });
+});
 
-test("renders Radio Button", () => {  
+test("renders Radio Button", () => {
     const container = render(component());
     const val1 = container.getByLabelText('Male');
     expect(val1).toBeTruthy();

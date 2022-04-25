@@ -1,17 +1,21 @@
 .mainDiv {
 	min-height: 500px !important;
 }
+
 .cardWOPadding {
 	text-align: center;
 }
+
 .cardWrapper {
 	margin-top: 5%;
 	margin-bottom: 2%;
 }
+
 .borrowCSS {
 	margin-top: 4% !important;
 	margin-bottom: 4% !important;
 }
+
 .setSlider {
 	margin-bottom: 0 !important;
 }
@@ -20,6 +24,7 @@
 	margin-bottom: 7% !important;
 	text-align: center;
 }
+
 .setGreenColor {
 	color: green;
 }
@@ -34,6 +39,7 @@
 .alignSmallText {
 	margin-bottom: 3%;
 }
+
 .alignText {
 	color: #595959;
 	font-size: 0.9rem;
@@ -90,6 +96,7 @@
 	font-family: "Muli", sans-serif;
 	font-weight: 400;
 }
+
 .hideMsg {
 	display: none;
 }
@@ -149,6 +156,7 @@
 	from {
 		-webkit-transform: rotate(0deg);
 	}
+
 	to {
 		-webkit-transform: rotate(359deg);
 	}

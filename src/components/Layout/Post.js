@@ -20,7 +20,7 @@ const Post = ({ children }) => {
                         <div id="body">
                             <div className='topBar'></div>
                             <AppBar />
-                            { children }
+                            {children}
                             <Footer />
                         </div>
                     </>

@@ -31,7 +31,7 @@ const useStylesMakePayment = makeStyles((theme) => ({
     fontSize: "0.938rem",
   },
   autoPayTableheadrow: {
-    width:"50% !important",
+    width: "50% !important",
     color: "#171717!important",
     fontSize: "15px",
   },
@@ -59,7 +59,7 @@ const useStylesMakePayment = makeStyles((theme) => ({
   },
   dialogPaper: {
     maxWidth: "unset",
-    margin:"10px"
+    margin: "10px"
   },
   dialogHeading: {
     color: "#171717!important",
@@ -75,7 +75,7 @@ const useStylesMakePayment = makeStyles((theme) => ({
     paddingBottom: "10px",
   },
   tableStyle: {
-    paddingTop: "10px", 
+    paddingTop: "10px",
     paddingBottom: "10px",
   },
   payFromStyle: {
@@ -84,14 +84,14 @@ const useStylesMakePayment = makeStyles((theme) => ({
     paddingRight: "15px",
   },
   circularProgressStyle: {
-    display: "flex", 
+    display: "flex",
     justifyContent: "center",
   },
   paymentMethodStyle: {
     paddingTop: "20px",
   },
   paymentModeStyle: {
-    width: "100%", 
+    width: "100%",
     paddingTop: "10px"
   },
   autoPayColor: {
@@ -117,7 +117,7 @@ const useStylesMakePayment = makeStyles((theme) => ({
     paddingTop: "25px"
   },
   dialogActionStyle: {
-    justifyContent: "center", 
+    justifyContent: "center",
     marginBottom: "25px",
   }
 }));

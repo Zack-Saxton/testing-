@@ -14,10 +14,10 @@ import Iframe from "../../../FormsUI/iframe";
 import APICall from "../../../lib/AxiosLib";
 import messages from '../../../lib/Lang/applyForLoan.json';
 import ScrollToTopOnMount from "../../ScrollToTop";
+import { useStylesApplyForLoan } from "../Style";
+import TabPanel from "../TabPanel";
 import TabSection from "../TabSection";
-import TabPanel from "../TabPanel"
 import "./ReviewAndSign.css";
-import { useStylesApplyForLoan } from "../Style"
 import { NavContext } from "../../../../contexts/NavContext";
 
 
@@ -93,23 +93,23 @@ export default function ReviewAndSign(props) {
   //Check weather the offers is passed or not
   return (
     <div>
-      <CheckLoginStatus /> {/* To check the user logged in or not  */ }
-      <ScrollToTopOnMount /> {/* To show the top of the page on load */ }
+      <CheckLoginStatus /> {/* To check the user logged in or not  */}
+      <ScrollToTopOnMount /> {/* To show the top of the page on load */}
       <Grid
         container
-        justifyContent={ "center" }
-        className={ classes.centerGrid }
+        justifyContent={"center"}
+        className={classes.centerGrid}
       >
         <Grid
           container
           item
-          xs={ 12 }
+          xs={12}
           direction="row"
-          className = { classes.gridStyle }
+          className={classes.gridStyle}
         >
-          <Typography className={ classes.applyLoanHeading } variant="h3">
+          <Typography className={classes.applyLoanHeading} variant="h3">
             <NavLink
-              className={ classes.noDecoration }
+              className={classes.noDecoration}
               to="/customers/accountOverview"
             >
               <ButtonWithIcon
@@ -123,20 +123,20 @@ export default function ReviewAndSign(props) {
                       "marginTop":"unset" }'
                 styleicon='{ "color":"" }'
               />
-            </NavLink>{ " " }
+            </NavLink>{" "}
             Apply for a Loan
           </Typography>
         </Grid>
 
-        <Grid item xs={ 12 }>
-          <TabSection value={ value } handleChange={ handleChange } classes={ classes } ay={ 1 } />
+        <Grid item xs={12}>
+          <TabSection value={value} handleChange={handleChange} classes={classes} ay={1} />
 
-          {/* ##############################################Review And Sign################################################################################################# */ }
-          <TabPanel value={ value } index={ 1 } className={classes.TabPanelGrid}>
-            <Grid item xs={ 12 } className={ classes.fullWidth } >
-              <Paper className={ classes.paper }>
+          {/* ##############################################Review And Sign################################################################################################# */}
+          <TabPanel value={value} index={1} className={classes.TabPanelGrid}>
+            <Grid item xs={12} className={classes.fullWidth} >
+              <Paper className={classes.paper}>
                 <Grid container>
-                  <Grid item xs={ 12 } sm={ 6 } className={ classes.fullWidth } >
+                  <Grid item xs={12} sm={6} className={classes.fullWidth} >
                     <Typography className={classes.typoStyle}>
                       Selected Loan Offer
                     </Typography>
@@ -154,7 +154,7 @@ export default function ReviewAndSign(props) {
                       </ButtonSecondary>
                   </Grid>
                 </Grid>
-                { !selectedOffer ?
+                {!selectedOffer ?
                   <Grid
                     className="circleprog loadingCircle"
                   >
@@ -165,94 +165,94 @@ export default function ReviewAndSign(props) {
                   <Grid container justifyContent="flex-start">
                     <Grid
                       item
-                      xs={ 12 }
-                      sm={ 2 }
-                      className={ classes.rightBorder }
+                      xs={12}
+                      sm={2}
+                      className={classes.rightBorder}
                       id="rightBorder"
                     >
-                      <p className={ classes.columnHeading } id="columnHeading">
+                      <p className={classes.columnHeading} id="columnHeading">
                         Select Amount
                       </p>
-                      <h2 className={ classes.columnColor } id="column-content">
-                        { currencyFormat(selectedOffer.approved_loan_amount) }{ " " }
+                      <h2 className={classes.columnColor} id="column-content">
+                        {currencyFormat(selectedOffer.approved_loan_amount)}{" "}
                       </h2>
                     </Grid>
                     <Grid
                       item
-                      xs={ 12 }
-                      sm={ 2 }
-                      className={ classes.rightBorder }
+                      xs={12}
+                      sm={2}
+                      className={classes.rightBorder}
                       id="right-border-loan-term"
                     >
-                      <p className={ classes.columnHeading } id="columnHeading">
+                      <p className={classes.columnHeading} id="columnHeading">
                         Loan Term
                       </p>
-                      <h2 className={ classes.columnColor } id="column-content">
-                        { selectedOffer.term }M
+                      <h2 className={classes.columnColor} id="column-content">
+                        {selectedOffer.term}M
                       </h2>
                     </Grid>
                     <Grid
                       item
-                      xs={ 12 }
-                      sm={ 2 }
-                      className={ classes.rightBorder }
+                      xs={12}
+                      sm={2}
+                      className={classes.rightBorder}
                       id="rightBorder"
                     >
-                      <p className={ classes.columnHeading } id="columnHeading">
+                      <p className={classes.columnHeading} id="columnHeading">
                         Fee at Origination
                       </p>
-                      <h2 className={ classes.columnColor } id="column-content">
-                        { selectedOffer.origination_fee_rate }%
+                      <h2 className={classes.columnColor} id="column-content">
+                        {selectedOffer.origination_fee_rate}%
                       </h2>
                     </Grid>
                     <Grid
                       item
-                      xs={ 12 }
-                      sm={ 2 }
-                      className={ classes.rightBorder }
+                      xs={12}
+                      sm={2}
+                      className={classes.rightBorder}
                       id="rightBorder"
                     >
-                      <p className={ classes.columnHeading } id="columnHeading">
+                      <p className={classes.columnHeading} id="columnHeading">
                         Loan Proceeds
                       </p>
-                      <h2 className={ classes.columnColor } id="column-content">
-                        { currencyFormat(selectedOffer.approved_loan_amount) }
+                      <h2 className={classes.columnColor} id="column-content">
+                        {currencyFormat(selectedOffer.approved_loan_amount)}
                       </h2>
                     </Grid>
                     <Grid
                       item
-                      xs={ 12 }
-                      sm={ 2 }
-                      className={ classes.rightBorder }
+                      xs={12}
+                      sm={2}
+                      className={classes.rightBorder}
                       id="rightBorder-apr"
                     >
-                      <p className={ classes.columnHeading } id="columnHeading">
+                      <p className={classes.columnHeading} id="columnHeading">
                         APR
                       </p>
-                      <h2 className={ classes.columnColor } id="column-content">
-                        { (selectedOffer.apr * 100).toString().match(/^-?\d+(?:\.\d{0,2})?/)[ 0 ] } %
+                      <h2 className={classes.columnColor} id="column-content">
+                        {(selectedOffer.apr * 100).toString().match(/^-?\d+(?:\.\d{0,2})?/)[ 0 ]} %
                       </h2>
                     </Grid>
                     <Grid
-                      className={ classes.monthlyPaymentGrid }
+                      className={classes.monthlyPaymentGrid}
                       item
-                      xs={ 12 }
-                      sm={ 2 }
+                      xs={12}
+                      sm={2}
                       id="rightBorder"
                     >
-                      <p className={ classes.columnHeading } id="columnHeading">
+                      <p className={classes.columnHeading} id="columnHeading">
                         Monthly Payment
                       </p>
-                      <h2 className={ classes.columnColor } id="column-content">
-                        { currencyFormat(selectedOffer.monthly_payment) }
+                      <h2 className={classes.columnColor} id="column-content">
+                        {currencyFormat(selectedOffer.monthly_payment)}
                       </h2>
                     </Grid>
                   </Grid>
                 }
               </Paper>
-              <Grid item className={ classes.fullWidth }>
+              <Grid item className={classes.fullWidth}>
                 <p
-                 className="infoText"
+                  className="infoText"
                 >
                   Please confirm your selected loan before proceeding. Please
                   note that if you wish to change your loan amount after you
@@ -260,7 +260,7 @@ export default function ReviewAndSign(props) {
                   re-apply.
                 </p>
                 <p
-                 className="infoText"
+                  className="infoText"
                 >
                   To accept your loan offer, please complete the following:
                 </p>
@@ -272,17 +272,17 @@ export default function ReviewAndSign(props) {
                   <li>After signing, click the ‘Submit’ button.</li>
                 </ol>
               </Grid>
-              <Grid item xs={ 12 } className={ classes.fullWidth }>
-                <Paper className={ classes.paper }>
-                  <Grid item xs={ 12 } md={ 12 } lg={ 12 }>
-                    { url ? <Iframe src={ url } /> : <p>Loading...</p> }
+              <Grid item xs={12} className={classes.fullWidth}>
+                <Paper className={classes.paper}>
+                  <Grid item xs={12} md={12} lg={12}>
+                    {url ? <Iframe src={url} /> : <p>Loading...</p>}
                   </Grid>
                 </Paper>
-                <Paper className={`${ classes.paper } ${classes.gridMargintop}`}>
-                  <Grid item xs={ 12 }>
+                <Paper className={`${ classes.paper } ${ classes.gridMargintop }`}>
+                  <Grid item xs={12}>
                     <Checkbox
                       name="confirm"
-                      disabled={ loading }
+                      disabled={loading}
                       label={
                         <span
                           className="pleaseClickText"
@@ -294,10 +294,10 @@ export default function ReviewAndSign(props) {
                         </span>
                       }
                       labelid="confirm"
-                      value={ confirm }
-                      onChange={ (event) => {
+                      value={confirm}
+                      onChange={(event) => {
                         setConfirm(event.target.checked);
-                      } }
+                      }}
                       testid="checkbox"
                       stylelabelform='{ "fontSize":"12px" }'
                       stylecheckbox='{ "marginBottom":"0px" }'
@@ -307,28 +307,28 @@ export default function ReviewAndSign(props) {
                   <Grid container direction="row">
                     <Grid
                       className="circleprog loadingCircle"
-                      style={ {
+                      style={{
                         display: loading ? "block" : "none"
-                      } }
+                      }}
                     >
                       <CircularProgress />
                     </Grid>
                   </Grid>
 
-                  <Grid item xs={ 12 } className={classes.buttonGridLineHeight}>
+                  <Grid item xs={12} className={classes.buttonGridLineHeight}>
                     <ButtonWithIcon
                       stylebutton='{ "color":"" }'
                       styleicon='{ "color":"" }'
                       id="review-submit-button"
-                      disabled={ !confirm || loading }
-                      onClick={ submitOnClick }
+                      disabled={!confirm || loading}
+                      onClick={submitOnClick}
                     >
                       Submit
                     </ButtonWithIcon>
                   </Grid>
                 </Paper>
               </Grid>
-              <Grid item className={ classes.fullWidth }>
+              <Grid item className={classes.fullWidth}>
                 <p
                   className="infoText"
                 >

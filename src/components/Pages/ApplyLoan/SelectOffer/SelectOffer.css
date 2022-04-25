@@ -1,10 +1,11 @@
+#apply-loan-comparison-button-grid {
+	margin-left: auto !important;
+}
 
-#apply-loan-comparison-button-grid{
- margin-left: auto !important;
+#apply-loan-continue-button {
+	margin-left: 10px !important;
 }
-#apply-loan-continue-button{
-  margin-left: 10px !important;
-}
+
 .MuiTabs-vertical span {
 	align-items: start !important;
 }
@@ -21,6 +22,7 @@
 	border-radius: 0 5px 5px 0;
 	box-shadow: 3px 3px 10px 0 rgb(123, 31, 162, 50%);
 }
+
 #scrollable-auto-tab-vertical-1.Mui-selected {
 	background: linear-gradient(85deg, #264266, #0f4eb3) !important;
 	color: white !important;
@@ -29,6 +31,7 @@
 	border-radius: 0 5px 5px 0;
 	box-shadow: 3px 3px 10px 0 rgb(123, 31, 162, 50%);
 }
+
 #scrollable-auto-tab-vertical-2.Mui-selected {
 	background: linear-gradient(85deg, #264266, #0f4eb3) !important;
 	color: white !important;
@@ -37,6 +40,7 @@
 	border-radius: 0 5px 5px 0;
 	box-shadow: 3px 3px 10px 0 rgb(123, 31, 162, 50%);
 }
+
 #scrollable-auto-tab-vertical-3.Mui-selected {
 	background: linear-gradient(85deg, #264266, #0f4eb3) !important;
 	color: white !important;
@@ -46,6 +50,7 @@
 	border-radius: 0 5px 5px 0;
 	box-shadow: 3px 3px 10px 0 rgb(123, 31, 162, 50%);
 }
+
 #scrollable-auto-tab-vertical-4.Mui-selected {
 	background: linear-gradient(85deg, #264266, #0f4eb3) !important;
 	color: white !important;
@@ -54,64 +59,75 @@
 	border-radius: 0 5px 5px 0;
 	box-shadow: 3px 3px 10px 0 rgb(123, 31, 162, 50%);
 }
-.loadingCircle{
+
+.loadingCircle {
 	width: 100%;
 	text-align: center;
 }
-#loanListTable{
+
+#loanListTable {
 	padding: 0px 0px 0px 15px;
 	width: 100%;
 }
-.infoText{
+
+.infoText {
 	text-align: justify;
 	font-size: 15px;
 	color: #6b6f82;
 }
-.pleaseClickText{
+
+.pleaseClickText {
 	text-align: justify;
 	font-size: 15px;
 	padding-top: 15px;
 }
-#termsTabs{
+
+#termsTabs {
 	padding-bottom: 10px;
 }
-#tabText{
+
+#tabText {
 	font-size: 0.938rem;
 	font-weight: 700;
 }
-.compareChartButtons{
+
+.compareChartButtons {
 	display: flex;
 }
+
 @media (max-width: 600px) {
-  #apply-loan-comparison-button{
-   float: unset!important;
-  }
+	#apply-loan-comparison-button {
+		float: unset !important;
+	}
 }
 
-@media only screen and (max-width: 520px){
-	#apply-loan-comparison-button-grid{
+@media only screen and (max-width: 520px) {
+	#apply-loan-comparison-button-grid {
 		margin-left: unset !important;
 		margin-top: 15px;
-	 }
-	 #apply-loan-continue-button{
-		 margin-left: 0 !important;
-		 margin-bottom: 15px;
-	 }
-	.compareChartButtons{
+	}
+
+	#apply-loan-continue-button {
+		margin-left: 0 !important;
+		margin-bottom: 15px;
+	}
+
+	.compareChartButtons {
 		flex-direction: column-reverse;
 		align-items: center;
 	}
-	#compareChartButtonsWrap{
+
+	#compareChartButtonsWrap {
 		flex-direction: column;
-    align-items: center;
+		align-items: center;
 	}
 }
 
 @media (max-width:599px) {
-  #loanListTable{
-    padding: 0px !important;
-    margin-top: 20px;
-  }
+	#loanListTable {
+		padding: 0px !important;
+		margin-top: 20px;
+	}
 }
 
 .chartGrid {
@@ -119,6 +135,6 @@
 	min-width: 1vh;
 }
 
-.MuiTabs-indicator{
+.MuiTabs-indicator {
 	display: none !important;
 }

@@ -40,19 +40,19 @@
   margin-right: 1rem;
 }
 
-.yearholidays__cancel:focus{
+.yearholidays__cancel:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
 }
 
-.yearholidays__cancel{
+.yearholidays__cancel {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
   padding-left: 1rem;
   padding-right: 1rem;
 }
 
-.yearholidays__cancel:focus{
+.yearholidays__cancel:focus {
   --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
   --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
   box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
@@ -61,27 +61,27 @@
   --tw-ring-opacity: 0.5;
 }
 
-.yearholidays__cancel{
+.yearholidays__cancel {
   --tw-text-opacity: 1;
   color: rgba(17, 24, 39, var(--tw-text-opacity));
   -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .yearholidays__cancel:hover {
   --tw-text-opacity: 1;
   color: rgba(55, 65, 81, var(--tw-text-opacity));
 }
-.tableHeadeing th{
+
+.tableHeadeing th {
   padding: 7px 9px;
-  border: 1px solid
-    rgba(224, 224, 224, 1);
-    font-weight: bolder;
+  border: 1px solid rgba(224, 224, 224, 1);
+  font-weight: bolder;
 }
-.tableContent td{
+
+.tableContent td {
   padding: 7px 9px;
-  border: 1px solid
-    rgba(224, 224, 224, 1);
+  border: 1px solid rgba(224, 224, 224, 1);
 }

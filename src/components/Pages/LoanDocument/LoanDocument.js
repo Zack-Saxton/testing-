@@ -125,19 +125,19 @@ export default function LoanDocument() {
       <ScrollToTopOnMount />
       <Grid
         container
-        justifyContent={ "center" }
-        className={ classes.centerGrid }
+        justifyContent={"center"}
+        className={classes.centerGrid}
       >
         <Grid
           className="loanDocumentGrid"
           container
           direction="row"
           item
-          xs={ 12 }
+          xs={12}
         >
-          <Grid item xs={ 12 }>
-            <Typography component={ "div" }>
-              <h3 id="pageHeading" className={ classes.heading }>
+          <Grid item xs={12}>
+            <Typography component={"div"}>
+              <h3 id="pageHeading" className={classes.heading}>
                 <NavLink
                   to="/customers/accountOverview"
                   className={classes.textDecoration}
@@ -152,27 +152,27 @@ export default function LoanDocument() {
                         "marginRight": "5px", "marginTop":"unset" }'
                     styleicon='{ "color":"" }'
                   />
-                </NavLink>{ " " }
+                </NavLink>{" "}
                 Loan Documents
               </h3>
             </Typography>
           </Grid>
         </Grid>
 
-        <Grid className="loanDocumentWrap" item xs={ 12 }>
-          <Paper className={ classes.paper }>
-            { !loanDocumentData ? (
+        <Grid className="loanDocumentWrap" item xs={12}>
+          <Paper className={classes.paper}>
+            {!loanDocumentData ? (
               <TableContainer>
                 <Table aria-label="simple table">
                   <TableHead>
                     <TableRow>
-                      <TableCell className={ classes.tableHead }>
+                      <TableCell className={classes.tableHead}>
                         Document Name
                       </TableCell>
-                      <TableCell className={ classes.tableHead }>
+                      <TableCell className={classes.tableHead}>
                         Date Uploaded
                       </TableCell>
-                      <TableCell className={ classes.tableHead }>
+                      <TableCell className={classes.tableHead}>
                         Actions
                       </TableCell>
                     </TableRow>
@@ -187,14 +187,14 @@ export default function LoanDocument() {
                 </Table>
               </TableContainer>
             ) : (
-              <LoanDocumentTable userLoanDocumentData={ loanDocumentData } />
-            ) }
+              <LoanDocumentTable userLoanDocumentData={loanDocumentData} />
+            )}
 
             <Grid
               className="selectDocument"
               item
-              xs={ 12 }
-              sm={ 3 }
+              xs={12}
+              sm={3}
             >
               <Select
                 id="selectDoccumentWrap"
@@ -204,47 +204,47 @@ export default function LoanDocument() {
           {"label": "Income Document","value": "income_doc"},
               { "label": "Bank Account Document","value": "bank_doc"},
               { "label": "Other Document","value":"other_doc"}]'
-                onChange={ handleDocType }
-                value={ docType }
+                onChange={handleDocType}
+                value={docType}
               />
             </Grid>
             <Grid container direction="row">
-              <Grid className="documentInput" item xs={ 12 } sm={ 3 }>
+              <Grid className="documentInput" item xs={12} sm={3}>
                 <input
                   accept="image/png, image/jpeg, application/pdf, image/jpg "
                   multiple
                   id="file"
                   type="file"
                   cursor="pointer"
-                  ref={ changeEvent }
-                  onClick={ handleInputChange }
-                  onChange={ (event) => handleChange(event) }
-                  style={ { display: "none" } }
+                  ref={changeEvent}
+                  onClick={handleInputChange}
+                  onChange={(event) => handleChange(event)}
+                  style={{ display: "none" }}
                 />
                 <Button
                   id="uploadBtn"
                   variant="contained"
-                  onClick={ () => uploadDoc() }
-                  className={ classes.uploadbutton }
+                  onClick={() => uploadDoc()}
+                  className={classes.uploadbutton}
                   component="span"
-                  disabled={ loading }
+                  disabled={loading}
                 >
                   Upload
                   <i
                     className="fa fa-refresh fa-spin customSpinner"
-                    style={ {
+                    style={{
                       marginRight: "10px",
                       color: "blue",
                       display: loading ? "block" : "none",
-                    } }
+                    }}
                   />
                 </Button>
               </Grid>
-              <Grid className="gridPadding" item xs={ 12 } sm={ 4 }></Grid>
+              <Grid className="gridPadding" item xs={12} sm={4}></Grid>
             </Grid>
             <Grid container direction="row">
-              <Grid className="gridPadding" item xs={ 12 }>
-                <span style={ { marginLeft: "2px" } }>{ loading ? "Uploading..." : label }</span>
+              <Grid className="gridPadding" item xs={12}>
+                <span style={{ marginLeft: "2px" }}>{loading ? "Uploading..." : label}</span>
               </Grid>
             </Grid>
           </Paper>

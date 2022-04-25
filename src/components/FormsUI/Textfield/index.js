@@ -6,7 +6,6 @@ Functionality       :    To use this component to validate and get the input fro
 
 #################################################################################################################*/
 import { TextField } from "@mui/material";
-import { red } from "@mui/material/colors";
 import { makeStyles } from "@mui/styles";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
@@ -29,7 +28,7 @@ const TextFieldWrapper = ({
   onChange,
   InputProps,
   ...otherProps
-}) => { 
+}) => {
 
   //Configure it with Formik
 
@@ -48,20 +47,12 @@ const TextFieldWrapper = ({
       padding: padding,
       webkitTextSecurity: "square",
     },
-    cssOutlinedInput: {
-      "&$cssFocused $notchedOutline": {
-        borderColor: `${ theme.palette.primary.main } !important`,
-        webkitTextSecurity: "square",
-        color: red,
-        backgroundColor: "yellow",
-      },
-    },
-    cssFocused: { color: 'black'},
+    cssFocused: { color: 'black' },
     notchedOutline: {
       borderWidth: "1px",
       borderColor: "blue !important",
     },
-   
+
   }));
 
   const classes = useStyles();
@@ -95,7 +86,7 @@ const TextFieldWrapper = ({
     }
   };
 
-  return <TextField { ...configTextField } variant="standard" onChange={ handleOnchange } InputProps={ InputProps } inputProps={ materialProps } />;
+  return <TextField {...configTextField} variant="standard" onChange={handleOnchange} InputProps={InputProps} inputProps={materialProps} />;
 };
 
 //set name prop as mandatory

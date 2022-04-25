@@ -1,13 +1,15 @@
 header {
   box-shadow: 0 0;
 }
-#headerWrap{
+
+#headerWrap {
   position: sticky !important;
   width: 100%;
   top: 0;
   z-index: 1000;
 }
-#MainHeaderWrapping{
+
+#MainHeaderWrapping {
   background-color: white !important;
   box-shadow: 0px 3px 9px -6px #000000 !important;
   height: 82px;
@@ -20,15 +22,18 @@ header {
   display: none;
   background-color: #ffbc23;
   padding: 10px !important;
+  height: 44px;
 }
 
 #moneySkillNavLink {
   cursor: pointer;
 }
+
 .titleSidenav {
   text-decoration: none;
   color: rgba(0, 0, 0, 0.87);
 }
+
 #moneySkillNavLink:hover {
   background-color: #00000009;
   width: 90%;
@@ -59,9 +64,11 @@ a.nav_link:hover .MuiListItem-root {
   border-radius: 0 5px 5px 0;
   box-shadow: 3px 3px 10px 0 rgb(123 31 162 / 50%);
 }
+
 .active .MuiSvgIcon-root {
   color: #ffffff;
 }
+
 #close2 {
   display: block;
 }
@@ -74,11 +81,13 @@ a.nav_link:hover .MuiListItem-root {
   padding: 0;
   justify-content: center;
 }
+
 #sidemenuBranch {
   padding: 5px 0px 0px 0px;
   font-size: 0.875rem;
   justify-content: center;
 }
+
 #sidemenuName {
   font-family: "Muli", sans-serif !important;
   font-weight: 700;
@@ -154,112 +163,136 @@ a.nav_link:hover .MuiListItem-root {
   overflow-x: hidden;
 }
 
-#tool-bar-list{
+#tool-bar-list {
   display: flex !important;
   align-items: center;
   height: 100%;
 }
-#quickNameIcon{
+
+#quickNameIcon {
   height: 64px;
   margin-right: 10px;
 }
-#settingsMenu .MuiPopover-paper{
-top: 118px !important;
+
+#settingsMenu .MuiPopover-paper {
+  top: 118px !important;
 }
+
 @media (max-width: 960px) {
   #close1 {
     display: block;
   }
+
   #sidemenuRadio {
     display: none !important;
   }
+
   #close2 {
     display: none;
   }
+
   #close {
     display: none !important;
   }
+
   .makeStyles-menuButton-4 {
     margin-right: 0 !important;
 
     vertical-align: bottom !important;
   }
 }
-#toolbar{
+
+#toolbar {
   padding: 0px 25px !important;
   height: 100%;
 }
+
 @media only screen and (max-width: 599px) {
-  #quickNameIcon{
+  #quickNameIcon {
     position: fixed;
     bottom: 45%;
     right: 0%;
     z-index: 10;
     margin-right: 0px;
   }
-  #quickNameIcon img{
+
+  #quickNameIcon img {
     border-radius: 0 0 2px 2px;
     -webkit-box-shadow: 0px 0px 10px 0px rgb(0 0 0 / 75%);
     -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 0px 0px 10px 0px rgb(0 0 0 / 75%);
+  }
 }
-}
+
 @media only screen and (max-width: 480px) {
   #MainHeaderWrapping {
     height: unset !important;
   }
+
   #toolbar {
     display: flex !important;
     padding: 0px 15px !important;
   }
-  div#tool-bar-list p{
+
+  div#tool-bar-list p {
     font-size: 0.938rem !important;
   }
-  #blogsLink a{
+
+  #blogsLink a {
     margin-right: 20px;
     padding-top: 3px;
     box-sizing: border-box;
   }
-  .faqLink p{
+
+  .faqLink p {
     padding-top: 3px;
     box-sizing: border-box;
     margin-right: 20px;
   }
-  .branchLocatorLink p{
+
+  .branchLocatorLink p {
     padding-top: 3px;
     box-sizing: border-box;
     margin-right: 0px;
   }
 }
+
 @media only screen and (max-width: 360px) {
-  #toolbar{
+  #toolbar {
     padding: 0px 10px !important;
     flex-direction: column;
     align-items: flex-start;
   }
-  #blogsLink a{
+
+  #blogsLink a {
     height: 60px;
     margin: 0 !important;
   }
-  .faqLink p{
+
+  .faqLink p {
     height: 60px;
     margin: 0 !important;
   }
-  .branchLocatorLink p{
+
+  .branchLocatorLink p {
     height: 60px;
     margin: 0 !important;
   }
-  .MuiIconButton-edgeEnd{
+
+  .MuiIconButton-edgeEnd {
     margin: 0 !important;
   }
-  #tool-bar-list{
+
+  #tool-bar-list {
     width: 100%;
     justify-content: space-between;
   }
-  .noPaddingIcon{
+
+  .noPaddingIcon {
     padding: 10px 0px !important;
   }
-  #close1{
+
+  #close1 {
     margin-top: 10px;
   }
 }
@@ -277,6 +310,7 @@ top: 118px !important;
   top: 55px !important;
   padding: 14px 24px;
 }
+
 #settingsMenu:nth-child(3) ul {
   /* top: 55px !important; */
   padding: 0 !important;
@@ -317,19 +351,23 @@ top: 118px !important;
   border-radius: 0 5px 5px 0;
   background-color: rgba(0, 0, 0, 0.035) !important;
 }
+
 #profileDetails ul li:nth-child(1) {
   display: flex;
   justify-content: center;
 }
+
 .titleSidenav .MuiListItemIcon-root {
   align-items: center !important;
   min-width: 45px !important;
 }
+
 .titleSidenav .MuiListItemIcon-root svg {
   align-items: center !important;
   padding-left: 8px;
   width: 23px;
 }
+
 #moneySkillNavLink .MuiListItemIcon-root {
   align-items: center !important;
   min-width: 45px !important;
@@ -346,16 +384,20 @@ top: 118px !important;
   padding-left: 8px;
   width: 23px;
 }
+
 .titleSidenav span {
   overflow: hidden !important;
 }
+
 .titleSidenav .MuiListItemText-root span {
   overflow: hidden !important;
   font-size: 0.844rem !important;
 }
+
 #profileDetails ul {
   width: 100% !important;
 }
+
 #listItemWrap .active li .MuiListItemText-root span {
   color: white !important;
 }
