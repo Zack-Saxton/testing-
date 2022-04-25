@@ -15,7 +15,6 @@ import {
   Popup,
   RenderContent
 } from "../../../components/FormsUI";
-import { saveAcquireClick, saveConsentStatus, validateActivationToken } from "../../Controllers/EmailVerificationController";
 import ErrorLogger from "../../lib/ErrorLogger";
 import BankAccountVerification from "./BankAccountVerification";
 import DocumentIdAndPhotoId from "./DocumentIdAndPhotoId";
