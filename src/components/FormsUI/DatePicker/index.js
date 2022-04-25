@@ -19,7 +19,7 @@ import "./DatePicker.css";
 
 const DatePickerWrapper = ({ format, label, views,
 	placeholder, required, onChange, disableDate, disablePastDate,
-	maxdate, minyear, error, helperText, value, ...otherProps }) => {
+	maxdate, minyear, error, helperText, value, mask, ...otherProps }) => {
 
 	const [ selectedDate, setSelectedDate ] = useState(value ?? null);
 	const [ errorTF, setErrorTF ] = useState(false);
@@ -56,6 +56,7 @@ const DatePickerWrapper = ({ format, label, views,
 					id="date-picker-dialog"
 					label={label}
 					inputFormat={format ?? 'MM/dd/yyyy'}
+					mask= { mask ?? "__/__/____" }
 					onChange={handleDateChange}
 					value={selectedDate}
 					InputAdornmentProps={{ position: 'start' }}
@@ -83,6 +84,7 @@ const DatePickerWrapper = ({ format, label, views,
 DatePickerWrapper.propTypes = {
 	name: PropTypes.string.isRequired,
 	format: PropTypes.string,
+	mask: PropTypes.string,
 	label: PropTypes.string,
 	placeholder: PropTypes.string,
 	value: PropTypes.instanceOf(Date),
