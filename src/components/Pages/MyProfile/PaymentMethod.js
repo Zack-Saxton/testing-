@@ -1248,7 +1248,7 @@ export default function PaymentMethod() {
                 className="expiryDate"
                 placeholder="MM/YY"
                 format="MM/yy"
-                views={[ 'month', 'year' ]}
+                mask="__/__"
                 disabled={editMode}
                 value={formikAddDebitCard.values.expiryDate}
                 onChange={(values) => {
