@@ -23,7 +23,6 @@ import "./EmailVerification.css";
 import IncomeVerification from "./IncomeVerification";
 import { useStylesEmailVerification } from "./Style";
 import VehiclePhotos from "./VehiclePhotos";
-import { validateActivationToken, saveConsentStatus, saveAcquireClick } from "../../Controllers/EmailVerificationController";
 
 function getSteps() {
   return [
