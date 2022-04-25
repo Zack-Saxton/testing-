@@ -14,7 +14,6 @@ import InputLabel from "@mui/material/InputLabel";
 import PropTypes from "prop-types";
 import React from "react";
 import "./SelectBox.css";
-import { useStylesSelectComponent } from "./Style";
 
 const SelectWrapper = ({
 	name,
@@ -29,11 +28,6 @@ const SelectWrapper = ({
 	refId,
 	...otherProps
 }) => {
-	//To return all formik state
-
-
-
-	const classes = useStylesSelectComponent();
 
 	//Configuring Field with Properties
 	const configSelect = {
@@ -42,7 +36,6 @@ const SelectWrapper = ({
 		variant: variant,
 	};
 	const configFormControl = {
-		className: classes.formControl,
 		fullWidth: true,
 	};
 
