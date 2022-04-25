@@ -49,6 +49,7 @@ import { CheckMyOffers } from "../../../contexts/CheckMyOffers";
 import { LoanAccount } from "../../../contexts/LoanAccount"
 import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import { ProfilePicture } from "../../../contexts/ProfilePicture";
+import { NavContext } from "../../../contexts/NavContext";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import LogoutController from "../../Controllers/LogoutController";
 import branchDetails from "../../Controllers/MyBranchController";
@@ -200,6 +201,7 @@ export default function SideNav() {
   const { dataProfile, resetProfilePicture } = useContext(ProfilePicture);
   const { resetData } = useContext(CheckMyOffers);
   const { resetLoanAccount } = useContext(LoanAccount);
+  const { dataNavmessage } = useContext(NavContext);
   const { data: dataAccountOverview } = useQuery('loan-data', usrAccountDetails);
   const queryClient = useQueryClient();
   const [ activeLoanData, setActiveLoanData ] = useState(true);
@@ -792,7 +794,7 @@ export default function SideNav() {
 
                 {checkPresenceOfLoan ? (
                   pageNavResumeApplication ? (
-                    <NavLink to={NavUrlResumeApplication} className="nav_link">
+                    <NavLink to={dataNavmessage.status === true ? "/customers/selectOffer" : NavUrlResumeApplication} className="nav_link">
                       <ListItem className="titleSidenav">
                         <ListItemIcon>
                           {" "}
@@ -818,7 +820,7 @@ export default function SideNav() {
                     </Link>
                   )
                 ) : (
-                  <NavLink
+                  <NavLink 
                     id="applyForLoanNav"
                     ref={refApplyForLoanNav}
                     to="/customers/applyForLoan"

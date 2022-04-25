@@ -62,6 +62,7 @@ import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory";
 import RegisterPage from '../Pages/Register/Register';
 import VantageScore from "../Pages/VantageScore/VantageScore";
 import EmailVerification from "../Pages/EmailVerification/EmailVerification";
+import NavContext from "../../contexts/NavContext";
 import "./App.css";
 
 const queryClient = new QueryClient({
@@ -128,6 +129,7 @@ function App() {
                     <CheckMyOffers>
                         <ProfilePicture>
                             <LoanAccount>
+                                <NavContext>
                                 <Routes>
                                 <Route path='/' element={ <Navigate replace to="/customers/accountOverview" /> } />
                                 <Route path='/components' element={ loadGeneralUserComponent(<CustomComponents />) } />
@@ -208,9 +210,10 @@ function App() {
                                     <Route path='*' element={ loadGeneralUserComponent(<ErrorBeforeLogin />) } />
                                 </Route>
                                 </Routes>
+                                </NavContext>
                             </LoanAccount>
                         </ProfilePicture>
-                    </CheckMyOffers>
+                    </CheckMyOffers>                    
                 </BrowserRouter>
             </div>
         </QueryClientProvider>

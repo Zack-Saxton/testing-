@@ -2,7 +2,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { useQuery } from 'react-query';
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -18,6 +18,8 @@ import TabSection from "../TabSection";
 import TabPanel from "../TabPanel"
 import "./ReviewAndSign.css";
 import { useStylesApplyForLoan } from "../Style"
+import { NavContext } from "../../../../contexts/NavContext";
+
 
 //Initializing the Review and sign functional component
 export default function ReviewAndSign(props) {
@@ -31,6 +33,7 @@ export default function ReviewAndSign(props) {
   const [ loading, setLoading ] = useState(false);
   const { refetch, isLoading, data: accountDetials } = useQuery('loan-data', usrAccountDetails);
   const handleChange = (event, newValue) => setValue(newValue);
+  const { data, setData } = useContext(NavContext);
 
   // To get the iframe url from the API
   async function getIframeURL() {
@@ -81,6 +84,11 @@ export default function ReviewAndSign(props) {
       toast.error(messages.reviewAndSignin.completeEsign);
     }
   };
+
+  const resumeNavigate = () => {
+    setData({ ...data, status: true });
+     navigate('/customers/selectOffer');
+  }
 
   //Check weather the offers is passed or not
   return (
@@ -135,18 +143,15 @@ export default function ReviewAndSign(props) {
                   </Grid>
 
                   <Grid item xs={ 12 } sm={ 6 } className={ loading ? classes.loadingOn : classes.loadingOff }>
-                    <NavLink
-                      to="/customers/selectOffer"
-                      className={ classes.noDecoration }
-                    >
+                   
                       <ButtonSecondary
                         stylebutton='{"float": "right", "color":"" }'
                         styleicon='{ "color":"" }'
                         id="reselect-button"
-                      >
+                        onClick={ () => resumeNavigate() }
+                      > 
                         Re-Select Offer
                       </ButtonSecondary>
-                    </NavLink>
                   </Grid>
                 </Grid>
                 { !selectedOffer ?

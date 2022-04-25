@@ -15,7 +15,7 @@ import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import DesktopMacIcon from "@mui/icons-material/DesktopMac";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import {
 	ButtonPrimary,
 	ButtonSecondary, Checkbox,
@@ -24,6 +24,8 @@ import {
 import messages from "../../../lib/Lang/applyForLoan.json";
 import LoadChart from "./loadChart";
 import { useStylesApplyForLoan } from "../Style"
+import { NavContext } from "../../../../contexts/NavContext";
+
 
 function TabVerticalPanel(props) {
 	const { children, tabValue, verticalIndex, ...other } = props;
@@ -64,6 +66,8 @@ const HtmlTooltip = withStyles((theme) => ({
 export default function OfferTable(props) {
 	const [ termDataMax, setTermDataMax ] = useState();
 	const [ selectData, setSelectData ] = useState([]);
+  const { resetNavContext } = useContext(NavContext);
+
 	let offersComp = props.offersToCompare ?? [];
 	let offersCompChart = props.offersToCompareChart ?? [];
 	const classes = useStylesApplyForLoan();
@@ -145,6 +149,10 @@ export default function OfferTable(props) {
 		props.handleTabChange(props.noOfTerms, props.noOfTerms);
 		window.scrollTo(0, 0);
 	}
+
+  const resetNav = () => {
+    resetNavContext()
+  }
 	return (
     <Grid
       id="loanListTable"
@@ -391,6 +399,7 @@ export default function OfferTable(props) {
                         props.selectedTerm,
                         props.selectedIndex
                       );
+                      resetNav()
                     }}
                     disabled={
                       props.selectedTerm &&
@@ -398,6 +407,7 @@ export default function OfferTable(props) {
                         ? props.loading
                         : true
                     }
+                    
                   >
                     Continue
                     <i
