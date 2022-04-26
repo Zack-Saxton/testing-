@@ -2,7 +2,9 @@ import { Grid } from "@mui/material";
 import PropTypes from "prop-types";
 import React from "react";
 import { useStylesEmailVerification } from "./Style";
-import UploadDocument from "./UploadDocument";
+import {
+  ButtonPrimary
+} from "../../../components/FormsUI";
 
 function VehiclePhotos(props) {
   const classes = useStylesEmailVerification();
@@ -16,14 +18,13 @@ function VehiclePhotos(props) {
         exterior pictures.
       </span>
       <Grid item sm={12} md={6} className={classes.nextButton}>
-        <UploadDocument
-          title="Select Vehicle Photo"
-          applicationNumber={props.applicationNumber}
-          customerEmail={props.customerEmail}
-          documentType="other_verification_doc"
-          prev={props.prev}
-          next={props.next}
-        />
+        
+        <ButtonPrimary
+          stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "margin":"10px 0px"}'
+          target="_blank" href={ `https://collateralcapturemarinerfinance.goldpointbeta.com/?applicationNumber=${props.applicationNumber}` }
+        >
+          Upload Vehicle Photo
+        </ButtonPrimary>
       </Grid>
     </Grid>
   );
