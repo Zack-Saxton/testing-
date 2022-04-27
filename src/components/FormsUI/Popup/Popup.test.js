@@ -1,8 +1,3 @@
-
-//Popup has Dialog Title
-//PopUp has Dialog Content
-//Snapshot
-
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import React from 'react';
 import Popup from './index'
