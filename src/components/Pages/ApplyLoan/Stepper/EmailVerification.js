@@ -10,6 +10,7 @@ export default function EmailVerification(props) {
 		await resendVerificationEmail();
 	};
 
+	console.log(props);
 	//View Part
 	return (
 		<div>
@@ -22,6 +23,7 @@ export default function EmailVerification(props) {
 						color: "#595959",
 						fontWeight: "normal",
 					}}
+					data-testid="emailVerificationText"
 				>
 					In Progress: Your email address has not been verified. Please check
 					your inbox for our email verification message. Alternatively, please
