@@ -41,6 +41,7 @@ const Popup = ({ children, popupFlag, openPopup, title, closePopup }) => {
             onClose={closePopup}
             aria-labelledby="customized-dialog-title"
             open={popupFlag}
+            data-testid="popup"
             id="customeDialogBox"
         >
             <DialogTitle className="dialogTitleWrap" id="customized-dialog-title" onClose={closePopup}>
@@ -52,17 +53,19 @@ const Popup = ({ children, popupFlag, openPopup, title, closePopup }) => {
                     </Grid>
                     <Grid className={classes.closeIconGrid}>
                         <CloseIcon
+                            data-testid="closeIcon"
                             className={classes.closeIconStyle}
                             onClick={closePopup}
                         />
                     </Grid>
                 </Grid>
             </DialogTitle>
-            <DialogContent dividers>
+            <DialogContent data-testid="content" dividers>
                 {children}
             </DialogContent>
             <DialogActions className="modalAction">
                 <ButtonPrimary
+                    data-testid="modalButton"
                     stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
                     onClick={closePopup}
                     className="modalButton"
