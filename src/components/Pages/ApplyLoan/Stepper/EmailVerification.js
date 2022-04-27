@@ -10,7 +10,6 @@ export default function EmailVerification(props) {
 		await resendVerificationEmail();
 	};
 
-	console.log(props);
 	//View Part
 	return (
 		<div>
