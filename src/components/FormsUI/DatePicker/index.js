@@ -64,6 +64,7 @@ const DatePickerWrapper = ({ format, label, views,
 					shouldDisableDate={disableCustomDate}
 					disablePast={disablePastDate === "true" ? true : false}
 					views={views ?? [ 'year', 'month', 'day' ]}
+					InputProps={{ "data-testid": "datePicker" }}
 					renderInput={(props) => (
 						<TextField
 							{...props}
