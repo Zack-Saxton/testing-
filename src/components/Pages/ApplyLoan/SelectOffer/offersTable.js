@@ -165,7 +165,7 @@ export default function OfferTable(props) {
           : props.classes.loadingOff
       }
     >
-      <Paper className={props.classes.paper}>
+      <Paper className={props.classes.paper}  data-testid="offerTableBlock">
         {props.rowData ? (
           <TabVerticalPanel tabValue={props.value} verticalIndex={props.value}>
             <Grid item xs={12} className={classes.chartGrid}>

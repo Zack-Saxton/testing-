@@ -223,7 +223,7 @@ export default function ApplyLoan() {
 					<TabSection value={value} handleChange={handleChange} classes={classes} ay={0} />
 
 					<TabPanel value={value} index={0} className={classes.tabPanelWrap}>
-						<Grid container item xs={12}>
+						<Grid container item xs={12} data-testid="termGrid">
 							{noOffers ? (
 								<Grid item xs={12} className={classes.fullWidth}>
 									<Paper className={`${ classes.noOffersWrap } ${ classes.paper }`} >
@@ -240,7 +240,7 @@ export default function ApplyLoan() {
 										sm={3}
 										className={`${ loading ? classes.loadingOnWithoutBlur : classes.loadingOff } ${ classes.fullWidth }`}
 									>
-										<Paper className={classes.paperVerticalTab}>
+										<Paper className={classes.paperVerticalTab} data-testid = "tabsBlock"> 
 											{terms ? (
 												<Tabs
 													value={values}
@@ -295,7 +295,7 @@ export default function ApplyLoan() {
 													<CircularProgress />
 												</Grid>
 											)}
-										</Paper>
+										</Paper>	
 									</Grid>
 
 									<OfferTable
