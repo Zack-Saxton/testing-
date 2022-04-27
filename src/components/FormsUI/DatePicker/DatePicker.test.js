@@ -1,22 +1,37 @@
-import { cleanup, render } from '@testing-library/react';
-import format from 'date-fns/format';
+import { cleanup, fireEvent,render,waitFor } from '@testing-library/react';
 import React from 'react';
 import DatePicker from './index.js';
+import '@testing-library/jest-dom'
+
+const component = () => {
+  return (
+    <DatePicker 
+    name="date"
+    inputFormat={'MM/dd/yyyy'}
+    value = "01/01/2000" 
+    minDate = "01/01/2000"
+        />
+  );
+};
 
 afterEach(cleanup);
 
 test('Render DatePicker', () => {
-  const container = render(
-    <DatePicker name="date" defaultDate={new Date()} />);
-
+  const container = render(component());
   const input = container.getByTestId('datePicker');
-  expect(input).toBeTruthy();
-  const date = new date();
-  const formattedDate = format(date, "dd-MMYYYY");
-  expect(input.value).toBe('');
+  expect(input).toBeTruthy(); 
 });
 
+
+test('Select Date', async () => {
+  const {container }= render(component());
+  const input = container.querySelector('input[name=date]');
+   fireEvent.click(input);
+  await waitFor(() => expect(input.getAttribute("value")).toBe("01/01/2000" ))
+});
+
+
 test('should match the snapshot', () => {
-  const { asFragment } = render(<DatePicker name="date" defaultDate={new Date()} />);
+  const { asFragment } = render(component());
   expect(asFragment).toMatchSnapshot();
 });
