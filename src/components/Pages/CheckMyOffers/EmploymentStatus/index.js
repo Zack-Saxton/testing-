@@ -156,7 +156,7 @@ function EmploymentStatus() {
 										<span className="floatLeft detNum42">42%</span>
 									</div>
 									<Grid className="floatLeft">
-										<Link className="arrowBack" to="/personal-info">
+										<Link className="arrowBack" to="/personal-info" data-testid="route backward">
 											<i className="material-icons dp48 yellowText floatingButton">
 												arrow_back
 											</i>
@@ -298,6 +298,7 @@ function EmploymentStatus() {
 										<Grid item lg={8} md={8} xs={12}>
 											<div
 												id="employementWrap"
+												data-testid="select field"
 												className={
 													employmentStatus === employmentStatusData.employedHourly ||
 														employmentStatus === employmentStatusData.employedSalaried ||
@@ -309,6 +310,7 @@ function EmploymentStatus() {
 												<Select
 													id="yearsAtEmployersSelect"
 													fullWidth={true}
+													data-testid="Select Field"
 													name="yearsAtEmployers"
 													labelform="Years at Employer *"
 													value={formik.values.yearsAtEmployers}
@@ -355,6 +357,7 @@ function EmploymentStatus() {
 											xs={12}
 											name="phone"
 											id="employerPhoneWrap"
+											data-testid="phone number field"
 											className={
 												employmentStatus === employmentStatusData.employedHourly ||
 													employmentStatus === employmentStatusData.employedSalaried
@@ -374,6 +377,7 @@ function EmploymentStatus() {
 												placeholder="Enter employer's phone number"
 												id="phone"
 												type="text"
+												data-testid="phone_number_field"
 												onKeyDown={preventSpace}
 												value={formik.values.phone}
 												onLoad={formik.handleChange}
