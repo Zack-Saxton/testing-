@@ -159,7 +159,7 @@ export default function MailingAddress(props) {
   };
 
   return (
-    <div style={{ padding: 20 }}>
+    <div style={{ padding: 20 }} data-testid="basic-information-mailing-address">
       <form onSubmit={formik.handleSubmit} id="mailing" style={{
         opacity: loading ? 0.55 : 1,
         pointerEvents: loading ? "none" : "initial"
