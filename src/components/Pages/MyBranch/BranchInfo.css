@@ -213,6 +213,10 @@
   color: white;
   margin: 0 !important;
 }
+feefowidget-merchant-header 
+.feefowidget-merchant-header__content.feefowidget-viewport-tablet-mobile{
+  padding: 40px 16px 10px 16px !important;
+}
 
 .home .feefowidget-top-row span.feefowidget-average-customer-rating,
 body.home .feefowidget-top-row .feefowidget-rating-label,
@@ -390,6 +394,9 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
   #branchDiv {
     padding-right: 0px;
     margin-bottom: 30px;
+  }
+  .blueBoxWrap{
+    padding: 20px 12px;
   }
 }
 
