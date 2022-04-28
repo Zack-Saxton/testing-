@@ -269,7 +269,7 @@ export default function Register() {
 
   //View Part
   return (
-    <div>
+    <div data-testid="register_component">
       <div className={classes.mainContentBackground} id="mainContentBackground">
         <Box>
           <Grid
@@ -448,6 +448,7 @@ export default function Register() {
                       sm={4}
                       container
                       direction="row"
+                      data-testid="dobtest"
                     >
                       <DatePicker
                         name="dob"
@@ -521,11 +522,9 @@ export default function Register() {
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         error={andLogic(formik.touched.confirmPassword, Boolean(formik.errors.confirmPassword))
-
                         }
                         helperText={
                           andLogic(formik.touched.confirmPassword, formik.errors.confirmPassword)
-
                         }
                       />
                       <br />

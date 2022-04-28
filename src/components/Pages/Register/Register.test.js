@@ -1,240 +1,224 @@
 import "@testing-library/jest-dom/extend-expect";
 import { fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
-import { Router } from "react-router-dom";
 import Register from "./Register";
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { BrowserRouter } from "react-router-dom";
+import { ThemeProvider } from '@mui/styles';
+import { createTheme } from '@mui/material/styles'
 
-test("Checks the title of the page", () => {
+const queryClient = new QueryClient({
+	defaultOptions: {
+		queries: {
+			refetchOnWindowFocus: false,
+			retry: false,
+			staleTime: 500000,
+		},
+	},
+});
+const theme = createTheme();
 
-	render(
-		<Router history={history}>
-			<Register />
-		</Router>
+
+const component = () =>{
+	return(
+		<ThemeProvider theme={theme}>
+		<QueryClientProvider client={queryClient}>
+			<BrowserRouter>
+				<Register />
+			</BrowserRouter>
+		</QueryClientProvider>
+		</ThemeProvider>
 	);
-	const titleEl = screen.getByTestId("title");
-	expect(titleEl).toBeTruthy();
+}
+
+test("Checks the component is rendered", () => {
+	render(component());
+	const element = screen.getByTestId('register_component');
+	expect(element).toBeTruthy();
 });
 
-test("Checks the subtitle of the page", () => {
-
-	render(
-		<Router history={history}>
-			<Register />
-		</Router>
-	);
-	const titleEl = screen.getByTestId("subtitle");
-	expect(titleEl).toBeTruthy();
-});
-
-test("Textbox Firstname", () => {
-
-	render(
-		<Router history={history}>
-			<Register />
-		</Router>
-	);
-	const input = screen.getByLabelText("First Name *");
+test("Render First name ", ()=>{
+	const { container } = render(component());
+	const input = container.querySelector(`input[name="firstName"]`);
+	fireEvent.change(input, { target: { value: "Mariner" } });
 	expect(input).toBeTruthy();
-	expect(input.hasAttribute("name")).toBe(true);
+	expect(input.value).toBe('Mariner');
 });
+
 
 test("Invalid Firstname", () => {
-
-	render(
-		<Router history={history}>
-			<Register />
-		</Router>
-	);
-	const input = screen.getByLabelText("First Name *");
+	const { container } = render(component());
+	const input = container.querySelector(`input[name="firstName"]`);
 	fireEvent.change(input, { target: { value: "123" } });
 	fireEvent.change(input, { target: { value: "" } });
 	fireEvent.change(input, { target: { value: "test123" } });
-
-	expect(screen.getByLabelText("First Name *")).not.toBe(true);
+	expect(input.value).not.toBe(true);
 });
 
-test("Textbox Lastname", () => {
 
-	render(
-		<Router history={history}>
-			<Register />
-		</Router>
-	);
-	const input = screen.getByLabelText("Last Name *");
+test("Render Last name ", ()=>{
+	const { container } = render(component());
+	const input = container.querySelector(`input[name="lastName"]`);
+	fireEvent.change(input, { target: { value: "Mariner" } });
 	expect(input).toBeTruthy();
-	expect(input.hasAttribute("name")).toBe(true);
+	expect(input.value).toBe('Mariner');
 });
 
-test("Invalid Lastname", () => {
-
-	render(
-		<Router history={history}>
-			<Register />
-		</Router>
-	);
-	const input = screen.getByLabelText("Last Name *");
+test("Invalid Last Name", () => {
+	const { container } = render(component());
+	const input = container.querySelector(`input[name="lastName"]`);
 	fireEvent.change(input, { target: { value: "123" } });
 	fireEvent.change(input, { target: { value: "" } });
 	fireEvent.change(input, { target: { value: "test123" } });
-
-	expect(screen.getByLabelText("Last Name *")).not.toBe(true);
+	expect(input.value).not.toBe(true);
 });
 
-test("Render email", () => {
-
-	render(
-		<Router history={history}>
-			<Register />
-		</Router>
-	);
-	const inputEl = screen.getByLabelText("Email *");
-	expect(inputEl).toBeTruthy();
-	expect(inputEl.hasAttribute("name")).toBe(true);
-});
-
-test("pass valid email to test email input field", () => {
-
-	render(
-		<Router history={history}>
-			<Register />
-		</Router>
-	);
-
-	const inputEl = screen.getByLabelText("Email *");
-	fireEvent.change(inputEl, { target: { value: "test@mail.com" } });
-	expect(inputEl.value).toBe("test@mail.com");
-
-	expect(screen.getByLabelText("Email *")).toHaveValue("test@mail.com");
-	expect(screen.queryByLabelText("error-msg")).not.toBeInTheDocument();
-});
-
-test("pass invalid email to test input value", () => {
-
-	render(
-		<Router history={history}>
-			<Register />
-		</Router>
-	);
-
-	const inputEl = screen.getByLabelText("Email *");
-	fireEvent.change(inputEl, { target: { value: "test" } });
-	fireEvent.change(inputEl, { target: { value: "test@" } });
-	fireEvent.change(inputEl, { target: { value: "test@gmail" } });
-	fireEvent.change(inputEl, { target: { value: "123" } });
-	fireEvent.change(inputEl, { target: { value: "@test" } });
-	expect(screen.getByLabelText("Email *")).not.toBe(true);
-});
-
-test("Zipcode availability test", () => {
-
-	render(
-		<Router history={history}>
-			<Register />
-		</Router>
-	);
-	const input = screen.getByLabelText("Zipcode *");
+test("Render Email ", ()=>{
+	const { container } = render(component());
+	const input = container.querySelector(`input[name="email"]`);
+	fireEvent.change(input, { target: { value: "mariner@gmail.com" } });
 	expect(input).toBeTruthy();
-	expect(input.value).toBe("");
-	expect(input.hasAttribute("name")).toBe(true);
+	expect(input.value).toBe('mariner@gmail.com');
 });
 
-test("Zipcode Input test", () => {
-
-	render(
-		<Router history={history}>
-			<Register />
-		</Router>
-	);
-	const input = screen.getByLabelText("Zipcode *");
+test("Check invalid email", () => {
+	const { container } = render(component());
+	const input = container.querySelector(`input[name="email"]`);
+	fireEvent.change(input, { target: { value: "test" } });
+	fireEvent.change(input, { target: { value: "test@" } });
+	fireEvent.change(input, { target: { value: "test@gmail" } });
 	fireEvent.change(input, { target: { value: "123" } });
-	expect(input.value).toBe("123");
+	fireEvent.change(input, { target: { value: "@test" } });
+	expect(input.value).not.toBe(true);
 });
 
-test("Get only numeric value for zipcode", () => {
+test("Render Social Security Number ", ()=>{
+	const { container } = render(component());
+	const input = container.querySelector(`input[name="ssn"]`);
+	fireEvent.change(input, { target: { value: "123-45-6789" } });
+	expect(input).toBeTruthy();
+	expect(input.value).toBe('123-45-6789');
+});
 
-	render(
-		<Router history={history}>
-			<Register />
-		</Router>
-	);
-	const input = screen.getByLabelText("Zipcode *");
+test("Check Valid Social Security Number", () => {const { container } = render(component());
+	const input = container.querySelector(`input[name="ssn"]`);
 	fireEvent.change(input, { target: { value: "abc" } });
 	expect(input.value).toBe("");
-	fireEvent.change(input, { target: { value: "123" } });
-	expect(input.value).toBe("123");
+	fireEvent.change(input, { target: { value: "123-45-6789" } });
+	expect(input.value).toBe("123-45-6789");
 });
 
-it("zipcode should be 5 digits", () => {
+test("Render ZipCode ", ()=>{
+	const { container } = render(component());
+	const input = container.querySelector(`input[name="zip"]`);
+	fireEvent.change(input, { target: { value: "12345" } });
+	expect(input).toBeTruthy();
+	expect(input.value).toBe('12345');
+});
 
-	render(
-		<Router history={history}>
-			<Register />
-		</Router>
-	);
-	const input = screen.getByLabelText("Zipcode *");
+
+it("zipcode should be 5 digits", () => {
+	const { container } = render(component());
+	const input = container.querySelector(`input[name="zip"]`);
 	expect(input.maxLength).toBe(5);
 });
 
-test("Render Date of birth", () => {
+test("Zipcode Valid Input", () => {const { container } = render(component());
+	const input = container.querySelector(`input[name="zip"]`);
+	fireEvent.change(input, { target: { value: "abc" } });
+	expect(input.value).toBe("");
+	fireEvent.change(input, { target: { value: "12345" } });
+	expect(input.value).toBe("12345");
+});
 
-	render(
-		<Router history={history}>
-			<Register />
-		</Router>
-	);
 
-	const input = screen.getByTestId("datePicker");
-
+test("Render DOB ", ()=>{
+	const { container } = render(component());
+	const input = container.querySelector(`input[name="dob"]`);
+	fireEvent.change(input, { target: { value: "01/01/2000" } });
 	expect(input).toBeTruthy();
 });
 
 test("Render password", () => {
-
-	render(
-		<Router history={history}>
-			<Register />
-		</Router>
-	);
-
-	const inputEl = screen.getByLabelText("Create new password *");
-	expect(inputEl).toBeTruthy();
-	expect(inputEl.hasAttribute("name")).toBe(true);
-	fireEvent.change(inputEl, { target: { value: "Test@123" } });
-	expect(inputEl.value).toBe("Test@123");
+	const { container } = render(component());
+	const element = container.querySelector(`input[name="password"]`);
+	expect(element.hasAttribute("name")).toBe(true);
+	fireEvent.change(element, { target: { value: "Test@123" } });
+	expect(element.value).toBe("Test@123");
 });
 
-test("Render confirm  password", () => {
 
-	render(
-		<Router history={history}>
-			<Register />
-		</Router>
-	);
+test('Password Length Test', () => {
+  const { container } = render(component());
+  const input = container.querySelector(`input[name="password"]`);
+  expect(input.maxLength).toBe(30);
+})
 
-	const inputEl = screen.getByLabelText("Re-enter your password *");
-	expect(inputEl).toBeTruthy();
-	expect(inputEl.hasAttribute("name")).toBe(true);
+test('Password Prevent Cut Test', () => {
+  const { container } = render(component());
+  const input = container.querySelector(`input[name="password"]`);
+  fireEvent.cut(input);
+  expect(input.value).toBe('');
+})
+
+test('Password Prevent Copy Test', () => {
+  const { container } = render(component());
+  const input = container.querySelector(`input[name="password"]`);
+  fireEvent.copy(input);
+  expect(input.value).toBe('');
+})
+
+test('Password Prevent Paste Test', () => {
+  const { container } = render(component());
+  const input = container.querySelector(`input[name="password"]`);
+  fireEvent.paste(input);
+  expect(input.value).toBe('');
+})
+
+
+test("Render confirmPassword", () => {
+	const { container } = render(component());
+	const element = container.querySelector(`input[name="confirmPassword"]`);
+	expect(element.hasAttribute("name")).toBe(true);
+	fireEvent.change(element, { target: { value: "Test@123" } });
+	expect(element.value).toBe("Test@123");
 });
 
-test("button Availability", () => {
+test('confirmPassword Length Test', () => {
+  const { container } = render(component());
+  const input = container.querySelector(`input[name="confirmPassword"]`);
+  expect(input.maxLength).toBe(30);
+})
 
-	render(
-		<Router history={history}>
-			<Register />
-		</Router>
-	);
-	const button = screen.getByTestId("submit");
+test('confirmPassword Prevent Cut Test', () => {
+  const { container } = render(component());
+  const input = container.querySelector(`input[name="confirmPassword"]`);
+  fireEvent.cut(input);
+  expect(input.value).toBe('');
+})
 
-	expect(button).toBeTruthy();
-});
+test('confirmPassword Prevent Copy Test', () => {
+  const { container } = render(component());
+  const input = container.querySelector(`input[name="confirmPassword"]`);
+  fireEvent.copy(input);
+  expect(input.value).toBe('');
+})
+
+test('confirmPassword Prevent Paste Test', () => {
+  const { container } = render(component());
+  const input = container.querySelector(`input[name="confirmPassword"]`);
+  fireEvent.paste(input);
+  expect(input.value).toBe('');
+})
+
 
 test("Button Onclick", () => {
-
-	render(
-		<Router history={history}>
-			<Register />
-		</Router>
-	);
+	 render(component());  
 	const button = screen.getByTestId("submit");
 	fireEvent.click(button);
+});
+
+test('Should match the snapshot', () => {
+  const { asFragment } = render(component());
+  expect(asFragment).toMatchSnapshot();
 });
