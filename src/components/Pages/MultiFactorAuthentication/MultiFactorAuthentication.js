@@ -29,7 +29,7 @@ const MultiFactorAuthentication = () => {
 
   return (
     <div>
-      <Grid className="twoStepWrap">
+      <Grid>
         <Grid
           spacing={1}
           container
