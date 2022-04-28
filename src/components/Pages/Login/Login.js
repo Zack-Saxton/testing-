@@ -386,7 +386,7 @@ export default function Login(props) {
             {" "}
             If you&apos;re a new user, click on
             <NavLink to="/register" className="nonDecoratedLink">
-              <span id="helpLogin"> Sign in help/Register </span>
+              <span id="helpLogin"> { `"Sign in help/Register"`} </span>
             </NavLink>{" "}
             option and enter your registration details.
           </li>
@@ -395,7 +395,7 @@ export default function Login(props) {
           <li>
             {" "}
             If you have been making payments with our existing customer
-            account center user your email address in place of your userid and
+            account center, use your email address in place of your userid and
             existing password
           </li>
         </ul>
