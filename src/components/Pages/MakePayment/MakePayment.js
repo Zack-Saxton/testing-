@@ -1114,7 +1114,7 @@ export default function MakePayment(props) {
           </Typography>
           </DialogContent>
 
-        <DialogActions className={`replacePaymentBox ${ classes.dialogActionStyle }`}>
+        <DialogActions className={` ${ classes.dialogActionStyle }`}>
           <ButtonSecondary
             stylebutton='{"background": "", "color":"" }'
             onClick={handlePaymentClose}
