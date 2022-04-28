@@ -89,7 +89,7 @@ export default function RecentApplications({ isLoading, userApplicationsData, us
         <Typography
           variant="h5"
           className={classes.subheading}
-          data-testid="subtitle"
+          data-testid="recent applications"
         >
           Summary of applications
         </Typography>
