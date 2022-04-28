@@ -13,7 +13,7 @@ const useStylesMFA = makeStyles((theme) =>
     twoStepWrap: {
       margin: "auto",
       maxWidth: "630px",
-      height: "88vh",
+      minHeight: "88vh",
       alignItems: "center",
       width: "100%",
     },
@@ -33,7 +33,7 @@ const useStylesMFA = makeStyles((theme) =>
     },
     twoStepPaper: {
       padding: "20px 40px",
-      // margin:"0px 10px",
+      margin: "40px 0px",
       boxSizing: "border-box",
       height: "fit-content",
       boxShadow: "rgb(61 61 61 / 10%) 0px 8px 44px 0px",
@@ -85,10 +85,21 @@ const useStylesMFA = makeStyles((theme) =>
       padding: "0px 5px",
       textAlign: "center",
     },
+    securityQuestionsInput: {
+      padding: "0px 5px",
+      textAlign: "center",
+      margin: "15px 0",
+    },
     resetText: {
       fontSize: "0.844rem",
       textAlign: "center",
       margin: "30px 0px 0px 0px",
+    },
+    securityCubText: {
+      fontSize: "0.938rem",
+      textAlign: "center",
+      margin: "15px 0px",
+      color: "##595959",
     },
   })
 );
