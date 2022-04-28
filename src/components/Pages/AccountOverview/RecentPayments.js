@@ -138,10 +138,10 @@ export default function RecentPayments() {
 				}
 			);
 		});
-	};
+	}
 
 	return (
-		<Grid item xs={12} className={classes.recentPaymentMainGrid}>
+		<Grid item xs={12} className={classes.recentPaymentMainGrid} data-testid="recent payments">
 			<Paper id="recentPaymentsWrap" className={classes.paperRP}>
 				<Grid container spacing={3}>
 					<Grid item xs={12} sm={6}>
