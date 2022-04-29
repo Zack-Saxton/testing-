@@ -169,6 +169,14 @@
   margin-top: 0px;
 }
 
+.timeSlotWrap div p {
+  margin: 4px 0px 0px 0px;
+}
+
+#payFromPaper div label {
+  margin-left: -14px;
+}
+
 #timeSlotSelect,
 #appointmentDate,
 #ScheduleAppointmentSelect {
