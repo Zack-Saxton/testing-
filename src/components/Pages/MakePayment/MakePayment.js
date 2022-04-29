@@ -612,7 +612,7 @@ export default function MakePayment(props) {
             !checkPaymentInformation ? (
               <>
                 <Grid id="payFromWrap" item xs={12} sm={5} className={classes.payFromStyle}>
-                  <Paper className={classes.paper}>
+                  <Paper id="payFromPaper" className={classes.paper}>
                     <Typography className={classes.cardHeading}>
                       Pay From
                     </Typography>
