@@ -202,7 +202,7 @@ export default function PartnerSignUp() {
   };
   //View Part
   return (
-    <div>
+    <div data-testid = "partnerSignup_component">
       <div className={classes.mainContentBackground} id="mainContentBackground">
         <Box>
           <Grid
