@@ -113,7 +113,7 @@ export default function TextNotification() {
   };
 
   return (
-    <div className="textNotificationWrap" >
+    <div className="textNotificationWrap" data-testid="profile-text-notification" >
       <form
         onSubmit={formikTextNote.handleSubmit}
         name="formTextNotify"
@@ -146,7 +146,7 @@ export default function TextNotification() {
                 checked={disabledContent}
                 onChange={handleSwitchNotification}
                 value={disabledContent}
-                inputProps={{ "data-test-id": "switch" }}
+                inputProps={{ "data-testid": "notification-switch" }}
                 color="primary"
               />
             }
@@ -179,6 +179,7 @@ export default function TextNotification() {
             placeholder="Mobile number"
             id="phone"
             type="text"
+            inputProps={{ "data-testid": "notification-phone-number" }}
             onKeyDown={preventSpace}
             value={formikTextNote.values.phone}
             onLoad={formikTextNote.handleChange}
@@ -197,6 +198,7 @@ export default function TextNotification() {
             to="#"
             onClick={handleDisclosureClickOpen}
             className={classes.linkStyle}
+            data-testid="disclosure-link"
           >
             Disclosure
           </Link>
@@ -216,6 +218,7 @@ export default function TextNotification() {
             stylelabelform='{ "fontSize":"12px" }'
             stylecheckbox='{ "fontSize":"12px" }'
             stylecheckboxlabel='{ "fontSize":"12px" }'
+            inputProps={{ "data-testid": "notification-terms" }}
             required
           />
           <Grid
@@ -269,7 +272,7 @@ export default function TextNotification() {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">
+        <DialogTitle id="alert-dialog-title" data-testid="disclosure-popup">
           <Typography id="scheduleTxt" className={classes.dialogHeading}>
             Disclosure
           </Typography>
