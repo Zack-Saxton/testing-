@@ -541,7 +541,7 @@ export default function MakePayment(props) {
       <Grid id="makePaymentWrap" container className={classes.centerGrid}>
         <Grid className={classes.gridStyle} container direction="row" item xs={12}>
           <Grid item xs={12} sm={6} container direction="row">
-            <Typography className={classes.heading} variant="h3">
+            <Typography className={classes.heading} variant="h3" data-testid="heading">
               <NavLink to="/customers/accountOverview">
                 <ButtonWithIcon
                   icon="arrow_backwardIcon"

@@ -103,19 +103,20 @@ export default function ActiveLoans() {
                                 Next Payment Details
                               </Typography>
                             </Grid>
-                            <Grid item xs={12} sm={6}>
+                            <Grid item xs={12} sm={6} data-testid="button_Class">
                               <NavLink
                                 to={`/customers/makePayment/?accNo=${ window.btoa(appData.loanDetails.AccountNumber) }`}
                                 key={Math.random() * 1000}
                               >
                                 <ButtonPrimary
                                   id="makeAPaymentButtonStyle"
+                                  data-testid="make_A_Payment"
                                   stylebutton='{"float": "right","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
                                   className={
                                     today.isBefore(appData.loanDetails.NextDueDate)
                                       ? numberDaysForDueDate(appData)
                                         ? `${ classes.normalButton } pulse`
-                                        : classes.normalButton
+                                        : classes.normalButton 
                                       : `${ classes.buttonColorPastDate } pulse`
                                   }
                                 >
@@ -130,6 +131,7 @@ export default function ActiveLoans() {
                               <AutoPayStatus
                                 isAutoPay={appData?.loanPaymentInformation?.appRecurringACHPayment ? true : false}
                                 accountNumber={appData?.loanDetails?.AccountNumber}
+                                dataTestid={appData?.loanPaymentInformation?.appRecurringACHPayment ? "autoPayEnabled" : "enableAutoPay"}
                               />
                             </Grid>
 
@@ -193,6 +195,7 @@ export default function ActiveLoans() {
                                 item
                                 xs={12}
                                 sm={3}
+                                data-testid="hasScheduledPayment"
                               >
                                 <p
                                   id="ScheduledPaymentText"
@@ -211,7 +214,7 @@ export default function ActiveLoans() {
                                 </p>
                               </Grid>
                             ) : (
-                              <Grid item xs={12} sm={3}>
+                              <Grid item xs={12} sm={3} data-testid="noScheduledPayment">
                                 <p
                                   id="ScheduledPaymentText"
                                   className={classes.cardcontent}
