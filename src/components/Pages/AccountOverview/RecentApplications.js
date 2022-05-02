@@ -15,15 +15,14 @@ import NumberFormat from 'react-number-format';
 import { useNavigate } from "react-router-dom";
 import { ButtonPrimary } from "../../FormsUI";
 import { useStylesAccountOverview } from "./Style";
+import { useAccountOverview } from "./AccountOverviewHook/useAccountOverview";
 import "./Style.css";
 
-export default function RecentApplications({ isLoading, userApplicationsData, userApplicantData }) {
+export default function RecentApplications() {
   //Material UI css class
   const classes = useStylesAccountOverview();
+  const { isLoading, accountDetails } = useAccountOverview();
 
-  //Recentapplications data
-  let userApplications = userApplicationsData ?? [];
-  let userApplicant = userApplicantData ?? null;
   let statusStr = {
     "approved": "Approved",
     "completing_application": "Completing Application",
@@ -116,15 +115,16 @@ export default function RecentApplications({ isLoading, userApplicationsData, us
                     className={classes.tableHeadRow}
                     scope="row"
                     align="center"
+                    data-testid="while_Loading"
                   >
                     <CircularProgress />
                   </TableCell>
                 </TableRow>
               ) :
-                userApplications?.length
+                accountDetails?.data?.applicants?.length
                   ?
-                  userApplications.map((appData, index) => (
-                    <TableRow key={index}>
+                  accountDetails.data.applicants.map((appData, index) => (
+                    <TableRow key={index}data-testid="with_Data">
                       <TableCell className={classes.tableheadrow} >
                         {appData.submissionDate}
                       </TableCell>
@@ -149,7 +149,7 @@ export default function RecentApplications({ isLoading, userApplicationsData, us
                               Resume
                             </ButtonPrimary>
                           ) : (
-                            <ButtonPrimary stylebutton='{"color":"","width":"72%","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }' onClick={() => viewAppData(userApplicant, appData)} >
+                            <ButtonPrimary data-testid={`navigate_View_Account_${index}`} stylebutton='{"color":"","width":"72%","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }' onClick={() => viewAppData(accountDetails?.data?.applicant?.contact, appData)} >
                               View
                             </ButtonPrimary>
                           )
@@ -158,7 +158,7 @@ export default function RecentApplications({ isLoading, userApplicationsData, us
                     </TableRow>
                   ))
                   :
-                  <TableRow>
+                  <TableRow data-testid="while_Error">
                     <TableCell
                       colSpan="7"
                       align="center"
@@ -176,6 +176,6 @@ export default function RecentApplications({ isLoading, userApplicationsData, us
 }
 RecentApplications.propTypes = {
   isLoading: PropTypes.bool,
-  userApplicationsData: PropTypes.array,
-  userApplicantData: PropTypes.object,
+  // userApplicationsData: PropTypes.array,
+  // userApplicantData: PropTypes.object,
 };

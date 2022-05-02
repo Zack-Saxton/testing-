@@ -18,9 +18,6 @@ export default function AccountOverview() {
   const { isLoading, accountDetails } = useAccountOverview();
   //Load data
   let offerData = accountDetails?.data?.offerData;
-  let applicationsData = accountDetails?.data?.applicants;
-  let applicantData = accountDetails?.data?.applicant?.contact;
-  let status = accountDetails?.data?.status;
   let activeLoansData = accountDetails?.data?.activeLoans;
   Cookies.set("hasActiveLoan", true);
   if (Array.isArray(activeLoansData) && !(activeLoansData.length)) Cookies.set("hasActiveLoan", false);
@@ -50,7 +47,7 @@ export default function AccountOverview() {
         <LimitedOffer isLoading={isLoading} userOffers={offerData} />
         <ActiveLoans/>
         <RecentPayments/>
-        <RecentApplications isLoading={isLoading} userApplicationsData={applicationsData} UserAccountStatus={status} userApplicantData={applicantData} />
+        <RecentApplications/>
       </Grid>
     </div>
   );
