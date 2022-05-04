@@ -15,7 +15,6 @@ import {
   Popup,
   RenderContent
 } from "../../../components/FormsUI";
-import { saveAcquireClick, saveConsentStatus, validateActivationToken } from "../../Controllers/EmailVerificationController";
 import ErrorLogger from "../../lib/ErrorLogger";
 import BankAccountVerification from "./BankAccountVerification";
 import DocumentIdAndPhotoId from "./DocumentIdAndPhotoId";
@@ -38,11 +37,11 @@ export default function EmailVerification() {
   const classes = useStylesEmailVerification();
   const useQueryURL = () => new URLSearchParams(useLocation().search);
   const queryString = useQueryURL();
-  const activationToken = queryString.get("activation_token");
-  const email = queryString.get("email");
-  const applicationNumber = queryString.get("applicationNumber");
-  const autoVerification = queryString.get("autoVerification");
-  const collaborateOption = queryString.get("collaborateOption");
+  const [ customerEmail, setCustomerEmail ] = useState("");
+  const [ applicationNumber, setApplicationNumber ] = useState("");
+  const [ autoVerification, setAutoVerification ] = useState("off");
+  const [ collaborateOption, setCollaborateOption ] = useState("off");
+  const verify = queryString.get("verify");
   const [ activeStep, setActiveStep ] = useState(0);
   const [ agreeTerms, setAgreeTerms ] = useState(false);
   const [ consentLoading, setConsentLoading ] = useState(false);
@@ -51,15 +50,19 @@ export default function EmailVerification() {
   const [ cacTerms, setCacTerms ] = useState(false);
   const [ websiteTerms, setWebsiteTerms ] = useState(false);
   let steps = getSteps();
-
-  const { isLoading, data: verificationData } = useQuery([ 'branch-mail-verification-data', activationToken, email, applicationNumber ], () => validateActivationToken(activationToken, email, applicationNumber));
+  const { isLoading, data: verificationData } = useQuery([ 'branch-mail-verification-data', verify ], () => validateActivationToken(verify));
   useEffect(() => {
-    let applicationData = verificationData?.data?.emailVerificationRecord?.sorad?.applcationData ?? [];
-    let currentApplication = applicationData.filter((application, index) => {
-      return application.applicationNumber === applicationNumber;
-    });
-    if (currentApplication.length && currentApplication[ 0 ]?.consents) {
-      setAgreeTerms(true);
+    let applicationNo = verificationData?.data?.emailVerificationRecord?.attributes?.applicationNumber ?? "";
+    let autoVerification = verificationData?.data?.emailVerificationRecord?.attributes?.autoVerification ?? "off";
+    let collaborateOption = verificationData?.data?.emailVerificationRecord?.attributes?.collaborateOption ?? "off";
+    let emailVerifiedStatus = verificationData?.data?.emailVerificationRecord?.attributes?.email_verified ?? false;
+    let customerEmail = verificationData?.data?.emailVerificationRecord?.customer_email ?? "";
+    setCustomerEmail(customerEmail);
+    setApplicationNumber(applicationNo);
+    setAutoVerification(autoVerification);
+    setCollaborateOption(collaborateOption);
+    if (applicationNo !== '') {
+      setAgreeTerms(emailVerifiedStatus);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ verificationData ]);
@@ -93,7 +96,7 @@ export default function EmailVerification() {
   const handleChange = async (event) => {
     try {
       setConsentLoading(true);
-      let response = await saveConsentStatus(email, applicationNumber);
+      let response = await saveConsentStatus(customerEmail, applicationNumber);
       if (response) {
         setAgreeTerms(true);
       }
@@ -133,7 +136,7 @@ export default function EmailVerification() {
   const showCoBrowseCodeBox = async () => {
     window.location = "javascript:acquireIO.startCoBrowseCodeBox()";
     try {
-      await saveAcquireClick(email, applicationNumber);
+      await saveAcquireClick(customerEmail, applicationNumber);
     } catch (error) {
       ErrorLogger(" Error in saveAcquireClick API", error);
     }
@@ -143,7 +146,7 @@ export default function EmailVerification() {
       case 0:
         return <DocumentIdAndPhotoId
           applicationNumber={applicationNumber}
-          customerEmail={email}
+          customerEmail={customerEmail}
           next={handleNext}
           prev={handleBack}
           reset={handleReset}
@@ -153,7 +156,7 @@ export default function EmailVerification() {
       case 1:
         return <IncomeVerification
           applicationNumber={applicationNumber}
-          customerEmail={email}
+          customerEmail={customerEmail}
           next={handleNext}
           prev={handleBack}
           reset={handleReset}
@@ -163,7 +166,7 @@ export default function EmailVerification() {
       case 2:
         return <BankAccountVerification
           applicationNumber={applicationNumber}
-          customerEmail={email}
+          customerEmail={customerEmail}
           next={handleNext}
           prev={handleBack}
           reset={handleReset}
@@ -173,7 +176,7 @@ export default function EmailVerification() {
       case 3:
         return <VehiclePhotos
           applicationNumber={applicationNumber}
-          customerEmail={email}
+          customerEmail={customerEmail}
           next={handleNext}
           prev={handleBack}
           reset={handleReset}
@@ -226,7 +229,7 @@ export default function EmailVerification() {
               acknowledge and sign our disclosures to proceed.
             </Typography>
             <Grid container>
-              {agreeTerms || verificationData?.data?.messageType !== 'error' ?
+              {agreeTerms || verificationData?.data?.messageType === 'error' ?
                 <Grid className="acknowledgeText">
                   <Typography>
                     Consent documents that were acknowledged

@@ -70,7 +70,7 @@ export default function LimitedOffer(userOfferData) {
 
   //View
   return (
-    <div id="limitedOfferWrap" className="limitedOfferWrap">
+    <div id="limitedOfferWrap" className="limitedOfferWrap" data-testid="limited offer">
       <Grid container id="overviewWrap" className="overviewWrap">
         <Grid item sm={6} md={6} xs={12} lg={6} xl={6} className="imageholdernewtop">
 

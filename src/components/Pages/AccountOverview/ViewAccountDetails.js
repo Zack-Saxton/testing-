@@ -63,6 +63,7 @@ export default function ViewAccountDetails() {
         container
         justifyContent={"center"}
         className={classes.centerGrid}
+        data-testid="view_Account"
       >
         <Grid container spacing={3}>
           <Grid item xs={12}>

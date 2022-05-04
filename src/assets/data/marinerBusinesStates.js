@@ -29,18 +29,18 @@ const businesStates = [
     'Washington'
 ];
 const branch_hours = [
-    "Mon: 9:00 a.m. – 5:00 p.m.",
-    "Tue: 9:00 a.m. – 7:00 p.m.",
-    "Wed: 9:00 a.m. – 5:00 p.m.",
-    "Thu: 9:00 a.m. – 5:00 p.m.",
-    "Fri: 9:00 a.m. – 5:30 p.m."
+    "Mon: 9:00 a.m. - 5:00 p.m.",
+    "Tue: 9:00 a.m. - 7:00 p.m.",
+    "Wed: 9:00 a.m. - 5:00 p.m.",
+    "Thu: 9:00 a.m. - 5:00 p.m.",
+    "Fri: 9:00 a.m. - 5:30 p.m."
 ];
 const ca_branch_hours = [
-    "Mon: 9:00 a.m. – 5:30 p.m.",
-    "Tue: 10:00 a.m. – 7:00 p.m.",
-    "Wed: 9:00 a.m. – 5:30 p.m.",
-    "Thu: 9:00 a.m. – 5:30 p.m.",
-    "Fri: 9:00 a.m. – 5:30 p.m."
+    "Mon: 9:00 a.m. - 5:30 p.m.",
+    "Tue: 10:00 a.m. - 7:00 p.m.",
+    "Wed: 9:00 a.m. - 5:30 p.m.",
+    "Thu: 9:00 a.m. - 5:30 p.m.",
+    "Fri: 9:00 a.m. - 5:30 p.m."
 ];
 const tzMatch = {
     "Eastern Standard Time": "EST",

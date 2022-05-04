@@ -133,6 +133,7 @@ function LoanPurpose(props) {
 									<Link
 										to={"/select-amount"}
 										state={{ fromLoanPurpose: "yes" }}
+										data-testid="routeBackwardLoanPurpose"
 									>
 										<i className="material-icons dp48 yellowText ">
 											arrow_back
@@ -556,7 +557,7 @@ function LoanPurpose(props) {
 										className={classes.gridMargin}
 									>
 										<ButtonPrimary
-											data-testid="contButton"
+											data-testid="contButtonLoanPurpose"
 											onClick={handleRoute}
 											disabled={!purpose}
 											stylebutton='{"background": "#FFBC23","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'

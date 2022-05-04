@@ -244,7 +244,7 @@ function NewUser() {
 	//JSX part
 
 	return (
-		<div>
+		<div data-testid="annual-income-component">
 			<ScrollToTopOnMount />
 			<div className={classes.mainDiv}>
 				<Box>

@@ -22,6 +22,7 @@ export default function EmailVerification(props) {
 						color: "#595959",
 						fontWeight: "normal",
 					}}
+					data-testid="emailVerificationText"
 				>
 					In Progress: Your email address has not been verified. Please check
 					your inbox for our email verification message. Alternatively, please

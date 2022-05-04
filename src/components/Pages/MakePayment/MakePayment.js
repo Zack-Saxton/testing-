@@ -541,7 +541,7 @@ export default function MakePayment(props) {
       <Grid id="makePaymentWrap" container className={classes.centerGrid}>
         <Grid className={classes.gridStyle} container direction="row" item xs={12}>
           <Grid item xs={12} sm={6} container direction="row">
-            <Typography className={classes.heading} variant="h3">
+            <Typography className={classes.heading} variant="h3" data-testid="heading">
               <NavLink to="/customers/accountOverview">
                 <ButtonWithIcon
                   icon="arrow_backwardIcon"
@@ -612,7 +612,7 @@ export default function MakePayment(props) {
             !checkPaymentInformation ? (
               <>
                 <Grid id="payFromWrap" item xs={12} sm={5} className={classes.payFromStyle}>
-                  <Paper className={classes.paper}>
+                  <Paper id="payFromPaper" className={classes.paper}>
                     <Typography className={classes.cardHeading}>
                       Pay From
                     </Typography>
@@ -855,6 +855,16 @@ export default function MakePayment(props) {
         classes={{ paper: classes.dialogPaper }}
       >
         <DialogTitle id="autopayText">
+        <IconButton
+            id="autopayCloseBtn"
+            aria-label="close"
+            className={classes.closeButton}
+            onClick={handleCloseAutoPayPopup}
+          >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent>
           <Typography id="autoTxt" className={classes.dialogHeading}>
             {!disabledContent
               ? globalMessages.Are_You_Sure_Disable_Autopay
@@ -909,15 +919,7 @@ export default function MakePayment(props) {
             )}
             {/* </Typography> */}
           </>
-          <IconButton
-            id="autopayCloseBtn"
-            aria-label="close"
-            className={classes.closeButton}
-            onClick={handleCloseAutoPayPopup}
-          >
-            <CloseIcon />
-          </IconButton>
-        </DialogTitle>
+        </DialogContent> 
 
         <DialogActions className={`actionButtons ${ classes.dialogActionStyle }`}>
           <ButtonSecondary
@@ -1002,7 +1004,16 @@ export default function MakePayment(props) {
         classes={{ paper: classes.dialogPaper }}
       >
         <DialogTitle id="scheduleDialogHeading">
-          <Typography id="scheduleTxt" className={classes.dialogHeading}>
+          <IconButton
+            aria-label="close"
+            className={classes.closeButton}
+            onClick={handlePaymentClose}
+          >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent>
+        <Typography id="scheduleTxt" className={classes.dialogHeading}>
             Your Payment of: {numberFormat(paymentAmount)} will be applied to
             your account.
           </Typography>
@@ -1101,16 +1112,9 @@ export default function MakePayment(props) {
           <Typography className={classes.dialogHeading}>
             Confirm Your Payment?
           </Typography>
-          <IconButton
-            aria-label="close"
-            className={classes.closeButton}
-            onClick={handlePaymentClose}
-          >
-            <CloseIcon />
-          </IconButton>
-        </DialogTitle>
+          </DialogContent>
 
-        <DialogActions className={`replacePaymentBox ${ classes.dialogActionStyle }`}>
+        <DialogActions className={` ${ classes.dialogActionStyle }`}>
           <ButtonSecondary
             stylebutton='{"background": "", "color":"" }'
             onClick={handlePaymentClose}
@@ -1187,9 +1191,6 @@ export default function MakePayment(props) {
         classes={{ paper: classes.dialogPaper }}
       >
         <DialogTitle id="deleteDialogHeading">
-          <Typography id="deleteTxt" className={classes.dialogHeading}>
-            Are you sure you want to delete the scheduled payment ?
-          </Typography>
           <IconButton
             id="deleteClose"
             aria-label="close"
@@ -1199,6 +1200,11 @@ export default function MakePayment(props) {
             <CloseIcon />
           </IconButton>
         </DialogTitle>
+        <DialogContent>
+          <Typography id="deleteTxt" className={classes.dialogHeading}>
+            Are you sure you want to delete the scheduled payment ?
+          </Typography>
+        </DialogContent>
 
         <DialogActions className={classes.dialogActionStyle}>
           <ButtonSecondary stylebutton='{"background": "", "color":"" }' onClick={handleDeleteScheduleClose}>

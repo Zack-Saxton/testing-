@@ -19,6 +19,7 @@ import { useStylesApplyForLoan } from "../Style";
 import TabPanel from "../TabPanel";
 import TabSection from "../TabSection";
 import OfferTable from "./offersTable";
+import { useFetchOffer } from "../ApplyForLoanHook/useFetchOffer"
 import "./SelectOffer.css";
 
 //Initializing functional component Apply for loan
@@ -39,7 +40,10 @@ export default function ApplyLoan() {
 	const navigate = useNavigate();
 	let term;
 
-	const { data: val } = useQuery('available-offers', fetchAvailableOffers);
+	const { isLoading, offers } = useFetchOffer();
+
+	// const { data: offers } = useQuery('available-offers', fetchAvailableOffers);
+
 	const { refetch } = useQuery('loan-data', usrAccountDetails);
 
 	//To change the value to currency formate
@@ -73,13 +77,13 @@ export default function ApplyLoan() {
 
 	// To fetch the available offers for the logged in user
 	function getAvailableOffers() {
-		if (val?.data !== "Access token has expired" && val?.data?.Offers) {
-			setAccountDetails(val);
-			term = Object.keys(val?.data?.Offers);
-			setNoOffers(!(Object.keys(val?.data?.Offers).length) ? true : false);
+		if (offers?.data !== "Access token has expired" && offers?.data?.Offers) {
+			setAccountDetails(offers);
+			term = Object.keys(offers?.data?.Offers);
+			setNoOffers(!(Object.keys(offers?.data?.Offers).length) ? true : false);
 			setTerms(term);
 			if (term[ 0 ]) {
-				initialTabLoad(term[ 0 ], 0, val);
+				initialTabLoad(term[ 0 ], 0, offers);
 			}
 		}
 	}
@@ -88,7 +92,7 @@ export default function ApplyLoan() {
 	useEffect(() => {
 		getAvailableOffers();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [ val ]);
+	}, [ offers ]);
 
 	function tabVerticalProps(verticalIndex) {
 		return {
@@ -223,7 +227,7 @@ export default function ApplyLoan() {
 					<TabSection value={value} handleChange={handleChange} classes={classes} ay={0} />
 
 					<TabPanel value={value} index={0} className={classes.tabPanelWrap}>
-						<Grid container item xs={12}>
+						<Grid container item xs={12} data-testid="termGrid">
 							{noOffers ? (
 								<Grid item xs={12} className={classes.fullWidth}>
 									<Paper className={`${ classes.noOffersWrap } ${ classes.paper }`} >
@@ -240,7 +244,7 @@ export default function ApplyLoan() {
 										sm={3}
 										className={`${ loading ? classes.loadingOnWithoutBlur : classes.loadingOff } ${ classes.fullWidth }`}
 									>
-										<Paper className={classes.paperVerticalTab}>
+										<Paper className={classes.paperVerticalTab} data-testid = "tabsBlock"> 
 											{terms ? (
 												<Tabs
 													value={values}
@@ -295,7 +299,7 @@ export default function ApplyLoan() {
 													<CircularProgress />
 												</Grid>
 											)}
-										</Paper>
+										</Paper>	
 									</Grid>
 
 									<OfferTable

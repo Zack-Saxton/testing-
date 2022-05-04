@@ -12,7 +12,7 @@ export default function AutoPayStatus(account) {
   //View
   if (account.isAutoPay) {
     return (
-      <div>
+      <div data-testid={account.dataTestid}>
         <p className={classes.cardContent}>Auto Pay</p>
         <h5 className={classes.enableColor}>
           ENABLED <img src={enabled} alt="enabled" />
@@ -24,10 +24,10 @@ export default function AutoPayStatus(account) {
     );
   } else {
     return (
-      <div>
+      <div data-testid={account.dataTestid}>
         <p className={classes.cardContent}>Auto Pay</p>
         <Typography variant="h5" id="nextPaymentItems" className={classes.disableColor}>
-          <NavLink to={`/customers/makePayment/?accNo=${ window.btoa(account.accountNumber) }`} className={classes.autoPayEnableLinkOne} key={Math.random() * 1000}>
+          <NavLink to={`/customers/makePayment/?accNo=${ window.btoa(account.accountNumber) }`} data-testid="enableAutoPayLink" className={classes.autoPayEnableLinkOne} key={Math.random() * 1000}>
             ENABLE AUTOPAY
           </NavLink>
         </Typography>

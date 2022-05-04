@@ -284,7 +284,7 @@ export default function BasicInformation(props) {
   };
 
   return (
-    <div>
+    <div data-testid="basic-information-component">
       <form onSubmit={formik.handleSubmit} style={{
         opacity: loading ? 0.55 : 1,
         pointerEvents: loading ? "none" : "initial"

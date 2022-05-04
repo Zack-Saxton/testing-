@@ -109,7 +109,7 @@ function CheckMyOffers(props) {
 
   // jsx part
   return (
-    <div>
+    <div data-testid="check-my-affer-select-amout">
       <ScrollToTopOnMount />
       <div className={classes.mainDiv}>
         <Box>
@@ -179,7 +179,7 @@ function CheckMyOffers(props) {
                     </Typography>
                   </Grid>
                   <Grid item xs={11} sm={10} md={8} lg={8} xl={8}>
-                    <div className={hasOfferCode ? "open" : "close"}>
+                    <div className={hasOfferCode ? "open" : "close"} data-testid="offer-code-input-box">
                       <TextField
                         id="offerCodeInput"
                         name="offerCode"

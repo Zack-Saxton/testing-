@@ -76,28 +76,7 @@ test("Render password", () => {
 	expect(inputEl.hasAttribute("name")).toBe(true);
 });
 
-// test("Render checkbox", () => {
 
-// 	render(
-// 		<Router history={ history }>
-// 			<Login />
-// 		</Router>
-// 	);
-
-// 	const checkbox = screen.getByLabelText("Remember Me");
-// 	expect(checkbox).toBeInTheDocument();
-// });
-
-// test("checkbox initially unchecked", () => {
-
-// 	render(
-// 		<Router history={ history }>
-// 			<Login />
-// 		</Router>
-// 	);
-// 	const checkbox = screen.getByLabelText("Remember Me");
-// 	expect(checkbox).not.toBeChecked();
-// });
 
 test("button Availability", () => {
 
@@ -114,8 +93,6 @@ test("button Availability", () => {
 });
 
 test("Button Onclick", () => {
-
-
 
 	render(
 		<QueryClientProvider client={queryClient}>
@@ -140,16 +117,41 @@ test('should match the snapshot', () => {
 });
 
 
+// ************************************* << Referrence for integration testing *************************************
 
-test('navigation test', async () => {
-	render(<QueryClientProvider client={queryClient}>
-		<BrowserRouter>
-			<Login />
-		</BrowserRouter>
-	</QueryClientProvider>);
-	fireEvent.change(getByLabelText(/email/i), { target: { value: 'dan@example.com' } })
-	fireEvent.change(getByLabelText(/password/i), { target: { value: 'password1234' } })
-	fireEvent.click(getByText(/submit/i))
 
-	await waitForElement(() => getByText(/logged out/i))
-});
+// test("Render checkbox", () => {
+
+// 	render(
+// 		<Router history={ history }>
+// 			<Login />
+// 		</Router>
+// 	);
+
+// 	const checkbox = screen.getByLabelText("Remember Me");
+// 	expect(checkbox).toBeInTheDocument();
+// });
+
+// test("checkbox initially unchecked", () => {
+
+// 	render(
+// 		<Router history={ history }>
+// 			<Login />
+// 		</Router>
+// 	);
+// 	const checkbox = screen.getByLabelText("Remember Me");
+// 	expect(checkbox).not.toBeChecked();
+// });
+
+// test('navigation test', async() => {
+// render(<QueryClientProvider client={ queryClient }>
+// 		<BrowserRouter>
+// 			<Login />
+// 		</BrowserRouter>
+// 	 </QueryClientProvider>);
+// 	fireEvent.change(getByLabelText(/email/i), {target: {value: 'dan@example.com'}})
+// 	fireEvent.change(getByLabelText(/password/i), {target: {value: 'password1234'}})
+// 	fireEvent.click(getByText(/submit/i))
+	
+// 	await waitForElement(() => getByText(/logged out/i))
+// });

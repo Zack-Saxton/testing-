@@ -76,7 +76,7 @@ export default function DocumentUpload(props) {
 
 	//JSX part
 	return (
-		<Grid container direction="row">
+		<Grid container direction="row" data-testid="documentUpload">
 			<Grid style={{ paddingTop: "20px" }}>
 				<ButtonPrimary
 					variant="contained"

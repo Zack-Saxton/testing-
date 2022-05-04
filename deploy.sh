@@ -191,6 +191,8 @@ fi
 
 echo -e "\033[1;35m * PUSHED IMAGE ID: ($imageName)               \033[0m"
 
+docker rmi "${imageName}"
+
 echo -e "\033[1;36m ********************************************** \033[0m"
 echo -e "\033[1;36m * TUNNELING INTO EC2 INSTANCE ($app)           \033[0m"
 echo -e "\033[1;36m ********************************************** \033[0m"
