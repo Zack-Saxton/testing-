@@ -180,6 +180,21 @@ test('confirmPassword Prevent Paste Test', () => {
   expect(input.value).toBe('');
 })
 
+test("Check Password Match", async ()=>{
+	const { container } = render(component());	
+  const newPassword = container.querySelector(`input[name="password"]`);
+	const input = container.querySelector(`input[name="confirmPassword"]`);
+	expect(input).toBeTruthy();	
+	await act(() => {
+		fireEvent.change(input, { target: { value: "Mariner1@1" } });
+    fireEvent.change(newPassword, { target: { value: "Mariner1@" } });
+    fireEvent.blur(input);	
+	});	
+  const errorInfo = container.querySelector(`p[id="cpass-helper-text"]`);
+	expect(errorInfo).toBeTruthy();	
+	expect(errorInfo).toHaveTextContent('Your confirmation password must match your password');
+});
+
 
 test("Button Onclick", () => {
 	 render(component());  
