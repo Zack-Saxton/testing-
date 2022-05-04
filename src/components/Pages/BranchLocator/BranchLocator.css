@@ -652,7 +652,7 @@
   width: 100%;
   background-color: white;
 }
-.boxDivWrap{
+.boxDiv{
   max-width: 1200px;
   margin: -90px auto 0px auto;
   background-color: white;
@@ -834,7 +834,10 @@
   margin: auto;
   justify-content: space-between;
 }
-
+.branchPageGrid{
+  width: 100%;
+  background-color: #fff;
+}
 @media only screen and (max-width: 1200px){
   .staticTextWrap{
     margin: 10px 30px 20px 30px;
@@ -870,7 +873,7 @@
   }
 }
 @media (max-width: 960px) {
-  .boxDivWrap{
+  .boxDiv{
     margin: 0;
   }
   .whiteBackgroundGrid{
@@ -975,7 +978,7 @@
   }
 }
 @media (max-width: 599px) {
-  .boxDivWrap{
+  .boxDiv{
     padding: 10px 10px;
   }
   .mobilePadding {

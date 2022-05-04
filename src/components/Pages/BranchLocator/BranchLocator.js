@@ -573,7 +573,7 @@ export default function BranchLocator() {
         {BreadCrumsAndSearch1AndText}
         
         <Grid className="boxDivWrap">
-          <Grid className="boxDivWrap"> 
+          <Grid className="boxDiv"> 
             <Grid className="mapAndBranchListWrap">
 
           {showMapListSearch2DirectionButton && MapBranchListandSearch2Buttons}

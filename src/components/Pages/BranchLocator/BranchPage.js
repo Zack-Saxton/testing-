@@ -445,7 +445,7 @@ export default function StatePage(props) {
         <Grid className="addressCardWrap">{BranchDetailsInCard}</Grid>
 
         {DrivingDirectionPopup}
-        <Grid>
+        <Grid className="branchPageGrid">
           <Grid className="branchPageWrap">
         <Grid className="branchPageMap">
           <Grid className="mapContainerWrap" container>
