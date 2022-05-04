@@ -157,6 +157,7 @@
   align-items: self-start;
   justify-content: space-between;
   padding: 0px 10px;
+  justify-self: stretch;
 }
 
 .locationInfo .nav_link {
@@ -189,14 +190,9 @@
 
 .addressList {
   width: 100%;
-  background-color: #f6f6f6;
+  background-color: #fff;
   padding: 0% 0%;
   display: flex;
-  justify-content: space-between;
-}
-
-.branchLocatorAddressList {
-  background-color: #f6f6f6;
   justify-content: space-between;
 }
 
@@ -245,7 +241,6 @@
 }
 
 #branchLocatorLists {
-  background-color: #f6f6f6;
   width: 100%;
   padding-top: 15px !important;
 }
@@ -444,7 +439,7 @@
 }
 
 #greyBackground {
-  background-color: #f6f6f6 !important;
+  background-color: #fff !important;
   max-width: 1200px;
   margin: auto;
   padding-bottom: 15px;
@@ -511,7 +506,7 @@
 
 .mainHeading {
   text-align: left !important;
-  margin: 1.14rem 0 0.4rem 0 !important;
+  margin: 0rem 0 0.4rem 0 !important;
   font-size: 2.138rem !important;
   font-weight: 500 !important;
   width: 100% !important;
@@ -552,7 +547,6 @@
 }
 
 .personalLoanGrid {
-  background-Color: #f6f6f6;
   padding: 0px 0px 0px 4.5%;
 }
 
@@ -636,13 +630,10 @@
   padding: 50px 0px 30px 0px;
 }
 
-.webImage {
-  max-height: 465px;
-}
-
 .branchLayoutGrid {
   max-width: 1200px;
   width: 100%;
+  min-height: 70vh;
 }
 
 .blueBoxWrap {
@@ -657,24 +648,53 @@
   height: auto;
 }
 
-.mapAndBranchListWrap {
+.boxDivWrap{
   width: 100%;
+  background-color: white;
+}
+.boxDivWrap{
+  max-width: 1200px;
+  margin: -90px auto 0px auto;
+  background-color: white;
+  box-shadow: rgba(61, 61, 61, 0.1) 0px 8px 44px 0px;
+  border-radius: 10px;
+  padding: 10px 40px;
+}
+.staticTextWrap{
+  max-width: 1200px; 
+  margin: 10px auto 20px auto;
+}
+.whiteBackgroundGrid{
+  max-width: 1200px;
+  margin: -90px auto 40px auto;
+  background-color: white;
+  box-shadow: rgba(61, 61, 61, 0.1) 0px 8px 44px 0px;
+  border-radius: 10px;
+  padding: 10px 40px;
+}
+.branchPageWrap{
+  max-width: 1200px;
+  margin: -90px auto 40px auto;
+  background-color: white;
+  box-shadow: rgba(61, 61, 61, 0.1) 0px 8px 44px 0px;
+  border-radius: 10px;
+  padding: 10px 40px 40px 40px;
 }
 
 #mapAndBranchList {
-  padding: 4% 0px;
-  max-width: 1200px;
+  padding: 2% 0px;
   margin: auto;
 }
 
 .mapAndListWrap {
   width: 100%;
+  background-color: white;
 }
 
 .mapWrap {
   max-width: 1200px;
   margin: auto;
-  background-color: #f6f6f6;
+  background-color: #fff;
   padding: 5px 0px 40px 0px;
 }
 
@@ -768,7 +788,7 @@
 }
 
 .branchPageMap {
-  background-color: #f9f9f9;
+  background-color: #fff;
   width: 100%;
   padding: 16px 2rem 30px 1rem;
 }
@@ -789,7 +809,6 @@
 #mainContent {
   text-align: center;
   padding: 6px 0px;
-  background-color: white;
   max-width: 1200px;
   margin: auto;
 }
@@ -816,13 +835,46 @@
   justify-content: space-between;
 }
 
-@media (max-width: 960px) {
+@media only screen and (max-width: 1200px){
+  .staticTextWrap{
+    margin: 10px 30px 20px 30px;
+  }
+}
+@media only screen and (max-width: 900px){
+  .personalLoanGrid{
+    padding: 10px 0px 20px 0px ; 
+  }
+  .branchtextSection{
+    padding: 10px 0px 20px 0px ; 
+  }
+  .branchPageWrap{
+    margin: 0px auto 40px auto;
+    padding: 10px 10px 20px 10px;
+  }
+  
   .mobileImage {
     display: block;
+    height: unset !important;
   }
 
+  
+  .branchLocatorHeadingMain {
+    display: none;
+  }
+
+  .branchLocatorHeading {
+    display: none;
+  }
   .webImage {
     display: none;
+  }
+}
+@media (max-width: 960px) {
+  .boxDivWrap{
+    margin: 0;
+  }
+  .whiteBackgroundGrid{
+    margin: 0px auto 40px auto;
   }
 
   .findBranchWrap {
@@ -851,14 +903,6 @@
   #searchBoxBottom {
     padding: 0;
     margin-top: 40px;
-  }
-
-  .branchLocatorHeadingMain {
-    display: none;
-  }
-
-  .branchLocatorHeading {
-    display: none;
   }
 
   #branchLists {
@@ -925,24 +969,32 @@
     font-size: 1.25rem !important;
   }
 }
-
+@media (max-width: 760px) {
+  #scheduleAppointmentBtn {
+    padding: 0px 15px !important;
+  }
+}
 @media (max-width: 599px) {
+  .boxDivWrap{
+    padding: 10px 10px;
+  }
   .mobilePadding {
     padding: 2% 15px !important;
   }
 
   #mainContent {
-    padding: 1% 28px !important;
+    padding: 1% 10px !important;
   }
 
   #branchDiv {
     padding-right: 0px;
     margin-bottom: 30px;
   }
-}
-
-@media (max-width: 760px) {
-  #scheduleAppointmentBtn {
-    padding: 0px 15px !important;
+  .blueBoxWrap{
+    padding: 20px 10px;
   }
+  .whiteBackgroundGrid{
+    padding: 10px 10px;
+  }
+  
 }
