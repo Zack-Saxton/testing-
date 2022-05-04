@@ -225,9 +225,9 @@ export default function PhoneVerification(props) {
 						Send Passcode
 					</ButtonWithIcon>
 				</Grid>
-				<div className={hasPasscode ? "open" : "close"}>
+				<div data-testid="enterPasscode" className={hasPasscode ? "open" : "close"}>
 					<Grid item sm={5}>
-						<TextField
+						<TextField	
 							name="firstName"
 							label="Enter Passcode"
 							value={passcode}
@@ -271,12 +271,13 @@ export default function PhoneVerification(props) {
 				onClose={handleClose}
 				aria-labelledby="customized-dialog-title"
 				open={open}
+				data-testid="confirmationDialog"
 			>
 				<DialogTitle id="customized-dialog-title" onClose={handleClose}>
 					Confirmation
 				</DialogTitle>
 				<DialogContent dividers>
-					<Typography align="justify" className={innerClasses.typoStyle} gutterBottom>
+					<Typography data-testid="confirmationText" align="justify" className={innerClasses.typoStyle} gutterBottom>
 						If you are currently unable to access the phone you provided, click
 						{" Verify phone later "} to proceed with the Remainder of the
 						Verification process. Please note that we will need to manually
