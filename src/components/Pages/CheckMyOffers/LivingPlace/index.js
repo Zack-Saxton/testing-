@@ -182,7 +182,7 @@ function LivingPlace() {
 									<span className="floatLeft detNum75">75%</span>
 								</div>
 								<Grid className="floatLeft">
-									<Link className="arrowBack" to="/annual-income">
+									<Link className="arrowBack" to="/annual-income" data-testid="routeBackwardLivingPlace">
 										<i className="material-icons dp48 yellowText floatingButton">
 											arrow_back
 										</i>
@@ -322,6 +322,7 @@ function LivingPlace() {
 
 									<Grid item lg={8} md={8} xs={12}>
 										<TextField
+											data-testid="rentOrMortgage"
 											id="rentOrMortage"
 											className={
 												livingPlace === homeData.renting ||

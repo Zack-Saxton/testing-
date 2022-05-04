@@ -30,9 +30,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 //initializing check my offers functonal component
-function CheckMyOffers(props) {
+function SelectAmount() {
   const { data, setData, resetData } = useContext(Check);
-  const [ hasOfferCode, setHasOfferCode ] = useState("");
+  const [hasOfferCode, setHasOfferCode] = useState("");
   const classes = preLoginStyle();
   const innerClasses = useStyles();
   const navigate = useNavigate();
@@ -51,8 +51,12 @@ function CheckMyOffers(props) {
   };
   let params = useParams();
   let selectedAmount = getValidValue(params?.amount);
-  const [ select, setSelect ] = useState(
-    data.loanAmount ? data.loanAmount : selectedAmount ? parseInt(selectedAmount) : 10000
+  const [select, setSelect] = useState(
+    data.loanAmount
+      ? data.loanAmount
+      : selectedAmount
+      ? parseInt(selectedAmount)
+      : 10000
   );
   let location = useLocation();
   useEffect(() => {
@@ -66,7 +70,10 @@ function CheckMyOffers(props) {
       setData({ ...data, loanAmount: select, loading: false });
       navigate("/loan-purpose");
     } else if (
-      !data.formStatus || !data.completedPage || data.formStatus?.toLowerCase() === "completed" || location?.state?.fromLoanPurpose?.toLowerCase() !== "yes"
+      !data.formStatus ||
+      !data.completedPage ||
+      data.formStatus?.toLowerCase() === "completed" ||
+      location?.state?.fromLoanPurpose?.toLowerCase() !== "yes"
     ) {
       setData({ ...data, loading: true });
       resetData();
@@ -90,7 +97,10 @@ function CheckMyOffers(props) {
       }
       if (data.offerCode) {
         let offerCodeResponse = await OfferCodeValidation(data.offerCode);
-        if (offerCodeResponse?.data?.offerData?.Message || offerCodeResponse.status !== 200) {
+        if (
+          offerCodeResponse?.data?.offerData?.Message ||
+          offerCodeResponse.status !== 200
+        ) {
           toast.error(globalMessages.OfferCode_Valid);
           tempCounter++;
           if (tempCounter === 2) {
@@ -111,7 +121,7 @@ function CheckMyOffers(props) {
   return (
     <div>
       <ScrollToTopOnMount />
-      <div className={classes.mainDiv}>
+      <div className={classes.mainDiv} data-testid="selectAmount">
         <Box>
           <Grid
             item
@@ -293,4 +303,4 @@ function CheckMyOffers(props) {
   );
 }
 
-export default CheckMyOffers;
+export default SelectAmount;
