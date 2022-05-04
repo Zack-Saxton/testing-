@@ -5,6 +5,9 @@ const useStylesAccountOverview = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
+  secondBannerImage:{
+    alignItems:"center"
+  },
   recentPaymentMainGrid: {
     width: "100%",
     padding: "0px 0px 0px 0px"

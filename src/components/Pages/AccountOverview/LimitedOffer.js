@@ -9,10 +9,10 @@ import NumberFormat from "react-number-format";
 import { useQuery } from 'react-query';
 import { NavLink, useNavigate } from "react-router-dom";
 import adBanner from "../../../assets/gallery/adBanner3.jpg";
-import MortgageBanner from "../../../assets/gallery/mortgageBanner3.jpg";
+import MortgageBanner from "../../../assets/gallery/Mortgage-Loan-Banner-Small-b.png";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import MyBranchAPI from "../../Controllers/MyBranchController";
-import { ButtonPrimary } from "../../FormsUI";
+import { ButtonPrimary, ButtonSecondary } from "../../FormsUI";
 import "./AccountOverview.css";
 import AboutMariner from "./Marketing_offer/AboutMariner";
 import Disclaimer from "./Marketing_offer/Disclaimer";
@@ -20,6 +20,8 @@ import MarketingOffer from "./Marketing_offer/MarketingOffer";
 import OptOutNotice from "./Marketing_offer/OptOutNotice";
 import PreScreen from "./Marketing_offer/PreScreen";
 import "./Style.css";
+import Typography from '@mui/material/Typography'
+import { useStylesAccountOverview } from "./Style"
 
 export default function LimitedOffer(userOfferData) {
 
@@ -39,6 +41,7 @@ export default function LimitedOffer(userOfferData) {
   const branchName = myBranchData?.branchName ? (`${ myBranchData?.branchName } Branch`) : "";
   const branchManager = myBranchData?.branchmanager ?? "";
   const { data: dataAccountOverview } = useQuery('loan-data', usrAccountDetails);
+  const classes = useStylesAccountOverview()
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -72,38 +75,56 @@ export default function LimitedOffer(userOfferData) {
         <Grid item sm={6} md={6} xs={12} lg={6} xl={6} className="imageholdernewtop">
 
           <Grid className="imageholdernew">
-            <div className="yellowBackground">
+            <Grid className="yellowBackground">
+              <Grid container item md={6} lg={6}>
+
               <img
                 className="bannerImage"
                 src={adBanner}
                 data-testid="background"
                 alt="ad_banner"
               />
-              <div className="secondGrid">
+              </Grid>
+              <Grid item md={6} lg={6} className="secondGrid">
                 {userOfferData.isLoading ? (
                   <CircularProgress />
                 ) : userOfferAmount ? (
                   <div id="offerText">
-                    <p id="loanText">You may have money available now! Up to </p>
-                    <p id="loanPercent">
+
+                    <Grid className="offerTextWrap">
+
+                      <Typography id="personalText" variant="h6" color="initial">
+                        You may have money available now! Up to
+                      </Typography> 
                       <NumberFormat
+                        id="offerMoney"
                         value={userOfferAmount}
                         displayType={"text"}
                         thousandSeparator={true}
                         prefix={"$"}
                       />
-                    </p>
+                    </Grid>
+                    <Grid id="applyForLoanLink">
+
                     <ButtonPrimary
                       onClick={showModal}
-                      id="claimButton"
+                      id="applyForLoanButton"
                       stylebutton='{"color":""}'
                     >
                       Check My Offer
                     </ButtonPrimary>
+                    </Grid>
                   </div>
                 ) : (
-                  <div id="offerText">
+                  <div className="offerTextTwo" id="offerText">
+
+                    <Grid className="offerTextWrap">
+                      <Typography id="personalText" variant="h6" color="initial">
+                        Personal loans <br/> with a personal touch
+                      </Typography> 
+                    </Grid>
                     <NavLink
+                      id="applyForLoanLink"
                       to="/customers/applyForLoan"
                       state={{ from: "user" }}
                       onClick={(event) => {
@@ -111,34 +132,56 @@ export default function LimitedOffer(userOfferData) {
                       }}
                     >
                       <ButtonPrimary
-                        id="claimButton"
+                        id="applyForLoanButton"
                         stylebutton='{"color":"", "textTransform": "none"}'
                         disabled={currentLoan}
                       >
                         Apply for a Loan
                       </ButtonPrimary>
                     </NavLink>
+                    <small>  
+                      <i className="disclosureLink">*Important disclosure information </i>
+                    </small>
                   </div>
                 )}
-              </div>
-            </div>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
         <Grid className="secondBannerWrapNewtop" item sm={6} md={6} xs={12} lg={6} xl={6}>
-
-          <Grid className="secondBannerWrapNew" >
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href="https://www.marinerfinance.com/apply-home-loan/?utm_source=CAC&utm_medium=panel&utm_campaign=Mrktoffer_Mortgage"
-            >
-              <img
-                className="secondBannerImage"
-                src={MortgageBanner}
-                data-testid="background"
-                alt="mortgage_banner"
-              />
-            </a>
+          <Grid className="imageholdernew">
+            <Grid className="greyBackgroundHolder">
+                <Grid className={classes.secondBannerImage} container item  md={5}>
+                  <img
+                  className="secondBannerImage"
+                  src={MortgageBanner}
+                  data-testid="background"
+                  alt="mortgage_banner"
+                  />
+                </Grid>
+                <Grid className="mortgageText" container item  md={7} >
+                  <Typography className="mortgageHeading" variant="h4">
+                      Put Your Home{"'"}s <br/> Equity To Work!
+                  </Typography>
+                  <Typography className="mortgageParagraph" variant="h6">
+                      refinance your mortgage
+                  </Typography>
+                  <Grid className="buttonSecondaryWrap" container>
+                      <ButtonSecondary
+                           id="applyNowButton"
+                           stylebutton='{"color":"", "textTransform": ""}'
+                         >
+                           Apply Now
+                         </ButtonSecondary>
+                  </Grid>
+                  <Typography className="adText">
+                  <small>  
+                      <i className="disclosureLink">No payments until Aug 2022* </i>
+                    </small>
+                      
+                  </Typography>
+                </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </Grid>
@@ -180,7 +223,7 @@ export default function LimitedOffer(userOfferData) {
             <Grid className="apply-offer">
               <p>Yes, I want to apply for this offer</p>
               <ButtonPrimary
-                id="ClaimButton"
+                id="applyForLoanButton"
                 stylebutton='{"color":"", "textTransform": "none"}'
                 onClick={handleContinue}
               >

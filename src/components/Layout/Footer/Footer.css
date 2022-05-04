@@ -85,7 +85,27 @@
 #mfInfoImgOne {
   max-width: 100%;
 }
+.spanLeftAlignAddress {
+  margin: 0;
+  cursor: pointer;
+  overflow-wrap: break-word
+}
 
+#mfInfoImg {
+  padding-right: 25px
+}
+
+@media all and (max-width: 1200px) {
+  #badge{
+    width: 100%;
+  }
+}
+
+@media all and (max-width: 900px) {
+  #badge{
+    width: unset;
+  }
+}
 @media all and (max-width: 700px) {
 
   #mfInfo {
@@ -114,12 +134,3 @@
   }
 }
 
-.spanLeftAlignAddress {
-  margin: 0;
-  cursor: pointer;
-  overflow-wrap: break-word
-}
-
-#mfInfoImg {
-  padding-right: 25px
-}
