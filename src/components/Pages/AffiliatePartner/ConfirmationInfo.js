@@ -473,7 +473,7 @@ export default function ConfirmationInfo() {
 
   //View Part
   return (
-    <div>
+    <div data-testid = "confirmationInfo_component">
       <div className={classes.mainContentBackground} id="mainContentBackground">
         <Box>
           <Grid
